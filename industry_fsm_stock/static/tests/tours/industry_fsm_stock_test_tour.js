@@ -189,7 +189,7 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     },
     {
         content: 'Open the profile page',
-        trigger: 'div.o_user_menu span[data-menu="settings"]',
+        trigger: '.dropdown-menu .dropdown-item[data-menu="settings"]',
     },
     {
         content: 'Change the default warehouse to WH B',

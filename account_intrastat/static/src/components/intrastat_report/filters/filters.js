@@ -18,6 +18,14 @@ export class IntrastatReportFilters extends AccountReportFilters {
 
         return (name) ? name : "All";
     }
+
+    get intrastatTypes() {
+        return this.controller.options.intrastat_type.map((intrastatType, i) => ({
+            class: { 'selected': intrastatType.selected },
+            onSelected: () => this.toggleFilter('intrastat_type.' + i + '.selected'),
+            label: intrastatType.name,
+        }));
+    }
 }
 
 AccountReport.registerCustomComponent(IntrastatReportFilters);

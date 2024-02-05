@@ -1,21 +1,23 @@
 /** @odoo-module **/
 
-import { StudioNavbar } from "@web_studio/client_action/navbar/navbar";
-import { browser } from "@web/core/browser/browser";
-import { registry } from "@web/core/registry";
-import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { registerCleanup } from "@web/../tests/helpers/cleanup";
-import { click, getFixture, mount, nextTick, patchWithCleanup } from "@web/../tests/helpers/utils";
-import { menuService } from "@web/webclient/menus/menu_service";
-import { actionService } from "@web/webclient/actions/action_service";
+import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { makeFakeDialogService } from "@web/../tests/helpers/mock_services";
-import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
-import { registerStudioDependencies, openStudio, leaveStudio } from "./helpers";
-import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
+import { mountInFixture } from "@web/../tests/helpers/mount_in_fixture";
+import { click, getFixture, nextTick, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { getActionManagerServerData } from "@web/../tests/webclient/helpers";
+import { browser } from "@web/core/browser/browser";
+import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
+import { popoverService } from "@web/core/popover/popover_service";
+import { registry } from "@web/core/registry";
+import { actionService } from "@web/webclient/actions/action_service";
 import { companyService } from "@web/webclient/company_service";
+import { menuService } from "@web/webclient/menus/menu_service";
+import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
 import { AppMenuEditor } from "@web_studio/client_action/editor/app_menu_editor/app_menu_editor";
 import { NewModelItem } from "@web_studio/client_action/editor/new_model_item/new_model_item";
+import { StudioNavbar } from "@web_studio/client_action/navbar/navbar";
+import { leaveStudio, openStudio, registerStudioDependencies } from "./helpers";
 
 const serviceRegistry = registry.category("services");
 let target;
@@ -29,6 +31,7 @@ QUnit.module("Studio > Navbar", (hooks) => {
         serviceRegistry.add("dialog", makeFakeDialogService());
         serviceRegistry.add("menu", menuService);
         serviceRegistry.add("hotkey", hotkeyService);
+        serviceRegistry.add("popover", popoverService);
         patchWithCleanup(browser, {
             setTimeout: (handler, delay, ...args) => handler(...args),
             clearTimeout: () => {},
@@ -88,7 +91,7 @@ QUnit.module("Studio > Navbar", (hooks) => {
 
         // Set menu and mount
         env.services.menu.setCurrentMenu(1);
-        await mount(MyStudioNavbar, target, { env });
+        await mountInFixture(MyStudioNavbar, target, { env });
         await nextTick();
 
         assert.containsN(
@@ -170,7 +173,7 @@ QUnit.module("Studio > Navbar", (hooks) => {
         const target = getFixture();
 
         // Set menu and mount
-        await mount(StudioNavbar, target, { env });
+        await mountInFixture(StudioNavbar, target, { env });
         await nextTick();
 
         assert.containsOnce(target, ".o_studio_navbar");

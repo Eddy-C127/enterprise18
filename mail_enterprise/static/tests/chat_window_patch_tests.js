@@ -5,7 +5,7 @@ import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { patchUiSize, SIZES } from "@mail/../tests/helpers/patch_ui_size";
 import { start } from "@mail/../tests/helpers/test_utils";
 
-import { patchWithCleanup } from "@web/../tests/helpers/utils";
+import { click as webClick, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { click, contains } from "@web/../tests/utils";
 
 import { methods } from "@web_mobile/js/services/core";
@@ -66,7 +66,7 @@ QUnit.test("[technical] chat window should properly override the back button", a
     // The messaging menu is re-open when a chat window is closed,
     // so we need to close it because it overrides the back button too.
     // As long as something overrides the back button, it can't be disabled.
-    document.body.click();
+    await webClick(document.body);
     await contains(".o-mail-ChatWindow", { count: 0 });
     await contains(".o-mail-MessagingMenu", { count: 0 });
     assert.notOk(overrideBackButton);

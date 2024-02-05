@@ -954,7 +954,7 @@ QUnit.module("View Editors", () => {
             );
             const studioView = selectorContains(
                 target,
-                ".o_web_studio_xml_resource_select_menu .o_select_menu_menu .o_select_menu_item",
+                ".o_select_menu_menu .o_select_menu_item",
                 "studio view"
             );
             await click(studioView);

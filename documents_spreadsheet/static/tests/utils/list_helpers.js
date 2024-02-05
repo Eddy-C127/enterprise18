@@ -9,6 +9,7 @@ import {
     triggerEvent,
     mouseEnter,
     nextTick,
+    getDropdownMenu,
 } from "@web/../tests/helpers/utils";
 import { findItem } from "@web/../tests/search/helpers";
 import { getBasicServerData } from "@spreadsheet/../tests/utils/data";
@@ -135,9 +136,10 @@ export async function createSpreadsheetFromListView(params = {}) {
  * @returns Promise
  */
 export async function toggleCogMenuSpreadsheet(el) {
-    await contains(".o_cp_action_menus .dropdown-toggle", { text: "Spreadsheet" });
-    await mouseEnter(findItem(el, ".o_cp_action_menus .dropdown-toggle", "Spreadsheet"));
-    await contains(".o-dropdown .show", { text: "Spreadsheet" });
+    await contains(".o-dropdown--menu .dropdown-toggle", { text: "Spreadsheet" });
+    const dropdownMenu = getDropdownMenu(el, ".o_cp_action_menus .dropdown-toggle");
+    await mouseEnter(findItem(dropdownMenu, ".o-dropdown-item", "Spreadsheet"));
+    await contains(".o-dropdown.show", { text: "Spreadsheet" });
 }
 
 /** While the actual flow requires to toggle the list view action menu

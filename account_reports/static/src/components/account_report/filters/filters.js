@@ -117,11 +117,19 @@ export class AccountReportFilters extends Component {
     }
 
     get availablePeriodOrder() {
-        return {"descending": _t("Descending"), "ascending": _t("Ascending")}
+        return { "descending": _t("Descending"), "ascending": _t("Ascending") };
     }
 
-    get periodOrder(){
-        return this.controller.options.comparison.period_order === "descending" ? "Descending" : "Ascending"
+    get periodOrder() {
+        return this.controller.options.comparison.period_order === "descending" ? "Descending" : "Ascending";
+    }
+
+    get accountTypeItems() {
+        return this.controller.options.account_type.map((accountType, index) => ({
+            class: { selected: accountType.selected },
+            onSelected: () => this.toggleFilter("account_type." + index + ".selected"),
+            label: accountType.name,
+        }));
     }
 
     //------------------------------------------------------------------------------------------------------------------

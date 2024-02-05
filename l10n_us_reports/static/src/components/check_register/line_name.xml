@@ -9,17 +9,19 @@
 
         <xpath expr="//td[@data-id='line_name']//div[hasclass('wrapper')]//div[hasclass('content')]" position="inside">
             <t t-if="props.line.unfoldable">
-                <Dropdown togglerClass="'btn btn_more'" position="'right-start'">
-                    <t t-set-slot="toggler">
+                <Dropdown position="'right-start'">
+                    <button class="btn btn_more">
                         <i class="fa fa-ellipsis-v"/>
-                    </t>
+                    </button>
 
-                    <DropdownItem onSelected="(ev) => controller.reportAction(ev, 'open_journal_items', {
-                        line_id: props.line.id,
-                        view_ref: 'account.view_move_line_tree_grouped_partner',
-                    })">
-                        Journal Items
-                    </DropdownItem>
+                    <t t-set-slot="content">
+                        <DropdownItem onSelected="(ev) => controller.reportAction(ev, 'open_journal_items', {
+                            line_id: props.line.id,
+                            view_ref: 'account.view_move_line_tree_grouped_partner',
+                        })">
+                            Journal Items
+                        </DropdownItem>
+                    </t>
                 </Dropdown>
             </t>
         </xpath>

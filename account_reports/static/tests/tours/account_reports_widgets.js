@@ -13,7 +13,7 @@ registry.category("web_tour.tours").add('account_reports_widgets', {
         },
         {
             content: "change date filter",
-            trigger: "#filter_date span:contains('Last Financial Year')",
+            trigger: ".dropdown-menu span:contains('Last Financial Year')",
             run: 'click'
         },
         {
@@ -27,7 +27,7 @@ registry.category("web_tour.tours").add('account_reports_widgets', {
         },
         {
             content: "wait for Apply button and click on it",
-            trigger: "#filter_comparison .dropdown-menu .btn:first()",
+            trigger: ".dropdown-menu .btn:first()",
             run: 'click',
         },
         {

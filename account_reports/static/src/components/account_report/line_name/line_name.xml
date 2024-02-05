@@ -61,22 +61,23 @@
 
                         <t t-if="hasCaretOptions">
                             <!-- Caret options -->
-                            <Dropdown togglerClass="'btn btn_dropdown'" position="'right-start'">
-                                <t t-set-slot="toggler">
+                            <Dropdown position="'right-start'">
+                                <button class="btn btn_dropdown">
                                     <i class="fa fa-ellipsis-v"/>
-                                </t>
+                                </button>
+                                <t t-set-slot="content">
+                                    <div data-id="caret_options">
+                                        <t t-foreach="caretOptions" t-as="caretOption" t-key="caretOption_index">
+                                            <DropdownItem onSelected="() => this.caretAction(caretOption)">
+                                                <t t-out="caretOption.name"/>
+                                            </DropdownItem>
+                                        </t>
 
-                                <div data-id="caret_options">
-                                    <t t-foreach="caretOptions" t-as="caretOption" t-key="caretOption_index">
-                                        <DropdownItem onSelected="() => this.caretAction(caretOption)">
-                                            <t t-out="caretOption.name"/>
+                                        <DropdownItem onSelected="() => controller.addFootnote(props.line.id)">
+                                            Annotate
                                         </DropdownItem>
-                                    </t>
-
-                                    <DropdownItem onSelected="() => controller.addFootnote(props.line.id)">
-                                        Annotate
-                                    </DropdownItem>
-                                </div>
+                                    </div>
+                                </t>
                             </Dropdown>
                         </t>
                     </div>

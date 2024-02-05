@@ -11,9 +11,13 @@
                 <t t-slot="default" />
             </span>
             <t t-if="hasDropdown">
-                <Dropdown togglerClass="'o_web_studio_more cursor-pointer p-0 rounded-circle border-0 bg-light'">
-                    <t t-set-slot="toggler"><i class="fa fa-ellipsis-v" /></t>
-                    <t t-slot="dropdown" />
+                <Dropdown>
+                    <button class="o_web_studio_more cursor-pointer p-0 rounded border-0 bg-light">
+                        <i class="fa fa-ellipsis-v"/>
+                    </button>
+                    <t t-set-slot="content">
+                        <t t-slot="dropdown" />
+                    </t>
                 </Dropdown>
             </t>
         </div>

@@ -19,9 +19,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         },
         {
             content: "Log into Belgian Company",
-            trigger:
-                ".o_menu_systray .o_switch_company_menu .dropdown-item div span:contains('My Belgian Company - TEST')",
-            run: "click",
+            trigger: ".dropdown-menu .dropdown-item div span:contains('My Belgian Company - TEST')",
+            run: 'click',
         },
         {
             content: "Employees",

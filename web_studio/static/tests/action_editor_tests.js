@@ -110,7 +110,11 @@ QUnit.module("ActionEditor", (hooks) => {
 
         const mockRPC = (route, args) => {
             if (route === "/web_studio/activity_allowed") {
-                assert.strictEqual(args.model, "kikou", "should verify allowed view on the correct model")
+                assert.strictEqual(
+                    args.model,
+                    "kikou",
+                    "should verify allowed view on the correct model"
+                );
                 return false;
             }
         };
@@ -133,9 +137,7 @@ QUnit.module("ActionEditor", (hooks) => {
         await openStudio(target, { noEdit: true });
 
         await click(
-            target.querySelector(
-                '.o_web_studio_thumbnail_item.o_web_studio_thumbnail_activity'
-            )
+            target.querySelector(".o_web_studio_thumbnail_item.o_web_studio_thumbnail_activity")
         );
         assert.strictEqual(
             target.querySelector(".o_notification_content").innerHTML,
@@ -204,9 +206,7 @@ QUnit.module("ActionEditor", (hooks) => {
 
         // make list view disable and form view only will be there in studio view
         await click(target.querySelector(".o_web_studio_thumbnail_list .o_web_studio_more"));
-        await click(
-            target.querySelector('.o_web_studio_thumbnail_list [data-action="disable_view"]')
-        );
+        await click(target.querySelector('.o-dropdown--menu [data-action="disable_view"]'));
         // reloadAction = false;
         assert.hasClass(
             target.querySelector(".o_web_studio_thumbnail_list"),
@@ -216,9 +216,7 @@ QUnit.module("ActionEditor", (hooks) => {
 
         // make form view disable and it should prompt the alert dialog
         await click(target.querySelector(".o_web_studio_thumbnail_form .o_web_studio_more"));
-        await click(
-            target.querySelector('.o_web_studio_thumbnail_form [data-action="disable_view"]')
-        );
+        await click(target.querySelector('.o-dropdown--menu [data-action="disable_view"]'));
         assert.containsOnce(
             $,
             ".o_technical_modal",

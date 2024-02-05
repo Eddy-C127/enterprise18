@@ -32,26 +32,31 @@
                         Share Availabilities
                     </button>
 
-                    <Dropdown togglerClass="'btn btn-secondary dropdownAppointmentLink'" showCaret="true" class="'btn-group'">
-                        <button t-on-click="onClickSelectAvailabilities" id="select_availabilities" class="o_appointment_select_slots dropdown-item">
-                            <span class="align-bottom">Select Dates</span>
-                        </button>
-                        <button t-on-click="onClickSearchCreateAnytimeAppointment"
-                            class="o_appointment_button_link o_appointment_search_create_anytime_appointment dropdown-item">
-                            <span class="align-bottom">Any Time</span>
-                        </button>
-                        <button t-on-click="onClickCustomLink" class="dropdown-item">
-                            <span class="align-bottom">Custom Link</span>
-                        </button>
-                        <t t-set="appointments" t-value="appointmentState.data.appointment_types_info"/>
-                        <div t-if="appointments.length > 0" role="separator" class="dropdown-divider"/>
-                        <t t-foreach="appointments" t-as="appointment" t-key="appointment.id">
-                            <button t-att-title="appointment.name" t-on-click.stop.prevent="() => this.onClickGetAppointmentUrl(appointment.id)"
-                                class="o_appointment_button_link o_appointment_appointment_link_clipboard dropdown-item text-truncate">
-                                <span class="align-bottom" t-out="appointment.name"/>
-                            </button>
-                        </t>
-                    </Dropdown>
+                    <div class="btn-group">
+                        <Dropdown>
+                            <button class="btn btn-secondary dropdownAppointmentLink o-dropdown-caret"></button>
+                            <t t-set-slot="content">
+                                <button t-on-click="onClickSelectAvailabilities" id="select_availabilities" class="o_appointment_select_slots dropdown-item">
+                                    <span class="align-bottom">Select Dates</span>
+                                </button>
+                                <button t-on-click="onClickSearchCreateAnytimeAppointment"
+                                    class="o_appointment_button_link o_appointment_search_create_anytime_appointment dropdown-item">
+                                    <span class="align-bottom">Any Time</span>
+                                </button>
+                                <button t-on-click="onClickCustomLink" class="dropdown-item">
+                                    <span class="align-bottom">Custom Link</span>
+                                </button>
+                                <t t-set="appointments" t-value="appointmentState.data.appointment_types_info"/>
+                                <div t-if="appointments.length > 0" role="separator" class="dropdown-divider"/>
+                                <t t-foreach="appointments" t-as="appointment" t-key="appointment.id">
+                                    <button t-att-title="appointment.name" t-on-click.stop.prevent="() => this.onClickGetAppointmentUrl(appointment.id)"
+                                        class="o_appointment_button_link o_appointment_appointment_link_clipboard dropdown-item text-truncate">
+                                        <span class="align-bottom" t-out="appointment.name"/>
+                                    </button>
+                                </t>
+                            </t>
+                        </Dropdown>
+                    </div>
                 </div>
             </div>
         </xpath>

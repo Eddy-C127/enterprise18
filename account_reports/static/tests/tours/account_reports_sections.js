@@ -73,7 +73,7 @@ registry.category("web_tour.tours").add('account_reports_sections', {
         },
         {
             content: "Select another date",
-            trigger: "#filter_date span:contains('Last Financial Year')",
+            trigger: ".dropdown-menu span:contains('Last Financial Year')",
             run: 'click'
         },
         {

@@ -7,7 +7,6 @@ import {
     getFixture,
     nextTick,
     patchWithCleanup,
-    mount,
 } from "@web/../tests/helpers/utils";
 import { doAction, getActionManagerServerData } from "@web/../tests/webclient/helpers";
 import { registry } from "@web/core/registry";
@@ -22,7 +21,9 @@ import { shareUrlMenuItem } from "@web_enterprise/webclient/share_url/share_url"
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { menuService } from "@web/webclient/menus/menu_service";
 import { actionService } from "@web/webclient/actions/action_service";
+import { popoverService } from "@web/core/popover/popover_service";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
+import { mountInFixture } from "@web/../tests/helpers/mount_in_fixture";
 import { UserMenu } from "@web/webclient/user_menu/user_menu";
 import { router } from "@web/core/browser/router";
 
@@ -41,6 +42,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
         serviceRegistry.add("home_menu", homeMenuService);
         serviceRegistry.add("orm", ormService);
         serviceRegistry.add("enterprise_subscription", enterpriseSubscriptionService);
+        serviceRegistry.add("popover", popoverService);
     });
 
     QUnit.module("basic flow with home menu", (hooks) => {
@@ -371,38 +373,26 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             patchWithCleanup(odoo, { debug: "1" });
             const webClient = await createEnterpriseWebClient({ fixture, serverData, mockRPC });
             await click(fixture.querySelector(".o_debug_manager .dropdown-toggle"));
-            assert.containsOnce(fixture, ".o_debug_manager .dropdown-item:contains('globalItem')");
-            assert.containsNone(
-                fixture,
-                ".o_debug_manager .dropdown-item:contains('Edit View: Kanban')"
-            );
+            assert.containsOnce(fixture, ".dropdown-item:contains('globalItem')");
+            assert.containsNone(fixture, ".dropdown-item:contains('Edit View: Kanban')");
+
             await click(fixture.querySelector(".o_debug_manager .dropdown-toggle"));
             await doAction(webClient, 1);
             await click(fixture.querySelector(".o_debug_manager .dropdown-toggle"));
-            assert.containsOnce(fixture, ".o_debug_manager .dropdown-item:contains('globalItem')");
-            assert.containsOnce(
-                fixture,
-                ".o_debug_manager .dropdown-item:contains('Edit View: Kanban')"
-            );
+            assert.containsOnce(fixture, ".dropdown-item:contains('globalItem')");
+            assert.containsOnce(fixture, ".dropdown-item:contains('Edit View: Kanban')");
+
             await click(fixture.querySelector(".o_menu_toggle"));
             await click(fixture.querySelector(".o_debug_manager .dropdown-toggle"));
-            assert.containsOnce(fixture, ".o_debug_manager .dropdown-item:contains('globalItem')");
-            assert.containsNone(
-                fixture,
-                ".o_debug_manager .dropdown-item:contains('Edit View: Kanban')"
-            );
+            assert.containsOnce(fixture, ".dropdown-item:contains('globalItem')");
+            assert.containsNone(fixture, ".dropdown-item:contains('Edit View: Kanban')");
+
             await click(fixture.querySelector(".o_debug_manager .dropdown-toggle"));
             await doAction(webClient, 3);
             await click(fixture.querySelector(".o_debug_manager .dropdown-toggle"));
-            assert.containsOnce(fixture, ".o_debug_manager .dropdown-item:contains('globalItem')");
-            assert.containsOnce(
-                fixture,
-                ".o_debug_manager .dropdown-item:contains('Edit View: List')"
-            );
-            assert.containsNone(
-                fixture,
-                ".o_debug_manager .dropdown-item:contains('Edit View: Kanban')"
-            );
+            assert.containsOnce(fixture, ".dropdown-item:contains('globalItem')");
+            assert.containsOnce(fixture, ".dropdown-item:contains('Edit View: List')");
+            assert.containsNone(fixture, ".dropdown-item:contains('Edit View: Kanban')");
         }
     );
 
@@ -563,11 +553,11 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             const env = await makeTestEnv();
 
             registry.category("user_menuitems").add("share_url", shareUrlMenuItem);
-            await mount(UserMenu, fixture, { env });
+            await mountInFixture(UserMenu, fixture, { env });
             await click(fixture.querySelector(".o_user_menu button"));
-            assert.containsOnce(fixture, ".o_user_menu .dropdown-item");
+            assert.containsOnce(fixture, ".o-dropdown--menu .dropdown-item");
             assert.strictEqual(
-                fixture.querySelector(".o_user_menu .dropdown-item span").textContent,
+                fixture.querySelector(".o-dropdown--menu .dropdown-item span").textContent,
                 "Share",
                 "share button is visible"
             );
@@ -594,11 +584,11 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             const env = await makeTestEnv();
 
             registry.category("user_menuitems").add("share_url", shareUrlMenuItem);
-            await mount(UserMenu, fixture, { env });
+            await mountInFixture(UserMenu, fixture, { env });
             await click(fixture.querySelector(".o_user_menu button"));
             assert.containsNone(
                 fixture,
-                ".o_user_menu .dropdown-item",
+                ".o-dropdown--menu .dropdown-item",
                 "share button is not visible"
             );
         }

@@ -22,12 +22,12 @@ registry.category("web_tour.tours").add('helpdesk_insert_kanban_view_link_in_kno
 }, { // open the cog menu
     trigger: '.o_control_panel .o_cp_action_menus .dropdown-toggle',
 }, { // open the knowledge submenu
-    trigger: ".o_control_panel .o_cp_action_menus .dropdown-toggle:contains(Knowledge)",
+    trigger: ".dropdown-menu .dropdown-toggle:contains(Knowledge)",
     run: function () {
         this.$anchor[0].dispatchEvent(new MouseEvent("mouseenter"));
     },
 }, { // insert the view link in an article
-    trigger: '.o_cp_action_menus .dropdown-item:contains("Insert link in article")',
+    trigger: '.dropdown-menu .dropdown-item:contains("Insert link in article")',
 }, { // create a new article
     trigger: '.modal-footer button:contains("New")',
     run: 'click',

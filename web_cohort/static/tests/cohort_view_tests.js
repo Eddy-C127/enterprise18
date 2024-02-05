@@ -157,12 +157,7 @@ QUnit.module("Views", (hooks) => {
         assert.containsOnce(target, ".dropdown-menu:not(.d-none)", "should have list of measures");
 
         await click(target, ".o_view_scale_selector .scale_button_selection");
-        assert.containsN(
-            target,
-            ".o_view_scale_selector .dropdown-menu span",
-            4,
-            "should have buttons of intervals"
-        );
+        assert.containsN(target, ".o-dropdown--menu span", 4, "should have buttons of intervals");
     });
 
     QUnit.test("no content helper", async function (assert) {
@@ -296,7 +291,7 @@ QUnit.module("Views", (hooks) => {
 
         await click(target.querySelector(".o_view_scale_selector .dropdown-toggle"));
         assert.equal(
-            target.querySelector(".o_view_scale_selector .active").textContent,
+            target.querySelector(".o-dropdown--menu .active").textContent,
             "Week",
             "should week for interval"
         );
@@ -312,9 +307,9 @@ QUnit.module("Views", (hooks) => {
         );
 
         await toggleMenu(target, "Measures");
-        await click(target.querySelector(".dropdown-menu span:not(.selected)"));
+        await click(target.querySelector(".o-dropdown--menu span:not(.selected)"));
         assert.equal(
-            target.querySelector(".dropdown-menu span.selected").textContent,
+            target.querySelector(".o-dropdown--menu span.selected").textContent,
             "Count",
             "should active count for measure"
         );
@@ -919,7 +914,7 @@ QUnit.module("Views", (hooks) => {
         await click(target.querySelector("td.o_cohort_value")); // should not trigger a do_action
     });
 
-    QUnit.test('field with widget attribute', async function (assert) {
+    QUnit.test("field with widget attribute", async function (assert) {
         await makeView({
             type: "cohort",
             resModel: "subscription",
@@ -933,7 +928,7 @@ QUnit.module("Views", (hooks) => {
         assert.strictEqual(
             target.querySelectorAll("td.o_cohort_value")[1].innerText,
             "1000%",
-            "widget 'percentage' should be applied",
+            "widget 'percentage' should be applied"
         );
     });
 });

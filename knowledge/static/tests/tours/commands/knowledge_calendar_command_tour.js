@@ -41,11 +41,11 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     test: true,
     steps: () => [stepUtils.showAppsMenuItem(), { // open the Knowledge App
     trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
-}, { 
+}, {
     //-----------------------------------------------
     // Insert a new item calendar view in the article
     //-----------------------------------------------
-    
+
     // Open the command bar
     trigger: '.odoo-editor-editable > p',
     run: function () {
@@ -59,7 +59,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, { // Scroll to the embedded view to load it
     trigger: '.o_knowledge_behavior_type_embedded_view',
     run: () => {},
-}, { 
+}, {
     //---------------------------------------------------
     // Create an article item by clicking in the calendar
     //---------------------------------------------------
@@ -109,19 +109,23 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_knowledge_item_calendar_dialog_date_start .o_select_menu_toggler',
     run: 'click',
 }, { // Create a new start property
-    trigger: '.o_knowledge_item_calendar_dialog_date_start .o_select_menu input',
+    trigger: '.o_select_menu_menu input',
+    in_modal: false,
     run: 'text Start Property'
 }, {
-    trigger: '.o_knowledge_item_calendar_dialog_date_start .o_select_menu .o_select_menu_item.o_create_datetime',
+    trigger: '.o_select_menu_menu .o_select_menu_item.o_create_datetime',
+    in_modal: false,
     run: 'click',
 }, { // Open the stop dropwdown
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu_toggler',
     run: 'click',
 }, { // Create a new stop property
-    trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu input',
+    trigger: '.o_select_menu_menu input',
+    in_modal: false,
     run: 'text Stop Property'
 }, {
-    trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu .o_select_menu_item.o_create_choice',
+    trigger: '.o_select_menu_menu .o_select_menu_item.o_create_choice',
+    in_modal: false,
     run: 'click',
 }, { // Insert the calendar
     trigger: '.modal-footer .btn-primary',
@@ -147,7 +151,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
             throw new Error('Item was not created with the correct property value');
         }
     },
-}, { 
+}, {
     //-----------------------------------------------------------------------
     // Create new properties from the article view that will be used later in
     // this tour
@@ -163,7 +167,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_field_property_definition_type button.dropdown-toggle',
     run: 'click',
 }, {
-    trigger: '.o_field_property_definition_type .dropdown-menu .dropdown-item:contains("Date"):not(:contains("Time"))',
+    trigger: '.dropdown-menu .dropdown-item:contains("Date"):not(:contains("Time"))',
     run: 'click',
 }, {
     trigger: '.o_knowledge_editor .odoo-editor-editable',
@@ -178,7 +182,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_field_property_definition_type button.dropdown-toggle',
     run: 'click',
 }, {
-    trigger: '.o_field_property_definition_type .dropdown-menu .dropdown-item:contains("Checkbox")',
+    trigger: '.dropdown-menu .dropdown-item:contains("Checkbox")',
     run: 'click',
 }, {
     trigger: '.o_knowledge_editor .odoo-editor-editable',
@@ -193,7 +197,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_field_property_definition_type button.dropdown-toggle',
     run: 'click',
 }, {
-    trigger: '.o_field_property_definition_type .dropdown-menu .dropdown-item:contains("Text")',
+    trigger: '.dropdown-menu .dropdown-item:contains("Text")',
     run: 'click',
 }, {
     trigger: '.o_knowledge_editor .odoo-editor-editable',
@@ -201,7 +205,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, { // Set the text property
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Text Property") input',
     run: 'text Custom text',
-}, { // Set the name of the item 
+}, { // Set the name of the item
     trigger: '.o_knowledge_editor .odoo-editor-editable h1',
     run: 'text Item Article',
 }, { // Go back to parent article
@@ -226,7 +230,8 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_knowledge_item_calendar_dialog_date_start .o_select_menu_toggler',
     run: 'click',
 }, {
-    trigger: '.o_knowledge_item_calendar_dialog_date_start .o_select_menu .o_select_menu_item:contains("Date Property")',
+    trigger: '.o_select_menu_menu .o_select_menu_item:contains("Date Property")',
+    in_modal: false,
     run: 'click',
 }, { // Check that stop date has been removed as the start type changed,
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu_toggler_slot span.text-muted',
@@ -244,13 +249,15 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_color .o_select_menu_toggler',
     run: 'click',
 }, { // Select the previously created property
-    trigger: '.o_color .o_select_menu .o_select_menu_item:contains("Boolean Property")',
+    trigger: '.o_select_menu_menu .o_select_menu_item:contains("Boolean Property")',
+    in_modal: false,
     run: 'click',
 }, { // Open the scale dropdown
     trigger: '.o_scale .o_select_menu_toggler',
     run: 'click',
 }, { // Select the month scale
-    trigger: '.o_scale .o_select_menu .o_select_menu_item:contains("Month")',
+    trigger: '.o_select_menu_menu .o_select_menu_item:contains("Month")',
+    in_modal: false,
     run: 'click',
 }, { // Save changes
     trigger: '.modal-footer .btn-primary',
@@ -268,7 +275,8 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_knowledge_item_calendar_dialog_date_start .o_select_menu_toggler',
     run: 'click',
 }, {
-    trigger: '.o_knowledge_item_calendar_dialog_date_start .o_select_menu .o_select_menu_item:contains("Start Property")',
+    trigger: '.o_select_menu_menu .o_select_menu_item:contains("Start Property")',
+    in_modal: false,
     run: 'click',
 }, { // Check that stop date has been removed as the start type changed,
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu_toggler_slot span.text-muted',
@@ -277,7 +285,8 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu_toggler',
     run: 'click',
 }, { // Select the stop date
-    trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu .o_select_menu_item:contains("Stop Property")',
+    trigger: '.o_select_menu_menu .o_select_menu_item:contains("Stop Property")',
+    in_modal: false,
     run: 'click',
 }, { // Save changes
     trigger: '.modal-footer .btn-primary',
@@ -296,7 +305,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, {
     trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
     run: 'click',
-}, { 
+}, {
     //----------------------------
     // Move the item and resize it
     //----------------------------
@@ -306,7 +315,8 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     extra_trigger: '.o_knowledge_behavior_type_embedded_view',
     run: 'click',
 }, {
-    trigger: '.o_knowledge_article_view_calendar_embedded_view .o_calendar_header .o_scale_button_week',
+    trigger: '.o-dropdown--menu .o_scale_button_week',
+    in_modal: false,
     run: 'click',
 }, { // Move the item in the calendar
     trigger: '.fc-timegrid-event .o_event_title:contains("Item Article")',
@@ -329,7 +339,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
         const target = document.querySelector('.fc-timegrid-slot.fc-timegrid-slot-lane[data-time="11:00:00"]');
         dragDate(this.$anchor[0], target);
     },
-}, { 
+}, {
     //----------------------------------------------------------------------
     // Check that the date properties have been updated correclty after that
     // the item has been moved in the item calendar view, and that the text

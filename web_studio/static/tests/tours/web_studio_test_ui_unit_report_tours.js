@@ -180,7 +180,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
             trigger: ".o_web_studio_xml_resource_selector .o_select_menu_toggler",
         },
         {
-            trigger: ".o_web_studio_xml_resource_selector .o-dropdown--menu",
+            trigger: ".o-dropdown--menu",
             run(helpers) {
                 const mainView = Array.from(
                     this.$anchor[0].querySelectorAll(".o_select_menu_item")
@@ -713,7 +713,7 @@ registry.category("web_tour.tours").add("web_studio.test_edition_without_lang", 
         },
         {
             trigger:
-                ".o_web_studio_xml_resource_select_menu .o_select_menu_item_label:contains(report_editor_customization_full)",
+                ".o-dropdown--menu .o_select_menu_item_label:contains(report_editor_customization_full)",
         },
         {
             trigger: ".o_web_studio_code_editor_info .o_field_translate",
@@ -1106,7 +1106,7 @@ registry.category("web_tour.tours").add("web_studio.test_xml_and_form_diff", {
         },
         {
             trigger:
-                ".o_web_studio_xml_resource_select_menu .o_select_menu_item_label:contains(web_studio.test_report_document)",
+                ".o-dropdown--menu .o_select_menu_item_label:contains(web_studio.test_report_document)",
         },
         {
             trigger: "button[name='view_diff']",
@@ -1215,7 +1215,7 @@ registry.category("web_tour.tours").add("web_studio.test_different_view_document
             trigger: ".o_web_studio_xml_resource_selector .o_select_menu_toggler",
         },
         {
-            trigger: ".o_web_studio_xml_resource_selector .o-dropdown--menu",
+            trigger: ".o-dropdown--menu",
             run() {
                 const sources = Array.from(
                     this.$anchor[0].querySelectorAll(".o_select_menu_item")

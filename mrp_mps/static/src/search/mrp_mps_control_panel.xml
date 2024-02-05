@@ -8,7 +8,7 @@
     </t>
 
     <t t-name="mrp_mps.SearchBarMenu" t-inherit="web.SearchBarMenu">
-        <xpath expr="//t[@t-set-slot='toggler']" position="after">
+        <xpath expr="//Dropdown/t[@t-set-slot='content']/node()[1]" position="before">
             <GroupMenu items="env.model.data.groups[0]"/>
         </xpath>
     </t>

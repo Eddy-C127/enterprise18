@@ -35,20 +35,25 @@
                         <t t-out="groupedButtons[0].name"/>
                     </button>
 
-                    <Dropdown togglerClass="'btn btn-primary'" showCaret="true" class="'btn-group'">
-                        <t t-foreach="groupedButtons" t-as="groupedButton" t-key="groupedButton_index">
-                            <t t-if="groupedButton_index != 0">
-                                <DropdownItem>
-                                    <button
-                                        t-att-class="'btn btn-link text-nowrap' + (groupedButton.disabled ? ' disabled' : '')"
-                                        t-on-click="(ev) => controller.reportAction(ev, groupedButton.action, groupedButton.action_param, true)"
-                                    >
-                                        <t t-out="groupedButton.name"/>
-                                    </button>
-                                </DropdownItem>
+                    <div class="btn-group">
+                        <Dropdown>
+                            <button class="btn btn-primary o-dropdown-caret"></button>
+                            <t t-set-slot="content">
+                                <t t-foreach="groupedButtons" t-as="groupedButton" t-key="groupedButton_index">
+                                    <t t-if="groupedButton_index != 0">
+                                        <DropdownItem>
+                                            <button
+                                                t-att-class="'btn btn-link text-nowrap' + (groupedButton.disabled ? ' disabled' : '')"
+                                                t-on-click="(ev) => controller.reportAction(ev, groupedButton.action, groupedButton.action_param, true)"
+                                            >
+                                                <t t-out="groupedButton.name"/>
+                                            </button>
+                                        </DropdownItem>
+                                    </t>
+                                </t>
                             </t>
-                        </t>
-                    </Dropdown>
+                        </Dropdown>
+                    </div>
                 </div>
             </t>
 

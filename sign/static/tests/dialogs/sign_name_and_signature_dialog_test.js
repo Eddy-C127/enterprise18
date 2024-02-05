@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { click, getFixture, mount } from "@web/../tests/helpers/utils";
+import { click, getFixture } from "@web/../tests/helpers/utils";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import {
     makeFakeDialogService,
@@ -11,6 +11,8 @@ import { SignNameAndSignatureDialog } from "@sign/dialogs/dialogs";
 import { registry } from "@web/core/registry";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { uiService } from "@web/core/ui/ui_service";
+import { popoverService } from "@web/core/popover/popover_service";
+import { mountInFixture } from "@web/../tests/helpers/mount_in_fixture";
 
 const serviceRegistry = registry.category("services");
 
@@ -30,7 +32,7 @@ QUnit.module("Sign Name and Signature Dialog", function (hooks) {
             isActive: true,
             close: () => {},
         };
-        await mount(SignNameAndSignatureDialog, target, {
+        await mountInFixture(SignNameAndSignatureDialog, target, {
             props: {
                 signature: {
                     name,
@@ -57,6 +59,7 @@ QUnit.module("Sign Name and Signature Dialog", function (hooks) {
         serviceRegistry.add("localization", makeFakeLocalizationService());
         serviceRegistry.add("ui", uiService);
         serviceRegistry.add("hotkey", hotkeyService);
+        serviceRegistry.add("popover", popoverService);
     });
 
     QUnit.test("sign name and signature dialog renders correctly", async function (assert) {

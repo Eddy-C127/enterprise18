@@ -98,30 +98,32 @@
 
     <t t-name="account_reports.AccountReportOptionalColumnSelector">
         <Dropdown position="'bottom-end'">
-            <t t-set-slot="toggler">
+            <button>
                 <i class="filter"/>
-            </t>
+            </button>
 
-            <t t-foreach="optionalFieldGroups" t-as="group" t-key="group_index">
-                <t t-foreach="group.optionalFields" t-as="field" t-key="field_index">
-                    <DropdownItem
-                        parentClosingMode="'none'"
-                        onSelected="() => this.toggleOptionalField(field.name)"
-                    >
-                        <CheckBox
-                            name="field.name"
-                            value="field.value"
-                            onChange="() => this.toggleOptionalField(field.name)"
+            <t t-set-slot="content">
+                <t t-foreach="optionalFieldGroups" t-as="group" t-key="group_index">
+                    <t t-foreach="group.optionalFields" t-as="field" t-key="field_index">
+                        <DropdownItem
+                            closingMode="'none'"
+                            onSelected="() => this.toggleOptionalField(field.name)"
                         >
-                            <span class="d-flex align-items-center">
-                                <span class="text-truncate" t-out="field.label"/>
+                            <CheckBox
+                                name="field.name"
+                                value="field.value"
+                                onChange="() => this.toggleOptionalField(field.name)"
+                            >
+                                <span class="d-flex align-items-center">
+                                    <span class="text-truncate" t-out="field.label"/>
 
-                                <t t-if="env.debug">
-                                    <span class="ps-1" t-out="' (' + field.name + ')'"/>
-                                </t>
-                            </span>
-                        </CheckBox>
-                    </DropdownItem>
+                                    <t t-if="env.debug">
+                                        <span class="ps-1" t-out="' (' + field.name + ')'"/>
+                                    </t>
+                                </span>
+                            </CheckBox>
+                        </DropdownItem>
+                    </t>
                 </t>
             </t>
         </Dropdown>

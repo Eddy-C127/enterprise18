@@ -10,8 +10,10 @@ import { fakeCommandService, patchRPCWithCleanup } from "@web/../tests/helpers/m
 import { uiService } from "@web/core/ui/ui_service";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
-import { click, getFixture, mount } from "@web/../tests/helpers/utils";
+import { click, getFixture, getDropdownMenu } from "@web/../tests/helpers/utils";
+import { mountInFixture } from "@web/../tests/helpers/mount_in_fixture";
 import { dialogService } from "@web/core/dialog/dialog_service";
+import { popoverService } from "@web/core/popover/popover_service";
 import { registry } from "@web/core/registry";
 
 import { Component, EventBus, xml } from "@odoo/owl";
@@ -76,7 +78,10 @@ const createStudioHomeMenu = async () => {
 
     const env = await makeTestEnv();
     const target = getFixture();
-    await mount(Parent, target, { env, props: { homeMenuProps: { ...genericHomeMenuProps } } });
+    await mountInFixture(Parent, target, {
+        env,
+        props: { homeMenuProps: { ...genericHomeMenuProps } },
+    });
     return target;
 };
 
@@ -136,6 +141,7 @@ QUnit.module("Studio", (hooks) => {
         serviceRegistry.add("hotkey", hotkeyService);
         serviceRegistry.add("dialog", dialogService);
         serviceRegistry.add("ui", uiService);
+        serviceRegistry.add("popover", popoverService);
         serviceRegistry.add("command", fakeCommandService);
     });
 
@@ -314,7 +320,10 @@ QUnit.module("Studio", (hooks) => {
 
         // Change the icon's pictogram
         await click(dialog.querySelector(".o_web_studio_selector_icon > button"));
-        await click(dialog, ".o_font_awesome_icon_selector_value.fa.fa-leaf");
+        await click(
+            getDropdownMenu(target, dialog.querySelector(".o_web_studio_selector_icon > button")),
+            ".o_font_awesome_icon_selector_value.fa.fa-leaf"
+        );
 
         assert.hasClass(dialog.querySelector(".o_web_studio_icon .o_app_icon i"), "fa-leaf");
 

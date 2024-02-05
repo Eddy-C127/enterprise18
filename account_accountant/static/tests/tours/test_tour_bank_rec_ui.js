@@ -413,8 +413,8 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         // Test Reco Model
         {
             content: "Choose a filter",
-            extra_trigger: ".o_cp_searchview .o-dropdown--menu.o_search_bar_menu",
-            trigger: ".o_filter_menu:first() i",
+            extra_trigger: ".o-dropdown--menu.o_search_bar_menu",
+            trigger: ".o_search_bar_menu .dropdown-item:first()",
         },
         {
             content: "Not Matched Filter",
@@ -508,7 +508,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Filter Menu",
             extra_trigger: "button:contains('Validate')",
-            trigger: ".o_filter_menu:first() i",
+            trigger: ".o_search_bar_menu .dropdown-item:first()",
         },
         {
             content: "Activate the Not Matched filter",

@@ -67,12 +67,12 @@ const embedKnowledgeKanbanViewSteps = function (article) {
     }, { // open action menu dropdown
         trigger: ".o_control_panel .o_cp_action_menus button",
     }, { // click on the knowledge menu button
-        trigger: ".o_control_panel .o_cp_action_menus .dropdown-toggle:contains(Knowledge)",
+        trigger: ".dropdown-menu .dropdown-toggle:contains(Knowledge)",
         run: function () {
             this.$anchor[0].dispatchEvent(new Event("mouseenter"));
         },
     }, { // click on insert view in article
-        trigger: ".o_cp_action_menus span:contains('Insert view in article')",
+        trigger: ".dropdown-menu .dropdown-item:contains('Insert view in article')",
     }, { // embed in article
         trigger: `.modal-dialog td.o_field_cell:contains(${article})`,
     }];

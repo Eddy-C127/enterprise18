@@ -134,7 +134,7 @@ registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company
     // Go back on the App Switcher and change the company.
     { trigger: ".o_stock_barcode_main_menu a.o_stock_barcode_menu" },
     { trigger: ".o_switch_company_menu > button" },
-    { trigger: ".o_switch_company_menu .company_label:contains('Comp B')" },
+    { trigger: ".o-dropdown--menu .company_label:contains('Comp B')" },
     // Open again the Barcode App then the Inventory Adjustment.
     {
         extra_trigger: ".o_switch_company_menu .oe_topbar_name:contains('Comp B')",

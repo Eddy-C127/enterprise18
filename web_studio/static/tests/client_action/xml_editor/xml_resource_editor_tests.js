@@ -2,17 +2,23 @@
 
 import { Component, reactive, xml } from "@odoo/owl";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
-import { getFixture, mount, nextTick } from "@web/../tests/helpers/utils";
+import { getFixture, nextTick } from "@web/../tests/helpers/utils";
+import { mountInFixture } from "@web/../tests/helpers/mount_in_fixture";
 import { XmlResourceEditor } from "@web_studio/client_action/xml_resource_editor/xml_resource_editor";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { uiService } from "@web/core/ui/ui_service";
+import { popoverService } from "@web/core/popover/popover_service";
 import { registry } from "@web/core/registry";
 
 QUnit.module("XmlResourceEditor", (hooks) => {
     let target;
 
     hooks.beforeEach(() => {
-        registry.category("services").add("ui", uiService).add("hotkey", hotkeyService);
+        registry
+            .category("services")
+            .add("ui", uiService)
+            .add("hotkey", hotkeyService)
+            .add("popover", popoverService);
         target = getFixture();
     });
 
@@ -38,7 +44,7 @@ QUnit.module("XmlResourceEditor", (hooks) => {
 
         const env = await makeTestEnv({ mockRPC });
         const state = reactive({ displayAlerts: true });
-        await mount(Parent, target, { env, props: { state } });
+        await mountInFixture(Parent, target, { env, props: { state } });
         assert.containsOnce(target, ".o_web_studio_code_editor_info .alert.alert-warning");
         state.displayAlerts = false;
         await nextTick();

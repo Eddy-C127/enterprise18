@@ -224,17 +224,17 @@ QUnit.module("Views", (hooks) => {
         await click(target, ".scale_button_selection");
         assert.containsOnce(
             target,
-            ".o_view_scale_selector .o_scale_button_day",
+            ".o-dropdown--menu .o_scale_button_day",
             "The Day scale should be in the dropdown menu"
         );
         assert.containsOnce(
             target,
-            ".o_view_scale_selector .o_scale_button_week",
+            ".o-dropdown--menu .o_scale_button_week",
             "The week scale should be in the dropdown menu"
         );
         assert.containsOnce(
             target,
-            ".o_view_scale_selector .o_scale_button_month",
+            ".o-dropdown--menu .o_scale_button_month",
             "The month scale should be in the dropdown menu"
         );
         assert.containsOnce(
@@ -730,7 +730,7 @@ QUnit.module("Views", (hooks) => {
         });
 
         await click(target, ".scale_button_selection");
-        await click(target, ".o_view_scale_selector .o_scale_button_month");
+        await click(target, ".o-dropdown--menu .o_scale_button_month");
         assert.strictEqual(
             target.querySelector(".o_view_scale_selector button.scale_button_selection")
                 .textContent,
@@ -1034,15 +1034,15 @@ QUnit.module("Views", (hooks) => {
         await click(target, ".scale_button_selection");
         assert.containsOnce(
             target,
-            ".o_view_scale_selector .o_scale_button_week",
+            ".o-dropdown--menu .o_scale_button_week",
             "The week scale should be in the dropdown menu"
         );
         assert.containsOnce(
             target,
-            ".o_view_scale_selector .o_scale_button_month",
+            ".o-dropdown--menu .o_scale_button_month",
             "The month scale should be in the dropdown menu"
         );
-        await click(target, ".o_view_scale_selector .o_scale_button_month");
+        await click(target, ".o-dropdown--menu .o_scale_button_month");
         assert.strictEqual(
             target.querySelector(".o_view_scale_selector button.scale_button_selection")
                 .textContent,
@@ -2345,8 +2345,8 @@ QUnit.module("Views", (hooks) => {
         assert.deepEqual([...target.querySelectorAll(".o_grid_row.o_grid_row_total")].map(el => el.textContent), ["17:30", "2:30"])
         assert.containsOnce(target, ".scale_button_selection");
         await click(target, ".scale_button_selection");
-        assert.containsN(target, ".o_view_scale_selector span.dropdown-item.active", 2);
-        const showWeekendsButton = target.querySelectorAll(".o_view_scale_selector span.dropdown-item.active")[1];
+        assert.containsN(target, ".o-dropdown--menu span.dropdown-item.active", 2);
+        const showWeekendsButton = target.querySelectorAll(".o-dropdown--menu span.dropdown-item.active")[1];
         await click(showWeekendsButton);
 
         assert.equal(target.querySelector(".o_grid_section.o_grid_row_total").textContent, "10:00", "should show 10 hours as weekend is hidden");

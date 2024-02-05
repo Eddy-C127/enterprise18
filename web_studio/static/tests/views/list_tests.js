@@ -37,10 +37,10 @@ QUnit.module("Studio", (hooks) => {
         assert.containsOnce(target, ".o_list_view .o_optional_columns_dropdown_toggle");
 
         await click(target.querySelector(".o_optional_columns_dropdown_toggle"));
-        assert.containsN(target, ".o_optional_columns_dropdown .dropdown-item", 2);
-        assert.containsOnce(target, ".o_optional_columns_dropdown .dropdown-item-studio");
+        assert.containsN(target, ".o-dropdown--menu .dropdown-item", 2);
+        assert.containsOnce(target, ".o-dropdown--menu .dropdown-item-studio");
 
-        await click(target.querySelector(".o_optional_columns_dropdown .dropdown-item-studio"));
+        await click(target.querySelector(".o-dropdown--menu .dropdown-item-studio"));
         assert.containsNone(target, ".modal-studio");
         assert.containsOnce(
             target,
@@ -57,10 +57,10 @@ QUnit.module("Studio", (hooks) => {
         assert.containsOnce(target, ".o_list_view .o_optional_columns_dropdown_toggle");
         await click(target.querySelector(".o_optional_columns_dropdown_toggle"));
 
-        assert.containsOnce(target, ".o_optional_columns_dropdown .dropdown-item");
-        assert.containsOnce(target, ".o_optional_columns_dropdown .dropdown-item-studio");
+        assert.containsOnce(target, ".o-dropdown--menu .dropdown-item");
+        assert.containsOnce(target, ".o-dropdown--menu .dropdown-item-studio");
 
-        await click(target.querySelector(".o_optional_columns_dropdown .dropdown-item-studio"));
+        await click(target.querySelector(".o-dropdown--menu .dropdown-item-studio"));
         assert.containsNone(target, ".modal-studio");
         assert.containsOnce(
             target,

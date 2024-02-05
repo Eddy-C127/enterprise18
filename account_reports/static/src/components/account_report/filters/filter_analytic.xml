@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_reports.AccountReportFilterAnalytic">
-        <Dropdown togglerClass="'btn btn-secondary'">
-            <t t-set-slot="toggler">
+        <Dropdown>
+            <button class="btn btn-secondary">
                 <i class="fa fa-folder-open me-1"/>Analytic Filter
-            </t>
+            </button>
 
-            <div class="dropdown-item">
-                <label>Accounts</label>
-                <MultiRecordSelector t-props="getMultiRecordSelectorProps('account.analytic.account', 'analytic_accounts')"/>
-            </div>
+            <t t-set-slot="content">
+                <div class="dropdown-item">
+                    <label>Accounts</label>
+                    <MultiRecordSelector t-props="getMultiRecordSelectorProps('account.analytic.account', 'analytic_accounts')"/>
+                </div>
+            </t>
         </Dropdown>
     </t>
 </templates>

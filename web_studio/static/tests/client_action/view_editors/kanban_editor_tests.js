@@ -933,7 +933,7 @@ QUnit.module(
                         assert.step("web_read_group");
                         assert.strictEqual(args.kwargs.limit, 1);
                     }
-                }
+                },
             });
             assert.verifySteps(["web_read_group"]);
 
@@ -1094,7 +1094,7 @@ QUnit.module(
                 },
             });
             assert.containsOnce(target, ".o_dropdown_kanban", "there should be one dropdown node");
-            await click(target.querySelector(".o_dropdown_kanban"));
+            await click(target.querySelector(".o_dropdown_kanban button"));
             // remove drop-down from sidebar
             await click(target.querySelector(".o_web_studio_sidebar .o_web_studio_remove"));
             assert.strictEqual(
@@ -1171,7 +1171,7 @@ QUnit.module(
                 });
 
                 // used to generate fields view in mockRPC
-                await click(target.querySelector(".o_kanban_record .o_dropdown_kanban"));
+                await click(target.querySelector(".o_kanban_record .o_dropdown_kanban button"));
                 await click(target.querySelector(".o_web_studio_sidebar .o-checkbox #cover_value"));
                 assert.verifySteps(["edit_view"]);
             }
@@ -1217,7 +1217,7 @@ QUnit.module(
                     },
                 });
 
-                await click(target.querySelector(".o_kanban_record .o_dropdown_kanban"));
+                await click(target.querySelector(".o_kanban_record .o_dropdown_kanban button"));
                 assert.hasAttrValue(
                     target.querySelector('.o_web_studio_sidebar input[id="cover_value"]'),
                     "checked",

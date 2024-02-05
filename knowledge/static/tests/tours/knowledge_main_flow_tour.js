@@ -211,6 +211,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: 'click',
 }, {
     trigger: '.o_select_menu_item:contains("Article 3")',
+    in_modal: false,
     run: 'click',
 }, {
     trigger: '.o_select_menu_toggler_slot:contains("Article 3")',

@@ -138,7 +138,8 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             trigger: ".o_web_studio_selector_background > button",
         },
         {
-            trigger: ".o_select_menu_menu .o_web_studio_selector_value",
+            trigger: ".o-dropdown--menu .o_web_studio_selector_value",
+            in_modal: false,
         },
         {
             trigger: ".modal-footer .btn.btn-primary",
@@ -320,8 +321,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             trigger: '.o_web_studio_sidebar [name="widget"] .o_select_menu_toggler_slot',
         },
         {
-            trigger:
-                ".o_web_studio_sidebar [name='widget'] .o_select_menu_item_label:contains('(many2many_tags)')",
+            trigger: ".o-dropdown--menu .o_select_menu_item_label:contains('(many2many_tags)')",
         },
         {
             // use colors on the m2m tags
@@ -437,8 +437,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
                 '.o_web_studio_sidebar .o_web_studio_sidebar_select[name="sort_by"] .o_select_menu_toggler',
         },
         {
-            trigger:
-                ".o_web_studio_sidebar .o_web_studio_sidebar_select[name='sort_by'] .dropdown-item",
+            trigger: ".dropdown-menu .dropdown-item",
         },
         {
             //change order of sorting, Select order and change it
@@ -446,8 +445,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
                 '.o_web_studio_sidebar .o_web_studio_sidebar_select[name="sort_order"] .o_select_menu_toggler',
         },
         {
-            trigger:
-                ".o_web_studio_sidebar .o_web_studio_sidebar_select[name='sort_order'] .dropdown-item:nth-child(2)",
+            trigger: ".dropdown-menu .dropdown-item:nth-child(2)",
         },
         {
             // edit action
@@ -466,7 +464,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             // select the dropdown for edition
-            trigger: ".o_dropdown_kanban:not(.o_web_studio_add_dropdown)",
+            trigger: ".o_dropdown_kanban:not(.o_web_studio_add_dropdown) .dropdown-toggle",
         },
         {
             // enable "Set Cover" feature
@@ -629,8 +627,7 @@ registry.category("web_tour.tours").add("web_studio_hide_fields_tour", {
         [name="optional"] .o_select_menu_toggler`,
         },
         {
-            trigger:
-                ".o_web_studio_sidebar [name='optional'] .o_select_menu_item:contains(Hide by default)",
+            trigger: ".o-dropdown--menu .o_select_menu_item:contains(Hide by default)",
         },
         {
             extra_trigger: '.o_list_table:not(:has(th[data-name="display_name"]))',
@@ -808,7 +805,8 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
             run() {},
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
+            trigger:
+                ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
             run($anchor) {
                 const element = this.$anchor[0];
                 element.ownerDocument.getSelection().setPosition(element);
@@ -816,14 +814,16 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
+            trigger:
+                ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
             run() {
                 const element = this.$anchor[0];
                 assertEqual(element.classList.contains("oe-command-temporary-hint"), true);
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
+            trigger:
+                ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
             run: "text some new text",
         },
         {
@@ -854,8 +854,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         },
         {
             // duplicate the report
-            trigger:
-                ".o_kanban_record:contains(My Awesome Report) .dropdown-menu a:contains(Duplicate)",
+            trigger: ".dropdown-menu a:contains(Duplicate)",
         },
         {
             // open the duplicate report
@@ -962,8 +961,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_basic_layout_tour
         },
         {
             // duplicate the report
-            trigger:
-                ".o_kanban_record:contains(My Awesome basic layout Report) .dropdown-menu a:contains(Duplicate)",
+            trigger: ".dropdown-menu .dropdown-item:contains(Duplicate)",
         },
         {
             // open the duplicate report
@@ -1060,7 +1058,7 @@ registry.category("web_tour.tours").add("web_studio_approval_tour", {
             trigger: ".o_kanban_view .o_kanban_record .o_dropdown_kanban .dropdown-toggle",
         },
         {
-            trigger: ".o_kanban_view .o_kanban_record .o-dropdown--menu .dropdown-item",
+            trigger: ".o-dropdown--menu .dropdown-item",
         },
         {
             // try to do the action
@@ -1672,30 +1670,30 @@ registry.category("web_tour.tours").add("web_studio_related_monetary_creation", 
             run: "drag_and_drop_native .o_web_studio_form_view_editor .o_inner_group",
         },
         {
-            trigger: '.o_model_field_selector_value',
+            trigger: ".o_model_field_selector_value",
         },
         {
             in_modal: false,
-            trigger:
-                ".o_model_field_selector_popover_search input",
+            trigger: ".o_model_field_selector_popover_search input",
             run: "text X Test",
         },
         {
             in_modal: false,
-            trigger: ".o_model_field_selector_popover_item[data-name='x_test'] .o_model_field_selector_popover_item_relation",
+            trigger:
+                ".o_model_field_selector_popover_item[data-name='x_test'] .o_model_field_selector_popover_item_relation",
         },
         {
             in_modal: false,
-            trigger:
-                ".o_model_field_selector_popover_search input",
+            trigger: ".o_model_field_selector_popover_search input",
             run: "text X Studio Monetary Test",
         },
         {
             in_modal: false,
-            trigger: ".o_model_field_selector_popover_item[data-name='x_studio_monetary_test'] button",
+            trigger:
+                ".o_model_field_selector_popover_item[data-name='x_studio_monetary_test'] button",
         },
         {
-            trigger:".modal-footer button.btn-primary",
+            trigger: ".modal-footer button.btn-primary",
         },
         {
             // The related monetary is created
@@ -1758,7 +1756,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_fie
         },
         {
             // click on the second currency, which is "X Studio Currency Test2"
-            trigger: ".o_web_studio_property_currency_field .o_select_menu_item:nth-child(2)",
+            trigger: ".o-dropdown--menu .o_select_menu_item:nth-child(2)",
         },
         {
             //wait until the currency has been set (also test the reactivity)
@@ -1803,7 +1801,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_not
         },
         {
             // click on the second currency, which is "X Studio Currency Test2"
-            trigger: ".o_web_studio_property_currency_field .o_select_menu_item:nth-child(2)",
+            trigger: ".o-dropdown--menu .o_select_menu_item:nth-child(2)",
         },
         {
             // wait until the currency has been set

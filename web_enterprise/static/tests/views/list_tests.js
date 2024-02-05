@@ -1,7 +1,13 @@
 /** @odoo-module */
 
 import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
-import { getFixture, patchWithCleanup, click, nextTick } from "@web/../tests/helpers/utils";
+import {
+    getFixture,
+    patchWithCleanup,
+    click,
+    nextTick,
+    getDropdownMenu,
+} from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { ListRenderer } from "@web/views/list/list_renderer";
 import { browser } from "@web/core/browser/browser";
@@ -95,11 +101,11 @@ QUnit.module(
                 assert.containsOnce(target, ".o_optional_columns_dropdown_toggle");
 
                 await click(target, ".o_optional_columns_dropdown_toggle");
-                const dropdown = target.querySelector(".o_optional_columns_dropdown");
+                const dropdown = getDropdownMenu(target, ".o_optional_columns_dropdown");
                 assert.containsN(dropdown, ".dropdown-item", 2);
                 assert.containsOnce(dropdown, ".dropdown-item-studio");
 
-                await click(target, ".o_optional_columns_dropdown .dropdown-item-studio");
+                await click(target, ".dropdown-item-studio");
                 await nextTick();
                 assert.containsOnce(target, ".modal-studio");
 
@@ -156,11 +162,11 @@ QUnit.module(
                 assert.containsOnce(target, ".o_optional_columns_dropdown_toggle");
 
                 await click(target, ".o_optional_columns_dropdown_toggle");
-                const dropdown = target.querySelector(".o_optional_columns_dropdown");
+                const dropdown = getDropdownMenu(target, ".o_optional_columns_dropdown");
                 assert.containsOnce(dropdown, ".dropdown-item");
                 assert.containsOnce(dropdown, ".dropdown-item-studio");
 
-                await click(target, ".o_optional_columns_dropdown .dropdown-item-studio");
+                await click(target, ".dropdown-item-studio");
                 await nextTick();
                 assert.containsOnce(target, ".modal-studio");
 
@@ -191,7 +197,7 @@ QUnit.module(
 
                 assert.containsOnce(target, ".o_optional_columns_dropdown_toggle");
                 await click(target, ".o_optional_columns_dropdown_toggle");
-                const dropdown = target.querySelector(".o_optional_columns_dropdown");
+                const dropdown = getDropdownMenu(target, ".o_optional_columns_dropdown");
                 assert.containsOnce(dropdown, ".dropdown-item");
                 assert.containsNone(dropdown, ".dropdown-item-studio");
             }
@@ -296,7 +302,7 @@ QUnit.module(
             });
 
             await click(target, ".o_optional_columns_dropdown_toggle");
-            let dropdown = target.querySelector(".o_optional_columns_dropdown");
+            let dropdown = getDropdownMenu(target, ".o_optional_columns_dropdown");
             assert.containsN(dropdown, ".dropdown-item", 2);
             assert.containsOnce(dropdown, ".dropdown-item-studio");
 
@@ -310,16 +316,17 @@ QUnit.module(
             });
 
             await click(target, ".modal .o_optional_columns_dropdown_toggle");
-            assert.containsOnce(target, ".modal .dropdown-item");
-            assert.containsNone(target, ".modal .dropdown-item-studio");
+            dropdown = getDropdownMenu(target, ".modal .o_optional_columns_dropdown");
+            assert.containsOnce(dropdown, ".dropdown-item");
+            assert.containsNone(dropdown, ".dropdown-item-studio");
             await click(target, ".modal-header .btn-close");
             assert.containsNone(target, ".modal");
 
             await click(target, ".o_optional_columns_dropdown_toggle");
-            assert.containsNone(target, ".o_optional_columns_dropdown_toggle o-dropdown-menu");
+            assert.containsNone(target, ".o-dropdown--menu");
             await click(target, ".o_optional_columns_dropdown_toggle");
 
-            dropdown = target.querySelector(".o_optional_columns_dropdown");
+            dropdown = getDropdownMenu(target, ".o_optional_columns_dropdown");
             assert.containsN(dropdown, ".dropdown-item", 2);
             assert.containsOnce(dropdown, ".dropdown-item-studio");
         });

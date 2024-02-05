@@ -3,14 +3,16 @@
     <t t-name="delivery_sendcloud.SendcloudProductWidget">
     <div class="d-flex flex-column gap-1">
         <div class="row">
-            <Dropdown t-if="products" class="'btn-group col-12'" togglerClass="'btn btn-primary'" showCaret="true">
-                <t t-set-slot="toggler">
-                    <t t-out="activeProduct.name"/>
-                </t>
-                <t t-foreach="products" t-as="pr" t-key='pr.code'>
-                    <DropdownItem onSelected="() => this._onSelected(pr.code)"><t t-out="pr.name"/></DropdownItem>
-                </t>
-            </Dropdown>
+            <div class="btn-group col-12">
+                <Dropdown t-if="products">
+                    <button class="btn btn-primary o-dropdown-caret">
+                        <t t-out="activeProduct.name"/>
+                    </button>
+                    <t t-foreach="products" t-as="pr" t-key='pr.code'>
+                        <DropdownItem onSelected="() => this._onSelected(pr.code)"><t t-out="pr.name"/></DropdownItem>
+                    </t>
+                </Dropdown>
+            </div>
         </div>
         <t t-if="!isReturn || state.code !== false">
             <div class="row">

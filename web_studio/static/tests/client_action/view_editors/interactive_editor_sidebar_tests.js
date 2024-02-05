@@ -512,7 +512,7 @@ QUnit.module(
                 "the sidebar should display the correct default value"
             );
             assert.strictEqual(
-                target.querySelector(".o_web_studio_property .o_select_menu_menu").textContent,
+                target.querySelector(".o_select_menu_menu").textContent,
                 "HighLowMedium",
                 "the sidebar should have the right options"
             );

@@ -687,9 +687,7 @@ QUnit.module(
                 await click(target, ".o_web_studio_property_widget .o_select_menu_toggler");
                 assert.deepEqual(
                     Array.from(
-                        target.querySelectorAll(
-                            ".o_web_studio_property_widget .o_select_menu_item_label"
-                        )
+                        target.querySelectorAll(".o_select_menu_menu .o_select_menu_item_label")
                     ).map((el) => el.textContent.trim()),
                     ["(safeWidgetNoDisplayName)", "Test Widget (safeWidget)"]
                 );
@@ -741,9 +739,7 @@ QUnit.module(
                 await click(target, ".o_web_studio_property_widget .o_select_menu_toggler");
                 assert.deepEqual(
                     Array.from(
-                        target.querySelectorAll(
-                            ".o_web_studio_property_widget .o_select_menu_item_label"
-                        )
+                        target.querySelectorAll(".o_select_menu_menu .o_select_menu_item_label")
                     ).map((el) => el.textContent.trim()),
                     ["(safeWidgetNoDisplayName)", "Test Widget (safeWidget)", "Text (unsafeWidget)"]
                 );

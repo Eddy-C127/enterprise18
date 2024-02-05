@@ -9,11 +9,12 @@ import { Dropdown } from "@web/core/dropdown/dropdown";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 import { ViewScaleSelector } from "@web/views/view_components/view_scale_selector";
 import { download } from "@web/core/network/download";
+import { ReportViewMeasures } from "@web/views/view_components/report_view_measures";
 
 const formatters = registry.category("formatters");
 
 export class CohortRenderer extends Component {
-    static components = { Dropdown, DropdownItem, ViewScaleSelector };
+    static components = { Dropdown, DropdownItem, ViewScaleSelector, ReportViewMeasures };
     static template = "web_cohort.CohortRenderer";
     static props = ["class", "model", "onRowClicked"];
 

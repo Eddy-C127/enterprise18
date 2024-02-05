@@ -102,12 +102,12 @@ registry.category("web_tour.tours").add('account_reports', {
             content: "Caret option is displayed",
             trigger: "tr:nth-child(8)",
             run: () => {
-                Asserts.hasClass("tr:nth-child(8) .dropdown", "show");
+                Asserts.hasClass("tr:nth-child(8) .o-dropdown", "show");
             }
         },
         {
             content: "Click on annotate",
-            trigger: "tr:nth-child(8) .dropdown-menu .dropdown-item:last-of-type:contains('Annotate')",
+            trigger: ".o-dropdown--menu .dropdown-item:last-of-type:contains('Annotate')",
             run: "click"
         },
         {
@@ -158,7 +158,7 @@ registry.category("web_tour.tours").add('account_reports', {
         },
         {
             content: "Click on annotate",
-            trigger: "tr:nth-child(8) .dropdown-menu .dropdown-item:last-of-type:contains('Annotate')",
+            trigger: ".dropdown-menu .dropdown-item:last-of-type:contains('Annotate')",
             run: "click"
         },
         {
@@ -187,7 +187,7 @@ registry.category("web_tour.tours").add('account_reports', {
         },
         {
             content: "Click on annotate",
-            trigger: "tr:nth-child(8) .dropdown-menu .dropdown-item:last-of-type:contains('Annotate')",
+            trigger: ".dropdown-menu .dropdown-item:last-of-type:contains('Annotate')",
             run: "click"
         },
         {

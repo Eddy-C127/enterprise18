@@ -34,7 +34,6 @@ class Dropdown extends OriginDropdown {
     setup() {
         super.setup();
         const rootRef = useRef("root");
-        this.rootRef = rootRef;
         useEffect(
             (rootEl) => {
                 if (this.props.studioXpath) {
@@ -50,7 +49,7 @@ class Dropdown extends OriginDropdown {
         );
     }
 
-    onTogglerClick() {
+    handleClick() {
         this.env.config.onNodeClicked(this.props.studioXpath);
     }
 }

@@ -21,6 +21,14 @@ export class SalesReportFilters extends AccountReportFilters {
 
         return selected.join(', ');
     }
+
+    get codeItems() {
+        return this.controller.options.ec_tax_filter_selection.map((ecTax, index) => ({
+            class: { selected: ecTax.selected },
+            onSelected: () => this.toggleFilter('ec_tax_filter_selection.' + index + '.selected'),
+            label: ecTax.name,
+        }));
+    }
 }
 
 AccountReport.registerCustomComponent(SalesReportFilters);

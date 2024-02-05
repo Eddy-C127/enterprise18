@@ -55,15 +55,15 @@
                     <span t-if="!viewInfo.isActive" class="o_web_studio_view_label bg-dark bg-opacity-50 rounded-start text-white position-absolute top-0 start-100 my-1 py-1 px-2 fw-normal text-nowrap">Activate View</span>
                   </t>
                   <t t-set-slot="dropdown">
-                    <DropdownItem t-if="viewInfo.canBeDefault" onSelected="() => this.setDefaultView(viewInfo.name)" href="'#'" class="viewInfo.isDefault ? 'pe-none opacity-50' : ''" dataset="{ action: 'set_default_view' }">
+                    <DropdownItem t-if="viewInfo.canBeDefault" onSelected="() => this.setDefaultView(viewInfo.name)" attrs="{ href: '#', 'data-action': 'set_default_view' }" class="viewInfo.isDefault ? 'pe-none opacity-50' : ''">
                       <i t-if="viewInfo.isDefault" class="fa fa-check" role="img" aria-label="Is default view" title="Is default view"/>
                       Set As Default
                     </DropdownItem>
                     <div t-if="viewInfo.canBeDefault and viewInfo.canBeDisabled" class="dropdown-divider" role="separator"/>
-                    <DropdownItem t-if="env.debug" onSelected="() => this.restoreDefaultView(viewInfo.name)" href="'#'" dataset="{ action: 'restore_default_view' }">
+                    <DropdownItem t-if="env.debug" onSelected="() => this.restoreDefaultView(viewInfo.name)" attrs="{ href: '#', 'data-action': 'restore_default_view' }">
                       Restore Default View
                     </DropdownItem>
-                    <DropdownItem t-if="viewInfo.canBeDisabled" onSelected="() => this.disableView(viewInfo.name)" dataset="{ action: 'disable_view' }">
+                    <DropdownItem t-if="viewInfo.canBeDisabled" onSelected="() => this.disableView(viewInfo.name)" attrs="{ 'data-action': 'disable_view' }">
                       Disable View
                     </DropdownItem>
                   </t>

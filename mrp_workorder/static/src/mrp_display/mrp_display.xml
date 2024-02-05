@@ -35,7 +35,7 @@
                                     <CheckboxItem
                                             class="{ 'o_menu_item text-truncate': true, selected: item.isActive }"
                                             checked="item.isActive"
-                                            parentClosingMode="'none'"
+                                            closingMode="'none'"
                                             onSelected="() => {item.isActive = !item.isActive; this.env.searchModel.invalidateRecordCache();}"
                                             t-out="item.string"/>
                                 </t>

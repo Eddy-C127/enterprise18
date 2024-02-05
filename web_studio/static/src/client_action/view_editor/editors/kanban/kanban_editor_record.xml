@@ -17,10 +17,10 @@
   </xpath>
 </t>
 
-<t t-name="web_studio.KanbanEditorRecord.Dropdown" t-inherit="web.Dropdown">
-  <xpath expr="./div" position="attributes">
-    <attribute name="t-on-click">(ev) => env.config.onNodeClicked(props.studioXpath)</attribute>
-  </xpath>
+<t t-name="web_studio.KanbanEditorRecord.Dropdown">
+  <div t-ref="root" t-on-click="() => this.handleClick()">
+    <t t-slot="default"/>
+  </div>
 </t>
 
 <t t-name="web_studio.KanbanEditorRecord.AvatarPlaceholder">

@@ -23,8 +23,7 @@ registry.category("web_tour.tours").add("web_studio_home_menu_background_tour", 
             position: "right",
         },
         {
-            trigger:
-                ".o_web_studio_home_studio_menu .dropdown-menu .dropdown-item.o_web_studio_change_background",
+            trigger: ".dropdown-menu .dropdown-item.o_web_studio_change_background",
             content: markup(_t("Change the <b>background</b>, make it yours.")),
             position: "bottom",
         },

@@ -21,12 +21,14 @@
                     <SelectMenu
                         autoSort="false"
                         class="'o_web_studio_selector o_web_studio_selector_background overflow-visible p-0 border-0 m-3'"
+                        menuClass="'o_web_studio_selector_menu'"
+                        togglerClass="'p-0'"
                         value="props.backgroundColor"
                         choices="backgroundColorChoices"
                         onSelect="(value) => this.onPaletteItemClick('backgroundColor', value)"
                         required="true"
                         searchable="false">
-                        <div class="w-100 h-100" t-attf-style="background-color: {{props.backgroundColor}};"> </div>
+                        <div class="w-100 h-100 rounded-2" t-attf-style="background-color: {{props.backgroundColor}};"> </div>
                         <span class="o_web_studio_selector_pointer" />
                         <t t-set-slot="choice" t-slot-scope="choice">
                             <div
@@ -38,12 +40,14 @@
                     <SelectMenu
                         autoSort="false"
                         class="'o_web_studio_selector o_web_studio_selector_color overflow-visible p-0 border-0 m-3'"
+                        menuClass="'o_web_studio_selector_menu'"
+                        togglerClass="'p-0'"
                         value="props.color"
                         choices="colorChoices"
                         onSelect="(value) => this.onPaletteItemClick('color', value)"
                         required="true"
                         searchable="false">
-                        <div class="w-100 h-100" t-attf-style="background-color: {{props.color}};"> </div>
+                        <div class="w-100 h-100 rounded-2" t-attf-style="background-color: {{props.color}};"> </div>
                         <span class="o_web_studio_selector_pointer" />
                         <t t-set-slot="choice" t-slot-scope="choice">
                             <div
@@ -52,7 +56,12 @@
                             />
                         </t>
                     </SelectMenu>
-                    <FontAwesomeIconSelector className="'o_web_studio_selector o_web_studio_selector_icon m-3'" value="props.iconClass" onSelect="(value) => this.onPaletteItemClick('iconClass', value)">
+                    <FontAwesomeIconSelector
+                        className="'o_web_studio_selector o_web_studio_selector_icon m-3'"
+                        menuClassName="'o_web_studio_selector_menu o_web_studio_selector_icon_menu'"
+                        value="props.iconClass"
+                        onSelect="(value) => this.onPaletteItemClick('iconClass', value)"
+                    >
                         <i t-att-class="props.iconClass" />
                         <span class="o_web_studio_selector_pointer" />
                     </FontAwesomeIconSelector>

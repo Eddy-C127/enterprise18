@@ -45,6 +45,14 @@ export class ConsolidationReportFilters extends AccountReportFilters {
 
         return false;
     }
+
+    get consolidationJournals() {
+        return this.controller.options.consolidation_journals.map((journal, i) => ({
+            class: { 'selected': journal.selected },
+            onSelected: () => this.toggleFilter('consolidation_journals.' + i + '.selected'),
+            label: journal.name,
+        }));
+    }
 }
 
 AccountReport.registerCustomComponent(ConsolidationReportFilters);

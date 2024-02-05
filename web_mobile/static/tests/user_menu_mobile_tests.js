@@ -6,9 +6,11 @@ import { UserMenu } from "@web/webclient/user_menu/user_menu";
 import { shortcutItem, switchAccountItem } from "../src/js/user_menu_items";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { makeFakeNotificationService } from "@web/../tests/helpers/mock_services";
-import { click as _click, getFixture, mount, patchWithCleanup } from "@web/../tests/helpers/utils";
+import { click as _click, getFixture, patchWithCleanup } from "@web/../tests/helpers/utils";
+import { mountInFixture } from "@web/../tests/helpers/mount_in_fixture";
 import { menuService } from "@web/webclient/menus/menu_service";
 import { actionService } from "@web/webclient/actions/action_service";
+import { popoverService } from "@web/core/popover/popover_service";
 
 import mobile from "@web_mobile/js/services/core";
 
@@ -33,6 +35,7 @@ QUnit.module("UserMenu", {
         serviceRegistry.add("hotkey", hotkeyService);
         serviceRegistry.add("action", actionService);
         serviceRegistry.add("menu", menuService);
+        serviceRegistry.add("popover", popoverService);
         target = getFixture();
     },
 });
@@ -57,7 +60,7 @@ QUnit.test("can execute the callback of addHomeShortcut on an App", async (asser
     userMenuRegistry.add("web_mobile.shortcut", shortcutItem);
     // Set App1 menu and mount
     env.services.menu.setCurrentMenu(1);
-    await mount(UserMenu, target, { env });
+    await mountInFixture(UserMenu, target, { env });
     assert.hasClass(target.querySelector(".o_user_menu"), "d-none");
     // remove the "d-none" class to make the menu visible before interacting with it
     target.querySelector(".o_user_menu").classList.remove("d-none");
@@ -84,7 +87,7 @@ QUnit.test("can execute the callback of addHomeShortcut on the HomeMenu", async 
     const env = await makeTestEnv();
 
     userMenuRegistry.add("web_mobile.shortcut", shortcutItem);
-    await mount(UserMenu, target, { env });
+    await mountInFixture(UserMenu, target, { env });
     // remove the "d-none" class to make the menu visible before interacting with it
     target.querySelector(".o_user_menu").classList.remove("d-none");
     await click(target.querySelector("button.dropdown-toggle"));
@@ -105,7 +108,7 @@ QUnit.test("can execute the callback of switchAccount", async (assert) => {
     const env = await makeTestEnv();
 
     userMenuRegistry.add("web_mobile.switch", switchAccountItem);
-    await mount(UserMenu, target, { env });
+    await mountInFixture(UserMenu, target, { env });
     // remove the "d-none" class to make the menu visible before interacting with it
     target.querySelector(".o_user_menu").classList.remove("d-none");
     await click(target.querySelector("button.dropdown-toggle"));

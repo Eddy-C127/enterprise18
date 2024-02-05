@@ -21,8 +21,7 @@ registry
             },
             {
                 content: "Click on expand button to open channel in Discuss",
-                trigger:
-                    '.o-mail-ChatWindow:contains("test-mail-channel-expand-tour") [title="Open in Discuss"]',
+                trigger: '.o-dropdown-item[title="Open in Discuss"]',
             },
             {
                 content:

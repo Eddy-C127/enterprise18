@@ -6,12 +6,14 @@ import { ormService } from "@web/core/orm_service";
 import { enterpriseSubscriptionService } from "@web_enterprise/webclient/home_menu/enterprise_subscription_service";
 import { registry } from "@web/core/registry";
 import { createEnterpriseWebClient } from "../helpers";
-import { click, getFixture, mount, patchWithCleanup } from "@web/../tests/helpers/utils";
+import { click, getFixture, patchWithCleanup } from "@web/../tests/helpers/utils";
+import { mountInFixture } from "@web/../tests/helpers/mount_in_fixture";
 import { shareUrlMenuItem } from "@web_enterprise/webclient/share_url/share_url";
 import { browser } from "@web/core/browser/browser";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { menuService } from "@web/webclient/menus/menu_service";
 import { actionService } from "@web/webclient/actions/action_service";
+import { popoverService } from "@web/core/popover/popover_service";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { UserMenu } from "@web/webclient/user_menu/user_menu";
 
@@ -73,11 +75,12 @@ QUnit.module("WebClient Mobile", (hooks) => {
             serviceRegistry.add("hotkey", hotkeyService);
             serviceRegistry.add("action", actionService);
             serviceRegistry.add("menu", menuService);
+            serviceRegistry.add("popover", popoverService);
 
             const env = await makeTestEnv();
 
             registry.category("user_menuitems").add("share_url", shareUrlMenuItem);
-            await mount(UserMenu, target, { env });
+            await mountInFixture(UserMenu, target, { env });
             assert.containsOnce(target, ".o_user_menu");
             // remove the "d-none" class to make the menu visible before interacting with it
             target.querySelector(".o_user_menu").classList.remove("d-none");

@@ -22,9 +22,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Log into Belgian Company",
-            trigger:
-                ".o_menu_systray .o_switch_company_menu .dropdown-item div span:contains('My Belgian Company - TEST')",
-            run: "click",
+            trigger: ".o-dropdown--menu .dropdown-item div span:contains('My Belgian Company - TEST')",
+            run: 'click',
         },
         {
             content: "Recruitment",
@@ -794,74 +793,72 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_hr_sign", {
     steps: () => [
         {
             content: "Log into Belgian Company",
-            trigger: ".o_menu_systray .o_switch_company_menu button.dropdown-toggle",
-            run: "click",
+            trigger: '.o_menu_systray .o_switch_company_menu button.dropdown-toggle',
+            run: 'click',
         },
         {
             content: "Log into Belgian Company",
-            trigger:
-                ".o_menu_systray .o_switch_company_menu .dropdown-item div span:contains('My Belgian Company - TEST')",
-            run: "click",
+            trigger: ".o-dropdown--menu .dropdown-item div span:contains('My Belgian Company - TEST')",
+            run: 'click',
         },
         {
             content: "Recruitment",
             trigger: '.o_app[data-menu-xmlid="hr_recruitment.menu_hr_recruitment_root"]',
-            extra_trigger:
-                ".o_menu_systray .o_switch_company_menu button.dropdown-toggle span:contains('My Belgian Company - TEST')",
-            run: "click",
+            extra_trigger: ".o_menu_systray .o_switch_company_menu button.dropdown-toggle span:contains('My Belgian Company - TEST')",
+            run: 'click',
         },
         {
             content: "Jobs list view",
-            trigger: ".o_switch_view.o_list",
-            run: "click",
+            trigger: '.o_switch_view.o_list',
+            run: 'click',
         },
         {
-            content: "Select Our Job",
-            trigger: 'table.o_list_table tbody td:contains("Experienced Developer")',
+            content: 'Select Our Job',
+            trigger: 'table.o_list_table tbody td:contains("Experienced Developer")'
         },
         {
             content: "Open Application Pipe",
             trigger: "button.oe_stat_button:contains(Applications)",
-            extra_trigger: ".o_form_saved",
-            run: "click",
+            extra_trigger: '.o_form_saved',
+            run: 'click',
         },
         {
-            content: "Select Our Applicant",
-            trigger: 'div.o_kanban_view b.o_kanban_record_title:contains("Mitchell Admin 2")',
+            content: 'Select Our Applicant',
+            trigger: 'div.o_kanban_view b.o_kanban_record_title:contains("Mitchell Admin 2")'
         },
         {
             content: "Open Contracts",
             trigger: "button.oe_stat_button:contains(Contracts)",
-            extra_trigger: ".o_form_saved",
-            run: "click",
+            extra_trigger: '.o_form_saved',
+            run: 'click',
         },
         {
             content: "Open Signature Request",
             trigger: "button.oe_stat_button:contains(Sign)",
-            extra_trigger: ".o_form_saved",
-            run: "click",
+            extra_trigger: '.o_form_saved',
+            run: 'click',
         },
         {
             content: "Sign",
             trigger: "button:contains(Sign Document)",
-            run: "click",
+            run: 'click',
         },
         {
             content: "Next 5",
-            trigger: "iframe .o_sign_sign_item_navigator",
-            run: "click",
+            trigger: 'iframe .o_sign_sign_item_navigator',
+            run: 'click',
         },
         {
             content: "Click Signature",
-            trigger: "iframe button.o_sign_sign_item",
-            run: "click",
+            trigger: 'iframe button.o_sign_sign_item',
+            run: 'click',
         },
         {
             content: "Validate and Sign",
             trigger: ".o_sign_validate_banner button",
-            run: "click",
+            run: 'click',
         },
-    ],
+    ]
 });
 registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
     test: true,
@@ -875,9 +872,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Log into Belgian Company",
-            trigger:
-                ".o_menu_systray .o_switch_company_menu .dropdown-item div span:contains('My Belgian Company - TEST')",
-            run: "click",
+            trigger: ".o-dropdown--menu .dropdown-item div span:contains('My Belgian Company - TEST')",
+            run: 'click',
         },
         {
             content: "Recruitment",
@@ -1446,16 +1442,17 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_counter_sign", 
         {
             content: "Log into Belgian Company",
             trigger:
-                ".o_menu_systray .o_switch_company_menu .dropdown-item div span:contains('My Belgian Company - TEST')",
+                ".o-dropdown--menu .dropdown-item div span:contains('My Belgian Company - TEST')",
             run: "click",
         },
         {
             content: 'Open Activity Systray',
             trigger: '.o-mail-ActivityMenu-counter',
+            extra_trigger: `.oe_topbar_name:contains(My Belgian Company - TEST)`,
             run: "click"
         }, {
             content: 'Open Sign Requests',
-            trigger: '.o-mail-ActivityGroup:contains("Signature")',
+            trigger: '.o-dropdown--menu .list-group-item:contains("Signature")',
             run: "click"
         },
         {

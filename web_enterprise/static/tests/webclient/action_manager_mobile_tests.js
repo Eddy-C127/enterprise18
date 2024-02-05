@@ -142,13 +142,11 @@ QUnit.test(
         await click(target, ".o_control_panel .o_cp_switch_buttons.d-xl-none > button");
 
         assert.hasClass(
-            target.querySelector(".o_cp_switch_buttons.d-xl-none .dropdown-item .oi-view-kanban")
-                .parentElement,
+            target.querySelector(".dropdown-item .oi-view-kanban").parentElement,
             "selected"
         );
         assert.doesNotHaveClass(
-            target.querySelector(".o_cp_switch_buttons.d-xl-none .dropdown-item .oi-view-list")
-                .parentElement,
+            target.querySelector(".dropdown-item .oi-view-list").parentElement,
             "selected"
         );
     }

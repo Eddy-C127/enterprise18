@@ -5,10 +5,11 @@
         <div class="o_cohort_renderer" t-att-class="props.class">
             <div class="d-flex gap-1 px-3 py-2">
                 <div class="btn-group" role="toolbar" aria-label="Main actions">
-                    <t t-call="web.ReportViewMeasures">
-                        <t t-set="measures" t-value="model.metaData.measures"/>
-                        <t t-set="activeMeasures" t-value="[model.metaData.measure]"/>
-                    </t>
+                    <ReportViewMeasures
+                        measures="model.metaData.measures"
+                        activeMeasures="[model.metaData.measure]"
+                        onMeasureSelected.bind="this.onMeasureSelected"
+                    />
                 </div>
                     <div class="btn-group">
                     <ViewScaleSelector scales="scales" currentScale="model.metaData.interval" setScale.bind="setScale" />

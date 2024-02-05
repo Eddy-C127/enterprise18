@@ -68,38 +68,40 @@
                     </t>
 
                     <!-- Dropdown if more reco models -->
-                    <Dropdown t-if="data.available_reco_model_ids.records.length gt nb_rendered_buttons"
-                              togglerClass="'btn btn-light'"
-                              class="'bank_rec_reco_model_dropdown my-1'">
-                        <t t-set-slot="toggler">
-                            More
-                        </t>
-                        <t t-foreach="data.available_reco_model_ids.records"
-                           t-as="reco_model"
-                           t-key="reco_model.data.id">
-                            <t t-set="is_selected" t-value="reco_model.data.id === data.selected_reco_model_id.id"/>
-                            <DropdownItem t-if="reco_model_index gte 5 and !is_selected"
-                                          onSelected="() => this.actionSelectRecoModel(reco_model)">
-                                <t t-out="reco_model.data.display_name"/>
+                    <div t-if="data.available_reco_model_ids.records.length gt nb_rendered_buttons" class="bank_rec_reco_model_dropdown my-1">
+                        <Dropdown>
+                            <button class="btn btn-light">
+                                More
+                            </button>
+                            <t t-set-slot="content">
+                                <t t-foreach="data.available_reco_model_ids.records" t-as="reco_model" t-key="reco_model.data.id">
+                                    <t t-set="is_selected" t-value="reco_model.data.id === data.selected_reco_model_id.id"/>
+                                    <DropdownItem t-if="reco_model_index gte 5 and !is_selected"
+                                                  onSelected="() => this.actionSelectRecoModel(reco_model)">
+                                        <t t-out="reco_model.data.display_name"/>
+                                    </DropdownItem>
+                                </t>
+                            </t>
+                        </Dropdown>
+                    </div>
+                </div>
+
+                <!-- Creation of reco models -->
+                <div class="bank_rec_reco_model_dropdown">
+                    <Dropdown position="'bottom-end'">
+                        <button class="btn btn-light">
+                            <i class="fa fa-cog"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem onSelected="() => this.actionCreateRecoModel()">
+                                Create model
+                            </DropdownItem>
+                            <DropdownItem onSelected="() => this.actionViewRecoModels()">
+                                View models
                             </DropdownItem>
                         </t>
                     </Dropdown>
                 </div>
-
-                <!-- Creation of reco models -->
-                <Dropdown class="'bank_rec_reco_model_dropdown'"
-                          togglerClass="'btn btn-light'"
-                          position="'bottom-end'">
-                    <t t-set-slot="toggler">
-                        <i class="fa fa-cog"/>
-                    </t>
-                    <DropdownItem onSelected="() => this.actionCreateRecoModel()">
-                        Create model
-                    </DropdownItem>
-                    <DropdownItem onSelected="() => this.actionViewRecoModels()">
-                        View models
-                    </DropdownItem>
-                </Dropdown>
 
             </div>
         </div>
@@ -134,7 +136,7 @@
                                     'o_bank_rec_liquidity_line': line.data.flag === 'liquidity',
                                     'o_bank_rec_auto_balance_line': line.data.flag === 'auto_balance',
                                     'o_bank_rec_selected_line': line.data.index === data.form_index and this.state.bankRecNotebookPage === 'manual_operations_tab',
-                                    'table-info': line.data.index === data.form_index and this.state.bankRecNotebookPage === 'manual_operations_tab', 
+                                    'table-info': line.data.index === data.form_index and this.state.bankRecNotebookPage === 'manual_operations_tab',
                                 }"
                                 t-on-click="(ev) => this.handleLineClicked(ev, line)">
 
@@ -241,7 +243,7 @@
                                     'o_bank_rec_liquidity_line': line.data.flag === 'liquidity',
                                     'o_bank_rec_auto_balance_line': line.data.flag === 'auto_balance',
                                     'o_bank_rec_selected_line': line.data.index === data.form_index and this.state.bankRecNotebookPage === 'manual_operations_tab',
-                                    'table-info': line.data.index === data.form_index and this.state.bankRecNotebookPage === 'manual_operations_tab', 
+                                    'table-info': line.data.index === data.form_index and this.state.bankRecNotebookPage === 'manual_operations_tab',
                                 }"
                                 t-on-click="(ev) => this.handleLineClicked(ev, line)">
                                 <td t-att-colspan="line_ids_columns.length - (display_currency_columns ? 5 : 3)"

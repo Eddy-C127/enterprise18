@@ -211,17 +211,17 @@ QUnit.module("Views", (hooks) => {
         await click(target, ".scale_button_selection");
         assert.containsOnce(
             target,
-            ".o_view_scale_selector .o_scale_button_day",
+            ".o-dropdown--menu .o_scale_button_day",
             "The Day scale should be in the dropdown menu"
         );
         assert.containsOnce(
             target,
-            ".o_view_scale_selector .o_scale_button_week",
+            ".o-dropdown--menu .o_scale_button_week",
             "The week scale should be in the dropdown menu"
         );
         assert.containsOnce(
             target,
-            ".o_view_scale_selector .o_scale_button_month",
+            ".o-dropdown--menu .o_scale_button_month",
             "The month scale should be in the dropdown menu"
         );
         assert.containsOnce(

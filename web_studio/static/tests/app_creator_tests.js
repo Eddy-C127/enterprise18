@@ -12,10 +12,10 @@ import {
     nextTick,
     triggerEvent,
     editInput,
-    mount,
     patchWithCleanup,
 } from "@web/../tests/helpers/utils";
 import { AutoComplete } from "@web/core/autocomplete/autocomplete";
+import { mountInFixture } from "@web/../tests/helpers/mount_in_fixture";
 
 const serviceRegistry = registry.category("services");
 const sampleIconUrl = "/web_enterprise/Parent.src/img/default_icon_app.png";
@@ -26,6 +26,7 @@ function makeFakeUIService({ block = () => {}, unblock = () => {} } = {}) {
             const ui = {
                 block,
                 unblock,
+                getActiveElementOf: () => undefined,
             };
             Object.defineProperty(env, "isSmall", {
                 get() {
@@ -63,7 +64,7 @@ async function createAppCreator(params = {}) {
 
     const { mockRPC, serverData, startStep } = params;
     const target = getFixture();
-    const component = await mount(AppCreator, target, {
+    const component = await mountInFixture(AppCreator, target, {
         props: { onNewAppCreated },
         env: await makeTestEnv({
             serverData,

@@ -43,9 +43,7 @@ QUnit.module("View Editors", (hooks) => {
                 ".o_web_studio_sidebar .o_web_studio_property_mode .dropdown-toggle"
             )
         );
-        const availableModesOptions = target.querySelectorAll(
-            ".o_web_studio_sidebar .o_web_studio_property_mode .o-dropdown--menu .dropdown-item"
-        );
+        const availableModesOptions = target.querySelectorAll(".o-dropdown--menu .dropdown-item");
         assert.deepEqual(
             Array.from(availableModesOptions).map((el) => el.textContent.trim()),
             ["Month", "Year"]
@@ -73,9 +71,7 @@ QUnit.module("View Editors", (hooks) => {
                 ".o_web_studio_sidebar .o_web_studio_property_mode .dropdown-toggle"
             )
         );
-        const availableModesOptions = target.querySelectorAll(
-            ".o_web_studio_sidebar .o_web_studio_property_mode .o-dropdown--menu .dropdown-item"
-        );
+        const availableModesOptions = target.querySelectorAll(".o-dropdown--menu .dropdown-item");
         assert.deepEqual(
             Array.from(availableModesOptions).map((el) => el.textContent.trim()),
             ["Day", "Month", "Week", "Year"] // the selectMenu sorts by alphabetical order (it is changeable)

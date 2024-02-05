@@ -148,9 +148,8 @@ registry.category("web_tour.tours").add('planning_shift_switching_backend', {
     trigger: 'div.o_view_scale_selector > .scale_button_selection',
     content: 'Toggle the view scale selector',
 }, {
-    trigger: 'div.o_view_scale_selector > .dropdown-menu',
+    trigger: '.dropdown-menu .o_scale_button_day',
     content: 'Click on the dropdown button to change the scale of the gantt view',
-    extra_trigger: 'div.o_view_scale_selector .o_scale_button_day',
 }, {
     trigger: '.o_gantt_pill :contains("test_role")',
     content: "Click on the unwanted shift in the gantt view again",

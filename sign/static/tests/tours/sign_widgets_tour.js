@@ -51,7 +51,8 @@ registry.category("web_tour.tours").add("sign_widgets_tour", {
         },
         {
             content: "Select a style",
-            trigger: ".o_web_sign_auto_select_style .dropdown-item:nth-child(3)",
+            in_modal: false,
+            trigger: ".dropdown-menu .dropdown-item:nth-child(3)",
             run: "click",
         },
         {
@@ -61,7 +62,8 @@ registry.category("web_tour.tours").add("sign_widgets_tour", {
         },
         {
             content: "Select a style",
-            trigger: ".o_web_sign_auto_select_style .dropdown-item:nth-child(2)",
+            in_modal: false,
+            trigger: ".dropdown-menu .dropdown-item:nth-child(2)",
             run: "click",
         },
         {

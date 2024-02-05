@@ -6,10 +6,12 @@ import { getFontAwesomeIcons } from "@web_studio/utils";
 export class FontAwesomeIconSelector extends Component {
     static defaultProps = {
         className: "",
+        menuClassName: "",
     };
     static template = "web_studio.FontAwesomeIconSelector";
     static props = {
         className: { type: String, optional: true },
+        menuClassName: { type: String, optional: true },
         value: { type: String },
         onSelect: { type: Function, optional: true },
         slots: true,

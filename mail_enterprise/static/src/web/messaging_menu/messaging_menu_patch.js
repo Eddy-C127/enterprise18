@@ -10,8 +10,8 @@ patch(MessagingMenu.prototype, {
     setup() {
         super.setup();
         useBackButton(
-            () => this.close(),
-            () => this.state.isOpen
+            () => this.dropdown.close(),
+            () => this.dropdown.isOpen
         );
     },
 });
