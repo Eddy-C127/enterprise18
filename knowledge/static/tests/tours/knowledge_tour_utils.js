@@ -2,8 +2,6 @@
 
 import { SORTABLE_TOLERANCE } from "@knowledge/components/sidebar/sidebar";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
-import { setSelection, boundariesIn } from "@web_editor/js/editor/odoo-editor/src/utils/utils";
-import { insertText } from "@web/../tests/utils";
 
 export const changeInternalPermission = (permission) => {
     const target = document.querySelector('.o_permission[aria-label="Internal Permission"]');
@@ -90,8 +88,10 @@ export function appendArticleLink(htmlFieldContainerSelector, articleName, offse
         trigger: '.oe-powerbox-commandName:contains(Article)',
         run: 'click',
         in_modal: false,
-    }, { // select an article in the list
-        trigger: `.o_select_menu_item:contains(${articleName})`,
+    }, {
+        // select an article in the list
+        // 'not has span' is used to remove children articles as they also contain the article name
+        trigger: `.o_select_menu_item > span:not(:has(span)):contains(${articleName})`,
         run: 'click',
         in_modal: false,
     }, { // wait for the choice to be registered
@@ -160,76 +160,4 @@ export function openCommandBar(paragraph, offset=0) {
             key: "/",
         })
     );
-}
-
-export function createNewCommentSteps(text) {
-    return [{
-        // Select some text in the first paragraph
-        trigger: '.note-editable p.to-select',
-        run: function () {
-            setSelection(...boundariesIn(this.$anchor[0]));
-        }
-    }, {
-        // Trigger comment creation with the editor toolbar
-        trigger: '.oe-toolbar div[id="comment-line"]',
-    }, {
-        trigger: '.o_knowledge_comments_popover, .o_knowledge_comment_box',
-        run: () => {}
-    }, {
-        trigger: '.o_knowledge_comments_popover .o-mail-Composer-input, .o-mail-Composer-input',
-        run: async () => {
-            await insertText('.o-mail-Composer-input', text || 'Hello World');
-        }
-    }, {
-        // Send comment
-        trigger: '.o_knowledge_comments_popover .o-mail-Composer-send:not([disabled=""]), .o-mail-Composer-send:not([disabled=""])'
-    }, {
-        trigger: '.o_knowledge_comment_box[data-id] .o_knowledge_comment_small_ui img, .o_knowledge_comment_box[data-id]',
-        run: () => {}
-    }, {
-        trigger: '.o_knowledge_comment_box[data-id] .o_knowledge_comment_small_ui img, .o_knowledge_comment_box[data-id]',
-        run: function () {
-            this.$anchor[0].querySelector('.o_knowledge_comment_small_ui img')?.click();
-        }
-    }, {
-        trigger: `.o-mail-Thread :contains(${text || 'Hello World'})`,
-        run: () => {}
-    },];
-}
-
-export function answerThreadSteps(text) {
-    return [
-        {
-            trigger: '.o_knowledge_comments_popover, .o_knowledge_comment_box',
-        }, {
-            trigger: '.o_knowledge_comments_popover .o-mail-Composer-input, .o-mail-Composer-input',
-            run: async () => {
-                await insertText('.o-mail-Composer-input', text || 'Hello World');
-            }
-        }, {
-            // Send comment
-            trigger: '.o_knowledge_comments_popover .o-mail-Composer-send:not([disabled=""]), .o-mail-Composer-send:not([disabled=""])'
-        }, {
-            trigger: `.o-mail-Thread :contains(${text || 'Hello World'})`,
-            run: () => {}
-        }, {
-            trigger: '.note-editable'
-        }, {
-            trigger: '.o_knowledge_comment_box:not(.commenting)',
-            run: () => {}
-        }
-    ];
-}
-
-export function resolveCommentSteps() {
-    return [
-        {
-            trigger: '.o-mail-Message-actions',
-            run: () => {
-                makeVisible('.o-mail-Message-actions');
-            }
-        }, {// Resolve Thread
-            trigger: 'button[name="closeThread"]'
-        }
-    ];
 }

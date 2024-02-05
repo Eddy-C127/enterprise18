@@ -38,7 +38,7 @@ class TestKnowledgeUI(TestKnowledgeUICommon):
 
     def test_knowledge_history(self):
         """This tour will check that the history works properly."""
-        self.start_tour('/web', 'knowledge_history_tour', login='demo', step_delay=100)
+        self.start_tour('/web', 'knowledge_history_tour', login='demo')
 
     def test_knowledge_load_template(self):
         """This tour will check that the user can create a new article by using
@@ -101,7 +101,7 @@ class TestKnowledgeUI(TestKnowledgeUICommon):
             'is_article_visible_by_everyone': True,
         })
         with self.mock_mail_gateway(), self.mock_mail_app():
-            self.start_tour('/web', 'knowledge_main_flow_tour', login='admin', step_delay=100)
+            self.start_tour('/web', 'knowledge_main_flow_tour', login='admin')
 
         # check our articles were correctly created
         # with appropriate default values (section / internal_permission)
@@ -207,7 +207,7 @@ class TestKnowledgeUI(TestKnowledgeUICommon):
     def test_knowledge_pick_emoji(self):
         """This tour will check that the emojis of the form view are properly updated
            when the user picks an emoji from an emoji picker."""
-        self.start_tour('/web', 'knowledge_pick_emoji_tour', login='admin', step_delay=100)
+        self.start_tour('/web', 'knowledge_pick_emoji_tour', login='admin')
 
     def test_knowledge_cover_selector(self):
         """Check the behaviour of the cover selector when unsplash credentials
@@ -251,7 +251,7 @@ class TestKnowledgeUI(TestKnowledgeUICommon):
             'is_article_visible_by_everyone': True,
         }])
 
-        self.start_tour('/knowledge/article/%s' % articles[0].id, 'knowledge_readonly_favorite_tour', login='demo', step_delay=100)
+        self.start_tour('/knowledge/article/%s' % articles[0].id, 'knowledge_readonly_favorite_tour', login='demo')
 
         self.assertTrue(articles[0].with_user(self.user_demo.id).is_user_favorite)
         self.assertTrue(articles[1].with_user(self.user_demo.id).is_user_favorite)
@@ -300,7 +300,7 @@ class TestKnowledgeUI(TestKnowledgeUICommon):
             'name': 'ChildArticle',
             'parent_id': parent_article.id
         })
-        self.start_tour('/web', 'knowledge_properties_tour', login='admin', step_delay=100)
+        self.start_tour('/web', 'knowledge_properties_tour', login='admin')
 
     def test_knowledge_items_search_favorites_tour(self):
         """Test search favorites for items view"""
