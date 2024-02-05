@@ -133,6 +133,13 @@
                         <field name="description" placeholder="Extra Comments..."/>
                     </group>
                 </sheet>
+                <footer>
+                    <button string="Save" special="save" data-hotkey="s" class="btn btn-primary" close="1"/>
+                    <button string="Discard" special="cancel" data-hotkey="j" class="btn-secondary" close="1"/>
+                    <button string="Remove" name="unlink" type="object" data-hotkey="x" invisible="not id"
+                            class="btn btn-secondary o_form_button_remove" close="1"/>
+                    <button string="More Options" name="action_calendar_more_options" type="object" class="btn btn-link ms-auto" close="1"/>
+                </footer>
             </form>
         </field>
     </record>
