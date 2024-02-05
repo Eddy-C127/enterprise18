@@ -10,6 +10,7 @@ import {
     makeDeferred,
     mockDownload,
     patchDate,
+    getNodesTextContent,
 } from "@web/../tests/helpers/utils";
 import { makeView } from "@web/../tests/views/helpers";
 import {
@@ -357,6 +358,49 @@ QUnit.module("Views", (hooks) => {
         assert.containsOnce(target, ".dropdown-menu span");
         assert.notEqual(target.querySelector(".dropdown-menu span").textContent, "Recurring Price");
     });
+
+    QUnit.test(
+        "cohort view with aggregator equals to sum should only visible in measures",
+        async function (assert) {
+            serverData.models.subscription.fields.billing = {
+                string: "Billing Period Value",
+                type: "integer",
+                store: true,
+                aggregator: "avg",
+            };
+            const recordA = {
+                id: 9,
+                start: "2024-02-08",
+                stop: "2024-02-12",
+                recurring: 10,
+                billing: 100,
+            };
+            const recordB = {
+                id: 10,
+                start: "2024-02-08",
+                stop: "2024-02-14",
+                recurring: 20,
+                billing: 200,
+            };
+            serverData.models.subscription.records.push(recordA, recordB);
+            await makeView({
+                type: "cohort",
+                resModel: "subscription",
+                serverData,
+                arch: `
+                <cohort string="Subscription" date_start="start" date_stop="stop">
+                    <field name="recurring"/>
+                    <field name="billing"/>
+                </cohort>`,
+            });
+
+            await toggleMenu(target, "Measures");
+            assert.deepEqual(getNodesTextContent(target.querySelectorAll(".dropdown-menu span")), [
+                "Recurring Price",
+                "Count",
+            ]);
+        }
+    );
 
     QUnit.test("export cohort", async function (assert) {
         assert.expect(6);
