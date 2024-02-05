@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { user } from "@web/core/user";
 import { RelationalModel } from "@web/model/relational_model/relational_model";
 import {
     DocumentsModelMixin,
@@ -21,7 +22,7 @@ export class DocumentsKanbanRecord extends DocumentsRecordMixin(RelationalModel.
                 .getFolders()
                 .filter((folder) => folder.id === this.data.folder_id[0]);
             const hasPdfSplit =
-                (!this.data.lock_uid || this.data.lock_uid[0] === this.model.user.userId) &&
+                (!this.data.lock_uid || this.data.lock_uid[0] === user.userId) &&
                 folder.has_write_access;
             const selection = this.model.root.selection;
             const documents = selection.length > 1 && selection.find(rec => rec === this) && selection.filter(rec => rec.isViewable()) || [this];
