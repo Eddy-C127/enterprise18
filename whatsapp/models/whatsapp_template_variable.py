@@ -80,9 +80,11 @@ class WhatsAppTemplateVariable(models.Model):
                 raise ValidationError(
                     _("Location variable should be 'name', 'address', 'latitude' or 'longitude'. Cannot parse '%(placeholder)s'",
                       placeholder=variable.name))
-            if variable.line_type != 'location' and not variable._extract_variable_index():
+            elif variable.line_type == 'button' and variable.name != variable.button_id.name:
+                raise ValidationError(_("Dynamic button variable name must be the same as its respective button's name"))
+            elif variable.line_type in ('header', 'body') and not variable._extract_variable_index():
                 raise ValidationError(
-                    _('"Template variable should be in format {{number}}. Cannot parse "%(placeholder)s"',
+                    _('Template variable should be in format {{number}}. Cannot parse "%(placeholder)s"',
                       placeholder=variable.name))
 
     @api.constrains('button_id', 'line_type')
@@ -93,13 +95,10 @@ class WhatsAppTemplateVariable(models.Model):
 
     @api.depends('line_type', 'name')
     def _compute_display_name(self):
+        type_names = dict(self._fields["line_type"]._description_selection(self.env))
         for variable in self:
-            if variable.line_type in ('body', 'location'):
-                variable.display_name = f'{variable.line_type} - {variable.name}'
-            elif variable.line_type == 'button':
-                variable.display_name = f'{variable.line_type} "{variable.button_id.name}" - {variable.name}'
-            else:
-                variable.display_name = variable.line_type
+            type_name = type_names[variable.line_type or 'body']
+            variable.display_name = type_name if variable.line_type == 'header' else f'{type_name} - {variable.name}'
 
     @api.onchange('model')
     def _onchange_model_id(self):

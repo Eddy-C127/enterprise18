@@ -37,18 +37,18 @@ class WhatsAppTemplate(WhatsAppTemplateCommon):
             (
                 [{'button_type': 'url', 'name': 'Dynamic URL Button', 'url_type': 'dynamic', 'website_url': 'https://www.example.com'}],
                 [
-                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'body - {{1}}'}),
-                    ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com???', 'display_name': 'button "Dynamic URL Button" - {{1}}'}),
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'Body - {{1}}'}),
+                    ('Dynamic URL Button', 'button', 'free_text', {'demo_value': 'https://www.example.com???', 'display_name': 'Button - Dynamic URL Button'}),
                 ],
             ), (
                 [{'button_type': 'url', 'name': 'Static URL Button', 'url_type': 'static', 'website_url': 'https://www.example.com'}],
                 [
-                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'body - {{1}}'}),
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'Body - {{1}}'}),
                 ],
             ), (
                 [{'button_type': 'phone_number', 'call_number': '+91 12345 67891'}],
                 [
-                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'body - {{1}}'}),
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'Body - {{1}}'}),
                 ],
             ), (
                 [
@@ -57,9 +57,9 @@ class WhatsAppTemplate(WhatsAppTemplateCommon):
                     {'button_type': 'url', 'name': 'Dynamic 2', 'url_type': 'dynamic', 'website_url': 'https://www.example.com/2'},
                 ],
                 [
-                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'body - {{1}}'}),
-                    ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/1???', 'display_name': 'button "Dynamic 1" - {{1}}'}),
-                    ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/2???', 'display_name': 'button "Dynamic 2" - {{1}}'}),
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'Body - {{1}}'}),
+                    ('Dynamic 1', 'button', 'free_text', {'demo_value': 'https://www.example.com/1???', 'display_name': 'Button - Dynamic 1'}),
+                    ('Dynamic 2', 'button', 'free_text', {'demo_value': 'https://www.example.com/2???', 'display_name': 'Button - Dynamic 2'}),
                 ],
             )
         ]:
@@ -79,9 +79,9 @@ class WhatsAppTemplate(WhatsAppTemplateCommon):
         template.button_ids.flush_recordset()
         template.flush_recordset()
         self.assertWATemplateVariables(template, [
-            ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'body - {{1}}'}),
-            ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/new???', 'display_name': 'button "Update" - {{1}}'}),
-            ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/new2???', 'display_name': 'button "Update 2" - {{1}}'}),
+            ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'Body - {{1}}'}),
+            ('Update', 'button', 'free_text', {'demo_value': 'https://www.example.com/new???', 'display_name': 'Button - Update'}),
+            ('Update 2', 'button', 'free_text', {'demo_value': 'https://www.example.com/new2???', 'display_name': 'Button - Update 2'}),
         ])
 
     @users('user_wa_admin')
@@ -464,11 +464,11 @@ class WhatsAppTemplateInternals(WhatsAppTemplateCommon):
                 if button_type == 'dynamic':
                     expected_variables += [
                         [
-                            "{{1}}", "button", "free_text",
+                            "Button url", "button", "free_text",
                             {"demo_value": "https://www.example.com???", "button_id": template.button_ids[0]},
                         ],
                         [
-                            "{{1}}", "button", "free_text",
+                            "Button url 2", "button", "free_text",
                             {"demo_value": "https://www.example.com/2???", "button_id": template.button_ids[1]},
                         ],
                     ]
@@ -635,7 +635,7 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
                 ('{{1}}', 'body', 'free_text', {'demo_value': 'Jigar'}),
                 ('{{2}}', 'body', 'free_text', {'demo_value': '+91 12345 12345'}),
-                ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
+                ('Visit Website', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
             ]
         )
 
@@ -689,7 +689,7 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
                 ('{{1}}', 'body', 'free_text', {'demo_value': 'Jigar'}),
                 ('{{2}}', 'body', 'free_text', {'demo_value': '+91 12345 12345'}),
-                ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
+                ('Visit Website', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
             ]
         )
 
@@ -757,7 +757,7 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
                 ('{{1}}', 'body', 'free_text', {'demo_value': 'Jigar'}),
                 ('{{2}}', 'body', 'free_text', {'demo_value': '+91 12345 12345'}),
-                ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
+                ('Visit Website', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
             ]
         )
 
