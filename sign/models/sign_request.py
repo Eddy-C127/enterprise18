@@ -381,8 +381,9 @@ class SignRequest(models.Model):
 
     def send_signature_accesses(self):
         # Send/Resend accesses for 'sent' sign.request.items by email
-        self._check_senders_validity()
-        for sign_request in self:
+        allowed_request_ids = self.filtered(lambda sr: sr.state == 'sent')
+        allowed_request_ids._check_senders_validity()
+        for sign_request in allowed_request_ids:
             sign_request._get_next_sign_request_items().send_signature_accesses()
             sign_request.last_reminder = fields.Date.today()
 
