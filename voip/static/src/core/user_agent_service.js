@@ -501,6 +501,11 @@ export class UserAgent {
      */
     _onOutgoingInvitationRejected(response) {
         this.ringtoneService.stopPlaying();
+        if (response.message.statusCode === 487) { // Request Terminated
+            // invitation has been cancelled by the user, the session has
+            // already been terminated
+            return;
+        }
         const errorMessage = (() => {
             switch (response.message.statusCode) {
                 case 404: // Not Found
