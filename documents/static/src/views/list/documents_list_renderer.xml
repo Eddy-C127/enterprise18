@@ -7,7 +7,9 @@
             <attribute name="t-on-click">onGlobalClick</attribute>
         </xpath>
         <xpath expr="//div[hasclass('o_list_renderer')]" position="after">
-            <DocumentsInspector t-props="getDocumentsInspectorProps()"/>
+            <t t-if="!env.inDialog">
+                <DocumentsInspector t-props="getDocumentsInspectorProps()"/>
+            </t>
         </xpath>
         <table position="before">
             <DocumentsDropZone parentRoot="root"/>
