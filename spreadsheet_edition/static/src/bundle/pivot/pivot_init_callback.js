@@ -1,35 +1,29 @@
 /** @odoo-module **/
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { PivotDataSource } from "@spreadsheet/pivot/pivot_data_source";
-import { convertRuntimeDefinition } from "@spreadsheet/pivot/pivot_helpers";
 import { Domain } from "@web/core/domain";
+import { deepCopy } from "@web/core/utils/objects";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
 export function insertPivot(pivotData) {
-    const runtimeDefinition = {
-        metaData: {
-            colGroupBys: [...pivotData.metaData.fullColGroupBys],
-            rowGroupBys: [...pivotData.metaData.fullRowGroupBys],
-            activeMeasures: [...pivotData.metaData.activeMeasures],
-            resModel: pivotData.metaData.resModel,
-            sortedColumn: pivotData.metaData.sortedColumn,
-        },
-        searchParams: {
-            ...pivotData.searchParams,
-            domain: new Domain(pivotData.searchParams.domain).toJson(),
-            // groups from the search bar are included in `fullRowGroupBys` and `fullColGroupBys`
-            // but takes precedence if they are defined
-            groupBy: [],
-        },
+    /** @type {import("spreadsheet").PivotDefinition} */
+    const definition = {
+        domain: new Domain(pivotData.searchParams.domain).toJson(),
+        context: pivotData.searchParams.context,
+        sortedColumn: pivotData.metaData.sortedColumn,
+        measures: pivotData.metaData.activeMeasures,
+        model: pivotData.metaData.resModel,
+        colGroupBys: pivotData.metaData.fullColGroupBys,
+        rowGroupBys: pivotData.metaData.fullRowGroupBys,
         name: pivotData.name,
     };
     return async (model) => {
         const pivotId = model.getters.getNextPivotId();
         const dataSourceId = model.getters.getPivotDataSourceId(pivotId);
-        const def = convertRuntimeDefinition(runtimeDefinition);
-        def.fields = pivotData.metaData.fields;
-        model.config.custom.dataSources.add(dataSourceId, PivotDataSource, def);
+        const definitionForDataSource = deepCopy(definition);
+        definitionForDataSource.fields = pivotData.metaData.fields;
+        model.config.custom.dataSources.add(dataSourceId, PivotDataSource, definitionForDataSource);
         await model.config.custom.dataSources.load(dataSourceId);
         const pivotDataSource = model.config.custom.dataSources.get(dataSourceId);
         // Add an empty sheet in the case of an existing spreadsheet.
@@ -52,7 +46,7 @@ export function insertPivot(pivotData) {
             row: 0,
             table,
             id: pivotId,
-            definition: runtimeDefinition,
+            definition,
         });
         if (!result.isSuccessful) {
             throw new Error(`Couldn't insert pivot in spreadsheet. Reasons : ${result.reasons}`);

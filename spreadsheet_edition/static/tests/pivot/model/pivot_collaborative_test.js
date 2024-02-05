@@ -7,7 +7,6 @@ import { getCellContent, getCellFormula, getCellValue } from "@spreadsheet/../te
 import { setupCollaborativeEnv } from "../../utils/collaborative_helpers";
 import { PivotDataSource } from "@spreadsheet/pivot/pivot_data_source";
 import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
-import { convertRawDefinition } from "@spreadsheet/pivot/pivot_helpers";
 
 /** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
 
@@ -15,7 +14,7 @@ import { convertRawDefinition } from "@spreadsheet/pivot/pivot_helpers";
  * Get a pivot definition, a data source and a pivot model (already loaded)
  */
 async function getPivotReady(model, pivotId) {
-    const def = {
+    const definition = {
         colGroupBys: ["foo"],
         rowGroupBys: ["bar"],
         measures: ["probability"],
@@ -25,9 +24,12 @@ async function getPivotReady(model, pivotId) {
         name: "Partner",
     };
     const dataSourceId = model.getters.getPivotDataSourceId(pivotId);
-    const dataSource = model.config.custom.dataSources.add(dataSourceId, PivotDataSource, def);
+    const dataSource = model.config.custom.dataSources.add(
+        dataSourceId,
+        PivotDataSource,
+        definition
+    );
     await dataSource.load();
-    const definition = convertRawDefinition(def);
     return { definition, dataSource };
 }
 
