@@ -10,6 +10,7 @@ export class AccountReportEditPopover extends Component {
         cell: Object,
         controller: Object,
         onClose: Function,
+        close: Function,
     };
 
     setup() {
