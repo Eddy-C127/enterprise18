@@ -1210,3 +1210,20 @@ class TestReportEditorUIUnit(HttpCase):
         """
 
         self.start_tour(self.tour_url, "web_studio.test_image_crop", login="admin")
+
+    def test_add_non_searchable_field(self):
+        self.start_tour(self.tour_url, "web_studio.test_add_non_searchable_field", login="admin")
+        arch, _ = get_combined_and_studio_arch(self.main_view_document)
+        self.assertXMLEqual(arch, """
+            <t t-name="web_studio.test_report_document">
+                <div><p t-field="doc.name"/></div>
+                <p>
+                    <span
+                        t-field="doc.avatar_1024"
+                        t-options-widget="'image'"
+                        t-options-qweb_img_raw_data="1"
+                    >file default value</span>
+                    <br/>
+                </p>
+            </t>
+        """)
