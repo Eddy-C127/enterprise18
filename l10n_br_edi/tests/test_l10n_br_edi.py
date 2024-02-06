@@ -175,7 +175,10 @@ class TestL10nBREDI(AccountTestInvoicingCommon):
 
         for Exc in (UserError, AccessError, InsufficientCreditError):
             with wrap_iap(Exc("test")):
-                self.wizard.action_send_and_print()
+                try:
+                    self.wizard.action_send_and_print()
+                finally:
+                    self.wizard.move_ids.l10n_br_last_edi_status = False
 
     def test_prepare_tax_data(self):
         to_include, header = self.invoice._l10n_br_edi_get_tax_data()
