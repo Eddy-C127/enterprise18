@@ -3844,6 +3844,13 @@ class AccountReport(models.Model):
                 groupby_domain,
             ])
 
+        # Analytic Filter
+        if column_group_options.get("analytic_accounts"):
+            domain = osv.expression.AND([
+                domain,
+                [("analytic_distribution", "in", column_group_options["analytic_accounts"])],
+            ])
+
         return domain
 
     def _get_audit_line_groupby_domain(self, calling_line_dict_id):

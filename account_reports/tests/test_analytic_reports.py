@@ -111,7 +111,7 @@ class TestAnalyticReport(TestAccountReportsCommon):
                     'product_id': self.product_a.id,
                     'price_unit': 1000.0,
                     'analytic_distribution': {
-                        self.analytic_account_parent.id: 1000,
+                        self.analytic_account_parent.id: 100,
                     },
                 })
             ]
@@ -182,6 +182,53 @@ class TestAnalyticReport(TestAccountReportsCommon):
                 2: {'currency': self.env.company.currency_id},
             },
         )
+
+    def test_report_audit_analytic_filter(self):
+        out_invoice = self.env['account.move'].create([{
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_a.id,
+            'date': '2023-02-01',
+            'invoice_date': '2023-02-01',
+            'invoice_line_ids': [
+                Command.create({
+                    'product_id': self.product_a.id,
+                    'price_unit': 1000.0,
+                    'analytic_distribution': {
+                        self.analytic_account_parent.id: 100,
+                    },
+                }),
+                Command.create({
+                    'product_id': self.product_a.id,
+                    'price_unit': 500.0,
+                    'analytic_distribution': {
+                        self.analytic_account_child.id: 100,
+                    },
+                }),
+            ],
+        }])
+        out_invoice.action_post()
+
+        options = self._generate_options(
+            self.report,
+            '2023-01-01',
+            '2023-12-31',
+            default_options={
+                'analytic_accounts': [self.analytic_account_parent.id],
+            }
+        )
+
+        lines = self.report._get_lines(options)
+
+        report_line = self.report.line_ids[0]
+        report_line_dict = next(x for x in lines if x['name'] == report_line.name)
+
+        action_dict = self.report.action_audit_cell(
+            options,
+            self._get_audit_params_from_report_line(options, report_line, report_line_dict),
+        )
+
+        audited_lines = self.env['account.move.line'].search(action_dict['domain'])
+        self.assertEqual(audited_lines, out_invoice.invoice_line_ids[0], "Only the line with the parent account should be shown")
 
     def test_report_analytic_groupby_and_filter(self):
         """
@@ -459,7 +506,7 @@ class TestAnalyticReport(TestAccountReportsCommon):
 
         action_dict = _get_action_dict(options, 2)  # Third Column => AMLs
         self.assertEqual(
-            out_invoices.line_ids.filtered_domain(action_dict['domain']),
+            out_invoices.line_ids.search(action_dict['domain']),
             out_invoices.invoice_line_ids,
             "Both amls should be shown",
         )
