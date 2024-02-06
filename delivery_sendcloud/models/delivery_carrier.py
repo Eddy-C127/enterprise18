@@ -15,8 +15,8 @@ class DeliveryCarrier(models.Model):
     ], ondelete={'sendcloud': lambda records: records.write({'delivery_type': 'fixed', 'fixed_price': 0})})
 
     country_id = fields.Many2one('res.country', string='Ship From', compute='_compute_country_id', store=True, readonly=False)
-    sendcloud_public_key = fields.Char(help="Sendcloud API Integration Public key")
-    sendcloud_secret_key = fields.Char(help="Sendcloud API Integration Secret key")
+    sendcloud_public_key = fields.Char(help="Sendcloud API Integration Public key", groups="base.group_system")
+    sendcloud_secret_key = fields.Char(help="Sendcloud API Integration Secret key", groups="base.group_system")
     sendcloud_default_package_type_id = fields.Many2one("stock.package.type", string="Default Package Type for Sendcloud", help="Some carriers require package dimensions, you can define these in a package type that you set as default")
     sendcloud_shipping_id = fields.Many2one('sendcloud.shipping.product', store=True, compute='_compute_sendcloud_shipping_id', copy=False)
     sendcloud_return_id = fields.Many2one('sendcloud.shipping.product', store=True, compute='_compute_sendcloud_return_id', copy=False)
@@ -36,7 +36,7 @@ class DeliveryCarrier(models.Model):
     @api.constrains('delivery_type', 'sendcloud_public_key', 'sendcloud_secret_key')
     def _check_sendcloud_api_keys(self):
         for rec in self:
-            if rec.delivery_type == 'sendcloud' and not (rec.sendcloud_public_key and rec.sendcloud_secret_key):
+            if rec.delivery_type == 'sendcloud' and not (rec.sudo().sendcloud_public_key and rec.sudo().sendcloud_secret_key):
                 raise ValidationError(_('You must add your public and secret key for sendcloud delivery type!'))
 
     @api.depends('delivery_type')
@@ -332,7 +332,7 @@ class DeliveryCarrier(models.Model):
                 dc.country_id = country
 
     def _get_sendcloud(self):
-        return SendCloud(self.sendcloud_public_key, self.sendcloud_secret_key, self.log_xml)
+        return SendCloud(self.sudo().sendcloud_public_key, self.sudo().sendcloud_secret_key, self.log_xml)
 
     def _prepare_track_message_docs(self, picking, parcels, sendcloud):
         docs = []
