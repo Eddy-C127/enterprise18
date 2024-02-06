@@ -8,7 +8,19 @@ export class BoxLayer extends Component {
     static template = "account_invoice_extract.BoxLayer";
     static props = {
         boxes: Array,
-        pageLayer: Object,
+        pageLayer: {
+            validate: (pageLayer) => {
+                // target may be inside an iframe, so get the Element constructor
+                // to test against from its owner document's default view
+                const Element = pageLayer?.ownerDocument?.defaultView?.Element;
+                return (
+                    (Boolean(Element) &&
+                        (pageLayer instanceof Element || pageLayer instanceof window.Element)) ||
+                    (typeof pageLayer === "object" && pageLayer?.constructor?.name?.endsWith("Element"))
+                );
+            },
+        },
+        onClickBoxCallback: Function,
         mode: String,
     };
     /**
