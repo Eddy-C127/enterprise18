@@ -34,9 +34,9 @@ class WebsiteTwitterWall(models.Model):
     image = fields.Binary()
     tweet_ids = fields.Many2many('website.twitter.tweet', string='Tweets')
     total_tweets = fields.Integer(compute='_compute_count_total_tweets')
-    api_key = fields.Char('Twitter API Key')
-    api_secret = fields.Char('Twitter API Secret')
-    access_token = fields.Char()
+    api_key = fields.Char('Twitter API Key', groups='base.group_system')
+    api_secret = fields.Char('Twitter API Secret', groups='base.group_system')
+    access_token = fields.Char(groups='base.group_system')
     last_search = fields.Datetime(default=fields.Datetime.now)
 
     def _compute_website_url(self):
@@ -69,8 +69,8 @@ class WebsiteTwitterWall(models.Model):
         website = self.env['website'].search([
             ('twitter_api_key', '!=', False),
             ('twitter_api_secret', '!=', False)], limit=1)
-        consumer_key = website.twitter_api_key
-        consumer_secret = website.twitter_api_secret
+        consumer_key = website.sudo().twitter_api_key
+        consumer_secret = website.sudo().twitter_api_secret
         bearer_token_64 = base64.b64encode(("%s:%s" % (consumer_key, consumer_secret)).encode('UTF-8')).decode('UTF-8')
 
         if not self.access_token:
