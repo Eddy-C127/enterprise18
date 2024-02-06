@@ -30,13 +30,15 @@ export const INSERT_PIVOT_CELL_CHILDREN = (env) =>
         name: env.model.getters.getPivotDisplayName(pivotId),
         sequence: index,
         execute: async (env) => {
+            env.model.getters.getPivotDataSource(pivotId).startPresenceTracking();
             env.model.dispatch("REFRESH_PIVOT", { id: pivotId });
             const { sheetId, col, row } = env.model.getters.getActivePosition();
-            await env.model.getters.getAsyncPivotDataSource(pivotId);
+            const ds = await env.model.getters.getAsyncPivotDataSource(pivotId);
             // make sure all cells are evaluated
             for (const sheetId of env.model.getters.getSheetIds()) {
                 env.model.getters.getEvaluatedCells(sheetId);
             }
+            ds.stopPresenceTracking();
             const insertPivotValueCallback = (formula) => {
                 env.model.dispatch("UPDATE_CELL", {
                     sheetId,
