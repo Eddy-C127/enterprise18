@@ -83,33 +83,7 @@ class CustomerPortal(portal.CustomerPortal):
         if groupby in searchbar_groupby and groupby != 'none':
             order = f'{searchbar_groupby[groupby]["input"]}, {order}'
 
-        if filterby in ['last_message_sup', 'last_message_cust']:
-            discussion_subtype_id = request.env.ref('mail.mt_comment').id
-            messages = request.env['mail.message'].search_read([('model', '=', 'helpdesk.ticket'), ('subtype_id', '=', discussion_subtype_id)], fields=['res_id', 'author_id'], order='date desc')
-            last_author_dict = {}
-            for message in messages:
-                if message['res_id'] not in last_author_dict:
-                    last_author_dict[message['res_id']] = message['author_id'][0]
-
-            ticket_author_list = request.env['helpdesk.ticket'].search_read(fields=['id', 'partner_id'])
-            ticket_author_dict = dict([(ticket_author['id'], ticket_author['partner_id'][0] if ticket_author['partner_id'] else False) for ticket_author in ticket_author_list])
-
-            last_message_cust = []
-            last_message_sup = []
-            ticket_ids = set(last_author_dict.keys()) & set(ticket_author_dict.keys())
-            for ticket_id in ticket_ids:
-                if last_author_dict[ticket_id] == ticket_author_dict[ticket_id]:
-                    last_message_cust.append(ticket_id)
-                else:
-                    last_message_sup.append(ticket_id)
-
-            if filterby == 'last_message_cust':
-                domain = AND([domain, [('id', 'in', last_message_cust)]])
-            else:
-                domain = AND([domain, [('id', 'in', last_message_sup)]])
-
-        else:
-            domain = AND([domain, searchbar_filters[filterby]['domain']])
+        domain = AND([domain, searchbar_filters[filterby]['domain']])
 
         if date_begin and date_end:
             domain = AND([domain, [('create_date', '>', date_begin), ('create_date', '<=', date_end)]])
