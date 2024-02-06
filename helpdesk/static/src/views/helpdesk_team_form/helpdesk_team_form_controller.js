@@ -1,7 +1,7 @@
 /** @odoo-module */
 
 import { FormController } from "@web/views/form/form_controller";
-import { onMounted, onWillStart } from "@odoo/owl";
+import { onMounted, onWillStart, onPatched } from "@odoo/owl";
 
 export class HelpdeskTeamController extends FormController {
     setup() {
@@ -10,18 +10,28 @@ export class HelpdeskTeamController extends FormController {
         this.fieldsToObserve = {};
         this.featuresToObserve = {};
         this.featuresToCheck = [];
+        this.helpdeskResId = this.props.resId;
         onWillStart(this.onWillStart);
         onMounted(() => {
-            this.updateFieldsToObserve()
+            this.updateFieldsToObserve();
         });
+        onPatched(this.onPatched);
     }
 
     async onWillStart() {
         this.featuresToObserve = await this.orm.call(
             this.modelParams.config.resModel,
             "check_features_enabled",
-            [],
+            []
         );
+    }
+
+    onPatched() {
+        if (this.helpdeskResId !== this.model.root.resId) {
+            this.helpdeskResId = this.model.root.resId;
+            this.fieldsToObserve = {};
+            this.updateFieldsToObserve();
+        }
     }
 
     updateFieldsToObserve() {
@@ -36,10 +46,11 @@ export class HelpdeskTeamController extends FormController {
      *
      * @override
      */
-    async onWillSaveRecord(record) {
+    async onWillSaveRecord(record, changes) {
+        await super.onWillSaveRecord(...arguments);
         const fields = [];
-        for (const [fName, value] of Object.entries(record.data)) {
-            if (this.fieldsToObserve[fName] !== value){
+        for (const [fName, value] of Object.entries(changes)) {
+            if (this.fieldsToObserve[fName] !== value) {
                 if (fName in this.fieldsToObserve) {
                     fields.push(fName);
                 }
@@ -61,6 +72,7 @@ export class HelpdeskTeamController extends FormController {
      * @override
      */
     async onRecordSaved(record) {
+        await super.onRecordSaved(...arguments);
         let updatedEnabledFeatures = {};
         if (!this.reloadInstall && this.featuresToCheck.length) {
             updatedEnabledFeatures = await record.model.orm.call(
@@ -71,7 +83,9 @@ export class HelpdeskTeamController extends FormController {
         }
         if (
             this.reloadInstall ||
-            Object.entries(updatedEnabledFeatures).some(([fName, value]) => value !== this.featuresToObserve[fName])
+            Object.entries(updatedEnabledFeatures).some(
+                ([fName, value]) => value !== this.featuresToObserve[fName]
+            )
         ) {
             this.reloadInstall = false;
             this.model.action.doAction("reload_context");
