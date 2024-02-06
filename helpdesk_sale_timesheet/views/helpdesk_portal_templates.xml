@@ -99,6 +99,26 @@
             </td>
         </xpath>
     </template>
+    <template id="portal_helpdesk_ticket_inherit" inherit_id="helpdesk.portal_helpdesk_ticket">
+        <xpath expr="//t[@t-foreach='grouped_tickets']/tbody/tr[hasclass('table-light')]" position="inside">
+            <t t-elif="groupby == 'sale_line_id'">
+                <th colspan="6">
+                    <span t-if="tickets[0].sudo().sale_line_id" t-field="tickets[0].sudo().sale_line_id"/>
+                    <span t-else="">Not Billed</span>
+                </th>
+            </t>
+        </xpath>        
+    </template>
+    <template id="portal_my_timesheets_inherit" inherit_id="sale_timesheet.portal_my_timesheets_inherit">
+        <xpath expr="//t[@t-foreach='grouped_timesheets']/tbody/tr[hasclass('table-light')]/th[hasclass('text-end')]" position="before">
+            <t t-elif="groupby == 'helpdesk_ticket_id'">
+                <th colspan="6">
+                    <span t-if="timesheets[0].helpdesk_ticket_id" t-field="timesheets[0].helpdesk_ticket_id.name"/>
+                    <span t-else="">No Ticket</span>
+                </th>
+            </t>
+        </xpath>        
+    </template>
 
 </data>
 </odoo>

@@ -37,3 +37,19 @@ class CustomerPortal(portal.CustomerPortal):
         if is_encode_uom_day:
             values['convert_hours_to_days'] = Timesheet._convert_hours_to_days
         return values
+
+    def _ticket_get_searchbar_inputs(self):
+        return super()._ticket_get_searchbar_inputs() | {
+            'sale_order': {'input': 'sale_order', 'label': _('Search in Sales Order'), 'sequence': 60}
+        }
+
+    def _ticket_get_searchbar_groupby(self):
+        return super()._ticket_get_searchbar_groupby() | {
+            'sale_line_id': {'label': _('Sales Order Item'), 'sequence': 70},
+        }
+
+    def _ticket_get_search_domain(self, search_in, search):
+        if search_in == 'sale_order':
+            return ['|', ('sale_order_id.name', 'ilike', search), ('sale_line_id.name', 'ilike', search)]
+        else:
+            return super()._ticker_get_search_domain(search_in, search)

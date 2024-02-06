@@ -48,22 +48,34 @@
                         <tr>
                             <th>Ticket</th>
                             <th class="text-end" t-if="groupby != 'create_date'">Reported on</th>
-                            <th id="ticket_user_header" t-if="groupby != 'user'" class="ps-5">Assigned to</th>
-                            <th t-if="groupby != 'stage'" colspan="5" class="text-end">Stage</th>
+                            <th id="ticket_user_header" t-if="groupby != 'user_id'" class="ps-5">Assigned to</th>
+                            <th t-if="groupby != 'stage_id'" colspan="5" class="text-end">Stage</th>
                         </tr>
                     </thead>
                     <t t-foreach="grouped_tickets" t-as="tickets">
                         <tbody>
                             <tr t-if="not groupby =='none'" class="table-light">
-                                <th t-if="groupby == 'stage'" colspan="5">
+                                <th t-if="groupby == 'stage_id'" colspan="5">
                                     <span t-field="tickets[0].stage_id.name"/>
                                 </th>
-                                <th t-if="groupby == 'user'" colspan="5">
+                                <th t-if="groupby == 'user_id'" colspan="5">
                                     <span t-if="tickets[0].user_id" t-out="tickets[0].user_id.name"/>
                                     <span t-else="">Unassigned</span>
                                 </th>
+                                <th t-if="groupby == 'team_id'" colspan="6">
+                                    <span t-field="tickets[0].team_id.name"/>
+                                </th>
                                 <th t-if="groupby == 'create_date'" colspan="5">
                                     <span t-field="tickets[0].create_date"/>
+                                </th>
+                                <th t-if="groupby == 'kanban_state'" colspan="6">
+                                    <span t-if="tickets[0].kanban_state == 'normal'">In Progress</span>
+                                    <span t-elif="tickets[0].kanban_state == 'blocked'">Blocked</span>
+                                    <span t-else="tickets[0].kanban_state">Ready</span>
+                                </th>
+                                <th t-if="groupby == 'partner_id'" colspan="6">
+                                    <span t-if="tickets[0].partner_id" t-field="tickets[0].partner_id.name"/>
+                                    <span t-else="">No Customer</span>
                                 </th>
                             </tr>
                         </tbody>
@@ -73,11 +85,11 @@
                                 <td class="text-end" t-if="groupby != 'create_date'">
                                     <span t-field="ticket.create_date" t-options='{"widget": "datetime", "hide_seconds": True}'/>
                                 </td>
-                                <td id="ticket_user_body" t-if="groupby != 'user'" class="ps-5 lh-1">
+                                <td id="ticket_user_body" t-if="groupby != 'user_id'" class="ps-5 lh-1">
                                     <img t-if="ticket.user_id" class="o_avatar o_portal_contact_img rounded" t-attf-src="#{image_data_uri(ticket.user_id.sudo().avatar_128)}" alt="Contact"/>
                                     <span t-field="ticket.user_id"/>
                                 </td>
-                                <td t-if="groupby != 'stage'" class="text-end align-middle lh-1">
+                                <td t-if="groupby != 'stage_id'" class="text-end">
                                     <span t-attf-class="badge rounded-pill fw-normal #{'text-bg-success' if ticket.stage_id.fold else 'text-bg-primary'}" t-esc="ticket.stage_id.name"/>
                                 </td>
                             </tr>
