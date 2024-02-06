@@ -19,6 +19,16 @@ patch(PivotDataSource.prototype, {
         this._usedHeaderDomains = new Set();
     },
 
+    /**
+     * Inject fields in the metadata of the model. This is useful when the
+     * fields are already known and we want to avoid a call to the server.
+     *
+     * @property {Record<string, Field | undefined>} fields
+     */
+    injectFields(fields) {
+        this._metaData.fields = fields;
+    },
+
     async _load() {
         await super._load();
         this._usedValueDomains.clear();

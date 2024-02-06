@@ -8,7 +8,7 @@ const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
 export function insertPivot(pivotData) {
     /** @type {import("spreadsheet").PivotDefinition} */
-    const definition = {
+    const definition = deepCopy({
         domain: new Domain(pivotData.searchParams.domain).toJson(),
         context: pivotData.searchParams.context,
         sortedColumn: pivotData.metaData.sortedColumn,
@@ -17,15 +17,17 @@ export function insertPivot(pivotData) {
         colGroupBys: pivotData.metaData.fullColGroupBys,
         rowGroupBys: pivotData.metaData.fullRowGroupBys,
         name: pivotData.name,
-    };
+    });
     return async (model) => {
         const pivotId = model.getters.getNextPivotId();
         const dataSourceId = model.getters.getPivotDataSourceId(pivotId);
-        const definitionForDataSource = deepCopy(definition);
-        definitionForDataSource.fields = pivotData.metaData.fields;
-        model.config.custom.dataSources.add(dataSourceId, PivotDataSource, definitionForDataSource);
+        const pivotDataSource = model.config.custom.dataSources.add(
+            dataSourceId,
+            PivotDataSource,
+            definition
+        );
+        pivotDataSource.injectFields(pivotData.metaData.fields);
         await model.config.custom.dataSources.load(dataSourceId);
-        const pivotDataSource = model.config.custom.dataSources.get(dataSourceId);
         // Add an empty sheet in the case of an existing spreadsheet.
         if (!this.isEmptySpreadsheet) {
             const sheetId = uuidGenerator.uuidv4();
