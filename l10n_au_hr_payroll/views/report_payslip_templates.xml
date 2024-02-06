@@ -36,11 +36,14 @@
                             <strong>Employment Classification: </strong>
                             <t t-esc="o.contract_id.job_id.name or o.employee_id.job_id.name"/>
                         </span><br/>
-                        <t t-set="super_account" t-value="o.employee_id._l10n_au_get_super_account(o.date_to)"/>
-                        <span t-if="super_account">
-                            <strong>Superannuation Fund: </strong>
-                            <t t-esc="super_account.fund_id.display_name"/>
-                        </span><br/>
+                        <strong>Superannuation Fund(s): </strong>
+                        <t t-foreach="o.employee_id._get_active_super_accounts()" t-as="super_account">
+                                <div class="row">
+                                    <t t-esc="super_account.fund_id.display_name"/>
+                                    (<t t-out="super_account.proportion * 100"/>%)
+                                    <br/>
+                                </div>
+                        </t>
                     </div>
                     <div class="col-4 text-end">
 

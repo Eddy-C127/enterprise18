@@ -39,7 +39,7 @@ result_name = inputs['EXTRA'].name
         <field name="appears_on_payroll_report" eval="True"/>
     </record>
 
-    <record id="l10n_au_salary_sacrifice_total_structure_16" model="hr.salary.rule">
+    <record id="l10n_au_salary_sacrifice_total_structure_15" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_salary_sacrifice_total"/>
         <field name="name">Salary Sacrifice Total</field>
         <field name="code">SALARY.SACRIFICE.TOTAL</field>
@@ -125,7 +125,7 @@ result = categories['WITHHOLD'] + min(-categories['WITHHOLD'], categories["WITHH
         }"/>
     </function>
 
-    <record id="l10n_au_workplace_giving_structure_16" model="hr.salary.rule">
+    <record id="l10n_au_salary_sacrifice_other_structure_15" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_salary_sacrifice"/>
         <field name="name">Salary Sacrifice Other Benefit</field>
         <field name="code">SALARY.SACRIFICE.OTHER</field>
@@ -139,7 +139,7 @@ result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_g
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_whm"/>
     </record>
 
-    <record id="l10n_au_workplace_giving_structure_17" model="hr.salary.rule">
+    <record id="l10n_au_salary_sacrifice_structure_15" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_salary_sacrifice"/>
         <field name="name">Concessional Super Contribution</field>
         <field name="code">SUPER.CONTRIBUTION</field>

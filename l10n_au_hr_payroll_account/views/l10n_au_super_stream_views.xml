@@ -7,29 +7,44 @@
         <field name="arch" type="xml">
             <form string="SuperStream">
                 <header>
-                    <button name="action_get_super_stream_file" string="Create SuperStream File" type="object" class="btn-primary"/>
+                    <button name="action_register_super_payment" string="Register Super Payment"
+                        type="object" class="btn-primary" invisible="state != 'locked'" />
+                    <button name="action_confirm" string="Lock" type="object"
+                        class="btn btn-primary" invisible="state != 'draft'" />
+                    <button name="action_draft" string="Reset to Draft" type="object"
+                        class="btn btn-secondary" invisible="state != 'locked'" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,locked,done"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="payment_id" invisible="1" />
+                        <button class="oe_stat_button" type="object" name="action_open_payment"
+                            icon="fa-dollar" invisible="not payment_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Payments</span>
+                            </div>
+                        </button>
+                    </div>
                     <div class="oe_title">
                         <h1>
-                            <field name="display_name" />
+                            <field name="display_name" readonly="1"/>
                         </h1>
                     </div>
                     <group class="row">
                         <group>
-                            <field name="company_id" />
-                            <field name="source_entity_id" />
-                            <field name="source_entity_id_type" />
-                            <field name="journal_id" domain="[('type', '=', 'bank')]"/>
+                            <field name="company_id"  readonly="state != 'draft'"/>
+                            <field name="source_entity_id"/>
+                            <field name="source_entity_id_type"  readonly="state != 'draft'"/>
+                            <field name="journal_id" domain="[('type', '=', 'bank')]" readonly="state != 'draft'"/>
                         </group>
                         <group>
-                            <field name="file_version"/>
+                            <field name="file_version" readonly="state != 'draft'"/>
                             <field name="super_stream_file" />
                         </group>
                     </group>
                     <notebook>
                         <page name="lines" string="SuperStream Lines">
-                            <field name="l10n_au_super_stream_lines"/>
+                            <field name="l10n_au_super_stream_lines" readonly="state != 'draft'"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -66,7 +81,12 @@
                         </group>
                         <group>
                             <field name="employee_id" />
-                            <field name="super_account_id"/>
+                            <field name="allowed_super_account_ids" invisible="1"/>
+                            <label for="super_account_id"/>
+                            <div class="o_row">
+                                <field name="super_account_id"/>
+                                <field name="proportion" widget="percentage" invisible="not proportion"/>
+                            </div>
                             <field name="payee_id" />
                         </group>
                     </group>
@@ -122,12 +142,13 @@
         <field name="name">l10n_au.super.stream.line.view.tree</field>
         <field name="model">l10n_au.super.stream.line</field>
         <field name="arch" type="xml">
-            <tree string="SuperStream Lines">
-                <!-- <field name="sender_id"/> -->
+            <tree string="SuperStream Lines" default_order="payslip_id asc, proportion desc">
+                <field name="payslip_id" column_invisible="True"/>
                 <field name="name"/>
                 <field name="employer_id"/>
                 <field name="payee_id"/>
                 <field name="employee_id"/>
+                <field name="proportion" widget="percentage" optional="hide"/>
             </tree>
         </field>
     </record>

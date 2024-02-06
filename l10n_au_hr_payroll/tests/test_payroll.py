@@ -89,7 +89,6 @@ class TestPayroll(TestPayrollCommon):
         # EXAMPLE 1
         self.contract_ids[0].wage = 1103.45
         self.contract_ids[0].schedule_pay = "weekly"
-        self.contract_ids[0]._compute_wages()
         self.employee_id.marital = "married"
         self.employee_id.children = 5
         self.employee_id.l10n_au_scale = "2"
@@ -111,7 +110,6 @@ class TestPayroll(TestPayrollCommon):
         # EXAMPLE 2
         self.contract_ids[0].wage = 1110.30
         self.contract_ids[0].schedule_pay = "bi-weekly"
-        self.contract_ids[0]._compute_wages()
         self.employee_id.marital = "single"
         self.employee_id.children = 0
         self.employee_id.l10n_au_scale = "5"
@@ -135,7 +133,6 @@ class TestPayroll(TestPayrollCommon):
 
         self.contract_ids[0].wage = 4500.33
         self.contract_ids[0].schedule_pay = "monthly"
-        self.contract_ids[0]._compute_wages()
         self.employee_id.marital = "married"
         self.employee_id.children = 1
         self.employee_id.l10n_au_scale = "2"

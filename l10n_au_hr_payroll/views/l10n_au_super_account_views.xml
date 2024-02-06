@@ -5,6 +5,11 @@
         <field name="model">l10n_au.super.account</field>
         <field name="arch" type="xml">
             <form>
+                <div
+                    class="alert alert-warning mb-0" role="alert"
+                    invisible="not super_account_warning">
+                    <field name="super_account_warning" />
+                </div>
                 <sheet>
                     <div class="oe_title">
                         <h1>
@@ -15,6 +20,9 @@
                         <group>
                             <field name="employee_id"/>
                             <field name="employee_tfn"/>
+                            <field name="date_from" />
+                            <field name="account_active" widget="boolean_toggle"/>
+                            <field name="proportion" widget="percentage"/>
                         </group>
                         <group>
                             <field name="fund_id"/>
@@ -23,7 +31,6 @@
                             <field name="member_nbr"
                                 invisible="fund_type != 'APRA'"
                                 required="fund_type =='APRA'"/>
-                            <field name="date_from" string="Member Since"/>
                             <field name="trustee"
                                 invisible="fund_type != 'SMSF'"
                                 required="fund_type == 'SMSF'"/>

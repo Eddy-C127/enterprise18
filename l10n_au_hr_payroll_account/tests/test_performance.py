@@ -96,6 +96,20 @@ class TestPerformance(AccountTestInvoicingCommon):
             'gender': 'male',
         } for i in range(cls.EMPLOYEES_COUNT)])
 
+        cls.super_fund = cls.env['l10n_au.super.fund'].create({
+            'display_name': 'Fund A',
+            'abn': '2345678912',
+            'address_id': cls.env['res.partner'].create({'name': "Fund A Partner"}).id,
+        })
+
+        cls.env['l10n_au.super.account'].create([{
+            "employee_id": cls.employees[i].id,
+            "date_from": date(2018, 12, 31),
+            "fund_id": cls.super_fund.id,
+        } for i in range(cls.EMPLOYEES_COUNT)])
+
+        cls.company.l10n_au_hr_super_responsible_id = cls.employees[1]
+
         cls.contracts = cls.env['hr.contract'].create([{
             'name': "Contract For Payslip Test %i" % i,
             'employee_id': cls.employees[i].id,
@@ -166,7 +180,7 @@ class TestPerformance(AccountTestInvoicingCommon):
             _logger.info("Payslips Computation: --- %s seconds ---", time.time() - start_time)
 
         # Payslip Validation
-        with self.assertQueryCount(admin=3453):
+        with self.assertQueryCount(admin=3570):
             start_time = time.time()
             payslips.action_payslip_done()
             # --- 0.3815627098083496 seconds ---

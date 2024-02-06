@@ -3,9 +3,9 @@
 
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from itertools import zip_longest
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-
 from odoo.tests import Form, tagged
 
 
@@ -15,7 +15,10 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref='au'):
         super().setUpClass(chart_template_ref=chart_template_ref)
-        # Create Super Stream
+        cls.account_21400 = cls.env['account.account'].search([
+            ('company_id', '=', cls.company_data['company'].id),
+            ('code', '=', 21400)
+        ])
         cls.australian_company = cls.company_data['company']
         cls.australian_company.write({
             "name": "My Superstream Australian Company",
@@ -24,9 +27,8 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             "resource_calendar_id": cls.env.ref("l10n_au_hr_payroll.resource_calendar_au_38").id,
             "vat": '83 914 571 673',
         })
-
-        superstream_form = Form(cls.env["l10n_au.super.stream"].with_company(cls.australian_company))
-
+        clearing_house = cls.env.ref('l10n_au_hr_payroll_account.res_partner_clearing_house')
+        clearing_house.with_company(cls.australian_company).property_account_payable_id = cls.account_21400
         bank_account = cls.env['res.partner.bank'].create({
             "acc_number": '12344321',
             "acc_type": 'aba',
@@ -34,7 +36,7 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             "company_id": cls.australian_company.id,
             "partner_id": cls.australian_company.partner_id.id,
         })
-        superstream_form.journal_id = cls.env["account.journal"].create({
+        cls.journal_id = cls.env["account.journal"].create({
             "name": "Payslip Bank",
             "type": "bank",
             "aba_fic": "CBA",
@@ -43,7 +45,7 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             "company_id": cls.australian_company.id,
             "bank_account_id": bank_account.id,
         })
-        employee = cls.env['hr.employee'].create({
+        cls.employee = cls.env['hr.employee'].create({
             'company_id': cls.australian_company.id,
             'resource_calendar_id': cls.australian_company.resource_calendar_id.id,
             'name': 'Roger',
@@ -63,7 +65,7 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
         cls.env['hr.contract'].create({
             'company_id': cls.australian_company.id,
             'resource_calendar_id': cls.australian_company.resource_calendar_id.id,
-            'employee_id': employee.id,
+            'employee_id': cls.employee.id,
             'name': 'Roger Contract',
             'date_start': date(1975, 1, 1),
             'wage': 5000,
@@ -76,23 +78,34 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             'l10n_au_salary_sacrifice_other': 20,
             'state': 'open',
         })
-        super_fund = cls.env['l10n_au.super.fund'].create({
+
+        cls.super_fund = cls.env['l10n_au.super.fund'].create({
             'display_name': 'Fund A',
             'abn': '2345678912',
             'address_id': cls.env['res.partner'].create({'name': "Fund A Partner"}).id,
         })
-        payslip = cls.env['hr.payslip'].create({
+        cls.super_account_a = cls.env['l10n_au.super.account'].create({
+            "date_from": date(2023, 6, 1),
+            "employee_id": cls.employee.id,
+            "fund_id": cls.super_fund.id
+        })
+        cls.payslips = cls.env['hr.payslip'].create([{
             'company_id': cls.australian_company.id,
-            'employee_id': employee.id,
+            'employee_id': cls.employee.id,
             'name': 'Roger Payslip August',
             'date_from': date(2023, 8, 1),
             'date_to': date(2023, 8, 31),
             'input_line_ids': [(5, 0, 0), (0, 0, {'input_type_id': cls.env.ref('hr_payroll.input_child_support').id, 'amount': 200})],
-        })
-        payslip.compute_sheet()
-        payslip.action_payslip_done()
-
-        sender = cls.env["hr.employee"].create({
+        },
+        {
+            'company_id': cls.australian_company.id,
+            'employee_id': cls.employee.id,
+            'name': 'Roger Payslip September',
+            'date_from': date(2023, 9, 1),
+            'date_to': date(2023, 9, 30),
+            'input_line_ids': [(5, 0, 0), (0, 0, {'input_type_id': cls.env.ref('hr_payroll.input_child_support').id, 'amount': 200})],
+        }])
+        cls.australian_company.l10n_au_hr_super_responsible_id = cls.env["hr.employee"].create({
             "name": "Mel",
             "resource_calendar_id": cls.australian_company.resource_calendar_id.id,
             "company_id": cls.australian_company.id,
@@ -117,15 +130,62 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             "l10n_au_scale": "2",
         })
 
-        with superstream_form.l10n_au_super_stream_lines.new() as line:
-            line.employee_id = employee
-            line.sender_id = sender
-            line.payee_id = super_fund
-            line.payslip_id = payslip
-        cls.superstream = superstream_form.save()
+    def _test_super_stream(self, superstream, expected_saff_lines: list, payment_total: float):
+        superstream.journal_id = self.journal_id
+        superstream.action_confirm()
+        values = superstream.prepare_rendering_data()
+        for expected_line, saff_line in zip_longest(expected_saff_lines, values[3:]):
+            assert expected_line and saff_line, (
+                    "%s payslip lines expected by the test, but %s were found in the payslip."
+                    % (len(expected_line), len(saff_line.line_ids)))
+            for expected_val, saff_val in zip_longest(expected_line, saff_line):
+                self.assertEqual(expected_val, saff_val, "%s was expected but %s is found!" % (expected_val, saff_val))
 
-    def test_rendering_data(self):
-        values = self.superstream.prepare_rendering_data()
+        # Post Payslip Journal Entries
+        superstream.l10n_au_super_stream_lines.payslip_id.move_id._post()
+
+        superstream.action_register_super_payment()
+        payment_values = [{
+            "payment_type": 'outbound',
+            "amount": payment_total,
+            'destination_account_id': self.account_21400.id
+        }]
+        self.assertRecordValues(superstream.payment_id, payment_values)
+
+        # Check reconciled
+        domain = [('account_id', '=', self.account_21400.id)]
+        should_be_reconciled = (superstream.l10n_au_super_stream_lines.payslip_id.move_id.line_ids + superstream.payment_id.line_ids).filtered_domain(domain)
+        self.assertTrue(should_be_reconciled.full_reconcile_id)
+        self.assertRecordValues(should_be_reconciled,
+                        [{'amount_residual': 0.0, 'amount_residual_currency': 0.0, 'reconciled': True}] * len(should_be_reconciled))
+
+    def get_expected_lines(self, super_values: list):
+        """Returns values formatted for SAFF file
+
+        Args:
+            super_values (list, optional): Requires list of dict with super_guarantee, super_concessional, annual_salary, start_date, end_date.
+
+        Returns:
+            list: returns a list of lists where each list represents one line
+        """
+        lines = []
+        for idx, value in enumerate(super_values):
+            lines.append([idx, "83 914 571 673", "abn", "", "", "", "My Superstream Australian Company", "", "Mel", "", "", "123456789", "83 914 571 673", "My Superstream Australian Company", "123-456", "12344321",
+            "My Superstream Australian Company", "2345678912", "", "Fund A", "", "", "", "", "", "", "", "", "", "83 914 571 673", "", "My Superstream Australian Company", "", "123456789", "", "",
+            "", "Roger", "", "1", "1970-03-21", "RES", "Australian Street", "", "", "", "Sydney", "", "", "", "", "123456789", "", "", "",
+            "", "", value.get('start_date'), value.get('end_date'), value.get('super_guarantee'), "", "", value.get('super_concessional'), "", "", "", "", "1975-01-01", True, "", value.get('annual_salary'), "", "", "", "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", ""])
+        return lines
+
+    def test_00_saff_file_headers(self):
+        self.payslips.compute_sheet()
+        self.payslips.action_payslip_done()
+        superstream = self.payslips._get_superstreams()
+        superstream.journal_id = self.journal_id
+        superstream.action_confirm()
+
+        values = superstream.prepare_rendering_data()
         header = ["VERSION", "1.0", "Negatives Supported", "False", "File ID", "SAFF0000000001"]
         categories = ["Line ID", "Header", "", "", "", "Sender", "", "", "", "", "", "", "Payer", "", "", "", "", "Payee/Receiver", "", "", "", "", "", "", "", "", "", "",
                   "", "Employer", "", "", "", "Super Fund Member Common", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
@@ -160,17 +220,125 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
                   "Defined Benefit Annual Salary 5 End Date", "Leave Without Pay Code", "Leave Without Pay Code Start Date", "Leave Without Pay Code End Date",
                   "Annual Salary for Insurance Effective Date", "Annual Salary for Benefits Effective Date", "Employee Status Effective Date",
                   "Employee Benefit Category Effective Date", "Employee Location Identifier", "Employee Location Identifier Start Date", "Employee Location Identifier End Date"]
-        data = [0, "83 914 571 673", "abn", "", "", "", "My Superstream Australian Company", "", "Mel", "", "", "123456789", "83 914 571 673", "My Superstream Australian Company", "123-456", "12344321",
-                   "My Superstream Australian Company", "2345678912", "", "Fund A", "", "", "", "", "", "", "", "", "", "83 914 571 673", "", "My Superstream Australian Company", "", "123456789", "", "",
-                   "", "Roger", "", "1", "1970-03-21", "RES", "Australian Street", "", "", "", "Sydney", "", "", "", "", "123456789", "", "", "",
-                   "", "", "2023-08-01", "2023-08-31", 530.0, "", "", 20.0, "", "", "", "", "1975-01-01", True, "", 60000.0, "", "", "", "", "", "", "", "", "", "", "", "", "",
-                   "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                   "", "", "", "", "", "", "", "", ""]
 
         self.assertListEqual(values[0][:-1], header[:-1])  # don't compare the sequence number
         self.assertListEqual(values[1], categories)
         self.assertListEqual(values[2], details)
-        self.assertListEqual(values[3], data)
 
-    def test_superstream_file_action(self):
-        self.superstream.action_get_super_stream_file()
+    def test_01_autogenerated_super_stream(self):
+        self.payslips.compute_sheet()
+        self.payslips.action_payslip_done()
+        superstream = self.payslips._get_superstreams()
+
+        expected_lines = self.get_expected_lines([
+            {"super_guarantee": 550,
+             "super_concessional": 20,
+             "annual_salary": 60000,
+             "start_date": "2023-08-01",
+             "end_date": "2023-08-31"},
+            {"super_guarantee": 550,
+             "super_concessional": 20,
+             "annual_salary": 60000,
+             "start_date": "2023-09-01",
+             "end_date": "2023-09-30"}
+        ])
+
+        self._test_super_stream(superstream, expected_lines, 1140)
+
+    def test_02_super_stream_manually(self):
+        self.payslips.compute_sheet()
+        self.payslips.action_payslip_done()
+
+        # Remove autogenerated superstream
+        self.payslips._get_superstreams().unlink()
+
+        # Create new superstream
+        superstream_form = Form(self.env["l10n_au.super.stream"].with_company(self.australian_company))
+        superstream_form.journal_id = self.journal_id
+        for payslip in self.payslips:
+            with superstream_form.l10n_au_super_stream_lines.new() as line:
+                line.payslip_id = payslip
+                line.employee_id = payslip.employee_id
+                line.sender_id = self.australian_company.l10n_au_hr_super_responsible_id
+                line.super_account_id = self.super_account_a
+
+        superstream = superstream_form.save()
+        superstream.action_confirm()
+        expected_lines = self.get_expected_lines([
+            {"super_guarantee": 550,
+             "super_concessional": 20,
+             "annual_salary": 60000,
+             "start_date": "2023-08-01",
+             "end_date": "2023-08-31"},
+            {"super_guarantee": 550,
+             "super_concessional": 20,
+             "annual_salary": 60000,
+             "start_date": "2023-09-01",
+             "end_date": "2023-09-30"}
+        ])
+
+        self._test_super_stream(superstream, expected_lines, 1140)
+
+    def test_03_super_stream_multi_account(self):
+        # Set proportion for account A
+        self.super_account_a.proportion = 0.4
+        # Create another account
+        self.env['l10n_au.super.account'].create({
+            "date_from": date(2023, 6, 1),
+            "employee_id": self.employee.id,
+            "fund_id": self.super_fund.id,
+            "proportion": 0.6,
+        })
+
+        self.payslips.compute_sheet()
+        self.payslips.action_payslip_done()
+        superstream = self.payslips._get_superstreams()
+
+        expected_lines = self.get_expected_lines([
+            {"super_guarantee": 220,
+             "super_concessional": 8,
+             "annual_salary": 60000,
+             "start_date": "2023-08-01",
+             "end_date": "2023-08-31"},
+            {"super_guarantee": 330,
+             "super_concessional": 12,
+             "annual_salary": 60000,
+             "start_date": "2023-08-01",
+             "end_date": "2023-08-31"},
+            {"super_guarantee": 220,
+             "super_concessional": 8,
+             "annual_salary": 60000,
+             "start_date": "2023-09-01",
+             "end_date": "2023-09-30"},
+            {"super_guarantee": 330,
+             "super_concessional": 12,
+             "annual_salary": 60000,
+             "start_date": "2023-09-01",
+             "end_date": "2023-09-30"}
+        ])
+
+        self._test_super_stream(superstream, expected_lines, 1140)
+
+    def test_04_super_account_dates(self):
+        """ Tests second superaccount with 100% proportion """
+        # deactivate account A
+        self.super_account_a.account_active = False
+        # Create another account for 100% proportion
+        self.env['l10n_au.super.account'].create({
+            "date_from": date(2023, 9, 1),
+            "employee_id": self.employee.id,
+            "fund_id": self.super_fund.id,
+        })
+        slip = self.payslips[1]
+        slip.compute_sheet()
+        slip.action_payslip_done()
+        superstream = slip._get_superstreams()
+
+        expected_lines = self.get_expected_lines([
+            {"super_guarantee": 550,
+             "super_concessional": 20,
+             "annual_salary": 60000,
+             "start_date": "2023-09-01",
+             "end_date": "2023-09-30"}
+        ])
+        self._test_super_stream(superstream, expected_lines, 570)

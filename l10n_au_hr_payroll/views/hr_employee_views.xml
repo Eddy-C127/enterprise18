@@ -10,6 +10,13 @@
                 <field name="contract_id" invisible="1"/>
                 <button string="Terminate Employee" name="action_terminate_contract" type="object" class="text-danger" invisible="not contract_id" groups="hr_contract.group_hr_contract_manager" />
             </xpath>
+            <xpath expr="//header" position="after">
+                <div
+                    class="alert alert-warning mb-0" role="alert"
+                    invisible="not super_account_warning or company_country_code != 'AU'">
+                    <field name="super_account_warning" />
+                </div>
+            </xpath>
             <xpath expr="//page[@name='hr_settings']//group" position="inside">
                 <group name="l10n_au_personal" string="Personal Information" invisible="company_country_code != 'AU'">
                     <field name="is_non_resident"/>
@@ -43,6 +50,19 @@
             </xpath>
             <xpath expr="//field[@name='registration_number']" position="replace">
                 <field name="l10n_au_previous_id_bms" invisible="company_country_code != 'AU'"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="super_accounts" string="Super Accounts" invisible="company_country_code != 'AU'" groups="hr.group_hr_user">
+                    <field name="l10n_au_super_account_ids">
+                        <tree>
+                            <field name="fund_id"/>
+                            <field name="fund_type"/>
+                            <field name="date_from"/>
+                            <field name="account_active" widget="boolean_toggle"/>
+                            <field name="proportion" widget="percentage" optional="hide"/>
+                        </tree>
+                    </field>
+                </page>
             </xpath>
         </field>
     </record>

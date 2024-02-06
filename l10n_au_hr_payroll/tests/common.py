@@ -483,7 +483,6 @@ class TestPayrollCommon(TransactionCase):
 
     def _create_employee(self, contract_info):
         employee, contract = self.create_employee_and_contract(5000, contract_info)
-        contract._compute_wages()
         return employee, contract
 
     def _test_payslip(self, employee, contract, expected_lines, expected_worked_days=False, input_lines=False, payslip_date_from=False, payslip_date_to=False, is_termination=False):

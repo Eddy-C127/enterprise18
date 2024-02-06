@@ -126,13 +126,13 @@ class HrContract(models.Model):
     l10n_au_workplace_giving_employer = fields.Float(string="Workplace Giving Employer", compute="_compute_workplace_giving", readonly=False, store=True)
     l10n_au_salary_sacrifice_superannuation = fields.Float(string="Salary Sacrifice Superannuation")
     l10n_au_salary_sacrifice_other = fields.Float(string="Salary Sacrifice Other Benefits")
-    l10n_au_yearly_wage = fields.Monetary(string="Yearly Wage", compute="_compute_wages", inverse="_inverse_yearly_wages", readonly=False, store=True)
-    wage = fields.Monetary(compute="_compute_wages", readonly=False, store=True)
-    hourly_wage = fields.Monetary(compute="_compute_wages", readonly=False, store=True)
+    l10n_au_yearly_wage = fields.Monetary(string="Yearly Wage", compute="_compute_yearly_wage", inverse="_inverse_yearly_wages", readonly=False, store=True)
+    wage = fields.Monetary(compute="_compute_wage", readonly=False, store=True)
+    hourly_wage = fields.Monetary(compute="_compute_hourly_wage", readonly=False, store=True)
 
     _sql_constraints = [(
         "l10n_au_casual_loading_span",
-        "CHECK(l10n_au_casual_loading >= 0 AND l10n_au_casual_loading <= 100)",
+        "CHECK(l10n_au_casual_loading >= 0 AND l10n_au_casual_loading <= 1)",
         "The casual loading is a percentage and should have a value between 0 and 100."
     )]
 
@@ -186,20 +186,36 @@ class HrContract(models.Model):
             ]
             contract.l10n_au_tax_treatment_code = "".join(tax_treatment_code_values)
 
+    @api.depends("wage_type", "hourly_wage")
+    def _compute_wage(self):
+        Payslip = self.env['hr.payslip']
+        for contract in self:
+            if contract.country_code != "AU" or contract.wage_type != "hourly":
+                continue
+            daily_wage = contract.hourly_wage * contract.resource_calendar_id.hours_per_day
+            contract.wage = Payslip._l10n_au_convert_amount(daily_wage, "daily", contract.schedule_pay)
+
+    @api.depends("wage_type", "wage")
+    def _compute_hourly_wage(self):
+        Payslip = self.env['hr.payslip']
+        for contract in self:
+            if contract.country_code != "AU" or contract.wage_type == "hourly":
+                continue
+            hours_per_day = contract.resource_calendar_id.hours_per_day
+            daily_wage = Payslip._l10n_au_convert_amount(contract.wage, contract.schedule_pay, "daily")
+            contract.hourly_wage = daily_wage / hours_per_day
+
     @api.depends("wage_type", "wage", "hourly_wage")
-    def _compute_wages(self):
+    def _compute_yearly_wage(self):
+        Payslip = self.env['hr.payslip']
         for contract in self:
             if contract.country_code != "AU":
                 continue
             hours_per_day = contract.resource_calendar_id.hours_per_day
-            # YTI TODO Clean that brol
-            _l10n_au_convert_amount = self.env['hr.payslip']._l10n_au_convert_amount
             if contract.wage_type == "hourly":
-                contract.wage = _l10n_au_convert_amount(contract.hourly_wage * hours_per_day, "daily", contract.schedule_pay)
-                contract.l10n_au_yearly_wage = _l10n_au_convert_amount(contract.hourly_wage * hours_per_day, "daily", "yearly")
+                contract.l10n_au_yearly_wage = Payslip._l10n_au_convert_amount(contract.hourly_wage * hours_per_day, "daily", "yearly")
             else:
-                contract.hourly_wage = _l10n_au_convert_amount(contract.wage, contract.schedule_pay, "daily") / hours_per_day
-                contract.l10n_au_yearly_wage = _l10n_au_convert_amount(contract.wage, contract.schedule_pay, "yearly")
+                contract.l10n_au_yearly_wage = Payslip._l10n_au_convert_amount(contract.wage, contract.schedule_pay, "yearly")
 
     @api.depends('l10n_au_workplace_giving_type')
     def _compute_workplace_giving(self):
@@ -224,18 +240,16 @@ class HrContract(models.Model):
         if self.country_code != "AU":
             return
         hours_per_day = self.resource_calendar_id.hours_per_day
-        # YTI TODO Clean that brol
-        _l10n_au_convert_amount = self.env['hr.payslip']._l10n_au_convert_amount
-        self.wage = _l10n_au_convert_amount(self.l10n_au_yearly_wage, "yearly", self.schedule_pay)
-        self.hourly_wage = _l10n_au_convert_amount(self.l10n_au_yearly_wage, "yearly", "daily") / hours_per_day
+        self.wage = self.env['hr.payslip']._l10n_au_convert_amount(self.l10n_au_yearly_wage, "yearly", self.schedule_pay)
+        self.hourly_wage = self.env['hr.payslip']._l10n_au_convert_amount(self.l10n_au_yearly_wage, "yearly", "daily") / hours_per_day
 
     def get_hourly_wages(self):
         self.ensure_one()
         return {
-            "overtime": self.hourly_wage * (OVERTIME_CASUAL_LOADING_COEF + self.l10n_au_casual_loading / 100),
-            "saturday": self.hourly_wage * (SATURDAY_CASUAL_LOADING_COEF + self.l10n_au_casual_loading / 100),
-            "sunday": self.hourly_wage * (SUNDAY_CASUAL_LOADING_COEF + self.l10n_au_casual_loading / 100),
-            "public_holiday": self.hourly_wage * (PUBLIC_HOLIDAY_CASUAL_LOADING_COEF + self.l10n_au_casual_loading / 100),
+            "overtime": self.hourly_wage * (OVERTIME_CASUAL_LOADING_COEF + self.l10n_au_casual_loading),
+            "saturday": self.hourly_wage * (SATURDAY_CASUAL_LOADING_COEF + self.l10n_au_casual_loading),
+            "sunday": self.hourly_wage * (SUNDAY_CASUAL_LOADING_COEF + self.l10n_au_casual_loading),
+            "public_holiday": self.hourly_wage * (PUBLIC_HOLIDAY_CASUAL_LOADING_COEF + self.l10n_au_casual_loading),
         }
 
     @api.model

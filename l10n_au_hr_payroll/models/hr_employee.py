@@ -2,7 +2,7 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
-
+from odoo.tools.float_utils import float_compare
 
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
@@ -92,10 +92,6 @@ class HrEmployee(models.Model):
         groups="hr.group_hr_user")
     l10n_au_super_account_ids = fields.One2many(
         "l10n_au.super.account", "employee_id", string="Super Accounts")
-    l10n_au_super_account_id = fields.Many2one(
-        "l10n_au.super.account",
-        string="Super Account",
-        groups="hr.group_hr_user")
     l10n_au_child_support_deduction = fields.Float(
         string="Child Support Deduction",
         groups="hr.group_hr_user",
@@ -113,6 +109,7 @@ class HrEmployee(models.Model):
     l10n_au_child_support_garnishee_amount = fields.Float(
         string="Child Support Garnishee Amount",
         groups="hr.group_hr_user")
+    super_account_warning = fields.Text(compute="_compute_proportion_warnings")
 
     @api.constrains('l10n_au_tfn')
     def _check_l10n_au_tfn(self):
@@ -182,11 +179,38 @@ class HrEmployee(models.Model):
             else:
                 employee.l10n_au_medicare_reduction = "X"
 
-    def _l10n_au_get_super_account(self, date=fields.Date.today()):
+    def _get_active_super_accounts(self):
+        """Get all available super accounts active during a payment cycle with some
+        proportion assigned.
+
+        Returns:
+            l10n_au.super.account: Returns a Recordset of super accounts sorted by proportion
+        """
         self.ensure_one()
-        employee_accounts = self.l10n_au_super_account_ids.filtered(
-            lambda account: account.date_from <= date).sorted('date_from')
-        return employee_accounts[0] if employee_accounts else False
+        return self.l10n_au_super_account_ids\
+            .filtered(lambda account: account.account_active and account.proportion > 0)\
+            .sorted('proportion')
+
+    @api.depends(
+        "l10n_au_super_account_ids",
+        "l10n_au_super_account_ids.proportion",
+        "l10n_au_super_account_ids.account_active",
+    )
+    def _compute_proportion_warnings(self):
+        proportions = self.env["l10n_au.super.account"].read_group(
+            [("employee_id", "in", self.ids), ("account_active", "=", True)],
+            ["proportion:sum"],
+            ["employee_id"],
+        )
+        proportions = {p['employee_id'][0]: p['proportion'] for p in proportions}
+        self.super_account_warning = False
+        for emp in self:
+            if proportions.get(emp.id) and float_compare(proportions.get(emp.id), 1, precision_digits=2) != 0:
+                emp.super_account_warning = _(
+                    "The proportions of super contributions for this employee do not amount to 100%% across their \
+                    active super accounts! Currently, it is at %d%%!",
+                    proportions[emp.id] * 100,
+                )
 
     def action_terminate_contract(self):
         self.ensure_one()
