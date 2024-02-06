@@ -683,7 +683,7 @@ export class BankRecKanbanController extends KanbanController {
             ["date", _t("Date")],
         ];
         if(lineIdsRecords.some((x) => Boolean(Object.keys(x.data.analytic_distribution).length))){
-            columns.push(["analytic_distribution", this.env._t("Analytic")]);
+            columns.push(["analytic_distribution", _t("Analytic")]);
         }
         if(lineIdsRecords.some((x) => x.data.tax_ids.records.length)){
             columns.push(["taxes", _t("Taxes")]);
