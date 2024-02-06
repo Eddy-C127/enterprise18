@@ -475,23 +475,6 @@ class TestPayroll(TestPayrollCommon):
 
     def test_termination_payment_unused_leaves(self):
         employee_id, contract_id = self.create_employee_and_contract(5000, "monthly")
-        bank_account = self.env['res.partner.bank'].create({
-            "acc_number": '12344321',
-            "acc_type": 'aba',
-            "aba_bsb": '123-456',
-            "company_id": self.australian_company.id,
-            "partner_id": self.australian_company.partner_id.id,
-        })
-        journal_id = self.env["account.journal"].create({
-            "name": "Payslip Bank",
-            "type": "bank",
-            "aba_fic": "CBA",
-            "aba_user_spec": "Test Ltd",
-            "aba_user_number": "111111",
-            "company_id": self.australian_company.id,
-            "bank_account_id": bank_account.id,
-        })
-        self.struct_regular.journal_id = journal_id
         # Allocate Holidays
         self.env['hr.leave.allocation'].create([{
             'name': 'Paid Time Off 2023',
