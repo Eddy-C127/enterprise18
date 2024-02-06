@@ -12,7 +12,7 @@ patch(TicketScreen.prototype, {
     setup() {
         super.setup();
         this.numberBuffer = useService("number_buffer");
-        this.notification = useService("pos_notification");
+        this.notification = useService("notification");
     },
     _onUpdateSelectedOrderline({ detail }) {
         const order = this.getSelectedOrder();
@@ -29,7 +29,7 @@ patch(TicketScreen.prototype, {
             orderline.product.id === this.pos.workOutProduct.id ||
             orderline.product.id === this.pos.workInProduct.id
         ) {
-            this.notification.add(_t("Refunding work in/out product is not allowed."), 5000);
+            this.notification.add(_t("Refunding work in/out product is not allowed."));
             return;
         }
         super._onUpdateSelectedOrderline(...arguments);

@@ -60,7 +60,7 @@ patch(PaymentScreen.prototype, {
                 }
             }
             if (missingFields.length > 0) {
-                this.notification.add(_t("Please fill out missing fields to proceed.", 5000));
+                this.notification.add(_t("Please fill out missing fields to proceed."));
                 this.pos.selectPartner({ missingFields });
                 return false;
             }
