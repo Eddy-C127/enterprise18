@@ -1,5 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from datetime import date, timedelta
+
 from odoo.addons.sale_planning.tests.common import TestCommonSalePlanning
 
 
@@ -41,9 +43,11 @@ class TestProjectTask(TestCommonSalePlanning):
             'task_id': task.id,
             'unit_amount': 1.0,
             'employee_id': self.employee_wout.id,
+            'date': date.today() - timedelta(days=1),
         })
         self.assertEqual(timesheet.so_line, self.plannable_sol, "Should get the SOL set in the task linked.")
         self.assertEqual(planning_slot.allocated_hours, 10, "Should still be equal to the quantity ordered set on the SOL")
-        timesheet.action_validate_timesheet()
+        result = timesheet.action_validate_timesheet()
+        self.assertTrue(result, "The `action_validate_timesheet` should be done with success.")
         self.assertTrue(timesheet.validated, "Timesheet should be validated.")
         self.assertEqual(planning_slot.allocated_hours, 9, "Should be equal to the quantity ordered set on the SOL minus the validated timesheet.")
