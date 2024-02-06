@@ -19,9 +19,20 @@ class BritishGenericTaxReportCustomHandler(models.AbstractModel):
         options['buttons'].append({'name': button_name, 'action': 'send_hmrc', 'sequence': 50})
 
     def send_hmrc(self, options):
-        # do the login if there is no token for the current user yet.
-        if not self.env.user.l10n_uk_hmrc_vat_token and not options.get('_running_export_test'):
-            return self.env['hmrc.service']._login()
+        if not options.get('_running_export_test'):
+            # do the login if there is no token for the current user yet.
+            if not self.env.user.l10n_uk_hmrc_vat_token:
+                return self.env['hmrc.service']._login()
+
+            # Check obligations: should be logged in by now
+            self.env['l10n_uk.vat.obligation'].import_vat_obligations()
+
+            # import_vat_obligations() removes the token if the user is not authorised when importing the obligations.
+            # This can happen if the user switched companies then tried to send the report. Before the user had to
+            # manually delete his tokens from the user tab but now they're automatically sent to the login page to
+            # request a new token.
+            if not self.env.user.l10n_uk_user_token:
+                return self.env['hmrc.service']._login()
 
         # Show wizard when sending to HMRC
         context = self.env.context.copy()

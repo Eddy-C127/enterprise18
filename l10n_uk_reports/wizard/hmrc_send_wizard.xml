@@ -26,8 +26,8 @@
                     </div>
 
                     <footer>
+                        <widget name="send_hmrc_button" invisible="not accept_legal or not obligation_id"/>
                         <button string="Cancel" special="cancel" data-hotkey="x"/>
-                        <widget name="send_hmrc_button" invisible="not accept_legal"/>
                     </footer>
                 </form>
             </field>
