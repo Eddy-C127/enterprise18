@@ -181,86 +181,106 @@ class AssetsReportCustomHandler(models.AbstractModel):
                 parent_lines += [al]
 
         for al in parent_lines:
-            # Compute the depreciation rate string
-            if al['asset_method'] == 'linear' and al['asset_method_number']:  # some assets might have 0 depreciations because they dont lose value
-                total_months = int(al['asset_method_number']) * int(al['asset_method_period'])
-                months = total_months % 12
-                years = total_months // 12
-                asset_depreciation_rate = " ".join(part for part in [
-                    years and _("%(years)s y", years=years),
-                    months and _("%(months)s m", months=months),
-                ] if part)
-            elif al['asset_method'] == 'linear':
-                asset_depreciation_rate = '0.00 %'
-            else:
-                asset_depreciation_rate = ('{:.2f} %').format(float(al['asset_method_progress_factor']) * 100)
 
-            # Manage the opening of the asset
-            opening = (al['asset_acquisition_date'] or al['asset_date']) < fields.Date.to_date(options['date']['date_from'])
-
-            # Get the main values of the board for the asset
-            depreciation_opening = al['depreciated_before']
-            depreciation_add = al['depreciated_during']
-            depreciation_minus = 0.0
-
-            asset_disposal_value = al['asset_disposal_value'] if al['asset_disposal_date'] and al['asset_disposal_date'] <= fields.Date.to_date(options['date']['date_to']) else 0.0
-
-            asset_opening = al['asset_original_value'] if opening else 0.0
-            asset_add = 0.0 if opening else al['asset_original_value']
-            asset_minus = 0.0
-            asset_salvage_value = al.get('asset_salvage_value', 0.0)
-
-            # Add the main values of the board for all the sub assets (gross increases)
-            for child in children_lines[al['asset_id']]:
-                depreciation_opening += child['depreciated_before']
-                depreciation_add += child['depreciated_during']
-
-                opening = (child['asset_acquisition_date'] or child['asset_date']) < fields.Date.to_date(options['date']['date_from'])
-                asset_opening += child['asset_original_value'] if opening else 0.0
-                asset_add += 0.0 if opening else child['asset_original_value']
-
-            # Compute the closing values
-            asset_closing = asset_opening + asset_add - asset_minus
-            depreciation_closing = depreciation_opening + depreciation_add - depreciation_minus
-            al_currency = self.env['res.currency'].browse(al['asset_currency_id'])
-
-            # Manage the closing of the asset
-            if (
-                    al['asset_state'] == 'close'
-                    and al['asset_disposal_date']
-                    and al['asset_disposal_date'] <= fields.Date.to_date(options['date']['date_to'])
-                    and al_currency.compare_amounts(depreciation_closing, asset_closing - asset_salvage_value) == 0
-            ):
-                depreciation_add -= asset_disposal_value
-                depreciation_minus += depreciation_closing - asset_disposal_value
-                depreciation_closing = 0.0
-                asset_minus += asset_closing
-                asset_closing = 0.0
-
-            # Manage negative assets (credit notes)
-            if al['asset_original_value'] < 0:
-                asset_add, asset_minus = -asset_minus, -asset_add
-                depreciation_add, depreciation_minus = -depreciation_minus, -depreciation_add
+            asset_children_lines = children_lines[al['asset_id']]
+            asset_parent_values = self._get_parent_asset_values(options, al, asset_children_lines)
 
             # Format the data
             columns_by_expr_label = {
                 "acquisition_date": al["asset_acquisition_date"] and format_date(self.env, al["asset_acquisition_date"]) or "",  # Characteristics
                 "first_depreciation": al["asset_date"] and format_date(self.env, al["asset_date"]) or "",
                 "method": (al["asset_method"] == "linear" and _("Linear")) or (al["asset_method"] == "degressive" and _("Declining")) or _("Dec. then Straight"),
-                "duration_rate": asset_depreciation_rate,
-                "assets_date_from": asset_opening,
-                "assets_plus": asset_add,
-                "assets_minus": asset_minus,
-                "assets_date_to": asset_closing,
-                "depre_date_from": depreciation_opening,
-                "depre_plus": depreciation_add,
-                "depre_minus": depreciation_minus,
-                "depre_date_to": depreciation_closing,
-                "balance": asset_closing - depreciation_closing,
+                **asset_parent_values
             }
 
             lines.append((al['account_id'], al['asset_id'], columns_by_expr_label))
         return lines
+
+    def _get_parent_asset_values(self, options, asset_line, asset_children_lines):
+        """ Compute the values needed for the depreciation schedule for each parent asset
+        Overridden in l10n_ro_saft.account_general_ledger"""
+
+        # Compute the depreciation rate string
+        if asset_line['asset_method'] == 'linear' and asset_line['asset_method_number']:  # some assets might have 0 depreciation because they don't lose value
+            total_months = int(asset_line['asset_method_number']) * int(asset_line['asset_method_period'])
+            months = total_months % 12
+            years = total_months // 12
+            asset_depreciation_rate = " ".join(part for part in [
+                years and _("%(years)s y", years=years),
+                months and _("%(months)s m", months=months),
+            ] if part)
+        elif asset_line['asset_method'] == 'linear':
+            asset_depreciation_rate = '0.00 %'
+        else:
+            asset_depreciation_rate = ('{:.2f} %').format(float(asset_line['asset_method_progress_factor']) * 100)
+
+        # Manage the opening of the asset
+        opening = (asset_line['asset_acquisition_date'] or asset_line['asset_date']) < fields.Date.to_date(options['date']['date_from'])
+
+        # Get the main values of the board for the asset
+        depreciation_opening = asset_line['depreciated_before']
+        depreciation_add = asset_line['depreciated_during']
+        depreciation_minus = 0.0
+
+        asset_disposal_value = (
+            asset_line['asset_disposal_value']
+            if (
+                asset_line['asset_disposal_date']
+                and asset_line['asset_disposal_date'] <= fields.Date.to_date(options['date']['date_to'])
+            )
+            else 0.0
+        )
+
+        asset_opening = asset_line['asset_original_value'] if opening else 0.0
+        asset_add = 0.0 if opening else asset_line['asset_original_value']
+        asset_minus = 0.0
+        asset_salvage_value = asset_line.get('asset_salvage_value', 0.0)
+
+        # Add the main values of the board for all the sub assets (gross increases)
+        for child in asset_children_lines:
+            depreciation_opening += child['depreciated_before']
+            depreciation_add += child['depreciated_during']
+
+            opening = (child['asset_acquisition_date'] or child['asset_date']) < fields.Date.to_date(options['date']['date_from'])
+            asset_opening += child['asset_original_value'] if opening else 0.0
+            asset_add += 0.0 if opening else child['asset_original_value']
+
+        # Compute the closing values
+        asset_closing = asset_opening + asset_add - asset_minus
+        depreciation_closing = depreciation_opening + depreciation_add - depreciation_minus
+        asset_currency = self.env['res.currency'].browse(asset_line['asset_currency_id'])
+
+        # Manage the closing of the asset
+        if (
+            asset_line['asset_state'] == 'close'
+            and asset_line['asset_disposal_date']
+            and asset_line['asset_disposal_date'] <= fields.Date.to_date(options['date']['date_to'])
+            and asset_currency.compare_amounts(depreciation_closing, asset_closing - asset_salvage_value) == 0
+        ):
+            depreciation_add -= asset_disposal_value
+            depreciation_minus += depreciation_closing - asset_disposal_value
+            depreciation_closing = 0.0
+            asset_minus += asset_closing
+            asset_closing = 0.0
+
+        # Manage negative assets (credit notes)
+        if asset_currency.compare_amounts(asset_line['asset_original_value'], 0) < 0:
+            asset_add, asset_minus = -asset_minus, -asset_add
+            depreciation_add, depreciation_minus = -depreciation_minus, -depreciation_add
+
+        return {
+            'duration_rate': asset_depreciation_rate,
+            'asset_disposal_value': asset_disposal_value,
+            'assets_date_from': asset_opening,
+            'assets_plus': asset_add,
+            'assets_minus': asset_minus,
+            'assets_date_to': asset_closing,
+            'depre_date_from': depreciation_opening,
+            'depre_plus': depreciation_add,
+            'depre_minus': depreciation_minus,
+            'depre_date_to': depreciation_closing,
+            'balance': asset_closing - depreciation_closing,
+        }
 
     def _group_by_account(self, report, lines, options):
         """

@@ -152,6 +152,8 @@ class AccountAsset(models.Model):
     asset_lifetime_days = fields.Float(compute="_compute_lifetime_days", recursive=True)  # total number of days to consider for the computation of an asset depreciation board
     asset_paused_days = fields.Float(copy=False)
 
+    net_gain_on_sale = fields.Monetary(string="Net gain on sale", help="Net value of gain or loss on sale of an asset", copy=False)
+
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
     # -------------------------------------------------------------------------
@@ -454,6 +456,8 @@ class AccountAsset(models.Model):
                     body = _('A document linked to this move has been deleted: %s',
                         asset._get_html_link())
                 line.move_id.message_post(body=body)
+                if len(line.move_id.asset_ids) == 1:
+                    line.move_id.asset_move_type = False
         return super(AccountAsset, self).unlink()
 
     def copy_data(self, default=None):
@@ -849,6 +853,10 @@ class AccountAsset(models.Model):
                 if invoice_line_ids else
                 _('Asset disposed. %s', message if message else "")
             )
+
+        selling_price = abs(sum(invoice_line.balance for invoice_line in invoice_line_ids))
+        self.net_gain_on_sale = self.currency_id.round(selling_price - self.book_value)
+
         full_asset.write({'state': 'close'})
         if move_ids:
             name = _('Disposal Move')
@@ -910,7 +918,10 @@ class AccountAsset(models.Model):
     def set_to_running(self):
         if self.depreciation_move_ids and not max(self.depreciation_move_ids, key=lambda m: (m.date, m.id)).asset_remaining_value == 0:
             self.env['asset.modify'].create({'asset_id': self.id, 'name': _('Reset to running')}).modify()
-        self.write({'state': 'open'})
+        self.write({
+            'state': 'open',
+            'net_gain_on_sale': 0
+        })
 
     def resume_after_pause(self):
         """ Sets an asset in 'paused' state back to 'open'.
@@ -1111,6 +1122,7 @@ class AccountAsset(models.Model):
                 'date': disposal_date,
                 'journal_id': asset.journal_id.id,
                 'move_type': 'entry',
+                'asset_move_type': 'disposal' if not invoice_line_ids else 'sale',
                 'line_ids': [get_line(asset, amount, account) for amount, account in line_datas if account],
             }
             asset.write({'depreciation_move_ids': [(0, 0, vals)]})

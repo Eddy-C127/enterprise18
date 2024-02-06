@@ -287,6 +287,7 @@ class AssetModify(models.TransientModel):
                 'journal_id': self.asset_id.journal_id.id,
                 'date': self.date + relativedelta(days=1),
                 'move_type': 'entry',
+                'asset_move_type': 'positive_revaluation',
                 'line_ids': [
                     Command.create({
                         'account_id': self.account_asset_id.id,
@@ -339,6 +340,7 @@ class AssetModify(models.TransientModel):
                 'date': self.date,
                 'asset_number_days': 0,
                 'asset_value_change': True,
+                'asset_move_type': 'negative_revaluation',
             }))._post()
 
         restart_date = self.date if self.env.context.get('resume_after_pause') else self.date + relativedelta(days=1)

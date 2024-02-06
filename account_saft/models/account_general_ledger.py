@@ -48,17 +48,11 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         return False
 
     @api.model
-    def _saft_fill_report_general_ledger_values(self, report, options, values):
+    def _saft_fill_report_general_ledger_accounts(self, report, options, values):
         res = {
-            'total_debit_in_period': 0.0,
-            'total_credit_in_period': 0.0,
             'account_vals_list': [],
-            'journal_vals_list': [],
-            'move_vals_list': [],
-            'tax_detail_per_line_map': {},
         }
 
-        # Fill 'account_vals_list'.
         accounts_results = self._query_values(report, options)
         rslts_array = tuple((account, res_col_gr[options['single_column_group']]) for account, res_col_gr in accounts_results)
         init_bal_res = self._get_initial_balance_values(report, tuple(account.id for account, results in rslts_array), options)
@@ -79,6 +73,17 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'opening_balance': opening_balance,
                 'closing_balance': closing_balance,
             })
+
+        values.update(res)
+
+    def _saft_fill_report_general_ledger_entries(self, report, options, values):
+        res = {
+            'total_debit_in_period': 0.0,
+            'total_credit_in_period': 0.0,
+            'journal_vals_list': [],
+            'move_vals_list': [],
+            'tax_detail_per_line_map': {},
+        }
         # Fill 'total_debit_in_period', 'total_credit_in_period', 'move_vals_list'.
         table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
         lang = self.env.user.lang or get_lang(self.env).code
@@ -201,7 +206,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             res['journal_vals_list'].append(journal_vals)
             res['move_vals_list'] += journal_vals['move_vals_list']
 
-        # Add newly computed values to the final template values.
         values.update(res)
 
     @api.model
@@ -410,7 +414,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             'format_date': format_date,
             'errors': {},
         }
-        self._saft_fill_report_general_ledger_values(report, options, template_values)
+        self._saft_fill_report_general_ledger_accounts(report, options, template_values)
+        self._saft_fill_report_general_ledger_entries(report, options, template_values)
         self._saft_fill_report_tax_details_values(report, options, template_values)
         self._saft_fill_report_partner_ledger_values(options, template_values)
         return template_values

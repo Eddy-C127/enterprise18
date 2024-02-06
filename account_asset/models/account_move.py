@@ -29,6 +29,19 @@ class AccountMove(models.Model):
     asset_id_display_name = fields.Char(compute="_compute_asset_ids")   # just a button label. That's to avoid a plethora of different buttons defined in xml
     count_asset = fields.Integer(compute="_compute_asset_ids")
     draft_asset_exists = fields.Boolean(compute="_compute_asset_ids")
+    asset_move_type = fields.Selection(
+        selection=[
+            ('depreciation', 'Depreciation'),
+            ('sale', 'Sale'),
+            ('purchase', 'Purchase'),
+            ('disposal', 'Disposal'),
+            ('negative_revaluation', 'Negative revaluation'),
+            ('positive_revaluation', 'Positive revaluation'),
+        ],
+        string='Asset Move Type',
+        compute='_compute_asset_move_type', store=True,
+        copy=False,
+    )
 
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
@@ -80,6 +93,14 @@ class AccountMove(models.Model):
             else:
                 asset_depreciation = 0
             move.depreciation_value = asset_depreciation
+
+    @api.depends('asset_id', 'asset_ids')
+    def _compute_asset_move_type(self):
+        for move in self:
+            if move.asset_ids:
+                move.asset_move_type = 'positive_revaluation' if move.asset_ids.parent_id else 'purchase'
+            elif not move.asset_move_type or not move.asset_id:
+                move.asset_move_type = False
 
     # -------------------------------------------------------------------------
     # INVERSE METHODS
@@ -282,6 +303,7 @@ class AccountMove(models.Model):
             'asset_value_change': vals.get('asset_value_change', False),
             'move_type': 'entry',
             'currency_id': current_currency.id,
+            'asset_move_type': vals.get('asset_move_type', 'depreciation'),
         }
         return move_vals
 

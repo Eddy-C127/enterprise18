@@ -5,6 +5,9 @@ from collections import defaultdict
 import stdnum.ro
 
 from odoo import api, models, _
+from odoo.exceptions import UserError
+from odoo.tools import float_repr, SQL
+
 from odoo.addons.account_edi_ubl_cii.models.account_edi_common import UOM_TO_UNECE_CODE
 
 
@@ -13,14 +16,65 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     def _custom_options_initializer(self, report, options, previous_options=None):
         super()._custom_options_initializer(report, options, previous_options)
-        if self.env.company.account_fiscal_country_id.code == 'RO':
-            options.setdefault('buttons', []).append({
-                'name': _('SAF-T'),
-                'sequence': 50,
-                'action': 'export_file',
-                'action_param': 'l10n_ro_export_saft_to_xml',
-                'file_export_type': _('XML')
-            })
+
+        if self.env.company.account_fiscal_country_id.code != 'RO':
+            return
+
+        options.setdefault('buttons', []).append({
+            'name': _('SAF-T (D406 Declaration)'),
+            'sequence': 50,
+            'action': 'export_file',
+            'action_param': 'l10n_ro_export_saft_to_xml_monthly',
+            'file_export_type': _('XML')
+        })
+        options.setdefault('buttons', []).append({
+            'name': _('SAF-T (D406 Asset Declaration)'),
+            'sequence': 51,
+            'action': 'export_file',
+            'action_param': 'l10n_ro_export_saft_to_xml_assets',
+            'file_export_type': _('XML')
+        })
+
+    @api.model
+    def l10n_ro_export_saft_to_xml_monthly(self, options):
+        options['l10n_ro_saft_required_sections'] = self._set_l10n_ro_saft_required_sections('monthly')
+        return self.l10n_ro_export_saft_to_xml(options)
+
+    @api.model
+    def l10n_ro_export_saft_to_xml_assets(self, options):
+        options['l10n_ro_saft_required_sections'] = self._set_l10n_ro_saft_required_sections('assets')
+        return self.l10n_ro_export_saft_to_xml(options)
+
+    @api.model
+    def _set_l10n_ro_saft_required_sections(self, export_type):
+        """Define which sections of the XML are required to export based on the
+        type of export, which can either be monthly, assets, or stocks (coming soon). """
+        monthly = (export_type == 'monthly')
+        assets = (export_type == 'assets')
+
+        return {
+            'master_files': {
+                'general_ledger_accounts': monthly or assets,
+                'customers': monthly,
+                'suppliers': monthly,
+                'tax_table': monthly,
+                'uom_table': monthly,
+                'analysis_type_table': monthly or assets,
+                'movement_type_table': False,
+                'products': monthly,
+                'physical_stocks': False,
+                'owners': False,
+                'assets': assets,
+            },
+            'general_ledger_entries': monthly,
+            'source_documents': {
+                'sales_invoices': monthly,
+                'purchase_invoices': monthly,
+                'payments': monthly,
+                'movement_of_goods': False,
+                'asset_transactions': assets,
+            }
+        }
 
     @api.model
     def l10n_ro_export_saft_to_xml(self, options):
@@ -39,22 +93,29 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         values['errors'] = {
             **self._l10n_ro_saft_check_header_values(options, values),
             **self._l10n_ro_saft_check_partner_values(values),
-            **self._l10n_ro_saft_check_tax_values(values),
+            **self._l10n_ro_saft_check_tax_values(options, values),
             **self._l10n_ro_saft_check_product_values(values),
+            **self._l10n_ro_saft_check_asset_values(values),
         }
 
     @api.model
     def _l10n_ro_saft_prepare_report_values(self, report, options):
         values = self._saft_prepare_report_values(report, options)
 
+        # The saft template needs to know which sections are requested
+        values['l10n_ro_saft_required_sections'] = options['l10n_ro_saft_required_sections']
+
         self._l10n_ro_saft_fill_header_values(options, values)
         self._l10n_ro_saft_fill_partner_values(values)
-        self._l10n_ro_saft_fill_tax_values(values)
-        self._l10n_ro_saft_fill_uom_values(values)
-        self._l10n_ro_saft_fill_product_values(values)
+        self._l10n_ro_saft_fill_tax_values(options, values)
+        self._l10n_ro_saft_fill_uom_values(options, values)
+        self._l10n_ro_saft_fill_product_values(options, values)
         self._l10n_ro_saft_fill_account_code_by_id(values)
         self._l10n_ro_saft_fill_invoice_values(values)
         self._l10n_ro_saft_fill_payment_values(values)
+        self._l10n_ro_saft_fill_report_assets_values(options, values)
+        self._l10n_ro_saft_fill_asset_transactions_values(options, values)
+        self._l10n_ro_saft_clean_customer_suppliers_vals_list(options, values)
         self._l10n_ro_saft_check_report_values(values, options)
 
         return values
@@ -117,7 +178,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         # Mandatory values for the D.406 declaration
         values.update({
             'xmlns': 'mfp:anaf:dgti:d406:declaratie:v1',
-            'file_version': '2.4.7',
+            'file_version': '2.4.8',
         })
 
         # The TaxAccountingBasis should indicate the type of CoA that is installed.
@@ -145,6 +206,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'month': 'L',
                 'quarter': 'T',
                 'year': 'A',
+                'fiscalyear': 'A',
             }.get(options['date']['period_type'], 'C')
         else:
             declaration_type = {
@@ -274,14 +336,18 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             )
 
     @api.model
-    def _l10n_ro_saft_check_tax_values(self, values):
+    def _l10n_ro_saft_check_tax_values(self, options, values):
         """ Check whether all taxes have a Romanian SAFT tax type and tax code on them. """
+
+        errors = {}
+        if not options['l10n_ro_saft_required_sections']['master_files']['tax_table']:
+            return errors
+
         encountered_tax_ids = [tax_vals['id'] for tax_vals in values['tax_vals_list']]
         faulty_taxes = self.env['account.tax'].search([
             ('id', 'in', encountered_tax_ids),
             '|', ('l10n_ro_saft_tax_type_id', '=', False), ('l10n_ro_saft_tax_code', '=', False)
         ])
-        errors = {}
         if faulty_taxes:
             errors['taxes_tax_type_missing'] = {
                 'message': _('Some taxes are missing the "Romanian SAF-T Tax Type" '
@@ -292,8 +358,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         return errors
 
     @api.model
-    def _l10n_ro_saft_fill_tax_values(self, values):
+    def _l10n_ro_saft_fill_tax_values(self, options, values):
         """ Fill in the Romanian tax type, tax type description (in Romanian, if available), and tax code. """
+
+        if not options['l10n_ro_saft_required_sections']['master_files']['tax_table']:
+            return
+
         encountered_tax_ids = [tax_vals['id'] for tax_vals in values['tax_vals_list']]
         lang = self.env['res.lang']._get_code('ro_RO')
         encountered_taxes = self.env['account.tax'].with_context({'lang': lang}).browse(encountered_tax_ids)
@@ -316,8 +386,16 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             tax_vals.update(tax_fields)
 
     @api.model
-    def _l10n_ro_saft_fill_uom_values(self, values):
+    def _l10n_ro_saft_fill_uom_values(self, options, values):
         """ Fill UoMs and unece_code_by_uom """
+
+        if not options['l10n_ro_saft_required_sections']['master_files']['uom_table']:
+            values.update({
+                'uoms': [],
+                'unece_code_by_uom': {},
+            })
+            return
+
         encountered_product_uom_ids = sorted({
             line_vals['product_uom_id']
             for move_vals in values['move_vals_list']
@@ -390,8 +468,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         return errors
 
     @api.model
-    def _l10n_ro_saft_fill_product_values(self, values):
+    def _l10n_ro_saft_fill_product_values(self, options, values):
         """ Fill product_vals_list """
+        if not options['l10n_ro_saft_required_sections']['master_files']['products']:
+            values['product_vals_list'] = []
+            return
+
         encountered_product_ids = sorted({
             line_vals['product_id']
             for move_vals in values['move_vals_list']
@@ -520,3 +602,300 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             return 'Pasiv'
         else:  # Fallback on bifunctional if it's anything else.
             return 'Bifunctional'
+
+    # ####################################################
+    # SAF-T ASSETS DECLARATION
+    ####################################################
+
+    @api.model
+    def _l10n_ro_saft_float_repr(self, amount):
+        # add 0. in case amount is -0.0 to make it positive
+        return float_repr(amount + 0., self.env.company.currency_id.decimal_places)
+
+    def _l10n_ro_saft_query_assets_values(self, options):
+
+        query = SQL(
+            '''
+            SELECT
+                asset.id AS asset_id,
+                asset.parent_id AS parent_id,
+                asset.name AS asset_name,
+                asset.original_value AS asset_original_value,
+                COALESCE(asset.salvage_value, 0) AS asset_salvage_value,
+                asset.disposal_date AS asset_disposal_date,
+                asset.acquisition_date AS asset_acquisition_date,
+                MIN(move.date) AS asset_date,
+                COALESCE(MIN(original_bill_aml.invoice_date), asset.acquisition_date) AS asset_purchase_date,
+                asset.state AS asset_state,
+                asset.method_period AS asset_method_period,
+                asset.method_number AS asset_method_number,
+                asset.method AS asset_method,
+                asset.method_progress_factor AS asset_method_progress_factor,
+                asset.currency_id AS asset_currency_id,
+                asset_category.code AS asset_category_code,
+                account.code AS account_code,
+                array_remove(array_agg(distinct partner.id), NULL) AS supplier_ids,
+                COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date < %(date_from)s), 0) + COALESCE(asset.already_depreciated_amount_import, 0) AS depreciated_before,
+                COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date BETWEEN %(date_from)s AND %(date_to)s), 0) AS depreciated_during,
+                COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date BETWEEN %(date_from)s AND %(date_to)s AND move.asset_number_days IS NULL), 0) AS asset_disposal_value
+            FROM account_asset asset
+            LEFT JOIN account_account AS account ON asset.account_asset_id = account.id
+            LEFT JOIN account_move move ON move.asset_id = asset.id  AND move.state = 'posted'
+            LEFT JOIN asset_move_line_rel rel ON rel.asset_id = asset.id
+            LEFT JOIN account_move_line original_bill_aml ON original_bill_aml.id = rel.line_id
+            LEFT JOIN res_partner partner ON partner.id = original_bill_aml.partner_id
+            LEFT JOIN l10n_ro_saft_account_asset_category asset_category ON asset_category.id = asset.l10n_ro_saft_account_asset_category_id
+            WHERE asset.company_id = %(company_id)s
+              AND (asset.acquisition_date <= %(date_to)s OR move.date <= %(date_to)s)
+              AND (asset.disposal_date >= %(date_from)s OR asset.disposal_date IS NULL)
+              AND asset.state not in ('model', 'draft', 'cancelled')
+              AND asset.active = 't'
+            GROUP BY asset.id, account.id, asset_category.id
+            ORDER BY account.code, asset.acquisition_date, asset.id;
+            ''',
+            date_from=options['date']['date_from'],
+            date_to=options['date']['date_to'],
+            company_id=self.env.company.id,
+        )
+        return query
+
+    @api.model
+    def _l10n_ro_saft_fill_report_assets_values(self, options, values):
+        res = {
+            'assets': [],
+            'asset_partners': {},
+        }
+
+        if not options['l10n_ro_saft_required_sections']['master_files']['assets']:
+            values.update(res)
+            return
+
+        if self.env.company.currency_id.name != 'RON':
+            raise UserError(_('The SAF-T Asset Declaration cannot be generated if the currency of the company is not RON'))
+
+        query = self._l10n_ro_saft_query_assets_values(options)
+        self._cr.execute(query)
+        asset_lines = self._cr.dictfetchall()
+
+        # Assign the gross increases sub assets to their main asset (parent)
+        parent_lines = []
+        children_lines = defaultdict(list)
+        for asset_line in asset_lines:
+            if asset_line['parent_id']:
+                children_lines[asset_line['parent_id']] += [asset_line]
+            else:
+                parent_lines += [asset_line]
+
+        for asset in parent_lines:
+            asset_children_lines = children_lines[asset['asset_id']]
+            asset_val = self.env['account.asset.report.handler']._get_parent_asset_values(options, asset, asset_children_lines)
+
+            depreciation_percentage = 0
+            if asset['asset_method'] == 'linear':
+                depreciation_percentage = round(1 / (asset['asset_method_number']), 2)
+            elif asset['asset_method'] in ('degressive', 'degressive_then_linear'):
+                depreciation_percentage = round(asset['method_progress_factor'] / asset['method_period'], 2)
+
+            asset_method = {
+                'linear': 'LINIARĂ',
+                'degressive': 'DEGRESIVĂ',
+                'degressive_then_linear': 'ACCELERATĂ'
+            }.get(asset['asset_method'], '')
+
+            # supplier id is the company if no supplier provided (self produced asset for example)
+            asset['supplier_ids'] = asset['supplier_ids'] or [self.env.company.partner_id.id]
+
+            asset['valuations'] = []
+            valuation_data = {
+                'asset_valuation_type': 'contabil',  # Accounting
+                'valuation_class': asset['asset_category_code'],
+                'acquisition_costs_begin': self._l10n_ro_saft_float_repr(asset_val['assets_date_from']),
+                'acquisition_costs_end': self._l10n_ro_saft_float_repr(asset_val['assets_date_to']),
+                'investment_support': self._l10n_ro_saft_float_repr(asset_val['assets_date_from'] - asset['asset_original_value'] + asset_val['assets_plus']),
+                'asset_method_period': asset['asset_method_period'],
+                'asset_method_number': asset['asset_method_number'],
+                'asset_addition': self._l10n_ro_saft_float_repr(asset_val['assets_plus']),
+                'transfers': self._l10n_ro_saft_float_repr(asset_val['assets_plus'] - asset_val['assets_minus']),
+                'asset_disposal': self._l10n_ro_saft_float_repr(-asset_val['asset_disposal_value']),
+                'book_value_begin': self._l10n_ro_saft_float_repr(asset_val['assets_date_from'] - asset_val['depre_date_from']),
+                'depreciation_method': asset_method,
+                'depreciation_percentage': self._l10n_ro_saft_float_repr(depreciation_percentage),
+                'depreciation_for_period': self._l10n_ro_saft_float_repr(-asset_val['depre_plus']),
+                'appreciation_for_period': self._l10n_ro_saft_float_repr(asset_val['depre_minus']),
+                'accumulated_depreciation': self._l10n_ro_saft_float_repr(-asset_val['depre_date_to']),
+                'book_value_end': self._l10n_ro_saft_float_repr(asset_val['assets_date_to'] - asset_val['depre_date_to']),
+                'extraordinary_depreciation': [{
+                    'method': 'NULL',
+                    'amount_for_period': '0.00',
+                }],
+            }
+            # the valuations tag can contain multiple valuation according to the documentation. However, when
+            # reading more concisely the FAQ and reading more about this section, it seems that only one valuation
+            # per asset is possible for Romania. The Romanian SAF-T template is therefore pre-adapted to be able to
+            # handle a list of valuation elements, even though the list contain only a single element so far
+            asset['valuations'].append(valuation_data)
+
+            res['assets'].append(asset)
+            res['asset_partners'][asset['asset_id']] = asset['supplier_ids']
+
+        values.update(res)
+
+    @api.model
+    def _l10n_ro_saft_check_asset_values(self, values):
+        """ Check whether assets have an asset_category or not"""
+        errors = {}
+        assets_without_category_ids = self.env['account.asset'].browse(
+            [asset['asset_id'] for asset in values['assets'] if not asset['asset_category_code']]
+        )
+        if assets_without_category_ids:
+            errors['missing_account_asset_category'] = {
+                'message': _('Missing category on assets'),
+                'action_text': _('Set asset categories'),
+                'action': assets_without_category_ids._get_records_action(
+                    name=_('Products with no commodity code'),
+                    views=[
+                        (self.env.ref('l10n_ro_saft.account_asset_missing_l10n_ro_saft_account_asset_category').id, 'list'),
+                        (False, 'form')
+                    ],
+                    context={**self.env.context, 'create': False, 'delete': False, 'expand': True},
+                ),
+            }
+        return errors
+
+    @api.model
+    def _l10n_ro_saft_query_asset_transactions_values(self, options):
+        query = SQL(
+            '''
+            SELECT *
+            FROM (
+                -- Purchase and positive revaluation transactions
+                -- are retrieved from the asset_move_line_rel table
+                SELECT
+                    move.id AS move_id,
+                    move.name AS move_name,
+                    move.date AS move_date,
+                    move.asset_move_type AS asset_move_type,
+                    move.depreciation_value AS depreciation_value,
+                    aml.balance AS purchase_increase_amount,
+                    COALESCE(asset.parent_id, asset.id) AS asset_id,
+                    asset.original_value AS asset_original_value,
+                    asset.net_gain_on_sale AS asset_net_gain_on_sale
+                FROM account_move move
+                LEFT JOIN account_move_line aml ON move.id = aml.move_id
+                INNER JOIN asset_move_line_rel rel ON aml.id = rel.line_id
+                INNER JOIN account_asset asset ON rel.asset_id = asset.id
+                WHERE move.state = 'posted'
+                  AND move.date BETWEEN %(date_from)s AND %(date_to)s
+                  AND move.company_id = %(company_id)s
+                  AND asset.state not in ('model', 'draft', 'cancelled')
+                  AND asset.active = 't'
+                UNION ALL
+                -- Depreciations, negative revaluation, disposal, and sale transactions
+                -- are retrieved from the asset_id field on account_move
+                SELECT
+                    move.id AS move_id,
+                    move.name AS move_name,
+                    move.date AS move_date,
+                    move.asset_move_type AS asset_move_type,
+                    move.depreciation_value AS depreciation_value,
+                    0 AS purchase_increase_amount,
+                    COALESCE(asset.parent_id, asset.id) AS asset_id,
+                    asset.original_value AS asset_original_value,
+                    asset.net_gain_on_sale AS asset_net_gain_on_sale
+                FROM account_move move
+                INNER JOIN account_asset asset ON move.asset_id = asset.id
+                WHERE move.state = 'posted'
+                  AND move.date BETWEEN %(date_from)s AND %(date_to)s
+                  AND move.company_id = %(company_id)s
+                  AND asset.state not in ('model', 'draft', 'cancelled')
+                  AND asset.active = 't'
+            ) asset_transactions
+            ORDER BY asset_id, move_date, asset_move_type, move_name
+            ''',
+            date_from=options['date']['date_from'],
+            date_to=options['date']['date_to'],
+            company_id=self.env.company.id,
+        )
+        return query
+
+    def _l10n_ro_saft_fill_asset_transactions_values(self, options, values):
+
+        res = {
+            'asset_transactions': [],
+        }
+
+        if not options['l10n_ro_saft_required_sections']['source_documents']['asset_transactions']:
+            values.update(res)
+            return
+
+        asset_transaction_type = {
+            'purchase': 10,
+            'sale': 20,
+            'depreciation': 30,
+            'disposal': 50,
+            'negative_revaluation': 60,
+            'positive_revaluation': 70,
+        }
+
+        query = self._l10n_ro_saft_query_asset_transactions_values(options)
+        self._cr.execute(query)
+        for transaction in self._cr.dictfetchall():
+            transaction['asset_transaction_id'] = transaction['move_id']
+            transaction['asset_transaction_type'] = asset_transaction_type.get(transaction['asset_move_type'], 130)
+            transaction['description'] = transaction['move_name']
+            transaction['asset_transaction_date'] = transaction['move_date']
+            transaction['depreciation_value'] *= (-1)  # must be provided with the opposite sign, so negative value in case of regular depreciation
+            transaction['transaction_id'] = transaction['move_id']
+            transaction['supplier_ids'] = values['asset_partners'].get(transaction['asset_id'], [self.env.company.partner_id.id])
+
+            asset_transaction_valuation = {
+                'asset_valuation_type': 'contabil',  # Accounting
+                'acquisition_and_production_costs_on_transaction': (
+                    self._l10n_ro_saft_float_repr(transaction['asset_original_value'])
+                    if transaction['asset_move_type'] in ('purchase', 'positive_revaluation')
+                    else "0.00"
+                ),
+                'book_value_transaction': self._l10n_ro_saft_float_repr(transaction['purchase_increase_amount'] or transaction['depreciation_value']),
+                'asset_transaction_amount': (
+                    self._l10n_ro_saft_float_repr(-transaction['asset_net_gain_on_sale'])
+                    if transaction['asset_move_type'] == 'sale'
+                    else self._l10n_ro_saft_float_repr(transaction['purchase_increase_amount'] or transaction['depreciation_value'])
+                ),
+            }
+
+            transaction['asset_transaction_valuation'] = [asset_transaction_valuation]
+            res['asset_transactions'].append(transaction)
+
+        res['asset_transactions_number'] = len(res['asset_transactions'])
+
+        values.update(res)
+
+    @api.model
+    def _l10n_ro_saft_clean_customer_suppliers_vals_list(self, options, values):
+        if not options['l10n_ro_saft_required_sections']['master_files']['customers']:
+            values['customer_vals_list'] = []
+
+        if not options['l10n_ro_saft_required_sections']['master_files']['suppliers']:
+            values['supplier_vals_list'] = []
+
+    @api.model
+    def _saft_fill_report_tax_details_values(self, report, options, values):
+        # no need to compute this section if not required (for example in the asset saf-t report)
+        if options.get('l10n_ro_saft_required_sections') and not options['l10n_ro_saft_required_sections']['master_files']['tax_table']:
+            values['tax_vals_list'] = []
+        else:
+            super()._saft_fill_report_tax_details_values(report, options, values)
+
+    @api.model
+    def _saft_fill_report_general_ledger_entries(self, report, options, values):
+        if options.get('l10n_ro_saft_required_sections') and not options['l10n_ro_saft_required_sections']['general_ledger_entries']:
+            res = {
+                'total_debit_in_period': 0.0,
+                'total_credit_in_period': 0.0,
+                'journal_vals_list': [],
+                'move_vals_list': [],
+                'tax_detail_per_line_map': {},
+            }
+            values.update(res)
+        else:
+            super()._saft_fill_report_general_ledger_entries(report, options, values)

@@ -12,15 +12,18 @@ The D.406 declaration is an XML file in the SAF-T format which Romanian companie
 must submit monthly or quarterly, depending on their tax reporting period.
     ''',
     'depends': [
-        'l10n_ro', 'account_saft',
+        'l10n_ro', 'account_saft', 'account_asset',
     ],
     'data': [
         'security/ir.model.access.csv',
         'data/saft_report.xml',
         'data/l10n_ro_saft.tax.type.csv',
+        'data/l10n_ro_saft.account.asset.category.csv',
         'views/account_tax_views.xml',
         'views/account_move_views.xml',
         'views/res_config_settings_views.xml',
+        "views/account_asset_views.xml",
+        "views/account_asset_category_views.xml",
     ],
     'demo': [
         'demo/demo_company.xml',

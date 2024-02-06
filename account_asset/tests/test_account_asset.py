@@ -2613,3 +2613,104 @@ class TestAccountAsset(TestAccountReportsCommon):
             'asset_remaining_value': 0,
             'state': 'draft',
         }])
+
+    def test_asset_move_type(self):
+        """ Test the field asset_move_type set on account.move describing the
+            relation that a move can have towards an asset
+        """
+        asset_account_id = self.company_data['default_account_assets'].id
+
+        bill = self.env['account.move'].create([
+            {
+                'move_type': 'in_invoice',
+                'invoice_date': fields.Date.today() + relativedelta(months=-6, days=-1),
+                'date': fields.Date.today() + relativedelta(months=-6, days=-1),
+                'partner_id': self.partner_a.id,
+                'invoice_line_ids': [Command.create({
+                    'name': 'Truck',
+                    'account_id': asset_account_id,
+                    'quantity': 1.0,
+                    'price_unit': 1000.0,
+                    'tax_ids': [Command.set(self.company_data['default_tax_sale'].ids)],
+                })],
+            },
+        ])
+        bill.action_post()
+        asset_line = bill.line_ids.filtered(lambda x: x.account_id.id == asset_account_id)
+        asset_form = Form(self.env['account.asset'].with_context(default_original_move_line_ids=asset_line.ids))
+        asset_form.original_move_line_ids = asset_line
+        asset_form.account_depreciation_expense_id = self.company_data['default_account_expense']
+        car = asset_form.save()
+        car.validate()
+
+        # All depreciation move must be defined as depreciation
+        self.assertTrue(all(car.depreciation_move_ids.mapped(lambda m: m.asset_move_type == 'depreciation')))
+
+        # Negative revaluation
+        self.env['asset.modify'].create({
+            'name': 'Little scratch :(',
+            'asset_id': car.id,
+            'value_residual': car.book_value - 150,
+            'date': fields.Date.today(),
+        }).modify()
+
+        # Ensure that the added depreciation moves are one 'depreciation' and the other is 'negative_revaluation'
+        added_move_on_revaluation = car.depreciation_move_ids.filtered(lambda m: m.date == fields.Date.today())
+        self.assertRecordValues(added_move_on_revaluation.sorted(lambda mv: mv.id), [
+            {'asset_move_type': 'depreciation'},
+            {'asset_move_type': 'negative_revaluation'}
+        ])
+
+        # Sell
+        closing_invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'invoice_line_ids': [Command.create(
+                {'price_unit': car.book_value + 100}  # selling price: 849.46, net_gain_on_sale: 100.45
+            )]
+        })
+
+        self.env['asset.modify'].create({
+            'asset_id': car.id,
+            'modify_action': 'sell',
+            'invoice_line_ids': closing_invoice.invoice_line_ids,
+            'date': fields.Date.today(),
+        }).sell_dispose()
+        selling_move = car.depreciation_move_ids.filtered(lambda l: l.state == 'draft')
+        selling_move.action_post()
+
+        # Ensure that the added depreciation moves are one 'depreciation' and the other is 'sale'
+        added_move_on_sale = car.depreciation_move_ids.filtered(lambda m: m.date == fields.Date.today()) - added_move_on_revaluation
+        self.assertTrue(added_move_on_sale.asset_move_type == 'sale')
+        self.assertEqual(car.net_gain_on_sale, 100)
+
+        car.original_move_line_ids = self.env['account.move.line']
+        self.assertEqual(bill.asset_move_type, False, "removing the bill from the original bills of the asset reset the asset_move_type field to False")
+
+        # Create new asset to test positive revaluation and disposal
+        new_car = car.copy()
+        new_car.validate()
+
+        # Positive revaluation
+        self.env['asset.modify'].create({
+            'name': 'New beautiful sticker :D',
+            'asset_id': new_car.id,
+            'value_residual': new_car.book_value + 50,
+            'salvage_value': 0,
+            'date': fields.Date.today(),
+            "account_asset_counterpart_id": self.assert_counterpart_account_id,
+        }).modify()
+
+        self.assertEqual(
+            new_car.children_ids.original_move_line_ids.move_id.asset_move_type,
+            'positive_revaluation',
+            "the original move of the child asset is set as 'positive_revaluation'"
+        )
+
+        disposal_action_view = self.env['asset.modify'].create({
+            'asset_id': new_car.id,
+            'modify_action': 'dispose',
+            'date': fields.Date.today()
+        }).sell_dispose()
+
+        self.env['account.move'].browse(disposal_action_view['res_id']).action_post()
+        self.assertEqual(self.env['account.move'].browse(disposal_action_view['res_id']).asset_move_type, 'disposal')

@@ -169,7 +169,7 @@ class TestRoSaftReport(TestSaftReport):
 
     def test_saft_report_monthly(self):
         self._report_compare_with_test_file(
-            self.report_handler.l10n_ro_export_saft_to_xml(self._generate_options()),
+            self.report_handler.l10n_ro_export_saft_to_xml_monthly(self._generate_options()),
             'saft_report_monthly.xml'
         )
 
@@ -181,7 +181,7 @@ class TestRoSaftReport(TestSaftReport):
             'bank_ids': False,
         })
         with self.assertRaises(self.ReportException) as cm:
-            self.report_handler.l10n_ro_export_saft_to_xml(self._generate_options())
+            self.report_handler.l10n_ro_export_saft_to_xml_monthly(self._generate_options())
         self.assertEqual(set(cm.exception.errors), {
             'settings_accounting_basis_missing',
             'company_phone_missing',
@@ -202,7 +202,7 @@ class TestRoSaftReport(TestSaftReport):
         if intrastat_installed:
             self.product_b.intrastat_code_id = False
         with self.assertRaises(self.ReportException) as cm:
-            self.report_handler.l10n_ro_export_saft_to_xml(self._generate_options())
+            self.report_handler.l10n_ro_export_saft_to_xml_monthly(self._generate_options())
         expected = {
             'partner_city_missing',
             'partner_country_missing',
@@ -221,7 +221,7 @@ class TestRoSaftReport(TestSaftReport):
         self.product_b.default_code = 'PA'
 
         with self.assertRaises(self.ReportException) as cm:
-            self.report_handler.l10n_ro_export_saft_to_xml(self._generate_options())
+            self.report_handler.l10n_ro_export_saft_to_xml_monthly(self._generate_options())
         self.assertEqual(set(cm.exception.errors), {
             'partner_registry_incorrect',
             'company_registry_number_invalid',
@@ -236,7 +236,7 @@ class TestRoSaftReport(TestSaftReport):
         })
         self.partner_a.country_id = self.env.ref('base.fr')
         with self.assertRaises(self.ReportException) as cm:
-            self.report_handler.l10n_ro_export_saft_to_xml(self._generate_options())
+            self.report_handler.l10n_ro_export_saft_to_xml_monthly(self._generate_options())
         self.assertEqual(set(cm.exception.errors), {
             'company_vat_registry_number_missing',
             'partner_vat_doesnt_match_country',

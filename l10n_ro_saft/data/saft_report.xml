@@ -22,6 +22,12 @@
 
         <!-- The AccountID must be the account code in the official Romanian CoA (PlanConturiBalSocCom)
              whereas the StandardAccountID should be the account ID in Odoo. -->
+
+        <!-- GeneralLedgerAccounts must be shown, even if empty -->
+        <xpath expr="//MasterFiles/GeneralLedgerAccounts" position="attributes">
+            <attribute name="t-if"/>
+        </xpath>
+
         <xpath expr="//MasterFiles/GeneralLedgerAccounts/Account/AccountID" position="attributes">
             <attribute name="t-out">account.code</attribute>
         </xpath>
@@ -108,10 +114,60 @@
 
         <!-- Add the Assets section, even if empty -->
         <xpath expr="//Owners" position="after">
-            <Assets/>
+            <Assets>
+                <Asset t-foreach="assets" t-as="asset">
+                    <AssetID t-out="asset['asset_id']"/>
+                    <AccountID t-out="asset['account_code']"/>
+                    <Description t-out="asset['asset_name']"/>
+                    <AssetSupplier t-if="asset.get('supplier_ids')" t-foreach="asset.get('supplier_ids')" t-as="supplier_id">
+                        <t t-set="partner" t-value="partner_detail_map[supplier_id]"/>
+                        <SupplierName t-out="partner['partner'].name[:70]"/>
+                        <SupplierID t-out="partner['registration_number']"/>
+                        <PostalAddress>
+                            <t t-set="partner_address" t-value="partner['partner']"/>
+                            <t t-call="account_saft.address"/>
+                        </PostalAddress>
+                    </AssetSupplier>
+                    <PurchaseOrderDate t-out="asset['asset_purchase_date']"/>
+                    <DateOfAcquisition t-out="asset['asset_acquisition_date']"/>
+                    <StartUpDate t-out="asset['asset_acquisition_date']"/>
+                    <Valuations>
+                        <Valuation t-foreach="asset['valuations']" t-as="valuation">
+                            <AssetValuationType t-out="valuation['asset_valuation_type']"/>
+                            <ValuationClass t-out="valuation['valuation_class']"/>
+                            <AcquisitionAndProductionCostsBegin t-out="valuation['acquisition_costs_begin']"/>
+                            <AcquisitionAndProductionCostsEnd t-out="valuation['acquisition_costs_end']"/>
+                            <InvestmentSupport t-out="valuation['investment_support']"/>
+                            <AssetLifeYear t-if="valuation['asset_method_period'] == '12'" t-out="valuation['asset_method_number']"/>
+                            <AssetLifeMonth t-if="valuation['asset_method_period'] == '1'" t-out="valuation['asset_method_number']"/>
+                            <AssetAddition t-out="valuation['asset_addition']"/>
+                            <Transfers t-out="valuation['transfers']"/>
+                            <AssetDisposal t-out="valuation['asset_disposal']"/>
+                            <BookValueBegin t-out="valuation['book_value_begin']"/>
+                            <DepreciationMethod t-out="valuation['depreciation_method']"/>
+                            <DepreciationPercentage t-out="valuation['depreciation_percentage']"/>
+                            <DepreciationForPeriod t-out="valuation['depreciation_for_period']"/>
+                            <AppreciationForPeriod t-out="valuation['appreciation_for_period']"/>
+                            <ExtraordinaryDepreciationsForPeriod>
+                                <ExtraordinaryDepreciationForPeriod t-foreach="valuation['extraordinary_depreciation']" t-as="extra_depr">
+                                    <ExtraordinaryDepreciationMethod t-out="extra_depr['method']"/>
+                                    <ExtraordinaryDepreciationAmountForPeriod t-out="extra_depr['amount_for_period']"/>
+                                </ExtraordinaryDepreciationForPeriod>
+                            </ExtraordinaryDepreciationsForPeriod>
+                            <AccumulatedDepreciation t-out="valuation['accumulated_depreciation']"/>
+                            <BookValueEnd t-out="valuation['book_value_end']"/>
+                        </Valuation>
+                    </Valuations>
+                </Asset>
+            </Assets>
         </xpath>
 
         <!-- ===== GeneralLedgerEntries ===== -->
+
+        <!-- If no move_vals_list, it still needs to be displayed empty -->
+        <xpath expr="//MasterFiles" position="after">
+            <GeneralLedgerEntries t-if="not move_vals_list"/>
+        </xpath>
 
         <!-- The CustomerID and SupplierID must be the Romanian-formatted registration number.
              If there is no partner on the line, we must use the reporting company's registration number. -->
@@ -148,50 +204,82 @@
         <xpath expr="//AuditFile" position="inside">
             <SourceDocuments>
                 <SalesInvoices>
-                    <t t-call="l10n_ro_saft.saft_template_invoices">
+                    <t t-if="l10n_ro_saft_required_sections['source_documents']['sales_invoices']" t-call="l10n_ro_saft.saft_template_invoices">
                         <t t-set="invoice_vals" t-value="sale_invoice_vals"/>
                     </t>
                 </SalesInvoices>
                 <PurchaseInvoices>
-                    <t t-call="l10n_ro_saft.saft_template_invoices">
+                    <t t-if="l10n_ro_saft_required_sections['source_documents']['purchase_invoices']" t-call="l10n_ro_saft.saft_template_invoices">
                         <t t-set="invoice_vals" t-value="purchase_invoice_vals"/>
                     </t>
                 </PurchaseInvoices>
                 <Payments>
-                    <NumberOfEntries t-out="payment_vals['number']"/>
-                    <TotalDebit t-out="payment_vals['total_debit']"/>
-                    <TotalCredit t-out="payment_vals['total_credit']"/>
-                    <Payment t-foreach="payment_vals['move_vals_list']" t-as="move_vals">
-                        <PaymentRefNo t-out="move_vals['name']"/>
-                        <TransactionDate t-out="move_vals['date']"/>
-                        <PaymentMethod t-out="move_vals['payment_method']"/>
-                        <Description t-out="move_vals['description']"/>
-                        <SystemID t-out="move_vals['id']"/>
-                        <PaymentLine t-foreach="move_vals['payment_line_vals_list']" t-as="line_vals">
-                            <AccountID t-out="account_code_by_id[line_vals['account_id']]"/>
-                            <t t-if="line_vals.get('partner_id')">
-                                <t t-set="partner_info" t-value="partner_detail_map[line_vals['partner_id']]"/>
-                                <CustomerID t-out="partner_info['registration_number'] if partner_info['type'] == 'customer' else '0'"/>
-                                <SupplierID t-out="partner_info['registration_number'] if partner_info['type'] == 'supplier' else '0'"/>
-                            </t>
-                            <t t-else="">
-                                <CustomerID t-out="partner_detail_map[company.partner_id.id]['registration_number']"/>
-                                <SupplierID t-out="partner_detail_map[company.partner_id.id]['registration_number']"/>
-                            </t>
-                            <DebitCreditIndicator t-if="(line_vals['debit']) or (not line_vals['debit'] and not line_vals['credit'] and line_vals['move_type'] in ('in_invoice', 'out_refund'))" t-out="'D'"/>
-                            <DebitCreditIndicator t-if="(line_vals['credit']) or (not line_vals['debit'] and not line_vals['credit'] and line_vals['move_type'] in ('out_invoice', 'in_refund'))" t-out="'C'"/>
-                            <PaymentLineAmount>
-                                <Amount t-out="format_float(line_vals['debit'] or line_vals['credit'])"/>
-                                <CurrencyCode t-out="line_vals['currency_code']"/>
-                                <!-- Checking for negative debits/credits to correctly handle storno refunds -->
-                                <CurrencyAmount t-out="format_float(line_vals['amount_currency'] * (-1 if (line_vals['debit'] or line_vals['credit']) &lt; 0 else 1))"/>
-                                <ExchangeRate t-out="format_float(line_vals['rate'], digits=4)"/>
-                            </PaymentLineAmount>
-                            <t t-call="l10n_ro_saft.saft_template_tax_information"/>
-                        </PaymentLine>
-                    </Payment>
+                    <t t-if="l10n_ro_saft_required_sections['source_documents']['payments']">
+                        <NumberOfEntries t-out="payment_vals['number']"/>
+                        <TotalDebit t-out="payment_vals['total_debit']"/>
+                        <TotalCredit t-out="payment_vals['total_credit']"/>
+                        <Payment t-foreach="payment_vals['move_vals_list']" t-as="move_vals">
+                            <PaymentRefNo t-out="move_vals['name']"/>
+                            <TransactionDate t-out="move_vals['date']"/>
+                            <PaymentMethod t-out="move_vals['payment_method']"/>
+                            <Description t-out="move_vals['description']"/>
+                            <SystemID t-out="move_vals['id']"/>
+                            <PaymentLine t-foreach="move_vals['payment_line_vals_list']" t-as="line_vals">
+                                <AccountID t-out="account_code_by_id[line_vals['account_id']]"/>
+                                <t t-if="line_vals.get('partner_id')">
+                                    <t t-set="partner_info" t-value="partner_detail_map[line_vals['partner_id']]"/>
+                                    <CustomerID t-out="partner_info['registration_number'] if partner_info['type'] == 'customer' else '0'"/>
+                                    <SupplierID t-out="partner_info['registration_number'] if partner_info['type'] == 'supplier' else '0'"/>
+                                </t>
+                                <t t-else="">
+                                    <CustomerID t-out="partner_detail_map[company.partner_id.id]['registration_number']"/>
+                                    <SupplierID t-out="partner_detail_map[company.partner_id.id]['registration_number']"/>
+                                </t>
+                                <DebitCreditIndicator t-if="(line_vals['debit']) or (not line_vals['debit'] and not line_vals['credit'] and line_vals['move_type'] in ('in_invoice', 'out_refund'))" t-out="'D'"/>
+                                <DebitCreditIndicator t-if="(line_vals['credit']) or (not line_vals['debit'] and not line_vals['credit'] and line_vals['move_type'] in ('out_invoice', 'in_refund'))" t-out="'C'"/>
+                                <PaymentLineAmount>
+                                    <Amount t-out="format_float(line_vals['debit'] or line_vals['credit'])"/>
+                                    <CurrencyCode t-out="line_vals['currency_code']"/>
+                                    <!-- Checking for negative debits/credits to correctly handle storno refunds -->
+                                    <CurrencyAmount t-out="format_float(line_vals['amount_currency'] * (-1 if (line_vals['debit'] or line_vals['credit']) &lt; 0 else 1))"/>
+                                    <ExchangeRate t-out="format_float(line_vals['rate'], digits=4)"/>
+                                </PaymentLineAmount>
+                                <t t-call="l10n_ro_saft.saft_template_tax_information"/>
+                            </PaymentLine>
+                        </Payment>
+                    </t>
                 </Payments>
                 <MovementOfGoods/>
+                <AssetTransactions>
+                    <t t-if="l10n_ro_saft_required_sections['source_documents']['asset_transactions']">
+                        <NumberOfAssetTransactions t-out="len(asset_transactions)"/>
+                        <AssetTransaction t-foreach="asset_transactions" t-as="asset_transaction">
+                            <AssetTransactionID t-out="asset_transaction['asset_transaction_id']"/>
+                            <AssetID t-out="asset_transaction['asset_id']"/>
+                            <AssetTransactionType t-out="asset_transaction['asset_transaction_type']"/>
+                            <Description t-out="asset_transaction['description']"/>
+                            <AssetTransactionDate t-out="asset_transaction['asset_transaction_date']"/>
+                            <AssetSupplier t-foreach="asset_transaction['supplier_ids']" t-as="supplier_id">
+                                <t t-set="partner" t-value="partner_detail_map[supplier_id]"/>
+                                <SupplierName t-out="partner['partner'].name[:70]"/>
+                                <SupplierID t-out="partner['registration_number']"/>
+                                <PostalAddress>
+                                    <t t-set="partner_address" t-value="partner['partner']"/>
+                                    <t t-call="account_saft.address"/>
+                                </PostalAddress>
+                            </AssetSupplier>
+                            <TransactionID t-out="asset_transaction['transaction_id']"/>
+                            <AssetTransactionValuations>
+                                <AssetTransactionValuation t-foreach="asset_transaction['asset_transaction_valuation']" t-as="transaction_valuation">
+                                    <AssetValuationType t-out="transaction_valuation['asset_valuation_type']"/>
+                                    <AcquisitionAndProductionCostsOnTransaction t-out="transaction_valuation['acquisition_and_production_costs_on_transaction']"/>
+                                    <BookValueOnTransaction t-out="transaction_valuation['book_value_transaction']"/>
+                                    <AssetTransactionAmount t-out="transaction_valuation['asset_transaction_amount']"/>
+                                </AssetTransactionValuation>
+                            </AssetTransactionValuations>
+                        </AssetTransaction>
+                    </t>
+                </AssetTransactions>
             </SourceDocuments>
         </xpath>
     </template>
