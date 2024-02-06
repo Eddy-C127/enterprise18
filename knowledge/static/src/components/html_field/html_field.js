@@ -257,7 +257,7 @@ const HtmlFieldPatch = {
         this.behaviorState.appAnchorsObserver.disconnect();
 
         this._removeMountBehaviorsListeners();
-        // Wait for the `udpateBehaviors` mutex to ensure that it is idle during
+        // Wait for the `updateBehaviors` mutex to ensure that it is idle during
         // `toInline` processing (we don't want it to mess with DOM nodes).
         await this.behaviorState.updateMutex.getUnlockedDef();
         // Destroy all Behaviors because `toInline` will apply heavy changes
@@ -505,7 +505,7 @@ const HtmlFieldPatch = {
             // Prepare the props passed to the Behavior Component.
             const props = this._prepareBehaviorProps(Behavior, behaviorData, anchor);
             if (!props) {
-                // If an error occured when preparing the Behavior props, stop
+                // If an error occurred when preparing the Behavior props, stop
                 // trying to mount it.
                 continue;
             }

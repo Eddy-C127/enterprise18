@@ -161,7 +161,7 @@ class KnowledgeArticlePermissionsInitialValues(KnowledgeArticlePermissionsCase):
         self.assertFalse(article_roots.inherited_permission_parent_id)
         self.assertEqual(article_roots.mapped('internal_permission'), ['write', 'read', 'none', 'none'])
 
-        # childs: allow void permission, inherited = go up to first defined permission
+        # children: allow void permission, inherited = go up to first defined permission
         self.assertEqual(article_headers.mapped('inherited_permission'), ['write', 'read', 'read'])
         self.assertEqual(
             [p.inherited_permission_parent_id for p in article_headers],

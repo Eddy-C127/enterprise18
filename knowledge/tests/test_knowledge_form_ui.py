@@ -317,7 +317,7 @@ class TestKnowledgeUI(TestKnowledgeUICommon):
         # This tour checks that the features of the sidebar work as expected
         self.start_tour('/web', 'knowledge_sidebar_tour', login='admin', timeout=100)
 
-        # Check section create button and artice icon button
+        # Check section create button and article icon button
         workspace_article = self.env['knowledge.article'].search([('name', '=', 'Workspace Article')])
         self.assertTrue(bool(workspace_article))
         self.assertEqual(workspace_article.category, 'workspace')

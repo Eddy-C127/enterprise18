@@ -104,7 +104,7 @@ export class KnowledgeCoverSelector extends ImageSelector {
 
     /**
      * @override
-     * Overriden to not throw an error.
+     * Overridden to not throw an error.
      * Designed to be used with several tabs in the dialog (not the case here)
      * and used for rendering purposes to show selected images when multiImage
      * is allowed (not the case either).
@@ -115,7 +115,7 @@ export class KnowledgeCoverSelector extends ImageSelector {
 
     /**
      * @override
-     * Overriden to not throw an error.
+     * Overridden to not throw an error.
      * Designed to be used with several tabs in the dialog (not the case here)
      * and used for rendering purposes to show selected images when multiImage
      * is allowed (not the case either).

@@ -145,8 +145,8 @@ export class KnowledgeSidebar extends Component {
             onDragEnd: () => this.state.dragging = false,
             /**
              * @param {DOMElement} element - dropped element
-             * @param {DOMElement} next - element before wich the element was dropped
-             * @param {DOMElement} group - inital (=current) group of the dropped element
+             * @param {DOMElement} next - element before which the element was dropped
+             * @param {DOMElement} group - initial (=current) group of the dropped element
              * @param {DOMElement} newGroup - group in which the element was dropped
              * @param {DOMElement} parent - parent element of where the element was dropped
              * @param {DOMElement} placeholder - hint element showing the current position
@@ -179,7 +179,7 @@ export class KnowledgeSidebar extends Component {
             /**
              * @param {DOMElement} element - moved element
              * @param {DOMElement} parent - parent element of where the element was moved
-             * @param {DOMElement} group - inital (=current) group of the moved element
+             * @param {DOMElement} group - initial (=current) group of the moved element
              * @param {DOMElement} newGroup - group in which the element was moved
              * @param {DOMElement} prevPos.parent - element's parent before the move
              * @param {DOMElement} placeholder - hint element showing the current position
@@ -668,7 +668,7 @@ export class KnowledgeSidebar extends Component {
                 confirmLabel: confirmLabel,
                 confirm: () => confirmMove(article, newPosition),
                 cancel: () => {
-                    // Move article back to its postion
+                    // Move article back to its position
                     this.repositionArticle(article, currentPosition);
                 },
             });

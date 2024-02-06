@@ -147,7 +147,7 @@ export class KnowledgeArticleFormController extends FormController {
     /**
      * Callback executed before the record save (if the record is valid).
      * When an article has no name set, use the title (first h1 in the
-     * body) to try to save the artice with a name.
+     * body) to try to save the article with a name.
      * @overwrite
      */
     async onWillSaveRecord(record, changes) {

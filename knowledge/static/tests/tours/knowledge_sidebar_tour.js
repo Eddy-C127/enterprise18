@@ -729,7 +729,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
         );
     },
 }, {
-    // Check that the children are correclty ordered
+    // Check that the children are correctly ordered
     trigger: 'section[data-section="private"] .o_article:contains("Private Child 3") + .o_article:contains("Private Child 4")',
     extra_trigger: 'section[data-section="private"] .o_article:contains("Private Child 4") + .o_article:contains("Private Child 1")',
     run: () => {},

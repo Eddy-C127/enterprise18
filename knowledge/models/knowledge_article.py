@@ -216,7 +216,7 @@ class Article(models.Model):
         has members validation is done in article.member model as we cannot trigger
         the constraint depending on fields from related model.
 
-        Ǹote: computation is done in Py instead of using optimized SQL queries
+        Note: computation is done in Py instead of using optimized SQL queries
         because value are not yet in DB at this point."""
         for article in self:
             if article.inherited_permission != 'write' and not article._has_write_member():
@@ -1146,7 +1146,7 @@ class Article(models.Model):
     def action_make_private_copy(self):
         """ Creates a copy of an article. != duplicate article (see `copy`).
         Creates a new private article with the same body, icon and cover,
-        but drops other fields such as members, childs, permissions etc.
+        but drops other fields such as members, children, permissions etc.
         Note: Article references will be update, see `_update_article_references`
         """
         self.ensure_one()
@@ -1387,7 +1387,7 @@ class Article(models.Model):
         if any(not article.parent_id for article in self):
             parent_ids.append(False)
 
-        # fetch and sort all_chidren: sequence ASC, then modified, then write date DESC
+        # fetch and sort all_children: sequence ASC, then modified, then write date DESC
         all_children = self.search([("parent_id", 'in', parent_ids)])
         all_children = all_children.sorted(
             lambda article: (-1 * article.sequence,
@@ -2555,7 +2555,7 @@ class Article(models.Model):
         #    ensure that the records exist in the database for the following steps.
         # 2. In the second step, we will build a dict mapping the template
         #    xml ids with the article ids created from it. The dict will be
-        #    used to convert the template xml ids mentionned in the templates
+        #    used to convert the template xml ids mentioned in the templates
         #    with the ids of the articles generated from them.
         # 3. In the third step, we will populate the articles using the values
         #    set on the associated templates.
@@ -2682,7 +2682,7 @@ class Article(models.Model):
             # the given xml ids. The generated HTML will then only contain ids.
             # Example:
             # When the "behavior props" contains `ref('knowledge.article_template_1')`,
-            # we replace that string occurence with the id returned by the given
+            # we replace that string occurrence with the id returned by the given
             # `ref` function evaluated with the xml_id 'knowledge.article_template_1'.
             behavior_props = ast.literal_eval(re.sub(
                 r'(?<![\w])ref\(\'(?P<xml_id>\w+\.\w+)\'\)',

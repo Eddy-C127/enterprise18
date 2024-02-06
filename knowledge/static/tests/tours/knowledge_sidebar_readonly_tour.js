@@ -16,7 +16,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_readonly_tour', {
     trigger: '.o_article.readonly .o_article_caret',
     extra_trigger: '.o_knowledge_tree .o_article:contains("Workspace Article") + .o_article:contains("Private Article")',
 }, {
-    // Check that article has been unfolded and move an article under a redonly article (fails)
+    // Check that article has been unfolded and move an article under a readonly article (fails)
     trigger: '.o_article:contains("Private Child")',
     run: () => {
         dragAndDropArticle(

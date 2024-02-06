@@ -88,10 +88,10 @@ registry.category("web_tour.tours").add('knowledge_history_tour', {
         // check the comparison content is correct
         trigger: '.history-container .tab-pane',
         run: function () {
-            const comparaisonHtml = document.querySelector('.history-container .tab-pane').innerHTML;
+            const comparisonHtml = document.querySelector('.history-container .tab-pane').innerHTML;
             const correctHtml = '<h1><removed>Modified Title 03</removed><added>' + testArticleName + '</added></h1>';
-            if (comparaisonHtml !== correctHtml) {
-                throw new Error('Expect comparison to be ' + correctHtml + ', got ' + comparaisonHtml);
+            if (comparisonHtml !== correctHtml) {
+                throw new Error('Expect comparison to be ' + correctHtml + ', got ' + comparisonHtml);
             }
         }
     }, {

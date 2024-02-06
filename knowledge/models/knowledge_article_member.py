@@ -42,7 +42,7 @@ class ArticleMember(models.Model):
         has been added and stored to force triggering this constraint when
         article.permission is modified.
 
-        Ǹote: computation is done in Py instead of using optimized SQL queries
+        Note: computation is done in Py instead of using optimized SQL queries
         because value are not yet in DB at this point.
 
         :param bool on_unlink: when called on unlink we must remove the members

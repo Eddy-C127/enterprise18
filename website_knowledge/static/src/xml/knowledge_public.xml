@@ -2,10 +2,10 @@
 <templates xml:space="preserve">
     <t t-name="website_knowledge.embedded_view_placeholder">
         <!-- Note: A visitor will not have the rights to load an embedded view.
-        Instead of hidding it, we will display a small placeholder suggesting the
+        Instead of hiding it, we will display a small placeholder suggesting the
         visitor to connect to see the embedded view. When the user clicks on that
         button and logs in, the user will be redirected to the backend of the
-        article and will be able to load the embedded view iif the user has
+        article and will be able to load the embedded view if the user has
         enough rights (see ACL & record rules). -->
         <div class="o_knowledge_embedded_view_placeholder d-flex flex-column flex-grow-1 position-relative bg-white border">
             <div class="d-flex border-bottom p-5 pb-0">

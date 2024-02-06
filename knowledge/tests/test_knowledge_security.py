@@ -11,7 +11,7 @@ from odoo.tools import mute_logger
 @tagged('knowledge_acl')
 class TestKnowledgeSecurity(KnowledgeArticlePermissionsCase):
     """ Tests ACLs and low level access on models. Do not test the internals
-    of permission comuptation as those are done in another test suite. Here
+    of permission computation as those are done in another test suite. Here
     we rely on them to check the create/read/write/unlink access checks. """
 
     @classmethod

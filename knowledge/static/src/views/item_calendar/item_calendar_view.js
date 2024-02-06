@@ -26,7 +26,7 @@ export class KnowledgeArticleItemsCalendarController extends CalendarController 
             }
         });
         onWillUpdateProps((nextProps) => {
-            // Udpate the model if the itemCalendarProps were updated
+            // Update the model if the itemCalendarProps were updated
             if (JSON.stringify(this.props.itemCalendarProps) !== JSON.stringify(nextProps.itemCalendarProps)) {
                 this.updateModel(nextProps.itemCalendarProps);
                 this.state.missingConfiguration = false;
@@ -101,7 +101,7 @@ export class KnowledgeArticleItemsCalendarController extends CalendarController 
     }
 
     /**
-     * Udpate the model field mappings and other meta variables using the given
+     * Update the model field mappings and other meta variables using the given
      * modelProps.
      */
     updateModel(modelProps) {

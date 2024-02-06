@@ -97,7 +97,7 @@ class TestKnowledgeArticleConstraints(KnowledgeCommon):
     def test_article_acyclic_graph_move_to(self):
         """ Check that the article hierarchy does not contain cycles using the move_to method. """
         article = self.article_workspace.with_env(self.env)
-        article_childs = self.env['knowledge.article'].create([
+        article_children = self.env['knowledge.article'].create([
             {'name': 'ChildNew1',
              'parent_id': article.id,
              'sequence': 3,
@@ -110,13 +110,13 @@ class TestKnowledgeArticleConstraints(KnowledgeCommon):
 
         # move the parent article under one of its children should raise an exception
         with self.assertRaises(exceptions.UserError, msg='The article hierarchy contains a cycle'):
-            article.move_to(parent_id=article_childs[1].id)
+            article.move_to(parent_id=article_children[1].id)
 
     @users('employee')
     def test_article_acyclic_graph_write_parent(self):
         """ Check that the article hierarchy does not contain cycles when writing on parent_id. """
         article = self.article_workspace.with_env(self.env)
-        article_childs = self.env['knowledge.article'].create([
+        article_children = self.env['knowledge.article'].create([
             {'name': 'ChildNew1',
              'parent_id': article.id,
              'sequence': 3,
@@ -130,7 +130,7 @@ class TestKnowledgeArticleConstraints(KnowledgeCommon):
         # move the parent article under one of its children should raise an exception
         with self.assertRaises(exceptions.UserError, msg='The article hierarchy contains a cycle'):
             article.write({
-                'parent_id': article_childs[1].id
+                'parent_id': article_children[1].id
             })
 
     @mute_logger('odoo.addons.base.models.ir_model', 'odoo.addons.base.models.ir_rule')

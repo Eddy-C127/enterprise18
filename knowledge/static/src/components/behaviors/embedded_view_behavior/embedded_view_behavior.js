@@ -86,7 +86,7 @@ export class EmbeddedViewBehavior extends AbstractBehavior {
                 this.insertionObserver.observe(root, {childList: true});
             }
             /**
-             * Capturing the events occuring in the embedded view to prevent the
+             * Capturing the events occurring in the embedded view to prevent the
              * default behavior of the editor.
              * The event is cloned and dispatched again above the editable.
              * This essentially "skips" the editor listener and propagates the event above it.

@@ -134,7 +134,7 @@ export class ItemCalendarPropsDialog extends Component {
     }
 
     /**
-     * Return the availabe stop properties (that are of the same type as the
+     * Return the available stop properties (that are of the same type as the
      * current start date) formatted as a group for the SelectMenu component
      */
     get availableDateStopProperties() {

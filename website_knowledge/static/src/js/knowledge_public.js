@@ -153,7 +153,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
      * Renders the tree listing all articles.
      * To minimize loading time, the function will initially load the root articles.
      * The other articles will be loaded lazily: The user will have to click on
-     * the carret next to an article to load and see their children.
+     * the caret next to an article to load and see their children.
      * The id of the unfolded articles will be cached so that they will
      * automatically be displayed on page load.
      */
@@ -195,7 +195,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
     },
 
     /**
-     * Callback function called when the user clicks on the carret of an article
+     * Callback function called when the user clicks on the caret of an article
      * The function will load the children of the article and append them to the
      * dom. Then, the id of the unfolded article will be added to the cache.
      * (see: `_renderTree`).

@@ -341,7 +341,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     },
 }, {
     //----------------------------------------------------------------------
-    // Check that the date properties have been updated correclty after that
+    // Check that the date properties have been updated correctly after that
     // the item has been moved in the item calendar view, and that the text
     // property has not been changed
     //----------------------------------------------------------------------

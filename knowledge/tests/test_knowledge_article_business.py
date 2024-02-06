@@ -89,7 +89,7 @@ class TestKnowledgeArticleBusiness(KnowledgeCommonBusinessCase):
 
         _title = 'Fthagn'
         new = Article.article_create(title=_title, parent_id=False, is_private=False)
-        self.assertMembers(new, 'write', {self.env.user.partner_id: 'write'}) # With the visiblity we add directly the user as member
+        self.assertMembers(new, 'write', {self.env.user.partner_id: 'write'}) # With the visibility we add directly the user as member
         self.assertEqual(new.body, f'<h1>{_title}</h1>')
         self.assertEqual(new.category, 'workspace')
         self.assertEqual(new.name, _title)

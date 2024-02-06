@@ -337,7 +337,7 @@ patch(Wysiwyg.prototype, {
         this._notifyNewBehavior(videoBlock, restoreSelection);
     },
     /**
-     * Insert a behaviorBlueprint programatically. If the wysiwyg is a part of a
+     * Insert a behaviorBlueprint programmatically. If the wysiwyg is a part of a
      * collaborative peer to peer connection, ensure that the behaviorBlueprint
      * is properly appended even when the content is reset by the collaboration.
      *
