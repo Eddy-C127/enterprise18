@@ -17,6 +17,7 @@ from dbfread import DBF
 
 from odoo import models, fields, _
 from odoo.exceptions import UserError, RedirectWarning
+from odoo.tools import frozendict
 
 _logger = logging.getLogger(__name__)
 
@@ -340,17 +341,20 @@ class WinbooksImportWizard(models.TransientModel):
         @scandbk.zip files are the attachments.
         """
         _logger.info("Import Moves")
-        recs = []
         ResCurrency = self.env['res.currency']
         IrAttachment = self.env['ir.attachment']
         suspense_account = self.env['account.account'].search([('code', '=', self.suspense_code)], limit=1)
         if not self.only_open and not suspense_account:
             raise UserError(_("The code for the Suspense Account you entered doesn't match any account"))
         counter_part_created = False
-        for rec in dbf_records:
-            if rec.get('BOOKYEAR') and rec.get('DOCNUMBER') != '99999999':
-                recs.append(rec)
-        result = [dict(tupleized) for tupleized in set(tuple(item.items()) for item in recs)]
+        result = [
+            tupleized
+            for tupleized in set(
+                item
+                for item in dbf_records
+                if item.get("BOOKYEAR") and item.get("DOCNUMBER") != "99999999"
+            )
+        ]
         grouped = collections.defaultdict(list)
         currency_codes = set()
         for item in result:
@@ -744,7 +748,7 @@ class WinbooksImportWizard(models.TransientModel):
         with TemporaryDirectory() as file_dir:
             def get_dbfrecords(filterfunc):
                 return itertools.chain.from_iterable(
-                    DBF(os.path.join(file_dir, file), encoding='latin').records
+                    DBF(os.path.join(file_dir, file), encoding='latin', recfactory=frozendict).records
                     for file in [s for s in dbffiles if filterfunc(s)]
                 )
 
@@ -758,7 +762,10 @@ class WinbooksImportWizard(models.TransientModel):
                 zip_ref.extractall(file_dir, members=sub_zips)
 
             # @cie@ sub zip file contains all the data
-            cie_zip_name = next(filename for filename in sub_zips if "@cie@" in filename.lower())
+            try:
+                cie_zip_name = next(filename for filename in sub_zips if "@cie@" in filename.lower())
+            except StopIteration:
+                raise UserError(_("No data zip in the main archive. Please use the complete Winbooks export."))
             with zipfile.ZipFile(os.path.join(file_dir, cie_zip_name), 'r') as child_zip_ref:
                 dbffiles = [
                     filename
