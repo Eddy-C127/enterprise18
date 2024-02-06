@@ -76,17 +76,17 @@ export default class BarcodePickingModel extends BarcodeModel {
                 "Scanned product %s is not reserved for this transfer. Are you sure you want to add it?",
                 productName
             );
-            const confirmationPromise = new Promise((resolve, reject) => {
+            const confirmationPromise = new Promise(resolve => {
                 this.trigger("playSound");
                 this.dialogService.add(ConfirmationDialog, {
                     title: _t("Add extra product?"),
                     body,
-                    cancel: reject,
+                    cancel: () => resolve(false),
                     confirm: async () => {
                         const newLine = await this._createNewLine(params);
                         resolve(newLine);
                     },
-                    close: reject,
+                    close: () => resolve(false),
                 });
             });
             return confirmationPromise;
