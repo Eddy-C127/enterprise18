@@ -6,7 +6,7 @@ import { patch } from "@web/core/utils/patch";
 patch(Activity.prototype, {
     async onClickRequestSign() {
         await this.env.services["mail.activity"].requestSignature(
-            this.props.data.id,
+            this.props.activity.id,
             this.props.onUpdate.bind(this, this.thread)
         );
     },
