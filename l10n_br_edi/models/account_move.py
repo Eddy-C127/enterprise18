@@ -125,7 +125,7 @@ class AccountMove(models.Model):
     def _compute_l10n_br_edi_is_needed(self):
         for move in self:
             move.l10n_br_edi_is_needed = (
-                move.l10n_br_last_edi_status != "accepted"
+                not move.l10n_br_last_edi_status
                 and move.country_code == "BR"
                 and move.move_type in ("out_invoice", "out_refund")
                 and move.fiscal_position_id.l10n_br_is_avatax
@@ -154,6 +154,17 @@ class AccountMove(models.Model):
             }
 
         return super().button_request_cancel()
+
+    def button_draft(self):
+        # EXTENDS 'account'
+        self.write(
+            {
+                "l10n_br_last_edi_status": False,
+                "l10n_br_edi_error": False,
+                "l10n_br_edi_avatax_data": False,
+            }
+        )
+        return super().button_draft()
 
     def button_request_correction(self):
         return {
