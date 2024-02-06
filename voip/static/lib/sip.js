@@ -1,7 +1,7 @@
 /*!
  * 
- *  SIP version 0.20.0
- *  Copyright (c) 2014-2021 Junction Networks, Inc <http://www.onsip.com>
+ *  SIP version 0.21.2
+ *  Copyright (c) 2014-2022 Junction Networks, Inc <http://www.onsip.com>
  *  Homepage: https://sipjs.com
  *  License: https://sipjs.com/license/
  *
@@ -44,7 +44,7 @@
 		exports["SIP"] = factory();
 	else
 		root["SIP"] = factory();
-})(this, function() {
+})(this, () => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ([
@@ -56,7 +56,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LIBRARY_VERSION": () => (/* binding */ LIBRARY_VERSION)
 /* harmony export */ });
-const LIBRARY_VERSION = "0.20.0";
+const LIBRARY_VERSION = "0.21.2";
 
 
 /***/ }),
@@ -65,64 +65,67 @@ const LIBRARY_VERSION = "0.20.0";
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ContentTypeUnsupportedError": () => (/* reexport safe */ _exceptions__WEBPACK_IMPORTED_MODULE_0__.ContentTypeUnsupportedError),
-/* harmony export */   "RequestPendingError": () => (/* reexport safe */ _exceptions__WEBPACK_IMPORTED_MODULE_0__.RequestPendingError),
-/* harmony export */   "SessionDescriptionHandlerError": () => (/* reexport safe */ _exceptions__WEBPACK_IMPORTED_MODULE_0__.SessionDescriptionHandlerError),
-/* harmony export */   "SessionTerminatedError": () => (/* reexport safe */ _exceptions__WEBPACK_IMPORTED_MODULE_0__.SessionTerminatedError),
-/* harmony export */   "StateTransitionError": () => (/* reexport safe */ _exceptions__WEBPACK_IMPORTED_MODULE_0__.StateTransitionError),
-/* harmony export */   "Ack": () => (/* reexport safe */ _ack__WEBPACK_IMPORTED_MODULE_1__.Ack),
-/* harmony export */   "Bye": () => (/* reexport safe */ _bye__WEBPACK_IMPORTED_MODULE_2__.Bye),
-/* harmony export */   "EmitterImpl": () => (/* reexport safe */ _emitter__WEBPACK_IMPORTED_MODULE_3__.EmitterImpl),
-/* harmony export */   "Info": () => (/* reexport safe */ _info__WEBPACK_IMPORTED_MODULE_4__.Info),
-/* harmony export */   "Invitation": () => (/* reexport safe */ _invitation__WEBPACK_IMPORTED_MODULE_5__.Invitation),
-/* harmony export */   "Inviter": () => (/* reexport safe */ _inviter__WEBPACK_IMPORTED_MODULE_6__.Inviter),
-/* harmony export */   "Message": () => (/* reexport safe */ _message__WEBPACK_IMPORTED_MODULE_7__.Message),
-/* harmony export */   "Messager": () => (/* reexport safe */ _messager__WEBPACK_IMPORTED_MODULE_8__.Messager),
-/* harmony export */   "Notification": () => (/* reexport safe */ _notification__WEBPACK_IMPORTED_MODULE_9__.Notification),
-/* harmony export */   "PublisherState": () => (/* reexport safe */ _publisher_state__WEBPACK_IMPORTED_MODULE_10__.PublisherState),
-/* harmony export */   "Publisher": () => (/* reexport safe */ _publisher__WEBPACK_IMPORTED_MODULE_11__.Publisher),
-/* harmony export */   "Referral": () => (/* reexport safe */ _referral__WEBPACK_IMPORTED_MODULE_12__.Referral),
-/* harmony export */   "RegistererState": () => (/* reexport safe */ _registerer_state__WEBPACK_IMPORTED_MODULE_13__.RegistererState),
-/* harmony export */   "Registerer": () => (/* reexport safe */ _registerer__WEBPACK_IMPORTED_MODULE_14__.Registerer),
-/* harmony export */   "SessionState": () => (/* reexport safe */ _session_state__WEBPACK_IMPORTED_MODULE_15__.SessionState),
-/* harmony export */   "Session": () => (/* reexport safe */ _session__WEBPACK_IMPORTED_MODULE_16__.Session),
-/* harmony export */   "Subscriber": () => (/* reexport safe */ _subscriber__WEBPACK_IMPORTED_MODULE_17__.Subscriber),
-/* harmony export */   "SubscriptionState": () => (/* reexport safe */ _subscription_state__WEBPACK_IMPORTED_MODULE_18__.SubscriptionState),
-/* harmony export */   "Subscription": () => (/* reexport safe */ _subscription__WEBPACK_IMPORTED_MODULE_19__.Subscription),
-/* harmony export */   "TransportState": () => (/* reexport safe */ _transport_state__WEBPACK_IMPORTED_MODULE_20__.TransportState),
-/* harmony export */   "SIPExtension": () => (/* reexport safe */ _user_agent_options__WEBPACK_IMPORTED_MODULE_21__.SIPExtension),
-/* harmony export */   "UserAgentRegisteredOptionTags": () => (/* reexport safe */ _user_agent_options__WEBPACK_IMPORTED_MODULE_21__.UserAgentRegisteredOptionTags),
-/* harmony export */   "UserAgentState": () => (/* reexport safe */ _user_agent_state__WEBPACK_IMPORTED_MODULE_22__.UserAgentState),
-/* harmony export */   "UserAgent": () => (/* reexport safe */ _user_agent__WEBPACK_IMPORTED_MODULE_23__.UserAgent)
+/* harmony export */   "Ack": () => (/* reexport safe */ _ack_js__WEBPACK_IMPORTED_MODULE_1__.Ack),
+/* harmony export */   "Bye": () => (/* reexport safe */ _bye_js__WEBPACK_IMPORTED_MODULE_2__.Bye),
+/* harmony export */   "Cancel": () => (/* reexport safe */ _cancel_js__WEBPACK_IMPORTED_MODULE_3__.Cancel),
+/* harmony export */   "ContentTypeUnsupportedError": () => (/* reexport safe */ _exceptions_index_js__WEBPACK_IMPORTED_MODULE_0__.ContentTypeUnsupportedError),
+/* harmony export */   "EmitterImpl": () => (/* reexport safe */ _emitter_js__WEBPACK_IMPORTED_MODULE_4__.EmitterImpl),
+/* harmony export */   "Info": () => (/* reexport safe */ _info_js__WEBPACK_IMPORTED_MODULE_5__.Info),
+/* harmony export */   "Invitation": () => (/* reexport safe */ _invitation_js__WEBPACK_IMPORTED_MODULE_6__.Invitation),
+/* harmony export */   "Inviter": () => (/* reexport safe */ _inviter_js__WEBPACK_IMPORTED_MODULE_7__.Inviter),
+/* harmony export */   "Message": () => (/* reexport safe */ _message_js__WEBPACK_IMPORTED_MODULE_8__.Message),
+/* harmony export */   "Messager": () => (/* reexport safe */ _messager_js__WEBPACK_IMPORTED_MODULE_9__.Messager),
+/* harmony export */   "Notification": () => (/* reexport safe */ _notification_js__WEBPACK_IMPORTED_MODULE_10__.Notification),
+/* harmony export */   "Publisher": () => (/* reexport safe */ _publisher_js__WEBPACK_IMPORTED_MODULE_12__.Publisher),
+/* harmony export */   "PublisherState": () => (/* reexport safe */ _publisher_state_js__WEBPACK_IMPORTED_MODULE_11__.PublisherState),
+/* harmony export */   "Referral": () => (/* reexport safe */ _referral_js__WEBPACK_IMPORTED_MODULE_13__.Referral),
+/* harmony export */   "Registerer": () => (/* reexport safe */ _registerer_js__WEBPACK_IMPORTED_MODULE_15__.Registerer),
+/* harmony export */   "RegistererState": () => (/* reexport safe */ _registerer_state_js__WEBPACK_IMPORTED_MODULE_14__.RegistererState),
+/* harmony export */   "RequestPendingError": () => (/* reexport safe */ _exceptions_index_js__WEBPACK_IMPORTED_MODULE_0__.RequestPendingError),
+/* harmony export */   "SIPExtension": () => (/* reexport safe */ _user_agent_options_js__WEBPACK_IMPORTED_MODULE_22__.SIPExtension),
+/* harmony export */   "Session": () => (/* reexport safe */ _session_js__WEBPACK_IMPORTED_MODULE_17__.Session),
+/* harmony export */   "SessionDescriptionHandlerError": () => (/* reexport safe */ _exceptions_index_js__WEBPACK_IMPORTED_MODULE_0__.SessionDescriptionHandlerError),
+/* harmony export */   "SessionState": () => (/* reexport safe */ _session_state_js__WEBPACK_IMPORTED_MODULE_16__.SessionState),
+/* harmony export */   "SessionTerminatedError": () => (/* reexport safe */ _exceptions_index_js__WEBPACK_IMPORTED_MODULE_0__.SessionTerminatedError),
+/* harmony export */   "StateTransitionError": () => (/* reexport safe */ _exceptions_index_js__WEBPACK_IMPORTED_MODULE_0__.StateTransitionError),
+/* harmony export */   "Subscriber": () => (/* reexport safe */ _subscriber_js__WEBPACK_IMPORTED_MODULE_18__.Subscriber),
+/* harmony export */   "Subscription": () => (/* reexport safe */ _subscription_js__WEBPACK_IMPORTED_MODULE_20__.Subscription),
+/* harmony export */   "SubscriptionState": () => (/* reexport safe */ _subscription_state_js__WEBPACK_IMPORTED_MODULE_19__.SubscriptionState),
+/* harmony export */   "TransportState": () => (/* reexport safe */ _transport_state_js__WEBPACK_IMPORTED_MODULE_21__.TransportState),
+/* harmony export */   "UserAgent": () => (/* reexport safe */ _user_agent_js__WEBPACK_IMPORTED_MODULE_24__.UserAgent),
+/* harmony export */   "UserAgentRegisteredOptionTags": () => (/* reexport safe */ _user_agent_options_js__WEBPACK_IMPORTED_MODULE_22__.UserAgentRegisteredOptionTags),
+/* harmony export */   "UserAgentState": () => (/* reexport safe */ _user_agent_state_js__WEBPACK_IMPORTED_MODULE_23__.UserAgentState)
 /* harmony export */ });
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _ack__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
-/* harmony import */ var _bye__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var _emitter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
-/* harmony import */ var _info__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var _invitation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14);
-/* harmony import */ var _inviter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(37);
-/* harmony import */ var _message__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(31);
-/* harmony import */ var _messager__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(38);
-/* harmony import */ var _notification__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(32);
-/* harmony import */ var _publisher_state__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(39);
-/* harmony import */ var _publisher__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(40);
-/* harmony import */ var _referral__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(33);
-/* harmony import */ var _registerer_state__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(41);
-/* harmony import */ var _registerer__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(42);
-/* harmony import */ var _session_state__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(16);
-/* harmony import */ var _session__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(15);
-/* harmony import */ var _subscriber__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(43);
-/* harmony import */ var _subscription_state__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(45);
-/* harmony import */ var _subscription__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(44);
-/* harmony import */ var _transport_state__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(47);
-/* harmony import */ var _user_agent_options__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(34);
-/* harmony import */ var _user_agent_state__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(48);
-/* harmony import */ var _user_agent__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(49);
+/* harmony import */ var _exceptions_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _ack_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var _bye_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
+/* harmony import */ var _cancel_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
+/* harmony import */ var _emitter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
+/* harmony import */ var _info_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14);
+/* harmony import */ var _invitation_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(15);
+/* harmony import */ var _inviter_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(38);
+/* harmony import */ var _message_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(32);
+/* harmony import */ var _messager_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(39);
+/* harmony import */ var _notification_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(33);
+/* harmony import */ var _publisher_state_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(40);
+/* harmony import */ var _publisher_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(41);
+/* harmony import */ var _referral_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(34);
+/* harmony import */ var _registerer_state_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(42);
+/* harmony import */ var _registerer_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(43);
+/* harmony import */ var _session_state_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(17);
+/* harmony import */ var _session_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(16);
+/* harmony import */ var _subscriber_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(44);
+/* harmony import */ var _subscription_state_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(46);
+/* harmony import */ var _subscription_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(45);
+/* harmony import */ var _transport_state_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(48);
+/* harmony import */ var _user_agent_options_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(35);
+/* harmony import */ var _user_agent_state_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(49);
+/* harmony import */ var _user_agent_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(50);
 /**
  * A simple yet powerful API which takes care of SIP signaling and WebRTC media sessions for you.
  * @packageDocumentation
  */
+
 
 
 
@@ -186,17 +189,17 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ContentTypeUnsupportedError": () => (/* reexport safe */ _content_type_unsupported__WEBPACK_IMPORTED_MODULE_0__.ContentTypeUnsupportedError),
-/* harmony export */   "RequestPendingError": () => (/* reexport safe */ _request_pending__WEBPACK_IMPORTED_MODULE_1__.RequestPendingError),
-/* harmony export */   "SessionDescriptionHandlerError": () => (/* reexport safe */ _session_description_handler__WEBPACK_IMPORTED_MODULE_2__.SessionDescriptionHandlerError),
-/* harmony export */   "SessionTerminatedError": () => (/* reexport safe */ _session_terminated__WEBPACK_IMPORTED_MODULE_3__.SessionTerminatedError),
-/* harmony export */   "StateTransitionError": () => (/* reexport safe */ _state_transition__WEBPACK_IMPORTED_MODULE_4__.StateTransitionError)
+/* harmony export */   "ContentTypeUnsupportedError": () => (/* reexport safe */ _content_type_unsupported_js__WEBPACK_IMPORTED_MODULE_0__.ContentTypeUnsupportedError),
+/* harmony export */   "RequestPendingError": () => (/* reexport safe */ _request_pending_js__WEBPACK_IMPORTED_MODULE_1__.RequestPendingError),
+/* harmony export */   "SessionDescriptionHandlerError": () => (/* reexport safe */ _session_description_handler_js__WEBPACK_IMPORTED_MODULE_2__.SessionDescriptionHandlerError),
+/* harmony export */   "SessionTerminatedError": () => (/* reexport safe */ _session_terminated_js__WEBPACK_IMPORTED_MODULE_3__.SessionTerminatedError),
+/* harmony export */   "StateTransitionError": () => (/* reexport safe */ _state_transition_js__WEBPACK_IMPORTED_MODULE_4__.StateTransitionError)
 /* harmony export */ });
-/* harmony import */ var _content_type_unsupported__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* harmony import */ var _request_pending__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _session_description_handler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
-/* harmony import */ var _session_terminated__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
-/* harmony import */ var _state_transition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
+/* harmony import */ var _content_type_unsupported_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var _request_pending_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _session_description_handler_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var _session_terminated_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
+/* harmony import */ var _state_transition_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
 
 
 
@@ -212,13 +215,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ContentTypeUnsupportedError": () => (/* binding */ ContentTypeUnsupportedError)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _core_exceptions_exception_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 
 /**
  * An exception indicating an unsupported content type prevented execution.
  * @public
  */
-class ContentTypeUnsupportedError extends _core__WEBPACK_IMPORTED_MODULE_0__.Exception {
+class ContentTypeUnsupportedError extends _core_exceptions_exception_js__WEBPACK_IMPORTED_MODULE_0__.Exception {
     constructor(message) {
         super(message ? message : "Unsupported content type.");
     }
@@ -254,13 +257,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "RequestPendingError": () => (/* binding */ RequestPendingError)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _core_exceptions_exception_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 
 /**
  * An exception indicating an outstanding prior request prevented execution.
  * @public
  */
-class RequestPendingError extends _core__WEBPACK_IMPORTED_MODULE_0__.Exception {
+class RequestPendingError extends _core_exceptions_exception_js__WEBPACK_IMPORTED_MODULE_0__.Exception {
     /** @internal */
     constructor(message) {
         super(message ? message : "Request pending.");
@@ -276,13 +279,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SessionDescriptionHandlerError": () => (/* binding */ SessionDescriptionHandlerError)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _core_exceptions_exception_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 
 /**
  * An exception indicating a session description handler error occured.
  * @public
  */
-class SessionDescriptionHandlerError extends _core__WEBPACK_IMPORTED_MODULE_0__.Exception {
+class SessionDescriptionHandlerError extends _core_exceptions_exception_js__WEBPACK_IMPORTED_MODULE_0__.Exception {
     constructor(message) {
         super(message ? message : "Unspecified session description handler error.");
     }
@@ -297,13 +300,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SessionTerminatedError": () => (/* binding */ SessionTerminatedError)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _core_exceptions_exception_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 
 /**
  * An exception indicating the session terminated before the action completed.
  * @public
  */
-class SessionTerminatedError extends _core__WEBPACK_IMPORTED_MODULE_0__.Exception {
+class SessionTerminatedError extends _core_exceptions_exception_js__WEBPACK_IMPORTED_MODULE_0__.Exception {
     constructor() {
         super("The session has terminated.");
     }
@@ -318,13 +321,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "StateTransitionError": () => (/* binding */ StateTransitionError)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _core_exceptions_exception_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 
 /**
  * An exception indicating an invalid state transition error occured.
  * @public
  */
-class StateTransitionError extends _core__WEBPACK_IMPORTED_MODULE_0__.Exception {
+class StateTransitionError extends _core_exceptions_exception_js__WEBPACK_IMPORTED_MODULE_0__.Exception {
     constructor(message) {
         super(message ? message : "An error occurred during state transition.");
     }
@@ -391,6 +394,30 @@ class Bye {
 
 /***/ }),
 /* 12 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Cancel": () => (/* binding */ Cancel)
+/* harmony export */ });
+/**
+ * A request to reject an {@link Invitation} (incoming CANCEL).
+ * @public
+ */
+class Cancel {
+    /** @internal */
+    constructor(incomingCancelRequest) {
+        this.incomingCancelRequest = incomingCancelRequest;
+    }
+    /** Incoming CANCEL request message. */
+    get request() {
+        return this.incomingCancelRequest;
+    }
+}
+
+
+/***/ }),
+/* 13 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -467,7 +494,7 @@ class EmitterImpl {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -501,25 +528,33 @@ class Info {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Invitation": () => (/* binding */ Invitation)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(17);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(30);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(35);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(36);
-/* harmony import */ var _core_messages_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20);
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(4);
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(7);
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8);
-/* harmony import */ var _session__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(15);
-/* harmony import */ var _session_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
-/* harmony import */ var _user_agent_options__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(34);
+/* harmony import */ var _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(22);
+/* harmony import */ var _core_messages_body_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(18);
+/* harmony import */ var _core_session_session_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(31);
+/* harmony import */ var _core_timers_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(37);
+/* harmony import */ var _core_exceptions_transaction_state_error_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(36);
+/* harmony import */ var _core_messages_utils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(21);
+/* harmony import */ var _cancel_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(12);
+/* harmony import */ var _exceptions_content_type_unsupported_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(4);
+/* harmony import */ var _exceptions_session_description_handler_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(7);
+/* harmony import */ var _exceptions_session_terminated_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(8);
+/* harmony import */ var _session_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
+/* harmony import */ var _session_state_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+/* harmony import */ var _user_agent_options_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(35);
+
+
+
+
+
+
+
 
 
 
@@ -530,7 +565,7 @@ __webpack_require__.r(__webpack_exports__);
  * An invitation is an offer to establish a {@link Session} (incoming INVITE).
  * @public
  */
-class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
+class Invitation extends _session_js__WEBPACK_IMPORTED_MODULE_0__.Session {
     /** @internal */
     constructor(userAgent, incomingInviteRequest) {
         super(userAgent);
@@ -577,7 +612,7 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         // https://tools.ietf.org/html/rfc3398#section-7.2.4.1
         this.userNoAnswerTimer = setTimeout(() => {
             incomingInviteRequest.reject({ statusCode: 480 });
-            this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
+            this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
         }, this.userAgent.configuration.noAnswerTimeout ? this.userAgent.configuration.noAnswerTimeout * 1000 : 60000);
         // 1. If the request is an INVITE that contains an Expires header
         // field, the UAS core sets a timer for the number of seconds
@@ -589,16 +624,16 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         if (incomingRequestMessage.hasHeader("expires")) {
             const expires = Number(incomingRequestMessage.getHeader("expires") || 0) * 1000;
             this.expiresTimer = setTimeout(() => {
-                if (this.state === _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial) {
+                if (this.state === _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial) {
                     incomingInviteRequest.reject({ statusCode: 487 });
-                    this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
+                    this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
                 }
             }, expires);
         }
         // Session parent properties
         const assertedIdentity = this.request.getHeader("P-Asserted-Identity");
         if (assertedIdentity) {
-            this._assertedIdentity = _core__WEBPACK_IMPORTED_MODULE_2__.Grammar.nameAddrHeaderParse(assertedIdentity);
+            this._assertedIdentity = _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__.Grammar.nameAddrHeaderParse(assertedIdentity);
         }
         this._contact = this.userAgent.contact.toString();
         const contentDisposition = incomingRequestMessage.parseHeader("Content-Disposition");
@@ -637,15 +672,15 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         this.prackNeverArrived();
         // If the final response for the initial INVITE not yet been sent, reject it
         switch (this.state) {
-            case _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial:
                 return this.reject().then(() => super.dispose());
-            case _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Establishing:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Establishing:
                 return this.reject().then(() => super.dispose());
-            case _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Established:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Established:
                 return super.dispose();
-            case _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminating:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminating:
                 return super.dispose();
-            case _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated:
                 return super.dispose();
             default:
                 throw new Error("Unknown state.");
@@ -702,7 +737,7 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
     accept(options = {}) {
         this.logger.log("Invitation.accept");
         // validate state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial) {
             const error = new Error(`Invalid session state ${this.state}`);
             this.logger.error(error.message);
             return Promise.reject(error);
@@ -715,7 +750,7 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
             this.sessionDescriptionHandlerOptions = options.sessionDescriptionHandlerOptions;
         }
         // transition state
-        this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Establishing);
+        this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Establishing);
         return (this.sendAccept(options)
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             .then(({ message, session }) => {
@@ -731,7 +766,7 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                 onRefer: (referRequest) => this.onReferRequest(referRequest)
             };
             this._dialog = session;
-            this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Established);
+            this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Established);
             // TODO: Reconsider this "automagic" send of a BYE to replacee behavior.
             // This behavior has been ported forward from legacy versions.
             if (this._replacee) {
@@ -752,7 +787,7 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
     progress(options = {}) {
         this.logger.log("Invitation.progress");
         // validate state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial) {
             const error = new Error(`Invalid session state ${this.state}`);
             this.logger.error(error.message);
             return Promise.reject(error);
@@ -795,7 +830,7 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         // Standard provisional response
         if (!(this.rel100 === "required") &&
             !(this.rel100 === "supported" && options.rel100) &&
-            !(this.rel100 === "supported" && this.userAgent.configuration.sipExtension100rel === _user_agent_options__WEBPACK_IMPORTED_MODULE_3__.SIPExtension.Required)) {
+            !(this.rel100 === "supported" && this.userAgent.configuration.sipExtension100rel === _user_agent_options_js__WEBPACK_IMPORTED_MODULE_3__.SIPExtension.Required)) {
             return this.sendProgress(options)
                 .then(() => {
                 return;
@@ -826,23 +861,23 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
     reject(options = {}) {
         this.logger.log("Invitation.reject");
         // validate state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial && this.state !== _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Establishing) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial && this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Establishing) {
             const error = new Error(`Invalid session state ${this.state}`);
             this.logger.error(error.message);
             return Promise.reject(error);
         }
         const statusCode = options.statusCode || 480;
-        const reasonPhrase = options.reasonPhrase ? options.reasonPhrase : (0,_core_messages_utils__WEBPACK_IMPORTED_MODULE_4__.getReasonPhrase)(statusCode);
+        const reasonPhrase = options.reasonPhrase ? options.reasonPhrase : (0,_core_messages_utils_js__WEBPACK_IMPORTED_MODULE_4__.getReasonPhrase)(statusCode);
         const extraHeaders = options.extraHeaders || [];
         if (statusCode < 300 || statusCode > 699) {
             throw new TypeError("Invalid statusCode: " + statusCode);
         }
-        const body = options.body ? (0,_core__WEBPACK_IMPORTED_MODULE_5__.fromBodyLegacy)(options.body) : undefined;
+        const body = options.body ? (0,_core_messages_body_js__WEBPACK_IMPORTED_MODULE_5__.fromBodyLegacy)(options.body) : undefined;
         // FIXME: Need to redirect to someplace
         statusCode < 400
             ? this.incomingInviteRequest.redirect([], { statusCode, reasonPhrase, extraHeaders, body })
             : this.incomingInviteRequest.reject({ statusCode, reasonPhrase, extraHeaders, body });
-        this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
+        this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
         return Promise.resolve();
     }
     /**
@@ -855,15 +890,19 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
     _onCancel(message) {
         this.logger.log("Invitation._onCancel");
         // validate state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial && this.state !== _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Establishing) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial && this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Establishing) {
             this.logger.error(`CANCEL received while in state ${this.state}, dropping request`);
             return;
+        }
+        if (this.delegate && this.delegate.onCancel) {
+            const cancel = new _cancel_js__WEBPACK_IMPORTED_MODULE_6__.Cancel(message);
+            this.delegate.onCancel(cancel);
         }
         // flag canceled
         this.isCanceled = true;
         // reject INVITE with 487 status code
         this.incomingInviteRequest.reject({ statusCode: 487 });
-        this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
+        this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
     }
     /**
      * Helper function to handle offer/answer in a PRACK.
@@ -873,7 +912,7 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
             throw new Error("Dialog undefined.");
         }
         // If the PRACK doesn't have an offer/answer, nothing to be done.
-        const body = (0,_core__WEBPACK_IMPORTED_MODULE_5__.getBody)(request.message);
+        const body = (0,_core_messages_body_js__WEBPACK_IMPORTED_MODULE_5__.getBody)(request.message);
         if (!body || body.contentDisposition !== "session") {
             return Promise.resolve(undefined);
         }
@@ -890,19 +929,19 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         // offer, it MUST place the answer in the 2xx to the PRACK.
         // https://tools.ietf.org/html/rfc3262#section-5
         switch (this.dialog.signalingState) {
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Initial:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_7__.SignalingState.Initial:
                 // State should never be reached as first reliable provisional response must have answer/offer.
                 throw new Error(`Invalid signaling state ${this.dialog.signalingState}.`);
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Stable:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_7__.SignalingState.Stable:
                 // Receved answer.
                 return this.setAnswer(body, options).then(() => undefined);
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveLocalOffer:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_7__.SignalingState.HaveLocalOffer:
                 // State should never be reached as local offer would be answered by this PRACK
                 throw new Error(`Invalid signaling state ${this.dialog.signalingState}.`);
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveRemoteOffer:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_7__.SignalingState.HaveRemoteOffer:
                 // Received offer, generate answer.
                 return this.setOfferAndGetAnswer(body, options);
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Closed:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_7__.SignalingState.Closed:
                 throw new Error(`Invalid signaling state ${this.dialog.signalingState}.`);
             default:
                 throw new Error(`Invalid signaling state ${this.dialog.signalingState}.`);
@@ -927,24 +966,24 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
             this.logger.error(error);
         }
         // Log Exception message
-        if (error instanceof _exceptions__WEBPACK_IMPORTED_MODULE_7__.ContentTypeUnsupportedError) {
+        if (error instanceof _exceptions_content_type_unsupported_js__WEBPACK_IMPORTED_MODULE_8__.ContentTypeUnsupportedError) {
             this.logger.error("A session description handler occurred while sending response (content type unsupported");
             statusCode = 415; // "Unsupported Media Type"
         }
-        else if (error instanceof _exceptions__WEBPACK_IMPORTED_MODULE_8__.SessionDescriptionHandlerError) {
+        else if (error instanceof _exceptions_session_description_handler_js__WEBPACK_IMPORTED_MODULE_9__.SessionDescriptionHandlerError) {
             this.logger.error("A session description handler occurred while sending response");
         }
-        else if (error instanceof _exceptions__WEBPACK_IMPORTED_MODULE_9__.SessionTerminatedError) {
+        else if (error instanceof _exceptions_session_terminated_js__WEBPACK_IMPORTED_MODULE_10__.SessionTerminatedError) {
             this.logger.error("Session ended before response could be formulated and sent (while waiting for PRACK)");
         }
-        else if (error instanceof _core__WEBPACK_IMPORTED_MODULE_10__.TransactionStateError) {
+        else if (error instanceof _core_exceptions_transaction_state_error_js__WEBPACK_IMPORTED_MODULE_11__.TransactionStateError) {
             this.logger.error("Session changed state before response could be formulated and sent");
         }
         // Reject if still in "initial" or "establishing" state.
-        if (this.state === _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial || this.state === _session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Establishing) {
+        if (this.state === _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Initial || this.state === _session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Establishing) {
             try {
                 this.incomingInviteRequest.reject({ statusCode });
-                this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
+                this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
             }
             catch (e) {
                 this.logger.error("An error occurred attempting to reject the request while handling another error");
@@ -981,7 +1020,7 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         }
         this.logger.log("No ACK received for an extended period of time, terminating session");
         this.dialog.bye();
-        this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
+        this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated);
     }
     /**
      * A version of `accept` which resolves a session when the 200 Ok response is sent.
@@ -1023,7 +1062,7 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         const statusCode = options.statusCode || 180;
         const reasonPhrase = options.reasonPhrase;
         const extraHeaders = (options.extraHeaders || []).slice();
-        const body = options.body ? (0,_core__WEBPACK_IMPORTED_MODULE_5__.fromBodyLegacy)(options.body) : undefined;
+        const body = options.body ? (0,_core_messages_body_js__WEBPACK_IMPORTED_MODULE_5__.fromBodyLegacy)(options.body) : undefined;
         // The 183 (Session Progress) response is used to convey information
         // about the progress of the call that is not otherwise classified.  The
         // Reason-Phrase, header fields, or message body MAY be used to convey
@@ -1134,10 +1173,10 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                     // eslint-disable-next-line @typescript-eslint/no-use-before-define
                     clearTimeout(rel1xxRetransmissionTimer);
                     this.reject({ statusCode: 504 })
-                        .then(() => reject(new _exceptions__WEBPACK_IMPORTED_MODULE_9__.SessionTerminatedError()))
+                        .then(() => reject(new _exceptions_session_terminated_js__WEBPACK_IMPORTED_MODULE_10__.SessionTerminatedError()))
                         .catch((error) => reject(error));
                 };
-                const prackWaitTimeoutTimer = setTimeout(prackWaitTimeout, _core__WEBPACK_IMPORTED_MODULE_11__.Timers.T1 * 64);
+                const prackWaitTimeoutTimer = setTimeout(prackWaitTimeout, _core_timers_js__WEBPACK_IMPORTED_MODULE_12__.Timers.T1 * 64);
                 // https://tools.ietf.org/html/rfc3262#section-3
                 const rel1xxRetransmission = () => {
                     try {
@@ -1151,7 +1190,7 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                     // eslint-disable-next-line @typescript-eslint/no-use-before-define
                     rel1xxRetransmissionTimer = setTimeout(rel1xxRetransmission, (timeout *= 2));
                 };
-                let timeout = _core__WEBPACK_IMPORTED_MODULE_11__.Timers.T1;
+                let timeout = _core_timers_js__WEBPACK_IMPORTED_MODULE_12__.Timers.T1;
                 let rel1xxRetransmissionTimer = setTimeout(rel1xxRetransmission, timeout);
             })
                 .catch((error) => {
@@ -1206,7 +1245,7 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
      */
     prackNeverArrived() {
         if (this.waitingForPrackReject) {
-            this.waitingForPrackReject(new _exceptions__WEBPACK_IMPORTED_MODULE_9__.SessionTerminatedError());
+            this.waitingForPrackReject(new _exceptions_session_terminated_js__WEBPACK_IMPORTED_MODULE_10__.SessionTerminatedError());
         }
         this.waitingForPrackPromise = undefined;
         this.waitingForPrackResolve = undefined;
@@ -1216,29 +1255,33 @@ class Invitation extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Session": () => (/* binding */ Session)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(30);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(21);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(23);
-/* harmony import */ var _core_messages_utils__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(20);
-/* harmony import */ var _core_user_agent_core_allowed_methods__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(28);
-/* harmony import */ var _ack__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10);
-/* harmony import */ var _bye__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(11);
-/* harmony import */ var _emitter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(4);
-/* harmony import */ var _info__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(13);
-/* harmony import */ var _message__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(31);
-/* harmony import */ var _notification__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(32);
-/* harmony import */ var _referral__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(33);
-/* harmony import */ var _session_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
+/* harmony import */ var _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(22);
+/* harmony import */ var _grammar_uri_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(24);
+/* harmony import */ var _core_messages_body_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18);
+/* harmony import */ var _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(31);
+/* harmony import */ var _core_messages_utils_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(21);
+/* harmony import */ var _core_user_agent_core_allowed_methods_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(29);
+/* harmony import */ var _ack_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10);
+/* harmony import */ var _bye_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(11);
+/* harmony import */ var _emitter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _exceptions_content_type_unsupported_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(4);
+/* harmony import */ var _exceptions_request_pending_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
+/* harmony import */ var _info_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(14);
+/* harmony import */ var _message_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(32);
+/* harmony import */ var _notification_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(33);
+/* harmony import */ var _referral_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(34);
+/* harmony import */ var _session_state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
+
+
+
+
 
 
 
@@ -1271,9 +1314,9 @@ class Session {
         /** True if there is an incoming re-INVITE ACK request outstanding. */
         this.pendingReinviteAck = false;
         /** Session state. */
-        this._state = _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Initial;
+        this._state = _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Initial;
         this.delegate = options.delegate;
-        this._stateEventEmitter = new _emitter__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
+        this._stateEventEmitter = new _emitter_js__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
         this._userAgent = userAgent;
     }
     /**
@@ -1301,11 +1344,11 @@ class Session {
             // this._sessionDescriptionHandler = undefined;
         }
         switch (this.state) {
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Initial:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Initial:
                 break; // the Inviter/Invitation sub class dispose method handles this case
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Establishing:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Establishing:
                 break; // the Inviter/Invitation sub class dispose method handles this case
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established:
                 return new Promise((resolve) => {
                     this._bye({
                         // wait for the response to the BYE before resolving
@@ -1314,9 +1357,9 @@ class Session {
                         onReject: () => resolve()
                     });
                 });
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating:
                 break; // nothing to be done
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated:
                 break; // nothing to be done
             default:
                 throw new Error("Unknown state.");
@@ -1448,7 +1491,7 @@ class Session {
     bye(options = {}) {
         let message = "Session.bye() may only be called if established session.";
         switch (this.state) {
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Initial:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Initial:
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 if (typeof this.cancel === "function") {
                     message += " However Inviter.invite() has not yet been called.";
@@ -1460,7 +1503,7 @@ class Session {
                     message += " Perhaps you should have called Invitation.reject()?";
                 }
                 break;
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Establishing:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Establishing:
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 if (typeof this.cancel === "function") {
                     message += " However a dialog does not yet exist.";
@@ -1472,12 +1515,12 @@ class Session {
                     message += " Perhaps you should have called Invitation.reject()?";
                 }
                 break;
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established: {
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established: {
                 const requestDelegate = options.requestDelegate;
                 const requestOptions = this.copyRequestOptions(options.requestOptions);
                 return this._bye(requestDelegate, requestOptions);
             }
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating:
                 message += " However this session is already terminating.";
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 if (typeof this.cancel === "function") {
@@ -1488,7 +1531,7 @@ class Session {
                     message += " Perhaps you have already called Session.bye()?";
                 }
                 break;
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated:
                 message += " However this session is already terminated.";
                 break;
             default:
@@ -1503,7 +1546,7 @@ class Session {
      */
     info(options = {}) {
         // guard session state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
             const message = "Session.info() may only be called if established session.";
             this.logger.error(message);
             return Promise.reject(new Error(`Invalid session state ${this.state}`));
@@ -1518,11 +1561,11 @@ class Session {
      */
     invite(options = {}) {
         this.logger.log("Session.invite");
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
             return Promise.reject(new Error(`Invalid session state ${this.state}`));
         }
         if (this.pendingReinvite) {
-            return Promise.reject(new _exceptions__WEBPACK_IMPORTED_MODULE_2__.RequestPendingError("Reinvite in progress. Please wait until complete, then try again."));
+            return Promise.reject(new _exceptions_request_pending_js__WEBPACK_IMPORTED_MODULE_2__.RequestPendingError("Reinvite in progress. Please wait until complete, then try again."));
         }
         this.pendingReinvite = true;
         // Modifiers and options for initial INVITE transaction
@@ -1543,12 +1586,12 @@ class Session {
                 // offer in the re-INVITE.  The UAS then provides an offer in a response
                 // to the re-INVITE becoming, thus, the offerer.
                 // https://tools.ietf.org/html/rfc6141#section-1
-                const body = (0,_core__WEBPACK_IMPORTED_MODULE_3__.getBody)(response.message);
+                const body = (0,_core_messages_body_js__WEBPACK_IMPORTED_MODULE_3__.getBody)(response.message);
                 if (!body) {
                     // No way to recover, so terminate session and mark as failed.
                     this.logger.error("Received 2xx response to re-INVITE without a session description");
                     this.ackAndBye(response, 400, "Missing session description");
-                    this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                    this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                     this.pendingReinvite = false;
                     return;
                 }
@@ -1566,14 +1609,14 @@ class Session {
                         // No way to recover, so terminate session and mark as failed.
                         this.logger.error("Failed to handle offer in 2xx response to re-INVITE");
                         this.logger.error(error.message);
-                        if (this.state === _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
+                        if (this.state === _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
                             // A BYE should not be sent if already terminated.
                             // For example, a BYE may be sent/received while re-INVITE is outstanding.
                             response.ack();
                         }
                         else {
                             this.ackAndBye(response, 488, "Bad Media Description");
-                            this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                            this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                         }
                     })
                         .then(() => {
@@ -1600,9 +1643,9 @@ class Session {
                         // A BYE should only be sent if session is not already terminated.
                         // For example, a BYE may be sent/received while re-INVITE is outstanding.
                         // The ACK needs to be sent regardless as it was not handled by the transaction.
-                        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
+                        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
                             this.ackAndBye(response, 488, "Bad Media Description");
-                            this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                            this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                         }
                         else {
                             response.ack();
@@ -1641,14 +1684,14 @@ class Session {
                         // A BYE should only be sent if session is not already terminated.
                         // For example, a BYE may be sent/received while re-INVITE is outstanding.
                         // Note that the ACK was already sent by the transaction, so just need to send BYE.
-                        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
+                        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
                             if (!this.dialog) {
                                 throw new Error("Dialog undefined.");
                             }
                             const extraHeaders = [];
                             extraHeaders.push("Reason: " + this.getReasonHeaderValue(500, "Internal Server Error"));
                             this.dialog.bye(undefined, { extraHeaders });
-                            this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                            this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                         }
                     })
                         .then(() => {
@@ -1665,7 +1708,7 @@ class Session {
         };
         const requestOptions = options.requestOptions || {};
         requestOptions.extraHeaders = (requestOptions.extraHeaders || []).slice();
-        requestOptions.extraHeaders.push("Allow: " + _core_user_agent_core_allowed_methods__WEBPACK_IMPORTED_MODULE_4__.AllowedMethods.toString());
+        requestOptions.extraHeaders.push("Allow: " + _core_user_agent_core_allowed_methods_js__WEBPACK_IMPORTED_MODULE_4__.AllowedMethods.toString());
         requestOptions.extraHeaders.push("Contact: " + this._contact);
         // Just send an INVITE with no sdp...
         if (options.withoutSdp) {
@@ -1702,7 +1745,7 @@ class Session {
      */
     message(options = {}) {
         // guard session state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
             const message = "Session.message() may only be called if established session.";
             this.logger.error(message);
             return Promise.reject(new Error(`Invalid session state ${this.state}`));
@@ -1718,8 +1761,20 @@ class Session {
      */
     refer(referTo, options = {}) {
         // guard session state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
             const message = "Session.refer() may only be called if established session.";
+            this.logger.error(message);
+            return Promise.reject(new Error(`Invalid session state ${this.state}`));
+        }
+        // REFER with Replaces (Attended Transfer) only supported with established sessions.
+        if (referTo instanceof Session && !referTo.dialog) {
+            const message = "Session.refer() may only be called with session which is established. " +
+                "You are perhaps attempting to attended transfer to a target for which " +
+                "there is not dialog yet established. Perhaps you are attempting a " +
+                "'semi-attended' tansfer? Regardless, this is not supported. The recommended " +
+                "approached is to check to see if the target Session is in the Established " +
+                "state before calling refer(); if the state is not Established you may " +
+                "proceed by falling back using a URI as the target (blind transfer).";
             this.logger.error(message);
             return Promise.reject(new Error(`Invalid session state ${this.state}`));
         }
@@ -1749,37 +1804,37 @@ class Session {
         // response or until the server transaction times out.
         // https://tools.ietf.org/html/rfc3261#section-15
         switch (dialog.sessionState) {
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SessionState.Initial:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Initial:
                 throw new Error(`Invalid dialog state ${dialog.sessionState}`);
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SessionState.Early: // Implementation choice - not sending BYE for early dialogs.
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Early: // Implementation choice - not sending BYE for early dialogs.
                 throw new Error(`Invalid dialog state ${dialog.sessionState}`);
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SessionState.AckWait: {
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.AckWait: {
                 // This state only occurs if we are the callee.
-                this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating); // We're terminating
+                this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating); // We're terminating
                 return new Promise((resolve) => {
                     dialog.delegate = {
                         // When ACK shows up, say BYE.
                         onAck: () => {
                             const request = dialog.bye(delegate, options);
-                            this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                            this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                             resolve(request);
                             return Promise.resolve();
                         },
                         // Or the server transaction times out before the ACK arrives.
                         onAckTimeout: () => {
                             const request = dialog.bye(delegate, options);
-                            this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                            this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                             resolve(request);
                         }
                     };
                 });
             }
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SessionState.Confirmed: {
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Confirmed: {
                 const request = dialog.bye(delegate, options);
-                this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                 return Promise.resolve(request);
             }
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated:
                 throw new Error(`Invalid dialog state ${dialog.sessionState}`);
             default:
                 throw new Error("Unrecognized state.");
@@ -1854,7 +1909,7 @@ class Session {
      */
     onAckRequest(request) {
         this.logger.log("Session.onAckRequest");
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established && this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established && this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating) {
             this.logger.error(`ACK received while in state ${this.state}, dropping request`);
             return Promise.resolve();
         }
@@ -1872,25 +1927,25 @@ class Session {
                 : this._sessionDescriptionHandlerModifiers
         };
         if (this.delegate && this.delegate.onAck) {
-            const ack = new _ack__WEBPACK_IMPORTED_MODULE_6__.Ack(request);
+            const ack = new _ack_js__WEBPACK_IMPORTED_MODULE_6__.Ack(request);
             this.delegate.onAck(ack);
         }
         // reset pending ACK flag
         this.pendingReinviteAck = false;
         switch (dialog.signalingState) {
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Initial: {
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Initial: {
                 // State should never be reached as first reliable response must have answer/offer.
                 // So we must have never has sent an offer.
                 this.logger.error(`Invalid signaling state ${dialog.signalingState}.`);
                 const extraHeaders = ["Reason: " + this.getReasonHeaderValue(488, "Bad Media Description")];
                 dialog.bye(undefined, { extraHeaders });
-                this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                 return Promise.resolve();
             }
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Stable: {
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Stable: {
                 // State we should be in.
                 // Either the ACK has the answer that got us here, or we were in this state prior to the ACK.
-                const body = (0,_core__WEBPACK_IMPORTED_MODULE_3__.getBody)(request.message);
+                const body = (0,_core_messages_body_js__WEBPACK_IMPORTED_MODULE_3__.getBody)(request.message);
                 // If the ACK doesn't have an answer, nothing to be done.
                 if (!body) {
                     return Promise.resolve();
@@ -1907,28 +1962,28 @@ class Session {
                     this.logger.error(error.message);
                     const extraHeaders = ["Reason: " + this.getReasonHeaderValue(488, "Bad Media Description")];
                     dialog.bye(undefined, { extraHeaders });
-                    this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                    this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                 });
             }
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveLocalOffer: {
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveLocalOffer: {
                 // State should never be reached as local offer would be answered by this ACK.
                 // So we must have received an ACK without an answer.
                 this.logger.error(`Invalid signaling state ${dialog.signalingState}.`);
                 const extraHeaders = ["Reason: " + this.getReasonHeaderValue(488, "Bad Media Description")];
                 dialog.bye(undefined, { extraHeaders });
-                this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                 return Promise.resolve();
             }
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveRemoteOffer: {
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveRemoteOffer: {
                 // State should never be reached as remote offer would be answered in first reliable response.
                 // So we must have never has sent an answer.
                 this.logger.error(`Invalid signaling state ${dialog.signalingState}.`);
                 const extraHeaders = ["Reason: " + this.getReasonHeaderValue(488, "Bad Media Description")];
                 dialog.bye(undefined, { extraHeaders });
-                this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                 return Promise.resolve();
             }
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Closed:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Closed:
                 throw new Error(`Invalid signaling state ${dialog.signalingState}.`);
             default:
                 throw new Error(`Invalid signaling state ${dialog.signalingState}.`);
@@ -1940,18 +1995,18 @@ class Session {
      */
     onByeRequest(request) {
         this.logger.log("Session.onByeRequest");
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
             this.logger.error(`BYE received while in state ${this.state}, dropping request`);
             return;
         }
         if (this.delegate && this.delegate.onBye) {
-            const bye = new _bye__WEBPACK_IMPORTED_MODULE_7__.Bye(request);
+            const bye = new _bye_js__WEBPACK_IMPORTED_MODULE_7__.Bye(request);
             this.delegate.onBye(bye);
         }
         else {
             request.accept();
         }
-        this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+        this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
     }
     /**
      * Handle in dialog INFO request.
@@ -1959,12 +2014,12 @@ class Session {
      */
     onInfoRequest(request) {
         this.logger.log("Session.onInfoRequest");
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
             this.logger.error(`INFO received while in state ${this.state}, dropping request`);
             return;
         }
         if (this.delegate && this.delegate.onInfo) {
-            const info = new _info__WEBPACK_IMPORTED_MODULE_8__.Info(request);
+            const info = new _info_js__WEBPACK_IMPORTED_MODULE_8__.Info(request);
             this.delegate.onInfo(info);
         }
         else {
@@ -1985,7 +2040,7 @@ class Session {
      */
     onInviteRequest(request) {
         this.logger.log("Session.onInviteRequest");
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
             this.logger.error(`INVITE received while in state ${this.state}, dropping request`);
             return;
         }
@@ -2000,7 +2055,7 @@ class Session {
             if (!header) {
                 throw new Error("Header undefined.");
             }
-            this._assertedIdentity = _core__WEBPACK_IMPORTED_MODULE_9__.Grammar.nameAddrHeaderParse(header);
+            this._assertedIdentity = _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_9__.Grammar.nameAddrHeaderParse(header);
         }
         const options = {
             sessionDescriptionHandlerOptions: this.sessionDescriptionHandlerOptionsReInvite,
@@ -2021,7 +2076,7 @@ class Session {
             }
             this.logger.error(this.dialog.signalingState);
             // If we don't have a local/remote offer...
-            if (this.dialog.signalingState === _core__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Stable) {
+            if (this.dialog.signalingState === _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Stable) {
                 const outgoingResponse = request.reject({ statusCode: 488 }); // Not Acceptable Here
                 if (this.delegate && this.delegate.onInvite) {
                     this.delegate.onInvite(request.message, outgoingResponse.message, 488);
@@ -2044,14 +2099,14 @@ class Session {
                 // A BYE should only be sent if session is not already terminated.
                 // For example, a BYE may be sent/received while re-INVITE is outstanding.
                 // Note that the ACK was already sent by the transaction, so just need to send BYE.
-                if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
+                if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
                     if (!this.dialog) {
                         throw new Error("Dialog undefined.");
                     }
                     const extraHeadersBye = [];
                     extraHeadersBye.push("Reason: " + this.getReasonHeaderValue(500, "Internal Server Error"));
-                    this.dialog.bye(undefined, { extraHeaders });
-                    this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
+                    this.dialog.bye(undefined, { extraHeaders: extraHeadersBye });
+                    this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated);
                 }
                 if (this.delegate && this.delegate.onInvite) {
                     this.delegate.onInvite(request.message, outgoingResponse.message, 488);
@@ -2065,12 +2120,12 @@ class Session {
      */
     onMessageRequest(request) {
         this.logger.log("Session.onMessageRequest");
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
             this.logger.error(`MESSAGE received while in state ${this.state}, dropping request`);
             return;
         }
         if (this.delegate && this.delegate.onMessage) {
-            const message = new _message__WEBPACK_IMPORTED_MODULE_10__.Message(request);
+            const message = new _message_js__WEBPACK_IMPORTED_MODULE_10__.Message(request);
             this.delegate.onMessage(message);
         }
         else {
@@ -2083,20 +2138,20 @@ class Session {
      */
     onNotifyRequest(request) {
         this.logger.log("Session.onNotifyRequest");
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
             this.logger.error(`NOTIFY received while in state ${this.state}, dropping request`);
             return;
         }
         // If this a NOTIFY associated with the progress of a REFER,
         // look to delegate handling to the associated callback.
         if (this.onNotify) {
-            const notification = new _notification__WEBPACK_IMPORTED_MODULE_11__.Notification(request);
+            const notification = new _notification_js__WEBPACK_IMPORTED_MODULE_11__.Notification(request);
             this.onNotify(notification);
             return;
         }
         // Otherwise accept the NOTIFY.
         if (this.delegate && this.delegate.onNotify) {
-            const notification = new _notification__WEBPACK_IMPORTED_MODULE_11__.Notification(request);
+            const notification = new _notification_js__WEBPACK_IMPORTED_MODULE_11__.Notification(request);
             this.delegate.onNotify(notification);
         }
         else {
@@ -2110,7 +2165,7 @@ class Session {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onPrackRequest(request) {
         this.logger.log("Session.onPrackRequest");
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
             this.logger.error(`PRACK received while in state ${this.state}, dropping request`);
             return;
         }
@@ -2122,7 +2177,7 @@ class Session {
      */
     onReferRequest(request) {
         this.logger.log("Session.onReferRequest");
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
             this.logger.error(`REFER received while in state ${this.state}, dropping request`);
             return;
         }
@@ -2134,7 +2189,7 @@ class Session {
             request.reject();
             return;
         }
-        const referral = new _referral__WEBPACK_IMPORTED_MODULE_12__.Referral(request, this);
+        const referral = new _referral_js__WEBPACK_IMPORTED_MODULE_12__.Referral(request, this);
         if (this.delegate && this.delegate.onRefer) {
             this.delegate.onRefer(referral);
         }
@@ -2160,7 +2215,7 @@ class Session {
         if (this.dialog) {
             return this.generateResponseOfferAnswerInDialog(options);
         }
-        const body = (0,_core__WEBPACK_IMPORTED_MODULE_3__.getBody)(request.message);
+        const body = (0,_core_messages_body_js__WEBPACK_IMPORTED_MODULE_3__.getBody)(request.message);
         if (!body || body.contentDisposition !== "session") {
             return this.getOffer(options);
         }
@@ -2179,9 +2234,9 @@ class Session {
             throw new Error("Dialog undefined.");
         }
         switch (this.dialog.signalingState) {
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Initial:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Initial:
                 return this.getOffer(options);
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveLocalOffer:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveLocalOffer:
                 // o  Once the UAS has sent or received an answer to the initial
                 // offer, it MUST NOT generate subsequent offers in any responses
                 // to the initial INVITE.  This means that a UAS based on this
@@ -2189,24 +2244,24 @@ class Session {
                 // completion of the initial transaction.
                 // https://tools.ietf.org/html/rfc3261#section-13.2.1
                 return Promise.resolve(undefined);
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveRemoteOffer:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveRemoteOffer:
                 if (!this.dialog.offer) {
                     throw new Error(`Session offer undefined in signaling state ${this.dialog.signalingState}.`);
                 }
                 return this.setOfferAndGetAnswer(this.dialog.offer, options);
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Stable:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Stable:
                 // o  Once the UAS has sent or received an answer to the initial
                 // offer, it MUST NOT generate subsequent offers in any responses
                 // to the initial INVITE.  This means that a UAS based on this
                 // specification alone can never generate subsequent offers until
                 // completion of the initial transaction.
                 // https://tools.ietf.org/html/rfc3261#section-13.2.1
-                if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
+                if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established) {
                     return Promise.resolve(undefined);
                 }
                 // In dialog INVITE without offer, get an offer for the response.
                 return this.getOffer(options);
-            case _core__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Closed:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Closed:
                 throw new Error(`Invalid signaling state ${this.dialog.signalingState}.`);
             default:
                 throw new Error(`Invalid signaling state ${this.dialog.signalingState}.`);
@@ -2224,7 +2279,7 @@ class Session {
         try {
             return sdh
                 .getDescription(sdhOptions, sdhModifiers)
-                .then((bodyAndContentType) => (0,_core__WEBPACK_IMPORTED_MODULE_3__.fromBodyLegacy)(bodyAndContentType))
+                .then((bodyAndContentType) => (0,_core_messages_body_js__WEBPACK_IMPORTED_MODULE_3__.fromBodyLegacy)(bodyAndContentType))
                 .catch((error) => {
                 // don't trust SDH to reject with Error
                 this.logger.error("Session.getOffer: SDH getDescription rejected...");
@@ -2279,7 +2334,7 @@ class Session {
         // This is intentionally written very defensively. Don't trust SDH to behave.
         try {
             if (!sdh.hasDescription(answer.contentType)) {
-                return Promise.reject(new _exceptions__WEBPACK_IMPORTED_MODULE_13__.ContentTypeUnsupportedError());
+                return Promise.reject(new _exceptions_content_type_unsupported_js__WEBPACK_IMPORTED_MODULE_13__.ContentTypeUnsupportedError());
             }
         }
         catch (error) {
@@ -2316,7 +2371,7 @@ class Session {
         // This is intentionally written very defensively. Don't trust SDH to behave.
         try {
             if (!sdh.hasDescription(offer.contentType)) {
-                return Promise.reject(new _exceptions__WEBPACK_IMPORTED_MODULE_13__.ContentTypeUnsupportedError());
+                return Promise.reject(new _exceptions_content_type_unsupported_js__WEBPACK_IMPORTED_MODULE_13__.ContentTypeUnsupportedError());
             }
         }
         catch (error) {
@@ -2329,7 +2384,7 @@ class Session {
             return sdh
                 .setDescription(offer.content, sdhOptions, sdhModifiers)
                 .then(() => sdh.getDescription(sdhOptions, sdhModifiers))
-                .then((bodyAndContentType) => (0,_core__WEBPACK_IMPORTED_MODULE_3__.fromBodyLegacy)(bodyAndContentType))
+                .then((bodyAndContentType) => (0,_core_messages_body_js__WEBPACK_IMPORTED_MODULE_3__.fromBodyLegacy)(bodyAndContentType))
                 .catch((error) => {
                 // don't trust SDH to reject with Error
                 this.logger.error("Session.setOfferAndGetAnswer: SDH setDescription or getDescription rejected...");
@@ -2381,32 +2436,32 @@ class Session {
         };
         // Validate transition
         switch (this._state) {
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Initial:
-                if (newState !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Establishing &&
-                    newState !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established &&
-                    newState !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating &&
-                    newState !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Initial:
+                if (newState !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Establishing &&
+                    newState !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established &&
+                    newState !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating &&
+                    newState !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Establishing:
-                if (newState !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established &&
-                    newState !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating &&
-                    newState !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Establishing:
+                if (newState !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established &&
+                    newState !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating &&
+                    newState !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established:
-                if (newState !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating && newState !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Established:
+                if (newState !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating && newState !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating:
-                if (newState !== _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminating:
+                if (newState !== _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated:
                 invalidTransition();
                 break;
             default:
@@ -2417,7 +2472,7 @@ class Session {
         this.logger.log(`Session ${this.id} transitioned to state ${this._state}`);
         this._stateEventEmitter.emit(this._state);
         // Dispose
-        if (newState === _session_state__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
+        if (newState === _session_state_js__WEBPACK_IMPORTED_MODULE_0__.SessionState.Terminated) {
             this.dispose();
         }
     }
@@ -2437,7 +2492,7 @@ class Session {
     }
     getReasonHeaderValue(code, reason) {
         const cause = code;
-        let text = (0,_core_messages_utils__WEBPACK_IMPORTED_MODULE_14__.getReasonPhrase)(code);
+        let text = (0,_core_messages_utils_js__WEBPACK_IMPORTED_MODULE_14__.getReasonPhrase)(code);
         if (!text && reason) {
             text = reason;
         }
@@ -2453,7 +2508,7 @@ class Session {
     }
     referToString(target) {
         let referTo;
-        if (target instanceof _core__WEBPACK_IMPORTED_MODULE_15__.URI) {
+        if (target instanceof _grammar_uri_js__WEBPACK_IMPORTED_MODULE_15__.URI) {
             // REFER without Replaces (Blind Transfer)
             referTo = target.toString();
         }
@@ -2476,7 +2531,7 @@ class Session {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2528,22 +2583,22 @@ var SessionState;
      * If `Invitation`, received INVITE and sent non-200 final response (or sent/received BYE after sending 200).
      */
     SessionState["Terminated"] = "Terminated";
-})(SessionState || (SessionState = {}));
+})(SessionState = SessionState || (SessionState = {}));
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "fromBodyLegacy": () => (/* binding */ fromBodyLegacy),
-/* harmony export */   "isBody": () => (/* binding */ isBody),
-/* harmony export */   "getBody": () => (/* binding */ getBody)
+/* harmony export */   "getBody": () => (/* binding */ getBody),
+/* harmony export */   "isBody": () => (/* binding */ isBody)
 /* harmony export */ });
-/* harmony import */ var _incoming_request_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(18);
-/* harmony import */ var _incoming_response_message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26);
-/* harmony import */ var _outgoing_request_message__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27);
+/* harmony import */ var _incoming_request_message_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
+/* harmony import */ var _incoming_response_message_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
+/* harmony import */ var _outgoing_request_message_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
 
 
 
@@ -2596,7 +2651,7 @@ function getBody(message) {
     let contentType;
     let content;
     // We're in UAS role, receiving incoming request
-    if (message instanceof _incoming_request_message__WEBPACK_IMPORTED_MODULE_0__.IncomingRequestMessage) {
+    if (message instanceof _incoming_request_message_js__WEBPACK_IMPORTED_MODULE_0__.IncomingRequestMessage) {
         if (message.body) {
             // FIXME: Parsing needs typing
             const parse = message.parseHeader("Content-Disposition");
@@ -2606,7 +2661,7 @@ function getBody(message) {
         }
     }
     // We're in UAC role, receiving incoming response
-    if (message instanceof _incoming_response_message__WEBPACK_IMPORTED_MODULE_1__.IncomingResponseMessage) {
+    if (message instanceof _incoming_response_message_js__WEBPACK_IMPORTED_MODULE_1__.IncomingResponseMessage) {
         if (message.body) {
             // FIXME: Parsing needs typing
             const parse = message.parseHeader("Content-Disposition");
@@ -2616,7 +2671,7 @@ function getBody(message) {
         }
     }
     // We're in UAC role, sending outgoing request
-    if (message instanceof _outgoing_request_message__WEBPACK_IMPORTED_MODULE_2__.OutgoingRequestMessage) {
+    if (message instanceof _outgoing_request_message_js__WEBPACK_IMPORTED_MODULE_2__.OutgoingRequestMessage) {
         if (message.body) {
             contentDisposition = message.getHeader("Content-Disposition");
             contentType = message.getHeader("Content-Type");
@@ -2665,20 +2720,20 @@ function getBody(message) {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "IncomingRequestMessage": () => (/* binding */ IncomingRequestMessage)
 /* harmony export */ });
-/* harmony import */ var _incoming_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
+/* harmony import */ var _incoming_message_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(20);
 
 /**
  * Incoming request message.
  * @public
  */
-class IncomingRequestMessage extends _incoming_message__WEBPACK_IMPORTED_MODULE_0__.IncomingMessage {
+class IncomingRequestMessage extends _incoming_message_js__WEBPACK_IMPORTED_MODULE_0__.IncomingMessage {
     constructor() {
         super();
     }
@@ -2686,15 +2741,15 @@ class IncomingRequestMessage extends _incoming_message__WEBPACK_IMPORTED_MODULE_
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "IncomingMessage": () => (/* binding */ IncomingMessage)
 /* harmony export */ });
-/* harmony import */ var _grammar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(21);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(20);
+/* harmony import */ var _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(22);
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
 
 
 /**
@@ -2714,7 +2769,7 @@ class IncomingMessage {
      */
     addHeader(name, value) {
         const header = { raw: value };
-        name = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.headerize)(name);
+        name = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.headerize)(name);
         if (this.headers[name]) {
             this.headers[name].push(header);
         }
@@ -2728,7 +2783,7 @@ class IncomingMessage {
      * @returns Returns the specified header, undefined if header doesn't exist.
      */
     getHeader(name) {
-        const header = this.headers[(0,_utils__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)];
+        const header = this.headers[(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)];
         if (header) {
             if (header[0]) {
                 return header[0].raw;
@@ -2745,7 +2800,7 @@ class IncomingMessage {
      */
     getHeaders(name) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const header = this.headers[(0,_utils__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)];
+        const header = this.headers[(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)];
         const result = [];
         if (!header) {
             return [];
@@ -2761,7 +2816,7 @@ class IncomingMessage {
      * @returns true if header with given name exists, false otherwise
      */
     hasHeader(name) {
-        return !!this.headers[(0,_utils__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)];
+        return !!this.headers[(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)];
     }
     /**
      * Parse the given header on the given index.
@@ -2772,7 +2827,7 @@ class IncomingMessage {
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     parseHeader(name, idx = 0) {
-        name = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.headerize)(name);
+        name = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.headerize)(name);
         if (!this.headers[name]) {
             // this.logger.log("header '" + name + "' not present");
             return;
@@ -2787,7 +2842,7 @@ class IncomingMessage {
             return header.parsed;
         }
         // substitute '-' by '_' for grammar rule matching.
-        const parsed = _grammar__WEBPACK_IMPORTED_MODULE_1__.Grammar.parse(value, name.replace(/-/g, "_"));
+        const parsed = _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_1__.Grammar.parse(value, name.replace(/-/g, "_"));
         if (parsed === -1) {
             this.headers[name].splice(idx, 1); // delete from headers
             // this.logger.warn('error parsing "' + name + '" header field with value "' + value + '"');
@@ -2818,7 +2873,7 @@ class IncomingMessage {
      * @param value - header value
      */
     setHeader(name, value) {
-        this.headers[(0,_utils__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)] = [{ raw: value }];
+        this.headers[(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)] = [{ raw: value }];
     }
     toString() {
         return this.data;
@@ -2827,15 +2882,15 @@ class IncomingMessage {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createRandomToken": () => (/* binding */ createRandomToken),
 /* harmony export */   "getReasonPhrase": () => (/* binding */ getReasonPhrase),
-/* harmony export */   "newTag": () => (/* binding */ newTag),
 /* harmony export */   "headerize": () => (/* binding */ headerize),
+/* harmony export */   "newTag": () => (/* binding */ newTag),
 /* harmony export */   "utf8Length": () => (/* binding */ utf8Length)
 /* harmony export */ });
 /**
@@ -2979,14 +3034,14 @@ function utf8Length(str) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Grammar": () => (/* binding */ Grammar)
 /* harmony export */ });
-/* harmony import */ var _pegjs_dist_grammar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(22);
+/* harmony import */ var _pegjs_dist_grammar_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(23);
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable no-inner-declarations */
 
@@ -3006,7 +3061,7 @@ var Grammar;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const options = { startRule };
         try {
-            _pegjs_dist_grammar__WEBPACK_IMPORTED_MODULE_0__.parse(input, options);
+            _pegjs_dist_grammar_js__WEBPACK_IMPORTED_MODULE_0__.parse(input, options);
         }
         catch (e) {
             options.data = -1;
@@ -3036,11 +3091,11 @@ var Grammar;
         return parsedUri !== -1 ? parsedUri : undefined;
     }
     Grammar.URIParse = URIParse;
-})(Grammar || (Grammar = {}));
+})(Grammar = Grammar || (Grammar = {}));
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3048,10 +3103,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "SyntaxError": () => (/* binding */ SyntaxError),
 /* harmony export */   "parse": () => (/* binding */ parse)
 /* harmony export */ });
-/* harmony import */ var _name_addr_header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
-/* harmony import */ var _uri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(23);
+/* harmony import */ var _name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26);
+/* harmony import */ var _uri_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
 
 
+function peg$padEnd(str, targetLength, padString) {
+    padString = padString || ' ';
+    if (str.length > targetLength) {
+        return str;
+    }
+    targetLength -= str.length;
+    padString += padString.repeat(targetLength);
+    return str + padString.slice(0, targetLength);
+}
 class SyntaxError extends Error {
     constructor(message, expected, found, location) {
         super();
@@ -3060,6 +3124,12 @@ class SyntaxError extends Error {
         this.found = found;
         this.location = location;
         this.name = "SyntaxError";
+        if (typeof Object.setPrototypeOf === "function") {
+            Object.setPrototypeOf(this, SyntaxError.prototype);
+        }
+        else {
+            this.__proto__ = SyntaxError.prototype;
+        }
         if (typeof Error.captureStackTrace === "function") {
             Error.captureStackTrace(this, SyntaxError);
         }
@@ -3141,10 +3211,39 @@ class SyntaxError extends Error {
         }
         return "Expected " + describeExpected(expected) + " but " + describeFound(found) + " found.";
     }
+    format(sources) {
+        let str = 'Error: ' + this.message;
+        if (this.location) {
+            let src = null;
+            let k;
+            for (k = 0; k < sources.length; k++) {
+                if (sources[k].source === this.location.source) {
+                    src = sources[k].text.split(/\r\n|\n|\r/g);
+                    break;
+                }
+            }
+            let s = this.location.start;
+            let loc = this.location.source + ':' + s.line + ':' + s.column;
+            if (src) {
+                let e = this.location.end;
+                let filler = peg$padEnd('', s.line.toString().length, ' ');
+                let line = src[s.line - 1];
+                let last = s.line === e.line ? e.column : line.length + 1;
+                str += '\n --> ' + loc + '\n' + filler + ' |\n' + s.line + ' | ' + line + '\n' + filler + ' | ' +
+                    peg$padEnd('', s.column - 1, ' ') +
+                    peg$padEnd('', last - s.column, '^');
+            }
+            else {
+                str += '\n at ' + loc;
+            }
+        }
+        return str;
+    }
 }
 function peg$parse(input, options) {
     options = options !== undefined ? options : {};
     const peg$FAILED = {};
+    const peg$source = options.grammarSource;
     const peg$startRuleIndices = { Contact: 119, Name_Addr_Header: 156, Record_Route: 176, Request_Response: 81, SIP_URI: 45, Subscription_State: 186, Supported: 191, Require: 182, Via: 194, absoluteURI: 84, Call_ID: 118, Content_Disposition: 130, Content_Length: 135, Content_Type: 136, CSeq: 146, displayName: 122, Event: 149, From: 151, host: 52, Max_Forwards: 154, Min_SE: 213, Proxy_Authenticate: 157, quoted_string: 40, Refer_To: 178, Replaces: 179, Session_Expires: 210, stun_URI: 217, To: 192, turn_URI: 223, uuid: 226, WWW_Authenticate: 209, challenge: 158, sipfrag: 230, Referred_By: 231 };
     let peg$startRuleIndex = 119;
     const peg$consts = [
@@ -3256,13 +3355,13 @@ function peg$parse(input, options) {
         peg$classExpectation([["#", "["]], false, false),
         /^[\0-\t]/,
         peg$classExpectation([["\0", "\t"]], false, false),
-        /^[\x0B-\f]/,
-        peg$classExpectation([["\x0B", "\f"]], false, false),
+        /^[\v-\f]/,
+        peg$classExpectation([["\v", "\f"]], false, false),
         /^[\x0E-\x7F]/,
         peg$classExpectation([["\x0E", "\x7F"]], false, false),
         function () {
             options = options || { data: {} };
-            options.data.uri = new _uri__WEBPACK_IMPORTED_MODULE_0__.URI(options.data.scheme, options.data.user, options.data.host, options.data.port);
+            options.data.uri = new _uri_js__WEBPACK_IMPORTED_MODULE_0__.URI(options.data.scheme, options.data.user, options.data.host, options.data.port);
             delete options.data.scheme;
             delete options.data.user;
             delete options.data.host;
@@ -3271,7 +3370,7 @@ function peg$parse(input, options) {
         },
         function () {
             options = options || { data: {} };
-            options.data.uri = new _uri__WEBPACK_IMPORTED_MODULE_0__.URI(options.data.scheme, options.data.user, options.data.host, options.data.port, options.data.uri_params, options.data.uri_headers);
+            options.data.uri = new _uri_js__WEBPACK_IMPORTED_MODULE_0__.URI(options.data.scheme, options.data.user, options.data.host, options.data.port, options.data.uri_params, options.data.uri_headers);
             delete options.data.scheme;
             delete options.data.user;
             delete options.data.host;
@@ -3436,7 +3535,7 @@ function peg$parse(input, options) {
             options = options || { data: {} };
             // lots of tests fail if this isn't guarded...
             if (options.startRule === 'Refer_To') {
-                options.data.uri = new _uri__WEBPACK_IMPORTED_MODULE_0__.URI(options.data.scheme, options.data.user, options.data.host, options.data.port, options.data.uri_params, options.data.uri_headers);
+                options.data.uri = new _uri_js__WEBPACK_IMPORTED_MODULE_0__.URI(options.data.scheme, options.data.user, options.data.host, options.data.port, options.data.uri_params, options.data.uri_headers);
                 delete options.data.scheme;
                 delete options.data.user;
                 delete options.data.host;
@@ -3518,7 +3617,7 @@ function peg$parse(input, options) {
             if (!options.data.multi_header)
                 options.data.multi_header = [];
             try {
-                header = new _name_addr_header__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
+                header = new _name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
                 delete options.data.uri;
                 delete options.data.displayName;
                 delete options.data.params;
@@ -3631,7 +3730,7 @@ function peg$parse(input, options) {
         function () {
             options = options || { data: {} };
             var tag = options.data.tag;
-            options.data = new _name_addr_header__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
+            options.data = new _name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
             if (tag) {
                 options.data.setParam('tag', tag);
             }
@@ -3646,7 +3745,7 @@ function peg$parse(input, options) {
         function (min_expires) { options = options || { data: {} }; options.data = min_expires; },
         function () {
             options = options || { data: {} };
-            options.data = new _name_addr_header__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
+            options.data = new _name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
         },
         "digest",
         peg$literalExpectation("Digest", true),
@@ -3717,7 +3816,7 @@ function peg$parse(input, options) {
             if (!options.data.multi_header)
                 options.data.multi_header = [];
             try {
-                header = new _name_addr_header__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
+                header = new _name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
                 delete options.data.uri;
                 delete options.data.displayName;
                 delete options.data.params;
@@ -3732,7 +3831,7 @@ function peg$parse(input, options) {
         },
         function () {
             options = options || { data: {} };
-            options.data = new _name_addr_header__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
+            options.data = new _name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
         },
         function () {
             options = options || { data: {} };
@@ -3828,7 +3927,7 @@ function peg$parse(input, options) {
         function () {
             options = options || { data: {} };
             var tag = options.data.tag;
-            options.data = new _name_addr_header__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
+            options.data = new _name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(options.data.uri, options.data.displayName, options.data.params);
             if (tag) {
                 options.data.setParam('tag', tag);
             }
@@ -4261,6 +4360,7 @@ function peg$parse(input, options) {
         const startPosDetails = peg$computePosDetails(startPos);
         const endPosDetails = peg$computePosDetails(endPos);
         return {
+            source: peg$source,
             start: {
                 offset: startPos,
                 line: startPosDetails.line,
@@ -4528,7 +4628,7 @@ const parse = peg$parse;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4536,14 +4636,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "URI": () => (/* binding */ URI),
 /* harmony export */   "equivalentURI": () => (/* binding */ equivalentURI)
 /* harmony export */ });
-/* harmony import */ var _parameters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
+/* harmony import */ var _parameters_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
  * URI.
  * @public
  */
-class URI extends _parameters__WEBPACK_IMPORTED_MODULE_0__.Parameters {
+class URI extends _parameters_js__WEBPACK_IMPORTED_MODULE_0__.Parameters {
     /**
      * Constructor
      * @param scheme -
@@ -4728,8 +4828,8 @@ class URI extends _parameters__WEBPACK_IMPORTED_MODULE_0__.Parameters {
 }
 /**
  * Returns true if URIs are equivalent per RFC 3261 Section 19.1.4.
- * @param a URI to compare
- * @param b URI to compare
+ * @param a - URI to compare
+ * @param b - URI to compare
  *
  * @remarks
  * 19.1.4 URI Comparison
@@ -4842,7 +4942,7 @@ function equivalentURI(a, b) {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4891,20 +4991,20 @@ class Parameters {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "NameAddrHeader": () => (/* binding */ NameAddrHeader)
 /* harmony export */ });
-/* harmony import */ var _parameters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
+/* harmony import */ var _parameters_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
 
 /**
  * Name Address SIP header.
  * @public
  */
-class NameAddrHeader extends _parameters__WEBPACK_IMPORTED_MODULE_0__.Parameters {
+class NameAddrHeader extends _parameters_js__WEBPACK_IMPORTED_MODULE_0__.Parameters {
     /**
      * Constructor
      * @param uri -
@@ -4944,20 +5044,20 @@ class NameAddrHeader extends _parameters__WEBPACK_IMPORTED_MODULE_0__.Parameters
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "IncomingResponseMessage": () => (/* binding */ IncomingResponseMessage)
 /* harmony export */ });
-/* harmony import */ var _incoming_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
+/* harmony import */ var _incoming_message_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(20);
 
 /**
  * Incoming response message.
  * @public
  */
-class IncomingResponseMessage extends _incoming_message__WEBPACK_IMPORTED_MODULE_0__.IncomingMessage {
+class IncomingResponseMessage extends _incoming_message_js__WEBPACK_IMPORTED_MODULE_0__.IncomingMessage {
     constructor() {
         super();
     }
@@ -4965,15 +5065,15 @@ class IncomingResponseMessage extends _incoming_message__WEBPACK_IMPORTED_MODULE
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "OutgoingRequestMessage": () => (/* binding */ OutgoingRequestMessage)
 /* harmony export */ });
-/* harmony import */ var _grammar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(20);
+/* harmony import */ var _grammar_name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26);
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
 
 
 /**
@@ -5015,14 +5115,14 @@ class OutgoingRequestMessage {
         this.ruri = ruri.clone();
         // From
         this.fromURI = fromURI.clone();
-        this.fromTag = this.options.fromTag ? this.options.fromTag : (0,_utils__WEBPACK_IMPORTED_MODULE_0__.newTag)();
+        this.fromTag = this.options.fromTag ? this.options.fromTag : (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.newTag)();
         this.from = OutgoingRequestMessage.makeNameAddrHeader(this.fromURI, this.options.fromDisplayName, this.fromTag);
         // To
         this.toURI = toURI.clone();
         this.toTag = this.options.toTag;
         this.to = OutgoingRequestMessage.makeNameAddrHeader(this.toURI, this.options.toDisplayName, this.toTag);
         // Call-ID
-        this.callId = this.options.callId ? this.options.callId : this.options.callIdPrefix + (0,_utils__WEBPACK_IMPORTED_MODULE_0__.createRandomToken)(15);
+        this.callId = this.options.callId ? this.options.callId : this.options.callIdPrefix + (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.createRandomToken)(15);
         // CSeq
         this.cseq = this.options.cseq;
         // The relative order of header fields with different field names is not
@@ -5062,7 +5162,7 @@ class OutgoingRequestMessage {
         if (tag) {
             parameters.tag = tag;
         }
-        return new _grammar__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(uri, displayName, parameters);
+        return new _grammar_name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader(uri, displayName, parameters);
     }
     /**
      * Get the value of the given header name at the given position.
@@ -5070,7 +5170,7 @@ class OutgoingRequestMessage {
      * @returns Returns the specified header, undefined if header doesn't exist.
      */
     getHeader(name) {
-        const header = this.headers[(0,_utils__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)];
+        const header = this.headers[(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)];
         if (header) {
             if (header[0]) {
                 return header[0];
@@ -5093,7 +5193,7 @@ class OutgoingRequestMessage {
      */
     getHeaders(name) {
         const result = [];
-        const headerArray = this.headers[(0,_utils__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)];
+        const headerArray = this.headers[(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)];
         if (headerArray) {
             for (const headerPart of headerArray) {
                 result.push(headerPart);
@@ -5115,7 +5215,7 @@ class OutgoingRequestMessage {
      * @returns true if header with given name exists, false otherwise
      */
     hasHeader(name) {
-        if (this.headers[(0,_utils__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)]) {
+        if (this.headers[(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)]) {
             return true;
         }
         else {
@@ -5134,7 +5234,7 @@ class OutgoingRequestMessage {
      * @param value - header value
      */
     setHeader(name, value) {
-        this.headers[(0,_utils__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)] = value instanceof Array ? value : [value];
+        this.headers[(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.headerize)(name)] = value instanceof Array ? value : [value];
     }
     /**
      * The Via header field indicates the transport used for the transaction
@@ -5183,13 +5283,13 @@ class OutgoingRequestMessage {
         msg += "User-Agent: " + this.options.userAgentString + "\r\n";
         if (this.body) {
             if (typeof this.body === "string") {
-                msg += "Content-Length: " + (0,_utils__WEBPACK_IMPORTED_MODULE_0__.utf8Length)(this.body) + "\r\n\r\n";
+                msg += "Content-Length: " + (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.utf8Length)(this.body) + "\r\n\r\n";
                 msg += this.body;
             }
             else {
                 if (this.body.body && this.body.contentType) {
                     msg += "Content-Type: " + this.body.contentType + "\r\n";
-                    msg += "Content-Length: " + (0,_utils__WEBPACK_IMPORTED_MODULE_0__.utf8Length)(this.body.body) + "\r\n\r\n";
+                    msg += "Content-Length: " + (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.utf8Length)(this.body.body) + "\r\n\r\n";
                     msg += this.body.body;
                 }
                 else {
@@ -5206,36 +5306,36 @@ class OutgoingRequestMessage {
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AllowedMethods": () => (/* binding */ AllowedMethods)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 
 /**
  * FIXME: TODO: Should be configurable/variable.
  */
 const AllowedMethods = [
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.ACK,
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.BYE,
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.CANCEL,
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.INFO,
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.INVITE,
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.MESSAGE,
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.NOTIFY,
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.OPTIONS,
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.PRACK,
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.REFER,
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.REGISTER,
-    _messages__WEBPACK_IMPORTED_MODULE_0__.C.SUBSCRIBE
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.ACK,
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.BYE,
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.CANCEL,
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.INFO,
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.INVITE,
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.MESSAGE,
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.NOTIFY,
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.OPTIONS,
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.PRACK,
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.REFER,
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.REGISTER,
+    _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.SUBSCRIBE
 ];
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5263,11 +5363,11 @@ var C;
     C.PUBLISH = "PUBLISH";
     C.REFER = "REFER";
     C.PRACK = "PRACK";
-})(C || (C = {}));
+})(C = C || (C = {}));
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5288,7 +5388,7 @@ var SessionState;
     SessionState["AckWait"] = "AckWait";
     SessionState["Confirmed"] = "Confirmed";
     SessionState["Terminated"] = "Terminated";
-})(SessionState || (SessionState = {}));
+})(SessionState = SessionState || (SessionState = {}));
 /**
  * Offer/Answer state.
  * @remarks
@@ -5314,11 +5414,11 @@ var SignalingState;
     SignalingState["HaveRemoteOffer"] = "HaveRemoteOffer";
     SignalingState["Stable"] = "Stable";
     SignalingState["Closed"] = "Closed";
-})(SignalingState || (SignalingState = {}));
+})(SignalingState = SignalingState || (SignalingState = {}));
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5352,7 +5452,7 @@ class Message {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5386,14 +5486,14 @@ class Notification {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Referral": () => (/* binding */ Referral)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
+/* harmony import */ var _grammar_name_addr_header_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(26);
 
 /**
  * A request to establish a {@link Session} elsewhere (incoming REFER).
@@ -5407,7 +5507,7 @@ class Referral {
     }
     get referTo() {
         const referTo = this.incomingReferRequest.message.parseHeader("refer-to");
-        if (!(referTo instanceof _core__WEBPACK_IMPORTED_MODULE_0__.NameAddrHeader)) {
+        if (!(referTo instanceof _grammar_name_addr_header_js__WEBPACK_IMPORTED_MODULE_0__.NameAddrHeader)) {
             throw new Error("Failed to parse Refer-To header.");
         }
         return referTo;
@@ -5476,7 +5576,7 @@ class Referral {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5493,7 +5593,7 @@ var SIPExtension;
     SIPExtension["Required"] = "Required";
     SIPExtension["Supported"] = "Supported";
     SIPExtension["Unsupported"] = "Unsupported";
-})(SIPExtension || (SIPExtension = {}));
+})(SIPExtension = SIPExtension || (SIPExtension = {}));
 /**
  * SIP Option Tags
  * @remarks
@@ -5538,20 +5638,20 @@ const UserAgentRegisteredOptionTags = {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "TransactionStateError": () => (/* binding */ TransactionStateError)
 /* harmony export */ });
-/* harmony import */ var _exception__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _exception_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 
 /**
  * Indicates that the operation could not be completed given the current transaction state.
  * @public
  */
-class TransactionStateError extends _exception__WEBPACK_IMPORTED_MODULE_0__.Exception {
+class TransactionStateError extends _exception_js__WEBPACK_IMPORTED_MODULE_0__.Exception {
     constructor(message) {
         super(message ? message : "Transaction state error.");
     }
@@ -5559,7 +5659,7 @@ class TransactionStateError extends _exception__WEBPACK_IMPORTED_MODULE_0__.Exce
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5592,20 +5692,22 @@ const Timers = {
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Inviter": () => (/* binding */ Inviter)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(29);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(30);
-/* harmony import */ var _core_messages_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
-/* harmony import */ var _session__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(15);
-/* harmony import */ var _session_state__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(16);
-/* harmony import */ var _user_agent_options__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(34);
+/* harmony import */ var _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(22);
+/* harmony import */ var _core_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(30);
+/* harmony import */ var _core_session_session_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(31);
+/* harmony import */ var _core_messages_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(21);
+/* harmony import */ var _session_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
+/* harmony import */ var _session_state_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(17);
+/* harmony import */ var _user_agent_options_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(35);
+
+
 
 
 
@@ -5615,7 +5717,7 @@ __webpack_require__.r(__webpack_exports__);
  * An inviter offers to establish a {@link Session} (outgoing INVITE).
  * @public
  */
-class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
+class Inviter extends _session_js__WEBPACK_IMPORTED_MODULE_0__.Session {
     /**
      * Constructs a new instance of the `Inviter` class.
      * @param userAgent - User agent. See {@link UserAgent} for details.
@@ -5638,7 +5740,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         // Early media
         this.earlyMedia = options.earlyMedia !== undefined ? options.earlyMedia : this.earlyMedia;
         // From tag
-        this.fromTag = (0,_core_messages_utils__WEBPACK_IMPORTED_MODULE_1__.newTag)();
+        this.fromTag = (0,_core_messages_utils_js__WEBPACK_IMPORTED_MODULE_1__.newTag)();
         // Invite without SDP
         this.inviteWithoutSdp = options.inviteWithoutSdp !== undefined ? options.inviteWithoutSdp : this.inviteWithoutSdp;
         // Inviter options (could do better copying these options)
@@ -5664,7 +5766,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         if (inviterOptions.params.fromUri) {
             fromURI =
                 typeof inviterOptions.params.fromUri === "string"
-                    ? _core__WEBPACK_IMPORTED_MODULE_2__.Grammar.URIParse(inviterOptions.params.fromUri)
+                    ? _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__.Grammar.URIParse(inviterOptions.params.fromUri)
                     : inviterOptions.params.fromUri;
         }
         if (!fromURI) {
@@ -5674,7 +5776,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         if (inviterOptions.params.toUri) {
             toURI =
                 typeof inviterOptions.params.toUri === "string"
-                    ? _core__WEBPACK_IMPORTED_MODULE_2__.Grammar.URIParse(inviterOptions.params.toUri)
+                    ? _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__.Grammar.URIParse(inviterOptions.params.toUri)
                     : inviterOptions.params.toUri;
         }
         if (!toURI) {
@@ -5691,17 +5793,17 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         }
         extraHeaders.push("Contact: " + contact);
         extraHeaders.push("Allow: " + ["ACK", "CANCEL", "INVITE", "MESSAGE", "BYE", "OPTIONS", "INFO", "NOTIFY", "REFER"].toString());
-        if (userAgent.configuration.sipExtension100rel === _user_agent_options__WEBPACK_IMPORTED_MODULE_3__.SIPExtension.Required) {
+        if (userAgent.configuration.sipExtension100rel === _user_agent_options_js__WEBPACK_IMPORTED_MODULE_3__.SIPExtension.Required) {
             extraHeaders.push("Require: 100rel");
         }
-        if (userAgent.configuration.sipExtensionReplaces === _user_agent_options__WEBPACK_IMPORTED_MODULE_3__.SIPExtension.Required) {
+        if (userAgent.configuration.sipExtensionReplaces === _user_agent_options_js__WEBPACK_IMPORTED_MODULE_3__.SIPExtension.Required) {
             extraHeaders.push("Require: replaces");
         }
         inviterOptions.extraHeaders = extraHeaders;
         // Body
         const body = undefined;
         // Make initial outgoing request message
-        this.outgoingRequestMessage = userAgent.userAgentCore.makeOutgoingRequestMessage(_core__WEBPACK_IMPORTED_MODULE_4__.C.INVITE, targetURI, fromURI, toURI, messageOptions, extraHeaders, body);
+        this.outgoingRequestMessage = userAgent.userAgentCore.makeOutgoingRequestMessage(_core_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.INVITE, targetURI, fromURI, toURI, messageOptions, extraHeaders, body);
         // Session parent properties
         this._contact = contact;
         this._referralInviterOptions = inviterOptions;
@@ -5743,15 +5845,15 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         this.disposeEarlyMedia();
         // If the final response for the initial INVITE not yet been received, cancel it
         switch (this.state) {
-            case _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Initial:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Initial:
                 return this.cancel().then(() => super.dispose());
-            case _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing:
                 return this.cancel().then(() => super.dispose());
-            case _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Established:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Established:
                 return super.dispose();
-            case _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminating:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminating:
                 return super.dispose();
-            case _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated:
+            case _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated:
                 return super.dispose();
             default:
                 throw new Error("Unknown state.");
@@ -5798,7 +5900,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
     cancel(options = {}) {
         this.logger.log("Inviter.cancel");
         // validate state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Initial && this.state !== _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Initial && this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing) {
             const error = new Error(`Invalid session state ${this.state}`);
             this.logger.error(error.message);
             return Promise.reject(error);
@@ -5806,7 +5908,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         // flag canceled
         this.isCanceled = true;
         // transition state
-        this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminating);
+        this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminating);
         // helper function
         function getCancelReason(code, reason) {
             if ((code && code < 200) || code > 699) {
@@ -5814,7 +5916,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
             }
             else if (code) {
                 const cause = code;
-                const text = (0,_core_messages_utils__WEBPACK_IMPORTED_MODULE_1__.getReasonPhrase)(code) || reason;
+                const text = (0,_core_messages_utils_js__WEBPACK_IMPORTED_MODULE_1__.getReasonPhrase)(code) || reason;
                 return "SIP;cause=" + cause + ';text="' + text + '"';
             }
         }
@@ -5828,7 +5930,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         }
         else {
             this.logger.warn("Canceled session before INVITE was sent");
-            this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+            this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
         }
         return Promise.resolve();
     }
@@ -5919,7 +6021,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
     invite(options = {}) {
         this.logger.log("Inviter.invite");
         // validate state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Initial) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Initial) {
             // re-invite
             return super.invite(options);
         }
@@ -5936,7 +6038,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                 this.outgoingRequestMessage.body = { contentType: this._rendertype, body: this._renderbody };
             }
             // transition state
-            this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing);
+            this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing);
             return Promise.resolve(this.sendInvite(options));
         }
         // get an offer and send it in an INVITE
@@ -5948,12 +6050,16 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
             .then((body) => {
             this.outgoingRequestMessage.body = { body: body.content, contentType: body.contentType };
             // transition state
-            this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing);
+            this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing);
             return this.sendInvite(options);
         })
             .catch((error) => {
             this.logger.log(error.message);
-            this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+            // It's possible we are already terminated,
+            // so don't throw trying to transition again.
+            if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated) {
+                this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+            }
             throw error;
         });
     }
@@ -6167,7 +6273,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                 if (this.isCanceled) {
                     this.logger.log("Canceled session accepted, sending ACK and BYE");
                     this.ackAndBye(inviteResponse);
-                    this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+                    this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
                     return;
                 }
                 this.notifyReferer(inviteResponse);
@@ -6234,7 +6340,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         if (!this._referred) {
             return;
         }
-        if (!(this._referred instanceof _session__WEBPACK_IMPORTED_MODULE_0__.Session)) {
+        if (!(this._referred instanceof _session_js__WEBPACK_IMPORTED_MODULE_0__.Session)) {
             throw new Error("Referred session not instance of session");
         }
         if (!this._referred.dialog) {
@@ -6280,7 +6386,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
     onAccept(inviteResponse) {
         this.logger.log("Inviter.onAccept");
         // validate state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing) {
             this.logger.error(`Accept received while in state ${this.state}, dropping response`);
             return Promise.reject(new Error(`Invalid session state ${this.state}`));
         }
@@ -6288,7 +6394,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         const session = inviteResponse.session;
         // Ported behavior.
         if (response.hasHeader("P-Asserted-Identity")) {
-            this._assertedIdentity = _core__WEBPACK_IMPORTED_MODULE_2__.Grammar.nameAddrHeaderParse(response.getHeader("P-Asserted-Identity"));
+            this._assertedIdentity = _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__.Grammar.nameAddrHeaderParse(response.getHeader("P-Asserted-Identity"));
         }
         // We have a confirmed dialog.
         session.delegate = {
@@ -6303,19 +6409,19 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         };
         this._dialog = session;
         switch (session.signalingState) {
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Initial:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Initial:
                 // INVITE without offer, so MUST have offer at this point, so invalid state.
                 this.logger.error("Received 2xx response to INVITE without a session description");
                 this.ackAndBye(inviteResponse, 400, "Missing session description");
-                this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+                this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
                 return Promise.reject(new Error("Bad Media Description"));
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveLocalOffer:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveLocalOffer:
                 // INVITE with offer, so MUST have answer at this point, so invalid state.
                 this.logger.error("Received 2xx response to INVITE without a session description");
                 this.ackAndBye(inviteResponse, 400, "Missing session description");
-                this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+                this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
                 return Promise.reject(new Error("Bad Media Description"));
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveRemoteOffer: {
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveRemoteOffer: {
                 // INVITE without offer, received offer in 2xx, so MUST send answer in ACK.
                 if (!this._dialog.offer) {
                     throw new Error(`Session offer undefined in signaling state ${this._dialog.signalingState}.`);
@@ -6327,15 +6433,15 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                 return this.setOfferAndGetAnswer(this._dialog.offer, options)
                     .then((body) => {
                     inviteResponse.ack({ body });
-                    this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Established);
+                    this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Established);
                 })
                     .catch((error) => {
                     this.ackAndBye(inviteResponse, 488, "Invalid session description");
-                    this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+                    this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
                     throw error;
                 });
             }
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Stable: {
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Stable: {
                 // If INVITE without offer and we have already completed the initial exchange.
                 if (this.earlyMediaSessionDescriptionHandlers.size > 0) {
                     const sdh = this.earlyMediaSessionDescriptionHandlers.get(session.id);
@@ -6345,7 +6451,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                     this.setSessionDescriptionHandler(sdh);
                     this.earlyMediaSessionDescriptionHandlers.delete(session.id);
                     inviteResponse.ack();
-                    this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Established);
+                    this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Established);
                     return Promise.resolve();
                 }
                 // If INVITE with offer and we used an "early" answer in a provisional response for media
@@ -6369,12 +6475,12 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                         const error = new Error("Early media dialog does not equal confirmed dialog, terminating session");
                         this.logger.error(error.message);
                         this.ackAndBye(inviteResponse, 488, "Not Acceptable Here");
-                        this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+                        this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
                         return Promise.reject(error);
                     }
                     // Otherwise we are good to go.
                     inviteResponse.ack();
-                    this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Established);
+                    this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Established);
                     return Promise.resolve();
                 }
                 // If INVITE with offer and we have been waiting till now to apply the answer.
@@ -6396,16 +6502,16 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                         };
                     }
                     inviteResponse.ack(ackOptions);
-                    this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Established);
+                    this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Established);
                 })
                     .catch((error) => {
                     this.logger.error(error.message);
                     this.ackAndBye(inviteResponse, 488, "Not Acceptable Here");
-                    this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+                    this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
                     throw error;
                 });
             }
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Closed:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Closed:
                 // Dialog has terminated.
                 return Promise.reject(new Error("Terminated."));
             default:
@@ -6420,7 +6526,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         var _a;
         this.logger.log("Inviter.onProgress");
         // validate state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing) {
             this.logger.error(`Progress received while in state ${this.state}, dropping response`);
             return Promise.reject(new Error(`Invalid session state ${this.state}`));
         }
@@ -6431,7 +6537,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
         const session = inviteResponse.session;
         // Ported - Set assertedIdentity.
         if (response.hasHeader("P-Asserted-Identity")) {
-            this._assertedIdentity = _core__WEBPACK_IMPORTED_MODULE_2__.Grammar.nameAddrHeaderParse(response.getHeader("P-Asserted-Identity"));
+            this._assertedIdentity = _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__.Grammar.nameAddrHeaderParse(response.getHeader("P-Asserted-Identity"));
         }
         // If a provisional response is received for an initial request, and
         // that response contains a Require header field containing the option
@@ -6448,7 +6554,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
             extraHeaders.push("RAck: " + response.getHeader("rseq") + " " + response.getHeader("cseq"));
         }
         switch (session.signalingState) {
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Initial:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Initial:
                 // INVITE without offer and session still has no offer (and no answer).
                 if (responseReliable) {
                     // Similarly, if a reliable provisional
@@ -6461,13 +6567,13 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                     inviteResponse.prack({ extraHeaders });
                 }
                 return Promise.resolve();
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveLocalOffer:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveLocalOffer:
                 // INVITE with offer and session only has that initial local offer.
                 if (responseReliable) {
                     inviteResponse.prack({ extraHeaders });
                 }
                 return Promise.resolve();
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveRemoteOffer:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveRemoteOffer:
                 if (!responseReliable) {
                     // The initial offer MUST be in either an INVITE or, if not there,
                     // in the first reliable non-failure message from the UAS back to
@@ -6505,11 +6611,11 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                         inviteResponse.prack({ extraHeaders, body });
                     })
                         .catch((error) => {
-                        this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+                        this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
                         throw error;
                     });
                 }
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Stable:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Stable:
                 // This session has completed an initial offer/answer exchange, so...
                 // - INVITE with SDP and this provisional response MAY be reliable
                 // - INVITE without SDP and this provisional response MAY be reliable
@@ -6527,12 +6633,12 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
                         sessionDescriptionHandlerOptions: this.sessionDescriptionHandlerOptions
                     };
                     return this.setAnswer(answer, options).catch((error) => {
-                        this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+                        this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
                         throw error;
                     });
                 }
                 return Promise.resolve();
-            case _core__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Closed:
+            case _core_session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Closed:
                 // Dialog has terminated.
                 return Promise.reject(new Error("Terminated."));
             default:
@@ -6547,12 +6653,12 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
     onRedirect(inviteResponse) {
         this.logger.log("Inviter.onRedirect");
         // validate state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing && this.state !== _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminating) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing && this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminating) {
             this.logger.error(`Redirect received while in state ${this.state}, dropping response`);
             return;
         }
         // transition state
-        this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+        this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
     }
     /**
      * Handle final response to initial INVITE.
@@ -6562,12 +6668,12 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
     onReject(inviteResponse) {
         this.logger.log("Inviter.onReject");
         // validate state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing && this.state !== _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminating) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing && this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminating) {
             this.logger.error(`Reject received while in state ${this.state}, dropping response`);
             return;
         }
         // transition state
-        this.stateTransition(_session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
+        this.stateTransition(_session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Terminated);
     }
     /**
      * Handle final response to initial INVITE.
@@ -6577,7 +6683,7 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
     onTrying(inviteResponse) {
         this.logger.log("Inviter.onTrying");
         // validate state
-        if (this.state !== _session_state__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing) {
+        if (this.state !== _session_state_js__WEBPACK_IMPORTED_MODULE_5__.SessionState.Establishing) {
             this.logger.error(`Trying received while in state ${this.state}, dropping response`);
             return;
         }
@@ -6586,15 +6692,16 @@ class Inviter extends _session__WEBPACK_IMPORTED_MODULE_0__.Session {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Messager": () => (/* binding */ Messager)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
+/* harmony import */ var _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(22);
+/* harmony import */ var _core_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+
 
 /**
  * A messager sends a {@link Message} (outgoing MESSAGE).
@@ -6618,14 +6725,14 @@ class Messager {
         let fromURI = userAgent.userAgentCore.configuration.aor;
         if (options.params.fromUri) {
             fromURI =
-                typeof options.params.fromUri === "string" ? _core__WEBPACK_IMPORTED_MODULE_0__.Grammar.URIParse(options.params.fromUri) : options.params.fromUri;
+                typeof options.params.fromUri === "string" ? _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_0__.Grammar.URIParse(options.params.fromUri) : options.params.fromUri;
         }
         if (!fromURI) {
             throw new TypeError("Invalid from URI: " + options.params.fromUri);
         }
         let toURI = targetURI;
         if (options.params.toUri) {
-            toURI = typeof options.params.toUri === "string" ? _core__WEBPACK_IMPORTED_MODULE_0__.Grammar.URIParse(options.params.toUri) : options.params.toUri;
+            toURI = typeof options.params.toUri === "string" ? _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_0__.Grammar.URIParse(options.params.toUri) : options.params.toUri;
         }
         if (!toURI) {
             throw new TypeError("Invalid to URI: " + options.params.toUri);
@@ -6642,7 +6749,7 @@ class Messager {
             content
         };
         // Build the request
-        this.request = userAgent.userAgentCore.makeOutgoingRequestMessage(_core__WEBPACK_IMPORTED_MODULE_1__.C.MESSAGE, targetURI, fromURI, toURI, params, extraHeaders, body);
+        this.request = userAgent.userAgentCore.makeOutgoingRequestMessage(_core_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__.C.MESSAGE, targetURI, fromURI, toURI, params, extraHeaders, body);
         // User agent
         this.userAgent = userAgent;
     }
@@ -6657,7 +6764,7 @@ class Messager {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -6685,21 +6792,22 @@ var PublisherState;
     PublisherState["Published"] = "Published";
     PublisherState["Unpublished"] = "Unpublished";
     PublisherState["Terminated"] = "Terminated";
-})(PublisherState || (PublisherState = {}));
+})(PublisherState = PublisherState || (PublisherState = {}));
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Publisher": () => (/* binding */ Publisher)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
-/* harmony import */ var _emitter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var _publisher_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(39);
+/* harmony import */ var _core_messages_body_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18);
+/* harmony import */ var _core_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(30);
+/* harmony import */ var _emitter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(40);
+
 
 
 
@@ -6719,9 +6827,9 @@ class Publisher {
     constructor(userAgent, targetURI, eventType, options = {}) {
         this.disposed = false;
         /** The publication state. */
-        this._state = _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Initial;
+        this._state = _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Initial;
         // state emitter
-        this._stateEventEmitter = new _emitter__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
+        this._stateEventEmitter = new _emitter_js__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
         this.userAgent = userAgent;
         options.extraHeaders = (options.extraHeaders || []).slice();
         options.contentType = options.contentType || "text/plain";
@@ -6755,7 +6863,7 @@ class Publisher {
         }
         const extraHeaders = (options.extraHeaders || []).slice();
         // Build the request
-        this.request = userAgent.userAgentCore.makeOutgoingRequestMessage(_core__WEBPACK_IMPORTED_MODULE_2__.C.PUBLISH, targetURI, fromURI, toURI, params, extraHeaders, body);
+        this.request = userAgent.userAgentCore.makeOutgoingRequestMessage(_core_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__.C.PUBLISH, targetURI, fromURI, toURI, params, extraHeaders, body);
         // Identifier
         this.id = this.target.toString() + ":" + this.event;
         // Add to the user agent's publisher collection.
@@ -6773,7 +6881,7 @@ class Publisher {
         // Remove from the user agent's publisher collection
         delete this.userAgent._publishers[this.id];
         // Send unpublish, if requested
-        if (this.options.unpublishOnClose && this.state === _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published) {
+        if (this.options.unpublishOnClose && this.state === _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published) {
             return this.unpublish();
         }
         if (this.publishRefreshTimer) {
@@ -6865,12 +6973,12 @@ class Publisher {
                 if (this.pubRequestExpires !== 0) {
                     // Schedule refresh
                     this.publishRefreshTimer = setTimeout(() => this.refreshRequest(), this.pubRequestExpires * 900);
-                    if (this._state !== _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published) {
-                        this.stateTransition(_publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published);
+                    if (this._state !== _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published) {
+                        this.stateTransition(_publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published);
                     }
                 }
                 else {
-                    this.stateTransition(_publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished);
+                    this.stateTransition(_publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished);
                 }
                 break;
             case /^412$/.test(statusCode.toString()):
@@ -6887,8 +6995,8 @@ class Publisher {
                 else {
                     this.logger.warn("412 response to PUBLISH, recovery failed");
                     this.pubRequestExpires = 0;
-                    this.stateTransition(_publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished);
-                    this.stateTransition(_publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated);
+                    this.stateTransition(_publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished);
+                    this.stateTransition(_publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated);
                 }
                 break;
             case /^423$/.test(statusCode.toString()):
@@ -6906,21 +7014,21 @@ class Publisher {
                     else {
                         this.logger.warn("Bad 423 response Min-Expires header received for PUBLISH");
                         this.pubRequestExpires = 0;
-                        this.stateTransition(_publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished);
-                        this.stateTransition(_publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated);
+                        this.stateTransition(_publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished);
+                        this.stateTransition(_publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated);
                     }
                 }
                 else {
                     this.logger.warn("423 response to PUBLISH, recovery failed");
                     this.pubRequestExpires = 0;
-                    this.stateTransition(_publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished);
-                    this.stateTransition(_publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated);
+                    this.stateTransition(_publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished);
+                    this.stateTransition(_publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated);
                 }
                 break;
             default:
                 this.pubRequestExpires = 0;
-                this.stateTransition(_publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished);
-                this.stateTransition(_publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated);
+                this.stateTransition(_publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished);
+                this.stateTransition(_publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated);
                 break;
         }
         // Do the cleanup
@@ -6981,9 +7089,9 @@ class Publisher {
         }
         let body;
         if (bodyAndContentType) {
-            body = (0,_core__WEBPACK_IMPORTED_MODULE_3__.fromBodyLegacy)(bodyAndContentType);
+            body = (0,_core_messages_body_js__WEBPACK_IMPORTED_MODULE_3__.fromBodyLegacy)(bodyAndContentType);
         }
-        this.request = this.userAgent.userAgentCore.makeOutgoingRequestMessage(_core__WEBPACK_IMPORTED_MODULE_2__.C.PUBLISH, ruri, params.fromUri ? params.fromUri : this.userAgent.userAgentCore.configuration.aor, params.toUri ? params.toUri : this.target, params, reqOptions.extraHeaders, body);
+        this.request = this.userAgent.userAgentCore.makeOutgoingRequestMessage(_core_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__.C.PUBLISH, ruri, params.fromUri ? params.fromUri : this.userAgent.userAgentCore.configuration.aor, params.toUri ? params.toUri : this.target, params, reqOptions.extraHeaders, body);
         return this.send();
     }
     /**
@@ -6995,24 +7103,24 @@ class Publisher {
         };
         // Validate transition
         switch (this._state) {
-            case _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Initial:
-                if (newState !== _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published &&
-                    newState !== _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished &&
-                    newState !== _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated) {
+            case _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Initial:
+                if (newState !== _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published &&
+                    newState !== _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished &&
+                    newState !== _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published:
-                if (newState !== _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished && newState !== _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated) {
+            case _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published:
+                if (newState !== _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished && newState !== _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished:
-                if (newState !== _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published && newState !== _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated) {
+            case _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Unpublished:
+                if (newState !== _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Published && newState !== _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated:
+            case _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated:
                 invalidTransition();
                 break;
             default:
@@ -7023,7 +7131,7 @@ class Publisher {
         this.logger.log(`Publication transitioned to state ${this._state}`);
         this._stateEventEmitter.emit(this._state);
         // Dispose
-        if (newState === _publisher_state__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated) {
+        if (newState === _publisher_state_js__WEBPACK_IMPORTED_MODULE_0__.PublisherState.Terminated) {
             this.dispose();
         }
     }
@@ -7031,7 +7139,7 @@ class Publisher {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -7059,23 +7167,25 @@ var RegistererState;
     RegistererState["Registered"] = "Registered";
     RegistererState["Unregistered"] = "Unregistered";
     RegistererState["Terminated"] = "Terminated";
-})(RegistererState || (RegistererState = {}));
+})(RegistererState = RegistererState || (RegistererState = {}));
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Registerer": () => (/* binding */ Registerer)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(29);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(23);
-/* harmony import */ var _emitter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6);
-/* harmony import */ var _registerer_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41);
+/* harmony import */ var _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(22);
+/* harmony import */ var _grammar_uri_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(24);
+/* harmony import */ var _core_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
+/* harmony import */ var _emitter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _exceptions_request_pending_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6);
+/* harmony import */ var _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42);
+
+
 
 
 
@@ -7097,13 +7207,13 @@ class Registerer {
         /** The number of seconds to wait before retrying to register. */
         this._retryAfter = undefined;
         /** The registration state. */
-        this._state = _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Initial;
+        this._state = _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Initial;
         /** True is waiting for final response to outstanding REGISTER request. */
         this._waiting = false;
         // state emitter
-        this._stateEventEmitter = new _emitter__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
+        this._stateEventEmitter = new _emitter_js__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
         // waiting emitter
-        this._waitingEventEmitter = new _emitter__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
+        this._waitingEventEmitter = new _emitter_js__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
         // Set user agent
         this.userAgent = userAgent;
         // Default registrar is domain portion of user agent uri
@@ -7121,12 +7231,12 @@ class Registerer {
         this.options.registrar = this.options.registrar.clone();
         // Set instanceId and regId conditional defaults and validate
         if (this.options.regId && !this.options.instanceId) {
-            this.options.instanceId = Registerer.newUUID();
+            this.options.instanceId = this.userAgent.instanceId;
         }
         else if (!this.options.regId && this.options.instanceId) {
             this.options.regId = 1;
         }
-        if (this.options.instanceId && _core__WEBPACK_IMPORTED_MODULE_2__.Grammar.parse(this.options.instanceId, "uuid") === -1) {
+        if (this.options.instanceId && _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__.Grammar.parse(this.options.instanceId, "uuid") === -1) {
             throw new Error("Invalid instanceId.");
         }
         if (this.options.regId && this.options.regId < 0) {
@@ -7138,7 +7248,7 @@ class Registerer {
         const params = this.options.params || {};
         const extraHeaders = (options.extraHeaders || []).slice();
         // Build the request
-        this.request = userAgent.userAgentCore.makeOutgoingRequestMessage(_core__WEBPACK_IMPORTED_MODULE_3__.C.REGISTER, registrar, fromURI, toURI, params, extraHeaders, undefined);
+        this.request = userAgent.userAgentCore.makeOutgoingRequestMessage(_core_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_3__.C.REGISTER, registrar, fromURI, toURI, params, extraHeaders, undefined);
         // Registration expires
         this.expires = this.options.expires || Registerer.defaultExpires;
         if (this.expires < 0) {
@@ -7180,18 +7290,9 @@ class Registerer {
             instanceId: "",
             params: {},
             regId: 0,
-            registrar: new _core__WEBPACK_IMPORTED_MODULE_4__.URI("sip", "anonymous", "anonymous.invalid"),
+            registrar: new _grammar_uri_js__WEBPACK_IMPORTED_MODULE_4__.URI("sip", "anonymous", "anonymous.invalid"),
             refreshFrequency: Registerer.defaultRefreshFrequency
         };
-    }
-    // http://stackoverflow.com/users/109538/broofa
-    static newUUID() {
-        const UUID = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-            const r = Math.floor(Math.random() * 16);
-            const v = c === "x" ? r : (r % 4) + 8;
-            return v.toString(16);
-        });
-        return UUID;
     }
     /**
      * Strip properties with undefined values from options.
@@ -7270,7 +7371,7 @@ class Registerer {
         return new Promise((resolve) => {
             const doClose = () => {
                 // If we are registered, unregister and resolve after our state changes
-                if (!this.waiting && this._state === _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered) {
+                if (!this.waiting && this._state === _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered) {
                     this.stateChange.addListener(() => {
                         this.terminated();
                         resolve();
@@ -7301,7 +7402,7 @@ class Registerer {
      * Rejects with `RequestPendingError` if a REGISTER request is already in progress.
      */
     register(options = {}) {
-        if (this.state === _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
+        if (this.state === _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
             this.stateError();
             throw new Error("Registerer terminated. Unable to register.");
         }
@@ -7316,7 +7417,7 @@ class Registerer {
         // https://tools.ietf.org/html/rfc3261#section-10.2
         if (this.waiting) {
             this.waitingWarning();
-            const error = new _exceptions__WEBPACK_IMPORTED_MODULE_5__.RequestPendingError("REGISTER request already in progress, waiting for final response");
+            const error = new _exceptions_request_pending_js__WEBPACK_IMPORTED_MODULE_5__.RequestPendingError("REGISTER request already in progress, waiting for final response");
             return Promise.reject(error);
         }
         // Options
@@ -7375,7 +7476,7 @@ class Registerer {
                     if (!contact) {
                         throw new Error("Contact undefined");
                     }
-                    if (this.userAgent.contact.pubGruu && (0,_core__WEBPACK_IMPORTED_MODULE_4__.equivalentURI)(contact.uri, this.userAgent.contact.pubGruu)) {
+                    if (this.userAgent.contact.pubGruu && (0,_grammar_uri_js__WEBPACK_IMPORTED_MODULE_4__.equivalentURI)(contact.uri, this.userAgent.contact.pubGruu)) {
                         expires = Number(contact.getParam("expires"));
                         break;
                     }
@@ -7389,7 +7490,7 @@ class Registerer {
                     }
                     else {
                         // otherwise use comparision rules in Section 19.1.4
-                        if ((0,_core__WEBPACK_IMPORTED_MODULE_4__.equivalentURI)(contact.uri, this.userAgent.contact.uri)) {
+                        if ((0,_grammar_uri_js__WEBPACK_IMPORTED_MODULE_4__.equivalentURI)(contact.uri, this.userAgent.contact.uri)) {
                             expires = Number(contact.getParam("expires"));
                             break;
                         }
@@ -7414,13 +7515,13 @@ class Registerer {
                 if (contact.hasParam("temp-gruu")) {
                     const gruu = contact.getParam("temp-gruu");
                     if (gruu) {
-                        this.userAgent.contact.tempGruu = _core__WEBPACK_IMPORTED_MODULE_2__.Grammar.URIParse(gruu.replace(/"/g, ""));
+                        this.userAgent.contact.tempGruu = _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__.Grammar.URIParse(gruu.replace(/"/g, ""));
                     }
                 }
                 if (contact.hasParam("pub-gruu")) {
                     const gruu = contact.getParam("pub-gruu");
                     if (gruu) {
-                        this.userAgent.contact.pubGruu = _core__WEBPACK_IMPORTED_MODULE_2__.Grammar.URIParse(gruu.replace(/"/g, ""));
+                        this.userAgent.contact.pubGruu = _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__.Grammar.URIParse(gruu.replace(/"/g, ""));
                     }
                 }
                 this.registered(expires);
@@ -7509,12 +7610,12 @@ class Registerer {
      * Rejects with `RequestPendingError` if a REGISTER request is already in progress.
      */
     unregister(options = {}) {
-        if (this.state === _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
+        if (this.state === _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
             this.stateError();
             throw new Error("Registerer terminated. Unable to register.");
         }
         if (this.disposed) {
-            if (this.state !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered) {
+            if (this.state !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered) {
                 // allows unregister while disposing and registered
                 this.stateError();
                 throw new Error("Registerer disposed. Unable to register.");
@@ -7527,10 +7628,10 @@ class Registerer {
         // https://tools.ietf.org/html/rfc3261#section-10.2
         if (this.waiting) {
             this.waitingWarning();
-            const error = new _exceptions__WEBPACK_IMPORTED_MODULE_5__.RequestPendingError("REGISTER request already in progress, waiting for final response");
+            const error = new _exceptions_request_pending_js__WEBPACK_IMPORTED_MODULE_5__.RequestPendingError("REGISTER request already in progress, waiting for final response");
             return Promise.reject(error);
         }
-        if (this._state !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered && !options.all) {
+        if (this._state !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered && !options.all) {
             this.logger.warn("Not currently registered, but sending an unregister anyway.");
         }
         // Extra headers
@@ -7627,7 +7728,7 @@ class Registerer {
      * Generate Contact Header
      */
     generateContactHeader(expires) {
-        let contact = this.userAgent.contact.toString();
+        let contact = this.userAgent.contact.toString({ register: true });
         if (this.options.regId && this.options.instanceId) {
             contact += ";reg-id=" + this.options.regId;
             contact += ';+sip.instance="<urn:uuid:' + this.options.instanceId + '>"';
@@ -7656,8 +7757,8 @@ class Registerer {
             this.logger.warn("Registration expired");
             this.unregistered();
         }, expires * 1000);
-        if (this._state !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered) {
-            this.stateTransition(_registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered);
+        if (this._state !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered) {
+            this.stateTransition(_registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered);
         }
     }
     /**
@@ -7665,8 +7766,8 @@ class Registerer {
      */
     unregistered() {
         this.clearTimers();
-        if (this._state !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Unregistered) {
-            this.stateTransition(_registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Unregistered);
+        if (this._state !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Unregistered) {
+            this.stateTransition(_registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Unregistered);
         }
     }
     /**
@@ -7674,8 +7775,8 @@ class Registerer {
      */
     terminated() {
         this.clearTimers();
-        if (this._state !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
-            this.stateTransition(_registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated);
+        if (this._state !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
+            this.stateTransition(_registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated);
         }
     }
     /**
@@ -7687,24 +7788,24 @@ class Registerer {
         };
         // Validate transition
         switch (this._state) {
-            case _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Initial:
-                if (newState !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered &&
-                    newState !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Unregistered &&
-                    newState !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
+            case _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Initial:
+                if (newState !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered &&
+                    newState !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Unregistered &&
+                    newState !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered:
-                if (newState !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Unregistered && newState !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
+            case _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered:
+                if (newState !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Unregistered && newState !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Unregistered:
-                if (newState !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered && newState !== _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
+            case _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Unregistered:
+                if (newState !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Registered && newState !== _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated:
+            case _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated:
                 invalidTransition();
                 break;
             default:
@@ -7715,7 +7816,7 @@ class Registerer {
         this.logger.log(`Registration transitioned to state ${this._state}`);
         this._stateEventEmitter.emit(this._state);
         // Dispose
-        if (newState === _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
+        if (newState === _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated) {
             this.dispose();
         }
     }
@@ -7750,7 +7851,7 @@ class Registerer {
     }
     /** Hopefully helpful as the standard behavior has been found to be unexpected. */
     stateError() {
-        const reason = this.state === _registerer_state__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated ? "is in 'Terminated' state" : "has been disposed";
+        const reason = this.state === _registerer_state_js__WEBPACK_IMPORTED_MODULE_0__.RegistererState.Terminated ? "is in 'Terminated' state" : "has been disposed";
         let message = `An attempt was made to send a REGISTER request when the Registerer ${reason}.`;
         message += " The Registerer transitions to 'Terminated' when Registerer.dispose() is called.";
         message += " Perhaps you called UserAgent.stop() which dipsoses of all Registerers?";
@@ -7762,20 +7863,22 @@ Registerer.defaultRefreshFrequency = 99;
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Subscriber": () => (/* binding */ Subscriber)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(46);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(17);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(29);
-/* harmony import */ var _core_user_agent_core_allowed_methods__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(28);
-/* harmony import */ var _notification__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(32);
-/* harmony import */ var _subscription__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(44);
-/* harmony import */ var _subscription_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(45);
+/* harmony import */ var _core_messages_body_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
+/* harmony import */ var _core_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(30);
+/* harmony import */ var _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(47);
+/* harmony import */ var _core_user_agent_core_allowed_methods_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(29);
+/* harmony import */ var _notification_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(33);
+/* harmony import */ var _subscription_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(45);
+/* harmony import */ var _subscription_state_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(46);
+
+
 
 
 
@@ -7799,6 +7902,8 @@ __webpack_require__.r(__webpack_exports__);
  * // Add delegate to handle event notifications.
  * subscriber.delegate = {
  *   onNotify: (notification: Notification) => {
+ *     // send a response
+ *     notification.accept();
  *     // handle notification here
  *   }
  * };
@@ -7819,7 +7924,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @public
  */
-class Subscriber extends _subscription__WEBPACK_IMPORTED_MODULE_0__.Subscription {
+class Subscriber extends _subscription_js__WEBPACK_IMPORTED_MODULE_0__.Subscription {
     /**
      * Constructor.
      * @param userAgent - User agent. See {@link UserAgent} for details.
@@ -7884,14 +7989,14 @@ class Subscriber extends _subscription__WEBPACK_IMPORTED_MODULE_0__.Subscription
         return super.dispose().then(() => {
             // If we have never subscribed there is nothing to wait on.
             // If we are already transitioned to terminated there is no need to unsubscribe again.
-            if (this.state !== _subscription_state__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Subscribed) {
+            if (this.state !== _subscription_state_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Subscribed) {
                 return;
             }
             if (!this._dialog) {
                 throw new Error("Dialog undefined.");
             }
-            if (this._dialog.subscriptionState === _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Pending ||
-                this._dialog.subscriptionState === _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Active) {
+            if (this._dialog.subscriptionState === _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Pending ||
+                this._dialog.subscriptionState === _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Active) {
                 const dialog = this._dialog;
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 return new Promise((resolve, reject) => {
@@ -7913,10 +8018,10 @@ class Subscriber extends _subscription__WEBPACK_IMPORTED_MODULE_0__.Subscription
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     subscribe(options = {}) {
         switch (this.subscriberRequest.state) {
-            case _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Initial:
+            case _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Initial:
                 // we can end up here when retrying so only state transition if in SubscriptionState.Initial state
-                if (this.state === _subscription_state__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Initial) {
-                    this.stateTransition(_subscription_state__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.NotifyWait);
+                if (this.state === _subscription_state_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Initial) {
+                    this.stateTransition(_subscription_state_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.NotifyWait);
                 }
                 this.subscriberRequest.subscribe().then((result) => {
                     if (result.success) {
@@ -7928,8 +8033,8 @@ class Subscriber extends _subscription__WEBPACK_IMPORTED_MODULE_0__.Subscription
                                 onTerminated: () => {
                                     // If a call to unsubscribe will state transition to SubscriptionState.Terminated,
                                     // but we can end up here after that if the NOTIFY never arrives and timer N fires.
-                                    if (this.state !== _subscription_state__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Terminated) {
-                                        this.stateTransition(_subscription_state__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Terminated);
+                                    if (this.state !== _subscription_state_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Terminated) {
+                                        this.stateTransition(_subscription_state_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Terminated);
                                     }
                                 }
                             };
@@ -7941,11 +8046,11 @@ class Subscriber extends _subscription__WEBPACK_IMPORTED_MODULE_0__.Subscription
                     }
                 });
                 break;
-            case _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.NotifyWait:
+            case _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.NotifyWait:
                 break;
-            case _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Pending:
+            case _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Pending:
                 break;
-            case _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Active:
+            case _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Active:
                 if (this._dialog) {
                     const request = this._dialog.refresh();
                     request.delegate = {
@@ -7957,7 +8062,7 @@ class Subscriber extends _subscription__WEBPACK_IMPORTED_MODULE_0__.Subscription
                     };
                 }
                 break;
-            case _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Terminated:
+            case _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Terminated:
                 break;
             default:
                 break;
@@ -7973,28 +8078,28 @@ class Subscriber extends _subscription__WEBPACK_IMPORTED_MODULE_0__.Subscription
             return Promise.resolve();
         }
         switch (this.subscriberRequest.state) {
-            case _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Initial:
+            case _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Initial:
                 break;
-            case _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.NotifyWait:
+            case _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.NotifyWait:
                 break;
-            case _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Pending:
+            case _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Pending:
                 if (this._dialog) {
                     this._dialog.unsubscribe();
                     // responses intentionally ignored
                 }
                 break;
-            case _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Active:
+            case _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Active:
                 if (this._dialog) {
                     this._dialog.unsubscribe();
                     // responses intentionally ignored
                 }
                 break;
-            case _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Terminated:
+            case _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Terminated:
                 break;
             default:
                 throw new Error("Unknown state.");
         }
-        this.stateTransition(_subscription_state__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Terminated);
+        this.stateTransition(_subscription_state_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Terminated);
         return Promise.resolve();
     }
     /**
@@ -8003,7 +8108,7 @@ class Subscriber extends _subscription__WEBPACK_IMPORTED_MODULE_0__.Subscription
      * @internal
      */
     _refresh() {
-        if (this.subscriberRequest.state === _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Active) {
+        if (this.subscriberRequest.state === _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Active) {
             return this.subscribe();
         }
         return Promise.resolve();
@@ -8024,12 +8129,12 @@ class Subscriber extends _subscription__WEBPACK_IMPORTED_MODULE_0__.Subscription
             return;
         }
         // State transition if needed.
-        if (this.state !== _subscription_state__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Subscribed) {
-            this.stateTransition(_subscription_state__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Subscribed);
+        if (this.state !== _subscription_state_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Subscribed) {
+            this.stateTransition(_subscription_state_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState.Subscribed);
         }
         // Delegate notification.
         if (this.delegate && this.delegate.onNotify) {
-            const notification = new _notification__WEBPACK_IMPORTED_MODULE_3__.Notification(request);
+            const notification = new _notification_js__WEBPACK_IMPORTED_MODULE_3__.Notification(request);
             this.delegate.onNotify(notification);
         }
         else {
@@ -8094,7 +8199,7 @@ class Subscriber extends _subscription__WEBPACK_IMPORTED_MODULE_0__.Subscription
     initSubscriberRequest() {
         const options = {
             extraHeaders: this.extraHeaders,
-            body: this.body ? (0,_core__WEBPACK_IMPORTED_MODULE_4__.fromBodyLegacy)(this.body) : undefined
+            body: this.body ? (0,_core_messages_body_js__WEBPACK_IMPORTED_MODULE_4__.fromBodyLegacy)(this.body) : undefined
         };
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         this.subscriberRequest = new SubscriberRequest(this._userAgent.userAgentCore, this.targetURI, this.event, this.expires, options);
@@ -8113,14 +8218,14 @@ class SubscriberRequest {
         this.subscribed = false;
         this.logger = core.loggerFactory.getLogger("sip.Subscriber");
         this.delegate = delegate;
-        const allowHeader = "Allow: " + _core_user_agent_core_allowed_methods__WEBPACK_IMPORTED_MODULE_5__.AllowedMethods.toString();
+        const allowHeader = "Allow: " + _core_user_agent_core_allowed_methods_js__WEBPACK_IMPORTED_MODULE_5__.AllowedMethods.toString();
         const extraHeaders = ((options && options.extraHeaders) || []).slice();
         extraHeaders.push(allowHeader);
         extraHeaders.push("Event: " + this.event);
         extraHeaders.push("Expires: " + this.expires);
         extraHeaders.push("Contact: " + this.core.configuration.contact.toString());
         const body = options && options.body;
-        this.message = core.makeOutgoingRequestMessage(_core__WEBPACK_IMPORTED_MODULE_6__.C.SUBSCRIBE, this.target, this.core.configuration.aor, this.target, {}, extraHeaders, body);
+        this.message = core.makeOutgoingRequestMessage(_core_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_6__.C.SUBSCRIBE, this.target, this.core.configuration.aor, this.target, {}, extraHeaders, body);
     }
     /** Destructor. */
     dispose() {
@@ -8136,10 +8241,10 @@ class SubscriberRequest {
             return this.subscription.subscriptionState;
         }
         else if (this.subscribed) {
-            return _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.NotifyWait;
+            return _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.NotifyWait;
         }
         else {
-            return _core__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Initial;
+            return _core_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Initial;
         }
     }
     /**
@@ -8206,15 +8311,15 @@ class SubscriberRequest {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Subscription": () => (/* binding */ Subscription)
 /* harmony export */ });
-/* harmony import */ var _emitter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var _subscription_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(45);
+/* harmony import */ var _emitter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(46);
 
 
 /**
@@ -8233,9 +8338,9 @@ class Subscription {
      */
     constructor(userAgent, options = {}) {
         this._disposed = false;
-        this._state = _subscription_state__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Initial;
+        this._state = _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Initial;
         this._logger = userAgent.getLogger("sip.Subscription");
-        this._stateEventEmitter = new _emitter__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
+        this._stateEventEmitter = new _emitter_js__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
         this._userAgent = userAgent;
         this.delegate = options.delegate;
     }
@@ -8282,22 +8387,22 @@ class Subscription {
         };
         // Validate transition
         switch (this._state) {
-            case _subscription_state__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Initial:
-                if (newState !== _subscription_state__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.NotifyWait && newState !== _subscription_state__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Terminated) {
+            case _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Initial:
+                if (newState !== _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.NotifyWait && newState !== _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _subscription_state__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.NotifyWait:
-                if (newState !== _subscription_state__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Subscribed && newState !== _subscription_state__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Terminated) {
+            case _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.NotifyWait:
+                if (newState !== _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Subscribed && newState !== _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _subscription_state__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Subscribed:
-                if (newState !== _subscription_state__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Terminated) {
+            case _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Subscribed:
+                if (newState !== _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Terminated) {
                     invalidTransition();
                 }
                 break;
-            case _subscription_state__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Terminated:
+            case _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Terminated:
                 invalidTransition();
                 break;
             default:
@@ -8312,7 +8417,7 @@ class Subscription {
         this._logger.log(`Subscription ${this._dialog ? this._dialog.id : undefined} transitioned to ${this._state}`);
         this._stateEventEmitter.emit(this._state);
         // Dispose
-        if (newState === _subscription_state__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Terminated) {
+        if (newState === _subscription_state_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState.Terminated) {
             this.dispose();
         }
     }
@@ -8320,7 +8425,7 @@ class Subscription {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -8346,11 +8451,11 @@ var SubscriptionState;
     SubscriptionState["NotifyWait"] = "NotifyWait";
     SubscriptionState["Subscribed"] = "Subscribed";
     SubscriptionState["Terminated"] = "Terminated";
-})(SubscriptionState || (SubscriptionState = {}));
+})(SubscriptionState = SubscriptionState || (SubscriptionState = {}));
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -8370,11 +8475,11 @@ var SubscriptionState;
     SubscriptionState["Pending"] = "Pending";
     SubscriptionState["Active"] = "Active";
     SubscriptionState["Terminated"] = "Terminated";
-})(SubscriptionState || (SubscriptionState = {}));
+})(SubscriptionState = SubscriptionState || (SubscriptionState = {}));
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -8418,11 +8523,11 @@ var TransportState;
      * network connectivity was lost.
      */
     TransportState["Disconnected"] = "Disconnected";
-})(TransportState || (TransportState = {}));
+})(TransportState = TransportState || (TransportState = {}));
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -8443,37 +8548,45 @@ var UserAgentState;
 (function (UserAgentState) {
     UserAgentState["Started"] = "Started";
     UserAgentState["Stopped"] = "Stopped";
-})(UserAgentState || (UserAgentState = {}));
+})(UserAgentState = UserAgentState || (UserAgentState = {}));
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserAgent": () => (/* binding */ UserAgent)
 /* harmony export */ });
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(51);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(21);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(58);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(60);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(98);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(18);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(26);
-/* harmony import */ var _core_messages_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
-/* harmony import */ var _platform_web_session_description_handler__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(53);
-/* harmony import */ var _platform_web_transport__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(57);
-/* harmony import */ var _version__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(1);
-/* harmony import */ var _emitter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var _invitation__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(14);
-/* harmony import */ var _inviter__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(37);
-/* harmony import */ var _message__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(31);
-/* harmony import */ var _notification__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(32);
-/* harmony import */ var _user_agent_options__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(34);
-/* harmony import */ var _user_agent_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(48);
+/* harmony import */ var _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(22);
+/* harmony import */ var _grammar_uri_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(24);
+/* harmony import */ var _core_messages_digest_authentication_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(59);
+/* harmony import */ var _core_messages_incoming_request_message_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(19);
+/* harmony import */ var _core_messages_incoming_response_message_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(27);
+/* harmony import */ var _core_log_levels_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(52);
+/* harmony import */ var _core_log_logger_factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51);
+/* harmony import */ var _core_messages_parser_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(99);
+/* harmony import */ var _core_user_agent_core_user_agent_core_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(61);
+/* harmony import */ var _core_messages_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
+/* harmony import */ var _platform_web_session_description_handler_session_description_handler_factory_default_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(54);
+/* harmony import */ var _platform_web_transport_transport_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(58);
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(1);
+/* harmony import */ var _emitter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _invitation_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(15);
+/* harmony import */ var _inviter_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(38);
+/* harmony import */ var _message_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(32);
+/* harmony import */ var _notification_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(33);
+/* harmony import */ var _user_agent_options_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(35);
+/* harmony import */ var _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(49);
+
+
+
+
+
+
+
+
 
 
 
@@ -8511,17 +8624,13 @@ class UserAgent {
         this._sessions = {};
         /** @internal */
         this._subscriptions = {};
-        this._state = _user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped;
-        /** Unload listener. */
-        this.unloadListener = () => {
-            this.stop();
-        };
+        this._state = _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped;
         // state emitter
-        this._stateEventEmitter = new _emitter__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
+        this._stateEventEmitter = new _emitter_js__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
         // initialize delegate
         this.delegate = options.delegate;
         // initialize configuration
-        this.options = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, UserAgent.defaultOptions()), { sipjsId: (0,_core_messages_utils__WEBPACK_IMPORTED_MODULE_2__.createRandomToken)(5) }), { uri: new _core__WEBPACK_IMPORTED_MODULE_3__.URI("sip", "anonymous." + (0,_core_messages_utils__WEBPACK_IMPORTED_MODULE_2__.createRandomToken)(6), "anonymous.invalid") }), { viaHost: (0,_core_messages_utils__WEBPACK_IMPORTED_MODULE_2__.createRandomToken)(12) + ".invalid" }), UserAgent.stripUndefinedProperties(options));
+        this.options = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, UserAgent.defaultOptions()), { sipjsId: (0,_core_messages_utils_js__WEBPACK_IMPORTED_MODULE_2__.createRandomToken)(5) }), { uri: new _grammar_uri_js__WEBPACK_IMPORTED_MODULE_3__.URI("sip", "anonymous." + (0,_core_messages_utils_js__WEBPACK_IMPORTED_MODULE_2__.createRandomToken)(6), "anonymous.invalid") }), { viaHost: (0,_core_messages_utils_js__WEBPACK_IMPORTED_MODULE_2__.createRandomToken)(12) + ".invalid" }), UserAgent.stripUndefinedProperties(options));
         // viaHost is hack
         if (this.options.hackIpInContact) {
             if (typeof this.options.hackIpInContact === "boolean" && this.options.hackIpInContact) {
@@ -8536,22 +8645,22 @@ class UserAgent {
             }
         }
         // initialize logger & logger factory
-        this.loggerFactory = new _core__WEBPACK_IMPORTED_MODULE_4__.LoggerFactory();
+        this.loggerFactory = new _core_log_logger_factory_js__WEBPACK_IMPORTED_MODULE_4__.LoggerFactory();
         this.logger = this.loggerFactory.getLogger("sip.UserAgent");
         this.loggerFactory.builtinEnabled = this.options.logBuiltinEnabled;
         this.loggerFactory.connector = this.options.logConnector;
         switch (this.options.logLevel) {
             case "error":
-                this.loggerFactory.level = _core__WEBPACK_IMPORTED_MODULE_5__.Levels.error;
+                this.loggerFactory.level = _core_log_levels_js__WEBPACK_IMPORTED_MODULE_5__.Levels.error;
                 break;
             case "warn":
-                this.loggerFactory.level = _core__WEBPACK_IMPORTED_MODULE_5__.Levels.warn;
+                this.loggerFactory.level = _core_log_levels_js__WEBPACK_IMPORTED_MODULE_5__.Levels.warn;
                 break;
             case "log":
-                this.loggerFactory.level = _core__WEBPACK_IMPORTED_MODULE_5__.Levels.log;
+                this.loggerFactory.level = _core_log_levels_js__WEBPACK_IMPORTED_MODULE_5__.Levels.log;
                 break;
             case "debug":
-                this.loggerFactory.level = _core__WEBPACK_IMPORTED_MODULE_5__.Levels.debug;
+                this.loggerFactory.level = _core_log_levels_js__WEBPACK_IMPORTED_MODULE_5__.Levels.debug;
                 break;
             default:
                 break;
@@ -8617,15 +8726,23 @@ class UserAgent {
         this.initTransportCallbacks();
         // Initialize Contact
         this._contact = this.initContact();
+        // Set instance id
+        this._instanceId = this.options.instanceId ? this.options.instanceId : UserAgent.newUUID();
+        if (_grammar_grammar_js__WEBPACK_IMPORTED_MODULE_6__.Grammar.parse(this._instanceId, "uuid") === -1) {
+            throw new Error("Invalid instanceId.");
+        }
         // Initialize UserAgentCore
         this._userAgentCore = this.initCore();
-        if (this.options.autoStart) {
-            this.start();
-        }
     }
     /**
      * Create a URI instance from a string.
      * @param uri - The string to parse.
+     *
+     * @remarks
+     * Returns undefined if the syntax of the URI is invalid.
+     * The syntax must conform to a SIP URI as defined in the RFC.
+     * 25 Augmented BNF for the SIP Protocol
+     * https://tools.ietf.org/html/rfc3261#section-25
      *
      * @example
      * ```ts
@@ -8633,7 +8750,7 @@ class UserAgent {
      * ```
      */
     static makeURI(uri) {
-        return _core__WEBPACK_IMPORTED_MODULE_6__.Grammar.URIParse(uri);
+        return _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_6__.Grammar.URIParse(uri);
     }
     /** Default user agent options. */
     static defaultOptions() {
@@ -8642,16 +8759,17 @@ class UserAgent {
             authorizationHa1: "",
             authorizationPassword: "",
             authorizationUsername: "",
-            autoStart: false,
-            autoStop: true,
             delegate: {},
             contactName: "",
             contactParams: { transport: "ws" },
             displayName: "",
             forceRport: false,
+            gracefulShutdown: true,
             hackAllowUnregisteredOptionTags: false,
             hackIpInContact: false,
             hackViaTcp: false,
+            instanceId: "",
+            instanceIdAlwaysAdded: false,
             logBuiltinEnabled: true,
             logConfiguration: true,
             logConnector: () => {
@@ -8663,18 +8781,27 @@ class UserAgent {
             reconnectionAttempts: 0,
             reconnectionDelay: 4,
             sendInitialProvisionalResponse: true,
-            sessionDescriptionHandlerFactory: (0,_platform_web_session_description_handler__WEBPACK_IMPORTED_MODULE_7__.defaultSessionDescriptionHandlerFactory)(),
+            sessionDescriptionHandlerFactory: (0,_platform_web_session_description_handler_session_description_handler_factory_default_js__WEBPACK_IMPORTED_MODULE_7__.defaultSessionDescriptionHandlerFactory)(),
             sessionDescriptionHandlerFactoryOptions: {},
-            sipExtension100rel: _user_agent_options__WEBPACK_IMPORTED_MODULE_8__.SIPExtension.Unsupported,
-            sipExtensionReplaces: _user_agent_options__WEBPACK_IMPORTED_MODULE_8__.SIPExtension.Unsupported,
+            sipExtension100rel: _user_agent_options_js__WEBPACK_IMPORTED_MODULE_8__.SIPExtension.Unsupported,
+            sipExtensionReplaces: _user_agent_options_js__WEBPACK_IMPORTED_MODULE_8__.SIPExtension.Unsupported,
             sipExtensionExtraSupported: [],
             sipjsId: "",
-            transportConstructor: _platform_web_transport__WEBPACK_IMPORTED_MODULE_9__.Transport,
+            transportConstructor: _platform_web_transport_transport_js__WEBPACK_IMPORTED_MODULE_9__.Transport,
             transportOptions: {},
-            uri: new _core__WEBPACK_IMPORTED_MODULE_3__.URI("sip", "anonymous", "anonymous.invalid"),
-            userAgentString: "SIP.js/" + _version__WEBPACK_IMPORTED_MODULE_10__.LIBRARY_VERSION,
+            uri: new _grammar_uri_js__WEBPACK_IMPORTED_MODULE_3__.URI("sip", "anonymous", "anonymous.invalid"),
+            userAgentString: "SIP.js/" + _version_js__WEBPACK_IMPORTED_MODULE_10__.LIBRARY_VERSION,
             viaHost: ""
         };
+    }
+    // http://stackoverflow.com/users/109538/broofa
+    static newUUID() {
+        const UUID = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+            const r = Math.floor(Math.random() * 16);
+            const v = c === "x" ? r : (r % 4) + 8;
+            return v.toString(16);
+        });
+        return UUID;
     }
     /**
      * Strip properties with undefined values from options.
@@ -8703,6 +8830,12 @@ class UserAgent {
      */
     get contact() {
         return this._contact;
+    }
+    /**
+     * User agent instance id.
+     */
+    get instanceId() {
+        return this._instanceId;
     }
     /**
      * User agent state.
@@ -8750,7 +8883,7 @@ class UserAgent {
      * Reconnect the transport.
      */
     reconnect() {
-        if (this.state === _user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped) {
+        if (this.state === _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped) {
             return Promise.reject(new Error("User agent stopped."));
         }
         // Make sure we don't call synchronously
@@ -8761,6 +8894,7 @@ class UserAgent {
      *
      * @remarks
      * Resolves if transport connects, otherwise rejects.
+     * Calling `start()` after calling `stop()` will fail if `stop()` has yet to resolve.
      *
      * @example
      * ```ts
@@ -8774,26 +8908,13 @@ class UserAgent {
      * ```
      */
     start() {
-        if (this.state === _user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Started) {
+        if (this.state === _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Started) {
             this.logger.warn(`User agent already started`);
             return Promise.resolve();
         }
         this.logger.log(`Starting ${this.configuration.uri}`);
         // Transition state
-        this.transitionState(_user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Started);
-        // TODO: Review this as it is not clear it has any benefit and at worst causes additional load the server.
-        // On unload it may be best to simply in most scenarios to do nothing. Furthermore and regardless, this
-        // kind of behavior seems more appropriate to be managed by the consumer of the API than the API itself.
-        // Should this perhaps be deprecated?
-        //
-        // Add window unload event listener
-        if (this.options.autoStop) {
-            // Google Chrome Packaged Apps don't allow 'unload' listeners: unload is not available in packaged apps
-            const googleChromePackagedApp = typeof chrome !== "undefined" && chrome.app && chrome.app.runtime ? true : false;
-            if (typeof window !== "undefined" && typeof window.addEventListener === "function" && !googleChromePackagedApp) {
-                window.addEventListener("unload", this.unloadListener);
-            }
-        }
+        this.transitionState(_user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Started);
         return this.transport.connect();
     }
     /**
@@ -8809,6 +8930,9 @@ class UserAgent {
      * 5) Transport disconnects.
      * 6) User Agent Core resets.
      * ```
+     * The user agent state transistions to stopped once these steps have been completed.
+     * Calling `start()` after calling `stop()` will fail if `stop()` has yet to resolve.
+     *
      * NOTE: While this is a "graceful shutdown", it can also be very slow one if you
      * are waiting for the returned Promise to resolve. The disposal of the clients and
      * dialogs is done serially - waiting on one to finish before moving on to the next.
@@ -8825,21 +8949,29 @@ class UserAgent {
      * not wait for the Promise returned by `stop()` to complete.
      */
     async stop() {
-        if (this.state === _user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped) {
+        if (this.state === _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped) {
             this.logger.warn(`User agent already stopped`);
             return Promise.resolve();
         }
         this.logger.log(`Stopping ${this.configuration.uri}`);
-        // Transition state
-        this.transitionState(_user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped);
-        // TODO: See comments with associated complimentary code in start(). Should this perhaps be deprecated?
-        // Remove window unload event listener
-        if (this.options.autoStop) {
-            // Google Chrome Packaged Apps don't allow 'unload' listeners: unload is not available in packaged apps
-            const googleChromePackagedApp = typeof chrome !== "undefined" && chrome.app && chrome.app.runtime ? true : false;
-            if (typeof window !== "undefined" && window.removeEventListener && !googleChromePackagedApp) {
-                window.removeEventListener("unload", this.unloadListener);
-            }
+        // The default behavior is to cleanup dialogs and registrations. This is not that...
+        if (!this.options.gracefulShutdown) {
+            // Dispose of the transport (disconnecting)
+            this.logger.log(`Dispose of transport`);
+            this.transport.dispose().catch((error) => {
+                this.logger.error(error.message);
+                throw error;
+            });
+            // Dispose of the user agent core (resetting)
+            this.logger.log(`Dispose of core`);
+            this.userAgentCore.dispose();
+            // Reset dialogs and registrations
+            this._publishers = {};
+            this._registerers = {};
+            this._sessions = {};
+            this._subscriptions = {};
+            this.transitionState(_user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped);
+            return Promise.resolve();
         }
         // Be careful here to use a local references as start() can be called
         // again before we complete and we don't want to touch new clients
@@ -8913,13 +9045,15 @@ class UserAgent {
         // Dispose of the user agent core (resetting)
         this.logger.log(`Dispose of core`);
         userAgentCore.dispose();
+        // Transition state
+        this.transitionState(_user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped);
     }
     /**
      * Used to avoid circular references.
      * @internal
      */
     _makeInviter(targetURI, options) {
-        return new _inviter__WEBPACK_IMPORTED_MODULE_11__.Inviter(this, targetURI, options);
+        return new _inviter_js__WEBPACK_IMPORTED_MODULE_11__.Inviter(this, targetURI, options);
     }
     /**
      * Attempt reconnection up to `maxReconnectionAttempts` times.
@@ -8949,20 +9083,30 @@ class UserAgent {
      * Initialize contact.
      */
     initContact() {
-        const contactName = this.options.contactName !== "" ? this.options.contactName : (0,_core_messages_utils__WEBPACK_IMPORTED_MODULE_2__.createRandomToken)(8);
+        const contactName = this.options.contactName !== "" ? this.options.contactName : (0,_core_messages_utils_js__WEBPACK_IMPORTED_MODULE_2__.createRandomToken)(8);
         const contactParams = this.options.contactParams;
         const contact = {
             pubGruu: undefined,
             tempGruu: undefined,
-            uri: new _core__WEBPACK_IMPORTED_MODULE_3__.URI("sip", contactName, this.options.viaHost, undefined, contactParams),
+            uri: new _grammar_uri_js__WEBPACK_IMPORTED_MODULE_3__.URI("sip", contactName, this.options.viaHost, undefined, contactParams),
             toString: (contactToStringOptions = {}) => {
                 const anonymous = contactToStringOptions.anonymous || false;
                 const outbound = contactToStringOptions.outbound || false;
+                const register = contactToStringOptions.register || false;
                 let contactString = "<";
+                // 3.3.  Using a GRUU
+                // Once a user agent obtains GRUUs from the registrar, it uses them in
+                // several ways.  First, it uses them as the contents of the Contact
+                // header field in non-REGISTER requests and responses that it emits
+                // (for example, an INVITE request and 200 OK response).
+                // https://datatracker.ietf.org/doc/html/rfc5627#section-3.3
                 if (anonymous) {
                     contactString +=
                         this.contact.tempGruu ||
                             `sip:anonymous@anonymous.invalid;transport=${contactParams.transport ? contactParams.transport : "ws"}`;
+                }
+                else if (register) {
+                    contactString += this.contact.uri;
                 }
                 else {
                     contactString += this.contact.pubGruu || this.contact.uri;
@@ -8971,6 +9115,9 @@ class UserAgent {
                     contactString += ";ob";
                 }
                 contactString += ">";
+                if (this.options.instanceIdAlwaysAdded) {
+                    contactString += ';+sip.instance="<urn:uuid:' + this._instanceId + '>"';
+                }
                 return contactString;
             }
         };
@@ -8983,17 +9130,17 @@ class UserAgent {
         // supported options
         let supportedOptionTags = [];
         supportedOptionTags.push("outbound"); // TODO: is this really supported?
-        if (this.options.sipExtension100rel === _user_agent_options__WEBPACK_IMPORTED_MODULE_8__.SIPExtension.Supported) {
+        if (this.options.sipExtension100rel === _user_agent_options_js__WEBPACK_IMPORTED_MODULE_8__.SIPExtension.Supported) {
             supportedOptionTags.push("100rel");
         }
-        if (this.options.sipExtensionReplaces === _user_agent_options__WEBPACK_IMPORTED_MODULE_8__.SIPExtension.Supported) {
+        if (this.options.sipExtensionReplaces === _user_agent_options_js__WEBPACK_IMPORTED_MODULE_8__.SIPExtension.Supported) {
             supportedOptionTags.push("replaces");
         }
         if (this.options.sipExtensionExtraSupported) {
             supportedOptionTags.push(...this.options.sipExtensionExtraSupported);
         }
         if (!this.options.hackAllowUnregisteredOptionTags) {
-            supportedOptionTags = supportedOptionTags.filter((optionTag) => _user_agent_options__WEBPACK_IMPORTED_MODULE_8__.UserAgentRegisteredOptionTags[optionTag]);
+            supportedOptionTags = supportedOptionTags.filter((optionTag) => _user_agent_options_js__WEBPACK_IMPORTED_MODULE_8__.UserAgentRegisteredOptionTags[optionTag]);
         }
         supportedOptionTags = Array.from(new Set(supportedOptionTags)); // array of unique values
         // FIXME: TODO: This was ported, but this is and was just plain broken.
@@ -9021,14 +9168,14 @@ class UserAgent {
                     : this.options.uri.user; // if authorization username not provided, use uri user as username
                 const password = this.options.authorizationPassword ? this.options.authorizationPassword : undefined;
                 const ha1 = this.options.authorizationHa1 ? this.options.authorizationHa1 : undefined;
-                return new _core__WEBPACK_IMPORTED_MODULE_12__.DigestAuthentication(this.getLoggerFactory(), ha1, username, password);
+                return new _core_messages_digest_authentication_js__WEBPACK_IMPORTED_MODULE_12__.DigestAuthentication(this.getLoggerFactory(), ha1, username, password);
             },
             transportAccessor: () => this.transport
         };
         const userAgentCoreDelegate = {
             onInvite: (incomingInviteRequest) => {
                 var _a;
-                const invitation = new _invitation__WEBPACK_IMPORTED_MODULE_13__.Invitation(this, incomingInviteRequest);
+                const invitation = new _invitation_js__WEBPACK_IMPORTED_MODULE_13__.Invitation(this, incomingInviteRequest);
                 incomingInviteRequest.delegate = {
                     onCancel: (cancel) => {
                         invitation._onCancel(cancel);
@@ -9059,7 +9206,7 @@ class UserAgent {
                 // with a Replaces header, the User Agent (UA) attempts to match this
                 // information with a confirmed or early dialog.
                 // https://tools.ietf.org/html/rfc3891#section-3
-                if (this.options.sipExtensionReplaces !== _user_agent_options__WEBPACK_IMPORTED_MODULE_8__.SIPExtension.Unsupported) {
+                if (this.options.sipExtensionReplaces !== _user_agent_options_js__WEBPACK_IMPORTED_MODULE_8__.SIPExtension.Unsupported) {
                     const message = incomingInviteRequest.message;
                     const replaces = message.parseHeader("replaces");
                     if (replaces) {
@@ -9127,7 +9274,7 @@ class UserAgent {
             },
             onMessage: (incomingMessageRequest) => {
                 if (this.delegate && this.delegate.onMessage) {
-                    const message = new _message__WEBPACK_IMPORTED_MODULE_14__.Message(incomingMessageRequest);
+                    const message = new _message_js__WEBPACK_IMPORTED_MODULE_14__.Message(incomingMessageRequest);
                     this.delegate.onMessage(message);
                 }
                 else {
@@ -9145,7 +9292,7 @@ class UserAgent {
                 // compatibility) REFER requests [RFC3515].
                 // https://tools.ietf.org/html/rfc6665#section-3.2
                 if (this.delegate && this.delegate.onNotify) {
-                    const notification = new _notification__WEBPACK_IMPORTED_MODULE_15__.Notification(incomingNotifyRequest);
+                    const notification = new _notification_js__WEBPACK_IMPORTED_MODULE_15__.Notification(incomingNotifyRequest);
                     this.delegate.onNotify(notification);
                 }
                 else {
@@ -9190,7 +9337,7 @@ class UserAgent {
                 }
             }
         };
-        return new _core__WEBPACK_IMPORTED_MODULE_16__.UserAgentCore(userAgentCoreConfiguration, userAgentCoreDelegate);
+        return new _core_user_agent_core_user_agent_core_js__WEBPACK_IMPORTED_MODULE_16__.UserAgentCore(userAgentCoreConfiguration, userAgentCoreDelegate);
     }
     initTransportCallbacks() {
         this.transport.onConnect = () => this.onTransportConnect();
@@ -9198,7 +9345,7 @@ class UserAgent {
         this.transport.onMessage = (message) => this.onTransportMessage(message);
     }
     onTransportConnect() {
-        if (this.state === _user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped) {
+        if (this.state === _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped) {
             return;
         }
         if (this.delegate && this.delegate.onConnect) {
@@ -9206,7 +9353,7 @@ class UserAgent {
         }
     }
     onTransportDisconnect(error) {
-        if (this.state === _user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped) {
+        if (this.state === _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped) {
             return;
         }
         if (this.delegate && this.delegate.onDisconnect) {
@@ -9218,12 +9365,12 @@ class UserAgent {
         }
     }
     onTransportMessage(messageString) {
-        const message = _core__WEBPACK_IMPORTED_MODULE_17__.Parser.parseMessage(messageString, this.getLogger("sip.Parser"));
+        const message = _core_messages_parser_js__WEBPACK_IMPORTED_MODULE_17__.Parser.parseMessage(messageString, this.getLogger("sip.Parser"));
         if (!message) {
             this.logger.warn("Failed to parse incoming message. Dropping.");
             return;
         }
-        if (this.state === _user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped && message instanceof _core__WEBPACK_IMPORTED_MODULE_18__.IncomingRequestMessage) {
+        if (this.state === _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped && message instanceof _core_messages_incoming_request_message_js__WEBPACK_IMPORTED_MODULE_18__.IncomingRequestMessage) {
             this.logger.warn(`Received ${message.method} request while stopped. Dropping.`);
             return;
         }
@@ -9243,7 +9390,7 @@ class UserAgent {
             return true;
         };
         // Request Checks
-        if (message instanceof _core__WEBPACK_IMPORTED_MODULE_18__.IncomingRequestMessage) {
+        if (message instanceof _core_messages_incoming_request_message_js__WEBPACK_IMPORTED_MODULE_18__.IncomingRequestMessage) {
             // This is port of SanityCheck.minimumHeaders().
             if (!hasMinimumHeaders()) {
                 this.logger.warn(`Request missing mandatory header field. Dropping.`);
@@ -9259,7 +9406,7 @@ class UserAgent {
             // FIXME: This should be Transport check before we get here (Section 18).
             // Custom SIP.js check to reject requests if body length wrong.
             // This is port of SanityCheck.rfc3261_18_3_request().
-            const len = (0,_core_messages_utils__WEBPACK_IMPORTED_MODULE_2__.utf8Length)(message.body);
+            const len = (0,_core_messages_utils_js__WEBPACK_IMPORTED_MODULE_2__.utf8Length)(message.body);
             const contentLength = message.getHeader("content-length");
             if (contentLength && len < Number(contentLength)) {
                 this.userAgentCore.replyStateless(message, { statusCode: 400 });
@@ -9267,7 +9414,7 @@ class UserAgent {
             }
         }
         // Response Checks
-        if (message instanceof _core__WEBPACK_IMPORTED_MODULE_19__.IncomingResponseMessage) {
+        if (message instanceof _core_messages_incoming_response_message_js__WEBPACK_IMPORTED_MODULE_19__.IncomingResponseMessage) {
             // This is port of SanityCheck.minimumHeaders().
             if (!hasMinimumHeaders()) {
                 this.logger.warn(`Response missing mandatory header field. Dropping.`);
@@ -9289,7 +9436,7 @@ class UserAgent {
             // FIXME: This should be Transport check before we get here (Section 18).
             // Custom SIP.js check to reject requests if body length wrong.
             // This is port of SanityCheck.rfc3261_18_3_response().
-            const len = (0,_core_messages_utils__WEBPACK_IMPORTED_MODULE_2__.utf8Length)(message.body);
+            const len = (0,_core_messages_utils_js__WEBPACK_IMPORTED_MODULE_2__.utf8Length)(message.body);
             const contentLength = message.getHeader("content-length");
             if (contentLength && len < Number(contentLength)) {
                 this.logger.warn("Message body length is lower than the value in Content-Length header field. Dropping.");
@@ -9297,12 +9444,12 @@ class UserAgent {
             }
         }
         // Handle Request
-        if (message instanceof _core__WEBPACK_IMPORTED_MODULE_18__.IncomingRequestMessage) {
+        if (message instanceof _core_messages_incoming_request_message_js__WEBPACK_IMPORTED_MODULE_18__.IncomingRequestMessage) {
             this.userAgentCore.receiveIncomingRequestFromTransport(message);
             return;
         }
         // Handle Response
-        if (message instanceof _core__WEBPACK_IMPORTED_MODULE_19__.IncomingResponseMessage) {
+        if (message instanceof _core_messages_incoming_response_message_js__WEBPACK_IMPORTED_MODULE_19__.IncomingResponseMessage) {
             this.userAgentCore.receiveIncomingResponseFromTransport(message);
             return;
         }
@@ -9318,13 +9465,13 @@ class UserAgent {
         };
         // Validate state transition
         switch (this._state) {
-            case _user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Started:
-                if (newState !== _user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped) {
+            case _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Started:
+                if (newState !== _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped) {
                     invalidTransition();
                 }
                 break;
-            case _user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped:
-                if (newState !== _user_agent_state__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Started) {
+            case _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Stopped:
+                if (newState !== _user_agent_state_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentState.Started) {
                     invalidTransition();
                 }
                 break;
@@ -9340,15 +9487,15 @@ class UserAgent {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LoggerFactory": () => (/* binding */ LoggerFactory)
 /* harmony export */ });
-/* harmony import */ var _levels__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(51);
-/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52);
+/* harmony import */ var _levels_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(52);
+/* harmony import */ var _logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(53);
 
 
 /**
@@ -9358,7 +9505,7 @@ __webpack_require__.r(__webpack_exports__);
 class LoggerFactory {
     constructor() {
         this.builtinEnabled = true;
-        this._level = _levels__WEBPACK_IMPORTED_MODULE_0__.Levels.log;
+        this._level = _levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels.log;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.loggers = {};
         this.logger = this.getLogger("sip:loggerfactory");
@@ -9374,7 +9521,7 @@ class LoggerFactory {
             this._level = 3;
             // eslint-disable-next-line no-prototype-builtins
         }
-        else if (_levels__WEBPACK_IMPORTED_MODULE_0__.Levels.hasOwnProperty(newLevel)) {
+        else if (_levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels.hasOwnProperty(newLevel)) {
             this._level = newLevel;
         }
         else {
@@ -9398,13 +9545,13 @@ class LoggerFactory {
     }
     getLogger(category, label) {
         if (label && this.level === 3) {
-            return new _logger__WEBPACK_IMPORTED_MODULE_1__.Logger(this, category, label);
+            return new _logger_js__WEBPACK_IMPORTED_MODULE_1__.Logger(this, category, label);
         }
         else if (this.loggers[category]) {
             return this.loggers[category];
         }
         else {
-            const logger = new _logger__WEBPACK_IMPORTED_MODULE_1__.Logger(this, category);
+            const logger = new _logger_js__WEBPACK_IMPORTED_MODULE_1__.Logger(this, category);
             this.loggers[category] = logger;
             return logger;
         }
@@ -9417,7 +9564,7 @@ class LoggerFactory {
             }
         }
         if (this.connector) {
-            this.connector(_levels__WEBPACK_IMPORTED_MODULE_0__.Levels[levelToLog], category, label, content);
+            this.connector(_levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels[levelToLog], category, label, content);
         }
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9431,19 +9578,19 @@ class LoggerFactory {
             content = prefix.concat(content).join(" | ");
         }
         switch (levelToLog) {
-            case _levels__WEBPACK_IMPORTED_MODULE_0__.Levels.error:
+            case _levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels.error:
                 // eslint-disable-next-line no-console
                 console.error(content);
                 break;
-            case _levels__WEBPACK_IMPORTED_MODULE_0__.Levels.warn:
+            case _levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels.warn:
                 // eslint-disable-next-line no-console
                 console.warn(content);
                 break;
-            case _levels__WEBPACK_IMPORTED_MODULE_0__.Levels.log:
+            case _levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels.log:
                 // eslint-disable-next-line no-console
                 console.log(content);
                 break;
-            case _levels__WEBPACK_IMPORTED_MODULE_0__.Levels.debug:
+            case _levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels.debug:
                 // eslint-disable-next-line no-console
                 console.debug(content);
                 break;
@@ -9455,7 +9602,7 @@ class LoggerFactory {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9472,18 +9619,18 @@ var Levels;
     Levels[Levels["warn"] = 1] = "warn";
     Levels[Levels["log"] = 2] = "log";
     Levels[Levels["debug"] = 3] = "debug";
-})(Levels || (Levels = {}));
+})(Levels = Levels || (Levels = {}));
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Logger": () => (/* binding */ Logger)
 /* harmony export */ });
-/* harmony import */ var _levels__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(51);
+/* harmony import */ var _levels_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(52);
 
 /**
  * Logger.
@@ -9496,16 +9643,16 @@ class Logger {
         this.label = label;
     }
     error(content) {
-        this.genericLog(_levels__WEBPACK_IMPORTED_MODULE_0__.Levels.error, content);
+        this.genericLog(_levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels.error, content);
     }
     warn(content) {
-        this.genericLog(_levels__WEBPACK_IMPORTED_MODULE_0__.Levels.warn, content);
+        this.genericLog(_levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels.warn, content);
     }
     log(content) {
-        this.genericLog(_levels__WEBPACK_IMPORTED_MODULE_0__.Levels.log, content);
+        this.genericLog(_levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels.log, content);
     }
     debug(content) {
-        this.genericLog(_levels__WEBPACK_IMPORTED_MODULE_0__.Levels.debug, content);
+        this.genericLog(_levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels.debug, content);
     }
     genericLog(level, content) {
         this.logger.genericLog(level, this.category, this.label, content);
@@ -9520,16 +9667,16 @@ class Logger {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "defaultSessionDescriptionHandlerFactory": () => (/* binding */ defaultSessionDescriptionHandlerFactory)
 /* harmony export */ });
-/* harmony import */ var _media_stream_factory_default__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(54);
-/* harmony import */ var _peer_connection_configuration_default__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(55);
-/* harmony import */ var _session_description_handler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(56);
+/* harmony import */ var _media_stream_factory_default_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(55);
+/* harmony import */ var _peer_connection_configuration_default_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(56);
+/* harmony import */ var _session_description_handler_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(57);
 
 
 
@@ -9545,23 +9692,23 @@ function defaultSessionDescriptionHandlerFactory(mediaStreamFactory) {
     return (session, options) => {
         // provide a default media stream factory if need be
         if (mediaStreamFactory === undefined) {
-            mediaStreamFactory = (0,_media_stream_factory_default__WEBPACK_IMPORTED_MODULE_0__.defaultMediaStreamFactory)();
+            mediaStreamFactory = (0,_media_stream_factory_default_js__WEBPACK_IMPORTED_MODULE_0__.defaultMediaStreamFactory)();
         }
         // make sure we allow `0` to be passed in so timeout can be disabled
         const iceGatheringTimeout = (options === null || options === void 0 ? void 0 : options.iceGatheringTimeout) !== undefined ? options === null || options === void 0 ? void 0 : options.iceGatheringTimeout : 5000;
         // merge passed factory options into default session description configuration
         const sessionDescriptionHandlerConfiguration = {
             iceGatheringTimeout,
-            peerConnectionConfiguration: Object.assign(Object.assign({}, (0,_peer_connection_configuration_default__WEBPACK_IMPORTED_MODULE_1__.defaultPeerConnectionConfiguration)()), options === null || options === void 0 ? void 0 : options.peerConnectionConfiguration)
+            peerConnectionConfiguration: Object.assign(Object.assign({}, (0,_peer_connection_configuration_default_js__WEBPACK_IMPORTED_MODULE_1__.defaultPeerConnectionConfiguration)()), options === null || options === void 0 ? void 0 : options.peerConnectionConfiguration)
         };
         const logger = session.userAgent.getLogger("sip.SessionDescriptionHandler");
-        return new _session_description_handler__WEBPACK_IMPORTED_MODULE_2__.SessionDescriptionHandler(logger, mediaStreamFactory, sessionDescriptionHandlerConfiguration);
+        return new _session_description_handler_js__WEBPACK_IMPORTED_MODULE_2__.SessionDescriptionHandler(logger, mediaStreamFactory, sessionDescriptionHandlerConfiguration);
     };
 }
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9591,7 +9738,7 @@ function defaultMediaStreamFactory() {
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9609,7 +9756,6 @@ function defaultPeerConnectionConfiguration() {
         iceCandidatePoolSize: 0,
         iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
         iceTransportPolicy: "all",
-        peerIdentity: undefined,
         rtcpMuxPolicy: "require"
     };
     return configuration;
@@ -9617,7 +9763,7 @@ function defaultPeerConnectionConfiguration() {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9691,8 +9837,25 @@ class SessionDescriptionHandler {
      * The peer connection. Undefined if peer connection has closed.
      *
      * @remarks
+     * Use the peerConnectionDelegate to get access to the events associated
+     * with the RTCPeerConnection. For example...
+     *
+     * Do NOT do this...
+     * ```ts
+     * peerConnection.onicecandidate = (event) => {
+     *   // do something
+     * };
+     * ```
+     * Instead, do this...
+     * ```ts
+     * peerConnection.peerConnectionDelegate = {
+     *   onicecandidate: (event) => {
+     *     // do something
+     *   }
+     * };
+     * ```
      * While access to the underlying `RTCPeerConnection` is provided, note that
-     * using methods with modify it may break the operation of this class.
+     * using methods which modify it may break the operation of this class.
      * In particular, this class depends on exclusive access to the
      * event handler properties. If you need access to the peer connection
      * events, either register for events using `addEventListener()` on
@@ -9706,10 +9869,27 @@ class SessionDescriptionHandler {
      * A delegate which provides access to the peer connection event handlers.
      *
      * @remarks
+     * Use the peerConnectionDelegate to get access to the events associated
+     * with the RTCPeerConnection. For example...
+     *
+     * Do NOT do this...
+     * ```ts
+     * peerConnection.onicecandidate = (event) => {
+     *   // do something
+     * };
+     * ```
+     * Instead, do this...
+     * ```
+     * peerConnection.peerConnectionDelegate = {
+     *   onicecandidate: (event) => {
+     *     // do something
+     *   }
+     * };
+     * ```
      * Setting the peer connection event handlers directly is not supported
      * and may break this class. As this class depends on exclusive access
-     * to them, a delegate may be set which provides alternative access to
-     * the event handlers in a fashion which is supported.
+     * to them. This delegate is intended to provide access to the
+     * RTCPeerConnection events in a fashion which is supported.
      */
     get peerConnectionDelegate() {
         return this._peerConnectionDelegate;
@@ -9746,6 +9926,36 @@ class SessionDescriptionHandler {
         }
         this._peerConnection.close();
         this._peerConnection = undefined;
+    }
+    /**
+     * Helper function to enable/disable media tracks.
+     * @param enable - If true enable tracks, otherwise disable tracks.
+     */
+    enableReceiverTracks(enable) {
+        const peerConnection = this.peerConnection;
+        if (!peerConnection) {
+            throw new Error("Peer connection closed.");
+        }
+        peerConnection.getReceivers().forEach((receiver) => {
+            if (receiver.track) {
+                receiver.track.enabled = enable;
+            }
+        });
+    }
+    /**
+     * Helper function to enable/disable media tracks.
+     * @param enable - If true enable tracks, otherwise disable tracks.
+     */
+    enableSenderTracks(enable) {
+        const peerConnection = this.peerConnection;
+        if (!peerConnection) {
+            throw new Error("Peer connection closed.");
+        }
+        peerConnection.getSenders().forEach((sender) => {
+            if (sender.track) {
+                sender.track.enabled = enable;
+            }
+        });
     }
     /**
      * Creates an offer or answer.
@@ -9794,6 +10004,31 @@ class SessionDescriptionHandler {
         return contentType === "application/sdp";
     }
     /**
+     * Called when ICE gathering completes and resolves any waiting promise.
+     * @remarks
+     * May be called prior to ICE gathering actually completing to allow the
+     * session descirption handler proceed with whatever candidates have been
+     * gathered up to this point in time. Use this to stop waiting on ICE to
+     * complete if you are implementing your own ICE gathering completion strategy.
+     */
+    iceGatheringComplete() {
+        this.logger.debug("SessionDescriptionHandler.iceGatheringComplete");
+        // clear timer if need be
+        if (this.iceGatheringCompleteTimeoutId !== undefined) {
+            this.logger.debug("SessionDescriptionHandler.iceGatheringComplete - clearing timeout");
+            clearTimeout(this.iceGatheringCompleteTimeoutId);
+            this.iceGatheringCompleteTimeoutId = undefined;
+        }
+        // resolve and cleanup promise if need be
+        if (this.iceGatheringCompletePromise !== undefined) {
+            this.logger.debug("SessionDescriptionHandler.iceGatheringComplete - resolving promise");
+            this.iceGatheringCompleteResolve && this.iceGatheringCompleteResolve();
+            this.iceGatheringCompletePromise = undefined;
+            this.iceGatheringCompleteResolve = undefined;
+            this.iceGatheringCompleteReject = undefined;
+        }
+    }
+    /**
      * Send DTMF via RTP (RFC 4733).
      * Returns true if DTMF send is successful, false otherwise.
      * @param tones - A string containing DTMF digits.
@@ -9821,7 +10056,7 @@ class SessionDescriptionHandler {
             dtmfSender.insertDTMF(tones, duration, interToneGap);
         }
         catch (e) {
-            this.logger.error(e);
+            this.logger.error(e.toString());
             return false;
         }
         this.logger.log("SessionDescriptionHandler.sendDtmf sent via RTP: " + tones.toString());
@@ -9967,7 +10202,7 @@ class SessionDescriptionHandler {
             }
         }
         this.localMediaStreamConstraints = constraints;
-        return this.mediaStreamFactory(constraints, this).then((mediaStream) => this.setLocalMediaStream(mediaStream));
+        return this.mediaStreamFactory(constraints, this, options).then((mediaStream) => this.setLocalMediaStream(mediaStream));
     }
     /**
      * Sets the peer connection's sender tracks and local media stream tracks.
@@ -10305,26 +10540,6 @@ class SessionDescriptionHandler {
         return Promise.resolve();
     }
     /**
-     * Called when ICE gathering completes and resolves any waiting promise.
-     */
-    iceGatheringComplete() {
-        this.logger.debug("SessionDescriptionHandler.iceGatheringComplete");
-        // clear timer if need be
-        if (this.iceGatheringCompleteTimeoutId !== undefined) {
-            this.logger.debug("SessionDescriptionHandler.iceGatheringComplete - clearing timeout");
-            clearTimeout(this.iceGatheringCompleteTimeoutId);
-            this.iceGatheringCompleteTimeoutId = undefined;
-        }
-        // resolve and cleanup promise if need be
-        if (this.iceGatheringCompletePromise !== undefined) {
-            this.logger.debug("SessionDescriptionHandler.iceGatheringComplete - resolving promise");
-            this.iceGatheringCompleteResolve && this.iceGatheringCompleteResolve();
-            this.iceGatheringCompletePromise = undefined;
-            this.iceGatheringCompleteResolve = undefined;
-            this.iceGatheringCompleteReject = undefined;
-        }
-    }
-    /**
      * Wait for ICE gathering to complete.
      * @param restart - If true, waits if current state is "complete" (waits for transition to "complete").
      * @param timeout - Milliseconds after which waiting times out. No timeout if 0.
@@ -10435,13 +10650,6 @@ class SessionDescriptionHandler {
                 this._peerConnectionDelegate.onsignalingstatechange(event);
             }
         };
-        peerConnection.onstatsended = (event) => {
-            var _a;
-            this.logger.debug(`SessionDescriptionHandler.onstatsended`);
-            if ((_a = this._peerConnectionDelegate) === null || _a === void 0 ? void 0 : _a.onstatsended) {
-                this._peerConnectionDelegate.onstatsended(event);
-            }
-        };
         peerConnection.ontrack = (event) => {
             var _a;
             const kind = event.track.kind;
@@ -10457,17 +10665,17 @@ class SessionDescriptionHandler {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Transport": () => (/* binding */ Transport)
 /* harmony export */ });
-/* harmony import */ var _api_emitter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var _api_exceptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
-/* harmony import */ var _api_transport_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(47);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
+/* harmony import */ var _api_emitter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _api_exceptions_state_transition_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
+/* harmony import */ var _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(48);
+/* harmony import */ var _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(22);
 
 
 
@@ -10478,10 +10686,10 @@ __webpack_require__.r(__webpack_exports__);
  */
 class Transport {
     constructor(logger, options) {
-        this._state = _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected;
+        this._state = _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected;
         this.transitioningState = false;
         // state emitter
-        this._stateEventEmitter = new _api_emitter__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
+        this._stateEventEmitter = new _api_emitter_js__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl();
         // logger
         this.logger = logger;
         // guard deprecated options (remove this in version 16.x)
@@ -10514,7 +10722,7 @@ class Transport {
         this.configuration = Object.assign(Object.assign({}, Transport.defaultOptions), options);
         // validate server URL
         const url = this.configuration.server;
-        const parsed = _core__WEBPACK_IMPORTED_MODULE_2__.Grammar.parse(url, "absoluteURI");
+        const parsed = _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_2__.Grammar.parse(url, "absoluteURI");
         if (parsed === -1) {
             this.logger.error(`Invalid WebSocket Server URL "${url}"`);
             throw new Error("Invalid WebSocket Server URL");
@@ -10582,7 +10790,7 @@ class Transport {
      * This is equivalent to `state === TransportState.Connected`.
      */
     isConnected() {
-        return this.state === _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected;
+        return this.state === _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected;
     }
     /**
      * Sends a message.
@@ -10609,49 +10817,49 @@ class Transport {
     _connect() {
         this.logger.log(`Connecting ${this.server}`);
         switch (this.state) {
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting:
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting:
                 // If `state` is "Connecting", `state` MUST NOT transition before returning.
                 if (this.transitioningState) {
-                    return Promise.reject(this.transitionLoopDetectedError(_api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting));
+                    return Promise.reject(this.transitionLoopDetectedError(_api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting));
                 }
                 if (!this.connectPromise) {
                     throw new Error("Connect promise must be defined.");
                 }
                 return this.connectPromise; // Already connecting
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected:
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected:
                 // If `state` is "Connected", `state` MUST NOT transition before returning.
                 if (this.transitioningState) {
-                    return Promise.reject(this.transitionLoopDetectedError(_api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting));
+                    return Promise.reject(this.transitionLoopDetectedError(_api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting));
                 }
                 if (this.connectPromise) {
                     throw new Error("Connect promise must not be defined.");
                 }
                 return Promise.resolve(); // Already connected
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting:
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting:
                 // If `state` is "Disconnecting", `state` MUST transition to "Connecting" before returning
                 if (this.connectPromise) {
                     throw new Error("Connect promise must not be defined.");
                 }
                 try {
-                    this.transitionState(_api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting);
+                    this.transitionState(_api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting);
                 }
                 catch (e) {
-                    if (e instanceof _api_exceptions__WEBPACK_IMPORTED_MODULE_3__.StateTransitionError) {
+                    if (e instanceof _api_exceptions_state_transition_js__WEBPACK_IMPORTED_MODULE_3__.StateTransitionError) {
                         return Promise.reject(e); // Loop detected
                     }
                     throw e;
                 }
                 break;
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected:
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected:
                 // If `state` is "Disconnected" `state` MUST transition to "Connecting" before returning
                 if (this.connectPromise) {
                     throw new Error("Connect promise must not be defined.");
                 }
                 try {
-                    this.transitionState(_api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting);
+                    this.transitionState(_api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting);
                 }
                 catch (e) {
-                    if (e instanceof _api_exceptions__WEBPACK_IMPORTED_MODULE_3__.StateTransitionError) {
+                    if (e instanceof _api_exceptions_state_transition_js__WEBPACK_IMPORTED_MODULE_3__.StateTransitionError) {
                         return Promise.reject(e); // Loop detected
                     }
                     throw e;
@@ -10675,12 +10883,12 @@ class Transport {
         catch (error) {
             this._ws = undefined;
             this.logger.error("WebSocket construction failed.");
-            this.logger.error(error);
+            this.logger.error(error.toString());
             return new Promise((resolve, reject) => {
                 this.connectResolve = resolve;
                 this.connectReject = reject;
                 // The `state` MUST transition to "Disconnecting" or "Disconnected" before rejecting
-                this.transitionState(_api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected, error);
+                this.transitionState(_api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected, error);
             });
         }
         this.connectPromise = new Promise((resolve, reject) => {
@@ -10699,49 +10907,49 @@ class Transport {
     _disconnect() {
         this.logger.log(`Disconnecting ${this.server}`);
         switch (this.state) {
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting:
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting:
                 // If `state` is "Connecting", `state` MUST transition to "Disconnecting" before returning.
                 if (this.disconnectPromise) {
                     throw new Error("Disconnect promise must not be defined.");
                 }
                 try {
-                    this.transitionState(_api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting);
+                    this.transitionState(_api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting);
                 }
                 catch (e) {
-                    if (e instanceof _api_exceptions__WEBPACK_IMPORTED_MODULE_3__.StateTransitionError) {
+                    if (e instanceof _api_exceptions_state_transition_js__WEBPACK_IMPORTED_MODULE_3__.StateTransitionError) {
                         return Promise.reject(e); // Loop detected
                     }
                     throw e;
                 }
                 break;
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected:
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected:
                 // If `state` is "Connected", `state` MUST transition to "Disconnecting" before returning.
                 if (this.disconnectPromise) {
                     throw new Error("Disconnect promise must not be defined.");
                 }
                 try {
-                    this.transitionState(_api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting);
+                    this.transitionState(_api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting);
                 }
                 catch (e) {
-                    if (e instanceof _api_exceptions__WEBPACK_IMPORTED_MODULE_3__.StateTransitionError) {
+                    if (e instanceof _api_exceptions_state_transition_js__WEBPACK_IMPORTED_MODULE_3__.StateTransitionError) {
                         return Promise.reject(e); // Loop detected
                     }
                     throw e;
                 }
                 break;
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting:
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting:
                 // If `state` is "Disconnecting", `state` MUST NOT transition before returning.
                 if (this.transitioningState) {
-                    return Promise.reject(this.transitionLoopDetectedError(_api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting));
+                    return Promise.reject(this.transitionLoopDetectedError(_api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting));
                 }
                 if (!this.disconnectPromise) {
                     throw new Error("Disconnect promise must be defined.");
                 }
                 return this.disconnectPromise; // Already disconnecting
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected:
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected:
                 // If `state` is "Disconnected", `state` MUST NOT transition before returning.
                 if (this.transitioningState) {
-                    return Promise.reject(this.transitionLoopDetectedError(_api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting));
+                    return Promise.reject(this.transitionLoopDetectedError(_api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting));
                 }
                 if (this.disconnectPromise) {
                     throw new Error("Disconnect promise must not be defined.");
@@ -10766,7 +10974,7 @@ class Transport {
                 // Treating this as a coding error as it apparently can only happen
                 // if you pass close() invalid parameters (so it should never happen)
                 this.logger.error("WebSocket close failed.");
-                this.logger.error(error);
+                this.logger.error(error.toString());
                 throw error;
             }
         });
@@ -10776,7 +10984,7 @@ class Transport {
         if (this.configuration.traceSip === true) {
             this.logger.log("Sending WebSocket message:\n\n" + message + "\n");
         }
-        if (this._state !== _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected) {
+        if (this._state !== _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected) {
             return Promise.reject(new Error("Not connected."));
         }
         if (!this._ws) {
@@ -10812,7 +11020,7 @@ class Transport {
         // We are about to transition to disconnected, so clear our web socket
         this._ws = undefined;
         // The `state` MUST transition to "Disconnected" before resolving (assuming `state` is not already "Disconnected").
-        this.transitionState(_api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected, error);
+        this.transitionState(_api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected, error);
     }
     /**
      * WebSocket "onerror" event handler.
@@ -10856,7 +11064,7 @@ class Transport {
                 // finishedData = String.fromCharCode.apply(null, (new Uint8Array(data) as unknown as Array<number>));
             }
             catch (err) {
-                this.logger.error(err);
+                this.logger.error(err.toString());
                 this.logger.error("Received WebSocket binary message failed to be converted into string, message discarded");
                 return;
             }
@@ -10871,7 +11079,7 @@ class Transport {
                 this.logger.log("Received WebSocket text message:\n\n" + finishedData + "\n");
             }
         }
-        if (this.state !== _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected) {
+        if (this.state !== _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected) {
             this.logger.warn("Received message while not connected, discarding...");
             return;
         }
@@ -10880,7 +11088,7 @@ class Transport {
                 this.onMessage(finishedData);
             }
             catch (e) {
-                this.logger.error(e);
+                this.logger.error(e.toString());
                 this.logger.error("Exception thrown by onMessage callback");
                 throw e; // rethrow unhandled exception
             }
@@ -10894,9 +11102,9 @@ class Transport {
         if (ws !== this._ws) {
             return;
         }
-        if (this._state === _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting) {
+        if (this._state === _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting) {
             this.logger.log(`WebSocket opened ${this.server}`);
-            this.transitionState(_api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected);
+            this.transitionState(_api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected);
         }
     }
     /**
@@ -10908,7 +11116,7 @@ class Transport {
         message += ` An attempt to transition from ${this._state} to ${state} before the prior transition completed.`;
         message += ` Perhaps you are synchronously calling connect() or disconnect() from a callback or state change handler?`;
         this.logger.error(message);
-        return new _api_exceptions__WEBPACK_IMPORTED_MODULE_3__.StateTransitionError("Loop detected.");
+        return new _api_exceptions_state_transition_js__WEBPACK_IMPORTED_MODULE_3__.StateTransitionError("Loop detected.");
     }
     /**
      * Transition transport state.
@@ -10924,25 +11132,25 @@ class Transport {
         this.transitioningState = true;
         // Validate state transition
         switch (this._state) {
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting:
-                if (newState !== _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected &&
-                    newState !== _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting &&
-                    newState !== _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected) {
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting:
+                if (newState !== _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected &&
+                    newState !== _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting &&
+                    newState !== _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected) {
                     invalidTransition();
                 }
                 break;
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected:
-                if (newState !== _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting && newState !== _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected) {
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected:
+                if (newState !== _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting && newState !== _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected) {
                     invalidTransition();
                 }
                 break;
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting:
-                if (newState !== _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting && newState !== _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected) {
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting:
+                if (newState !== _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting && newState !== _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected) {
                     invalidTransition();
                 }
                 break;
-            case _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected:
-                if (newState !== _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting) {
+            case _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected:
+                if (newState !== _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting) {
                     invalidTransition();
                 }
                 break;
@@ -10957,7 +11165,7 @@ class Transport {
         const connectResolve = this.connectResolve;
         const connectReject = this.connectReject;
         // Reset connect promises if no longer connecting
-        if (oldState === _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting) {
+        if (oldState === _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting) {
             this.connectPromise = undefined;
             this.connectResolve = undefined;
             this.connectReject = undefined;
@@ -10967,7 +11175,7 @@ class Transport {
         const disconnectResolve = this.disconnectResolve;
         const disconnectReject = this.disconnectReject;
         // Reset disconnect promises if no longer disconnecting
-        if (oldState === _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting) {
+        if (oldState === _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting) {
             this.disconnectPromise = undefined;
             this.disconnectResolve = undefined;
             this.disconnectReject = undefined;
@@ -10980,21 +11188,21 @@ class Transport {
         this.logger.log(`Transitioned from ${oldState} to ${this._state}`);
         this._stateEventEmitter.emit(this._state);
         //  Transition to Connected
-        if (newState === _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected) {
+        if (newState === _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected) {
             this.startSendingKeepAlives();
             if (this.onConnect) {
                 try {
                     this.onConnect();
                 }
                 catch (e) {
-                    this.logger.error(e);
+                    this.logger.error(e.toString());
                     this.logger.error("Exception thrown by onConnect callback");
                     throw e; // rethrow unhandled exception
                 }
             }
         }
         //  Transition from Connected
-        if (oldState === _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected) {
+        if (oldState === _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected) {
             this.stopSendingKeepAlives();
             if (this.onDisconnect) {
                 try {
@@ -11006,31 +11214,31 @@ class Transport {
                     }
                 }
                 catch (e) {
-                    this.logger.error(e);
+                    this.logger.error(e.toString());
                     this.logger.error("Exception thrown by onDisconnect callback");
                     throw e; // rethrow unhandled exception
                 }
             }
         }
         // Complete connect promise
-        if (oldState === _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting) {
+        if (oldState === _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connecting) {
             if (!connectResolve) {
                 throw new Error("Connect resolve undefined.");
             }
             if (!connectReject) {
                 throw new Error("Connect reject undefined.");
             }
-            newState === _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected ? connectResolve() : connectReject(error || new Error("Connect aborted."));
+            newState === _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Connected ? connectResolve() : connectReject(error || new Error("Connect aborted."));
         }
         // Complete disconnect promise
-        if (oldState === _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting) {
+        if (oldState === _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnecting) {
             if (!disconnectResolve) {
                 throw new Error("Disconnect resolve undefined.");
             }
             if (!disconnectReject) {
                 throw new Error("Disconnect reject undefined.");
             }
-            newState === _api_transport_state__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected
+            newState === _api_transport_state_js__WEBPACK_IMPORTED_MODULE_0__.TransportState.Disconnected
                 ? disconnectResolve()
                 : disconnectReject(error || new Error("Disconnect aborted."));
         }
@@ -11119,19 +11327,19 @@ Transport.defaultOptions = {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "DigestAuthentication": () => (/* binding */ DigestAuthentication)
 /* harmony export */ });
-/* harmony import */ var _md5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(59);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* harmony import */ var _md5_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(60);
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(21);
 
 
 function MD5(s) {
-    return _md5__WEBPACK_IMPORTED_MODULE_0__.Md5.hashStr(s);
+    return _md5_js__WEBPACK_IMPORTED_MODULE_0__.Md5.hashStr(s);
 }
 /**
  * Digest Authentication.
@@ -11204,7 +11412,7 @@ class DigestAuthentication {
         // Fill other attributes.
         this.method = request.method;
         this.uri = request.ruri;
-        this.cnonce = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.createRandomToken)(12);
+        this.cnonce = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.createRandomToken)(12);
         this.nc += 1;
         this.updateNcHex();
         // nc-value = 8LHEX. Max value = 'FFFFFFFF'.
@@ -11280,7 +11488,7 @@ class DigestAuthentication {
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -11689,32 +11897,47 @@ if (Md5.hashStr('hello') !== '5d41402abc4b2a76b9719d911017c592') {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserAgentCore": () => (/* binding */ UserAgentCore)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(29);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(27);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(83);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(64);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(63);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(71);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(76);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(90);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(91);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(92);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(62);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(95);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(87);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(86);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(89);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(96);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(97);
-/* harmony import */ var _allowed_methods__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(28);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(30);
+/* harmony import */ var _messages_outgoing_request_message_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(28);
+/* harmony import */ var _messages_outgoing_response_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(84);
+/* harmony import */ var _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(72);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(65);
+/* harmony import */ var _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(64);
+/* harmony import */ var _user_agents_invite_user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _user_agents_invite_user_agent_server_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(96);
+/* harmony import */ var _user_agents_message_user_agent_client_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(77);
+/* harmony import */ var _user_agents_message_user_agent_server_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(87);
+/* harmony import */ var _user_agents_notify_user_agent_server_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(88);
+/* harmony import */ var _user_agents_publish_user_agent_client_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(91);
+/* harmony import */ var _user_agents_refer_user_agent_server_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(90);
+/* harmony import */ var _user_agents_register_user_agent_client_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(92);
+/* harmony import */ var _user_agents_register_user_agent_server_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(97);
+/* harmony import */ var _user_agents_subscribe_user_agent_client_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(93);
+/* harmony import */ var _user_agents_subscribe_user_agent_server_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(98);
+/* harmony import */ var _user_agents_user_agent_client_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(63);
+/* harmony import */ var _allowed_methods_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(29);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11792,7 +12015,7 @@ class UserAgentCore {
      * @param delegate - Request delegate.
      */
     invite(request, delegate) {
-        return new _user_agents__WEBPACK_IMPORTED_MODULE_0__.InviteUserAgentClient(this, request, delegate);
+        return new _user_agents_invite_user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.InviteUserAgentClient(this, request, delegate);
     }
     /**
      * Send MESSAGE.
@@ -11800,7 +12023,7 @@ class UserAgentCore {
      * @param delegate - Request delegate.
      */
     message(request, delegate) {
-        return new _user_agents__WEBPACK_IMPORTED_MODULE_1__.MessageUserAgentClient(this, request, delegate);
+        return new _user_agents_message_user_agent_client_js__WEBPACK_IMPORTED_MODULE_1__.MessageUserAgentClient(this, request, delegate);
     }
     /**
      * Send PUBLISH.
@@ -11808,7 +12031,7 @@ class UserAgentCore {
      * @param delegate - Request delegate.
      */
     publish(request, delegate) {
-        return new _user_agents__WEBPACK_IMPORTED_MODULE_2__.PublishUserAgentClient(this, request, delegate);
+        return new _user_agents_publish_user_agent_client_js__WEBPACK_IMPORTED_MODULE_2__.PublishUserAgentClient(this, request, delegate);
     }
     /**
      * Send REGISTER.
@@ -11816,7 +12039,7 @@ class UserAgentCore {
      * @param delegate - Request delegate.
      */
     register(request, delegate) {
-        return new _user_agents__WEBPACK_IMPORTED_MODULE_3__.RegisterUserAgentClient(this, request, delegate);
+        return new _user_agents_register_user_agent_client_js__WEBPACK_IMPORTED_MODULE_3__.RegisterUserAgentClient(this, request, delegate);
     }
     /**
      * Send SUBSCRIBE.
@@ -11824,7 +12047,7 @@ class UserAgentCore {
      * @param delegate - Request delegate.
      */
     subscribe(request, delegate) {
-        return new _user_agents__WEBPACK_IMPORTED_MODULE_4__.SubscribeUserAgentClient(this, request, delegate);
+        return new _user_agents_subscribe_user_agent_client_js__WEBPACK_IMPORTED_MODULE_4__.SubscribeUserAgentClient(this, request, delegate);
     }
     /**
      * Send a request.
@@ -11832,7 +12055,7 @@ class UserAgentCore {
      * @param delegate - Request delegate.
      */
     request(request, delegate) {
-        return new _user_agents__WEBPACK_IMPORTED_MODULE_5__.UserAgentClient(_transactions__WEBPACK_IMPORTED_MODULE_6__.NonInviteClientTransaction, this, request, delegate);
+        return new _user_agents_user_agent_client_js__WEBPACK_IMPORTED_MODULE_5__.UserAgentClient(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_6__.NonInviteClientTransaction, this, request, delegate);
     }
     /**
      * Outgoing request message factory function.
@@ -11851,10 +12074,10 @@ class UserAgentCore {
         const forceRport = this.configuration.viaForceRport;
         const hackViaTcp = this.configuration.hackViaTcp;
         const optionTags = this.configuration.supportedOptionTags.slice();
-        if (method === _messages__WEBPACK_IMPORTED_MODULE_7__.C.REGISTER) {
+        if (method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.REGISTER) {
             optionTags.push("path", "gruu");
         }
-        if (method === _messages__WEBPACK_IMPORTED_MODULE_7__.C.INVITE && (this.configuration.contact.pubGruu || this.configuration.contact.tempGruu)) {
+        if (method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.INVITE && (this.configuration.contact.pubGruu || this.configuration.contact.tempGruu)) {
             optionTags.push("gruu");
         }
         const routeSet = this.configuration.routeSet;
@@ -11872,7 +12095,7 @@ class UserAgentCore {
         };
         // merge provided options with default options
         const requestOptions = Object.assign(Object.assign({}, defaultOptions), options);
-        return new _messages__WEBPACK_IMPORTED_MODULE_8__.OutgoingRequestMessage(method, requestURI, fromURI, toURI, requestOptions, extraHeaders, body);
+        return new _messages_outgoing_request_message_js__WEBPACK_IMPORTED_MODULE_8__.OutgoingRequestMessage(method, requestURI, fromURI, toURI, requestOptions, extraHeaders, body);
     }
     /**
      * Handle an incoming request message from the transport.
@@ -11908,7 +12131,7 @@ class UserAgentCore {
         const userAgent = this.configuration.userAgentHeaderFieldValue;
         const supported = this.configuration.supportedOptionTagsResponse;
         options = Object.assign(Object.assign({}, options), { userAgent, supported });
-        const response = (0,_messages__WEBPACK_IMPORTED_MODULE_9__.constructOutgoingResponse)(message, options);
+        const response = (0,_messages_outgoing_response_js__WEBPACK_IMPORTED_MODULE_9__.constructOutgoingResponse)(message, options);
         this.transport.send(response.message).catch((error) => {
             // If the transport rejects, it SHOULD reject with a TransportError.
             // But the transport may be external code, so we are careful...
@@ -11979,9 +12202,9 @@ class UserAgentCore {
         // Any ACKs received from the network while in the "Accepted" state MUST be
         // passed directly to the TU and not absorbed.
         // https://tools.ietf.org/html/rfc6026#section-7.1
-        if (message.method === _messages__WEBPACK_IMPORTED_MODULE_7__.C.ACK) {
-            if (uas && uas.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_10__.TransactionState.Accepted) {
-                if (uas instanceof _user_agents__WEBPACK_IMPORTED_MODULE_11__.InviteUserAgentServer) {
+        if (message.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.ACK) {
+            if (uas && uas.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_10__.TransactionState.Accepted) {
+                if (uas instanceof _user_agents_invite_user_agent_server_js__WEBPACK_IMPORTED_MODULE_11__.InviteUserAgentServer) {
                     // These are ACKs matching an INVITE server transaction.
                     // These should never happen with RFC 3261 compliant user agents
                     // (would be a broken ACK to negative final response or something)
@@ -12000,7 +12223,7 @@ class UserAgentCore {
         // transaction matching procedures of Section 17.2.3.  The matching
         // transaction is the one to be cancelled.
         // https://tools.ietf.org/html/rfc3261#section-9.2
-        if (message.method === _messages__WEBPACK_IMPORTED_MODULE_7__.C.CANCEL) {
+        if (message.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.CANCEL) {
             if (uas) {
                 // Regardless of the method of the original request, as long as the
                 // CANCEL matched an existing transaction, the UAS answers the CANCEL
@@ -12018,9 +12241,9 @@ class UserAgentCore {
                 // SHOULD immediately respond to the INVITE with a 487 (Request
                 // Terminated).
                 // https://tools.ietf.org/html/rfc3261#section-9.2
-                if (uas.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_12__.InviteServerTransaction &&
-                    uas.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_10__.TransactionState.Proceeding) {
-                    if (uas instanceof _user_agents__WEBPACK_IMPORTED_MODULE_11__.InviteUserAgentServer) {
+                if (uas.transaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_12__.InviteServerTransaction &&
+                    uas.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_10__.TransactionState.Proceeding) {
+                    if (uas instanceof _user_agents_invite_user_agent_server_js__WEBPACK_IMPORTED_MODULE_11__.InviteUserAgentServer) {
                         uas.receiveCancel(message);
                     }
                     // A CANCEL request has no impact on the processing of
@@ -12076,8 +12299,8 @@ class UserAgentCore {
         // header field MUST list the set of methods supported by the UAS
         // generating the message.
         // https://tools.ietf.org/html/rfc3261#section-8.2.1
-        if (!_allowed_methods__WEBPACK_IMPORTED_MODULE_13__.AllowedMethods.includes(message.method)) {
-            const allowHeader = "Allow: " + _allowed_methods__WEBPACK_IMPORTED_MODULE_13__.AllowedMethods.toString();
+        if (!_allowed_methods_js__WEBPACK_IMPORTED_MODULE_13__.AllowedMethods.includes(message.method)) {
+            const allowHeader = "Allow: " + _allowed_methods_js__WEBPACK_IMPORTED_MODULE_13__.AllowedMethods.toString();
             this.replyStateless(message, {
                 statusCode: 405,
                 extraHeaders: [allowHeader]
@@ -12112,7 +12335,7 @@ class UserAgentCore {
                 ruriMatches(this.configuration.contact.pubGruu) ||
                 ruriMatches(this.configuration.contact.tempGruu))) {
             this.logger.warn("Request-URI does not point to us.");
-            if (message.method !== _messages__WEBPACK_IMPORTED_MODULE_7__.C.ACK) {
+            if (message.method !== _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.ACK) {
                 this.replyStateless(message, { statusCode: 404 });
             }
             return;
@@ -12122,7 +12345,7 @@ class UserAgentCore {
         // the Contact header fields of requests and responses sent by the UA
         // that establish or refresh dialogs.
         // https://tools.ietf.org/html/rfc3261#section-8.2.2.1
-        if (message.method === _messages__WEBPACK_IMPORTED_MODULE_7__.C.INVITE) {
+        if (message.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.INVITE) {
             if (!message.hasHeader("Contact")) {
                 this.replyStateless(message, {
                     statusCode: 400,
@@ -12202,7 +12425,7 @@ class UserAgentCore {
         // request, and the same "Event" header field.  Rules for comparisons of
         // the "Event" header fields are described in Section 8.2.1.
         // https://tools.ietf.org/html/rfc6665#section-4.4.1
-        if (message.method === _messages__WEBPACK_IMPORTED_MODULE_7__.C.NOTIFY) {
+        if (message.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.NOTIFY) {
             const event = message.parseHeader("Event");
             if (!event || !event.event) {
                 this.replyStateless(message, { statusCode: 489 });
@@ -12212,7 +12435,7 @@ class UserAgentCore {
             const subscriberId = message.callId + message.toTag + event.event;
             const subscriber = this.subscribers.get(subscriberId);
             if (subscriber) {
-                const uas = new _user_agents__WEBPACK_IMPORTED_MODULE_14__.NotifyUserAgentServer(this, message);
+                const uas = new _user_agents_notify_user_agent_server_js__WEBPACK_IMPORTED_MODULE_14__.NotifyUserAgentServer(this, message);
                 subscriber.onNotify(uas);
                 return;
             }
@@ -12272,8 +12495,8 @@ class UserAgentCore {
             // received within a dialog (for example, an OPTIONS request).  They are
             // processed as if they had been received outside the dialog.
             // https://tools.ietf.org/html/rfc3261#section-12.2.2
-            if (message.method === _messages__WEBPACK_IMPORTED_MODULE_7__.C.OPTIONS) {
-                const allowHeader = "Allow: " + _allowed_methods__WEBPACK_IMPORTED_MODULE_13__.AllowedMethods.toString();
+            if (message.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.OPTIONS) {
+                const allowHeader = "Allow: " + _allowed_methods_js__WEBPACK_IMPORTED_MODULE_13__.AllowedMethods.toString();
                 const acceptHeader = "Accept: " + acceptedBodyTypes.toString();
                 this.replyStateless(message, {
                     statusCode: 200,
@@ -12290,7 +12513,7 @@ class UserAgentCore {
         // o  A stateless UAS MUST ignore ACK requests.
         // ...
         // https://tools.ietf.org/html/rfc3261#section-8.2.7
-        if (message.method === _messages__WEBPACK_IMPORTED_MODULE_7__.C.ACK) {
+        if (message.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.ACK) {
             // If a final response to an INVITE was sent statelessly,
             // the corresponding ACK:
             // - will not match an existing transaction
@@ -12330,10 +12553,10 @@ class UserAgentCore {
      */
     receiveOutsideDialogRequest(message) {
         switch (message.method) {
-            case _messages__WEBPACK_IMPORTED_MODULE_7__.C.ACK:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.ACK:
                 // Absorb stray out of dialog ACKs
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_7__.C.BYE:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.BYE:
                 // If the BYE does not match an existing dialog, the UAS core SHOULD
                 // generate a 481 (Call/Transaction Does Not Exist) response and pass
                 // that to the server transaction. This rule means that a BYE sent
@@ -12341,10 +12564,10 @@ class UserAgentCore {
                 // https://tools.ietf.org/html/rfc3261#section-15.1.2
                 this.replyStateless(message, { statusCode: 481 });
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_7__.C.CANCEL:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.CANCEL:
                 throw new Error(`Unexpected out of dialog request method ${message.method}.`);
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_7__.C.INFO:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.INFO:
                 // Use of the INFO method does not constitute a separate dialog usage.
                 // INFO messages are always part of, and share the fate of, an invite
                 // dialog usage [RFC5057].  INFO messages cannot be sent as part of
@@ -12352,25 +12575,25 @@ class UserAgentCore {
                 // https://tools.ietf.org/html/rfc6086#section-1
                 this.replyStateless(message, { statusCode: 405 }); // Should never happen
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_7__.C.INVITE:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.INVITE:
                 // https://tools.ietf.org/html/rfc3261#section-13.3.1
                 {
-                    const uas = new _user_agents__WEBPACK_IMPORTED_MODULE_11__.InviteUserAgentServer(this, message);
+                    const uas = new _user_agents_invite_user_agent_server_js__WEBPACK_IMPORTED_MODULE_11__.InviteUserAgentServer(this, message);
                     this.delegate.onInvite ? this.delegate.onInvite(uas) : uas.reject();
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_7__.C.MESSAGE:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.MESSAGE:
                 // MESSAGE requests are discouraged inside a dialog.  Implementations
                 // are restricted from creating a usage for the purpose of carrying a
                 // sequence of MESSAGE requests (though some implementations use it that
                 // way, against the standard recommendation).
                 // https://tools.ietf.org/html/rfc5057#section-5.3
                 {
-                    const uas = new _user_agents__WEBPACK_IMPORTED_MODULE_15__.MessageUserAgentServer(this, message);
+                    const uas = new _user_agents_message_user_agent_server_js__WEBPACK_IMPORTED_MODULE_15__.MessageUserAgentServer(this, message);
                     this.delegate.onMessage ? this.delegate.onMessage(uas) : uas.accept();
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_7__.C.NOTIFY:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.NOTIFY:
                 // Obsoleted by: RFC 6665
                 // If any non-SUBSCRIBE mechanisms are defined to create subscriptions,
                 // it is the responsibility of the parties defining those mechanisms to
@@ -12395,14 +12618,14 @@ class UserAgentCore {
                 // compatibility) REFER requests [RFC3515].
                 // https://tools.ietf.org/html/rfc6665#section-3.2
                 {
-                    const uas = new _user_agents__WEBPACK_IMPORTED_MODULE_14__.NotifyUserAgentServer(this, message);
+                    const uas = new _user_agents_notify_user_agent_server_js__WEBPACK_IMPORTED_MODULE_14__.NotifyUserAgentServer(this, message);
                     this.delegate.onNotify ? this.delegate.onNotify(uas) : uas.reject({ statusCode: 405 });
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_7__.C.OPTIONS:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.OPTIONS:
                 // https://tools.ietf.org/html/rfc3261#section-11.2
                 {
-                    const allowHeader = "Allow: " + _allowed_methods__WEBPACK_IMPORTED_MODULE_13__.AllowedMethods.toString();
+                    const allowHeader = "Allow: " + _allowed_methods_js__WEBPACK_IMPORTED_MODULE_13__.AllowedMethods.toString();
                     const acceptHeader = "Accept: " + acceptedBodyTypes.toString();
                     this.replyStateless(message, {
                         statusCode: 200,
@@ -12410,24 +12633,24 @@ class UserAgentCore {
                     });
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_7__.C.REFER:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.REFER:
                 // https://tools.ietf.org/html/rfc3515#section-2.4.2
                 {
-                    const uas = new _user_agents__WEBPACK_IMPORTED_MODULE_16__.ReferUserAgentServer(this, message);
+                    const uas = new _user_agents_refer_user_agent_server_js__WEBPACK_IMPORTED_MODULE_16__.ReferUserAgentServer(this, message);
                     this.delegate.onRefer ? this.delegate.onRefer(uas) : uas.reject({ statusCode: 405 });
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_7__.C.REGISTER:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.REGISTER:
                 // https://tools.ietf.org/html/rfc3261#section-10.3
                 {
-                    const uas = new _user_agents__WEBPACK_IMPORTED_MODULE_17__.RegisterUserAgentServer(this, message);
+                    const uas = new _user_agents_register_user_agent_server_js__WEBPACK_IMPORTED_MODULE_17__.RegisterUserAgentServer(this, message);
                     this.delegate.onRegister ? this.delegate.onRegister(uas) : uas.reject({ statusCode: 405 });
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_7__.C.SUBSCRIBE:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_7__.C.SUBSCRIBE:
                 // https://tools.ietf.org/html/rfc6665#section-4.2
                 {
-                    const uas = new _user_agents__WEBPACK_IMPORTED_MODULE_18__.SubscribeUserAgentServer(this, message);
+                    const uas = new _user_agents_subscribe_user_agent_server_js__WEBPACK_IMPORTED_MODULE_18__.SubscribeUserAgentServer(this, message);
                     this.delegate.onSubscribe ? this.delegate.onSubscribe(uas) : uas.reject({ statusCode: 480 });
                 }
                 break;
@@ -12500,19 +12723,21 @@ class UserAgentCore {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "InviteUserAgentClient": () => (/* binding */ InviteUserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _dialogs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(69);
-/* harmony import */ var _dialogs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(70);
-/* harmony import */ var _session__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(30);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(68);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(63);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _dialogs_dialog_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(70);
+/* harmony import */ var _dialogs_session_dialog_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(71);
+/* harmony import */ var _session_session_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(31);
+/* harmony import */ var _transactions_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69);
+/* harmony import */ var _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(64);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
+
+
 
 
 
@@ -12528,9 +12753,9 @@ __webpack_require__.r(__webpack_exports__);
  * https://tools.ietf.org/html/rfc3261#section-13.2
  * @public
  */
-class InviteUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+class InviteUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
     constructor(core, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.InviteClientTransaction, core, message, delegate);
+        super(_transactions_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__.InviteClientTransaction, core, message, delegate);
         this.confirmedDialogAcks = new Map();
         this.confirmedDialogs = new Map();
         this.earlyDialogs = new Map();
@@ -12556,7 +12781,7 @@ class InviteUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_
      * @param error - Transport error
      */
     onTransportError(error) {
-        if (this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_2__.TransactionState.Calling) {
+        if (this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_2__.TransactionState.Calling) {
             return super.onTransportError(error);
         }
         // If not in 'calling' state, the transport error occurred while sending an ACK.
@@ -12627,15 +12852,15 @@ class InviteUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_
                         return;
                     }
                     // Compute dialog state.
-                    const dialogState = _dialogs__WEBPACK_IMPORTED_MODULE_3__.Dialog.initialDialogStateForUserAgentClient(this.message, message);
+                    const dialogState = _dialogs_dialog_js__WEBPACK_IMPORTED_MODULE_3__.Dialog.initialDialogStateForUserAgentClient(this.message, message);
                     // Have existing early dialog or create a new one.
                     let earlyDialog = this.earlyDialogs.get(dialogState.id);
                     if (!earlyDialog) {
                         const transaction = this.transaction;
-                        if (!(transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_1__.InviteClientTransaction)) {
+                        if (!(transaction instanceof _transactions_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__.InviteClientTransaction)) {
                             throw new Error("Transaction not instance of InviteClientTransaction.");
                         }
-                        earlyDialog = new _dialogs__WEBPACK_IMPORTED_MODULE_4__.SessionDialog(transaction, this.core, dialogState);
+                        earlyDialog = new _dialogs_session_dialog_js__WEBPACK_IMPORTED_MODULE_4__.SessionDialog(transaction, this.core, dialogState);
                         this.earlyDialogs.set(earlyDialog.id, earlyDialog);
                     }
                     // Guard against out of order reliable provisional responses.
@@ -12654,8 +12879,8 @@ class InviteUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_
                     // session descriptions in subsequent responses to the initial
                     // INVITE.
                     // https://tools.ietf.org/html/rfc3261#section-13.2.1
-                    if (earlyDialog.signalingState === _session__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Initial ||
-                        earlyDialog.signalingState === _session__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveLocalOffer) {
+                    if (earlyDialog.signalingState === _session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Initial ||
+                        earlyDialog.signalingState === _session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveLocalOffer) {
                         earlyDialog.signalingStateTransition(message);
                     }
                     // Pass response to delegate.
@@ -12713,7 +12938,7 @@ class InviteUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_
                         return;
                     }
                     // Compute dialog state.
-                    const dialogState = _dialogs__WEBPACK_IMPORTED_MODULE_3__.Dialog.initialDialogStateForUserAgentClient(this.message, message);
+                    const dialogState = _dialogs_dialog_js__WEBPACK_IMPORTED_MODULE_3__.Dialog.initialDialogStateForUserAgentClient(this.message, message);
                     // NOTE: Currently our transaction layer is caching the 2xx ACKs and
                     // handling retransmissions of the ACK which is an approach which is
                     // not to spec. In any event, this block is intended to provide a to
@@ -12733,7 +12958,7 @@ class InviteUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_
                         const outgoingAckRequest = this.confirmedDialogAcks.get(dialogState.id);
                         if (outgoingAckRequest) {
                             const transaction = this.transaction;
-                            if (!(transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_1__.InviteClientTransaction)) {
+                            if (!(transaction instanceof _transactions_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__.InviteClientTransaction)) {
                                 throw new Error("Client transaction not instance of InviteClientTransaction.");
                             }
                             transaction.ackResponse(outgoingAckRequest.message);
@@ -12759,10 +12984,10 @@ class InviteUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_
                     }
                     else {
                         const transaction = this.transaction;
-                        if (!(transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_1__.InviteClientTransaction)) {
+                        if (!(transaction instanceof _transactions_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__.InviteClientTransaction)) {
                             throw new Error("Transaction not instance of InviteClientTransaction.");
                         }
-                        dialog = new _dialogs__WEBPACK_IMPORTED_MODULE_4__.SessionDialog(transaction, this.core, dialogState);
+                        dialog = new _dialogs_session_dialog_js__WEBPACK_IMPORTED_MODULE_4__.SessionDialog(transaction, this.core, dialogState);
                         this.confirmedDialogs.set(dialog.id, dialog);
                     }
                     // If the initial offer is in an INVITE, the answer MUST be in a
@@ -12775,8 +13000,8 @@ class InviteUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_
                     // session descriptions in subsequent responses to the initial
                     // INVITE.
                     // https://tools.ietf.org/html/rfc3261#section-13.2.1
-                    if (dialog.signalingState === _session__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Initial ||
-                        dialog.signalingState === _session__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveLocalOffer) {
+                    if (dialog.signalingState === _session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.Initial ||
+                        dialog.signalingState === _session_session_js__WEBPACK_IMPORTED_MODULE_5__.SignalingState.HaveLocalOffer) {
                         dialog.signalingStateTransition(message);
                     }
                     // Session Initiated! :)
@@ -12878,17 +13103,19 @@ class InviteUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserAgentClient": () => (/* binding */ UserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(63);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(64);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
+/* harmony import */ var _messages_incoming_response_message_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(27);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(65);
+/* harmony import */ var _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
+
+
 
 
 /**
@@ -12958,7 +13185,7 @@ class UserAgentClient {
         // of CANCEL.  This allows it to be identified and processed as a
         // transaction in its own right (See Section 17).
         // https://tools.ietf.org/html/rfc3261#section-9.1
-        const message = this.core.makeOutgoingRequestMessage(_messages__WEBPACK_IMPORTED_MODULE_0__.C.CANCEL, this.message.ruri, this.message.from.uri, this.message.to.uri, {
+        const message = this.core.makeOutgoingRequestMessage(_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_0__.C.CANCEL, this.message.ruri, this.message.from.uri, this.message.to.uri, {
             toTag: this.message.toTag,
             fromTag: this.message.fromTag,
             callId: this.message.callId,
@@ -12984,13 +13211,13 @@ class UserAgentClient {
         // sent, as it is an effective no-op, since CANCEL has no effect on
         // requests that have already generated a final response.
         // https://tools.ietf.org/html/rfc3261#section-9.1
-        if (this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
-            new UserAgentClient(_transactions__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, this.core, message);
+        if (this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
+            new UserAgentClient(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, this.core, message);
         }
         else {
             this.transaction.addStateChangeListener(() => {
-                if (this.transaction && this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
-                    new UserAgentClient(_transactions__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, this.core, message);
+                if (this.transaction && this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
+                    new UserAgentClient(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, this.core, message);
                 }
             }, { once: true });
         }
@@ -13099,7 +13326,7 @@ class UserAgentClient {
      */
     onRequestTimeout() {
         this.logger.warn("User agent client request timed out. Generating internal 408 Request Timeout.");
-        const message = new _messages__WEBPACK_IMPORTED_MODULE_3__.IncomingResponseMessage();
+        const message = new _messages_incoming_response_message_js__WEBPACK_IMPORTED_MODULE_3__.IncomingResponseMessage();
         message.statusCode = 408;
         message.reasonPhrase = "Request Timeout";
         this.receiveResponse(message);
@@ -13121,7 +13348,7 @@ class UserAgentClient {
     onTransportError(error) {
         this.logger.error(error.message);
         this.logger.error("User agent client request transport error. Generating internal 503 Service Unavailable.");
-        const message = new _messages__WEBPACK_IMPORTED_MODULE_3__.IncomingResponseMessage();
+        const message = new _messages_incoming_response_message_js__WEBPACK_IMPORTED_MODULE_3__.IncomingResponseMessage();
         message.statusCode = 503;
         message.reasonPhrase = "Service Unavailable";
         this.receiveResponse(message);
@@ -13174,7 +13401,7 @@ class UserAgentClient {
             loggerFactory: this.loggerFactory,
             onRequestTimeout: () => this.onRequestTimeout(),
             onStateChange: (newState) => {
-                if (newState === _transactions__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated) {
+                if (newState === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated) {
                     // Remove the terminated transaction from the core.
                     // eslint-disable-next-line @typescript-eslint/no-use-before-define
                     this.core.userAgentClients.delete(userAgentClientId);
@@ -13201,7 +13428,7 @@ class UserAgentClient {
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -13221,20 +13448,20 @@ var TransactionState;
     TransactionState["Proceeding"] = "Proceeding";
     TransactionState["Terminated"] = "Terminated";
     TransactionState["Trying"] = "Trying";
-})(TransactionState || (TransactionState = {}));
+})(TransactionState = TransactionState || (TransactionState = {}));
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "NonInviteClientTransaction": () => (/* binding */ NonInviteClientTransaction)
 /* harmony export */ });
-/* harmony import */ var _timers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36);
-/* harmony import */ var _client_transaction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(65);
-/* harmony import */ var _transaction_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(63);
+/* harmony import */ var _timers_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37);
+/* harmony import */ var _client_transaction_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
+/* harmony import */ var _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
 
 
 
@@ -13246,7 +13473,7 @@ __webpack_require__.r(__webpack_exports__);
  * https://tools.ietf.org/html/rfc3261#section-17.1.2
  * @public
  */
-class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODULE_0__.ClientTransaction {
+class NonInviteClientTransaction extends _client_transaction_js__WEBPACK_IMPORTED_MODULE_0__.ClientTransaction {
     /**
      * Constructor
      * Upon construction, the outgoing request's Via header is updated by calling `setViaHeader`.
@@ -13259,7 +13486,7 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
      * @param user - The transaction user.
      */
     constructor(request, transport, user) {
-        super(request, transport, user, _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying, "sip.transaction.nict");
+        super(request, transport, user, _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying, "sip.transaction.nict");
         // FIXME: Timer E for unreliable transports not implemented.
         //
         // The "Trying" state is entered when the TU initiates a new client
@@ -13267,7 +13494,7 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
         // transaction SHOULD set timer F to fire in 64*T1 seconds. The request
         // MUST be passed to the transport layer for transmission.
         // https://tools.ietf.org/html/rfc3261#section-17.1.2.2
-        this.F = setTimeout(() => this.timerF(), _timers__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_F);
+        this.F = setTimeout(() => this.timerF(), _timers_js__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_F);
         this.send(request.toString()).catch((error) => {
             this.logTransportError(error, "Failed to send initial outgoing request.");
         });
@@ -13300,13 +13527,13 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
             throw new Error(`Invalid status code ${statusCode}`);
         }
         switch (this.state) {
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying:
                 // If a provisional response is received while in the "Trying" state, the
                 // response MUST be passed to the TU, and then the client transaction
                 // SHOULD move to the "Proceeding" state.
                 // https://tools.ietf.org/html/rfc3261#section-17.1.2.2
                 if (statusCode >= 100 && statusCode <= 199) {
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding);
                     if (this.user.receiveResponse) {
                         this.user.receiveResponse(response);
                     }
@@ -13317,7 +13544,7 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
                 // client transaction MUST transition to the "Completed" state.
                 // https://tools.ietf.org/html/rfc3261#section-17.1.2.2
                 if (statusCode >= 200 && statusCode <= 699) {
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
                     if (statusCode === 408) {
                         this.onRequestTimeout();
                         return;
@@ -13328,7 +13555,7 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
                 // If a provisional response is received while in the "Proceeding" state,
                 // the response MUST be passed to the TU. (From Figure 6)
                 // https://tools.ietf.org/html/rfc3261#section-17.1.2.2
@@ -13342,7 +13569,7 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
                 // client transaction MUST transition to the "Completed" state.
                 // https://tools.ietf.org/html/rfc3261#section-17.1.2.2
                 if (statusCode >= 200 && statusCode <= 699) {
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
                     if (statusCode === 408) {
                         this.onRequestTimeout();
                         return;
@@ -13353,13 +13580,13 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
                 // The "Completed" state exists to buffer any additional response
                 // retransmissions that may be received (which is why the client
                 // transaction remains there only for unreliable transports).
                 // https://tools.ietf.org/html/rfc3261#section-17.1.2.2
                 return;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
                 // For good measure just absorb additional response retransmissions.
                 return;
             default:
@@ -13380,7 +13607,7 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
         if (this.user.onTransportError) {
             this.user.onTransportError(error);
         }
-        this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated, true);
+        this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated, true);
     }
     /** For logging. */
     typeToString() {
@@ -13396,23 +13623,23 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
             throw new Error(`Invalid state transition from ${this.state} to ${newState}`);
         };
         switch (newState) {
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying:
                 invalidStateTransition();
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying) {
                     invalidStateTransition();
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying && this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying && this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
                     invalidStateTransition();
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying &&
-                    this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding &&
-                    this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying &&
+                    this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding &&
+                    this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
                     if (!dueToTransportError) {
                         invalidStateTransition();
                     }
@@ -13427,16 +13654,16 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
         // buffer any additional response retransmissions that may be received
         // (which is why the client transaction remains there only for unreliable transports).
         // https://tools.ietf.org/html/rfc3261#section-17.1.2.2
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
             if (this.F) {
                 clearTimeout(this.F);
                 this.F = undefined;
             }
-            this.K = setTimeout(() => this.timerK(), _timers__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_K);
+            this.K = setTimeout(() => this.timerK(), _timers_js__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_K);
         }
         // Once the transaction is in the terminated state, it MUST be destroyed immediately.
         // https://tools.ietf.org/html/rfc3261#section-17.1.2.2
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated) {
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated) {
             this.dispose();
         }
         // Update state.
@@ -13452,9 +13679,9 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
      */
     timerF() {
         this.logger.debug(`Timer F expired for non-INVITE client transaction ${this.id}.`);
-        if (this.state === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying || this.state === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
+        if (this.state === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying || this.state === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
             this.onRequestTimeout();
-            this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
+            this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
         }
     }
     /**
@@ -13463,22 +13690,22 @@ class NonInviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_M
      * https://tools.ietf.org/html/rfc3261#section-17.1.2.2
      */
     timerK() {
-        if (this.state === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
-            this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
+        if (this.state === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+            this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
         }
     }
 }
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ClientTransaction": () => (/* binding */ ClientTransaction)
 /* harmony export */ });
-/* harmony import */ var _transaction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
+/* harmony import */ var _transaction_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67);
 
 /**
  * Client Transaction.
@@ -13495,7 +13722,7 @@ __webpack_require__.r(__webpack_exports__);
  * https://tools.ietf.org/html/rfc3261#section-17.1
  * @public
  */
-class ClientTransaction extends _transaction__WEBPACK_IMPORTED_MODULE_0__.Transaction {
+class ClientTransaction extends _transaction_js__WEBPACK_IMPORTED_MODULE_0__.Transaction {
     constructor(_request, transport, user, state, loggerCategory) {
         super(transport, user, ClientTransaction.makeId(_request), state, loggerCategory);
         this._request = _request;
@@ -13542,14 +13769,14 @@ class ClientTransaction extends _transaction__WEBPACK_IMPORTED_MODULE_0__.Transa
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Transaction": () => (/* binding */ Transaction)
 /* harmony export */ });
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67);
+/* harmony import */ var _exceptions_transport_error_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(68);
 
 /**
  * Transaction.
@@ -13649,16 +13876,16 @@ class Transaction {
             // If the transport rejects, it SHOULD reject with a TransportError.
             // But the transport may be external code, so we are careful
             // make sure we convert it to a TransportError if need be.
-            if (error instanceof _exceptions__WEBPACK_IMPORTED_MODULE_0__.TransportError) {
+            if (error instanceof _exceptions_transport_error_js__WEBPACK_IMPORTED_MODULE_0__.TransportError) {
                 this.onTransportError(error);
                 throw error;
             }
             let transportError;
             if (error && typeof error.message === "string") {
-                transportError = new _exceptions__WEBPACK_IMPORTED_MODULE_0__.TransportError(error.message);
+                transportError = new _exceptions_transport_error_js__WEBPACK_IMPORTED_MODULE_0__.TransportError(error.message);
             }
             else {
-                transportError = new _exceptions__WEBPACK_IMPORTED_MODULE_0__.TransportError();
+                transportError = new _exceptions_transport_error_js__WEBPACK_IMPORTED_MODULE_0__.TransportError();
             }
             this.onTransportError(transportError);
             throw transportError;
@@ -13679,20 +13906,20 @@ class Transaction {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "TransportError": () => (/* binding */ TransportError)
 /* harmony export */ });
-/* harmony import */ var _exception__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _exception_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 
 /**
  * Transport error.
  * @public
  */
-class TransportError extends _exception__WEBPACK_IMPORTED_MODULE_0__.Exception {
+class TransportError extends _exception_js__WEBPACK_IMPORTED_MODULE_0__.Exception {
     constructor(message) {
         super(message ? message : "Unspecified transport error.");
     }
@@ -13700,16 +13927,16 @@ class TransportError extends _exception__WEBPACK_IMPORTED_MODULE_0__.Exception {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "InviteClientTransaction": () => (/* binding */ InviteClientTransaction)
 /* harmony export */ });
-/* harmony import */ var _timers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36);
-/* harmony import */ var _client_transaction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(65);
-/* harmony import */ var _transaction_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(63);
+/* harmony import */ var _timers_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37);
+/* harmony import */ var _client_transaction_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
+/* harmony import */ var _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
 
 
 
@@ -13722,7 +13949,7 @@ __webpack_require__.r(__webpack_exports__);
  * https://tools.ietf.org/html/rfc3261#section-17.1.1
  * @public
  */
-class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODULE_0__.ClientTransaction {
+class InviteClientTransaction extends _client_transaction_js__WEBPACK_IMPORTED_MODULE_0__.ClientTransaction {
     /**
      * Constructor.
      * Upon construction, the outgoing request's Via header is updated by calling `setViaHeader`.
@@ -13735,7 +13962,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
      * @param user - The transaction user.
      */
     constructor(request, transport, user) {
-        super(request, transport, user, _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling, "sip.transaction.ict");
+        super(request, transport, user, _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling, "sip.transaction.ict");
         /**
          * Map of 2xx to-tag to ACK.
          * If value is not undefined, value is the ACK which was sent.
@@ -13755,7 +13982,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
         // While not spelled out in the RFC, Timer B is the maximum amount of time that a sender
         // will wait for an INVITE message to be acknowledged (a SIP response message is received).
         // So Timer B should be cleared when the transaction state proceeds from "Calling".
-        this.B = setTimeout(() => this.timerB(), _timers__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_B);
+        this.B = setTimeout(() => this.timerB(), _timers_js__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_B);
         this.send(request.toString()).catch((error) => {
             this.logTransportError(error, "Failed to send initial outgoing request.");
         });
@@ -13821,7 +14048,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
             throw new Error(`Invalid status code ${statusCode}`);
         }
         switch (this.state) {
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling:
                 // If the client transaction receives a provisional response while in
                 // the "Calling" state, it transitions to the "Proceeding" state. In the
                 // "Proceeding" state, the client transaction SHOULD NOT retransmit the
@@ -13830,7 +14057,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
                 // up to the TU while in the "Proceeding" state.
                 // https://tools.ietf.org/html/rfc3261#section-17.1.1.2
                 if (statusCode >= 100 && statusCode <= 199) {
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding);
                     if (this.user.receiveResponse) {
                         this.user.receiveResponse(response);
                     }
@@ -13845,7 +14072,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
                 // https://tools.ietf.org/html/rfc6026#section-8.4
                 if (statusCode >= 200 && statusCode <= 299) {
                     this.ackRetransmissionCache.set(response.toTag, undefined); // Prime the ACK cache
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted);
                     if (this.user.receiveResponse) {
                         this.user.receiveResponse(response);
                     }
@@ -13862,7 +14089,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
                 // same address, port, and transport to which the original request was sent.
                 // https://tools.ietf.org/html/rfc6026#section-8.4
                 if (statusCode >= 300 && statusCode <= 699) {
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
                     this.ack(response);
                     if (this.user.receiveResponse) {
                         this.user.receiveResponse(response);
@@ -13870,7 +14097,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
                 // In the "Proceeding" state, the client transaction SHOULD NOT retransmit the
                 // request any longer. Furthermore, the provisional response MUST be
                 // passed to the TU.  Any further provisional responses MUST be passed
@@ -13891,7 +14118,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
                 // https://tools.ietf.org/html/rfc6026#section-8.4
                 if (statusCode >= 200 && statusCode <= 299) {
                     this.ackRetransmissionCache.set(response.toTag, undefined); // Prime the ACK cache
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted);
                     if (this.user.receiveResponse) {
                         this.user.receiveResponse(response);
                     }
@@ -13908,7 +14135,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
                 // same address, port, and transport to which the original request was sent.
                 // https://tools.ietf.org/html/rfc6026#section-8.4
                 if (statusCode >= 300 && statusCode <= 699) {
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
                     this.ack(response);
                     if (this.user.receiveResponse) {
                         this.user.receiveResponse(response);
@@ -13916,7 +14143,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted:
                 // The purpose of the "Accepted" state is to allow the client
                 // transaction to continue to exist to receive, and pass to the TU,
                 // any retransmissions of the 2xx response and any additional 2xx
@@ -13960,7 +14187,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
                 // Any retransmissions of a response with status code 300-699 that
                 // are received while in the "Completed" state MUST cause the ACK to
                 // be re-passed to the transport layer for retransmission, but the
@@ -13971,7 +14198,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
                 break;
             default:
                 throw new Error(`Invalid state ${this.state}`);
@@ -13998,7 +14225,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
         if (this.user.onTransportError) {
             this.user.onTransportError(error);
         }
-        this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated, true);
+        this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated, true);
     }
     /** For logging. */
     typeToString() {
@@ -14066,24 +14293,24 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
             throw new Error(`Invalid state transition from ${this.state} to ${newState}`);
         };
         switch (newState) {
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling:
                 invalidStateTransition();
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling) {
                     invalidStateTransition();
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted:
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling && this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling && this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
                     invalidStateTransition();
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling &&
-                    this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted &&
-                    this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling &&
+                    this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted &&
+                    this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
                     if (!dueToTransportError) {
                         invalidStateTransition();
                     }
@@ -14099,7 +14326,7 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
             clearTimeout(this.B);
             this.B = undefined;
         }
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
             // Timers have no effect on "Proceeding" state.
             // In the "Proceeding" state, the client transaction
             // SHOULD NOT retransmit the request any longer.
@@ -14109,18 +14336,18 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
         // for any reason, with a value of at least 32 seconds for unreliable transports,
         // and a value of zero seconds for reliable transports.
         // https://tools.ietf.org/html/rfc6026#section-8.4
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
-            this.D = setTimeout(() => this.timerD(), _timers__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_D);
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+            this.D = setTimeout(() => this.timerD(), _timers_js__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_D);
         }
         // The client transaction MUST transition to the "Accepted" state,
         // and Timer M MUST be started with a value of 64*T1.
         // https://tools.ietf.org/html/rfc6026#section-8.4
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted) {
-            this.M = setTimeout(() => this.timerM(), _timers__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_M);
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted) {
+            this.M = setTimeout(() => this.timerM(), _timers_js__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_M);
         }
         // Once the transaction is in the "Terminated" state, it MUST be destroyed immediately.
         // https://tools.ietf.org/html/rfc6026#section-8.7
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated) {
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated) {
             this.dispose();
         }
         // Update state.
@@ -14149,9 +14376,9 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
      */
     timerB() {
         this.logger.debug(`Timer B expired for INVITE client transaction ${this.id}.`);
-        if (this.state === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling) {
+        if (this.state === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Calling) {
             this.onRequestTimeout();
-            this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
+            this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
         }
     }
     /**
@@ -14161,8 +14388,8 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
      */
     timerD() {
         this.logger.debug(`Timer D expired for INVITE client transaction ${this.id}.`);
-        if (this.state === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
-            this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
+        if (this.state === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+            this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
         }
     }
     /**
@@ -14172,23 +14399,24 @@ class InviteClientTransaction extends _client_transaction__WEBPACK_IMPORTED_MODU
      */
     timerM() {
         this.logger.debug(`Timer M expired for INVITE client transaction ${this.id}.`);
-        if (this.state === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted) {
-            this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
+        if (this.state === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted) {
+            this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
         }
     }
 }
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Dialog": () => (/* binding */ Dialog)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
+/* harmony import */ var _grammar_name_addr_header_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(26);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+
 
 /**
  * Dialog.
@@ -14248,7 +14476,7 @@ class Dialog {
             // TODO: Review to make sure this will never happen
             throw new Error("Contact undefined.");
         }
-        if (!(contact instanceof _messages__WEBPACK_IMPORTED_MODULE_0__.NameAddrHeader)) {
+        if (!(contact instanceof _grammar_name_addr_header_js__WEBPACK_IMPORTED_MODULE_0__.NameAddrHeader)) {
             throw new Error("Contact not instance of NameAddrHeader.");
         }
         const remoteTarget = contact.uri;
@@ -14347,7 +14575,7 @@ class Dialog {
             // TODO: Review to make sure this will never happen
             throw new Error("Contact undefined.");
         }
-        if (!(contact instanceof _messages__WEBPACK_IMPORTED_MODULE_0__.NameAddrHeader)) {
+        if (!(contact instanceof _grammar_name_addr_header_js__WEBPACK_IMPORTED_MODULE_0__.NameAddrHeader)) {
             throw new Error("Contact not instance of NameAddrHeader.");
         }
         const remoteTarget = contact.uri;
@@ -14496,7 +14724,7 @@ class Dialog {
         // By convention, the handling of ACKs is the responsibility
         // the particular dialog implementation. For example, see SessionDialog.
         // Furthermore, ACKs have same sequence number as the associated INVITE.
-        if (message.method === _messages__WEBPACK_IMPORTED_MODULE_1__.C.ACK) {
+        if (message.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__.C.ACK) {
             return;
         }
         // If the remote sequence number was not empty, but the sequence number
@@ -14692,7 +14920,7 @@ class Dialog {
         // By convention, handling of unexpected ACKs is responsibility
         // the particular dialog implementation. For example, see SessionDialog.
         // Furthermore, we cannot reply to an "out of sequence" ACK.
-        if (message.method === _messages__WEBPACK_IMPORTED_MODULE_1__.C.ACK) {
+        if (message.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__.C.ACK) {
             return true;
         }
         // Note: We are rejecting on "less than or equal to" the remote
@@ -14724,39 +14952,47 @@ class Dialog {
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SessionDialog": () => (/* binding */ SessionDialog)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(29);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(25);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(17);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(18);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(26);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(27);
-/* harmony import */ var _session__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
-/* harmony import */ var _timers__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(36);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(68);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(63);
-/* harmony import */ var _user_agents_bye_user_agent_client__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(73);
-/* harmony import */ var _user_agents_bye_user_agent_server__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(80);
-/* harmony import */ var _user_agents_info_user_agent_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(74);
-/* harmony import */ var _user_agents_info_user_agent_server__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(84);
-/* harmony import */ var _user_agents_message_user_agent_client__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(76);
-/* harmony import */ var _user_agents_message_user_agent_server__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(86);
-/* harmony import */ var _user_agents_notify_user_agent_client__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(77);
-/* harmony import */ var _user_agents_notify_user_agent_server__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(87);
-/* harmony import */ var _user_agents_prack_user_agent_client__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(78);
-/* harmony import */ var _user_agents_prack_user_agent_server__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(88);
-/* harmony import */ var _user_agents_re_invite_user_agent_client__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(75);
-/* harmony import */ var _user_agents_re_invite_user_agent_server__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(85);
-/* harmony import */ var _user_agents_refer_user_agent_client__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(79);
-/* harmony import */ var _user_agents_refer_user_agent_server__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(89);
-/* harmony import */ var _dialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(69);
+/* harmony import */ var _grammar_name_addr_header_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(26);
+/* harmony import */ var _messages_body_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(18);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(30);
+/* harmony import */ var _messages_incoming_request_message_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(19);
+/* harmony import */ var _messages_incoming_response_message_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(27);
+/* harmony import */ var _messages_outgoing_request_message_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(28);
+/* harmony import */ var _session_session_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
+/* harmony import */ var _timers_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(37);
+/* harmony import */ var _transactions_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(69);
+/* harmony import */ var _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72);
+/* harmony import */ var _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(64);
+/* harmony import */ var _user_agents_bye_user_agent_client_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(74);
+/* harmony import */ var _user_agents_bye_user_agent_server_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(81);
+/* harmony import */ var _user_agents_info_user_agent_client_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(75);
+/* harmony import */ var _user_agents_info_user_agent_server_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(85);
+/* harmony import */ var _user_agents_message_user_agent_client_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(77);
+/* harmony import */ var _user_agents_message_user_agent_server_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(87);
+/* harmony import */ var _user_agents_notify_user_agent_client_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(78);
+/* harmony import */ var _user_agents_notify_user_agent_server_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(88);
+/* harmony import */ var _user_agents_prack_user_agent_client_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(79);
+/* harmony import */ var _user_agents_prack_user_agent_server_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(89);
+/* harmony import */ var _user_agents_re_invite_user_agent_client_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(76);
+/* harmony import */ var _user_agents_re_invite_user_agent_server_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(86);
+/* harmony import */ var _user_agents_refer_user_agent_client_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(80);
+/* harmony import */ var _user_agents_refer_user_agent_server_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(90);
+/* harmony import */ var _dialog_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
+
+
+
+
+
+
+
+
 
 
 
@@ -14780,18 +15016,18 @@ __webpack_require__.r(__webpack_exports__);
  * Session Dialog.
  * @public
  */
-class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
+class SessionDialog extends _dialog_js__WEBPACK_IMPORTED_MODULE_0__.Dialog {
     constructor(initialTransaction, core, state, delegate) {
         super(core, state);
         this.initialTransaction = initialTransaction;
         /** The state of the offer/answer exchange. */
-        this._signalingState = _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Initial;
+        this._signalingState = _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Initial;
         /** True if waiting for an ACK to the initial transaction 2xx (UAS only). */
         this.ackWait = false;
         /** True if processing an ACK to the initial transaction 2xx (UAS only). */
         this.ackProcessing = false;
         this.delegate = delegate;
-        if (initialTransaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
+        if (initialTransaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
             // If we're created by an invite server transaction, we're
             // going to be waiting for an ACK if are to be confirmed.
             this.ackWait = true;
@@ -14807,7 +15043,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
     }
     dispose() {
         super.dispose();
-        this._signalingState = _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed;
+        this._signalingState = _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed;
         this._offer = undefined;
         this._answer = undefined;
         if (this.invite2xxTimer) {
@@ -14825,16 +15061,16 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
     // FIXME: Need real state machine
     get sessionState() {
         if (this.early) {
-            return _session__WEBPACK_IMPORTED_MODULE_1__.SessionState.Early;
+            return _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Early;
         }
         else if (this.ackWait) {
-            return _session__WEBPACK_IMPORTED_MODULE_1__.SessionState.AckWait;
+            return _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.AckWait;
         }
-        else if (this._signalingState === _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed) {
-            return _session__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated;
+        else if (this._signalingState === _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed) {
+            return _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Terminated;
         }
         else {
-            return _session__WEBPACK_IMPORTED_MODULE_1__.SessionState.Confirmed;
+            return _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SessionState.Confirmed;
         }
     }
     /** The state of the offer/answer exchange. */
@@ -14886,7 +15122,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         let transaction;
         if (this.reinviteUserAgentClient) {
             // We're sending ACK for a re-INVITE
-            if (!(this.reinviteUserAgentClient.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_3__.InviteClientTransaction)) {
+            if (!(this.reinviteUserAgentClient.transaction instanceof _transactions_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_3__.InviteClientTransaction)) {
                 throw new Error("Transaction not instance of InviteClientTransaction.");
             }
             transaction = this.reinviteUserAgentClient.transaction;
@@ -14894,12 +15130,12 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         }
         else {
             // We're sending ACK for the initial INVITE
-            if (!(this.initialTransaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_3__.InviteClientTransaction)) {
+            if (!(this.initialTransaction instanceof _transactions_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_3__.InviteClientTransaction)) {
                 throw new Error("Initial transaction not instance of InviteClientTransaction.");
             }
             transaction = this.initialTransaction;
         }
-        const message = this.createOutgoingRequestMessage(_messages__WEBPACK_IMPORTED_MODULE_4__.C.ACK, {
+        const message = this.createOutgoingRequestMessage(_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.ACK, {
             cseq: transaction.request.cseq,
             extraHeaders: options.extraHeaders,
             body: options.body
@@ -14955,12 +15191,12 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         // until it has received an ACK for its 2xx response or until the server
         // transaction times out.
         // https://tools.ietf.org/html/rfc3261#section-15
-        if (this.initialTransaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
+        if (this.initialTransaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
             if (this.early) {
                 // FIXME: TODO: This should throw a proper exception.
                 throw new Error("UAS MUST NOT send a BYE on early dialogs.");
             }
-            if (this.ackWait && this.initialTransaction.state !== _transactions__WEBPACK_IMPORTED_MODULE_5__.TransactionState.Terminated) {
+            if (this.ackWait && this.initialTransaction.state !== _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_5__.TransactionState.Terminated) {
                 // FIXME: TODO: This should throw a proper exception.
                 throw new Error("UAS MUST NOT send a BYE on a confirmed dialog " +
                     "until it has received an ACK for its 2xx response " +
@@ -14980,7 +15216,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         // returned by the client transaction), the UAC MUST consider the
         // session and the dialog terminated.
         // https://tools.ietf.org/html/rfc3261#section-15.1.1
-        return new _user_agents_bye_user_agent_client__WEBPACK_IMPORTED_MODULE_6__.ByeUserAgentClient(this, delegate, options);
+        return new _user_agents_bye_user_agent_client_js__WEBPACK_IMPORTED_MODULE_6__.ByeUserAgentClient(this, delegate, options);
     }
     /**
      * An INFO request can be associated with an Info Package (see
@@ -14998,7 +15234,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             // FIXME: TODO: This should throw a proper exception.
             throw new Error("Dialog not confirmed.");
         }
-        return new _user_agents_info_user_agent_client__WEBPACK_IMPORTED_MODULE_7__.InfoUserAgentClient(this, delegate, options);
+        return new _user_agents_info_user_agent_client_js__WEBPACK_IMPORTED_MODULE_7__.InfoUserAgentClient(this, delegate, options);
     }
     /**
      * Modifying an Existing Session
@@ -15051,7 +15287,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             // FIXME: TODO: This should throw a proper exception.
             throw new Error("There is an ongoing re-INVITE server transaction.");
         }
-        return new _user_agents_re_invite_user_agent_client__WEBPACK_IMPORTED_MODULE_8__.ReInviteUserAgentClient(this, delegate, options);
+        return new _user_agents_re_invite_user_agent_client_js__WEBPACK_IMPORTED_MODULE_8__.ReInviteUserAgentClient(this, delegate, options);
     }
     /**
      * A UAC MAY associate a MESSAGE request with an existing dialog.  If a
@@ -15066,8 +15302,8 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             // FIXME: TODO: This should throw a proper exception.
             throw new Error("Dialog not confirmed.");
         }
-        const message = this.createOutgoingRequestMessage(_messages__WEBPACK_IMPORTED_MODULE_4__.C.MESSAGE, options);
-        return new _user_agents_message_user_agent_client__WEBPACK_IMPORTED_MODULE_9__.MessageUserAgentClient(this.core, message, delegate);
+        const message = this.createOutgoingRequestMessage(_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.MESSAGE, options);
+        return new _user_agents_message_user_agent_client_js__WEBPACK_IMPORTED_MODULE_9__.MessageUserAgentClient(this.core, message, delegate);
     }
     /**
      * The NOTIFY mechanism defined in [2] MUST be used to inform the agent
@@ -15081,7 +15317,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             // FIXME: TODO: This should throw a proper exception.
             throw new Error("Dialog not confirmed.");
         }
-        return new _user_agents_notify_user_agent_client__WEBPACK_IMPORTED_MODULE_10__.NotifyUserAgentClient(this, delegate, options);
+        return new _user_agents_notify_user_agent_client_js__WEBPACK_IMPORTED_MODULE_10__.NotifyUserAgentClient(this, delegate, options);
     }
     /**
      * Assuming the response is to be transmitted reliably, the UAC MUST
@@ -15095,7 +15331,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
      */
     prack(delegate, options) {
         this.logger.log(`INVITE dialog ${this.id} sending PRACK request`);
-        return new _user_agents_prack_user_agent_client__WEBPACK_IMPORTED_MODULE_11__.PrackUserAgentClient(this, delegate, options);
+        return new _user_agents_prack_user_agent_client_js__WEBPACK_IMPORTED_MODULE_11__.PrackUserAgentClient(this, delegate, options);
     }
     /**
      * REFER is a SIP request and is constructed as defined in [1].  A REFER
@@ -15110,7 +15346,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             throw new Error("Dialog not confirmed.");
         }
         // FIXME: TODO: Validate Refer-To header field value.
-        return new _user_agents_refer_user_agent_client__WEBPACK_IMPORTED_MODULE_12__.ReferUserAgentClient(this, delegate, options);
+        return new _user_agents_refer_user_agent_client_js__WEBPACK_IMPORTED_MODULE_12__.ReferUserAgentClient(this, delegate, options);
     }
     /**
      * Requests sent within a dialog, as any other requests, are atomic.  If
@@ -15126,12 +15362,12 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         // response is received.  This is independent of whatever transport
         // protocols are used to send the response.
         // https://tools.ietf.org/html/rfc6026#section-8.1
-        if (message.method === _messages__WEBPACK_IMPORTED_MODULE_4__.C.ACK) {
+        if (message.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.ACK) {
             // If ackWait is true, then this is the ACK to the initial INVITE,
             // otherwise this is an ACK to an in dialog INVITE. In either case,
             // guard to make sure the sequence number of the ACK matches the INVITE.
             if (this.ackWait) {
-                if (this.initialTransaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_3__.InviteClientTransaction) {
+                if (this.initialTransaction instanceof _transactions_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_3__.InviteClientTransaction) {
                     this.logger.warn(`INVITE dialog ${this.id} received unexpected ${message.method} request, dropping.`);
                     return;
                 }
@@ -15174,7 +15410,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         // https://tools.ietf.org/html/rfc3261#section-12.2.2
         super.receiveRequest(message);
         // Handle various INVITE related cross-over, glare and race conditions
-        if (message.method === _messages__WEBPACK_IMPORTED_MODULE_4__.C.INVITE) {
+        if (message.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.INVITE) {
             // Hopefully this message is helpful...
             const warning = () => {
                 const reason = this.ackWait ? "waiting for initial ACK" : "processing initial ACK";
@@ -15226,7 +15462,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             // 3.1.5.  Callee Receives re-INVITE (Established State) While in the
             // Moratorium State (Case 2)
             // https://tools.ietf.org/html/rfc5407#section-3.1.5
-            if (this.ackWait && this.signalingState !== _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable) {
+            if (this.ackWait && this.signalingState !== _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable) {
                 // This scenario is basically the same as that of Section 3.1.4, but
                 // differs in sending an offer in the 200 and an answer in the ACK.  In
                 // contrast to the previous case, the offer in the 200 (F3) and the
@@ -15284,21 +15520,21 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         // latter would introduce severe backwards compatibility problems with
         // RFC 2543-compliant systems.
         // https://tools.ietf.org/html/rfc3261#section-15
-        if (message.method === _messages__WEBPACK_IMPORTED_MODULE_4__.C.INVITE) {
+        if (message.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.INVITE) {
             // FIXME: parser needs to be typed...
             const contact = message.parseHeader("contact");
             if (!contact) {
                 // TODO: Review to make sure this will never happen
                 throw new Error("Contact undefined.");
             }
-            if (!(contact instanceof _messages__WEBPACK_IMPORTED_MODULE_13__.NameAddrHeader)) {
+            if (!(contact instanceof _grammar_name_addr_header_js__WEBPACK_IMPORTED_MODULE_13__.NameAddrHeader)) {
                 throw new Error("Contact not instance of NameAddrHeader.");
             }
             this.dialogState.remoteTarget = contact.uri;
         }
         // Switch on method and then delegate.
         switch (message.method) {
-            case _messages__WEBPACK_IMPORTED_MODULE_4__.C.BYE:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.BYE:
                 // A UAS core receiving a BYE request for an existing dialog MUST follow
                 // the procedures of Section 12.2.2 to process the request.  Once done,
                 // the UAS SHOULD terminate the session (and therefore stop sending and
@@ -15314,19 +15550,19 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
                 // be generated to those pending requests.
                 // https://tools.ietf.org/html/rfc3261#section-15.1.2
                 {
-                    const uas = new _user_agents_bye_user_agent_server__WEBPACK_IMPORTED_MODULE_14__.ByeUserAgentServer(this, message);
+                    const uas = new _user_agents_bye_user_agent_server_js__WEBPACK_IMPORTED_MODULE_14__.ByeUserAgentServer(this, message);
                     this.delegate && this.delegate.onBye ? this.delegate.onBye(uas) : uas.accept();
                     this.dispose();
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_4__.C.INFO:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.INFO:
                 // If a UA receives an INFO request associated with an Info Package that
                 // the UA has not indicated willingness to receive, the UA MUST send a
                 // 469 (Bad Info Package) response (see Section 11.6), which contains a
                 // Recv-Info header field with Info Packages for which the UA is willing
                 // to receive INFO requests.
                 {
-                    const uas = new _user_agents_info_user_agent_server__WEBPACK_IMPORTED_MODULE_15__.InfoUserAgentServer(this, message);
+                    const uas = new _user_agents_info_user_agent_server_js__WEBPACK_IMPORTED_MODULE_15__.InfoUserAgentServer(this, message);
                     this.delegate && this.delegate.onInfo
                         ? this.delegate.onInfo(uas)
                         : uas.reject({
@@ -15335,41 +15571,41 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
                         });
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_4__.C.INVITE:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.INVITE:
                 // If the new session description is not acceptable, the UAS can reject
                 // it by returning a 488 (Not Acceptable Here) response for the re-
                 // INVITE.  This response SHOULD include a Warning header field.
                 // https://tools.ietf.org/html/rfc3261#section-14.2
                 {
-                    const uas = new _user_agents_re_invite_user_agent_server__WEBPACK_IMPORTED_MODULE_16__.ReInviteUserAgentServer(this, message);
+                    const uas = new _user_agents_re_invite_user_agent_server_js__WEBPACK_IMPORTED_MODULE_16__.ReInviteUserAgentServer(this, message);
                     this.signalingStateTransition(message);
                     this.delegate && this.delegate.onInvite ? this.delegate.onInvite(uas) : uas.reject({ statusCode: 488 }); // TODO: Warning header field.
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_4__.C.MESSAGE:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.MESSAGE:
                 {
-                    const uas = new _user_agents_message_user_agent_server__WEBPACK_IMPORTED_MODULE_17__.MessageUserAgentServer(this.core, message);
+                    const uas = new _user_agents_message_user_agent_server_js__WEBPACK_IMPORTED_MODULE_17__.MessageUserAgentServer(this.core, message);
                     this.delegate && this.delegate.onMessage ? this.delegate.onMessage(uas) : uas.accept();
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_4__.C.NOTIFY:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.NOTIFY:
                 // https://tools.ietf.org/html/rfc3515#section-2.4.4
                 {
-                    const uas = new _user_agents_notify_user_agent_server__WEBPACK_IMPORTED_MODULE_18__.NotifyUserAgentServer(this, message);
+                    const uas = new _user_agents_notify_user_agent_server_js__WEBPACK_IMPORTED_MODULE_18__.NotifyUserAgentServer(this, message);
                     this.delegate && this.delegate.onNotify ? this.delegate.onNotify(uas) : uas.accept();
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_4__.C.PRACK:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.PRACK:
                 // https://tools.ietf.org/html/rfc3262#section-4
                 {
-                    const uas = new _user_agents_prack_user_agent_server__WEBPACK_IMPORTED_MODULE_19__.PrackUserAgentServer(this, message);
+                    const uas = new _user_agents_prack_user_agent_server_js__WEBPACK_IMPORTED_MODULE_19__.PrackUserAgentServer(this, message);
                     this.delegate && this.delegate.onPrack ? this.delegate.onPrack(uas) : uas.accept();
                 }
                 break;
-            case _messages__WEBPACK_IMPORTED_MODULE_4__.C.REFER:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_4__.C.REFER:
                 // https://tools.ietf.org/html/rfc3515#section-2.4.2
                 {
-                    const uas = new _user_agents_refer_user_agent_server__WEBPACK_IMPORTED_MODULE_20__.ReferUserAgentServer(this, message);
+                    const uas = new _user_agents_refer_user_agent_server_js__WEBPACK_IMPORTED_MODULE_20__.ReferUserAgentServer(this, message);
                     this.delegate && this.delegate.onRefer ? this.delegate.onRefer(uas) : uas.reject();
                 }
                 break;
@@ -15434,10 +15670,10 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
      * If not in a stable signaling state, rollback to prior stable signaling state.
      */
     signalingStateRollback() {
-        if (this._signalingState === _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer ||
-            this.signalingState === _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer) {
+        if (this._signalingState === _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer ||
+            this.signalingState === _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer) {
             if (this._rollbackOffer && this._rollbackAnswer) {
-                this._signalingState = _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable;
+                this._signalingState = _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable;
                 this._offer = this._rollbackOffer;
                 this._answer = this._rollbackAnswer;
             }
@@ -15448,107 +15684,107 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
      * @param message - The message to base the update off of.
      */
     signalingStateTransition(message) {
-        const body = (0,_messages__WEBPACK_IMPORTED_MODULE_21__.getBody)(message);
+        const body = (0,_messages_body_js__WEBPACK_IMPORTED_MODULE_21__.getBody)(message);
         // No body, no session. No, woman, no cry.
         if (!body || body.contentDisposition !== "session") {
             return;
         }
         // We've got an existing offer and answer which we may wish to rollback to
-        if (this._signalingState === _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable) {
+        if (this._signalingState === _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable) {
             this._rollbackOffer = this._offer;
             this._rollbackAnswer = this._answer;
         }
         // We're in UAS role, receiving incoming request with session description
-        if (message instanceof _messages__WEBPACK_IMPORTED_MODULE_22__.IncomingRequestMessage) {
+        if (message instanceof _messages_incoming_request_message_js__WEBPACK_IMPORTED_MODULE_22__.IncomingRequestMessage) {
             switch (this._signalingState) {
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Initial:
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable:
-                    this._signalingState = _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer;
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Initial:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable:
+                    this._signalingState = _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer;
                     this._offer = body;
                     this._answer = undefined;
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer:
-                    this._signalingState = _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable;
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer:
+                    this._signalingState = _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable;
                     this._answer = body;
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer:
                     // You cannot make a new offer while one is in progress.
                     // https://tools.ietf.org/html/rfc3261#section-13.2.1
                     // FIXME: What to do here?
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed:
                     break;
                 default:
                     throw new Error("Unexpected signaling state.");
             }
         }
         // We're in UAC role, receiving incoming response with session description
-        if (message instanceof _messages__WEBPACK_IMPORTED_MODULE_23__.IncomingResponseMessage) {
+        if (message instanceof _messages_incoming_response_message_js__WEBPACK_IMPORTED_MODULE_23__.IncomingResponseMessage) {
             switch (this._signalingState) {
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Initial:
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable:
-                    this._signalingState = _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer;
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Initial:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable:
+                    this._signalingState = _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer;
                     this._offer = body;
                     this._answer = undefined;
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer:
-                    this._signalingState = _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable;
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer:
+                    this._signalingState = _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable;
                     this._answer = body;
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer:
                     // You cannot make a new offer while one is in progress.
                     // https://tools.ietf.org/html/rfc3261#section-13.2.1
                     // FIXME: What to do here?
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed:
                     break;
                 default:
                     throw new Error("Unexpected signaling state.");
             }
         }
         // We're in UAC role, sending outgoing request with session description
-        if (message instanceof _messages__WEBPACK_IMPORTED_MODULE_24__.OutgoingRequestMessage) {
+        if (message instanceof _messages_outgoing_request_message_js__WEBPACK_IMPORTED_MODULE_24__.OutgoingRequestMessage) {
             switch (this._signalingState) {
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Initial:
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable:
-                    this._signalingState = _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer;
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Initial:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable:
+                    this._signalingState = _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer;
                     this._offer = body;
                     this._answer = undefined;
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer:
                     // You cannot make a new offer while one is in progress.
                     // https://tools.ietf.org/html/rfc3261#section-13.2.1
                     // FIXME: What to do here?
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer:
-                    this._signalingState = _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable;
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer:
+                    this._signalingState = _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable;
                     this._answer = body;
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed:
                     break;
                 default:
                     throw new Error("Unexpected signaling state.");
             }
         }
         // We're in UAS role, sending outgoing response with session description
-        if ((0,_messages__WEBPACK_IMPORTED_MODULE_21__.isBody)(message)) {
+        if ((0,_messages_body_js__WEBPACK_IMPORTED_MODULE_21__.isBody)(message)) {
             switch (this._signalingState) {
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Initial:
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable:
-                    this._signalingState = _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer;
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Initial:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable:
+                    this._signalingState = _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer;
                     this._offer = body;
                     this._answer = undefined;
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveLocalOffer:
                     // You cannot make a new offer while one is in progress.
                     // https://tools.ietf.org/html/rfc3261#section-13.2.1
                     // FIXME: What to do here?
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer:
-                    this._signalingState = _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable;
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.HaveRemoteOffer:
+                    this._signalingState = _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Stable;
                     this._answer = body;
                     break;
-                case _session__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed:
+                case _session_session_js__WEBPACK_IMPORTED_MODULE_1__.SignalingState.Closed:
                     break;
                 default:
                     throw new Error("Unexpected signaling state.");
@@ -15556,7 +15792,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         }
     }
     start2xxRetransmissionTimer() {
-        if (this.initialTransaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
+        if (this.initialTransaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
             const transaction = this.initialTransaction;
             // Once the response has been constructed, it is passed to the INVITE
             // server transaction.  In order to ensure reliable end-to-end
@@ -15569,7 +15805,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             // response is received.  This is independent of whatever transport
             // protocols are used to send the response.
             // https://tools.ietf.org/html/rfc6026#section-8.1
-            let timeout = _timers__WEBPACK_IMPORTED_MODULE_25__.Timers.T1;
+            let timeout = _timers_js__WEBPACK_IMPORTED_MODULE_25__.Timers.T1;
             const retransmission = () => {
                 if (!this.ackWait) {
                     this.invite2xxTimer = undefined;
@@ -15577,7 +15813,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
                 }
                 this.logger.log("No ACK for 2xx response received, attempting retransmission");
                 transaction.retransmitAcceptedResponse();
-                timeout = Math.min(timeout * 2, _timers__WEBPACK_IMPORTED_MODULE_25__.Timers.T2);
+                timeout = Math.min(timeout * 2, _timers_js__WEBPACK_IMPORTED_MODULE_25__.Timers.T2);
                 this.invite2xxTimer = setTimeout(retransmission, timeout);
             };
             this.invite2xxTimer = setTimeout(retransmission, timeout);
@@ -15586,7 +15822,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             // terminated.  This is accomplished with a BYE, as described in Section 15.
             // https://tools.ietf.org/html/rfc3261#section-13.3.1.4
             const stateChanged = () => {
-                if (transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_5__.TransactionState.Terminated) {
+                if (transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_5__.TransactionState.Terminated) {
                     transaction.removeStateChangeListener(stateChanged);
                     if (this.invite2xxTimer) {
                         clearTimeout(this.invite2xxTimer);
@@ -15607,7 +15843,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
     }
     // FIXME: Refactor
     startReInvite2xxRetransmissionTimer() {
-        if (this.reinviteUserAgentServer && this.reinviteUserAgentServer.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
+        if (this.reinviteUserAgentServer && this.reinviteUserAgentServer.transaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
             const transaction = this.reinviteUserAgentServer.transaction;
             // Once the response has been constructed, it is passed to the INVITE
             // server transaction.  In order to ensure reliable end-to-end
@@ -15620,7 +15856,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             // response is received.  This is independent of whatever transport
             // protocols are used to send the response.
             // https://tools.ietf.org/html/rfc6026#section-8.1
-            let timeout = _timers__WEBPACK_IMPORTED_MODULE_25__.Timers.T1;
+            let timeout = _timers_js__WEBPACK_IMPORTED_MODULE_25__.Timers.T1;
             const retransmission = () => {
                 if (!this.reinviteUserAgentServer) {
                     this.invite2xxTimer = undefined;
@@ -15628,7 +15864,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
                 }
                 this.logger.log("No ACK for 2xx response received, attempting retransmission");
                 transaction.retransmitAcceptedResponse();
-                timeout = Math.min(timeout * 2, _timers__WEBPACK_IMPORTED_MODULE_25__.Timers.T2);
+                timeout = Math.min(timeout * 2, _timers_js__WEBPACK_IMPORTED_MODULE_25__.Timers.T2);
                 this.invite2xxTimer = setTimeout(retransmission, timeout);
             };
             this.invite2xxTimer = setTimeout(retransmission, timeout);
@@ -15637,7 +15873,7 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             // terminated.  This is accomplished with a BYE, as described in Section 15.
             // https://tools.ietf.org/html/rfc3261#section-13.3.1.4
             const stateChanged = () => {
-                if (transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_5__.TransactionState.Terminated) {
+                if (transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_5__.TransactionState.Terminated) {
                     transaction.removeStateChangeListener(stateChanged);
                     if (this.invite2xxTimer) {
                         clearTimeout(this.invite2xxTimer);
@@ -15655,17 +15891,17 @@ class SessionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "InviteServerTransaction": () => (/* binding */ InviteServerTransaction)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
-/* harmony import */ var _timers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(36);
-/* harmony import */ var _server_transaction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(72);
-/* harmony import */ var _transaction_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(63);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(30);
+/* harmony import */ var _timers_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(37);
+/* harmony import */ var _server_transaction_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
 
 
 
@@ -15676,7 +15912,7 @@ __webpack_require__.r(__webpack_exports__);
  * https://tools.ietf.org/html/rfc3261#section-17.2.1
  * @public
  */
-class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODULE_0__.ServerTransaction {
+class InviteServerTransaction extends _server_transaction_js__WEBPACK_IMPORTED_MODULE_0__.ServerTransaction {
     /**
      * Constructor.
      * Upon construction, a "100 Trying" reply will be immediately sent.
@@ -15688,7 +15924,7 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
      * @param user - The transaction user.
      */
     constructor(request, transport, user) {
-        super(request, transport, user, _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding, "sip.transaction.ist");
+        super(request, transport, user, _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding, "sip.transaction.ist");
     }
     /**
      * Destructor.
@@ -15719,12 +15955,12 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
      */
     receiveRequest(request) {
         switch (this.state) {
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
                 // If a request retransmission is received while in the "Proceeding" state, the most
                 // recent provisional response that was received from the TU MUST be passed to the
                 // transport layer for retransmission.
                 // https://tools.ietf.org/html/rfc3261#section-17.2.1
-                if (request.method === _messages__WEBPACK_IMPORTED_MODULE_2__.C.INVITE) {
+                if (request.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__.C.INVITE) {
                     if (this.lastProvisionalResponse) {
                         this.send(this.lastProvisionalResponse).catch((error) => {
                             this.logTransportError(error, "Failed to send retransmission of provisional response.");
@@ -15733,21 +15969,21 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted:
                 // While in the "Accepted" state, any retransmissions of the INVITE
                 // received will match this transaction state machine and will be
                 // absorbed by the machine without changing its state. These
                 // retransmissions are not passed onto the TU.
                 // https://tools.ietf.org/html/rfc6026#section-7.1
-                if (request.method === _messages__WEBPACK_IMPORTED_MODULE_2__.C.INVITE) {
+                if (request.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__.C.INVITE) {
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
                 // Furthermore, while in the "Completed" state, if a request retransmission is
                 // received, the server SHOULD pass the response to the transport for retransmission.
                 // https://tools.ietf.org/html/rfc3261#section-17.2.1
-                if (request.method === _messages__WEBPACK_IMPORTED_MODULE_2__.C.INVITE) {
+                if (request.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__.C.INVITE) {
                     if (!this.lastFinalResponse) {
                         throw new Error("Last final response undefined.");
                     }
@@ -15759,22 +15995,22 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
                 // If an ACK is received while the server transaction is in the "Completed" state,
                 // the server transaction MUST transition to the "Confirmed" state.
                 // https://tools.ietf.org/html/rfc3261#section-17.2.1
-                if (request.method === _messages__WEBPACK_IMPORTED_MODULE_2__.C.ACK) {
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed);
+                if (request.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__.C.ACK) {
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed);
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed:
                 // The purpose of the "Confirmed" state is to absorb any additional ACK messages that arrive,
                 // triggered from retransmissions of the final response.
                 // https://tools.ietf.org/html/rfc3261#section-17.2.1
-                if (request.method === _messages__WEBPACK_IMPORTED_MODULE_2__.C.INVITE || request.method === _messages__WEBPACK_IMPORTED_MODULE_2__.C.ACK) {
+                if (request.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__.C.INVITE || request.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__.C.ACK) {
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
                 // For good measure absorb any additional messages that arrive (should not happen).
-                if (request.method === _messages__WEBPACK_IMPORTED_MODULE_2__.C.INVITE || request.method === _messages__WEBPACK_IMPORTED_MODULE_2__.C.ACK) {
+                if (request.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__.C.INVITE || request.method === _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__.C.ACK) {
                     return;
                 }
                 break;
@@ -15795,7 +16031,7 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
             throw new Error(`Invalid status code ${statusCode}`);
         }
         switch (this.state) {
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
                 // The TU passes any number of provisional responses to the server
                 // transaction. So long as the server transaction is in the
                 // "Proceeding" state, each of these MUST be passed to the transport
@@ -15823,7 +16059,7 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
                 // https://tools.ietf.org/html/rfc6026#section-8.5
                 if (statusCode >= 200 && statusCode <= 299) {
                     this.lastFinalResponse = response;
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted);
                     this.send(response).catch((error) => {
                         this.logTransportError(error, "Failed to send 2xx response.");
                     });
@@ -15836,14 +16072,14 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
                 // https://tools.ietf.org/html/rfc3261#section-17.2.1
                 if (statusCode >= 300 && statusCode <= 699) {
                     this.lastFinalResponse = response;
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
                     this.send(response).catch((error) => {
                         this.logTransportError(error, "Failed to send non-2xx final response.");
                     });
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted:
                 // While in the "Accepted" state, if the TU passes a 2xx response,
                 // the server transaction MUST pass the response to the transport layer for transmission.
                 // https://tools.ietf.org/html/rfc6026#section-8.7
@@ -15854,11 +16090,11 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed:
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
                 break;
             default:
                 throw new Error(`Invalid state ${this.state}`);
@@ -15871,7 +16107,7 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
      * Retransmit the last 2xx response. This is a noop if not in the "accepted" state.
      */
     retransmitAcceptedResponse() {
-        if (this.state === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted && this.lastFinalResponse) {
+        if (this.state === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted && this.lastFinalResponse) {
             this.send(this.lastFinalResponse).catch((error) => {
                 this.logTransportError(error, "Failed to send 2xx response.");
             });
@@ -15902,24 +16138,24 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
             throw new Error(`Invalid state transition from ${this.state} to ${newState}`);
         };
         switch (newState) {
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
                 invalidStateTransition();
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted:
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
                     invalidStateTransition();
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
                     invalidStateTransition();
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted &&
-                    this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed &&
-                    this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted &&
+                    this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed &&
+                    this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed) {
                     invalidStateTransition();
                 }
                 break;
@@ -15933,30 +16169,30 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
         // They are not passed up to the TU since any downstream UAS cores that accepted the request have
         // taken responsibility for reliability and will already retransmit their 2xx responses if necessary.
         // https://tools.ietf.org/html/rfc6026#section-8.7
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted) {
-            this.L = setTimeout(() => this.timerL(), _timers__WEBPACK_IMPORTED_MODULE_3__.Timers.TIMER_L);
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted) {
+            this.L = setTimeout(() => this.timerL(), _timers_js__WEBPACK_IMPORTED_MODULE_3__.Timers.TIMER_L);
         }
         // When the "Completed" state is entered, timer H MUST be set to fire in 64*T1 seconds for all transports.
         // Timer H determines when the server transaction abandons retransmitting the response.
         // If an ACK is received while the server transaction is in the "Completed" state,
         // the server transaction MUST transition to the "Confirmed" state.
         // https://tools.ietf.org/html/rfc3261#section-17.2.1
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
             // FIXME: Missing timer G for unreliable transports.
-            this.H = setTimeout(() => this.timerH(), _timers__WEBPACK_IMPORTED_MODULE_3__.Timers.TIMER_H);
+            this.H = setTimeout(() => this.timerH(), _timers_js__WEBPACK_IMPORTED_MODULE_3__.Timers.TIMER_H);
         }
         // The purpose of the "Confirmed" state is to absorb any additional ACK messages that arrive,
         // triggered from retransmissions of the final response. When this state is entered, timer I
         // is set to fire in T4 seconds for unreliable transports, and zero seconds for reliable
         // transports. Once timer I fires, the server MUST transition to the "Terminated" state.
         // https://tools.ietf.org/html/rfc3261#section-17.2.1
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed) {
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Confirmed) {
             // FIXME: This timer is not getting set correctly for unreliable transports.
-            this.I = setTimeout(() => this.timerI(), _timers__WEBPACK_IMPORTED_MODULE_3__.Timers.TIMER_I);
+            this.I = setTimeout(() => this.timerI(), _timers_js__WEBPACK_IMPORTED_MODULE_3__.Timers.TIMER_I);
         }
         // Once the transaction is in the "Terminated" state, it MUST be destroyed immediately.
         // https://tools.ietf.org/html/rfc6026#section-8.7
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated) {
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated) {
             this.dispose();
         }
         // Update state.
@@ -15977,7 +16213,7 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
                 this.send(this.lastProvisionalResponse).catch((error) => {
                     this.logTransportError(error, "Failed to send retransmission of provisional response.");
                 });
-            }, _timers__WEBPACK_IMPORTED_MODULE_3__.Timers.PROVISIONAL_RESPONSE_INTERVAL);
+            }, _timers_js__WEBPACK_IMPORTED_MODULE_3__.Timers.PROVISIONAL_RESPONSE_INTERVAL);
         }
     }
     /**
@@ -16013,9 +16249,9 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
      */
     timerH() {
         this.logger.debug(`Timer H expired for INVITE server transaction ${this.id}.`);
-        if (this.state === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+        if (this.state === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
             this.logger.warn("ACK to negative final response was never received, terminating transaction.");
-            this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
+            this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
         }
     }
     /**
@@ -16024,7 +16260,7 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
      */
     timerI() {
         this.logger.debug(`Timer I expired for INVITE server transaction ${this.id}.`);
-        this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
+        this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
     }
     /**
      * When Timer L fires and the state machine is in the "Accepted" state, the machine MUST
@@ -16037,22 +16273,22 @@ class InviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODU
      */
     timerL() {
         this.logger.debug(`Timer L expired for INVITE server transaction ${this.id}.`);
-        if (this.state === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted) {
-            this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
+        if (this.state === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Accepted) {
+            this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
         }
     }
 }
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ServerTransaction": () => (/* binding */ ServerTransaction)
 /* harmony export */ });
-/* harmony import */ var _transaction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
+/* harmony import */ var _transaction_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67);
 
 /**
  * Server Transaction.
@@ -16065,7 +16301,7 @@ __webpack_require__.r(__webpack_exports__);
  * https://tools.ietf.org/html/rfc3261#section-17.2
  * @public
  */
-class ServerTransaction extends _transaction__WEBPACK_IMPORTED_MODULE_0__.Transaction {
+class ServerTransaction extends _transaction_js__WEBPACK_IMPORTED_MODULE_0__.Transaction {
     constructor(_request, transport, user, state, loggerCategory) {
         super(transport, user, _request.viaBranch, state, loggerCategory);
         this._request = _request;
@@ -16079,16 +16315,16 @@ class ServerTransaction extends _transaction__WEBPACK_IMPORTED_MODULE_0__.Transa
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ByeUserAgentClient": () => (/* binding */ ByeUserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(64);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(65);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
 
 
 
@@ -16096,37 +16332,11 @@ __webpack_require__.r(__webpack_exports__);
  * BYE UAC.
  * @public
  */
-class ByeUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+class ByeUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
     constructor(dialog, delegate, options) {
-        const message = dialog.createOutgoingRequestMessage(_messages__WEBPACK_IMPORTED_MODULE_1__.C.BYE, options);
-        super(_transactions__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
+        const message = dialog.createOutgoingRequestMessage(_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__.C.BYE, options);
+        super(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
         dialog.dispose();
-    }
-}
-
-
-/***/ }),
-/* 74 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "InfoUserAgentClient": () => (/* binding */ InfoUserAgentClient)
-/* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(64);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
-
-
-
-/**
- * INFO UAC.
- * @public
- */
-class InfoUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
-    constructor(dialog, delegate, options) {
-        const message = dialog.createOutgoingRequestMessage(_messages__WEBPACK_IMPORTED_MODULE_1__.C.INFO, options);
-        super(_transactions__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
     }
 }
 
@@ -16137,11 +16347,37 @@ class InfoUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0_
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "InfoUserAgentClient": () => (/* binding */ InfoUserAgentClient)
+/* harmony export */ });
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(65);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
+
+
+
+/**
+ * INFO UAC.
+ * @public
+ */
+class InfoUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+    constructor(dialog, delegate, options) {
+        const message = dialog.createOutgoingRequestMessage(_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__.C.INFO, options);
+        super(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
+    }
+}
+
+
+/***/ }),
+/* 76 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ReInviteUserAgentClient": () => (/* binding */ ReInviteUserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+/* harmony import */ var _transactions_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(69);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
 
 
 
@@ -16154,10 +16390,10 @@ __webpack_require__.r(__webpack_exports__);
  * https://tools.ietf.org/html/rfc3261#section-14.1
  * @public
  */
-class ReInviteUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+class ReInviteUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
     constructor(dialog, delegate, options) {
-        const message = dialog.createOutgoingRequestMessage(_messages__WEBPACK_IMPORTED_MODULE_1__.C.INVITE, options);
-        super(_transactions__WEBPACK_IMPORTED_MODULE_2__.InviteClientTransaction, dialog.userAgentCore, message, delegate);
+        const message = dialog.createOutgoingRequestMessage(_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__.C.INVITE, options);
+        super(_transactions_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__.InviteClientTransaction, dialog.userAgentCore, message, delegate);
         this.delegate = delegate;
         dialog.signalingStateTransition(message);
         // FIXME: TODO: next line obviously needs to be improved...
@@ -16253,50 +16489,24 @@ class ReInviteUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODUL
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "MessageUserAgentClient": () => (/* binding */ MessageUserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(65);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
 
 
 /**
  * MESSAGE UAC.
  * @public
  */
-class MessageUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+class MessageUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
     constructor(core, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteClientTransaction, core, message, delegate);
-    }
-}
-
-
-/***/ }),
-/* 77 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "NotifyUserAgentClient": () => (/* binding */ NotifyUserAgentClient)
-/* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(64);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
-
-
-
-/**
- * NOTIFY UAS.
- * @public
- */
-class NotifyUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
-    constructor(dialog, delegate, options) {
-        const message = dialog.createOutgoingRequestMessage(_messages__WEBPACK_IMPORTED_MODULE_1__.C.NOTIFY, options);
-        super(_transactions__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
+        super(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteClientTransaction, core, message, delegate);
     }
 }
 
@@ -16307,23 +16517,22 @@ class NotifyUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PrackUserAgentClient": () => (/* binding */ PrackUserAgentClient)
+/* harmony export */   "NotifyUserAgentClient": () => (/* binding */ NotifyUserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(64);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(65);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
 
 
 
 /**
- * PRACK UAC.
+ * NOTIFY UAS.
  * @public
  */
-class PrackUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+class NotifyUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
     constructor(dialog, delegate, options) {
-        const message = dialog.createOutgoingRequestMessage(_messages__WEBPACK_IMPORTED_MODULE_1__.C.PRACK, options);
-        super(_transactions__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
-        dialog.signalingStateTransition(message);
+        const message = dialog.createOutgoingRequestMessage(_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__.C.NOTIFY, options);
+        super(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
     }
 }
 
@@ -16334,22 +16543,23 @@ class PrackUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ReferUserAgentClient": () => (/* binding */ ReferUserAgentClient)
+/* harmony export */   "PrackUserAgentClient": () => (/* binding */ PrackUserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(64);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(65);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
 
 
 
 /**
- * REFER UAC.
+ * PRACK UAC.
  * @public
  */
-class ReferUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+class PrackUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
     constructor(dialog, delegate, options) {
-        const message = dialog.createOutgoingRequestMessage(_messages__WEBPACK_IMPORTED_MODULE_1__.C.REFER, options);
-        super(_transactions__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
+        const message = dialog.createOutgoingRequestMessage(_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__.C.PRACK, options);
+        super(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
+        dialog.signalingStateTransition(message);
     }
 }
 
@@ -16360,19 +16570,22 @@ class ReferUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ByeUserAgentServer": () => (/* binding */ ByeUserAgentServer)
+/* harmony export */   "ReferUserAgentClient": () => (/* binding */ ReferUserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(82);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(65);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
+
 
 
 /**
- * BYE UAS.
+ * REFER UAC.
  * @public
  */
-class ByeUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
-    constructor(dialog, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, dialog.userAgentCore, message, delegate);
+class ReferUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+    constructor(dialog, delegate, options) {
+        const message = dialog.createOutgoingRequestMessage(_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__.C.REFER, options);
+        super(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
     }
 }
 
@@ -16383,14 +16596,39 @@ class ByeUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ByeUserAgentServer": () => (/* binding */ ByeUserAgentServer)
+/* harmony export */ });
+/* harmony import */ var _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
+
+
+/**
+ * BYE UAS.
+ * @public
+ */
+class ByeUserAgentServer extends _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
+    constructor(dialog, message, delegate) {
+        super(_transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, dialog.userAgentCore, message, delegate);
+    }
+}
+
+
+/***/ }),
+/* 82 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserAgentServer": () => (/* binding */ UserAgentServer)
 /* harmony export */ });
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(83);
-/* harmony import */ var _messages_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(20);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(63);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(82);
+/* harmony import */ var _exceptions_transaction_state_error_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+/* harmony import */ var _messages_outgoing_response_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(84);
+/* harmony import */ var _messages_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
+/* harmony import */ var _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72);
+/* harmony import */ var _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(83);
+/* harmony import */ var _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(64);
+
+
 
 
 
@@ -16416,7 +16654,7 @@ class UserAgentServer {
         this.message = message;
         this.delegate = delegate;
         this.logger = this.loggerFactory.getLogger("sip.user-agent-server");
-        this.toTag = message.toTag ? message.toTag : (0,_messages_utils__WEBPACK_IMPORTED_MODULE_0__.newTag)();
+        this.toTag = message.toTag ? message.toTag : (0,_messages_utils_js__WEBPACK_IMPORTED_MODULE_0__.newTag)();
         this.init();
     }
     dispose() {
@@ -16434,7 +16672,7 @@ class UserAgentServer {
     }
     accept(options = { statusCode: 200 }) {
         if (!this.acceptable) {
-            throw new _exceptions__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError(`${this.message.method} not acceptable in state ${this.transaction.state}.`);
+            throw new _exceptions_transaction_state_error_js__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError(`${this.message.method} not acceptable in state ${this.transaction.state}.`);
         }
         const statusCode = options.statusCode;
         if (statusCode < 200 || statusCode > 299) {
@@ -16445,7 +16683,7 @@ class UserAgentServer {
     }
     progress(options = { statusCode: 180 }) {
         if (!this.progressable) {
-            throw new _exceptions__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError(`${this.message.method} not progressable in state ${this.transaction.state}.`);
+            throw new _exceptions_transaction_state_error_js__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError(`${this.message.method} not progressable in state ${this.transaction.state}.`);
         }
         const statusCode = options.statusCode;
         if (statusCode < 101 || statusCode > 199) {
@@ -16456,7 +16694,7 @@ class UserAgentServer {
     }
     redirect(contacts, options = { statusCode: 302 }) {
         if (!this.redirectable) {
-            throw new _exceptions__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError(`${this.message.method} not redirectable in state ${this.transaction.state}.`);
+            throw new _exceptions_transaction_state_error_js__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError(`${this.message.method} not redirectable in state ${this.transaction.state}.`);
         }
         const statusCode = options.statusCode;
         if (statusCode < 300 || statusCode > 399) {
@@ -16470,7 +16708,7 @@ class UserAgentServer {
     }
     reject(options = { statusCode: 480 }) {
         if (!this.rejectable) {
-            throw new _exceptions__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError(`${this.message.method} not rejectable in state ${this.transaction.state}.`);
+            throw new _exceptions_transaction_state_error_js__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError(`${this.message.method} not rejectable in state ${this.transaction.state}.`);
         }
         const statusCode = options.statusCode;
         if (statusCode < 400 || statusCode > 699) {
@@ -16482,7 +16720,7 @@ class UserAgentServer {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     trying(options) {
         if (!this.tryingable) {
-            throw new _exceptions__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError(`${this.message.method} not tryingable in state ${this.transaction.state}.`);
+            throw new _exceptions_transaction_state_error_js__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError(`${this.message.method} not tryingable in state ${this.transaction.state}.`);
         }
         const response = this.reply({ statusCode: 100 });
         return response;
@@ -16516,47 +16754,47 @@ class UserAgentServer {
         }
     }
     get acceptable() {
-        if (this.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
-            return (this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding || this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Accepted);
+        if (this.transaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
+            return (this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding || this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Accepted);
         }
-        if (this.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction) {
-            return (this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Trying || this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding);
+        if (this.transaction instanceof _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction) {
+            return (this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Trying || this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding);
         }
         throw new Error("Unknown transaction type.");
     }
     get progressable() {
-        if (this.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
-            return this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding;
+        if (this.transaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
+            return this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding;
         }
-        if (this.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction) {
+        if (this.transaction instanceof _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction) {
             return false; // https://tools.ietf.org/html/rfc4320#section-4.1
         }
         throw new Error("Unknown transaction type.");
     }
     get redirectable() {
-        if (this.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
-            return this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding;
+        if (this.transaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
+            return this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding;
         }
-        if (this.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction) {
-            return (this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Trying || this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding);
+        if (this.transaction instanceof _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction) {
+            return (this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Trying || this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding);
         }
         throw new Error("Unknown transaction type.");
     }
     get rejectable() {
-        if (this.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
-            return this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding;
+        if (this.transaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
+            return this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding;
         }
-        if (this.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction) {
-            return (this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Trying || this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding);
+        if (this.transaction instanceof _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction) {
+            return (this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Trying || this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding);
         }
         throw new Error("Unknown transaction type.");
     }
     get tryingable() {
-        if (this.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
-            return this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding;
+        if (this.transaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction) {
+            return this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Proceeding;
         }
-        if (this.transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction) {
-            return this.transaction.state === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Trying;
+        if (this.transaction instanceof _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction) {
+            return this.transaction.state === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Trying;
         }
         throw new Error("Unknown transaction type.");
     }
@@ -16579,7 +16817,7 @@ class UserAgentServer {
         }
         options.userAgent = options.userAgent || this.core.configuration.userAgentHeaderFieldValue;
         options.supported = options.supported || this.core.configuration.supportedOptionTagsResponse;
-        const response = (0,_messages__WEBPACK_IMPORTED_MODULE_5__.constructOutgoingResponse)(this.message, options);
+        const response = (0,_messages_outgoing_response_js__WEBPACK_IMPORTED_MODULE_5__.constructOutgoingResponse)(this.message, options);
         this.transaction.receiveResponse(options.statusCode, response.message);
         return response;
     }
@@ -16588,7 +16826,7 @@ class UserAgentServer {
         const user = {
             loggerFactory: this.loggerFactory,
             onStateChange: (newState) => {
-                if (newState === _transactions__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Terminated) {
+                if (newState === _transactions_transaction_state_js__WEBPACK_IMPORTED_MODULE_3__.TransactionState.Terminated) {
                     // Remove the terminated transaction from the core.
                     // eslint-disable-next-line @typescript-eslint/no-use-before-define
                     this.core.userAgentServers.delete(userAgentServerId);
@@ -16616,16 +16854,16 @@ class UserAgentServer {
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "NonInviteServerTransaction": () => (/* binding */ NonInviteServerTransaction)
 /* harmony export */ });
-/* harmony import */ var _timers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36);
-/* harmony import */ var _server_transaction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(72);
-/* harmony import */ var _transaction_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(63);
+/* harmony import */ var _timers_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37);
+/* harmony import */ var _server_transaction_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
 
 
 
@@ -16635,7 +16873,7 @@ __webpack_require__.r(__webpack_exports__);
  * https://tools.ietf.org/html/rfc3261#section-17.2.2
  * @public
  */
-class NonInviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_MODULE_0__.ServerTransaction {
+class NonInviteServerTransaction extends _server_transaction_js__WEBPACK_IMPORTED_MODULE_0__.ServerTransaction {
     /**
      * Constructor.
      * After construction the transaction will be in the "trying": state and the transaction
@@ -16646,7 +16884,7 @@ class NonInviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_M
      * @param user - The transaction user.
      */
     constructor(request, transport, user) {
-        super(request, transport, user, _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying, "sip.transaction.nist");
+        super(request, transport, user, _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying, "sip.transaction.nist");
     }
     /**
      * Destructor.
@@ -16669,11 +16907,11 @@ class NonInviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_M
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     receiveRequest(request) {
         switch (this.state) {
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying:
                 // Once in the "Trying" state, any further request retransmissions are discarded.
                 // https://tools.ietf.org/html/rfc3261#section-17.2.2
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
                 // If a retransmission of the request is received while in the "Proceeding" state,
                 // the most recently sent provisional response MUST be passed to the transport layer for retransmission.
                 // https://tools.ietf.org/html/rfc3261#section-17.2.2
@@ -16684,7 +16922,7 @@ class NonInviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_M
                     this.logTransportError(error, "Failed to send retransmission of provisional response.");
                 });
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
                 // While in the "Completed" state, the server transaction MUST pass the final response to the transport
                 // layer for retransmission whenever a retransmission of the request is received. Any other final responses
                 // passed by the TU to the server transaction MUST be discarded while in the "Completed" state.
@@ -16696,7 +16934,7 @@ class NonInviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_M
                     this.logTransportError(error, "Failed to send retransmission of final response.");
                 });
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
                 break;
             default:
                 throw new Error(`Invalid state ${this.state}`);
@@ -16723,28 +16961,28 @@ class NonInviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_M
             throw new Error("Provisional response other than 100 not allowed.");
         }
         switch (this.state) {
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying:
                 // While in the "Trying" state, if the TU passes a provisional response
                 // to the server transaction, the server transaction MUST enter the "Proceeding" state.
                 // The response MUST be passed to the transport layer for transmission.
                 // https://tools.ietf.org/html/rfc3261#section-17.2.2
                 this.lastResponse = response;
                 if (statusCode >= 100 && statusCode < 200) {
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding);
                     this.send(response).catch((error) => {
                         this.logTransportError(error, "Failed to send provisional response.");
                     });
                     return;
                 }
                 if (statusCode >= 200 && statusCode <= 699) {
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
                     this.send(response).catch((error) => {
                         this.logTransportError(error, "Failed to send final response.");
                     });
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
                 // Any further provisional responses that are received from the TU while
                 // in the "Proceeding" state MUST be passed to the transport layer for transmission.
                 // If the TU passes a final response (status codes 200-699) to the server while in
@@ -16753,19 +16991,19 @@ class NonInviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_M
                 // https://tools.ietf.org/html/rfc3261#section-17.2.2
                 this.lastResponse = response;
                 if (statusCode >= 200 && statusCode <= 699) {
-                    this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
+                    this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed);
                     this.send(response).catch((error) => {
                         this.logTransportError(error, "Failed to send final response.");
                     });
                     return;
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
                 // Any other final responses passed by the TU to the server
                 // transaction MUST be discarded while in the "Completed" state.
                 // https://tools.ietf.org/html/rfc3261#section-17.2.2
                 return;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
                 break;
             default:
                 throw new Error(`Invalid state ${this.state}`);
@@ -16784,7 +17022,7 @@ class NonInviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_M
         if (this.user.onTransportError) {
             this.user.onTransportError(error);
         }
-        this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated, true);
+        this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated, true);
     }
     /** For logging. */
     typeToString() {
@@ -16796,21 +17034,21 @@ class NonInviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_M
             throw new Error(`Invalid state transition from ${this.state} to ${newState}`);
         };
         switch (newState) {
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying:
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying:
                 invalidStateTransition();
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying) {
                     invalidStateTransition();
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying && this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Trying && this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding) {
                     invalidStateTransition();
                 }
                 break;
-            case _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
-                if (this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding && this.state !== _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+            case _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated:
+                if (this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Proceeding && this.state !== _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
                     if (!dueToTransportError) {
                         invalidStateTransition();
                     }
@@ -16822,12 +17060,12 @@ class NonInviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_M
         // When the server transaction enters the "Completed" state, it MUST set Timer J to fire
         // in 64*T1 seconds for unreliable transports, and zero seconds for reliable transports.
         // https://tools.ietf.org/html/rfc3261#section-17.2.2
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
-            this.J = setTimeout(() => this.timerJ(), _timers__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_J);
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+            this.J = setTimeout(() => this.timerJ(), _timers_js__WEBPACK_IMPORTED_MODULE_2__.Timers.TIMER_J);
         }
         // The server transaction MUST be destroyed the instant it enters the "Terminated" state.
         // https://tools.ietf.org/html/rfc3261#section-17.2.2
-        if (newState === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated) {
+        if (newState === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated) {
             this.dispose();
         }
         this.setState(newState);
@@ -16839,22 +17077,22 @@ class NonInviteServerTransaction extends _server_transaction__WEBPACK_IMPORTED_M
      */
     timerJ() {
         this.logger.debug(`Timer J expired for NON-INVITE server transaction ${this.id}.`);
-        if (this.state === _transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
-            this.stateTransition(_transaction_state__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
+        if (this.state === _transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Completed) {
+            this.stateTransition(_transaction_state_js__WEBPACK_IMPORTED_MODULE_1__.TransactionState.Terminated);
         }
     }
 }
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "constructOutgoingResponse": () => (/* binding */ constructOutgoingResponse)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(20);
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
 
 /**
  * When a UAS wishes to construct a response to a request, it follows
@@ -16869,7 +17107,7 @@ function constructOutgoingResponse(message, options) {
     if (options.statusCode < 100 || options.statusCode > 699) {
         throw new TypeError("Invalid statusCode: " + options.statusCode);
     }
-    const reasonPhrase = options.reasonPhrase ? options.reasonPhrase : (0,_utils__WEBPACK_IMPORTED_MODULE_0__.getReasonPhrase)(options.statusCode);
+    const reasonPhrase = options.reasonPhrase ? options.reasonPhrase : (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.getReasonPhrase)(options.statusCode);
     // SIP responses are distinguished from requests by having a Status-Line
     // as their start-line.  A Status-Line consists of the protocol version
     // followed by a numeric Status-Code and its associated textual phrase,
@@ -16928,7 +17166,7 @@ function constructOutgoingResponse(message, options) {
             //    same request consistently.  For information on tag construction
             //    see Section 19.3.
             // https://tools.ietf.org/html/rfc3261#section-8.2.7
-            toTag = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.newTag)(); // FIXME: newTag() currently generates random tags
+            toTag = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.newTag)(); // FIXME: newTag() currently generates random tags
         }
         toHeader += ";tag=" + toTag;
     }
@@ -16973,7 +17211,7 @@ function constructOutgoingResponse(message, options) {
     response += extensionHeaders;
     if (options.body) {
         response += "Content-Type: " + options.body.contentType + CRLF;
-        response += "Content-Length: " + (0,_utils__WEBPACK_IMPORTED_MODULE_0__.utf8Length)(options.body.content) + CRLF + CRLF;
+        response += "Content-Length: " + (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.utf8Length)(options.body.content) + CRLF + CRLF;
         response += options.body.content;
     }
     else {
@@ -16984,38 +17222,38 @@ function constructOutgoingResponse(message, options) {
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "InfoUserAgentServer": () => (/* binding */ InfoUserAgentServer)
 /* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(82);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
+/* harmony import */ var _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
 
 
 /**
  * INFO UAS.
  * @public
  */
-class InfoUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
+class InfoUserAgentServer extends _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
     constructor(dialog, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, dialog.userAgentCore, message, delegate);
+        super(_transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, dialog.userAgentCore, message, delegate);
     }
 }
 
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ReInviteUserAgentServer": () => (/* binding */ ReInviteUserAgentServer)
 /* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
+/* harmony import */ var _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(72);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
 
 
 /**
@@ -17027,9 +17265,9 @@ __webpack_require__.r(__webpack_exports__);
  * https://tools.ietf.org/html/rfc3261#section-14.2
  * @public
  */
-class ReInviteUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
+class ReInviteUserAgentServer extends _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
     constructor(dialog, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.InviteServerTransaction, dialog.userAgentCore, message, delegate);
+        super(_transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.InviteServerTransaction, dialog.userAgentCore, message, delegate);
         dialog.reinviteUserAgentServer = this;
         this.dialog = dialog;
     }
@@ -17105,57 +17343,24 @@ class ReInviteUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODUL
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "MessageUserAgentServer": () => (/* binding */ MessageUserAgentServer)
 /* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(82);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
+/* harmony import */ var _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
 
 
 /**
  * MESSAGE UAS.
  * @public
  */
-class MessageUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
+class MessageUserAgentServer extends _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
     constructor(core, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, core, message, delegate);
-    }
-}
-
-
-/***/ }),
-/* 87 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "NotifyUserAgentServer": () => (/* binding */ NotifyUserAgentServer)
-/* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(82);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
-
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function instanceOfDialog(object) {
-    return object.userAgentCore !== undefined;
-}
-/**
- * NOTIFY UAS.
- * @public
- */
-class NotifyUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
-    /**
-     * NOTIFY UAS constructor.
-     * @param dialogOrCore - Dialog for in dialog NOTIFY, UserAgentCore for out of dialog NOTIFY (deprecated).
-     * @param message - Incoming NOTIFY request message.
-     */
-    constructor(dialogOrCore, message, delegate) {
-        const userAgentCore = instanceOfDialog(dialogOrCore) ? dialogOrCore.userAgentCore : dialogOrCore;
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, userAgentCore, message, delegate);
+        super(_transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, core, message, delegate);
     }
 }
 
@@ -17166,19 +17371,52 @@ class NotifyUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "NotifyUserAgentServer": () => (/* binding */ NotifyUserAgentServer)
+/* harmony export */ });
+/* harmony import */ var _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function instanceOfDialog(object) {
+    return object.userAgentCore !== undefined;
+}
+/**
+ * NOTIFY UAS.
+ * @public
+ */
+class NotifyUserAgentServer extends _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
+    /**
+     * NOTIFY UAS constructor.
+     * @param dialogOrCore - Dialog for in dialog NOTIFY, UserAgentCore for out of dialog NOTIFY (deprecated).
+     * @param message - Incoming NOTIFY request message.
+     */
+    constructor(dialogOrCore, message, delegate) {
+        const userAgentCore = instanceOfDialog(dialogOrCore) ? dialogOrCore.userAgentCore : dialogOrCore;
+        super(_transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, userAgentCore, message, delegate);
+    }
+}
+
+
+/***/ }),
+/* 89 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "PrackUserAgentServer": () => (/* binding */ PrackUserAgentServer)
 /* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(82);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
+/* harmony import */ var _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
 
 
 /**
  * PRACK UAS.
  * @public
  */
-class PrackUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
+class PrackUserAgentServer extends _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
     constructor(dialog, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, dialog.userAgentCore, message, delegate);
+        super(_transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, dialog.userAgentCore, message, delegate);
         // Update dialog signaling state with offer/answer in body
         dialog.signalingStateTransition(message);
         this.dialog = dialog;
@@ -17198,15 +17436,15 @@ class PrackUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0
 
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ReferUserAgentServer": () => (/* binding */ ReferUserAgentServer)
 /* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(82);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
+/* harmony import */ var _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17217,7 +17455,7 @@ function instanceOfSessionDialog(object) {
  * REFER UAS.
  * @public
  */
-class ReferUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
+class ReferUserAgentServer extends _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
     /**
      * REFER UAS constructor.
      * @param dialogOrCore - Dialog for in dialog REFER, UserAgentCore for out of dialog REFER.
@@ -17225,30 +17463,7 @@ class ReferUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0
      */
     constructor(dialogOrCore, message, delegate) {
         const userAgentCore = instanceOfSessionDialog(dialogOrCore) ? dialogOrCore.userAgentCore : dialogOrCore;
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, userAgentCore, message, delegate);
-    }
-}
-
-
-/***/ }),
-/* 90 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PublishUserAgentClient": () => (/* binding */ PublishUserAgentClient)
-/* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
-
-
-/**
- * PUBLISH UAC.
- * @public
- */
-class PublishUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
-    constructor(core, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteClientTransaction, core, message, delegate);
+        super(_transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, userAgentCore, message, delegate);
     }
 }
 
@@ -17259,19 +17474,19 @@ class PublishUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RegisterUserAgentClient": () => (/* binding */ RegisterUserAgentClient)
+/* harmony export */   "PublishUserAgentClient": () => (/* binding */ PublishUserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(65);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
 
 
 /**
- * REGISTER UAC.
+ * PUBLISH UAC.
  * @public
  */
-class RegisterUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+class PublishUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
     constructor(core, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteClientTransaction, core, message, delegate);
+        super(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteClientTransaction, core, message, delegate);
     }
 }
 
@@ -17282,13 +17497,36 @@ class RegisterUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODUL
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RegisterUserAgentClient": () => (/* binding */ RegisterUserAgentClient)
+/* harmony export */ });
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(65);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
+
+
+/**
+ * REGISTER UAC.
+ * @public
+ */
+class RegisterUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+    constructor(core, message, delegate) {
+        super(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteClientTransaction, core, message, delegate);
+    }
+}
+
+
+/***/ }),
+/* 93 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SubscribeUserAgentClient": () => (/* binding */ SubscribeUserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _dialogs_subscription_dialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(93);
-/* harmony import */ var _subscription__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(46);
-/* harmony import */ var _timers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(36);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _dialogs_subscription_dialog_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(94);
+/* harmony import */ var _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(47);
+/* harmony import */ var _timers_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(37);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(65);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
 
 
 
@@ -17304,7 +17542,7 @@ __webpack_require__.r(__webpack_exports__);
  * TODO: Support for installation of multiple subscriptions on forked SUBSCRIBE requests.
  * @public
  */
-class SubscribeUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+class SubscribeUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
     constructor(core, message, delegate) {
         // Get event from request message.
         const event = message.getHeader("Event");
@@ -17316,13 +17554,13 @@ class SubscribeUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODU
         if (!expires) {
             throw new Error("Expires undefined");
         }
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteClientTransaction, core, message, delegate);
+        super(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteClientTransaction, core, message, delegate);
         this.delegate = delegate;
         // FIXME: Subscriber id should also be matching on event id.
         this.subscriberId = message.callId + message.fromTag + event;
         this.subscriptionExpiresRequested = this.subscriptionExpires = Number(expires);
         this.subscriptionEvent = event;
-        this.subscriptionState = _subscription__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.NotifyWait;
+        this.subscriptionState = _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.NotifyWait;
         // Start waiting for a NOTIFY we can use to create a subscription.
         this.waitNotifyStart();
     }
@@ -17452,13 +17690,13 @@ class SubscribeUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODU
         // Update subscription state.
         switch (state) {
             case "pending":
-                this.subscriptionState = _subscription__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Pending;
+                this.subscriptionState = _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Pending;
                 break;
             case "active":
-                this.subscriptionState = _subscription__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Active;
+                this.subscriptionState = _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Active;
                 break;
             case "terminated":
-                this.subscriptionState = _subscription__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Terminated;
+                this.subscriptionState = _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Terminated;
                 break;
             default:
                 throw new Error(`Unrecognized state ${state}.`);
@@ -17467,15 +17705,15 @@ class SubscribeUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODU
         // for a new subscription, unless the NOTIFY request contains a
         // "Subscription-State" of "terminated."
         // https://tools.ietf.org/html/rfc6665#section-4.4.1
-        if (this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Terminated) {
+        if (this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionState.Terminated) {
             // Because the dialog usage is established by the NOTIFY request, the
             // route set at the subscriber is taken from the NOTIFY request itself,
             // as opposed to the route set present in the 200-class response to the
             // SUBSCRIBE request.
             // https://tools.ietf.org/html/rfc6665#section-4.4.1
-            const dialogState = _dialogs_subscription_dialog__WEBPACK_IMPORTED_MODULE_3__.SubscriptionDialog.initialDialogStateForSubscription(this.message, uas.message);
+            const dialogState = _dialogs_subscription_dialog_js__WEBPACK_IMPORTED_MODULE_3__.SubscriptionDialog.initialDialogStateForSubscription(this.message, uas.message);
             // Subscription Initiated! :)
-            this.dialog = new _dialogs_subscription_dialog__WEBPACK_IMPORTED_MODULE_3__.SubscriptionDialog(this.subscriptionEvent, this.subscriptionExpires, this.subscriptionState, this.core, dialogState);
+            this.dialog = new _dialogs_subscription_dialog_js__WEBPACK_IMPORTED_MODULE_3__.SubscriptionDialog(this.subscriptionEvent, this.subscriptionExpires, this.subscriptionState, this.core, dialogState);
         }
         // Delegate.
         if (this.delegate && this.delegate.onNotify) {
@@ -17492,7 +17730,7 @@ class SubscribeUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODU
             // Add ourselves to the core's subscriber map.
             // This allows the core to route out of dialog NOTIFY messages to us.
             this.core.subscribers.set(this.subscriberId, this);
-            this.N = setTimeout(() => this.timerN(), _timers__WEBPACK_IMPORTED_MODULE_4__.Timers.TIMER_N);
+            this.N = setTimeout(() => this.timerN(), _timers_js__WEBPACK_IMPORTED_MODULE_4__.Timers.TIMER_N);
         }
     }
     waitNotifyStop() {
@@ -17579,21 +17817,22 @@ class SubscribeUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODU
 
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SubscriptionDialog": () => (/* binding */ SubscriptionDialog)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
-/* harmony import */ var _subscription__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(46);
-/* harmony import */ var _timers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(36);
-/* harmony import */ var _user_agent_core_allowed_methods__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(28);
-/* harmony import */ var _user_agents_notify_user_agent_server__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(87);
-/* harmony import */ var _user_agents_re_subscribe_user_agent_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(94);
-/* harmony import */ var _dialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(69);
+/* harmony import */ var _grammar_name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(30);
+/* harmony import */ var _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(47);
+/* harmony import */ var _timers_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(37);
+/* harmony import */ var _user_agent_core_allowed_methods_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(29);
+/* harmony import */ var _user_agents_notify_user_agent_server_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(88);
+/* harmony import */ var _user_agents_re_subscribe_user_agent_client_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(95);
+/* harmony import */ var _dialog_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
+
 
 
 
@@ -17628,7 +17867,7 @@ __webpack_require__.r(__webpack_exports__);
  *  https://tools.ietf.org/html/rfc6665
  * @public
  */
-class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
+class SubscriptionDialog extends _dialog_js__WEBPACK_IMPORTED_MODULE_0__.Dialog {
     constructor(subscriptionEvent, subscriptionExpires, subscriptionState, core, state, delegate) {
         super(core, state);
         this.delegate = delegate;
@@ -17670,7 +17909,7 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             // TODO: Review to make sure this will never happen
             throw new Error("Contact undefined.");
         }
-        if (!(contact instanceof _messages__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader)) {
+        if (!(contact instanceof _grammar_name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader)) {
             throw new Error("Contact not instance of NameAddrHeader.");
         }
         const remoteTarget = contact.uri;
@@ -17810,7 +18049,7 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         super.receiveRequest(message);
         // Switch on method and then delegate.
         switch (message.method) {
-            case _messages__WEBPACK_IMPORTED_MODULE_2__.C.NOTIFY:
+            case _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_2__.C.NOTIFY:
                 this.onNotify(message);
                 break;
             default:
@@ -17824,7 +18063,7 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
      * https://tools.ietf.org/html/rfc6665#section-4.1.2.2
      */
     refresh() {
-        const allowHeader = "Allow: " + _user_agent_core_allowed_methods__WEBPACK_IMPORTED_MODULE_3__.AllowedMethods.toString();
+        const allowHeader = "Allow: " + _user_agent_core_allowed_methods_js__WEBPACK_IMPORTED_MODULE_3__.AllowedMethods.toString();
         const options = {};
         options.extraHeaders = (options.extraHeaders || []).slice();
         options.extraHeaders.push(allowHeader);
@@ -17840,21 +18079,24 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
      * @param options - Options bucket.
      */
     subscribe(delegate, options = {}) {
-        if (this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending && this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active) {
+        var _a;
+        if (this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending && this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active) {
             // FIXME: This needs to be a proper exception
             throw new Error(`Invalid state ${this.subscriptionState}. May only re-subscribe while in state "pending" or "active".`);
         }
         this.logger.log(`SUBSCRIBE dialog ${this.id} sending SUBSCRIBE request`);
-        const uac = new _user_agents_re_subscribe_user_agent_client__WEBPACK_IMPORTED_MODULE_5__.ReSubscribeUserAgentClient(this, delegate, options);
+        const uac = new _user_agents_re_subscribe_user_agent_client_js__WEBPACK_IMPORTED_MODULE_5__.ReSubscribeUserAgentClient(this, delegate, options);
         // Abort any outstanding timer (as it would otherwise become guaranteed to terminate us).
         if (this.N) {
             clearTimeout(this.N);
             this.N = undefined;
         }
-        // When refreshing a subscription, a subscriber starts Timer N, set to
-        // 64*T1, when it sends the SUBSCRIBE request.
-        // https://tools.ietf.org/html/rfc6665#section-4.1.2.2
-        this.N = setTimeout(() => this.timerN(), _timers__WEBPACK_IMPORTED_MODULE_6__.Timers.TIMER_N);
+        if (!((_a = options.extraHeaders) === null || _a === void 0 ? void 0 : _a.includes("Expires: 0"))) {
+            // When refreshing a subscription, a subscriber starts Timer N, set to
+            // 64*T1, when it sends the SUBSCRIBE request.
+            // https://tools.ietf.org/html/rfc6665#section-4.1.2.2
+            this.N = setTimeout(() => this.timerN(), _timers_js__WEBPACK_IMPORTED_MODULE_6__.Timers.TIMER_N);
+        }
         return uac;
     }
     /**
@@ -17865,7 +18107,7 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
      * https://tools.ietf.org/html/rfc6665#section-4.4.1
      */
     terminate() {
-        this.stateTransition(_subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated);
+        this.stateTransition(_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated);
         this.onTerminated();
     }
     /**
@@ -17873,7 +18115,7 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
      * https://tools.ietf.org/html/rfc6665#section-4.1.2.3
      */
     unsubscribe() {
-        const allowHeader = "Allow: " + _user_agent_core_allowed_methods__WEBPACK_IMPORTED_MODULE_3__.AllowedMethods.toString();
+        const allowHeader = "Allow: " + _user_agent_core_allowed_methods_js__WEBPACK_IMPORTED_MODULE_3__.AllowedMethods.toString();
         const options = {};
         options.extraHeaders = (options.extraHeaders || []).slice();
         options.extraHeaders.push(allowHeader);
@@ -17919,20 +18161,20 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         // Update our state and expiration.
         switch (state) {
             case "pending":
-                this.stateTransition(_subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending, expires);
+                this.stateTransition(_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending, expires);
                 break;
             case "active":
-                this.stateTransition(_subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active, expires);
+                this.stateTransition(_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active, expires);
                 break;
             case "terminated":
-                this.stateTransition(_subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated, expires);
+                this.stateTransition(_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated, expires);
                 break;
             default:
                 this.logger.warn("Unrecognized subscription state.");
                 break;
         }
         // Delegate remainder of NOTIFY handling.
-        const uas = new _user_agents_notify_user_agent_server__WEBPACK_IMPORTED_MODULE_7__.NotifyUserAgentServer(this, message);
+        const uas = new _user_agents_notify_user_agent_server_js__WEBPACK_IMPORTED_MODULE_7__.NotifyUserAgentServer(this, message);
         if (this.delegate && this.delegate.onNotify) {
             this.delegate.onNotify(uas);
         }
@@ -17976,31 +18218,31 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
             this.logger.warn(`Invalid subscription state transition from ${this.subscriptionState} to ${newState}`);
         };
         switch (newState) {
-            case _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Initial:
+            case _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Initial:
                 invalidStateTransition();
                 return;
-            case _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.NotifyWait:
+            case _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.NotifyWait:
                 invalidStateTransition();
                 return;
-            case _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending:
-                if (this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.NotifyWait &&
-                    this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending) {
+            case _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending:
+                if (this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.NotifyWait &&
+                    this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending) {
                     invalidStateTransition();
                     return;
                 }
                 break;
-            case _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active:
-                if (this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.NotifyWait &&
-                    this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending &&
-                    this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active) {
+            case _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active:
+                if (this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.NotifyWait &&
+                    this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending &&
+                    this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active) {
                     invalidStateTransition();
                     return;
                 }
                 break;
-            case _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated:
-                if (this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.NotifyWait &&
-                    this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending &&
-                    this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active) {
+            case _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated:
+                if (this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.NotifyWait &&
+                    this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending &&
+                    this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active) {
                     invalidStateTransition();
                     return;
                 }
@@ -18018,7 +18260,7 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         // subscriber.  The "retry-after" and "reason" parameters have no
         // semantics for "pending".
         // https://tools.ietf.org/html/rfc6665#section-4.1.3
-        if (newState === _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending) {
+        if (newState === _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Pending) {
             if (newExpires) {
                 this.subscriptionExpires = newExpires;
             }
@@ -18030,7 +18272,7 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         // subscription duration and adjust accordingly.  The "retry-after" and
         // "reason" parameters have no semantics for "active".
         // https://tools.ietf.org/html/rfc6665#section-4.1.3
-        if (newState === _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active) {
+        if (newState === _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Active) {
             if (newExpires) {
                 this.subscriptionExpires = newExpires;
             }
@@ -18041,7 +18283,7 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
         // "expires" parameter on a "Subscription-State" header field with a
         // value of "terminated", and subscribers MUST ignore any such
         // parameter, if present.
-        if (newState === _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated) {
+        if (newState === _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated) {
             this.dispose();
         }
         this._subscriptionState = newState;
@@ -18059,8 +18301,8 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
      */
     timerN() {
         this.logger.warn(`Timer N expired for SUBSCRIBE dialog. Timed out waiting for NOTIFY.`);
-        if (this.subscriptionState !== _subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated) {
-            this.stateTransition(_subscription__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated);
+        if (this.subscriptionState !== _subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated) {
+            this.stateTransition(_subscription_subscription_js__WEBPACK_IMPORTED_MODULE_4__.SubscriptionState.Terminated);
             this.onTerminated();
         }
     }
@@ -18068,16 +18310,16 @@ class SubscriptionDialog extends _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog {
 
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ReSubscribeUserAgentClient": () => (/* binding */ ReSubscribeUserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(64);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(65);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
 
 
 
@@ -18085,10 +18327,10 @@ __webpack_require__.r(__webpack_exports__);
  * Re-SUBSCRIBE UAC.
  * @public
  */
-class ReSubscribeUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+class ReSubscribeUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
     constructor(dialog, delegate, options) {
-        const message = dialog.createOutgoingRequestMessage(_messages__WEBPACK_IMPORTED_MODULE_1__.C.SUBSCRIBE, options);
-        super(_transactions__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
+        const message = dialog.createOutgoingRequestMessage(_messages_methods_constants_js__WEBPACK_IMPORTED_MODULE_1__.C.SUBSCRIBE, options);
+        super(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_2__.NonInviteClientTransaction, dialog.userAgentCore, message, delegate);
         this.dialog = dialog;
     }
     waitNotifyStop() {
@@ -18146,20 +18388,21 @@ class ReSubscribeUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MO
 
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "InviteUserAgentServer": () => (/* binding */ InviteUserAgentServer)
 /* harmony export */ });
-/* harmony import */ var _dialogs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(69);
-/* harmony import */ var _dialogs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(70);
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(35);
-/* harmony import */ var _session__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(30);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71);
-/* harmony import */ var _user_agent_core_allowed_methods__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(28);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
+/* harmony import */ var _dialogs_dialog_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(70);
+/* harmony import */ var _dialogs_session_dialog_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(71);
+/* harmony import */ var _exceptions_transaction_state_error_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36);
+/* harmony import */ var _session_session_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(31);
+/* harmony import */ var _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(72);
+/* harmony import */ var _user_agent_core_allowed_methods_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(29);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
+
 
 
 
@@ -18177,9 +18420,9 @@ __webpack_require__.r(__webpack_exports__);
  * https://tools.ietf.org/html/rfc3261#section-13.3
  * @public
  */
-class InviteUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
+class InviteUserAgentServer extends _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
     constructor(core, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.InviteServerTransaction, core, message, delegate);
+        super(_transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.InviteServerTransaction, core, message, delegate);
         this.core = core;
     }
     dispose() {
@@ -18198,7 +18441,7 @@ class InviteUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_
      */
     accept(options = { statusCode: 200 }) {
         if (!this.acceptable) {
-            throw new _exceptions__WEBPACK_IMPORTED_MODULE_2__.TransactionStateError(`${this.message.method} not acceptable in state ${this.transaction.state}.`);
+            throw new _exceptions_transaction_state_error_js__WEBPACK_IMPORTED_MODULE_2__.TransactionStateError(`${this.message.method} not acceptable in state ${this.transaction.state}.`);
         }
         // This response establishes a dialog...
         // https://tools.ietf.org/html/rfc3261#section-13.3.1.4
@@ -18210,11 +18453,11 @@ class InviteUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_
             }
             else {
                 const transaction = this.transaction;
-                if (!(transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_1__.InviteServerTransaction)) {
+                if (!(transaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.InviteServerTransaction)) {
                     throw new Error("Transaction not instance of InviteClientTransaction.");
                 }
-                const state = _dialogs__WEBPACK_IMPORTED_MODULE_3__.Dialog.initialDialogStateForUserAgentServer(this.message, this.toTag);
-                this.confirmedDialog = new _dialogs__WEBPACK_IMPORTED_MODULE_4__.SessionDialog(transaction, this.core, state);
+                const state = _dialogs_dialog_js__WEBPACK_IMPORTED_MODULE_3__.Dialog.initialDialogStateForUserAgentServer(this.message, this.toTag);
+                this.confirmedDialog = new _dialogs_session_dialog_js__WEBPACK_IMPORTED_MODULE_4__.SessionDialog(transaction, this.core, state);
             }
         }
         // When a UAS responds to a request with a response that establishes a
@@ -18247,7 +18490,7 @@ class InviteUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_
         // call, without probing.
         // https://tools.ietf.org/html/rfc3261#section-13.3.1.4
         // FIXME: TODO: This should not be hard coded.
-        const allowHeader = "Allow: " + _user_agent_core_allowed_methods__WEBPACK_IMPORTED_MODULE_5__.AllowedMethods.toString();
+        const allowHeader = "Allow: " + _user_agent_core_allowed_methods_js__WEBPACK_IMPORTED_MODULE_5__.AllowedMethods.toString();
         // FIXME: TODO: Supported header (see reply())
         // FIXME: TODO: Accept header
         // If the INVITE request contained an offer, and the UAS had not yet
@@ -18256,11 +18499,11 @@ class InviteUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_
         // not yet sent an offer.
         // https://tools.ietf.org/html/rfc3261#section-13.3.1.4
         if (!options.body) {
-            if (this.confirmedDialog.signalingState === _session__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Stable) {
+            if (this.confirmedDialog.signalingState === _session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Stable) {
                 options.body = this.confirmedDialog.answer; // resend the answer sent in provisional response
             }
-            else if (this.confirmedDialog.signalingState === _session__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Initial ||
-                this.confirmedDialog.signalingState === _session__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveRemoteOffer) {
+            else if (this.confirmedDialog.signalingState === _session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Initial ||
+                this.confirmedDialog.signalingState === _session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.HaveRemoteOffer) {
                 throw new Error("Response must have a body.");
             }
         }
@@ -18280,7 +18523,7 @@ class InviteUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_
             // specification alone can never generate subsequent offers until
             // completion of the initial transaction.
             // https://tools.ietf.org/html/rfc3261#section-13.2.1
-            if (this.confirmedDialog.signalingState !== _session__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Stable) {
+            if (this.confirmedDialog.signalingState !== _session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Stable) {
                 this.confirmedDialog.signalingStateTransition(options.body);
             }
         }
@@ -18310,17 +18553,17 @@ class InviteUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_
      */
     progress(options = { statusCode: 180 }) {
         if (!this.progressable) {
-            throw new _exceptions__WEBPACK_IMPORTED_MODULE_2__.TransactionStateError(`${this.message.method} not progressable in state ${this.transaction.state}.`);
+            throw new _exceptions_transaction_state_error_js__WEBPACK_IMPORTED_MODULE_2__.TransactionStateError(`${this.message.method} not progressable in state ${this.transaction.state}.`);
         }
         // This response establishes a dialog...
         // https://tools.ietf.org/html/rfc3261#section-13.3.1.4
         if (!this.earlyDialog) {
             const transaction = this.transaction;
-            if (!(transaction instanceof _transactions__WEBPACK_IMPORTED_MODULE_1__.InviteServerTransaction)) {
+            if (!(transaction instanceof _transactions_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.InviteServerTransaction)) {
                 throw new Error("Transaction not instance of InviteClientTransaction.");
             }
-            const state = _dialogs__WEBPACK_IMPORTED_MODULE_3__.Dialog.initialDialogStateForUserAgentServer(this.message, this.toTag, true);
-            this.earlyDialog = new _dialogs__WEBPACK_IMPORTED_MODULE_4__.SessionDialog(transaction, this.core, state);
+            const state = _dialogs_dialog_js__WEBPACK_IMPORTED_MODULE_3__.Dialog.initialDialogStateForUserAgentServer(this.message, this.toTag, true);
+            this.earlyDialog = new _dialogs_session_dialog_js__WEBPACK_IMPORTED_MODULE_4__.SessionDialog(transaction, this.core, state);
         }
         // When a UAS responds to a request with a response that establishes a
         // dialog (such as a 2xx to INVITE), the UAS MUST copy all Record-Route
@@ -18359,7 +18602,7 @@ class InviteUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_
             // specification alone can never generate subsequent offers until
             // completion of the initial transaction.
             // https://tools.ietf.org/html/rfc3261#section-13.2.1
-            if (this.earlyDialog.signalingState !== _session__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Stable) {
+            if (this.earlyDialog.signalingState !== _session_session_js__WEBPACK_IMPORTED_MODULE_6__.SignalingState.Stable) {
                 this.earlyDialog.signalingStateTransition(options.body);
             }
         }
@@ -18395,48 +18638,24 @@ class InviteUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_
 
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "RegisterUserAgentServer": () => (/* binding */ RegisterUserAgentServer)
 /* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(82);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
+/* harmony import */ var _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
 
 
 /**
  * REGISTER UAS.
  * @public
  */
-class RegisterUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
+class RegisterUserAgentServer extends _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
     constructor(core, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, core, message, delegate);
-        this.core = core;
-    }
-}
-
-
-/***/ }),
-/* 97 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SubscribeUserAgentServer": () => (/* binding */ SubscribeUserAgentServer)
-/* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(82);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
-
-
-/**
- * SUBSCRIBE UAS.
- * @public
- */
-class SubscribeUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
-    constructor(core, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, core, message, delegate);
+        super(_transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, core, message, delegate);
         this.core = core;
     }
 }
@@ -18448,11 +18667,35 @@ class SubscribeUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODU
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SubscribeUserAgentServer": () => (/* binding */ SubscribeUserAgentServer)
+/* harmony export */ });
+/* harmony import */ var _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
+
+
+/**
+ * SUBSCRIBE UAS.
+ * @public
+ */
+class SubscribeUserAgentServer extends _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
+    constructor(core, message, delegate) {
+        super(_transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, core, message, delegate);
+        this.core = core;
+    }
+}
+
+
+/***/ }),
+/* 99 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Parser": () => (/* binding */ Parser)
 /* harmony export */ });
-/* harmony import */ var _grammar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
-/* harmony import */ var _incoming_request_message__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(18);
-/* harmony import */ var _incoming_response_message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26);
+/* harmony import */ var _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(22);
+/* harmony import */ var _incoming_request_message_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19);
+/* harmony import */ var _incoming_response_message_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
 /* eslint-disable no-inner-declarations */
 /* eslint-disable @typescript-eslint/no-namespace */
 
@@ -18538,7 +18781,7 @@ var Parser;
                 }
                 break;
             case "record-route":
-                parsed = _grammar__WEBPACK_IMPORTED_MODULE_0__.Grammar.parse(headerValue, "Record_Route");
+                parsed = _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_0__.Grammar.parse(headerValue, "Record_Route");
                 if (parsed === -1) {
                     parsed = undefined;
                     break;
@@ -18562,7 +18805,7 @@ var Parser;
                 break;
             case "contact":
             case "m":
-                parsed = _grammar__WEBPACK_IMPORTED_MODULE_0__.Grammar.parse(headerValue, "Contact");
+                parsed = _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_0__.Grammar.parse(headerValue, "Contact");
                 if (parsed === -1) {
                     parsed = undefined;
                     break;
@@ -18592,7 +18835,7 @@ var Parser;
                 if (parsed) {
                     message.cseq = parsed.value;
                 }
-                if (message instanceof _incoming_response_message__WEBPACK_IMPORTED_MODULE_1__.IncomingResponseMessage) {
+                if (message instanceof _incoming_response_message_js__WEBPACK_IMPORTED_MODULE_1__.IncomingResponseMessage) {
                     message.method = parsed.method;
                 }
                 break;
@@ -18640,19 +18883,19 @@ var Parser;
         }
         // Parse first line. Check if it is a Request or a Reply.
         const firstLine = data.substring(0, headerEnd);
-        const parsed = _grammar__WEBPACK_IMPORTED_MODULE_0__.Grammar.parse(firstLine, "Request_Response");
+        const parsed = _grammar_grammar_js__WEBPACK_IMPORTED_MODULE_0__.Grammar.parse(firstLine, "Request_Response");
         let message;
         if (parsed === -1) {
             logger.warn('error parsing first line of SIP message: "' + firstLine + '"');
             return;
         }
         else if (!parsed.status_code) {
-            message = new _incoming_request_message__WEBPACK_IMPORTED_MODULE_2__.IncomingRequestMessage();
+            message = new _incoming_request_message_js__WEBPACK_IMPORTED_MODULE_2__.IncomingRequestMessage();
             message.method = parsed.method;
             message.ruri = parsed.uri;
         }
         else {
-            message = new _incoming_response_message__WEBPACK_IMPORTED_MODULE_1__.IncomingResponseMessage();
+            message = new _incoming_response_message_js__WEBPACK_IMPORTED_MODULE_1__.IncomingResponseMessage();
             message.statusCode = parsed.status_code;
             message.reasonPhrase = parsed.reason_phrase;
         }
@@ -18693,29 +18936,7 @@ var Parser;
         return message;
     }
     Parser.parseMessage = parseMessage;
-})(Parser || (Parser = {}));
-
-
-/***/ }),
-/* 99 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Grammar": () => (/* reexport safe */ _grammar__WEBPACK_IMPORTED_MODULE_0__.Grammar),
-/* harmony export */   "NameAddrHeader": () => (/* reexport safe */ _name_addr_header__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader),
-/* harmony export */   "Parameters": () => (/* reexport safe */ _parameters__WEBPACK_IMPORTED_MODULE_2__.Parameters),
-/* harmony export */   "URI": () => (/* reexport safe */ _uri__WEBPACK_IMPORTED_MODULE_3__.URI),
-/* harmony export */   "equivalentURI": () => (/* reexport safe */ _uri__WEBPACK_IMPORTED_MODULE_3__.equivalentURI)
-/* harmony export */ });
-/* harmony import */ var _grammar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
-/* harmony import */ var _name_addr_header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
-/* harmony import */ var _parameters__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(24);
-/* harmony import */ var _uri__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23);
-
-
-
-
+})(Parser = Parser || (Parser = {}));
 
 
 /***/ }),
@@ -18724,81 +18945,104 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Dialog": () => (/* reexport safe */ _dialogs__WEBPACK_IMPORTED_MODULE_0__.Dialog),
-/* harmony export */   "SessionDialog": () => (/* reexport safe */ _dialogs__WEBPACK_IMPORTED_MODULE_0__.SessionDialog),
-/* harmony export */   "SubscriptionDialog": () => (/* reexport safe */ _dialogs__WEBPACK_IMPORTED_MODULE_0__.SubscriptionDialog),
-/* harmony export */   "Exception": () => (/* reexport safe */ _exceptions__WEBPACK_IMPORTED_MODULE_1__.Exception),
-/* harmony export */   "TransactionStateError": () => (/* reexport safe */ _exceptions__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError),
-/* harmony export */   "TransportError": () => (/* reexport safe */ _exceptions__WEBPACK_IMPORTED_MODULE_1__.TransportError),
-/* harmony export */   "Levels": () => (/* reexport safe */ _log__WEBPACK_IMPORTED_MODULE_2__.Levels),
-/* harmony export */   "Logger": () => (/* reexport safe */ _log__WEBPACK_IMPORTED_MODULE_2__.Logger),
-/* harmony export */   "LoggerFactory": () => (/* reexport safe */ _log__WEBPACK_IMPORTED_MODULE_2__.LoggerFactory),
-/* harmony export */   "C": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.C),
-/* harmony export */   "DigestAuthentication": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.DigestAuthentication),
-/* harmony export */   "Grammar": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.Grammar),
-/* harmony export */   "IncomingMessage": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.IncomingMessage),
-/* harmony export */   "IncomingRequestMessage": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.IncomingRequestMessage),
-/* harmony export */   "IncomingResponseMessage": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.IncomingResponseMessage),
-/* harmony export */   "NameAddrHeader": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.NameAddrHeader),
-/* harmony export */   "OutgoingRequestMessage": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.OutgoingRequestMessage),
-/* harmony export */   "Parameters": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.Parameters),
-/* harmony export */   "Parser": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.Parser),
-/* harmony export */   "URI": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.URI),
-/* harmony export */   "constructOutgoingResponse": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.constructOutgoingResponse),
-/* harmony export */   "equivalentURI": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.equivalentURI),
-/* harmony export */   "fromBodyLegacy": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.fromBodyLegacy),
-/* harmony export */   "getBody": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.getBody),
-/* harmony export */   "isBody": () => (/* reexport safe */ _messages__WEBPACK_IMPORTED_MODULE_3__.isBody),
-/* harmony export */   "SessionState": () => (/* reexport safe */ _session__WEBPACK_IMPORTED_MODULE_4__.SessionState),
-/* harmony export */   "SignalingState": () => (/* reexport safe */ _session__WEBPACK_IMPORTED_MODULE_4__.SignalingState),
-/* harmony export */   "SubscriptionState": () => (/* reexport safe */ _subscription__WEBPACK_IMPORTED_MODULE_5__.SubscriptionState),
-/* harmony export */   "ClientTransaction": () => (/* reexport safe */ _transactions__WEBPACK_IMPORTED_MODULE_6__.ClientTransaction),
-/* harmony export */   "InviteClientTransaction": () => (/* reexport safe */ _transactions__WEBPACK_IMPORTED_MODULE_6__.InviteClientTransaction),
-/* harmony export */   "InviteServerTransaction": () => (/* reexport safe */ _transactions__WEBPACK_IMPORTED_MODULE_6__.InviteServerTransaction),
-/* harmony export */   "NonInviteClientTransaction": () => (/* reexport safe */ _transactions__WEBPACK_IMPORTED_MODULE_6__.NonInviteClientTransaction),
-/* harmony export */   "NonInviteServerTransaction": () => (/* reexport safe */ _transactions__WEBPACK_IMPORTED_MODULE_6__.NonInviteServerTransaction),
-/* harmony export */   "ServerTransaction": () => (/* reexport safe */ _transactions__WEBPACK_IMPORTED_MODULE_6__.ServerTransaction),
-/* harmony export */   "Transaction": () => (/* reexport safe */ _transactions__WEBPACK_IMPORTED_MODULE_6__.Transaction),
-/* harmony export */   "TransactionState": () => (/* reexport safe */ _transactions__WEBPACK_IMPORTED_MODULE_6__.TransactionState),
-/* harmony export */   "UserAgentCore": () => (/* reexport safe */ _user_agent_core__WEBPACK_IMPORTED_MODULE_7__.UserAgentCore),
-/* harmony export */   "ByeUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.ByeUserAgentClient),
-/* harmony export */   "ByeUserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.ByeUserAgentServer),
-/* harmony export */   "CancelUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.CancelUserAgentClient),
-/* harmony export */   "InfoUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.InfoUserAgentClient),
-/* harmony export */   "InfoUserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.InfoUserAgentServer),
-/* harmony export */   "InviteUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.InviteUserAgentClient),
-/* harmony export */   "InviteUserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.InviteUserAgentServer),
-/* harmony export */   "MessageUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.MessageUserAgentClient),
-/* harmony export */   "MessageUserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.MessageUserAgentServer),
-/* harmony export */   "NotifyUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.NotifyUserAgentClient),
-/* harmony export */   "NotifyUserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.NotifyUserAgentServer),
-/* harmony export */   "PrackUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.PrackUserAgentClient),
-/* harmony export */   "PrackUserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.PrackUserAgentServer),
-/* harmony export */   "PublishUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.PublishUserAgentClient),
-/* harmony export */   "ReInviteUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.ReInviteUserAgentClient),
-/* harmony export */   "ReInviteUserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.ReInviteUserAgentServer),
-/* harmony export */   "ReSubscribeUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.ReSubscribeUserAgentClient),
-/* harmony export */   "ReSubscribeUserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.ReSubscribeUserAgentServer),
-/* harmony export */   "ReferUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.ReferUserAgentClient),
-/* harmony export */   "ReferUserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.ReferUserAgentServer),
-/* harmony export */   "RegisterUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.RegisterUserAgentClient),
-/* harmony export */   "RegisterUserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.RegisterUserAgentServer),
-/* harmony export */   "SubscribeUserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.SubscribeUserAgentClient),
-/* harmony export */   "SubscribeUserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.SubscribeUserAgentServer),
-/* harmony export */   "UserAgentClient": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.UserAgentClient),
-/* harmony export */   "UserAgentServer": () => (/* reexport safe */ _user_agents__WEBPACK_IMPORTED_MODULE_8__.UserAgentServer),
-/* harmony export */   "Timers": () => (/* reexport safe */ _timers__WEBPACK_IMPORTED_MODULE_9__.Timers)
+/* harmony export */   "Grammar": () => (/* reexport safe */ _grammar_js__WEBPACK_IMPORTED_MODULE_0__.Grammar),
+/* harmony export */   "NameAddrHeader": () => (/* reexport safe */ _name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__.NameAddrHeader),
+/* harmony export */   "Parameters": () => (/* reexport safe */ _parameters_js__WEBPACK_IMPORTED_MODULE_2__.Parameters),
+/* harmony export */   "URI": () => (/* reexport safe */ _uri_js__WEBPACK_IMPORTED_MODULE_3__.URI),
+/* harmony export */   "equivalentURI": () => (/* reexport safe */ _uri_js__WEBPACK_IMPORTED_MODULE_3__.equivalentURI)
 /* harmony export */ });
-/* harmony import */ var _dialogs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(101);
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(102);
-/* harmony import */ var _log__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(103);
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(104);
-/* harmony import */ var _session__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(106);
-/* harmony import */ var _subscription__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(107);
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(108);
-/* harmony import */ var _user_agent_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(109);
-/* harmony import */ var _user_agents__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(110);
-/* harmony import */ var _timers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(36);
+/* harmony import */ var _grammar_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(22);
+/* harmony import */ var _name_addr_header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26);
+/* harmony import */ var _parameters_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(25);
+/* harmony import */ var _uri_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(24);
+
+
+
+
+
+
+/***/ }),
+/* 101 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ByeUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.ByeUserAgentClient),
+/* harmony export */   "ByeUserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.ByeUserAgentServer),
+/* harmony export */   "C": () => (/* reexport safe */ _messages_index_js__WEBPACK_IMPORTED_MODULE_3__.C),
+/* harmony export */   "CancelUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.CancelUserAgentClient),
+/* harmony export */   "ClientTransaction": () => (/* reexport safe */ _transactions_index_js__WEBPACK_IMPORTED_MODULE_6__.ClientTransaction),
+/* harmony export */   "Dialog": () => (/* reexport safe */ _dialogs_index_js__WEBPACK_IMPORTED_MODULE_0__.Dialog),
+/* harmony export */   "DigestAuthentication": () => (/* reexport safe */ _messages_index_js__WEBPACK_IMPORTED_MODULE_3__.DigestAuthentication),
+/* harmony export */   "Exception": () => (/* reexport safe */ _exceptions_index_js__WEBPACK_IMPORTED_MODULE_1__.Exception),
+/* harmony export */   "Grammar": () => (/* reexport safe */ _grammar_index_js__WEBPACK_IMPORTED_MODULE_10__.Grammar),
+/* harmony export */   "IncomingMessage": () => (/* reexport safe */ _messages_index_js__WEBPACK_IMPORTED_MODULE_3__.IncomingMessage),
+/* harmony export */   "IncomingRequestMessage": () => (/* reexport safe */ _messages_index_js__WEBPACK_IMPORTED_MODULE_3__.IncomingRequestMessage),
+/* harmony export */   "IncomingResponseMessage": () => (/* reexport safe */ _messages_index_js__WEBPACK_IMPORTED_MODULE_3__.IncomingResponseMessage),
+/* harmony export */   "InfoUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.InfoUserAgentClient),
+/* harmony export */   "InfoUserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.InfoUserAgentServer),
+/* harmony export */   "InviteClientTransaction": () => (/* reexport safe */ _transactions_index_js__WEBPACK_IMPORTED_MODULE_6__.InviteClientTransaction),
+/* harmony export */   "InviteServerTransaction": () => (/* reexport safe */ _transactions_index_js__WEBPACK_IMPORTED_MODULE_6__.InviteServerTransaction),
+/* harmony export */   "InviteUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.InviteUserAgentClient),
+/* harmony export */   "InviteUserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.InviteUserAgentServer),
+/* harmony export */   "Levels": () => (/* reexport safe */ _log_index_js__WEBPACK_IMPORTED_MODULE_2__.Levels),
+/* harmony export */   "Logger": () => (/* reexport safe */ _log_index_js__WEBPACK_IMPORTED_MODULE_2__.Logger),
+/* harmony export */   "LoggerFactory": () => (/* reexport safe */ _log_index_js__WEBPACK_IMPORTED_MODULE_2__.LoggerFactory),
+/* harmony export */   "MessageUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.MessageUserAgentClient),
+/* harmony export */   "MessageUserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.MessageUserAgentServer),
+/* harmony export */   "NameAddrHeader": () => (/* reexport safe */ _grammar_index_js__WEBPACK_IMPORTED_MODULE_10__.NameAddrHeader),
+/* harmony export */   "NonInviteClientTransaction": () => (/* reexport safe */ _transactions_index_js__WEBPACK_IMPORTED_MODULE_6__.NonInviteClientTransaction),
+/* harmony export */   "NonInviteServerTransaction": () => (/* reexport safe */ _transactions_index_js__WEBPACK_IMPORTED_MODULE_6__.NonInviteServerTransaction),
+/* harmony export */   "NotifyUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.NotifyUserAgentClient),
+/* harmony export */   "NotifyUserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.NotifyUserAgentServer),
+/* harmony export */   "OutgoingRequestMessage": () => (/* reexport safe */ _messages_index_js__WEBPACK_IMPORTED_MODULE_3__.OutgoingRequestMessage),
+/* harmony export */   "Parameters": () => (/* reexport safe */ _grammar_index_js__WEBPACK_IMPORTED_MODULE_10__.Parameters),
+/* harmony export */   "Parser": () => (/* reexport safe */ _messages_index_js__WEBPACK_IMPORTED_MODULE_3__.Parser),
+/* harmony export */   "PrackUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.PrackUserAgentClient),
+/* harmony export */   "PrackUserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.PrackUserAgentServer),
+/* harmony export */   "PublishUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.PublishUserAgentClient),
+/* harmony export */   "ReInviteUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.ReInviteUserAgentClient),
+/* harmony export */   "ReInviteUserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.ReInviteUserAgentServer),
+/* harmony export */   "ReSubscribeUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.ReSubscribeUserAgentClient),
+/* harmony export */   "ReSubscribeUserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.ReSubscribeUserAgentServer),
+/* harmony export */   "ReferUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.ReferUserAgentClient),
+/* harmony export */   "ReferUserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.ReferUserAgentServer),
+/* harmony export */   "RegisterUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.RegisterUserAgentClient),
+/* harmony export */   "RegisterUserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.RegisterUserAgentServer),
+/* harmony export */   "ServerTransaction": () => (/* reexport safe */ _transactions_index_js__WEBPACK_IMPORTED_MODULE_6__.ServerTransaction),
+/* harmony export */   "SessionDialog": () => (/* reexport safe */ _dialogs_index_js__WEBPACK_IMPORTED_MODULE_0__.SessionDialog),
+/* harmony export */   "SessionState": () => (/* reexport safe */ _session_index_js__WEBPACK_IMPORTED_MODULE_4__.SessionState),
+/* harmony export */   "SignalingState": () => (/* reexport safe */ _session_index_js__WEBPACK_IMPORTED_MODULE_4__.SignalingState),
+/* harmony export */   "SubscribeUserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.SubscribeUserAgentClient),
+/* harmony export */   "SubscribeUserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.SubscribeUserAgentServer),
+/* harmony export */   "SubscriptionDialog": () => (/* reexport safe */ _dialogs_index_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionDialog),
+/* harmony export */   "SubscriptionState": () => (/* reexport safe */ _subscription_index_js__WEBPACK_IMPORTED_MODULE_5__.SubscriptionState),
+/* harmony export */   "Timers": () => (/* reexport safe */ _timers_js__WEBPACK_IMPORTED_MODULE_9__.Timers),
+/* harmony export */   "Transaction": () => (/* reexport safe */ _transactions_index_js__WEBPACK_IMPORTED_MODULE_6__.Transaction),
+/* harmony export */   "TransactionState": () => (/* reexport safe */ _transactions_index_js__WEBPACK_IMPORTED_MODULE_6__.TransactionState),
+/* harmony export */   "TransactionStateError": () => (/* reexport safe */ _exceptions_index_js__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError),
+/* harmony export */   "TransportError": () => (/* reexport safe */ _exceptions_index_js__WEBPACK_IMPORTED_MODULE_1__.TransportError),
+/* harmony export */   "URI": () => (/* reexport safe */ _grammar_index_js__WEBPACK_IMPORTED_MODULE_10__.URI),
+/* harmony export */   "UserAgentClient": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.UserAgentClient),
+/* harmony export */   "UserAgentCore": () => (/* reexport safe */ _user_agent_core_index_js__WEBPACK_IMPORTED_MODULE_7__.UserAgentCore),
+/* harmony export */   "UserAgentServer": () => (/* reexport safe */ _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__.UserAgentServer),
+/* harmony export */   "constructOutgoingResponse": () => (/* reexport safe */ _messages_index_js__WEBPACK_IMPORTED_MODULE_3__.constructOutgoingResponse),
+/* harmony export */   "equivalentURI": () => (/* reexport safe */ _grammar_index_js__WEBPACK_IMPORTED_MODULE_10__.equivalentURI),
+/* harmony export */   "fromBodyLegacy": () => (/* reexport safe */ _messages_index_js__WEBPACK_IMPORTED_MODULE_3__.fromBodyLegacy),
+/* harmony export */   "getBody": () => (/* reexport safe */ _messages_index_js__WEBPACK_IMPORTED_MODULE_3__.getBody),
+/* harmony export */   "isBody": () => (/* reexport safe */ _messages_index_js__WEBPACK_IMPORTED_MODULE_3__.isBody)
+/* harmony export */ });
+/* harmony import */ var _dialogs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(102);
+/* harmony import */ var _exceptions_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(103);
+/* harmony import */ var _log_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(104);
+/* harmony import */ var _messages_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(105);
+/* harmony import */ var _session_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(107);
+/* harmony import */ var _subscription_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(108);
+/* harmony import */ var _transactions_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(109);
+/* harmony import */ var _user_agent_core_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(110);
+/* harmony import */ var _user_agents_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(111);
+/* harmony import */ var _timers_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(37);
+/* harmony import */ var _grammar_index_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(100);
 /**
  * A core library implementing low level SIP protocol elements.
  * @packageDocumentation
@@ -18816,24 +19060,11 @@ __webpack_require__.r(__webpack_exports__);
 // Files
 
 
-
-
-/***/ }),
-/* 101 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Dialog": () => (/* reexport safe */ _dialog__WEBPACK_IMPORTED_MODULE_0__.Dialog),
-/* harmony export */   "SessionDialog": () => (/* reexport safe */ _session_dialog__WEBPACK_IMPORTED_MODULE_1__.SessionDialog),
-/* harmony export */   "SubscriptionDialog": () => (/* reexport safe */ _subscription_dialog__WEBPACK_IMPORTED_MODULE_2__.SubscriptionDialog)
-/* harmony export */ });
-/* harmony import */ var _dialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(69);
-/* harmony import */ var _session_dialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(70);
-/* harmony import */ var _subscription_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(93);
-
-
-
+// Grammar
+// TODO:
+// - This is documented as part of the core, but it is also exported by root index.js.
+// - Arguably move grammar to core proper and deprecate the export from the root.
+// - Arguably URI should be a top level export.
 
 
 
@@ -18843,13 +19074,14 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Exception": () => (/* reexport safe */ _exception__WEBPACK_IMPORTED_MODULE_0__.Exception),
-/* harmony export */   "TransactionStateError": () => (/* reexport safe */ _transaction_state_error__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError),
-/* harmony export */   "TransportError": () => (/* reexport safe */ _transport_error__WEBPACK_IMPORTED_MODULE_2__.TransportError)
+/* harmony export */   "Dialog": () => (/* reexport safe */ _dialog_js__WEBPACK_IMPORTED_MODULE_0__.Dialog),
+/* harmony export */   "SessionDialog": () => (/* reexport safe */ _session_dialog_js__WEBPACK_IMPORTED_MODULE_1__.SessionDialog),
+/* harmony export */   "SubscriptionDialog": () => (/* reexport safe */ _subscription_dialog_js__WEBPACK_IMPORTED_MODULE_2__.SubscriptionDialog)
 /* harmony export */ });
-/* harmony import */ var _exception__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
-/* harmony import */ var _transaction_state_error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35);
-/* harmony import */ var _transport_error__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67);
+/* harmony import */ var _dialog_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
+/* harmony import */ var _session_dialog_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71);
+/* harmony import */ var _subscription_dialog_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(94);
+
 
 
 
@@ -18861,13 +19093,13 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Levels": () => (/* reexport safe */ _levels__WEBPACK_IMPORTED_MODULE_0__.Levels),
-/* harmony export */   "LoggerFactory": () => (/* reexport safe */ _logger_factory__WEBPACK_IMPORTED_MODULE_1__.LoggerFactory),
-/* harmony export */   "Logger": () => (/* reexport safe */ _logger__WEBPACK_IMPORTED_MODULE_2__.Logger)
+/* harmony export */   "Exception": () => (/* reexport safe */ _exception_js__WEBPACK_IMPORTED_MODULE_0__.Exception),
+/* harmony export */   "TransactionStateError": () => (/* reexport safe */ _transaction_state_error_js__WEBPACK_IMPORTED_MODULE_1__.TransactionStateError),
+/* harmony export */   "TransportError": () => (/* reexport safe */ _transport_error_js__WEBPACK_IMPORTED_MODULE_2__.TransportError)
 /* harmony export */ });
-/* harmony import */ var _levels__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(51);
-/* harmony import */ var _logger_factory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50);
-/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(52);
+/* harmony import */ var _exception_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _transaction_state_error_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+/* harmony import */ var _transport_error_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
 
 
 
@@ -18879,46 +19111,13 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Grammar": () => (/* reexport safe */ _grammar__WEBPACK_IMPORTED_MODULE_0__.Grammar),
-/* harmony export */   "NameAddrHeader": () => (/* reexport safe */ _grammar__WEBPACK_IMPORTED_MODULE_0__.NameAddrHeader),
-/* harmony export */   "Parameters": () => (/* reexport safe */ _grammar__WEBPACK_IMPORTED_MODULE_0__.Parameters),
-/* harmony export */   "URI": () => (/* reexport safe */ _grammar__WEBPACK_IMPORTED_MODULE_0__.URI),
-/* harmony export */   "equivalentURI": () => (/* reexport safe */ _grammar__WEBPACK_IMPORTED_MODULE_0__.equivalentURI),
-/* harmony export */   "C": () => (/* reexport safe */ _methods__WEBPACK_IMPORTED_MODULE_1__.C),
-/* harmony export */   "fromBodyLegacy": () => (/* reexport safe */ _body__WEBPACK_IMPORTED_MODULE_2__.fromBodyLegacy),
-/* harmony export */   "getBody": () => (/* reexport safe */ _body__WEBPACK_IMPORTED_MODULE_2__.getBody),
-/* harmony export */   "isBody": () => (/* reexport safe */ _body__WEBPACK_IMPORTED_MODULE_2__.isBody),
-/* harmony export */   "DigestAuthentication": () => (/* reexport safe */ _digest_authentication__WEBPACK_IMPORTED_MODULE_3__.DigestAuthentication),
-/* harmony export */   "IncomingMessage": () => (/* reexport safe */ _incoming_message__WEBPACK_IMPORTED_MODULE_4__.IncomingMessage),
-/* harmony export */   "IncomingRequestMessage": () => (/* reexport safe */ _incoming_request_message__WEBPACK_IMPORTED_MODULE_5__.IncomingRequestMessage),
-/* harmony export */   "IncomingResponseMessage": () => (/* reexport safe */ _incoming_response_message__WEBPACK_IMPORTED_MODULE_6__.IncomingResponseMessage),
-/* harmony export */   "OutgoingRequestMessage": () => (/* reexport safe */ _outgoing_request_message__WEBPACK_IMPORTED_MODULE_7__.OutgoingRequestMessage),
-/* harmony export */   "constructOutgoingResponse": () => (/* reexport safe */ _outgoing_response__WEBPACK_IMPORTED_MODULE_8__.constructOutgoingResponse),
-/* harmony export */   "Parser": () => (/* reexport safe */ _parser__WEBPACK_IMPORTED_MODULE_9__.Parser)
+/* harmony export */   "Levels": () => (/* reexport safe */ _levels_js__WEBPACK_IMPORTED_MODULE_0__.Levels),
+/* harmony export */   "Logger": () => (/* reexport safe */ _logger_js__WEBPACK_IMPORTED_MODULE_2__.Logger),
+/* harmony export */   "LoggerFactory": () => (/* reexport safe */ _logger_factory_js__WEBPACK_IMPORTED_MODULE_1__.LoggerFactory)
 /* harmony export */ });
-/* harmony import */ var _grammar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(99);
-/* harmony import */ var _methods__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(105);
-/* harmony import */ var _body__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
-/* harmony import */ var _digest_authentication__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(58);
-/* harmony import */ var _incoming_message__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19);
-/* harmony import */ var _incoming_request_message__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(18);
-/* harmony import */ var _incoming_response_message__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(26);
-/* harmony import */ var _outgoing_request_message__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(27);
-/* harmony import */ var _outgoing_response__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(83);
-/* harmony import */ var _parser__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(98);
-// Grammar
-
-// Directories
-
-// Files
-
-
-
-
-
-
-
-
+/* harmony import */ var _levels_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(52);
+/* harmony import */ var _logger_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(51);
+/* harmony import */ var _logger_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(53);
 
 
 
@@ -18930,11 +19129,30 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "C": () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_0__.C)
+/* harmony export */   "C": () => (/* reexport safe */ _methods_index_js__WEBPACK_IMPORTED_MODULE_0__.C),
+/* harmony export */   "DigestAuthentication": () => (/* reexport safe */ _digest_authentication_js__WEBPACK_IMPORTED_MODULE_2__.DigestAuthentication),
+/* harmony export */   "IncomingMessage": () => (/* reexport safe */ _incoming_message_js__WEBPACK_IMPORTED_MODULE_3__.IncomingMessage),
+/* harmony export */   "IncomingRequestMessage": () => (/* reexport safe */ _incoming_request_message_js__WEBPACK_IMPORTED_MODULE_4__.IncomingRequestMessage),
+/* harmony export */   "IncomingResponseMessage": () => (/* reexport safe */ _incoming_response_message_js__WEBPACK_IMPORTED_MODULE_5__.IncomingResponseMessage),
+/* harmony export */   "OutgoingRequestMessage": () => (/* reexport safe */ _outgoing_request_message_js__WEBPACK_IMPORTED_MODULE_6__.OutgoingRequestMessage),
+/* harmony export */   "Parser": () => (/* reexport safe */ _parser_js__WEBPACK_IMPORTED_MODULE_8__.Parser),
+/* harmony export */   "constructOutgoingResponse": () => (/* reexport safe */ _outgoing_response_js__WEBPACK_IMPORTED_MODULE_7__.constructOutgoingResponse),
+/* harmony export */   "fromBodyLegacy": () => (/* reexport safe */ _body_js__WEBPACK_IMPORTED_MODULE_1__.fromBodyLegacy),
+/* harmony export */   "getBody": () => (/* reexport safe */ _body_js__WEBPACK_IMPORTED_MODULE_1__.getBody),
+/* harmony export */   "isBody": () => (/* reexport safe */ _body_js__WEBPACK_IMPORTED_MODULE_1__.isBody)
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _methods_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(106);
+/* harmony import */ var _body_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
+/* harmony import */ var _digest_authentication_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(59);
+/* harmony import */ var _incoming_message_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20);
+/* harmony import */ var _incoming_request_message_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19);
+/* harmony import */ var _incoming_response_message_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(27);
+/* harmony import */ var _outgoing_request_message_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(28);
+/* harmony import */ var _outgoing_response_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(84);
+/* harmony import */ var _parser_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(99);
+// Directories
 
-
+// Files
 
 
 
@@ -18954,10 +19172,20 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SessionState": () => (/* reexport safe */ _session__WEBPACK_IMPORTED_MODULE_0__.SessionState),
-/* harmony export */   "SignalingState": () => (/* reexport safe */ _session__WEBPACK_IMPORTED_MODULE_0__.SignalingState)
+/* harmony export */   "C": () => (/* reexport safe */ _constants_js__WEBPACK_IMPORTED_MODULE_0__.C)
 /* harmony export */ });
-/* harmony import */ var _session__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18968,9 +19196,10 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SubscriptionState": () => (/* reexport safe */ _subscription__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState)
+/* harmony export */   "SessionState": () => (/* reexport safe */ _session_js__WEBPACK_IMPORTED_MODULE_0__.SessionState),
+/* harmony export */   "SignalingState": () => (/* reexport safe */ _session_js__WEBPACK_IMPORTED_MODULE_0__.SignalingState)
 /* harmony export */ });
-/* harmony import */ var _subscription__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(46);
+/* harmony import */ var _session_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
 
 
 
@@ -18981,31 +19210,9 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ClientTransaction": () => (/* reexport safe */ _client_transaction__WEBPACK_IMPORTED_MODULE_0__.ClientTransaction),
-/* harmony export */   "InviteClientTransaction": () => (/* reexport safe */ _invite_client_transaction__WEBPACK_IMPORTED_MODULE_1__.InviteClientTransaction),
-/* harmony export */   "InviteServerTransaction": () => (/* reexport safe */ _invite_server_transaction__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction),
-/* harmony export */   "NonInviteClientTransaction": () => (/* reexport safe */ _non_invite_client_transaction__WEBPACK_IMPORTED_MODULE_3__.NonInviteClientTransaction),
-/* harmony export */   "NonInviteServerTransaction": () => (/* reexport safe */ _non_invite_server_transaction__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction),
-/* harmony export */   "ServerTransaction": () => (/* reexport safe */ _server_transaction__WEBPACK_IMPORTED_MODULE_5__.ServerTransaction),
-/* harmony export */   "TransactionState": () => (/* reexport safe */ _transaction_state__WEBPACK_IMPORTED_MODULE_6__.TransactionState),
-/* harmony export */   "Transaction": () => (/* reexport safe */ _transaction__WEBPACK_IMPORTED_MODULE_7__.Transaction)
+/* harmony export */   "SubscriptionState": () => (/* reexport safe */ _subscription_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionState)
 /* harmony export */ });
-/* harmony import */ var _client_transaction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(65);
-/* harmony import */ var _invite_client_transaction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(68);
-/* harmony import */ var _invite_server_transaction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71);
-/* harmony import */ var _non_invite_client_transaction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(64);
-/* harmony import */ var _non_invite_server_transaction__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(82);
-/* harmony import */ var _server_transaction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(72);
-/* harmony import */ var _transaction_state__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(63);
-/* harmony import */ var _transaction__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(66);
-
-
-
-
-
-
-
-
+/* harmony import */ var _subscription_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(47);
 
 
 
@@ -19016,9 +19223,30 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "UserAgentCore": () => (/* reexport safe */ _user_agent_core__WEBPACK_IMPORTED_MODULE_0__.UserAgentCore)
+/* harmony export */   "ClientTransaction": () => (/* reexport safe */ _client_transaction_js__WEBPACK_IMPORTED_MODULE_0__.ClientTransaction),
+/* harmony export */   "InviteClientTransaction": () => (/* reexport safe */ _invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__.InviteClientTransaction),
+/* harmony export */   "InviteServerTransaction": () => (/* reexport safe */ _invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__.InviteServerTransaction),
+/* harmony export */   "NonInviteClientTransaction": () => (/* reexport safe */ _non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_3__.NonInviteClientTransaction),
+/* harmony export */   "NonInviteServerTransaction": () => (/* reexport safe */ _non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_4__.NonInviteServerTransaction),
+/* harmony export */   "ServerTransaction": () => (/* reexport safe */ _server_transaction_js__WEBPACK_IMPORTED_MODULE_5__.ServerTransaction),
+/* harmony export */   "Transaction": () => (/* reexport safe */ _transaction_js__WEBPACK_IMPORTED_MODULE_7__.Transaction),
+/* harmony export */   "TransactionState": () => (/* reexport safe */ _transaction_state_js__WEBPACK_IMPORTED_MODULE_6__.TransactionState)
 /* harmony export */ });
-/* harmony import */ var _user_agent_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(60);
+/* harmony import */ var _client_transaction_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
+/* harmony import */ var _invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69);
+/* harmony import */ var _invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72);
+/* harmony import */ var _non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(65);
+/* harmony import */ var _non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(83);
+/* harmony import */ var _server_transaction_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(73);
+/* harmony import */ var _transaction_state_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(64);
+/* harmony import */ var _transaction_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(67);
+
+
+
+
+
+
+
 
 
 
@@ -19030,82 +19258,9 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ByeUserAgentClient": () => (/* reexport safe */ _bye_user_agent_client__WEBPACK_IMPORTED_MODULE_0__.ByeUserAgentClient),
-/* harmony export */   "ByeUserAgentServer": () => (/* reexport safe */ _bye_user_agent_server__WEBPACK_IMPORTED_MODULE_1__.ByeUserAgentServer),
-/* harmony export */   "CancelUserAgentClient": () => (/* reexport safe */ _cancel_user_agent_client__WEBPACK_IMPORTED_MODULE_2__.CancelUserAgentClient),
-/* harmony export */   "InfoUserAgentClient": () => (/* reexport safe */ _info_user_agent_client__WEBPACK_IMPORTED_MODULE_3__.InfoUserAgentClient),
-/* harmony export */   "InfoUserAgentServer": () => (/* reexport safe */ _info_user_agent_server__WEBPACK_IMPORTED_MODULE_4__.InfoUserAgentServer),
-/* harmony export */   "InviteUserAgentClient": () => (/* reexport safe */ _invite_user_agent_client__WEBPACK_IMPORTED_MODULE_5__.InviteUserAgentClient),
-/* harmony export */   "InviteUserAgentServer": () => (/* reexport safe */ _invite_user_agent_server__WEBPACK_IMPORTED_MODULE_6__.InviteUserAgentServer),
-/* harmony export */   "MessageUserAgentClient": () => (/* reexport safe */ _message_user_agent_client__WEBPACK_IMPORTED_MODULE_7__.MessageUserAgentClient),
-/* harmony export */   "MessageUserAgentServer": () => (/* reexport safe */ _message_user_agent_server__WEBPACK_IMPORTED_MODULE_8__.MessageUserAgentServer),
-/* harmony export */   "NotifyUserAgentClient": () => (/* reexport safe */ _notify_user_agent_client__WEBPACK_IMPORTED_MODULE_9__.NotifyUserAgentClient),
-/* harmony export */   "NotifyUserAgentServer": () => (/* reexport safe */ _notify_user_agent_server__WEBPACK_IMPORTED_MODULE_10__.NotifyUserAgentServer),
-/* harmony export */   "PublishUserAgentClient": () => (/* reexport safe */ _publish_user_agent_client__WEBPACK_IMPORTED_MODULE_11__.PublishUserAgentClient),
-/* harmony export */   "PrackUserAgentClient": () => (/* reexport safe */ _prack_user_agent_client__WEBPACK_IMPORTED_MODULE_12__.PrackUserAgentClient),
-/* harmony export */   "PrackUserAgentServer": () => (/* reexport safe */ _prack_user_agent_server__WEBPACK_IMPORTED_MODULE_13__.PrackUserAgentServer),
-/* harmony export */   "ReInviteUserAgentClient": () => (/* reexport safe */ _re_invite_user_agent_client__WEBPACK_IMPORTED_MODULE_14__.ReInviteUserAgentClient),
-/* harmony export */   "ReInviteUserAgentServer": () => (/* reexport safe */ _re_invite_user_agent_server__WEBPACK_IMPORTED_MODULE_15__.ReInviteUserAgentServer),
-/* harmony export */   "ReSubscribeUserAgentClient": () => (/* reexport safe */ _re_subscribe_user_agent_client__WEBPACK_IMPORTED_MODULE_16__.ReSubscribeUserAgentClient),
-/* harmony export */   "ReSubscribeUserAgentServer": () => (/* reexport safe */ _re_subscribe_user_agent_server__WEBPACK_IMPORTED_MODULE_17__.ReSubscribeUserAgentServer),
-/* harmony export */   "ReferUserAgentClient": () => (/* reexport safe */ _refer_user_agent_client__WEBPACK_IMPORTED_MODULE_18__.ReferUserAgentClient),
-/* harmony export */   "ReferUserAgentServer": () => (/* reexport safe */ _refer_user_agent_server__WEBPACK_IMPORTED_MODULE_19__.ReferUserAgentServer),
-/* harmony export */   "RegisterUserAgentClient": () => (/* reexport safe */ _register_user_agent_client__WEBPACK_IMPORTED_MODULE_20__.RegisterUserAgentClient),
-/* harmony export */   "RegisterUserAgentServer": () => (/* reexport safe */ _register_user_agent_server__WEBPACK_IMPORTED_MODULE_21__.RegisterUserAgentServer),
-/* harmony export */   "SubscribeUserAgentClient": () => (/* reexport safe */ _subscribe_user_agent_client__WEBPACK_IMPORTED_MODULE_22__.SubscribeUserAgentClient),
-/* harmony export */   "SubscribeUserAgentServer": () => (/* reexport safe */ _subscribe_user_agent_server__WEBPACK_IMPORTED_MODULE_23__.SubscribeUserAgentServer),
-/* harmony export */   "UserAgentClient": () => (/* reexport safe */ _user_agent_client__WEBPACK_IMPORTED_MODULE_24__.UserAgentClient),
-/* harmony export */   "UserAgentServer": () => (/* reexport safe */ _user_agent_server__WEBPACK_IMPORTED_MODULE_25__.UserAgentServer)
+/* harmony export */   "UserAgentCore": () => (/* reexport safe */ _user_agent_core_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentCore)
 /* harmony export */ });
-/* harmony import */ var _bye_user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
-/* harmony import */ var _bye_user_agent_server__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(80);
-/* harmony import */ var _cancel_user_agent_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(111);
-/* harmony import */ var _info_user_agent_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(74);
-/* harmony import */ var _info_user_agent_server__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(84);
-/* harmony import */ var _invite_user_agent_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(61);
-/* harmony import */ var _invite_user_agent_server__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(95);
-/* harmony import */ var _message_user_agent_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(76);
-/* harmony import */ var _message_user_agent_server__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(86);
-/* harmony import */ var _notify_user_agent_client__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(77);
-/* harmony import */ var _notify_user_agent_server__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(87);
-/* harmony import */ var _publish_user_agent_client__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(90);
-/* harmony import */ var _prack_user_agent_client__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(78);
-/* harmony import */ var _prack_user_agent_server__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(88);
-/* harmony import */ var _re_invite_user_agent_client__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(75);
-/* harmony import */ var _re_invite_user_agent_server__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(85);
-/* harmony import */ var _re_subscribe_user_agent_client__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(94);
-/* harmony import */ var _re_subscribe_user_agent_server__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(112);
-/* harmony import */ var _refer_user_agent_client__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(79);
-/* harmony import */ var _refer_user_agent_server__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(89);
-/* harmony import */ var _register_user_agent_client__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(91);
-/* harmony import */ var _register_user_agent_server__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(96);
-/* harmony import */ var _subscribe_user_agent_client__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(92);
-/* harmony import */ var _subscribe_user_agent_server__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(97);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(62);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(81);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* harmony import */ var _user_agent_core_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
 
 
 
@@ -19117,21 +19272,85 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "CancelUserAgentClient": () => (/* binding */ CancelUserAgentClient)
+/* harmony export */   "ByeUserAgentClient": () => (/* reexport safe */ _bye_user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.ByeUserAgentClient),
+/* harmony export */   "ByeUserAgentServer": () => (/* reexport safe */ _bye_user_agent_server_js__WEBPACK_IMPORTED_MODULE_1__.ByeUserAgentServer),
+/* harmony export */   "CancelUserAgentClient": () => (/* reexport safe */ _cancel_user_agent_client_js__WEBPACK_IMPORTED_MODULE_2__.CancelUserAgentClient),
+/* harmony export */   "InfoUserAgentClient": () => (/* reexport safe */ _info_user_agent_client_js__WEBPACK_IMPORTED_MODULE_3__.InfoUserAgentClient),
+/* harmony export */   "InfoUserAgentServer": () => (/* reexport safe */ _info_user_agent_server_js__WEBPACK_IMPORTED_MODULE_4__.InfoUserAgentServer),
+/* harmony export */   "InviteUserAgentClient": () => (/* reexport safe */ _invite_user_agent_client_js__WEBPACK_IMPORTED_MODULE_5__.InviteUserAgentClient),
+/* harmony export */   "InviteUserAgentServer": () => (/* reexport safe */ _invite_user_agent_server_js__WEBPACK_IMPORTED_MODULE_6__.InviteUserAgentServer),
+/* harmony export */   "MessageUserAgentClient": () => (/* reexport safe */ _message_user_agent_client_js__WEBPACK_IMPORTED_MODULE_7__.MessageUserAgentClient),
+/* harmony export */   "MessageUserAgentServer": () => (/* reexport safe */ _message_user_agent_server_js__WEBPACK_IMPORTED_MODULE_8__.MessageUserAgentServer),
+/* harmony export */   "NotifyUserAgentClient": () => (/* reexport safe */ _notify_user_agent_client_js__WEBPACK_IMPORTED_MODULE_9__.NotifyUserAgentClient),
+/* harmony export */   "NotifyUserAgentServer": () => (/* reexport safe */ _notify_user_agent_server_js__WEBPACK_IMPORTED_MODULE_10__.NotifyUserAgentServer),
+/* harmony export */   "PrackUserAgentClient": () => (/* reexport safe */ _prack_user_agent_client_js__WEBPACK_IMPORTED_MODULE_12__.PrackUserAgentClient),
+/* harmony export */   "PrackUserAgentServer": () => (/* reexport safe */ _prack_user_agent_server_js__WEBPACK_IMPORTED_MODULE_13__.PrackUserAgentServer),
+/* harmony export */   "PublishUserAgentClient": () => (/* reexport safe */ _publish_user_agent_client_js__WEBPACK_IMPORTED_MODULE_11__.PublishUserAgentClient),
+/* harmony export */   "ReInviteUserAgentClient": () => (/* reexport safe */ _re_invite_user_agent_client_js__WEBPACK_IMPORTED_MODULE_14__.ReInviteUserAgentClient),
+/* harmony export */   "ReInviteUserAgentServer": () => (/* reexport safe */ _re_invite_user_agent_server_js__WEBPACK_IMPORTED_MODULE_15__.ReInviteUserAgentServer),
+/* harmony export */   "ReSubscribeUserAgentClient": () => (/* reexport safe */ _re_subscribe_user_agent_client_js__WEBPACK_IMPORTED_MODULE_16__.ReSubscribeUserAgentClient),
+/* harmony export */   "ReSubscribeUserAgentServer": () => (/* reexport safe */ _re_subscribe_user_agent_server_js__WEBPACK_IMPORTED_MODULE_17__.ReSubscribeUserAgentServer),
+/* harmony export */   "ReferUserAgentClient": () => (/* reexport safe */ _refer_user_agent_client_js__WEBPACK_IMPORTED_MODULE_18__.ReferUserAgentClient),
+/* harmony export */   "ReferUserAgentServer": () => (/* reexport safe */ _refer_user_agent_server_js__WEBPACK_IMPORTED_MODULE_19__.ReferUserAgentServer),
+/* harmony export */   "RegisterUserAgentClient": () => (/* reexport safe */ _register_user_agent_client_js__WEBPACK_IMPORTED_MODULE_20__.RegisterUserAgentClient),
+/* harmony export */   "RegisterUserAgentServer": () => (/* reexport safe */ _register_user_agent_server_js__WEBPACK_IMPORTED_MODULE_21__.RegisterUserAgentServer),
+/* harmony export */   "SubscribeUserAgentClient": () => (/* reexport safe */ _subscribe_user_agent_client_js__WEBPACK_IMPORTED_MODULE_22__.SubscribeUserAgentClient),
+/* harmony export */   "SubscribeUserAgentServer": () => (/* reexport safe */ _subscribe_user_agent_server_js__WEBPACK_IMPORTED_MODULE_23__.SubscribeUserAgentServer),
+/* harmony export */   "UserAgentClient": () => (/* reexport safe */ _user_agent_client_js__WEBPACK_IMPORTED_MODULE_24__.UserAgentClient),
+/* harmony export */   "UserAgentServer": () => (/* reexport safe */ _user_agent_server_js__WEBPACK_IMPORTED_MODULE_25__.UserAgentServer)
 /* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
-/* harmony import */ var _user_agent_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var _bye_user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74);
+/* harmony import */ var _bye_user_agent_server_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81);
+/* harmony import */ var _cancel_user_agent_client_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(112);
+/* harmony import */ var _info_user_agent_client_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(75);
+/* harmony import */ var _info_user_agent_server_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(85);
+/* harmony import */ var _invite_user_agent_client_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(62);
+/* harmony import */ var _invite_user_agent_server_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(96);
+/* harmony import */ var _message_user_agent_client_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(77);
+/* harmony import */ var _message_user_agent_server_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(87);
+/* harmony import */ var _notify_user_agent_client_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(78);
+/* harmony import */ var _notify_user_agent_server_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(88);
+/* harmony import */ var _publish_user_agent_client_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(91);
+/* harmony import */ var _prack_user_agent_client_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(79);
+/* harmony import */ var _prack_user_agent_server_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(89);
+/* harmony import */ var _re_invite_user_agent_client_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(76);
+/* harmony import */ var _re_invite_user_agent_server_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(86);
+/* harmony import */ var _re_subscribe_user_agent_client_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(95);
+/* harmony import */ var _re_subscribe_user_agent_server_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(113);
+/* harmony import */ var _refer_user_agent_client_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(80);
+/* harmony import */ var _refer_user_agent_server_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(90);
+/* harmony import */ var _register_user_agent_client_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(92);
+/* harmony import */ var _register_user_agent_server_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(97);
+/* harmony import */ var _subscribe_user_agent_client_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(93);
+/* harmony import */ var _subscribe_user_agent_server_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(98);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(63);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(82);
 
 
-/**
- * CANCEL UAC.
- * @public
- */
-class CancelUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
-    constructor(core, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteClientTransaction, core, message, delegate);
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***/ }),
@@ -19140,19 +19359,19 @@ class CancelUserAgentClient extends _user_agent_client__WEBPACK_IMPORTED_MODULE_
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ReSubscribeUserAgentServer": () => (/* binding */ ReSubscribeUserAgentServer)
+/* harmony export */   "CancelUserAgentClient": () => (/* binding */ CancelUserAgentClient)
 /* harmony export */ });
-/* harmony import */ var _transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(82);
-/* harmony import */ var _user_agent_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
+/* harmony import */ var _transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(65);
+/* harmony import */ var _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63);
 
 
 /**
- * Re-SUBSCRIBE UAS.
+ * CANCEL UAC.
  * @public
  */
-class ReSubscribeUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
-    constructor(dialog, message, delegate) {
-        super(_transactions__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, dialog.userAgentCore, message, delegate);
+class CancelUserAgentClient extends _user_agent_client_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentClient {
+    constructor(core, message, delegate) {
+        super(_transactions_non_invite_client_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteClientTransaction, core, message, delegate);
     }
 }
 
@@ -19163,29 +19382,21 @@ class ReSubscribeUserAgentServer extends _user_agent_server__WEBPACK_IMPORTED_MO
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addMidLines": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.addMidLines),
-/* harmony export */   "cleanJitsiSdpImageattr": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.cleanJitsiSdpImageattr),
-/* harmony export */   "holdModifier": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.holdModifier),
-/* harmony export */   "stripG722": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.stripG722),
-/* harmony export */   "stripRtpPayload": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.stripRtpPayload),
-/* harmony export */   "stripTcpCandidates": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.stripTcpCandidates),
-/* harmony export */   "stripTelephoneEvent": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.stripTelephoneEvent),
-/* harmony export */   "stripVideo": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.stripVideo),
-/* harmony export */   "SessionDescriptionHandler": () => (/* reexport safe */ _session_description_handler__WEBPACK_IMPORTED_MODULE_1__.SessionDescriptionHandler),
-/* harmony export */   "defaultMediaStreamFactory": () => (/* reexport safe */ _session_description_handler__WEBPACK_IMPORTED_MODULE_1__.defaultMediaStreamFactory),
-/* harmony export */   "defaultPeerConnectionConfiguration": () => (/* reexport safe */ _session_description_handler__WEBPACK_IMPORTED_MODULE_1__.defaultPeerConnectionConfiguration),
-/* harmony export */   "defaultSessionDescriptionHandlerFactory": () => (/* reexport safe */ _session_description_handler__WEBPACK_IMPORTED_MODULE_1__.defaultSessionDescriptionHandlerFactory),
-/* harmony export */   "SimpleUser": () => (/* reexport safe */ _simple_user__WEBPACK_IMPORTED_MODULE_2__.SimpleUser),
-/* harmony export */   "Transport": () => (/* reexport safe */ _transport__WEBPACK_IMPORTED_MODULE_3__.Transport)
+/* harmony export */   "ReSubscribeUserAgentServer": () => (/* binding */ ReSubscribeUserAgentServer)
 /* harmony export */ });
-/* harmony import */ var _modifiers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(114);
-/* harmony import */ var _session_description_handler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(116);
-/* harmony import */ var _simple_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(117);
-/* harmony import */ var _transport__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(119);
+/* harmony import */ var _transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
 
 
-
-
+/**
+ * Re-SUBSCRIBE UAS.
+ * @public
+ */
+class ReSubscribeUserAgentServer extends _user_agent_server_js__WEBPACK_IMPORTED_MODULE_0__.UserAgentServer {
+    constructor(dialog, message, delegate) {
+        super(_transactions_non_invite_server_transaction_js__WEBPACK_IMPORTED_MODULE_1__.NonInviteServerTransaction, dialog.userAgentCore, message, delegate);
+    }
+}
 
 
 /***/ }),
@@ -19194,20 +19405,34 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addMidLines": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.addMidLines),
-/* harmony export */   "cleanJitsiSdpImageattr": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.cleanJitsiSdpImageattr),
-/* harmony export */   "holdModifier": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.holdModifier),
-/* harmony export */   "stripG722": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.stripG722),
-/* harmony export */   "stripRtpPayload": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.stripRtpPayload),
-/* harmony export */   "stripTcpCandidates": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.stripTcpCandidates),
-/* harmony export */   "stripTelephoneEvent": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.stripTelephoneEvent),
-/* harmony export */   "stripVideo": () => (/* reexport safe */ _modifiers__WEBPACK_IMPORTED_MODULE_0__.stripVideo)
+/* harmony export */   "SessionDescriptionHandler": () => (/* reexport safe */ _session_description_handler_index_js__WEBPACK_IMPORTED_MODULE_1__.SessionDescriptionHandler),
+/* harmony export */   "SessionManager": () => (/* reexport safe */ _session_manager_index_js__WEBPACK_IMPORTED_MODULE_2__.SessionManager),
+/* harmony export */   "SimpleUser": () => (/* reexport safe */ _simple_user_index_js__WEBPACK_IMPORTED_MODULE_3__.SimpleUser),
+/* harmony export */   "Transport": () => (/* reexport safe */ _transport_index_js__WEBPACK_IMPORTED_MODULE_4__.Transport),
+/* harmony export */   "WebAudioSessionDescriptionHandler": () => (/* reexport safe */ _session_description_handler_index_js__WEBPACK_IMPORTED_MODULE_1__.WebAudioSessionDescriptionHandler),
+/* harmony export */   "addMidLines": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_0__.addMidLines),
+/* harmony export */   "cleanJitsiSdpImageattr": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_0__.cleanJitsiSdpImageattr),
+/* harmony export */   "defaultManagedSessionFactory": () => (/* reexport safe */ _session_manager_index_js__WEBPACK_IMPORTED_MODULE_2__.defaultManagedSessionFactory),
+/* harmony export */   "defaultMediaStreamFactory": () => (/* reexport safe */ _session_description_handler_index_js__WEBPACK_IMPORTED_MODULE_1__.defaultMediaStreamFactory),
+/* harmony export */   "defaultPeerConnectionConfiguration": () => (/* reexport safe */ _session_description_handler_index_js__WEBPACK_IMPORTED_MODULE_1__.defaultPeerConnectionConfiguration),
+/* harmony export */   "defaultSessionDescriptionHandlerFactory": () => (/* reexport safe */ _session_description_handler_index_js__WEBPACK_IMPORTED_MODULE_1__.defaultSessionDescriptionHandlerFactory),
+/* harmony export */   "holdModifier": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_0__.holdModifier),
+/* harmony export */   "startLocalConference": () => (/* reexport safe */ _session_description_handler_index_js__WEBPACK_IMPORTED_MODULE_1__.startLocalConference),
+/* harmony export */   "stripG722": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_0__.stripG722),
+/* harmony export */   "stripRtpPayload": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_0__.stripRtpPayload),
+/* harmony export */   "stripTcpCandidates": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_0__.stripTcpCandidates),
+/* harmony export */   "stripTelephoneEvent": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_0__.stripTelephoneEvent),
+/* harmony export */   "stripVideo": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_0__.stripVideo)
 /* harmony export */ });
-/* harmony import */ var _modifiers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(115);
-/**
- * SessionDescriptionHandlerModifer functions for web browsers.
- * @packageDocumentation
- */
+/* harmony import */ var _modifiers_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(115);
+/* harmony import */ var _session_description_handler_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(117);
+/* harmony import */ var _session_manager_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(119);
+/* harmony import */ var _simple_user_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(122);
+/* harmony import */ var _transport_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(124);
+
+
+
+
 
 
 
@@ -19217,14 +19442,37 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "stripTcpCandidates": () => (/* binding */ stripTcpCandidates),
-/* harmony export */   "stripTelephoneEvent": () => (/* binding */ stripTelephoneEvent),
+/* harmony export */   "addMidLines": () => (/* reexport safe */ _modifiers_js__WEBPACK_IMPORTED_MODULE_0__.addMidLines),
+/* harmony export */   "cleanJitsiSdpImageattr": () => (/* reexport safe */ _modifiers_js__WEBPACK_IMPORTED_MODULE_0__.cleanJitsiSdpImageattr),
+/* harmony export */   "holdModifier": () => (/* reexport safe */ _modifiers_js__WEBPACK_IMPORTED_MODULE_0__.holdModifier),
+/* harmony export */   "stripG722": () => (/* reexport safe */ _modifiers_js__WEBPACK_IMPORTED_MODULE_0__.stripG722),
+/* harmony export */   "stripRtpPayload": () => (/* reexport safe */ _modifiers_js__WEBPACK_IMPORTED_MODULE_0__.stripRtpPayload),
+/* harmony export */   "stripTcpCandidates": () => (/* reexport safe */ _modifiers_js__WEBPACK_IMPORTED_MODULE_0__.stripTcpCandidates),
+/* harmony export */   "stripTelephoneEvent": () => (/* reexport safe */ _modifiers_js__WEBPACK_IMPORTED_MODULE_0__.stripTelephoneEvent),
+/* harmony export */   "stripVideo": () => (/* reexport safe */ _modifiers_js__WEBPACK_IMPORTED_MODULE_0__.stripVideo)
+/* harmony export */ });
+/* harmony import */ var _modifiers_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(116);
+/**
+ * SessionDescriptionHandlerModifer functions for web browsers.
+ * @packageDocumentation
+ */
+
+
+
+/***/ }),
+/* 116 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addMidLines": () => (/* binding */ addMidLines),
 /* harmony export */   "cleanJitsiSdpImageattr": () => (/* binding */ cleanJitsiSdpImageattr),
+/* harmony export */   "holdModifier": () => (/* binding */ holdModifier),
 /* harmony export */   "stripG722": () => (/* binding */ stripG722),
 /* harmony export */   "stripRtpPayload": () => (/* binding */ stripRtpPayload),
-/* harmony export */   "stripVideo": () => (/* binding */ stripVideo),
-/* harmony export */   "addMidLines": () => (/* binding */ addMidLines),
-/* harmony export */   "holdModifier": () => (/* binding */ holdModifier)
+/* harmony export */   "stripTcpCandidates": () => (/* binding */ stripTcpCandidates),
+/* harmony export */   "stripTelephoneEvent": () => (/* binding */ stripTelephoneEvent),
+/* harmony export */   "stripVideo": () => (/* binding */ stripVideo)
 /* harmony export */ });
 const stripPayload = (sdp, payload) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19392,20 +19640,23 @@ function holdModifier(description) {
 
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "defaultMediaStreamFactory": () => (/* reexport safe */ _media_stream_factory_default__WEBPACK_IMPORTED_MODULE_0__.defaultMediaStreamFactory),
-/* harmony export */   "defaultPeerConnectionConfiguration": () => (/* reexport safe */ _peer_connection_configuration_default__WEBPACK_IMPORTED_MODULE_1__.defaultPeerConnectionConfiguration),
-/* harmony export */   "defaultSessionDescriptionHandlerFactory": () => (/* reexport safe */ _session_description_handler_factory_default__WEBPACK_IMPORTED_MODULE_2__.defaultSessionDescriptionHandlerFactory),
-/* harmony export */   "SessionDescriptionHandler": () => (/* reexport safe */ _session_description_handler__WEBPACK_IMPORTED_MODULE_3__.SessionDescriptionHandler)
+/* harmony export */   "SessionDescriptionHandler": () => (/* reexport safe */ _session_description_handler_js__WEBPACK_IMPORTED_MODULE_3__.SessionDescriptionHandler),
+/* harmony export */   "WebAudioSessionDescriptionHandler": () => (/* reexport safe */ _web_audio_session_description_handler_js__WEBPACK_IMPORTED_MODULE_4__.WebAudioSessionDescriptionHandler),
+/* harmony export */   "defaultMediaStreamFactory": () => (/* reexport safe */ _media_stream_factory_default_js__WEBPACK_IMPORTED_MODULE_0__.defaultMediaStreamFactory),
+/* harmony export */   "defaultPeerConnectionConfiguration": () => (/* reexport safe */ _peer_connection_configuration_default_js__WEBPACK_IMPORTED_MODULE_1__.defaultPeerConnectionConfiguration),
+/* harmony export */   "defaultSessionDescriptionHandlerFactory": () => (/* reexport safe */ _session_description_handler_factory_default_js__WEBPACK_IMPORTED_MODULE_2__.defaultSessionDescriptionHandlerFactory),
+/* harmony export */   "startLocalConference": () => (/* reexport safe */ _web_audio_session_description_handler_js__WEBPACK_IMPORTED_MODULE_4__.startLocalConference)
 /* harmony export */ });
-/* harmony import */ var _media_stream_factory_default__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(54);
-/* harmony import */ var _peer_connection_configuration_default__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(55);
-/* harmony import */ var _session_description_handler_factory_default__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(53);
-/* harmony import */ var _session_description_handler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(56);
+/* harmony import */ var _media_stream_factory_default_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(55);
+/* harmony import */ var _peer_connection_configuration_default_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(56);
+/* harmony import */ var _session_description_handler_factory_default_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(54);
+/* harmony import */ var _session_description_handler_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(57);
+/* harmony import */ var _web_audio_session_description_handler_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(118);
 /**
  * A SessionDescriptionHandler for web browsers.
  * @packageDocumentation
@@ -19422,23 +19673,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/***/ }),
-/* 117 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SimpleUser": () => (/* reexport safe */ _simple_user__WEBPACK_IMPORTED_MODULE_0__.SimpleUser)
-/* harmony export */ });
-/* harmony import */ var _simple_user__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(118);
-/**
- * A simple SIP user implementation for web browsers.
- * @packageDocumentation
- */
-
-
-
-
 
 /***/ }),
 /* 118 */
@@ -19446,54 +19680,250 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SimpleUser": () => (/* binding */ SimpleUser)
+/* harmony export */   "WebAudioSessionDescriptionHandler": () => (/* binding */ WebAudioSessionDescriptionHandler),
+/* harmony export */   "startLocalConference": () => (/* binding */ startLocalConference)
 /* harmony export */ });
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49);
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(48);
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(42);
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41);
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(37);
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(14);
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(38);
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(16);
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(6);
-/* harmony import */ var _session_description_handler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(56);
-/* harmony import */ var _transport__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(57);
+/* harmony import */ var _session_description_handler_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(57);
+
+/**
+ * Start a conference.
+ * @param conferenceSessions - The sessions to conference.
+ *
+ * @beta
+ */
+function startLocalConference(conferenceSessions) {
+    if (conferenceSessions.length < 2) {
+        throw new Error("Start local conference requires at leaast 2 sessions.");
+    }
+    // Return all possible pairs of elements in an array.
+    const pairs = (arr) => arr.map((v, i) => arr.slice(i + 1).map((w) => [v, w])).reduce((acc, curVal) => acc.concat(curVal), []);
+    // For each pair of sessions making up the conference, join their media together.
+    // A session desciprion handler manages the media, streams and tracks for a session.
+    pairs(conferenceSessions.map((session) => session.sessionDescriptionHandler)).forEach(([sdh0, sdh1]) => {
+        if (!(sdh0 instanceof WebAudioSessionDescriptionHandler && sdh1 instanceof WebAudioSessionDescriptionHandler)) {
+            throw new Error("Session description handler not instance of SessionManagerSessionDescriptionHandler");
+        }
+        sdh0.joinWith(sdh1);
+    });
+}
+/**
+ * A WebAudioSessionDescriptionHandler uses the Web Audio API to enable local conferencing of audio streams.
+ * @remarks
+ * This handler only works for one track of audio per peer connection. While the session description handler
+ * being extended supports both audio and video, attempting to utilize video with this handler is not defined.
+ *
+ * @beta
+ */
+class WebAudioSessionDescriptionHandler extends _session_description_handler_js__WEBPACK_IMPORTED_MODULE_0__.SessionDescriptionHandler {
+    constructor(logger, mediaStreamFactory, sessionDescriptionHandlerConfiguration) {
+        super(logger, mediaStreamFactory, sessionDescriptionHandlerConfiguration);
+        if (!WebAudioSessionDescriptionHandler.audioContext) {
+            WebAudioSessionDescriptionHandler.audioContext = new AudioContext();
+        }
+    }
+    /**
+     * Helper function to enable/disable media tracks.
+     * @param enable - If true enable tracks.
+     */
+    enableSenderTracks(enable) {
+        // This session decription handler is not using the original outbound (local) media stream source
+        // and has instead inserted a Web Audio proxy media stream to allow conferencing and mixing of stream.
+        // So here, we only want to mute the original source and not the proxy as it may be mixing other
+        // sources into the outbound stream and we do not want to enable/disable those. We only want to
+        // enable/disable the original stream source so that it's media gets muted/unmuted going to the proxy.
+        const stream = this.localMediaStreamReal;
+        if (stream === undefined) {
+            throw new Error("Stream undefined.");
+        }
+        stream.getAudioTracks().forEach((track) => {
+            track.enabled = enable;
+        });
+    }
+    /**
+     * Returns a WebRTC MediaStream proxying the provided audio media stream.
+     * This allows additional Web Audio media stream source nodes to be connected
+     * to the destination node assoicated with the returned stream so we can mix
+     * aditional audio sorces into the local media stream (ie for 3-way conferencing).
+     * @param stream - The MediaStream to proxy.
+     */
+    initLocalMediaStream(stream) {
+        if (!WebAudioSessionDescriptionHandler.audioContext) {
+            throw new Error("SessionManagerSessionDescriptionHandler.audioContext undefined.");
+        }
+        this.localMediaStreamReal = stream;
+        this.localMediaStreamSourceNode = WebAudioSessionDescriptionHandler.audioContext.createMediaStreamSource(stream);
+        this.localMediaStreamDestinationNode =
+            WebAudioSessionDescriptionHandler.audioContext.createMediaStreamDestination();
+        this.localMediaStreamSourceNode.connect(this.localMediaStreamDestinationNode);
+        return this.localMediaStreamDestinationNode.stream;
+    }
+    /**
+     * Join (conference) media streams with another party.
+     * @param peer - The session description handler of the peer to join with.
+     */
+    joinWith(peer) {
+        if (!WebAudioSessionDescriptionHandler.audioContext) {
+            throw new Error("SessionManagerSessionDescriptionHandler.audioContext undefined.");
+        }
+        // Mix our inbound (remote) stream into the peer's outbound (local) streams.
+        const ourNewInboundStreamSource = WebAudioSessionDescriptionHandler.audioContext.createMediaStreamSource(this.remoteMediaStream);
+        const peerOutboundStreamDestination = peer.localMediaStreamDestinationNode;
+        if (peerOutboundStreamDestination === undefined) {
+            throw new Error("Peer outbound (local) stream local media stream destination is undefined.");
+        }
+        ourNewInboundStreamSource.connect(peerOutboundStreamDestination);
+        // Mix the peer's inbound (remote) streams into our outbound (local) stream.
+        const peerNewInboundStreamSource = WebAudioSessionDescriptionHandler.audioContext.createMediaStreamSource(peer.remoteMediaStream);
+        const ourOutboundStreamDestination = this.localMediaStreamDestinationNode;
+        if (ourOutboundStreamDestination === undefined) {
+            throw new Error("Our outbound (local) stream local media stream destination is undefined.");
+        }
+        peerNewInboundStreamSource.connect(ourOutboundStreamDestination);
+    }
+    /**
+     * Sets the original local media stream.
+     * @param stream - Media stream containing tracks to be utilized.
+     * @remarks
+     * Only the first audio and video tracks of the provided MediaStream are utilized.
+     * Adds tracks if audio and/or video tracks are not already present, otherwise replaces tracks.
+     */
+    setRealLocalMediaStream(stream) {
+        if (!WebAudioSessionDescriptionHandler.audioContext) {
+            throw new Error("SessionManagerSessionDescriptionHandler.audioContext undefined.");
+        }
+        if (!this.localMediaStreamReal) {
+            this.initLocalMediaStream(stream);
+            return;
+        }
+        if (!this.localMediaStreamDestinationNode || !this.localMediaStreamSourceNode || !this.localMediaStreamReal) {
+            throw new Error("Local media stream undefined.");
+        }
+        this.localMediaStreamReal = stream;
+        this.localMediaStreamSourceNode.disconnect(this.localMediaStreamDestinationNode);
+        this.localMediaStreamSourceNode = WebAudioSessionDescriptionHandler.audioContext.createMediaStreamSource(stream);
+        this.localMediaStreamSourceNode.connect(this.localMediaStreamDestinationNode);
+    }
+}
+
+
+/***/ }),
+/* 119 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SessionManager": () => (/* reexport safe */ _session_manager_js__WEBPACK_IMPORTED_MODULE_1__.SessionManager),
+/* harmony export */   "defaultManagedSessionFactory": () => (/* reexport safe */ _managed_session_factory_default_js__WEBPACK_IMPORTED_MODULE_0__.defaultManagedSessionFactory)
+/* harmony export */ });
+/* harmony import */ var _managed_session_factory_default_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(120);
+/* harmony import */ var _session_manager_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(121);
+
+
+
+
+
+
+
+
+/***/ }),
+/* 120 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "defaultManagedSessionFactory": () => (/* binding */ defaultManagedSessionFactory)
+/* harmony export */ });
+/**
+ * Function which returns a ManagedSessionFactory.
+ * @public
+ */
+function defaultManagedSessionFactory() {
+    return (sessionManager, session) => {
+        return { session, held: false, muted: false };
+    };
+}
+
+
+/***/ }),
+/* 121 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SessionManager": () => (/* binding */ SessionManager)
+/* harmony export */ });
+/* harmony import */ var _api_invitation_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(15);
+/* harmony import */ var _api_inviter_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(38);
+/* harmony import */ var _api_messager_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(39);
+/* harmony import */ var _api_registerer_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(43);
+/* harmony import */ var _api_registerer_state_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(42);
+/* harmony import */ var _api_exceptions_request_pending_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(6);
+/* harmony import */ var _api_session_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(16);
+/* harmony import */ var _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(17);
+/* harmony import */ var _api_user_agent_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(50);
+/* harmony import */ var _api_user_agent_state_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(49);
+/* harmony import */ var _session_description_handler_session_description_handler_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57);
+/* harmony import */ var _transport_transport_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(58);
+/* harmony import */ var _managed_session_factory_default_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(120);
+
+
+
+
+
+
+
+
+
+
 
 
 
 /**
- * A simple SIP user class.
- * @remarks
- * While this class is completely functional for simple use cases, it is not intended
- * to provide an interface which is suitable for most (must less all) applications.
- * While this class has many limitations (for example, it only handles a single concurrent session),
- * it is, however, intended to serve as a simple example of using the SIP.js API.
+ * A session manager for SIP.js sessions.
  * @public
  */
-class SimpleUser {
+class SessionManager {
     /**
-     * Constructs a new instance of the `SimpleUser` class.
+     * Constructs a new instance of the `SessionManager` class.
      * @param server - SIP WebSocket Server URL.
-     * @param options - Options bucket. See {@link SimpleUserOptions} for details.
+     * @param options - Options bucket. See {@link SessionManagerOptions} for details.
      */
     constructor(server, options = {}) {
+        /** Sessions being managed. */
+        this.managedSessions = [];
         this.attemptingReconnection = false;
-        this.connectRequested = false;
-        this.held = false;
-        this.muted = false;
-        this.registerer = undefined;
-        this.registerRequested = false;
-        this.session = undefined;
+        this.optionsPingFailure = false;
+        this.optionsPingRunning = false;
+        this.shouldBeConnected = false;
+        this.shouldBeRegistered = false;
         // Delegate
         this.delegate = options.delegate;
         // Copy options
-        this.options = Object.assign({}, options);
+        this.options = Object.assign({
+            aor: "",
+            autoStop: true,
+            delegate: {},
+            iceStopWaitingOnServerReflexive: false,
+            managedSessionFactory: (0,_managed_session_factory_default_js__WEBPACK_IMPORTED_MODULE_0__.defaultManagedSessionFactory)(),
+            maxSimultaneousSessions: 2,
+            media: {},
+            optionsPingInterval: -1,
+            optionsPingRequestURI: "",
+            reconnectionAttempts: 3,
+            reconnectionDelay: 4,
+            registrationRetry: false,
+            registrationRetryInterval: 3,
+            registerGuard: null,
+            registererOptions: {},
+            registererRegisterOptions: {},
+            sendDTMFUsingSessionDescriptionHandler: false,
+            userAgentOptions: {}
+        }, SessionManager.stripUndefinedProperties(options));
         // UserAgentOptions
         const userAgentOptions = Object.assign({}, options.userAgentOptions);
         // Transport
         if (!userAgentOptions.transportConstructor) {
-            userAgentOptions.transportConstructor = _transport__WEBPACK_IMPORTED_MODULE_0__.Transport;
+            userAgentOptions.transportConstructor = _transport_transport_js__WEBPACK_IMPORTED_MODULE_1__.Transport;
         }
         // TransportOptions
         if (!userAgentOptions.transportOptions) {
@@ -19505,7 +19935,7 @@ class SimpleUser {
         if (!userAgentOptions.uri) {
             // If an AOR was provided, convert it to a URI
             if (options.aor) {
-                const uri = _api__WEBPACK_IMPORTED_MODULE_1__.UserAgent.makeURI(options.aor);
+                const uri = _api_user_agent_js__WEBPACK_IMPORTED_MODULE_2__.UserAgent.makeURI(options.aor);
                 if (!uri) {
                     throw new Error(`Failed to create valid URI from ${options.aor}`);
                 }
@@ -19513,66 +19943,85 @@ class SimpleUser {
             }
         }
         // UserAgent
-        this.userAgent = new _api__WEBPACK_IMPORTED_MODULE_1__.UserAgent(userAgentOptions);
+        this.userAgent = new _api_user_agent_js__WEBPACK_IMPORTED_MODULE_2__.UserAgent(userAgentOptions);
         // UserAgent's delegate
         this.userAgent.delegate = {
             // Handle connection with server established
             onConnect: () => {
-                this.logger.log(`[${this.id}] Connected`);
+                this.logger.log(`Connected`);
                 if (this.delegate && this.delegate.onServerConnect) {
                     this.delegate.onServerConnect();
                 }
-                if (this.registerer && this.registerRequested) {
-                    this.logger.log(`[${this.id}] Registering...`);
-                    this.registerer.register().catch((e) => {
-                        this.logger.error(`[${this.id}] Error occurred registering after connection with server was obtained.`);
-                        this.logger.error(e.toString());
-                    });
+                // Attempt to register if we are supposed to be registered
+                if (this.shouldBeRegistered) {
+                    this.register();
+                }
+                // Start OPTIONS pings if we are to be pinging
+                if (this.options.optionsPingInterval > 0) {
+                    this.optionsPingStart();
                 }
             },
             // Handle connection with server lost
-            onDisconnect: (error) => {
-                this.logger.log(`[${this.id}] Disconnected`);
+            onDisconnect: async (error) => {
+                this.logger.log(`Disconnected`);
+                // Stop OPTIONS ping if need be.
+                let optionsPingFailure = false;
+                if (this.options.optionsPingInterval > 0) {
+                    optionsPingFailure = this.optionsPingFailure;
+                    this.optionsPingFailure = false;
+                    this.optionsPingStop();
+                }
+                // Let delgate know we have disconnected
                 if (this.delegate && this.delegate.onServerDisconnect) {
                     this.delegate.onServerDisconnect(error);
                 }
-                if (this.session) {
-                    this.logger.log(`[${this.id}] Hanging up...`);
-                    this.hangup() // cleanup hung calls
-                        .catch((e) => {
-                        this.logger.error(`[${this.id}] Error occurred hanging up call after connection with server was lost.`);
-                        this.logger.error(e.toString());
+                // If the user called `disconnect` a graceful cleanup will be done therein.
+                // Only cleanup if network/server dropped the connection.
+                // Only reconnect if network/server dropped the connection
+                if (error || optionsPingFailure) {
+                    // There is no transport at this point, so we are not expecting to be able to
+                    // send messages much less get responses. So just dispose of everything without
+                    // waiting for anything to succeed.
+                    if (this.registerer) {
+                        this.logger.log(`Disposing of registerer...`);
+                        this.registerer.dispose().catch((e) => {
+                            this.logger.debug(`Error occurred disposing of registerer after connection with server was lost.`);
+                            this.logger.debug(e.toString());
+                        });
+                        this.registerer = undefined;
+                    }
+                    this.managedSessions
+                        .slice()
+                        .map((el) => el.session)
+                        .forEach(async (session) => {
+                        this.logger.log(`Disposing of session...`);
+                        session.dispose().catch((e) => {
+                            this.logger.debug(`Error occurred disposing of a session after connection with server was lost.`);
+                            this.logger.debug(e.toString());
+                        });
                     });
-                }
-                if (this.registerer) {
-                    this.logger.log(`[${this.id}] Unregistering...`);
-                    this.registerer
-                        .unregister() // cleanup invalid registrations
-                        .catch((e) => {
-                        this.logger.error(`[${this.id}] Error occurred unregistering after connection with server was lost.`);
-                        this.logger.error(e.toString());
-                    });
-                }
-                // Only attempt to reconnect if network/server dropped the connection.
-                if (error) {
-                    this.attemptReconnection();
+                    // Attempt to reconnect if we are supposed to be connected.
+                    if (this.shouldBeConnected) {
+                        this.attemptReconnection();
+                    }
                 }
             },
             // Handle incoming invitations
             onInvite: (invitation) => {
-                this.logger.log(`[${this.id}] Received INVITE`);
-                // Guard against a pre-existing session. This implementation only supports one session at a time.
-                // However an incoming INVITE request may be received at any time and/or while in the process
+                this.logger.log(`[${invitation.id}] Received INVITE`);
+                // Guard against a maximum number of pre-existing sessions.
+                // An incoming INVITE request may be received at any time and/or while in the process
                 // of sending an outgoing INVITE request. So we reject any incoming INVITE in those cases.
-                if (this.session) {
-                    this.logger.warn(`[${this.id}] Session already in progress, rejecting INVITE...`);
+                const maxSessions = this.options.maxSimultaneousSessions;
+                if (maxSessions !== 0 && this.managedSessions.length > maxSessions) {
+                    this.logger.warn(`[${invitation.id}] Session already in progress, rejecting INVITE...`);
                     invitation
                         .reject()
                         .then(() => {
-                        this.logger.log(`[${this.id}] Rejected INVITE`);
+                        this.logger.log(`[${invitation.id}] Rejected INVITE`);
                     })
                         .catch((error) => {
-                        this.logger.error(`[${this.id}] Failed to reject INVITE`);
+                        this.logger.error(`[${invitation.id}] Failed to reject INVITE`);
                         this.logger.error(error.toString());
                     });
                     return;
@@ -19585,17 +20034,17 @@ class SimpleUser {
                 this.initSession(invitation, referralInviterOptions);
                 // Delegate
                 if (this.delegate && this.delegate.onCallReceived) {
-                    this.delegate.onCallReceived();
+                    this.delegate.onCallReceived(invitation);
                 }
                 else {
-                    this.logger.warn(`[${this.id}] No handler available, rejecting INVITE...`);
+                    this.logger.warn(`[${invitation.id}] No handler available, rejecting INVITE...`);
                     invitation
                         .reject()
                         .then(() => {
-                        this.logger.log(`[${this.id}] Rejected INVITE`);
+                        this.logger.log(`[${invitation.id}] Rejected INVITE`);
                     })
                         .catch((error) => {
-                        this.logger.error(`[${this.id}] Failed to reject INVITE`);
+                        this.logger.error(`[${invitation.id}] Failed to reject INVITE`);
                         this.logger.error(error.toString());
                     });
                 }
@@ -19604,91 +20053,156 @@ class SimpleUser {
             onMessage: (message) => {
                 message.accept().then(() => {
                     if (this.delegate && this.delegate.onMessageReceived) {
-                        this.delegate.onMessageReceived(message.request.body);
+                        this.delegate.onMessageReceived(message);
+                    }
+                });
+            },
+            // Handle incoming notifications
+            onNotify: (notification) => {
+                notification.accept().then(() => {
+                    if (this.delegate && this.delegate.onNotificationReceived) {
+                        this.delegate.onNotificationReceived(notification);
                     }
                 });
             }
         };
+        // RegistererOptions
+        this.registererOptions = Object.assign({}, options.registererOptions);
+        // RegistererRegisterOptions
+        this.registererRegisterOptions = Object.assign({}, options.registererRegisterOptions);
+        // Retry registration on failure or rejection.
+        if (this.options.registrationRetry) {
+            // If the register request is rejected, try again...
+            this.registererRegisterOptions.requestDelegate = this.registererRegisterOptions.requestDelegate || {};
+            const existingOnReject = this.registererRegisterOptions.requestDelegate.onReject;
+            this.registererRegisterOptions.requestDelegate.onReject = (response) => {
+                existingOnReject && existingOnReject(response);
+                // If at first we don't succeed, try try again...
+                this.attemptRegistration();
+            };
+        }
         // Use the SIP.js logger
-        this.logger = this.userAgent.getLogger("sip.SimpleUser");
-        // Monitor network connectivity and attempt reconnection when we come online
+        this.logger = this.userAgent.getLogger("sip.SessionManager");
+        // Monitor network connectivity and attempt reconnection and reregistration when we come online
         window.addEventListener("online", () => {
-            this.logger.log(`[${this.id}] Online`);
-            this.attemptReconnection();
+            this.logger.log(`Online`);
+            if (this.shouldBeConnected) {
+                this.connect();
+            }
         });
+        // NOTE: The autoStop option does not currently work as one likley expects.
+        //       This code is here because the "autoStop behavior" and this assoicated
+        //       implemenation has been a recurring request. So instead of removing
+        //       the implementation again (because it doesn't work) and then having
+        //       to explain agian the issue over and over again to those who want it,
+        //       we have included it here to break that cycle. The implementation is
+        //       harmless and serves to provide an explaination for those interested.
+        if (this.options.autoStop) {
+            // Standard operation workflow will resume after this callback exits, meaning
+            // that any asynchronous operations are likely not going to be finished, especially
+            // if they are guaranteed to not be executed in the current tick (promises fall
+            // under this category, they will never be resolved synchronously by design).
+            window.addEventListener("beforeunload", async () => {
+                this.shouldBeConnected = false;
+                this.shouldBeRegistered = false;
+                if (this.userAgent.state !== _api_user_agent_state_js__WEBPACK_IMPORTED_MODULE_3__.UserAgentState.Stopped) {
+                    // The stop() method returns a promise which will not resolve before the page unloads.
+                    await this.userAgent.stop();
+                }
+            });
+        }
     }
     /**
-     * Instance identifier.
-     * @internal
+     * Strip properties with undefined values from options.
+     * This is a work around while waiting for missing vs undefined to be addressed (or not)...
+     * https://github.com/Microsoft/TypeScript/issues/13195
+     * @param options - Options to reduce
      */
-    get id() {
-        return (this.options.userAgentOptions && this.options.userAgentOptions.displayName) || "Anonymous";
+    static stripUndefinedProperties(options) {
+        return Object.keys(options).reduce((object, key) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if (options[key] !== undefined) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                object[key] = options[key];
+            }
+            return object;
+        }, {});
     }
-    /** The local media stream. Undefined if call not answered. */
-    get localMediaStream() {
-        var _a;
-        const sdh = (_a = this.session) === null || _a === void 0 ? void 0 : _a.sessionDescriptionHandler;
+    /**
+     * The local media stream. Undefined if call not answered.
+     * @param session - Session to get the media stream from.
+     */
+    getLocalMediaStream(session) {
+        const sdh = session.sessionDescriptionHandler;
         if (!sdh) {
             return undefined;
         }
-        if (!(sdh instanceof _session_description_handler__WEBPACK_IMPORTED_MODULE_2__.SessionDescriptionHandler)) {
+        if (!(sdh instanceof _session_description_handler_session_description_handler_js__WEBPACK_IMPORTED_MODULE_4__.SessionDescriptionHandler)) {
             throw new Error("Session description handler not instance of web SessionDescriptionHandler");
         }
         return sdh.localMediaStream;
     }
-    /** The remote media stream. Undefined if call not answered. */
-    get remoteMediaStream() {
-        var _a;
-        const sdh = (_a = this.session) === null || _a === void 0 ? void 0 : _a.sessionDescriptionHandler;
+    /**
+     * The remote media stream. Undefined if call not answered.
+     * @param session - Session to get the media stream from.
+     */
+    getRemoteMediaStream(session) {
+        const sdh = session.sessionDescriptionHandler;
         if (!sdh) {
             return undefined;
         }
-        if (!(sdh instanceof _session_description_handler__WEBPACK_IMPORTED_MODULE_2__.SessionDescriptionHandler)) {
+        if (!(sdh instanceof _session_description_handler_session_description_handler_js__WEBPACK_IMPORTED_MODULE_4__.SessionDescriptionHandler)) {
             throw new Error("Session description handler not instance of web SessionDescriptionHandler");
         }
         return sdh.remoteMediaStream;
     }
     /**
      * The local audio track, if available.
+     * @param session - Session to get track from.
      * @deprecated Use localMediaStream and get track from the stream.
      */
-    get localAudioTrack() {
+    getLocalAudioTrack(session) {
         var _a;
-        return (_a = this.localMediaStream) === null || _a === void 0 ? void 0 : _a.getTracks().find((track) => track.kind === "audio");
+        return (_a = this.getLocalMediaStream(session)) === null || _a === void 0 ? void 0 : _a.getTracks().find((track) => track.kind === "audio");
     }
     /**
      * The local video track, if available.
+     * @param session - Session to get track from.
      * @deprecated Use localMediaStream and get track from the stream.
      */
-    get localVideoTrack() {
+    getLocalVideoTrack(session) {
         var _a;
-        return (_a = this.localMediaStream) === null || _a === void 0 ? void 0 : _a.getTracks().find((track) => track.kind === "video");
+        return (_a = this.getLocalMediaStream(session)) === null || _a === void 0 ? void 0 : _a.getTracks().find((track) => track.kind === "video");
     }
     /**
      * The remote audio track, if available.
+     * @param session - Session to get track from.
      * @deprecated Use remoteMediaStream and get track from the stream.
      */
-    get remoteAudioTrack() {
+    getRemoteAudioTrack(session) {
         var _a;
-        return (_a = this.remoteMediaStream) === null || _a === void 0 ? void 0 : _a.getTracks().find((track) => track.kind === "audio");
+        return (_a = this.getRemoteMediaStream(session)) === null || _a === void 0 ? void 0 : _a.getTracks().find((track) => track.kind === "audio");
     }
     /**
      * The remote video track, if available.
+     * @param session - Session to get track from.
      * @deprecated Use remoteMediaStream and get track from the stream.
      */
-    get remoteVideoTrack() {
+    getRemoteVideoTrack(session) {
         var _a;
-        return (_a = this.remoteMediaStream) === null || _a === void 0 ? void 0 : _a.getTracks().find((track) => track.kind === "video");
+        return (_a = this.getRemoteMediaStream(session)) === null || _a === void 0 ? void 0 : _a.getTracks().find((track) => track.kind === "video");
     }
     /**
      * Connect.
      * @remarks
-     * Start the UserAgent's WebSocket Transport.
+     * If not started, starts the UserAgent connecting the WebSocket Transport.
+     * Otherwise reconnects the UserAgent's WebSocket Transport.
+     * Attempts will be made to reconnect as needed.
      */
-    connect() {
-        this.logger.log(`[${this.id}] Connecting UserAgent...`);
-        this.connectRequested = true;
-        if (this.userAgent.state !== _api__WEBPACK_IMPORTED_MODULE_3__.UserAgentState.Started) {
+    async connect() {
+        this.logger.log(`Connecting UserAgent...`);
+        this.shouldBeConnected = true;
+        if (this.userAgent.state !== _api_user_agent_state_js__WEBPACK_IMPORTED_MODULE_3__.UserAgentState.Started) {
             return this.userAgent.start();
         }
         return this.userAgent.reconnect();
@@ -19696,15 +20210,20 @@ class SimpleUser {
     /**
      * Disconnect.
      * @remarks
-     * Stop the UserAgent's WebSocket Transport.
+     * If not stopped, stops the UserAgent disconnecting the WebSocket Transport.
      */
-    disconnect() {
-        this.logger.log(`[${this.id}] Disconnecting UserAgent...`);
-        this.connectRequested = false;
+    async disconnect() {
+        this.logger.log(`Disconnecting UserAgent...`);
+        if (this.userAgent.state === _api_user_agent_state_js__WEBPACK_IMPORTED_MODULE_3__.UserAgentState.Stopped) {
+            return Promise.resolve();
+        }
+        this.shouldBeConnected = false;
+        this.shouldBeRegistered = false;
+        this.registerer = undefined;
         return this.userAgent.stop();
     }
     /**
-     * Return true if connected.
+     * Return true if transport is connected.
      */
     isConnected() {
         return this.userAgent.isConnected();
@@ -19714,37 +20233,42 @@ class SimpleUser {
      * @remarks
      * Send a REGISTER request for the UserAgent's AOR.
      * Resolves when the REGISTER request is sent, otherwise rejects.
+     * Attempts will be made to re-register as needed.
      */
-    register(registererOptions, registererRegisterOptions) {
-        this.logger.log(`[${this.id}] Registering UserAgent...`);
-        this.registerRequested = true;
+    async register(registererRegisterOptions) {
+        this.logger.log(`Registering UserAgent...`);
+        this.shouldBeRegistered = true;
+        if (registererRegisterOptions !== undefined) {
+            this.registererRegisterOptions = Object.assign({}, registererRegisterOptions);
+        }
         if (!this.registerer) {
-            this.registerer = new _api__WEBPACK_IMPORTED_MODULE_4__.Registerer(this.userAgent, registererOptions);
+            this.registerer = new _api_registerer_js__WEBPACK_IMPORTED_MODULE_5__.Registerer(this.userAgent, this.registererOptions);
             this.registerer.stateChange.addListener((state) => {
                 switch (state) {
-                    case _api__WEBPACK_IMPORTED_MODULE_5__.RegistererState.Initial:
+                    case _api_registerer_state_js__WEBPACK_IMPORTED_MODULE_6__.RegistererState.Initial:
                         break;
-                    case _api__WEBPACK_IMPORTED_MODULE_5__.RegistererState.Registered:
+                    case _api_registerer_state_js__WEBPACK_IMPORTED_MODULE_6__.RegistererState.Registered:
                         if (this.delegate && this.delegate.onRegistered) {
                             this.delegate.onRegistered();
                         }
                         break;
-                    case _api__WEBPACK_IMPORTED_MODULE_5__.RegistererState.Unregistered:
+                    case _api_registerer_state_js__WEBPACK_IMPORTED_MODULE_6__.RegistererState.Unregistered:
                         if (this.delegate && this.delegate.onUnregistered) {
                             this.delegate.onUnregistered();
                         }
+                        // If we transition to an unregister state, attempt to get back to a registered state.
+                        if (this.shouldBeRegistered) {
+                            this.attemptRegistration();
+                        }
                         break;
-                    case _api__WEBPACK_IMPORTED_MODULE_5__.RegistererState.Terminated:
-                        this.registerer = undefined;
+                    case _api_registerer_state_js__WEBPACK_IMPORTED_MODULE_6__.RegistererState.Terminated:
                         break;
                     default:
                         throw new Error("Unknown registerer state.");
                 }
             });
         }
-        return this.registerer.register(registererRegisterOptions).then(() => {
-            return;
-        });
+        return this.attemptRegistration(true);
     }
     /**
      * Stop receiving incoming calls.
@@ -19752,10 +20276,11 @@ class SimpleUser {
      * Send an un-REGISTER request for the UserAgent's AOR.
      * Resolves when the un-REGISTER request is sent, otherwise rejects.
      */
-    unregister(registererUnregisterOptions) {
-        this.logger.log(`[${this.id}] Unregistering UserAgent...`);
-        this.registerRequested = false;
+    async unregister(registererUnregisterOptions) {
+        this.logger.log(`Unregistering UserAgent...`);
+        this.shouldBeRegistered = false;
         if (!this.registerer) {
+            this.logger.warn(`No registerer to unregister.`);
             return Promise.resolve();
         }
         return this.registerer.unregister(registererUnregisterOptions).then(() => {
@@ -19772,12 +20297,16 @@ class SimpleUser {
      * @param inviterOptions - Optional options for Inviter constructor.
      * @param inviterInviteOptions - Optional options for Inviter.invite().
      */
-    call(destination, inviterOptions, inviterInviteOptions) {
-        this.logger.log(`[${this.id}] Beginning Session...`);
-        if (this.session) {
-            return Promise.reject(new Error("Session already exists."));
+    async call(destination, inviterOptions, inviterInviteOptions) {
+        this.logger.log(`Beginning Session...`);
+        // Guard against a maximum number of pre-existing sessions.
+        // An incoming INVITE request may be received at any time and/or while in the process
+        // of sending an outgoing INVITE request. So we reject any incoming INVITE in those cases.
+        const maxSessions = this.options.maxSimultaneousSessions;
+        if (maxSessions !== 0 && this.managedSessions.length > maxSessions) {
+            return Promise.reject(new Error("Maximum number of sessions already exists."));
         }
-        const target = _api__WEBPACK_IMPORTED_MODULE_1__.UserAgent.makeURI(destination);
+        const target = _api_user_agent_js__WEBPACK_IMPORTED_MODULE_2__.UserAgent.makeURI(destination);
         if (!target) {
             return Promise.reject(new Error(`Failed to create a valid URI from "${destination}"`));
         }
@@ -19791,38 +20320,79 @@ class SimpleUser {
         if (!inviterOptions.sessionDescriptionHandlerOptions.constraints) {
             inviterOptions.sessionDescriptionHandlerOptions.constraints = this.constraints;
         }
+        // If utilizing early media, add a handler to catch 183 Session Progress
+        // messages and then to play the associated remote media (the early media).
+        if (inviterOptions.earlyMedia) {
+            inviterInviteOptions = inviterInviteOptions || {};
+            inviterInviteOptions.requestDelegate = inviterInviteOptions.requestDelegate || {};
+            const existingOnProgress = inviterInviteOptions.requestDelegate.onProgress;
+            inviterInviteOptions.requestDelegate.onProgress = (response) => {
+                if (response.message.statusCode === 183) {
+                    this.setupRemoteMedia(inviter);
+                }
+                existingOnProgress && existingOnProgress(response);
+            };
+        }
+        // TODO: Any existing onSessionDescriptionHandler is getting clobbered here.
+        // If we get a server reflexive candidate, stop waiting on ICE gathering to complete.
+        // The candidate is a server reflexive candidate; the ip indicates an intermediary
+        // address assigned by the STUN server to represent the candidate's peer anonymously.
+        if (this.options.iceStopWaitingOnServerReflexive) {
+            inviterOptions.delegate = inviterOptions.delegate || {};
+            inviterOptions.delegate.onSessionDescriptionHandler = (sessionDescriptionHandler) => {
+                if (!(sessionDescriptionHandler instanceof _session_description_handler_session_description_handler_js__WEBPACK_IMPORTED_MODULE_4__.SessionDescriptionHandler)) {
+                    throw new Error("Session description handler not instance of SessionDescriptionHandler");
+                }
+                sessionDescriptionHandler.peerConnectionDelegate = {
+                    onicecandidate: (event) => {
+                        var _a;
+                        if (((_a = event.candidate) === null || _a === void 0 ? void 0 : _a.type) === "srflx") {
+                            this.logger.log(`[${inviter.id}] Found srflx ICE candidate, stop waiting...`);
+                            // In sip.js > 0.20.1 this cast should be removed as iceGatheringComplete will be public
+                            const sdh = sessionDescriptionHandler;
+                            sdh.iceGatheringComplete();
+                        }
+                    }
+                };
+            };
+        }
         // Create a new Inviter for the outgoing Session
-        const inviter = new _api__WEBPACK_IMPORTED_MODULE_6__.Inviter(this.userAgent, target, inviterOptions);
+        const inviter = new _api_inviter_js__WEBPACK_IMPORTED_MODULE_7__.Inviter(this.userAgent, target, inviterOptions);
         // Send INVITE
         return this.sendInvite(inviter, inviterOptions, inviterInviteOptions).then(() => {
-            return;
+            return inviter;
         });
     }
     /**
      * Hangup a call.
+     * @param session - Session to hangup.
      * @remarks
      * Send a BYE request, CANCEL request or reject response to end the current Session.
      * Resolves when the request/response is sent, otherwise rejects.
-     * Use `onCallTerminated` delegate method to determine if and when call is ended.
+     * Use `onCallHangup` delegate method to determine if and when call is ended.
      */
-    hangup() {
-        this.logger.log(`[${this.id}] Hangup...`);
-        return this.terminate();
+    async hangup(session) {
+        this.logger.log(`[${session.id}] Hangup...`);
+        if (!this.sessionExists(session)) {
+            return Promise.reject(new Error("Session does not exist."));
+        }
+        return this.terminate(session);
     }
     /**
      * Answer an incoming call.
+     * @param session - Session to answer.
      * @remarks
      * Accept an incoming INVITE request creating a new Session.
      * Resolves with the response is sent, otherwise rejects.
      * Use `onCallAnswered` delegate method to determine if and when call is established.
      * @param invitationAcceptOptions - Optional options for Inviter.accept().
      */
-    answer(invitationAcceptOptions) {
-        this.logger.log(`[${this.id}] Accepting Invitation...`);
-        if (!this.session) {
+    async answer(session, invitationAcceptOptions) {
+        this.logger.log(`[${session.id}] Accepting Invitation...`);
+        if (!this.sessionExists(session)) {
             return Promise.reject(new Error("Session does not exist."));
         }
-        if (!(this.session instanceof _api__WEBPACK_IMPORTED_MODULE_7__.Invitation)) {
+        if (!(session instanceof _api_invitation_js__WEBPACK_IMPORTED_MODULE_8__.Invitation)) {
             return Promise.reject(new Error("Session not instance of Invitation."));
         }
         // Use our configured constraints as InvitationAcceptOptions if none provided
@@ -19835,125 +20405,172 @@ class SimpleUser {
         if (!invitationAcceptOptions.sessionDescriptionHandlerOptions.constraints) {
             invitationAcceptOptions.sessionDescriptionHandlerOptions.constraints = this.constraints;
         }
-        return this.session.accept(invitationAcceptOptions);
+        return session.accept(invitationAcceptOptions);
     }
     /**
      * Decline an incoming call.
+     * @param session - Session to decline.
      * @remarks
      * Reject an incoming INVITE request.
      * Resolves with the response is sent, otherwise rejects.
-     * Use `onCallTerminated` delegate method to determine if and when call is ended.
+     * Use `onCallHangup` delegate method to determine if and when call is ended.
      */
-    decline() {
-        this.logger.log(`[${this.id}] rejecting Invitation...`);
-        if (!this.session) {
+    async decline(session) {
+        this.logger.log(`[${session.id}] Rejecting Invitation...`);
+        if (!this.sessionExists(session)) {
             return Promise.reject(new Error("Session does not exist."));
         }
-        if (!(this.session instanceof _api__WEBPACK_IMPORTED_MODULE_7__.Invitation)) {
+        if (!(session instanceof _api_invitation_js__WEBPACK_IMPORTED_MODULE_8__.Invitation)) {
             return Promise.reject(new Error("Session not instance of Invitation."));
         }
-        return this.session.reject();
+        return session.reject();
     }
     /**
      * Hold call
+     * @param session - Session to hold.
      * @remarks
      * Send a re-INVITE with new offer indicating "hold".
      * Resolves when the re-INVITE request is sent, otherwise rejects.
      * Use `onCallHold` delegate method to determine if request is accepted or rejected.
      * See: https://tools.ietf.org/html/rfc6337
      */
-    hold() {
-        this.logger.log(`[${this.id}] holding session...`);
-        return this.setHold(true);
+    async hold(session) {
+        this.logger.log(`[${session.id}] Holding session...`);
+        return this.setHold(session, true);
     }
     /**
      * Unhold call.
+     * @param session - Session to unhold.
      * @remarks
      * Send a re-INVITE with new offer indicating "unhold".
      * Resolves when the re-INVITE request is sent, otherwise rejects.
      * Use `onCallHold` delegate method to determine if request is accepted or rejected.
      * See: https://tools.ietf.org/html/rfc6337
      */
-    unhold() {
-        this.logger.log(`[${this.id}] unholding session...`);
-        return this.setHold(false);
+    async unhold(session) {
+        this.logger.log(`[${session.id}] Unholding session...`);
+        return this.setHold(session, false);
     }
     /**
      * Hold state.
+     * @param session - Session to check.
      * @remarks
-     * True if session media is on hold.
+     * True if session is on hold.
      */
-    isHeld() {
-        return this.held;
+    isHeld(session) {
+        const managedSession = this.sessionManaged(session);
+        return managedSession ? managedSession.held : false;
     }
     /**
      * Mute call.
+     * @param session - Session to mute.
      * @remarks
      * Disable sender's media tracks.
      */
-    mute() {
-        this.logger.log(`[${this.id}] disabling media tracks...`);
-        this.setMute(true);
+    mute(session) {
+        this.logger.log(`[${session.id}] Disabling media tracks...`);
+        this.setMute(session, true);
     }
     /**
      * Unmute call.
+     * @param session - Session to unmute.
      * @remarks
      * Enable sender's media tracks.
      */
-    unmute() {
-        this.logger.log(`[${this.id}] enabling media tracks...`);
-        this.setMute(false);
+    unmute(session) {
+        this.logger.log(`[${session.id}] Enabling media tracks...`);
+        this.setMute(session, false);
     }
     /**
      * Mute state.
+     * @param session - Session to check.
      * @remarks
      * True if sender's media track is disabled.
      */
-    isMuted() {
-        return this.muted;
+    isMuted(session) {
+        const managedSession = this.sessionManaged(session);
+        return managedSession ? managedSession.muted : false;
     }
     /**
      * Send DTMF.
+     * @param session - Session to send on.
      * @remarks
      * Send an INFO request with content type application/dtmf-relay.
      * @param tone - Tone to send.
      */
-    sendDTMF(tone) {
-        this.logger.log(`[${this.id}] sending DTMF...`);
-        // As RFC 6086 states, sending DTMF via INFO is not standardized...
-        //
-        // Companies have been using INFO messages in order to transport
-        // Dual-Tone Multi-Frequency (DTMF) tones.  All mechanisms are
-        // proprietary and have not been standardized.
-        // https://tools.ietf.org/html/rfc6086#section-2
-        //
-        // It is however widely supported based on this draft:
-        // https://tools.ietf.org/html/draft-kaplan-dispatch-info-dtmf-package-00
+    async sendDTMF(session, tone) {
+        this.logger.log(`[${session.id}] Sending DTMF...`);
         // Validate tone
         if (!/^[0-9A-D#*,]$/.exec(tone)) {
             return Promise.reject(new Error("Invalid DTMF tone."));
         }
-        if (!this.session) {
+        if (!this.sessionExists(session)) {
             return Promise.reject(new Error("Session does not exist."));
         }
-        // The UA MUST populate the "application/dtmf-relay" body, as defined
-        // earlier, with the button pressed and the duration it was pressed
-        // for.  Technically, this actually requires the INFO to be generated
-        // when the user *releases* the button, however if the user has still
-        // not released a button after 5 seconds, which is the maximum duration
-        // supported by this mechanism, the UA should generate the INFO at that
-        // time.
-        // https://tools.ietf.org/html/draft-kaplan-dispatch-info-dtmf-package-00#section-5.3
-        this.logger.log(`[${this.id}] Sending DTMF tone: ${tone}`);
-        const dtmf = tone;
-        const duration = 2000;
-        const body = {
-            contentDisposition: "render",
-            contentType: "application/dtmf-relay",
-            content: "Signal=" + dtmf + "\r\nDuration=" + duration
-        };
-        const requestOptions = { body };
-        return this.session.info({ requestOptions }).then(() => {
+        this.logger.log(`[${session.id}] Sending DTMF tone: ${tone}`);
+        if (this.options.sendDTMFUsingSessionDescriptionHandler) {
+            if (!session.sessionDescriptionHandler) {
+                return Promise.reject(new Error("Session desciption handler undefined."));
+            }
+            if (!session.sessionDescriptionHandler.sendDtmf(tone)) {
+                return Promise.reject(new Error("Failed to send DTMF"));
+            }
+            return Promise.resolve();
+        }
+        else {
+            // As RFC 6086 states, sending DTMF via INFO is not standardized...
+            //
+            // Companies have been using INFO messages in order to transport
+            // Dual-Tone Multi-Frequency (DTMF) tones.  All mechanisms are
+            // proprietary and have not been standardized.
+            // https://tools.ietf.org/html/rfc6086#section-2
+            //
+            // It is however widely supported based on this draft:
+            // https://tools.ietf.org/html/draft-kaplan-dispatch-info-dtmf-package-00
+            // The UA MUST populate the "application/dtmf-relay" body, as defined
+            // earlier, with the button pressed and the duration it was pressed
+            // for.  Technically, this actually requires the INFO to be generated
+            // when the user *releases* the button, however if the user has still
+            // not released a button after 5 seconds, which is the maximum duration
+            // supported by this mechanism, the UA should generate the INFO at that
+            // time.
+            // https://tools.ietf.org/html/draft-kaplan-dispatch-info-dtmf-package-00#section-5.3
+            const dtmf = tone;
+            const duration = 2000;
+            const body = {
+                contentDisposition: "render",
+                contentType: "application/dtmf-relay",
+                content: "Signal=" + dtmf + "\r\nDuration=" + duration
+            };
+            const requestOptions = { body };
+            return session.info({ requestOptions }).then(() => {
+                return;
+            });
+        }
+    }
+    /**
+     * Transfer.
+     * @param session - Session with the transferee to transfer.
+     * @param target - The referral target.
+     * @remarks
+     * If target is a Session this is an attended transfer completion (REFER with Replaces),
+     * otherwise this is a blind transfer (REFER). Attempting an attended transfer
+     * completion on a call that has not been answered will be rejected. To implement
+     * an attended transfer with early completion, hangup the call with the target
+     * and execute a blind transfer to the target.
+     */
+    async transfer(session, target, options) {
+        this.logger.log(`[${session.id}] Referring session...`);
+        if (target instanceof _api_session_js__WEBPACK_IMPORTED_MODULE_9__.Session) {
+            return session.refer(target, options).then(() => {
+                return;
+            });
+        }
+        const uri = _api_user_agent_js__WEBPACK_IMPORTED_MODULE_2__.UserAgent.makeURI(target);
+        if (!uri) {
+            return Promise.reject(new Error(`Failed to create a valid URI from "${target}"`));
+        }
+        return session.refer(uri, options).then(() => {
             return;
         });
     }
@@ -19963,294 +20580,506 @@ class SimpleUser {
      * Send a MESSAGE request.
      * @param destination - The target destination for the message. A SIP address to send the MESSAGE to.
      */
-    message(destination, message) {
-        this.logger.log(`[${this.id}] sending message...`);
-        const target = _api__WEBPACK_IMPORTED_MODULE_1__.UserAgent.makeURI(destination);
+    async message(destination, message) {
+        this.logger.log(`Sending message...`);
+        const target = _api_user_agent_js__WEBPACK_IMPORTED_MODULE_2__.UserAgent.makeURI(destination);
         if (!target) {
             return Promise.reject(new Error(`Failed to create a valid URI from "${destination}"`));
         }
-        return new _api__WEBPACK_IMPORTED_MODULE_8__.Messager(this.userAgent, target, message).message();
+        return new _api_messager_js__WEBPACK_IMPORTED_MODULE_10__.Messager(this.userAgent, target, message).message();
     }
     /** Media constraints. */
     get constraints() {
-        var _a;
         let constraints = { audio: true, video: false }; // default to audio only calls
-        if ((_a = this.options.media) === null || _a === void 0 ? void 0 : _a.constraints) {
+        if (this.options.media.constraints) {
             constraints = Object.assign({}, this.options.media.constraints);
         }
         return constraints;
     }
     /**
-     * Attempt reconnection up to `maxReconnectionAttempts` times.
+     * Attempt reconnection up to `reconnectionAttempts` times.
      * @param reconnectionAttempt - Current attempt number.
      */
     attemptReconnection(reconnectionAttempt = 1) {
-        const reconnectionAttempts = this.options.reconnectionAttempts || 3;
-        const reconnectionDelay = this.options.reconnectionDelay || 4;
-        if (!this.connectRequested) {
-            this.logger.log(`[${this.id}] Reconnection not currently desired`);
+        const reconnectionAttempts = this.options.reconnectionAttempts;
+        const reconnectionDelay = this.options.reconnectionDelay;
+        if (!this.shouldBeConnected) {
+            this.logger.log(`Should not be connected currently`);
             return; // If intentionally disconnected, don't reconnect.
         }
         if (this.attemptingReconnection) {
-            this.logger.log(`[${this.id}] Reconnection attempt already in progress`);
+            this.logger.log(`Reconnection attempt already in progress`);
         }
         if (reconnectionAttempt > reconnectionAttempts) {
-            this.logger.log(`[${this.id}] Reconnection maximum attempts reached`);
+            this.logger.log(`Reconnection maximum attempts reached`);
             return;
         }
         if (reconnectionAttempt === 1) {
-            this.logger.log(`[${this.id}] Reconnection attempt ${reconnectionAttempt} of ${reconnectionAttempts} - trying`);
+            this.logger.log(`Reconnection attempt ${reconnectionAttempt} of ${reconnectionAttempts} - trying`);
         }
         else {
-            this.logger.log(`[${this.id}] Reconnection attempt ${reconnectionAttempt} of ${reconnectionAttempts} - trying in ${reconnectionDelay} seconds`);
+            this.logger.log(`Reconnection attempt ${reconnectionAttempt} of ${reconnectionAttempts} - trying in ${reconnectionDelay} seconds`);
         }
         this.attemptingReconnection = true;
         setTimeout(() => {
-            if (!this.connectRequested) {
-                this.logger.log(`[${this.id}] Reconnection attempt ${reconnectionAttempt} of ${reconnectionAttempts} - aborted`);
+            if (!this.shouldBeConnected) {
+                this.logger.log(`Reconnection attempt ${reconnectionAttempt} of ${reconnectionAttempts} - aborted`);
                 this.attemptingReconnection = false;
                 return; // If intentionally disconnected, don't reconnect.
             }
             this.userAgent
                 .reconnect()
                 .then(() => {
-                this.logger.log(`[${this.id}] Reconnection attempt ${reconnectionAttempt} of ${reconnectionAttempts} - succeeded`);
+                this.logger.log(`Reconnection attempt ${reconnectionAttempt} of ${reconnectionAttempts} - succeeded`);
                 this.attemptingReconnection = false;
             })
                 .catch((error) => {
-                this.logger.log(`[${this.id}] Reconnection attempt ${reconnectionAttempt} of ${reconnectionAttempts} - failed`);
+                this.logger.log(`Reconnection attempt ${reconnectionAttempt} of ${reconnectionAttempts} - failed`);
                 this.logger.error(error.message);
                 this.attemptingReconnection = false;
                 this.attemptReconnection(++reconnectionAttempt);
             });
         }, reconnectionAttempt === 1 ? 0 : reconnectionDelay * 1000);
     }
+    /**
+     * Register to receive calls.
+     * @param withoutDelay - If true attempt immediately, otherwise wait `registrationRetryInterval`.
+     */
+    attemptRegistration(withoutDelay = false) {
+        this.logger.log(`Registration attempt ${withoutDelay ? "without delay" : ""}`);
+        if (!this.shouldBeRegistered) {
+            this.logger.log(`Should not be registered currently`);
+            return Promise.resolve();
+        }
+        // It only makes sense to have one attempt in progress at a time.
+        // Perhaps we shall (or should) try once again.
+        if (this.registrationAttemptTimeout !== undefined) {
+            this.logger.log(`Registration attempt already in progress`);
+            return Promise.resolve();
+        }
+        // Helper function to send the register request.
+        const _register = () => {
+            // If we do not have a registerer, it is not worth trying to register.
+            if (!this.registerer) {
+                this.logger.log(`Registerer undefined`);
+                return Promise.resolve();
+            }
+            // If the WebSocket transport is not connected, it is not worth trying to register.
+            // Perhpas we shall (or should) try once we are connected.
+            if (!this.isConnected()) {
+                this.logger.log(`User agent not connected`);
+                return Promise.resolve();
+            }
+            // If the UserAgent is stopped, it is not worth trying to register.
+            // Perhaps we shall (or should) try once the UserAgent is running.
+            if (this.userAgent.state === _api_user_agent_state_js__WEBPACK_IMPORTED_MODULE_3__.UserAgentState.Stopped) {
+                this.logger.log(`User agent stopped`);
+                return Promise.resolve();
+            }
+            // If no guard defined, we are good to proceed without any further ado.
+            if (!this.options.registerGuard) {
+                return this.registerer.register(this.registererRegisterOptions).then(() => {
+                    return;
+                });
+            }
+            // Otherwise check to make sure the guard does not want us halt.
+            return this.options
+                .registerGuard()
+                .catch((error) => {
+                this.logger.log(`Register guard rejected will making registration attempt`);
+                throw error;
+            })
+                .then((halt) => {
+                if (halt || !this.registerer) {
+                    return Promise.resolve();
+                }
+                return this.registerer.register(this.registererRegisterOptions).then(() => {
+                    return;
+                });
+            });
+        };
+        // Compute an amount of time in seconds to wait before sending another register request.
+        // This is a small attempt to avoid DOS attacking our own backend in the event that a
+        // relatively large number of clients sychonously keep retrying register reqeusts.
+        // This is known to happen when the backend goes down for a period and all clients
+        // are attempting to register again - the backend gets slammed with synced reqeusts.
+        const computeRegistrationTimeout = (lowerBound) => {
+            const upperBound = lowerBound * 2;
+            return 1000 * (Math.random() * (upperBound - lowerBound) + lowerBound);
+        };
+        // Send register request after a delay
+        return new Promise((resolve, reject) => {
+            this.registrationAttemptTimeout = setTimeout(() => {
+                _register()
+                    .then(() => {
+                    this.registrationAttemptTimeout = undefined;
+                    resolve();
+                })
+                    .catch((error) => {
+                    this.registrationAttemptTimeout = undefined;
+                    if (error instanceof _api_exceptions_request_pending_js__WEBPACK_IMPORTED_MODULE_11__.RequestPendingError) {
+                        resolve();
+                    }
+                    else {
+                        reject(error);
+                    }
+                });
+            }, withoutDelay ? 0 : computeRegistrationTimeout(this.options.registrationRetryInterval));
+        });
+    }
     /** Helper function to remove media from html elements. */
-    cleanupMedia() {
-        if (this.options.media) {
-            if (this.options.media.local) {
-                if (this.options.media.local.video) {
-                    this.options.media.local.video.srcObject = null;
-                    this.options.media.local.video.pause();
-                }
+    cleanupMedia(session) {
+        const managedSession = this.sessionManaged(session);
+        if (!managedSession) {
+            throw new Error("Managed session does not exist.");
+        }
+        if (managedSession.mediaLocal) {
+            if (managedSession.mediaLocal.video) {
+                managedSession.mediaLocal.video.srcObject = null;
+                managedSession.mediaLocal.video.pause();
             }
-            if (this.options.media.remote) {
-                if (this.options.media.remote.audio) {
-                    this.options.media.remote.audio.srcObject = null;
-                    this.options.media.remote.audio.pause();
-                }
-                if (this.options.media.remote.video) {
-                    this.options.media.remote.video.srcObject = null;
-                    this.options.media.remote.video.pause();
-                }
+        }
+        if (managedSession.mediaRemote) {
+            if (managedSession.mediaRemote.audio) {
+                managedSession.mediaRemote.audio.srcObject = null;
+                managedSession.mediaRemote.audio.pause();
+            }
+            if (managedSession.mediaRemote.video) {
+                managedSession.mediaRemote.video.srcObject = null;
+                managedSession.mediaRemote.video.pause();
             }
         }
     }
     /** Helper function to enable/disable media tracks. */
-    enableReceiverTracks(enable) {
-        if (!this.session) {
+    enableReceiverTracks(session, enable) {
+        if (!this.sessionExists(session)) {
             throw new Error("Session does not exist.");
         }
-        const sessionDescriptionHandler = this.session.sessionDescriptionHandler;
-        if (!(sessionDescriptionHandler instanceof _session_description_handler__WEBPACK_IMPORTED_MODULE_2__.SessionDescriptionHandler)) {
+        const sessionDescriptionHandler = session.sessionDescriptionHandler;
+        if (!(sessionDescriptionHandler instanceof _session_description_handler_session_description_handler_js__WEBPACK_IMPORTED_MODULE_4__.SessionDescriptionHandler)) {
             throw new Error("Session's session description handler not instance of SessionDescriptionHandler.");
         }
-        const peerConnection = sessionDescriptionHandler.peerConnection;
-        if (!peerConnection) {
-            throw new Error("Peer connection closed.");
-        }
-        peerConnection.getReceivers().forEach((receiver) => {
-            if (receiver.track) {
-                receiver.track.enabled = enable;
-            }
-        });
+        sessionDescriptionHandler.enableReceiverTracks(enable);
     }
     /** Helper function to enable/disable media tracks. */
-    enableSenderTracks(enable) {
-        if (!this.session) {
+    enableSenderTracks(session, enable) {
+        if (!this.sessionExists(session)) {
             throw new Error("Session does not exist.");
         }
-        const sessionDescriptionHandler = this.session.sessionDescriptionHandler;
-        if (!(sessionDescriptionHandler instanceof _session_description_handler__WEBPACK_IMPORTED_MODULE_2__.SessionDescriptionHandler)) {
+        const sessionDescriptionHandler = session.sessionDescriptionHandler;
+        if (!(sessionDescriptionHandler instanceof _session_description_handler_session_description_handler_js__WEBPACK_IMPORTED_MODULE_4__.SessionDescriptionHandler)) {
             throw new Error("Session's session description handler not instance of SessionDescriptionHandler.");
         }
-        const peerConnection = sessionDescriptionHandler.peerConnection;
-        if (!peerConnection) {
-            throw new Error("Peer connection closed.");
-        }
-        peerConnection.getSenders().forEach((sender) => {
-            if (sender.track) {
-                sender.track.enabled = enable;
-            }
-        });
+        sessionDescriptionHandler.enableSenderTracks(enable);
     }
     /**
      * Setup session delegate and state change handler.
-     * @param session - Session to setup
+     * @param session - Session to setup.
      * @param referralInviterOptions - Options for any Inviter created as result of a REFER.
      */
     initSession(session, referralInviterOptions) {
-        // Set session
-        this.session = session;
+        // Add the session
+        this.sessionAdd(session);
         // Call session created callback
         if (this.delegate && this.delegate.onCallCreated) {
-            this.delegate.onCallCreated();
+            this.delegate.onCallCreated(session);
         }
         // Setup session state change handler
-        this.session.stateChange.addListener((state) => {
-            if (this.session !== session) {
-                return; // if our session has changed, just return
-            }
-            this.logger.log(`[${this.id}] session state changed to ${state}`);
+        session.stateChange.addListener((state) => {
+            this.logger.log(`[${session.id}] Session state changed to ${state}`);
             switch (state) {
-                case _api__WEBPACK_IMPORTED_MODULE_9__.SessionState.Initial:
+                case _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__.SessionState.Initial:
                     break;
-                case _api__WEBPACK_IMPORTED_MODULE_9__.SessionState.Establishing:
+                case _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__.SessionState.Establishing:
                     break;
-                case _api__WEBPACK_IMPORTED_MODULE_9__.SessionState.Established:
-                    this.setupLocalMedia();
-                    this.setupRemoteMedia();
+                case _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__.SessionState.Established:
+                    this.setupLocalMedia(session);
+                    this.setupRemoteMedia(session);
                     if (this.delegate && this.delegate.onCallAnswered) {
-                        this.delegate.onCallAnswered();
+                        this.delegate.onCallAnswered(session);
                     }
                     break;
-                case _api__WEBPACK_IMPORTED_MODULE_9__.SessionState.Terminating:
+                case _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__.SessionState.Terminating:
                 // fall through
-                case _api__WEBPACK_IMPORTED_MODULE_9__.SessionState.Terminated:
-                    this.session = undefined;
-                    this.cleanupMedia();
-                    if (this.delegate && this.delegate.onCallHangup) {
-                        this.delegate.onCallHangup();
+                case _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__.SessionState.Terminated:
+                    // This will already have executed if/when we fall
+                    // through from Terminating and thus the managed
+                    // session may already have been cleaned up.
+                    if (this.sessionExists(session)) {
+                        this.cleanupMedia(session);
+                        this.sessionRemove(session);
+                        if (this.delegate && this.delegate.onCallHangup) {
+                            this.delegate.onCallHangup(session);
+                        }
                     }
                     break;
                 default:
                     throw new Error("Unknown session state.");
             }
         });
+        // TODO: Any existing onInfo or onRefer delegate gets clobbered here.
         // Setup delegate
-        this.session.delegate = {
-            onInfo: (info) => {
-                // As RFC 6086 states, sending DTMF via INFO is not standardized...
-                //
-                // Companies have been using INFO messages in order to transport
-                // Dual-Tone Multi-Frequency (DTMF) tones.  All mechanisms are
-                // proprietary and have not been standardized.
-                // https://tools.ietf.org/html/rfc6086#section-2
-                //
-                // It is however widely supported based on this draft:
-                // https://tools.ietf.org/html/draft-kaplan-dispatch-info-dtmf-package-00
-                var _a;
-                // FIXME: TODO: We should reject correctly...
-                //
-                // If a UA receives an INFO request associated with an Info Package that
-                // the UA has not indicated willingness to receive, the UA MUST send a
-                // 469 (Bad Info Package) response (see Section 11.6), which contains a
-                // Recv-Info header field with Info Packages for which the UA is willing
-                // to receive INFO requests.
-                // https://tools.ietf.org/html/rfc6086#section-4.2.2
-                // No delegate
-                if (((_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onCallDTMFReceived) === undefined) {
-                    info.reject();
-                    return;
-                }
-                // Invalid content type
-                const contentType = info.request.getHeader("content-type");
-                if (!contentType || !/^application\/dtmf-relay/i.exec(contentType)) {
-                    info.reject();
-                    return;
-                }
-                // Invalid body
-                const body = info.request.body.split("\r\n", 2);
-                if (body.length !== 2) {
-                    info.reject();
-                    return;
-                }
-                // Invalid tone
-                let tone;
-                const toneRegExp = /^(Signal\s*?=\s*?)([0-9A-D#*]{1})(\s)?.*/;
-                if (toneRegExp.test(body[0])) {
-                    tone = body[0].replace(toneRegExp, "$2");
-                }
-                if (!tone) {
-                    info.reject();
-                    return;
-                }
-                // Invalid duration
-                let duration;
-                const durationRegExp = /^(Duration\s?=\s?)([0-9]{1,4})(\s)?.*/;
-                if (durationRegExp.test(body[1])) {
-                    duration = parseInt(body[1].replace(durationRegExp, "$2"), 10);
-                }
-                if (!duration) {
-                    info.reject();
-                    return;
-                }
-                info
-                    .accept()
-                    .then(() => {
-                    if (this.delegate && this.delegate.onCallDTMFReceived) {
-                        if (!tone || !duration) {
-                            throw new Error("Tone or duration undefined.");
-                        }
-                        this.delegate.onCallDTMFReceived(tone, duration);
-                    }
-                })
-                    .catch((error) => {
-                    this.logger.error(error.message);
-                });
-            },
-            onRefer: (referral) => {
-                referral
-                    .accept()
-                    .then(() => this.sendInvite(referral.makeInviter(referralInviterOptions), referralInviterOptions))
-                    .catch((error) => {
-                    this.logger.error(error.message);
-                });
+        session.delegate = session.delegate || {};
+        session.delegate.onInfo = (info) => {
+            // As RFC 6086 states, sending DTMF via INFO is not standardized...
+            //
+            // Companies have been using INFO messages in order to transport
+            // Dual-Tone Multi-Frequency (DTMF) tones.  All mechanisms are
+            // proprietary and have not been standardized.
+            // https://tools.ietf.org/html/rfc6086#section-2
+            //
+            // It is however widely supported based on this draft:
+            // https://tools.ietf.org/html/draft-kaplan-dispatch-info-dtmf-package-00
+            var _a;
+            // FIXME: TODO: We should reject correctly...
+            //
+            // If a UA receives an INFO request associated with an Info Package that
+            // the UA has not indicated willingness to receive, the UA MUST send a
+            // 469 (Bad Info Package) response (see Section 11.6), which contains a
+            // Recv-Info header field with Info Packages for which the UA is willing
+            // to receive INFO requests.
+            // https://tools.ietf.org/html/rfc6086#section-4.2.2
+            // No delegate
+            if (((_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onCallDTMFReceived) === undefined) {
+                info.reject();
+                return;
             }
+            // Invalid content type
+            const contentType = info.request.getHeader("content-type");
+            if (!contentType || !/^application\/dtmf-relay/i.exec(contentType)) {
+                info.reject();
+                return;
+            }
+            // Invalid body
+            const body = info.request.body.split("\r\n", 2);
+            if (body.length !== 2) {
+                info.reject();
+                return;
+            }
+            // Invalid tone
+            let tone;
+            const toneRegExp = /^(Signal\s*?=\s*?)([0-9A-D#*]{1})(\s)?.*/;
+            if (body[0] !== undefined && toneRegExp.test(body[0])) {
+                tone = body[0].replace(toneRegExp, "$2");
+            }
+            if (!tone) {
+                info.reject();
+                return;
+            }
+            // Invalid duration
+            let duration;
+            const durationRegExp = /^(Duration\s?=\s?)([0-9]{1,4})(\s)?.*/;
+            if (body[1] !== undefined && durationRegExp.test(body[1])) {
+                duration = parseInt(body[1].replace(durationRegExp, "$2"), 10);
+            }
+            if (!duration) {
+                info.reject();
+                return;
+            }
+            info
+                .accept()
+                .then(() => {
+                if (this.delegate && this.delegate.onCallDTMFReceived) {
+                    if (!tone || !duration) {
+                        throw new Error("Tone or duration undefined.");
+                    }
+                    this.delegate.onCallDTMFReceived(session, tone, duration);
+                }
+            })
+                .catch((error) => {
+                this.logger.error(error.message);
+            });
+        };
+        session.delegate.onRefer = (referral) => {
+            referral
+                .accept()
+                .then(() => this.sendInvite(referral.makeInviter(referralInviterOptions), referralInviterOptions))
+                .catch((error) => {
+                this.logger.error(error.message);
+            });
         };
     }
+    /**
+     * Periodically send OPTIONS pings and disconnect when a ping fails.
+     * @param requestURI - Request URI to target
+     * @param fromURI - From URI
+     * @param toURI - To URI
+     */
+    optionsPingRun(requestURI, fromURI, toURI) {
+        // Guard against nvalid interval
+        if (this.options.optionsPingInterval < 1) {
+            throw new Error("Invalid options ping interval.");
+        }
+        // Guard against sending a ping when there is one outstanading
+        if (this.optionsPingRunning) {
+            return;
+        }
+        this.optionsPingRunning = true;
+        // Setup next ping to run in future
+        this.optionsPingTimeout = setTimeout(() => {
+            this.optionsPingTimeout = undefined;
+            // If ping succeeds...
+            const onPingSuccess = () => {
+                // record success or failure
+                this.optionsPingFailure = false;
+                // if we are still running, queue up the next ping
+                if (this.optionsPingRunning) {
+                    this.optionsPingRunning = false;
+                    this.optionsPingRun(requestURI, fromURI, toURI);
+                }
+            };
+            // If ping fails...
+            const onPingFailure = () => {
+                this.logger.error("OPTIONS ping failed");
+                // record success or failure
+                this.optionsPingFailure = true;
+                // stop running
+                this.optionsPingRunning = false;
+                // disconnect the transport
+                this.userAgent.transport.disconnect().catch((error) => this.logger.error(error));
+            };
+            // Create an OPTIONS request message
+            const core = this.userAgent.userAgentCore;
+            const message = core.makeOutgoingRequestMessage("OPTIONS", requestURI, fromURI, toURI, {});
+            // Send the request message
+            this.optionsPingRequest = core.request(message, {
+                onAccept: () => {
+                    this.optionsPingRequest = undefined;
+                    onPingSuccess();
+                },
+                onReject: (response) => {
+                    this.optionsPingRequest = undefined;
+                    // Ping fails on following responses...
+                    // - 408 Request Timeout (no response was received)
+                    // - 503 Service Unavailable (a transport layer error occured)
+                    if (response.message.statusCode === 408 || response.message.statusCode === 503) {
+                        onPingFailure();
+                    }
+                    else {
+                        onPingSuccess();
+                    }
+                }
+            });
+        }, this.options.optionsPingInterval * 1000);
+    }
+    /**
+     * Start sending OPTIONS pings.
+     */
+    optionsPingStart() {
+        this.logger.log(`OPTIONS pings started`);
+        // Create the URIs needed to send OPTIONS pings
+        let requestURI, fromURI, toURI;
+        if (this.options.optionsPingRequestURI) {
+            // Use whatever specific RURI is provided.
+            requestURI = _api_user_agent_js__WEBPACK_IMPORTED_MODULE_2__.UserAgent.makeURI(this.options.optionsPingRequestURI);
+            if (!requestURI) {
+                throw new Error("Failed to create Request URI.");
+            }
+            // Use the user agent's contact URI for From and To URIs
+            fromURI = this.userAgent.contact.uri.clone();
+            toURI = this.userAgent.contact.uri.clone();
+        }
+        else if (this.options.aor) {
+            // Otherwise use the AOR provided to target the assocated registrar server.
+            const uri = _api_user_agent_js__WEBPACK_IMPORTED_MODULE_2__.UserAgent.makeURI(this.options.aor);
+            if (!uri) {
+                throw new Error("Failed to create URI.");
+            }
+            requestURI = uri.clone();
+            requestURI.user = undefined; // target the registrar server
+            fromURI = uri.clone();
+            toURI = uri.clone();
+        }
+        else {
+            this.logger.error("You have enabled sending OPTIONS pings and as such you must provide either " +
+                "a) an AOR to register, or b) an RURI to use for the target of the OPTIONS ping requests. ");
+            return;
+        }
+        // Send the OPTIONS pings
+        this.optionsPingRun(requestURI, fromURI, toURI);
+    }
+    /**
+     * Stop sending OPTIONS pings.
+     */
+    optionsPingStop() {
+        this.logger.log(`OPTIONS pings stopped`);
+        this.optionsPingRunning = false;
+        this.optionsPingFailure = false;
+        if (this.optionsPingRequest) {
+            this.optionsPingRequest.dispose();
+            this.optionsPingRequest = undefined;
+        }
+        if (this.optionsPingTimeout) {
+            clearTimeout(this.optionsPingTimeout);
+            this.optionsPingTimeout = undefined;
+        }
+    }
     /** Helper function to init send then send invite. */
-    sendInvite(inviter, inviterOptions, inviterInviteOptions) {
+    async sendInvite(inviter, inviterOptions, inviterInviteOptions) {
         // Initialize our session
         this.initSession(inviter, inviterOptions);
         // Send the INVITE
         return inviter.invite(inviterInviteOptions).then(() => {
-            this.logger.log(`[${this.id}] sent INVITE`);
+            this.logger.log(`[${inviter.id}] Sent INVITE`);
         });
+    }
+    /** Helper function to add a session to the ones we are managing. */
+    sessionAdd(session) {
+        const managedSession = this.options.managedSessionFactory(this, session);
+        this.managedSessions.push(managedSession);
+    }
+    /** Helper function to check if the session is one we are managing. */
+    sessionExists(session) {
+        return this.sessionManaged(session) !== undefined;
+    }
+    /** Helper function to check if the session is one we are managing. */
+    sessionManaged(session) {
+        return this.managedSessions.find((el) => el.session.id === session.id);
+    }
+    /** Helper function to remoce a session from the ones we are managing. */
+    sessionRemove(session) {
+        this.managedSessions = this.managedSessions.filter((el) => el.session.id !== session.id);
     }
     /**
      * Puts Session on hold.
+     * @param session - The session to set.
      * @param hold - Hold on if true, off if false.
      */
-    setHold(hold) {
-        if (!this.session) {
+    async setHold(session, hold) {
+        if (!this.sessionExists(session)) {
             return Promise.reject(new Error("Session does not exist."));
         }
-        const session = this.session;
         // Just resolve if we are already in correct state
-        if (this.held === hold) {
+        if (this.isHeld(session) === hold) {
             return Promise.resolve();
         }
-        const sessionDescriptionHandler = this.session.sessionDescriptionHandler;
-        if (!(sessionDescriptionHandler instanceof _session_description_handler__WEBPACK_IMPORTED_MODULE_2__.SessionDescriptionHandler)) {
+        const sessionDescriptionHandler = session.sessionDescriptionHandler;
+        if (!(sessionDescriptionHandler instanceof _session_description_handler_session_description_handler_js__WEBPACK_IMPORTED_MODULE_4__.SessionDescriptionHandler)) {
             throw new Error("Session's session description handler not instance of SessionDescriptionHandler.");
         }
         const options = {
             requestDelegate: {
                 onAccept: () => {
-                    this.held = hold;
-                    this.enableReceiverTracks(!this.held);
-                    this.enableSenderTracks(!this.held && !this.muted);
-                    if (this.delegate && this.delegate.onCallHold) {
-                        this.delegate.onCallHold(this.held);
+                    const managedSession = this.sessionManaged(session);
+                    if (managedSession !== undefined) {
+                        managedSession.held = hold;
+                        this.enableReceiverTracks(session, !managedSession.held);
+                        this.enableSenderTracks(session, !managedSession.held && !managedSession.muted);
+                        if (this.delegate && this.delegate.onCallHold) {
+                            this.delegate.onCallHold(session, managedSession.held);
+                        }
                     }
                 },
                 onReject: () => {
-                    this.logger.warn(`[${this.id}] re-invite request was rejected`);
-                    this.enableReceiverTracks(!this.held);
-                    this.enableSenderTracks(!this.held && !this.muted);
-                    if (this.delegate && this.delegate.onCallHold) {
-                        this.delegate.onCallHold(this.held);
+                    this.logger.warn(`[${session.id}] Re-invite request was rejected`);
+                    const managedSession = this.sessionManaged(session);
+                    if (managedSession !== undefined) {
+                        managedSession.held = !hold; // this was preemptively set so undo on failure
+                        this.enableReceiverTracks(session, !managedSession.held);
+                        this.enableSenderTracks(session, !managedSession.held && !managedSession.muted);
+                        if (this.delegate && this.delegate.onCallHold) {
+                            this.delegate.onCallHold(session, managedSession.held);
+                        }
                     }
                 }
             }
@@ -20273,80 +21102,102 @@ class SimpleUser {
         const sessionDescriptionHandlerOptions = session.sessionDescriptionHandlerOptionsReInvite;
         sessionDescriptionHandlerOptions.hold = hold;
         session.sessionDescriptionHandlerOptionsReInvite = sessionDescriptionHandlerOptions;
+        // Preemptively and optimistically set held state (but do not call delegate).
+        const managedSession = this.sessionManaged(session);
+        if (!managedSession) {
+            throw new Error("Managed session is undefiend.");
+        }
+        managedSession.held = hold;
         // Send re-INVITE
-        return this.session
+        return session
             .invite(options)
             .then(() => {
-            // preemptively enable/disable tracks
-            this.enableReceiverTracks(!hold);
-            this.enableSenderTracks(!hold && !this.muted);
+            // Preemptively enable/disable tracks
+            const managedSession = this.sessionManaged(session);
+            if (managedSession !== undefined) {
+                this.enableReceiverTracks(session, !managedSession.held);
+                this.enableSenderTracks(session, !managedSession.held && !managedSession.muted);
+            }
         })
             .catch((error) => {
-            if (error instanceof _api__WEBPACK_IMPORTED_MODULE_10__.RequestPendingError) {
-                this.logger.error(`[${this.id}] A hold request is already in progress.`);
+            managedSession.held = !hold; // was preemptively set so undo on failure
+            if (error instanceof _api_exceptions_request_pending_js__WEBPACK_IMPORTED_MODULE_11__.RequestPendingError) {
+                this.logger.error(`[${session.id}] A hold request is already in progress.`);
             }
             throw error;
         });
     }
     /**
      * Puts Session on mute.
+     * @param session - The session to mute.
      * @param mute - Mute on if true, off if false.
      */
-    setMute(mute) {
-        if (!this.session) {
-            this.logger.warn(`[${this.id}] A session is required to enabled/disable media tracks`);
+    setMute(session, mute) {
+        if (!this.sessionExists(session)) {
+            this.logger.warn(`[${session.id}] A session is required to enabled/disable media tracks`);
             return;
         }
-        if (this.session.state !== _api__WEBPACK_IMPORTED_MODULE_9__.SessionState.Established) {
-            this.logger.warn(`[${this.id}] An established session is required to enable/disable media tracks`);
+        if (session.state !== _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__.SessionState.Established) {
+            this.logger.warn(`[${session.id}] An established session is required to enable/disable media tracks`);
             return;
         }
-        this.muted = mute;
-        this.enableSenderTracks(!this.held && !this.muted);
+        const managedSession = this.sessionManaged(session);
+        if (managedSession !== undefined) {
+            managedSession.muted = mute;
+            this.enableSenderTracks(session, !managedSession.held && !managedSession.muted);
+        }
     }
     /** Helper function to attach local media to html elements. */
-    setupLocalMedia() {
-        var _a, _b;
-        if (!this.session) {
-            throw new Error("Session does not exist.");
+    setupLocalMedia(session) {
+        const managedSession = this.sessionManaged(session);
+        if (!managedSession) {
+            throw new Error("Managed session does not exist.");
         }
-        const mediaElement = (_b = (_a = this.options.media) === null || _a === void 0 ? void 0 : _a.local) === null || _b === void 0 ? void 0 : _b.video;
+        // Get the local media element, if any, from the and configuraiton options
+        // and save the info with the managed session so we can clean it up later.
+        const mediaLocal = typeof this.options.media.local === "function" ? this.options.media.local(session) : this.options.media.local;
+        managedSession.mediaLocal = mediaLocal;
+        const mediaElement = mediaLocal === null || mediaLocal === void 0 ? void 0 : mediaLocal.video;
         if (mediaElement) {
-            const localStream = this.localMediaStream;
+            const localStream = this.getLocalMediaStream(session);
             if (!localStream) {
                 throw new Error("Local media stream undefiend.");
             }
             mediaElement.srcObject = localStream;
             mediaElement.volume = 0;
             mediaElement.play().catch((error) => {
-                this.logger.error(`[${this.id}] Failed to play local media`);
+                this.logger.error(`[${session.id}] Failed to play local media`);
                 this.logger.error(error.message);
             });
         }
     }
     /** Helper function to attach remote media to html elements. */
-    setupRemoteMedia() {
-        var _a, _b, _c, _d;
-        if (!this.session) {
-            throw new Error("Session does not exist.");
+    setupRemoteMedia(session) {
+        const managedSession = this.sessionManaged(session);
+        if (!managedSession) {
+            throw new Error("Managed session does not exist.");
         }
-        const mediaElement = ((_b = (_a = this.options.media) === null || _a === void 0 ? void 0 : _a.remote) === null || _b === void 0 ? void 0 : _b.video) || ((_d = (_c = this.options.media) === null || _c === void 0 ? void 0 : _c.remote) === null || _d === void 0 ? void 0 : _d.audio);
+        // Get the remote media element, if any, from the and configuraiton options
+        // and save the info with the managed session so we can clean it up later.
+        const mediaRemote = typeof this.options.media.remote === "function" ? this.options.media.remote(session) : this.options.media.remote;
+        managedSession.mediaRemote = mediaRemote;
+        const mediaElement = (mediaRemote === null || mediaRemote === void 0 ? void 0 : mediaRemote.video) || (mediaRemote === null || mediaRemote === void 0 ? void 0 : mediaRemote.audio);
         if (mediaElement) {
-            const remoteStream = this.remoteMediaStream;
+            const remoteStream = this.getRemoteMediaStream(session);
             if (!remoteStream) {
                 throw new Error("Remote media stream undefiend.");
             }
             mediaElement.autoplay = true; // Safari hack, because you cannot call .play() from a non user action
             mediaElement.srcObject = remoteStream;
             mediaElement.play().catch((error) => {
-                this.logger.error(`[${this.id}] Failed to play remote media`);
+                this.logger.error(`[${session.id}] Failed to play remote media`);
                 this.logger.error(error.message);
             });
             remoteStream.onaddtrack = () => {
-                this.logger.log(`[${this.id}] Remote media onaddtrack`);
+                this.logger.log(`Remote media onaddtrack`);
                 mediaElement.load(); // Safari hack, as it doesn't work otheriwse
                 mediaElement.play().catch((error) => {
-                    this.logger.error(`[${this.id}] Failed to play remote media`);
+                    this.logger.error(`[${session.id}] Failed to play remote media`);
                     this.logger.error(error.message);
                 });
             };
@@ -20354,71 +21205,395 @@ class SimpleUser {
     }
     /**
      * End a session.
+     * @param session - The session to terminate.
      * @remarks
      * Send a BYE request, CANCEL request or reject response to end the current Session.
      * Resolves when the request/response is sent, otherwise rejects.
-     * Use `onCallTerminated` delegate method to determine if and when Session is terminated.
+     * Use `onCallHangup` delegate method to determine if and when Session is terminated.
      */
-    terminate() {
-        this.logger.log(`[${this.id}] Terminating...`);
-        if (!this.session) {
-            return Promise.reject(new Error("Session does not exist."));
-        }
-        switch (this.session.state) {
-            case _api__WEBPACK_IMPORTED_MODULE_9__.SessionState.Initial:
-                if (this.session instanceof _api__WEBPACK_IMPORTED_MODULE_6__.Inviter) {
-                    return this.session.cancel().then(() => {
-                        this.logger.log(`[${this.id}] Inviter never sent INVITE (canceled)`);
+    async terminate(session) {
+        this.logger.log(`[${session.id}] Terminating...`);
+        switch (session.state) {
+            case _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__.SessionState.Initial:
+                if (session instanceof _api_inviter_js__WEBPACK_IMPORTED_MODULE_7__.Inviter) {
+                    return session.cancel().then(() => {
+                        this.logger.log(`[${session.id}] Inviter never sent INVITE (canceled)`);
                     });
                 }
-                else if (this.session instanceof _api__WEBPACK_IMPORTED_MODULE_7__.Invitation) {
-                    return this.session.reject().then(() => {
-                        this.logger.log(`[${this.id}] Invitation rejected (sent 480)`);
+                else if (session instanceof _api_invitation_js__WEBPACK_IMPORTED_MODULE_8__.Invitation) {
+                    return session.reject().then(() => {
+                        this.logger.log(`[${session.id}] Invitation rejected (sent 480)`);
                     });
                 }
                 else {
                     throw new Error("Unknown session type.");
                 }
-            case _api__WEBPACK_IMPORTED_MODULE_9__.SessionState.Establishing:
-                if (this.session instanceof _api__WEBPACK_IMPORTED_MODULE_6__.Inviter) {
-                    return this.session.cancel().then(() => {
-                        this.logger.log(`[${this.id}] Inviter canceled (sent CANCEL)`);
+            case _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__.SessionState.Establishing:
+                if (session instanceof _api_inviter_js__WEBPACK_IMPORTED_MODULE_7__.Inviter) {
+                    return session.cancel().then(() => {
+                        this.logger.log(`[${session.id}] Inviter canceled (sent CANCEL)`);
                     });
                 }
-                else if (this.session instanceof _api__WEBPACK_IMPORTED_MODULE_7__.Invitation) {
-                    return this.session.reject().then(() => {
-                        this.logger.log(`[${this.id}] Invitation rejected (sent 480)`);
+                else if (session instanceof _api_invitation_js__WEBPACK_IMPORTED_MODULE_8__.Invitation) {
+                    return session.reject().then(() => {
+                        this.logger.log(`[${session.id}] Invitation rejected (sent 480)`);
                     });
                 }
                 else {
                     throw new Error("Unknown session type.");
                 }
-            case _api__WEBPACK_IMPORTED_MODULE_9__.SessionState.Established:
-                return this.session.bye().then(() => {
-                    this.logger.log(`[${this.id}] Session ended (sent BYE)`);
+            case _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__.SessionState.Established:
+                return session.bye().then(() => {
+                    this.logger.log(`[${session.id}] Session ended (sent BYE)`);
                 });
-            case _api__WEBPACK_IMPORTED_MODULE_9__.SessionState.Terminating:
+            case _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__.SessionState.Terminating:
                 break;
-            case _api__WEBPACK_IMPORTED_MODULE_9__.SessionState.Terminated:
+            case _api_session_state_js__WEBPACK_IMPORTED_MODULE_12__.SessionState.Terminated:
                 break;
             default:
                 throw new Error("Unknown state");
         }
-        this.logger.log(`[${this.id}] Terminating in state ${this.session.state}, no action taken`);
+        this.logger.log(`[${session.id}] Terminating in state ${session.state}, no action taken`);
         return Promise.resolve();
     }
 }
 
 
 /***/ }),
-/* 119 */
+/* 122 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Transport": () => (/* reexport safe */ _transport__WEBPACK_IMPORTED_MODULE_0__.Transport)
+/* harmony export */   "SimpleUser": () => (/* reexport safe */ _simple_user_js__WEBPACK_IMPORTED_MODULE_0__.SimpleUser)
 /* harmony export */ });
-/* harmony import */ var _transport__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(57);
+/* harmony import */ var _simple_user_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(123);
+/**
+ * A simple SIP user implementation for web browsers.
+ * @packageDocumentation
+ */
+
+
+
+
+
+/***/ }),
+/* 123 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SimpleUser": () => (/* binding */ SimpleUser)
+/* harmony export */ });
+/* harmony import */ var _session_manager_session_manager_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(121);
+
+/**
+ * A simple SIP user class.
+ * @remarks
+ * While this class is completely functional for simple use cases, it is not intended
+ * to provide an interface which is suitable for most (must less all) applications.
+ * While this class has many limitations (for example, it only handles a single concurrent session),
+ * it is, however, intended to serve as a simple example of using the SIP.js API.
+ * @public
+ */
+class SimpleUser {
+    /**
+     * Constructs a new instance of the `SimpleUser` class.
+     * @param server - SIP WebSocket Server URL.
+     * @param options - Options bucket. See {@link SimpleUserOptions} for details.
+     */
+    constructor(server, options = {}) {
+        this.session = undefined;
+        // Delegate
+        this.delegate = options.delegate;
+        // Copy options
+        this.options = Object.assign({}, options);
+        // Session manager options
+        const sessionManagerOptions = {
+            aor: this.options.aor,
+            delegate: {
+                onCallAnswered: () => { var _a, _b; return (_b = (_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onCallAnswered) === null || _b === void 0 ? void 0 : _b.call(_a); },
+                onCallCreated: (session) => {
+                    var _a, _b;
+                    this.session = session;
+                    (_b = (_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onCallCreated) === null || _b === void 0 ? void 0 : _b.call(_a);
+                },
+                onCallReceived: () => { var _a, _b; return (_b = (_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onCallReceived) === null || _b === void 0 ? void 0 : _b.call(_a); },
+                onCallHangup: () => {
+                    var _a, _b;
+                    this.session = undefined;
+                    ((_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onCallHangup) && ((_b = this.delegate) === null || _b === void 0 ? void 0 : _b.onCallHangup());
+                },
+                onCallHold: (s, held) => { var _a, _b; return (_b = (_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onCallHold) === null || _b === void 0 ? void 0 : _b.call(_a, held); },
+                onCallDTMFReceived: (s, tone, dur) => { var _a, _b; return (_b = (_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onCallDTMFReceived) === null || _b === void 0 ? void 0 : _b.call(_a, tone, dur); },
+                onMessageReceived: (message) => { var _a, _b; return (_b = (_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onMessageReceived) === null || _b === void 0 ? void 0 : _b.call(_a, message.request.body); },
+                onRegistered: () => { var _a, _b; return (_b = (_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onRegistered) === null || _b === void 0 ? void 0 : _b.call(_a); },
+                onUnregistered: () => { var _a, _b; return (_b = (_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onUnregistered) === null || _b === void 0 ? void 0 : _b.call(_a); },
+                onServerConnect: () => { var _a, _b; return (_b = (_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onServerConnect) === null || _b === void 0 ? void 0 : _b.call(_a); },
+                onServerDisconnect: () => { var _a, _b; return (_b = (_a = this.delegate) === null || _a === void 0 ? void 0 : _a.onServerDisconnect) === null || _b === void 0 ? void 0 : _b.call(_a); }
+            },
+            maxSimultaneousSessions: 1,
+            media: this.options.media,
+            reconnectionAttempts: this.options.reconnectionAttempts,
+            reconnectionDelay: this.options.reconnectionDelay,
+            registererOptions: this.options.registererOptions,
+            sendDTMFUsingSessionDescriptionHandler: this.options.sendDTMFUsingSessionDescriptionHandler,
+            userAgentOptions: this.options.userAgentOptions
+        };
+        this.sessionManager = new _session_manager_session_manager_js__WEBPACK_IMPORTED_MODULE_0__.SessionManager(server, sessionManagerOptions);
+        // Use the SIP.js logger
+        this.logger = this.sessionManager.userAgent.getLogger("sip.SimpleUser");
+    }
+    /**
+     * Instance identifier.
+     * @internal
+     */
+    get id() {
+        return (this.options.userAgentOptions && this.options.userAgentOptions.displayName) || "Anonymous";
+    }
+    /** The local media stream. Undefined if call not answered. */
+    get localMediaStream() {
+        return this.session && this.sessionManager.getLocalMediaStream(this.session);
+    }
+    /** The remote media stream. Undefined if call not answered. */
+    get remoteMediaStream() {
+        return this.session && this.sessionManager.getRemoteMediaStream(this.session);
+    }
+    /**
+     * The local audio track, if available.
+     * @deprecated Use localMediaStream and get track from the stream.
+     */
+    get localAudioTrack() {
+        return this.session && this.sessionManager.getLocalAudioTrack(this.session);
+    }
+    /**
+     * The local video track, if available.
+     * @deprecated Use localMediaStream and get track from the stream.
+     */
+    get localVideoTrack() {
+        return this.session && this.sessionManager.getLocalVideoTrack(this.session);
+    }
+    /**
+     * The remote audio track, if available.
+     * @deprecated Use remoteMediaStream and get track from the stream.
+     */
+    get remoteAudioTrack() {
+        return this.session && this.sessionManager.getRemoteAudioTrack(this.session);
+    }
+    /**
+     * The remote video track, if available.
+     * @deprecated Use remoteMediaStream and get track from the stream.
+     */
+    get remoteVideoTrack() {
+        return this.session && this.sessionManager.getRemoteVideoTrack(this.session);
+    }
+    /**
+     * Connect.
+     * @remarks
+     * Start the UserAgent's WebSocket Transport.
+     */
+    connect() {
+        this.logger.log(`[${this.id}] Connecting UserAgent...`);
+        return this.sessionManager.connect();
+    }
+    /**
+     * Disconnect.
+     * @remarks
+     * Stop the UserAgent's WebSocket Transport.
+     */
+    disconnect() {
+        this.logger.log(`[${this.id}] Disconnecting UserAgent...`);
+        return this.sessionManager.disconnect();
+    }
+    /**
+     * Return true if connected.
+     */
+    isConnected() {
+        return this.sessionManager.isConnected();
+    }
+    /**
+     * Start receiving incoming calls.
+     * @remarks
+     * Send a REGISTER request for the UserAgent's AOR.
+     * Resolves when the REGISTER request is sent, otherwise rejects.
+     */
+    register(registererRegisterOptions) {
+        this.logger.log(`[${this.id}] Registering UserAgent...`);
+        return this.sessionManager.register(registererRegisterOptions);
+    }
+    /**
+     * Stop receiving incoming calls.
+     * @remarks
+     * Send an un-REGISTER request for the UserAgent's AOR.
+     * Resolves when the un-REGISTER request is sent, otherwise rejects.
+     */
+    unregister(registererUnregisterOptions) {
+        this.logger.log(`[${this.id}] Unregistering UserAgent...`);
+        return this.sessionManager.unregister(registererUnregisterOptions);
+    }
+    /**
+     * Make an outgoing call.
+     * @remarks
+     * Send an INVITE request to create a new Session.
+     * Resolves when the INVITE request is sent, otherwise rejects.
+     * Use `onCallAnswered` delegate method to determine if Session is established.
+     * @param destination - The target destination to call. A SIP address to send the INVITE to.
+     * @param inviterOptions - Optional options for Inviter constructor.
+     * @param inviterInviteOptions - Optional options for Inviter.invite().
+     */
+    call(destination, inviterOptions, inviterInviteOptions) {
+        this.logger.log(`[${this.id}] Beginning Session...`);
+        if (this.session) {
+            return Promise.reject(new Error("Session already exists."));
+        }
+        return this.sessionManager.call(destination, inviterOptions, inviterInviteOptions).then(() => {
+            return;
+        });
+    }
+    /**
+     * Hangup a call.
+     * @remarks
+     * Send a BYE request, CANCEL request or reject response to end the current Session.
+     * Resolves when the request/response is sent, otherwise rejects.
+     * Use `onCallHangup` delegate method to determine if and when call is ended.
+     */
+    hangup() {
+        this.logger.log(`[${this.id}] Hangup...`);
+        if (!this.session) {
+            return Promise.reject(new Error("Session does not exist."));
+        }
+        return this.sessionManager.hangup(this.session).then(() => {
+            this.session = undefined;
+        });
+    }
+    /**
+     * Answer an incoming call.
+     * @remarks
+     * Accept an incoming INVITE request creating a new Session.
+     * Resolves with the response is sent, otherwise rejects.
+     * Use `onCallAnswered` delegate method to determine if and when call is established.
+     * @param invitationAcceptOptions - Optional options for Inviter.accept().
+     */
+    answer(invitationAcceptOptions) {
+        this.logger.log(`[${this.id}] Accepting Invitation...`);
+        if (!this.session) {
+            return Promise.reject(new Error("Session does not exist."));
+        }
+        return this.sessionManager.answer(this.session, invitationAcceptOptions);
+    }
+    /**
+     * Decline an incoming call.
+     * @remarks
+     * Reject an incoming INVITE request.
+     * Resolves with the response is sent, otherwise rejects.
+     * Use `onCallHangup` delegate method to determine if and when call is ended.
+     */
+    decline() {
+        this.logger.log(`[${this.id}] rejecting Invitation...`);
+        if (!this.session) {
+            return Promise.reject(new Error("Session does not exist."));
+        }
+        return this.sessionManager.decline(this.session);
+    }
+    /**
+     * Hold call
+     * @remarks
+     * Send a re-INVITE with new offer indicating "hold".
+     * Resolves when the re-INVITE request is sent, otherwise rejects.
+     * Use `onCallHold` delegate method to determine if request is accepted or rejected.
+     * See: https://tools.ietf.org/html/rfc6337
+     */
+    hold() {
+        this.logger.log(`[${this.id}] holding session...`);
+        if (!this.session) {
+            return Promise.reject(new Error("Session does not exist."));
+        }
+        return this.sessionManager.hold(this.session);
+    }
+    /**
+     * Unhold call.
+     * @remarks
+     * Send a re-INVITE with new offer indicating "unhold".
+     * Resolves when the re-INVITE request is sent, otherwise rejects.
+     * Use `onCallHold` delegate method to determine if request is accepted or rejected.
+     * See: https://tools.ietf.org/html/rfc6337
+     */
+    unhold() {
+        this.logger.log(`[${this.id}] unholding session...`);
+        if (!this.session) {
+            return Promise.reject(new Error("Session does not exist."));
+        }
+        return this.sessionManager.unhold(this.session);
+    }
+    /**
+     * Hold state.
+     * @remarks
+     * True if session is on hold.
+     */
+    isHeld() {
+        return this.session ? this.sessionManager.isHeld(this.session) : false;
+    }
+    /**
+     * Mute call.
+     * @remarks
+     * Disable sender's media tracks.
+     */
+    mute() {
+        this.logger.log(`[${this.id}] disabling media tracks...`);
+        return this.session && this.sessionManager.mute(this.session);
+    }
+    /**
+     * Unmute call.
+     * @remarks
+     * Enable sender's media tracks.
+     */
+    unmute() {
+        this.logger.log(`[${this.id}] enabling media tracks...`);
+        return this.session && this.sessionManager.unmute(this.session);
+    }
+    /**
+     * Mute state.
+     * @remarks
+     * True if sender's media track is disabled.
+     */
+    isMuted() {
+        return this.session ? this.sessionManager.isMuted(this.session) : false;
+    }
+    /**
+     * Send DTMF.
+     * @remarks
+     * Send an INFO request with content type application/dtmf-relay.
+     * @param tone - Tone to send.
+     */
+    sendDTMF(tone) {
+        this.logger.log(`[${this.id}] sending DTMF...`);
+        if (!this.session) {
+            return Promise.reject(new Error("Session does not exist."));
+        }
+        return this.sessionManager.sendDTMF(this.session, tone);
+    }
+    /**
+     * Send a message.
+     * @remarks
+     * Send a MESSAGE request.
+     * @param destination - The target destination for the message. A SIP address to send the MESSAGE to.
+     */
+    message(destination, message) {
+        this.logger.log(`[${this.id}] sending message...`);
+        return this.sessionManager.message(destination, message);
+    }
+}
+
+
+/***/ }),
+/* 124 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Transport": () => (/* reexport safe */ _transport_js__WEBPACK_IMPORTED_MODULE_0__.Transport)
+/* harmony export */ });
+/* harmony import */ var _transport_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(58);
 /**
  * A Transport implementation for web browsers.
  * @packageDocumentation
@@ -20489,53 +21664,54 @@ var __webpack_exports__ = {};
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Ack": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Ack),
+/* harmony export */   "Bye": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Bye),
+/* harmony export */   "Cancel": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Cancel),
+/* harmony export */   "ContentTypeUnsupportedError": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.ContentTypeUnsupportedError),
+/* harmony export */   "Core": () => (/* reexport module object */ _core_index_js__WEBPACK_IMPORTED_MODULE_3__),
+/* harmony export */   "EmitterImpl": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl),
+/* harmony export */   "Grammar": () => (/* reexport safe */ _grammar_index_js__WEBPACK_IMPORTED_MODULE_2__.Grammar),
+/* harmony export */   "Info": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Info),
+/* harmony export */   "Invitation": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Invitation),
+/* harmony export */   "Inviter": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Inviter),
+/* harmony export */   "Message": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Message),
+/* harmony export */   "Messager": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Messager),
+/* harmony export */   "NameAddrHeader": () => (/* reexport safe */ _grammar_index_js__WEBPACK_IMPORTED_MODULE_2__.NameAddrHeader),
+/* harmony export */   "Notification": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Notification),
+/* harmony export */   "Parameters": () => (/* reexport safe */ _grammar_index_js__WEBPACK_IMPORTED_MODULE_2__.Parameters),
+/* harmony export */   "Publisher": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Publisher),
+/* harmony export */   "PublisherState": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.PublisherState),
+/* harmony export */   "Referral": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Referral),
+/* harmony export */   "Registerer": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Registerer),
+/* harmony export */   "RegistererState": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.RegistererState),
+/* harmony export */   "RequestPendingError": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.RequestPendingError),
+/* harmony export */   "SIPExtension": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.SIPExtension),
+/* harmony export */   "Session": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Session),
+/* harmony export */   "SessionDescriptionHandlerError": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.SessionDescriptionHandlerError),
+/* harmony export */   "SessionState": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.SessionState),
+/* harmony export */   "SessionTerminatedError": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.SessionTerminatedError),
+/* harmony export */   "StateTransitionError": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.StateTransitionError),
+/* harmony export */   "Subscriber": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Subscriber),
+/* harmony export */   "Subscription": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.Subscription),
+/* harmony export */   "SubscriptionState": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState),
+/* harmony export */   "TransportState": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.TransportState),
+/* harmony export */   "URI": () => (/* reexport safe */ _grammar_index_js__WEBPACK_IMPORTED_MODULE_2__.URI),
+/* harmony export */   "UserAgent": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.UserAgent),
+/* harmony export */   "UserAgentRegisteredOptionTags": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.UserAgentRegisteredOptionTags),
+/* harmony export */   "UserAgentState": () => (/* reexport safe */ _api_index_js__WEBPACK_IMPORTED_MODULE_1__.UserAgentState),
+/* harmony export */   "Web": () => (/* reexport module object */ _platform_web_index_js__WEBPACK_IMPORTED_MODULE_4__),
+/* harmony export */   "equivalentURI": () => (/* reexport safe */ _grammar_index_js__WEBPACK_IMPORTED_MODULE_2__.equivalentURI),
 /* harmony export */   "name": () => (/* binding */ name),
-/* harmony export */   "version": () => (/* binding */ version),
-/* harmony export */   "Ack": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Ack),
-/* harmony export */   "Bye": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Bye),
-/* harmony export */   "ContentTypeUnsupportedError": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.ContentTypeUnsupportedError),
-/* harmony export */   "EmitterImpl": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.EmitterImpl),
-/* harmony export */   "Info": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Info),
-/* harmony export */   "Invitation": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Invitation),
-/* harmony export */   "Inviter": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Inviter),
-/* harmony export */   "Message": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Message),
-/* harmony export */   "Messager": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Messager),
-/* harmony export */   "Notification": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Notification),
-/* harmony export */   "Publisher": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Publisher),
-/* harmony export */   "PublisherState": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.PublisherState),
-/* harmony export */   "Referral": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Referral),
-/* harmony export */   "Registerer": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Registerer),
-/* harmony export */   "RegistererState": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.RegistererState),
-/* harmony export */   "RequestPendingError": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.RequestPendingError),
-/* harmony export */   "SIPExtension": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.SIPExtension),
-/* harmony export */   "Session": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Session),
-/* harmony export */   "SessionDescriptionHandlerError": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.SessionDescriptionHandlerError),
-/* harmony export */   "SessionState": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.SessionState),
-/* harmony export */   "SessionTerminatedError": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.SessionTerminatedError),
-/* harmony export */   "StateTransitionError": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.StateTransitionError),
-/* harmony export */   "Subscriber": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Subscriber),
-/* harmony export */   "Subscription": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.Subscription),
-/* harmony export */   "SubscriptionState": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.SubscriptionState),
-/* harmony export */   "TransportState": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.TransportState),
-/* harmony export */   "UserAgent": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.UserAgent),
-/* harmony export */   "UserAgentRegisteredOptionTags": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.UserAgentRegisteredOptionTags),
-/* harmony export */   "UserAgentState": () => (/* reexport safe */ _api__WEBPACK_IMPORTED_MODULE_1__.UserAgentState),
-/* harmony export */   "Grammar": () => (/* reexport safe */ _grammar__WEBPACK_IMPORTED_MODULE_2__.Grammar),
-/* harmony export */   "NameAddrHeader": () => (/* reexport safe */ _grammar__WEBPACK_IMPORTED_MODULE_2__.NameAddrHeader),
-/* harmony export */   "Parameters": () => (/* reexport safe */ _grammar__WEBPACK_IMPORTED_MODULE_2__.Parameters),
-/* harmony export */   "URI": () => (/* reexport safe */ _grammar__WEBPACK_IMPORTED_MODULE_2__.URI),
-/* harmony export */   "equivalentURI": () => (/* reexport safe */ _grammar__WEBPACK_IMPORTED_MODULE_2__.equivalentURI),
-/* harmony export */   "Core": () => (/* reexport module object */ _core__WEBPACK_IMPORTED_MODULE_3__),
-/* harmony export */   "Web": () => (/* reexport module object */ _platform_web__WEBPACK_IMPORTED_MODULE_4__)
+/* harmony export */   "version": () => (/* binding */ version)
 /* harmony export */ });
-/* harmony import */ var _version__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _grammar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(99);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(100);
-/* harmony import */ var _platform_web__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(113);
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _api_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _grammar_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(100);
+/* harmony import */ var _core_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(101);
+/* harmony import */ var _platform_web_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(114);
 // Helpful name and version exports
 
-const version = _version__WEBPACK_IMPORTED_MODULE_0__.LIBRARY_VERSION;
+const version = _version_js__WEBPACK_IMPORTED_MODULE_0__.LIBRARY_VERSION;
 const name = "sip.js";
 
 // Export api
