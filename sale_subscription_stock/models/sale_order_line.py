@@ -78,6 +78,20 @@ class SaleOrderLine(models.Model):
                                            (line.product_id.invoice_policy == 'delivery' and line.order_id.start_date and line.order_id.next_invoice_date > line.order_id.start_date))
         return super(SaleOrderLine, lines)._action_launch_stock_rule(previous_product_uom_qty)
 
+    @api.model
+    def _get_incoming_outgoing_moves_filter(self):
+        """Check subscription moves in/out during invoice period."""
+        base_filter = super()._get_incoming_outgoing_moves_filter()
+        if self.recurring_invoice:
+            start, end = self.order_id.last_invoice_date, self.order_id.next_invoice_date
+            def date_filter(m):
+                return start <= m.date.date() < end
+            return {
+                'incoming_moves': lambda m: base_filter['incoming_moves'](m) and date_filter(m),
+                'outgoing_moves': lambda m: base_filter['outgoing_moves'](m) and date_filter(m)
+            }
+        return base_filter
+
     def _get_qty_procurement(self, previous_product_uom_qty=False):
         """ Compute the quantity that was already deliver for the current period.
         """

@@ -4,9 +4,9 @@
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 
-from odoo import Command
+from odoo import Command, fields
 from odoo.addons.sale_subscription_stock.tests.common_sale_subscription_stock import TestSubscriptionStockCommon
-from odoo.tests import tagged
+from odoo.tests import tagged, Form
 
 
 @tagged('post_install', '-at_install')
@@ -330,3 +330,111 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
             self.assertEqual(upsell_so.picking_ids.move_ids.product_id, stored_prod)
         self.assertEqual(len(sub.picking_ids.move_ids), 1)
         self.assertEqual(sub.picking_ids.move_ids.product_id, self.sub_product_order)
+
+    def test_subscription_product_delivery_creation(self):
+        if self.env['ir.module.module']._get('sale_mrp').state != 'installed':
+            self.skipTest("If the 'sale_mrp' module isn't installed, we can't test bom!")
+        self.additional_kit_product = self.env['product.product'].create({
+            'name': 'Mug',
+            'type': 'product',
+            'standard_price': 10.0,
+            'uom_id': self.uom_unit.id,
+            'recurring_invoice': False,
+        })
+
+        self.bom = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.sub_product_order.product_tmpl_id.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 1,
+            'type': 'phantom',
+        })
+
+        self.bom.bom_line_ids.create({
+            'bom_id': self.bom.id,
+            'product_id': self.additional_kit_product.id,
+            'product_qty': 1,
+            'product_uom_id': self.uom_unit.id,
+        })
+
+        self.inventory_wizard = self.env['stock.change.product.qty'].create({
+            'product_id': self.additional_kit_product.id,
+            'product_tmpl_id': self.additional_kit_product.product_tmpl_id.id,
+            'new_quantity': 100.0,
+        })
+        self.inventory_wizard.change_product_qty()
+
+        self.subscription_order_with_bom = self.env['sale.order'].create({
+            'name': 'Order',
+            'is_subscription': True,
+            'partner_id': self.user_portal.partner_id.id,
+            'plan_id': self.plan_month.id,
+            'pricelist_id': self.company_data['default_pricelist'].id,
+            'order_line': [
+                Command.create(
+                    {'product_id': self.sub_product_order.id, 'product_uom_qty': 1, 'tax_id': [Command.clear()]}
+                ),
+                Command.create(
+                    {'product_id': self.additional_kit_product.id, 'product_uom_qty': 1, 'tax_id': [Command.clear()]}
+                )
+            ]
+        })
+
+        with freeze_time("2024-02-02"):
+            self.subscription_order_with_bom.write({'start_date': fields.date.today(), 'next_invoice_date': False})
+            self.subscription_order_with_bom.action_confirm()
+            self.assertEqual(self.subscription_order_with_bom.invoice_count, 0,
+                             'No invoices should be present initially')
+            self.assertEqual(
+                len(self.subscription_order_with_bom.picking_ids), 1,
+                'A delivery order should be created for non-recurring products'
+            )
+            self.assertEqual(
+                len(self.subscription_order_with_bom.picking_ids[0].move_ids), 1,
+                'A move should be added to the picking before invoicing for non-recurring product'
+            )
+            self.assertEqual(self.subscription_order_with_bom.order_line[0].product_id.qty_available, 100)
+            first_invoice, picking = self.simulate_period(self.subscription_order_with_bom, "2024-02-02")
+            self.assertEqual(self.subscription_order_with_bom.invoice_count, 1, 'The first period should be invoiced')
+            self.assertEqual(
+                len(self.subscription_order_with_bom.picking_ids[0].move_ids), 2,
+                'A move should be added to the picking after invoicing'
+            )
+            self.assertTrue(
+                picking.move_ids[1].description_bom_line.__contains__(self.sub_product_order.name),
+                'The description should contain the bom line name'
+            )
+            self.assertEqual(self.subscription_order_with_bom.order_line[0].product_id.qty_available, 98)
+
+        # Return the delivery for the first period
+        stock_return_picking_form = Form(self.env['stock.return.picking']
+            .with_context(active_ids=picking.ids, active_id=picking.ids[0],
+            active_model='stock.picking'))
+        stock_return_picking = stock_return_picking_form.save()
+        stock_return_picking.product_return_moves.quantity = 1.0
+        stock_return_picking_action = stock_return_picking.create_returns()
+        return_picking = self.env['stock.picking'].browse(stock_return_picking_action['res_id'])
+        return_picking.button_validate()
+        self.assertEqual(return_picking.state, 'done')
+        self.assertEqual(self.subscription_order_with_bom.order_line[0].product_id.qty_available, 100)
+        self.assertEqual(
+            len(picking.move_ids), len(first_invoice.invoice_line_ids), 'The invoice lines should match the moves'
+        )
+
+        # create invoice for the second period
+        with freeze_time("2024-03-02"):
+            second_invoice, picking_1 = self.simulate_period(self.subscription_order_with_bom, "2024-03-02")
+
+            self.assertEqual(self.subscription_order_with_bom.invoice_count, 2, 'The second period should be invoiced')
+            self.assertEqual(
+                len(self.subscription_order_with_bom.picking_ids), 3,
+                'A new picking order should be created for the order after the second invoicing'
+            )
+            self.assertEqual(self.subscription_order_with_bom.order_line[0].product_id.qty_available, 99)
+            self.assertTrue(
+                picking_1.move_ids[0].description_bom_line.__contains__(self.sub_product_order.name),
+                'The description should contain the bom line name'
+            )
+            self.assertEqual(
+                len(self.subscription_order_with_bom.picking_ids[1].move_ids), len(second_invoice.invoice_line_ids),
+                'The move lines should match the moves of the second period'
+            )
