@@ -89,6 +89,10 @@ class HmrcVatObligation(models.Model):
             error_message = _('Invalid Status.')
         elif error_code == 'NOT_FOUND':
             error_message = _('No open obligations were found for the moment.')
+        elif error_code == 'CLIENT_OR_AGENT_NOT_AUTHORISED':
+            # In case one user needs to submit the report for two companies, they will need to re-login.
+            self.env['hmrc.service'].sudo()._clean_tokens()
+            return []
         else:
             error_message = response.get('message', error_code)
         raise UserError(error_message)
@@ -208,6 +212,12 @@ class HmrcVatObligation(models.Model):
                     msg += Markup('<b>%s</b>: %s</br>') % (sent_key, data[sent_key])
             self.sudo().message_post(body=msg)
             self.sudo().write({'status': "fulfilled"})
+
+            # Show a confirmation popup.
+            self.env['bus.bus']._sendone(self.env.user.partner_id, 'simple_notification', {
+                'type': 'success',
+                'message': _("The VAT report has been successfully submitted to HMRC."),
+            })
         elif r.status_code == 401:  # auth issue
             _logger.exception("HMRC auth issue : %s", r.content)
             raise UserError(_(
