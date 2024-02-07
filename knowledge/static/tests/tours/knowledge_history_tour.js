@@ -74,21 +74,21 @@ registry.category("web_tour.tours").add('knowledge_history_tour', {
         },
     }, {
         // check the first revision content is correct
-        trigger: '#history-content-tab:contains("Modified Title 02")',
+        trigger: '.history-container .tab-pane:contains("Modified Title 02")',
     }, {
         // click on the 3rd revision
         trigger: '.html-history-dialog .revision-list .btn:nth-child(3)',
     }, {
         // check the 3rd revision content is correct
-        trigger: '#history-content-tab:contains("' + testArticleName + '")',
+        trigger: '.history-container .tab-pane:contains("' + testArticleName + '")',
     }, {
         // click on the comparison tab
-        trigger: '#history-comparison',
+        trigger: '.history-container .nav-item:contains(Comparison) a',
     }, {
         // check the comparison content is correct
-        trigger: '#history-comparison-tab',
+        trigger: '.history-container .tab-pane',
         run: function () {
-            const comparaisonHtml = document.querySelector('#history-comparison-tab').innerHTML;
+            const comparaisonHtml = document.querySelector('.history-container .tab-pane').innerHTML;
             const correctHtml = '<h1><removed>Modified Title 03</removed><added>' + testArticleName + '</added></h1>';
             if (comparaisonHtml !== correctHtml) {
                 throw new Error('Expect comparison to be ' + correctHtml + ', got ' + comparaisonHtml);
