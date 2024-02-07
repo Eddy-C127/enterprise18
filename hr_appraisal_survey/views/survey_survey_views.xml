@@ -11,9 +11,6 @@
             <button name="action_send_survey" position="attributes">
                 <attribute name="invisible">context.get('hr_survey_type_appraisal') or not active</attribute>
             </button>
-            <button name="action_start_session" position="attributes">
-                <attribute name="invisible">session_state or not active or certification or survey_type in ('survey', 'assessment', 'appraisal')</attribute>
-            </button>
             <button name="action_archive" position="attributes">
                 <attribute name="invisible">context.get('hr_survey_type_appraisal') or not active</attribute>
             </button>
@@ -31,9 +28,6 @@
             </xpath>
             <xpath expr="//div[@name='certification']" position="attributes">
                 <attribute name="invisible">survey_type in ('live_session', 'appraisal')</attribute>
-            </xpath>
-            <xpath expr="//group[@name='live_session']" position="attributes">
-                <attribute name="invisible">survey_type in ('survey', 'assessment', 'appraisal')</attribute>
             </xpath>
         </field>
     </record>
