@@ -89,6 +89,7 @@ registry.category("web_tour.tours").add('shop_buy_rental_stock_product', {
             run: function () {}, // it's a check,
         },
         tourUtils.goToCheckout(),
+        tourUtils.confirmOrder(),
         ...tourUtils.payWithTransfer(true),
     ]
 });

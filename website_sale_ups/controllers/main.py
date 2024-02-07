@@ -20,7 +20,7 @@ class WebsiteSale(main.WebsiteSale):
             order.write({
                 'partner_ups_carrier_account': post['property_ups_carrier_account'],
             })
-        return request.redirect("/shop/payment")
+        return request.redirect("/shop/checkout")
 
     @http.route("/shop/property_ups_carrier_account/unset", type='http', auth="public", website=True, sitemap=False)
     def reset_property_ups_carrier_account(self, **post):
@@ -30,7 +30,7 @@ class WebsiteSale(main.WebsiteSale):
             order.write({
                 'partner_ups_carrier_account': False,
             })
-        return request.redirect("/shop/payment")
+        return request.redirect("/shop/checkout")
 
 class CustomerPortal(portal.CustomerPortal):
     OPTIONAL_BILLING_FIELDS = [*portal.CustomerPortal.OPTIONAL_BILLING_FIELDS, 'property_ups_carrier_account']

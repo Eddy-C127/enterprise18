@@ -22,9 +22,6 @@ This module allows ecommerce users to enter their UPS account number and deliver
     'uninstall_hook': 'uninstall_hook',
     'license': 'OEEL-1',
     'assets': {
-        'web.assets_backend': [
-            'website_sale_ups/static/src/js/delivery_ups.js',
-        ],
         'web.assets_frontend': [
             'website_sale_ups/static/src/**/*',
         ],

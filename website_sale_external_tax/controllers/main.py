@@ -24,8 +24,9 @@ class WebsiteSaleExternalTaxCalculation(main.WebsiteSale):
         res['on_payment_step'] = True
         return res
 
-class WebsiteSaleDelivery(delivery.WebsiteSaleDelivery):
 
-    def _update_website_sale_delivery_return(self, order, **post):
+class WebsiteSaleDelivery(delivery.Delivery):
+
+    def _order_summary_values(self, order, **post):
         order._get_and_set_external_taxes_on_eligible_records()
-        return super()._update_website_sale_delivery_return(order, **post)
+        return super()._order_summary_values(order, **post)

@@ -29,16 +29,9 @@ class Paymentprovider(models.Model):
         compatible_providers = super()._get_compatible_providers(
             *args, sale_order_id=sale_order_id, website_id=website_id, report=report, **kwargs
         )
-        ups_carriers = self.env['delivery.carrier'].search([
-            ('website_published', '=', True),
-            ('delivery_type', '=', 'ups'),
-            ('ups_cod', '=', True),
-            '|',
-                ('website_id', '=?', website_id),
-                ('website_id', '=', False)
-        ])
+
         sale_order = self.env['sale.order'].browse(sale_order_id).exists()
-        if not ups_carriers or not any(
+        if sale_order.carrier_id.delivery_type != 'ups' or not any(
             product.type in ('consu', 'product')
             for product in sale_order.order_line.product_id
         ):

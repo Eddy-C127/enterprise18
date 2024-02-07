@@ -6,7 +6,7 @@ import json
 
 from unittest.mock import patch
 from contextlib import contextmanager
-from odoo.addons.website_sale.controllers.delivery import WebsiteSaleDelivery
+from odoo.addons.website_sale.controllers.delivery import Delivery
 from odoo.addons.website.tools import MockRequest
 from odoo.tests import TransactionCase, tagged
 
@@ -144,10 +144,10 @@ class TestWebsiteDeliverySendcloudLocationsController(TransactionCase):
 
     def test_controller_pickup_location(self):
         with MockRequest(self.env, website=self.website, sale_order_id=self.order.id):
-            self.assertEqual({}, WebsiteSaleDelivery.get_access_point(self))
+            self.assertEqual({}, Delivery.shop_get_pickup_location(self))
             with _mock_call():
-                close_locations = WebsiteSaleDelivery.get_close_locations(self)
-                self.assertNotEqual({}, WebsiteSaleDelivery.set_access_point(self, access_point_encoded=json.dumps(close_locations['close_locations'][0])))
+                close_locations = Delivery.shop_get_close_locations(self)
+                self.assertNotEqual({}, Delivery.set_pickup_location(self, pickup_location_data=json.dumps(close_locations['close_locations'][0])))
                 self.assertEqual({
                     'name': 'STATION AVIA',
                     'street': 'CHAUSSÉE DE NAMUR',

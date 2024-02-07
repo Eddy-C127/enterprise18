@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-name="sendcloud_pickup_location_loading">
-        <i id="#sendcloud_addresses" class="fa fa-circle-o-notch fa-spin center"/>
-    </t>
-
     <t t-name="sendcloud_pickup_location_list">
         <div class="mt-2" style="max-height: 20rem; overflow: auto;">
             <ul id="sendcloud_addresses" class="list-group list-group-flush flex-lg-column">
-                <t t-foreach="sendcloud_pickup_locations" t-as="location" t-key="location_index">
+                <t t-foreach="pickup_locations" t-as="location" t-key="location_index">
                     <li t-if="location" class="list-group-item">
                         <div class="container">
                             <t t-set="pretty_address" t-value="location.address"/>
@@ -28,10 +24,10 @@
                                     <i class="fa fa-map-marker fa-fw ms-2"/>
                                 </a>
                             </span>
-                            <div class="o_sendcloud_address_encoded" style="display:none">
+                            <div class="o_address_encoded" style="display:none">
                                 <t t-out="location.address_stringified"/>
                             </div>
-                            <button type="button" class="btn btn-primary btn-sm float-end o_address_select">Select this location</button>
+                            <button type="button" name="o_select_pickup_location" class="btn btn-primary btn-sm float-end">Select this location</button>
                         </div>
                     </li>
                 </t>
