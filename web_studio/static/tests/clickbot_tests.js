@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
+import { SUCCESS_SIGNAL } from "@web/webclient/clickbot/clickbot";
 import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
 import { registerStudioDependencies } from "./helpers";
 import { makeDeferred, patchDate, patchWithCleanup } from "@web/../tests/helpers/utils";
@@ -131,7 +132,7 @@ QUnit.module("Studio clickbot", (hooks) => {
             console: {
                 log: (msg) => {
                     assert.step(msg);
-                    if (msg === "test successful") {
+                    if (msg === SUCCESS_SIGNAL) {
                         clickEverywhereDef.resolve();
                     }
                 },
@@ -194,7 +195,7 @@ QUnit.module("Studio clickbot", (hooks) => {
             "Successfully tested 0 modals",
             "Successfully tested 10 filters",
             "Successfully tested 5 views in Studio",
-            "test successful",
+            SUCCESS_SIGNAL,
         ]);
     });
 });
