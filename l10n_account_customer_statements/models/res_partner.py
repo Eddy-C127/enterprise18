@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from odoo import _, fields, models, api
 from odoo.exceptions import UserError
 from odoo.tools.misc import format_date
-from odoo.tools.date_utils import end_of
+from odoo.tools.date_utils import end_of, start_of
 
 
 class ResPartner(models.Model):
@@ -77,20 +77,19 @@ class ResPartner(models.Model):
         # the customer statements from the 'Unknown Partner' line in the partner ledger.
         if not self:
             raise UserError(_("The Customer Statements cannot be printed without a partner set."))
+
         partner_lines = defaultdict(list)
         partner_running_balances = defaultdict(float)
-        # 0. If we do not have a from and to date, we will default to the current month.
-        yesterday = fields.Date.today() - relativedelta(days=1)
+
+        from_date, to_date = self._get_statement_dates(options)
+
         if options:
-            from_date = options.get("date", {}).get("date_from") or yesterday.replace(day=1)
-            to_date = options.get("date", {}).get("date_to") or yesterday
             unreconciled = options.get("unreconciled", False)
             report = self.env['account.report'].browse(options.get('report_id'))
         else:
-            from_date = yesterday.replace(day=1)
-            to_date = yesterday
             unreconciled = False
             report = self.env.ref('account_reports.partner_ledger_report')
+
         # Also prepare report options, as we will use the report sql code to get the line values.
         options = report.get_options(
             previous_options={
@@ -200,11 +199,9 @@ class ResPartner(models.Model):
         partners = self.search([
             ('automatic_customer_statement_enabled', '=', True),
             ('next_customer_statement_date', '<=', fields.Date.today()),
-        ])
-        yesterday = fields.Date.today() - relativedelta(days=1)
-        from_date = yesterday.replace(day=1)
-        to_date = yesterday
+        ]).with_context(from_cron=True)
         for partner in partners:
+            from_date, to_date = partner._get_statement_dates()
             doc_ids = partner._get_customer_statement_pdf()
             template = self.env.ref(
                 'l10n_account_customer_statements.email_template_customer_statement',
@@ -219,3 +216,24 @@ class ResPartner(models.Model):
                 attachment_ids=doc_ids,
             )
         partners._update_next_customer_statement_date()
+
+    def _get_statement_dates(self, options=None):
+        """ Returns a start date and end date for the statement, taking into account the options. """
+        options = options or {}
+        from_cron = self.env.context.get('from_cron', False)
+
+        if not from_cron:
+            # When printing outside the cron, we take the dates from the options or the current month.
+            to_date = options.get("date", {}).get("date_to") or fields.Date.today() - relativedelta(days=1)
+            from_date = options.get("date", {}).get("date_from") or start_of(to_date, 'month')
+        else:
+            # We should never print from the cron on multiple partners at once.
+            self.ensure_one()
+            # When printing from the cron, we use the automated sending settings.
+            to_date = self.next_customer_statement_date - relativedelta(days=1)
+            # Uses the frequency to determine the start date.
+            from_date = to_date - relativedelta(**{
+                self.customer_statement_frequency: self.customer_statement_interval
+            })
+
+        return from_date, to_date
