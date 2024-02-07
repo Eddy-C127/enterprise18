@@ -57,15 +57,14 @@ registry.category("web_tour.tours").add("PreparationDisplayPrinterTour", {
             PaymentScreen.clickPaymentMethod("Bank"),
             PaymentScreen.clickValidate(),
             //This steps is making sure that we atleast tried to call the printer
-            Dialog.is({title:"Printing failed"}),
+            Dialog.is({ title: "Printing failed" }),
         ].flat(),
 });
 
-registry
-    .category("web_tour.tours")
-    .add("PreparationDisplayTourConfigurableProduct", {
-        test: true,
-        steps: () => [
+registry.category("web_tour.tours").add("PreparationDisplayTourConfigurableProduct", {
+    test: true,
+    steps: () =>
+        [
             Dialog.confirm("Open session"),
             ProductScreen.clickDisplayedProduct("Configurable Chair"),
             Dialog.confirm(),
@@ -77,13 +76,10 @@ registry
             PaymentScreen.clickValidate(),
             ReceiptScreen.isShown(),
         ].flat(),
-    });
+});
 
-registry
-    .category("web_tour.tours")
-    .add("PreparationDisplayTourProductName", {
-        test: true,
-        steps: () => [
-                PreparationDisplay.containsProduct("Configurable Chair (Red, Metal, Leather)")
-            ].flat(),
-    });
+registry.category("web_tour.tours").add("PreparationDisplayTourProductName", {
+    test: true,
+    steps: () =>
+        [PreparationDisplay.containsProduct("Configurable Chair (Red, Metal, Leather)")].flat(),
+});

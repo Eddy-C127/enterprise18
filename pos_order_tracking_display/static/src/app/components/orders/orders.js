@@ -8,7 +8,7 @@ export class Orders extends Component {
         class: { type: String, optional: true },
         categoryName: String,
         orders: { type: Array },
-        ready: { type: Boolean, optional: true},
+        ready: { type: Boolean, optional: true },
     };
     static defaultProps = {
         class: "",

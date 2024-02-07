@@ -15,10 +15,12 @@ patch(ReprintReceiptButton.prototype, {
         if (this.pos.useBlackBoxBe()) {
             await this.dialog.add(AlertDialog, {
                 title: _t("Fiscal Data Module Restriction"),
-                body: _t("You are not allowed to reprint a ticket when using the fiscal data module."),
+                body: _t(
+                    "You are not allowed to reprint a ticket when using the fiscal data module."
+                ),
             });
             return;
         }
         super._onClick();
-    }
+    },
 });

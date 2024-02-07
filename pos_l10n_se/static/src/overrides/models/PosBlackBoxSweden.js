@@ -74,9 +74,9 @@ patch(PosStore.prototype, {
                 : " ",
         };
 
-        return new Promise(async (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             fdm.addListener((data) => (data.status === "ok" ? resolve(data) : reject(data)));
-            await fdm.action({
+            fdm.action({
                 action: "registerReceipt",
                 high_level_message: data,
             });
@@ -87,9 +87,7 @@ patch(PosStore.prototype, {
         order.blackbox_unit_id = data.unit_id;
     },
     async get_order_sequence_number() {
-        return await this.data.call("pos.config", "get_order_sequence_number", [
-            this.config.id,
-        ]);
+        return await this.data.call("pos.config", "get_order_sequence_number", [this.config.id]);
     },
     async get_profo_order_sequence_number() {
         return await this.data.call("pos.config", "get_profo_order_sequence_number", [
@@ -245,7 +243,8 @@ patch(Orderline.prototype, {
         }
         return {
             ...super.getDisplayData(...arguments),
-            taxLetter: this.pos.mapTaxValues(this.product.taxes_id)[0]?.sweden_identification_letter,
+            taxLetter: this.pos.mapTaxValues(this.product.taxes_id)[0]
+                ?.sweden_identification_letter,
         };
     },
 });

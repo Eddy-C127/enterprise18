@@ -55,8 +55,7 @@ patch(PosStore.prototype, {
     },
     getTssId() {
         return (
-            this.config.l10n_de_fiskaly_tss_id &&
-            this.config.l10n_de_fiskaly_tss_id.split("|")[0]
+            this.config.l10n_de_fiskaly_tss_id && this.config.l10n_de_fiskaly_tss_id.split("|")[0]
         );
     },
     getClientId() {

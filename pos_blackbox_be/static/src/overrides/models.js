@@ -10,9 +10,13 @@ import { NumberPopup } from "@point_of_sale/app/utils/input_popups/number_popup"
 patch(PosStore.prototype, {
     async processServerData(loadedData) {
         await super.processServerData(loadedData);
-        
-        this.workInProduct = this.models["product.product"].get(this.data.custom.product_product_work_in);
-        this.workOutProduct = this.models["product.product"].get(this.data.custom.product_product_work_out);
+
+        this.workInProduct = this.models["product.product"].get(
+            this.data.custom.product_product_work_in
+        );
+        this.workOutProduct = this.models["product.product"].get(
+            this.data.custom.product_product_work_out
+        );
     },
     useBlackBoxBe() {
         return this.config.iface_fiscal_data_module;
@@ -20,9 +24,9 @@ patch(PosStore.prototype, {
     checkIfUserClocked() {
         const cashierId = this.get_cashier().id;
         if (this.config.module_pos_hr) {
-            return this.session.employees_clocked_ids.find(elem => elem === cashierId);
+            return this.session.employees_clocked_ids.find((elem) => elem === cashierId);
         }
-        return this.session.users_clocked_ids.find(elem => elem === cashierId);
+        return this.session.users_clocked_ids.find((elem) => elem === cashierId);
     },
     disallowLineQuantityChange() {
         const result = super.disallowLineQuantityChange();
@@ -46,14 +50,16 @@ patch(PosStore.prototype, {
             this.setDataForPushOrderFromBlackbox(order, data);
         } catch (err) {
             console.log(err);
-            if (err.errorCode === "202000") { // need to be tested
+            if (err.errorCode === "202000") {
+                // need to be tested
                 const { confirmed, payload } = await this.popup.add(NumberPopup, {
                     startingValue: 0,
                     title: _t("Enter pin code:"),
                 });
 
-                if (!confirmed)
+                if (!confirmed) {
                     return;
+                }
                 this.pushDataToBlackbox(this.createPinCodeDataForBlackbox(payload));
             } else {
                 // other errors
@@ -81,32 +87,55 @@ patch(PosStore.prototype, {
         order.blackbox_tax_category_c = order.getSpecificTax(6);
         order.blackbox_tax_category_d = order.getSpecificTax(0);
         return {
-            'date': luxon.DateTime.now().toFormat("yyyyMMdd"),
-            'ticket_time': luxon.DateTime.now().toFormat("HHmmss"),
-            'insz_or_bis_number': this.config.module_pos_hr ? this.get_cashier().insz_or_bis_number : this.user.insz_or_bis_number,
-            'ticket_number': order.sequence_number.toString(),
-            'type': order.receipt_type ? order.receipt_type : order.get_total_with_tax() >= 0 ? 'NS' : 'NR',
-            'receipt_total': Math.abs(order.get_total_with_tax()).toFixed(2).toString().replace(".", ""),
-            'vat1': order.blackbox_tax_category_a ? Math.abs(order.blackbox_tax_category_a).toFixed(2).replace(".", "") : "",
-            'vat2': order.blackbox_tax_category_b ? Math.abs(order.blackbox_tax_category_b).toFixed(2).replace(".", "") : "",
-            'vat3': order.blackbox_tax_category_c ? Math.abs(order.blackbox_tax_category_c).toFixed(2).replace(".", "") : "",
-            'vat4': order.blackbox_tax_category_d ? Math.abs(order.blackbox_tax_category_d).toFixed(2).replace(".", "") : "",
-            'plu': order.getPlu(),
-            'clock': order.clock ? order.clock : false,
-        }
+            date: luxon.DateTime.now().toFormat("yyyyMMdd"),
+            ticket_time: luxon.DateTime.now().toFormat("HHmmss"),
+            insz_or_bis_number: this.config.module_pos_hr
+                ? this.get_cashier().insz_or_bis_number
+                : this.user.insz_or_bis_number,
+            ticket_number: order.sequence_number.toString(),
+            type: order.receipt_type
+                ? order.receipt_type
+                : order.get_total_with_tax() >= 0
+                ? "NS"
+                : "NR",
+            receipt_total: Math.abs(order.get_total_with_tax())
+                .toFixed(2)
+                .toString()
+                .replace(".", ""),
+            vat1: order.blackbox_tax_category_a
+                ? Math.abs(order.blackbox_tax_category_a).toFixed(2).replace(".", "")
+                : "",
+            vat2: order.blackbox_tax_category_b
+                ? Math.abs(order.blackbox_tax_category_b).toFixed(2).replace(".", "")
+                : "",
+            vat3: order.blackbox_tax_category_c
+                ? Math.abs(order.blackbox_tax_category_c).toFixed(2).replace(".", "")
+                : "",
+            vat4: order.blackbox_tax_category_d
+                ? Math.abs(order.blackbox_tax_category_d).toFixed(2).replace(".", "")
+                : "",
+            plu: order.getPlu(),
+            clock: order.clock ? order.clock : false,
+        };
     },
     async pushDataToBlackbox(data) {
         const fdm = this.hardwareProxy.deviceControllers.fiscal_data_module;
-        return new Promise(async (resolve, reject) => {
-            fdm.addListener(data => data.status.status === "connected" ? resolve(data) : reject(data));
-            await fdm.action({
-                action: 'registerReceipt',
+        return new Promise((resolve, reject) => {
+            fdm.addListener((data) =>
+                data.status.status === "connected" ? resolve(data) : reject(data)
+            );
+            fdm.action({
+                action: "registerReceipt",
                 high_level_message: data,
             });
         });
     },
     setDataForPushOrderFromBlackbox(order, data) {
-        order.receipt_type = order.receipt_type ? order.receipt_type : (order.get_total_with_tax() >= 0 ? "NS" : "NR");
+        order.receipt_type = order.receipt_type
+            ? order.receipt_type
+            : order.get_total_with_tax() >= 0
+            ? "NS"
+            : "NR";
         order.blackbox_signature = data.value.signature;
         order.blackbox_unit_id = data.value.vsc;
         order.blackbox_plu_hash = order.getPlu();
@@ -114,9 +143,14 @@ patch(PosStore.prototype, {
         order.blackbox_unique_fdm_production_number = data.value.fdm_number;
         order.blackbox_ticket_counter = data.value.ticket_counter;
         order.blackbox_total_ticket_counter = data.value.total_ticket_counter;
-        order.blackbox_ticket_counters = order.receipt_type + " " + data.value.ticket_counter + "/" + data.value.total_ticket_counter;
-        order.blackbox_time = data.value.time.replace(/(\d{2})(\d{2})(\d{2})/g, '$1:$2:$3');
-        order.blackbox_date = data.value.date.replace(/(\d{4})(\d{2})(\d{2})/g, '$3-$2-$1');
+        order.blackbox_ticket_counters =
+            order.receipt_type +
+            " " +
+            data.value.ticket_counter +
+            "/" +
+            data.value.total_ticket_counter;
+        order.blackbox_time = data.value.time.replace(/(\d{2})(\d{2})(\d{2})/g, "$1:$2:$3");
+        order.blackbox_date = data.value.date.replace(/(\d{4})(\d{2})(\d{2})/g, "$3-$2-$1");
     },
     async _syncTableOrdersToServer() {
         if (this.useBlackBoxBe()) {
@@ -142,49 +176,69 @@ patch(PosStore.prototype, {
             result.blackboxDate = order.blackbox_date;
         }
         return result;
-    }
+    },
 });
 
 patch(Order.prototype, {
     getSpecificTax(amount) {
-        const tax = this.get_tax_details().find(tax => tax.tax.amount === amount);
+        const tax = this.get_tax_details().find((tax) => tax.tax.amount === amount);
         return tax ? tax.amount : false;
     },
     add_product(product, options) {
         if (this.pos.useBlackBoxBe() && product.get_price() < 0) {
             this.pos.env.services.dialog.add(AlertDialog, {
-                'title': _t("POS error"),
-                'body': _t("It's forbidden to sell product with negative price when using the black box.\nPerform a refund instead."),
+                title: _t("POS error"),
+                body: _t(
+                    "It's forbidden to sell product with negative price when using the black box.\nPerform a refund instead."
+                ),
             });
             return;
         } else if (this.pos.useBlackBoxBe() && product.taxes_id.length === 0) {
             this.pos.env.services.dialog.add(AlertDialog, {
-                'title': _t("POS error"),
-                'body': _t("Product has no tax associated with it."),
+                title: _t("POS error"),
+                body: _t("Product has no tax associated with it."),
             });
             return;
-        } else if (this.pos.useBlackBoxBe() && !this.pos.checkIfUserClocked() && product !== this.pos.workInProduct && !options.force) {
+        } else if (
+            this.pos.useBlackBoxBe() &&
+            !this.pos.checkIfUserClocked() &&
+            product !== this.pos.workInProduct &&
+            !options.force
+        ) {
             this.pos.env.services.dialog.add(AlertDialog, {
-                'title': _t("POS error"),
-                'body': _t("User must be clocked in."),
+                title: _t("POS error"),
+                body: _t("User must be clocked in."),
             });
             return;
-        } else if (this.pos.useBlackBoxBe() && !this.pos.mapTaxValues(product.taxes_id)[0]?._letter) {
+        } else if (
+            this.pos.useBlackBoxBe() &&
+            !this.pos.mapTaxValues(product.taxes_id)[0]?._letter
+        ) {
             this.pos.env.services.dialog.add(AlertDialog, {
-                'title': _t("POS error"),
-                'body': _t("Product has an invalid tax amount. Only 21%, 12%, 6% and 0% are allowed."),
+                title: _t("POS error"),
+                body: _t(
+                    "Product has an invalid tax amount. Only 21%, 12%, 6% and 0% are allowed."
+                ),
             });
             return;
-        } else if (this.pos.useBlackBoxBe() && product.id === this.pos.workInProduct.id && !options.force) {
+        } else if (
+            this.pos.useBlackBoxBe() &&
+            product.id === this.pos.workInProduct.id &&
+            !options.force
+        ) {
             this.pos.env.services.dialog.add(AlertDialog, {
-                'title': _t("POS error"),
-                'body': _t("This product is not allowed to be sold"),
+                title: _t("POS error"),
+                body: _t("This product is not allowed to be sold"),
             });
             return;
-        } else if (this.pos.useBlackBoxBe() && product.id === this.pos.workOutProduct.id && !options.force) {
+        } else if (
+            this.pos.useBlackBoxBe() &&
+            product.id === this.pos.workOutProduct.id &&
+            !options.force
+        ) {
             this.pos.env.services.dialog.add(AlertDialog, {
-                'title': _t("POS error"),
-                'body': _t("This product is not allowed to be sold"),
+                title: _t("POS error"),
+                body: _t("This product is not allowed to be sold"),
             });
             return;
         }
@@ -197,37 +251,39 @@ patch(Order.prototype, {
     export_as_JSON() {
         const json = super.export_as_JSON();
 
-        if (!this.pos.useBlackBoxBe())
+        if (!this.pos.useBlackBoxBe()) {
             return json;
+        }
 
-            json.receipt_type = this.receipt_type;
-            json.blackbox_unit_id = this.blackbox_unit_id,
-            json.blackbox_pos_receipt_time = this.blackbox_pos_receipt_time,
-            json.blackbox_ticket_counter = this.blackbox_ticket_counter,
-            json.blackbox_total_ticket_counter = this.blackbox_total_ticket_counter,
-            json.blackbox_ticket_counters = this.blackbox_ticket_counters,
-            json.blackbox_signature = this.blackbox_signature,
-            json.blackbox_tax_category_a = this.blackbox_tax_category_a,
-            json.blackbox_tax_category_b = this.blackbox_tax_category_b,
-            json.blackbox_tax_category_c = this.blackbox_tax_category_c,
-            json.blackbox_tax_category_d = this.blackbox_tax_category_d,
-            json.blackbox_date = this.blackbox_date,
-            json.blackbox_time = this.blackbox_time,
-            json.blackbox_unique_fdm_production_number = this.blackbox_unique_fdm_production_number,
-            json.blackbox_vsc_identification_number = this.blackbox_vsc_identification_number,
-            json.blackbox_plu_hash = this.getPlu(),
-            json.blackbox_pos_version = this.pos.server_version.server_serie
+        json.receipt_type = this.receipt_type;
+        (json.blackbox_unit_id = this.blackbox_unit_id),
+            (json.blackbox_pos_receipt_time = this.blackbox_pos_receipt_time),
+            (json.blackbox_ticket_counter = this.blackbox_ticket_counter),
+            (json.blackbox_total_ticket_counter = this.blackbox_total_ticket_counter),
+            (json.blackbox_ticket_counters = this.blackbox_ticket_counters),
+            (json.blackbox_signature = this.blackbox_signature),
+            (json.blackbox_tax_category_a = this.blackbox_tax_category_a),
+            (json.blackbox_tax_category_b = this.blackbox_tax_category_b),
+            (json.blackbox_tax_category_c = this.blackbox_tax_category_c),
+            (json.blackbox_tax_category_d = this.blackbox_tax_category_d),
+            (json.blackbox_date = this.blackbox_date),
+            (json.blackbox_time = this.blackbox_time),
+            (json.blackbox_unique_fdm_production_number =
+                this.blackbox_unique_fdm_production_number),
+            (json.blackbox_vsc_identification_number = this.blackbox_vsc_identification_number),
+            (json.blackbox_plu_hash = this.getPlu()),
+            (json.blackbox_pos_version = this.pos.server_version.server_serie);
 
         return json;
     },
     getPlu() {
         let order_str = "";
-        this.get_orderlines().forEach(line => order_str += line.generatePluLine());
+        this.get_orderlines().forEach((line) => (order_str += line.generatePluLine()));
         const sha1 = Sha1.hash(order_str);
         return sha1.slice(sha1.length - 8);
     },
     export_for_printing() {
-        let result = super.export_for_printing(...arguments);
+        const result = super.export_for_printing(...arguments);
         result.useBlackboxBe = Boolean(this.pos.useBlackBoxBe());
         if (this.pos.useBlackBoxBe()) {
             const order = this.pos.get_order();
@@ -236,22 +292,22 @@ patch(Order.prototype, {
                 price: l.price === "free" ? l.price : l.price + " " + l.taxLetter,
             }));
             result.blackboxBeData = {
-                "pluHash": order.blackbox_plu_hash,
-                "receipt_type": order.receipt_type,
-                "terminalId": this.pos.config.id,
-                "blackboxDate": order.blackbox_date,
-                "blackboxTime": order.blackbox_time,
+                pluHash: order.blackbox_plu_hash,
+                receipt_type: order.receipt_type,
+                terminalId: this.pos.config.id,
+                blackboxDate: order.blackbox_date,
+                blackboxTime: order.blackbox_time,
 
-                "blackboxSignature": order.blackbox_signature,
-                "versionId": this.pos.server_version.server_version,
+                blackboxSignature: order.blackbox_signature,
+                versionId: this.pos.server_version.server_version,
 
-                "vscIdentificationNumber": order.blackbox_vsc_identification_number,
-                "blackboxFdmNumber": order.blackbox_unique_fdm_production_number,
-                "blackbox_ticket_counter": order.blackbox_ticket_counter,
-                "blackbox_total_ticket_counter": order.blackbox_total_ticket_counter,
-                "ticketCounter": order.blackbox_ticket_counters,
-                "fdmIdentifier": order.pos.config.certified_blackbox_identifier
-            }
+                vscIdentificationNumber: order.blackbox_vsc_identification_number,
+                blackboxFdmNumber: order.blackbox_unique_fdm_production_number,
+                blackbox_ticket_counter: order.blackbox_ticket_counter,
+                blackbox_total_ticket_counter: order.blackbox_total_ticket_counter,
+                ticketCounter: order.blackbox_ticket_counters,
+                fdmIdentifier: order.pos.config.certified_blackbox_identifier,
+            };
         }
         return result;
     },
@@ -266,7 +322,7 @@ patch(Orderline.prototype, {
         return false;
     },
     _generateTranslationTable() {
-        let replacements = [
+        const replacements = [
             ["ÄÅÂÁÀâäáàã", "A"],
             ["Ææ", "AE"],
             ["ß", "SS"],
@@ -278,20 +334,23 @@ patch(Orderline.prototype, {
             ["ÔÖÓÒöôóò", "O"],
             ["Œœ", "OE"],
             ["ñÑ", "N"],
-            ["ýÝÿ", "Y"]
+            ["ýÝÿ", "Y"],
         ];
 
         const lowercaseAsciiStart = "a".charCodeAt(0);
         const lowercaseAsciiEnd = "z".charCodeAt(0);
 
-
-        for (let lowercaseAsciiCode = lowercaseAsciiStart; lowercaseAsciiCode <= lowercaseAsciiEnd; lowercaseAsciiCode++) {
+        for (
+            let lowercaseAsciiCode = lowercaseAsciiStart;
+            lowercaseAsciiCode <= lowercaseAsciiEnd;
+            lowercaseAsciiCode++
+        ) {
             const lowercaseChar = String.fromCharCode(lowercaseAsciiCode);
             const uppercaseChar = lowercaseChar.toUpperCase();
             replacements.push([lowercaseChar, uppercaseChar]);
         }
 
-        let lookupTable = {};
+        const lookupTable = {};
 
         for (let i = 0; i < replacements.length; i++) {
             const letterGroup = replacements[i];
@@ -369,12 +428,16 @@ patch(Orderline.prototype, {
             return amount;
         } else {
             if (uom.category_id[1] === "Weight") {
-                const uom_gram = this.pos.models["uom.uom"].find((uom) => uom.category_id.name === "Weight" && uom.name === "g")
+                const uom_gram = this.pos.models["uom.uom"].find(
+                    (uom) => uom.category_id.name === "Weight" && uom.name === "g"
+                );
                 if (uom_gram) {
                     amount = (amount / uom.factor) * uom_gram.factor;
                 }
             } else if (uom.category_id[1] === "Volume") {
-                const uom_milliliter = this.pos.models["uom.uom"].find((uom) => uom.category_id.name === "Volume" && uom.name === "Milliliter(s)")
+                const uom_milliliter = this.pos.models["uom.uom"].find(
+                    (uom) => uom.category_id.name === "Volume" && uom.name === "Milliliter(s)"
+                );
                 if (uom_milliliter) {
                     amount = (amount / uom.factor) * uom_milliliter.factor;
                 }
@@ -384,13 +447,13 @@ patch(Orderline.prototype, {
         }
     },
     _replaceHashAndSignChars(str) {
-        if (typeof str !== 'string') {
+        if (typeof str !== "string") {
             throw "Can only handle strings";
         }
 
-        let translationTable = this._generateTranslationTable();
+        const translationTable = this._generateTranslationTable();
 
-        let replaced_char_array = str.split('').map((char) => {
+        const replaced_char_array = str.split("").map((char) => {
             const translation = translationTable[char];
             return translation !== undefined ? translation : char;
         });
@@ -404,15 +467,17 @@ patch(Orderline.prototype, {
     // SPACE will only be used in DATA of hash and sign as description
     // padding
     _filterAllowedHashAndSignChars(str) {
-        if (typeof str !== 'string') {
+        if (typeof str !== "string") {
             throw "Can only handle strings";
         }
 
-        let filtered_char_array = str.split('').filter(char => {
+        const filtered_char_array = str.split("").filter((char) => {
             const ascii_code = char.charCodeAt(0);
 
-            if ((ascii_code >= "A".charCodeAt(0) && ascii_code <= "Z".charCodeAt(0)) ||
-                (ascii_code >= "0".charCodeAt(0) && ascii_code <= "9".charCodeAt(0))) {
+            if (
+                (ascii_code >= "A".charCodeAt(0) && ascii_code <= "Z".charCodeAt(0)) ||
+                (ascii_code >= "0".charCodeAt(0) && ascii_code <= "9".charCodeAt(0))
+            ) {
                 return true;
             } else {
                 return false;

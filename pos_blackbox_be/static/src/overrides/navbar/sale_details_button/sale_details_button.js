@@ -10,10 +10,12 @@ patch(SaleDetailsButton.prototype, {
         if (this.pos.useBlackBoxBe()) {
             await this.dialog.add(AlertDialog, {
                 title: _t("Fiscal Data Module Restriction"),
-                body: _t("You are not allowed to print a sales report details when using the fiscal data module."),
+                body: _t(
+                    "You are not allowed to print a sales report details when using the fiscal data module."
+                ),
             });
             return;
         }
         return super.onClick();
-    }
+    },
 });

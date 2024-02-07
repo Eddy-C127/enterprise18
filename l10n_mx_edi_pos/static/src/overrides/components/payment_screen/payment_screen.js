@@ -12,10 +12,7 @@ patch(PaymentScreen.prototype, {
     },
     //@override
     async toggleIsToInvoice() {
-        if (
-            this.pos.company.country_id?.code === "MX" &&
-            !this.currentOrder.is_to_invoice()
-        ) {
+        if (this.pos.company.country_id?.code === "MX" && !this.currentOrder.is_to_invoice()) {
             const payload = await makeAwaitable(this.dialog, AddInfoPopup, {
                 order: this.currentOrder,
             });
@@ -31,8 +28,6 @@ patch(PaymentScreen.prototype, {
         super.toggleIsToInvoice(...arguments);
     },
     areMxFieldsVisible() {
-        return (
-            this.pos.company.country_id?.code === "MX" && this.currentOrder.is_to_invoice()
-        );
+        return this.pos.company.country_id?.code === "MX" && this.currentOrder.is_to_invoice();
     },
 });

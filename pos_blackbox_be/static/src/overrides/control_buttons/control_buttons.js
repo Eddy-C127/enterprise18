@@ -107,18 +107,18 @@ patch(ControlButtons.prototype, {
     clickRefund() {
         if (this.pos.useBlackBoxBe() && !this.pos.checkIfUserClocked()) {
             this.pos.env.services.dialog.add(AlertDialog, {
-                'title': this._t("POS error"),
-                'body':  this._t("User must be clocked in."),
+                title: this._t("POS error"),
+                body: this._t("User must be clocked in."),
             });
             return;
         }
         super.clickRefund();
     },
     async clickPrintBill() {
-        let order = this.pos.get_order();
+        const order = this.pos.get_order();
         if (this.pos.useBlackBoxBe() && order.get_orderlines().length > 0) {
             await this.pos.pushProFormaOrder(order);
         }
         await super.clickPrintBill();
-    }
-})
+    },
+});

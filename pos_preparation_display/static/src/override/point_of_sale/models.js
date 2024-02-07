@@ -8,11 +8,10 @@ patch(Order.prototype, {
     async sendChanges(cancelled) {
         await this.pos.sendDraftToServer();
 
-        await this.pos.data.call(
-            "pos_preparation_display.order",
-            "process_order",
-            [this.server_id, cancelled]
-        );
+        await this.pos.data.call("pos_preparation_display.order", "process_order", [
+            this.server_id,
+            cancelled,
+        ]);
 
         return true;
     },
