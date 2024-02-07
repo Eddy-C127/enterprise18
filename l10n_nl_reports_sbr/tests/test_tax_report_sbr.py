@@ -109,7 +109,7 @@ class TestNlTaxReportSBR(TestAccountReportsCommon):
         ''')
         self.assertXmlTreeEqual(generated_xbrl, expected_xbrl)
 
-@tagged('external_l10n', 'post_install', '-at_install', 'external')
+@tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
 class TestNlSBR(TransactionCase):
     def test_root_certificate_url(self):
         try:
@@ -119,7 +119,7 @@ class TestNlSBR(TransactionCase):
         except UserError:
             raise AssertionError("The link to the root certificate is dead or unresponsive. Check https://cert.pkioverheid.nl/ to find the link to the 'Staat der Nederlanden Private Root CA - G1' certificate.")
 
-@tagged('external_l10n', 'post_install', '-at_install', 'external')
+@tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
 @skipIf(not os.getenv("NL_SBR_CERT"), "No SBR certificate")
 class TestNlSBRFlow(TestAccountReportsCommon):
     @classmethod
