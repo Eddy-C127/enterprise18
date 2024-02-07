@@ -168,6 +168,9 @@ class Task(models.Model):
         fsm_task_to_sale_order = {task.id: task.sale_order_id for task in fsm_tasks}
         super(Task, self)._compute_sale_order_id()
         for task in fsm_tasks:
+            if task.sale_order_id:
+                continue
+
             sale_order_id = fsm_task_to_sale_order.get(task.id, False)
             # the super call will remove the sale order from the task,
             # if the partner on the task is not the same as the partner on the sale order.
