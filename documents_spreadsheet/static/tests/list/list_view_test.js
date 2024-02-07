@@ -17,7 +17,10 @@ import {
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
 import { ListRenderer } from "@web/views/list/list_renderer";
-import { createSpreadsheetFromListView, invokeInsertListInSpreadsheetDialog } from "../utils/list_helpers";
+import {
+    createSpreadsheetFromListView,
+    invokeInsertListInSpreadsheetDialog,
+} from "../utils/list_helpers";
 import { createSpreadsheet } from "../spreadsheet_test_utils.js";
 import { doMenuAction } from "@spreadsheet/../tests/utils/ui";
 import { session } from "@web/session";
@@ -220,14 +223,17 @@ QUnit.module("documents_spreadsheet > list view", {}, () => {
         assert.notOk(root.isVisible(env));
     });
 
-    QUnit.test("Verify absence of list properties on formula with invalid list Id", async function (assert) {
-        const { model, env } = await createSpreadsheetFromListView();
-        setCellContent(model, "A1", `=ODOO.LIST.HEADER("fakeId", "foo")`);
-        const root = cellMenuRegistry.getAll().find((item) => item.id === "listing_properties");
-        assert.notOk(root.isVisible(env));
-        setCellContent(model, "A1", `=ODOO.LIST("fakeId", "2", "bar")`);
-        assert.notOk(root.isVisible(env));
-    });
+    QUnit.test(
+        "Verify absence of list properties on formula with invalid list Id",
+        async function (assert) {
+            const { model, env } = await createSpreadsheetFromListView();
+            setCellContent(model, "A1", `=ODOO.LIST.HEADER("fakeId", "foo")`);
+            const root = cellMenuRegistry.getAll().find((item) => item.id === "listing_properties");
+            assert.notOk(root.isVisible(env));
+            setCellContent(model, "A1", `=ODOO.LIST("fakeId", "2", "bar")`);
+            assert.notOk(root.isVisible(env));
+        }
+    );
 
     QUnit.test("Re-insert a list correctly ask for lines number", async function (assert) {
         const { model, env } = await createSpreadsheetFromListView();
@@ -459,13 +465,13 @@ QUnit.module("documents_spreadsheet > list view", {}, () => {
             serverData,
             additionalContext: { search_default_filter: 1 },
             mockRPC: function (route, args) {
-                if (args.method === "search_read") {
+                if (args.method === "web_search_read") {
                     assert.deepEqual(
                         args.kwargs.domain,
                         [["date", "=", "2016-05-14"]],
                         "data should be fetched with the evaluated the domain"
                     );
-                    assert.step("search_read");
+                    assert.step("web_search_read");
                 }
             },
         });
@@ -479,7 +485,10 @@ QUnit.module("documents_spreadsheet > list view", {}, () => {
             '[("date", "=", context_today())]',
             "domain is exported with the dynamic value"
         );
-        assert.verifySteps(["search_read"]);
+        assert.verifySteps([
+            "web_search_read", // list view is loaded
+            "web_search_read", // the data is loaded in the spreadsheet
+        ]);
     });
 
     QUnit.test("Update the list domain from the side panel", async function (assert) {
