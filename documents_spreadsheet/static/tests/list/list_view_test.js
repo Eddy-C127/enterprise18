@@ -667,13 +667,13 @@ QUnit.module(
                 serverData,
                 additionalContext: { search_default_filter: 1 },
                 mockRPC: function (route, args) {
-                    if (args.method === "search_read") {
+                    if (args.method === "web_search_read") {
                         assert.deepEqual(
                             args.kwargs.domain,
                             [["date", "=", "2016-05-14"]],
                             "data should be fetched with the evaluated the domain"
                         );
-                        assert.step("search_read");
+                        assert.step("web_search_read");
                     }
                 },
             });
@@ -687,7 +687,10 @@ QUnit.module(
                 '[("date", "=", context_today())]',
                 "domain is exported with the dynamic value"
             );
-            assert.verifySteps(["search_read"]);
+            assert.verifySteps([
+                "web_search_read", // list view is loaded
+                "web_search_read", // the data is loaded in the spreadsheet
+            ]);
         });
 
         QUnit.test("Update the list domain from the side panel", async function (assert) {
