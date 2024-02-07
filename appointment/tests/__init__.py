@@ -11,6 +11,5 @@ from . import test_appointment_type_security
 from . import test_appointment_ui
 from . import test_event_notification
 from . import test_manage_leaves
-from . import test_onboarding
 from . import test_performance
 from . import test_res_partner

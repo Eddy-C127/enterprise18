@@ -30,8 +30,8 @@
         <field name="name">appointment.type.kanban</field>
         <field name="model">appointment.type</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_dashboard o_appointment_kanban" banner_route="/onboarding/appointment"
-            js_class="appointment_type_kanban" type="object" action="action_calendar_meetings">
+            <kanban class="o_kanban_dashboard o_appointment_kanban"
+                js_class="appointment_type_kanban" type="object" action="action_calendar_meetings">
                 <field name="appointment_tz"/>
                 <field name="schedule_based_on"/>
                 <field name="resource_ids"/>
@@ -139,7 +139,7 @@
         <field name="name">appointment.type.tree</field>
         <field name="model">appointment.type</field>
         <field name="arch" type="xml">
-            <tree string="Appointment Type" class="o_appointment_type_view_list" multi_edit="1" banner_route="/onboarding/appointment">
+            <tree string="Appointment Type" class="o_appointment_type_view_list" multi_edit="1">
                 <header>
                     <button name="action_share_invite" type="object" string="Share"/>
                 </header>
@@ -391,18 +391,6 @@
             <xpath expr="//header" position="replace"/>
             <xpath expr="//div[hasclass('oe_button_box')]" position="replace"/>
             <xpath expr="//field[@name='message_partner_ids']" position="replace"/>
-        </field>
-    </record>
-
-    <record id="appointment_type_view_form_appointment_onboarding" model="ir.ui.view">
-        <field name="name">appointment.type.form.appointment.onboarding</field>
-        <field name="model">appointment.type</field>
-        <field name="inherit_id" ref="appointment_type_view_form_add_simplified"/>
-        <field name="mode">primary</field>
-        <field name="arch" type="xml">
-            <xpath expr="//form" position="attributes">
-                <attribute name="js_class">appointment_onboarding_create_appointment_type_form</attribute>
-            </xpath>
         </field>
     </record>
 
