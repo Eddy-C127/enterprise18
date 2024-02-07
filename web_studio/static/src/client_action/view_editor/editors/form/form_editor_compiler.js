@@ -198,7 +198,11 @@ export class FormEditorCompiler extends formView.Compiler {
             }
 
             if (node.tagName === "notebook") {
-                const originalChildren = Array.from(node.children);
+                // Since empty pages are not compiled, this compiler has not applied the studioXpath attribute.
+                // We must need to add one as well as the other pages, to make sure we can edit its content properly.
+                const originalChildren = Array.from(node.children).filter(
+                    (e) => e.tagName === "page"
+                );
                 Array.from(compiled.children).forEach((elem, index) => {
                     if (!elem.hasAttribute("studioXpath")) {
                         const studioXpath = originalChildren[index].getAttribute("studioXpath");
