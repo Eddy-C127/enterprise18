@@ -237,6 +237,10 @@ gstr1_test_json = {
         'num': 2
       }
     ]
+  },
+  'supeco': {
+    'clttx': [],
+    'paytx': [],
   }
 }
 

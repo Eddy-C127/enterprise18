@@ -274,6 +274,72 @@
                     </record>
                 </field>
             </record>
+            <record id="account_report_gstr1_eco_52" model="account.report.line">
+                <field name="name">ECO liable to deduct TCS u/s 52(14A)</field>
+                <field name="code">ECO_52</field>
+                <field name="expression_ids">
+                    <record id="account_report_gstr1_eco_52_taxable_amount_balance" model="account.report.expression">
+                        <field name="label">tax_base</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_reseller_partner_id.industry_id', '=', ref('l10n_in.eco_under_section_52')), ('move_id.l10n_in_reseller_partner_id.vat', '!=', False), ('tax_tag_ids', 'in', [ref('l10n_in.tax_tag_base_sgst'), ref('l10n_in.tax_tag_base_cgst'), ref('l10n_in.tax_tag_base_igst')])]"/>
+                        <field name="subformula">-sum</field>
+                    </record>
+                    <record id="account_report_gstr1_eco_52_sgst_balance" model="account.report.expression">
+                        <field name="label">tax_sgst</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_reseller_partner_id.industry_id', '=', ref('l10n_in.eco_under_section_52')), ('move_id.l10n_in_reseller_partner_id.vat', '!=', False), ('tax_tag_ids', '=', ref('l10n_in.tax_tag_base_sgst'))]"/>
+                        <field name="subformula">-sum*0.005</field>
+                    </record>
+                    <record id="account_report_gstr1_eco_52_cgst_balance" model="account.report.expression">
+                        <field name="label">tax_cgst</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_reseller_partner_id.industry_id', '=', ref('l10n_in.eco_under_section_52')), ('move_id.l10n_in_reseller_partner_id.vat', '!=', False), ('tax_tag_ids', '=', ref('l10n_in.tax_tag_base_cgst'))]"/>
+                        <field name="subformula">-sum*0.005</field>
+                    </record>
+                    <record id="account_report_gstr1_eco_52_igst_balance" model="account.report.expression">
+                        <field name="label">tax_igst</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_reseller_partner_id.industry_id', '=', ref('l10n_in.eco_under_section_52')), ('move_id.l10n_in_reseller_partner_id.vat', '!=', False), ('tax_tag_ids', '=', ref('l10n_in.tax_tag_base_igst'))]"/>
+                        <field name="subformula">-sum*0.01</field>
+                    </record>
+                </field>
+            </record>
+            <record id="account_report_gstr1_eco_9_5" model="account.report.line">
+                <field name="name">ECO liable to pay GST u/s 9(5)(14B)</field>
+                <field name="code">ECO_9_5</field>
+                <field name="expression_ids">
+                    <record id="account_report_gstr1_eco_9_5_taxable_amount_balance" model="account.report.expression">
+                        <field name="label">tax_base</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_reseller_partner_id.industry_id', '=', ref('l10n_in.eco_under_section_9_5')), ('move_id.l10n_in_reseller_partner_id.vat', '!=', False), ('tax_tag_ids', 'in', [ref('l10n_in.tax_tag_base_sgst'), ref('l10n_in.tax_tag_base_cgst'), ref('l10n_in.tax_tag_base_igst'), ref('l10n_in.tax_tag_base_cess')])]"/>
+                        <field name="subformula">-sum</field>
+                    </record>
+                    <record id="account_report_gstr1_eco_9_5_sgst_balance" model="account.report.expression">
+                        <field name="label">tax_sgst</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_reseller_partner_id.industry_id', '=', ref('l10n_in.eco_under_section_9_5')), ('move_id.l10n_in_reseller_partner_id.vat', '!=', False), ('tax_tag_ids', '=', ref('l10n_in.tax_tag_sgst'))]"/>
+                        <field name="subformula">-sum</field>
+                    </record>
+                    <record id="account_report_gstr1_eco_9_5_cgst_balance" model="account.report.expression">
+                        <field name="label">tax_cgst</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_reseller_partner_id.industry_id', '=', ref('l10n_in.eco_under_section_9_5')), ('move_id.l10n_in_reseller_partner_id.vat', '!=', False), ('tax_tag_ids', '=', ref('l10n_in.tax_tag_cgst'))]"/>
+                        <field name="subformula">-sum</field>
+                    </record>
+                    <record id="account_report_gstr1_eco_9_5_igst_balance" model="account.report.expression">
+                        <field name="label">tax_igst</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_reseller_partner_id.industry_id', '=', ref('l10n_in.eco_under_section_9_5')), ('move_id.l10n_in_reseller_partner_id.vat', '!=', False), ('tax_tag_ids', '=', ref('l10n_in.tax_tag_igst'))]"/>
+                        <field name="subformula">-sum</field>
+                    </record>
+                    <record id="account_report_gstr1_eco_9_5_cess_balance" model="account.report.expression">
+                        <field name="label">tax_cess</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_reseller_partner_id.industry_id', '=', ref('l10n_in.eco_under_section_9_5')), ('move_id.l10n_in_reseller_partner_id.vat', '!=', False), ('tax_tag_ids', '=', ref('l10n_in.tax_tag_cess'))]"/>
+                        <field name="subformula">-sum</field>
+                    </record>
+                </field>
+            </record>
         </field>
     </record>
 
