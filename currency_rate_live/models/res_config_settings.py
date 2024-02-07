@@ -103,7 +103,6 @@ MAP_CURRENCIES = {
     'South Africa Rand': 'ZAR',
     'Zambian Kwacha': 'ZMW',
 }
-
 _logger = logging.getLogger(__name__)
 
 
@@ -152,8 +151,10 @@ CURRENCY_PROVIDER_SELECTION = [
     (['PL'], 'nbp', '[PL] National Bank of Poland'),
     (['RO'], 'bnr', '[RO] National Bank of Romania'),
     (['TR'], 'tcmb', '[TR] Central Bank of the Republic of Turkey'),
-    (['UK'], 'hmrc', '[UK] HM Revenue & Customs')
+    (['UK'], 'hmrc', '[UK] HM Revenue & Customs'),
+    (['MY'], 'bnm', '[MY] Bank Negara Malaysia'),
 ]
+
 
 class ResCompany(models.Model):
     _inherit = 'res.company'
@@ -887,6 +888,43 @@ class ResCompany(models.Model):
 
         if result and 'BGN' in available_currency_names:
             result['BGN'] = (1.0, curr_date)
+        return result
+
+    @api.model
+    def _parse_bnm_data(self, available_currencies):
+        """ This method is used to update the currencies by using BNM (Bank Negara Malaysia) service API.
+            Rates are given against MYR as a JSON.
+            Source: https://apikijangportal.bnm.gov.my/openapi
+
+            If a currency has no rate, it will be skipped.
+        """
+        request_url = "https://api.bnm.gov.my/public/exchange-rate"
+        request_headers = {
+            'accept': 'application/vnd.BNM.API.v1+json',
+        }
+
+        response = requests.get(request_url, headers=request_headers, timeout=10)
+        response.raise_for_status()
+        result = response.json()
+
+        data = result.get('data')
+        if not data:
+            return False
+
+        available_currency_names = available_currencies.mapped('name')
+        result = {}
+
+        date = datetime.datetime.now()
+        for currency in data:
+            currency_code = currency['currency_code']
+            if currency_code in available_currency_names:
+                date = datetime.datetime.strptime(currency['rate']['date'], '%Y-%m-%d').date()
+                rate = (1 / currency['rate']['middle_rate']) * currency['unit']
+                result[currency_code] = (float(rate), date)
+
+        if result and 'MYR' not in result:
+            result['MYR'] = (1.0, date)
+
         return result
 
     @api.model
