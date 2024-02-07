@@ -158,3 +158,20 @@ class CurrencyTestCase(TransactionCase):
         res = self.test_company.update_currency_rates()
         self.assertTrue(res)
         self.assertEqual(len(self.currency_usd.rate_ids), usd_rates_count + 1)
+
+    def test_live_currency_update_bnm(self):
+        myr = self.env.ref('base.MYR')
+        myr.active = True
+        usd = self.env.ref('base.USD')
+        usd.active = True
+        self.test_company.write({
+            'currency_provider': 'bnm',
+            'currency_id': myr.id
+        })
+        myr_rates_count = len(myr.rate_ids)
+        usd_rates_count = len(usd.rate_ids)
+        res = self.test_company.update_currency_rates()
+        self.assertTrue(res)
+        self.assertEqual(len(myr.rate_ids), myr_rates_count + 1)
+        self.assertEqual(myr.rate_ids[-1].rate, 1.0)
+        self.assertEqual(len(usd.rate_ids), usd_rates_count + 1)
