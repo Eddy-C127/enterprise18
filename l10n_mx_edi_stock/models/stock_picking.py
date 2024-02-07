@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import json
-import re
+import uuid
+
 import requests
-from lxml import etree
 from werkzeug.urls import url_quote, url_quote_plus
 
 from odoo import api, models, fields, _
+from odoo.addons.base.models.ir_qweb import keep_query
 from odoo.exceptions import UserError
 from odoo.osv import expression
-from odoo.addons.base.models.ir_qweb import keep_query
 
 MAPBOX_GEOCODE_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
 MAPBOX_MATRIX_URL = 'https://api.mapbox.com/directions-matrix/v1/mapbox/driving/'
@@ -107,6 +107,17 @@ class Picking(models.Model):
         ondelete='restrict',
         copy=False,
         help='The vehicle used for Federal Transport')
+    l10n_mx_edi_idccp = fields.Char(
+        string="IdCCP",
+        help="Additional UUID for the Delivery Guide.",
+        compute='_compute_l10n_mx_edi_idccp',
+    )
+    l10n_mx_edi_gross_vehicle_weight = fields.Float(
+        string="Gross Vehicle Weight",
+        compute="_compute_l10n_mx_edi_gross_vehicle_weight",
+        store=True,
+        readonly=False,
+    )
 
     def _l10n_mx_edi_get_extra_picking_report_values(self):
         self.ensure_one()
@@ -140,10 +151,11 @@ class Picking(models.Model):
     @api.depends('company_id', 'state', 'picking_type_code')
     def _compute_l10n_mx_edi_is_cfdi_needed(self):
         for picking in self:
-            picking.l10n_mx_edi_is_cfdi_needed = \
-                picking.country_code == 'MX' \
-                and picking.state == 'done' \
-                and picking.picking_type_code == 'outgoing'
+            picking.l10n_mx_edi_is_cfdi_needed = (
+                picking.country_code == 'MX'
+                and picking.state == 'done'
+                and picking.picking_type_code in ('incoming', 'outgoing')
+            )
 
     @api.depends('l10n_mx_edi_document_ids.state', 'l10n_mx_edi_document_ids.sat_state')
     def _compute_l10n_mx_edi_cfdi_state_and_attachment(self):
@@ -200,6 +212,21 @@ class Picking(models.Model):
             else:
                 picking.l10n_mx_edi_cfdi_cancel_picking_id = None
 
+    @api.depends('l10n_mx_edi_is_cfdi_needed')
+    def _compute_l10n_mx_edi_idccp(self):
+        for picking in self:
+            if picking.l10n_mx_edi_is_cfdi_needed and not picking.l10n_mx_edi_idccp:
+                # The IdCCP must be a 36 characters long RFC 4122 identifier starting with 'CCC'.
+                picking.l10n_mx_edi_idccp = f'CCC{str(uuid.uuid4())[3:]}'
+
+    @api.depends('l10n_mx_edi_vehicle_id')
+    def _compute_l10n_mx_edi_gross_vehicle_weight(self):
+        for picking in self:
+            if picking.l10n_mx_edi_vehicle_id and not picking.l10n_mx_edi_gross_vehicle_weight:
+                picking.l10n_mx_edi_gross_vehicle_weight = picking.l10n_mx_edi_vehicle_id.gross_vehicle_weight
+            else:
+                picking.l10n_mx_edi_gross_vehicle_weight = picking.l10n_mx_edi_gross_vehicle_weight
+
     # -------------------------------------------------------------------------
     # CFDI: Generation
     # -------------------------------------------------------------------------
@@ -224,33 +251,88 @@ class Picking(models.Model):
             errors.append(_("All products require a UNSPSC Code"))
         if self.l10n_mx_edi_transport_type == '01' and not self.l10n_mx_edi_distance:
             errors.append(_("Distance in KM must be specified when using federal transport"))
+        if self.l10n_mx_edi_vehicle_id and not self.l10n_mx_edi_gross_vehicle_weight:
+            errors.append(_("Please define a gross vehicle weight."))
         return errors
 
     def _l10n_mx_edi_add_picking_cfdi_values(self, cfdi_values):
         self.ensure_one()
-        company = cfdi_values['company']
-
-        if self.picking_type_id.warehouse_id.partner_id:
-            cfdi_values['issued_address'] = self.picking_type_id.warehouse_id.partner_id
-        issued_address = cfdi_values['issued_address']
 
         self.env['l10n_mx_edi.document']._add_base_cfdi_values(cfdi_values)
-        self.env['l10n_mx_edi.document']._add_currency_cfdi_values(cfdi_values, company.currency_id)
+        self.env['l10n_mx_edi.document']._add_currency_cfdi_values(cfdi_values, cfdi_values['company'].currency_id)
         self.env['l10n_mx_edi.document']._add_document_name_cfdi_values(cfdi_values, self.name)
         self.env['l10n_mx_edi.document']._add_document_origin_cfdi_values(cfdi_values, self.l10n_mx_edi_cfdi_origin)
         self.env['l10n_mx_edi.document']._add_customer_cfdi_values(cfdi_values, self.partner_id)
 
-        mx_tz = issued_address._l10n_mx_edi_get_cfdi_timezone()
+        receptor = cfdi_values['receptor']
+        emisor = cfdi_values['emisor']
+
+        warehouse_partner = self.picking_type_id.warehouse_id.partner_id
+        mx_tz = warehouse_partner._l10n_mx_edi_get_cfdi_timezone()
         date_fmt = '%Y-%m-%dT%H:%M:%S'
 
         cfdi_values.update({
             'record': self,
             'cfdi_date': self.date_done.astimezone(mx_tz).strftime(date_fmt),
             'scheduled_date': self.scheduled_date.astimezone(mx_tz).strftime(date_fmt),
-            'lugar_expedicion': issued_address.zip,
+            'lugar_expedicion': warehouse_partner.zip,
             'moves': self.move_ids.filtered(lambda ml: ml.quantity > 0),
             'weight_uom': self.env['product.template']._get_weight_uom_id_from_ir_config_parameter(),
         })
+
+        cfdi_values['issued_address'] = warehouse_partner
+        cfdi_values['idccp'] = self.l10n_mx_edi_idccp
+        cfdi_values['origen'] = {
+            'id_ubicacion': f"OR{str(self.location_id.id).rjust(6, '0')}",
+            'fecha_hora_salida_llegada': cfdi_values['cfdi_date'],
+        }
+        cfdi_values['destino'] = {
+            'id_ubicacion': f"DE{str(self.location_dest_id.id).rjust(6, '0')}",
+            'distancia_recorrida': self.l10n_mx_edi_distance,
+            'fecha_hora_salida_llegada': cfdi_values['scheduled_date'],
+        }
+
+        if self.l10n_mx_edi_vehicle_id:
+            cfdi_values['peso_bruto_vehicular'] = self.l10n_mx_edi_gross_vehicle_weight
+        else:
+            cfdi_values['peso_bruto_vehicular'] = None
+
+        if self.picking_type_code == 'outgoing':
+            cfdi_values['origen']['rfc_remitente_destinatario'] = emisor['rfc']
+            self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['origen'], warehouse_partner)
+
+            if self.l10n_mx_edi_external_trade:
+                cfdi_values['destino']['rfc_remitente_destinatario'] = 'XEXX010101000'
+                cfdi_values['destino']['num_reg_id_trib'] = receptor['rfc']
+                cfdi_values['destino']['residencia_fiscal'] = receptor['customer'].country_id.l10n_mx_edi_code
+            else:
+                cfdi_values['destino']['rfc_remitente_destinatario'] = receptor['rfc']
+                cfdi_values['destino']['num_reg_id_trib'] = None
+                cfdi_values['destino']['residencia_fiscal'] = None
+            self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['destino'], receptor['customer'])
+        else:
+            if self.l10n_mx_edi_external_trade:
+                cfdi_values['origen']['rfc_remitente_destinatario'] = 'XEXX010101000'
+                cfdi_values['destino']['num_reg_id_trib'] = emisor['rfc']
+                cfdi_values['destino']['residencia_fiscal'] = emisor['supplier'].country_id.l10n_mx_edi_code
+            else:
+                cfdi_values['origen']['rfc_remitente_destinatario'] = receptor['rfc']
+                cfdi_values['destino']['num_reg_id_trib'] = None
+                cfdi_values['destino']['residencia_fiscal'] = None
+            cfdi_values['destino']['rfc_remitente_destinatario'] = emisor['rfc']
+            self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['origen'], receptor['customer'])
+            self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['destino'], warehouse_partner)
+
+    @api.model
+    def _l10n_mx_edi_add_domicilio_cfdi_values(self, cfdi_values, partner):
+        cfdi_values['domicilio'] = {
+            'calle': partner.street,
+            'codigo_postal': partner.zip,
+            'colonia': partner.l10n_mx_edi_colony_code,
+            'estado': partner.state_id.code,
+            'pais': partner.country_id.l10n_mx_edi_code,
+            'municipio': None,
+        }
 
     @api.model
     def _l10n_mx_edi_prepare_picking_cfdi_template(self):

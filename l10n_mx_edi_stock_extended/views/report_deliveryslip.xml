@@ -2,16 +2,16 @@
 <odoo>
     <template id="l10n_mx_edi_cartaporte_report_delivery_comex" inherit_id="l10n_mx_edi_stock.l10n_mx_edi_cartaporte_report_delivery_document">
         <xpath expr="//div[@id='mx_edi_row_2']" position="inside">
-            <t t-if="o.l10n_mx_edi_cfdi_state == 'sent' and o.l10n_mx_edi_customs_no">
+            <t t-if="o.l10n_mx_edi_cfdi_state == 'sent' and o.l10n_mx_edi_customs_doc_identification">
                 <div class="col-3">
                     <strong>Customs Number</strong>
-                    <p t-field="o.l10n_mx_edi_customs_no"/>
+                    <p t-field="o.l10n_mx_edi_customs_doc_identification"/>
                 </div>
             </t>
         </xpath>
         <xpath expr="//div[@id='mx_edi_row_2']/div[1]" position="attributes">
-            <t t-if="o.l10n_mx_edi_cfdi_state == 'sent' and o.l10n_mx_edi_customs_no">
-                <attribute name="t-att-class">'col-6' if not o.l10n_mx_edi_customs_no else 'col-4'</attribute>
+            <t t-if="o.l10n_mx_edi_cfdi_state == 'sent' and o.l10n_mx_edi_customs_doc_identification">
+                <attribute name="t-att-class">'col-6' if not o.l10n_mx_edi_customs_doc_identification else 'col-4'</attribute>
             </t>
         </xpath>
         <xpath expr="//th[@name='th_sml_quantity']" position="before">

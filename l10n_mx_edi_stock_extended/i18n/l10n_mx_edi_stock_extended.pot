@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-07 08:24+0000\n"
-"PO-Revision-Date: 2023-09-07 08:24+0000\n"
+"POT-Creation-Date: 2024-02-07 15:08+0000\n"
+"PO-Revision-Date: 2024-02-07 15:08+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,22 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_mx_edi_stock_extended/models/stock_picking.py:0
 msgid "A zip code and state are required to generate a delivery guide"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model_terms:ir.actions.act_window,help:l10n_mx_edi_stock_extended.l10n_mx_edi_customs_document_type_action
+msgid "Add a new customs document type for MX delivery guide."
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model_terms:ir.actions.act_window,help:l10n_mx_edi_stock_extended.l10n_mx_edi_customs_regime_action
+msgid "Add a new customs regime for MX delivery guide."
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#. odoo-python
+#: code:addons/l10n_mx_edi_stock_extended/models/stock_picking.py:0
+msgid "At least one product is missing a material type."
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
@@ -157,8 +173,63 @@ msgid "Cajas de Plástico Rígido"
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
-#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_customs_no
-msgid "Customs Number"
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_document_type__code
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_regime__code
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_customs_document_type_code
+msgid "Code"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_document_type__create_uid
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_regime__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_document_type__create_date
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_regime__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.ui.menu,name:l10n_mx_edi_stock_extended.menu_stock_mx_customs_document_type
+msgid "Custom Document Type"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_customs_doc_identification
+msgid "Customs Document Identification"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_customs_document_type_id
+msgid "Customs Document Type"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.actions.act_window,name:l10n_mx_edi_stock_extended.l10n_mx_edi_customs_regime_action
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_customs_regime_id
+#: model:ir.ui.menu,name:l10n_mx_edi_stock_extended.menu_stock_mx_customs_regime
+msgid "Customs Regime"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,help:l10n_mx_edi_stock_extended.field_product_product__l10n_mx_edi_material_description
+#: model:ir.model.fields,help:l10n_mx_edi_stock_extended.field_product_template__l10n_mx_edi_material_description
+msgid ""
+"Description of the state of the material or product when performing a "
+"foreign trade operation."
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_document_type__display_name
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_regime__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.actions.act_window,name:l10n_mx_edi_stock_extended.l10n_mx_edi_customs_document_type_action
+msgid "Documento Aduanero"
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
@@ -333,6 +404,17 @@ msgid "Environment Insurer"
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock_extended.selection__l10n_mx_edi_customs_document_type__goods_direction__export
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock_extended.selection__l10n_mx_edi_customs_regime__goods_direction__export
+msgid "Export"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,help:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_customs_doc_identification
+msgid "Folio of the customs document associated with the import of the goods."
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_product_product__l10n_mx_edi_hazardous_material_code
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_product_template__l10n_mx_edi_hazardous_material_code
 msgid "Hazardous Material Designation Code"
@@ -342,6 +424,34 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_product_product__l10n_mx_edi_hazard_package_type
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_product_template__l10n_mx_edi_hazard_package_type
 msgid "Hazardous Packaging"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_document_type__id
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_regime__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock_extended.selection__l10n_mx_edi_customs_document_type__goods_direction__import
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock_extended.selection__l10n_mx_edi_customs_regime__goods_direction__import
+msgid "Import"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock_extended.selection__l10n_mx_edi_customs_document_type__goods_direction__both
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock_extended.selection__l10n_mx_edi_customs_regime__goods_direction__both
+msgid "Import, Export"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_importer_id
+msgid "Importer"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,help:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_importer_id
+msgid "Importer registered in the customs documentation."
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
@@ -375,8 +485,68 @@ msgid "Jerricanes (Porrones) de Plástico de tapa no desmontable"
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_document_type__write_uid
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_regime__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_document_type__write_date
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_regime__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
 #: model:ir.model,name:l10n_mx_edi_stock_extended.model_l10n_mx_edi_vehicle
 msgid "MX EDI Vehicle"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock_extended.selection__product_template__l10n_mx_edi_material_type__04
+msgid "Materia para la industria manufacturera"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock_extended.selection__product_template__l10n_mx_edi_material_type__01
+msgid "Materia prima"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock_extended.selection__product_template__l10n_mx_edi_material_type__02
+msgid "Materia procesada"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock_extended.selection__product_template__l10n_mx_edi_material_type__03
+msgid "Materia terminada(producto terminado)"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_product_product__l10n_mx_edi_material_description
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_product_template__l10n_mx_edi_material_description
+msgid "Material Description"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_product_product__l10n_mx_edi_material_type
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_product_template__l10n_mx_edi_material_type
+msgid "Material Type"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model,name:l10n_mx_edi_stock_extended.model_l10n_mx_edi_customs_document_type
+msgid "Mexican Customs Document Type"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model,name:l10n_mx_edi_stock_extended.model_l10n_mx_edi_customs_regime
+msgid "Mexican Customs Regime"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_document_type__name
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_regime__name
+msgid "Name"
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
@@ -385,21 +555,46 @@ msgid "No aplica"
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
-#: model:ir.model.fields,help:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_customs_no
-msgid ""
-"Optional field for entering the customs information in the case of first-hand sales of imported goods or in the case of foreign trade operations with goods or services.\n"
-"The format must be:\n"
-" - 2 digits of the year of validation followed by two spaces.\n"
-" - 2 digits of customs clearance followed by two spaces.\n"
-" - 4 digits of the serial number followed by two spaces.\n"
-" - 1 digit corresponding to the last digit of the current year, except in case of a consolidated customs initiated in the previous year of the original request for a rectification.\n"
-" - 6 digits of the progressive numbering of the custom.\n"
-"example: 15  48  3009  0001235"
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock_extended.selection__product_template__l10n_mx_edi_material_type__05
+msgid "Otra"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_pedimento_number
+msgid "Pedimento Number"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,help:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_pedimento_number
+msgid "Pedimento number associated with the import of the goods."
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#. odoo-python
+#: code:addons/l10n_mx_edi_stock_extended/models/stock_picking.py:0
+msgid "Please define a VAT number for the importer '%s'."
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#. odoo-python
+#: code:addons/l10n_mx_edi_stock_extended/models/stock_picking.py:0
+msgid "Please define a customs document identification."
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#. odoo-python
+#: code:addons/l10n_mx_edi_stock_extended/models/stock_picking.py:0
+msgid "Please define a customs regime."
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
 #: model:ir.model,name:l10n_mx_edi_stock_extended.model_product_template
 msgid "Product"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,help:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_customs_regime_id
+msgid "Regime associated to the good's transfer (import or export)."
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
@@ -452,6 +647,13 @@ msgid "Sacos (Bolsas) de Tela sin forro ni revestimientos interiores"
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,help:l10n_mx_edi_stock_extended.field_product_product__l10n_mx_edi_material_type
+#: model:ir.model.fields,help:l10n_mx_edi_stock_extended.field_product_template__l10n_mx_edi_material_type
+msgid ""
+"State of the material or product when performing a foreign trade operation."
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
 #: model:ir.model.fields,help:l10n_mx_edi_stock_extended.field_l10n_mx_edi_vehicle__environment_insurer
 msgid ""
 "The name of the insurer that covers the liability risks of the environment "
@@ -459,6 +661,23 @@ msgid ""
 msgstr ""
 
 #. module: l10n_mx_edi_stock_extended
+#: model:ir.model.constraint,message:l10n_mx_edi_stock_extended.constraint_l10n_mx_edi_customs_document_type_uniq_code
+#: model:ir.model.constraint,message:l10n_mx_edi_stock_extended.constraint_l10n_mx_edi_customs_regime_uniq_code
+msgid "This code is already used."
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
 #: model:ir.model,name:l10n_mx_edi_stock_extended.model_stock_picking
 msgid "Transfer"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_document_type__goods_direction
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock_extended.field_l10n_mx_edi_customs_regime__goods_direction
+msgid "Type"
+msgstr ""
+
+#. module: l10n_mx_edi_stock_extended
+#: model:ir.model.fields,help:l10n_mx_edi_stock_extended.field_stock_picking__l10n_mx_edi_customs_document_type_id
+msgid "Type of customs document associated with the transport of the goods."
 msgstr ""

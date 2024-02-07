@@ -93,6 +93,10 @@ class Vehicle(models.Model):
         string='Vehicle Plate Number',
         help='License plate number of the vehicle in which the goods are transferred. Alphanumeric characters only, no dashes and/or spaces',
         required=True)
+    gross_vehicle_weight = fields.Float(
+        string="Gross Vehicle Weight",
+        help="Permitted weight of the vehicle (in tons) in accordance with NOM-SCT-012-2017.",
+    )
     trailer_ids = fields.One2many(
         comodel_name='l10n_mx_edi.trailer',
         inverse_name='vehicle_id',

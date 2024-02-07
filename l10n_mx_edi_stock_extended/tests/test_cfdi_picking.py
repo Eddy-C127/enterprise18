@@ -2,8 +2,8 @@
 from freezegun import freeze_time
 
 from odoo import Command
-from .common import TestMXEdiStockCommon
 from odoo.tests import tagged
+from .common import TestMXEdiStockCommon
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
@@ -15,28 +15,28 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
         cls.env.company.partner_id.city_id = cls.env.ref('l10n_mx_edi_extended.res_city_mx_chh_032').id
 
     @freeze_time('2017-01-01')
-    def test_delivery_guide_30_outgoing(self):
+    def test_delivery_guide_outgoing(self):
         warehouse = self._create_warehouse()
         picking = self._create_picking(warehouse)
 
         with self.with_mocked_pac_sign_success():
             picking.l10n_mx_edi_cfdi_try_send()
 
-        self._assert_picking_cfdi(picking, 'test_delivery_guide_30_outgoing')
+        self._assert_picking_cfdi(picking, 'test_delivery_guide_outgoing')
 
     @freeze_time('2017-01-01')
-    def test_delivery_guide_30_incoming(self):
+    def test_delivery_guide_incoming(self):
         warehouse = self._create_warehouse()
         picking = self._create_picking(warehouse, outgoing=False)
 
         with self.with_mocked_pac_sign_success():
             picking.l10n_mx_edi_cfdi_try_send()
 
-        self._assert_picking_cfdi(picking, 'test_delivery_guide_30_incoming')
+        self._assert_picking_cfdi(picking, 'test_delivery_guide_incoming')
 
 
     @freeze_time('2017-01-01')
-    def test_delivery_guide_comex_30_outgoing(self):
+    def test_delivery_guide_comex_outgoing(self):
         self.product_c.l10n_mx_edi_material_type = '05'
         self.product_c.l10n_mx_edi_material_description = 'Test material description'
 
@@ -45,7 +45,7 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
             warehouse,
             picking_vals={
                 'partner_id': self.partner_us.id,
-                'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock_extended_30.l10n_mx_edi_customs_document_type_02').id,
+                'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock_extended.l10n_mx_edi_customs_document_type_02').id,
                 'l10n_mx_edi_customs_doc_identification': '0123456789',
             }
         )
@@ -53,10 +53,10 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
         with self.with_mocked_pac_sign_success():
             picking.l10n_mx_edi_cfdi_try_send()
 
-        self._assert_picking_cfdi(picking, 'test_delivery_guide_comex_30_outgoing')
+        self._assert_picking_cfdi(picking, 'test_delivery_guide_comex_outgoing')
 
     @freeze_time('2017-01-01')
-    def test_delivery_guide_comex_30_incoming(self):
+    def test_delivery_guide_comex_incoming(self):
         self.product_c.l10n_mx_edi_material_type = '01'
 
         warehouse = self._create_warehouse()
@@ -65,7 +65,7 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
             outgoing=False,
             picking_vals={
                 'partner_id': self.partner_us.id,
-                'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock_extended_30.l10n_mx_edi_customs_document_type_01').id,
+                'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock_extended.l10n_mx_edi_customs_document_type_01').id,
                 'l10n_mx_edi_importer_id': self.partner_a.id,
             }
         )
@@ -73,7 +73,7 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
         with self.with_mocked_pac_sign_success():
             picking.l10n_mx_edi_cfdi_try_send()
 
-        self._assert_picking_cfdi(picking, 'test_delivery_guide_comex_30_incoming')
+        self._assert_picking_cfdi(picking, 'test_delivery_guide_comex_incoming')
 
     @freeze_time('2017-01-01')
     def test_delivery_guide_company_branch(self):
@@ -96,4 +96,4 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
 
         with self.with_mocked_pac_sign_success():
             picking.l10n_mx_edi_cfdi_try_send()
-        self._assert_picking_cfdi(picking, 'test_delivery_guide_30_company_branch')
+        self._assert_picking_cfdi(picking, 'test_delivery_guide_company_branch')

@@ -20,6 +20,7 @@
                             <field name="vehicle_licence"/>
                             <field name="vehicle_model"/>
                             <field name="vehicle_config"/>
+                            <field name="gross_vehicle_weight" invisible="not vehicle_config" required="vehicle_config"/>
                         </group>
                         <group>
                             <field name="transport_perm_sct"/>

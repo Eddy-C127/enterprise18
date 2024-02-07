@@ -72,3 +72,18 @@ class ProductTemplate(models.Model):
     l10n_mx_edi_hazard_package_type = fields.Selection(
         selection=MX_PACKAGING_CATALOG,
         string="Hazardous Packaging")
+    l10n_mx_edi_material_type = fields.Selection(
+        selection=[
+            ('01', 'Materia prima'),
+            ('02', 'Materia procesada'),
+            ('03', 'Materia terminada(producto terminado)'),
+            ('04', 'Materia para la industria manufacturera'),
+            ('05', 'Otra'),
+        ],
+        string="Material Type",
+        help="State of the material or product when performing a foreign trade operation.",
+    )
+    l10n_mx_edi_material_description = fields.Char(
+        string="Material Description",
+        help="Description of the state of the material or product when performing a foreign trade operation.",
+    )

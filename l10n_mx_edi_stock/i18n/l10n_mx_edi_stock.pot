@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-07 08:14+0000\n"
-"PO-Revision-Date: 2023-09-07 08:14+0000\n"
+"POT-Creation-Date: 2024-02-07 15:06+0000\n"
+"PO-Revision-Date: 2024-02-07 15:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -154,6 +154,11 @@ msgstr ""
 #. module: l10n_mx_edi_stock
 #: model_terms:ir.actions.act_window,help:l10n_mx_edi_stock.l10n_mx_edi_vehicle_actions
 msgid "Add a new vehicle setup for MX delivery guide"
+msgstr ""
+
+#. module: l10n_mx_edi_stock
+#: model:ir.model.fields,help:l10n_mx_edi_stock.field_stock_picking__l10n_mx_edi_idccp
+msgid "Additional UUID for the Delivery Guide."
 msgstr ""
 
 #. module: l10n_mx_edi_stock
@@ -511,6 +516,12 @@ msgid "Get Coordinates"
 msgstr ""
 
 #. module: l10n_mx_edi_stock
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_vehicle__gross_vehicle_weight
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_stock_picking__l10n_mx_edi_gross_vehicle_weight
+msgid "Gross Vehicle Weight"
+msgstr ""
+
+#. module: l10n_mx_edi_stock
 #: model:ir.model.fields.selection,name:l10n_mx_edi_stock.selection__l10n_mx_edi_trailer__sub_type__ctr016
 msgid "Grúa "
 msgstr ""
@@ -571,6 +582,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_trailer__id
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_vehicle__id
 msgid "ID"
+msgstr ""
+
+#. module: l10n_mx_edi_stock
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_stock_picking__l10n_mx_edi_idccp
+msgid "IdCCP"
 msgstr ""
 
 #. module: l10n_mx_edi_stock
@@ -788,6 +804,13 @@ msgid "Permiso temporal para navegación de cabotaje"
 msgstr ""
 
 #. module: l10n_mx_edi_stock
+#: model:ir.model.fields,help:l10n_mx_edi_stock.field_l10n_mx_edi_vehicle__gross_vehicle_weight
+msgid ""
+"Permitted weight of the vehicle (in tons) in accordance with NOM-"
+"SCT-012-2017."
+msgstr ""
+
+#. module: l10n_mx_edi_stock
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_document__picking_id
 msgid "Picking"
 msgstr ""
@@ -817,6 +840,12 @@ msgstr ""
 #: code:addons/l10n_mx_edi_stock/models/stock_picking.py:0
 #: code:addons/l10n_mx_edi_stock/models/stock_picking.py:0
 msgid "Please configure MapBox to use this feature"
+msgstr ""
+
+#. module: l10n_mx_edi_stock
+#. odoo-python
+#: code:addons/l10n_mx_edi_stock/models/stock_picking.py:0
+msgid "Please define a gross vehicle weight."
 msgstr ""
 
 #. module: l10n_mx_edi_stock
