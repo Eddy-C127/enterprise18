@@ -54,7 +54,7 @@ class L10nInGSTReturnPeriod(models.Model):
 
     name = fields.Char(compute="_compute_name", string="Period")
     return_period_month_year = fields.Char(compute="_compute_rtn_period_month_year", string="Return Period", store=True)
-    tax_unit_id = fields.Many2one("account.tax.unit", string="VAT Units")
+    tax_unit_id = fields.Many2one("account.tax.unit", string="GST Units")
     display_tax_unit = fields.Boolean(compute="_compute_display_tax_unit")
     company_id = fields.Many2one("res.company", string="Company", default=lambda self: self.env.company, required=True)
     company_ids = fields.Many2many(related="tax_unit_id.company_ids", string="Companies")
@@ -153,7 +153,7 @@ class L10nInGSTReturnPeriod(models.Model):
     def _check_tax_unit(self):
         for record in self:
             if record.tax_unit_id and record.tax_unit_id.main_company_id != record.company_id:
-                raise ValidationError(_('Vat Unit main company is different than this period company.'))
+                raise ValidationError(_('GST Unit main company is different than this period company.'))
 
     @api.constrains('month', 'quarter', 'year')
     def _check_gstr_status(self):
