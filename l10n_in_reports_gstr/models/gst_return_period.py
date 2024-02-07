@@ -284,6 +284,7 @@ class L10nInGSTReturnPeriod(models.Model):
         for return_period in self:
             return_period.gstr3b_status = return_period.gstr3b_closing_entry.state == 'posted' and 'filed' or 'not_filed'
 
+    @api.depends('company_id')
     def _compute_display_tax_unit(self):
         self.display_tax_unit = self.env['account.tax.unit'].search_count([], limit=1) > 0
 
