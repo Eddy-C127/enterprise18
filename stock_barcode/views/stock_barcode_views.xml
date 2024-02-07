@@ -71,7 +71,7 @@
                 <field name="is_barcode_picking_type" invisible="1"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div t-if="record.is_barcode_picking_type" t-attf-class="o_barcode_picking_type oe_kanban_card #{!selection_mode ? kanban_color(record.color.raw_value) : ''} oe_kanban_global_click">
+                        <div t-if="record.is_barcode_picking_type" t-attf-class="o_barcode_picking_type oe_kanban_card #{!selection_mode ? kanban_color(record.color.raw_value) : ''} oe_kanban_global_click d-flex flex-column">
                             <span class="oe_kanban_color_help" t-attf-title="In #{kanban_getcolorname(record.color.raw_value)}" role="img" t-attf-aria-label="In #{kanban_getcolorname(record.color.raw_value)}"/>
                             <div class="o_kanban_card_header">
                                 <div class="o_primary o_kanban_record_title">
@@ -81,8 +81,8 @@
                                     <field name="warehouse_id" readonly="1" groups="stock.group_stock_multi_warehouses"/>
                                 </div>
                             </div>
-                            <div class="container o_kanban_card_content o_kanban_button">
-                                <span class="row text-muted" name="get_action_picking_tree_ready_kanban" type="object">
+                            <div class="container o_kanban_card_content o_kanban_button mt-auto">
+                                <span t-attf-class="row {{ record.count_picking_ready.value == 0 ? 'text-muted' : '' }}" name="get_action_picking_tree_ready_kanban" type="object">
                                     <t t-esc="record.count_picking_ready.value"/> To Process
                                 </span>
                             </div>
