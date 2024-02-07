@@ -231,7 +231,7 @@ class AccountMove(models.Model):
                 'journal_id': deferred_journal.id,
                 'company_id': self.company_id.id,
                 'partner_id': line.partner_id.id,
-                'date': line.move_id.invoice_date + relativedelta(day=31),
+                'date': line.move_id.date,
                 'auto_post': 'at_date',
                 'ref': ref,
             })
