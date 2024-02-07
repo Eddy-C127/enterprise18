@@ -143,3 +143,32 @@ class TestFsmFlowSale(TestFsmFlowSaleCommon):
         self.assertEqual(task.sale_order_id, sale_order, "The sale order should be linked to the task.")
         task.action_fsm_validate()
         self.assertTrue(task.task_to_invoice, "Task should be invoiceable")
+
+    def test_task_sale_order_id_and_sale_order_line_id_consistency(self):
+        sale_order_1 = self.env['sale.order'].create({
+            'partner_id': self.partner_1.id,
+            'order_line': [
+                Command.create({
+                    'product_id': self.product_delivery_timesheet1.id,
+                    'product_uom_qty': 10,
+                })
+            ]
+        })
+        sale_order_1.action_confirm()
+
+        task = self.env['project.task'].with_context({
+            'default_project_id': self.fsm_project_employee_rate.id,
+        }).create({
+            'sale_line_id': sale_order_1.order_line.id,
+            'name': 'Test Task',
+        })
+
+        self.assertEqual(task.sale_order_id.id, sale_order_1.id)
+
+        sale_order_2 = sale_order_1.copy()
+
+        task.write({
+            'sale_line_id': sale_order_2.order_line.id,
+        })
+
+        self.assertEqual(task.sale_order_id.id, sale_order_2.id)
