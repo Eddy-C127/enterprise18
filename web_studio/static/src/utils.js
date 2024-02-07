@@ -42,7 +42,7 @@ export function getFontAwesomeIcons() {
         (s) => s && s.href && s.href.includes("/web/")
     );
     const fontAwesomeStyles = [...styleSheet.cssRules]
-        .filter((e) => /\.fa-.*:before/.test(e.selectorText))
+        .filter((e) => /^\.fa-.*:before/.test(e.selectorText))
         .filter((e) => e && e.style && e.style.length === 1 && e.style[0] === "content");
     return fontAwesomeStyles.map((rule) => {
         const classNames = rule.selectorText.split(/:?:before|,/).filter((e) => e.length > 1);
