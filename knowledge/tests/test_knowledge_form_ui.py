@@ -304,12 +304,12 @@ class TestKnowledgeUI(TestKnowledgeUICommon):
 
     def test_knowledge_items_search_favorites_tour(self):
         """Test search favorites for items view"""
-        self.env['knowledge.article'].create([{'name': 'Article 1'}])
+        self.env['knowledge.article'].create([{'name': 'Article 1', 'is_article_visible_by_everyone': True}])
         self.start_tour('/web', 'knowledge_items_search_favorites_tour', login='admin')
 
     def test_knowledge_search_favorites_tour(self):
         """Test search favorites with searchModel state"""
-        self.env['knowledge.article'].create([{'name': 'Article 1'}])
+        self.env['knowledge.article'].create([{'name': 'Article 1', 'is_article_visible_by_everyone': True}])
         self.start_tour('/web', 'knowledge_search_favorites_tour', login='admin')
 
     @users('admin')
@@ -369,6 +369,10 @@ class TestKnowledgeUI(TestKnowledgeUICommon):
             'internal_permission': 'read',
             'is_article_visible_by_everyone': True,
             'sequence': workspace_article.sequence+1,
+        })
+        # show the workspace article in the sidebar
+        workspace_article.write({
+            'is_article_visible_by_everyone': True,
         })
         self.start_tour('/web', 'knowledge_sidebar_readonly_tour', login='demo')
 

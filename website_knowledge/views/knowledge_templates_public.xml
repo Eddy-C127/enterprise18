@@ -38,7 +38,7 @@
                                 <div class="d-flex align-items-center p-3">
                                     <!-- Title -->
                                     <t t-if="article">
-                                        <span t-if="article.name" t-out="article.name"/>
+                                        <span t-if="article.name" t-out="article.display_name"/>
                                         <span t-else="">Untitled</span>
                                     </t>
                                 </div>
@@ -98,7 +98,6 @@
         <!-- Section tree -->
         <t t-else="">
             <section t-if="all_visible_articles">
-                <div class="o_section_header h4 mb-0">Public Articles</div>
                 <ul class="o_tree o_tree_workspace m-0 px-0 py-2">
                     <t t-call="website_knowledge.articles_template">
                         <t t-set="articles" t-value="root_articles"/>

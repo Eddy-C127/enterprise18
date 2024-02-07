@@ -535,6 +535,12 @@ export class KnowledgeSidebar extends Component {
                 }
             }
         }
+        const ancestorRootArticleId = res.active_article_accessible_root_id;
+        if (ancestorRootArticleId) {
+            this.getCategoryIds(this.getArticle(ancestorRootArticleId).category).push(
+                ancestorRootArticleId
+            );
+        }
         this.state.favoriteIds = res.favorite_ids;
         this.showArticle(this.getArticle(this.props.record.resId));
         this.state.loading = false;

@@ -24,10 +24,6 @@ registry.category("web_tour.tours").add('website_knowledge_public_search_tour', 
     content: "Check that search tree contains 'Child Article'",
     trigger: '.o_article_name:contains("Child Article")',
     run() {},
-}, {
-    content: "Check that search tree contains 'Sibling Article'",
-    trigger: '.o_article_name:contains("Sibling Article")',
-    run() {},
 }, { // Write search term in search bar
     content: "Write 'M' in the search bar",
     trigger: '.knowledge_search_bar',

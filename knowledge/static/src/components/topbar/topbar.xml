@@ -81,7 +81,7 @@
                     <a role="button" t-on-click="() => this.env.createArticle('private')" class="btn btn-primary btn-create text-nowrap" data-hotkey="n">New</a>
                     <div class="o-dropdown dropdown" t-if="props.record.resId and props.record.data.active">
                         <a t-ref="sharePanel_button" role="button" class="btn btn-light btn-share dropdown-toggle o-no-caret" id="dropdown_share_panel" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hotkey="shift+s">
-                            <i class="fa fa-fw fs-6 fa-share-alt me-1"/>
+                            <i class="fa fa-fw fs-6 fa-share-alt me-1 o_knowledge_share_panel_icon"/>
                             <t t-if="isInternalUser">Share</t>
                             <t t-else="">Members</t>
                         </a>

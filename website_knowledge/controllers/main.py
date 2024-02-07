@@ -42,10 +42,8 @@ class KnowledgeWebsiteController(KnowledgeController):
 
     def _redirect_to_public_view(self, article, no_sidebar=False):
         # The sidebar is hidden if no_sidebar is True or if there is no article
-        # to show in the sidebar (i.e. no published root workspace article).
-        show_sidebar = False if no_sidebar else request.env["knowledge.article"].search_count(
-            self._prepare_public_root_articles_domain(), limit=1
-        )
+        # to show in the sidebar (i.e. only one article in the tree is published).
+        show_sidebar = False if no_sidebar else article.parent_id.website_published or article.child_ids.filtered('website_published')
         return request.render('website_knowledge.article_view_public', {
             'article': article,
             'show_sidebar': show_sidebar
@@ -162,10 +160,20 @@ class KnowledgeWebsiteController(KnowledgeController):
     # Articles tree utils
     # --------------------
 
-    def _prepare_public_root_articles_domain(self):
-        """ Public root articles are root articles that are published and in the workspace
+    def _prepare_public_root_articles_domain(self, active_article=False):
+        """ Public root articles are root articles that are published and in the workspace.
+        These root articles are now possibly different from the regular roots as we are creating sub-sites
+        with limited hierarchy.
+        These subsites are composed of all the accessible articles that are descendants of the closet accessible
+        root from the article.
+
+        An accessible root article is the highest ancestor of the current article that is accessible, meaning
+        that their parent either is false or isn't accessible.
         """
-        return [("parent_id", "=", False), ("category", "=", "workspace"), ("website_published", "=", True)]
+        if not active_article:
+            return [("parent_id", "=", False), ("category", "=", "workspace"), ("website_published", "=", True)]
+
+        return [("id", "=", active_article._get_accessible_root_ancestors()[-1].id)]
 
     def _prepare_public_sidebar_values(self, active_article_id, unfolded_articles_ids):
         """ Prepares all the info needed to render the sidebar in public
@@ -176,22 +184,24 @@ class KnowledgeWebsiteController(KnowledgeController):
           When reloading/opening the article page, previously unfolded articles
           nodes must be opened;
         """
-        # Sudo to speed up the search, as permissions will be computed anyways
-        # when getting the visible articles
-        root_articles_ids = request.env['knowledge.article'].sudo().search(
-            self._prepare_public_root_articles_domain(), order="sequence, id"
-        ).ids
 
         active_article_ancestor_ids = []
         unfolded_ids = unfolded_articles_ids or []
 
         # Add active article and its parents in list of unfolded articles
-        active_article = request.env['knowledge.article'].sudo().browse(active_article_id)
+        active_article = request.env['knowledge.article'].browse(active_article_id)
+
+        # Sudo to speed up the search, as permissions will be computed anyways
+        # when getting the visible articles
+        root_articles = request.env['knowledge.article'].sudo().search(
+            self._prepare_public_root_articles_domain(active_article), order="sequence, id"
+        )
+
         if active_article and active_article.parent_id:
             active_article_ancestor_ids = active_article._get_ancestor_ids()
             unfolded_ids += active_article_ancestor_ids
 
-        all_visible_articles = request.env['knowledge.article'].get_visible_articles(root_articles_ids, unfolded_ids)
+        all_visible_articles = request.env['knowledge.article'].get_visible_articles(root_articles.ids, unfolded_ids)
 
         return {
             "active_article_id": active_article_id,
@@ -199,7 +209,7 @@ class KnowledgeWebsiteController(KnowledgeController):
             "articles_displayed_limit": self._KNOWLEDGE_TREE_ARTICLES_LIMIT,
             "articles_displayed_offset": 0,
             "all_visible_articles": all_visible_articles,
-            "root_articles": all_visible_articles.filtered(lambda article: not article.parent_id),
+            "root_articles": all_visible_articles.filtered(lambda article: article in root_articles),
             "unfolded_articles_ids": unfolded_ids,
         }
 
@@ -213,10 +223,16 @@ class KnowledgeWebsiteController(KnowledgeController):
             :param int active_article_id: used to highlight the given article_id in the template;
             :param string search_term: user search term to filter the articles on;
         """
-
         # Get all the visible articles based on the search term
         all_visible_articles = request.env['knowledge.article'].search(
-            expression.AND([[('is_article_item', '=', False)], [('name', 'ilike', search_term)]]),
+            expression.AND([
+                [('is_article_item', '=', False)],
+                [('name', 'ilike', search_term)],
+                expression.OR([
+                    [('id', 'child_of', active_article_id)],
+                    [('id', 'parent_of', active_article_id)],
+                ])
+            ]),
             order='name',
             limit=self._KNOWLEDGE_TREE_ARTICLES_LIMIT,
         )

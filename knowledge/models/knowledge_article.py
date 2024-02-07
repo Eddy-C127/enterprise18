@@ -617,8 +617,11 @@ class Article(models.Model):
         """Compute if the user can see a specific article.
         The user can see it in two cases: when the article can be seen by everyone
         and when he is a member of the said article if it is visible only by its members.
+
+        Note: portal users are forced to be members of the articles and do not benefit from 'is_article_visible_by_everyone'
         """
-        visible_articles = self.filtered(lambda article: article.is_article_visible_by_everyone)
+        visible_articles = self.filtered(lambda article: article.is_article_visible_by_everyone)\
+            if self.env.user._is_internal() else self.env['knowledge.article']
         visible_articles.is_article_visible = True
         if visible_articles == self:
             return
@@ -646,21 +649,30 @@ class Article(models.Model):
             [('partner_id', '=', self.env.user.partner_id.id)]
         )
         if (value and operator == '=') or (not value and operator == '!='):
-            return [
-                    '|',
-                        ('is_article_visible_by_everyone', '=', True),
-                        '|',
-                            ('article_member_ids', 'in', members_from_partner),
-                            ('root_article_id.article_member_ids', 'in', members_from_partner)
+            members_domain = [
+                '|',
+                    ('article_member_ids', 'in', members_from_partner),
+                    ('root_article_id.article_member_ids', 'in', members_from_partner)
             ]
+            if not self.env.user._is_internal():
+                return members_domain
+            return expression.OR([
+                [('is_article_visible_by_everyone', '=', True)],
+                members_domain
+            ])
 
-        return [
-                '&',
-                    ('is_article_visible_by_everyone', '=', False),
-                    '&',
-                        ('article_member_ids', 'not in', members_from_partner),
-                        ('root_article_id.article_member_ids', 'not in', members_from_partner)
+        members_domain = [
+            '&',
+                ('article_member_ids', 'not in', members_from_partner),
+                ('root_article_id.article_member_ids', 'not in', members_from_partner)
         ]
+        if not self.env.user._is_internal():
+            return members_domain
+
+        return expression.AND([
+               [('is_article_visible_by_everyone', '=', False)],
+               members_domain
+        ])
 
     @api.depends('root_article_id.is_article_visible_by_everyone')
     def _compute_is_article_visible_by_everyone(self):
@@ -1445,6 +1457,9 @@ class Article(models.Model):
         :param bool is_private: set current user as sole owner of the new article;
         :param bool is_article_item: set the created article as an article item;
         """
+        return self.create(self._prepare_article_create_values(title, parent_id, is_private, is_article_item, article_properties))
+
+    def _prepare_article_create_values(self, title=False, parent_id=False, is_private=False, is_article_item=False, article_properties=False):
         parent = self.browse(parent_id) if parent_id else self.env['knowledge.article']
         values = {
             'is_article_item': is_article_item,
@@ -1481,7 +1496,7 @@ class Article(models.Model):
         if is_article_item and article_properties:
             values['article_properties'] = article_properties
 
-        return self.create(values)
+        return values
 
     def get_user_sorted_articles(self, search_query, limit=40, hidden_mode=False):
         """ Called when using the Command palette to search for articles matching the search_query.
@@ -2768,6 +2783,7 @@ class Article(models.Model):
                 expression.AND([
                     [('parent_id', '=', False), ('is_template', '=', False)],
                     self._get_read_domain(),
+                    [('is_article_visible', '=', True)]
                 ]),
                 limit=1,
                 order='sequence, internal_permission desc'
@@ -2840,6 +2856,20 @@ class Article(models.Model):
             )
         return self.env['knowledge.article']
 
+    def _get_accessible_root_ancestors(self):
+        accessible_root_ancestor = self
+        def update_has_access(parent):
+            try:
+                parent.check_access_rule('read') is None
+            except AccessError:
+                return False
+            return True
+        accessible_root_ancestors = accessible_root_ancestor if update_has_access(accessible_root_ancestor) else self.env['knowledge.article']
+        while update_has_access(accessible_root_ancestor) and update_has_access(accessible_root_ancestor.parent_id) and accessible_root_ancestor.parent_id.id:
+            accessible_root_ancestor = accessible_root_ancestor.parent_id
+            accessible_root_ancestors |= accessible_root_ancestor
+        return accessible_root_ancestors
+
     def get_sidebar_articles(self, unfolded_ids=False):
         """ Get the data used by the sidebar on load in the form view.
         It returns some information from every article that is accessible by
@@ -2856,16 +2886,23 @@ class Article(models.Model):
 
         root_articles_domain = [
             ("parent_id", "=", False),
-            ("is_template", "=", False)
+            ("is_template", "=", False),
+            ("is_article_visible", "=", True)
         ]
-        if self.env.user._is_internal():
-            # Do not fetch articles that the user did not join (articles with
-            # internal permissions may be set as visible to members only)
-            root_articles_domain.append(("is_article_visible", "=", True))
+        try:
+            has_root_access = self.root_article_id.check_access_rule('read') is None
+        except AccessError:
+            has_root_access = False
 
         # Fetch root article_ids as sudo, ACLs will be checked on next global call fetching 'all_visible_articles'
         # this helps avoiding 2 queries done for ACLs (and redundant with the global fetch)
         root_articles_ids = self.env['knowledge.article'].sudo().search(root_articles_domain).ids
+
+        active_article_accessible_ancestors = False
+        if self and not has_root_access and not self.id in root_articles_ids:
+            active_article_accessible_ancestors = self._get_accessible_root_ancestors()
+            root_articles_ids += [active_article_accessible_ancestors[-1].id]
+            unfolded_ids += active_article_accessible_ancestors.ids
 
         favorite_articles_ids = self.env['knowledge.article.favorite'].sudo().search(
             [("user_id", "=", self.env.user.id), ('is_article_active', '=', True)]
@@ -2894,4 +2931,5 @@ class Article(models.Model):
                 None,  # To not fetch the name of parent_id
             ),
             "favorite_ids": favorite_articles_ids,
+            "active_article_accessible_root_id": active_article_accessible_ancestors[-1].id if active_article_accessible_ancestors else False
         }
