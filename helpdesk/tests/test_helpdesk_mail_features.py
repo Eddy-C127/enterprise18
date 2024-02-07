@@ -21,12 +21,12 @@ class TestHelpdeskMailFeatures(HelpdeskCommon):
             'partner_name': partner_name,
         })
         ticket.partner_email = formatted_email
-        data = ticket._message_get_suggested_recipients()
-        suggested_partner_id, suggested_partner_email, suggested_lang, suggested_reason, create_vals = data[0]
-        self.assertFalse(suggested_partner_id)
-        self.assertEqual(suggested_partner_email, formatted_email)
-        self.assertEqual(suggested_lang, None)
-        self.assertEqual(suggested_reason, 'Customer Email')
+        data = ticket._message_get_suggested_recipients()[0]
+        create_vals = data.get('create_values')
+        self.assertFalse(data.get('persona_id'))
+        self.assertEqual(data.get('email'), formatted_email)
+        self.assertEqual(data.get('lang'), None)
+        self.assertEqual(data.get('reason'), 'Customer Email')
         self.assertEqual(create_vals, ticket._get_customer_information().get(email, {}))
         self.assertEqual(create_vals['name'], partner_name)
         self.assertEqual(create_vals['phone'], partner_phone)
