@@ -619,7 +619,7 @@ export class GanttRenderer extends Component {
         let cellContainerWidth = totalWidth * (cellContainerWidthPercentage / 100);
         cellContainerWidth = Math.round(cellContainerWidth / subColumnCount) * subColumnCount;
         this.state.rowHeaderWidth = totalWidth - cellContainerWidth;
-        this.state.smallPills = cellContainerWidth / subColumnCount < 40;
+        this.state.pillsWidth = cellContainerWidth / subColumnCount;
     }
 
     computeDerivedParams() {
@@ -1411,6 +1411,10 @@ export class GanttRenderer extends Component {
         for (const connectorId in this.connectors) {
             this.deleteConnector(connectorId);
         }
+    }
+
+    isPillSmall(pill) {
+        return this.state.pillsWidth * pill.grid.column[1] < (pill.displayName.length * 10);
     }
 
     /**
