@@ -3078,11 +3078,10 @@ class AccountReport(models.Model):
 
             formula = query_res['formula']
             rslt_dict = {'result': query_res['balance'], 'has_sublines': query_res['aml_count'] > 0}
-            for formula_expr in formulas_dict[formula]:
-                if current_groupby:
-                    rslt[(formula, formula_expr)].append((query_res['grouping_key'], rslt_dict))
-                else:
-                    rslt[(formula, formula_expr)] = rslt_dict
+            if current_groupby:
+                rslt[(formula, formulas_dict[formula])].append((query_res['grouping_key'], rslt_dict))
+            else:
+                rslt[(formula, formulas_dict[formula])] = rslt_dict
 
         return rslt
 
