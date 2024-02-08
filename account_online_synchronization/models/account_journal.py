@@ -206,6 +206,8 @@ class AccountJournal(models.Model):
     def _get_journal_dashboard_data_batched(self):
         dashboard_data = super()._get_journal_dashboard_data_batched()
         for journal in self.filtered('account_online_link_id'):
+            if journal.company_id.id not in self.env.companies.ids:
+                continue
             connection_state_details = journal.account_online_link_id._get_connection_state_details(journal=journal)
             if not connection_state_details and journal.account_online_account_id.fetching_status in ('waiting', 'processing'):
                 connection_state_details = {'status': 'fetching'}
