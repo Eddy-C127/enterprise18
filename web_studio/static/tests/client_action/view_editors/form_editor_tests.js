@@ -3533,6 +3533,41 @@ QUnit.module("View Editors", (hooks) => {
         await editInput(target, ".o_web_studio_sidebar input[name='string']", "new Label");
         assert.verifySteps(["edit_view"]);
     });
+
+    QUnit.test("subview's buttonbox form doesn't pollute main one", async (assert) => {
+        serverData.models.coucou.fields.product_ids = { type: "one2many", relation: "product" };
+        serverData.models.coucou.records = [{ id: 1, display_name: "Coucou 11", product_ids: [1] }];
+        await createViewEditor({
+            serverData,
+            type: "form",
+            arch: `<form>
+                <field name="product_ids">
+                    <form>
+                        <div name="button_box">
+                            <button name="some_action" type="object" string="my_action"/>
+                        </div>
+                        <field name="display_name" />
+                    </form>
+                    <tree><field name="display_name" /></tree>
+                </field>
+            </form>`,
+            resModel: "coucou",
+            resId: 1,
+        });
+        assert.containsOnce(target, ".o-form-buttonbox button");
+        assert.hasClass(
+            target.querySelector(".o-form-buttonbox button"),
+            "o_web_studio_button_hook"
+        );
+        assert.containsNone(target, "button[name='some_action']");
+
+        await click(target, ".o_field_x2many");
+        await nextTick();
+        await click(target, ".o_web_studio_editX2Many[data-type='form']");
+        await nextTick();
+        assert.containsOnce(target, ".o-form-buttonbox");
+        assert.containsOnce(target, ".o-form-buttonbox button[name='some_action']");
+    });
 });
 
 QUnit.module("View Editors", (hooks) => {
