@@ -245,6 +245,7 @@ class AccountOnlineAccount(models.Model):
         for transaction in new_transactions:
             if transaction['online_transaction_identifier'] in existing_online_transaction_identifier:
                 continue
+            existing_online_transaction_identifier.add(transaction['online_transaction_identifier'])
 
             filtered_transactions.append(transaction)
         return filtered_transactions

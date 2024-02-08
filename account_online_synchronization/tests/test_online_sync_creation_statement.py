@@ -189,6 +189,15 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
         self.account_online_account._retrieve_transactions()
         patched_fetch.assert_called_with('/proxy/v1/transactions', data=data)
 
+    def test_multiple_transaction_identifier_fetched(self):
+        # Ensure that if we receive twice the same transaction within the same call, it won't be created twice
+        transactions = self._create_online_transactions(['2016-01-01', '2016-01-03'])
+        # Add first transactions to the list again
+        transactions.append(transactions[0])
+        self.BankStatementLine._online_sync_bank_statement(transactions, self.account_online_account)
+        bnk_stmt_lines = self.BankStatementLine.search([('online_transaction_identifier', '!=', False), ('journal_id', '=', self.gold_bank_journal.id)])
+        self.assertEqual(len(bnk_stmt_lines), 2, 'Should only have created two lines')
+
     @patch('odoo.addons.account_online_synchronization.models.account_online.requests')
     def test_fetch_receive_error_message(self, patched_request):
         # We want to test that when we receive an error, a redirectWarning with the correct parameter is thrown
