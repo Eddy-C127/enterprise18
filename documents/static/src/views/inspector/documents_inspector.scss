@@ -2,7 +2,7 @@
 ////// ======================================
 
 .o_documents_inspector {
-    --btn-group-gap: #{-1 * $btn-border-width};
+    --btn-group-gap: calc(-1 * #{$btn-border-width});
     flex: 0 0 $o-dms-inspector-width;
     overflow: auto;
     color: $o-dms-inspector-txt-lighter;
