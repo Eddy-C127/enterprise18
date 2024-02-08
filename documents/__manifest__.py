@@ -77,6 +77,8 @@ App to upload and manage your documents.
             ('include', 'web._assets_backend_helpers'),
             'web/static/src/scss/pre_variables.scss',
             'web/static/lib/bootstrap/scss/_variables.scss',
+            'web/static/lib/bootstrap/scss/_variables-dark.scss',
+            'web/static/lib/bootstrap/scss/_maps.scss',
             ('include', 'web._assets_bootstrap_backend'),
             'documents/static/src/scss/documents_public_pages.scss',
         ],

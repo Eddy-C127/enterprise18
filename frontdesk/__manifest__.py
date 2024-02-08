@@ -46,6 +46,8 @@
             #3 Load Bootstrap and frontend bundles
             "web/static/lib/bootstrap/scss/_functions.scss",
             "web/static/lib/bootstrap/scss/_variables.scss",
+            'web/static/lib/bootstrap/scss/_variables-dark.scss',
+            'web/static/lib/bootstrap/scss/_maps.scss',
             ("include", "web._assets_bootstrap_frontend"),
 
             #4 Frontdesk's specific assets
