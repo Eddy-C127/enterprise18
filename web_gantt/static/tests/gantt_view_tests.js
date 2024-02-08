@@ -4816,9 +4816,9 @@ QUnit.test("Progress bar rpc is triggered when option set.", async (assert) => {
         ["50%", "12.5%"]
     );
     await hoverGridCell(1, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "50 / 100");
+    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "50h / 100h");
     await hoverGridCell(2, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "25 / 200");
+    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "25h / 200h");
 });
 
 QUnit.test("Progress bar when multilevel grouped.", async (assert) => {
@@ -4872,9 +4872,9 @@ QUnit.test("Progress bar when multilevel grouped.", async (assert) => {
         ["50%", "12.5%"]
     );
     await hoverGridCell(1, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "50 / 100");
+    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "50h / 100h");
     await hoverGridCell(3, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "25 / 200");
+    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "25h / 200h");
 });
 
 QUnit.test("Progress bar warning when max_value is zero", async (assert) => {
@@ -4913,7 +4913,39 @@ QUnit.test("Progress bar warning when max_value is zero", async (assert) => {
     assert.containsOnce(target, SELECTORS.progressBarWarning);
     assert.strictEqual(
         target.querySelector(SELECTORS.progressBarWarning).parentElement.title,
-        "plop 50."
+        "plop 50h."
+    );
+});
+
+QUnit.test("Progress bar when value less than hour", async (assert) => {
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `<gantt date_start="start" date_stop="stop"
+                    default_scale="week" scales="week"
+                    default_group_by="user_id"
+                    progress_bar="user_id">
+                    <field name="user_id"/>
+                </gantt>`,
+        async mockRPC(_, { args, method, model }) {
+            if (method === "gantt_progress_bar") {
+                assert.strictEqual(model, "tasks");
+                assert.deepEqual(args[0], ["user_id"]);
+                assert.deepEqual(args[1], { user_id: [1, 2] });
+                return {
+                    user_id: {
+                        1: { value: 0.50, max_value: 100 },
+                    },
+                };
+            }
+        },
+    });
+    assert.containsOnce(target, SELECTORS.progressBar);
+    await hoverGridCell(1, 1);
+    assert.deepEqual(
+        target.querySelector(SELECTORS.progressBarForeground).textContent,
+        "0h30 / 100h"
     );
 });
 
@@ -4952,7 +4984,7 @@ QUnit.test("Progress bar danger when ratio > 100", async (assert) => {
     );
     assert.deepEqual(
         target.querySelector(SELECTORS.progressBarForeground).textContent,
-        "150 / 100"
+        "150h / 100h"
     );
 });
 
