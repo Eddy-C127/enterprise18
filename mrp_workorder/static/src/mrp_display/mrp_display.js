@@ -58,6 +58,8 @@ export class MrpDisplay extends Component {
             "mrp.production": [],
             "mrp.workorder": [],
         };
+        this.adminId = false;
+        this.barcodeTargetRecordId = false;
         if (
             this.props.context.active_model === "stock.picking.type" &&
             this.props.context.active_id
@@ -198,9 +200,15 @@ export class MrpDisplay extends Component {
     }
 
     get barcodeTargetRecord(){
-        const adminId = this.useEmployee.employees.admin.id;
-        const firstWorking = this.relevantRecords.find((r) => r.data.employee_ids.records.some((e) => e.resId === adminId));
-        return firstWorking ? firstWorking.resId : this.relevantRecords[0].resId;
+        const currentAdminId = this.useEmployee.employees.admin.id;
+        if (currentAdminId === this.adminId) {
+            // We've already found the target record for the current admin, so we can return it
+            return this.barcodeTargetRecordId;
+        }
+        const firstWorking = this.relevantRecords.find((r) => r.data.employee_ids.records.some((e) => e.resId === currentAdminId));
+        this.adminId = currentAdminId;
+        this.barcodeTargetRecordId = firstWorking ? firstWorking.resId : this.relevantRecords[0].resId;
+        return this.barcodeTargetRecordId;
     }
 
     get productions() {
