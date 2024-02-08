@@ -1309,9 +1309,10 @@ class HrPayslip(models.Model):
         ])
         today = fields.Date.today()
         for employee in all_employees:
-            if employee.contract_id and employee.contract_id.date_end and employee.contract_id.date_end < today:
+            contract = employee.contract_id.sudo()
+            if contract and contract.date_end and contract.date_end < today:
                 employees_without_contracts += employee
-            elif not employee.contract_id:
+            elif not contract:
                 existing_draft_contract = self.env['hr.contract'].search([
                     ('employee_id', '=', employee.id),
                     ('company_id', '=', employee.company_id.id),
