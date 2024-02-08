@@ -12,8 +12,8 @@
             display: none; // force-hide the editor toolbar & hint when printing
         }
 
-        div {  // always hide scrollbars in print mode
-            overflow: hidden;
+        div {
+            overflow: visible !important;
         }
 
         // force to print background-images
