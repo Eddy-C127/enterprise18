@@ -47,6 +47,10 @@ const preparationDisplayService = {
                 preparationDisplayService.orderlines[status.id].todo = status.todo;
             }
         });
+        bus_service.addEventListener("reconnect", () => {
+            sound.play("notification");
+            preparationDisplayService.getOrders();
+        });
         return preparationDisplayService;
     },
 };
