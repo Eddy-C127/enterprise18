@@ -150,7 +150,7 @@
                     </t>
                 </t>
             </div>
-            <t t-if="!records[0].data.active">
+            <t t-if="!records.some((rec) => rec.data.active)">
                 <button class="o_inspector_button o_inspector_delete btn float-end" title="Delete" t-on-click.stop.prevent="onDelete" t-att-disabled="editDisabled || locked">
                     <i class="fa fa-fw fa-trash"/>
                 </button>
@@ -179,7 +179,7 @@
             </td>
             <td class="o_inspector_value w-100 d-flex gap-2">
                 <DocumentsInspectorField t-props="this.getFieldProps(fieldName, additionalProps)"/>
-                <button t-if="fieldName === 'name' and records[0].data.active"
+                <button t-if="(fieldName === 'name' or (fieldName === 'partner_id' and props.documents.length > 1)) and records.some((rec) => rec.data.active)"
                     class="o_inspector_button o_inspector_archive o_active btn float-end" title="Move to trash"
                     t-on-click.stop.prevent="onArchive" t-att-disabled="isEditDisabled || isLocked" data-hotkey="delete">
                     <i class="fa fa-fw fa-trash"/>
