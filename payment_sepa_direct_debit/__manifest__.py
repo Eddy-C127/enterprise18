@@ -6,6 +6,7 @@
     'category': 'Accounting/Accounting',
     'sequence': 350,
     'summary': "A payment provider for enabling Sepa Direct Debit in the EU.",
+    'description': " ",  # Non-empty string to avoid loading the README file.
     'depends': ['account_sepa_direct_debit', 'account_payment', 'payment_custom'],
     'data': [
         'views/payment_provider_views.xml',
