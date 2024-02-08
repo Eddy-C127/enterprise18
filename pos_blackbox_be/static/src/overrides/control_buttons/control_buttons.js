@@ -1,17 +1,15 @@
 /** @odoo-module */
 
-import { usePos } from "@point_of_sale/app/store/pos_hook";
-import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product_screen";
-import { Component, useState, onWillStart } from "@odoo/owl";
-import { _t } from "@web/core/l10n/translation";
+import { ControlButtons } from "@point_of_sale/app/screens/product_screen/control_buttons/control_buttons";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
+import { _t } from "@web/core/l10n/translation";
+import { patch } from "@web/core/utils/patch";
 import { OrderReceipt } from "@point_of_sale/app/screens/receipt_screen/receipt/order_receipt";
 import { useService } from "@web/core/utils/hooks";
+import { usePos } from "@point_of_sale/app/store/pos_hook";
+import { onWillStart, useState } from "@odoo/owl";
 
-export class WorkButton extends Component {
-    static template = "pos_blackbox_be.WorkButton";
-    static props = {};
-
+patch(ControlButtons.prototype, {
     setup() {
         this.pos = usePos();
         this.printer = useService("printer");
@@ -23,8 +21,7 @@ export class WorkButton extends Component {
         onWillStart(async () => {
             this.state.status = await this.getUserSessionStatus();
         });
-    }
-
+    },
     async getUserSessionStatus() {
         return await this.pos.data.call(
             "pos.session",
@@ -34,8 +31,7 @@ export class WorkButton extends Component {
                 user_id: this.pos.get_cashier().id,
             }
         );
-    }
-
+    },
     async setUserSessionStatus(status) {
         const users = await this.pos.data.call(
             "pos.session",
@@ -51,9 +47,8 @@ export class WorkButton extends Component {
         } else {
             this.pos.session.users_clocked_ids = users;
         }
-    }
-
-    async click() {
+    },
+    async clickWorkButton() {
         if (this.pos.get_order().orderlines.length) {
             this.pos.env.services.dialog.add(AlertDialog, {
                 title: _t("Fiscal Data Module error"),
@@ -71,8 +66,7 @@ export class WorkButton extends Component {
             await this.ClockOut();
         }
         this.state.buttonDisabled = false;
-    }
-
+    },
     async ClockIn() {
         try {
             await this.createOrderForClocking();
@@ -81,14 +75,12 @@ export class WorkButton extends Component {
         } catch (err) {
             console.error(err);
         }
-    }
-
+    },
     async ClockOut() {
         await this.createOrderForClocking();
         await this.setUserSessionStatus(false);
         this.state.status = false;
-    }
-
+    },
     async createOrderForClocking() {
         const order = this.pos.get_order();
         order.add_product(this.state.status ? this.pos.workOutProduct : this.pos.workInProduct, {
@@ -111,12 +103,22 @@ export class WorkButton extends Component {
             this.pos.add_new_order();
             this.pos.showScreen("ProductScreen");
         }
-    }
-}
-
-ProductScreen.addControlButton({
-    component: WorkButton,
-    condition: function () {
-        return this.pos.useBlackBoxBe();
     },
-});
+    clickRefund() {
+        if (this.pos.useBlackBoxBe() && !this.pos.checkIfUserClocked()) {
+            this.pos.env.services.dialog.add(AlertDialog, {
+                'title': this._t("POS error"),
+                'body':  this._t("User must be clocked in."),
+            });
+            return;
+        }
+        super.clickRefund();
+    },
+    async clickPrintBill() {
+        let order = this.pos.get_order();
+        if (this.pos.useBlackBoxBe() && order.get_orderlines().length > 0) {
+            await this.pos.pushProFormaOrder(order);
+        }
+        await super.clickPrintBill();
+    }
+})
