@@ -51,7 +51,7 @@ export class PivotDialog extends Component {
         this.state = useState({
             showMissingValuesOnly: false,
         });
-        this.dataSource = this.props.getters.getPivotDataSource(this.props.pivotId);
+        this.dataSource = this.props.getters.getPivot(this.props.pivotId);
 
         const table = this.dataSource.getTableStructure();
         const id = this.props.pivotId;

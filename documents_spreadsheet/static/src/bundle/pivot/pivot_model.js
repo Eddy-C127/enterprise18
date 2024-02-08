@@ -1,10 +1,10 @@
 /** @odoo-module */
 
-import { SpreadsheetPivotModel } from "@spreadsheet/pivot/pivot_model";
+import { OdooPivotModel } from "@spreadsheet/pivot/pivot_model";
 import { patch } from "@web/core/utils/patch";
 import { Domain } from "@web/core/domain";
 
-patch(SpreadsheetPivotModel.prototype, {
+patch(OdooPivotModel.prototype, {
     setup() {
         super.setup(...arguments);
         /**

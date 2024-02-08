@@ -1,13 +1,13 @@
 /** @odoo-module **/
 import * as spreadsheet from "@odoo/o-spreadsheet";
-import { PivotDataSource } from "@spreadsheet/pivot/pivot_data_source";
+import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
 import { Domain } from "@web/core/domain";
 import { deepCopy } from "@web/core/utils/objects";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
 export function insertPivot(pivotData) {
-    /** @type {import("spreadsheet").PivotDefinition} */
+    /** @type {import("spreadsheet").OdooPivotDefinition} */
     const definition = deepCopy({
         domain: new Domain(pivotData.searchParams.domain).toJson(),
         context: pivotData.searchParams.context,
@@ -23,7 +23,7 @@ export function insertPivot(pivotData) {
         const dataSourceId = model.getters.getPivotDataSourceId(pivotId);
         const pivotDataSource = model.config.custom.dataSources.add(
             dataSourceId,
-            PivotDataSource,
+            OdooPivot,
             definition
         );
         pivotDataSource.injectFields(pivotData.metaData.fields);

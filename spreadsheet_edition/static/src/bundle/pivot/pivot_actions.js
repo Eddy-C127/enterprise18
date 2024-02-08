@@ -9,7 +9,7 @@ export const REINSERT_PIVOT_CHILDREN = (env) =>
         name: env.model.getters.getPivotDisplayName(pivotId),
         sequence: index,
         execute: async (env) => {
-            const dataSource = env.model.getters.getPivotDataSource(pivotId);
+            const dataSource = env.model.getters.getPivot(pivotId);
             const model = await dataSource.copyModelWithOriginalDomain();
             const table = model.getTableStructure().export();
             const zone = env.model.getters.getSelectedZone();
@@ -30,15 +30,16 @@ export const INSERT_PIVOT_CELL_CHILDREN = (env) =>
         name: env.model.getters.getPivotDisplayName(pivotId),
         sequence: index,
         execute: async (env) => {
-            env.model.getters.getPivotDataSource(pivotId).startPresenceTracking();
+            const pivot = env.model.getters.getPivot(pivotId);
+            pivot.startPresenceTracking();
             env.model.dispatch("REFRESH_PIVOT", { id: pivotId });
             const { sheetId, col, row } = env.model.getters.getActivePosition();
-            const ds = await env.model.getters.getAsyncPivotDataSource(pivotId);
+            await pivot.load();
             // make sure all cells are evaluated
             for (const sheetId of env.model.getters.getSheetIds()) {
                 env.model.getters.getEvaluatedCells(sheetId);
             }
-            ds.stopPresenceTracking();
+            pivot.stopPresenceTracking();
             const insertPivotValueCallback = (formula) => {
                 env.model.dispatch("UPDATE_CELL", {
                     sheetId,

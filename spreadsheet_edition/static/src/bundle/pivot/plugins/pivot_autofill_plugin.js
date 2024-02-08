@@ -7,8 +7,8 @@ import { pivotTimeAdapter } from "@spreadsheet/pivot/pivot_time_adapters";
 
 /**
  * @typedef {import("@spreadsheet/pivot/pivot_table").SpreadsheetPivotTable} SpreadsheetPivotTable
- * @typedef {import("@spreadsheet").PivotDefinition} PivotDefinition
- * @typedef {import("@spreadsheet/pivot/pivot_data_source").PivotDataSource} PivotDataSource
+ * @typedef {import("@spreadsheet").OdooPivotDefinition} OdooPivotDefinition
+ * @typedef {import("@spreadsheet/pivot/pivot_data_source").OdooPivot} OdooPivot
  */
 
 /**
@@ -49,8 +49,8 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (!this.getters.isExistingPivot(pivotId)) {
             return formula;
         }
-        const dataSource = this.getters.getPivotDataSource(pivotId);
-        const definition = this.getters.getPivotRuntime(pivotId);
+        const dataSource = this.getters.getPivot(pivotId);
+        const definition = dataSource.definition;
         for (let i = evaluatedArgs.length - 1; i > 0; i--) {
             const fieldName = evaluatedArgs[i];
             if (
@@ -115,8 +115,8 @@ export class PivotAutofillPlugin extends UIPlugin {
             return [{ title: _t("Missing pivot"), value: _t("Missing pivot #%s", pivotId) }];
         }
         if (functionName === "ODOO.PIVOT") {
-            const dataSource = this.getters.getPivotDataSource(pivotId);
-            const definition = this.getters.getPivotRuntime(pivotId);
+            const dataSource = this.getters.getPivot(pivotId);
+            const definition = dataSource.definition;
             return this._tooltipFormatPivot(pivotId, args, isColumn, dataSource, definition);
         } else if (functionName === "ODOO.PIVOT.HEADER") {
             return this._tooltipFormatPivotHeader(pivotId, args);
@@ -158,8 +158,8 @@ export class PivotAutofillPlugin extends UIPlugin {
      * @param {boolean} isColumn True if the direction is left/right, false
      *                           otherwise
      * @param {number} increment Increment of the autofill
-     * @param {PivotDataSource} dataSource
-     * @param {PivotDefinition} definition
+     * @param {OdooPivot} dataSource
+     * @param {OdooPivotDefinition} definition
      *
      * @private
      *
@@ -270,8 +270,8 @@ export class PivotAutofillPlugin extends UIPlugin {
      * @param {boolean} isColumn True if the direction is left/right, false
      *                           otherwise
      * @param {number} increment Increment of the autofill
-     * @param {PivotDataSource} dataSource
-     * @param {PivotDefinition} definition
+     * @param {OdooPivot} dataSource
+     * @param {OdooPivotDefinition} definition
      *
      * @private
      *
@@ -368,8 +368,8 @@ export class PivotAutofillPlugin extends UIPlugin {
      * @param {boolean} isColumn True if the direction is left/right, false
      *                           otherwise
      * @param {number} increment Increment of the autofill
-     * @param {PivotDataSource} dataSource
-     * @param {PivotDefinition} definition
+     * @param {OdooPivot} dataSource
+     * @param {OdooPivotDefinition} definition
      *
      * @private
      *
@@ -425,8 +425,8 @@ export class PivotAutofillPlugin extends UIPlugin {
      * @param {string} pivotId Id of the pivot
      * @param {number} nextIndex Index of the target column
      * @param {CurrentElement} currentElement Current element (rows and cols)
-     * @param {PivotDataSource} dataSource
-     * @param {PivotDefinition} definition
+     * @param {OdooPivot} dataSource
+     * @param {OdooPivotDefinition} definition
      *
      * @private
      *
@@ -462,7 +462,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      *
      * @param {string} pivotId Id of the pivot
      * @param {CurrentElement} currentElement Current element (rows and cols)
-     * @param {PivotDefinition} definition
+     * @param {OdooPivotDefinition} definition
      *
      * @private
      *
@@ -483,7 +483,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      * the row values of a PIVOT.HEADER function
      *
      * @param {Array<string>} args Args of the pivot.header formula
-     * @param {PivotDefinition} definition
+     * @param {OdooPivotDefinition} definition
      *
      * @private
      *
@@ -506,7 +506,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      * the row values of a PIVOT function
      *
      * @param {Array<string>} args Args of the pivot formula
-     * @param {PivotDefinition} definition
+     * @param {OdooPivotDefinition} definition
      *
      * @private
      *
@@ -585,8 +585,8 @@ export class PivotAutofillPlugin extends UIPlugin {
      * @param {Array<string>} args
      * @param {boolean} isColumn True if the direction is left/right, false
      *                           otherwise
-     * @param {PivotDataSource} dataSource
-     * @param {PivotDefinition} definition
+     * @param {OdooPivot} dataSource
+     * @param {OdooPivotDefinition} definition
      *
      * @private
      *
@@ -611,7 +611,7 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (definition.measures.length !== 1 && isColumn) {
             const measure = args[1];
             tooltips.push({
-                value: dataSource.getMeasureDisplayName(measure),
+                value: dataSource.getMeasure(measure).displayName,
             });
         }
         if (!tooltips.length) {
@@ -626,7 +626,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      *
      * @param {string} pivotId
      * @param {Array<string>} args
-     * @param {PivotDataSource} dataSource
+     * @param {OdooPivot} dataSource
      *
      * @private
      *
@@ -660,7 +660,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      * @param {string} measure
      * @param {Object} rows
      * @param {Object} cols
-     * @param {PivotDefinition} definition
+     * @param {OdooPivotDefinition} definition
      *
      * @private
      * @returns {Array<string>}
@@ -688,7 +688,7 @@ export class PivotAutofillPlugin extends UIPlugin {
     }
 
     /**
-     * @param {PivotDefinition} definition
+     * @param {OdooPivotDefinition} definition
      * @param {string} dimension COLUMN | ROW
      */
     _isGroupedOnlyByOneDate(definition, dimension) {
@@ -696,7 +696,7 @@ export class PivotAutofillPlugin extends UIPlugin {
         return groupBys.length === 1 && ["date", "datetime"].includes(groupBys[0].type);
     }
     /**
-     * @param {PivotDefinition} definition
+     * @param {OdooPivotDefinition} definition
      * @param {string} dimension COLUMN | ROW
      */
     _getGroupOfFirstDate(definition, dimension) {
@@ -708,7 +708,7 @@ export class PivotAutofillPlugin extends UIPlugin {
     }
 
     /**
-     * @param {PivotDefinition} definition
+     * @param {OdooPivotDefinition} definition
      * @returns {number}
      */
     _getNumberOfColGroupBys(definition) {
@@ -716,8 +716,8 @@ export class PivotAutofillPlugin extends UIPlugin {
     }
 
     /**
-     * @param {PivotDataSource} dataSource
-     * @param {PivotDefinition} definition
+     * @param {OdooPivot} dataSource
+     * @param {OdooPivotDefinition} definition
      * @param {string} fieldName
      * @returns {boolean}
      */
@@ -727,8 +727,8 @@ export class PivotAutofillPlugin extends UIPlugin {
     }
 
     /**
-     * @param {PivotDataSource} dataSource
-     * @param {PivotDefinition} definition
+     * @param {OdooPivot} dataSource
+     * @param {OdooPivotDefinition} definition
      * @param {string} fieldName
      * @returns {boolean}
      */

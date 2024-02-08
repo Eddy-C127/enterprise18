@@ -109,7 +109,7 @@ autofillModifiersRegistry
             if (!getters.isExistingPivot(pivotId)) {
                 return { cellData: { ...data.cell, content: formulaString } };
             }
-            const { rows, columns } = getters.getPivotRuntime(pivotId);
+            const { rows, columns } = getters.getPivot(pivotId).definition;
             const fields = ["up", "down"].includes(direction) ? rows : columns;
             const step = ["right", "down"].includes(direction) ? 1 : -1;
 

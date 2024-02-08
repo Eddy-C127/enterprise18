@@ -20,7 +20,7 @@ export async function convertFromSpreadsheetTemplate(env, data, revisions) {
     await model.config.custom.dataSources.waitForAllLoaded();
     const proms = [];
     for (const pivotId of model.getters.getPivotIds()) {
-        proms.push(model.getters.getPivotDataSource(pivotId).prepareForTemplateGeneration());
+        proms.push(model.getters.getPivot(pivotId).prepareForTemplateGeneration());
     }
     await Promise.all(proms);
     model.dispatch("CONVERT_PIVOT_FROM_TEMPLATE");

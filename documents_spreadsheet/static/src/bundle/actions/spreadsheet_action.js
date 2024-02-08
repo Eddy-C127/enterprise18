@@ -118,7 +118,7 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
         await model.config.custom.dataSources.waitForAllLoaded();
         const proms = [];
         for (const pivotId of model.getters.getPivotIds()) {
-            proms.push(model.getters.getPivotDataSource(pivotId).prepareForTemplateGeneration());
+            proms.push(model.getters.getPivot(pivotId).prepareForTemplateGeneration());
         }
         await Promise.all(proms);
         model.dispatch("CONVERT_PIVOT_TO_TEMPLATE");

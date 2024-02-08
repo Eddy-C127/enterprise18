@@ -16,7 +16,7 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
             case "CONVERT_PIVOT_TO_TEMPLATE":
             case "CONVERT_PIVOT_FROM_TEMPLATE": {
                 for (const pivotId of this.getters.getPivotIds()) {
-                    if (!this.getters.getPivotDataSource(pivotId).isReady()) {
+                    if (!this.getters.getPivot(pivotId).isReady()) {
                         return CommandResult.PivotCacheNotLoaded;
                     }
                 }
@@ -277,7 +277,7 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
     }
 
     _isAbsolute(pivotId, fieldName) {
-        const field = this.getters.getPivotDataSource(pivotId).getField(fieldName.split(":")[0]);
+        const field = this.getters.getPivot(pivotId).getField(fieldName.split(":")[0]);
         return field && field.type === "many2one";
     }
 

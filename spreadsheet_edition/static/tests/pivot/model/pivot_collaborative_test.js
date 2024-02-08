@@ -5,7 +5,7 @@ import { nextTick } from "@web/../tests/helpers/utils";
 import { getBasicServerData } from "@spreadsheet/../tests/utils/data";
 import { getCellContent, getCellFormula, getCellValue } from "@spreadsheet/../tests/utils/getters";
 import { setupCollaborativeEnv } from "../../utils/collaborative_helpers";
-import { PivotDataSource } from "@spreadsheet/pivot/pivot_data_source";
+import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
 import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
 
 /** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
@@ -24,11 +24,7 @@ async function getPivotReady(model, pivotId) {
         name: "Partner",
     };
     const dataSourceId = model.getters.getPivotDataSourceId(pivotId);
-    const dataSource = model.config.custom.dataSources.add(
-        dataSourceId,
-        PivotDataSource,
-        definition
-    );
+    const dataSource = model.config.custom.dataSources.add(dataSourceId, OdooPivot, definition);
     await dataSource.load();
     return { definition, dataSource };
 }
@@ -38,7 +34,7 @@ async function getPivotReady(model, pivotId) {
  * @param {Model} model
  * @param {Object} params
  * @param {Object} params.definition Pivot definition
- * @param {PivotDataSource} params.dataSource Pivot data source (ready)
+ * @param {OdooPivot} params.dataSource Pivot data source (ready)
  * @param {string} [params.dataSourceId]
  * @param {[number, number]} [params.anchor]
  */
@@ -174,7 +170,7 @@ QUnit.test("Add two pivots concurrently", async (assert) => {
         [alice, bob, charlie],
         (user) =>
             Object.values(user.config.custom.dataSources._dataSources).filter(
-                (ds) => ds instanceof PivotDataSource
+                (ds) => ds instanceof OdooPivot
             ).length,
         2
     );
@@ -240,7 +236,7 @@ QUnit.test("Rename and remove a pivot concurrently", async (assert) => {
 QUnit.test("Re-insert and remove a pivot concurrently", async (assert) => {
     await insertPivot(alice);
     await network.concurrent(() => {
-        const structure = alice.getters.getPivotDataSource("1").getTableStructure();
+        const structure = alice.getters.getPivot("1").getTableStructure();
         const table = structure.export();
         alice.dispatch("RE_INSERT_PIVOT", {
             id: "1",

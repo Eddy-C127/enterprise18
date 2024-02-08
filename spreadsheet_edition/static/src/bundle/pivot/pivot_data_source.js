@@ -1,9 +1,9 @@
 /** @odoo-module */
 
-import { PivotDataSource } from "@spreadsheet/pivot/pivot_data_source";
+import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
 import { patch } from "@web/core/utils/patch";
 
-patch(PivotDataSource.prototype, {
+patch(OdooPivot.prototype, {
     setup() {
         super.setup();
         /**
@@ -52,11 +52,11 @@ patch(PivotDataSource.prototype, {
         return super.getPivotCellValue(measure, domain);
     },
 
-    computeOdooPivotHeaderValue(domainArgs) {
+    computePivotHeaderValue(domainArgs) {
         if (this._presenceTracking) {
             this._usedHeaderDomains.add(domainArgs.join());
         }
-        return super.computeOdooPivotHeaderValue(domainArgs);
+        return super.computePivotHeaderValue(domainArgs);
     },
 
     /**

@@ -21,7 +21,7 @@ async function convertFormula(params) {
 
     const proms = [];
     for (const pivotId of model.getters.getPivotIds()) {
-        proms.push(model.getters.getPivotDataSource(pivotId).prepareForTemplateGeneration());
+        proms.push(model.getters.getPivot(pivotId).prepareForTemplateGeneration());
     }
     await Promise.all(proms);
     setCellContent(
@@ -449,7 +449,7 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
                     </pivot>`,
                 serverData,
             });
-            await model.getters.getPivotDataSource("1").prepareForTemplateGeneration();
+            await model.getters.getPivot("1").prepareForTemplateGeneration();
             model.dispatch("CONVERT_PIVOT_TO_TEMPLATE");
             serverData.models.partner.records = [];
             const data = await convertFromSpreadsheetTemplate(env, model.exportData());

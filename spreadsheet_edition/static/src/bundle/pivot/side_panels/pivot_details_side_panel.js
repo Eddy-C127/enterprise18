@@ -23,10 +23,11 @@ export class PivotDetailsSidePanel extends Component {
         this.dialog = useService("dialog");
         this.notification = useService("notification");
         /** @type {import("@spreadsheet/pivot/pivot_data_source").default} */
-        this.dataSource = undefined;
+        this.pivot = undefined;
         const loadData = async (pivotId) => {
-            this.dataSource = await this.env.model.getters.getAsyncPivotDataSource(pivotId);
-            this.modelDisplayName = await this.dataSource.getModelLabel();
+            this.pivot = this.env.model.getters.getPivot(pivotId);
+            await this.pivot.load();
+            this.modelDisplayName = await this.pivot.getModelLabel();
         };
         onWillStart(() => loadData(this.props.pivotId));
         onWillUpdateProps(async (nextProps) => {
@@ -39,7 +40,7 @@ export class PivotDetailsSidePanel extends Component {
     }
 
     get pivotDefinition() {
-        const definition = this.env.model.getters.getPivotRuntime(this.props.pivotId);
+        const definition = this.pivot.definition;
         return {
             model: definition.model,
             modelDisplayName: this.modelDisplayName,
@@ -61,7 +62,7 @@ export class PivotDetailsSidePanel extends Component {
     formatSort() {
         const sortedColumn = this.pivotDefinition.sortedColumn;
         const order = sortedColumn.order === "asc" ? _t("ascending") : _t("descending");
-        const measureDisplayName = this.dataSource.getMeasureDisplayName(sortedColumn.measure);
+        const measureDisplayName = this.pivot.getMeasure(sortedColumn.measure).displayName;
         return `${measureDisplayName} (${order})`;
     }
 
@@ -71,7 +72,7 @@ export class PivotDetailsSidePanel extends Component {
      * @returns {string} date formatted
      */
     getLastUpdate() {
-        const lastUpdate = this.dataSource.lastUpdate;
+        const lastUpdate = this.pivot.lastUpdate;
         if (lastUpdate) {
             return new Date(lastUpdate).toLocaleTimeString();
         }
@@ -87,7 +88,7 @@ export class PivotDetailsSidePanel extends Component {
     }
 
     openDomainEdition() {
-        const { model, domain } = this.env.model.getters.getPivotRuntime(this.props.pivotId);
+        const { model, domain } = this.pivot.definition;
         this.dialog.add(DomainSelectorDialog, {
             resModel: model,
             domain: new Domain(domain).toString(),

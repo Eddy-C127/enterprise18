@@ -1,14 +1,19 @@
 /** @odoo-module */
 
-import { PivotDataSource } from "@spreadsheet/pivot/pivot_data_source";
+import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
 import { patch } from "@web/core/utils/patch";
 
-patch(PivotDataSource.prototype, {
+patch(OdooPivot.prototype, {
     /**
      * @param {string} fieldName
      */
     getPossibleValuesForGroupBy(fieldName) {
         this._assertDataIsLoaded();
         return this._model.getPossibleValuesForGroupBy(fieldName);
+    },
+
+    async prepareForTemplateGeneration() {
+        this._assertDataIsLoaded();
+        await this._model.prepareForTemplateGeneration();
     },
 });
