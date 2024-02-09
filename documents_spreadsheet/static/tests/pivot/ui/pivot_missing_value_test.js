@@ -170,8 +170,6 @@ QUnit.module("documents_spreadsheet > Pivot missing values", {}, function () {
     QUnit.test(
         "Insert missing pivot value give the focus to the grid hidden input when model is closed",
         async function (assert) {
-            assert.expect(3);
-
             const { model, env } = await createSpreadsheetFromPivotView({
                 serverData: {
                     models: getBasicData(),
@@ -192,8 +190,8 @@ QUnit.module("documents_spreadsheet > Pivot missing values", {}, function () {
             await nextTick();
             assert.containsOnce(document.body, ".o_pivot_table_dialog");
             await click(document.body.querySelectorAll(".o_pivot_table_dialog tr th")[1]);
-            assert.strictEqual(document.activeElement.tagName, "INPUT");
-            assert.ok([...document.activeElement.parentElement.classList].includes("o-grid"));
+            const gridComposerEl = document.body.querySelector(".o-grid div.o-composer");
+            assert.strictEqual(document.activeElement, gridComposerEl);
         }
     );
 

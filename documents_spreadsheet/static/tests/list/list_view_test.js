@@ -458,7 +458,7 @@ QUnit.module(
                     17,
                     "First record from page 2 (i.e. 3 of 4 records) should be inserted"
                 );
-                assert.strictEqual(getCellValue(model, "A3"), "");
+                assert.strictEqual(getCellValue(model, "A3"), null);
             }
         );
 
