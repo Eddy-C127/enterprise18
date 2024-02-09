@@ -51,6 +51,15 @@ class IVAReportCustomHandler(models.AbstractModel):
                 JOIN account_account aa ON account_move_line.account_id = aa.id
                 WHERE {where_clause}
                 GROUP BY rp.id {bimestre and ', CAST(FLOOR((EXTRACT(MONTH FROM account_move_line.date) + 1) / 2) AS INT)' or ''}
+                {bimestre and '''HAVING SUM(
+                        CASE
+                        WHEN aa.code NOT LIKE '2408%%' AND account_move_line.credit > 0
+                            THEN account_move_line.tax_base_amount
+                        WHEN aa.code NOT LIKE '2408%%' AND account_move_line.debit > 0
+                            THEN account_move_line.tax_base_amount * -1
+                        ELSE 0
+                        END
+                    ) != 0''' or ''}
             """)
             params += [column_group_key, *where_params]
 
