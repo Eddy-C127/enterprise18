@@ -23,6 +23,9 @@ export class TemplateDialog extends Component {
 
         this.data = this.env.dialogData;
         useHotkey("escape", () => this.data.close());
+        useHotkey("Enter", async () => {
+            await this._createSpreadsheet();
+        });
 
         this.dialogTitle = _t("Create a Spreadsheet or select a Template");
         this.limit = 9;

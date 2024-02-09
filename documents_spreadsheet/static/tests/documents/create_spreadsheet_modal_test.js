@@ -302,6 +302,15 @@ QUnit.module(
             await triggerEvent(dialog.querySelectorAll(".o-template-image")[0], null, "focus");
             await triggerEvent(dialog.querySelectorAll(".o-template-image")[0], null, "dblclick");
             assert.verifySteps(["action_open_new_spreadsheet", "redirect"]);
+
+            // ### With enter key
+            await click(menu, ".o_documents_kanban_spreadsheet");
+            dialog = document.querySelector(".o-spreadsheet-templates-dialog");
+            await triggerEvent(dialog.querySelectorAll(".o-template-image")[0], null, "focus");
+            await triggerEvent(dialog.querySelectorAll(".o-template-image")[0], null, "keydown", {
+                key: "Enter",
+            });
+            assert.verifySteps(["action_open_new_spreadsheet", "redirect"]);
         });
         QUnit.test("Context is transmitted when creating spreadsheet", async function (assert) {
             const serverData = await getDocumentBasicData({
@@ -382,6 +391,15 @@ QUnit.module(
             dialog = document.querySelector(".o-spreadsheet-templates-dialog");
             await triggerEvent(dialog.querySelectorAll(".o-template-image")[1], null, "focus");
             await triggerEvent(dialog.querySelectorAll(".o-template-image")[1], null, "dblclick");
+            assert.verifySteps(["action_create_spreadsheet", "redirect"]);
+
+            // ### With enter key
+            await click(menu, ".o_documents_kanban_spreadsheet");
+            dialog = document.querySelector(".o-spreadsheet-templates-dialog");
+            await triggerEvent(dialog.querySelectorAll(".o-template-image")[1], null, "focus");
+            await triggerEvent(dialog.querySelectorAll(".o-template-image")[1], null, "keydown", {
+                key: "Enter",
+            });
             assert.verifySteps(["action_create_spreadsheet", "redirect"]);
         });
 
