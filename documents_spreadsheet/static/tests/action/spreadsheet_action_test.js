@@ -237,16 +237,13 @@ QUnit.module(
         });
 
         QUnit.test("Grid has still the focus after a dialog", async function (assert) {
-            assert.expect(2);
-
             const { model, env } = await createSpreadsheet();
             selectCell(model, "F4");
             env.raiseError("Notification");
             await nextTick();
             await click(document, ".modal-footer .btn-primary");
             await nextTick();
-            assert.strictEqual(document.activeElement.tagName, "INPUT");
-            assert.ok([...document.activeElement.parentElement.classList].includes("o-grid"));
+            assert.strictEqual(document.activeElement, document.querySelector(".o-grid div.o-composer"));
         });
 
         QUnit.test("convert data from template", async function (assert) {
