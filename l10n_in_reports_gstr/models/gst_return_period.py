@@ -1216,7 +1216,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 domain
                 + [
                     ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
-                    ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "uin_holders")),
+                    ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "uin_holders", "composition")),
                     ("tax_tag_ids", "in", gst_tags),
                 ]
             )
@@ -1225,7 +1225,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 domain
                 + [
                     ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
-                    ("move_id.l10n_in_gst_treatment", "in", ("unregistered", "consumer", "composition")),
+                    ("move_id.l10n_in_gst_treatment", "in", ("unregistered", "consumer")),
                     ("move_id.l10n_in_state_id", "!=", self.company_id.state_id.id),
                     ("move_id.amount_total", ">", 250000),
                     ("tax_tag_ids", "in", gst_tags),
@@ -1236,7 +1236,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 domain
                 + [
                     ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
-                    ("move_id.l10n_in_gst_treatment", "in", ("unregistered", "consumer", "composition")),
+                    ("move_id.l10n_in_gst_treatment", "in", ("unregistered", "consumer")),
                     ("tax_tag_ids", "in", gst_tags),
                     "|",
                     ("move_id.l10n_in_transaction_type", "=", "intra_state"),
@@ -1250,7 +1250,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 domain
                 + [
                     ("move_id.move_type", "=", "out_refund"),
-                    ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "deemed_export")),
+                    ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "uin_holders", "composition")),
                     ("tax_tag_ids", "in", gst_tags),
                 ]
             )
@@ -1264,7 +1264,7 @@ class L10nInGSTReturnPeriod(models.Model):
                     ("tax_tag_ids", "in", export_tags),
                     "&", "&", "&",
                     ("tax_tag_ids", "in", gst_tags),
-                    ("move_id.l10n_in_gst_treatment", "in", ["unregistered", "consumer", "composition"]),
+                    ("move_id.l10n_in_gst_treatment", "in", ["unregistered", "consumer"]),
                     ("move_id.l10n_in_transaction_type", "=", "inter_state"),
                     ("move_id.amount_total", ">", 250000),
                 ]
