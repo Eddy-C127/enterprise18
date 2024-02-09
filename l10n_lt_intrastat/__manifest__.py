@@ -13,7 +13,6 @@
     'data': [
         'data/intrastat_export.xml',
         'data/code_region_data.xml',
-        'views/res_config_settings.xml',
     ],
     'auto_install': True,
     'license': 'OEEL-1',
