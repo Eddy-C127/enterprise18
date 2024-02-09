@@ -30,13 +30,7 @@ class StockLandedCost(models.Model):
         )
     ]
 
-    fiscal_country_codes = fields.Char(compute="_compute_fiscal_country_codes")
-
-    @api.depends_context('allowed_company_ids')
-    def _compute_fiscal_country_codes(self):
-        for record in self:
-            allowed_companies = record.company_id or self.env.companies
-            record.fiscal_country_codes = ",".join(allowed_companies.mapped('account_fiscal_country_id.code'))
+    fiscal_country_codes = fields.Char(related="company_id.country_code")
 
     @api.constrains('l10n_mx_edi_customs_number')
     def _check_l10n_mx_edi_customs_number(self):
