@@ -44,6 +44,11 @@ class Task(models.Model):
         compute='_compute_partner_phone', inverse='_inverse_partner_phone',
         string="Phone", readonly=False, store=True, copy=False)
     partner_city = fields.Char(related='partner_id.city', readonly=False)
+    partner_zip = fields.Char(string='ZIP', related='partner_id.zip')
+    partner_street = fields.Char(related='partner_id.street')
+    partner_street2 = fields.Char(related='partner_id.street2')
+    partner_country_id = fields.Many2one('res.country', related='partner_id.country_id')
+    partner_state_id = fields.Many2one('res.country.state', string='Customer State', related='partner_id.state_id')
     is_task_phone_update = fields.Boolean(compute='_compute_is_task_phone_update')
 
     @api.depends('planned_date_begin', 'date_deadline', 'user_ids')
