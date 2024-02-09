@@ -724,13 +724,12 @@ class HelpdeskTicket(models.Model):
 
     #DVE FIXME: if partner gets created when sending the message it should be set as partner_id of the ticket.
     def _message_get_suggested_recipients(self):
-        recipients = super(HelpdeskTicket, self)._message_get_suggested_recipients()
+        recipients = super()._message_get_suggested_recipients()
         try:
-            for ticket in self:
-                if ticket.partner_id and ticket.partner_id.email:
-                    ticket._message_add_suggested_recipient(recipients, partner=ticket.partner_id, reason=_('Customer'))
-                elif ticket.partner_email:
-                    ticket._message_add_suggested_recipient(recipients, email=ticket.partner_email, reason=_('Customer Email'))
+            if self.partner_id and self.partner_id.email:
+                self._message_add_suggested_recipient(recipients, partner=self.partner_id, reason=_('Customer'))
+            elif self.partner_email:
+                self._message_add_suggested_recipient(recipients, email=self.partner_email, reason=_('Customer Email'))
         except AccessError:  # no read access rights -> just ignore suggested recipients because this implies modifying followers
             pass
         return recipients
