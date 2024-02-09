@@ -20,19 +20,21 @@ class FuenteReportCustomHandler(models.AbstractModel):
         account_name = self.with_context(lang=lang).env['account.account']._field_to_sql('aa', 'name')
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             table_references, search_condition = report._get_table_expression(column_group_options, 'strict_range', domain=domain)
+            tax_base_amount_select = SQL("""
+                SUM(CASE
+                    WHEN account_move_line.credit > 0
+                        THEN account_move_line.tax_base_amount
+                    WHEN account_move_line.debit > 0
+                        THEN account_move_line.tax_base_amount * -1
+                    ELSE 0
+                    END)
+            """)
             queries.append(SQL(
                 """
                 SELECT
                     %(column_group_key)s AS column_group_key,
                     SUM(account_move_line.credit - account_move_line.debit) AS balance,
-                    SUM(CASE
-                        WHEN account_move_line.credit > 0
-                            THEN account_move_line.tax_base_amount
-                        WHEN account_move_line.debit > 0
-                            THEN account_move_line.tax_base_amount * -1
-                        ELSE 0
-                        END
-                    ) AS tax_base_amount,
+                    %(tax_base_amount_select)s AS tax_base_amount,
                     %(account_name)s
                     %(account_id)s
                     rp.id AS partner_id,
@@ -42,13 +44,16 @@ class FuenteReportCustomHandler(models.AbstractModel):
                 JOIN account_account aa ON account_move_line.account_id = aa.id
                 WHERE %(search_condition)s
                 GROUP BY rp.id %(group_by_account_id)s
+                %(having_clause)s
                 """,
                 column_group_key=column_group_key,
+                tax_base_amount_select=tax_base_amount_select,
                 account_name=SQL("aa.code || ' ' || %s AS account_name,", account_name) if account else SQL(),
                 account_id=SQL("aa.id AS account_id,") if account else SQL(),
                 table_references=table_references,
                 search_condition=search_condition,
                 group_by_account_id=SQL(', aa.id') if account else SQL(),
+                having_clause=SQL("HAVING %s != 0", tax_base_amount_select) if account else SQL(),
             ))
 
         self._cr.execute(SQL(' UNION ALL ').join(queries))
