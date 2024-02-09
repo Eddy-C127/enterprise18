@@ -92,7 +92,7 @@
             <field name="perm_write" eval="0"/>
             <field name="perm_create" eval="0"/>
             <field name="perm_unlink" eval="0"/>
-            <field name="domain_force">['|', ('request_id.request_owner_id.id', '=', user.id), ('user_id.id', '=', user.id)]</field>
+            <field name="domain_force">['|', ('request_id.request_owner_id', '=', user.id), ('user_id', '=', user.id)]</field>
         </record>
 
         <record id="approval_approver_user_change_own" model="ir.rule">
@@ -103,7 +103,7 @@
             <field name="perm_write" eval="1"/>
             <field name="perm_create" eval="0"/>
             <field name="perm_unlink" eval="0"/>
-            <field name="domain_force">[('user_id.id', '=', user.id)]</field>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
         </record>
 
         <record id="approval_approver_user_create" model="ir.rule">
@@ -114,7 +114,7 @@
             <field name="perm_write" eval="0"/>
             <field name="perm_create" eval="1"/>
             <field name="perm_unlink" eval="1"/>
-            <field name="domain_force">[('request_id.request_owner_id.id', '=', user.id), ('request_id.request_status', 'in', ('new', 'cancel'))]</field>
+            <field name="domain_force">[('request_id.request_owner_id', '=', user.id), ('request_id.request_status', 'in', ('new', 'cancel'))]</field>
         </record>
 
         <!-- Approval User -->
