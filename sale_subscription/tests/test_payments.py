@@ -552,3 +552,36 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
         )
 
         self.assertNotIn(self.provider, compatible_providers)
+
+    def test_cancel_draft_invoice_unsuccessful_transaction(self):
+        """ Ensure that after an unsuccessful token payment is made, its draft invoice is canceled. """
+        with freeze_time("2024-01-23"):
+            subscription = self.env['sale.order'].create({
+                'partner_id': self.user_portal.partner_id.id,
+                'sale_order_template_id': self.subscription_tmpl.id,
+                'start_date': datetime.date(2024, 1, 15)
+            })
+            subscription._onchange_sale_order_template_id()
+            test_payment_token = self.env['payment.token'].create({
+                'payment_details': 'Test',
+                'partner_id': self.user_portal.partner_id.id,
+                'provider_id': self.dummy_provider.id,
+                'payment_method_id': self.payment_method_id,
+                'provider_ref': 'test'
+            })
+            payment_with_token = self.env['account.payment'].create({
+                'amount': subscription.amount_total,
+                'currency_id': subscription.currency_id.id,
+                'partner_id': self.user_portal.partner_id.id,
+                'payment_token_id': test_payment_token.id
+            })
+            transaction_ids = payment_with_token._create_payment_transaction()
+            subscription.write({'transaction_ids': [Command.set(transaction_ids.ids)]})
+            subscription.action_confirm()
+            subscription._create_invoices(final=True)
+            draft_invoice = subscription.order_line.invoice_lines.move_id.filtered(lambda am: am.state == 'draft')
+            transaction_ids._set_error("Payment declined!")
+            self.assertEqual(len(draft_invoice), 1, "A single draft invoice must be created after the payment was done.")
+            self.assertFalse(subscription.pending_transaction, "Subscription doesn't have pending transaction after unsuccessful payment.")
+            self.assertFalse(subscription.payment_token_id, "The payment token should not be saved after the unsuccessful payment.")
+            self.assertEqual(draft_invoice.state, "cancel", "Draft invoice must be canceled after unsuccessful payment.")
