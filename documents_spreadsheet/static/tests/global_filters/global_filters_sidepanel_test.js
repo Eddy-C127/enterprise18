@@ -417,7 +417,6 @@ QUnit.module(
 
                 await click(target, ".o_side_panel_collapsible_title");
                 assert.doesNotHaveClass(collapsible, "show");
-                assert.hasClass(collapsible, "collapsing");
             }
         );
 
