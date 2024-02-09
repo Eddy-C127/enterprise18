@@ -29,11 +29,11 @@ export class StreamPostComment extends SocialPostFormatterMixin(Component) {
     // Handlers
     //----------
 
-    _onLoadReplies() {
+    async _onLoadReplies() {
         this.action.showSubComment = true;
     }
 
-    _onReplyComment() {
+    async _onReplyComment() {
         this.action.showReplyComment = true;
     }
 
