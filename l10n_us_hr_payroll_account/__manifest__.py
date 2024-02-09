@@ -11,7 +11,7 @@
 Accounting Data for United States Payroll Rules
 ===============================================
     """,
-    'depends': ['hr_payroll_account', 'l10n_us', 'l10n_us_hr_payroll'],
+    'depends': ['hr_payroll_account', 'l10n_us_hr_payroll'],
     'data': [
         'data/account_chart_template_data.xml',
     ],

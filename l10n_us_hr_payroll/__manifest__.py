@@ -5,8 +5,8 @@
     'name': 'United States - Payroll',
     'countries': ['us'],
     'category': 'Human Resources/Payroll',
-    'depends': ['hr_payroll', 'hr_contract_reports', 'hr_work_entry_holidays', 'hr_payroll_holidays'],
-    'auto_install': ['hr_payroll'],
+    'depends': ['hr_payroll', 'hr_contract_reports', 'hr_work_entry_holidays', 'hr_payroll_holidays', 'l10n_us'],
+    'auto_install': ['hr_payroll', 'l10n_us'],
     'version': '1.0',
     'description': """
 United States Payroll Rules.
