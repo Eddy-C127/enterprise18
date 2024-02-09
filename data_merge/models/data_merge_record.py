@@ -91,7 +91,7 @@ class DataMergeRecord(models.Model):
                  WHERE m.id IN (SELECT r.model_id FROM data_merge_record r)
                 """
             )
-        models_info = cr.fetchall()
+        models_info = [r for r in cr.fetchall() if r[0] in self.env]
         # Initial select id query to apply ir.rules and build Query object.
         query = self.env['data_merge.record'].with_context(active_test=False)._search([])
         if not models_info:
