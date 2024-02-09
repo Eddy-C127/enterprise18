@@ -878,7 +878,7 @@ class WhatsAppTemplate(models.Model):
         for var in self.variable_ids.filtered(lambda var: var.line_type == 'body'):
             fallback_value = var.demo_value if demo_fallback else ' '
             body = body.replace(var.name, variable_values.get(f'{var.line_type}-{var.name}', fallback_value))
-        return self._format_markup_to_html(f'{header}\n{body}' if header else body)
+        return self._format_markup_to_html(f'*{header}*\n\n{body}' if header else body)
 
 
     # ------------------------------------------------------------
