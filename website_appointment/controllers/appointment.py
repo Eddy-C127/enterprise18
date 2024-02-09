@@ -144,7 +144,7 @@ class WebsiteAppointment(AppointmentController):
             step=APPOINTMENTS_PER_PAGE,
             scope=5,
         )
-        appointment_types = appointment_types[pager['offset']:pager['offset'] + APPOINTMENTS_PER_PAGE]
+        appointment_types = appointment_types.sorted('is_published', reverse=True)[pager['offset']:pager['offset'] + APPOINTMENTS_PER_PAGE]
 
         return {
             'appointment_types': appointment_types,

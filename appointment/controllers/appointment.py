@@ -109,6 +109,7 @@ class AppointmentController(http.Controller):
                 additional_domain=kwargs.get('domain')
             )
         )
+        appointment_types = appointment_types.sorted('is_published', reverse=True)
         return {
             'appointment_types': appointment_types,
             'invite_token': kwargs.get('invite_token'),
