@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
     <div t-name="spreadsheet_edition.AllListsSidePanel" class="o-listing-all-side-panel">
-        <div t-foreach="env.model.getters.getListIds()" t-as="listId" t-key="listId" t-on-click="() => this.selectList(listId)" >
-            <div class="o_side_panel_select">
-                <span t-esc="env.model.getters.getListDisplayName(listId)"/>
-            </div>
-        </div>
+        <t t-foreach="env.model.getters.getListIds()" t-as="listId" t-key="listId">
+            <ListPreview listId="listId"/>
+        </t>
     </div>
+
+    <t t-name="spreadsheet_edition.ListPreview" >
+        <div class="o_side_panel_select" t-on-click="this.selectList" t-ref="listPreview">
+            <span t-esc="env.model.getters.getListDisplayName(props.listId)"/>
+        </div>
+    </t>
 </templates>

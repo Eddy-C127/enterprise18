@@ -22,6 +22,7 @@ import {
     patchDate,
     editInput,
     makeDeferred,
+    triggerEvent,
 } from "@web/../tests/helpers/utils";
 import { toggleActionMenu, pagerNext } from "@web/../tests/search/helpers";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
@@ -45,6 +46,8 @@ import { getSpreadsheetActionModel } from "@spreadsheet_edition/../tests/utils/w
 import { patchListControllerExportSelection } from "@spreadsheet_edition/assets/list_view/list_controller";
 import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import { onMounted } from "@odoo/owl";
+import { getZoneOfInsertedDataSource } from "../utils/pivot_helpers";
+import { getHighlightsFromStore } from "../utils/store_helpers";
 
 const { topbarMenuRegistry, cellMenuRegistry } = spreadsheet.registries;
 const { toZone } = spreadsheet.helpers;
@@ -239,7 +242,6 @@ QUnit.module(
         QUnit.test("Deleting the list closes the side panel", async function (assert) {
             const { model, env } = await createSpreadsheetFromListView();
             const [listId] = model.getters.getListIds();
-            model.dispatch("SELECT_ODOO_LIST", { listId });
             env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
             await nextTick();
             const fixture = getFixture();
@@ -254,10 +256,7 @@ QUnit.module(
         QUnit.test("Undo a list insertion closes the side panel", async function (assert) {
             const { model, env } = await createSpreadsheetFromListView();
             const [listId] = model.getters.getListIds();
-            model.dispatch("SELECT_ODOO_LIST", { listId });
-            env.openSidePanel("LIST_PROPERTIES_PANEL", {
-                listId,
-            });
+            env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
             await nextTick();
             const fixture = getFixture();
             const titleSelector = ".o-sidePanelTitle";
@@ -651,7 +650,8 @@ QUnit.module(
                     model,
                     services: {
                         ...model.config.custom.env.services,
-                        action: { ...actionService,
+                        action: {
+                            ...actionService,
                             doAction: (params) => {
                                 assert.ok(params.id);
                                 assert.ok(params.xml_id);
@@ -878,7 +878,63 @@ QUnit.module(
             const { actions } = getBasicServerData();
             const { xml_id: actionXmlId } = Object.values(actions)[0];
             const { model } = await createSpreadsheetFromListView({ actionXmlId });
-            assert.deepEqual(model.getters.getListDefinition("1").actionXmlId, "spreadsheet.partner_action");
+            assert.deepEqual(
+                model.getters.getListDefinition("1").actionXmlId,
+                "spreadsheet.partner_action"
+            );
         });
+
+        QUnit.test(
+            "List cells are highlighted when their side panel is open",
+            async function (assert) {
+                const { model, env } = await createSpreadsheetFromListView();
+                const fixture = getFixture();
+                const sheetId = model.getters.getActiveSheetId();
+                env.openSidePanel("LIST_PROPERTIES_PANEL", { listId: "1" });
+                await nextTick();
+
+                const zone = getZoneOfInsertedDataSource(model, "list", "1");
+                assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
+                await click(fixture, ".o-sidePanelClose");
+                assert.deepEqual(getHighlightsFromStore(env), []);
+            }
+        );
+
+        QUnit.test(
+            "List cells are highlighted when hovering the list menu item",
+            async function (assert) {
+                const { model, env } = await createSpreadsheetFromListView();
+                const fixture = getFixture();
+                const sheetId = model.getters.getActiveSheetId();
+                await click(fixture, ".o-topbar-top div[data-id='data']");
+
+                triggerEvent(fixture, "div[data-name='item_list_1']", "mouseenter");
+                const zone = getZoneOfInsertedDataSource(model, "list", "1");
+                assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
+
+                triggerEvent(fixture, "div[data-name='item_list_1']", "mouseleave");
+                assert.deepEqual(getHighlightsFromStore(env), []);
+            }
+        );
+
+        QUnit.test(
+            "List cells are highlighted when hovering the list in the list of lists side panel",
+            async function (assert) {
+                const { model, env } = await createSpreadsheetFromListView();
+                const fixture = getFixture();
+                const sheetId = model.getters.getActiveSheetId();
+                env.openSidePanel("ALL_LISTS_PANEL");
+                await nextTick();
+
+                assert.deepEqual(getHighlightsFromStore(env), []);
+
+                triggerEvent(fixture, ".o_side_panel_select", "mouseenter");
+                const zone = getZoneOfInsertedDataSource(model, "list", "1");
+                assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
+
+                triggerEvent(fixture, ".o_side_panel_select", "mouseleave");
+                assert.deepEqual(getHighlightsFromStore(env), []);
+            }
+        );
     }
 );

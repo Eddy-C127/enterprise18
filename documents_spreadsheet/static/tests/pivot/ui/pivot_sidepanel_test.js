@@ -9,10 +9,14 @@ import {
     triggerEvent,
 } from "@web/../tests/helpers/utils";
 import { getBasicData, getBasicPivotArch } from "@spreadsheet/../tests/utils/data";
-import { createSpreadsheetFromPivotView } from "../../utils/pivot_helpers";
+import {
+    createSpreadsheetFromPivotView,
+    getZoneOfInsertedDataSource,
+} from "../../utils/pivot_helpers";
 import { PivotUIPlugin } from "@spreadsheet/pivot/plugins/pivot_ui_plugin";
 import { insertPivotInSpreadsheet } from "@spreadsheet/../tests/utils/pivot";
 import * as dsHelpers from "@web/../tests/core/domain_selector_tests";
+import { getHighlightsFromStore } from "../../utils/store_helpers";
 import { dragAndDrop } from "@web/../tests/legacy/helpers/utils";
 
 let target;
@@ -228,7 +232,6 @@ QUnit.module(
 
         QUnit.test("Deleting the pivot closes the side panel", async function (assert) {
             const { model, env, pivotId } = await createSpreadsheetFromPivotView();
-            model.dispatch("SELECT_PIVOT", { pivotId });
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             const fixture = getFixture();
@@ -242,7 +245,6 @@ QUnit.module(
 
         QUnit.test("Undo a pivot insertion closes the side panel", async function (assert) {
             const { model, env, pivotId } = await createSpreadsheetFromPivotView();
-            model.dispatch("SELECT_PIVOT", { pivotId });
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             const fixture = getFixture();
@@ -746,6 +748,43 @@ QUnit.module(
                 assert.strictEqual(secondDateGroup.value, "day");
                 assert.strictEqual(firstDateGroup.innerText, "Year\nQuarter\nMonth\nWeek");
                 assert.strictEqual(secondDateGroup.innerText, "Quarter\nMonth\nWeek\nDay");
+
+            }
+        );
+
+        QUnit.test(
+            "Pivot cells are highlighted when their side panel is open",
+            async function (assert) {
+                const { model, env } = await createSpreadsheetFromPivotView();
+                const sheetId = model.getters.getActiveSheetId();
+                const pivotId = model.getters.getPivotIds()[0];
+                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
+                await nextTick();
+
+                const zone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
+                assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
+                await click(target, ".o-sidePanelClose");
+                assert.deepEqual(getHighlightsFromStore(env), []);
+            }
+        );
+
+        QUnit.test(
+            "Pivot cells are highlighted when hovering the pivot in the list of pivots side panel",
+            async function (assert) {
+                const { model, env } = await createSpreadsheetFromPivotView();
+                const sheetId = model.getters.getActiveSheetId();
+                const pivotId = model.getters.getPivotIds()[0];
+                env.openSidePanel("ALL_PIVOTS_PANEL", {});
+                await nextTick();
+
+                assert.deepEqual(getHighlightsFromStore(env), []);
+
+                triggerEvent(target, ".o_side_panel_select", "mouseenter");
+                const zone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
+                assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
+
+                triggerEvent(target, ".o_side_panel_select", "mouseleave");
+                assert.deepEqual(getHighlightsFromStore(env), []);
             }
         );
     }

@@ -6,16 +6,17 @@ import { DomainSelectorDialog } from "@web/core/domain_selector_dialog/domain_se
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { EditableName } from "../../o_spreadsheet/editable_name/editable_name";
-import { components, helpers, stores } from "@odoo/o-spreadsheet";
+import { components, helpers, stores, hooks } from "@odoo/o-spreadsheet";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
+import { getPivotHighlights } from "../pivot_highlight_helpers";
 
 import { PivotSidePanelStore } from "./pivot_detail_side_panel_store";
 import { PivotDimensions } from "./pivot_dimensions/pivot_dimensions";
 
-const { Checkbox, Section, ValidationMessages } = components;
-const { useLocalStore } = stores;
-
 const uuidGenerator = new helpers.UuidGenerator();
+const { Checkbox, Section, ValidationMessages } = components;
+const { useHighlights } = hooks;
+const { useLocalStore } = stores;
 
 export class PivotDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.PivotDetailsSidePanel";
@@ -44,6 +45,7 @@ export class PivotDetailsSidePanel extends Component {
         };
         onWillStart(loadData);
         onWillUpdateProps(loadData);
+        useHighlights(this);
     }
 
     /** @returns {import("@spreadsheet/pivot/pivot_data_source").default} */
@@ -133,5 +135,9 @@ export class PivotDetailsSidePanel extends Component {
 
     onDimensionsUpdated(definition) {
         this.store.update(definition);
+    }
+
+    get highlights() {
+        return getPivotHighlights(this.env.model.getters, this.props.pivotId);
     }
 }

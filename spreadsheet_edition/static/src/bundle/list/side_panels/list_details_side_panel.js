@@ -5,12 +5,14 @@ import { DomainSelector } from "@web/core/domain_selector/domain_selector";
 import { DomainSelectorDialog } from "@web/core/domain_selector_dialog/domain_selector_dialog";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
+import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
+import { getListHighlights } from "../list_highlight_helpers";
 
 import { EditableName } from "../../o_spreadsheet/editable_name/editable_name";
+import { hooks, components } from "@odoo/o-spreadsheet";
 
-import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
-import { components } from "@odoo/o-spreadsheet";
 const { ValidationMessages } = components;
+const { useHighlights } = hooks;
 
 export class ListDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.ListDetailsSidePanel";
@@ -30,6 +32,7 @@ export class ListDetailsSidePanel extends Component {
         };
         onWillStart(() => loadData(this.props.listId));
         onWillUpdateProps(async (nextProps) => loadData(nextProps.listId));
+        useHighlights(this);
     }
 
     get listDefinition() {
@@ -108,5 +111,9 @@ export class ListDetailsSidePanel extends Component {
 
     get unusedListWarning() {
         return _t("This list is not used");
+    }
+
+    get highlights() {
+        return getListHighlights(this.env.model.getters, this.props.listId);
     }
 }

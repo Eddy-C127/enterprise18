@@ -1,7 +1,7 @@
 /** @odoo-module */
 
-import * as spreadsheet from "@odoo/o-spreadsheet";
-import { nextTick, getFixture, click } from "@web/../tests/helpers/utils";
+import { helpers, registries } from "@odoo/o-spreadsheet";
+import { nextTick, getFixture, click, triggerEvent } from "@web/../tests/helpers/utils";
 import { createSpreadsheet } from "../spreadsheet_test_utils";
 import {
     getBasicData,
@@ -20,16 +20,20 @@ import {
     setCellContent,
     setGlobalFilterValue,
 } from "@spreadsheet/../tests/utils/commands";
-import { createSpreadsheetFromPivotView } from "../utils/pivot_helpers";
+import {
+    createSpreadsheetFromPivotView,
+    getZoneOfInsertedDataSource,
+} from "../utils/pivot_helpers";
 import {
     createSpreadsheetWithPivot,
     insertPivotInSpreadsheet,
 } from "@spreadsheet/../tests/utils/pivot";
 import { user } from "@web/core/user";
 
-const { toCartesian, toZone } = spreadsheet.helpers;
-const { cellMenuRegistry, topbarMenuRegistry } = spreadsheet.registries;
+const { toCartesian, toZone } = helpers;
+const { cellMenuRegistry, topbarMenuRegistry } = registries;
 import { doMenuAction } from "@spreadsheet/../tests/utils/ui";
+import { getHighlightsFromStore } from "../utils/store_helpers";
 
 let target;
 
@@ -476,6 +480,23 @@ QUnit.module(
                     .find((item) => item.id === "pivot_see_records");
                 await root.execute(env);
                 assert.verifySteps(["partner", `[["foo","=",2],["bar","=",false]]`]);
+            }
+        );
+
+        QUnit.test(
+            "Pivot cells are highlighted when hovering their menu item",
+            async function (assert) {
+                const { model, env } = await createSpreadsheetFromPivotView();
+                const sheetId = model.getters.getActiveSheetId();
+                await click(target, ".o-topbar-top div[data-id='data']");
+
+                triggerEvent(target, "div[data-name='item_pivot_1']", "mouseenter");
+                const pivotId = model.getters.getPivotIds()[0];
+                const zone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
+                assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
+
+                triggerEvent(target, "div[data-name='item_pivot_1']", "mouseleave");
+                assert.deepEqual(getHighlightsFromStore(env), []);
             }
         );
     }
