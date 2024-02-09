@@ -73,9 +73,7 @@ class PaymentTransaction(models.Model):
                 # but this is a safety to prevent issue when the code is called manually
                 continue
             tx_to_invoice += tx
-            draft_invoices = tx.sale_order_ids.order_line.invoice_lines.move_id.filtered(lambda am: am.state == 'draft')
-            if draft_invoices:
-                draft_invoices.state = 'cancel'
+            tx._cancel_draft_invoices()
 
         tx_to_invoice._invoice_sale_orders()
         tx_to_invoice.invoice_ids._post()
@@ -184,9 +182,25 @@ class PaymentTransaction(models.Model):
         return super()._set_authorize(**kwargs)
 
     def _set_canceled(self, **kwargs):
-        self.sale_order_ids.filtered('is_subscription').pending_transaction = False
+        self._handle_unsuccessful_transaction()
         return super()._set_canceled(**kwargs)
 
     def _set_error(self, state_message):
-        self.sale_order_ids.filtered('is_subscription').pending_transaction = False
+        self._handle_unsuccessful_transaction()
         return super()._set_error(state_message)
+
+    def _handle_unsuccessful_transaction(self):
+        """ Unset pending transactions for subscriptions and cancel their draft invoices. """
+        for transaction in self:
+            subscriptions = transaction.sale_order_ids.filtered('is_subscription')
+            if subscriptions:
+                subscriptions.pending_transaction = False
+                transaction._cancel_draft_invoices()
+
+    def _cancel_draft_invoices(self):
+        """ Cancel draft invoices attached to subscriptions. """
+        self.ensure_one()
+        subscriptions = self.sale_order_ids.filtered('is_subscription')
+        draft_invoices = subscriptions.order_line.invoice_lines.move_id.filtered(lambda am: am.state == 'draft')
+        if draft_invoices:
+            draft_invoices.state = 'cancel'

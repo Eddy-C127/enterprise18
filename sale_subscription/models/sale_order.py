@@ -746,9 +746,7 @@ class SaleOrder(models.Model):
                 raise UserError(_("Recurring period must be a positive number. Please ensure the input is a valid positive numeric value."))
             sub._set_deferred_end_date_from_template()
             sub.order_line._reset_subscription_qty_to_invoice()
-            last_transaction = sub.transaction_ids.sudo()._get_last()
-            last_token = last_transaction.token_id
-            if last_token and last_transaction and self.currency_id.compare_amounts(last_transaction.amount, sub.amount_total) >= 0:
+            if sub._check_token_saving_conditions():
                 sub._save_token_from_payment()
 
     def _set_deferred_end_date_from_template(self):
@@ -827,11 +825,17 @@ class SaleOrder(models.Model):
             # This can create hole that are not taken into account by progress_sub upselling, it's an assumed choice over more upselling complexity
             start_date = renew.start_date or parent.next_invoice_date
             renew.write({'date_order': today, 'start_date': start_date})
-            # Do not save token when partially paying a renewal subscription.
-            last_transaction = renew.transaction_ids.sudo()._get_last()
-            last_token = last_transaction.token_id
-            if last_token and last_transaction and self.currency_id.compare_amounts(last_transaction.amount, renew.amount_total) >= 0:
+            if renew._check_token_saving_conditions():
                 renew._save_token_from_payment()
+
+    def _check_token_saving_conditions(self):
+        """ Check if all conditions match for saving the payment token on the subscription. """
+        self.ensure_one()
+        last_transaction = self.transaction_ids.sudo()._get_last()
+        last_token = last_transaction.token_id
+        subscription_fully_paid = self.currency_id.compare_amounts(last_transaction.amount, self.amount_total) >= 0
+        transaction_authorized = last_transaction and last_transaction.renewal_state == "authorized"
+        return last_token and last_transaction and subscription_fully_paid and transaction_authorized
 
     def _save_token_from_payment(self):
         self.ensure_one()
