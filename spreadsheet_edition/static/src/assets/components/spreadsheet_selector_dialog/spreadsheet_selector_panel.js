@@ -5,6 +5,7 @@ import { browser } from "@web/core/browser/browser";
 import { KeepLast } from "@web/core/utils/concurrency";
 import { useService } from "@web/core/utils/hooks";
 import { Pager } from "@web/core/pager/pager";
+import { useHotkey } from "@web/core/hotkeys/hotkey_hook";
 
 import { Component, onWillStart, useState, onWillUnmount } from "@odoo/owl";
 
@@ -63,6 +64,10 @@ export class SpreadsheetSelectorPanel extends Component {
             browser.clearTimeout(this.debounce);
         });
         this._selectItem(false);
+
+        useHotkey("Enter", () => {
+            this.props.onSpreadsheetDblClicked();
+        });
     }
 
     _fetchSpreadsheets() {

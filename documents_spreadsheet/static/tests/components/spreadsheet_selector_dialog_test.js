@@ -345,4 +345,44 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
         await triggerEvent(blank, null, "dblclick");
         assert.verifySteps(["action_open_spreadsheet"]);
     });
+
+    QUnit.test("Can open blank spreadsheet with enter key", async (assert) => {
+        const fakeActionService = {
+            name: "action",
+            start() {
+                return {
+                    doAction(action) {
+                        assert.step(action.tag);
+                    },
+                };
+            },
+        };
+        serviceRegistry.add("action", fakeActionService, { force: true });
+
+        const { target } = await mountSpreadsheetSelectorDialog();
+        const blank = target.querySelector(".o-sp-dialog-item-blank img");
+        await triggerEvent(blank, null, "keydown", { key: "Enter" });
+
+        assert.verifySteps(["action_open_spreadsheet"]);
+    });
+
+    QUnit.test("Can open existing spreadsheet with enter key", async (assert) => {
+        const fakeActionService = {
+            name: "action",
+            start() {
+                return {
+                    doAction(action) {
+                        assert.step(action.tag);
+                    },
+                };
+            },
+        };
+        serviceRegistry.add("action", fakeActionService, { force: true });
+
+        const { target } = await mountSpreadsheetSelectorDialog();
+        const spreadsheetItem = target.querySelector('.o-sp-dialog-item div[data-id="1"]');
+        await triggerEvent(spreadsheetItem, null, "keydown", { key: "Enter" });
+
+        assert.verifySteps(["action_open_spreadsheet"]);
+    });
 });
