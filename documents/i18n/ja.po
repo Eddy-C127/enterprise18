@@ -82,7 +82,7 @@ msgid ""
 "your documents in bulk with the split tool: launch user defined actions, "
 "request a signature, convert to vendor bills with AI, etc."
 msgstr ""
-"。スキャンしたファイルは自動的に作業区に表示されます。次に、分割ツールでドキュメントを一括処理します。ユーザ定義アクションの起動、署名の要求、AIを使用した仕入先請求書への変換など。"
+"。スキャンしたファイルは自動的にワークスペースに表示されます。次に、分割ツールでドキュメントを一括処理します。ユーザ定義アクションの起動、署名の要求、AIを使用した仕入先請求書への変換など。"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2017
@@ -114,6 +114,13 @@ msgid ""
 msgstr ""
 "<br/>\n"
 "                   があなたとコンテンツを共有しています。"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "<b>Select</b> this page to continue."
+msgstr "このページを<b>選択</b>して継続。"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -620,7 +627,7 @@ msgstr "条件に一致する全ての添付ファイルが利用できる、条
 msgid ""
 "A workspace cannot have one of his child defined as Parent Workspace in "
 "order to avoid a recursion issue."
-msgstr "作業区は、再帰の問題を避けるために、子作業区を親作業区として定義することはできません。"
+msgstr "ワークスペースは、再帰の問題を避けるために、子ワークスペースを親ワークスペースとして定義することはできません。"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__parent_folder_id
@@ -890,7 +897,7 @@ msgid ""
 "launch user defined actions, request a signature, convert to vendor bills "
 "with AI, etc."
 msgstr ""
-"受信メールを処理する簡単な方法は、スキャナで作業区EメールにPDFを送信するように設定することです。スキャンしたファイルは自動的に作業区に表示されます。次に、分割ツールでドキュメントを一括処理します:"
+"受信メールを処理する簡単な方法は、スキャナワークスペースEメールにPDFを送信するように設定することです。スキャンしたファイルは自動的にワークスペースに表示されます。次に、分割ツールでドキュメントを一括処理します:"
 " ユーザ定義アクションの起動、署名の要求、AIを使用した仕入先請求書への変換など。"
 
 #. module: documents
@@ -920,7 +927,7 @@ msgstr "アーカイブ済"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
 msgid "Archived Workspace"
-msgstr "アーカイブ済作業区"
+msgstr "アーカイブ済ワークスペース"
 
 #. module: documents
 #. odoo-javascript
@@ -1153,7 +1160,7 @@ msgstr "分割ツールを閉じる"
 #: code:addons/documents/static/src/js/tours/documents.js:0
 #, python-format
 msgid "Click the cross to <b>exit preview</b>."
-msgstr ""
+msgstr "Xをクリックして<b>プレビューを閉じる</b>"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__company_id
@@ -1834,7 +1841,7 @@ msgstr "グループ化"
 msgid ""
 "Groups able to see the workspace and read its documents without create/edit "
 "rights."
-msgstr "作成/編集権限なしで作業区を表示し、そのドキュメントを読むことができるグループ。"
+msgstr "作成/編集権限なしでワークスペースを表示し、そのドキュメントを読むことができるグループ。"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__group_ids
@@ -2053,7 +2060,7 @@ msgstr ""
 #: code:addons/documents/static/src/js/tours/documents.js:0
 #, python-format
 msgid "Let's process these bills: send to Finance workspace."
-msgstr "これらの請求書を処理しましょう: 会計作業区に送信"
+msgstr "これらの請求書を処理しましょう: 会計ワークスペースに送信"
 
 #. module: documents
 #. odoo-javascript
@@ -2069,7 +2076,7 @@ msgstr "スキャナから来たこのドキュメントを処理しましょう
 msgid ""
 "Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your "
 "process, according to the workspace.</i>"
-msgstr "このメールに合法のタグを付けましょう。<br/> <i>ヒント: アクションは、作業区に応じて処理に合わせることができます</i>"
+msgstr "このメールに合法のタグを付けましょう。<br/> <i>ヒント: アクションは、ワークスペースに応じて処理に合わせることができます</i>"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__user_specific
@@ -2331,7 +2338,7 @@ msgstr "新規タグ"
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 #, python-format
 msgid "New Workspace"
-msgstr "新規作業区"
+msgstr "新規ワークスペース"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_calendar_event_id
@@ -2923,7 +2930,7 @@ msgstr "選択済ファイルを共有"
 #: code:addons/documents/models/documents_share.py:0
 #, python-format
 msgid "Share selected workspace"
-msgstr "選択済作業区を共有"
+msgstr "選択済ワークスペースを共有"
 
 #. module: documents
 #. odoo-javascript
@@ -3058,7 +3065,7 @@ msgstr "このページに留まる"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__children_folder_ids
 msgid "Sub workspaces"
-msgstr "サブ作業区"
+msgstr "サブワークスペース"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_summary
@@ -3099,7 +3106,7 @@ msgstr "このファセットように既にタグが存在します"
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__facet_ids
 msgid "Tag categories defined for this workspace"
-msgstr "この作業区用に定義されたタグカテゴリ"
+msgstr "このワークスペース用に定義されたタグカテゴリ"
 
 #. module: documents
 #. odoo-javascript
@@ -3217,7 +3224,7 @@ msgstr "このファイルは、ゴミ箱に移動され、永久に削除され
 #: model:ir.model.fields,help:documents.field_documents_document__company_id
 #: model:ir.model.fields,help:documents.field_documents_folder__company_id
 msgid "This workspace will only be available to the selected company"
-msgstr "この作業区は、選択された会社のみが利用できます。"
+msgstr "このワークスペースは、選択された会社のみが利用できます。"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
@@ -3527,21 +3534,21 @@ msgstr "このワークスペースではコンテンツをアップロードで
 #: code:addons/documents/models/documents_document.py:0
 #, python-format
 msgid "You don't have the right to move documents to that workspace."
-msgstr "あの作業区へドキュメントを移動する権利がありません。"
+msgstr "あのワークスペースへドキュメントを移動する権利がありません。"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 #, python-format
 msgid "You don't have the rights to move documents to that workspace"
-msgstr "あの作業区へドキュメントを移動する原理がありません。"
+msgstr "あのワークスペースへドキュメントを移動する原理がありません。"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/helper/documents_drop_zone.xml:0
 #, python-format
 msgid "You must be in a specific workspace to upload files"
-msgstr "ファイルをアップロードするには特定の作業区にいる必要があります。"
+msgstr "ファイルをアップロードするには特定のワークスペースにいる必要があります。"
 
 #. module: documents
 #. odoo-javascript

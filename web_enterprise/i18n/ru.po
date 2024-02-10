@@ -1,20 +1,26 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_enterprise
-#
+# 
 # Translators:
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: web_enterprise
@@ -83,6 +89,7 @@ msgstr "Нажмите здесь, чтобы отправить письмо"
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/share_url/burger_menu.xml:0
+#: code:addons/web_enterprise/static/src/webclient/share_url/burger_menu.xml:0
 #, python-format
 msgid "Close menu"
 msgstr "Закрыть меню"
@@ -91,8 +98,12 @@ msgstr "Закрыть меню"
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 #, python-format
-msgid "Contact your sales representative to help you to unlink your previous database"
-msgstr "Обратитесь к своему торговому представителю, чтобы он помог вам отсоединить предыдущую базу данных"
+msgid ""
+"Contact your sales representative to help you to unlink your previous "
+"database"
+msgstr ""
+"Обратитесь к своему торговому представителю, чтобы он помог вам отсоединить "
+"предыдущую базу данных"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -193,7 +204,8 @@ msgstr "Войдите в систему с правами администра�
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 #, python-format
 msgid "Login to your Odoo.com dashboard then unlink your previous database:"
-msgstr "Войдите в панель управления Odoo.com и отсоедините предыдущую базу данных:"
+msgstr ""
+"Войдите в панель управления Odoo.com и отсоедините предыдущую базу данных:"
 
 #. module: web_enterprise
 #: model:ir.model,name:web_enterprise.model_ir_ui_menu
@@ -238,6 +250,7 @@ msgstr "Odoo Studio - настройка рабочих процессов за 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
+#: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 #, python-format
 msgid "Odoo Support"
 msgstr "Поддержка Odoo"
@@ -258,6 +271,9 @@ msgstr "Предыдущий просмотр"
 
 #. module: web_enterprise
 #. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
+#: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
+#: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 #, python-format
 msgid "Refresh subscription status"
@@ -287,6 +303,7 @@ msgstr "Продлить вашу подписку"
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.js:0
+#: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.js:0
 #, python-format
 msgid "Retry"
 msgstr "Повторить"
@@ -308,6 +325,7 @@ msgstr "Поделиться"
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/share_url/burger_menu.xml:0
+#: code:addons/web_enterprise/static/src/webclient/share_url/burger_menu.xml:0
 #, python-format
 msgid "Share URL"
 msgstr "Поделиться URL"
@@ -316,8 +334,12 @@ msgstr "Поделиться URL"
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 #, python-format
-msgid "Something went wrong while registering your database. You can try again or contact"
-msgstr "Что-то пошло не так во время регистрации базы данных. Вы можете попробовать еще раз или связаться"
+msgid ""
+"Something went wrong while registering your database. You can try again or "
+"contact"
+msgstr ""
+"Что-то пошло не так во время регистрации базы данных. Вы можете попробовать "
+"еще раз или связаться"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -344,22 +366,32 @@ msgstr "СОВЕТ"
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 #, python-format
-msgid "Thank you, your registration was successful! Your database is valid until"
-msgstr "Спасибо, ваша регистрация прошла успешно! Ваша база данных действительна до"
+msgid ""
+"Thank you, your registration was successful! Your database is valid until"
+msgstr ""
+"Спасибо, ваша регистрация прошла успешно! Ваша база данных действительна до"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/enterprise_subscription_service.js:0
 #, python-format
-msgid "Thank you, your registration was successful! Your database is valid until %s."
-msgstr "Спасибо, ваша регистрация прошла успешно! Ваша база данных действительна до %s."
+msgid ""
+"Thank you, your registration was successful! Your database is valid until "
+"%s."
+msgstr ""
+"Спасибо, ваша регистрация прошла успешно! Ваша база данных действительна до "
+"%s."
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 #, python-format
-msgid "The instructions to unlink your subscription from the previous database(s) have been sent"
-msgstr "Инструкции по отсоединению вашей подписки от предыдущей базы данных (баз данных) были отправлены"
+msgid ""
+"The instructions to unlink your subscription from the previous database(s) "
+"have been sent"
+msgstr ""
+"Инструкции по отсоединению вашей подписки от предыдущей базы данных (баз "
+"данных) были отправлены"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -394,7 +426,8 @@ msgstr "Чтобы отсоединить его, вы можете либо:"
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 #, python-format
 msgid "Unable to send the instructions by email, please contact the"
-msgstr "Если вы не можете отправить инструкции по электронной почте, обратитесь в"
+msgstr ""
+"Если вы не можете отправить инструкции по электронной почте, обратитесь в"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -426,15 +459,22 @@ msgstr "Хотите сделать свой Odoo индивидуальным?"
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 #, python-format
-msgid "You have more users or more apps installed than your subscription allows."
-msgstr "У вас больше пользователей или установлено больше приложений, чем позволяет ваша подписка."
+msgid ""
+"You have more users or more apps installed than your subscription allows."
+msgstr ""
+"У вас больше пользователей или установлено больше приложений, чем позволяет "
+"ваша подписка."
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 #, python-format
-msgid "You will be able to register your database once you have installed your first app."
-msgstr "Вы сможете зарегистрировать свою базу данных, как только установите свое первое приложение."
+msgid ""
+"You will be able to register your database once you have installed your "
+"first app."
+msgstr ""
+"Вы сможете зарегистрировать свою базу данных, как только установите свое "
+"первое приложение."
 
 #. module: web_enterprise
 #. odoo-javascript

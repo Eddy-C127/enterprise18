@@ -1,20 +1,27 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* project_timesheet_forecast
-#
+# 
 # Translators:
+# Irina Fedulova <istartlin@gmail.com>, 2023
+# Alena Vlasova, 2023
+# Martin Trigaux, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# alenafairy, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: project_timesheet_forecast
@@ -157,13 +164,21 @@ msgstr "Не найдено ни одной смены. Давайте созд�
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,help:project_timesheet_forecast.field_planning_analysis_report__effective_hours
-msgid "Number of hours on the employee's Timesheets for this task (and its sub-tasks) during the timeframe of the shift."
-msgstr "Количество часов в табеле учета рабочего времени сотрудника для этой задачи (и ее подзадач) за время смены."
+msgid ""
+"Number of hours on the employee's Timesheets for this task (and its sub-"
+"tasks) during the timeframe of the shift."
+msgstr ""
+"Количество часов в табеле учета рабочего времени сотрудника для этой задачи "
+"(и ее подзадач) за время смены."
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,help:project_timesheet_forecast.field_planning_slot__effective_hours
-msgid "Number of hours the employee recorded on their Timesheetes for this task (and its sub-tasks) for the period of this shift."
-msgstr "Количество часов, которые сотрудник записал в своем табеле учета рабочего времени для этой задачи (и ее подзадач) за период данной смены."
+msgid ""
+"Number of hours the employee recorded on their Timesheetes for this task "
+"(and its sub-tasks) for the period of this shift."
+msgstr ""
+"Количество часов, которые сотрудник записал в своем табеле учета рабочего "
+"времени для этой задачи (и ее подзадач) за период данной смены."
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__planned_costs
@@ -225,8 +240,12 @@ msgstr "Расписание по ролям"
 
 #. module: project_timesheet_forecast
 #: model_terms:ir.actions.act_window,help:project_timesheet_forecast.project_timesheet_action_schedule_by_role
-msgid "Schedule your human and material resources across roles, projects and sales orders."
-msgstr "Планируйте человеческие и материальные ресурсы по ролям, проектам и заказам на продажу."
+msgid ""
+"Schedule your human and material resources across roles, projects and sales "
+"orders."
+msgstr ""
+"Планируйте человеческие и материальные ресурсы по ролям, проектам и заказам "
+"на продажу."
 
 #. module: project_timesheet_forecast
 #: model_terms:ir.ui.view,arch_db:project_timesheet_forecast.project_timesheet_forecast_report_analysis_view_tree
@@ -247,7 +266,8 @@ msgstr "Сумма запланированных часов"
 #. odoo-python
 #: code:addons/project_timesheet_forecast/models/project_forecast.py:0
 #, python-format
-msgid "This project isn't expected to have slot during this period. Planned hours :"
+msgid ""
+"This project isn't expected to have slot during this period. Planned hours :"
 msgstr "В этот период слотов в проекте не ожидается. Планируемые часы :"
 
 #. module: project_timesheet_forecast
@@ -293,8 +313,12 @@ msgstr "На этом слоте можно регистрировать тай�
 
 #. module: project_timesheet_forecast
 #: model_terms:ir.actions.act_window,help:project_timesheet_forecast.project_timesheet_forecast_report_action
-msgid "Track the progress of your projects by comparing the hours initially planned with the effective hours recorded"
-msgstr "Отслеживайте ход выполнения проектов, сравнивая первоначально запланированные часы с фактически отработанными"
+msgid ""
+"Track the progress of your projects by comparing the hours initially planned"
+" with the effective hours recorded"
+msgstr ""
+"Отслеживайте ход выполнения проектов, сравнивая первоначально "
+"запланированные часы с фактически отработанными"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__line_type

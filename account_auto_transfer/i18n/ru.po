@@ -1,20 +1,26 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* account_auto_transfer
-#
+# 
 # Translators:
+# Denis Baranov <baranov@itlibertas.com>, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Alena Vlasova, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:09+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: account_auto_transfer
@@ -49,13 +55,21 @@ msgstr "Активировать"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,help:account_auto_transfer.field_account_transfer_model_line__analytic_account_ids
-msgid "Adds a condition to only transfer the sum of the lines from the origin accounts that match these analytic accounts to the destination account"
-msgstr "Добавляет условие для переноса на целевой счет только суммы строк из исходных счетов, соответствующих этим аналитическим счетам"
+msgid ""
+"Adds a condition to only transfer the sum of the lines from the origin "
+"accounts that match these analytic accounts to the destination account"
+msgstr ""
+"Добавляет условие для переноса на целевой счет только суммы строк из "
+"исходных счетов, соответствующих этим аналитическим счетам"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,help:account_auto_transfer.field_account_transfer_model_line__partner_ids
-msgid "Adds a condition to only transfer the sum of the lines from the origin accounts that match these partners to the destination account"
-msgstr "Добавляет условие для переноса на счет назначения только суммы строк из исходных счетов, которые соответствуют этим партнерам"
+msgid ""
+"Adds a condition to only transfer the sum of the lines from the origin "
+"accounts that match these partners to the destination account"
+msgstr ""
+"Добавляет условие для переноса на счет назначения только суммы строк из "
+"исходных счетов, которые соответствуют этим партнерам"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__analytic_account_ids
@@ -85,8 +99,11 @@ msgstr "Автоматическая передача (-%s%%)"
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
-msgid "Automatic Transfer (entries with analytic account(s): %s and partner(s): %s)"
-msgstr "Автоматическая передача (записи с аналитическим счетом(ами): %s и партнер(ы): %s)"
+msgid ""
+"Automatic Transfer (entries with analytic account(s): %s and partner(s): %s)"
+msgstr ""
+"Автоматическая передача (записи с аналитическим счетом(ами): %s и "
+"партнер(ы): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -106,15 +123,20 @@ msgstr "Автоматическая передача (записей с пар�
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
-msgid "Automatic Transfer (from account %s with analytic account(s): %s and partner(s): %s)"
-msgstr "Автоматический перевод (со счета %s с аналитическим счетом(ами): %s и партнером(ами): %s)"
+msgid ""
+"Automatic Transfer (from account %s with analytic account(s): %s and "
+"partner(s): %s)"
+msgstr ""
+"Автоматический перевод (со счета %s с аналитическим счетом(ами): %s и "
+"партнером(ами): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (from account %s with analytic account(s): %s)"
-msgstr "Автоматический перевод (со счета %s на аналитический счет (счета): %s)"
+msgstr ""
+"Автоматический перевод (со счета %s на аналитический счет (счета): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -326,8 +348,11 @@ msgstr "Процент доступен только для чтения"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,help:account_auto_transfer.field_account_transfer_model_line__percent
-msgid "Percentage of the sum of lines from the origin accounts will be transferred to the destination account"
-msgstr "Процент от суммы строк с исходных счетов будет переведен на счет назначения"
+msgid ""
+"Percentage of the sum of lines from the origin accounts will be transferred "
+"to the destination account"
+msgstr ""
+"Процент от суммы строк с исходных счетов будет переведен на счет назначения"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -375,8 +400,11 @@ msgstr "Аналитический фильтр %s дублируется"
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
-msgid "The partner filter %s in combination with the analytic filter %s is duplicated"
-msgstr "Партнерский фильтр %s в сочетании с аналитическим фильтром %s дублируется"
+msgid ""
+"The partner filter %s in combination with the analytic filter %s is "
+"duplicated"
+msgstr ""
+"Партнерский фильтр %s в сочетании с аналитическим фильтром %s дублируется"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -423,15 +451,23 @@ msgstr "Ежегодные автопереводы по обязательст�
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
-msgid "You cannot delete an automatic transfer that has draft moves attached ('%s'). Please delete them before deleting this transfer."
-msgstr "Вы не можете удалить автоматический трансфер, к которому прикреплены черновики ('%s'). Пожалуйста, удалите их перед удалением этого трансфера."
+msgid ""
+"You cannot delete an automatic transfer that has draft moves attached "
+"('%s'). Please delete them before deleting this transfer."
+msgstr ""
+"Вы не можете удалить автоматический трансфер, к которому прикреплены "
+"черновики ('%s'). Пожалуйста, удалите их перед удалением этого трансфера."
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
-msgid "You cannot delete an automatic transfer that has posted moves attached ('%s')."
-msgstr "Вы не можете удалить автоматический перевод, к которому прикреплены проводки ('%s')."
+msgid ""
+"You cannot delete an automatic transfer that has posted moves attached "
+"('%s')."
+msgstr ""
+"Вы не можете удалить автоматический перевод, к которому прикреплены проводки"
+" ('%s')."
 
 #. module: account_auto_transfer
 #. odoo-python

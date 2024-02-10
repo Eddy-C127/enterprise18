@@ -6,7 +6,6 @@
 # Piia Paurson <piia@avalah.ee>, 2023
 # Martin Aavastik <martin@avalah.ee>, 2023
 # Egon Raamat <egon@avalah.ee>, 2023
-# Triine Aavik <triine@avalah.ee>, 2023
 # JanaAvalah, 2023
 # Rivo Zängov <eraser@eraser.ee>, 2023
 # Martin Trigaux, 2023
@@ -15,14 +14,16 @@
 # Leaanika Randmets, 2023
 # Eneli Õigus <enelioigus@gmail.com>, 2023
 # Anna, 2023
+# Kärt Villako, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Anna, 2023\n"
+"Last-Translator: Triine Aavik <triine@avalah.ee>, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,6 +51,8 @@ msgid ""
 "<i class=\"oi oi-fw oi-arrow-right\"/>\n"
 "                                How to Get Credentials"
 msgstr ""
+"<i class=\"oi oi-fw oi-arrow-right\"/>\n"
+"                                Kuidas saada volitusi"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -57,6 +60,8 @@ msgid ""
 "<i title=\"Go to Avatax portal\" role=\"img\" aria-label=\"Go to Avatax portal\" class=\"fa fa-external-link-square fa-fw\"/>\n"
 "                                Avatax portal"
 msgstr ""
+"<i title=\"Go to Avatax portal\" role=\"img\" aria-label=\"Go to Avatax portal\" class=\"fa fa-external-link-square fa-fw\"/>\n"
+"                                Avatax portaal"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -64,6 +69,8 @@ msgid ""
 "<i title=\"Show logs\" role=\"img\" aria-label=\"Show logs\" class=\"fa fa-file-text-o\"/>\n"
 "                                Show logs"
 msgstr ""
+"<i title=\"Show logs\" role=\"img\" aria-label=\"Show logs\" class=\"fa fa-file-text-o\"/>\n"
+"                                Näita logisid"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -78,6 +85,8 @@ msgid ""
 "<i title=\"Sync Parameters\" role=\"img\" aria-label=\"Sync Parameters\" class=\"fa fa-refresh\"/>\n"
 "                                Sync Parameters"
 msgstr ""
+"<i title=\"Sync Parameters\" role=\"img\" aria-label=\"Sync Parameters\" class=\"fa fa-refresh\"/>\n"
+"                                Sünkroniseeri parameetrid"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -85,6 +94,8 @@ msgid ""
 "<i title=\"Test connection\" role=\"img\" aria-label=\"Test connection\" class=\"fa fa-plug fa-fw\"/>\n"
 "                                Test connection"
 msgstr ""
+"<i title=\"Test connection\" role=\"img\" aria-label=\"Test connection\" class=\"fa fa-plug fa-fw\"/>\n"
+"                                Testi ühendust"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -124,19 +135,19 @@ msgstr ""
 #: code:addons/account_avatax/models/res_company.py:0
 #, python-format
 msgid "Authentication failed."
-msgstr ""
+msgstr "Autentimine ebaõnnestus."
 
 #. module: account_avatax
 #. odoo-python
 #: code:addons/account_avatax/models/res_company.py:0
 #, python-format
 msgid "Authentication success."
-msgstr ""
+msgstr "Autentimine õnnestus."
 
 #. module: account_avatax
 #: model:account.fiscal.position,name:account_avatax.account_fiscal_position_avatax_us
 msgid "Automatic Tax Mapping (AvaTax)"
-msgstr ""
+msgstr "Automaatne Maksude Kaardistamine (AvaTax)"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_company__avalara_api_id
@@ -440,13 +451,6 @@ msgid "Mixin to manage common parts of external tax calculation"
 msgstr ""
 
 #. module: account_avatax
-#: model:ir.model,name:account_avatax.model_product_template
-msgid ""
-"Model adding the necessary fields to products to use with Pricer electronic "
-"tags"
-msgstr ""
-
-#. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_exemption__name
 msgid "Name"
 msgstr "Nimi"
@@ -512,6 +516,11 @@ msgstr "Kontakti kaart"
 #, python-format
 msgid "Please add your AvaTax credentials"
 msgstr "Palun lisage enda AvaTax'i tõendid. "
+
+#. module: account_avatax
+#: model:ir.model,name:account_avatax.model_product_template
+msgid "Product"
+msgstr "Toode"
 
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_product_category
@@ -587,7 +596,7 @@ msgstr "Testi tulemust"
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_avatax_connection_test_result
 msgid "Test connection with avatax"
-msgstr ""
+msgstr "Testi ühendust avataxiga"
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_res_config_settings__avalara_partner_code

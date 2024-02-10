@@ -1,20 +1,30 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* hr_expense_extract
-#
+# 
 # Translators:
+# Андрей Гусев <gaussgss@gmail.com>, 2023
+# Alena Vlasova, 2023
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# sergeiruzkiicode <sergei.ruzki@icode.by>, 2023
+# Martin Trigaux, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:11+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: hr_expense_extract
@@ -107,8 +117,12 @@ msgstr "Требуются действия"
 
 #. module: hr_expense_extract
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.hr_expense_extract_view_form
-msgid "All fields will be automated by Artificial Intelligence, it might take 5 seconds."
-msgstr "Все поля будут автоматизированы искусственным интеллектом, это может занять 5 секунд."
+msgid ""
+"All fields will be automated by Artificial Intelligence, it might take 5 "
+"seconds."
+msgstr ""
+"Все поля будут автоматизированы искусственным интеллектом, это может занять "
+"5 секунд."
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_expense_sample_register__amount
@@ -306,7 +320,8 @@ msgstr "Идентификатор запроса к IAP-OCR"
 #. module: hr_expense_extract
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_has_error
@@ -348,8 +363,12 @@ msgstr "Последнее обновление"
 
 #. module: hr_expense_extract
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.expense_sample_receipt_view_form
-msgid "Let's try a sample receipt to test the automated processing of expenses with Artificial Intelligence."
-msgstr "Давайте попробуем создать образец квитанции, чтобы проверить автоматическую обработку расходов с помощью искусственного интеллекта."
+msgid ""
+"Let's try a sample receipt to test the automated processing of expenses with"
+" Artificial Intelligence."
+msgstr ""
+"Давайте попробуем создать образец квитанции, чтобы проверить автоматическую "
+"обработку расходов с помощью искусственного интеллекта."
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_main_attachment_id
@@ -486,8 +505,12 @@ msgstr "Режим отправки для вложений расходов"
 
 #. module: hr_expense_extract
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.hr_expense_extract_view_form
-msgid "The data extraction is not finished yet. The extraction usually takes between 5 and 10 seconds."
-msgstr "Извлечение данных еще не завершено. Обычно извлечение занимает от 5 до 10 секунд."
+msgid ""
+"The data extraction is not finished yet. The extraction usually takes "
+"between 5 and 10 seconds."
+msgstr ""
+"Извлечение данных еще не завершено. Обычно извлечение занимает от 5 до 10 "
+"секунд."
 
 #. module: hr_expense_extract
 #. odoo-python
@@ -539,7 +562,8 @@ msgstr "Нельзя смешивать расходы по образцам и 
 #: code:addons/hr_expense_extract/models/hr_expense.py:0
 #, python-format
 msgid "You cannot send a expense that is not in draft state!"
-msgstr "Вы не можете отправить расход, который не находится в состоянии черновика!"
+msgstr ""
+"Вы не можете отправить расход, который не находится в состоянии черновика!"
 
 #. module: hr_expense_extract
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.hr_expense_extract_view_form
@@ -549,6 +573,9 @@ msgstr "У вас недостаточно кредитов, чтобы извл
 #. module: hr_expense_extract
 #. odoo-javascript
 #: code:addons/hr_expense_extract/static/src/js/tours/expense_tour.js:0
+#: code:addons/hr_expense_extract/static/src/js/tours/expense_tour.js:0
 #, python-format
 msgid "Your manager will have to approve (or refuse) your expense reports."
-msgstr "Ваш руководитель должен будет утверждать (или отклонять) ваши отчеты о расходах."
+msgstr ""
+"Ваш руководитель должен будет утверждать (или отклонять) ваши отчеты о "
+"расходах."

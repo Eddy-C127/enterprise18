@@ -1,20 +1,25 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* social_twitter
-#
+# 
 # Translators:
+# Alena Vlasova, 2023
+# Viola Green <violamakarova@hotmail.com>, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:47+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: social_twitter
@@ -75,10 +80,12 @@ msgstr "Ретвит уже существует"
 #: code:addons/social_twitter/controllers/main.py:0
 #, python-format
 msgid "Authentication failed. Please enter valid credentials."
-msgstr "Аутентификация не удалась. Пожалуйста, введите правильные учетные данные."
+msgstr ""
+"Аутентификация не удалась. Пожалуйста, введите правильные учетные данные."
 
 #. module: social_twitter
 #. odoo-javascript
+#: code:addons/social_twitter/static/src/xml/social_twitter_templates.xml:0
 #: code:addons/social_twitter/static/src/xml/social_twitter_templates.xml:0
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
 #, python-format
@@ -105,8 +112,12 @@ msgstr "Отменить"
 
 #. module: social_twitter
 #: model:ir.model.fields,help:social_twitter.field_res_config_settings__twitter_use_own_account
-msgid "Check this if you want to use your personal Twitter Developer Account instead of the provided one."
-msgstr "Установите этот флажок, если вы хотите использовать свою личную учетную запись разработчика Twitter вместо предоставленной."
+msgid ""
+"Check this if you want to use your personal Twitter Developer Account "
+"instead of the provided one."
+msgstr ""
+"Установите этот флажок, если вы хотите использовать свою личную учетную "
+"запись разработчика Twitter вместо предоставленной."
 
 #. module: social_twitter
 #: model:ir.model,name:social_twitter.model_res_config_settings
@@ -153,8 +164,11 @@ msgstr "Отображение предварительного просмотр
 #. odoo-javascript
 #: code:addons/social_twitter/static/src/js/stream_post_comments.js:0
 #, python-format
-msgid "Easy, tiger! No spamming allowed. Let's stick to three replies per Tweet."
-msgstr "Полегче, тигр! Спам запрещен. Давайте придерживаться трех ответов на один твит."
+msgid ""
+"Easy, tiger! No spamming allowed. Let's stick to three replies per Tweet."
+msgstr ""
+"Полегче, тигр! Спам запрещен. Давайте придерживаться трех ответов на один "
+"твит."
 
 #. module: social_twitter
 #. odoo-javascript
@@ -192,8 +206,10 @@ msgstr ""
 #. odoo-python
 #: code:addons/social_twitter/models/social_stream_post.py:0
 #, python-format
-msgid "Failed to fetch the tweets in the same thread: '%s' using the account %s."
-msgstr "Не удалось получить твиты в том же потоке: '%s' с помощью учетной записи %s."
+msgid ""
+"Failed to fetch the tweets in the same thread: '%s' using the account %s."
+msgstr ""
+"Не удалось получить твиты в том же потоке: '%s' с помощью учетной записи %s."
 
 #. module: social_twitter
 #. odoo-python
@@ -249,8 +265,12 @@ msgstr "Лайки"
 #. odoo-python
 #: code:addons/social_twitter/models/social_stream.py:0
 #, python-format
-msgid "Looks like you've made too many requests. Please wait a few minutes before giving it another try."
-msgstr "Похоже, вы сделали слишком много запросов. Пожалуйста, подождите несколько минут, прежде чем попробовать еще раз."
+msgid ""
+"Looks like you've made too many requests. Please wait a few minutes before "
+"giving it another try."
+msgstr ""
+"Похоже, вы сделали слишком много запросов. Пожалуйста, подождите несколько "
+"минут, прежде чем попробовать еще раз."
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_media__media_type
@@ -335,7 +355,8 @@ msgstr "Подробнее об аккаунтах Twitter"
 #: code:addons/social_twitter/models/social_stream_post.py:0
 #, python-format
 msgid "Replies from Tweets older than 7 days must be accessed on Twitter.com"
-msgstr "Ответы на твиты старше 7 дней должны быть доступны на сайте Twitter.com"
+msgstr ""
+"Ответы на твиты старше 7 дней должны быть доступны на сайте Twitter.com"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
@@ -413,18 +434,28 @@ msgstr "Социальный аккаунт в Twitter"
 #. odoo-python
 #: code:addons/social_twitter/models/social_stream.py:0
 #, python-format
-msgid "The keyword you've typed in does not look valid. Please try again with other words."
-msgstr "Введенное вами ключевое слово не похоже на действительное. Пожалуйста, попробуйте еще раз, используя другие слова."
+msgid ""
+"The keyword you've typed in does not look valid. Please try again with other"
+" words."
+msgstr ""
+"Введенное вами ключевое слово не похоже на действительное. Пожалуйста, "
+"попробуйте еще раз, используя другие слова."
 
 #. module: social_twitter
 #. odoo-python
 #: code:addons/social_twitter/models/social_media.py:0
 #, python-format
-msgid "The url that this service requested returned an error. Please contact the author of the app."
-msgstr "Url, запрошенный этой службой, вернул ошибку. Пожалуйста, свяжитесь с автором приложения."
+msgid ""
+"The url that this service requested returned an error. Please contact the "
+"author of the app."
+msgstr ""
+"Url, запрошенный этой службой, вернул ошибку. Пожалуйста, свяжитесь с "
+"автором приложения."
 
 #. module: social_twitter
 #. odoo-python
+#: code:addons/social_twitter/controllers/main.py:0
+#: code:addons/social_twitter/controllers/main.py:0
 #: code:addons/social_twitter/controllers/main.py:0
 #, python-format
 msgid "This Tweet has been deleted."
@@ -570,7 +601,9 @@ msgstr "Пользователи Twitter любят"
 #: code:addons/social_twitter/controllers/main.py:0
 #, python-format
 msgid "Twitter did not provide a valid access token or it may have expired."
-msgstr "Twitter не предоставил действительный токен доступа, или срок его действия истек."
+msgstr ""
+"Twitter не предоставил действительный токен доступа, или срок его действия "
+"истек."
 
 #. module: social_twitter
 #. odoo-python
@@ -606,6 +639,7 @@ msgstr "Неизвестно"
 #. module: social_twitter
 #. odoo-python
 #: code:addons/social_twitter/models/social_stream_post.py:0
+#: code:addons/social_twitter/models/social_stream_post.py:0
 #, python-format
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
@@ -617,18 +651,28 @@ msgstr "Используйте свой собственный аккаунт в
 
 #. module: social_twitter
 #: model:ir.model.fields,help:social_twitter.field_social_media__media_type
-msgid "Used to make comparisons when we need to restrict some features to a specific media ('facebook', 'twitter', ...)."
-msgstr "Используется для сравнения, когда нам нужно ограничить некоторые функции определенным медиа (\"facebook\", \"twitter\", ...)."
+msgid ""
+"Used to make comparisons when we need to restrict some features to a "
+"specific media ('facebook', 'twitter', ...)."
+msgstr ""
+"Используется для сравнения, когда нам нужно ограничить некоторые функции "
+"определенным медиа (\"facebook\", \"twitter\", ...)."
 
 #. module: social_twitter
 #. odoo-python
 #: code:addons/social_twitter/models/social_account.py:0
 #, python-format
-msgid "We could not upload your image, it may be corrupted, it may exceed size limit or API may have send improper response (error: %s)."
-msgstr "Мы не смогли загрузить ваше изображение, оно может быть повреждено, превысить лимит размера или API может отправить неправильный ответ (ошибка: %s)."
+msgid ""
+"We could not upload your image, it may be corrupted, it may exceed size "
+"limit or API may have send improper response (error: %s)."
+msgstr ""
+"Мы не смогли загрузить ваше изображение, оно может быть повреждено, "
+"превысить лимит размера или API может отправить неправильный ответ (ошибка: "
+"%s)."
 
 #. module: social_twitter
 #. odoo-python
+#: code:addons/social_twitter/models/social_stream_post.py:0
 #: code:addons/social_twitter/models/social_stream_post.py:0
 #, python-format
 msgid "You are not authenticated"
@@ -661,8 +705,12 @@ msgstr "У вас нет активной подписки. Пожалуйста
 #. odoo-python
 #: code:addons/social_twitter/models/social_media.py:0
 #, python-format
-msgid "You need to add the following callback URL to your twitter application settings: %s"
-msgstr "Вам нужно добавить следующий URL-адрес обратного вызова в настройки приложения twitter: %s"
+msgid ""
+"You need to add the following callback URL to your twitter application "
+"settings: %s"
+msgstr ""
+"Вам нужно добавить следующий URL-адрес обратного вызова в настройки "
+"приложения twitter: %s"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_view_form

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-26 16:11+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
@@ -104,7 +104,6 @@ msgstr ""
 "                        重试"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_needaction
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_needaction
 msgid "Action Needed"
 msgstr "所需操作"
@@ -127,7 +126,6 @@ msgid "Attachment"
 msgstr "附件"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_attachment_count
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_attachment_count
 msgid "Attachment Count"
 msgstr "附件计数"
@@ -138,7 +136,6 @@ msgid "Available Payment Method Line"
 msgstr "可用的付款方式行"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_can_show_send_button
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_can_show_send_button
 msgid "Can show the ocr send button"
 msgstr "可以显示OCR发送按钮"
@@ -225,7 +222,6 @@ msgid "Do not digitize"
 msgstr "不数字化"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_error_message
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_error_message
 msgid "Error message"
 msgstr "错误消息"
@@ -262,37 +258,31 @@ msgid "Expenses created from sample receipt"
 msgstr "根据样本收据创建的支出"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_state_processed
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_state_processed
 msgid "Extract State Processed"
 msgstr "提取已处理的状态"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_state
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_state
 msgid "Extract state"
 msgstr "提取状态"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_status
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_status
 msgid "Extract status"
 msgstr "提取状态"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_follower_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_follower_ids
 msgid "Followers"
 msgstr "关注者"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_partner_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "关注者（合作伙伴）"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__has_message
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__has_message
 msgid "Has Message"
 msgstr "有消息"
@@ -314,33 +304,27 @@ msgid "ID"
 msgstr "ID"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_document_uuid
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
 msgstr "IAP-OCR申请ID"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_needaction
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_needaction
 msgid "If checked, new messages require your attention."
 msgstr "如果勾选此项，则需要查看新消息。"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_has_error
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_has_sms_error
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_has_error
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "如果勾选此项， 某些消息将出现发送错误。"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_is_follower
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_is_follower
 msgid "Is Follower"
 msgstr "是关注者"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__is_in_extractable_state
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__is_in_extractable_state
 msgid "Is In Extractable State"
 msgstr "处于可提取状态"
@@ -349,11 +333,6 @@ msgstr "处于可提取状态"
 #: model:ir.model.fields,field_description:hr_expense_extract.field_expense_sample_register__journal_id
 msgid "Journal"
 msgstr "日记账"
-
-#. module: hr_expense_extract
-#: model:ir.model,name:hr_expense_extract.model_account_move
-msgid "Journal Entry"
-msgstr "凭证"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__expense_sample_register__partial_mode__open
@@ -380,7 +359,6 @@ msgid ""
 msgstr "让我们试一下收据样本，测试一下用人工智能自动处理费用的情况。"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_main_attachment_id
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_main_attachment_id
 msgid "Main Attachment"
 msgstr "主要附件"
@@ -413,37 +391,31 @@ msgid "Memo"
 msgstr "备忘"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_has_error
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_has_error
 msgid "Message Delivery error"
 msgstr "消息发送错误"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_ids
 msgid "Messages"
 msgstr "消息"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_needaction_counter
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_needaction_counter
 msgid "Number of Actions"
 msgstr "操作数量"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_has_error_counter
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_has_error_counter
 msgid "Number of errors"
 msgstr "错误数量"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_needaction_counter
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_needaction_counter
 msgid "Number of messages requiring action"
 msgstr "需要采取行动的消息数量"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_has_error_counter
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr "发送错误的消息的数量"
@@ -464,7 +436,6 @@ msgid "Payment Method"
 msgstr "付款方式"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__rating_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__rating_ids
 msgid "Ratings"
 msgstr "点评"
@@ -492,7 +463,6 @@ msgid "Report this expense to your manager for validation."
 msgstr "向您的经理报告这项开支，以便确认。"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_has_sms_error
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr "短信发送错误"
@@ -557,13 +527,11 @@ msgid "Wasting time recording your receipts? Let’s try a better way."
 msgstr "浪费了记录收据的时间？让我们尝试一个更好的方法。"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__website_message_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__website_message_ids
 msgid "Website Messages"
 msgstr "网站消息"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__website_message_ids
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__website_message_ids
 msgid "Website communication history"
 msgstr "网站沟通记录"

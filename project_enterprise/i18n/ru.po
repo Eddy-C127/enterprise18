@@ -1,20 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* project_enterprise
-#
+# 
 # Translators:
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: project_enterprise
@@ -26,14 +30,22 @@ msgstr "у %s есть %s задач одновременно."
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_form
-msgid "<i class=\"fa fa-exclamation-circle me-2\" role=\"img\" title=\"Dependency warning\"/>"
-msgstr "<i class=\"fa fa-exclamation-circle me-2\" role=\"img\" title=\"Dependency warning\"/>"
+msgid ""
+"<i class=\"fa fa-exclamation-circle me-2\" role=\"img\" title=\"Dependency "
+"warning\"/>"
+msgstr ""
+"<i class=\"fa fa-exclamation-circle me-2\" role=\"img\" title=\"Dependency "
+"warning\"/>"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_sharing_project_task_view_kanban_inherited
 #: model_terms:ir.ui.view,arch_db:project_enterprise.view_task_kanban_inherited
-msgid "<i class=\"fa fa-long-arrow-right mx-2 oe_read_only\" aria-label=\"Arrow icon\" title=\"Arrow\" invisible=\"not planned_date_begin\"/>"
-msgstr "<i class=\"fa fa-long-arrow-right mx-2 oe_read_only\" aria-label=\"Arrow icon\" title=\"Arrow\" invisible=\"not planned_date_begin\"/>"
+msgid ""
+"<i class=\"fa fa-long-arrow-right mx-2 oe_read_only\" aria-label=\"Arrow "
+"icon\" title=\"Arrow\" invisible=\"not planned_date_begin\"/>"
+msgstr ""
+"<i class=\"fa fa-long-arrow-right mx-2 oe_read_only\" aria-label=\"Arrow "
+"icon\" title=\"Arrow\" invisible=\"not planned_date_begin\"/>"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_project_view_gantt
@@ -49,7 +61,9 @@ msgstr "<i class=\"fa fa-random me-2\" role=\"img\" title=\"Planning overlap\"/>
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_gantt
 msgid "<span class=\"fst-italic text-muted\"><i class=\"fa fa-lock\"/> Private</span>"
-msgstr "<span class=\"fst-italic text-muted\"><i class=\"fa fa-lock\"/> Частный</span>"
+msgstr ""
+"<span class=\"fst-italic text-muted\"><i class=\"fa fa-lock\"/> "
+"Частный</span>"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.project_task_view_gantt
@@ -141,22 +155,34 @@ msgstr "Мобильный"
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
 #, python-format
-msgid "One parameter is missing to use this method. You should give a start and end dates."
-msgstr "Для использования этого метода не хватает одного параметра. Вы должны указать начальную и конечную даты."
+msgid ""
+"One parameter is missing to use this method. You should give a start and end"
+" dates."
+msgstr ""
+"Для использования этого метода не хватает одного параметра. Вы должны "
+"указать начальную и конечную даты."
 
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
 #, python-format
-msgid "Operation not supported, you should always compare dependency_warning to True or False."
-msgstr "Операция не поддерживается, вы всегда должны сравнивать dependency_warning с True или False."
+msgid ""
+"Operation not supported, you should always compare dependency_warning to "
+"True or False."
+msgstr ""
+"Операция не поддерживается, вы всегда должны сравнивать dependency_warning с"
+" True или False."
 
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
 #, python-format
-msgid "Operation not supported, you should always compare planning_overlap to True or False."
-msgstr "Операция не поддерживается, вы всегда должны сравнивать planning_overlap с True или False."
+msgid ""
+"Operation not supported, you should always compare planning_overlap to True "
+"or False."
+msgstr ""
+"Операция не поддерживается, вы всегда должны сравнивать planning_overlap с "
+"True или False."
 
 #. module: project_enterprise
 #. odoo-python
@@ -218,8 +244,12 @@ msgstr "Сохранить"
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
 #, python-format
-msgid "Some tasks weren't planned because the closest available starting date was too far ahead in the future"
-msgstr "Некоторые задачи не были запланированы, потому что ближайшая доступная дата начала выполнения была слишком далеко в будущем"
+msgid ""
+"Some tasks weren't planned because the closest available starting date was "
+"too far ahead in the future"
+msgstr ""
+"Некоторые задачи не были запланированы, потому что ближайшая доступная дата "
+"начала выполнения была слишком далеко в будущем"
 
 #. module: project_enterprise
 #: model:ir.model.fields,field_description:project_enterprise.field_project_task__planned_date_begin
@@ -257,7 +287,9 @@ msgstr "Задачи были успешно запланированы на б�
 #. module: project_enterprise
 #: model:ir.model.constraint,message:project_enterprise.constraint_project_task_planned_dates_check
 msgid "The planned start date must be before the planned end date."
-msgstr "Запланированная дата начала должна быть раньше запланированной даты окончания."
+msgstr ""
+"Запланированная дата начала должна быть раньше запланированной даты "
+"окончания."
 
 #. module: project_enterprise
 #. odoo-python
@@ -282,14 +314,20 @@ msgstr ""
 #: code:addons/project_enterprise/models/project_task.py:0
 #, python-format
 msgid "This task cannot be planned before Tasks %s, on which it depends."
-msgstr "Эта задача не может быть запланирована раньше задачи %s, от которой она зависит."
+msgstr ""
+"Эта задача не может быть запланирована раньше задачи %s, от которой она "
+"зависит."
 
 #. module: project_enterprise
 #. odoo-python
 #: code:addons/project_enterprise/models/project_task.py:0
 #, python-format
-msgid "This user isn't expected to have any tasks assigned during this period because they don't have any running contract. Planned hours :"
-msgstr "Ожидается, что у этого пользователя не будет заданий в этот период, поскольку у него нет действующего контракта. Планируемые часы :"
+msgid ""
+"This user isn't expected to have any tasks assigned during this period "
+"because they don't have any running contract. Planned hours :"
+msgstr ""
+"Ожидается, что у этого пользователя не будет заданий в этот период, "
+"поскольку у него нет действующего контракта. Планируемые часы :"
 
 #. module: project_enterprise
 #: model_terms:ir.ui.view,arch_db:project_enterprise.res_config_settings_view_form

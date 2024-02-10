@@ -1,28 +1,42 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* sale_ebay
-#
+# 
 # Translators:
+# Alena Vlasova, 2023
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Константин Коровин <korovin74@gmail.com>, 2023
+# Максим Дронь <dronmax@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Martin Trigaux, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
 #, python-format
-msgid " If you want to set quantity to 0, the Out Of Stock option should be enabled and the listing duration should set to Good 'Til Canceled"
-msgstr " Если вы хотите установить количество в 0, опция Out Of Stock должна быть включена, а продолжительность листинга должна быть установлена на Good 'Til Canceled"
+msgid ""
+" If you want to set quantity to 0, the Out Of Stock option should be enabled"
+" and the listing duration should set to Good 'Til Canceled"
+msgstr ""
+" Если вы хотите установить количество в 0, опция Out Of Stock должна быть "
+"включена, а продолжительность листинга должна быть установлена на Good 'Til "
+"Canceled"
 
 #. module: sale_ebay
 #. odoo-python
@@ -74,8 +88,12 @@ msgstr "Добавить другие страны"
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
 #, python-format
-msgid "All the quantities must be greater than 0 or you need to enable the Out Of Stock option."
-msgstr "Все количества должны быть больше 0, или вам нужно включить опцию Out Of Stock."
+msgid ""
+"All the quantities must be greater than 0 or you need to enable the Out Of "
+"Stock option."
+msgstr ""
+"Все количества должны быть больше 0, или вам нужно включить опцию Out Of "
+"Stock."
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_best_offer
@@ -428,7 +446,8 @@ msgstr "Местоположение"
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_account_deletion_endpoint
 msgid "Marketplace account deletion notification endpoint"
-msgstr "Конечная точка уведомления об удалении учетной записи на торговой площадке"
+msgstr ""
+"Конечная точка уведомления об удалении учетной записи на торговой площадке"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
@@ -489,8 +508,12 @@ msgstr "Политика оплаты"
 #. odoo-python
 #: code:addons/sale_ebay/models/res_config_settings.py:0
 #, python-format
-msgid "Please provide your ebay production keys before enabling the account deletion notifications."
-msgstr "Перед включением уведомлений об удалении аккаунта предоставьте ключи производства ebay."
+msgid ""
+"Please provide your ebay production keys before enabling the account "
+"deletion notifications."
+msgstr ""
+"Перед включением уведомлений об удалении аккаунта предоставьте ключи "
+"производства ebay."
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
@@ -712,8 +735,12 @@ msgstr ""
 #. module: sale_ebay
 #: model:ir.model.fields,help:sale_ebay.field_product_product__ebay_subtitle
 #: model:ir.model.fields,help:sale_ebay.field_product_template__ebay_subtitle
-msgid "The subtitle is restricted to 55 characters. Fees can be claimed by eBay for this feature"
-msgstr "Длина подзаголовка ограничена 55 символами. За эту функцию eBay может потребовать плату"
+msgid ""
+"The subtitle is restricted to 55 characters. Fees can be claimed by eBay for"
+" this feature"
+msgstr ""
+"Длина подзаголовка ограничена 55 символами. За эту функцию eBay может "
+"потребовать плату"
 
 #. module: sale_ebay
 #: model:ir.model.fields,help:sale_ebay.field_product_product__ebay_title
@@ -724,22 +751,41 @@ msgstr "Название ограничено 80 символами"
 #. module: sale_ebay
 #: model:ir.model.fields,help:sale_ebay.field_product_product__ebay_category_2_id
 #: model:ir.model.fields,help:sale_ebay.field_product_template__ebay_category_2_id
-msgid "The use of a secondary category is not allowed on every eBay sites. Fees can be claimed by eBay for this feature"
-msgstr "Использование вторичной категории разрешено не на всех сайтах eBay. За эту функцию eBay может потребовать плату"
+msgid ""
+"The use of a secondary category is not allowed on every eBay sites. Fees can"
+" be claimed by eBay for this feature"
+msgstr ""
+"Использование вторичной категории разрешено не на всех сайтах eBay. За эту "
+"функцию eBay может потребовать плату"
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
 #, python-format
-msgid "There is no last synchronization date in your System Parameters. Create a System Parameter record with the key \"ebay_last_sync\" and the value set to the date of the oldest order you wish to synchronize in the format \"YYYY-MM-DD\"."
-msgstr "В системных параметрах отсутствует дата последней синхронизации. Создайте запись Системных параметров с ключом \"ebay_last_sync\" и значением, установленным на дату самого старого заказа, который вы хотите синхронизировать, в формате \"ГГГГ-ММ-ДД\"."
+msgid ""
+"There is no last synchronization date in your System Parameters. Create a "
+"System Parameter record with the key \"ebay_last_sync\" and the value set to"
+" the date of the oldest order you wish to synchronize in the format \"YYYY-"
+"MM-DD\"."
+msgstr ""
+"В системных параметрах отсутствует дата последней синхронизации. Создайте "
+"запись Системных параметров с ключом \"ebay_last_sync\" и значением, "
+"установленным на дату самого старого заказа, который вы хотите "
+"синхронизировать, в формате \"ГГГГ-ММ-ДД\"."
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
 #, python-format
-msgid "This function should not be called with a range of more than 30 days, as eBay does not handle longer timespans. Instead use synchronize_orders which split in as many calls as needed."
-msgstr "Эту функцию не следует вызывать с диапазоном более 30 дней, так как eBay не обрабатывает более длинные временные интервалы. Вместо этого используйте synchronize_orders, которая разделяется на столько вызовов, сколько необходимо."
+msgid ""
+"This function should not be called with a range of more than 30 days, as "
+"eBay does not handle longer timespans. Instead use synchronize_orders which "
+"split in as many calls as needed."
+msgstr ""
+"Эту функцию не следует вызывать с диапазоном более 30 дней, так как eBay не "
+"обрабатывает более длинные временные интервалы. Вместо этого используйте "
+"synchronize_orders, которая разделяется на столько вызовов, сколько "
+"необходимо."
 
 #. module: sale_ebay
 #. odoo-python
@@ -861,7 +907,8 @@ msgstr "идентификатор листинга eBay"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "eBay Marketplace Account Deletion/Closure Notifications"
-msgstr "уведомления об удалении/закрытии учетной записи на торговой площадке eBay"
+msgstr ""
+"уведомления об удалении/закрытии учетной записи на торговой площадке eBay"
 
 #. module: sale_ebay
 #: model:mail.activity.type,summary:sale_ebay.ebay_GDPR_notification
@@ -935,8 +982,11 @@ msgstr "параметры eBay"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
-msgid "eBay requires supporting customer account deletion/closure notifications."
-msgstr "eBay требует поддержки уведомлений об удалении/закрытии учетных записей клиентов."
+msgid ""
+"eBay requires supporting customer account deletion/closure notifications."
+msgstr ""
+"eBay требует поддержки уведомлений об удалении/закрытии учетных записей "
+"клиентов."
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_url

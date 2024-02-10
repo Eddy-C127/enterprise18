@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
@@ -445,21 +445,14 @@ msgstr "Автоматичні перекази щорічних зобов'яз
 
 #. module: account_auto_transfer
 #. odoo-python
-#: code:addons/account_auto_transfer/models/account_move_line.py:0
-#, python-format
-msgid "You cannot set Tax on Automatic Transfer's entries."
-msgstr "Ви не можете встановити податок на записи автоматичних проводок."
-
-#. module: account_auto_transfer
-#. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid ""
 "You cannot delete an automatic transfer that has draft moves attached "
-"('%s'); delete them before deleting this transfer."
+"('%s'). Please delete them before deleting this transfer."
 msgstr ""
 "Ви не можете видалити автоматичне перенесення, до якого прикріплено чернетки"
-" ('%s'); видаліть їх перед видаленням цього переміщення."
+" ('%s'). Будь ласка, видаліть їх перед видаленням цієї проводки."
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -471,6 +464,13 @@ msgid ""
 msgstr ""
 "Ви не можете видалити автоматичне переміщення, до якого додано опубліковані "
 "проводки ('%s')."
+
+#. module: account_auto_transfer
+#. odoo-python
+#: code:addons/account_auto_transfer/models/account_move_line.py:0
+#, python-format
+msgid "You cannot set Tax on Automatic Transfer's entries."
+msgstr "Ви не можете встановити податок на записи автоматичних проводок."
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form

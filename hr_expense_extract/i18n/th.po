@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-26 16:11+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
@@ -104,7 +104,6 @@ msgstr ""
 "                        ลองอีกครั้ง"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_needaction
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_needaction
 msgid "Action Needed"
 msgstr "จำเป็นต้องดำเนินการ"
@@ -127,7 +126,6 @@ msgid "Attachment"
 msgstr "การแนบ"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_attachment_count
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_attachment_count
 msgid "Attachment Count"
 msgstr "จำนวนสิ่งที่แนบมา"
@@ -138,7 +136,6 @@ msgid "Available Payment Method Line"
 msgstr "บรรทัดช่องทางการชำระเงินที่มีอยู่"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_can_show_send_button
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_can_show_send_button
 msgid "Can show the ocr send button"
 msgstr "สามารถแสดงปุ่มส่ง ocr ได้"
@@ -225,7 +222,6 @@ msgid "Do not digitize"
 msgstr "ห้ามแปลงเป็นดิจิทัล"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_error_message
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_error_message
 msgid "Error message"
 msgstr "ข้อความผิดพลาด"
@@ -262,37 +258,31 @@ msgid "Expenses created from sample receipt"
 msgstr "ค่าใช้จ่ายที่สร้างขึ้นจากใบเสร็จรับเงินตัวอย่าง"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_state_processed
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_state_processed
 msgid "Extract State Processed"
 msgstr "แยกสถานะที่ดำเนินการแล้ว"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_state
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_state
 msgid "Extract state"
 msgstr "สถานะ Extract"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_status
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_status
 msgid "Extract status"
-msgstr "อ"
+msgstr "แยกสถานะ"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_follower_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_follower_ids
 msgid "Followers"
 msgstr "ผู้ติดตาม"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_partner_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "ผู้ติดตาม (พาร์ทเนอร์)"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__has_message
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__has_message
 msgid "Has Message"
 msgstr "มีข้อความ"
@@ -314,33 +304,27 @@ msgid "ID"
 msgstr "ไอดี"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_document_uuid
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
 msgstr "ID ของคำขอไปยัง IAP-OCR"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_needaction
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_needaction
 msgid "If checked, new messages require your attention."
 msgstr "ถ้าเลือก ข้อความใหม่จะต้องการความสนใจจากคุณ"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_has_error
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_has_sms_error
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_has_error
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "ถ้าเลือก ข้อความบางข้อความมีข้อผิดพลาดในการส่ง"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_is_follower
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_is_follower
 msgid "Is Follower"
 msgstr "เป็นผู้ติดตาม"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__is_in_extractable_state
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__is_in_extractable_state
 msgid "Is In Extractable State"
 msgstr "อยู่ในสถานะที่สามารถแยกได้"
@@ -349,11 +333,6 @@ msgstr "อยู่ในสถานะที่สามารถแยกไ
 #: model:ir.model.fields,field_description:hr_expense_extract.field_expense_sample_register__journal_id
 msgid "Journal"
 msgstr "สมุดบันทึก"
-
-#. module: hr_expense_extract
-#: model:ir.model,name:hr_expense_extract.model_account_move
-msgid "Journal Entry"
-msgstr "รายการบันทึกประจำวัน"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__expense_sample_register__partial_mode__open
@@ -381,7 +360,6 @@ msgstr ""
 "ลองใช้ตัวอย่างใบเสร็จรับเงินเพื่อทดสอบการประมวลผลรายจ่ายอัตโนมัติด้วยปัญญาประดิษฐ์"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_main_attachment_id
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_main_attachment_id
 msgid "Main Attachment"
 msgstr "เอกสารหลักที่แนบมา"
@@ -414,37 +392,31 @@ msgid "Memo"
 msgstr "บันทึกย่อ"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_has_error
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_has_error
 msgid "Message Delivery error"
 msgstr "เกิดข้อผิดพลาดในการส่งข้อความ"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_ids
 msgid "Messages"
 msgstr "ข้อความ"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_needaction_counter
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_needaction_counter
 msgid "Number of Actions"
 msgstr "จํานวนการดําเนินการ"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_has_error_counter
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_has_error_counter
 msgid "Number of errors"
 msgstr "จํานวนข้อผิดพลาด"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_needaction_counter
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_needaction_counter
 msgid "Number of messages requiring action"
 msgstr "จำนวนข้อความที่ต้องดำเนินการ"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_has_error_counter
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr "จํานวนข้อความที่มีข้อผิดพลาดในการส่ง"
@@ -465,7 +437,6 @@ msgid "Payment Method"
 msgstr "วิธีการชำระเงิน"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__rating_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__rating_ids
 msgid "Ratings"
 msgstr "การให้คะแนน"
@@ -493,7 +464,6 @@ msgid "Report this expense to your manager for validation."
 msgstr "รายงานรายจ่ายนี้ให้ผู้จัดการของคุณตรวจสอบ"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_has_sms_error
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr "ข้อผิดพลาดในการส่ง SMS"
@@ -558,13 +528,11 @@ msgid "Wasting time recording your receipts? Let’s try a better way."
 msgstr "เสียเวลาบันทึกใบเสร็จรับเงินของคุณหรือไม่? มาลองวิธีที่ดีกว่า"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__website_message_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__website_message_ids
 msgid "Website Messages"
 msgstr "ข้อความเว็บไซต์"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__website_message_ids
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__website_message_ids
 msgid "Website communication history"
 msgstr "ประวัติการสื่อสารของเว็บไซต์"

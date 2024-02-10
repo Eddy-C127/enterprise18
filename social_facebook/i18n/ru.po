@@ -1,20 +1,25 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* social_facebook
-#
+# 
 # Translators:
+# ILMIR <karamov@it-projects.info>, 2023
+# Viola Green <violamakarova@hotmail.com>, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: social_facebook
@@ -64,8 +69,12 @@ msgstr "Фото автора"
 
 #. module: social_facebook
 #: model:ir.model.fields,help:social_facebook.field_res_config_settings__facebook_use_own_account
-msgid "Check this if you want to use your personal Facebook Developer Account instead of the provided one."
-msgstr "Установите этот флажок, если вы хотите использовать свой личный аккаунт разработчика Facebook вместо предоставленного."
+msgid ""
+"Check this if you want to use your personal Facebook Developer Account "
+"instead of the provided one."
+msgstr ""
+"Установите этот флажок, если вы хотите использовать свой личный аккаунт "
+"разработчика Facebook вместо предоставленного."
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_comments_count
@@ -137,8 +146,12 @@ msgstr ""
 
 #. module: social_facebook
 #: model:ir.model.fields,help:social_facebook.field_social_account__facebook_account_id
-msgid "Facebook Page ID provided by the Facebook API, this should never be set manually."
-msgstr "Идентификатор страницы Facebook, предоставляемый Facebook API; его никогда не следует устанавливать вручную."
+msgid ""
+"Facebook Page ID provided by the Facebook API, this should never be set "
+"manually."
+msgstr ""
+"Идентификатор страницы Facebook, предоставляемый Facebook API; его никогда "
+"не следует устанавливать вручную."
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_post_id
@@ -156,7 +169,9 @@ msgstr "Предварительный просмотр Facebook"
 #: code:addons/social_facebook/controllers/main.py:0
 #, python-format
 msgid "Facebook did not provide a valid access token or it may have expired."
-msgstr "Facebook не предоставил действительный маркер доступа, или срок его действия истек."
+msgstr ""
+"Facebook не предоставил действительный маркер доступа, или срок его действия"
+" истек."
 
 #. module: social_facebook
 #. odoo-python
@@ -202,8 +217,12 @@ msgstr "Изображение записи"
 #. odoo-python
 #: code:addons/social_facebook/models/social_stream_post.py:0
 #, python-format
-msgid "Post not found. It could be because the post has been deleted on the Social Platform."
-msgstr "Сообщение не найдено. Это может быть связано с тем, что пост был удален на социальной платформе."
+msgid ""
+"Post not found. It could be because the post has been deleted on the Social "
+"Platform."
+msgstr ""
+"Сообщение не найдено. Это может быть связано с тем, что пост был удален на "
+"социальной платформе."
 
 #. module: social_facebook
 #: model_terms:ir.ui.view,arch_db:social_facebook.facebook_preview
@@ -276,6 +295,7 @@ msgstr "Неавторизованный. Пожалуйста, свяжитес
 #. module: social_facebook
 #. odoo-python
 #: code:addons/social_facebook/models/social_stream_post.py:0
+#: code:addons/social_facebook/models/social_stream_post.py:0
 #, python-format
 msgid "Unknown"
 msgstr "Неизвестно"
@@ -287,8 +307,12 @@ msgstr "Используйте свой собственный аккаунт в
 
 #. module: social_facebook
 #: model:ir.model.fields,help:social_facebook.field_social_media__media_type
-msgid "Used to make comparisons when we need to restrict some features to a specific media ('facebook', 'twitter', ...)."
-msgstr "Используется для сравнения, когда нам нужно ограничить некоторые функции определенным медиа (\"facebook\", \"twitter\", ...)."
+msgid ""
+"Used to make comparisons when we need to restrict some features to a "
+"specific media ('facebook', 'twitter', ...)."
+msgstr ""
+"Используется для сравнения, когда нам нужно ограничить некоторые функции "
+"определенным медиа (\"facebook\", \"twitter\", ...)."
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_user_likes
@@ -308,8 +332,12 @@ msgstr "Просмотры"
 #: code:addons/social_facebook/models/social_live_post.py:0
 #: code:addons/social_facebook/models/social_post.py:0
 #, python-format
-msgid "We could not upload your image, try reducing its size and posting it again (error: %s)."
-msgstr "Мы не смогли загрузить ваше изображение, попробуйте уменьшить его размер и опубликовать снова (ошибка: %s)."
+msgid ""
+"We could not upload your image, try reducing its size and posting it again "
+"(error: %s)."
+msgstr ""
+"Мы не смогли загрузить ваше изображение, попробуйте уменьшить его размер и "
+"опубликовать снова (ошибка: %s)."
 
 #. module: social_facebook
 #. odoo-python

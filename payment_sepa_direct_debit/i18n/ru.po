@@ -1,20 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* payment_sepa_direct_debit
-#
+# 
 # Translators:
+# ILMIR <karamov@it-projects.info>, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: payment_sepa_direct_debit
@@ -461,13 +464,16 @@ msgstr "Прямой дебет SEPA: Уведомление о проверке
 
 #. module: payment_sepa_direct_debit
 #: model:mail.template,description:payment_sepa_direct_debit.mail_template_sepa_notify_validation
-msgid "Send the SEPA mandate in attachement, to partners who signed a new mandate"
-msgstr "Отправьте мандат SEPA в приложении партнерам, подписавшим новый мандат"
+msgid ""
+"Send the SEPA mandate in attachement, to partners who signed a new mandate"
+msgstr ""
+"Отправьте мандат SEPA в приложении партнерам, подписавшим новый мандат"
 
 #. module: payment_sepa_direct_debit
 #: model:mail.template,description:payment_sepa_direct_debit.mail_template_sepa_notify_debit
 msgid "Sent to the customer to indicate their account will be charged"
-msgstr "Отправляется клиенту, чтобы сообщить, что с его счета будет списана сумма"
+msgstr ""
+"Отправляется клиенту, чтобы сообщить, что с его счета будет списана сумма"
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
@@ -506,12 +512,21 @@ msgstr "Транзакция не привязана к токену."
 
 #. module: payment_sepa_direct_debit
 #: model:mail.template,subject:payment_sepa_direct_debit.mail_template_sepa_notify_validation
-msgid "Your SEPA Direct Debit Mandate with {{ object.payment_journal_id.company_id.name }}"
-msgstr "Ваш мандат на прямое дебетование SEPA с {{ object.payment_journal_id.company_id.name }}"
+msgid ""
+"Your SEPA Direct Debit Mandate with {{ "
+"object.payment_journal_id.company_id.name }}"
+msgstr ""
+"Ваш мандат на прямое дебетование SEPA с {{ "
+"object.payment_journal_id.company_id.name }}"
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_provider.py:0
 #, python-format
-msgid "Your company must have a creditor identifier in order to issue a SEPA Direct Debit payment request. It can be set in Accounting settings."
-msgstr "Чтобы отправить запрос на платеж по прямому дебету SEPA, у вашей компании должен быть идентификатор кредитора. Его можно установить в настройках бухгалтерского учета."
+msgid ""
+"Your company must have a creditor identifier in order to issue a SEPA Direct"
+" Debit payment request. It can be set in Accounting settings."
+msgstr ""
+"Чтобы отправить запрос на платеж по прямому дебету SEPA, у вашей компании "
+"должен быть идентификатор кредитора. Его можно установить в настройках "
+"бухгалтерского учета."

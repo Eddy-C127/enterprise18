@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-26 16:11+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Sanne Kristensen <sanne@vkdata.dk>, 2024\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
@@ -82,7 +82,6 @@ msgid ""
 msgstr ""
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_needaction
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_needaction
 msgid "Action Needed"
 msgstr "Handling påkrævet"
@@ -107,7 +106,6 @@ msgid "Attachment"
 msgstr "Vedhæftning"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_attachment_count
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_attachment_count
 msgid "Attachment Count"
 msgstr "Antal vedhæftninger"
@@ -118,7 +116,6 @@ msgid "Available Payment Method Line"
 msgstr "Tilgængelig Betalingsmetode Linje"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_can_show_send_button
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_can_show_send_button
 msgid "Can show the ocr send button"
 msgstr "Kan vise ocr send knappen"
@@ -205,7 +202,6 @@ msgid "Do not digitize"
 msgstr ""
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_error_message
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_error_message
 msgid "Error message"
 msgstr "Fejl besked"
@@ -242,37 +238,31 @@ msgid "Expenses created from sample receipt"
 msgstr ""
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_state_processed
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_state_processed
 msgid "Extract State Processed"
 msgstr ""
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_state
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_state
 msgid "Extract state"
 msgstr "Udtræk tilstand"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_status
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_status
 msgid "Extract status"
 msgstr ""
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_follower_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_follower_ids
 msgid "Followers"
 msgstr "Følgere"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_partner_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "Følgere (partnere)"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__has_message
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__has_message
 msgid "Has Message"
 msgstr "Har besked"
@@ -294,33 +284,27 @@ msgid "ID"
 msgstr "ID"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__extract_document_uuid
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
 msgstr ""
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_needaction
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_needaction
 msgid "If checked, new messages require your attention."
 msgstr "Hvis afkrydset, kræver nye beskeder din opmærksomhed "
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_has_error
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_has_sms_error
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_has_error
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Hvis afkrydset har nogle beskeder en leveringsfejl"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_is_follower
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_is_follower
 msgid "Is Follower"
 msgstr "Er følger"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__is_in_extractable_state
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__is_in_extractable_state
 msgid "Is In Extractable State"
 msgstr ""
@@ -329,11 +313,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_expense_extract.field_expense_sample_register__journal_id
 msgid "Journal"
 msgstr "Journal"
-
-#. module: hr_expense_extract
-#: model:ir.model,name:hr_expense_extract.model_account_move
-msgid "Journal Entry"
-msgstr "Postering"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__expense_sample_register__partial_mode__open
@@ -362,7 +341,6 @@ msgstr ""
 " af udgifter med Kunstig Intelligens."
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_main_attachment_id
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_main_attachment_id
 msgid "Main Attachment"
 msgstr "Vedhæftning"
@@ -389,37 +367,31 @@ msgid "Memo"
 msgstr "Memo"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_has_error
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_has_error
 msgid "Message Delivery error"
 msgstr "Besked ved leveringsfejl"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_ids
 msgid "Messages"
 msgstr "Beskeder"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_needaction_counter
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_needaction_counter
 msgid "Number of Actions"
 msgstr "Antal handlinger"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_has_error_counter
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_has_error_counter
 msgid "Number of errors"
 msgstr "Antal fejl"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_needaction_counter
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_needaction_counter
 msgid "Number of messages requiring action"
 msgstr "Antal meddelelser der kræver handling"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__message_has_error_counter
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr "Antal beskeder med leveringsfejl"
@@ -440,7 +412,6 @@ msgid "Payment Method"
 msgstr "Betalingsmetode"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__rating_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__rating_ids
 msgid "Ratings"
 msgstr "Bedømmelser"
@@ -468,7 +439,6 @@ msgid "Report this expense to your manager for validation."
 msgstr "Rapporter denne udgift til din leder for at få den valideret."
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__message_has_sms_error
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr "SMS leveringsfejl"
@@ -535,13 +505,11 @@ msgstr ""
 "måde."
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,field_description:hr_expense_extract.field_account_move__website_message_ids
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__website_message_ids
 msgid "Website Messages"
 msgstr "Beskeder fra hjemmesiden"
 
 #. module: hr_expense_extract
-#: model:ir.model.fields,help:hr_expense_extract.field_account_move__website_message_ids
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__website_message_ids
 msgid "Website communication history"
 msgstr "Website kommunikations historik"

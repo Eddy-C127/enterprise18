@@ -1,20 +1,30 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* sale_renting
-#
+# 
 # Translators:
+# Oleg Kuryan <oleg@ventor.tech>, 2023
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Alena Vlasova, 2023
+# Константин Коровин <korovin74@gmail.com>, 2023
+# Максим Дронь <dronmax@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: sale_renting
@@ -59,8 +69,12 @@ msgstr "%s (Аренда)"
 
 #. module: sale_renting
 #: model:ir.actions.report,print_report_name:sale_renting.action_report_rental_saleorder
-msgid "(object.rental_status not in ('draft', 'sent') and 'Delivery or Return Receipt - %s' %(object.name)) or 'Order - %s' % (object.name)"
-msgstr "(object.rental_status not in ('draft', 'sent') and 'Delivery or Return Receipt - %s' %(object.name)) or 'Order - %s' %(object.name)"
+msgid ""
+"(object.rental_status not in ('draft', 'sent') and 'Delivery or Return "
+"Receipt - %s' %(object.name)) or 'Order - %s' % (object.name)"
+msgstr ""
+"(object.rental_status not in ('draft', 'sent') and 'Delivery or Return "
+"Receipt - %s' %(object.name)) or 'Order - %s' %(object.name)"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
@@ -699,7 +713,9 @@ msgstr "Конференц-зал"
 #. module: sale_renting
 #: model:ir.model.constraint,message:sale_renting.constraint_res_company_min_extra_hour
 msgid "Minimal delay time before applying fines has to be positive."
-msgstr "Минимальное время задержки перед применением штрафов должно быть положительным."
+msgstr ""
+"Минимальное время задержки перед применением штрафов должно быть "
+"положительным."
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_res_company__min_extra_hour
@@ -709,8 +725,12 @@ msgstr "Минимальное время задержки перед приме
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_sale_temporal_recurrence__duration
-msgid "Minimum duration before this rule is applied. If set to 0, it represents a fixedrental price."
-msgstr "Минимальная продолжительность до применения данного правила. Если установлено значение 0, это означает фиксированную цену аренды."
+msgid ""
+"Minimum duration before this rule is applied. If set to 0, it represents a "
+"fixedrental price."
+msgstr ""
+"Минимальная продолжительность до применения данного правила. Если "
+"установлено значение 0, это означает фиксированную цену аренды."
 
 #. module: sale_renting
 #. odoo-python
@@ -757,15 +777,20 @@ msgstr "Ок"
 
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_order_action
-msgid "Once the quotation is confirmed, it becomes a rental order.<br> You will be able to create an invoice and collect the payment."
-msgstr "Как только предложение подтверждено, оно становится заказом на аренду.<br> Вы сможете создать счет-фактуру и получить оплату."
+msgid ""
+"Once the quotation is confirmed, it becomes a rental order.<br> You will be "
+"able to create an invoice and collect the payment."
+msgstr ""
+"Как только предложение подтверждено, оно становится заказом на аренду.<br> "
+"Вы сможете создать счет-фактуру и получить оплату."
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
 #, python-format
 msgid "Once the rental is done, you can register the return."
-msgstr "Как только аренда будет завершена, вы сможете зарегистрировать возврат."
+msgstr ""
+"Как только аренда будет завершена, вы сможете зарегистрировать возврат."
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_rental_order_wizard__order_id
@@ -1296,8 +1321,12 @@ msgstr "Аренда по расписанию"
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_product_pricing__product_variant_ids
-msgid "Select Variants of the Product for which this rule applies.Leave empty if this rule applies for any variant of this template."
-msgstr "Выберите Варианты продукта, для которых применяется это правило. Оставьте пустым, если правило применяется для любого варианта этого шаблона."
+msgid ""
+"Select Variants of the Product for which this rule applies.Leave empty if "
+"this rule applies for any variant of this template."
+msgstr ""
+"Выберите Варианты продукта, для которых применяется это правило. Оставьте "
+"пустым, если правило применяется для любого варианта этого шаблона."
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_product_pricing__product_template_id
@@ -1395,7 +1424,9 @@ msgstr "Конфигурация для аренды доступна здесь
 #. module: sale_renting
 #: model:ir.model.constraint,message:sale_renting.constraint_sale_order_rental_period_coherence
 msgid "The rental start date must be before the rental return date if any."
-msgstr "Дата начала аренды должна быть раньше даты возврата аренды, если таковая имеется."
+msgstr ""
+"Дата начала аренды должна быть раньше даты возврата аренды, если таковая "
+"имеется."
 
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_order_today_pickup_action
@@ -1405,28 +1436,47 @@ msgstr "Забор и возврат по расписанию не предус
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_day
-msgid "This is the default extra cost per day set on newly created products. You can change this value for existing products directly on the product itself."
-msgstr "Это дополнительная стоимость в день, установленная по умолчанию для вновь созданных продуктов. Вы можете изменить это значение для существующих продуктов непосредственно на самом продукте."
+msgid ""
+"This is the default extra cost per day set on newly created products. You "
+"can change this value for existing products directly on the product itself."
+msgstr ""
+"Это дополнительная стоимость в день, установленная по умолчанию для вновь "
+"созданных продуктов. Вы можете изменить это значение для существующих "
+"продуктов непосредственно на самом продукте."
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_hour
-msgid "This is the default extra cost per hour set on newly created products. You can change this value for existing products directly on the product itself."
-msgstr "Это дополнительная стоимость часа, установленная по умолчанию для вновь созданных продуктов. Вы можете изменить это значение для существующих продуктов непосредственно на самом продукте."
+msgid ""
+"This is the default extra cost per hour set on newly created products. You "
+"can change this value for existing products directly on the product itself."
+msgstr ""
+"Это дополнительная стоимость часа, установленная по умолчанию для вновь "
+"созданных продуктов. Вы можете изменить это значение для существующих "
+"продуктов непосредственно на самом продукте."
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_product
 msgid "This product will be used to add fines in the Rental Order."
-msgstr "Этот продукт будет использоваться для добавления штрафов в заказ на аренду."
+msgstr ""
+"Этот продукт будет использоваться для добавления штрафов в заказ на аренду."
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
-msgid "This will update the unit price of all rental products based on the new period."
-msgstr "Это обновит стоимость единицы всех продуктов аренды на основе нового периода."
+msgid ""
+"This will update the unit price of all rental products based on the new "
+"period."
+msgstr ""
+"Это обновит стоимость единицы всех продуктов аренды на основе нового "
+"периода."
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.res_config_settings_view_form
-msgid "Those values are applied to any new rental product and can be changed on product forms."
-msgstr "Эти значения применяются к любому новому продукту аренды и могут быть изменены в формах продукта."
+msgid ""
+"Those values are applied to any new rental product and can be changed on "
+"product forms."
+msgstr ""
+"Эти значения применяются к любому новому продукту аренды и могут быть "
+"изменены в формах продукта."
 
 #. module: sale_renting
 #: model:ir.ui.menu,name:sale_renting.rental_orders_today
@@ -1544,15 +1594,21 @@ msgstr "Лет"
 
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_product_template_action
-msgid "You can also create additional products or services to sell by checking *Can be Sold* in the product form (e.g. insurance)."
-msgstr "Вы также можете создать дополнительные продукты или услуги для продажи, отметив *Можно продавать* в форме продукта (например, страхование)."
+msgid ""
+"You can also create additional products or services to sell by checking *Can"
+" be Sold* in the product form (e.g. insurance)."
+msgstr ""
+"Вы также можете создать дополнительные продукты или услуги для продажи, "
+"отметив *Можно продавать* в форме продукта (например, страхование)."
 
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/models/product_pricelist.py:0
 #, python-format
 msgid "You can not have a time-based rule for products that are not rentable."
-msgstr "Вы не можете установить правило, основанное на времени, для продуктов, которые не подлежат аренде."
+msgstr ""
+"Вы не можете установить правило, основанное на времени, для продуктов, "
+"которые не подлежат аренде."
 
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_order_today_pickup_action
@@ -1577,8 +1633,12 @@ msgstr "Вы не можете вернуть больше того, что за
 #. odoo-python
 #: code:addons/sale_renting/models/product_pricing.py:0
 #, python-format
-msgid "You cannot have multiple pricing for the same variant, recurrence and pricelist"
-msgstr "Нельзя установить несколько цен для одного и того же варианта, повтора и прейскуранта"
+msgid ""
+"You cannot have multiple pricing for the same variant, recurrence and "
+"pricelist"
+msgstr ""
+"Нельзя установить несколько цен для одного и того же варианта, повтора и "
+"прейскуранта"
 
 #. module: sale_renting
 #: model:ir.model.constraint,message:sale_renting.constraint_sale_order_line_rental_stock_coherence
@@ -1594,6 +1654,7 @@ msgstr "Вы закончили свой первый прокат. Поздра
 
 #. module: sale_renting
 #. odoo-python
+#: code:addons/sale_renting/models/product_pricing.py:0
 #: code:addons/sale_renting/models/product_pricing.py:0
 #, python-format
 msgid "all variants"

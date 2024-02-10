@@ -1,28 +1,44 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* whatsapp
-#
+# 
 # Translators:
+# Диляра Дельтаева <dilya.kz93@gmail.com>, 2023
+# Андрей Гусев <gaussgss@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Gennady Marchenko <gennadym@gmail.com>, 2023
+# Amaro Vita <vita.amaro@gmail.com>, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Alena Vlasova, 2023
+# Martin Trigaux, 2023
+# Collex100, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
-msgid "\"Template variable should be in format {{number}}. Cannot parse \"%(placeholder)s\""
-msgstr "\"Шаблонная переменная должна быть в формате {{number}}. Невозможно разобрать \"%(placeholder)s\""
+msgid ""
+"\"Template variable should be in format {{number}}. Cannot parse "
+"\"%(placeholder)s\""
+msgstr ""
+"\"Шаблонная переменная должна быть в формате {{number}}. Невозможно "
+"разобрать \"%(placeholder)s\""
 
 #. module: whatsapp
 #. odoo-python
@@ -73,8 +89,12 @@ msgstr ""
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_kanban
-msgid "<i class=\"fa fa-whatsapp me-1\" title=\"Messages Count\" aria-label=\"Messages Count\"/>"
-msgstr "<i class=\"fa fa-whatsapp me-1\" title=\"Messages Count\" aria-label=\"Messages Count\"/>"
+msgid ""
+"<i class=\"fa fa-whatsapp me-1\" title=\"Messages Count\" aria-"
+"label=\"Messages Count\"/>"
+msgstr ""
+"<i class=\"fa fa-whatsapp me-1\" title=\"Messages Count\" aria-"
+"label=\"Messages Count\"/>"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.template_message_preview
@@ -276,7 +296,9 @@ msgstr "Тело"
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "Body variables should start at 1 and not skip any number, missing %d"
-msgstr "Переменные тела должны начинаться с 1 и не пропускать ни одной цифры, отсутствует %d"
+msgstr ""
+"Переменные тела должны начинаться с 1 и не пропускать ни одной цифры, "
+"отсутствует %d"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__bg
@@ -343,8 +365,12 @@ msgstr "URL обратного вызова"
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/core/common/composer_patch.js:0
 #, python-format
-msgid "Can't send message as it has been 24 hours since the last message of the User."
-msgstr "Невозможно отправить сообщение, так как с момента последнего сообщения пользователя прошло 24 часа."
+msgid ""
+"Can't send message as it has been 24 hours since the last message of the "
+"User."
+msgstr ""
+"Невозможно отправить сообщение, так как с момента последнего сообщения "
+"пользователя прошло 24 часа."
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_form
@@ -383,8 +409,13 @@ msgstr "Тип канала"
 
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_discuss_channel__channel_type
-msgid "Chat is private and unique between 2 persons. Group is private among invited persons. Channel can be freely joined (depending on its configuration)."
-msgstr "Чат - это частное и уникальное общение между двумя людьми. Группа является приватной для приглашенных лиц. К каналу можно свободно присоединиться (в зависимости от его конфигурации)."
+msgid ""
+"Chat is private and unique between 2 persons. Group is private among invited"
+" persons. Channel can be freely joined (depending on its configuration)."
+msgstr ""
+"Чат - это частное и уникальное общение между двумя людьми. Группа является "
+"приватной для приглашенных лиц. К каналу можно свободно присоединиться (в "
+"зависимости от его конфигурации)."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__zh_cn
@@ -514,8 +545,12 @@ msgstr "Доставленные сообщения"
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
-msgid "Demo value of a dynamic url must start with the non-dynamic partof the url such as \"https://www.example.com/menu?id=20\""
-msgstr "Демо-значение динамического url должно начинаться с нединамической части url, например \"https://www.example.com/menu?id=20\""
+msgid ""
+"Demo value of a dynamic url must start with the non-dynamic partof the url "
+"such as \"https://www.example.com/menu?id=20\""
+msgstr ""
+"Демо-значение динамического url должно начинаться с нединамической части "
+"url, например \"https://www.example.com/menu?id=20\""
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__status__disabled
@@ -563,14 +598,18 @@ msgstr "Название модели документа"
 #: code:addons/whatsapp/tools/whatsapp_api.py:0
 #, python-format
 msgid "Document upload failed, please retry after sometime."
-msgstr "Загрузка документа не удалась, пожалуйста, повторите попытку через некоторое время."
+msgstr ""
+"Загрузка документа не удалась, пожалуйста, повторите попытку через некоторое"
+" время."
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/tools/whatsapp_api.py:0
 #, python-format
 msgid "Document upload session open failed, please retry after sometime."
-msgstr "Сессия загрузки документов не открыта, пожалуйста, повторите попытку через некоторое время."
+msgstr ""
+"Сессия загрузки документов не открыта, пожалуйста, повторите попытку через "
+"некоторое время."
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
@@ -600,7 +639,8 @@ msgstr "Динамический"
 #. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_message_unique_msg_uid
 msgid "Each whatsapp message should correspond to a single message uuid."
-msgstr "Каждому сообщению Whatsapp должен соответствовать один uuid сообщения."
+msgstr ""
+"Каждому сообщению Whatsapp должен соответствовать один uuid сообщения."
 
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_mail_thread
@@ -681,7 +721,8 @@ msgstr "Переменные шаблона поля должны быть св�
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "File type %(file_type)s not supported for header type %(header_type)s"
-msgstr "Тип файла %(file_type)s не поддерживается для типа заголовка %(header_type)s"
+msgstr ""
+"Тип файла %(file_type)s не поддерживается для типа заголовка %(header_type)s"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__fil
@@ -822,8 +863,12 @@ msgstr "Группировать по"
 
 #. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_discuss_channel_group_public_id_check
-msgid "Group authorization and group auto-subscription are only supported on channels and whatsapp."
-msgstr "Групповая авторизация и групповая автоподписка поддерживаются только на каналах и в Whatsapp."
+msgid ""
+"Group authorization and group auto-subscription are only supported on "
+"channels and whatsapp."
+msgstr ""
+"Групповая авторизация и групповая автоподписка поддерживаются только на "
+"каналах и в Whatsapp."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__gu
@@ -912,7 +957,8 @@ msgstr "ID"
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_account__message_needaction
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_template__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
 
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_account__message_has_error
@@ -925,7 +971,9 @@ msgstr "Если отмечено, некоторые сообщения име�
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_res_users_settings__is_discuss_sidebar_category_whatsapp_open
 msgid "If checked, the WhatsApp category is open in the discuss sidebar"
-msgstr "Если флажок установлен, категория WhatsApp будет открыта на боковой панели обсуждения"
+msgstr ""
+"Если флажок установлен, категория WhatsApp будет открыта на боковой панели "
+"обсуждения"
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_account_action
@@ -1107,22 +1155,33 @@ msgstr "Местоположение"
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
-msgid "Location Latitude and Longitude %(latitude)s / %(longitude)s is not in proper format."
-msgstr "Широта и долгота местоположения %(latitude)s / %(longitude)s имеют неправильный формат."
+msgid ""
+"Location Latitude and Longitude %(latitude)s / %(longitude)s is not in "
+"proper format."
+msgstr ""
+"Широта и долгота местоположения %(latitude)s / %(longitude)s имеют "
+"неправильный формат."
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
-msgid "Location variable should be 'name', 'address', 'latitude' or 'longitude'. Cannot parse '%(placeholder)s'"
-msgstr "Переменная местоположения должна быть 'name', 'address', 'latitude' или 'longitude'. Невозможно разобрать '%(placeholder)s'"
+msgid ""
+"Location variable should be 'name', 'address', 'latitude' or 'longitude'. "
+"Cannot parse '%(placeholder)s'"
+msgstr ""
+"Переменная местоположения должна быть 'name', 'address', 'latitude' или "
+"'longitude'. Невозможно разобрать '%(placeholder)s'"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
-msgid "Location variables should only exist when a \"location\" header is selected."
-msgstr "Переменные местоположения должны существовать только при выборе заголовка \"местоположение\"."
+msgid ""
+"Location variables should only exist when a \"location\" header is selected."
+msgstr ""
+"Переменные местоположения должны существовать только при выборе заголовка "
+"\"местоположение\"."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__mk
@@ -1263,6 +1322,7 @@ msgstr "Сообщения WhatsApp не найдены."
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/wizard/whatsapp_composer.py:0
+#: code:addons/whatsapp/wizard/whatsapp_composer.py:0
 #, python-format
 msgid "No approved WhatsApp Templates are available for this model."
 msgstr "Для этой модели нет одобренных шаблонов WhatsApp."
@@ -1305,7 +1365,8 @@ msgstr "Уведомить пользователя"
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
 msgid "Notify users and company where this account can be used"
-msgstr "Сообщите пользователям и компании, где можно использовать эту учетную запись"
+msgstr ""
+"Сообщите пользователям и компании, где можно использовать эту учетную запись"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__message_needaction_counter
@@ -1367,7 +1428,9 @@ msgstr "Для каждого сообщения разрешено только
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "Only templates using media header types may have header documents"
-msgstr "Только шаблоны, использующие медиатипы заголовков, могут иметь документы с заголовками"
+msgstr ""
+"Только шаблоны, использующие медиатипы заголовков, могут иметь документы с "
+"заголовками"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__message_type__outbound
@@ -1448,14 +1511,19 @@ msgstr "Заполнитель"
 #: code:addons/whatsapp/models/whatsapp_template_button.py:0
 #, python-format
 msgid "Please enter a valid URL in the format 'https://www.example.com'."
-msgstr "Пожалуйста, введите действительный URL-адрес в формате 'https://www.example.com'."
+msgstr ""
+"Пожалуйста, введите действительный URL-адрес в формате "
+"'https://www.example.com'."
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/res_partner.py:0
 #, python-format
-msgid "Please enter at least 3 characters when searching a Phone/Mobile number."
-msgstr "Пожалуйста, введите не менее 3 символов при поиске номера телефона/мобильного телефона."
+msgid ""
+"Please enter at least 3 characters when searching a Phone/Mobile number."
+msgstr ""
+"Пожалуйста, введите не менее 3 символов при поиске номера "
+"телефона/мобильного телефона."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__pl
@@ -1647,7 +1715,8 @@ msgstr "Мастер отправки WhatsApp"
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.res_config_settings_view_form
 msgid "Send and receive message through your WhatsApp Business account."
-msgstr "Отправляйте и получайте сообщения через свой аккаунт WhatsApp Business."
+msgstr ""
+"Отправляйте и получайте сообщения через свой аккаунт WhatsApp Business."
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
@@ -1675,7 +1744,9 @@ msgstr "Отправить"
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 #, python-format
 msgid "Sent messages or messages with unfixable failures cannot be resent."
-msgstr "Отправленные сообщения или сообщения с неисправимыми ошибками не могут быть отправлены повторно."
+msgstr ""
+"Отправленные сообщения или сообщения с неисправимыми ошибками не могут быть "
+"отправлены повторно."
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_tree
@@ -1714,8 +1785,12 @@ msgstr "Некоторые сообщения не подлежат повтор
 #. odoo-python
 #: code:addons/whatsapp/tools/whatsapp_api.py:0
 #, python-format
-msgid "Something went wrong when contacting WhatsApp, please try again later. If this happens frequently, contact support."
-msgstr "При обращении в WhatsApp что-то пошло не так, пожалуйста, повторите попытку позже. Если это происходит часто, обратитесь в службу поддержки."
+msgid ""
+"Something went wrong when contacting WhatsApp, please try again later. If "
+"this happens frequently, contact support."
+msgstr ""
+"При обращении в WhatsApp что-то пошло не так, пожалуйста, повторите попытку "
+"позже. Если это происходит часто, обратитесь в службу поддержки."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__es
@@ -2088,8 +2163,11 @@ msgstr "Пользователь согласился получать сооб�
 #. odoo-python
 #: code:addons/whatsapp/wizard/whatsapp_composer.py:0
 #, python-format
-msgid "User mobile number required in template but no value set on user profile."
-msgstr "В шаблоне требуется номер мобильного телефона пользователя, но в профиле пользователя он не задан."
+msgid ""
+"User mobile number required in template but no value set on user profile."
+msgstr ""
+"В шаблоне требуется номер мобильного телефона пользователя, но в профиле "
+"пользователя он не задан."
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__allowed_user_ids
@@ -2105,13 +2183,18 @@ msgstr "Требуется уведомление пользователей"
 
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_account__notify_user_ids
-msgid "Users to notify when a message is received and there is no template send in last 15 days"
-msgstr "Уведомление пользователей о получении сообщения, в котором нет шаблона, отправленного за последние 15 дней"
+msgid ""
+"Users to notify when a message is received and there is no template send in "
+"last 15 days"
+msgstr ""
+"Уведомление пользователей о получении сообщения, в котором нет шаблона, "
+"отправленного за последние 15 дней"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
 msgid "Users who can use this template.If empty then public."
-msgstr "Пользователи, которые могут использовать этот шаблон. Если пусто, то public."
+msgstr ""
+"Пользователи, которые могут использовать этот шаблон. Если пусто, то public."
 
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_message__failure_reason
@@ -2314,14 +2397,19 @@ msgstr "Учетная запись Whatsapp неправильно настро
 #: code:addons/whatsapp/tools/whatsapp_exception.py:0
 #, python-format
 msgid "Whatsapp could not be reached or the query was malformed."
-msgstr "С Whatsapp не удалось связаться или запрос был неправильно сформирован."
+msgstr ""
+"С Whatsapp не удалось связаться или запрос был неправильно сформирован."
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
-msgid "When using a \"location\" header, there should 4 location variables not %(count)d."
-msgstr "При использовании заголовка \"location\" должно быть 4 переменных location, а не %(count)d."
+msgid ""
+"When using a \"location\" header, there should 4 location variables not "
+"%(count)d."
+msgstr ""
+"При использовании заголовка \"location\" должно быть 4 переменных location, "
+"а не %(count)d."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__quality__yellow
@@ -2332,15 +2420,21 @@ msgstr "Желтый"
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
-msgid "You are not allowed to use %(field)s in phone field, contact your administrator to configure it."
-msgstr "Вы не можете использовать %(field)s в поле телефона, обратитесь к администратору, чтобы настроить его."
+msgid ""
+"You are not allowed to use %(field)s in phone field, contact your "
+"administrator to configure it."
+msgstr ""
+"Вы не можете использовать %(field)s в поле телефона, обратитесь к "
+"администратору, чтобы настроить его."
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
-msgid "You are not allowed to use field %(field)s, contact your administrator."
-msgstr "Вы не имеете права использовать поле %(field)s, обратитесь к администратору."
+msgid ""
+"You are not allowed to use field %(field)s, contact your administrator."
+msgstr ""
+"Вы не имеете права использовать поле %(field)s, обратитесь к администратору."
 
 #. module: whatsapp
 #. odoo-python
@@ -2354,7 +2448,9 @@ msgstr "Вы не можете отменить сообщение, которо
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 #, python-format
 msgid "You can not resend message which is not in failed state."
-msgstr "Вы не можете повторно отправить сообщение, которое не находится в состоянии отказа."
+msgstr ""
+"Вы не можете повторно отправить сообщение, которое не находится в состоянии "
+"отказа."
 
 #. module: whatsapp
 #. odoo-python
@@ -2366,22 +2462,31 @@ msgstr "Вы не можете выбрать поле %(model)s."
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_template_action
-msgid "You can retrieve templates from Facebook by clicking <strong>Sync Templates</strong> on the"
-msgstr "Вы можете получить шаблоны из Facebook, нажав кнопку <strong>Синхронизировать шаблоны</strong> на экране"
+msgid ""
+"You can retrieve templates from Facebook by clicking <strong>Sync "
+"Templates</strong> on the"
+msgstr ""
+"Вы можете получить шаблоны из Facebook, нажав кнопку "
+"<strong>Синхронизировать шаблоны</strong> на экране"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/discuss_channel.py:0
 #, python-format
-msgid "You can't leave this channel. As you are the owner of this WhatsApp channel, you can only delete it."
-msgstr "Вы не можете покинуть этот канал. Поскольку вы являетесь владельцем этого канала WhatsApp, вы можете только удалить его."
+msgid ""
+"You can't leave this channel. As you are the owner of this WhatsApp channel,"
+" you can only delete it."
+msgstr ""
+"Вы не можете покинуть этот канал. Поскольку вы являетесь владельцем этого "
+"канала WhatsApp, вы можете только удалить его."
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "You may only use one header attachment for each template"
-msgstr "Вы можете использовать только одно вложение заголовка для каждого шаблона"
+msgstr ""
+"Вы можете использовать только одно вложение заголовка для каждого шаблона"
 
 #. module: whatsapp
 #. odoo-python
@@ -2392,8 +2497,11 @@ msgstr "Ваш шаблон был отклонен."
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
-msgid "Your whatsapp message, use {{1}}, {{2}} as placeholders for dynamic variable"
-msgstr "Ваше сообщение в Whatsapp, используйте {{1}}, {{2}} в качестве держателей для динамической переменной"
+msgid ""
+"Your whatsapp message, use {{1}}, {{2}} as placeholders for dynamic variable"
+msgstr ""
+"Ваше сообщение в Whatsapp, используйте {{1}}, {{2}} в качестве держателей "
+"для динамической переменной"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__zu

@@ -1,34 +1,49 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* account_budget
-#
+# 
 # Translators:
+# Irina Fedulova <istartlin@gmail.com>, 2023
+# Андрей Гусев <gaussgss@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Alena Vlasova, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: account_budget
 #. odoo-python
 #: code:addons/account_budget/models/account_budget.py:0
 #, python-format
-msgid "\"End Date\" of the budget line should be included in the Period of the budget"
-msgstr "«Дата Окончания» бюджетной строки должен быть включен в период бюджета"
+msgid ""
+"\"End Date\" of the budget line should be included in the Period of the "
+"budget"
+msgstr ""
+"«Дата Окончания» бюджетной строки должен быть включен в период бюджета"
 
 #. module: account_budget
 #. odoo-python
 #: code:addons/account_budget/models/account_budget.py:0
 #, python-format
-msgid "\"Start Date\" of the budget line should be included in the Period of the budget"
+msgid ""
+"\"Start Date\" of the budget line should be included in the Period of the "
+"budget"
 msgstr "\"Дата начала\" бюджетной статьи должна быть включена в Период бюджета"
 
 #. module: account_budget
@@ -38,8 +53,12 @@ msgstr "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Period\" title=\"Pe
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.crossovered_budget_view_form
-msgid "<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
-msgstr "<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
+msgid ""
+"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
+msgstr ""
+"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_account_analytic_account_form_inherit_budget
@@ -94,8 +113,12 @@ msgstr "Сумма, которую вы должны были заработат
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_crossovered_budget_lines__planned_amount
-msgid "Amount you plan to earn/spend. Record a positive amount if it is a revenue and a negative amount if it is a cost."
-msgstr "Сумма, которую вы планируете заработать/потратить. Запишите положительную сумму, если это доход, и отрицательную, если это расход."
+msgid ""
+"Amount you plan to earn/spend. Record a positive amount if it is a revenue "
+"and a negative amount if it is a cost."
+msgstr ""
+"Сумма, которую вы планируете заработать/потратить. Запишите положительную "
+"сумму, если это доход, и отрицательную, если это расход."
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_account_analytic_account
@@ -212,8 +235,12 @@ msgstr "Компания"
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_crossovered_budget_lines__percentage
-msgid "Comparison between practical and theoretical amount. This measure tells you if you are below or over budget."
-msgstr "Сравнение между практической и теоретической суммой. Этот показатель позволяет определить, уложились ли вы в бюджет или превысили его."
+msgid ""
+"Comparison between practical and theoretical amount. This measure tells you "
+"if you are below or over budget."
+msgstr ""
+"Сравнение между практической и теоретической суммой. Этот показатель "
+"позволяет определить, уложились ли вы в бюджет или превысили его."
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.crossovered_budget_view_form
@@ -339,7 +366,8 @@ msgstr "Значок, обозначающий исключение Дела."
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_crossovered_budget__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_crossovered_budget__message_has_error
@@ -505,7 +533,9 @@ msgstr "Ошибка доставки SMS"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_crossovered_budget_search
 msgid "Show all records which has next action date is before today"
-msgstr "Показать все записи, у которых дата следующего действия наступает до сегодняшнего дня"
+msgstr ""
+"Показать все записи, у которых дата следующего действия наступает до "
+"сегодняшнего дня"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_crossovered_budget__date_from
@@ -589,7 +619,8 @@ msgstr "Тип Дела для исключения в записи."
 #. module: account_budget
 #: model_terms:ir.actions.act_window,help:account_budget.act_crossovered_budget_view
 msgid "Use budgets to compare actual with expected revenues and costs"
-msgstr "Используйте бюджеты для сравнения фактических и ожидаемых доходов и расходов"
+msgstr ""
+"Используйте бюджеты для сравнения фактических и ожидаемых доходов и расходов"
 
 #. module: account_budget
 #: model:ir.model.fields.selection,name:account_budget.selection__crossovered_budget__state__validate
@@ -610,8 +641,12 @@ msgstr "История общений с сайта"
 #. odoo-python
 #: code:addons/account_budget/models/account_budget.py:0
 #, python-format
-msgid "You have to enter at least a budgetary position or analytic account on a budget line."
-msgstr "Вы должны ввести как минимум бюджетную позицию или аналитический счет в бюджетной строке."
+msgid ""
+"You have to enter at least a budgetary position or analytic account on a "
+"budget line."
+msgstr ""
+"Вы должны ввести как минимум бюджетную позицию или аналитический счет в "
+"бюджетной строке."
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.crossovered_budget_view_form

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:46+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
@@ -34,6 +34,13 @@ msgstr "และอีก %s รายการ"
 #, python-format
 msgid " and one other"
 msgstr "และอีกอันหนึ่ง"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_journal_report.py:0
+#, python-format
+msgid " is not supported by the Journal Report"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -98,6 +105,20 @@ msgstr "(1 บรรทัด)"
 #, python-format
 msgid "(No Group)"
 msgstr "(ไม่มีกลุ่ม)"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#, python-format
+msgid ", Including Analytic Simulations"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#, python-format
+msgid ", Only Show Unreconciled Entries"
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -326,7 +347,7 @@ msgstr "เพิ่มรายการ"
 #: model:ir.model.fields,field_description:account_reports.field_res_company__totals_below_sections
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__totals_below_sections
 msgid "Add totals below sections"
-msgstr "เพิ่มผลรวมด้านล่างในส่วน"
+msgstr "เพิ่มผลรวมด้านล่างในหมวด"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_adjustment
@@ -465,6 +486,13 @@ msgid "Amount in currency: %s"
 msgstr "ยอดเงินในสกุลเงิน: %s"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_journal_report.py:0
+#, python-format
+msgid "Analytic Accounts Groupby"
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_analytic.xml:0
 #, python-format
@@ -478,6 +506,13 @@ msgstr "ตัวกรองการวิเคราะห์"
 #, python-format
 msgid "Analytic Group By"
 msgstr "กลุ่มวิเคราะห์โดย"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_journal_report.py:0
+#, python-format
+msgid "Analytic Plans Groupby"
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -1267,7 +1302,7 @@ msgstr "ไม่อนุญาตให้แก้ไขบรรทัดร
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Enable Sections"
-msgstr "เปิดใช้งานส่วนต่างๆ"
+msgstr "เปิดใช้งานหมวดต่างๆ"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1718,6 +1753,13 @@ msgid "Horizontal Group:"
 msgstr "กลุ่มแนวนอน:"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_journal_report.py:0
+#, python-format
+msgid "Horizontal Grouping"
+msgstr ""
+
+#. module: account_reports
 #: model:ir.actions.act_window,name:account_reports.action_account_report_horizontal_groups
 #: model:ir.model.fields,field_description:account_reports.field_account_report__horizontal_group_ids
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_horizontal_groups
@@ -1799,8 +1841,10 @@ msgid "Include Payments"
 msgstr "รวมการชำระเงิน"
 
 #. module: account_reports
+#. odoo-javascript
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Including Analytic Simulations"
 msgstr "รวมถึงการจำลองเชิงวิเคราะห์"
@@ -1868,7 +1912,7 @@ msgstr "ใส่คำอธิบายเพิ่มเติมที่น
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Integer Rounding"
-msgstr ""
+msgstr "การปัดเศษจำนวนเต็ม"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2375,7 +2419,7 @@ msgstr "ไม่มี"
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "Not Started"
-msgstr ""
+msgstr "ยังไม่เริ่ม"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2496,7 +2540,7 @@ msgstr "พาร์ทเนอร์"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Partner Categories"
-msgstr ""
+msgstr "หมวดหมู่พาร์ทเนอร์"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.partner_ledger_report
@@ -2584,6 +2628,13 @@ msgid "Performance"
 msgstr "ประสิทธิภาพ"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_journal_report.py:0
+#, python-format
+msgid "Period comparison"
+msgstr ""
+
+#. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__account_tax_periodicity
 #: model:ir.model.fields,help:account_reports.field_account_financial_year_op__account_tax_periodicity
 #: model:ir.model.fields,help:account_reports.field_res_company__account_tax_periodicity
@@ -2660,6 +2711,13 @@ msgid ""
 "depending companies."
 msgstr ""
 "การโพสต์รายการนี้จะอัปเดตและลงรายการบัญชีการปิดบัญชีที่ยังไม่ได้โพสต์ของบริษัทที่ขึ้นอยู่กันด้วย"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#, python-format
+msgid "Posted Entries Only"
+msgstr "รายการที่ผ่านรายการแล้วเท่านั้น"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -2863,7 +2921,7 @@ msgstr "ค้นหา..."
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Sections"
-msgstr "ส่วน"
+msgstr "หมวด"
 
 #. module: account_reports
 #. odoo-python
@@ -3573,8 +3631,10 @@ msgid ""
 msgstr "เราจะต้องสำรองสกุลเงินต่างประเทศที่เลือกไว้หรือไม่"
 
 #. module: account_reports
+#. odoo-javascript
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "With Draft Entries"
 msgstr "ด้วยรายการฉบับร่าง"

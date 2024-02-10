@@ -1322,6 +1322,13 @@ msgstr "スキャンされた数量は%sを単位として使用しています�
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid "Scanning package"
+msgstr "梱包のスキャン"
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: model:ir.model,name:stock_barcode.model_stock_scrap
 #, python-format
 msgid "Scrap"
@@ -1618,6 +1625,15 @@ msgstr "梱包タイプを適用できません。最初にプロダクトまた
 #, python-format
 msgid "You can't register scrap at this state of the operation"
 msgstr "オペレーションのこの段階で廃棄を登録することはできません。"
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid ""
+"You have already scanned %s items of this package. Do you want to scan the "
+"whole package?"
+msgstr "この梱包の%sアイテムはすでにスキャン済です。梱包全体をスキャンしますか？"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation

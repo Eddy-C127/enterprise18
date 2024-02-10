@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
@@ -438,21 +438,12 @@ msgstr "การโอนหนี้รายปีอัตโนมัติ
 
 #. module: account_auto_transfer
 #. odoo-python
-#: code:addons/account_auto_transfer/models/account_move_line.py:0
-#, python-format
-msgid "You cannot set Tax on Automatic Transfer's entries."
-msgstr "คุณไม่สามารถตั้งค่าภาษีในรายการการโอนอัตโนมัติได้"
-
-#. module: account_auto_transfer
-#. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid ""
 "You cannot delete an automatic transfer that has draft moves attached "
-"('%s'); delete them before deleting this transfer."
+"('%s'). Please delete them before deleting this transfer."
 msgstr ""
-"คุณไม่สามารถลบการโอนอัตโนมัติที่มีการแนบร่างการเคลื่อนไหว ('%s') ได้ "
-"ลบออกก่อนที่จะลบการโอนนี้"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -463,6 +454,13 @@ msgid ""
 "('%s')."
 msgstr ""
 "คุณไม่สามารถลบการโอนอัตโนมัติที่มีการโพสต์การเคลื่อนไหวที่แนบมาได้ ('%s')"
+
+#. module: account_auto_transfer
+#. odoo-python
+#: code:addons/account_auto_transfer/models/account_move_line.py:0
+#, python-format
+msgid "You cannot set Tax on Automatic Transfer's entries."
+msgstr "คุณไม่สามารถตั้งค่าภาษีในรายการการโอนอัตโนมัติได้"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form

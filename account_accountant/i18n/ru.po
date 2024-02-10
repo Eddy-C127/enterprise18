@@ -1,35 +1,55 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* account_accountant
-#
+# 
 # Translators:
+# Denis Baranov <baranov@itlibertas.com>, 2023
+# Evgeniia Kotova, 2023
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Collex100, 2023
+# alenafairy, 2023
+# Ye Ye <vrio.ua@gmail.com>, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Alena Vlasova, 2023
+# Martin Trigaux, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2024
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:09+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget_line.py:0
 #, python-format
-msgid "%(display_name_html)s with an open amount of %(open_amount)s will be fully reconciled by the transaction."
-msgstr "%(display_name_html)s с открытой суммой %(open_amount)s будут полностью выверены транзакцией."
+msgid ""
+"%(display_name_html)s with an open amount of %(open_amount)s will be fully "
+"reconciled by the transaction."
+msgstr ""
+"%(display_name_html)s с открытой суммой %(open_amount)s будут полностью "
+"выверены транзакцией."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget_line.py:0
 #, python-format
-msgid "%(display_name_html)s with an open amount of %(open_amount)s will be reduced by %(amount)s."
-msgstr "%(display_name_html)s с открытой суммой %(open_amount)s будет уменьшена на %(amount)s."
+msgid ""
+"%(display_name_html)s with an open amount of %(open_amount)s will be reduced"
+" by %(amount)s."
+msgstr ""
+"%(display_name_html)s с открытой суммой %(open_amount)s будет уменьшена на "
+"%(amount)s."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_form
@@ -43,15 +63,23 @@ msgstr "<b class=\"tip_title\">Совет: Массовое обновление
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
-msgid "<b class=\"tip_title\">Tip: Find an Accountant or register your Accounting Firm</b>"
-msgstr "<b class=\"tip_title\">Совет: Найдите бухгалтера или зарегистрируйте свою бухгалтерскую фирму</b>"
+msgid ""
+"<b class=\"tip_title\">Tip: Find an Accountant or register your Accounting "
+"Firm</b>"
+msgstr ""
+"<b class=\"tip_title\">Совет: Найдите бухгалтера или зарегистрируйте свою "
+"бухгалтерскую фирму</b>"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
-msgid "<br>See how to manage your customer invoices in the <b>Customers/Invoices</b> menu"
-msgstr "<br>Посмотрите, как управлять счетами клиентов в меню \" <b>Клиенты/Счета\"</b> "
+msgid ""
+"<br>See how to manage your customer invoices in the "
+"<b>Customers/Invoices</b> menu"
+msgstr ""
+"<br>Посмотрите, как управлять счетами клиентов в меню \" "
+"<b>Клиенты/Счета\"</b> "
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_reconcile_model_form_inherit_account_accountant
@@ -90,14 +118,18 @@ msgstr "<span class=\"tip_button_text\">Найти бухгалтера</span>"
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
 msgid "<span class=\"tip_button_text\">Register your Accounting Firm</span>"
-msgstr "<span class=\"tip_button_text\">Зарегистрируйте свою бухгалтерскую фирму</span>"
+msgstr ""
+"<span class=\"tip_button_text\">Зарегистрируйте свою бухгалтерскую "
+"фирму</span>"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
-msgid "<strong><b>Good job!</b> You went through all steps of this tour.</strong>"
-msgstr "<strong><b>Отличная работа!</b> Вы прошли все этапы этого тура.</strong>"
+msgid ""
+"<strong><b>Good job!</b> You went through all steps of this tour.</strong>"
+msgstr ""
+"<strong><b>Отличная работа!</b> Вы прошли все этапы этого тура.</strong>"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -189,8 +221,12 @@ msgstr "Добавить новый тег"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
-msgid "After the data extraction, check and validate the bill. If no vendor has been found, add one before validating."
-msgstr "После извлечения данных проверьте и подтвердите счет. Если поставщик не найден, добавьте его перед проверкой."
+msgid ""
+"After the data extraction, check and validate the bill. If no vendor has "
+"been found, add one before validating."
+msgstr ""
+"После извлечения данных проверьте и подтвердите счет. Если поставщик не "
+"найден, добавьте его перед проверкой."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -255,7 +291,8 @@ msgstr "Сумма в валюте компании"
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
-msgid "An entry will transfer %(amount)s from %(from_account)s to %(to_account)s."
+msgid ""
+"An entry will transfer %(amount)s from %(from_account)s to %(to_account)s."
 msgstr "Запись переводит %(amount)s из %(from_account)s в %(to_account)s."
 
 #. module: account_accountant
@@ -292,6 +329,7 @@ msgstr "Вы уверены, что хотите удалить это заяв�
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/components/move_line_list_reconcile/move_line_list_reconcile.xml:0
 #: code:addons/account_accountant/static/src/components/move_line_list_reconcile/move_line_list_reconcile.xml:0
 #, python-format
 msgid "Auto-reconcile"
@@ -390,7 +428,8 @@ msgstr "Изменить дату блокировки"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_reconcile_wizard__to_check
-msgid "Check if you are not certain of all the information of the counterpart."
+msgid ""
+"Check if you are not certain of all the information of the counterpart."
 msgstr "Проверьте, если вы не уверены во всех данных контрагента."
 
 #. module: account_accountant
@@ -407,15 +446,21 @@ msgstr "Нажмите здесь, чтобы создать новый фина
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
-msgid "Click here to find an accountant or if you want to list out your accounting services on Odoo"
-msgstr "Нажмите здесь, чтобы найти бухгалтера или если вы хотите разместить список своих бухгалтерских услуг на Odoo"
+msgid ""
+"Click here to find an accountant or if you want to list out your accounting "
+"services on Odoo"
+msgstr ""
+"Нажмите здесь, чтобы найти бухгалтера или если вы хотите разместить список "
+"своих бухгалтерских услуг на Odoo"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
-msgid "Click on a fetched bank transaction to start the reconciliation process."
-msgstr "Нажмите на найденную банковскую операцию, чтобы начать процесс сверки."
+msgid ""
+"Click on a fetched bank transaction to start the reconciliation process."
+msgstr ""
+"Нажмите на найденную банковскую операцию, чтобы начать процесс сверки."
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_res_company
@@ -488,8 +533,12 @@ msgstr "Создать модель"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
-msgid "Create your first vendor bill.<br/><br/><i>Tip: If you don’t have one on hand, use our sample bill.</i>"
-msgstr "Создайте свой первый счет от поставщика.<br/><br/> Совет<i>: если у вас нет под рукой такого счета, воспользуйтесь нашим образцом</i>."
+msgid ""
+"Create your first vendor bill.<br/><br/><i>Tip: If you don’t have one on "
+"hand, use our sample bill.</i>"
+msgstr ""
+"Создайте свой первый счет от поставщика.<br/><br/> Совет<i>: если у вас нет "
+"под рукой такого счета, воспользуйтесь нашим образцом</i>."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__create_uid
@@ -701,7 +750,8 @@ msgstr "Отображение строптивого баланса"
 #: code:addons/account_accountant/models/digest.py:0
 #, python-format
 msgid "Do not have access, skip this data for user's digest email"
-msgstr "Нет доступа. Пропустите эти данные для резюме электронной почты пользователя"
+msgstr ""
+"Нет доступа. Пропустите эти данные для резюме электронной почты пользователя"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -729,8 +779,16 @@ msgstr "Равно в месяц"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_company__invoicing_switch_threshold
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__invoicing_switch_threshold
-msgid "Every payment and invoice before this date will receive the 'From Invoicing' status, hiding all the accounting entries related to it. Use this option after installing Accounting if you were using only Invoicing before, before importing all your actual accounting data in to Odoo."
-msgstr "Каждый платеж и счет до этой даты получит статус 'From Invoicing', скрывая все бухгалтерские проводки, связанные с ним. Используйте эту опцию после установки Бухгалтерии, если до этого вы использовали только Счета-фактуры, перед импортом всех ваших фактических бухгалтерских данных в Odoo."
+msgid ""
+"Every payment and invoice before this date will receive the 'From Invoicing'"
+" status, hiding all the accounting entries related to it. Use this option "
+"after installing Accounting if you were using only Invoicing before, before "
+"importing all your actual accounting data in to Odoo."
+msgstr ""
+"Каждый платеж и счет до этой даты получит статус 'From Invoicing', скрывая "
+"все бухгалтерские проводки, связанные с ним. Используйте эту опцию после "
+"установки Бухгалтерии, если до этого вы использовали только Счета-фактуры, "
+"перед импортом всех ваших фактических бухгалтерских данных в Odoo."
 
 #. module: account_accountant
 #. odoo-python
@@ -806,8 +864,16 @@ msgstr "Со счетов дебиторской задолженности"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_0
-msgid "From any list view, select multiple records and the list becomes editable. If you update a cell, selected records are updated all at once. Use this feature to update multiple journal entries from the General Ledger, or any Journal view."
-msgstr "В любом представлении списка выберите несколько записей, и список станет доступным для редактирования. При обновлении ячейки выбранные записи обновляются все сразу. Используйте эту функцию для обновления нескольких записей журнала из Главной книги или любого представления журнала."
+msgid ""
+"From any list view, select multiple records and the list becomes editable. "
+"If you update a cell, selected records are updated all at once. Use this "
+"feature to update multiple journal entries from the General Ledger, or any "
+"Journal view."
+msgstr ""
+"В любом представлении списка выберите несколько записей, и список станет "
+"доступным для редактирования. При обновлении ячейки выбранные записи "
+"обновляются все сразу. Используйте эту функцию для обновления нескольких "
+"записей журнала из Главной книги или любого представления журнала."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
@@ -834,6 +900,8 @@ msgstr "Генерировать проводки по выручке"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
 msgid "Go to invoicing"
 msgstr "Перейти к выставлению счетов"
@@ -842,8 +910,12 @@ msgstr "Перейти к выставлению счетов"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
-msgid "Great! Let’s continue.<br/><br/><i>Tip: If you choose to upload your bill, don’t forget to attach it.</i>"
-msgstr "Отлично! Давайте продолжим.<br/><br/> Совет<i>: Если вы решили загрузить счет, не забудьте прикрепить его</i>."
+msgid ""
+"Great! Let’s continue.<br/><br/><i>Tip: If you choose to upload your bill, "
+"don’t forget to attach it.</i>"
+msgstr ""
+"Отлично! Давайте продолжим.<br/><br/> Совет<i>: Если вы решили загрузить "
+"счет, не забудьте прикрепить его</i>."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -872,8 +944,14 @@ msgstr "ID"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_bank_rec_widget__st_line_to_check
-msgid "If this checkbox is ticked, it means that the user was not sure of all the related information at the time of the creation of the move and that the move needs to be checked again."
-msgstr "Если этот флажок отмечен, это означает, что пользователь не был уверен во всей сопутствующей информации во время создания перемещения и что перемещение необходимо проверить еще раз."
+msgid ""
+"If this checkbox is ticked, it means that the user was not sure of all the "
+"related information at the time of the creation of the move and that the "
+"move needs to be checked again."
+msgstr ""
+"Если этот флажок отмечен, это означает, что пользователь не был уверен во "
+"всей сопутствующей информации во время создания перемещения и что "
+"перемещение необходимо проверить еще раз."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_search_bank_rec_widget
@@ -884,8 +962,12 @@ msgstr "Входящий"
 #. odoo-python
 #: code:addons/account_accountant/models/res_config_settings.py:0
 #, python-format
-msgid "Incorrect fiscal year date: day is out of range for month. Month: %s; Day: %s"
-msgstr "Неправильная дата финансового года: день выходит за пределы диапазона для месяца. Месяц: %s; День: %s"
+msgid ""
+"Incorrect fiscal year date: day is out of range for month. Month: %s; Day: "
+"%s"
+msgstr ""
+"Неправильная дата финансового года: день выходит за пределы диапазона для "
+"месяца. Месяц: %s; День: %s"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__index
@@ -1059,7 +1141,9 @@ msgstr "Запустить"
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
 msgid "Let’s automate your bills, bank transactions and accounting processes."
-msgstr "Давайте автоматизируем ваши счета, банковские операции и бухгалтерские процессы."
+msgstr ""
+"Давайте автоматизируем ваши счета, банковские операции и бухгалтерские "
+"процессы."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1079,8 +1163,13 @@ msgstr "Давайте посмотрим, как выглядит счет в �
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
-msgid "Let’s use AI to fill in the form<br/><br/><i>Tip: If the OCR is not done yet, wait a few more seconds and try again.</i>"
-msgstr "Давайте воспользуемся искусственным интеллектом для заполнения формы<br/><br/> Совет<i>: если OCR еще не завершен, подождите еще несколько секунд и попробуйте снова</i>."
+msgid ""
+"Let’s use AI to fill in the form<br/><br/><i>Tip: If the OCR is not done "
+"yet, wait a few more seconds and try again.</i>"
+msgstr ""
+"Давайте воспользуемся искусственным интеллектом для заполнения "
+"формы<br/><br/> Совет<i>: если OCR еще не завершен, подождите еще несколько "
+"секунд и попробуйте снова</i>."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__line_ids
@@ -1244,13 +1333,22 @@ msgstr "Транзакции, соответствующие вашим филь
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__tax_lock_date
-msgid "No users can edit journal entries related to a tax prior and inclusive of this date."
-msgstr "Ни один пользователь не может редактировать записи журнала, относящиеся к налогу до этой даты и включительно."
+msgid ""
+"No users can edit journal entries related to a tax prior and inclusive of "
+"this date."
+msgstr ""
+"Ни один пользователь не может редактировать записи журнала, относящиеся к "
+"налогу до этой даты и включительно."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__fiscalyear_lock_date
-msgid "No users, including Advisers, can edit accounts prior to and inclusive of this date. Use it for fiscal year locking for example."
-msgstr "Никакие пользователи, включая Консультантов, не могут отредактировать счета до и включительно этой даты. Используйте его, например, для закрытия финансового года."
+msgid ""
+"No users, including Advisers, can edit accounts prior to and inclusive of "
+"this date. Use it for fiscal year locking for example."
+msgstr ""
+"Никакие пользователи, включая Консультантов, не могут отредактировать счета "
+"до и включительно этой даты. Используйте его, например, для закрытия "
+"финансового года."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
@@ -1259,6 +1357,7 @@ msgstr "Не совпадает"
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
@@ -1292,8 +1391,14 @@ msgstr "Только администраторы биллинга могут и
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__period_lock_date
-msgid "Only users with the 'Adviser' role can edit accounts prior to and inclusive of this date. Use it for period locking inside an open fiscal year, for example."
-msgstr "Только пользователи с ролью 'Консультант', могут отредактировать счета до и включительно этой даты. Используйте его, например,  для блокировки периода внутри открытого финансового года."
+msgid ""
+"Only users with the 'Adviser' role can edit accounts prior to and inclusive "
+"of this date. Use it for period locking inside an open fiscal year, for "
+"example."
+msgstr ""
+"Только пользователи с ролью 'Консультант', могут отредактировать счета до и "
+"включительно этой даты. Используйте его, например,  для блокировки периода "
+"внутри открытого финансового года."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
@@ -1440,7 +1545,9 @@ msgstr "Пожалуйста, установите отложенные счет
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Please set the deferred journal in the accounting settings."
-msgstr "Пожалуйста, установите журнал отложенных операций в настройках бухгалтерского учета."
+msgstr ""
+"Пожалуйста, установите журнал отложенных операций в настройках "
+"бухгалтерского учета."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1460,23 +1567,43 @@ msgstr "Прогнозирование счета поставщика"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_reconcile_model
-msgid "Preset to create journal entries during a invoices and payments matching"
-msgstr "Предустановка для создания записей в журнале при сопоставлении счетов и платежей"
+msgid ""
+"Preset to create journal entries during a invoices and payments matching"
+msgstr ""
+"Предустановка для создания записей в журнале при сопоставлении счетов и "
+"платежей"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
-msgid "Prevents Journal Entry creation or modification up to the defined date inclusive for all users. As a closed period, all accounting operations are prohibited."
-msgstr "Запрещает создание или изменение записей журнала до заданной даты включительно для всех пользователей. В качестве закрытого периода все учетные операции запрещены."
+msgid ""
+"Prevents Journal Entry creation or modification up to the defined date "
+"inclusive for all users. As a closed period, all accounting operations are "
+"prohibited."
+msgstr ""
+"Запрещает создание или изменение записей журнала до заданной даты "
+"включительно для всех пользователей. В качестве закрытого периода все "
+"учетные операции запрещены."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__period_lock_date
-msgid "Prevents Journal entries creation up to the defined date inclusive. Except for Accountant users."
-msgstr "Предотвращает создание записей в журнале до заданной даты включительно. За исключением пользователей \"Бухгалтер\"."
+msgid ""
+"Prevents Journal entries creation up to the defined date inclusive. Except "
+"for Accountant users."
+msgstr ""
+"Предотвращает создание записей в журнале до заданной даты включительно. За "
+"исключением пользователей \"Бухгалтер\"."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
-msgid "Prevents Tax Returns modification up to the defined date inclusive (Journal Entries involving taxes). The Tax Return Lock Date is automatically set when the corresponding Journal Entry is posted."
-msgstr "Предотвращает модификацию налоговых деклараций до определенной даты включительно (журнальные проводки, связанные с налогами). Дата блокировки налоговой декларации автоматически устанавливается при публикации соответствующей журнальной записи."
+msgid ""
+"Prevents Tax Returns modification up to the defined date inclusive (Journal "
+"Entries involving taxes). The Tax Return Lock Date is automatically set when"
+" the corresponding Journal Entry is posted."
+msgstr ""
+"Предотвращает модификацию налоговых деклараций до определенной даты "
+"включительно (журнальные проводки, связанные с налогами). Дата блокировки "
+"налоговой декларации автоматически устанавливается при публикации "
+"соответствующей журнальной записи."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_form_with_buttons
@@ -1768,8 +1895,12 @@ msgstr "Это в среднем"
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
-msgid "The date you set violates the lock date of one of your entry. It will be overriden by the following date : %(replacement_date)s"
-msgstr "Установленная вами дата нарушает дату блокировки одной из ваших записей. Она будет отменена следующей датой : %(replacement_date)s"
+msgid ""
+"The date you set violates the lock date of one of your entry. It will be "
+"overriden by the following date : %(replacement_date)s"
+msgstr ""
+"Установленная вами дата нарушает дату блокировки одной из ваших записей. Она"
+" будет отменена следующей датой : %(replacement_date)s"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_move_ids
@@ -1789,39 +1920,61 @@ msgstr "Дата окончания не должна быть раньше да
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget_line.py:0
 #, python-format
-msgid "The invoice %(display_name_html)s with an open amount of %(open_amount)s will be entirely paid by the transaction."
-msgstr "Счет %(display_name_html)s с открытой суммой %(open_amount)s будет полностью оплачен транзакцией."
+msgid ""
+"The invoice %(display_name_html)s with an open amount of %(open_amount)s "
+"will be entirely paid by the transaction."
+msgstr ""
+"Счет %(display_name_html)s с открытой суммой %(open_amount)s будет полностью"
+" оплачен транзакцией."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget_line.py:0
 #, python-format
-msgid "The invoice %(display_name_html)s with an open amount of %(open_amount)s will be reduced by %(amount)s."
-msgstr "Счет %(display_name_html)s с открытой суммой %(open_amount)s будет уменьшен на %(amount)s."
+msgid ""
+"The invoice %(display_name_html)s with an open amount of %(open_amount)s "
+"will be reduced by %(amount)s."
+msgstr ""
+"Счет %(display_name_html)s с открытой суммой %(open_amount)s будет уменьшен "
+"на %(amount)s."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
-msgid "The invoices up to this date will not be taken into account as accounting entries"
-msgstr "Счета-фактуры, выставленные до этой даты, не будут учитываться в качестве бухгалтерских проводок"
+msgid ""
+"The invoices up to this date will not be taken into account as accounting "
+"entries"
+msgstr ""
+"Счета-фактуры, выставленные до этой даты, не будут учитываться в качестве "
+"бухгалтерских проводок"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "The original invoices that created the deferred entries"
-msgstr "Оригинальные счета-фактуры, на основании которых были сделаны отложенные записи"
+msgstr ""
+"Оригинальные счета-фактуры, на основании которых были сделаны отложенные "
+"записи"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
-msgid "The system will try to predict the product on vendor bill lines based on the label of the line"
-msgstr "Система попытается предсказать продукт в строках счета продавца, основываясь на метке строки"
+msgid ""
+"The system will try to predict the product on vendor bill lines based on the"
+" label of the line"
+msgstr ""
+"Система попытается предсказать продукт в строках счета продавца, основываясь"
+" на метке строки"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
-msgid "This bank transaction has been automatically validated using the reconciliation model '%s'."
-msgstr "Эта банковская операция была автоматически подтверждена с помощью модели сверки '%s'."
+msgid ""
+"This bank transaction has been automatically validated using the "
+"reconciliation model '%s'."
+msgstr ""
+"Эта банковская операция была автоматически подтверждена с помощью модели "
+"сверки '%s'."
 
 #. module: account_accountant
 #. odoo-python
@@ -1834,8 +1987,12 @@ msgstr "Это можно использовать только для стат�
 #. odoo-python
 #: code:addons/account_accountant/models/account_reconcile_model_line.py:0
 #, python-format
-msgid "This reconciliation model can't be used in the manual reconciliation widget because its configuration is not adapted"
-msgstr "Эта модель сверки не может быть использована в виджете ручной сверки, поскольку ее конфигурация не адаптирована"
+msgid ""
+"This reconciliation model can't be used in the manual reconciliation widget "
+"because its configuration is not adapted"
+msgstr ""
+"Эта модель сверки не может быть использована в виджете ручной сверки, "
+"поскольку ее конфигурация не адаптирована"
 
 #. module: account_accountant
 #: model:digest.tip,name:account_accountant.digest_tip_account_accountant_0
@@ -1845,7 +2002,8 @@ msgstr "Совет: Массовое обновление элементов ж�
 #. module: account_accountant
 #: model:digest.tip,name:account_accountant.digest_tip_account_accountant_1
 msgid "Tip: Find an Accountant or register your Accounting Firm"
-msgstr "Совет: Найдите бухгалтера или зарегистрируйте свою бухгалтерскую фирму"
+msgstr ""
+"Совет: Найдите бухгалтера или зарегистрируйте свою бухгалтерскую фирму"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__to_date
@@ -1854,6 +2012,7 @@ msgstr "Кому"
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__to_check
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_to_check
@@ -1959,6 +2118,7 @@ msgstr "Действительный"
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
 #, python-format
 msgid "Validate"
@@ -2008,8 +2168,12 @@ msgstr "Запись о списании"
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
-msgid "You can not have an overlap between two fiscal years, please correct the start and/or end dates of your fiscal years."
-msgstr "Вы не можете перекрывать два финансовых года, пожалуйста, исправьте даты начала и/или окончания ваших финансовых лет."
+msgid ""
+"You can not have an overlap between two fiscal years, please correct the "
+"start and/or end dates of your fiscal years."
+msgstr ""
+"Вы не можете перекрывать два финансовых года, пожалуйста, исправьте даты "
+"начала и/или окончания ваших финансовых лет."
 
 #. module: account_accountant
 #. odoo-python
@@ -2022,36 +2186,51 @@ msgstr "Вы можете выровнять записи только с дву
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
-msgid "You cannot change the account for a deferred line in %(move_name)s if it has already been deferred."
-msgstr "Вы не можете изменить счет для отложенной строки в %(move_name)s, если она уже была отложена."
+msgid ""
+"You cannot change the account for a deferred line in %(move_name)s if it has"
+" already been deferred."
+msgstr ""
+"Вы не можете изменить счет для отложенной строки в %(move_name)s, если она "
+"уже была отложена."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "You cannot create a deferred entry with a start date but no end date."
-msgstr "Вы не можете создать отложенную запись с начальной датой, но без конечной даты."
+msgstr ""
+"Вы не можете создать отложенную запись с начальной датой, но без конечной "
+"даты."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
-msgid "You cannot create a deferred entry with a start date later than the end date."
-msgstr "Вы не можете создать отложенную запись с датой начала позже даты окончания."
+msgid ""
+"You cannot create a deferred entry with a start date later than the end "
+"date."
+msgstr ""
+"Вы не можете создать отложенную запись с датой начала позже даты окончания."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
-msgid "You cannot generate deferred entries for a miscellaneous journal entry."
-msgstr "Вы не можете создавать отложенные записи для разных записей в журнале."
+msgid ""
+"You cannot generate deferred entries for a miscellaneous journal entry."
+msgstr ""
+"Вы не можете создавать отложенные записи для разных записей в журнале."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
-msgid "You cannot reset to draft an invoice that is grouped in deferral entry. You can create a credit note instead."
-msgstr "Вы не можете сбросить в черновик счет-фактуру, сгруппированную в отложенной записи. Вместо этого можно создать кредитную ноту."
+msgid ""
+"You cannot reset to draft an invoice that is grouped in deferral entry. You "
+"can create a credit note instead."
+msgstr ""
+"Вы не можете сбросить в черновик счет-фактуру, сгруппированную в отложенной "
+"записи. Вместо этого можно создать кредитную ноту."
 
 #. module: account_accountant
 #. odoo-python
@@ -2064,29 +2243,39 @@ msgstr "Вы не можете установить дату блокировк�
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget_line.py:0
 #, python-format
-msgid "You might want to %(btn_start)sfully reconcile%(btn_end)s the document."
-msgstr "Возможно, вы захотите %(btn_start)sполностью сверить%(btn_end)s документ."
+msgid ""
+"You might want to %(btn_start)sfully reconcile%(btn_end)s the document."
+msgstr ""
+"Возможно, вы захотите %(btn_start)sполностью сверить%(btn_end)s документ."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget_line.py:0
 #, python-format
-msgid "You might want to make a %(btn_start)spartial reconciliation%(btn_end)s instead."
-msgstr "Возможно, вместо этого вы захотите сделать %(btn_start)sчастичное примирение%(btn_end)s."
+msgid ""
+"You might want to make a %(btn_start)spartial reconciliation%(btn_end)s "
+"instead."
+msgstr ""
+"Возможно, вместо этого вы захотите сделать %(btn_start)sчастичное "
+"примирение%(btn_end)s."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget_line.py:0
 #, python-format
 msgid "You might want to record a %(btn_start)spartial payment%(btn_end)s."
-msgstr "Возможно, вы захотите записать %(btn_start)sчастичную оплату%(btn_end)s."
+msgstr ""
+"Возможно, вы захотите записать %(btn_start)sчастичную оплату%(btn_end)s."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget_line.py:0
 #, python-format
-msgid "You might want to set the invoice as %(btn_start)sfully paid%(btn_end)s."
-msgstr "Возможно, вы захотите установить счет-фактуру как %(btn_start)sполностью оплаченный%(btn_end)s."
+msgid ""
+"You might want to set the invoice as %(btn_start)sfully paid%(btn_end)s."
+msgstr ""
+"Возможно, вы захотите установить счет-фактуру как %(btn_start)sполностью "
+"оплаченный%(btn_end)s."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2122,6 +2311,7 @@ msgstr "exchange_diff"
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "in"

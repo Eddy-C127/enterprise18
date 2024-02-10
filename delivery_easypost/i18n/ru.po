@@ -1,20 +1,26 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* delivery_easypost
-#
+# 
 # Translators:
+# Alena Vlasova, 2023
+# Evgeniia Kotova, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: delivery_easypost
@@ -130,8 +136,12 @@ msgstr "Отображаемое имя"
 
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
-msgid "Do not forget to load your Easypost carrier accounts for a valid configuration."
-msgstr "Не забудьте загрузить учетные записи перевозчика Easypost для правильной конфигурации."
+msgid ""
+"Do not forget to load your Easypost carrier accounts for a valid "
+"configuration."
+msgstr ""
+"Не забудьте загрузить учетные записи перевозчика Easypost для правильной "
+"конфигурации."
 
 #. module: delivery_easypost
 #: model:ir.model.fields.selection,name:delivery_easypost.selection__delivery_carrier__easypost_label_file_type__epl2
@@ -228,7 +238,9 @@ msgstr "ID"
 #. module: delivery_easypost
 #: model:ir.model.fields,help:delivery_easypost.field_delivery_carrier__easypost_default_service_id
 msgid "If not set, the less expensive available service level will be chosen."
-msgstr "Если значение не установлено, будет выбран менее дорогой доступный уровень обслуживания."
+msgstr ""
+"Если значение не установлено, будет выбран менее дорогой доступный уровень "
+"обслуживания."
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__easypost_insurance_fee_minimum
@@ -244,8 +256,12 @@ msgstr "Ставка страхового взноса (USD)"
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
 #, python-format
-msgid "It seems Easypost do not provide shipments for this order.                We advise you to try with another package type or service level."
-msgstr "Похоже, Easypost не обеспечивает доставку этого заказа.                Мы советуем вам попробовать другой тип посылки или уровень обслуживания."
+msgid ""
+"It seems Easypost do not provide shipments for this order.                We"
+" advise you to try with another package type or service level."
+msgstr ""
+"Похоже, Easypost не обеспечивает доставку этого заказа.                Мы "
+"советуем вам попробовать другой тип посылки или уровень обслуживания."
 
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
@@ -293,6 +309,7 @@ msgstr "Тип пакета, используемый в упаковке %s, н
 
 #. module: delivery_easypost
 #. odoo-python
+#: code:addons/delivery_easypost/models/easypost_request.py:0
 #: code:addons/delivery_easypost/models/easypost_request.py:0
 #, python-format
 msgid "Please provide at least one item to ship."
@@ -342,7 +359,8 @@ msgstr "Название уровня обслуживания"
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
 #, python-format
 msgid "Shipment created into Easypost<br/><b>Tracking Numbers:</b> %s<br/>"
-msgstr "Отправление создано в Easypost<br/><b>Номера отслеживания</b>: %s<br/>"
+msgstr ""
+"Отправление создано в Easypost<br/><b>Номера отслеживания</b>: %s<br/>"
 
 #. module: delivery_easypost
 #: model:ir.model,name:delivery_easypost.model_delivery_carrier
@@ -412,8 +430,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
 #, python-format
-msgid "The estimated price cannot be computed because the weight of your product is missing."
-msgstr "Оценочная цена не может быть рассчитана, поскольку отсутствует вес вашего товара."
+msgid ""
+"The estimated price cannot be computed because the weight of your product is"
+" missing."
+msgstr ""
+"Оценочная цена не может быть рассчитана, поскольку отсутствует вес вашего "
+"товара."
 
 #. module: delivery_easypost
 #. odoo-python
@@ -430,8 +452,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
 #, python-format
-msgid "There is no rate available for the selected service level for one of your package. Please choose another service level."
-msgstr "Для выбранного уровня обслуживания нет тарифа для одного из ваших пакетов. Пожалуйста, выберите другой уровень обслуживания."
+msgid ""
+"There is no rate available for the selected service level for one of your "
+"package. Please choose another service level."
+msgstr ""
+"Для выбранного уровня обслуживания нет тарифа для одного из ваших пакетов. "
+"Пожалуйста, выберите другой уровень обслуживания."
 
 #. module: delivery_easypost
 #: model:ir.model,name:delivery_easypost.model_stock_picking
@@ -470,8 +496,13 @@ msgstr "Вы не можете отменить доставку Easypost."
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
 #, python-format
-msgid "You have no carrier linked to your Easypost Account.                Please connect to Easypost, link your account to carriers and then retry."
-msgstr "К вашему аккаунту Easypost не привязан перевозчик.                Пожалуйста, подключитесь к Easypost, свяжите ваш аккаунт с перевозчиками, а затем повторите попытку."
+msgid ""
+"You have no carrier linked to your Easypost Account.                Please "
+"connect to Easypost, link your account to carriers and then retry."
+msgstr ""
+"К вашему аккаунту Easypost не привязан перевозчик.                "
+"Пожалуйста, подключитесь к Easypost, свяжите ваш аккаунт с перевозчиками, а "
+"затем повторите попытку."
 
 #. module: delivery_easypost
 #: model:ir.model.fields.selection,name:delivery_easypost.selection__delivery_carrier__easypost_label_file_type__zpl

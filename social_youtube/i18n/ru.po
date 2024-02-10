@@ -1,26 +1,38 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* social_youtube
-#
+# 
 # Translators:
+# Alena Vlasova, 2023
+# Viola Green <violamakarova@hotmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:47+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_account__youtube_upload_playlist_id
-msgid "'Uploads' Playlist ID provided by the YouTube API, this should never be set manually."
-msgstr "'Uploads' Идентификатор плейлиста, предоставляемый API YouTube, его никогда не следует устанавливать вручную."
+msgid ""
+"'Uploads' Playlist ID provided by the YouTube API, this should never be set "
+"manually."
+msgstr ""
+"'Uploads' Идентификатор плейлиста, предоставляемый API YouTube, его никогда "
+"не следует устанавливать вручную."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.youtube_preview
@@ -53,8 +65,11 @@ msgstr "Доступ к вашей учетной записи может быт
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_account__youtube_access_token
-msgid "Access token provided by the YouTube API, this should never be set manually."
-msgstr "Токен доступа, предоставляемый API YouTube; его никогда не следует устанавливать вручную."
+msgid ""
+"Access token provided by the YouTube API, this should never be set manually."
+msgstr ""
+"Токен доступа, предоставляемый API YouTube; его никогда не следует "
+"устанавливать вручную."
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__account_id
@@ -74,7 +89,9 @@ msgstr "Произошла ошибка."
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "Auth endpoint did not provide a refresh token. Please try again."
-msgstr "Конечная точка Auth не предоставила маркер обновления. Пожалуйста, попробуйте еще раз."
+msgstr ""
+"Конечная точка Auth не предоставила маркер обновления. Пожалуйста, "
+"попробуйте еще раз."
 
 #. module: social_youtube
 #. odoo-javascript
@@ -97,6 +114,7 @@ msgstr "Канал"
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/xml/social_youtube_templates.xml:0
+#: code:addons/social_youtube/static/src/xml/social_youtube_templates.xml:0
 #, python-format
 msgid "Clear"
 msgstr "Очистить"
@@ -113,8 +131,12 @@ msgstr "Комментарии"
 #. odoo-python
 #: code:addons/social_youtube/models/social_stream_post.py:0
 #, python-format
-msgid "Comments are marked as 'disabled' for this video. It could have been set as 'private'."
-msgstr "Комментарии отмечены как \"отключенные\" для этого видео. Возможно, он был установлен как \"частный\"."
+msgid ""
+"Comments are marked as 'disabled' for this video. It could have been set as "
+"'private'."
+msgstr ""
+"Комментарии отмечены как \"отключенные\" для этого видео. Возможно, он был "
+"установлен как \"частный\"."
 
 #. module: social_youtube
 #: model:ir.model,name:social_youtube.model_res_config_settings
@@ -181,8 +203,12 @@ msgstr "Черновое видео"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_account__youtube_token_expiration_date
-msgid "Expiration date of the Access Token provided by the YouTube API, this should never be set manually."
-msgstr "Дата истечения срока действия токена доступа, предоставляемого API YouTube; этот срок никогда не следует устанавливать вручную."
+msgid ""
+"Expiration date of the Access Token provided by the YouTube API, this should"
+" never be set manually."
+msgstr ""
+"Дата истечения срока действия токена доступа, предоставляемого API YouTube; "
+"этот срок никогда не следует устанавливать вручную."
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_access_token
@@ -255,7 +281,9 @@ msgstr ""
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_post__youtube_video_privacy
 msgid "Once posted, set the video as Public/Private/Unlisted"
-msgstr "После размещения установите видео в качестве общедоступного/частного/вне списка"
+msgstr ""
+"После размещения установите видео в качестве общедоступного/частного/вне "
+"списка"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -307,8 +335,12 @@ msgstr "Причина:"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_account__youtube_refresh_token
-msgid "Refresh token provided by the YouTube API, this should never be set manually."
-msgstr "Токен обновления, предоставляемый API YouTube; его никогда не следует устанавливать вручную."
+msgid ""
+"Refresh token provided by the YouTube API, this should never be set "
+"manually."
+msgstr ""
+"Токен обновления, предоставляемый API YouTube; его никогда не следует "
+"устанавливать вручную."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -339,7 +371,9 @@ msgstr "Отозвать аккаунт на YouTube"
 #: code:addons/social_youtube/models/social_account.py:0
 #, python-format
 msgid "Revoking access tokens is currently limited to YouTube accounts only."
-msgstr "В настоящее время отмена маркеров доступа распространяется только на аккаунты YouTube."
+msgstr ""
+"В настоящее время отмена маркеров доступа распространяется только на "
+"аккаунты YouTube."
 
 #. module: social_youtube
 #. odoo-javascript
@@ -360,8 +394,12 @@ msgstr "Избранные аккаунты YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_post__youtube_video
-msgid "Simply holds the filename of the video as the video itself is uploaded directly to YouTube"
-msgstr "Просто хранит имя файла видео, поскольку само видео загружается непосредственно на YouTube"
+msgid ""
+"Simply holds the filename of the video as the video itself is uploaded "
+"directly to YouTube"
+msgstr ""
+"Просто хранит имя файла видео, поскольку само видео загружается "
+"непосредственно на YouTube"
 
 #. module: social_youtube
 #: model:ir.model,name:social_youtube.model_social_account
@@ -416,8 +454,12 @@ msgstr "Выбранное видео превышает максимально 
 #. odoo-python
 #: code:addons/social_youtube/models/social_media.py:0
 #, python-format
-msgid "The url that this service requested returned an error. Please contact the author of the app."
-msgstr "Url, запрошенный этой службой, вернул ошибку. Пожалуйста, свяжитесь с автором приложения."
+msgid ""
+"The url that this service requested returned an error. Please contact the "
+"author of the app."
+msgstr ""
+"Url, запрошенный этой службой, вернул ошибку. Пожалуйста, свяжитесь с "
+"автором приложения."
 
 #. module: social_youtube
 #. odoo-python
@@ -435,8 +477,12 @@ msgstr "С этим аккаунтом на YouTube не связано ни о�
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
-msgid "To provide our application services, note that we store the following data from your YouTube account:"
-msgstr "Для предоставления услуг нашего приложения мы храним следующие данные из вашего аккаунта на YouTube:"
+msgid ""
+"To provide our application services, note that we store the following data "
+"from your YouTube account:"
+msgstr ""
+"Для предоставления услуг нашего приложения мы храним следующие данные из "
+"вашего аккаунта на YouTube:"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_token_expiration_date
@@ -497,8 +543,12 @@ msgstr "Используйте свой собственный аккаунт н
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_media__media_type
-msgid "Used to make comparisons when we need to restrict some features to a specific media ('facebook', 'twitter', ...)."
-msgstr "Используется для сравнения, когда нам нужно ограничить некоторые функции определенным медиа (\"facebook\", \"twitter\", ...)."
+msgid ""
+"Used to make comparisons when we need to restrict some features to a "
+"specific media ('facebook', 'twitter', ...)."
+msgstr ""
+"Используется для сравнения, когда нам нужно ограничить некоторые функции "
+"определенным медиа (\"facebook\", \"twitter\", ...)."
 
 #. module: social_youtube
 #. odoo-python
@@ -588,8 +638,12 @@ msgstr "Идентификатор канала YouTube"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_account__youtube_channel_id
-msgid "YouTube Channel ID provided by the YouTube API, this should never be set manually."
-msgstr "Идентификатор канала YouTube, предоставляемый API YouTube; его никогда не следует устанавливать вручную."
+msgid ""
+"YouTube Channel ID provided by the YouTube API, this should never be set "
+"manually."
+msgstr ""
+"Идентификатор канала YouTube, предоставляемый API YouTube; его никогда не "
+"следует устанавливать вручную."
 
 #. module: social_youtube
 #. odoo-javascript
@@ -711,7 +765,9 @@ msgstr "Просмотры на YouTube"
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "YouTube did not provide a valid access token or it may have expired."
-msgstr "YouTube не предоставил действительный маркер доступа, или срок его действия истек."
+msgstr ""
+"YouTube не предоставил действительный маркер доступа, или срок его действия "
+"истек."
 
 #. module: social_youtube
 #. odoo-python
@@ -734,13 +790,21 @@ msgstr "Вашему видео не хватает правильного на�
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
-msgid "Your videos metadata including title and view counts (but never the video itself)"
-msgstr "Метаданные вашего видео, включая название и количество просмотров (но не само видео)"
+msgid ""
+"Your videos metadata including title and view counts (but never the video "
+"itself)"
+msgstr ""
+"Метаданные вашего видео, включая название и количество просмотров (но не "
+"само видео)"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
-msgid "e.g. Engage your entire community with a single app! https://www.odoo.com/trial"
-msgstr "например, привлеките все свое сообщество с помощью одного приложения! https://www.odoo.com/trial"
+msgid ""
+"e.g. Engage your entire community with a single app! "
+"https://www.odoo.com/trial"
+msgstr ""
+"например, привлеките все свое сообщество с помощью одного приложения! "
+"https://www.odoo.com/trial"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form

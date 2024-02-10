@@ -1,20 +1,30 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* sale_amazon
-#
+# 
 # Translators:
+# Irina Fedulova <istartlin@gmail.com>, 2023
+# Андрей Гусев <gaussgss@gmail.com>, 2023
+# Alena Vlasova, 2023
+# Константин Коровин <korovin74@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Максим Дронь <dronmax@gmail.com>, 2023
+# Martin Trigaux, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: sale_amazon
@@ -438,15 +448,25 @@ msgstr "Amazon move: %s"
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
 #, python-format
-msgid "Amazon requires that a tracking reference is provided with each delivery. Since the current carrier doesn't automatically provide a tracking reference, you need to set one manually."
-msgstr "Amazon требует, чтобы при каждой доставке предоставлялась ссылка для отслеживания. Поскольку текущий перевозчик не предоставляет ссылку для отслеживания автоматически, вам необходимо задать ее вручную."
+msgid ""
+"Amazon requires that a tracking reference is provided with each delivery. "
+"Since the current carrier doesn't automatically provide a tracking "
+"reference, you need to set one manually."
+msgstr ""
+"Amazon требует, чтобы при каждой доставке предоставлялась ссылка для "
+"отслеживания. Поскольку текущий перевозчик не предоставляет ссылку для "
+"отслеживания автоматически, вам необходимо задать ее вручную."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
 #, python-format
-msgid "Amazon requires that a tracking reference is provided with each delivery. You need to assign a carrier to this delivery."
-msgstr "Amazon требует, чтобы при каждой доставке предоставлялась ссылка для отслеживания. Вам необходимо назначить перевозчика для этой доставки."
+msgid ""
+"Amazon requires that a tracking reference is provided with each delivery. "
+"You need to assign a carrier to this delivery."
+msgstr ""
+"Amazon требует, чтобы при каждой доставке предоставлялась ссылка для "
+"отслеживания. Вам необходимо назначить перевозчика для этой доставки."
 
 #. module: sale_amazon
 #: model:amazon.marketplace,name:sale_amazon.marketplace_AE
@@ -626,7 +646,7 @@ msgstr "Контакты"
 
 #. module: sale_amazon
 #. odoo-python
-#: code:addons/sale_amazon/utils.py:0
+#: code:addons/sale_amazon/utils.py:0 code:addons/sale_amazon/utils.py:0
 #, python-format
 msgid "Could not establish the connection to the API."
 msgstr "Не удалось установить соединение с API."
@@ -781,8 +801,11 @@ msgstr "ID"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__active
-msgid "If made inactive, this account will no longer be synchronized with Amazon."
-msgstr "Если сделать эту учетную запись неактивной, она больше не будет синхронизироваться с Amazon."
+msgid ""
+"If made inactive, this account will no longer be synchronized with Amazon."
+msgstr ""
+"Если сделать эту учетную запись неактивной, она больше не будет "
+"синхронизироваться с Amazon."
 
 #. module: sale_amazon
 #. odoo-python
@@ -797,13 +820,22 @@ msgstr ""
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_order_view_form
-msgid "If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver."
-msgstr "Если продажа закрытаа, вы не можете ее изменить. Однако, вы по-прежнему можете выставить счет или произвести доставку."
+msgid ""
+"If the sale is locked, you can not modify it anymore. However, you will "
+"still be able to invoice or deliver."
+msgstr ""
+"Если продажа закрытаа, вы не можете ее изменить. Однако, вы по-прежнему "
+"можете выставить счет или произвести доставку."
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
-msgid "If this account gained access to new marketplaces,                                         synchronize and add them to the current sync marketplaces"
-msgstr "Если эта учетная запись получила доступ к новым торговым площадкам, синхронизируйте и добавьте их к текущим торговым площадкам синхронизации"
+msgid ""
+"If this account gained access to new marketplaces,"
+"                                         synchronize and add them to the "
+"current sync marketplaces"
+msgstr ""
+"Если эта учетная запись получила доступ к новым торговым площадкам, "
+"синхронизируйте и добавьте их к текущим торговым площадкам синхронизации"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.picking_view_form
@@ -972,8 +1004,14 @@ msgstr "Вариант продукта"
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
 #, python-format
-msgid "Products delivered to Amazon customers must have their respective parts in the same package. Operations related to the product %s were not all confirmed at once."
-msgstr "Продукты, доставляемые клиентам Amazon, должны иметь соответствующие части в одной упаковке. Операции, связанные с товаром %s, были подтверждены не все сразу."
+msgid ""
+"Products delivered to Amazon customers must have their respective parts in "
+"the same package. Operations related to the product %s were not all "
+"confirmed at once."
+msgstr ""
+"Продукты, доставляемые клиентам Amazon, должны иметь соответствующие части в"
+" одной упаковке. Операции, связанные с товаром %s, были подтверждены не все "
+"сразу."
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.recover_order_wizard_form
@@ -1078,7 +1116,8 @@ msgstr "Расположение склада"
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "Successfully updated the marketplaces available to this account!"
-msgstr "Успешно обновлены торговые площадки, доступные для этой учетной записи!"
+msgstr ""
+"Успешно обновлены торговые площадки, доступные для этой учетной записи!"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1113,8 +1152,10 @@ msgstr "Синхронизация Amazon Stock не удалась"
 
 #. module: sale_amazon
 #: model:mail.template,subject:sale_amazon.order_sync_failure
-msgid "Synchronization of Amazon order {{ ctx.get('amazon_order_ref') }} has failed"
-msgstr "Синхронизация заказа Amazon {{ ctx.get('amazon_order_ref') }} не удалась"
+msgid ""
+"Synchronization of Amazon order {{ ctx.get('amazon_order_ref') }} has failed"
+msgstr ""
+"Синхронизация заказа Amazon {{ ctx.get('amazon_order_ref') }} не удалась"
 
 #. module: sale_amazon
 #: model:mail.template,subject:sale_amazon.picking_sync_failure
@@ -1152,13 +1193,23 @@ msgstr "Ссылка на заказ Amazon должна быть в форма�
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
-msgid "The Amazon order with reference %(ref)s was not recovered because its status (%(status)s) is not eligible for synchronization for its fulfillment channel (%(channel)s)."
-msgstr "Заказ Amazon со ссылкой %(ref)s не был восстановлен, потому что его статус (%(status)s) не подходит для синхронизации с его каналом выполнения (%(channel)s)."
+msgid ""
+"The Amazon order with reference %(ref)s was not recovered because its status"
+" (%(status)s) is not eligible for synchronization for its fulfillment "
+"channel (%(channel)s)."
+msgstr ""
+"Заказ Amazon со ссылкой %(ref)s не был восстановлен, потому что его статус "
+"(%(status)s) не подходит для синхронизации с его каналом выполнения "
+"(%(channel)s)."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_marketplace__region
-msgid "The Amazon region of the marketplace. Please refer to the Selling Partner API documentation to find the correct region."
-msgstr "Регион торговой площадки Amazon. Чтобы найти нужный регион, обратитесь к документации по API Selling Partner."
+msgid ""
+"The Amazon region of the marketplace. Please refer to the Selling Partner "
+"API documentation to find the correct region."
+msgstr ""
+"Регион торговой площадки Amazon. Чтобы найти нужный регион, обратитесь к "
+"документации по API Selling Partner."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_sale_order_line__amazon_item_ref
@@ -1187,7 +1238,7 @@ msgstr "Единица хранения запасов."
 
 #. module: sale_amazon
 #. odoo-python
-#: code:addons/sale_amazon/utils.py:0
+#: code:addons/sale_amazon/utils.py:0 code:addons/sale_amazon/utils.py:0
 #, python-format
 msgid "The communication with the API failed."
 msgstr "Не удалось установить связь с API."
@@ -1212,17 +1263,29 @@ msgstr "Зашифрованная электронная почта клиен�
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__base_marketplace_id
 msgid "The home marketplace of this account; used for authentication only."
-msgstr "Домашняя торговая площадка этой учетной записи; используется только для аутентификации."
+msgstr ""
+"Домашняя торговая площадка этой учетной записи; используется только для "
+"аутентификации."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__last_orders_sync
-msgid "The last synchronization date for orders placed on this account. Orders whose status has not changed since this date will not be created nor updated in Odoo."
-msgstr "Последняя дата синхронизации заказов, размещенных на этой учетной записи. Заказы, статус которых не изменился с этой даты, не будут созданы или обновлены в Odoo."
+msgid ""
+"The last synchronization date for orders placed on this account. Orders "
+"whose status has not changed since this date will not be created nor updated"
+" in Odoo."
+msgstr ""
+"Последняя дата синхронизации заказов, размещенных на этой учетной записи. "
+"Заказы, статус которых не изменился с этой даты, не будут созданы или "
+"обновлены в Odoo."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__location_id
-msgid "The location of the stock managed by Amazon under the Amazon Fulfillment program."
-msgstr "Местонахождение склада, управляемого компанией Amazon в рамках программы Amazon Fulfillment."
+msgid ""
+"The location of the stock managed by Amazon under the Amazon Fulfillment "
+"program."
+msgstr ""
+"Местонахождение склада, управляемого компанией Amazon в рамках программы "
+"Amazon Fulfillment."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__refresh_token
@@ -1264,8 +1327,14 @@ msgstr "Момент, когда токен становится недейст�
 #. odoo-python
 #: code:addons/sale_amazon/models/sale_order.py:0
 #, python-format
-msgid "The order has been canceled by the Amazon customer while someproducts have already been delivered. Please create a return for this order to adjust the stock."
-msgstr "Заказ был отменен покупателем Amazon, в то время как некоторые товары уже были доставлены. Пожалуйста, создайте возврат для этого заказа, чтобы скорректировать запасы."
+msgid ""
+"The order has been canceled by the Amazon customer while someproducts have "
+"already been delivered. Please create a return for this order to adjust the "
+"stock."
+msgstr ""
+"Заказ был отменен покупателем Amazon, в то время как некоторые товары уже "
+"были доставлены. Пожалуйста, создайте возврат для этого заказа, чтобы "
+"скорректировать запасы."
 
 #. module: sale_amazon
 #. odoo-python
@@ -1290,8 +1359,11 @@ msgstr "Ссылка на приказ Amazon о восстановлении, �
 #. odoo-python
 #: code:addons/sale_amazon/models/stock_picking.py:0
 #, python-format
-msgid "The sales order of this delivery order is not linked to an Amazon account."
-msgstr "Заказ на продажу этого заказа на доставку не связан с учетной записью Amazon."
+msgid ""
+"The sales order of this delivery order is not linked to an Amazon account."
+msgstr ""
+"Заказ на продажу этого заказа на доставку не связан с учетной записью "
+"Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__account_id
@@ -1301,27 +1373,43 @@ msgstr "Учетная запись продавца, используемая �
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__aws_access_key
 msgid "The short-lived key used to identify the assumed ARN role on AWS."
-msgstr "Недолговечный ключ, используемый для идентификации предполагаемой роли ARN в AWS."
+msgstr ""
+"Недолговечный ключ, используемый для идентификации предполагаемой роли ARN в"
+" AWS."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__aws_secret_key
-msgid "The short-lived key used to verify the access to the assumed ARN role on AWS."
-msgstr "Недолговечный ключ, используемый для проверки доступа к предполагаемой роли ARN на AWS."
+msgid ""
+"The short-lived key used to verify the access to the assumed ARN role on "
+"AWS."
+msgstr ""
+"Недолговечный ключ, используемый для проверки доступа к предполагаемой роли "
+"ARN на AWS."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__restricted_data_token
-msgid "The short-lived token used instead of the LWA Access Token to access restricted data"
-msgstr "Недолговечный токен, используемый вместо токена доступа LWA для доступа к данным ограниченного доступа"
+msgid ""
+"The short-lived token used instead of the LWA Access Token to access "
+"restricted data"
+msgstr ""
+"Недолговечный токен, используемый вместо токена доступа LWA для доступа к "
+"данным ограниченного доступа"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__access_token
 msgid "The short-lived token used to query Amazon API on behalf of a seller."
-msgstr "Недолговечный токен, используемый для запросов к Amazon API от имени продавца."
+msgstr ""
+"Недолговечный токен, используемый для запросов к Amazon API от имени "
+"продавца."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__aws_session_token
-msgid "The short-lived token used to query the SP-API with the assumed ARN role on AWS."
-msgstr "Недолговечный токен, используемый для запроса SP-API с предполагаемой ролью ARN на AWS."
+msgid ""
+"The short-lived token used to query the SP-API with the assumed ARN role on "
+"AWS."
+msgstr ""
+"Недолговечный токен, используемый для запроса SP-API с предполагаемой ролью "
+"ARN на AWS."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_stock_picking__amazon_sync_status
@@ -1355,8 +1443,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
-msgid "The synchronization with Amazon failed. Amazon gave us this information about the problem:"
-msgstr "Синхронизация с Amazon не удалась. Компания Amazon предоставила нам следующую информацию о проблеме:"
+msgid ""
+"The synchronization with Amazon failed. Amazon gave us this information "
+"about the problem:"
+msgstr ""
+"Синхронизация с Amazon не удалась. Компания Amazon предоставила нам "
+"следующую информацию о проблеме:"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__name
@@ -1366,22 +1458,35 @@ msgstr "Определенное пользователем имя учетно�
 #. module: sale_amazon
 #: model:ir.model.constraint,message:sale_amazon.constraint_amazon_marketplace_unique_api_ref
 msgid "There can only exist one marketplace for a given API Identifier."
-msgstr "Для данного идентификатора API может существовать только одна торговая площадка."
+msgstr ""
+"Для данного идентификатора API может существовать только одна торговая "
+"площадка."
 
 #. module: sale_amazon
 #: model:ir.model.constraint,message:sale_amazon.constraint_sale_order_unique_amazon_order_ref
-msgid "There can only exist one sale order for a given Amazon Order Reference."
-msgstr "Для данной ссылки заказа Amazon может существовать только один заказ на продажу."
+msgid ""
+"There can only exist one sale order for a given Amazon Order Reference."
+msgstr ""
+"Для данной ссылки заказа Amazon может существовать только один заказ на "
+"продажу."
 
 #. module: sale_amazon
 #: model:ir.model.constraint,message:sale_amazon.constraint_sale_order_line_unique_amazon_item_ref
-msgid "There can only exist one sale order line for a given Amazon Item Reference."
-msgstr "Для данной ссылки на товар Amazon может существовать только одна строка заказа на продажу."
+msgid ""
+"There can only exist one sale order line for a given Amazon Item Reference."
+msgstr ""
+"Для данной ссылки на товар Amazon может существовать только одна строка "
+"заказа на продажу."
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
-msgid "This action will disconnect your account with Amazon and                                          cannot be undone. Are you sure you want to proceed?"
-msgstr "Это действие приведет к отключению вашего аккаунта на Amazon и не может быть отменено. Вы уверены, что хотите продолжить?"
+msgid ""
+"This action will disconnect your account with Amazon and"
+"                                          cannot be undone. Are you sure you"
+" want to proceed?"
+msgstr ""
+"Это действие приведет к отключению вашего аккаунта на Amazon и не может быть"
+" отменено. Вы уверены, что хотите продолжить?"
 
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_stock_picking
@@ -1417,8 +1522,12 @@ msgstr "Предупреждение"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__synchronize_inventory
-msgid "Whether the available quantities of FBA products linked to this account are synchronized with Amazon."
-msgstr "Синхронизируется ли доступное количество продуктов FBA, связанных с этим аккаунтом, с Amazon."
+msgid ""
+"Whether the available quantities of FBA products linked to this account are "
+"synchronized with Amazon."
+msgstr ""
+"Синхронизируется ли доступное количество продуктов FBA, связанных с этим "
+"аккаунтом, с Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_marketplace__tax_included
@@ -1436,15 +1545,23 @@ msgstr "Сначала необходимо авторизовать учетн�
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
 #, python-format
-msgid "You first need to set the marketplaces to synchronize for the Amazon account %s."
-msgstr "Сначала вам нужно настроить площадки для синхронизации для учетной записи Amazon %s."
+msgid ""
+"You first need to set the marketplaces to synchronize for the Amazon account"
+" %s."
+msgstr ""
+"Сначала вам нужно настроить площадки для синхронизации для учетной записи "
+"Amazon %s."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
-msgid "You reached the maximum number of requests for this operation; please try again later."
-msgstr "Вы достигли максимального количества запросов для этой операции; пожалуйста, повторите попытку позже."
+msgid ""
+"You reached the maximum number of requests for this operation; please try "
+"again later."
+msgstr ""
+"Вы достигли максимального количества запросов для этой операции; пожалуйста,"
+" повторите попытку позже."
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form

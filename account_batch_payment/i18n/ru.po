@@ -1,20 +1,30 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* account_batch_payment
-#
+# 
 # Translators:
+# Андрей Гусев <gaussgss@gmail.com>, 2023
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Alena Vlasova, 2023
+# Martin Trigaux, 2023
+# Sergey Vilizhanin, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: account_batch_payment
@@ -49,13 +59,19 @@ msgstr "<span>Пакетная оплата</span>"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
-msgid "<strong invisible=\"not warning_line_ids\">The following warnings were also raised; they do not impeach validation</strong>"
-msgstr "<strong invisible=\"not warning_line_ids\">Также были высказаны следующие предостережения; они не являются основанием для признания валидности</strong>"
+msgid ""
+"<strong invisible=\"not warning_line_ids\">The following warnings were also "
+"raised; they do not impeach validation</strong>"
+msgstr ""
+"<strong invisible=\"not warning_line_ids\">Также были высказаны следующие "
+"предостережения; они не являются основанием для признания "
+"валидности</strong>"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
 msgid "<strong>Please first consider the following warnings</strong>"
-msgstr "<strong>Прежде всего, обратите внимание на следующие предупреждения</strong>"
+msgstr ""
+"<strong>Прежде всего, обратите внимание на следующие предупреждения</strong>"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -220,7 +236,9 @@ msgstr "Строка мастера отчетов об ошибках при п
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "Cannot validate an empty batch. Please add some payments to it first."
-msgstr "Невозможно подтвердить пустую партию. Пожалуйста, сначала добавьте в нее несколько платежей."
+msgstr ""
+"Невозможно подтвердить пустую партию. Пожалуйста, сначала добавьте в нее "
+"несколько платежей."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -411,7 +429,8 @@ msgstr "Значок, обозначающий исключение Дела."
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__message_has_error
@@ -745,8 +764,11 @@ msgstr "ВСЕГО"
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
-msgid "Target another recipient account or allow sending money to the current one."
-msgstr "Выберите другой счет получателя или разрешите отправлять деньги на текущий счет."
+msgid ""
+"Target another recipient account or allow sending money to the current one."
+msgstr ""
+"Выберите другой счет получателя или разрешите отправлять деньги на текущий "
+"счет."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -762,8 +784,10 @@ msgstr "Партия не может быть проверена"
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
-msgid "The batch must have the same payment method as the payments it contains."
-msgstr "Пакет должен иметь тот же метод оплаты, что и входящие в него платежи."
+msgid ""
+"The batch must have the same payment method as the payments it contains."
+msgstr ""
+"Пакет должен иметь тот же метод оплаты, что и входящие в него платежи."
 
 #. module: account_batch_payment
 #. odoo-python
@@ -774,15 +798,23 @@ msgstr "Пакет должен иметь тот же тип, что и сод�
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_error_wizard__batch_payment_id
-msgid "The batch payment generating the errors and warnings displayed in this wizard."
-msgstr "Пакетный платеж, генерирующий ошибки и предупреждения, отображаемые в этом мастере."
+msgid ""
+"The batch payment generating the errors and warnings displayed in this "
+"wizard."
+msgstr ""
+"Пакетный платеж, генерирующий ошибки и предупреждения, отображаемые в этом "
+"мастере."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
-msgid "The journal of the batch payment and of the payments it contains must be the same."
-msgstr "Журнал пакетного платежа и содержащихся в нем платежей должен быть одним и тем же."
+msgid ""
+"The journal of the batch payment and of the payments it contains must be the"
+" same."
+msgstr ""
+"Журнал пакетного платежа и содержащихся в нем платежей должен быть одним и "
+"тем же."
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__payment_method_id
@@ -796,8 +828,12 @@ msgstr "Всего"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_error_wizard__show_remove_options
-msgid "True if and only if the options to remove the payments causing the errors or warnings from the batch should be shown"
-msgstr "True тогда и только тогда, когда нужно показать опции удаления из пакета платежей, вызвавших ошибки или предупреждения"
+msgid ""
+"True if and only if the options to remove the payments causing the errors or"
+" warnings from the batch should be shown"
+msgstr ""
+"True тогда и только тогда, когда нужно показать опции удаления из пакета "
+"платежей, вызвавших ошибки или предупреждения"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__activity_exception_decoration
@@ -841,8 +877,12 @@ msgstr "История общений с сайта"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__file_generation_enabled
-msgid "Whether or not this batch payment should display the 'Generate File' button instead of 'Print' in form view."
-msgstr "Должна ли эта пакетная оплата отображать кнопку \"Создать файл\" вместо \"Печать\" в представлении формы."
+msgid ""
+"Whether or not this batch payment should display the 'Generate File' button "
+"instead of 'Print' in form view."
+msgstr ""
+"Должна ли эта пакетная оплата отображать кнопку \"Создать файл\" вместо "
+"\"Печать\" в представлении формы."
 
 #. module: account_batch_payment
 #. odoo-python

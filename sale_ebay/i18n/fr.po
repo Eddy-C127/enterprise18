@@ -3,16 +3,16 @@
 # 	* sale_ebay
 # 
 # Translators:
-# Wil Odoo, 2023
-# Jolien De Paepe, 2024
+# Jolien De Paepe, 2023
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jolien De Paepe, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -455,15 +455,6 @@ msgid "Mode and credentials"
 msgstr "Mode et identifiants"
 
 #. module: sale_ebay
-#: model:ir.model,name:sale_ebay.model_product_template
-msgid ""
-"Model adding the necessary fields to products to use with Pricer electronic "
-"tags"
-msgstr ""
-"Modèle ajoutant les champs nécessaires aux produits à utiliser avec des "
-"étiquettes électroniques de Pricer"
-
-#. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_category__name
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_item_condition__name
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_policy__name
@@ -534,6 +525,11 @@ msgstr "Identifiant de la politique"
 #: model:ir.model.fields,field_description:sale_ebay.field_product_template__ebay_private_listing
 msgid "Private Listing"
 msgstr "Annonce privée"
+
+#. module: sale_ebay
+#: model:ir.model,name:sale_ebay.model_product_template
+msgid "Product"
+msgstr "Produit"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form

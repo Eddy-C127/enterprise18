@@ -231,7 +231,7 @@ msgstr "タスクのドキュメント"
 msgid ""
 "The \"%s\" workspace is required by the Project application and cannot be "
 "deleted."
-msgstr " \"%s\" 作業区がプロジェクトアプリケーションで要求されているため、削除することはできません。"
+msgstr " \"%s\" ワークスペースがプロジェクトアプリケーションで要求されているため、削除することはできません。"
 
 #. module: documents_project
 #. odoo-python
@@ -240,7 +240,7 @@ msgstr " \"%s\" 作業区がプロジェクトアプリケーションで要求�
 msgid ""
 "The \"%s\" workspace should either be in the \"%s\" company like this "
 "project or be open to all companies."
-msgstr "\"%s\"作業区はこのプロジェクトのような\"%s\"会社内にあるか、または全ての会社に対してオープンである必要があります。"
+msgstr "\"%sワークスペース\"はこのプロジェクトのような\"%s\"会社内にあるか、または全ての会社に対してオープンである必要があります。"
 
 #. module: documents_project
 #. odoo-python
@@ -251,8 +251,8 @@ msgid ""
 "which it is linked. Please update the company of the \"%s\" project, or "
 "leave the company of this workspace empty."
 msgstr ""
-"この作業区はそれがリンクされている \"%s\" "
-"プロジェクトと同じ会社内にある必要があります。\"%s\"プロジェクトの会社を更新するか、この作業区の会社を空にして下さい。"
+"このワークスペースはそれがリンクされている \"%s\" "
+"プロジェクトと同じ会社内にある必要があります。\"%s\"プロジェクトの会社を更新するか、このワークスペースの会社を空にして下さい。"
 
 #. module: documents_project
 #. odoo-python
@@ -264,10 +264,10 @@ msgid ""
 "\n"
 "Please update the company of those projects, or leave the company of this workspace empty."
 msgstr ""
-"この作業区は、それがリンクされている以下のプロジェクトと同じ会社に残す必要があります:\n"
+"このワークスペースは、それがリンクされている以下のプロジェクトと同じ会社に残す必要があります:\n"
 "%s\n"
 "\n"
-"これらのプロジェクトの会社を更新するか、この作業区の会社を空にして下さい。"
+"これらのプロジェクトの会社を更新するか、このワークスペースの会社を空にして下さい。"
 
 #. module: documents_project
 #: model:documents.tag,name:documents_project.documents_project_status_to_validate
@@ -311,7 +311,8 @@ msgid ""
 "Workspace in which all of the documents of this project will be categorized."
 " All of the attachments of your tasks will be automatically added as "
 "documents in this workspace as well."
-msgstr "このプロジェクトの全てのドキュメントが分類される作業区。タスクの添付ファイルもすべて、この作業区のドキュメントとして自動的に追加されます。"
+msgstr ""
+"このプロジェクトの全てのドキュメントが分類されるワークスペース。タスクの添付ファイルもすべて、このワークスペースのドキュメントとして自動的に追加されます。"
 
 #. module: documents_project
 #. odoo-python
@@ -323,17 +324,17 @@ msgid ""
 "\n"
 "Please update the company of all projects so that they remain in the same company as their workspace, or leave the company of the \"%s\" workspace blank."
 msgstr ""
-"このプロジェクトの会社は変更できません。なぜなら、このプロジェクトの作業区は、\"%s\"会社のままの他の後続プロジェクトとリンクしているからです:%s\n"
+"このプロジェクトの会社は変更できません。なぜなら、このプロジェクトのワークスペースは、\"%s\"会社のままの他の後続プロジェクトとリンクしているからです:%s\n"
 "\n"
 "\n"
-"全てのプロジェクトの会社を更新して作業区と同じ会社にするか、\"%s\"作業区の会社を空のままにして下さい。"
+"全てのプロジェクトの会社を更新してワークスペースと同じ会社にするか、\"%sワークスペース\"の会社を空のままにして下さい。"
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_folder.py:0
 #, python-format
 msgid "You cannot set a company on the %s workspace."
-msgstr "%s作業区に会社を設定することはできません。"
+msgstr "%sワークスペースに会社を設定することはできません。"
 
 #. module: documents_project
 #: model_terms:ir.ui.view,arch_db:documents_project.share_page

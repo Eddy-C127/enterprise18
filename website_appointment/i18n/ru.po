@@ -1,20 +1,27 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* website_appointment
-#
+# 
 # Translators:
+# Collex100, 2023
+# Irina Fedulova <istartlin@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Vladimir Lukianov <lvm.mobile@gmail.com>, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: website_appointment
@@ -51,7 +58,9 @@ msgstr "<span class=\"text-bg-success\">Опубликовано</span>"
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
 msgid "<span>See all availabilities <i class=\"fa fa-long-arrow-right\"/></span>"
-msgstr "<span>Посмотреть все доступные варианты <i class=\"fa fa-long-arrow-right\"/></span>"
+msgstr ""
+"<span>Посмотреть все доступные варианты <i class=\"fa fa-long-arrow-"
+"right\"/></span>"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
@@ -176,8 +185,12 @@ msgstr "Дата и время"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_progress_bar
-msgid "Details<span class=\"d-inline-block mx-sm-3 fa fa-angle-right text-muted fs-5\"/>"
-msgstr "Подробности<span class=\"d-inline-block mx-sm-3 fa fa-angle-right text-muted fs-5\"/>"
+msgid ""
+"Details<span class=\"d-inline-block mx-sm-3 fa fa-angle-right text-muted "
+"fs-5\"/>"
+msgstr ""
+"Подробности<span class=\"d-inline-block mx-sm-3 fa fa-angle-right text-muted"
+" fs-5\"/>"
 
 #. module: website_appointment
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_invite__appointment_type_warning_msg
@@ -281,13 +294,17 @@ msgstr "Конкретные типы"
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "Specific users"
-msgstr "Включение возможностей для конкретных пользователей и окружения путем настройки стратегий флагов функций."
+msgstr ""
+"Включение возможностей для конкретных пользователей и окружения путем "
+"настройки стратегий флагов функций."
 
 #. module: website_appointment
 #. odoo-python
 #: code:addons/website_appointment/models/appointment_invite.py:0
 #, python-format
-msgid "The following appointment type(s) are not compatible with the website chosen: "
+msgid ""
+"The following appointment type(s) are not compatible with the website "
+"chosen: "
 msgstr "Следующие типы назначений не совместимы с выбранным сайтом:"
 
 #. module: website_appointment

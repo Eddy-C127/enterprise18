@@ -1,20 +1,27 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* social_push_notifications
-#
+# 
 # Translators:
+# ILMIR <karamov@it-projects.info>, 2023
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Collex100, 2023
+# Martin Trigaux, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: social_push_notifications
@@ -92,7 +99,8 @@ msgstr "Включить веб-уведомления"
 #: model_terms:ir.ui.view,arch_db:social_push_notifications.res_config_settings_view_form
 #, python-format
 msgid "Enable push notifications to be notified about new features."
-msgstr "Включите push-уведомления, чтобы получать уведомления о новых функциях."
+msgstr ""
+"Включите push-уведомления, чтобы получать уведомления о новых функциях."
 
 #. module: social_push_notifications
 #: model:ir.model.fields,field_description:social_push_notifications.field_res_config_settings__firebase_admin_key_file
@@ -349,8 +357,12 @@ msgstr "Отправить по часовому поясу посетителе
 
 #. module: social_push_notifications
 #: model_terms:ir.ui.view,arch_db:social_push_notifications.res_config_settings_view_form
-msgid "Send push notifications and configure this website's notifications permission request"
-msgstr "Отправка push-уведомлений и настройка запроса разрешения уведомлений на этом сайте"
+msgid ""
+"Send push notifications and configure this website's notifications "
+"permission request"
+msgstr ""
+"Отправка push-уведомлений и настройка запроса разрешения уведомлений на этом"
+" сайте"
 
 #. module: social_push_notifications
 #: model_terms:ir.ui.view,arch_db:social_push_notifications.res_config_settings_view_form
@@ -401,8 +413,10 @@ msgstr "Для этого сайта уже существует конфигу�
 
 #. module: social_push_notifications
 #: model:ir.model.fields,help:social_push_notifications.field_social_account__website_id
-msgid "This firebase configuration will only be used for the specified website"
-msgstr "Эта конфигурация firebase будет использоваться только для указанного сайта"
+msgid ""
+"This firebase configuration will only be used for the specified website"
+msgstr ""
+"Эта конфигурация firebase будет использоваться только для указанного сайта"
 
 #. module: social_push_notifications
 #: model:ir.model.fields,help:social_push_notifications.field_social_post__push_notification_image
@@ -423,7 +437,9 @@ msgstr "Кампания UTM"
 #. module: social_push_notifications
 #: model_terms:ir.ui.view,arch_db:social_push_notifications.res_config_settings_view_form
 msgid "Use your own Firebase Account for this website's push notifications"
-msgstr "Используйте свой собственный аккаунт Firebase для push-уведомлений этого сайта"
+msgstr ""
+"Используйте свой собственный аккаунт Firebase для push-уведомлений этого "
+"сайта"
 
 #. module: social_push_notifications
 #: model:ir.model.fields,field_description:social_push_notifications.field_res_config_settings__firebase_use_own_account
@@ -434,8 +450,12 @@ msgstr "Используйте свой собственный аккаунт Fi
 
 #. module: social_push_notifications
 #: model:ir.model.fields,help:social_push_notifications.field_social_media__media_type
-msgid "Used to make comparisons when we need to restrict some features to a specific media ('facebook', 'twitter', ...)."
-msgstr "Используется для сравнения, когда нам нужно ограничить некоторые функции определенным медиа (\"facebook\", \"twitter\", ...)."
+msgid ""
+"Used to make comparisons when we need to restrict some features to a "
+"specific media ('facebook', 'twitter', ...)."
+msgstr ""
+"Используется для сравнения, когда нам нужно ограничить некоторые функции "
+"определенным медиа (\"facebook\", \"twitter\", ...)."
 
 #. module: social_push_notifications
 #: model:ir.model.fields,field_description:social_push_notifications.field_social_post__visitor_domain
@@ -484,8 +504,12 @@ msgstr "Вы не можете удалить учетную запись Push N
 #. odoo-python
 #: code:addons/social_push_notifications/models/social_account.py:0
 #, python-format
-msgid "You have to install \"google_auth>=1.18.0\" to be able to send push notifications."
-msgstr "Вам необходимо установить \"google_auth>=1.18.0\", чтобы иметь возможность отправлять push-уведомления."
+msgid ""
+"You have to install \"google_auth>=1.18.0\" to be able to send push "
+"notifications."
+msgstr ""
+"Вам необходимо установить \"google_auth>=1.18.0\", чтобы иметь возможность "
+"отправлять push-уведомления."
 
 #. module: social_push_notifications
 #: model_terms:ir.ui.view,arch_db:social_push_notifications.res_config_settings_view_form
@@ -510,5 +534,9 @@ msgstr "например, \"my-project-id\""
 #. module: social_push_notifications
 #: model:ir.model.fields,help:social_push_notifications.field_social_post__use_visitor_timezone
 #: model:ir.model.fields,help:social_push_notifications.field_social_post_template__use_visitor_timezone
-msgid "e.g: If you post at 15:00 your time, all visitors will receive the post at 15:00 their time."
-msgstr "например: Если вы разместите сообщение в 15:00 по вашему времени, все посетители получат его в 15:00 по их времени."
+msgid ""
+"e.g: If you post at 15:00 your time, all visitors will receive the post at "
+"15:00 their time."
+msgstr ""
+"например: Если вы разместите сообщение в 15:00 по вашему времени, все "
+"посетители получат его в 15:00 по их времени."

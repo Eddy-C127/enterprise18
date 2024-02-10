@@ -1,26 +1,42 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* hr_contract_salary
-#
+# 
 # Translators:
+# Collex100, 2023
+# Константин Коровин <korovin74@gmail.com>, 2023
+# Андрей Гусев <gaussgss@gmail.com>, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Alena Vlasova, 2023
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Sergey Vilizhanin, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_personal_info__impacts_net_salary
-msgid " If checked, any change on this information will trigger a new computation of the gross-->net salary."
-msgstr " Если флажок установлен, любое изменение этой информации приведет к новому расчету зарплаты брутто->нетто."
+msgid ""
+" If checked, any change on this information will trigger a new computation "
+"of the gross-->net salary."
+msgstr ""
+" Если флажок установлен, любое изменение этой информации приведет к новому "
+"расчету зарплаты брутто->нетто."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__signatures_count
@@ -260,8 +276,14 @@ msgstr "Добавить раздел"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__benefit_ids
-msgid "All benefits in this field need to be selected, as a condition for the current one to be editable. Before edition, the current benefit is always set to false."
-msgstr "Все льготы в этом поле должны быть выбраны, чтобы текущая была доступна для редактирования. До редактирования текущая льгота всегда имеет значение false."
+msgid ""
+"All benefits in this field need to be selected, as a condition for the "
+"current one to be editable. Before edition, the current benefit is always "
+"set to false."
+msgstr ""
+"Все льготы в этом поле должны быть выбраны, чтобы текущая была доступна для "
+"редактирования. До редактирования текущая льгота всегда имеет значение "
+"false."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__always
@@ -271,16 +293,26 @@ msgstr "Всегда Выбрано"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/wizard/generate_simulation_link.py:0
+#: code:addons/hr_contract_salary/wizard/generate_simulation_link.py:0
 #, python-format
-msgid "An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%s'>Offer</a> as been sent by %s to the applicant (mail: %s)"
-msgstr "<a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%s'>Предложение</a> было отправлено %s заявителю (почта: %s)"
+msgid ""
+"An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-"
+"id='%s'>Offer</a> as been sent by %s to the applicant (mail: %s)"
+msgstr ""
+"<a href='#' data-oe-model='hr.contract.salary.offer' data-oe-"
+"id='%s'>Предложение</a> было отправлено %s заявителю (почта: %s)"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/wizard/generate_simulation_link.py:0
+#: code:addons/hr_contract_salary/wizard/generate_simulation_link.py:0
 #, python-format
-msgid "An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%s'>Offer</a> as been sent by %s to the employee (mail: %s)"
-msgstr "<a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%s'>Предложение</a> было отправлено %s сотруднику (почта: %s)"
+msgid ""
+"An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-"
+"id='%s'>Offer</a> as been sent by %s to the employee (mail: %s)"
+msgstr ""
+"<a href='#' data-oe-model='hr.contract.salary.offer' data-oe-"
+"id='%s'>Предложение</a> было отправлено %s сотруднику (почта: %s)"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_employee_report__final_yearly_costs
@@ -415,7 +447,8 @@ msgstr "Сертификат"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_diff_email_template
 msgid "Changes summary since previous contract:"
-msgstr "Краткое описание изменений с момента заключения предыдущего контракта:"
+msgstr ""
+"Краткое описание изменений с момента заключения предыдущего контракта:"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_personal_info__display_type__checkbox
@@ -533,8 +566,12 @@ msgstr "Поле контракта, связанное с этим пособи
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__cost_res_field_id
-msgid "Contract field linked to this benefit cost. If not set, the benefit won't be taken into account when computing the employee budget."
-msgstr "Поле контракта, связанное с данной стоимостью пособия. Если поле не задано, пособие не будет учитываться при расчете бюджета сотрудника."
+msgid ""
+"Contract field linked to this benefit cost. If not set, the benefit won't be"
+" taken into account when computing the employee budget."
+msgstr ""
+"Поле контракта, связанное с данной стоимостью пособия. Если поле не задано, "
+"пособие не будет учитываться при расчете бюджета сотрудника."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__fold_res_field_id
@@ -544,7 +581,8 @@ msgstr "Поле контракта, используемое для склад�
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__manual_res_field_id
 msgid "Contract field used to manually encode an benefit value."
-msgstr "Контрактное поле, используемое для ручного кодирования значения льготы."
+msgstr ""
+"Контрактное поле, используемое для ручного кодирования значения льготы."
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_history
@@ -666,30 +704,45 @@ msgstr "Продолжительность действия токена дос�
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_res_config_settings__employee_salary_simulator_link_validity
 msgid "Default Salary Configurator Link Validity Duration For Employees"
-msgstr "Продолжительность действия ссылок конфигуратора зарплаты по умолчанию для сотрудников"
+msgstr ""
+"Продолжительность действия ссылок конфигуратора зарплаты по умолчанию для "
+"сотрудников"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_job__default_contract_id
-msgid "Default contract used to generate an offer. If empty, benefits will be taken from current contract of the employee/nothing for an applicant."
-msgstr "Договор по умолчанию, используемый для создания предложения. Если пусто, льготы будут взяты из текущего контракта сотрудника/ничего для соискателя."
+msgid ""
+"Default contract used to generate an offer. If empty, benefits will be taken"
+" from current contract of the employee/nothing for an applicant."
+msgstr ""
+"Договор по умолчанию, используемый для создания предложения. Если пусто, "
+"льготы будут взяты из текущего контракта сотрудника/ничего для соискателя."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__default_contract_id
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_history__default_contract_id
 msgid "Default contract used when making an offer to an applicant."
-msgstr "Договор по умолчанию, используемый при составлении предложения для соискателя."
+msgstr ""
+"Договор по умолчанию, используемый при составлении предложения для "
+"соискателя."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__sign_template_id
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_history__sign_template_id
-msgid "Default document that the applicant will have to sign to accept a contract offer."
-msgstr "Стандартный документ, который должен подписать заявитель, чтобы принять предложение о заключении контракта."
+msgid ""
+"Default document that the applicant will have to sign to accept a contract "
+"offer."
+msgstr ""
+"Стандартный документ, который должен подписать заявитель, чтобы принять "
+"предложение о заключении контракта."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__contract_update_template_id
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_history__contract_update_template_id
-msgid "Default document that the employee will have to sign to update his contract."
-msgstr "Документ по умолчанию, который сотрудник должен подписать, чтобы обновить свой контракт."
+msgid ""
+"Default document that the employee will have to sign to update his contract."
+msgstr ""
+"Документ по умолчанию, который сотрудник должен подписать, чтобы обновить "
+"свой контракт."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__activity_creation_type
@@ -780,8 +833,15 @@ msgstr "Документ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__sign_template_id
-msgid "Documents selected here will be requested to the employee for additional signatures related to the benefit. eg: A company car policy to approve if you choose a company car."
-msgstr "Выбранные здесь документы будут запрошены у сотрудника для получения дополнительных подписей, связанных с льготой. Например: Полис на автомобиль компании, который необходимо утвердить, если вы выбираете автомобиль компании."
+msgid ""
+"Documents selected here will be requested to the employee for additional "
+"signatures related to the benefit. eg: A company car policy to approve if "
+"you choose a company car."
+msgstr ""
+"Выбранные здесь документы будут запрошены у сотрудника для получения "
+"дополнительных подписей, связанных с льготой. Например: Полис на автомобиль "
+"компании, который необходимо утвердить, если вы выбираете автомобиль "
+"компании."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_sign_document_wizard__sign_template_ids
@@ -997,8 +1057,12 @@ msgstr "Группировать по"
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract.py:0
 #, python-format
-msgid "HR Responsible %s should be a User of Sign and have a valid email address when New Contract Document Template is specified"
-msgstr "Ответственный HR %s должен быть пользователем Sign и иметь действительный адрес электронной почты, если указан шаблон нового договорного документа"
+msgid ""
+"HR Responsible %s should be a User of Sign and have a valid email address "
+"when New Contract Document Template is specified"
+msgstr ""
+"Ответственный HR %s должен быть пользователем Sign и иметь действительный "
+"адрес электронной почты, если указан шаблон нового договорного документа"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__has_admin_access
@@ -1069,7 +1133,8 @@ msgstr "Значок, обозначающий исключение Дела."
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_offer__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_offer__message_has_error
@@ -1079,8 +1144,12 @@ msgstr "Если отмечено, некоторые сообщения име�
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_resume__impacts_monthly_total
-msgid "If checked, the value of this information will be computed in all information set as Monthly Total"
-msgstr "Если флажок установлен, значение этой информации будет вычисляться во всех информационных наборах как Monthly Total"
+msgid ""
+"If checked, the value of this information will be computed in all "
+"information set as Monthly Total"
+msgstr ""
+"Если флажок установлен, значение этой информации будет вычисляться во всех "
+"информационных наборах как Monthly Total"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__image_1920
@@ -1280,8 +1349,12 @@ msgstr "Сообщения"
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_personal_info.py:0
 #, python-format
-msgid "Mismatch between res_field_id %(field)s and model %(model)s for info %(personal_info)s"
-msgstr "Несоответствие между res_field_id %(field)s и model %(model)s для info %(personal_info)s"
+msgid ""
+"Mismatch between res_field_id %(field)s and model %(model)s for info "
+"%(personal_info)s"
+msgstr ""
+"Несоответствие между res_field_id %(field)s и model %(model)s для info "
+"%(personal_info)s"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit_type__periodicity__monthly
@@ -1392,8 +1465,12 @@ msgstr "Нет"
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
-msgid "No HR responsible defined on the job position. Please contact an administrator."
-msgstr "На данной вакансии не определены ответственные за работу с персоналом. Пожалуйста, свяжитесь с администратором."
+msgid ""
+"No HR responsible defined on the job position. Please contact an "
+"administrator."
+msgstr ""
+"На данной вакансии не определены ответственные за работу с персоналом. "
+"Пожалуйста, свяжитесь с администратором."
 
 #. module: hr_contract_salary
 #: model_terms:ir.actions.act_window,help:hr_contract_salary.action_hr_contract_templates
@@ -1404,8 +1481,12 @@ msgstr "Шаблон не найден"
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
-msgid "No signature template defined on the contract. Please contact the HR responsible."
-msgstr "В договоре не указан образец подписи. Пожалуйста, свяжитесь с ответственным сотрудником отдела кадров."
+msgid ""
+"No signature template defined on the contract. Please contact the HR "
+"responsible."
+msgstr ""
+"В договоре не указан образец подписи. Пожалуйста, свяжитесь с ответственным "
+"сотрудником отдела кадров."
 
 #. module: hr_contract_salary
 #. odoo-javascript
@@ -1429,7 +1510,8 @@ msgstr "Число действий"
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__holidays
 msgid "Number of days of paid leaves the employee gets per year."
-msgstr "Количество дней оплачиваемого отпуска, которые сотрудник получает в год."
+msgstr ""
+"Количество дней оплачиваемого отпуска, которые сотрудник получает в год."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__message_has_error_counter
@@ -1466,9 +1548,11 @@ msgstr "Предложение [%s] за %s / Бюджет: %s"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/wizard/generate_simulation_link.py:0
+#: code:addons/hr_contract_salary/wizard/generate_simulation_link.py:0
 #, python-format
 msgid "Offer link can not be send. The applicant needs to have a name."
-msgstr "Ссылка на предложение не может быть отправлена. Заявитель должен иметь имя."
+msgstr ""
+"Ссылка на предложение не может быть отправлена. Заявитель должен иметь имя."
 
 #. module: hr_contract_salary
 #: model:ir.actions.act_window,name:hr_contract_salary.hr_contract_salary_offer_action
@@ -1480,6 +1564,10 @@ msgstr "Предложения"
 
 #. module: hr_contract_salary
 #. odoo-python
+#: code:addons/hr_contract_salary/controllers/main.py:0
+#: code:addons/hr_contract_salary/controllers/main.py:0
+#: code:addons/hr_contract_salary/controllers/main.py:0
+#: code:addons/hr_contract_salary/controllers/main.py:0
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "Oops"
@@ -1643,6 +1731,7 @@ msgstr "Рейтинги"
 
 #. module: hr_contract_salary
 #. odoo-javascript
+#: code:addons/hr_contract_salary/static/src/xml/resume_sidebar.xml:0
 #: code:addons/hr_contract_salary/static/src/xml/resume_sidebar.xml:0
 #, python-format
 msgid "Recompute"
@@ -1891,12 +1980,16 @@ msgstr "Отправленные предложения"
 #. module: hr_contract_salary
 #: model:mail.template,description:hr_contract_salary.mail_template_send_offer_applicant
 msgid "Sent automatically when you generate an offer for an application"
-msgstr "Отправляется автоматически, когда вы генерируете предложение для приложения"
+msgstr ""
+"Отправляется автоматически, когда вы генерируете предложение для приложения"
 
 #. module: hr_contract_salary
 #: model:mail.template,description:hr_contract_salary.mail_template_send_offer
-msgid "Sent manually when you generate a simulation link on the employee contract"
-msgstr "Отправляется вручную при создании ссылки на моделирование в контракте сотрудника"
+msgid ""
+"Sent manually when you generate a simulation link on the employee contract"
+msgstr ""
+"Отправляется вручную при создании ссылки на моделирование в контракте "
+"сотрудника"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__sequence
@@ -1943,6 +2036,9 @@ msgstr "Подпишите документ в договоре"
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
+#: code:addons/hr_contract_salary/controllers/main.py:0
+#: code:addons/hr_contract_salary/controllers/main.py:0
+#: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "Signature Request - %s"
 msgstr "Запрос подписи - %s"
@@ -1969,6 +2065,7 @@ msgstr "Шаг ползунка"
 
 #. module: hr_contract_salary
 #. odoo-javascript
+#: code:addons/hr_contract_salary/static/src/js/hr_contract_salary.js:0
 #: code:addons/hr_contract_salary/static/src/js/hr_contract_salary.js:0
 #, python-format
 msgid "Some required fields are not filled"
@@ -2053,32 +2150,47 @@ msgstr "В настоящее время запрашиваются следую
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
-msgid "The employee does not have a valid work email set. The Simulation Link won't be able to be completed."
-msgstr "У сотрудника нет действующей рабочей электронной почты. Ссылка на симуляцию не может быть заполнена."
+msgid ""
+"The employee does not have a valid work email set. The Simulation Link won't"
+" be able to be completed."
+msgstr ""
+"У сотрудника нет действующей рабочей электронной почты. Ссылка на симуляцию "
+"не может быть заполнена."
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
-msgid "The employee is not linked to an existing user, please contact the administrator.."
-msgstr "Сотрудник не связан с существующим пользователем, пожалуйста, свяжитесь с администратором."
+msgid ""
+"The employee is not linked to an existing user, please contact the "
+"administrator.."
+msgstr ""
+"Сотрудник не связан с существующим пользователем, пожалуйста, свяжитесь с "
+"администратором."
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_benefit.py:0
 #, python-format
-msgid "The minimum value for the slider should be inferior to the maximum value."
+msgid ""
+"The minimum value for the slider should be inferior to the maximum value."
 msgstr "Минимальное значение ползунка должно быть меньше максимального."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__signatures_count
 msgid "The number of signatures on the pdf contract with the most signatures."
-msgstr "Количество подписей на контракте в формате pdf с наибольшим количеством подписей."
+msgstr ""
+"Количество подписей на контракте в формате pdf с наибольшим количеством "
+"подписей."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__activity_type_id
-msgid "The type of activity that will be created automatically on the contract if this benefit is chosen by the employee."
-msgstr "Тип деятельности, который будет автоматически создан в контракте, если сотрудник выберет эту льготу."
+msgid ""
+"The type of activity that will be created automatically on the contract if "
+"this benefit is chosen by the employee."
+msgstr ""
+"Тип деятельности, который будет автоматически создан в контракте, если "
+"сотрудник выберет эту льготу."
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_benefits
@@ -2092,25 +2204,36 @@ msgstr "Изменений по сравнению с предыдущим ко�
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_thank_you
-msgid "They will review your contract.<br/> Feel free to contact them if you have any questions."
-msgstr "Они рассмотрят ваш контракт.<br/> Не стесняйтесь обращаться к ним, если у вас возникнут вопросы."
+msgid ""
+"They will review your contract.<br/> Feel free to contact them if you have "
+"any questions."
+msgstr ""
+"Они рассмотрят ваш контракт.<br/> Не стесняйтесь обращаться к ним, если у "
+"вас возникнут вопросы."
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
+#: code:addons/hr_contract_salary/controllers/main.py:0
+#: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
-msgid "This link is invalid. Please contact the HR Responsible to get a new one..."
-msgstr "Эта ссылка недействительна. Пожалуйста, свяжитесь с ответственным сотрудником отдела кадров, чтобы получить новую..."
+msgid ""
+"This link is invalid. Please contact the HR Responsible to get a new one..."
+msgstr ""
+"Эта ссылка недействительна. Пожалуйста, свяжитесь с ответственным "
+"сотрудником отдела кадров, чтобы получить новую..."
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "This offer has been updated, please request an updated link.."
-msgstr "Это предложение было обновлено, пожалуйста, запросите обновленную ссылку."
+msgstr ""
+"Это предложение было обновлено, пожалуйста, запросите обновленную ссылку."
 
 #. module: hr_contract_salary
 #. odoo-python
+#: code:addons/hr_contract_salary/controllers/main.py:0
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "This offer is outdated, please request an updated link..."
@@ -2298,10 +2421,17 @@ msgstr "sign"
 
 #. module: hr_contract_salary
 #: model:mail.template,subject:hr_contract_salary.mail_template_send_offer_applicant
-msgid "{{ object.company_id.name }}: Job Offer - {{ object.applicant_id.name }}"
-msgstr "{{ object.company_id.name }}: Предложение о работе - {{ object.applicant_id.name }}"
+msgid ""
+"{{ object.company_id.name }}: Job Offer - {{ object.applicant_id.name }}"
+msgstr ""
+"{{ object.company_id.name }}: Предложение о работе - {{ "
+"object.applicant_id.name }}"
 
 #. module: hr_contract_salary
 #: model:mail.template,subject:hr_contract_salary.mail_template_send_offer
-msgid "{{ object.company_id.name }}: Job Offer - {{ object.employee_contract_id.name }}"
-msgstr "{{ object.company_id.name }}: Предложение о работе - {{ object.employee_contract_id.name }}"
+msgid ""
+"{{ object.company_id.name }}: Job Offer - {{ "
+"object.employee_contract_id.name }}"
+msgstr ""
+"{{ object.company_id.name }}: Предложение о работе - {{ "
+"object.employee_contract_id.name }}"

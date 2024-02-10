@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Jolien De Paepe, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -451,21 +451,14 @@ msgstr "Automatische boekingen jaarlijkse schulden"
 
 #. module: account_auto_transfer
 #. odoo-python
-#: code:addons/account_auto_transfer/models/account_move_line.py:0
-#, python-format
-msgid "You cannot set Tax on Automatic Transfer's entries."
-msgstr "Je kunt geen BTW instellen op automatische boekingen."
-
-#. module: account_auto_transfer
-#. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid ""
 "You cannot delete an automatic transfer that has draft moves attached "
-"('%s'); delete them before deleting this transfer."
+"('%s'). Please delete them before deleting this transfer."
 msgstr ""
 "Je kan geen automatische boeking verwijderen waaraan conceptverplaatsingen "
-"zijn gekoppeld ('%s'); verwijder deze voordat je deze boeking verwijdert."
+"zijn gekoppeld ('%s'). Verwijder deze voordat je deze boeking verwijdert."
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -477,6 +470,13 @@ msgid ""
 msgstr ""
 "Je kan geen automatische boeking verwijderen waaraan geposte verplaatsingen "
 "zijn gekoppeld ('%s')."
+
+#. module: account_auto_transfer
+#. odoo-python
+#: code:addons/account_auto_transfer/models/account_move_line.py:0
+#, python-format
+msgid "You cannot set Tax on Automatic Transfer's entries."
+msgstr "Je kunt geen BTW instellen op automatische boekingen."
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form

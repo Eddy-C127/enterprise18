@@ -1,20 +1,25 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* website_appointment_sale
-#
+# 
 # Translators:
+# Martin Trigaux, 2023
+# Константин Коровин <korovin74@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: website_appointment_sale
@@ -81,15 +86,23 @@ msgstr "Позиция заказа на продажу"
 #. odoo-python
 #: code:addons/website_appointment_sale/models/sale_order.py:0
 #, python-format
-msgid "The following bookings are not available anymore during the selected period and your cart must be updated. We are sorry for the inconvenience."
-msgstr "Следующие бронирования больше не доступны в выбранный период, и ваша корзина должна быть обновлена. Приносим извинения за причиненные неудобства."
+msgid ""
+"The following bookings are not available anymore during the selected period "
+"and your cart must be updated. We are sorry for the inconvenience."
+msgstr ""
+"Следующие бронирования больше не доступны в выбранный период, и ваша корзина"
+" должна быть обновлена. Приносим извинения за причиненные неудобства."
 
 #. module: website_appointment_sale
 #. odoo-python
 #: code:addons/website_appointment_sale/models/calendar_booking.py:0
 #, python-format
-msgid "The following bookings were not confirmed due to insufficient availability or configuration changes: %s"
-msgstr "Следующие бронирования не были подтверждены из-за недостаточной доступности или изменения конфигурации: %s"
+msgid ""
+"The following bookings were not confirmed due to insufficient availability "
+"or configuration changes: %s"
+msgstr ""
+"Следующие бронирования не были подтверждены из-за недостаточной доступности "
+"или изменения конфигурации: %s"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards

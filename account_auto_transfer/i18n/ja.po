@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -436,19 +436,12 @@ msgstr "月額債務自動振替"
 
 #. module: account_auto_transfer
 #. odoo-python
-#: code:addons/account_auto_transfer/models/account_move_line.py:0
-#, python-format
-msgid "You cannot set Tax on Automatic Transfer's entries."
-msgstr "自動送金仕訳に税を設定することはできません。"
-
-#. module: account_auto_transfer
-#. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid ""
 "You cannot delete an automatic transfer that has draft moves attached "
-"('%s'); delete them before deleting this transfer."
-msgstr "ドラフト仕訳が添付された自動送金は削除できません。 ('%s'); この送金を削除する前にドラフト仕訳を削除して下さい。"
+"('%s'). Please delete them before deleting this transfer."
+msgstr "ドラフト仕訳('%s')がある自動振替は削除できません。この振替を削除する前に、それらを削除して下さい。"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -458,6 +451,13 @@ msgid ""
 "You cannot delete an automatic transfer that has posted moves attached "
 "('%s')."
 msgstr "記帳された仕訳が添付された ('%s')自動送金を削除することはできません。"
+
+#. module: account_auto_transfer
+#. odoo-python
+#: code:addons/account_auto_transfer/models/account_move_line.py:0
+#, python-format
+msgid "You cannot set Tax on Automatic Transfer's entries."
+msgstr "自動送金仕訳に税を設定することはできません。"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form

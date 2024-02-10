@@ -1,20 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* account_base_import
-#
+# 
 # Translators:
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-01 12:59+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: account_base_import
@@ -87,6 +91,11 @@ msgstr "Клиенты"
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "Download"
 msgstr "Скачать"
@@ -143,6 +152,7 @@ msgstr "Контакты по импорту"
 
 #. module: account_base_import
 #. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #: model:ir.actions.client,name:account_base_import.action_account_move_line_import
 #, python-format
@@ -226,7 +236,9 @@ msgstr ""
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "Optional, but useful to import open receivables & payables using a"
-msgstr "Необязательно, но полезно импортировать открытую дебиторскую и кредиторскую задолженность, используя"
+msgstr ""
+"Необязательно, но полезно импортировать открытую дебиторскую и кредиторскую "
+"задолженность, используя"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -268,8 +280,14 @@ msgstr "Модуль импорта SIE"
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
-msgid "The SIE standard file format is very common in Sweden for several purposes such as auditing, importing and exporting data from and to other accounting softwares."
-msgstr "Стандартный формат файлов SIE очень распространен в Швеции для различных целей, таких как аудит, импорт и экспорт данных из других бухгалтерских программ и в них."
+msgid ""
+"The SIE standard file format is very common in Sweden for several purposes "
+"such as auditing, importing and exporting data from and to other accounting "
+"softwares."
+msgstr ""
+"Стандартный формат файлов SIE очень распространен в Швеции для различных "
+"целей, таких как аудит, импорт и экспорт данных из других бухгалтерских "
+"программ и в них."
 
 #. module: account_base_import
 #. odoo-python
@@ -289,29 +307,42 @@ msgstr "Файл импорта должен содержать колонку '
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
-msgid "Tip: we recommend importing your initial balances using the Chart of Account import. Only use the Journal Items import for unreconciled entries in your Payable and Receivable Accounts."
-msgstr "Совет: мы рекомендуем импортировать начальные остатки с помощью импорта плана счетов. Импорт статей журнала используйте только для несогласованных записей в счетах кредиторской и дебиторской задолженности."
+msgid ""
+"Tip: we recommend importing your initial balances using the Chart of Account"
+" import. Only use the Journal Items import for unreconciled entries in your "
+"Payable and Receivable Accounts."
+msgstr ""
+"Совет: мы рекомендуем импортировать начальные остатки с помощью импорта "
+"плана счетов. Импорт статей журнала используйте только для несогласованных "
+"записей в счетах кредиторской и дебиторской задолженности."
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "Use predefined format to import your data faster."
-msgstr "Используйте предопределенный формат, чтобы быстрее импортировать данные."
+msgstr ""
+"Используйте предопределенный формат, чтобы быстрее импортировать данные."
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "Use templates to import CSV or Excel for your accounting setup."
-msgstr "Используйте шаблоны для импорта данных в формате CSV или Excel для настройки учета."
+msgstr ""
+"Используйте шаблоны для импорта данных в формате CSV или Excel для настройки"
+" учета."
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
-msgid "We will setup your charts of accounts and the history of journal entries, that will stay in draft."
-msgstr "Мы настроим ваши планы счетов и историю записей в журналах, которые будут оставаться в черновиках."
+msgid ""
+"We will setup your charts of accounts and the history of journal entries, "
+"that will stay in draft."
+msgstr ""
+"Мы настроим ваши планы счетов и историю записей в журналах, которые будут "
+"оставаться в черновиках."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -354,6 +385,8 @@ msgstr "или"
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid "template."
 msgstr "шаблон."
@@ -373,8 +406,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
-msgid "to import the FEC file. We will setup your charts of accounts and the history of journal entries."
-msgstr "чтобы импортировать файл FEC. Мы настроим ваши планы счетов и историю записей в журналах."
+msgid ""
+"to import the FEC file. We will setup your charts of accounts and the "
+"history of journal entries."
+msgstr ""
+"чтобы импортировать файл FEC. Мы настроим ваши планы счетов и историю "
+"записей в журналах."
 
 #. module: account_base_import
 #. odoo-javascript

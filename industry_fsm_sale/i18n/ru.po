@@ -1,20 +1,28 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* industry_fsm_sale
-#
+# 
 # Translators:
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Alena Vlasova, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Константин Коровин <korovin74@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:11+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: industry_fsm_sale
@@ -22,7 +30,9 @@ msgstr ""
 #: code:addons/industry_fsm_sale/static/src/js/tours/industry_fsm_sale_tour.js:0
 #, python-format
 msgid "<b>Invoice your time and material</b> to your customer."
-msgstr "<b>Выставьте</b> заказчику <b>счет-фактуру за потраченное время и материалы</b>."
+msgstr ""
+"<b>Выставьте</b> заказчику <b>счет-фактуру за потраченное время и "
+"материалы</b>."
 
 #. module: industry_fsm_sale
 #. odoo-python
@@ -88,6 +98,7 @@ msgstr "<strong>Необлагаемая сумма</strong>"
 #. module: industry_fsm_sale
 #. odoo-python
 #: code:addons/industry_fsm_sale/models/project_task.py:0
+#: code:addons/industry_fsm_sale/models/project_task.py:0
 #, python-format
 msgid "A customer should be set on the task to generate a worksheet."
 msgstr "На задании должен быть установлен клиент для создания рабочего листа."
@@ -105,7 +116,9 @@ msgstr "Сумма"
 #. module: industry_fsm_sale
 #: model:ir.model.constraint,message:industry_fsm_sale.constraint_project_project_fsm_imply_task_rate
 msgid "An FSM project must be billed at task rate or employee rate."
-msgstr "Счет за проект FSM должен быть выставлен по тарифу задачи или по тарифу сотрудника."
+msgstr ""
+"Счет за проект FSM должен быть выставлен по тарифу задачи или по тарифу "
+"сотрудника."
 
 #. module: industry_fsm_sale
 #. odoo-python
@@ -128,8 +141,12 @@ msgstr "Оплачиваемый"
 #. odoo-python
 #: code:addons/industry_fsm_sale/models/project_task.py:0
 #, python-format
-msgid "By saving this change, all timesheet entries will be linked to the selected Sales Order Item without distinction."
-msgstr "При сохранении этого изменения все записи в табеле учета рабочего времени будут связаны с выбранным пунктом заказа на продажу без различий."
+msgid ""
+"By saving this change, all timesheet entries will be linked to the selected "
+"Sales Order Item without distinction."
+msgstr ""
+"При сохранении этого изменения все записи в табеле учета рабочего времени "
+"будут связаны с выбранным пунктом заказа на продажу без различий."
 
 #. module: industry_fsm_sale
 #. odoo-python
@@ -142,15 +159,24 @@ msgstr "Выберите товары"
 #. odoo-javascript
 #: code:addons/industry_fsm_sale/static/src/js/tours/industry_fsm_sale_tour.js:0
 #, python-format
-msgid "Choose a <b>name</b> for your product <i>(e.g. Bolts, Screws, Boiler, etc.).</i>"
-msgstr "Выберите <b>название</b> для своего продукта <i>(например, \"Болты\", \"Винты\", \"Котел\" и т. д.)</i>."
+msgid ""
+"Choose a <b>name</b> for your product <i>(e.g. Bolts, Screws, Boiler, "
+"etc.).</i>"
+msgstr ""
+"Выберите <b>название</b> для своего продукта <i>(например, \"Болты\", "
+"\"Винты\", \"Котел\" и т. д.)</i>."
 
 #. module: industry_fsm_sale
 #. odoo-javascript
 #: code:addons/industry_fsm_sale/static/src/js/tours/industry_fsm_sale_tour.js:0
 #, python-format
-msgid "Click on a product to add it to your <b>list of materials</b>. <i>Tip: for large quantities, click on the number to edit it directly.</i>"
-msgstr "Нажмите на продукт, чтобы добавить его в <b>список материалов</b>. <i>Совет: для больших количеств нажмите на номер, чтобы отредактировать его напрямую.</i>"
+msgid ""
+"Click on a product to add it to your <b>list of materials</b>. <i>Tip: for "
+"large quantities, click on the number to edit it directly.</i>"
+msgstr ""
+"Нажмите на продукт, чтобы добавить его в <b>список материалов</b>. <i>Совет:"
+" для больших количеств нажмите на номер, чтобы отредактировать его "
+"напрямую.</i>"
 
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_res_config_settings
@@ -277,8 +303,11 @@ msgstr "Статус счета-фактуры"
 
 #. module: industry_fsm_sale
 #: model_terms:ir.actions.act_window,help:industry_fsm_sale.project_task_action_to_invoice_fsm
-msgid "Invoice your time and material to your customers once your tasks are done."
-msgstr "Выставляйте счета за потраченное время и материалы своим клиентам после выполнения заданий."
+msgid ""
+"Invoice your time and material to your customers once your tasks are done."
+msgstr ""
+"Выставляйте счета за потраченное время и материалы своим клиентам после "
+"выполнения заданий."
 
 #. module: industry_fsm_sale
 #. odoo-python
@@ -294,7 +323,9 @@ msgstr "Счета"
 #: code:addons/industry_fsm_sale/static/src/js/tours/industry_fsm_sale_tour.js:0
 #, python-format
 msgid "Let's <b>track the material</b> you use for your task."
-msgstr "Давайте <b>проследим, какой материал</b> вы используете для выполнения задания."
+msgstr ""
+"Давайте <b>проследим, какой материал</b> вы используете для выполнения "
+"задания."
 
 #. module: industry_fsm_sale
 #. odoo-javascript
@@ -496,12 +527,18 @@ msgstr "Налоги"
 #. module: industry_fsm_sale
 #: model:ir.model.constraint,message:industry_fsm_sale.constraint_project_project_material_imply_billable
 msgid "The material can be allowed only when the task can be billed."
-msgstr "Материал может быть разрешен только тогда, когда за задание можно выставить счет."
+msgstr ""
+"Материал может быть разрешен только тогда, когда за задание можно выставить "
+"счет."
 
 #. module: industry_fsm_sale
 #: model:ir.model.constraint,message:industry_fsm_sale.constraint_project_project_timesheet_product_required_if_billable_and_time
-msgid "The timesheet product is required when the fsm project can be billed and timesheets are allowed."
-msgstr "Продукт \"Табель учета рабочего времени\" необходим, если проект fsm может быть тарифицирован и разрешены табели учета рабочего времени."
+msgid ""
+"The timesheet product is required when the fsm project can be billed and "
+"timesheets are allowed."
+msgstr ""
+"Продукт \"Табель учета рабочего времени\" необходим, если проект fsm может "
+"быть тарифицирован и разрешены табели учета рабочего времени."
 
 #. module: industry_fsm_sale
 #. odoo-python
@@ -526,7 +563,9 @@ msgstr "Оставшуюся сумма для выставления счета
 #. module: industry_fsm_sale
 #: model_terms:ir.actions.act_window,help:industry_fsm_sale.product_action_fsm
 msgid "Track and bill the material used to complete your tasks."
-msgstr "Отслеживайте и выставляйте счета за материалы, использованные для выполнения заданий."
+msgstr ""
+"Отслеживайте и выставляйте счета за материалы, использованные для выполнения"
+" заданий."
 
 #. module: industry_fsm_sale
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.project_view_form_inherit

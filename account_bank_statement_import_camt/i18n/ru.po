@@ -1,24 +1,32 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* account_bank_statement_import_camt
-#
+# 
 # Translators:
+# Gennady Marchenko <gennadym@gmail.com>, 2023
+# Oleg Kuryan <oleg@ventor.tech>, 2023
+# Sergey Vilizhanin, 2023
+# Collex100, 2023
+# Martin Trigaux, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:09+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "ACH Concentration"
@@ -27,12 +35,18 @@ msgstr "Концентрация ACH"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "ACH Corporate Trade"
 msgstr "ACH Корпоративная торговля"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "ACH Credit"
@@ -41,12 +55,18 @@ msgstr "Кредит ACH"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "ACH Debit"
 msgstr "Дебет ACH"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "ACH Pre-Authorised"
@@ -55,12 +75,18 @@ msgstr "Предварительная авторизация ACH"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "ACH Return"
 msgstr "Возврат ACH"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "ACH Reversal"
@@ -69,6 +95,9 @@ msgstr "Реверсирование ACH"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "ACH Settlement"
 msgstr "Расчеты по системе ACH"
@@ -76,12 +105,16 @@ msgstr "Расчеты по системе ACH"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "ACH Transaction"
 msgstr "ACH-транзакция"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "ARP Debit"
@@ -153,12 +186,16 @@ msgstr "Адрес:\n"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Adjustments"
 msgstr "Корректировки"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Automatic Transfer"
@@ -173,6 +210,7 @@ msgstr "Назад Значение"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Bank Cheque"
@@ -208,6 +246,7 @@ msgstr "Плата за пользование кредитом"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Branch Account Transfer"
@@ -265,6 +304,7 @@ msgstr "Распределение прироста капитала"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cash Deposit"
 msgstr "Депозит наличными"
@@ -279,12 +319,14 @@ msgstr "Денежный дивиденд"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cash Letter"
 msgstr "Денежное письмо"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cash Letter Adjustment"
@@ -307,6 +349,7 @@ msgstr "Объединение денежных средств"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cash Withdrawal"
 msgstr "Снятие наличных"
@@ -320,6 +363,7 @@ msgstr "Деньги взамен"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Certified Customer Cheque"
@@ -335,6 +379,8 @@ msgstr "Плата/штрафы"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Charges"
 msgstr "К оплате"
@@ -348,6 +394,7 @@ msgstr "Номер чека: %s"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cheque"
@@ -363,6 +410,7 @@ msgstr "Депозит чеков"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cheque Reversal"
 msgstr "Сторнирование чека"
@@ -370,12 +418,14 @@ msgstr "Сторнирование чека"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cheque Under Reserve"
 msgstr "Чек под резерв"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Circular Cheque"
@@ -405,6 +455,8 @@ msgstr "Управление залогом"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Commission"
 msgstr "Комиссия"
@@ -412,12 +464,16 @@ msgstr "Комиссия"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Commission excluding taxes"
 msgstr "Комиссионные без учета налогов"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Commission including taxes"
@@ -447,6 +503,8 @@ msgstr "Потребительские Кредиты"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Controlled Disbursement"
 msgstr "Контролируемое расходование средств"
@@ -467,6 +525,7 @@ msgstr "Корпоративные действия"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Corporate Own Account Transfer"
@@ -524,12 +583,16 @@ msgstr "Корректировки по кредитам"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Credit Card Payment"
 msgstr "Платёж кредитной картой"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Credit Transfer with agreed Commercial Information"
@@ -544,6 +607,7 @@ msgstr "Перекрестная торговля"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cross-Border"
@@ -566,12 +630,16 @@ msgstr "Трансграничные платежи по кредитным ка
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cross-Border Credit Transfer"
 msgstr "Трансграничный кредитный перевод"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cross-Border Direct Debit"
@@ -580,12 +648,16 @@ msgstr "Трансграничное прямое дебетование"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cross-Border Intra Company Transfer"
 msgstr "Трансграничный перевод внутри компании"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cross-Border Payroll/Salary Payment"
@@ -594,12 +666,16 @@ msgstr "Трансграничная выплата заработной пла�
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Cross-Border Standing Order"
 msgstr "Трансграничное постоянное поручение"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Crossed Cheque"
@@ -650,12 +726,14 @@ msgstr "Снижение стоимости"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Delivery"
 msgstr "Доставка"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Deposit"
@@ -698,6 +776,7 @@ msgstr "Прямой дебетовый платеж"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Direct Debit under reserve"
@@ -747,6 +826,9 @@ msgstr "Документарный аккредитив"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Domestic Credit Transfer"
@@ -839,6 +921,7 @@ msgstr "Корректировка обменного курса"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Exchange Traded"
 msgstr "Биржевые торги"
@@ -846,12 +929,14 @@ msgstr "Биржевые торги"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Exchange Traded CCP"
 msgstr "CCP, торгуемый на бирже"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Exchange Traded Non-CCP"
@@ -881,6 +966,8 @@ msgstr "Обновление фактора"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Fees"
 msgstr "Сборы"
@@ -909,6 +996,9 @@ msgstr "Последний платеж"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Financial Institution Credit Transfer"
 msgstr "Перевод кредита финансового учреждения"
@@ -916,12 +1006,14 @@ msgstr "Перевод кредита финансового учреждени�
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Financial Institution Direct Debit Payment"
 msgstr "Прямой дебетовый платеж финансового учреждения"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Financial Institution Own Account Transfer"
@@ -958,12 +1050,14 @@ msgstr "Регулировка поплавка"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Foreign Cheque"
 msgstr "Иностранный чек"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Foreign Cheque Under Reserve"
@@ -1035,6 +1129,8 @@ msgstr "Будущая вариационная маржа"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Futures"
 msgstr "Фьючерсы"
@@ -1077,6 +1173,8 @@ msgstr "Идентификатор инструкции: %s"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Interest"
 msgstr "Интерес"
@@ -1090,6 +1188,7 @@ msgstr "Выплата процентов"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Interest Payment with Principle"
@@ -1105,12 +1204,16 @@ msgstr "Перевод внутреннего счета"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Internal Book Transfer"
 msgstr "Внутренний перевод книг"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Intra Company Transfer"
@@ -1321,7 +1424,9 @@ msgstr "Сетка"
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
-msgid "No exchange rate was found to convert an amount into the currency of the journal"
+msgid ""
+"No exchange rate was found to convert an amount into the currency of the "
+"journal"
 msgstr "Не найден обменный курс для перевода суммы в валюту журнала"
 
 #. module: account_bank_statement_import_camt
@@ -1348,12 +1453,15 @@ msgstr "Не синдицированные"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Non Taxable commissions"
 msgstr "Не облагаемые налогом комиссии"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Non-Presented Circular Cheque"
@@ -1383,12 +1491,14 @@ msgstr "Уведомление о займах"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "OTC"
 msgstr "OTC"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "OTC CCP"
@@ -1439,6 +1549,7 @@ msgstr "Внебиржевые производные инструменты - �
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "OTC Non-CCP"
 msgstr "Внебиржевая торговля без ППС"
@@ -1453,12 +1564,14 @@ msgstr "Продажа/покупка нестандартного лота"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "One-Off Direct Debit"
 msgstr "Единовременное прямое дебетование"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Open Cheque"
@@ -1488,12 +1601,14 @@ msgstr "Опционное обеспечение, принадлежащее к
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Options"
 msgstr "Опции"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Order Cheque"
@@ -1557,6 +1672,9 @@ msgstr "Платежи"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Payroll/Salary Payment"
@@ -1624,6 +1742,7 @@ msgstr "Ошибка размещения"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Pre-Authorised Direct Debit"
 msgstr "Предварительно авторизованное прямое дебетование"
@@ -1651,6 +1770,9 @@ msgstr "Основной платеж"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Priority Credit Transfer"
@@ -1729,6 +1851,8 @@ msgstr "План выкупа с изъятием"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Reimbursements"
 msgstr "Возмещение расходов"
@@ -1749,6 +1873,7 @@ msgstr "Погашение"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Repo"
@@ -1771,6 +1896,9 @@ msgstr "Сброс платежа"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Reversal due to Payment Cancellation Request"
 msgstr "Сторнирование из-за запроса на отмену платежа"
@@ -1778,12 +1906,17 @@ msgstr "Сторнирование из-за запроса на отмену п
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Reversal due to Payment Return/reimbursement of a Credit Transfer"
-msgstr "Сторнирование в связи с возвратом платежа/возмещением кредитного перевода"
+msgstr ""
+"Сторнирование в связи с возвратом платежа/возмещением кредитного перевода"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Reversal due to Payment Reversal"
@@ -1792,12 +1925,14 @@ msgstr "Сторнирование в связи со сторнирование
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Reversal due to Return/Unpaid Direct Debit"
 msgstr "Сторнирование из-за возврата/неоплаченного прямого дебета"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Reversal due to a Payment Cancellation Request"
@@ -1820,12 +1955,14 @@ msgstr "Выпуск прав/Права подписки/Предложение
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "SEPA B2B Direct Debit"
 msgstr "Прямое дебетование SEPA B2B"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "SEPA Core Direct Debit"
@@ -1834,12 +1971,18 @@ msgstr "Прямое дебетование SEPA Core"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "SEPA Credit Transfer"
 msgstr "Кредитный перевод SEPA"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Same Day Value Credit Transfer"
@@ -1855,12 +1998,14 @@ msgstr "Ценные бумаги"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Securities Borrowing"
 msgstr "Заимствование ценных бумаг"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Securities Lending"
@@ -1918,6 +2063,8 @@ msgstr "Расчеты по импорту товаров"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Settlement under reserve"
 msgstr "Расчеты по резерву"
@@ -1925,12 +2072,15 @@ msgstr "Расчеты по резерву"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Smart-Card Payment"
 msgstr "Оплата смарт-картами"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Spots"
@@ -1952,6 +2102,9 @@ msgstr "Постоянный аккредитив"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Standing Order"
@@ -2044,12 +2197,15 @@ msgstr "Закрытие TBA"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Tax Reclaim"
 msgstr "Восстановление налогов"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Taxes"
@@ -2135,12 +2291,16 @@ msgstr "Снятие дорожных чеков"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Treasury Tax And Loan Service"
 msgstr "Казначейская налоговая и кредитная служба"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Triparty Repo"
@@ -2177,12 +2337,14 @@ msgstr "Операция по неоплаченной карте"
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Unpaid Cheque"
 msgstr "Неоплаченный чек"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
+#: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 #, python-format
 msgid "Unpaid Foreign Cheque"

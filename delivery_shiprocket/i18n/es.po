@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -183,6 +183,13 @@ msgid "Country is required!"
 msgstr "Se requiere un país."
 
 #. module: delivery_shiprocket
+#. odoo-python
+#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
+#, python-format
+msgid "Courier (%s): %s"
+msgstr "Transportista (%s): %s"
+
+#. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_shiprocket_courier__courier_code
 msgid "Courier Code"
 msgstr "Código de transportista"
@@ -191,22 +198,15 @@ msgstr "Código de transportista"
 #. odoo-python
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 #, python-format
-msgid "Courier: %s"
-msgstr "Transportista: %s"
-
-#. module: delivery_shiprocket
-#. odoo-python
-#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
-#, python-format
-msgid "Courier (%s): %s"
-msgstr "Transportista (%s): %s"
-
-#. module: delivery_shiprocket
-#. odoo-python
-#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
-#, python-format
 msgid "Courier is not available for delivery!"
 msgstr "El transportista no está disponible para el envío"
+
+#. module: delivery_shiprocket
+#. odoo-python
+#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
+#, python-format
+msgid "Courier: %s"
+msgstr "Transportista: %s"
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket

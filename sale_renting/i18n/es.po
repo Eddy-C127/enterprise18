@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -166,7 +166,7 @@ msgstr "<strong>Comercial:</strong>"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "<strong>Shipping Address:</strong>"
-msgstr "<strong>Dirección de Entrega:</strong>"
+msgstr "<strong>Dirección de envío:</strong>"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_gantt
@@ -229,7 +229,7 @@ msgstr "Reservado"
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order_line__is_product_rentable
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_product_template_search_view
 msgid "Can be Rented"
-msgstr "Se puede Alquilar"
+msgstr "Se puede alquilar"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_wizard_view_form
@@ -306,15 +306,14 @@ msgstr "Configuración"
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
 #, python-format
 msgid "Confirm the order when the customer agrees with the terms."
-msgstr ""
-"Confirmar el orden cuando el cliente está de acuerdo con los términos."
+msgstr "Confirme la orden cuando el cliente está de acuerdo con los términos."
 
 #. module: sale_renting
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
 #, python-format
 msgid "Confirm the returned quantities and hit Validate."
-msgstr "Confirme las cantidades devueltas y pulse Validar."
+msgstr "Confirme las cantidades devueltas y haga clic en \"Validar\"."
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_report_search_view
@@ -335,7 +334,7 @@ msgstr "Crear un nuevo período"
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_order_action
 msgid "Create a new quotation, the first step of a new rental!"
-msgstr "Crear un nuevo presupuesto, el primer paso de un nuevo alquiler!"
+msgstr "Cree un nuevo presupuesto, ¡es el primer paso de un nuevo alquiler!"
 
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.product_pricing_action
@@ -350,7 +349,7 @@ msgstr "Crear una nueva orden de alquiler"
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_product_template_action
 msgid "Create a new rental product!"
-msgstr "Cree un nuevo producto de alquiler!"
+msgstr "Cree un nuevo producto de alquiler."
 
 #. module: sale_renting
 #. odoo-javascript
@@ -362,7 +361,7 @@ msgstr "Cree o seleccione un cliente aquí."
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__is_rental_order
 msgid "Created In App Rental"
-msgstr "Creado en la App Rental"
+msgstr "Creado en la aplicación de Alquiler"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_pricing__create_uid
@@ -410,7 +409,7 @@ msgstr "País del cliente"
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__commercial_partner_id
 msgid "Customer Entity"
-msgstr "Entidad del Cliente"
+msgstr "Entidad del cliente"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__card_name
@@ -430,7 +429,7 @@ msgstr "Diariamente"
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_report__price
 msgid "Daily Amount"
-msgstr "Cantidad Diaria"
+msgstr "Importe diario"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_report__quantity
@@ -730,15 +729,6 @@ msgstr ""
 "representa un precio de alquiler fijo."
 
 #. module: sale_renting
-#: model:ir.model,name:sale_renting.model_product_template
-msgid ""
-"Model adding the necessary fields to products to use with Pricer electronic "
-"tags"
-msgstr ""
-"Modelo que agrega los campos necesarios a los productos para usarlos con las"
-" etiquetas electrónicas de Pricer"
-
-#. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/models/sale_order_recurrence.py:0
 #, python-format
@@ -955,6 +945,7 @@ msgid "Pricing rule of rental products"
 msgstr "Regla de precios de los productos de alquiler"
 
 #. module: sale_renting
+#: model:ir.model,name:sale_renting.model_product_template
 #: model:ir.model.fields,field_description:sale_renting.field_rental_order_wizard_line__product_id
 #: model:ir.model.fields,field_description:sale_renting.field_res_company__extra_product
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_report__product_id

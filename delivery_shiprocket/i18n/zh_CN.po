@@ -7,14 +7,15 @@
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # 何彬 <vnsoft.he@gmail.com>, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2023\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -175,6 +176,13 @@ msgid "Country is required!"
 msgstr "必须填写国家！"
 
 #. module: delivery_shiprocket
+#. odoo-python
+#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
+#, python-format
+msgid "Courier (%s): %s"
+msgstr "快递商（%s）：%s"
+
+#. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_shiprocket_courier__courier_code
 msgid "Courier Code"
 msgstr "快递编码"
@@ -183,22 +191,15 @@ msgstr "快递编码"
 #. odoo-python
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 #, python-format
-msgid "Courier: %s"
-msgstr ""
-
-#. module: delivery_shiprocket
-#. odoo-python
-#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
-#, python-format
-msgid "Courier (%s): %s"
-msgstr ""
-
-#. module: delivery_shiprocket
-#. odoo-python
-#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
-#, python-format
 msgid "Courier is not available for delivery!"
 msgstr "不提供快递服务！"
+
+#. module: delivery_shiprocket
+#. odoo-python
+#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
+#, python-format
+msgid "Courier: %s"
+msgstr "快递商：%s"
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket

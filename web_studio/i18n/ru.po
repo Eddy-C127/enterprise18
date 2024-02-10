@@ -1,20 +1,31 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_studio
-#
+# 
 # Translators:
+# Denis Trepalin <zekarious@gmail.com>, 2023
+# Vasiliy Korobatov <korobatov@gmail.com>, 2023
+# Alena Vlasova, 2023
+# Sergey Vilizhanin, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# alenafairy, 2023
+# ILMIR <karamov@it-projects.info>, 2023
+# Martin Trigaux, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:09+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: web_studio
@@ -144,7 +155,8 @@ msgstr "Поле с таким же именем уже существует."
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_approval_entry_uniq_combination
 msgid "A rule can only be approved/rejected once per record."
-msgstr "Правило может быть одобрено/отклонено только один раз для каждой записи."
+msgstr ""
+"Правило может быть одобрено/отклонено только один раз для каждой записи."
 
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_approval_rule_method_or_action_together
@@ -236,8 +248,13 @@ msgstr "Название действия"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_mail_activity_type__category
-msgid "Actions may trigger specific behavior like opening calendar view or automatically mark as done when a document is uploaded"
-msgstr "Действия могут вызывать определенные изменения, такие как открытие просмотра календаря или автоматическая пометка, как это было сделано при загрузке документа."
+msgid ""
+"Actions may trigger specific behavior like opening calendar view or "
+"automatically mark as done when a document is uploaded"
+msgstr ""
+"Действия могут вызывать определенные изменения, такие как открытие просмотра"
+" календаря или автоматическая пометка, как это было сделано при загрузке "
+"документа."
 
 #. module: web_studio
 #. odoo-javascript
@@ -353,7 +370,8 @@ msgstr "Добавить аватар"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Add details to your records with an embedded list view"
-msgstr "Добавляйте подробности к записям с помощью встроенного представления списка"
+msgstr ""
+"Добавляйте подробности к записям с помощью встроенного представления списка"
 
 #. module: web_studio
 #. odoo-javascript
@@ -408,8 +426,12 @@ msgstr "Весь день"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
-msgid "All changes done to the report's structure will be discarded and the report will be reset to its factory settings."
-msgstr "Все изменения, внесенные в структуру отчета, будут отменены, и отчет будет возвращен к заводским настройкам."
+msgid ""
+"All changes done to the report's structure will be discarded and the report "
+"will be reset to its factory settings."
+msgstr ""
+"Все изменения, внесенные в структуру отчета, будут отменены, и отчет будет "
+"возвращен к заводским настройкам."
 
 #. module: web_studio
 #. odoo-javascript
@@ -421,8 +443,11 @@ msgstr "Разрешенная группа"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__responsible_id
-msgid "An activity will be assigned to this user when an approval is requested"
-msgstr "Деятельность будет назначена этому пользователю, когда будет запрошено одобрение"
+msgid ""
+"An activity will be assigned to this user when an approval is requested"
+msgstr ""
+"Деятельность будет назначена этому пользователю, когда будет запрошено "
+"одобрение"
 
 #. module: web_studio
 #. odoo-python
@@ -464,9 +489,12 @@ msgstr "Одобрения"
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
+#: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "Approvals can only be done on a method or an action, not both."
-msgstr "Утверждения могут быть сделаны только для метода или действия, но не для обоих."
+msgstr ""
+"Утверждения могут быть сделаны только для метода или действия, но не для "
+"обоих."
 
 #. module: web_studio
 #. odoo-python
@@ -514,6 +542,7 @@ msgstr "Архивируйте устаревшие записи"
 
 #. module: web_studio
 #. odoo-python
+#: code:addons/web_studio/models/ir_ui_view.py:0
 #: code:addons/web_studio/models/ir_ui_view.py:0
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_search_view
@@ -834,6 +863,7 @@ msgstr "Нажмите, чтобы просмотреть все правила 
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #: code:addons/web_studio/static/src/client_action/navbar/navbar.xml:0
 #: code:addons/web_studio/static/src/client_action/xml_resource_editor/xml_resource_editor.xml:0
+#: code:addons/web_studio/static/src/client_action/xml_resource_editor/xml_resource_editor.xml:0
 #, python-format
 msgid "Close"
 msgstr "Закрыть"
@@ -849,6 +879,7 @@ msgstr "Когорта"
 #. module: web_studio
 #. odoo-javascript
 #. odoo-python
+#: code:addons/web_studio/models/ir_model.py:0
 #: code:addons/web_studio/models/ir_model.py:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/calendar/calendar_editor_sidebar.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
@@ -1021,6 +1052,7 @@ msgstr "Создать свой App"
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
+#: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
 #, python-format
 msgid "Create your app"
 msgstr "Создайте свое приложение"
@@ -1058,7 +1090,9 @@ msgstr "Создано"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 #, python-format
 msgid "Creating this type of view is not currently supported in Studio."
-msgstr "Создание этого типа представления в настоящее время не поддерживается в Studio."
+msgstr ""
+"Создание этого типа представления в настоящее время не поддерживается в "
+"Studio."
 
 #. module: web_studio
 #. odoo-python
@@ -1113,7 +1147,8 @@ msgstr "Пользовательские представления"
 #: code:addons/web_studio/models/ir_model.py:0
 #, python-format
 msgid "Custom field names cannot contain double underscores."
-msgstr "Имена пользовательских полей не могут содержать двойных подчеркиваний."
+msgstr ""
+"Имена пользовательских полей не могут содержать двойных подчеркиваний."
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_base_module_uninstall_studio
@@ -1255,6 +1290,7 @@ msgstr "Значение по умолчанию"
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
+#: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #, python-format
 msgid "Default view"
 msgstr "Вид по умолчанию"
@@ -1264,7 +1300,8 @@ msgstr "Вид по умолчанию"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Define start/end dates and visualize records in a Gantt chart"
-msgstr "Определите даты начала/окончания и визуализируйте записи на диаграмме Ганта"
+msgstr ""
+"Определите даты начала/окончания и визуализируйте записи на диаграмме Ганта"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1293,6 +1330,7 @@ msgstr "По убыванию"
 #. odoo-javascript
 #. odoo-python
 #: code:addons/web_studio/models/ir_model.py:0
+#: code:addons/web_studio/models/ir_model.py:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message
 #, python-format
@@ -1301,6 +1339,7 @@ msgstr "Описание"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/icon_creator/icon_creator.xml:0
 #: code:addons/web_studio/static/src/client_action/icon_creator/icon_creator.xml:0
 #, python-format
 msgid "Design your Icon"
@@ -1381,6 +1420,7 @@ msgstr "Перетащите меню вправо, чтобы создать п
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/ir_ui_view.py:0
+#: code:addons/web_studio/models/ir_ui_view.py:0
 #, python-format
 msgid "Dropdown Menu"
 msgstr "Выпадающее меню"
@@ -1451,8 +1491,12 @@ msgstr "Редактировать источники"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/xml_resource_editor/xml_resource_editor.js:0
 #, python-format
-msgid "Editing a built-in file through this editor is not advised, as it will prevent it from being updated during future App upgrades."
-msgstr "Редактирование встроенного файла через этот редактор не рекомендуется, так как это не позволит обновить его при последующих обновлениях приложения."
+msgid ""
+"Editing a built-in file through this editor is not advised, as it will "
+"prevent it from being updated during future App upgrades."
+msgstr ""
+"Редактирование встроенного файла через этот редактор не рекомендуется, так "
+"как это не позволит обновить его при последующих обновлениях приложения."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1681,8 +1725,12 @@ msgstr "Первое измерение"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
-msgid "For compatibility purpose with base_automation,approvals on 'create', 'write' and 'unlink' methods are forbidden."
-msgstr "В целях совместимости с base_automation, утверждения методов 'create', 'write' и 'unlink' запрещены."
+msgid ""
+"For compatibility purpose with base_automation,approvals on 'create', "
+"'write' and 'unlink' methods are forbidden."
+msgstr ""
+"В целях совместимости с base_automation, утверждения методов 'create', "
+"'write' и 'unlink' запрещены."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1800,7 +1848,9 @@ msgstr "Группировка не применяется в Studio для ре
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "Groups used in approval rules must have an external identifier."
-msgstr "Группы, используемые в правилах утверждения, должны иметь внешний идентификатор."
+msgstr ""
+"Группы, используемые в правилах утверждения, должны иметь внешний "
+"идентификатор."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1832,8 +1882,12 @@ msgstr "Полчаса"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
-msgid "Header and footer are shared with other reports which may be impacted by the reset."
-msgstr "Верхний и нижний колонтитулы используются совместно с другими отчетами, на которые может повлиять сброс."
+msgid ""
+"Header and footer are shared with other reports which may be impacted by the"
+" reset."
+msgstr ""
+"Верхний и нижний колонтитулы используются совместно с другими отчетами, на "
+"которые может повлиять сброс."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1899,19 +1953,29 @@ msgstr "Иконка"
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__domain
 msgid "If set, the rule will only apply on records that match the domain."
-msgstr "Если установлено, правило будет применяться только к записям, соответствующим домену."
+msgstr ""
+"Если установлено, правило будет применяться только к записям, "
+"соответствующим домену."
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__exclusive_user
-msgid "If set, the user who approves this rule will not be able to approve other rules for the same record"
-msgstr "Если установлено, пользователь, утвердивший это правило, не сможет утверждать другие правила для той же записи"
+msgid ""
+"If set, the user who approves this rule will not be able to approve other "
+"rules for the same record"
+msgstr ""
+"Если установлено, пользователь, утвердивший это правило, не сможет "
+"утверждать другие правила для той же записи"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
+#: code:addons/web_studio/controllers/main.py:0
 #, python-format
-msgid "If you don't want to create a new model, an existing model should be selected."
-msgstr "Если вы не хотите создавать новую модель, следует выбрать существующую."
+msgid ""
+"If you don't want to create a new model, an existing model should be "
+"selected."
+msgstr ""
+"Если вы не хотите создавать новую модель, следует выбрать существующую."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1932,6 +1996,7 @@ msgstr "Импорт"
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/ir_model.py:0
+#: code:addons/web_studio/models/ir_model.py:0
 #, python-format
 msgid "In Progress"
 msgstr "В процессе"
@@ -1945,8 +2010,12 @@ msgstr "Включите верхний и нижний колонтитулы"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_ir_ui_menu__is_studio_configuration
-msgid "Indicates that this menu was created by Studio to hold configuration sub-menus"
-msgstr "Указывает, что это меню было создано Studio для размещения подменю конфигурации"
+msgid ""
+"Indicates that this menu was created by Studio to hold configuration sub-"
+"menus"
+msgstr ""
+"Указывает, что это меню было создано Studio для размещения подменю "
+"конфигурации"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2011,6 +2080,7 @@ msgstr "Is Studio"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #, python-format
 msgid "Is default view"
@@ -2196,6 +2266,7 @@ msgstr "Метод"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Method to run"
@@ -2438,6 +2509,9 @@ msgstr "Новая кнопка"
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
+#: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
+#: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
+#: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.xml:0
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.xml:0
 #, python-format
 msgid "Next"
@@ -2455,7 +2529,8 @@ msgstr "Без агрегации"
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "No approval found for this rule, record and user combination."
-msgstr "Не найдено одобрения для этой комбинации правил, записей и пользователей."
+msgstr ""
+"Не найдено одобрения для этой комбинации правил, записей и пользователей."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2525,8 +2600,13 @@ msgstr "Только %s пользователей могут одобрить �
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
-msgid "Only groups with an external ID can be used here. Please choose another group or assign manually an external ID to this group."
-msgstr "Здесь можно использовать только группы с внешним идентификатором. Пожалуйста, выберите другую группу или назначьте внешний ID этой группе вручную."
+msgid ""
+"Only groups with an external ID can be used here. Please choose another "
+"group or assign manually an external ID to this group."
+msgstr ""
+"Здесь можно использовать только группы с внешним идентификатором. "
+"Пожалуйста, выберите другую группу или назначьте внешний ID этой группе "
+"вручную."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2575,6 +2655,7 @@ msgstr "Главное меню"
 
 #. module: web_studio
 #. odoo-python
+#: code:addons/web_studio/models/ir_ui_view.py:0
 #: code:addons/web_studio/models/ir_ui_view.py:0
 #, python-format
 msgid "Partner"
@@ -2647,6 +2728,8 @@ msgstr "Предварительный просмотр недоступен"
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
+#: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
+#: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.xml:0
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.xml:0
 #, python-format
 msgid "Previous"
@@ -2670,8 +2753,12 @@ msgstr "Приоритет"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
-msgid "Private methods cannot be restricted (since they cannot be called remotely, this would be useless)."
-msgstr "Приватные методы нельзя ограничить (поскольку их нельзя вызвать удаленно, это было бы бесполезно)."
+msgid ""
+"Private methods cannot be restricted (since they cannot be called remotely, "
+"this would be useless)."
+msgstr ""
+"Приватные методы нельзя ограничить (поскольку их нельзя вызвать удаленно, "
+"это было бы бесполезно)."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2819,12 +2906,15 @@ msgstr "Отчет о действиях"
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
+#: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
+#: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
 msgid "Report Tools"
 msgstr "Инструменты для создания отчетов"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 #, python-format
 msgid "Report edition failed"
@@ -2894,6 +2984,7 @@ msgstr "Мастер сброса вида архитектуры"
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
+#: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "Reset report"
@@ -2962,15 +3053,25 @@ msgstr "Правило"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
-msgid "Rules with existing entries cannot be deleted since it would delete existing approval entries. You should archive the rule instead."
-msgstr "Правила с существующими записями нельзя удалять, поскольку это приведет к удалению существующих записей одобрения. Вместо этого правило следует заархивировать."
+msgid ""
+"Rules with existing entries cannot be deleted since it would delete existing"
+" approval entries. You should archive the rule instead."
+msgstr ""
+"Правила с существующими записями нельзя удалять, поскольку это приведет к "
+"удалению существующих записей одобрения. Вместо этого правило следует "
+"заархивировать."
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
-msgid "Rules with existing entries cannot be modified since it would break existing approval entries. You should archive the rule and create a new one instead."
-msgstr "Правила с существующими записями не могут быть изменены, поскольку это приведет к нарушению существующих записей одобрения. Вам следует заархивировать правило и создать новое."
+msgid ""
+"Rules with existing entries cannot be modified since it would break existing"
+" approval entries. You should archive the rule and create a new one instead."
+msgstr ""
+"Правила с существующими записями не могут быть изменены, поскольку это "
+"приведет к нарушению существующих записей одобрения. Вам следует "
+"заархивировать правило и создать новое."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3062,7 +3163,8 @@ msgstr "Выберите связанное поле."
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/new_view_dialogs/map_new_view_dialog.xml:0
 #, python-format
-msgid "Select the contact field to use to get the coordinates of your records."
+msgid ""
+"Select the contact field to use to get the coordinates of your records."
 msgstr "Выберите поле контакта для получения координат записей."
 
 #. module: web_studio
@@ -3110,6 +3212,7 @@ msgstr "Разделитель"
 
 #. module: web_studio
 #. odoo-python
+#: code:addons/web_studio/models/ir_model.py:0
 #: code:addons/web_studio/models/ir_model.py:0
 #, python-format
 msgid "Sequence"
@@ -3187,8 +3290,12 @@ msgstr "Медленно"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
-msgid "Some records were skipped because approvals were missing to                                    proceed with your request: "
-msgstr "Некоторые записи были пропущены, потому что не было одобрения для выполнения вашего запроса:"
+msgid ""
+"Some records were skipped because approvals were missing to"
+"                                    proceed with your request: "
+msgstr ""
+"Некоторые записи были пропущены, потому что не было одобрения для выполнения"
+" вашего запроса:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3399,6 +3506,9 @@ msgstr "Самый быстрый способ создания веб-прил�
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
+#: code:addons/web_studio/controllers/main.py:0
+#: code:addons/web_studio/controllers/main.py:0
+#: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The field %s does not exist."
 msgstr "Поле %s не существует."
@@ -3450,6 +3560,9 @@ msgstr "Метод %s является частным."
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
+#: code:addons/web_studio/controllers/main.py:0
+#: code:addons/web_studio/controllers/main.py:0
+#: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The model %s does not exist."
 msgstr "Модель %s не существует."
@@ -3487,14 +3600,19 @@ msgstr "Связанное поле кнопки должно быть many2one 
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 #, python-format
 msgid "The report is in error. Only editing the XML sources is permitted"
-msgstr "В отчете допущена ошибка. Разрешено только редактирование источников XML"
+msgstr ""
+"В отчете допущена ошибка. Разрешено только редактирование источников XML"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/studio_view.js:0
 #, python-format
-msgid "The requested change caused an error in the view. It could be because a field was deleted, but still used somewhere else."
-msgstr "Запрошенное изменение вызвало ошибку в представлении. Это может быть связано с тем, что поле было удалено, но по-прежнему используется в другом месте."
+msgid ""
+"The requested change caused an error in the view. It could be because a "
+"field was deleted, but still used somewhere else."
+msgstr ""
+"Запрошенное изменение вызвало ошибку в представлении. Это может быть связано"
+" с тем, что поле было удалено, но по-прежнему используется в другом месте."
 
 #. module: web_studio
 #. odoo-python
@@ -3518,8 +3636,12 @@ msgstr "В модели %s (%s) нет метода %s"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
-msgid "There is no record on which this report can be previewed. Create at least one record to preview the report."
-msgstr "Не существует записи, для которой можно предварительно просмотреть этот отчет. Создайте хотя бы одну запись для предварительного просмотра отчета."
+msgid ""
+"There is no record on which this report can be previewed. Create at least "
+"one record to preview the report."
+msgstr ""
+"Не существует записи, для которой можно предварительно просмотреть этот "
+"отчет. Создайте хотя бы одну запись для предварительного просмотра отчета."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3530,8 +3652,12 @@ msgstr "Нет записи для предварительного просмо
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__users_to_notify
-msgid "These users will receive a notification via internal note when an approval is requested"
-msgstr "Эти пользователи получат уведомление через внутреннюю заметку, когда будет запрошено одобрение"
+msgid ""
+"These users will receive a notification via internal note when an approval "
+"is requested"
+msgstr ""
+"Эти пользователи получат уведомление через внутреннюю заметку, когда будет "
+"запрошено одобрение"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3564,20 +3690,29 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
-msgid "This could also be due to the absence of a real record to render the report with."
-msgstr "Это также может быть связано с отсутствием реальной записи для создания отчета."
+msgid ""
+"This could also be due to the absence of a real record to render the report "
+"with."
+msgstr ""
+"Это также может быть связано с отсутствием реальной записи для создания "
+"отчета."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "This may be due to an incorrect syntax in the edited parts."
-msgstr "Это может быть связано с неправильным синтаксисом в редактируемых частях."
+msgstr ""
+"Это может быть связано с неправильным синтаксисом в редактируемых частях."
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__message
-msgid "This message will be displayed to users that cannot proceed without this approval"
-msgstr "Это сообщение будет отображаться для пользователей, которые не могут продолжить работу без этого разрешения"
+msgid ""
+"This message will be displayed to users that cannot proceed without this "
+"approval"
+msgstr ""
+"Это сообщение будет отображаться для пользователей, которые не могут "
+"продолжить работу без этого разрешения"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3598,7 +3733,9 @@ msgstr "Это правило уже было одобрено/отклонен�
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #, python-format
 msgid "This rule limits this user to a single approval for this action."
-msgstr "Это правило ограничивает данного пользователя одним одобрением этого действия."
+msgstr ""
+"Это правило ограничивает данного пользователя одним одобрением этого "
+"действия."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3616,6 +3753,7 @@ msgstr "Виды временной шкалы"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/systray_item/systray_item.xml:0
 #: code:addons/web_studio/static/src/systray_item/systray_item.xml:0
 #, python-format
 msgid "Toggle Studio"
@@ -3652,8 +3790,14 @@ msgstr "Отменить"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__notification_order
-msgid "Use this field to setup multi-level validation. Next activities and notifications for an approval request will only be sent once rules from previous levels have been validated"
-msgstr "Используйте это поле для настройки многоуровневой проверки. Следующие действия и уведомления для запроса на утверждение будут отправляться только после того, как правила предыдущих уровней будут подтверждены"
+msgid ""
+"Use this field to setup multi-level validation. Next activities and "
+"notifications for an approval request will only be sent once rules from "
+"previous levels have been validated"
+msgstr ""
+"Используйте это поле для настройки многоуровневой проверки. Следующие "
+"действия и уведомления для запроса на утверждение будут отправляться только "
+"после того, как правила предыдущих уровней будут подтверждены"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_entry_search_view
@@ -3707,6 +3851,7 @@ msgstr "Значение"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/editor/app_menu_editor/app_menu_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/editor/app_menu_editor/app_menu_editor.xml:0
 #, python-format
 msgid "Value of list"
@@ -3833,7 +3978,9 @@ msgstr "Вы не можете отменить одобрение, которо
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 #, python-format
 msgid "You cannot deactivate this view as it is the last one active."
-msgstr "Вы не можете деактивировать этот вид, так как он является последним активным."
+msgstr ""
+"Вы не можете деактивировать этот вид, так как он является последним "
+"активным."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3889,7 +4036,8 @@ msgstr "или"
 #: code:addons/web_studio/models/ir_ui_view.py:0
 #, python-format
 msgid "studio_approval attribute can only be set in form views"
-msgstr "атрибут studio_approval может быть установлен только в представлениях форм"
+msgstr ""
+"атрибут studio_approval может быть установлен только в представлениях форм"
 
 #. module: web_studio
 #. odoo-javascript

@@ -5,18 +5,18 @@
 # Translators:
 # Mads Søndergaard, 2023
 # Pernille Kristensen <pernillekristensen1994@gmail.com>, 2023
-# Sanne Kristensen <sanne@vkdata.dk>, 2023
 # Martin Trigaux, 2023
 # lhmflexerp <lhm@flexerp.dk>, 2023
 # Mads Søndergaard, 2023
+# Sanne Kristensen <sanne@vkdata.dk>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Mads Søndergaard, 2023\n"
+"Last-Translator: Sanne Kristensen <sanne@vkdata.dk>, 2024\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -171,6 +171,13 @@ msgstr ""
 #: model:ir.model.fields,help:pos_iot.field_pos_config__iface_electronic_scale
 msgid "Enables Electronic Scale integration."
 msgstr "Aktiverer elektronisk vægt integration."
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.js:0
+#, python-format
+msgid "Failed to request last transaction status"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
@@ -371,7 +378,7 @@ msgstr "Point of Sale betalingsmetoder"
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_printer
 msgid "Point of Sale Printer"
-msgstr ""
+msgstr "Point of Sale Printer"
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_session
@@ -387,6 +394,13 @@ msgstr "Print via Proxy"
 #: model:ir.model.fields,field_description:pos_iot.field_pos_printer__proxy_ip
 msgid "Proxy IP Address"
 msgstr "Proxy IP Adresse"
+
+#. module: pos_iot
+#. odoo-python
+#: code:addons/pos_iot/models/pos_printer.py:0
+#, python-format
+msgid "Proxy IP cannot be empty."
+msgstr "Proxy IP kan ikke være tom."
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form

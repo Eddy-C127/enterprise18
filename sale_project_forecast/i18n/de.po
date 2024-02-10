@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:47+0000\n"
+"POT-Creation-Date: 2024-01-26 16:12+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
@@ -34,15 +34,6 @@ msgstr ""
 "Verkaufsaufträge, die diese Dienstleistung beinhalten, zugewiesen."
 
 #. module: sale_project_forecast
-#: model:ir.model,name:sale_project_forecast.model_product_template
-msgid ""
-"Model adding the necessary fields to products to use with Pricer electronic "
-"tags"
-msgstr ""
-"Modell zum Hinzufügen der erforderlichen Felder zu Produkten für die "
-"Verwendung mit elektronischen Pricer-Anhängern"
-
-#. module: sale_project_forecast
 #: model:ir.model.fields,field_description:sale_project_forecast.field_product_product__planning_enabled
 #: model:ir.model.fields,field_description:sale_project_forecast.field_product_template__planning_enabled
 msgid "Plan Services"
@@ -52,6 +43,11 @@ msgstr "Dienstleistungen planen"
 #: model:ir.model,name:sale_project_forecast.model_planning_slot
 msgid "Planning Shift"
 msgstr "Schicht der Planung"
+
+#. module: sale_project_forecast
+#: model:ir.model,name:sale_project_forecast.model_product_template
+msgid "Product"
+msgstr "Produkt"
 
 #. module: sale_project_forecast
 #: model:ir.model.fields,field_description:sale_project_forecast.field_planning_slot__sale_line_id

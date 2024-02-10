@@ -1,20 +1,31 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* iot
-#
+# 
 # Translators:
+# Collex100, 2023
+# Alena Vlasova, 2023
+# Ekaterina <nawsikaya@bk.ru>, 2023
+# Sergey Vilizhanin, 2023
+# Irina Fedulova <istartlin@gmail.com>, 2023
+# Martin Trigaux, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Максим Дронь <dronmax@gmail.com>, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: iot
@@ -140,14 +151,19 @@ msgstr "Нажмите здесь, чтобы открыть домашнюю с
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 #, python-format
 msgid "Click on Advanced/Show Details/Details/More information"
-msgstr "Нажмите кнопку Дополнительно/Показать детали/Детали/Подробная информация"
+msgstr ""
+"Нажмите кнопку Дополнительно/Показать детали/Детали/Подробная информация"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 #, python-format
-msgid "Click on Proceed to .../Add Exception/Visit this website/Go on to the webpage"
-msgstr "Нажмите на кнопку Приступить к .../Добавить исключение/Посетить этот веб-сайт/Перейти на веб-страницу"
+msgid ""
+"Click on Proceed to .../Add Exception/Visit this website/Go on to the "
+"webpage"
+msgstr ""
+"Нажмите на кнопку Приступить к .../Добавить исключение/Посетить этот веб-"
+"сайт/Перейти на веб-страницу"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
@@ -309,7 +325,9 @@ msgstr "Скачать журналы"
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 #, python-format
 msgid "Firefox only: Click on Confirm Security Exception"
-msgstr "Только для Firefox: Нажмите на кнопку Подтвердить исключение из правил безопасности"
+msgstr ""
+"Только для Firefox: Нажмите на кнопку Подтвердить исключение из правил "
+"безопасности"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__fiscal_data_module
@@ -360,8 +378,11 @@ msgstr "Если устройство подключено к IoT Box"
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 #, python-format
-msgid "If you are on a secure server (HTTPS) check if you accepted the certificate:"
-msgstr "Если вы находитесь на защищенном сервере (HTTPS), проверьте, приняли ли вы сертификат:"
+msgid ""
+"If you are on a secure server (HTTPS) check if you accepted the certificate:"
+msgstr ""
+"Если вы находитесь на защищенном сервере (HTTPS), проверьте, приняли ли вы "
+"сертификат:"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__version
@@ -525,7 +546,9 @@ msgstr "Платежный терминал"
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 #, python-format
-msgid "Please accept the certificate of your IoT Box (procedure depends on your browser):"
+msgid ""
+"Please accept the certificate of your IoT Box (procedure depends on your "
+"browser):"
 msgstr "Примите сертификат вашего IoT Box (процедура зависит от браузера):"
 
 #. module: iot
@@ -537,6 +560,7 @@ msgstr "Проверьте, подключен ли IoT Box."
 
 #. module: iot
 #. odoo-javascript
+#: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Please wait"
@@ -584,6 +608,8 @@ msgstr "Отчеты"
 
 #. module: iot
 #. odoo-javascript
+#: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
+#: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Restart Failed"
@@ -649,8 +675,12 @@ msgstr "Имя канала должно быть уникальным"
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 #, python-format
-msgid "The pairing code you provided was not found in our system. Please check that you entered it correctly."
-msgstr "Указанный вами код сопряжения не найден в нашей системе. Пожалуйста, проверьте, правильно ли вы его ввели."
+msgid ""
+"The pairing code you provided was not found in our system. Please check that"
+" you entered it correctly."
+msgstr ""
+"Указанный вами код сопряжения не найден в нашей системе. Пожалуйста, "
+"проверьте, правильно ли вы его ввели."
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_device_action_search_iot_box
@@ -691,8 +721,12 @@ msgstr "Тип устройства."
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__display_url
-msgid "URL of the page that will be displayed by the device, leave empty to use the customer facing display of the POS."
-msgstr "URL-адрес страницы, которая будет отображаться устройством; оставьте пустым, чтобы использовать дисплей POS, обращенный к клиенту."
+msgid ""
+"URL of the page that will be displayed by the device, leave empty to use the"
+" customer facing display of the POS."
+msgstr ""
+"URL-адрес страницы, которая будет отображаться устройством; оставьте пустым,"
+" чтобы использовать дисплей POS, обращенный к клиенту."
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__direct
@@ -716,12 +750,18 @@ msgstr "Вариант"
 #: code:addons/iot/wizard/add_iot_box.py:0
 #, python-format
 msgid "We had troubles pairing your IoT Box. Please try again later."
-msgstr "У нас возникли проблемы с сопряжением вашего IoT Box. Пожалуйста, повторите попытку позже."
+msgstr ""
+"У нас возникли проблемы с сопряжением вашего IoT Box. Пожалуйста, повторите "
+"попытку позже."
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_ir_actions_report__device_ids
-msgid "When setting a device here, the report will be printed through this device on the IoT Box"
-msgstr "Если задать здесь устройство, отчет будет печататься через это устройство на IoT Box"
+msgid ""
+"When setting a device here, the report will be printed through this device "
+"on the IoT Box"
+msgstr ""
+"Если задать здесь устройство, отчет будет печататься через это устройство на"
+" IoT Box"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

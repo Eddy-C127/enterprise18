@@ -1,20 +1,26 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* sale_purchase_inter_company_rules
-#
+# 
 # Translators:
+# Константин Коровин <korovin74@gmail.com>, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2023
+# Martin Trigaux, 2023
+# Ivan Kropotkin <yelizariev@itpp.dev>, 2023
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2024-01-30 15:14+0400\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: sale_purchase_inter_company_rules
@@ -56,8 +62,12 @@ msgstr "Параметры конфигурации"
 #: code:addons/sale_purchase_inter_company_rules/models/purchase_order.py:0
 #: code:addons/sale_purchase_inter_company_rules/models/sale_order.py:0
 #, python-format
-msgid "Configure correct warehouse for company(%s) from Menu: Settings/Users/Companies"
-msgstr "Настройте правильный склад для компании(%s) из Меню: Настройки/Пользователи/Компании"
+msgid ""
+"Configure correct warehouse for company(%s) from Menu: "
+"Settings/Users/Companies"
+msgstr ""
+"Настройте правильный склад для компании(%s) из Меню: "
+"Настройки/Пользователи/Компании"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_company__copy_lots_delivery
@@ -68,29 +78,44 @@ msgstr "Копирование партий при проверке достав
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,help:sale_purchase_inter_company_rules.field_res_company__warehouse_id
 #: model:ir.model.fields,help:sale_purchase_inter_company_rules.field_res_config_settings__warehouse_id
-msgid "Default value to set on Purchase(Sales) Orders that will be created based on Sale(Purchase) Orders made to this company"
-msgstr "Значение по умолчанию для покупки Закупка(Продажа), которые будут созданы на основе Продажа(Закупка) заказ, сделанные этой компанией"
+msgid ""
+"Default value to set on Purchase(Sales) Orders that will be created based on"
+" Sale(Purchase) Orders made to this company"
+msgstr ""
+"Значение по умолчанию для покупки Закупка(Продажа), которые будут созданы на"
+" основе Продажа(Закупка) заказ, сделанные этой компанией"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
 #: code:addons/sale_purchase_inter_company_rules/models/res_company.py:0
 #, python-format
-msgid "Generate a %(validation)s %(generated_object)s using warehouse %(warehouse)s when a company confirms a %(event_type)s for %(company)s."
-msgstr "Сгенерируйте %(validation)s %(generated_object)s, используя склад %(warehouse)s, когда компания подтверждает %(event_type)s для %(company)s."
+msgid ""
+"Generate a %(validation)s %(generated_object)s using warehouse %(warehouse)s"
+" when a company confirms a %(event_type)s for %(company)s."
+msgstr ""
+"Сгенерируйте %(validation)s %(generated_object)s, используя склад "
+"%(warehouse)s, когда компания подтверждает %(event_type)s для %(company)s."
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
 #: code:addons/sale_purchase_inter_company_rules/models/res_company.py:0
 #, python-format
-msgid "Generate a %(validation)s %(generated_object)s when a company confirms a %(event_type)s for %(company)s."
-msgstr "Генерируйте %(validation)s %(generated_object)s, когда компания подтверждает %(event_type)s для %(company)s."
+msgid ""
+"Generate a %(validation)s %(generated_object)s when a company confirms a "
+"%(event_type)s for %(company)s."
+msgstr ""
+"Генерируйте %(validation)s %(generated_object)s, когда компания подтверждает"
+" %(event_type)s для %(company)s."
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
 #: code:addons/sale_purchase_inter_company_rules/models/purchase_order.py:0
 #, python-format
-msgid "Inter company user of company %(name)s doesn't have enough access rights"
-msgstr "Пользователь Inter company компании %(name)s не имеет достаточных прав доступа"
+msgid ""
+"Inter company user of company %(name)s doesn't have enough access rights"
+msgstr ""
+"Пользователь Inter company компании %(name)s не имеет достаточных прав "
+"доступа"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
@@ -104,14 +129,17 @@ msgstr "Пользователю внутренней компании %s не �
 #: code:addons/sale_purchase_inter_company_rules/models/purchase_order.py:0
 #, python-format
 msgid "Provide at least one user for inter company relation for %(name)s"
-msgstr "Предоставьте хотя бы одного пользователя для межфирменных отношений для %(name)s"
+msgstr ""
+"Предоставьте хотя бы одного пользователя для межфирменных отношений для "
+"%(name)s"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
 #: code:addons/sale_purchase_inter_company_rules/models/sale_order.py:0
 #, python-format
 msgid "Provide one user for intercompany relation for %(name)s "
-msgstr "Предоставьте одного пользователя для внутрифирменных отношений для %(name)s"
+msgstr ""
+"Предоставьте одного пользователя для внутрифирменных отношений для %(name)s"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model,name:sale_purchase_inter_company_rules.model_purchase_order
@@ -136,7 +164,8 @@ msgstr "Позиция заказа на продажу"
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,help:sale_purchase_inter_company_rules.field_res_company__rule_type
 msgid "Select the type to setup inter company rules in selected company."
-msgstr "Выберите тип для установки внутрикорпоративных правил в выбранной компании."
+msgstr ""
+"Выберите тип для установки внутрикорпоративных правил в выбранной компании."
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_sale_order__auto_purchase_order_id
@@ -208,6 +237,7 @@ msgstr "черновик"
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
 #: code:addons/sale_purchase_inter_company_rules/models/res_company.py:0
+#: code:addons/sale_purchase_inter_company_rules/models/res_company.py:0
 #, python-format
 msgid "purchase order"
 msgstr "заказ на покупку"
@@ -221,6 +251,7 @@ msgstr "заказ на покупку/продажу"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
+#: code:addons/sale_purchase_inter_company_rules/models/res_company.py:0
 #: code:addons/sale_purchase_inter_company_rules/models/res_company.py:0
 #, python-format
 msgid "sales order"
