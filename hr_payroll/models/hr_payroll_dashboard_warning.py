@@ -16,6 +16,13 @@ class HrPayrollDashboardWarning(models.Model):
         string='Country',
         default=lambda self: self.env.company.country_id,
         domain=lambda self: [('id', 'in', self.env.companies.country_id.ids)])
-    evaluation_code = fields.Text(string='Python Code', default="return 0")
+    evaluation_code = fields.Text(string='Python Code',
+        default='''
+# Available variables:
+#----------------------
+#  - warning_count: Number of warnings.
+#  - warning_records: Records containing warnings.
+#  - warning_action: Action to perform in response to warnings.
+#  - additional_context: Additional context to include with the action.''')
     sequence = fields.Integer(default=10)
     color = fields.Integer(string='Warning Color', help='Tag color. No color means black.')
