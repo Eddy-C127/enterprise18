@@ -21,6 +21,13 @@ from odoo.tools.safe_eval import safe_eval, datetime as safe_eval_datetime, date
 _logger = logging.getLogger(__name__)
 
 
+class DefaultDictPayroll(defaultdict):
+    def get(self, key, default=None):
+        if key not in self and default is not None:
+            self[key] = default
+        return self[key]
+
+
 class HrPayslip(models.Model):
     _name = 'hr.payslip'
     _description = 'Pay Slip'
@@ -776,14 +783,14 @@ class HrPayslip(models.Model):
         localdict = {
             **self._get_base_local_dict(),
             **{
-                'categories': defaultdict(lambda: 0),
-                'rules': defaultdict(lambda: dict(total=0, amount=0, quantity=0)),
+                'categories': DefaultDictPayroll(lambda: 0),
+                'rules': DefaultDictPayroll(lambda: dict(total=0, amount=0, quantity=0)),
                 'payslip': self,
                 'worked_days': {line.code: line for line in self.worked_days_line_ids if line.code},
                 'inputs': {line.code: line for line in self.input_line_ids if line.code},
                 'employee': self.employee_id,
                 'contract': self.contract_id,
-                'result_rules': defaultdict(lambda: dict(total=0, amount=0, quantity=0, rate=0)),
+                'result_rules': DefaultDictPayroll(lambda: dict(total=0, amount=0, quantity=0, rate=0)),
                 'same_type_input_lines': same_type_input_lines,
             }
         }
