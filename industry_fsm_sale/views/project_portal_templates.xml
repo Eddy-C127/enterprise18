@@ -26,7 +26,7 @@
         </t>
         <t t-set="display_discount" t-value="any(line.discount for line in order.order_line)"/>
         <t t-if="doc.allow_billable and order and (final_subtotal != 0 or is_any_total_discount_line)">
-            <div class="table-responsive-sm">
+            <div>
                 <table class="table table-sm o_main_table">
                     <thead>
                         <tr>
