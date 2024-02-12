@@ -365,3 +365,15 @@ class TestPayslipComputation(TestPayslipContractBase):
         payslip.compute_sheet()
         lines = payslip.line_ids
         self.assertEqual(len(lines.filtered(lambda r: r.code == 'BASIC')), 1)
+
+    def test_defaultdict_get(self):
+        # defaultdict.get(key) returns None if the key doesn't exist instead of default factory value
+        # which could lead to a traceback
+        self.developer_pay_structure.rule_ids.filtered(lambda r: r.code == "NET").amount_python_compute = "result = categories['BASIC'] + categories['ALW'] + categories['DED'] + categories.get('TEST')"
+        payslip = self.env['hr.payslip'].create({
+            'name': 'Payslip of Richard',
+            'employee_id': self.richard_emp.id,
+            'date_from': date(2016, 1, 1),
+            'date_to': date(2016, 1, 31)
+        })
+        payslip.compute_sheet()
