@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
@@ -353,9 +352,6 @@ class TestRentalCommon(TransactionCase):
         self.assertEqual(price, 7, "Contextual price should take pickup and return date into account")
 
     def test_discount_on_sol_remains(self):
-        # Add group 'Discount on Lines' to the user
-        self.env.user.write({'groups_id': [(4, self.env.ref('product.group_discount_per_so_line').id)]})
-
         now = fields.date.today()
         one_day_later = now + relativedelta(days=1)
         discount = 10
