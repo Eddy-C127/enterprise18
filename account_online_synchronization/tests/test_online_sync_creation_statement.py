@@ -215,7 +215,8 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
                     'message': 'This kind of things can happen.',
                     'error_reference': 'abc123',
                     'provider_type': 'theonlyone',
-                }
+                    'redirect_warning_url': 'odoo_support',
+                },
             },
         }
         patched_request.post.return_value = mock_response
@@ -226,7 +227,9 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
             'url': generated_url
         }
         body_generated_url = generated_url.replace('&', '&amp;') #in post_message, & has been escaped to &amp;
-        message_body = f"<p>This kind of things can happen. If you've already opened this issue don't report it again.<br>You can contact Odoo support <a href=\"{body_generated_url}\">Here</a></p>"
+        message_body = f"""<p>This kind of things can happen.
+
+If you've already opened a ticket for this issue, don't report it again: a support agent will contact you shortly.<br>You can contact Odoo support <a href=\"{body_generated_url}\">Here</a></p>"""
 
         # flush and clear everything for the new "transaction"
         self.env.invalidate_all()
@@ -242,7 +245,7 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
                 try:
                     test_link_account._fetch_odoo_fin('/testthisurl')
                 except RedirectWarning as exception:
-                    self.assertEqual(exception.args[0], "This kind of things can happen. If you've already opened this issue don't report it again.")
+                    self.assertEqual(exception.args[0], "This kind of things can happen.\n\nIf you've already opened a ticket for this issue, don't report it again: a support agent will contact you shortly.")
                     self.assertEqual(exception.args[1], return_act_url)
                     self.assertEqual(exception.args[2], 'Report issue')
                 else:
