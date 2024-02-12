@@ -131,27 +131,27 @@
                             </div>
                             <div class="container o_kanban_card_content">
                                 <div class="row">
-                                    <div class="col-6 o_kanban_primary_left d-flex flex-column">
-                                        <button class="btn btn-primary" name="open_ui" type="object">
-                                            Open Preparation Display
+                                    <div class="col-12 col-sm-7 o_kanban_primary_left d-flex flex-row">
+                                        <button class="btn btn-primary me-1" name="open_ui" type="object">
+                                            Preparation Screen
                                         </button>
                                     </div>
-                                    <div class="col-6 o_kanban_primary_right">
+                                    <div class="col-12 col-sm-5 o_kanban_primary_right">
 
-                                        <div class="row">
-                                            <div class="col-6">
+                                        <div class="row text-end">
+                                            <div class="col-10">
                                                 <span>In progress</span>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-2">
                                                 <span><field name="order_count"/></span>
                                             </div>
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-6">
+                                        <div class="row text-end">
+                                            <div class="col-10">
                                                 <span>Average time</span>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-2">
                                                 <span><field name="average_time" />'</span>
                                             </div>
                                         </div>

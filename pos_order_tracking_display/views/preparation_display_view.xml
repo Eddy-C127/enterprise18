@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="pos_preparation_display.preparation_display_view_kanban"/>
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('o_kanban_primary_left')]" position="inside">
-                <button name="open_customer_display" icon="oi-arrow-right" type="object" string="Open customer display" class="btn-link"/>
+                <button name="open_customer_display" type="object" string="Order Status Screen" class="btn btn-secondary"/>
             </xpath>
         </field>
     </record>

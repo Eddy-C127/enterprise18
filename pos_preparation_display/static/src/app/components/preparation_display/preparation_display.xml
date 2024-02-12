@@ -46,12 +46,12 @@
                             </li>
                             <li t-if="isLastStage and !isDebug" class="menu-item navbar-button" t-on-click="() => this.archiveAllVisibleOrders()">
                                 <a class="dropdown-item py-2">
-                                    Delete All
+                                    Done
                                 </a>
                             </li>
                             <li t-if="isDebug" class="menu-item navbar-button" t-on-click="() => this.preparationDisplay.resetOrders()">
                                 <a class="dropdown-item py-2">
-                                    Delete All
+                                    Done
                                 </a>
                             </li>
                             <li class="menu-item navbar-button" t-on-click="() => { this.toggleCategoryFilter(); this.showSidebar = !this.showSidebar }">
@@ -79,12 +79,12 @@
                         <button t-if="isLastStage and !isDebug" class="btn btn-light btn-lg h-100 px-4 rounded-0"
                             t-on-click="() => this.archiveAllVisibleOrders()">
                             <i class="fa fa-trash pe-0 pe-lg-2" aria-hidden="true"></i> 
-                            <span class="d-none d-lg-inline-block">Delete All</span>
+                            <span class="d-none d-lg-inline-block">Done</span>
                         </button>
                         <button t-if="isDebug" class="btn btn-danger btn-lg h-100 px-4 rounded-0"
                             t-on-click="() => this.preparationDisplay.resetOrders()">
                             <i class="fa fa-trash pe-0 pe-lg-2" aria-hidden="true"></i>
-                            <span class="d-none d-lg-inline-block">Delete All</span>
+                            <span class="d-none d-lg-inline-block">Done</span>
                         </button>
                     </div>
                     <div class="d-flex align-items-center h-100 justify-content-end border-bottom">
