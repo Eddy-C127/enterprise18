@@ -565,7 +565,7 @@ class AccountOnlineLink(models.Model):
                 self.message_post(body=message_post, subject=subject)
             if state and self.state != state:
                 self.write({'state': state})
-            if state == 'error':
+            if state in ('error', 'disconnected'):
                 self.account_online_account_ids.fetching_status = 'done'
             if reset_tx:
                 # In case of reset_tx, we commit the changes in order to have the message post saved
