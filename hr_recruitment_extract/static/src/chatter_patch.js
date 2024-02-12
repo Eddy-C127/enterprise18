@@ -8,7 +8,7 @@ patch(Chatter.prototype, {
     setup() {
         super.setup();
         this.attachmentUploader = useAttachmentUploader(
-            this.threadService.getThread(this.props.threadModel, this.props.threadId),
+            this.store.Thread.insert({ model: this.props.threadModel, id: this.props.threadId }),
             {
                 onFileUploaded: () => {
                     if (this.state.thread?.model === "hr.applicant") {

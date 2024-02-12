@@ -55,7 +55,7 @@ export class KnowledgeCommentsHandler extends Component {
             changeCommentResolvedState: this._changeCommentResolvedState.bind(this)
         };
 
-        this.threadService = useService('mail.thread');
+        this.store = useService("mail.store");
         this.orm = useService('orm');
         useRecordObserver(async (record) => {
             const allCommentsThread = (record.resId || this.props.record.resId) ? await this.orm.searchRead(
@@ -233,7 +233,7 @@ export class KnowledgeCommentsHandler extends Component {
             articleId: this.props.record.resId,
             anchors: commentAnchors,
             top: Math.round(Math.abs(targetTop - rootTop)),
-            thread: this.threadService.getThread('knowledge.article.thread', undefined),
+            thread: this.store.Thread.insert({ id: undefined, model: 'knowledge.article.thread' }),
             isResolved: false,
             insertNewThread: this.insertNewThread.bind(this),
             writeDate: luxon.DateTime.now(),
@@ -287,7 +287,7 @@ export class KnowledgeCommentsHandler extends Component {
                     isResolved: commentThread.is_resolved,
                     anchors: anchors.length ? anchors : [],
                     top: Math.abs(rootTop - targetTop),
-                    thread: this.threadService.getThread('knowledge.article.thread', commentThread.id),
+                    thread: this.store.Thread.insert({ model: "knowledge.article.thread", id: commentThread.id }),
                     destroyComment: this.destroyComment.bind(this),
                 };
 
@@ -417,8 +417,8 @@ export class KnowledgeCommentsHandler extends Component {
                 isResolved: searchedComment.is_resolved,
                 anchors: anchors,
                 top: Math.abs(rootTop - targetTop),
-                thread: this.threadService.getThread('knowledge.article.thread', searchedComment.id),
-                writeDate: searchedComment.write_date
+                thread: this.store.Thread.insert({ model: "knowledge.article.thread", id: searchedComment.id }),
+                writeDate: searchedComment.write_date,
             };
 
             this.changeStyling(anchors, comment.isResolved);

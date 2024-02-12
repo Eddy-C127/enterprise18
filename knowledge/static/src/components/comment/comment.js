@@ -547,7 +547,7 @@ export class KnowledgeCommentsThread extends Component {
             {}
         );
         this.state.thread.composer.clear();
-        this.state.thread = this.threadService.getThread('knowledge.article.thread', id);
+        this.state.thread = this.threadService.store.Thread.insert({ id, model: 'knowledge.article.thread' });
         this.threadService.post(this.state.thread, value, postData);
         for (const anchor of this.anchors) {
             anchor.dataset.id = id;

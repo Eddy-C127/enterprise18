@@ -35,7 +35,7 @@ export class KnowledgeArticleCommentsPanel extends Component {
             this._changeCommentResolvedState.bind(this)
         };
 
-        this.threadService = useService('mail.thread');
+        this.store = useService("mail.store");
         this.orm = useService('orm');
 
         onWillStart(async () => {
@@ -93,7 +93,7 @@ export class KnowledgeArticleCommentsPanel extends Component {
             (record) => {
                 const allCommentsAnchors = document.querySelectorAll(`.knowledge-thread-comment[data-id="${record.id}"]`);
                 const thread = {
-                    thread: this.threadService.getThread('knowledge.article.thread', record.id),
+                    thread: this.store.Thread.insert({ id: record.id, model: 'knowledge.article.thread' }),
                     knowledgeThreadId: record.id,
                     isResolved: record.is_resolved,
                     anchors: allCommentsAnchors.length ?  Array.from(allCommentsAnchors) : [],

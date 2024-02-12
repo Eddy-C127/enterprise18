@@ -25,7 +25,7 @@ patch(Chatter.prototype, {
                 );
             });
             this.threadService.fetchNewMessages(
-                this.threadService.getThread(thread.model, thread.id)
+                this.store.Thread.insert({ model: this.props.threadModel, id: this.props.threadId })
             );
         };
         if (this.state.thread.id) {
