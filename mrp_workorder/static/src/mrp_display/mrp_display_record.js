@@ -422,6 +422,9 @@ export class MrpDisplayRecord extends Component {
     }
 
     onClickOpenMenu(ev) {
+        if (this.props.demoRecord){
+            return;
+        }
         const params = {
             workcenters: this.props.workcenters,
             checks: this.checks,

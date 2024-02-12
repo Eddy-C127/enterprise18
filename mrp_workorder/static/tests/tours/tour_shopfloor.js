@@ -5,15 +5,20 @@ import { registry } from "@web/core/registry";
 registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: () => [
     {
         content: 'Select the workcenter the first time we enter in shopfloor',
-        trigger: 'button input[name="Savannah"]'
+        trigger: 'button:has(input[name="Savannah"])'
     },
     {
         content: 'Select the second workcenter',
-        trigger: 'button input[name="Jungle"]'
+        extra_trigger: 'button.active:has(input[name="Savannah"])',
+        trigger: 'button:has(input[name="Jungle"])'
     },
-    { trigger: '.modal-footer button:contains("Confirm")' },
+    {
+        extra_trigger: 'button.active:has(input[name="Jungle"])',
+        trigger: 'footer.modal-footer button.btn-primary'
+    },
     {
         content: 'Open the employee panel',
+        extra_trigger: '.o_control_panel_actions button:contains("Savannah")',
         trigger: 'button[name="employeePanelButton"]'
     },
     {
@@ -26,42 +31,52 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
     },
     {
         content: 'Go to workcenter Savannah from MO card',
+        extra_trigger: '.o_mrp_employees_panel li.o_admin_user:contains(Marc Demo)',
         trigger: '.o_mrp_record_line button span:contains("Savannah")'
     },
     {
         content: 'Start the workorder on header click',
+        extra_trigger: '.o_control_panel_actions button.active:contains("Savannah")',
         trigger: '.o_finished_product span:contains("Giraffe")'
     },
     {
         content: 'Register production check',
+        extra_trigger: '.o_mrp_display_record.o_active',
         trigger: '.o_mrp_record_line .btn.fa-plus'
     },
     {
         content: 'Instruction check via form',
+        extra_trigger: 'span.o_qc_lot',
         trigger: '.o_mrp_record_line span:contains("Instructions")'
     },
     { trigger: 'button[barcode_trigger="Next"]' },
     {
         content: 'Component not tracked registration and continue production',
+        extra_trigger: '.modal-title:contains("Register legs")',
         trigger: 'button[barcode_trigger="continue"]'
     },
     {
         content: 'Add 2 units',
-        trigger: '.o_field_widget[name="qty_done"] input',
         extra_trigger: '.o_field_widget[name="qty_done"] input:propValue("0.00")',
+        trigger: '.o_field_widget[name="qty_done"] input',
         run: 'text 2',
     },
     {
-        trigger: 'button[barcode_trigger="Next"]',
         extra_trigger: '.o_field_widget[name="qty_done"] input:propValue("2.00")',
+        trigger: 'button[barcode_trigger="Next"]'
     },
-    { trigger: '.modal-header .btn-close' },
+    {
+        extra_trigger: '.modal-title:contains("Release")',
+        trigger: '.modal-header .btn-close'
+    },
     {
         content: 'Fast check last instruction step',
+        extra_trigger: '.o_web_client:not(.modal-open)',
         trigger: '.o_mrp_record_line .fa-square-o',
     },
     {
         content: 'Close first operation',
+        extra_trigger: '.o_mrp_record_line:contains("Release") button.text-success',
         trigger: '.card-footer button[barcode_trigger="cloWO"]',
     },
     {
@@ -70,26 +85,8 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         trigger: '.o_control_panel_actions button:contains("Jungle")',
     },
     {
-        content: 'Open the setting menu',
-        trigger: '.card-footer button.fa-ellipsis-v',
-    },
-    {
-        content: 'Move the operation back to first workcenter',
-        trigger: 'button[name="moveToWorkCenter"]',
-    },
-    { trigger: '.o_mrp_workcenter_dialog button input[name="Savannah"]' },
-    { trigger: '.modal-footer button:contains("Confirm")' },
-    {
-        content: 'Switch to first workcenter for operation',
-        trigger: '.o_control_panel_actions button:contains("Savannah")',
-    },
-    {
-        content: 'Refresh',
-        trigger: '.fa-refresh',
-    },
-    {
-        content: 'Open the setting menu',
-        trigger: '.card-footer button.fa-ellipsis-v',
+        content: 'Open the WO setting menu again',
+        trigger: '.o_mrp_display_record:contains("Release") .card-footer button.fa-ellipsis-v',
     },
     {
         content: 'Add an operation button',
@@ -101,8 +98,14 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         run: 'text color'
     },
     { trigger: '.ui-menu-item > a:contains("Color")' },
-    { trigger: 'button[name=add_product]' },
-    { trigger: '.o_mrp_record_line .btn-secondary:contains("2")' },
+    {
+        extra_trigger: 'div.o_dialog input#product_id_0:propValue("Color")',
+        trigger: 'button[name=add_product]',
+    },
+    {
+        extra_trigger: 'body:not(.modal-open)',
+        trigger: '.o_mrp_record_line .btn-secondary:contains("2")'
+    },
     { trigger: 'button[barcode_trigger=cloWO]' },
     { trigger: 'button[barcode_trigger=cloMO]' },
     {
@@ -110,8 +113,5 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         extra_trigger: '.o_nocontent_help',
         trigger: '.o_home_menu .fa-sign-out',
     },
-    {
-        trigger: '.o_home_menu',
-        isCheck: true,
-    }
+    { trigger: '.o_apps', isCheck: true }
 ]})

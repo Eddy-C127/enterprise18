@@ -12,7 +12,7 @@
             <t t-if="props.quantityToProduce">
                 <t t-if="props.record.data.product_tracking !== 'none'">
                     <button t-if="!props.record.data.lot_id" class="btn btn-info fa fa-plus" t-on-click.stop="pass"/>
-                    <span t-else="" t-out="props.record.data.lot_id[1]" t-on-click.stop="pass"/>
+                    <span t-else="" class="o_qc_lot" t-out="props.record.data.lot_id[1]" t-on-click.stop="pass"/>
                 </t>
                 <button t-else="" t-on-click.stop="pass" class="btn btn-sm text-nowrap" t-att-class="isComplete ? 'btn-outline-secondary disabled' : 'btn-secondary'">
                     <t t-if="props.record.data.qty_done &amp;&amp; props.record.data.qty_done != props.quantityToProduce">
