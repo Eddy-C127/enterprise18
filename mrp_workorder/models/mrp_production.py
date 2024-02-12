@@ -25,6 +25,7 @@ class MrpProduction(models.Model):
         return super().write(vals)
 
     def action_add_byproduct(self):
+        self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'mrp_workorder.additional.product',
@@ -32,12 +33,13 @@ class MrpProduction(models.Model):
             'name': _('Add By-Product'),
             'target': 'new',
             'context': {
-                'default_production_id': self.id,
+                'production_id': self.id,
                 'default_type': 'byproduct',
             }
         }
 
     def action_add_component(self):
+        self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'mrp_workorder.additional.product',
@@ -45,9 +47,8 @@ class MrpProduction(models.Model):
             'name': _('Add Component'),
             'target': 'new',
             'context': {
-                'default_production_id': self.id,
+                'production_id': self.id,
                 'default_type': 'component',
-                'default_company_id': self.company_id.id,
             }
         }
 

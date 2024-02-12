@@ -247,31 +247,14 @@ class MrpProductionWorkcenterLine(models.Model):
         }
 
     def action_add_component(self):
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'mrp_workorder.additional.product',
-            'views': [[self.env.ref('mrp_workorder.view_mrp_workorder_additional_product_wizard').id, 'form']],
-            'name': _('Add Component'),
-            'target': 'new',
-            'context': {
-                'default_workorder_id': self.id,
-                'default_type': 'component',
-                'default_company_id': self.company_id.id,
-            }
-        }
+        action = self.production_id.action_add_component()
+        action['context']['default_workorder_id'] = self.id
+        return action
 
     def action_add_byproduct(self):
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'mrp_workorder.additional.product',
-            'views': [[self.env.ref('mrp_workorder.view_mrp_workorder_additional_product_wizard').id, 'form']],
-            'name': _('Add By-Product'),
-            'target': 'new',
-            'context': {
-                'default_workorder_id': self.id,
-                'default_type': 'byproduct',
-            }
-        }
+        action = self.production_id.action_add_byproduct()
+        action['context']['default_workorder_id'] = self.id
+        return action
 
     def button_start(self, bypass=False):
         skip_employee_check = bypass or (not request and not self.env.user.employee_id)

@@ -20,11 +20,11 @@ class MrpWorkorderAdditionalProduct(models.TransientModel):
     type = fields.Selection([
         ('component', 'Component'),
         ('byproduct', 'By-Product')])
-    production_id = fields.Many2one('mrp.production')
-    workorder_id = fields.Many2one(
-        'mrp.workorder', default=lambda self: self.env.context.get('active_id', None),
-    )
-    company_id = fields.Many2one(related='workorder_id.company_id')
+    production_id = fields.Many2one(
+        'mrp.production', required=True,
+        default=lambda self: self.env.context.get('production_id', None))
+    workorder_id = fields.Many2one('mrp.workorder')
+    company_id = fields.Many2one(related='production_id.company_id')
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
@@ -34,7 +34,7 @@ class MrpWorkorderAdditionalProduct(models.TransientModel):
                 self.product_qty = 1
 
     def add_product(self):
-        """Create workorder line for the additional product."""
+        """Create a move for the additional product, either as a component or as a by-product."""
         if self.workorder_id:
             wo = self.workorder_id
             if self.type == 'component':

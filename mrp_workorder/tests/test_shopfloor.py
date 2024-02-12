@@ -118,8 +118,8 @@ class TestShopFloor(HttpCase):
             {'product_id': color.id, 'quantity': 1, 'state': 'done'},
         ])
         self.assertRecordValues(mo.workorder_ids, [
-            {'state': 'done'},
-            {'state': 'done'},
+            {'state': 'done', 'workcenter_id': savannah.id},
+            {'state': 'done', 'workcenter_id': jungle.id},
         ])
         self.assertRecordValues(mo.workorder_ids[0].check_ids, [
             {'quality_state': 'pass', 'component_id': False, 'qty_done': 2},
