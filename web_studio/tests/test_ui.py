@@ -1548,3 +1548,78 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
           </xpath>
         </data>
         """ % attachment.id)
+
+    def test_context_write_cleaned(self):
+        view = self.env["ir.ui.view"].create({
+            "model": "res.users",
+            "type": "form",
+            "arch": """<form>
+                <div class="oe_button_box"/>
+                <field name="display_name" invisible="context.get('default_type')" />
+            </form>"""
+        })
+
+        operations = [
+            {
+                "type": "add",
+                "target": {
+                    "tag": "div",
+                    "attrs": {
+                        "class": "oe_button_box"
+                    }
+                },
+                "position": "inside",
+                "node": {
+                    "tag": "button",
+                    "field": self.env["ir.model.fields"]._get("res.partner", "user_id").id,
+                    "string": "Test studio new button",
+                    "attrs": {
+                        "class": "oe_stat_button",
+                        "icon": "fa-diamond"
+                    }
+                }
+            }
+        ]
+        create_action = self.env.registry["ir.actions.actions"]._create
+        action_created = False
+        def mock_act_create(rec_set, *args, **kwargs):
+            nonlocal action_created
+            action_created = True
+            context = dict(rec_set.env.context)
+            del context["tz"]
+            self.assertEqual(context, {'lang': 'en_US', 'uid': 2, 'arbitrary_key': 'arbitrary'})
+            return create_action(rec_set, *args, **kwargs)
+
+        self.patch(self.env.registry["ir.actions.actions"], "_create", mock_act_create)
+
+        self.authenticate("admin", "admin")
+        with mute_logger("odoo.addons.base.models.ir_ui_view"):
+            response = self.url_open("/web_studio/edit_view",
+                headers={"Content-Type": "application/json"},
+                data=json.dumps({
+                    "params": {
+                        "view_id": view.id,
+                        "studio_view_arch": "",
+                        "model": "res.users",
+                        "operations": operations,
+                        "context": {
+                            "default_type": "some_type",
+                            "arbitrary_key": "arbitrary",
+                        }
+                    },
+            }))
+        action = self.env["ir.actions.act_window"].search([("res_model", "=", "res.partner")], order="create_date DESC", limit=1)
+
+        self.assertTrue(action_created, True)
+        self.assertEqual(action.type, "ir.actions.act_window")
+        self.assertEqual(action.name, "Test studio new button")
+        self.assertXMLEqual(response.json()["result"]["views"]["form"]["arch"], f"""
+        <form>
+          <div class="oe_button_box">
+            <button class="oe_stat_button" icon="fa-diamond" type="action" name="{action.id}">
+              <field widget="statinfo" name="x_user_id_res_partner_count" string="Test studio new button"/>
+            </button>
+          </div>
+          <field name="display_name" invisible="context.get('default_type')"/>
+        </form>
+        """)
