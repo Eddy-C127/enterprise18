@@ -537,6 +537,7 @@ class AccountOnlineLink(models.Model):
             ctx = self.env.context.copy()
             ctx['error_reference'] = error_details.get('error_reference')
             ctx['provider_type'] = error_details.get('provider_type')
+            ctx['redirect_warning_url'] = error_details.get('redirect_warning_url')
 
             self.with_context(ctx)._log_information(state=state, subject=subject, message=message, reset_tx=True)
 
@@ -547,35 +548,45 @@ class AccountOnlineLink(models.Model):
         if reset_tx:
             self.env.cr.rollback()
         try:
-            if reset_tx:
-                error_reference = self.env.context.get('error_reference')
-                provider = self.env.context.get('provider_type')
-                odoo_help_description = f'''ClientID: {self.client_id}\nInstitution: {self.name}\nError Reference: {error_reference}\nError Message: {message}\n'''
-                odoo_help_summary = f'Bank sync error ref: {error_reference} - Provider: {provider} - Client ID: {self.client_id}'
-                url_params = urllib.parse.urlencode({'stage': 'bank_sync', 'summary': odoo_help_summary, 'description': odoo_help_description[:1500]})
-                url = f'https://www.odoo.com/help?{url_params}'
-                message += _(" If you've already opened this issue don't report it again.")
             # if state is disconnected, and new state is error: ignore it
             if state == 'error' and self.state == 'disconnected':
                 state = 'disconnected'
-            if subject and message:
-                message_post = message
-                if reset_tx:
-                    message_post = Markup('%s<br>%s <a href="%s" >%s</a>') % (message_post, _("You can contact Odoo support"), url, _("Here"))
-                self.message_post(body=message_post, subject=subject)
             if state and self.state != state:
                 self.write({'state': state})
             if state in ('error', 'disconnected'):
                 self.account_online_account_ids.fetching_status = 'done'
             if reset_tx:
+                context = self.env.context
+                if subject and message:
+                    message_post = message
+                    error_reference = context.get('error_reference')
+                    provider = context.get('provider_type')
+                    odoo_help_description = f'''ClientID: {self.client_id}\nInstitution: {self.name}\nError Reference: {error_reference}\nError Message: {message_post}\n'''
+                    odoo_help_summary = f'Bank sync error ref: {error_reference} - Provider: {provider} - Client ID: {self.client_id}'
+                    if context.get('redirect_warning_url'):
+                        if context['redirect_warning_url'] == 'odoo_support':
+                            url_params = urllib.parse.urlencode({'stage': 'bank_sync', 'summary': odoo_help_summary, 'description': odoo_help_description[:1500]})
+                            url = f'https://www.odoo.com/help?{url_params}'
+                            message += '\n\n' + _("If you've already opened a ticket for this issue, don't report it again: a support agent will contact you shortly.")
+                            message_post = Markup('%s<br>%s <a href="%s" >%s</a>') % (message, _("You can contact Odoo support"), url, _("Here"))
+                            button_label = _('Report issue')
+                        else:
+                            url = "https://www.odoo.com/documentation/17.0/applications/finance/accounting/bank/bank_synchronization.html#faq"
+                            message_post = Markup('%s<br>%s <a href="%s" >%s</a>') % (message_post, _("Check the documentation"), url, _("Here"))
+                            button_label = _('Check the documentation')
+                    self.message_post(body=message_post, subject=subject)
                 # In case of reset_tx, we commit the changes in order to have the message post saved
-                # and then raise a redirectWarning error so that customer can easily open an issue with Odoo.
                 self.env.cr.commit()
-                action_id = {
-                    "type": "ir.actions.act_url",
-                    "url": url,
-                }
-                raise RedirectWarning(message, action_id, _('Report issue'))
+                # and then raise either a redirectWarning error so that customer can easily open an issue with Odoo,
+                # or eventually bring the user to the documentation if there's no need to contact the support.
+                if subject and message and context.get('redirect_warning_url'):
+                    action_id = {
+                        "type": "ir.actions.act_url",
+                        "url": url,
+                    }
+                    raise RedirectWarning(message, action_id, button_label)
+                # either a userError if there's no need to bother the support, or link to the doc.
+                raise UserError(message)
         except (CacheMiss, MissingError):
             # This exception can happen if record was created and rollbacked due to error in same transaction
             # Therefore it is not possible to log information on it, in this case we just ignore it.
