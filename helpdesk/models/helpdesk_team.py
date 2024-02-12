@@ -734,11 +734,8 @@ class HelpdeskTeam(models.Model):
             :param is_ticket_closed: Boolean if True, then we want to see the tickets closed in last 7 days
             :returns dict containing the params to update into the action.
         """
-        domain = [
-            '&',
-            ('stage_id.fold', '=', is_ticket_closed),
-            ('team_id', 'in', self.ids),
-        ]
+        domain = [('team_id', 'in', self.ids)]
+
         context = {
             'search_default_is_open': not is_ticket_closed,
             'default_team_id': self.id,
@@ -758,10 +755,10 @@ class HelpdeskTeam(models.Model):
     def action_view_closed_ticket(self):
         action = self.action_view_ticket()
         action_params = self._get_action_view_ticket_params(True)
-        action.update(
-            action_params,
-            views=[(False, view) for view in action_params['view_mode'].split(",")],
-        )
+        action.update({
+            **action_params,
+            'domain': expression.AND([action_params['domain'], [('stage_id.fold', '=', True)]]),
+        })
         return action
 
     def action_view_success_rate(self):
@@ -770,7 +767,7 @@ class HelpdeskTeam(models.Model):
         action.update(
             domain=expression.AND([
                 action_params['domain'],
-                [('team_id', 'in', self.ids)],
+                [('sla_fail', "!=", True), ('team_id', 'in', self.ids), ('stage_id.fold', '=', True)],
             ]),
             context={
                 **action_params['context'],
