@@ -8,7 +8,7 @@ import { setupCollaborativeEnv } from "../../utils/collaborative_helpers";
 import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
 import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
 
-/** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
+/** @typedef {import("@spreadsheet").OdooSpreadsheetModel} Model */
 
 /**
  * Get a pivot definition, a data source and a pivot model (already loaded)
@@ -52,9 +52,12 @@ function insertPreloadedPivot(model, params) {
         sheetId,
         col: params.anchor ? params.anchor[0] : 0,
         row: params.anchor ? params.anchor[1] : 0,
-        table,
         id: params.pivotId,
-        definition,
+        payload: {
+            type: "ODOO",
+            table,
+            definition,
+        },
     });
     const columns = [];
     for (let col = 0; col <= table.cols[table.cols.length - 1].length; col++) {

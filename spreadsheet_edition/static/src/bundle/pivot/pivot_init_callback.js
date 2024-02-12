@@ -1,4 +1,6 @@
 /** @odoo-module **/
+//@ts-check
+
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
 import { Domain } from "@web/core/domain";
@@ -7,7 +9,7 @@ import { deepCopy } from "@web/core/utils/objects";
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
 export function insertPivot(pivotData) {
-    /** @type {import("spreadsheet").OdooPivotDefinition} */
+    /** @type {import("@spreadsheet").OdooPivotDefinition} */
     const definition = deepCopy({
         domain: new Domain(pivotData.searchParams.domain).toJson(),
         context: pivotData.searchParams.context,
@@ -18,6 +20,9 @@ export function insertPivot(pivotData) {
         rowGroupBys: pivotData.metaData.fullRowGroupBys,
         name: pivotData.name,
     });
+    /**
+     * @param {import("@spreadsheet").OdooSpreadsheetModel} model
+     */
     return async (model) => {
         const pivotId = model.getters.getNextPivotId();
         const dataSourceId = model.getters.getPivotDataSourceId(pivotId);
@@ -46,9 +51,12 @@ export function insertPivot(pivotData) {
             sheetId,
             col: 0,
             row: 0,
-            table,
             id: pivotId,
-            definition,
+            payload: {
+                type: "ODOO",
+                table,
+                definition,
+            },
         });
         if (!result.isSuccessful) {
             throw new Error(`Couldn't insert pivot in spreadsheet. Reasons : ${result.reasons}`);
