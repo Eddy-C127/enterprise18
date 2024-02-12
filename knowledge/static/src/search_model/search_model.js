@@ -26,9 +26,11 @@ export class KnowledgeSearchModel extends SearchModel {
             const activateFavorite = "activateFavorite" in config ? config.activateFavorite : true;
             if (activateFavorite) {
                 defaultFavoriteId = this._createGroupOfFavorites(this.irFilters || []);
+                if (defaultFavoriteId) {
+                    // activate default search items (populate this.query)
+                    this._activateDefaultSearchItems(defaultFavoriteId);
+                }
             }
-            // activate default search items (populate this.query)
-            this._activateDefaultSearchItems(defaultFavoriteId);
         }
     }
 

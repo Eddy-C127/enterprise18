@@ -109,11 +109,15 @@ const validateFavoriteFiltersSteps = function (kanban1, kanban2) {
         // check that the search item has been added
         trigger: ".o_facet_value",
         run: function () {
-            const items = document.querySelectorAll(".o_facet_value");
-            if (items.length !== 1) {
-                console.error("The search should be applied only on the first view");
-            } else if (items[0].innerText !== 'testFilter') {
-                console.error(`Wrong favorite name: ${items[0].innerText}`);
+            const items = [...document.querySelectorAll(".o_searchview_facet")];
+            const testFacets = items.filter((el) => {
+                return (
+                    el.querySelector(".o_searchview_facet_label .fa-star") &&
+                    el.querySelector(".o_facet_values")?.innerText === "testFilter"
+                );
+            });
+            if (testFacets.length !== 1) {
+                console.error("The 'testFilter' facet should be applied only on the first view");
             }
         },
     }, {
