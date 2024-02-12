@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:02+0000\n"
-"PO-Revision-Date: 2024-01-08 07:02+0000\n"
+"POT-Creation-Date: 2024-02-12 10:56+0000\n"
+"PO-Revision-Date: 2024-02-12 10:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -153,6 +153,12 @@ msgid ""
 msgstr ""
 
 #. module: industry_fsm_report
+#: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: industry_fsm_report
+#: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__create_date
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.x_project_task_worksheet_template_3_ir_ui_view_3
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.x_project_task_worksheet_template_4_ir_ui_view_3
 msgid "Created on"
@@ -161,11 +167,6 @@ msgstr ""
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_task_form2_inherit
 msgid "Customer Preview"
-msgstr ""
-
-#. module: industry_fsm_report
-#: model_terms:ir.actions.act_window,help:industry_fsm_report.fsm_worksheets_action_settings
-msgid "Customize worksheet templates for each type of intervention.<br>"
 msgstr ""
 
 #. module: industry_fsm_report
@@ -201,6 +202,11 @@ msgid "Device Installation and Maintenance"
 msgstr ""
 
 #. module: industry_fsm_report
+#: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_send_report_primary
 msgid "Display Send Report Primary"
 msgstr ""
@@ -226,6 +232,12 @@ msgid "Email sent when clicking on \"send report\" in a task"
 msgstr ""
 
 #. module: industry_fsm_report
+#. odoo-python
+#: code:addons/industry_fsm_report/models/project_task.py:0
+msgid "Explore Worksheets Using an Example Template"
+msgstr ""
+
+#. module: industry_fsm_report
 #: model:ir.actions.report,name:industry_fsm_report.task_custom_report
 msgid "Field Service Report"
 msgstr ""
@@ -247,6 +259,13 @@ msgid "Fill in your <b>worksheet</b> with the details of your intervention."
 msgstr ""
 
 #. module: industry_fsm_report
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_load_form
+msgid ""
+"Give it a try using one of our example templates. You can remove them at any"
+" time."
+msgstr ""
+
+#. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Go back to your Field Service <b>task</b>."
@@ -262,6 +281,11 @@ msgstr ""
 msgid ""
 "I hereby certify that this device meets the requirements of an acceptable "
 "device at the time of testing."
+msgstr ""
+
+#. module: industry_fsm_report
+#: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__id
+msgid "ID"
 msgstr ""
 
 #. module: industry_fsm_report
@@ -300,6 +324,26 @@ msgstr ""
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "Jane smith"
+msgstr ""
+
+#. module: industry_fsm_report
+#: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: industry_fsm_report
+#: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: industry_fsm_report
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_load_form
+msgid "Load Template"
+msgstr ""
+
+#. module: industry_fsm_report
+#: model:ir.model,name:industry_fsm_report.model_worksheet_template_load_wizard
+msgid "Load the worksheet template"
 msgstr ""
 
 #. module: industry_fsm_report
@@ -402,7 +446,29 @@ msgid "Signed By"
 msgstr ""
 
 #. module: industry_fsm_report
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_load_form
+msgid "Start Blank"
+msgstr ""
+
+#. module: industry_fsm_report
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_load_form
+msgid ""
+"Tailor worksheet templates to your specific needs. Easily share worksheet "
+"content with customers and request their signatures to validate the "
+"completed work."
+msgstr ""
+
+#. module: industry_fsm_report
+#: model_terms:ir.actions.act_window,help:industry_fsm_report.fsm_worksheets_action_settings
+msgid ""
+"Tailor worksheet templates to your specific needs. Easily share worksheet "
+"content with customers and request their signatures to validate the "
+"completed work.<br>"
+msgstr ""
+
+#. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_project_task
+#: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__task_id
 msgid "Task"
 msgstr ""
 

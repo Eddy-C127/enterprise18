@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:03+0000\n"
-"PO-Revision-Date: 2024-01-08 07:03+0000\n"
+"POT-Creation-Date: 2024-02-12 10:56+0000\n"
+"PO-Revision-Date: 2024-02-12 10:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -117,13 +117,6 @@ msgid ""
 msgstr ""
 
 #. module: sale_planning
-#: model:ir.model,name:sale_planning.model_product_template
-msgid ""
-"Model adding the necessary fields to products to use with Pricer electronic "
-"tags"
-msgstr ""
-
-#. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
 msgid "My Sales Orders"
 msgstr ""
@@ -216,6 +209,11 @@ msgid "Planning Slot"
 msgstr ""
 
 #. module: sale_planning
+#: model:ir.model,name:sale_planning.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_analysis_report__role_product_ids
 msgid "Role Product"
 msgstr ""
@@ -275,12 +273,6 @@ msgid "Services"
 msgstr ""
 
 #. module: sale_planning
-#. odoo-python
-#: code:addons/sale_planning/controllers/main.py:0
-msgid "Shift"
-msgstr ""
-
-#. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_slot__start_datetime
 msgid "Start Date"
 msgstr ""
@@ -294,6 +286,14 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 msgid "The open shifts and sales orders have been successfully assigned."
+msgstr ""
+
+#. module: sale_planning
+#. odoo-javascript
+#: code:addons/sale_planning/static/src/views/planning_hooks.js:0
+msgid ""
+"The open shifts and sales orders that had been planned have successfully "
+"been unscheduled."
 msgstr ""
 
 #. module: sale_planning

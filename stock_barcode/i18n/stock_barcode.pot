@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:01+0000\n"
-"PO-Revision-Date: 2024-01-08 07:01+0000\n"
+"POT-Creation-Date: 2024-02-12 10:54+0000\n"
+"PO-Revision-Date: 2024-02-12 10:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -190,6 +190,11 @@ msgid "Allocation"
 msgstr ""
 
 #. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_allow_extra_product
+msgid "Allow extra products"
+msgstr ""
+
+#. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_full
 msgid "Allow full picking validation"
 msgstr ""
@@ -234,7 +239,6 @@ msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
-#: code:addons/stock_barcode/static/src/main_menu.xml:0
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #: model:ir.actions.client,name:stock_barcode.stock_barcode_action_main_menu
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_barcode
@@ -506,6 +510,11 @@ msgid "Following backorders were created:"
 msgstr ""
 
 #. module: stock_barcode
+#: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__barcode_allow_extra_product
+msgid "For planned transfers, allow to add non-reserved products"
+msgstr ""
+
+#. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
 msgid "Force Destination Location scan?"
 msgstr ""
@@ -750,6 +759,11 @@ msgid "Optional Scan"
 msgstr ""
 
 #. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
+msgid "Options"
+msgstr ""
+
+#. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "Owner"
@@ -798,11 +812,6 @@ msgid "Partial Move Count"
 msgstr ""
 
 #. module: stock_barcode
-#: model:ir.actions.act_window,name:stock_barcode.stock_picking_action_form
-msgid "Picking"
-msgstr ""
-
-#. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_barcode
 msgid "Picking Details"
 msgstr ""
@@ -821,8 +830,6 @@ msgstr ""
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.js:0
-#: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.js:0
-#: code:addons/stock_barcode/static/src/main_menu.js:0
 msgid "Please, Scan again!"
 msgstr ""
 
@@ -1210,6 +1217,14 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid ""
+"Scanned product %s is not reserved for this transfer. Are you sure you want "
+"to add it?"
+msgstr ""
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+msgid ""
 "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible "
 "with the line's one (%s)."
 msgstr ""
@@ -1226,7 +1241,6 @@ msgstr ""
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid "Scanning package"
 msgstr ""
 
@@ -1318,6 +1332,12 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "The inventory adjustment has been validated"
+msgstr ""
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+msgid "The product %s should not be picked in this operation."
 msgstr ""
 
 #. module: stock_barcode
@@ -1515,7 +1535,6 @@ msgstr ""
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-#, python-format
 msgid ""
 "You have already scanned %s items of this package. Do you want to scan the "
 "whole package?"
@@ -1540,12 +1559,6 @@ msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript
-#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
-msgid "[${product.code}] "
-msgstr ""
-
-#. module: stock_barcode
-#. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 msgid "commands and operation types"
 msgstr ""
@@ -1560,14 +1573,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 msgid "location"
-msgstr ""
-
-#. module: stock_barcode
-#. odoo-javascript
-#: code:addons/stock_barcode/static/src/widgets/digipad.xml:0
-msgid ""
-"o_digipad_button btn d-flex justify-content-center align-items-center border"
-" w-100 py-2"
 msgstr ""
 
 #. module: stock_barcode

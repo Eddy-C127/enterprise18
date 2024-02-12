@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:01+0000\n"
-"PO-Revision-Date: 2024-01-08 07:01+0000\n"
+"POT-Creation-Date: 2024-02-12 10:54+0000\n"
+"PO-Revision-Date: 2024-02-12 10:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -155,6 +155,12 @@ msgid "Country is required!"
 msgstr ""
 
 #. module: delivery_shiprocket
+#. odoo-python
+#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
+msgid "Courier (%s): %s"
+msgstr ""
+
+#. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_shiprocket_courier__courier_code
 msgid "Courier Code"
 msgstr ""
@@ -162,19 +168,13 @@ msgstr ""
 #. module: delivery_shiprocket
 #. odoo-python
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
-msgid "Courier: %s"
-msgstr ""
-
-#. module: delivery_shiprocket
-#. odoo-python
-#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
-msgid "Courier (%s): %s"
-msgstr ""
-
-#. module: delivery_shiprocket
-#. odoo-python
-#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 msgid "Courier is not available for delivery!"
+msgstr ""
+
+#. module: delivery_shiprocket
+#. odoo-python
+#: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
+msgid "Courier: %s"
 msgstr ""
 
 #. module: delivery_shiprocket

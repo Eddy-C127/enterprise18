@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:01+0000\n"
-"PO-Revision-Date: 2024-01-08 07:01+0000\n"
+"POT-Creation-Date: 2024-02-12 10:54+0000\n"
+"PO-Revision-Date: 2024-02-12 10:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1635,6 +1635,7 @@ msgstr ""
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.js:0
+#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_hierarchy
 msgid "Add to favorites"
 msgstr ""
 
@@ -1745,13 +1746,6 @@ msgid "All Models 📖"
 msgstr ""
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/form_status_indicator/form_status_indicator.xml:0
-#, python-format
-msgid "All changes saved"
-msgstr ""
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "All my activities will always be encoded in our CRM"
 msgstr ""
@@ -1813,6 +1807,14 @@ msgstr ""
 msgid ""
 "Are you sure you want to move \"%s%s\" to private? Only you will be able to "
 "access it."
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
+msgid ""
+"Are you sure you want to move \"%s%s\" to the Shared section? It will be "
+"shared with all listed members."
 msgstr ""
 
 #. module: knowledge
@@ -2252,14 +2254,6 @@ msgid ""
 msgstr ""
 
 #. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-msgid ""
-"Cannot move %(article_name)s as a root of the 'shared' section since access "
-"rights can not be inferred without a parent."
-msgstr ""
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid ""
 "Capitalize the word <strong>YourCompany</strong>, except if it's part of an "
@@ -2499,14 +2493,6 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Costing too much money"
-msgstr ""
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
-msgid ""
-"Could not move \"%s%s\" in the shared section. Only shared articles can be "
-"moved in this section."
 msgstr ""
 
 #. module: knowledge
@@ -2819,7 +2805,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.xml:0
+#: code:addons/knowledge/static/src/components/embedded_view_actions_menu/embedded_view_actions_menu.xml:0
 msgid "Edit"
 msgstr ""
 
@@ -3030,7 +3016,6 @@ msgstr ""
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
-#, python-format
 msgid "Generate an Article with AI"
 msgstr ""
 
@@ -4038,6 +4023,12 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
+#: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
+msgid "Move to Shared"
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 msgid "Move to Trash"
 msgstr ""
@@ -4221,11 +4212,6 @@ msgid "No template yet."
 msgstr ""
 
 #. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "Not sure how to do it?"
-msgstr ""
-
-#. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 msgid "Nothing going on!"
@@ -4353,7 +4339,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.xml:0
+#: code:addons/knowledge/static/src/components/embedded_view_actions_menu/embedded_view_actions_menu.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_views.xml:0
 msgid "Open"
@@ -4724,12 +4710,12 @@ msgstr ""
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.js:0
+#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_hierarchy
 msgid "Remove from favorites"
 msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.xml:0
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.xml:0
 msgid "Rename"
 msgstr ""
@@ -4938,11 +4924,6 @@ msgid "See a doctor and send us the sick note."
 msgstr ""
 
 #. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "See how it works <i class=\"fa fa-youtube-play\"/>"
-msgstr ""
-
-#. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/article_template_picker_dialog/article_template_picker_dialog.js:0
 msgid "Select a Template"
@@ -4990,6 +4971,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
+#: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.js:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__category__shared
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search
@@ -5561,6 +5543,7 @@ msgstr ""
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 #: code:addons/knowledge/static/src/xml/knowledge_command_palette.xml:0
 #: code:addons/knowledge/static/src/xml/knowledge_command_palette.xml:0
+#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_hierarchy
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_kanban_items
 msgid "Untitled"
 msgstr ""
@@ -5833,7 +5816,6 @@ msgstr ""
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/js/knowledge_wysiwyg.js:0
-#, python-format
 msgid "Write an article about"
 msgstr ""
 
@@ -5889,6 +5871,12 @@ msgstr ""
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
+msgid "You are not allowed to move '%(article_name)s'."
+msgstr ""
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to update a template."
 msgstr ""
 
@@ -5919,7 +5907,6 @@ msgstr ""
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
 msgid ""
 "You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an "
 "Article Item. Convert %(item_name)s into an Article first."
@@ -6013,6 +6000,14 @@ msgstr ""
 msgid ""
 "You may have heard those a million times and yet you are not entirely sure of what it means.<br>\n"
 "                Here is a quick recap for you to shine during the next meeting."
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
+msgid "You need at least 2 members for the Article to be shared."
 msgstr ""
 
 #. module: knowledge

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-02-12 10:56+0000\n"
+"PO-Revision-Date: 2024-02-12 10:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -134,6 +134,14 @@ msgid "Created on"
 msgstr ""
 
 #. module: documents_spreadsheet
+#: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_document__current_revision_uuid
+#: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_shared_spreadsheet__current_revision_uuid
+#: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__current_revision_uuid
+#: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__current_revision_uuid
+msgid "Current Revision Uuid"
+msgstr ""
+
+#. module: documents_spreadsheet
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/documents_view/documents_spreadsheet_controller_mixin.js:0
 #: code:addons/documents_spreadsheet/static/src/spreadsheet_template/template_dialog.xml:0
@@ -179,6 +187,11 @@ msgstr ""
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_shared_spreadsheet__excel_export
 msgid "Excel Export"
+msgstr ""
+
+#. module: documents_spreadsheet
+#: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__file_name
+msgid "File Name"
 msgstr ""
 
 #. module: documents_spreadsheet
@@ -329,14 +342,6 @@ msgstr ""
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__sequence
 msgid "Sequence"
-msgstr ""
-
-#. module: documents_spreadsheet
-#: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_document__server_revision_id
-#: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_shared_spreadsheet__server_revision_id
-#: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__server_revision_id
-#: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_template__server_revision_id
-msgid "Server Revision"
 msgstr ""
 
 #. module: documents_spreadsheet
@@ -520,10 +525,4 @@ msgstr ""
 #: code:addons/documents_spreadsheet/controllers/share.py:0
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "You don't have access to this document"
-msgstr ""
-
-#. module: documents_spreadsheet
-#. odoo-javascript
-#: code:addons/documents_spreadsheet/static/src/spreadsheet_selector_dialog/document_selector_panel.xml:0
-msgid "getPageTitle('SPREADSHEET')"
 msgstr ""

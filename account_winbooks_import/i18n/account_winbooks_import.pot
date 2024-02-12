@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:02+0000\n"
-"PO-Revision-Date: 2024-01-08 07:02+0000\n"
+"POT-Creation-Date: 2024-02-12 10:55+0000\n"
+"PO-Revision-Date: 2024-02-12 10:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,11 @@ msgstr ""
 #. module: account_winbooks_import
 #: model:ir.model,name:account_winbooks_import.model_account_winbooks_import_wizard
 msgid "Account Winbooks import wizard"
+msgstr ""
+
+#. module: account_winbooks_import
+#: model:ir.model,name:account_winbooks_import.model_account_import_summary
+msgid "Account import summary view"
 msgstr ""
 
 #. module: account_winbooks_import
@@ -92,6 +97,26 @@ msgstr ""
 #. module: account_winbooks_import
 #: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
 msgid "Import (safe-mode)"
+msgstr ""
+
+#. module: account_winbooks_import
+#: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_analytic_ids
+msgid "Import Summary Analytic"
+msgstr ""
+
+#. module: account_winbooks_import
+#: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_analytic_line_ids
+msgid "Import Summary Analytic Line"
+msgstr ""
+
+#. module: account_winbooks_import
+#: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_len_analytic
+msgid "Import Summary Len Analytic"
+msgstr ""
+
+#. module: account_winbooks_import
+#: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_len_analytic_line
+msgid "Import Summary Len Analytic Line"
 msgstr ""
 
 #. module: account_winbooks_import
@@ -185,4 +210,14 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_winbooks_import/wizard/import_wizard.py:0
 msgid "You should install a Fiscal Localization first."
+msgstr ""
+
+#. module: account_winbooks_import
+#: model_terms:ir.ui.view,arch_db:account_winbooks_import.account_import_summary_form
+msgid "account analytic lines imported"
+msgstr ""
+
+#. module: account_winbooks_import
+#: model_terms:ir.ui.view,arch_db:account_winbooks_import.account_import_summary_form
+msgid "account analytics imported"
 msgstr ""
