@@ -10,10 +10,10 @@ from lxml import etree
 import odoo
 from odoo import http, _
 from odoo.http import content_disposition, request
-from odoo.exceptions import UserError, AccessError, ValidationError
+from odoo.exceptions import UserError, ValidationError
 from odoo.addons.web_studio.controllers import export
 from odoo.osv import expression
-from odoo.tools import ustr, sql
+from odoo.tools import ustr, sql, clean_context
 from odoo.models import check_method_name
 
 _logger = logging.getLogger(__name__)
@@ -478,9 +478,12 @@ class WebStudioController(http.Controller):
             'main_view_id': view.id,
         }
 
-    def _return_view(self, view, studio_view):
+    def _return_view(self, view, studio_view, context=None):
+        if context is None:
+            context = {}
+
         ViewModel = request.env[view.model]
-        fields_view = ViewModel.with_context(studio=True).get_view(view.id, view.type)
+        fields_view = ViewModel.with_context(dict(context, studio=True)).get_view(view.id, view.type)
         view_type = 'list' if view.type == 'tree' else view.type
         models = fields_view['models']
 
@@ -513,7 +516,8 @@ class WebStudioController(http.Controller):
     @http.route('/web_studio/edit_view', type='json', auth='user')
     def edit_view(self, view_id, studio_view_arch, operations=None, model=None, context=None):
         if context:
-            request.update_context(**context)
+            context_cleaned = clean_context(context)
+            request.update_context(**context_cleaned)
         IrModelFields = request.env['ir.model.fields']
         view = request.env['ir.ui.view'].browse(view_id)
         operations = operations or []
@@ -694,7 +698,7 @@ class WebStudioController(http.Controller):
             # the change he would like to make.
             self._set_studio_view(view, new_arch)
 
-        return self._return_view(view, studio_view)
+        return self._return_view(view, studio_view, context)
 
     @http.route('/web_studio/rename_field', type='json', auth='user')
     def rename_field(self, studio_view_id, studio_view_arch, model, old_name, new_name, new_label=None):
@@ -764,7 +768,8 @@ Are you sure you want to remove the selection values of those records?""", len(r
     @http.route('/web_studio/edit_view_arch', type='json', auth='user')
     def edit_view_arch(self, view_id, view_arch, context=None):
         if context:
-            request.update_context(**context)
+            context_cleaned = clean_context(context)
+            request.update_context(**context_cleaned)
         # view is really the view on which we are writing the new arch verbatim (in most cases, the studio view)
         # the _return_view API calls get_views, that will eventually return the whole arch
         # meaning that even if we pass the studio view, we'll get the full arch with
@@ -774,7 +779,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
             view.write({'arch': view_arch})
             ViewModel = request.env[view.model]
             studio_view = self._get_studio_view(view)
-            return self._return_view(view, studio_view)
+            return self._return_view(view, studio_view, context)
 
     @http.route('/web_studio/export', type='http', auth='user')
     def export(self, **kw):
