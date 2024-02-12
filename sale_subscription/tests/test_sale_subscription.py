@@ -2894,52 +2894,53 @@ class TestSubscription(TestSubscriptionCommon):
         """ Test the behavior of the logs when we confirm a renewal quote after the parent has been closed.
         """
         self.flush_tracking()
-        today = datetime.date.today()
-        context_mail = {'tracking_disable': False}
-        sub = self.env['sale.order'].with_context(context_mail).create({
-            'name': 'TestSubscription',
-            'is_subscription': True,
-            'note': "original subscription description",
-            'partner_id': self.user_portal.partner_id.id,
-            'pricelist_id': self.company_data['default_pricelist'].id,
-            'sale_order_template_id': self.subscription_tmpl.id,
-        })
-        sub._onchange_sale_order_template_id()
-        # Same product for both lines
-        sub.order_line.product_uom_qty = 1
-        self.flush_tracking()
-        sub.action_confirm()
-        self.flush_tracking()
-        sub.order_line.product_uom_qty = 2
-        self.flush_tracking()
+        with freeze_time("2024-01-22 08:00:00"):
+            today = datetime.date.today()
+            context_mail = {'tracking_disable': False}
+            sub = self.env['sale.order'].with_context(context_mail).create({
+                'name': 'TestSubscription',
+                'is_subscription': True,
+                'note': "original subscription description",
+                'partner_id': self.user_portal.partner_id.id,
+                'pricelist_id': self.company_data['default_pricelist'].id,
+                'sale_order_template_id': self.subscription_tmpl.id,
+            })
+            sub._onchange_sale_order_template_id()
+            # Same product for both lines
+            sub.order_line.product_uom_qty = 1
+            self.flush_tracking()
+            sub.action_confirm()
+            self.flush_tracking()
+            sub.order_line.product_uom_qty = 2
+            self.flush_tracking()
 
-        self.env['sale.order'].with_context(tracking_disable=False)._cron_recurring_create_invoice()
-        self.flush_tracking()
-        action = sub.with_context(tracking_disable=False).prepare_renewal_order()
-        renewal_so = self.env['sale.order'].browse(action['res_id'])
-        renewal_so = renewal_so.with_context(tracking_disable=False)
-        renewal_so.order_line.product_uom_qty = 3
-        renewal_so.name = "Renewal"
-        self.flush_tracking()
-        sub.set_close()
-        self.flush_tracking()
-        renewal_so.action_confirm()
-        self.flush_tracking()
-        # Most of the time, the renewal invoice is created by the salesman
-        # before the renewal start date
-        renewal_invoices = renewal_so._create_invoices()
-        renewal_invoices._post()
-        order_log_ids = sub.order_log_ids.sorted('id')
-        sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log in
-                    order_log_ids]
-        self.assertEqual(sub_data, [('0_creation', today, '3_progress', 21, 21),
-                                    ('1_expansion', today, '3_progress', 21.0, 42.0),
-                                    ('3_transfer', today, '5_renewed', -42, 0)])
-        renew_logs = renewal_so.order_log_ids.sorted('id')
-        renew_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log
-                      in renew_logs]
-        self.assertEqual(renew_data, [('3_transfer', today, '3_progress', 42, 42),
-                                      ('1_expansion', today, '3_progress', 21.0, 63.0)])
+            self.env['sale.order'].with_context(tracking_disable=False)._cron_recurring_create_invoice()
+            self.flush_tracking()
+            action = sub.with_context(tracking_disable=False).prepare_renewal_order()
+            renewal_so = self.env['sale.order'].browse(action['res_id'])
+            renewal_so = renewal_so.with_context(tracking_disable=False)
+            renewal_so.order_line.product_uom_qty = 3
+            renewal_so.name = "Renewal"
+            self.flush_tracking()
+            sub.set_close()
+            self.flush_tracking()
+            renewal_so.action_confirm()
+            self.flush_tracking()
+            # Most of the time, the renewal invoice is created by the salesman
+            # before the renewal start date
+            renewal_invoices = renewal_so._create_invoices()
+            renewal_invoices._post()
+            order_log_ids = sub.order_log_ids.sorted('id')
+            sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log in
+                        order_log_ids]
+            self.assertEqual(sub_data, [('0_creation', today, '3_progress', 21, 21),
+                                        ('1_expansion', today, '3_progress', 21.0, 42.0),
+                                        ('3_transfer', today, '5_renewed', -42, 0)])
+            renew_logs = renewal_so.order_log_ids.sorted('id')
+            renew_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log
+                        in renew_logs]
+            self.assertEqual(renew_data, [('3_transfer', today, '3_progress', 42, 42),
+                                        ('1_expansion', today, '3_progress', 21.0, 63.0)])
 
     def test_paused_resume_logs(self):
         self.flush_tracking()
