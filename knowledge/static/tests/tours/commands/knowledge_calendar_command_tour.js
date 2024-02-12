@@ -209,7 +209,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_knowledge_editor .odoo-editor-editable h1',
     run: 'text Item Article',
 }, { // Go back to parent article
-    trigger: '.o_knowledge_tree .o_article_name:contains("EditorCommandsArticle")',
+    trigger: '.o_knowledge_tree .o_article_name:contains("Article Items")',
     run: 'click',
 }, { // Check that the item is shown in the calendar
     trigger: '.fc-timegrid-event .o_event_title:contains("Item Article")',
@@ -391,7 +391,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.modal-dialog .btn-primary',
     run: 'click',
 }, { // Go back to parent article
-    trigger: '.o_knowledge_tree .o_article_name:contains("EditorCommandsArticle")',
+    trigger: '.o_knowledge_tree .o_article_name:contains("Article Items")',
     run: 'click',
 }, { // Make sure view is not crashed and shows nocontent helper
     trigger: '.o_knowledge_article_view_calendar_embedded_view .o_knowledge_item_calendar_nocontent',

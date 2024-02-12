@@ -114,7 +114,7 @@ export class KnowledgeArticleHtmlField extends HtmlField {
                 };
                 const body = renderToString("knowledge.article_item_template", {
                     behaviorProps: encodeDataBehaviorProps(behaviorProps),
-                    title: name
+                    title: name || _t("Article Items")
                 });
                 this.updateArticle(name, body, {
                     full_width: true
