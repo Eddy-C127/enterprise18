@@ -12,7 +12,7 @@ export class RoomBookingForm extends Component {
         bookingToEdit: { type: Object, optional: true },
         cancel: Function,
         editBooking: Function,
-        bookingName: String,
+        bookingName: { type: String, optional: true },
     };
 
     setup() {
