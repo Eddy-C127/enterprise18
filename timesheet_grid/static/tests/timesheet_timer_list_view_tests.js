@@ -35,6 +35,7 @@ QUnit.module("timesheet_grid", (hooks) => {
             resModel: "foo",
             serverData,
             arch: '<tree js_class="timesheet_timer_list"><field name="foo"/></tree>',
+            context: { my_timesheet_display_timer: 1 },
             async mockRPC(route, args) {
                 if (args.method === "get_running_timer") {
                     return {

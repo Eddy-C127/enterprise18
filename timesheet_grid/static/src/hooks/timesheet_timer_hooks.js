@@ -41,7 +41,7 @@ export class TimesheetTimerRendererHook {
     }
 
     get showTimer() {
-        return this.timesheetUOMService.timesheetWidget === "float_time";
+        return this.timesheetUOMService.timesheetWidget === "float_time" && this.propsList.context?.my_timesheet_display_timer;
     }
 
     get fields() {

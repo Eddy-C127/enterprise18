@@ -93,7 +93,7 @@ QUnit.module("Views", (hooks) => {
         await openView({
             res_model: "analytic.line",
             views: [[false, "grid"], [false, "kanban"]],
-            context: { group_by: ["project_id", "task_id"] },
+            context: { group_by: ["project_id", "task_id"], my_timesheet_display_timer: 1 },
         });
         await nextTick();
         await click(target, ".o_switch_view.o_kanban");
