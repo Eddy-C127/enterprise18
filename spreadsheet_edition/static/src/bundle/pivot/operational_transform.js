@@ -26,7 +26,7 @@ otRegistry
             return toTransform;
         }
     )
-    .addTransformation("REMOVE_PIVOT", ["RE_INSERT_PIVOT"], (toTransform, executed) => {
+    .addTransformation("REMOVE_PIVOT", ["INSERT_PIVOT"], (toTransform, executed) => {
         if (toTransform.id === executed.pivotId) {
             return undefined;
         }

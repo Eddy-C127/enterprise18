@@ -251,12 +251,12 @@ QUnit.test("Rename and remove a pivot concurrently", async (assert) => {
     );
 });
 
-QUnit.test("Re-insert and remove a pivot concurrently", async (assert) => {
+QUnit.test("Insert and remove a pivot concurrently", async (assert) => {
     await insertPivot(alice);
     await network.concurrent(() => {
         const structure = alice.getters.getPivot("1").getTableStructure();
         const table = structure.export();
-        alice.dispatch("RE_INSERT_PIVOT", {
+        alice.dispatch("INSERT_PIVOT", {
             id: "1",
             col: 0,
             row: 0,

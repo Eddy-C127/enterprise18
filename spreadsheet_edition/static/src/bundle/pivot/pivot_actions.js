@@ -13,7 +13,7 @@ export const REINSERT_PIVOT_CHILDREN = (env) =>
             const model = await dataSource.copyModelWithOriginalDomain();
             const table = model.getTableStructure().export();
             const zone = env.model.getters.getSelectedZone();
-            env.model.dispatch("RE_INSERT_PIVOT", {
+            env.model.dispatch("INSERT_PIVOT", {
                 id: pivotId,
                 col: zone.left,
                 row: zone.top,
