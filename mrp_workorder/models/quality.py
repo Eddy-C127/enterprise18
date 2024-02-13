@@ -47,10 +47,11 @@ class MrpRouting(models.Model):
         return res
 
     def copy(self, default=None):
-        res = super().copy(default)
+        new_workcenters = super().copy(default)
         if default and "bom_id" in default:
-            res.quality_point_ids._change_product_ids_for_bom(res.bom_id)
-        return res
+            for new_workcenter in new_workcenters:
+                new_workcenter.quality_point_ids._change_product_ids_for_bom(new_workcenter.bom_id)
+        return new_workcenters
 
     def toggle_active(self):
         self.with_context(active_test=False).quality_point_ids.toggle_active()

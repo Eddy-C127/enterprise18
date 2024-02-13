@@ -347,13 +347,16 @@ class WhatsAppTemplate(models.Model):
             self.variable_ids._check_field_name()
         return res
 
-    def copy(self, default=None):
-        self.ensure_one()
-        default = default or {}
-        if not default.get('name'):
-            default['name'] = _('%(original_name)s (copy)', original_name=self.name)
-            default['template_name'] = f'{self.template_name}_copy'
-        return super().copy(default)
+    def copy_data(self, default=None):
+        default = dict(default or {})
+        vals_list = super().copy_data(default=default)
+        if default.get('name'):
+            return vals_list
+        return [dict(
+            vals,
+            name=_("%s (copy)", template.name),
+            template_name=f'{template.template_name}_copy',
+        ) for template, vals in zip(self, vals_list)]
 
     @api.depends('name', 'wa_account_id')
     def _compute_display_name(self):

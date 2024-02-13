@@ -456,13 +456,13 @@ class AccountAsset(models.Model):
         return super(AccountAsset, self).unlink()
 
     def copy_data(self, default=None):
-        if default is None:
-            default = {}
-        if self.state == 'model':
-            default.update(state='model')
-        default['name'] = self.name + _(' (copy)')
-        default['account_asset_id'] = self.account_asset_id.id
-        return super().copy_data(default)
+        vals_list = super().copy_data(default)
+        for asset, vals in zip(self, vals_list):
+            if asset.state == 'model':
+                vals['state'] = 'model'
+            vals['name'] = _('%s (copy)', asset.name)
+            vals['account_asset_id'] = asset.account_asset_id.id
+        return vals_list
 
     @api.model_create_multi
     def create(self, vals_list):

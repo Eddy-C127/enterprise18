@@ -42,12 +42,11 @@ class TransferModel(models.Model):
     state = fields.Selection([('disabled', 'Disabled'), ('in_progress', 'Running')], default='disabled', required=True)
 
     def copy(self, default=None):
-        default = default or {}
-        res = super(TransferModel, self).copy(default)
-        res.account_ids += self.account_ids
-        for line in self.line_ids:
-            line.copy({'transfer_model_id': res.id})
-        return res
+        new_models = super().copy(default)
+        for old_model, new_model in zip(self, new_models):
+            new_model.account_ids += old_model.account_ids
+            old_model.line_ids.copy({'transfer_model_id': new_model.id})
+        return new_models
 
     @api.ondelete(at_uninstall=False)
     def _unlink_with_check_moves(self):

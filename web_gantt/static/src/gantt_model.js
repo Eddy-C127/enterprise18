@@ -217,7 +217,7 @@ export class GanttModel extends Model {
         const { context } = this.searchParams;
         const data = this._scheduleToData(schedule);
         return this.mutex.exec(async () => {
-            const result = await this.orm.call(resModel, "copy", [id, data], {
+            const result = await this.orm.call(resModel, "copy", [[id], data], {
                 context,
             });
             if (callback) {

@@ -219,22 +219,20 @@ class DocumentFolder(models.Model):
                 'tag_id': tag_id,
             })
 
-    @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
-        folder = super().copy(default)
-        folder.flush_recordset(['children_folder_ids'])
+        new_folders = super().copy(default)
+        new_folders.flush_recordset(['children_folder_ids'])
         self.env['documents.tag'].flush_model(['folder_id'])
 
-        old_facet_id_to_new_facet_id, old_tag_id_to_new_tag_id = self._get_old_id_to_new_id_maps(folder)
-        self._copy_workflow_rules_and_actions(folder, old_facet_id_to_new_facet_id, old_tag_id_to_new_tag_id)
+        for old_folder, new_folder in zip(self, new_folders):
+            old_facet_id_to_new_facet_id, old_tag_id_to_new_tag_id = old_folder._get_old_id_to_new_id_maps(new_folder)
+            old_folder._copy_workflow_rules_and_actions(new_folder, old_facet_id_to_new_facet_id, old_tag_id_to_new_tag_id)
 
-        for child in self.children_folder_ids:
-            child.with_context({
+            old_folder.children_folder_ids.with_context({
                 'ancestors_facet_map': old_facet_id_to_new_facet_id,
                 'ancestors_tag_map': old_tag_id_to_new_tag_id,
-            }).copy({'parent_folder_id': folder.id})
-
-        return folder
+            }).copy({'parent_folder_id': new_folder.id})
+        return new_folders
 
     def action_see_actions(self):
         return {

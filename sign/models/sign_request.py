@@ -182,14 +182,19 @@ class SignRequest(models.Model):
             sign_requests.send_signature_accesses()
         return sign_requests
 
-    def copy(self, default=None):
-        self.ensure_one()
-        default = default or {}
+    def copy_data(self, default=None):
+        default = dict(default or {})
+        vals_list = super().copy_data(default=default)
         if 'attachment_ids' not in default:
-            default['attachment_ids'] = [attachment.copy().id for attachment in self.attachment_ids]
-        sign_request = super().copy(default)
-        sign_request.message_subscribe(partner_ids=self.cc_partner_ids.ids)
-        return sign_request
+            for request, vals in zip(self, vals_list):
+                vals['attachment_ids'] = request.attachment_ids.copy().ids
+        return vals_list
+
+    def copy(self, default=None):
+        sign_requests = super().copy(default)
+        for old_request, new_request in zip(self, sign_requests):
+            new_request.message_subscribe(partner_ids=old_request.cc_partner_ids.ids)
+        return sign_requests
 
     def toggle_active(self):
         self.filtered(lambda sr: sr.active and sr.state == 'sent').cancel()

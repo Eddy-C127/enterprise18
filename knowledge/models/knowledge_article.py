@@ -951,24 +951,15 @@ class Article(models.Model):
         if self.filtered('is_template') and not self.env.user.has_group('base.group_system'):
             raise ValidationError(_('You are not allowed to delete a template.'))
 
-    @api.returns('self', lambda value: value.id)
-    def copy(self, default=None):
-        default = default or {}
-        if not default.get('name') and self.name:
-            default['name'] = self.name if self.parent_id else _('%(article_name)s (copy)', article_name=self.name)
-        return super().copy(default)
-
-    @api.returns(None, lambda value: value[0])
     def copy_data(self, default=None):
-        """ Propagate the (copy) suffix addition to records created for children
-        of copied articles, as those do not go through ``copy`` but the lower
-        level ``copy_data`` instead. """
-        if not default or 'name' not in default:
-            if default is None:
-                default = {}
-            if self.name:
-                default['name'] = self.name if self.parent_id else _('%(article_name)s (copy)', article_name=self.name)
-        return super().copy_data(default=default)
+        default = dict(default or {})
+        vals_list = super().copy_data(default=default)
+        if default.get('name'):
+            return vals_list
+        for article, vals in zip(self, vals_list):
+            if article.name:
+                vals['name'] = article.name if article.parent_id else _('%(article_name)s (copy)', article_name=article.name)
+        return vals_list
 
     def copy_batch(self, default=None):
         """ Duplicates a recordset of articles. Filters out articles that are

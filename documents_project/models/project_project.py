@@ -157,7 +157,6 @@ class ProjectProject(models.Model):
             self.filtered('use_documents')._create_missing_folders()
         return res
 
-    @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
         # We have to add no_create_folder=True to the context, otherwise a folder
         # will be automatically created during the call to create.
@@ -165,12 +164,13 @@ class ProjectProject(models.Model):
         # and this copy would call itself infinitely.
         previous_context = self.env.context
         self.env.context = frozendict(self.env.context, no_create_folder=True)
-        project = super().copy(default)
+        copied_projects = super().copy(default)
         self.env.context = previous_context
 
-        if not self.env.context.get('no_create_folder') and project.use_documents and self.documents_folder_id:
-            project.documents_folder_id = self.documents_folder_id.copy({'name': project.name})
-        return project
+        for old_project, new_project in zip(self, copied_projects):
+            if not self.env.context.get('no_create_folder') and new_project.use_documents and old_project.documents_folder_id:
+                new_project.documents_folder_id = old_project.documents_folder_id.copy({'name': new_project.name})
+        return copied_projects
 
     def _get_stat_buttons(self):
         buttons = super(ProjectProject, self)._get_stat_buttons()

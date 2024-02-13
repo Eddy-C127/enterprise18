@@ -90,19 +90,18 @@ class WorksheetTemplate(models.Model):
 
         return super(WorksheetTemplate, self.exists()).unlink()
 
-    @api.returns('self', lambda value: value.id)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(vals,
+            name=_("%s (copy)", template.name),
+            model_id=False,  # force no model
+        ) for template, vals in zip(self, vals_list)]
+
     def copy(self, default=None):
-        if default is None:
-            default = {}
-        if not default.get('name'):
-            default['name'] = _("%s (copy)", self.name)
-
-        # force no model
-        default['model_id'] = False
-
-        template = super(WorksheetTemplate, self.with_context(worksheet_no_generation=True)).copy(default)
-        template._generate_worksheet_model()
-        return template
+        templates = super(WorksheetTemplate, self.with_context(worksheet_no_generation=True)).copy(default)
+        for template in templates:
+            template._generate_worksheet_model()
+        return templates
 
     def _generate_worksheet_model(self):
         self.ensure_one()

@@ -51,11 +51,11 @@ class SpreadsheetMixin(models.AbstractModel):
         return super().write(vals)
 
     def copy(self, default=None):
-        self.ensure_one()
-        new_spreadsheet = super().copy(default)
+        new_spreadsheets = super().copy(default)
         if not default or "spreadsheet_revision_ids" not in default:
-            self._copy_revisions_to(new_spreadsheet)
-        return new_spreadsheet
+            for old_spreadsheet, new_spreadsheet in zip(self, new_spreadsheets):
+                old_spreadsheet._copy_revisions_to(new_spreadsheet)
+        return new_spreadsheets
 
     def join_spreadsheet_session(self, share_id=None, access_token=None):
         """Join a spreadsheet session.

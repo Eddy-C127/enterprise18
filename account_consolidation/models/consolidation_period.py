@@ -123,11 +123,12 @@ class ConsolidationPeriod(models.Model):
 
     # ORM OVERRIDES
 
-    def copy(self, default=None):
-        default = dict(default or {})
-        default['date_analysis_begin'] = self.date_analysis_end + datetime.timedelta(days=1)
-        default['date_analysis_end'] = None
-        return super().copy(default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        for period, vals in zip(self, vals_list):
+            vals['date_analysis_begin'] = period.date_analysis_end + datetime.timedelta(days=1)
+            vals['date_analysis_end'] = None
+        return super().copy_data(default)
 
     # ACTIONS
 

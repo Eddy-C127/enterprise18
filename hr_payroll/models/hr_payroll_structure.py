@@ -52,10 +52,6 @@ class HrPayrollStructure(models.Model):
     schedule_pay = fields.Selection(related='type_id.default_schedule_pay')
     input_line_type_ids = fields.Many2many('hr.payslip.input.type', string='Other Input Line')
 
-    @api.returns('self', lambda value: value.id)
-    def copy(self, default=None):
-        self.ensure_one()
-        default = dict(default or {})
-        if 'name' not in default:
-            default['name'] = _("%s (copy)", self.name)
-        return super(HrPayrollStructure, self).copy(default=default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(vals, name=_("%s (copy)", structure.name)) for structure, vals in zip(self, vals_list)]

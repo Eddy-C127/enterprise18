@@ -850,15 +850,14 @@ class Planning(models.Model):
                     recurrence._repeat_slot()
         return result
 
-    @api.returns(None, lambda value: value[0])
     def copy_data(self, default=None):
-        if default is None:
-            default = {}
+        default = dict(default or {})
+        vals_list = super().copy_data(default=default)
         if self._context.get('planning_split_tool'):
-            default['state'] = self.state
-        return super().copy_data(default=default)
+            for planning, vals in zip(self, vals_list):
+                vals['state'] = planning.state
+        return vals_list
 
-    @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
         result = super().copy(default=default)
         # force recompute of stored computed fields depending on start_datetime
@@ -2189,14 +2188,9 @@ class PlanningRole(models.Model):
     sequence = fields.Integer()
     slot_properties_definition = fields.PropertiesDefinition('Planning Slot Properties')
 
-    @api.returns('self', lambda value: value.id)
-    def copy(self, default=None):
-        self.ensure_one()
-        if default is None:
-            default = {}
-        if not default.get('name'):
-            default['name'] = _('%s (copy)', self.name)
-        return super().copy(default=default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(vals, name=_("%s (copy)", role.name)) for role, vals in zip(self, vals_list)]
 
 
 class PlanningPlanning(models.Model):

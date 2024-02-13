@@ -593,20 +593,21 @@ class SaleOrder(models.Model):
         return super(SaleOrder, self)._unlink_except_draft_or_cancel()
 
     def copy_data(self, default=None):
-        if default is None:
-            default = {}
-        if self.subscription_state == '7_upsell':
-            default.update({
-                "client_order_ref": self.client_order_ref,
-                "subscription_id": self.subscription_id.id,
-                "origin_order_id": self.origin_order_id.id,
-                'subscription_state': '7_upsell'
-            })
-        elif self.subscription_state and 'subscription_state' not in default:
-            default.update({
-                'subscription_state': '1_draft'
-            })
-        return super().copy_data(default)
+        default = dict(default or {})
+        vals_list = super().copy_data(default=default)
+        for order, vals in zip(self, vals_list):
+            if order.subscription_state == '7_upsell':
+                vals.update({
+                    "client_order_ref": order.client_order_ref,
+                    "subscription_id": order.subscription_id.id,
+                    "origin_order_id": order.origin_order_id.id,
+                    'subscription_state': '7_upsell'
+                })
+            elif order.subscription_state and 'subscription_state' not in default:
+                vals.update({
+                    'subscription_state': '1_draft'
+                })
+        return vals_list
 
     ###########
     # Actions #

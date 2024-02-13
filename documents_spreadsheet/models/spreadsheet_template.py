@@ -17,12 +17,12 @@ class SpreadsheetTemplate(models.Model):
         for template in self:
             template.file_name = f"{template.name}.osheet.json"
 
-    def copy(self, default=None):
-        self.ensure_one()
-        chosen_name = default.get("name") if default else None
-        new_name = chosen_name or _("%s (copy)", self.name)
-        default = dict(default or {}, name=new_name)
-        return super().copy(default)
+    def copy_data(self, default=None):
+        default = dict(default or {})
+        vals_list = super().copy_data(default=default)
+        for template, vals in zip(self, vals_list):
+            vals['name'] = default.get("name", _("%s (copy)", template.name))
+        return vals_list
 
     def action_edit_template(self):
         self.ensure_one()

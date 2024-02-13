@@ -81,11 +81,9 @@ class AppointmentResource(models.Model):
             display_name = resource_name_capacity if resource.capacity > 1 else resource.name
             resource.display_name = display_name
 
-    def copy(self, default=None):
-        default = dict(default or {})
-        if not default.get('name'):
-            default['name'] = _("%(original_name)s (copy)", original_name=self.name)
-        return super().copy(default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(vals, name=_("%s (copy)", resource.name)) for resource, vals in zip(self, vals_list)]
 
     def _get_filtered_possible_capacity_combinations(self, asked_capacity, capacity_info):
         """ Get combinations of resources with total capacity based on the capacity needed and the resources we want.

@@ -2441,7 +2441,7 @@ QUnit.test("copy a pill in another row", async (assert) => {
         domain: [["id", "in", [1, 7, 9]]], // 9 will be the newly created record
         mockRPC(_route, { args, method }) {
             if (method === "copy") {
-                assert.deepEqual(args[0], 7, "should copy the correct record");
+                assert.deepEqual(args[0], [7], "should copy the correct record");
                 assert.deepEqual(
                     args[1],
                     {

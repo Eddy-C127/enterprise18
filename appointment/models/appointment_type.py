@@ -338,12 +338,13 @@ class AppointmentType(models.Model):
         """ We don't want the current user to be follower of all created types """
         return super(AppointmentType, self.with_context(mail_create_nosubscribe=True)).create(vals_list)
 
-    @api.returns('self', lambda value: value.id)
-    def copy(self, default=None):
-        default = default or {}
-        default['name'] = self.name + _(' (copy)')
-        default['category'] = self.category
-        return super().copy(default=default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(
+            vals,
+            name=_("%s (copy)", appointment_type.name),
+            category=appointment_type.category,
+        ) for appointment_type, vals in zip(self, vals_list)]
 
     def action_appointment_resources(self):
         self.ensure_one()

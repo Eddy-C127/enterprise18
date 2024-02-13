@@ -145,28 +145,28 @@ class MarketingCampaign(models.Model):
     def _group_expand_states(self, states, domain, order):
         return [key for key, val in self._fields['state'].selection]
 
-    @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
         """ Copy the activities of the campaign, each parent_id of each child
         activities should be set to the new copied parent activity. """
-        new_compaign = super(MarketingCampaign, self).copy(dict(default or {}))
+        new_compaigns = super().copy(dict(default or {}))
 
-        old_to_new = {}
+        for old_campaign, new_compaign in zip(self, new_compaigns):
+            old_to_new = {}
 
-        for marketing_activity_id in self.marketing_activity_ids:
-            new_marketing_activity_id = marketing_activity_id.copy()
-            old_to_new[marketing_activity_id] = new_marketing_activity_id
-            new_marketing_activity_id.write({
-                'campaign_id': new_compaign.id,
-                'require_sync': False,
-                'trace_ids': False,
-            })
+            for marketing_activity_id in old_campaign.marketing_activity_ids:
+                new_marketing_activity_id = marketing_activity_id.copy()
+                old_to_new[marketing_activity_id] = new_marketing_activity_id
+                new_marketing_activity_id.write({
+                    'campaign_id': new_compaign.id,
+                    'require_sync': False,
+                    'trace_ids': False,
+                })
 
-        for marketing_activity_id in new_compaign.marketing_activity_ids:
-            marketing_activity_id.parent_id = old_to_new.get(
-                marketing_activity_id.parent_id)
+            for marketing_activity_id in new_compaign.marketing_activity_ids:
+                marketing_activity_id.parent_id = old_to_new.get(
+                    marketing_activity_id.parent_id)
 
-        return new_compaign
+        return new_compaigns
 
     @api.model_create_multi
     def create(self, vals_list):

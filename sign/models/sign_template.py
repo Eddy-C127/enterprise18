@@ -134,17 +134,20 @@ class SignTemplate(models.Model):
             self.attachment_id.check('read')
         return res
 
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        for template, vals in zip(self, vals_list):
+            vals['name'] = vals.get('name', template._get_copy_name(template.name))
+        return vals_list
+
     def copy(self, default=None):
-        self.ensure_one()
-        default = default or {}
-        default['name'] = default.get('name', self._get_copy_name(self.name))
-        new_template = super().copy(default)
-        for sign_item in new_template.sign_item_ids:
+        new_templates = super().copy(default)
+        for sign_item in new_templates.sign_item_ids:
             if sign_item.type_id.item_type == 'selection':
                 archived_options = sign_item.option_ids.filtered(lambda option: not option.available).ids
                 if archived_options:
                     sign_item.option_ids = [Command.unlink(option) for option in archived_options]
-        return new_template
+        return new_templates
 
     @api.model
     def create_with_attachment_data(self, name, data, active=True):

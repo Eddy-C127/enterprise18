@@ -3,6 +3,7 @@
 
 from odoo import fields, models
 
+
 class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
 
@@ -13,10 +14,10 @@ class HelpdeskTicket(models.Model):
         groups="sales_team.group_sale_salesman,account.group_account_invoice")
     sale_order_state = fields.Selection(related='sale_order_id.state')
 
-    def copy(self, default=None):
+    def copy_data(self, default=None):
         if not self.env.user.has_group('sales_team.group_sale_salesman') and not self.env.user.has_group('account.group_account_invoice'):
             if default is None:
                 default = {'sale_order_id': False}
             else:
                 default.update({'sale_order_id': False})
-        return super(HelpdeskTicket, self).copy(default=default)
+        return super().copy_data(default=default)

@@ -303,12 +303,9 @@ class DataMergeModel(models.Model):
             if model_name and hasattr(self.env[model_name], '_prevent_merge') and self.env[model_name]._prevent_merge:
                 raise ValidationError(_('Deduplication is forbidden on the model: %s', model_name))
 
-    def copy(self, default=None):
-        self.ensure_one()
-        default = default or {}
-        if not default.get('name'):
-            default['name'] = _('%s (copy)', self.name)
-        return super().copy(default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(vals, name=_("%s (copy)", merge_model.name)) for merge_model, vals in zip(self, vals_list)]
 
     def write(self, vals):
         if 'active' in vals and not vals['active']:

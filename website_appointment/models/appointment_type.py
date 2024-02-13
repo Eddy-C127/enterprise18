@@ -53,13 +53,12 @@ class AppointmentType(models.Model):
 
         return super().create_and_get_website_url(**kwargs)
 
-    @api.returns('self', lambda value: value.id)
-    def copy(self, default=None):
+    def copy_data(self, default=None):
         """ Force False manually for all categories of appointment type when duplicating
         even for categories that should be auto-publish. """
-        default = default if default is not None else {}
+        default = dict(default or {})
         default['is_published'] = False
-        return super().copy(default)
+        return super().copy_data(default=default)
 
     def get_backend_menu_id(self):
         return self.env.ref('calendar.mail_menu_calendar').id

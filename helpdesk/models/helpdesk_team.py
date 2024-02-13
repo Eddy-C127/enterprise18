@@ -363,11 +363,9 @@ class HelpdeskTeam(models.Model):
         stages.unlink()
         return super(HelpdeskTeam, self).unlink()
 
-    def copy(self, default=None):
-        default = dict(default or {})
-        if not default.get('name'):
-            default['name'] = _("%s (copy)", self.name)
-        return super().copy(default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(vals, name=_("%s (copy)", team.name)) for team, vals in zip(self, vals_list)]
 
     def _change_privacy_visibility(self, new_visibility):
         """

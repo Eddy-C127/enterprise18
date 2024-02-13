@@ -575,11 +575,9 @@ class HelpdeskTicket(models.Model):
                     ticket.message_post(body=message, subtype_xmlid="mail.mt_note", author_id=odoobot_partner_id)
         return res
 
-    def copy(self, default=None):
-        default = dict(default or {})
-        if not default.get('name'):
-            default['name'] = _("%s (copy)", self.name)
-        return super().copy(default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(vals, name=_("%s (copy)", ticket.name)) for ticket, vals in zip(self, vals_list)]
 
     def _unsubscribe_portal_users(self):
         self.message_unsubscribe(partner_ids=self.message_partner_ids.filtered('user_ids.share').ids)

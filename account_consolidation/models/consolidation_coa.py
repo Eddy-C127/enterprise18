@@ -58,19 +58,25 @@ class ConsolidationChart(models.Model):
         for chart in self:
             chart.sign = -1 if chart.invert_sign else 1
 
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        for chart, vals in zip(self, vals_list):
+            vals['name'] = _("%s (copy)", chart.name)
+            vals['color'] = ((chart.color if chart.color else 0) + 1) % 12
+            # This will copy parent groups, which will automatically copy child groups.
+            vals['group_ids'] = chart.group_ids.filtered(lambda g: not g.parent_id).copy().ids
+            # Copy accounts not linked to a group. Accounts linked to a group are handled in the group copy.
+            vals['account_ids'] = chart.account_ids.filtered(lambda a: not a.group_id).copy().ids
+        return vals_list
+
     def copy(self, default=None):
-        default = dict(default or {})
-        default['name'] = self.name + ' (copy)'
-        default['color'] = ((self.color if self.color else 0) + 1) % 12
-        default['group_ids'] = [group.copy().id for group in self.group_ids if not group.parent_id]  # This will copy parent groups, which will automatically copy child groups.
-        # Copy accounts not linked to a group. Accounts linked to a group are handled in the group copy.
-        default['account_ids'] = [account.copy().id for account in self.account_ids if not account.group_id]
-        res = super().copy(default)
-        # Link the automatically copied children to the new chart.
-        res.group_ids.child_ids._init_recursive_group_chart(res.id)
-        # We copied the groups, which copied the accounts. We still need to link the new accounts with the chart.
-        res.group_ids.account_ids.chart_id = res.id
-        return res
+        new_charts = super().copy(default)
+        for new_chart in new_charts:
+            # Link the automatically copied children to the new chart.
+            new_chart.group_ids.child_ids._init_recursive_group_chart(new_chart.id)
+            # We copied the groups, which copied the accounts. We still need to link the new accounts with the chart.
+            new_chart.group_ids.account_ids.chart_id = new_chart.id
+        return new_charts
 
     # ACTIONS
 
@@ -200,10 +206,9 @@ class ConsolidationAccount(models.Model):
                 vals['account_ids'][:1] = add_accounts + remove_accounts
         return super(ConsolidationAccount, self).write(vals)
 
-    def copy(self, default=None):
-        default = dict(default or {})
-        default['name'] = self.name + ' (copy)'
-        return super().copy(default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(vals, name=_("%s (copy)", account.name)) for account, vals in zip(self, vals_list)]
 
     # COMPUTEDS
 
@@ -307,15 +312,16 @@ class ConsolidationGroup(models.Model):
     invert_sign = fields.Boolean('Invert Balance Sign', default=False)
     sign = fields.Integer(compute='_compute_sign', recursive=True)
 
-    def copy(self, default=None):
-        default = dict(default or {})
-        default['name'] = self.name + ' (copy)'
-        # Call manually copy to pass in the copy method of the copied records
-        if self.child_ids:
-            default['child_ids'] = [group.copy().id for group in self.child_ids]
-        if self.account_ids:
-            default['account_ids'] = [account.copy().id for account in self.account_ids]
-        return super().copy(default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        for group, vals in zip(self, vals_list):
+            vals['name'] = _("%s (copy)", group.name)
+            # Call manually copy to pass in the copy method of the copied records
+            if group.child_ids:
+                vals['child_ids'] = group.child_ids.copy().ids
+            if group.account_ids:
+                vals['account_ids'] = group.account_ids.copy().ids
+        return vals_list
 
     # CONSTRAINTS
     @api.constrains('child_ids', 'account_ids')

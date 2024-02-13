@@ -61,11 +61,9 @@ class HelpdeskSLA(models.Model):
         for sla in self:
             sla.display_name = f'{sla.name} - {sla.team_id.name}'
 
-    def copy(self, default=None):
-        default = dict(default or {})
-        if not default.get('name'):
-            default['name'] = _("%s (copy)", self.name)
-        return super().copy(default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(vals, name=_("%s (copy)", sla.name)) for sla, vals in zip(self, vals_list)]
 
     def action_open_helpdesk_ticket(self):
         self.ensure_one()

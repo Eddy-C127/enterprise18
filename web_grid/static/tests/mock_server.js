@@ -19,7 +19,7 @@ patch(MockServer.prototype, {
             kwargs
         );
         if (recordsFetched.length > 1) {
-            this.mockCopy(modelName, [recordsFetched[0].id, { [fieldNameToUpdate]: value }]);
+            this.mockCopy(modelName, [[recordsFetched[0].id], { [fieldNameToUpdate]: value }]);
         } else if (recordsFetched.length === 1) {
             const record = recordsFetched[0];
             this.mockWrite(modelName, [

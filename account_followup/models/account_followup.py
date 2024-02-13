@@ -44,15 +44,15 @@ class FollowupLine(models.Model):
         ('uniq_name', 'unique(company_id, name)', 'A follow-up action name must be unique. This name is already set to another action.'),
     ]
 
-    def copy(self, default=None):
-        default = default or {}
-        if not default.get('name'):
-            default['name'] = _("%s (copy)", self.name)
-        if 'delay' not in default:
-            company_id = default.get('company_id', self.company_id.id)
-            highest_delay = self.search([('company_id', '=', company_id)], order='delay desc', limit=1).delay
-            default['delay'] = highest_delay + 15
-        return super().copy(default=default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        for line, vals in zip(self, vals_list):
+            vals['name'] = vals.get('name', _("%s (copy)", line.name))
+            if 'delay' not in default:
+                company_id = default.get('company_id', line.company_id.id)
+                highest_delay = self.search([('company_id', '=', company_id)], order='delay desc', limit=1).delay
+                vals['delay'] = highest_delay + 15
+        return vals_list
 
     @api.onchange('auto_execute')
     def _onchange_auto_execute(self):
