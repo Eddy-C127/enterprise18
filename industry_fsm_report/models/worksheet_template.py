@@ -54,7 +54,7 @@ class WorksheetTemplate(models.Model):
     def get_x_model_form_action(self):
         action = super().get_x_model_form_action()
         if self.res_model == 'project.task':
-            action['context'].update({'action_xml_id': 'industry_fsm_report.fsm_worksheets_action_settings'})
+            action['context'].update({'action_xml_id': 'industry_fsm_report.fsm_worksheets_action_settings', 'worksheet_template_id': self.id})
         return action
 
     @api.model
