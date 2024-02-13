@@ -67,7 +67,10 @@ class TestBaseImport(AccountTestInvoicingCommon):
     @unittest.skipUnless(can_import("xlrd.xlsx"), "XLRD module not available")
     def test_account_xlsx_import(self):
         existing_id = self.env["account.account"].with_context(import_file=True).create({"code":"550003", "name": "Existing Account"}).id
+
         result = self._create_save_import("account.account", self.coa_file_content)
+        self.cr.precommit.run()
+        self.env.company.account_opening_move_id.action_post()
 
         self.assertEqual(result["messages"], [], "The import should have been successful without error")
 
