@@ -29,6 +29,11 @@
         'web.assets_backend': [
             'room/static/src/room_booking_gantt_view/**/*',
         ],
+        'web.qunit_suite_tests': [
+            'room/static/tests/*.js',
+            'room/static/src/room_booking/**/*.js',
+            'room/static/src/room_booking/**/*.xml',
+        ],
         'room.assets_room_booking': [
             # 1 Define room variables (takes priority)
             "room/static/src/room_booking/primary_variables.scss",
