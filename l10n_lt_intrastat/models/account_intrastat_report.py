@@ -57,7 +57,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             raise RedirectWarning(error_msg, action_error, _('Add company registry'))
 
         query, params = self._prepare_query(options)
-        self._cr.execute(query, params)
+        self._cr.execute(query, params)  # pylint: disable=sql-injection
         query_res = self._cr.dictfetchall()
         query_res = self._fill_missing_values(query_res)
         query_res = self._prepare_values_for_export(query_res)

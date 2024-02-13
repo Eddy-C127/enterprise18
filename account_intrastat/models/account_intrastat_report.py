@@ -331,14 +331,17 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
     @api.model
     def _prepare_query(self, options, column_group_key=None, expanded_line_options=None):
-        query_blocks, where_params = self._build_query(options, column_group_key, expanded_line_options)
+        query_blocks, where_params = self._build_query(options, column_group_key, expanded_line_options)  # pylint: disable=sql-injection
         query = SQL("{select} {from} {where} {order}").format(**query_blocks)
         return query, where_params
 
     @api.model
     def _build_query(self, options, column_group_key=None, expanded_line_options=None):
-        def format_where_params(option_key, comparison_value='None'):
-            return SQL("= {}").format(Literal(expanded_line_options[option_key])) if expanded_line_options[option_key] != comparison_value else SQL('is NULL')
+        # pylint: disable=sql-injection
+        def format_where_params(option_key, comparison_value=('None',)):
+            if expanded_line_options[option_key] not in comparison_value:
+                return expanded_line_options[option_key]
+            return None
 
         # triangular use cases are handled by letting the intrastat_country_id editable on
         # invoices. Modifying or emptying it allow to alter the intrastat declaration
@@ -458,16 +461,15 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             where_values = {
                 'country.code': format_where_params('country_code'),
                 'code.code': format_where_params('commodity_code'),
-                'product_country.code': format_where_params('intrastat_product_origin_country_code', comparison_value='QU'),
+                'product_country.code': format_where_params('intrastat_product_origin_country_code', comparison_value=('QV', 'QU')),
                 'transaction.code': format_where_params('transaction_code'),
                 'company_region.code': format_where_params('region_code'),
-                'partner.vat': format_where_params('partner_vat'),
+                'partner.vat': format_where_params('partner_vat', comparison_value=('QV999999999999', 'QN999999999999')),
             }
 
-            where += SQL("").join(
-                SQL(" AND {} {}").format(Identifier(*key.split('.')), value)
-                for key, value in where_values.items()
-            )
+            for key, value in where_values.items():
+                where += SQL(" AND {key} IS NOT DISTINCT FROM %s").format(key=Identifier(*key.split('.')))
+                where_params.append(value)
 
         if options['intrastat_with_vat']:
             where += SQL(" AND partner.vat IS NOT NULL ")
@@ -488,7 +490,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             unknown_country_code,
             unknown_individual_vat,
             weight_category_id,
-            *where_params
+            *where_params,
         ]
 
         return query, query_params

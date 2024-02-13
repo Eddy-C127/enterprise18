@@ -58,7 +58,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
         self.env.cr.flush()
         query, params = self._build_query_group(options)
-        self._cr.execute(query, params)
+        self._cr.execute(query, params)  # pylint: disable=sql-injection
         query_res = self._cr.dictfetchall()
         query_res = self._fill_missing_values(query_res)
 

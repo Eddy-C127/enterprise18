@@ -204,6 +204,100 @@ class TestIntrastatReport(TestAccountReportsCommon):
             options,
         )
 
+    def test_unfold_intrastat_report_lines(self):
+        partner_be, partner_no_vat = self.env['res.partner'].create([
+            {
+                'name': 'BE Partner',
+                'country_id': self.env.ref('base.be').id,
+                'vat': 'BE0477472701',
+            },
+            {
+                'name': 'FR No VAT Partner',
+                'country_id': self.env.ref('base.fr').id,
+                'vat': None,
+            },
+        ])
+        moves = self.env['account.move'].create([
+            {
+                'move_type': 'out_invoice',
+                'partner_id': partner_be.id,
+                'invoice_date': '2022-01-01',
+                'date': '2022-01-01',
+                'intrastat_country_id': self.env.ref('base.be').id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'name': 'line_1',
+                        'product_id': self.spanish_rioja.id,
+                        'intrastat_transaction_id': None,
+                        'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                        'quantity': 1.0,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 80.0,
+                        'tax_ids': [],
+                    }),
+                ],
+            },
+            {
+                'move_type': 'out_invoice',
+                'partner_id': partner_be.id,
+                'invoice_date': '2022-01-02',
+                'date': '2022-01-02',
+                'intrastat_country_id': self.env.ref('base.be').id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'name': 'line_1',
+                        'product_id': self.spanish_rioja.id,
+                        'intrastat_transaction_id': None,
+                        'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                        'quantity': 1.0,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 80.0,
+                        'tax_ids': [],
+                    }),
+                ],
+
+            },
+            {
+                'move_type': 'out_invoice',
+                'partner_id': partner_no_vat.id,
+                'invoice_date': '2022-01-03',
+                'date': '2022-01-03',
+                'intrastat_country_id': self.env.ref('base.fr').id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'name': 'line_1',
+                        'product_id': self.product_1.id,
+                        'intrastat_transaction_id': self.intrastat_codes['transaction'].id,
+                        'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                        'quantity': 1.0,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 50.0,
+                        'tax_ids': [],
+                    }),
+                ],
+
+            },
+        ])
+        moves.action_post()
+
+        options = self._generate_options(self.report, '2022-01-01', '2022-01-31', default_options={'unfold_all': True})
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            self.report._get_lines(options),
+            # 0/name, 1/system, 2/country, 3/transaction code, 4/region code, 5/commodity code, 6/origin country, 10/weight, 12/value
+            [    0,                                                           1,               2,         3,     4,     5,          6,    12],
+            [
+                # BE Partner with VAT
+                ('Dispatch - None - 22042176 - ES - BE0477472701 - BE - 102', '19 (Dispatch)', 'Belgium',    '', '102', '22042176', 'ES', 160.0),
+                ('INV/2022/00002',                                            '19 (Dispatch)', 'Belgium',  None, '102', '22042176', 'ES',  80.0),
+                ('INV/2022/00001',                                            '19 (Dispatch)', 'Belgium',  None, '102', '22042176', 'ES',  80.0),
+                # FR Partner without VAT
+                ('Dispatch - 101 - 100 - QV - QV999999999999 - FR - 102',     '19 (Dispatch)',  'France', '101', '102',      '100', 'QV',  50.0),
+                ('INV/2022/00003',                                            '19 (Dispatch)',  'France', '101', '102',      '100', 'QV',  50.0),
+            ],
+            options,
+        )
+
     def test_no_supplementary_units(self):
         """ Test a report from an invoice with no units """
         no_supplementary_units_invoice = self.env['account.move'].create({
