@@ -41,6 +41,16 @@ msgid "ACTIVE - PASSIVE"
 msgstr ""
 
 #. module: l10n_fr_reports
+#: model:ir.model.fields,help:l10n_fr_reports.field_res_config_settings__l10n_fr_rounding_difference_loss_account_id
+msgid "Account used for losses from rounding the lines of French tax reports"
+msgstr ""
+
+#. module: l10n_fr_reports
+#: model:ir.model.fields,help:l10n_fr_reports.field_res_config_settings__l10n_fr_rounding_difference_profit_account_id
+msgid "Account used for profits from rounding the lines of French tax reports"
+msgstr ""
+
+#. module: l10n_fr_reports
 #: model:account.report.line,name:l10n_fr_reports.account_financial_report_line_04_0_fr_bilan_actif
 msgid "Adjustment account"
 msgstr ""
@@ -469,6 +479,11 @@ msgid "Positive exchange rate differences"
 msgstr ""
 
 #. module: l10n_fr_reports
+#: model_terms:ir.ui.view,arch_db:l10n_fr_reports.res_config_settings_view_form
+msgid "Post difference from rounding tax closing entries in:"
+msgstr ""
+
+#. module: l10n_fr_reports
 #: model:account.report.line,name:l10n_fr_reports.account_financial_report_line_04_01_1_fr_bilan_actif
 msgid "Prepaid expenses"
 msgstr ""
@@ -724,6 +739,16 @@ msgstr ""
 #. module: l10n_fr_reports
 #: model:account.report.line,name:l10n_fr_reports.account_financial_report_line_03_01_3_fr_bilan_actif
 msgid "Various"
+msgstr ""
+
+#. module: l10n_fr_reports
+#: model:ir.model.fields,field_description:l10n_fr_reports.field_res_config_settings__l10n_fr_rounding_difference_loss_account_id
+msgid "VAT Rounding Loss Account"
+msgstr ""
+
+#. module: l10n_fr_reports
+#: model:ir.model.fields,field_description:l10n_fr_reports.field_res_config_settings__l10n_fr_rounding_difference_profit_account_id
+msgid "VAT Rounding Profit Account"
 msgstr ""
 
 #. module: l10n_fr_reports
