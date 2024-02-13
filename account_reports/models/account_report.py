@@ -3569,7 +3569,8 @@ class AccountReport(models.Model):
                     options = report.with_context(allowed_company_ids=[company.id]).get_options(previous_options)
                     options_dict[report] = options
 
-                default_expr_by_report[report].append(expr)
+                if report._is_available_for(options_dict[report]):
+                    default_expr_by_report[report].append(expr)
 
         external_values_create_vals = []
         for report, report_default_expressions in default_expr_by_report.items():
