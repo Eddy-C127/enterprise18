@@ -248,7 +248,9 @@ class L10nEcWizardAccountWithhold(models.TransientModel):
 
         # 1. Create the base line (and its counterpart to cancel out) for every withhold line.  Tax lines will be created automatically.
         for line in self.withhold_line_ids:
-            dummy, account = line._tax_compute_all_helper(1.0, line.tax_id)
+            account = self.company_id.l10n_ec_tax_base_sale_account_id.id if self.withhold_type == 'out_withhold' else self.company_id.l10n_ec_tax_base_purchase_account_id.id
+            if not account:
+                dummy, account = line._tax_compute_all_helper(1.0, line.tax_id)
             total_per_invoice[line.invoice_id][0] += line.amount
             total_per_invoice[line.invoice_id][1] = line
 

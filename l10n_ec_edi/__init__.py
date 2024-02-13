@@ -12,6 +12,7 @@ def _post_install_hook_configure_ecuadorian_data(env):
     env['account.chart.template']._l10n_ec_configure_ecuadorian_withhold_taxpayer_type(companies)
     env['account.chart.template']._l10n_ec_setup_profit_withhold_taxes(companies)
     env['account.chart.template']._l10n_ec_copy_taxsupport_codes_from_templates(companies)
+    env['account.chart.template']._l10n_ec_configure_default_withhold_accounts(companies)
 
     company = env.ref('l10n_ec.demo_company_ec', raise_if_not_found=False)  # demo company only
     if company:
