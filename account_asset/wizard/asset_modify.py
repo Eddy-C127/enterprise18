@@ -147,13 +147,13 @@ class AssetModify(models.TransientModel):
             if wizard.modify_action == 'dispose':
                 if wizard.gain_or_loss == 'gain':
                     account = wizard.gain_account_id.display_name or ''
-                    gain_or_loss = 'gain'
+                    gain_or_loss = _('gain')
                 elif wizard.gain_or_loss == 'loss':
                     account = wizard.loss_account_id.display_name or ''
-                    gain_or_loss = 'loss'
+                    gain_or_loss = _('loss')
                 else:
                     account = ''
-                    gain_or_loss = 'gain/loss'
+                    gain_or_loss = _('gain/loss')
                 wizard.informational_text = _(
                     "A depreciation entry will be posted on and including the date %s."
                     "<br/> A disposal entry will be posted on the %s account <b>%s</b>.",
