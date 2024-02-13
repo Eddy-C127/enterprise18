@@ -63,9 +63,6 @@
             <field name="model">account.analytic.line</field>
             <field name="inherit_id" ref="hr_timesheet.view_kanban_account_analytic_line"/>
             <field name="arch" type="xml">
-                <kanban position="attributes">
-                    <attribute name="js_class">timesheet_timer_kanban</attribute>
-                </kanban>
                 <xpath expr="/kanban" position="inside">
                     <field name="validated" invisible="1" force_save="0"/>
                 </xpath>
@@ -100,6 +97,7 @@
             <field name="arch" type="xml">
                 <kanban position="attributes">
                     <attribute name="sample">1</attribute>
+                    <attribute name="js_class">timesheet_timer_kanban</attribute>
                 </kanban>
                 <xpath expr="/kanban" position="inside">
                     <field name="readonly_timesheet" invisible="1"/>
