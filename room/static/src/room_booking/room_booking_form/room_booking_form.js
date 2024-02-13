@@ -33,10 +33,6 @@ export class RoomBookingForm extends Component {
             bookingEnd: this.props.bookingToEdit?.interval.end,
             bookingName: this.props.bookingToEdit?.name || this.props.bookingName,
         });
-        this.weekInterval = luxon.Interval.fromDateTimes(
-            this.state.selectedDay.startOf("week"),
-            this.state.selectedDay.endOf("week"),
-        );
 
         /**
          * View the selected booking to edit
@@ -261,6 +257,13 @@ export class RoomBookingForm extends Component {
         return luxon.DateTime.now().startOf("day");
     }
 
+    get weekInterval() {
+        return luxon.Interval.fromDateTimes(
+            this.state.selectedDay.startOf("week"),
+            this.state.selectedDay.endOf("week"),
+        );
+    }
+
     /**
      * Return the days (as intervals) of the selected week
      */
@@ -303,7 +306,6 @@ export class RoomBookingForm extends Component {
      * Show the slots for the week following the current one
      */
     onNextWeekClick() {
-        this.weekInterval = this.weekInterval.mapEndpoints((date) => date.plus({ week: 1 }));
         this.state.selectedDay = this.state.selectedDay.plus({ week: 1 });
     }
 
@@ -311,7 +313,6 @@ export class RoomBookingForm extends Component {
      * Show the slots for the week preceding the current one
      */
     onPreviousWeekClick() {
-        this.weekInterval = this.weekInterval.mapEndpoints((date) => date.minus({ week: 1 }));
         const day = this.state.selectedDay.minus({ week: 1 });
         this.state.selectedDay = day < this.today ? this.today : day;
     }
