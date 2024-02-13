@@ -516,3 +516,17 @@ class TestPartnerLedgerReport(TestAccountReportsCommon):
             ],
             options
         )
+
+    def test_print_pdf_exclude_partner_with_name_similar_to_another_partner_email(self):
+        """
+        This test verifies that when printing a PDF report, the report accurately reflects the data displayed on the view
+        by excluding partners whose email addresses are similar to other partners' names if the search bar is used to filter out partners.
+        """
+        partner = self.env['res.partner'].create({'name': 'Great Customer', 'email': 'partner_a@test.com'})
+        self.init_invoice('out_invoice', partner=partner, invoice_date='2019-02-14', amounts=[1000.0], taxes=[], post=True)
+        options = self._generate_options(self.report, '2019-02-01', '2019-02-28', default_options={
+                'filter_search_bar': 'partner_a',
+                'export_mode': 'print',
+            })
+        lines = self.report._get_lines(options)
+        self.assertFalse(partner.name in [line['name'] for line in lines])

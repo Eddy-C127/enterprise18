@@ -27,7 +27,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
         if options['export_mode'] == 'print' and options.get('filter_search_bar'):
             # Handled here instead of in custom options initializer as init_options functions aren't re-called when printing the report.
-            options.setdefault('forced_domain', []).append(('partner_id', 'ilike', options['filter_search_bar']))
+            options.setdefault('forced_domain', []).append(('partner_id.name', 'ilike', options['filter_search_bar']))
 
         partner_lines, totals_by_column_group = self._build_partner_lines(report, options)
         lines = report._regroup_lines_by_name_prefix(options, partner_lines, '_report_expand_unfoldable_line_partner_ledger_prefix_group', 0)
