@@ -5,7 +5,7 @@
             <field name="name">l10n_be.form.325.view.tree</field>
             <field name="model">l10n_be.form.325</field>
             <field name="arch" type="xml">
-                <tree string="325 Form" create="0">
+                <tree string="325 Forms" create="0" js_class="account_325_form_tree">
                     <field name="sender_id" readonly="state == 'generated'"/>
                     <field name="debtor_id"/>
                     <field name="reference_year" options="{'format': False}"/>
@@ -134,14 +134,6 @@
             <field name="res_model">l10n_be.form.325</field>
             <field name="view_mode">tree,form</field>
         </record>
-
-        <menuitem
-            id="menu_action_create_325_form"
-            name="Create 325 form"
-            action="action_open_create_325_form"
-            sequence="62"
-            groups="account.group_account_user"
-            parent="l10n_be.account_reports_be_statements_menu"/>
 
         <menuitem
             id="menu_action_open_325_tree_view"
