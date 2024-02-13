@@ -25,7 +25,7 @@ patch(ListRenderer.prototype, {
             ? model.groups.reduce((acc, group) => group.count + acc, 0)
             : model.count;
         const selection = await model.getResIds(true);
-        const threshold = selection.length > 0 ? selection.length: Math.min(count, model.limit);
+        const threshold = selection.length > 0 ? selection.length : Math.min(count, model.limit);
         let name = this.env.config.getDisplayName();
         const sortBy = model.orderBy[0];
         if (sortBy) {
@@ -55,7 +55,7 @@ patch(ListRenderer.prototype, {
 
     getColumnsForSpreadsheet() {
         const fields = this.env.model.root.fields;
-        return this.state.columns
+        return this.columns
             .filter(
                 (col) =>
                     col.type === "field" &&

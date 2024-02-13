@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { onWillUpdateProps, useRef, useState } from "@odoo/owl";
+import { onWillUpdateProps, useRef } from "@odoo/owl";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { WarningDialog } from "@web/core/errors/error_dialogs";
 import { _t } from "@web/core/l10n/translation";
@@ -22,10 +22,8 @@ export class AccountReportListRenderer extends ListRenderer {
         // We can't really use `super.setup()` because it expects to be used on a html table.
         this.allColumns = this.processAllColumn(this.props.archInfo.columns, this.props.list);
         this.keyOptionalFields = this.createKeyOptionalFields();
-        this.getOptionalActiveFields();
-        this.state = useState({
-            columns: this.getActiveColumns(this.props.list),
-        });
+        this.optionalActiveFields = this.computeOptionalActiveFields();
+        this.columns = this.getActiveColumns(this.props.list);
 
         onWillUpdateProps((nextProps) => {
             // We need to rebuild the tree if `props.list.records` changed on edit.

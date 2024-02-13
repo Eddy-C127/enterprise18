@@ -6,7 +6,7 @@
                 <!-- Header -->
                 <li class="d-flex justify-content-between">
                     <!-- Columns -->
-                    <t t-foreach="state.columns" t-as="column" t-key="column.id">
+                    <t t-foreach="columns" t-as="column" t-key="column.id">
                         <t t-set="isNameColumn" t-value="column.name === 'name'"/>
 
                         <span
@@ -63,7 +63,7 @@
                     <span class="oi oi-draggable o_row_handle"/>
 
                     <!-- Columns -->
-                    <t t-foreach="state.columns" t-as="column" t-key="column.id">
+                    <t t-foreach="columns" t-as="column" t-key="column.id">
                         <t t-set="isNameColumn" t-value="column.name === 'name'"/>
 
                         <span

@@ -40,7 +40,8 @@ export class ListEditorRenderer extends listView.Renderer {
         this.viewEditorModel = reactive(viewEditorModel, () => {
             // Little trick to update our columns when showInvisible changes on the viewEditorModel
             // getActiveColumns reads that value
-            this.state.columns = this.getActiveColumns(this.props.list);
+            this.columns = this.getActiveColumns(this.props.list);
+            this.render();
         });
         super.setup();
         this.onTableHover = useThrottleForAnimation(this.onTableHover);
@@ -134,7 +135,7 @@ export class ListEditorRenderer extends listView.Renderer {
                     ...c,
                     optional: false,
                     studioColumnInvisible:
-                        c.optional === "hide" || this.props.evalViewModifier(c.column_invisible),
+                        c.optional === "hide" || super.evalColumnInvisible(c.column_invisible),
                 };
             });
         } else {
