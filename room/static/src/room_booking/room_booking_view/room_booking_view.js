@@ -72,7 +72,7 @@ export class RoomBookingView extends Component {
         useInterval(this.refreshBookingView.bind(this), 1000);
 
         // If the user is inactive for more than the  INACTIVITY_TIMEOUT, reset the view
-        ["pointderdown", "keydown"].forEach((event) =>
+        ["pointerdown", "keydown"].forEach((event) =>
             useExternalListener(window, event, () => {
                 clearTimeout(this.inactivityTimer);
                 this.inactivityTimer = setTimeout(() => {
