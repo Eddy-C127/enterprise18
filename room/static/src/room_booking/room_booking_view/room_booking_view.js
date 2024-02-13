@@ -197,9 +197,8 @@ export class RoomBookingView extends Component {
         }
         const currentBooking =
             this.state.bookings[0]?.interval.start < this.now ? this.state.bookings[0] : null;
-        // Check if next booking has started or if current booking has been
-        // rescheduled later
-        if (this.state.currentBooking?.id !== currentBooking?.id) {
+        // Check if next booking has started or if current booking has been rescheduled
+        if (this.state.currentBooking?.interval.end !== currentBooking?.interval.end) {
             this.state.currentBooking = currentBooking;
         }
         // Update the currentDate that is used in the sidebar
