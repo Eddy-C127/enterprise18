@@ -265,7 +265,14 @@ export class RoomBookingView extends Component {
      */
     removeBooking(bookingId) {
         const bookingIdx = this.state.bookings.findIndex((booking) => booking.id === bookingId);
-        this.state.bookings.splice(bookingIdx, 1);
+        if (bookingIdx !== -1) {
+            this.state.bookings.splice(bookingIdx, 1);
+        }
+        // Leave form view if booking being edited has been deleted
+        if (this.state.bookingToEdit?.id === bookingId) {
+            this.resetBookingForm();
+            this.notificationService.add(_t("The booking you were editing has been deleted."));
+        }
     }
 
     /**
