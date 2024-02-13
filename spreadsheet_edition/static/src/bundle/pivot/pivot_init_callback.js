@@ -8,9 +8,21 @@ import { deepCopy } from "@web/core/utils/objects";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
+/**
+ * Asserts that the given result is successful, otherwise throws an error.
+ *
+ * @param {spreadsheet.DispatchResult} result
+ */
+function ensureSuccess(result) {
+    if (!result.isSuccessful) {
+        throw new Error(`Couldn't insert pivot in spreadsheet. Reasons : ${result.reasons}`);
+    }
+}
+
 export function insertPivot(pivotData) {
     /** @type {import("@spreadsheet").OdooPivotDefinition} */
-    const definition = deepCopy({
+    const pivot = deepCopy({
+        type: "ODOO",
         domain: new Domain(pivotData.searchParams.domain).toJson(),
         context: pivotData.searchParams.context,
         sortedColumn: pivotData.metaData.sortedColumn,
@@ -26,11 +38,7 @@ export function insertPivot(pivotData) {
     return async (model) => {
         const pivotId = model.getters.getNextPivotId();
         const dataSourceId = model.getters.getPivotDataSourceId(pivotId);
-        const pivotDataSource = model.config.custom.dataSources.add(
-            dataSourceId,
-            OdooPivot,
-            definition
-        );
+        const pivotDataSource = model.config.custom.dataSources.add(dataSourceId, OdooPivot, pivot);
         pivotDataSource.injectFields(pivotData.metaData.fields);
         await model.config.custom.dataSources.load(dataSourceId);
         // Add an empty sheet in the case of an existing spreadsheet.
@@ -47,20 +55,23 @@ export function insertPivot(pivotData) {
         const table = structure.export();
         const sheetId = model.getters.getActiveSheetId();
 
-        const result = model.dispatch("INSERT_PIVOT", {
-            sheetId,
-            col: 0,
-            row: 0,
-            id: pivotId,
-            payload: {
-                type: "ODOO",
+        ensureSuccess(
+            model.dispatch("ADD_PIVOT", {
+                id: pivotId,
+                pivot,
+            })
+        );
+
+        ensureSuccess(
+            model.dispatch("INSERT_PIVOT", {
+                sheetId,
+                col: 0,
+                row: 0,
+                id: pivotId,
                 table,
-                definition,
-            },
-        });
-        if (!result.isSuccessful) {
-            throw new Error(`Couldn't insert pivot in spreadsheet. Reasons : ${result.reasons}`);
-        }
+            })
+        );
+
         const columns = [];
         for (let col = 0; col <= table.cols[table.cols.length - 1].length; col++) {
             columns.push(col);

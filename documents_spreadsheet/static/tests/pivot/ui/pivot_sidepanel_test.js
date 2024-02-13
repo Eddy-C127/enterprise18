@@ -342,6 +342,13 @@ QUnit.module(
             const titleSelector = ".o-sidePanelTitle";
             assert.equal(fixture.querySelector(titleSelector).innerText, "Pivot properties");
 
+            /**
+             * This is a bit bad because we need three undo to remove the pivot
+             * - AUTORESIZE
+             * - INSERT_PIVOT
+             * - ADD_PIVOT
+             */
+            model.dispatch("REQUEST_UNDO");
             model.dispatch("REQUEST_UNDO");
             model.dispatch("REQUEST_UNDO");
             await nextTick();

@@ -270,6 +270,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             rowGroupBys: ["date"],
             name: "Partners by Foo",
             sortedColumn: null,
+            type: "ODOO",
         });
         assert.equal(getCellContent(model, "A3"), '=ODOO.PIVOT.HEADER(1,"date","04/2016")');
         assert.equal(getCellContent(model, "A4"), '=ODOO.PIVOT.HEADER(1,"date","10/2016")');
@@ -336,6 +337,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             rowGroupBys: ["date"],
             name: "Partners by Date",
             sortedColumn: null,
+            type: "ODOO",
         });
     });
 
@@ -764,7 +766,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         const domain = model.getters.getPivotDefinition("1").domain;
         assert.deepEqual(domain, '[("foo", "=", uid)]', "It should have the raw domain string");
         assert.deepEqual(
-            model.exportData().pivots[pivotId].definition.domain,
+            model.exportData().pivots[pivotId].domain,
             '[("foo", "=", uid)]',
             "domain is exported with the dynamic value"
         );
@@ -888,7 +890,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             additionalContext: context,
         });
         assert.deepEqual(
-            model.exportData().pivots[1].definition.context,
+            model.exportData().pivots[1].context,
             {
                 default_stage_id: 5,
             },
@@ -933,7 +935,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             "probability:avg,__count",
         ]);
         assert.deepEqual(
-            model.exportData().pivots[1].definition.context,
+            model.exportData().pivots[1].context,
             {
                 default_stage_id: 5,
             },

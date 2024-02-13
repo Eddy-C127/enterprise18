@@ -4,14 +4,16 @@ import * as spreadsheet from "@odoo/o-spreadsheet";
 const { otRegistry } = spreadsheet.registries;
 
 otRegistry
-    .addTransformation(
-        "INSERT_PIVOT",
-        ["INSERT_PIVOT", "DUPLICATE_PIVOT"],
-        transformNewPivotCommand
-    )
+    .addTransformation("ADD_PIVOT", ["ADD_PIVOT", "DUPLICATE_PIVOT"], transformNewPivotCommand)
+    .addTransformation("ADD_PIVOT", ["INSERT_PIVOT"], (toTransform, executed) => {
+        if (toTransform.id === executed.id) {
+            toTransform.id = parseInt(toTransform.id, 10) + 1;
+        }
+        return toTransform;
+    })
     .addTransformation(
         "DUPLICATE_PIVOT",
-        ["INSERT_PIVOT", "DUPLICATE_PIVOT"],
+        ["ADD_PIVOT", "DUPLICATE_PIVOT"],
         transformNewPivotCommand
     )
     .addTransformation(
