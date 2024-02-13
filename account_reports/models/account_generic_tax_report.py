@@ -313,6 +313,55 @@ class AccountTaxReportHandler(models.AbstractModel):
         # Override this to, for example, apply a rounding to the lines of the closing entry
         return results
 
+    def _vat_closing_entry_results_rounding(self, company, options, results, rounding_accounts, vat_results_summary):
+        """
+        Apply the rounding from the tax report by adding a line to the end of the query results
+        representing the sum of the roundings on each line of the tax report.
+        """
+        # Ignore if the rounding accounts cannot be found
+        if not rounding_accounts.get('profit') or not rounding_accounts.get('loss'):
+            return results
+
+        total_amount = 0.0
+        tax_group_id = None
+
+        for line in results:
+            total_amount += line['amount']
+            # The accounts on the tax group ids from the results should be uniform,
+            # but we choose the greatest id so that the line appears last on the entry.
+            tax_group_id = line['tax_group_id']
+
+        report = self.env['account.report'].browse(options['report_id'])
+
+        for line in report._get_lines(options):
+            model, record_id = report._get_model_info_from_id(line['id'])
+
+            if model != 'account.report.line':
+                continue
+
+            for (operation_type, report_line_id, column_expression_label) in vat_results_summary:
+                for column in line['columns']:
+                    if record_id != report_line_id or column['expression_label'] != column_expression_label:
+                        continue
+
+                    if operation_type == 'due':
+                        total_amount += column['no_format']
+                    elif operation_type == 'deductible':
+                        total_amount -= column['no_format']
+
+        currency = company.currency_id
+        total_difference = currency.round(total_amount)
+
+        if not currency.is_zero(total_difference):
+            results.append({
+                'tax_name': _('Difference from rounding taxes'),
+                'amount': total_difference * -1,
+                'tax_group_id': tax_group_id,
+                'account_id': rounding_accounts['profit'].id if total_difference < 0 else rounding_accounts['loss'].id
+            })
+
+        return results
+
     @api.model
     def _add_tax_group_closing_items(self, tax_group_subtotal, closing_move):
         """Transform the parameter tax_group_subtotal dictionnary into one2many commands.
