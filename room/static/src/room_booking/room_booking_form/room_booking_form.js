@@ -33,18 +33,13 @@ export class RoomBookingForm extends Component {
             bookingEnd: this.props.bookingToEdit?.interval.end,
             bookingName: this.props.bookingToEdit?.name || this.props.bookingName,
         });
-        this.bookingsByDate = this.computeBookingsByDate(
-            this.props.bookings,
-            this.props.bookingToEdit?.id,
-        );
         this.weekInterval = luxon.Interval.fromDateTimes(
             this.state.selectedDay.startOf("week"),
             this.state.selectedDay.endOf("week"),
         );
 
         /**
-         * View the selected booking to edit or recompute the bookingsByDate
-         * if the list of bookings changed
+         * View the selected booking to edit
          */
         onWillUpdateProps((nextProps) => {
             if (nextProps.bookingToEdit !== this.props.bookingToEdit) {
@@ -62,10 +57,6 @@ export class RoomBookingForm extends Component {
                 this.state.bookingEnd = nextProps.bookingToEdit.interval.end;
                 this.state.bookingName = nextProps.bookingToEdit.name;
             }
-            this.bookingsByDate = this.computeBookingsByDate(
-                nextProps.bookings,
-                nextProps.bookingToEdit?.id,
-            );
         });
 
         /**
@@ -111,6 +102,39 @@ export class RoomBookingForm extends Component {
     //----------------------------------------------------------------------
     // Getters
     //----------------------------------------------------------------------
+
+    /**
+     * Return the bookings grouped by date.
+     */
+    get bookingsByDate() {
+        return this.props.bookings.reduce((bookingsByDate, booking) => {
+            // If editing a booking, do not consider it as booked
+            if (this.props.bookingToEdit?.id === booking.id) {
+                return bookingsByDate;
+            }
+            const intervals = [];
+            let { start, end } = booking.interval;
+            if (start.startOf("day").equals(end.startOf("day"))) {
+                intervals.push(booking.interval);
+            } else {
+                // Case a user creates a booking spanning multiple days from backend
+                while (start.startOf("day") < end.startOf("day")) {
+                    const nextDay = start.plus({ days: 1 }).startOf("day");
+                    intervals.push(luxon.Interval.fromDateTimes(start, nextDay));
+                    start = nextDay;
+                }
+                intervals.push(luxon.Interval.fromDateTimes(start, end));
+            }
+            for (const interval of intervals) {
+                const date = interval.start.toISODate();
+                if (!(date in bookingsByDate)) {
+                    bookingsByDate[date] = [];
+                }
+                bookingsByDate[date].push(interval);
+            }
+            return bookingsByDate;
+        }, {});
+    }
 
     /**
      * Return the formatted month of the selected week.
@@ -242,44 +266,6 @@ export class RoomBookingForm extends Component {
      */
     get weekIntervalDays() {
         return this.weekInterval.splitBy({ day: 1 });
-    }
-
-    //----------------------------------------------------------------------
-    // Methods
-    //----------------------------------------------------------------------
-
-    /**
-     * Return the bookings grouped by date
-     * @returns {Object} bookingsByDate
-     */
-    computeBookingsByDate(bookings, bookingToEditId) {
-        return bookings.reduce((bookingsByDate, booking) => {
-            // If editing a booking, do not consider it as booked
-            if (bookingToEditId === booking.id) {
-                return bookingsByDate;
-            }
-            const intervals = [];
-            let { start, end } = booking.interval;
-            if (start.startOf("day").equals(end.startOf("day"))) {
-                intervals.push(booking.interval);
-            } else {
-                // Case a user creates a booking spanning multiple days from backend
-                while (start.startOf("day") < end.startOf("day")) {
-                    const nextDay = start.plus({ days: 1 }).startOf("day");
-                    intervals.push(luxon.Interval.fromDateTimes(start, nextDay));
-                    start = nextDay;
-                }
-                intervals.push(luxon.Interval.fromDateTimes(start, end));
-            }
-            for (const interval of intervals) {
-                const date = interval.start.toISODate();
-                if (!(date in bookingsByDate)) {
-                    bookingsByDate[date] = [];
-                }
-                bookingsByDate[date].push(interval);
-            }
-            return bookingsByDate;
-        }, {});
     }
 
     //----------------------------------------------------------------------
