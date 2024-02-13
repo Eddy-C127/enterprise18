@@ -3,18 +3,13 @@
 # 	* web_cohort
 #
 # Translators:
-# ILMIR <karamov@it-projects.info>, 2022
-# Ivan Kropotkin <yelizariev@itpp.dev>, 2022
-# Сергей Шебанин <sergey@shebanin.ru>, 2022
-# Martin Trigaux, 2022
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Martin Trigaux, 2022\n"
+"POT-Creation-Date: 2024-01-05 13:47+0000\n"
+"PO-Revision-Date: 2024-01-30 15:14+0400\n"
+"Last-Translator: \n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -26,31 +21,31 @@ msgstr ""
 #. odoo-python
 #: code:addons/web_cohort/controllers/main.py:0
 msgid "%s - By %s"
-msgstr "%s - от %s"
+msgstr "%s - По %s"
 
 #. module: web_cohort
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_renderer.xml:0
 msgid "- By"
-msgstr "- От"
+msgstr "- По ссылке"
 
 #. module: web_cohort
 #: model:ir.model,name:web_cohort.model_ir_actions_act_window_view
 msgid "Action Window View"
-msgstr "Действие, открывающее окно"
+msgstr "Вид окна действий"
 
 #. module: web_cohort
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/web_cohort/controllers/main.py:0
 #: code:addons/web_cohort/static/src/cohort_renderer.xml:0
 msgid "Average"
-msgstr "Среднее"
+msgstr "Средне"
 
 #. module: web_cohort
 #: model:ir.model,name:web_cohort.model_base
 msgid "Base"
-msgstr "Базовый"
+msgstr "База"
 
 #. module: web_cohort
 #: model:ir.model.fields.selection,name:web_cohort.selection__ir_actions_act_window_view__view_mode__cohort
@@ -62,19 +57,19 @@ msgstr "Когорта"
 #. odoo-python
 #: code:addons/web_cohort/controllers/main.py:0
 msgid "Cohort %(title)s (%(model_name)s)"
-msgstr ""
+msgstr "Когорта %(title)s (%(model_name)s)"
 
 #. module: web_cohort
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
 msgid "Cohort view has not defined \"date_start\" attribute."
-msgstr "Просмотр когорты не определил атрибут &quot;date_start&quot;."
+msgstr "В представлении когорты не определен атрибут \"date_start\"."
 
 #. module: web_cohort
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
 msgid "Cohort view has not defined \"date_stop\" attribute."
-msgstr "Просмотр когорты не определил атрибут &quot;date_stop&quot;."
+msgstr "В представлении когорты не определен атрибут \"date_stop\"."
 
 #. module: web_cohort
 #. odoo-javascript
@@ -86,7 +81,7 @@ msgstr "День"
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_renderer.xml:0
 msgid "Download as Excel file"
-msgstr ""
+msgstr "Скачать в формате Excel"
 
 #. module: web_cohort
 #. odoo-javascript
@@ -104,7 +99,7 @@ msgstr "Месяц"
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_renderer.xml:0
 msgid "No data available."
-msgstr "Нет доступных данных."
+msgstr "Данные недоступны."
 
 #. module: web_cohort
 #. odoo-javascript
@@ -113,17 +108,37 @@ msgid ""
 "Period: %(period)s\n"
 "%(measure)s: %(count)s"
 msgstr ""
+"Период: %(period)s\n"
+"%(measure)s: %(count)s"
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid "The argument %s is not a valid interval. Here are the intervals: %s"
+msgstr "Аргумент %s не является допустимым интервалом. Вот интервалы: %s"
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid "The argument %s is not a valid mode. Here are the modes: %s"
+msgstr "Аргумент %s не является допустимым режимом. Вот режимы: %s"
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid "The argument %s is not a valid timeline. Here are the timelines: %s"
+msgstr "Аргумент %s не является правильной временной шкалой. Вот временные шкалы: %s"
 
 #. module: web_cohort
 #: model:ir.model,name:web_cohort.model_ir_ui_view
 msgid "View"
-msgstr "Осмотр"
+msgstr "Просмотр"
 
 #. module: web_cohort
 #: model:ir.model.fields,field_description:web_cohort.field_ir_actions_act_window_view__view_mode
 #: model:ir.model.fields,field_description:web_cohort.field_ir_ui_view__type
 msgid "View Type"
-msgstr "Тип представления"
+msgstr "Тип просмотра"
 
 #. module: web_cohort
 #. odoo-javascript

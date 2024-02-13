@@ -3,19 +3,13 @@
 # 	* web_enterprise
 #
 # Translators:
-# Vasiliy Korobatov <korobatov@gmail.com>, 2022
-# Сергей Шебанин <sergey@shebanin.ru>, 2022
-# Irina Fedulova <istartlin@gmail.com>, 2022
-# Ivan Kropotkin <yelizariev@itpp.dev>, 2022
-# Martin Trigaux, 2022
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Martin Trigaux, 2022\n"
+"POT-Creation-Date: 2023-10-26 22:22+0000\n"
+"PO-Revision-Date: 2024-01-30 15:14+0400\n"
+"Last-Translator: \n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +21,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.js:0
 msgid "%s days"
-msgstr ""
+msgstr "%s дней"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -39,7 +33,7 @@ msgstr "(Enterprise Edition)"
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid ") with the instructions to follow"
-msgstr ""
+msgstr ") с последующими инструкциями"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -49,93 +43,99 @@ msgstr "1 месяц"
 
 #. module: web_enterprise
 #. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/promote_studio.xml:0
 #: code:addons/web_enterprise/static/src/views/list/list_renderer_desktop.xml:0
 msgid "Add Custom Field"
-msgstr ""
+msgstr "Добавить пользовательское поле"
 
 #. module: web_enterprise
 #. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/promote_studio.xml:0
+#: code:addons/web_enterprise/static/src/views/kanban/kanban_header_patch.js:0
+msgid "Automations"
+msgstr "Автоматизация"
+
+#. module: web_enterprise
+#. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
-msgid "Add new fields and much more with"
-msgstr ""
+msgid "Build new apps from scratch"
+msgstr "Создавайте новые приложения с нуля"
 
 #. module: web_enterprise
 #. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/control_panel.xml:0
-msgid "CLEAR"
-msgstr "ОЧИСТИТЬ"
+#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
+msgid "Build new reports"
+msgstr "Создание новых отчетов"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Click here to send an email"
-msgstr ""
+msgstr "Нажмите здесь, чтобы отправить письмо"
 
 #. module: web_enterprise
 #. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/promote_studio.xml:0
-#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
-msgid "Close"
-msgstr "Закрыть"
-
-#. module: web_enterprise
-#: model:ir.model,name:web_enterprise.model_res_config_settings
-msgid "Config Settings"
-msgstr ""
-
-#. module: web_enterprise
-#: model:ir.model,name:web_enterprise.model_res_partner
-msgid "Contact"
-msgstr "Контакт"
+#: code:addons/web_enterprise/static/src/webclient/share_url/burger_menu.xml:0
+msgid "Close menu"
+msgstr "Закрыть меню"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Contact your sales representative to help you to unlink your previous database"
-msgstr ""
+msgstr "Обратитесь к своему торговому представителю, чтобы он помог вам отсоединить предыдущую базу данных"
 
 #. module: web_enterprise
 #. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/control_panel.xml:0
-msgid "Control panel toolbar"
-msgstr ""
+#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
+msgid "Create automation rules"
+msgstr "Создание правил автоматизации"
+
+#. module: web_enterprise
+#. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
+msgid "Customize Reports"
+msgstr "Настройка отчетов"
+
+#. module: web_enterprise
+#. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
+msgid "Customize any screen"
+msgstr "Настройте любой экран"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/color_scheme/color_scheme_menu_items.js:0
 msgid "Dark Mode"
-msgstr ""
+msgstr "Темный режим"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/settings_form_view/res_config_edition.xml:0
 msgid "Database expiration:"
-msgstr "Срок Базы Данных истекает:"
+msgstr "Истечение срока действия базы данных:"
+
+#. module: web_enterprise
+#. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
+msgid "Define webhooks"
+msgstr "Определение веб-крючков"
+
+#. module: web_enterprise
+#. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
+msgid "Discard"
+msgstr "Отменить"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Dismiss"
-msgstr "отклонить"
-
-#. module: web_enterprise
-#: model:ir.actions.server,name:web_enterprise.download_contact
-msgid "Download (vCard)"
-msgstr ""
+msgstr "Отклонить"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Error reason:"
-msgstr ""
-
-#. module: web_enterprise
-#. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/control_panel.xml:0
-msgid "FILTER"
-msgstr "ФИЛЬТР"
+msgstr "Причина ошибки:"
 
 #. module: web_enterprise
 #: model:ir.model,name:web_enterprise.model_ir_http
@@ -143,29 +143,33 @@ msgid "HTTP Routing"
 msgstr "Маршрутизация HTTP"
 
 #. module: web_enterprise
-#. odoo-javascript
-#: code:addons/web_enterprise/static/src/webclient/navbar/navbar.js:0
-msgid "Home menu"
-msgstr ""
+#: model:ir.model.fields,field_description:web_enterprise.field_res_users_settings__homemenu_config
+msgid "Home Menu Configuration"
+msgstr "Конфигурация главного меню"
 
 #. module: web_enterprise
 #. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/promote_studio.xml:0
+#: code:addons/web_enterprise/static/src/webclient/navbar/navbar.js:0
+msgid "Home menu"
+msgstr "Главное меню"
+
+#. module: web_enterprise
+#. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
-msgid "Install Odoo Studio"
-msgstr ""
+msgid "Learn More"
+msgstr "Узнать больше"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Log in as an administrator to correct the issue."
-msgstr "Войти как администратор, чтобы исправить эту проблему."
+msgstr "Войдите в систему с правами администратора, чтобы устранить проблему."
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Login to your Odoo.com dashboard then unlink your previous database:"
-msgstr ""
+msgstr "Войдите в панель управления Odoo.com и отсоедините предыдущую базу данных:"
 
 #. module: web_enterprise
 #: model:ir.model,name:web_enterprise.model_ir_ui_menu
@@ -176,12 +180,11 @@ msgstr "Меню"
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/home_menu.xml:0
 msgid "No result"
-msgstr "Безрезультатно"
+msgstr "Нет результата"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/settings_form_view/res_config_edition.xml:0
-#: model_terms:ir.ui.view,arch_db:web_enterprise.res_config_settings_view_form
 msgid "Odoo"
 msgstr "Odoo"
 
@@ -189,20 +192,25 @@ msgstr "Odoo"
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/settings_form_view/res_config_edition.xml:0
 msgid "Odoo Enterprise Edition License V1.0"
-msgstr ""
+msgstr "Odoo Enterprise Edition License V1.0"
 
 #. module: web_enterprise
 #. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/promote_studio.xml:0
-#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
-msgid "Odoo Studio"
-msgstr "Odoo Студия"
+#: code:addons/web_enterprise/static/src/views/list/list_renderer_desktop.js:0
+msgid "Odoo Studio - Add new fields to any view"
+msgstr "Odoo Studio - Добавление новых полей в любое представление"
+
+#. module: web_enterprise
+#. odoo-javascript
+#: code:addons/web_enterprise/static/src/views/kanban/kanban_header_patch.js:0
+msgid "Odoo Studio - Customize workflows in minutes"
+msgstr "Odoo Studio - настройка рабочих процессов за считанные минуты"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Odoo Support"
-msgstr "Техподдержка Odoo"
+msgstr "Поддержка Odoo"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -214,12 +222,7 @@ msgstr "Вставьте код здесь"
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/navbar/navbar.js:0
 msgid "Previous view"
-msgstr ""
-
-#. module: web_enterprise
-#: model_terms:ir.ui.view,arch_db:web_enterprise.res_config_settings_view_form
-msgid "Progressive Web App"
-msgstr ""
+msgstr "Предыдущий просмотр"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -229,9 +232,15 @@ msgstr "Обновить статус подписки"
 
 #. module: web_enterprise
 #. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.js:0
+msgid "Register"
+msgstr "Регистрация"
+
+#. module: web_enterprise
+#. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Register your subscription"
-msgstr "Зарегистрируйте имеющуюся подписку"
+msgstr "Зарегистрируйте подписку"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -241,27 +250,39 @@ msgstr "Продлить вашу подписку"
 
 #. module: web_enterprise
 #. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/control_panel.xml:0
-msgid "SEE RESULT"
-msgstr "ПОСМОТРЕТЬ РЕЗУЛЬТАТ"
-
-#. module: web_enterprise
-#. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/barcode_fields.xml:0
-msgid "Scan barcode"
-msgstr ""
+#: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.js:0
+msgid "Retry"
+msgstr "Повторить"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Sending the instructions by email ..."
-msgstr ""
+msgstr "Отправка инструкций по электронной почте ..."
+
+#. module: web_enterprise
+#. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/share_url/share_url.js:0
+msgid "Share"
+msgstr "Поделиться"
+
+#. module: web_enterprise
+#. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/share_url/burger_menu.xml:0
+msgid "Share URL"
+msgstr "Поделиться URL"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Something went wrong while registering your database. You can try again or contact"
 msgstr "Что-то пошло не так во время регистрации базы данных. Вы можете попробовать еще раз или связаться"
+
+#. module: web_enterprise
+#. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
+msgid "Start using Odoo Studio"
+msgstr "Начните использовать Odoo Studio"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -273,7 +294,7 @@ msgstr "Код подписки:"
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/home_menu.xml:0
 msgid "TIP"
-msgstr ""
+msgstr "СОВЕТ"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -285,54 +306,49 @@ msgstr "Спасибо, ваша регистрация прошла успеш�
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/enterprise_subscription_service.js:0
 msgid "Thank you, your registration was successful! Your database is valid until %s."
-msgstr ""
+msgstr "Спасибо, ваша регистрация прошла успешно! Ваша база данных действительна до %s."
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "The instructions to unlink your subscription from the previous database(s) have been sent"
-msgstr ""
+msgstr "Инструкции по отсоединению вашей подписки от предыдущей базы данных (баз данных) были отправлены"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.js:0
 msgid "This database has expired. "
-msgstr ""
+msgstr "Срок действия этой базы данных истек."
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.js:0
 msgid "This database will expire in %s. "
-msgstr ""
+msgstr "Срок действия этой базы данных истекает через %s."
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.js:0
 msgid "This demo database will expire in %s. "
-msgstr ""
-
-#. module: web_enterprise
-#: model_terms:ir.ui.view,arch_db:web_enterprise.res_config_settings_view_form
-msgid "This name will be used for the application when Odoo is installed through the browser."
-msgstr ""
+msgstr "Срок действия этой демонстрационной базы данных истекает через %s."
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "To unlink it you can either:"
-msgstr ""
-
-#. module: web_enterprise
-#. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/control_panel.xml:0
-msgid "Today"
-msgstr "Сегодня"
+msgstr "Чтобы отсоединить его, вы можете либо:"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Unable to send the instructions by email, please contact the"
-msgstr ""
+msgstr "Если вы не можете отправить инструкции по электронной почте, обратитесь в"
+
+#. module: web_enterprise
+#. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
+msgid "Unleash the power of Odoo Studio:"
+msgstr "Раскройте возможности Odoo Studio:"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -341,27 +357,27 @@ msgid "Upgrade your subscription"
 msgstr "Обновите подписку"
 
 #. module: web_enterprise
-#. odoo-javascript
-#: code:addons/web_enterprise/static/src/legacy/xml/control_panel.xml:0
-msgid "View switcher"
-msgstr "Переключатель представлений"
+#: model:ir.model,name:web_enterprise.model_res_users_settings
+msgid "User Settings"
+msgstr "Настройки пользователя"
 
 #. module: web_enterprise
-#: model:ir.model.fields,field_description:web_enterprise.field_res_config_settings__web_app_name
-msgid "Web App Name"
-msgstr ""
+#. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
+msgid "Want to tailor-make your Odoo?"
+msgstr "Хотите сделать свой Odoo индивидуальным?"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "You have more users or more apps installed than your subscription allows."
-msgstr ""
+msgstr "У вас больше пользователей или установлено больше приложений, чем позволяет ваша подписка."
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "You will be able to register your database once you have installed your first app."
-msgstr "Вы сможете зарегистрировать свою базу данных как только установите свое первое приложение."
+msgstr "Вы сможете зарегистрировать свою базу данных, как только установите свое первое приложение."
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -373,7 +389,7 @@ msgstr "Ваш код подписки"
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "Your subscription is already linked to a database."
-msgstr ""
+msgstr "Ваша подписка уже связана с базой данных."
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -383,9 +399,15 @@ msgstr "Ваша подписка обновлена и действительн
 
 #. module: web_enterprise
 #. odoo-javascript
+#: code:addons/web_enterprise/static/src/webclient/promote_studio_dialog/promote_studio_dialog.xml:0
+msgid "and more!"
+msgstr "больше нет!"
+
+#. module: web_enterprise
+#. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "buy a subscription"
-msgstr "оплатите новую подписку"
+msgstr "купить подписку"
 
 #. module: web_enterprise
 #. odoo-javascript
@@ -397,10 +419,10 @@ msgstr "или"
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/expiration_panel.xml:0
 msgid "to the subscription owner (email:"
-msgstr ""
+msgstr "владельцу подписки (email:"
 
 #. module: web_enterprise
 #. odoo-javascript
 #: code:addons/web_enterprise/static/src/webclient/home_menu/home_menu.xml:0
 msgid "— open me anywhere with"
-msgstr ""
+msgstr "- откройте меня в любом месте с"

@@ -3,20 +3,13 @@
 # 	* documents_project
 #
 # Translators:
-# ILMIR <karamov@it-projects.info>, 2022
-# Ivan Kropotkin <yelizariev@itpp.dev>, 2022
-# Сергей Шебанин <sergey@shebanin.ru>, 2022
-# valmasone, 2022
-# Alena Vlasova, 2022
-# Martin Trigaux, 2023
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0beta+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:02+0000\n"
-"PO-Revision-Date: 2022-09-22 05:46+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"POT-Creation-Date: 2024-01-08 07:02+0000\n"
+"PO-Revision-Date: 2024-01-30 15:14+0400\n"
+"Last-Translator: \n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -28,17 +21,17 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_project/models/project_project.py:0
 msgid "%(project_name)s's Documents"
-msgstr ""
+msgstr "документы %(project_name)s"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_documents_workflow_rule
 msgid "A set of condition and actions which will be available to all attachments matching the conditions"
-msgstr "Набор действий и условий, которые будут доступны всем вложениям, соответствующие условиям"
+msgstr "Набор условий и действий, которые будут доступны всем вложениям, соответствующим условиям"
 
 #. module: documents_project
 #: model:documents.workflow.rule,name:documents_project.documents_project_rule_ask_for_validation
 msgid "Ask for Validation"
-msgstr "Обратиться за проверкой"
+msgstr "Попросите подтверждение"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_ir_attachment
@@ -48,7 +41,7 @@ msgstr "Вложение"
 #. module: documents_project
 #: model_terms:ir.ui.view,arch_db:documents_project.edit_project_document_form_inherit
 msgid "Categorize and share your documents with your customers"
-msgstr ""
+msgstr "Категоризация и обмен документами с клиентами"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_documents_facet
@@ -64,7 +57,7 @@ msgstr "Создать"
 #: model:documents.workflow.rule,name:documents_project.documents_project_rule
 #: model:documents.workflow.rule,name:documents_project.documents_project_rule_task
 msgid "Create a Task"
-msgstr "создать задачу"
+msgstr "Оформить заказ"
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_project_project__documents_tag_ids
@@ -74,7 +67,7 @@ msgstr "Теги по умолчанию"
 #. module: documents_project
 #: model:documents.workflow.rule,name:documents_project.documents_project_rule_deprecate
 msgid "Deprecate"
-msgstr "Утратить актуальность"
+msgstr "Утратить"
 
 #. module: documents_project
 #: model:documents.tag,name:documents_project.documents_project_status_deprecated
@@ -84,6 +77,7 @@ msgstr "Устаревшие"
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_documents_document
 #: model:ir.model.fields,field_description:documents_project.field_ir_attachment__document_ids
+#: model:ir.model.fields,field_description:documents_project.field_product_document__document_ids
 msgid "Document"
 msgstr "Документ"
 
@@ -104,7 +98,7 @@ msgstr "Документы"
 #. module: documents_project
 #: model_terms:ir.ui.view,arch_db:documents_project.edit_project_document_form_inherit
 msgid "Documents &amp; Analytics"
-msgstr ""
+msgstr "Документы и аналитика"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_documents_folder
@@ -120,45 +114,45 @@ msgstr "Черновик"
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Invalid project search"
-msgstr ""
+msgstr "Неверный поиск проекта"
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Invalid task search"
-msgstr ""
+msgstr "Неверный поиск заданий"
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_documents_document__is_shared
 msgid "Is Shared"
-msgstr "Общие"
+msgstr "Разделяется"
 
 #. module: documents_project
 #: model:documents.workflow.rule,name:documents_project.documents_project_rule_mark_as_draft
 msgid "Mark As Draft"
-msgstr "Черновик"
+msgstr "Пометить как черновик"
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_folder.py:0
 msgid "Merged Workspace"
-msgstr ""
+msgstr "Объединенное рабочее пространство"
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_workflow_rule.py:0
 msgid "New task from Documents"
-msgstr ""
+msgstr "Новое задание из документов"
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_project_project__document_count
 msgid "Number of documents in Project"
-msgstr ""
+msgstr "Количество документов в проекте"
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_project_task__document_count
 msgid "Number of documents in Task"
-msgstr ""
+msgstr "Количество документов в задании"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_project_project
@@ -177,13 +171,13 @@ msgstr "Проекты"
 #: model:ir.model.fields,field_description:documents_project.field_project_project__shared_document_ids
 #: model:ir.model.fields,field_description:documents_project.field_project_task__shared_document_ids
 msgid "Shared Documents"
-msgstr "Общие документы"
+msgstr "Загрузить Документы"
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_project_project__shared_document_count
 #: model:ir.model.fields,field_description:documents_project.field_project_task__shared_document_count
 msgid "Shared Documents Count"
-msgstr ""
+msgstr "Подсчет общих документов"
 
 #. module: documents_project
 #: model:documents.facet,name:documents_project.documents_project_status
@@ -202,37 +196,37 @@ msgstr "Задача"
 #. odoo-python
 #: code:addons/documents_project/models/documents_workflow_rule.py:0
 msgid "Task created from document %s"
-msgstr ""
+msgstr "Задача, созданная из документа %s"
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_workflow_rule.py:0
-msgid "Task created from documents %s"
-msgstr ""
+msgid "Task created from documents"
+msgstr "Задание, созданное на основе документов"
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/project_task.py:0
 msgid "Task's Documents"
+msgstr "Документы задания"
+
+#. module: documents_project
+#. odoo-python
+#: code:addons/documents_project/models/project_project.py:0
+msgid "The \"%(workspace)s\" workspace should either be in the \"%(company)s\" company like this project or be open to all companies."
 msgstr ""
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_folder.py:0
 msgid "The \"%s\" workspace is required by the Project application and cannot be deleted."
-msgstr ""
-
-#. module: documents_project
-#. odoo-python
-#: code:addons/documents_project/models/project_project.py:0
-msgid "The \"%s\" workspace should either be in the \"%s\" company like this project or be open to all companies."
-msgstr ""
+msgstr "Рабочая область \"%s\" необходима приложению Project и не может быть удалена."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_folder.py:0
 msgid "This workspace should remain in the same company as the \"%s\" project to which it is linked. Please update the company of the \"%s\" project, or leave the company of this workspace empty."
-msgstr ""
+msgstr "Это рабочее пространство должно оставаться в той же компании, что и проект \"%s\", с которым оно связано. Пожалуйста, обновите компанию проекта \"%s\" или оставьте компанию этого рабочего пространства пустой."
 
 #. module: documents_project
 #. odoo-python
@@ -243,67 +237,71 @@ msgid ""
 "\n"
 "Please update the company of those projects, or leave the company of this workspace empty."
 msgstr ""
+"Это рабочее пространство должно оставаться в той же компании, что и следующие проекты, с которыми оно связано:\n"
+"%s\n"
+"\n"
+"Пожалуйста, обновите компанию этих проектов или оставьте компанию этого рабочего пространства пустой."
 
 #. module: documents_project
 #: model:documents.tag,name:documents_project.documents_project_status_to_validate
 msgid "To Validate"
-msgstr "На проверку"
+msgstr "Проверить"
 
 #. module: documents_project
 #: model_terms:ir.actions.act_window,help:documents_project.action_view_documents_project_task
 msgid "Upload <span class=\"fw-normal\">a file or </span>drag <span class=\"fw-normal\">it here.</span>"
-msgstr ""
+msgstr "Загрузите <span class=\"fw-normal\">файл или </span>перетащите <span class=\"fw-normal\">его сюда</span>."
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_project_task__project_use_documents
 msgid "Use Documents"
-msgstr ""
+msgstr "Использовать документы"
 
 #. module: documents_project
 #: model:documents.workflow.rule,name:documents_project.documents_project_rule_validate
 msgid "Validate"
-msgstr "Подтвердить"
+msgstr "Проверка"
 
 #. module: documents_project
 #: model:documents.tag,name:documents_project.documents_project_status_validated
 msgid "Validated"
-msgstr "Проверено"
+msgstr "Подтверждено"
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_project_project__documents_folder_id
 #: model:ir.model.fields,field_description:documents_project.field_project_task__documents_folder_id
 msgid "Workspace"
-msgstr "Рабочее место"
+msgstr "Рабочая область"
 
 #. module: documents_project
 #: model:ir.model.fields,help:documents_project.field_project_project__documents_folder_id
 #: model:ir.model.fields,help:documents_project.field_project_task__documents_folder_id
 msgid "Workspace in which all of the documents of this project will be categorized. All of the attachments of your tasks will be automatically added as documents in this workspace as well."
-msgstr ""
+msgstr "Рабочее пространство, в котором все документы этого проекта будут распределены по категориям. Все вложения ваших задач будут автоматически добавлены в качестве документов в это рабочее пространство."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/project_project.py:0
 msgid ""
-"You cannot change the company of this project, because its workspace is linked to the other following projects that are still in the \"%s\" company:\n"
-"%s\n"
+"You cannot change the company of this project, because its workspace is linked to the other following projects that are still in the \"%(other_company)s\" company:\n"
+"%(other_workspaces)s\n"
 "\n"
-"Please update the company of all projects so that they remain in the same company as their workspace, or leave the company of the \"%s\" workspace blank."
+"Please update the company of all projects so that they remain in the same company as their workspace, or leave the company of the \"%(workspace)s\" workspace blank."
 msgstr ""
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_folder.py:0
 msgid "You cannot set a company on the %s workspace."
-msgstr ""
+msgstr "На рабочей области %s нельзя создать компанию."
 
 #. module: documents_project
 #: model_terms:ir.ui.view,arch_db:documents_project.share_page
 msgid "documents shared"
-msgstr ""
+msgstr "общие документы"
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_workflow_rule.py:0
 msgid "new %s from %s"
-msgstr ""
+msgstr "новый %s из %s"

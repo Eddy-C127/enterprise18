@@ -3,20 +3,13 @@
 # 	* sale_renting_sign
 #
 # Translators:
-# Сергей Шебанин <sergey@shebanin.ru>, 2022
-# Irina Fedulova <istartlin@gmail.com>, 2022
-# ILMIR <karamov@it-projects.info>, 2022
-# Константин Коровин <korovin74@gmail.com>, 2022
-# Ivan Kropotkin <yelizariev@itpp.dev>, 2022
-# Martin Trigaux, 2022
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0beta+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:48+0000\n"
-"Last-Translator: Martin Trigaux, 2022\n"
+"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"PO-Revision-Date: 2024-01-30 15:14+0400\n"
+"Last-Translator: \n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -27,17 +20,17 @@ msgstr ""
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_sale_order__sign_request_count
 msgid "# of Signature Requests"
-msgstr ""
+msgstr "# Запросы на подписи"
 
 #. module: sale_renting_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.message_signature_link
 msgid "A document has been signed and a copy attached to this order:"
-msgstr ""
+msgstr "Документ был подписан, и его копия прилагается к данному приказу:"
 
 #. module: sale_renting_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.rental_sign_wizard_view_form
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "Отменить"
 
 #. module: sale_renting_sign
 #: model:ir.model,name:sale_renting_sign.model_res_company
@@ -47,27 +40,27 @@ msgstr "Компании"
 #. module: sale_renting_sign
 #: model:ir.model,name:sale_renting_sign.model_res_config_settings
 msgid "Config Settings"
-msgstr "Конфигурационные настройки"
+msgstr "Параметры конфигурации"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_rental_sign_wizard__create_uid
 msgid "Created by"
-msgstr "Создал"
+msgstr "Создано"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_rental_sign_wizard__create_date
 msgid "Created on"
-msgstr "Дата создания"
+msgstr "Создано"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_res_config_settings__rental_sign_tmpl_id
 msgid "Default Document"
-msgstr ""
+msgstr "Документ по умолчанию"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_res_company__rental_sign_tmpl_id
 msgid "Default Document Template for Rentals"
-msgstr ""
+msgstr "Шаблон документа по умолчанию для аренды"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_rental_sign_wizard__display_name
@@ -82,17 +75,17 @@ msgstr "Шаблон документа"
 #. module: sale_renting_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.rental_order_inherit_rental_sign
 msgid "Document(s) Signed"
-msgstr ""
+msgstr "Документ(ы) Подпись"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_rental_sign_wizard__id
 msgid "ID"
-msgstr "Идентификатор"
+msgstr "ID"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_rental_sign_wizard__write_uid
 msgid "Last Updated by"
-msgstr "Последний раз обновил"
+msgstr "Последнее обновление"
 
 #. module: sale_renting_sign
 #: model:ir.model.fields,field_description:sale_renting_sign.field_rental_sign_wizard__write_date
@@ -102,7 +95,7 @@ msgstr "Последнее обновление"
 #. module: sale_renting_sign
 #: model:sign.template,redirect_url_text:sale_renting_sign.template_rental_sign
 msgid "Open Link"
-msgstr ""
+msgstr "Открыть ссылку"
 
 #. module: sale_renting_sign
 #: model:ir.model,name:sale_renting_sign.model_sale_order
@@ -115,7 +108,7 @@ msgstr "Заказ на продажу"
 #. module: sale_renting_sign
 #: model:ir.model.fields,help:sale_renting_sign.field_res_config_settings__rental_sign_tmpl_id
 msgid "Set a default document template for all rentals in the current company"
-msgstr ""
+msgstr "Установите шаблон документа по умолчанию для всех арендных договоров в текущей компании"
 
 #. module: sale_renting_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.rental_sign_wizard_view_form
@@ -127,17 +120,17 @@ msgstr "Подписать документ"
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.rental_order_inherit_rental_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.rental_sign_wizard_view_form
 msgid "Sign Documents"
-msgstr ""
+msgstr "Подписать документы"
 
 #. module: sale_renting_sign
 #: model:ir.model,name:sale_renting_sign.model_rental_sign_wizard
 msgid "Sign Documents from a SO"
-msgstr ""
+msgstr "Подписывайте документы из СЦ"
 
 #. module: sale_renting_sign
 #: model:ir.model,name:sale_renting_sign.model_sign_send_request
 msgid "Sign send request"
-msgstr "Подписать присланный запрос"
+msgstr "Подписать отправить запрос"
 
 #. module: sale_renting_sign
 #: model:ir.model,name:sale_renting_sign.model_sign_request
@@ -152,9 +145,9 @@ msgstr "Подпись запроса"
 #. module: sale_renting_sign
 #: model:ir.model.fields,help:sale_renting_sign.field_res_company__rental_sign_tmpl_id
 msgid "This document template will be selected by default when signing documents from a rental order. You should select a template accessible to all Sign users."
-msgstr ""
+msgstr "Этот шаблон документа будет выбран по умолчанию при подписании документов из заказа на аренду. Следует выбрать шаблон, доступный всем пользователям Sign."
 
 #. module: sale_renting_sign
 #: model_terms:ir.ui.view,arch_db:sale_renting_sign.res_config_settings_view_form
 msgid "Upload Template"
-msgstr ""
+msgstr "Загрузить шаблон"
