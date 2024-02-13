@@ -3,7 +3,6 @@
 
 {
     'name': 'Morocco - Accounting Reports',
-    'countries': ['ma'],
     'version': '1.1',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

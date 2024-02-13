@@ -3,7 +3,6 @@
 
 {
     "name": "Indian - GSTR India eFiling with POS",
-    'countries': ['in'],
     "version": "1.0",
     "description": """
 GSTR-1 return data set as per point of sale orders

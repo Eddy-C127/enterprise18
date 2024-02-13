@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Chile - Electronic Receipt""",
-    'countries': ['cl'],
     'version': '1.0',
     'category': 'Accounting/Localizations/EDI',
     'sequence': 12,

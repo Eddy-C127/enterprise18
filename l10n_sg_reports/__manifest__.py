@@ -3,7 +3,6 @@
 
 {
     'name': 'Singapore - Accounting Reports',
-    'countries': ['sg'],
     'version': '1.1',
     'author': 'Tech Receptives',
     'category': 'Accounting/Localizations/Reporting',

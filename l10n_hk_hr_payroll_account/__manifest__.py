@@ -3,7 +3,6 @@
 
 {
     'name': 'Hong Kong - Payroll with Accounting',
-    'countries': ['hk'],
     'version': '1.0',
     'category': 'Human Resources/Payroll',
     'description': """

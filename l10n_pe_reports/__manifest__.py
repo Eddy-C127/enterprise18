@@ -2,7 +2,6 @@
 
 {
     'name': 'Peru - Accounting Reports',
-    'countries': ['pe'],
     "description": """
 Electronic accounting reports
     - Sales report

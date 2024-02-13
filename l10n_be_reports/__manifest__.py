@@ -3,7 +3,6 @@
 
 {
     'name': 'Belgium - Accounting Reports',
-    'countries': ['be'],
     'version': '1.1',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

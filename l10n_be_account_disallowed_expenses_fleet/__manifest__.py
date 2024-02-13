@@ -3,7 +3,6 @@
 
 {
     'name': 'Belgium - Disallowed Expenses Fleet',
-    'countries': ['be'],
     'version': '1.0',
     'category': 'Accounting/Accounting',
     'description': """

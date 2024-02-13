@@ -3,7 +3,6 @@
 
 {
     'name': 'Greece - Accounting Reports',
-    'countries': ['gr'],
     'version': '1.0',
     'description': """
 Accounting reports for Greece

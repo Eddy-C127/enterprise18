@@ -5,7 +5,6 @@
 
 {
     'name': 'UK - Accounting Reports',
-    'countries': ['gb'],
     'version': '1.1',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

@@ -6,7 +6,6 @@
 
 {
     "name": "Austria - Accounting Reports",
-    'countries': ['at'],
     "version": "2.0",
     "author": "WT-IO-IT GmbH, Wolfgang Taferner",
     "website": "https://www.wt-io-it.at",

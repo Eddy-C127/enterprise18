@@ -2,7 +2,6 @@
 
 {
     'name': 'Poland - Accounting Reports',
-    'countries': ['pl'],
     'version': '1.0',
     'description': """
 Accounting reports for Poland

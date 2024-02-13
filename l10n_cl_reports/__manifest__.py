@@ -2,7 +2,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Chile - Accounting Reports',
-    'countries': ['cl'],
     'version': '1.1',
     'category': 'Accounting/Localizations/Reporting',
     'author': 'CubicERP, Blanco Martin y Asociados',

@@ -2,7 +2,6 @@
 
 {
     'name': "Germany - Certification for Point of Sale",
-    'countries': ['de'],
     'summary': "Germany TSS Regulation",
 
     'description': """

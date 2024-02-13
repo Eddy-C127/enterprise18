@@ -4,7 +4,6 @@
 {
     'name': 'Romanian SAF-T Export',
     'icon': '/account/static/description/l10n.png',
-    'countries': ['ro'],
     'version': '1.0',
     'category': 'Accounting/Localizations/Reporting',
     'description': '''

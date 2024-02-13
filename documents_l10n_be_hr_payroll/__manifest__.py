@@ -3,7 +3,6 @@
 
 {
     'name': 'Documents - Belgian Payroll',
-    'countries': ['be'],
     'version': '1.0',
     'category': 'Human Resources/Payroll',
     'summary': 'Store employee 281.10 and 281.45 forms in the Document app',

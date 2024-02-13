@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Canadian Checks Layout',
-    'countries': ['ca'],
     'version': '1.0',
     'author': 'Odoo SA, OERP Canada',
     'category': 'Accounting/Localizations/Check',

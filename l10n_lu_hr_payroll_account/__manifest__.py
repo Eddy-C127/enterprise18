@@ -3,7 +3,6 @@
 
 {
     'name': 'Luxembourg - Payroll with Accounting',
-    'countries': ['lu'],
     'author': 'Odoo',
     'version': '1.0',
     'category': 'Human Resources',

@@ -3,7 +3,6 @@
 
 {
     'name': 'Netherlands - Payroll with Accounting',
-    'countries': ['nl'],
     'author': 'Odoo',
     'version': '1.0',
     'category': 'Human Resources',

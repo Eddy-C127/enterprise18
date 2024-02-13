@@ -3,7 +3,6 @@
 
 {
     'name': 'Switzerland - Accounting Reports',
-    'countries': ['ch'],
     'version': '1.1',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

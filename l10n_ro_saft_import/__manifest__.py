@@ -3,7 +3,6 @@
 
 {
     'name': "Romania - SAF-T Import",
-    'countries': ['ro'],
     "summary": "Import Accounting Data from SAF-T files",
     "description": """
 Module for the import of SAF-T files for Romania, useful for importing accounting history.

@@ -2,7 +2,6 @@
 
 {
     'name': 'Austrian SAF-T Export',
-    'countries': ['at'],
     'version': '1.1',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

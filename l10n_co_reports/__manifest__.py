@@ -10,7 +10,6 @@
 
 {
     'name': 'Colombian - Accounting Reports',
-    'countries': ['co'],
     'version': '1.1',
     'description': """
 Accounting reports for Colombia

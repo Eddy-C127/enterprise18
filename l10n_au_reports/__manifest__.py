@@ -3,7 +3,6 @@
 
 {
     'name': 'Australian Reports - Accounting',
-    'countries': ['au'],
     'version': '1.1',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

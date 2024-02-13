@@ -3,7 +3,6 @@
 
 {
     'name': 'Brazil - Accounting Reports',
-    'countries': ['br'],
     'version': '0.1',
     'category': 'Accounting/Localizations/Reporting',
     'description': """Accounting reports for Brazil""",

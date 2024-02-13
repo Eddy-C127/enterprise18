@@ -3,7 +3,6 @@
 
 {
     'name': 'Belgium - Accounting Reports - SMS',
-    'countries': ['be'],
     'version': '1.0',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

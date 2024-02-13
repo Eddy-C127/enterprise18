@@ -2,7 +2,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     "name": """Peruvian - Electronic Delivery Note""",
-    'countries': ['pe'],
     'version': '0.1',
     'summary': 'Electronic Delivery Note for Peru (OSE method) and UBL 2.1',
     'category': 'Accounting/Localizations/EDI',

@@ -2,7 +2,6 @@
 
 {
     'name': 'Australia - Payroll with Accounting',
-    'countries': ['au'],
     'category': 'Human Resources',
     'depends': [
         'l10n_au_hr_payroll',

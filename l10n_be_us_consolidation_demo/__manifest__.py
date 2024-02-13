@@ -3,7 +3,6 @@
 
 {
     'name': 'Account Consolidation Demo Data',
-    'countries': ['be'],
     'version': '1.0',
     'category': 'Hidden',
     'sequence': 50,

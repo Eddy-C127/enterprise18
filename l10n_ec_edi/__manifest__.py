@@ -3,7 +3,6 @@
 {
     "name": "Ecuadorian Accounting EDI",
     "version": "1.1",
-    'countries': ['ec'],
     "description": """
 EDI Ecuadorian Localization
 ===========================

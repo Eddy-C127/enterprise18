@@ -3,7 +3,6 @@
 
 {
     'name': 'Slovakia - Payroll with Accounting',
-    'countries': ['sk'],
     'author': 'Odoo',
     'version': '1.0',
     'category': 'Human Resources',

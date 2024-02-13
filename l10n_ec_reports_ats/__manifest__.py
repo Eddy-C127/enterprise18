@@ -4,7 +4,6 @@
 {
     'name': 'Ecuador - ATS Report',
     'version': '1.0',
-    'countries': ['ec'],
     'category': 'Accounting/Localizations/Reporting',
     'author': 'TRESCLOUD',
     'description': """

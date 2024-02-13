@@ -1,6 +1,5 @@
 {
     'name': 'Scan Vendor bills QRcode(India)',
-    'countries': ['in'],
     'version': '1.0',
     'description': """
 This module enables the qrcode scanning feature for the vendor bills for india.

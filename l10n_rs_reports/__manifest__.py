@@ -3,7 +3,6 @@
 
 {
     'name': 'Serbia - Accounting Reports',
-    'countries': ['rs'],
     'version': '1.0',
     'description': """
 Accounting reports for Serbia.

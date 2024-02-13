@@ -3,7 +3,6 @@
 
 {
     'name': 'Kazakhstan - Accounting Reports',
-    'countries': ['kz'],
     'version': '1.0',
     'description': """
 Accounting reports for Kazakhstan

@@ -3,7 +3,6 @@
 
 {
     'name': 'Germany - Accounting Reports',
-    'countries': ['de'],
     'version': '1.1',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

@@ -3,7 +3,6 @@
 
 {
     'name': 'Belgian Payroll - Attendance',
-    'countries': ['be'],
     'category': 'Human Resources/Employees',
     'sequence': 95,
     'summary': 'Manage extra hours for your hourly paid employees for belgian payroll',

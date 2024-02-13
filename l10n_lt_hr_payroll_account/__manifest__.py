@@ -3,7 +3,6 @@
 
 {
     'name': 'Lithuania - Payroll with Accounting',
-    'countries': ['lt'],
     'author': 'Odoo',
     'version': '1.0',
     'category': 'Human Resources',

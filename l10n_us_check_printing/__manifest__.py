@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'US Checks Layout',
-    'countries': ['us'],
     'version': '1.0',
     'category': 'Accounting/Localizations/Check',
     'summary': 'Print US Checks',

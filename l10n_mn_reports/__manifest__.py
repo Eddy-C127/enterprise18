@@ -3,7 +3,6 @@
 
 {
     "name" : "Mongolia - Accounting Reports",
-    'countries': ['mn'],
     "version" : "1.0",
     'category': 'Accounting/Localizations/Reporting',
     "author" : "BumanIT LLC, Odoo S.A",

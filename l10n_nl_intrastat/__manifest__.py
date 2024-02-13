@@ -3,7 +3,6 @@
 
 {
     'name': 'Netherlands Intrastat Declaration',
-    'countries': ['nl'],
     'category': 'Accounting/Localizations/Reporting',
     'description': """
 Generates Netherlands Intrastat report for declaration based on invoices.

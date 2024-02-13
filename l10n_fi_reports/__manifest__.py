@@ -3,7 +3,6 @@
 
 {
     'name': 'Finland - Accounting Reports',
-    'countries': ['fi'],
     'version': '1.1',
     'description': """
 Accounting reports for Finland

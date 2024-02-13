@@ -3,7 +3,6 @@
 
 {
     'name': 'Documents - Hong Kong Payroll',
-    'countries': ['hk'],
     'version': '1.0',
     'category': 'Human Resources/Payroll',
     'summary': 'Store ir56 forms in the Document app',

@@ -4,7 +4,6 @@
 
 {
     'name': 'Pakistan - Accounting Reports',
-    'countries': ['pk'],
     'version': '1.0',
     'description': """
 Accounting reports for Pakistan

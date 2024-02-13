@@ -66,7 +66,6 @@
 
 {
     'name': 'Netherlands - Accounting Reports',
-    'countries': ['nl'],
     'version': '1.5',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

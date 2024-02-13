@@ -2,7 +2,6 @@
 
 {
     'name': 'Mexican Localization for eCommerce',
-    'countries': ['mx'],
     'description': '''
 Add an extra tab in the checkout process of the website/eCommerce with the mexican fields:
 

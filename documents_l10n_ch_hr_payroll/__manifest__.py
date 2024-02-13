@@ -4,7 +4,6 @@
 {
     'name': 'Documents - Swiss Payroll',
     'icon': '/account/static/description/l10n.png',
-    'countries': ['ch'],
     'version': '1.0',
     'category': 'Human Resources/Payroll',
     'summary': 'Store individual accounts in Documents application',

@@ -3,7 +3,6 @@
 
 {
     'name': 'Croatia - Accounting Reports',
-    'countries': ['hr'],
     'version': '1.0',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

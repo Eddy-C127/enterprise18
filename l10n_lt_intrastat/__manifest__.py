@@ -2,7 +2,6 @@
 
 {
     'name': 'Lithuanian Intrastat Declaration',
-    'countries': ['lt'],
     'version': '1.0',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

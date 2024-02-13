@@ -3,7 +3,6 @@
 
 {
     'name': 'United States - Payroll with Accounting',
-    'countries': ['us'],
     'author': 'Odoo',
     'version': '1.0',
     'category': 'Human Resources',

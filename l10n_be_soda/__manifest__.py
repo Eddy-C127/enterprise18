@@ -2,7 +2,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Belgium - Import SODA files',
-    'countries': ['be'],
     'version': '1.0',
     'category': 'Accounting/Localizations',
     'description': '''

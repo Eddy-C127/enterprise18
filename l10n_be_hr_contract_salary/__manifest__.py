@@ -3,7 +3,6 @@
 
 {
     'name': 'Salary Configurator (Belgium)',
-    'countries': ['be'],
     'category': 'Human Resources',
     'summary': 'Salary Package Configurator',
     'depends': [

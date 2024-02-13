@@ -3,7 +3,6 @@
 
 {
     'name': 'Poland - Payroll with Accounting',
-    'countries': ['pl'],
     'author': 'Odoo',
     'version': '1.0',
     'category': 'Human Resources',

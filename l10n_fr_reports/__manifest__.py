@@ -3,7 +3,6 @@
 
 {
     'name': 'France - Accounting Reports',
-    'countries': ['fr'],
     'version': '1.2',
     'description': """
 Accounting reports for France

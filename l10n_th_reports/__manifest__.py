@@ -3,7 +3,6 @@
 
 {
     "name": "Thailand - Accounting Reports",
-    'countries': ['th'],
     "author": "Odoo PS",
     "version": "1.0",
     'category': 'Accounting',

@@ -3,7 +3,6 @@
 
 {
     'name': 'Lithuanian Standard Audit File for Tax',
-    'countries': ['lt'],
     'version': '1.0',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

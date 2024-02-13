@@ -4,7 +4,6 @@
 
 {
     'name': 'Portugal - Accounting Reports',
-    'countries': ['pt'],
     'version': '1.0',
     'description': """
 Accounting reports for Portugal

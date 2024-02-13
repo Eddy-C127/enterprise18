@@ -3,7 +3,6 @@
 
 {
     'name': 'India - Documents',
-    'countries': ['in'],
     'version': '1.0',
     'description': """
 Demo Documents for India

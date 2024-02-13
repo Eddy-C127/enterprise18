@@ -3,7 +3,6 @@
 
 {
     'name': "Denmark - SAF-T Import",
-    'countries': ['dk'],
     "summary": "Import Accounting Data from SAF-T files",
     "description": """
 Module for the import of SAF-T files for Denmark, useful for importing accounting history.

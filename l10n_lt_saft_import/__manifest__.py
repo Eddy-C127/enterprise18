@@ -3,7 +3,6 @@
 
 {
     'name': "Lithuania - SAF-T Import",
-    'countries': ['lt'],
     "summary": "Import Accounting Data from SAF-T files",
     "description": """
 Module for the import of SAF-T files for Lithuania, useful for importing accounting history.

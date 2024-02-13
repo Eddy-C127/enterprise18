@@ -3,7 +3,6 @@
 
 {
     'name': 'Indian - Accounting Reports',
-    'countries': ['in'],
     'version': '1.1',
     'description': """
 Accounting reports for India
