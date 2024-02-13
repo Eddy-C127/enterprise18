@@ -46,7 +46,7 @@ WebsiteSale.include({
      *
      * @override
      */
-    _updateRootProduct($form, productId) {
+    _updateRootProduct($form, productId, productTemplateId) {
         this._super(...arguments);
         Object.assign(this.rootProduct, this._getSerializedRentingDates());
     },

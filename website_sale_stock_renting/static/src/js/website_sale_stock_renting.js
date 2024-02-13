@@ -8,7 +8,7 @@ WebsiteSale.include({
      *
      * @override
      */
-    _updateRootProduct($form, productId) {
+    _updateRootProduct($form, productId, productTemplateId) {
         this._super(...arguments);
         const $dateRangeRenting = $('.o_website_sale_daterange_picker');
         if ($dateRangeRenting.length) {

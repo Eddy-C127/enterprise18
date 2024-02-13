@@ -1,0 +1,17 @@
+/** @odoo-module **/
+
+import { patch } from '@web/core/utils/patch';
+import { serializeDateTime } from "@web/core/l10n/dates";
+import { SaleOrderLineProductField } from '@sale/js/sale_product_field';
+
+patch(SaleOrderLineProductField.prototype, {
+    _getAdditionalDialogProps() {
+        const props = super._getAdditionalDialogProps();
+        const saleOrder = this.props.record.model.root;
+        if (saleOrder.data.is_rental_order) {
+            props.rentalStartDate = serializeDateTime(saleOrder.data.rental_start_date);
+            props.rentalEndDate = serializeDateTime(saleOrder.data.rental_return_date);
+        }
+        return props;
+    },
+});

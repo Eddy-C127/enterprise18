@@ -61,6 +61,8 @@ Features:
     'license': 'OEEL-1',
     'assets': {
         'web.assets_backend': [
+            'sale_subscription/static/src/js/product_configurator_dialog/*',
+            'sale_subscription/static/src/js/sale_product_field.js',
             'sale_subscription/static/src/js/tours/sale_subscription.js',
         ],
         'web.assets_frontend': [
@@ -70,6 +72,7 @@ Features:
         ],
         'web.assets_tests': [
             'sale_subscription/static/src/js/tours/test_sale_subscription_portal.js',
+            'sale_subscription/static/tests/tours/*',
         ],
     }
 }

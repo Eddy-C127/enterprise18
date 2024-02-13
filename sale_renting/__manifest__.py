@@ -48,6 +48,9 @@ Manage user and manager notifications
         'web.assets_backend': [
             'sale_renting/static/src/**/*',
         ],
+        'web.assets_tests': [
+            'sale_renting/static/tests/tours/*',
+        ],
     },
     'license': 'OEEL-1',
 }

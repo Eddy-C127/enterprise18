@@ -12,7 +12,6 @@ appropriate views and selling choices.
         'security/ir.model.access.csv',
         'security/website_sale.xml',
         'data/product_snippet_template_data.xml',
-        'views/product_configurator_templates.xml',
         'views/product_views.xml',
         'views/res_config_settings_views.xml',
         'views/templates.xml',
@@ -24,7 +23,9 @@ appropriate views and selling choices.
     ],
     'assets': {
         'web.assets_frontend': [
+            'sale_renting/static/src/js/product_configurator_dialog/*',
             'website_sale_renting/static/src/scss/*.scss',
+            'website_sale_renting/static/src/js/website_sale_product_configurator.js',
             ('prepend', 'website_sale_renting/static/src/js/*.js'),
         ],
         'web.assets_tests': [

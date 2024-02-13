@@ -1,26 +1,35 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields
-from odoo.http import request, route
+from odoo.http import route
 
-from odoo.addons.website_sale.controllers.product_configurator import WebsiteSaleProductConfiguratorController
+from odoo.addons.sale_renting.controllers.product_configurator import (
+    SaleRentingProductConfiguratorController
+)
+from odoo.addons.website_sale.controllers.product_configurator import (
+    WebsiteSaleProductConfiguratorController
+)
 
 
-class RentingConfiguratorController(WebsiteSaleProductConfiguratorController):
-
-    @route()
-    def show_advanced_configurator(self, *args, **kw):
-        if request.env.context.get('start_date') and request.env.context.get('end_date'):
-            request.update_context(
-                start_date=fields.Datetime.to_datetime(request.env.context['start_date']),
-                end_date=fields.Datetime.to_datetime(request.env.context['end_date']),
-            )
-        return super().show_advanced_configurator(*args, **kw)
+class WebsiteSaleRentingProductConfiguratorController(
+    WebsiteSaleProductConfiguratorController, SaleRentingProductConfiguratorController
+):
 
     @route()
-    def cart_options_update_json(self, *args, start_date=None, end_date=None, **kwargs):
-        start_date = fields.Datetime.to_datetime(start_date)
-        end_date = fields.Datetime.to_datetime(end_date)
-        return super().cart_options_update_json(
-            *args, start_date=start_date, end_date=end_date, **kwargs
-        )
+    def website_sale_product_configurator_get_values(self, *args, **kwargs):
+        self._convert_rental_dates(kwargs)
+        return super().website_sale_product_configurator_get_values(*args, **kwargs)
+
+    @route()
+    def website_sale_product_configurator_update_combination(self, *args, **kwargs):
+        self._convert_rental_dates(kwargs)
+        return super().website_sale_product_configurator_update_combination(*args, **kwargs)
+
+    @route()
+    def website_sale_product_configurator_get_optional_products(self, *args, **kwargs):
+        self._convert_rental_dates(kwargs)
+        return super().website_sale_product_configurator_get_optional_products(*args, **kwargs)
+
+    @route()
+    def website_sale_product_configurator_update_cart(self, *args, **kwargs):
+        self._convert_rental_dates(kwargs)
+        return super().website_sale_product_configurator_update_cart(*args, **kwargs)
