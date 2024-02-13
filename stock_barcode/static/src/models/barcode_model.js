@@ -570,16 +570,17 @@ export default class BarcodeModel extends EventBus {
     }
 
     _getCommands() {
-        return {
-            'O-CMD.MAIN-MENU': this._goToMainMenu.bind(this),
-            'O-BTN.validate': () => {
+        const commands = {'O-CMD.MAIN-MENU': this._goToMainMenu.bind(this)};
+        if (!this.isDone) {
+            commands['O-BTN.validate'] = () => {
                 if (this.canBeValidate) {
                     this.validate();
                 } else {
                     this.trigger("playSound", "error");
                 }
-            },
-        };
+            };
+        }
+        return commands;
     }
 
     _getLineIndex() {

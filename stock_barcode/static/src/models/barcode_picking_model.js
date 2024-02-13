@@ -1042,14 +1042,17 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     _getCommands() {
-        return Object.assign(super._getCommands(), {
-            'O-BTN.pack': this._putInPack.bind(this),
-            'O-CMD.cancel': this._cancel.bind(this),
+        const commands = Object.assign(super._getCommands(), {
             'O-BTN.print-slip': this.print.bind(this, false, 'action_print_delivery_slip'),
             'O-BTN.print-op': this.print.bind(this, false, 'do_print_picking'),
             "O-BTN.scrap": this._scrap.bind(this),
             'O-BTN.return': this._returnProducts.bind(this)
         });
+        if (!this.isDone) {
+            commands['O-BTN.pack'] = this._putInPack.bind(this);
+            commands['O-CMD.cancel'] = this._cancel.bind(this);
+        }
+        return commands;
     }
 
     _getDefaultMessageType() {
@@ -1170,6 +1173,13 @@ export default class BarcodePickingModel extends BarcodeModel {
 
     _moveEntirePackage() {
         return this.record.picking_type_entire_packs;
+    }
+
+    async _processBarcode(barcode) {
+        if (this.isDone && !this.commands[barcode]) {
+            return this.notification(_t("This picking is already done"), { type: "danger" });
+        }
+        return super._processBarcode(barcode);
     }
 
     async _processLocation(barcodeData) {
