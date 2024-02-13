@@ -483,7 +483,7 @@ class UPSRequest():
         shipment.Shipper.ShipperNumber = self.shipper_number or ''
         shipment.Shipper.Phone = self.factory_ns2.ShipPhoneType()
         shipment.Shipper.Phone.Number = self._clean_phone_number(shipper.phone)
-        shipment.Shipper.EmailAddress = shipper.email or ''
+        shipment.Shipper.EMailAddress = shipper.email or ''
 
         shipment.ShipFrom = self.factory_ns2.ShipFromType()
         shipment.ShipFrom.Address = self.factory_ns2.ShipAddressType()
@@ -497,7 +497,7 @@ class UPSRequest():
             shipment.ShipFrom.Address.StateProvinceCode = ship_from.state_id.code or ''
         shipment.ShipFrom.Phone = self.factory_ns2.ShipPhoneType()
         shipment.ShipFrom.Phone.Number = self._clean_phone_number(ship_from.phone)
-        shipment.ShipFrom.EmailAddress = ship_from.email or ''
+        shipment.ShipFrom.EMailAddress = ship_from.email or ''
 
         shipment.ShipTo = self.factory_ns2.ShipToType()
         shipment.ShipTo.Address = self.factory_ns2.ShipToAddressType()
@@ -511,7 +511,7 @@ class UPSRequest():
             shipment.ShipTo.Address.StateProvinceCode = ship_to.state_id.code or ''
         shipment.ShipTo.Phone = self.factory_ns2.ShipPhoneType()
         shipment.ShipTo.Phone.Number = self._clean_phone_number(shipment_info['phone'])
-        shipment.ShipTo.EmailAddress = ship_to.email or ''
+        shipment.ShipTo.EMailAddress = ship_to.email or ''
         if not ship_to.commercial_partner_id.is_company:
             shipment.ShipTo.Address.ResidentialAddressIndicator = None
 
