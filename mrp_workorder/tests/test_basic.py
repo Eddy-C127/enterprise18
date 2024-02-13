@@ -136,6 +136,8 @@ class TestWorkOrderProcessCommon(TestMrpWorkorderCommon):
                 (0, 0, {'name': 'Cutting Machine', 'workcenter_id': cls.mrp_workcenter_1.id, 'time_cycle': 12, 'sequence': 1}),
             ],
         })
+        # remove leaves that may affect our tests
+        cls.env.ref('resource.resource_calendar_std').leave_ids.unlink()
 
     def test_cancel_mo_with_routing(self):
         """ Cancel a Manufacturing Order with routing (so generate a Work Order)
