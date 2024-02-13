@@ -87,6 +87,16 @@ msgid "Accepted"
 msgstr "Accepté"
 
 #. module: l10n_fr_reports
+#: model:ir.model.fields,help:l10n_fr_reports.field_res_config_settings__l10n_fr_rounding_difference_loss_account_id
+msgid "Account used for losses from rounding the lines of French tax reports"
+msgstr "Compte à utiliser pour les écarts (pertes) causés par l'arrondi dans les rapports de taxe français"
+
+#. module: l10n_fr_reports
+#: model:ir.model.fields,help:l10n_fr_reports.field_res_config_settings__l10n_fr_rounding_difference_profit_account_id
+msgid "Account used for profits from rounding the lines of French tax reports"
+msgstr "Compte à utiliser pour les écarts (gains) causés par l'arrondi dans les rapports de taxe français"
+
+#. module: l10n_fr_reports
 #: model:account.report.line,name:l10n_fr_reports.account_financial_report_line_04_0_fr_bilan_actif
 msgid "Adjustment account"
 msgstr "Compte de regularisation"
@@ -630,6 +640,11 @@ msgid "Positive exchange rate differences"
 msgstr "Différences positives de change"
 
 #. module: l10n_fr_reports
+#: model_terms:ir.ui.view,arch_db:l10n_fr_reports.res_config_settings_view_form
+msgid "Post difference from rounding tax closing entries in:"
+msgstr "Comptabiliser les écarts d'arrondi d'écritures de clôture TVA dans:"
+
+#. module: l10n_fr_reports
 #: model:account.report.line,name:l10n_fr_reports.account_financial_report_line_04_01_1_fr_bilan_actif
 msgid "Prepaid expenses"
 msgstr "Charges constatés d'avance"
@@ -1016,6 +1031,16 @@ msgstr "Résultat inattendu : la réponse devrait contenir au plus un interchang
 #: model_terms:ir.ui.view,arch_db:l10n_fr_reports.view_account_report_async_export_form
 msgid "VAT Report"
 msgstr "Rapport de TVA"
+
+#. module: l10n_fr_reports
+#: model:ir.model.fields,field_description:l10n_fr_reports.field_res_config_settings__l10n_fr_rounding_difference_loss_account_id
+msgid "VAT Rounding Loss Account"
+msgstr "Compte de pertes d'arrondi TVA"
+
+#. module: l10n_fr_reports
+#: model:ir.model.fields,field_description:l10n_fr_reports.field_res_config_settings__l10n_fr_rounding_difference_profit_account_id
+msgid "VAT Rounding Profit Account"
+msgstr "Compte de gains d'arrondi TVA"
 
 #. module: l10n_fr_reports
 #: model:account.report.line,name:l10n_fr_reports.account_financial_report_line_03_01_3_fr_bilan_actif
