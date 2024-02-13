@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError, UserError
 from odoo.models import MAGIC_COLUMNS
 from odoo.osv.expression import FALSE_DOMAIN, OR, expression
 from odoo.tools import get_lang
-from odoo.tools.misc import format_datetime, format_date, partition as tools_partition
+from odoo.tools.misc import format_datetime, format_date, partition as tools_partition, unique
 from collections.abc import Iterable
 
 from datetime import datetime, date
@@ -28,7 +28,7 @@ class DataMergeRecord(models.Model):
     active = fields.Boolean(compute='_compute_active', store=True)
     group_id = fields.Many2one('data_merge.group', string='Record Group', ondelete='cascade', required=True, index=True)
     model_id = fields.Many2one(related='group_id.model_id', store=True, readonly=True, index=True)
-    res_model_id = fields.Many2one(related='group_id.res_model_id', store=True, readonly=True)
+    res_model_id = fields.Many2one(related='group_id.res_model_id', store=True, readonly=True, index=True)
     res_model_name = fields.Char(related='group_id.res_model_name', store=True, readonly=True)
     is_master = fields.Boolean(default=False)
     is_deleted = fields.Boolean(compute='_compute_fields')
@@ -91,10 +91,11 @@ class DataMergeRecord(models.Model):
                  WHERE m.id IN (SELECT r.model_id FROM data_merge_record r)
                 """
             )
-        models_info = [r for r in cr.fetchall() if r[0] in self.env]
-        # Initial select id query to apply ir.rules and build Query object.
-        query = self.env['data_merge.record'].with_context(active_test=False)._search([])
+        # Remove duplicated value and preserve order
+        models_info = list(unique(r for r in cr.fetchall() if r[0] in self.env))
         if not models_info:
+            # Initial select id query to apply ir.rules and build Query object.
+            query = self.env['data_merge.record'].with_context(active_test=False)._search([])
             # no models => return all records
             return [('id', 'in', query)]
 
@@ -117,38 +118,46 @@ class DataMergeRecord(models.Model):
             )
         )
 
-        subqueries = []
-        subqueries_params = []
-        if models_no_company and false_company_domain_is_true:
-            subqueries.append("SELECT id FROM data_merge_record WHERE res_model_id IN %s")
-            subqueries_params += [tuple(r[1] for r in models_no_company)]
+        template_join = """
+        LEFT JOIN "{model_table}"
+        ON data_merge_record.res_id = "{model_table}".id
+        {extra_joins}
+        """
 
         template_query = """
-        SELECT dmr.id
-          FROM data_merge_record dmr
-     LEFT JOIN "{model_table}"
-            ON dmr.res_id = "{model_table}".id
-            {extra_joins}
-         WHERE ({where_clause})
-           AND dmr.res_model_id = %s
+        SELECT data_merge_record.id
+        FROM data_merge_record
+        {joins}
+        WHERE {where_clause}
         """
+        join_queries = []
+        where_queries = []
+        where_parameters = []
+        if models_no_company and false_company_domain_is_true:
+            where_queries.append("res_model_id IN %s")
+            where_parameters.append(tuple(r[1] for r in models_no_company))
         for model_name, model_id in models_with_company:
             Model = self.env[model_name]
             # Adapt operator and value for direct SQL query
             exp = expression([('company_id', operator, value)], Model)
+            self._apply_ir_rules(exp.query)
             from_clause, where_clause, where_params = exp.query.get_sql()
-            assert from_clause.startswith(f'"{Model._table}"')
+            model_table = Model._table
+            assert from_clause.startswith(f'"{model_table}"')
 
-            subqueries.append(template_query.format(
-                model_table=Model._table,
-                where_clause=where_clause,
-                extra_joins=from_clause[len(f'"{Model._table}"'):]
+            join_queries.append(template_join.format(
+                model_table=model_table,
+                extra_joins=from_clause[len(f'"{model_table}"'):]
             ))
-            subqueries_params += where_params + [model_id]
+            where_queries.append(f"({where_clause} AND data_merge_record.res_model_id = %s)")
+            where_parameters.extend(where_params + [model_id])
 
-        if subqueries:
-            query.add_where("data_merge_record.id IN ({})".format("\nUNION\n".join(subqueries)), subqueries_params)
-            return [('id', 'in', query)]
+        if where_queries:
+            query = template_query.format(
+                joins=" ".join(join_queries),
+                where_clause=' OR '.join(where_queries)
+            )
+            return [('id', 'inselect', (query, where_parameters))]
         else:
             # there was a nonempty models_info but no subqueries
             # it means that nothing satisfies the domain
