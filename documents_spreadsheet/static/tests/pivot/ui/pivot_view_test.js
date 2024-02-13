@@ -764,7 +764,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         const domain = model.getters.getPivotDefinition("1").domain;
         assert.deepEqual(domain, '[("foo", "=", uid)]', "It should have the raw domain string");
         assert.deepEqual(
-            model.exportData().pivots[pivotId].domain,
+            model.exportData().pivots[pivotId].definition.domain,
             '[("foo", "=", uid)]',
             "domain is exported with the dynamic value"
         );
@@ -888,7 +888,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             additionalContext: context,
         });
         assert.deepEqual(
-            model.exportData().pivots[1].context,
+            model.exportData().pivots[1].definition.context,
             {
                 default_stage_id: 5,
             },
@@ -933,7 +933,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             "probability:avg,__count",
         ]);
         assert.deepEqual(
-            model.exportData().pivots[1].context,
+            model.exportData().pivots[1].definition.context,
             {
                 default_stage_id: 5,
             },
