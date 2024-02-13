@@ -11,6 +11,7 @@ features. Those tests are present in a separate module as it contains models
 used only to perform tests independently to functional aspects of real
 applications. """,
     'depends': [
+        'contacts',
         'mail',
         'portal',
         'phone_validation',
@@ -19,6 +20,11 @@ applications. """,
     'data': [
         'security/ir.model.access.csv',
     ],
+    'assets': {
+        'web.assets_tests': [
+            'test_whatsapp/static/tests/tours/**/*',
+        ],
+    },
     'installable': True,
     'license': 'LGPL-3',
 }

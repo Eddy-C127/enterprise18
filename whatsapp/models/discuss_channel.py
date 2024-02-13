@@ -22,10 +22,11 @@ class DiscussChannel(models.Model):
         selection_add=[('whatsapp', 'WhatsApp Conversation')],
         ondelete={'whatsapp': 'cascade'})
     whatsapp_number = fields.Char(string="Phone Number")
-    whatsapp_channel_valid_until = fields.Datetime(string="WhatsApp Partner Last Message Datetime", compute="_compute_whatsapp_channel_valid_until")
+    whatsapp_channel_valid_until = fields.Datetime(string="WhatsApp Channel Valid Until Datetime", compute="_compute_whatsapp_channel_valid_until")
+    last_wa_mail_message_id = fields.Many2one(comodel_name="mail.message", string="Last WA Partner Mail Message", index='btree_not_null')
     whatsapp_partner_id = fields.Many2one(comodel_name='res.partner', string="WhatsApp Partner", index='btree_not_null')
-    whatsapp_mail_message_id = fields.Many2one(comodel_name='mail.message', string="Related message", index="btree_not_null")
     wa_account_id = fields.Many2one(comodel_name='whatsapp.account', string="WhatsApp Business Account")
+    whatsapp_channel_active = fields.Boolean('Is Whatsapp Channel Active', compute="_compute_whatsapp_channel_active")
 
     _sql_constraints = [
         ('group_public_id_check',
@@ -52,37 +53,17 @@ class DiscussChannel(models.Model):
 
     # NEW COMPUTES
 
-    @api.depends('message_ids')
+    @api.depends('last_wa_mail_message_id')
     def _compute_whatsapp_channel_valid_until(self):
-        self.whatsapp_channel_valid_until = False
-        wa_channels = self.filtered(lambda c: c.channel_type == 'whatsapp')
-        if wa_channels:
-            channel_last_msg_ids = {
-                r['id']: r['message_id']
-                for r in wa_channels._channel_last_whatsapp_partner_id_message_ids()
-            }
-            MailMessage = self.env['mail.message'].with_prefetch(list(channel_last_msg_ids.values()))
-            for channel in wa_channels:
-                last_msg_id = channel_last_msg_ids.get(channel.id, False)
-                if not last_msg_id:
-                    continue
-                channel.whatsapp_channel_valid_until = MailMessage.browse(last_msg_id).create_date + timedelta(hours=24)
+        for channel in self:
+            channel.whatsapp_channel_valid_until = channel.last_wa_mail_message_id.create_date + timedelta(hours=24) \
+                if channel.channel_type == "whatsapp" and channel.last_wa_mail_message_id else False
 
-    def _channel_last_whatsapp_partner_id_message_ids(self):
-        """ Return the last message of the whatsapp_partner_id given whatsapp channels."""
-        if not self:
-            return []
-        self.env['mail.message'].flush_model()
-        self.env.cr.execute("""
-              SELECT res_id AS id, MAX(mm.id) AS message_id
-                FROM mail_message AS mm
-                JOIN discuss_channel AS dc ON mm.res_id = dc.id
-               WHERE mm.model = 'discuss.channel'
-                 AND mm.res_id IN %s
-                 AND mm.author_id = dc.whatsapp_partner_id
-            GROUP BY mm.res_id
-            """, [tuple(self.ids)])
-        return self.env.cr.dictfetchall()
+    @api.depends('whatsapp_channel_valid_until')
+    def _compute_whatsapp_channel_active(self):
+        for channel in self:
+            channel.whatsapp_channel_active = channel.whatsapp_channel_valid_until and \
+                channel.whatsapp_channel_valid_until > fields.Datetime.now()
 
     # INHERITED COMPUTES
 
@@ -184,7 +165,6 @@ class DiscussChannel(models.Model):
                 'whatsapp_number': wa_formatted,
                 'whatsapp_partner_id': self.env['res.partner']._find_or_create_from_number(wa_formatted, sender_name).id,
                 'wa_account_id': wa_account_id.id,
-                'whatsapp_mail_message_id': related_message.id if related_message else None,
             })
             partners_to_notify += channel.whatsapp_partner_id
             if related_message:
@@ -248,10 +228,11 @@ class DiscussChannel(models.Model):
     # ------------------------------------------------------------
 
     def _action_unfollow(self, partner=None, guest=None):
-        if self.channel_type == 'whatsapp' \
-                and ((self.whatsapp_mail_message_id \
-                and self.whatsapp_mail_message_id.author_id == partner) \
-                or len(self.channel_member_ids) <= 2):
+        if partner and self.channel_type == "whatsapp" \
+                and next(
+                    (member.partner_id for member in self.channel_member_ids if not member.partner_id.partner_share),
+                    self.env["res.partner"]
+                ) == partner:
             msg = _("You can't leave this channel. As you are the owner of this WhatsApp channel, you can only delete it.")
             partner._bus_send_transient_message(self, msg)
             return

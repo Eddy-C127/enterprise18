@@ -3,7 +3,7 @@
 import logging
 import re
 
-from odoo import exceptions, models, _
+from odoo import exceptions, fields, models, _
 from odoo.addons.phone_validation.tools import phone_validation
 from odoo.addons.whatsapp.tools import phone_validation as phone_validation_wa
 
@@ -12,6 +12,23 @@ _logger = logging.getLogger(__name__)
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
+
+    wa_channel_count = fields.Integer(string='WhatsApp Channel Count', compute="_compute_wa_channel_count")
+
+    def _compute_wa_channel_count(self):
+        partner_channel_counts = {partner.id: 0 for partner in self}
+        member_count_by_partner = self.env['discuss.channel.member']._read_group(
+            domain=[
+                ('channel_id.channel_type', '=', 'whatsapp'),
+                ('partner_id', 'in', self.ids)
+            ],
+            groupby=['partner_id'],
+            aggregates=['id:count'],
+        )
+        for partner, count in member_count_by_partner:
+            partner_channel_counts[partner.id] += count
+        for partner in self:
+            partner.wa_channel_count = partner_channel_counts[partner.id]
 
     def _find_or_create_from_number(self, number, name=False):
         """ Number should come currently from whatsapp and contain country info. """
@@ -105,3 +122,12 @@ class ResPartner(models.Model):
             self._cr.execute(query, (pattern, term) * len(phone_fields))
         res = self._cr.fetchall()
         return self.browse([r[0] for r in res])
+
+    def action_open_partner_wa_channels(self):
+        return {
+            'name': _('WhatsApp Chats'),
+            'type': 'ir.actions.act_window',
+            'domain': [('channel_type', '=', 'whatsapp'), ('channel_partner_ids', 'in', self.ids)],
+            'res_model': 'discuss.channel',
+            'views': [(self.env.ref('whatsapp.discuss_channel_view_list_whatsapp').id, 'list')],
+        }

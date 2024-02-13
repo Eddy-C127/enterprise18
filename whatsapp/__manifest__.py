@@ -26,6 +26,7 @@
         'views/whatsapp_template_variable_views.xml',
         'views/res_config_settings_views.xml',
         'views/whatsapp_menus.xml',
+        'views/res_partner_views.xml',
     ],
     'demo': [
         'data/whatsapp_demo.xml',
@@ -42,6 +43,7 @@
             'whatsapp/static/src/**/common/**/*',
             'whatsapp/static/src/**/web/**/*',
             'whatsapp/static/src/components/**/*',
+            'whatsapp/static/src/views/**/*',
             # Don't include dark mode files in light mode
             ('remove', 'whatsapp/static/src/**/*.dark.scss'),
         ],
