@@ -7,6 +7,9 @@
     'sequence': 7,
     'summary': 'Display Orders for Preparation stage.',
     'depends': ['pos_restaurant', 'pos_preparation_display'],
+    'data': [
+        'views/preparation_display_view.xml',
+    ],
     'installable': True,
     'auto_install': True,
     'assets': {
