@@ -8,8 +8,6 @@ from ast import literal_eval
 from collections import defaultdict
 import traceback
 
-from werkzeug import urls
-
 from odoo import fields, models, _, api, Command, SUPERUSER_ID, modules
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_is_zero
@@ -17,8 +15,6 @@ from odoo.osv import expression
 from odoo.tools import config, format_amount, plaintext2html, split_every, str2bool
 from odoo.tools.date_utils import get_timedelta
 from odoo.tools.misc import format_date
-
-from odoo.addons.payment import utils as payment_utils
 
 _logger = logging.getLogger(__name__)
 
@@ -1351,17 +1347,7 @@ class SaleOrder(models.Model):
             else:
                 msg_body = _('Automatic payment failed. No email sent this time. Error: %s', transaction and transaction.state_message or _('No valid Payment Method'))
                 if (fields.Date.today() - order.next_invoice_date).days in [2, 7, 14]:
-                    base_url = self.get_base_url()
-                    url_params = {
-                        'amount': self.amount_total,
-                        'access_token': payment_utils.generate_access_token(self.partner_id.id, self.amount_total, self.currency_id.id),
-                        'currency_id': self.currency_id.id,
-                        'partner_id': self.partner_id.id,
-                        'company_id': self.company_id.id,
-                        'sale_order_id': self.id,
-                    }
-                    payment_link = f'{base_url}/payment/pay?{urls.url_encode(url_params)}'
-                    email_context.update({'date_close': date_close, 'payment_token': order.payment_token_id.display_name, 'payment_link': payment_link})
+                    email_context.update({'date_close': date_close, 'payment_token': order.payment_token_id.display_name})
                     reminder_mail_template.with_context(email_context).send_mail(order.id)
                     _logger.debug("Sending Payment Failure Mail to %s for contract %s and setting contract to pending", order.partner_id.email, order.id)
                     msg_body = _('Automatic payment failed. Email sent to customer. Error: %s', transaction and transaction.state_message or _('No Payment Method'))

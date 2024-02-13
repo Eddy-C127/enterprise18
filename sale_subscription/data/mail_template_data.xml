@@ -148,13 +148,8 @@
                     </t>
                     <br/><br/>
                     Your subscription <t t-out="ctx.get('code') or ''">CODE</t> is still valid but will be <strong>suspended</strong>
-                    on <t t-out="format_date(ctx.get('date_close')) or ''">05/05/2021</t><br/>
-                    <div style="margin: 16px 0px; text-align: center;">
-                        <a t-attf-href="{{ ctx['payment_link'] }}" style="display: inline-block; padding: 10px 30px; text-decoration: none; background-color: #875A7B; color: #fff; border-radius: 5px;">
-                            Pay Now
-                        </a>
-                    </div>
-                    <br/>
+                    on <t t-out="format_date(ctx.get('date_close')) or ''">05/05/2021</t> unless the payment succeeds in the mean time (we will retry once every day).
+                    Please double-check that you have sufficient funds.<br/><br/>
                     If you have any questions, do not hesitate to contact us.<br/><br/>
                     Thank you for choosing <t t-out="company.name or ''">YourCompany</t>!
                     <div>
