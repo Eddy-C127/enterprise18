@@ -953,7 +953,10 @@ export class GanttRenderer extends Component {
         const stopDate = record[dateStopField];
         const yearlessDateFormat = omit(DateTime.DATE_SHORT, "year");
 
-        const spanAccrossDays = stopDate.startOf("day") > startDate.startOf("day");
+        const spanAccrossDays =
+            stopDate.startOf("day") > startDate.startOf("day") &&
+            startDate.endOf("day").diff(startDate, "hours").toObject().hours >= 3 &&
+            stopDate.diff(stopDate.startOf("day"), "hours").toObject().hours >= 3;
         const spanAccrossWeeks =
             computeRange("week", stopDate).start > computeRange("week", startDate).start;
         const spanAccrossMonths = stopDate.startOf("month") > startDate.startOf("month");

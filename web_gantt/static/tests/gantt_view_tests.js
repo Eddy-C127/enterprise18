@@ -5,6 +5,7 @@ import {
     click,
     editInput,
     getFixture,
+    getNodesTextContent,
     makeDeferred,
     nextTick,
     patchDate,
@@ -86,7 +87,7 @@ QUnit.module("Views > GanttView", {
                         name: { string: "Name", type: "char" },
                         start: { string: "Start Date", type: "datetime" },
                         stop: { string: "Stop Date", type: "datetime" },
-                        time: { string: "Time", type: "float" },
+                        allocated_hours: { string: "Allocated Hours", type: "float" },
                         stage: {
                             string: "Stage",
                             type: "selection",
@@ -6512,6 +6513,60 @@ QUnit.test(
             "User 1",
             "The user set should be the one in the row contained the cell clicked to add a record"
         );
+    }
+);
+
+QUnit.test(
+    "The date and task should appear even if the pill is planned on 2 days but displayed in one day by the gantt view",
+    async (assert) => {
+        patchDate(2024, 0, 1, 8, 0, 0);
+        patchWithCleanup(luxon.Settings, {
+            defaultZone: new luxon.IANAZone("UTC"),
+        });
+        serverData.models.tasks.records.push(
+            {
+                id: 9,
+                name: "Task 9",
+                allocated_hours: 4,
+                start: "2024-01-01 16:00:00",
+                stop: "2024-01-02 01:00:00",
+            },
+            {
+                id: 10,
+                name: "Task 10",
+                allocated_hours: 4,
+                start: "2024-01-02 16:00:00",
+                stop: "2024-01-03 02:00:00",
+            },
+            {
+                // will be displayed in 2 days
+                id: 11,
+                name: "Task 11",
+                allocated_hours: 4,
+                start: "2024-01-03 16:00:00",
+                stop: "2024-01-04 03:00:00",
+            }
+        );
+        await makeView({
+            type: "gantt",
+            resModel: "tasks",
+            serverData,
+            arch: `<gantt date_start="start"
+                          date_stop="stop"
+                          pill_label="True"
+                          default_scale="week"
+                          scales="week"
+                          precision="{'week': 'day:full'}"
+                    >
+                    <field name="allocated_hours"/>
+                </gantt>`,
+        });
+        assert.containsN(target, ".o_gantt_pill", 3, "should have 3 pills in the gantt view");
+        assert.deepEqual(getNodesTextContent(target.querySelectorAll(".o_gantt_pill_title")), [
+            "4:00 PM - 1:00 AM (4h) - Task 9",
+            "4:00 PM - 2:00 AM (4h) - Task 10",
+            "Task 11",
+        ]);
     }
 );
 
