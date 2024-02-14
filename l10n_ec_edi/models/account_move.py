@@ -422,6 +422,7 @@ class AccountMove(models.Model):
             payment_vals = {
                 'payment_code': self.l10n_ec_sri_payment_id.code,
                 'payment_total': abs(line.balance),
+                'currency': 'DOLAR',
             }
             if self.invoice_payment_term_id and line.date_maturity and self.invoice_date:
                 payment_vals.update({
@@ -587,6 +588,7 @@ class AccountMove(models.Model):
                     'withhold_lines_count': 0,
                     'invoice_payments': [{'payment_code': invoice.l10n_ec_sri_payment_id.code,
                                           'payment_amount': taxsupport_amount_total}],
+                    'currency': 'DOLAR',
                 }
                 taxsupport_lines[taxsupport].update(foreign_data)
             code, report_code = self._l10n_ec_wth_map_tax_code(line)
