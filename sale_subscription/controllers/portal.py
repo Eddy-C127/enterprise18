@@ -265,6 +265,9 @@ class PaymentPortal(payment_portal.PaymentPortal):
         )
         if sale_order_id:
             sale_order_id = self._cast_as_int(sale_order_id)
+            extra_payment_form_values.update({
+                'sale_order_id': sale_order_id,  # Allow Stripe to check if tokenization is required.
+            })
             if manage_subscription:
                 order_sudo = self._document_check_access('sale.order', sale_order_id, access_token)
                 extra_payment_form_values.update({
