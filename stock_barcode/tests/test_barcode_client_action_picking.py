@@ -2283,6 +2283,24 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             {'quantity': 1, 'picked': True, 'location_id': self.shelf1.id},
         ])
 
+    def test_editing_done_picking(self):
+        """ Create and validate a picking then try editing it."""
+        self.clean_access_rights()
+        picking_form = Form(self.env['stock.picking'])
+        picking_form.picking_type_id = self.picking_type_in
+        with picking_form.move_ids_without_package.new() as move:
+            move.product_id = self.product1
+            move.product_uom_qty = 69
+
+        receipt = picking_form.save()
+        receipt.action_confirm()
+        receipt.move_ids.quantity = 69
+        receipt.button_validate()
+
+        url = self._get_client_action_url(receipt.id)
+        self.start_tour(url, 'test_editing_done_picking', login='admin', timeout=180)
+
+    #=== GS1 TESTS ===#
     def test_gs1_delivery_ambiguous_serial_number(self):
         """
         Have a delivery for a product tracked by SN then scan a SN who exists for

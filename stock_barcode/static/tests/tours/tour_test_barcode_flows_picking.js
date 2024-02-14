@@ -4035,3 +4035,15 @@ registry.category("web_tour.tours").add('test_scan_line_splitting_preserve_desti
     { trigger: '.btn.o_validate_page' },
     { trigger: '.o_notification_bar.bg-success', isCheck: true },
 ]});
+
+registry.category("web_tour.tours").add('test_editing_done_picking', {
+    test: true, steps: () => [
+        { trigger: '.o_barcode_client_action', run: 'scan O-BTN.validate' },
+        {
+            trigger: '.o_notification_bar.bg-danger',
+            run: function () {
+                helper.assertErrorMessage("This picking is already done");
+            },
+        },
+    ]
+});
