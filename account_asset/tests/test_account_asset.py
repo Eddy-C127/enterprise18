@@ -1677,10 +1677,10 @@ class TestAccountAsset(TestAccountReportsCommon):
             'amount_total': 937.5,
             'asset_remaining_value': 937.5,
         }, {
-            'amount_total': 468.75,
-            'asset_remaining_value': 468.75,
+            'amount_total': 625.00,
+            'asset_remaining_value': 312.50,
         }, {
-            'amount_total': 468.75,
+            'amount_total': 312.50,
             'asset_remaining_value': 0,
         }])
 
