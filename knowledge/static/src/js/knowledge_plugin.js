@@ -20,17 +20,9 @@ export class KnowledgePlugin {
         this.editor = editor;
     }
     /**
-     * Remove the highlight decorators from the document and replace the video
-     * iframe with a video link before saving. The method aims to solve the
-     * following issues:
-     * (1) Some components are susceptible to add classes that are meant to be purely for decoration
-     *     or highlighting of specific anchors in the text. These classes shouldn't be saved because
-     *     they serve no real purpose other than highlight the text or decorate it temporarily.
-     * (2) When saving the document, the sanitizer discards the video iframe
-     *     from the document. As a result, people reading the article outside
-     *     of the odoo backend will not be able to see and access the video.
-     *     To solve that issue, we will replace the iframe with a link before
-     *     saving.
+     * Some content displayed as part of a Behavior Component render is not destined to be saved.
+     * The purpose of this function is to clean such content so that it will not be saved nor considered
+     * during _isDirty evaluation (which is the determining factor to enable a save).
      * @param {Element} editable
      */
     cleanForSave(editable) {
@@ -40,7 +32,8 @@ export class KnowledgePlugin {
                 elementToClean.classList.remove(decorationClass);
             }
         }
-        // Replace the iframe with a video link:
+        // Replace the iframe with a video link, because iframe elements are discarded by the backend sanitizer,
+        // and Behavior components are not rendered for public users, so they'll have access to the link instead
         for (const anchor of editable.querySelectorAll('.o_knowledge_behavior_type_video')) {
             const props = decodeDataBehaviorProps(anchor.dataset.behaviorProps);
             const a = document.createElement('a');
@@ -58,6 +51,13 @@ export class KnowledgePlugin {
         // data-oe-transient-content="true" node).
         for (const fileNameEl of editable.querySelectorAll('.o_knowledge_behavior_type_file .o_knowledge_file_name_container')) {
             fileNameEl.classList.remove("d-none");
+        }
+
+        // Remove the loading icon and/or error messages from embedded views anchors.
+        // Only children used as a props for the Embedded View Component are kept.
+        for (const embeddedViewEl of editable.querySelectorAll(".o_knowledge_behavior_type_embedded_view")) {
+            const childrenToKeep = [...embeddedViewEl.querySelectorAll(":scope > [data-prop-name]")];
+            embeddedViewEl.replaceChildren(...childrenToKeep);
         }
     }
 }
