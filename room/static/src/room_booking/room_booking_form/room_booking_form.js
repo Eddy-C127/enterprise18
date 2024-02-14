@@ -1,6 +1,5 @@
 /** @odoo-module **/
 
-import { _t } from "@web/core/l10n/translation";
 import { scrollTo } from "@web/core/utils/scrolling";
 
 import { Component, onWillUpdateProps, useEffect, useRef, useState } from "@odoo/owl";
@@ -13,7 +12,7 @@ export class RoomBookingForm extends Component {
         bookingToEdit: { type: Object, optional: true },
         cancel: Function,
         editBooking: Function,
-        bookingName: String,
+        bookingName: { type: String, optional: true },
     };
 
     setup() {
@@ -33,18 +32,9 @@ export class RoomBookingForm extends Component {
             bookingEnd: this.props.bookingToEdit?.interval.end,
             bookingName: this.props.bookingToEdit?.name || this.props.bookingName,
         });
-        this.bookingsByDate = this.computeBookingsByDate(
-            this.props.bookings,
-            this.props.bookingToEdit?.id,
-        );
-        this.weekInterval = luxon.Interval.fromDateTimes(
-            this.state.selectedDay.startOf("week"),
-            this.state.selectedDay.endOf("week"),
-        );
 
         /**
-         * View the selected booking to edit or recompute the bookingsByDate
-         * if the list of bookings changed
+         * View the selected booking to edit
          */
         onWillUpdateProps((nextProps) => {
             if (nextProps.bookingToEdit !== this.props.bookingToEdit) {
@@ -62,10 +52,6 @@ export class RoomBookingForm extends Component {
                 this.state.bookingEnd = nextProps.bookingToEdit.interval.end;
                 this.state.bookingName = nextProps.bookingToEdit.name;
             }
-            this.bookingsByDate = this.computeBookingsByDate(
-                nextProps.bookings,
-                nextProps.bookingToEdit?.id,
-            );
         });
 
         /**
@@ -113,18 +99,43 @@ export class RoomBookingForm extends Component {
     //----------------------------------------------------------------------
 
     /**
+     * Return the bookings grouped by date.
+     */
+    get bookingsByDate() {
+        return this.props.bookings.reduce((bookingsByDate, booking) => {
+            // If editing a booking, do not consider it as booked
+            if (this.props.bookingToEdit?.id === booking.id) {
+                return bookingsByDate;
+            }
+            const intervals = [];
+            let { start, end } = booking.interval;
+            if (start.startOf("day").equals(end.startOf("day"))) {
+                intervals.push(booking.interval);
+            } else {
+                // Case a user creates a booking spanning multiple days from backend
+                while (start.startOf("day") < end.startOf("day")) {
+                    const nextDay = start.plus({ days: 1 }).startOf("day");
+                    intervals.push(luxon.Interval.fromDateTimes(start, nextDay));
+                    start = nextDay;
+                }
+                intervals.push(luxon.Interval.fromDateTimes(start, end));
+            }
+            for (const interval of intervals) {
+                const date = interval.start.toISODate();
+                if (!(date in bookingsByDate)) {
+                    bookingsByDate[date] = [];
+                }
+                bookingsByDate[date].push(interval);
+            }
+            return bookingsByDate;
+        }, {});
+    }
+
+    /**
      * Return the formatted month of the selected week.
-     * If a week spans 2 different months, show them both.
-     * (eg. if the week starts the 30 September, show "September - October")
-     * Interval.toLocaleString only works since luxon 3.2.0, so we format it manually for now
      */
     get formattedMonth() {
-        if (this.weekInterval.start.month === this.weekInterval.end.month) {
-            return this.weekInterval.start.toLocaleString(this.monthFormat);
-        } else {
-            return `${this.weekInterval.start.toLocaleString(this.monthFormat)}
-                - ${this.weekInterval.end.toLocaleString(this.monthFormat)}`;
-        }
+        return this.weekInterval.toLocaleString(this.monthFormat);
     }
 
     /**
@@ -226,7 +237,7 @@ export class RoomBookingForm extends Component {
                 canBeEndDate,
                 isInSelectedInterval: isEnd,
                 description: isEnd
-                    ? _t("Stop")
+                    ? false
                     : midnight.diff(this.state.bookingStart).toFormat(this.durationFormat),
             });
         }
@@ -237,49 +248,18 @@ export class RoomBookingForm extends Component {
         return luxon.DateTime.now().startOf("day");
     }
 
+    get weekInterval() {
+        return luxon.Interval.fromDateTimes(
+            this.state.selectedDay.startOf("week"),
+            this.state.selectedDay.endOf("week"),
+        );
+    }
+
     /**
      * Return the days (as intervals) of the selected week
      */
     get weekIntervalDays() {
         return this.weekInterval.splitBy({ day: 1 });
-    }
-
-    //----------------------------------------------------------------------
-    // Methods
-    //----------------------------------------------------------------------
-
-    /**
-     * Return the bookings grouped by date
-     * @returns {Object} bookingsByDate
-     */
-    computeBookingsByDate(bookings, bookingToEditId) {
-        return bookings.reduce((bookingsByDate, booking) => {
-            // If editing a booking, do not consider it as booked
-            if (bookingToEditId === booking.id) {
-                return bookingsByDate;
-            }
-            const intervals = [];
-            let { start, end } = booking.interval;
-            if (start.startOf("day").equals(end.startOf("day"))) {
-                intervals.push(booking.interval);
-            } else {
-                // Case a user creates a booking spanning multiple days from backend
-                while (start.startOf("day") < end.startOf("day")) {
-                    const nextDay = start.plus({ days: 1 }).startOf("day");
-                    intervals.push(luxon.Interval.fromDateTimes(start, nextDay));
-                    start = nextDay;
-                }
-                intervals.push(luxon.Interval.fromDateTimes(start, end));
-            }
-            for (const interval of intervals) {
-                const date = interval.start.toISODate();
-                if (!(date in bookingsByDate)) {
-                    bookingsByDate[date] = [];
-                }
-                bookingsByDate[date].push(interval);
-            }
-            return bookingsByDate;
-        }, {});
     }
 
     //----------------------------------------------------------------------
@@ -317,7 +297,6 @@ export class RoomBookingForm extends Component {
      * Show the slots for the week following the current one
      */
     onNextWeekClick() {
-        this.weekInterval = this.weekInterval.mapEndpoints((date) => date.plus({ week: 1 }));
         this.state.selectedDay = this.state.selectedDay.plus({ week: 1 });
     }
 
@@ -325,7 +304,6 @@ export class RoomBookingForm extends Component {
      * Show the slots for the week preceding the current one
      */
     onPreviousWeekClick() {
-        this.weekInterval = this.weekInterval.mapEndpoints((date) => date.minus({ week: 1 }));
         const day = this.state.selectedDay.minus({ week: 1 });
         this.state.selectedDay = day < this.today ? this.today : day;
     }
