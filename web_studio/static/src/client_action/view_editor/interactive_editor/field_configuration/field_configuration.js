@@ -159,7 +159,7 @@ export class RelatedChainBuilder extends Component {
         if (!path) {
             return fieldDef.type === "many2one";
         }
-        return true;
+        return fieldDef.type !== "properties";
     }
 
     async updateChain(path, fieldInfo) {

@@ -3491,6 +3491,43 @@ QUnit.module("View Editors", (hooks) => {
         assert.containsOnce(target, ".o-form-buttonbox");
         assert.containsOnce(target, ".o-form-buttonbox button[name='some_action']");
     });
+
+    QUnit.test("cannot add a related properties field", async (assert) => {
+        serverData.models.coucou.fields.m2o = {
+            type: "many2one",
+            relation: "product",
+            string: "m2o to product",
+        };
+        serverData.models.product.fields = {
+            id: { type: "integer", string: "IDCusto" },
+            properties: { type: "properties", string: "Product Properties" },
+            some_test_field: { type: "char", string: "SomeTestField" },
+        };
+        serverData.models.product.records = [];
+        await createViewEditor({
+            serverData,
+            type: "form",
+            arch: '<form><group><field name="display_name" /></group></form>',
+            resModel: "coucou",
+        });
+        disableHookAnimation(target);
+        await dragAndDrop(
+            ".o_web_studio_new_fields .o_web_studio_field_related",
+            ".o_web_studio_form_view_editor .o_web_studio_hook"
+        );
+        assert.containsOnce(target, ".modal .o_model_field_selector");
+
+        await click(target, ".modal .o_model_field_selector");
+        await click(target, ".o_popover .o_model_field_selector_popover_item_relation");
+        assert.deepEqual(
+            [
+                ...target.querySelectorAll(
+                    ".o_popover .o_model_field_selector_popover_page .o_model_field_selector_popover_item"
+                ),
+            ].map((el) => el.textContent.trim()),
+            ["Display Name", "IDCusto", "Last Modified on", "Name", "SomeTestField"]
+        );
+    });
 });
 
 QUnit.module("View Editors", (hooks) => {
