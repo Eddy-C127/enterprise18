@@ -34,7 +34,7 @@ if payslip.worked_days_line_ids:
     total_days = sum(payslip.worked_days_line_ids.mapped('number_of_days'))
     total_unpaid_days = worked_days['LEAVE90'].number_of_days if 'LEAVE90' in worked_days else 0
     work_rate = (total_days - total_unpaid_days) / total_days
-result = 1
+result = std_awl * work_rate
         </field>
         <field name="struct_id" ref="l10n_in_hr_payroll.hr_payroll_structure_in_employee_salary"/>
     </record>
