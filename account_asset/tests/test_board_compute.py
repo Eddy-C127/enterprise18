@@ -137,9 +137,9 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
         self.assertRecordValues(self.car.depreciation_move_ids, [
             self._get_depreciation_move_values(date='2020-12-31', depreciation_value=18000, remaining_value=42000, depreciated_value=18000, state='posted'),
             self._get_depreciation_move_values(date='2021-12-31', depreciation_value=12600, remaining_value=29400, depreciated_value=30600, state='posted'),
-            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=8820, remaining_value=20580, depreciated_value=39420, state='draft'),
-            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=6174, remaining_value=14406, depreciated_value=45594, state='draft'),
-            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=14406, remaining_value=0, depreciated_value=60000, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=9800, remaining_value=19600, depreciated_value=40400, state='draft'),
+            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=9800, remaining_value=9800, depreciated_value=50200, state='draft'),
+            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=9800, remaining_value=0, depreciated_value=60000, state='draft'),
         ])
 
     def test_degressive_5_years_no_prorata_with_imported_amount_asset(self):
@@ -155,9 +155,9 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
         self.assertRecordValues(self.car.depreciation_move_ids, [
             self._get_depreciation_move_values(date='2020-12-31', depreciation_value=17000, remaining_value=42000, depreciated_value=17000, state='posted'),
             self._get_depreciation_move_values(date='2021-12-31', depreciation_value=12600, remaining_value=29400, depreciated_value=29600, state='posted'),
-            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=8820, remaining_value=20580, depreciated_value=38420, state='draft'),
-            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=6174, remaining_value=14406, depreciated_value=44594, state='draft'),
-            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=14406, remaining_value=0, depreciated_value=59000, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=9800, remaining_value=19600, depreciated_value=39400, state='draft'),
+            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=9800, remaining_value=9800, depreciated_value=49200, state='draft'),
+            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=9800, remaining_value=0, depreciated_value=59000, state='draft'),
         ])
 
     def test_degressive_5_years_no_prorata_with_salvage_value_asset(self):
@@ -174,9 +174,9 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
         self.assertRecordValues(self.car.depreciation_move_ids, [
             self._get_depreciation_move_values(date='2020-12-31', depreciation_value=17700, remaining_value=41300, depreciated_value=17700, state='posted'),
             self._get_depreciation_move_values(date='2021-12-31', depreciation_value=12390, remaining_value=28910, depreciated_value=30090, state='posted'),
-            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=8673, remaining_value=20237, depreciated_value=38763, state='draft'),
-            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=6071.1, remaining_value=14165.9, depreciated_value=44834.1, state='draft'),
-            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=14165.9, remaining_value=0, depreciated_value=59000, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=9636.67, remaining_value=19273.33, depreciated_value=39726.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=9636.67, remaining_value=9636.66, depreciated_value=49363.34, state='draft'),
+            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=9636.66, remaining_value=0, depreciated_value=59000, state='draft'),
         ])
 
     def test_degressive_then_linear_5_years_no_prorata_asset(self):
@@ -246,46 +246,48 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
         ])
 
     def test_degressive_then_linear_36_month_constant_period_asset(self):
+        """
+        The depreciation amount is computed that way: Compute a degressive amount for each year and split it by month linearly.
+        The depreciation value could vary by one currency unit to absorb small differences that are created over time.
+        """
         asset = self.create_asset(value=10000, periodicity="monthly", periods=36, method="degressive_then_linear", degressive_factor=0.4)
         asset.validate()
         self.assertEqual(asset.state, 'open')
         self.assertRecordValues(asset.depreciation_move_ids, [
             self._get_depreciation_move_values(date='2020-01-31', depreciation_value=333.33, remaining_value=9666.67, depreciated_value=333.33, state='posted'),
-            self._get_depreciation_move_values(date='2020-02-29', depreciation_value=333.33, remaining_value=9333.34, depreciated_value=666.66, state='posted'),
-            self._get_depreciation_move_values(date='2020-03-31', depreciation_value=333.33, remaining_value=9000.01, depreciated_value=999.99, state='posted'),
-            self._get_depreciation_move_values(date='2020-04-30', depreciation_value=333.33, remaining_value=8666.68, depreciated_value=1333.32, state='posted'),
-            self._get_depreciation_move_values(date='2020-05-31', depreciation_value=333.33, remaining_value=8333.35, depreciated_value=1666.65, state='posted'),
-            self._get_depreciation_move_values(date='2020-06-30', depreciation_value=333.33, remaining_value=8000.02, depreciated_value=1999.98, state='posted'),
-            self._get_depreciation_move_values(date='2020-07-31', depreciation_value=333.33, remaining_value=7666.69, depreciated_value=2333.31, state='posted'),
-            self._get_depreciation_move_values(date='2020-08-31', depreciation_value=333.33, remaining_value=7333.36, depreciated_value=2666.64, state='posted'),
-            self._get_depreciation_move_values(date='2020-09-30', depreciation_value=333.33, remaining_value=7000.03, depreciated_value=2999.97, state='posted'),
-            self._get_depreciation_move_values(date='2020-10-31', depreciation_value=333.33, remaining_value=6666.70, depreciated_value=3333.30, state='posted'),
-            self._get_depreciation_move_values(date='2020-11-30', depreciation_value=333.33, remaining_value=6333.37, depreciated_value=3666.63, state='posted'),
-            self._get_depreciation_move_values(date='2020-12-31', depreciation_value=333.33, remaining_value=6000.04, depreciated_value=3999.96, state='posted'),
-
-            self._get_depreciation_move_values(date='2021-01-31', depreciation_value=277.78, remaining_value=5722.26, depreciated_value=4277.74, state='posted'),
-            self._get_depreciation_move_values(date='2021-02-28', depreciation_value=277.78, remaining_value=5444.48, depreciated_value=4555.52, state='posted'),
-            self._get_depreciation_move_values(date='2021-03-31', depreciation_value=277.78, remaining_value=5166.70, depreciated_value=4833.30, state='posted'),
-            self._get_depreciation_move_values(date='2021-04-30', depreciation_value=277.77, remaining_value=4888.93, depreciated_value=5111.07, state='posted'),
-            self._get_depreciation_move_values(date='2021-05-31', depreciation_value=277.78, remaining_value=4611.15, depreciated_value=5388.85, state='posted'),
-            self._get_depreciation_move_values(date='2021-06-30', depreciation_value=277.78, remaining_value=4333.37, depreciated_value=5666.63, state='posted'),
-            self._get_depreciation_move_values(date='2021-07-31', depreciation_value=277.78, remaining_value=4055.59, depreciated_value=5944.41, state='posted'),
-            self._get_depreciation_move_values(date='2021-08-31', depreciation_value=277.78, remaining_value=3777.81, depreciated_value=6222.19, state='posted'),
-            self._get_depreciation_move_values(date='2021-09-30', depreciation_value=277.77, remaining_value=3500.04, depreciated_value=6499.96, state='posted'),
-            self._get_depreciation_move_values(date='2021-10-31', depreciation_value=277.78, remaining_value=3222.26, depreciated_value=6777.74, state='posted'),
-            self._get_depreciation_move_values(date='2021-11-30', depreciation_value=277.78, remaining_value=2944.48, depreciated_value=7055.52, state='posted'),
-            self._get_depreciation_move_values(date='2021-12-31', depreciation_value=277.78, remaining_value=2666.70, depreciated_value=7333.30, state='posted'),
-
-            self._get_depreciation_move_values(date='2022-01-31', depreciation_value=277.77, remaining_value=2388.93, depreciated_value=7611.07, state='posted'),
-            self._get_depreciation_move_values(date='2022-02-28', depreciation_value=277.78, remaining_value=2111.15, depreciated_value=7888.85, state='posted'),
-            self._get_depreciation_move_values(date='2022-03-31', depreciation_value=277.78, remaining_value=1833.37, depreciated_value=8166.63, state='posted'),
-            self._get_depreciation_move_values(date='2022-04-30', depreciation_value=277.78, remaining_value=1555.59, depreciated_value=8444.41, state='posted'),
-            self._get_depreciation_move_values(date='2022-05-31', depreciation_value=277.78, remaining_value=1277.81, depreciated_value=8722.19, state='posted'),
-            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=277.77, remaining_value=1000.04, depreciated_value=8999.96, state='posted'),
-            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=277.78, remaining_value=722.26, depreciated_value=9277.74, state='draft'),
-            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=277.78, remaining_value=444.48, depreciated_value=9555.52, state='draft'),
-            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=277.78, remaining_value=166.70, depreciated_value=9833.30, state='draft'),
-            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=166.70, remaining_value=0.00, depreciated_value=10000.000, state='draft'),
+            self._get_depreciation_move_values(date='2020-02-29', depreciation_value=333.34, remaining_value=9333.33, depreciated_value=666.67, state='posted'),
+            self._get_depreciation_move_values(date='2020-03-31', depreciation_value=333.33, remaining_value=9000.00, depreciated_value=1000.00, state='posted'),
+            self._get_depreciation_move_values(date='2020-04-30', depreciation_value=333.33, remaining_value=8666.67, depreciated_value=1333.33, state='posted'),
+            self._get_depreciation_move_values(date='2020-05-31', depreciation_value=333.34, remaining_value=8333.33, depreciated_value=1666.67, state='posted'),
+            self._get_depreciation_move_values(date='2020-06-30', depreciation_value=333.33, remaining_value=8000.00, depreciated_value=2000.00, state='posted'),
+            self._get_depreciation_move_values(date='2020-07-31', depreciation_value=333.33, remaining_value=7666.67, depreciated_value=2333.33, state='posted'),
+            self._get_depreciation_move_values(date='2020-08-31', depreciation_value=333.34, remaining_value=7333.33, depreciated_value=2666.67, state='posted'),
+            self._get_depreciation_move_values(date='2020-09-30', depreciation_value=333.33, remaining_value=7000.00, depreciated_value=3000.00, state='posted'),
+            self._get_depreciation_move_values(date='2020-10-31', depreciation_value=333.33, remaining_value=6666.67, depreciated_value=3333.33, state='posted'),
+            self._get_depreciation_move_values(date='2020-11-30', depreciation_value=333.34, remaining_value=6333.33, depreciated_value=3666.67, state='posted'),
+            self._get_depreciation_move_values(date='2020-12-31', depreciation_value=333.33, remaining_value=6000.00, depreciated_value=4000.00, state='posted'),
+            self._get_depreciation_move_values(date='2021-01-31', depreciation_value=277.78, remaining_value=5722.22, depreciated_value=4277.78, state='posted'),
+            self._get_depreciation_move_values(date='2021-02-28', depreciation_value=277.78, remaining_value=5444.44, depreciated_value=4555.56, state='posted'),
+            self._get_depreciation_move_values(date='2021-03-31', depreciation_value=277.78, remaining_value=5166.66, depreciated_value=4833.34, state='posted'),
+            self._get_depreciation_move_values(date='2021-04-30', depreciation_value=277.77, remaining_value=4888.89, depreciated_value=5111.11, state='posted'),
+            self._get_depreciation_move_values(date='2021-05-31', depreciation_value=277.78, remaining_value=4611.11, depreciated_value=5388.89, state='posted'),
+            self._get_depreciation_move_values(date='2021-06-30', depreciation_value=277.78, remaining_value=4333.33, depreciated_value=5666.67, state='posted'),
+            self._get_depreciation_move_values(date='2021-07-31', depreciation_value=277.78, remaining_value=4055.55, depreciated_value=5944.45, state='posted'),
+            self._get_depreciation_move_values(date='2021-08-31', depreciation_value=277.78, remaining_value=3777.77, depreciated_value=6222.23, state='posted'),
+            self._get_depreciation_move_values(date='2021-09-30', depreciation_value=277.77, remaining_value=3500.00, depreciated_value=6500.00, state='posted'),
+            self._get_depreciation_move_values(date='2021-10-31', depreciation_value=277.78, remaining_value=3222.22, depreciated_value=6777.78, state='posted'),
+            self._get_depreciation_move_values(date='2021-11-30', depreciation_value=277.78, remaining_value=2944.44, depreciated_value=7055.56, state='posted'),
+            self._get_depreciation_move_values(date='2021-12-31', depreciation_value=277.78, remaining_value=2666.66, depreciated_value=7333.34, state='posted'),
+            self._get_depreciation_move_values(date='2022-01-31', depreciation_value=277.77, remaining_value=2388.89, depreciated_value=7611.11, state='posted'),
+            self._get_depreciation_move_values(date='2022-02-28', depreciation_value=277.78, remaining_value=2111.11, depreciated_value=7888.89, state='posted'),
+            self._get_depreciation_move_values(date='2022-03-31', depreciation_value=277.78, remaining_value=1833.33, depreciated_value=8166.67, state='posted'),
+            self._get_depreciation_move_values(date='2022-04-30', depreciation_value=277.78, remaining_value=1555.55, depreciated_value=8444.45, state='posted'),
+            self._get_depreciation_move_values(date='2022-05-31', depreciation_value=277.78, remaining_value=1277.77, depreciated_value=8722.23, state='posted'),
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=277.77, remaining_value=1000.00, depreciated_value=9000.00, state='posted'),
+            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=277.78, remaining_value=722.22, depreciated_value=9277.78, state='draft'),
+            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=277.78, remaining_value=444.44, depreciated_value=9555.56, state='draft'),
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=277.78, remaining_value=166.66, depreciated_value=9833.34, state='draft'),
+            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=166.66, remaining_value=0.00, depreciated_value=10000.00, state='draft'),
         ])
 
 
@@ -355,7 +357,7 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2023-06-30', depreciation_value=277.78, remaining_value=1133.33, depreciated_value=8866.67, state='draft'),
             self._get_depreciation_move_values(date='2023-07-31', depreciation_value=277.77, remaining_value=855.56, depreciated_value=9144.44, state='draft'),
             self._get_depreciation_move_values(date='2023-08-31', depreciation_value=277.78, remaining_value=577.78, depreciated_value=9422.22, state='draft'),
-            self._get_depreciation_move_values(date='2023-09-30', depreciation_value=277.78, remaining_value=300, depreciated_value=9700, state='draft'),
+            self._get_depreciation_move_values(date='2023-09-30', depreciation_value=277.78, remaining_value=300.00, depreciated_value=9700.00, state='draft'),
             self._get_depreciation_move_values(date='2023-10-31', depreciation_value=277.78, remaining_value=22.22, depreciated_value=9977.78, state='draft'),
             self._get_depreciation_move_values(date='2023-11-30', depreciation_value=22.22, remaining_value=0.00, depreciated_value=10000.00, state='draft'),
         ])
@@ -759,7 +761,7 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
         })
         self.car.validate()
         self.assertEqual(self.car.state, 'open')
-        self.assertEqual(self.car.book_value, 24990)
+        self.assertEqual(self.car.book_value, 24500)
         self.assertRecordValues(self.car.depreciation_move_ids, [
             # 2020
             self._get_depreciation_move_values(date='2020-01-31', depreciation_value=1500.0, remaining_value=58500.0, depreciated_value=1500.0, state='posted'),
@@ -788,44 +790,208 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2021-11-30', depreciation_value=1050.0, remaining_value=30450.0, depreciated_value=29550.0, state='posted'),
             self._get_depreciation_move_values(date='2021-12-31', depreciation_value=1050.0, remaining_value=29400.0, depreciated_value=30600.0, state='posted'),
             # 2022
-            self._get_depreciation_move_values(date='2022-01-31', depreciation_value=735.0, remaining_value=28665.0, depreciated_value=31335.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-02-28', depreciation_value=735.0, remaining_value=27930.0, depreciated_value=32070.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-03-31', depreciation_value=735.0, remaining_value=27195.0, depreciated_value=32805.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-04-30', depreciation_value=735.0, remaining_value=26460.0, depreciated_value=33540.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-05-31', depreciation_value=735.0, remaining_value=25725.0, depreciated_value=34275.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=735.0, remaining_value=24990.0, depreciated_value=35010.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=735.0, remaining_value=24255.0, depreciated_value=35745.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=735.0, remaining_value=23520.0, depreciated_value=36480.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=735.0, remaining_value=22785.0, depreciated_value=37215.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=735.0, remaining_value=22050.0, depreciated_value=37950.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=735.0, remaining_value=21315.0, depreciated_value=38685.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=735.0, remaining_value=20580.0, depreciated_value=39420.0, state='draft'),
+            self._get_depreciation_move_values(date='2022-01-31', depreciation_value=816.67, remaining_value=28583.33, depreciated_value=31416.67, state='posted'),
+            self._get_depreciation_move_values(date='2022-02-28', depreciation_value=816.66, remaining_value=27766.67, depreciated_value=32233.33, state='posted'),
+            self._get_depreciation_move_values(date='2022-03-31', depreciation_value=816.67, remaining_value=26950.0, depreciated_value=33050.0, state='posted'),
+            self._get_depreciation_move_values(date='2022-04-30', depreciation_value=816.67, remaining_value=26133.33, depreciated_value=33866.67, state='posted'),
+            self._get_depreciation_move_values(date='2022-05-31', depreciation_value=816.66, remaining_value=25316.67, depreciated_value=34683.33, state='posted'),
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=816.67, remaining_value=24500.0, depreciated_value=35500.0, state='posted'),
+            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=816.67, remaining_value=23683.33, depreciated_value=36316.67, state='draft'),
+            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=816.66, remaining_value=22866.67, depreciated_value=37133.33, state='draft'),
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=816.67, remaining_value=22050.0, depreciated_value=37950.0, state='draft'),
+            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=816.67, remaining_value=21233.33, depreciated_value=38766.67, state='draft'),
+            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=816.66, remaining_value=20416.67, depreciated_value=39583.33, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=816.67, remaining_value=19600.0, depreciated_value=40400.0, state='draft'),
             # 2023
-            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=514.5, remaining_value=20065.5, depreciated_value=39934.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=514.5, remaining_value=19551.0, depreciated_value=40449.0, state='draft'),
-            self._get_depreciation_move_values(date='2023-03-31', depreciation_value=514.5, remaining_value=19036.5, depreciated_value=40963.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-04-30', depreciation_value=514.5, remaining_value=18522.0, depreciated_value=41478.0, state='draft'),
-            self._get_depreciation_move_values(date='2023-05-31', depreciation_value=514.5, remaining_value=18007.5, depreciated_value=41992.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-06-30', depreciation_value=514.5, remaining_value=17493.0, depreciated_value=42507.0, state='draft'),
-            self._get_depreciation_move_values(date='2023-07-31', depreciation_value=514.5, remaining_value=16978.5, depreciated_value=43021.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-08-31', depreciation_value=514.5, remaining_value=16464.0, depreciated_value=43536.0, state='draft'),
-            self._get_depreciation_move_values(date='2023-09-30', depreciation_value=514.5, remaining_value=15949.5, depreciated_value=44050.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-10-31', depreciation_value=514.5, remaining_value=15435.0, depreciated_value=44565.0, state='draft'),
-            self._get_depreciation_move_values(date='2023-11-30', depreciation_value=514.5, remaining_value=14920.5, depreciated_value=45079.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=514.5, remaining_value=14406.0, depreciated_value=45594.0, state='draft'),
+            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=816.67, remaining_value=18783.33, depreciated_value=41216.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=816.66, remaining_value=17966.67, depreciated_value=42033.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-03-31', depreciation_value=816.67, remaining_value=17150.0, depreciated_value=42850.0, state='draft'),
+            self._get_depreciation_move_values(date='2023-04-30', depreciation_value=816.67, remaining_value=16333.33, depreciated_value=43666.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-05-31', depreciation_value=816.66, remaining_value=15516.67, depreciated_value=44483.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-06-30', depreciation_value=816.67, remaining_value=14700.0, depreciated_value=45300.0, state='draft'),
+            self._get_depreciation_move_values(date='2023-07-31', depreciation_value=816.67, remaining_value=13883.33, depreciated_value=46116.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-08-31', depreciation_value=816.66, remaining_value=13066.67, depreciated_value=46933.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-09-30', depreciation_value=816.67, remaining_value=12250.0, depreciated_value=47750.0, state='draft'),
+            self._get_depreciation_move_values(date='2023-10-31', depreciation_value=816.67, remaining_value=11433.33, depreciated_value=48566.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-11-30', depreciation_value=816.66, remaining_value=10616.67, depreciated_value=49383.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=816.67, remaining_value=9800.0, depreciated_value=50200.0, state='draft'),
             # 2024
-            self._get_depreciation_move_values(date='2024-01-31', depreciation_value=360.15, remaining_value=14045.85, depreciated_value=45954.15, state='draft'),
-            self._get_depreciation_move_values(date='2024-02-29', depreciation_value=360.15, remaining_value=13685.70, depreciated_value=46314.30, state='draft'),
-            self._get_depreciation_move_values(date='2024-03-31', depreciation_value=360.15, remaining_value=13325.55, depreciated_value=46674.45, state='draft'),
-            self._get_depreciation_move_values(date='2024-04-30', depreciation_value=360.15, remaining_value=12965.40, depreciated_value=47034.60, state='draft'),
-            self._get_depreciation_move_values(date='2024-05-31', depreciation_value=360.15, remaining_value=12605.25, depreciated_value=47394.75, state='draft'),
-            self._get_depreciation_move_values(date='2024-06-30', depreciation_value=360.15, remaining_value=12245.10, depreciated_value=47754.90, state='draft'),
-            self._get_depreciation_move_values(date='2024-07-31', depreciation_value=360.15, remaining_value=11884.95, depreciated_value=48115.05, state='draft'),
-            self._get_depreciation_move_values(date='2024-08-31', depreciation_value=360.15, remaining_value=11524.80, depreciated_value=48475.20, state='draft'),
-            self._get_depreciation_move_values(date='2024-09-30', depreciation_value=360.15, remaining_value=11164.65, depreciated_value=48835.35, state='draft'),
-            self._get_depreciation_move_values(date='2024-10-31', depreciation_value=360.15, remaining_value=10804.50, depreciated_value=49195.50, state='draft'),
-            self._get_depreciation_move_values(date='2024-11-30', depreciation_value=360.15, remaining_value=10444.35, depreciated_value=49555.65, state='draft'),
-            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=10444.35, remaining_value=0, depreciated_value=60000, state='draft'),
+            self._get_depreciation_move_values(date='2024-01-31', depreciation_value=816.67, remaining_value=8983.33, depreciated_value=51016.67, state='draft'),
+            self._get_depreciation_move_values(date='2024-02-29', depreciation_value=816.66, remaining_value=8166.67, depreciated_value=51833.33, state='draft'),
+            self._get_depreciation_move_values(date='2024-03-31', depreciation_value=816.67, remaining_value=7350.0, depreciated_value=52650.0, state='draft'),
+            self._get_depreciation_move_values(date='2024-04-30', depreciation_value=816.67, remaining_value=6533.33, depreciated_value=53466.67, state='draft'),
+            self._get_depreciation_move_values(date='2024-05-31', depreciation_value=816.66, remaining_value=5716.67, depreciated_value=54283.33, state='draft'),
+            self._get_depreciation_move_values(date='2024-06-30', depreciation_value=816.67, remaining_value=4900.0, depreciated_value=55100.0, state='draft'),
+            self._get_depreciation_move_values(date='2024-07-31', depreciation_value=816.67, remaining_value=4083.33, depreciated_value=55916.67, state='draft'),
+            self._get_depreciation_move_values(date='2024-08-31', depreciation_value=816.66, remaining_value=3266.67, depreciated_value=56733.33, state='draft'),
+            self._get_depreciation_move_values(date='2024-09-30', depreciation_value=816.67, remaining_value=2450.0, depreciated_value=57550.0, state='draft'),
+            self._get_depreciation_move_values(date='2024-10-31', depreciation_value=816.67, remaining_value=1633.33, depreciated_value=58366.67, state='draft'),
+            self._get_depreciation_move_values(date='2024-11-30', depreciation_value=816.66, remaining_value=816.67, depreciated_value=59183.33, state='draft'),
+            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=816.67, remaining_value=0.0, depreciated_value=60000.0, state='draft'),
+        ])
+
+    def test_degressive_60_months_from_middle_year(self):
+        asset = self.create_asset(
+            value=100000,
+            periodicity='monthly',
+            periods=60,
+            method='degressive',
+            method_progress_factor=0.35,
+            acquisition_date='2022-07-01',
+            prorata_computation_type='constant_periods'
+        )
+        asset.compute_depreciation_board()
+        self.assertEqual(asset.state, 'draft')
+        self.assertEqual(asset.book_value, 100000)
+        self.assertRecordValues(asset.depreciation_move_ids, [
+            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=2916.67, remaining_value=97083.33, depreciated_value=2916.67, state='draft'),
+            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=2916.66, remaining_value=94166.67, depreciated_value=5833.33, state='draft'),
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=2916.67, remaining_value=91250.00, depreciated_value=8750.00, state='draft'),
+            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=2916.67, remaining_value=88333.33, depreciated_value=11666.67, state='draft'),
+            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=2916.66, remaining_value=85416.67, depreciated_value=14583.33, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=2916.67, remaining_value=82500.00, depreciated_value=17500.00, state='draft'),
+
+            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=2406.25, remaining_value=80093.75, depreciated_value=19906.25, state='draft'),
+            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=2406.25, remaining_value=77687.50, depreciated_value=22312.50, state='draft'),
+            self._get_depreciation_move_values(date='2023-03-31', depreciation_value=2406.25, remaining_value=75281.25, depreciated_value=24718.75, state='draft'),
+            self._get_depreciation_move_values(date='2023-04-30', depreciation_value=2406.25, remaining_value=72875.00, depreciated_value=27125.00, state='draft'),
+            self._get_depreciation_move_values(date='2023-05-31', depreciation_value=2406.25, remaining_value=70468.75, depreciated_value=29531.25, state='draft'),
+            self._get_depreciation_move_values(date='2023-06-30', depreciation_value=2406.25, remaining_value=68062.50, depreciated_value=31937.50, state='draft'),
+            self._get_depreciation_move_values(date='2023-07-31', depreciation_value=2406.25, remaining_value=65656.25, depreciated_value=34343.75, state='draft'),
+            self._get_depreciation_move_values(date='2023-08-31', depreciation_value=2406.25, remaining_value=63250.00, depreciated_value=36750.00, state='draft'),
+            self._get_depreciation_move_values(date='2023-09-30', depreciation_value=2406.25, remaining_value=60843.75, depreciated_value=39156.25, state='draft'),
+            self._get_depreciation_move_values(date='2023-10-31', depreciation_value=2406.25, remaining_value=58437.50, depreciated_value=41562.50, state='draft'),
+            self._get_depreciation_move_values(date='2023-11-30', depreciation_value=2406.25, remaining_value=56031.25, depreciated_value=43968.75, state='draft'),
+            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=2406.25, remaining_value=53625.00, depreciated_value=46375.00, state='draft'),
+
+            self._get_depreciation_move_values(date='2024-01-31', depreciation_value=1564.06, remaining_value=52060.94, depreciated_value=47939.06, state='draft'),
+            self._get_depreciation_move_values(date='2024-02-29', depreciation_value=1564.07, remaining_value=50496.87, depreciated_value=49503.13, state='draft'),
+            self._get_depreciation_move_values(date='2024-03-31', depreciation_value=1564.06, remaining_value=48932.81, depreciated_value=51067.19, state='draft'),
+            self._get_depreciation_move_values(date='2024-04-30', depreciation_value=1564.06, remaining_value=47368.75, depreciated_value=52631.25, state='draft'),
+            self._get_depreciation_move_values(date='2024-05-31', depreciation_value=1564.06, remaining_value=45804.69, depreciated_value=54195.31, state='draft'),
+            self._get_depreciation_move_values(date='2024-06-30', depreciation_value=1564.07, remaining_value=44240.62, depreciated_value=55759.38, state='draft'),
+            self._get_depreciation_move_values(date='2024-07-31', depreciation_value=1564.06, remaining_value=42676.56, depreciated_value=57323.44, state='draft'),
+            self._get_depreciation_move_values(date='2024-08-31', depreciation_value=1564.06, remaining_value=41112.50, depreciated_value=58887.50, state='draft'),
+            self._get_depreciation_move_values(date='2024-09-30', depreciation_value=1564.06, remaining_value=39548.44, depreciated_value=60451.56, state='draft'),
+            self._get_depreciation_move_values(date='2024-10-31', depreciation_value=1564.07, remaining_value=37984.37, depreciated_value=62015.63, state='draft'),
+            self._get_depreciation_move_values(date='2024-11-30', depreciation_value=1564.06, remaining_value=36420.31, depreciated_value=63579.69, state='draft'),
+            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=1564.06, remaining_value=34856.25, depreciated_value=65143.75, state='draft'),
+
+            self._get_depreciation_move_values(date='2025-01-31', depreciation_value=1161.88, remaining_value=33694.37, depreciated_value=66305.63, state='draft'),
+            self._get_depreciation_move_values(date='2025-02-28', depreciation_value=1161.87, remaining_value=32532.50, depreciated_value=67467.50, state='draft'),
+            self._get_depreciation_move_values(date='2025-03-31', depreciation_value=1161.88, remaining_value=31370.62, depreciated_value=68629.38, state='draft'),
+            self._get_depreciation_move_values(date='2025-04-30', depreciation_value=1161.87, remaining_value=30208.75, depreciated_value=69791.25, state='draft'),
+            self._get_depreciation_move_values(date='2025-05-31', depreciation_value=1161.88, remaining_value=29046.87, depreciated_value=70953.13, state='draft'),
+            self._get_depreciation_move_values(date='2025-06-30', depreciation_value=1161.87, remaining_value=27885.00, depreciated_value=72115.00, state='draft'),
+            self._get_depreciation_move_values(date='2025-07-31', depreciation_value=1161.88, remaining_value=26723.12, depreciated_value=73276.88, state='draft'),
+            self._get_depreciation_move_values(date='2025-08-31', depreciation_value=1161.87, remaining_value=25561.25, depreciated_value=74438.75, state='draft'),
+            self._get_depreciation_move_values(date='2025-09-30', depreciation_value=1161.88, remaining_value=24399.37, depreciated_value=75600.63, state='draft'),
+            self._get_depreciation_move_values(date='2025-10-31', depreciation_value=1161.87, remaining_value=23237.50, depreciated_value=76762.50, state='draft'),
+            self._get_depreciation_move_values(date='2025-11-30', depreciation_value=1161.88, remaining_value=22075.62, depreciated_value=77924.38, state='draft'),
+            self._get_depreciation_move_values(date='2025-12-31', depreciation_value=1161.87, remaining_value=20913.75, depreciated_value=79086.25, state='draft'),
+
+            self._get_depreciation_move_values(date='2026-01-31', depreciation_value=1161.88, remaining_value=19751.87, depreciated_value=80248.13, state='draft'),
+            self._get_depreciation_move_values(date='2026-02-28', depreciation_value=1161.87, remaining_value=18590.00, depreciated_value=81410.00, state='draft'),
+            self._get_depreciation_move_values(date='2026-03-31', depreciation_value=1161.88, remaining_value=17428.12, depreciated_value=82571.88, state='draft'),
+            self._get_depreciation_move_values(date='2026-04-30', depreciation_value=1161.87, remaining_value=16266.25, depreciated_value=83733.75, state='draft'),
+            self._get_depreciation_move_values(date='2026-05-31', depreciation_value=1161.88, remaining_value=15104.37, depreciated_value=84895.63, state='draft'),
+            self._get_depreciation_move_values(date='2026-06-30', depreciation_value=1161.87, remaining_value=13942.50, depreciated_value=86057.50, state='draft'),
+            self._get_depreciation_move_values(date='2026-07-31', depreciation_value=1161.88, remaining_value=12780.62, depreciated_value=87219.38, state='draft'),
+            self._get_depreciation_move_values(date='2026-08-31', depreciation_value=1161.87, remaining_value=11618.75, depreciated_value=88381.25, state='draft'),
+            self._get_depreciation_move_values(date='2026-09-30', depreciation_value=1161.88, remaining_value=10456.87, depreciated_value=89543.13, state='draft'),
+            self._get_depreciation_move_values(date='2026-10-31', depreciation_value=1161.87, remaining_value=9295.00, depreciated_value=90705.00, state='draft'),
+            self._get_depreciation_move_values(date='2026-11-30', depreciation_value=1161.88, remaining_value=8133.12, depreciated_value=91866.88, state='draft'),
+            self._get_depreciation_move_values(date='2026-12-31', depreciation_value=1161.87, remaining_value=6971.25, depreciated_value=93028.75, state='draft'),
+
+            self._get_depreciation_move_values(date='2027-01-31', depreciation_value=1161.88, remaining_value=5809.37, depreciated_value=94190.63, state='draft'),
+            self._get_depreciation_move_values(date='2027-02-28', depreciation_value=1161.87, remaining_value=4647.50, depreciated_value=95352.50, state='draft'),
+            self._get_depreciation_move_values(date='2027-03-31', depreciation_value=1161.88, remaining_value=3485.62, depreciated_value=96514.38, state='draft'),
+            self._get_depreciation_move_values(date='2027-04-30', depreciation_value=1161.87, remaining_value=2323.75, depreciated_value=97676.25, state='draft'),
+            self._get_depreciation_move_values(date='2027-05-31', depreciation_value=1161.88, remaining_value=1161.87, depreciated_value=98838.13, state='draft'),
+            self._get_depreciation_move_values(date='2027-06-30', depreciation_value=1161.87, remaining_value=0.00, depreciated_value=100000.00, state='draft'),
+        ])
+
+    def test_degressive_60_months_from_middle_sync_with_fiscalyear(self):
+        company = self.env.company
+        company.fiscalyear_last_day = 30
+        company.fiscalyear_last_month = '6'
+        asset = self.create_asset(
+            value=100000,
+            periodicity='monthly',
+            periods=60,
+            method='degressive',
+            method_progress_factor=0.35,
+            acquisition_date='2022-07-01',
+            prorata_computation_type='constant_periods'
+        )
+        asset.compute_depreciation_board()
+        self.assertEqual(asset.state, 'draft')
+        self.assertEqual(asset.book_value, 100000)
+        self.assertRecordValues(asset.depreciation_move_ids, [
+            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=2916.67, remaining_value=97083.33, depreciated_value=2916.67, state='draft'),
+            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=2916.66, remaining_value=94166.67, depreciated_value=5833.33, state='draft'),
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=2916.67, remaining_value=91250.00, depreciated_value=8750.00, state='draft'),
+            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=2916.67, remaining_value=88333.33, depreciated_value=11666.67, state='draft'),
+            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=2916.66, remaining_value=85416.67, depreciated_value=14583.33, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=2916.67, remaining_value=82500.00, depreciated_value=17500.00, state='draft'),
+            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=2916.67, remaining_value=79583.33, depreciated_value=20416.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=2916.66, remaining_value=76666.67, depreciated_value=23333.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-03-31', depreciation_value=2916.67, remaining_value=73750.00, depreciated_value=26250.00, state='draft'),
+            self._get_depreciation_move_values(date='2023-04-30', depreciation_value=2916.67, remaining_value=70833.33, depreciated_value=29166.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-05-31', depreciation_value=2916.66, remaining_value=67916.67, depreciated_value=32083.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-06-30', depreciation_value=2916.67, remaining_value=65000.00, depreciated_value=35000.00, state='draft'),
+
+            self._get_depreciation_move_values(date='2023-07-31', depreciation_value=1895.83, remaining_value=63104.17, depreciated_value=36895.83, state='draft'),
+            self._get_depreciation_move_values(date='2023-08-31', depreciation_value=1895.84, remaining_value=61208.33, depreciated_value=38791.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-09-30', depreciation_value=1895.83, remaining_value=59312.50, depreciated_value=40687.50, state='draft'),
+            self._get_depreciation_move_values(date='2023-10-31', depreciation_value=1895.83, remaining_value=57416.67, depreciated_value=42583.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-11-30', depreciation_value=1895.84, remaining_value=55520.83, depreciated_value=44479.17, state='draft'),
+            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=1895.83, remaining_value=53625.00, depreciated_value=46375.00, state='draft'),
+            self._get_depreciation_move_values(date='2024-01-31', depreciation_value=1895.83, remaining_value=51729.17, depreciated_value=48270.83, state='draft'),
+            self._get_depreciation_move_values(date='2024-02-29', depreciation_value=1895.84, remaining_value=49833.33, depreciated_value=50166.67, state='draft'),
+            self._get_depreciation_move_values(date='2024-03-31', depreciation_value=1895.83, remaining_value=47937.50, depreciated_value=52062.50, state='draft'),
+            self._get_depreciation_move_values(date='2024-04-30', depreciation_value=1895.83, remaining_value=46041.67, depreciated_value=53958.33, state='draft'),
+            self._get_depreciation_move_values(date='2024-05-31', depreciation_value=1895.84, remaining_value=44145.83, depreciated_value=55854.17, state='draft'),
+            self._get_depreciation_move_values(date='2024-06-30', depreciation_value=1895.83, remaining_value=42250.00, depreciated_value=57750.00, state='draft'),
+
+            self._get_depreciation_move_values(date='2024-07-31', depreciation_value=1232.29, remaining_value=41017.71, depreciated_value=58982.29, state='draft'),
+            self._get_depreciation_move_values(date='2024-08-31', depreciation_value=1232.29, remaining_value=39785.42, depreciated_value=60214.58, state='draft'),
+            self._get_depreciation_move_values(date='2024-09-30', depreciation_value=1232.29, remaining_value=38553.13, depreciated_value=61446.87, state='draft'),
+            self._get_depreciation_move_values(date='2024-10-31', depreciation_value=1232.30, remaining_value=37320.83, depreciated_value=62679.17, state='draft'),
+            self._get_depreciation_move_values(date='2024-11-30', depreciation_value=1232.29, remaining_value=36088.54, depreciated_value=63911.46, state='draft'),
+            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=1232.29, remaining_value=34856.25, depreciated_value=65143.75, state='draft'),
+            self._get_depreciation_move_values(date='2025-01-31', depreciation_value=1232.29, remaining_value=33623.96, depreciated_value=66376.04, state='draft'),
+            self._get_depreciation_move_values(date='2025-02-28', depreciation_value=1232.29, remaining_value=32391.67, depreciated_value=67608.33, state='draft'),
+            self._get_depreciation_move_values(date='2025-03-31', depreciation_value=1232.29, remaining_value=31159.38, depreciated_value=68840.62, state='draft'),
+            self._get_depreciation_move_values(date='2025-04-30', depreciation_value=1232.30, remaining_value=29927.08, depreciated_value=70072.92, state='draft'),
+            self._get_depreciation_move_values(date='2025-05-31', depreciation_value=1232.29, remaining_value=28694.79, depreciated_value=71305.21, state='draft'),
+            self._get_depreciation_move_values(date='2025-06-30', depreciation_value=1232.29, remaining_value=27462.50, depreciated_value=72537.50, state='draft'),
+
+            self._get_depreciation_move_values(date='2025-07-31', depreciation_value=1144.27, remaining_value=26318.23, depreciated_value=73681.77, state='draft'),
+            self._get_depreciation_move_values(date='2025-08-31', depreciation_value=1144.27, remaining_value=25173.96, depreciated_value=74826.04, state='draft'),
+            self._get_depreciation_move_values(date='2025-09-30', depreciation_value=1144.27, remaining_value=24029.69, depreciated_value=75970.31, state='draft'),
+            self._get_depreciation_move_values(date='2025-10-31', depreciation_value=1144.27, remaining_value=22885.42, depreciated_value=77114.58, state='draft'),
+            self._get_depreciation_move_values(date='2025-11-30', depreciation_value=1144.27, remaining_value=21741.15, depreciated_value=78258.85, state='draft'),
+            self._get_depreciation_move_values(date='2025-12-31', depreciation_value=1144.27, remaining_value=20596.88, depreciated_value=79403.12, state='draft'),
+            self._get_depreciation_move_values(date='2026-01-31', depreciation_value=1144.28, remaining_value=19452.60, depreciated_value=80547.40, state='draft'),
+            self._get_depreciation_move_values(date='2026-02-28', depreciation_value=1144.27, remaining_value=18308.33, depreciated_value=81691.67, state='draft'),
+            self._get_depreciation_move_values(date='2026-03-31', depreciation_value=1144.27, remaining_value=17164.06, depreciated_value=82835.94, state='draft'),
+            self._get_depreciation_move_values(date='2026-04-30', depreciation_value=1144.27, remaining_value=16019.79, depreciated_value=83980.21, state='draft'),
+            self._get_depreciation_move_values(date='2026-05-31', depreciation_value=1144.27, remaining_value=14875.52, depreciated_value=85124.48, state='draft'),
+            self._get_depreciation_move_values(date='2026-06-30', depreciation_value=1144.27, remaining_value=13731.25, depreciated_value=86268.75, state='draft'),
+
+            self._get_depreciation_move_values(date='2026-07-31', depreciation_value=1144.27, remaining_value=12586.98, depreciated_value=87413.02, state='draft'),
+            self._get_depreciation_move_values(date='2026-08-31', depreciation_value=1144.27, remaining_value=11442.71, depreciated_value=88557.29, state='draft'),
+            self._get_depreciation_move_values(date='2026-09-30', depreciation_value=1144.27, remaining_value=10298.44, depreciated_value=89701.56, state='draft'),
+            self._get_depreciation_move_values(date='2026-10-31', depreciation_value=1144.27, remaining_value=9154.17, depreciated_value=90845.83, state='draft'),
+            self._get_depreciation_move_values(date='2026-11-30', depreciation_value=1144.27, remaining_value=8009.90, depreciated_value=91990.10, state='draft'),
+            self._get_depreciation_move_values(date='2026-12-31', depreciation_value=1144.27, remaining_value=6865.63, depreciated_value=93134.37, state='draft'),
+            self._get_depreciation_move_values(date='2027-01-31', depreciation_value=1144.28, remaining_value=5721.35, depreciated_value=94278.65, state='draft'),
+            self._get_depreciation_move_values(date='2027-02-28', depreciation_value=1144.27, remaining_value=4577.08, depreciated_value=95422.92, state='draft'),
+            self._get_depreciation_move_values(date='2027-03-31', depreciation_value=1144.27, remaining_value=3432.81, depreciated_value=96567.19, state='draft'),
+            self._get_depreciation_move_values(date='2027-04-30', depreciation_value=1144.27, remaining_value=2288.54, depreciated_value=97711.46, state='draft'),
+            self._get_depreciation_move_values(date='2027-05-31', depreciation_value=1144.27, remaining_value=1144.27, depreciated_value=98855.73, state='draft'),
+            self._get_depreciation_move_values(date='2027-06-30', depreciation_value=1144.27, remaining_value=0.00, depreciated_value=100000.00, state='draft'),
         ])
 
     def test_degressive_60_months_no_prorata_with_imported_amount_asset(self):
@@ -838,7 +1004,7 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
         })
         self.car.validate()
         self.assertEqual(self.car.state, 'open')
-        self.assertEqual(self.car.book_value, 24990)
+        self.assertEqual(self.car.book_value, 24500)
         self.assertRecordValues(self.car.depreciation_move_ids, [
             # 2020
             self._get_depreciation_move_values(date='2020-02-29', depreciation_value=1000.0, remaining_value=57000.0, depreciated_value=1000.0, state='posted'),
@@ -866,44 +1032,44 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2021-11-30', depreciation_value=1050.0, remaining_value=30450.0, depreciated_value=27550.0, state='posted'),
             self._get_depreciation_move_values(date='2021-12-31', depreciation_value=1050.0, remaining_value=29400.0, depreciated_value=28600.0, state='posted'),
             # 2022
-            self._get_depreciation_move_values(date='2022-01-31', depreciation_value=735.0, remaining_value=28665.0, depreciated_value=29335.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-02-28', depreciation_value=735.0, remaining_value=27930.0, depreciated_value=30070.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-03-31', depreciation_value=735.0, remaining_value=27195.0, depreciated_value=30805.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-04-30', depreciation_value=735.0, remaining_value=26460.0, depreciated_value=31540.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-05-31', depreciation_value=735.0, remaining_value=25725.0, depreciated_value=32275.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=735.0, remaining_value=24990.0, depreciated_value=33010.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=735.0, remaining_value=24255.0, depreciated_value=33745.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=735.0, remaining_value=23520.0, depreciated_value=34480.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=735.0, remaining_value=22785.0, depreciated_value=35215.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=735.0, remaining_value=22050.0, depreciated_value=35950.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=735.0, remaining_value=21315.0, depreciated_value=36685.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=735.0, remaining_value=20580.0, depreciated_value=37420.0, state='draft'),
+            self._get_depreciation_move_values(date='2022-01-31', depreciation_value=816.67, remaining_value=28583.33, depreciated_value=29416.67, state='posted'),
+            self._get_depreciation_move_values(date='2022-02-28', depreciation_value=816.66, remaining_value=27766.67, depreciated_value=30233.33, state='posted'),
+            self._get_depreciation_move_values(date='2022-03-31', depreciation_value=816.67, remaining_value=26950.0, depreciated_value=31050.0, state='posted'),
+            self._get_depreciation_move_values(date='2022-04-30', depreciation_value=816.67, remaining_value=26133.33, depreciated_value=31866.67, state='posted'),
+            self._get_depreciation_move_values(date='2022-05-31', depreciation_value=816.66, remaining_value=25316.67, depreciated_value=32683.33, state='posted'),
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=816.67, remaining_value=24500.0, depreciated_value=33500.0, state='posted'),
+            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=816.67, remaining_value=23683.33, depreciated_value=34316.67, state='draft'),
+            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=816.66, remaining_value=22866.67, depreciated_value=35133.33, state='draft'),
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=816.67, remaining_value=22050.0, depreciated_value=35950.0, state='draft'),
+            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=816.67, remaining_value=21233.33, depreciated_value=36766.67, state='draft'),
+            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=816.66, remaining_value=20416.67, depreciated_value=37583.33, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=816.67, remaining_value=19600.0, depreciated_value=38400.0, state='draft'),
             # 2023
-            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=514.5, remaining_value=20065.5, depreciated_value=37934.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=514.5, remaining_value=19551.0, depreciated_value=38449.0, state='draft'),
-            self._get_depreciation_move_values(date='2023-03-31', depreciation_value=514.5, remaining_value=19036.5, depreciated_value=38963.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-04-30', depreciation_value=514.5, remaining_value=18522.0, depreciated_value=39478.0, state='draft'),
-            self._get_depreciation_move_values(date='2023-05-31', depreciation_value=514.5, remaining_value=18007.5, depreciated_value=39992.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-06-30', depreciation_value=514.5, remaining_value=17493.0, depreciated_value=40507.0, state='draft'),
-            self._get_depreciation_move_values(date='2023-07-31', depreciation_value=514.5, remaining_value=16978.5, depreciated_value=41021.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-08-31', depreciation_value=514.5, remaining_value=16464.0, depreciated_value=41536.0, state='draft'),
-            self._get_depreciation_move_values(date='2023-09-30', depreciation_value=514.5, remaining_value=15949.5, depreciated_value=42050.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-10-31', depreciation_value=514.5, remaining_value=15435.0, depreciated_value=42565.0, state='draft'),
-            self._get_depreciation_move_values(date='2023-11-30', depreciation_value=514.5, remaining_value=14920.5, depreciated_value=43079.5, state='draft'),
-            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=514.5, remaining_value=14406.0, depreciated_value=43594.0, state='draft'),
+            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=816.67, remaining_value=18783.33, depreciated_value=39216.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=816.66, remaining_value=17966.67, depreciated_value=40033.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-03-31', depreciation_value=816.67, remaining_value=17150.0, depreciated_value=40850.0, state='draft'),
+            self._get_depreciation_move_values(date='2023-04-30', depreciation_value=816.67, remaining_value=16333.33, depreciated_value=41666.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-05-31', depreciation_value=816.66, remaining_value=15516.67, depreciated_value=42483.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-06-30', depreciation_value=816.67, remaining_value=14700.0, depreciated_value=43300.0, state='draft'),
+            self._get_depreciation_move_values(date='2023-07-31', depreciation_value=816.67, remaining_value=13883.33, depreciated_value=44116.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-08-31', depreciation_value=816.66, remaining_value=13066.67, depreciated_value=44933.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-09-30', depreciation_value=816.67, remaining_value=12250.0, depreciated_value=45750.0, state='draft'),
+            self._get_depreciation_move_values(date='2023-10-31', depreciation_value=816.67, remaining_value=11433.33, depreciated_value=46566.67, state='draft'),
+            self._get_depreciation_move_values(date='2023-11-30', depreciation_value=816.66, remaining_value=10616.67, depreciated_value=47383.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=816.67, remaining_value=9800.0, depreciated_value=48200.0, state='draft'),
             # 2024
-            self._get_depreciation_move_values(date='2024-01-31', depreciation_value=360.15, remaining_value=14045.85, depreciated_value=43954.15, state='draft'),
-            self._get_depreciation_move_values(date='2024-02-29', depreciation_value=360.15, remaining_value=13685.70, depreciated_value=44314.30, state='draft'),
-            self._get_depreciation_move_values(date='2024-03-31', depreciation_value=360.15, remaining_value=13325.55, depreciated_value=44674.45, state='draft'),
-            self._get_depreciation_move_values(date='2024-04-30', depreciation_value=360.15, remaining_value=12965.40, depreciated_value=45034.60, state='draft'),
-            self._get_depreciation_move_values(date='2024-05-31', depreciation_value=360.15, remaining_value=12605.25, depreciated_value=45394.75, state='draft'),
-            self._get_depreciation_move_values(date='2024-06-30', depreciation_value=360.15, remaining_value=12245.10, depreciated_value=45754.90, state='draft'),
-            self._get_depreciation_move_values(date='2024-07-31', depreciation_value=360.15, remaining_value=11884.95, depreciated_value=46115.05, state='draft'),
-            self._get_depreciation_move_values(date='2024-08-31', depreciation_value=360.15, remaining_value=11524.80, depreciated_value=46475.20, state='draft'),
-            self._get_depreciation_move_values(date='2024-09-30', depreciation_value=360.15, remaining_value=11164.65, depreciated_value=46835.35, state='draft'),
-            self._get_depreciation_move_values(date='2024-10-31', depreciation_value=360.15, remaining_value=10804.50, depreciated_value=47195.50, state='draft'),
-            self._get_depreciation_move_values(date='2024-11-30', depreciation_value=360.15, remaining_value=10444.35, depreciated_value=47555.65, state='draft'),
-            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=10444.35, remaining_value=0, depreciated_value=58000, state='draft'),
+            self._get_depreciation_move_values(date='2024-01-31', depreciation_value=816.67, remaining_value=8983.33, depreciated_value=49016.67, state='draft'),
+            self._get_depreciation_move_values(date='2024-02-29', depreciation_value=816.66, remaining_value=8166.67, depreciated_value=49833.33, state='draft'),
+            self._get_depreciation_move_values(date='2024-03-31', depreciation_value=816.67, remaining_value=7350.0, depreciated_value=50650.0, state='draft'),
+            self._get_depreciation_move_values(date='2024-04-30', depreciation_value=816.67, remaining_value=6533.33, depreciated_value=51466.67, state='draft'),
+            self._get_depreciation_move_values(date='2024-05-31', depreciation_value=816.66, remaining_value=5716.67, depreciated_value=52283.33, state='draft'),
+            self._get_depreciation_move_values(date='2024-06-30', depreciation_value=816.67, remaining_value=4900.0, depreciated_value=53100.0, state='draft'),
+            self._get_depreciation_move_values(date='2024-07-31', depreciation_value=816.67, remaining_value=4083.33, depreciated_value=53916.67, state='draft'),
+            self._get_depreciation_move_values(date='2024-08-31', depreciation_value=816.66, remaining_value=3266.67, depreciated_value=54733.33, state='draft'),
+            self._get_depreciation_move_values(date='2024-09-30', depreciation_value=816.67, remaining_value=2450.0, depreciated_value=55550.0, state='draft'),
+            self._get_depreciation_move_values(date='2024-10-31', depreciation_value=816.67, remaining_value=1633.33, depreciated_value=56366.67, state='draft'),
+            self._get_depreciation_move_values(date='2024-11-30', depreciation_value=816.66, remaining_value=816.67, depreciated_value=57183.33, state='draft'),
+            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=816.67, remaining_value=0.0, depreciated_value=58000.0, state='draft'),
         ])
 
     def test_degressive_60_months_no_prorata_with_salvage_value_asset(self):
@@ -916,8 +1082,8 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
         })
         self.car.validate()
         self.assertEqual(self.car.state, 'open')
-        self.assertEqual(self.car.book_value, 26157)
-        self.assertEqual(self.car.value_residual, 24157)
+        self.assertEqual(self.car.book_value, 25683.33)
+        self.assertEqual(self.car.value_residual, 23683.33)
         self.assertRecordValues(self.car.depreciation_move_ids, [
             # 2020
             self._get_depreciation_move_values(date='2020-01-31', depreciation_value=1450.0, remaining_value=56550.0, depreciated_value=1450.0, state='posted'),
@@ -946,44 +1112,87 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2021-11-30', depreciation_value=1015.0, remaining_value=29435.0, depreciated_value=28565.0, state='posted'),
             self._get_depreciation_move_values(date='2021-12-31', depreciation_value=1015.0, remaining_value=28420.0, depreciated_value=29580.0, state='posted'),
             # 2022
-            self._get_depreciation_move_values(date='2022-01-31', depreciation_value=710.5, remaining_value=27709.5, depreciated_value=30290.5, state='posted'),
-            self._get_depreciation_move_values(date='2022-02-28', depreciation_value=710.5, remaining_value=26999.0, depreciated_value=31001.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-03-31', depreciation_value=710.5, remaining_value=26288.5, depreciated_value=31711.5, state='posted'),
-            self._get_depreciation_move_values(date='2022-04-30', depreciation_value=710.5, remaining_value=25578.0, depreciated_value=32422.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-05-31', depreciation_value=710.5, remaining_value=24867.5, depreciated_value=33132.5, state='posted'),
-            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=710.5, remaining_value=24157.0, depreciated_value=33843.0, state='posted'),
-            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=710.5, remaining_value=23446.5, depreciated_value=34553.5, state='draft'),
-            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=710.5, remaining_value=22736.0, depreciated_value=35264.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=710.5, remaining_value=22025.5, depreciated_value=35974.5, state='draft'),
-            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=710.5, remaining_value=21315.0, depreciated_value=36685.0, state='draft'),
-            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=710.5, remaining_value=20604.5, depreciated_value=37395.5, state='draft'),
-            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=710.5, remaining_value=19894.0, depreciated_value=38106.0, state='draft'),
+            self._get_depreciation_move_values(date='2022-01-31', depreciation_value=789.44, remaining_value=27630.56, depreciated_value=30369.44, state='posted'),
+            self._get_depreciation_move_values(date='2022-02-28', depreciation_value=789.45, remaining_value=26841.11, depreciated_value=31158.89, state='posted'),
+            self._get_depreciation_move_values(date='2022-03-31', depreciation_value=789.44, remaining_value=26051.67, depreciated_value=31948.33, state='posted'),
+            self._get_depreciation_move_values(date='2022-04-30', depreciation_value=789.45, remaining_value=25262.22, depreciated_value=32737.78, state='posted'),
+            self._get_depreciation_move_values(date='2022-05-31', depreciation_value=789.44, remaining_value=24472.78, depreciated_value=33527.22, state='posted'),
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=789.45, remaining_value=23683.33, depreciated_value=34316.67, state='posted'),
+            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=789.44, remaining_value=22893.89, depreciated_value=35106.11, state='draft'),
+            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=789.45, remaining_value=22104.44, depreciated_value=35895.56, state='draft'),
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=789.44, remaining_value=21315.0, depreciated_value=36685.0, state='draft'),
+            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=789.44, remaining_value=20525.56, depreciated_value=37474.44, state='draft'),
+            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=789.45, remaining_value=19736.11, depreciated_value=38263.89, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=789.44, remaining_value=18946.67, depreciated_value=39053.33, state='draft'),
             # 2023
-            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=497.35, remaining_value=19396.65, depreciated_value=38603.35, state='draft'),
-            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=497.35, remaining_value=18899.30, depreciated_value=39100.70, state='draft'),
-            self._get_depreciation_move_values(date='2023-03-31', depreciation_value=497.35, remaining_value=18401.95, depreciated_value=39598.05, state='draft'),
-            self._get_depreciation_move_values(date='2023-04-30', depreciation_value=497.35, remaining_value=17904.60, depreciated_value=40095.40, state='draft'),
-            self._get_depreciation_move_values(date='2023-05-31', depreciation_value=497.35, remaining_value=17407.25, depreciated_value=40592.75, state='draft'),
-            self._get_depreciation_move_values(date='2023-06-30', depreciation_value=497.35, remaining_value=16909.90, depreciated_value=41090.10, state='draft'),
-            self._get_depreciation_move_values(date='2023-07-31', depreciation_value=497.35, remaining_value=16412.55, depreciated_value=41587.45, state='draft'),
-            self._get_depreciation_move_values(date='2023-08-31', depreciation_value=497.35, remaining_value=15915.20, depreciated_value=42084.80, state='draft'),
-            self._get_depreciation_move_values(date='2023-09-30', depreciation_value=497.35, remaining_value=15417.85, depreciated_value=42582.15, state='draft'),
-            self._get_depreciation_move_values(date='2023-10-31', depreciation_value=497.35, remaining_value=14920.50, depreciated_value=43079.50, state='draft'),
-            self._get_depreciation_move_values(date='2023-11-30', depreciation_value=497.35, remaining_value=14423.15, depreciated_value=43576.85, state='draft'),
-            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=497.35, remaining_value=13925.80, depreciated_value=44074.20, state='draft'),
+            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=789.44, remaining_value=18157.23, depreciated_value=39842.77, state='draft'),
+            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=789.45, remaining_value=17367.78, depreciated_value=40632.22, state='draft'),
+            self._get_depreciation_move_values(date='2023-03-31', depreciation_value=789.44, remaining_value=16578.34, depreciated_value=41421.66, state='draft'),
+            self._get_depreciation_move_values(date='2023-04-30', depreciation_value=789.45, remaining_value=15788.89, depreciated_value=42211.11, state='draft'),
+            self._get_depreciation_move_values(date='2023-05-31', depreciation_value=789.44, remaining_value=14999.45, depreciated_value=43000.55, state='draft'),
+            self._get_depreciation_move_values(date='2023-06-30', depreciation_value=789.45, remaining_value=14210.0, depreciated_value=43790.0, state='draft'),
+            self._get_depreciation_move_values(date='2023-07-31', depreciation_value=789.44, remaining_value=13420.56, depreciated_value=44579.44, state='draft'),
+            self._get_depreciation_move_values(date='2023-08-31', depreciation_value=789.45, remaining_value=12631.11, depreciated_value=45368.89, state='draft'),
+            self._get_depreciation_move_values(date='2023-09-30', depreciation_value=789.44, remaining_value=11841.67, depreciated_value=46158.33, state='draft'),
+            self._get_depreciation_move_values(date='2023-10-31', depreciation_value=789.45, remaining_value=11052.22, depreciated_value=46947.78, state='draft'),
+            self._get_depreciation_move_values(date='2023-11-30', depreciation_value=789.44, remaining_value=10262.78, depreciated_value=47737.22, state='draft'),
+            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=789.44, remaining_value=9473.34, depreciated_value=48526.66, state='draft'),
             # 2024
-            self._get_depreciation_move_values(date='2024-01-31', depreciation_value=348.15, remaining_value=13577.65, depreciated_value=44422.35, state='draft'),
-            self._get_depreciation_move_values(date='2024-02-29', depreciation_value=348.15, remaining_value=13229.50, depreciated_value=44770.50, state='draft'),
-            self._get_depreciation_move_values(date='2024-03-31', depreciation_value=348.15, remaining_value=12881.35, depreciated_value=45118.65, state='draft'),
-            self._get_depreciation_move_values(date='2024-04-30', depreciation_value=348.15, remaining_value=12533.20, depreciated_value=45466.80, state='draft'),
-            self._get_depreciation_move_values(date='2024-05-31', depreciation_value=348.15, remaining_value=12185.05, depreciated_value=45814.95, state='draft'),
-            self._get_depreciation_move_values(date='2024-06-30', depreciation_value=348.15, remaining_value=11836.90, depreciated_value=46163.10, state='draft'),
-            self._get_depreciation_move_values(date='2024-07-31', depreciation_value=348.15, remaining_value=11488.75, depreciated_value=46511.25, state='draft'),
-            self._get_depreciation_move_values(date='2024-08-31', depreciation_value=348.15, remaining_value=11140.60, depreciated_value=46859.40, state='draft'),
-            self._get_depreciation_move_values(date='2024-09-30', depreciation_value=348.15, remaining_value=10792.45, depreciated_value=47207.55, state='draft'),
-            self._get_depreciation_move_values(date='2024-10-31', depreciation_value=348.15, remaining_value=10444.30, depreciated_value=47555.70, state='draft'),
-            self._get_depreciation_move_values(date='2024-11-30', depreciation_value=348.15, remaining_value=10096.15, depreciated_value=47903.85, state='draft'),
-            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=10096.15, remaining_value=0, depreciated_value=58000, state='draft'),
+            self._get_depreciation_move_values(date='2024-01-31', depreciation_value=789.44, remaining_value=8683.9, depreciated_value=49316.1, state='draft'),
+            self._get_depreciation_move_values(date='2024-02-29', depreciation_value=789.45, remaining_value=7894.45, depreciated_value=50105.55, state='draft'),
+            self._get_depreciation_move_values(date='2024-03-31', depreciation_value=789.45, remaining_value=7105.0, depreciated_value=50895.0, state='draft'),
+            self._get_depreciation_move_values(date='2024-04-30', depreciation_value=789.44, remaining_value=6315.56, depreciated_value=51684.44, state='draft'),
+            self._get_depreciation_move_values(date='2024-05-31', depreciation_value=789.44, remaining_value=5526.12, depreciated_value=52473.88, state='draft'),
+            self._get_depreciation_move_values(date='2024-06-30', depreciation_value=789.45, remaining_value=4736.67, depreciated_value=53263.33, state='draft'),
+            self._get_depreciation_move_values(date='2024-07-31', depreciation_value=789.44, remaining_value=3947.23, depreciated_value=54052.77, state='draft'),
+            self._get_depreciation_move_values(date='2024-08-31', depreciation_value=789.45, remaining_value=3157.78, depreciated_value=54842.22, state='draft'),
+            self._get_depreciation_move_values(date='2024-09-30', depreciation_value=789.45, remaining_value=2368.33, depreciated_value=55631.67, state='draft'),
+            self._get_depreciation_move_values(date='2024-10-31', depreciation_value=789.44, remaining_value=1578.89, depreciated_value=56421.11, state='draft'),
+            self._get_depreciation_move_values(date='2024-11-30', depreciation_value=789.45, remaining_value=789.44, depreciated_value=57210.56, state='draft'),
+            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=789.44, remaining_value=0.0, depreciated_value=58000.0, state='draft'),
+        ])
+
+    def test_degressive_5_years_from_beggining_of_year(self):
+        asset = self.create_asset(
+            value=100000,
+            periodicity='yearly',
+            periods=5,
+            method='degressive',
+            method_progress_factor=0.35,
+            acquisition_date='2022-01-01',
+            prorata_computation_type='constant_periods'
+        )
+        asset.compute_depreciation_board()
+        self.assertEqual(asset.state, 'draft')
+        self.assertEqual(asset.book_value, 100000)
+        self.assertRecordValues(asset.depreciation_move_ids, [
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=35000.00, remaining_value=65000.00, depreciated_value=35000.00, state='draft'),
+            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=22750.00, remaining_value=42250.00, depreciated_value=57750.00, state='draft'),
+            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=14787.50, remaining_value=27462.50, depreciated_value=72537.50, state='draft'),
+            self._get_depreciation_move_values(date='2025-12-31', depreciation_value=13731.25, remaining_value=13731.25, depreciated_value=86268.75, state='draft'),
+            self._get_depreciation_move_values(date='2026-12-31', depreciation_value=13731.25, remaining_value=0.00, depreciated_value=100000.00, state='draft'),
+        ])
+
+    def test_degressive_5_years_from_middle_of_year(self):
+        asset = self.create_asset(
+            value=100000,
+            periodicity='yearly',
+            periods=5,
+            method='degressive',
+            method_progress_factor=0.35,
+            acquisition_date='2022-07-01',
+            prorata_computation_type='constant_periods'
+        )
+        asset.compute_depreciation_board()
+        self.assertEqual(asset.state, 'draft')
+        self.assertEqual(asset.book_value, 100000)
+        self.assertRecordValues(asset.depreciation_move_ids, [
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=17500.00, remaining_value=82500.00, depreciated_value=17500.00, state='draft'),
+            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=28875.00, remaining_value=53625.00, depreciated_value=46375.00, state='draft'),
+            self._get_depreciation_move_values(date='2024-12-31', depreciation_value=18768.75, remaining_value=34856.25, depreciated_value=65143.75, state='draft'),
+            self._get_depreciation_move_values(date='2025-12-31', depreciation_value=13942.50, remaining_value=20913.75, depreciated_value=79086.25, state='draft'),
+            self._get_depreciation_move_values(date='2026-12-31', depreciation_value=13942.50, remaining_value=6971.25, depreciated_value=93028.75, state='draft'),
+            self._get_depreciation_move_values(date='2027-12-31', depreciation_value=6971.25, remaining_value=0.00, depreciated_value=100000.00, state='draft'),
         ])
 
     def test_compute_board_in_mass(self):
