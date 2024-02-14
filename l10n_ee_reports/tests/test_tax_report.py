@@ -90,7 +90,7 @@ class EstonianTaxReportTest(AccountSalesReportCommon):
                     ('company_id', '=', cls.company_data['company'].id)
                 ], limit=1),
             'vat_in_0_kms_41_1': cls.env['account.tax'].with_context(active_test=False).search([
-                    ('name', '=', '0% KMS §41¹'),
+                    ('name', '=', '22% KMS §41¹'),
                     ('type_tax_use', '=', 'purchase'),
                     ('amount', '=', 22),
                     ('company_id', '=', cls.company_data['company'].id)
@@ -147,7 +147,7 @@ class EstonianTaxReportTest(AccountSalesReportCommon):
                     ('company_id', '=', cls.company_data['company'].id)
                 ], limit=1),
             'vat_out_0_kms_41_1': cls.env['account.tax'].with_context(active_test=False).search([
-                    ('name', '=', '0% KMS §41¹'),
+                    ('name', '=', '22% KMS §41¹'),
                     ('type_tax_use', '=', 'sale'),
                     ('amount', '=', 22),
                     ('company_id', '=', cls.company_data['company'].id)
