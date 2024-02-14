@@ -2284,7 +2284,65 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         url = self._get_client_action_url(receipt.id)
         self.start_tour(url, 'test_editing_done_picking', login='admin', timeout=180)
 
-    #=== GS1 TESTS ===#
+    def test_sml_sort_order_by_product_category(self):
+        """Test the lines are correctly sorted in the Barcode App regarding
+        their product's category.
+        """
+        self.clean_access_rights()
+        # Creates two categories and some products using them.
+        product_categoryB = self.env["product.category"].create({"name": "TestB"})
+        product_categoryA = self.env["product.category"].create({"name": "TestA"})
+        productA = self.env["product.product"].create(
+            {"name": "Product A", "categ_id": product_categoryB.id, "type": "product"}
+        )
+        productB = self.env["product.product"].create(
+            {"name": "Product B", "categ_id": product_categoryA.id, "type": "product"}
+        )
+        productC = self.env["product.product"].create(
+            {"name": "Product C", "categ_id": product_categoryB.id, "type": "product"}
+        )
+        # Creates a receipt with three move lines (one for each product).
+        receipt = self.env["stock.picking"].create(
+            {
+                "location_id": self.stock_location.id,
+                "location_dest_id": self.stock_location.id,
+                "picking_type_id": self.picking_type_in.id,
+            }
+        )
+        self.env["stock.move.line"].create(
+            [
+                {
+                    "product_id": productA.id,
+                    "product_uom_id": productA.uom_id.id,
+                    "location_id": self.stock_location.id,
+                    "location_dest_id": self.stock_location.id,
+                    "qty_done": 1,
+                    "picking_id": receipt.id,
+                },
+                {
+                    "product_id": productB.id,
+                    "product_uom_id": productB.uom_id.id,
+                    "location_id": self.stock_location.id,
+                    "location_dest_id": self.stock_location.id,
+                    "qty_done": 1,
+                    "picking_id": receipt.id,
+                },
+                {
+                    "product_id": productC.id,
+                    "product_uom_id": productC.uom_id.id,
+                    "location_id": self.stock_location.id,
+                    "location_dest_id": self.stock_location.id,
+                    "qty_done": 1,
+                    "picking_id": receipt.id,
+                },
+            ]
+        )
+        url = self._get_client_action_url(receipt.id)
+        self.start_tour(
+            url, "test_sml_sort_order_by_product_category", login="admin", timeout=180
+        )
+
+    # === GS1 TESTS ===#
     def test_gs1_delivery_ambiguous_serial_number(self):
         """
         Have a delivery for a product tracked by SN then scan a SN who exists for

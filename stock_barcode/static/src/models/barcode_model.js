@@ -1285,8 +1285,8 @@ export default class BarcodeModel extends EventBus {
             }
         }
         // Sort by product's category.
-        const categ1 = l1.categ_id;
-        const categ2 = l2.categ_id;
+        const categ1 = l1.product_category_name;
+        const categ2 = l2.product_category_name;
         if (categ1 < categ2) {
             return -1;
         } else if (categ1 > categ2) {

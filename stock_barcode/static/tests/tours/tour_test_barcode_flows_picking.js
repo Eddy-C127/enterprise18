@@ -4014,3 +4014,22 @@ registry.category("web_tour.tours").add('test_editing_done_picking', {
         },
     ]
 });
+
+registry.category("web_tour.tours").add("test_sml_sort_order_by_product_category", { test: true, steps: () => [
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(3);
+            // Product B should be first because it belongs to category A.
+            const line1 = document.querySelector('.o_barcode_line:first-child');
+            helper.assertLineProduct(line1, "Product B");
+            // Product A should comes after Product B because of its category
+            // and before Product C because of its product's name.
+            const line2 = document.querySelector('.o_barcode_line:nth-child(2)');
+            helper.assertLineProduct(line2, "Product A");
+            // Product C should be last.
+            const line3 = document.querySelector('.o_barcode_line:last-child');
+            helper.assertLineProduct(line3, "Product C");
+        }
+    },
+]});
