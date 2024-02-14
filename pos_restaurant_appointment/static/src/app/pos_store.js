@@ -13,9 +13,9 @@ patch(PosStore.prototype, {
                     return;
                 }
 
-                this.pos.models.loadData({ "calendar.event": [event] });
+                this.models.loadData({ "calendar.event": [event] });
             } else if (command === "REMOVED") {
-                const rec = this.pos.models["calendar.event"].get(event.id);
+                const rec = this.models["calendar.event"].get(event.id);
 
                 if (!rec) {
                     return;
