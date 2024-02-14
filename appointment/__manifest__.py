@@ -17,6 +17,7 @@ Allow clients to Schedule Appointments through the Portal
         'data/calendar_data.xml',
         'data/mail_message_subtype_data.xml',
         'data/mail_template_data.xml',
+        'data/resource_calendar_data.xml',
         'security/res_groups_data.xml',
         'security/ir_rule_data.xml',
         'security/ir.model.access.csv',
