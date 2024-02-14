@@ -50,10 +50,7 @@ patch(PosStore.prototype, {
     async settleCustomerDue(partner) {
         const updatedDue = await this.refreshTotalDueOfPartner(partner);
         const totalDue = updatedDue ? updatedDue[0].total_due : partner.total_due;
-        const paymentMethods = this.payment_methods.filter(
-            (method) =>
-                this.config.payment_method_ids.includes(method.id) && method.type != "pay_later"
-        );
+        const paymentMethods = this.config.payment_method_ids.filter((method) => method.type != "pay_later");
         const selectionList = paymentMethods.map((paymentMethod) => ({
             id: paymentMethod.id,
             label: paymentMethod.name,
