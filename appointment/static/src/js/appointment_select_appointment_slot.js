@@ -146,7 +146,7 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
         const slots = this.$(ev.currentTarget).data('availableSlots');
         const scheduleBasedOn = this.$("input[name='schedule_based_on']").val();
         const resourceAssignMethod = this.$("input[name='assign_method']").val();
-        const resourceId = this.$("input[name='resource_selected_id']").val();
+        const resourceId = this.$("select[id='selectAppointmentResource']").val() || this.$("input[name='resource_selected_id']").val();
         const resourceCapacity = this.$("select[name='resourceCapacity']").val();
         let commonUrlParams = new URLSearchParams(window.location.search);
         // If for instance the chosen slot is already taken, then an error is thrown and the
