@@ -52,7 +52,7 @@ export class SpreadsheetSelectorPanel extends Component {
         });
         this.keepLast = new KeepLast();
         this.orm = useService("orm");
-        this.currentSearch = "";
+        this.domain = [];
         this.debounce = undefined;
 
         onWillStart(async () => {
@@ -89,14 +89,24 @@ export class SpreadsheetSelectorPanel extends Component {
         throw new Error("Should be implemented by subclass.");
     }
 
-    onSearchInput(ev) {
-        this.currentSearch = ev.target.value;
+    async onSearchInput(ev) {
+        const currentSearch = ev.target.value;
+        this.domain = currentSearch !== "" ? [["name", "ilike", currentSearch]] : [];
+
+        // Reset pager offset and get the total count based on the search criteria
+        this.state.pagerProps.offset = 0;
         this._debouncedFetchSpreadsheets();
     }
 
     _debouncedFetchSpreadsheets() {
         browser.clearTimeout(this.debounce);
-        this.debounce = browser.setTimeout(() => this._fetchSpreadsheets.call(this), 400);
+        this.debounce = browser.setTimeout(async () => {
+            const [, total] = await Promise.all([
+                this._fetchSpreadsheets(),
+                this._fetchPagerTotal(),
+            ]);
+            this.state.pagerProps.total = total;
+        }, 400);
     }
 
     /**

@@ -13,6 +13,7 @@ import {
     getFixture,
     click,
     patchWithCleanup,
+    nextTick,
 } from "@web/../tests/helpers/utils";
 import { getBasicData } from "@spreadsheet/../tests/utils/data";
 
@@ -417,6 +418,58 @@ QUnit.module(
                 assert.notOk(
                     [...selection.options].find((option) => option.value === "TRASH"),
                     "Trash workspace should not be present in the selection"
+                );
+            }
+        );
+
+        QUnit.test(
+            "Offset reset to zero after searching for template in template dialog",
+            async function (assert) {
+                const mockRPC = async function (route, args) {
+                    if (
+                        args.method === "web_search_read" &&
+                        args.model === "spreadsheet.template"
+                    ) {
+                        assert.step(
+                            JSON.stringify({
+                                offset: args.kwargs.offset,
+                                limit: args.kwargs.limit,
+                            })
+                        );
+                    }
+                };
+
+                await initTestEnvWithKanban({ additionalTemplates: TEST_TEMPLATES, mockRPC });
+
+                const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+                await click(menu, ".dropdown-toggle");
+                await click(menu, ".o_documents_kanban_spreadsheet");
+                const dialog = document.querySelector(".o-spreadsheet-templates-dialog");
+
+                assert.equal(
+                    dialog.querySelectorAll(".o-template:not(.o-template-ghost-item)").length,
+                    10
+                );
+                await click(dialog.querySelector(".o_pager_next"));
+                assert.verifySteps([
+                    JSON.stringify({ offset: 0, limit: 9 }),
+                    JSON.stringify({ offset: 9, limit: 9 }),
+                ]);
+
+                const searchInput = dialog.querySelector(".o_searchview_input");
+                await editInput(searchInput, null, "Template 1");
+                await triggerEvent(searchInput, null, "keydown", { key: "Enter" });
+                await nextTick();
+
+                assert.equal(
+                    dialog.querySelectorAll(".o-template:not(.o-template-ghost-item)").length,
+                    5
+                ); // Blank template, Template 1, Template 10, Template 11, Template 12
+                assert.verifySteps([JSON.stringify({ offset: 0, limit: 9 })]);
+                assert.strictEqual(
+                    target.querySelector(".o_pager_value").textContent,
+                    "1-4",
+                    "Pager should be reset to 1-4 after searching for a template"
                 );
             }
         );

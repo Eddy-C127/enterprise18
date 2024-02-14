@@ -11,7 +11,7 @@ import { useHotkey } from "@web/core/hotkeys/hotkey_hook";
 import { getDefaultConfig } from "@web/views/view";
 import { _t } from "@web/core/l10n/translation";
 
-import { Component, useState, useSubEnv, useChildSubEnv, onWillStart } from "@odoo/owl";
+import { Component, useState, useSubEnv, useChildSubEnv, onWillStart, useEffect } from "@odoo/owl";
 
 export class TemplateDialog extends Component {
     static components = { Dialog, SearchBar, Pager };
@@ -83,6 +83,10 @@ export class TemplateDialog extends Component {
             });
             await this._fetchTemplates();
         });
+
+        useEffect(() => {
+            this.state.offset = 0;
+        }, () => [this.model.searchDomain]);
     }
 
     /**
