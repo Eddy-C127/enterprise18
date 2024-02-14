@@ -78,6 +78,7 @@ class StockMoveLine(models.Model):
     def _get_fields_stock_barcode(self):
         return [
             'product_id',
+            'product_category_name',
             'location_id',
             'location_dest_id',
             'move_id',
