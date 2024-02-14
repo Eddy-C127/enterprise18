@@ -1982,6 +1982,11 @@ registry.category("web_tour.tours").add('test_picking_type_mandatory_scan_settin
         extra_trigger: 'div[name="barcode_messages"] .fa-check-square',
     },
     { trigger: '.o_notification_bar.bg-success', isCheck: true },
+    // Checks that, despite scanning set to 'no', source and destination locations are still shown
+    { trigger: '.o_barcode_line:nth-child(1) .o_line_source_location:contains(".../Section 1")', isCheck: true },
+    { trigger: '.o_barcode_line:nth-child(1) .o_line_destination_location:contains("WH/Stock")', isCheck: true },
+    { trigger: '.o_barcode_line:nth-child(2) .o_line_source_location:contains(".../Section 1")', isCheck: true },
+    { trigger: '.o_barcode_line:nth-child(2) .o_line_destination_location:contains("WH/Stock")', isCheck: true },
 ]});
 
 registry.category("web_tour.tours").add('test_picking_type_mandatory_scan_settings_pick_int_2', {test: true, steps: () => [
