@@ -984,6 +984,7 @@ class AccountOnlineLink(models.Model):
                     'countryCode': country.code,
                     'countryName': country.display_name,
                     'serverVersion': odoo.release.serie,
+                    'mfa_type': self.env.user._mfa_type(),
                 }
             },
         }
