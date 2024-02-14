@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.tests import tagged, Form
 
@@ -27,7 +27,6 @@ class TestReleaseToPayInvoice(AccountTestInvoicingCommon):
     def check_release_to_pay_scenario(self, ordered_qty, scenario, invoicing_policy='receive', order_price=500.0):
         """ Generic test function to check that each use scenario behaves properly.
         """
-
         self.product.purchase_method = invoicing_policy
 
         purchase_order = self.env['purchase.order'].create({
@@ -57,6 +56,10 @@ class TestReleaseToPayInvoice(AccountTestInvoicingCommon):
                     if 'qty' in params:
                         line_form.quantity = params['qty']
                 new_invoice = move_form.save()
+                new_invoice.write({'invoice_line_ids': [
+                    Command.create({'display_type': 'line_section', 'name': 'Section'}),
+                    Command.create({'display_type': 'line_note', 'name': 'Note'}),
+                ]})
                 invoices_list.append(new_invoice)
 
                 self.assertEqual(new_invoice.release_to_pay, params['rslt'], "Wrong invoice release to pay status for scenario " + str(scenario))
