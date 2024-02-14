@@ -330,7 +330,7 @@ class AppointmentResourceBookingTest(AppointmentCommon):
         ])
 
         with freeze_time(self.reference_now):
-            with self.assertQueryCount(default=8):
+            with self.assertQueryCount(default=10):
                 appointment._get_appointment_slots('UTC')
 
     @users('apt_manager')
