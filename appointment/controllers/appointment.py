@@ -289,7 +289,7 @@ class AppointmentController(http.Controller):
             elif appointment_type.assign_method == 'time_auto_assign' and len(users_possible) == 1:
                 user_default = users_possible[0]
         elif resources_possible:
-            if resource_selected_id and resource_selected_id in resources_possible.ids:
+            if resource_selected_id and resource_selected_id in resources_possible.ids and appointment_type.assign_method != 'time_resource':
                 resource_selected = request.env['appointment.resource'].sudo().browse(resource_selected_id)
             elif appointment_type.assign_method == 'resource_time':
                 resource_default = resources_possible[0]
