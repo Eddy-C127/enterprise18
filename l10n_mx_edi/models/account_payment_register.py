@@ -14,18 +14,6 @@ class AccountPaymentRegister(models.TransientModel):
              "Cash, Nominal Check, Credit Card, etc.")
 
     # -------------------------------------------------------------------------
-    # HELPERS
-    # -------------------------------------------------------------------------
-
-    @api.model
-    def _get_line_batch_key(self, line):
-        # OVERRIDE
-        # Group moves also using these additional fields.
-        res = super()._get_line_batch_key(line)
-        res['l10n_mx_edi_payment_method_id'] = line.move_id.l10n_mx_edi_payment_method_id.id
-        return res
-
-    # -------------------------------------------------------------------------
     # COMPUTE METHODS
     # -------------------------------------------------------------------------
 
@@ -34,7 +22,7 @@ class AccountPaymentRegister(models.TransientModel):
         for wizard in self:
             if wizard.can_edit_wizard:
                 batches = wizard._get_batches()
-                wizard.l10n_mx_edi_payment_method_id = batches[0]['payment_values']['l10n_mx_edi_payment_method_id']
+                wizard.l10n_mx_edi_payment_method_id = wizard.line_ids.move_id.l10n_mx_edi_payment_method_id[:1]
             else:
                 wizard.l10n_mx_edi_payment_method_id = False
 
@@ -51,5 +39,5 @@ class AccountPaymentRegister(models.TransientModel):
     def _create_payment_vals_from_batch(self, batch_result):
         # OVERRIDE
         payment_vals = super()._create_payment_vals_from_batch(batch_result)
-        payment_vals['l10n_mx_edi_payment_method_id'] = batch_result['payment_values']['l10n_mx_edi_payment_method_id']
+        payment_vals['l10n_mx_edi_payment_method_id'] = self.l10n_mx_edi_payment_method_id.id
         return payment_vals
