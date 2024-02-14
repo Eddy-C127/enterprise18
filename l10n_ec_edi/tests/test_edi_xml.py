@@ -110,6 +110,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                 <pago>
                     <formaPago>16</formaPago>
                     <total>477.63</total>
+                    <moneda>DOLAR</moneda>
                 </pago>
             </xpath>
             <xpath expr="//detalles/detalle" position="after">
@@ -185,6 +186,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                 <pago>
                     <formaPago>16</formaPago>
                     <total>955.26</total>
+                    <moneda>DOLAR</moneda>
                 </pago>
             </xpath>
             <xpath expr="//detalles/detalle" position="replace">
@@ -375,6 +377,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                 <pago>
                     <formaPago>01</formaPago>
                     <total>400.00</total>
+                    <moneda>DOLAR</moneda>
                 </pago>
             </xpath>
         """
@@ -485,6 +488,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                         <pago>
                             <formaPago>01</formaPago>
                             <total>896.00</total>
+                            <moneda>DOLAR</moneda>
                         </pago>
                     </pagos>
                 </docSustento>
@@ -518,6 +522,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                             <pago>
                                 <formaPago>01</formaPago>
                                 <total>448.00</total>
+                                <moneda>DOLAR</moneda>
                             </pago>
                         </pagos>
                     </docSustento>
@@ -611,6 +616,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                 <pago>
                     <formaPago>{payment_code}</formaPago>
                     <total>448.00</total>
+                    <moneda>DOLAR</moneda>
                 </pago>
             </xpath>
         """

@@ -102,6 +102,7 @@
                         <pago>
                             <formaPago t-out="taxsupport['invoice_payments'][0]['payment_code']"/>
                             <total t-out="format_num_2(taxsupport['invoice_payments'][0]['payment_amount'])"/>
+                            <moneda t-out="taxsupport['currency']"/>
                         </pago>
                     </pagos>
                 </docSustento>
@@ -247,6 +248,7 @@
                 <pago t-as="pago" t-foreach="pagos">
                     <formaPago t-out="pago['payment_code']"/>
                     <total t-out="format_num_2(pago['payment_total'])"/>
+                    <moneda t-out="pago['currency']"/>
                     <plazo t-if="is_liquidation and pago.get('time_unit')" t-out="pago['payment_term']"/>
                     <unidadTiempo t-if="is_liquidation and pago.get('time_unit')" t-out="pago['time_unit']"/>
                 </pago>
