@@ -226,8 +226,9 @@
                                 ]"
                                 class="original_move_line_ids_field"
                                 context="{'disable_preview': 1, 'tree_view_ref': 'account_asset.view_move_line_tree_asset'}">
-                                <tree create="0">
+                                <tree create="0" no_open="1">
                                     <field name="date"/>
+                                    <field name="move_name" string="Journal Entry" widget="open_move_widget"/>
                                     <field name="account_id"/>
                                     <field name="name"/>
                                     <field name="debit" widget="monetary"/>
