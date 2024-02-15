@@ -297,7 +297,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 })
 
         return {
-            'id': report._get_generic_line_id('account.move.line', aml_data['id']),
+            'id': report._get_generic_line_id('account.move.line', aml_data['id'], parent_line_id=parent_line_id),
             'caret_options': 'account.move.line',
             'parent_id': parent_line_id,
             'name': aml_data['name'],
