@@ -122,7 +122,8 @@ class CustomerPortal(portal.CustomerPortal):
             if search_in == 'content':
                 search_domain = OR([search_domain, ['|', ('name', 'ilike', search), ('description', 'ilike', search)]])
             if search_in == 'user':
-                search_domain = OR([search_domain, [('user_id', 'ilike', search)]])
+                assignees = request.env['res.users'].sudo()._search([('name', 'ilike', search)])
+                search_domain = OR([search_domain, [('user_id', 'in', assignees)]])
             if search_in == 'message':
                 discussion_subtype_id = request.env.ref('mail.mt_comment').id
                 search_domain = OR([search_domain, [('message_ids.body', 'ilike', search), ('message_ids.subtype_id', '=', discussion_subtype_id)]])
