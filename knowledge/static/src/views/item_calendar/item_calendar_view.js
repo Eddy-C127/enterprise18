@@ -123,6 +123,14 @@ class KnowledgeArticleItemsCommonPopover extends CalendarCommonPopover {
         body: "knowledge.ArticleItemsCalendarCommonPopover.body",
         footer: "knowledge.ArticleItemsCalendarCommonPopover.footer",
     };
+
+    /**
+     * Delete permission should not be based on the view's delete parameter only, but on the
+     * user's write permission on the item as well.
+     */
+    get isEventDeletable() {
+        return super.isEventDeletable && this.props.record.rawRecord.user_can_write;
+    }
 }
 
 class KnowledgeArticleItemsCommonRenderer extends CalendarCommonRenderer {
