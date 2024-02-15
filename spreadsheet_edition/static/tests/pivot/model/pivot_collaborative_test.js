@@ -36,7 +36,10 @@ async function getPivotReady(model, pivotId) {
     };
     const dataSourceId = model.getters.getPivotDataSourceId(pivotId);
     /** @type {OdooPivot} */
-    const dataSource = model.config.custom.dataSources.add(dataSourceId, OdooPivot, pivot);
+    const dataSource = model.config.custom.dataSources.add(dataSourceId, OdooPivot, {
+        definition: pivot,
+        getters: model.getters,
+    });
     await dataSource.load();
     return { pivot, dataSource };
 }

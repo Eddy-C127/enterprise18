@@ -38,8 +38,10 @@ export function insertPivot(pivotData) {
     return async (model) => {
         const pivotId = model.getters.getNextPivotId();
         const dataSourceId = model.getters.getPivotDataSourceId(pivotId);
-        const pivotDataSource = model.config.custom.dataSources.add(dataSourceId, OdooPivot, pivot);
-        pivotDataSource.injectFields(pivotData.metaData.fields);
+        const pivotDataSource = model.config.custom.dataSources.add(dataSourceId, OdooPivot, {
+            definition: pivot,
+            getters: model.getters,
+        });
         await model.config.custom.dataSources.load(dataSourceId);
         // Add an empty sheet in the case of an existing spreadsheet.
         if (!this.isEmptySpreadsheet) {

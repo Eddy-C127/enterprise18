@@ -1,7 +1,10 @@
 /** @odoo-module */
 
+import * as spreadsheet from "@odoo/o-spreadsheet";
 import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
 import { patch } from "@web/core/utils/patch";
+const { helpers } = spreadsheet;
+const { formatValue } = helpers;
 
 patch(OdooPivot.prototype, {
     setup() {
@@ -17,16 +20,6 @@ patch(OdooPivot.prototype, {
          * Is used to know if a pivot cell is missing or not
          * */
         this._usedHeaderDomains = new Set();
-    },
-
-    /**
-     * Inject fields in the metadata of the model. This is useful when the
-     * fields are already known and we want to avoid a call to the server.
-     *
-     * @property {Record<string, Field | undefined>} fields
-     */
-    injectFields(fields) {
-        this._metaData.fields = fields;
     },
 
     async _load() {
@@ -76,5 +69,20 @@ patch(OdooPivot.prototype, {
     isUsedHeader(domain) {
         this._assertDataIsLoaded();
         return this._usedHeaderDomains.has(domain.join());
+    },
+
+    /**
+     * High level method computing the formatted result of ODOO.PIVOT.HEADER functions.
+     *
+     * @param {(string | number)[]} pivotArgs arguments of the function (except the first one which is the pivot id)
+     */
+    getPivotHeaderFormattedValue(pivotArgs) {
+        const value = this.computePivotHeaderValue(pivotArgs);
+        if (typeof value === "string") {
+            return value;
+        }
+        const format = this.getPivotFieldFormat(pivotArgs.at(-2));
+        const locale = this.getters.getLocale();
+        return formatValue(value, { format, locale });
     },
 });

@@ -595,16 +595,14 @@ export class PivotAutofillPlugin extends UIPlugin {
     _tooltipFormatPivot(pivotId, args, isColumn, dataSource, definition) {
         const tooltips = [];
         const domain = args.slice(2); // e.g. ["create_date:month", "04/2022", "user_id", 3]
+        const pivot = this.getters.getPivot(pivotId);
         for (let i = 2; i <= domain.length; i += 2) {
             const fieldName = domain[i - 2];
             if (
                 (isColumn && this._isColumnGroupBy(dataSource, definition, fieldName)) ||
                 (!isColumn && this._isRowGroupBy(dataSource, definition, fieldName))
             ) {
-                const formattedValue = this.getters.getPivotHeaderFormattedValue(
-                    pivotId,
-                    domain.slice(0, i)
-                );
+                const formattedValue = pivot.getPivotHeaderFormattedValue(domain.slice(0, i));
                 tooltips.push({ value: formattedValue });
             }
         }
@@ -638,11 +636,9 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (domain.length === 0) {
             return [{ value: _t("Total") }];
         }
+        const pivot = this.getters.getPivot(pivotId);
         for (let i = 2; i <= domain.length; i += 2) {
-            const formattedValue = this.getters.getPivotHeaderFormattedValue(
-                pivotId,
-                domain.slice(0, i)
-            );
+            const formattedValue = pivot.getPivotHeaderFormattedValue(domain.slice(0, i));
             tooltips.push({ value: formattedValue });
         }
         return tooltips;

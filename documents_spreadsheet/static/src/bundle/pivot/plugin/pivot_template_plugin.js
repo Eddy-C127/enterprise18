@@ -191,7 +191,8 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
         const pivotId = pivotIdAst.value;
         const fieldName = fieldAst.value;
         const position = positionAst.value;
-        const values = this.getters.getPivotGroupByValues(pivotId, fieldName);
+        const pivot = this.getters.getPivot(pivotId);
+        const values = pivot.getPossibleValuesForGroupBy(fieldName);
         const id = values[position - 1];
         return {
             value: id ? `${id}` : `"#IDNOTFOUND"`,
@@ -259,7 +260,8 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
                 ["STRING", "NUMBER"].includes(valueAst.type)
             ) {
                 const id = valueAst.value;
-                const values = this.getters.getPivotGroupByValues(pivotId, fieldName);
+                const pivot = this.getters.getPivot(pivotId);
+                const values = pivot.getPossibleValuesForGroupBy(fieldName);
                 const index = values.map((val) => val.toString()).indexOf(id.toString());
                 relativeDomain = relativeDomain.concat([
                     fieldAst,

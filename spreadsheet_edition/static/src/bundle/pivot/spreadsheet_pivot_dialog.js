@@ -277,6 +277,7 @@ export class PivotDialog extends Component {
      */
     _buildColHeaders(id, table) {
         const headers = [];
+        const pivot = this.props.getters.getPivot(id);
         for (const row of table.getColHeaders()) {
             const current = [];
             for (const cell of row) {
@@ -287,7 +288,7 @@ export class PivotDialog extends Component {
                 }
                 current.push({
                     formula: makePivotFormula("ODOO.PIVOT.HEADER", [id, ...domain]),
-                    value: this.props.getters.getPivotHeaderFormattedValue(id, domain),
+                    value: pivot.getPivotHeaderFormattedValue(domain),
                     span: cell.width,
                     isMissing: !this.dataSource.isUsedHeader(domain),
                 });
@@ -314,6 +315,7 @@ export class PivotDialog extends Component {
      */
     _buildRowHeaders(id, table) {
         const headers = [];
+        const pivot = this.props.getters.getPivot(id);
         for (const row of table.getRowHeaders()) {
             const domain = [];
             for (let i = 0; i < row.fields.length; i++) {
@@ -323,7 +325,7 @@ export class PivotDialog extends Component {
             const cell = {
                 args: domain,
                 formula: makePivotFormula("ODOO.PIVOT.HEADER", [id, ...domain]),
-                value: this.props.getters.getPivotHeaderFormattedValue(id, domain),
+                value: pivot.getPivotHeaderFormattedValue(domain),
                 isMissing: !this.dataSource.isUsedHeader(domain),
             };
             if (row.indent > 1) {
