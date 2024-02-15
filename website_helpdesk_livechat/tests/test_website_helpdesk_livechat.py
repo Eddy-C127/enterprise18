@@ -6,6 +6,7 @@ import json
 from odoo import Command
 from odoo.tests.common import HttpCase
 from odoo.addons.helpdesk.tests.common import HelpdeskCommon
+from odoo.exceptions import ValidationError
 
 
 class TestWebsiteHelpdeskLivechat(HttpCase, HelpdeskCommon):
@@ -62,3 +63,18 @@ class TestWebsiteHelpdeskLivechat(HttpCase, HelpdeskCommon):
         expected_message = f"<span class='o_mail_notification'>Tickets search results for <b>Test website helpdesk livechat</b>: <br/><a href=# data-oe-model='helpdesk.ticket' data-oe-id='{ticket.id}'>{ticket_name} (#{ticket.ticket_ref})</a></span>"
 
         self.assertEqual(message['payload']['body'], expected_message, 'A message should be posted saying the previously created ticket matches the command.')
+
+    def test_chatbot_script_steps_with_create_ticket(self):
+        with self.assertRaises(ValidationError):
+            self.env['chatbot.script'].create({
+                'title': 'Chatbot 1',
+                'script_step_ids': [Command.create({'step_type': 'create_ticket'})]
+            })
+
+        self.env['chatbot.script'].create({
+            'title': 'Chatbot 2',
+            'script_step_ids': [
+                Command.create({'step_type': 'question_email'}),
+                Command.create({'step_type': 'create_ticket'}),
+            ]
+        })
