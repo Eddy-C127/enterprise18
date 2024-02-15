@@ -17,10 +17,11 @@ registry.category("web_tour.tours").add('documents_account_tour', {
     trigger: 'body:not(:has(.o-FileViewer)) img[src="https://img.youtube.com/vi/Ayab6wZ_U1A/0.jpg"]',
     content: markup(_t("Click on a thumbnail to <b>preview the document</b>.")),
     position: 'bottom',
-    run: function (actions) {
-        // closes the modal
-        $('.o_close_btn').click();
-    },
+}, {
+    trigger: '[title="Close (Esc)"]',
+    extra_trigger: '.o_documents_kanban',
+    content: markup(_t("Click the cross to <b>exit preview</b>.")),
+    position: 'left',
 }, { // equivalent to '.o_search_panel_filter_value:contains('Inbox')' but language agnostic.
     trigger: '.o_search_panel_filter_value:eq(0)',
     extra_trigger: '.o_search_panel_label',
@@ -31,7 +32,7 @@ registry.category("web_tour.tours").add('documents_account_tour', {
     },
 }, {
     trigger: '.o_kanban_record:contains(mail.png)',
-    extra_trigger: '.o_documents_kanban',
+    extra_trigger: 'body:not(:has(.o-FileViewer)) .o_documents_kanban',
     content: markup(_t("Click on a card to <b>select the document</b>.")),
     position: 'bottom',
 }, { // equivalent to '.o_inspector_rule:contains('Send to Legal') .o_inspector_trigger_rule' but language agnostic.
