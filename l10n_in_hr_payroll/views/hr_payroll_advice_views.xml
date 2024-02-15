@@ -5,12 +5,13 @@
         <field name="model">hr.payroll.advice</field>
         <field name="arch" type="xml">
             <tree string="Bank Advice">
+                <field name="name" readonly="state != 'draft'"/>
+                <field name="bank_id" readonly="state != 'draft'"/>
                 <field name="date" readonly="state != 'draft'"/>
                 <field name="number"/>
-                <field name="name" readonly="state != 'draft'"/>
+                <field name="state" widget="badge"
+                    decoration-info="state == 'draft'" decoration-warning="state == 'close'" decoration-success="state == 'confirm'"/>
                 <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" readonly="state != 'draft'"/>
-                <field name="bank_id" readonly="state != 'draft'"/>
-                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -25,12 +26,11 @@
                     <button name="compute_advice" string="Compute Advice" invisible="state != 'draft'" type="object" class="oe_highlight"/>
                     <button name="cancel_sheet" string="Cancel Advice" invisible="state != 'draft'"  type="object"/>
                     <button name="set_to_draft" string="Set to Draft" invisible="state not in ('cancel', 'confirm')" type="object"/>
-                    <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft"/>
+                    <field name="state" widget="statusbar" nolabel="1"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
-                        <label for="name"/>
-                        <h1><field name="name" placeholder="Name" readonly="state != 'draft'"/></h1>
+                        <h1><field name="name" placeholder="Advice Name" readonly="state != 'draft'"/></h1>
                     </div>
                     <group>
                         <group>

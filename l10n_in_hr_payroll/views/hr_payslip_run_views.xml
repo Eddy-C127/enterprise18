@@ -25,8 +25,9 @@
                     <newline/>
                     <field name="available_advice" invisible="country_code != 'IN'"/>
                 </xpath>
-                <xpath expr="//button[@name='action_draft']" position="after">
-                    <button name="create_advice" string="Create Advice" type="object" invisible="country_code != 'IN' or state != 'close'"/>
+                <xpath expr="//button[@name='action_paid']" position="after">
+                    <button name="create_advice" string="Create Advice" type="object"
+                        invisible="country_code != 'IN' or state != 'close'" class="btn btn-primary"/>
                 </xpath>
             </data>
         </field>
