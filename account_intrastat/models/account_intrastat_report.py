@@ -7,8 +7,6 @@ from odoo.tools import get_lang
 from odoo.tools.float_utils import float_repr, float_round
 
 from odoo.tools.misc import format_date
-from datetime import datetime
-from collections import defaultdict
 
 _merchandise_export_code = {
     'BE': '29',
@@ -29,16 +27,7 @@ _unknown_country_code = {
 
 _qn_unknown_individual_vat_country_codes = ('FI', 'SE', 'SK', 'DE', 'AT')
 
-errors = (
-    ('expired_trans', 'move_line_id'),
-    ('premature_trans', 'move_line_id'),
-    ('missing_trans', 'move_line_id'),
-    ('expired_comm', 'product_id'),
-    ('premature_comm', 'product_id'),
-    ('missing_comm', 'product_id'),
-    ('missing_unit', 'product_id'),
-    ('missing_weight', 'product_id'),
-)
+errors = ('expired_trans', 'premature_trans', 'missing_trans', 'expired_comm', 'premature_comm', 'missing_comm', 'missing_unit', 'missing_weight')
 
 class IntrastatReportCustomHandler(models.AbstractModel):
     _name = 'account.intrastat.report.handler'
@@ -81,11 +70,6 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             # We add the value to the total (for total line)
             total_values_dict.setdefault(column_group_key, {'value': 0})
             total_values_dict[column_group_key]['value'] += res['value']
-
-            for error, dummy in errors:
-                if res.get(error) and not res[error].count(None):
-                    options.setdefault('intrastat_warnings', defaultdict(list))
-                    options['intrastat_warnings'][error].extend(res[error])
 
         # Create lines
         lines = []
@@ -217,24 +201,14 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             columns.append(report._build_column_dict(value, column, options=options))
 
         if warnings is not None:
-            warnings_map = (
-                ('expired_trans', 'move_line_id'),
-                ('premature_trans', 'move_line_id'),
-                ('missing_trans', 'move_line_id'),
-                ('expired_comm', 'product_id'),
-                ('premature_comm', 'product_id'),
-                ('missing_comm', 'product_id'),
-                ('missing_unit', 'product_id'),
-                ('missing_weight', 'product_id'),
-            )
             for column_group in options['column_groups']:
-                for warning_code, val_key in warnings_map:
+                for warning_code in errors:
                     if line_vals.get(column_group) and line_vals[column_group].get(warning_code):
-                        warningParams = warnings.setdefault(
+                        warning_params = warnings.setdefault(
                             f'account_intrastat.intrastat_warning_{warning_code}',
                             {'ids': [], 'alert_type': 'warning'}
                         )
-                        warningParams['ids'].append(line_vals[column_group][val_key])
+                        warning_params['ids'].extend(line_vals[column_group][warning_code])
 
         unfold_all = self._context.get('print_mode') or options.get('unfold_all')
         markup_line = ','.join(line_vals['name'].split(' - '))
@@ -265,7 +239,6 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         if parent_line:
             expanded_line_options = self._get_markup_info_from_intrastat_id(parent_line)
 
-        is_intrastat_warnings_added = not options.get('intrastat_warnings')  # Check if the intrastat warning aren't already added
         queries = []
         full_query_params = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
@@ -284,11 +257,6 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 # Enough elements loaded. Only the one due to the +1 in the limit passed when computing aml_results is left.
                 # This element won't generate a line now, but we use it to know that we'll need to add a load_more line.
                 break
-
-            for error, val_key in errors:
-                if raw_intrastat_line.get(error) and is_intrastat_warnings_added:
-                    options.setdefault('intrastat_warnings', defaultdict(list))
-                    options['intrastat_warnings'][error].append(raw_intrastat_line[val_key])
 
             lines.append(self._get_aml_line(report, parent_line, options, raw_intrastat_line))
 
@@ -545,21 +513,22 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                  intrastat_lines.intrastat_product_origin_country_name as intrastat_product_origin_country_name,
                  intrastat_lines.intrastat_product_origin_country_code as intrastat_product_origin_country_code,
                  intrastat_lines.invoice_currency_id as invoice_currency_id,
-                 ARRAY_AGG(CASE WHEN intrastat_lines.expired_trans IS TRUE THEN intrastat_lines.move_line_id ELSE NULL END) as expired_trans,
-                 ARRAY_AGG(CASE WHEN intrastat_lines.premature_trans IS TRUE THEN intrastat_lines.move_line_id ELSE NULL END) as premature_trans,
-                 ARRAY_AGG(CASE WHEN intrastat_lines.missing_trans IS TRUE THEN intrastat_lines.move_line_id ELSE NULL END) as missing_trans,
-                 ARRAY_AGG(CASE WHEN intrastat_lines.expired_comm IS TRUE THEN intrastat_lines.product_id ELSE NULL END) as expired_comm,
-                 ARRAY_AGG(CASE WHEN intrastat_lines.premature_comm IS TRUE THEN intrastat_lines.product_id ELSE NULL END) as premature_comm,
-                 ARRAY_AGG(CASE WHEN intrastat_lines.missing_comm IS TRUE THEN intrastat_lines.product_id ELSE NULL END) as missing_comm,
-                 ARRAY_AGG(CASE WHEN intrastat_lines.missing_unit IS TRUE THEN intrastat_lines.product_id ELSE NULL END) as missing_unit,
-                 ARRAY_AGG(CASE WHEN intrastat_lines.missing_weight IS TRUE THEN intrastat_lines.product_id ELSE NULL END) as missing_weight,
+                 CASE WHEN intrastat_lines.expired_trans IS TRUE THEN ARRAY_AGG(intrastat_lines.move_line_id) END as expired_trans,
+                 CASE WHEN intrastat_lines.premature_trans IS TRUE THEN ARRAY_AGG(intrastat_lines.move_line_id) END as premature_trans,
+                 CASE WHEN intrastat_lines.missing_trans IS TRUE THEN ARRAY_AGG(intrastat_lines.move_line_id) END as missing_trans,
+                 CASE WHEN intrastat_lines.expired_comm IS TRUE THEN ARRAY_AGG(intrastat_lines.product_id) END as expired_comm,
+                 CASE WHEN intrastat_lines.premature_comm IS TRUE THEN ARRAY_AGG(intrastat_lines.product_id) END as premature_comm,
+                 CASE WHEN intrastat_lines.missing_comm IS TRUE THEN ARRAY_AGG(intrastat_lines.product_id) END as missing_comm,
+                 CASE WHEN intrastat_lines.missing_unit IS TRUE THEN ARRAY_AGG(intrastat_lines.product_id) END as missing_unit,
+                 CASE WHEN intrastat_lines.missing_weight IS TRUE THEN ARRAY_AGG(intrastat_lines.product_id) END as missing_weight,
                  SUM(intrastat_lines.value) as value,
                  SUM(intrastat_lines.weight) as weight,
                  SUM(intrastat_lines.supplementary_units) as supplementary_units
             FROM ({}) intrastat_lines
       INNER JOIN account_move ON account_move.id = intrastat_lines.invoice_id
         GROUP BY system, type, country_code, transaction_code, transport_code, region_code, commodity_code, country_name, partner_vat,
-                 incoterm_code,intrastat_product_origin_country_code, intrastat_product_origin_country_name, invoice_currency_id
+                 incoterm_code,intrastat_product_origin_country_code, intrastat_product_origin_country_name, invoice_currency_id, expired_trans,
+                 premature_trans, missing_trans, expired_comm, premature_comm, missing_comm, missing_unit, missing_weight
             """).format(inner_query)
 
         params = [
