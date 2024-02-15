@@ -79,15 +79,3 @@
             }
         ]
     });
-
-    registry.category("web_tour.tours").add('account_accountant_tour_upload_ocr_step', {
-        rainbowMan: false,
-        sequence: 70,
-        steps: () => [
-            {
-                trigger: 'button.btn-primary[name="check_status"]',
-                content: markup(_t('Let’s use AI to fill in the form<br/><br/><i>Tip: If the OCR is not done yet, wait a few more seconds and try again.</i>')),
-                position: 'bottom',
-            }
-        ]
-    })
