@@ -474,7 +474,7 @@ QUnit.module("Views", (hooks) => {
 
             await editPill("test");
             await click(target, ".modal footer button[name=unlink]"); // click on trash icon
-            await click(target, ".o_dialog:nth-child(2) .modal footer button:nth-child(1)"); // click on "Ok" in confirmation dialog
+            await click(target, ".o-overlay-item:nth-child(2) .modal footer button:nth-child(1)"); // click on "Ok" in confirmation dialog
 
             assert.containsNone(target, ".o_gantt_cells .o_gantt_pill");
         }
