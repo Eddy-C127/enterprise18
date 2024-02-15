@@ -10,12 +10,7 @@ import {
 } from "@knowledge/js/knowledge_utils";
 import { useService } from "@web/core/utils/hooks";
 import { uuid } from "@web/views/utils";
-import {
-    onError,
-    onMounted,
-    onWillDestroy,
-    useState,
-    useSubEnv } from "@odoo/owl";
+import { onError, onMounted, onWillDestroy, useState } from "@odoo/owl";
 
 /**
  * This component will have the responsibility to load the embedded view lazily
@@ -56,11 +51,7 @@ export class EmbeddedViewBehavior extends AbstractBehavior {
                 { embedded_view_id: embeddedViewId }
             ));
         }
-
-        this.knowledgeEmbeddedViewId = embeddedViewId;            
-        useSubEnv({
-            knowledgeArticleUserCanWrite: this.props.record.data.user_can_write,
-        });
+        this.knowledgeEmbeddedViewId = embeddedViewId;
 
         onMounted(() => {
             const { anchor, root } = this.props;
@@ -169,7 +160,10 @@ export class EmbeddedViewBehavior extends AbstractBehavior {
 
     async loadData () {
         const context = makeContext([this.props.context || {}, {
-            knowledgeEmbeddedViewId: this.knowledgeEmbeddedViewId
+            knowledgeEmbeddedViewId: this.knowledgeEmbeddedViewId,
+            // Article item views are editable based on the parent article's permission so we pass
+            // this info to enable/disable some actions in these views.
+            knowledgeArticleUserCanWrite: this.props.record.data.user_can_write,
         }]);
         try {
             const action = await this.actionService.loadAction(

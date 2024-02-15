@@ -31,6 +31,6 @@ export const EmbeddedControllersPatch = (T) => class EmbeddedControllersPatch ex
             parent_id: this.props.context.active_id || false
         });
 
-        this.props.selectRecord(articleId);
+        this.props.selectRecord(articleId, {});
     }
 };

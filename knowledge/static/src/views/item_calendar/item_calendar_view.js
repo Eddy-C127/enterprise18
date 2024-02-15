@@ -16,7 +16,10 @@ export class KnowledgeArticleItemsCalendarController extends CalendarController 
 
     setup() {
         super.setup();
-
+        // Item creation is not allowed if the user can not edit the parent article.
+        if (!this.env.searchModel.context.knowledgeArticleUserCanWrite) {
+            this.model.meta.canCreate = false;
+        }
         onMounted(async () => {
             // Show error message if the start date property is invalid (if it
             // has been deleted or its type changed)
@@ -92,7 +95,6 @@ export class KnowledgeArticleItemsCalendarController extends CalendarController 
      */
     onWillStartModel() {
         if (this.props.itemCalendarProps) {
-            this.model.meta.canCreate = this.env.knowledgeArticleUserCanWrite;
             this.updateModel(this.props.itemCalendarProps);
         } else {
             this.state.missingConfiguration = true;
