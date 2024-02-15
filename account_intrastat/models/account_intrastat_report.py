@@ -343,10 +343,16 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 return expanded_line_options[option_key]
             return None
 
+        domain = None
+        if expanded_line_options:
+            Move = self.env['account.move']
+            move_types = Move.get_outbound_types(include_receipts=False) if expanded_line_options['type'] == 'Arrival' else Move.get_inbound_types(include_receipts=False)
+            domain = [('move_id.move_type', 'in', move_types)]
+
         # triangular use cases are handled by letting the intrastat_country_id editable on
         # invoices. Modifying or emptying it allow to alter the intrastat declaration
         # accordingly to specs (https://www.nbb.be/doc/dq/f_pdf_ex/intra2017fr.pdf (§ 4.x))
-        tables, where_clause, where_params = self.env['account.report'].browse(options['report_id'])._query_get(options, 'strict_range')
+        tables, where_clause, where_params = self.env['account.report'].browse(options['report_id'])._query_get(options, 'strict_range', domain=domain)
         tables = SQL(tables)
         where_clause = SQL(where_clause)
 

@@ -298,6 +298,33 @@ class TestIntrastatReport(TestAccountReportsCommon):
             options,
         )
 
+    def test_unfold_dispatch_arrival_intrastrat_report_lines(self):
+        """ This test checks that intrastat_report lines only
+            contain what they have to contain.
+            It means, that we should only have inbound move types
+            in "Dispatch" report lines and outbound move types
+            in "Arrival" report lines.
+        """
+        self._create_invoices('transaction')
+        options = self._generate_options(self.report, '2022-01-01', '2022-01-31', default_options={'unfold_all': True})
+
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            self.report._get_lines(options),
+            # 0/name, 1/system, 2/country code, 3/transaction code, 4/region code, 5/commodity code, 6/origin country, 10/weight, 12/value
+            [    0,                                                       1,               2,             3,     4,     5,     6,    10,    12],
+            [
+                # account.move (invoice)
+                ('Dispatch - 101 - 100 - QV - QV999999999999 - NL - 102', '19 (Dispatch)', 'Netherlands', '101', '102', '100', 'QV', '1.5', 320.0),
+                ('INV/2022/00001',                                        '19 (Dispatch)', 'Netherlands', '101', '102', '100', 'QV',  0.3,  80.0),
+                ('INV/2022/00001',                                        '19 (Dispatch)', 'Netherlands', '101', '102', '100', 'QV',  1.2, 240.0),
+                # account.move (bill)
+                ('Arrival - 101 - 100 - QV - QV999999999999 - NL - 102',  '29 (Arrival)',  'Netherlands', '101', '102', '100', 'QV', '0.5', 950.0),
+                ('BILL/2022/01/0001',                                     '29 (Arrival)',  'Netherlands', '101', '102', '100', 'QV',  0.5, 950.0),
+            ],
+            options,
+        )
+
     def test_no_supplementary_units(self):
         """ Test a report from an invoice with no units """
         no_supplementary_units_invoice = self.env['account.move'].create({
