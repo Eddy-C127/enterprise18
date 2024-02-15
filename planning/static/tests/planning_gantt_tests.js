@@ -549,7 +549,7 @@ QUnit.module("Views", (hooks) => {
         );
     });
 
-    QUnit.test("the grouped gantt view is coloured correctly", async (assert) => {
+    QUnit.test("the grouped gantt view is coloured correctly and the occupancy percentage is correctly displayed", async (assert) => {
         patchDate(2022, 9, 10, 0, 0, 0);
         const pyEnv = await startServer();
         const employeeId = pyEnv['hr.employee'].create([
@@ -608,11 +608,23 @@ QUnit.module("Views", (hooks) => {
 
         await nextTick();
 
-        assert.containsN(target, '.o_gantt_group_pill', 5, "The employee should have group pills only on the work calendar days");
-        assert.containsOnce(target, '.bg-success.border-success', "One of the grouped pills should be green because the resource is perfectly planned");
-
-        assert.containsN(target, '.bg-warning.border-warning', 3, "Three of the grouped pills should be orange because the resource is under planned");
-        assert.containsOnce(target, '.bg-danger.border-danger', "One of the grouped pills should be red because the resource is over planned");
+        const groupPillHeaders = Array.from(target.querySelectorAll('.o_gantt_group_pill'))
+        assert.strictEqual(groupPillHeaders.length, 5);
+        // Monday
+        assert.hasClass(groupPillHeaders[0].firstChild, "bg-warning border-warning", "The grouped pill should be orange because the resource is under planned");
+        assert.strictEqual(groupPillHeaders[0].lastChild.textContent, "00:00 (0%)", "The grouped pill occupancy percentage should be 0% because no shift was allocated and we expect 4 working hours on Monday");
+        // Tuesday
+        assert.hasClass(groupPillHeaders[1].firstChild, "bg-warning border-warning", "The grouped pill should be orange because the resource is under planned");
+        assert.strictEqual(groupPillHeaders[1].lastChild.textContent, "02:00 (40%)", "The grouped pill occupancy percentage should be 40% because a shift of 2 hours was allocated and we expect 5 working hours on Tuesday");
+        // Wednesday
+        assert.hasClass(groupPillHeaders[2].firstChild, "bg-success border-success", "The grouped pill should be green because the resource is perfectly planned");
+        assert.strictEqual(groupPillHeaders[2].lastChild.textContent, "06:00 (100%)", "The grouped pill occupancy percentage should be 100% because a shift of 6 hours was allocated and we expect 6 working hours on Wednesday");
+        // Thursday
+        assert.hasClass(groupPillHeaders[3].firstChild, "bg-danger border-danger", "The grouped pill should be red because the resource is over planned");
+        assert.strictEqual(groupPillHeaders[3].lastChild.textContent, "08:25 (120%)", "The grouped pill occupancy percentage should be 120% because a shift of 8:25 hours was allocated and we expect 7 working hours on Thursday");
+        // Friday
+        assert.hasClass(groupPillHeaders[4].firstChild, "bg-warning border-warning", "The grouped pill should be orange because the resource is under planned");
+        assert.strictEqual(groupPillHeaders[4].lastChild.textContent, "00:00 (0%)", "The grouped pill occupancy percentage should be 0% because no shift was allocated and we expect 8 working hours on Friday");
 
     });
     QUnit.test(

@@ -313,12 +313,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
         return newPill;
     }
 
-    _computeResourceOvertimeColors(pill) {
-        const progressBar = this.row.progressBar;
-        if (!progressBar?.employee_id || ["day", "year"].includes(this.model.metaData.scale.id)) {
-            return "bg-primary border-primary";
-        }
-
+    _computeWorkHours(pill) {
         let workHours = 0;
         const resource_id = this.row.resId;
         // If flexible hour contract, colour the gantt view group based on whether the aggregate value > the "average work hours" per day.
@@ -334,6 +329,22 @@ export class PlanningGanttRenderer extends GanttRenderer {
                     return sum;
                 }, 0
             )
+        }
+        return workHours;
+    }
+
+    _computeDisplayName(pill, workHours) {
+        const progressBar = this.row.progressBar;
+        if (!progressBar?.employee_id || ["day", "month", "year"].includes(this.model.metaData.scale.id) || workHours === 0) {
+            return pill.displayName;
+        }
+        return `${pill.displayName} (${Math.round(pill.aggregateValue / workHours * 100)}%)`;
+    }
+
+    _computeResourceOvertimeColors(pill, workHours) {
+        const progressBar = this.row.progressBar;
+        if (!progressBar?.employee_id || ["day", "year"].includes(this.model.metaData.scale.id)) {
+            return "bg-primary border-primary";
         }
         return workHours == pill.aggregateValue ? 'bg-success border-success' : workHours > pill.aggregateValue ? 'bg-warning border-warning' : 'bg-danger border-danger';
     }
