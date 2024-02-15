@@ -6,6 +6,7 @@ import json
 from odoo import Command
 from odoo.tests.common import HttpCase
 from odoo.addons.helpdesk.tests.common import HelpdeskCommon
+from odoo.exceptions import ValidationError
 
 
 class TestWebsiteHelpdeskLivechat(HttpCase, HelpdeskCommon):
@@ -73,3 +74,18 @@ class TestWebsiteHelpdeskLivechat(HttpCase, HelpdeskCommon):
 
         load_more_expected_message = f'<b><a href="#" data-oe-type="load" data-oe-lst="{ticket_name}" data-oe-load-counter="1">Load More</a></b>'
         self.assertIn(load_more_expected_message, message['payload']['body'], "Load More link should be present when more than 5 tickets are found by the search_tickets command")
+
+    def test_chatbot_script_steps_with_create_ticket(self):
+        with self.assertRaises(ValidationError):
+            self.env['chatbot.script'].create({
+                'title': 'Chatbot 1',
+                'script_step_ids': [Command.create({'step_type': 'create_ticket'})]
+            })
+
+        self.env['chatbot.script'].create({
+            'title': 'Chatbot 2',
+            'script_step_ids': [
+                Command.create({'step_type': 'question_email'}),
+                Command.create({'step_type': 'create_ticket'}),
+            ]
+        })
