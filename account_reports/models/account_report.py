@@ -336,15 +336,15 @@ class AccountReport(models.Model):
     def _get_options_journals(self, options):
         selected_journals = [
             journal for journal in options.get('journals', [])
-            if not journal['id'] in ('divider', 'group') and journal['selected']
+            if journal['model'] == 'account.journal' and journal['selected']
         ]
         if not selected_journals:
             # If no journal is specifically selected, we actually want to select them all.
             # This is needed, because some reports will not use ALL available journals and filter by type.
             # Without getting them from the options, we will use them all, which is wrong.
             selected_journals = [
-                journal for journal in options.get('journals', []) if
-                not journal['id'] in ('divider', 'group')
+                journal for journal in options.get('journals', [])
+                if journal['model'] == 'account.journal'
             ]
         return selected_journals
 
