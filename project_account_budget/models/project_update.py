@@ -15,7 +15,7 @@ class ProjectUpdate(models.Model):
             budget = project.budget
             cost = -project._get_budget_items()['total']['spent']
             vals['budget'] = {
-                'percentage': round((cost / budget) * 100 if budget != 0 else 0, 0),
+                'percentage': round((cost / budget) * 100 if budget != 0 and cost else 0, 0),
                 'amount': format_amount(self.env, budget, project.currency_id),
                 'spent_budget': format_amount(self.env, - cost, project.currency_id),
                 'remaining_budget': format_amount(self.env, budget - cost, project.currency_id),
