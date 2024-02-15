@@ -20,7 +20,7 @@
                 <field name="code">PNL_1_</field>
                 <field name="groupby">account_id</field>
                 <field name="foldable" eval="True"/>
-                <field name="hierarchy_level">0</field>
+                <field name="hierarchy_level">1</field>
                 <field name="expression_ids">
                     <record id="account_financial_html_report_line_pnl_lt_1_balance" model="account.report.expression">
                         <field name="label">balance</field>
@@ -35,7 +35,7 @@
                 <field name="code">PNL_2_</field>
                 <field name="groupby">account_id</field>
                 <field name="foldable" eval="True"/>
-                <field name="hierarchy_level">0</field>
+                <field name="hierarchy_level">1</field>
                 <field name="expression_ids">
                     <record id="account_financial_html_report_line_pnl_lt_2_balance" model="account.report.expression">
                         <field name="label">balance</field>
@@ -254,6 +254,7 @@
             <record id="account_financial_html_report_line_bs_lt_debit" model="account.report.line">
                 <field name="name">TOTAL ASSETS</field>
                 <field name="code">BS_DEBIT</field>
+                <field name="hierarchy_level">0</field>
                 <field name="aggregation_formula">BS_A_.balance + BS_B_.balance + BS_C_.balance</field>
                 <field name="children_ids">
                     <record id="account_financial_html_report_line_bs_lt_a" model="account.report.line">
