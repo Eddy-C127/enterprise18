@@ -11,7 +11,7 @@ from odoo.osv import expression
 class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
 
-    slot_id = fields.Many2one('planning.slot', 'Planning Shift')
+    slot_id = fields.Many2one('planning.slot', 'Planning Shift', index='btree_not_null')
 
     def _group_expand_employee_ids(self, employees, domain, order):
         res = super()._group_expand_employee_ids(employees, domain, order)

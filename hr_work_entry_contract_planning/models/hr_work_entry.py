@@ -6,7 +6,7 @@ from odoo import fields, models
 class HrWorkEntry(models.Model):
     _inherit = 'hr.work.entry'
 
-    planning_slot_id = fields.Many2one('planning.slot', groups='hr.group_hr_user')
+    planning_slot_id = fields.Many2one('planning.slot', groups='hr.group_hr_user', index='btree_not_null')
 
     def _get_planning_duration(self, date_start, date_stop):
         '''
