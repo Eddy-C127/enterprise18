@@ -106,7 +106,7 @@
         <field name="folded" eval="True"/>
         <field name="fold_label">Company Bike</field>
         <field name="fold_res_field_id" model="ir.model.fields" eval="obj().search([('model', '=', 'hr.contract'), ('name', '=', 'transport_mode_bike')])"/>
-        <field name="display_type">dropdown</field>
+        <field name="display_type">dropdown-group</field>
         <field name="description">This can only be selected when there is no company car</field>
     </record>
 
