@@ -44,14 +44,14 @@
                         data-hotkey="shift+e"
                         string="Send By Email"
                         class="oe_highlight"
-                        invisible="not id"/>
+                        invisible="not id or state in ['refused', 'expired']"/>
                     <button
                         name="action_jump_to_offer"
                         type="object"
                         data-hotkey="shift+g"
                         string="Salary Configurator"
                         class="btn btn-secondary"
-                        invisible="not id"/>
+                        invisible="not id or state in ['refused', 'expired']"/>
                     <field name="state" widget="statusbar" statusbar_visible="open,half_signed,full_signed,expired" readonly="1"/>
                 </header>
                 <sheet>
