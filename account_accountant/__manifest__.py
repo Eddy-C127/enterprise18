@@ -34,6 +34,7 @@ It gives the Administrator user access to important invoicing features such as b
         'views/res_config_settings_views.xml',
         'views/product_views.xml',
         'views/bank_rec_widget_views.xml',
+        'views/report_invoice.xml',
 
         'wizard/account_change_lock_date.xml',
         'wizard/account_auto_reconcile_wizard.xml',

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 from datetime import date
 
 from odoo import _, api, fields, models
@@ -21,6 +18,15 @@ class ResConfigSettings(models.TransientModel):
     invoicing_switch_threshold = fields.Date(string="Invoicing Switch Threshold", related='company_id.invoicing_switch_threshold', readonly=False)
     group_fiscal_year = fields.Boolean(string='Fiscal Years', implied_group='account_accountant.group_fiscal_year')
     predict_bill_product = fields.Boolean(string="Predict Bill Product", related='company_id.predict_bill_product', readonly=False)
+
+    sign_invoice = fields.Boolean(string='Authorized Signatory on invoice', related='company_id.sign_invoice', readonly=False)
+    signing_user = fields.Many2one(
+        comodel_name='res.users',
+        string="Signature used to sign all the invoice",
+        readonly=False,
+        related='company_id.signing_user',
+        help="Select a user here to override every signature on invoice by this user's signature"
+    )
 
     # Deferred expense management
     deferred_expense_journal_id = fields.Many2one(
@@ -101,3 +107,9 @@ class ResConfigSettings(models.TransientModel):
             if vals:
                 self.env.company.write(vals)
         return super().create(vals_list)
+
+    def execute(self):
+        res = super().execute()
+        if self.sign_invoice and (sign_module := self.env['ir.module.module'].search([('name', '=', 'sign'), ('state', '!=', 'installed')])):
+            sign_module.sudo().button_immediate_install()
+        return res

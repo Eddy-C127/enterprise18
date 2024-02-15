@@ -4,6 +4,7 @@ from freezegun import freeze_time
 from markupsafe import Markup
 from unittest.mock import patch
 
+from odoo.addons.account_accountant.tests.test_signature import TestInvoiceSignature
 from odoo.addons.sale_subscription.tests.common_sale_subscription import TestSubscriptionCommon
 from odoo.addons.sale_subscription.models.sale_order import SaleOrder
 from odoo.tests import Form, tagged
@@ -3666,3 +3667,49 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(result['groups'][0]['subscription_state'], '3_progress')
         self.assertEqual(result['groups'][1]['subscription_state_count'], 0)
         self.assertEqual(result['groups'][1]['subscription_state'], '4_paused')
+
+
+@tagged('post_install', '-at_install')
+@freeze_time("2021-01-03")
+class TestSubscriptionInvoiceSignature(TestInvoiceSignature, TestSubscription):
+    def setUp(self):
+        super().setUp()
+        self.sale_subscription_cron = self.env.ref("sale_subscription.account_analytic_cron_for_invoice")
+        self.subscription = self.env['sale.order'].with_user(self.another_user).create({
+                'partner_id': self.partner_a.id,
+                'company_id': self.company_data['company'].id,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    Command.create({
+                        'name': self.product.name,
+                        'product_id': self.product.id,
+                        'product_uom_qty': 2.0,
+                        'product_uom': self.product.uom_id.id,
+                        'price_unit': 12,
+                    })],
+        })
+        self.subscription.with_user(self.another_user).action_confirm()
+
+    def test_subscription_automated_invoice_should_have_signing_user_set_to_salesman(self):
+        self.assertEqual(self.subscription.invoice_count, 0)
+        self.sale_subscription_cron.method_direct_trigger()
+        self.assertEqual(self.subscription.invoice_count, 1)
+        inv = self.subscription.invoice_ids
+        self.assertEqual(
+            inv.signing_user,
+            self.another_user,
+            "When the invoice is posted by odoobot, the signer should be the one that confirmed the subscription"
+        )
+
+    def test_subscription_automated_invoice_should_have_signing_user_set_to_representative_when_there_is_one(self):
+        representative_user = self.company_data['default_user_salesman']
+        self.env.company.signing_user = representative_user  # set the representative user of the company
+        self.assertEqual(self.subscription.invoice_count, 0)
+        self.sale_subscription_cron.method_direct_trigger()
+        self.assertEqual(self.subscription.invoice_count, 1)
+        inv = self.subscription.invoice_ids
+        self.assertEqual(
+            inv.signing_user,
+            representative_user,
+            "Signer should be representative if available"
+        )

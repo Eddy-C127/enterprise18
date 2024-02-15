@@ -1,6 +1,3 @@
-# -*- encoding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 {
     'name': 'Indian - Accounting Reports',
     'version': '1.1',
@@ -9,7 +6,11 @@ Accounting reports for India
 ================================
     """,
     'category': 'Accounting/Localizations/Reporting',
-    'depends': ['l10n_in', 'account_reports'],
+    'depends': [
+        'l10n_in',
+        'account_reports',
+        'sign',
+    ],
     'data': [
         'data/account_financial_html_report_gstr1.xml',
         'data/account_financial_html_report_gstr3b.xml',
@@ -17,6 +18,7 @@ Accounting reports for India
     ],
     'auto_install': ['l10n_in', 'account_reports'],
     'installable': True,
+    'post_init_hook': '_l10n_in_reports_post_init',
     'license': 'OEEL-1',
     'assets': {
         'web.assets_backend': [

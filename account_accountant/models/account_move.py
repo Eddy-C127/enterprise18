@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
 import calendar
 from contextlib import contextmanager
 from dateutil.relativedelta import relativedelta
@@ -57,6 +55,57 @@ class AccountMove(models.Model):
         compute='_compute_deferred_entry_type',
         copy=False,
     )
+
+    signing_user = fields.Many2one(
+        string='Signer',
+        comodel_name='res.users',
+        compute='_compute_signing_user', store=True,
+        copy=False,
+    )
+    show_signature_area = fields.Boolean(compute='_compute_signature')
+    signature = fields.Binary(compute='_compute_signature')  # can't be `related`: the sign module might not be there
+
+    @api.depends('state', 'move_type', 'invoice_user_id')
+    def _compute_signing_user(self):
+        other_moves = self.filtered(lambda move: not move.is_sale_document())
+        other_moves.signing_user = False
+
+        is_odoobot_user = self.env.user == self.env.ref('base.user_root')
+        is_backend_user = self.env.user.has_group('base.group_user')
+
+        for invoice in (self - other_moves).filtered(lambda inv: inv.state == 'posted'):
+            # signer priority:
+            #   - res.user set in res.settings
+            #   - real backend user posting the invoice
+            #   - if odoobot: the person that initiated the invoice ie: The salesman
+            #   - if invoice initiated by a portal user -> No signature
+            representative = invoice.company_id.signing_user
+            # checking `has_group('base.group_user')` ensure we never keep a portal user to sign
+            if is_odoobot_user:
+                user_can_sign = invoice.invoice_user_id and invoice.invoice_user_id.has_group('base.group_user')
+                invoice.signing_user = representative or invoice.invoice_user_id if user_can_sign else False
+            else:
+                invoice.signing_user = representative or self.env.user if is_backend_user else False
+
+    @api.depends('state')
+    def _compute_signature(self):
+        is_portal_user = self.env.user.has_group('base.group_portal')
+        # Checking `company_id.sign_invoice` removes the needs to check if the sign module is installed
+        # Setting it to True through `res.settings` auto install the sign module
+        moves_not_to_sign = self.filtered(
+            lambda inv: not inv.company_id.sign_invoice
+                        or inv.state in {'draft', 'cancel'}
+                        or not inv.is_sale_document()
+                        # Allow signature for portal user only if the invoice already went through the send&print workflow
+                        or (is_portal_user and not inv.invoice_pdf_report_id)
+        )
+        moves_not_to_sign.show_signature_area = False
+        moves_not_to_sign.signature = None
+
+        invoice_with_signature = self - moves_not_to_sign
+        invoice_with_signature.show_signature_area = True
+        for invoice in invoice_with_signature:
+            invoice.signature = invoice.signing_user.sign_signature
 
     @api.model
     def _get_invoice_in_payment_state(self):

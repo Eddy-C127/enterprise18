@@ -37,6 +37,13 @@
                     <field name="use_anglo_saxon"/>
                 </setting>
             </block>
+            <block title="Customer Invoices" id="invoicing_settings">
+                <setting company_dependent="1" help="To enhance authenticity, add a signature to your invoices">
+                    <field name="sign_invoice"/>
+                    <label for="signing_user" string="Legal signatory" class="col-lg-5 o_light_label" invisible="not sign_invoice"/>
+                    <field name="signing_user" invisible="not sign_invoice"/>
+                </setting>
+            </block>
             <xpath expr="//block[@id='account_vendor_bills']" position="inside">
                 <setting string="Predict vendor bill product" help="The system will try to predict the product on vendor bill lines based on the label of the line">
                     <field name="predict_bill_product"/>
