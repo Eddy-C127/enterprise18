@@ -220,6 +220,12 @@ class SocialStreamPostLinkedIn(models.Model):
                     'has_liked': json_data.get('likesSummary', {}).get('likedByCurrentUser', 0),
                 }
             },
+            'comments': {
+                'data': {
+                    'length': json_data.get('commentsSummary', {}).get('totalFirstLevelComments', 0),
+                    'parentUrn': json_data.get('commentUrn'),
+                },
+            },
         }
 
         image_content = next(
@@ -233,15 +239,6 @@ class SocialStreamPostLinkedIn(models.Model):
             data['attachment'] = {
                 'type': 'photo',
                 'media': {'image': {'src': image_content.get('url', '/web/static/img/placeholder.png')}},
-            }
-
-        sub_comments_count = json_data.get('commentsSummary', {}).get('totalFirstLevelComments', 0)
-        if sub_comments_count:
-            data['comments'] = {
-                'data': {
-                    'length': sub_comments_count,
-                    'parentUrn': json_data.get('commentUrn'),
-                }
             }
 
         return data
