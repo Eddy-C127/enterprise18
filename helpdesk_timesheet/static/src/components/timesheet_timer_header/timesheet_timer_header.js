@@ -21,19 +21,6 @@ patch(TimesheetTimerHeader.prototype, {
         }
     },
 
-    /**
-     * @override
-     */
-    async onWillUpdateProps(nextProps) {
-        await super.onWillUpdateProps(...arguments);
-        if (nextProps.timerRunning && !nextProps.timesheet?.data?.task_id) {
-            if (this.helpdeskTimerService.helpdeskProjects == undefined) {
-                // Means helpdesk projects has not been fetched yet
-                await this.helpdeskTimerService.fetchHelpdeskProjects();
-            }
-        }
-    },
-
     get hasHelpdeskProject() {
         const project = this.props.timesheet?.data?.project_id;
         const task = this.props.timesheet?.data?.task_id;

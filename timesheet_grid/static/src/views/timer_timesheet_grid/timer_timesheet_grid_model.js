@@ -145,7 +145,7 @@ export class TimerTimesheetGridDataPoint extends TimesheetGridDataPoint {
             this.resModel,
             "get_running_timer"
         );
-        if (timesheetWithTimerData.id) {
+        if (timesheetWithTimerData.id || timesheetWithTimerData.readonly) {
             this._updateTimer(timesheetWithTimerData);
         } else if (this.data.timer) {
             // remove running timer since there is no longer.

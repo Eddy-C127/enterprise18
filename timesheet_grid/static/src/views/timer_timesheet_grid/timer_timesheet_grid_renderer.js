@@ -62,7 +62,7 @@ export class TimerTimesheetGridRenderer extends TimesheetGridRenderer {
             timesheet: timerData.timesheet || { id: timerData.id },
             addTimeMode: false,
             startSeconds: 0,
-            timerRunning: Boolean(timerData.id),
+            timerRunning: Boolean(timerData.id || timerData.readonly),
             headerReadonly: Boolean(timerData.readonly),
             timerRunningRowId: timerData.row?.id || false,
         };
@@ -177,7 +177,7 @@ export class TimerTimesheetGridRenderer extends TimesheetGridRenderer {
                 this.timerState.addTimeMode = true;
             }
         } else if (!ev.altKey && !ev.ctrlKey && !ev.metaKey && this.showTimerButton) {
-            if (ev.key === "Escape" && this.timerState.timerRunning) {
+            if (ev.key === "Escape" && this.timerState.timerRunning && !this.timerState.headerReadonly) {
                 this.onTimerUnlinked();
                 return;
             }

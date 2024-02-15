@@ -13,11 +13,11 @@
             <t t-if="_timerIsRunning">
                 <div class="d-md-flex flex-grow-1 flex-wrap flex-lg-nowrap">
                     <div class="d-flex align-items-center">
-                        <button class="btn btn-primary btn_stop_timer text-nowrap" name="stop_timer" t-on-click.stop="_onClickStopTimer" data-hotkey="x" t-ref="stopButton">
+                        <button class="btn btn-primary btn_stop_timer text-nowrap" name="stop_timer" t-on-click.stop="_onClickStopTimer" data-hotkey="x" t-ref="stopButton" t-att-disabled="_headerReadonly">
                             <i class="fa fa-stop me-2"></i> Stop
                         </button>
                         <div class="o_timer_discard">
-                            <button class="btn btn-muted stop-timer" t-on-click.stop="_onClickUnlinkTimer" title="Press Esc to discard">Discard</button>
+                            <button class="btn btn-muted stop-timer" t-on-click.stop="_onClickUnlinkTimer" title="Press Esc to discard" t-att-disabled="_headerReadonly">Discard</button>
                         </div>
                         <div name="display_timer" class="ms-auto ms-lg-0 fs-4 fw-bold">
                             <TimesheetDisplayTimer

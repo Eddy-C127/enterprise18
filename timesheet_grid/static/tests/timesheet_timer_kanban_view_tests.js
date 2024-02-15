@@ -6,6 +6,8 @@ import { ormService } from "@web/core/orm_service";
 import { serializeDateTime } from "@web/core/l10n/dates";
 import {
     click,
+    clickOpenM2ODropdown,
+    editInput,
     getFixture,
     nextTick,
 } from "@web/../tests/helpers/utils";
@@ -101,6 +103,70 @@ QUnit.module("Views", (hooks) => {
             target,
             "button.btn_start_timer",
             "Timer should be running"
+        );
+    });
+
+    QUnit.test("Start timer, set fields and switch view", async function (assert) {
+        let timerRunning = false;
+        serverData.views["analytic.line,1,kanban"] =
+            `<kanban js_class="timesheet_timer_kanban">
+                <templates>
+                    <field name="name"/>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <field name="employee_id"/>
+                            <field name="project_id"/>
+                            <field name="task_id"/>
+                            <field name="date"/>
+                            <field name="display_timer"/>
+                            <field name="unit_amount"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>`;
+
+        const { openView } = await start({
+            serverData,
+            async mockRPC(route, { method }) {
+                switch (method) {
+                    case "get_running_timer":
+                        const result = { step_timer: 30 };
+                        if (timerRunning) {
+                            result.id = 4;
+                        }
+                        return result;
+                    case "action_start_new_timesheet_timer":
+                        timerRunning = true;
+                        return { id: 4 };
+                    case "get_daily_working_hours":
+                        return {};
+                    case "get_server_time":
+                        return serializeDateTime(DateTime.now());
+                    default:
+                        return timesheetGridSetup.mockTimesheetGridRPC(...arguments);
+                }
+            }
+        });
+
+        await openView({
+            res_model: "analytic.line",
+            views: [[false, "kanban"], [false, "grid"]],
+        });
+        await nextTick();
+        await click(target, ".btn_start_timer");
+        await editInput(target, ".o_field_char[name='name'] input", "Test");
+        await clickOpenM2ODropdown(target, "task_id");
+        await click(target, ".o_field_many2one[name='task_id'] li:nth-of-type(1) a");
+        await click(target, ".o_switch_view.o_grid");
+        assert.equal(
+            target.querySelector(".o_field_char[name='name'] input").value,
+            "Test",
+            "Description shouldn't have changed by switching view"
+        );
+        assert.equal(
+            target.querySelector(".o_field_many2one[name='task_id'] input").value,
+            "BS task",
+            "Task shouldn't have changed by switching view"
         );
     });
 })

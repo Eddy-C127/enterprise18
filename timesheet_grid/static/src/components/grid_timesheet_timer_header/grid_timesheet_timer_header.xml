@@ -2,7 +2,7 @@
 <templates xml:space="preserve">
 
     <t t-name="timesheet_grid.GridTimesheetTimerHeader">
-        <t t-if="props.timerRunning">
+        <t t-if="props.timerRunning and !props.headerReadonly">
             <Record
                 fields="fields"
                 activeFields="activeFields"

@@ -506,15 +506,7 @@ class TestTimesheetValidation(TestCommonTimesheet, MockEmail):
         timesheet = self.timesheet1.with_user(self.timesheet1.user_id)
         timesheet.action_timer_start()
         self.assertTrue(timesheet.is_timer_running)
-        timesheet_timer_data = timesheet._get_timesheet_timer_data()
-        expected_data = {
-            'id': timesheet.id,
-            'start': (fields.Datetime.now() - timesheet.user_timer_id.timer_start).total_seconds() + timesheet.unit_amount * 3600,
-            'project_id': self.project_customer.id,
-            'task_id': self.task1.id,
-            'description': timesheet.name,
-        }
-        self.assertDictEqual(timesheet_timer_data, expected_data)
+        self.assertDictEqual(timesheet._get_timesheet_timer_data(), {'id': timesheet.id})
 
         project_with_no_company, project_other_company = self.env['project.project'].create([
             {
@@ -532,23 +524,12 @@ class TestTimesheetValidation(TestCommonTimesheet, MockEmail):
             'project_id': project_with_no_company.id,
             'task_id': False,
         })
-        expected_data.update({
-            'project_id': project_with_no_company.id,
-            'task_id': False,
-        })
-        timesheet_timer_data = timesheet._get_timesheet_timer_data()
-        self.assertDictEqual(timesheet_timer_data, expected_data)
+        self.assertDictEqual(timesheet._get_timesheet_timer_data(), {'id': timesheet.id})
+
         timesheet.write({
             'project_id': project_other_company.id,
         })
-        timesheet_timer_data = timesheet._get_timesheet_timer_data()
-        expected_data.update({
-            'readonly': True,
-            'project_id': project_other_company.id,
-            'project_name': project_other_company.name,
-            'task_name': '',
-        })
-        self.assertDictEqual(timesheet_timer_data, expected_data)
+        self.assertDictEqual(timesheet._get_timesheet_timer_data(), {'readonly': True})
 
     def test_new_entry_when_timer_started_on_future_entry(self):
         """

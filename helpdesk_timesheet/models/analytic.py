@@ -95,14 +95,6 @@ class AccountAnalyticLine(models.Model):
             return 'helpdesk_ticket_id', 'helpdesk.ticket'
         return super()._get_timesheet_field_and_model_name()
 
-    def _get_timesheet_timer_data(self, timer=None):
-        timesheet_timer_data = super()._get_timesheet_timer_data(timer)
-        if timesheet_timer_data.get('readonly'):
-            timesheet_timer_data['helpdesk_ticket_id'] = self.helpdesk_ticket_id.sudo().name
-        else:
-            timesheet_timer_data['helpdesk_ticket_id'] = self.helpdesk_ticket_id.id
-        return timesheet_timer_data
-
     def _timesheet_get_portal_domain(self):
         domain = super(AccountAnalyticLine, self)._timesheet_get_portal_domain()
         if not self.env.user.has_group('hr_timesheet.group_hr_timesheet_user'):
@@ -122,14 +114,12 @@ class AccountAnalyticLine(models.Model):
                 ('project_id.privacy_visibility', '=', 'portal')
         ]
 
-    def _get_timesheet_timer_data(self, timer=None):
-        return {**super()._get_timesheet_timer_data(), 'helpdesk_ticket_id': self.helpdesk_ticket_id.id}
-
     @api.model
     def _add_time_to_timesheet_fields(self):
         return super()._add_time_to_timesheet_fields() + ['helpdesk_ticket_id']
 
     def _get_new_timesheet_timer_vals(self):
-        vals = super()._get_new_timesheet_timer_vals()
-        vals.update({'helpdesk_ticket_id': self.helpdesk_ticket_id.id})
-        return vals
+        return {
+            **super()._get_new_timesheet_timer_vals(),
+            'helpdesk_ticket_id': self.helpdesk_ticket_id.id,
+        }

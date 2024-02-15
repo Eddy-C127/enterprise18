@@ -3,6 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { Domain } from "@web/core/domain";
 import { useService } from "@web/core/utils/hooks";
+import { patch } from "@web/core/utils/patch";
 import { DynamicRecordList } from "@web/model/relational_model/dynamic_record_list";
 import { getPropertyFieldInfo } from "@web/views/fields/field";
 import {
@@ -16,6 +17,8 @@ import {
     useExternalListener,
     useSubEnv,
 } from "@odoo/owl";
+import { TimesheetTimerListController } from "@timesheet_grid/views/timesheet_list/timesheet_timer_list_controller";
+import { TimesheetTimerKanbanController } from "@timesheet_grid/views/timesheet_kanban/timesheet_timer_kanban_controller";
 
 export class TimesheetTimerRendererHook {
     constructor(propsList, env) {
@@ -29,10 +32,7 @@ export class TimesheetTimerRendererHook {
         this.timesheetUOMService = useService("timesheet_uom");
         this.timerState = useState({
             timesheetId: undefined,
-            taskId: undefined,
-            projectId: undefined,
             addTimeMode: false,
-            startSeconds: 0,
             timerRunning: false,
             headerReadonly: false,
         });
@@ -96,28 +96,16 @@ export class TimesheetTimerRendererHook {
     async onWillUpdateProps(nextProps) {
         await this._fetchRunningTimer();
         await this._popRecord(nextProps.list);
+        if (this.timesheet) {
+            await this.propsList.enterEditMode(this.timesheet);
+        }
         this._setAddTimeMode(this.timerState.addTimeMode);
     }
 
-    onRecordChanged(record, changes) {
-        if (this.timerState.timesheetId === record.resId) {
-            if (changes.project_id) {
-                this.timerState.projectId = changes.project_id;
-            }
-            if (changes.task_id) {
-                this.timerState.taskId = changes.task_id;
-            }
-            this.timesheet.save({ reload: false }).then(() => {
-                if (!this.timerState.timesheetId) {
-                    const { resId } = this.timesheet;
-                    this.timerState.timesheetId = resId;
-                    this.orm.call(this.propsList.resModel, "action_timer_start", [resId]);
-                }
-            });
+    async _newTimesheetTimer() {
+        if (this.propsList.addNewRecord) {
+            return this.propsList.addNewRecord(true);
         }
-    }
-
-    async newTimesheetTimer() {
         const values = await this.propsList.model._loadNewRecord({
             resModel: this.propsList.resModel,
             activeFields: this.propsList.activeFields,
@@ -151,20 +139,27 @@ export class TimesheetTimerRendererHook {
     async _onTimerStarted() {
         this.timerState.timerRunning = true;
         this.timerState.addTimeMode = false;
-        this.timerState.startSeconds = Math.floor(Date.now() / 1000);
-        this.timesheet = await this.newTimesheetTimer();
-        this.timerState.timesheetId = this.timesheet.resId;
+        let timesheetData = await this.orm.call(
+            this.propsList.resModel,
+            "action_start_new_timesheet_timer",
+            [{}]
+        );
+        if (timesheetData === false) {
+            this.timesheet = await this._newTimesheetTimer();
+            timesheetData = {
+                ...this.timesheet.data,
+                id: false,
+            };
+        }
+        this._setTimerStateData(timesheetData);
+        await this.propsList.model.load();
     }
 
     async _onTimerStopped() {
         const timesheetId = this.timesheet.resId;
         const tryToMatch = this.timesheet && !this.timesheet.data.unit_amount;
         this.timesheet = undefined;
-        this.timerState.timesheetId = undefined;
-        this.timerState.projectId = undefined;
-        this.timerState.taskId = undefined;
-        this.timerState.timerRunning = false;
-        this.timerState.headerReadonly = false;
+        this._resetTimerState();
 
         await this.orm.call(this.propsList.resModel, "action_timer_stop", [
             timesheetId,
@@ -179,12 +174,9 @@ export class TimesheetTimerRendererHook {
                 this.timerState.timesheetId,
             ]);
         }
+        this.propsList._removeRecords([this.timesheet.id]);
         this.timesheet = undefined;
-        this.timerState.timesheetId = undefined;
-        this.timerState.projectId = undefined;
-        this.timerState.taskId = undefined;
-        this.timerState.timerRunning = false;
-        this.timerState.headerReadonly = false;
+        this._resetTimerState();
         this.propsList.model.load();
     }
 
@@ -214,39 +206,30 @@ export class TimesheetTimerRendererHook {
     }
 
     _setTimerStateData(vals) {
-        if (vals.id !== undefined) {
-            this.timerState.timesheetId = vals.id;
-            this.timerState.headerReadonly = vals.readonly;
-            this.timerState.projectId = vals.project_id;
-            this.timerState.taskId = vals.task_id || undefined;
-            this.timerState.timerRunning = true;
-            this.timerState.startSeconds = Math.floor(Date.now() / 1000) - vals.start;
-        } else if (this.timerState.timerRunning && this.timerState.projectId) {
-            this.timerState.headerReadonly = false;
-            this.timerState.timesheetId = undefined;
-            this.timerState.projectId = undefined;
-            this.timerState.taskId = undefined;
-            this.timerState.timerRunning = false;
+        if (vals.id || vals.readonly) {
+            Object.assign(this.timerState, {
+                timerRunning: true,
+                timesheetId: vals.id,
+                headerReadonly: !!vals.readonly,
+            });
+        } else if (this.timerState.timerRunning && this.timesheet?.data.project_id) {
+            this._resetTimerState();
         }
         if ("step_timer" in vals) {
             this.timerState.stepTimer = vals.step_timer;
         }
     }
 
-    async startNewTimesheetTimer(vals = {}) {
-        const getValue = (fieldName, value) =>
-            this.propsList.fields[fieldName].type === "many2one" ? value[0] : value;
-        const values = {};
-        for (const [key, value] of Object.entries(vals)) {
-            values[key] = getValue(key, value);
-        }
-        return await this.orm.call(this.propsList.resModel, "action_start_new_timesheet_timer", [
-            values,
-        ]);
-    }
-
     _setAddTimeMode(addTimeMode) {
         this.timerState.addTimeMode = addTimeMode;
+    }
+
+    _resetTimerState() {
+        Object.assign(this.timerState, {
+            timesheetId: undefined,
+            timerRunning: false,
+            headerReadonly: false,
+        });
     }
 
     _onKeydown(ev) {
@@ -256,17 +239,20 @@ export class TimesheetTimerRendererHook {
         ) {
             return;
         }
+        const { headerReadonly, timerRunning } = this.timerState;
         switch (ev.key) {
             case "Enter":
                 ev.preventDefault();
-                if (this.timerState.timerRunning) {
-                    this._onTimerStopped();
-                } else {
-                    this._onTimerStarted();
+                if (!headerReadonly) {
+                    if (timerRunning) {
+                        this._onTimerStopped();
+                    } else {
+                        this._onTimerStarted();
+                    }
                 }
                 break;
             case "Escape":
-                if (this.timerState.timerRunning) {
+                if (!headerReadonly && timerRunning) {
                     ev.preventDefault();
                     this._onTimerUnlinked();
                 }
@@ -324,3 +310,42 @@ export function useTimesheetTimerRendererHook() {
     );
     return timesheetTimerRendererHook;
 }
+
+const patchController = () => ({
+    onChangeWriteValues(record) {
+        const { project_id, task_id, name } = record._getChanges();
+        return {
+            project_id,
+            task_id,
+            name,
+        };
+    },
+
+    get modelParams() {
+        const params = super.modelParams;
+        params.hooks.onRecordChanged = async (record) => {
+            if (record.isNew && record.data.project_id) {
+                const { project_id, task_id, employee_id, user_id, company_id } = record.data;
+                await record.model.orm.call(record.resModel, "action_start_new_timesheet_timer", [
+                    {
+                        project_id: project_id && project_id[0],
+                        task_id: task_id && task_id[0],
+                        employee_id: employee_id && employee_id[0],
+                        user_id: user_id && user_id[0],
+                        company_id: company_id && company_id[0],
+                    },
+                ]);
+            } else {
+                await record.model.orm.write(
+                    record.resModel,
+                    [record.resId],
+                    this.onChangeWriteValues(record)
+                );
+            }
+        };
+        return params;
+    },
+});
+
+patch(TimesheetTimerListController.prototype, patchController());
+patch(TimesheetTimerKanbanController.prototype, patchController());

@@ -543,40 +543,23 @@ class AnalyticLine(models.Model):
         self.action_timer_stop()
 
     def _get_timesheet_timer_data(self, timer=None):
-        if not timer:
-            timer = self.user_timer_id
-        running_seconds = (fields.Datetime.now() - timer.timer_start).total_seconds() + self.unit_amount * 3600
-        data = {
-            'id': timer.res_id,
-            'start': running_seconds,
-            'project_id': self.project_id.id,
-            'task_id': self.task_id.id,
-            'description': self.name,
-        }
-        if self.project_id.company_id and self.project_id.company_id not in self.env.companies:
-            data.update({
-                'readonly': True,
-                'project_name': self.project_id.name,
-                'task_name': self.task_id.name or '',
-            })
-        return data
+        if self.company_id in self.env.companies:
+            return {'id': (timer or self.user_timer_id).res_id}
+        return {'readonly': True}
 
     @api.model
     def get_running_timer(self):
-        step_timer = int(self.env['ir.config_parameter'].sudo().get_param('timesheet_grid.timesheet_min_duration', 15))
+        res = {'step_timer': int(self.env['ir.config_parameter'].sudo().get_param('timesheet_grid.timesheet_min_duration', 15))}
         timer = self.env['timer.timer'].search([
             ('user_id', '=', self.env.user.id),
             ('timer_start', '!=', False),
             ('timer_pause', '=', False),
             ('res_model', '=', self._name),
         ], limit=1)
-        if not timer:
-            return {'step_timer': step_timer}
-
-        # sudo as we can have a timesheet related to a company other than the current one.
-        timer_data = self.sudo().browse(timer.res_id)._get_timesheet_timer_data(timer)
-        timer_data['step_timer'] = step_timer
-        return timer_data
+        if timer:
+            # sudo as we can have a timesheet related to a company other than the current one.
+            res.update(self.sudo().browse(timer.res_id)._get_timesheet_timer_data(timer))
+        return res
 
     @api.model
     def get_rounded_time(self, timer):
