@@ -783,6 +783,7 @@ class JournalReportCustomHandler(models.AbstractModel):
         if data.get('journal_id') or data.get('journal_type'):
             tax_report_options['journals'] = [{
                 'id': data.get('journal_id'),
+                'model': 'account.journal',
                 'type': data.get('journal_type'),
                 'selected': True,
             }]
