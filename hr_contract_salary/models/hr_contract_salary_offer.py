@@ -47,10 +47,6 @@ class HrContractSalaryOffer(models.Model):
         for offer in self:
             offer.url = base_url + f"/salary_package/simulation/offer/{offer.id}" + (f"?token={offer.access_token}" if offer.applicant_id else "")
 
-    def _compute_state(self):
-        for offer in self:
-            offer.state = 'open'
-
     @api.depends('applicant_id', 'employee_contract_id', 'final_yearly_costs', 'offer_end_date')
     def _compute_display_name(self):
         for offer in self:
