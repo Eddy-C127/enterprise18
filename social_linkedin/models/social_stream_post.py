@@ -2,15 +2,15 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
-import re
 import requests
 from urllib.parse import quote, unquote
 from datetime import datetime
 from werkzeug.urls import url_join
 
 from odoo import _, models, fields
-from odoo.exceptions import UserError
 
+from odoo.exceptions import UserError
+from odoo.addons.social_linkedin.utils import urn_to_id, id_to_urn
 
 _logger = logging.getLogger(__name__)
 
@@ -29,10 +29,7 @@ class SocialStreamPostLinkedIn(models.Model):
 
     def _compute_linkedin_author_urn(self):
         for post in self:
-            if post.linkedin_author_urn:
-                post.linkedin_author_id = post.linkedin_author_urn.split(':')[-1]
-            else:
-                post.linkedin_author_id = False
+            post.linkedin_author_id = urn_to_id(post.linkedin_author_urn)
 
     def _compute_author_link(self):
         linkedin_posts = self._filter_by_media_types(['linkedin'])
@@ -157,16 +154,14 @@ class SocialStreamPostLinkedIn(models.Model):
             'isOrganization': True,
         }
         if attachment:
-            urls = self.account_id._linkedin_request_images([image_urn.split(':')[-1]])
+            urls = self.account_id._linkedin_request_images([urn_to_id(image_urn)])
             result['content'][0]['url'] = next(iter(urls.values()), None)
 
         return self._linkedin_format_comment(result)
 
     def _linkedin_comment_delete(self, comment_urn):
-        comment_id = re.search(r'urn:li:comment:\(urn:li:activity:\w+,(\w+)\)', comment_urn).group(1)
-
         response = self.account_id._linkedin_request(
-            'socialActions/%s/comments/%s' % (quote(self.linkedin_post_urn), quote(comment_id)),
+            'socialActions/%s/comments/%s' % (quote(self.linkedin_post_urn), quote(urn_to_id(comment_urn))),
             method='DELETE',
             params={'actor': self.account_id.linkedin_account_urn},
         )
@@ -176,10 +171,8 @@ class SocialStreamPostLinkedIn(models.Model):
             self.sudo().account_id._action_disconnect_accounts(response.json())
 
     def _linkedin_comment_edit(self, message, comment_urn):
-        comment_id = re.search(r'urn:li:comment:\(urn:li:activity:\w+,(\w+)\)', comment_urn).group(1)
-
         response = self.account_id._linkedin_request(
-            f'socialActions/{quote(self.linkedin_post_urn)}/comments/{quote(comment_id)}',
+            f'socialActions/{quote(self.linkedin_post_urn)}/comments/{quote(urn_to_id(comment_urn))}',
             json={'patch': {'message': {'$set': {'text': message}}}},
             params={'actor': self.account_id.linkedin_account_urn}
         ).json()
@@ -210,10 +203,10 @@ class SocialStreamPostLinkedIn(models.Model):
         comments = response.get('elements', [])
 
         persons_ids = {comment.get('actor') for comment in comments if comment.get('actor')}
-        organizations_ids = {author.split(":")[-1] for author in persons_ids if author.startswith("urn:li:organization:")}
-        persons = {author.split(":")[-1] for author in persons_ids if author.startswith("urn:li:person:")}
+        organizations_ids = {urn_to_id(author) for author in persons_ids if author.startswith("urn:li:organization:")}
+        persons = {urn_to_id(author) for author in persons_ids if author.startswith("urn:li:person:")}
         images_ids = [
-            content.get('entity', {}).get('image', '').split(':')[-1]
+            urn_to_id(content.get('entity', {}).get('image'))
             for comment in comments
             for content in comment.get('content', [])
             if content.get('type') == 'IMAGE'
@@ -230,7 +223,7 @@ class SocialStreamPostLinkedIn(models.Model):
             ).json()
             for organization_id, organization in response.get('results', {}).items():
                 organization_urn = f"urn:li:organization:{organization_id}"
-                image_id = organization.get('logoV2', {}).get('original', '').split(':')[-1]
+                image_id = urn_to_id(organization.get('logoV2', {}).get('original'))
                 images_ids.append(image_id)
                 formatted_authors[organization_urn] = {
                     'id': organization_urn,
@@ -251,9 +244,8 @@ class SocialStreamPostLinkedIn(models.Model):
                 timeout=5).json()
 
             for person_id, person_values in response.get('results', {}).items():
-                person_id = person_id.split(':')[-1][:-1]  # LinkedIn return weird format
-                person_urn = f"urn:li:person:{person_id}"
-                image_id = person_values.get('profilePicture', {}).get('displayImage', '').split(':')[-1]
+                person_urn = id_to_urn(person_values['id'], "li:person")
+                image_id = urn_to_id(person_values.get('profilePicture', {}).get('displayImage'))
                 images_ids.append(image_id)
                 formatted_authors[person_urn] = {
                     'id': person_urn,
@@ -273,7 +265,7 @@ class SocialStreamPostLinkedIn(models.Model):
                 # add the URL in the comment if the API didn't return it
                 for content in comment.get('content', []):
                     if content.get('type') == 'IMAGE' and not content.get('url'):
-                        content['url'] = image_ids_to_url.get(content.get('entity', {}).get('image', '').split(':')[-1])
+                        content['url'] = image_ids_to_url.get(urn_to_id(content.get('entity', {}).get('image')))
 
         default_author = {'id': '', 'authorUrn': '', 'name': _('Unknown')}
         for comment in comments:

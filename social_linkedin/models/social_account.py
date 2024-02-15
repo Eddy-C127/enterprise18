@@ -11,6 +11,7 @@ from werkzeug.urls import url_join
 from odoo import _, models, fields, api
 from odoo.exceptions import UserError
 from odoo.addons.social.controllers.main import SocialValidationException
+from odoo.addons.social_linkedin.utils import urn_to_id, id_to_urn
 
 _logger = logging.getLogger(__name__)
 
@@ -29,7 +30,7 @@ class SocialAccountLinkedin(models.Model):
         """
         for social_account in self:
             if social_account.linkedin_account_urn:
-                social_account.linkedin_account_id = social_account.linkedin_account_urn.split(':')[-1]
+                social_account.linkedin_account_id = urn_to_id(social_account.linkedin_account_urn)
             else:
                 social_account.linkedin_account_id = False
 
@@ -149,7 +150,7 @@ class SocialAccountLinkedin(models.Model):
             raise SocialValidationException(_('An error occurred when fetching your pages: %r.', response.text))
 
         account_ids = [
-            organization['organization'].split(':')[-1]
+            urn_to_id(organization['organization'])
             for organization in response.json().get('elements', [])
         ]
 
@@ -172,7 +173,7 @@ class SocialAccountLinkedin(models.Model):
 
         accounts = []
         for account_id, organization in organization_results.items():
-            image_id = organization.get('logoV2', {}).get('original', '').split(':')[-1]
+            image_id = urn_to_id(organization.get('logoV2', {}).get('original'))
             image_url = image_id and image_url_by_id.get(image_id)
             image_data = image_url and requests.get(image_url, timeout=10).content
             accounts.append({
@@ -305,11 +306,7 @@ class SocialAccountLinkedin(models.Model):
         :param images_ids: Image ids (li:image or digital asset)
         :param linkedin_access_token: Access token to use
         """
-        images_urns = [
-            f"urn:li:image:{images_id.split(':')[-1]}"
-            for images_id in images_ids
-            if images_id
-        ]
+        images_urns = [id_to_urn(image_id, "li:image") for image_id in images_ids if image_id]
         if not images_urns:
             return {}
         response = self._linkedin_request(
@@ -319,7 +316,7 @@ class SocialAccountLinkedin(models.Model):
             linkedin_access_token=linkedin_access_token,
         )
         return {
-            image_urn.split(':')[-1]: image_values['downloadUrl']
+            urn_to_id(image_urn): image_values['downloadUrl']
             for image_urn, image_values in response.json().get('results', {}).items()
         } if response.ok else {}
 
