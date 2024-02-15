@@ -1,57 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
-    <div t-name="spreadsheet_edition.PivotDetailsSidePanel" class="o_spreadsheet_pivot_side_panel">
-        <t t-set="def" t-value="pivotDefinition"/>
-        <div class="o_side_panel_section">
-            <div class="o_side_panel_title">Pivot name</div>
-            <EditableName name="env.model.getters.getPivotName(props.pivotId)"
-                          displayName="env.model.getters.getPivotDisplayName(props.pivotId)"
-                          onChanged.bind="onNameChanged"/>
-            <div class="btn btn-link o_duplicate_pivot" t-on-click="duplicatePivot">
-                <i class="fa fa-solid fa-copy me-1"/>Duplicate Pivot
+    <div t-name="spreadsheet_edition.PivotDetailsSidePanel" class="o_spreadsheet_pivot_side_panel h-100 overflow-hidden d-flex justify-content-between flex-column">
+        <div class="h-100 overflow-auto">
+            <t t-set="definition" t-value="store.definition"/>
+            <div class="o_side_panel_section">
+                <div class="o_side_panel_title">Pivot name</div>
+                <EditableName name="env.model.getters.getPivotName(props.pivotId)"
+                              displayName="env.model.getters.getPivotDisplayName(props.pivotId)"
+                              onChanged.bind="onNameChanged"/>
+                <div class="btn btn-link o_duplicate_pivot" t-on-click="duplicatePivot">
+                    <i class="fa fa-solid fa-copy me-1"/>Duplicate Pivot
+                </div>
+            </div>
+            <div class="o_side_panel_section">
+                <div class="o_side_panel_title">Model</div>
+                <div class="o_model_name"><t t-esc="modelDisplayName"/> (<t t-esc="definition.model"/>)</div>
+            </div>
+            <PivotDimensions
+                unusedGroupableFields="store.unusedGroupableFields"
+                definition="definition"
+                onDimensionsUpdated.bind="onDimensionsUpdated"
+            />
+            <div class="o_side_panel_section">
+                <div class="o_side_panel_title">Domain</div>
+                <DomainSelector resModel="definition.model" domain="definition.domain.toString()" t-key="'pivot_' + props.pivotId"/>
+                <div class="btn btn-link o_edit_domain" t-on-click="openDomainEdition">
+                    <i class="oi oi-arrow-right me-1"/>Edit domain
+                </div>
+            </div>
+            <div class="o_side_panel_section" t-if="definition.sortedColumn">
+                <div class="o_side_panel_title">Sorting</div>
+                <div t-esc="formatSort()"/>
+            </div>
+            <div class="o_side_panel_section">
+                <div class="o_pivot_last_update"><i>Last updated at <t t-esc="getLastUpdate()"/></i></div>
+                <div class="btn btn-link o_refresh_measures" t-on-click="refresh"><i class="oi oi-arrow-right me-1"/>Refresh values</div><br/>
+            </div>
+            <div class="o-sidePanelButtons">
+                <button t-on-click="deletePivot" class="o-button o_delete_element">Delete</button>
+                <button t-on-click="goToPivotList" class="o-button o_pivot_cancel">Back</button>
+            </div>
+            <div class="o_side_panel_section py-1" t-if="env.model.getters.isPivotUnused(props.pivotId)">
+                <ValidationMessages messages="[unusedPivotWarning]" msgType="'warning'"/>
             </div>
         </div>
-        <div class="o_side_panel_section">
-            <div class="o_side_panel_title">Model</div>
-            <div class="o_model_name"><t t-esc="def.modelDisplayName"/> (<t t-esc="def.model"/>)</div>
-        </div>
-        <div class="o_side_panel_section">
-            <div class="o_side_panel_title">Domain</div>
-            <DomainSelector resModel="def.model" domain="def.domain" t-key="'pivot_' + props.pivotId"/>
-            <div class="btn btn-link o_edit_domain" t-on-click="openDomainEdition">
-                <i class="oi oi-arrow-right me-1"/>Edit domain
+        <Section class="'d-flex flex-row justify-content-between align-items-center py-1 border-top pivot-defer-update'">
+            <Checkbox
+                label="deferUpdatesLabel"
+                title="deferUpdatesTooltip"
+                value="store.updatesAreDeferred"
+                onChange="(value) => store.deferUpdates(value)"
+            />
+            <div>
+                <i t-if="store.isDirty" class="btn btn-sm pe-0 fa fa-undo" title="Discard all changes" t-on-click="() => store.discardPendingUpdate()"></i>
+                <span t-if="store.isDirty" class="btn btm-sm btn-link" title="Apply all changes" t-on-click="() => store.applyUpdate()">Update</span>
             </div>
-        </div>
-        <div class="o_side_panel_section">
-            <div class="o_side_panel_title">Columns</div>
-            <t t-foreach="def.colGroupBys" t-as="gp" t-key="gp">
-                <div t-esc="gp"/>
-            </t>
-        </div>
-        <div class="o_side_panel_section">
-            <div class="o_side_panel_title">Rows</div>
-            <t t-foreach="def.rowGroupBys" t-as="gp" t-key="gp">
-                <div t-esc="gp"/>
-            </t>
-        </div>
-        <div class="o_side_panel_section" t-if="def.sortedColumn">
-            <div class="o_side_panel_title">Sorting</div>
-            <div t-esc="formatSort()"/>
-        </div>
-        <div class="o_side_panel_section">
-            <div class="o_side_panel_title">Measures</div>
-            <t t-foreach="def.measures" t-as="measure" t-key="measure">
-                <div t-esc="measure"/>
-            </t>
-            <div class="o_pivot_last_update"><i>Last updated at <t t-esc="getLastUpdate()"/></i></div>
-            <div class="btn btn-link o_refresh_measures" t-on-click="refresh"><i class="oi oi-arrow-right me-1"/>Refresh values</div><br/>
-        </div>
-        <div class="o-sidePanelButtons">
-            <button t-on-click="deletePivot" class="o-button o_delete_element">Delete</button>
-            <button t-on-click="goToPivotList" class="o-button o_pivot_cancel">Back</button>
-        </div>
-        <div class="o_side_panel_section py-1" t-if="env.model.getters.isPivotUnused(props.pivotId)">
-            <ValidationMessages messages="[unusedPivotWarning]" msgType="'warning'"/>
-        </div>
+        </Section>
     </div>
 </templates>

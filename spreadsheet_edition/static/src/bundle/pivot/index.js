@@ -32,6 +32,7 @@ sidePanelRegistry.add("PIVOT_PROPERTIES_PANEL", {
         return {
             isOpen: getters.isExistingPivot(initialProps.pivotId),
             props: initialProps,
+            key: initialProps.pivotId,
         };
     },
 });

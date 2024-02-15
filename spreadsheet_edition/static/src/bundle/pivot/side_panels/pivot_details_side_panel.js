@@ -6,16 +6,27 @@ import { DomainSelectorDialog } from "@web/core/domain_selector_dialog/domain_se
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { EditableName } from "../../o_spreadsheet/editable_name/editable_name";
-import { components, helpers } from "@odoo/o-spreadsheet";
+import { components, helpers, stores } from "@odoo/o-spreadsheet";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
 
-const { ValidationMessages } = components;
+import { PivotSidePanelStore } from "./pivot_detail_side_panel_store";
+import { PivotDimensions } from "./pivot_dimensions/pivot_dimensions";
+
+const { Checkbox, Section, ValidationMessages } = components;
+const { useLocalStore } = stores;
 
 const uuidGenerator = new helpers.UuidGenerator();
 
 export class PivotDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.PivotDetailsSidePanel";
-    static components = { DomainSelector, EditableName, ValidationMessages };
+    static components = {
+        DomainSelector,
+        EditableName,
+        ValidationMessages,
+        PivotDimensions,
+        Checkbox,
+        Section,
+    };
     static props = {
         onCloseSidePanel: Function,
         pivotId: String,
@@ -24,28 +35,20 @@ export class PivotDetailsSidePanel extends Component {
     setup() {
         this.dialog = useService("dialog");
         this.notification = useService("notification");
-        /** @type {import("@spreadsheet/pivot/pivot_data_source").default} */
-        this.pivot = undefined;
-        const loadData = async (pivotId) => {
-            this.pivot = this.env.model.getters.getPivot(pivotId);
+        /**@type {PivotSidePanelStore} */
+        this.store = useLocalStore(PivotSidePanelStore, this.props.pivotId);
+
+        const loadData = async () => {
             await this.pivot.load();
             this.modelDisplayName = await this.pivot.getModelLabel();
         };
-        onWillStart(() => loadData(this.props.pivotId));
-        onWillUpdateProps((nextProps) => loadData(nextProps.pivotId));
+        onWillStart(loadData);
+        onWillUpdateProps(loadData);
     }
 
-    get pivotDefinition() {
-        const definition = this.pivot.definition;
-        return {
-            model: definition.model,
-            modelDisplayName: this.modelDisplayName,
-            domain: definition.domain.toString(),
-            colGroupBys: definition.columns.map((col) => col.displayName),
-            rowGroupBys: definition.rows.map((row) => row.displayName),
-            measures: definition.measures.map((measure) => measure.displayName),
-            sortedColumn: definition.sortedColumn,
-        };
+    /** @returns {import("@spreadsheet/pivot/pivot_data_source").default} */
+    get pivot() {
+        return this.store.pivot;
     }
 
     onNameChanged(name) {
@@ -56,7 +59,7 @@ export class PivotDetailsSidePanel extends Component {
     }
 
     formatSort() {
-        const sortedColumn = this.pivotDefinition.sortedColumn;
+        const sortedColumn = this.pivot.definition.sortedColumn;
         const order = sortedColumn.order === "asc" ? _t("ascending") : _t("descending");
         const measureDisplayName = this.pivot.getMeasure(sortedColumn.measure).displayName;
         return `${measureDisplayName} (${order})`;
@@ -89,11 +92,9 @@ export class PivotDetailsSidePanel extends Component {
             resModel: model,
             domain: domain.toString(),
             isDebugMode: !!this.env.debug,
-            onConfirm: (domain) =>
-                this.env.model.dispatch("UPDATE_ODOO_PIVOT_DOMAIN", {
-                    pivotId: this.props.pivotId,
-                    domain: new Domain(domain).toJson(),
-                }),
+            onConfirm: (domain) => {
+                this.store.update({ domain: new Domain(domain).toJson() });
+            },
         });
     }
 
@@ -126,5 +127,19 @@ export class PivotDetailsSidePanel extends Component {
 
     get unusedPivotWarning() {
         return _t("This pivot is not used");
+    }
+
+    get deferUpdatesLabel() {
+        return _t("Defer updates");
+    }
+
+    get deferUpdatesTooltip() {
+        return _t(
+            "Changing the pivot definition requires to reload the data. It may take some time."
+        );
+    }
+
+    onDimensionsUpdated({ rows, columns }) {
+        this.store.update({ rowGroupBys: rows, colGroupBys: columns });
     }
 }

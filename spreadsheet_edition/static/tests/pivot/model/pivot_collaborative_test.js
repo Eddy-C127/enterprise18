@@ -179,6 +179,28 @@ QUnit.test("Insert and remove a pivot concurrently", async (assert) => {
     );
 });
 
+QUnit.test("update and remove a pivot concurrently", async (assert) => {
+    await insertPivot(alice);
+    await network.concurrent(() => {
+        alice.dispatch("UPDATE_PIVOT", {
+            pivotId: "PIVOT#1",
+            pivot: {
+                type: "ODOO",
+                ...alice.getters.getPivotDefinition("PIVOT#1"),
+                colGroupBys: [],
+            },
+        });
+        bob.dispatch("REMOVE_PIVOT", {
+            pivotId: "PIVOT#1",
+        });
+    });
+    assert.spreadsheetIsSynchronized(
+        [alice, bob, charlie],
+        (user) => user.getters.getPivotIds().length,
+        0
+    );
+});
+
 QUnit.test("Duplicate and remove a pivot concurrently", async (assert) => {
     await insertPivot(alice);
     await network.concurrent(() => {
