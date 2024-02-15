@@ -43,7 +43,7 @@ class SocialPostTemplate(models.Model):
                     link_preview['title'] = title
 
             post.linkedin_preview = self.env['ir.qweb']._render('social_linkedin.linkedin_preview', {
-                **post._prepare_preview_values("instagram"),
+                **post._prepare_preview_values("linkedin"),
                 'message': post._prepare_post_content(
                     post.message,
                     'linkedin',

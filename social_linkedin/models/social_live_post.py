@@ -86,7 +86,8 @@ class SocialLivePostLinkedin(models.Model):
             if live_post.post_id.image_ids:
                 try:
                     images_urn = [
-                        self._linkedin_upload_image(live_post.account_id, image_id)
+                        live_post.account_id._linkedin_upload_image(
+                            image_id.with_context(bin_size=False).raw)
                         for image_id in live_post.post_id.image_ids
                     ]
                 except UserError as e:
@@ -154,11 +155,11 @@ class SocialLivePostLinkedin(models.Model):
 
             live_post.write(values)
 
-    def _linkedin_upload_image(self, account_id, image_id):
+    def _linkedin_upload_image(self, account_id, image_data):
         """Upload an image on LinkedIn.
 
         :param account_id: The social.account to use to upload the image
-        :param image_id: The attachment or the raw bytes of the image
+        :param image_data: Raw bytes of the image
         """
         # 1 - Register your image to be uploaded
         data = {
@@ -182,16 +183,10 @@ class SocialLivePostLinkedin(models.Model):
         upload_url = response['value']['uploadUrl']
         image_urn = response['value']['image']
 
-        if isinstance(image_id, bytes):
-            data = image_id
-        else:
-            # TODO: clean in master (always give the raw bytes)
-            data = image_id.with_context(bin_size=False).raw
-
         headers = account_id._linkedin_bearer_headers()
         headers['Content-Type'] = 'application/octet-stream'
 
-        response = requests.request('POST', upload_url, data=data, headers=headers, timeout=15)
+        response = requests.request('POST', upload_url, data=image_data, headers=headers, timeout=15)
 
         if not response.ok:
             raise UserError(_("We could not upload your image, try reducing its size and posting it again."))

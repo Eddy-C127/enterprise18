@@ -239,10 +239,6 @@ class SocialAccountLinkedin(models.Model):
         if streams_to_create:
             self.env['social.stream'].create(streams_to_create)
 
-    def _extract_linkedin_picture_url(self, json_data):
-        # TODO: remove in master
-        return ''
-
     ################
     # External API #
     ################
