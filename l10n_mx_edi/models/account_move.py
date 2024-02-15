@@ -1590,8 +1590,14 @@ class AccountMove(models.Model):
                 .with_context(no_new_invoice=True)\
                 .message_post(body=_("The CFDI document has been successfully cancelled."))
 
-            self.button_draft()
-            self.button_cancel()
+            try:
+                self._check_fiscalyear_lock_date()
+                self.line_ids._check_tax_lock_date()
+
+                self.button_draft()
+                self.button_cancel()
+            except UserError:
+                pass
 
         document._cancel_api(self.company_id, cancel_reason, on_failure, on_success)
 
@@ -1817,8 +1823,15 @@ class AccountMove(models.Model):
 
         def on_success():
             self._l10n_mx_edi_cfdi_payment_document_cancel(document, cancel_reason)
-            self.button_draft()
-            self.button_cancel()
+
+            try:
+                self._check_fiscalyear_lock_date()
+                self.line_ids._check_tax_lock_date()
+
+                self.button_draft()
+                self.button_cancel()
+            except UserError:
+                pass
 
         document._cancel_api(self.company_id, cancel_reason, on_failure, on_success)
 
