@@ -29,41 +29,65 @@ class HrContractSalaryBenefit(models.Model):
     show_name = fields.Boolean(string="Show Name", default=True, help='Whether the name should be displayed in the Salary Configurator')
     active = fields.Boolean(default=True)
     res_field_id = fields.Many2one(
-        'ir.model.fields', string="Benefit Field", domain=_get_field_domain, ondelete='cascade', required=False,
-        help='Contract field linked to this benefit')
+        'ir.model.fields',
+        string="Contract Related Field",
+        compute="_compute_benefits",
+        store=True,
+        readonly=False,
+        required=False,
+        domain=_get_field_domain,
+        ondelete='cascade',
+        help="Select the contract's field where the value of the benefit will be written",
+    )
     cost_res_field_id = fields.Many2one(
-        'ir.model.fields', string="Cost Field", domain=_get_field_domain, ondelete='cascade',
-        help="Contract field linked to this benefit cost. If not set, the benefit won't be taken into account when computing the employee budget.")
+        'ir.model.fields',
+        string="Cost Field",
+        compute="_compute_benefits",
+        store=True,
+        readonly=False,
+        domain=_get_field_domain,
+        ondelete='cascade',
+        help="Select the contract's field to consider in salary computation",
+    )
     # LUL rename into field and cost_field to be consistent with fold_field and manual_field?
     res_field_public = fields.Selection(
         selection="_get_public_field_names",
-        string="Benefit Field",
+        string="Benefit Field",
         readonly=False,
         compute="_compute_res_field_public",
-        inverse="_inverse_res_field_public"
+        inverse="_inverse_res_field_public",
     )
     cost_res_field_public = fields.Selection(
         selection="_get_public_field_names",
-        string="Cost Field",
+        string="Cost Field (Public)",
         readonly=False,
         compute="_compute_cost_res_field_public",
-        inverse="_inverse_cost_res_field_public"
+        inverse="_inverse_cost_res_field_public",
     )
     field = fields.Char(related="res_field_id.name", readonly=True)
     cost_field = fields.Char(related="cost_res_field_id.name", string="Cost Field Name", readonly=True, compute_sudo=True)
     sequence = fields.Integer(default=100)
     benefit_type_id = fields.Many2one(
-        'hr.contract.salary.benefit.type', required=True, string="Related Type",
-        default=lambda self: self.env.ref('hr_contract_salary.l10n_be_monthly_benefit', raise_if_not_found=False))
+        'hr.contract.salary.benefit.type', required=True, string="Benefit Type",
+        default=lambda self: self.env.ref('hr_contract_salary.l10n_be_monthly_benefit', raise_if_not_found=False),
+        help="Allow to define the periodicity and output type of the advantage")
     benefit_ids = fields.Many2many(
-        'hr.contract.salary.benefit', 'hr_contract_salary_benefit_rel', 'benefit_ids', 'mandatory_benefit_ids',
-        help='All benefits in this field need to be selected, as a condition for the current one to be editable. Before edition, the current benefit is always set to false.',
-        string="Mandatory Benefits", domain="[('id', '!=', id)]")
+        'hr.contract.salary.benefit',
+        'hr_contract_salary_benefit_rel',
+        'benefit_ids',
+        'mandatory_benefit_ids',
+        help='Select other Benefits that need to be selected to make this Benefit available',
+        string="Mandatory Benefits",
+        compute="_compute_benefits",
+        store=True,
+        readonly=False,
+        domain="[('id', '!=', id), ('structure_type_id', '=', structure_type_id)]",
+    )
     folded = fields.Boolean()
     fold_label = fields.Char(translate=True)
     fold_res_field_id = fields.Many2one(
-        'ir.model.fields', domain=_get_field_domain, ondelete='cascade',
-        help='Contract field used to fold this benefit.')
+        'ir.model.fields', string="Fold Condition", domain=_get_field_domain, ondelete='cascade',
+        help='The field here needs to be set for this benefit to be folded by default.')
     fold_field = fields.Char(related='fold_res_field_id.name', string="Fold Field Name", readonly=True)
     manual_res_field_id = fields.Many2one(
         'ir.model.fields', domain=_get_field_domain, ondelete='cascade',
@@ -71,25 +95,24 @@ class HrContractSalaryBenefit(models.Model):
     manual_field = fields.Char(related='manual_res_field_id.name', string="Manual Field Name", readonly=True)
     country_id = fields.Many2one('res.country')
     structure_type_id = fields.Many2one('hr.payroll.structure.type', string="Salary Structure Type", required=True)
-    icon = fields.Char()
+    icon = fields.Char(compute='_compute_icon', store=True, readonly=False)
     display_type = fields.Selection(selection=[
         ('always', 'Always Selected'),
         ('dropdown', 'Dropdown'),
         ('dropdown-group', 'Dropdown Group'),
-        ('slider', 'Slider'),
         ('radio', 'Radio Buttons'),
+        ('slider', 'Slider'),
         ('manual', 'Manual Input'),
         ('text', 'Text'),
     ])
-    impacts_net_salary = fields.Boolean(default=True)
     description = fields.Html('Description', translate=True)
     slider_min = fields.Float()
     slider_max = fields.Float()
     slider_step = fields.Integer(default=1)
     value_ids = fields.One2many('hr.contract.salary.benefit.value', 'benefit_id')
-    hide_description = fields.Boolean(help="Hide the description if the benefit is not taken.")
-    requested_documents_field_ids = fields.Many2many('ir.model.fields', domain=_get_binary_field_domain, string="Requested Documents")
-    requested_documents_fields_string = fields.Text('Requested Documents', compute="_compute_requested_fields_string", readonly=True)
+    always_show_description = fields.Boolean(string="Always Show Description", help="If unchecked, Description will only be shown when Benefit is selected", default=True)
+    requested_documents_field_ids = fields.Many2many('ir.model.fields', domain=_get_binary_field_domain, string="Requested Documents (IDs)")
+    requested_documents_fields_string = fields.Text('Requested Documents', compute="_compute_requested_fields_string", readonly=True)
     requested_documents = fields.Char(compute='_compute_requested_documents', string="Requested Documents Fields", compute_sudo=True)
     has_admin_access = fields.Boolean(compute='_compute_has_admin_access')
 
@@ -163,6 +186,13 @@ class HrContractSalaryBenefit(models.Model):
             names.extend(benefit.requested_documents_field_ids.mapped('name'))
         self._set_requested_documents_as_required(names)
 
+    @api.depends('structure_type_id')
+    def _compute_benefits(self):
+        self.res_field_id = False
+        self.cost_res_field_id = False
+        for benefit in self:
+            benefit.benefit_ids = benefit.benefit_ids.filtered(lambda b: b.structure_type_id == self.structure_type_id)
+
     def _set_requested_documents_as_required(self, names):
         personal_infos = self.env['hr.contract.salary.personal.info'].search([('field', 'in', names)])
         if personal_infos:
@@ -183,6 +213,10 @@ class HrContractSalaryBenefit(models.Model):
         for record in self:
             if not record.res_field_id and record.display_type != 'always':
                 raise ValidationError(_('Benefits that are not linked to a field should always be displayed.'))
+
+    @api.depends('show_name')
+    def _compute_icon(self):
+        self.filtered(lambda b: not b.show_name).icon = False
 
 class HrContractSalaryBenefitType(models.Model):
     _name = 'hr.contract.salary.benefit.type'
@@ -206,10 +240,8 @@ class HrContractSalaryBenefitValue(models.Model):
     sequence = fields.Integer(default=100)
     benefit_id = fields.Many2one('hr.contract.salary.benefit')
     value = fields.Float()
-    color = fields.Selection(selection=[
-        ('green', 'Green'),
-        ('red', 'Red')], string="Color", default="green")
-    hide_description = fields.Boolean()
+    selector_highlight = fields.Selection(selection=[('none', 'None'), ('red', 'Red')], string="Selector Highlight", default='none')
+    always_show_description = fields.Boolean()
 
     display_type = fields.Selection([
             ('line', 'Line'),
@@ -217,3 +249,4 @@ class HrContractSalaryBenefitValue(models.Model):
         ],
         default='line',
     )
+    benefit_display_type = fields.Selection(related='benefit_id.display_type', string='Benefit Display Type')

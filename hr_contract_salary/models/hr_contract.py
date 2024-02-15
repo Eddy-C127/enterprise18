@@ -216,7 +216,7 @@ class HrContract(models.Model):
     @api.depends(lambda self: (
         'wage',
         'structure_type_id.salary_benefits_ids.res_field_id',
-        'structure_type_id.salary_benefits_ids.impacts_net_salary',
+        'structure_type_id.salary_benefits_ids.cost_res_field_id',
         *self._get_benefit_fields()))
     def _compute_final_yearly_costs(self):
         for contract in self:
@@ -256,7 +256,6 @@ class HrContract(models.Model):
     def _get_benefits_costs(self):
         self.ensure_one()
         benefits = self.env['hr.contract.salary.benefit'].search([
-            ('impacts_net_salary', '=', True),
             ('structure_type_id', '=', self.structure_type_id.id),
             ('cost_res_field_id', '!=', False),
         ])

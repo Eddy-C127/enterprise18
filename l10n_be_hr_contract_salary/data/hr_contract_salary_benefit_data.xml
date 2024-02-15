@@ -27,7 +27,6 @@
         <field name="fold_label">Company Car (To order)</field>
         <field name="fold_res_field_id" model="ir.model.fields" eval="obj().search([('model', '=', 'hr.contract'), ('name', '=', 'new_car')])"/>
         <field name="display_type">dropdown-group</field>
-        <field name="impacts_net_salary" eval="False"/>
     </record>
 
     <record id="l10n_be_transport_public" model="hr.contract.salary.benefit">
@@ -120,7 +119,7 @@
         <field name="icon">fa fa-globe</field>
         <field name="display_type">manual</field>
         <field name="description">Enter the amount of your internet subscription invoice. If you have a pack only the internet part of your operator subscription will be paid by the employer.</field>
-        <field name="hide_description" eval="True"/>
+        <field name="always_show_description" eval="False"/>
         <field name="requested_documents_field_ids" model="ir.model.fields" eval="[(4, obj().search([('model', '=', 'hr.contract'), ('name', '=', 'internet_invoice')]).id)]"/>
     </record>
 
@@ -144,8 +143,8 @@
         <field name="benefit_id" ref="l10n_be_mobile"/>
         <field name="value">0</field>
         <field name="name">No</field>
-        <field name="color">red</field>
-        <field name="hide_description" eval="True"/>
+        <field name="selector_highlight">red</field>
+        <field name="always_show_description" eval="False"/>
     </record>
 
     <record id="l10n_be_mobile_value_1" model="hr.contract.salary.benefit.value">
@@ -185,8 +184,8 @@
         <field name="benefit_id" ref="l10n_be_intellectual_property"/>
         <field name="name">No</field>
         <field name="value">0</field>
-        <field name="color">red</field>
-        <field name="hide_description" eval="True"/>
+        <field name="selector_highlight">red</field>
+        <field name="always_show_description" eval="False"/>
     </record>
 
     <record id="l10n_be_intellectual_property_value_1" model="hr.contract.salary.benefit.value">
@@ -305,8 +304,8 @@
         <field name="benefit_id" ref="l10n_be_hospital_insurance"/>
         <field name="name">No</field>
         <field name="value">0</field>
-        <field name="color">red</field>
-        <field name="hide_description" eval="True"/>
+        <field name="selector_highlight">red</field>
+        <field name="always_show_description" eval="False"/>
         <field name="sequence">1</field>
     </record>
 
@@ -418,9 +417,9 @@
         <field name="benefit_id" ref="l10n_be_ambulatory_insurance"/>
         <field name="name">No</field>
         <field name="value">0</field>
-        <field name="color">red</field>
+        <field name="selector_highlight">red</field>
         <field name="sequence">1</field>
-        <field name="hide_description" eval="True"/>
+        <field name="always_show_description" eval="False"/>
     </record>
 
     <record id="l10n_be_ambulatory_insurance_value_1" model="hr.contract.salary.benefit.value">

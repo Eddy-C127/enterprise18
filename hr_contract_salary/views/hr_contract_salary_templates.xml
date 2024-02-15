@@ -115,14 +115,14 @@
                                                     t-att-data-value="str(value.value)"
                                                     applies-on="contract"
                                                     t-att-checked="not initial_values[benefit.field] if (len(benefit.value_ids) &lt;= 2 and value.value == 0) else (initial_values[benefit.field] if (len(benefit.value_ids) &lt;= 2 and value.value != 0) else (initial_values[benefit.field] == float(value.value)))"
-                                                    t-att-class="'hide_description' if value.hide_description else ''"
+                                                    t-att-class="'hide_description' if not value.always_show_description else ''"
                                                     t-att-data-requested_documents="benefit.requested_documents"
                                                     t-att-data-benefit_ids-dependent="dependent_benefits[benefit]"
                                                     t-att-data-benefit_ids-mandatory="mandatory_benefits[benefit]"
                                                     t-att-data-benefit_ids-mandatory-names="mandatory_benefits_names[benefit]"
                                                     />
                                                 <t t-esc="value.name"/>
-                                                <div t-att-class="'hr_cs_control_indicator' + (' hr_cs_control_no' if value.color == 'red' else '')"/>
+                                                <div t-att-class="'hr_cs_control_indicator' + (' hr_cs_control_no' if value.selector_highlight == 'red' else '')"/>
                                             </label>
                                         </t>
                                     </t>

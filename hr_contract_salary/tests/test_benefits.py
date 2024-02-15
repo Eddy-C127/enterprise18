@@ -37,7 +37,6 @@ class TestBenefits(TransactionCase):
         with patch.object(HrContract, '_get_benefits_costs', lambda self: benefit_costs(self) + self[fieldname]):
             atype = self.env['hr.contract.salary.benefit.type'].create({})
             self.env['hr.contract.salary.benefit'].create({
-                'impacts_net_salary': True,
                 'benefit_type_id': atype.id,
                 'res_field_id': field.id,
                 'cost_res_field_id': field.id,
