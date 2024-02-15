@@ -11,11 +11,11 @@ _logger = logging.getLogger(__name__)
 
 def _generate_payslips(env):
     # Do this only when demo data is activated
-    if env.ref('base.main_company', raise_if_not_found=False):
+    if employee_maggie := env.ref('l10n_us_hr_payroll.hr_employee_maggie', raise_if_not_found=False):
         if not env['hr.payslip'].sudo().search_count([('employee_id.name', '=', 'Maggie Davidson (mda)')]):
             _logger.info('Generating payslips')
             wizard_vals = {
-                'employee_ids': [(4, env.ref('l10n_us_hr_payroll.hr_employee_maggie').id)],
+                'employee_ids': [(4, employee_maggie.id)],
                 'structure_id': env.ref('l10n_us_hr_payroll.hr_payroll_structure_us_employee_salary').id
             }
             cids = env.ref('base.main_company').ids
