@@ -247,9 +247,24 @@ class SocialAccountLinkedin(models.Model):
     ################
 
     def _linkedin_request(self, endpoint, params=None, linkedin_access_token=None,
-                          object_ids=None, fields=None, method="GET", json=None):
+                          object_ids=None, fields=None, method=None, json=None, session=None):
+        """Make a request to the LinkedIn API.
+
+        :param endpoint: the endpoint to request
+        :param params: the GET parameters
+        :param linkedin_access_token: the access token to use
+            (if it's not yet saved on the social account)
+        :param object_ids: the LinkedIn objects ids to pass as GET parameters
+        :param fields: the field to read on the LinkedIn model
+        :param method: the HTTP verb
+        :param json: the JSON to post
+        :param session: the requests session if any
+        """
         if not linkedin_access_token:
             self.ensure_one()
+
+        if method is None:
+            method = "POST" if json else "GET"
 
         url = url_join(self.env['social.media']._LINKEDIN_ENDPOINT, endpoint)
 
@@ -262,7 +277,7 @@ class SocialAccountLinkedin(models.Model):
         if get_params:
             url += "?" + "&".join(get_params)
 
-        return requests.request(
+        return (session or requests).request(
             method,
             url,
             params=params,

@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import requests
 from datetime import datetime
-from urllib.parse import quote
-from werkzeug.urls import url_join
 from urllib.parse import urlparse
 import re
 
@@ -59,10 +56,11 @@ class SocialStreamLinkedIn(models.Model):
         }
 
         # retrieve post statistics
-        stats_endpoint = url_join(
-            self.env['social.media']._LINKEDIN_ENDPOINT,
-            'socialActions?ids=List(%s)' % ','.join([quote(urn) for urn in linkedin_post_data]))
-        stats_response = requests.get(stats_endpoint, params={'count': 100}, headers=self.account_id._linkedin_bearer_headers(), timeout=5).json()
+        stats_response = self.account_id._linkedin_request(
+            'socialActions',
+            params={'count': 100},
+            object_ids=linkedin_post_data,
+        )
 
         if 'results' in stats_response:
             for post_urn, post_data in stats_response['results'].items():
@@ -101,26 +99,18 @@ class SocialStreamLinkedIn(models.Model):
         for post in posts_data:
             # multi-images post
             images = post.get('content', {}).get('multiImage', {}).get('images', [])
-            all_image_urns |= {quote(image['id']) for image in images}
+            all_image_urns |= {image['id'] for image in images}
             # single image post
             if image_urn := post.get('content', {}).get('media', {}).get('id'):
-                all_image_urns.add(quote(image_urn))
+                all_image_urns.add(image_urn)
             # article thumbnail
             if thumbnail_urn := post.get('content', {}).get('article', {}).get('thumbnail'):
-                all_image_urns.add(quote(thumbnail_urn))
+                all_image_urns.add(thumbnail_urn)
 
         if not all_image_urns:
             return
 
-        images_endpoint = url_join(
-            self.env['social.media']._LINKEDIN_ENDPOINT,
-            'images?ids=List(%s)' % ",".join(all_image_urns))
-        response = requests.get(
-            images_endpoint,
-            params={},
-            headers=self.account_id._linkedin_bearer_headers(),
-            timeout=10,
-        )
+        response = self.account_id._linkedin_request('images', object_ids=all_image_urns)
 
         if not response.ok:
             return

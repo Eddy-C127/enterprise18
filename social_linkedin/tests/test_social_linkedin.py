@@ -29,7 +29,7 @@ class SocialLinkedinCase(SocialCase):
     def _test_post(self, success=True):
         self.assertEqual(self.social_post.state, 'draft')
 
-        def _patched_post(*args, **kwargs):
+        def _patched_request(method, *args, **kwargs):
             response = requests.Response()
             if success:
                 response._content = b'{"id": "42"}'
@@ -40,7 +40,7 @@ class SocialLinkedinCase(SocialCase):
                 response.status_code = 404
             return response
 
-        with patch.object(requests, 'post', _patched_post), \
+        with patch.object(requests, 'request', _patched_request), \
              patch.object(SocialAccountLinkedin, '_linkedin_upload_image', lambda *a, **kw: 'fake_image_urn'):
             self.social_post._action_post()
 
@@ -110,7 +110,7 @@ class SocialLinkedinCase(SocialCase):
     def _test_post_type(self, expected_post_type):
         self.assertEqual(self.social_post.state, 'draft')
 
-        def _patched_post(*args, **kwargs):
+        def _patched_request(method, *args, **kwargs):
             response = requests.Response()
             response._content = b'{"id": "42"}'
             response.status_code = 200
@@ -122,7 +122,7 @@ class SocialLinkedinCase(SocialCase):
 
         posts_types = []
         posts_values = []
-        with patch.object(requests, 'post', _patched_post), \
+        with patch.object(requests, 'request', _patched_request), \
              patch.object(SocialAccountLinkedin, '_linkedin_upload_image', lambda *a, **kw: 'fake_image_urn'):
             self.social_post._action_post()
 

@@ -4,8 +4,7 @@
 import contextlib
 import logging
 import requests
-from urllib.parse import quote, urlparse
-from werkzeug.urls import url_join
+from urllib.parse import urlparse
 import re
 
 from odoo import models, fields, tools, _
@@ -46,11 +45,7 @@ class SocialLivePostLinkedin(models.Model):
             # An LinkedIn URN is approximatively 40 characters
             # So we keep a big margin and we split over 50 LinkedIn posts
             for batch_linkedin_post_ids in tools.split_every(50, linkedin_post_ids):
-                endpoint = url_join(
-                    self.env['social.media']._LINKEDIN_ENDPOINT,
-                    'socialMetadata?ids=List(%s)' % ','.join(map(quote, batch_linkedin_post_ids)))
-
-                response = session.get(endpoint, headers=account._linkedin_bearer_headers(), timeout=10)
+                response = account._linkedin_request('socialMetadata', session=session, object_ids=batch_linkedin_post_ids)
 
                 if not response.ok or 'results' not in response.json():
                     account._action_disconnect_accounts(response.json())
@@ -127,10 +122,7 @@ class SocialLivePostLinkedin(models.Model):
                             image_urn = self.account_id._linkedin_upload_image(image_response.content)
                             data['content']['article']['thumbnail'] = image_urn
 
-            response = requests.post(
-                url_join(self.env['social.media']._LINKEDIN_ENDPOINT, 'posts'),
-                headers=live_post.account_id._linkedin_bearer_headers(),
-                json=data, timeout=10)
+            response = live_post.account_id._linkedin_request('posts', json=data)
 
             post_id = response.headers.get('x-restli-id')
             if response.ok and post_id:
