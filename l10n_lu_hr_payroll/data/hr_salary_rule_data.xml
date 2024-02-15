@@ -152,7 +152,40 @@ result = GROSS - result_rules['TAXES_TOTAL']['total'] - result_rules['ALW_TOTAL'
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = payslip._get_lux_tax(localdict)
+# Source: https://impotsdirects.public.lu/fr/baremes.html#Ex
+def _find_rate(x, rates):
+    for low, high, rate, adjustment in rates:
+        if low &lt;= x &lt;= high:
+            return rate, adjustment
+    return 0, 0
+
+categories = localdict['categories']
+employee = payslip.employee_id
+taxable_amount = categories['TAXABLE']
+# Round to the lower 5 euros multiple
+taxable_amount -= taxable_amount % 5
+
+tax_amount = 0.0
+
+if employee.l10n_lu_tax_classification:
+    rates = payslip._rule_parameter(f'l10n_lu_withholding_taxes_{employee.l10n_lu_tax_classification}')
+    threshold, threshold_adjustment = payslip._rule_parameter(f'l10n_lu_withholding_taxes_threshhold_{employee.l10n_lu_tax_classification}')
+
+    rate, adjustment = _find_rate(taxable_amount, rates)
+    tax_amount = taxable_amount * rate - adjustment
+    tax_amount -= tax_amount % 0.10
+    if taxable_amount &lt;= threshold:
+        tax_amount *= 1.07
+    else:
+        tax_amount += tax_amount * 0.09 - threshold_adjustment
+    tax_amount -= tax_amount % 0.10
+
+    if tax_amount &lt; 1.00:
+        result = 0.0
+    else:
+        result = - tax_amount
+else:
+    result = 0.0
 </field>
         <field name="struct_id" ref="l10n_lu_hr_payroll.hr_payroll_structure_lux_employee_salary"/>
     </record>
