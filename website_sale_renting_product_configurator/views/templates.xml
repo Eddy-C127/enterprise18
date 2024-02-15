@@ -9,7 +9,7 @@
             <attribute name="t-out">combination_info.get('current_rental_price') if combination_info.get('is_rental') else combination_info['price']</attribute>
         </xpath>
         <xpath expr="//span[hasclass('oe_price')]" position="after">
-            <div>
+            <div class="o_renting_details">
                 <small t-if="combination_info.get('is_rental')" class="text-muted">
                     <strong>
                         <span class="o_renting_duration" t-out="combination_info['current_rental_duration']"/>
@@ -32,7 +32,7 @@
             <attribute name="t-out">combination_info.get('current_rental_price') if combination_info.get('is_rental') else combination_info['price']</attribute>
         </xpath>
         <xpath expr="//div[hasclass('oe_price')]" position="after">
-            <div>
+            <div class="o_renting_details">
                 <small t-if="combination_info.get('is_rental')" class="text-muted">
                     <strong>
                         <span class="o_renting_duration" t-out="combination_info['current_rental_duration']"/>
