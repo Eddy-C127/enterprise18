@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { Record } from "@mail/core/common/record";
 import { Activity } from "@mail/core/web/activity_model";
 

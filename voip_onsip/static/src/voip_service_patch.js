@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { Voip } from "@voip/core/voip_service";
 
 import { patch } from "@web/core/utils/patch";

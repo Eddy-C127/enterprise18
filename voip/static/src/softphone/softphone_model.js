@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { Correspondence } from "@voip/core/correspondence_model";
 import { isSubstring } from "@voip/utils/utils";
 

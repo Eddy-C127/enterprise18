@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { addFakeModel } from "@bus/../tests/helpers/model_definitions_helpers";
 

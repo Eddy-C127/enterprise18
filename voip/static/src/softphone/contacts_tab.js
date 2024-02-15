@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { Component, onMounted, useState } from "@odoo/owl";
 
 import { url } from "@web/core/utils/urls";

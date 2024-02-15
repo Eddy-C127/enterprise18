@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { patch } from "@web/core/utils/patch";
 import { serializeDate, today } from "@web/core/l10n/dates";
 import { MockServer } from "@web/../tests/helpers/mock_server";

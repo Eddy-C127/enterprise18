@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { Component, onWillStart, useRef } from "@odoo/owl";
 
 import { browser } from "@web/core/browser/browser";

@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { Component, useState, xml } from "@odoo/owl";
 
 import { Softphone } from "@voip/softphone/softphone";

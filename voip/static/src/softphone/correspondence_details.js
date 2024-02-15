@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { Component, useEffect, useRef, useState } from "@odoo/owl";
 
 import { DeviceSelectionDialog } from "@voip/mobile/device_selection_dialog";

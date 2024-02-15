@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { Component, onMounted, useState } from "@odoo/owl";
 
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";

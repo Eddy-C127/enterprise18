@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { useSelection } from "@mail/utils/common/hooks";
 import { Component, useEffect, useRef, useState } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";

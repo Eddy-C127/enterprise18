@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { EventBus, markup, reactive } from "@odoo/owl";
 
 import { CallMethodSelectionDialog } from "@voip/mobile/call_method_selection_dialog";

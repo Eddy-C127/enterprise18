@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { setupManager } from "@mail/../tests/helpers/webclient_setup";
 import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 

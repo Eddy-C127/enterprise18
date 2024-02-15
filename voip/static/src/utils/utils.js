@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 /**
  * Removes whitespaces, dashes, slashes and periods from a phone number.
  *
