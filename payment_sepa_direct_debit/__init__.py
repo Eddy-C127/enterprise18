@@ -7,4 +7,4 @@ from odoo.addons.payment import reset_payment_provider
 
 
 def uninstall_hook(env):
-    reset_payment_provider(env, 'sepa_direct_debit')
+    reset_payment_provider(env, 'custom', custom_mode='sepa_direct_debit')
