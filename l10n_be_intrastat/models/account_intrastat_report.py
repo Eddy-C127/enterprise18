@@ -6,6 +6,7 @@ from odoo.exceptions import UserError, RedirectWarning
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 
 from datetime import datetime, timedelta
+from lxml import etree
 
 
 class IntrastatReportCustomHandler(models.AbstractModel):
@@ -83,7 +84,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
         return {
             'file_name': self.env['account.report'].browse(options['report_id']).get_default_report_filename(options, 'xml'),
-            'file_content': file_content,
+            'file_content': etree.tostring(etree.fromstring(file_content), xml_declaration=True, encoding='utf-8', pretty_print=True),
             'file_type': 'xml',
         }
 
