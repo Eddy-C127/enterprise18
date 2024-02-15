@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import base64
 
 from odoo.addons.appointment.tests.common import AppointmentSecurityCommon
 from odoo.exceptions import AccessError
 from odoo.tests import tagged, users
-from odoo.tools import mute_logger
+from odoo.tools import mute_logger, file_open
 
 
 @tagged('security')
@@ -128,6 +129,32 @@ class TestAppointmentTypeSecurity(AppointmentSecurityCommon):
             self.env['appointment.type'].create({
                 'name': 'Test Create'
             })
+
+    @users('public_user')
+    @mute_logger('odoo.addons.base.models.ir_model', 'odoo.addons.base.models.ir_rule')
+    def test_appointment_type_image_access_public_user(self):
+        """  Test that base.group_public users can access every appointment type image
+        even though they don't have read access on the appointment.type model.
+        """
+        self._prepare_types_with_user()
+
+        placeholder_image = file_open(self.env['appointment.type']._get_placeholder_filename('image_1920'), 'rb').read()
+        test_image_b64 = b'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGNgYGAAAAAEAAH2FzhVAAAAAElFTkSuQmCC'
+        test_image = base64.b64decode(test_image_b64)
+
+        (self.apt_type_apt_manager + self.apt_type_resource).with_user(self.apt_manager).write({'image_1920': test_image_b64})
+        cases = [
+            (self.apt_type_apt_manager, test_image),
+            (self.apt_type_apt_user, placeholder_image),
+            (self.apt_type_internal_user, placeholder_image),
+            (self.apt_type_resource, test_image),
+            (self.apt_type_no_staff, placeholder_image),
+        ]
+        for appointment_type, expected_image in cases:
+            with self.subTest(appointment_type=appointment_type):
+                res = self.url_open(f'/web/image/appointment.type/{appointment_type.id}/image_1920')
+                self.assertEqual(res.status_code, 200)
+                self.assertEqual(res.content, expected_image)
 
     def _prepare_types_with_user(self):
         """ Prepare the appointment types by applying the user to be the one from the environment. """
