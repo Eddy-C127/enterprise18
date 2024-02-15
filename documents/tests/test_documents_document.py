@@ -509,7 +509,7 @@ class TestCaseDocuments(TransactionCase):
             'create_share_id': share.id,
             'folder_id': self.folder_a.id,
         })
-        message._message_post_after_hook({ }, {
+        message._message_post_after_hook(self.env['mail.message'].create({'message_type': 'email'}), {
             'attachment_ids': [(4, attachment.id)]
         })
         self.assertEqual(message.active, False, 'Document created for the message should be inactive')
