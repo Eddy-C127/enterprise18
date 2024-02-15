@@ -34,11 +34,6 @@ class TestUi(odoo.tests.HttpCase, SignRequestCommon):
             'overwrite': True,
             'lang_ids': [(6, 0, [fr_lang.id])]
         }).lang_install()
-
-        # Once `website` is installed, the available langs are only the ones
-        # from the website, which by default is just the `en_US` lang.
-        langs = self.env['res.lang'].with_context(active_test=False).search([]).get_sorted()
-        self.patch(self.registry['res.lang'], 'get_available', lambda self: langs)
         self.partner_1.lang = 'fr_FR'
         sign_request = self.create_sign_request_1_role(customer=self.partner_1, cc_partners=self.env['res.partner'])
         url = f"/sign/document/{sign_request.id}/{sign_request.request_item_ids.access_token}"
