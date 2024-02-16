@@ -13,7 +13,9 @@ import { Component, onWillUnmount, useState } from "@odoo/owl";
 import { helpers } from "@odoo/o-spreadsheet";
 
 /**
- * @typedef {import("@spreadsheet_edition/bundle/actions/spreadsheet_component").User} User
+ * @typedef {Object} User
+ * @property {string} User.name
+ * @property {string} User.id
  */
 
 export class SpreadsheetControlPanel extends Component {

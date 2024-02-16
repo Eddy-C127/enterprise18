@@ -15,7 +15,7 @@ import { uiService } from "@web/core/ui/ui_service";
 import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import { makeFakeSpreadsheetService } from "@spreadsheet_edition/../tests/utils/collaborative_helpers";
 import { Spreadsheet } from "@odoo/o-spreadsheet";
-import { SpreadsheetComponent } from "@spreadsheet_edition/bundle/actions/spreadsheet_component";
+import { SpreadsheetComponent } from "@spreadsheet/actions/spreadsheet_component";
 
 const serviceRegistry = registry.category("services");
 
@@ -80,11 +80,7 @@ export function getSpreadsheetActionTransportService(actionManager) {
 }
 
 export function getSpreadsheetActionEnv(actionManager) {
-    const model = getSpreadsheetActionModel(actionManager);
     const component = getSpreadsheetComponent(actionManager);
     const oComponent = getOSpreadsheetComponent(actionManager);
-    return Object.assign(Object.create(component.env), {
-        model,
-        openSidePanel: oComponent.openSidePanel.bind(oComponent),
-    });
+    return Object.assign(Object.create(component.env), oComponent.env);
 }

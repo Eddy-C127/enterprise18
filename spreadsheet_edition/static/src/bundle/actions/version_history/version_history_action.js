@@ -7,12 +7,13 @@ import { registry } from "@web/core/registry";
 
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
 import * as spreadsheet from "@odoo/o-spreadsheet";
+import { Model, stores } from "@odoo/o-spreadsheet";
 import { DataSources } from "@spreadsheet/data_sources/data_sources";
 
 import { loadSpreadsheetDependencies } from "@spreadsheet/assets_backend/helpers";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
-import { SpreadsheetComponent } from "../spreadsheet_component";
+import { SpreadsheetComponent } from "@spreadsheet/actions/spreadsheet_component";
 import { SpreadsheetControlPanel } from "../control_panel/spreadsheet_control_panel";
 import { SpreadsheetName } from "../control_panel/spreadsheet_name";
 import { migrate } from "@spreadsheet/o_spreadsheet/migration";
@@ -25,7 +26,7 @@ import { formatToLocaleString } from "../../helpers";
 import { router } from "@web/core/browser/router";
 import { RestoreVersionConfirmationDialog } from "../../version_history/restore_version_dialog/restore_version_dialog";
 
-const { Model } = spreadsheet;
+const { ModelStore, useStoreProvider, SidePanelStore } = stores;
 
 export class VersionHistoryAction extends Component {
     static template = "spreadsheet_edition.VersionHistoryAction";
@@ -64,9 +65,12 @@ export class VersionHistoryAction extends Component {
             restorableRevisions: [],
         });
 
+        const stores = useStoreProvider();
+
         onWillStart(async () => {
             await this.fetchData();
             this.createModel();
+            stores.inject(ModelStore, this.model);
         });
 
         onMounted(() => {
@@ -76,18 +80,8 @@ export class VersionHistoryAction extends Component {
                 from_snapshot: this.fromSnapshot,
             });
             this.env.config.setDisplayName(this.state.spreadsheetName);
-
-            /**
-             * Do not copy this. We currently lack the ability to control the spreadsheet
-             * sidepanel from outside `Spreadsheet` component. This is a temporary hack
-             * */
-            this.spreadsheetChildEnv = Object.values(
-                Object.values(this.__owl__.children).find(
-                    (el) => el.component.constructor.name === "SpreadsheetComponent"
-                ).children
-            ).find((el) => el.component.constructor.name === "Spreadsheet").childEnv;
-
-            this.spreadsheetChildEnv.openSidePanel("VersionHistory", {
+            const sidePanel = stores.get(SidePanelStore);
+            sidePanel.open("VersionHistory", {
                 onCloseSidePanel: async () => {
                     const action = await this.env.services.orm.call(this.resModel, "action_edit", [
                         this.resId,

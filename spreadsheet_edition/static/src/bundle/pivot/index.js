@@ -19,10 +19,21 @@ featurePluginRegistry.add("odooPivotAutofillPlugin", PivotAutofillPlugin);
 sidePanelRegistry.add("ALL_PIVOTS_PANEL", {
     title: () => _t("Pivot properties"),
     Body: AllPivotsSidePanel,
+    computeState(getters) {
+        return {
+            isOpen: getters.getPivotIds().length > 0,
+        };
+    },
 });
 sidePanelRegistry.add("PIVOT_PROPERTIES_PANEL", {
     title: () => _t("Pivot properties"),
     Body: PivotDetailsSidePanel,
+    computeState(getters, initialProps) {
+        return {
+            isOpen: getters.isExistingPivot(initialProps.pivotId),
+            props: initialProps,
+        };
+    },
 });
 
 initCallbackRegistry.add("insertPivot", insertPivot);
@@ -37,7 +48,9 @@ cellMenuRegistry.add("pivot_properties", {
     },
     isVisible: (env) => {
         const position = env.model.getters.getActivePosition();
-        return env.model.getters.isExistingPivot(env.model.getters.getPivotIdFromPosition(position));
+        return env.model.getters.isExistingPivot(
+            env.model.getters.getPivotIdFromPosition(position)
+        );
     },
     icon: "o-spreadsheet-Icon.PIVOT",
 });

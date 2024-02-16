@@ -13,7 +13,7 @@ const { ChartPanel } = spreadsheet.components;
 
 patch(ChartPanel.prototype, {
     get chartTypes() {
-        const definition = this.getChartDefinition();
+        const definition = this.getChartDefinition(this.figureId);
         const isOdoo = definition.type.startsWith("odoo_");
         return this.getChartTypes(isOdoo);
     },
@@ -32,7 +32,7 @@ patch(ChartPanel.prototype, {
     },
 
     onTypeChange(type) {
-        if (this.getChartDefinition().type.startsWith("odoo_")) {
+        if (this.getChartDefinition(this.figureId).type.startsWith("odoo_")) {
             const definition = {
                 stacked: false,
                 verticalAxisPosition: "left",

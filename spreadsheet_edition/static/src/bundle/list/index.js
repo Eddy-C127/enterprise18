@@ -20,10 +20,21 @@ featurePluginRegistry.add("odooListAutofillPlugin", ListAutofillPlugin);
 sidePanelRegistry.add("ALL_LISTS_PANEL", {
     title: () => _t("List properties"),
     Body: AllListsSidePanel,
+    computeState(getters) {
+        return {
+            isOpen: getters.getListIds().length > 0,
+        };
+    },
 });
 sidePanelRegistry.add("LIST_PROPERTIES_PANEL", {
     title: () => _t("List properties"),
     Body: ListDetailsSidePanel,
+    computeState(getters, initialProps) {
+        return {
+            isOpen: getters.isExistingList(initialProps.listId),
+            props: initialProps,
+        };
+    },
 });
 
 initCallbackRegistry.add("insertList", insertList);

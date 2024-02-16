@@ -1,4 +1,5 @@
 /** @odoo-module **/
+import { _t } from "@web/core/l10n/translation";
 import { onMounted, onWillStart, useState, Component, useSubEnv, onWillUnmount } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { useSetupAction } from "@web/webclient/actions/action_hook";
@@ -6,7 +7,7 @@ import { downloadFile } from "@web/core/network/download";
 import { user } from "@web/core/user";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
-import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
+import { UNTITLED_SPREADSHEET_NAME, DEFAULT_LINES_NUMBER } from "@spreadsheet/helpers/constants";
 import { createDefaultCurrencyFormat } from "@spreadsheet/currency/helpers";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { migrate } from "@spreadsheet/o_spreadsheet/migration";
@@ -16,6 +17,7 @@ import { RecordFileStore } from "../image/record_file_store";
 import { useSpreadsheetCurrencies, useSpreadsheetLocales, useSpreadsheetThumbnail } from "../hooks";
 import { useSpreadsheetPrint } from "@spreadsheet/hooks";
 import { router } from "@web/core/browser/router";
+import { InputDialog } from "./input_dialog/input_dialog";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
@@ -51,6 +53,7 @@ export class AbstractSpreadsheetAction extends Component {
         this.accessToken = this.params.access_token || this.props.state?.accessToken;
         this.actionService = useService("action");
         this.notifications = useService("notification");
+        this.dialog = useService("dialog");
         this.orm = useService("orm");
         this.http = useService("http");
         this.ui = useService("ui");
@@ -83,6 +86,7 @@ export class AbstractSpreadsheetAction extends Component {
             downloadAsJson: this.downloadAsJson.bind(this),
             showHistory: this.showHistory.bind(this),
             print,
+            getLinesNumber: this._getLinesNumber.bind(this),
         });
         this.state = useState({
             spreadsheetName: UNTITLED_SPREADSHEET_NAME,
@@ -364,5 +368,15 @@ export class AbstractSpreadsheetAction extends Component {
             revisionId: data.revisionId,
             thumbnail: this.getThumbnail(),
         };
+    }
+
+    _getLinesNumber(callback) {
+        this.dialog.add(InputDialog, {
+            body: _t("Select the number of records to insert"),
+            confirm: callback,
+            title: _t("Re-insert list"),
+            inputValue: DEFAULT_LINES_NUMBER,
+            inputType: "number",
+        });
     }
 }
