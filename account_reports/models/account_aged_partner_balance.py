@@ -370,12 +370,13 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
         """
         report = self.env['account.report'].browse(options['report_id'])
         action = self.env['ir.actions.actions']._for_xml_id('account.action_open_payment_items')
+        journal_type_to_exclude = {'purchase': 'sale', 'sale': 'purchase'}
         if options:
             domain = [
                 ('account_id.reconcile', '=', True),
-                ('journal_id.type', '=', journal_type),
+                ('journal_id.type', '!=', journal_type_to_exclude.get(journal_type)),
                 *self._build_domain_from_period(options, params['expression_label']),
-                *report._get_options_domain(options, None),
+                *report._get_options_domain(options, 'normal'),
                 *report._get_audit_line_groupby_domain(params['calling_line_dict_id']),
             ]
             action['domain'] = domain
