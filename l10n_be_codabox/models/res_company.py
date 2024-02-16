@@ -47,7 +47,7 @@ class ResCompany(models.Model):
         params = {
             "db_uuid": self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
             "company_vat": re.sub("[^0-9]", "", self.vat),
-            "fidu_vat": re.sub("[^0-9]", "", self.l10n_be_codabox_fiduciary_vat),
+            "fidu_vat": re.sub("[^0-9]", "", self.l10n_be_codabox_fiduciary_vat or ""),
             "iap_token": self.l10n_be_codabox_iap_token,
             "callback_url": self.get_base_url(),
         }
@@ -71,7 +71,7 @@ class ResCompany(models.Model):
         self._l10n_be_codabox_verify_prerequisites()
         params = {
             "db_uuid": self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
-            "fidu_vat": re.sub("[^0-9]", "", self.l10n_be_codabox_fiduciary_vat),
+            "fidu_vat": re.sub("[^0-9]", "", self.l10n_be_codabox_fiduciary_vat or ""),
             "company_vat": re.sub("[^0-9]", "", self.vat),
             "iap_token": self.l10n_be_codabox_iap_token or "",
         }
