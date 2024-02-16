@@ -37,7 +37,7 @@ class IrActionReport(models.Model):
         """
             Send the dictionnary in message to the iot_box via websocket and return True.
         """
-        self.env['bus.bus']._sendone(self.env['iot.channel'].get_iot_channel(), 'print', message)
+        self.env['bus.bus']._sendone(self.env['iot.channel'].get_iot_channel(), 'iot_action', message)
         return True
 
     def report_action(self, docids, data=None, config=True):
