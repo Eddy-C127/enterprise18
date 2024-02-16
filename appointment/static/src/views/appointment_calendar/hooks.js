@@ -20,6 +20,7 @@ export function useAppointmentRendererHook(getFcElements) {
             if (calendarMode === "slots-creation") {
                 for (const fcEl of fcEls) {
                     const daysToDisable = fcEl.querySelectorAll(".fc-day-past:not(.fc-col-header-cell), .fc-day-today:not(.fc-col-header-cell)");
+                    fcEl.classList.add('o_calendar_slots_in_creation');
                     for (const el of daysToDisable) {
                         el.classList.add("o_calendar_slot_selection");
                     }
@@ -38,6 +39,7 @@ export function useAppointmentRendererHook(getFcElements) {
                 return () => {
                     for (const fcEl of fcEls) {
                         const daysToDisable = fcEl.querySelectorAll(".fc-day-past:not(.fc-col-header-cell), .fc-day-today:not(.fc-col-header-cell)");
+                        fcEl.classList.remove('o_calendar_slots_in_creation');
                         for (const el of daysToDisable) {
                             el.classList.remove("o_calendar_slot_selection");
                         }

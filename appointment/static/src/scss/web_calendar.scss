@@ -13,7 +13,8 @@
             background: #{mix($o-success, $o-view-background-color, 50%)};
         }
     }
-    .fc-dayGridYear-view .o_calendar_slot_selection .fc-daygrid-day-frame {
+    .fc-dayGridYear-view .o_calendar_slot_selection .fc-daygrid-day-frame,
+    .o_calendar_widget.o_calendar_slots_in_creation .fc-event:not(.o_calendar_slot) {
         pointer-events: none;
     }
     .o_calendar_slot_delete {
