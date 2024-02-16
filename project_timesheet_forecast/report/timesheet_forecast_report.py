@@ -57,6 +57,10 @@ class TimesheetForecastReport(models.Model):
                 LEFT JOIN planning_slot F ON d::date >= F.start_datetime::date AND d::date <= F.end_datetime::date
                 LEFT JOIN hr_employee E ON F.employee_id = E.id
                 LEFT JOIN resource_resource R ON E.resource_id = R.id
+                LEFT JOIN resource_calendar_leaves L
+                    ON (L.resource_id IS NULL OR L.resource_id = R.id)
+                    AND (L.calendar_id IS NULL OR L.calendar_id = R.calendar_id)
+                    AND L.date_from::date <= d.date AND d.date <= L.date_to::date
         """
         return from_str
 
@@ -109,6 +113,8 @@ class TimesheetForecastReport(models.Model):
     def _where(self):
         where_str = """
             WHERE
+                L.id IS NULL
+            AND
                 EXTRACT(ISODOW FROM d.date) IN (
                     SELECT A.dayofweek::integer+1 FROM resource_calendar_attendance A WHERE A.calendar_id = R.calendar_id
                 )
