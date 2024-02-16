@@ -30,6 +30,7 @@ MODELS_TO_EXPORT = [
     'ir.model.access',
     'ir.rule',
     'ir.default',
+    'studio.approval.rule',
 ]
 # list of fields to export by model
 FIELDS_TO_EXPORT = {
@@ -85,6 +86,8 @@ FIELDS_TO_EXPORT = {
     ],
     'res.groups': ['color', 'comment', 'implied_ids', 'name', 'share'],
     'ir.default': ['field_id', 'condition', 'json_value'],
+    'studio.approval.rule': ['group_id', 'model_id', 'method', 'action_id', 'name', 'message',
+        'exclusive_user', 'domain', 'can_validate'],
 }
 # list of relational fields to NOT export, by model
 FIELDS_NOT_TO_EXPORT = {
