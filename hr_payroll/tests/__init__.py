@@ -13,3 +13,4 @@ from . import test_work_entry
 from . import test_resource
 from . import test_schedule_relative_payslip
 from . import test_salary_attachment
+from . import test_payroll_dependencies

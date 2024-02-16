@@ -5,7 +5,7 @@
     'name': 'Indian Payroll',
     'countries': ['in'],
     'category': 'Human Resources/Payroll',
-    'depends': ['hr_payroll_holidays', 'l10n_in', 'hr_payroll'],
+    'depends': ['hr_payroll_holidays', 'hr_payroll'],
     'auto_install': ['hr_payroll'],
     'description': """
 Indian Payroll Salary Rules.

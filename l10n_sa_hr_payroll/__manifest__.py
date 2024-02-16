@@ -11,7 +11,7 @@ Kingdom of Saudi Arabia Payroll and End of Service rules.
 
     """,
     'license': 'OEEL-1',
-    'depends': ['hr_payroll', 'l10n_sa'],
+    'depends': ['hr_payroll'],
     'data': [
         'data/hr_payroll_structure_type_data.xml',
         'data/hr_payroll_structure_data.xml',
