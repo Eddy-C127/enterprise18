@@ -1230,3 +1230,38 @@ class TestReportEditorUIUnit(HttpCase):
                 </p>
             </t>
         """)
+
+    def test_translations_are_copied(self):
+        self.env["res.lang"]._activate_lang("fr_FR")
+        self.main_view_document.arch = """
+            <t t-name="web_studio.test_report_document">
+                <div>term1</div>
+            </t>
+        """
+        self.main_view_document.update_field_translations("arch_db", {"fr_FR": {"term1": "baguette"}})
+
+        inheriting = self.env["ir.ui.view"].create({
+            "type": "qweb",
+            "inherit_id": self.main_view_document.id,
+            "arch": """<data>
+                <xpath expr="//div[1]" position="after">
+                    <div>term2</div>
+                </xpath>
+            </data>"""
+        })
+        inheriting.update_field_translations("arch_db", {"fr_FR": {"term2": "croissant"}})
+
+        self.start_tour(self.tour_url, "web_studio.test_translations_are_copied", login="admin")
+
+        html, _ = self.report.with_context(lang="fr_FR")._render_qweb_html(self.report.id, [1])
+        main = etree.fromstring(html).find(".//main")
+        self.assertXMLEqual(etree.tostring(main), """
+        <main>
+            <div>
+                <p><br/></p>
+            </div>
+            <div>baguette</div>
+            <div>term3 from edition</div>
+            <div>croissant</div>
+        </main>
+        """)
