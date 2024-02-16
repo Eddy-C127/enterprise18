@@ -3,6 +3,7 @@ from odoo import fields, models, api, _
 from odoo.exceptions import UserError, RedirectWarning
 from odoo.tools.float_utils import float_repr, float_round
 from odoo.tools import html2plaintext, plaintext2html
+from odoo.tools.sql import column_exists, create_column
 from datetime import datetime
 from . import afip_errors
 import re
@@ -20,6 +21,13 @@ WS_DATE_FORMAT = {'wsfe': '%Y%m%d', 'wsfex': '%Y%m%d', 'wsbfe': '%Y%m%d'}
 class AccountMove(models.Model):
 
     _inherit = "account.move"
+
+    def _auto_init(self):
+        if not column_exists(self.env.cr, "account_move", "l10n_ar_fce_transmission_type"):
+            # Create the column to avoid computation during installation
+            # Default value is set to NULL because it is initiated that way
+            create_column(self.env.cr, "account_move", "l10n_ar_fce_transmission_type", "varchar")
+        return super()._auto_init()
 
     l10n_ar_afip_auth_mode = fields.Selection([('CAE', 'CAE'), ('CAI', 'CAI'), ('CAEA', 'CAEA')],
         string='AFIP Authorization Mode', copy=False,
