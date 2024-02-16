@@ -38,7 +38,7 @@
             'timesheet_grid/static/src/**',
         ],
         'web.assets_tests': [
-            'timesheet_grid/static/tests/tours/timesheet_record_time.js',
+            'timesheet_grid/static/tests/tours/**',
         ],
         'web.qunit_suite_tests': [
             "timesheet_grid/static/tests/*",
