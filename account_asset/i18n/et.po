@@ -3,7 +3,6 @@
 # 	* account_asset
 # 
 # Translators:
-# Birgit Vijar, 2023
 # Andre Roomet <andreroomet@gmail.com>, 2023
 # Piia Paurson <piia@avalah.ee>, 2023
 # JanaAvalah, 2023
@@ -19,14 +18,15 @@
 # Mihkel avalah, 2023
 # Leaanika Randmets, 2023
 # Anna, 2023
+# Birgit Vijar, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-02-13 09:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Anna, 2023\n"
+"Last-Translator: Birgit Vijar, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -105,7 +105,7 @@ msgstr "(sisaldab"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "A depreciation entry will be posted on and including the date %s."
-msgstr ""
+msgstr "Amortisatsioonikanne kinnitatakse kuupäeval %s."
 
 #. module: account_asset
 #. odoo-python
@@ -141,7 +141,7 @@ msgstr ""
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "A document linked to %s has been deleted: %s"
-msgstr ""
+msgstr "Seotud dokument %s on kustutatud: %s"
 
 #. module: account_asset
 #. odoo-python
@@ -155,7 +155,7 @@ msgstr ""
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "A gross increase has been created: "
-msgstr ""
+msgstr "Juurdehindlus on loodud: "
 
 #. module: account_asset
 #. odoo-python
@@ -202,26 +202,26 @@ msgstr "Konto, mida kasutatakse vara algse hinna kirjeldamiseks."
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__gain_account_id
 msgid "Account used to write the journal item in case of gain"
-msgstr ""
+msgstr "Kasutatud finantskonto kasumi kajastamiseks"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_res_company__gain_account_id
 msgid ""
 "Account used to write the journal item in case of gain while selling an "
 "asset"
-msgstr ""
+msgstr "Kasutatud finantskonto kasumi kajastamiseks vara müügist"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__loss_account_id
 msgid "Account used to write the journal item in case of loss"
-msgstr ""
+msgstr "Kasutatud finantskonto kahjumi kajastamiseks"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_res_company__loss_account_id
 msgid ""
 "Account used to write the journal item in case of loss while selling an "
 "asset"
-msgstr ""
+msgstr "Kasutatud finantskonto kahjumi kajastamiseks vara müügist"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -294,7 +294,7 @@ msgstr ""
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "All the lines should be posted"
-msgstr ""
+msgstr "Kõik read peaksid olema postitatud"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__already_depreciated_amount_import
@@ -319,7 +319,7 @@ msgstr "Vara on loodud selle siirde jaoks:"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "An asset will be created for the value increase of the asset. <br/>"
-msgstr ""
+msgstr "Vara luuakse põhivara väärtuse tõstmiseks. <br/>"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__analytic_distribution
@@ -442,7 +442,7 @@ msgstr "Vara on loodud"
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Asset created from invoice: %s"
-msgstr ""
+msgstr "Vara on loodud ostuarvelt: %s"
 
 #. module: account_asset
 #. odoo-python
@@ -523,6 +523,8 @@ msgid ""
 "Atleast one asset (%s) couldn't be set as running because it lacks any "
 "required information"
 msgstr ""
+"Vähemalt ühte vara (%s) ei saa panna töösse, kuna vajalik informatsioon on "
+"puudu"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_attachment_count
@@ -597,6 +599,10 @@ msgid ""
 "  * Declining: Calculated on basis of: Residual Value * Declining Factor\n"
 "  * Declining then Straight Line: Like Declining but with a minimum depreciation value equal to the straight line value."
 msgstr ""
+"Vali meetod amortisatsioonikannete arvutamiseks.\n"
+"  * Lineaarne meetod: Arvutamise valem: väärtus / periood\n"
+"  * Kahanev meetod: Arvutamise valem: Jääkväärtus * mahaarvestamise määr\n"
+"  * Algselt kahanev, hiljem lineaarne meetod: nagu kahanev meetod, aga minimaalse amortisatsiooniväärtusega, mis on võrdne lineaarse meetodi väärtusega. "
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__close
@@ -889,7 +895,7 @@ msgstr "Mustand"
 #: model:ir.model.fields,field_description:account_asset.field_account_move__draft_asset_exists
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__draft_asset_exists
 msgid "Draft Asset Exists"
-msgstr ""
+msgstr "Mustand vara eksisteerib"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__method_number
@@ -984,7 +990,7 @@ msgstr "Bruto kasvu konto"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__gross_increase_value
 msgid "Gross Increase Value"
-msgstr ""
+msgstr "Bruto väärtuse kasv"
 
 #. module: account_asset
 #. odoo-javascript
@@ -1037,6 +1043,8 @@ msgid ""
 "If this is selected, an expense/revenue will be created automatically when "
 "Journal Items on this account are posted."
 msgstr ""
+"Kui see on valitud, kulu/tulu luuakse automaatselt kui andmiku kande read "
+"postitatakse. "
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__already_depreciated_amount_import
@@ -1217,7 +1225,7 @@ msgstr "Minu tegevuse tähtaeg"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__value_residual
 msgid "New residual amount for the asset"
-msgstr ""
+msgstr "Uus jääkväärtus varale"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__salvage_value
@@ -1295,7 +1303,7 @@ msgstr "Kuude arv perioodis"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__gross_increase_count
 msgid "Number of assets made to increase the value of the asset"
-msgstr ""
+msgstr "Varad on loodud põhivara väärtuse tõstmiseks"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_number_days
@@ -1307,7 +1315,7 @@ msgstr "Päevade arv"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__total_depreciation_entries_count
 msgid "Number of depreciation entries (posted or not)"
-msgstr ""
+msgstr "Amortisatsioonikannete arv (postitatud või mitte)"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_has_error_counter
@@ -1393,7 +1401,7 @@ msgstr "Hinnangud"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "Re-evaluate"
-msgstr ""
+msgstr "Ümberhindlus"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_move_line__asset_ids
@@ -1404,7 +1412,7 @@ msgstr "Seotud varad"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__related_purchase_value
 msgid "Related Purchase Value"
-msgstr ""
+msgstr "Seotud ostu väärtus"
 
 #. module: account_asset
 #. odoo-python
@@ -1443,7 +1451,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__open
 msgid "Running"
-msgstr "Pidev"
+msgstr "Töös"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_has_sms_error
@@ -1504,7 +1512,7 @@ msgstr ""
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Some fields are missing %s"
-msgstr ""
+msgstr "Mõned väljad on määramata %s"
 
 #. module: account_asset
 #. odoo-python
@@ -1595,12 +1603,12 @@ msgstr "Vajalike amortisatsioonide arv"
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "The remaining value on the last depreciation line must be 0"
-msgstr ""
+msgstr "Jääkväärtus amortisatsiooni kaardi viimasel real peab olema 0. "
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__invoice_line_ids
 msgid "There are multiple lines that could be the related to this asset"
-msgstr ""
+msgstr "Mitmed read võivad olla seotud selle varaga"
 
 #. module: account_asset
 #. odoo-python
@@ -1610,6 +1618,7 @@ msgid ""
 "There are unposted depreciations prior to the selected operation date, "
 "please deal with them first."
 msgstr ""
+"Selle kuupäevaga on postitamata amortisatsioonikandeid, palun kontrolli."
 
 #. module: account_asset
 #. odoo-javascript
@@ -1633,7 +1642,7 @@ msgstr "Kokku"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__total_depreciable_value
 msgid "Total Depreciable Value"
-msgstr ""
+msgstr "Amortiseeritav väärtus kokku"
 
 #. module: account_asset
 #. odoo-python
@@ -1698,6 +1707,11 @@ msgid ""
 "You can manually close an asset when the depreciation is over.\n"
 "By cancelling an asset, all depreciation entries will be reversed"
 msgstr ""
+"Kui vara on loodud, on staatus 'Mustand'.\n"
+"Kui vara on kinnitatud, on staatus 'Töös' ja amortisatsioonikandeid saab kinnitada.\n"
+"'Peatatud' staatust saab lisada automaatselt, kui soovite peatada amortiseerimise.\n"
+"Manuaalselt saab sulgeda vara, kui amortisatsioon on lõpetatud.\n"
+"Tühistades vara, tehakse kõikidele amortisatsioonikannetele pöördkanne"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method_period__12
@@ -1712,14 +1726,14 @@ msgstr "Aastas"
 msgid ""
 "You can't post an entry related to a draft asset. Please post the asset "
 "before."
-msgstr ""
+msgstr "Ei saa postitada mustandvara kannet. Palun kinnitage esmalt vara. "
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "You can't re-evaluate the asset before the lock date."
-msgstr ""
+msgstr "Vara ei saa ümberhinnata sulgemiskuupäevast varem. "
 
 #. module: account_asset
 #. odoo-python
@@ -1752,7 +1766,7 @@ msgstr ""
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot delete a document that is in %s state."
-msgstr ""
+msgstr "Kustutada ei saa dokumenti, mis on %s staatuses."
 
 #. module: account_asset
 #. odoo-python
@@ -1762,6 +1776,8 @@ msgid ""
 "You cannot delete an asset linked to posted entries.\n"
 "You should either confirm the asset, then, sell or dispose of it, or cancel the linked journal entries."
 msgstr ""
+"Vara ei saa kustutada, millel on kinnitatud kanded.\n"
+"Vara tuleb kinnitada ja seejärel müüa või maha kanda või tühistada varaga seotud kanded. "
 
 #. module: account_asset
 #. odoo-python
@@ -1789,7 +1805,7 @@ msgstr ""
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "You cannot select the same account as the Depreciation Account"
-msgstr ""
+msgstr "Valida ei saa amortisatsiooniga samasugust finantskontot"
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_balance
@@ -1831,3 +1847,24 @@ msgstr "kanded"
 #, python-format
 msgid "entry"
 msgstr "sisenemine"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "gain"
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "gain/loss"
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "loss"
+msgstr ""

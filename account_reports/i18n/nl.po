@@ -1484,6 +1484,20 @@ msgid "Expression"
 msgstr "Expressie"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"Expression labelled '%s' of line '%s' is being overwritten when computing "
+"the current report. Make sure the cross-report aggregations of this report "
+"only reference terms belonging to other reports."
+msgstr ""
+"Uitdrukking met label '%s' van regel '%s' wordt overschreven bij het "
+"berekenen van huidig rapport. Zorg ervoor dat de rapportoverschrijdende "
+"aggregaties van dit rapport alleen verwijzen naar termen die bij andere "
+"rapporten horen."
+
+#. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__field_name
 msgid "Field"
 msgstr "Veld"

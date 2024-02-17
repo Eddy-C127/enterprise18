@@ -3,7 +3,6 @@
 # 	* account_reports
 # 
 # Translators:
-# Birgit Vijar, 2023
 # Helen Sulaoja <helen@avalah.ee>, 2023
 # Maidu Targama <m.targama@gmail.com>, 2023
 # Patrick-Jordan Kiudorv, 2023
@@ -22,6 +21,7 @@
 # Egon Raamat <egon@avalah.ee>, 2024
 # Martin Trigaux, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
+# Birgit Vijar, 2024
 # 
 msgid ""
 msgstr ""
@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Eneli Õigus <enelioigus@gmail.com>, 2024\n"
+"Last-Translator: Birgit Vijar, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +63,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "%s is not a numeric value"
-msgstr ""
+msgstr "%s ei ole numbriline väärtus"
 
 #. module: account_reports
 #. odoo-javascript
@@ -130,7 +130,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid ", Only Show Unreconciled Entries"
-msgstr ""
+msgstr ", näita ainult sobitamata kandeid"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -167,6 +167,8 @@ msgid ""
 "<i>Errors marked with <i class=\"fa fa-warning\"/> are critical and prevent "
 "the file generation.</i>"
 msgstr ""
+"<i>Vead, mida tähistatakse <i class=\"fa fa-warning\"/> märgiga, on "
+"kriitilised ja takistavad faili loomist. </i>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.partner_view_buttons
@@ -176,12 +178,12 @@ msgstr "<span class=\"o_stat_text\">Partneri pearaamat</span>"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "<span>One or more error(s) occurred during file generation:</span>"
-msgstr ""
+msgstr "<span>Üks või rohkem viga tekkis faili loomisel:</span>"
 
 #. module: account_reports
 #: model:ir.model.constraint,message:account_reports.constraint_account_report_horizontal_group_name_uniq
 msgid "A horizontal group with the same name already exists."
-msgstr ""
+msgstr "Sama nimetusega grupp on juba loodud."
 
 #. module: account_reports
 #. odoo-javascript
@@ -1474,6 +1476,16 @@ msgid "Expression"
 msgstr "Väljend"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"Expression labelled '%s' of line '%s' is being overwritten when computing "
+"the current report. Make sure the cross-report aggregations of this report "
+"only reference terms belonging to other reports."
+msgstr ""
+
+#. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__field_name
 msgid "Field"
 msgstr "Väli"
@@ -1664,7 +1676,7 @@ msgstr "Üldise maksuaruande töötleja (Maks -> Konto)"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Go to report configuration"
-msgstr ""
+msgstr "Mine aruande seadistusse"
 
 #. module: account_reports
 #. odoo-python
@@ -1829,7 +1841,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Include Draft Entries"
-msgstr ""
+msgstr "Kaasa mustandkanded"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2239,7 +2251,7 @@ msgstr ""
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Missing Company Data"
-msgstr ""
+msgstr "Puuduvad ettevõtte andmed"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__res_model_name
@@ -2338,7 +2350,7 @@ msgstr "Võrdlus puudub"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "No VAT number associated with your company. Please define one."
-msgstr ""
+msgstr "Ettevõttega seotud käibemaksunumber on puudu. Palun määrake."
 
 #. module: account_reports
 #. odoo-python
@@ -2410,7 +2422,7 @@ msgstr "Pole"
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "Not Started"
-msgstr ""
+msgstr "Pole alustatud"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2531,7 +2543,7 @@ msgstr "Kontakti kaart"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Partner Categories"
-msgstr ""
+msgstr "Partnerite kategooriad"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.partner_ledger_report
@@ -2600,7 +2612,7 @@ msgstr "Võlad"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Payable tax amount"
-msgstr ""
+msgstr "Tasumisele kuuluv maks"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_current_liabilities_payable
@@ -2623,7 +2635,7 @@ msgstr "Lao analüüs"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Period comparison"
-msgstr ""
+msgstr "Perioodi võrdlus"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__account_tax_periodicity
@@ -2761,7 +2773,7 @@ msgstr ""
 #: code:addons/account_reports/wizard/multicurrency_revaluation.py:0
 #, python-format
 msgid "Provision for %(for_cur)s (1 %(comp_cur)s = %(rate)s %(for_cur)s)"
-msgstr ""
+msgstr "Periodiseerimine %(for_cur)s (1 %(comp_cur)s = %(rate)s %(for_cur)s)"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2935,7 +2947,7 @@ msgstr "Lühiajaline raha prognoos"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__show_warning_move_id
 msgid "Show Warning Move"
-msgstr ""
+msgstr "Kuva hoiatusi"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2999,7 +3011,7 @@ msgstr "Maksu summa"
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_alert
 #: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_alert
 msgid "Tax Closing Alert"
-msgstr ""
+msgstr "Maksu sulgemise teavitus"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_end_date
@@ -3072,7 +3084,7 @@ msgstr "Maksudeklaratsioon"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 msgid "Tax Return Periodicity"
-msgstr ""
+msgstr "Maksuperiood"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_tax_unit
@@ -3334,14 +3346,14 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "This option hides lines with a value of 0"
-msgstr ""
+msgstr "See valik peidab 0 väärtused"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This report already has a menuitem."
-msgstr ""
+msgstr "Sellel aruandel on juba menüüväli."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3355,7 +3367,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/warnings.xml:0
 #, python-format
 msgid "This report only displays the data of the active company."
-msgstr ""
+msgstr "See aruanne näitab ainult aktiivse ettevõtte andmeid."
 
 #. module: account_reports
 #. odoo-python
@@ -3664,7 +3676,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_move.py:0
 #, python-format
 msgid "You can't open a tax report from a move without a VAT closing date."
-msgstr ""
+msgstr "Maksuaruannet ei saa avada ilma käibemaksu sulgemise kuupäevata."
 
 #. module: account_reports
 #. odoo-python
@@ -3806,7 +3818,7 @@ msgstr "kord poolaastas"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_tax_unit_form
 msgid "synchronize fiscal positions"
-msgstr ""
+msgstr "sünkroniseeri finantspositsioonid"
 
 #. module: account_reports
 #. odoo-python
@@ -3863,14 +3875,14 @@ msgstr "kantakse üle"
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/carryover_popover.xml:0
 #, python-format
 msgid "will be carried over to this line in the next period."
-msgstr ""
+msgstr "viiakse üle järgmisse perioodi"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "without a valid intra-community VAT number."
-msgstr ""
+msgstr "ilma kehtiva käibemaksunumbrita. "
 
 #. module: account_reports
 #. odoo-javascript

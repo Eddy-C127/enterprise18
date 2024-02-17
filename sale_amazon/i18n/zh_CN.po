@@ -6,6 +6,7 @@
 # Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
+# 湘子 南 <1360857908@qq.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2023\n"
+"Last-Translator: 湘子 南 <1360857908@qq.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +53,7 @@ msgstr ""
 "                    <li>保存更改并点击<em>同步订单</em>按钮。</li>\n"
 "                </ol>\n"
 "            </p>\n"
-"            <p>如果问题仍然存在，请联系<a href=\"https://www.odoo.com/help/\">Odoo支持</a>。</p>\n"
+"            <p>如果问题仍然存在，请联系<a href=\"https://www.odoo.com/help/\">ERP 支持</a>。</p>\n"
 "        </div>\n"
 "        "
 
@@ -802,8 +803,8 @@ msgid ""
 "If the date is set in the past, orders placed on this Amazon Account before the first synchronization of the module might be synchronized with Odoo.\n"
 "If the date is set in the future, orders placed on this Amazon Account between the previous and the new date will not be synchronized with Odoo."
 msgstr ""
-"如果日期设置在过去，那么在该模块第一次同步之前在该亚马逊账户上的订单可能会与Odoo同步。\n"
-"如果日期设置在未来，那么在上一个日期和新日期之间在这个亚马逊账户上的订单将不会与Odoo同步。"
+"如果日期设置在过去，那么在该模块第一次同步之前在该亚马逊账户上的订单可能会与 ERP 同步。\n"
+"如果日期设置在未来，那么在上一个日期和新日期之间在这个亚马逊账户上的订单将不会与 ERP 同步."
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_order_view_form
@@ -877,8 +878,8 @@ msgid ""
 "Link your Amazon account with Odoo to start synchronizing your\n"
 "                                Amazon orders."
 msgstr ""
-"链接您的亚马逊帐户与Odoo开始同步您的\n"
-"                           亚马逊订单。"
+"链接您的亚马逊帐户与 ERP 开始同步您的\n"
+"                           亚马逊订单."
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1244,7 +1245,7 @@ msgid ""
 "The last synchronization date for orders placed on this account. Orders "
 "whose status has not changed since this date will not be created nor updated"
 " in Odoo."
-msgstr "在此账户下的订单的最后同步日期。自此日期以来，状态没有改变的订单将不会在Odoo中创建或更新。"
+msgstr "在此账户下的订单的最后同步日期。自此日期以来，状态没有改变的订单将不会在 ERP 中创建或更新."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__location_id

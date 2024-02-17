@@ -3,16 +3,16 @@
 # 	* sale_subscription
 # 
 # Translators:
-# Wil Odoo, 2024
 # Jolien De Paepe, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-31 15:25+0000\n"
+"POT-Creation-Date: 2024-01-24 20:55+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jolien De Paepe, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -858,13 +858,8 @@ msgid ""
 "                    </t>\n"
 "                    <br><br>\n"
 "                    Your subscription <t t-out=\"ctx.get('code') or ''\">CODE</t> is still valid but will be <strong>suspended</strong>\n"
-"                    on <t t-out=\"format_date(ctx.get('date_close')) or ''\">05/05/2021</t><br>\n"
-"                    <div style=\"margin: 16px 0px; text-align: center;\">\n"
-"                        <a t-attf-href=\"{{ ctx['payment_link'] }}\" style=\"display: inline-block; padding: 10px 30px; text-decoration: none; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
-"                            Pay Now\n"
-"                        </a>\n"
-"                    </div>\n"
-"                    <br>\n"
+"                    on <t t-out=\"format_date(ctx.get('date_close')) or ''\">05/05/2021</t> unless the payment succeeds in the mean time (we will retry once every day).\n"
+"                    Please double-check that you have sufficient funds.<br><br>\n"
 "                    If you have any questions, do not hesitate to contact us.<br><br>\n"
 "                    Thank you for choosing <t t-out=\"company.name or ''\">YourCompany</t>!\n"
 "                    <div>\n"
@@ -947,7 +942,7 @@ msgstr ""
 "                        <t t-out=\"ctx['payment_token'] or ''\">JETON</t>\n"
 "                        à concurrence de <t t-out=\"ctx['total_amount'] or ''\">10</t> <t t-out=\"ctx.get('currency_name') or ''\">$</t>.\n"
 "                        <t t-if=\"ctx.get('error')\">\n"
-"                            Votre banque ou établissement de crédit nous a fourni les détails suivants : <pre t-out=\"ctx['error'] or ''\"></pre>.\n"
+"                            Voter banque ou établissement de crédit nous a fourni les détails suivants : <pre t-out=\"ctx['error'] or ''\"></pre>.\n"
 "                        </t>\n"
 "                    </t>\n"
 "                    <t t-else=\"\">\n"
@@ -955,13 +950,8 @@ msgstr ""
 "                    </t>\n"
 "                    <br><br>\n"
 "                    Votre abonnement <t t-out=\"ctx.get('code') or ''\">CODE</t> est toujours valide, mais sera <strong>suspendu</strong>\n"
-"                    le <t t-out=\"format_date(ctx.get('date_close')) or ''\">05/05/2021</t><br>\n"
-"                    <div style=\"margin: 16px 0px; text-align: center;\">\n"
-"                        <a t-attf-href=\"{{ ctx['payment_link'] }}\" style=\"display: inline-block; padding: 10px 30px; text-decoration: none; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
-"                            Payez maintenant\n"
-"                        </a>\n"
-"                    </div>\n"
-"                    <br>\n"
+"                    le <t t-out=\"format_date(ctx.get('date_close')) or ''\">05/05/2021</t> sauf si le paiement nous parvient entre-temps (nous réessaierons une fois par jour).\n"
+"                    Veuillez vérifier que vous disposez de fonds suffisants.<br><br>\n"
 "                    N'hésitez pas à nous contacter si vous avez des questions.<br><br>\n"
 "                    Merci d'avoir choisi <t t-out=\"company.name or ''\">YourCompany</t>!\n"
 "                    <div>\n"
@@ -4717,11 +4707,6 @@ msgid "Use Calendar"
 msgstr "Utiliser le calendrier"
 
 #. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
-msgid "Use employee work schedule"
-msgstr "Utiliser l'horaire de travail de l'employé"
-
-#. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_filtered
 msgid ""
 "Use subscriptions to follow tasks, issues, timesheets or invoicing based on\n"
@@ -4731,11 +4716,6 @@ msgstr ""
 "Utilisez les abonnements pour suivre les tâches, incidents, feuilles de temps ou la facturation en fonction du\n"
 "                travail effectué, des dépenses et/ou des commandes. Odoo gérera automatiquement\n"
 "                les alertes pour le renouvellement des abonnements au bon vendeur."
-
-#. module: sale_subscription
-#: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
-msgid "Use the user's working schedule."
-msgstr "Utilisez l'horaire de travail de l'utilisateur."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -4762,11 +4742,6 @@ msgid ""
 msgstr ""
 "Vous souhaitez profiter d'une facturation récurrente via la gestion des "
 "abonnements ? Commencez par cliquer ici"
-
-#. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__warehouse_id
-msgid "Warehouse"
-msgstr "Entrepôt"
 
 #. module: sale_subscription
 #. odoo-python

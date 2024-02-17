@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Wil Odoo, 2024
 # Malaz Abuidris <msea@odoo.com>, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-31 15:25+0000\n"
+"POT-Creation-Date: 2024-01-24 20:55+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -857,13 +857,8 @@ msgid ""
 "                    </t>\n"
 "                    <br><br>\n"
 "                    Your subscription <t t-out=\"ctx.get('code') or ''\">CODE</t> is still valid but will be <strong>suspended</strong>\n"
-"                    on <t t-out=\"format_date(ctx.get('date_close')) or ''\">05/05/2021</t><br>\n"
-"                    <div style=\"margin: 16px 0px; text-align: center;\">\n"
-"                        <a t-attf-href=\"{{ ctx['payment_link'] }}\" style=\"display: inline-block; padding: 10px 30px; text-decoration: none; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
-"                            Pay Now\n"
-"                        </a>\n"
-"                    </div>\n"
-"                    <br>\n"
+"                    on <t t-out=\"format_date(ctx.get('date_close')) or ''\">05/05/2021</t> unless the payment succeeds in the mean time (we will retry once every day).\n"
+"                    Please double-check that you have sufficient funds.<br><br>\n"
 "                    If you have any questions, do not hesitate to contact us.<br><br>\n"
 "                    Thank you for choosing <t t-out=\"company.name or ''\">YourCompany</t>!\n"
 "                    <div>\n"
@@ -944,7 +939,7 @@ msgstr ""
 "                    <t t-if=\"ctx.get('payment_token') and ctx.get('total_amount')\">\n"
 "                        لم نتمكن من معالجة الدفع لاشتراكك باستخدام طريقة الدفع\n"
 "                        <t t-out=\"ctx['payment_token'] or ''\">الرمز</t>\n"
-"                        بسعر <t t-out=\"ctx['total_amount'] or ''\">10</t> <t t-out=\"ctx.get('currency_name') or ''\">$</t>.\n"
+"                        لـ<t t-out=\"ctx['total_amount'] or ''\">10</t> <t t-out=\"ctx.get('currency_name') or ''\">$</t>.\n"
 "                        <t t-if=\"ctx.get('error')\">\n"
 "                            أعطى بنكك أو منشأتك الائتمانية التفاصيل التالية حول المشكلة: <pre t-out=\"ctx['error'] or ''\"></pre>.\n"
 "                        </t>\n"
@@ -953,14 +948,9 @@ msgstr ""
 "                        لم نتمكن من معالجة الدفع لاشتراكك لعدم وجود طريقة دفع مسجلة من أجلك.\n"
 "                    </t>\n"
 "                    <br><br>\n"
-"                    لا يزال رمز <t t-out=\"ctx.get('code') or ''\">اشتراكك</t> صالحاً ولكن سيتم <strong>تعليقه</strong>\n"
-"                    بتاريخ <t t-out=\"format_date(ctx.get('date_close')) or ''\">05/05/2021</t><br>\n"
-"                    <div style=\"margin: 16px 0px; text-align: center;\">\n"
-"                        <a t-attf-href=\"{{ ctx['payment_link'] }}\" style=\"display: inline-block; padding: 10px 30px; text-decoration: none; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
-"                            ادفع\n"
-"                        </a>\n"
-"                    </div>\n"
-"                    <br>\n"
+"                    لا يزال <t t-out=\"ctx.get('code') or ''\">رمز</t> اشتراكك صالحاً ولكن سيتم <strong>تعليقه</strong>\n"
+"                    بتاريخ <t t-out=\"format_date(ctx.get('date_close')) or ''\">05/05/2021</t> إلا في حال نجاح عملية الدفع في الوقت الحالي (سنعيد المحاولة مرة واحدة كل يوم).\n"
+"                    يرجى التحقق مجدداً من أنك تملك الرصيد الكافي.<br><br>\n"
 "                    لا تتردد في التواصل معنا إذا كانت لديك أي أسئلة أو استفسارات.<br><br>\n"
 "                    شكراً لاختيارك <t t-out=\"company.name or ''\">شركتك</t>!\n"
 "                    <div>\n"
@@ -4664,11 +4654,6 @@ msgid "Use Calendar"
 msgstr "استخدام التقويم"
 
 #. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
-msgid "Use employee work schedule"
-msgstr "استخدام جدول عمل الموظف"
-
-#. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_filtered
 msgid ""
 "Use subscriptions to follow tasks, issues, timesheets or invoicing based on\n"
@@ -4678,11 +4663,6 @@ msgstr ""
 "استخدم الاشتراكات لتتبع المهام، والمشاكل، والجداول الزمنية أو لفوترتها\n"
 "                حسب العمل المنتهي، أو النفقات، و/أو أوامر المبيعات. سيقوم أودو تلقائياً بإرسال\n"
 "                تنبيهات تجديد الاشتراكات لمندوب المبيعات المناسب. "
-
-#. module: sale_subscription
-#: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
-msgid "Use the user's working schedule."
-msgstr "استخدام جدول عمل المستخدم."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -4709,11 +4689,6 @@ msgid ""
 msgstr ""
 "هل تبحث عن نظام لإدارة وإصدار الفواتير المتكررة من خلال إدارة الاشتراك؟ ابدأ"
 " بالضغط هنا "
-
-#. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__warehouse_id
-msgid "Warehouse"
-msgstr "المستودع "
 
 #. module: sale_subscription
 #. odoo-python

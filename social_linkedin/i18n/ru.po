@@ -43,6 +43,18 @@ msgid "Actual LinkedIn ID of the post"
 msgstr "Фактический LinkedIn ID сообщения"
 
 #. module: social_linkedin
+#: code:addons/social_linkedin/models/social_account.py:0
+#, python-format
+msgid "An error occurred when fetching your pages data: %r."
+msgstr ""
+
+#. module: social_linkedin
+#: code:addons/social_linkedin/models/social_account.py:0
+#, python-format
+msgid "An error occurred when fetching your pages: %r."
+msgstr ""
+
+#. module: social_linkedin
 #: model:ir.model.fields,field_description:social_linkedin.field_res_config_settings__linkedin_app_id
 msgid "App ID"
 msgstr "ID приложения"
@@ -251,6 +263,12 @@ msgstr "Во время вашего запроса возникла пробл�
 #, python-format
 msgid "Unauthorized. Please contact your administrator."
 msgstr "Неавторизованный. Пожалуйста, свяжитесь с вашим администратором."
+
+#. module: social_linkedin
+#: code:addons/social_linkedin/models/social_stream_post.py:0
+#, python-format
+msgid "Unknown"
+msgstr "Неизвестно"
 
 #. module: social_linkedin
 #: model:ir.model.fields,field_description:social_linkedin.field_res_config_settings__linkedin_use_own_account

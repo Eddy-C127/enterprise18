@@ -40,7 +40,7 @@ msgstr "และอีกอันหนึ่ง"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid " is not supported by the Journal Report"
-msgstr ""
+msgstr "ไม่รองรับรายงานสมุดรายวัน"
 
 #. module: account_reports
 #. odoo-python
@@ -111,14 +111,14 @@ msgstr "(ไม่มีกลุ่ม)"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid ", Including Analytic Simulations"
-msgstr ""
+msgstr "รวมถึงการจำลองเชิงวิเคราะห์"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid ", Only Show Unreconciled Entries"
-msgstr ""
+msgstr "แสดงรายการที่ยังไม่ได้กระทบยอดเท่านั้น"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -490,7 +490,7 @@ msgstr "ยอดเงินในสกุลเงิน: %s"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Analytic Accounts Groupby"
-msgstr ""
+msgstr "บัญชีวิเคราะห์ Groupby"
 
 #. module: account_reports
 #. odoo-javascript
@@ -512,7 +512,7 @@ msgstr "กลุ่มวิเคราะห์โดย"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Analytic Plans Groupby"
-msgstr ""
+msgstr "แผนการวิเคราะห์ Groupby"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1472,6 +1472,16 @@ msgid "Expression"
 msgstr "ตัวสั่งงาน"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"Expression labelled '%s' of line '%s' is being overwritten when computing "
+"the current report. Make sure the cross-report aggregations of this report "
+"only reference terms belonging to other reports."
+msgstr ""
+
+#. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__field_name
 msgid "Field"
 msgstr "ฟิลด์"
@@ -1757,7 +1767,7 @@ msgstr "กลุ่มแนวนอน:"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Horizontal Grouping"
-msgstr ""
+msgstr "การจัดกลุ่มแนวนอน"
 
 #. module: account_reports
 #: model:ir.actions.act_window,name:account_reports.action_account_report_horizontal_groups
@@ -2632,7 +2642,7 @@ msgstr "ประสิทธิภาพ"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Period comparison"
-msgstr ""
+msgstr "การเปรียบเทียบช่วงเวลา"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__account_tax_periodicity

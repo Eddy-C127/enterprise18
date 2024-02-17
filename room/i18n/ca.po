@@ -5,6 +5,7 @@
 # Translators:
 # eriiikgt, 2023
 # jabiri7, 2023
+# Martin Trigaux, 2023
 # Susanna Pujol, 2023
 # Albert Parera, 2023
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2023
@@ -15,16 +16,16 @@
 # Óscar Fonseca <tecnico@pyming.com>, 2023
 # Josep Anton Belchi, 2023
 # Quim - eccit <quim@eccit.com>, 2023
-# Martin Trigaux, 2023
 # Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2023
+# Iván Infantes Castarnado, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-02-09 10:16+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2023\n"
+"Last-Translator: Iván Infantes Castarnado, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -442,7 +443,7 @@ msgstr "Nombre de missatges amb error d'entrega"
 #: model:ir.model.fields,field_description:room.field_room_booking__office_id
 #: model:ir.model.fields,field_description:room.field_room_room__office_id
 msgid "Office"
-msgstr ""
+msgstr "Oficina"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_office__name
@@ -571,15 +572,15 @@ msgid "Start Datetime"
 msgstr ""
 
 #. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.js:0
-#, python-format
-msgid "Stop"
-msgstr "Atura"
-
-#. module: room
 #: model:ir.model.constraint,message:room.constraint_room_room_uniq_access_token
 msgid "The access token must be unique"
+msgstr ""
+
+#. module: room
+#. odoo-javascript
+#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.js:0
+#, python-format
+msgid "The booking you were editing has been deleted."
 msgstr ""
 
 #. module: room

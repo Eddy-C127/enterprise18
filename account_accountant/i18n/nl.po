@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Jolien De Paepe, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -990,7 +990,7 @@ msgid ""
 msgstr ""
 "Ongeldig: de banktransactie kan niet worden gevalideerd omdat de tussenrekening nog steeds betrokken is\n"
 "Geldig: De banktransactie kan worden gevalideerd.\n"
-"Afgestemd: de banktransactie is al verwerkt. Niets meer te doen."
+"Afgeletterde: de banktransactie is al verwerkt. Niets meer te doen."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
@@ -1082,7 +1082,7 @@ msgstr "Boekingsregels"
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_move_line_posted_unreconciled
 msgid "Journal Items to reconcile"
-msgstr "Journaalposten die moeten worden afgestemd"
+msgstr "Boekingen die moeten worden afgeletterd"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1209,7 +1209,7 @@ msgstr "Handmatige bewerkingen"
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__manual
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__manual
 msgid "Manually & Grouped"
-msgstr "Handmatig & Gegroupeerd"
+msgstr "Handmatig & Gegroepeerd"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__manually_modified
@@ -1247,7 +1247,7 @@ msgstr "Afgeletterde transacties"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__matching_rules_allow_auto_reconcile
 msgid "Matching Rules Allow Auto Reconcile"
-msgstr "Overeenkomende regels staan automatische afstemming toe"
+msgstr "Matching regels staan automatisch afletteren toe"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_amount_computation_method
@@ -1257,7 +1257,8 @@ msgstr "Methode gebruikt om het bedrag van uitgestelde boekingen te berekenen"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Method used to generate deferred expense entries"
-msgstr "Methode die wordt gebruikt om uitgestelde onkostenposten te genereren"
+msgstr ""
+"Methode die wordt gebruikt om uitgestelde onkostenboekingen te genereren"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
@@ -1633,12 +1634,12 @@ msgstr "Afletteren & openen"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_account_id
 msgid "Reconcile Account"
-msgstr "Afletteringsaccount"
+msgstr "Afletteren rekening"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__reconcile_model_id
 msgid "Reconcile Model"
-msgstr "Verzoeningsmodel"
+msgstr "Aflettermodel"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled

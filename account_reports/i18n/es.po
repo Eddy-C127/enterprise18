@@ -1489,6 +1489,16 @@ msgid "Expression"
 msgstr "Expresión"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid ""
+"Expression labelled '%s' of line '%s' is being overwritten when computing "
+"the current report. Make sure the cross-report aggregations of this report "
+"only reference terms belonging to other reports."
+msgstr ""
+
+#. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__field_name
 msgid "Field"
 msgstr "Campo"
@@ -3104,7 +3114,7 @@ msgstr " Ajuste de impuestos recibidos"
 #: model:mail.activity.type,summary:account_reports.tax_closing_activity_type
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
 msgid "Tax Report"
-msgstr "Reporte de impuestos"
+msgstr "Informe de impuestos"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_report_control_error
@@ -3760,7 +3770,7 @@ msgstr "Estás usando tasas de cambio personalizadas"
 #, python-format
 msgid "You can't open a tax report from a move without a VAT closing date."
 msgstr ""
-"No puede abrir un reporte de impuestos de un movimiento sin una fecha de "
+"No puede abrir un informe de impuestos de un movimiento sin una fecha de "
 "cierre del IVA."
 
 #. module: account_reports
