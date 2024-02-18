@@ -403,7 +403,7 @@ class UPSRequest:
         }
         # Shipments from US to CA or PR require extra info
         if ship_from.country_id.code == 'US' and ship_to.country_id.code in ['CA', 'PR']:
-            request['Shipment']['InvoiceLineTotal'] = {
+            request['ShipmentRequest']['Shipment']['InvoiceLineTotal'] = {
                 'CurrencyCode': shipment_info.get('itl_currency_code'),
                 'MonetaryValue': shipment_info.get('ilt_monetary_value'),
             }
