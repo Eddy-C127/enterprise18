@@ -47,7 +47,7 @@ class Mod111And115And303CommonBOEWizard(models.TransientModel):
     @api.constrains('partner_bank_id')
     def validate_partner_bank_id(self):
         for record in self:
-            if record.partner_bank_id.acc_type != 'iban':
+            if record.partner_bank_id and record.partner_bank_id.acc_type != 'iban':
                 raise ValidationError(_("Please select an IBAN account."))
 
 
@@ -131,7 +131,7 @@ class Mod303BOEWizard(models.TransientModel):
     @api.constrains('partner_bank_id')
     def validate_bic(self):
         for record in self:
-            if not record.partner_bank_id.bank_bic:
+            if record.partner_bank_id and not record.partner_bank_id.bank_bic:
                 raise ValidationError(_("Please first assign a BIC number to the bank related to this account."))
 
     def _get_using_sii_2021_value(self):
