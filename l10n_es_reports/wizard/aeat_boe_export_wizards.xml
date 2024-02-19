@@ -12,6 +12,7 @@
                         <group>
                             <field name="declaration_type"/>
                             <field name="complementary_declaration"/>
+                            <field name="company_id" invisible="True"/>
                             <field name="company_partner_id" invisible="True"/>
                             <field name="partner_bank_id"/>
                             <field name="previous_report_number" invisible="not complementary_declaration"/>
@@ -34,6 +35,7 @@
                     <group>
                         <group>
                             <field name="declaration_type"/>
+                            <field name="company_id" invisible="True"/>
                             <field name="company_partner_id" invisible="True"/>
                             <field name="partner_bank_id"/>
                             <field name="complementary_declaration"/>
@@ -57,6 +59,7 @@
                     <group>
                         <group>
                             <field name="declaration_type"/>
+                            <field name="company_id" invisible="True"/>
                             <field name="company_partner_id" invisible="True"/>
                             <field name="partner_bank_id"/>
                             <field name="complementary_declaration"/>
