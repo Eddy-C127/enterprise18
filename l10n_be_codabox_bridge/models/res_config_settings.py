@@ -1,7 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models, _
-from odoo.exceptions import UserError
+from odoo.addons.l10n_be_codabox.const import raise_deprecated
 
 
 class ResConfigSettings(models.TransientModel):
@@ -10,7 +10,7 @@ class ResConfigSettings(models.TransientModel):
     l10n_be_codabox_show_iap_token = fields.Boolean(related="company_id.l10n_be_codabox_show_iap_token")
 
     def l10n_be_codabox_refresh_connection_status(self):
-        raise UserError(_("Please install the module CodaBox Bridge Wizard to use this feature (you may have to Update the Apps List first)."))
+        raise_deprecated(self.env)
 
     def l10n_be_codabox_open_soda_mapping(self):
-        raise UserError(_("Please install the module CodaBox Bridge Wizard to use this feature (you may have to Update the Apps List first)."))
+        raise_deprecated(self.env)

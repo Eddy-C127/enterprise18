@@ -11,7 +11,7 @@ PROXY_ERROR_CODES = {
     "error_connection_not_found": _lt("No connection exists with these Accounting Firm and Company VAT numbers. Please check your configuration."),
     "error_consent_not_valid": _lt("It seems that your CodaBox connection is not valid anymore.  Please connect again."),
     "error_invalid_fidu_password": _lt("The provided password is not valid for this Accounting Firm. You must reuse the password you received from Odoo during your first connection."),
-    "error_deprecated": _lt("Please install the module CodaBox Bridge Wizard to use this feature."),
+    "error_deprecated": _lt("Please upgrade the CodaBox module."),
 }
 
 CODABOX_ERROR_CODES = {
@@ -38,6 +38,10 @@ def get_iap_endpoint(env):
 
 
 def raise_deprecated(env):
+    # Modify the status in a new cursor to avoid the current transaction to be rolled back
+    with env.registry.cursor() as new_cr:
+        company = env.company.with_env(env(cr=new_cr))
+        company.l10n_be_codabox_is_connected = False
     IrModuleModule = env['ir.module.module'].sudo()
     if not IrModuleModule.search([('name', '=', 'l10n_be_codabox_bridge_wizard')]):
         IrModuleModule.update_list()
