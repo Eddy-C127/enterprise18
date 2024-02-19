@@ -25,5 +25,8 @@
         <xpath expr="//li[@t-if='latitude and longitude']" position="attributes">
             <attribute name="t-attf-class">#{record.planned_date_begin ? '' : 'text-muted'}</attribute>
         </xpath>
+        <xpath expr="//t[@t-foreach='records']" position="before">
+            <p t-if="!records.length" class="fst-italic text-muted">View customer locations for your tasks</p>
+        </xpath>
     </t>
 </templates>
