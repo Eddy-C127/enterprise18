@@ -976,7 +976,7 @@ class Article(models.Model):
         # update translations, skip name (hardcoded in default anyway) and o2m fields
         # as we don't need anything translated from them
         for old, new in zip(to_copy, duplicates):
-            old.with_context(from_copy_translation=True).copy_translations(
+            old.copy_translations(
                 new,
                 excluded=list(default.keys()) if default else [] + ['name', 'article_member_ids', 'favorite_ids']
             )

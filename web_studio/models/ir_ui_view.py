@@ -1288,7 +1288,7 @@ class View(models.Model):
         })
 
         fields_to_ignore = (field for field in self._fields if field != 'arch_base')
-        for view in (combined_views - self).with_context(from_copy_translation=True):
+        for view in combined_views - self:
             view.copy_translations(new, fields_to_ignore)
 
         return new
