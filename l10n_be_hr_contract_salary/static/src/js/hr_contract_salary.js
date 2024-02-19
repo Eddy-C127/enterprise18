@@ -8,6 +8,7 @@ hrContractSalary.include({
         "change input[name='has_hospital_insurance_radio']": "onchangeHospital",
         "change input[name='fold_company_car_total_depreciated_cost']": "onchangeCompanyCar",
         "change input[name='fold_private_car_reimbursed_amount']": "onchangePrivateCar",
+        "change input[name='fold_l10n_be_bicyle_cost']": "onchangePrivateBike",
         "change input[name='l10n_be_has_ambulatory_insurance_radio']": "onchangeAmbulatory",
         "change input[name='children']": "onchangeChildren",
         "change input[name='fold_wishlist_car_total_depreciated_cost']": "onchangeWishlistCar",
@@ -68,6 +69,16 @@ hrContractSalary.include({
         }
     },
 
+    onchangePrivateBike: function(event) {
+        if (event.target.checked) {
+            // Set the fuel card slider value to 0 and disable it
+            $("input[name='fuel_card_slider']").val(0).prop('disabled', true);
+            $("input[name='fuel_card']").val(0);
+        } else {
+            // Enable the fuel card slider when "Private Bike" is unchecked
+            $("input[name='fuel_card_slider']").prop('disabled', false);
+        }
+    },
 
     onchangeFoldedResetInteger(benefitField) {
         if (benefitField === 'private_car_reimbursed_amount_manual' || benefitField === 'l10n_be_bicyle_cost_manual') {
