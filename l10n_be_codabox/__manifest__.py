@@ -14,15 +14,12 @@
     'auto_install': True,
     'data': [
         'data/ir_cron.xml',
-        'security/l10n_be_codabox_security.xml',
+        'security/ir.model.access.csv',
         'views/res_config_settings_views.xml',
         'views/account_journal_views.xml',
+        'wizard/connection_wizard.xml',
         'wizard/soda_import_wizard.xml',
+        'wizard/validation_wizard.xml',
     ],
-    'assets': {
-        'web.assets_backend': [
-            'l10n_be_codabox/static/src/components/**/*',
-        ],
-    },
     'license': 'OEEL-1',
 }
