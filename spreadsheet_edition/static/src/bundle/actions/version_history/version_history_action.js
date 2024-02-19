@@ -21,7 +21,7 @@ import {
     useSpreadsheetLocales,
     useSpreadsheetThumbnail,
 } from "../../hooks";
-import { formatToLocaleString } from "../../helpers";
+import { formatToLocaleString } from "../../helpers/misc";
 import { router } from "@web/core/browser/router";
 import { RestoreVersionConfirmationDialog } from "../../version_history/restore_version_dialog/restore_version_dialog";
 import { OdooDataProvider } from "@spreadsheet/data_sources/odoo_data_provider";

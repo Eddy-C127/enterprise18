@@ -2,7 +2,7 @@
 
 import { components, helpers } from "@odoo/o-spreadsheet";
 import { Component, useRef, useState, useEffect } from "@odoo/owl";
-import { formatToLocaleString } from "../../helpers";
+import { formatToLocaleString } from "../../helpers/misc";
 import { _t } from "@web/core/l10n/translation";
 
 const { createActions } = helpers;

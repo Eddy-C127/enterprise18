@@ -1,0 +1,232 @@
+/** @odoo-module */
+
+import { helpers, registries, tokenColors } from "@odoo/o-spreadsheet";
+import { extractDataSourceId } from "@spreadsheet/helpers/odoo_functions_helpers";
+import { _t } from "@web/core/l10n/translation";
+import {
+    insertTokenAfterArgSeparator,
+    insertTokenAfterLeftParenthesis,
+    makeFieldProposal,
+} from "../helpers/auto_complete";
+
+const { isDefined } = helpers;
+
+registries.autoCompleteProviders.add("pivot_ids", {
+    sequence: 50,
+    autoSelectFirstProposal: true,
+    getProposals(tokenAtCursor) {
+        const functionContext = tokenAtCursor.functionContext;
+        const pivotFunction = ["ODOO.PIVOT", "ODOO.PIVOT.HEADER", "ODOO.PIVOT.TABLE"];
+        if (
+            !pivotFunction.includes(functionContext?.parent.toUpperCase()) ||
+            functionContext.argPosition !== 0
+        ) {
+            return;
+        }
+        const pivotIds = this.getters.getPivotIds();
+        if (pivotIds.includes(tokenAtCursor.value)) {
+            return;
+        }
+        return pivotIds.map((pivotId) => {
+            const definition = this.getters.getPivotDefinition(pivotId);
+            const str = `${definition.formulaId}`;
+            return {
+                text: str,
+                description: definition.name,
+                htmlContent: [{ value: str, color: tokenColors.NUMBER }],
+                fuzzySearchKey: str + definition.name,
+            };
+        });
+    },
+    selectProposal: insertTokenAfterLeftParenthesis,
+});
+
+registries.autoCompleteProviders.add("pivot_measures", {
+    sequence: 50,
+    autoSelectFirstProposal: true,
+    getProposals(tokenAtCursor) {
+        const functionContext = tokenAtCursor.functionContext;
+        if (
+            functionContext?.parent.toUpperCase() !== "ODOO.PIVOT" ||
+            functionContext.argPosition !== 1
+        ) {
+            return;
+        }
+        const pivotFormulaId = extractDataSourceId(tokenAtCursor);
+        const pivotId = this.getters.getPivotId(pivotFormulaId);
+        if (!this.getters.isExistingPivot(pivotId)) {
+            return;
+        }
+        const dataSource = this.getters.getPivot(pivotId);
+        if (!dataSource.isMetaDataLoaded()) {
+            return;
+        }
+        const fields = dataSource.getFields();
+        const definition = this.getters.getPivotDefinition(pivotId);
+        return definition.measures.map((measure) => {
+            if (measure === "__count") {
+                const text = '"__count"';
+                return {
+                    text,
+                    description: _t("Count"),
+                    htmlContent: [{ value: text, color: tokenColors.STRING }],
+                    fuzzySearchKey: _t("Count") + text,
+                };
+            }
+            const field = fields[measure];
+            return makeFieldProposal(field);
+        });
+    },
+    selectProposal: insertTokenAfterArgSeparator,
+});
+
+registries.autoCompleteProviders.add("pivot_group_fields", {
+    sequence: 50,
+    autoSelectFirstProposal: true,
+    getProposals(tokenAtCursor) {
+        const functionContext = tokenAtCursor.functionContext;
+        if (
+            !canAutoCompletePivotField(tokenAtCursor) &&
+            !canAutoCompletePivotHeaderField(tokenAtCursor)
+        ) {
+            return;
+        }
+        const pivotFormulaId = extractDataSourceId(tokenAtCursor);
+        const pivotId = this.getters.getPivotId(pivotFormulaId);
+        if (!this.getters.isExistingPivot(pivotId)) {
+            return;
+        }
+        const dataSource = this.getters.getPivot(pivotId);
+        if (!dataSource.isMetaDataLoaded()) {
+            return;
+        }
+        let args = functionContext.args;
+        if (functionContext?.parent.toUpperCase() === "ODOO.PIVOT") {
+            args = args.filter((ast, index) => index % 2 === 0); // keep only the field names
+            args = args.slice(1, functionContext.argPosition); // remove the first even argument (the pivot id)
+        } else {
+            args = args.filter((ast, index) => index % 2 === 1); // keep only the field names
+        }
+        const argGroupBys = args.map((ast) => ast?.value).filter(isDefined);
+        const fields = dataSource.getFields();
+        const { colGroupBys, rowGroupBys } = this.getters.getPivotDefinition(pivotId);
+        const colFields = colGroupBys.map((groupBy) => groupBy.split(":")[0]);
+        const rowFields = rowGroupBys.map((groupBy) => groupBy.split(":")[0]);
+
+        const proposals = [];
+        const previousGroupBy = ["ARG_SEPARATOR", "SPACE"].includes(tokenAtCursor.type)
+            ? argGroupBys.at(-1)
+            : argGroupBys.at(-2);
+        if (previousGroupBy === undefined) {
+            proposals.push(colFields[0]);
+            proposals.push(rowFields[0]);
+        }
+        if (rowFields.includes(previousGroupBy)) {
+            const nextRowGroupBy = rowFields[rowFields.indexOf(previousGroupBy) + 1];
+            proposals.push(nextRowGroupBy);
+            proposals.push(colFields[0]);
+        }
+        if (colFields.includes(previousGroupBy)) {
+            const nextGroupBy = colFields[colFields.indexOf(previousGroupBy) + 1];
+            proposals.push(nextGroupBy);
+        }
+        const groupBys = proposals.filter(isDefined);
+        return groupBys
+            .map((groupBy) => {
+                const field = fields[groupBy];
+                return makeFieldProposal(field);
+            })
+            .concat(
+                groupBys.map((groupBy) => {
+                    const field = fields[groupBy];
+                    const positionalFieldArg = `"#${field.name}"`;
+                    const positionalProposal = {
+                        text: positionalFieldArg,
+                        description:
+                            _t("%s (positional)", field.string) +
+                            (field.help ? ` (${field.help})` : ""),
+                        htmlContent: [{ value: positionalFieldArg, color: tokenColors.STRING }],
+                        fuzzySearchKey: field.string + positionalFieldArg, // search on translated name and on technical name
+                    };
+                    return positionalProposal;
+                })
+            );
+    },
+    selectProposal: insertTokenAfterArgSeparator,
+});
+
+function canAutoCompletePivotField(tokenAtCursor) {
+    const functionContext = tokenAtCursor.functionContext;
+    return (
+        functionContext?.parent.toUpperCase() === "ODOO.PIVOT" &&
+        functionContext.argPosition >= 2 && // the first two arguments are the pivot id and the measure
+        functionContext.argPosition % 2 === 0 // only the even arguments are the group bys
+    );
+}
+
+function canAutoCompletePivotHeaderField(tokenAtCursor) {
+    const functionContext = tokenAtCursor.functionContext;
+    return (
+        functionContext?.parent.toUpperCase() === "ODOO.PIVOT.HEADER" &&
+        functionContext.argPosition >= 1 && // the first argument is the pivot id
+        functionContext.argPosition % 2 === 1 // only the odd arguments are the group bys
+    );
+}
+
+registries.autoCompleteProviders.add("pivot_group_values", {
+    sequence: 50,
+    autoSelectFirstProposal: true,
+    getProposals(tokenAtCursor) {
+        const functionContext = tokenAtCursor.functionContext;
+        if (
+            !canAutoCompletePivotGroupValue(tokenAtCursor) &&
+            !canAutoCompletePivotHeaderGroupValue(tokenAtCursor)
+        ) {
+            return;
+        }
+        const pivotFormulaId = extractDataSourceId(tokenAtCursor);
+        const pivotId = this.getters.getPivotId(pivotFormulaId);
+        if (!this.getters.isExistingPivot(pivotId)) {
+            return;
+        }
+        const dataSource = this.getters.getPivot(pivotId);
+        if (!dataSource.isLoadedAndValid()) {
+            return;
+        }
+        const argPosition = functionContext.argPosition;
+        const groupByField = tokenAtCursor.functionContext.args[argPosition - 1]?.value;
+        if (!groupByField) {
+            return;
+        }
+        return dataSource.getPossibleFieldValues(groupByField).map(({ value, label }) => {
+            const isString = typeof value === "string";
+            const text = isString ? `"${value}"` : value.toString();
+            const color = isString ? tokenColors.STRING : tokenColors.NUMBER;
+            return {
+                text,
+                description: label,
+                htmlContent: [{ value: text, color }],
+                fuzzySearchKey: value + label,
+            };
+        });
+    },
+    selectProposal: insertTokenAfterArgSeparator,
+});
+
+function canAutoCompletePivotGroupValue(tokenAtCursor) {
+    const functionContext = tokenAtCursor.functionContext;
+    return (
+        functionContext?.parent.toUpperCase() === "ODOO.PIVOT" &&
+        functionContext.argPosition >= 2 && // the first two arguments are the pivot id and the measure
+        functionContext.argPosition % 2 === 1 // only the odd arguments are the group by values
+    );
+}
+
+function canAutoCompletePivotHeaderGroupValue(tokenAtCursor) {
+    const functionContext = tokenAtCursor.functionContext;
+    return (
+        functionContext?.parent.toUpperCase() === "ODOO.PIVOT.HEADER" &&
+        functionContext.argPosition >= 1 && // the first argument is the pivot id
+        functionContext.argPosition % 2 === 0 // only the even arguments are the group by values
+    );
+}
