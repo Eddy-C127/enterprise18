@@ -1090,8 +1090,8 @@ class AmazonAccount(models.Model):
                 'state': 'confirmed',
                 'sale_line_id': order_line.id,
             })
-            stock_move._action_assign()
             stock_move._set_quantity_done(order_line.product_uom_qty)
+            stock_move.picked = True  # To also change move lines created in `_set_quantity_done`
             stock_move._action_done()
 
     def _sync_inventory(self):

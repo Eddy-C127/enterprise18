@@ -2,7 +2,7 @@
 
 from unittest.mock import patch, Mock
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.exceptions import UserError
 from odoo.tools import mute_logger
 
@@ -19,12 +19,12 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
         super().setUp()
 
         # Create sales order
-        partner = self.env['res.partner'].create({'name': "Gederic Frilson"})
+        self.partner = self.env['res.partner'].create({'name': "Gederic Frilson"})
         amazon_offer = self.account._find_or_create_offer(
             'test SKU', self.account.base_marketplace_id
         )
         self.sale_order = self.env['sale.order'].create({
-            'partner_id': partner.id,
+            'partner_id': self.partner.id,
             'order_line': [(0, 0, {
                 'name': 'test',
                 'product_id': self.productA.id,
@@ -360,3 +360,32 @@ class TestStock(common.TestAmazonCommon, TestStockCommon):
         self.assertEqual(self.picking.amazon_sync_status, 'processing', msg=msg)
         msg = "Picking re-submitted have the new feed ID set."
         self.assertEqual(self.picking.amazon_feed_ref, 'Mock feed ID', msg=msg)
+
+    def test_generate_stock_moves_for_not_tracked_product_sets_move_done(self):
+        self.product.tracking = 'none'
+        self.env['stock.quant'].create(
+            {'product_id': self.product.id, 'location_id': self.stock_location, 'quantity': 30}
+        )
+        sale_order = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [Command.create({
+                'product_id': self.product.id,
+                'amazon_item_ref': 'item_ref',
+                'product_uom_qty': 2,
+            })],
+            'amazon_order_ref': 'test_ref',
+            'state': 'sale',
+            'locked': True,
+        })
+        StockMove = self.env['stock.move']
+        initial_moves = StockMove.search([('product_id', '=', self.product.id)])
+        self.assertFalse(initial_moves, msg="No stock move should be created yet.")
+
+        self.account._generate_stock_moves(sale_order)
+
+        new_moves = StockMove.search(
+            [('product_id', '=', self.product.id), ('id', 'not in', initial_moves.ids)]
+        )
+
+        msg = "All moves should be set as done."
+        self.assertEqual(new_moves.state, 'done', msg=msg)
