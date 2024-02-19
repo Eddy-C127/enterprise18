@@ -410,6 +410,7 @@ class StudioApprovalRule(models.Model):
                 ('id', '!=', ruleSudo.id),
                 ('notification_order', '=', ruleSudo.notification_order),
                 ('active', '=', True),
+                ("model_name", "=", ruleSudo.model_name),
                 ('method', '=', ruleSudo.method),
                 ('action_id', '=', ruleSudo.action_id.id)
             ])
@@ -417,6 +418,7 @@ class StudioApprovalRule(models.Model):
             for approval_rule in ruleSudo.search([
                 ('notification_order', '>', ruleSudo.notification_order),
                 ('active', '=', True),
+                ("model_name", "=", ruleSudo.model_name),
                 ('method', '=', ruleSudo.method),
                 ('action_id', '=', ruleSudo.action_id.id)
             ]):
@@ -616,6 +618,7 @@ class StudioApprovalRule(models.Model):
             for approval_rule in ruleSudo.search([
                 ('notification_order', '<', self.notification_order),
                 ('active', '=', True),
+                ("model_name", "=", ruleSudo.model_name),
                 ('method', '=', ruleSudo.method),
                 ('action_id', '=', ruleSudo.action_id.id)
             ]):
