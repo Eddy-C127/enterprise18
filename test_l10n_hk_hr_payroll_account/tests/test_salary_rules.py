@@ -718,6 +718,45 @@ class TestSalaryRules(TestL10NHkHrPayrollAccountCommon):
             payslip.action_payslip_done()
             payslip.action_payslip_paid()
 
+    def test_004_f_mpf_below_mpf_threshold_include_ermc(self):
+        self.contract.write({
+            'wage': 5000.0,
+            'l10n_hk_internet': 0.0,
+        })
+        payslip = self._generate_payslip(date(2023, 1, 1), date(2023, 1, 31))
+        payslip.action_payslip_done()
+        payslip.action_payslip_paid()
+
+        payslip_results = {
+            2: {
+                'BASIC': 5000.0,
+                '713_GROSS': 5000.0,
+                'MPF_GROSS': 5000.0,
+                'ERMC': -500,
+                'GROSS': 5500.0,
+                'NET': 5000.0,
+                'MEA': 5000.0,
+            },
+            3: {
+                'BASIC': 5000.0,
+                '713_GROSS': 5000.0,
+                'MPF_GROSS': 5000.0,
+                'ERMC': -250,
+                'GROSS': 5250.0,
+                'NET': 5000.0,
+                'MEA': 5000.0,
+            }
+        }
+
+        for month in range(2, 4):
+            payslip = self._generate_payslip(
+                date(2023, month, 1),
+                date(2023, month, 1) + relativedelta(day=31),
+            )
+            self._validate_payslip(payslip, payslip_results[month])
+            payslip.action_payslip_done()
+            payslip.action_payslip_paid()
+
     def test_005_a_end_of_year_payment(self):
         for month in range(1, 12):
             self._generate_payslip(
