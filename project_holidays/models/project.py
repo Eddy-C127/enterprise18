@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
 from collections import defaultdict
+
+from odoo import _, api, fields, models
+from odoo.tools import format_list
+
 
 class Task(models.Model):
     _inherit = 'project.task'
@@ -75,15 +78,15 @@ class Task(models.Model):
                         if leave_type == 'validated':
                             if len(leave["names"]) == 1:
                                 warning += _('%(names)s is on time off %(leaves)s. \n',
-                                             names=', '.join(leave["names"]),
+                                             names=leave["names"][0],
                                              leaves=self.env['hr.leave'].format_date_range_to_string(leave["leaves"]))
                             else:
                                 warning += _('%(names)s are on time off %(leaves)s. \n',
-                                             names=', '.join(leave["names"]),
+                                             names=format_list(self.env, leave["names"]),
                                              leaves=self.env['hr.leave'].format_date_range_to_string(leave["leaves"]))
                         else:
                             warning += _('%(names)s requested time off %(leaves)s. \n',
-                                         names=', '.join(leave["names"]),
+                                         names=format_list(self.env, leave["names"]),
                                          leaves=self.env['hr.leave'].format_date_range_to_string(leave["leaves"]))
             task.leave_warning = warning or False
             task.is_absent = bool(warning)

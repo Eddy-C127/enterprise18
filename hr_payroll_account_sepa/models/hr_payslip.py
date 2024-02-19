@@ -6,6 +6,7 @@ import base64
 
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
+from odoo.tools import format_list
 
 
 class HrPayslip(models.Model):
@@ -57,13 +58,13 @@ class HrPayslip(models.Model):
     def _create_xml_file(self, journal_id, file_name=None):
         employees = self.mapped('employee_id').filtered(lambda e: not e.work_contact_id)
         if employees:
-            raise UserError(_("Some employees (%s) don't have a work contact.", ','.join(employees.mapped('name'))))
+            raise UserError(_("Some employees (%s) don't have a work contact.", format_list(self.env, employees.mapped('name'))))
         employees = self.mapped('employee_id').filtered(lambda e: e.work_contact_id and not e.work_contact_id.name)
         if employees:
-            raise UserError(_("Some employees (%s) don't have a valid name on the work contact.", ','.join(employees.mapped('name'))))
+            raise UserError(_("Some employees (%s) don't have a valid name on the work contact.", format_list(self.env, employees.mapped('name'))))
         employees = self.mapped('employee_id').filtered(lambda e: not e.bank_account_id)
         if employees:
-            raise UserError(_("Some employees (%s) don't have a bank account.", ','.join(employees.mapped('name'))))
+            raise UserError(_("Some employees (%s) don't have a bank account.", format_list(self.env, employees.mapped('name'))))
         if journal_id.bank_account_id.acc_type != 'iban':
             raise UserError(_("The journal '%s' requires a proper IBAN account to pay via SEPA. Please configure it first.", journal_id.name))
 

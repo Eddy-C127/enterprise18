@@ -10,7 +10,7 @@ from odoo.tools.date_utils import get_timedelta
 from odoo import fields, models, api, _, _lt
 from odoo.osv import expression
 from odoo.exceptions import UserError
-from odoo.tools import topological_sort
+from odoo.tools import format_list, topological_sort
 from odoo.tools.sql import SQL
 from odoo.addons.resource.models.utils import filter_domain_leaf
 from odoo.osv.expression import is_leaf
@@ -287,7 +287,7 @@ class Task(models.Model):
 
     def _compute_user_names(self):
         for task in self:
-            task.user_names = ', '.join(task.user_ids.mapped('name'))
+            task.user_names = format_list(self.env, task.user_ids.mapped('name'))
 
     @api.model
     def _calculate_planned_dates(self, date_start, date_stop, user_id=None, calendar=None):
@@ -372,7 +372,7 @@ class Task(models.Model):
             depends_on_names = depends_on_names_for_id.get(task.id)
             task.dependency_warning = depends_on_names and _(
                 'This task cannot be planned before the following tasks on which it depends: %(task_list)s',
-                task_list=', '.join(depends_on_names)
+                task_list=format_list(self.env, depends_on_names)
             )
 
     @api.model
