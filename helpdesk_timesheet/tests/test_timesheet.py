@@ -121,7 +121,7 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
         ticket_form = Form(self.env['helpdesk.ticket'])
         ticket_form.partner_id = self.partner
         ticket_form.name = 'Test'
-        ticket_form.team_id = self.env['helpdesk.team'].browse(2)
+        ticket_form.team_id = self.helpdesk_team
         with ticket_form.timesheet_ids.new() as line:
             line.employee_id = employee
             line.name = "/"
