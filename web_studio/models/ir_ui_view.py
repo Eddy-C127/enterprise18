@@ -72,6 +72,9 @@ class View(models.Model):
         'web.external_layout_boxed',
         'web.external_layout_bold',
         'web.external_layout_standard',
+        'web.external_layout_folder',
+        'web.external_layout_wave',
+        'web.external_layout_bubble',
     ]
 
     def _get_x2many_missing_view_archs(self, field, field_node, node_info):
