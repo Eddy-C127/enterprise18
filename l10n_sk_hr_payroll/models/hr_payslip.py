@@ -14,6 +14,5 @@ class HrEmployee(models.Model):
                 'data/hr_salary_rule_category_data.xml',
                 'data/hr_payroll_structure_type_data.xml',
                 'data/hr_payroll_structure_data.xml',
-                'data/hr_rule_parameters_data.xml',
                 'data/hr_salary_rule_data.xml',
             ])]
