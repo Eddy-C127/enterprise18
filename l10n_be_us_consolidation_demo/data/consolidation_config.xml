@@ -5,7 +5,7 @@
         <record id="test_chart" model="consolidation.chart">
             <field name="name">Test chart</field>
             <field name="currency_id" ref="base.EUR"/>
-            <field name="company_ids" eval="[(6,0, [ref('base.main_company'), ref('l10n_be.demo_company_be')])]"/>
+            <field name="company_ids" eval="[(6,0, [ref('base.main_company'), ref('base.demo_company_be')])]"/>
         </record>
         <!--ANALYSIS PERIODs-->
         <record id="first_period" model="consolidation.period">
@@ -45,7 +45,7 @@
         </record>
         <record id="first_period_my_company" model="consolidation.company_period">
             <field name="period_id" ref="first_period"/>
-            <field name="company_id" ref="l10n_be.demo_company_be"/>
+            <field name="company_id" ref="base.demo_company_be"/>
             <field name="date_company_begin" eval="time.strftime('%Y-01-01')"/>
             <field name="date_company_end" eval="time.strftime('%Y-12-31')"/>
             <field name="currency_rate_avg" eval="1.0"/>
@@ -57,7 +57,7 @@
         </record>
         <record id="second_period_my_company" model="consolidation.company_period">
             <field name="period_id" ref="second_period"/>
-            <field name="company_id" ref="l10n_be.demo_company_be"/>
+            <field name="company_id" ref="base.demo_company_be"/>
             <field name="date_company_begin" eval="time.strftime('%Y-%m-07')"/>
             <field name="date_company_end" eval="(DateTime.today() + relativedelta(days=90)).strftime('%Y-%m-%d')"/>
             <field name="currency_rate_avg" eval="1.0"/>
@@ -169,7 +169,7 @@
             <field name="group_id" ref="assets_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                          '|', ('code', '=like', '20%'), ('code', '=like', '21%'),
                         '&amp;', ('company_id', '=', ref('base.main_company')),
                         ('code', '=like', '10000%')
@@ -181,7 +181,7 @@
             <field name="group_id" ref="assets_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                            ('company_id', '=', ref('l10n_be.demo_company_be')),
+                            ('company_id', '=', ref('base.demo_company_be')),
                             ('code', '=like', '28%')]).ids)]"/>
         </record>
         <record id="property_plan_equipment_account" model="consolidation.account">
@@ -190,7 +190,7 @@
             <field name="group_id" ref="assets_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                          '|', ('code', '=like', '24%'),
                             '|', ('code', '=like', '25%'),
                                 '|', ('code', '=like', '26%'), ('code', '=like', '27%'),
@@ -206,7 +206,7 @@
             <field name="group_id" ref="assets_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                          '|', ('code', '=like', '55%'),
                             '|', ('code', '=like', '56%'),
                                 '|', ('code', '=like', '57%'), ('code', '=like', '58%'),
@@ -220,7 +220,7 @@
             <field name="group_id" ref="assets_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                          '|', ('code', '=like', '40%'),
                             '|', ('code', '=like', '41%'),
                                 ('code', '=like', '49%'),
@@ -235,7 +235,7 @@
             <field name="group_id" ref="equity_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                             '|', ('code', '=like', '10%'), ('code', '=like', '15%'),
                         '&amp;', ('company_id', '=', ref('base.main_company')),
                                 ('code', '=like', '301%')
@@ -247,7 +247,7 @@
             <field name="group_id" ref="equity_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                        ('company_id', '=', ref('l10n_be.demo_company_be')),
+                        ('company_id', '=', ref('base.demo_company_be')),
                         ('code', '=like', '11%')
                    ]).ids)]"/>
         </record>
@@ -257,7 +257,7 @@
             <field name="group_id" ref="equity_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                             ('code', '=like', '13%'),
                         '&amp;', ('company_id', '=', ref('base.main_company')),
                                 ('code', '=like', '28999%'),
@@ -269,7 +269,7 @@
             <field name="group_id" ref="equity_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                             ('code', '=like', '14%'),
                         '&amp;', ('company_id', '=', ref('base.main_company')),
                                 ('code', '=like', '350%'),
@@ -282,7 +282,7 @@
             <field name="group_id" ref="liabilities_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                        ('company_id', '=', ref('l10n_be.demo_company_be')),
+                        ('company_id', '=', ref('base.demo_company_be')),
                         ('code', '=like', '17%')
                    ]).ids)]"/>
         </record>
@@ -292,7 +292,7 @@
             <field name="group_id" ref="liabilities_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                              '|', ('code', '=like', '42%'),
                                  ('code', '=like', '43%')
                    ]).ids)]"/>
@@ -303,7 +303,7 @@
             <field name="group_id" ref="liabilities_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                          '|', ('code', '=like', '453%'),
                              '|', ('code', '=like', '454%'),
                                 '|', ('code', '=like', '455%'),
@@ -318,7 +318,7 @@
             <field name="group_id" ref="liabilities_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                             ('code', '=like', '49%'),
                         '&amp;', ('company_id', '=', ref('base.main_company')),
                                 '|', ('code', '=like', '2110%'),
@@ -331,7 +331,7 @@
             <field name="group_id" ref="liabilities_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                         '|', ('code', '=like', '44%'),
                             '|', ('code', '=like', '46%'),
                                 '|', ('code', '=like', '48%'), ('code', '=like', '49%'),
@@ -345,7 +345,7 @@
             <field name="group_id" ref="liabilities_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                        ('company_id', '=', ref('l10n_be.demo_company_be')),
+                        ('company_id', '=', ref('base.demo_company_be')),
                         ('code', '=like', '451%')
                    ]).ids)]"/>
         </record>
@@ -356,7 +356,7 @@
             <field name="group_id" ref="expense_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                          ('code', '=like', '60%'),
                         '&amp;', ('company_id', '=', ref('base.main_company')),
                                 '|', ('code', '=like', '501%'),
@@ -369,7 +369,7 @@
             <field name="group_id" ref="expense_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                         '|', ('code', '=like', '61%'),
                             '|', ('code', '=like', '62%'), ('code', '=like', '74%'),
                         '&amp;', ('company_id', '=', ref('base.main_company')),
@@ -382,7 +382,7 @@
             <field name="group_id" ref="expense_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                         ('code', '=like', '63%'),
                         '&amp;', ('company_id', '=', ref('base.main_company')),
                         ('code', '=like', '68%')
@@ -394,7 +394,7 @@
             <field name="group_id" ref="expense_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                         ('code', '=like', '61%'),
                         '&amp;', ('company_id', '=', ref('base.main_company')),
                                 '|', ('code', '=like', '62%'),
@@ -411,7 +411,7 @@
             <field name="group_id" ref="expense_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                        '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                        '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                             '|', ('code', '=like', '654%'),
                                 '|', ('code', '=like', '655%'), ('code', '=like', '656%')
                    ]).ids)]"/>
@@ -422,7 +422,7 @@
             <field name="group_id" ref="expense_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                         '|', ('code', '=like', '67%'), ('code', '=like', '77%'),
                         '&amp;', ('company_id', '=', ref('base.main_company')),
                                 ('code', '=like', '80%')
@@ -434,7 +434,7 @@
             <field name="group_id" ref="expense_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                    '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                    '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                          '|', ('code', '=like', '650%'),
                             '|', ('code', '=like', '651%'),
                                 '|', ('code', '=like', '663%'),
@@ -448,7 +448,7 @@
             <field name="group_id" ref="income_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                         '|', ('code', '=like', '70%'), ('code', '=like', '72%'),
                         '&amp;', ('company_id', '=', ref('base.main_company')),
                                 '|', ('code', '=like', '40%'),
@@ -461,7 +461,7 @@
             <field name="group_id" ref="income_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                       ('company_id', '=', ref('l10n_be.demo_company_be')),
+                       ('company_id', '=', ref('base.demo_company_be')),
                        ('code', '=like', '75%')
                    ]).ids)]"/>
         </record>
@@ -471,7 +471,7 @@
             <field name="group_id" ref="income_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                        '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                        '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                         '|', ('code', '=like', '74%'), ('code', '=like', '76%')
                    ]).ids)]"/>
         </record>
@@ -482,7 +482,7 @@
             <field name="group_id" ref="result_allocation_section"/>
             <field name="account_ids" model="account.account"
                    eval="[(6,0, obj().search([
-                   '|', '&amp;', ('company_id', '=', ref('l10n_be.demo_company_be')),
+                   '|', '&amp;', ('company_id', '=', ref('base.demo_company_be')),
                         '|', ('code', '=like', '690%'),
                             '|', ('code', '=like', '692%'),
                                 '|', ('code', '=like', '693%'), ('code', '=like', '791%'),

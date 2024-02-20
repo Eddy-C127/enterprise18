@@ -11,11 +11,11 @@ _logger = logging.getLogger(__name__)
 
 def _generate_payslips(env):
     # Do this only when demo data is activated
-    if env.ref('l10n_be_hr_payroll.res_company_be', raise_if_not_found=False):
+    if env.ref('base.demo_company_be', raise_if_not_found=False):
         if not env['hr.payslip'].sudo().search_count([('employee_id.name', '=', 'Marian Weaver')]):
             _logger.info('Generating payslips')
             employees = env['hr.employee'].search([
-                ('company_id', '=', env.ref('l10n_be_hr_payroll.res_company_be').id),
+                ('company_id', '=', env.ref('base.demo_company_be').id),
                 ('id', '!=', env.ref('test_l10n_be_hr_payroll_account.hr_employee_joseph_noluck').id),
             ])
             # Everyone was on training 1 week
@@ -40,7 +40,7 @@ def _generate_payslips(env):
                 'employee_ids': [(4, employee.id) for employee in employees],
                 'structure_id': env.ref('l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_salary').id
             }
-            cids = env.ref('l10n_be_hr_payroll.res_company_be').ids
+            cids = env.ref('base.demo_company_be').ids
             payslip_runs = env['hr.payslip.run']
             payslis_values = []
             for i in range(2, 20):
@@ -50,7 +50,7 @@ def _generate_payslips(env):
                     'name': date_start.strftime('%B %Y'),
                     'date_start': date_start,
                     'date_end': date_end,
-                    'company_id': env.ref('l10n_be_hr_payroll.res_company_be').id,
+                    'company_id': env.ref('base.demo_company_be').id,
                 })
             payslip_runs = env['hr.payslip.run'].create(payslis_values)
             for payslip_run in payslip_runs:

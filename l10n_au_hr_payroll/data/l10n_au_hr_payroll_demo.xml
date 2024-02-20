@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="partner_res_company_au" model="res.partner">
+    <record id="base.partner_demo_company_au" model="res.partner" forcecreate="1">
         <field name="name">My Australian Company</field>
         <field name="street">Australian Street</field>
         <field name="zip">1234</field>
@@ -8,26 +8,26 @@
         <field name="country_id" ref="base.au"/>
     </record>
 
-    <record id="res_company_au" model="res.company">
+    <record id="base.demo_company_au" model="res.company" forcecreate="1">
         <field name="name">My Australian Company</field>
         <field name="currency_id" ref="base.AUD"/>
-        <field name="partner_id" ref="partner_res_company_au"/>
+        <field name="partner_id" ref="base.partner_demo_company_au"/>
         <field name="resource_calendar_id" ref="l10n_au_hr_payroll.resource_calendar_au_38"/>
         <field name="vat">83 914 571 673</field>
     </record>
 
     <record id="res_partner_employee_au" model="res.partner">
         <field name="name">Harrison Hampton</field>
-        <field name="company_id" ref="l10n_au_hr_payroll.res_company_au"/>
+        <field name="company_id" ref="base.demo_company_au"/>
     </record>
 
     <record id="base.user_admin" model="res.users">
-        <field name="company_ids" eval="[(4, ref('l10n_au_hr_payroll.res_company_au'))]"/>
+        <field name="company_ids" eval="[(4, ref('base.demo_company_au'))]"/>
         <field name="tz">Australia/Sydney</field>
     </record>
 
     <record id="hr_employee_au" model="hr.employee">
-        <field name="company_id" ref="l10n_au_hr_payroll.res_company_au"/>
+        <field name="company_id" ref="base.demo_company_au"/>
         <field name="resource_calendar_id" ref="l10n_au_hr_payroll.resource_calendar_au_38"/>
         <field name="work_contact_id" ref="l10n_au_hr_payroll.res_partner_employee_au"/>
         <field name="name">Roger</field>
@@ -46,7 +46,7 @@
     </record>
 
     <record id="hr_contract_au" model="hr.contract">
-        <field name="company_id" ref="l10n_au_hr_payroll.res_company_au"/>
+        <field name="company_id" ref="base.demo_company_au"/>
         <field name="resource_calendar_id" ref="l10n_au_hr_payroll.resource_calendar_au_38"/>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
         <field name="name">Roger Contract</field>
@@ -68,7 +68,7 @@
     </function>
 
     <record id="hr_payslip_0_au" model="hr.payslip">
-        <field name="company_id" ref="l10n_au_hr_payroll.res_company_au"/>
+        <field name="company_id" ref="base.demo_company_au"/>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
         <field name="name">Roger Payslip Return To Work</field>
         <field name="date_from" eval="datetime(2023, 7, 1).date()"/>
@@ -79,14 +79,14 @@
         ]"/>
     </record>
     <record id="hr_payslip_1_au" model="hr.payslip">
-        <field name="company_id" ref="l10n_au_hr_payroll.res_company_au"/>
+        <field name="company_id" ref="base.demo_company_au"/>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
         <field name="name">Roger Payslip July</field>
         <field name="date_from" eval="datetime(2023, 7, 1).date()"/>
         <field name="date_to" eval="datetime(2023, 7, 31).date()"/>
     </record>
     <record id="hr_payslip_2_au" model="hr.payslip">
-        <field name="company_id" ref="l10n_au_hr_payroll.res_company_au"/>
+        <field name="company_id" ref="base.demo_company_au"/>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
         <field name="name">Roger Payslip August</field>
         <field name="date_from" eval="datetime(2023, 8, 1).date()"/>
@@ -96,7 +96,7 @@
         ]"/>
     </record>
     <record id="hr_payslip_3_au" model="hr.payslip">
-        <field name="company_id" ref="l10n_au_hr_payroll.res_company_au"/>
+        <field name="company_id" ref="base.demo_company_au"/>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
         <field name="name">Roger Payslip September Termination</field>
         <field name="date_from" eval="datetime(2023, 9, 1).date()"/>
@@ -119,14 +119,14 @@
     <function model="hr.payslip" name="action_payslip_done" eval="[[ref('l10n_au_hr_payroll.hr_payslip_2_au')]]"/>
 
     <record id="hr_leave_type_annual_au" model="hr.leave.type">
-        <field name="company_id" ref="l10n_au_hr_payroll.res_company_au"/>
+        <field name="company_id" ref="base.demo_company_au"/>
         <field name="name">Annual Leave</field>
         <field name="l10n_au_leave_type">annual</field>
         <field name="leave_validation_type">no_validation</field>
         <field name="work_entry_type_id" ref="hr_work_entry_contract.work_entry_type_legal_leave"/>
     </record>
     <record id="hr_leave_type_long_service" model="hr.leave.type">
-        <field name="company_id" ref="l10n_au_hr_payroll.res_company_au"/>
+        <field name="company_id" ref="base.demo_company_au"/>
         <field name="name">Long Service Leave</field>
         <field name="l10n_au_leave_type">long_service</field>
         <field name="leave_validation_type">no_validation</field>
@@ -233,7 +233,7 @@
     <function model="hr.leave" name="action_validate" eval="[ref('l10n_au_hr_payroll.hr_leave_annual_post_93')]" />
 
     <record id="l10n_au_payevent_transaction_sequence_demo" model="ir.sequence">
-        <field name="company_id" ref="l10n_au_hr_payroll.res_company_au"/>
+        <field name="company_id" ref="base.demo_company_au"/>
         <field name="name">PayEvent.0004 Transaction Sequence demo</field>
         <field name="code">payevent0004.transaction</field>
         <field name="implementation">standard</field>
@@ -264,7 +264,7 @@
         <field name="acc_type">aba</field>
         <field name="allow_out_payment" eval="True"/>
         <field name="partner_id" ref="l10n_au_hr_payroll.res_partner_employee_au"/>
-        <field name="company_id" ref="l10n_au_hr_payroll.res_company_au"/>
+        <field name="company_id" ref="base.demo_company_au"/>
     </record>
 
     <record id="l10n_au_hr_payroll.hr_employee_au" model="hr.employee">

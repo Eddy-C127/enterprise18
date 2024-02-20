@@ -2,21 +2,21 @@
 <odoo>
     <record id="hr_department_rdbe" model="hr.department">
         <field name="name">RD BE</field>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
     </record>
 
     <record id="job_developer_belgium" model="hr.job">
         <field name="name">Junior Developer BE</field>
         <field name="department_id" ref="hr_department_rdbe"/>
         <field name="no_of_recruitment">5</field>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
     </record>
 
     <record id="employee_max" model="hr.employee">
         <field name="name">Max Durand</field>
         <field name="job_id" ref="job_developer_belgium"/>
         <field name="country_id" ref="base.be"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
         <field name="image_1920" type="base64" file="hr_contract_salary/static/img/hr_employee_max_durand.jpg"/>
         <field name="gender">male</field>
     </record>
@@ -29,7 +29,7 @@
         <field name="country_id" ref="base.be"/>
         <field name="phone">+0032476543210</field>
         <field name="email">laurie.poiret@example.com</field>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
     </record>
 
     <record id="user_laurie_poiret" model="res.users">
@@ -37,8 +37,8 @@
         <field name="login">lauriepoiret</field>
         <field name="password">lauriepoiret</field>
         <field name="signature" type="html"><span>--<br/>+L. Poiret</span></field>
-        <field name="company_ids" eval="[(4, ref('l10n_be_hr_payroll.res_company_be'))]"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_ids" eval="[(4, ref('base.demo_company_be'))]"/>
+        <field name="company_id" ref="base.demo_company_be"/>
         <field name="groups_id" eval="[(6,0,[ref('base.group_user')])]"/>
         <field name="image_1920" type="base64" file="hr_contract_salary/static/img/hr_employe_laurie_poiret.png"/>
     </record>
@@ -49,14 +49,14 @@
         <field name="city">Louvain</field>
         <field name="zip">8431</field>
         <field name="country_id" ref="base.be"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
     </record>
 
     <record id="res_partner_bank_account_laurie_poiret" model="res.partner.bank">
         <field name="acc_number">BE10561132778404</field>
         <field name="bank_id" ref="base.bank_ing"/>
         <field name="partner_id" ref="l10n_be_hr_contract_salary.res_partner_laurie_poiret"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
         <field name="allow_out_payment" eval="True"/>
     </record>
 
@@ -89,7 +89,7 @@
         <field name="niss">91111111192</field>
         <field name="bank_account_id" ref="l10n_be_hr_contract_salary.res_partner_bank_account_laurie_poiret"/>
         <field name="image_1920" type="base64" file="hr_contract_salary/static/img/hr_employe_laurie_poiret.png"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
         <field name="user_id" ref="l10n_be_hr_contract_salary.user_laurie_poiret"/>
     </record>
 
@@ -109,7 +109,7 @@
         <field name="res_id" model="fleet.vehicle" eval="'fleet.vehicle.model,' + str(obj().env.ref('fleet.model_corsa').id)"/>
         <field name="type">boolean</field>
         <field name="value" eval="True"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
     </record>
 
     <record id="fleet_vehicle_model_category_family_car" model="fleet.vehicle.model.category">
@@ -127,7 +127,7 @@
         <field name="co2">88</field>
         <field name="driver_employee_id" ref="hr_employee_laurie_poiret"/>
         <field name="car_value">38000</field>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
         <field name="transmission">manual</field>
     </record>
 
@@ -159,14 +159,14 @@
         <field name="res_id" model="fleet.vehicle" eval="'fleet.vehicle.model,' + str(obj().env.ref('l10n_be_hr_contract_salary.fleet_vehicle_model_san_remo').id)"/>
         <field name="type">boolean</field>
         <field name="value" eval="True"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
     </record>
 
     <record id="fleet_vehicle_bike_laurie_poiret" model="fleet.vehicle">
         <field name="model_id" ref="fleet_vehicle_model_san_remo"/>
         <field name="driver_employee_id" ref="hr_employee_laurie_poiret"/>
         <field name="car_value">1000</field>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
     </record>
 
     <record id="hr_contract_cdi_experienced_developer" model="hr.contract">
@@ -184,7 +184,7 @@
         <field name="hr_responsible_id" ref="base.user_demo"/>
         <field name="sign_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
         <field name="resource_calendar_id" ref="resource.resource_calendar_std_38h"/>
     </record>
 
@@ -212,10 +212,10 @@
         <field name="default_contract_id" ref="l10n_be_hr_contract_salary.hr_contract_cdi_experienced_developer"/>
         <field name="sign_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
         <field name="date_start" eval="(DateTime.today() + relativedelta(years=-2, month=1, day=1))"/>
         <field name="date_end" eval="(DateTime.today() + relativedelta(years=-1, month=1, day=1, days=-2))"/>
-        <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('l10n_be_hr_payroll.res_company_be').id)], limit=1)"/>
+        <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
     </record>
 
@@ -239,9 +239,9 @@
         <field name="default_contract_id" ref="l10n_be_hr_contract_salary.hr_contract_cdi_experienced_developer"/>
         <field name="sign_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
-        <field name="company_id" ref="l10n_be_hr_payroll.res_company_be"/>
+        <field name="company_id" ref="base.demo_company_be"/>
         <field name="date_start" eval="(DateTime.today() + relativedelta(years=-1, month=1, day=1, days=-1))"/>
-        <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('l10n_be_hr_payroll.res_company_be').id)], limit=1)"/>
+        <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
     </record>
 

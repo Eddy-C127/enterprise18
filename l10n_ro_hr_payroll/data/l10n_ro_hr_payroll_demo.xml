@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="res_company_ro" model="res.company">
+    <record id="base.demo_company_ro" model="res.company" forcecreate="1">
         <field name="name">My Romanian Company</field>
         <field name="currency_id" ref="base.RON"/>
         <field name="street">Drumul Valea Doftanei 113</field>
@@ -10,30 +10,30 @@
     </record>
 
     <record id="base.user_admin" model="res.users">
-        <field name="company_ids" eval="[(4, ref('l10n_ro_hr_payroll.res_company_ro'))]"/>
+        <field name="company_ids" eval="[(4, ref('base.demo_company_ro'))]"/>
     </record>
 
     <record id="base.user_demo" model="res.users">
-        <field name="company_ids" eval="[(4, ref('l10n_ro_hr_payroll.res_company_ro'))]"/>
+        <field name="company_ids" eval="[(4, ref('base.demo_company_ro'))]"/>
     </record>
 
     <record id="hr_department_rdro" model="hr.department">
         <field name="name">RD RO</field>
-        <field name="company_id" ref="l10n_ro_hr_payroll.res_company_ro"/>
+        <field name="company_id" ref="base.demo_company_ro"/>
     </record>
 
     <record id="job_developer_romania" model="hr.job">
         <field name="name">Experienced Developer RO</field>
         <field name="department_id" ref="hr_department_rdro"/>
         <field name="no_of_recruitment">5</field>
-        <field name="company_id" ref="l10n_ro_hr_payroll.res_company_ro"/>
+        <field name="company_id" ref="base.demo_company_ro"/>
     </record>
 
     <record id="hr_employee_ionel_oprea" model="hr.employee">
         <field name="name">Ionel Oprea</field>
         <field name="job_id" ref="job_developer_romania"/>
         <field name="country_id" ref="base.ro"/>
-        <field name="company_id" ref="l10n_ro_hr_payroll.res_company_ro"/>
+        <field name="company_id" ref="base.demo_company_ro"/>
         <field name="image_1920" type="base64" file="l10n_ro_hr_payroll/static/img/hr_employee_ionel_oprea.jpg"/>
         <field name="gender">male</field>
     </record>
@@ -46,7 +46,7 @@
         <field name="country_id" ref="base.ro"/>
         <field name="phone">0213162514</field>
         <field name="email">demetra.voinea@example.com</field>
-        <field name="company_id" ref="l10n_ro_hr_payroll.res_company_ro"/>
+        <field name="company_id" ref="base.demo_company_ro"/>
     </record>
 
     <record id="user_demetra_voinea" model="res.users">
@@ -54,8 +54,8 @@
         <field name="login">demetravoinea</field>
         <field name="password">demetravoinea</field>
         <field name="signature" type="html"><span>--<br/>+D. Voinea</span></field>
-        <field name="company_ids" eval="[(4, ref('l10n_ro_hr_payroll.res_company_ro'))]"/>
-        <field name="company_id" ref="l10n_ro_hr_payroll.res_company_ro"/>
+        <field name="company_ids" eval="[(4, ref('base.demo_company_ro'))]"/>
+        <field name="company_id" ref="base.demo_company_ro"/>
         <field name="groups_id" eval="[(6,0,[ref('base.group_user')])]"/>
         <field name="image_1920" type="base64" file="l10n_ro_hr_payroll/static/img/hr_employe_demetra_voinea.jpg"/>
     </record>
@@ -66,19 +66,19 @@
         <field name="city">Bucuresti</field>
         <field name="zip">030674</field>
         <field name="country_id" ref="base.ro"/>
-        <field name="company_id" ref="l10n_ro_hr_payroll.res_company_ro"/>
+        <field name="company_id" ref="base.demo_company_ro"/>
     </record>
 
     <record id="res_partner_demetra_voinea_private_address" model="res.partner">
         <field name="name">Demetra Voinea</field>
-        <field name="company_id" ref="l10n_ro_hr_payroll.res_company_ro"/>
+        <field name="company_id" ref="base.demo_company_ro"/>
     </record>
 
     <record id="res_partner_bank_account_demetra_voinea" model="res.partner.bank">
         <field name="acc_number">RO030103599935698356</field>
         <field name="bank_id" ref="base.bank_ing"/>
         <field name="partner_id" ref="l10n_ro_hr_payroll.res_partner_demetra_voinea_private_address"/>
-        <field name="company_id" ref="l10n_ro_hr_payroll.res_company_ro"/>
+        <field name="company_id" ref="base.demo_company_ro"/>
     </record>
 
     <record id="hr_employee_demetra_voinea" model="hr.employee">
@@ -108,7 +108,7 @@
         <field name="identification_id">687184957</field>
         <field name="bank_account_id" ref="l10n_ro_hr_payroll.res_partner_bank_account_demetra_voinea"/>
         <field name="image_1920" type="base64" file="l10n_ro_hr_payroll/static/img/hr_employe_demetra_voinea.jpg"/>
-        <field name="company_id" ref="l10n_ro_hr_payroll.res_company_ro"/>
+        <field name="company_id" ref="base.demo_company_ro"/>
         <field name="user_id" ref="l10n_ro_hr_payroll.user_demetra_voinea"/>
     </record>
 
@@ -121,10 +121,10 @@
         <field name="wage">10000</field>
         <field name="state">close</field>
         <field name="hr_responsible_id" ref="base.user_demo"/>
-        <field name="company_id" ref="l10n_ro_hr_payroll.res_company_ro"/>
+        <field name="company_id" ref="base.demo_company_ro"/>
         <field name="date_start" eval="(DateTime.today() + relativedelta(years=-2, month=1, day=1))"/>
         <field name="date_end" eval="(DateTime.today() + relativedelta(years=-1, month=1, day=1, days=-2))"/>
-        <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('l10n_ro_hr_payroll.res_company_ro').id)], limit=1)"/>
+        <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_ro').id)], limit=1)"/>
     </record>
 
     <record id="hr_contract_cdi_demetra_voinea" model="hr.contract">
@@ -136,9 +136,9 @@
         <field name="wage">12000</field>
         <field name="state">open</field>
         <field name="hr_responsible_id" ref="base.user_demo"/>
-        <field name="company_id" ref="l10n_ro_hr_payroll.res_company_ro"/>
+        <field name="company_id" ref="base.demo_company_ro"/>
         <field name="date_start" eval="(DateTime.today() + relativedelta(years=-1, month=1, day=1, days=-1))"/>
-        <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('l10n_ro_hr_payroll.res_company_ro').id)], limit=1)"/>
+        <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_ro').id)], limit=1)"/>
     </record>
 
     <record id="hr_employee_demetra_voinea" model="hr.employee">
