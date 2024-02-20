@@ -6,8 +6,8 @@ import { getBasicServerData } from "@spreadsheet/../tests/utils/data";
 import { getCellContent, getCellFormula, getCellValue } from "@spreadsheet/../tests/utils/getters";
 import { setCellContent } from "@spreadsheet/../tests/utils/commands";
 import { setupCollaborativeEnv } from "../../utils/collaborative_helpers";
-import { ListDataSource } from "@spreadsheet/list/list_data_source";
-import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
+import { ListUIPlugin } from "@spreadsheet/list";
 
 /** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
 
@@ -79,9 +79,9 @@ QUnit.test("Add two lists concurrently", async (assert) => {
         insertList(alice, "1");
         insertList(bob, "1", [0, 25]);
     });
-    await waitForDataSourcesLoaded(alice);
-    await waitForDataSourcesLoaded(bob);
-    await waitForDataSourcesLoaded(charlie);
+    await waitForDataLoaded(alice);
+    await waitForDataLoaded(bob);
+    await waitForDataLoaded(charlie);
     assert.spreadsheetIsSynchronized([alice, bob, charlie], (user) => user.getters.getListIds(), [
         "1",
         "2",
@@ -106,10 +106,10 @@ QUnit.test("Add two lists concurrently", async (assert) => {
     );
     assert.spreadsheetIsSynchronized(
         [alice, bob, charlie],
-        (user) =>
-            Object.values(user.config.custom.dataSources._dataSources).filter(
-                (ds) => ds instanceof ListDataSource
-            ).length,
+        (user) => {
+            const UIPlugin = user["handlers"].find((handler) => handler instanceof ListUIPlugin);
+            return Object.keys(UIPlugin.lists).length;
+        },
         2
     );
 });

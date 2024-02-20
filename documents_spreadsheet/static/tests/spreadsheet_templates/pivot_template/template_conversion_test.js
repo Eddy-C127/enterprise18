@@ -1,6 +1,5 @@
 /** @odoo-module */
 
-import { DataSources } from "@spreadsheet/data_sources/data_sources";
 import { CommandResult } from "@spreadsheet/o_spreadsheet/cancelled_reason";
 import { Model } from "@odoo/o-spreadsheet";
 import { createSpreadsheetWithPivot } from "@spreadsheet/../tests/utils/pivot";
@@ -8,6 +7,7 @@ import { setCellContent } from "@spreadsheet/../tests/utils/commands";
 import { getCellContent } from "@spreadsheet/../tests/utils/getters";
 import { getBasicServerData } from "@spreadsheet/../tests/utils/data";
 import { convertFromSpreadsheetTemplate } from "@documents_spreadsheet/bundle/helpers";
+import { OdooDataProvider } from "@spreadsheet/data_sources/odoo_data_provider";
 
 /**
  * @param {object} params
@@ -45,7 +45,7 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
         async function (assert) {
             const { model: m1, env } = await createSpreadsheetWithPivot();
             const model = new Model(m1.exportData(), {
-                custom: { dataSources: new DataSources(env) },
+                custom: { odooDataProvider: new OdooDataProvider(env) },
             });
             assert.deepEqual(model.dispatch("CONVERT_PIVOT_TO_TEMPLATE").reasons, [
                 CommandResult.PivotCacheNotLoaded,

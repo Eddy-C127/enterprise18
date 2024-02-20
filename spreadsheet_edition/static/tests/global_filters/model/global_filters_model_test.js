@@ -5,7 +5,7 @@ import { registries } from "@odoo/o-spreadsheet";
 import { getCellValue, getCell, getEvaluatedGrid } from "@spreadsheet/../tests/utils/getters";
 import { addGlobalFilter, selectCell, setCellContent } from "@spreadsheet/../tests/utils/commands";
 import { createSpreadsheetWithPivot } from "@spreadsheet/../tests/utils/pivot";
-import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 
 const { cellMenuRegistry } = registries;
 
@@ -273,11 +273,11 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
             assert.strictEqual(getCellValue(model, "B4"), "");
             model.dispatch("REQUEST_UNDO");
             assert.equal(model.getters.getGlobalFilters().length, 0);
-            await waitForDataSourcesLoaded(model);
+            await waitForDataLoaded(model);
             assert.strictEqual(getCellValue(model, "B4"), 11);
             model.dispatch("REQUEST_REDO");
             assert.equal(model.getters.getGlobalFilters().length, 1);
-            await waitForDataSourcesLoaded(model);
+            await waitForDataLoaded(model);
             assert.strictEqual(getCellValue(model, "B4"), "");
         }
     );

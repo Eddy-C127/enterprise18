@@ -19,7 +19,7 @@ import {
 } from "@web/../tests/search/helpers";
 import { makeView } from "@web/../tests/views/helpers";
 
-import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import {
     createSpreadsheetFromPivotView,
     spawnPivotViewForSpreadsheet,
@@ -1168,7 +1168,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         await triggerEvent(name, null, "input");
         await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
         const model = getSpreadsheetActionModel(spreadsheetAction);
-        await waitForDataSourcesLoaded(model);
+        await waitForDataLoaded(model);
         const pivotId = model.getters.getPivotIds()[0];
         assert.equal(model.getters.getPivotName(pivotId), "New name");
         assert.equal(model.getters.getPivotDisplayName(pivotId), "(#1) New name");
@@ -1191,7 +1191,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
         await nextTick();
         const model = getSpreadsheetActionModel(spreadsheetAction);
-        await waitForDataSourcesLoaded(model);
+        await waitForDataLoaded(model);
         const pivotId = model.getters.getPivotIds()[0];
         assert.equal(model.getters.getPivotName(pivotId), "Partners by Foo");
     });

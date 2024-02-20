@@ -42,7 +42,7 @@ import { insertListInSpreadsheet } from "@spreadsheet/../tests/utils/list";
 import { SpreadsheetAction } from "../../src/bundle/actions/spreadsheet_action";
 import { getSpreadsheetActionModel } from "@spreadsheet_edition/../tests/utils/webclient_helpers";
 import { patchListControllerExportSelection } from "@spreadsheet_edition/assets/list_view/list_controller";
-import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import { onMounted } from "@odoo/owl";
 
 const { topbarMenuRegistry, cellMenuRegistry } = spreadsheet.registries;
@@ -452,7 +452,7 @@ QUnit.module(
 
                 await def;
                 const model = getSpreadsheetActionModel(spreadsheetAction);
-                await waitForDataSourcesLoaded(model);
+                await waitForDataLoaded(model);
                 assert.strictEqual(
                     getCellValue(model, "A2"),
                     17,
@@ -507,7 +507,7 @@ QUnit.module(
 
                 await def;
                 const model = getSpreadsheetActionModel(spreadsheetAction);
-                await waitForDataSourcesLoaded(model);
+                await waitForDataLoaded(model);
                 assert.strictEqual(
                     getCellValue(model, "A2"),
                     12,

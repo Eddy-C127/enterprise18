@@ -19,7 +19,7 @@ import {
     prepareWebClientForSpreadsheet,
 } from "@spreadsheet_edition/../tests/utils/webclient_helpers";
 import { SpreadsheetAction } from "../../src/bundle/actions/spreadsheet_action";
-import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import { registry } from "@web/core/registry";
 import { fieldService } from "@web/core/field_service";
 import { contains } from "@web/../tests/utils";
@@ -120,7 +120,7 @@ export async function createSpreadsheetFromListView(params = {}) {
     await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
     await def;
     const model = getSpreadsheetActionModel(spreadsheetAction);
-    await waitForDataSourcesLoaded(model);
+    await waitForDataLoaded(model);
     return {
         fixture,
         webClient,

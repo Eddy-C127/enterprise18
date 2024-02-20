@@ -16,7 +16,7 @@ import {
     getSpreadsheetActionModel,
     prepareWebClientForSpreadsheet,
 } from "@spreadsheet_edition/../tests/utils/webclient_helpers";
-import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import { onMounted } from "@odoo/owl";
 
 /** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
@@ -109,7 +109,7 @@ export async function createSpreadsheetFromGraphView(params = {}) {
     await def;
     await nextTick();
     const model = getSpreadsheetActionModel(spreadsheetAction);
-    await waitForDataSourcesLoaded(model);
+    await waitForDataLoaded(model);
     return {
         webClient,
         env: getSpreadsheetActionEnv(spreadsheetAction),

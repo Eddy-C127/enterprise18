@@ -6,7 +6,7 @@ import { getBasicServerData } from "@spreadsheet/../tests/utils/data";
 import { getCellContent, getCellFormula, getCellValue } from "@spreadsheet/../tests/utils/getters";
 import { setupCollaborativeEnv } from "../../utils/collaborative_helpers";
 import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
-import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 
 /**
  * @typedef {import("@spreadsheet").OdooSpreadsheetModel} Model
@@ -54,7 +54,7 @@ export async function insertPivot(model, sheetId = model.getters.getActiveSheetI
         columns.push(col);
     }
     model.dispatch("AUTORESIZE_COLUMNS", { sheetId, cols: columns });
-    await waitForDataSourcesLoaded(model);
+    await waitForDataLoaded(model);
 }
 
 let alice, bob, charlie, network;

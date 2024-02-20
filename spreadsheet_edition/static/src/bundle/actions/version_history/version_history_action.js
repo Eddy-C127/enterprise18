@@ -8,7 +8,6 @@ import { registry } from "@web/core/registry";
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { Model, stores } from "@odoo/o-spreadsheet";
-import { DataSources } from "@spreadsheet/data_sources/data_sources";
 
 import { loadSpreadsheetDependencies } from "@spreadsheet/assets_backend/helpers";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
@@ -25,6 +24,7 @@ import {
 import { formatToLocaleString } from "../../helpers";
 import { router } from "@web/core/browser/router";
 import { RestoreVersionConfirmationDialog } from "../../version_history/restore_version_dialog/restore_version_dialog";
+import { OdooDataProvider } from "@spreadsheet/data_sources/odoo_data_provider";
 
 const { ModelStore, useStoreProvider, SidePanelStore } = stores;
 
@@ -168,7 +168,7 @@ export class VersionHistoryAction extends Component {
             spreadsheetHistoryData.revisions.at(-1)?.nextRevisionId ||
             spreadsheetHistoryData.data.revisionId ||
             "START_REVISION";
-        this.dataSources = new DataSources(this.env);
+        this.odooDataProvider = new OdooDataProvider(this.env);
     }
 
     generateRestorableRevisions() {
@@ -187,17 +187,6 @@ export class VersionHistoryAction extends Component {
             !!this.fromSnapshot,
         ]);
         return record;
-    }
-
-    /**
-     * @private
-     */
-    _resetDataSourcesBinds() {
-        this.dataSources.removeEventListener(
-            "data-source-updated",
-            this._dataSourceBind.bind(this)
-        );
-        this.dataSources.addEventListener("data-source-updated", this._dataSourceBind.bind(this));
     }
 
     /**
@@ -231,7 +220,10 @@ export class VersionHistoryAction extends Component {
     }
 
     createModel() {
-        this._resetDataSourcesBinds();
+        this.odooDataProvider.addEventListener(
+            "data-source-updated",
+            this._dataSourceBind.bind(this)
+        );
         const data = this.spreadsheetData;
         this.model = new Model(
             migrate(data),
@@ -239,7 +231,7 @@ export class VersionHistoryAction extends Component {
                 custom: {
                     env: this.env,
                     orm: this.orm,
-                    dataSources: this.dataSources,
+                    odooDataProvider: this.odooDataProvider,
                 },
                 external: {
                     loadCurrencies: this.loadCurrencies,

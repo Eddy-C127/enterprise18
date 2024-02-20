@@ -192,7 +192,7 @@ QUnit.module(
                 const pivotPlugin = model["handlers"].find(
                     (handler) => handler instanceof PivotUIPlugin
                 );
-                const dataSource = Object.values(pivotPlugin.dataSources._dataSources)[0];
+                const dataSource = Object.values(pivotPlugin.pivots)[0];
                 // remove all loading promises and the model to simulate the data source is not loaded
                 dataSource._loadPromise = undefined;
                 dataSource._createModelPromise = undefined;

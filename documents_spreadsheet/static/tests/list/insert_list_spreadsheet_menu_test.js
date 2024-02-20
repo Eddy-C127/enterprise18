@@ -1,12 +1,12 @@
 /** @odoo-module */
 
 import {
-  invokeInsertListInSpreadsheetDialog,
-  spawnListViewForSpreadsheet,
-  toggleCogMenuSpreadsheet,
+    invokeInsertListInSpreadsheetDialog,
+    spawnListViewForSpreadsheet,
+    toggleCogMenuSpreadsheet,
 } from "../utils/list_helpers";
 import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_action";
-import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import {
     click,
     getFixture,
@@ -97,7 +97,7 @@ QUnit.module(
             await triggerEvent(name, null, "input");
             await click(target, ".modal button.btn-primary");
             const model = getSpreadsheetActionModel(spreadsheetAction);
-            await waitForDataSourcesLoaded(model);
+            await waitForDataLoaded(model);
             assert.strictEqual(model.getters.getListName("1"), "New name");
             assert.strictEqual(model.getters.getListDisplayName("1"), "(#1) New name");
         });
@@ -135,7 +135,7 @@ QUnit.module(
             target.querySelector(".o_spreadsheet_name").value = "";
             await click(target, ".modal button.btn-primary");
             const model = getSpreadsheetActionModel(spreadsheetAction);
-            await waitForDataSourcesLoaded(model);
+            await waitForDataLoaded(model);
             assert.strictEqual(model.getters.getListName("1"), "Partners");
         });
 

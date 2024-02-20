@@ -1,7 +1,8 @@
 /** @odoo-module */
 
 import { Model } from "@odoo/o-spreadsheet";
-import { DataSources } from "@spreadsheet/data_sources/data_sources";
+import { OdooDataProvider } from "@spreadsheet/data_sources/odoo_data_provider";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import { migrate } from "@spreadsheet/o_spreadsheet/migration";
 
 /**
@@ -14,10 +15,14 @@ import { migrate } from "@spreadsheet/o_spreadsheet/migration";
 export async function convertFromSpreadsheetTemplate(env, data, revisions) {
     const model = new Model(
         migrate(data),
-        { custom: { dataSources: new DataSources(env) } },
+        {
+            custom: {
+                odooDataProvider: new OdooDataProvider(env),
+            },
+        },
         revisions
     );
-    await model.config.custom.dataSources.waitForAllLoaded();
+    await waitForDataLoaded(model);
     const proms = [];
     for (const pivotId of model.getters.getPivotIds()) {
         proms.push(model.getters.getPivot(pivotId).prepareForTemplateGeneration());

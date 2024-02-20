@@ -16,7 +16,7 @@ import {
     getSpreadsheetActionModel,
     prepareWebClientForSpreadsheet,
 } from "@spreadsheet_edition/../tests/utils/webclient_helpers";
-import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import { registry } from "@web/core/registry";
 import { fieldService } from "@web/core/field_service";
 import { onMounted } from "@odoo/owl";
@@ -110,7 +110,7 @@ export async function createSpreadsheetFromPivotView(params = {}) {
     await nextTick();
     const model = getSpreadsheetActionModel(spreadsheetAction);
     const pivotId = model.getters.getPivotIds()[0];
-    await waitForDataSourcesLoaded(model);
+    await waitForDataLoaded(model);
     return {
         webClient,
         env: getSpreadsheetActionEnv(spreadsheetAction),

@@ -13,6 +13,7 @@ import { DocumentsSpreadsheetControlPanel } from "../components/control_panel/sp
 import { _t } from "@web/core/l10n/translation";
 
 import { useState, useSubEnv } from "@odoo/owl";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 
 export class SpreadsheetAction extends AbstractSpreadsheetAction {
     static template = "documents_spreadsheet.SpreadsheetAction";
@@ -112,10 +113,10 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
         const model = new Model(this.model.exportData(), {
             custom: {
                 env: this.env,
-                dataSources: this.model.config.custom.dataSources,
+                odooDataProvider: this.model.config.custom.odooDataProvider,
             },
         });
-        await model.config.custom.dataSources.waitForAllLoaded();
+        await waitForDataLoaded(model);
         const proms = [];
         for (const pivotId of model.getters.getPivotIds()) {
             proms.push(model.getters.getPivot(pivotId).prepareForTemplateGeneration());

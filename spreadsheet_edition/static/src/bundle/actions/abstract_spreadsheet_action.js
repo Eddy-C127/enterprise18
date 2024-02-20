@@ -11,13 +11,13 @@ import { UNTITLED_SPREADSHEET_NAME, DEFAULT_LINES_NUMBER } from "@spreadsheet/he
 import { createDefaultCurrencyFormat } from "@spreadsheet/currency/helpers";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { migrate } from "@spreadsheet/o_spreadsheet/migration";
-import { DataSources } from "@spreadsheet/data_sources/data_sources";
 import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks";
 import { RecordFileStore } from "../image/record_file_store";
 import { useSpreadsheetCurrencies, useSpreadsheetLocales, useSpreadsheetThumbnail } from "../hooks";
 import { useSpreadsheetPrint } from "@spreadsheet/hooks";
 import { router } from "@web/core/browser/router";
 import { InputDialog } from "./input_dialog/input_dialog";
+import { OdooDataProvider } from "@spreadsheet/data_sources/odoo_data_provider";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
@@ -132,8 +132,8 @@ export class AbstractSpreadsheetAction extends Component {
     }
 
     createModel() {
-        const dataSources = new DataSources(this.env);
-        dataSources.addEventListener("data-source-updated", () => {
+        const odooDataProvider = new OdooDataProvider(this.env);
+        odooDataProvider.addEventListener("data-source-updated", () => {
             const sheetId = this.model.getters.getActiveSheetId();
             this.model.dispatch("EVALUATE_CELLS", { sheetId });
         });
@@ -144,7 +144,7 @@ export class AbstractSpreadsheetAction extends Component {
         this.model = new Model(
             migrate(this.spreadsheetData),
             {
-                custom: { env: this.env, orm: this.orm, dataSources },
+                custom: { env: this.env, orm: this.orm, odooDataProvider },
                 external: {
                     fileStore: this.fileStore,
                     loadCurrencies: this.loadCurrencies,

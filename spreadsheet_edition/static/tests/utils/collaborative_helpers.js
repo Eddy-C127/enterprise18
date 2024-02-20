@@ -7,8 +7,8 @@ import { ormService } from "@web/core/orm_service";
 import { uiService } from "@web/core/ui/ui_service";
 import { registry } from "@web/core/registry";
 import { makeFakeLocalizationService } from "@web/../tests/helpers/mock_services";
-import { DataSources } from "@spreadsheet/data_sources/data_sources";
 import { setupDataSourceEvaluation } from "@spreadsheet/../tests/utils/model";
+import { OdooDataProvider } from "@spreadsheet/data_sources/odoo_data_provider";
 
 const serviceRegistry = registry.category("services");
 
@@ -61,14 +61,14 @@ export async function setupCollaborativeEnv(serverData) {
     const alice = new Model(model.exportData(), {
         custom: {
             env,
-            dataSources: new DataSources(env),
+            odooDataProvider: new OdooDataProvider(env),
         },
         transportService: network,
         client: { id: "alice", name: "Alice" },
     });
     const bob = new Model(model.exportData(), {
         custom: {
-            dataSources: new DataSources(env),
+            odooDataProvider: new OdooDataProvider(env),
             env,
         },
         transportService: network,
@@ -76,7 +76,7 @@ export async function setupCollaborativeEnv(serverData) {
     });
     const charlie = new Model(model.exportData(), {
         custom: {
-            dataSources: new DataSources(env),
+            odooDataProvider: new OdooDataProvider(env),
             env,
         },
         transportService: network,
