@@ -148,7 +148,7 @@ class KnowledgeController(http.Controller):
                 'id': member['member_id'],
                 'partner_id': partner_id,
                 'partner_name': member['partner_name'],
-                'partner_email': member['partner_email'],
+                'partner_email': member['partner_email'] if not member['partner_share'] or partner_id == request.env.user.partner_id.id or request.env.user._is_internal() else False,
                 'permission': member['permission'],
                 'based_on': f'{member["based_on_icon"] or request.env["knowledge.article"]._get_no_icon_placeholder()} {member["based_on_name"] or _("Untitled")}' if member['based_on'] else False,
                 'based_on_id': member['based_on'] if member['based_on'] in based_on_articles.ids else False,
