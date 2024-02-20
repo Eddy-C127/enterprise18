@@ -7,12 +7,13 @@
             <tree create="0">
                 <header>
                     <button string="All answers" name="action_open_all_survey_inputs" icon="fa-external-link" type="object"/>
+                    <button string="Resend all" name="action_ask_feedback" icon="fa-repeat" type="object"/>
                 </header>
                 <field name="partner_id" string="Employee"/>
                 <field name="state" widget="badge"
                     decoration-success="state == 'done'"
-                    decoration-warning="state == 'new'"
-                    decoration-info="state == 'in_progress'"
+                    decoration-info="state == 'new'"
+                    decoration-warning="state == 'in_progress'"
                 />
                 <field name="deadline"/>
                 <field name="survey_id"/>

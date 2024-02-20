@@ -1,7 +1,7 @@
-# -*- encoding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 from werkzeug.urls import url_encode
 
 class SurveySurvey(models.Model):
@@ -97,6 +97,18 @@ class SurveyUserInput(models.Model):
         }
 
     def action_ask_feedback(self):
+        if len(self.appraisal_id) > 1:
+            raise ValidationError("You can't selected feedback linked to multiples appraisals.")
+        if len(self.survey_id) > 1:
+            raise ValidationError("You can't selected multiple feedback template.")
+        appraisal_id = self.appraisal_id
+        set_emails = set(self.mapped('email'))
+        if appraisal_id.employee_feedback_ids:
+            employee_ids = appraisal_id.employee_feedback_ids.filtered(
+                lambda e: e.work_email in set_emails or\
+                    e.user_id.partner_id.email in set_emails).ids
+        else:
+            employee_ids = []
         return {
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
@@ -104,9 +116,8 @@ class SurveyUserInput(models.Model):
             'target': 'new',
             'name': 'Ask Feedback',
             'context': {
-                'default_appraisal_id': self.appraisal_id.id,
-                'default_employee_ids': self.appraisal_id.employee_feedback_ids.filtered(
-                    lambda e: e.work_email == self.email or e.user_id.partner_id.email == self.email).ids,
+                'default_appraisal_id': appraisal_id.id,
+                'default_employee_ids': employee_ids,
                 'default_survey_template_id': self.survey_id.id
             }
         }
