@@ -15,7 +15,9 @@ export class TimesheetGridRenderer extends GridRenderer {
     }
 
     async onWillStart() {
-        await this._getLastValidatedTimesheetDate();
+        if (!this.props.model.useSampleModel) {
+            await this._getLastValidatedTimesheetDate();
+        }
     }
 
     getUnavailableClass(column, cellData = {}) {
