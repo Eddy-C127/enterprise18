@@ -17,7 +17,7 @@ class PosSelfOrderPreparationDisplayController(PosSelfOrderController):
         return res
 
     def _send_to_preparation_display(self, order, access_token, table_identifier, order_id):
-        pos_config, _ = self._verify_authorization(access_token, table_identifier, order.get('take_away'))
+        pos_config, _ = self._verify_authorization(access_token, table_identifier, order.get('takeaway'))
         order_id = pos_config.env['pos.order'].browse(order_id)
         payment_methods = self._get_self_payment_methods(pos_config)
         if pos_config.self_ordering_pay_after == 'each' and len(payment_methods) == 0:
