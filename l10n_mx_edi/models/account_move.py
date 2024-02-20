@@ -652,8 +652,8 @@ class AccountMove(models.Model):
         for move in self:
             if move.country_code == 'MX':
                 move.l10n_mx_edi_payment_method_id = (
-                    move.partner_id.l10n_mx_edi_payment_method_id or
                     move.l10n_mx_edi_payment_method_id or
+                    move.partner_id.l10n_mx_edi_payment_method_id or
                     (move._l10n_mx_edi_is_cfdi_payment() and transferencia_payment_method) or
                     move.journal_id.l10n_mx_edi_payment_method_id or
                     otros_payment_method
