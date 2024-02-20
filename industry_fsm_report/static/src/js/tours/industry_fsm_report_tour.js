@@ -98,6 +98,10 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             content: markup(_t('<b>Send your task report</b> to your customer.')),
             position: 'bottom',
         }, {
+            trigger: 'button[name="document_layout_save"]',
+            content: markup(_t('Customize your <b>layout</b>.')),
+            position: 'right',
+        }, {
             trigger: 'button[name="action_send_mail"]',
             extra_trigger: '.o_form_project_tasks',
             content: markup(_t('<b>Send your task report</b> to your customer.')),

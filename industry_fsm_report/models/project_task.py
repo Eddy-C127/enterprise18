@@ -194,11 +194,18 @@ class ProjectTask(models.Model):
                     'message': _("There are no reports to send."),
                     'sticky': False,
                     'type': 'danger',
-                }
+                },
             }
+        action = tasks_with_report._get_send_report_action()
+        if self.env.is_admin() and not self.env.company.external_report_layout_id and not self.env.context.get('discard_logo_check'):
+            layout_action = self.env['ir.actions.report']._action_configure_external_report_layout(action)
+            action.pop('close_on_report_download', None)
+            return layout_action
+        return action
 
+    def _get_send_report_action(self):
         template_id = self.env.ref('industry_fsm_report.mail_template_data_task_report').id
-        self.message_subscribe(partner_ids=tasks_with_report.partner_id.ids)
+        self.message_subscribe(partner_ids=self.partner_id.ids)
         return {
             'name': _("Send report"),
             'type': 'ir.actions.act_window',
@@ -206,9 +213,9 @@ class ProjectTask(models.Model):
             'views': [(False, 'form')],
             'target': 'new',
             'context': {
-                'default_composition_mode': 'mass_mail' if len(tasks_with_report.ids) > 1 else 'comment',
+                'default_composition_mode': 'mass_mail' if len(self.ids) > 1 else 'comment',
                 'default_model': 'project.task',
-                'default_res_ids': tasks_with_report.ids,
+                'default_res_ids': self.ids,
                 'default_template_id': template_id,
                 'fsm_mark_as_sent': True,
                 'mailing_document_based': True,
