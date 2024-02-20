@@ -81,7 +81,7 @@
             </td>
         </xpath>
 
-        <xpath expr="//div[@name='comment']" position="before">
+        <xpath expr="//div[@id='payment_term']" position="after">
             <t t-set="cfdi_values" t-value="o._l10n_mx_edi_get_extra_invoice_report_values()"/>
             <div class="row col-12" id='complement'>
                 <div class="barcode col-3">
