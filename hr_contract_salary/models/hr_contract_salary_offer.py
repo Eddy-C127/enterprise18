@@ -151,3 +151,27 @@ class HrContractSalaryOffer(models.Model):
             'target': 'new',
             'context': ctx,
         }
+
+    def action_view_signature_request(self):
+        self.ensure_one()
+        pending_sign_request = self.sign_request_ids.filtered(lambda r: r.state != 'signed')
+        sign_request_id = pending_sign_request[0].id if pending_sign_request else False
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Requested Signature'),
+            'view_mode': 'form',
+            'res_model': 'sign.request',
+            'res_id': sign_request_id,
+            'target': 'new',
+        }
+
+    def action_view_contract(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Contract'),
+            'view_mode': 'form',
+            'res_model': 'hr.contract',
+            'res_id': self.employee_contract_id.id,
+            'target': 'current',
+        }

@@ -55,6 +55,31 @@
                     <field name="state" widget="statusbar" statusbar_visible="open,half_signed,full_signed,expired" readonly="1"/>
                 </header>
                 <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button
+                            name="action_view_signature_request"
+                            type="object"
+                            data-hotkey="shift+g"
+                            class="oe_stat_button"
+                            icon="fa-pencil"
+                            invisible="state != 'half_signed'">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Requested Signature</span>
+                            </div>
+                        </button>
+
+                        <button
+                            name="action_view_contract"
+                            type="object"
+                            data-hotkey="shift+g"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            invisible="state != 'full_signed'">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Signed Contract</span>
+                                </div>
+                        </button>
+                    </div>
                     <widget name="web_ribbon" title="Refused" bg_color="text-bg-danger" invisible="state != 'refused'"/>
                     <div class="oe_title pe-0">
                         <label for="display_name"/>
