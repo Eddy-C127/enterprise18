@@ -664,13 +664,20 @@ class SignRequest(models.Model):
                         p.drawOn(can, posX, posY)
 
                     elif item.type_id.item_type == "textarea":
-                        can.setFont(font, height*normalFontSize*0.8)
+                        font_size = height * normalFontSize * 0.8
+                        can.setFont(font, font_size)
                         lines = value.split('\n')
                         y = (1-item.posY)
                         for line in lines:
-                            y -= normalFontSize*0.9
-                            can.drawString(width*item.posX, height*y, line)
-                            y -= normalFontSize*0.1
+                            empty_space = width * item.width - can.stringWidth(line, font, font_size)
+                            x_shift = 0
+                            if item.alignment == 'center':
+                                x_shift = empty_space / 2
+                            elif item.alignment == 'right':
+                                x_shift = empty_space
+                            y -= normalFontSize * 0.9
+                            can.drawString(width * item.posX + x_shift, height * y, line)
+                            y -= normalFontSize * 0.1
 
                     elif item.type_id.item_type == "checkbox":
                         can.setFont(font, height*item.height*0.8)
