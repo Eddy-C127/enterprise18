@@ -136,7 +136,7 @@ class AmazonAccount(models.Model):
     )
     synchronize_inventory = fields.Boolean(
         string="Synchronize FBM Inventory",
-        help="Whether the available quantities of FBA products linked to this account are"
+        help="Whether the available quantities of FBM products linked to this account are"
              " synchronized with Amazon.",
         default=True,
     )
