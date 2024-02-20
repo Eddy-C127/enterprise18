@@ -21,6 +21,8 @@ class TestIntrastatReport(TestAccountReportsCommon):
             'intrastat': True,
         })
         cls.company_data['company'].country_id = country
+        cls.company_data['company'].currency_id = cls.env.ref('base.EUR').id
+        cls.company_data['currency'] = cls.env.ref('base.EUR')
         cls.report = cls.env.ref('account_intrastat.intrastat_report')
         cls.partner_a = cls.env['res.partner'].create({
             'name': 'Yoyodyne BE',
@@ -320,6 +322,113 @@ class TestIntrastatReport(TestAccountReportsCommon):
                 # account.move (bill)
                 ('Arrival - 101 - 100 - QV - QV999999999999 - NL - 102',  '29 (Arrival)',  'Netherlands', '101', '102', '100', 'QV', '0.5', 950.0),
                 ('BILL/2022/01/0001',                                     '29 (Arrival)',  'Netherlands', '101', '102', '100', 'QV',  0.5, 950.0),
+            ],
+            options,
+        )
+
+    def test_intrastat_report_lines_with_unique_id(self):
+        """ This test checks that even if we have similar lines,
+            each discriminant line value is used to generate
+            the generic report line id.
+        """
+        def move_vals(move_values=None, invoice_line_values=None):
+            move_values = move_values or {}
+            invoice_line_values = invoice_line_values or {}
+            return {
+                'move_type': 'out_invoice',
+                'partner_id': self.partner_a.id,
+                'invoice_date': '2022-01-01',
+                'currency_id': self.env.ref('base.EUR').id,
+                **move_values,
+                'invoice_line_ids': [
+                    Command.create({
+                        'product_id': product_with_nothing.id,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 20.0,
+                        **invoice_line_values,
+                    }),
+                ],
+            }
+
+        self.env.ref('base.SEK').active = True
+        product_with_nothing, product_with_commodity_code, product_with_origin_country_id = self.env['product.product'].create([
+            {
+                'name': 'A product with nothing',
+                'intrastat_code_id': None,
+                'intrastat_origin_country_id': None,
+            },
+            {
+                'name': 'A product with commodity code',
+                'intrastat_code_id': self.env.ref('account_intrastat.account_intrastat_transaction_11').id,
+                'intrastat_origin_country_id': None,
+            },
+            {
+                'name': 'A product with origine id',
+                'intrastat_code_id': None,
+                'intrastat_origin_country_id': self.env.ref('base.nl').id,
+            },
+        ])
+        partner_vat_be = self.env['res.partner'].create({
+            'name': 'BE Partner',
+            'country_id': self.env.ref('base.be').id,
+            'vat': 'BE0477472701',
+        })
+        moves = self.env['account.move'].create([
+            # Move without any specificity
+            move_vals(),
+            # Move with Incoterm
+            move_vals(move_values={'invoice_incoterm_id': self.env.ref('account.incoterm_CFR').id}, invoice_line_values={'price_unit': 21.0}),
+            # Move with a transaction code
+            move_vals(invoice_line_values={'intrastat_transaction_id': self.intrastat_codes['transaction'].id, 'price_unit': 22.0}),
+            # Move with a transport mode
+            move_vals(
+                move_values={'intrastat_transport_mode_id': self.env.ref('account_intrastat.account_intrastat_transport_1').id},
+                invoice_line_values={'price_unit': 23.0},
+            ),
+            # Move with commodity code
+            move_vals(invoice_line_values={'product_id': product_with_commodity_code.id, 'price_unit': 24.0}),
+            # Move with an origin country id
+            move_vals(invoice_line_values={'product_id': product_with_origin_country_id.id, 'price_unit': 25.0}),
+            # Move with a specified intrastat_country_id
+            move_vals(move_values={'intrastat_country_id': self.env.ref('base.es').id}, invoice_line_values={'price_unit': 26.0}),
+            # Move with partner_vat
+            move_vals(move_values={'partner_id': partner_vat_be.id}, invoice_line_values={'price_unit': 27.0}),
+            # Move with a foreign currency
+            move_vals(move_values={'currency_id': self.env.ref('base.SEK').id}, invoice_line_values={'price_unit': 28.0}),
+        ])
+        moves.action_post()
+
+        options = self._generate_options(self.report, '2022-01-01', '2022-01-31')
+        lines = self.report._get_lines(options)
+
+        existing_ids = [line['id'] for line in lines]
+        unique_ids = set(existing_ids)
+        self.assertEqual(len(existing_ids), len(unique_ids), f"We should have {len(existing_ids)} different IDs because we don't have exact same lines.")
+
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            lines,
+            # 0/name,                                                       12/value
+            [    0,                                                         12],
+            [
+                # Move with transaction code
+                ('Dispatch - 101 - None - QV - QV999999999999 - BE - 102',  22.0),
+                # Move with transport mode
+                ('Dispatch - None - None - QV - QV999999999999 - BE - 102', 23.0),
+                # Move with commodity code
+                ('Dispatch - None - 11 - QV - QV999999999999 - BE - 102',   24.0),
+                # Move with partner vat
+                ('Dispatch - None - None - QV - BE0477472701 - BE - 102',   27.0),
+                # Move with incoterm
+                ('Dispatch - None - None - QV - QV999999999999 - BE - 102', 21.0),
+                # Move with product origin country id
+                ('Dispatch - None - None - NL - QV999999999999 - BE - 102', 25.0),
+                # Move with a different currency id
+                ('Dispatch - None - None - QV - QV999999999999 - BE - 102', 28.0),
+                # Move with nothing
+                ('Dispatch - None - None - QV - QV999999999999 - BE - 102', 20.0),
+                # Move with specified intrastat_country_id
+                ('Dispatch - None - None - QV - QV999999999999 - ES - 102', 26.0),
             ],
             options,
         )

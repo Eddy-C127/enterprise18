@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from itertools import zip_longest
+
 from odoo import api, models, _
-from odoo.tools import get_lang, SQL
+from odoo.tools import get_lang, SQL, OrderedSet
 from odoo.tools.float_utils import float_repr, float_round
 
 from odoo.tools.misc import format_date
@@ -27,6 +29,8 @@ _unknown_country_code = {
 _qn_unknown_individual_vat_country_codes = ('FI', 'SE', 'SK', 'DE', 'AT')
 
 ERRORS = ('expired_trans', 'premature_trans', 'missing_trans', 'expired_comm', 'premature_comm', 'missing_comm', 'missing_unit', 'missing_weight')
+
+REPORT_LINE_ID_KEYS = ['type', 'transaction_code', 'commodity_code', 'intrastat_product_origin_country_code', 'partner_vat', 'country_code', 'incoterm_code', 'transport_code', 'invoice_currency_id', 'region_code']
 
 class IntrastatReportCustomHandler(models.AbstractModel):
     _name = 'account.intrastat.report.handler'
@@ -63,6 +67,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             column_group_key = result['column_group_key']
             current_move_info[column_group_key] = result
             current_move_info['name'] = self._get_move_info_name(result)
+            current_move_info['id'] = self._get_report_line_id(report, result)
 
             # We add the value to the total (for total line)
             total_values.setdefault(column_group_key, {'value': 0})
@@ -81,11 +86,17 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         return lines
 
     def _get_move_info_name(self, move_info):
-        keys = ['type', 'transaction_code', 'commodity_code', 'intrastat_product_origin_country_code', 'partner_vat', 'country_code']
+        # Some values are necessary for the id generation but not in the name, we removed region_code because a condition handles it after
+        keys = OrderedSet(REPORT_LINE_ID_KEYS) - OrderedSet(['incoterm_code', 'transport_code', 'invoice_currency_id', 'region_code'])
         name = " - ".join(str(move_info[key]) for key in keys)
+
         if self._show_region_code():
             name += f" - {move_info['region_code']}"
         return name
+
+    def _get_report_line_id(self, report, move_info):
+        markup = ",".join(str(move_info.get(key)) for key in REPORT_LINE_ID_KEYS)
+        return report._get_generic_line_id('account.move', None, markup=markup)
 
     def _custom_options_initializer(self, report, options, previous_options=None):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
@@ -209,9 +220,8 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                         warning_params['ids'].extend(line_vals[column_group][warning_code])
 
         unfold_all = self._context.get('print_mode') or options.get('unfold_all')
-        markup_line = ','.join(line_vals['name'].split(' - '))
         return {
-            'id': report._get_generic_line_id('account.move', None, markup=markup_line),  # Change if for tracking unfolded lines
+            'id': line_vals['id'],
             'name': line_vals['name'],
             'columns': columns,
             'unfoldable': True,
@@ -581,16 +591,19 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         return vals_list
 
     def _get_markup_info_from_intrastat_id(self, line_id):
+        """ This function gets necessary info present in the generic report line id.
+            This information are related to REPORT_LINE_ID_KEYS.
+
+            :param line_id: A generic report line id
+            :return: A dictionary containing as key all the values in REPORT_LINE_ID_KEYS
+                     and as value what we found in the generic report line id. If we don't
+                     have a related value, we fill it with 'None'.
+        """
         markup = self.env['account.report']._get_markup(line_id)
-        line = markup.split(',')  # System, Country, Code, Intrastat Origin Country Code, Partner VAT, country code and Region code if any
+        line = markup.split(',')
         return {
-            'type': line[0],
-            'transaction_code': line[1],
-            'commodity_code': line[2],
-            'intrastat_product_origin_country_code': line[3],
-            'partner_vat': line[4],
-            'country_code': line[5],
-            'region_code': 'None' if len(line) < 7 else line[6],  # Since Region code is not mandatory in all countries, the number of column could then vary and the value should be taken into consideration
+            key: value
+            for key, value in zip_longest(REPORT_LINE_ID_KEYS, line, fillvalue='None')
         }
 
     ####################################################
