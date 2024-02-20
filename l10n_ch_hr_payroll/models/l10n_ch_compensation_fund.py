@@ -105,12 +105,12 @@ class l10nChCompensationFund(models.Model):
         for insurance in self:
             insurance.insurance_code = insurance.insurance_company
 
-    def _get_caf_rates(self, target):
+    def _get_caf_rates(self, target, rate_type):
         if not self:
             return 0, 0
         for line in self.caf_line_ids:
             if line.date_from <= target and (not line.date_to or target <= line.date_to):
-                return line.employee_rate
+                return line[rate_type]
         raise UserError(_('No CAF rates found for date %s', target))
 
 
@@ -121,4 +121,5 @@ class l10nChCompensationFundLine(models.Model):
     date_from = fields.Date(string="From", required=True)
     date_to = fields.Date(string="To")
     insurance_id = fields.Many2one('l10n.ch.compensation.fund')
-    employee_rate = fields.Float(string="Employee Rate (%)", digits='Payroll Rate', default=0.421)
+    employee_rate = fields.Float(string="Employee Rate (%)", digits='Payroll Rate', default=0.0)
+    company_rate = fields.Float(string="Company Rate (%)", digits='Payroll Rate', default=0.421)

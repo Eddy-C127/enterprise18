@@ -196,7 +196,8 @@
         <field name="insurance_id" ref="l10n_ch_compensation_fund"/>
         <field name="date_from" eval="time.strftime('2020-01-01')"/>
         <field name="date_to" eval="False"/>
-        <field name="employee_rate">0.421</field>
+        <field name="employee_rate">0.0</field>
+        <field name="company_rate">0.421</field>
     </record>
 
     <record id="l10n_ch_accident_insurance" model="l10n.ch.accident.insurance">

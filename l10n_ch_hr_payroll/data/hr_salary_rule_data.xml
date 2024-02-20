@@ -1677,7 +1677,7 @@ result = contract.l10n_ch_compensation_fund_id
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = categories['GROSS']
-result_rate = - contract.l10n_ch_compensation_fund_id._get_caf_rates(payslip.date_from)
+result_rate = - contract.l10n_ch_compensation_fund_id._get_caf_rates(payslip.date_from, 'employee_rate')
 </field>
         <field name="note">CAF Contribution (Family Allowances)</field>
         <field name="l10n_ch_aanp_included" eval="False"/>
@@ -1688,6 +1688,30 @@ result_rate = - contract.l10n_ch_compensation_fund_id._get_caf_rates(payslip.dat
         <field name="l10n_ch_wage_statement">9</field>
         <field name="l10n_ch_yearly_statement">L</field>
         <field name="l10n_ch_october_statement">L</field>
+        <field name="l10n_ch_13th_month_included" eval="False"/>
+        <field name="struct_id" ref="l10n_ch_hr_payroll.hr_payroll_structure_ch_employee_salary"/>
+    </record>
+
+    <record id="l10n_ch_employees_fak_company" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_ch_hr_payroll.hr_salary_rule_category_comp_part"/>
+        <field name="name">CAF (Comp. Part.)</field>
+        <field name="code">CAF.COMP</field>
+        <field name="sequence">139</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">
+result = contract.l10n_ch_compensation_fund_id
+        </field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = categories['GROSS']
+result_rate = contract.l10n_ch_compensation_fund_id._get_caf_rates(payslip.date_from, 'company_rate')
+</field>
+        <field name="note">CAF Contribution (Family Allowances) Company</field>
+        <field name="l10n_ch_aanp_included" eval="False"/>
+        <field name="l10n_ch_ac_included" eval="False"/>
+        <field name="l10n_ch_comp_ac_included" eval="False"/>
+        <field name="l10n_ch_ijm_included" eval="False"/>
+        <field name="l10n_ch_source_tax_included" eval="False"/>
         <field name="l10n_ch_13th_month_included" eval="False"/>
         <field name="struct_id" ref="l10n_ch_hr_payroll.hr_payroll_structure_ch_employee_salary"/>
     </record>

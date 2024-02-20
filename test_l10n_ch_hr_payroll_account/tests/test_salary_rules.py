@@ -137,8 +137,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -58.94,
-            'NET': 12797.59,
+            'CAF': 0,
+            'CAF.COMP': 58.94,
+            'NET': 12856.53,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -181,8 +182,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
                 'LPP': 0,
                 'LPP.COMP': 0,
                 'IS': 0,
-                'CAF': -42.1,
-                'NET': 9109.5,
+                'CAF': 0,
+                'CAF.COMP': 42.1,
+                'NET': 9151.6,
             }
             self._validate_payslip(payslip, payslip_results)
             payslip.action_payslip_done()
@@ -227,8 +229,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
                 'LPP': 0,
                 'LPP.COMP': 0,
                 'IS': 0,
-                'CAF': -84.2,
-                'NET': 18424.33,
+                'CAF': 0,
+                'CAF.COMP': 84.2,
+                'NET': 18508.53,
             }
             self._validate_payslip(payslip, payslip_results)
             payslip.action_payslip_done()
@@ -265,8 +268,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -42.1,
-            'NET': 9109.5,
+            'CAF': 0,
+            'CAF.COMP': 42.1,
+            'NET': 9151.6,
         }
 
         payslip_results = {
@@ -296,8 +300,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
                 'LPP': 0,
                 'LPP.COMP': 0,
                 'IS': 0,
-                'CAF': -63.15,
-                'NET': 13735.38,
+                'CAF': 0,
+                'CAF.COMP': 63.15,
+                'NET': 13798.53,
             },
             2: {
                 'BASIC': 10000.0,
@@ -324,8 +329,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
                 'LPP': 0,
                 'LPP.COMP': 0,
                 'IS': 0,
-                'CAF': -42.1,
-                'NET': 9046.43,
+                'CAF': 0,
+                'CAF.COMP': 42.1,
+                'NET': 9088.53,
             },
             3: {
                 'BASIC': 10000.0,
@@ -352,8 +358,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
                 'LPP': 0,
                 'LPP.COMP': 0,
                 'IS': 0,
-                'CAF': -42.1,
-                'NET': 9101.45,
+                'CAF': 0,
+                'CAF.COMP': 42.1,
+                'NET': 9143.55,
             },
             4: payslip_common_result,
             5: payslip_common_result,
@@ -419,6 +426,7 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'IJM.COMP': 0,
             'LPP': 0,
             'LPP.COMP': 0,
+            'CAF.COMP': 0,
             'IS': 0,
             'CAF': 0,
             'NET': 0,
@@ -449,8 +457,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -21.05,
-            'NET': 4554.75,
+            'CAF': 0,
+            'CAF.COMP': 21.05,
+            'NET': 4575.8,
         }
 
         payslip_results = {
@@ -516,8 +525,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -58.94,
-            'NET': 12871.79,
+            'CAF': 0,
+            'CAF.COMP': 58.94,
+            'NET': 12930.73,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -551,8 +561,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -42.1,
-            'NET': 9109.5,
+            'CAF': 0,
+            'CAF.COMP': 42.1,
+            'NET': 9151.6,
         }
         self._validate_payslip(payslip, payslip_results)
         payslip.action_payslip_done()
@@ -583,8 +594,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -42.1,
-            'NET': 9109.5,
+            'CAF': 0,
+            'CAF.COMP': 42.1,
+            'NET': 9151.6,
         }
         self._validate_payslip(payslip, payslip_results)
         payslip.action_payslip_done()
@@ -625,8 +637,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -126.3,
-            'NET': 27676.08,
+            'CAF': 0,
+            'CAF.COMP': 126.3,
+            'NET': 27802.38,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -660,8 +673,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -63.15,
-            'NET': 13735.38,
+            'CAF': 0,
+            'CAF.COMP': 63.15,
+            'NET': 13798.53,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -696,8 +710,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -42.1,
-            'NET': 9109.5,
+            'CAF': 0,
+            'CAF.COMP': 42.1,
+            'NET': 9151.6,
         }
         self._validate_payslip(payslip, payslip_results)
         payslip.action_payslip_done()
@@ -728,8 +743,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -42.1,
-            'NET': 9109.5,
+            'CAF': 0,
+            'CAF.COMP': 42.1,
+            'NET': 9151.6,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -764,8 +780,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -63.15,
-            'NET': 13735.38,
+            'CAF': 0,
+            'CAF.COMP': 63.15,
+            'NET': 13798.53,
         }
         self._validate_payslip(payslip, payslip_results)
         payslip.action_payslip_done()
@@ -796,8 +813,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -63.15,
-            'NET': 13735.38,
+            'CAF': 0,
+            'CAF.COMP': 63.15,
+            'NET': 13798.53,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -841,8 +859,9 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'LPP': 0,
             'LPP.COMP': 0,
             'IS': 0,
-            'CAF': -4.21,
+            'CAF': 0,
+            'CAF.COMP': 4.21,
             'INDACC2': 3000.0,
-            'NET': 3910.95,
+            'NET': 3915.16,
         }
         self._validate_payslip(payslip, payslip_results)

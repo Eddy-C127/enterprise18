@@ -133,7 +133,7 @@ class TestPerformance(TestL10NChHrPayrollAccountCommon):
             _logger.info("Payslips Computation: --- %s seconds ---", time.time() - start_time)
 
         # Payslip Validation
-        with self.assertQueryCount(admin=370):  # l10n adds some queries
+        with self.assertQueryCount(admin=394):  # l10n adds some queries
             start_time = time.time()
             payslips.action_payslip_done()
             # --- 0.3815627098083496 seconds ---

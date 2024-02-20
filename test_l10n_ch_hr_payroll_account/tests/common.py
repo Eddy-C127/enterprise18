@@ -177,7 +177,8 @@ class TestL10NChHrPayrollAccountCommon(AccountTestInvoicingCommon):
             "caf_line_ids": [(0, 0, {
                 'date_from': date(2022, 1, 1),
                 'date_to': False,
-                'employee_rate': 0.421,
+                'company_rate': 0.421,
+                'employee_rate': 0.0,
             })],
         })
 
