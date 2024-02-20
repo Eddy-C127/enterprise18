@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data noupdate="1">
     <!-- Recurrent payment emails -->
     <record id="email_payment_close" model="mail.template">
         <field name="name">Subscription: Payment Failure</field>
@@ -417,4 +418,5 @@
         </field>
         <field name="lang">{{ object.partner_id.lang }}</field>
     </record>
+    </data>
 </odoo>
