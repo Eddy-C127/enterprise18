@@ -339,7 +339,7 @@ class FedexRequest():
             self.RequestedShipment.CustomsClearanceDetail.Commodities = self.listCommodities
         self.RequestedShipment.CustomsClearanceDetail.CustomsValue = self.factory.Money()
         self.RequestedShipment.CustomsClearanceDetail.CustomsValue.Currency = customs_value_currency
-        self.RequestedShipment.CustomsClearanceDetail.CustomsValue.Amount = customs_value_amount
+        self.RequestedShipment.CustomsClearanceDetail.CustomsValue.Amount = float_repr(customs_value_amount, 2)
         if self.RequestedShipment.Shipper.Address.CountryCode == "IN" and self.RequestedShipment.Recipient.Address.CountryCode == "IN":
             if not self.RequestedShipment.CustomsClearanceDetail.CommercialInvoice:
                 self.RequestedShipment.CustomsClearanceDetail.CommercialInvoice = self.factory.CommercialInvoice()
