@@ -76,9 +76,9 @@ class ResPartner(models.Model):
         """
         if isinstance(value, str):
             value = [value]
-        value = [v for v in value if v in ['in_need_of_action', 'with_overdue_invoices', 'no_action_needed']]
         if operator not in ('in', '=') or not value:
             return []
+        value = [v for v in value if v in ['in_need_of_action', 'with_overdue_invoices', 'no_action_needed']]
 
         followup_data = self._query_followup_data(all_partners=True)
 
