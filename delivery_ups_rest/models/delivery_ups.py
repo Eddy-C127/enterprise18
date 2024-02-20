@@ -158,8 +158,8 @@ class ProviderUPS(models.Model):
                 raise UserError(check_value)
 
             result = ups._send_shipping(
-                shipment_info, packages, self, picking.company_id.partner_id, picking.picking_type_id.warehouse_id.partner_id,
-                picking.partner_id, ups_service_type, picking.carrier_id.ups_duty_payment,
+                shipment_info=shipment_info, packages=packages, carrier=self, shipper=picking.company_id.partner_id, ship_from=picking.picking_type_id.warehouse_id.partner_id,
+                ship_to=picking.partner_id, service_type=ups_service_type, duty_payment=picking.carrier_id.ups_duty_payment,
                 saturday_delivery=picking.carrier_id.ups_saturday_delivery, cod_info=cod_info,
                 label_file_type=self.ups_label_file_type, ups_carrier_account=ups_carrier_account)
 
@@ -214,8 +214,8 @@ class ProviderUPS(models.Model):
             raise UserError(check_value)
 
         result = ups._send_shipping(
-            shipment_info, packages, self, picking.company_id.partner_id, picking.picking_type_id.warehouse_id.partner_id,
-            picking.partner_id, ups_service_type, 'RECIPIENT', saturday_delivery=picking.carrier_id.ups_saturday_delivery,
+            shipment_info=shipment_info, packages=packages, carrier=self, shipper=picking.partner_id, ship_from=picking.partner_id,
+            ship_to=picking.picking_type_id.warehouse_id.partner_id, service_type=ups_service_type, duty_payment='RECIPIENT', saturday_delivery=picking.carrier_id.ups_saturday_delivery,
             cod_info=cod_info, label_file_type=self.ups_label_file_type, ups_carrier_account=ups_carrier_account, is_return=True)
 
         order = picking.sale_id
