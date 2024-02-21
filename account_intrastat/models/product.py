@@ -11,18 +11,21 @@ class ProductTemplate(models.Model):
     intrastat_code_id = fields.Many2one(
         'account.intrastat.code',
         compute='_compute_intrastat_values',
+        inverse='_inverse_intrastat_code_id',
         string='Commodity Code',
         readonly=False,
     )
     intrastat_supplementary_unit = fields.Selection(selection=SUPPLEMENTARY_UNITS, compute='_compute_intrastat_values')
     intrastat_supplementary_unit_amount = fields.Float(
         compute='_compute_intrastat_values',
+        inverse='_inverse_intrastat_supplementary_unit_amount',
         help='The number of supplementary units per product quantity.',
         readonly=False,
     )
     intrastat_origin_country_id = fields.Many2one(
         'res.country',
         compute='_compute_intrastat_values',
+        inverse='_inverse_intrastat_origin_country_id',
         string='Country of Origin',
         readonly=False,
     )
@@ -35,6 +38,18 @@ class ProductTemplate(models.Model):
             product_template.intrastat_supplementary_unit = variant.intrastat_code_id.supplementary_unit
             product_template.intrastat_supplementary_unit_amount = variant.intrastat_supplementary_unit_amount
             product_template.intrastat_origin_country_id = variant.intrastat_origin_country_id
+
+    def _inverse_intrastat_code_id(self):
+        for product_template in self:
+            product_template.product_variant_ids.intrastat_code_id = product_template.intrastat_code_id
+
+    def _inverse_intrastat_supplementary_unit_amount(self):
+        for product_template in self:
+            product_template.product_variant_ids.intrastat_supplementary_unit_amount = product_template.intrastat_supplementary_unit_amount
+
+    def _inverse_intrastat_origin_country_id(self):
+        for product_template in self:
+            product_template.product_variant_ids.intrastat_origin_country_id = product_template.intrastat_origin_country_id
 
     def _get_related_fields_variant_template(self):
         fields = super()._get_related_fields_variant_template()
