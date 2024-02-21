@@ -2906,7 +2906,7 @@ class AccountReport(models.Model):
                         criterium_label = other_expr_criterium_match['expr_label']
                         criterium_expression_id = current_report_codes_map.get(criterium_code, {}).get(criterium_label)
                         criterium_val = current_report_eval_dict.get(criterium_expression_id)
-                        if not isinstance(criterium_val, float):
+                        if not isinstance(criterium_val, (float, int)):
                             # The criterium expression has not be evaluated yet. Postpone the evaluation of this formula, and skip this expression
                             # for now. We still try to evaluate other expressions using this formula if any; this means those expressions will
                             # be processed a second time later, giving the same result. This is a rare corner case, and not so costly anyway.
