@@ -2743,3 +2743,27 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
             {'analytic_distribution': False},
             {'analytic_distribution': new_distribution},
         ])
+
+    def test_access_child_bank_with_user_set_on_child(self):
+        """
+        Demo user with a Child Company as default company/allowed companies
+        should be able to access the Bank set on this same Child Company
+        """
+        child_company = self.env['res.company'].create({
+            'name': 'Childest Company',
+            'parent_id': self.env.company.id,
+        })
+        child_bank_journal = self.env['account.journal'].create({
+            'name': 'Child Bank',
+            'type': 'bank',
+            'company_id': child_company.id,
+        })
+        self.user.write({
+            'company_ids': [Command.set(child_company.ids)],
+            'company_id': child_company.id,
+            'groups_id': [
+                Command.set(self.env.ref('account.group_account_user').ids),
+            ]
+        })
+        res = self.env['bank.rec.widget'].with_user(self.user).collect_global_info_data(child_bank_journal.id)
+        self.assertTrue(res, "Journal should be accessible")
