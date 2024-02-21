@@ -69,10 +69,8 @@ class AccountMove(models.Model):
 
     @api.onchange('partner_id')
     def _onchange_partner_id_set_347_invoice_type(self):
-        eu_countries = self.env.ref('base.europe').country_ids - self.env.ref('base.es')
         for record in self:
-            # Mod 347 is normally not required for imports / exports within the EU, since those are already on the 349
-            record.l10n_es_reports_mod347_invoice_type = False if record.partner_id.country_id in eu_countries else 'regular'
+            record.l10n_es_reports_mod347_invoice_type = False if record.partner_id.country_code != 'ES' else 'regular'
 
     def _post(self, soft=True):
         """ Overridden to require Spanish invoice type to be set if the company

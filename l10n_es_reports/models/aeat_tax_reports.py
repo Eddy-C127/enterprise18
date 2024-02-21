@@ -1079,11 +1079,10 @@ class SpanishMod347TaxReportCustomHandler(models.AbstractModel):
             rslt += self._l10n_es_boe_format_number(options, real_estates_vat_by_trimester[trimester_index], length=16, decimal_places=2, signed=True, sign_pos=' ', in_currency=True)
 
         # 'NIF Operador Comunitario'
-        europe_countries = self.env.ref('base.europe').country_ids
+        europe_countries = self.env.ref('base.europe').country_ids - self.env.ref('base.es')
         intracom_tin = ''
         if line_partner.country_id in europe_countries:
-            partner_tin = self._extract_tin(line_partner, error_if_no_tin=False)
-            intracom_tin = (partner_tin[:2] != 'es') and partner_tin or ''  # We write an empty string if the partner has a Spanish TIN (because it then has already been written previously)
+            intracom_tin = self._extract_tin(line_partner, error_if_no_tin=False)
         rslt += self._l10n_es_boe_format_string(intracom_tin.upper(), length=17)
 
         # Cash Basis (Regimen Especial de Caja)
