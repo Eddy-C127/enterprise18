@@ -16,7 +16,7 @@ _logger = logging.getLogger(__name__)
 class SocialLivePostTwitter(models.Model):
     _inherit = 'social.live.post'
 
-    twitter_tweet_id = fields.Char('Twitter tweet id')
+    twitter_tweet_id = fields.Char('X post id')
 
     def _compute_live_post_link(self):
         twitter_live_posts = self._filter_by_media_types(['twitter']).filtered(

@@ -19,7 +19,7 @@ _logger = getLogger(__name__)
 class WebsiteTwitterWall(models.Model):
     _name = 'website.twitter.wall'
     _inherit = ['website.published.mixin']
-    _description = 'Website Twitter'
+    _description = 'Website X'
     _order = 'name'
 
 
@@ -28,14 +28,14 @@ class WebsiteTwitterWall(models.Model):
     is_live = fields.Boolean(help="Is live mode on/off", default=True)
     active = fields.Boolean(default=True)
     search_pattern = fields.Char('Search string',
-        help='The search criteria to get the tweets you want. You can use the Twitter query operators.\n'
-             'You can also use the special "favorites:screen_name" operator to get the favorited tweets of "screen_name".')
-    mode = fields.Selection([('recent', 'Recent'), ('popular', 'Popular'), ('mixed', 'Mixed')], default='recent', string='Type of tweets', help="Most recent tweets, most popular tweets, or both")
+        help='The search criteria to get the posts you want. You can use the X query operators.\n'
+             'You can also use the special "favorites:screen_name" operator to get the favorited posts of "screen_name".')
+    mode = fields.Selection([('recent', 'Recent'), ('popular', 'Popular'), ('mixed', 'Mixed')], default='recent', string='Type of posts', help="Most recent posts, most popular posts, or both")
     image = fields.Binary()
-    tweet_ids = fields.Many2many('website.twitter.tweet', string='Tweets')
+    tweet_ids = fields.Many2many('website.twitter.tweet', string='Posts')
     total_tweets = fields.Integer(compute='_compute_count_total_tweets')
-    api_key = fields.Char('Twitter API Key', groups='base.group_system')
-    api_secret = fields.Char('Twitter API Secret', groups='base.group_system')
+    api_key = fields.Char('X API Key', groups='base.group_system')
+    api_secret = fields.Char('X API Secret', groups='base.group_system')
     access_token = fields.Char(groups='base.group_system')
     last_search = fields.Datetime(default=fields.Datetime.now)
 
@@ -79,7 +79,7 @@ class WebsiteTwitterWall(models.Model):
                 response.raise_for_status()
                 self.access_token = response.json().get('access_token')
             except requests.exceptions.HTTPError:
-                raise UserError(_('The Twitter authentication failed. Please check your API key and secret.'))
+                raise UserError(_('The X authentication failed. Please check your API key and secret.'))
 
         params = {'result_type': self.mode}
         if self.tweet_ids:
@@ -102,7 +102,7 @@ class WebsiteTwitterWall(models.Model):
         try:
             response.raise_for_status()
         except requests.exceptions.HTTPError:
-            raise UserError(_('The tweets search failed. Check your credentials and access token'))
+            raise UserError(_('The posts search failed. Check your credentials and access token'))
 
         if is_favorite_search:
             return response.json()

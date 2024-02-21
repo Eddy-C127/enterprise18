@@ -45,11 +45,11 @@ class SocialTwitterCase(SocialCase):
                 'social_twitter.stream_type_twitter_user_mentions')
 
             cls.social_twitter_account_1 = cls.env['social.twitter.account'].create({
-                'name': 'Social Twitter Account 1',
+                'name': 'Social X Account 1',
                 'twitter_id': '1234'
             })
             cls.social_twitter_account_2 = cls.env['social.twitter.account'].create({
-                'name': 'Social Twitter Account 2',
+                'name': 'Social X Account 2',
                 'twitter_id': '5678'
             })
 
@@ -222,7 +222,7 @@ class SocialTwitterCase(SocialCase):
             'message': message_to_post,
             'account_ids': self.social_stream_1.account_id,
         })
-        counter_message = f'{len(message_to_post)} / {social_media.max_post_length} characters to fit in a Tweet'
+        counter_message = f'{len(message_to_post)} / {social_media.max_post_length} characters to fit in a Post'
 
         # When posting a message exceeding the Twitter limit (280 characters), verify that the
         # preview properly shows that we exceed the limit (with highlighted exceeding text).
@@ -235,7 +235,7 @@ class SocialTwitterCase(SocialCase):
         social_media.max_post_length = 0
         social_post._compute_twitter_post_limit_message()
         social_post._compute_twitter_preview()
-        counter_message = f'{len(message_to_post)} / {social_media.max_post_length} characters to fit in a Tweet'
+        counter_message = f'{len(message_to_post)} / {social_media.max_post_length} characters to fit in a Post'
 
         self.assertEqual(social_post.twitter_post_limit_message, counter_message)
         # Preview should not have Exceed Content when Max content length is satisfied

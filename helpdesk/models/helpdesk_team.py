@@ -97,7 +97,7 @@ class HelpdeskTeam(models.Model):
     use_fsm = fields.Boolean('Field Service')
     use_product_returns = fields.Boolean('Returns')
     use_product_repairs = fields.Boolean('Repairs')
-    use_twitter = fields.Boolean('Twitter')
+    use_twitter = fields.Boolean('X')
     use_rating = fields.Boolean('Customer Ratings')
     portal_show_rating = fields.Boolean(
         'Ratings on Website', compute='_compute_portal_show_rating', store=True, readonly=False,

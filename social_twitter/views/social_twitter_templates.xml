@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="twitter_preview" t-name="Twitter Preview">
+        <template id="twitter_preview" t-name="X Preview">
             <div class="o_social_preview o_social_twitter_preview bg-white border rounded overflow-hidden w-100">
                 <div class="w-75 d-flex m-3">
                     <span class="o_social_preview_icon_wrapper overflow-hidden me-2">
                         <i class="fa fa-twitter fa-2x"/>
                     </span>
                     <div class="o_social_preview_header">
-                        <b class="text-900">Twitter Account</b>
-                        <span class="text-600">@twitteraccount &#183;
+                        <b class="text-900">X Account</b>
+                        <span class="text-600">@x &#183;
                             <a t-if="live_post_link" t-attf-href="#{live_post_link}" target="blank">11m</a>
                             <t t-else="">11m</t>
                         </span>

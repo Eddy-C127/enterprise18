@@ -8,7 +8,7 @@
     </record>
 
     <record id="social_stream_twitter_account" model="social.stream">
-        <field name="name">Tweets of: My Company</field>
+        <field name="name">Posts of: My Company</field>
         <field name="create_uid" ref="base.user_admin"/>
         <field name="stream_type_id" ref="social_twitter.stream_type_twitter_follow" />
         <field name="media_id" ref="social_twitter.social_media_twitter" />
@@ -33,7 +33,7 @@
     </record>
 
     <record id="social_post_twitter" model="social.post">
-        <field name="message">Our company wishes a happy new year to everyone on Twitter!</field>
+        <field name="message">Our company wishes a happy new year to everyone on X!</field>
         <field name="create_uid" ref="base.user_admin"/>
         <field name="published_date" eval="time.strftime('%Y-01-01 00:01:00')"/>
         <field name="state">posted</field>
@@ -94,7 +94,7 @@
         <field name="author_name">My Company Account</field>
         <field name="twitter_screen_name">mycompanyaccount</field>
         <field name="twitter_profile_image_url" eval="'/web/image/res.partner/%s/image_128' % ref('social_demo.res_partner_1')" />
-        <field name="message">Our company wishes a happy new year to everyone on Twitter!</field>
+        <field name="message">Our company wishes a happy new year to everyone on X!</field>
         <field name="published_date" eval="time.strftime('%Y-01-01 00:01:00')"/>
     </record>
 

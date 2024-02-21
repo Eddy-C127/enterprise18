@@ -33,7 +33,7 @@ class SocialTwitterController(SocialController):
         if not kw.get('denied'):
             if not oauth_token or not oauth_verifier:
                 return request.render('social.social_http_error_view',
-                                      {'error_message': _('Twitter did not provide a valid access token.')})
+                                      {'error_message': _('X did not provide a valid access token.')})
 
             if iap_twitter_consumer_key:
                 request.env['ir.config_parameter'].sudo().set_param('social.twitter_consumer_key', iap_twitter_consumer_key)
@@ -121,7 +121,7 @@ class SocialTwitterController(SocialController):
             ('stream_id', '=', stream_id)
         ], limit=1)
         if not tweet:
-            raise UserError(_('This Tweet has been deleted.'))
+            raise UserError(_('This Post has been deleted.'))
         try:
             return tweet._twitter_do_retweet()
         except UserError as error:
@@ -142,7 +142,7 @@ class SocialTwitterController(SocialController):
             ('stream_id', '=', stream_id)
         ], limit=1)
         if not tweet.exists():
-            raise UserError(_('This Tweet has been deleted.'))
+            raise UserError(_('This Post has been deleted.'))
         try:
             return tweet._twitter_undo_retweet()
         except UserError as error:
@@ -164,7 +164,7 @@ class SocialTwitterController(SocialController):
             ('stream_id', '=', stream_id)
         ], limit=1)
         if not tweet:
-            return json.dumps({'error': _('This Tweet has been deleted.')})
+            return json.dumps({'error': _('This Post has been deleted.')})
         files = request.httprequest.files.getlist('attachment')
         attachment = files and files[0]
         try:
@@ -192,9 +192,9 @@ class SocialTwitterController(SocialController):
         )
 
         if response.status_code != 200:
-            message = _('Twitter did not provide a valid access token or it may have expired.')
+            message = _('X did not provide a valid access token or it may have expired.')
             documentation_link = 'https://help.twitter.com/en/forms/account-access'
-            documentation_link_label = _('Read More about Twitter Accounts')
+            documentation_link_label = _('Read More about X Accounts')
             documentation_link_icon_class = 'fa fa-twitter'
             raise SocialValidationException(message, documentation_link, documentation_link_label, documentation_link_icon_class)
 

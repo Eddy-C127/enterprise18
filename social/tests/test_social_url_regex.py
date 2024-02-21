@@ -17,9 +17,9 @@ class TestUrlRegex(TransactionCase):
         self.assertEqual(url_https, 'https://facebook.com', 'The Facebook URL should be extracted')
 
         url_https_www = self.env['social.post']._extract_url_from_message(
-            "This is a message with a https://www.twitter.com URL to Twitter."
+            "This is a message with a https://www.twitter.com URL to X."
         )
-        self.assertEqual(url_https_www, 'https://www.twitter.com', 'The Twitter URL should be extracted')
+        self.assertEqual(url_https_www, 'https://www.twitter.com', 'The X URL should be extracted')
 
         no_url = self.env['social.post']._extract_url_from_message(
             "This is a message without any URL."

@@ -39,7 +39,7 @@ class DemoSocialStream(models.Model):
             if stream.twitter_followed_account_id:
                 author_name = stream.twitter_followed_account_id.name
             elif stream.media_id == self.env.ref('social_twitter.social_media_twitter', raise_if_not_found=False):
-                author_name = 'Twitter Account'
+                author_name = 'X Account'
             elif stream.media_id == self.env.ref('social_facebook.social_media_facebook', raise_if_not_found=False):
                 author_name = 'My Page'
             else:

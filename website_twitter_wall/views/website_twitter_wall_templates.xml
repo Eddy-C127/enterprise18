@@ -2,7 +2,7 @@
 <odoo>
     <!-- Assets frontend for twitter wall -->
     <!-- Display walls -->
-    <template id="twitter_walls" name="Twitter Walls">
+    <template id="twitter_walls" name="X Walls">
         <t t-call="website.layout">
             <div class="oe_structure" id="oe_structure_website_twitter_wall_walls_1"/>
             <div class="container o-tw-walls">
@@ -36,7 +36,7 @@
     </template>
 
     <!-- Storify and Live view -->
-    <template id="twitter_wall_view" name="Twitter Wall View">
+    <template id="twitter_wall_view" name="X Wall View">
         <t t-set="head">
             <script src="//platform.twitter.com/widgets.js" charset="utf-8" />
         </t>
@@ -60,7 +60,7 @@
                 <div class="o-tw-nav">
                     <div class="container">
                         <div class="row">
-                            <div class="col-10" title="Total Tweets" ><i class="fa fa-twitter"/> <t t-esc="str(wall.total_tweets) + ' Tweets'" /></div>
+                            <div class="col-10" title="Total Posts" ><i class="fa fa-twitter"/> <t t-esc="str(wall.total_tweets) + ' Posts'" /></div>
                             <div class="col-2 text-center"><button t-if="wall.is_live" class="btn btn-default o-tw-btn-invert o-tw-live-btn" title="Live mode"><i class="fa fa-arrows-alt" /></button></div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                 <div class="row o-tw-walls" t-att-data-wall-id="wall.id">
                     <div t-if="not tweets" class="col-12">
                         <span class="text-center o-tw-toggle">
-                            <h1>Hey! No tweet found</h1>
+                            <h1>Hey! No post found</h1>
                         </span>
                     </div>
                     <t t-foreach="range(3)" t-as="i">
@@ -139,7 +139,7 @@
             <a target="_Blank" t-attf-title="Share #{wall.name} on facebook" t-attf-href="https://www.facebook.com/sharer/sharer.php?u=#{wall.website_url}">
                 <i class="fa fa-facebook-square fa-2x" />
             </a>
-            <a target="_Blank" t-attf-title="Share #{wall.name} on twitter" t-attf-href="https://twitter.com/intent/tweet?text=#{wall.name}&amp;url=#{wall.website_url}">
+            <a target="_Blank" t-attf-title="Share #{wall.name} on X" t-attf-href="https://twitter.com/intent/tweet?text=#{wall.name}&amp;url=#{wall.website_url}">
                 <i class="fa fa-twitter-square fa-2x" />
             </a>
             <a target="_Blank" t-attf-title="Share #{wall.name} on linkedin" t-attf-href="http://www.linkedin.com/sharing/share-offsite/?url=#{wall.website_url}">

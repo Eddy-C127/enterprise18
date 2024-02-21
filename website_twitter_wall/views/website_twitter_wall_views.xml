@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem name="Twitter Wall" id="menu_website_twitter_wall_root" sequence="32" parent="website.menu_website_configuration" active="0"/>
+    <menuitem name="X Wall" id="menu_website_twitter_wall_root" sequence="32" parent="website.menu_website_configuration" active="0"/>
 
     <record id="website_twitter_wall_view_tree" model="ir.ui.view">
         <field name="name">website.twitter.wall.tree</field>
@@ -23,7 +23,7 @@
                     <div class="oe_button_box" name="button_box">
                         <field name="is_published" widget="website_redirect_button"/>
                         <button class="oe_stat_button" name="open_tweets" type="object" icon="fa-twitter" invisible="total_tweets == 0">
-                            <field string="Tweets" name="total_tweets" widget="statinfo"/>
+                            <field string="Posts" name="total_tweets" widget="statinfo"/>
                         </button>
                         <field name="is_live" invisible="1" />
                         <button class="oe_stat_button" name="toggle_live_mode" type="object" invisible="not is_live" icon="fa-toggle-on text-success">
@@ -44,7 +44,7 @@
                     <div class="oe_title">
                         <label for="name" string="Wall Name"/>
                         <h1>
-                            <field name="name" default_focus="1" placeholder="e.g. My Twitter Wall"/>
+                            <field name="name" default_focus="1" placeholder="e.g. My X Wall"/>
                         </h1>
                     </div>
                     <group>
@@ -88,7 +88,7 @@
         <field name="name">website.twitter.tweet.tree</field>
         <field name="model">website.twitter.tweet</field>
         <field name="arch" type="xml">
-            <tree string="Tweets" create="false" edit="false">
+            <tree string="Posts" create="false" edit="false">
                 <field name="tweet_id" />
             </tree>
         </field>
@@ -98,7 +98,7 @@
         <field name="name">website.twitter.tweet.form</field>
         <field name="model">website.twitter.tweet</field>
         <field name="arch" type="xml">
-            <form string="Tweets" create="false" edit="false">
+            <form string="Posts" create="false" edit="false">
                 <sheet>
                     <group>
                         <field name="tweet_id" />
@@ -112,7 +112,7 @@
     </record>
 
     <record id="website_twitter_tweet_action" model="ir.actions.act_window">
-        <field name="name">Tweets</field>
+        <field name="name">Posts</field>
         <field name="res_model">website.twitter.tweet</field>
         <field name="view_mode">tree,form</field>
     </record>

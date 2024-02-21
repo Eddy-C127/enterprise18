@@ -3,11 +3,11 @@
 
 
 {
-    'name': 'Configure a Twitter Wall on your Event',
+    'name': 'Configure a X Wall on your Event',
     'category': 'Marketing/Events',
     'sequence': 1030,
     'version': '1.1',
-    'summary': 'Bridge module to configure a twitter wall on your event',
+    'summary': 'Bridge module to configure a X wall on your event',
     'website': 'https://www.odoo.com/app/events',
     'depends': [
         'website_twitter_wall',

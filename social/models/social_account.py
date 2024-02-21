@@ -43,10 +43,10 @@ class SocialAccount(models.Model):
 
     name = fields.Char('Name', required=True)
     social_account_handle = fields.Char("Handle / Short Name",
-        help="Contains the social media handle of the person that created this account. E.g: '@odoo.official' for the 'Odoo' Twitter account")
+        help="Contains the social media handle of the person that created this account. E.g: '@odoo.official' for the 'Odoo' X account")
     active = fields.Boolean("Active", default=True)
     media_id = fields.Many2one('social.media', string="Social Media", required=True, readonly=True,
-        help="Related Social Media (Facebook, Twitter, ...).", ondelete='cascade')
+        help="Related Social Media (Facebook, X, ...).", ondelete='cascade')
     media_type = fields.Selection(related='media_id.media_type')
     stats_link = fields.Char("Stats Link", compute='_compute_stats_link',
         help="Link to the external Social Account statistics")
@@ -62,7 +62,7 @@ class SocialAccount(models.Model):
     engagement_trend = fields.Float("Engagement Trend", readonly=True, digits=(3, 0),
         help="Percentage of increase/decrease of the engagement over a defined period.")
     stories = fields.Integer("Stories", readonly=True,
-        help="Number of stories created from your posts (Shares, Re-tweets, ...).")
+        help="Number of stories created from your posts (Shares, Reposts, ...).")
     stories_trend = fields.Float("Stories Trend", readonly=True, digits=(3, 0),
         help="Percentage of increase/decrease of the stories over a defined period.")
     has_trends = fields.Boolean("Has Trends?",

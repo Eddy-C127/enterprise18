@@ -27,7 +27,7 @@ class SocialStreamPost(models.Model):
     author_name = fields.Char('Author Name',
         help="The post author name based on third party information (ex: 'John Doe').")
     author_link = fields.Char('Author Link', compute='_compute_author_link',
-        help="Author link to the external social.media (ex: link to the Twitter Account).")
+        help="Author link to the external social.media (ex: link to the X Account).")
     post_link = fields.Char('Post Link', compute='_compute_post_link',
         help="Post link to the external social.media (ex: link to the actual Facebook Post).")
     stream_id = fields.Many2one('social.stream', string="Social Stream", ondelete="cascade")

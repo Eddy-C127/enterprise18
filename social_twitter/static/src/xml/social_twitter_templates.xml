@@ -19,7 +19,7 @@
                 <div class="flex-grow-1 d-flex text-muted justify-content-end">
                     <div t-if="originalPost.twitter_retweet_count.raw_value > 0">
                         <t t-esc="originalPost.twitter_retweet_count.value"/>
-                        Retweets
+                        Reposts
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 t-out="author_info"/>
             <div name="o_social_stream_post_message_text" class="o_social_stream_post_message_text overflow-hidden">
                 <span t-if="formattedMessage" t-out="formattedMessage"/>
-                <span t-else="" class="fst-italic">Empty tweet</span>
+                <span t-else="" class="fst-italic">Empty post</span>
             </div>
         </div>
     </t>
@@ -102,7 +102,7 @@
 
     <t t-name="social_twitter.users_autocomplete_element">
         <div t-attf-class="o_social_twitter_users_autocomplete_suggestion clearfix#{suggestion_index == 0 and ' active' or ''}">
-            <img t-att-src="option['profile_image_url']" alt="Twitter Profile Image"/>
+            <img t-att-src="option['profile_image_url']" alt="X Profile Image"/>
             <div class="o_twitter_users_autocomplete_info">
                 <strong><span class="o_twitter_users_autocomplete_info_name">
                     <t t-esc="option['name']" /> - @<t t-esc="option['username']" />

@@ -7,7 +7,7 @@ class EventType(models.Model):
     _inherit = "event.type"
 
     social_menu = fields.Boolean(
-        'Twitter Wall Menu Item', compute='_compute_social_menu',
+        'X Wall Menu Item', compute='_compute_social_menu',
         readonly=False, store=True)
 
     @api.depends('website_menu')

@@ -24,7 +24,7 @@ class SocialMedia(models.Model):
     media_description = fields.Char('Description', readonly=True)
     image = fields.Binary('Image', readonly=True)
     media_type = fields.Selection([], readonly=True,
-        help="Used to make comparisons when we need to restrict some features to a specific media ('facebook', 'twitter', ...).")
+        help="Used to make comparisons when we need to restrict some features to a specific media ('facebook', 'x', ...).")
     csrf_token = fields.Char('CSRF Token', compute='_compute_csrf_token',
         help="This token can be used to verify that an incoming request from a social provider has not been forged.")
     account_ids = fields.One2many('social.account', 'media_id', string="Social Accounts")

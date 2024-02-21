@@ -531,7 +531,7 @@
                         </t>
                     </div>
                     <t t-if="_hasStories(socialAccount)">
-                        <t t-set="stories_content">Number of times people who have engaged with your channel have created stories on their friends' or followers' feed (Shares, Retweets...)</t>
+                        <t t-set="stories_content">Number of times people who have engaged with your channel have created stories on their friends' or followers' feed (Shares, Reposts...)</t>
                         <div class="d-flex align-items-center justify-content-end flex-grow-1 ps-3"
                             data-bs-toggle="popover" title="Stories"
                             t-att-data-bs-content="stories_content">

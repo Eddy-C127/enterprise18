@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'Twitter Wall',
+    'name': 'X Wall',
     'category': 'Website/Website',
-    'summary': 'Pretty Way to Display Tweets for Event',
+    'summary': 'Pretty Way to Display X for Event',
     'description': """
 Make Everybody a Part of Your Event
 ===================================
 
-Turn your event into an interactive experience by letting everybody post to your Twitter Wall. Connect with the crowd and build a personal relationship with attendees.
- * Create Live twitter walls for event
+Turn your event into an interactive experience by letting everybody post to your X Wall. Connect with the crowd and build a personal relationship with attendees.
+ * Create Live X walls for event
  * No complex moderation needed.
  * Customize your live view with help of various options.
  * Auto Storify view after event is over.

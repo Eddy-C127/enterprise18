@@ -16,7 +16,7 @@ class Job(models.Model):
     max_points = fields.Integer(compute='_compute_max_points')
     direct_clicks = fields.Integer(compute='_compute_clicks')
     facebook_clicks = fields.Integer(compute='_compute_clicks')
-    twitter_clicks = fields.Integer(compute='_compute_clicks')
+    twitter_clicks = fields.Integer("X Clicks", compute='_compute_clicks')
     linkedin_clicks = fields.Integer(compute='_compute_clicks')
 
     def _compute_clicks(self):

@@ -28,7 +28,7 @@ class SocialStreamTwitter(models.Model):
             and not stream.twitter_followed_account_id
             for stream in self
         ):
-            raise UserError(_("Please select a Twitter account for this stream type."))
+            raise UserError(_("Please select a X account for this stream type."))
 
     def _apply_default_name(self):
         twitter_streams = self.filtered(lambda s: s.media_id.media_type == 'twitter')
@@ -95,7 +95,7 @@ class SocialStreamTwitter(models.Model):
                 # it's probably because the Twitter account we tried to add
                 # is private
                 error_message = _(
-                    "You cannot create a Stream from this Twitter account.\n"
+                    "You cannot create a Stream from this X account.\n"
                     "It may be because it's protected. To solve this, please make sure you follow it before trying again."
                 )
             elif response.status_code == 400 and result.get('errors', [{}])[0].get('parameters', {}).get('query'):

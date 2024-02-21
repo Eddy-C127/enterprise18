@@ -57,7 +57,7 @@ class TestSocialTwitter(HttpCase):
             self.start_tour("/web", 'social_twitter/static/tests/tours/tour_social_twitter_spam.js', login='social_manager')
 
         for message in self.all_messages:
-            self.assertNotIn('_last__', message, 'Should not have posted the last message on Twitter')
+            self.assertNotIn('_last__', message, 'Should not have posted the last message on X')
 
     @contextmanager
     def mock_twitter_call(self):

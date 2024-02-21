@@ -17,26 +17,26 @@ _logger = logging.getLogger(__name__)
 class SocialStreamPostTwitter(models.Model):
     _inherit = 'social.stream.post'
 
-    twitter_tweet_id = fields.Char('Twitter Tweet ID', index=True)
-    twitter_conversation_id = fields.Char('Twitter Conversation ID')
-    twitter_author_id = fields.Char('Twitter Author ID')
-    twitter_screen_name = fields.Char('Twitter Screen Name')
-    twitter_profile_image_url = fields.Char('Twitter Profile Image URL')
-    twitter_likes_count = fields.Integer('Twitter Likes')
-    twitter_user_likes = fields.Boolean('Twitter User Likes')
-    twitter_comments_count = fields.Integer('Twitter Comments')
-    twitter_retweet_count = fields.Integer('Re-tweets')
+    twitter_tweet_id = fields.Char('X Post ID', index=True)
+    twitter_conversation_id = fields.Char('X Conversation ID')
+    twitter_author_id = fields.Char('X Author ID')
+    twitter_screen_name = fields.Char('X Screen Name')
+    twitter_profile_image_url = fields.Char('X Profile Image URL')
+    twitter_likes_count = fields.Integer('X Likes')
+    twitter_user_likes = fields.Boolean('X User Likes')
+    twitter_comments_count = fields.Integer('X Replies')
+    twitter_retweet_count = fields.Integer('Reposts')
 
-    twitter_retweeted_tweet_id_str = fields.Char('Twitter Retweet ID')
-    twitter_can_retweet = fields.Boolean(compute='_compute_twitter_can_retweet')
-    twitter_quoted_tweet_id_str = fields.Char('Twitter Quoted Tweet ID')
-    twitter_quoted_tweet_message = fields.Text('Quoted tweet message')
-    twitter_quoted_tweet_author_name = fields.Char('Quoted tweet author Name')
-    twitter_quoted_tweet_author_link = fields.Char('Quoted tweet author Link')
-    twitter_quoted_tweet_profile_image_url = fields.Char('Quoted tweet profile image URL')
+    twitter_retweeted_tweet_id_str = fields.Char('X Repost ID')
+    twitter_can_retweet = fields.Boolean('X Repost Permission', compute='_compute_twitter_can_retweet')
+    twitter_quoted_tweet_id_str = fields.Char('X Quoted post ID')
+    twitter_quoted_tweet_message = fields.Text('Quoted post message')
+    twitter_quoted_tweet_author_name = fields.Char('Quoted post author Name')
+    twitter_quoted_tweet_author_link = fields.Char('Quoted post author Link')
+    twitter_quoted_tweet_profile_image_url = fields.Char('Quoted post profile image URL')
 
     _sql_constraints = [
-        ('tweet_uniq', 'UNIQUE (twitter_tweet_id, stream_id)', 'You can not store two times the same tweet on the same stream!')
+        ('tweet_uniq', 'UNIQUE (twitter_tweet_id, stream_id)', 'You can not store two times the same post on the same stream!')
     ]
 
     def _compute_author_link(self):
@@ -116,7 +116,7 @@ class SocialStreamPostTwitter(models.Model):
         self.ensure_one()
 
         if not self.twitter_conversation_id:
-            raise UserError(_('This tweet is outdated, please refresh the stream and try again.'))
+            raise UserError(_('This post is outdated, please refresh the stream and try again.'))
 
         endpoint_url = url_join(self.env['social.media']._TWITTER_ENDPOINT, '/2/tweets/search/recent')
         query_params = {
@@ -142,8 +142,8 @@ class SocialStreamPostTwitter(models.Model):
         )
         if not result.ok:
             if result.json().get('errors', [{}])[0].get('parameters', {}).get('since_id'):
-                raise UserError(_("Replies from Tweets older than 7 days must be accessed on Twitter.com"))
-            raise UserError(_("Failed to fetch the tweets in the same thread: '%s' using the account %s.", result.text, self.stream_id.account_id.name))
+                raise UserError(_("Replies from posts older than 7 days must be accessed on Twitter.com"))
+            raise UserError(_("Failed to fetch the posts in the same thread: '%s' using the account %s.", result.text, self.stream_id.account_id.name))
 
         users = {
             user['id']: {
@@ -189,7 +189,7 @@ class SocialStreamPostTwitter(models.Model):
             timeout=5
         )
         if not response.ok:
-            raise UserError(_('Failed to delete the Tweet\n%s.', response.text))
+            raise UserError(_('Failed to delete the post\n%s.', response.text))
 
         return True
 
@@ -224,7 +224,7 @@ class SocialStreamPostTwitter(models.Model):
     def _twitter_do_retweet(self):
         """ Creates a new retweet for the given stream post on Twitter. """
         if not self.twitter_can_retweet:
-            raise UserError(_('A retweet already exists'))
+            raise UserError(_('A repost already exists'))
 
         account = self.stream_id.account_id
         retweet_endpoint = url_join(self.env['social.media']._TWITTER_ENDPOINT, '/2/users/%s/retweets' % account.twitter_user_id)

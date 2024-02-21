@@ -19,7 +19,7 @@ registry.category("web_tour.tours").add('social_tour', {
             edition: 'enterprise',
         }, {
             trigger: 'button.o_stream_post_kanban_new_stream',
-            content: markup(_t("Let's <b>connect</b> to Facebook, LinkedIn or Twitter.")),
+            content: markup(_t("Let's <b>connect</b> to Facebook, LinkedIn or X.")),
             position: 'bottom',
             edition: 'enterprise',
         }, {

@@ -52,23 +52,23 @@
                             <a href="#" class="o_social_twitter_retweet_icon o_social_subtle_btn"
                                 role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i t-attf-class="fa fa-retweet #{record.twitter_can_retweet.raw_value ? '' : 'active'} me-1"
-                                    role="img" aria-label="Retweet" title="Retweet or Quote"/>
+                                    role="img" aria-label="Repost" title="Repost or Quote"/>
                                 <t t-if="record.twitter_retweet_count.value > 0">
                                     <div class="d-inline-block">
                                         <t t-esc="record.twitter_retweet_count.value"/>
-                                        RT
+                                        Reposts
                                     </div>
                                 </t>
                             </a>
                             <div class="dropdown-menu kanban_ignore_dropdown" role="menu">
                                 <a class="dropdown-item o_social_twitter_retweet" href="#" role="button">
-                                    <i class="fa fa-retweet me-1" title="Retweet a tweet"/>
-                                    <span t-if="record.twitter_can_retweet.raw_value">Retweet</span>
-                                    <span t-else="">Undo Retweet</span>
+                                    <i class="fa fa-retweet me-1" title="Repost a post"/>
+                                    <span t-if="record.twitter_can_retweet.raw_value">Repost</span>
+                                    <span t-else="">Undo Repost</span>
                                 </a>
                                 <a class="dropdown-item o_social_twitter_quote" href="#" role="button">
-                                    <i class="fa fa-pencil me-1" title="Quote a tweet"/>
-                                    <span>Quote Tweet</span>
+                                    <i class="fa fa-pencil me-1" title="Quote a post"/>
+                                    <span>Quote</span>
                                 </a>
                             </div>
                         </div>

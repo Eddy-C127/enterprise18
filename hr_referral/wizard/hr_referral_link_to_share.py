@@ -18,7 +18,7 @@ class HrReferralLinkToShare(models.TransientModel):
     channel = fields.Selection([
         ('direct', 'Link'),
         ('facebook', 'Facebook'),
-        ('twitter', 'Twitter'),
+        ('twitter', 'X'),
         ('linkedin', 'Linkedin')], default='direct')
     url = fields.Char(readonly=True, compute='_compute_url', compute_sudo=True)
 

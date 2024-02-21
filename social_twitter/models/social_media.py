@@ -23,7 +23,7 @@ class SocialMediaTwitter(models.Model):
 
     _TWITTER_ENDPOINT = 'https://api.twitter.com'
 
-    media_type = fields.Selection(selection_add=[('twitter', 'Twitter')])
+    media_type = fields.Selection(selection_add=[('twitter', 'X')])
 
     def _action_add_account(self):
         """ Builds the URL to Twitter in order to allow account access, then redirects the client.
@@ -105,7 +105,7 @@ class SocialMediaTwitter(models.Model):
             document_root = XmlElementTree.fromstring(response.text)
             error_node = document_root.find('error')
             if error_node is not None and error_node.get('code') == '415':
-                return _('You need to add the following callback URL to your twitter application settings: %s',
+                return _('You need to add the following callback URL to your X application settings: %s',
                          url_join(self.get_base_url(), "social_twitter/callback"))
         return response.text
 

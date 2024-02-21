@@ -2,11 +2,11 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Social Twitter',
+    'name': 'Social X',
     'category': 'Marketing/Social Marketing',
-    'summary': 'Manage your Twitter accounts and schedule tweets',
+    'summary': 'Manage your X accounts and schedule posts',
     'version': '1.1',
-    'description': """Manage your Twitter accounts and schedule tweets""",
+    'description': """Manage your X accounts and schedule posts""",
     'depends': ['social', 'iap'],
     'data': [
         'security/ir.model.access.csv',

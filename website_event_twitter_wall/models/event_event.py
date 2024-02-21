@@ -9,9 +9,9 @@ class EventEvent(models.Model):
     _inherit = "event.event"
 
     social_menu = fields.Boolean(
-        'Showcase Twitter Wall', compute='_compute_social_menu',
+        'Showcase X Wall', compute='_compute_social_menu',
         readonly=False, store=True)
-    twitter_wall_id = fields.Many2one('website.twitter.wall', string="Twitter Wall")
+    twitter_wall_id = fields.Many2one('website.twitter.wall', string="X Wall")
     social_menu_ids = fields.One2many(
         'website.event.menu', 'event_id', string='Social Menus',
         domain=[('menu_type', '=', 'social')])

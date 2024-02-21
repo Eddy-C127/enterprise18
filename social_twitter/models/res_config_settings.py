@@ -7,11 +7,11 @@ from odoo import api, fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    twitter_use_own_account = fields.Boolean("Use your own Twitter Account", config_parameter='social.twitter_use_own_account',
-        help="""Check this if you want to use your personal Twitter Developer Account instead of the provided one.""")
-    twitter_consumer_key = fields.Char("Twitter Consumer Key",
+    twitter_use_own_account = fields.Boolean("Use your own X Account", config_parameter='social.twitter_use_own_account',
+        help="""Check this if you want to use your personal X Developer Account instead of the provided one.""")
+    twitter_consumer_key = fields.Char("X Consumer Key",
         compute='_compute_twitter_consumer_key', inverse='_inverse_twitter_consumer_key')
-    twitter_consumer_secret_key = fields.Char("Twitter Consumer Secret Key",
+    twitter_consumer_secret_key = fields.Char("X Consumer Secret Key",
         compute='_compute_twitter_consumer_secret_key', inverse='_inverse_twitter_consumer_secret_key')
 
     @api.onchange('twitter_use_own_account')

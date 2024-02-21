@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="social.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//block[hasclass('o_social_developer_settings')]" position="inside">
-                <setting string="Twitter Developer Account">
+                <setting string="X Developer Account">
                     <field name="twitter_use_own_account"/>
                     <div class="content-group" invisible="not twitter_use_own_account">
                         <div class="mt16">

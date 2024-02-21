@@ -15,9 +15,9 @@ TWITTER_IMAGES_UPLOAD_ENDPOINT = "https://upload.twitter.com/1.1/media/upload.js
 class SocialAccountTwitter(models.Model):
     _inherit = 'social.account'
 
-    twitter_user_id = fields.Char('Twitter User ID')
-    twitter_oauth_token = fields.Char('Twitter OAuth Token')
-    twitter_oauth_token_secret = fields.Char('Twitter OAuth Token Secret')
+    twitter_user_id = fields.Char('X User ID')
+    twitter_oauth_token = fields.Char('X OAuth Token')
+    twitter_oauth_token_secret = fields.Char('X OAuth Token Secret')
 
     def _compute_statistics(self):
         """ See methods '_get_last_tweets_stats' for more info about Twitter stats. """
