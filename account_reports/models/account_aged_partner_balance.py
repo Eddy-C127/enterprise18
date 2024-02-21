@@ -373,7 +373,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                                  `expression_label`: the expression label of the cell
         """
         report = self.env['account.report'].browse(options['report_id'])
-        action = self.env['ir.actions.actions']._for_xml_id('account.action_open_payment_items')
+        action = self.env['ir.actions.actions']._for_xml_id('account.action_amounts_to_settle')
         journal_type_to_exclude = {'purchase': 'sale', 'sale': 'purchase'}
         if options:
             domain = [

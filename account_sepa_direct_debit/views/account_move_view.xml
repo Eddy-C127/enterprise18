@@ -17,7 +17,7 @@
             <field name="model">account.move.line</field>
             <field name="inherit_id" ref="account.view_account_move_line_payment_filter"/>
             <field name="arch" type="xml">
-                <xpath expr="//filter[@name='purchases']" position="after">
+                <xpath expr="//filter[@name='refunds']" position="after">
                     <separator/>
                     <filter name="has_sdd_mandate" string="SDD Mandate" domain="[('move_id.sdd_has_usable_mandate', '=', True)]" help="Payments matching a valid SEPA Direct Debit Mandate"/>
                 </xpath>
