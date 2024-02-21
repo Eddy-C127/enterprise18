@@ -40,8 +40,6 @@
 }
 
 // ------- Sample mode -------
-.o_cohort_view .o_view_sample_data {
-    .o_data_table {
-        @include o-sample-data-disabled;
-    }
+.o_cohort_view .o_view_sample_data .table-responsive {
+    @include o-sample-data-disabled;
 }
