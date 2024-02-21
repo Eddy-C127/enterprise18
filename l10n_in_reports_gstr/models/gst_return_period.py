@@ -149,6 +149,28 @@ class L10nInGSTReturnPeriod(models.Model):
         "Return period must be unique."
     )]
 
+    def _get_base_account_domain(self):
+        return [
+            ('company_id', 'in', (self.company_ids or self.company_id).ids),
+            ("date", ">=", self.start_date),
+            ("date", "<=", self.end_date),
+        ]
+
+    def _get_default_account_move_domain(self, is_purchase=False):
+        AccountMove = self.env['account.move']
+        move_type = is_purchase and AccountMove.get_purchase_types(True) or AccountMove.get_sale_types(True)
+        return self._get_base_account_domain() + [
+            ('move_type', 'in', move_type),
+            ("state", "=", "posted"),
+        ]
+
+    def _get_default_aml_domain(self, gst_tags):
+        return self._get_base_account_domain() + [
+            ('move_id.move_type', 'in', self.env['account.move'].get_invoice_types(True)),
+            ("move_id.state", "=", "posted"),
+            ("tax_tag_ids", "in", gst_tags),
+        ]
+
     @api.constrains('tax_unit_id')
     def _check_tax_unit(self):
         for record in self:
@@ -194,29 +216,14 @@ class L10nInGSTReturnPeriod(models.Model):
     def _compute_invoice_total_amount(self):
         AccountMove = self.env['account.move']
         for record in self:
-            domain = [
-                ('company_id', 'in', (record.company_ids or record.company_id).ids),
-                ('move_type', 'in', AccountMove.get_sale_types(True)),
-                ("date", ">=", record.start_date),
-                ("date", "<=", record.end_date),
-                ("state", "=", "posted"),
-            ]
-            total_by_companies = AccountMove._read_group(domain, [], ['amount_total_signed:sum'])
+            total_by_companies = AccountMove._read_group(record._get_default_account_move_domain(), [], ['amount_total_signed:sum'])
             record.invoice_amount = total_by_companies[0][0]
 
     @api.depends("company_ids", "company_id")
     def _compute_expected_amount(self):
-        gst_tags = self._get_l10n_in_taxes_tags_id_by_name(only_gst_tags=True)
+        gst_tags = self._get_l10n_in_taxes_tags_id_by_name(only_gst_tags=True).values()
         for record in self:
-            domain = [
-                ('company_id', 'in', (record.company_ids + record.company_id).ids),
-                ('move_id.move_type', 'in', self.env['account.move'].get_invoice_types(True)),
-                ("date", ">=", record.start_date),
-                ("date", "<=", record.end_date),
-                ("move_id.state", "=", "posted"),
-                ("tax_tag_ids", "in", gst_tags.values()),
-            ]
-            total_by_companies = self.env['account.move.line']._read_group(domain, ['company_id'], ['balance:sum'])
+            total_by_companies = self.env['account.move.line']._read_group(self._get_default_aml_domain(gst_tags), ['company_id'], ['balance:sum'])
             total = 0.00
             for total_by_company in total_by_companies:
                 if total_by_company[0].id in (record.company_ids or record.company_id).ids:
@@ -227,14 +234,7 @@ class L10nInGSTReturnPeriod(models.Model):
     def _compute_bill_total_amount(self):
         AccountMove = self.env['account.move']
         for record in self:
-            domain = [
-                ('company_id', 'in', (record.company_ids + record.company_id).ids),
-                ('move_type', 'in', AccountMove.get_purchase_types(True)),
-                ("date", ">=", record.start_date),
-                ("date", "<=", record.end_date),
-                ("state", "=", "posted")
-            ]
-            total_by_companies = AccountMove._read_group(domain, ['company_id'], ['amount_total_signed:sum'])
+            total_by_companies = AccountMove._read_group(record._get_default_account_move_domain(is_purchase=True), ['company_id'], ['amount_total_signed:sum'])
             total = 0.00
             for total_by_company in total_by_companies:
                 if total_by_company[0].id in (record.company_ids or record.company_id).ids:
@@ -246,14 +246,11 @@ class L10nInGSTReturnPeriod(models.Model):
         for record in self:
             if record.periodicity == "monthly":
                 period_start = fields.Date.context_today(self).replace(day=1, month=int(record.month), year=int(record.year))
-                this_month_start, this_month_end = date_utils.get_month(period_start)
-                record.start_date = this_month_start
-                record.end_date = this_month_end
+                time_period = date_utils.get_month(period_start)
             else:
                 period_start = fields.Date.context_today(self).replace(day=1, month=int(record.quarter), year=int(record.year))
-                this_quarter_start, this_quarter_end = date_utils.get_quarter(period_start)
-                record.start_date = this_quarter_start
-                record.end_date = this_quarter_end
+                time_period = date_utils.get_quarter(period_start)
+            record.start_date, record.end_date = time_period
 
     @api.depends("start_date")
     def _compute_rtn_period_month_year(self):
@@ -302,40 +299,20 @@ class L10nInGSTReturnPeriod(models.Model):
             if record.gstr1_status != 'to_send' or record.gstr2b_status != 'not_recived':
                 raise UserError("You cannot delete GST Return Period after sending/receiving GSTR data")
 
-    def open_invoice_action(self):
-        domain = [
-            ('company_id', 'in', (self.company_ids + self.company_id).ids),
-            ('move_type', 'in', self.env['account.move'].get_sale_types(True)),
-            ("date", ">=", self.start_date),
-            ("date", "<=", self.end_date),
-            ("state", "=", "posted"),
-        ]
+    def _get_action_open_move_journal_line(self, is_purchase=False):
         action = self.env['ir.actions.act_window']._for_xml_id('account.action_move_journal_line')
-        action['domain'] = domain
+        action['domain'] = self._get_default_account_move_domain(is_purchase=is_purchase)
         return action
+
+    def open_invoice_action(self):
+        return self._get_action_open_move_journal_line()
 
     def open_vendor_bill_action(self):
-        domain = [
-            ('company_id', 'in', (self.company_ids + self.company_id).ids),
-            ('move_type', 'in', self.env['account.move'].get_purchase_types(True)),
-            ("date", ">=", self.start_date),
-            ("date", "<=", self.end_date),
-            ("state", "=", "posted")
-        ]
-        action = self.env['ir.actions.act_window']._for_xml_id('account.action_move_journal_line')
-        action['domain'] = domain
-        return action
+        return self._get_action_open_move_journal_line(is_purchase=True)
 
     def open_expected_action(self):
-        gst_tags = self._get_l10n_in_taxes_tags_id_by_name(only_gst_tags=True)
-        domain = [
-            ('company_id', 'in', (self.company_ids + self.company_id).ids),
-            ('move_id.move_type', 'in', self.env['account.move'].get_invoice_types(True)),
-            ("date", ">=", self.start_date),
-            ("date", "<=", self.end_date),
-            ("move_id.state", "=", "posted"),
-            ("tax_tag_ids", "in", gst_tags.values()),
-        ]
+        gst_tags = self._get_l10n_in_taxes_tags_id_by_name(only_gst_tags=True).values()
+        domain = self._get_default_aml_domain(gst_tags)
         action = self.env['ir.actions.act_window']._for_xml_id('account.action_account_moves_all')
         action['domain'] = domain
         return action
@@ -1287,128 +1264,126 @@ class L10nInGSTReturnPeriod(models.Model):
         gst_tags = sgst_tag_ids + cgst_tag_ids + igst_tag_ids + cess_tag_ids
         other_then_gst_tag = [taxes_tag_ids[key] for key in ['exempt', 'nil_rated', 'non_gst_supplies']]
         export_tags = igst_tag_ids + [taxes_tag_ids['zero_rated']] + cess_tag_ids + other_then_gst_tag
-        domain = [
-            ("date", ">=", self.start_date),
-            ("date", "<=", self.end_date),
+        domain = self._get_base_account_domain() + [
             ("move_id.state", "=", "posted"),
-            ("company_id", "in", self.company_ids.ids or self.company_id.ids),
             ("display_type", "not in", ('rounding', 'line_note', 'line_section'))
         ]
-        if section_code == "b2b":
-            return (
-                domain
-                + [
-                    ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
-                    ("move_id.debit_origin_id", "=", False),
-                    ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "uin_holders", "composition")),
-                    ("tax_tag_ids", "in", gst_tags),
-                ]
-            )
-        if section_code == "b2cl":
-            return (
-                domain
-                + [
-                    ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
-                    ("move_id.debit_origin_id", "=", False),
-                    ("move_id.l10n_in_gst_treatment", "in", ("unregistered", "consumer")),
-                    ("move_id.l10n_in_state_id", "!=", self.company_id.state_id.id),
-                    ("move_id.amount_total", ">", 250000),
-                    ("tax_tag_ids", "in", gst_tags),
-                ]
-            )
-        if section_code == "b2cs":
-            return (
-                domain
-                + [
-                    ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
-                    ("move_id.l10n_in_gst_treatment", "in", ("unregistered", "consumer")),
-                    ("tax_tag_ids", "in", gst_tags),
-                    "|",
-                    ("move_id.l10n_in_transaction_type", "=", "intra_state"),
-                    "&",
-                    ("move_id.l10n_in_transaction_type", "=", "inter_state"),
-                    ("move_id.amount_total", "<=", 250000),
-                ]
-            )
-        if section_code == "cdnr":
-            return (
-                domain
-                + [
-                    "|",
-                    ("move_id.move_type", "=", "out_refund"),
-                    "&",
-                    ("move_id.move_type", "=", "out_invoice"),
-                    ("move_id.debit_origin_id", "!=", False),
-                    ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "uin_holders", "composition")),
-                    ("tax_tag_ids", "in", gst_tags),
-                ]
-            )
-        if section_code == "cdnur":
-            return (
-                domain
-                + [
-                    "|",
-                    ("move_id.move_type", "=", "out_refund"),
-                    "&",
-                    ("move_id.move_type", "=", "out_invoice"),
-                    ("move_id.debit_origin_id", "!=", False),
-                    "|", "&",
-                    ("move_id.l10n_in_gst_treatment", "=", "overseas"),
-                    ("tax_tag_ids", "in", export_tags),
-                    "&", "&", "&",
-                    ("tax_tag_ids", "in", gst_tags),
-                    ("move_id.l10n_in_gst_treatment", "in", ["unregistered", "consumer"]),
-                    ("move_id.l10n_in_transaction_type", "=", "inter_state"),
-                    ("move_id.amount_total", ">", 250000),
-                ]
-            )
-        if section_code == "exp":
-            return (
-                domain
-                + [
-                    ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
-                    ("move_id.debit_origin_id", "=", False),
-                    ("move_id.l10n_in_gst_treatment", "=", "overseas"),
-                    ("tax_tag_ids", "in", export_tags),
-                ]
-            )
-        if section_code == "nil":
-            return (
-                domain
-                + [
-                    ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
-                    ("move_id.l10n_in_gst_treatment", "!=", "overseas"),
-                    ("tax_tag_ids", "in", other_then_gst_tag),
-                ]
-            )
-        if section_code == "hsn":
-            return (
-                domain
-                + [
-                    ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
-                    ("tax_tag_ids", "in", gst_tags + other_then_gst_tag),
-                ]
-            )
-        if section_code == 'supeco_clttx':
-            return (
-                domain
-                + [
-                    ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
-                    ("move_id.l10n_in_reseller_partner_id.vat", "!=", False),
-                    ("move_id.l10n_in_reseller_partner_id.industry_id", "=", self.env.ref('l10n_in.eco_under_section_52').id),
-                    ("tax_tag_ids", "in", [taxes_tag_ids[f'base_{gst}'] for gst in ['cgst', 'sgst', 'igst']]),
-                ]
-            )
-        if section_code == 'supeco_paytx':
-            return (
-                domain
-                + [
-                    ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
-                    ("move_id.l10n_in_reseller_partner_id.vat", "!=", False),
-                    ("move_id.l10n_in_reseller_partner_id.industry_id", "=", self.env.ref('l10n_in.eco_under_section_9_5').id),
-                    ("tax_tag_ids", "in", gst_tags),
-                ]
-            )
+        match section_code:
+            case "b2b":
+                return (
+                    domain
+                    + [
+                        ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
+                        ("move_id.debit_origin_id", "=", False),
+                        ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "uin_holders", "composition")),
+                        ("tax_tag_ids", "in", gst_tags),
+                    ]
+                )
+            case "b2cl":
+                return (
+                    domain
+                    + [
+                        ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
+                        ("move_id.debit_origin_id", "=", False),
+                        ("move_id.l10n_in_gst_treatment", "in", ("unregistered", "consumer")),
+                        ("move_id.l10n_in_state_id", "!=", self.company_id.state_id.id),
+                        ("move_id.amount_total", ">", 250000),
+                        ("tax_tag_ids", "in", gst_tags),
+                    ]
+                )
+            case "b2cs":
+                return (
+                    domain
+                    + [
+                        ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
+                        ("move_id.l10n_in_gst_treatment", "in", ("unregistered", "consumer")),
+                        ("tax_tag_ids", "in", gst_tags),
+                        "|",
+                        ("move_id.l10n_in_transaction_type", "=", "intra_state"),
+                        "&",
+                        ("move_id.l10n_in_transaction_type", "=", "inter_state"),
+                        ("move_id.amount_total", "<=", 250000),
+                    ]
+                )
+            case "cdnr":
+                return (
+                    domain
+                    + [
+                        "|",
+                        ("move_id.move_type", "=", "out_refund"),
+                        "&",
+                        ("move_id.move_type", "=", "out_invoice"),
+                        ("move_id.debit_origin_id", "!=", False),
+                        ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "uin_holders", "composition")),
+                        ("tax_tag_ids", "in", gst_tags),
+                    ]
+                )
+            case "cdnur":
+                return (
+                    domain
+                    + [
+                        "|",
+                        ("move_id.move_type", "=", "out_refund"),
+                        "&",
+                        ("move_id.move_type", "=", "out_invoice"),
+                        ("move_id.debit_origin_id", "!=", False),
+                        "|", "&",
+                        ("move_id.l10n_in_gst_treatment", "=", "overseas"),
+                        ("tax_tag_ids", "in", export_tags),
+                        "&", "&", "&",
+                        ("tax_tag_ids", "in", gst_tags),
+                        ("move_id.l10n_in_gst_treatment", "in", ["unregistered", "consumer"]),
+                        ("move_id.l10n_in_transaction_type", "=", "inter_state"),
+                        ("move_id.amount_total", ">", 250000),
+                    ]
+                )
+            case "exp":
+                return (
+                    domain
+                    + [
+                        ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
+                        ("move_id.debit_origin_id", "=", False),
+                        ("move_id.l10n_in_gst_treatment", "=", "overseas"),
+                        ("tax_tag_ids", "in", export_tags),
+                    ]
+                )
+            case "nil":
+                return (
+                    domain
+                    + [
+                        ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
+                        ("move_id.l10n_in_gst_treatment", "!=", "overseas"),
+                        ("tax_tag_ids", "in", other_then_gst_tag),
+                    ]
+                )
+            case "hsn":
+                return (
+                    domain
+                    + [
+                        ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
+                        ("tax_tag_ids", "in", gst_tags + other_then_gst_tag),
+                    ]
+                )
+            case 'supeco_clttx':
+                return (
+                    domain
+                    + [
+                        ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
+                        ("move_id.l10n_in_reseller_partner_id.vat", "!=", False),
+                        ("move_id.l10n_in_reseller_partner_id.industry_id", "=", self.env.ref('l10n_in.eco_under_section_52').id),
+                        ("tax_tag_ids", "in", [taxes_tag_ids[f'base_{gst}'] for gst in ['cgst', 'sgst', 'igst']]),
+                    ]
+                )
+            case 'supeco_paytx':
+                return (
+                    domain
+                    + [
+                        ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
+                        ("move_id.l10n_in_reseller_partner_id.vat", "!=", False),
+                        ("move_id.l10n_in_reseller_partner_id.industry_id", "=", self.env.ref('l10n_in.eco_under_section_9_5').id),
+                        ("tax_tag_ids", "in", gst_tags),
+                    ]
+                )
 
         raise UserError("Section %s is unkown" % (section_code))
 
