@@ -47,7 +47,7 @@ export class PivotDetailsSidePanel extends Component {
     }
 
     onNameChanged(name) {
-        this.env.model.dispatch("RENAME_ODOO_PIVOT", {
+        this.env.model.dispatch("RENAME_PIVOT", {
             pivotId: this.props.pivotId,
             name,
         });

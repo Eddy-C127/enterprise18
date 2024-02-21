@@ -67,14 +67,14 @@ function insertPreloadedPivot(model, params) {
         rowTitle: "",
     };
     model.dispatch("ADD_PIVOT", {
-        id: params.pivotId,
+        pivotId: params.pivotId,
         pivot,
     });
     model.dispatch("INSERT_PIVOT", {
         sheetId,
         col: params.anchor ? params.anchor[0] : 0,
         row: params.anchor ? params.anchor[1] : 0,
-        id: params.pivotId,
+        pivotId: params.pivotId,
         table,
     });
     const columns = [];
@@ -113,7 +113,7 @@ QUnit.module("spreadsheet_edition > Pivot collaborative", {
 QUnit.test("Rename a pivot", async (assert) => {
     assert.expect(1);
     await insertPivot(alice);
-    alice.dispatch("RENAME_ODOO_PIVOT", { pivotId: 1, name: "Test" });
+    alice.dispatch("RENAME_PIVOT", { pivotId: 1, name: "Test" });
     assert.spreadsheetIsSynchronized(
         [alice, bob, charlie],
         (user) => user.getters.getPivotName(1),
@@ -239,7 +239,7 @@ QUnit.test("Add a pivot in another sheet", async (assert) => {
 QUnit.test("Rename and remove a pivot concurrently", async (assert) => {
     await insertPivot(alice);
     await network.concurrent(() => {
-        alice.dispatch("RENAME_ODOO_PIVOT", {
+        alice.dispatch("RENAME_PIVOT", {
             pivotId: "1",
             name: "test",
         });
@@ -260,7 +260,7 @@ QUnit.test("Insert and remove a pivot concurrently", async (assert) => {
         const structure = alice.getters.getPivot("1").getTableStructure();
         const table = structure.export();
         alice.dispatch("INSERT_PIVOT", {
-            id: "1",
+            pivotId: "1",
             col: 0,
             row: 0,
             sheetId: alice.getters.getActiveSheetId(),

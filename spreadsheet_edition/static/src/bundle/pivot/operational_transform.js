@@ -6,8 +6,8 @@ const { otRegistry } = spreadsheet.registries;
 otRegistry
     .addTransformation("ADD_PIVOT", ["ADD_PIVOT", "DUPLICATE_PIVOT"], transformNewPivotCommand)
     .addTransformation("ADD_PIVOT", ["INSERT_PIVOT"], (toTransform, executed) => {
-        if (toTransform.id === executed.id) {
-            toTransform.id = parseInt(toTransform.id, 10) + 1;
+        if (toTransform.pivotId === executed.pivotId) {
+            toTransform.pivotId = parseInt(toTransform.pivotId, 10) + 1;
         }
         return toTransform;
     })
@@ -18,23 +18,17 @@ otRegistry
     )
     .addTransformation(
         "REMOVE_PIVOT",
-        ["RENAME_ODOO_PIVOT", "DUPLICATE_PIVOT"],
+        ["RENAME_PIVOT", "DUPLICATE_PIVOT", "INSERT_PIVOT"],
         (toTransform, executed) => {
             if (toTransform.pivotId === executed.pivotId) {
                 return undefined;
             }
             return toTransform;
         }
-    )
-    .addTransformation("REMOVE_PIVOT", ["INSERT_PIVOT"], (toTransform, executed) => {
-        if (toTransform.id === executed.pivotId) {
-            return undefined;
-        }
-        return toTransform;
-    });
+    );
 
 function transformNewPivotCommand(toTransform) {
-    const idKey = "newPivotId" in toTransform ? "newPivotId" : "id";
+    const idKey = "newPivotId" in toTransform ? "newPivotId" : "pivotId";
     return {
         ...toTransform,
         [idKey]: (parseInt(toTransform[idKey], 10) + 1).toString(),

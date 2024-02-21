@@ -59,7 +59,7 @@ export function insertPivot(pivotData) {
 
         ensureSuccess(
             model.dispatch("ADD_PIVOT", {
-                id: pivotId,
+                pivotId,
                 pivot,
             })
         );
@@ -69,7 +69,7 @@ export function insertPivot(pivotData) {
                 sheetId,
                 col: 0,
                 row: 0,
-                id: pivotId,
+                pivotId,
                 table,
             })
         );

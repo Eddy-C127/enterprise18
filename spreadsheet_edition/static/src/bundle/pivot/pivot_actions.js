@@ -14,7 +14,7 @@ export const REINSERT_PIVOT_CHILDREN = (env) =>
             const table = model.getTableStructure().export();
             const zone = env.model.getters.getSelectedZone();
             env.model.dispatch("INSERT_PIVOT", {
-                id: pivotId,
+                pivotId,
                 col: zone.left,
                 row: zone.top,
                 sheetId: env.model.getters.getActiveSheetId(),

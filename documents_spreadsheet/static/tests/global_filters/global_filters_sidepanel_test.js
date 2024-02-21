@@ -142,7 +142,7 @@ QUnit.module(
         QUnit.test("Pivot display name is displayed in field matching", async function (assert) {
             const { model } = await createSpreadsheetFromPivotView();
             const [pivotId] = model.getters.getPivotIds();
-            model.dispatch("RENAME_ODOO_PIVOT", { pivotId, name: "Hello" });
+            model.dispatch("RENAME_PIVOT", { pivotId, name: "Hello" });
             await addGlobalFilter(model, {
                 id: "42",
                 type: "date",
