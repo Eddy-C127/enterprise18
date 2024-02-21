@@ -225,3 +225,6 @@ class TestUi(TestUiCommon):
                          "When splitting a shift ending before the start of resource's work schedule at the end of the penultimate day, last resulting shift should start one second before it ends.")
         self.assertEqual([slots_porthos[2]['start_datetime'], slots_porthos[2]['end_datetime']], [start_date_normal + relativedelta(weeks=1), end_date_normal + relativedelta(weeks=1)],
                          "Splitting a recurrent shift should only split one occurrence")
+
+    def test_onboarding_tour(self):
+        self.start_tour("/web", 'planning_tour', login='admin')
