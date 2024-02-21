@@ -269,7 +269,7 @@ class AccountJournal(models.Model):
             InstrPrty = etree.SubElement(PmtTpInf, "InstrPrty")
             InstrPrty.text = 'HIGH'
 
-        if sct_generic ^ (self.sepa_pain_version != 'pain.001.001.03.ch.02'):
+        if self.sepa_pain_version != 'pain.001.001.03.ch.02':
             SvcLvl = etree.SubElement(PmtTpInf, "SvcLvl")
             Cd = etree.SubElement(SvcLvl, "Cd")
             Cd.text = 'NURG' if sct_generic else 'SEPA'
