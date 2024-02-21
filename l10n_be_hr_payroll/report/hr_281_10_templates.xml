@@ -27,8 +27,17 @@
                                     <span t-esc="report_data['v0015_adres']"/><br/>
                                     <span t-esc="report_data['v0016_postcode']"/>,
                                     <span t-esc="report_data['v0017_gemeente']"/> <br/>
+                                    <span t-esc="report_data['v0024_nationaalnr']"/> <br/>
                                 </div>
-                                <div class="col-4 border-start offset-4">
+                                <div class="col-4 border-start">
+                                    <strong>4. Sender:</strong> <br/>
+                                    <span t-esc="report_data['v0014_naam']"/> <br/>
+                                    <span t-esc="report_data['v0015_adres']"/><br/>
+                                    <span t-esc="report_data['v0016_postcode']"/>,
+                                    <span t-esc="report_data['v0017_gemeente']"/> <br/>
+                                    <span t-esc="report_data['v0024_nationaalnr']"/> <br/>
+                                </div>
+                                <div class="col-4 border-start">
                                     <strong>4. Beneficiary:</strong><br/>
                                     <span t-esc="report_data['f2013_naam'] + ' ' + report_data['f2114_voornamen']"/><br/>
                                     <span t-esc="report_data['f2015_adres']"/><br/>
