@@ -128,6 +128,22 @@ class TestInterCompanyInvoice(TestInterCompanyRulesCommon):
 
         self.assertEqual(supplier_invoice.invoice_line_ids.analytic_distribution, {str(inter_company_analytic_account.id): 100})
 
+    def test_multi_analytic_account_distribution_company_b(self):
+        """
+        Test that the analytic distribution is set properly when multiple analytic accounts (with or without a company) are set on the invoice line
+        """
+        analytic_account_company_a = self._configure_analytic(company=self.company_a, product=self.product_a)
+        inter_company_analytic_account = self._configure_analytic(product=self.product_a)
+
+        self._create_post_invoice(product_id=self.product_a.id, analytic_distribution={
+            analytic_account_company_a.id: 50,
+            inter_company_analytic_account.id: 50,
+            f"{analytic_account_company_a.id},{inter_company_analytic_account.id}": 100
+        })
+        supplier_invoice = self.env['account.move'].with_user(self.res_users_company_b).search([('move_type', '=', 'in_invoice')], limit=1)
+
+        self.assertEqual(supplier_invoice.invoice_line_ids.analytic_distribution, {str(inter_company_analytic_account.id): 50})
+
     def test_default_analytic_distribution_company_a(self):
         """
         [Analytic Distribution Model is set for Company A]

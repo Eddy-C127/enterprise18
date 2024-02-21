@@ -131,12 +131,19 @@ class AccountMoveLine(models.Model):
             "company_id": company_b.id,
         })
 
-        account_ids = [int(account_id) for account_id in self.analytic_distribution or {}]
-        accounts = self.env['account.analytic.account'].browse(account_ids)
-        analytic_distribution = {
-            str(account_id): self.analytic_distribution[str(account_id)]
-            for account_id in accounts.filtered(lambda r: not r.company_id).ids
-        }
+        analytic_distribution = {}
+        if self.analytic_distribution:
+            account_ids = self._get_analytic_account_ids()
+            accounts_with_company = self.env['account.analytic.account'].browse(account_ids).filtered('company_id')
+
+            for key, val in self.analytic_distribution.items():
+                is_company_account = False
+                for account_id in key.split(','):
+                    if int(account_id) in accounts_with_company.ids:
+                        is_company_account = True
+                        break
+                if not is_company_account:
+                    analytic_distribution[key] = val
 
         if company_b_default_distribution or analytic_distribution:
             vals['analytic_distribution'] = dict(company_b_default_distribution, **analytic_distribution)
