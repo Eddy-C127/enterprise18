@@ -29,4 +29,52 @@
         </t>
     </t>
 </template>
+
+<template id="report_payslip_lux_thirteen_month" inherit_id="hr_payroll.report_payslip" primary="True">
+    <xpath expr="//td[@name='company-car-title']" position="inside">
+        <strong>Tax Card Number</strong>
+    </xpath>
+
+    <xpath expr="//td[@name='company-car-model']" position="inside">
+       <span t-field="o.employee_id.l10n_lu_tax_card_number">29489284</span>
+    </xpath>
+
+    <xpath expr="//tr[@id='employee_info_line_6']//td[2]" position="replace">
+        <td class="w-25"><strong>Company Social Security Number</strong></td>
+    </xpath>
+    <xpath expr="//tr[@id='employee_info_line_7']//td[2]" position="replace">
+        <td><span t-field="o.company_id.l10n_lu_official_social_security">123456789</span></td>
+    </xpath>
+
+    <xpath expr="//tr[@id='line_display']//td[2]" position="inside">
+        <span t-if="line.rate != 100"><t t-out="line.rate"/> 10%</span>
+    </xpath>
+
+    <xpath expr="//th[@id='line_header_hours']" position="replace">
+    </xpath>
+
+    <xpath expr="//th[@id='line_header_days']" position="replace">
+    </xpath>
+
+    <xpath expr="//td[@id='worked_days_hours']" position="replace">
+    </xpath>
+
+    <xpath expr="//td[@id='worked_days_days']" position="replace">
+    </xpath>
+
+    <xpath expr="//td[@id='payslip_line_rate']" position="replace">
+    </xpath>
+
+    <xpath expr="//td[@id='payslip_line_quantity']" position="replace">
+    </xpath>
+</template>
+
+<template id="report_payslip_lux_lang_thirteen_month">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-set="o" t-value="o.with_context(lang=o.employee_id.lang or o.env.lang)"/>
+            <t t-call="l10n_lu_hr_payroll.report_payslip_lux_thirteen_month" t-lang="o.env.lang"/>
+        </t>
+    </t>
+</template>
 </odoo>

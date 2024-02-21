@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
@@ -14,6 +13,7 @@ class HrContract(models.Model):
     l10n_lu_meal_voucher_amount = fields.Monetary('Meal Vouchers (LU)')
     l10n_lu_meal_voucher_employer_cost = fields.Monetary('Meal Voucher Employer Cost', compute='_compute_lu_meal_vouchers')
     l10n_lu_wage_with_sacrifices = fields.Monetary('Wage With Sacrifices (LU)', compute='_compute_lu_wage')
+    l10n_lu_13th_month = fields.Boolean('13th Month (LU)')
 
     def _get_contract_wage_field(self):
         self.ensure_one()

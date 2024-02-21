@@ -144,6 +144,7 @@
         <field name="date_start" eval="(DateTime.today() + relativedelta(years=-1, month=1, day=1, days=-1))"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_lu').id)], limit=1)"/>
         <field name="l10n_lu_atn_transport">130</field>
+        <field name="l10n_lu_13th_month">True</field>
     </record>
 
     <record id="hr_employee_frida_poirish" model="hr.employee">

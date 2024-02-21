@@ -207,8 +207,6 @@ taxable_amount = categories['TAXABLE']
 # Round to the lower 5 euros multiple
 taxable_amount -= taxable_amount % 5
 
-tax_amount = 0.0
-
 if employee.l10n_lu_tax_classification:
     rates = payslip._rule_parameter(f'l10n_lu_withholding_taxes_{employee.l10n_lu_tax_classification}')
     threshold, threshold_adjustment = payslip._rule_parameter(f'l10n_lu_withholding_taxes_threshhold_{employee.l10n_lu_tax_classification}')
@@ -333,4 +331,3 @@ result = result_rules['NET']['total'] + categories['DED_NET']
         <field name="struct_id" ref="l10n_lu_hr_payroll.hr_payroll_structure_lux_employee_salary"/>
     </record>
 </odoo>
-
