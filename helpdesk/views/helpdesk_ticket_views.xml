@@ -208,9 +208,14 @@
                 <field name="write_date" optional="hide" readonly="1"/>
                 <field name="tag_ids" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="properties"/>
+                <!-- To Do: remove me in master -->
                 <field name="rating_last_text" string="Rating" decoration-danger="rating_last_text == 'ko'"
                     decoration-warning="rating_last_text == 'ok'" decoration-success="rating_last_text == 'top'"
-                    invisible="rating_last_text == 'none'"
+                    invisible="1"
+                    class="fw-bold" widget="badge" optional="hide"/>
+                <field name="rating_avg_text" string="Rating" decoration-danger="rating_avg_text == 'ko'"
+                    decoration-warning="rating_avg_text == 'ok'" decoration-success="rating_avg_text == 'top'"
+                    invisible="rating_avg_text == 'none'"
                     class="fw-bold" widget="badge" optional="hide"/>
                 <field name="kanban_state" nolabel="1" optional="show" widget="state_selection"/>
                 <field name="stage_id" optional="show" readonly="not context.get('default_team_id', False)"/>
