@@ -3,7 +3,7 @@
 
 from odoo import api, fields, models, _, _lt, Command
 from odoo.tools import get_timedelta
-
+from odoo.exceptions import ValidationError
 
 class SaleSubscriptionPlan(models.Model):
     _name = 'sale.subscription.plan'
@@ -116,3 +116,11 @@ class SaleSubscriptionPlan(models.Model):
     def _compute_auto_close_limit_display(self):
         for plan in self:
             plan.auto_close_limit_display = _lt('%s days', plan.auto_close_limit)
+
+    @api.constrains('billing_period_value')
+    def _check_not_zero_billing_period(self):
+        for plan in self:
+            if plan.billing_period_value < 1:
+                raise ValidationError(
+                    _('Recurring period must be a positive number. Please ensure the input is a valid positive numeric value.')
+                )
