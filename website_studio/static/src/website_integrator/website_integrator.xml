@@ -3,7 +3,7 @@
 
 <t t-name="website_studio.WebsiteIntegrator.ListingOrPage">
     <div class="overflow-auto d-flex flex-wrap align-items-stretch flex-row gap-3 pb-5">
-        <ThumbnailItem className="'o_website_studio_new_card' + (!isDesigner ? 'disabled' : '')" onClick="() => this.onNewPage(group.type, website.id)" icon="{src: '/web_studio/static/src/img/default_icon_app.png', alt: 'App icon'}">
+        <ThumbnailItem className="'o_website_studio_new_card' + (!isDesigner ? ' disabled' : '')" onClick="() => this.onNewPage(group.type, website.id)" icon="{src: '/web_studio/static/src/img/default_icon_app.png', alt: 'App icon'}">
             <t t-if="group.type === 'listing'">New Listing</t>
             <t t-else="">New Page</t>
         </ThumbnailItem>
@@ -55,7 +55,7 @@
                 <span> &#8212; Allow visitors of your website to create records themselves</span>
             </div>
             <div class="d-flex flex-row gap-4 ms-4 pb-5">
-                <ThumbnailItem className="'o_website_studio_new_card' + (!isDesigner ? 'disabled' : '')" onClick="onNewForm" icon="{src: '/web_studio/static/src/img/default_icon_app.png', alt: 'App icon'}">
+                <ThumbnailItem className="'o_website_studio_new_card' + (!isDesigner ? ' disabled' : '')" onClick="() => this.onNewForm()" icon="{src: '/web_studio/static/src/img/default_icon_app.png', alt: 'App icon'}">
                     New Form
                 </ThumbnailItem>
                 <t t-foreach="state.forms" t-as="form" t-key="form.id">
