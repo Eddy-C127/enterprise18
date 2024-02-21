@@ -5,19 +5,25 @@
         https://oac.chris21.com/OAC_ichrisp/Help/ichrisUG/646250.htm
     -->
     <!-- Schedule 3 - Tax table for actors, variety artists and other entertainers  -->
-    <record id="l10n_au_withholding_actors_structure_3" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
-        <field name="name">PAYG Withholding</field>
-        <field name="code">WITHHOLD</field>
-        <field name="sequence">100</field>
+
+    <!-- BASIC SALARY, sequence 1 -->
+
+    <record id="l10n_au_ote_structure_3" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_ote"/>
+        <field name="name">Ordinary Time Earnings</field>
+        <field name="code">OTE</field>
+        <field name="sequence">20</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-coefficients = payslip._rule_parameter("l10n_au_withholding_coefficients")["actor"]
-result = -payslip._l10n_au_compute_withholding_amount(categories['GROSS'] * contract.l10n_au_performances_per_week, "weekly", coefficients)
+ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_is_ote)
+ote_worked_day = payslip.worked_days_line_ids.filtered(lambda l: l.work_entry_type_id.l10n_au_is_ote)
+result = sum(ote_inputs.mapped('amount')) + sum(ote_worked_day.mapped('amount'))
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor"/>
+        <field name="appears_on_payslip">False</field>
     </record>
 
+    <!-- Taxable Salary, Sequence 100 -->
     <function model="hr.salary.rule" name="write">
         <value model="hr.salary.rule" search="[
             ('struct_id', '=', ref('l10n_au_hr_payroll.hr_payroll_structure_au_actor')),
@@ -27,11 +33,24 @@ result = -payslip._l10n_au_compute_withholding_amount(categories['GROSS'] * cont
         }"/>
     </function>
 
+    <record id="l10n_au_withholding_actors_structure_3" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
+        <field name="name">PAYG Withholding</field>
+        <field name="code">WITHHOLD</field>
+        <field name="sequence">108</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+coefficients = payslip._rule_parameter("l10n_au_withholding_coefficients")["actor"]
+result = -payslip._l10n_au_compute_withholding_amount(categories['GROSS'] * contract.l10n_au_performances_per_week, "weekly", coefficients)
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor"/>
+    </record>
+
     <record id="l10n_au_allowance_withholding_structure_3" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
         <field name="name">Withholding for allowances</field>
         <field name="code">WITHHOLD.ALW</field>
-        <field name="sequence">103</field>
+        <field name="sequence">132</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = payslip.l10n_au_allowance_withholding</field>
         <field name="amount_select">code</field>
@@ -44,7 +63,7 @@ result = -payslip._l10n_au_compute_withholding_amount(categories['GROSS'] * cont
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_net_withholding"/>
         <field name="name">Total Withholding Amount</field>
         <field name="code">WITHHOLD.TOTAL</field>
-        <field name="sequence">160</field>
+        <field name="sequence">164</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = categories['WITHHOLD'] + min(-categories['WITHHOLD'], categories["WITHHOLD.OFFSET"])
@@ -52,11 +71,15 @@ result = categories['WITHHOLD'] + min(-categories['WITHHOLD'], categories["WITHH
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor"/>
     </record>
 
+    <!-- Attachment of Salary, Sequence 174 -->
+    <!-- Assignment of Salary, Sequence 174 -->
+    <!-- Child Support (Standard), Sequence 174 -->
+
     <record id="l10n_au_child_support_structure_3" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_child_support"/>
         <field name="name">Child Support</field>
         <field name="code">CHILD.SUPPORT</field>
-        <field name="sequence">190</field>
+        <field name="sequence">185</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = employee.l10n_au_child_support_deduction or employee.l10n_au_child_support_garnishee</field>
         <field name="amount_select">code</field>
@@ -66,6 +89,9 @@ result = -payslip._l10n_au_compute_child_support(net_salary)
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor"/>
     </record>
+
+    <!-- Deduction, Sequence 198 -->
+    <!-- Reimbursement, Sequence 199 -->
 
     <!-- Allowances not in Gross -->
     <record id="l10n_au_allowance_structure_3" model="hr.salary.rule">
@@ -83,31 +109,18 @@ result = sum(allowances.mapped('amount'))
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor"/>
     </record>
 
+    <!-- Net Salary, Sequence 200 -->
+
     <record id="l10n_au_super_contribution_structure_3" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_super_contribution"/>
         <field name="name">Super Guarantee</field>
         <field name="code">SUPER</field>
-        <field name="sequence">300</field>
+        <field name="sequence">230</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 rate = payslip._rule_parameter("l10n_au_withholding_super")
 result = categories['OTE'] * rate/100
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor"/>
-    </record>
-
-    <record id="l10n_au_ote_structure_3" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_ote"/>
-        <field name="name">Ordinary Time Earnings</field>
-        <field name="code">OTE</field>
-        <field name="sequence">5</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_is_ote)
-ote_worked_day = payslip.worked_days_line_ids.filtered(lambda l: l.work_entry_type_id.l10n_au_is_ote)
-result = sum(ote_inputs.mapped('amount')) + sum(ote_worked_day.mapped('amount'))
-        </field>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor"/>
-        <field name="appears_on_payslip">False</field>
     </record>
 </odoo>

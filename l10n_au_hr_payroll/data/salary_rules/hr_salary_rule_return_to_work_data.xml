@@ -5,11 +5,29 @@
         https://oac.chris21.com/OAC_ichrisp/Help/ichrisUG/646250.htm
     -->
     <!-- Schedule 4 - Tax table for return to work payments  -->
+
+    <!-- BASIC SALARY, sequence 1 -->
+
+    <record id="l10n_au_ote_structure_4" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_ote"/>
+        <field name="name">Ordinary Time Earnings</field>
+        <field name="code">OTE</field>
+        <field name="sequence">20</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_is_ote)
+ote_worked_day = payslip.worked_days_line_ids.filtered(lambda l: l.work_entry_type_id.l10n_au_is_ote)
+result = sum(ote_inputs.mapped('amount')) + sum(ote_worked_day.mapped('amount'))
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_return_to_work"/>
+        <field name="appears_on_payslip">False</field>
+    </record>
+
     <record id="l10n_au_return_to_work_structure_4" model="hr.salary.rule">
         <field name="category_id" ref="hr_payroll.BASIC"/>
         <field name="name">Return To Work payment</field>
         <field name="code">B2WORK</field>
-        <field name="sequence">90</field>
+        <field name="sequence">70</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 b2work_type = payslip.env.ref('l10n_au_hr_payroll.input_b2work')
@@ -18,11 +36,25 @@ result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id == b2work
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_return_to_work"/>
     </record>
 
+    <record id="l10n_au_workplace_giving_structure_4" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_workplace_giving"/>
+        <field name="name">Workplace Giving</field>
+        <field name="code">WORKPLACE.GIVING</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = contract.l10n_au_workplace_giving</field>
+        <field name="sequence">80</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -contract.l10n_au_workplace_giving
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_return_to_work"/>
+    </record>
+
     <record id="l10n_au_return_to_work_gross_structure_4" model="hr.salary.rule">
         <field name="category_id" ref="hr_payroll.GROSS"/>
         <field name="name">Gross Payment</field>
         <field name="code">GROSS</field>
-        <field name="sequence">91</field>
+        <field name="sequence">100</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = categories['BASIC']
@@ -34,7 +66,7 @@ result = categories['BASIC']
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
         <field name="name">PAYG Withholding</field>
         <field name="code">WITHHOLD</field>
-        <field name="sequence">100</field>
+        <field name="sequence">108</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 if employee.l10n_au_tfn_declaration != "provided":
@@ -51,7 +83,7 @@ result = categories['GROSS']
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_net_withholding"/>
         <field name="name">Total Withholding Amount</field>
         <field name="code">WITHHOLD.TOTAL</field>
-        <field name="sequence">101</field>
+        <field name="sequence">164</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = categories['WITHHOLD']
@@ -63,7 +95,7 @@ result = categories['WITHHOLD']
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_child_support"/>
         <field name="name">Child Support</field>
         <field name="code">CHILD.SUPPORT</field>
-        <field name="sequence">190</field>
+        <field name="sequence">185</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = employee.l10n_au_child_support_deduction or employee.l10n_au_child_support_garnishee</field>
         <field name="amount_select">code</field>
@@ -91,40 +123,11 @@ result = categories['GROSS'] + categories['ALW'] + categories['DED']
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_super_contribution"/>
         <field name="name">Super Guarantee</field>
         <field name="code">SUPER</field>
-        <field name="sequence">300</field>
+        <field name="sequence">230</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 rate = payslip._rule_parameter("l10n_au_withholding_super")
 result = categories['OTE'] * rate/100
-        </field>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_return_to_work"/>
-    </record>
-
-    <record id="l10n_au_ote_structure_4" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_ote"/>
-        <field name="name">Ordinary Time Earnings</field>
-        <field name="code">OTE</field>
-        <field name="sequence">5</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_is_ote)
-ote_worked_day = payslip.worked_days_line_ids.filtered(lambda l: l.work_entry_type_id.l10n_au_is_ote)
-result = sum(ote_inputs.mapped('amount')) + sum(ote_worked_day.mapped('amount'))
-        </field>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_return_to_work"/>
-        <field name="appears_on_payslip">False</field>
-    </record>
-
-    <record id="l10n_au_workplace_giving_structure_4" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_workplace_giving"/>
-        <field name="name">Workplace Giving</field>
-        <field name="code">WORKPLACE.GIVING</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_au_workplace_giving</field>
-        <field name="sequence">99</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = -contract.l10n_au_workplace_giving
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_return_to_work"/>
     </record>

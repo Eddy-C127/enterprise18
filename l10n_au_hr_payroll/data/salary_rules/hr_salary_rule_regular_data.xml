@@ -4,12 +4,30 @@
         https://www.ato.gov.au/
         https://oac.chris21.com/OAC_ichrisp/Help/ichrisUG/646250.htm
     -->
+
+    <!-- BASIC SALARY, sequence 1 -->
+
+    <record id="l10n_au_ote_structure_1" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_ote"/>
+        <field name="name">Ordinary Time Earnings</field>
+        <field name="code">OTE</field>
+        <field name="sequence">20</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_is_ote)
+ote_worked_day = payslip.worked_days_line_ids.filtered(lambda l: l.work_entry_type_id.l10n_au_is_ote)
+result = sum(ote_inputs.mapped('amount')) + sum(ote_worked_day.mapped('amount'))
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
+        <field name="appears_on_payslip">False</field>
+    </record>
+
     <!-- Extra Pay Rule for inputs -->
     <record id="l10n_au_extra_pay_structure_1" model="hr.salary.rule">
         <field name="category_id" ref="hr_payroll.GROSS"/>
         <field name="name">Extra Pay</field>
         <field name="code">GROSS.COMMISSION</field>
-        <field name="sequence">99</field>
+        <field name="sequence">40</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = 'EXTRA' in inputs</field>
         <field name="amount_select">code</field>
@@ -21,39 +39,11 @@ result_name = inputs['EXTRA'].name
         <field name="appears_on_payroll_report" eval="True"/>
     </record>
 
-    <record id="l10n_au_salary_sacrifice_structure_1" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_salary_sacrifice"/>
-        <field name="name">Concessional Super Contribution</field>
-        <field name="code">SUPER.CONTRIBUTION</field>
-        <field name="sequence">300</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_au_salary_sacrifice_superannuation</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = contract.l10n_au_salary_sacrifice_superannuation
-        </field>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
-    </record>
-
-    <record id="l10n_au_salary_sacrifice_other_structure_1" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_salary_sacrifice"/>
-        <field name="name">Salary Sacrifice Other Benefit</field>
-        <field name="code">SALARY.SACRIFICE.OTHER</field>
-        <field name="sequence">299</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer
-        </field>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
-    </record>
-
     <record id="l10n_au_salary_sacrifice_total_structure_1" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_salary_sacrifice_total"/>
         <field name="name">Salary Sacrifice Total</field>
         <field name="code">SALARY.SACRIFICE.TOTAL</field>
-        <field name="sequence">99</field>
+        <field name="sequence">60</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer - contract.l10n_au_salary_sacrifice_superannuation</field>
         <field name="amount_select">code</field>
@@ -63,7 +53,22 @@ result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_g
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
     </record>
 
+    <record id="l10n_au_workplace_giving_structure_1" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_workplace_giving"/>
+        <field name="name">Workplace Giving</field>
+        <field name="code">WORKPLACE.GIVING</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = contract.l10n_au_workplace_giving</field>
+        <field name="sequence">80</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -contract.l10n_au_workplace_giving
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
+    </record>
+
     <!-- Update Gross to include Salary Sacrifice -->
+    <!-- Taxable Salary, Sequence 100 -->
     <function model="hr.salary.rule" name="write">
         <value model="hr.salary.rule" search="[
             ('struct_id', '=', ref('l10n_au_hr_payroll.hr_payroll_structure_au_regular')),
@@ -72,12 +77,13 @@ result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_g
             'amount_python_compute': &quot;result = categories['BASIC'] + categories['ALW'] + categories['SALARY.SACRIFICE.TOTAL'] + categories['WORK.GIVING']&quot;
         }"/>
     </function>
+
     <!-- Schedule 1 - Statement of formulas for calculating amounts to be withheld -->
     <record id="l10n_au_withholding_structure_1" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
         <field name="name">PAYG Withholding</field>
         <field name="code">WITHHOLD</field>
-        <field name="sequence">101</field>
+        <field name="sequence">108</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 coefficients = payslip._rule_parameter("l10n_au_withholding_coefficients")["regular"]
@@ -90,7 +96,7 @@ result = -payslip._l10n_au_compute_withholding_amount(categories['GROSS'], contr
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
         <field name="name">Leave Loading Withholding</field>
         <field name="code">LEAVE.LOAD</field>
-        <field name="sequence">102</field>
+        <field name="sequence">116</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = inputs.get("LEAVE.LOAD") and inputs.get("LEAVE.LOAD").amount</field>
         <field name="amount_select">code</field>
@@ -104,7 +110,7 @@ result = compute_leave_loading_withhold(payslip, employee, inputs["LEAVE.LOAD"].
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
         <field name="name">Extra Withholding (53 pays)</field>
         <field name="code">WITHHOLD.EXTRA</field>
-        <field name="sequence">103</field>
+        <field name="sequence">124</field>
         <field name="condition_select">python</field>
         <field name="condition_python">
 if contract.schedule_pay not in ["weekly", "fortnightly"] or not employee.l10n_au_extra_pay or not payslip._l10n_au_has_extra_pay():
@@ -130,7 +136,7 @@ for bracket in brackets:
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
         <field name="name">Withholding for allowances</field>
         <field name="code">WITHHOLD.ALW</field>
-        <field name="sequence">104</field>
+        <field name="sequence">132</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = payslip.l10n_au_allowance_withholding</field>
         <field name="amount_select">code</field>
@@ -143,7 +149,7 @@ for bracket in brackets:
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding"/>
         <field name="name">Withholding for study and training support loans</field>
         <field name="code">WITHHOLD.STUDY</field>
-        <field name="sequence">105</field>
+        <field name="sequence">140</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = employee.l10n_au_training_loan</field>
         <field name="amount_select">code</field>
@@ -159,7 +165,7 @@ result = -payslip._l10n_au_compute_loan_withhold(categories['GROSS'], contract.s
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding_offsets"/>
         <field name="name">Tax Offsets</field>
         <field name="code">TAX.OFFSET</field>
-        <field name="sequence">152</field>
+        <field name="sequence">148</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = employee.l10n_au_nat_3093_amount</field>
         <field name="amount_select">code</field>
@@ -180,7 +186,7 @@ elif contract.schedule_pay == "quarterly":
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_withholding_offsets"/>
         <field name="name">Medicare Adjustment</field>
         <field name="code">MEDICARE</field>
-        <field name="sequence">153</field>
+        <field name="sequence">156</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = employee.l10n_au_scale in ["2", "6"]</field>
         <field name="amount_select">code</field>
@@ -195,7 +201,7 @@ result = payslip._l10n_au_compute_medicare_adjustment(categories['GROSS'], contr
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_net_withholding"/>
         <field name="name">Total Withholding Amount</field>
         <field name="code">WITHHOLD.TOTAL</field>
-        <field name="sequence">160</field>
+        <field name="sequence">164</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = categories['WITHHOLD'] + min(-categories['WITHHOLD'], categories["WITHHOLD.OFFSET"])
@@ -203,11 +209,15 @@ result = categories['WITHHOLD'] + min(-categories['WITHHOLD'], categories["WITHH
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
     </record>
 
+    <!-- Attachment of Salary, Sequence 174 -->
+    <!-- Assignment of Salary, Sequence 174 -->
+    <!-- Child Support (Standard), Sequence 174 -->
+
     <record id="l10n_au_child_support_structure_1" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_child_support"/>
         <field name="name">Child Support</field>
         <field name="code">CHILD.SUPPORT</field>
-        <field name="sequence">190</field>
+        <field name="sequence">185</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = employee.l10n_au_child_support_deduction or employee.l10n_au_child_support_garnishee</field>
         <field name="amount_select">code</field>
@@ -217,6 +227,9 @@ result = -payslip._l10n_au_compute_child_support(net_salary)
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
     </record>
+
+    <!-- Deduction, Sequence 198 -->
+    <!-- Reimbursement, Sequence 199 -->
 
     <record id="l10n_au_allowance_structure_1" model="hr.salary.rule">
         <field name="category_id" ref="hr_payroll.ALW"/>
@@ -233,49 +246,8 @@ result = sum(allowances.mapped('amount'))
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
     </record>
 
-    <record id="l10n_au_super_contribution_structure_1" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_super_contribution"/>
-        <field name="name">Super Guarantee</field>
-        <field name="code">SUPER</field>
-        <field name="sequence">301</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-rate = payslip._rule_parameter("l10n_au_withholding_super")
-result = categories['OTE'] * rate/100
-        </field>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
-    </record>
-
-    <record id="l10n_au_ote_structure_1" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_ote"/>
-        <field name="name">Ordinary Time Earnings</field>
-        <field name="code">OTE</field>
-        <field name="sequence">5</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_is_ote)
-ote_worked_day = payslip.worked_days_line_ids.filtered(lambda l: l.work_entry_type_id.l10n_au_is_ote)
-result = sum(ote_inputs.mapped('amount')) + sum(ote_worked_day.mapped('amount'))
-        </field>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
-        <field name="appears_on_payslip">False</field>
-    </record>
-
-    <record id="l10n_au_workplace_giving_structure_1" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_workplace_giving"/>
-        <field name="name">Workplace Giving</field>
-        <field name="code">WORKPLACE.GIVING</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_au_workplace_giving</field>
-        <field name="sequence">99</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = -contract.l10n_au_workplace_giving
-        </field>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
-    </record>
-
     <!-- Include Extra Pay in NET -->
+    <!-- Net Salary, Sequence 200 -->
     <function model="hr.salary.rule" name="write">
         <value model="hr.salary.rule" search="[
             ('struct_id', '=', ref('l10n_au_hr_payroll.hr_payroll_structure_au_regular')),
@@ -284,4 +256,45 @@ result = -contract.l10n_au_workplace_giving
             'amount_python_compute': &quot;result = categories['BASIC'] + categories['ALW'] + categories['DED'] + result_rules['GROSS.COMMISSION']['total']&quot;
         }"/>
     </function>
+
+    <record id="l10n_au_salary_sacrifice_other_structure_1" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_salary_sacrifice"/>
+        <field name="name">Salary Sacrifice Other Benefit</field>
+        <field name="code">SALARY.SACRIFICE.OTHER</field>
+        <field name="sequence">210</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
+    </record>
+
+    <record id="l10n_au_salary_sacrifice_structure_1" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_salary_sacrifice"/>
+        <field name="name">Concessional Super Contribution</field>
+        <field name="code">SUPER.CONTRIBUTION</field>
+        <field name="sequence">220</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = contract.l10n_au_salary_sacrifice_superannuation</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = contract.l10n_au_salary_sacrifice_superannuation
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
+    </record>
+
+    <record id="l10n_au_super_contribution_structure_1" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_super_contribution"/>
+        <field name="name">Super Guarantee</field>
+        <field name="code">SUPER</field>
+        <field name="sequence">230</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+rate = payslip._rule_parameter("l10n_au_withholding_super")
+result = categories['OTE'] * rate/100
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
+    </record>
 </odoo>

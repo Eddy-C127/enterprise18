@@ -5,35 +5,14 @@
         https://oac.chris21.com/OAC_ichrisp/Help/ichrisUG/646250.htm
     -->
     <!-- Schedule 5 - Tax table for back payments, commissions, bonuses and similar payments -->
-    <record id="l10n_au_withholding_lumpsum_structure_5" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_net_withholding"/>
-        <field name="name">PAYG Withholding</field>
-        <field name="code">WITHHOLD</field>
-        <field name="sequence">100</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = -payslip._l10n_au_compute_lumpsum_withhold(categories['GROSS'])
-        </field>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_lumpsum"/>
-    </record>
-    <record id="l10n_au_super_contribution_lumpsum_structure_5" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_super_contribution"/>
-        <field name="name">Super Guarantee</field>
-        <field name="code">SUPER</field>
-        <field name="sequence">300</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-rate = payslip._rule_parameter("l10n_au_withholding_super")
-result = categories['OTE'] * rate/100
-        </field>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_lumpsum"/>
-    </record>
+
+    <!-- BASIC SALARY, sequence 1 -->
 
     <record id="l10n_au_ote_structure_5" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_ote"/>
         <field name="name">Ordinary Time Earnings</field>
         <field name="code">OTE</field>
-        <field name="sequence">5</field>
+        <field name="sequence">20</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_is_ote)
@@ -50,10 +29,44 @@ result = sum(ote_inputs.mapped('amount')) + sum(ote_worked_day.mapped('amount'))
         <field name="code">WORKPLACE.GIVING</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = contract.l10n_au_workplace_giving</field>
-        <field name="sequence">99</field>
+        <field name="sequence">80</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = -contract.l10n_au_workplace_giving
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_lumpsum"/>
+    </record>
+
+    <!-- Taxable Salary, Sequence 100 -->
+
+    <record id="l10n_au_withholding_lumpsum_structure_5" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_net_withholding"/>
+        <field name="name">PAYG Withholding</field>
+        <field name="code">WITHHOLD</field>
+        <field name="sequence">108</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -payslip._l10n_au_compute_lumpsum_withhold(categories['GROSS'])
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_lumpsum"/>
+    </record>
+
+    <!-- Attachment of Salary, Sequence 174 -->
+    <!-- Assignment of Salary, Sequence 174 -->
+    <!-- Child Support (Standard), Sequence 174 -->
+    <!-- Deduction, Sequence 198 -->
+    <!-- Reimbursement, Sequence 199 -->
+    <!-- Net Salary, Sequence 200 -->
+
+    <record id="l10n_au_super_contribution_lumpsum_structure_5" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_super_contribution"/>
+        <field name="name">Super Guarantee</field>
+        <field name="code">SUPER</field>
+        <field name="sequence">230</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+rate = payslip._rule_parameter("l10n_au_withholding_super")
+result = categories['OTE'] * rate/100
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_lumpsum"/>
     </record>
