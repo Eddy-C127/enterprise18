@@ -70,7 +70,7 @@ class SignSendRequest(models.TransientModel):
 
     @api.onchange('validity')
     def _onchange_validity(self):
-        if self.validity < fields.Date.today():
+        if self.validity and self.validity < fields.Date.today():
             raise UserError(_('Request expiration date must be set in the future.'))
 
     @api.onchange('reminder')
