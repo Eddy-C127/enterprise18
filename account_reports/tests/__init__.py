@@ -11,6 +11,7 @@ from . import test_account_sales_report_generic
 from . import test_general_ledger_report
 from . import test_trial_balance_report
 from . import test_partner_ledger_report
+from . import test_reconciliation_report
 from . import test_aged_receivable_report
 from . import test_aged_payable_report
 from . import test_tax_report

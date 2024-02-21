@@ -16,6 +16,7 @@ Accounting Reports
         'data/cash_flow_report.xml',
         'data/executive_summary.xml',
         'data/profit_and_loss.xml',
+        'data/bank_reconciliation_report.xml',
         'data/aged_partner_balance.xml',
         'data/general_ledger.xml',
         'data/trial_balance.xml',

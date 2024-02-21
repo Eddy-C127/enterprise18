@@ -2839,7 +2839,7 @@ class AccountReport(models.Model):
             default_figure_type = figure_types_cache[expr_report][expression.label]
             figure_type = expression.figure_type or default_figure_type
             value = expression_res['value']
-            if figure_type == 'monetary':
+            if figure_type == 'monetary' and value:
                 value = self.env.company.currency_id.round(value)
 
             if cross_report:
