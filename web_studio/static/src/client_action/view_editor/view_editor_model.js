@@ -16,7 +16,7 @@ import {
     xpathToLegacyXpathInfo,
     cleanClickedElements,
 } from "@web_studio/client_action/view_editor/editors/utils";
-import { Reactive, memoizeOnce } from "@web_studio/client_action/utils";
+import { Reactive, getFieldsInArch, memoizeOnce } from "@web_studio/client_action/utils";
 import { getModifier, resetViewCompilerCache } from "@web/views/view_compiler";
 import { _t } from "@web/core/l10n/translation";
 import { EditorOperations, SnackbarIndicator } from "@web_studio/client_action/editor/edition_flow";
@@ -38,12 +38,6 @@ class EditorOperationsWithSnackbar extends EditorOperations {
         this.snackBar.add(this.race.add(_prom));
         return _prom;
     }
-}
-
-function getFieldsInArch(xmlDoc) {
-    return Array.from(xmlDoc.querySelectorAll("field"))
-        .filter((el) => !el.parentElement.closest("field"))
-        .map((n) => n.getAttribute("name"));
 }
 
 /**
@@ -692,7 +686,8 @@ export class ViewEditorModel extends Reactive {
         const context = {
             ...this._services.user.context,
             ...(this._studio.editedAction.context || {}),
-            lang: false, studio: true,
+            lang: false,
+            studio: true,
         };
         return this._rpc("/web_studio/edit_view", {
             view_id: this.mainView.id,
@@ -709,7 +704,8 @@ export class ViewEditorModel extends Reactive {
         const context = {
             ...this._services.user.context,
             ...(this._studio.editedAction.context || {}),
-            lang: false, studio: true,
+            lang: false,
+            studio: true,
         };
         const result = await this._rpc("/web_studio/edit_view_arch", {
             view_id: viewId,
