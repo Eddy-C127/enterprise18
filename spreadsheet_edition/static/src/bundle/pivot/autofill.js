@@ -105,8 +105,9 @@ autofillModifiersRegistry
          */
         apply: (rule, data, getters, direction) => {
             const formulaString = data.cell.content;
-            const pivotId = formulaString.match(/ODOO\.PIVOT\.POSITION\(\s*"(\w+)"\s*,/)[1];
-            if (!getters.isExistingPivot(pivotId)) {
+            const pivotFormulaId = formulaString.match(/ODOO\.PIVOT\.POSITION\(\s*"(\w+)"\s*,/)[1];
+            const pivotId = getters.getPivotId(pivotFormulaId);
+            if (!pivotId) {
                 return { cellData: { ...data.cell, content: formulaString } };
             }
             const { rows, columns } = getters.getPivot(pivotId).definition;

@@ -109,10 +109,12 @@ export async function createSpreadsheetFromPivotView(params = {}) {
     await def;
     await nextTick();
     const model = getSpreadsheetActionModel(spreadsheetAction);
+    const pivotId = model.getters.getPivotIds()[0];
     await waitForDataSourcesLoaded(model);
     return {
         webClient,
         env: getSpreadsheetActionEnv(spreadsheetAction),
         model,
+        pivotId,
     };
 }

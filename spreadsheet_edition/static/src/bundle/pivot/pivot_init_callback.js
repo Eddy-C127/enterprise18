@@ -36,13 +36,6 @@ export function insertPivot(pivotData) {
      * @param {import("@spreadsheet").OdooSpreadsheetModel} model
      */
     return async (model) => {
-        const pivotId = model.getters.getNextPivotId();
-        const dataSourceId = model.getters.getPivotDataSourceId(pivotId);
-        const pivotDataSource = model.config.custom.dataSources.add(dataSourceId, OdooPivot, {
-            definition: pivot,
-            getters: model.getters,
-        });
-        await model.config.custom.dataSources.load(dataSourceId);
         // Add an empty sheet in the case of an existing spreadsheet.
         if (!this.isEmptySpreadsheet) {
             const sheetId = uuidGenerator.uuidv4();
@@ -53,16 +46,22 @@ export function insertPivot(pivotData) {
             });
             model.dispatch("ACTIVATE_SHEET", { sheetIdFrom, sheetIdTo: sheetId });
         }
-        const structure = pivotDataSource.getTableStructure();
-        const table = structure.export();
-        const sheetId = model.getters.getActiveSheetId();
 
+        const pivotId = uuidGenerator.uuidv4();
         ensureSuccess(
             model.dispatch("ADD_PIVOT", {
                 pivotId,
                 pivot,
             })
         );
+
+        const ds = model.getters.getPivot(pivotId);
+        if (!(ds instanceof OdooPivot)) {
+            throw new Error("The pivot data source is not an OdooPivot");
+        }
+        await ds.load();
+        const table = ds.getTableStructure().export();
+        const sheetId = model.getters.getActiveSheetId();
 
         ensureSuccess(
             model.dispatch("INSERT_PIVOT", {

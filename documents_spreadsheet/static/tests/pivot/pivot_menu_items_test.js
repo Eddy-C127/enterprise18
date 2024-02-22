@@ -199,7 +199,7 @@ QUnit.module(
         );
 
         QUnit.test("Keep applying filter when pivot is re-inserted", async function (assert) {
-            const { model, env } = await createSpreadsheetWithPivot({
+            const { model, env, pivotId } = await createSpreadsheetWithPivot({
                 arch: /*xml*/ `
                     <pivot>
                         <field name="bar" type="col"/>
@@ -216,7 +216,7 @@ QUnit.module(
                 },
                 {
                     pivot: {
-                        1: {
+                        [pivotId]: {
                             chain: "product_id",
                             type: "many2one",
                         },
@@ -288,14 +288,19 @@ QUnit.module(
             assert.notOk(root.isVisible(env));
         });
 
-        QUnit.test("Verify absence of pivot properties on formula with invalid pivot Id", async function (assert) {
-            const { model, env } = await createSpreadsheetWithPivot();
-            setCellContent(model, "A1", `=ODOO.PIVOT.HEADER("fakeId")`);
-            const root = cellMenuRegistry.getAll().find((item) => item.id === "pivot_properties");
-            assert.notOk(root.isVisible(env));
-            setCellContent(model, "A1", `=ODOO.PIVOT("fakeId", "probability", "foo", 2)`);
-            assert.notOk(root.isVisible(env));
-        });
+        QUnit.test(
+            "Verify absence of pivot properties on formula with invalid pivot Id",
+            async function (assert) {
+                const { model, env } = await createSpreadsheetWithPivot();
+                setCellContent(model, "A1", `=ODOO.PIVOT.HEADER("fakeId")`);
+                const root = cellMenuRegistry
+                    .getAll()
+                    .find((item) => item.id === "pivot_properties");
+                assert.notOk(root.isVisible(env));
+                setCellContent(model, "A1", `=ODOO.PIVOT("fakeId", "probability", "foo", 2)`);
+                assert.notOk(root.isVisible(env));
+            }
+        );
 
         QUnit.test(
             "verify absence of pivots in top menu bar in a spreadsheet without a pivot",
@@ -309,7 +314,7 @@ QUnit.module(
             "Verify presence of pivots in top menu bar in a spreadsheet with a pivot",
             async function (assert) {
                 const { model, env } = await createSpreadsheetFromPivotView();
-                await insertPivotInSpreadsheet(model, { arch: getBasicPivotArch() });
+                await insertPivotInSpreadsheet(model, "PIVOT#2", { arch: getBasicPivotArch() });
                 assert.ok(
                     target.querySelector("div[data-id='data']"),
                     "The 'Pivots' menu should be in the dom"
@@ -334,7 +339,7 @@ QUnit.module(
 
         QUnit.test("Pivot focus changes on top bar menu click", async function (assert) {
             const { model, env } = await createSpreadsheetFromPivotView();
-            await insertPivotInSpreadsheet(model, { arch: getBasicPivotArch() });
+            await insertPivotInSpreadsheet(model, "PIVOT#2", { arch: getBasicPivotArch() });
 
             await doMenuAction(topbarMenuRegistry, ["data", "item_pivot_1"], env);
             await nextTick();
@@ -352,7 +357,7 @@ QUnit.module(
             async function (assert) {
                 const { model } = await createSpreadsheetFromPivotView();
                 model.dispatch("CREATE_SHEET", { sheetId: "sh2", name: "Sheet2" });
-                await insertPivotInSpreadsheet(model, { sheetId: "sh2" });
+                await insertPivotInSpreadsheet(model, "PIVOT#2", { sheetId: "sh2" });
                 await click(target, "div[data-id='data']");
 
                 const menuItemPivot1 = target.querySelector("div[data-name='item_pivot_1']");

@@ -245,7 +245,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     );
 
     QUnit.test("groupby date field without interval defaults to month", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             serverData: {
                 models: getBasicData(),
                 views: {
@@ -260,7 +260,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 },
             },
         });
-        const pivot = model.getters.getPivotDefinition("1");
+        const pivot = model.getters.getPivotDefinition(pivotId);
         assert.deepEqual(pivot, {
             colGroupBys: ["foo"],
             context: {},
@@ -271,6 +271,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             name: "Partners by Foo",
             sortedColumn: null,
             type: "ODOO",
+            formulaId: "1",
         });
         assert.equal(getCellContent(model, "A3"), '=ODOO.PIVOT.HEADER(1,"date","04/2016")');
         assert.equal(getCellContent(model, "A4"), '=ODOO.PIVOT.HEADER(1,"date","10/2016")');
@@ -314,7 +315,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("groupby date field on row gives correct name", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             serverData: {
                 models: getBasicData(),
                 views: {
@@ -327,7 +328,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 },
             },
         });
-        const pivot = model.getters.getPivotDefinition("1");
+        const pivot = model.getters.getPivotDefinition(pivotId);
         assert.deepEqual(pivot, {
             colGroupBys: [],
             context: {},
@@ -338,6 +339,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             name: "Partners by Date",
             sortedColumn: null,
             type: "ODOO",
+            formulaId: "1",
         });
     });
 
@@ -718,10 +720,10 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     QUnit.test("pivot with a domain", async (assert) => {
         assert.expect(3);
 
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             domain: [["bar", "=", true]],
         });
-        const domain = model.getters.getPivotDefinition("1").domain;
+        const domain = model.getters.getPivotDefinition(pivotId).domain;
         assert.deepEqual(domain, [["bar", "=", true]], "It should have the correct domain");
         assert.strictEqual(getCellContent(model, "A3"), `=ODOO.PIVOT.HEADER(1,"bar","true")`);
         assert.strictEqual(getCellContent(model, "A4"), `=ODOO.PIVOT.HEADER(1)`);
@@ -748,7 +750,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 <field name="probability" type="measure"/>
             </pivot>
         `;
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             serverData,
             additionalContext: { search_default_filter: 1 },
             mockRPC: function (route, args) {
@@ -762,8 +764,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 }
             },
         });
-        const pivotId = "1";
-        const domain = model.getters.getPivotDefinition("1").domain;
+        const domain = model.getters.getPivotDefinition(pivotId).domain;
         assert.deepEqual(domain, '[("foo", "=", uid)]', "It should have the raw domain string");
         assert.deepEqual(
             model.exportData().pivots[pivotId].domain,
@@ -886,11 +887,11 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             ...user.context,
             default_stage_id: 5,
         };
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             additionalContext: context,
         });
         assert.deepEqual(
-            model.exportData().pivots[1].context,
+            model.exportData().pivots[pivotId].context,
             {
                 default_stage_id: 5,
             },
@@ -905,7 +906,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             pivot_measures: ["probability"],
             default_stage_id: 5,
         };
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             additionalContext: context,
             actions: async (target) => {
                 await toggleMenu(target, "Measures");
@@ -935,7 +936,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             "probability:avg,__count",
         ]);
         assert.deepEqual(
-            model.exportData().pivots[1].context,
+            model.exportData().pivots[pivotId].context,
             {
                 default_stage_id: 5,
             },
@@ -944,7 +945,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("sort first pivot column (ascending)", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             actions: async (target) => {
                 await click(target.querySelector("thead .o_pivot_measure_row"));
             },
@@ -957,7 +958,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.strictEqual(getCellValue(model, "C4"), "");
         assert.strictEqual(getCellValue(model, "F3"), 15);
         assert.strictEqual(getCellValue(model, "F4"), 116);
-        assert.deepEqual(model.getters.getPivotDefinition(1).sortedColumn, {
+        assert.deepEqual(model.getters.getPivotDefinition(pivotId).sortedColumn, {
             groupId: [[], [1]],
             measure: "probability",
             order: "asc",
@@ -966,7 +967,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("sort first pivot column (descending)", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             actions: async (target) => {
                 await click(target.querySelector("thead .o_pivot_measure_row")); // first click toggles ascending
                 await click(target.querySelector("thead .o_pivot_measure_row")); // second is descending
@@ -980,7 +981,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.strictEqual(getCellValue(model, "C4"), 15);
         assert.strictEqual(getCellValue(model, "F3"), 116);
         assert.strictEqual(getCellValue(model, "F4"), 15);
-        assert.deepEqual(model.getters.getPivotDefinition(1).sortedColumn, {
+        assert.deepEqual(model.getters.getPivotDefinition(pivotId).sortedColumn, {
             groupId: [[], [1]],
             measure: "probability",
             order: "desc",
@@ -989,7 +990,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("sort second pivot column (ascending)", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             actions: async (target) => {
                 await click(target.querySelectorAll("thead .o_pivot_measure_row")[1]);
             },
@@ -1002,7 +1003,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.strictEqual(getCellValue(model, "C4"), 15);
         assert.strictEqual(getCellValue(model, "F3"), 116);
         assert.strictEqual(getCellValue(model, "F4"), 15);
-        assert.deepEqual(model.getters.getPivotDefinition(1).sortedColumn, {
+        assert.deepEqual(model.getters.getPivotDefinition(pivotId).sortedColumn, {
             groupId: [[], [2]],
             measure: "probability",
             order: "asc",
@@ -1011,7 +1012,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("sort second pivot column (descending)", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             actions: async (target) => {
                 await click(target.querySelectorAll("thead .o_pivot_measure_row")[1]); // first click toggles ascending
                 await click(target.querySelectorAll("thead .o_pivot_measure_row")[1]); // second is descending
@@ -1025,7 +1026,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.strictEqual(getCellValue(model, "C4"), "");
         assert.strictEqual(getCellValue(model, "F3"), 15);
         assert.strictEqual(getCellValue(model, "F4"), 116);
-        assert.deepEqual(model.getters.getPivotDefinition(1).sortedColumn, {
+        assert.deepEqual(model.getters.getPivotDefinition(pivotId).sortedColumn, {
             groupId: [[], [2]],
             measure: "probability",
             order: "desc",
@@ -1034,7 +1035,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("sort second pivot measure (ascending)", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             serverData: {
                 models: getBasicData(),
                 views: {
@@ -1057,7 +1058,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.strictEqual(getCellValue(model, "B4"), 121);
         assert.strictEqual(getCellValue(model, "C3"), 12);
         assert.strictEqual(getCellValue(model, "C4"), 20);
-        assert.deepEqual(model.getters.getPivotDefinition(1).sortedColumn, {
+        assert.deepEqual(model.getters.getPivotDefinition(pivotId).sortedColumn, {
             groupId: [[], []],
             measure: "foo",
             order: "asc",
@@ -1066,7 +1067,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("sort second pivot measure (descending)", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
+        const { model, pivotId } = await createSpreadsheetFromPivotView({
             serverData: {
                 models: getBasicData(),
                 views: {
@@ -1090,7 +1091,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.strictEqual(getCellValue(model, "B4"), 10);
         assert.strictEqual(getCellValue(model, "C3"), 20);
         assert.strictEqual(getCellValue(model, "C4"), 12);
-        assert.deepEqual(model.getters.getPivotDefinition(1).sortedColumn, {
+        assert.deepEqual(model.getters.getPivotDefinition(pivotId).sortedColumn, {
             groupId: [[], []],
             measure: "foo",
             order: "desc",
@@ -1168,8 +1169,9 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
         const model = getSpreadsheetActionModel(spreadsheetAction);
         await waitForDataSourcesLoaded(model);
-        assert.equal(model.getters.getPivotName("1"), "New name");
-        assert.equal(model.getters.getPivotDisplayName("1"), "(#1) New name");
+        const pivotId = model.getters.getPivotIds()[0];
+        assert.equal(model.getters.getPivotName(pivotId), "New name");
+        assert.equal(model.getters.getPivotDisplayName(pivotId), "(#1) New name");
     });
 
     QUnit.test("Pivot name is not changed if the name is empty", async (assert) => {
@@ -1190,7 +1192,8 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         await nextTick();
         const model = getSpreadsheetActionModel(spreadsheetAction);
         await waitForDataSourcesLoaded(model);
-        assert.equal(model.getters.getPivotName("1"), "Partners by Foo");
+        const pivotId = model.getters.getPivotIds()[0];
+        assert.equal(model.getters.getPivotName(pivotId), "Partners by Foo");
     });
 
     QUnit.test("Check pivot measures with m2o field", async function (assert) {

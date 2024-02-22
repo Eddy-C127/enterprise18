@@ -45,8 +45,8 @@ export class PivotAutofillPlugin extends UIPlugin {
         }
         const { functionName, args } = this.getters.getFirstPivotFunction(tokens);
         const evaluatedArgs = args.map((arg) => arg.toString());
-        const pivotId = evaluatedArgs[0];
-        if (!this.getters.isExistingPivot(pivotId)) {
+        const pivotId = this.getters.getPivotId(evaluatedArgs[0]);
+        if (!pivotId) {
             return formula;
         }
         const dataSource = this.getters.getPivot(pivotId);
@@ -110,9 +110,9 @@ export class PivotAutofillPlugin extends UIPlugin {
             return [];
         }
         const { functionName, args } = this.getters.getFirstPivotFunction(tokens);
-        const pivotId = args[0];
-        if (!this.getters.isExistingPivot(pivotId)) {
-            return [{ title: _t("Missing pivot"), value: _t("Missing pivot #%s", pivotId) }];
+        const pivotId = this.getters.getPivotId(args[0]);
+        if (!pivotId) {
+            return [{ title: _t("Missing pivot"), value: _t("Missing pivot #%s", args[0]) }];
         }
         if (functionName === "ODOO.PIVOT") {
             const dataSource = this.getters.getPivot(pivotId);
@@ -662,7 +662,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      * @returns {Array<string>}
      */
     _buildArgs(pivotId, measure, rows, cols, definition) {
-        const args = [pivotId];
+        const args = [this.getters.getPivotFormulaId(pivotId)];
         if (measure) {
             args.push(measure);
         }

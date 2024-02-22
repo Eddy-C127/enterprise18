@@ -54,11 +54,11 @@ export class PivotDialog extends Component {
         this.dataSource = this.props.getters.getPivot(this.props.pivotId);
 
         const table = this.dataSource.getTableStructure();
-        const id = this.props.pivotId;
+        const formulaId = this.props.getters.getPivotFormulaId(this.props.pivotId);
         this.data = {
-            columns: this._buildColHeaders(id, table),
-            rows: this._buildRowHeaders(id, table),
-            values: this._buildValues(id, table),
+            columns: this._buildColHeaders(formulaId, table),
+            rows: this._buildRowHeaders(formulaId, table),
+            values: this._buildValues(formulaId, table),
         };
     }
 
@@ -277,7 +277,6 @@ export class PivotDialog extends Component {
      */
     _buildColHeaders(id, table) {
         const headers = [];
-        const pivot = this.props.getters.getPivot(id);
         for (const row of table.getColHeaders()) {
             const current = [];
             for (const cell of row) {
@@ -288,7 +287,7 @@ export class PivotDialog extends Component {
                 }
                 current.push({
                     formula: makePivotFormula("ODOO.PIVOT.HEADER", [id, ...domain]),
-                    value: pivot.getPivotHeaderFormattedValue(domain),
+                    value: this.dataSource.getPivotHeaderFormattedValue(domain),
                     span: cell.width,
                     isMissing: !this.dataSource.isUsedHeader(domain),
                 });
@@ -315,7 +314,6 @@ export class PivotDialog extends Component {
      */
     _buildRowHeaders(id, table) {
         const headers = [];
-        const pivot = this.props.getters.getPivot(id);
         for (const row of table.getRowHeaders()) {
             const domain = [];
             for (let i = 0; i < row.fields.length; i++) {
@@ -325,7 +323,7 @@ export class PivotDialog extends Component {
             const cell = {
                 args: domain,
                 formula: makePivotFormula("ODOO.PIVOT.HEADER", [id, ...domain]),
-                value: pivot.getPivotHeaderFormattedValue(domain),
+                value: this.dataSource.getPivotHeaderFormattedValue(domain),
                 isMissing: !this.dataSource.isUsedHeader(domain),
             };
             if (row.indent > 1) {

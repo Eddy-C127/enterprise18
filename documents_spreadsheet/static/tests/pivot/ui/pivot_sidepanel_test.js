@@ -23,7 +23,7 @@ QUnit.module(
     },
     function () {
         QUnit.test("Open pivot properties", async function (assert) {
-            const { model, env } = await createSpreadsheetFromPivotView({
+            const { env, pivotId } = await createSpreadsheetFromPivotView({
                 serverData: {
                     models: getBasicData(),
                     views: {
@@ -37,7 +37,6 @@ QUnit.module(
                     },
                 },
             });
-            const [pivotId] = model.getters.getPivotIds();
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             let title = target.querySelector(".o-sidePanelTitle").innerText;
@@ -78,12 +77,11 @@ QUnit.module(
         });
 
         QUnit.test("Pivot properties panel shows ascending sorting", async function (assert) {
-            const { model, env } = await createSpreadsheetFromPivotView({
+            const { env, pivotId } = await createSpreadsheetFromPivotView({
                 actions: async (target) => {
                     await click(target.querySelector("thead .o_pivot_measure_row"));
                 },
             });
-            const [pivotId] = model.getters.getPivotIds();
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
 
@@ -96,13 +94,12 @@ QUnit.module(
         });
 
         QUnit.test("Pivot properties panel shows descending sorting", async function (assert) {
-            const { model, env } = await createSpreadsheetFromPivotView({
+            const { pivotId, env } = await createSpreadsheetFromPivotView({
                 actions: async (target) => {
                     await click(target.querySelector("thead .o_pivot_measure_row"));
                     await click(target.querySelector("thead .o_pivot_measure_row"));
                 },
             });
-            const [pivotId] = model.getters.getPivotIds();
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
 
@@ -115,12 +112,11 @@ QUnit.module(
         });
 
         QUnit.test("can refresh a sorted pivot", async function (assert) {
-            const { model, env } = await createSpreadsheetFromPivotView({
+            const { pivotId, env } = await createSpreadsheetFromPivotView({
                 actions: async (target) => {
                     await click(target.querySelector("thead .o_pivot_measure_row"));
                 },
             });
-            const [pivotId] = model.getters.getPivotIds();
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
 
@@ -140,7 +136,7 @@ QUnit.module(
 
         QUnit.test("Can select a pivot from the pivot list side panel", async function (assert) {
             const { model, env } = await createSpreadsheetFromPivotView();
-            await insertPivotInSpreadsheet(model, { arch: getBasicPivotArch() });
+            await insertPivotInSpreadsheet(model, "PIVOT#2", { arch: getBasicPivotArch() });
 
             env.openSidePanel("ALL_PIVOTS_PANEL");
             await nextTick();
@@ -163,7 +159,7 @@ QUnit.module(
 
                 const data = getBasicData();
 
-                const { model, env } = await createSpreadsheetFromPivotView({
+                const { model, env, pivotId } = await createSpreadsheetFromPivotView({
                     serverData: {
                         models: data,
                         views: getBasicServerData().views,
@@ -182,7 +178,6 @@ QUnit.module(
                     product_id: 41,
                     tag_ids: [],
                 });
-                const [pivotId] = model.getters.getPivotIds();
                 env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
                 await nextTick();
                 await click(target, ".o_refresh_measures");
@@ -193,7 +188,7 @@ QUnit.module(
         QUnit.test(
             "Open pivot properties properties with non-loaded field",
             async function (assert) {
-                const { model, env } = await createSpreadsheetFromPivotView();
+                const { model, env, pivotId } = await createSpreadsheetFromPivotView();
                 const pivotPlugin = model["handlers"].find(
                     (handler) => handler instanceof PivotUIPlugin
                 );
@@ -202,7 +197,7 @@ QUnit.module(
                 dataSource._loadPromise = undefined;
                 dataSource._createModelPromise = undefined;
                 dataSource._model = undefined;
-                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId: "1" });
+                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
                 await nextTick();
                 const sections = target.querySelectorAll(".o_side_panel_section");
                 const columns = sections[3];
@@ -215,25 +210,23 @@ QUnit.module(
         );
 
         QUnit.test("Update the pivot title from the side panel", async function (assert) {
-            const { model, env } = await createSpreadsheetFromPivotView();
-            const [pivotId] = model.getters.getPivotIds();
+            const { model, env, pivotId } = await createSpreadsheetFromPivotView();
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             await click(target, ".o_sp_en_rename");
             await editInput(target, ".o_sp_en_name", "new name");
             await click(target, ".o_sp_en_save");
-            assert.equal(model.getters.getPivotName("1"), "new name");
+            assert.equal(model.getters.getPivotName(pivotId), "new name");
         });
 
         QUnit.test("Update the pivot domain from the side panel", async function (assert) {
-            const { model, env } = await createSpreadsheetFromPivotView({
+            const { model, env, pivotId } = await createSpreadsheetFromPivotView({
                 mockRPC(route) {
                     if (route === "/web/domain/validate") {
                         return true;
                     }
                 },
             });
-            const [pivotId] = model.getters.getPivotIds();
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             const fixture = getFixture();
@@ -247,25 +240,25 @@ QUnit.module(
         QUnit.test(
             "Opening the sidepanel of a pivot while the panel of another pivot is open updates the side panel",
             async function (assert) {
-                const { model, env } = await createSpreadsheetFromPivotView();
+                const { model, env, pivotId } = await createSpreadsheetFromPivotView();
                 const arch = /* xml */ `
                     <pivot string="Product">
                         <field name="name" type="col"/>
                         <field name="active" type="row"/>
                         <field name="__count" type="measure"/>
                     </pivot>`;
-                await insertPivotInSpreadsheet(model, {
+                const pivotId2 = "PIVOT#2";
+                await insertPivotInSpreadsheet(model, "PIVOT#2", {
                     arch,
                     resModel: "product",
+                    id: pivotId2,
                 });
-                const pivotIds = model.getters.getPivotIds();
-
-                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId: pivotIds[0] });
+                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
                 await nextTick();
                 let modelName = target.querySelector(".o_side_panel_section .o_model_name");
                 assert.equal(modelName.innerText, "Partner (partner)");
 
-                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId: pivotIds[1] });
+                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId: pivotId2 });
                 await nextTick();
                 modelName = target.querySelector(".o_side_panel_section .o_model_name");
                 assert.equal(modelName.innerText, "Product (product)");
@@ -273,8 +266,7 @@ QUnit.module(
         );
 
         QUnit.test("Duplicate the pivot from the side panel", async function (assert) {
-            const { model, env } = await createSpreadsheetFromPivotView();
-            const [pivotId] = model.getters.getPivotIds();
+            const { model, env, pivotId } = await createSpreadsheetFromPivotView();
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
 
@@ -295,8 +287,7 @@ QUnit.module(
         QUnit.test(
             "A warning is displayed in the side panel if the pivot is unused",
             async function (assert) {
-                const { model, env } = await createSpreadsheetFromPivotView();
-                const [pivotId] = model.getters.getPivotIds();
+                const { model, env, pivotId } = await createSpreadsheetFromPivotView();
                 env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
                 await nextTick();
 
@@ -318,8 +309,7 @@ QUnit.module(
         );
 
         QUnit.test("Deleting the pivot closes the side panel", async function (assert) {
-            const { model, env } = await createSpreadsheetFromPivotView();
-            const [pivotId] = model.getters.getPivotIds();
+            const { model, env, pivotId } = await createSpreadsheetFromPivotView();
             model.dispatch("SELECT_PIVOT", { pivotId });
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
@@ -333,8 +323,7 @@ QUnit.module(
         });
 
         QUnit.test("Undo a pivot insertion closes the side panel", async function (assert) {
-            const { model, env } = await createSpreadsheetFromPivotView();
-            const [pivotId] = model.getters.getPivotIds();
+            const { model, env, pivotId } = await createSpreadsheetFromPivotView();
             model.dispatch("SELECT_PIVOT", { pivotId });
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();

@@ -28,7 +28,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
                 defaultValue: [41],
             },
             {
-                pivot: { 1: { chain: "product_id", type: "many2one" } },
+                pivot: { "PIVOT#1": { chain: "product_id", type: "many2one" } },
             }
         );
         assert.strictEqual(getCellValue(model, "B3"), "");
@@ -95,7 +95,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
                     type: "relation",
                     defaultValue: [],
                 },
-                { pivot: { 1: { chain: "product_id", type: "many2one" } } }
+                { pivot: { "PIVOT#1": { chain: "product_id", type: "many2one" } } }
             );
             selectCell(model, "B3");
             const root = cellMenuRegistry
@@ -121,7 +121,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
                 type: "relation",
                 defaultValue: [],
             },
-            { pivot: { 1: { chain: "product_id", type: "many2one" } } }
+            { pivot: { "PIVOT#1": { chain: "product_id", type: "many2one" } } }
         );
         selectCell(model, "B3");
         const root = cellMenuRegistry
@@ -146,7 +146,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
                 type: "relation",
                 defaultValue: [],
             },
-            { pivot: { 1: { chain: "product_id", type: "many2one" } } }
+            { pivot: { "PIVOT#1": { chain: "product_id", type: "many2one" } } }
         );
         selectCell(model, "B5");
         const root = cellMenuRegistry
@@ -229,7 +229,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
                     defaultValue: [41],
                 },
                 {
-                    pivot: { 1: { chain: "product_id", type: "many2one" } },
+                    pivot: { "PIVOT#1": { chain: "product_id", type: "many2one" } },
                 }
             );
             selectCell(model, "A30");
@@ -249,7 +249,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
             defaultValue: [2],
         };
         await addGlobalFilter(model, filter, {
-            pivot: { 1: { chain: "product_id", type: "many2one" } },
+            pivot: { "PIVOT#1": { chain: "product_id", type: "many2one" } },
         });
         model.dispatch("REQUEST_UNDO");
         assert.equal(model.getters.getGlobalFilters().length, 0);
@@ -268,7 +268,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
                 defaultValue: [2],
             };
             await addGlobalFilter(model, filter, {
-                pivot: { 1: { chain: "product_id", type: "many2one" } },
+                pivot: { "PIVOT#1": { chain: "product_id", type: "many2one" } },
             });
             assert.strictEqual(getCellValue(model, "B4"), "");
             model.dispatch("REQUEST_UNDO");

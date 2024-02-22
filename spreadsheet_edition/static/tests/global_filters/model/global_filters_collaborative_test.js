@@ -49,7 +49,7 @@ QUnit.module("spreadsheet_edition > collaborative global filters", { beforeEach 
             10
         );
         await addGlobalFilter(alice, filter, {
-            pivot: { 1: { chain: "product_id", type: "many2one" } },
+            pivot: { "PIVOT#1": { chain: "product_id", type: "many2one" } },
         });
         await waitForDataSourcesLoaded(alice);
         await waitForDataSourcesLoaded(bob);
@@ -87,7 +87,7 @@ QUnit.module("spreadsheet_edition > collaborative global filters", { beforeEach 
             11
         );
         await addGlobalFilter(alice, filter, {
-            pivot: { 1: { chain: "product_id", type: "many2one" } },
+            pivot: { "PIVOT#1": { chain: "product_id", type: "many2one" } },
         });
         await waitForDataSourcesLoaded(alice);
         await waitForDataSourcesLoaded(bob);

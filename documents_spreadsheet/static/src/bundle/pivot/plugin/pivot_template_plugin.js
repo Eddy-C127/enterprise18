@@ -188,7 +188,7 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
      */
     _pivotPositionToAbsolute(ast) {
         const [pivotIdAst, fieldAst, positionAst] = ast.args;
-        const pivotId = pivotIdAst.value;
+        const pivotId = this.getters.getPivotId(pivotIdAst.value);
         const fieldName = fieldAst.value;
         const position = positionAst.value;
         const pivot = this.getters.getPivot(pivotId);
@@ -252,15 +252,15 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
         for (let i = 0; i <= domainAsts.length - 1; i += 2) {
             const fieldAst = domainAsts[i];
             const valueAst = domainAsts[i + 1];
-            const pivotId = pivotIdAst.value;
+            const formulaId = pivotIdAst.value;
             const fieldName = fieldAst.value;
             if (
-                this._isAbsolute(pivotId, fieldName) &&
+                this._isAbsolute(formulaId, fieldName) &&
                 fieldAst.type === "STRING" &&
                 ["STRING", "NUMBER"].includes(valueAst.type)
             ) {
                 const id = valueAst.value;
-                const pivot = this.getters.getPivot(pivotId);
+                const pivot = this.getters.getPivot(this.getters.getPivotId(formulaId));
                 const values = pivot.getPossibleValuesForGroupBy(fieldName);
                 const index = values.map((val) => val.toString()).indexOf(id.toString());
                 relativeDomain = relativeDomain.concat([
@@ -278,8 +278,10 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
         return relativeDomain;
     }
 
-    _isAbsolute(pivotId, fieldName) {
-        const field = this.getters.getPivot(pivotId).getField(fieldName.split(":")[0]);
+    _isAbsolute(formulaId, fieldName) {
+        const field = this.getters
+            .getPivot(this.getters.getPivotId(formulaId))
+            .getField(fieldName.split(":")[0]);
         return field && field.type === "many2one";
     }
 

@@ -64,7 +64,7 @@ topbarMenuRegistry.addChild("download_as_json", ["file"], {
 topbarMenuRegistry.addChild("data_sources_data", ["data"], (env) => {
     let sequence = 1000;
     const pivots_items = env.model.getters.getPivotIds().map((pivotId, index) => ({
-        id: `item_pivot_${pivotId}`,
+        id: `item_pivot_${env.model.getters.getPivotFormulaId(pivotId)}`,
         name: env.model.getters.getPivotDisplayName(pivotId),
         sequence: sequence++,
         execute: (env) => {

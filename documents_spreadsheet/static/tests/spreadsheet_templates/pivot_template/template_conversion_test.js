@@ -438,7 +438,7 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
         "Open spreadsheet from template containing pivot of records without data",
         async (assert) => {
             const serverData = getBasicServerData();
-            const { model, env } = await createSpreadsheetWithPivot({
+            const { model, env, pivotId } = await createSpreadsheetWithPivot({
                 arch: /*xml*/ `
                     <pivot>
                         <field name="product_id" type="row"/>
@@ -449,7 +449,7 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
                     </pivot>`,
                 serverData,
             });
-            await model.getters.getPivot("1").prepareForTemplateGeneration();
+            await model.getters.getPivot(pivotId).prepareForTemplateGeneration();
             model.dispatch("CONVERT_PIVOT_TO_TEMPLATE");
             serverData.models.partner.records = [];
             const data = await convertFromSpreadsheetTemplate(env, model.exportData());
