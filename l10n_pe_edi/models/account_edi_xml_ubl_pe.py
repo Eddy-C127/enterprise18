@@ -1,3 +1,5 @@
+import re
+
 from odoo import models
 
 
@@ -328,4 +330,12 @@ class AccountEdiXmlUBLPE(models.AbstractModel):
                     },
                 })
 
+        return vals
+
+    def _get_note_vals_list(self, invoice):
+        # In PE localization, as many special characters are not supported in Note node,
+        # they are replaced by an empty space.
+        vals = super()._get_note_vals_list(invoice)
+        for note_vals in vals:
+            note_vals['note'] = re.sub(r'\s', ' ', note_vals['note'])
         return vals
