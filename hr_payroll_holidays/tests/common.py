@@ -2,13 +2,12 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.fields import Date
-from odoo.tests.common import new_test_user
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from odoo.tests.common import TransactionCase, new_test_user
 
 from dateutil.relativedelta import relativedelta
 
 
-class TestPayrollHolidaysBase(AccountTestInvoicingCommon):
+class TestPayrollHolidaysBase(TransactionCase):
 
     @classmethod
     def setUpClass(cls):
