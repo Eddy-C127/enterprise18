@@ -81,7 +81,7 @@ class SocialStreamPostInstagram(models.Model):
 
         comments_endpoint = url_join(
             self.env['social.media']._INSTAGRAM_ENDPOINT,
-            '/v10.0/%s/comments' % self.instagram_post_id)
+            '/v17.0/%s/comments' % self.instagram_post_id)
 
         params = {
             'access_token': self.account_id.instagram_access_token,
@@ -100,7 +100,7 @@ class SocialStreamPostInstagram(models.Model):
 
     def _instagram_comment_delete(self, comment_id):
         self.ensure_one()
-        comments_endpoint_url = url_join(self.env['social.media']._INSTAGRAM_ENDPOINT, "/v10.0/%s" % comment_id)
+        comments_endpoint_url = url_join(self.env['social.media']._INSTAGRAM_ENDPOINT, "/v17.0/%s" % comment_id)
         requests.delete(comments_endpoint_url, data={
             'access_token': self.account_id.instagram_access_token,
         })
