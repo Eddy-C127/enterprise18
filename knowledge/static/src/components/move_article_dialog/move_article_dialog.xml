@@ -10,6 +10,7 @@
             </t>
             <SelectMenu
                 togglerClass="'o_knowledge_select_menu'"
+                menuClass="'o_knowledge_select_menu_dropdown'"
                 class="'o_knowledge_select_menu'"
                 onInput.bind="fetchValues"
                 onSelect.bind="selectArticle"
@@ -18,7 +19,7 @@
                 <span class="fw-lighter" t-ref="togglerRef">
                     <img
                         t-if="state.selectedParentArticle.value and state.selectedParentArticle.value.parentArticleId === 'private'"
-                        class="small rounded-circle me-1"
+                        class="rounded-circle me-1"
                         t-att-src="this.loggedUserPicture"
                     />
                     <t t-out="state.selectedParentArticle.label || this.placeholderLabel"/>
@@ -27,7 +28,7 @@
                     <span>
                         <img
                             t-if="choice.data.value and choice.data.value.parentArticleId === 'private'"
-                            class="small rounded me-1"
+                            class="rounded me-1"
                             t-att-src="this.loggedUserPicture"
                         />
                         <t t-out="choice.data.label"/>

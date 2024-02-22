@@ -79,8 +79,8 @@
                 </div>
                 <div class="d-flex gap-1">
                     <a role="button" t-on-click="() => this.env.createArticle('private')" class="btn btn-primary btn-create text-nowrap" data-hotkey="n">New</a>
-                    <div class="o-dropdown dropdown o-dropdown--no-caret" t-if="props.record.resId and props.record.data.active">
-                        <a t-ref="sharePanel_button" role="button" class="btn btn-light btn-share dropdown-toggle" id="dropdown_share_panel" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hotkey="shift+s">
+                    <div class="o-dropdown dropdown" t-if="props.record.resId and props.record.data.active">
+                        <a t-ref="sharePanel_button" role="button" class="btn btn-light btn-share dropdown-toggle o-no-caret" id="dropdown_share_panel" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hotkey="shift+s">
                             <i class="fa fa-fw fs-6 fa-share-alt me-1"/>
                             <t t-if="isInternalUser">Share</t>
                             <t t-else="">Members</t>
@@ -113,8 +113,8 @@
                         t-attf-class="btn btn-light btn-comments #{state.displayCommentsPanel ? 'active' : ''}" t-on-click="toggleComments">
                         <i class="fa fa-fw fs-6 fa-commenting" title="Open comments panel"/>
                     </a>
-                    <div class="o-dropdown dropdown o-dropdown--no-caret" t-if="props.record.resId">
-                        <a role="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" id="dropdown_tools_panel" aria-haspopup="true" aria-expanded="false" data-hotkey="p" title="More actions" t-ref="optionsBtn">
+                    <div class="o-dropdown dropdown" t-if="props.record.resId">
+                        <a role="button" class="btn btn-light dropdown-toggle o-no-caret" data-bs-toggle="dropdown" id="dropdown_tools_panel" aria-haspopup="true" aria-expanded="false" data-hotkey="p" title="More actions" t-ref="optionsBtn">
                             <i class="fa fa-fw fs-6 fa-ellipsis-v"/>
                         </a>
                         <div class="o_knowledge_more_options_panel dropdown-menu" role="menu" aria-labelledby="dropdown_tools_panel">
