@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Approvals',
@@ -24,6 +23,7 @@ creates next activities for the related approvers.
 
         'data/approval_category_data.xml',
         'data/mail_activity_type_data.xml',
+        'data/mail_message_subtype_data.xml',
 
         'views/approval_category_views.xml',
         'views/approval_category_approver_views.xml',

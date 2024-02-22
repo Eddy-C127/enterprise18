@@ -1,10 +1,7 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, Command, fields, models, _
 from odoo.exceptions import UserError, ValidationError
-
-from collections import defaultdict
 
 
 class ApprovalRequest(models.Model):
@@ -106,7 +103,10 @@ class ApprovalRequest(models.Model):
             category = 'category_id' in vals and self.env['approval.category'].browse(vals['category_id'])
             if category and category.automated_sequence:
                 vals['name'] = category.sequence_id.next_by_id()
-        return super().create(vals_list)
+        created_requests = super().create(vals_list)
+        for request in created_requests:
+            request.message_subscribe(partner_ids=request.request_owner_id.partner_id.ids)
+        return created_requests
 
     @api.ondelete(at_uninstall=False)
     def unlink_attachments(self):
@@ -310,7 +310,15 @@ class ApprovalRequest(models.Model):
             request.update({'approver_ids': approver_id_vals})
 
     def write(self, vals):
+        if 'request_owner_id' in vals:
+            for approval in self:
+                approval.message_unsubscribe(partner_ids=approval.request_owner_id.partner_id.ids)
+
         res = super().write(vals)
+
+        if 'request_owner_id' in vals:
+            for approval in self:
+                approval.message_subscribe(partner_ids=approval.request_owner_id.partner_id.ids)
 
         if 'approver_ids' in vals:
             to_resequence = self.filtered_domain([('approver_sequence', '=', True), ('request_status', '=', 'pending')])
@@ -322,6 +330,12 @@ class ApprovalRequest(models.Model):
                         approver[0]._create_activity()
 
         return res
+
+    def _track_subtype(self, init_values):
+        self.ensure_one()
+        if 'request_status' in init_values:
+            return self.env.ref('approvals.mt_approval_request_status')
+        return super()._track_subtype(init_values)
 
     @api.constrains('approver_ids')
     def _check_approver_ids(self):
