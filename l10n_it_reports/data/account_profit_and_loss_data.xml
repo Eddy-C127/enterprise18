@@ -423,7 +423,7 @@
                     <record id="account_financial_report_line_it_ce_C_TOT" model="account.report.expression">
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
-                        <field name="formula">IT_CEC_15.balance + IT_CEC_16.balance - IT_CEC_17.balance + IT_CEC_17_bis.balance</field>
+                        <field name="formula">IT_CEC_15.balance + IT_CEC_16.balance + IT_CEC_17.balance + IT_CEC_17_bis.balance</field>
                         <field name="date_scope">normal</field>
                     </record>
                 </field>
@@ -549,7 +549,7 @@
                                 <field name="groupby">account_id</field>
                                 <field name="hide_if_zero" eval="True"/>
                                 <field name="foldable" eval="True"/>
-                                <field name="account_codes_formula">-522</field>
+                                <field name="account_codes_formula">-5222</field>
                             </record>
                             <record id="account_financial_report_line_it_ce_C_17_3" model="account.report.line">
                                 <field name="name">To enterprises under the control of parent companies</field>
@@ -708,5 +708,10 @@
                 <field name="hierarchy_level">0</field>
             </record>
         </field>
+    </record>
+    <record id="action_account_financial_report_it_ce" model="ir.actions.client">
+        <field name="name">Profit and loss</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.report', 'report_id': ref('account_financial_report_it_ce')}"/>
     </record>
 </odoo>
