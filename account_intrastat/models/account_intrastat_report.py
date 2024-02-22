@@ -482,11 +482,17 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 'transaction.code': format_where_params('transaction_code'),
                 'company_region.code': format_where_params('region_code'),
                 'partner.vat': format_where_params('partner_vat', comparison_value=('QV999999999999', 'QN999999999999')),
+                'account_move.currency_id': format_where_params('invoice_currency_id'),
             }
 
             for key, value in where_values.items():
                 where += SQL(" AND {key} IS NOT DISTINCT FROM %s").format(key=Identifier(*key.split('.')))
                 where_params.append(value)
+
+            where += SQL(" AND COALESCE(inv_incoterm.code, comp_incoterm.code) IS NOT DISTINCT FROM %s")
+            where_params.append(format_where_params('incoterm_code'))
+            where += SQL(" AND COALESCE(inv_transport.code, comp_transport.code) IS NOT DISTINCT FROM %s")
+            where_params.append(format_where_params('transport_code'))
 
         if options['intrastat_with_vat']:
             where += SQL(" AND partner.vat IS NOT NULL ")
