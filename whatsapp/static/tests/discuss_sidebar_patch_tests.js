@@ -81,3 +81,47 @@ QUnit.test("Message unread counter in whatsapp channels", async () => {
         ],
     });
 });
+
+QUnit.test(
+    "whatsapp are sorted by last activity time in the sidebar: most recent at the top",
+    async () => {
+        const pyEnv = await startServer();
+        const [partnerId1, partnerId2] = pyEnv["res.partner"].create([
+            { name: "George" },
+            { name: "Claude" },
+        ]);
+        pyEnv["discuss.channel"].create([
+            {
+                name: "WhatsApp 1",
+                channel_member_ids: [
+                    Command.create({
+                        last_interest_dt: "2021-01-01 10:00:00",
+                        partner_id: pyEnv.currentPartnerId,
+                    }),
+                    Command.create({ partner_id: partnerId1 }),
+                ],
+                channel_type: "whatsapp",
+            },
+            {
+                name: "WhatsApp 2",
+                channel_member_ids: [
+                    Command.create({
+                        last_interest_dt: "2021-02-01 10:00:00",
+                        partner_id: pyEnv.currentPartnerId,
+                    }),
+                    Command.create({ partner_id: partnerId2 }),
+                ],
+                channel_type: "whatsapp",
+            },
+        ]);
+        const { openDiscuss } = await start();
+        await openDiscuss();
+        await contains(".o-mail-DiscussSidebarChannel", { count: 2 });
+        await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 2" });
+        await click(":nth-child(2 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 1" });
+        await insertText(".o-mail-Composer-input", "Blabla");
+        await click(".o-mail-Composer-send:enabled");
+        await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 1" });
+        await contains(":nth-child(2 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 2" });
+    }
+);
