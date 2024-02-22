@@ -230,7 +230,7 @@
                                 <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
                             </group>
                             <group name="accounting">
-                                <field name="has_negative_net_to_report"/>
+                                <field name="has_negative_net_to_report" invisible="1"/>
                                 <field name="negative_net_to_report_display" invisible="1"/>
                                 <field name="paid_date"/>
                                 <field name="paid" invisible="1" readonly="state not in ['draft', 'verify']"/>
