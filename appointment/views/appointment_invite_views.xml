@@ -93,7 +93,7 @@
                     <field name="book_url" class="d-none o_appointment_book_url" readonly="1" nolabel="1"/>
                 </sheet>
                 <footer>
-                    <widget name="appointment_invite_copy_close"/>
+                    <widget name="appointment_invite_copy_close" invisible="appointment_type_count &lt; 1"/>
                     <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="x"/>
                 </footer>
             </form>
