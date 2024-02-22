@@ -27,7 +27,7 @@ class HrWorkEntry(models.Model):
             return self.planning_slot_id.allocated_hours
         else:
             new_slot = self.env['planning.slot'].new({
-                **self.planning_slot_id.read(['employee_id', 'company_id', 'allocated_percentage'])[0],
+                **self.planning_slot_id.read(['employee_id', 'company_id', 'allocated_percentage', 'resource_id'])[0],
                 **{
                     'start_datetime': date_start,
                     'end_datetime': date_stop,

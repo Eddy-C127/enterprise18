@@ -464,3 +464,28 @@ class TestPlanning(TestCommonPlanning, MockEmail):
 
         slot3 = slot.copy()
         self.assertEqual(slot3.state, 'draft', 'The state of the shift should not be copied')
+
+    def test_calculate_slot_duration_flexible_hours(self):
+        """ Ensures that _calculate_slot_duration function rounds up days only when there is an extra non-full day left """
+
+        employee = self.env['hr.employee'].create({
+            'name': 'Test Employee',
+            'tz': 'UTC',
+        })
+        employee.resource_id.calendar_id = False
+
+        # the diff between start and end is exactly 6 days
+        planning_slot_1 = self.env['planning.slot'].create({
+            'resource_id': employee.resource_id.id,
+            'start_datetime': datetime(2024, 2, 23, 6, 0, 0),
+            'end_datetime': datetime(2024, 2, 29, 6, 0, 0),
+        })
+        self.assertEqual(planning_slot_1.allocated_hours, 48.0)
+
+        # the diff between start and end is 6 days and 8 hours, hence the diff should be approximated to 7 days
+        planning_slot_2 = self.env['planning.slot'].create({
+            'resource_id': employee.resource_id.id,
+            'start_datetime': datetime(2024, 2, 23, 8, 0, 0),
+            'end_datetime': datetime(2024, 2, 29, 16, 0, 0),
+        })
+        self.assertEqual(planning_slot_2.allocated_hours, 56.0)
