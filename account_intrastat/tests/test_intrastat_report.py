@@ -330,6 +330,9 @@ class TestIntrastatReport(TestAccountReportsCommon):
         """ This test checks that even if we have similar lines,
             each discriminant line value is used to generate
             the generic report line id.
+            We unfold the whole report to make sure that sublines
+            generic ids are unique as well. It verifies that
+            we use all discriminants values to fetch lines.
         """
         def move_vals(move_values=None, invoice_line_values=None):
             move_values = move_values or {}
@@ -398,7 +401,7 @@ class TestIntrastatReport(TestAccountReportsCommon):
         ])
         moves.action_post()
 
-        options = self._generate_options(self.report, '2022-01-01', '2022-01-31')
+        options = self._generate_options(self.report, '2022-01-01', '2022-01-31', default_options={'unfold_all': True})
         lines = self.report._get_lines(options)
 
         existing_ids = [line['id'] for line in lines]
@@ -413,22 +416,31 @@ class TestIntrastatReport(TestAccountReportsCommon):
             [
                 # Move with transaction code
                 ('Dispatch - 101 - None - QV - QV999999999999 - BE - 102',  22.0),
+                ('INV/2022/00003',                                          22.0),
                 # Move with transport mode
                 ('Dispatch - None - None - QV - QV999999999999 - BE - 102', 23.0),
+                ('INV/2022/00004',                                          23.0),
                 # Move with commodity code
                 ('Dispatch - None - 11 - QV - QV999999999999 - BE - 102',   24.0),
+                ('INV/2022/00005',                                          24.0),
                 # Move with partner vat
                 ('Dispatch - None - None - QV - BE0477472701 - BE - 102',   27.0),
+                ('INV/2022/00008',                                          27.0),
                 # Move with incoterm
                 ('Dispatch - None - None - QV - QV999999999999 - BE - 102', 21.0),
+                ('INV/2022/00002',                                          21.0),
                 # Move with product origin country id
                 ('Dispatch - None - None - NL - QV999999999999 - BE - 102', 25.0),
+                ('INV/2022/00006',                                          25.0),
                 # Move with a different currency id
                 ('Dispatch - None - None - QV - QV999999999999 - BE - 102', 28.0),
+                ('INV/2022/00009',                                          28.0),
                 # Move with nothing
                 ('Dispatch - None - None - QV - QV999999999999 - BE - 102', 20.0),
+                ('INV/2022/00001',                                          20.0),
                 # Move with specified intrastat_country_id
                 ('Dispatch - None - None - QV - QV999999999999 - ES - 102', 26.0),
+                ('INV/2022/00007',                                          26.0),
             ],
             options,
         )
