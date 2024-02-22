@@ -18,6 +18,7 @@ import {
 } from "./documents_test_utils";
 import { registry } from "@web/core/registry";
 import { getOrigin } from "@web/core/utils/urls";
+import * as dsHelpers from "@web/../tests/core/domain_selector_tests";
 import { setupViewRegistries } from "@web/../tests/views/helpers";
 import { makeFakeUserService } from "@web/../tests/helpers/mock_services";
 
@@ -3823,6 +3824,28 @@ QUnit.module("documents", {}, function () {
                         4,
                         "should still have the same records in the renderer"
                     );
+                }
+            );
+
+            QUnit.test(
+                "document selector: include archived checkbox should not be shown",
+                async function (assert) {
+                    assert.expect(3);
+
+                    await createDocumentsView({
+                        type: "kanban",
+                        resModel: "documents.document",
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
+                    <div>
+                        <field name="name"/>
+                    </div>
+                </t></templates></kanban>`,
+                    });
+
+                    await toggleSearchBarMenu(target);
+                    await click(".o_filter_menu .dropdown-item");
+                    await contains(dsHelpers.SELECTORS.condition);
+                    await contains(".form-switch label", { count: 0, text: "Include archived" });
                 }
             );
 
