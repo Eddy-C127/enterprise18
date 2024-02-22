@@ -614,11 +614,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             col_value = eval_dict[column['column_group_key']].get(col_expr_label)
             col_currency = None
 
-            if col_expr_label == 'amount_currency':
-                col_currency = self.env['res.currency'].browse(eval_dict[column['column_group_key']]['currency_id'])
-                col_value = None if col_currency == self.env.company.currency_id else col_value
-            elif col_expr_label == 'balance':
-                col_value += init_bal_by_col_group[column['column_group_key']]
+            if col_value is not None:
+                if col_expr_label == 'amount_currency':
+                    col_currency = self.env['res.currency'].browse(eval_dict[column['column_group_key']]['currency_id'])
+                    col_value = None if col_currency == self.env.company.currency_id else col_value
+                elif col_expr_label == 'balance':
+                    col_value += (init_bal_by_col_group[column['column_group_key']] or 0)
 
             line_columns.append(report._build_column_dict(
                 col_value,
