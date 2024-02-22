@@ -2868,6 +2868,11 @@ class TestSubscription(TestSubscriptionCommon):
         context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True, }
         pricelist = self.company_data['default_pricelist']
         pricelist.discount_policy = 'without_discount'
+        pricelist.item_ids.create({
+            'pricelist_id': pricelist.id,
+            'compute_price': 'percentage',
+            'percent_price': 50,
+        })
         sub = self.env["sale.order"].with_context(**context_no_mail).create({
             'name': 'TestSubscription',
             'is_subscription': True,
@@ -2878,11 +2883,17 @@ class TestSubscription(TestSubscriptionCommon):
             'sale_order_template_id': self.subscription_tmpl.id,
         })
         sub._onchange_sale_order_template_id()
-        self.assertEqual(sub.order_line.mapped('discount'), [0, 0])
+        sub.order_line.create({
+            'order_id': sub.id,
+            'product_id': self.product_a.id, # non-subscription product
+        })
+        self.assertEqual(sub.order_line.mapped('discount'), [0, 0, 50],
+            "Regular pricelist discounts should't affect temporal items.")
         sub.order_line.discount = 20
-        self.assertEqual(sub.order_line.mapped('discount'), [20, 20])
+        self.assertEqual(sub.order_line.mapped('discount'), [20, 20, 20])
         sub.action_confirm()
-        self.assertEqual(sub.order_line.mapped('discount'), [20, 20], "The discount should not be reset on confirmation")
+        self.assertEqual(sub.order_line.mapped('discount'), [20, 20, 20],
+             "Discounts should not be reset on confirmation.")
 
     def test_churn_log_renew(self):
         """ Test the behavior of the logs when we confirm a renewal quote after the parent has been closed.
