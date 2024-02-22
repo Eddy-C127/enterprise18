@@ -1470,7 +1470,7 @@ class Planning(models.Model):
             return 0.0
         period = self.end_datetime - self.start_datetime
         slot_duration = period.total_seconds() / 3600
-        max_duration = (period.days + 1) * self.company_id.resource_calendar_id.hours_per_day
+        max_duration = (period.days + (1 if period.seconds else 0)) * self.company_id.resource_calendar_id.hours_per_day
         if not max_duration or max_duration >= slot_duration:
             return slot_duration
         return max_duration
