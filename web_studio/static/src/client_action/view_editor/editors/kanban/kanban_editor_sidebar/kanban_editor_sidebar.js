@@ -9,6 +9,7 @@ import { FieldProperties } from "@web_studio/client_action/view_editor/interacti
 import { KanbanCoverProperties } from "@web_studio/client_action/view_editor/editors/kanban/kanban_editor_sidebar/properties/kanban_cover_properties/kanban_cover_properties";
 import { useEditNodeAttributes } from "@web_studio/client_action/view_editor/view_editor_model";
 import { fieldsToChoices } from "@web_studio/client_action/view_editor/editors/utils";
+import { getFieldsInArch } from "@web_studio/client_action/utils";
 
 class KanbanFieldProperties extends FieldProperties {
     onChangeAttribute(value, name) {
@@ -60,6 +61,13 @@ export class KanbanEditorSidebar extends Component {
             }),
             required: false,
         };
+    }
+
+    get kanbanFieldsInArch() {
+        // fields can be present in the xmlDoc to be preloaded, but not in
+        // the actual template. Those must be present in the sidebar
+        const kanbanXmlDoc = this.viewEditorModel.xmlDoc.querySelector("[t-name=kanban-box]")
+        return getFieldsInArch(kanbanXmlDoc);
     }
 
     editAttribute(value, name) {

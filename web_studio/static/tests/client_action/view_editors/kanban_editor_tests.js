@@ -1898,5 +1898,35 @@ QUnit.module(
             assert.verifySteps(["edit_view"]);
             assert.strictEqual(checkbox.checked, false);
         });
+
+        QUnit.test("fields present in the xml but absent from the 'kanban-box' template are listed in the sidebar", async function (assert) {
+            await createViewEditor({
+                type: "kanban",
+                serverData,
+                resModel: "coucou",
+                arch: `
+                <kanban>
+                    <field name='char_field' display="full" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="o_kanban_record">
+                                <field name="display_name"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>`,
+            });
+            await click(selectorContains(target, ".o_web_studio_sidebar .nav-link", "Add"));
+            assert.containsOnce(
+                target,
+                '.o_web_studio_component[data-drop=\'{"fieldName":"char_field"}\']',
+                "field is listed in the list of existing fields not present in the view"
+            );
+            assert.containsNone(
+                target,
+                '.o_web_studio_component[data-drop=\'{"fieldName":"display_name"}\']',
+                "field is not listed in the list of existing fields not present in the view"
+            );
+        });
     }
 );

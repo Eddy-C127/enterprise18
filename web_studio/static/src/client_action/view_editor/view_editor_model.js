@@ -19,7 +19,7 @@ import {
     xpathToLegacyXpathInfo,
     cleanClickedElements,
 } from "@web_studio/client_action/view_editor/editors/utils";
-import { Reactive, memoizeOnce } from "@web_studio/client_action/utils";
+import { Reactive, getFieldsInArch, memoizeOnce } from "@web_studio/client_action/utils";
 import { getModifier, resetViewCompilerCache } from "@web/views/view_compiler";
 import { _t } from "@web/core/l10n/translation";
 import { EditorOperations, SnackbarIndicator } from "@web_studio/client_action/editor/edition_flow";
@@ -41,12 +41,6 @@ class EditorOperationsWithSnackbar extends EditorOperations {
         this.snackBar.add(this.race.add(_prom));
         return _prom;
     }
-}
-
-function getFieldsInArch(xmlDoc) {
-    return Array.from(xmlDoc.querySelectorAll("field"))
-        .filter((el) => !el.parentElement.closest("field"))
-        .map((n) => n.getAttribute("name"));
 }
 
 /**
