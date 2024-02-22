@@ -36,7 +36,7 @@ class SocialMediaInstagram(models.Model):
 
     def _add_instagram_accounts_from_configuration(self, instagram_app_id):
         base_url = self.get_base_url()
-        base_instagram_url = 'https://www.facebook.com/v10.0/dialog/oauth?%s'
+        base_instagram_url = 'https://www.facebook.com/v17.0/dialog/oauth?%s'
 
         params = {
             'client_id': instagram_app_id,
@@ -55,7 +55,8 @@ class SocialMediaInstagram(models.Model):
                 'pages_read_user_content',
                 'pages_manage_engagement',
                 'pages_manage_posts',
-                'read_insights'
+                'read_insights',
+                'business_management',
             ])
         }
 

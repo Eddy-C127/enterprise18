@@ -126,7 +126,7 @@ class SocialInstagramController(SocialController):
 
             instagram_accounts_endpoint = url_join(
                 request.env['social.media']._INSTAGRAM_ENDPOINT,
-                f'/v10.0/{instagram_account_id}')
+                f'/v17.0/{instagram_account_id}')
 
             instagram_account = requests.get(instagram_accounts_endpoint,
                 params={
@@ -185,5 +185,5 @@ class SocialInstagramController(SocialController):
     def _instagram_get_profile_image(self, account_id):
         profile_image_url = url_join(
             request.env['social.media']._INSTAGRAM_ENDPOINT,
-            '/v10.0/%s/picture?height=300' % account_id)
+            '/v17.0/%s/picture?height=300' % account_id)
         return base64.b64encode(requests.get(profile_image_url, timeout=10).content)

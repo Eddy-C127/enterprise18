@@ -43,14 +43,14 @@ class SocialAccountInstagram(models.Model):
         for account in instagram_accounts:
             insights_endpoint_url = url_join(
                 self.env['social.media']._INSTAGRAM_ENDPOINT,
-                "/v10.0/%s/insights" % account.instagram_account_id)
+                "/v17.0/%s/insights" % account.instagram_account_id)
             statistics_30d = account._compute_statistics_instagram(insights_endpoint_url)
             statistics_360d = account._compute_statistics_instagram_360d(insights_endpoint_url)
 
             account_global_stats = requests.get(
                 url_join(
                     self.env['social.media']._INSTAGRAM_ENDPOINT,
-                    "/v10.0/%s" % account.instagram_account_id),
+                    "/v17.0/%s" % account.instagram_account_id),
                 params={
                     'fields': 'followers_count',
                     'access_token': account.instagram_access_token

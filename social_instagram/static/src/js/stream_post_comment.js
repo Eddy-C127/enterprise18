@@ -12,7 +12,7 @@ export class StreamPostCommentInstagram extends StreamPostComment {
     //--------
 
     get authorPictureSrc() {
-        return sprintf('https://graph.facebook.com/v10.0/%s/picture',
+        return sprintf('https://graph.facebook.com/v17.0/%s/picture',
             this.originalPost.instagram_facebook_author_id.raw_value);
     }
 
