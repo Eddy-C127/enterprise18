@@ -88,12 +88,14 @@ class HrApplicant(models.Model):
                         ('skill_id', '=', skill.id),
                     ])
 
-                    if not existing_applicant_skill:
+                    skill_levels = skill.skill_type_id.skill_level_ids
+                    if not existing_applicant_skill and skill_levels:
+                        skill_level = skill_levels.filtered('default_level') or skill_levels[0]
                         applicant_skill = self.env['hr.applicant.skill'].create({
                             'applicant_id': self.id,
                             'skill_id': skill.id,
                             'skill_type_id': skill.skill_type_id.id,
-                            'skill_level_id': skill.skill_type_id.skill_level_ids.filtered('default_level').id,
+                            'skill_level_id': skill_level.id,
                         })
                         applicant_skills += applicant_skill
 
