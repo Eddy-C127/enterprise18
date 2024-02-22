@@ -59,7 +59,7 @@ export class GridController extends Component {
             columnFieldName: this.props.archInfo.columnFieldName,
             measureField: this.props.archInfo.measureField,
             readonlyField: this.props.archInfo.readonlyField,
-            fieldsInfo: this.props.relatedModels[this.props.resModel],
+            fieldsInfo: this.props.relatedModels[this.props.resModel].fields,
             activeRangeName,
             ranges: this.props.archInfo.ranges,
             defaultAnchor,

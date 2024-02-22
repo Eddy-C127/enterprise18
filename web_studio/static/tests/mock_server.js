@@ -120,7 +120,7 @@ patch(MockServer.prototype, {
         });
         const models = {};
         for (const resModel of Object.keys(view.models)) {
-            models[resModel] = this.mockFieldsGet(resModel);
+            models[resModel] = { fields: this.mockFieldsGet(resModel) };
         }
         return {
             views: {

@@ -490,7 +490,7 @@ class WebStudioController(http.Controller):
         return {
             'views': {view_type: fields_view},
             'studio_view_id': studio_view.id,
-            'models': {model: request.env[model].fields_get() for model in models}
+            'models': {model: {"fields": request.env[model].fields_get()} for model in models}
         }
 
     @http.route('/web_studio/restore_default_view', type='json', auth='user')

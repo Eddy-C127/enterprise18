@@ -68,7 +68,7 @@ export function valueOfSelect(target, selector) {
 
 export function createMockViewResult(serverData, viewType, arch, model) {
     return {
-        models: flattenModels(serverData.models),
+        models: serverData.models,
         views: {
             [viewType]: {
                 arch: arch,
@@ -211,20 +211,6 @@ export async function createViewEditor({ arch, serverData = {}, mockRPC, resMode
     });
 
     return await mount(ViewEditorParent, mountTarget, { env });
-}
-
-function flattenModels(models) {
-    const flattenModels = {};
-    for (const modelName in models) {
-        const newModel = {};
-        flattenModels[modelName] = newModel;
-
-        const fields = models[modelName].fields;
-        for (const fieldName in fields) {
-            newModel[fieldName] = fields[fieldName];
-        }
-    }
-    return flattenModels;
 }
 
 function createMockRPC(customRouteHandler) {

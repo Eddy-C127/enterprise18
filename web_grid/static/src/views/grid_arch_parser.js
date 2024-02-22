@@ -67,7 +67,7 @@ export class GridArchParser {
                 }
             } else if (node.tagName === "field") {
                 const fieldName = node.getAttribute("name"); // exists (rng validation)
-                const fieldInfo = models[modelName][fieldName];
+                const fieldInfo = models[modelName].fields[fieldName];
                 const type = node.getAttribute("type") || "row";
                 const string = node.getAttribute("string") || fieldInfo.string;
                 let invisible = node.getAttribute("invisible") || 'False';

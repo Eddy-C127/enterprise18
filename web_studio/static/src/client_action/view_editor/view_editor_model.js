@@ -368,7 +368,7 @@ export class ViewEditorModel extends Reactive {
     }
 
     get fields() {
-        return this.viewDescriptions.relatedModels[this.resModel];
+        return this.viewDescriptions.relatedModels[this.resModel].fields;
     }
 
     get activeNode() {
@@ -478,7 +478,7 @@ export class ViewEditorModel extends Reactive {
         if (!this.fieldsGetCache.has(resModel)) {
             const fg = await this._services.orm.call(resModel, "fields_get");
             this.fieldsGetCache.add(resModel);
-            Object.assign(this.viewDescriptions.relatedModels[resModel], fg);
+            Object.assign(this.viewDescriptions.relatedModels[resModel].fields, fg);
         }
     }
 
@@ -694,7 +694,8 @@ export class ViewEditorModel extends Reactive {
         const context = {
             ...user.context,
             ...(this._studio.editedAction.context || {}),
-            lang: false, studio: true,
+            lang: false,
+            studio: true,
         };
         return rpc("/web_studio/edit_view", {
             view_id: this.mainView.id,
@@ -709,7 +710,8 @@ export class ViewEditorModel extends Reactive {
         const context = {
             ...user.context,
             ...(this._studio.editedAction.context || {}),
-            lang: false, studio: true,
+            lang: false,
+            studio: true,
         };
         const result = await rpc("/web_studio/edit_view_arch", {
             view_id: viewId,

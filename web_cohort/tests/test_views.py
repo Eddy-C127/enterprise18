@@ -22,8 +22,7 @@ class TestViews(ViewCase):
         )
 
         views = self.View.get_views([(view.id, 'cohort')])
-        self.assertTrue('x_date_start' in views['models']['ir.ui.view'])
-        self.assertTrue('x_date_start' in views['models']['ir.ui.view'])
+        self.assertTrue('x_date_start' in views['models']['ir.ui.view']["fields"])
 
     def test_cohort_data(self):
         # create a model with 2 dates field
