@@ -699,14 +699,17 @@ class SaleOrder(models.Model):
             elif order.subscription_state != '7_upsell':
                 order.subscription_state = False
 
-        new_subscriptions = recurring_order - renewal
-        # _prepare_confirmation_values will update subscription_state for all confirmed subscription.
-        # We call super for two batches to avoid trigger the stage_coherence constraint.
-        res_sub = super(SaleOrder, recurring_order).action_confirm()
-        res_other = super(SaleOrder, self - recurring_order).action_confirm()
-        (new_subscriptions | renewal)._confirm_subscription()
-        renewal._confirm_renewal()
-        upsell._confirm_upsell()
+        # The sale_subscription override of `_compute_discount` added `order_id.start_date` to `api.depends`;
+        # as this field may get added on subscription confirmation, the discount field requires protection
+        # to avoid overwriting manually applied discounts
+        with self.env.protecting([self.order_line._fields['discount']], self.order_line):
+            # _prepare_confirmation_values will update subscription_state for all confirmed subscription.
+            # We call super for two batches to avoid trigger the stage_coherence constraint.
+            res_sub = super(SaleOrder, recurring_order).action_confirm()
+            res_other = super(SaleOrder, self - recurring_order).action_confirm()
+            recurring_order._confirm_subscription()
+            renewal._confirm_renewal()
+            upsell._confirm_upsell()
 
         return res_sub and res_other
 
