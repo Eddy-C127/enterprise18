@@ -56,7 +56,7 @@
                                 <div invisible="not email_drop" class="oe_inline">
                                     <div name="alias_def">
                                         <field name="alias_id" class="oe_read_only oe_inline" required="0"/>
-                                        <div class="oe_edit_only oe_inline" name="edit_alias" style="display: inline;">
+                                        <div class="oe_edit_only oe_inline" name="edit_alias" style="display: inline;" dir="ltr">
                                             <field name="alias_name" class="oe_inline"/>@
                                             <field name="alias_domain_id" class="oe_inline" placeholder="e.g. domain.com"
                                                    options="{'no_create': True, 'no_open': True}"/>
@@ -155,7 +155,7 @@
                                     string="Choose or Configure Email Servers" class="btn btn-sm btn-link"/>
                         </div>
                         <label for="alias_name" string="Email Alias"/>
-                        <span class="oe_edit_only">
+                        <span class="oe_edit_only" dir="ltr">
                             <field name="alias_name" class="oe_inline"/>@
                             <field name="alias_domain_id" class="oe_inline" placeholder="e.g. domain.com"
                                    options="{'no_create': True, 'no_open': True}"/>
