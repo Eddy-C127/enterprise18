@@ -25,8 +25,8 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="account.res_config_settings_view_form"/>
         <field name="arch" type="xml">
+            <field name="module_account_avatax" position="replace"/>
             <setting id="avatax_settings" position="inside">
-                    <label for="setting_account_avatax" class="col-lg-3 o_light_label"/>
                     <field name="setting_account_avatax"/>
                     <div class="content-group" invisible="not setting_account_avatax">
                         <div class="row mt16">
