@@ -29,7 +29,8 @@ export class MapNewViewDialog extends NewViewDialog {
         );
         if (!this.partnerFields.length) {
             this.dialog.add(AlertDialog, {
-                body: _t("Contact Field Required"),
+                title: _t("Contact Field Required"),
+                body: _t("Map views are based on the address of a linked Contact. You need to have a Many2one field linked to the res.partner model in order to create a map view."),
                 contentClass: "o_web_studio_preserve_space",
             });
             this.props.close();
