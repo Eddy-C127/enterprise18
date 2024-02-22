@@ -8,6 +8,7 @@ from pytz import timezone
 
 from odoo import fields, models
 from odoo.addons.hr_work_entry_contract.models.hr_work_intervals import WorkIntervals
+from odoo.addons.resource.models.utils import Intervals
 
 class HrContract(models.Model):
     _inherit = 'hr.contract'
@@ -38,10 +39,19 @@ class HrContract(models.Model):
             else self.env['hr.attendance']
         intervals = defaultdict(list)
         for attendance in attendances:
-            intervals[attendance.employee_id.resource_id.id].append((
-                max(start_dt, pytz.utc.localize(attendance.check_in)),
-                min(end_dt, pytz.utc.localize(attendance.check_out)),
-                attendance))
+            emp_cal = attendance._get_employee_calendar()
+            resource = attendance.employee_id.resource_id
+            tz = timezone(emp_cal.tz)
+            check_in_tz = attendance.check_in.astimezone(tz)
+            check_out_tz = attendance.check_out.astimezone(tz)
+            lunch_intervals = emp_cal._attendance_intervals_batch(
+                check_in_tz, check_out_tz, resource, lunch=True)
+            attendance_intervals = Intervals([(check_in_tz, check_out_tz, attendance)]) - lunch_intervals[resource.id]
+            for interval in attendance_intervals:
+                intervals[attendance.employee_id.resource_id.id].append((
+                    max(start_dt, interval[0]),
+                    min(end_dt, interval[1]),
+                    attendance))
         mapped_intervals = {r: WorkIntervals(intervals[r]) for r in resource_ids}
         mapped_intervals.update(super()._get_attendance_intervals(
             start_dt, end_dt))
