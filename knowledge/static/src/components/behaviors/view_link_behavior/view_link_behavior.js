@@ -12,11 +12,12 @@ import {
     encodeDataBehaviorProps,
     useRefWithSingleCollaborativeChild,
 } from "@knowledge/js/knowledge_utils";
-import { onMounted, useExternalListener } from "@odoo/owl";
+import { onMounted, status, useExternalListener } from "@odoo/owl";
 import { setCursorEnd } from "@web_editor/js/editor/odoo-editor/src/utils/utils";
 import { makeContext } from "@web/core/context";
 import { _t } from "@web/core/l10n/translation";
 import { usePopover } from "@web/core/popover/popover_hook";
+import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { renderToElement } from "@web/core/utils/render";
 
@@ -56,7 +57,18 @@ export class ViewLinkBehavior extends AbstractBehavior {
         useExternalListener(
             this.props.anchor,
             "click",
-            this.props.readonly ? this.openViewLink : this.openViewLinkPopOver
+            async () => {
+                const isInternalUser = await user.hasGroup("base.group_user");
+                if (status(this) === "destroyed") {
+                    return;
+                }
+                if (!isInternalUser) {
+                    return this.notification.add(_t("Only Internal Users can access this view."), {
+                        type: "warning",
+                    });
+                }
+                this.props.readonly ? this.openViewLink() : this.openViewLinkPopOver();
+            }
         );
         this.linkNameRef = useRefWithSingleCollaborativeChild("linkNameRef", (element) => {
             const linkName = this.linkNameSpanTextContent;
@@ -188,10 +200,7 @@ export class ViewLinkBehavior extends AbstractBehavior {
         this.editor.historyStep();
     }
 
-    /**
-     * @param {Event} event
-     */
-    async openViewLink (event) {
+    async openViewLink() {
         const action = await this.actionService.loadAction(
             this.props.act_window || this.props.action_xml_id,
             makeContext([this.props.context])
@@ -214,8 +223,8 @@ export class ViewLinkBehavior extends AbstractBehavior {
         });
     }
 
-    openViewLinkPopOver(event) {
-        this.popover.open(event.currentTarget, {
+    openViewLinkPopOver() {
+        this.popover.open(this.props.anchor, {
             name: this.displayName,
             openViewLink: this.openViewLink.bind(this),
             onCopyLinkClick: this.onCopyLinkClick.bind(this),
