@@ -239,18 +239,18 @@ QUnit.module("Views", (hooks) => {
         );
         assert.containsOnce(
             target,
-            ".o_grid_column_title.o_grid_highlightable.fw-bolder",
+            ".o_grid_column_title.fw-bolder",
             "The column title containing the date should be the current date"
         );
         assert.strictEqual(
-            target.querySelector(".o_grid_column_title.o_grid_highlightable.fw-bolder")
+            target.querySelector(".o_grid_column_title.fw-bolder")
                 .textContent,
             "Mon,\nJan\u00A030",
             "The current date should be Monday on 30 January 2023"
         );
         assert.containsOnce(
             target,
-            ".o_grid_column_title.o_grid_highlightable",
+            ".o_grid_column_title:not(.o_grid_navigation_wrap, .o_grid_row_total)",
             1,
             "It should have 1 column"
         );
@@ -302,13 +302,13 @@ QUnit.module("Views", (hooks) => {
         assert.containsOnce(target, ".o_grid_renderer");
         assert.containsN(
             target,
-            ".o_grid_column_title.o_grid_highlightable",
+            ".o_grid_column_title:not(.o_grid_navigation_wrap, .o_grid_row_total)",
             7,
             "It should have 7 column representing the dates on a week."
         );
         assert.deepEqual(
             getNodesTextContent(
-                target.querySelectorAll(".o_grid_column_title.o_grid_highlightable")
+                target.querySelectorAll(".o_grid_column_title:not(.o_grid_navigation_wrap, .o_grid_row_total)")
             ),
             [
                 "Sun,\nJan\u00A029",
@@ -329,11 +329,11 @@ QUnit.module("Views", (hooks) => {
         );
         assert.containsOnce(
             target,
-            ".o_grid_column_title.o_grid_highlightable.fw-bolder",
+            ".o_grid_column_title.fw-bolder",
             "The column title containing the current date should not be there."
         );
         assert.strictEqual(
-            target.querySelector(".o_grid_column_title.o_grid_highlightable.fw-bolder")
+            target.querySelector(".o_grid_column_title.fw-bolder")
                 .textContent,
             "Mon,\nJan\u00A030",
             "The current date should be Monday on 30 January"
@@ -1027,7 +1027,7 @@ QUnit.module("Views", (hooks) => {
         );
         assert.containsN(
             target,
-            ".o_grid_column_title.o_grid_highlightable",
+            ".o_grid_column_title:not(.o_grid_navigation_wrap, .o_grid_row_total)",
             7,
             "It should have 7 columns (one for each day)"
         );
@@ -1051,7 +1051,7 @@ QUnit.module("Views", (hooks) => {
         );
         assert.containsN(
             target,
-            ".o_grid_column_title.o_grid_highlightable",
+            ".o_grid_column_title:not(.o_grid_navigation_wrap, .o_grid_row_total)",
             31,
             "It should have 31 columns (one for each day)"
         );
@@ -1372,11 +1372,6 @@ QUnit.module("Views", (hooks) => {
             target,
             ".o_grid_row_total.o_grid_highlighted.o_grid_row_highlighted",
             "The row total should also be highlighted"
-        );
-        assert.containsOnce(
-            target,
-            ".o_grid_column_title.o_grid_highlighted",
-            "The column title in the same column then the cell hovered should be highlighted"
         );
     });
 
@@ -1965,7 +1960,7 @@ QUnit.module("Views", (hooks) => {
         assert.strictEqual(
             grid.clientHeight -
                 firstRow.offsetHeight /* first row is "auto" so we don't count it */,
-            (tasks.length - 1) /* ignore total row */ * 48 /* base grid row height */,
+            (tasks.length - 1) /* ignore total row */ * 32 /* base grid row height */,
             "grid content should be the height of its row height times the amount of records"
         );
         assert.ok(currentRows.length < tasks.length, "not all rows should be displayed");

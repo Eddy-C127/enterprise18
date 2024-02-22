@@ -226,18 +226,18 @@ QUnit.module("Views", (hooks) => {
         );
         assert.containsOnce(
             target,
-            ".o_grid_column_title.o_grid_highlightable.fw-bolder",
+            ".o_grid_column_title.fw-bolder",
             "The column title containing the date should be the current date"
         );
         assert.strictEqual(
-            target.querySelector(".o_grid_column_title.o_grid_highlightable.fw-bolder")
+            target.querySelector(".o_grid_column_title.fw-bolder")
                 .textContent,
             "Wed,\nJan\u00A025",
             "The current date should be Monday on 30 January 2023"
         );
         assert.containsOnce(
             target,
-            ".o_grid_column_title.o_grid_highlightable",
+            ".o_grid_column_title:not(.o_grid_navigation_wrap, .o_grid_row_total)",
             1,
             "It should have 1 column"
         );

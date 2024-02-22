@@ -142,7 +142,7 @@ export class GridRenderer extends Component {
     }
 
     get rowHeight() {
-        return 48;
+        return this.isMobile ? 48:32;
     }
 
     get virtualRows() {
@@ -363,8 +363,11 @@ export class GridRenderer extends Component {
             })`
         );
         for (const node of elementsToHighlight) {
-            node.classList.add("o_grid_highlighted");
+            if (node.classList.contains("o_grid_bar_chart_container")) {
+                node.classList.add("o_grid_highlighted");
+            }
             if (node.dataset.gridRow === gridRow) {
+                node.classList.add("o_grid_highlighted");
                 if (node.dataset.gridColumn === gridColumn) {
                     node.classList.add("o_grid_cell_highlighted");
                 } else {

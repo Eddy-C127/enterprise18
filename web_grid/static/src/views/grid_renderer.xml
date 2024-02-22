@@ -39,7 +39,7 @@
         <div t-foreach="props.columns"
              t-as="column"
              t-key="column.id"
-             class="o_grid_column_title o_grid_highlightable position-relative position-md-sticky top-0 d-flex align-items-center justify-content-center px-3 py-2 border-bottom text-bg-100"
+             class="o_grid_column_title position-relative position-md-sticky top-0 d-flex align-items-center justify-content-center px-3 py-2 border-bottom text-bg-100"
              t-att-class="{
                 'fw-bolder': column.isToday,
                 'fw-bold' : !column.isToday,
@@ -225,7 +225,7 @@
         <div t-foreach="props.columns"
              t-as="column"
              t-key="column.id"
-             class="o_grid_row o_grid_add_line o_grid_highlightable position-relative"
+             class="o_grid_row o_grid_add_line position-relative"
              t-att-class="{
                    'o_grid_cell_today' : column.isToday,
                    'bg-view': isEven,

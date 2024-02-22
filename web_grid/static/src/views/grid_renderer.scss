@@ -41,10 +41,8 @@ $o-web-grid-cell-minwidth: 10ch;
     .o_grid_column_title {
         @include o-grid-zindex(interact);
 
-        &:not(.o_grid_highlighted) {
-            > .o_grid_cell_overlay_today {
-                --bg-opacity: .5;
-            }
+        > .o_grid_cell_overlay_today {
+            --bg-opacity: .5;
         }
 
         span {
@@ -56,7 +54,7 @@ $o-web-grid-cell-minwidth: 10ch;
         @include o-grid-zindex(interact);
     }
 
-    .o_grid_highlighted, .o_grid_row_highlighted:not(.o_grid_add_line) {
+    .o_grid_highlighted, .o_grid_row_highlighted {
         > .o_grid_cell_overlay {
             --bg-opacity: .1;
         }
@@ -66,18 +64,14 @@ $o-web-grid-cell-minwidth: 10ch;
         }
     }
 
-    .o_grid_cell_highlighted:not(.o_grid_row_title):not(.o_grid_section_title):not(.o_grid_add_line) {
+    .o_grid_cell_highlighted:not(.o_grid_row_title):not(.o_grid_section_title):not(.o_grid_column_total) {
         > .o_grid_cell_overlay {
-            --bg-opacity: .2;
+            --bg-opacity: .15;
         }
 
         > .o_grid_cell_overlay_today, > .o_grid_cell_overlay_total {
             --bg-opacity: .5;
         }
-    }
-
-    .o_grid_row, .o_grid_section {
-        min-height: 2.5rem;
     }
 
     .o_grid_section .o_grid_cell_overlay_today {
