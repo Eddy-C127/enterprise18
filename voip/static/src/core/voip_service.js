@@ -115,10 +115,10 @@ export class Voip {
 
     /** @returns {boolean} */
     get hasValidExternalDeviceNumber() {
-        if (!this.settings.external_device_number) {
+        if (!this.store.settings.external_device_number) {
             return false;
         }
-        return cleanPhoneNumber(this.settings.external_device_number) !== "";
+        return cleanPhoneNumber(this.store.settings.external_device_number) !== "";
     }
 
     /**
