@@ -2,6 +2,7 @@
 
 import { AbstractBehavior } from "@knowledge/components/behaviors/abstract_behavior/abstract_behavior";
 import { makeContext } from "@web/core/context";
+import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
 import { useEffect } from "@odoo/owl";
 
@@ -24,12 +25,20 @@ export class ViewLinkBehavior extends AbstractBehavior {
     setup () {
         super.setup();
         this.actionService = useService('action');
+        this.notification = useService("notification");
+        this.userService = useService("user");
         useEffect(() => {
             const type = this.props.readonly ? 'click' : 'dblclick';
             /**
              * @param {Event} event
              */
-            const onLinkClick = event => {
+            const onLinkClick = async (event) => {
+                const isInternalUser = await this.userService.hasGroup("base.group_user");
+                if (!isInternalUser) {
+                    return this.notification.add(_t("Only Internal Users can access this view."), {
+                        type: "warning",
+                    });
+                }
                 this.openViewLink(event);
             };
             this.props.anchor.addEventListener(type, onLinkClick);
