@@ -28,6 +28,7 @@ export class PreparationDisplay extends Reactive {
         this.selectedCategories = new Set();
         this.selectedProducts = new Set();
         this.filteredOrders = [];
+        this.noteByLines = {};
         this.rawData = {
             categories: data.categories,
             orders: data.orders,
@@ -175,13 +176,31 @@ export class PreparationDisplay extends Reactive {
                 );
                 order.stageId = nextStage.id;
                 if (direction === 1) {
-                    currentStage.addOrderToRecallHistory(order);
+                    currentStage.addOrderToRecallHistory(order.id);
                 }
                 this.resetOrderlineStatus(order, false, true);
                 order.clearChangeTimeout();
                 this.filterOrders();
             }, animationTime);
         }
+    }
+
+    async sendStrickedLineToNextStage(order, orderline) {
+        const currentStage = this.stages.get(order.stageId);
+        const strickedLine = order.orderlines.filter((l) => !l.todo);
+
+        if (strickedLine.length === 0) {
+            await this.changeOrderStage(order, true);
+            return;
+        }
+
+        const idNewOrder = await this.orm.call(
+            "pos_preparation_display.orderline",
+            "send_stricked_line_to_next_stage",
+            [strickedLine.map((l) => l.id), this.id],
+            {}
+        );
+        currentStage.addOrderToRecallHistory(idNewOrder);
     }
 
     async getOrders() {
@@ -225,9 +244,17 @@ export class PreparationDisplay extends Reactive {
             const orderObj = new Order(order);
 
             orderObj.orderlines = order.orderlines.map((line) => {
-                const orderline = new Orderline(line, orderObj);
+                let blinking = false;
+
+                if (this.noteByLines[line.id] && line.internal_note !== this.noteByLines[line.id]) {
+                    blinking = true;
+                    this.env.services.sound.play("bell");
+                }
+
+                const orderline = new Orderline(line, orderObj, blinking);
                 const product = new Product([orderline.productId, orderline.productName]);
 
+                this.noteByLines[line.id] = line.internal_note;
                 this.products[product.id] = product;
                 this.orderlines[orderline.id] = orderline;
                 orderline.productCategoryIds.forEach((categoryId) => {

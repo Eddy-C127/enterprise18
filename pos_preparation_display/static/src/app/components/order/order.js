@@ -17,6 +17,7 @@ export class Order extends Component {
             productHighlighted: [],
         });
 
+        this.actionInProgress = false;
         this.state.duration = this._computeDuration();
         this.interval = setInterval(() => {
             this.state.duration = this._computeDuration();
@@ -35,6 +36,13 @@ export class Order extends Component {
         return computeFontColor(this.stage.color);
     }
 
+    getSortedOrderlines() {
+        return this.props.order.orderlines.sort(
+            (a, b) =>
+                this.preparationDisplay.categories[a.productCategoryIds[0]].sequence -
+                this.preparationDisplay.categories[b.productCategoryIds[0]].sequence
+        );
+    }
     _computeDuration() {
         const timeDiff = this.props.order.computeDuration();
 
@@ -60,12 +68,22 @@ export class Order extends Component {
         return "o_pdis_card_color_0";
     }
 
-    clickOrder() {
-        const order = this.props.order;
-        if (order.stageId === this.preparationDisplay.lastStage.id) {
+    async clickOrder() {
+        if (this.actionInProgress) {
             return;
-        } else {
-            this.preparationDisplay.changeOrderStage(this.props.order, true);
+        }
+        try {
+            this.actionInProgress = true;
+            const order = this.props.order;
+            if (order.stageId === this.preparationDisplay.lastStage.id) {
+                return;
+            } else {
+                await this.preparationDisplay.sendStrickedLineToNextStage(this.props.order);
+            }
+        } catch (error) {
+            console.warn(error);
+        } finally {
+            this.actionInProgress = false;
         }
     }
 }

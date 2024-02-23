@@ -35,7 +35,9 @@ export const preparationDisplayService = {
                 }
                 switch (detail.type) {
                     case "load_orders":
-                        sound.play("notification");
+                        if (detail.payload.sound) {
+                            sound.play("notification");
+                        }
                         return preparationDisplayService.getOrders();
                     case "change_order_stage":
                         return preparationDisplayService.wsMoveToNextStage(

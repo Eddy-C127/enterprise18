@@ -103,10 +103,11 @@ class PosPreparationDisplay(models.Model):
                     current_order_stage.done = True
             preparation_display._send_load_orders_message()
 
-    def _send_load_orders_message(self):
+    def _send_load_orders_message(self, sound=False):
         self.ensure_one()
         self.env['bus.bus']._sendone(f'preparation_display-{self.access_token}', 'load_orders', {
             'preparation_display_id': self.id,
+            'sound': sound
         })
 
     @api.depends('stage_ids', 'pos_config_ids', 'category_ids')

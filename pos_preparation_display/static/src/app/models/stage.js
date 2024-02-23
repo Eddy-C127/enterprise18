@@ -15,16 +15,16 @@ export class Stage extends Reactive {
         this.recallIdsHistory = [];
     }
 
-    addOrderToRecallHistory(order) {
+    addOrderToRecallHistory(id) {
         if (this.isLastHistoryOld()) {
             this.recallIdsHistory.length = 0;
         }
-        this.recallIdsHistory.push(order.id);
+        this.recallIdsHistory.push(id);
         const previousStage = this.preparationDisplay.orderNextStage(this.id, -1);
         if (!previousStage) {
             return;
         }
-        const previousHistoryOrderId = previousStage.recallIdsHistory.find((o) => o === order.id);
+        const previousHistoryOrderId = previousStage.recallIdsHistory.find((o) => o === id);
         if (previousHistoryOrderId) {
             previousStage.recallIdsHistory = previousStage.recallIdsHistory.filter(
                 (o) => o !== previousHistoryOrderId
