@@ -15,7 +15,7 @@
             </t>
         </xpath>
         <xpath expr="//div[hasclass('o_barcode_control')]" position="after">
-            <div t-if="isConfiguring" class="o_barcode_control d-flex">
+            <div t-if="isConfiguring and state.view === 'barcodeLines'" class="o_barcode_control d-flex">
                 <button class="o_confirm btn btn-secondary text-uppercase"
                     t-att-disabled="!env.model.canConfirmSelection"
                     t-on-click="confirm" t-esc="'Confirm'"/>
