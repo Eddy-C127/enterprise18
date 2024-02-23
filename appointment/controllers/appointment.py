@@ -398,7 +398,7 @@ class AppointmentController(http.Controller):
         """
         appointment_type_ids = json.loads(unquote_plus(appointment_type_ids or "[]"))
         if not appointment_type_ids and domain is not False:
-            appointment_type_ids = request.env['appointment.type'].search(domain).ids
+            appointment_type_ids = request.env['appointment.type'].sudo().search(domain).ids
         elif not appointment_type_ids:
             raise ValueError()
 
@@ -418,9 +418,9 @@ class AppointmentController(http.Controller):
 
         try:
             appointment_types.check_access_rights('read')
-            appointment_types.check_access_rule('read')
         except exceptions.AccessError:
             raise Forbidden()
+        appointment_types = appointment_types._filter_access_rules('read')
 
         if domain:
             appointment_types = appointment_types.filtered_domain(domain)
