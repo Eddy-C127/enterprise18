@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 09:19+0000\n"
-"PO-Revision-Date: 2024-01-26 09:19+0000\n"
+"POT-Creation-Date: 2024-02-26 09:19+0000\n"
+"PO-Revision-Date: 2024-02-26 09:19+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,6 @@ msgstr ""
 #. module: l10n_nl_reports
 #. odoo-python
 #: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
-#, python-format
 msgid "Continue and skip country fields"
 msgstr ""
 
@@ -119,11 +118,6 @@ msgstr ""
 #. module: l10n_nl_reports
 #: model:account.report.line,name:l10n_nl_reports.account_financial_report_pnl_distr
 msgid "Distribution costs"
-msgstr ""
-
-#. module: l10n_nl_reports
-#: model:ir.model,name:l10n_nl_reports.model_l10n_nl_tax_report_handler
-msgid "Dutch Report Custom Handler"
 msgstr ""
 
 #. module: l10n_nl_reports
@@ -333,8 +327,8 @@ msgid "Some fields must be specified on the company:"
 msgstr ""
 
 #. module: l10n_nl_reports
-#: code:addons/l10n_nl_reports/models/account_general_ledger.py:87
-#, python-format
+#. odoo-python
+#: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
 msgid ""
 "Some partners are located in countries forbidden in dutch audit reports.\n"
 "Those countries are:\n"
@@ -358,7 +352,6 @@ msgstr ""
 #. module: l10n_nl_reports
 #. odoo-python
 #: code:addons/l10n_nl_reports/models/account_general_ledger.py:0
-#, python-format
 msgid "There is no data to export."
 msgstr ""
 
