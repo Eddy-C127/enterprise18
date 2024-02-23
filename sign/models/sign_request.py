@@ -532,6 +532,15 @@ class SignRequest(models.Model):
 
         return text
 
+    @staticmethod
+    def get_page_size(pdf_reader):
+        first_page = pdf_reader.pages and pdf_reader.pages[0]
+        media_box = first_page and first_page.mediaBox
+        width = media_box and media_box.getWidth()
+        height = media_box and media_box.getHeight()
+
+        return (width, height) if width and height else None
+
     def _generate_completed_document(self, password=""):
         self.ensure_one()
         if self.state != 'signed':
@@ -554,7 +563,7 @@ class SignRequest(models.Model):
             normalFontSize = self._get_normal_font_size()
 
             packet = io.BytesIO()
-            can = canvas.Canvas(packet)
+            can = canvas.Canvas(packet, pagesize=self.get_page_size(old_pdf))
             itemsByPage = self.template_id._get_sign_items_by_page()
             items_ids = [id for items in itemsByPage.values() for id in items.ids]
             values_dict = self.env['sign.request.item.value']._read_group(
