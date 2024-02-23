@@ -37,6 +37,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
             this.storageKey = "knowledge.unfolded.ids";
             this.unfoldedArticlesIds = localStorage.getItem(this.storageKey)?.split(";").map(Number) || [];
             this._renderTree();
+            this.renderViewLinks();
             this._setResizeListener();
             // Debounce the search articles method to reduce the number of rpcs
             this._searchArticles = debounce(this._searchArticles, 500);
@@ -191,6 +192,22 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
             iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
             anchor.replaceChildren();
             anchor.append(iframe);
+        }
+    },
+
+    /**
+     * Invite public users to log in as they are trying to access an internal view.
+     * They will then be redirected to the current article and will be able to interact
+     * with the link again.
+     */
+    renderViewLinks() {
+        for (const viewLink of this.el.getElementsByClassName("o_knowledge_view_link")) {
+            // Replace `span` elements by actual links.
+            const link = document.createElement("A");
+            link.classList.add("text-o-color-1");
+            link.href = `/web/login?redirect=/knowledge/article/${this.resId}`;
+            link.textContent = decodeDataBehaviorProps(viewLink.dataset.behaviorProps).name;
+            viewLink.replaceWith(link);
         }
     },
 
