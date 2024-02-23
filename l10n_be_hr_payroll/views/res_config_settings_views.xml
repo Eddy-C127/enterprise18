@@ -94,6 +94,12 @@
                         </group>
                         <button name="%(l10n_be_hr_payroll.l10n_be_hr_payroll_action_work_address_codes)d" icon="oi-arrow-right" type="action" string="Work address DMFA codes" class="btn-link"/>
                     </setting>
+                    <setting string="Accident Insurance" company_dependent="1" help="Configure your company accident insurance">
+                        <group class="mt16">
+                            <field name="accident_insurance_name" string="Insurer"/>
+                            <field name="accident_insurance_number" string="Contract Number"/>
+                        </group>
+                    </setting>
                     <setting id="company_information" string="Company Information" help="Offical Company Information" company_dependent="1">
                         <div class="mt16 content-group">
                             <div class="row ms-2">

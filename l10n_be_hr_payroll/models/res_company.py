@@ -31,6 +31,8 @@ class ResCompany(models.Model):
     onss_pem_passphrase = fields.Char(
         string="PEM Passphrase", groups="base.group_system",
         help="Certificate to allow access to batch declarations")
+    accident_insurance_name = fields.Char()
+    accident_insurance_number = fields.Char()
 
     @ormcache('self.id')
     def _get_workers_count(self):

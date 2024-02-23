@@ -69,7 +69,7 @@ class HrPayrollEmployeeDeclaration(models.Model):
                 sheet_filename = sheet._get_pdf_filename(employee)
                 sheet_file, dummy = report_sudo.with_context(lang=employee.lang)._render_qweb_pdf(
                     report_id,
-                    [employee.id], data={'report_data': employee_data, 'employee': employee})
+                    [employee.id], data={'report_data': employee_data, 'employee': employee, 'company_id': employee.company_id})
                 pdf_files.append((employee, sheet_filename, sheet_file))
             if pdf_files:
                 sheet._process_files(pdf_files)

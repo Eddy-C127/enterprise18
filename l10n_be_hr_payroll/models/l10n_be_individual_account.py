@@ -59,9 +59,10 @@ class L10nBeIndividualAccount(models.Model):
         ])
         employees = payslips.employee_id
         lines = payslips.line_ids.filtered(lambda l: l.salary_rule_id.appears_on_payslip)
-        payslip_rules = [(rule.code, rule.sequence) for rule in lines.salary_rule_id]
+        payslip_rules = [(rule.code, rule.sequence) for rule in lines.salary_rule_id] + [('ECOVOUCHERS', 10000)]
         payslip_rules = sorted(payslip_rules, key=lambda x: x[1])
         worked_days = payslips.worked_days_line_ids
+        other_inputs = payslips.input_line_ids
 
         result = {
             employee: {
@@ -81,6 +82,20 @@ class L10nBeIndividualAccount(models.Model):
                 }
             } for employee in employees
         }
+
+        for other_input in other_inputs:
+            if other_input.input_type_id.code != "ECOVOUCHERS":
+                continue
+            slip = other_input.payslip_id
+            rule = result[slip.employee_id]['rules']['ECOVOUCHERS']
+            month = slip.date_from.month - 1
+            line_name = _('Ecovouchers')
+            rule['month'][month]['name'] = line_name
+            rule['month'][month]['total'] += other_input.amount
+            rule['quarter'][(month) // 3]['name'] = line_name
+            rule['quarter'][(month) // 3]['total'] += other_input.amount
+            rule['year']['name'] = line_name
+            rule['year']['total'] += other_input.amount
 
         for line in lines:
             rule = result[line.employee_id]['rules'][line.salary_rule_id.code]
@@ -109,7 +124,6 @@ class L10nBeIndividualAccount(models.Model):
             work['year']['name'] = worked_day.name
             work['year']['number_of_days'] += worked_day.number_of_days
             work['year']['number_of_hours'] += worked_day.number_of_hours
-
         return result
 
     def _get_pdf_report(self):

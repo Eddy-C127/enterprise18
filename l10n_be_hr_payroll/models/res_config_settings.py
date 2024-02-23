@@ -72,3 +72,11 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.onss_pem_passphrase",
         readonly=False,
         groups="base.group_system")
+    accident_insurance_name = fields.Char(
+        related="company_id.accident_insurance_name",
+        readonly=False,
+        groups="hr_payroll.group_hr_payroll_user")
+    accident_insurance_number = fields.Char(
+        related="company_id.accident_insurance_number",
+        readonly=False,
+        groups="hr_payroll.group_hr_payroll_user")
