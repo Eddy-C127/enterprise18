@@ -21,8 +21,10 @@ export const preparationDisplayService = {
             odoo.preparation_display.id
         ).ready;
         const onNotified = getOnNotified(bus_service, odoo.preparation_display.access_token);
-        onNotified("LOAD_ORDERS", async () => {
-            sound.play("notification");
+        onNotified("LOAD_ORDERS", async (data) => {
+            if (data.sound) {
+                sound.play("notification");
+            }
             preparationDisplayService.rawData.orders = await preparationDisplayService.orm.call(
                 "pos_preparation_display.order",
                 "get_preparation_display_order",

@@ -14,7 +14,8 @@ export class Orderline extends Reactive {
             attribute_ids,
             todo,
         },
-        order
+        order,
+        blinkingNote
     ) {
         super();
 
@@ -28,6 +29,13 @@ export class Orderline extends Reactive {
         this.attribute_ids = attribute_ids ?? [];
         this.todo = todo;
         this.order = order;
+        this.blinkingNote = blinkingNote || false;
+
+        if (this.blinkingNote) {
+            setTimeout(() => {
+                this.blinkingNote = false;
+            }, 20000);
+        }
     }
 
     get isCancelled() {

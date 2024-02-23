@@ -13,7 +13,6 @@ class PosPreparationDisplayOrderline(models.Model):
     product_cancelled = fields.Integer("Quantity of cancelled product")
     preparation_display_order_id = fields.Many2one(
         'pos_preparation_display.order', required=True, index=True, ondelete='cascade')
-    full_product_name = fields.Char("Full product name")
 
     def change_line_status(self, status):
         orderlines_status = []
@@ -32,3 +31,32 @@ class PosPreparationDisplayOrderline(models.Model):
             preparation_display._notify('CHANGE_ORDERLINE_STATUS', orderlines_status)
 
         return True
+
+    def send_stricked_line_to_next_stage(self, preparation_display_id):
+        order = self.preparation_display_order_id
+        preparation_display = self.env['pos_preparation_display.display'].browse(preparation_display_id)
+
+        stage_ids = preparation_display.stage_ids
+        current_stage_id = order.order_stage_ids.filtered(lambda x: x.stage_id in stage_ids)[-1]
+        current_stage_index = stage_ids.ids.index(current_stage_id.stage_id.id)
+        next_stage_id = stage_ids.ids[current_stage_index + 1]
+
+        new_order = self.env['pos_preparation_display.order'].create({
+            'displayed': True,
+            'pos_order_id': order.pos_order_id.id,
+            'pos_config_id': order.pos_config_id.id,
+        })
+
+        new_order.order_stage_ids.create({
+            'preparation_display_id': preparation_display_id,
+            'stage_id': next_stage_id,
+            'order_id': new_order.id,
+            'done': False
+        })
+
+        for record in self:
+            record.todo = True
+            record.preparation_display_order_id = new_order.id
+
+        preparation_display._send_load_orders_message()
+        return new_order.id

@@ -13,6 +13,7 @@
         'views/preparation_display_assets_index.xml',
         'views/preparation_display_view.xml',
         'wizard/preparation_display_reset_wizard.xml',
+        'data/preparation_display_cron.xml',
     ],
     'installable': True,
     'auto_install': True,

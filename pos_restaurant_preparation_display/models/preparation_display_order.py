@@ -29,8 +29,8 @@ class PosPreparationDisplayOrder(models.Model):
         return order_to_create
 
     @api.model
-    def process_order(self, order_id, cancelled=False):
-        res = super().process_order(order_id, cancelled)
+    def process_order(self, order_id, cancelled=False, note_history=None):
+        res = super().process_order(order_id, cancelled, note_history)
         order = self.env['pos.order'].browse(order_id)
 
         if order and order.table_id:

@@ -1,5 +1,6 @@
-from odoo import fields, models, Command, api
 
+from odoo import fields, models, api
+from datetime import timedelta
 
 class PosPreparationDisplayOrder(models.Model):
     _name = 'pos_preparation_display.order'
@@ -16,7 +17,7 @@ class PosPreparationDisplayOrder(models.Model):
         readonly=True)
 
     @api.model
-    def process_order(self, order_id, cancelled=False):
+    def process_order(self, order_id, cancelled=False, note_history=None):
         if not order_id:
             return
 
@@ -24,62 +25,16 @@ class PosPreparationDisplayOrder(models.Model):
         if not order:
             return
 
-        preparation_display_order = order._get_orderline_to_send(cancelled)
+        data = order._process_preparation_changes(cancelled, note_history)
+        preparation_displays = self.env['pos_preparation_display.display'].search([
+            '|', ('category_ids', 'in', list(data['category_ids'])),
+            ('category_ids', '=', False)])
 
-        positive_orderlines = []
-        negative_orderlines = []
-        product_categories = []
-
-        for orderline in preparation_display_order['preparation_display_order_line_ids']:
-            product_categories.extend(orderline['product_category_ids'])
-            del orderline['product_category_ids']
-
-            if orderline['product_quantity'] > 0:
-                positive_orderlines.append(Command.create(orderline))
-            else:
-                negative_orderlines.append(orderline)
-
-        if negative_orderlines:
-            for negative_orderline in negative_orderlines:
-                quantity_to_cancel = abs(negative_orderline['product_quantity'])
-
-                orderlines = self.env['pos_preparation_display.orderline'].search(
-                    [('preparation_display_order_id.pos_order_id', '=', preparation_display_order['pos_order_id']), ('product_id', '=', negative_orderline['product_id'])],
-                    order='id desc'
-                )
-
-                for orderline in orderlines:
-                    if orderline.internal_note == negative_orderline["internal_note"]:
-                        if orderline.product_quantity > orderline.product_cancelled:
-                            if negative_orderline.get('attribute_value_ids') and set(negative_orderline.get('attribute_value_ids')) != set(orderline.attribute_value_ids.ids):
-                                continue
-
-                            if orderline.product_quantity >= quantity_to_cancel:
-                                orderline.product_cancelled = quantity_to_cancel
-                                quantity_to_cancel = 0
-                            elif orderline.product_quantity < quantity_to_cancel:
-                                orderline.product_cancelled = orderline.product_quantity
-                                quantity_to_cancel -= orderline.product_quantity
-
-                    if quantity_to_cancel == 0:
-                        break
-
-        if positive_orderlines:
-            order_to_create = self._get_preparation_order_values(preparation_display_order)
-            order_to_create['preparation_display_order_line_ids'] = positive_orderlines
-            self.create(order_to_create)
-
-        if positive_orderlines or negative_orderlines:
-            preparation_displays = self.env['pos_preparation_display.display'].search([])
-
+        if data['change']:
             for p_dis in preparation_displays:
-                p_dis_categories = p_dis._get_pos_category_ids()
+                p_dis._send_load_orders_message(data['sound'])
 
-                if len(set(p_dis_categories.ids).intersection(product_categories)) > 0:
-                    p_dis._send_load_orders_message()
-
-        order._update_last_order_changes()
-        return order.last_order_preparation_change
+        return True
 
     @api.model
     def _send_orders_to_preparation_display(self, preparation_display_id):
@@ -140,8 +95,6 @@ class PosPreparationDisplayOrder(models.Model):
                     'order_id': order.id,
                     'done': True
                 })
-                if len(order.order_stage_ids.filtered(lambda order_stage: not order_stage.done)) == 0:
-                    order.unlink()
 
         preparation_display._send_load_orders_message()
 
@@ -186,7 +139,7 @@ class PosPreparationDisplayOrder(models.Model):
                     'internal_note': orderline.internal_note,
                     'attribute_ids': orderline.attribute_value_ids.ids,
                     'product_id': orderline.product_id.id,
-                    'product_name': orderline.full_product_name or orderline.product_id.display_name,
+                    'product_name': orderline.product_id.display_name,
                     'product_quantity': orderline.product_quantity,
                     'product_cancelled': orderline.product_cancelled,
                     'product_category_ids': orderline.product_id.pos_categ_ids.ids,
@@ -211,3 +164,9 @@ class PosPreparationDisplayOrder(models.Model):
                 'orderlines': preparation_display_orderlines,
                 'tracking_number': self.pos_order_id.tracking_number,
             }
+
+    @api.model
+    def _clean_preparation_data(self):
+        orders = self.env['pos_preparation_display.order'].search([('write_date', '<=', fields.Datetime.now() - timedelta(days=1))])
+        orders.unlink()
+        return True

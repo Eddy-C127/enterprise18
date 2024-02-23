@@ -19,7 +19,7 @@ class TestUi(TestPointOfSaleHttpCommon):
             'tip_product_id': self.tip.id,
         })
 
-        self.env['pos_preparation_display.display'].create({
+        pdis = self.env['pos_preparation_display.display'].create({
             'name': 'Preparation Display',
             'pos_config_ids': [(4, self.main_pos_config.id)],
             'category_ids': [(4, self.letter_tray.pos_categ_ids[0].id)],
@@ -29,11 +29,15 @@ class TestUi(TestPointOfSaleHttpCommon):
         self.main_pos_config.with_user(self.pos_user).open_ui()
         self.start_pos_tour('PreparationDisplayTour')
 
-        order = self.env['pos.order'].search([('amount_paid', '=', 65.89)], limit=1)
-        preparation_order = self.env['pos_preparation_display.order'].search([('pos_order_id', '=', order.id)], limit=1)
+        data = pdis.get_preparation_display_data()
 
-        self.assertEqual(len(preparation_order.preparation_display_order_line_ids), 1, "The order " + str(order.amount_paid) + " has 1 preparation orderline")
-        self.assertEqual(preparation_order.preparation_display_order_line_ids.product_id, self.letter_tray, "The preparation orderline has the product " + self.letter_tray.name)
+        lines = []
+        for o in data['orders']:
+            for li in o['orderlines']:
+                lines.append(li)
+
+        self.assertEqual(len(lines), 1, "The order has 1 preparation orderline")
+        self.assertEqual(lines[0]['product_id'], self.letter_tray.id, "The preparation orderline has the product " + self.letter_tray.name)
 
     def test_printer_and_order_display(self):
         self.env['pos.printer'].create({
@@ -83,6 +87,5 @@ class TestUi(TestPointOfSaleHttpCommon):
 
         order = self.env['pos.order'].search([('amount_paid', '=', 11.0)], limit=1)
         preparation_order = self.env['pos_preparation_display.order'].search([('pos_order_id', '=', order.id)], limit=1)
-
-        self.assertEqual(preparation_order.preparation_display_order_line_ids.full_product_name, "Configurable Chair (Red, Metal, Leather)")
-        self.start_tour("/pos_preparation_display/web?display_id=%d" % self.display.id, 'PreparationDisplayTourProductName', login="pos_user")
+        attribute_names = [attr.name for attr in preparation_order.preparation_display_order_line_ids.attribute_value_ids]
+        self.assertEqual(attribute_names, ['Red', 'Metal', 'Leather'])

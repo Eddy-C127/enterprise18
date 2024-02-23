@@ -95,9 +95,9 @@ class PosPreparationDisplay(models.Model):
                     current_order_stage.done = True
             preparation_display._send_load_orders_message()
 
-    def _send_load_orders_message(self):
+    def _send_load_orders_message(self, sound=False):
         self.ensure_one()
-        self._notify('LOAD_ORDERS', {})
+        self._notify('LOAD_ORDERS', {'sound': sound})
 
     @api.depends('stage_ids', 'pos_config_ids', 'category_ids')
     def _compute_order_count(self):
