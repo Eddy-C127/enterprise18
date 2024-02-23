@@ -85,7 +85,7 @@ QUnit.module("documents_spreadsheet > Topbar Menu Items", {}, function () {
                         JSON.stringify(model.exportData()),
                         "It should copy the data"
                     );
-                    return 1;
+                    return [1];
                 }
             },
         });

@@ -63,7 +63,7 @@ QUnit.module("spreadsheet dashboard edition action", {}, function () {
                     const { spreadsheet_data, thumbnail } = args.kwargs.default;
                     assert.ok(spreadsheet_data);
                     assert.ok(thumbnail);
-                    return 111;
+                    return [111];
                 }
             },
         });

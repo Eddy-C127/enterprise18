@@ -222,9 +222,10 @@ export class AbstractSpreadsheetAction extends Component {
             spreadsheet_revision_ids: [],
             thumbnail,
         };
-        const id = await this.orm.call(this.resModel, "copy", [this.resId], {
+        const ids = await this.orm.call(this.resModel, "copy", [[this.resId]], {
             default: defaultValues,
         });
+        const id = ids[0];
         this._openSpreadsheet(id);
     }
 

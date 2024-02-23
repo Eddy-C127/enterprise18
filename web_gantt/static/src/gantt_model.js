@@ -217,11 +217,12 @@ export class GanttModel extends Model {
         const { context } = this.searchParams;
         const data = this._scheduleToData(schedule);
         return this.mutex.exec(async () => {
-            const result = await this.orm.call(resModel, "copy", [[id], data], {
+            const result = await this.orm.call(resModel, "copy", [[id]], {
                 context,
+                default: data,
             });
             if (callback) {
-                callback(result);
+                callback(result[0]);
             }
             this.fetchData();
         });
@@ -535,7 +536,9 @@ export class GanttModel extends Model {
                 row.progressBar = progressBarInfo[row.resId];
                 if (row.progressBar) {
                     row.progressBar.value_formatted = this.formatTime(row.progressBar.value);
-                    row.progressBar.max_value_formatted = this.formatTime(row.progressBar.max_value);
+                    row.progressBar.max_value_formatted = this.formatTime(
+                        row.progressBar.max_value
+                    );
                     row.progressBar.ratio = row.progressBar.max_value
                         ? (row.progressBar.value / row.progressBar.max_value) * 100
                         : 0;

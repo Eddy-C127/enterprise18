@@ -91,7 +91,7 @@ QUnit.module("documents_spreadsheet > template menu", {}, () => {
                         spreadsheet_data,
                         thumbnail,
                     });
-                    return 111;
+                    return [111];
                 }
             },
         });

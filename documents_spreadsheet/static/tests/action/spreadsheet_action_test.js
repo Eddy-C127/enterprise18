@@ -190,7 +190,9 @@ QUnit.module(
         QUnit.test("notify user window", async function () {
             const { env } = await createSpreadsheet();
             env.notifyUser({ text: "this is a notification", type: "warning", sticky: true });
-            await contains(".o_notification:has(.o_notification_bar.bg-warning)", { text: "this is a notification" });
+            await contains(".o_notification:has(.o_notification_bar.bg-warning)", {
+                text: "this is a notification",
+            });
         });
 
         QUnit.test("raise error window", async function (assert) {
@@ -333,6 +335,32 @@ QUnit.module(
 
             const modelFromLoadedJSON = new Model(JSON.parse(downloadedData));
             assert.strictEqual(getCellValue(modelFromLoadedJSON, "A3"), "Hello World");
+        });
+
+        QUnit.test("menu > copy", async function (assert) {
+            const serverData = getBasicServerData();
+            const spreadsheet = serverData.models["documents.document"].records[1];
+            spreadsheet.name = "My spreadsheet";
+            spreadsheet.spreadsheet_data = JSON.stringify({
+                sheets: [{ cells: { A3: { content: "Hello World" } } }],
+            });
+
+            const { env, model } = await createSpreadsheet({
+                spreadsheetId: spreadsheet.id,
+                serverData,
+                mockRPC: function (_, { method, args, kwargs }) {
+                    if (method === "copy") {
+                        assert.step("copy");
+                        assert.deepEqual(args[0], [2]);
+                        assert.ok("default" in kwargs);
+                    }
+                },
+            });
+
+            assert.strictEqual(getCellValue(model, "A3"), "Hello World");
+
+            await doMenuAction(topbarMenuRegistry, ["file", "make_copy"], env);
+            assert.verifySteps(["copy"]);
         });
 
         QUnit.test("Spreadsheet is created with locale in data", async function (assert) {

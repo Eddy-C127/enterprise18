@@ -412,8 +412,8 @@ export class PlanningGanttRenderer extends GanttRenderer {
         await this.model.orm.call(
             this.model.metaData.resModel,
             'copy',
-            [pill.record.id, values],
-            { context },
+            [[pill.record.id]],
+            { context, default: values },
         );
 
         // 2. Reduce the size of the current pill down to the split tool

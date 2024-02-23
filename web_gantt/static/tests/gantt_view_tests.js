@@ -2439,11 +2439,11 @@ QUnit.test("copy a pill in another row", async (assert) => {
         arch: '<gantt date_start="start" date_stop="stop" />',
         groupBy: ["project_id"],
         domain: [["id", "in", [1, 7, 9]]], // 9 will be the newly created record
-        mockRPC(_route, { args, method }) {
+        mockRPC(_route, { args, method, kwargs }) {
             if (method === "copy") {
                 assert.deepEqual(args[0], [7], "should copy the correct record");
                 assert.deepEqual(
-                    args[1],
+                    kwargs.default,
                     {
                         start: "2018-12-21 12:30:12",
                         stop: "2018-12-21 18:29:59",
