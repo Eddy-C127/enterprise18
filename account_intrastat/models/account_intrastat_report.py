@@ -415,13 +415,16 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 ) AS quantity,
                 CASE WHEN code.supplementary_unit IS NOT NULL and prod.intrastat_supplementary_unit_amount != 0
                     THEN prod.intrastat_supplementary_unit_amount * (
-                        quantity / (
+                        account_move_line.quantity / (
                             CASE WHEN inv_line_uom.category_id IS NULL OR inv_line_uom.category_id = prod_uom.category_id
                             THEN inv_line_uom.factor ELSE 1 END
                         )
                     ) ELSE NULL END AS supplementary_units,
                 account_move_line.quantity AS line_quantity,
-                CASE WHEN account_move_line.price_subtotal = 0 THEN account_move_line.price_unit * account_move_line.quantity ELSE account_move_line.price_subtotal END AS value,
+                -- We double sign the balance to make sure that we keep consistency between invoice/bill and the intrastat report
+                -- Example: An invoice selling 10 items (but one is free 10 - 1), in the intrastat report we'll have 2 lines
+                -- One for 10 items minus one for the free item
+                SIGN(account_move_line.quantity) * SIGN(account_move_line.price_unit) * ABS(account_move_line.balance) AS value,
                 CASE WHEN product_country.code = 'GB' THEN 'XU' ELSE COALESCE(product_country.code, %s) END AS intrastat_product_origin_country_code,
                 COALESCE(product_country.name->>{user_lang}, product_country.name->>'en_US') AS intrastat_product_origin_country_name,
                 CASE WHEN partner.vat IS NOT NULL THEN partner.vat
@@ -570,17 +573,10 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
     @api.model
     def _fill_missing_values(self, vals_list):
-        """ Some values are too complex to be retrieved in the SQL query.
-        Then, this method is used to compute the missing values fetched from the database.
-        :param vals_list:    A dictionary created by the dictfetchall method.
-        """
-        for vals in vals_list:
-            # Check the currency.
-            currency_id = self.env['res.currency'].browse(vals['invoice_currency_id'])
-            company_currency_id = self.env.company.currency_id
-            if currency_id != company_currency_id:
-                vals['value'] = currency_id._convert(vals['value'], company_currency_id, self.env.company, vals['invoice_date'])
+        """ Template method to be overidden to retrieve complex data
 
+            :param vals_list:    A dictionary created by the dictfetchall method.
+        """
         return vals_list
 
     def _get_markup_info_from_intrastat_id(self, line_id):
