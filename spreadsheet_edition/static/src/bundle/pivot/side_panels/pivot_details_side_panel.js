@@ -40,7 +40,7 @@ export class PivotDetailsSidePanel extends Component {
         return {
             model: definition.model,
             modelDisplayName: this.modelDisplayName,
-            domain: new Domain(definition.domain).toString(),
+            domain: definition.domain.toString(),
             colGroupBys: definition.columns.map((col) => col.displayName),
             rowGroupBys: definition.rows.map((row) => row.displayName),
             measures: definition.measures.map((measure) => measure.displayName),
@@ -87,7 +87,7 @@ export class PivotDetailsSidePanel extends Component {
         const { model, domain } = this.pivot.definition;
         this.dialog.add(DomainSelectorDialog, {
             resModel: model,
-            domain: new Domain(domain).toString(),
+            domain: domain.toString(),
             isDebugMode: !!this.env.debug,
             onConfirm: (domain) =>
                 this.env.model.dispatch("UPDATE_ODOO_PIVOT_DOMAIN", {
