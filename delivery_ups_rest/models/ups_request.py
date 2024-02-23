@@ -245,7 +245,7 @@ class UPSRequest:
                 'Number': (partner.phone or partner.mobile or '').replace(' ', ''),
             },
             'Address': {
-                'AddressLine': partner.street or '' + partner.street2 or '',
+                'AddressLine': [partner.street or '', partner.street2 or ''],
                 'City': partner.city or '',
                 'PostalCode': partner.zip or '',
                 'CountryCode': partner.country_id.code or '',
