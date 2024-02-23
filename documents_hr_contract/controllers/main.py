@@ -14,7 +14,7 @@ class SignContract(Sign):
         result = super().sign(sign_request_id, token, sms_token=sms_token, signature=signature, **kwargs)
         request_item = request.env['sign.request.item'].sudo().search([('access_token', '=', token)])
         is_completed = all(state == 'completed' for state in request_item.sign_request_id.request_item_ids.mapped('state'))
-        signature_request_tag = request.env.ref('documents_hr_contract.document_tag_signature_request')
+        signature_request_tag = request.env.ref('documents_hr_contract.document_tag_signature_request', raise_if_not_found=False)
         if not is_completed:
             return result
 
@@ -37,7 +37,7 @@ class SignContract(Sign):
                 'datas': sign_request_sudo.completed_document,
                 'name': sign_request_sudo.display_name,
                 'folder_id': employee.company_id.documents_hr_folder.id,
-                'tag_ids': [(4, signature_request_tag.id)],
+                'tag_ids': [(4, signature_request_tag.id)] if signature_request_tag else [],
                 'res_id': employee.id,
                 'res_model': 'hr.employee',  # Security Restriction to contract managers
             })
@@ -64,7 +64,7 @@ class SignContract(Sign):
                     'datas': sign_request_sudo.completed_document,
                     'name': sign_request_sudo.display_name,
                     'folder_id': sign_request_folder.id,
-                    'tag_ids': [(4, signature_request_tag.id)],
+                    'tag_ids': [(4, signature_request_tag.id)] if signature_request_tag else [],
                     'res_id': contract.id,
                     'res_model': 'hr.contract',  # Security Restriction to contract managers
                 })
