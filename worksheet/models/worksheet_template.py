@@ -68,9 +68,14 @@ class WorksheetTemplate(models.Model):
                 for model, name in self._get_models_to_check_dict()[res_model]:
                     records = self.env[model].search([('worksheet_template_id', 'in', templates.ids)])
                     for record in records:
-                        company_names = ', '.join(update_company_ids.mapped('name'))
                         if record.company_id not in record.worksheet_template_id.company_ids:
-                            raise UserError(_("Unfortunately, you cannot unlink this worksheet template from %s because the template is still connected to tasks within the company.", company_names))
+                            if update_company_ids:
+                                company_names = ', '.join(update_company_ids.mapped('name'))
+                                raise UserError(_("Unfortunately, you cannot unlink this worksheet template from %s because the template is still connected to tasks within the company.", company_names))
+                            else:
+                                company_names = ', '.join(record.worksheet_template_id.company_ids.mapped('name'))
+                                raise UserError(_("You can't restrict this worksheet template to '%s' because it's still connected to tasks in '%s' (and potentially other companies). Please either unlink those tasks from this worksheet template, "
+                                                  "move them to a project for the right company, or keep this worksheet template open to all companies.", company_names, record.company_id.name))
         return res
 
     def unlink(self):
