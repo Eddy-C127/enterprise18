@@ -62,7 +62,7 @@ class ResConfigSettings(models.TransientModel):
         })
         res = self.company_id._l10n_be_codabox_return_wizard(
             name=_('SODA Mapping'),
-            view_id=self.env.ref('l10n_be_codabox_bridge_wizard.soda_import_wizard_view_form_codabox').id,
+            view_id=self.env.ref('l10n_be_codabox_bridge.soda_import_wizard_view_form_codabox').id,
             res_model='soda.import.wizard',
             res_id=wizard.id,
         )
