@@ -543,6 +543,12 @@ class PlanningSlot(models.Model):
             domain = expression.AND([domain, [('sale_order_id', '=', self.env.context.get('planning_gantt_active_sale_order_id'))]])
         return domain
 
+    def auto_plan_id(self):
+        self.ensure_one()
+        if self.sale_order_id.state == 'cancel':
+            return self._get_notification_action("danger", _("You are attempting to create a slot for a cancelled sales order."))
+        return super().auto_plan_id()
+
     @api.model
     def auto_plan_ids(self, view_domain):
         res = super(PlanningSlot, self).auto_plan_ids(view_domain)
