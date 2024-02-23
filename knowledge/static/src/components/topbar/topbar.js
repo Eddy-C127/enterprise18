@@ -27,6 +27,7 @@ class KnowledgeTopbar extends Component {
         ...standardWidgetProps,
     };
     static components = {
+        KnowledgeFormStatusIndicator,
         KnowledgeIcon,
         PermissionPanel,
     };
@@ -316,15 +317,7 @@ class KnowledgeTopbar extends Component {
     }
 
 }
-KnowledgeTopbar.template = 'knowledge.KnowledgeTopbar';
-KnowledgeTopbar.props = {
-    ...standardWidgetProps,
-};
-KnowledgeTopbar.components = {
-    KnowledgeFormStatusIndicator,
-    KnowledgeIcon,
-    PermissionPanel,
-};
+
 export const knowledgeTopbar = {
     component: KnowledgeTopbar,
     fieldDependencies: [
