@@ -151,12 +151,11 @@ class Planning(models.Model):
         for slot in self:
             slot.color = slot.role_id.color or slot.resource_id.color
 
-    @api.depends('repeat_until', 'repeat_number')
+    @api.depends('repeat_until')
     def _compute_confirm_delete(self):
         for slot in self:
-            if slot.recurrency_id and slot.repeat_until and slot.repeat_number:
-                recurrence_end_dt = slot.repeat_until or slot.recurrency_id._get_recurrence_last_datetime()
-                slot.confirm_delete = fields.Date.to_date(recurrence_end_dt) > slot.repeat_until
+            if slot.recurrency_id and slot.repeat_until:
+                slot.confirm_delete = fields.Date.to_date(slot.recurrency_id.slot_ids.sorted('end_datetime')[-1].end_datetime) > slot.repeat_until
             else:
                 slot.confirm_delete = False
 
@@ -849,7 +848,8 @@ class Planning(models.Model):
                     }
                     recurrence.write(recurrency_values)
                     if slot.repeat_type == 'x_times':
-                        recurrency_values['repeat_until'] = recurrence._get_recurrence_last_datetime()
+                        final_slot = min(repeat_number, len(recurrence.slot_ids))
+                        recurrency_values['repeat_until'] = recurrence.slot_ids.sorted('end_datetime')[final_slot - 1].end_datetime
                     end_datetime = slot.end_datetime if values.get('repeat_unit') else recurrency_values.get('repeat_until')
                     recurrence._delete_slot(end_datetime)
                     recurrence._repeat_slot()

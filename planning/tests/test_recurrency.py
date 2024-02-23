@@ -453,8 +453,12 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             _modify_slot('week', datetime(2020, 5, 11, 8, 0, 0)) # generated 4 slots
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 4, 'After change unit to week generated slots should be 4')
 
-            _modify_slot('month', datetime(2020, 8, 31, 8, 0, 0)) # generated 5 slots
-            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 5, 'After change unit to month generated slots should be 5')
+            _modify_slot('month', datetime(2020, 8, 31, 8, 0, 0)) # generated 4 slots, one of the slots would have landed on a weekend
+            self.assertEqual(
+                len(self.get_by_employee(self.employee_joseph)),
+                4,
+                'After change unit to month, generated slots should be 4 as one of the slots lands on company closing day and thus should not be generated'
+            )
 
             _modify_slot('year', datetime(2020, 4, 26, 8, 0, 0)) # generated 1 slot
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 1, 'After change unit to year generated slots should be 1')
@@ -713,12 +717,12 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             slot.recurrency_id.slot_ids.mapped('start_datetime'),
             [
                 datetime(2020, 1, 31, 8, 0),
-                datetime(2020, 2, 29, 8, 0),
+                # datetime(2020, 2, 29, 8, 0),  should not be generated lands on a Saturday
                 datetime(2020, 3, 31, 8, 0),
                 datetime(2020, 4, 30, 8, 0),
-                datetime(2020, 5, 31, 8, 0),
+                # datetime(2020, 5, 31, 8, 0),  should not be generated lands on a Sunday
             ],
-            'The slots should occur at the last day of each month'
+            'The slots should occur at the last day of each month, with the exception of February and May when the last day lands on a company closing day'
         )
 
     def test_recurrency_occurring_slots(self):
@@ -726,8 +730,8 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
         self.env.user.tz = 'UTC'
         slot = self.env['planning.slot'].create([{
             'name': 'coucou',
-            'start_datetime': datetime(2020, 1, 31, 8, 0),
-            'end_datetime': datetime(2020, 1, 31, 9, 0),
+            'start_datetime': datetime(2020, 1, 28, 8, 0),
+            'end_datetime': datetime(2020, 1, 28, 9, 0),
             'resource_id': self.resource_bert.id,
             'repeat': True,
             'repeat_type': 'x_times',
@@ -736,8 +740,8 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             'repeat_unit': 'month',
         }, {
             'name': 'concurrent slot',
-            'start_datetime': datetime(2020, 2, 29, 8, 0),
-            'end_datetime': datetime(2020, 2, 29, 11, 0),
+            'start_datetime': datetime(2020, 2, 28, 8, 0),
+            'end_datetime': datetime(2020, 2, 28, 11, 0),
             'resource_id': self.resource_bert.id,
         }])
 
