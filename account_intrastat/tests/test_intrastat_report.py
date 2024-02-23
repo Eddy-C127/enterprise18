@@ -12,8 +12,8 @@ from odoo import fields, Command
 class TestIntrastatReport(TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpClass(cls, chart_template_ref=None):
+        super().setUpClass(chart_template_ref=chart_template_ref)
         # Create a fictional intrastat country
         country = cls.env['res.country'].create({
             'name': 'Squamuglia',
@@ -443,6 +443,130 @@ class TestIntrastatReport(TestAccountReportsCommon):
                 ('INV/2022/00007',                                          26.0),
             ],
             options,
+        )
+
+    def test_intrastat_multi_currency(self):
+        """ This test checks that moves in foreign currency are correctly
+            present in the intrastat report (with correct values)
+            All values should be in company currency even if moves have a
+            foreign currency set on them.
+        """
+        moves = self.env['account.move'].create([
+            {
+                'move_type': 'out_invoice',
+                'partner_id': self.partner_a.id,
+                'invoice_date': '2016-04-01',
+                'intrastat_country_id': self.env.ref('base.be').id,
+                'currency_id': self.currency_data['currency'].id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'product_id': self.spanish_rioja.id,
+                        'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                        'quantity': 1.0,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 80.0,
+                    }),
+                ],
+            },
+            {
+                'move_type': 'out_invoice',
+                'partner_id': self.partner_a.id,
+                'invoice_date': '2017-04-01',
+                'intrastat_country_id': self.env.ref('base.be').id,
+                'currency_id': self.currency_data['currency'].id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'product_id': self.spanish_rioja.id,
+                        'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                        'quantity': 1.0,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 80.0,
+                    }),
+                ],
+            },
+            {
+                'move_type': 'out_refund',
+                'partner_id': self.partner_a.id,
+                'invoice_date': '2017-05-01',
+                'intrastat_country_id': self.env.ref('base.be').id,
+                'currency_id': self.currency_data['currency'].id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'product_id': self.spanish_rioja.id,
+                        'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                        'quantity': 1.0,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 80.0,
+                    }),
+                ],
+            },
+        ])
+        moves.action_post()
+
+        options = self._generate_options(self.report, '2016-01-01', '2017-12-31', default_options={'unfold_all': True})
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            self.report._get_lines(options),
+            # 0/name,                                                           12/value
+            [    0,                                                             12],
+            [
+                # Invoices
+                ('Dispatch - None - 22042176 - ES - QV999999999999 - BE - 102', 66.67),
+                # 80 divided by 2 (rate 2017 = 2.0)
+                ('INV/2017/00001',                                              40.00),
+                # 80 divided by 3 (rate 2016 = 3.0)
+                ('INV/2016/00001',                                              26.67),
+                # Credit note
+                ('Arrival - None - 22042176 - ES - QV999999999999 - BE - 102',  40.00),
+                # 80 divided by 2 (rate 2017 = 2.0)
+                ('RINV/2017/00001',                                             40.00),
+
+            ],
+            options
+        )
+
+    def test_intrastat_invoice_having_minus_quantity(self):
+        """ This test checks that a move with for example
+            a line having a quantity set to 10 and a line with a
+            quantity set to -1 (like one item free) is correctly
+            handled by the intrastat report.
+        """
+        move = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_a.id,
+            'invoice_date': '2022-01-15',
+            'intrastat_country_id': self.env.ref('base.be').id,
+            'invoice_line_ids': [
+                Command.create({
+                    'product_id': self.spanish_rioja.id,
+                    'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                    'quantity': 10.0,
+                    'account_id': self.company_data['default_account_revenue'].id,
+                    'price_unit': 80.0,
+                }),
+                Command.create({
+                    'product_id': self.spanish_rioja.id,
+                    'product_uom_id': self.env.ref('uom.product_uom_unit').id,
+                    'quantity': -1.0,
+                    'account_id': self.company_data['default_account_revenue'].id,
+                    'price_unit': 80.0,
+                }),
+            ],
+        })
+        move.action_post()
+
+        options = self._generate_options(self.report, '2022-01-01', '2022-01-31', default_options={'unfold_all': True})
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            self.report._get_lines(options),
+            # 0/name,                                                           12/value
+            [0,                                                                 12],
+            [
+                ('Dispatch - None - 22042176 - ES - QV999999999999 - BE - 102', 720.0),
+                ('INV/2022/00001',                                              800.0),
+                ('INV/2022/00001',                                              -80.0),
+            ],
+            options
         )
 
     def test_no_supplementary_units(self):
