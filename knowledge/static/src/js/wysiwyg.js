@@ -55,7 +55,7 @@ patch(Wysiwyg.prototype, {
             category: _t('Media'),
             name: _t('Article'),
             priority: 10,
-            description: _t('Link an article'),
+            description: _t('Insert an Article shortcut'),
             fontawesome: 'fa-file',
             isDisabled: () => this.options.isWebsite || this.options.inIframe,
             callback: () => {
