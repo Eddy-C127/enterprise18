@@ -1,6 +1,7 @@
 /* @odoo-module */
 
 import { Domain } from "@web/core/domain";
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import {
     click,
     clickSave,
@@ -9,6 +10,7 @@ import {
     patchDate,
     patchTimeZone,
     nextTick,
+    patchWithCleanup,
 } from "@web/../tests/helpers/utils";
 import { contains } from "@web/../tests/utils";
 import { start } from "@mail/../tests/helpers/test_utils";
@@ -752,5 +754,52 @@ QUnit.module("Views", (hooks) => {
             ],
             title: "Task With Repeat",
         });
+    });
+
+    QUnit.test("Test split tool in gantt view", async function (assert) {
+        patchDate(2022, 9, 13, 0, 0, 0);
+        patchWithCleanup(luxon.Settings, {
+            defaultZone: luxon.IANAZone.create("UTC"),
+        });
+        serverData.models.task.records.push(
+            {
+                id: 1,
+                name: "test",
+                start_datetime: "2022-10-08 16:00:00",
+                end_datetime: "2022-10-09 00:00:00",
+                resource_id: 1,
+            },
+            {
+                id: 2,
+                name: "test",
+                start_datetime: "2022-10-10 12:00:00",
+                end_datetime: "2022-10-11 12:00:00",
+                resource_id: 1,
+            }
+        );
+        const hasGroup = () => true;
+        patchUserWithCleanup({ hasGroup });
+
+        await makeView({
+            type: "gantt",
+            resModel: "task",
+            serverData,
+            arch: `
+                <gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" scales="week" default_scale="week"/>
+            `,
+            mockRPC: ganttResourceWorkIntervalRPC,
+        });
+        assert.containsN(target, ".o_gantt_pill", 2, "2 pills should be in the gantt view.");
+        assert.containsOnce(
+            target,
+            ".o_gantt_pill_split_tool",
+            "The split tool should only be available on the second pill."
+        );
+        const splitToolEl = target.querySelector(".o_gantt_pill_split_tool");
+        assert.strictEqual(
+            splitToolEl.dataset.splitToolPillId,
+            "__pill__2_0",
+            "The split tool should be positioned on the pill 2 after the first column of the pill since the pill is on 2 columns."
+        );
     });
 });
