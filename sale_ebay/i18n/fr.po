@@ -3,8 +3,8 @@
 # 	* sale_ebay
 # 
 # Translators:
-# Jolien De Paepe, 2023
 # Wil Odoo, 2024
+# Jolien De Paepe, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Jolien De Paepe, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgid ""
 " and the listing duration should set to Good 'Til Canceled"
 msgstr ""
 "Si vous voulez définir la quantité sur 0, l'option \"En rupture de stock\" "
-"doit être activée et la durée de la liste doit être \"Valable jusqu'à "
+"doit être activée et la durée de l'annonce doit être \"Valable jusqu'à "
 "l'annulation\"."
 
 #. module: sale_ebay
@@ -40,8 +40,8 @@ msgid ""
 " You need to have at least 2 variations selected for a multi-variations listing.\n"
 " Or if you try to delete a variation, you cannot do it by unselecting it. Setting the quantity to 0 is the safest method to make a variation unavailable."
 msgstr ""
-"Vous devez sélectionner au moins 2 variations pour une liste de multi-variations.\n"
-"Ou si vous essayez de supprimer une variation, vous ne pouvez pas le faire en la désélectionnant. Définir la quantité sur 0 est le moyen le plus sûr pour rendre une variation non disponible."
+"Vous devez sélectionner au moins 2 versions pour une annonce à plusieurs versions.\n"
+"Ou si vous essayez de supprimer une version, vous ne pouvez pas le faire en la désélectionnant. Définir la quantité sur 0 est le moyen le plus sûr pour rendre une version non disponible."
 
 #. module: sale_ebay
 #: model:ir.model.fields.selection,name:sale_ebay.selection__product_template__ebay_listing_duration__days_10
@@ -281,7 +281,7 @@ msgstr "Ebay : Mise à jour des catégories"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
 msgid "End Item's Listing"
-msgstr "Liste des éléments de fin"
+msgstr "Terminer l'annonce de l'article"
 
 #. module: sale_ebay
 #. odoo-python
@@ -364,7 +364,7 @@ msgid ""
 "Impossible to revise a listing into a multi-variations listing.\n"
 " Create a new listing."
 msgstr ""
-"Impossible de transformer une liste en liste multi-variation.\n"
+"Impossible de transformer une annonce en liste à plusieurs versions.\n"
 "Créez une nouvelle liste."
 
 #. module: sale_ebay
@@ -405,7 +405,7 @@ msgstr "Sous-catégorie"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.ebay_link_listing_view
 msgid "Link Existing Listing"
-msgstr "Lien vers la liste existante"
+msgstr "Associer annonce existante"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
@@ -588,7 +588,7 @@ msgstr "Quantité vendue"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
 msgid "Relist Item"
-msgstr "Relister l'article"
+msgstr "Remettre en vente"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_seller_return_policy_id
@@ -599,7 +599,7 @@ msgstr "Politique de retour"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
 msgid "Revise Item"
-msgstr "Revoir l'article"
+msgstr "Modifier l'article"
 
 #. module: sale_ebay
 #: model:ir.model,name:sale_ebay.model_sale_order
@@ -1006,7 +1006,7 @@ msgstr "eBay : Remettre en vente les produits"
 #. module: sale_ebay
 #: model:ir.actions.server,name:sale_ebay.action_revise_items
 msgid "eBay: Revise products"
-msgstr "eBay : Réviser les produits"
+msgstr "eBay : Modifier les produits"
 
 #. module: sale_ebay
 #: model:ir.actions.server,name:sale_ebay.action_unlink_items_listings

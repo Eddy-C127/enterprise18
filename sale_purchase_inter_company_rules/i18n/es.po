@@ -23,18 +23,18 @@ msgstr ""
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_purchase_order__auto_generated
 msgid "Auto Generated Purchase Order"
-msgstr "Auto creación de pedido de compra"
+msgstr "Orden de compra generada automáticamente"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_sale_order__auto_generated
 msgid "Auto Generated Sales Order"
-msgstr "Auto creación de pedido de venta"
+msgstr "Orden de venta generada automáticamente"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_company__auto_validation
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_config_settings__auto_validation
 msgid "Automatic Validation"
-msgstr "Validación Automática"
+msgstr "Validación automática"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
@@ -42,7 +42,7 @@ msgstr "Validación Automática"
 #: code:addons/sale_purchase_inter_company_rules/models/sale_order.py:0
 #, python-format
 msgid "Automatically generated from %(origin)s of company %(company)s."
-msgstr "Generado automáticamente desde %(origin)s de la empresa %(company)s."
+msgstr "Generado automáticamente desde %(origin)s de la compañía %(company)s."
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model,name:sale_purchase_inter_company_rules.model_res_company
@@ -79,8 +79,8 @@ msgid ""
 "Default value to set on Purchase(Sales) Orders that will be created based on"
 " Sale(Purchase) Orders made to this company"
 msgstr ""
-"Valor por defecto que se usará en los Pedidos de Compra (Venta) que se "
-"crearán basándose en los pedidos de Venta (Compra) hechos a esta compañía"
+"Valor predeterminado establecido en las órdenes de compra (venta) que se "
+"crearán basándose en las órdenes de venta (compra) para esta compañia."
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
@@ -181,17 +181,17 @@ msgstr "Origen del pedido de venta"
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields.selection,name:sale_purchase_inter_company_rules.selection__res_company__rule_type__purchase
 msgid "Synchronize Purchase Order"
-msgstr "Sincronizar la orden de compra"
+msgstr "Sincronizar orden de compra"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields.selection,name:sale_purchase_inter_company_rules.selection__res_company__rule_type__sale
 msgid "Synchronize Sales Order"
-msgstr "Sincronizar la orden de venta"
+msgstr "Sincronizar orden de venta"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields.selection,name:sale_purchase_inter_company_rules.selection__res_company__rule_type__sale_purchase
 msgid "Synchronize Sales and Purchase Order"
-msgstr "Sincronizar las órdenes de venta y de compra"
+msgstr "Sincronizar órdenes de venta y de compra"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model,name:sale_purchase_inter_company_rules.model_stock_picking
@@ -233,7 +233,7 @@ msgstr ""
 #: code:addons/sale_purchase_inter_company_rules/models/res_company.py:0
 #, python-format
 msgid "draft"
-msgstr "en borrador"
+msgstr "borrador"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python

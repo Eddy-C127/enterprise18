@@ -7,8 +7,8 @@
 # Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2023
 # Martin Trigaux, 2023
 # marcescu, 2023
-# Larissa Manderfeld, 2024
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 20:55+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -125,7 +125,7 @@ msgstr ""
 "                <table style=\"width:600px;margin:5px auto;\">\n"
 "                    <tbody>\n"
 "                        <tr><td t-if=\"not object.company_id.uses_default_logo\">\n"
-"                            <a href=\"/\"><img t-attf-src=\"/logo.png?company={{ object.company_id.id }}\" style=\"vertical-align:baseline;max-width:100px;\"></a>\n"
+"                            <a href=\"/\"><img t-attf-src=\"/logotipo.png?company={{ object.company_id.id }}\" style=\"vertical-align:baseline;max-width:100px;\"></a>\n"
 "                        </td><td style=\"text-align:right;vertical-align:middle;\">\n"
 "                                Renovación de la suscripción\n"
 "                        </td></tr>\n"
@@ -220,7 +220,7 @@ msgstr ""
 "                <table style=\"width:600px;margin:5px auto;\">\n"
 "                    <tbody>\n"
 "                        <tr><td t-if=\"not object.company_id.uses_default_logo\">\n"
-"                            <a href=\"/\"><img t-attf-src=\"/logo.png?company={{ object.company_id.id }}\" style=\"vertical-align:baseline;max-width:100px;\"></a>\n"
+"                            <a href=\"/\"><img t-attf-src=\"/logotipo.png?company={{ object.company_id.id }}\" style=\"vertical-align:baseline;max-width:100px;\"></a>\n"
 "                        </td><td style=\"text-align:right;vertical-align:middle;\">\n"
 "                                Encuesta de satisfacción\n"
 "                        </td></tr>\n"
@@ -564,7 +564,7 @@ msgstr ""
 "                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"ctx.get('code', ctx.get('subscription_name')) or 'Document'\">Documento</span>\n"
 "                </td></tr>\n"
 "                <tr><td valign=\"middle\" align=\"right\" t-if=\"not company.uses_default_logo\">\n"
-"                    <img t-attf-src=\"/logo.png?company={{ company.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"company.name\">\n"
+"                    <img t-attf-src=\"/logotipo.png?company={{ company.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"company.name\">\n"
 "                </td></tr>\n"
 "                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
 "                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
@@ -744,7 +744,7 @@ msgstr ""
 "                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.name or ''\">Servicio de limpieza de oficina</span>\n"
 "                </td></tr>\n"
 "                <tr><td valign=\"middle\" align=\"right\" t-if=\"not company.uses_default_logo\">\n"
-"                    <img t-attf-src=\"/logo.png?company={{ company.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"company.name\">\n"
+"                    <img t-attf-src=\"/logotipo.png?company={{ company.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"company.name\">\n"
 "                </td></tr>\n"
 "                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
 "                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
@@ -927,7 +927,7 @@ msgstr ""
 "                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.name or ''\">Servicio de limpieza de oficina</span>\n"
 "                </td></tr>\n"
 "                <tr><td valign=\"middle\" align=\"right\" t-if=\"not company.uses_default_logo\">\n"
-"                    <img t-attf-src=\"/logo.png?company={{ company.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"company.name\">\n"
+"                    <img t-attf-src=\"/logotipo.png?company={{ company.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"company.name\">\n"
 "                </td></tr>\n"
 "                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
 "                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
@@ -1380,12 +1380,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_pricing__name
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_form
 msgid "Billing Period"
-msgstr "Período de facturación"
+msgstr "Periodo de facturación"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__billing_period_display_sentence
 msgid "Billing Period Display"
-msgstr "Mostrar período de facturación"
+msgstr "Mostrar periodo de facturación"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_close_reason__retention_button_link
@@ -1502,7 +1502,7 @@ msgstr "Cancelada"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Click here to add some products or services to your quotation."
-msgstr "Clic aqui para añadir algún producto o servicio a su presupuesto."
+msgstr "Clic aqui para agregar algún producto o servicio a su presupuesto."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
@@ -1856,7 +1856,7 @@ msgstr "Recurrencia predeterminada"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.res_config_settings_view_form
 msgid "Default period to use as recurrence for a new quotation."
 msgstr ""
-"Período determinado para usarse como recurrencia para un nuevo presupuesto"
+"Periodo determinado para usarse como recurrencia para un nuevo presupuesto"
 
 #. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_pending
@@ -1887,7 +1887,7 @@ msgstr "Retraso después de la fecha de activación"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_range_type
 msgid "Delay type"
-msgstr "Tipo retraso"
+msgstr "Tipo de retraso"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__description
@@ -2280,7 +2280,7 @@ msgid ""
 "If you wish to reopen it, you can pay your invoice for the current invoicing"
 " period."
 msgstr ""
-"Si desea volver a abrirla, puede pagar su factura correspondiente al período"
+"Si desea volver a abrirla, puede pagar su factura correspondiente al periodo"
 " de facturación actual."
 
 #. module: sale_subscription
@@ -2365,7 +2365,7 @@ msgstr "Está en renovación"
 #: model:ir.model.fields,field_description:sale_subscription.field_base_automation__is_sale_order_alert
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__is_sale_order_alert
 msgid "Is Sale Order Alert"
-msgstr "Es una alerta de la orden de venta"
+msgstr "Es una alerta de orden de venta"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_template__is_subscription
@@ -2561,7 +2561,7 @@ msgstr "Aumento de MRR"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__mrr_change_period
 msgid "MRR Change Period"
-msgstr "Modificar período del MRR"
+msgstr "Modificar periodo del MRR"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__mrr_change_unit
@@ -2975,17 +2975,17 @@ msgstr "Otro"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "Over"
-msgstr "Período"
+msgstr "Periodo"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__subscription_id
 msgid "Parent Contract"
-msgstr "Contrato padre"
+msgstr "Contrato principal"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_line__parent_line_id
 msgid "Parent Line"
-msgstr "Línea padre"
+msgstr "Línea principal"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_tree
@@ -3094,7 +3094,7 @@ msgstr "Transacción pendiente"
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__mrr_change_period
 msgid "Period over which the KPI is calculated"
-msgstr "Período en el que se calcula el KPI"
+msgstr "Periodo en el que se calcula el KPI"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__plan_id
@@ -3190,7 +3190,7 @@ msgstr "Cant. Enviada"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_invoiced
 msgid "Qty Invoiced"
-msgstr "Cant. Facturada"
+msgstr "Cant. facturada"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__product_uom_qty
@@ -3407,7 +3407,7 @@ msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
 "valid positive numeric value."
 msgstr ""
-"El período recurrente debe ser un número positivo. Asegúrese de haber "
+"El periodo recurrente debe ser un número positivo. Asegúrese de haber "
 "proporcionado un valor numérico positivo válido."
 
 #. module: sale_subscription
@@ -3418,7 +3418,7 @@ msgid ""
 "Recurring products are discounted according to the prorated period from %s "
 "to %s"
 msgstr ""
-"Los productos recurrentes tienen un descuento según el período prorrateado "
+"Los productos recurrentes tienen un descuento según el periodo prorrateado "
 "desde %s hasta %s"
 
 #. module: sale_subscription
@@ -3430,7 +3430,7 @@ msgid ""
 "invoiced yet."
 msgstr ""
 "Los productos recurrentes están descontados en su totalidad ya que el "
-"próximo período todavía no se factura."
+"próximo periodo todavía no se factura."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -3567,7 +3567,7 @@ msgstr "Alerta de orden de venta"
 #. module: sale_subscription
 #: model:ir.actions.act_window,name:sale_subscription.action_sale_order_lines
 msgid "Sale Order Lines"
-msgstr "Líneas de pedido de venta"
+msgstr "Líneas de orden de venta"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_log
@@ -3754,8 +3754,8 @@ msgstr ""
 msgid ""
 "Sent to customer when payment failed but subscription is not yet cancelled"
 msgstr ""
-"Se envía al cliente cuando se produce un error en el pago pero la "
-"suscripción aún no se ha cancelado"
+"Enviado al cliente cuando se produce un error en el pago pero la suscripción"
+" aún no se ha cancelado"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_close_reason__sequence
@@ -3958,7 +3958,7 @@ msgstr "Asistente para cambio de cliente de suscripción"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__subscription_child_ids
 msgid "Subscription Child"
-msgstr "Suscripción hija"
+msgstr "Suscripción subordinada"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_close_reason
@@ -3975,7 +3975,7 @@ msgstr "Asistente de la razón de la cancelación de la suscripción"
 #: model:ir.model.fields,field_description:sale_subscription.field_account_analytic_account__subscription_count
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__subscription_count
 msgid "Subscription Count"
-msgstr "Recuento de suscripciones"
+msgstr "Número de suscripciones"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -4327,7 +4327,7 @@ msgid ""
 "The next invoice will be created on this date then the period will be "
 "extended."
 msgstr ""
-"La próxima factura se creará en dicha fecha y su período de validez se verá "
+"La próxima factura se creará en dicha fecha y su periodo de validez se verá "
 "extendido."
 
 #. module: sale_subscription
@@ -4371,7 +4371,7 @@ msgstr ""
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__start_date
 msgid "The start date indicate when the subscription periods begin."
 msgstr ""
-"La fecha de inicio indica cuándo comienzan los períodos de suscripción."
+"La fecha de inicio indica cuándo comienzan los periodos de suscripción."
 
 #. module: sale_subscription
 #: model:sale.order.close.reason,name:sale_subscription.close_reason_renew
@@ -4395,7 +4395,7 @@ msgstr "Se ha cancelado la venta adicional %s."
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "The upsell %s has been confirmed."
-msgstr "Se confirmó la venta adicional %s."
+msgstr "Se ha confirmado la venta adicional %s."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4419,8 +4419,8 @@ msgstr "Hay un(a)"
 msgid ""
 "This bar allows to filter the opportunities based on scheduled activities."
 msgstr ""
-"Esta barra permite filtrar las oportunidades basado en las actividades "
-"agendadas."
+"Esta barra permite filtrar las oportunidades según las actividades "
+"programadas."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__record_getter
@@ -4540,7 +4540,7 @@ msgstr "Total recurrente"
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log__event_type__3_transfer
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__event_type__3_transfer
 msgid "Transfer"
-msgstr "Albarán"
+msgstr "Traslado"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trigger
@@ -4643,7 +4643,7 @@ msgid ""
 "If the chosen payment method has failed to renew the subscription after this time, the subscription is automatically closed."
 msgstr ""
 "La suscripción no pagada después de la fecha de vencimiento, ampliada durante este número de días, se cerrará automáticamente por la  función programada de expiración de suscripciones. \n"
-"Si el método de pago elegido no ha logrado renovar la suscripción después de dicho período, ésta se cerrará automáticamente."
+"Si el método de pago elegido no ha logrado renovar la suscripción después de dicho periodo, ésta se cerrará automáticamente."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__untaxed_amount_invoiced
@@ -4695,7 +4695,7 @@ msgstr "Número de ventas adicionales"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Upsell Quotations"
-msgstr "Presupuesto de ventas adicionales"
+msgstr "Presupuestos de ventas adicionales"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
@@ -4725,7 +4725,7 @@ msgid ""
 "                work done, expenses and/or sales orders. Odoo will automatically manage\n"
 "                the alerts for the renewal of the subscriptions to the right salesperson."
 msgstr ""
-"Use suscripciones para seguir tareas, incidencias, partes de horas o facturaciones basadas en\n"
+"Use suscripciones para seguir tareas, incidencias, hojas de asistencia o facturaciones basadas en\n"
 " trabajo realizado, gastos y/o pedidos de venta. Odoo derivará automáticamente\n"
 " las alertas de renovación de las suscripciones al comercial apropiado."
 
@@ -4760,14 +4760,14 @@ msgstr ""
 #: code:addons/sale_subscription/models/product.py:0
 #, python-format
 msgid "Warning"
-msgstr "Alerta"
+msgstr "Advertencia"
 
 #. module: sale_subscription
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/payment_form.js:0
 #, python-format
 msgid "Warning!"
-msgstr "¡Alerta!"
+msgstr "¡Advertencia!"
 
 #. module: sale_subscription
 #: model_terms:sale.order.close.reason,retention_message:sale_subscription.close_reason_1
@@ -4927,7 +4927,7 @@ msgid ""
 msgstr ""
 "No puede crear una venta adicional para esta suscripción porque:\n"
 " - Aún no ha comenzado.\n"
-" - No tiene períodos facturados en el futuro."
+" - No tiene periodos facturados en el futuro."
 
 #. module: sale_subscription
 #. odoo-python

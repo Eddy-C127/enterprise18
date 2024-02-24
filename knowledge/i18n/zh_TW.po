@@ -4457,7 +4457,7 @@ msgstr "已鎖定"
 msgid ""
 "Logging changes from %(partner_name)s without write access on article "
 "%(article_name)s due to hierarchy tree update"
-msgstr ""
+msgstr "由於層級樹狀結構有更新，正在記錄 %(partner_name)s 提供的修訂，但對文章 %(article_name)s 沒有寫入權限"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6094,7 +6094,7 @@ msgstr ""
 msgid ""
 "The destination placement of %(article_name)s is ambiguous, you should "
 "specify the category."
-msgstr ""
+msgstr "%(article_name)s的目標位置不明確,應指定類別。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6262,7 +6262,7 @@ msgstr ""
 #. module: knowledge
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_action_trashed
 msgid "Trash"
-msgstr ""
+msgstr "垃圾桶"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__to_delete
@@ -6666,7 +6666,7 @@ msgstr ""
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "You are not allowed to make '%(article_name)s' private."
-msgstr ""
+msgstr "你不被允許將 \"%(article_name)s\"設為私人。"
 
 #. module: knowledge
 #. odoo-python
@@ -6674,7 +6674,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You are not allowed to move '%(article_name)s' under '%(parent_name)s'."
-msgstr ""
+msgstr "你不被允許將 \"%(article_name)s\"移至 %(parent_name)s 之下。"
 
 #. module: knowledge
 #. odoo-python
@@ -6719,6 +6719,8 @@ msgid ""
 "You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an "
 "Article Item. Convert %(item_name)s into an Article first."
 msgstr ""
+"你不能將%(article_name)s移動到%(item_name)s下，因為%(item_name)s是一個文章項目。 "
+"請先將%(item_name)s轉換為文章。"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6768,7 +6770,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You cannot move an article under %(parent_name)s as you cannot write on it"
-msgstr ""
+msgstr "您不能移動%(parent_name)s下的文章,因為您無法在上面寫入"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6782,7 +6784,7 @@ msgstr ""
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "You have to be editor on %(article_name)s to add members."
-msgstr ""
+msgstr "您必須是%(article_name)s的編輯, 才可加入新成員。"
 
 #. module: knowledge
 #. odoo-python
@@ -6798,7 +6800,7 @@ msgstr "要更改 %(article_name)s 的內部權限，你必須是文章的編輯
 #, python-format
 msgid ""
 "You have to be editor on %(article_name)s to modify members permissions."
-msgstr ""
+msgstr "您必須是%(article_name)s的編輯,才可修改成員權限。"
 
 #. module: knowledge
 #. odoo-python
@@ -6807,14 +6809,14 @@ msgstr ""
 msgid ""
 "You have to be editor on %(article_name)s to remove or exclude member "
 "%(member_name)s."
-msgstr ""
+msgstr "你必須是%(article_name)s的編輯,才可移除或排除成員%(member_name)s。"
 
 #. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "You have to be editor on %(article_name)s to restore it."
-msgstr ""
+msgstr "您必須是%(article_name)s的編輯,才可復原它。"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook

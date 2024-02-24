@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # Iran Villalobos López, 2023
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Fernanda Alvarez, 2024
 # 
 msgid ""
@@ -43,11 +44,11 @@ msgstr ""
 "                <p class=\"o_view_nocontent_smiling_face\">\n"
 "                    Esta es su nueva acción.\n"
 "                </p>\n"
-"                <p>Cuenta con una lista, una vista de formulario y probablemente\n"
-"                    otros tipos de vista según las opciones que haya elegido para su modelo, de manera predeterminada.\n"
+"                <p>De manera predeterminada contará con una vista de lista, de formulario y\n"
+"                    con otros tipos de vista, según las opciones que haya elegido para su modelo.\n"
 "                </p>\n"
 "                <p>\n"
-"                    Puede empezar a personalizar estas pantallas al hacer clic en el icono de Studio en la\n"
+"                    Para empezar a personalizar las pantallas, haga cloc en el icono de Studio en la\n"
 "                    esquina superior derecha (también puede personalizar este mensaje de ayuda).\n"
 "                </p>\n"
 "            "
@@ -245,9 +246,9 @@ msgid ""
 "Actions may trigger specific behavior like opening calendar view or "
 "automatically mark as done when a document is uploaded"
 msgstr ""
-"Las acciones pueden desencadenar comportamientos específicos como abrir la "
-"vista de calendario o marcar como hecho, de forma automática, cuando sube un"
-" documento"
+"Las acciones pueden activar comportamientos específicos, como abrir la vista"
+" de calendario o marcar como la actividad como hecha de forma automática al "
+"subir un documento"
 
 #. module: web_studio
 #. odoo-javascript
@@ -356,7 +357,7 @@ msgstr "Agregar regla de aprobación"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_compiler.js:0
 #, python-format
 msgid "Add an avatar"
-msgstr "Agregar avatar"
+msgstr "Agregar un avatar"
 
 #. module: web_studio
 #. odoo-javascript
@@ -370,7 +371,7 @@ msgstr "Agregue detalles en los registros con una vista de lista insertada"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog.xml:0
 #, python-format
 msgid "Add new value"
-msgstr "Agregar nuevo valor"
+msgstr "Agregar valor nuevo"
 
 #. module: web_studio
 #. odoo-javascript
@@ -438,7 +439,7 @@ msgstr "Grupo permitido "
 msgid ""
 "An activity will be assigned to this user when an approval is requested"
 msgstr ""
-"S le asignará una actividad a este usuario al momento de solicitar una "
+"Se le asignará una actividad a este usuario al momento de solicitar una "
 "aprobación"
 
 #. module: web_studio
@@ -446,7 +447,7 @@ msgstr ""
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "An approval for '%(rule_name)s' has been requested on %(record_name)s"
-msgstr "S solicitó una aprobación para '%(rule_name)s' en %(record_name)s"
+msgstr "Se solicitó una aprobación para '%(rule_name)s' en %(record_name)s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1882,8 +1883,8 @@ msgid ""
 "Header and footer are shared with other reports which may be impacted by the"
 " reset."
 msgstr ""
-"El encabezado y pie de página se comparte con otros reportes. El "
-"restablecimiento puede tener impacto en ello."
+"El encabezado y pie de página se comparten con otros reportes, por lo que si"
+" restablece uno, el cambio impactará al resto."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3053,9 +3054,8 @@ msgid ""
 "Rules with existing entries cannot be deleted since it would delete existing"
 " approval entries. You should archive the rule instead."
 msgstr ""
-"No se pueden eliminar las reglas con entradas existentes, ya que se "
-"eliminarían las entradas de aprobación existentes. Lo mejor es archivar la "
-"regla."
+"No se pueden eliminar las reglas con entradas existentes, esto eliminaría "
+"las entradas de aprobación. Mejor archive la regla."
 
 #. module: web_studio
 #. odoo-python
@@ -3066,8 +3066,8 @@ msgid ""
 " approval entries. You should archive the rule and create a new one instead."
 msgstr ""
 "No se pueden modificar las reglas con entradas existentes, ya que se "
-"dañarían las entradas de aprobación existentes. Lo mejor es archivar la "
-"regla y crear una nueva."
+"dañarían las entradas de aprobación. Mejor archive la regla y cree una "
+"nueva."
 
 #. module: web_studio
 #. odoo-javascript

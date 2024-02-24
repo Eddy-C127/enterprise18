@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Martin Trigaux, 2024
+# Ryoko Tsuda <ryoko@quartile.co>, 2024
 # Junko Augias, 2024
 # 
 msgid ""
@@ -668,7 +669,7 @@ msgstr "前"
 #: model_terms:ir.ui.view,arch_db:account_reports.view_report_export_wizard
 #, python-format
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr "取消"
 
 #. module: account_reports
 #. odoo-python
@@ -1465,6 +1466,8 @@ msgid ""
 "the current report. Make sure the cross-report aggregations of this report "
 "only reference terms belonging to other reports."
 msgstr ""
+"'現在のレポートを計算する際に、行 '%s' のラベル付けされた式 '%s' "
+"が上書きされています。このレポートのクロスレポート集計は、他のレポートに属するタームのみを参照するようにしてください。'"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__field_name

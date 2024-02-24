@@ -5,8 +5,8 @@
 # Translators:
 # Martin Trigaux, 2023
 # Ryoko Tsuda <ryoko@quartile.co>, 2023
-# Junko Augias, 2024
 # Wil Odoo, 2024
+# Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 20:55+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1007,7 +1007,7 @@ msgstr ""
 msgid ""
 "A canceled SO cannot be in progress. You should close %s before canceling "
 "it."
-msgstr "キャンセルされた販売オーダは進行中にすることはできません。キャンセル前にクローズ%sする必要があります。"
+msgstr "取消された販売オーダは進行中にすることはできません。取消前にクローズ%sする必要があります。"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1392,7 +1392,7 @@ msgstr "定期化可能"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_change_customer_view_form
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_wizard_view_form
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr "取消"
 
 #. module: sale_subscription
 #: model:ir.actions.server,name:sale_subscription.model_sale_order_subscription_cancel
@@ -3297,7 +3297,7 @@ msgstr "定期詳細"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
 msgid "Recurring Plan"
-msgstr "定期的計画"
+msgstr "定期プラン"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_portal_content_inherit
@@ -3836,9 +3836,9 @@ msgid ""
 "                                                Note: if you already created a new subscription instead of renewing it, please cancel your newly\n"
 "                                                created subscription and renew %s instead"
 msgstr ""
-"サブスクリプション %sがキャンセルされました。親オーダ %sが再開されました。 \n"
+"サブスクリプション %sが取消されました。親オーダ %sが再開されました。 \n"
 "                                               顧客が解約した場合は %sを閉じ、顧客がサービスを継続する場合は、更新して下さい。\n"
-"                                                メモ: 更新する代わりに新しいサブスクリプションを作成した場合は、新しく作成したサブスクリプションをキャンセルして、代わりに\n"
+"                                                メモ: 更新する代わりに新しいサブスクリプションを作成した場合は、新しく作成したサブスクリプションを取消して、代わりに\n"
 "%sを更新して下さい。"
 
 #. module: sale_subscription
@@ -4182,7 +4182,7 @@ msgstr "契約開始日は、一連の最初の契約の契約開始日です。
 msgid ""
 "The following recurring orders have draft invoices. Please Confirm them or "
 "cancel them before creating new invoices. %s."
-msgstr "以下の定期オーダには請求書のドラフトがあります。新しい請求書を作成する前に、確認またはキャンセルして下さい。%s"
+msgstr "以下の定期オーダには請求書のドラフトがあります。新しい請求書を作成する前に、確認または取消して下さい。%s"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4242,7 +4242,7 @@ msgstr "アクション喚起のリダイレクトリンク"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "The renewal %s has been canceled."
-msgstr "更新%sがキャンセルされました。"
+msgstr "更新%sが取消されました。"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
@@ -4271,14 +4271,14 @@ msgstr "アクション喚起で表示されるテキスト"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "The upsell %s has been canceled."
-msgstr "アップセル%sがキャンセルされました。"
+msgstr "アップセル%sが取消されました。"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "The upsell %s has been confirmed."
-msgstr "アップセル%sがキャンセルされました。"
+msgstr "アップセル%sが取消されました。"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4847,7 +4847,7 @@ msgstr "定期プロダクトで定期サブスクリプションプランがな
 msgid ""
 "You cannot set to draft a canceled quotation linked to invoiced "
 "subscriptions. Please create a new quotation."
-msgstr "請求済サブスクリプションにリンクされたキャンセル済見積書はドラフトに設定できません。新しい見積書を作成して下さい。"
+msgstr "請求済サブスクリプションにリンクされた取消済見積書はドラフトに設定できません。新しい見積書を作成して下さい。"
 
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_sale_subscription_state_coherence

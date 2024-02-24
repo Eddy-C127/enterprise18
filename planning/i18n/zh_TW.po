@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Tony Ng, 2023
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2023\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,6 +90,8 @@ msgid ""
 "<b class=\"o_gantt_header o_gantt_row_sidebar position-sticky top-0 bg-view "
 "d-flex align-items-center justify-content-center\">Schedule</b>"
 msgstr ""
+"<b class=\"o_gantt_header o_gantt_row_sidebar position-sticky top-0 bg-view "
+"d-flex align-items-center justify-content-center\">排期</b>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -97,11 +99,13 @@ msgid ""
 "<b class=\"o_gantt_header_scale d-flex align-items-center justify-content-"
 "center\">12 February 2023 - 18 February 2023</b>"
 msgstr ""
+"<b class=\"o_gantt_header_scale d-flex align-items-center justify-content-"
+"center\">2023 年 2 月 12 日至 2023 年 2 月 18 日</b>"
 
 #. module: planning
 #: model_terms:digest.tip,tip_description:planning.digest_tip_planning_0
 msgid "<b class=\"tip_title\">Tip: Record your planning faster</b>"
-msgstr ""
+msgstr "<b class=\"tip_title\">提示:更快地記錄你的計劃</b>"
 
 #. module: planning
 #. odoo-javascript
@@ -482,12 +486,21 @@ msgid ""
 "<span class=\"align-middle\" invisible=\"overlap_slot_count == 0\">Prepare "
 "for the ultimate multi-tasking challenge:</span>"
 msgstr ""
+"<span class=\"align-middle\" invisible=\"overlap_slot_count == "
+"0\">做好準備，接受終極多工任務挑戰：</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid ""
 "<span class=\"align-middle\" invisible=\"overlap_slot_count == "
 "0\">conflict.</span>"
+msgstr ""
+"<span class=\"align-middle\" invisible=\"overlap_slot_count == "
+"0\">項衝突。</span>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "<span class=\"ms-0 me-4\">Edit</span>"
 msgstr ""
 
 #. module: planning
@@ -496,16 +509,13 @@ msgid "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
 msgstr ""
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
-msgid "<span class=\"ms-2 me-4\">Edit</span>"
-msgstr ""
-
-#. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid ""
 "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
 "mb-1\">04:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">04:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -513,6 +523,8 @@ msgid ""
 "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
 "mb-1\">12:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">12:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -520,6 +532,8 @@ msgid ""
 "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
 "mb-1\">16:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">16:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -527,6 +541,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
 "z-index-1\">04:00</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-index-1\">04:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -534,6 +550,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
 "z-index-1\">08:00</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-index-1\">08:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -541,6 +559,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
 "z-index-1\">12:00</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-index-1\">12:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -548,6 +568,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 PM - 5:00 PM (4h)"
 " - Jeffrey Kelly</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">下午 1:00 - 5:00（4 小時） -"
+" Jeffrey Kelly</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -555,6 +577,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 PM - 5:00 PM "
 "(4h)</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">下午 1:00 - 下午 5:00（4 "
+"小時）</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -562,6 +586,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM "
 "(4h) - Doris Cole</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">上午 8:00 - 下午 12:00（4 "
+"小時） - Doris Cole</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -569,6 +595,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM "
 "(4h) - Eli Lambert</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">上午 8:00 - 下午 12:00（4 "
+"小時） - Eli Lambert</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -576,6 +604,8 @@ msgid ""
 "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM "
 "(4h)</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">上午 8:00 - 下午 12:00（4 "
+"小時）</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -587,6 +617,11 @@ msgstr ""
 "<span class=\"o_start_date\"/>\n"
 "                                    <i class=\"mx-1 fa fa-long-arrow-right\" aria-label=\"箭嘴圖示\" title=\"箭嘴\"/>\n"
 "                                    <span class=\"o_end_date\"/>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
+msgid "<span class=\"o_stat_text\">Planning</span>"
+msgstr "<span class=\"o_stat_text\">規劃</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1314,7 +1349,10 @@ msgid "Hours"
 msgstr "小時"
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__user
+#, python-format
 msgid "Human"
 msgstr "人力資源"
 
@@ -1501,7 +1539,10 @@ msgid "Marc Demo"
 msgstr "Marc Demo"
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
+#, python-format
 msgid "Material"
 msgstr "物料"
 
@@ -1676,7 +1717,7 @@ msgstr ""
 msgid ""
 "Operation not supported, you should always compare overlap_slot_count to 0 "
 "value with = or > operator."
-msgstr ""
+msgstr "不支援該操作，應該只用 = 或 > 運算符將overlap_slot_count與0值進行比較。"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__overlap_slot_count
@@ -2334,8 +2375,8 @@ msgid "The shift has successfully been sent."
 msgstr ""
 
 #. module: planning
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 #: code:addons/planning/wizard/planning_send.py:0
 #, python-format
@@ -2670,6 +2711,8 @@ msgid ""
 "Your planning from {{ format_date(ctx.get('start_datetime')) }} to {{ "
 "format_date(ctx.get('end_datetime')) }}"
 msgstr ""
+"你的規劃，由 {{ format_date(ctx.get('start_datetime')) }} 至 {{ "
+"format_date(ctx.get('end_datetime')) }}"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_shift_switch_email
@@ -2677,6 +2720,8 @@ msgid ""
 "Your shift on {{ ctx.get('start_datetime') }} was re-assigned to {{ "
 "ctx.get('new_assignee_name', 'Marc Demo') }}"
 msgstr ""
+"你在 {{ ctx.get('start_datetime') }} 的班次，已重新編配給 {{ "
+"ctx.get('new_assignee_name', 'Marc Demo') }}"
 
 #. module: planning
 #. odoo-javascript
@@ -2751,3 +2796,4 @@ msgstr "到"
 #: model:mail.template,subject:planning.email_template_slot_single
 msgid "{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"
 msgstr ""
+"{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"

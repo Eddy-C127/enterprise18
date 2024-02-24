@@ -47,7 +47,7 @@ msgstr "Tiempo asignado menos tiempo efectivo."
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_planning_slot__allow_timesheets
 msgid "Allow timesheets"
-msgstr "Permitir partes de horas"
+msgstr "Permitir hojas de asistencia"
 
 #. module: project_timesheet_forecast
 #: model:ir.model,name:project_timesheet_forecast.model_account_analytic_line
@@ -90,7 +90,7 @@ msgstr "Costes efectivos"
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__effective_hours
 #: model_terms:ir.ui.view,arch_db:project_timesheet_forecast.project_forecast_view_tree_inherit_project_timesheet_forecast
 msgid "Effective Hours"
-msgstr "Horas reales"
+msgstr "Horas efectivas"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_planning_analysis_report__effective_hours_cost
@@ -151,7 +151,7 @@ msgstr "Mi equipo"
 #. module: project_timesheet_forecast
 #: model_terms:ir.actions.act_window,help:project_timesheet_forecast.project_timesheet_forecast_report_action
 msgid "No data yet!"
-msgstr "No hay información aún"
+msgstr "¡Todavía no hay información!"
 
 #. module: project_timesheet_forecast
 #: model_terms:ir.actions.act_window,help:project_timesheet_forecast.project_timesheet_action_schedule_by_role
@@ -174,7 +174,7 @@ msgid ""
 "(and its sub-tasks) for the period of this shift."
 msgstr ""
 "Número de horas que el empleado registró en sus hojas de asistencia para "
-"esta tarea (y sus subtareas) durante el período de este turno."
+"esta tarea (y sus subtareas) durante el periodo de este turno."
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__planned_costs
@@ -184,7 +184,7 @@ msgstr "Costes planificados"
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_project_timesheet_forecast_report_analysis__planned_hours
 msgid "Planned Hours"
-msgstr "Horas planeadas"
+msgstr "Horas planificadas"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields.selection,name:project_timesheet_forecast.selection__project_timesheet_forecast_report_analysis__line_type__forecast
@@ -194,7 +194,7 @@ msgstr "Planificación"
 #. module: project_timesheet_forecast
 #: model:ir.model,name:project_timesheet_forecast.model_planning_analysis_report
 msgid "Planning Analysis Report"
-msgstr "Informe de análisis de planeación"
+msgstr "Informe de análisis de planificación"
 
 #. module: project_timesheet_forecast
 #: model:ir.model,name:project_timesheet_forecast.model_planning_slot
@@ -256,7 +256,7 @@ msgstr "Suma de horas efectivas"
 #. module: project_timesheet_forecast
 #: model_terms:ir.ui.view,arch_db:project_timesheet_forecast.project_timesheet_forecast_report_analysis_view_tree
 msgid "Sum of Planned Hours"
-msgstr "Suma de horas planeadas"
+msgstr "Suma de horas planificadas"
 
 #. module: project_timesheet_forecast
 #. odoo-python
@@ -265,44 +265,44 @@ msgstr "Suma de horas planeadas"
 msgid ""
 "This project isn't expected to have slot during this period. Planned hours :"
 msgstr ""
-"No se espera que este proyecto tenga un espacio durante este período. Horas "
+"No se espera que este proyecto tenga un espacio durante este periodo. Horas "
 "planificadas:"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,field_description:project_timesheet_forecast.field_planning_slot__timesheet_ids
 #: model:ir.model.fields.selection,name:project_timesheet_forecast.selection__project_timesheet_forecast_report_analysis__line_type__timesheet
 msgid "Timesheet"
-msgstr "Parte de horas"
+msgstr "Hoja de asistencia"
 
 #. module: project_timesheet_forecast
 #: model:ir.model,name:project_timesheet_forecast.model_project_timesheet_forecast_report_analysis
 msgid "Timesheet & Planning Statistics"
-msgstr "Hoja de tiempo y Estadísticas de planificación"
+msgstr "Estadísticas de hojas de asistencia y planificación"
 
 #. module: project_timesheet_forecast
 #: model_terms:ir.ui.view,arch_db:project_timesheet_forecast.project_timesheet_forecast_report_view_graph
 #: model_terms:ir.ui.view,arch_db:project_timesheet_forecast.project_timesheet_forecast_report_view_pivot
 msgid "Timesheet and Planning Analysis"
-msgstr "Análisis de planificación y Parte de horas"
+msgstr "Análisis de planeación y hoja de asistencia"
 
 #. module: project_timesheet_forecast
 #. odoo-python
 #: code:addons/project_timesheet_forecast/models/project_forecast.py:0
 #, python-format
 msgid "Timesheets"
-msgstr "Partes de horas"
+msgstr "Hojas de asistencia"
 
 #. module: project_timesheet_forecast
 #: model:ir.actions.act_window,name:project_timesheet_forecast.project_timesheet_forecast_report_action
 #: model:ir.ui.menu,name:project_timesheet_forecast.menu_project_timesheet_forecast_report_analysis
 msgid "Timesheets / Planning Analysis"
-msgstr "Hojas de asistencia / Análisis de planificación"
+msgstr "Análisis de Hojas de asistencia/Planificación"
 
 #. module: project_timesheet_forecast
 #: model_terms:ir.ui.view,arch_db:project_timesheet_forecast.project_timesheet_forecast_report_analysis_view_tree
 #: model_terms:ir.ui.view,arch_db:project_timesheet_forecast.project_timesheet_forecast_report_view_search
 msgid "Timesheets and Planning Analysis"
-msgstr "Análisis de planificación y parte de horas"
+msgstr "Análisis de planificación y hoja de asistencia"
 
 #. module: project_timesheet_forecast
 #: model:ir.model.fields,help:project_timesheet_forecast.field_planning_slot__allow_timesheets

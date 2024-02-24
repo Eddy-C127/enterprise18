@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Abe Manyo, 2024
 # Martin Trigaux, 2024
+# Abe Manyo, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Abe Manyo, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,7 +40,7 @@ msgstr "dan satu lainnya"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid " is not supported by the Journal Report"
-msgstr ""
+msgstr "tidak didukung oleh Laporan Jurnal"
 
 #. module: account_reports
 #. odoo-python
@@ -111,14 +111,14 @@ msgstr "(Tidak ada Kelompok)"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid ", Including Analytic Simulations"
-msgstr ""
+msgstr ", termasuk Simulasi Analiti"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid ", Only Show Unreconciled Entries"
-msgstr ""
+msgstr ", Hanya menunjukkan Entri yang Belum Direkonsiliasi"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -495,7 +495,7 @@ msgstr "Jumlah dalam mata uang: %s"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Analytic Accounts Groupby"
-msgstr ""
+msgstr "Analytic Accounts Groupby"
 
 #. module: account_reports
 #. odoo-javascript
@@ -517,7 +517,7 @@ msgstr "Analitik Dikelompokkan Berdasarkan"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Analytic Plans Groupby"
-msgstr ""
+msgstr "Analytic Plans Groupby"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1490,6 +1490,9 @@ msgid ""
 "the current report. Make sure the cross-report aggregations of this report "
 "only reference terms belonging to other reports."
 msgstr ""
+"Ekspresi dengan label '%s' dari baris '%s' ditulis ulang saat menghitung "
+"laporan saat ini. Pastikan agregat laporan-silang dari laporan ini hanya "
+"mereferensikan ketentuan yang berasal dari laporan lain."
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__field_name
@@ -1779,7 +1782,7 @@ msgstr "Kelompok Horizontal:"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Horizontal Grouping"
-msgstr ""
+msgstr "Pengelompokkan Horizontal"
 
 #. module: account_reports
 #: model:ir.actions.act_window,name:account_reports.action_account_report_horizontal_groups
@@ -2662,7 +2665,7 @@ msgstr "Performa"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Period comparison"
-msgstr ""
+msgstr "Perbandingan periode"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__account_tax_periodicity

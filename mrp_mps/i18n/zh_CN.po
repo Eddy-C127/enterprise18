@@ -5,7 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
-# Jeffery CHEN <jeffery9@gmail.com>, 2023
+# Jeffery CHEN <jeffery9@gmail.com>, 2024
 # 湘子 南 <1360857908@qq.com>, 2024
 # 
 msgid ""
@@ -363,7 +363,7 @@ msgstr "上一更新日期"
 #. module: mrp_mps
 #: model:ir.ui.menu,name:mrp_mps.mrp_mps_menu_planning
 msgid "MPS"
-msgstr "主生产计划（MPS）"
+msgstr "MPS"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_forecast_details_form_view
@@ -384,7 +384,7 @@ msgstr "制造期间"
 #: model:ir.ui.menu,name:mrp_mps.stock_mrp_mps_report_menu
 #, python-format
 msgid "Master Production Schedule"
-msgstr "主生产计划（MPS）"
+msgstr "主生产调度"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__max_to_replenish_qty
@@ -459,7 +459,7 @@ msgstr "产品模板"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__product_uom_id
 msgid "Product UoM"
-msgstr "产品计量单位（UoM）"
+msgstr "产品计量单位 UoM"
 
 #. module: mrp_mps
 #: model:ir.model,name:mrp_mps.model_product_product
@@ -499,7 +499,7 @@ msgstr "来自制造订单的数量"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__rfq_qty
 msgid "Quantity from RFQ"
-msgstr "来自报价请求（RFQ）的数量"
+msgstr "来自报价请求 RFQ 的数量"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -677,7 +677,7 @@ msgid ""
 "The maximum replenishment you would like to launch for each period in the "
 "MPS. Note that if the demand is higher than that amount, the remaining "
 "quantity will be transferred to the next period automatically."
-msgstr "主生产计划（MPS）各期间的最大补货数量。请注意，如果需求高于最大补货数量，则剩余数量自动转至下一期间。"
+msgstr "主生产计划 MPS 各期间的最大补货数量。请注意，如果需求高于最大补货数量，则剩余数量自动转至下一期间."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -727,7 +727,7 @@ msgstr "补货中"
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__min_to_replenish_qty
 msgid ""
 "Unless the demand is 0, Odoo will always at least replenish this quantity."
-msgstr "除非需求为 0，否则 ERP 始终补货该数量."
+msgstr "除非需求为 0，否则 ERP 至少补充该数量."
 
 #. module: mrp_mps
 #. odoo-python

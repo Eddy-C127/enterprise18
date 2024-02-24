@@ -3,8 +3,8 @@
 # 	* appointment
 # 
 # Translators:
-# Larissa Manderfeld, 2024
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1526,7 +1526,7 @@ msgstr "Información del Calendario de Asistentes"
 #: model:ir.model,name:appointment.model_calendar_event
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer_input__calendar_event_id
 msgid "Calendar Event"
-msgstr "Evento de calendario"
+msgstr "Evento del calendario"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -2587,7 +2587,7 @@ msgstr "Mensaje de no hay usuario asignado"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_appointment_reporting
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_report_all
 msgid "No data yet!"
-msgstr "No hay información aún"
+msgstr "¡Todavía no hay información!"
 
 #. module: appointment
 #. odoo-python
@@ -3684,11 +3684,9 @@ msgstr "Día de la semana"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__resource_calendar_id
 msgid ""
-"When set, only the time slots that match both the appointment type configuration and the work schedule\n"
-"        will appear as available"
+"If kept empty, the working schedule of the company set on the resource will "
+"be used"
 msgstr ""
-"Al activar esta opción, solo los espacios de tiempo que correspondan tanto con la configuración del tipo de cita como con el horario de trabajo\n"
-"        aparecerán como disponibles"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.staff_user_select

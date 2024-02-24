@@ -36,12 +36,12 @@ msgid ""
 "            "
 msgstr ""
 "<div>\n"
-"            <p><b>好消息！</b>你的网站已完成转换，已整合的新 ERP 网站现已上线。</p>\n"
-"            <p>您可在这里查看新网站： <a t-att-href=\"ctx.get('website_url')\"><t t-out=\"ctx.get('website_url')\"></t></a></p>\n"
-"            <p>感谢你选择 ERP 进行网站整合！</p>\n"
+"            <p><b>好消息！</b>你的网站已完成转换，已集成的新 ERP 网站现已上线。</p>\n"
+"            <p>您可在这里签出新网站： <a t-att-href=\"ctx.get('website_url')\"><t t-out=\"ctx.get('website_url')\"></t></a></p>\n"
+"            <p>感谢你选择 ERP 进行网络集成！</p>\n"
 "            <p>谨致问候，</p>\n"
 "            <br>\n"
-"            ERP - 最好的开源网站建立工具。</p>\n"
+"<p>  ERP - 最好的开源网站构建器.</p>\n"
 "            </div>\n"
 "            "
 
@@ -62,21 +62,21 @@ msgstr "发生错误"
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Attachment not found"
-msgstr "找不到附件"
+msgstr "附件没找到"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Banned url"
-msgstr "禁止的网址"
+msgstr "横幅 url"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Could not fetch result, invalid output uuid or result expired"
-msgstr "无法获取结果，无效的输出 uid 或结果过期"
+msgstr "无法获取结果，无效的出货 uid 或结果过期"
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__create_uid
@@ -136,7 +136,7 @@ msgstr "无效令牌"
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Invalid url"
-msgstr "无效网址"
+msgstr "无效 url"
 
 #. module: website_generator
 #. odoo-javascript
@@ -192,7 +192,7 @@ msgstr "一旦你的网站准备好了，这个页面会自动重新加载。您
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__uuid
 msgid "Output UUID generated from Website Scraper Server"
-msgstr "从网站抓取服务器生成的输出 UUID"
+msgstr "从网站抓取服务器生成的出货 UUID"
 
 #. module: website_generator
 #: model:ir.model,name:website_generator.model_website_page
@@ -211,7 +211,7 @@ msgstr "处理中"
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Request is still processing, result not available yet"
-msgstr "请求仍在处理中，结果尚未可用"
+msgstr "请求仍在处理中，结果不可用"
 
 #. module: website_generator
 #. odoo-python
@@ -256,7 +256,7 @@ msgstr "请求请求的页面太多"
 #: code:addons/website_generator/models/page.py:0
 #, python-format
 msgid "Top Menu for Website %s"
-msgstr "网站顶级菜单 %s"
+msgstr "网站顶部菜单 %s"
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__target_url

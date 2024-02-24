@@ -6,6 +6,7 @@
 # Wil Odoo, 2023
 # Iran Villalobos López, 2023
 # Fernanda Alvarez, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Fernanda Alvarez, 2024\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -122,7 +123,7 @@ msgstr "Filtrar según el periodo actual de forma automática"
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.xml:0
 #, python-format
 msgid "Automatically filter on the current user"
-msgstr "Filtrar automáticamente en el usuario actual"
+msgstr "Filtrar según el usuario actual de forma automática"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -145,7 +146,7 @@ msgstr "Antes del anterior"
 #: code:addons/spreadsheet_edition/static/src/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_panel.xml:0
 #, python-format
 msgid "Blank spreadsheet"
-msgstr "Hojas de cálculo vacía"
+msgstr "Hojas de cálculo en blanco"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -261,9 +262,9 @@ msgid ""
 "Difference between user locale (%(user_locale)s) and spreadsheet locale "
 "(%(spreadsheet_locale)s). This spreadsheet is using the formats below:"
 msgstr ""
-"Diferencia entre usuario locale (%(user_locale)s) y la hoja de cálculo "
-"locale (%(spreadsheet_locale)s). Esta hoja de cálculo usa los siguientes "
-"formatos: "
+"Diferencia entre el locale del usuario (%(user_locale)s) y el locale de la "
+"hoja de cálculo (%(spreadsheet_locale)s). Esta hoja de cálculo usa los "
+"siguientes formatos: "
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -970,8 +971,8 @@ msgid ""
 "The history of your spreadsheet is corrupted and you are likely missing "
 "recent revisions. This feature cannot be used."
 msgstr ""
-"El historial de su hoja de cálculo esta corrupto y es muy probable que no "
-"tenga las versiones más recientes. No puede usar esta función. "
+"Es probable que el historial de su hoja de cálculo esté corrupto y no tenga "
+"las versiones más recientes. No podrá usar esta función."
 
 #. module: spreadsheet_edition
 #. odoo-python
@@ -993,7 +994,7 @@ msgid ""
 "\n"
 "Would you like to load the more recent modifications?"
 msgstr ""
-"Faltan revisiones que previenen la restauración de todo el historial de edición.\n"
+"No es posible restaurar todo el historial de revisión ya que faltan algunas revisiones.\n"
 "\n"
 "¿Le gustaría cargar las modificaciones más recientes? "
 
@@ -1047,7 +1048,7 @@ msgstr "Año"
 #: code:addons/spreadsheet_edition/models/spreadsheet_mixin.py:0
 #, python-format
 msgid "You are not allowed to access this spreadsheet."
-msgstr "No tiene autorizado el acceso a esta hoja de cálculo "
+msgstr "No tiene la autorización para acceder a esta hoja de cálculo."
 
 #. module: spreadsheet_edition
 #. odoo-javascript

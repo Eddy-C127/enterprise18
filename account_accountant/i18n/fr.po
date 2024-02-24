@@ -3,9 +3,9 @@
 # 	* account_accountant
 # 
 # Translators:
-# Jolien De Paepe, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Jolien De Paepe, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Jolien De Paepe, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -843,6 +843,11 @@ msgid "Flag"
 msgstr "Drapeau"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__force_partials
+msgid "Force Partials"
+msgstr "Forcer le lettrage partiel"
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__force_price_included_taxes
 msgid "Force Price Included Taxes"
 msgstr "Forcer le prix toutes taxes comprises"
@@ -1024,11 +1029,6 @@ msgid "Is Reconciled"
 msgstr "Est lettré"
 
 #. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_write_off_required
-msgid "Is a write-off move required to reconcile"
-msgstr "Un mouvement d'annulation est-il nécessaire pour lettrer"
-
-#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_transfer_required
 msgid "Is an account transfer required"
 msgstr "Un transfert de compte est-il nécessaire"
@@ -1037,6 +1037,11 @@ msgstr "Un transfert de compte est-il nécessaire"
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__transfer_warning_message
 msgid "Is an account transfer required to reconcile"
 msgstr "Un transfert de compte est-il nécessaire pour lettrer"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__can_silently_reconcile
+msgid "Is silent reconcile possible"
+msgstr "Un lettrage silencieux est possible"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__lock_date_violated_warning_message
@@ -1396,6 +1401,15 @@ msgid "Only Billing Administrators are allowed to change lock dates!"
 msgstr ""
 "Seuls les administrateurs de facturation sont autorisés à modifier les dates"
 " de verrouillage !"
+
+#. module: account_accountant
+#: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_wizard
+msgid ""
+"Only partial reconciliation is possible. Proceed in multiple steps if you "
+"want to full reconcile."
+msgstr ""
+"Seul le lettrage partiel est possible. Procédez en plusieurs étapes si vous "
+"voulez procéder à un lettrage complet."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__period_lock_date

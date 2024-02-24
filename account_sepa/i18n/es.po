@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Larissa Manderfeld, 2023
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2023\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: code:addons/account_sepa/models/account_batch_payment.py:0
 #, python-format
 msgid "A bank account is not defined."
-msgstr "Una cuenta bancaria no está definida."
+msgstr "No se ha definido una cuenta bancaria."
 
 #. module: account_sepa
 #. odoo-python
@@ -47,7 +47,8 @@ msgid ""
 "Bank account %s 's bank does not have any BIC number associated. Please "
 "define one."
 msgstr ""
-"La cuenta bancaria %s no tienen ningún número BIC asociado. Defina uno. "
+"El banco de la cuenta bancaria %s no tiene ningún número BIC asociado. "
+"Defina uno. "
 
 #. module: account_sepa
 #: model_terms:ir.ui.view,arch_db:account_sepa.view_batch_payment_form_inherit
@@ -57,7 +58,7 @@ msgstr "Reserva por lotes"
 #. module: account_sepa
 #: model:ir.model,name:account_sepa.model_account_batch_payment
 msgid "Batch Payment"
-msgstr "Pagos por lotes"
+msgstr "Pago por lotes"
 
 #. module: account_sepa
 #: model:ir.model,name:account_sepa.model_res_company
@@ -231,7 +232,7 @@ msgstr "Transferencias de crédito SEPA"
 #: code:addons/account_sepa/models/account_journal_dashboard.py:0
 #, python-format
 msgid "SEPA Credit Transfers to Send"
-msgstr "Transferencias de Crédito SEPA por enviar"
+msgstr "Transferencias de crédito SEPA a enviar"
 
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_account_journal__sepa_pain_version
@@ -368,8 +369,8 @@ msgid ""
 "The account %s, of journal '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
 msgstr ""
-"La cuenta bancaria '%s', del diario '%s', no es de tipo IBAN.\n"
-"Se requiere una cuenta bancaria IBAN para usar las características SEPA."
+"La cuenta '%s', del diario '%s' no es de tipo IBAN.\n"
+"Se requiere una cuenta IBAN para usar las características SEPA."
 
 #. module: account_sepa
 #. odoo-python
@@ -379,8 +380,8 @@ msgid ""
 "The amount of the payment '%(payment)s' is too high. The maximum permitted "
 "is %(limit)s."
 msgstr ""
-"La cantidad del pago '%(payment)s' excede el monto. El monto maximo "
-"permitido es de %(limit)s."
+"El importe del pago '%(payment)s' es demasiado elevado. El máximo permitido "
+"es %(limit)s."
 
 #. module: account_sepa
 #. odoo-python

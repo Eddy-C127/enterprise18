@@ -53,7 +53,7 @@ msgstr "Convertir tareas de proyecto en tickets"
 #. module: helpdesk_timesheet
 #: model:ir.model,name:helpdesk_timesheet.model_helpdesk_ticket_create_timesheet
 msgid "Create Timesheet from ticket"
-msgstr "Crear parte de horas desde un tíquet"
+msgstr "Crear hojas de asistencia desde un ticket"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket_create_timesheet__create_uid
@@ -73,7 +73,7 @@ msgstr "Días dedicados"
 #. module: helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_create_timesheet_view_form
 msgid "Delete"
-msgstr "Suprimir"
+msgstr "Eliminar"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_sla_report_analysis__department_id
@@ -322,12 +322,12 @@ msgstr "Análisis de tickets"
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,help:helpdesk_timesheet.field_helpdesk_ticket_create_timesheet__ticket_id
 msgid "Ticket for which we are creating a sales order"
-msgstr "Tíquet para el que creamos un pedido de venta"
+msgstr "Ticket para el que creamos una orden de venta"
 
 #. module: helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.report_timesheet_ticket
 msgid "Ticket:"
-msgstr "Tíquet:"
+msgstr "Ticket:"
 
 #. module: helpdesk_timesheet
 #. odoo-python
@@ -350,8 +350,8 @@ msgid ""
 "Time spent on this ticket. By default, your timesheets will be linked to the sales order item of your ticket.\n"
 "Remove the sales order item to make your timesheet entries non billable."
 msgstr ""
-"Tiempo dedicado a este tíquet. De manera predeterminada, sus hojas de tiempo estarán vinculadas al artículo de pedido de venta de su tíquet.\n"
-"Elimine el artículo del pedido de ventas para que las entradas de su parte de horas no sean facturables."
+"Tiempo dedicado a este ticket. De manera predeterminada, sus hojas de tiempo estarán vinculadas al artículo de pedido de venta de su ticket.\n"
+"Elimine el artículo del pedido de ventas para que las entradas de su hoja de asistencia no sean facturables."
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__timer_pause
@@ -366,12 +366,12 @@ msgstr "Iniciar temporizador"
 #. module: helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet
 msgid "Timesheet Activities"
-msgstr "Actividades del parte de horas"
+msgstr "Actividades de la hoja de asistencia"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_team__timesheet_encode_uom_id
 msgid "Timesheet Encoding Unit"
-msgstr "Unidad de codificación de parte de horas"
+msgstr "Unidad de codificación de hoja de asistencia"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__use_helpdesk_timesheet
@@ -386,7 +386,7 @@ msgstr "Hoja de asistencia activas en el equipo"
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.report_timesheet_ticket
 msgid "Timesheets"
-msgstr "Partes de horas"
+msgstr "Hojas de asistencia"
 
 #. module: helpdesk_timesheet
 #: model:ir.model,name:helpdesk_timesheet.model_timesheets_analysis_report
@@ -401,7 +401,7 @@ msgstr "Total"
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_team__total_timesheet_time
 msgid "Total Timesheet Time"
-msgstr "Tiempo total del parte de horas"
+msgstr "Tiempo total de la hoja de asistencia"
 
 #. module: helpdesk_timesheet
 #: model_terms:ir.actions.act_window,help:helpdesk_timesheet.act_hr_timesheet_line_helpdesk
@@ -429,7 +429,7 @@ msgstr "Soporte VIP"
 msgid ""
 "You cannot link a timesheet entry to a task and a ticket at the same time."
 msgstr ""
-"No puede vincular una hoja de asistencia a una tarea y a un tíquet al mismo "
+"No puede vincular una hoja de asistencia a una tarea y a un ticket al mismo "
 "tiempo."
 
 #. module: helpdesk_timesheet

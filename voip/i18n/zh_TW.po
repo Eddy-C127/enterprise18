@@ -114,7 +114,7 @@ msgstr ""
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Aborted call to %(phone_number)s"
-msgstr ""
+msgstr "已中止撥號至 %(phone_number)s"
 
 #. module: voip
 #. odoo-javascript
@@ -211,7 +211,7 @@ msgstr ""
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call from %(phone_number)s"
-msgstr ""
+msgstr "通話要求，來電者：%(phone_number)s"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
@@ -238,7 +238,7 @@ msgstr ""
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call to %(phone_number)s"
-msgstr ""
+msgstr "撥號至 %(phone_number)s"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__calling
@@ -590,7 +590,7 @@ msgstr "缺席"
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Missed call from %(phone_number)s"
-msgstr ""
+msgstr "未接來電，來電者：%(phone_number)s"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_mail_activity__mobile
@@ -747,14 +747,14 @@ msgstr "已拒絕"
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Rejected call from %(phone_number)s"
-msgstr ""
+msgstr "已拒絕通話請求，來電者：%(phone_number)s"
 
 #. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Rejected call to %(phone_number)s"
-msgstr ""
+msgstr "已拒絕撥號至%(phone_number)s"
 
 #. module: voip
 #. odoo-javascript
@@ -822,7 +822,7 @@ msgstr ""
 msgid ""
 "Some documents cannot be added to the call queue as they do not have a phone"
 " number set: %(record_names)s"
-msgstr ""
+msgstr "部份文件未能加入至通話列隊，因為它們未有設定電話號碼：%(record_names)s"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__start_date

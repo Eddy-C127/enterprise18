@@ -130,12 +130,12 @@ msgstr "Facturas de cliente"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_out_invoice_digitalization_mode
 msgid "Digitization mode on customer invoices"
-msgstr "Modo de digitalización en las facturas de los clientes"
+msgstr "Modo de digitalización en las facturas de clientes"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_in_invoice_digitalization_mode
 msgid "Digitization mode on vendor bills"
-msgstr "Modo de digitalización en las facturas de los proveedores"
+msgstr "Modo de digitalización en las facturas de proveedores"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_in_invoice_digitalization_mode__auto_send
@@ -231,7 +231,7 @@ msgstr "Palabras extraídas tras escanear la factura"
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
 msgid "Extraction Information"
-msgstr "Información del extracción"
+msgstr "Información de la extracción"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__field
@@ -277,12 +277,12 @@ msgstr "Si está marcada, algunos mensajes tienen error de envío."
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__invoice_id
 msgid "Invoice"
-msgstr "Facturas de clientes"
+msgstr "Factura"
 
 #. module: account_invoice_extract
 #: model:ir.actions.server,name:account_invoice_extract.ir_cron_update_ocr_status_ir_actions_server
 msgid "Invoice OCR: Update All Status"
-msgstr "OCR de facturas: Actualizar todos los estados"
+msgstr "OCR de facturas: actualizar todos los estados"
 
 #. module: account_invoice_extract
 #: model:ir.actions.server,name:account_invoice_extract.ir_cron_ocr_validate_ir_actions_server
@@ -462,7 +462,7 @@ msgstr "Texto de Palabra"
 #: code:addons/account_invoice_extract/models/account_invoice.py:0
 #, python-format
 msgid "You cannot send a expense that is not in draft state!"
-msgstr "¡No puedes enviar un gasto que no esté en estado de borrador!"
+msgstr "No puede enviar un gasto que no esté en estado de borrador"
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr

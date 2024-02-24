@@ -5,8 +5,8 @@
 # Translators:
 # Yoshi Tashiro (Quartile) <tashiro@roomsfor.hk>, 2023
 # Ryoko Tsuda <ryoko@quartile.co>, 2023
-# Junko Augias, 2024
 # Wil Odoo, 2024
+# Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -637,7 +637,7 @@ msgstr ""
 "    <t t-set=\"recurrent\" t-value=\"object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')\"></t>\n"
 "    <t t-set=\"mail_tz\" t-value=\"object._get_mail_tz() or ctx.get('mail_tz')\"></t>\n"
 "    <p>\n"
-"    <t t-out=\"object.appointment_type_id.name or ''\">Technical Demo</t>用の <t t-if=\"object.appointment_type_id.category != 'custom' and object.appointment_type_id.schedule_based_on == 'users'\"> <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t></t>とのアポイントメントがキャンセルされました。 \n"
+"    <t t-out=\"object.appointment_type_id.name or ''\">Technical Demo</t>用の <t t-if=\"object.appointment_type_id.category != 'custom' and object.appointment_type_id.schedule_based_on == 'users'\"> <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t></t>とのアポイントメントが取消されました。 \n"
 "    </p>\n"
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n"
 "            <td width=\"130px;\" style=\"min-width: 130px;\">\n"
@@ -832,7 +832,7 @@ msgid ""
 "<strong>Appointment canceled!</strong>\n"
 "                                            You can schedule another appointment from here."
 msgstr ""
-"<strong>予約がキャンセルされました！</strong>\n"
+"<strong>予約が取消されました！</strong>\n"
 "                                            ここから別の予定をスケジュールできます。"
 
 #. module: appointment
@@ -1034,7 +1034,7 @@ msgstr "終日"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Allow Cancelling"
-msgstr "キャンセルを許可する"
+msgstr "取消を許可する"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__allow_guests
@@ -1157,7 +1157,7 @@ msgstr "アポイントメント予約明細"
 #: model:mail.message.subtype,name:appointment.mt_appointment_type_canceled
 #: model:mail.message.subtype,name:appointment.mt_calendar_event_canceled
 msgid "Appointment Canceled"
-msgstr "アポイントメントキャンセル"
+msgstr "予約が取消されました"
 
 #. module: appointment
 #: model:mail.template,subject:appointment.appointment_canceled_mail_template
@@ -1289,7 +1289,7 @@ msgstr "アポイントメントタイプ"
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Appointment canceled"
-msgstr "予約がキャンセルされました"
+msgstr "予約が取消されました"
 
 #. module: appointment
 #. odoo-python
@@ -1520,12 +1520,12 @@ msgstr "カレンダーイベント"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_onboarding_link_view_form
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr "取消"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__min_cancellation_hours
 msgid "Cancel Before (hours)"
-msgstr "前にキャンセル(時間)"
+msgstr "前に取消(時間)"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -1535,7 +1535,7 @@ msgstr "取消/再予定"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__canceled_mail_template_id
 msgid "Cancelation Email"
-msgstr "キャンセルEメール"
+msgstr "取消Eメール"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__capacity
@@ -1984,7 +1984,7 @@ msgstr "アポイントメントが予約されたら提供される追加情報
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_home_appointment
 msgid "Follow, reschedule or cancel your appointments"
-msgstr "予約のフォロー、変更、キャンセル"
+msgstr "予約のフォロー、変更、取消"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_follower_ids
@@ -2155,7 +2155,7 @@ msgstr "空の場合、会議はオンラインで行われるとみなされま
 msgid ""
 "If set an email will be sent to the customer when the appointment is "
 "canceled."
-msgstr "設定された場合、予約がキャンセルされた時に顧客にメールが送信されます。"
+msgstr "設定された場合、予約が取消された時に顧客にメールが送信されます。"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__booked_mail_template_id
@@ -2266,7 +2266,7 @@ msgstr "公開済"
 msgid ""
 "It's too late to cancel online, please contact the attendees another way if "
 "you really can't make it."
-msgstr "オンラインでキャンセルするには遅すぎます。本当に出席できない場合は、別の方法で参加者に連絡して下さい。"
+msgstr "オンラインで取消するには遅すぎます。本当に出席できない場合は、別の方法で参加者に連絡して下さい。"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -3603,11 +3603,9 @@ msgstr "平日"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__resource_calendar_id
 msgid ""
-"When set, only the time slots that match both the appointment type configuration and the work schedule\n"
-"        will appear as available"
+"If kept empty, the working schedule of the company set on the resource will "
+"be used"
 msgstr ""
-"設定された場合、アポイントメントタイプ設定と勤務スケジュールの両方に一致するタイムスロットのみが\n"
-"表示されます。"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.staff_user_select

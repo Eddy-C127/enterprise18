@@ -3,8 +3,8 @@
 # 	* hr_referral
 # 
 # Translators:
-# Tony Ng, 2023
 # Wil Odoo, 2024
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid ""
 " You've gained {gained} points with this progress.{new_line}It makes you a "
 "new total of {total} points. Visit {link1}this link{link2} to pick a gift!"
-msgstr ""
+msgstr "您已獲得{gained}點數。{new_line}您的總點數達到{total}點。訪問{link1}此連結{link2} 挑選禮物！"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_recruitment_report__referral_hired
@@ -72,6 +72,9 @@ msgid ""
 "                                    Awarded\n"
 "                                </span>"
 msgstr ""
+"<span class=\"o_stat_text\">\n"
+"                                   獲獎\n"
+"                                </span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1480,6 +1483,7 @@ msgid ""
 "Unsupported search on field is_accessible_to_current_user: %s operator & %s "
 "value. Only = and != operator and boolean values are supported."
 msgstr ""
+"欄位 is_accessible_to_current_user 不支援以下搜尋：%s 運算符，以及 %s 值。只支援 = 及 != 運算符以及真假值。"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__url
@@ -1559,6 +1563,8 @@ msgid ""
 "You cannot delete these UTM Campaigns as they are linked to the following jobs in Referral:\n"
 "%(job_names)s"
 msgstr ""
+"您無法刪除這些UTM推廣活動，因為它們連結至內部推薦中的以下工作：\n"
+"%(job_names)s"
 
 #. module: hr_referral
 #. odoo-python
@@ -1568,6 +1574,8 @@ msgid ""
 "You cannot delete these UTM Sources as they are linked to the following users in Referral:\n"
 "%(employee_names)s"
 msgstr ""
+"您無法刪除這些UTM來源，因為它們連結至內部推薦中的以下使用者：\n"
+"%(employee_names)s"
 
 #. module: hr_referral
 #. odoo-python

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-02-13 09:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -350,7 +350,7 @@ msgstr "資産勘定"
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Asset Cancelled"
-msgstr "資産はキャンセルされました"
+msgstr "資産は取消されました"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_asset_counterpart_id
@@ -547,12 +547,12 @@ msgstr "資産作成可"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr "取消"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Cancel Asset"
-msgstr "資産をキャンセル"
+msgstr "資産を取消"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__cancelled
@@ -1536,7 +1536,7 @@ msgid ""
 "%(move_count)s cancelled %(word)s:"
 msgstr ""
 "勘定%(exp_acc)sに%(exp_delta)sが貸方計上され、一方で勘定%(dep_acc)s に "
-"%(dep_delta)sが借方計上されます。これは、%(move_count)s  キャンセルされた %(word)sに対応しています:"
+"%(dep_delta)sが借方計上されます。これは、%(move_count)s  取消された %(word)sに対応しています:"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_period
@@ -1823,3 +1823,24 @@ msgstr "仕訳"
 #, python-format
 msgid "entry"
 msgstr "仕訳"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "gain"
+msgstr "益"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "gain/loss"
+msgstr "益/損"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "loss"
+msgstr "損"

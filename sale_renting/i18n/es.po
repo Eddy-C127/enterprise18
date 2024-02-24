@@ -329,7 +329,7 @@ msgstr "Crear órdenes de alquiler"
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.sale_temporal_recurrence_action
 msgid "Create a new period"
-msgstr "Crear un nuevo período"
+msgstr "Crear un nuevo periodo"
 
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_order_action
@@ -764,7 +764,7 @@ msgstr "Próxima Acción"
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.action_rental_report
 msgid "No data yet!"
-msgstr "No hay información aún"
+msgstr "¡Todavía no hay información!"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_form
@@ -843,7 +843,7 @@ msgstr "Por hora"
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_pricelist_view
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_template_form_view_rental
 msgid "Period"
-msgstr "Período"
+msgstr "Periodo"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.sale_temporal_recurrence_view_form
@@ -854,7 +854,7 @@ msgstr "Periodicidad"
 #. module: sale_renting
 #: model:ir.actions.act_window,name:sale_renting.sale_temporal_recurrence_action
 msgid "Periods"
-msgstr "Períodos"
+msgstr "Periodos"
 
 #. module: sale_renting
 #: model:ir.model,name:sale_renting.model_rental_order_wizard
@@ -1105,7 +1105,7 @@ msgstr "Órdenes de alquiler"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_pricelist_view
 msgid "Rental Pricelist Rules"
-msgstr "Reglas de precios para alquiler"
+msgstr "Reglas de la lista de precios para alquiler"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__rental_return_date
@@ -1143,12 +1143,12 @@ msgstr "Asistente de línea de alquiler"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
 msgid "Rental period"
-msgstr "Período de alquiler"
+msgstr "Periodo de alquiler"
 
 #. module: sale_renting
 #: model:ir.ui.menu,name:sale_renting.menu_sale_renting_periods
 msgid "Rental periods"
-msgstr "Períodos de alquiler"
+msgstr "Periodos de alquiler"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_product__display_price
@@ -1166,7 +1166,7 @@ msgstr "Precios de alquiler"
 #: code:addons/sale_renting/models/sale_order.py:0
 #, python-format
 msgid "Rental prices have been recomputed with the new period."
-msgstr "Los precios de alquiler se volvieron a calcular con el nuevo período."
+msgstr "Los precios de alquiler se volvieron a calcular con el nuevo periodo."
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_pricelist_view
@@ -1186,7 +1186,7 @@ msgstr "Alquileres"
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_pricing__recurrence_id
 msgid "Renting Period"
-msgstr "Período de alquiler"
+msgstr "Periodo de alquiler"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_pricelist__product_pricing_ids
@@ -1387,12 +1387,12 @@ msgstr "Suma de la cantidad diaria recolectada"
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_sale_order__duration_days
 msgid "The duration in days of the rental period."
-msgstr "La duración en días de este período de alquiler"
+msgstr "La duración en días de este periodo de alquiler"
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_sale_order__remaining_hours
 msgid "The leftover hours of the rental period."
-msgstr "Las horas restantes del período de alquiler."
+msgstr "Las horas restantes del periodo de alquiler."
 
 #. module: sale_renting
 #: model:ir.model.constraint,message:sale_renting.constraint_sale_temporal_recurrence_temporal_recurrence_duration
@@ -1402,7 +1402,7 @@ msgstr "La duración del precio debe ser mayor o igual a 0."
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_company__extra_product
 msgid "The product is used to add the cost to the sales order"
-msgstr "Se utiliza el producto para añadir el coste a la orden de venta"
+msgstr "Se utiliza el producto para agregar el coste a la orden de venta"
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_rental_order_wizard__is_late
@@ -1453,7 +1453,7 @@ msgstr ""
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_product
 msgid "This product will be used to add fines in the Rental Order."
 msgstr ""
-"Se utilizará este producto para añadir multas en la orden de alquiler."
+"Se utilizará este producto para agregar multas en la orden de alquiler."
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
@@ -1462,7 +1462,7 @@ msgid ""
 "period."
 msgstr ""
 "Esto actualizará el precio unitario de todos los productos de alquiler "
-"basado en el nuevo período. "
+"basado en el nuevo periodo. "
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.res_config_settings_view_form
@@ -1613,7 +1613,7 @@ msgid ""
 "                <br>\n"
 "                or create a new rental order."
 msgstr ""
-"Puede buscar un período más amplio utilizando los filtros de arriba\n"
+"Puede buscar un periodo más amplio utilizando los filtros de arriba\n"
 "                <br>\n"
 "                o crear una nueva orden de alquiler."
 

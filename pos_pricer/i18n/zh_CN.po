@@ -25,7 +25,7 @@ msgstr ""
 #. module: pos_pricer
 #: model:ir.model.constraint,message:pos_pricer.constraint_pricer_tag_name_unique
 msgid "A Pricer tag with this barcode id already exists"
-msgstr "具有此条形码 id 的Pricer 标签已经存在"
+msgstr "具有此条码 id 的Pricer 标记已经存在"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_tag__pricer_store_id
@@ -40,12 +40,12 @@ msgstr "关联产品"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__auth_url
 msgid "Auth Url"
-msgstr "授权网址"
+msgstr "授权 URL"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__create_or_update_products_url
 msgid "Create Or Update Products Url"
-msgstr "创建或更新产品网址"
+msgstr "创建或更新产品 URL"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__create_uid
@@ -132,7 +132,7 @@ msgstr "最后更新时间"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__link_tags_url
 msgid "Link Tags Url"
-msgstr "链接标签网址"
+msgstr "链接标记 URL"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__pricer_login
@@ -142,7 +142,7 @@ msgstr "您的 Pricer 登录账号"
 #. module: pos_pricer
 #: model:ir.actions.server,name:pos_pricer.pricer_sync_cron_ir_actions_server
 msgid "POS Pricer: tags update synchronization "
-msgstr "POS Pricer: 标签同步更新"
+msgstr "POS Pricer: 标记同步更新"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__pricer_password
@@ -212,7 +212,7 @@ msgstr "ERP 数据库中的 Pricer 商店名称"
 #. module: pos_pricer
 #: model:ir.model,name:pos_pricer.model_pricer_store
 msgid "Pricer Store regrouping pricer tags"
-msgstr "Pricer 存储重新分组的价格标签"
+msgstr "Pricer 存储重新分组的价格标记"
 
 #. module: pos_pricer
 #: model:ir.actions.act_window,name:pos_pricer.action_open_pricer_stores
@@ -223,14 +223,14 @@ msgstr "Pricer 商店"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_tag__name
 msgid "Pricer Tag Barcode ID"
-msgstr "Pricer 价格牌识别条码"
+msgstr "Pricer 标记条码 ID"
 
 #. module: pos_pricer
 #: model:ir.actions.act_window,name:pos_pricer.action_open_pricer_tags
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__pricer_tag_ids
 #: model:ir.ui.menu,name:pos_pricer.menu_pos_pricer_tags
 msgid "Pricer Tags"
-msgstr "Pricer 价格牌"
+msgstr "Pricer 标记"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__pricer_tenant_name
@@ -240,18 +240,18 @@ msgstr "Pricer 租户名称"
 #. module: pos_pricer
 #: model:ir.model,name:pos_pricer.model_pricer_tag
 msgid "Pricer electronic tag"
-msgstr "Pricer 电子价格牌"
+msgstr "Pricer 电子标记"
 
 #. module: pos_pricer
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_tag_view_list
 msgid "Pricer tag"
-msgstr "Pricer 价格牌"
+msgstr "Pricer 标记"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_tag_ids
 #: model:ir.model.fields,field_description:pos_pricer.field_product_template__pricer_tag_ids
 msgid "Pricer tags ids"
-msgstr "Pricer 价格牌识别码"
+msgstr "Pricer 标记 ids"
 
 #. module: pos_pricer
 #: model:ir.model,name:pos_pricer.model_product_template
@@ -271,7 +271,7 @@ msgstr "与 Pricer 最后一次同步的状态消息"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__name
 msgid "Store Name"
-msgstr "店名"
+msgstr "店名称"
 
 #. module: pos_pricer
 #. odoo-python
@@ -289,7 +289,7 @@ msgstr "标签 id 应该是一个由字母和16位数字组成的 17 个字符�
 msgid ""
 "This product will be linked to and displayed on the Pricer tags of the store"
 " selected here"
-msgstr "此产品将被链接到并显示在这里选择的商店的价格标签上"
+msgstr "此产品将被链接到并显示在这里选择的商店的价格标记上"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_product_product__pricer_tag_ids
@@ -297,12 +297,12 @@ msgstr "此产品将被链接到并显示在这里选择的商店的价格标签
 msgid ""
 "This product will be linked to and displayed on the Pricer tags with ids "
 "listed here. It is recommended to use a barcode scanner"
-msgstr "此产品将链接到并显示在这里列出的价格标签id。建议使用条码扫描器"
+msgstr "此产品将链接到并显示在这里列出的价格标记 id。建议使用条码扫描器"
 
 #. module: pos_pricer
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_view_list
 msgid "Update all tags"
-msgstr "更新所有标签"
+msgstr "更新所有标记"
 
 #. module: pos_pricer
 #. odoo-python
@@ -314,7 +314,7 @@ msgstr "更新已成功发送给 Pricer"
 #. module: pos_pricer
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_view_list
 msgid "Update tags"
-msgstr "更新标签"
+msgstr "更新标记"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__pricer_tenant_name

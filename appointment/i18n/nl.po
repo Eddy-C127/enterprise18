@@ -3,9 +3,9 @@
 # 	* appointment
 # 
 # Translators:
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
 # Wil Odoo, 2024
 # Jolien De Paepe, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jolien De Paepe, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -770,7 +770,7 @@ msgstr "<small class=\"text-uppercase text-muted\">Datum &amp; tijdstip</small>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 msgid "<small class=\"text-uppercase text-muted\">Meeting details</small>"
-msgstr "<small class=\"text-uppercase text-muted\">Details vergadering</small>"
+msgstr "<small class=\"text-uppercase text-muted\">Details afspraak</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -3432,7 +3432,7 @@ msgstr "Hun eerste beschikbaarheid is"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "There is currently no appointment available"
-msgstr "Er is momenteel geen afspraak beschikbaar"
+msgstr "Er is momenteel geen mogelijkheid om een afspraak te maken"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
@@ -3686,11 +3686,9 @@ msgstr "Weekdag"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__resource_calendar_id
 msgid ""
-"When set, only the time slots that match both the appointment type configuration and the work schedule\n"
-"        will appear as available"
+"If kept empty, the working schedule of the company set on the resource will "
+"be used"
 msgstr ""
-"Indien ingesteld, alleen de tijdvakken die overeenkomen met zowel de configuratie van het afspraaktype als het werkschema\n"
-"        verschijnt als beschikbaar"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.staff_user_select
@@ -3829,7 +3827,7 @@ msgstr "bijv. john.smith@example.com"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "from"
-msgstr "van"
+msgstr "vanaf"
 
 #. module: appointment
 #. odoo-javascript

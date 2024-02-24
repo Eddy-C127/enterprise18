@@ -91,7 +91,7 @@ msgstr "2023"
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2018
 msgid "2024"
-msgstr ""
+msgstr "2024"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -111,13 +111,15 @@ msgid ""
 "<br/>\n"
 "                    is sharing content with you"
 msgstr ""
+"<br/>\n"
+"                    向你分享內容"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
 #, python-format
 msgid "<b>Select</b> this page to continue."
-msgstr ""
+msgstr "<b>選取</b>此頁面以繼續。"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -127,7 +129,7 @@ msgstr "<br/>官方技術支援"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 msgid "<i class=\"fa fa fa-folder text-primary me-2\" title=\"Workspace\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa fa-folder text-primary me-2\" title=\"工作區\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
@@ -137,7 +139,7 @@ msgstr "全部下載"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "<i class=\"fa fa-lock oe_inline\" title=\"Locked\" invisible=\"not lock_uid\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-lock oe_inline\" title=\"已鎖定\" invisible=\"not lock_uid\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
@@ -145,6 +147,8 @@ msgid ""
 "<i class=\"fa fa-tag o_documents_tag_color ms-2\" invisible=\"not tag_ids\" "
 "title=\"Tags\"/>"
 msgstr ""
+"<i class=\"fa fa-tag o_documents_tag_color ms-2\" invisible=\"not tag_ids\" "
+"title=\"標籤\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_workspace_page
@@ -923,7 +927,7 @@ msgstr "已封存"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
 msgid "Archived Workspace"
-msgstr ""
+msgstr "已封存工作區"
 
 #. module: documents
 #. odoo-javascript
@@ -951,14 +955,14 @@ msgstr "確定要刪除此頁面？"
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Are you sure you want to permanently erase the document?"
-msgstr ""
+msgstr "確定永久清除文件？"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Are you sure you want to permanently erase the documents?"
-msgstr ""
+msgstr "確定永久清除這些文件？"
 
 #. module: documents
 #. odoo-javascript
@@ -1065,7 +1069,7 @@ msgstr "可以上傳"
 #: code:addons/documents/static/src/views/hooks.js:0
 #, python-format
 msgid "Can't share documents of different workspaces."
-msgstr ""
+msgstr "無法共享不同工作空間的文件。"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
@@ -1079,7 +1083,7 @@ msgstr "取消"
 msgid ""
 "Cannot move folder under the given parent as this would create a recursive "
 "hierarchy"
-msgstr ""
+msgstr "無法將資料夾移動至指定母項資料夾下，因為會引致循環層級結構"
 
 #. module: documents
 #: model_terms:documents.folder,description:documents.documents_internal_folder
@@ -1112,7 +1116,7 @@ msgstr "選擇一個要連結的記錄"
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 msgid "Choose or Configure Email Servers"
-msgstr ""
+msgstr "選擇或配置電郵伺服器"
 
 #. module: documents
 #. odoo-javascript
@@ -1296,7 +1300,7 @@ msgstr "上載文件預設值‎"
 #: model:ir.model.fields,help:documents.field_documents_folder__deletion_delay
 #: model:ir.model.fields,help:documents.field_res_config_settings__deletion_delay
 msgid "Delay after permanent deletion of the document in the trash (days)"
-msgstr ""
+msgstr "文件移至垃圾桶後，永久刪除前的等待時間（天）"
 
 #. module: documents
 #. odoo-javascript
@@ -1325,22 +1329,22 @@ msgstr "刪除目前或所選頁面"
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Delete permanently"
-msgstr ""
+msgstr "永久刪除"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_res_config_settings__deletion_delay
 msgid "Deletion Delay"
-msgstr ""
+msgstr "刪除延遲"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__deletion_delay
 msgid "Deletion delay"
-msgstr ""
+msgstr "刪除延遲"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Deletion delay (days)"
-msgstr ""
+msgstr "刪除延遲（天）"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_deprecate
@@ -1426,7 +1430,7 @@ msgstr "文件擁有人"
 #. module: documents
 #: model:ir.actions.act_window,name:documents.mail_activity_plan_action_document
 msgid "Document Plans"
-msgstr ""
+msgstr "文件計劃"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_request_wizard
@@ -1563,7 +1567,7 @@ msgstr "下載及上載"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid "Download file"
-msgstr ""
+msgstr "下載檔案"
 
 #. module: documents
 #. odoo-javascript
@@ -1729,7 +1733,7 @@ msgstr "檔案集中處理"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 msgid "Files will be sent to trash and deleted forever after"
-msgstr ""
+msgstr "檔案會被傳送至垃圾桶，並在此時間後永久刪除："
 
 #. module: documents
 #. odoo-javascript
@@ -1737,7 +1741,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #, python-format
 msgid "Files will be sent to trash and deleted forever after %s days."
-msgstr ""
+msgstr "檔案會被傳送至垃圾桶，並在 %s 天後永久刪除。"
 
 #. module: documents
 #: model:documents.folder,name:documents.documents_finance_folder
@@ -1824,7 +1828,7 @@ msgstr "匯集至一個文件"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "Gb"
-msgstr ""
+msgstr "Gb"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -1986,19 +1990,19 @@ msgstr "視為多頁"
 #: code:addons/documents/static/src/views/search/documents_search_model.js:0
 #, python-format
 msgid "Items in trash will be deleted forever after %s days."
-msgstr ""
+msgstr "垃圾桶中的項目會在 %s 天後永久刪除。"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "Items moved to the trash will be deleted forever after %s days."
-msgstr ""
+msgstr "移至垃圾桶的項目會在 %s 天後永久刪除。"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "Kb"
-msgstr ""
+msgstr "Kb"
 
 #. module: documents
 #: model:documents.facet,name:documents.documents_internal_knowledge
@@ -2168,7 +2172,7 @@ msgstr "市場行銷"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_note
@@ -2244,7 +2248,7 @@ msgstr "移動至工作區"
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 #, python-format
 msgid "Move to trash"
-msgstr ""
+msgstr "移至垃圾桶"
 
 #. module: documents
 #. odoo-javascript
@@ -2254,7 +2258,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #, python-format
 msgid "Move to trash?"
-msgstr ""
+msgstr "移至垃圾桶？"
 
 #. module: documents
 #. odoo-javascript
@@ -2692,6 +2696,8 @@ msgid ""
 "Requested\n"
 "                                ∙"
 msgstr ""
+"已要求\n"
+"                                。"
 
 #. module: documents
 #: model:mail.activity.type,name:documents.mail_documents_activity_data_md
@@ -2846,7 +2852,7 @@ msgstr "序列"
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_finance_2018contracts
 msgid "Set As 2024 Contracts"
-msgstr ""
+msgstr "設定為 2024 年合約"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__partner_id
@@ -2866,7 +2872,7 @@ msgstr "設定標籤"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Set deletion delay for documents in the Trash"
-msgstr ""
+msgstr "設置刪除垃圾桶文件的延遲時間"
 
 #. module: documents
 #: model:mail.template,description:documents.mail_template_document_request_reminder
@@ -3136,14 +3142,14 @@ msgstr "滑鼠經過停留在此標籤類別或其標籤上時，顯示的文本
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_res_config_settings_check_deletion_delay
 msgid "The deletion delay should be positive."
-msgstr ""
+msgstr "刪除延遲應為正數。"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 #, python-format
 msgid "The links and requested documents are not shareable."
-msgstr ""
+msgstr "連結及要求的文件不可共享。"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_share__alias_model_id
@@ -3205,7 +3211,7 @@ msgstr ""
 #: code:addons/documents/models/documents_document.py:0
 #, python-format
 msgid "This file has been restored"
-msgstr ""
+msgstr "此檔案已復原"
 
 #. module: documents
 #. odoo-python
@@ -3213,7 +3219,7 @@ msgstr ""
 #, python-format
 msgid ""
 "This file has been sent to the trash and will be deleted forever on the %s"
-msgstr ""
+msgstr "檔案已傳送至垃圾桶，將在 %s 永久刪除。"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__company_id
@@ -3292,7 +3298,7 @@ msgstr "工具提示"
 #: code:addons/documents/static/src/views/search/documents_search_model.js:0
 #, python-format
 msgid "Trash"
-msgstr ""
+msgstr "垃圾桶"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__is_editable_attachment
@@ -3416,7 +3422,7 @@ msgstr "已驗證"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid "Validity date:"
-msgstr ""
+msgstr "有效日期:"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_marketing_assets_Videos
@@ -3521,7 +3527,7 @@ msgstr "您可以從您的電腦上傳一個檔案或者'複製/貼上'一個網
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #, python-format
 msgid "You cannot upload content in this workspace"
-msgstr ""
+msgstr "你不可在此工作區上載內容"
 
 #. module: documents
 #. odoo-python
@@ -3554,7 +3560,7 @@ msgstr "YouTube 影片"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 msgid "days."
-msgstr ""
+msgstr "天。"
 
 #. module: documents
 #. odoo-javascript
@@ -3647,7 +3653,7 @@ msgstr "file_extension"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid "files"
-msgstr ""
+msgstr "檔案"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__is_readonly_model

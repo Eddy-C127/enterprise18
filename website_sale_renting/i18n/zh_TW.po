@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:12+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,7 +58,7 @@ msgid ""
 msgstr ""
 "\n"
 "                你租賃的產品，收取日期（%(start_date)s）無效。\n"
-"                抱歉我們在該工作日不處理收取產品。\n"
+"                抱歉我們在該平日（星期幾）不處理收取產品。\n"
 "            "
 
 #. module: website_sale_renting
@@ -72,7 +73,7 @@ msgid ""
 msgstr ""
 "\n"
 "                你租賃的產品，交還日期（%(end_date)s）無效。\n"
-"                抱歉我們在該工作日不處理產品交還。\n"
+"                抱歉我們在該平日（星期幾）不處理產品交還。\n"
 "            "
 
 #. module: website_sale_renting
@@ -88,7 +89,7 @@ msgid ""
 msgstr ""
 "\n"
 "                你租賃的產品，收取日期（%(start_date)s）及\n"
-"                交還日期（%(end_date)s）無效。抱歉我們在該工作日\n"
+"                交還日期（%(end_date)s）無效。抱歉我們在該平日（星期幾）\n"
 "                不處理收取或交還產品。\n"
 "            "
 
@@ -140,7 +141,7 @@ msgstr "（%s 星期）。"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.s_rental_search_options
 msgid ", .s_rental_search"
-msgstr ""
+msgstr ", .s_rental_search"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.o_wsale_offcanvas
@@ -438,14 +439,14 @@ msgstr "星期"
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "You cannot pick up your rental on that day of the week."
-msgstr "該工作日（星期幾）不處理客戶收取租用物品。"
+msgstr "該平日（星期幾）不處理客戶收取租用物品。"
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "You cannot return your rental on that day of the week."
-msgstr "該工作日（星期幾）不處理客戶交還租用物品。"
+msgstr "該平日（星期幾）不處理客戶交還租用物品。"
 
 #. module: website_sale_renting
 #. odoo-python

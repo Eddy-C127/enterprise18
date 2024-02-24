@@ -5,6 +5,7 @@
 # Translators:
 # Martin Trigaux, 2023
 # Wil Odoo, 2023
+# Ryoko Tsuda <ryoko@quartile.co>, 2024
 # Junko Augias, 2024
 # 
 msgid ""
@@ -112,7 +113,7 @@ msgstr "添付数"
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_kanban
 #, python-format
 msgid "Available"
-msgstr "処理可能"
+msgstr "利用可能"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__bookable_background_color
@@ -184,7 +185,7 @@ msgstr "予約数"
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_kanban
 msgid "Busy"
-msgstr "割当済"
+msgstr "利用中"
 
 #. module: room
 #. odoo-javascript
@@ -192,7 +193,7 @@ msgstr "割当済"
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr "取消"
 
 #. module: room
 #: model_terms:room.room,description:room.room_room_main_office_room_3
@@ -570,7 +571,7 @@ msgstr "アクセストークンは一意にして下さい。"
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.js:0
 #, python-format
 msgid "The booking you were editing has been deleted."
-msgstr ""
+msgstr "編集していた予約は削除されました。"
 
 #. module: room
 #. odoo-javascript

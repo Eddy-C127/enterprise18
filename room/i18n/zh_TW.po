@@ -58,6 +58,8 @@ msgid ""
 "<span invisible=\"bookings_count == 1\">Bookings</span>\n"
 "                                    <span invisible=\"bookings_count != 1\">Booking</span>"
 msgstr ""
+"<span invisible=\"bookings_count == 1\">項預訂</span>\n"
+"                                    <span invisible=\"bookings_count != 1\">項預訂</span>"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_kanban
@@ -499,7 +501,7 @@ msgstr "房間"
 #: code:addons/room/models/room_booking.py:0
 #, python-format
 msgid "Room %(room_name)s is already booked during the selected time slot."
-msgstr ""
+msgstr "房間 %(room_name)s 在所選時段內已被預訂。"
 
 #. module: room
 #: model:ir.model,name:room.model_room_booking
@@ -587,7 +589,7 @@ msgstr ""
 #: code:addons/room/models/room_booking.py:0
 #, python-format
 msgid "The start date of %(booking_name)s must be earlier than the end date."
-msgstr ""
+msgstr "%(booking_name)s 的開始日期必須早於結束日期。"
 
 #. module: room
 #: model_terms:ir.actions.act_window,help:room.room_room_action

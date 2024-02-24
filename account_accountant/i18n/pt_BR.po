@@ -839,6 +839,11 @@ msgid "Flag"
 msgstr "Sinalizar"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__force_partials
+msgid "Force Partials"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__force_price_included_taxes
 msgid "Force Price Included Taxes"
 msgstr "Forçar preço incluindo impostos"
@@ -1018,11 +1023,6 @@ msgid "Is Reconciled"
 msgstr "Foi reconciliado"
 
 #. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_write_off_required
-msgid "Is a write-off move required to reconcile"
-msgstr "É uma movimentação de baixa necessária para reconciliar"
-
-#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_transfer_required
 msgid "Is an account transfer required"
 msgstr "É uma transferência de conta necessária"
@@ -1031,6 +1031,11 @@ msgstr "É uma transferência de conta necessária"
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__transfer_warning_message
 msgid "Is an account transfer required to reconcile"
 msgstr "É uma transferência de conta necessária para reconciliar"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__can_silently_reconcile
+msgid "Is silent reconcile possible"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__lock_date_violated_warning_message
@@ -1389,6 +1394,13 @@ msgid "Only Billing Administrators are allowed to change lock dates!"
 msgstr ""
 "Somente os Administradores de faturamento estão autorizados a mudar as datas"
 " de bloqueio!"
+
+#. module: account_accountant
+#: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_wizard
+msgid ""
+"Only partial reconciliation is possible. Proceed in multiple steps if you "
+"want to full reconcile."
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__period_lock_date

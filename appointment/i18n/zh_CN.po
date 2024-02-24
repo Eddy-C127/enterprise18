@@ -7,6 +7,7 @@
 # Chloe Wang, 2024
 # Wil Odoo, 2024
 # 湘子 南 <1360857908@qq.com>, 2024
+# Jeffery CHEN <jeffery9@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: 湘子 南 <1360857908@qq.com>, 2024\n"
+"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -284,7 +285,7 @@ msgstr ""
 "        </t>\n"
 "        <t t-elif=\"target_responsible\">\n"
 "            <t t-if=\"customer\">\n"
-"                <t t-out=\"customer.name or ''\"></t> 已为你预约以下活动：<strong t-out=\"object.event_id.appointment_type_id.name or ''\">预约功能示范</strong>。\n"
+"                <t t-out=\"customer.name or ''\"></t> 已为你安排以下活动：<strong t-out=\"object.event_id.appointment_type_id.name or ''\">预约功能示范</strong>。\n"
 "            </t>\n"
 "            <t t-else=\"\">\n"
 "                您已成功预约“<strong t-out=\"object.event_id.appointment_type_id.name or ''\">功能示范</strong>”活动。\n"
@@ -2405,7 +2406,7 @@ msgstr "手动确认"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Max in"
-msgstr "( 最大值"
+msgstr "最大值"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__capacity
@@ -3602,11 +3603,9 @@ msgstr "工作日"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__resource_calendar_id
 msgid ""
-"When set, only the time slots that match both the appointment type configuration and the work schedule\n"
-"        will appear as available"
+"If kept empty, the working schedule of the company set on the resource will "
+"be used"
 msgstr ""
-"设置后，只有同时符合预约类型配置和工作日程的时段才会显示为可用时段。\n"
-"        将显示为可用"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.staff_user_select

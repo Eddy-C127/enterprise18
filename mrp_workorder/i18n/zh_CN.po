@@ -3,10 +3,11 @@
 # 	* mrp_workorder
 # 
 # Translators:
+# Wil Odoo, 2023
 # Chloe Wang, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
-# Wil Odoo, 2024
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2024
+# 湘子 南 <1360857908@qq.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2024\n"
+"Last-Translator: 湘子 南 <1360857908@qq.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -210,7 +211,7 @@ msgstr "可用性"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_report_mrp_report_bom_structure
 msgid "BOM Overview Report"
-msgstr "物料清单（BOM）概述报告"
+msgstr "物料清单 BOM 概览报告"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -252,12 +253,12 @@ msgstr "阻止"
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 #, python-format
 msgid "BoM feedback %s (%s)"
-msgstr "物料清单（BOM）反馈%s（%s）"
+msgstr "BoM 物料清单反馈 %s (%s)"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__bom_product_ids
 msgid "Bom Product"
-msgstr "物料清单（BOM）产品"
+msgstr "物料清单 BOM 产品"
 
 #. module: mrp_workorder
 #: model:ir.model.fields.selection,name:mrp_workorder.selection__mrp_workorder_additional_product__type__byproduct
@@ -657,7 +658,7 @@ msgstr "进行中"
 msgid ""
 "In case of Quality Check by Quantity, Move Line on which the Quality Check "
 "applies"
-msgstr "在按数量进行质量检查的情况下，适用于质量检查的移动线"
+msgstr "在按数量进行质量检查的情况下，适用于质量检查的移动行"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.add_quality_check_from_tablet
@@ -797,7 +798,7 @@ msgstr "标记为完成"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
 msgid "Mark as Done and Close MO"
-msgstr "标记为已完成并关闭生产订单（MO）"
+msgstr "标记为已完成并关闭生产订单 MO"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1129,7 +1130,7 @@ msgstr "待登记产品"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_uom_id
 msgid "Product Uom"
-msgstr "产品计量单位（UoM）"
+msgstr "产品计量单位 UoM"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production_additional_workorder__production_id
@@ -1603,8 +1604,8 @@ msgid ""
 "Track work orders, show instructions and record manufacturing operations from here:\n"
 "                                quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
-"由此追踪工单、显示指令和记录生产操作：\n"
-"                                质量控制、消耗数量、批次/序列号等。"
+"由此跟踪工单、显示指令和记录制造作业：\n"
+"                                质量控制、消耗数量、批次/序列号码等."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1634,7 +1635,7 @@ msgstr "记录中异常活动的类型。"
 #, python-format
 msgid ""
 "Unable to load samples when you already have existing manufacturing orders"
-msgstr "当您已有现有的生产订单时，无法加载示例。"
+msgstr "当您已有现有的制造订单时，无法加载示例."
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -1681,7 +1682,7 @@ msgstr "取消订单排期"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__component_uom_id
 msgid "UoM"
-msgstr "计量单位（UoM）"
+msgstr "计量单位 UoM"
 
 #. module: mrp_workorder
 #: model:ir.model.fields.selection,name:mrp_workorder.selection__propose_change__change_type__update_step
@@ -1744,7 +1745,7 @@ msgstr "WO"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "WO Filters"
-msgstr "WO 筛选"
+msgstr "WO 过滤器"
 
 #. module: mrp_workorder
 #. odoo-javascript

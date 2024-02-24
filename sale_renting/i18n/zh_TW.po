@@ -28,6 +28,8 @@ msgid ""
 "\n"
 "%(from_date)s to %(to_date)s"
 msgstr ""
+"\n"
+"%(from_date)s 至 %(to_date)s"
 
 #. module: sale_renting
 #. odoo-python
@@ -125,6 +127,9 @@ msgid ""
 "                    <span invisible=\"duration_days in [0,1]\"> days </span>\n"
 "                    <span invisible=\"duration_days == 0 or remaining_hours == 0\">and </span>"
 msgstr ""
+"<span invisible=\"duration_days != 1\"> 天</span>\n"
+"                    <span invisible=\"duration_days in [0,1]\"> 天</span>\n"
+"                    <span invisible=\"duration_days == 0 or remaining_hours == 0\"> 又 </span>"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
@@ -132,6 +137,8 @@ msgid ""
 "<span invisible=\"remaining_hours != 1\"> hour </span>\n"
 "                    <span invisible=\"remaining_hours in [0,1]\"> hours </span>"
 msgstr ""
+"<span invisible=\"remaining_hours != 1\"> 小時</span>\n"
+"                    <span invisible=\"remaining_hours in [0,1]\"> 小時</span>"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_gantt

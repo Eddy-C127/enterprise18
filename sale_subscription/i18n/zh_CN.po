@@ -7,8 +7,8 @@
 # 何彬 <vnsoft.he@gmail.com>, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
 # Chloe Wang, 2024
-# 湘子 南 <1360857908@qq.com>, 2024
 # Wil Odoo, 2024
+# 湘子 南 <1360857908@qq.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 20:55+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: 湘子 南 <1360857908@qq.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -376,8 +376,8 @@ msgid ""
 "<span class=\"badge rounded-pill text-bg-success\"><i class=\"fa fa-fw fa-"
 "check\"/> In Progress</span>"
 msgstr ""
-"<span class=\"badge rounded-pill text-bg-success\"><i j=\"1/\"> "
-"进行中</i></span>"
+"<span class=\"badge rounded-pill text-bg-success\"><i class=\"fa fa-fw fa-"
+"check\"/> 进行中 </span>"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_subscriptions
@@ -556,7 +556,7 @@ msgstr ""
 "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\">\n"
 "                    <t t-set=\"company\" t-value=\"object.company_id or object.invoice_user_id.company_id or user.company_id\"></t>\n"
-"                    <span style=\"font-size: 10px;\">您的服务计划</span><br>\n"
+"                    <span style=\"font-size: 10px;\">您的服务订阅</span><br>\n"
 "                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"ctx.get('code', ctx.get('subscription_name')) or 'Document'\">文档</span>\n"
 "                </td></tr>\n"
 "                <tr><td valign=\"middle\" align=\"right\" t-if=\"not company.uses_default_logo\">\n"
@@ -574,17 +574,17 @@ msgstr ""
 "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                    <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t>您好！<br><br>\n"
-"                    您的服务计划（<t t-out=\"ctx.get('subscription_name') or ''\">订购码</t>\n"
+"                    您的服务订阅(<t t-out=\"ctx.get('subscription_name') or ''\">订购码</t>\n"
 "                    <t t-if=\"ctx.get('code')\">\n"
 "                     ，参考编号：<t t-out=\"ctx.get('code')\"></t>\n"
-"                    </t>）刚\n"
+"                    </t>)刚\n"
 "                    <t t-if=\"ctx.get('total_amount') and ctx.get('payment_token')\">\n"
-"                        以 <t t-out=\"ctx.get('currency_name') or ''\">$</t><t t-out=\"ctx.get('total_amount') or ''\">100</t>付款（付款方式：<t t-out=\"ctx.get('payment_token') or ''\">PAYMENT_TOKEN</t>）\n"
+"                        以 <t t-out=\"ctx.get('currency_name') or ''\">$</t><t t-out=\"ctx.get('total_amount') or ''\">100</t>付款 (付款方式：<t t-out=\"ctx.get('payment_token') or ''\">PAYMENT_TOKEN</t>)\n"
 "                    </t>成功续订。\n"
 "                    <br><br>\n"
 "                    附上发票供您参考。\n"
 "                    <t t-if=\"ctx.get('next_date')\">\n"
-"                        下一张发票将于<t t-out=\"format_date(ctx.get('next_date')) or ''\">2021 年 5 月 5 日</t>开具。\n"
+"                        下一张发票将于<t t-out=\"format_date(ctx.get('next_date')) or ''\">2021 -05 -05 </t>开具。\n"
 "                    </t>\n"
 "                    <br><br>\n"
 "                    如有任何疑问，请随时联系我们。\n"
@@ -629,7 +629,7 @@ msgstr ""
 "<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
 "    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
 "      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
-"        由<a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">ERP</a>驱动\n"
+"        技术提供<a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">ERP</a>驱动\n"
 "      </td></tr>\n"
 "    </table>\n"
 "</td></tr>\n"
@@ -1971,7 +1971,7 @@ msgstr "合约终止"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Error during renewal of contract %s %s %s"
-msgstr "续订合同期间出错 %s %s %s"
+msgstr "续订合同期间错误 %s %s %s"
 
 #. module: sale_subscription
 #. odoo-python
@@ -2002,7 +2002,7 @@ msgstr "加大"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Expiration Date:"
-msgstr "过期日期："
+msgstr "到期日期:"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -2854,8 +2854,8 @@ msgid ""
 "            state. After the negotiation, the salesman should close or renew\n"
 "            pending subscriptions."
 msgstr ""
-"ERP 自动将续订设置为待定\n"
-"            状态。谈判结束后，销售人员应关闭或更新\n"
+"ERP 自动将订阅设置为待定\n"
+"            状态。协商结束后，销售人员应关闭或更新\n"
 "            待定订阅."
 
 #. module: sale_subscription
@@ -2863,7 +2863,7 @@ msgstr ""
 #: model:sale.order.template.line,name:sale_subscription.montly_template_line
 #: model:sale.order.template.line,name:sale_subscription.yearly_template_line
 msgid "Office Cleaning Service (SUB)"
-msgstr "办公室清洁服务"
+msgstr "办公室清洁服务  (SUB)"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__on_change_field_ids
@@ -2998,14 +2998,14 @@ msgstr "付款方式："
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment not recorded"
-msgstr "未记录付款"
+msgstr "未记录支付"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Payment recorded: %s"
-msgstr "已记录付款：%s"
+msgstr "已记录支付：%s"
 
 #. module: sale_subscription
 #: model:mail.template,subject:sale_subscription.email_payment_reminder
@@ -4596,9 +4596,9 @@ msgid ""
 "                work done, expenses and/or sales orders. Odoo will automatically manage\n"
 "                the alerts for the renewal of the subscriptions to the right salesperson."
 msgstr ""
-"使用订阅来跟踪任务、问题、工时表或基于\n"
-" 已完成工作、费用和/或销售订单的开票。ERP 会自动管理\n"
-" 订阅更新的警告，以确保交给正确的销售人员 ."
+"使用订阅来关注任务、问题、工时表或基于\n"
+" 已完成工作、费用和/或销售订单的发票。ERP 会自动管理\n"
+" 订阅更新的警告，以确保交给正确的销售员 ."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
