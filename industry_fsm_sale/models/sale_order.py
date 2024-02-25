@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from collections import defaultdict
 
 from odoo import api, models, fields, _
 
@@ -34,6 +35,21 @@ class SaleOrder(models.Model):
                     subtype_xmlid='mail.mt_note',
                 )
         return res
+
+    def _get_product_catalog_record_lines(self, product_ids):
+        """
+            Accessing the catalog from the smart button of a "field service" should compute
+            the content of the catalog related to that field service rather than the content
+            of the catalog related to the sale order containing that "field service".
+        """
+        task_id = self.env.context.get('fsm_task_id')
+        if task_id:
+            grouped_lines = defaultdict(lambda: self.env['sale.order.line'])
+            for line in self.order_line:
+                if line.task_id.id == task_id and line.product_id.id in product_ids:
+                    grouped_lines[line.product_id] |= line
+            return grouped_lines
+        return super()._get_product_catalog_record_lines(product_ids)
 
 
 class SaleOrderLine(models.Model):
