@@ -271,6 +271,7 @@ export class TimesheetGridSetupHelper {
                 "analytic.line,false,search": `
                         <search>
                             <field name="project_id"/>
+                            <filter name="nothing" domain="[(0, '=', 1)]" invisible="1"/>
                             <filter string="Project" name="groupby_project" domain="[]" context="{'group_by': 'project_id'}"/>
                             <filter string="Task" name="groupby_task" domain="[]" context="{'group_by': 'task_id'}"/>
                             <filter string="Selection" name="groupby_selection" domain="[]" context="{'group_by': 'selection_field'}"/>

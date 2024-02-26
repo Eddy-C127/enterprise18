@@ -30,6 +30,7 @@ export class TimerTimesheetGridRenderer extends TimesheetGridRenderer {
         });
         this.timerState = useState(this.getDefaultTimerState());
         this.timesheetUOMService = useService("timesheet_uom");
+        this.lastValidatedTimesheetDate = false;
 
         useExternalListener(window, "keyup", this.onKeyUp);
     }
@@ -329,8 +330,8 @@ export class TimerTimesheetGridRenderer extends TimesheetGridRenderer {
         await this.onTimerStarted({ row });
     }
 
-    async _getLastValidatedTimesheetDate() {
-        const res = await this.props.model.orm.call(
+    async _getLastValidatedTimesheetDate(props = this.props) {
+        const res = await props.model.orm.call(
             "res.users",
             "get_last_validated_timesheet_date",
             [session.user_id],
