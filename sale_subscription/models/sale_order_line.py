@@ -119,6 +119,10 @@ class SaleOrderLine(models.Model):
                 line_to_recompute |= line
         super(SaleOrderLine, line_to_recompute)._compute_price_unit()
 
+    def _lines_without_price_recomputation(self):
+        res = super()._lines_without_price_recomputation()
+        return res.filtered(lambda line: not line.recurring_invoice)
+
     def _compute_pricelist_item_id(self):
         recurring_lines = self.filtered('recurring_invoice')
         super(SaleOrderLine, self - recurring_lines)._compute_pricelist_item_id()
