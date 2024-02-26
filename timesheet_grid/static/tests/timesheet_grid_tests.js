@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { click, getFixture, patchDate, getNodesTextContent } from "@web/../tests/helpers/utils";
-
+import { removeFacet } from "@web/../tests/search/helpers";
 import { setupViewRegistries } from "@web/../tests/views/helpers";
 
 import { start } from "@mail/../tests/helpers/test_utils";
@@ -572,5 +572,30 @@ QUnit.module("Views", (hooks) => {
             target.querySelector(".modal .o_field_widget[name=date] input").value,
             "01/16/2017"
         );
+    });
+
+    QUnit.test("display sample data and then data + fetch last validate timesheet date", async (assert) => {
+        serverData.views["analytic.line,1,grid"] = serverData.views["analytic.line,1,grid"].replace("<grid", "<grid sample='1'");
+
+        const { openView } = await start({
+            serverData,
+            async mockRPC(route, args) {
+                if (args.method === "get_last_validated_timesheet_date") {
+                    assert.step("get_last_validated_timesheet_date");
+                }
+                return await timesheetGridSetup.mockTimesheetGridRPC(route, args);
+            },
+        });
+
+        await openView({
+            res_model: "analytic.line",
+            views: [[1, "grid"]],
+            context: { search_default_nothing: 1 },
+        });
+        assert.containsOnce(target, ".o_view_sample_data");
+        await removeFacet(target);
+        assert.containsNone(target, ".o_grid_sample_data");
+        assert.containsN(target, ".o_grid_section_title", 4);
+        assert.verifySteps(["get_last_validated_timesheet_date"]); // the rpc should be called only once
     });
 });

@@ -15,7 +15,7 @@ import {
     clickOpenM2ODropdown,
     selectDropdownItem,
 } from "@web/../tests/helpers/utils";
-import { toggleSearchBarMenu } from "@web/../tests/search/helpers";
+import { removeFacet, toggleSearchBarMenu } from "@web/../tests/search/helpers";
 
 import { getPyEnv } from "@bus/../tests/helpers/mock_python_environment";
 import { start } from "@mail/../tests/helpers/test_utils";
@@ -1628,5 +1628,40 @@ QUnit.module("Views", (hooks) => {
         });
 
         assert.containsOnce(target, ".o_grid_highlightable.text-bg-warning", "total should be an overtime (10 > 8)");
+    });
+
+    QUnit.test("display sample data and then data + fetch last validate timesheet date", async (assert) => {
+        serverData.views["analytic.line,false,grid"] = serverData.views["analytic.line,false,grid"].replace("<grid", "<grid sample='1'");
+
+        const { openView } = await start({
+            serverData,
+            async mockRPC(route, args) {
+                if (args.method === "get_running_timer") {
+                    return {
+                        step_timer: 30,
+                    };
+                } else if (args.method === "get_daily_working_hours") {
+                    assert.strictEqual(args.model, "res.users");
+                    return {
+                        "2017-01-24": 4,
+                        "2017-01-25": 4,
+                    };
+                } else if (args.method === "get_last_validated_timesheet_date") {
+                    assert.step("get_last_validated_timesheet_date");
+                }
+                return await timesheetGridSetup.mockTimesheetGridRPC(route, args);
+            },
+        });
+
+        await openView({
+            res_model: "analytic.line",
+            views: [[false, "grid"]],
+            context: { search_default_nothing: 1 },
+        });
+        assert.containsOnce(target, ".o_view_sample_data");
+        await removeFacet(target);
+        assert.containsNone(target, ".o_grid_sample_data");
+        assert.containsN(target, ".o_grid_row_title", 6);
+        assert.verifySteps(["get_last_validated_timesheet_date"]); // the rpc should be called only once
     });
 });
