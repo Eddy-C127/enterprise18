@@ -7,13 +7,11 @@ import { SpreadsheetName } from "@spreadsheet_edition/bundle/actions/control_pan
 
 import { Model } from "@odoo/o-spreadsheet";
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
-import { convertFromSpreadsheetTemplate } from "@documents_spreadsheet/bundle/helpers";
 import { AbstractSpreadsheetAction } from "@spreadsheet_edition/bundle/actions/abstract_spreadsheet_action";
 import { DocumentsSpreadsheetControlPanel } from "../components/control_panel/spreadsheet_control_panel";
 import { _t } from "@web/core/l10n/translation";
 
 import { useState, useSubEnv } from "@odoo/owl";
-import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 
 export class SpreadsheetAction extends AbstractSpreadsheetAction {
     static template = "documents_spreadsheet.SpreadsheetAction";
@@ -41,26 +39,6 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
             makeCopy: this.makeCopy.bind(this),
             saveAsTemplate: this.saveAsTemplate.bind(this),
         });
-    }
-    async _fetchData() {
-        const record = await super._fetchData();
-        if (this.params.convert_from_template) {
-            const convertedData = await convertFromSpreadsheetTemplate(
-                this.env,
-                record.data,
-                record.revisions
-            );
-            // reset the spreadsheet data to the data converted from the template
-            await this.orm.write("documents.document", [this.resId], {
-                spreadsheet_data: JSON.stringify(convertedData),
-            });
-            return {
-                ...record,
-                data: convertedData,
-                revisions: [],
-            };
-        }
-        return record;
     }
 
     /**
@@ -120,13 +98,6 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
                 odooDataProvider: this.model.config.custom.odooDataProvider,
             },
         });
-        await waitForDataLoaded(model);
-        const proms = [];
-        for (const pivotId of model.getters.getPivotIds()) {
-            proms.push(model.getters.getPivot(pivotId).prepareForTemplateGeneration());
-        }
-        await Promise.all(proms);
-        model.dispatch("CONVERT_PIVOT_TO_TEMPLATE");
         const data = model.exportData();
         const name = this.state.spreadsheetName;
 
@@ -139,6 +110,12 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
         });
     }
 
+    /**
+     *
+     * @param data
+     * @param excelExport
+     * @returns {Promise<string>} the url to share the spreadsheet
+     */
     async shareSpreadsheet(data, excelExport) {
         const vals = {
             document_ids: [x2ManyCommands.set([this.resId])],

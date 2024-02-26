@@ -25,14 +25,9 @@ export class SpreadsheetTemplateAction extends AbstractSpreadsheetAction {
         });
     }
 
-    createModel() {
-        super.createModel();
-        this.model.dispatch("SET_FORMULA_VISIBILITY", { show: true });
-    }
-
     /**
      * Create a new empty spreadsheet template
-     * @returns {number} id of the newly created spreadsheet template
+     * @returns {Promise<number>} id of the newly created spreadsheet template
      */
     async createNewSpreadsheet() {
         const data = {

@@ -30,12 +30,6 @@ autofillRulesRegistry
             return { type: "PIVOT_UPDATER", increment, current: 0 };
         },
         sequence: 2,
-    })
-    .add("autofill_pivot_position", {
-        condition: (cell) =>
-            cell && cell.isFormula && cell.content.match(/=.*PIVOT.*ODOO\.PIVOT\.POSITION/),
-        generateRule: () => ({ type: "PIVOT_POSITION_UPDATER", current: 0 }),
-        sequence: 1,
     });
 
 //--------------------------------------------------------------------------
@@ -90,47 +84,6 @@ autofillModifiersRegistry
                     content,
                 },
                 tooltip,
-            };
-        },
-    })
-    .add("PIVOT_POSITION_UPDATER", {
-        /**
-         * Increment (or decrement) positions in template pivot formulas.
-         * Autofilling vertically increments the field of the deepest row
-         * group of the formula. Autofilling horizontally does the same for
-         * column groups.
-         */
-        apply: (rule, data, getters, direction) => {
-            const formulaString = data.cell.content;
-            const pivotFormulaId = formulaString.match(/ODOO\.PIVOT\.POSITION\(\s*"(\w+)"\s*,/)[1];
-            const pivotId = getters.getPivotId(pivotFormulaId);
-            if (!pivotId) {
-                return { cellData: { ...data.cell, content: formulaString } };
-            }
-            const { rows, columns } = getters.getPivot(pivotId).definition;
-            const fields = ["up", "down"].includes(direction) ? rows : columns;
-            const step = ["right", "down"].includes(direction) ? 1 : -1;
-
-            const field = [...fields].reverse().find((field) => {
-                const name = field.name;
-                return new RegExp(`ODOO\\.PIVOT\\.POSITION.*${name}.*\\)`).test(formulaString);
-            });
-            const content = formulaString.replace(
-                new RegExp(
-                    `(.*ODOO\\.PIVOT\\.POSITION\\(\\s*"\\w"\\s*,\\s*"${field.name}"\\s*,\\s*"?)(\\d+)(.*)`
-                ),
-                (match, before, position, after) => {
-                    rule.current += step;
-                    return before + Math.max(parseInt(position) + rule.current, 1) + after;
-                }
-            );
-            return {
-                cellData: { ...data.cell, content },
-                tooltip: content
-                    ? {
-                          props: { content },
-                      }
-                    : undefined,
             };
         },
     });

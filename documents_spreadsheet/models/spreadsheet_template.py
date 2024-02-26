@@ -60,7 +60,6 @@ class SpreadsheetTemplate(models.Model):
             "tag": "action_open_spreadsheet",
             "params": {
                 "spreadsheet_id": spreadsheet.id,
-                "convert_from_template": True,
             },
         }
 

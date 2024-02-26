@@ -17,7 +17,7 @@ import { prepareWebClientForSpreadsheet } from "@spreadsheet_edition/../tests/ut
 import { createSpreadsheet } from "../spreadsheet_test_utils";
 import { setCellContent, selectCell, setSelection } from "@spreadsheet/../tests/utils/commands";
 import { doMenuAction } from "@spreadsheet/../tests/utils/ui";
-import { getCell, getCellContent, getCellValue } from "@spreadsheet/../tests/utils/getters";
+import { getCell, getCellValue } from "@spreadsheet/../tests/utils/getters";
 
 const { topbarMenuRegistry } = spreadsheet.registries;
 const { toZone } = spreadsheet.helpers;
@@ -248,60 +248,6 @@ QUnit.module(
             await nextTick();
             const gridComposerEl = fixture.querySelector(".o-grid div.o-composer");
             assert.strictEqual(document.activeElement, gridComposerEl);
-        });
-
-        QUnit.test("convert data from template", async function (assert) {
-            const data = {
-                sheets: [
-                    {
-                        id: "sheet1",
-                        cells: {
-                            A1: {
-                                content:
-                                    '=PIVOT.VALUE(1,"probability","foo", ODOO.PIVOT.POSITION(1, "foo", 1))',
-                            },
-                        },
-                    },
-                ],
-                pivots: {
-                    1: {
-                        id: 1,
-                        colGroupBys: ["foo"],
-                        domain: [],
-                        measures: [{ field: "probability" }],
-                        model: "partner",
-                        rowGroupBys: ["bar"],
-                        context: {},
-                    },
-                },
-            };
-            const serverData = getBasicServerData();
-            serverData.models["documents.document"].records.push({
-                id: 3000,
-                name: "My template spreadsheet",
-                spreadsheet_data: JSON.stringify(data),
-            });
-            const { model } = await createSpreadsheet({
-                spreadsheetId: 3000,
-                serverData,
-                convert_from_template: true,
-                mockRPC: function (route, { method, model, args }) {
-                    if (model === "documents.document" && method === "write") {
-                        assert.step("reset data");
-                        const data = JSON.parse(args[1].spreadsheet_data);
-                        assert.deepEqual(
-                            data.sheets[0].cells.A1.content,
-                            '=PIVOT.VALUE(1,"probability","foo","1")'
-                        );
-                    }
-                },
-            });
-            assert.strictEqual(
-                getCellContent(model, "A1"),
-                '=PIVOT.VALUE(1,"probability","foo","1")'
-            );
-            await nextTick();
-            assert.verifySteps(["reset data"]);
         });
 
         QUnit.test("menu > download as json", async function (assert) {

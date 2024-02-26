@@ -84,7 +84,7 @@ class SpreadsheetTemplate(SpreadsheetTestCommon):
         )
         self.assertEqual(action["type"], "ir.actions.client")
         self.assertEqual(action["tag"], "action_open_spreadsheet")
-        self.assertTrue(action["params"]["convert_from_template"])
+        self.assertEqual(action["params"].get("convert_from_template"), None)
 
     def test_action_create_spreadsheet_non_admin(self):
         user = new_test_user(
