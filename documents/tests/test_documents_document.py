@@ -579,3 +579,33 @@ class TestCaseDocuments(TransactionCase):
         with self.assertRaises(AccessError):
             self.env['ir.model'].with_user(manager).check_access_rights('read')
         workflow.with_user(manager).link_to_record(document)
+
+    def test_document_thumbnail_status(self):
+        for mimetype in ['application/pdf', 'application/pdf;base64']:
+            with self.subTest(mimetype=mimetype):
+                pdf_document = self.env['documents.document'].create({
+                    'name': 'Test PDF doc',
+                    'mimetype': mimetype,
+                    'datas': "JVBERi0gRmFrZSBQREYgY29udGVudA==",
+                    'folder_id': self.folder_b.id,
+                })
+                self.assertEqual(pdf_document.thumbnail, False)
+                self.assertEqual(pdf_document.thumbnail_status, 'client_generated')
+
+            word_document = self.env['documents.document'].create({
+                'name': 'Test DOC',
+                'mimetype': 'application/msword',
+                'folder_id': self.folder_b.id,
+            })
+            self.assertEqual(word_document.thumbnail, False)
+            self.assertEqual(word_document.thumbnail_status, False)
+        for mimetype in ['image/bmp', 'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/tiff', 'image/x-icon', 'image/webp']:
+            with self.subTest(mimetype=mimetype):
+                image_document = self.env['documents.document'].create({
+                    'name': 'Test image doc',
+                    'mimetype': mimetype,
+                    'datas': GIF,
+                    'folder_id': self.folder_b.id,
+                })
+                self.assertEqual(image_document.thumbnail, GIF)
+                self.assertEqual(image_document.thumbnail_status, 'present')
