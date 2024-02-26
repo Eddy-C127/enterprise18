@@ -615,27 +615,21 @@ class AccountMoveLine(models.Model):
         parsed_description = re.sub(r"[*&()|!':<>=%/~@,.;$\[\]]+", " ", description)
         parsed_description = ' | '.join(parsed_description.split())
 
-        from_clause, where_clause, params = (query if query is not None else self._build_predictive_query()).get_sql()
-        mask_from_clause, mask_where_clause, mask_params = self._build_predictive_query().get_sql()
         try:
-            account_move_line = self.env.cr.mogrify(
-                f"SELECT account_move_line.* FROM {mask_from_clause} WHERE {mask_where_clause}",
-                mask_params,
-            ).decode()
-            group_by_clause = ""
-            if "(" in field:  # aggregate function
-                group_by_clause = "GROUP BY account_move_line.id, account_move_line.name, account_move_line.partner_id"
-            self.env.cr.execute(f"""
-                WITH account_move_line AS MATERIALIZED ({account_move_line}),
-                source AS ({'(' + ') UNION ALL ('.join([self.env.cr.mogrify(f'''
-                    SELECT {field} AS prediction,
-                           setweight(to_tsvector(%%(lang)s, account_move_line.name), 'B')
-                           || setweight(to_tsvector('simple', 'account_move_line'), 'A') AS document
-                      FROM {from_clause}
-                     WHERE {where_clause}
-                  {group_by_clause}
-                ''', params).decode()] + (additional_queries or [])) + ')'}
+            main_source = (query if query is not None else self._build_predictive_query()).select(
+                SQL("%s AS prediction", field),
+                SQL(
+                    "setweight(to_tsvector(%s, account_move_line.name), 'B') || setweight(to_tsvector('simple', 'account_move_line'), 'A') AS document",
+                    psql_lang
                 ),
+            )
+            if "(" in field.code:  # aggregate function
+                main_source = SQL("%s %s", main_source, SQL("GROUP BY account_move_line.id, account_move_line.name, account_move_line.partner_id"))
+
+            self.env.cr.execute(SQL("""
+                WITH account_move_line AS MATERIALIZED (%(account_move_line)s),
+
+                source AS (%(source)s),
 
                 ranking AS (
                     SELECT prediction, ts_rank(source.document, query_plain) AS rank
@@ -648,10 +642,12 @@ class AccountMoveLine(models.Model):
               GROUP BY prediction
               ORDER BY ranking DESC, count DESC
                  LIMIT 2
-            """, {
-                'lang': psql_lang,
-                'description': parsed_description,
-            })
+                """,
+                account_move_line=self._build_predictive_query().select(SQL('*')),
+                source=SQL('(%s)', SQL(') UNION ALL (').join([main_source] + (additional_queries or []))),
+                lang=psql_lang,
+                description=parsed_description,
+            ))
             result = self.env.cr.dictfetchall()
             if result:
                 # Only confirm the prediction if it's at least 10% better than the second one
@@ -665,7 +661,7 @@ class AccountMoveLine(models.Model):
         return False
 
     def _predict_taxes(self):
-        field = 'array_agg(account_move_line__tax_rel__tax_ids.id ORDER BY account_move_line__tax_rel__tax_ids.id)'
+        field = SQL('array_agg(account_move_line__tax_rel__tax_ids.id ORDER BY account_move_line__tax_rel__tax_ids.id)')
         query = self._build_predictive_query()
         query.left_join('account_move_line', 'id', 'account_move_line_account_tax_rel', 'account_move_line_id', 'tax_rel')
         query.left_join('account_move_line__tax_rel', 'account_tax_id', 'account_tax', 'id', 'tax_ids')
@@ -678,7 +674,7 @@ class AccountMoveLine(models.Model):
         return False
 
     def _predict_specific_tax(self, amount_type, amount, type_tax_use):
-        field = 'array_agg(account_move_line__tax_rel__tax_ids.id ORDER BY account_move_line__tax_rel__tax_ids.id)'
+        field = SQL('array_agg(account_move_line__tax_rel__tax_ids.id ORDER BY account_move_line__tax_rel__tax_ids.id)')
         query = self._build_predictive_query()
         query.left_join('account_move_line', 'id', 'account_move_line_account_tax_rel', 'account_move_line_id', 'tax_rel')
         query.left_join('account_move_line__tax_rel', 'account_tax_id', 'account_tax', 'id', 'tax_ids')
@@ -694,13 +690,13 @@ class AccountMoveLine(models.Model):
         predict_product = int(self.env['ir.config_parameter'].sudo().get_param('account_predictive_bills.predict_product', '1'))
         if predict_product and self.company_id.predict_bill_product:
             query = self._build_predictive_query(['|', ('product_id', '=', False), ('product_id.active', '=', True)])
-            predicted_product_id = self._predicted_field('account_move_line.product_id', query)
+            predicted_product_id = self._predicted_field(SQL('account_move_line.product_id'), query)
             if predicted_product_id and predicted_product_id != self.product_id.id:
                 return predicted_product_id
         return False
 
     def _predict_account(self):
-        field = 'account_move_line.account_id'
+        field = SQL('account_move_line.account_id')
         if self.move_id.is_purchase_document(True):
             excluded_group = 'income'
         else:
@@ -708,14 +704,14 @@ class AccountMoveLine(models.Model):
         account_query = self.env['account.account']._where_calc([
             *self.env['account.account']._check_company_domain(self.move_id.company_id or self.env.company),
             ('deprecated', '=', False),
-            ('internal_group', 'not in', (excluded_group, 'off_balance')),
+            ('internal_group', 'not in', (excluded_group, 'off')),
             ('account_type', 'not in', ('liability_payable', 'asset_receivable')),
         ])
         psql_lang = self._get_predict_postgres_dictionary()
-        additional_queries = [self.env.cr.mogrify(*account_query.select(
-            "account_account.id AS account_id",
+        additional_queries = [SQL(account_query.select(
+            SQL("account_account.id AS account_id"),
             SQL("setweight(to_tsvector(%s, name), 'B') AS document", psql_lang),
-        )).decode()]
+        ))]
         query = self._build_predictive_query([('account_id', 'in', account_query)])
 
         predicted_account_id = self._predicted_field(field, query, additional_queries)

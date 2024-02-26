@@ -93,14 +93,10 @@ class ChileanReportCustomHandler(models.AbstractModel):
                    SUM(account_move_line.credit) AS credit,
                    GREATEST(SUM(account_move_line.balance), 0) AS debitor,
                    GREATEST(SUM(-account_move_line.balance), 0) AS creditor,
-                   CASE WHEN aa.internal_group IN ('asset', 'liability', 'equity')
-                      THEN GREATEST(SUM(account_move_line.balance), 0) ELSE 0 END AS assets,
-                   CASE WHEN aa.internal_group IN ('asset', 'liability', 'equity')
-                      THEN GREATEST(SUM(-account_move_line.balance), 0) ELSE 0 END AS liabilities,
-                   CASE WHEN aa.internal_group IN ('expense', 'income')
-                      THEN GREATEST(SUM(account_move_line.balance), 0) ELSE 0 END AS loss,
-                   CASE WHEN aa.internal_group IN ('expense', 'income')
-                      THEN GREATEST(SUM(-account_move_line.balance), 0) ELSE 0 END AS gain
+                   CASE WHEN %(bs)s THEN GREATEST(SUM(account_move_line.balance), 0) ELSE 0 END AS assets,
+                   CASE WHEN %(bs)s THEN GREATEST(SUM(-account_move_line.balance), 0) ELSE 0 END AS liabilities,
+                   CASE WHEN %(pnl)s THEN GREATEST(SUM(account_move_line.balance), 0) ELSE 0 END AS loss,
+                   CASE WHEN %(pnl)s THEN GREATEST(SUM(-account_move_line.balance), 0) ELSE 0 END AS gain
             FROM account_account AS aa, %(table_references)s
             WHERE %(search_condition)s
             AND aa.id = account_move_line.account_id
@@ -111,6 +107,8 @@ class ChileanReportCustomHandler(models.AbstractModel):
             aa_name=aa_name,
             table_references=table_references,
             search_condition=search_condition,
+            bs=SQL("aa.account_type LIKE 'asset%%' OR aa.account_type LIKE 'liability%%' OR aa.account_type LIKE 'equity%%'"),
+            pnl=SQL("aa.account_type LIKE 'expense%%' OR aa.account_type LIKE 'income%%'"),
         )
         return sql_query
 

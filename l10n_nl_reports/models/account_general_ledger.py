@@ -43,10 +43,10 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 return 'S'
             return 'O'
 
-        def acc_tp(internal_group):
-            if internal_group in ['income', 'expense']:
+        def acc_tp(account_type):
+            if account_type.startswith(('income', 'expense')):
                 return 'P'
-            if internal_group in ['asset', 'liability']:
+            if account_type.startswith(('asset', 'liability')):
                 return 'B'
             return 'M'
 
@@ -158,7 +158,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                            account.code AS account_code,
                            account.write_uid AS account_write_uid,
                            account.write_date AS account_write_date,
-                           account.internal_group,
+                           account.account_type,
                            reconcile.id AS line_reconcile_name,
                            currency.id AS line_currency_id,
                            currency2.id AS line_company_currency_id,
@@ -238,7 +238,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 vals_dict['account_data'].setdefault(row['account_id'], {
                     'account_code': row['account_code'],
                     'account_name': row['account_name'],
-                    'account_type': acc_tp(row['internal_group']),
+                    'account_type': acc_tp(row['account_type']),
                     'account_write_date': change_date_time(row['account_write_date']),
                     'account_write_uid': row['account_write_uid'],
                     'account_xaf_userid': self.env['res.users'].browse(row['account_write_uid']).l10n_nl_report_xaf_userid,
@@ -360,7 +360,9 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
         # Retrieve opening balance values
         new_options = self._get_options_initial_balance(options)
-        tables, where_clause, where_params = report._query_get(new_options, 'normal')
+        tables, where_clause, where_params = report._query_get(new_options, 'normal', domain=[
+            ('account_id.include_initial_balance', '=', True),
+        ])
         self._cr.execute(f"""
             SELECT acc.id AS account_id,
                    acc.code AS account_code,
@@ -370,7 +372,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             FROM {tables}
             JOIN account_account acc ON account_move_line.account_id = acc.id
             WHERE {where_clause}
-            AND acc.include_initial_balance
             GROUP BY acc.id
         """, where_params)
 
