@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
+from random import randint
 
 from odoo import fields
 from odoo.fields import Datetime
@@ -65,22 +66,42 @@ def _generate_payslips(env):
             payslip_runs.with_context(allowed_company_ids=cids).action_validate()
 
         # Generate skills logs
+        employee_skills_vals = []
         logs_vals = []
         data_vals = []
         today = fields.Date.today()
         all_skills = env['hr.skill'].search([])
+        all_skills_types = all_skills.mapped('skill_type_id')
+        max_skill_level = 0
+        for skill_types in all_skills_types:
+            max_skill_level = max(max_skill_level, len(skill_types.skill_level_ids.ids))
         all_employees = env['hr.employee'].search([])
+        env['hr.employee.skill.log'].search([]).unlink()
+        env['hr.employee.skill'].search([]).unlink()
         for employee in all_employees:
             for skill in all_skills:
-                for index, level in enumerate(skill.skill_type_id.skill_level_ids):
-                    logs_vals.append({
+                if randint(0, 100) > 85:
+                    array = skill.skill_type_id.skill_level_ids.ids
+                    skill_level = array[-1]
+                    max_level = array[0]
+                    for index in range(max_skill_level):
+                        logs_vals.append({
+                            'employee_id': employee.id,
+                            'department_id': employee.department_id.id,
+                            'skill_id': skill.id,
+                            'skill_type_id': skill.skill_type_id.id,
+                            'skill_level_id': skill_level,
+                            'date': today + relativedelta(months=(index - max_skill_level) * 4)
+                        })
+                        if randint(1, 4) == 1:
+                            skill_level = min(max_level, skill_level + 1)
+                    employee_skills_vals.append({
                         'employee_id': employee.id,
-                        'department_id': employee.department_id.id,
                         'skill_id': skill.id,
                         'skill_type_id': skill.skill_type_id.id,
-                        'skill_level_id': level.id,
-                        'date': today - relativedelta(months=(index + 1) * 3 + index % 3)
+                        'skill_level_id': skill_level,
                     })
+        employee_skills = env['hr.employee.skill'].create(employee_skills_vals)
         skill_logs = env['hr.employee.skill.log'].create(logs_vals)
         prefix = 'test_l10n_be_hr_payroll_account'
         for log in skill_logs:
@@ -88,10 +109,22 @@ def _generate_payslips(env):
             skill_id = log.skill_id.id
             level_id = log.skill_level_id.id
             data_vals.append({
-                'name': f'{prefix}.skill_log_employee_{employee_id}_skill_{skill_id}_level_{level_id}',
+                'name': f'{prefix}.skill_log_employee_{employee_id}_skill_{skill_id}_level_{level_id}_{log.date}',
                 'module': prefix,
                 'res_id': log.id,
                 'model': 'hr.employee.skill.log',
                 'noupdate': True,
             })
+        for skill in employee_skills:
+            employee_id = skill.employee_id.id
+            skill_id = skill.skill_id.id
+            level_id = skill.skill_level_id.id
+            data_vals.append({
+                'name': f'{prefix}.skill_employee_{employee_id}_skill_{skill_id}_level_{level_id}',
+                'module': prefix,
+                'res_id': skill.id,
+                'model': 'hr.employee.skill',
+                'noupdate': True,
+            })
+
         env['ir.model.data'].create(data_vals)
