@@ -72,6 +72,7 @@ class AccountJournal(models.Model):
         ibans = []
         codabox_journals = self.search([
             ("bank_statements_source", "=", "l10n_be_codabox"),
+            ("bank_acc_number", "!=", False),
             ("company_id", "=", company.id),
         ])
         for journal in codabox_journals:
@@ -100,14 +101,20 @@ class AccountJournal(models.Model):
                     'type': 'binary',
                     'datas': coda_raw_b64,
                 })
-                __, account_number, stmt_vals = self._parse_bank_statement_file(attachment)
+                currency, account_number, stmt_vals = self._parse_bank_statement_file(attachment)
                 journal = self.search([
                     ("bank_acc_number", "=", account_number),
+                    ("bank_statements_source", "in", ("l10n_be_codabox", "undefined")),
+                    "|",
+                        ("currency_id.name", "=", currency),
+                        "&",
+                            ("currency_id", "=", False),
+                            ("company_id.currency_id.name", "=", currency),
                 ], limit=1)
-                if journal.bank_statements_source in ("l10n_be_codabox", "undefined"):
+                if journal:
                     journal.bank_statements_source = "l10n_be_codabox"
                 else:
-                    skipped_bank_accounts.add(account_number)
+                    skipped_bank_accounts.add(f"{account_number} ({currency})")
                     continue
                 stmt_vals = journal._complete_bank_statement_vals(stmt_vals, journal, account_number, attachment)
                 statement_id, __, __ = journal.with_context(skip_pdf_attachment_generation=True)._create_bank_statements(stmt_vals, raise_no_imported_file=False)
