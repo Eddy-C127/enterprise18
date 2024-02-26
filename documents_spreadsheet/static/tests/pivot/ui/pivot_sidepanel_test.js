@@ -9,12 +9,12 @@ import {
     triggerEvent,
 } from "@web/../tests/helpers/utils";
 import { getBasicData, getBasicPivotArch } from "@spreadsheet/../tests/utils/data";
-import {
-    createSpreadsheetFromPivotView,
-    getZoneOfInsertedDataSource,
-} from "../../utils/pivot_helpers";
+import { createSpreadsheetFromPivotView } from "../../utils/pivot_helpers";
 import { PivotUIPlugin } from "@spreadsheet/pivot/plugins/pivot_ui_plugin";
-import { insertPivotInSpreadsheet } from "@spreadsheet/../tests/utils/pivot";
+import {
+    insertPivotInSpreadsheet,
+    getZoneOfInsertedDataSource,
+} from "@spreadsheet/../tests/utils/pivot";
 import * as dsHelpers from "@web/../tests/core/domain_selector_tests";
 import { getHighlightsFromStore } from "../../utils/store_helpers";
 import { dragAndDrop } from "@web/../tests/legacy/helpers/utils";
@@ -748,7 +748,6 @@ QUnit.module(
                 assert.strictEqual(secondDateGroup.value, "day");
                 assert.strictEqual(firstDateGroup.innerText, "Year\nQuarter\nMonth\nWeek");
                 assert.strictEqual(secondDateGroup.innerText, "Quarter\nMonth\nWeek\nDay");
-
             }
         );
 

@@ -46,8 +46,8 @@ import { getSpreadsheetActionModel } from "@spreadsheet_edition/../tests/utils/w
 import { patchListControllerExportSelection } from "@spreadsheet_edition/assets/list_view/list_controller";
 import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import { onMounted } from "@odoo/owl";
-import { getZoneOfInsertedDataSource } from "../utils/pivot_helpers";
 import { getHighlightsFromStore } from "../utils/store_helpers";
+import { getZoneOfInsertedDataSource } from "@spreadsheet/../tests/utils/pivot";
 
 const { topbarMenuRegistry, cellMenuRegistry } = spreadsheet.registries;
 const { toZone } = spreadsheet.helpers;

@@ -30,10 +30,8 @@ import {
     prepareWebClientForSpreadsheet,
 } from "@spreadsheet_edition/../tests/utils/webclient_helpers";
 import {
-    getCell,
     getEvaluatedCell,
     getCellContent,
-    getCells,
     getCellValue,
 } from "@spreadsheet/../tests/utils/getters";
 import { user } from "@web/core/user";
@@ -55,7 +53,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 },
             },
         });
-        assert.strictEqual(Object.values(getCells(model)).length, 6);
         assert.strictEqual(getCellContent(model, "A1"), "");
         assert.strictEqual(getCellContent(model, "A2"), "");
         assert.strictEqual(getCellContent(model, "A3"), "=PIVOT.HEADER(1)");
@@ -78,10 +75,8 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 },
             },
         });
-        assert.strictEqual(Object.values(getCells(model)).length, 9);
         assert.strictEqual(getCellContent(model, "B1"), "=PIVOT.HEADER(1)");
         assert.strictEqual(getCellContent(model, "B2"), '=PIVOT.HEADER(1,"measure","foo")');
-        assert.strictEqual(getCell(model, "B2").style.bold, undefined);
         assert.strictEqual(getCellContent(model, "C2"), '=PIVOT.HEADER(1,"measure","probability")');
         assert.strictEqual(getCellContent(model, "B3"), '=PIVOT.VALUE(1,"foo")');
         assert.strictEqual(getCellContent(model, "C3"), '=PIVOT.VALUE(1,"probability")');
@@ -294,9 +289,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("pivot with one level of group bys", async (assert) => {
-        assert.expect(7);
         const { model } = await createSpreadsheetFromPivotView();
-        assert.strictEqual(Object.values(getCells(model)).length, 30);
         assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"bar","false")');
         assert.strictEqual(getCellContent(model, "A4"), '=PIVOT.HEADER(1,"bar","true")');
         assert.strictEqual(getCellContent(model, "A5"), "=PIVOT.HEADER(1)");
@@ -341,7 +334,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("pivot with two levels of group bys in rows", async (assert) => {
-        assert.expect(9);
         const { model } = await createSpreadsheetFromPivotView({
             serverData: {
                 models: getBasicData(),
@@ -356,14 +348,11 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 },
             },
         });
-        assert.strictEqual(Object.values(getCells(model)).length, 16);
         assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"bar","false")');
-        assert.deepEqual(getCell(model, "A3").style, { fillColor: "#E6F2F3", bold: true });
         assert.strictEqual(
             getCellContent(model, "A4"),
             '=PIVOT.HEADER(1,"bar","false","product_id",41)'
         );
-        assert.deepEqual(getCell(model, "A4").style, { fillColor: "#E6F2F3" });
         assert.strictEqual(getCellContent(model, "A5"), '=PIVOT.HEADER(1,"bar","true")');
         assert.strictEqual(
             getCellContent(model, "A6"),
@@ -440,7 +429,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("pivot with two levels of group bys in cols", async (assert) => {
-        assert.expect(12);
         const { model } = await createSpreadsheetFromPivotView({
             serverData: {
                 models: getBasicData(),
@@ -455,9 +443,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 },
             },
         });
-        assert.strictEqual(Object.values(getCells(model)).length, 20);
         assert.strictEqual(getCellContent(model, "A1"), "");
-        assert.deepEqual(getCell(model, "A4").style, { fillColor: "#E6F2F3", bold: true });
         assert.strictEqual(getCellContent(model, "B1"), '=PIVOT.HEADER(1,"bar","false")');
         assert.strictEqual(
             getCellContent(model, "B2"),
@@ -467,7 +453,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             getCellContent(model, "B3"),
             '=PIVOT.HEADER(1,"bar","false","product_id",41,"measure","probability")'
         );
-        assert.deepEqual(getCell(model, "C2").style, { fillColor: "#E6F2F3", bold: true });
         assert.strictEqual(getCellContent(model, "C1"), '=PIVOT.HEADER(1,"bar","true")');
         assert.strictEqual(
             getCellContent(model, "C2"),
@@ -488,8 +473,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("pivot with count as measure", async (assert) => {
-        assert.expect(3);
-
         const { model } = await createSpreadsheetFromPivotView({
             serverData: {
                 models: getBasicData(),
@@ -506,7 +489,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 await toggleMenuItem(target, "Count");
             },
         });
-        assert.strictEqual(Object.keys(getCells(model)).length, 9);
         assert.strictEqual(getCellContent(model, "C2"), '=PIVOT.HEADER(1,"measure","__count")');
         assert.strictEqual(getCellContent(model, "C3"), '=PIVOT.VALUE(1,"__count")');
     });
@@ -1198,44 +1180,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             2,
             "[Cell D3] There are two distinct products for 'foo - 17' and 'bar - true'"
         );
-    });
-
-    QUnit.test("Styling on row headers", async function (assert) {
-        assert.expect(10);
-
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": `
-                            <pivot string="Partners">
-                                <field name="product_id" type="row"/>
-                                <field name="bar" type="row"/>
-                                <field name="foo" type="row"/>
-                                <field name="probability" type="measure"/>
-                            </pivot>`,
-                    "partner,false,search": `<search/>`,
-                },
-            },
-        });
-        const styleMainheader = {
-            fillColor: "#E6F2F3",
-            bold: true,
-        };
-        const styleSubHeader = {
-            fillColor: "#E6F2F3",
-        };
-        const styleSubSubHeader = undefined;
-        assert.deepEqual(getCell(model, "A3").style, styleMainheader);
-        assert.deepEqual(getCell(model, "A4").style, styleSubHeader);
-        assert.deepEqual(getCell(model, "A5").style, styleSubSubHeader);
-        assert.deepEqual(getCell(model, "A6").style, styleMainheader);
-        assert.deepEqual(getCell(model, "A7").style, styleSubHeader);
-        assert.deepEqual(getCell(model, "A8").style, styleSubSubHeader);
-        assert.deepEqual(getCell(model, "A9").style, styleSubHeader);
-        assert.deepEqual(getCell(model, "A10").style, styleSubSubHeader);
-        assert.deepEqual(getCell(model, "A11").style, styleSubSubHeader);
-        assert.deepEqual(getCell(model, "A12").style, styleMainheader);
     });
 
     QUnit.test("Pivot export from an action with an xml ID", async function (assert) {

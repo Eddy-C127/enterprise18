@@ -20,13 +20,11 @@ import {
     setCellContent,
     setGlobalFilterValue,
 } from "@spreadsheet/../tests/utils/commands";
-import {
-    createSpreadsheetFromPivotView,
-    getZoneOfInsertedDataSource,
-} from "../utils/pivot_helpers";
+import { createSpreadsheetFromPivotView } from "../utils/pivot_helpers";
 import {
     createSpreadsheetWithPivot,
     insertPivotInSpreadsheet,
+    getZoneOfInsertedDataSource,
 } from "@spreadsheet/../tests/utils/pivot";
 import { user } from "@web/core/user";
 
@@ -257,6 +255,9 @@ QUnit.module(
         QUnit.test("reinsert pivot with anchor on merge but not top left", async function (assert) {
             const { model, env } = await createSpreadsheetWithPivot();
             const sheetId = model.getters.getActiveSheetId();
+            const [pivotId] = model.getters.getPivotIds();
+            const pivotZone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
+            model.dispatch("REMOVE_TABLE", { sheetId, target: [pivotZone] });
             assert.equal(
                 getCellFormula(model, "B2"),
                 `=PIVOT.HEADER(1,"foo",1,"measure","probability")`,
@@ -395,8 +396,13 @@ QUnit.module(
                         },
                     },
                 };
+                const sheetId = model.getters.getActiveSheetId();
+                const [pivotId] = model.getters.getPivotIds();
+                const pivotZone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
+                model.dispatch("REMOVE_TABLE", { sheetId, target: [pivotZone] });
+
                 model.dispatch("ADD_MERGE", {
-                    sheetId: model.getters.getActiveSheetId(),
+                    sheetId,
                     target: [toZone("C3:D3")],
                     force: true, // there are data in D3
                 });
