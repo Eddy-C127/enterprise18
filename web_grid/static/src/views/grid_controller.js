@@ -11,6 +11,7 @@ import { standardViewProps } from "@web/views/standard_view_props";
 import { useViewButtons } from "@web/views/view_button/view_button_hook";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 import { ViewButton } from "@web/views/view_button/view_button";
+import { useSetupView } from "@web/views/view_hook";
 import { CogMenu } from "@web/search/cog_menu/cog_menu";
 import { SearchBar } from "@web/search/search_bar/search_bar";
 import { useSearchBarToggler } from "@web/search/search_bar/search_bar_toggler";
@@ -41,14 +42,19 @@ export class GridController extends Component {
     static template = "web_grid.GridView";
 
     setup() {
+        const state = this.props.state || {};
         let activeRangeName = this.props.archInfo.activeRangeName;
         let defaultAnchor;
-        if (this.isMobile && "day" in this.props.archInfo.ranges) {
+        if (state.activeRangeName) {
+            activeRangeName = state.activeRangeName;
+        } else if (this.isMobile && "day" in this.props.archInfo.ranges) {
             activeRangeName = "day";
         } else if ("grid_range" in this.props.context) {
             activeRangeName = this.props.context.grid_range;
         }
-        if (this.props.context.grid_anchor) {
+        if (state.anchor) {
+            defaultAnchor = state.anchor;
+        } else if (this.props.context.grid_anchor) {
             defaultAnchor = deserializeDate(this.props.context.grid_anchor);
         }
         this.dialogService = useService("dialog");
@@ -64,6 +70,15 @@ export class GridController extends Component {
             ranges: this.props.archInfo.ranges,
             defaultAnchor,
         });
+        useSetupView({
+            getLocalState: () => {
+                const { anchor, range } = this.model.navigationInfo;
+                return {
+                    anchor,
+                    activeRangeName: range.name,
+                };
+            }
+        })
         const isWeekendVisible = browser.localStorage.getItem("grid.isWeekendVisible");
         this.state = useState({
             activeRangeName,

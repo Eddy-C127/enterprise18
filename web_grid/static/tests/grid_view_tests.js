@@ -2344,4 +2344,37 @@ QUnit.module("Views", (hooks) => {
             );
         }
     );
+
+    QUnit.test("restore navigationInfo from previous state", async function (assert) {
+        const webClient = await createWebClient({
+            serverData,
+            async mockRPC(route, args) {
+                if (args.method === "grid_unavailability") {
+                    return {};
+                }
+            },
+        });
+        await doAction(webClient, {
+            res_model: "analytic.line",
+            type: "ir.actions.act_window",
+            views: [[false, "grid"]],
+        });
+        await click(target, ".oi-arrow-left");
+        assert.ok(
+            getNodesTextContent(target.querySelectorAll(".o_grid_column_title")).includes(
+                "Tue,\nJan\u00A024"
+            ),
+            "The 24th of January should be displayed in the grid view"
+        );
+        await hoverGridCell((target.querySelectorAll(".o_grid_row .o_grid_cell_readonly"))[0]);
+        await click(target, ".o_grid_cell button.o_grid_search_btn");
+        await click(target.querySelector(".breadcrumb-item.o_back_button"));
+        assert.ok(
+            getNodesTextContent(target.querySelectorAll(".o_grid_column_title")).includes(
+                "Tue,\nJan\u00A024"
+            ),
+            "The 24th of January should still be displayed in the grid view"
+        );
+    });
+
 });
