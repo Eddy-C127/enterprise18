@@ -1,5 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, fields, models, _
+from odoo.addons.account.tools.certificate import crypto_load_certificate
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.misc import file_open
 from datetime import datetime
@@ -93,8 +94,7 @@ class ResCompany(models.Model):
 
     def _l10n_ar_get_certificate_object(self, cert):
         crt_str = base64.decodebytes(cert).decode('ascii')
-        res = crypto.load_certificate(crypto.FILETYPE_PEM, crt_str)
-        return res
+        return crypto_load_certificate(crt_str)
 
     def _l10n_ar_get_afip_crt_expire_date(self):
         """ return afip certificate expire date in datetime.date() """

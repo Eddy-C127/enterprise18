@@ -9,6 +9,7 @@ from lxml import etree
 from pytz import timezone
 
 from odoo import _, api, fields, models, tools
+from odoo.addons.account.tools.certificate import crypto_load_certificate
 from odoo.exceptions import ValidationError, UserError
 from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
 
@@ -95,7 +96,7 @@ class Certificate(models.Model):
         '''
         self.ensure_one()
         cer_pem = self._get_pem_cer(self.content)
-        certificate = crypto.load_certificate(crypto.FILETYPE_PEM, cer_pem)
+        certificate = crypto_load_certificate(cer_pem)
         for to_del in ['\n', ssl.PEM_HEADER, ssl.PEM_FOOTER]:
             cer_pem = cer_pem.replace(to_del.encode('UTF-8'), b'')
         return cer_pem, certificate

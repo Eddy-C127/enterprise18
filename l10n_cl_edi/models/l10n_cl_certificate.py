@@ -7,10 +7,10 @@ from datetime import datetime
 from pytz import timezone
 
 from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives.serialization import load_pem_private_key
-from OpenSSL import crypto
+from cryptography.hazmat.primitives.serialization import Encoding, NoEncryption, PrivateFormat, load_pem_private_key
 
 from odoo import _, api, fields, models
+from odoo.addons.account.tools.certificate import crypto_load_certificate, load_key_and_certificates
 from odoo.exceptions import UserError
 from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
 
@@ -50,15 +50,14 @@ class Certificate(models.Model):
         """ Return the signature_key_file (b64 encoded) and the certificate decrypted """
         self.ensure_one()
         try:
-            p12 = crypto.load_pkcs12(base64.b64decode(self.with_context(bin_size=False).signature_key_file), self.signature_pass_phrase.encode())
+            pkey, cert = load_key_and_certificates(base64.b64decode(self.with_context(bin_size=False).signature_key_file), self.signature_pass_phrase.encode())
         except Exception as error:
             raise UserError(error)
-        certificate = p12.get_certificate()
-        cer_pem = crypto.dump_certificate(crypto.FILETYPE_PEM, certificate)
-        key = crypto.dump_privatekey(crypto.FILETYPE_PEM, p12.get_privatekey())
+        cer_pem = cert.public_bytes(encoding=Encoding.PEM)
+        cert = crypto_load_certificate(cer_pem)
         for to_del in ['\n', ssl.PEM_HEADER, ssl.PEM_FOOTER]:
             cer_pem = cer_pem.replace(to_del.encode('UTF-8'), b'')
-        return cer_pem, certificate, key
+        return cer_pem, cert, pkey.private_bytes(Encoding.PEM, PrivateFormat.PKCS8, NoEncryption())
 
     def _is_valid_certificate(self):
         """ Search for a valid certificate that is available and not expired. """
