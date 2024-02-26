@@ -1,11 +1,6 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import logging
-
-from odoo import api, fields, models, _
-
-_logger = logging.getLogger(__name__)
+from odoo import fields, models, _
 
 
 class Job(models.Model):
@@ -50,6 +45,11 @@ class Job(models.Model):
     def set_recruit(self):
         self.write({'job_open_date': fields.Date.today()})
         return super(Job, self).set_recruit()
+
+    def get_referral_link(self, channel):
+        self.ensure_one()
+        wizard = self.env['hr.referral.link.to.share'].create({'job_id': self.id, 'channel': channel})
+        return wizard.url
 
     def action_share_external(self):
         self.ensure_one()

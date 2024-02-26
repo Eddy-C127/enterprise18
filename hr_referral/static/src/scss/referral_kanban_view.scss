@@ -112,6 +112,9 @@
 
     .o_button_referral {
         margin: 0 0 10px 0;
+        .fa {
+            margin-bottom: .2rem;
+        }
     }
 
     .o_to_share {
@@ -128,12 +131,10 @@
 }
 
 .o_referral_kanban_view.o_kanban_referral_job .o_kanban_renderer{
-    &.o_kanban_ungrouped {
-        .o_kanban_record {
-            max-width: 450px;
-            @include media-breakpoint-up(sm) {
-                min-width: 450px;
-            }
+    &.o_kanban_ungrouped .o_kanban_record {
+        width: 450px;
+        &:not(.o_kanban_ghost) {
+            min-height: 220px;
         }
     }
 }

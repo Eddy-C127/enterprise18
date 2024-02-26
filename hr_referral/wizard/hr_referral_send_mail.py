@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
@@ -13,18 +12,19 @@ class HrReferralSendMail(models.TransientModel):
         'hr.job', readonly=True,
         default=lambda self: self.env.context.get('active_id', None),
     )
-    url = fields.Char("url", compute='_compute_url', readonly=True)
+    url = fields.Char(compute='_compute_url', readonly=True)
     email_to = fields.Char(string="Email", required=True)
     subject = fields.Char('Subject', default="Job for you")
     body_html = fields.Html('Body', compute='_compute_body_html', store=True, readonly=False)
 
     @api.depends('job_id')
     def _compute_url(self):
-        self.ensure_one()
-        self.url = self.env['hr.referral.link.to.share'].create({
-            'job_id': self.job_id.id,
+        link_wizards = self.env['hr.referral.link.to.share'].create([{
+            'job_id': wizard.job_id.id,
             'channel': 'direct',
-        }).url
+        } for wizard in self])
+        for wizard, link_wizard in zip(self, link_wizards):
+            wizard.url = link_wizard.url
 
     @api.depends('job_id', 'url')
     def _compute_body_html(self):

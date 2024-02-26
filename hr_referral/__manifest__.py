@@ -19,6 +19,7 @@
         'wizard/hr_referral_alert_mail_wizard_views.xml',
         'wizard/hr_referral_link_to_share_views.xml',
         'wizard/hr_referral_send_mail_views.xml',
+        'wizard/hr_referral_send_sms_views.xml',
         'views/hr_job_views.xml',
         'views/hr_recruitment_views.xml',
         'views/hr_referral_onboarding_views.xml',
@@ -38,7 +39,7 @@
     'uninstall_hook': 'uninstall_hook',
     'assets': {
         'web.assets_backend': [
-            'hr_referral/static/src/views/*.js',
+            'hr_referral/static/src/**/*.js',
             'hr_referral/static/src/scss/referral_kanban_view.scss',
             'hr_referral/static/src/scss/_fonts.scss',
             'hr_referral/static/src/scss/hr_referral.scss',
