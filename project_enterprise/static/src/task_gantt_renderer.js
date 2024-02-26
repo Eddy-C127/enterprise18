@@ -187,7 +187,7 @@ export class TaskGanttRenderer extends GanttRenderer {
     }
 
     openPlanDialogCallback(res) {
-        if (!res) {
+        if (!res || Array.isArray(res)) {
             return;
         }
         for (const [warningType, warningString] of Object.entries(res)) {

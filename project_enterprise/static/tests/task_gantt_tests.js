@@ -1,5 +1,6 @@
 /** @odoo-module */
 
+import { contains } from "@web/../tests/utils";
 import {
     getFixture,
     getNodesTextContent,
@@ -7,11 +8,18 @@ import {
     patchWithCleanup,
     click,
     nextTick,
+    triggerEvent,
     triggerEvents,
 } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
-import { clickCell, hoverGridCell, SELECTORS } from "@web_gantt/../tests/helpers";
+import {
+    clickCell,
+    dragPill,
+    getGridContent,
+    hoverGridCell,
+    SELECTORS,
+} from "@web_gantt/../tests/helpers";
 import { servicesToDefineInGantt } from "@project_enterprise/../tests/task_gantt_dependency_tests";
 import { browser } from "@web/core/browser/browser";
 
@@ -165,6 +173,9 @@ QUnit.module("Views > TaskGanttView", {
                     ],
                 },
             },
+            views: {
+                "task,false,list": '<tree><field name="name"/></tree>',
+            }
         };
     },
 });
@@ -874,3 +885,159 @@ QUnit.test(
         ]);
     }
 );
+
+QUnit.test("Copy pill in another row", async (assert) => {
+    await makeView({
+        ...ganttViewParams,
+        groupBy: ["user_ids"],
+    });
+
+    assert.deepEqual(getGridContent().rows, [
+        {
+            title: "👤 Unassigned",
+        },
+        {
+            title: "Jane Doe",
+            pills: [{ title: "Blop", level: 0, colSpan: "14 -> 24 (1/2)" }],
+        },
+        {
+            title: "John Doe",
+            pills: [{ title: "Yop", level: 0, colSpan: "02 -> 12 (1/2)" }],
+        },
+    ]);
+    await triggerEvent(window, null, "keydown", { key: "Control" });
+
+    // move blop to John Doe
+    const { drop, moveTo } = await dragPill("Blop");
+    await moveTo({ row: 3, column: 14 });
+
+    assert.hasClass(target.querySelector(SELECTORS.renderer), "o_copying");
+
+    await drop();
+
+    assert.deepEqual(getGridContent().rows, [
+        {
+            title: "👤 Unassigned",
+        },
+        {
+            title: "Jane Doe",
+            pills: [{ title: "Blop", level: 0, colSpan: "14 -> 24 (1/2)" }],
+        },
+        {
+            title: "John Doe",
+            pills: [
+                { title: "Yop", level: 0, colSpan: "02 -> 12 (1/2)" },
+                { title: "Blop (copy)", level: 0, colSpan: "14 -> 24 (1/2)" },
+            ],
+        },
+    ]);
+});
+
+QUnit.test("Smart scheduling", async (assert) => {
+    ganttViewParams.serverData.models.task.records.push({
+        id: 3,
+        name: "Gnop",
+        user_ids: 100,
+    });
+
+    await makeView({
+        ...ganttViewParams,
+        groupBy: ["user_ids"],
+        mockRPC(route, args, performRPC) {
+            if (args.method === "schedule_tasks") {
+                assert.step("schedule_tasks");
+                return performRPC(route, { ...args, method: "write" }, performRPC);
+            }
+            return ganttViewParams.mockRPC(route, args);
+        },
+    });
+
+    assert.deepEqual(getGridContent().rows, [
+        {
+            title: "👤 Unassigned",
+        },
+        {
+            title: "Jane Doe",
+            pills: [{ title: "Blop", level: 0, colSpan: "14 -> 24 (1/2)" }],
+        },
+        {
+            title: "John Doe",
+            pills: [{ title: "Yop", level: 0, colSpan: "02 -> 12 (1/2)" }],
+        },
+    ]);
+
+    await hoverGridCell(1, 1);
+    await clickCell(1, 1);
+    assert.containsOnce(target, ".o_dialog");
+    await click(target, ".o_dialog .o_data_cell");
+    assert.deepEqual(getGridContent().rows, [
+        {
+            title: "👤 Unassigned",
+        },
+        {
+            title: "Jane Doe",
+            pills: [
+                { title: "Gnop", level: 0, colSpan: "01 -> 01" },
+                { title: "Blop", level: 0, colSpan: "14 -> 24 (1/2)" },
+            ],
+        },
+        {
+            title: "John Doe",
+            pills: [{ title: "Yop", level: 0, colSpan: "02 -> 12 (1/2)" }],
+        },
+    ]);
+    assert.verifySteps(["schedule_tasks"]);
+});
+
+QUnit.test("Smart scheduling: display warnings", async (assert) => {
+    ganttViewParams.serverData.models.task.records.push({
+        id: 3,
+        name: "Gnop",
+        user_ids: 100,
+    });
+
+    await makeView({
+        ...ganttViewParams,
+        groupBy: ["user_ids"],
+        mockRPC(route, args) {
+            if (args.method === "schedule_tasks") {
+                assert.step("schedule_tasks");
+                return {
+                    test: "test notification",
+                };
+            }
+            return ganttViewParams.mockRPC(route, args);
+        },
+    });
+
+    assert.deepEqual(getGridContent().rows, [
+        {
+            title: "👤 Unassigned",
+        },
+        {
+            title: "Jane Doe",
+            pills: [{ title: "Blop", level: 0, colSpan: "14 -> 24 (1/2)" }],
+        },
+        {
+            title: "John Doe",
+            pills: [{ title: "Yop", level: 0, colSpan: "02 -> 12 (1/2)" }],
+        },
+    ]);
+
+    await hoverGridCell(1, 1);
+    await clickCell(1, 1);
+    assert.containsOnce(target, ".o_dialog");
+    await click(target, ".o_dialog .o_data_cell");
+
+    await contains(".o_notification");
+
+    assert.containsOnce(target, ".o_notification");
+    assert.containsOnce(target, ".o_notification .bg-warning");
+    assert.strictEqual(
+        target.querySelector(".o_notification").textContent,
+        "Warningtest notification",
+        "should display the warning"
+    );
+
+    assert.verifySteps(["schedule_tasks"]);
+});
