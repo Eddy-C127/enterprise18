@@ -90,18 +90,15 @@ class AccountJournal(models.Model):
                     'datas': coda_raw_b64,
                 })
                 currency, account_number, stmt_vals = self._parse_bank_statement_file(attachment)
-                journals = self.search([
+                journal = self.search([
                     ("bank_acc_number", "=", account_number),
                     ("bank_statements_source", "in", ("l10n_be_codabox", "undefined")),
-                ])
-                journal = journals.filtered(lambda j: (
-                    j.currency_id.name == currency
-                    or
-                    (
-                        not j.currency_id
-                        and currency == company.currency_id.name
-                    )
-                ))[:1]
+                    "|",
+                        ("currency_id.name", "=", currency),
+                        "&",
+                            ("currency_id", "=", False),
+                            ("company_id.currency_id.name", "=", currency),
+                ], limit=1)
                 if journal:
                     journal.bank_statements_source = "l10n_be_codabox"
                 else:
