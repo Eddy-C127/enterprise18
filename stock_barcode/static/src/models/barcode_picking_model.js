@@ -32,7 +32,7 @@ export default class BarcodePickingModel extends BarcodeModel {
         super.setData(...arguments);
         this._useReservation = this.initialState.lines.some(line => !line.picked);
         this.config = data.data.config || {}; // Picking type's scan restrictions configuration.
-        if (!this.displayDestinationLocation) {
+        if (!this.useScanDestinationLocation) {
             this.config.restrict_scan_dest_location = 'no';
         }
         this.lineFormViewId = data.data.line_view_id;
@@ -274,7 +274,7 @@ export default class BarcodePickingModel extends BarcodeModel {
             icon: "tags",
         };
         if ((line || this.lastScanned.packageId) && this.groups.group_stock_multi_locations) {
-            if (this.record.picking_type_code === "outgoing" && this.displaySourceLocation) {
+            if (this.record.picking_type_code === "outgoing" && this.useScanSourceLocation) {
                 barcodeInfo = {
                     message: _t("Scan more products, or scan a new source location"),
                     class: "scan_product_or_src",
@@ -319,7 +319,7 @@ export default class BarcodePickingModel extends BarcodeModel {
         }
 
         // About source location.
-        if (this.displaySourceLocation) {
+        if (this.useScanSourceLocation) {
             if (!this.lastScanned.sourceLocation && !this.pageIsDone) {
                 return infos.scanScrLoc;
             } else if (this.lastScanned.sourceLocation && this.lastScanned.destLocation == 'no' &&
@@ -564,8 +564,7 @@ export default class BarcodePickingModel extends BarcodeModel {
 
     get displayDestinationLocation() {
         return this.groups.group_stock_multi_locations &&
-            ['incoming', 'internal'].includes(this.record.picking_type_code) &&
-            this.config.restrict_scan_dest_location != 'no';
+            ['incoming', 'internal'].includes(this.record.picking_type_code)
     }
 
     get displayPutInPackButton() {
@@ -577,8 +576,16 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     get displaySourceLocation() {
-        return super.displaySourceLocation && this.config.restrict_scan_source_location &&
+        return super.displaySourceLocation &&
             ['internal', 'outgoing'].includes(this.record.picking_type_code);
+    }
+
+    get useScanSourceLocation() {
+        return super.useScanSourceLocation && this.config.restrict_scan_source_location 
+    }
+
+    get useScanDestinationLocation() {
+        return super.useScanDestinationLocation && this.config.restrict_scan_dest_location != 'no';
     }
 
     get displayValidateButton() {
@@ -1056,7 +1063,7 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     _getDefaultMessageType() {
-        if (this.displaySourceLocation && !this.lastScanned.sourceLocation) {
+        if (this.useScanSourceLocation && !this.lastScanned.sourceLocation) {
             return 'scan_src';
         }
         return 'scan_product';

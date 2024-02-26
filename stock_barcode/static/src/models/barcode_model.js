@@ -150,12 +150,20 @@ export default class BarcodeModel extends EventBus {
         return false;
     }
 
+    get useScanDestinationLocation() {
+        return this.displayDestinationLocation;
+    }
+
     get displayResultPackage() {
         return false;
     }
 
     get displaySourceLocation() {
         return this.groups.group_stock_multi_locations;
+    }
+
+    get useScanSourceLocation() {
+        return this.displaySourceLocation;
     }
 
     groupKey(line) {

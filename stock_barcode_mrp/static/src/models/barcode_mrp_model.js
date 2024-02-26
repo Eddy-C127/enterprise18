@@ -111,7 +111,7 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
     }
 
     get displaySourceLocation() {
-        return this.groups.group_stock_multi_locations && this.config.restrict_scan_source_location;
+        return this.groups.group_stock_multi_locations;
     }
 
     get canBeValidate() {
