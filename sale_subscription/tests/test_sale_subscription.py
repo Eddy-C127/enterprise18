@@ -3530,6 +3530,35 @@ class TestSubscription(TestSubscriptionCommon):
             ('0_creation', datetime.date(2024, 1, 27), '3_progress', 21.0, 21.0),
         ], "The last churn is removed")
 
+    def test_recurring_plan_price_recalc_adding_optional_product(self):
+        """
+        Test that when an optional recurring product is added to a subscription sale order that its price unit is
+        correctly recalculated after subsequent edits to the order's recurring plan
+        """
+        self.sub_product_tmpl.write({'product_subscription_pricing_ids': [Command.set(self.pricing_year.id)]})
+        product_a = self.sub_product_tmpl.product_variant_id
+        product_a.list_price = 1.0
+
+        self.product_tmpl_2.write({'product_subscription_pricing_ids': [Command.set(self.pricing_year_2.id)]})
+        product_b = self.product_tmpl_2.product_variant_id
+        product_b.list_price = 1.0
+
+        sale_order = self.env['sale.order'].create({
+            'plan_id': self.plan_month.id,
+            'partner_id': self.user_portal.partner_id.id,
+            'company_id': self.company_data['company'].id,
+            'order_line': [
+                Command.create({'product_id': product_a.id}),
+                Command.create({'product_id': product_b.id})
+            ],
+            'sale_order_option_ids': [Command.create({'product_id': product_b.id})],
+        })
+
+        sale_order.sale_order_option_ids.line_id = sale_order.order_line[1].id
+        sale_order.write({'plan_id': self.plan_year})
+
+        self.assertEqual(sale_order.order_line[1].price_unit, 200.0)
+
     def test_upsell_total_qty(self):
         self.subscription.action_confirm()
         self.subscription._create_recurring_invoice()
