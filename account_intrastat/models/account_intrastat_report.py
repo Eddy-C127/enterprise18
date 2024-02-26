@@ -215,12 +215,12 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         if warnings is not None:
             for column_group in options['column_groups']:
                 for warning_code in errors:
-                    if line_vals.get(column_group) and line_vals[column_group].get(warning_code):
+                    if line_vals.get(column_group) and any(line_vals[column_group].get(warning_code)):
                         warning_params = warnings.setdefault(
                             f'account_intrastat.intrastat_warning_{warning_code}',
                             {'ids': [], 'alert_type': 'warning'}
                         )
-                        warning_params['ids'].extend(line_vals[column_group][warning_code])
+                        warning_params['ids'].extend(aml_id for aml_id in line_vals[column_group][warning_code] if aml_id is not None)
 
         unfold_all = self._context.get('print_mode') or options.get('unfold_all')
         return {
@@ -541,22 +541,21 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                  intrastat_lines.intrastat_product_origin_country_name as intrastat_product_origin_country_name,
                  intrastat_lines.intrastat_product_origin_country_code as intrastat_product_origin_country_code,
                  intrastat_lines.invoice_currency_id as invoice_currency_id,
-                 CASE WHEN intrastat_lines.expired_trans IS TRUE THEN ARRAY_AGG(intrastat_lines.move_line_id) END as expired_trans,
-                 CASE WHEN intrastat_lines.premature_trans IS TRUE THEN ARRAY_AGG(intrastat_lines.move_line_id) END as premature_trans,
-                 CASE WHEN intrastat_lines.missing_trans IS TRUE THEN ARRAY_AGG(intrastat_lines.move_line_id) END as missing_trans,
-                 CASE WHEN intrastat_lines.expired_comm IS TRUE THEN ARRAY_AGG(intrastat_lines.product_id) END as expired_comm,
-                 CASE WHEN intrastat_lines.premature_comm IS TRUE THEN ARRAY_AGG(intrastat_lines.product_id) END as premature_comm,
-                 CASE WHEN intrastat_lines.missing_comm IS TRUE THEN ARRAY_AGG(intrastat_lines.product_id) END as missing_comm,
-                 CASE WHEN intrastat_lines.missing_unit IS TRUE THEN ARRAY_AGG(intrastat_lines.product_id) END as missing_unit,
-                 CASE WHEN intrastat_lines.missing_weight IS TRUE THEN ARRAY_AGG(intrastat_lines.product_id) END as missing_weight,
+                 ARRAY_AGG(CASE WHEN intrastat_lines.expired_trans IS TRUE THEN intrastat_lines.move_line_id END) as expired_trans,
+                 ARRAY_AGG(CASE WHEN intrastat_lines.premature_trans IS TRUE THEN intrastat_lines.move_line_id END) as premature_trans,
+                 ARRAY_AGG(CASE WHEN intrastat_lines.missing_trans IS TRUE THEN intrastat_lines.move_line_id END) as missing_trans,
+                 ARRAY_AGG(CASE WHEN intrastat_lines.expired_comm IS TRUE THEN intrastat_lines.product_id END) as expired_comm,
+                 ARRAY_AGG(CASE WHEN intrastat_lines.premature_comm IS TRUE THEN intrastat_lines.product_id END) as premature_comm,
+                 ARRAY_AGG(CASE WHEN intrastat_lines.missing_comm IS TRUE THEN intrastat_lines.product_id END) as missing_comm,
+                 ARRAY_AGG(CASE WHEN intrastat_lines.missing_unit IS TRUE THEN intrastat_lines.product_id END) as missing_unit,
+                 ARRAY_AGG(CASE WHEN intrastat_lines.missing_weight IS TRUE THEN intrastat_lines.product_id END) as missing_weight,
                  SUM(intrastat_lines.value) as value,
                  SUM(intrastat_lines.weight) as weight,
                  SUM(intrastat_lines.supplementary_units) as supplementary_units
             FROM ({}) intrastat_lines
       INNER JOIN account_move ON account_move.id = intrastat_lines.invoice_id
         GROUP BY system, type, country_code, transaction_code, transport_code, region_code, commodity_code, country_name, partner_vat,
-                 incoterm_code,intrastat_product_origin_country_code, intrastat_product_origin_country_name, invoice_currency_id, expired_trans,
-                 premature_trans, missing_trans, expired_comm, premature_comm, missing_comm, missing_unit, missing_weight
+                 incoterm_code,intrastat_product_origin_country_code, intrastat_product_origin_country_name, invoice_currency_id
             """).format(inner_query)
 
         params = [

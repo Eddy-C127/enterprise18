@@ -526,6 +526,62 @@ class TestIntrastatReport(TestAccountReportsCommon):
             options
         )
 
+    def test_intrastat_report_only_one_line_even_with_different_warnings(self):
+        """ This test checks that we only have one grouped line
+            even if its sublines have different warnings.
+            We check in this test the expired_trans value, to do it
+            we have 2 moves, one before the expiry date and one after the
+            expiry date. This situation should have 2 lines that are grouped together
+            even if we have a warning of one of the two lines.
+        """
+        transaction_code = self.intrastat_codes['transaction']
+        transaction_code.expiry_date = fields.Date.from_string('2022-01-14')
+        moves = self.env['account.move'].create([
+            {
+                'move_type': 'out_invoice',
+                'partner_id': self.partner_a.id,
+                'invoice_date': '2022-01-05',
+                'currency_id': self.env.ref('base.EUR').id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'product_id': self.spanish_rioja.id,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 20.0,
+                        'intrastat_transaction_id': transaction_code.id,
+                    }),
+                ],
+            },
+            {
+                'move_type': 'out_invoice',
+                'partner_id': self.partner_a.id,
+                'invoice_date': '2022-01-15',
+                'currency_id': self.env.ref('base.EUR').id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'product_id': self.spanish_rioja.id,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 21.0,
+                        'intrastat_transaction_id': transaction_code.id,
+                    }),
+                ],
+            },
+        ])
+        moves.action_post()
+
+        options = self._generate_options(self.report, '2022-01-01', '2022-01-31', default_options={'unfold_all': True})
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            self.report._get_lines(options),
+            # 0/name,                                                           12/value
+            [    0,                                                             12],
+            [
+                ('Dispatch - 101 - 22042176 - ES - QV999999999999 - BE - 102',  41.0),
+                ('INV/2022/00002',                                              21.0),
+                ('INV/2022/00001',                                              20.0),
+            ],
+            options,
+        )
+
     def test_intrastat_invoice_having_minus_quantity(self):
         """ This test checks that a move with for example
             a line having a quantity set to 10 and a line with a
