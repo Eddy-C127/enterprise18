@@ -24,7 +24,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">NL_NET.balance - NL_COGS.balance</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                     <field name="children_ids">
@@ -38,7 +37,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-8</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -52,7 +50,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">7</field>
-                                    <field name="date_scope">normal</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
                             </field>
@@ -68,7 +65,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">NL_SALE.balance + NL_DISTR.balance + NL_TRANS.balance + NL_SALA.balance + NL_SOC.balance + NL_OPC.balance + NL_PENS.balance + NL_HOUS.balance + NL_OFF.balance + NL_GEN.balance + NL_ERR.balance</field>
-                            <field name="date_scope">normal</field>
                             <field name="green_on_positive" eval="False"/>
                         </record>
                     </field>
@@ -83,7 +79,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">domain</field>
                                     <field name="formula" eval="['&amp;', ('account_id.code', '=like', '45%'), ('account_id.code', 'not like', '457%')]"/>
-                                    <field name="date_scope">normal</field>
                                     <field name="subformula">sum</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
@@ -100,7 +95,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">457</field>
-                                    <field name="date_scope">normal</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
                             </field>
@@ -116,7 +110,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">44</field>
-                                    <field name="date_scope">normal</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
                             </field>
@@ -132,7 +125,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">4016 + 400 + 4010 + 4015</field>
-                                    <field name="date_scope">normal</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
                             </field>
@@ -148,7 +140,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">4012 + 403</field>
-                                    <field name="date_scope">normal</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
                             </field>
@@ -164,7 +155,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">402 + 4044 + 4017 + 409 + 4019 + 4045 + 4018</field>
-                                    <field name="date_scope">normal</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
                             </field>
@@ -180,7 +170,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">4011</field>
-                                    <field name="date_scope">normal</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
                             </field>
@@ -196,7 +185,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">436 + 42 + 41</field>
-                                    <field name="date_scope">normal</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
                             </field>
@@ -212,7 +200,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">domain</field>
                                     <field name="formula" eval="['|', ('account_id.code', '=like', '4040%'), '|', ('account_id.code', '=like', '4041%'), '|', ('account_id.code', '=like', '4042%'), '|', ('account_id.code', '=like', '4043%'), '&amp;', ('account_id.code', '=like', '43%'), '&amp;', ('account_id.code', 'not like', '4305%'), ('account_id.code', 'not like', '436%')]"/>
-                                    <field name="date_scope">normal</field>
                                     <field name="subformula">sum</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
@@ -229,7 +216,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">4305 + 46 + 91</field>
-                                    <field name="date_scope">normal</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
                             </field>
@@ -244,7 +230,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">92</field>
-                                    <field name="date_scope">normal</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
                             </field>
@@ -260,7 +245,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">NL_PROFIT.balance - NL_PCOST.balance</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                 </record>
@@ -273,7 +257,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">-NL_FRES.balance - NL_DEPR.balance + NL_OTH.balance</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                     <field name="children_ids">
@@ -285,7 +268,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">aggregation</field>
                                     <field name="formula">NL_INTP.balance + NL_INTL.balance + NL_RESO.balance</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                             <field name="children_ids">
@@ -300,7 +282,6 @@
                                             <field name="label">balance</field>
                                             <field name="engine">account_codes</field>
                                             <field name="formula">4795</field>
-                                            <field name="date_scope">normal</field>
                                             <field name="green_on_positive" eval="False"/>
                                         </record>
                                     </field>
@@ -316,7 +297,6 @@
                                             <field name="label">balance</field>
                                             <field name="engine">domain</field>
                                             <field name="formula" eval="['|', '&amp;', ('account_id.code', '=like', '47%'), ('account_id.code', 'not like', '4795%'), '&amp;', ('account_id.code', '=like', '49%'), '&amp;', ('account_id.code', 'not like', '490%'), ('account_id.code', 'not like', '491%')]"/>
-                                            <field name="date_scope">normal</field>
                                             <field name="subformula">sum</field>
                                             <field name="green_on_positive" eval="False"/>
                                         </record>
@@ -333,7 +313,6 @@
                                             <field name="label">balance</field>
                                             <field name="engine">account_codes</field>
                                             <field name="formula">490</field>
-                                            <field name="date_scope">normal</field>
                                             <field name="green_on_positive" eval="False"/>
                                         </record>
                                     </field>
@@ -348,7 +327,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">aggregation</field>
                                     <field name="formula">NL_MDEP.balance + NL_IDEP.balance</field>
-                                    <field name="date_scope">normal</field>
                                     <field name="green_on_positive" eval="False"/>
                                 </record>
                             </field>
@@ -364,7 +342,6 @@
                                             <field name="label">balance</field>
                                             <field name="engine">domain</field>
                                             <field name="formula" eval="['&amp;', ('account_id.code', '=like', '48%'), ('account_id.code', 'not like', '4805%')]"/>
-                                            <field name="date_scope">normal</field>
                                             <field name="subformula">sum</field>
                                             <field name="green_on_positive" eval="False"/>
                                         </record>
@@ -381,7 +358,6 @@
                                             <field name="label">balance</field>
                                             <field name="engine">account_codes</field>
                                             <field name="formula">4805</field>
-                                            <field name="date_scope">normal</field>
                                             <field name="green_on_positive" eval="False"/>
                                         </record>
                                     </field>
@@ -398,7 +374,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-90</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -413,7 +388,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">NL_EBITDA.balance + NL_OTCB.balance</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                 </record>
@@ -428,7 +402,6 @@
                             <field name="label">balance</field>
                             <field name="engine">account_codes</field>
                             <field name="formula">491 + 990 + 995</field>
-                            <field name="date_scope">normal</field>
                             <field name="green_on_positive" eval="False"/>
                         </record>
                     </field>
@@ -442,7 +415,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">NL_RESVB.balance - NL_TAXES.balance</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                 </record>

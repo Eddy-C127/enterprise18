@@ -24,7 +24,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">bg_assets_a.balance + bg_assets_b.balance + bg_assets_c.balance + bg_assets_d.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -45,7 +44,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_assets_b_1.balance + bg_assets_b_2.balance + bg_assets_b_3.balance + bg_assets_b_4.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -58,7 +56,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">bg_assets_b_1_1.balance + bg_assets_b_1_2.balance + bg_assets_b_1_3.balance</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                                 <field name="children_ids">
@@ -97,7 +94,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">bg_assets_b_2_1.balance + bg_assets_b_2_2.balance + bg_assets_b_2_3.balance + bg_assets_b_2_4.balance</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                                 <field name="children_ids">
@@ -110,7 +106,6 @@
                                                 <field name="label">balance</field>
                                                 <field name="engine">aggregation</field>
                                                 <field name="formula">bg_assets_b_2_1_1.balance + bg_assets_b_2_1_2.balance</field>
-                                                <field name="date_scope">normal</field>
                                             </record>
                                         </field>
                                         <field name="children_ids">
@@ -167,7 +162,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">bg_assets_b_3_1.balance + bg_assets_b_3_2.balance</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                                 <field name="children_ids">
@@ -206,7 +200,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_assets_c_1.balance + bg_assets_c_2.balance + bg_assets_c_3.balance + bg_assets_c_4.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -219,7 +212,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">bg_assets_c_1_1.balance + bg_assets_c_1_2.balance + bg_assets_c_1_3.balance + bg_assets_c_1_4.balance</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                                 <field name="children_ids">
@@ -248,7 +240,6 @@
                                                 <field name="label">balance</field>
                                                 <field name="engine">aggregation</field>
                                                 <field name="formula">bg_assets_c_1_3_1.balance + bg_assets_c_1_3_2.balance + bg_assets_c_1_3_3.balance</field>
-                                                <field name="date_scope">normal</field>
                                             </record>
                                         </field>
                                         <field name="children_ids">
@@ -297,7 +288,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">bg_assets_c_2_1.balance + bg_assets_c_2_2.balance + bg_assets_c_2_3.balance + bg_assets_c_2_4.balance + bg_assets_c_2_5.balance</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                                 <field name="children_ids">
@@ -342,7 +332,6 @@
                                                 <field name="label">balance</field>
                                                 <field name="engine">aggregation</field>
                                                 <field name="formula">bg_assets_c_2_5_1.balance + bg_assets_c_2_5_2.balance + bg_assets_c_2_5_3.balance + bg_assets_c_2_5_4.balance + bg_assets_c_2_5_5.balance + bg_assets_c_2_5_6.balance + bg_assets_c_2_5_7.balance + bg_assets_c_2_5_8.balance</field>
-                                                <field name="date_scope">normal</field>
                                             </record>
                                         </field>
                                         <field name="children_ids">
@@ -423,7 +412,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">bg_assets_c_3_1.balance + bg_assets_c_3_2.balance + bg_assets_c_3_3.balance</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                                 <field name="children_ids">
@@ -462,7 +450,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">bg_assets_c_4_1.balance + bg_assets_c_4_2.balance + bg_assets_c_4_3.balance + bg_assets_c_4_4.balance</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                                 <field name="children_ids">
@@ -521,7 +508,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">bg_liabilities_a.balance + bg_liabilities_b.balance + bg_liabilities_c.balance + bg_liabilities_d.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -534,7 +520,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_liabilities_a_1.balance + bg_liabilities_a_2.balance + bg_liabilities_a_3.balance + bg_liabilities_a_4.balance + bg_liabilities_a_5.balance + bg_liabilities_a_6.balance + bg_liabilities_a_7.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -571,7 +556,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">bg_liabilities_a_4_1.balance + bg_liabilities_a_4_2.balance + bg_liabilities_a_4_3.balance + bg_liabilities_a_4_4.balance + bg_liabilities_a_4_5.balance</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                                 <field name="children_ids">
@@ -634,7 +618,6 @@
                                         <field name="label">balance_account_codes</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">-141 - 142 - 123</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                     <record id="l10n_bg_bs_liabilities_a_6_balance_aggregate" model="account.report.expression">
                                         <field name="label">balance_aggregate</field>
@@ -647,7 +630,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">bg_liabilities_a_6.balance_account_codes + bg_liabilities_a_6.balance_aggregate</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                             </record>
@@ -682,7 +664,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_liabilities_b_1.balance + bg_liabilities_b_2.balance + bg_liabilities_b_3.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -721,7 +702,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_liabilities_c_1.balance + bg_liabilities_c_2.balance + bg_liabilities_c_3.balance + bg_liabilities_c_4.balance + bg_liabilities_c_5.balance + bg_liabilities_c_6.balance + bg_liabilities_c_7.balance + bg_liabilities_c_8.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -758,7 +738,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">bg_liabilities_c_4_1.balance + bg_liabilities_c_4_2.balance</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                                 <field name="children_ids">
@@ -813,7 +792,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">bg_liabilities_c_8_1.balance + bg_liabilities_c_8_2.balance + bg_liabilities_c_8_3.balance + bg_liabilities_c_8_4.balance + bg_liabilities_c_8_5.balance</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                                 <field name="children_ids">
@@ -870,7 +848,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_liabilities_d_1.balance + bg_liabilities_d_2.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">

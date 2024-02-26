@@ -23,7 +23,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-70</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -35,7 +34,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-72</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -47,7 +45,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-73</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -59,7 +56,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-74</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -72,7 +68,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_I_1.balance + l10n_dz_I_2.balance + l10n_dz_I_3.balance + l10n_dz_I_4.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -84,7 +79,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-60</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="True"/>
                     </record>
                 </field>
@@ -97,7 +91,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-61 - 62</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="True"/>
                     </record>
                 </field>
@@ -110,7 +103,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_II_1.balance + l10n_dz_II_2.balance</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="True"/>
                     </record>
                 </field>
@@ -123,7 +115,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_I.balance + l10n_dz_II.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -135,7 +126,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-63</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="True"/>
                     </record>
                 </field>
@@ -148,7 +138,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-64</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -161,7 +150,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_III.balance + l10n_dz_IV_1.balance + l10n_dz_IV_2.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -173,7 +161,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-75</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -185,7 +172,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-65</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="True"/>
                     </record>
                 </field>
@@ -198,7 +184,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-68</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="True"/>
                     </record>
                 </field>
@@ -211,7 +196,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-78</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -223,7 +207,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_IV.balance + l10n_dz_V_1.balance + l10n_dz_V_2.balance + l10n_dz_V_3.balance + l10n_dz_V_4.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -235,7 +218,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-76</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -247,7 +229,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-66</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="True"/>
                     </record>
                 </field>
@@ -260,7 +241,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_VI_1.balance + l10n_dz_VI_2.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -272,7 +252,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_V.balance + l10n_dz_VI.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -284,7 +263,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-695 - 698</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="True"/>
                     </record>
                 </field>
@@ -297,7 +275,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-692 - 693</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="True"/>
                     </record>
                 </field>
@@ -310,7 +287,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_VII.balance + l10n_dz_VIII_1.balance + l10n_dz_VIII_2.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -322,7 +298,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_I.balance + l10n_dz_V_1.balance + l10n_dz_V_4.balance + l10n_dz_VI_1.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -334,7 +309,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_II.balance + l10n_dz_IV_1.balance + l10n_dz_IV_2.balance + l10n_dz_V_2.balance + l10n_dz_V_3.balance + l10n_dz_VI_2.balance + l10n_dz_VIII_1.balance + l10n_dz_VIII_2.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -346,7 +320,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-77</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -358,7 +331,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-67</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="True"/>
                     </record>
                 </field>
@@ -371,7 +343,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_IX_1.balance + l10n_dz_IX_2.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -383,7 +354,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_dz_VIII.balance + l10n_dz_IX.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>

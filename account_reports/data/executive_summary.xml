@@ -49,7 +49,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CR.balance + CS.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="auditable" eval="False"/>
                             </record>
                         </field>
@@ -61,7 +60,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
                                 <field name="formula" eval="[('account_id.account_type', 'in', ('asset_cash', 'liability_credit_card'))]"/>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">from_beginning</field>
                                 <field name="subformula">sum</field>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -80,7 +79,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">INC.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -88,12 +87,13 @@
                     </record>
                     <record id="account_financial_report_executivesummary_direct_costs0" model="account.report.line">
                         <field name="name">Cost of Revenue</field>
+                        <field name="code">EXEC_COS</field>
                         <field name="expression_ids">
                             <record id="account_financial_report_executivesummary_direct_costs0_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">COS.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="auditable" eval="False"/>
@@ -107,7 +107,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">GRP.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -120,7 +120,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">LEX.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="auditable" eval="False"/>
@@ -129,12 +129,13 @@
                     </record>
                     <record id="account_financial_report_executivesummary_profit0" model="account.report.line">
                         <field name="name">Net Profit</field>
+                        <field name="code">EXEC_NEP</field>
                         <field name="expression_ids">
                             <record id="account_financial_report_executivesummary_profit0_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">NEP.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -154,7 +155,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
                                 <field name="formula" eval="[('account_id.account_type', '=', 'asset_receivable')]"/>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">from_beginning</field>
                                 <field name="subformula">sum</field>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -168,7 +169,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
                                 <field name="formula" eval="[('account_id.account_type', '=', 'liability_payable')]"/>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">from_beginning</field>
                                 <field name="subformula">sum</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="auditable" eval="False"/>
@@ -182,15 +183,8 @@
                             <record id="account_financial_report_executivesummary_net_assets0_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">EXEC_SUMMARY_NA.na_balance</field>
-                                <field name="date_scope">normal</field>
-                                <field name="auditable" eval="False"/>
-                            </record>
-                            <record id="account_financial_report_executivesummary_net_assets0_na_balance" model="account.report.expression">
-                                <field name="label">na_balance</field>
-                                <field name="engine">aggregation</field>
                                 <field name="formula">TA.balance - L.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">from_beginning</field>
                                 <field name="subformula">cross_report</field>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -211,7 +205,6 @@
                                 <field name="engine">aggregation</field>
                                 <field name="formula">GPMARGIN0.grp / GPMARGIN0.opinc * 100</field>
                                 <field name="subformula">ignore_zero_division</field>
-                                <field name="date_scope">normal</field>
                                 <field name="figure_type">percentage</field>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -219,14 +212,14 @@
                                 <field name="label">grp</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">GRP.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                             </record>
                             <record id="account_financial_report_executivesummary_gpmargin0_opinc" model="account.report.expression">
                                 <field name="label">opinc</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">OPINC.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                             </record>
                         </field>
@@ -239,7 +232,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">NPMARGIN0.nep / NPMARGIN0.inc * 100</field>
-                                <field name="date_scope">normal</field>
                                 <field name="subformula">ignore_zero_division</field>
                                 <field name="figure_type">percentage</field>
                                 <field name="auditable" eval="False"/>
@@ -248,13 +240,14 @@
                                 <field name="label">nep</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">NEP.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                             </record>
                             <record id="account_financial_report_executivesummary_npmargin0_inc" model="account.report.expression">
                                 <field name="label">inc</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">INC.balance</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                             </record>
                         </field>
@@ -267,7 +260,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">ROI.nep / ROI.ta * 100</field>
-                                <field name="date_scope">normal</field>
                                 <field name="subformula">ignore_zero_division</field>
                                 <field name="figure_type">percentage</field>
                                 <field name="auditable" eval="False"/>
@@ -276,14 +268,14 @@
                                 <field name="label">nep</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">NEP.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                             </record>
                             <record id="account_financial_report_executivesummary_return_investment0_ta" model="account.report.expression">
                                 <field name="label">ta</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">TA.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">from_beginning</field>
                                 <field name="subformula">cross_report</field>
                             </record>
                         </field>
@@ -301,32 +293,23 @@
                             <record id="account_financial_report_executivesummary_avdebt0_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">AVG_DEBT_DAYS.deb / AVG_DEBT_DAYS.opinc * AVG_DEBT_DAYS.NDays</field>
-                                <field name="date_scope">normal</field>
+                                <field name="formula">DEB.balance / AVG_DEBT_DAYS.opinc * AVG_DEBT_DAYS.NDays</field>
                                 <field name="subformula">ignore_zero_division</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="figure_type">float</field>
                                 <field name="auditable" eval="False"/>
                             </record>
-                            <record id="account_financial_report_executivesummary_avdebt0_deb" model="account.report.expression">
-                                <field name="label">deb</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">DEB.balance</field>
-                                <field name="date_scope">normal</field>
-                                <field name="subformula">cross_report</field>
-                            </record>
                             <record id="account_financial_report_executivesummary_avdebt0_opinc" model="account.report.expression">
                                 <field name="label">opinc</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">OPINC.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                             </record>
                             <record id="account_financial_report_executivesummary_avdebt0_ndays" model="account.report.expression">
                                 <field name="label">NDays</field>
                                 <field name="engine">custom</field>
                                 <field name="formula">_report_custom_engine_executive_summary_ndays</field>
-                                <field name="date_scope">normal</field>
                                 <field name="auditable" eval="False"/>
                             </record>
                         </field>
@@ -338,39 +321,30 @@
                             <record id="account_financial_report_executivesummary_avgcre0_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">-AVG_CRED_DAYS.cre / (AVG_CRED_DAYS.cos + AVG_CRED_DAYS.exp) * AVG_CRED_DAYS.NDays</field>
-                                <field name="date_scope">normal</field>
+                                <field name="formula">-CRE.balance / (AVG_CRED_DAYS.cos + AVG_CRED_DAYS.exp) * AVG_CRED_DAYS.NDays</field>
                                 <field name="subformula">ignore_zero_division</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="figure_type">float</field>
                                 <field name="auditable" eval="False"/>
                             </record>
-                            <record id="account_financial_report_executivesummary_avgcre0_cre" model="account.report.expression">
-                                <field name="label">cre</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">CRE.balance</field>
-                                <field name="date_scope">normal</field>
-                                <field name="subformula">cross_report</field>
-                            </record>
                             <record id="account_financial_report_executivesummary_avgcre0_cos" model="account.report.expression">
                                 <field name="label">cos</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">COS.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                             </record>
                             <record id="account_financial_report_executivesummary_avgcre0_exp" model="account.report.expression">
                                 <field name="label">exp</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">EXP.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                             </record>
                             <record id="account_financial_report_executivesummary_avgcre0_ndays" model="account.report.expression">
                                 <field name="label">NDays</field>
                                 <field name="engine">custom</field>
                                 <field name="formula">_report_custom_engine_executive_summary_ndays</field>
-                                <field name="date_scope">normal</field>
                                 <field name="auditable" eval="False"/>
                             </record>
                         </field>
@@ -382,7 +356,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">DEB.balance + CRE.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="auditable" eval="False"/>
                             </record>
                         </field>
@@ -395,7 +368,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CATL.ca / CATL.cl</field>
-                                <field name="date_scope">normal</field>
                                 <field name="subformula">ignore_zero_division</field>
                                 <field name="figure_type">float</field>
                                 <field name="auditable" eval="False"/>
@@ -404,14 +376,14 @@
                                 <field name="label">ca</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CA.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">from_beginning</field>
                                 <field name="subformula">cross_report</field>
                             </record>
                             <record id="account_financial_report_executivesummary_ca_to_l0_cl" model="account.report.expression">
                                 <field name="label">cl</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">from_beginning</field>
                                 <field name="subformula">cross_report</field>
                             </record>
                         </field>

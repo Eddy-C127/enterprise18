@@ -661,18 +661,11 @@ class AccountReport(models.Model):
         options['show_growth_comparison'] = self._display_growth_comparison(options)
 
     def _get_options_date_domain(self, options, date_scope):
-        date_from, date_to, allow_include_initial_balance = self._get_date_bounds_info(options, date_scope)
+        date_from, date_to = self._get_date_bounds_info(options, date_scope)
 
         scope_domain = [('date', '<=', date_to)]
         if date_from:
-            if allow_include_initial_balance:
-                scope_domain += [
-                    '|',
-                    ('date', '>=', date_from),
-                    ('account_id.include_initial_balance', '=', True),
-                ]
-            else:
-                scope_domain += [('date', '>=', date_from)]
+            scope_domain += [('date', '>=', date_from)]
 
         return scope_domain
 
@@ -680,12 +673,8 @@ class AccountReport(models.Model):
         # Default values (the ones from 'strict_range')
         date_to = options['date']['date_to']
         date_from = options['date']['date_from'] if options['date']['mode'] == 'range' else None
-        allow_include_initial_balance = False
 
-        if date_scope == 'normal':
-            allow_include_initial_balance = True
-
-        elif date_scope == 'from_beginning':
+        if date_scope == 'from_beginning':
             date_from = None
 
         elif date_scope == 'to_beginning_of_period':
@@ -708,7 +697,7 @@ class AccountReport(models.Model):
             eve_of_date_from = fields.Date.from_string(options['date']['date_from']) - relativedelta(days=1)
             date_from, date_to = self.env.company._get_tax_closing_period_boundaries(eve_of_date_from)
 
-        return date_from, date_to, allow_include_initial_balance
+        return date_from, date_to
 
 
     ####################################################
@@ -2648,7 +2637,7 @@ class AccountReport(models.Model):
         This function is used so that, in those cases, only one of these date_scopes' values is used, to avoid useless creation
         of multiple computation batches and improve the overall performance as much as possible.
         """
-        if not self.filter_date_range and date_scope in {'normal', 'strict_range'}:
+        if not self.filter_date_range and date_scope == 'strict_range':
             return 'from_beginning'
         else:
             return date_scope
@@ -3539,7 +3528,7 @@ class AccountReport(models.Model):
             raise UserError(_("'external' engine does not support groupby, limit nor offset."))
 
         # Date clause
-        date_from, date_to, dummy = self._get_date_bounds_info(options, date_scope)
+        date_from, date_to = self._get_date_bounds_info(options, date_scope)
         external_value_domain = [('date', '<=', date_to)]
         if date_from:
             external_value_domain.append(('date', '>=', date_from))
@@ -3889,7 +3878,7 @@ class AccountReport(models.Model):
 
         # Audit of external values
         if expression.engine == 'external':
-            date_from, date_to, dummy = self._get_date_bounds_info(column_group_options, expression.date_scope)
+            date_from, date_to = self._get_date_bounds_info(column_group_options, expression.date_scope)
             external_values_domain = [('target_report_expression_id', '=', expression.id), ('date', '<=', date_to)]
             if date_from:
                 external_values_domain.append(('date', '>=', date_from))
@@ -4224,7 +4213,7 @@ class AccountReport(models.Model):
 
         # Create the manual value
         target_expression = self.env['account.report.expression'].browse(target_expression_id)
-        date_from, date_to, dummy = self._get_date_bounds_info(target_column_group_options, target_expression.date_scope)
+        date_from, date_to = self._get_date_bounds_info(target_column_group_options, target_expression.date_scope)
         fiscal_position_id = target_column_group_options['fiscal_position'] if isinstance(target_column_group_options['fiscal_position'], int) else False
 
         external_values_domain = [
@@ -6258,7 +6247,7 @@ class AccountReportExpression(models.Model):
         if column_group_key:
             options = self.report_line_id.report_id._get_column_group_options(options, column_group_key)
 
-        date_from, date_to, _dummy = self.report_line_id.report_id._get_date_bounds_info(options, self.date_scope)
+        date_from, date_to = self.report_line_id.report_id._get_date_bounds_info(options, self.date_scope)
 
         return {
             'type': 'ir.actions.act_window',

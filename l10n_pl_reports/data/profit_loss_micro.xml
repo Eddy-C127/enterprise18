@@ -33,7 +33,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">pl_micro_pl_b_1.balance + pl_micro_pl_b_2.balance + pl_micro_pl_b_3.balance + pl_micro_pl_b_4.balance</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -149,7 +148,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">pl_micro_pl_a.balance - pl_micro_pl_b.balance + pl_micro_pl_c.balance - pl_micro_pl_d.balance - pl_micro_pl_e.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -162,7 +160,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">pl_micro_pl_g_1.balance - pl_micro_pl_g_2.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -175,7 +172,6 @@
                                 <field name="engine">aggregation</field>
                                 <field name="formula">pl_micro_pl_a.balance - pl_micro_pl_b.balance + pl_micro_pl_c.balance - pl_micro_pl_d.balance - pl_micro_pl_e.balance</field>
                                 <field name="subformula">if_above(PLN(0))</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -188,7 +184,6 @@
                                 <field name="engine">aggregation</field>
                                 <field name="formula">-(pl_micro_pl_a.balance - pl_micro_pl_b.balance + pl_micro_pl_c.balance - pl_micro_pl_d.balance - pl_micro_pl_e.balance)</field>
                                 <field name="subformula">if_above(PLN(0))</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>

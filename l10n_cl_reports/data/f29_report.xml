@@ -64,7 +64,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_VNGI.balance + CL_VEX.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -113,7 +112,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
                                 <field name="formula" eval="[('account_id.code', '=', '410231'), ('tax_line_id', '=', False)]"/>
-                                <field name="date_scope">normal</field>
                                 <field name="subformula">sum</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
@@ -178,7 +176,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_COMPNGIR.balance + CL_COMPNGIUC.balance + CL_COMPINR.balance + CL_COMPS.balance + CL_COMPAF.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -268,7 +265,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_IPCOMPR.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -280,7 +276,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_IUC.balance * CL_FPP_RATE.balance / 100</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -293,7 +288,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_ICOMPS.balance * CL_FPP_RATE.balance / 100</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -306,7 +300,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_IPCOMPAFDVE.balance * CL_FPP_RATE.balance / 100</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -319,7 +312,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_IPCOMPAFVUC.balance * CL_FPP_RATE.balance / 100</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -332,7 +324,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_IPCOMPAFVNR.balance * CL_FPP_RATE.balance / 100</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -352,7 +343,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_IPCOMPAFVNR.balance + CL_IPCOMPAFVUC.balance + CL_IPCOMPAFDVE.balance + CL_ICOMPS.balance + CL_IUC.balance + CL_IPCOMPR.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -365,7 +355,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_IVADF.balance - CL_IVACF.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -428,7 +417,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_TOTVEN.balance * CL_PPM_RATE.balance / 100</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                                 <field name="auditable" eval="False"/>
                             </record>
@@ -441,7 +429,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">CL_IVAP.balance + CL_RCF.balance + CL_IMPT.balance + CL_RETH.balance + CL_PPM.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>

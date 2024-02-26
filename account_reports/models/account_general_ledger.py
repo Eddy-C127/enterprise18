@@ -256,9 +256,16 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
             # Sum is computed including the initial balance of the accounts configured to do so, unless a special option key is used
             # (this is required for trial balance, which is based on general ledger)
-            sum_date_scope = 'strict_range' if options_group.get('general_ledger_strict_range') else 'normal'
+            sum_date_scope = 'strict_range' if options_group.get('general_ledger_strict_range') else 'from_beginning'
 
             query_domain = []
+
+            if not options_group.get('general_ledger_strict_range'):
+                query_domain += [
+                    '|',
+                    ('date', '>=', options_group['date']['date_from']),
+                    ('account_id.include_initial_balance', '=', True),
+                ]
 
             if options.get('export_mode') == 'print' and options.get('filter_search_bar'):
                 query_domain.append(('account_id', 'ilike', options['filter_search_bar']))
@@ -478,10 +485,18 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         for column_group_key, options_group in report._split_options_per_column_group(options).items():
             new_options = self._get_options_initial_balance(options_group)
             ct_query = report._get_query_currency_table(new_options)
-            domain = [('account_id', 'in', account_ids)]
+            domain = [
+                ('account_id', 'in', account_ids),
+            ]
+            if not new_options.get('general_ledger_strict_range'):
+                domain += [
+                    '|',
+                    ('date', '>=', new_options['date']['date_from']),
+                    ('account_id.include_initial_balance', '=', True),
+                ]
             if new_options.get('include_current_year_in_unaff_earnings'):
                 domain += [('account_id.include_initial_balance', '=', True)]
-            table_references, search_condition = report._get_sql_table_expression(new_options, 'normal', domain=domain)
+            table_references, search_condition = report._get_sql_table_expression(new_options, 'from_beginning', domain=domain)
             queries.append(SQL(
                 """
                 SELECT

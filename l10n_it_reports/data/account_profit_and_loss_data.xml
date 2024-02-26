@@ -24,7 +24,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">IT_CEA_1.balance + IT_CEA_2.balance + IT_CEA_3.balance + IT_CEA_4.balance + IT_CEA_5.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -116,7 +115,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">IT_CEB_6.balance + IT_CEB_7.balance + IT_CEB_8.balance + IT_CEB_9.balance + IT_CEB_10.balance + IT_CEB_11.balance + IT_CEB_12.balance + IT_CEB_13.balance + IT_CEB_14.balance</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -424,7 +422,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">IT_CEC_15.balance + IT_CEC_16.balance + IT_CEC_17.balance + IT_CEC_17_bis.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -587,7 +584,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">IT_CED_18.balance - IT_CED_19.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">

@@ -23,7 +23,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">OPINC.balance + OIN.balance - COS.balance - EXP.balance - DEP.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -36,7 +35,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">OPINC.balance + OIN.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -48,7 +46,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">OPINC.balance - COS.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -62,7 +59,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.account_type', '=', 'income')]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">-sum</field>
                                     </record>
                                 </field>
@@ -77,7 +73,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.account_type', '=', 'expense_direct_cost')]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">sum</field>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
@@ -95,7 +90,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
                                 <field name="formula" eval="[('account_id.account_type', '=', 'income_other')]"/>
-                                <field name="date_scope">normal</field>
                                 <field name="subformula">-sum</field>
                             </record>
                         </field>
@@ -111,7 +105,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">EXP.balance + DEP.balance</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -126,7 +119,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
                                 <field name="formula" eval="[('account_id.account_type', '=', 'expense')]"/>
-                                <field name="date_scope">normal</field>
                                 <field name="subformula">sum</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
@@ -142,7 +134,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
                                 <field name="formula" eval="[('account_id.account_type', '=', 'expense_depreciation')]"/>
-                                <field name="date_scope">normal</field>
                                 <field name="subformula">sum</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>

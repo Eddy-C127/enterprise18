@@ -28,7 +28,6 @@
                             <field name="label">balance</field>
                             <field name="engine">domain</field>
                             <field name="formula" eval="[('account_id.code', '=like', '1%')]"/>
-                            <field name="date_scope">normal</field>
                             <field name="subformula">sum</field>
                         </record>
                     </field>
@@ -44,7 +43,6 @@
                             <field name="label">balance</field>
                             <field name="engine">domain</field>
                             <field name="formula" eval="[('account_id.code', '=like', '2%')]"/>
-                            <field name="date_scope">normal</field>
                             <field name="subformula">-sum</field>
                         </record>
                     </field>
@@ -172,7 +170,6 @@
                             <field name="label">balance</field>
                             <field name="engine">domain</field>
                             <field name="formula" eval="[('account_id.code', '=like', '4%')]"/>
-                            <field name="date_scope">normal</field>
                             <field name="subformula">-sum</field>
                         </record>
                     </field>
@@ -188,7 +185,6 @@
                             <field name="label">balance</field>
                             <field name="engine">domain</field>
                             <field name="formula" eval="['|', '|', '|', ('account_id.code', '=like', '5%'), ('account_id.code', '=like', '6%'), ('account_id.code', '=like', '7%'), ('account_id.code', '=like', '9%')]"/>
-                            <field name="date_scope">normal</field>
                             <field name="subformula">sum</field>
                             <field name="green_on_positive" eval="False"/>
                         </record>

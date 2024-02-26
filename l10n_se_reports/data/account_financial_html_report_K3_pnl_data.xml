@@ -25,7 +25,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">SE_PNL_C_1.balance + SE_PNL_C_2.balance + SE_PNL_C_3.balance + SE_PNL_C_4.balance</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                     <field name="children_ids">
@@ -39,7 +38,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-35 - 33 - 30 - 32 - 31 - 37 - 36 - 34</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -53,7 +51,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-49\(491,492)</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -67,7 +64,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-38</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -81,7 +77,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-39</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -96,7 +91,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">SE_PNL_C_5.balance + SE_PNL_C_6.balance + SE_PNL_C_7.balance + SE_PNL_C_8.balance + SE_PNL_C_9.balance + SE_PNL_C_10.balance</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                     <field name="children_ids">
@@ -110,7 +104,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-492 - 42 - 47 - 40 - 43 - 493 - 41 - 491 - 44 - 45 - 46</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -124,7 +117,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-6 - 5</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -138,7 +130,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-75 - 74 - 71 - 76 - 72 - 70 - 73</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -152,7 +143,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-777 - 771 - 78 - 772 - 773 - 776 - 778</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -166,7 +156,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-779 - 774</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -180,7 +169,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-79</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -194,7 +182,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">SE_PNL_I_TOTAL.balance + SE_PNL_K_TOTAL.balance</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                 </record>
@@ -207,7 +194,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">SE_PNL_C_11.balance + SE_PNL_C_12.balance + SE_PNL_C_13.balance + SE_PNL_C_14.balance + SE_PNL_C_15.balance + SE_PNL_C_16.balance + SE_PNL_C_17.balance</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                     <field name="children_ids">
@@ -221,7 +207,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-801 - 803 - 804 - 802 - 805 - 806</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -235,7 +220,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">domain</field>
                                     <field name="formula" eval="['|', ('account_id.code', '=like', '811%'), '|', ('account_id.code', '=like', '812%'), ('account_id.code', '=like', '813%'), ('account_id.code', '!=', '8113'), ('account_id.code', '!=', '8118'), ('account_id.code', '!=', '8123'), ('account_id.code', '!=', '8133')]"/>
-                                    <field name="date_scope">normal</field>
                                     <field name="subformula">-sum</field>
                                 </record>
                             </field>
@@ -250,7 +234,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">domain</field>
                                     <field name="formula" eval="[('account_id.code', '=', '8113'), ('account_id.code', '=', '8118'), ('account_id.code', '=', '8123'), ('account_id.code', '=', '8133')]"/>
-                                    <field name="date_scope">normal</field>
                                     <field name="subformula">-sum</field>
                                 </record>
                             </field>
@@ -265,7 +248,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-826 - 821 - 822 - 823 - 825 - 824 - 829</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -279,7 +261,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-839 - 832 - 831 - 835 - 836 - 834 - 833</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -293,7 +274,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-817 - 827 - 818 - 837 - 828 - 808 - 838 - 807</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -307,7 +287,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-84</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -323,7 +302,6 @@
                             <field name="label">balance</field>
                             <field name="engine">account_codes</field>
                             <field name="formula">-88</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                 </record>
@@ -336,7 +314,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">SE_PNL_C_19.balance + SE_PNL_C_20.balance</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                     <field name="children_ids">
@@ -350,7 +327,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-891 - 892 - 893</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -364,7 +340,6 @@
                                     <field name="label">balance</field>
                                     <field name="engine">account_codes</field>
                                     <field name="formula">-898 - 894</field>
-                                    <field name="date_scope">normal</field>
                                 </record>
                             </field>
                         </record>
@@ -378,7 +353,6 @@
                             <field name="label">balance</field>
                             <field name="engine">aggregation</field>
                             <field name="formula">SE_PNL_RR_TOTAL.balance + SE_PNL_FP_TOTAL.balance + SE_PNL_C_18.balance + SE_PNL_RS_TOTAL.balance</field>
-                            <field name="date_scope">normal</field>
                         </record>
                     </field>
                 </record>

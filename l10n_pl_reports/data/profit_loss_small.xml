@@ -25,7 +25,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">pl_small_pl_a_1.balance - pl_small_pl_a_2.balance - pl_small_pl_a_3.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -77,7 +76,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">pl_small_pl_b_1.balance + pl_small_pl_b_2.balance + pl_small_pl_b_3.balance + pl_small_pl_b_4.balance + pl_small_pl_b_5.balance + pl_small_pl_b_6.balance</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -183,7 +181,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">pl_small_pl_a.balance - pl_small_pl_b.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -220,7 +217,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">pl_small_pl_f_1.balance + pl_small_pl_f_2.balance + pl_small_pl_f_3.balance + pl_small_pl_f_4.balance + pl_small_pl_f_5.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -271,7 +267,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">pl_small_pl_g_1.balance + pl_small_pl_g_2.balance + pl_small_pl_g_3.balance + pl_small_pl_g_4.balance</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -348,7 +343,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">pl_small_pl_c.balance + pl_small_pl_d.balance - pl_small_pl_e.balance + pl_small_pl_f.balance - pl_small_pl_g.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -377,7 +371,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">pl_small_pl_h.balance - pl_small_pl_i.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>

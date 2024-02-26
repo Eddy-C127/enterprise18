@@ -22,7 +22,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">TR_PL_OPERATING_PROFIT_LOST.balance + TR_PL_NON_OPERATING_PROFIT_LOST.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -75,7 +74,6 @@
                                                         <field name="label">balance</field>
                                                         <field name="engine">account_codes</field>
                                                         <field name="formula">- 60</field>
-                                                        <field name="date_scope">normal</field>
                                                     </record>
                                                 </field>
                                             </record>
@@ -91,7 +89,6 @@
                                                         <field name="engine">account_codes</field>
                                                         <field name="formula">61</field>
                                                         <field name="green_on_positive" eval="False"/>
-                                                        <field name="date_scope">normal</field>
                                                     </record>
                                                 </field>
                                             </record>
@@ -108,7 +105,6 @@
                                                 <field name="engine">account_codes</field>
                                                 <field name="formula">62</field>
                                                 <field name="green_on_positive" eval="False"/>
-                                                <field name="date_scope">normal</field>
                                             </record>
                                         </field>
                                     </record>
@@ -125,7 +121,6 @@
                                         <field name="engine">account_codes</field>
                                         <field name="formula">63</field>
                                         <field name="green_on_positive" eval="False"/>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                             </record>
@@ -155,7 +150,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">- 64</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                             </record>
@@ -170,7 +164,6 @@
                                         <field name="engine">account_codes</field>
                                         <field name="formula">65</field>
                                         <field name="green_on_positive" eval="False"/>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                             </record>
@@ -185,7 +178,6 @@
                                         <field name="engine">account_codes</field>
                                         <field name="formula">66</field>
                                         <field name="green_on_positive" eval="False"/>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                             </record>
@@ -218,7 +210,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">- 67</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -234,7 +225,6 @@
                                 <field name="engine">account_codes</field>
                                 <field name="formula">68</field>
                                 <field name="green_on_positive" eval="False"/>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -264,7 +254,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">- 690</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -280,7 +269,6 @@
                                 <field name="engine">account_codes</field>
                                 <field name="formula">691</field>
                                 <field name="green_on_positive" eval="False"/>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>

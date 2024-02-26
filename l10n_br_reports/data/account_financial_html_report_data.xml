@@ -272,7 +272,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">BR_RLAG.balance + BR_CSLL_IRPJ.balance + BR_RLAR.balance + BR_CSLL_AR.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -284,7 +283,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">BR_ROAG.balance + BR_PART_AG.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -298,7 +296,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">-999001 - 999002 - 3.01.01</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                             </record>
@@ -312,7 +309,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">3.01.05</field>
-                                        <field name="date_scope">normal</field>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
                                 </field>
@@ -329,7 +325,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">3.02</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -342,7 +337,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">BR_ROAR.balance + BR_PART_AR.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -356,7 +350,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">-3.11.01</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                             </record>
@@ -370,7 +363,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">3.11.05</field>
-                                        <field name="date_scope">normal</field>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
                                 </field>
@@ -387,7 +379,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">3.12</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>

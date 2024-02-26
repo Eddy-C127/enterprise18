@@ -40,7 +40,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         new_options = self._get_options_initial_balance(options)
         table_references, search_condition = report._get_sql_table_expression(
             new_options,
-            'normal',
+            'from_beginning',
             domain=[('account_id.include_initial_balance', '=', True)],
         )
         return SQL(

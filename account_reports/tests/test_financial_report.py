@@ -143,7 +143,6 @@ class TestFinancialReport(TestAccountReportsCommon):
                         'engine': 'domain',
                         'formula': [("partner_id", "=", cls.partner_a.id)],
                         'subformula': 'sum',
-                        'date_scope': 'strict_range'
                     })],
                 }),
                 Command.create({
@@ -158,7 +157,6 @@ class TestFinancialReport(TestAccountReportsCommon):
                         'engine': 'domain',
                         'formula': [("partner_id", "=", cls.partner_b.id)],
                         'subformula': 'sum',
-                        'date_scope': 'strict_range'
                     })],
                 }),
                 Command.create({
@@ -170,7 +168,6 @@ class TestFinancialReport(TestAccountReportsCommon):
                         'label': 'balance',
                         'engine': 'aggregation',
                         'formula': 'INVA.balance + INVB.balance',
-                        'date_scope': 'normal'
                     })],
                 }),
             ],
@@ -824,7 +821,7 @@ class TestFinancialReport(TestAccountReportsCommon):
                                     'engine': 'domain',
                                     'formula': f"[('account_id', '=', {account1.id})]",
                                     'subformula': 'sum',
-                                    'date_scope': 'normal',
+                                    'date_scope': 'from_beginning',
                                 }),
                             ],
                         }),
@@ -838,7 +835,7 @@ class TestFinancialReport(TestAccountReportsCommon):
                                     'engine': 'domain',
                                     'formula': f"[('account_id', '=', {account2.id})]",
                                     'subformula': 'sum',
-                                    'date_scope': 'normal',
+                                    'date_scope': 'from_beginning',
                                 }),
                             ],
                         }),

@@ -248,7 +248,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         # Create the currency table.
         ct_query = report._get_query_currency_table(options)
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'normal')
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'from_beginning')
             queries.append(SQL(
                 """
                 SELECT
@@ -278,7 +278,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
             # Get sums for the initial balance.
             # period: [('date' <= options['date_from'] - 1)]
             new_options = self._get_options_initial_balance(column_group_options)
-            table_references, search_condition = report._get_sql_table_expression(new_options, 'normal', domain=[('partner_id', 'in', partner_ids)])
+            table_references, search_condition = report._get_sql_table_expression(new_options, 'from_beginning', domain=[('partner_id', 'in', partner_ids)])
             queries.append(SQL(
                 """
                 SELECT
@@ -328,7 +328,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         report = self.env.ref('account_reports.partner_ledger_report')
         ct_query = report._get_query_currency_table(options)
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'normal')
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'from_beginning')
             queries.append(SQL(
                 """
                 SELECT

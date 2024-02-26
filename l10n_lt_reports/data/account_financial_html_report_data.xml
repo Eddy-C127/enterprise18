@@ -26,7 +26,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-tag(l10n_lt.account_account_tag_1_net_turnover)</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -41,7 +40,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">tag(l10n_lt.account_account_tag_2_cost_of_sales)</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -56,7 +54,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-tag(l10n_lt.account_account_tag_3_adjustments_of_biological_assets)</field>
-                        <field name="date_scope">normal</field>
                         <field name="subformula" eval="False"/>
                     </record>
                 </field>
@@ -69,7 +66,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">PNL_1_.balance - PNL_2_.balance + PNL_3_.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -83,7 +79,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">tag(l10n_lt.account_account_tag_4_selling_expenses)</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -98,7 +93,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">tag(l10n_lt.account_account_tag_5_general_administrative_expenses)</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -113,7 +107,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-tag(l10n_lt.account_account_tag_6_other_operating_results)</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -127,7 +120,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-tag(l10n_lt.account_account_tag_7_income_investments_parent)</field>
-                        <field name="date_scope">normal</field>
                         <field name="subformula" eval="False"/>
                     </record>
                 </field>
@@ -142,7 +134,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-tag(l10n_lt.account_account_tag_8_income_other_longterm_investments_loans)</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -156,7 +147,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-tag(l10n_lt.account_account_tag_9_other_interest_similar_income)</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -170,7 +160,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">tag(l10n_lt.account_account_tag_10_impaired_fin_assets_short_investments)</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -185,7 +174,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">tag(l10n_lt.account_account_tag_11_interest_other_similar_expenses)</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -198,7 +186,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">PNL_4_.balance - PNL_5_.balance - PNL_6_.balance + PNL_7_.balance + PNL_8_.balance + PNL_9_.balance + PNL_10_.balance - PNL_11_.balance - PNL_12_.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -212,7 +199,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">tag(l10n_lt.account_account_tag_12_tax_on_profit)</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -225,7 +211,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">PNL_13_.balance - PNL_14_.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>

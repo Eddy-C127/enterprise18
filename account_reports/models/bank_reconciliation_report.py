@@ -258,7 +258,7 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
 
         accounts = journal._get_journal_inbound_outstanding_payment_accounts() + journal._get_journal_outbound_outstanding_payment_accounts()
 
-        table_references, search_condition = report._get_sql_table_expression(options, 'normal', domain=[
+        table_references, search_condition = report._get_sql_table_expression(options, 'from_beginning', domain=[
             ('journal_id', '=', journal.id),
             ('account_id', 'in', accounts.ids),
             ('full_reconcile_id', '=', False),
@@ -387,7 +387,7 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
             :param journal:         The journal used.
         """
         # Get domain and balances
-        domain = report._get_options_domain(options, 'normal')
+        domain = report._get_options_domain(options, 'from_beginning')
         balance_gl = journal._get_journal_bank_account_balance(domain=domain)[0]
         last_statement, balance_end, difference, general_ledger_not_matching = self._compute_balances(options, journal, balance_gl, journal_currency)
 
@@ -462,7 +462,7 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
         domain = [
             ('account_id', '=', journal.default_account_id.id),
             ('statement_line_id', '=', False),
-            *report._get_options_domain(options, 'normal'),
+            *report._get_options_domain(options, 'from_beginning'),
         ]
 
         if journal.company_id.fiscalyear_lock_date:

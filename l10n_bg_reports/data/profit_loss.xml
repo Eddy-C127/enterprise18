@@ -26,7 +26,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">bg_pl_expenses_total_costs.balance + bg_pl_expenses_10.balance + bg_pl_expenses_11.balance + bg_pl_expenses_12.balance</field>
-                        <field name="date_scope">normal</field>
                         <field name="green_on_positive" eval="False"/>
                     </record>
                 </field>
@@ -46,7 +45,6 @@
                                          ('account_id.code', '=like', '612%')
                                 ]"/>
                                 <field name="subformula">sum_if_pos</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -92,7 +90,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_expenses_4_1.balance + bg_pl_expenses_4_2.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -140,7 +137,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_expenses_5_1.balance + bg_pl_expenses_5_2.balance + bg_pl_expenses_5_3.balance + bg_pl_expenses_5_4.balance + bg_pl_expenses_5_5.balance + bg_pl_expenses_5_6.balance + bg_pl_expenses_5_7.balance + bg_pl_expenses_5_8.balance + bg_pl_expenses_5_9.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -300,7 +296,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_expenses_1.balance + bg_pl_expenses_2.balance + bg_pl_expenses_3.balance + bg_pl_expenses_4.balance + bg_pl_expenses_5.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -331,7 +326,6 @@
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_income_total_revenue.balance - bg_pl_expenses_total_costs.balance</field>
                                 <field name="subformula">if_above(BGN(0))</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -344,7 +338,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_expenses_total_operating.balance + bg_pl_expenses_total_financial.balance</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -359,7 +352,6 @@
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_income_total_revenue.balance - bg_pl_expenses_total_costs.balance</field>
                                 <field name="subformula">if_above(BGN(0))</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -405,7 +397,6 @@
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_expenses_9.balance - bg_pl_expenses_10.balance - bg_pl_expenses_11.balance</field>
                                 <field name="subformula">if_above(BGN(0))</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -420,7 +411,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">bg_pl_income_total_revenue.balance + bg_pl_income_10.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -446,7 +436,6 @@
                                          ('account_id.code', '=like', '612%')
                                 ]"/>
                                 <field name="subformula">-sum_if_neg</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -467,7 +456,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_income_4_1.balance + bg_pl_income_4_2.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -498,7 +486,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_income_1.balance + bg_pl_income_2.balance + bg_pl_income_3.balance + bg_pl_income_4.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -519,7 +506,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_income_6_1.balance + bg_pl_income_6_2.balance + bg_pl_income_6_3.balance + bg_pl_income_6_4.balance + bg_pl_income_6_5.balance + bg_pl_income_6_6.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -582,7 +568,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_income_5.balance + bg_pl_income_6.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -596,7 +581,6 @@
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_expenses_total_costs.balance - bg_pl_income_total_revenue.balance</field>
                                 <field name="subformula">if_above(BGN(0))</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -610,7 +594,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_income_total_operating.balance + bg_pl_income_total_financial.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -624,7 +607,6 @@
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_expenses_total_costs.balance - bg_pl_income_total_revenue.balance</field>
                                 <field name="subformula">if_above(BGN(0))</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -639,7 +621,6 @@
                                 <field name="engine">aggregation</field>
                                 <field name="formula">bg_pl_income_9.balance + bg_pl_expenses_10.balance + bg_pl_expenses_11.balance - bg_pl_expenses_9.balance</field>
                                 <field name="subformula">if_above(BGN(0))</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>

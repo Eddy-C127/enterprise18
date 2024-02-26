@@ -22,7 +22,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">CH_30.balance + CH_39.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -36,7 +35,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-3\(39)</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -50,7 +48,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-39</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -65,7 +62,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">CH_3.balance + CH_4.balance + CH_5.balance + CH_60.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -79,7 +75,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-4</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -93,7 +88,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-5</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -107,7 +101,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-6\(68,69)</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -122,7 +115,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">CH_EBITDA.balance + CH_68.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -136,7 +128,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-68</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -151,7 +142,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">CH_EBIT.balance + CH_69.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -165,7 +155,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-69</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -180,7 +169,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">CH_EBT.balance + CH_7.balance + CH_80.balance + CH_85.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -194,7 +182,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-7</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -208,7 +195,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-80 - 81</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -222,7 +208,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-85</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -239,7 +224,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-89</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -252,7 +236,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">CH_RAI.balance + CH_89.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>

@@ -24,7 +24,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">SKR_TAXES.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -36,7 +35,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">SKR_1.balance + SKR_2.balance + SKR_3.balance + SKR_4.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -50,7 +48,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_01')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">-sum</field>
                                     </record>
                                 </field>
@@ -65,7 +62,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_02')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">-sum</field>
                                     </record>
                                 </field>
@@ -80,7 +76,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_03')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">-sum</field>
                                     </record>
                                 </field>
@@ -95,7 +90,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_04')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">-sum</field>
                                     </record>
                                 </field>
@@ -110,7 +104,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">SKR_INCOME.balance - SKR_5.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -124,7 +117,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_05')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">sum</field>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
@@ -140,7 +132,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">SKR_EXPENSE_MAT.balance - SKR_6.balance - SKR_7.balance - SKR_8.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -154,7 +145,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_06')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">sum</field>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
@@ -170,7 +160,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_07')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">sum</field>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
@@ -184,7 +173,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">aggregation</field>
                                         <field name="formula">SKR_8_1.balance + SKR_8_2.balance + SKR_8_3.balance + SKR_8_4.balance + SKR_8_5.balance + SKR_8_6.balance + SKR_8_7.balance</field>
-                                        <field name="date_scope">normal</field>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
                                 </field>
@@ -199,7 +187,6 @@
                                                 <field name="label">balance</field>
                                                 <field name="engine">domain</field>
                                                 <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_1')])]"/>
-                                                <field name="date_scope">normal</field>
                                                 <field name="subformula">sum</field>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
@@ -215,7 +202,6 @@
                                                 <field name="label">balance</field>
                                                 <field name="engine">domain</field>
                                                 <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_2')])]"/>
-                                                <field name="date_scope">normal</field>
                                                 <field name="subformula">sum</field>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
@@ -231,7 +217,6 @@
                                                 <field name="label">balance</field>
                                                 <field name="engine">domain</field>
                                                 <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_3')])]"/>
-                                                <field name="date_scope">normal</field>
                                                 <field name="subformula">sum</field>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
@@ -247,7 +232,6 @@
                                                 <field name="label">balance</field>
                                                 <field name="engine">domain</field>
                                                 <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_4')])]"/>
-                                                <field name="date_scope">normal</field>
                                                 <field name="subformula">sum</field>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
@@ -263,7 +247,6 @@
                                                 <field name="label">balance</field>
                                                 <field name="engine">domain</field>
                                                 <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_5')])]"/>
-                                                <field name="date_scope">normal</field>
                                                 <field name="subformula">sum</field>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
@@ -279,7 +262,6 @@
                                                 <field name="label">balance</field>
                                                 <field name="engine">domain</field>
                                                 <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_6')])]"/>
-                                                <field name="date_scope">normal</field>
                                                 <field name="subformula">sum</field>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
@@ -295,7 +277,6 @@
                                                 <field name="label">balance</field>
                                                 <field name="engine">domain</field>
                                                 <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_7')])]"/>
-                                                <field name="date_scope">normal</field>
                                                 <field name="subformula">sum</field>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
@@ -313,7 +294,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">SKR_9.balance + SKR_10.balance + SKR_11.balance - SKR_12.balance - SKR_13.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -327,7 +307,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_09')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">-sum</field>
                                     </record>
                                 </field>
@@ -342,7 +321,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_10')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">-sum</field>
                                     </record>
                                 </field>
@@ -357,7 +335,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_11')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">-sum</field>
                                     </record>
                                 </field>
@@ -372,7 +349,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_12')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">sum</field>
                                     </record>
                                 </field>
@@ -387,7 +363,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_13')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">sum</field>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
@@ -403,7 +378,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">SKR_EXPENSE.balance + SKR_FINANCE.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -415,7 +389,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">SKR_BUSINESS.balance - SKR_14.balance - SKR_15.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -429,7 +402,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_14')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">sum</field>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
@@ -445,7 +417,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">domain</field>
                                         <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_15')])]"/>
-                                        <field name="date_scope">normal</field>
                                         <field name="subformula">sum</field>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>

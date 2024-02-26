@@ -25,7 +25,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">OI.balance - OC.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -39,7 +38,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-411 - 412 - 413 - 414 - 42</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -53,7 +51,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">5</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -70,7 +67,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">61</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -83,7 +79,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">OP.balance - OE.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -98,7 +93,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-71 - 72</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -111,7 +105,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">ONP.balance + NOID.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -126,7 +119,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">82</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -139,7 +131,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">NBPT.balance - ITE.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -154,7 +145,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-84</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -167,7 +157,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">NPATCBU.balance + PLCU.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -182,7 +171,6 @@
                         <field name="label">balance</field>
                         <field name="engine">account_codes</field>
                         <field name="formula">-87</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>
@@ -195,7 +183,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">NPATCP.balance + OCGLCP.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
             </record>

@@ -24,7 +24,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_fr_imb_I.balance + l10n_fr_imb_II.balance - l10n_fr_imb_III.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -36,7 +35,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">l10n_fr_imb_1.balance - l10n_fr_imb_2.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -50,7 +48,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">-7097 - 707</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                             </record>
@@ -64,7 +61,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">607 + 608 + 6097 + 6037</field>
-                                        <field name="date_scope">normal</field>
                                         <field name="green_on_positive" eval="False"/>
                                     </record>
                                 </field>
@@ -79,7 +75,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">l10n_fr_imb_3.balance + l10n_fr_imb_4.balance + l10n_fr_imb_5.balance</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -93,7 +88,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">-70\(700,707,709) - 7091 - 7092 - 7094 - 7095 - 7096 - 7098 - 73</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                             </record>
@@ -107,7 +101,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">-713</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                             </record>
@@ -121,7 +114,6 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">-72</field>
-                                        <field name="date_scope">normal</field>
                                     </record>
                                 </field>
                             </record>
@@ -137,7 +129,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">60\(600,603,607,608,6097) + 6031 + 6032 + 61 + 62</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -153,7 +144,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_fr_imb_IV.balance + l10n_fr_imb_a.balance - l10n_fr_imb_b.balance - l10n_fr_imb_c.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -167,7 +157,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-74</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -181,7 +170,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">63</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -196,7 +184,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">64</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -212,7 +199,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_fr_imb_V.balance + l10n_fr_imb_d.balance + l10n_fr_imb_e.balance + l10n_fr_imb_f.balance - l10n_fr_imb_g.balance - l10n_fr_imb_h.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -226,7 +212,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-75\(755)</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -240,7 +225,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-781</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -254,7 +238,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-791</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -268,7 +251,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">681</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -283,7 +265,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">65\(655)</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -299,7 +280,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_fr_imb_VI.balance + l10n_fr_imb_i.balance + l10n_fr_imb_j.balance - l10n_fr_imb_k.balance - l10n_fr_imb_l.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -313,7 +293,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-755</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -327,7 +306,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-76 -786 - 796</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -341,7 +319,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">655</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -356,7 +333,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">66 + 686</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -372,7 +348,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_fr_imb_m.balance - l10n_fr_imb_n.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -386,7 +361,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-77 - 787 - 797</field>
-                                <field name="date_scope">normal</field>
                             </record>
                         </field>
                     </record>
@@ -400,7 +374,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">67 + 687</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -416,7 +389,6 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">l10n_fr_imb_VII.balance + l10n_fr_imb_VIII.balance - l10n_fr_imb_o.balance - l10n_fr_imb_p.balance</field>
-                        <field name="date_scope">normal</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -430,7 +402,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">691</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
@@ -445,7 +416,6 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">695 + 696 + 697 + 698 + 699</field>
-                                <field name="date_scope">normal</field>
                                 <field name="green_on_positive" eval="False"/>
                             </record>
                         </field>
