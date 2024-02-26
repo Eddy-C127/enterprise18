@@ -68,6 +68,12 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
 
         cls.report = cls.env.ref('account_reports.trial_balance_report')
 
+    @classmethod
+    def setup_company_data(cls, company_name, chart_template=None, **kwargs):
+        # OVERRIDE account
+        mx_country_id = cls.env.ref('base.mx').id
+        return super().setup_company_data(company_name, chart_template=chart_template, country_id=mx_country_id, **kwargs)
+
     def test_generate_coa_xml(self):
         """ This test will generate a COA report and verify that every
             account with an entry in the selected period has been there.
@@ -88,11 +94,11 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
 
         expected_coa_xml = b"""<?xml version='1.0' encoding='utf-8'?>
         <catalogocuentas:Catalogo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:catalogocuentas="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas" xsi:schemaLocation="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas/CatalogoCuentas_1_3.xsd" Version="1.3" RFC="EKU9003173C9" Mes="01" Anio="2021">
-            <catalogocuentas:Ctas CodAgrup="101" NumCta="101" Desc="Cash" Nivel="1" Natur="A"/>
-            <catalogocuentas:Ctas CodAgrup="101.01" NumCta="101.01" Desc="Cash in hand" Nivel="2" Natur="A"/>
-            <catalogocuentas:Ctas CodAgrup="102" NumCta="102" Desc="Bank" Nivel="1" Natur="A"/>
-            <catalogocuentas:Ctas CodAgrup="102.01" NumCta="102.01" Desc="National banks" Nivel="2" Natur="A"/>
-            <catalogocuentas:Ctas CodAgrup="102.02" NumCta="102.02" Desc="Foreign banks" Nivel="2" Natur="A"/>
+            <catalogocuentas:Ctas CodAgrup="101" NumCta="101" Desc="Cash" Nivel="1" Natur="D"/>
+            <catalogocuentas:Ctas CodAgrup="101.01" NumCta="101.01" Desc="Cash in hand" Nivel="2" Natur="D"/>
+            <catalogocuentas:Ctas CodAgrup="102" NumCta="102" Desc="Bank" Nivel="1" Natur="D"/>
+            <catalogocuentas:Ctas CodAgrup="102.01" NumCta="102.01" Desc="National banks" Nivel="2" Natur="D"/>
+            <catalogocuentas:Ctas CodAgrup="102.02" NumCta="102.02" Desc="Foreign banks" Nivel="2" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="105" NumCta="105" Desc="Clients" Nivel="1" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="105.01" NumCta="105.01" Desc="National customers" Nivel="2" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="107" NumCta="107" Desc="Sundry debtors" Nivel="1" Natur="D"/>
@@ -161,15 +167,6 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
             <catalogocuentas:Ctas CodAgrup="899.01" NumCta="899.01" Desc="Other off-balance sheet items" Nivel="2" Natur="D"/>
         </catalogocuentas:Catalogo>
         """
-
-        # Add missing tags to Outstanding Receipts, Outstanding Payments, Liquidity Transfer accounts
-        accounts = self.env['account.account'].search([
-            ('company_id', '=', self.env.company.id),
-            ('account_type', '!=', 'equity_unaffected'),
-            ('group_id', '!=', False),
-            ('tag_ids', '=', False)
-        ])
-        accounts.write({'tag_ids': [Command.link(self.env.ref('l10n_mx.tag_credit_balance_account').id)]})
 
         options = self._generate_options(self.report, '2021-01-01', '2021-12-31')
         coa_report = self.env[self.report.custom_handler_model_name].with_context(skip_xsd=True).action_l10n_mx_generate_coa_sat_xml(options)['file_content']
