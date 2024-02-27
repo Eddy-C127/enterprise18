@@ -4,27 +4,41 @@ from odoo.tests.common import TransactionCase, tagged
 
 @tagged("-at_install", "post_install")
 class TestStudioApprovals(TransactionCase):
-    def test_approval_method_two_models(self):
-        IrModel = self.env["ir.model"]
-        other_user = self.env["res.users"].create({
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.admin_user = cls.env.ref("base.user_admin")
+        cls.demo_user = cls.env["res.users"].search([("login", "=", "demo")], limit=1)
+        if not cls.demo_user:
+            cls.demo_user = cls.env["res.users"].create({
+                "login": "demo",
+                "name": "demo",
+                "email": "demo@demo",
+                "groups_id": [Command.link(cls.env.ref("base.group_user").id)]
+            })
+
+        cls.other_user = cls.env["res.users"].create({
             "name": "test",
             "login": "test",
             "email": "test@test.test",
-            "groups_id": [Command.link(self.env.ref("base.group_user").id)]
+            "groups_id": [Command.link(cls.env.ref("base.group_user").id)]
         })
+
+    def test_approval_method_two_models(self):
+        IrModel = self.env["ir.model"]
 
         self.env["studio.approval.rule"].create([
             {
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": 2,
+                "responsible_id": self.admin_user.id,
                 "users_to_notify": [Command.link(2)],
                 "exclusive_user": True,
             },
             {
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": 2,
+                "responsible_id": self.admin_user.id,
                 "users_to_notify": [Command.link(2)],
                 "exclusive_user": True,
             },
@@ -32,14 +46,14 @@ class TestStudioApprovals(TransactionCase):
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
                 "notification_order": "2",
-                "responsible_id": 2,
-                "users_to_notify": [Command.link(other_user.id)],
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(self.other_user.id)],
                 "exclusive_user": True,
             },
             {
                 "model_id": IrModel._get("test.studio.model_action2").id,
                 "method": "action_confirm",
-                "responsible_id": 2,
+                "responsible_id": self.admin_user.id,
                 "users_to_notify": [Command.link(2)],
                 "exclusive_user": True,
             }
@@ -53,7 +67,7 @@ class TestStudioApprovals(TransactionCase):
             self.env["test.studio.model_action"].browse(model_action.id).action_confirm()
 
         self.assertFalse(model_action.confirmed)
-        self.assertEqual(model_action.message_ids[0].preview, "@Mitchell Admin An approval for 'False' has been requested on test")
+        self.assertEqual(model_action.message_ids[0].preview, f"@{self.admin_user.name} An approval for 'False' has been requested on test")
         self.assertEqual(len(model_action.activity_ids), 1)
 
         with self.with_user("admin"):
@@ -72,19 +86,13 @@ class TestStudioApprovals(TransactionCase):
 
     def test_notify_higher_notification_order(self):
         IrModel = self.env["ir.model"]
-        other_user = self.env["res.users"].create({
-            "name": "test",
-            "login": "test",
-            "email": "test@test.test",
-            "groups_id": [Command.link(self.env.ref("base.group_user").id)]
-        })
 
         self.env["studio.approval.rule"].create([
             {
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_step",
                 "domain": "[('step', '<', 1)]",
-                "responsible_id": 2,
+                "responsible_id": self.admin_user.id,
                 "users_to_notify": [Command.link(2)],
             },
             {
@@ -92,14 +100,14 @@ class TestStudioApprovals(TransactionCase):
                 "method": "action_step",
                 "domain": "[('step', '>=', 1)]",
                 "notification_order": "2",
-                "responsible_id": 2,
-                "users_to_notify": [Command.link(other_user.id)],
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(self.other_user.id)],
             },
             {
                 "model_id": IrModel._get("test.studio.model_action2").id,
                 "method": "action_step",
                 "notification_order": "1",
-                "responsible_id": 2,
+                "responsible_id": self.admin_user.id,
                 "users_to_notify": [Command.link(2)],
             },
         ])
