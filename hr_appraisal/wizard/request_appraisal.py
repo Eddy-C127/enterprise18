@@ -132,6 +132,7 @@ class RequestAppraisal(models.TransientModel):
             message_type='comment',
             partner_ids=self.recipient_ids.ids,
             subject=subject,
+            attachment_ids=self.template_id.attachment_ids.ids,
         )
 
         return {
