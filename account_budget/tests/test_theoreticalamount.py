@@ -29,6 +29,15 @@ class TestTheoreticalAmount(TestAccountBudgetCommon):
             self.assertRecordValues(budget_line, [{'theoritical_amount': expected_amount}])
             budget_line.invalidate_model(['theoritical_amount'])
 
+    def test_aggregates(self):
+        model = self.env['crossovered.budget.lines']
+        field_names = ['practical_amount', 'theoritical_amount', 'percentage']
+        self.assertEqual(
+            model.fields_get(field_names, ['aggregator']),
+            dict.fromkeys(field_names, {'aggregator': 'sum'}),
+            f"Fields {', '.join(map(repr, field_names))} must be flagged as aggregatable.",
+        )
+
     def test_theoritical_amount_without_paid_date(self):
         line = self.env['crossovered.budget.lines'].create({
             'crossovered_budget_id': self.crossovered_budget.id,

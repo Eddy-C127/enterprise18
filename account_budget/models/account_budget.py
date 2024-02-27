@@ -97,25 +97,19 @@ class CrossoveredBudgetLines(models.Model):
     is_above_budget = fields.Boolean(compute='_is_above_budget')
     crossovered_budget_state = fields.Selection(related='crossovered_budget_id.state', string='Budget State', store=True, readonly=True)
 
-    @api.model
-    def _read_group(self, domain, groupby=(), aggregates=(), having=(), offset=0, limit=None, order=None):
-        SPECIAL = {'practical_amount:sum', 'theoritical_amount:sum', 'percentage:sum'}
-        if SPECIAL.isdisjoint(aggregates):
-            return super()._read_group(domain, groupby, aggregates, having, offset, limit, order)
+    def _read_group_select(self, aggregate_spec, query):
+        # flag practical_amount/theoritical_amount/percentage as aggregatable
+        # and manually sum the values from the records in the group
+        if aggregate_spec in ('practical_amount:sum', 'theoritical_amount:sum', 'percentage:sum'):
+            return super()._read_group_select('id:recordset', query)
+        return super()._read_group_select(aggregate_spec, query)
 
-        base_aggregates = [*(agg for agg in aggregates if agg not in SPECIAL), 'id:recordset']
-        base_result = super()._read_group(domain, groupby, base_aggregates, having, offset, limit, order)
-
-        # base_result = [(a1, b1, records), (a2, b2, records), ...]
-        result = []
-        for *other, records in base_result:
-            for index, spec in enumerate(itertools.chain(groupby, aggregates)):
-                if spec in SPECIAL:
-                    field_name = spec.split(':')[0]
-                    other.insert(index, sum(records.mapped(field_name)))
-            result.append(tuple(other))
-
-        return result
+    def _read_group_postprocess_aggregate(self, aggregate_spec, raw_values):
+        if aggregate_spec in ('practical_amount:sum', 'theoritical_amount:sum', 'percentage:sum'):
+            field_name = aggregate_spec.split(':')[0]
+            column = super()._read_group_postprocess_aggregate('id:recordset', raw_values)
+            return (sum(records.mapped(field_name)) for records in column)
+        return super()._read_group_postprocess_aggregate(aggregate_spec, raw_values)
 
     def _is_above_budget(self):
         for line in self:
