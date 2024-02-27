@@ -309,6 +309,11 @@ class HelpdeskTeam(models.Model):
         self.ensure_one()
         return self.get_portal_url()
 
+    @api.onchange('auto_assignment')
+    def _onchange_assign_method(self):
+        if not self.member_ids:
+            self.member_ids = [(6, 0, self.env.user.ids)]
+
     # ------------------------------------------------------------
     # ORM overrides
     # ------------------------------------------------------------

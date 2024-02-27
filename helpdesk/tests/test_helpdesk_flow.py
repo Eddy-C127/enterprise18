@@ -7,6 +7,8 @@ from freezegun import freeze_time
 
 from .common import HelpdeskCommon
 from odoo.exceptions import AccessError
+from odoo.tests import Form
+from odoo.tests.common import users
 
 
 class TestHelpdeskFlow(HelpdeskCommon):
@@ -633,3 +635,14 @@ Content-Transfer-Encoding: quoted-printable
         self.assertEqual(open_ticket.partner_ticket_count, 1, "There should be one other ticket than this one for this partner")
         self.assertEqual(closed_ticket.partner_open_ticket_count, 1, "There should be one other open ticket than this one for this partner")
         self.assertEqual(closed_ticket.partner_ticket_count, 1, "There should be one other ticket than this one for this partner")
+
+    @users('hm')
+    def test_helpdesk_team_members_fallback(self):
+        helpdesk_form = Form(self.env['helpdesk.team'])
+        helpdesk_form.name = 'test team 2'
+        helpdesk_form.auto_assignment = True
+        helpdesk_form.member_ids.clear()
+        helpdesk_form.auto_assignment = False
+        helpdesk = helpdesk_form.save()
+
+        self.assertEqual(helpdesk.member_ids, self.env.user)
