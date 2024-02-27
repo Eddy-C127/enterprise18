@@ -709,6 +709,7 @@ class AccountMoveLine(models.Model):
             *self.env['account.account']._check_company_domain(self.move_id.company_id or self.env.company),
             ('deprecated', '=', False),
             ('internal_group', 'not in', (excluded_group, 'off_balance')),
+            ('account_type', 'not in', ('liability_payable', 'asset_receivable')),
         ])
         psql_lang = self._get_predict_postgres_dictionary()
         additional_queries = [self.env.cr.mogrify(*account_query.select(

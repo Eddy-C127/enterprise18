@@ -35,7 +35,7 @@ class TestBillsPrediction(AccountTestInvoicingCommon):
 
         cls.frozen_today = fields.Date.today()
 
-    def _create_bill(self, vendor, line_name, expected_account, account_to_set=None):
+    def _create_bill(self, vendor, line_name, expected_account, account_to_set=None, post=True):
         ''' Create a new vendor bill to test the prediction.
         :param vendor:              The vendor to set on the invoice.
         :param line_name:           The name of the invoice line that will be used to predict.
@@ -68,7 +68,8 @@ class TestBillsPrediction(AccountTestInvoicingCommon):
         if account_to_set:
             invoice_line.account_id = account_to_set
 
-        invoice.action_post()
+        if post:
+            invoice.action_post()
         return invoice
 
     def test_account_prediction_flow(self):
@@ -90,6 +91,11 @@ class TestBillsPrediction(AccountTestInvoicingCommon):
     def test_account_prediction_from_label_expected_behavior(self):
         """Prevent the prediction from being annoying."""
         default_account = self.company_data['default_journal_purchase'].default_account_id
+        payable_account = self.company_data['default_account_payable'].copy()
+        payable_account.write({'name': f'Account payable - {self.test_accounts[0].name}'})
+
+        # There is no prior result, we take the default account, but we don't post
+        self._create_bill(self.test_partners[0], self.test_partners[0].name, default_account, post=False)
 
         # There is no prior result, we take the default account
         self._create_bill(self.test_partners[0], "Drinks", default_account, account_to_set=self.test_accounts[0])
