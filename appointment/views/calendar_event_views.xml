@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
         <field name="arch" type="xml">
             <field name="categ_ids" position="after">
-                <field name="appointment_type_id"/>
+                <field name="appointment_type_id" invisible="not appointment_type_id"/>
                 <field name="appointment_resource_id"
                        invisible="not appointment_type_id or not appointment_resource_id"
                        domain="[('appointment_type_ids', 'in', appointment_type_id)]"/>
