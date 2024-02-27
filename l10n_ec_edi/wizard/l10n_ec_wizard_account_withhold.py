@@ -484,10 +484,11 @@ class L10nEcWizardAccountWithholdLine(models.TransientModel):
                         and r != line
                     )
                     if previous_related_lines and len(self) == 1:
-                        # When we have just a line it means the user is adding or modifying a withholding line in the widget
-                        # Odoo onchanges creates a new object to replace line with it, following line removes the new object (last element in the list)
-                        previous_related_lines = previous_related_lines - previous_related_lines[-1]
-                    previous_base = sum(previous_related_lines.mapped('base'))
+                        # When user edits a withhold line in the widget, the onchanges creates a new object to
+                        # replace line with it, so we temporary have a duplicate with the same base
+                        previous_base = sum(previous_related_lines.mapped('base')) - line.base
+                    else:
+                        previous_base = 0
                     if l10n_ec_type in ('withhold_vat_sale', 'withhold_vat_purchase'):
                         base = amount_vat - previous_base
                     else:
