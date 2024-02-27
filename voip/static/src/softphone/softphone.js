@@ -108,7 +108,11 @@ export class Softphone extends Component {
         if (!call) {
             return false;
         }
-        return call.state === "calling" && call.direction === "incoming";
+        return (
+            call.state === "calling" &&
+            call.direction === "incoming" &&
+            Boolean(this.userAgent.session)
+        );
     }
 
     /** @returns {boolean} */
