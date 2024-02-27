@@ -614,6 +614,8 @@ class StudioApprovalRule(models.Model):
             # already requested, let's not create a shitload of activities for the same user
             return False
         if self.notification_order != '1':
+            # search and read entries as sudo. Otherwise we won't see entries create/approved by other users
+            entry_sudo = self.env["studio.approval.entry"].sudo()
             # avoid asking for an approval if all request from a lower level have not yet been validated
             for approval_rule in ruleSudo.search([
                 ('notification_order', '<', self.notification_order),
@@ -622,7 +624,7 @@ class StudioApprovalRule(models.Model):
                 ('method', '=', ruleSudo.method),
                 ('action_id', '=', ruleSudo.action_id.id)
             ]):
-                existing_entry = self.env['studio.approval.entry'].search([
+                existing_entry = entry_sudo.search([
                     ('model', '=', ruleSudo.model_name),
                     ('method', '=', ruleSudo.method),
                     ('action_id', '=', ruleSudo.action_id.id),

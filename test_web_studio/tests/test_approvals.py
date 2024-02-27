@@ -24,6 +24,13 @@ class TestStudioApprovals(TransactionCase):
             "groups_id": [Command.link(cls.env.ref("base.group_user").id)]
         })
 
+        cls.test_user_2 = cls.env["res.users"].create({
+            "name": "test_2",
+            "login": "test_2",
+            "email": "test_2@test_2.test_2",
+            "groups_id": [Command.link(cls.env.ref("base.group_user").id)]
+        })
+
     def test_approval_method_two_models(self):
         IrModel = self.env["ir.model"]
 
@@ -121,3 +128,76 @@ class TestStudioApprovals(TransactionCase):
         self.assertEqual(model_action.step, 1)
         self.assertEqual(model_action.message_ids[0].preview, "@test An approval for 'False' has been requested on test")
         self.assertEqual(len(model_action.activity_ids), 1)
+
+    def test_entries_approved_by_other_read_by_regular_user(self):
+        IrModel = self.env["ir.model"]
+        self.env["studio.approval.rule"].create([
+            {   # rule 0
+                "name": "R0",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_step",
+                "notification_order": "1",
+                "exclusive_user": True,
+                "responsible_id": self.admin_user.id,
+            },
+            {
+                "name": "R1",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_step",
+                "notification_order": "2",
+                "exclusive_user": True,
+                "responsible_id": self.admin_user.id,
+            },
+            {
+                "name": "R2",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_step",
+                "notification_order": "2",
+                "exclusive_user": True,
+                "responsible_id": self.admin_user.id,
+            },
+            {
+                "name": "R3",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_step",
+                "notification_order": "3",
+                "exclusive_user": True,
+                "responsible_id": self.test_user_2.id,
+            },
+        ])
+        model_action = self.env["test.studio.model_action"].create({
+            "name": "test"
+        })
+        with self.with_user("admin"):
+            # validates rule 0
+            # this will create an entry belonging to admin
+            self.env["test.studio.model_action"].browse(model_action.id).action_step()
+
+        self.assertEqual(model_action.step, 0)
+        self.assertEqual(model_action.message_ids[:2].mapped("preview"), ["An approval for 'R2' has been requested on test", "An approval for 'R1' has been requested on test"])
+        self.assertEqual(len(model_action.activity_ids), 2)
+        self.assertEqual(model_action.activity_ids.mapped("user_id").ids, self.admin_user.ids)
+
+        with self.with_user("test"):
+            # validates rule 1
+            self.env["test.studio.model_action"].browse(model_action.id).action_step()
+
+        self.assertEqual(model_action.step, 0)
+        self.assertEqual(model_action.message_ids[0].preview, "Approved as User types / Internal User")
+        self.assertEqual(len(model_action.activity_ids), 1)
+        self.assertEqual(model_action.activity_ids.mapped("user_id").ids, self.admin_user.ids)
+
+        with self.with_user("demo"):
+            self.env["test.studio.model_action"].browse(model_action.id).action_step()
+
+        self.assertEqual(model_action.step, 0)
+        self.assertEqual(model_action.message_ids[0].preview, "An approval for 'R3' has been requested on test")
+        self.assertEqual(len(model_action.activity_ids), 1)
+        self.assertEqual(model_action.activity_ids.mapped("user_id").ids, self.test_user_2.ids)
+
+        with self.with_user("test_2"):
+            self.env["test.studio.model_action"].browse(model_action.id).action_step()
+
+        self.assertEqual(model_action.step, 1)
+        self.assertEqual(model_action.message_ids[0].preview, "Approved as User types / Internal User")
+        self.assertEqual(len(model_action.activity_ids), 0)
