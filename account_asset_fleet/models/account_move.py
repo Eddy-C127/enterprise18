@@ -23,5 +23,5 @@ class AccountMoveLine(models.Model):
         # Overridden in order to include the non deductible tax amount.
         val = super()._prepare_fleet_log_service()
         quantity = self.quantity if self.account_id.multiple_assets_per_line else 1
-        val['amount'] = self.currency_id.round((self.price_subtotal + self.non_deductible_tax_value) / quantity)
+        val['amount'] = self.currency_id.round((self.debit + self.non_deductible_tax_value) / quantity)
         return val
