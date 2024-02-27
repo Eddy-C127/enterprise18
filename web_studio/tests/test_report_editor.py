@@ -1215,6 +1215,9 @@ class TestReportEditorUIUnit(HttpCase):
         self.start_tour(self.tour_url, "web_studio.test_image_crop", login="admin")
 
     def test_add_non_searchable_field(self):
+        with self.with_user("admin"):
+            partner = self.env["res.partner"].search([], limit=1)
+        partner.image_1024 = "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAF0lEQVR4nGJxKFrEwMDAxAAGgAAAAP//D+IBWx9K7TUAAAAASUVORK5CYII="
         self.start_tour(self.tour_url, "web_studio.test_add_non_searchable_field", login="admin")
         arch, _ = get_combined_and_studio_arch(self.main_view_document)
         self.assertXMLEqual(arch, """
