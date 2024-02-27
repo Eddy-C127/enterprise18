@@ -204,7 +204,7 @@ class AccountEdiXmlUBLPE(models.AbstractModel):
         vals = super()._get_invoice_line_price_vals(line)
         # Line discounts are not handled well by the EDI service. That's why we skip them
         # and already subtract the discount from the line in the `PriceAmount` tag.
-        vals['price_amount'] = line.price_subtotal / line.quantity if line.quantity else 0.0
+        vals['price_amount'] = round(line.price_subtotal / line.quantity, 10) if line.quantity else 0.0
         return vals
 
     def _get_invoice_line_vals(self, line, taxes_vals, idx=None):
