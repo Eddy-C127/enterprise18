@@ -82,18 +82,6 @@ class TestAccountReportsCommon(AccountTestInvoicingCommon):
             c['selected'] = c['id'] in selected_ids
         return new_options
 
-    @contextmanager
-    def debug_mode(self, report):
-        Report_user_has_groups = type(report).user_has_groups
-
-        def user_has_groups(self, groups):
-            if groups == 'base.group_no_one':
-                return True
-            return Report_user_has_groups(self, groups)
-
-        with patch.object(type(report), 'user_has_groups', user_has_groups):
-            yield
-
     def assertGrowthComparisonValues(self, lines, expected_values):
         filtered_lines = self._filter_folded_lines(lines)
 
