@@ -98,6 +98,7 @@ class L10nBeIndividualAccount(models.Model):
             rule['year']['total'] += other_input.amount
 
         for line in lines:
+            line = line.with_context(lang=line.slip_id.employee_id.lang or self.env.user.lang)
             rule = result[line.employee_id]['rules'][line.salary_rule_id.code]
             month = line.slip_id.date_from.month - 1
             line_name = rule['month'][month]['name']
@@ -115,6 +116,7 @@ class L10nBeIndividualAccount(models.Model):
             rule['year']['total'] = round(rule['year']['total'], 2)
 
         for worked_day in worked_days:
+            worked_day = worked_day.with_context(lang=worked_day.payslip_id.employee_id.lang or self.env.user.lang)
             work = result[worked_day.payslip_id.employee_id]['worked_days'][worked_day.code]
             month = worked_day.payslip_id.date_from.month - 1
 
