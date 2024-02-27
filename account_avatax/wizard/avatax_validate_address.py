@@ -69,8 +69,8 @@ class AvataxValidateAddress(models.TransientModel):
                     ('country_id', '=', wizard.validated_country_id.id),
                 ]).id
 
-                wizard.validated_latitude = validated['latitude']
-                wizard.validated_longitude = validated['longitude']
+                wizard.validated_latitude = validated.get('latitude')
+                wizard.validated_longitude = validated.get('longitude')
 
                 wizard.is_already_valid = (
                     wizard.street == wizard.validated_street
