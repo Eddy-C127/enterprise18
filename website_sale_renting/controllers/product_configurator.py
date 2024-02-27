@@ -3,7 +3,7 @@
 from odoo import fields
 from odoo.http import request, route
 
-from odoo.addons.website_sale_product_configurator.controllers.main import WebsiteSaleProductConfiguratorController
+from odoo.addons.website_sale.controllers.product_configurator import WebsiteSaleProductConfiguratorController
 
 
 class RentingConfiguratorController(WebsiteSaleProductConfiguratorController):
@@ -16,3 +16,11 @@ class RentingConfiguratorController(WebsiteSaleProductConfiguratorController):
                 end_date=fields.Datetime.to_datetime(request.env.context['end_date']),
             )
         return super().show_advanced_configurator(*args, **kw)
+
+    @route()
+    def cart_options_update_json(self, *args, start_date=None, end_date=None, **kwargs):
+        start_date = fields.Datetime.to_datetime(start_date)
+        end_date = fields.Datetime.to_datetime(end_date)
+        return super().cart_options_update_json(
+            *args, start_date=start_date, end_date=end_date, **kwargs
+        )

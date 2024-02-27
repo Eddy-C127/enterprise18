@@ -12,6 +12,7 @@ appropriate views and selling choices.
         'security/ir.model.access.csv',
         'security/website_sale.xml',
         'data/product_snippet_template_data.xml',
+        'views/product_configurator_templates.xml',
         'views/product_views.xml',
         'views/res_config_settings_views.xml',
         'views/templates.xml',

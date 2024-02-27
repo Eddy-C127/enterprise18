@@ -6,6 +6,10 @@
         </record>
         <record id="sale_renting.rental_product_2" model="product.product">
             <field name="is_published" eval="True"/>
+            <field
+                name="optional_product_ids"
+                eval="[Command.set([ref('sale_renting.rental_product_1_product_template')])]"
+            />
         </record>
 
         <record id="base.main_company" model="res.company">

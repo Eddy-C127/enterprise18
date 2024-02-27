@@ -7,7 +7,7 @@ from odoo.tests.common import tagged, loaded_demo_data
 
 from odoo.addons.mail.tests.common import mail_new_test_user
 from odoo.addons.product_matrix.tests.common import TestMatrixCommon
-from odoo.addons.sale_product_configurator.tests.common import TestProductConfiguratorCommon
+from odoo.addons.sale.tests.product_configurator_common import TestProductConfiguratorCommon
 
 _logger = logging.getLogger(__name__)
 
