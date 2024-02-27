@@ -17,4 +17,4 @@ class FleetVehicleLogServices(models.Model):
             if account_move_line_id.account_id.multiple_assets_per_line:
                 quantity = account_move_line_id.quantity
             log_service.amount = account_move_line_id.currency_id.round(
-                (account_move_line_id.price_subtotal + account_move_line_id.non_deductible_tax_value) / quantity)
+                (account_move_line_id.debit + account_move_line_id.non_deductible_tax_value) / quantity)
