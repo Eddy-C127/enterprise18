@@ -456,7 +456,7 @@ QUnit.module(
                         {
                             id: "sheet2",
                             cells: {
-                                A1: { content: `=ODOO.PIVOT("1", "probability")` },
+                                A1: { content: `=PIVOT.VALUE("1", "probability")` },
                             },
                         },
                     ],

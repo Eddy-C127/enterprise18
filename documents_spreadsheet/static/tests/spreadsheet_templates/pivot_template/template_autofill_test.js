@@ -17,7 +17,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         setCellContent(
             model,
             "B2",
-            `=ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
+            `=PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
         );
 
         // DOWN
@@ -27,7 +27,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         model.dispatch("AUTOFILL");
         assert.equal(
             getCellFormula(model, "B3"),
-            `=ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 10000),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
+            `=PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 10000),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
         );
 
         // UP
@@ -37,7 +37,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         model.dispatch("AUTOFILL");
         assert.equal(
             getCellFormula(model, "B1"),
-            `=ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9998),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
+            `=PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9998),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
         );
 
         // RIGHT
@@ -47,7 +47,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         model.dispatch("AUTOFILL");
         assert.equal(
             getCellFormula(model, "C2"),
-            `=ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4445))`
+            `=PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4445))`
         );
 
         // LEFT
@@ -57,11 +57,11 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         model.dispatch("AUTOFILL");
         assert.equal(
             getCellFormula(model, "A2"),
-            `=ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4443))`
+            `=PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4443))`
         );
     });
 
-    QUnit.test("Autofill template position: =-PIVOT(...)", async function (assert) {
+    QUnit.test("Autofill template position: =-PIVOT.VALUE(...)", async function (assert) {
         const { model } = await createSpreadsheetWithPivot({
             arch: /*xml*/ `
                 <pivot>
@@ -73,7 +73,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         setCellContent(
             model,
             "B2",
-            `= - ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
+            `= - PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
         );
 
         // DOWN
@@ -82,7 +82,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         model.dispatch("AUTOFILL");
         assert.equal(
             getCellFormula(model, "B3"),
-            `= - ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 10000),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
+            `= - PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 10000),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
         );
     });
 
@@ -98,8 +98,8 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
             model,
             "B2",
             `=SUM(
-                ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4444)),
-                ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 666),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))
+                PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4444)),
+                PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 666),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))
             )`.replace(/\n/g, "")
         );
 
@@ -110,8 +110,8 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         assert.equal(
             getCellFormula(model, "B3"),
             `=SUM(
-                ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4444)),
-                ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 667),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))
+                PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4444)),
+                PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 667),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))
             )`.replace(/\n/g, "")
         );
     });
@@ -150,7 +150,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         setCellContent(
             model,
             "B2",
-            `=ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("10000","product_id", 9999))`
+            `=PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("10000","product_id", 9999))`
         );
 
         // DOWN
@@ -159,7 +159,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         model.dispatch("AUTOFILL");
         assert.equal(
             getCellFormula(model, "B3"),
-            `=ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("10000","product_id", 9999))`,
+            `=PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("10000","product_id", 9999))`,
             "Should have copied the origin value"
         );
     });
@@ -177,7 +177,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         setCellContent(
             model,
             "B2",
-            `=ODOO.PIVOT("1","probability","foo",ODOO.PIVOT.POSITION("1","foo", 3333),"product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
+            `=PIVOT.VALUE("1","probability","foo",ODOO.PIVOT.POSITION("1","foo", 3333),"product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`
         );
 
         // DOWN
@@ -186,7 +186,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
         model.dispatch("AUTOFILL");
         assert.equal(
             getCellFormula(model, "B3"),
-            `=ODOO.PIVOT("1","probability","foo",ODOO.PIVOT.POSITION("1","foo", 3333),"product_id",ODOO.PIVOT.POSITION("1","product_id", 10000),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`,
+            `=PIVOT.VALUE("1","probability","foo",ODOO.PIVOT.POSITION("1","foo", 3333),"product_id",ODOO.PIVOT.POSITION("1","product_id", 10000),"bar",ODOO.PIVOT.POSITION("1","bar", 4444))`,
             "It should have incremented the last row group position"
         );
     });
@@ -207,7 +207,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
             setCellContent(
                 model,
                 "B2",
-                `=ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999), "foo","10","bar","15")`
+                `=PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999), "foo","10","bar","15")`
             );
 
             // DOWN
@@ -216,7 +216,7 @@ QUnit.module("documents_spreadsheet > autofill template", {}, () => {
             model.dispatch("AUTOFILL");
             assert.equal(
                 getCellFormula(model, "B3"),
-                `=ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999), "foo","10","bar","15")`,
+                `=PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999), "foo","10","bar","15")`,
                 "It should not have changed the formula"
             );
         }

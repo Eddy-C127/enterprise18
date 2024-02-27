@@ -286,7 +286,7 @@ export class PivotDialog extends Component {
                     domain.push(cell.values[i]);
                 }
                 current.push({
-                    formula: makePivotFormula("ODOO.PIVOT.HEADER", [id, ...domain]),
+                    formula: makePivotFormula("PIVOT.HEADER", [id, ...domain]),
                     value: this.dataSource.getPivotHeaderFormattedValue(domain),
                     span: cell.width,
                     isMissing: !this.dataSource.isUsedHeader(domain),
@@ -322,7 +322,7 @@ export class PivotDialog extends Component {
             }
             const cell = {
                 args: domain,
-                formula: makePivotFormula("ODOO.PIVOT.HEADER", [id, ...domain]),
+                formula: makePivotFormula("PIVOT.HEADER", [id, ...domain]),
                 value: this.dataSource.getPivotHeaderFormattedValue(domain),
                 isMissing: !this.dataSource.isUsedHeader(domain),
             };
@@ -361,7 +361,7 @@ export class PivotDialog extends Component {
                 const locale = this.props.getters.getLocale();
                 current.push({
                     args: {
-                        formula: makePivotFormula("ODOO.PIVOT", [id, measure, ...domain]),
+                        formula: makePivotFormula("PIVOT.VALUE", [id, measure, ...domain]),
                         value: !value ? "" : formatValue(value, { locale }),
                     },
                     isMissing: !this.dataSource.isUsedValue(domain, measure),

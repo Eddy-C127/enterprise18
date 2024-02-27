@@ -107,9 +107,9 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
      *
      * e.g.
      * The following relative formula
-     *      `PIVOT("1","probability","product_id",PIVOT.POSITION("1","product_id",0),"bar","110")`
+     *      `PIVOT.VALUE("1","probability","product_id",PIVOT.POSITION("1","product_id",0),"bar","110")`
      * is converted to
-     *      `PIVOT("1","probability","product_id","37","bar","110")`
+     *      `PIVOT.VALUE("1","probability","product_id","37","bar","110")`
      *
      * @param {Object} ast
      * @returns {Object}
@@ -146,9 +146,9 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
      *
      * e.g.
      * The following absolute formula
-     *      `PIVOT("1","probability","product_id","37","bar","110")`
+     *      `PIVOT.VALUE("1","probability","product_id","37","bar","110")`
      * is converted to
-     *      `PIVOT("1","probability","product_id",PIVOT.POSITION("1","product_id",0),"bar","110")`
+     *      `PIVOT.VALUE("1","probability","product_id",PIVOT.POSITION("1","product_id",0),"bar","110")`
      *
      * @param {Object} ast
      * @returns {Object}
@@ -157,9 +157,9 @@ export class PivotTemplatePlugin extends spreadsheet.UIPlugin {
         switch (ast.type) {
             case "FUNCALL":
                 switch (ast.value) {
-                    case "ODOO.PIVOT":
+                    case "PIVOT.VALUE":
                         return this._pivot_absoluteToRelative(ast);
-                    case "ODOO.PIVOT.HEADER":
+                    case "PIVOT.HEADER":
                         return this._pivotHeader_absoluteToRelative(ast);
                     default:
                         return Object.assign({}, ast, {

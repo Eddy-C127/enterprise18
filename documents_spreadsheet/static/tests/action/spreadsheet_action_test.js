@@ -258,7 +258,7 @@ QUnit.module(
                         cells: {
                             A1: {
                                 content:
-                                    '=ODOO.PIVOT(1,"probability","foo", ODOO.PIVOT.POSITION(1, "foo", 1))',
+                                    '=PIVOT.VALUE(1,"probability","foo", ODOO.PIVOT.POSITION(1, "foo", 1))',
                             },
                         },
                     },
@@ -291,14 +291,14 @@ QUnit.module(
                         const data = JSON.parse(args[1].spreadsheet_data);
                         assert.deepEqual(
                             data.sheets[0].cells.A1.content,
-                            '=ODOO.PIVOT(1,"probability","foo","1")'
+                            '=PIVOT.VALUE(1,"probability","foo","1")'
                         );
                     }
                 },
             });
             assert.strictEqual(
                 getCellContent(model, "A1"),
-                '=ODOO.PIVOT(1,"probability","foo","1")'
+                '=PIVOT.VALUE(1,"probability","foo","1")'
             );
             await nextTick();
             assert.verifySteps(["reset data"]);

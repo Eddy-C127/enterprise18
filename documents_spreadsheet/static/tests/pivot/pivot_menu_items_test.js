@@ -49,7 +49,7 @@ QUnit.module(
             await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
             assert.equal(
                 getCellFormula(model, "E10"),
-                `=ODOO.PIVOT(1,"probability","bar","false","foo",1)`,
+                `=PIVOT.VALUE(1,"probability","bar","false","foo",1)`,
                 "It should contain a pivot formula"
             );
         });
@@ -72,7 +72,7 @@ QUnit.module(
             await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
             assert.equal(
                 getCellFormula(model, "E10"),
-                `=ODOO.PIVOT(1,"probability","bar","false","foo",${uid})`,
+                `=PIVOT.VALUE(1,"probability","bar","false","foo",${uid})`,
                 "It should contain a pivot formula"
             );
         });
@@ -91,7 +91,7 @@ QUnit.module(
             assert.equal(model.getters.getNumberRows("111"), 5);
             assert.equal(
                 getCellFormula(model, "B3"),
-                `=ODOO.PIVOT(1,"probability","bar","false","foo",1)`,
+                `=PIVOT.VALUE(1,"probability","bar","false","foo",1)`,
                 "It should contain a pivot formula"
             );
         });
@@ -119,10 +119,10 @@ QUnit.module(
             });
             selectCell(model, "D8");
             await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
-            assert.equal(getCellFormula(model, "I8"), `=ODOO.PIVOT.HEADER(1,"foo",25)`);
+            assert.equal(getCellFormula(model, "I8"), `=PIVOT.HEADER(1,"foo",25)`);
             assert.equal(
                 getCellFormula(model, "I10"),
-                `=ODOO.PIVOT(1,"probability","bar","false","foo",25)`
+                `=PIVOT.VALUE(1,"probability","bar","false","foo",25)`
             );
         });
 
@@ -182,14 +182,14 @@ QUnit.module(
                     spreadsheetId: 45,
                 });
                 await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
-                assert.equal(getCellFormula(model, "C1"), `=ODOO.PIVOT.HEADER(1,"foo",2)`);
+                assert.equal(getCellFormula(model, "C1"), `=PIVOT.HEADER(1,"foo",2)`);
                 assert.equal(
                     getCellFormula(model, "C2"),
-                    `=ODOO.PIVOT.HEADER(1,"foo",2,"measure","probability")`
+                    `=PIVOT.HEADER(1,"foo",2,"measure","probability")`
                 );
                 assert.equal(
                     getCellFormula(model, "C3"),
-                    `=ODOO.PIVOT(1,"probability","bar","false","foo",2)`
+                    `=PIVOT.VALUE(1,"probability","bar","false","foo",2)`
                 );
                 await nextTick();
                 assert.equal(getCellValue(model, "C1"), 2);
@@ -243,7 +243,7 @@ QUnit.module(
             await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
             assert.equal(
                 getCellFormula(model, "E10"),
-                `=ODOO.PIVOT(1,"probability","bar","false","foo",1)`,
+                `=PIVOT.VALUE(1,"probability","bar","false","foo",1)`,
                 "It should contain a pivot formula"
             );
             model.dispatch("REQUEST_UNDO");
@@ -255,7 +255,7 @@ QUnit.module(
             const sheetId = model.getters.getActiveSheetId();
             assert.equal(
                 getCellFormula(model, "B2"),
-                `=ODOO.PIVOT.HEADER(1,"foo",1,"measure","probability")`,
+                `=PIVOT.HEADER(1,"foo",1,"measure","probability")`,
                 "It should contain a pivot formula"
             );
             model.dispatch("ADD_MERGE", {
@@ -269,7 +269,7 @@ QUnit.module(
             await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
             assert.equal(
                 getCellFormula(model, "B2"),
-                `=ODOO.PIVOT.HEADER(1,"foo",1,"measure","probability")`,
+                `=PIVOT.HEADER(1,"foo",1,"measure","probability")`,
                 "It should contain a pivot formula"
             );
         });
@@ -292,12 +292,12 @@ QUnit.module(
             "Verify absence of pivot properties on formula with invalid pivot Id",
             async function (assert) {
                 const { model, env } = await createSpreadsheetWithPivot();
-                setCellContent(model, "A1", `=ODOO.PIVOT.HEADER("fakeId")`);
+                setCellContent(model, "A1", `=PIVOT.HEADER("fakeId")`);
                 const root = cellMenuRegistry
                     .getAll()
                     .find((item) => item.id === "pivot_properties");
                 assert.notOk(root.isVisible(env));
-                setCellContent(model, "A1", `=ODOO.PIVOT("fakeId", "probability", "foo", 2)`);
+                setCellContent(model, "A1", `=PIVOT.VALUE("fakeId", "probability", "foo", 2)`);
                 assert.notOk(root.isVisible(env));
             }
         );
@@ -419,7 +419,7 @@ QUnit.module(
                 setCellContent(
                     model,
                     "B4",
-                    getCellFormula(model, "B4").replace("ODOO.PIVOT", "odoo.pivot")
+                    getCellFormula(model, "B4").replace("PIVOT.VALUE", "pivot.value")
                 );
                 assert.ok(root.isVisible(env));
             }
@@ -438,7 +438,7 @@ QUnit.module(
                 setCellContent(
                     model,
                     "B4",
-                    getCellFormula(model, "B4").replace(`ODOO.PIVOT(1`, `ODOO.PIVOT("5)`)
+                    getCellFormula(model, "B4").replace(`PIVOT.VALUE(1`, `PIVOT.VALUE("5)`)
                 ); //Invalid id
                 assert.ok(getEvaluatedCell(model, "B4").message);
                 assert.notOk(root.isVisible(env));

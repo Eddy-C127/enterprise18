@@ -48,23 +48,23 @@
           },
           "B3": {
             "format": "#,##0.00",
-            "content": "=PIVOT(\"1\",\"__count\",\"country_id\",\"20\",\"create_date:month\",\"11/2023\")"
+            "content": "=PIVOT.VALUE(\"1\",\"__count\",\"country_id\",\"20\",\"create_date:month\",\"11/2023\")"
           },
           "B4": {
             "format": "#,##0.00",
-            "content": "=PIVOT(\"1\",\"__count\",\"country_id\",\"75\",\"create_date:month\",\"11/2023\")"
+            "content": "=PIVOT.VALUE(\"1\",\"__count\",\"country_id\",\"75\",\"create_date:month\",\"11/2023\")"
           },
           "B5": {
             "format": "#,##0.00",
-            "content": "=PIVOT(\"1\",\"__count\",\"country_id\",\"101\",\"create_date:month\",\"11/2023\")"
+            "content": "=PIVOT.VALUE(\"1\",\"__count\",\"country_id\",\"101\",\"create_date:month\",\"11/2023\")"
           },
           "B6": {
             "format": "#,##0.00",
-            "content": "=PIVOT(\"1\",\"__count\",\"country_id\",\"false\",\"create_date:month\",\"11/2023\")"
+            "content": "=PIVOT.VALUE(\"1\",\"__count\",\"country_id\",\"false\",\"create_date:month\",\"11/2023\")"
           },
           "B7": {
             "format": "#,##0.00",
-            "content": "=PIVOT(\"1\",\"__count\",\"create_date:month\",\"11/2023\")"
+            "content": "=PIVOT.VALUE(\"1\",\"__count\",\"create_date:month\",\"11/2023\")"
           },
           "C1": {
             "style": 2,
@@ -76,23 +76,23 @@
           },
           "C3": {
             "format": "#,##0.00",
-            "content": "=PIVOT(\"1\",\"__count\",\"country_id\",\"20\")"
+            "content": "=PIVOT.VALUE(\"1\",\"__count\",\"country_id\",\"20\")"
           },
           "C4": {
             "format": "#,##0.00",
-            "content": "=PIVOT(\"1\",\"__count\",\"country_id\",\"75\")"
+            "content": "=PIVOT.VALUE(\"1\",\"__count\",\"country_id\",\"75\")"
           },
           "C5": {
             "format": "#,##0.00",
-            "content": "=PIVOT(\"1\",\"__count\",\"country_id\",\"101\")"
+            "content": "=PIVOT.VALUE(\"1\",\"__count\",\"country_id\",\"101\")"
           },
           "C6": {
             "format": "#,##0.00",
-            "content": "=PIVOT(\"1\",\"__count\",\"country_id\",\"false\")"
+            "content": "=PIVOT.VALUE(\"1\",\"__count\",\"country_id\",\"false\")"
           },
           "C7": {
             "format": "#,##0.00",
-            "content": "=PIVOT(\"1\",\"__count\")"
+            "content": "=PIVOT.VALUE(\"1\",\"__count\")"
           }
         },
         "conditionalFormats": [],

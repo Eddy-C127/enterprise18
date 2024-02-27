@@ -22,13 +22,10 @@ export class AutofillTooltip extends Component {
 autofillRulesRegistry
     .add("autofill_pivot", {
         condition: (cell) =>
-            cell &&
-            cell.isFormula &&
-            cell.content.match(/=\s*ODOO\.PIVOT/) &&
-            !containsReferences(cell),
+            cell && cell.isFormula && cell.content.match(/=\s*PIVOT/) && !containsReferences(cell),
         generateRule: (cell, cells) => {
             const increment = cells.filter(
-                (cell) => cell && cell.isFormula && cell.content.match(/=\s*ODOO\.PIVOT/)
+                (cell) => cell && cell.isFormula && cell.content.match(/=\s*PIVOT/)
             ).length;
             return { type: "PIVOT_UPDATER", increment, current: 0 };
         },
@@ -36,7 +33,7 @@ autofillRulesRegistry
     })
     .add("autofill_pivot_position", {
         condition: (cell) =>
-            cell && cell.isFormula && cell.content.match(/=.*ODOO\.PIVOT.*ODOO\.PIVOT\.POSITION/),
+            cell && cell.isFormula && cell.content.match(/=.*PIVOT.*ODOO\.PIVOT\.POSITION/),
         generateRule: () => ({ type: "PIVOT_POSITION_UPDATER", current: 0 }),
         sequence: 1,
     });

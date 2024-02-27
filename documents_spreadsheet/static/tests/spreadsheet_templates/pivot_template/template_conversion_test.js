@@ -57,7 +57,7 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
     );
 
     QUnit.test("Don't change formula if not many2one", async function (assert) {
-        const formula = `ODOO.PIVOT("1","probability","foo","12","bar","110")`;
+        const formula = `PIVOT.VALUE("1","probability","foo","12","bar","110")`;
         const result = await convertFormula({
             formula,
             convert: "CONVERT_PIVOT_TO_TEMPLATE",
@@ -76,42 +76,42 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
                 </pivot>`;
             let result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT("1","probability","product_id","37","bar","110")`,
+                formula: `PIVOT.VALUE("1","probability","product_id","37","bar","110")`,
                 convert: "CONVERT_PIVOT_TO_TEMPLATE",
             });
             assert.equal(
                 result,
-                `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`
+                `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`
             );
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT.HEADER("1","product_id","37","bar","110")`,
+                formula: `PIVOT.HEADER("1","product_id","37","bar","110")`,
                 convert: "CONVERT_PIVOT_TO_TEMPLATE",
             });
             assert.equal(
                 result,
-                `ODOO.PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`
+                `PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`
             );
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT("1","probability","product_id","41","bar","110")`,
+                formula: `PIVOT.VALUE("1","probability","product_id","41","bar","110")`,
                 convert: "CONVERT_PIVOT_TO_TEMPLATE",
             });
             assert.equal(
                 result,
-                `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
+                `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
             );
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT.HEADER("1","product_id","41","bar","110")`,
+                formula: `PIVOT.HEADER("1","product_id","41","bar","110")`,
                 convert: "CONVERT_PIVOT_TO_TEMPLATE",
             });
             assert.equal(
                 result,
-                `ODOO.PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
+                `PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
             );
         }
     );
@@ -125,21 +125,21 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
                 </pivot>`;
         let result = await convertFormula({
             arch,
-            formula: `ODOO.PIVOT("1","probability","product_id",37,"bar","110")`,
+            formula: `PIVOT.VALUE("1","probability","product_id",37,"bar","110")`,
             convert: "CONVERT_PIVOT_TO_TEMPLATE",
         });
         assert.equal(
             result,
-            `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`
+            `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`
         );
         result = await convertFormula({
             arch,
-            formula: `ODOO.PIVOT.HEADER("1","product_id",41,"bar","110")`,
+            formula: `PIVOT.HEADER("1","product_id",41,"bar","110")`,
             convert: "CONVERT_PIVOT_TO_TEMPLATE",
         });
         assert.equal(
             result,
-            `ODOO.PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
+            `PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
         );
     });
 
@@ -155,42 +155,42 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
 
             let result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT("1","probability","product_id","37","bar","110")`,
+                formula: `PIVOT.VALUE("1","probability","product_id","37","bar","110")`,
                 convert: "CONVERT_PIVOT_TO_TEMPLATE",
             });
             assert.equal(
                 result,
-                `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`
+                `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`
             );
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT("1","probability","product_id","41","bar","110")`,
+                formula: `PIVOT.VALUE("1","probability","product_id","41","bar","110")`,
                 convert: "CONVERT_PIVOT_TO_TEMPLATE",
             });
             assert.equal(
                 result,
-                `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
+                `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
             );
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT("1","probability","product_id","41","bar","110")`,
+                formula: `PIVOT.VALUE("1","probability","product_id","41","bar","110")`,
                 convert: "CONVERT_PIVOT_TO_TEMPLATE",
             });
             assert.equal(
                 result,
-                `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
+                `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
             );
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT.HEADER("1","product_id","41","bar","110")`,
+                formula: `PIVOT.HEADER("1","product_id","41","bar","110")`,
                 convert: "CONVERT_PIVOT_TO_TEMPLATE",
             });
             assert.equal(
                 result,
-                `ODOO.PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
+                `PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
             );
         }
     );
@@ -206,31 +206,31 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
                 </pivot>`;
             let result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 1),"bar","110")`,
+                formula: `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 1),"bar","110")`,
                 convert: "CONVERT_PIVOT_FROM_TEMPLATE",
             });
-            assert.equal(result, `ODOO.PIVOT("1","probability","product_id","37","bar","110")`);
+            assert.equal(result, `PIVOT.VALUE("1","probability","product_id","37","bar","110")`);
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`,
+                formula: `PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`,
                 convert: "CONVERT_PIVOT_FROM_TEMPLATE",
             });
-            assert.equal(result, `ODOO.PIVOT.HEADER("1","product_id","37","bar","110")`);
+            assert.equal(result, `PIVOT.HEADER("1","product_id","37","bar","110")`);
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 2),"bar","110")`,
+                formula: `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 2),"bar","110")`,
                 convert: "CONVERT_PIVOT_FROM_TEMPLATE",
             });
-            assert.equal(result, `ODOO.PIVOT("1","probability","product_id","41","bar","110")`);
+            assert.equal(result, `PIVOT.VALUE("1","probability","product_id","41","bar","110")`);
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id", 2),"bar","110")`,
+                formula: `PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id", 2),"bar","110")`,
                 convert: "CONVERT_PIVOT_FROM_TEMPLATE",
             });
-            assert.equal(result, `ODOO.PIVOT.HEADER("1","product_id","41","bar","110")`);
+            assert.equal(result, `PIVOT.HEADER("1","product_id","41","bar","110")`);
         }
     );
 
@@ -243,7 +243,7 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
                 </pivot>`;
         const result = await convertFormula({
             arch,
-            formula: `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar","110")`,
+            formula: `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id", 9999),"bar","110")`,
             convert: "CONVERT_PIVOT_FROM_TEMPLATE",
         });
         assert.equal(result, "");
@@ -260,31 +260,31 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
             </pivot>`;
             let result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`,
+                formula: `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`,
                 convert: "CONVERT_PIVOT_FROM_TEMPLATE",
             });
-            assert.equal(result, `ODOO.PIVOT("1","probability","product_id","37","bar","110")`);
+            assert.equal(result, `PIVOT.VALUE("1","probability","product_id","37","bar","110")`);
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`,
+                formula: `PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`,
                 convert: "CONVERT_PIVOT_FROM_TEMPLATE",
             });
-            assert.equal(result, `ODOO.PIVOT.HEADER("1","product_id","37","bar","110")`);
+            assert.equal(result, `PIVOT.HEADER("1","product_id","37","bar","110")`);
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`,
+                formula: `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`,
                 convert: "CONVERT_PIVOT_FROM_TEMPLATE",
             });
-            assert.equal(result, `ODOO.PIVOT("1","probability","product_id","41","bar","110")`);
+            assert.equal(result, `PIVOT.VALUE("1","probability","product_id","41","bar","110")`);
 
             result = await convertFormula({
                 arch,
-                formula: `ODOO.PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`,
+                formula: `PIVOT.HEADER("1","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`,
                 convert: "CONVERT_PIVOT_FROM_TEMPLATE",
             });
-            assert.equal(result, `ODOO.PIVOT.HEADER("1","product_id","41","bar","110")`);
+            assert.equal(result, `PIVOT.HEADER("1","product_id","41","bar","110")`);
         }
     );
 
@@ -298,14 +298,14 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
         const result = await convertFormula({
             arch,
             formula: `SUM(
-                ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110"),
-                ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")
+                PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110"),
+                PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")
             )`,
             convert: "CONVERT_PIVOT_FROM_TEMPLATE",
         });
         assert.equal(
             result,
-            `SUM(ODOO.PIVOT("1","probability","product_id","37","bar","110"),ODOO.PIVOT("1","probability","product_id","41","bar","110"))`
+            `SUM(PIVOT.VALUE("1","probability","product_id","37","bar","110"),PIVOT.VALUE("1","probability","product_id","41","bar","110"))`
         );
     });
 
@@ -319,15 +319,15 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
         const result = await convertFormula({
             arch,
             formula: `
-                ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")
+                PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")
                 +
-                ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")
+                PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")
             `,
             convert: "CONVERT_PIVOT_FROM_TEMPLATE",
         });
         assert.equal(
             result,
-            `ODOO.PIVOT("1","probability","product_id","37","bar","110")+ODOO.PIVOT("1","probability","product_id","41","bar","110")`
+            `PIVOT.VALUE("1","probability","product_id","37","bar","110")+PIVOT.VALUE("1","probability","product_id","41","bar","110")`
         );
     });
 
@@ -343,11 +343,11 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
             const result = await convertFormula({
                 arch,
                 formula: `
-                    -ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")
+                    -PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")
                 `,
                 convert: "CONVERT_PIVOT_FROM_TEMPLATE",
             });
-            assert.equal(result, `-ODOO.PIVOT("1","probability","product_id","37","bar","110")`);
+            assert.equal(result, `-PIVOT.VALUE("1","probability","product_id","37","bar","110")`);
         }
     );
 
@@ -361,15 +361,15 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
         const result = await convertFormula({
             arch,
             formula: `
-                ODOO.PIVOT("1","probability","product_id","37","bar","110")
+                PIVOT.VALUE("1","probability","product_id","37","bar","110")
                 +
-                ODOO.PIVOT("1","probability","product_id","41","bar","110")
+                PIVOT.VALUE("1","probability","product_id","41","bar","110")
             `,
             convert: "CONVERT_PIVOT_TO_TEMPLATE",
         });
         assert.equal(
             result,
-            `ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")+ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
+            `PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")+PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110")`
         );
     });
 
@@ -385,13 +385,13 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
             const result = await convertFormula({
                 arch,
                 formula: `
-                -ODOO.PIVOT("1","probability","product_id","37","bar","110")
+                -PIVOT.VALUE("1","probability","product_id","37","bar","110")
             `,
                 convert: "CONVERT_PIVOT_TO_TEMPLATE",
             });
             assert.equal(
                 result,
-                `-ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`
+                `-PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110")`
             );
         }
     );
@@ -407,15 +407,15 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
             arch,
             formula: `
                 SUM(
-                    ODOO.PIVOT("1","probability","product_id","37","bar","110"),
-                    ODOO.PIVOT("1","probability","product_id","41","bar","110")
+                    PIVOT.VALUE("1","probability","product_id","37","bar","110"),
+                    PIVOT.VALUE("1","probability","product_id","41","bar","110")
                 )
             `,
             convert: "CONVERT_PIVOT_TO_TEMPLATE",
         });
         assert.equal(
             result,
-            `SUM(ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110"),ODOO.PIVOT("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110"))`
+            `SUM(PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",1),"bar","110"),PIVOT.VALUE("1","probability","product_id",ODOO.PIVOT.POSITION("1","product_id",2),"bar","110"))`
         );
     });
 
@@ -428,10 +428,10 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
             </pivot>`;
         const result = await convertFormula({
             arch,
-            formula: `ODOO.PIVOT("1","probability","product_id",A2,"bar","110")`,
+            formula: `PIVOT.VALUE("1","probability","product_id",A2,"bar","110")`,
             convert: "CONVERT_PIVOT_TO_TEMPLATE",
         });
-        assert.equal(result, `ODOO.PIVOT("1","probability","product_id",A2,"bar","110")`);
+        assert.equal(result, `PIVOT.VALUE("1","probability","product_id",A2,"bar","110")`);
     });
 
     QUnit.test(
@@ -454,14 +454,14 @@ QUnit.module("documents_spreadsheet > pivot_templates", {}, function () {
             serverData.models.partner.records = [];
             const data = await convertFromSpreadsheetTemplate(env, model.exportData());
             const cells = data.sheets[0].cells;
-            assert.equal(cells.A4.content, "=ODOO.PIVOT.HEADER(1)");
-            assert.equal(cells.B1.content, '=ODOO.PIVOT.HEADER(1,"foo",1)');
-            assert.equal(cells.B2.content, '=ODOO.PIVOT.HEADER(1,"foo",1,"bar","true")');
+            assert.equal(cells.A4.content, "=PIVOT.HEADER(1)");
+            assert.equal(cells.B1.content, '=PIVOT.HEADER(1,"foo",1)');
+            assert.equal(cells.B2.content, '=PIVOT.HEADER(1,"foo",1,"bar","true")');
             assert.equal(
                 cells.B3.content,
-                '=ODOO.PIVOT.HEADER(1,"foo",1,"bar","true","measure","probability")'
+                '=PIVOT.HEADER(1,"foo",1,"bar","true","measure","probability")'
             );
-            assert.equal(cells.B4.content, '=ODOO.PIVOT(1,"probability","foo",1,"bar","true")');
+            assert.equal(cells.B4.content, '=PIVOT.VALUE(1,"probability","foo",1,"bar","true")');
         }
     );
 });

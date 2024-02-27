@@ -36,7 +36,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
         selectCell(model, "A3");
         assert.strictEqual(
             getCell(model, "B3").content,
-            '=ODOO.PIVOT(1,"probability","product_id",37)',
+            '=PIVOT.VALUE(1,"probability","product_id",37)',
             "the formula field matches the filter"
         );
         const root = cellMenuRegistry
@@ -53,7 +53,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
         assert.strictEqual(getCellValue(model, "B4"), 121);
 
         model.dispatch("CREATE_SHEET", { sheetId: "42" });
-        setCellContent(model, "A1", `=ODOO.PIVOT.TABLE("1")`, "42");
+        setCellContent(model, "A1", `=PIVOT("1")`, "42");
         selectCell(model, "A3", "42");
         assert.strictEqual(root.isVisible(env), true);
         await root.execute(env);
@@ -87,7 +87,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
                     <field name="__count" type="measure"/>
                 </pivot>`,
             });
-            setCellContent(model, "B3", '=ODOO.PIVOT(1, "__count", "#product_id", 1)');
+            setCellContent(model, "B3", '=PIVOT.VALUE(1, "__count", "#product_id", 1)');
             await addGlobalFilter(
                 model,
                 {
@@ -113,7 +113,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
                     <field name="probability" type="measure"/>
                 </pivot>`,
         });
-        setCellContent(model, "B3", '=ODOO.PIVOT(1, "probability", "#product_id", 1)');
+        setCellContent(model, "B3", '=PIVOT.VALUE(1, "probability", "#product_id", 1)');
         await addGlobalFilter(
             model,
             {
@@ -138,7 +138,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
                     <field name="probability" type="measure"/>
                 </pivot>`,
         });
-        assert.strictEqual(getCell(model, "B5").content, '=ODOO.PIVOT(1,"probability")');
+        assert.strictEqual(getCell(model, "B5").content, '=PIVOT.VALUE(1,"probability")');
         await addGlobalFilter(
             model,
             {
@@ -155,7 +155,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
         assert.strictEqual(root.isVisible(env), false);
 
         model.dispatch("CREATE_SHEET", { sheetId: "42" });
-        setCellContent(model, "A1", `=ODOO.PIVOT.TABLE("1")`, "42");
+        setCellContent(model, "A1", `=PIVOT("1")`, "42");
         selectCell(model, "B5", "42");
         assert.strictEqual(root.isVisible(env), false);
     });
@@ -182,7 +182,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
             assert.strictEqual(root.isVisible(env), false);
 
             model.dispatch("CREATE_SHEET", { sheetId: "42" });
-            setCellContent(model, "A1", `=ODOO.PIVOT.TABLE("1")`, "42");
+            setCellContent(model, "A1", `=PIVOT("1")`, "42");
             selectCell(model, "B3", "42");
             assert.strictEqual(root.isVisible(env), false);
         }
@@ -201,21 +201,18 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
         }
     );
 
-    QUnit.test(
-        "Set as filter is not visible on empty cells of ODOO.PIVOT.TABLE",
-        async function (assert) {
-            const { env, model } = await createSpreadsheetWithPivot();
-            const root = cellMenuRegistry
-                .getMenuItems()
-                .find((item) => item.id === "use_global_filter");
-            model.dispatch("CREATE_SHEET", { sheetId: "42" });
-            setCellContent(model, "A1", `=ODOO.PIVOT.TABLE("1")`, "42");
-            selectCell(model, "A1", "42");
-            assert.strictEqual(root.isVisible(env), false);
-            selectCell(model, "A2", "42");
-            assert.strictEqual(root.isVisible(env), false);
-        }
-    );
+    QUnit.test("Set as filter is not visible on empty cells of PIVOT", async function (assert) {
+        const { env, model } = await createSpreadsheetWithPivot();
+        const root = cellMenuRegistry
+            .getMenuItems()
+            .find((item) => item.id === "use_global_filter");
+        model.dispatch("CREATE_SHEET", { sheetId: "42" });
+        setCellContent(model, "A1", `=PIVOT("1")`, "42");
+        selectCell(model, "A1", "42");
+        assert.strictEqual(root.isVisible(env), false);
+        selectCell(model, "A2", "42");
+        assert.strictEqual(root.isVisible(env), false);
+    });
 
     QUnit.test(
         "menu to set filter value is not visible if no filter matches",

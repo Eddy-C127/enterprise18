@@ -72,7 +72,7 @@ patch(OdooPivot.prototype, {
     },
 
     /**
-     * High level method computing the formatted result of ODOO.PIVOT.HEADER functions.
+     * High level method computing the formatted result of PIVOT.HEADER functions.
      *
      * @param {(string | number)[]} pivotArgs arguments of the function (except the first one which is the pivot id)
      */
