@@ -5,7 +5,7 @@ import { PreparationDisplay } from "@pos_preparation_display/app/models/preparat
 import { getOnNotified } from "@point_of_sale/utils";
 import { useService } from "@web/core/utils/hooks";
 
-const preparationDisplayService = {
+export const preparationDisplayService = {
     dependencies: ["orm", "bus_service", "sound"],
     async start(env, { orm, bus_service, sound }) {
         const datas = await orm.call(
