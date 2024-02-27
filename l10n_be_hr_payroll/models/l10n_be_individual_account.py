@@ -100,11 +100,14 @@ class L10nBeIndividualAccount(models.Model):
         for line in lines:
             rule = result[line.employee_id]['rules'][line.salary_rule_id.code]
             month = line.slip_id.date_from.month - 1
-            rule['month'][month]['name'] = line.name
+            line_name = rule['month'][month]['name']
+            if not line_name or (line.slip_id.struct_id.type_id.default_struct_id == line.slip_id.struct_id):
+                line_name = line.salary_rule_id.name
+            rule['month'][month]['name'] = line_name
             rule['month'][month]['total'] += line.total
-            rule['quarter'][(month) // 3]['name'] = line.name
+            rule['quarter'][(month) // 3]['name'] = line_name
             rule['quarter'][(month) // 3]['total'] += line.total
-            rule['year']['name'] = line.name
+            rule['year']['name'] = line_name
             rule['year']['total'] += line.total
 
             rule['month'][month]['total'] = round(rule['month'][month]['total'], 2)
@@ -115,13 +118,14 @@ class L10nBeIndividualAccount(models.Model):
             work = result[worked_day.payslip_id.employee_id]['worked_days'][worked_day.code]
             month = worked_day.payslip_id.date_from.month - 1
 
-            work['month'][month]['name'] = worked_day.name
+            worked_day_name = worked_day.work_entry_type_id.name
+            work['month'][month]['name'] = worked_day_name
             work['month'][month]['number_of_days'] += worked_day.number_of_days
             work['month'][month]['number_of_hours'] += worked_day.number_of_hours
-            work['quarter'][(month) // 3]['name'] = worked_day.name
+            work['quarter'][(month) // 3]['name'] = worked_day_name
             work['quarter'][(month) // 3]['number_of_days'] += worked_day.number_of_days
             work['quarter'][(month) // 3]['number_of_hours'] += worked_day.number_of_hours
-            work['year']['name'] = worked_day.name
+            work['year']['name'] = worked_day_name
             work['year']['number_of_days'] += worked_day.number_of_days
             work['year']['number_of_hours'] += worked_day.number_of_hours
         return result
