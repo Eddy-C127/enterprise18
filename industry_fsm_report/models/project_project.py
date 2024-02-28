@@ -18,7 +18,7 @@ class ProjectProject(models.Model):
         for project in self:
             project.allow_worksheets = project.is_fsm
 
-    @api.depends('allow_worksheets')
+    @api.depends('allow_worksheets', 'company_id')
     def _compute_worksheet_template_id(self):
         default_worksheet = self.env.ref('industry_fsm_report.fsm_worksheet_template', False)
         project_ids = []
@@ -31,18 +31,29 @@ class ProjectProject(models.Model):
                         project_ids.append(project.id)
                 else:
                     project.worksheet_template_id = False
+            elif (project.allow_worksheets and project.company_id != project.worksheet_template_id.company_id):
+                project_ids.append(project.id)
         if project_ids:
             projects = self.browse(project_ids)
+            WorksheetTemplate = self.env['worksheet.template']
+
             if len(projects.company_id) == 1:
-                projects.worksheet_template_id = self.env['worksheet.template'].search([('company_id', 'in', [projects.company_id.id, False])], limit=1)
+                projects.worksheet_template_id = WorksheetTemplate.search(
+                    [('company_id', 'in', [projects.company_id.id, False]), ('res_model', '=', 'project.task')],
+                    limit=1,
+                    order="company_id, sequence, id DESC",
+                )
             else:
-                worksheet_per_company = {
-                    company: worksheets[:1]
-                    for company, worksheets in self.env['worksheet.template']._read_group(
-                        [('company_id', 'in', [*projects.company_id.ids, False])],
-                        ['company_id'],
-                        ['id:recordset'],
-                    )
-                }
+                company_worksheets = WorksheetTemplate._read_group(
+                    [('company_id', 'in', [*projects.company_id.ids, False]), ('res_model', '=', 'project.task')],
+                    ['company_id'],
+                    ['id:recordset'],
+                )
+                worksheet_mapping = {company.id: templates.sorted(key=lambda t: (t.sequence, -t.id))[:1] for company, templates in company_worksheets}
+
+                # Assign the appropriate worksheet template to each project
                 for project in projects:
-                    project.worksheet_template_id = worksheet_per_company.get(project.company_id, False)
+                    project.worksheet_template_id = worksheet_mapping.get(
+                        project.company_id.id,
+                        worksheet_mapping.get(False, False)  # Fallback to a template without a company
+                    )

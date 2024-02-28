@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details
 
 from odoo import Command
-from odoo.tests import tagged, TransactionCase
+from odoo.tests import Form, tagged, TransactionCase
 
 from odoo.addons.mail.tests.common import mail_new_test_user
 
@@ -227,3 +227,32 @@ class TestWorksheet(TransactionCase):
             tasks.ids,
             'Both the tasks with reports are being sent',
         )
+
+    def test_set_worksheet_template_with_multi_company(self):
+        """
+            Verify the worksheet template based on the project company.
+            Steps
+                - Create a new company (TestCompany1)
+                - Create a worksheet template and set up a company (TestCompany1)
+                - Create project
+                - Verify the worksheet template and the project company.
+                - Set TestCompany1 to the project.
+                - Again verify the worksheet template and the project company.
+        """
+
+        test_company = self.env['res.company'].create({
+            'name': 'TestCompany1',
+            'country_id': self.env.ref('base.be').id,
+        })
+        self.env['worksheet.template'].create({
+            'name': 'test worksheet',
+            'res_model': 'project.task',
+            'company_id': test_company.id,
+        })
+
+        with Form(self.env['project.project']) as project_form:
+            project_form.name = "Test Project"
+            project_form.allow_worksheets = True
+            self.assertEqual(project_form.company_id, project_form.worksheet_template_id.company_id)
+            project_form.company_id = test_company
+            self.assertEqual(project_form.company_id, project_form.worksheet_template_id.company_id)
