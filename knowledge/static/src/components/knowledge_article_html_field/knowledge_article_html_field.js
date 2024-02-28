@@ -6,6 +6,7 @@ import { encodeDataBehaviorProps } from "@knowledge/js/knowledge_utils";
 import { HtmlField, htmlField } from "@web_editor/js/backend/html_field";
 import { ItemCalendarPropsDialog } from "@knowledge/components/item_calendar_props_dialog/item_calendar_props_dialog";
 import {
+    onWillStart,
     onWillUnmount,
     onWillUpdateProps,
 } from "@odoo/owl";
@@ -35,6 +36,7 @@ export class KnowledgeArticleHtmlField extends HtmlField {
         this.actionService = useService("action");
         this.dialogService = useService("dialog");
         this.orm = useService("orm");
+        this.userService = useService('user');
         onWillUpdateProps(nextProps => {
             this.state.isWysiwygHelperActive = this.isWysiwygHelperActive(nextProps);
         });
@@ -46,6 +48,9 @@ export class KnowledgeArticleHtmlField extends HtmlField {
                 this.wysiwyg.odooEditor.removeEventListener("historyResetFromSteps", this.editorStepsCallback);
             }
         });
+        onWillStart(async () => {
+            this.isPortalUser = await this.userService.hasGroup('base.group_portal');
+        })
     }
 
     get wysiwygOptions() {
