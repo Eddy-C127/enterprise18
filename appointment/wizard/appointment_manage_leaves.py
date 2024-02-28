@@ -15,31 +15,18 @@ class AppointmentManageLeaves(models.TransientModel):
         user_time = user_timezone.localize(fields.Datetime.today().replace(hour=hour, minute=minute))
         return user_time.astimezone(pytz.utc).replace(tzinfo=None)
 
-    appointment_resource_ids = fields.Many2many('appointment.resource', string="Specific Resources")
-    calendar_id = fields.Many2one('resource.calendar', string='Resource Calendar')
+    appointment_resource_ids = fields.Many2many('appointment.resource', string="Resources", required=True)
     leave_start_dt = fields.Datetime('Start Date', required=True, default=lambda self: self._default_time(0, 0))
     leave_end_dt = fields.Datetime('End Date', required=True, default=lambda self: self._default_time(23, 59))
     reason = fields.Char('Reason')
 
     def action_create_leave(self):
-        leave_values = []
-        for wizard in self:
-            leave_values_common = {
-                'date_from': wizard.leave_start_dt,
-                'date_to': wizard.leave_end_dt,
-                'name': wizard.reason
-            }
-            if wizard.appointment_resource_ids:
-                leave_values += [{
-                    'calendar_id': resource.resource_id.calendar_id.id,
-                    'resource_id': resource.resource_id.id,
-                    **leave_values_common
-                } for resource in wizard.appointment_resource_ids]
-            else:
-                leave_values += [{
-                    'calendar_id': wizard.calendar_id.id,
-                    **leave_values_common
-                }]
-        # need to force to false otherwise it defaults to current company when calendar has no company :/
-        self.env['resource.calendar.leaves'].create(leave_values).company_id = False
+        # need to force company to false otherwise it defaults to current company when calendar has no company :/
+        self.env['resource.calendar.leaves'].create([{
+            'calendar_id': resource.resource_calendar_id.id,
+            'date_from': wizard.leave_start_dt,
+            'date_to': wizard.leave_end_dt,
+            'name': wizard.reason,
+            'resource_id': resource.resource_id.id,
+        } for wizard in self for resource in wizard.appointment_resource_ids]).company_id = False
         return {'type': 'ir.actions.act_window_close'}

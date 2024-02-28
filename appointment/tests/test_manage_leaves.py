@@ -106,12 +106,12 @@ class AppointmentManageLeaveTest(AppointmentCommon):
         self.assertEqual(set(available_resources_15h), set((resources - resources[0]).ids), 'Resource should be on leave and excluded from slots')
         self.assertEqual(set(available_resources_16h), set(resources.ids))
 
-        # Whole calendar (admin only)
-        self.env['appointment.manage.leaves'].sudo().create({
+        # Global calendar leave
+        self.env['resource.calendar.leaves'].sudo().create({
             'calendar_id': calendar.id,
-            'leave_start_dt': start_leave,
-            'leave_end_dt': stop_leave,
-        }).action_create_leave()
+            'date_from': start_leave,
+            'date_to': stop_leave,
+        }).company_id = False
 
         with freeze_time(start_monday):
             slots = appt_type._get_appointment_slots('Europe/Brussels')
@@ -160,7 +160,7 @@ class AppointmentManageLeaveTest(AppointmentCommon):
             'stop': datetime(2022, 2, 14, 5, 0, 0),
         }])
         self.env['appointment.manage.leaves'].sudo().create({
-            'calendar_id': calendar.id,
+            'appointment_resource_ids': resources.ids,
             'leave_start_dt': datetime(2022, 2, 14, 5, 0, 0),
             'leave_end_dt': datetime(2022, 2, 14, 6, 0, 0),
         }).action_create_leave()
