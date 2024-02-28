@@ -42,6 +42,17 @@ class HrRecruitmentReport(models.Model):
     refuse_reason_id = fields.Many2one('hr.applicant.refuse.reason', string='Refuse Reason', readonly=True)
     company_id = fields.Many2one('res.company', 'Company', readonly=True)
 
+    def action_open_applicant(self):
+        self.ensure_one()
+        return {
+            'name': _('Applicant'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'hr.applicant',
+            'res_id': self.id,
+            'target': 'current',
+        }
+
     def _query(self, fields='', from_clause=''):
         select_ = """
                 a.id as id,

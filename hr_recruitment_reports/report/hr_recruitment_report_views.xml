@@ -77,7 +77,11 @@
             <field name="name">hr.recruitment.report.view.tree</field>
             <field name="model">hr.recruitment.report</field>
             <field name="arch" type="xml">
-                <tree string="Recruitment Analysis">
+                <tree
+                    string="Recruitment Analysis"
+                    action="action_open_applicant"
+                    type="object"
+                >
                     <field name="name"/>
                     <field name="job_id" optional="show"/>
                     <field name="source_id" optional="show"/>
