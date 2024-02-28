@@ -5,6 +5,16 @@ from odoo.addons.web_studio.controllers import export
 
 class TestExport(HttpCase):
     def test_export_currency_field(self):
+        base_currency_field = self.env["res.partner"]._fields.get("currency_id")
+        if not base_currency_field or not (base_currency_field.type == "many2one" and base_currency_field.comodel_name == "res.currency"):
+            self.env["ir.model.fields"].create({
+                "state": "base",
+                "name": "x_currency" if base_currency_field else "currency_id",
+                "model_id": self.env["ir.model"]._get("res.partner").id,
+                "ttype": "many2one",
+                "relation": "res.currency"
+            })
+
         IrModelFields = self.env["ir.model.fields"].with_context(studio=True)
         currency_field = IrModelFields.create({
             "name": "x_test_currency",
