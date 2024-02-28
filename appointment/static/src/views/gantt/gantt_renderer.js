@@ -6,6 +6,7 @@ import { GanttRenderer } from "@web_gantt/gantt_renderer";
 import { AppointmentBookingGanttPopover } from "@appointment/views/gantt/gantt_popover";
 import { patch } from "@web/core/utils/patch";
 const { DateTime } = luxon;
+import { onWillStart } from "@odoo/owl";
 
 export class AppointmentBookingGanttRenderer extends GanttRenderer {
     static components = {
@@ -20,6 +21,11 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
     setup() {
         super.setup();
         this.orm = useService("orm");
+        this.user = useService("user");
+
+        onWillStart(async () => {
+            this.isAppointmentManager = await this.user.hasGroup("appointment.group_appointment_manager");
+        });
     }
 
     /**
@@ -91,7 +97,7 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
      * Display 'Add Leaves' action button if grouping by appointment resources.
      */
     get showAddLeaveButton() {
-        return !!(this.model.metaData.groupedBy && this.model.metaData.groupedBy[0] === 'resource_ids');
+        return !!(this.isAppointmentManager && this.model.metaData.groupedBy && this.model.metaData.groupedBy[0] === 'resource_ids');
     }
 
     /**

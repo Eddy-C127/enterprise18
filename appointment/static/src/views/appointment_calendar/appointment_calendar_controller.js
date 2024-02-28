@@ -19,6 +19,7 @@ patch(AttendeeCalendarController.prototype, {
     setup() {
         super.setup(...arguments);
         this.rpc = useService("rpc");
+        this.user = useService("user");
         this.popover = usePopover(Tooltip, { position: "bottom" });
         this.copyLinkRef = useRef("copyLinkRef");
 
@@ -37,6 +38,7 @@ patch(AttendeeCalendarController.prototype, {
             this.appointmentState.data = await this.rpc(
                 "/appointment/appointment_type/get_staff_user_appointment_types"
             );
+            this.isAppointmentUser = await this.user.hasGroup("appointment.group_appointment_user");
         });
     },
 

@@ -28,22 +28,25 @@
                     </div>
                 </div>
                 <div t-else="" class="btn-group px-0 o_appointment_calendar_group_buttons w-100">
-                    <button t-on-click="onClickSelectAvailabilities" class="btn btn-secondary o_appointment_select_slots" aria-label="Share Availabilities" title="Share Availabilities">
+                    <t t-set="appointments" t-value="appointmentState.data.appointment_types_info"/>
+                    <button t-if="isAppointmentUser" t-on-click="onClickSelectAvailabilities" class="btn btn-secondary o_appointment_select_slots" aria-label="Share Availabilities" title="Share Availabilities">
                         Share Availabilities
                     </button>
 
-                    <Dropdown togglerClass="'btn btn-secondary dropdownAppointmentLink'" showCaret="true" class="'btn-group'">
-                        <button t-on-click="onClickSelectAvailabilities" id="select_availabilities" class="o_appointment_select_slots dropdown-item">
+                    <Dropdown t-if="isAppointmentUser or (!isAppointmentUser and appointments.length)" togglerClass="'btn btn-secondary dropdownAppointmentLink'" showCaret="isAppointmentUser" class="'btn-group'">
+                        <t t-if="!isAppointmentUser and appointments.length" t-set-slot="toggler">
+                            <button class="btn btn-secondary o_appointment_select_slots">Share Appointment Link</button>
+                        </t>
+                        <button t-if="isAppointmentUser" t-on-click="onClickSelectAvailabilities" id="select_availabilities" class="o_appointment_select_slots dropdown-item">
                             <span class="align-bottom">Select Dates</span>
                         </button>
-                        <button t-on-click="onClickSearchCreateAnytimeAppointment"
+                        <button t-if="isAppointmentUser" t-on-click="onClickSearchCreateAnytimeAppointment"
                             class="o_appointment_button_link o_appointment_search_create_anytime_appointment dropdown-item">
                             <span class="align-bottom">Any Time</span>
                         </button>
                         <button t-on-click="onClickCustomLink" class="dropdown-item">
                             <span class="align-bottom">Custom Link</span>
                         </button>
-                        <t t-set="appointments" t-value="appointmentState.data.appointment_types_info"/>
                         <div t-if="appointments.length > 0" role="separator" class="dropdown-divider"/>
                         <t t-foreach="appointments" t-as="appointment" t-key="appointment.id">
                             <button t-att-title="appointment.name" t-on-click.stop.prevent="() => this.onClickGetAppointmentUrl(appointment.id)"
