@@ -67,7 +67,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'employee_id': cls.employee.id,
             'resource_calendar_id': cls.resource_calendar.id,
             'company_id': cls.env.company.id,
-            'structure_type_id': cls.env.ref('l10n_ma_hr_payroll.hr_payroll_salary_ma_structure_base').id,
+            'structure_type_id': cls.env.ref('l10n_ma_hr_payroll.structure_type_employee_mar').id,
             'date_start': date(2021, 1, 1),
             'wage': 5000.0,
             'state': "open",
