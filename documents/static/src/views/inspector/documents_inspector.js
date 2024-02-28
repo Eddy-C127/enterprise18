@@ -200,6 +200,10 @@ export class DocumentsInspector extends Component {
         return this.env.isSmall;
     }
 
+    get viewType() {
+        return this.env.config.viewType;
+    }
+
     updateAttachmentHistory(nextProps) {
         const props = nextProps || this.props;
         const record = props.documents[0];

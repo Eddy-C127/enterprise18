@@ -145,7 +145,7 @@
                             <i t-att-class="'fa fa-fw ' + (records[0].data.lock_uid ? 'fa-lock o_locked' : 'fa-unlock-alt')"/>
                         </button>
                     </t>
-                    <t t-if="isPdfOnly()">
+                    <t t-if="isPdfOnly() and viewType !== 'activity'">
                         <button class="btn o_inspector_button o_inspector_split" aria-label="Split" title="Split" t-on-click.stop.prevent="() => this.openPreview(false, true)" t-att-disabled="editDisabled || locked">
                             <i class="fa fa-fw fa-scissors"/>
                         </button>
