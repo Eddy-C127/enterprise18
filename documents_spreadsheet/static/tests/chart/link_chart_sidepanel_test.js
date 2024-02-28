@@ -288,8 +288,7 @@ QUnit.module(
                 assert.equal(irMenuInput.value, "MyApp/test menu 1");
 
                 const figure2 = target.querySelectorAll(".o-figure")[1];
-                // click() doesn't work, I guess because we are using the mousedown event on figures and not the click
-                const clickEvent = new Event("mousedown", { bubbles: true });
+                const clickEvent = new Event("pointerdown", { bubbles: true });
                 figure2.dispatchEvent(clickEvent);
                 await nextTick();
                 irMenuInput = target.querySelector(".o-ir-menu-selector input");

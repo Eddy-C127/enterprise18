@@ -1843,18 +1843,18 @@ QUnit.module(
             triggerEvent(
                 handle,
                 null,
-                "mousedown",
+                "pointerdown",
                 { clientY: panelY },
                 { skipVisibilityCheck: true } // skipVisibilityCheck: element is only visible on hover
             );
             triggerEvent(
                 handle,
                 null,
-                "mousemove",
-                { clientY: panelY + 90 },
+                "pointermove",
+                { clientY: panelY + 90, button: -1 },
                 { skipVisibilityCheck: true }
             );
-            triggerEvent(handle, null, "mouseup", {}, { skipVisibilityCheck: true });
+            triggerEvent(handle, null, "pointerup", {}, { skipVisibilityCheck: true });
 
             filters = model.getters.getGlobalFilters();
             assert.equal(filters[0].id, LAST_YEAR_GLOBAL_FILTER.id);

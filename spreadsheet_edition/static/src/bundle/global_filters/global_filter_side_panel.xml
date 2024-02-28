@@ -21,7 +21,7 @@
                 >
                 <div class="pivot_filter position-relative">
                     <div class="o-filter-drag-handle h-100 position-absolute d-flex align-items-center text-muted"
-                        t-on-mousedown="(ev) => this.startDragAndDrop(filter, ev)">
+                        t-on-pointerdown="(ev) => this.startDragAndDrop(filter, ev)">
                         <t t-call="o-spreadsheet-Icon.THIN_DRAG_HANDLE" />
                     </div>
                     <div class="o_side_panel_title">
