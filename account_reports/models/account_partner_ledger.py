@@ -141,7 +141,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                 partner_ids_to_expand.append(None)
 
         if partner_prefix_domains:
-            partner_ids_to_expand += self.env['res.partner'].search(expression.OR(partner_prefix_domains)).ids
+            partner_ids_to_expand += self.env['res.partner'].with_context(active_test=False).search(expression.OR(partner_prefix_domains)).ids
 
         return {
             'initial_balances': self._get_initial_balance_values(partner_ids_to_expand, options) if partner_ids_to_expand else {},
