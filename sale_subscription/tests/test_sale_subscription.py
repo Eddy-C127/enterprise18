@@ -3574,3 +3574,29 @@ class TestSubscription(TestSubscriptionCommon):
         upsell_so.action_confirm()
         for line in upsell_so.order_line.filtered(lambda l: not l.display_type):
             self.assertEqual(line.upsell_total, 3)
+
+    def test_sale_subscription_upsell_does_not_copy_non_recurring_products(self):
+        nr_product = self.env['product.template'].create({
+            'name': 'Non recurring product',
+            'type': 'service',
+            'uom_id': self.product.uom_id.id,
+            'list_price': 25,
+            'invoice_policy': 'order',
+        })
+        self.subscription.action_confirm()
+        self.subscription._create_recurring_invoice()
+
+        action = self.subscription.prepare_upsell_order()
+        upsell_so = self.env['sale.order'].browse(action['res_id'])
+        upsell_so.order_line = [(6, 0, self.env['sale.order.line'].create({
+            'name': nr_product.name,
+            'order_id': upsell_so.id,
+            'product_id': nr_product.product_variant_id.id,
+            'product_uom_qty': 1,
+        }).ids)]
+
+        upsell_so._confirm_upsell()
+        self.assertEqual(len(upsell_so.order_line), 1)
+        self.assertEqual(len(self.subscription.order_line), 2)
+        self.assertEqual(upsell_so.order_line.name, nr_product.name)
+        self.assertFalse(nr_product in self.subscription.order_line.product_template_id)
