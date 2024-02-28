@@ -252,7 +252,7 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
     }
 
     _getScanPackageMessage(line) {
-        if (line.suggested_package) {
+        if (line && line.suggested_package) {
             return _t("Scan the package %s", line.suggested_package);
         }
         return super._getScanPackageMessage(...arguments);

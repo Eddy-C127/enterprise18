@@ -618,3 +618,8 @@ class TestBarcodeBatchClientAction(TestBarcodeClientAction):
             {'picking_id': pickings[1].id, 'product_id': self.product1.id, 'state': 'done', 'quantity': 7, 'picked': True},
             {'picking_id': pickings[1].id, 'product_id': self.product2.id, 'state': 'done', 'quantity': 30, 'picked': True},
         ])
+
+    def test_delete_from_batch(self):
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = "/web#action=" + str(action_id.id)
+        self.start_tour(url, 'test_delete_from_batch', login='admin', timeout=180)

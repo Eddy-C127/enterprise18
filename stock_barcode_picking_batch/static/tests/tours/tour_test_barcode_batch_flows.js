@@ -867,3 +867,51 @@ registry.category("web_tour.tours").add('test_pack_and_same_product_several_sml'
     },
     ...stepUtils.validateBarcodeOperation(),
 ]});
+
+registry.category("web_tour.tours").add("test_delete_from_batch", { test: true, steps: () => [
+    {
+        trigger: ".o_stock_barcode_main_menu:contains('Barcode Scanning')",
+    },
+    {
+        trigger: ".button_batch_transfer",
+    },
+    {
+        trigger: ".o-kanban-button-new",
+    },
+    {
+        trigger: ".o_barcode_line_title:contains('Delivery Orders')",
+    },
+    {
+        trigger: ".o_confirm:not([disabled])",
+    },
+    {
+        trigger: ".o_barcode_line_title:contains('picking_delivery_1')",
+    },
+    {
+        extra_trigger: ".o_highlight .o_barcode_line_title:contains('picking_delivery_1')",
+        trigger: ".o_confirm",
+    },
+    {
+        trigger: ".o_add_line",
+    },
+    {
+        trigger: ".o_field_widget[name=product_id] input",
+        run: "text productlot1",
+    },
+    {
+        trigger: ".ui-menu-item > a:contains('productlot1')",
+    },
+    {
+        trigger: ".o_save",
+    },
+    {
+        trigger: ".o_barcode_line.o_selected .o_edit",
+    },
+    {
+        trigger: ".o_delete",
+    },
+    {
+        trigger: ".o_barcode_lines",
+	isCheck: true,
+    },
+]});
