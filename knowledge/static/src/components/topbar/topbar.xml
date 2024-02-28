@@ -101,12 +101,12 @@
                        t-if="props.record.resId and isInternalUser"
                        role="button"
                        t-attf-class="btn btn-light btn-history #{state.displayHistory ? 'active' : ''}"
-                       data-hotkey="h"
+                       data-hotkey="y"
                        t-on-click="openHistory"
                        title="Open history">
                         <i class="fa fa-fw fs-6 fa-history"/>
                     </a>
-                    <a t-ref="btn_properties" t-if="state.addingProperty or props.record.resId and props.record.data.article_properties.length and isInternalUser" role="button" t-attf-class="btn btn-light btn-properties #{state.displayPropertyPanel ? 'active' : ''}" data-hotkey="d" title="Show Properties" t-on-click="toggleProperties">
+                    <a t-ref="btn_properties" t-if="state.addingProperty or props.record.resId and props.record.data.article_properties.length and isInternalUser" role="button" t-attf-class="btn btn-light btn-properties #{state.displayPropertyPanel ? 'active' : ''}" data-hotkey="o" title="Show Properties" t-on-click="toggleProperties">
                         <i class="fa fa-fw fs-6 fa-cogs"/>
                     </a>
                     <a t-ref="btn_comments" t-if="props.record.resId and state.commentsActive" role="button"
