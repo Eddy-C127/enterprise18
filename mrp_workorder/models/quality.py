@@ -290,7 +290,6 @@ class QualityCheck(models.Model):
                  )
     def _compute_component_data(self):
         self.component_remaining_qty = False
-        self.component_uom_id = False
         for check in self:
             if check.test_type in ('register_byproducts', 'register_consumed_materials'):
                 if check.quality_state == 'none':
@@ -300,7 +299,6 @@ class QualityCheck(models.Model):
                     else:
                         qty = check.workorder_id.qty_producing
                     check.component_remaining_qty = self._prepare_component_quantity(check.move_id, qty) - sum(completed_lines.mapped('quantity'))
-                check.component_uom_id = check.move_id.product_uom
 
     def action_print(self):
         quality_point_id = self.point_id
