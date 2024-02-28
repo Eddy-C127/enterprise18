@@ -2160,7 +2160,8 @@ class AccountMove(models.Model):
         return True
 
     def _l10n_mx_edi_import_cfdi_fill_partner(self, tree):
-        role = "Receptor" if self.journal_id.type == 'sale' else "Emisor"
+        outgoing_invoice = self.journal_id.type == 'sale'
+        role = "Receptor" if outgoing_invoice else "Emisor"
         partner_node = tree.find("{*}" + role)
         rfc = partner_node.attrib.get('Rfc')
         name = partner_node.attrib.get('Nombre')
@@ -2171,10 +2172,21 @@ class AccountMove(models.Model):
         )
         # create a partner if it's not found
         if not partner:
-            partner = self.env['res.partner'].create({
+            is_foreign_partner = rfc == 'XEXX010101000'
+            partner_vals = {
                 'name': name,
-                'vat': rfc if rfc not in ('XAXX010101000', 'XEXX010101000') else False,
-            })
+                'country_id': not is_foreign_partner and self.env.ref('base.mx').id,
+            }
+            if not (is_foreign_partner or rfc == 'XAXX010101000'):
+                partner_vals['vat'] = rfc
+                if outgoing_invoice:
+                    zip_code = partner_node.attrib.get('DomicilioFiscalReceptor')
+                    partner_vals['zip'] = zip_code
+            elif is_foreign_partner:
+                export_fiscal_position = self.company_id._l10n_mx_edi_get_foreign_customer_fiscal_position()
+                if export_fiscal_position:
+                    partner_vals['property_account_position_id'] = export_fiscal_position.id
+            partner = self.env['res.partner'].create(partner_vals)
         return partner
 
     def _l10n_mx_edi_import_cfdi_fill_invoice(self, tree):

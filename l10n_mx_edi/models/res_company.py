@@ -65,3 +65,11 @@ class ResCompany(models.Model):
         string="Fiscal Regime",
         help="It is used to fill Mexican XML CFDI required field "
         "Comprobante.Emisor.RegimenFiscal.")
+
+    def _l10n_mx_edi_get_foreign_customer_fiscal_position(self):
+        """Return the fiscal position for foreign customers from the mexican chart template.
+           Return an empty fiscal position in case it was not found.
+        """
+        self.ensure_one()
+        fiscal_position = self.env['account.chart.template'].with_company(self).ref('account_fiscal_position_foreign', raise_if_not_found=False)
+        return fiscal_position or self.env['account.fiscal.position']

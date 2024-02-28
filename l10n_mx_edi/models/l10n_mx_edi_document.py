@@ -611,9 +611,7 @@ class L10nMxEdiDocument(models.Model):
         """
         customer = customer or self.env['res.partner']
         invoice_customer = customer if customer.type == 'invoice' else customer.commercial_partner_id
-        is_foreign_customer = invoice_customer.country_id.code not in ('MX', False)
         has_missing_vat = not invoice_customer.vat
-        has_missing_country = not invoice_customer.country_id
         issued_address = cfdi_values['issued_address']
 
         # If the CFDI is refunding a global invoice, it should be sent as a refund of a global invoice with
@@ -625,7 +623,7 @@ class L10nMxEdiDocument(models.Model):
             is_refund_gi = bool(self.search([('attachment_uuid', 'in', origin_uuids), ('state', '=', 'ginvoice_sent')], limit=1))
 
         customer_as_publico_en_general = (not customer and to_public) or is_refund_gi
-        customer_as_xexx_xaxx = to_public or is_foreign_customer or has_missing_vat or has_missing_country
+        customer_as_xexx_xaxx = to_public or customer.country_id.code != 'MX' or has_missing_vat
 
         if customer_as_publico_en_general or customer_as_xexx_xaxx:
             customer_values = {
@@ -642,6 +640,13 @@ class L10nMxEdiDocument(models.Model):
                     'uso_cfdi': 'G02' if is_refund_gi else 'S01',
                 })
             else:
+                has_country = bool(customer.country_id)
+                company = cfdi_values['company']
+                export_fiscal_position = company._l10n_mx_edi_get_foreign_customer_fiscal_position()
+                fiscal_position = customer.with_company(company).property_account_position_id
+                has_export_fiscal_position = export_fiscal_position and fiscal_position == export_fiscal_position
+                is_foreign_customer = customer.country_id.code != 'MX' and (has_country or has_export_fiscal_position)
+
                 customer_values.update({
                     'rfc': 'XEXX010101000' if is_foreign_customer else 'XAXX010101000',
                     'nombre': self._cfdi_sanitize_to_legal_name(invoice_customer.name),
