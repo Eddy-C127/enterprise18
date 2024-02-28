@@ -201,3 +201,24 @@ class TestStudioApprovals(TransactionCase):
         self.assertEqual(model_action.step, 1)
         self.assertEqual(model_action.message_ids[0].preview, "Approved as User types / Internal User")
         self.assertEqual(len(model_action.activity_ids), 0)
+
+    def test_no_responsible_but_user_notified(self):
+        IrModel = self.env["ir.model"]
+        self.env["studio.approval.rule"].create([
+            {
+                "name": "R0",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "group_id": self.env.ref("base.group_system").id,
+                "method": "action_step",
+                "notification_order": "1",
+                "users_to_notify": [Command.link(self.demo_user.id), Command.link(self.other_user.id)]
+            }
+        ])
+        model_action = self.env["test.studio.model_action"].create({
+            "name": "test"
+        })
+        with self.with_user("test_2"):
+            self.env["test.studio.model_action"].browse(model_action.id).action_step()
+        self.assertEqual(model_action.step, 0)
+        self.assertEqual(model_action.message_ids[0].preview, f"@{self.demo_user.name} @test An approval for 'R0' has been requested on test")
+        self.assertEqual(len(model_action.activity_ids), 0)

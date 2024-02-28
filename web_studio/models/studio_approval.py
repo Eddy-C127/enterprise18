@@ -607,7 +607,7 @@ class StudioApprovalRule(models.Model):
     def _create_request(self, res_id):
         self.ensure_one()
         ruleSudo = self.sudo()
-        if not self.responsible_id or not self.model_id.sudo().is_mail_activity:
+        if not (self.responsible_id or ruleSudo.users_to_notify) or not self.model_id.sudo().is_mail_activity:
             return False
         request = self.env['studio.approval.request'].sudo().search([('rule_id', '=', self.id), ('res_id', '=', res_id)])
         if request:
@@ -636,13 +636,14 @@ class StudioApprovalRule(models.Model):
                     return False
 
         record = self.env[self.model_name].browse(res_id)
-        activity_type_id = self._get_or_create_activity_type()
-        activity = record.activity_schedule(activity_type_id=activity_type_id, user_id=self.responsible_id.id)
-        request = self.env['studio.approval.request'].sudo().create({
-            'rule_id': self.id,
-            'mail_activity_id': activity.id,
-            'res_id': res_id,
-        })
+        if self.responsible_id:
+            activity_type_id = self._get_or_create_activity_type()
+            activity = record.activity_schedule(activity_type_id=activity_type_id, user_id=self.responsible_id.id)
+            request = self.env['studio.approval.request'].sudo().create({
+                'rule_id': self.id,
+                'mail_activity_id': activity.id,
+                'res_id': res_id,
+            })
         partner_ids = ruleSudo.users_to_notify.partner_id
         request.notify_to_users(record, ruleSudo.name, partner_ids)
         return True
