@@ -365,7 +365,7 @@ class SaleOrderLine(models.Model):
                     dict_changes.setdefault(sub_line.id, sub_line.product_uom_qty)
                     # upsell, we add the product to the existing quantity
                     dict_changes[sub_line.id] += line.product_uom_qty
-            else:
+            elif line.recurring_invoice:
                 # we create a new line in the subscription:
                 create_values.append(Command.create({
                     'product_id': line.product_id.id,
