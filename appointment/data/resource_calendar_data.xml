@@ -3,6 +3,7 @@
     <data noupdate="1">
         <record id="appointment_default_resource_calendar" model="resource.calendar">
             <field name="name">Appointment Resource Default Calendar</field>
+            <field name="company_id" eval="False"/>
             <field name="hours_per_day">24</field>
             <field name="attendance_ids"
                 eval="[(5, 0, 0),

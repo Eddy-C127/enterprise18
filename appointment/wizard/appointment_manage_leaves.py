@@ -40,5 +40,6 @@ class AppointmentManageLeaves(models.TransientModel):
                     'calendar_id': wizard.calendar_id.id,
                     **leave_values_common
                 }]
-        self.env['resource.calendar.leaves'].create(leave_values)
+        # need to force to false otherwise it defaults to current company when calendar has no company :/
+        self.env['resource.calendar.leaves'].create(leave_values).company_id = False
         return {'type': 'ir.actions.act_window_close'}

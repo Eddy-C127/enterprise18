@@ -18,6 +18,7 @@ class AppointmentManageLeaveTest(AppointmentCommon):
         stop_leave = datetime(2022, 2, 14, 15, 0, 0)
 
         calendar = self.env['resource.calendar'].sudo().create({
+            'company_id': False,
             'attendance_ids': [
                 (0, 0, {'dayofweek': str(weekday),
                         'day_period': 'morning',

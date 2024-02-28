@@ -261,11 +261,14 @@ class CalendarEvent(models.Model):
     def _read_group_appointment_resource_id(self, resources, domain, order):
         if not self.env.context.get('appointment_booking_gantt_show_all_resources'):
             return resources
+        resources_domain = [
+            '|', ('company_id', '=', False), ('company_id', 'in', self.env.context.get('allowed_company_ids', [])),
+        ]
         # If we have a default appointment type, we only want to show those resources
         default_appointment_type = self.env.context.get('default_appointment_type_id')
         if default_appointment_type:
-            return self.env['appointment.type'].browse(default_appointment_type).resource_ids
-        return self.env['appointment.resource'].search([])
+            return self.env['appointment.type'].browse(default_appointment_type).resource_ids.filtered_domain(resources_domain)
+        return self.env['appointment.resource'].search(resources_domain)
 
     def _read_group_partner_ids(self, partners, domain, order):
         """Show the partners associated with relevant staff users in appointment gantt context."""
