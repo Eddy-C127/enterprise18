@@ -267,3 +267,44 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
         dummy, picking = self.simulate_period(sub, "2022-04-02")
 
         self.assertEqual(picking.move_ids.product_uom_qty, 3, 'The new period should deliver 3 products')
+
+    def test_subscription_stock_order_upsell_delivery(self):
+        sub = self.subscription_order
+        sub_consumable_product = self.env['product.template'].create({
+            'recurring_invoice': True,
+            'sale_ok': True,
+            'purchase_ok': True,
+            'detailed_type': 'consu',
+            'list_price': 1.0,
+            'invoice_policy': 'order',
+            'name': 'Subscription Consumable'
+        })
+
+        self.simulate_period(sub, "2022-03-02")
+
+        with freeze_time("2022-03-02"):
+            action = sub.prepare_upsell_order()
+            upsell_so = self.env['sale.order'].browse(action['res_id'])
+
+            new_line = self.env['sale.order.line'].create({
+                'name': sub_consumable_product.name,
+                'order_id': upsell_so.id,
+                'product_id': sub_consumable_product.product_variant_id.id,
+                'product_uom_qty': 10
+            })
+            upsell_so.order_line = [(6, 0, new_line.ids)]
+            self.assertEqual(len(upsell_so.order_line), 1, 'There should only be one line')
+            self.assertEqual(upsell_so.order_line.price_unit, 1, 'The price_unit should be 1')
+            self.assertEqual(upsell_so.order_line.discount, 0, 'The discount should be 0')
+            self.assertEqual(upsell_so.order_line.product_uom_qty, 10, 'The upsell order has 10 quantity')
+            upsell_so.action_confirm()
+
+            upsell_move = upsell_so.picking_ids.move_ids
+
+            self.assertEqual(len(upsell_move), 1, 'Confirming the SO should create a delivery order in the upsell')
+            self.assertEqual(upsell_move.product_qty, 10, 'With a product quantity of 10')
+            upsell_so.picking_ids.button_validate()
+            self.assertEqual(upsell_so.order_line.qty_delivered, 10, "Upsell should have delivered 10 items")
+            self.assertEqual(upsell_so.order_line.qty_invoiced, 0, "Upsell line should have invoiced 0 items")
+            self.assertEqual(upsell_so.order_line.parent_line_id.qty_delivered, 10, "Sub line should have delivered 10 items")
+            self.assertEqual(upsell_so.order_line.parent_line_id.qty_invoiced, 10, "Sub line should have invoiced 10 items")
