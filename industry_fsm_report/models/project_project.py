@@ -34,7 +34,7 @@ class ProjectProject(models.Model):
         if project_ids:
             projects = self.browse(project_ids)
             if len(projects.company_id) == 1:
-                projects.worksheet_template_id = self.env['worksheet.template'].search([('company_id', '=', [projects.company_id.id, False])], limit=1)
+                projects.worksheet_template_id = self.env['worksheet.template'].search([('company_id', 'in', [projects.company_id.id, False])], limit=1)
             else:
                 worksheet_per_company = {
                     company: worksheets[:1]
