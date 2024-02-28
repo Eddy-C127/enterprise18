@@ -16,6 +16,7 @@ class AppointmentResource(models.Model):
     sequence = fields.Integer("Sequence", default=1, required=True,
         help="""The sequence dictates if the resource is going to be picked in higher priority against another resource
         (e.g. for 2 tables of 4, the lowest sequence will be picked first)""")
+    company_id = fields.Many2one(default=False)
     resource_id = fields.Many2one(copy=False)
     resource_calendar_id = fields.Many2one(
         default=lambda self: (
