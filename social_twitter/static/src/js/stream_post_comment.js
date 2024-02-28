@@ -45,7 +45,7 @@ export class StreamPostCommentTwitter extends StreamPostComment {
     }
 
     get commentName() {
-        return _t('tweet');
+        return _t('Tweet');
     }
 
     /**
