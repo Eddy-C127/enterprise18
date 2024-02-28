@@ -11,7 +11,7 @@ from werkzeug.urls import url_encode
 from odoo import fields, _
 from odoo.addons.base.models.ir_qweb import keep_query
 from odoo.addons.calendar.controllers.main import CalendarController
-from odoo.http import request, route
+from odoo.http import content_disposition, request, route
 from odoo.tools import is_html_empty
 from odoo.tools.misc import get_lang
 
@@ -166,7 +166,7 @@ class AppointmentCalendarController(CalendarController):
         return request.make_response(content, [
             ('Content-Type', 'application/octet-stream'),
             ('Content-Length', len(content)),
-            ('Content-Disposition', 'attachment; filename=Appoinment.ics')
+            ('Content-Disposition', content_disposition(event._get_customer_summary() + '.ics')),
         ])
 
     @route('/calendar/videocall/<string:access_token>', type='http', auth='public')

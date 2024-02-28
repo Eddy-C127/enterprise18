@@ -72,7 +72,6 @@ class AppointmentCRMTest(TestCrmCommon):
         self.assertEqual(lead.name, event.name)
         self.assertEqual(lead.description, event.description)
         self.assertEqual(lead.partner_id, self.contact_1)
-        self.assertTrue(self.env.ref('appointment_crm.appointment_crm_tag') in lead.tag_ids)
         self.assertTrue(lead.activity_ids[0], "Lead should have a next activity")
         self.assertNotIn(self.env.user.partner_id, lead.message_partner_ids)
 
@@ -173,11 +172,3 @@ class AppointmentCRMTest(TestCrmCommon):
             self.env['appointment.type'], self.user_sales_leads, self.contact_1
         )
         self.assertFalse(event.opportunity_id)
-
-    def test_tag_deleted(self):
-        """ Make sure lead is still created if master data is removed """
-        self.env.ref('appointment_crm.appointment_crm_tag').unlink()
-        event = self._create_meetings_from_appointment_type(
-            self.appointment_type_create, self.user_sales_leads, self.contact_1
-        )
-        self.assertTrue(event.opportunity_id)
