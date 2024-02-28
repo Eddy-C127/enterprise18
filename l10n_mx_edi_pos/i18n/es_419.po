@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-02 11:55+0000\n"
+"POT-Creation-Date: 2024-02-28 09:03+0000\n"
 "PO-Revision-Date: 2023-08-02 11:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -131,9 +131,19 @@ msgid "Download"
 msgstr "Descargar"
 
 #. module: l10n_mx_edi_pos
+#. odoo-javascript
+#: code:addons/l10n_mx_edi_pos/static/src/overrides/models/order.js:0
 #: model:ir.model.fields.selection,name:l10n_mx_edi_pos.selection__pos_order__l10n_mx_edi_cfdi_sat_state__error
+#, python-format
 msgid "Error"
 msgstr "Error"
+
+#. module: l10n_mx_edi_pos
+#. odoo-python
+#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
+#, python-format
+msgid "Failed to distribute some negative lines"
+msgstr "No fue posible distribuir algunas líneas negativas."
 
 #. module: l10n_mx_edi_pos
 #: model:ir.model.fields,field_description:l10n_mx_edi_pos.field_pos_order__l10n_mx_edi_cfdi_uuid
@@ -263,6 +273,13 @@ msgstr "Inversión en mobiliario y equipo de oficina"
 #. odoo-python
 #: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
 #, python-format
+msgid "On %s: %s"
+msgstr "En %s: %s"
+
+#. module: l10n_mx_edi_pos
+#. odoo-python
+#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
+#, python-format
 msgid ""
 "Order lines having a negative amount are not allowed to generate the CFDI."
 msgstr ""
@@ -281,6 +298,13 @@ msgstr ""
 "establecido no tienen autorización para generar el CFDI."
 
 #. module: l10n_mx_edi_pos
+#. odoo-python
+#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
+#, python-format
+msgid "Orders %s are already sent or not eligible for CFDI."
+msgstr "Ya se enviaron las órdenes %s o no son elegibles para CFDI."
+
+#. module: l10n_mx_edi_pos
 #: model:ir.model.fields.selection,name:l10n_mx_edi_pos.selection__pos_order__l10n_mx_edi_usage__i08
 msgid "Other machinery and equipment"
 msgstr "Otra maquinaria y equipo"
@@ -295,6 +319,11 @@ msgstr "Forma de pago"
 #: model:ir.model.fields.selection,name:l10n_mx_edi_pos.selection__pos_order__l10n_mx_edi_usage__d10
 msgid "Payments for educational services (Colegiatura)"
 msgstr "Pagos por servicios educativos (colegiaturas)"
+
+#. module: l10n_mx_edi_pos
+#: model:ir.model,name:l10n_mx_edi_pos.model_pos_order_line
+msgid "Point of Sale Order Lines"
+msgstr "Líneas de orden del Punto de venta"
 
 #. module: l10n_mx_edi_pos
 #: model:ir.model,name:l10n_mx_edi_pos.model_pos_order
@@ -365,13 +394,6 @@ msgid "Signed Global"
 msgstr "Global firmado"
 
 #. module: l10n_mx_edi_pos
-#. odoo-python
-#: code:addons/l10n_mx_edi_pos/wizard/l10n_mx_edi_global_invoice_create.py:0
-#, python-format
-msgid "Some orders are already sent or not eligible for CFDI."
-msgstr "Algunas órdenes ya se enviaron o no son elegibles para CFDI."
-
-#. module: l10n_mx_edi_pos
 #: model:ir.model.fields.selection,name:l10n_mx_edi_pos.selection__pos_order__l10n_mx_edi_usage__i06
 msgid "Telephone communications"
 msgstr "Comunicaciones telefónicas"
@@ -397,6 +419,19 @@ msgstr ""
 "El SAT no proporciona información sobre la divisa %s.\n"
 "Debe obtener una clave del PAC de forma manual para confirmar que la tasa de "
 "cambio es precisa."
+
+#. module: l10n_mx_edi_pos
+#. odoo-javascript
+#. odoo-python
+#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
+#: code:addons/l10n_mx_edi_pos/static/src/overrides/models/order.js:0
+#, python-format
+msgid ""
+"The amount of the order must be positive for a sale and negative for a "
+"refund."
+msgstr ""
+"El importe de la orden debe ser positivo para una venta y negativo para un "
+"reembolso."
 
 #. module: l10n_mx_edi_pos
 #: model:ir.model.fields,help:l10n_mx_edi_pos.field_pos_order__l10n_mx_edi_usage
@@ -454,7 +489,6 @@ msgstr "Sí"
 #. module: l10n_mx_edi_pos
 #. odoo-python
 #: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
-#: code:addons/l10n_mx_edi_pos/wizard/l10n_mx_edi_global_invoice_create.py:0
 #, python-format
 msgid "You can only process orders sharing the same company."
 msgstr "Solo puede procesar órdenes que comparten la misma empresa."
@@ -468,10 +502,3 @@ msgid ""
 msgstr ""
 "No puede facturar este reembolso. Las órdenes relacionadas aún no se "
 "facturan."
-
-#. module: l10n_mx_edi_pos
-#. odoo-python
-#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
-#, python-format
-msgid "You cannot refund multiple invoices at once."
-msgstr "No puede reembolsar varias facturas a la vez."
