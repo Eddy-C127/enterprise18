@@ -74,7 +74,7 @@ registry.category("web_tour.tours").add("spreadsheet_create_list_view", {
         {
             trigger: ".dropdown-menu .dropdown-toggle:contains(Spreadsheet)",
             run: function () {
-                this.$anchor[0].dispatchEvent(new MouseEvent("mouseenter"));
+                this.anchor.dispatchEvent(new MouseEvent("mouseenter"));
             },
         },
         {

@@ -215,12 +215,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         {
             content: "Type Date",
             trigger: "iframe input.ui-selected",
-            run: function (actions) {
-                var self = this;
-                setTimeout(function () {
-                    actions.text("17/09/2018", self.$anchor);
-                }, 10);
-            },
+            run: "text 17/09/2018",
         },
         {
             content: "Validate and Sign",

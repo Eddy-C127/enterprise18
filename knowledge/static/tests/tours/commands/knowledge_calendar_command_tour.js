@@ -49,7 +49,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     // Open the command bar
     trigger: '.odoo-editor-editable > p',
     run: function () {
-        openCommandBar(this.$anchor[0]);
+        openCommandBar(this.anchor);
     },
 }, { // Click on the /calendar command
     trigger: '.oe-powerbox-commandName:contains("Calendar")',
@@ -68,14 +68,14 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.fc-timegrid-slot.fc-timegrid-slot-lane[data-time="08:00:00"]',
     extra_trigger: '.o_knowledge_behavior_type_embedded_view .o_knowledge_article_view_calendar_embedded_view',
     run: function () {
-        clickDate(this.$anchor[0]);
+        clickDate(this.anchor);
     },
 }, {
     // Check we created an item with the right datetime used as property
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Start Date")',
     extra_trigger: '.o_breadcrumb_article_name_container span:empty',
     run: function () {
-        const input = this.$anchor.find("input")[0];
+        const input = this.anchor.querySelector("input");
         if (!input.value.includes("08:00:00")) {
             throw new Error('Item was not created with the correct property value');
         }
@@ -98,7 +98,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     // Remove previous item calendar view
     trigger: '.odoo-editor-editable',
     run: function () {
-        this.$anchor.data('wysiwyg').odooEditor.resetContent();
+        $(this.anchor).data('wysiwyg').odooEditor.resetContent();
     },
 }, {
     // Click on the "Create Item Calednar" helper
@@ -139,14 +139,14 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.fc-timegrid-slot.fc-timegrid-slot-lane[data-time="08:00:00"]',
     extra_trigger: '.o_knowledge_behavior_type_embedded_view .o_knowledge_article_view_calendar_embedded_view',
     run: function () {
-        clickDate(this.$anchor[0]);
+        clickDate(this.anchor);
     },
 }, {
     // Check we created an item with the right datetime used as property
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Start Property")',
     extra_trigger: '.o_breadcrumb_article_name_container span:empty',
     run: function () {
-        const input = this.$anchor.find("input")[0];
+        const input = this.anchor.querySelector("input");
         if (!input.value.includes("08:00:00")) {
             throw new Error('Item was not created with the correct property value');
         }
@@ -322,12 +322,12 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.fc-timegrid-event .o_event_title:contains("Item Article")',
     run: function () {
         const target = document.querySelector('.fc-timegrid-slot.fc-timegrid-slot-lane[data-time="09:00:00"]');
-        dragDate(this.$anchor[0], target);
+        dragDate(this.anchor, target);
     },
 }, { // Make resizer visible
     trigger: '.fc-timegrid-event',
     run: function () {
-        const resizer = this.$anchor.find('.fc-event-resizer-end')[0];
+        const resizer = this.anchor.querySelector(".fc-event-resizer-end");
         resizer.style.display = "block";
         resizer.style.width = "100%";
         resizer.style.height = "3px";
@@ -337,7 +337,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.fc-timegrid-event:contains("Item Article") .fc-event-resizer-end',
     run: function () {
         const target = document.querySelector('.fc-timegrid-slot.fc-timegrid-slot-lane[data-time="11:00:00"]');
-        dragDate(this.$anchor[0], target);
+        dragDate(this.anchor, target);
     },
 }, {
     //----------------------------------------------------------------------
@@ -353,7 +353,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Start Property")',
     extra_trigger: '.o_breadcrumb_article_name_container:contains("Item Article")',
     run: function () {
-        const input = this.$anchor.find("input")[0];
+        const input = this.anchor.querySelector("input");
         if (!input.value.includes("09:00:00")) {
             throw new Error('Item start date property has not been updated');
         }
@@ -361,7 +361,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, {
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Stop Property")',
     run: function () {
-        const input = this.$anchor.find("input")[0];
+        const input = this.anchor.querySelector("input");
         // When resizing an event, the event spans the hovered row, so we need to add 15 minutes
         if (!input.value.includes("11:15:00")) {
             throw new Error('Item stop date property has not been updated');
@@ -370,7 +370,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, { // Check text property did not change
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Text Property")',
     run: function () {
-        const input = this.$anchor.find("input")[0];
+        const input = this.anchor.querySelector("input");
         if (!input.value.includes("Custom text")) {
             throw new Error('Item text property has changed');
         }

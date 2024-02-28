@@ -31,7 +31,7 @@ const validateFavoriteFilterPersistence = function(kanban, filterName) {
         // Open the favorite of the first kanban and check it's favorite
         trigger: `.o_breadcrumb:contains('${kanban}')`,
         run: function () {
-            const view = this.$anchor[0].closest(
+            const view = this.anchor.closest(
                 '.o_kanban_view'
             );
             const searchMenuButton = view.querySelector(".o_searchview_dropdown_toggler");
@@ -40,7 +40,7 @@ const validateFavoriteFilterPersistence = function(kanban, filterName) {
     }, {
         trigger: '.o_favorite_menu',
         run: function () {
-            const favorites = this.$anchor[0].querySelectorAll("span.dropdown-item");
+            const favorites = this.anchor.querySelectorAll("span.dropdown-item");
             if (favorites.length !== 1 || favorites[0].innerText !== filterName) {
                 console.error(`Only one filter "(${filterName})" should be available`);
             }
@@ -69,7 +69,7 @@ const embedKnowledgeKanbanViewSteps = function (article) {
     }, { // click on the knowledge menu button
         trigger: ".dropdown-menu .dropdown-toggle:contains(Knowledge)",
         run: function () {
-            this.$anchor[0].dispatchEvent(new Event("mouseenter"));
+            this.anchor.dispatchEvent(new Event("mouseenter"));
         },
     }, { // click on insert view in article
         trigger: ".dropdown-menu .dropdown-item:contains('Insert view in article')",
@@ -125,7 +125,7 @@ const validateFavoriteFiltersSteps = function (kanban1, kanban2) {
         // (favorite are defined per view)
         trigger: `.o_breadcrumb:contains('${kanban2}')`,
         run: function () {
-            const view = this.$anchor[0].closest(
+            const view = this.anchor.closest(
                 '.o_kanban_view'
             );
             const searchMenuButton = view.querySelector(".o_searchview_dropdown_toggler");
@@ -164,7 +164,7 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         {
             trigger: ".odoo-editor-editable > h1",
             run: function () {
-                openCommandBar(this.$anchor[0]);
+                openCommandBar(this.anchor);
             },
         },
         {
@@ -186,7 +186,7 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         {
             trigger: ".odoo-editor-editable > h1",
             run: function () {
-                openCommandBar(this.$anchor[0]);
+                openCommandBar(this.anchor);
             },
         },
         {

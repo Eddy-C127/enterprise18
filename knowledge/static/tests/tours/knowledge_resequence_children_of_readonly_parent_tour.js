@@ -16,7 +16,7 @@ registry.category("web_tour.tours").add('knowledge_resequence_children_of_readon
     trigger: '.o_article_active:contains(Readonly Parent)',
     extra_trigger: '.o_article_has_children:has(li:nth-child(1):contains(Child 1)):has(li:nth-child(2):contains(Child 2))',
     run: function () {
-        const children = this.$anchor[0].parentElement.querySelectorAll(".o_article_name");
+        const children = this.anchor.parentElement.querySelectorAll(".o_article_name");
         // move 2nd child above the first.
         dragAndDropArticle($(children[2]), $(children[1]));
     },
@@ -24,9 +24,9 @@ registry.category("web_tour.tours").add('knowledge_resequence_children_of_readon
     trigger: '.o_article_active:contains(Readonly Parent)',
     extra_trigger: '.o_article_has_children:has(li:nth-child(1):contains(Child 2)):has(li:nth-child(2):contains(Child 1))',
     run: function () {
-        const child1 = this.$anchor[0].parentElement.querySelectorAll(".o_article_name")[2]
+        const child1 = this.anchor.parentElement.querySelectorAll(".o_article_name")[2]
         // move 1st child above parent.
-        dragAndDropArticle($(child1), this.$anchor);
+        dragAndDropArticle($(child1), $(this.anchor));
     },
 }, { // check that the 1st child move was effective
     trigger: '.o_section:contains(Workspace):has(li:nth-child(1):contains(Child 1)):has(li:nth-child(2):contains(Readonly Parent))',

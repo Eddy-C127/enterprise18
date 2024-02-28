@@ -40,9 +40,9 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 // the worksheet template that is set.
                 const htmlFieldSelector = '.note-editable.odoo-editor-editable p';
                 const inputFieldSelector = 'input';
-                const textTriggerElement = this.$anchor.find(htmlFieldSelector).get(0)
-                                            || this.$anchor.find(inputFieldSelector).get(0)
-                                            || this.$anchor.get(0);
+                const textTriggerElement = this.anchor.querySelector(htmlFieldSelector)
+                    || this.anchor.querySelector(inputFieldSelector)
+                    || this.anchor;
                 actions.text('My intervention details', textTriggerElement);
             },
             position: 'bottom',

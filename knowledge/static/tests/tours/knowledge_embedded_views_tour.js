@@ -13,7 +13,7 @@ registry.category("web_tour.tours").add('knowledge_embedded_view_filters_tour', 
     }, { // open the command bar
         trigger: '.odoo-editor-editable > p',
         run: function () {
-            openCommandBar(this.$anchor[0]);
+            openCommandBar(this.anchor);
         },
     }, { // add embedded list view of article items
         trigger: '.oe-powerbox-commandName:contains("Item List")'

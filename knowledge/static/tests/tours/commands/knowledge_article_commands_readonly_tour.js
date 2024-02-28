@@ -65,7 +65,7 @@ const embedListName = "List special chars *()!'<>~";
 const embedListSteps = [{ // scroll to the embedded view to load it
     trigger: embedViewSelector(embedListName),
     run: function () {
-        this.$anchor[0].scrollIntoView();
+        this.anchor.scrollIntoView();
     },
 }, { // wait for the list view to be mounted
     trigger: `${embedViewSelector(embedListName)} .o_list_renderer`,
@@ -84,7 +84,7 @@ const embedKanbanName = "My Tasks Kanban";
 const embedKanbanSteps = [{ // scroll to the embedded view to load it
     trigger: embedViewSelector(embedKanbanName),
     run: function () {
-        this.$anchor[0].scrollIntoView();
+        this.anchor.scrollIntoView();
     },
 }, { // wait for the kanban view to be mounted
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer`,

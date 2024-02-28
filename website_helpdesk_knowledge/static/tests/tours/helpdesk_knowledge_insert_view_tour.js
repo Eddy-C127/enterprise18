@@ -24,7 +24,7 @@ registry.category("web_tour.tours").add('helpdesk_insert_graph_view_in_knowledge
 }, { // open the knowledge submenu
     trigger: ".dropdown-menu .dropdown-toggle:contains(Knowledge)",
     run: function () {
-        this.$anchor[0].dispatchEvent(new MouseEvent("mouseenter"));
+        this.anchor.dispatchEvent(new MouseEvent("mouseenter"));
     },
 }, { // insert the view in an article
     trigger: '.dropdown-menu .dropdown-item:contains("Insert view in article")',
@@ -35,7 +35,7 @@ registry.category("web_tour.tours").add('helpdesk_insert_graph_view_in_knowledge
 }, { // the user should be redirected to the new article
     trigger: '.o_knowledge_behavior_type_embedded_view',
     run: function () {
-        this.$anchor[0].scrollIntoView();
+        this.anchor.scrollIntoView();
     },
 }, { // check that the embedded view has the selected facet
     trigger: '.o_knowledge_behavior_type_embedded_view .o_searchview .o_facet_value:contains("Urgent")',

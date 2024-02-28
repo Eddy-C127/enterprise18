@@ -1867,12 +1867,10 @@ registry.category("web_tour.tours").add('test_bypass_source_scan', {test: true, 
     },
 
     {
-        trigger: '.o_field_many2one[name=lot_id]',
+        trigger: '.o_field_many2one[name=lot_id] input',
         extra_trigger: '.o_field_widget[name="qty_done"]',
         position: "bottom",
-        run: function (actions) {
-            actions.text("", this.$anchor.find("input"));
-        },
+        run: "remove_text",
     },
 
     {

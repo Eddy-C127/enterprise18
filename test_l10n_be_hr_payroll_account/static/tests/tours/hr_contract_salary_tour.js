@@ -54,10 +54,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Contract Template",
-            trigger: ".o_field_widget.o_field_many2one[name=default_contract_id]",
-            run: function (actions) {
-                actions.text("New Developer Template Contract", this.$anchor.find("input"));
-            },
+            trigger: ".o_field_widget.o_field_many2one[name=default_contract_id] input",
+            run: `text New Developer Template Contract`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains(New Developer Template Contract)",
@@ -552,10 +550,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Set 0 Disabled Children",
             trigger: "input[name=disabled_children_number]",
             extra_trigger: 'input[name="Net"][value="2663.69"]',
-            run: function (actions) {
-                actions.text("0", this.$anchor);
-                this.$anchor.trigger("blur");
-            },
+            run: "text_blur 0",
         },
         {
             content: "Uncheck Disabled Children",
@@ -772,12 +767,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Type Date",
             trigger: "iframe input.ui-selected",
-            run: function (actions) {
-                var self = this;
-                setTimeout(function () {
-                    actions.text("17/09/2018", self.$anchor);
-                }, 10);
-            },
+            run: "text 17/09/2018",
         },
         {
             content: "Validate and Sign",
@@ -947,10 +937,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Manager",
             trigger:
-                ".o_field_widget.o_field_many2one_avatar_user.o_field_many2one_avatar[name=parent_id]",
-            run: function (actions) {
-                actions.text("Mitchell", this.$anchor.find("input"));
-            },
+                ".o_field_widget.o_field_many2one_avatar_user.o_field_many2one_avatar[name=parent_id] input",
+            run: `text Mitchell`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains(Mitchell)",
@@ -980,10 +968,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Salary Structure Type",
-            trigger: ".modal-content .o_field_widget.o_field_many2one[name=structure_type_id]",
-            run: function (actions) {
-                actions.text("CP200: Belgian Employee", this.$anchor.find("input"));
-            },
+            trigger: ".modal-content .o_field_widget.o_field_many2one[name=structure_type_id] input",
+            run: `text CP200: Belgian Employee`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('CP200: Belgian Employee')",
@@ -997,10 +983,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "HR Responsible",
             trigger:
-                "div.o_field_widget.o_required_modifier.o_field_many2one_avatar_user.o_field_many2one_avatar[name=hr_responsible_id]",
-            run: function (actions) {
-                actions.text("Mitchell", this.$anchor.find("input"));
-            },
+                "div.o_field_widget.o_required_modifier.o_field_many2one_avatar_user.o_field_many2one_avatar[name=hr_responsible_id] input",
+            run: `text Mitchell`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('Mitchell Admin')",
@@ -1008,10 +992,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Contract Update Template",
-            trigger: ".o_field_widget.o_field_many2one[name=contract_update_template_id]",
-            run: function (actions) {
-                actions.text("test_employee_contract", this.$anchor.find("input"));
-            },
+            trigger: ".o_field_widget.o_field_many2one[name=contract_update_template_id] input",
+            run: `text test_employee_contract`
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('test_employee_contract')",
@@ -1019,10 +1001,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "New Contract Document Template",
-            trigger: ".o_field_widget.o_field_many2one[name=sign_template_id]",
-            run: function (actions) {
-                actions.text("test_employee_contract", this.$anchor.find("input"));
-            },
+            trigger: ".o_field_widget.o_field_many2one[name=sign_template_id] input",
+            run: `text test_employee_contract`
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('test_employee_contract')",
@@ -1045,10 +1025,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Contract Information",
-            trigger: ".o_field_widget.o_field_many2one[name=car_id]",
-            run: function (actions) {
-                actions.text("JFC", this.$anchor.find("input"));
-            },
+            trigger: ".o_field_widget.o_field_many2one[name=car_id] input",
+            run: `text JFC`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('1-JFC-095')",
@@ -1092,10 +1070,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Select Contract",
-            trigger: ".o_field_widget.o_field_many2one[name=contract_id]",
-            run: function (actions) {
-                actions.text("Mitchell Admin PFI", this.$anchor.find("input"));
-            },
+            trigger: ".o_field_widget.o_field_many2one[name=contract_id] input",
+            run: `text Mitchell Admin PFI`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('Mitchell Admin PFI Contract')",
@@ -1402,12 +1378,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Type Date",
             trigger: "iframe input.ui-selected",
-            run: function (actions) {
-                var self = this;
-                setTimeout(function () {
-                    actions.text("17/09/2018", self.$anchor);
-                }, 10);
-            },
+            run: "text 17/09/2018",
         },
         {
             content: "Validate and Sign",

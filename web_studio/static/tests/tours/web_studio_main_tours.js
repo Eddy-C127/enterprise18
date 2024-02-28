@@ -123,7 +123,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             trigger: `.o_app[data-menu-xmlid*="studio"]:contains(${createdAppString})`,
             run: function () {
                 // We can't emulate a hover to display the edit icon
-                const editIcon = this.$anchor[0].querySelector(".o_web_studio_edit_icon");
+                const editIcon = this.anchor.querySelector(".o_web_studio_edit_icon");
                 editIcon.style.visibility = "visible";
                 editIcon.click();
             },
@@ -212,7 +212,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             // verify that the field name has changed and change it
             trigger: '.o_web_studio_sidebar input[name="technical_name"]',
             run(helper) {
-                assertEqual(this.$anchor[0].value, "my_coucou_field");
+                assertEqual(this.anchor.value, "my_coucou_field");
                 helper.text("coucou");
             },
             // the rename operation (/web_studio/rename_field + /web_studio/edit_view)
@@ -251,7 +251,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             // verify that the field name has changed (post-fixed by _1)
             trigger: '.o_web_studio_sidebar input[name="technical_name"]',
             run(helper) {
-                assertEqual(this.$anchor[0].value, "coucou_1");
+                assertEqual(this.anchor.value, "coucou_1");
             },
             // the rename operation (/web_studio/rename_field + /web_studio/edit_view)
             // takes a while and sometimes reaches the default 10s timeout
@@ -302,10 +302,6 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             trigger:
                 '[name="relation_id"] .o-autocomplete--dropdown-menu li a:not(:has(.fa-spin)):contains(Activity)',
             in_modal: true,
-            run(helpers) {
-                const el = Array.from(this.$anchor).find((el) => el.textContent === "Activity");
-                return helpers.click($(el));
-            },
         },
         {
             in_modal: true,
@@ -791,8 +787,8 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         {
             // add a new group on the node
             trigger: '.o_web_studio_sidebar .o_field_many2many_tags[name="groups_id"] input',
-            run: function () {
-                this.$anchor.click();
+            run(helpers) {
+                helpers.click();
             },
         },
         {
@@ -807,18 +803,16 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         {
             trigger:
                 ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
-            run($anchor) {
-                const element = this.$anchor[0];
-                element.ownerDocument.getSelection().setPosition(element);
-                assertEqual(element.outerHTML, `<div class="oe_structure"></div>`);
+            run() {
+                this.anchor.ownerDocument.getSelection().setPosition(this.anchor);
+                assertEqual(this.anchor.outerHTML, `<div class="oe_structure"></div>`);
             },
         },
         {
             trigger:
                 ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
             run() {
-                const element = this.$anchor[0];
-                assertEqual(element.classList.contains("oe-command-temporary-hint"), true);
+                assertEqual(this.anchor.classList.contains("oe-command-temporary-hint"), true);
             },
         },
         {
@@ -864,13 +858,13 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
             // switch to 'Report' tab
             trigger: ".o_web_studio_sidebar input[id='name']",
             run() {
-                assertEqual(this.$anchor[0].value, "My Awesome Report copy(1)");
+                assertEqual(this.anchor.value, "My Awesome Report copy(1)");
             },
         },
         {
             trigger: ".o-web-studio-report-editor-wysiwyg iframe div.page div",
             run() {
-                assertEqual(this.$anchor[0].textContent, "some new text");
+                assertEqual(this.anchor.textContent, "some new text");
             },
         },
         {
@@ -919,8 +913,8 @@ registry.category("web_tour.tours").add("web_studio_new_report_basic_layout_tour
         {
             // add a new group on the node
             trigger: '.o_web_studio_sidebar .o_field_many2many_tags[name="groups_id"] input',
-            run: function () {
-                this.$anchor.click();
+            run(helpers) {
+                helpers.click();
             },
         },
         {
@@ -970,7 +964,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_basic_layout_tour
         {
             trigger: '.o_web_studio_sidebar input[id="name"]',
             run() {
-                assertEqual(this.$anchor[0].value, "My Awesome basic layout Report copy(1)");
+                assertEqual(this.anchor.value, "My Awesome basic layout Report copy(1)");
             },
         },
         {
@@ -1024,9 +1018,9 @@ registry.category("web_tour.tours").add("web_studio_approval_tour", {
             // set stupid domain that is always truthy
             trigger: ".o_domain_selector_debug_container textarea",
             run: function () {
-                this.$anchor.focusIn();
-                this.$anchor.val('[["id", "!=", False]]');
-                this.$anchor.change();
+                this.anchor.focus();
+                this.anchor.value = '[["id", "!=", False]]';
+                this.anchor.dispatchEvent(new Event("change", { bubbles: true }));
             },
         },
         {
@@ -1394,10 +1388,6 @@ const addActionButtonModalSteps = (
     },
     {
         trigger: `.o-web-studio-editor--modal-add-action .o-autocomplete--dropdown-menu li a:not(:has(.fa-spin)):contains(${ActionName})`,
-        run(helpers) {
-            const el = Array.from(this.$anchor).find((el) => el.textContent === ActionName);
-            return helpers.click($(el));
-        },
     },
     {
         trigger: "footer button.o-web-studio-editor--add-button-confirm",
@@ -1592,7 +1582,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_create", {
             // verify that the currency is set
             trigger: ".o_web_studio_sidebar .o_web_studio_property_currency_field .text-start",
             run() {
-                assertEqual(this.$anchor[0].textContent, "Currency (x_studio_currency_id)");
+                assertEqual(this.anchor.textContent, "Currency (x_studio_currency_id)");
             },
         },
         {
@@ -1642,7 +1632,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_nam
             // verify that the currency name changed in the monetary field
             trigger: ".o_web_studio_sidebar .o_web_studio_property_currency_field .text-start",
             run() {
-                assertEqual(this.$anchor[0].textContent, "NewCurrency (x_studio_currency_test)");
+                assertEqual(this.anchor.textContent, "NewCurrency (x_studio_currency_test)");
             },
         },
     ],
@@ -1743,7 +1733,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_fie
             // check that there is no currency symbol in renderer
             trigger: "div[name='x_studio_monetary_test'] span",
             run() {
-                assertEqual(this.$anchor[0].textContent, "0.00");
+                assertEqual(this.anchor.textContent, "0.00");
             },
         },
         {
@@ -1768,7 +1758,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_fie
             // by changing the currency, we should have a $ symbol in the renderer
             trigger: "div[name^='x_studio_monetary'] span",
             run() {
-                assertEqual(this.$anchor[0].textContent, "$ 0.00");
+                assertEqual(this.anchor.textContent, "$ 0.00");
             },
         },
     ],
@@ -1860,7 +1850,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_add_existing_moneta
             trigger: ".o_web_studio_sidebar .o_web_studio_property_currency_field .text-start",
             run() {
                 assertEqual(
-                    this.$anchor[0].textContent,
+                    this.anchor.textContent,
                     "X Studio Currency Test (x_studio_currency_test)"
                 );
             },

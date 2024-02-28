@@ -25,15 +25,15 @@ registry.category("web_tour.tours").add('appointment_hr_recruitment_tour', {
         run: 'click',
     }, {
         trigger: '.o_appointment_button_link:contains("Test AppointmentHrRecruitment")',
-        run: () => {
+        run(helpers) {
             // Patch and ignore write on clipboard in tour as we don't have permissions
             navigator.clipboard.writeText = () => { console.info('Copy in clipboard ignored!') };
-            $('.o_appointment_button_link:contains("Test AppointmentHrRecruitment")').click();
+            helpers.click();
         },
     }, {
         trigger: '.o_appointment_discard_slots',
-        run: () => {
-            $('.o_appointment_discard_slots').click();
+        run(helpers) {
+            helpers.click();
             // Re-patch the function with the previous writeText
             navigator.clipboard.writeText = oldWriteText;
         },

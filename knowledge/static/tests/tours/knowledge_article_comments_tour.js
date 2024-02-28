@@ -48,7 +48,7 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
         }, { // Select some text in the first paragraph
             trigger: '.note-editable p.o_knowledge_tour_first_paragraph',
             run: function () {
-                setSelection(...boundariesIn(this.$anchor[0]));
+                setSelection(...boundariesIn(this.anchor));
             }
         }, { // Trigger comment creation with the editor toolbar
             trigger: '.oe-toolbar div[id="comment-line"]',

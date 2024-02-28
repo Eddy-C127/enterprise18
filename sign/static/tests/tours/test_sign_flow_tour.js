@@ -84,11 +84,6 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             content: "Sign",
             trigger: 'button.btn-primary:contains("Sign all")',
             extra_trigger: "canvas.o_web_sign_signature",
-            run() {
-                setTimeout(() => {
-                    this.$anchor.click();
-                }, 1000);
-            },
         },
         {
             content: "Validate & Send Completed Document",

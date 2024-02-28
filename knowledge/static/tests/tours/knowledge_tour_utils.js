@@ -82,7 +82,7 @@ export function appendArticleLink(htmlFieldContainerSelector, articleName, offse
     return [{ // open the command bar
         trigger: `${htmlFieldContainerSelector} .odoo-editor-editable > p:last-child`,
         run: function () {
-            openCommandBar(this.$anchor[0], offset);
+            openCommandBar(this.anchor, offset);
         },
     }, { // click on the /article command
         trigger: '.oe-powerbox-commandName:contains(Article)',

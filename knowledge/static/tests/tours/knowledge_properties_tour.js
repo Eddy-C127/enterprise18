@@ -13,9 +13,8 @@ registry.category("web_tour.tours").add('knowledge_properties_tour', {
 }, { // ensure display of ParentArticle child articles
     trigger: '.o_article_handle:contains("ParentArticle") .o_article_caret',
     run: function (actions) {
-        const button = this.$anchor[0];
-        if (button.querySelector('i.fa-caret-right')) {
-            actions.click(this.$anchor);
+        if (this.anchor.querySelector("i.fa-caret-right")) {
+            actions.click();
         }
     }
 }, { // go to ChildArticle

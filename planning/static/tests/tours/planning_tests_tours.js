@@ -34,7 +34,7 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     trigger: ".o_field_widget[name='start_datetime'] input",
     content: "Set start datetime",
     run: function (actions) {
-        const input = this.$anchor[0];
+        const input = this.anchor;
         input.value = input.value.replace(/(\d{2}:){2}\d{2}/g, '08:00:00');
         input.dispatchEvent(new InputEvent('input', {
             bubbles: true,
@@ -45,7 +45,7 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     trigger: "input[data-field=end_datetime]",
     content: "Set end datetime",
     run: function (actions) {
-        const input = this.$anchor[0];
+        const input = this.anchor;
         input.value = input.value.replace(/(\d{2}:){2}\d{2}/g, '11:59:59');
         input.dispatchEvent(new InputEvent('input', {
             bubbles: true,
@@ -56,8 +56,8 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     trigger: "div[name='template_creation'] input",
     content: "Save this shift as a template",
     run: function (actions) {
-        if (!this.$anchor.prop('checked')) {
-            actions.click(this.$anchor);
+        if (!this.anchor.checked) {
+            actions.click();
         }
     },
 }, {
@@ -68,17 +68,13 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     content: markup("<b>Drag & drop</b> your shift to reschedule it. <i>Tip: hit CTRL (or Cmd) to duplicate it instead.</i> <b>Adjust the size</b> of the shift to modify its period."),
     auto: true,
     run: function () {
-        if (this.$anchor.length) {
-            const expected = "8:00 AM - 11:59 AM";
-            // Without the replace below, this step could break since luxon
-            // (via Intl) uses sometimes U+202f instead of a simple space.
-            // Note: U+202f is a narrow non-break space.
-            const actual = this.$anchor[0].textContent.replace(/\u202f/g, " ");
-            if (!actual.startsWith(expected)) {
-                console.error("Test in gantt view doesn't start as expected. Expected : '" + expected + "', actual : '" + actual + "'");
-            }
-        } else {
-            console.error("Not able to select pill ending at 11h59");
+        const expected = "8:00 AM - 11:59 AM";
+        // Without the replace below, this step could break since luxon
+        // (via Intl) uses sometimes U+202f instead of a simple space.
+        // Note: U+202f is a narrow non-break space.
+        const actual = this.anchor.textContent.replace(/\u202f/g, " ");
+        if (!actual.startsWith(expected)) {
+            console.error("Test in gantt view doesn't start as expected. Expected : '" + expected + "', actual : '" + actual + "'");
         }
     }
 }, {
@@ -97,16 +93,11 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     content: "See employee progress bar",
     auto: true,
     run: function () {
-        const $progressbar = this.$anchor;
-        if ($progressbar.length) {
-            if ($progressbar[0].querySelector("span").style.width === '') {
-                console.error("Progress bar should be displayed");
-            }
-            if (!$progressbar[0].classList.contains("o_gantt_group_success")) {
-                console.error("Progress bar should be displayed in success");
-            }
-        } else {
-            console.error("Not able to select progressbar");
+        if (this.anchor.querySelector("span").style.width === '') {
+            console.error("Progress bar should be displayed");
+        }
+        if (!this.anchor.classList.contains("o_gantt_group_success")) {
+            console.error("Progress bar should be displayed in success");
         }
     }
 }, {

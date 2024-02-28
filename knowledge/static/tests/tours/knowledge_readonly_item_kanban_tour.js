@@ -15,7 +15,7 @@ registry.category("web_tour.tours").add('knowledge_readonly_item_kanban_tour', {
 }, { // scroll to the embedded view to load it
     trigger: '.o_knowledge_behavior_type_embedded_view',
     run: function () {
-        this.$anchor[0].scrollIntoView();
+        this.anchor.scrollIntoView();
     },
 }, { // wait for the kanban view to be mounted
     trigger: '.o_knowledge_behavior_type_embedded_view .o_kanban_renderer',

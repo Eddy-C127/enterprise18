@@ -7,7 +7,7 @@ const createFileBehaviorSteps = [
     { // open the powerBox
         trigger: '.odoo-editor-editable p',
         run: function () {
-            openCommandBar(this.$anchor[0]);
+            openCommandBar(this.anchor);
         },
     }, { // click on the /article command
         trigger: '.oe-powerbox-commandName:contains("File")',

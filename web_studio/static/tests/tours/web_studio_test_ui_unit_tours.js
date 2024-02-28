@@ -454,7 +454,7 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
         {
             trigger: ".o_web_studio_selection_editor li:nth-child(2)",
             async run() {
-                assertEqual(this.$anchor[0].textContent, "another value cancel");
+                assertEqual(this.anchor.textContent, "another value cancel");
             },
         },
         {
@@ -466,12 +466,7 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
         {
             trigger: ".o_web_studio_selection_editor li",
             run() {
-                assertEqual(
-                    Array.from(this.$anchor)
-                        .map((el) => el.textContent)
-                        .join(" "),
-                    "some value"
-                );
+                assertEqual(this.anchor.textContent, "some value");
             },
         },
         {
@@ -535,8 +530,8 @@ registry.category("web_tour.tours").add("web_studio_test_address_view_id_no_edit
             trigger: ".o_address_format",
             run: function () {
                 if (
-                    this.$anchor.find("[name=lang]").length ||
-                    !this.$anchor.find("[name=street]").length
+                    this.anchor.querySelectorAll("[name=lang]").length ||
+                    !this.anchor.querySelectorAll("[name=street]").length
                 ) {
                     throw new Error(
                         "The address view id set on the company country should be displayed"
@@ -552,8 +547,8 @@ registry.category("web_tour.tours").add("web_studio_test_address_view_id_no_edit
             trigger: ".o_address_format",
             run: function () {
                 if (
-                    this.$anchor.find("[name=street]").length ||
-                    !this.$anchor.find("[name=lang]").length
+                    this.anchor.querySelectorAll("[name=street]").length ||
+                    !this.anchor.querySelectorAll("[name=lang]").length
                 ) {
                     throw new Error(
                         "The address view id set on the company country shouldn't be editable"
@@ -852,9 +847,9 @@ registry.category("web_tour.tours").add("web_studio_field_group_studio_no_fetch"
         {
             trigger: ".o_web_studio_form_view_editor",
             run() {
-                assertEqual(this.$anchor[0].querySelectorAll(".o_field_widget").length, 1);
+                assertEqual(this.anchor.querySelectorAll(".o_field_widget").length, 1);
                 assertEqual(
-                    this.$anchor[0].querySelectorAll(".o_field_widget")[0].dataset.studioXpath,
+                    this.anchor.querySelectorAll(".o_field_widget")[0].dataset.studioXpath,
                     "/form[1]/field[2]"
                 );
             },
@@ -865,12 +860,9 @@ registry.category("web_tour.tours").add("web_studio_field_group_studio_no_fetch"
         {
             trigger: ".o_web_studio_list_view_editor",
             run() {
+                assertEqual(this.anchor.querySelectorAll("th:not(.o_web_studio_hook)").length, 1);
                 assertEqual(
-                    this.$anchor[0].querySelectorAll("th:not(.o_web_studio_hook)").length,
-                    1
-                );
-                assertEqual(
-                    this.$anchor[0].querySelectorAll("th:not(.o_web_studio_hook)")[0].dataset
+                    this.anchor.querySelectorAll("th:not(.o_web_studio_hook)")[0].dataset
                         .studioXpath,
                     "/tree[1]/field[2]"
                 );
@@ -883,13 +875,13 @@ registry.category("web_tour.tours").add("web_studio_field_group_studio_no_fetch"
             trigger: ".o_web_studio_kanban_view_editor",
             run() {
                 assertEqual(
-                    this.$anchor[0].querySelectorAll(
+                    this.anchor.querySelectorAll(
                         ".o_kanban_record:not(.o_kanban_demo):not(.o_kanban_ghost) [data-field-name]"
                     ).length,
                     1
                 );
                 assertEqual(
-                    this.$anchor[0]
+                    this.anchor
                         .querySelectorAll(
                             ".o_kanban_record:not(.o_kanban_demo):not(.o_kanban_ghost) [data-field-name]"
                         )[0]
@@ -1020,7 +1012,7 @@ registry.category("web_tour.tours").add("web_studio_test_change_lone_attr_modifi
             extra_trigger: `.o_web_studio_sidebar input[name="required"]`,
             trigger: ".o_web_studio_sidebar",
             run() {
-                const required = this.$anchor[0].querySelector(`input[name="required"]`);
+                const required = this.anchor.querySelector(`input[name="required"]`);
                 assertEqual(required.checked, true);
             },
         },
@@ -1031,7 +1023,7 @@ registry.category("web_tour.tours").add("web_studio_test_change_lone_attr_modifi
             extra_trigger: ".o_web_studio_form_view_editor:not(:has(.o_required_modifier))",
             trigger: ".o_web_studio_sidebar",
             run() {
-                const required = this.$anchor[0].querySelector(`input[name="required"]`);
+                const required = this.anchor.querySelector(`input[name="required"]`);
                 assertEqual(required.checked, false);
             },
         },

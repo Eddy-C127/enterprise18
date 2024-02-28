@@ -16,7 +16,7 @@ registry.category("web_tour.tours").add('knowledge_readonly_item_list_tour', {
 }, { // scroll to the embedded view to load it
     trigger: '.o_knowledge_behavior_type_embedded_view',
     run: function () {
-        this.$anchor[0].scrollIntoView();
+        this.anchor.scrollIntoView();
     },
 }, { // wait for the list view to be mounted
     trigger: '.o_knowledge_behavior_type_embedded_view .o_list_renderer',
