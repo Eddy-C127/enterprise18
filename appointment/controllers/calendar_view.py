@@ -49,7 +49,7 @@ class AppointmentCalendarView(http.Controller):
         if context:
             request.update_context(**context)
         AppointmentType = request.env['appointment.type']
-        appointment_type = AppointmentType.sudo().with_context(
+        appointment_type = AppointmentType.with_context(
             AppointmentType._get_clean_appointment_context()
         ).create({
             'category': 'custom',
@@ -106,7 +106,7 @@ class AppointmentCalendarView(http.Controller):
             appt_type_vals = self._prepare_appointment_type_anytime_values()
             appointment_type = AppointmentType.with_context(
                 AppointmentType._get_clean_appointment_context()
-            ).sudo().create(appt_type_vals)
+            ).create(appt_type_vals)
         return self._get_staff_user_appointment_invite_info(appointment_type)
 
     # Utility Methods

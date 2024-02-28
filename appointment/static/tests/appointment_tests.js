@@ -90,6 +90,7 @@ QUnit.module('appointment.appointment_link', {
 }, function () {
 
 QUnit.test('verify appointment links button are displayed', async function (assert) {
+    patchUserWithCleanup({ hasGroup: (group) => group === "appointment.group_appointment_user" });
     assert.expect(3);
 
     await makeView({
@@ -130,6 +131,7 @@ QUnit.test('verify appointment links button are displayed', async function (asse
 });
 
 QUnit.test('create/search anytime appointment type', async function (assert) {
+    patchUserWithCleanup({ hasGroup: (group) => group === "appointment.group_appointment_user" });
     assert.expect(9);
 
     patchWithCleanup(navigator, {
@@ -198,6 +200,7 @@ QUnit.test('create/search anytime appointment type', async function (assert) {
 });
 
 QUnit.test('discard slot in calendar', async function (assert) {
+    patchUserWithCleanup({ hasGroup: (group) => group === "appointment.group_appointment_user" });
     assert.expect(11);
 
     const calendar = await makeView({
@@ -260,6 +263,7 @@ QUnit.test('discard slot in calendar', async function (assert) {
 });
 
 QUnit.test("cannot move real event in slots-creation mode", async function (assert) {
+    patchUserWithCleanup({ hasGroup: (group) => group === "appointment.group_appointment_user" });
     assert.expect(4);
 
     const calendar = await makeView({
@@ -306,6 +310,7 @@ QUnit.test("cannot move real event in slots-creation mode", async function (asse
 });
 
 QUnit.test("create slots for custom appointment type", async function (assert) {
+    patchUserWithCleanup({ hasGroup: (group) => group === "appointment.group_appointment_user" });
     assert.expect(13);
 
     patchWithCleanup(navigator, {
@@ -375,6 +380,7 @@ QUnit.test("create slots for custom appointment type", async function (assert) {
 });
 
 QUnit.test('filter works in slots-creation mode', async function (assert) {
+    patchUserWithCleanup({ hasGroup: (group) => group === "appointment.group_appointment_user" });
     assert.expect(11);
 
     const calendar = await makeView({

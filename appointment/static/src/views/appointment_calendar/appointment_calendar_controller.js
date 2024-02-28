@@ -10,6 +10,7 @@ import { browser } from "@web/core/browser/browser";
 import { serializeDateTime } from "@web/core/l10n/dates";
 import { useRef, useState, useSubEnv, onWillStart } from "@odoo/owl";
 import { Dropdown } from "@web/core/dropdown/dropdown";
+import { user } from "@web/core/user";
 
 patch(AttendeeCalendarController, {
     components: { ...AttendeeCalendarController.components, Dropdown },
@@ -36,6 +37,7 @@ patch(AttendeeCalendarController.prototype, {
             this.appointmentState.data = await rpc(
                 "/appointment/appointment_type/get_staff_user_appointment_types"
             );
+            this.isAppointmentUser = await user.hasGroup("appointment.group_appointment_user");
         });
     },
 

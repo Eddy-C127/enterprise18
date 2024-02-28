@@ -2,9 +2,20 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { ListRenderer } from "@web/views/list/list_renderer";
+import { user } from "@web/core/user";
+
+import { onWillStart } from "@odoo/owl";
 
 export class AppointmentBookingListRenderer extends ListRenderer {
     static template = "appointment.AppointmentBookingListRenderer";
+
+    setup() {
+        super.setup();
+
+        onWillStart(async () => {
+            this.isAppointmentManager = await user.hasGroup("appointment.group_appointment_manager");
+        });
+    }
 
     async onClickAddLeave() {
         this.env.services.action.doAction({
