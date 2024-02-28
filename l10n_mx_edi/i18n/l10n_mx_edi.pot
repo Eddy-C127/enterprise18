@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-07 08:00+0000\n"
-"PO-Revision-Date: 2023-09-07 08:00+0000\n"
+"POT-Creation-Date: 2024-02-28 09:03+0000\n"
+"PO-Revision-Date: 2024-02-28 09:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -273,6 +273,7 @@ msgstr ""
 #. module: l10n_mx_edi
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_res_partner__l10n_mx_edi_addenda
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_res_users__l10n_mx_edi_addenda
+#: model_terms:ir.ui.view,arch_db:l10n_mx_edi.l10n_mx_edi_inh_res_partner_form
 msgid "Addenda"
 msgstr ""
 
@@ -463,6 +464,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 #: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
+#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 #, python-format
 msgid "Cancelling got an error"
 msgstr ""
@@ -621,12 +623,18 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/account_move.py:0
 #, python-format
-msgid "Could not retrieve the tax with rate %s%%."
+msgid "Could not retrieve the %s withholding tax with rate %s%%."
 msgstr ""
 
 #. module: l10n_mx_edi
 #: model:ir.model,name:l10n_mx_edi.model_res_country
 msgid "Country"
+msgstr ""
+
+#. module: l10n_mx_edi
+#: model:ir.model.fields,field_description:l10n_mx_edi.field_res_partner__country_code
+#: model:ir.model.fields,field_description:l10n_mx_edi.field_res_users__country_code
+msgid "Country Code"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -794,6 +802,13 @@ msgstr ""
 
 #. module: l10n_mx_edi
 #. odoo-python
+#: code:addons/l10n_mx_edi/models/account_move.py:0
+#, python-format
+msgid "Failed to distribute some negative lines"
+msgstr ""
+
+#. module: l10n_mx_edi
+#. odoo-python
 #: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 #, python-format
 msgid "Failure during update of the SAT status: %s"
@@ -813,11 +828,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_res_partner__l10n_mx_edi_fiscal_regime
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_res_users__l10n_mx_edi_fiscal_regime
 msgid "Fiscal Regime"
-msgstr ""
-
-#. module: l10n_mx_edi
-#: model_terms:ir.ui.view,arch_db:l10n_mx_edi.report_invoice_document
-msgid "Fiscal Regime Receptor:"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -906,8 +916,6 @@ msgstr ""
 
 #. module: l10n_mx_edi
 #: model:ir.model.fields,help:l10n_mx_edi.field_ir_ui_view__l10n_mx_edi_addenda_flag
-#: model:ir.model.fields,help:l10n_mx_edi.field_website_controller_page__l10n_mx_edi_addenda_flag
-#: model:ir.model.fields,help:l10n_mx_edi.field_website_page__l10n_mx_edi_addenda_flag
 msgid "If True, the view is an addenda for the Mexican EDI invoicing."
 msgstr ""
 
@@ -1037,15 +1045,18 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/account_move.py:0
 #, python-format
-msgid ""
-"Invoice lines having a negative amount without a tax set is not allowed to "
-"generate the CFDI."
+msgid "Invoices %s are already sent or not eligible for CFDI."
+msgstr ""
+
+#. module: l10n_mx_edi
+#. odoo-python
+#: code:addons/l10n_mx_edi/models/account_move.py:0
+#, python-format
+msgid "Invoices %s are not posted."
 msgstr ""
 
 #. module: l10n_mx_edi
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_ir_ui_view__l10n_mx_edi_addenda_flag
-#: model:ir.model.fields,field_description:l10n_mx_edi.field_website_controller_page__l10n_mx_edi_addenda_flag
-#: model:ir.model.fields,field_description:l10n_mx_edi.field_website_page__l10n_mx_edi_addenda_flag
 msgid "Is an addenda?"
 msgstr ""
 
@@ -1072,6 +1083,12 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_mx_edi.field_account_move__l10n_mx_edi_post_time
 #: model:ir.model.fields,help:l10n_mx_edi.field_account_payment__l10n_mx_edi_post_time
 msgid "Keep empty to use the current México central time"
+msgstr ""
+
+#. module: l10n_mx_edi
+#: model:ir.model.fields,field_description:l10n_mx_edi.field_res_partner__l10n_mx_edi_addenda_is_readonly
+#: model:ir.model.fields,field_description:l10n_mx_edi.field_res_users__l10n_mx_edi_addenda_is_readonly
+msgid "L10N Mx Edi Addenda Is Readonly"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -1307,6 +1324,13 @@ msgstr ""
 #: model:ir.model.fields.selection,name:l10n_mx_edi.selection__account_move__l10n_mx_edi_usage__i02
 #: model:ir.model.fields.selection,name:l10n_mx_edi.selection__res_partner__l10n_mx_edi_usage__i02
 msgid "Office furniture and equipment investment"
+msgstr ""
+
+#. module: l10n_mx_edi
+#. odoo-python
+#: code:addons/l10n_mx_edi/models/account_move.py:0
+#, python-format
+msgid "On %s: %s"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -1721,14 +1745,6 @@ msgid "Some documents are being sent by another process already."
 msgstr ""
 
 #. module: l10n_mx_edi
-#. odoo-python
-#: code:addons/l10n_mx_edi/models/account_move.py:0
-#: code:addons/l10n_mx_edi/wizard/l10n_mx_edi_global_invoice_create.py:0
-#, python-format
-msgid "Some invoices are already sent or not eligible for CFDI."
-msgstr ""
-
-#. module: l10n_mx_edi
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_bank_statement_line__l10n_mx_edi_certificate_id
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_move__l10n_mx_edi_certificate_id
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_payment__l10n_mx_edi_certificate_id
@@ -1821,6 +1837,14 @@ msgstr ""
 msgid ""
 "The Global CFDI document was successfully created and signed by the "
 "government."
+msgstr ""
+
+#. module: l10n_mx_edi
+#: model:ir.model.fields,help:l10n_mx_edi.field_res_partner__country_code
+#: model:ir.model.fields,help:l10n_mx_edi.field_res_users__country_code
+msgid ""
+"The ISO country code in two chars. \n"
+"You can use this field for quick search."
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -2076,6 +2100,12 @@ msgid "View"
 msgstr ""
 
 #. module: l10n_mx_edi
+#: model:ir.model.fields,field_description:l10n_mx_edi.field_res_partner__l10n_mx_edi_addenda_name
+#: model:ir.model.fields,field_description:l10n_mx_edi.field_res_users__l10n_mx_edi_addenda_name
+msgid "View Name"
+msgstr ""
+
+#. module: l10n_mx_edi
 #: model:ir.model.fields.selection,name:l10n_mx_edi.selection__account_move__l10n_mx_edi_usage__d06
 #: model:ir.model.fields.selection,name:l10n_mx_edi.selection__res_partner__l10n_mx_edi_usage__d06
 msgid "Voluntary contributions to SAR"
@@ -2104,45 +2134,8 @@ msgstr ""
 #. module: l10n_mx_edi
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/account_move.py:0
-#: code:addons/l10n_mx_edi/wizard/l10n_mx_edi_global_invoice_create.py:0
 #, python-format
 msgid "You can only process invoices sharing the same company and journal."
-msgstr ""
-
-#. module: l10n_mx_edi
-#. odoo-python
-#: code:addons/l10n_mx_edi/models/account_move.py:0
-#: code:addons/l10n_mx_edi/wizard/l10n_mx_edi_global_invoice_create.py:0
-#, python-format
-msgid "You can only process posted invoices."
-msgstr ""
-
-#. module: l10n_mx_edi
-#. odoo-python
-#: code:addons/l10n_mx_edi/models/account_move.py:0
-#, python-format
-msgid "Failed to distribute some negative lines"
-msgstr ""
-
-#. module: l10n_mx_edi
-#. odoo-python
-#: code:addons/l10n_mx_edi/models/account_move.py:0
-#, python-format
-msgid "Invoices %s are not posted."
-msgstr ""
-
-#. module: l10n_mx_edi
-#. odoo-python
-#: code:addons/l10n_mx_edi/models/account_move.py:0
-#, python-format
-msgid "Invoices %s are already sent or not eligible for CFDI."
-msgstr ""
-
-#. module: l10n_mx_edi
-#. odoo-python
-#: code:addons/l10n_mx_edi/models/account_move.py:0
-#, python-format
-msgid "On %s: %s"
 msgstr ""
 
 #. module: l10n_mx_edi

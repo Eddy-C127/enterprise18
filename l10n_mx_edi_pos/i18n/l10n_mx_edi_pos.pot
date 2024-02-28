@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-02 11:55+0000\n"
-"PO-Revision-Date: 2023-08-02 11:55+0000\n"
+"POT-Creation-Date: 2024-02-28 09:03+0000\n"
+"PO-Revision-Date: 2024-02-28 09:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -128,8 +128,19 @@ msgid "Download"
 msgstr ""
 
 #. module: l10n_mx_edi_pos
+#. odoo-javascript
+#: code:addons/l10n_mx_edi_pos/static/src/overrides/models/order.js:0
 #: model:ir.model.fields.selection,name:l10n_mx_edi_pos.selection__pos_order__l10n_mx_edi_cfdi_sat_state__error
+#, python-format
 msgid "Error"
+msgstr ""
+
+#. module: l10n_mx_edi_pos
+#. odoo-python
+#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
+#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
+#, python-format
+msgid "Failed to distribute some negative lines"
 msgstr ""
 
 #. module: l10n_mx_edi_pos
@@ -255,20 +266,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
 #, python-format
-msgid "Orders %s are already sent or not eligible for CFDI."
-msgstr ""
-
-#. module: l10n_mx_edi_pos
-#. odoo-python
-#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
-#, python-format
-msgid "Failed to distribute some negative lines"
-msgstr ""
-
-#. module: l10n_mx_edi_pos
-#. odoo-python
-#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
-#, python-format
 msgid "On %s: %s"
 msgstr ""
 
@@ -290,6 +287,13 @@ msgid ""
 msgstr ""
 
 #. module: l10n_mx_edi_pos
+#. odoo-python
+#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
+#, python-format
+msgid "Orders %s are already sent or not eligible for CFDI."
+msgstr ""
+
+#. module: l10n_mx_edi_pos
 #: model:ir.model.fields.selection,name:l10n_mx_edi_pos.selection__pos_order__l10n_mx_edi_usage__i08
 msgid "Other machinery and equipment"
 msgstr ""
@@ -303,6 +307,11 @@ msgstr ""
 #. module: l10n_mx_edi_pos
 #: model:ir.model.fields.selection,name:l10n_mx_edi_pos.selection__pos_order__l10n_mx_edi_usage__d10
 msgid "Payments for educational services (Colegiatura)"
+msgstr ""
+
+#. module: l10n_mx_edi_pos
+#: model:ir.model,name:l10n_mx_edi_pos.model_pos_order_line
+msgid "Point of Sale Order Lines"
 msgstr ""
 
 #. module: l10n_mx_edi_pos
@@ -372,13 +381,6 @@ msgid "Signed Global"
 msgstr ""
 
 #. module: l10n_mx_edi_pos
-#. odoo-python
-#: code:addons/l10n_mx_edi_pos/wizard/l10n_mx_edi_global_invoice_create.py:0
-#, python-format
-msgid "Some orders are already sent or not eligible for CFDI."
-msgstr ""
-
-#. module: l10n_mx_edi_pos
 #: model:ir.model.fields.selection,name:l10n_mx_edi_pos.selection__pos_order__l10n_mx_edi_usage__i06
 msgid "Telephone communications"
 msgstr ""
@@ -397,6 +399,17 @@ msgstr ""
 msgid ""
 "The SAT does not provide information for the currency %s.\n"
 "You must get manually a key from the PAC to confirm the currency rate is accurate enough."
+msgstr ""
+
+#. module: l10n_mx_edi_pos
+#. odoo-javascript
+#. odoo-python
+#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
+#: code:addons/l10n_mx_edi_pos/static/src/overrides/models/order.js:0
+#, python-format
+msgid ""
+"The amount of the order must be positive for a sale and negative for a "
+"refund."
 msgstr ""
 
 #. module: l10n_mx_edi_pos
@@ -454,7 +467,6 @@ msgstr ""
 #. module: l10n_mx_edi_pos
 #. odoo-python
 #: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
-#: code:addons/l10n_mx_edi_pos/wizard/l10n_mx_edi_global_invoice_create.py:0
 #, python-format
 msgid "You can only process orders sharing the same company."
 msgstr ""
@@ -466,11 +478,4 @@ msgstr ""
 msgid ""
 "You cannot invoice this refund since the related orders are not invoiced "
 "yet."
-msgstr ""
-
-#. module: l10n_mx_edi_pos
-#. odoo-python
-#: code:addons/l10n_mx_edi_pos/models/pos_order.py:0
-#, python-format
-msgid "You cannot refund multiple invoices at once."
 msgstr ""
