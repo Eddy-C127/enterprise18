@@ -45,7 +45,6 @@ class ResPartner(models.Model):
     )
     l10n_mx_edi_addenda_is_readonly = fields.Boolean(compute="_compute_l10n_mx_edi_addenda_is_readonly")
     l10n_mx_edi_addenda_name = fields.Char(related="l10n_mx_edi_addenda.name")
-    country_code = fields.Char(related='country_id.code', string='Country Code')
 
     def _compute_l10n_mx_edi_addenda_is_readonly(self):
         can_not_read = not self.env['ir.ui.view'].check_access_rights('read', raise_exception=False)
