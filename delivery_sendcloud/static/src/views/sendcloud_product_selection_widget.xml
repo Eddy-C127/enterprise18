@@ -8,8 +8,10 @@
                     <button class="btn btn-primary o-dropdown-caret">
                         <t t-out="activeProduct.name"/>
                     </button>
-                    <t t-foreach="products" t-as="pr" t-key='pr.code'>
-                        <DropdownItem onSelected="() => this._onSelected(pr.code)"><t t-out="pr.name"/></DropdownItem>
+                    <t t-set-slot="content">
+                        <t t-foreach="products" t-as="pr" t-key='pr.code'>
+                            <DropdownItem onSelected="() => this._onSelected(pr.code)"><t t-out="pr.name"/></DropdownItem>
+                        </t>
                     </t>
                 </Dropdown>
             </div>
