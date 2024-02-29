@@ -11,7 +11,7 @@ from odoo.exceptions import AccessError, MissingError
 from odoo.fields import Command
 from odoo.http import request
 from odoo.tools.translate import _
-from odoo.addons.payment.controllers import portal as payment_portal
+from odoo.addons.sale.controllers import portal as payment_portal
 from odoo.addons.payment import utils as payment_utils
 from odoo.addons.portal.controllers.portal import pager as portal_pager
 from odoo.addons.sale.controllers import portal as sale_portal
@@ -244,14 +244,17 @@ class CustomerPortal(payment_portal.PaymentPortal):
 class PaymentPortal(payment_portal.PaymentPortal):
 
     def _get_extra_payment_form_values(
-        self, manage_subscription=False, sale_order_id=None, access_token=None, **kwargs
+        self, manage_subscription=False, sale_order_id=None, invoice_id=None, access_token=None, **kwargs
     ):
-        """ Override of `payment` to reroute the payment flow to the /my/payment_method page when
-        managing tokens of the subscription.
+        """ Override of payment: additional rendering values for subscription order management.
+        Sale order transaction for subscription: We need to assign the token once the payment is done.
+        Invoice of a subscription: we update the transaction route and define an alternative transaction_route_subscription
+        that will be used if the customer check the option to save that payment method on the contract.
 
         :param bool manage_subscription: Whether the payment form should be adapted to allow
                                          managing subscriptions. This allows distinguishing cases.
         :param str sale_order_id: The sale order for which a payment is made, as a `sale.order` id.
+        :param str invoice_id: The account move for which a payment is made, as a `account.move` id.
         :param str access_token: The access token of the subscription.
         :param dict kwargs: Locally unused keywords arguments.
         :return: The dict of extra payment form values.
@@ -260,6 +263,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
         extra_payment_form_values = super()._get_extra_payment_form_values(
             manage_subscription=manage_subscription,
             sale_order_id=sale_order_id,
+            invoice_id=invoice_id,
             access_token=access_token,
             **kwargs,
         )
@@ -282,6 +286,30 @@ class PaymentPortal(payment_portal.PaymentPortal):
                         'message_class': 'alert-success',
                     })
                 })
+        if invoice_id:
+            invoice_id = self._cast_as_int(invoice_id)
+            try:
+                invoice_sudo = self._document_check_access('account.move', invoice_id, access_token)
+            except AccessError:  # It is a payment access token computed on the payment context.
+                if not payment_utils.check_access_token(
+                    access_token,
+                    kwargs.get('partner_id'),
+                    kwargs.get('amount'),
+                    kwargs.get('currency_id'),
+                ):
+                    raise
+            invoice_sudo = request.env['account.move'].sudo().browse(invoice_id)
+
+            subscription = invoice_sudo.invoice_line_ids.subscription_id
+            if subscription:
+                # Reroute the next steps of the payment flow to the portal view of the invoice.
+                # Add `is_subscription` variable in invoice information for differentiating subscriptions from regular SOs.
+                extra_payment_form_values.update(
+                    {
+                    'transaction_route_subscription': f'/my/subscriptions/{subscription.id}/transaction',
+                    'access_token': invoice_sudo.access_token,
+                    'is_subscription': True,
+                })
         return extra_payment_form_values
 
     def _create_transaction(self, *args, **kwargs):
@@ -299,7 +327,6 @@ class PaymentPortal(payment_portal.PaymentPortal):
             subscriptions = tx_sudo.sale_order_ids.filtered('is_subscription')
             subscriptions.pending_transaction = True
         return tx_sudo
-
 
     @http.route('/my/subscriptions/<int:order_id>/transaction', type='json', auth='public')
     def subscription_transaction(
@@ -396,6 +423,20 @@ class PaymentPortal(payment_portal.PaymentPortal):
 
         order_sudo.payment_token_id = token_sudo
 
+
+    def _invoice_get_page_view_values(self, invoice, access_token, **kwargs):
+        """ Override of account to allow save the token on the sale.order when the invoice
+        is related to a subscription. It allows to save the token automatically on the sale.order if
+        the customer chose to pay the invoice with that option.
+        """
+        subscription_id = invoice.line_ids.subscription_id
+        if invoice and subscription_id:
+            # The function "_get_extra_payment_form_values" needs the invoice inside the kwargs to work.
+            kwargs.update({
+                'invoice_id': invoice.id,
+                **kwargs
+            })
+        return super()._invoice_get_page_view_values(invoice, access_token, **kwargs)
 
 class SalePortal(sale_portal.CustomerPortal):
 

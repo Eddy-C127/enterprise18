@@ -412,3 +412,74 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual("My attachment", response.text)
+
+    def test_save_token_automating_future_payments(self):
+        with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment',
+                   wraps=self._mock_subscription_do_payment):
+            # Create subscription and invoice.
+            subscription = self.subscription.create({
+                'partner_id': self.partner.id,
+                'company_id': self.company.id,
+                'sale_order_template_id': self.subscription_tmpl.id,
+            })
+            self.pricing_month.price = 100
+            subscription._onchange_sale_order_template_id()
+            subscription.action_confirm()
+            invoice = subscription._create_recurring_invoice()
+            # Define test payment token for later assignment.
+            test_payment_token = self.env['payment.token'].create({
+                'payment_details': 'Test',
+                'partner_id': subscription.partner_id.id,
+                'provider_id': self.dummy_provider.id,
+                'payment_method_id': self.payment_method_id,
+                'provider_ref': 'test'
+            })
+            # Create transaction and process payment while assigning token to subscription.
+            pay_route_values = self._prepare_pay_values(
+                amount=self.amount,
+                currency=subscription.currency_id,
+                partner=subscription.partner_id,
+            )
+            pay_route_values['sale_order_id'] = subscription.id
+            tx_context = self._get_portal_pay_context(**pay_route_values)
+            tx_route_values = {
+                'provider_id': self.provider.id,
+                'payment_method_id': self.payment_method_id,
+                'token_id': test_payment_token.id,
+                'amount': tx_context['amount'],
+                'flow': 'token',
+                'tokenization_requested': 'automate_payments',
+                'landing_route': '/my/invoices/%s' % invoice.id,
+                'access_token': tx_context['access_token'],
+            }
+            with mute_logger('odoo.addons.payment.models.payment_transaction'):
+                processing_values = self._get_processing_values(tx_route=tx_context['transaction_route'], **tx_route_values)
+            tx_sudo = self._get_tx(processing_values['reference'])
+            tx_sudo._set_done()
+            with mute_logger('odoo.addons.sale.models.payment_transaction'):
+                tx_sudo._finalize_post_processing()
+            # Ensure token was assigned after completing the payment in invoices route.
+            self.assertEqual(subscription.payment_token_id.id, test_payment_token.id, "Token must be assigned to subscription after transaction creation.")
+            # Create transaction with new token without sending invoice_ids in custom_create_values.
+            test_payment_token_2 = self.env['payment.token'].create({
+                'payment_details': 'Test-2',
+                'partner_id': subscription.partner_id.id,
+                'provider_id': self.dummy_provider.id,
+                'payment_method_id': self.payment_method_id,
+                'provider_ref': 'test-2'
+            })
+            kwargs = {
+                'provider_id': self.provider.id,
+                'payment_method_id': self.payment_method_id,
+                'token_id': test_payment_token_2.id,
+                'amount': tx_context['amount'],
+                'flow': 'token',
+                'landing_route': '/my/invoices/%s' % invoice.id,
+                'currency_id': subscription.currency_id.id,
+                'partner_id': self.partner.id
+            }
+            tx_sudo = self._create_transaction(**kwargs)
+            tx_sudo._finalize_post_processing()
+            tx_sudo._set_done()
+            # Ensure token was not changed after completing the payment in invoices route.
+            self.assertEqual(subscription.payment_token_id.id, test_payment_token.id, "Token must remain unchanged after new payment.")

@@ -40,12 +40,13 @@ class PaymentToken(models.Model):
         """ Override of payment to add information about subscriptions linked to the current token.
 
         Note: self.ensure_one()
+        The 'require_payment' filter allows removing tokens linked to subscriptions which don't have required payment.
 
         :return: The list of information about linked subscriptions
         :rtype: list
         """
         res = super().get_linked_records_info()
-        subscriptions = self.env['sale.order'].search([('payment_token_id', '=', self.id)])
+        subscriptions = self.env['sale.order'].search([('payment_token_id', '=', self.id), ('require_payment', '=', True)])
         for sub in subscriptions:
             res.append({
                 'description': subscriptions._description,
