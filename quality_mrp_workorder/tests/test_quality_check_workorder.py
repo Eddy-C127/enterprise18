@@ -6,6 +6,7 @@ import logging
 from odoo.tests import Form, HttpCase, tagged, loaded_demo_data
 from odoo.addons.mrp.tests.common import TestMrpCommon
 from odoo.addons.mrp_workorder.tests import test_tablet_client_action
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -206,28 +207,6 @@ class TestQualityCheckWorkorder(TestMrpCommon):
 @tagged('post_install', '-at_install')
 class TestPickingWorkorderClientActionQuality(test_tablet_client_action.TestWorkorderClientActionCommon, HttpCase):
 
-    def test_control_per_op_quantity_quality_check(self):
-        """ Test quality point control per product on workorder operation
-        """
-        self.env['quality.point'].create({
-            'title': 'test QP1',
-            'picking_type_ids': [(4, self.env['stock.picking.type'].search([('code', '=', 'mrp_operation')], limit=1).id)],
-            'measure_on': 'move_line',
-            'product_ids': [(4, self.bom_2.product_id.id, 0)],
-            'operation_id': self.bom_2.operation_ids.id,
-            'note': 'Cut',
-        })
-
-        mo_form = Form(self.env['mrp.production'])
-        mo_form.bom_id = self.bom_2
-        mo = mo_form.save()
-        mo.action_confirm()
-
-        # Check created on the workorder not the MO
-        self.assertEqual(len(mo.check_ids), 0)
-        self.assertEqual(len(mo.workorder_ids), 1)
-        self.assertEqual(len(mo.workorder_ids.check_ids), 1)
-
     def test_measure_quality_check(self):
         self.env['quality.point'].create({
             'title': 'Measure Wand Step',
@@ -253,3 +232,12 @@ class TestPickingWorkorderClientActionQuality(test_tablet_client_action.TestWork
 
         self.assertEqual(mo.workorder_ids.check_ids.filtered(lambda x: x.test_type == 'measure').quality_state, 'fail', 'The measure quality check should have failed')
         self.assertEqual(res_action.get('res_model'), 'quality.check.wizard', 'The action should return a wizard when failing')
+
+    def test_quantity_control_point_with_production(self):
+        """Test that it's not possible to create a Quantity quality check type with a manufacturing operation type."""
+        with self.assertRaises(UserError):
+            self.qality_point_test1 = self.env['quality.point'].create({
+                'picking_type_ids': [(4, self.picking_type_manufacturing.id)],
+                'operation_id': self.wizard_op_1.id,
+                'measure_on': 'move_line',
+            })
