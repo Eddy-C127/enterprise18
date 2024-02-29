@@ -113,13 +113,13 @@
 
             <div class="row mt16 o_project_portal_sidebar">
                 <t t-call="portal.portal_record_sidebar">
-                    <t t-set="classes" t-value="'col-lg-3 col-xl-4 d-print-none'"/>
+                    <t t-set="classes" t-value="'col-lg-4 col-xxl-3 d-print-none'"/>
 
                     <t t-set="entries">
                         <div class="d-flex flex-column">
                             <div t-if="ticket.team_id.allow_portal_ticket_closing and not ticket.stage_id.fold and not ticket.closed_by_partner" class="flex-grow-1">
                                 <div class="d-grid flex-sm-nowrap">
-                                    <button class="btn btn-secondary pt-1" data-bs-target="#helpdesk_ticket_close_modal" data-bs-toggle="modal">
+                                    <button class="btn btn-light pt-1" data-bs-target="#helpdesk_ticket_close_modal" data-bs-toggle="modal">
                                         Close Ticket
                                     </button>
                                 </div>
@@ -174,7 +174,7 @@
                                         <small class="text-muted">Assigned to</small>
                                     </h6>
                                         <div class="o_portal_contact_details d-flex flex-column gap-1">
-                                            <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="d-flex justify-content-start gap-2">
                                                 <img class="o_avatar o_portal_contact_img rounded" t-att-src="image_data_uri(ticket.user_id.avatar_128)" alt="Contact"/>
                                                 <h6 class="mb-0" t-out="ticket.user_id.name"></h6>
                                             </div>
@@ -185,7 +185,7 @@
                                         <small class="text-muted">Customer</small>
                                     </h6>
                                     <div class="o_portal_contact_details d-flex flex-column gap-1">
-                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                        <div class="d-flex justify-content-start gap-2">
                                             <img class="o_avatar o_portal_contact_img rounded" t-att-src="image_data_uri(ticket.partner_id.avatar_128)" alt="Contact"/>
                                             <h6 class="mb-0" t-out="ticket.partner_id.name"></h6>
                                         </div>
@@ -199,7 +199,7 @@
                         </div>
                     </t>
                 </t>
-                <div id="ticket_content" class="o_portal_content col-12 col-lg-9 col-xl-8 mt-5 mt-lg-0">
+                <div id="ticket_content" class="o_portal_content col-12 col-lg-8 col-xxl-9 mt-5 mt-lg-0">
                     <div t-if="ticket_closed" class="alert alert-success alert-dismissible d-print-none" role="status">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <span>Your ticket has successfully been closed. Thank you for your collaboration.</span>
@@ -214,8 +214,8 @@
                                             <small class="text-muted"> (#<span t-field="ticket.ticket_ref"/>)</small>
                                         </div>
                                         <div class="col col-auto">
-                                            <small class="text-end">Stage:</small>
-                                            <span t-field="ticket.stage_id.name" t-attf-class="badge rounded-pill #{'text-bg-info' if ticket.stage_id.fold else 'text-bg-light bg-200'}" title="Current stage of this ticket"/>
+                                            <small>Stage:</small>
+                                            <small t-field="ticket.stage_id.name" t-attf-class="badge rounded-pill smaller #{'text-bg-info' if ticket.stage_id.fold else 'text-bg-light bg-200'}" title="Current stage of this ticket"/>
                                         </div>
                                     </h5>
                                 </div>

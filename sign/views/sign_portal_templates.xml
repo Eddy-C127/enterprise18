@@ -20,7 +20,7 @@
         </xpath>
         <div id="portal_alert_category" position="inside">
             <t t-call="portal.portal_docs_entry">
-                <t t-set="bg_color" t-value="'alert alert-primary'"/>
+                <t t-set="bg_color" t-value="'alert alert-primary align-items-center'"/>
                 <t t-set="title">Document(s) to sign</t>
                 <t t-set="url" t-value="'/my/signatures'"/>
                 <t t-set="placeholder_count" t-value="'to_sign_count'"/>
@@ -94,7 +94,7 @@
                 <t t-set="card_header">
                     <h3 class="mb-1 mb-md-0">
                         <span t-field="my_sign_item.reference"/>
-                        <span t-field="my_sign_item.sign_request_id.state" class=" badge rounded-pill bg-info-light text-info fs-6 fw-normal"
+                        <span t-field="my_sign_item.sign_request_id.state" class="badge rounded-pill text-bg-info fs-6 fw-normal"
                             title="Current status of the signature request"/>
                     </h3>
                 </t>
