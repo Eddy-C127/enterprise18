@@ -769,6 +769,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
     def test_import_bill_cfdi(self):
         # Invoice with payment policy = PUE, otherwise 'FormaPago' (payment method) is set to '99' ('Por Definir')
         # and the initial payment method cannot be backtracked at import
+        self.env.company.partner_id.company_id = self.env.company
         invoice = self._create_invoice(
             invoice_date_due='2017-01-01',  # PUE
             invoice_line_ids=[

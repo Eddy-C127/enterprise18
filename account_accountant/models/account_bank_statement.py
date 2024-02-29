@@ -193,8 +193,8 @@ class AccountBankStatementLine(models.Model):
                 ],
             )
             for domain in domains:
-                partner = self.env['res.partner'].search(list(domain) + [('parent_id', '=', False)], limit=1)
-                if partner:
+                partner = self.env['res.partner'].search(list(domain) + [('parent_id', '=', False)], limit=2)
+                if len(partner) == 1:
                     return partner
         # Retrieve the partner from the 'reconcile models'.
         rec_models = self.env['account.reconcile.model'].search([
