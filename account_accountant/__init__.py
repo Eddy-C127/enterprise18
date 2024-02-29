@@ -10,21 +10,20 @@ _logger = logging.getLogger(__name__)
 
 
 def _account_accountant_post_init(env):
-    country_code = env.company.country_id.code
-    if country_code:
+    countries_code = env['res.company'].search([]).mapped('country_id.code')
+    if countries_code:
         module_list = []
 
         # SEPA zone countries will be using SEPA
         sepa_zone = env.ref('base.sepa_zone', raise_if_not_found=False)
         sepa_zone_country_codes = sepa_zone and sepa_zone.mapped('country_ids.code') or []
-
-        if country_code in sepa_zone_country_codes:
+        if any(code in sepa_zone_country_codes for code in countries_code):
             module_list.append('account_sepa')
             module_list.append('account_bank_statement_import_camt')
-        if country_code in ('AU', 'CA', 'US'):
+        if any(code in ('AU', 'CA', 'US') for code in countries_code):
             module_list.append('account_reports_cash_basis')
-        # The customer statement is customary in Australia and New Zealand.
-        if country_code in ('AU', 'NZ'):
+        # The customer statement is customary in Australia, India and New Zealand.
+        if any(code in ('AU', 'IN', 'NZ') for code in countries_code):
             module_list.append('l10n_account_customer_statements')
 
         module_ids = env['ir.module.module'].search([('name', 'in', module_list), ('state', '=', 'uninstalled')])

@@ -6,7 +6,7 @@
     "description": """
 Add Customer Statements to the accounting module
 ================================================
-Auto installed for users in Australia and New Zealand as it is customary there.
+Auto installed for users in Australia, India and New Zealand as it is customary there.
     """,
     "category": "Accounting/Localizations/Reporting",
     "depends": ["account_reports"],
