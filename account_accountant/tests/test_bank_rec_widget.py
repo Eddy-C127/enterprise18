@@ -80,6 +80,9 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
 
         Since "turlututu" matches exactly (case insensitive) the partner_name of the statement line,
         it should be suggested first.
+
+        However if we have two partners called turlututu, we should not suggest any or we risk selecting
+        the wrong one.
         """
         _partner_a, partner_b = self.env['res.partner'].create([
             {'name': "Turlututu tsoin tsoin"},
@@ -88,6 +91,9 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
 
         st_line = self._create_st_line(1000.0, partner_id=None, partner_name="Turlututu")
         self.assertEqual(st_line._retrieve_partner(), partner_b)
+
+        self.env['res.partner'].create({'name': "turlututu"})
+        self.assertFalse(st_line._retrieve_partner())
 
     def test_retrieve_partner_suggested_account_from_rank(self):
         """ Ensure a retrieved partner is proposing his receivable/payable according his customer/supplier rank. """
