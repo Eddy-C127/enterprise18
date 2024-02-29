@@ -3,7 +3,6 @@
 
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
-import * as ProductScreen from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
 import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
 import * as Numpad from "@point_of_sale/../tests/tours/helpers/NumpadTourMethods";
 import * as Order from "@point_of_sale/../tests/tours/helpers/generic_components/OrderWidgetMethods";
@@ -84,7 +83,6 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
                 });
             },
         },
-        ...ProductScreen.clickHomeCategory(),
         {
             content: "Buy a Desk Organizer",
             trigger: '.product-list .product-name:contains("Desk Organizer")',
