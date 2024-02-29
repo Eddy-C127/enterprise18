@@ -408,12 +408,14 @@ class Task(models.Model):
 
     def write(self, vals):
         compute_default_planned_dates = None
+        compute_allocated_hours = None
         date_start_update = 'planned_date_begin' in vals and vals['planned_date_begin'] is not False
         date_end_update = 'date_deadline' in vals and vals['date_deadline'] is not False
-        if not self._context.get('fsm_mode', False) \
-           and not self._context.get('smart_task_scheduling', False) \
+        if not self._context.get('smart_task_scheduling') \
            and date_start_update and date_end_update:  # if fsm_mode=True then the processing in industry_fsm module is done for these dates.
-            compute_default_planned_dates = self.filtered(lambda task: not task.date_deadline)
+            compute_default_planned_dates = self.filtered(lambda task: not task.planned_date_begin)
+            if not vals.get('allocated_hours') and vals.get('planned_date_begin') and vals.get('date_deadline'):
+                compute_allocated_hours = self.filtered(lambda task: not task.allocated_hours)
 
         # if date_end was set to False, so we set planned_date_begin to False
         if not vals.get('date_deadline', True):
@@ -439,10 +441,49 @@ class Task(models.Model):
             tasks_by_resource_calendar_dict = compute_default_planned_dates._get_tasks_by_resource_calendar_dict()
             for (calendar, tasks) in tasks_by_resource_calendar_dict.items():
                 date_start, date_stop = self._calculate_planned_dates(planned_date_begin, date_deadline, calendar=calendar)
-                tasks.write({
+                super(Task, tasks).write({
                     'planned_date_begin': date_start,
                     'date_deadline': date_stop,
                 })
+
+        if compute_allocated_hours:
+            # 1) Calculate capacity for selected period
+            start = fields.Datetime.from_string(vals['planned_date_begin'])
+            stop = fields.Datetime.from_string(vals['date_deadline'])
+            if not start.tzinfo:
+                start = start.replace(tzinfo=utc)
+            if not stop.tzinfo:
+                stop = stop.replace(tzinfo=utc)
+
+            resource = compute_allocated_hours.user_ids._get_project_task_resource()
+            if len(resource) == 1:
+                # First case : trying to plan tasks for a single user that has its own calendar => using user's calendar
+                calendar = resource.calendar_id
+                work_intervals = calendar._work_intervals_batch(start, stop, resources=resource)
+                capacity = sum_intervals(work_intervals[resource.id])
+            else:
+                # Second case : trying to plan tasks for a single user that has no calendar / for multiple users => using company's calendar
+                calendar = self.env.company.resource_calendar_id
+                work_intervals = calendar._work_intervals_batch(start, stop)
+                capacity = sum_intervals(work_intervals[False])
+
+            # 2) Plan tasks without assignees
+            tasks_no_assignees = compute_allocated_hours.filtered(lambda task: not task.user_ids)
+            if tasks_no_assignees:
+                if calendar == self.env.company.resource_calendar_id:
+                    hours = capacity # we can avoid recalculating the amount here
+                else:
+                    calendar = self.env.company.resource_calendar_id
+                    hours = sum_intervals(calendar._work_intervals_batch(start, stop)[False])
+                tasks_no_assignees.write({"allocated_hours": hours})
+            compute_allocated_hours -= tasks_no_assignees
+
+            # 3) Remove the already set allocated hours from the capacity
+            capacity -= sum(self.filtered(lambda task: task.allocated_hours and task.user_ids).mapped('allocated_hours'))
+
+            # 4) Split capacity for every task and plan them
+            if capacity > 0:
+                compute_allocated_hours.write({"allocated_hours": capacity / len(compute_allocated_hours)})
 
         return res
 

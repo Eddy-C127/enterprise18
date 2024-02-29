@@ -363,7 +363,7 @@ QUnit.test("open a dialog to schedule task", async (assert) => {
     await click(target, ".modal .o_list_view tbody tr:nth-child(1) input");
     await nextTick();
     assert.hasClass(target.querySelector(".modal .o_list_view .o_data_row"), "o_data_row_selected");
-    await click(target, ".modal footer .o_select_button");
+    await click(target, ".modal footer .o_auto_plan_button");
     assert.verifySteps(["schedule_tasks"]);
 });
 

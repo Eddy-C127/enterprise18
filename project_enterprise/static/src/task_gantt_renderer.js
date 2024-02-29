@@ -1,3 +1,4 @@
+import { SelectCreateAutoPlanDialog } from "@project_enterprise/views/view_dialogs/select_auto_plan_create_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { Avatar } from "@mail/views/web/fields/avatar/avatar";
 import { markup, useEffect } from "@odoo/owl";
@@ -175,8 +176,15 @@ export class TaskGanttRenderer extends GanttRenderer {
                 },
             });
         };
+        const onSelectedAutoPlan = (resIds) => {
+            props.context.smart_task_scheduling = true;
+            if (resIds.length) {
+                this.model.reschedule(resIds, props.context, this.openPlanDialogCallback.bind(this));
+            }
+        }
+        props.onSelectedNoSmartSchedule = props.onSelected;
+        props.onSelected = onSelectedAutoPlan;
         props.onCreateEdit = onCreateEdit;
-        props.context.smart_task_scheduling = true;
         return props;
     }
 
@@ -240,6 +248,14 @@ export class TaskGanttRenderer extends GanttRenderer {
             return super.highlightPill(pillId, false);
         }
         return super.highlightPill(pillId, highlighted);
+    }
+
+    onPlan(rowId, columnStart, columnStop) {
+        const { start, stop } = this.getColumnStartStop(columnStart, columnStop);
+        this.dialogService.add(
+            SelectCreateAutoPlanDialog,
+            this.getSelectCreateDialogProps({ rowId, start, stop, withDefault: true })
+        );
     }
 
     //--------------------------------------------------------------------------
