@@ -118,6 +118,7 @@ class WhatsAppTemplate(models.Model):
     variable_ids = fields.One2many('whatsapp.template.variable', 'wa_template_id', copy=True,
         string="Template Variables", store=True, compute='_compute_variable_ids', precompute=True, readonly=False)
     button_ids = fields.One2many('whatsapp.template.button', 'wa_template_id', string="Buttons")
+    has_invalid_button_number = fields.Boolean(compute="_compute_has_invalid_button_number")
 
     messages_count = fields.Integer(string="Messages Count", compute='_compute_messages_count')
     has_action = fields.Boolean(string="Has Action", compute='_compute_has_action')
@@ -221,6 +222,11 @@ class WhatsAppTemplate(models.Model):
     #=====================================================
     #                 Compute Methods
     #=====================================================
+
+    @api.depends('button_ids.has_invalid_number')
+    def _compute_has_invalid_button_number(self):
+        for template in self:
+            template.has_invalid_button_number = any(template.button_ids.mapped('has_invalid_number'))
 
     @api.depends('model')
     def _compute_phone_field(self):

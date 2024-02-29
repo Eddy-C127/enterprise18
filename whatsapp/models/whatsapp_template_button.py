@@ -3,8 +3,8 @@
 from urllib.parse import urlparse
 
 from odoo import api, Command, fields, models, _
-from odoo.exceptions import ValidationError
 from odoo.addons.phone_validation.tools import phone_validation
+from odoo.exceptions import UserError, ValidationError
 
 
 class WhatsAppTemplateButton(models.Model):
@@ -25,6 +25,7 @@ class WhatsAppTemplateButton(models.Model):
         ('dynamic', 'Dynamic')], string="Url Type", default='static')
     website_url = fields.Char(string="Website URL")
     call_number = fields.Char(string="Call Number")
+    has_invalid_number = fields.Boolean(compute="_compute_has_invalid_number")
     variable_ids = fields.One2many('whatsapp.template.variable', 'button_id',
                                    compute='_compute_variable_ids', precompute=True, store=True)
 
@@ -35,6 +36,29 @@ class WhatsAppTemplateButton(models.Model):
             "Button names must be unique in a given template"
         )
     ]
+
+    @api.depends('button_type', 'call_number')
+    def _compute_has_invalid_number(self):
+        for button in self:
+            if button.button_type == 'phone_number' and button.call_number:
+                try:
+                    phone_validation.phone_format(
+                        button.call_number,
+                        False,
+                        False,
+                    )
+                except UserError:
+                    if country := self.env.user.country_id or self.env.company.country_id:
+                        try:
+                            phone_validation.phone_format(
+                                button.call_number,
+                                country.code,
+                                country.phone_code,
+                            )
+                        except UserError:
+                            button.has_invalid_number = True
+                            continue
+            button.has_invalid_number = False
 
     @api.depends('button_type', 'url_type', 'website_url')
     def _compute_variable_ids(self):
@@ -67,15 +91,9 @@ class WhatsAppTemplateButton(models.Model):
             if button.variable_ids.name != "{{1}}":
                 raise ValidationError(_('The placeholder for a button can only be {{1}}.'))
 
-    @api.constrains('button_type', 'url_type', 'variable_ids', 'website_url')
-    def _validate_website_url(self):
-        for button in self.filtered(lambda button: button.button_type == 'url'):
-            parsed_url = urlparse(button.website_url)
+    @api.onchange('website_url')
+    def _onchange_website_url(self):
+        if self.website_url:
+            parsed_url = urlparse(self.website_url)
             if not (parsed_url.scheme in {'http', 'https'} and parsed_url.netloc):
-                raise ValidationError(_("Please enter a valid URL in the format 'https://www.example.com'."))
-
-    @api.constrains('call_number')
-    def _validate_call_number(self):
-        for button in self:
-            if button.button_type == 'phone_number':
-                phone_validation.phone_format(button.call_number, False, False)
+                self.website_url = f"https://{self.website_url}"
