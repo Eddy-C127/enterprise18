@@ -7,7 +7,8 @@ from freezegun import freeze_time
 
 from .common import HelpdeskCommon
 from odoo.exceptions import AccessError
-from odoo.tests import users
+from odoo.tests import Form
+from odoo.tests.common import users
 
 
 class TestHelpdeskFlow(HelpdeskCommon):
@@ -678,3 +679,14 @@ Content-Transfer-Encoding: quoted-printable
         self.assertEqual(team_1.alias_id.alias_name, 'telecom-team', 'Alias name should be telecom-team')
         self.assertEqual(team_2.alias_id.alias_name, 'telecom', 'Alias name should be telecom')
         self.assertEqual(team_3.alias_id.alias_name, 'telecom-team-2', 'Alias name should be telecom-team-2')
+
+    @users('hm')
+    def test_helpdesk_team_members_fallback(self):
+        helpdesk_form = Form(self.env['helpdesk.team'])
+        helpdesk_form.name = 'test team 2'
+        helpdesk_form.auto_assignment = True
+        helpdesk_form.member_ids.clear()
+        helpdesk_form.auto_assignment = False
+        helpdesk = helpdesk_form.save()
+
+        self.assertEqual(helpdesk.member_ids, self.env.user)
