@@ -603,6 +603,10 @@ class AccountOnlineLink(models.Model):
                 resp_json = link.with_context(delete_sync=True)._fetch_odoo_fin('/proxy/v1/delete_user', data={'provider_data': link.provider_data}, ignore_status=True)  # delete proxy user
                 if resp_json.get('delete', True) is True:
                     to_unlink += link
+            except OdooFinRedirectException:
+                # Can happen that this call returns a redirect in mode link, in which case we delete the record
+                to_unlink += link
+                continue
             except (UserError, RedirectWarning):
                 continue
         return super(AccountOnlineLink, to_unlink).unlink()
@@ -939,7 +943,12 @@ class AccountOnlineLink(models.Model):
     def _open_iframe(self, mode='link'):
         self.ensure_one()
         if self.client_id and self.sudo().refresh_token:
-            self._get_access_token()
+            try:
+                self._get_access_token()
+            except OdooFinRedirectException:
+                # Delete record and open iframe in a new one
+                self.unlink()
+                return self.create({})._open_iframe('link')
 
         proxy_mode = self.env['ir.config_parameter'].sudo().get_param('account_online_synchronization.proxy_mode') or 'production'
         country = self.env.company.country_id
