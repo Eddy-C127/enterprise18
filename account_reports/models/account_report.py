@@ -2338,11 +2338,12 @@ class AccountReport(models.Model):
             for details in expressions_detail.values():
                 details.sort(key=lambda x: x[0])
             sorted_expressions_detail = sorted(expressions_detail.items(), key=lambda x: x[0])
-            try:
-                rslt['debug_popup_data'] = json.dumps({'expressions_detail': sorted_expressions_detail})
-            except TypeError:
-                raise UserError(_("Invalid subformula in expression %r of line %r: %s", expression.label, expression.report_line_id.name, expression.subformula))
 
+            if sorted_expressions_detail:
+                try:
+                    rslt['debug_popup_data'] = json.dumps({'expressions_detail': sorted_expressions_detail})
+                except TypeError:
+                    raise UserError(_("Invalid subformula in expression %r of line %r: %s", expression.label, expression.report_line_id.name, expression.subformula))
         return rslt
 
     @api.model
