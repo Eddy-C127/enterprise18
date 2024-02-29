@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-
-from odoo import models, fields, _
-from odoo.tools import cleanup_xml_node, float_repr
-from odoo.exceptions import ValidationError
+from odoo import api, Command, fields, models, _
+from odoo.tools import cleanup_xml_node, float_repr, float_compare, format_date
+from odoo.exceptions import ValidationError, UserError
 from odoo.addons.l10n_fr_reports.models.account_report_async_export import ENDPOINT
 
 from lxml import etree
@@ -107,6 +105,53 @@ CODE_TO_EDI_ID = {
     'box_32': 'KE',
 }
 
+# Specific Lines (not filled if 0):
+# * 22A: the tax coefficient and cannot be 0
+# * P1 and P2: petroleum lines and should be sent only for companies with specific tax regimes
+# * F9: should be in the xml only for vat units
+# * A4, I1, I2, I3, I4, I5: some companies do not have the option to declare VAT import
+LINES_CODE_NOT_FILLED_IF_0 = {
+    'box_A4', 'box_F9', 'box_I1_base', 'box_I2_base', 'box_I3_base', 'box_I4_base', 'box_I5_base',
+    'box_I6_base', 'box_22A', 'box_P1_base', 'box_P1_taxe', 'box_P2_base', 'box_P2_taxe',
+}
+
+
+class L10nFRSendVatReportBankAccountLine(models.TransientModel):
+    _name = 'l10n_fr_reports.send.vat.report.bank.account.line'
+    _description = "Bank Account Line for French Vat Report"
+
+    company_partner_id = fields.Many2one(
+        comodel_name='res.partner',
+        default=lambda self: self.env.company.partner_id,
+    )
+    bank_partner_id = fields.Many2one(
+        comodel_name='res.partner.bank',
+        domain="[('partner_id', '=', company_partner_id), ('partner_id.country_code', '=', 'FR')]",
+    )
+    bank_id = fields.Many2one(
+        comodel_name='res.bank',
+        related='bank_partner_id.bank_id',
+        store=True,
+        readonly=False,
+    )
+    account_number = fields.Char(
+        string="IBAN",
+        related='bank_partner_id.acc_number',
+    )
+    bank_bic = fields.Char(
+        string="BIC Code",
+        related='bank_id.bic',
+    )
+    l10n_fr_send_vat_report_id = fields.Many2one('l10n_fr_reports.send.vat.report')
+    currency_id = fields.Many2one('res.currency', related="l10n_fr_send_vat_report_id.currency_id")
+    vat_amount = fields.Monetary()
+    is_wrongly_configured = fields.Boolean(compute="_compute_is_wrongly_configured")
+
+    @api.depends('account_number', 'bank_bic')
+    def _compute_is_wrongly_configured(self):
+        for line in self:
+            line.is_wrongly_configured = line.bank_partner_id and (not line.bank_bic or not line.account_number)
+
 
 class L10nFrSendVatReport(models.TransientModel):
     _name = "l10n_fr_reports.send.vat.report"
@@ -118,6 +163,56 @@ class L10nFrSendVatReport(models.TransientModel):
         ("OGA_EDI_TVA", "OGA"),
     ], default="DGI_EDI_TVA", required=True)
     test_interchange = fields.Boolean("Test Interchange")
+    bank_account_line_ids = fields.One2many(comodel_name='l10n_fr_reports.send.vat.report.bank.account.line', inverse_name='l10n_fr_send_vat_report_id')
+    bank_account_line_count = fields.Integer(compute='_compute_bank_account_line_count')
+    has_wrongly_configured_account = fields.Boolean(compute='_compute_has_wrongly_configured_account')
+    date_from = fields.Date(required=True)
+    date_to = fields.Date(required=True)
+    report_id = fields.Many2one(
+        comodel_name='account.report',
+        required=True,
+    )
+    is_vat_due = fields.Boolean(compute='_compute_vat_amount')
+    currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
+    vat_amount = fields.Monetary(compute='_compute_vat_amount')
+    computed_vat_amount = fields.Monetary(compute='_compute_computed_vat_amount')
+
+    def _compute_vat_amount(self):
+        vat_carried_forward_line = self.env.ref('l10n_fr_account.tax_report_27')
+        vat_payable_line = self.env.ref('l10n_fr_account.tax_report_32')
+        result_vat_lines = (vat_carried_forward_line + vat_payable_line)
+        for wizard in self:
+            options = wizard.report_id.get_options({'no_format': True, 'date': {'date_from': wizard.date_from, 'date_to': wizard.date_to}, 'unfold_all': True})
+            lines = wizard.report_id._get_lines(options)
+            column_value = 0
+            report_line_id = 0
+            # Looking for the line that have data (either the VAT credit or the VAT due)
+            # Only one of these lines could have a value, not both of them.
+            for line in lines:
+                report_line_id = wizard.report_id._get_model_info_from_id(line['id'])[-1]
+                if report_line_id in result_vat_lines.ids:
+                    column = next(col for col in line['columns'] if col['expression_label'] == 'balance')
+                    column_value = column['no_format'] or 0
+                    if column_value:
+                        break
+
+            wizard.vat_amount = column_value
+            wizard.is_vat_due = result_vat_lines.filtered(lambda line: line.id == report_line_id).code == vat_payable_line.code
+
+    @api.depends('bank_account_line_ids.vat_amount')
+    def _compute_computed_vat_amount(self):
+        for wizard in self:
+            wizard.computed_vat_amount = sum(wizard.bank_account_line_ids.mapped('vat_amount'))
+
+    @api.depends('bank_account_line_ids.bank_partner_id')
+    def _compute_has_wrongly_configured_account(self):
+        for wizard in self:
+            wizard.has_wrongly_configured_account = wizard.bank_account_line_ids.filtered('is_wrongly_configured')
+
+    @api.depends('bank_account_line_ids.bank_partner_id')
+    def _compute_bank_account_line_count(self):
+        for wizard in self:
+            wizard.bank_account_line_count = len(wizard.bank_account_line_ids.filtered('bank_partner_id'))
 
     def _get_address_dict(self, company):
         return {
@@ -140,16 +235,64 @@ class L10nFrSendVatReport(models.TransientModel):
         if not siret.is_valid(company.siret):
             raise ValidationError(_("%(company)s has an invalid siret: %(siret)s.", company=company.display_name, siret=company.siret))
 
-    def _prepare_edi_vals(self, options):
-        report = self.env['account.report'].browse(options['report_id'])
-        dt_from = fields.Date.to_date(options['date']['date_from'])
-        dt_from, dt_to = self.env.company._get_tax_closing_period_boundaries(dt_from, report)
-        options = report.get_options(
-            {'no_format': True, 'date': {'date_from': dt_from, 'date_to': dt_to}, 'filter_unfold_all': True})
-        lines = report._get_lines(options)
+    def _check_bank_accounts(self):
+        self.ensure_one()
+        if self.bank_account_line_count > 3:
+            raise UserError(_("You can use maximum 3 accounts."))
+        if self.bank_account_line_ids.filtered(lambda line: not line.account_number or not line.bank_bic):
+            raise UserError(_("All the selected bank accounts should have an IBAN and a bic code."))
 
+    def _check_vat_to_pay(self):
+        self.ensure_one()
+        if any(float_compare(line.vat_amount, 0, precision_digits=line.currency_id.decimal_places) <= 0 for line in self.bank_account_line_ids):
+            raise UserError(_("You can't set an amount with a negative value or a value set to 0."))
+
+    def _get_formatted_edi_values(self, lines):
+        edi_values = []
+
+        report_lines_code_per_id = {line['id']: line['code'] for line in self.report_id.line_ids.read(['id', 'code'])}
+        for line in lines:
+            report_line_id = self.report_id._get_model_info_from_id(line['id'])[-1]
+            report_line_code = report_lines_code_per_id[report_line_id]
+            if edi_id := CODE_TO_EDI_ID.get(report_line_code):
+                column = next(col for col in line['columns'] if col['expression_label'] == 'balance')
+                column_value = column['no_format'] or 0
+                if report_line_code in LINES_CODE_NOT_FILLED_IF_0 and self.currency_id.is_zero(column_value):
+                    continue
+                edi_values.append({
+                    'id': edi_id,
+                    'value': float_repr(self.currency_id.round(column_value), self.currency_id.decimal_places).replace('.', ','),
+                })
+
+        return edi_values
+
+    def _get_formatted_payment_values(self):
+        self.ensure_one()
+        formatted_payment_values = []
+        for bank_account_line, code in zip(self.bank_account_line_ids, ['A', 'B', 'C']):
+            formatted_payment_values.extend([
+                {
+                    'id': f'G{code}',
+                    'iban': bank_account_line.account_number.replace(' ', ''),
+                    'bic': bank_account_line.bank_bic.replace(' ', ''),
+                },
+                {
+                    'id': f'H{code}',
+                    'value': float_repr(
+                        bank_account_line.currency_id.round(bank_account_line.vat_amount),
+                        bank_account_line.currency_id.decimal_places,
+                    ).replace('.', ','),
+                },
+                {
+                    'id': f'K{code}',
+                    'value': f'TVA1-{self.date_from.strftime("%Y%m%d")}-{self.date_to.strftime("%Y%m%d")}-3310CA3',
+                },
+            ])
+        return formatted_payment_values
+
+    def _prepare_edi_vals(self, options, lines):
         # Check constraints
-        sender_company = report._get_sender_company_for_export(options)
+        sender_company = self.report_id._get_sender_company_for_export(options)
         # Assume Emitor = Writer -> omit the emitor
         writer = sender_company.account_representative_id or sender_company
         self._check_constraints(writer, ['siret', 'street', 'zip', 'city', 'country_id'])
@@ -159,33 +302,12 @@ class L10nFrSendVatReport(models.TransientModel):
         self._check_constraints(debtor, ['siret', 'street', 'zip', 'city', 'country_id'])
         self._check_siret(debtor)
 
-        # Use mapping to populate the xml
-        form_vals = []
-        currency = self.env.company.currency_id
-        # Specific Lines (not filled if 0):
-        # * 22A: the tax coefficient and cannot be 0
-        # * P1 and P2: petroleum lines and should be sent only for companies with specific tax regimes
-        # * F9: should be in the xml only for vat units
-        # * A4, I1, I2, I3, I4, I5: some companies do not have the option to declare VAT import
-        specific_lines = [
-            'box_A4', 'box_F9', 'box_I1_base', 'box_I2_base', 'box_I3_base', 'box_I4_base', 'box_I5_base',
-            'box_I6_base', 'box_22A', 'box_P1_base', 'box_P1_taxe', 'box_P2_base', 'box_P2_taxe',
-        ]
-        for line in lines:
-            model, res_id = report._get_model_info_from_id(line['id'])
-            if model == 'account.report.line':
-                report_line = self.env[model].browse(res_id)
-                if CODE_TO_EDI_ID.get(report_line.code):
-                    col = next(filter(lambda c: c['expression_label'] == 'balance', line['columns']))
-                    val = col['no_format'] or 0
-                    if report_line.code in specific_lines and currency.is_zero(val):
-                        continue
-                    form_vals.append({
-                        'id': CODE_TO_EDI_ID[report_line.code],
-                        'value': float_repr(currency.round(val), currency.decimal_places).replace('.', ','),
-                    })
-        if not form_vals:
-            raise ValidationError(_("The tax report is empty."))
+        self._check_bank_accounts()
+        self._check_vat_to_pay()
+
+        edi_values = self._get_formatted_edi_values(lines)
+        if not edi_values:
+            raise UserError(_("The tax report is empty."))
 
         writer_vals = {
             'siret': writer.siret,
@@ -216,16 +338,15 @@ class L10nFrSendVatReport(models.TransientModel):
                 'address': self._get_address_dict(debtor),
             },
             {'id': 'KD', 'value': 'TVA1'},  # ROF
-            {'id': 'CA', 'value': dt_from.strftime("%Y%m%d")},  # declaration period: yyyymmdd
-            {'id': 'CB', 'value': dt_to.strftime("%Y%m%d")},
-            {'id': 'GA', 'iban': None, 'bic': None},  # payment info
-            {'id': 'HA', 'value': None},  # amount of payment
-            {'id': 'KA', 'value': None},  # payment reference
+            {'id': 'CA', 'value': self.date_from.strftime("%Y%m%d")},  # declaration period: yyyymmdd
+            {'id': 'CB', 'value': self.date_to.strftime("%Y%m%d")},
+            *self._get_formatted_payment_values(),
         ]
         is_neutralized = self.env['ir.config_parameter'].sudo().get_param('database.is_neutralized')
+
         return {
-            'date_from': dt_from,
-            'date_to': dt_to,
+            'date_from': self.date_from.strftime("%Y%m%d"),
+            'date_to': self.date_to.strftime("%Y%m%d"),
             'is_test': '1' if self.test_interchange or is_neutralized else '0',
             'type': "INFENT",  # constant
             'declarations': [{
@@ -244,17 +365,70 @@ class L10nFrSendVatReport(models.TransientModel):
                 'form': {
                     'millesime': "23",
                     'name': "3310CA3",
-                    'zones': form_vals,
+                    'zones': edi_values,
                 }
             }],
         }
 
+    def _create_carryover_reimbursment_move(self, options):
+        """ Creates an account.move representing the carryover reimbursement.
+
+            This move debits the receivable accounts from the present tax group in the VAT
+            closing entry for the period selected in the report options and moves the amount
+            to a special account. The special account is used to track the reimbursement
+            requested from the administration.
+
+            :param options: dict - Report options for the VAT period selection.
+            :return: account.move - Represents the carryover reimbursement.
+        """
+        tax_closing_entry = self.env[self.report_id.custom_handler_model_name]._get_periodic_vat_entries(options)
+        tax_receivable_account_ids = self.env['account.tax.group'].search(
+            [('tax_receivable_account_id', '!=', False)]
+        ).tax_receivable_account_id
+        tax_carried_forward_line_ids = tax_closing_entry.line_ids.filtered(
+            lambda line: line.account_id in tax_receivable_account_ids
+        )
+
+        lines = []
+        ratio = self.computed_vat_amount / sum(tax_carried_forward_line_ids.mapped('balance'))
+        for tax_line in tax_carried_forward_line_ids:
+            lines.append(Command.create({
+                'account_id': tax_line.account_id.id,
+                'debit': 0,
+                'credit': tax_line.balance * ratio,
+                'name': _("VAT receivable"),
+            }))
+
+        return self.env['account.move'].create({
+            'move_type': 'entry',
+            'journal_id': tax_closing_entry.journal_id.id,
+            'date': self.date_to,
+            'line_ids': [
+                *lines,
+                Command.create({
+                    'account_id': self.env.ref(f'account.{self.env.company.id}_pcg_445671').id,
+                    'debit': self.computed_vat_amount,
+                    'credit': 0,
+                }),
+            ],
+        })
+
+    @api.model
+    def _get_vat_report_name(self, date_from, date_to):
+        date_from = date_from.strftime("%m/%Y")
+        date_to = date_to.strftime("%m/%Y")
+        if date_from != date_to:
+            return _("Report_%(date_from)s-%(date_to)s", date_from=date_from, date_to=date_to)
+        return _("Report_%(date_from)s", date_from=date_from)
+
     def send_vat_return(self):
         self.ensure_one()
 
+        options = self.report_id.get_options({'no_format': True, 'date': {'date_from': self.date_from, 'date_to': self.date_to}, 'unfold_all': True})
+        lines = self.report_id._get_lines(options)
+
         # Generate xml
-        options = self.env.context.get('l10n_fr_generation_options')
-        vals = self._prepare_edi_vals(options)
+        vals = self._prepare_edi_vals(options, lines)
         xml_content = self.env['ir.qweb']._render('l10n_fr_reports.aspone_xml_edi', vals)
         try:
             xml_content.encode('ISO-8859-15')
@@ -264,24 +438,44 @@ class L10nFrSendVatReport(models.TransientModel):
 
         xml_content = etree.tostring(cleanup_xml_node(xml_content), encoding='ISO-8859-15', standalone='yes')
 
+        if not self.is_vat_due and self.computed_vat_amount:
+            origin_expression = self.env.ref('l10n_fr_account.tax_report_27_carryover')
+            self.env['account.report.external.value'].create({
+                'name': _(
+                    "Carryover reimbursement from %(date_from)s to %(date_to)s",
+                    date_from=format_date(self.env, self.date_from),
+                    date_to=format_date(self.env, self.date_to)
+                ),
+                'value': -self.computed_vat_amount,
+                'date': self.date_to,
+                'target_report_expression_id': self.env.ref('l10n_fr_account.tax_report_22_applied_carryover').id,
+                'carryover_origin_expression_label': origin_expression.label,
+                'carryover_origin_report_line_id': origin_expression.report_line_id.id,
+                'company_id': self.env.company.id,
+            })
+
+            carryover_reimbursment_move = self._create_carryover_reimbursment_move(options)
+            if not self.test_interchange:
+                carryover_reimbursment_move._post()
+
         # Send xml to ASPOne
         db_uuid = self.env['ir.config_parameter'].sudo().get_param('database.uuid')
         response = self.env['account.report.async.export']._get_fr_webservice_answer(
-            url=ENDPOINT + "/api/l10n_fr_aspone/1/add_document",
+            url=f"{ENDPOINT}/api/l10n_fr_aspone/1/add_document",
             params={'db_uuid': db_uuid, 'xml_content': xml_content.decode('iso8859_15')},
         )
 
         deposit_uid = ''
-        if response['responseType'] == 'SUCCESS':
-            if not response['response']['errorResponse']:
-                deposit_uid = response['response']['successfullResponse']['depositId']
+        if response['responseType'] == 'SUCCESS' and not response['response']['errorResponse']:
+            deposit_uid = response['response']['successfullResponse']['depositId']
 
         if not deposit_uid:
-            raise ValidationError(_("Error occured while sending the report to the government : '%s'", str(response)))
+            raise ValidationError(_("Error occured while sending the report to the government : '%(response)s'", response=str(response)))
 
-        # Create the attachment
+        vat_report_name = self._get_vat_report_name(self.date_from, self.date_to)
+
         attachment = self.env['ir.attachment'].create({
-            'name': 'vat_report.xml',
+            'name': f'{vat_report_name}.xml',
             'res_model': 'l10n_fr_reports.report',
             'type': 'binary',
             # IAP might force the "Test" flag to 1 if the config parameter 'l10n_fr_aspone_proxy.test_env' is True
@@ -289,18 +483,13 @@ class L10nFrSendVatReport(models.TransientModel):
             'mimetype': 'application/xml',
         })
 
-        if vals['date_from'].month != vals['date_to'].month:
-            name = f"Report_{vals['date_from'].month:02d}-{vals['date_to'].month:02d}/{vals['date_from'].year}"
-        else:
-            name = f"Report_{vals['date_from'].month:02d}/{vals['date_from'].year}"
-
         # Create the vat return
         self.env['account.report.async.export'].create({
-            'name': name,
+            'name': vat_report_name,
             'attachment_ids': attachment.ids,
             'deposit_uid': deposit_uid,
-            'date_from': vals['date_from'],
-            'date_to': vals['date_to'],
+            'date_from': self.date_from,
+            'date_to': self.date_to,
             'report_id': self.env.ref('l10n_fr_account.tax_report').id,
             'recipient': self.recipient,
             'state': 'sent',

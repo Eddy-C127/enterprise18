@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, _
+from odoo import fields, models, _
+from odoo.exceptions import UserError
+
 
 class FrenchReportCustomHandler(models.AbstractModel):
     _name = 'l10n_fr.report.handler'
@@ -35,15 +37,27 @@ class FrenchReportCustomHandler(models.AbstractModel):
         })
 
     def send_vat_report(self, options):
+        report = self.env['account.report'].browse(options['report_id'])
         view_id = self.env.ref('l10n_fr_reports.view_l10n_fr_reports_report_form').id
+        date_from, date_to = self.env.company._get_tax_closing_period_boundaries(fields.Date.to_date(options['date']['date_from']), report)
+
+        closing_moves = self._get_tax_closing_entries_for_closed_period(report, options, self.env.company)
+        if not closing_moves:
+            raise UserError(_("You need to complete the tax closing process for this period before submitting the report to the French administration."))
+
+        l10n_fr_vat_report = self.env['l10n_fr_reports.send.vat.report'].create({
+            'report_id': report.id,
+            'date_from': date_from,
+            'date_to': date_to,
+        })
         return {
             'name': _('EDI VAT'),
             'view_mode': 'form',
             'views': [[view_id, 'form']],
             'res_model': 'l10n_fr_reports.send.vat.report',
+            'res_id': l10n_fr_vat_report.id,
             'type': 'ir.actions.act_window',
             'target': 'new',
-            'context': {**self.env.context, 'l10n_fr_generation_options': options},
         }
 
     def action_audit_cell(self, options, params):

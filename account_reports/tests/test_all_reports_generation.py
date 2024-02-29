@@ -99,6 +99,10 @@ class TestAllReportsGeneration(AccountTestInvoicingCommon):
                         # This test seems to have some trouble on runbot. It is running for way longer than
                         # locally. Freeze is coming, explanation are missing... Sorry 😟
                         continue
+                    if report.custom_handler_model_name == 'l10n_fr.report.handler' and option_button['name'] == 'EDI VAT':
+                        # This button requires a tax closing entry to be called. It doesn't make sense to test this button
+                        # without a tax closing entry, so we will exclude it from testing here.
+                        continue
                     with self.subTest(button=option_button['name']):
                         with patch.object(type(self.env['ir.actions.report']), '_run_wkhtmltopdf', lambda *args, **kwargs: b"This is a pdf"):
                             action_dict = report.dispatch_report_action(

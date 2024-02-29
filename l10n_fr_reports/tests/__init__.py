@@ -4,3 +4,4 @@
 from . import test_bilan_comptable
 from . import test_tax_report_rounding
 from . import test_fec_report
+from . import test_tax_closing

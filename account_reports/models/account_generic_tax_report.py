@@ -74,26 +74,50 @@ class AccountTaxReportHandler(models.AbstractModel):
 
     def action_periodic_vat_entries(self, options, from_post=False):
         report = self.env['account.report'].browse(options['report_id'])
-        if (options['date']['period_type'] != 'tax_period' and not self._is_period_equal_to_options(report, options)) and not self.env.context.get('override_tax_closing_warning'):
-            if len(options['companies']) > 1 and (report.filter_multi_company != 'tax_units' or not (report.country_id and options['available_tax_units'])):
-                message = _("You're about the generate the closing entries of multiple companies at once. Each of them will be created in accordance with its company tax periodicity.")
+        if (options['date']['period_type'] != 'tax_period' and not self._is_period_equal_to_options(report,
+                                                                                                    options)) and not self.env.context.get(
+                'override_tax_closing_warning'):
+            if len(options['companies']) > 1 and (report.filter_multi_company != 'tax_units' or not (
+                    report.country_id and options['available_tax_units'])):
+                message = _(
+                    "You're about the generate the closing entries of multiple companies at once. Each of them will be created in accordance with its company tax periodicity.")
             else:
-                message = _("The currently selected dates don't match a tax period. The closing entry will be created for the closest-matching period according to your periodicity setup.")
+                message = _(
+                    "The currently selected dates don't match a tax period. The closing entry will be created for the closest-matching period according to your periodicity setup.")
 
             return {
-                    'type': 'ir.actions.client',
-                    'tag': 'account_reports.redirect_action',
-                    'target': 'new',
-                    'params': {
-                        'depending_action': self.with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(options),
-                        'message': message,
-                        'button_text': _("Proceed"),
-                    },
-                    'context': {
-                        'dialog_size': 'medium',
-                        'override_tax_closing_warning': True,
-                    },
-                }
+                'type': 'ir.actions.client',
+                'tag': 'account_reports.redirect_action',
+                'target': 'new',
+                'params': {
+                    'depending_action': self.with_context(
+                        {'override_tax_closing_warning': True}).action_periodic_vat_entries(options),
+                    'message': message,
+                    'button_text': _("Proceed"),
+                },
+                'context': {
+                    'dialog_size': 'medium',
+                    'override_tax_closing_warning': True,
+                },
+            }
+
+        moves = self._get_periodic_vat_entries(options, from_post=from_post)
+        # Make the action for the retrieved move and return it.
+        action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_journal_line")
+        action = clean_action(action, env=self.env)
+        action.pop('domain', None)
+
+        if len(moves) == 1:
+            action['views'] = [(self.env.ref('account.view_move_form').id, 'form')]
+            action['res_id'] = moves.id
+        else:
+            action['domain'] = [('id', 'in', moves.ids)]
+            action['context'] = dict(ast.literal_eval(action['context']))
+            action['context'].pop('search_default_posted', None)
+        return action
+
+    def _get_periodic_vat_entries(self, options, from_post=False):
+        report = self.env['account.report'].browse(options['report_id'])
 
         # When integer_rounding is available, we always want it for tax closing (as it means it's a legal requirement)
         if options.get('integer_rounding'):
@@ -109,19 +133,7 @@ class AccountTaxReportHandler(models.AbstractModel):
         moves += companies_moves
         moves += self._generate_tax_closing_entries(report, options, companies=companies - companies_moves.company_id, from_post=from_post)
 
-        # Make the action for the retrieved move and return it.
-        action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_journal_line")
-        action = clean_action(action, env=self.env)
-        action.pop('domain', None)
-
-        if len(moves) == 1:
-            action['views'] = [(self.env.ref('account.view_move_form').id, 'form')]
-            action['res_id'] = moves.id
-        else:
-            action['domain'] = [('id', 'in', moves.ids)]
-            action['context'] = dict(ast.literal_eval(action['context']))
-            action['context'].pop('search_default_posted', None)
-        return action
+        return moves
 
     def _generate_tax_closing_entries(self, report, options, closing_moves=None, companies=None, from_post=False):
         """Generates and/or updates VAT closing entries.
