@@ -222,3 +222,46 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                 self.gold_bank_journal.with_env(test_env)._cron_fetch_waiting_online_transactions()
                 patched_refresh.assert_not_called()
                 patched_transactions.assert_called_once()
+
+    @patch('odoo.addons.account_online_synchronization.models.account_online.requests')
+    def test_delete_with_redirect_error(self, patched_request):
+        # Use case being tested: call delete on a record, first call returns token expired exception
+        # Which trigger a call to get a new token, which result in a 104 user_deleted_error, since version 17,
+        # such error are returned as a OdooFinRedirectException with mode link to reopen the iframe and link with a new
+        # bank. In our case we don't want that and want to be able to delete the record instead.
+        # Such use case happen when db_uuid has changed as the check for db_uuid is done after the check for token_validity
+        account_online_link = self.env['account.online.link'].create({
+            'name': 'Test Delete',
+            'client_id': 'client_id_test',
+            'refresh_token': 'refresh_token',
+            'access_token': 'access_token',
+        })
+        first_call = self._mock_odoofin_error_response(code=102)
+        second_call = self._mock_odoofin_error_response(code=300, data={'mode': 'link'})
+        patched_request.post.side_effect = [first_call, second_call]
+        nb_connections = len(self.env['account.online.link'].search([]))
+        # Try to delete record
+        account_online_link.unlink()
+        # Record should be deleted
+        self.assertEqual(len(self.env['account.online.link'].search([])), nb_connections - 1)
+
+    @patch('odoo.addons.account_online_synchronization.models.account_online.requests')
+    def test_redirect_mode_link(self, patched_request):
+        # Use case being tested: Call to open the iframe which result in a OdoofinRedirectException in link mode
+        # This should not trigger a traceback but delete the current online.link and reopen the iframe
+        account_online_link = self.env['account.online.link'].create({
+            'name': 'Test Delete',
+            'client_id': 'client_id_test',
+            'refresh_token': 'refresh_token',
+            'access_token': 'access_token',
+        })
+        link_id = account_online_link.id
+        first_call = self._mock_odoofin_error_response(code=300, data={'mode': 'link'})
+        second_call = self._mock_odoofin_response(data={'delete': True})
+        patched_request.post.side_effect = [first_call, second_call]
+        # Try to open iframe with broken connection
+        action = account_online_link.action_new_synchronization()
+        # Iframe should open in mode link and with a different record (old one should have been deleted)
+        self.assertEqual(action['params']['mode'], 'link')
+        self.assertNotEqual(action['id'], link_id)
+        self.assertEqual(len(self.env['account.online.link'].search([('id', '=', link_id)])), 0)

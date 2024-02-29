@@ -3,6 +3,7 @@
 from odoo import Command, fields
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.tests import tagged
+from unittest.mock import MagicMock
 
 
 @tagged('post_install', '-at_install')
@@ -74,3 +75,27 @@ class AccountOnlineSynchronizationCommon(AccountTestInvoicingCommon):
             transactions.append(self._create_one_online_transaction(date=date))
             self.transaction_id += 1
         return self.account_online_account._format_transactions(transactions)
+
+    def _mock_odoofin_response(self, data=None):
+        if not data:
+            data = {}
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            'result': data,
+        }
+        return mock_response
+
+    def _mock_odoofin_error_response(self, code=200, message='Default', data=None):
+        if not data:
+            data = {}
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            'error': {
+                'code': code,
+                'message': message,
+                'data': data,
+            },
+        }
+        return mock_response
