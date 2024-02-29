@@ -41,12 +41,13 @@ export class DocumentsDropZone extends Component {
         return this.props.parentRoot;
     }
 
-    get isFolder() {
-        return !!this.env.searchModel.getSelectedFolderId();
+    get canDrop() {
+        const selectedFolder = this.env.searchModel.getSelectedFolder();
+        return selectedFolder && selectedFolder.has_write_access && selectedFolder.id !== 'TRASH';
     }
 
     get rootDropOverClass() {
-        return this.isFolder ? "o_documents_drop_over" : "o_documents_drop_over_unauthorized";
+        return this.canDrop ? "o_documents_drop_over" : "o_documents_drop_over_unauthorized";
     }
 
     onDragOver(ev) {
@@ -78,7 +79,7 @@ export class DocumentsDropZone extends Component {
 
         this.root?.el?.classList.remove(this.rootDropOverClass);
         this.state.dragOver = false;
-        if (this.isFolder) {
+        if (this.canDrop) {
             this.env.documentsView.bus.trigger("documents-upload-files", {
                 files: ev.dataTransfer.files,
                 folderId: this.env.searchModel.getSelectedFolderId(),

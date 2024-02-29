@@ -410,13 +410,18 @@ class TestCaseSecurity(TransactionCase):
         Tests that user has right write  access for folder using `has_write_access`.
         """
 
+        Folder = self.env['documents.folder']
         # No groups on folder
-        folder = self.env['documents.folder'].create({
+        folder = Folder.create({
             'name': 'Test Folder',
         })
 
         self.assertTrue(folder.with_user(self.document_manager).has_write_access, "Document manager should have write access on folder")
         self.assertTrue(folder.with_user(self.document_user).has_write_access, "Document user should have write access on folder")
+        self.assertIn(folder, Folder.with_user(self.document_manager).search([('has_write_access', '=', True)]))
+        self.assertIn(folder, Folder.with_user(self.document_user).search([('has_write_access', '=', True)]))
+        self.assertIn(folder, Folder.with_user(self.document_manager).search([('has_write_access', '!=', False)]))
+        self.assertNotIn(folder, Folder.with_user(self.document_user).search([('has_write_access', '=', False)]))
 
         # manager can write and arbitary group can read
         folder.write({
@@ -425,6 +430,17 @@ class TestCaseSecurity(TransactionCase):
         })
         self.assertTrue(folder.with_user(self.document_manager).has_write_access, "Document manager should have write access on folder")
         self.assertFalse(folder.with_user(self.document_user).has_write_access, "Document user should not have write access on folder")
+        self.assertIn(folder, Folder.with_user(self.document_manager).search([('has_write_access', '=', True)]))
+        self.assertNotIn(folder, Folder.with_user(self.document_user).search([('has_write_access', '=', True)]))
+        self.assertIn(folder, Folder.with_user(self.document_manager).search([('has_write_access', '!=', False)]))
+
+        # user can read but not write
+        folder.write({
+            'read_group_ids': [(6, 0, [self.ref('documents.group_documents_user')])],
+        })
+        self.assertTrue(folder.with_user(self.document_manager).has_write_access)
+        self.assertFalse(folder.with_user(self.document_user).has_write_access)
+        self.assertIn(folder, Folder.with_user(self.document_user).search([('has_write_access', '=', False)]))
 
     def test_link_constrains(self):
         folder = self.env['documents.folder'].create({'name': 'folder'})

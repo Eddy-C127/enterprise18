@@ -222,7 +222,7 @@
                     <t t-call="documents.DocumentsInspector.field">
                         <t t-set="icon" t-translation="off">fa fa-folder text-primary</t>
                         <t t-set="fieldName" t-translation="off">folder_id</t>
-                        <t t-set="additionalProps" t-value="{canOpen: false, canCreate: false, canCreateEdit: false, canQuickCreate: false}"/>
+                        <t t-set="additionalProps" t-value="{canOpen: false, canCreate: false, canCreateEdit: false, canQuickCreate: false, domain: [['has_write_access', '=', true]]}"/>
                     </t>
                     <tr class="o_inspector_divider"/>
                     <tr t-if="nbPreviews === 1 &amp;&amp; records[0].data.res_id &amp;&amp; records[0].data.res_model_name &amp;&amp; records[0].data.res_model !== 'documents.document'" class="o_inspector_custom_field o_model_container">

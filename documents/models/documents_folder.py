@@ -3,6 +3,7 @@
 
 from odoo import _, api, Command, fields, models
 from odoo.exceptions import UserError
+from odoo.osv import expression
 
 
 class DocumentFolder(models.Model):
@@ -70,7 +71,8 @@ class DocumentFolder(models.Model):
     user_specific_write = fields.Boolean(string="Own Documents Only (Write)",
                                     compute='_compute_user_specific_write', store=True, readonly=False,
                                     help="Limit Write Groups to the documents of which they are owner.")
-    has_write_access = fields.Boolean('Document User Upload Rights', compute="_compute_has_write_access")
+    has_write_access = fields.Boolean('Document User Upload Rights', compute="_compute_has_write_access",
+                                      search="_search_has_write_access", store=False)
 
     #stat buttons
     action_count = fields.Integer('Action Count', compute='_compute_action_count')
@@ -136,6 +138,15 @@ class DocumentFolder(models.Model):
         for record in self:
             folder_has_groups = not record.group_ids and not record.read_group_ids or (record.group_ids & current_user_groups_ids)
             record.has_write_access = folder_has_groups
+
+    def _search_has_write_access(self, operator, value):
+        search_for_writable_folder = (operator == '=' and value is True) or (operator == '!=' and value is False)
+        if self.env.user.has_group('documents.group_documents_manager'):
+            return expression.TRUE_DOMAIN if search_for_writable_folder else expression.FALSE_DOMAIN
+        query_writable_folder_ids = self._search(
+            expression.OR([[('group_ids', '=', False), ('read_group_ids', '=', False)],
+                           [('group_ids', 'in', self.env.user.groups_id.ids)]]))
+        return [('id', 'in' if search_for_writable_folder else 'not in', query_writable_folder_ids)]
 
     def _compute_action_count(self):
         read_group_var = self.env['documents.workflow.rule']._read_group(

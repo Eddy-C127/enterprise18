@@ -2758,7 +2758,8 @@ QUnit.module("documents", {}, function () {
                 assert.containsN(
                     target,
                     ".o_documents_inspector .o_field_widget[name=folder_id] .o-autocomplete li",
-                    5
+                    4,
+                    'All except the one without write access (i.e. the 3 from setup) + "Search More...".'
                 );
                 await legacyClick(
                     target.querySelectorAll(

@@ -8,7 +8,7 @@
         <div class="btn-group">
 
             <span t-att-data-tooltip="!folder.id and tooltip">
-                <label for="uploadFileInput" t-attf-class="btn btn-primary o_documents_kanban_upload #{!folder.id or folder.id === 'TRASH' ? 'pe-none opacity-25' : ''}" data-hotkey="a">Upload</label>
+                <label for="uploadFileInput" t-attf-class="btn btn-primary o_documents_kanban_upload #{!folder.id or !folder.has_write_access or folder.id === 'TRASH' ? 'pe-none opacity-25' : ''}" data-hotkey="a">Upload</label>
             </span>
             <button type="button" class="btn btn-primary dropdown-toggle
              dropdown-toggle-split"
