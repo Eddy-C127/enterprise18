@@ -33,12 +33,12 @@ class WebsiteAppointmentUITest(AppointmentCommon):
 
     def test_website_appointment_tour(self):
         self.start_tour('/web', 'website_appointment_tour', login='admin')
-        guest_names = ['Raoul', 'new_zeadland2@test.example.com', '@gmail.example.com', 'test1@gmail.com', 'test2@gmail.com']
+        guest_names = ['Raoul', 'new_zeadland2@test.example.com', 'def@gmail.example.com', 'test1@gmail.com', 'test2@gmail.com', 'abc@gmail.com']
         new_partners = self.env['res.partner'].search_count([('name', 'in', guest_names)])
-        self.assertEqual(new_partners, 5)
-        event = self.env['calendar.event'].search([('name', '=', 'Test with Mitchell Admin')], limit=1)
-        expected_names = {'Marc Demo', 'Mitchell Admin', 'test1@gmail.com', 'Joel Willis', 'test2@gmail.com',
-            'new_zeadland2@test.example.com', 'Raoul', '@gmail.example.com'}
+        self.assertEqual(new_partners, 6)
+        event = self.env['calendar.event'].search([('name', '=', 'Mitchell Admin - Test Booking')], limit=1)
+        expected_names = {'Mitchell Admin', 'test1@gmail.com', 'Joel Willis', 'test2@gmail.com',
+            'new_zeadland2@test.example.com', 'Raoul', 'def@gmail.example.com', 'abc@gmail.com'}
         attendees = self.env['calendar.attendee'].search([('event_id', '=', event.id)])
         self.assertEqual(len(attendees), 8)
         self.assertEqual(set(attendees.mapped('common_name')), expected_names)

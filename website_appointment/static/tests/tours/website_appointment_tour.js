@@ -22,13 +22,6 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         trigger: '#max_schedule_days_0',
         run: 'text 45',
     }, {
-        content: 'Add users to the appointment_type',
-        trigger: 'input.o-autocomplete--input',
-        run: 'text Marc'
-    }, {
-        trigger: '.o-autocomplete--dropdown-menu li a:not(:has(.fa-spin)):first-child',
-        run: 'click',
-    }, {
         content: 'Open the options tab',
         trigger: 'a[name="options"]',
     }, {
@@ -58,7 +51,7 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         content: 'Enter the emails of the guests',
         trigger: '#o_appointment_input_guest_emails',
         run:()=>{
-            document.querySelector('#o_appointment_input_guest_emails').value = 'test1@gmail.com\r\njoel.willis63@example.com\r\naaaa\r\n\r\n'
+            document.querySelector('#o_appointment_input_guest_emails').value = 'test1@gmail.com\r\njoel.willis63@example.com\r\naaaa'
         }
     }, {
         content: 'Click on the add guest button',
@@ -71,7 +64,7 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         content: 'Removing the Invalid Email from the text area',
         trigger: '#o_appointment_input_guest_emails',
         run:()=>{
-            document.querySelector('#o_appointment_input_guest_emails').value = 'test1@gmail.com\r\nnew_zeadland2@test.example.com\r\n\r\njoel.willis63@example.com'
+            document.querySelector('#o_appointment_input_guest_emails').value = '"Raoul" <hello@gmail.com>\r\ntest1@gmail.com\r\nnew_zeadland2@test.example.com\r\n\r\njoel.willis63@example.com'
         }
     }, {
         content: 'Confirm the appointment',
@@ -86,14 +79,17 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         trigger: 'div:contains("new_zeadland2@test.example.com")',
         isCheck: true
     }, {
+        trigger: 'div:contains("Raoul")',
+        isCheck: true
+    }, {
         trigger: '.o_appointment_guest_addition_open',
         content: 'Adding the guest at the validation page'
     }, {
-        content: 'Enter the emails of the guests',
+        content: 'Check the email validation on validation page',
         trigger: '#o_appointment_input_guest_emails',
-        run: ()=>{
-            document.querySelector('#o_appointment_input_guest_emails').value = 'joel.willis63@example.com\r\n\r\n\r\ntttt'
-        },
+        run:()=>{
+            document.querySelector('#o_appointment_input_guest_emails').value = 'test2@gmail.com\r\nabc@gmail.com def@gmail.example.com\r\ntest1tttt'
+        }
     }, {
         content: 'Click on the add guest button',
         trigger: '.o_appointment_guest_add',
@@ -102,23 +98,10 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         trigger: '.o_appointment_error_text:contains("Invalid Email")',
         isCheck: true,
     }, {
-        content: 'Removing Invalid email from the textarea',
+        content: 'Remove the invalid email from the input',
         trigger: '#o_appointment_input_guest_emails',
         run: ()=>{
-            document.querySelector('#o_appointment_input_guest_emails').value = 'test2@gmail.com\r\n\r\n\r\njoel.willis63@example.com'
-        }
-    }, {
-        content: 'Click on the add guest button',
-        trigger: '.o_appointment_guest_add',
-    }, {
-        content: 'Checking the error msg',
-        trigger: '.o_appointment_error_text:contains("Joel Willis is unavailable")',
-        isCheck: true,
-    }, {
-        content: 'Removing Joel Willis email from the textarea',
-        trigger: '#o_appointment_input_guest_emails',
-        run: ()=>{
-            document.querySelector('#o_appointment_input_guest_emails').value = 'test2@gmail.com\r\nabc@gmail.com def@gmail.example.com\r\n"Raoul" <hello@gmail.com>'
+            document.querySelector('#o_appointment_input_guest_emails').value = 'test2@gmail.com\r\nabc@gmail.com def@gmail.example.com\r\ntest1@gmail.com'
         },
     }, {
         content: 'Click on the add guest button',
@@ -127,10 +110,10 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         trigger: 'div:contains("test2@gmail.com")',
         isCheck: true
     }, {
-        trigger: 'div:contains("Raoul")',
+        trigger: 'div:contains("abc@gmail.com")',
         isCheck: true
     }, {
-        trigger: 'div:contains("@gmail.example.com")',
+        trigger: 'div:contains("def@gmail.example.com")',
         isCheck: true
     }, {
         content: 'Clicking on the back to edit mode link',
