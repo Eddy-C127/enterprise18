@@ -8,6 +8,7 @@ import { FloatField } from "@web/views/fields/float/float_field";
 import { Many2OneField } from "@web/views/fields/many2one/many2one_field";
 import { TabletImageField } from "@quality/tablet_image_field/tablet_image_field";
 import { useService, useBus } from "@web/core/utils/hooks";
+import { useState } from "@odoo/owl";
 
 export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
     static props = {
@@ -17,7 +18,8 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
         qualityCheckDone: { type: Function, optional: true },
         worksheetData: { type: Object, optional: true },
         checkInstruction: { type: Object, optional: true },
-        openCheck: { type: Function, optional: true },
+        openPreviousCheck: { type: Function, optional: true },
+        openNextCheck: { type: Function, optional: true },
     };
     static template = "mrp_workorder.MrpQualityCheckConfirmationDialog";
     static components = {
@@ -37,6 +39,7 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
         useBus(this.barcode.bus, "barcode_scanned", (event) =>
             this._onBarcodeScanned(event.detail.barcode)
         );
+        this.state = useState({ disabled: false });
         this.formatFloat = formatFloat;
         const { component_tracking, test_type, product_tracking } = this.recordData;
         this.displayLot =
@@ -55,6 +58,7 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
     }
 
     async validate() {
+        this.state.disabled = true;
         if (this.recordData.test_type === "print_label") {
             return this.doActionAndClose("action_print", false);
         } else if (this.recordData.test_type === "measure") {
@@ -70,14 +74,15 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
     }
 
     async continueProduction() {
-        await this.props.record.model.orm.write(
-            "mrp.workorder",
-            [this.props.record.data.workorder_id[0]],
-            { current_quality_check_id: this.props.record.resId });
+        this.state.disabled = true;
+        const workorderId = this.props.record.data.workorder_id[0];
+        const values = { current_quality_check_id: this.props.record.resId };
+        await this.props.record.model.orm.write("mrp.workorder", [workorderId], values);
         this.doActionAndClose("action_continue", false, true);
     }
 
     async openWorksheet(){
+        this.state.disabled = true;
         const res = await this.props.record.model.orm.call(
             this.props.record.resModel,
             "action_fill_sheet",
@@ -86,10 +91,12 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
     }
 
     async pass() {
+        this.state.disabled = true;
         this.doActionAndClose("action_pass_and_next");
     }
 
     async fail() {
+        this.state.disabled = true;
         this.doActionAndClose("action_fail_and_next");
     }
 
@@ -127,6 +134,7 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
     }
 
     async actionGenerateSerial() {
+        this.state.disabled = true;
         await this.props.record.model.orm.call(
             "quality.check",
             "action_generate_serial_number_and_pass",
@@ -188,12 +196,18 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
     }
 
     back() {
-        this.props.openCheck(this.props.record.data.previous_check_id[0]);
+        this.state.disabled = true;
+        if (this.props.openPreviousCheck) {
+            this.props.openPreviousCheck();
+        }
         this.props.close();
     }
 
     skip() {
-        this.props.openCheck(this.props.record.data.next_check_id[0]);
+        this.state.disabled = true;
+        if (this.props.openNextCheck) {
+            this.props.openNextCheck();
+        }
         this.props.close();
     }
 }

@@ -304,12 +304,23 @@ export class MrpDisplayRecord extends Component {
         });
     }
 
+    /**
+     * Display a dialog to process the given Quality Check.
+     * If none are given, try to open the next QC to process.
+     * @param {Object} [record] a `quality.check` record object to display.
+     */
     async displayInstruction(record) {
-        if (!record && this.lastOpenedQualityCheck) {
+        let previousQC, nextQC;
+        if (record) {
+            const previousId = record.data.previous_check_id[0];
+            const nextId = record.data.next_check_id[0];
+            previousQC = this.record.check_ids.records.find(c => c.data.id === previousId)
+            nextQC = this.record.check_ids.records.find(c => c.data.id === nextId)
+        } else if (this.lastOpenedQualityCheck) {
             // Searches the next Quality Check.
             let lastQC = this.lastOpenedQualityCheck.data;
             const checks = this.props.record.data.check_ids.records;
-            while (lastQC.next_check_id && !record) {
+            while (lastQC?.next_check_id && !record) {
                 const nextCheckId = lastQC.next_check_id[0];
                 const check = checks.find((check) => check.data.id === nextCheckId);
                 if (check && check.data.quality_state === "none") {
@@ -323,14 +334,9 @@ export class MrpDisplayRecord extends Component {
             delete this.lastOpenedQualityCheck;
             return;
         }
-        if (!isNaN(record)) {
-            record = this.props.record.data.check_ids.records.find((r) => r.resId === record);
-        }
-
-        const worksheetData = await this.getWorksheetData(record);
-
         this.lastOpenedQualityCheck = record;
 
+        const worksheetData = await this.getWorksheetData(record);
         if (!worksheetData && !record.data.operation_note && record.data.test_type === 'worksheet') {
             // if there is no instruction to display, open worksheet form directly
             this.openWorksheet();
@@ -347,7 +353,8 @@ export class MrpDisplayRecord extends Component {
                 delete this.lastOpenedQualityCheck;
             },
             qualityCheckDone: this.qualityCheckDone.bind(this),
-            openCheck: this.displayInstruction.bind(this),
+            openNextCheck: nextQC && this.displayInstruction.bind(this, nextQC),
+            openPreviousCheck: previousQC && this.displayInstruction.bind(this, previousQC),
         };
 
         this.dialog.add(MrpQualityCheckConfirmationDialog, params);
@@ -361,13 +368,12 @@ export class MrpDisplayRecord extends Component {
                 As the props are not yet updated with the new checks, we need to use this hack
                 to get the updated next check from the env model.
              */
-            const WOChecks = this.env.model.root.records
-                .find((r) => r.resId === this.props.production.resId)
-                .data.workorder_ids.records.find((wo) => wo.resId === this.props.record.resId).data
-                .check_ids.records;
-            const nextCheckId = WOChecks.find((r) => r.resId === this.lastOpenedQualityCheck.resId)
-                .data.next_check_id[0];
-            return this.displayInstruction(WOChecks.find((r) => r.resId === nextCheckId));
+            const production = this.env.model.root.records.find(r => r.resId === this.props.production.resId);
+            const workorder = production.data.workorder_ids.records.find(wo => wo.resId === this.props.record.resId);
+            const WOChecks = workorder.data.check_ids.records;
+            const lastOpenedQualityCheck = WOChecks.find(r => r.resId === this.lastOpenedQualityCheck.resId)
+            const nextCheck = WOChecks.find(r => r.resId === lastOpenedQualityCheck.data.next_check_id[0]);
+            return this.displayInstruction(nextCheck);
         }
         // Show the next Quality Check only if the previous one is passed.
         if (qualityState === "pass") {
