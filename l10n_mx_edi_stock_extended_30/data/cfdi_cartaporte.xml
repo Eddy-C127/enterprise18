@@ -10,8 +10,8 @@
         <xpath expr="//*[name()='cfdi:InformacionAduanera']" position="replace"/>
 
         <xpath expr="//*[name()='cartaporte20:Mercancia']" position="attributes">
-            <attribute name="t-att-TipoMateria">move.product_id.l10n_mx_edi_material_type</attribute>
-            <attribute name="t-att-DescripcionMateria">move.product_id.l10n_mx_edi_material_type == '05' and move.product_id.l10n_mx_edi_material_description</attribute>
+            <attribute name="t-att-TipoMateria">move.product_id.l10n_mx_edi_material_type if record.l10n_mx_edi_external_trade else None</attribute>
+            <attribute name="t-att-DescripcionMateria">move.product_id.l10n_mx_edi_material_description if (record.l10n_mx_edi_external_trade and move.product_id.l10n_mx_edi_material_type == '05') else None</attribute>
         </xpath>
 
         <xpath expr="//*[name()='cartaporte20:CantidadTransporta']" position="before">

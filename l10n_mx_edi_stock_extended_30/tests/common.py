@@ -30,7 +30,7 @@ class TestMXEdiStockCommon(TestMxEdiCommon):
             'weight': 1,
         })
 
-        cls.partner_a = cls.env['res.partner'].create({
+        cls.partner_mx = cls.env['res.partner'].create({
             'name': 'INMOBILIARIA CVA',
             'street': 'Street Calle',
             'city': 'Hidalgo del Parral',
@@ -88,7 +88,7 @@ class TestMXEdiStockCommon(TestMxEdiCommon):
             'location_id': warehouse.lot_stock_id.id,
             'location_dest_id': self.customer_location.id,
             'picking_type_id': warehouse.out_type_id.id if outgoing else warehouse.in_type_id.id,
-            'partner_id': self.partner_a.id,
+            'partner_id': self.partner_mx.id,
             'l10n_mx_edi_transport_type': '01',
             'l10n_mx_edi_vehicle_id': self.vehicle_pedro.id,
             'l10n_mx_edi_gross_vehicle_weight': 2.0,

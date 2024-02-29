@@ -34,7 +34,6 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
 
         self._assert_picking_cfdi(picking, 'test_delivery_guide_30_incoming')
 
-
     @freeze_time('2017-01-01')
     def test_delivery_guide_comex_30_outgoing(self):
         self.product_c.l10n_mx_edi_material_type = '05'
@@ -66,7 +65,7 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
             picking_vals={
                 'partner_id': self.partner_us.id,
                 'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock_extended_30.l10n_mx_edi_customs_document_type_01').id,
-                'l10n_mx_edi_importer_id': self.partner_a.id,
+                'l10n_mx_edi_importer_id': self.partner_mx.id,
             }
         )
 
