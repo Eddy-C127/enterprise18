@@ -24,7 +24,7 @@
             <attribute name="t-att-Embalaje">move.product_id.l10n_mx_edi_hazard_package_type if move.product_id.l10n_mx_edi_hazardous_material_code else None</attribute>
             <attribute name="t-att-DescripEmbalaje">move.picking_id._l10n_mx_edi_get_packaging_desc(move.product_id.l10n_mx_edi_hazard_package_type) if move.product_id.l10n_mx_edi_hazardous_material_code else None</attribute>
             <attribute name="t-att-TipoMateria">move.product_id.l10n_mx_edi_material_type if record.l10n_mx_edi_external_trade else None</attribute>
-            <attribute name="t-att-DescripcionMateria">move.product_id.l10n_mx_edi_material_type == '05' and move.product_id.l10n_mx_edi_material_description</attribute>
+            <attribute name="t-att-DescripcionMateria">move.product_id.l10n_mx_edi_material_description if (record.l10n_mx_edi_external_trade and move.product_id.l10n_mx_edi_material_type == '05') else None</attribute>
         </xpath>
 
         <xpath expr="//*[name()='cartaporte30:Seguros']" position="attributes">

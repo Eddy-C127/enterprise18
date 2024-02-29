@@ -62,7 +62,9 @@
                             TipoUbicacion="Origen"
                             t-att-IDUbicacion="origen['id_ubicacion']"
                             t-att-FechaHoraSalidaLlegada="origen['fecha_hora_salida_llegada']"
-                            t-att-RFCRemitenteDestinatario="origen['rfc_remitente_destinatario']">
+                            t-att-RFCRemitenteDestinatario="origen['rfc_remitente_destinatario']"
+                            t-att-NumRegIdTrib="origen['num_reg_id_trib']"
+                            t-att-ResidenciaFiscal="origen['residencia_fiscal']">
                             <cartaporte30:Domicilio
                                 t-att-Calle="origen['domicilio']['calle']"
                                 t-att-CodigoPostal="origen['domicilio']['codigo_postal']"

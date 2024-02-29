@@ -17,6 +17,9 @@ MAPBOX_MATRIX_URL = 'https://api.mapbox.com/directions-matrix/v1/mapbox/driving/
 class Picking(models.Model):
     _inherit = 'stock.picking'
 
+    l10n_mx_edi_is_delivery_guide_needed = fields.Boolean(
+        compute='_compute_l10n_mx_edi_is_delivery_guide_needed'
+    )
     l10n_mx_edi_is_cfdi_needed = fields.Boolean(
         compute='_compute_l10n_mx_edi_is_cfdi_needed',
         store=True,
@@ -148,13 +151,20 @@ class Picking(models.Model):
     # COMPUTE METHODS
     # -------------------------------------------------------------------------
 
+    @api.depends('company_id', 'picking_type_code')
+    def _compute_l10n_mx_edi_is_delivery_guide_needed(self):
+        for picking in self:
+            picking.l10n_mx_edi_is_delivery_guide_needed = (
+                picking.country_code == 'MX'
+                and picking.picking_type_code in ('incoming', 'outgoing')
+            )
+
     @api.depends('company_id', 'state', 'picking_type_code')
     def _compute_l10n_mx_edi_is_cfdi_needed(self):
         for picking in self:
             picking.l10n_mx_edi_is_cfdi_needed = (
-                picking.country_code == 'MX'
+                picking.l10n_mx_edi_is_delivery_guide_needed
                 and picking.state == 'done'
-                and picking.picking_type_code in ('incoming', 'outgoing')
             )
 
     @api.depends('l10n_mx_edi_document_ids.state', 'l10n_mx_edi_document_ids.sat_state')
@@ -285,11 +295,15 @@ class Picking(models.Model):
         cfdi_values['origen'] = {
             'id_ubicacion': f"OR{str(self.location_id.id).rjust(6, '0')}",
             'fecha_hora_salida_llegada': cfdi_values['cfdi_date'],
+            'num_reg_id_trib': None,
+            'residencia_fiscal': None,
         }
         cfdi_values['destino'] = {
             'id_ubicacion': f"DE{str(self.location_dest_id.id).rjust(6, '0')}",
-            'distancia_recorrida': self.l10n_mx_edi_distance,
             'fecha_hora_salida_llegada': cfdi_values['scheduled_date'],
+            'num_reg_id_trib': None,
+            'residencia_fiscal': None,
+            'distancia_recorrida': self.l10n_mx_edi_distance,
         }
 
         if self.l10n_mx_edi_vehicle_id:
@@ -298,28 +312,29 @@ class Picking(models.Model):
             cfdi_values['peso_bruto_vehicular'] = None
 
         if self.picking_type_code == 'outgoing':
-            cfdi_values['origen']['rfc_remitente_destinatario'] = emisor['rfc']
-            self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['origen'], warehouse_partner)
-
+            cfdi_values['destino']['rfc_remitente_destinatario'] = receptor['rfc']
             if self.l10n_mx_edi_external_trade:
-                cfdi_values['destino']['rfc_remitente_destinatario'] = 'XEXX010101000'
-                cfdi_values['destino']['num_reg_id_trib'] = receptor['rfc']
+                cfdi_values['destino']['num_reg_id_trib'] = receptor['customer'].vat
                 cfdi_values['destino']['residencia_fiscal'] = receptor['customer'].country_id.l10n_mx_edi_code
+            if warehouse_partner.country_id.l10n_mx_edi_code != 'MEX':
+                cfdi_values['origen']['rfc_remitente_destinatario'] = 'XEXX010101000'
+                cfdi_values['origen']['num_reg_id_trib'] = emisor['supplier'].vat
+                cfdi_values['origen']['residencia_fiscal'] = warehouse_partner.country_id.l10n_mx_edi_code
             else:
-                cfdi_values['destino']['rfc_remitente_destinatario'] = receptor['rfc']
-                cfdi_values['destino']['num_reg_id_trib'] = None
-                cfdi_values['destino']['residencia_fiscal'] = None
+                cfdi_values['origen']['rfc_remitente_destinatario'] = emisor['rfc']
+            self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['origen'], warehouse_partner)
             self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['destino'], receptor['customer'])
         else:
+            cfdi_values['origen']['rfc_remitente_destinatario'] = receptor['rfc']
             if self.l10n_mx_edi_external_trade:
-                cfdi_values['origen']['rfc_remitente_destinatario'] = 'XEXX010101000'
-                cfdi_values['destino']['num_reg_id_trib'] = emisor['rfc']
-                cfdi_values['destino']['residencia_fiscal'] = emisor['supplier'].country_id.l10n_mx_edi_code
+                cfdi_values['origen']['num_reg_id_trib'] = receptor['customer'].vat
+                cfdi_values['origen']['residencia_fiscal'] = receptor['customer'].country_id.l10n_mx_edi_code
+            if warehouse_partner.country_id.l10n_mx_edi_code != 'MEX':
+                cfdi_values['destino']['rfc_remitente_destinatario'] = 'XEXX010101000'
+                cfdi_values['destino']['num_reg_id_trib'] = emisor['supplier'].vat
+                cfdi_values['destino']['residencia_fiscal'] = warehouse_partner.country_id.l10n_mx_edi_code
             else:
-                cfdi_values['origen']['rfc_remitente_destinatario'] = receptor['rfc']
-                cfdi_values['destino']['num_reg_id_trib'] = None
-                cfdi_values['destino']['residencia_fiscal'] = None
-            cfdi_values['destino']['rfc_remitente_destinatario'] = emisor['rfc']
+                cfdi_values['destino']['rfc_remitente_destinatario'] = emisor['rfc']
             self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['origen'], receptor['customer'])
             self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['destino'], warehouse_partner)
 

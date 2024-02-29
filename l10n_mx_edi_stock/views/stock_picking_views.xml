@@ -9,6 +9,7 @@
             <xpath expr="//header" position="before">
                 <!-- Invisible fields -->
                 <field name="l10n_mx_edi_is_cfdi_needed" invisible="1"/>
+                <field name="l10n_mx_edi_is_delivery_guide_needed" invisible="1"/>
                 <field name="l10n_mx_edi_external_trade" invisible="1"/>
                 <field name="l10n_mx_edi_update_sat_needed" invisible="1"/>
             </xpath>
@@ -82,7 +83,7 @@
                                 readonly="l10n_mx_edi_cfdi_state == 'sent'"
                                 required="l10n_mx_edi_transport_type == '01'"/>
                          <field name="l10n_mx_edi_gross_vehicle_weight"
-                                invisible="not l10n_mx_edi_is_cfdi_needed or l10n_mx_edi_transport_type != '01'"/>
+                                invisible="not l10n_mx_edi_is_delivery_guide_needed or l10n_mx_edi_transport_type != '01'"/>
                     </group>
 
                     <group string="Distance" name="mx_edi_group_distance">
