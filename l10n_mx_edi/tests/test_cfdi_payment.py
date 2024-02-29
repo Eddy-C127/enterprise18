@@ -205,3 +205,39 @@ class TestCFDIPayment(TestMxEdiCommon):
             payment.move_id,
             'test_invoice_partial_payment_tax_rounding_2',
         )
+
+    @freeze_time('2017-01-01')
+    def test_residual_payment_partial_on_different_date_mxn_invoice(self):
+        invoice = self._create_invoice() # 1160 MXN
+        with self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+
+        # Pay 30% on the same day.
+        payment1 = self._create_payment(
+            invoice,
+            payment_date='2017-01-01',
+            amount=348.0,
+            currency_id=self.comp_curr.id,
+        )
+        # Residual amount should be 812 MXN
+        with self.with_mocked_pac_sign_success():
+            payment1.move_id._l10n_mx_edi_cfdi_payment_try_send()
+        self._assert_invoice_payment_cfdi(
+            payment1.move_id,
+            'test_residual_payment_partial_on_different_date_mxn_invoice_1',
+        )
+
+        # Pay 70% on the next day.
+        payment2 = self._create_payment(
+            invoice,
+            payment_date='2017-01-02',
+            amount=812.0,
+            currency_id=self.comp_curr.id,
+        )
+        # Residual amount should be 0 MXN
+        with self.with_mocked_pac_sign_success():
+            payment2.move_id._l10n_mx_edi_cfdi_payment_try_send()
+        self._assert_invoice_payment_cfdi(
+            payment2.move_id,
+            'test_residual_payment_partial_on_different_date_mxn_invoice_2',
+        )

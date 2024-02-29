@@ -1676,7 +1676,7 @@ class AccountMove(models.Model):
             payment_values = invoice_values['payments']
             invoice_results = results[invoice] = []
             residual = invoice.amount_total
-            for pay, pay_results in sorted(list(payment_values.items()), key=lambda x: x[0].date, reverse=True):
+            for pay, pay_results in sorted(list(payment_values.items()), key=lambda x: x[0].date):
                 reconciled_invoice_amount = pay_results['invoice_amount_currency']
                 if invoice.currency_id == invoice.company_currency_id:
                     reconciled_invoice_amount += pay_results['invoice_exchange_balance']
