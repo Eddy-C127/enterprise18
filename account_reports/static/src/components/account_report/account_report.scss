@@ -78,11 +78,11 @@
                 > td {
                     a { cursor: pointer }
                     .clickable { color: $o-enterprise-action-color }
-                    &.muted { color: $o-gray-300 }
+                    &.muted { color: var(--AccountReport-muted-data-color, $o-gray-300) }
                     &:empty::after{ content: "\00a0" } //!\\ Prevents the collapse of empty table rows
                 }
 
-                &:not(.empty) > td { border-bottom: 1px solid $o-gray-200 }
+                &:not(.empty) > td { border-bottom: 1px solid var(--AccountReport-fine-line-separator-color, $o-gray-200) }
                 &.total { font-weight: bold }
 
                 &.unfolded {
@@ -92,7 +92,6 @@
                 }
 
                 &:hover {
-                    > * { --table-accent-bg: #{ $o-gray-200 } }
                     &.empty > * { --table-accent-bg: transparent }
                     .auditable {
                         color: $o-enterprise-action-color !important;
@@ -162,11 +161,13 @@
     }
 
     .line_level_0 {
-        background-color: #d5d7db;
         color: $o-gray-700;
         font-weight: bold;
 
-        > td { border-bottom: 0 !important; }
+        > td {
+            border-bottom: 0 !important;
+            background-color: $o-gray-300;
+        }
         .muted { color: $o-gray-400 !important }
         .btn_debug { color: $o-gray-400 }
     }
