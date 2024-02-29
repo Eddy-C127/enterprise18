@@ -3,6 +3,7 @@
 
 from odoo import api, fields, models, _
 from odoo.osv.expression import AND
+from odoo.exceptions import UserError
 
 
 class QualityPoint(models.Model):
@@ -12,6 +13,12 @@ class QualityPoint(models.Model):
     def _get_domain_for_production(self, quality_points_domain):
         quality_points_domain = super()._get_domain_for_production(quality_points_domain)
         return AND([quality_points_domain, [('operation_id', '=', False)]])
+
+    @api.constrains('measure_on', 'picking_type_ids')
+    def _check_picking_type_ids(self):
+        for point in self:
+            if point.measure_on == 'move_line' and self.operation_id and any(picking_type.code == 'mrp_operation' for picking_type in point.picking_type_ids):
+                raise UserError(_("The Quantity quality check type is not possible with manufacturing operation types."))
 
 
 class QualityCheck(models.Model):
