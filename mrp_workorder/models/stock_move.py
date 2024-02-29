@@ -28,3 +28,8 @@ class StockMove(models.Model):
     @api.ondelete(at_uninstall=False)
     def _unlink_quality_check(self):
         self.env['quality.check'].search([('move_id', 'in', self.ids)]).unlink()
+
+    def _is_manual_consumption(self):
+        # Mark a move as manual if linked to a quality check.
+        is_linked_to_quality_check = any(qc.test_type == 'register_consumed_materials' for qc in self.move_line_ids.quality_check_ids)
+        return super()._is_manual_consumption() or is_linked_to_quality_check
