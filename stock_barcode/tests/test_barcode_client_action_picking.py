@@ -2239,6 +2239,34 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             {'quantity': 1, 'picked': True, 'location_id': self.shelf1.id},
         ])
 
+    def test_split_line_on_destination_scan(self):
+        """ Ensures a non-complete line is split when a destination is scanned. """
+        self.clean_access_rights()
+        self.env.user.write({'groups_id': [(4, self.env.ref('stock.group_stock_multi_locations').id, 0)]})
+        # Creates a receipt for 4x product1 and confirm it.
+        receipt = self.env['stock.picking'].create({
+            'location_dest_id': self.picking_type_in.default_location_dest_id.id,
+            'location_id': self.supplier_location.id,
+            'name': "receipt test_split_line_on_destination_scan",
+            'picking_type_id': self.picking_type_in.id,
+        })
+        self.env['stock.move'].create({
+            'location_dest_id': receipt.location_dest_id.id,
+            'location_id': receipt.location_id.id,
+            'name': "product1 x4",
+            'picking_id': receipt.id,
+            'product_id': self.product1.id,
+            'product_uom_qty': 4,
+        })
+        # Process the receipt in a tour, then checks its move lines values.
+        receipt.action_confirm()
+        url = self._get_client_action_url(receipt.id)
+        self.start_tour(url, 'test_split_line_on_destination_scan', login='admin')
+        self.assertRecordValues(receipt.move_line_ids, [
+            {'qty_done': 2, 'location_dest_id': receipt.location_dest_id.id},
+            {'qty_done': 2, 'location_dest_id': self.shelf1.id},
+        ])
+
     def test_editing_done_picking(self):
         """ Create and validate a picking then try editing it."""
         self.clean_access_rights()
