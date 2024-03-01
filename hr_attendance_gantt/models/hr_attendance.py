@@ -45,30 +45,12 @@ class HrAttendance(models.Model):
                                               groupby=['employee_id'],
                                               aggregates=['worked_hours:sum'])
         employee_data = {emp.id: worked_hours for emp, worked_hours in worked_hours_group}
-        expected_worked_hours = {}
-        for employee_id in res_ids:
+        employees = self.env['hr.employee'].browse(res_ids)
+        for employee in employees:
             # Retrieve expected attendance for that employee
-            emp = self.env['hr.employee'].browse(employee_id)
-            calendar = emp.resource_calendar_id or emp.company_id.resource_calendar_id
-            expected_attendances = calendar._attendance_intervals_batch(
-                start, stop, emp.resource_id
-            )[emp.resource_id.id]
-            leave_intervals = calendar._leave_intervals_batch(
-                start, stop, emp.resource_id, domain=expression.AND([
-                    self._get_overtime_leave_domain(),
-                    [('company_id', 'in', [False, emp.company_id.id])],
-                ])
-            )
-            expected_attendances -= leave_intervals[False] | leave_intervals[emp.resource_id.id]
-            expected_worked_hours[emp.id] = sum(
-                att.hour_to - att.hour_from
-                for interval in expected_attendances
-                for att in interval[2]
-            )
-        for employee_id in res_ids:
-            values[employee_id] = {
-                'value': employee_data.get(employee_id, 0),
-                'max_value': expected_worked_hours.get(employee_id, 0),
+            values[employee.id] = {
+                'value': employee_data.get(employee.id, 0),
+                'max_value': employee._get_expected_attendances(start, stop)['hours'],
             }
 
         return values
