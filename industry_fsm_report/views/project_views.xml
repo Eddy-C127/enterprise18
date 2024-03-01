@@ -351,7 +351,7 @@
     <record id="project_task_action_fsm_planning_groupby_worksheet" model="ir.actions.act_window">
         <field name="name">Planning by Worksheet Template</field>
         <field name="res_model">project.task</field>
-        <field name="view_mode">kanban,tree,calendar,map,pivot,graph,activity</field>
+        <field name="view_mode">calendar,map,tree,kanban,pivot,graph,activity</field>
         <field name="mobile_view_mode">calendar</field>
         <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
         <field name="domain">[('is_fsm', '=', True), ('project_id', '!=', False), ('display_in_project', '=', True)]</field>
@@ -373,28 +373,28 @@
     </record>
 
     <record id="project_task_action_planning_groupby_worksheet_fsm_view_kanban" model="ir.actions.act_window.view">
-        <field name="sequence" eval="20"/>
+        <field name="sequence" eval="32"/>
         <field name="view_mode">kanban</field>
         <field name="view_id" ref="industry_fsm.project_task_view_kanban_fsm"/>
         <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet"/>
     </record>
 
     <record id="project_task_action_planning_groupby_worksheet_fsm_view_list" model="ir.actions.act_window.view">
-        <field name="sequence" eval="10"/>
+        <field name="sequence" eval="30"/>
         <field name="view_mode">tree</field>
         <field name="view_id" ref="industry_fsm.project_task_view_list_fsm"/>
         <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet"/>
     </record>
 
     <record id="project_task_action_planning_groupby_worksheet_fsm_view_calendar" model="ir.actions.act_window.view">
-        <field name="sequence" eval="32"/>
+        <field name="sequence" eval="10"/>
         <field name="view_mode">calendar</field>
         <field name="view_id" ref="industry_fsm.project_task_view_calendar_fsm"/>
         <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet"/>
     </record>
 
     <record id="project_task_action_planning_groupby_worksheet_fsm_view_map" model="ir.actions.act_window.view">
-        <field name="sequence" eval="30"/>
+        <field name="sequence" eval="20"/>
         <field name="view_mode">map</field>
         <field name="view_id" ref="project_task_map_view_inherit_fsm_report"/>
         <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet"/>
