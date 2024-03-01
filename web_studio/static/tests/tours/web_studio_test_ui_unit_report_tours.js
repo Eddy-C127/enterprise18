@@ -124,11 +124,11 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition", 
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(0)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(0)",
             run: "text edited with odoo editor",
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(2)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
             run: "text edited with odoo editor 2",
         },
         {
@@ -235,11 +235,11 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_di
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(0)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(0)",
             run: "text edited with odoo editor",
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(2)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
             run: "text edited with odoo editor 2",
         },
         {
@@ -249,7 +249,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_di
             trigger: ".modal-dialog .btn-primary",
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(0)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(0)",
             run() {
                 assertEqual(this.anchor.textContent, "");
             },
@@ -292,12 +292,12 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_er
     sequence: 260,
     steps: () => [
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(0)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(0)",
             run: "text edited with odoo editor",
         },
         {
             // Brutally add a t-else: this will crash in python on save
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe body",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe body",
             run() {
                 const editable = this.anchor.querySelector(".odoo-editor-editable");
                 const wysiwyg = $(editable).data("wysiwyg");
@@ -307,7 +307,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_er
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(2)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
             run: "text edited with odoo editor 2",
         },
         {
@@ -320,7 +320,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_er
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(0)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(0)",
             run() {
                 // The iframe shouldn't have been reset after an error
                 assertEqual(this.anchor.textContent, "edited with odoo editor");
@@ -385,7 +385,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_reset_archs", {
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe body p:eq(1)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe body p:eq(1)",
             run() {
                 assertEqual(this.anchor.textContent, "from file");
             },
@@ -434,7 +434,7 @@ registry.category("web_tour.tours").add("web_studio.test_table_rendering", {
     sequence: 260,
     steps: () => [
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe .valid_table",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe .valid_table",
             run() {
                 assertEqual(
                     this.anchor.outerHTML,
@@ -445,7 +445,7 @@ registry.category("web_tour.tours").add("web_studio.test_table_rendering", {
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe .invalid_table",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe .invalid_table",
             run() {
                 assertEqual(
                     this.anchor.outerHTML,
@@ -463,7 +463,7 @@ registry.category("web_tour.tours").add("web_studio.test_table_rendering", {
             run: "text edited with odooEditor",
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(1)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(1)",
             run: "text p edited with odooEditor",
         },
         {
@@ -486,7 +486,7 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
     steps: () => [
         {
             // 1 sec delay to make sure we call the download route
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(2)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
             async run(helpers) {
                 const el = this.anchor;
                 openEditorPowerBox(el);
@@ -539,7 +539,7 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
         },
         {
             trigger:
-                ".o-web-studio-report-editor-wysiwyg iframe span[t-field='doc.function'][title='doc.function']",
+                ".o-web-studio-report-editor-wysiwyg :iframe span[t-field='doc.function'][title='doc.function']",
             isCheck: true,
         },
         {
@@ -547,7 +547,7 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
             isCheck: true,
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(0)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(0)",
             run() {
                 insertText(this.anchor, "edited with odooEditor");
             },
@@ -655,7 +655,7 @@ registry.category("web_tour.tours").add("web_studio.test_toolbar_appearance", {
     sequence: 260,
     steps: () => [
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p[t-field='doc.name']",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p[t-field='doc.name']",
             run() {
                 const anchor = this.anchor;
                 const selection = anchor.ownerDocument.getSelection();
@@ -691,13 +691,13 @@ registry.category("web_tour.tours").add("web_studio.test_edition_without_lang", 
     sequence: 260,
     steps: () => [
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(1)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(1)",
             run() {
                 assertEqual(this.anchor.textContent, "original term");
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(1)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(1)",
             async run() {
                 insertText(this.anchor, " edited");
             },
@@ -864,7 +864,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
     sequence: 260,
     steps: () => [
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(2)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
             async run(helpers) {
                 const el = this.anchor;
                 openEditorPowerBox(el);
@@ -905,7 +905,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
             },
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(2)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
             async run(helpers) {
                 const el = this.anchor;
                 openEditorPowerBox(el);
@@ -959,7 +959,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
     sequence: 260,
     steps: () => [
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(2)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
             async run(helpers) {
                 const el = this.anchor;
                 openEditorPowerBox(el);
@@ -996,7 +996,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
             isCheck: true,
         },
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe table tr[t-foreach]",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe table tr[t-foreach]",
             run() {
                 const el = this.anchor;
                 const context = JSON.parse(el.getAttribute("oe-context"));
@@ -1005,7 +1005,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         },
         {
             trigger:
-                ".o-web-studio-report-editor-wysiwyg iframe table tr td:contains(Insert a field...)",
+                ".o-web-studio-report-editor-wysiwyg :iframe table tr td:contains(Insert a field...)",
             run() {
                 const el = this.anchor;
                 openEditorPowerBox(el);
@@ -1039,7 +1039,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         },
         {
             trigger:
-                ".o-web-studio-report-editor-wysiwyg iframe table td span[t-field='x2many_record.summary']",
+                ".o-web-studio-report-editor-wysiwyg :iframe table td span[t-field='x2many_record.summary']",
             isCheck: true,
         },
         {
@@ -1125,7 +1125,7 @@ registry.category("web_tour.tours").add("web_studio.test_xml_and_form_diff", {
     sequence: 260,
     steps: () => [
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(2)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
             run() {
                 insertText(this.anchor, "edited with odooEditor");
             },

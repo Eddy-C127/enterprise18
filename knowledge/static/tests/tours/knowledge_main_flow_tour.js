@@ -105,7 +105,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     },
 }, {
     // verify that the move was done
-    trigger: '.o_article:has(.o_article_name:contains("My Workspace Article")) ul > :eq(0):contains("Child Article 2")',
+    trigger: '.o_article:has(.o_article_name:contains(My Workspace Article)) ul li:first:contains(Child Article 2)',
     run: () => {},
 }, {
     // go back to main workspace article
@@ -185,7 +185,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     },
 }, {
     // verify that the move was done
-    trigger: 'section[data-section="favorites"] ul > :eq(0):contains("My Private Article")',
+    trigger: 'section[data-section="favorites"] ul li:first:contains(My Private Article)',
     run: () => {},
 }, {
     // go back to main workspace article

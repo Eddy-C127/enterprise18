@@ -43,7 +43,7 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
         }, { // Resolve Thread
             trigger: 'button[name="closeThread"]'
         }, { // Wait for the composer to be fully closed
-            trigger: 'body:not(:has(".o-mail-Thread"))',
+            trigger: 'body:not(:has(.o-mail-Thread))',
             run: () => {}
         }, { // Select some text in the first paragraph
             trigger: '.note-editable p.o_knowledge_tour_first_paragraph',
@@ -60,7 +60,7 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
         }, { // Send comment
             trigger: '.o_knowledge_comments_popover .o-mail-Composer-send:not([disabled=""])'
         }, { // Wait for the composer to be fully closed
-            trigger: 'body:not(:has(".o-mail-Thread"))',
+            trigger: 'body:not(:has(.o-mail-Thread))',
             run: () => {}
         }, {
             trigger: '.o_knowledge_comment_box[data-id] .o_knowledge_comment_small_ui img',

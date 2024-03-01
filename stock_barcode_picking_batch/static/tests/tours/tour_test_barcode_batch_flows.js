@@ -1005,7 +1005,7 @@ registry.category("web_tour.tours").add('test_setting_group_lines_by_product', {
     },
     { trigger: "a.dropdown-item:contains('product2')" },
     {
-        extra_trigger: ".o_field_widget[name='product_id'] input:propValue('product2')",
+        extra_trigger: ".o_field_widget[name='product_id'] input:value('product2')",
         trigger: "button.o_save",
     },
     // Checks the added line is grouped with the one from receipt2

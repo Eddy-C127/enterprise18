@@ -46,7 +46,7 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_comparison', {
         },
         {
             content: "Verify there are 1 quantity of Computers",
-            trigger: '#cart_products div div.css_quantity input[value=1]',
+            trigger: '#cart_products div div.css_quantity input[value="1"]',
             isCheck: true,
         },
         {

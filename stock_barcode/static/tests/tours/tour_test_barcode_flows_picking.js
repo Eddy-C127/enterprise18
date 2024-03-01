@@ -191,7 +191,7 @@ registry.category("web_tour.tours").add('test_internal_picking_from_scratch', {t
     },
 
     {
-        extra_trigger: '.o_barcode_line:last-child() .o_line_destination_location:contains("Section 3")',
+        extra_trigger: '.o_barcode_line:last-child .o_line_destination_location:contains("Section 3")',
         trigger: '.o_validate_page',
     },
     { // Second call to write (change the dest. location).
@@ -3129,10 +3129,10 @@ registry.category("web_tour.tours").add('test_reload_flow', {test: true, steps: 
     // Select first line and scans Section 1 to move it to this location.
     {
         extra_trigger: '.o_barcode_line:nth-child(2) .o_line_destination_location:contains(".../Section 1")',
-        trigger: '.o_barcode_line:first-child()',
+        trigger: '.o_barcode_line:first-child',
     },
     {
-        trigger: '.o_barcode_line:first-child().o_selected',
+        trigger: '.o_barcode_line:first-child.o_selected',
         run: 'scan LOC-01-01-00'
     },
     {

@@ -682,7 +682,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Check that child became the first private root article
     trigger: '.o_section[data-section="private"] .o_article:not(:has(.o_article:contains("Private Child 2")))',
-    extra_trigger: '.o_section[data-section="private"] ul >:first:contains("Private Child 2")',
+    extra_trigger: '.o_section[data-section="private"] ul li:first:contains("Private Child 2")',
     run: () => {},
 }, {
     // Check that article was removed from children in favorites

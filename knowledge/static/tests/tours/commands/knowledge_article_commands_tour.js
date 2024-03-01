@@ -475,7 +475,7 @@ const embedViewFiltersSteps = [{
     trigger: '.o_searchview_input_container input',
     run: 'text 1'
 }, {
-    trigger: 'li#1'
+    trigger: 'li[id="1"]'
 }, { // Check that the filter is effective
     trigger: 'tbody:not(tr.o_data_row:nth-child(2))',
     run: () => {}
@@ -487,7 +487,7 @@ const embedViewFiltersSteps = [{
 }, { // Open parent via the sidebar
     trigger: '.o_article_name:contains("EditorCommandsArticle")'
 }, { // Check that there is no filter in the searchBar
-    trigger: '.o_searchview_input_container:not( > div)',
+    trigger: '.o_searchview_input_container:not(:has(> div))',
     run: () => {}
 }, { // Check that we have 2 elements in the embedded view
     trigger: 'tbody tr.o_data_row:nth-child(2)',
@@ -631,7 +631,7 @@ const clipboardUsageSteps = [{ // open the chatter
     trigger: '.o_knowledge_behavior_type_template button:contains(Use as)',
     run: 'click',
 }, { // check that the content of the template was inserted as description
-    trigger: '.o_form_sheet .o_field_html .odoo-editor-editable p:first-child:contains("Hello world")',
+    trigger: '.o_form_sheet .o_field_html .odoo-editor-editable p:contains("Hello world")',
     run: () => {},
 }];
 

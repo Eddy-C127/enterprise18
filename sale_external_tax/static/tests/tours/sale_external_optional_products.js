@@ -9,7 +9,7 @@ registry.category("web_tour.tours").add('sale_external_optional_products', {
     steps: () => [
     {
         content: "open the test SO",
-        trigger: 'a:containsExact("test")',
+        trigger: 'a:contains("test")',
     },
     {
         content: "add the optional product",
@@ -17,15 +17,15 @@ registry.category("web_tour.tours").add('sale_external_optional_products', {
     },
     {
         content: "increase the quantity of the optional product by 1",
-        trigger: '.js_update_line_json:nth(1)',
+        trigger: '.js_update_line_json:eq(1)',
     },
     {
-        trigger: 'input.js_quantity:propValue(2.0)',
+        trigger: 'input.js_quantity:value(2.0)',
         run() {},
     },
     {
         content: "delete the optional line",
-        trigger: '.js_update_line_json:nth(2)',
+        trigger: '.js_update_line_json:eq(2)',
     },
     {
         content: "wait for line to be deleted and show up again in optional products",

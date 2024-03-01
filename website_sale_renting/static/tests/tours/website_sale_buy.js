@@ -32,12 +32,12 @@ registry.category("web_tour.tours").add('shop_buy_rental_product', {
         },
         {
             content: "Pick start time",
-            trigger: '.o_time_picker_select:nth(0)',
+            trigger: '.o_time_picker_select:eq(0)',
             run: "text 8",
         },
         {
             content: "Pick end time",
-            trigger: '.o_time_picker_select:nth(2)',
+            trigger: '.o_time_picker_select:eq(2)',
             run: "text 12",
         },
         {
@@ -60,7 +60,7 @@ registry.category("web_tour.tours").add('shop_buy_rental_product', {
         },
         {
             content: "Verify there are 2 quantity of Computers",
-            trigger: '#cart_products div div.css_quantity input[value=2]',
+            trigger: '#cart_products div div.css_quantity input[value="2"]',
             isCheck: true,
         },
         tourUtils.goToCheckout(),

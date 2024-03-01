@@ -69,7 +69,7 @@ registry.category("web_tour.tours").add('payroll_dashboard_ui_tour', {
         content: "Edit the note in dashboard view",
         trigger: 'div.o_hr_payroll_todo_value',
         run: 'click',
-        extra_trigger: 'li.o_hr_payroll_todo_tab a.active:contains("Dashboard Todo List")'
+        extra_trigger: 'li.o_hr_payroll_todo_tab a.active:contains(Dashboard Todo List)',
     },
     {
         content: "Write in the note",

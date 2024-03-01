@@ -172,11 +172,11 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             extra_trigger: ".o_record_selector :not(.o-autocomplete dropdown-menu)",
-            trigger: '.o_web_studio_add_menu_modal button:contains(Confirm):not(".disabled")',
+            trigger: ".o_web_studio_add_menu_modal button:contains(Confirm):not(.disabled)",
         },
         {
             extra_trigger: ":not(.o_inactive_modal) .o-web-studio-appmenu-editor",
-            trigger: '.o-web-studio-appmenu-editor button:contains(Confirm):not(".disabled")',
+            trigger: ".o-web-studio-appmenu-editor button:contains(Confirm):not(.disabled)",
         },
         {
             // check that the Studio menu is still there
@@ -802,7 +802,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         },
         {
             trigger:
-                ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
+                ".o-web-studio-report-editor-wysiwyg :iframe .odoo-editor-editable div.page div",
             run() {
                 this.anchor.ownerDocument.getSelection().setPosition(this.anchor);
                 assertEqual(this.anchor.outerHTML, `<div class="oe_structure"></div>`);
@@ -810,14 +810,14 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         },
         {
             trigger:
-                ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
+                ".o-web-studio-report-editor-wysiwyg :iframe .odoo-editor-editable div.page div",
             run() {
                 assertEqual(this.anchor.classList.contains("oe-command-temporary-hint"), true);
             },
         },
         {
             trigger:
-                ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable div.page div",
+                ".o-web-studio-report-editor-wysiwyg :iframe .odoo-editor-editable div.page div",
             run: "text some new text",
         },
         {

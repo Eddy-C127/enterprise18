@@ -39,7 +39,7 @@ registry.category("web_tour.tours").add('social_tour', {
             edition: 'enterprise',
         }, {
             trigger: 'button[name="action_post"]',
-            extra_trigger: 'textarea[name="message"]:first:propValueContains()', // message field not empty
+            extra_trigger: 'textarea[name="message"]:first:value()', // message field not empty
             content: _t("Happy with the result? Let's post it!"),
             position: 'bottom',
             edition: 'enterprise',

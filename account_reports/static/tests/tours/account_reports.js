@@ -163,7 +163,7 @@ registry.category("web_tour.tours").add('account_reports', {
         },
         {
             content: "Annotate contains previous text value",
-            trigger: "textarea:contains('Footnote 121000')",
+            trigger: "textarea:value(Footnote 121000)",
         },
         {
             content: "Add text to annotate",

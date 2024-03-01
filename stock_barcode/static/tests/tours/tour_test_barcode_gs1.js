@@ -455,8 +455,8 @@ registry.category("web_tour.tours").add('test_gs1_package_receipt', {test: true,
     },
     // Selects a line and scans a package type, it should be assing the package
     // type to selected line's result package.
-    { trigger: '.o_barcode_line[data-barcode=584687955629]' },
-    { trigger: '.o_selected[data-barcode=584687955629]', run: 'scan 91WOODC' },
+    { trigger: '.o_barcode_line[data-barcode="584687955629"]' },
+    { trigger: '.o_selected[data-barcode="584687955629"]', run: 'scan 91WOODC' },
     {
         trigger: '.o_barcode_line[data-barcode="584687955629"]:contains("(Wooden Chest)")',
         run: function () {

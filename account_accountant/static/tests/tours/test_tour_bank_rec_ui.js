@@ -292,7 +292,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Remove the manual entry",
-            extra_trigger: "div[name='balance'] input:text('-400.00'):focus",
+            extra_trigger: "div[name='balance'] input:value('-400.00'):focus",
             trigger: ".o_list_record_remove .fa-trash-o",
         },
         {
@@ -408,7 +408,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Open search bar menu",
             extra_trigger: ".o_bank_rec_stats_buttons",
-            trigger: ".o_searchview_dropdown_toggler:nth(0)",
+            trigger: ".o_searchview_dropdown_toggler:eq(0)",
         },
         // Test Reco Model
         {
@@ -503,7 +503,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Open search bar menu",
             extra_trigger: ".o_bank_rec_stats_buttons",
-            trigger: ".o_searchview_dropdown_toggler:nth(0)",
+            trigger: ".o_searchview_dropdown_toggler:eq(0)",
         },
         {
             content: "Filter Menu",
@@ -518,7 +518,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Close the Filter Menu",
             extra_trigger: ".o_searchview_facet:contains('Not Matched')",
-            trigger: ".o_searchview_dropdown_toggler:nth(0)",
+            trigger: ".o_searchview_dropdown_toggler:eq(0)",
         },
         {
             content: "select 'line2'",

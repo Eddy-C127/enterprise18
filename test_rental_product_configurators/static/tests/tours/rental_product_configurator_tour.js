@@ -56,7 +56,7 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     run: "text 42.0",
 }, {
     content: 'Wait for the unit price to be rerendered.',
-    trigger: '.o_selected_row [name=price_unit] input:propValue(42.00)',
+    trigger: '.o_selected_row [name=price_unit] input:value(42.00)',
     run() {},
 },
 

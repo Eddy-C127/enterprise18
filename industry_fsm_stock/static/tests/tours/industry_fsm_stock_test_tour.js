@@ -121,7 +121,7 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     },
     {
         content: 'Check that is it not possible to reduce the quantity of the first product (lot) since it has been delivered',
-        trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity:has(button:has(i.fa-minus)[disabled])',
+        trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity:has(button[disabled]):has(i.fa-minus)',
         run: () => {},
     }, 
     {
@@ -212,7 +212,7 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     },
     {
         content: 'Check that is it not possible to reduce the quantity of the first product (lot) because of the warehouse change',
-        trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity:has(button:has(i.fa-minus)[disabled])',
+        trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity:has(button[disabled]):has(i.fa-minus)',
     }, 
     {
         content: 'Add quantity to the first product (lot)',

@@ -11,7 +11,7 @@ registry.category("web_tour.tours").add('shop_buy_accessory_rental_product', {
         tourUtils.goToCart({quantity: 1}),
         {
             content: "Verify there are 1 quantity of Parent product",
-            trigger: '#cart_products div div.css_quantity input[value=1]',
+            trigger: '#cart_products div div.css_quantity input[value="1"]',
             isCheck: true,
         },
         {
