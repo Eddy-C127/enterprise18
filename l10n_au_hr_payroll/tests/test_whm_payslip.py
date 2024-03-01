@@ -199,7 +199,7 @@ class TestPayrollWhm(TestPayrollCommon):
             'casual_loading': 0,
         })
         initial_payslip_date = date(2023, 7, 1)
-        for month in range(0, 12):
+        for month in range(12):
             payslip_date = initial_payslip_date + relativedelta(months=month)
             payslip_end_date = payslip_date + relativedelta(day=31)
 

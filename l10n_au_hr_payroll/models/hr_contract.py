@@ -142,21 +142,20 @@ class HrContract(models.Model):
     def _compute_l10n_au_tax_treatment_option(self):
         for contract in self:
             is_non_resident = contract.employee_id.is_non_resident
-            match contract.l10n_au_tax_treatment_category:
-                case "R" | "A":
-                    tax_treatment = "T" if contract.employee_id.l10n_au_tax_free_threshold else "N"
-                case "C":
-                    tax_treatment = "F" if is_non_resident else "T"
-                case "S":
-                    tax_treatment = "M" if contract.employee_id.marital in ("married", "cohabitant") else "S"
-                case "H":
-                    tax_treatment = "F" if is_non_resident else "R"
-                case "N":
-                    tax_treatment = "F" if is_non_resident else "A"
-                case "S":
-                    tax_treatment = "V" if contract.l10n_au_withholding_variation else "B"
-                case _:
-                    tax_treatment = contract.l10n_au_tax_treatment_option
+            if contract.l10n_au_tax_treatment_category in ("R", "A"):
+                tax_treatment = "T" if contract.employee_id.l10n_au_tax_free_threshold else "N"
+            elif contract.l10n_au_tax_treatment_category == "C":
+                tax_treatment = "F" if is_non_resident else "T"
+            elif contract.l10n_au_tax_treatment_category == "S":
+                tax_treatment = "M" if contract.employee_id.marital in ("married", "cohabitant") else "S"
+            elif contract.l10n_au_tax_treatment_category == "H":
+                tax_treatment = "F" if is_non_resident else "R"
+            elif contract.l10n_au_tax_treatment_category == "N":
+                tax_treatment = "F" if is_non_resident else "A"
+            elif contract.l10n_au_tax_treatment_category == "D":
+                tax_treatment = "V" if contract.l10n_au_withholding_variation else "B"
+            else:
+                tax_treatment = contract.l10n_au_tax_treatment_option
             contract.l10n_au_tax_treatment_option = tax_treatment
 
     @api.depends(
@@ -197,14 +196,14 @@ class HrContract(models.Model):
         """ Changing the workplace_giving_type requires resetting the unused value to 0 """
         for contract in self:
             workplace_employee_giving = workplace_employer_giving = 0
-            match contract.l10n_au_workplace_giving_type:
-                case "employee_deduction":
-                    workplace_employee_giving = contract.l10n_au_workplace_giving
-                case "employer_deduction":
-                    workplace_employer_giving = contract.l10n_au_workplace_giving_employer
-                case "both":
-                    workplace_employee_giving = contract.l10n_au_workplace_giving
-                    workplace_employer_giving = contract.l10n_au_workplace_giving_employer
+            giving_type = contract.l10n_au_workplace_giving_type
+            if giving_type == 'employee_deduction':
+                workplace_employee_giving = contract.l10n_au_workplace_giving
+            elif giving_type == 'employer_deduction':
+                workplace_employer_giving = contract.l10n_au_workplace_giving_employer
+            elif giving_type == 'both':
+                workplace_employee_giving = contract.l10n_au_workplace_giving
+                workplace_employer_giving = contract.l10n_au_workplace_giving_employer
 
             contract.write({
                 'l10n_au_workplace_giving': workplace_employee_giving,

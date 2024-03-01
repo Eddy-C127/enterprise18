@@ -12,7 +12,6 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import api, Command, fields, models, _
 from odoo.exceptions import UserError, ValidationError
-from odoo.osv.expression import AND
 from odoo.tools import float_round, date_utils, convert_file, format_amount
 from odoo.tools.float_utils import float_compare
 from odoo.tools.misc import format_date
@@ -849,7 +848,6 @@ class HrPayslip(models.Model):
                     # Retrieve the line name in the employee's lang
                     employee_lang = payslip.employee_id.lang or self.env.lang
                     # This actually has an impact, don't remove this line
-                    context = {'lang': employee_lang}
                     if rule.code in localdict['same_type_input_lines']:
                         for multi_line_rule in localdict['same_type_input_lines'][rule.code]:
                             localdict['inputs'][rule.code] = multi_line_rule
