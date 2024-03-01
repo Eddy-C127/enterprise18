@@ -144,3 +144,30 @@ class HrLeave(models.Model):
                     raise UserError(_('Not enough attendance work entries to report the time off %s. Please make the operation manually', leave.display_name))
         # Should change payslip_state to 'done' at the same time
         self.activity_feedback(['hr_payroll_holidays.mail_activity_data_hr_leave_to_defer'])
+
+    def _check_uncovered_by_validated_payslip(self):
+        payslips = self.env['hr.payslip'].sudo().search([
+            ('employee_id', 'in', self.employee_id.ids),
+            ('date_from', '<=', max(self.mapped('date_to'))),
+            ('date_to', '>=', min(self.mapped('date_from'))),
+            ('state', 'in', ['done', 'paid']),
+        ])
+
+        for leave in self:
+            if any(
+                    p.employee_id == leave.employee_id and
+                    p.date_from <= leave.date_to.date() and
+                    p.date_to >= leave.date_from.date() and
+                    p.is_regular
+                    for p in payslips
+            ):
+                raise UserError(_("The pay of the month is already validated with this day included. If you need to adapt, please refer to HR."))
+
+    def write(self, vals):
+        if vals.get('active') and self._check_uncovered_by_validated_payslip():
+            self._check_uncovered_by_validated_payslip()
+        return super().write(vals)
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_no_payslip(self):
+        self._check_uncovered_by_validated_payslip()
