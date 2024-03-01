@@ -10,7 +10,7 @@ import { TaskGanttRenderer } from "./task_gantt_renderer";
 
 const viewRegistry = registry.category("views");
 
-const taskGanttView = {
+export const taskGanttView = {
     ...ganttView,
     ControlPanel: ProjectControlPanel,
     Controller: TaskGanttController,
