@@ -3904,6 +3904,47 @@ registry.category("web_tour.tours").add('test_split_line_reservation', {test: tr
     },
 ]});
 
+registry.category("web_tour.tours").add('test_split_line_on_destination_scan', {test: true, steps: () => [
+    // Scans 2x product1.
+    { trigger: '.o_barcode_line', run: "scan product1"},
+    { trigger: '.o_barcode_line', run: "scan product1"},
+    {
+        trigger: '.o_barcode_line.o_selected .qty-done:contains("2")',
+        run: () => {
+            helper.assertLinesCount(1);
+            helper.assertLineDestinationLocation(0, "WH/Stock");
+            helper.assertLineQty(0, "2 / 4");
+        }
+    },
+    // Scans the line's destination -> The line should be splitted in two.
+    { trigger: '.o_barcode_line', run: "scan LOC-01-00-00"},
+    {
+        trigger: '.o_barcode_line:nth-child(2)',
+        run: () => {
+            helper.assertLinesCount(2);
+            helper.assertLineDestinationLocation(0, "WH/Stock");
+            helper.assertLineDestinationLocation(1, "WH/Stock");
+            helper.assertLineQty(0, "2 / 2");
+            helper.assertLineQty(1, "0 / 2");
+        }
+    },
+    // Scans remaining quantity, then shelf1 as the destination and close the receipt.
+    { trigger: '.o_barcode_line', run: "scan product1" },
+    { trigger: '.o_barcode_line.o_selected:not(.o_line_completed)', run: "scan product1" },
+    { trigger: '.o_barcode_line.o_selected.o_line_completed', run: "scan LOC-01-01-00" },
+    {
+        trigger: '.o_validate_page.btn-success',
+        run: () => {
+            helper.assertLinesCount(2);
+            helper.assertLineDestinationLocation(0, "WH/Stock");
+            helper.assertLineDestinationLocation(1, ".../Section 1");
+            helper.assertLineQty(0, "2 / 2");
+            helper.assertLineQty(1, "2 / 2");
+        }
+    },
+    ...stepUtils.validateBarcodeOperation(),
+]});
+
 registry.category("web_tour.tours").add('test_split_line_on_scan', {test: true, steps: () => [
     // Scan product2 twice
     {

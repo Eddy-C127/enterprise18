@@ -544,7 +544,7 @@ export default class BarcodePickingModel extends BarcodeModel {
      * @param {int} id location's id
      */
     async changeDestinationLocation(id, selectedLine) {
-        if ((selectedLine.lines && !selectedLine.isPackageLine) || selectedLine.location_dest_id.id === id) {
+        if (selectedLine.lines && !selectedLine.isPackageLine) {
             this._clearScanData();
             return false;
         }
