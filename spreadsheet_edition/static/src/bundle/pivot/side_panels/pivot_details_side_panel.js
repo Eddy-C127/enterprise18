@@ -78,14 +78,6 @@ export class PivotDetailsSidePanel extends Component {
         return _t("never");
     }
 
-    /**
-     * Refresh the cache of the current pivot
-     *
-     */
-    refresh() {
-        this.env.model.dispatch("REFRESH_PIVOT", { id: this.props.pivotId });
-    }
-
     openDomainEdition() {
         const { model, domain } = this.pivot.definition;
         this.dialog.add(DomainSelectorDialog, {

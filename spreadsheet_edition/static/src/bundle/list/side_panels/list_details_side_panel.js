@@ -66,11 +66,6 @@ export class ListDetailsSidePanel extends Component {
         });
     }
 
-    async refresh() {
-        this.env.model.dispatch("REFRESH_ODOO_LIST", { listId: this.props.listId });
-        this.env.model.dispatch("EVALUATE_CELLS", { sheetId: this.getters.getActiveSheetId() });
-    }
-
     openDomainEdition() {
         this.dialog.add(DomainSelectorDialog, {
             resModel: this.listDefinition.model,

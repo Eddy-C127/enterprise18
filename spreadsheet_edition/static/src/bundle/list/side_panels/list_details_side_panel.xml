@@ -29,7 +29,6 @@
                 <div t-esc="formatSort(sort)"/>
             </t>
             <div class="o_pivot_last_update"><i>Last updated at <t t-esc="getLastUpdate()"/></i></div>
-            <div class="btn btn-link o_refresh_list" t-on-click="refresh"><i class="oi oi-arrow-right me-1"/>Refresh values</div><br/>
         </div>
         <div class="o-sidePanelButtons">
             <button t-on-click="deleteList" class="o-button o_delete_element">Delete</button>

@@ -1,12 +1,7 @@
 /** @odoo-module */
 
 import { click, editInput, getFixture, nextTick, triggerEvent } from "@web/../tests/helpers/utils";
-import {
-    getBasicData,
-    getBasicPivotArch,
-    getBasicServerData,
-} from "@spreadsheet/../tests/utils/data";
-import { getCellValue } from "@spreadsheet/../tests/utils/getters";
+import { getBasicData, getBasicPivotArch } from "@spreadsheet/../tests/utils/data";
 import { createSpreadsheetFromPivotView } from "../../utils/pivot_helpers";
 import { PivotUIPlugin } from "@spreadsheet/pivot/plugins/pivot_ui_plugin";
 import { insertPivotInSpreadsheet } from "@spreadsheet/../tests/utils/pivot";
@@ -61,7 +56,6 @@ QUnit.module(
             assert.equal(domain.children[1].innerText, "Match all records\nInclude archived");
 
             assert.ok(lastUpdate.children[0].innerText.startsWith("Last updated at"));
-            assert.equal(lastUpdate.children[1].innerText, "Refresh values");
 
             env.openSidePanel("ALL_PIVOTS_PANEL");
             await nextTick();
@@ -106,29 +100,6 @@ QUnit.module(
             assert.equal(pivotSorting.children[1].innerText, "Probability (descending)");
         });
 
-        QUnit.test("can refresh a sorted pivot", async function (assert) {
-            const { pivotId, env } = await createSpreadsheetFromPivotView({
-                actions: async (target) => {
-                    await click(target.querySelector("thead .o_pivot_measure_row"));
-                },
-            });
-            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
-            await nextTick();
-
-            let sections = target.querySelectorAll(".o_side_panel_section");
-            assert.strictEqual(sections.length, 6, "it should have 6 sections");
-            let pivotSorting = sections[4];
-
-            assert.equal(pivotSorting.children[0].innerText, "Sorting");
-            assert.equal(pivotSorting.children[1].innerText, "Probability (ascending)");
-            await click(target, ".o_refresh_measures");
-            sections = target.querySelectorAll(".o_side_panel_section");
-            assert.strictEqual(sections.length, 6, "it should have 6 sections");
-            pivotSorting = sections[4];
-            assert.equal(pivotSorting.children[0].innerText, "Sorting");
-            assert.equal(pivotSorting.children[1].innerText, "Probability (ascending)");
-        });
-
         QUnit.test("Can select a pivot from the pivot list side panel", async function (assert) {
             const { model, env } = await createSpreadsheetFromPivotView();
             await insertPivotInSpreadsheet(model, "PIVOT#2", { arch: getBasicPivotArch() });
@@ -146,39 +117,6 @@ QUnit.module(
             pivotName = target.querySelector(".o_sp_en_display_name").textContent;
             assert.equal(pivotName, "(#2) Partner Pivot");
         });
-
-        QUnit.test(
-            "Can refresh the pivot from the pivot properties panel",
-            async function (assert) {
-                assert.expect(1);
-
-                const data = getBasicData();
-
-                const { model, env, pivotId } = await createSpreadsheetFromPivotView({
-                    serverData: {
-                        models: data,
-                        views: getBasicServerData().views,
-                    },
-                });
-                data.partner.records.push({
-                    active: true,
-                    id: 5,
-                    foo: 12,
-                    bar: true,
-                    product: 37,
-                    probability: 10,
-                    create_date: "2016-02-02",
-                    date: "2016-02-02",
-                    field_with_array_agg: 1,
-                    product_id: 41,
-                    tag_ids: [],
-                });
-                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
-                await nextTick();
-                await click(target, ".o_refresh_measures");
-                assert.equal(getCellValue(model, "D4"), 10 + 10);
-            }
-        );
 
         QUnit.test(
             "Open pivot properties properties with non-loaded field",

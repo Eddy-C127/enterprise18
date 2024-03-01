@@ -814,31 +814,6 @@ QUnit.module(
             }
         );
 
-        QUnit.test("can refresh a sorted list in the properties panel", async function (assert) {
-            const serverData = getBasicServerData();
-            serverData.models.partner.fields.foo.sortable = true;
-            serverData.models.partner.fields.bar.sortable = true;
-            const { model, env } = await createSpreadsheetFromListView({
-                serverData,
-                orderBy: [{ name: "foo", asc: true }],
-                linesNumber: 4,
-            });
-            const [listId] = model.getters.getListIds();
-            env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
-            await nextTick();
-            const fixture = getFixture();
-            const sortingSection = fixture.querySelectorAll(".o_side_panel_section")[3];
-            assert.strictEqual(
-                sortingSection.querySelectorAll("div")[1].innerText,
-                "Foo (ascending)"
-            );
-            await click(fixture, ".o_refresh_list");
-            assert.strictEqual(
-                sortingSection.querySelectorAll("div")[1].innerText,
-                "Foo (ascending)"
-            );
-        });
-
         QUnit.test(
             "Opening the sidepanel of a list while the panel of another list is open updates the side panel",
             async function (assert) {

@@ -67,13 +67,6 @@ export class CommonOdooChartConfigPanel extends Component {
         return _t("never");
     }
 
-    /**
-     * Refresh the cache of the current chart
-     */
-    refresh() {
-        this.env.model.dispatch("REFRESH_ODOO_CHART", { chartId: this.props.figureId });
-    }
-
     openDomainEdition() {
         this.dialog.add(DomainSelectorDialog, {
             resModel: this.model,

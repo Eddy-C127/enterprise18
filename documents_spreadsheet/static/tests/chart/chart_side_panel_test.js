@@ -148,7 +148,6 @@ QUnit.module("documents_spreadsheet > chart side panel", { beforeEach }, () => {
         assert.equal(domain.children[1].innerText, "Match all records\nInclude archived");
 
         assert.ok(measures.children[0].innerText.startsWith("Last updated at"));
-        assert.equal(measures.children[1].innerText, "Refresh values");
     });
 
     QUnit.test("Update the chart domain from the side panel", async function (assert) {
