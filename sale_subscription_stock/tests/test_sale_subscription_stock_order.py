@@ -308,3 +308,25 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
             self.assertEqual(upsell_so.order_line.qty_invoiced, 0, "Upsell line should have invoiced 0 items")
             self.assertEqual(upsell_so.order_line.parent_line_id.qty_delivered, 10, "Sub line should have delivered 10 items")
             self.assertEqual(upsell_so.order_line.parent_line_id.qty_invoiced, 10, "Sub line should have invoiced 10 items")
+    def test_upsell_stored_product(self):
+        sub = self.subscription_order
+
+        dummy, dummy = self.simulate_period(sub, "2022-03-02")
+        with freeze_time("2021-03-15"):
+            action = sub.prepare_upsell_order()
+            upsell_so = self.env['sale.order'].browse(action['res_id'])
+            stored_prod = self.env['product.product'].create({
+                'name': 'Stored product',
+                'type': 'product',
+            })
+            upsell_so.write({'order_line': [
+                Command.create({
+                    'product_id': stored_prod.id,
+                    'product_uom_qty': 1,
+                }),
+            ]})
+            upsell_so.action_confirm()
+            self.assertEqual(len(upsell_so.picking_ids.move_ids), 1)
+            self.assertEqual(upsell_so.picking_ids.move_ids.product_id, stored_prod)
+        self.assertEqual(len(sub.picking_ids.move_ids), 1)
+        self.assertEqual(sub.picking_ids.move_ids.product_id, self.sub_product_order)
