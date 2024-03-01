@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.1alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-17 14:06+0000\n"
+"POT-Creation-Date: 2024-03-01 10:51+0000\n"
 "PO-Revision-Date: 2020-12-14 12:43-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com.mx>\n"
 "Language-Team: \n"
@@ -21,6 +21,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_mx_edi_landing.view_stock_landed_cost_form_l10n_mx_stock
 msgid "15  48  3009  0001234"
 msgstr "15  48  3009  0001234"
+
+#. module: l10n_mx_edi_landing
+#: model:ir.model.fields,field_description:l10n_mx_edi_landing.field_stock_landed_cost__fiscal_country_codes
+msgid "Country Code"
+msgstr ""
 
 #. module: l10n_mx_edi_landing
 #: model:ir.model.fields,field_description:l10n_mx_edi_landing.field_stock_landed_cost__l10n_mx_edi_customs_number
@@ -90,6 +95,13 @@ msgstr "Coste en destinode existencias"
 #: model:ir.model,name:l10n_mx_edi_landing.model_stock_move
 msgid "Stock Move"
 msgstr "Movimiento de existencias"
+
+#. module: l10n_mx_edi_landing
+#: model:ir.model.fields,help:l10n_mx_edi_landing.field_stock_landed_cost__fiscal_country_codes
+msgid ""
+"The ISO country code in two chars. \n"
+"You can use this field for quick search."
+msgstr ""
 
 #. module: l10n_mx_edi_landing
 #. odoo-python
