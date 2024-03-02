@@ -12,15 +12,15 @@
 # Lasse L, 2023
 # Simon S, 2023
 # Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2023
-# Anders Wallenquist <anders.wallenquist@vertel.se>, 2023
+# Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-01-23 16:33+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>, 2023\n"
+"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -98,7 +98,7 @@ msgstr ""
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,help:stock_barcode_mrp.field_stock_move_line__pick_type_create_components_lots
 msgid "Allow to create new lot/serial numbers for the components"
-msgstr ""
+msgstr "Tillåt att skapa nya parti-/serienummer för komponenterna"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.view_picking_type_form
@@ -121,6 +121,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
 msgid "Barcode Nomenclature"
 msgstr "Streckkodsnomenklatur"
+
+#. module: stock_barcode_mrp
+#. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "Cancel Manufacturing Order"
+msgstr ""
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -177,7 +184,7 @@ msgstr "Är slutförd"
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_move_line__manual_consumption
 msgid "Manual Consumption"
-msgstr ""
+msgstr "Manuell förbrukning"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__move_byproduct_line_ids
@@ -192,7 +199,7 @@ msgstr ""
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__backorder_ids
 msgid "Mrp Production"
-msgstr ""
+msgstr "Mrp Produktion"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -277,6 +284,14 @@ msgid "Product Variant"
 msgstr "Produktvariant"
 
 #. module: stock_barcode_mrp
+#. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "Product not Allowed"
+msgstr ""
+
+#. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_mrp_production
 msgid "Production Order"
 msgstr "Tillverkningsorder"
@@ -343,6 +358,13 @@ msgstr "Lagerflytt"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "The Manufacturing Order has been cancelled"
+msgstr ""
+
+#. module: stock_barcode_mrp
+#. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid ""
@@ -401,4 +423,14 @@ msgstr "Måttenhet"
 msgid ""
 "When activated, then the registration of consumption for that component is recorded manually exclusively.\n"
 "If not activated, and any of the components consumption is edited manually on the manufacturing order, Odoo assumes manual consumption also."
+msgstr ""
+"Om den är aktiverad registreras förbrukningen för den komponenten endast manuellt.\n"
+"Om den inte är aktiverad, och någon av komponenternas förbrukning redigeras manuellt på tillverkningsordern, antar Odoo också manuell förbrukning."
+
+#. module: stock_barcode_mrp
+#. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "You can't add the final product of a MO as a byproduct."
 msgstr ""

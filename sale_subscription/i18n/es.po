@@ -91,8 +91,8 @@ msgid ""
 "<b>Congratulations</b>, your first subscription quotation is ready to be "
 "sent!"
 msgstr ""
-"¡<b>Felicidades</b>, su primer presupuesto para una suscripción está listo "
-"para ser enviado!"
+"¡<b>Enhorabuena</b>! Su primer presupuesto para una suscripción está listo "
+"para ser enviado."
 
 #. module: sale_subscription
 #: model:mail.template,body_html:sale_subscription.mail_template_subscription_alert
@@ -317,12 +317,12 @@ msgstr "<i class=\"fa fa-fw fa-check\"/> En Progreso"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "<i class=\"fa fa-fw fa-check\"/> Paused"
-msgstr "<i class=\"fa fa-fw fa-check\"/> Pausado"
+msgstr "<i class=\"fa fa-fw fa-check\"/> Pausada"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "<i class=\"fa fa-fw fa-remove\"/> Closed"
-msgstr "<i class=\"fa fa-fw fa-remove\"/> Cerrado"
+msgstr "<i class=\"fa fa-fw fa-remove\"/> Cerrada"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -388,7 +388,7 @@ msgid ""
 "check\"/> Paused</span>"
 msgstr ""
 "<span class=\"badge rounded-pill text-bg-success\"><i class=\"fa fa-fw fa-"
-"check\"/> Pausado</span>"
+"check\"/> Pausada</span>"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_form
@@ -1029,7 +1029,7 @@ msgstr "El cliente creó una renovación."
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "A renewal quotation %s has been created"
-msgstr "Se creó un presupuesto %s de renovación"
+msgstr "Se ha creado un presupuesto de renovación %s"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_analysis_graph
@@ -1061,7 +1061,7 @@ msgstr "Acción requerida"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__action
 msgid "Action To Do"
-msgstr "Acción a realizar"
+msgstr "Acción pendiente"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__action_server_ids
@@ -1154,7 +1154,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log__amount_signed
 msgid "Amount Signed"
-msgstr "Cantidad Firmada"
+msgstr "Importe firmado"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1168,7 +1168,7 @@ msgstr "El cliente ha creado una venta adicional."
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "An upsell quotation %s has been created"
-msgstr "Se creó el presupuesto %s de venta adicional"
+msgstr "Se ha creado el presupuesto de venta adicional %s"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_account_analytic_account
@@ -1295,8 +1295,8 @@ msgid ""
 "customer."
 msgstr ""
 "El pago automático se ha realizado con éxito. Referencia de pago: %(ref)s. "
-"Importe: %(amount)s. Contrato fijado en: En curso. Próxima factura: %(inv)s."
-" Correo electrónico enviado al cliente."
+"Importe: %(amount)s. Estado del contrato: En progreso. Siguiente factura: "
+"%(inv)s. Correo electrónico enviado al cliente."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__payment_exception
@@ -1321,7 +1321,7 @@ msgid ""
 "email sent."
 msgstr ""
 "Renovación automática exitosa. Suscripción sin coste. Siguiente factura: "
-"%(inv)s. No se envió un correo electrónico."
+"%(inv)s. Ningun correo electrónico enviado."
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_base_automation
@@ -2631,9 +2631,9 @@ msgid ""
 "Manual payment succeeded. Payment reference: %(ref)s. Amount: %(amount)s. "
 "Contract set to: In Progress, Next Invoice: %(inv)s. Email sent to customer."
 msgstr ""
-"El pago automático se realizó con éxito. Referencia de pago: %(ref)s. "
+"El pago automático se ha realizado con éxito. Referencia de pago: %(ref)s. "
 "Importe: %(amount)s. Estado del contrato: En progreso, Siguiente factura: "
-"%(inv)s. Se le envió un correo electrónico al cliente."
+"%(inv)s. Correo electrónico enviado al cliente."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__margin

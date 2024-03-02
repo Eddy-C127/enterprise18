@@ -72,7 +72,7 @@ msgid ""
 "<strong>Congrats! Come back in a few minutes to check your "
 "statistics.</strong>"
 msgstr ""
-"<strong>¡Felicidades! Regrese en unos minutos para revisar sus "
+"<strong>¡Enhorabuena! Regrese en unos minutos para revisar sus "
 "estadísticas.</strong>"
 
 #. module: social
@@ -116,7 +116,7 @@ msgstr "Agregar"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.utm_campaign_view_form
 msgid "Add Post"
-msgstr "Agregar Publicación"
+msgstr "Agregar publicación"
 
 #. module: social
 #. odoo-javascript
@@ -420,12 +420,12 @@ msgstr "Define si la cuenta tiene estadísticas de las tendencias o no."
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #, python-format
 msgid "Delete Comment"
-msgstr "Borrar comentario"
+msgstr "Eliminar comentario"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
 msgid "Demo Mode"
-msgstr "Versión de prueba"
+msgstr "Modo de demostración"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__media_description
@@ -876,7 +876,7 @@ msgstr "Lista de cuentas que se pueden seleccionar para esta publicación."
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__live_posts_by_media
 msgid "Live Posts by Social Media"
-msgstr "Publicaciones en directo por red social"
+msgstr "Publicaciones en vivo por red social"
 
 #. module: social
 #. odoo-javascript
@@ -1022,7 +1022,7 @@ msgstr "Tipo de la siguiente actividad"
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_account
 msgid "No Social Account yet!"
-msgstr "¡Todavía no hay cuenta en la red social!"
+msgstr "Todavía no hay cuenta de red social"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
@@ -1224,8 +1224,8 @@ msgid ""
 "Post link to the external social.media (ex: link to the actual Facebook "
 "Post)."
 msgstr ""
-"Publicar enlace a una red social externa (p. ej. enlace a la publicación de "
-"Facebook como tal)."
+"Publique el enlace a una red social externa (p. ej. enlace a la publicación "
+"de Facebook como tal)."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
@@ -1418,7 +1418,7 @@ msgstr "Ajustes"
 #: model:ir.model.fields,field_description:social.field_social_stream__account_id
 #: model_terms:ir.ui.view,arch_db:social.social_account_view_form
 msgid "Social Account"
-msgstr "Cuenta social"
+msgstr "Cuenta de red social"
 
 #. module: social
 #: model:ir.actions.act_window,name:social.action_social_account
@@ -1433,7 +1433,7 @@ msgstr "Cuentas de red social"
 #. module: social
 #: model:ir.model,name:social.model_social_live_post
 msgid "Social Live Post"
-msgstr "Publicación de redes sociales en vivo"
+msgstr "Publicación en redes sociales en vivo"
 
 #. module: social
 #: model:res.groups,name:social.group_social_manager
@@ -1459,19 +1459,19 @@ msgstr "Marketing Social"
 #: model_terms:ir.ui.view,arch_db:social.utm_campaign_view_form
 #, python-format
 msgid "Social Media"
-msgstr "Medios de comunicación social"
+msgstr "Redes sociales"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_utm_campaign__social_posts_count
 msgid "Social Media Posts"
-msgstr "Publicaciones en redes sociales "
+msgstr "Publicaciones en redes sociales"
 
 #. module: social
 #: model:ir.model,name:social.model_social_post
 #: model:ir.model.fields,field_description:social.field_social_live_post__post_id
 #: model_terms:ir.ui.view,arch_db:social.social_live_post_view_form
 msgid "Social Post"
-msgstr "Publicar en redes sociales"
+msgstr "Publicación en redes sociales"
 
 #. module: social
 #: model:ir.model,name:social.model_social_post_template
@@ -1482,14 +1482,14 @@ msgstr "Plantilla de publicación en redes sociales"
 #. module: social
 #: model:ir.actions.act_window,name:social.social_post_template_action
 msgid "Social Post Templates"
-msgstr "Plantillas de publicaciones sociales"
+msgstr "Plantillas de publicaciones en redes sociales"
 
 #. module: social
 #: model:ir.actions.act_window,name:social.action_social_post
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_calendar
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_pivot
 msgid "Social Posts"
-msgstr "Publicaciones sociales"
+msgstr "Publicaciones en redes sociales"
 
 #. module: social
 #: model:ir.model,name:social.model_social_stream
@@ -1678,8 +1678,8 @@ msgid ""
 "The post is considered as 'Posted' when all its sub-posts (one per social "
 "account) are either 'Failed' or 'Posted'"
 msgstr ""
-"Se cuenta como \"publicado\" cuando todas las publicaciones subordinadas (en"
-" cada red social) están en 'Error' o 'Publicado'"
+"Se considera \"publicada\" cuando todas las publicaciones subordinadas (una "
+"por cuenta de red social) tuvieron un error o se publicaron."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__published_date
@@ -1778,8 +1778,8 @@ msgid ""
 "provided in the developer section of your professional social media account."
 msgstr ""
 "Use sus propias cuentas de desarrollador en nuestra aplicación Marketing "
-"social. Las credenciales las podrá obtener en la sección de desarrollador en"
-" su cuenta de red social."
+"social. Podrá obtener las credenciales en la sección de desarrollador en su "
+"cuenta de red social."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__media_type
@@ -1830,7 +1830,7 @@ msgstr ""
 #: model:ir.model.fields,help:social.field_social_post_template__image_ids
 msgid "Will attach images to your posts (if the social media supports it)."
 msgstr ""
-"Adjuntar imágenes a sus publicaciones (si es compatible con la red social)."
+"Adjuntará imágenes a sus publicaciones (si es compatible con la red social)."
 
 #. module: social
 #. odoo-javascript
@@ -1901,7 +1901,7 @@ msgstr "No puede programar una publicación en el pasado."
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
 msgid "Your Post"
-msgstr "Su publicación."
+msgstr "Su publicación"
 
 #. module: social
 #. odoo-javascript
@@ -1939,14 +1939,14 @@ msgstr "para"
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #, python-format
 msgid "replies..."
-msgstr "replies..."
+msgstr "respuestas..."
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream_post
 msgid "to keep an eye on your own posts and monitor all social activities."
 msgstr ""
-"para vigilar tus propias publicaciones y monitorear las actividades de tus "
-"redes sociales"
+"para consultar sus publicaciones y monitorear las actividades de sus redes "
+"sociales."
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream

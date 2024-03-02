@@ -3,10 +3,10 @@
 # 	* stock_barcode
 # 
 # Translators:
-# Daye Jeong, 2023
 # JH CHOI <hwangtog@gmail.com>, 2023
 # Wil Odoo, 2023
 # Sarah Park, 2023
+# Daye Jeong, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Sarah Park, 2023\n"
+"Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1322,6 +1322,13 @@ msgstr "스캔한 수량은 %s 측정 단위를 사용하고 있으나, 이 단�
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid "Scanning package"
+msgstr ""
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: model:ir.model,name:stock_barcode.model_stock_scrap
 #, python-format
 msgid "Scrap"
@@ -1619,6 +1626,15 @@ msgstr "패키지 유형을 적용할 수 없습니다. 먼저 품목을 스캔�
 #, python-format
 msgid "You can't register scrap at this state of the operation"
 msgstr "현재 작업 상태에서는 스크랩을 등록할 수 없습니다."
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid ""
+"You have already scanned %s items of this package. Do you want to scan the "
+"whole package?"
+msgstr "이 패키지의 %s 항목을 이미 스캔했습니다. 전체 패키지를 스캔하시겠습니까?"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation

@@ -5,17 +5,17 @@
 # Translators:
 # Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2023
 # Lucia Pacheco, 2023
-# Wil Odoo, 2024
 # Martin Trigaux, 2024
 # Larissa Manderfeld, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:10+0000\n"
+"POT-Creation-Date: 2024-02-27 15:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -478,7 +478,7 @@ msgstr "Importe"
 #: model:account.report.column,name:account_reports.aged_receivable_report_amount_currency
 #: model:account.report.column,name:account_reports.partner_ledger_report_amount_currency
 msgid "Amount Currency"
-msgstr "Importe en moneda"
+msgstr "Moneda del importe"
 
 #. module: account_reports
 #. odoo-python
@@ -594,7 +594,7 @@ msgstr "Días promedio de los deudores"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "B: %s"
-msgstr "B: %s"
+msgstr "S: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -1144,6 +1144,14 @@ msgstr "Débito"
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main_table_body
+#, python-format
+msgid "Deductible"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 #, python-format
 msgid "Deferrals have already been generated."
@@ -1156,7 +1164,7 @@ msgstr "Ya se generaron los pagos aplazados."
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Deferred Entries"
-msgstr "Asiento diferido"
+msgstr "Asientos diferidos"
 
 #. module: account_reports
 #: model:ir.actions.client,name:account_reports.action_account_report_deferred_expense
@@ -1172,7 +1180,7 @@ msgstr "Controlador personalizado de gastos diferidos"
 #. module: account_reports
 #: model:account.report,name:account_reports.deferred_expense_report
 msgid "Deferred Expense Report"
-msgstr "Reporte de gastos diferidos"
+msgstr "Informe de gastos diferidos"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_deferred_report_handler
@@ -1255,6 +1263,14 @@ msgid "Download the Data Inalterability Check Report"
 msgstr "Descargar el Informe de verificación de datos invariables"
 
 #. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main_table_body
+#, python-format
+msgid "Due"
+msgstr "Debido"
+
+#. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_date_maturity
 msgid "Due Date"
 msgstr "Fecha de vencimiento"
@@ -1332,7 +1348,7 @@ msgstr "Habilitar más..."
 #: code:addons/account_reports/models/account_trial_balance_report.py:0
 #, python-format
 msgid "End Balance"
-msgstr "Balance final"
+msgstr "Saldo final"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1672,7 +1688,7 @@ msgstr "Generar asiento"
 #: code:addons/account_reports/wizard/report_export_wizard.py:0
 #, python-format
 msgid "Generated Documents"
-msgstr "Documentos Generados"
+msgstr "Documentos generados"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.generic_ec_sales_report
@@ -1697,6 +1713,13 @@ msgid "Generic Tax Report Custom Handler (Tax -> Account)"
 msgstr ""
 "Gestor personalizado de los informes de impuestos genéricos (Impuestos -> "
 "Cuenta)"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_journal_report.py:0
+#, python-format
+msgid "Global Tax Summary"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -1850,6 +1873,13 @@ msgstr "Impacto en la cuadrícula"
 #, python-format
 msgid "Impacted Tax Grids"
 msgstr "Impuesto impactado sobre la red"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#, python-format
+msgid "In %s"
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
@@ -2452,6 +2482,14 @@ msgstr "Cuentas por cobrar no comerciales"
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main_table_body
+#, python-format
+msgid "Non-Deductible"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_horizontal_groups.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
@@ -2514,6 +2552,7 @@ msgstr ""
 #. odoo-javascript
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Only Show Unreconciled Entries"
@@ -2754,6 +2793,13 @@ msgid "Post"
 msgstr "Publicar"
 
 #. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#, python-format
+msgid "Posted Entries Only"
+msgstr "Sólo asientos contabilizados"
+
+#. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
 msgid ""
 "Posting this entry will also update and post the unposted closings of the "
@@ -2761,13 +2807,6 @@ msgid ""
 msgstr ""
 "La contabilización de este asiento también actualiza y contabiliza las "
 "operaciones no contabilizadas de las respectivas empresas."
-
-#. module: account_reports
-#. odoo-javascript
-#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
-#, python-format
-msgid "Posted Entries Only"
-msgstr "Sólo asientos contabilizados"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0

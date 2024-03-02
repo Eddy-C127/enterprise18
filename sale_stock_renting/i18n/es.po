@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "<i class=\"fa fa-warning\"/>\n"
 "                        <span>\n"
-"                            Algunos productos no tienen la cantidad solicitada disponible para su recolección\n"
+"                            Algunos productos no tienen la cantidad solicitada disponible para su recogida\n"
 "                        </span>"
 
 #. module: sale_stock_renting
@@ -102,7 +102,7 @@ msgstr "Tolerancia de tolerancia por defecto"
 #: model:ir.model.fields,help:sale_stock_renting.field_rental_order_wizard_line__tracking
 #: model:ir.model.fields,help:sale_stock_renting.field_sale_order_line__tracking
 msgid "Ensure the traceability of a storable product in your warehouse."
-msgstr "Asegure la trazabilidad de un producto almacenable en su almacén"
+msgstr "Asegure la trazabilidad de un producto almacenable en su almacén."
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_rental_order_wizard__has_lines_missing_stock
@@ -112,7 +112,7 @@ msgstr "Tiene líneas que incluyen existencias insuficientes de productos"
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_rental_order_wizard__has_tracked_lines
 msgid "Has lines with tracked products"
-msgstr "Tiene líneas con productos de rastreo"
+msgstr "Tiene líneas con productos rastreados"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_company__rental_loc_id
@@ -156,7 +156,7 @@ msgstr ""
 #. module: sale_stock_renting
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
 msgid "Other rental(s) in conflict."
-msgstr "Otros alquileres en conflicto."
+msgstr "Otro(s) alquiler(es) en conflicto."
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__padding_time
@@ -176,13 +176,13 @@ msgstr "Recogida/Devolución de productos"
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_rental_order_wizard_line__pickeable_lot_ids
 msgid "Pickeable Lot"
-msgstr "Lote Disponible"
+msgstr "Lote recolectable"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_rental_order_wizard_line__pickedup_lot_ids
 #: model:ir.model.fields,field_description:sale_stock_renting.field_sale_order_line__pickedup_lot_ids
 msgid "Pickedup Lot"
-msgstr "Lot Recogido"
+msgstr "Lote recogido"
 
 #. module: sale_stock_renting
 #. odoo-python
@@ -218,7 +218,7 @@ msgstr "Variante de producto"
 #. module: sale_stock_renting
 #: model:ir.model,name:sale_stock_renting.model_sale_rental_report
 msgid "Rental Analysis Report"
-msgstr "Informe de Análisis de Alquiler"
+msgstr "Informe de análisis de alquiler"
 
 #. module: sale_stock_renting
 #: model:ir.model,name:sale_stock_renting.model_sale_rental_schedule
@@ -251,23 +251,23 @@ msgstr "Representación transitoria de RentalOrderLine"
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_sale_order_line__reserved_lot_ids
 msgid "Reserved Lot"
-msgstr "Reserved Lot"
+msgstr "Lote reservado"
 
 #. module: sale_stock_renting
 #: model:ir.model,name:sale_stock_renting.model_stock_return_picking
 msgid "Return Picking"
-msgstr "Albarán de devolución"
+msgstr "Recolección de devolución"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_rental_order_wizard_line__returnable_lot_ids
 msgid "Returnable Lot"
-msgstr "Lote Retornable"
+msgstr "Lote que se puede devolver"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_rental_order_wizard_line__returned_lot_ids
 #: model:ir.model.fields,field_description:sale_stock_renting.field_sale_order_line__returned_lot_ids
 msgid "Returned Lot"
-msgstr "Lote Devuelto"
+msgstr "Lote devuelto"
 
 #. module: sale_stock_renting
 #: model:ir.model,name:sale_stock_renting.model_sale_order
@@ -291,7 +291,7 @@ msgstr "Tiempo de seguridad"
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_report_search_view_inherit_lots
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_search_inherit_lots
 msgid "Serial Number"
-msgstr "Nº de serie"
+msgstr "Número de serie"
 
 #. module: sale_stock_renting
 #: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_order_wizard_view_form
@@ -315,7 +315,7 @@ msgstr "Regla de inventario"
 msgid "Temporarily make this product unavailable before pickup."
 msgstr ""
 "Haga que este producto no esté disponible temporalmente antes de la "
-"recolección."
+"recogida."
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__rental_loc_id
@@ -332,7 +332,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_stock_renting.field_rental_order_wizard_line__tracking
 #: model:ir.model.fields,field_description:sale_stock_renting.field_sale_order_line__tracking
 msgid "Tracking"
-msgstr "Seguimiento"
+msgstr "Rastreo"
 
 #. module: sale_stock_renting
 #. odoo-python
@@ -342,8 +342,8 @@ msgid ""
 "Tracking by lots isn't supported for rental products.\n"
 "You should rather change the tracking mode to unique serial numbers."
 msgstr ""
-"El seguimiento por lotes no es compatible con los productos de alquiler.\n"
-"Es preferible cambiar el modo de seguimiento a números de serie únicos."
+"El rastreo por lotes no es compatible con los productos de alquiler.\n"
+"Es preferible cambiar el modo de rastreo a números de serie únicos."
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_sale_order_line__unavailable_lot_ids
@@ -392,4 +392,4 @@ msgstr "horas antes de las órdenes"
 #: code:addons/sale_stock_renting/static/src/widgets/qty_at_date_widget.xml:0
 #, python-format
 msgid "to"
-msgstr "a"
+msgstr "al"

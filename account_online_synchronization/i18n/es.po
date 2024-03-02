@@ -159,7 +159,7 @@ msgstr ""
 "                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; color: #454748; padding: 8px; border-collapse:separate;\">\n"
 "                                <tr>\n"
 "                                    <td style=\"text-align: center; font-size: 11px;\">\n"
-"                                        P.D. Contabilidad de Odoo envía este correo electrónico automatizado para recordarle sobre su consentimiento de sincronización bancaria antes de que esté por vencer.\n"
+"                                        P. D. Odoo Contabilidad envía este correo electrónico automatizado para recordarle sobre su consentimiento de sincronización bancaria antes de que esté por vencer.\n"
 "                                    </td>\n"
 "                                </tr>\n"
 "                            </table>\n"
@@ -272,7 +272,7 @@ msgstr "Número de archivos adjuntos"
 #: code:addons/account_online_synchronization/models/account_journal.py:0
 #, python-format
 msgid "Automated Bank Synchronization"
-msgstr "Sincronización bancaria automatizada  "
+msgstr "Sincronización bancaria automatizada"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__auto_sync
@@ -324,8 +324,7 @@ msgstr "Recordatorio de vencimiento de la conexión bancaria"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_bank_rec_widget
 msgid "Bank reconciliation widget for a single statement line"
-msgstr ""
-"Widget de conciliación bancaria para una sola línea del estado de cuenta"
+msgstr "Widget de conciliación bancaria para una sola línea del extracto"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
@@ -347,7 +346,7 @@ msgstr "Cliente"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
 msgid "Client id"
-msgstr "Identificación de cliente"
+msgstr "ID del cliente"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_journal__renewal_contact_email
@@ -1125,8 +1124,8 @@ msgid ""
 "This version of Odoo appears to be outdated and does not support the '%s' "
 "sync mode. Installing the latest update might solve this."
 msgstr ""
-"Parece que esta versión de Odoo es obsoleta y no admite el '%s' modo de "
-"sincronización. Instala la versión más nueva para solucionarlo."
+"Parece que esta versión de Odoo es obsoleta y no admite el modo de "
+"sincronización '%s'. Instale la versión más nueva para solucionarlo."
 
 #. module: account_online_synchronization
 #: model_terms:ir.actions.act_window,help:account_online_synchronization.action_account_online_link_form
@@ -1146,8 +1145,8 @@ msgstr "Token utilizado para accesar a API"
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__refresh_token
 msgid "Token used to sign API request, Never disclose it"
 msgstr ""
-"Token que se usa para firmar la solicitud API, nunca lo compartas con "
-"alguien"
+"Token que se usa para firmar la solicitud API, nunca lo comparta con alguien"
+" más."
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_statement_line_transient__transaction_details
@@ -1176,7 +1175,7 @@ msgstr "Tipo de actividad de excepción en el registro."
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
 msgid "Update Credentials"
-msgstr "Actualizar Credenciales"
+msgstr "Actualizar credenciales"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_account__fetching_status__waiting
@@ -1241,7 +1240,7 @@ msgstr ""
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "You cannot have two journals associated with the same Online Account."
-msgstr "No puedes asociar dos diarios a la misma cuenta en línea."
+msgstr "No puede asociar dos diarios a la misma cuenta en línea."
 
 #. module: account_online_synchronization
 #. odoo-python

@@ -5,7 +5,6 @@
 # Translators:
 # Vida Potočnik <vida.potocnik@mentis.si>, 2023
 # laznikd <laznik@mentis.si>, 2023
-# Katja Deržič, 2023
 # Boris Kodelja <boris@hbs.si>, 2023
 # Tomaž Jug <tomaz@editor.si>, 2023
 # matjaz k <matjaz@mentis.si>, 2023
@@ -13,6 +12,7 @@
 # Martin Trigaux, 2023
 # Jasmina Macur <jasmina@hbs.si>, 2023
 # Grega Vavtar <grega@hbs.si>, 2024
+# Katja Deržič, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Grega Vavtar <grega@hbs.si>, 2024\n"
+"Last-Translator: Katja Deržič, 2024\n"
 "Language-Team: Slovenian (https://app.transifex.com/odoo/teams/41243/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,7 +82,7 @@ msgstr "Ikona vrste aktivnosti"
 #: model:ir.model.fields,help:approvals.field_approval_category__has_product
 #: model:ir.model.fields,help:approvals.field_approval_request__has_product
 msgid "Additional products that should be specified on the request."
-msgstr ""
+msgstr "Dodatni izdelki, ki jih je treba navesti v zahtevku."
 
 #. module: approvals
 #: model:res.groups,name:approvals.group_approval_manager
@@ -101,7 +101,7 @@ msgstr "Vse odobritve"
 msgid ""
 "Allows you to define which documents you would like to create once the "
 "request has been approved"
-msgstr ""
+msgstr "Določa, katere dokumente želite ustvariti, ko je zahteva odobrena"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__amount
@@ -120,7 +120,7 @@ msgstr "Dodatena referenca, ki jo je potrebno navesti na zahtevi."
 #: code:addons/approvals/models/approval_category.py:0
 #, python-format
 msgid "An user may not be in the approver list multiple times."
-msgstr ""
+msgstr "Uporabnik morda ni večkrat na seznamu potrjevalcev."
 
 #. module: approvals
 #: model:mail.activity.type,name:approvals.mail_activity_data_approval
@@ -150,6 +150,8 @@ msgstr "Predmet odobritve"
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Approval Type"
 msgstr ""
+"Vrsta odobritve\n"
+" "
 
 #. module: approvals
 #: model:ir.model,name:approvals.model_approval_category_approver
@@ -212,6 +214,7 @@ msgstr "Odobritelj"
 msgid ""
 "Approver Sequence can only be activated with at least 1 minimum approver."
 msgstr ""
+"Zaporedje odobriteljev je mogoče aktivirati samo z najmanj 1 odobriteljem."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__user_ids
@@ -281,7 +284,7 @@ msgstr "Poslovno potovanje"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__change_request_owner
 msgid "Can Change Request Owner"
-msgstr ""
+msgstr "Lahko spremeni lastnika zahteve"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__can_edit

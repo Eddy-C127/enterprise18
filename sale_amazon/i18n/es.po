@@ -293,7 +293,7 @@ msgstr "Identificador API"
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__aws_access_key
 msgid "AWS Access Key"
-msgstr "Clave de acceso AWS"
+msgstr "Clave de acceso de AWS"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__aws_secret_key
@@ -672,7 +672,7 @@ msgstr "No se encontró una cuenta de Amazon con el ID %s"
 #: code:addons/sale_amazon/utils.py:0
 #, python-format
 msgid "Could not process the feed document send by Amazon."
-msgstr "No se pudo procesar el documento de feed que envió Amazon"
+msgstr "No se pudo procesar el documento de feed enviado por Amazon"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__create_uid
@@ -1147,8 +1147,8 @@ msgstr "Falló la sincronización del stock de Amazon "
 msgid ""
 "Synchronization of Amazon order {{ ctx.get('amazon_order_ref') }} has failed"
 msgstr ""
-"Hubo un error en la sincronización del pedido de Amazon {{ "
-"ctx.get('amazon_order_ref') }}"
+"Falló la sincronización de la orden de Amazon {{ ctx.get('amazon_order_ref')"
+" }}"
 
 #. module: sale_amazon
 #: model:mail.template,subject:sale_amazon.picking_sync_failure
@@ -1158,7 +1158,7 @@ msgstr "Falló la sincronización de las órdenes de entrega"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.picking_view_form
 msgid "Synchronization with Amazon failed"
-msgstr "Falló la sincronización con Amazon "
+msgstr "Falló la sincronización con Amazon"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__synchronize_inventory
@@ -1417,7 +1417,7 @@ msgid ""
 msgstr ""
 "El estado de sincronización de la orden de entrega a Amazon:\n"
 "- Pendiente: La orden de entrega ha sido confirmada y pronto se sincronizará.\n"
-"- En proceso: Los detalles de la entrega ha sido enviados y se están procesando. \n"
+"- Procesando: Los detalles de la entrega han sido enviados y se están procesando. \n"
 "- Hecho: Los detalles de la entrega han sido procesados. \n"
 "- Error: Falló la sincronización de la orden de entrega."
 
@@ -1468,8 +1468,8 @@ msgstr ""
 msgid ""
 "There can only exist one sale order line for a given Amazon Item Reference."
 msgstr ""
-"Solo puede existir una línea de venta para una determinada referencia del "
-"artículo de Amazon."
+"Solo puede existir una línea de orden de venta para una determinada "
+"referencia del artículo de Amazon."
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1519,6 +1519,8 @@ msgid ""
 "Whether the available quantities of FBM products linked to this account are "
 "synchronized with Amazon."
 msgstr ""
+"Si las cantidades disponibles de los productos FBM vinculados a esta cuenta "
+"están sincronizadas con Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_marketplace__tax_included

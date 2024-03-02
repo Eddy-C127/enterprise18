@@ -243,7 +243,7 @@ msgstr "Todos los modelos de conciliación"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__allow_partials
 msgid "Allow partials"
-msgstr "Permitir registros parciales"
+msgstr "Permitir conciliación parcial"
 
 #. module: account_accountant
 #: model:res.groups,name:account_accountant.group_fiscal_year
@@ -723,7 +723,7 @@ msgstr "Conversaciones"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__display_allow_partials
 msgid "Display Allow Partials"
-msgstr "Mostrar \"Permitir registros parciales\""
+msgstr "Mostrar \"Permitir conciliación parcial\""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__display_name
@@ -841,7 +841,7 @@ msgstr "Marcar"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__force_partials
 msgid "Force Partials"
-msgstr ""
+msgstr "Forzar conciliación parcial"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__force_price_included_taxes
@@ -1034,7 +1034,7 @@ msgstr "Es una transferencia de cuenta requerida para la conciliación"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__can_silently_reconcile
 msgid "Is silent reconcile possible"
-msgstr ""
+msgstr "¿Es posible le conciliación silenciosa?"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__lock_date_violated_warning_message
@@ -1291,7 +1291,7 @@ msgstr "Más"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__move_attachment_ids
 msgid "Move Attachment"
-msgstr "Mover adjunto"
+msgstr "Archivo adjunto del asiento"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__move_line_ids
@@ -1402,6 +1402,8 @@ msgid ""
 "Only partial reconciliation is possible. Proceed in multiple steps if you "
 "want to full reconcile."
 msgstr ""
+"Sólo es posible una conciliación parcial. Proceda en varios pasos si desea "
+"una conciliación completa."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__period_lock_date
