@@ -49,7 +49,7 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
 }, {
     trigger: '.o_matrix_input_table',
     run: function () {
-        $('.o_matrix_input').slice(8, 16).val(4);
+        [...document.querySelectorAll('.o_matrix_input')].slice(8, 16).forEach((el) => el.value = 4);
     } // set the qty to 4 for half of the matrix products.
 }, {
     trigger: 'button:contains("Confirm")',

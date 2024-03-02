@@ -20,10 +20,9 @@ registry.category("web_tour.tours").add('knowledge_pick_emoji_tour', {
     trigger: '.o_knowledge_add_buttons',
     run: () => {
         // force the cover buttons to be visible (it's only visible on hover)
-        $('.o_knowledge_add_icon, .o_knowledge_add_cover').css({
-            opacity: 1,
-            visibility: 'visible'
-        });
+        const el = document.querySelector(".o_knowledge_add_icon, .o_knowledge_add_cover");
+        el.style.opacity = 1;
+        el.style.visibility = 'visible';
     },
 }, {
     // add a random emoji

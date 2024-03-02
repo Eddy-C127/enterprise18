@@ -71,7 +71,7 @@
                 run: function () {
                     // Close the modal
                     // We can't test bank sync in the tour
-                    $('button[name="action_open_reconcile"]').click();
+                    document.querySelector('button[name="action_open_reconcile"]').click();
                 }
             }, {
                 trigger: '.o_bank_rec_st_line:not(.o_bank_rec_selected_st_line)',

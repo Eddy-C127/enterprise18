@@ -48,6 +48,9 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
         {
             trigger: ".o-sheet .o-sheet-icon",
             content: "Open sheet dropdown",
+            run() {
+                document.querySelector("div.o-sheet[title=Sheet1] span.o-sheet-icon").click();
+            },
         },
         {
             trigger: '.o-popover .o-menu-item[title="Delete"]',

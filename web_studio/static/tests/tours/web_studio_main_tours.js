@@ -8,6 +8,7 @@ import {
     stepNextTick,
     stepNotInStudio,
 } from "@web_studio/../tests/tours/tour_helpers";
+import { queryOne } from "@odoo/hoot-dom";
 
 const localStorage = browser.localStorage;
 let createdAppString = null;
@@ -835,10 +836,9 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
             // a invisible element cannot be used as a trigger so this small hack is
             // mandatory for the next step
             run: function () {
-                $(".o_kanban_record:contains(My Awesome Report) .dropdown-toggle").css(
-                    "visibility",
-                    "visible"
-                );
+                queryOne(
+                    ".o_kanban_record:contains(My Awesome Report) .dropdown-toggle"
+                ).style.visibility = "visible";
             },
             trigger: ".o_kanban_view",
         },
@@ -942,10 +942,9 @@ registry.category("web_tour.tours").add("web_studio_new_report_basic_layout_tour
             // a invisible element cannot be used as a trigger so this small hack is
             // mandatory for the next step
             run: function () {
-                $(".o_kanban_record:contains(My Awesome basic layout Report) .dropdown-toggle").css(
-                    "visibility",
-                    "visible"
-                );
+                queryOne(
+                    ".o_kanban_record:contains(My Awesome basic layout Report) .dropdown-toggle"
+                ).style.visibility = "visible";
             },
             trigger: ".o_kanban_view",
         },

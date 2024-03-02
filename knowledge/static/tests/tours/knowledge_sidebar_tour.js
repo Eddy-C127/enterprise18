@@ -3,7 +3,7 @@
 import { changeInternalPermission, dragAndDropArticle, makeVisible } from '@knowledge/../tests/tours/knowledge_tour_utils';
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
-
+import { queryOne } from "@odoo/hoot-dom";
 
 /**
  * Sidebar tour.
@@ -114,7 +114,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Force the create button to be visible (it's only visible on hover)
     trigger: '.o_article:contains("Workspace Article")',
     run: () => {
-        $('.o_article:contains("Workspace Article") a.o_article_create').css('display', 'block');
+        queryOne('.o_article:contains("Workspace Article") a.o_article_create').style.display = 'block';
     },
 }, {
     // Create a child
@@ -133,7 +133,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Force the create button to be visible (it's only visible on hover)
     trigger: '.o_article:contains("Private Article")',
     run: () => {
-        $('.o_article:contains("Private Article") a.o_article_create').css('display', 'block');
+        queryOne('.o_article:contains("Private Article") a.o_article_create').style.display = 'block';
     },
 }, {
     // Create a child
@@ -152,7 +152,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Force the create button to be visible (it's only visible on hover)
     trigger: '.o_article:contains("Shared Article")',
     run: () => {
-        $('.o_article:contains("Shared Article") a.o_article_create').css('display', 'block');
+        queryOne('.o_article:contains("Shared Article") a.o_article_create').style.display = 'block';
     },
 }, {
     // Create a child
@@ -252,7 +252,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     trigger: 'section[data-section="favorites"] .o_article:contains("Private Article")',
     extra_trigger: 'section[data-section="favorites"] .o_article_caret .fa-caret-right',
     run: () => {
-        $('section[data-section="favorites"] .o_article:contains("Private Article") a.o_article_create').css('display', 'block');
+        queryOne('section[data-section="favorites"] .o_article:contains("Private Article") a.o_article_create').style.display = "block";
     },
 }, {
     // Create a child
@@ -324,7 +324,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     trigger: 'section[data-section="private"] .o_article_caret .fa-caret-right',
     run: () => {
-        $('section[data-section="private"] .o_article:contains("Private Article") .o_article_create').css('display', 'block');
+        queryOne('section[data-section="private"] .o_article:contains("Private Article") .o_article_create').style.display ='block';
     }
 }, {
     // Click on the create button

@@ -13,6 +13,7 @@
 import { dragAndDropArticle, endKnowledgeTour, makeVisible } from '@knowledge/../tests/tours/knowledge_tour_utils';
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
+import { queryOne } from "@odoo/hoot-dom";
 
 registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     test: true,
@@ -63,7 +64,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     trigger: '.o_article:contains("My Workspace Article")',
     run: () => {
         // force the create button to be visible (it's only visible on hover)
-        $('.o_article:contains("My Workspace Article") a.o_article_create').css('display', 'block');
+        queryOne('.o_article:contains("My Workspace Article") a.o_article_create').style.display = 'block';
     },
 }, {
     // create child article

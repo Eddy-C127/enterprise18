@@ -1,6 +1,7 @@
 /** @odoo-module */
 import { registry } from "@web/core/registry";
 import { stepNotInStudio, assertEqual } from "@web_studio/../tests/tours/tour_helpers";
+import { queryFirst } from "@odoo/hoot-dom";
 
 registry
     .category("web_tour.tours")
@@ -110,9 +111,9 @@ registry.category("web_tour.tours").add("web_studio_enter_x2many_edition_and_add
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(User log entries)",
             run() {
-                $(
+                queryFirst(
                     ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(User log entries)"
-                )[0].scrollIntoView();
+                ).scrollIntoView();
             },
         },
         {
@@ -164,9 +165,9 @@ registry.category("web_tour.tours").add("web_studio_enter_x2many_auto_inlined_su
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(User log entries)",
             run() {
-                $(
+                queryFirst(
                     ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(User log entries)"
-                )[0].scrollIntoView();
+                ).scrollIntoView();
             },
         },
         {
@@ -220,9 +221,9 @@ registry
                 trigger:
                     ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(User log entries)",
                 run() {
-                    $(
+                    queryFirst(
                         ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(User log entries)"
-                    )[0].scrollIntoView();
+                    ).scrollIntoView();
                 },
             },
             {
@@ -298,9 +299,9 @@ registry.category("web_tour.tours").add("web_studio_field_with_group", {
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(Website Link)",
             run() {
-                $(
+                queryFirst(
                     ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(Website Link)"
-                )[0].scrollIntoView();
+                ).scrollIntoView();
             },
         },
         {
@@ -349,9 +350,9 @@ registry.category("web_tour.tours").add("web_studio_elements_with_groups_form", 
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(Website Link)",
             run() {
-                $(
+                queryFirst(
                     ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(Website Link)"
-                )[0].scrollIntoView();
+                ).scrollIntoView();
             },
         },
         {
@@ -736,9 +737,9 @@ registry.category("web_tour.tours").add("web_studio_test_studio_view_is_last", {
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(Website Link)",
             run() {
-                $(
+                queryFirst(
                     ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(Website Link)"
-                )[0].scrollIntoView();
+                ).scrollIntoView();
             },
         },
         {

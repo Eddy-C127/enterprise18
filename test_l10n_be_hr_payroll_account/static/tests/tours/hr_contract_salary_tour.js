@@ -2,6 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { createFile, inputFiles } from "@web/../tests/utils";
+import { queryOne, queryAll } from "@odoo/hoot-dom";
 
 registry.category("web_tour.tours").add("hr_contract_salary_tour", {
     test: true,
@@ -120,16 +121,15 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Unlog + Go on Configurator",
             trigger: ".o-mail-Chatter .o-mail-Message:eq(0) a",
-            run: function () {
-                var simulation_link = $(".o-mail-Chatter .o-mail-Message:eq(0) a")[0].href;
+            async run() {
+                const simulation_link = queryOne(".o-mail-Chatter .o-mail-Message:eq(0) a").href;
                 // Retrieve the link without the origin to avoid
                 // mismatch between localhost:8069 and 127.0.0.1:8069
                 // when running the tour with chrome headless
                 var regex = "/salary_package/simulation/.*";
                 var url = simulation_link.match(regex)[0];
-                $.get("/web/session/logout", function () {
+                await fetch("/web/session/logout", { method: "GET" });
                     window.location.href = window.location.origin + url;
-                });
             },
             extra_trigger: "button[name='action_jump_to_offer']",
         },
@@ -219,11 +219,14 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             trigger: "label[for=company_bike_depreciated_cost]",
             extra_trigger: 'input[name="Gross"][value="2982.81"]',
             run: function () {
-                $("select[name=select_company_bike_depreciated_cost] option:contains(Bike 2)").prop(
-                    "selected",
-                    true
+                queryOne(
+                    "select[name=select_company_bike_depreciated_cost] option:contains(Bike 2)"
+                ).selected = true;
+                const el = document.querySelector(
+                    "select[name=select_company_bike_depreciated_cost]"
                 );
-                $("select[name=select_company_bike_depreciated_cost]").trigger("change");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
+
             },
         },
         {
@@ -231,11 +234,13 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             trigger: "label[for=company_bike_depreciated_cost]",
             extra_trigger: 'input[name="Gross"][value="2965.61"]',
             run: function () {
-                $("select[name=select_company_bike_depreciated_cost] option:contains(Bike 1)").prop(
-                    "selected",
-                    true
+                queryOne(
+                    "select[name=select_company_bike_depreciated_cost] option:contains(Bike 1)"
+                ).selected = true;
+                const el = document.querySelector(
+                    "select[name=select_company_bike_depreciated_cost]"
                 );
-                $("select[name=select_company_bike_depreciated_cost]").trigger("change");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {
@@ -272,9 +277,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Take Extra-Legal Leaves",
             trigger: 'input[list="holidays_range"]',
             extra_trigger: 'input[name="Gross"][value="3000"]',
-            run: function () {
-                $('input[list="holidays_range"]').val(10);
-                $('input[list="holidays_range"]').trigger("change");
+            run() {
+                this.anchor.value = 10;
+                this.anchor.dispatchEvent(
+                    new Event("change", { bubbles: true, cancelable: false })
+                );
             },
         },
         {
@@ -282,8 +289,10 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             trigger: 'input[list="holidays_range"]',
             extra_trigger: 'input[name="Gross"][value="2860.17"]',
             run: function () {
-                $('input[list="holidays_range"]').val(0);
-                $('input[list="holidays_range"]').trigger("change");
+                this.anchor.value = 0;
+                this.anchor.dispatchEvent(
+                    new Event("change", { bubbles: true, cancelable: false })
+                );
             },
         },
         {
@@ -322,8 +331,10 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             trigger: 'input[list="fuel_card_range"]',
             extra_trigger: 'input[name="Gross"][value="2671.14"]',
             run: function () {
-                $('input[list="fuel_card_range"]').val(250);
-                $('input[list="fuel_card_range"]').trigger("change");
+                this.anchor.value = 250;
+                this.anchor.dispatchEvent(
+                    new Event("change", { bubbles: true, cancelable: false })
+                );
             },
         },
         {
@@ -331,8 +342,10 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             trigger: 'input[list="fuel_card_range"]',
             extra_trigger: 'input[name="Gross"][value="2499.2"]',
             run: function () {
-                $('input[list="fuel_card_range"]').val(0);
-                $('input[list="fuel_card_range"]').trigger("change");
+                this.anchor.value = 0;
+                this.anchor.dispatchEvent(
+                    new Event("change", { bubbles: true, cancelable: false })
+                );
             },
         },
         {
@@ -350,14 +363,14 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "BirthDate",
             trigger: '[name="birthday"] input',
             run: function () {
-                $("input[name='birthday']").val("2017-09-01");
+                this.anchor.value = "2017-09-01";
             },
         },
         {
             content: "Gender",
             trigger: '[name="gender"] input',
             run: function () {
-                $('input[value="female"]').prop("checked", true);
+                document.querySelector('input[value="female"]').checked = true;
             },
         },
         {
@@ -404,8 +417,9 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Certificate",
             trigger: "label[for=certificate]",
             run: function () {
-                $("select[name=certificate] option:contains(Master)").prop("selected", true);
-                $("select[name=certificate]").trigger("change");
+                queryOne("select[name=certificate] option:contains(Master)").selected = true;
+                const el = document.querySelector("select[name=certificate]");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {
@@ -447,32 +461,27 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Nationality",
             trigger: "label[for=country_id]:eq(0)",
             run: function () {
-                $("select[name=country_id] option:contains(Belgium)").prop("selected", true);
-                $("select[name=country_id]").trigger("change");
+                queryAll("select[name=country_id] option:contains(Belgium)").at(0).selected = true;
+                const el = document.querySelector("select[name=country_id]");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {
             content: "Country of Birth",
             trigger: "label[for=country_of_birth]:eq(0)",
             run: function () {
-                $("select[name=country_of_birth] option:contains(Belgium)").prop("selected", true);
-                $("select[name=country_of_birth]").trigger("change");
-            },
-        },
-        {
-            content: "Country",
-            trigger: "label[for=country_id]:eq(0)",
-            run: function () {
-                $("select[name=country] option:contains(Belgium)").prop("selected", true);
-                $("select[name=country]").trigger("change");
+                queryAll("select[name=country_of_birth] option:contains(Belgium)").at(0).selected = true;
+                const el = document.querySelector("select[name=country_of_birth]");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {
             content: "Lang",
             trigger: "label[for=lang]:eq(0)",
             run: function () {
-                $("select[name=lang] option:contains(English)").prop("selected", true);
-                $("select[name=lang]").trigger("change");
+                queryAll("select[name=lang] option:contains(English)").at(0).selected = true;
+                const el = document.querySelector("select[name=lang]");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {
@@ -491,8 +500,9 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             trigger: "label[for=marital]",
             extra_trigger: 'input[name="Net"][value="2114.69"]',
             run: function () {
-                $("select[name=marital] option:contains(Married)").prop("selected", true);
-                $("select[name=marital]").trigger("change");
+                queryOne("select[name=marital] option:contains(Married)").selected = true;
+                const el = document.querySelector("select[name=marital]");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {
@@ -512,11 +522,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             trigger: "label[for=spouse_fiscal_status]",
             extra_trigger: 'input[name="Net"][value="2431.1"]',
             run: function () {
-                $('select[name=spouse_fiscal_status] option:contains("With High Income")').prop(
-                    "selected",
-                    true
-                );
-                $("select[name=spouse_fiscal_status]").trigger("change");
+                queryOne(
+                    'select[name=spouse_fiscal_status] option:contains("With High Income")'
+                ).selected = true;
+                const el = document.querySelector("select[name=spouse_fiscal_status]");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {
@@ -524,8 +534,9 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             trigger: "label[for=marital]",
             extra_trigger: 'input[name="Net"][value="2114.69"]',
             run: function () {
-                $("select[name=marital] option:contains(Single)").prop("selected", true);
-                $("select[name=marital]").trigger("change");
+                queryOne("select[name=marital] option:contains(Single)").selected = true;
+                const el = document.querySelector("select[name=marital]");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {
@@ -634,10 +645,13 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Choose a new car",
             trigger: "label[for=company_car_total_depreciated_cost]",
             run: function () {
-                $(
+                queryOne(
                     'select[name="select_company_car_total_depreciated_cost"] option:contains(a3)'
-                ).prop("selected", true);
-                $('select[name="select_company_car_total_depreciated_cost"]').trigger("change");
+                ).selected = true;
+                const el = document.querySelector(
+                    'select[name="select_company_car_total_depreciated_cost"]'
+                );
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         // set personal info
@@ -1103,7 +1117,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             content: "Go on configurator",
             trigger: ".o-mail-Chatter .o-mail-Message:eq(0) a",
             run: function () {
-                var simulation_link = $(".o-mail-Chatter .o-mail-Message:eq(0) a")[0].href;
+                const simulation_link = queryOne(".o-mail-Chatter .o-mail-Message:eq(0) a").href;
                 // Retrieve the link without the origin to avoid
                 // mismatch between localhost:8069 and 127.0.0.1:8069
                 // when running the tour with chrome headless
@@ -1127,24 +1141,25 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             content: "Choose a new car in waiting list",
             trigger: "label[for=wishlist_car_total_depreciated_cost]",
             run: function () {
-                $(
+                queryOne(
                     'select[name="select_wishlist_car_total_depreciated_cost"] option:contains(Corsa)'
-                ).prop("selected", true);
-                $('select[name="select_wishlist_car_total_depreciated_cost"]').trigger("change");
+                ).selected = true;
+                const el = document.querySelector(
+                    'select[name="select_wishlist_car_total_depreciated_cost"]'
+                );
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {
             content: "BirthDate",
             trigger: 'input[name="birthday"]',
-            run: function () {
-                $("input[name='birthday']").val("2017-09-01");
-            },
+            run: "text 2017-09-01",
         },
         {
             content: "Gender",
             trigger: 'input[name="gender"]',
             run: function () {
-                $('input[value="female"]').prop("checked", true);
+                document.querySelector('input[value="female"]').checked = true;
             },
         },
         {
@@ -1191,8 +1206,10 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             content: "Certificate",
             trigger: "label[for=certificate]",
             run: function () {
-                $("select[name=certificate] option:contains(Master)").prop("selected", true);
-                $("select[name=certificate]").trigger("change");
+                queryOne("select[name=certificate] option:contains(Master)").selected = true;
+                this.anchor.dispatchEvent(
+                    new Event("change", { bubbles: true, cancelable: false })
+                );
             },
         },
         {
@@ -1214,8 +1231,9 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             content: "Lang",
             trigger: "label[for=lang]:eq(0)",
             run: function () {
-                $("select[name=lang] option:contains(English)").prop("selected", true);
-                $("select[name=lang]").trigger("change");
+                queryOne("select[name=lang] option:contains(English)").selected = true;
+                const el = document.querySelector("select[name=lang]");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {
@@ -1237,27 +1255,30 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             content: "Nationality",
             trigger: "label[for=country_id]:eq(0)",
             run: function () {
-                $("select[name=country_id] option:contains(Belgium)").prop("selected", true);
-                $("select[name=country_id]").trigger("change");
+                queryOne("select[name=country_id] option:contains(Belgium)").selected = true;
+                const el = document.querySelector("select[name=country_id]");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {
             content: "Country of Birth",
             trigger: "label[for=country_of_birth]",
             run: function () {
-                $("select[name=country_of_birth] option:contains(Belgium)").prop("selected", true);
-                $("select[name=country_of_birth]").trigger("change");
+                queryOne("select[name=country_of_birth] option:contains(Belgium)").selected = true;
+                this.anchor.dispatchEvent(
+                    new Event("change", { bubbles: true, cancelable: false })
+                );
             },
         },
         {
             content: "Country",
             trigger: "label[for=private_country_id]:eq(0)",
             run: function () {
-                $("select[name=private_country_id] option:contains(Belgium)").prop(
-                    "selected",
-                    true
-                );
-                $("select[name=private_country_id]").trigger("change");
+                queryOne(
+                    "select[name=private_country_id] option:contains(Belgium)"
+                ).selected = true;
+                const el = document.querySelector("select[name=private_country_id]");
+                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
             },
         },
         {

@@ -47,13 +47,13 @@ patch(registry.category("web_tour.tours").get("project_test_tour"), {
         originalSteps.splice(originalSteps.length, 0, {
             trigger: ".o_gantt_progress_bar",
             content: "See user progress bar",
-            run: function () {
-                const $progressbar = $(".o_gantt_progress_bar:eq(0)");
-                if ($progressbar.length) {
-                    if ($progressbar.find("span:eq(0)")[0].style.width === '') {
+            run() {
+                const progressbar = document.querySelector(".o_gantt_progress_bar");
+                if (progressbar) {
+                    if (progressbar.querySelector("span").style.width === '') {
                         console.error("Progress bar should be displayed");
                     }
-                    if (!$progressbar[0].classList.contains("o_gantt_group_danger")) {
+                    if (!progressbar.classList.contains("o_gantt_group_danger")) {
                         console.error("Progress bar should be displayed in danger");
                     }
                 } else {

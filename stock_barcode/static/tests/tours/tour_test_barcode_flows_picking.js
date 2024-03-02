@@ -718,10 +718,10 @@ registry.category("web_tour.tours").add('test_delivery_lot_with_package', {test:
         trigger: '.o_field_widget[name="product_id"]',
         run: function() {
             helper.assertFormQuantity("1");
-            helper.assert($('div[name="package_id"] input').val(), "pack_sn_2");
-            helper.assert($('div[name="result_package_id"] input').val(), "");
-            helper.assert($('div[name="owner_id"] input').val(), "Particulier");
-            helper.assert($('div[name="lot_id"] input').val(), "sn4");
+            helper.assert(document.querySelector('div[name="package_id"] input').value, "pack_sn_2");
+            helper.assert(document.querySelector('div[name="result_package_id"] input').value, "");
+            helper.assert(document.querySelector('div[name="owner_id"] input').value, "Particulier");
+            helper.assert(document.querySelector('div[name="lot_id"] input').value, "sn4");
         },
     },
     {
@@ -971,7 +971,7 @@ registry.category("web_tour.tours").add('test_delivery_using_buttons', {test: tr
             helper.assertValidateIsHighlighted(false);
             helper.assertValidateEnabled(true);
             helper.assert(
-                $('.o_line_button[name=incrementButton]').length, 3,
+                document.querySelectorAll('.o_line_button[name=incrementButton]').length, 3,
                 "3 buttons must be present in the view (one by line)"
             );
             helper.assertLineQty(0, "0 / 2");
@@ -1218,9 +1218,8 @@ registry.category("web_tour.tours").add('test_receipt_from_scratch_with_lots_2',
     {
         trigger: '.o_input[id=lot_id_0]',
         run: function () {
-            const $lot_name = $('#lot_name_0');
             // Check if the lot_name is invisible
-            helper.assert($lot_name.length, 0);
+            helper.assert(document.querySelectorAll('#lot_name_0').length, 0);
         }
     },
 
@@ -1238,9 +1237,8 @@ registry.category("web_tour.tours").add('test_receipt_from_scratch_with_lots_2',
     {
         trigger: '.o_input[id="lot_name_0"]',
         run: function () {
-            const $lot_id = $('#lot_id_0');
             // check that the lot_id is invisible
-            helper.assert($lot_id.length, 0);
+            helper.assert(document.querySelectorAll('#lot_id_0').length, 0);
          }
     },
 
@@ -3001,7 +2999,7 @@ registry.category("web_tour.tours").add('test_pack_multiple_location_03', {test:
         trigger: '.o_barcode_line',
         run: function() {
             helper.assertLinesCount(1);
-            helper.assert($('.o_barcode_line .package').text(), "PACK000666");
+            helper.assert(document.querySelector('.o_barcode_line .package').textContent, "PACK000666");
         }
     },
     {trigger: '.o_barcode_client_action', run: 'scan product1'},
@@ -3009,7 +3007,7 @@ registry.category("web_tour.tours").add('test_pack_multiple_location_03', {test:
         trigger: '.qty-done:contains(1)',
         run: function() {
             helper.assertLinesCount(1);
-            helper.assert($('.o_barcode_lines .o_barcode_line .package').length, 0);
+            helper.assert(document.querySelectorAll('.o_barcode_lines .o_barcode_line .package').length, 0);
         }
     },
     ...stepUtils.validateBarcodeOperation(),
@@ -3261,7 +3259,7 @@ registry.category("web_tour.tours").add('test_put_in_pack_before_dest', {test: t
         trigger: '.o_field_widget[name="location_dest_id"]',
         run: function () {
             helper.assert(
-                $('.o_field_widget[name="location_dest_id"] input').val(),
+                document.querySelector('.o_field_widget[name="location_dest_id"] input').value,
                 'WH/Stock/Section 2'
             );
         },
@@ -3411,7 +3409,7 @@ registry.category("web_tour.tours").add('test_receipt_delete_button', {test: tru
     {
         trigger: '.o_field_widget[name="product_id"]',
         run: function () {
-            helper.assert($('.o_delete').length, 1);
+            helper.assert(document.querySelectorAll('.o_delete').length, 1);
         },
     },
     {
@@ -3424,7 +3422,7 @@ registry.category("web_tour.tours").add('test_receipt_delete_button', {test: tru
     {
         trigger: '.o_field_widget[name="product_id"]',
         run: function () {
-            helper.assert($('.o_delete').length, 0);
+            helper.assert(document.querySelectorAll('.o_delete').length, 0);
         },
     },
     {

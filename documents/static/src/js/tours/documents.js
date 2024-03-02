@@ -3,6 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { markup } from "@odoo/owl";
+import { queryOne } from "@odoo/hoot-dom";
 
 registry.category("web_tour.tours").add("documents_tour", {
     url: "/web",
@@ -44,7 +45,7 @@ registry.category("web_tour.tours").add("documents_tour", {
             ),
             position: "bottom",
             run: function (actions) {
-                $(".o_search_panel_filter_value:eq(0) .o_search_panel_label_title").click();
+                queryOne(".o_search_panel_filter_value:eq(0) .o_search_panel_label_title").click();
             },
         },
         {
@@ -102,10 +103,10 @@ registry.category("web_tour.tours").add("documents_tour", {
             position: "bottom",
         },
         {
-            trigger: '.o_documents_pdf_page_selector',
-            extra_trigger: '.o_documents_pdf_manager',
+            trigger: ".o_documents_pdf_page_selector",
+            extra_trigger: ".o_documents_pdf_manager",
             content: markup(_t("<b>Select</b> this page to continue.")),
-            position: 'bottom',
+            position: "bottom",
         },
         {
             // equivalent to '.o_pdf_manager_button:contains(Send to Legal)' but language agnostic.

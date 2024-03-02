@@ -12,7 +12,7 @@
 
 import { dragAndDropArticle } from '@knowledge/../tests/tours/knowledge_tour_utils';
 import { registry } from "@web/core/registry";
-
+import { queryOne } from "@odoo/hoot-dom";
 
 registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     test: true,
@@ -56,7 +56,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     trigger: '.o_article:contains("Workspace Article")',
     run: () => {
         // force the create button to be visible (it's only visible on hover)
-        $('.o_article:contains("Workspace Article") a.o_article_create').css('display', 'block');
+        queryOne('.o_article:contains("Workspace Article") a.o_article_create').style.display = 'block';
     },
 }, {
     // create child article

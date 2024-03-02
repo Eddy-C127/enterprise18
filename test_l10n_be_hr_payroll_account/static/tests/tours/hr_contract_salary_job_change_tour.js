@@ -65,10 +65,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         {
             content: "Unlog",
             trigger: ".o_field_CopyClipboardURL a.o_field_widget.o_form_uri",
-            run: function () {
-                const simulation_link = $(
-                    ".o_field_CopyClipboardURL a.o_field_widget.o_form_uri"
-                )[0].href;
+            run() {
+                const simulation_link = this.anchor.href;
                 // Retrieve the link without the origin to avoid
                 // mismatch between localhost:8069 and 127.0.0.1:8069
                 // when running the tour with chrome headless

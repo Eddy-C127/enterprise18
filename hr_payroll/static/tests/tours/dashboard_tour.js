@@ -2,6 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
+import { queryAll } from "@odoo/hoot-dom";
 
 registry.category("web_tour.tours").add('payroll_dashboard_ui_tour', {
     test: true,
@@ -50,7 +51,7 @@ registry.category("web_tour.tours").add('payroll_dashboard_ui_tour', {
         content: "Check that the no contract error is gone",
         trigger: 'h2:contains("Warning")',
         run: function(actions) {
-            const errors = $('.o_hr_payroll_dashboard_block div.row div.col a:contains("Employees Without Running Contracts")').length;
+            const errors = queryAll('.o_hr_payroll_dashboard_block div.row div.col a:contains("Employees Without Running Contracts")').length;
             if (errors) {
                 console.error("There should be no no running contract issue on the dashboard");
             }
