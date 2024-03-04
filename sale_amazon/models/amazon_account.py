@@ -669,28 +669,27 @@ class AmazonAccount(models.Model):
         amazon_order_ref = order_data['AmazonOrderId']
         anonymized_email = order_data['BuyerInfo'].get('BuyerEmail', '')
         buyer_name = order_data['BuyerInfo'].get('BuyerName', '')
-        shipping_address_name = order_data['ShippingAddress']['Name']
-        street = order_data['ShippingAddress'].get('AddressLine1', '')
-        address_line2 = order_data['ShippingAddress'].get('AddressLine2', '')
-        address_line3 = order_data['ShippingAddress'].get('AddressLine3', '')
+        shipping_address_info = order_data.get('ShippingAddress', {})
+        shipping_address_name = shipping_address_info.get('Name', '')
+        street = shipping_address_info.get('AddressLine1', '')
+        address_line2 = shipping_address_info.get('AddressLine2', '')
+        address_line3 = shipping_address_info.get('AddressLine3', '')
         street2 = "%s %s" % (address_line2, address_line3) if address_line2 or address_line3 \
             else None
-        zip_code = order_data['ShippingAddress'].get('PostalCode', '')
-        city = order_data['ShippingAddress'].get('City', '')
-        country_code = order_data['ShippingAddress'].get('CountryCode', '')
-        state_code = order_data['ShippingAddress'].get('StateOrRegion', '')
-        phone = order_data['ShippingAddress'].get('Phone', '')
-        is_company = order_data['ShippingAddress'].get('AddressType') == 'Commercial'
+        zip_code = shipping_address_info.get('PostalCode', '')
+        city = shipping_address_info.get('City', '')
+        country_code = shipping_address_info.get('CountryCode', '')
+        state_code = shipping_address_info.get('StateOrRegion', '')
+        phone = shipping_address_info.get('Phone', '')
+        is_company = shipping_address_info.get('AddressType') == 'Commercial'
         country = self.env['res.country'].search([('code', '=', country_code)], limit=1)
         state = self.env['res.country.state'].search([
             ('country_id', '=', country.id),
             '|', ('code', '=ilike', state_code), ('name', '=ilike', state_code),
         ], limit=1)
-        if not state:
+        if country and not state:  # avoid trying to create a state with a nonexistent country
             state = self.env['res.country.state'].with_context(tracking_disable=True).create({
-                'country_id': country.id,
-                'name': state_code,
-                'code': state_code
+                'country_id': country.id, 'name': state_code, 'code': state_code
             })
         partner_vals = {
             'street': street,
