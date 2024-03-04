@@ -829,15 +829,7 @@ class SaleOrder(models.Model):
             self.payment_token_id = last_token
 
     def _group_expand_states(self, states, domain, order):
-        return ['3_progress', '4_paused']
-
-    @api.model
-    def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
-        res = super().read_group(domain, fields, groupby, offset=offset, limit=limit, orderby=orderby, lazy=lazy)
-        if groupby and groupby[0] == 'subscription_state':
-            # Sort because group expand force progress and paused as first
-            res = sorted(res, key=lambda r: r.get('subscription_state') or '')
-        return res
+        return sorted(states + ['3_progress', '4_paused'])
 
     @api.model
     def _get_associated_so_action(self):
