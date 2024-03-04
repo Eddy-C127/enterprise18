@@ -1358,7 +1358,7 @@ registry.category("web_tour.tours").add("web_studio.test_image_crop", {
             trigger: "body .oe-toolbar #image-crop",
         },
         {
-            trigger: "body .o-overlay-container .o_we_crop_widget",
+            trigger: "body .o-overlay-container .o_we_crop_widget .cropper-container",
             isCheck: true,
         },
     ],
