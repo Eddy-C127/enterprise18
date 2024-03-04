@@ -28,7 +28,7 @@
             <xpath expr="//calendar" position="attributes">
                 <attribute name="color">worksheet_template_id</attribute>
             </xpath>
-            <xpath expr="//field[@name='name']" position="after">
+            <xpath expr="//field[@name='project_id']" position="after">
                 <field name="worksheet_template_id" invisible="not worksheet_template_id" filters="1"/>
             </xpath>
         </field>
@@ -242,7 +242,7 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="industry_fsm.project_task_map_view_fsm"/>
         <field name="arch" type="xml">
-            <field name="partner_phone" position="after">
+            <field name="project_id" position="after">
                 <field name="worksheet_template_id" string="Worksheet Template"/>
             </field>
         </field>
