@@ -53,7 +53,7 @@ class HrReferralLinkToShare(models.TransientModel):
         if medium:
             link_tracker_values['medium_id'] = medium.id
 
-        link_tracker = self.env['link.tracker'].search_or_create(link_tracker_values)
+        link_tracker = self.env['link.tracker'].search_or_create([link_tracker_values])
         if self.channel == 'direct':
             self.url = link_tracker.short_url
         elif self.channel == 'facebook':
