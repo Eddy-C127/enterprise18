@@ -4,7 +4,7 @@ from datetime import datetime
 from odoo import Command
 from odoo.addons.industry_fsm_sale.tests.common import TestFsmFlowSaleCommon
 from odoo.exceptions import UserError
-from odoo.tests import tagged
+from odoo.tests import tagged, Form
 
 
 @tagged('-at_install', 'post_install')
@@ -172,3 +172,19 @@ class TestFsmFlowSale(TestFsmFlowSaleCommon):
         })
 
         self.assertEqual(task.sale_order_id.id, sale_order_2.id)
+
+    def test_qty_to_invoice_from_fsm(self):
+        """
+        Check that sale order lines coming from an fsm task and for a product with a price of zero
+        are not going to be invoiced.
+        """
+        self.task.write({'partner_id': self.partner_1.id})
+        product = self.product_a.with_context({'fsm_task_id': self.task.id})
+        product.set_fsm_quantity(2)
+        so = self.task.sale_order_id
+        sol = so.order_line[-1]
+        self.assertEqual(sol.qty_to_invoice, 2.0)
+        with Form(so) as so_form:
+            with so_form.order_line.edit(0) as line:
+                line.price_unit = 0.0
+        self.assertEqual(sol.qty_to_invoice, 0.0)
