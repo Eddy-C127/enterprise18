@@ -44,6 +44,7 @@ patch(AttendeeCalendarCommonRenderer.prototype, {
             slotId: record.id,
             color: "green",
         };
+        result.editable = true; // Keep slots editable
         return result;
     },
 
