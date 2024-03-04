@@ -3,7 +3,7 @@
 from collections import defaultdict
 
 from odoo import api, models, fields, _
-
+from odoo.tools import float_is_zero
 
 class SaleOrder(models.Model):
     _inherit = ['sale.order']
@@ -82,9 +82,15 @@ class SaleOrderLine(models.Model):
         return values
 
     def _compute_invoice_status(self):
-        sol_from_task_without_amount = self.filtered(lambda sol: sol.task_id and sol.task_id.is_fsm and sol.price_unit == 0)
+        sol_from_task_without_amount = self.filtered(lambda sol: sol.task_id.is_fsm and float_is_zero(sol.price_unit, precision_digits=sol.currency_id.rounding))
         sol_from_task_without_amount.invoice_status = 'no'
         super(SaleOrderLine, self - sol_from_task_without_amount)._compute_invoice_status()
+
+    @api.depends('price_unit')
+    def _compute_qty_to_invoice(self):
+        sol_from_task_without_amount = self.filtered(lambda sol: sol.task_id.is_fsm and float_is_zero(sol.price_unit, precision_digits=sol.currency_id.rounding))
+        sol_from_task_without_amount.qty_to_invoice = 0.0
+        super(SaleOrderLine, self - sol_from_task_without_amount)._compute_qty_to_invoice()
 
     def action_add_from_catalog(self):
         if len(self.task_id) == 1 and self.task_id.allow_material:
