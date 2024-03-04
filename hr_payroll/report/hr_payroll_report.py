@@ -50,6 +50,7 @@ class HrPayrollReport(models.Model):
         ('1', 'Regular Working Day'),
         ('2', 'Paid Time Off'),
         ('3', 'Unpaid Time Off')], string='Work, (un)paid Time Off', readonly=True)
+    payslip_id = fields.Many2one('hr.payslip', readonly=True)
 
     def _select(self, additional_rules):
         select_str = """
@@ -62,6 +63,7 @@ class HrPayrollReport(models.Model):
                 CASE WHEN wet.is_leave and wd.amount = 0 THEN wd.number_of_days ELSE 0 END as count_leave_unpaid,
                 CASE WHEN wet.is_unforeseen THEN wd.number_of_days ELSE 0 END as count_unforeseen_absence,
                 CASE WHEN wet.is_leave THEN wd.amount ELSE 0 END as leave_basic_wage,
+                p.id as payslip_id,
                 p.name as name,
                 wd.name as type,
                 p.date_from as date_from,
