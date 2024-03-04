@@ -36,6 +36,10 @@ class HrPayrollDeclarationMixin(models.AbstractModel):
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     pdf_error = fields.Text('PDF Error Message')
 
+    def unlink(self):
+        self.line_ids.unlink()  # We need to unlink the child line_ids as well to prevent orphan records
+        return super().unlink()
+
     def action_generate_declarations(self):
         for sheet in self:
             if not sheet.line_ids:
