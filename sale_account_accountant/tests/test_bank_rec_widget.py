@@ -17,6 +17,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
             'order_line': [Command.create({
                 'product_id': self.product_a.id,
                 'product_uom_qty': 2,
+                'price_unit': 1000.0,
             })],
         })
         so2 = self.env['sale.order'].create({
@@ -26,6 +27,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
             'order_line': [Command.create({
                 'product_id': self.product_a.id,
                 'product_uom_qty': 2,
+                'price_unit': 1000.0,
             })],
         })
         (so1 + so2).action_quotation_sent()
@@ -47,6 +49,17 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         self.assertDictEqual(
             rule._apply_rules(st_line, st_line._retrieve_partner()),
             {'amls': invoice_line, 'model': rule},
+        )
+
+        # Fully reconcile the invoice.
+        payment = self.env['account.payment.register']\
+            .with_context(active_ids=invoice.ids, active_model='account.move')\
+            .create({})\
+            ._create_payments()
+        aml = payment._seek_for_lines()[0]
+        self.assertDictEqual(
+            rule._apply_rules(st_line, st_line._retrieve_partner()),
+            {'amls': aml, 'model': rule},
         )
 
     def test_matching_sale_orders_with_legend(self):

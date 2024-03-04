@@ -42,10 +42,20 @@ class AccountReconcileModel(models.Model):
 
             # Find some related invoices.
             aml_domain = self._get_invoice_matching_amls_domain(st_line, partner)
-            amls = sale_orders.invoice_ids.line_ids.filtered_domain(aml_domain)
-            if amls:
-                results['amls'] = amls
-                results['allow_auto_reconcile'] = True
+            invoices = sale_orders.invoice_ids
+            if not invoices:
+                # The sale orders are not yet invoiced. Return them to allow the user to invoice them from
+                # the bank reco widget.
+                return results
+
+            amls = invoices.line_ids.filtered_domain(aml_domain)
+            if not amls:
+                # The invoices are all already reconciled. Don't match anything and let the others rules trying
+                # to match potential payments instead.
+                return
+
+            results['amls'] = amls
+            results['allow_auto_reconcile'] = True
 
             return results
 
