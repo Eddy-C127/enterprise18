@@ -109,3 +109,15 @@ class HrPayrollEmployeeDeclaration(models.Model):
                 }
             }
         }
+
+    @api.autovacuum
+    def _gc_orphan_declarations(self):
+        orphans = self.env['hr.payroll.employee.declaration']
+        grouped_declarations = self.read_group([], ['ids:array_agg(id)', 'res_ids:array_agg(res_id)'], ['res_model'])
+        for gd in grouped_declarations:
+            sheet_ids = self.env[gd['res_model']].browse(set(gd['res_ids'])).exists().ids
+            for declaration in self.browse(gd['ids']):
+                if declaration.res_id not in sheet_ids:
+                    orphans += declaration
+        if orphans:
+            orphans.unlink()
