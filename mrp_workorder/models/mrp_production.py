@@ -93,7 +93,7 @@ class MrpProduction(models.Model):
 
         warehouse = self.env['stock.warehouse'].search([('company_id', '=', self.env.company.id)], limit=1)
 
-        products = [{'xml_id': xmlid, 'values': {
+        products = [{'xml_id': xmlid, 'noupdate': True, 'values': {
             'name': name,
             'categ_id': self.env.ref('product.product_category_all').id,
             'detailed_type': 'product',
@@ -127,7 +127,7 @@ class MrpProduction(models.Model):
         )]
         table, tabletop, tableleg = self.env['product.product']._load_records(products, True)
 
-        quants = [{'xml_id': xmlid, 'values': {
+        quants = [{'xml_id': xmlid, 'noupdate': True, 'values': {
             'product_id': prod,
             'inventory_quantity': qty,
             'location_id': warehouse.lot_stock_id.id,
@@ -137,7 +137,7 @@ class MrpProduction(models.Model):
         )]
         self.env['stock.quant']._load_records(quants, True)._apply_inventory()
 
-        bom = self.env['mrp.bom']._load_records([{'xml_id': 'mrp.mrp_bom_desk', 'values': {
+        bom = self.env['mrp.bom']._load_records([{'xml_id': 'mrp.mrp_bom_desk', 'noupdate': True, 'values': {
             'product_tmpl_id': table.product_tmpl_id.id,
             'product_uom_id': self.env.ref('uom.product_uom_unit').id,
             'sequence': 3,
@@ -145,7 +145,7 @@ class MrpProduction(models.Model):
             'days_to_prepare_mo': 3,
         }}], True)
 
-        bom_lines = [{'xml_id': xmlid, 'values': {
+        bom_lines = [{'xml_id': xmlid, 'noupdate': True, 'values': {
             'product_id': prod,
             'product_qty': qty,
             'product_uom_id': self.env.ref('uom.product_uom_unit').id,
@@ -157,7 +157,7 @@ class MrpProduction(models.Model):
         )]
         bom_lines = self.env['mrp.bom.line']._load_records(bom_lines, True)
 
-        MO = self.env['mrp.production']._load_records([{'xml_id': 'mrp.mrp_production_3', 'values': {
+        MO = self.env['mrp.production']._load_records([{'xml_id': 'mrp.mrp_production_3', 'noupdate': True, 'values': {
             'product_id': table.id,
             'product_uom_id': self.env.ref('uom.product_uom_unit').id,
             'product_qty': 1,
@@ -168,13 +168,13 @@ class MrpProduction(models.Model):
         MO.action_confirm()
 
         if self.user_has_groups('mrp.group_mrp_routings'):
-            WC = self.env['mrp.workcenter']._load_records([{'xml_id': 'mrp.mrp_workcenter_3', 'values': {
+            WC = self.env['mrp.workcenter']._load_records([{'xml_id': 'mrp.mrp_workcenter_3', 'noupdate': True, 'values': {
                 'name': 'Assembly line 1',
                 'resource_calendar_id': self.env.ref('resource.resource_calendar_std').id,
             }}], True)
 
             routing = self.env['mrp.routing.workcenter']._load_records([{
-                'xml_id': 'mrp.mrp_routing_workcenter_5', 'values': {
+                'xml_id': 'mrp.mrp_routing_workcenter_5', 'noupdate': True, 'values': {
                     'bom_id': bom.id,
                     'workcenter_id': WC.id,
                     'time_cycle': 120,
@@ -188,7 +188,7 @@ class MrpProduction(models.Model):
             }], True)
             bom_lines.operation_id = routing
 
-            quality_points = [{'xml_id': xmlid, 'values': {
+            quality_points = [{'xml_id': xmlid, 'noupdate': True, 'values': {
                 'product_ids': [table.id],
                 'picking_type_ids': [warehouse.manu_type_id.id],
                 'operation_id': routing.id,
