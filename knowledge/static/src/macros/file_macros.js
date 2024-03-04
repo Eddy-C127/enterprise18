@@ -34,7 +34,7 @@ export class UseAsAttachmentMacro extends AbstractMacro {
                         attachFilesLastClickedEl = el;
                     }
                 } else {
-                    this.searchInXmlDocNotebookTab('.oe_chatter');
+                    this.searchInXmlDocNotebookTab('chatter');
                 }
                 return null;
             }.bind(this),
@@ -70,7 +70,7 @@ export class AttachToMessageMacro extends AbstractMacro {
                         sendMessageLastClickedEl = el;
                     }
                 } else {
-                    this.searchInXmlDocNotebookTab('.oe_chatter');
+                    this.searchInXmlDocNotebookTab('chatter');
                 }
                 return null;
             }.bind(this),

@@ -75,9 +75,7 @@ QUnit.module(
                     <field name="quick_edit_total_amount" readonly="0"/>
                 </group>
                 <div class="o_attachment_preview"/>
-                <div class="oe_chatter">
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>`,
                 "res.partner,false,form": `<form>
                 <group>

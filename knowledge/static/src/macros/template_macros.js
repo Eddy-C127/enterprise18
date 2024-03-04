@@ -30,7 +30,7 @@ export class SendAsMessageMacro extends AbstractMacro {
                         sendMessageLastClickedEl = el;
                     }
                 } else {
-                    this.searchInXmlDocNotebookTab('.oe_chatter');
+                    this.searchInXmlDocNotebookTab('chatter');
                 }
                 return null;
             }.bind(this),

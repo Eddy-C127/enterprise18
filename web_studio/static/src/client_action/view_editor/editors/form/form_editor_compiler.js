@@ -18,7 +18,7 @@ const interestingSelector = [
     ":not(field) label", // should be clickable
     ":not(field) group", // any group: outer or inner
     ":not(field) group group > *", // content of inner groups serves as main dropzone
-    ":not(field) div.oe_chatter",
+    ":not(field) chatter",
     ":not(field) .oe_avatar",
 ].join(", ");
 
@@ -213,7 +213,7 @@ export class FormEditorCompiler extends formView.Compiler {
                 });
             }
 
-            if (node.classList.contains("oe_chatter")) {
+            if (node.tagName === "chatter") {
                 this.addChatter = false;
                 const chatterNode = compiled.querySelector(
                     "t[t-component='__comp__.mailComponents.Chatter']"

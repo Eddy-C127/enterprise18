@@ -90,12 +90,12 @@ const ChatterPatch = {
                     // The conditions for the ability to post or attach should
                     // be the same as the ones in the Chatter template.
                     Object.assign(recordInfo, {
-                        canPostMessages: this.props.threadId &&
-                            this.props.hasMessageList && (
-                                this.state.thread?.hasWriteAccess ||
-                                (this.state.thread?.hasReadAccess && this.state.thread?.canPostOnReadonly)
-                            ),
-                        canAttachFiles: this.props.threadId && this.state.thread?.hasWriteAccess
+                        canPostMessages:
+                            this.props.threadId &&
+                            (this.state.thread?.hasWriteAccess ||
+                                (this.state.thread?.hasReadAccess &&
+                                    this.state.thread?.canPostOnReadonly)),
+                        canAttachFiles: this.props.threadId && this.state.thread?.hasWriteAccess,
                     });
                     if (this.knowledgeCommandsService.isRecordCompatibleWithMacro(recordInfo)) {
                         this.knowledgeCommandsService.setCommandsRecordInfo(recordInfo);

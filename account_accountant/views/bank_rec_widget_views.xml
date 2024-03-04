@@ -324,10 +324,7 @@
             <field name="priority">999</field>
             <field name="arch" type="xml">
                 <form>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids" groups="base.group_user"/>
-                        <field name="message_ids"/>
-                    </div>
+                    <chatter/>
                 </form>
             </field>
         </record>

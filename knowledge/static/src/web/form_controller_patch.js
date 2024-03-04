@@ -98,7 +98,7 @@ const FormControllerPatch = {
         };
 
         // check whether the form view has a chatter
-        if (this.props.archInfo.xmlDoc.querySelector('.oe_chatter')) {
+        if (this.props.archInfo.xmlDoc.querySelector("chatter")) {
             for (const callback of this.env.__knowledgeUpdateCommandsRecordInfo__.callbacks) {
                 callback(commandsRecordInfo);
             }

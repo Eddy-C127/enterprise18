@@ -19,10 +19,7 @@ formArchsRegistry.add(
         <sheet>
             <field name="name"/>
         </sheet>
-        <div class="oe_chatter">
-            <field name="message_follower_ids"/>
-            <field name="message_ids"/>
-        </div>
+        <chatter/>
     </form>`
 );
 

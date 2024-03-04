@@ -870,7 +870,7 @@ QUnit.module("View Editors", (hooks) => {
                         <sheet>
                             <field name='display_name'/>
                         </sheet>
-                        <div class='oe_chatter'/>
+                        <chatter/>
                     </form>
                 `,
             mockRPC: {

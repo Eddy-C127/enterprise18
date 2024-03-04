@@ -81,7 +81,7 @@ export class FormEditorSidebar extends Component {
             page: {
                 component: PageProperties,
             },
-            div: {
+            chatter: {
                 component: ChatterProperties,
             },
         };

@@ -151,10 +151,7 @@
                 <field name="show_manager_feedback_full" invisible="1"/>
                 <field name="is_manager" invisible="1"/>
                 <field name="employee_autocomplete_ids" invisible="1"/>
-                <div class="oe_chatter">
-                  <field name="message_follower_ids" groups="base.group_user"/>
-                  <field name="message_ids"/>
-                </div>
+                <chatter/>
           </sheet>
           </form>
         </field>

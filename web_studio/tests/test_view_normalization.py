@@ -541,19 +541,13 @@ class TestViewNormalization(TransactionCase):
         self._test_view_normalization("""
             <data>
               <xpath expr="/form[1]/*[last()]" position="after">
-                <div class="oe_chatter">
-                  <field name="message_follower_ids"/>
-                  <field name="message_ids"/>
-                </div>
+                <chatter/>
               </xpath>
             </data>
         """, """
             <data>
               <xpath expr="//form[1]/sheet[1]" position="after">
-                <div class="oe_chatter" name="studio_div_302a40">
-                  <field name="message_follower_ids"/>
-                  <field name="message_ids"/>
-                </div>
+                <chatter/>
               </xpath>
             </data>
         """)

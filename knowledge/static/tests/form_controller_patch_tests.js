@@ -17,9 +17,7 @@ QUnit.module("Knowledge - Form Search Button", (hooks) => {
                         <sheet>
                             <field name="name"/>
                         </sheet>
-                        <div class="oe_chatter">
-                            <field name="message_ids"/>
-                        </div>
+                        <chatter/>
                     </form>`,
             },
         };
@@ -73,9 +71,7 @@ QUnit.module("Knowledge - Form Search Button", (hooks) => {
                 <sheet>
                     <field name="name" required="1"/>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>`;
         await start({
             serverData,

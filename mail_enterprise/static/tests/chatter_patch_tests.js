@@ -32,9 +32,7 @@ QUnit.test("Message list loads new messages on scroll", async () => {
                     <field name="name"/>
                     <field name="description"/>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>`,
     };
     const target = getFixture();
@@ -75,9 +73,7 @@ QUnit.test("Message list is scrolled to new message after posting a message", as
                     <field name="name"/>
                     <field name="description"/>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_ids" options="{'post_refresh': 'always'}"/>
-                </div>
+                <chatter reload_on_post="True" reload_on_attachment="True"/>
             </form>`,
     };
     const target = getFixture();

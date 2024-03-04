@@ -26,9 +26,7 @@ QUnit.test("Should not have attachment preview for still uploading attachment", 
                     <field name="name"/>
                 </sheet>
                 <div class="o_attachment_preview"/>
-                <div class="oe_chatter">
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>`,
     };
     patchUiSize({ size: SIZES.XXL });
@@ -75,9 +73,7 @@ QUnit.test("Attachment on side", async (assert) => {
                     <field name="name"/>
                 </sheet>
                 <div class="o_attachment_preview"/>
-                <div class="oe_chatter">
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>`,
     };
     patchUiSize({ size: SIZES.XXL });
@@ -161,9 +157,7 @@ QUnit.test(
                         <field name="name"/>
                     </sheet>
                     <div class="o_attachment_preview"/>
-                    <div class="oe_chatter">
-                        <field name="message_ids"/>
-                    </div>
+                    <chatter/>
                 </form>`,
         };
         patchUiSize({ size: SIZES.XXL });
@@ -202,9 +196,7 @@ QUnit.test("Attachment on side on new record", async () => {
                     <field name="name"/>
                 </sheet>
                 <div class="o_attachment_preview"/>
-                <div class="oe_chatter">
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>`,
     };
     patchUiSize({ size: SIZES.XXL });
@@ -234,9 +226,7 @@ QUnit.test("Attachment on side not displayed on smaller screens", async () => {
                     <field name="name"/>
                 </sheet>
                 <div class="o_attachment_preview"/>
-                <div class="oe_chatter">
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>`,
     };
     patchUiSize({ size: SIZES.XL });

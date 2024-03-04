@@ -7,6 +7,6 @@ const viewArchsRegistry = registry.category("bus.view.archs");
 viewArchsRegistry.category("form").add(
     "approval.request",
     `<form>
-        <div class="oe_chatter"/>
+        <chatter/>
     </form>`
 );
