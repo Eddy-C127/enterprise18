@@ -1867,7 +1867,7 @@ QUnit.module("documents", {}, function () {
             );
 
             QUnit.test("document inspector: open resource", async function (assert) {
-                assert.expect(2);
+                assert.expect(3);
 
                 const kanban = await createDocumentsView({
                     type: "kanban",
@@ -1884,6 +1884,7 @@ QUnit.module("documents", {}, function () {
                                 "res.fake",
                                 "should fetch the action for res.fake"
                             );
+                            assert.deepEqual(args.args[0], [1], "should get resId for res.fake");
                             return { ignore: true };
                         }
                     },

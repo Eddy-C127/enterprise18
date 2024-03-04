@@ -228,7 +228,7 @@
                         <td class="w-100 o_inspector_trigger_hover_target o_inspector_model_flex">
                             <t t-set="isModifiableAttachment" t-value="records[0].data.is_editable_attachment and !isLocked and !isEditDisabled"/>
                             <span t-att-class="'o_inspector_model o_inspector_object_name ' + (isModifiableAttachment ? 'o_inspector_model_editable' : '')" t-att-title="records[0].data.res_name"
-                            t-att-href="`#id=${records[0].data.res_id}&amp;model=${records[0].data.res_model}`"
+                            t-att-href="`#id=${records[0].data.res_id.resId}&amp;model=${records[0].data.res_model}`"
                             t-on-click.prevent="onClickResModel">
                                 <t t-esc="records[0].data.res_name || records[0].data.res_model"/>
                             </span>

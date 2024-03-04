@@ -568,7 +568,7 @@ export class DocumentsInspector extends Component {
         const action = await this.orm.call(
             record.data.res_model,
             "get_formview_action",
-            [[record.data.res_id]],
+            [[record.data.res_id.resId]],
             {
                 context: user.context,
             }
