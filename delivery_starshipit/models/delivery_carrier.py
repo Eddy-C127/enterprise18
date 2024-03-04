@@ -112,36 +112,6 @@ class DeliveryCarrier(models.Model):
             order_id = order['order_id']
             picking.starshipit_parcel_reference = order_id
 
-            # The 'total_shipping_price' is required in order to get the exact_price.
-            # It seems that this is computed by starshipit asynchronously and that we could need to wait a bit to get it.
-            # We cannot delete the order once it has been labelled, so we need to ensure that this exists before moving forward.
-            # To that end, we will loop and try up to 3 times before labelling.
-            total_shipping_price = None
-            tries = 0
-
-            # TODO we are checking this with starshipit. If they cannot make it synchronous, we need to rework this part.
-            while not total_shipping_price and tries < 3:
-                tries += 1
-                order_data = starshipit._get_order_details(order_id)
-                total_shipping_price = order_data['order'].get('total_shipping_price', None)
-                if total_shipping_price:
-                    break
-                time.sleep(1)
-
-            # If we still couldn't get it after three tries (unlikely), we will ask the user to try again.
-            if not total_shipping_price:
-                error_messages = [_('There was an issue when creating the order, please try again')]
-                try:
-                    starshipit._delete_order(order_id)
-                except UserError:
-                    error_messages.append(_(' after deleting the order on Starshipit'))
-                finally:
-                    raise UserError(''.join(error_messages))
-
-            order_result = {
-                'exact_price': total_shipping_price,
-            }
-
             label_data = self._create_label_for_order(order_id)
 
             tracking_number = ', '.join(tracking_number for tracking_number in label_data['tracking_numbers'] if tracking_number is not None)
@@ -170,8 +140,10 @@ class DeliveryCarrier(models.Model):
             order_data = starshipit._get_order_details(order_id)
             manifested = order_data['order']['manifested']
             # Get the final rate from the order information.
-            order_result['tracking_number'] = tracking_number
-            res.append(order_result)
+            res.append({
+                'exact_price': order_data['order']['total_shipping_price'],
+                'tracking_number': tracking_number,
+            })
             if attachment_ids:
                 picking.message_post(body=_('Labels were generated for the order %s', picking.name), attachment_ids=attachment_ids.ids)
             # In production, we can manifest the order, and it will be sent to the carrier.
