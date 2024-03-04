@@ -66,20 +66,52 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
     def test_gantt_reschedule_dependent_task(self):
         """ This test purpose is to ensure that a task B that depends on a task A is shifted forward, up to after
             A date_deadline field value.
+
+                             ┌─────────┐
+                             │ Task 1  │
+                             │         │
+                             │ 24/06   │
+                             │11H > 14H│
+                             └─────────┘
+                                   |
+                                   |  ┌─────────┐
+                                   |  │ Task 3  │
+                                   -->│         │   task 3 should move to the right
+                                      │ 24/06   │             =>
+                                      │13H > 15H│
+                                      └─────────┘
         """
 
         self.task_1.write(self.task_1_date_gantt_reschedule_trigger)
         self.gantt_reschedule_forward(self.task_1, self.task_3)
         failed_message = "The auto shift date feature should move forward a dependent tasks."
+        self.assertEqual(self.task_3.planned_date_begin, datetime(2021, 6, 24, 14), failed_message)
+        self.assertEqual(self.task_3.date_deadline, datetime(2021, 6, 24, 16), failed_message)
         self.assertTrue(self.task_1.date_deadline <= self.task_3.planned_date_begin, failed_message)
 
     def test_gantt_reschedule_depend_on_task(self):
         """ This test purpose is to ensure that a task A that depends on a task B is shifted backward, up to before
             B planned_date_start field value.
+
+                             ┌─────────┐
+        task 1 should move   │ Task 1  │
+            to the left      │         │
+                <=           │ 24/06   │
+                             │ 9H > 12H│
+                             └─────────┘
+                                   |
+                                   |  ┌─────────┐
+                                   |  │ Task 3  │
+                                   -->│         │
+                                      │ 24/06   │
+                                      │11H > 13H│
+                                      └─────────┘
         """
         self.task_3.write(self.task_3_date_gantt_reschedule_trigger)
         self.gantt_reschedule_backward(self.task_1, self.task_3)
         failed_message = "The auto shift date feature should move backward a task the moved task depends on."
+        self.assertEqual(self.task_1.planned_date_begin, datetime(2021, 6, 24, 8), failed_message)
+        self.assertEqual(self.task_1.date_deadline, datetime(2021, 6, 24, 11), failed_message)
         self.assertTrue(self.task_3.planned_date_begin >= self.task_1.date_deadline, failed_message)
 
     @users('admin')
@@ -308,12 +340,37 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
     def test_gantt_reschedule_cascading_forward(self):
         """ This test purpose is to ensure that the cascade is well supported on dependent tasks
             (task A move impacts B that moves forwards and then impacts C that is moved forward).
+            Project structure for this test (check ProjectEnterpriseGanttRescheduleCommon for the initial structure)
+
+            ┌─────────┐      ┌─────────┐              ┌─────────┐      ┌─────────┐
+            │ Task 1  │ -->  │ Task 3  │        ----->│ Task 5  │ -->  │ Task 6  │
+            │         │      │         │        |     │02/08 8H │      │         │
+            │ 24/06   │      │ 30/06   │        |     │   ->    │      │ 10/08   │
+            │ 9H > 12H│      │14H > 16H│        |     │03/08 17H│      │ 8H->17H │
+            └─────────┘      └─────────┘        |     └─────────┘      └─────────┘
+                                |               |
+                                |  ┌─────────┐  |
+                                |  │ Task 4  │  |
+                                -->│         │---
+                                   │ 30/06   │
+                                   │15H > 17H│
+                                   └─────────┘
+            Task 4 will move after task 3, it will create a conflict with task 5 so it should be moved to resolve
+            this conflict, task 6 should not move as after moving both 4 and 5, no conflict will be creating with task 6.
         """
         new_task_3_planned_date_begin = self.task_4_planned_date_begin - timedelta(hours=1)
         self.task_3.write({
             'planned_date_begin': new_task_3_planned_date_begin,
             'date_deadline': new_task_3_planned_date_begin + (self.task_3_date_deadline - self.task_3_planned_date_begin),
         })
+        new_task_6_planned_date_begin = datetime(year=2021, month=8, day=10, hour=8)
+        self.task_6.write({
+            'planned_date_begin': new_task_6_planned_date_begin,
+            'date_deadline': new_task_6_planned_date_begin + (self.task_6_date_deadline - self.task_6_planned_date_begin),
+        })
+        initial_dates = {
+            'Pigs UserTask 6': (self.task_6.planned_date_begin, self.task_6.date_deadline),
+        }
         # FIXME as indeterminately fails. Suspected indeterminate cache invalidation.
         # with self.assertQueryCount(43):
         #     self.env.invalidate_all()
@@ -327,6 +384,7 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
                          self.task_4.date_deadline, failed_message)
         self.assertEqual(self.task_5.date_deadline,
                          self.task_5_date_deadline + relativedelta(days=1, hour=9), failed_message)
+        self.assert_task_not_replanned(self.task_6, initial_dates)
 
     @users('admin')
     # @warmup
@@ -372,3 +430,891 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
                          self.task_5.planned_date_begin, failed_message)
         self.assertEqual(self.task_4.planned_date_begin,
                          datetime(year=2021, month=6, day=28, hour=16), failed_message)
+
+    @users('admin')
+    def test_project2_reschedule_cascading_forward(self):
+        """
+            This test concerns project2 tasks, when the right arrow is clicked. task 0 should move ahead of task 8.
+            As tasks 1, 2, 3 are children of 0, they should be done after it,
+            they should also be moved forward in one of this 2 valid orders
+                1- ['0', '1', '2', '3']
+                2- ['0', '1', '3', '2']
+                but it will be usually the first option as task 3 is the first in the dependent_ids of task 1
+            All the other tasks should not move.
+        """
+        self.project2_task_1.dependent_ids = self.project2_task_1.dependent_ids.sorted(key=lambda t: t.name)
+        self.gantt_reschedule_forward(self.project2_task_8, self.project2_task_0)
+        self.assert_task_not_replanned(
+            self.project2_task_4 | self.project2_task_5 | self.project2_task_6 | self.project2_task_7 | self.project2_task_8 | self.project2_task_9 |
+            self.project2_task_10 | self.project2_task_11 | self.project2_task_12 | self.project2_task_13 | self.project2_task_14,
+            self.initial_dates,
+        )
+
+        self.assert_new_dates(
+            self.project2_task_0,
+            datetime(year=2024, month=3, day=18, hour=8),
+            datetime(year=2024, month=3, day=18, hour=12),
+            "task 0 duration = 4 Hours. 4 hours will be planned on 18/03/2024 from 8H to 12H"
+        )
+
+        self.assert_new_dates(
+            self.project2_task_1,
+            datetime(year=2024, month=3, day=18, hour=13),
+            datetime(year=2024, month=3, day=18, hour=17),
+            "task 1 duration = 4 Hours. 4 hours will be planned on 18/03/2024 from 13H to 17H"
+        )
+
+        self.assert_new_dates(
+            self.project2_task_2,
+            datetime(year=2024, month=3, day=19, hour=8),
+            datetime(year=2024, month=3, day=19, hour=10),
+            "task 2 duration = 2 Hours. 2 hours will be planned on 19/03/2024 from 8H to 10H"
+        )
+
+        self.assert_new_dates(
+            self.project2_task_3,
+            datetime(year=2024, month=3, day=19, hour=10),
+            datetime(year=2024, month=3, day=19, hour=16),
+            "task 3 duration = 5 Hours. 5 hours will be planned on 19/03/2024 from 10H to 16H"
+        )
+
+    @users('admin')
+    def test_project2_reschedule_cascading_backward(self):
+        """
+            This test concerns project2 tasks, when the left arrow is clicked. task 8 should be moved behind task 0
+            As tasks 4, 6, 5, 7 are ancestors for 8 and should be done before it, they should be moved backward.
+            A valid topo order can be:
+                1- ['8', '7', '5', '6', '4']
+                2- ['8', '7', '6', '4', '5']
+                it will be usually 2 as task 5 is the first in the depend_on_ids of task 7.
+            9 and 10 should not be impacted as they are not ancestors of 8.
+            We shouldn't have conflicts with 11, 12, 13 and 14 that are already planned in the past
+            All the other tasks should not move.
+        """
+        self.project2_task_7.depend_on_ids = self.project2_task_7.depend_on_ids.sorted(key=lambda t: t.name, reverse=True)
+        self.gantt_reschedule_backward(self.project2_task_8, self.project2_task_0)
+        self.assert_task_not_replanned(
+            self.project2_task_0 | self.project2_task_1 | self.project2_task_2 | self.project2_task_3 | self.project2_task_9 |
+            self.project2_task_10 | self.project2_task_11 | self.project2_task_12 | self.project2_task_13 | self.project2_task_14,
+            self.initial_dates,
+        )
+
+        self.assert_new_dates(
+            self.project2_task_8,
+            datetime(year=2024, month=2, day=27, hour=10),
+            datetime(year=2024, month=2, day=29, hour=17),
+            """
+                task 8 duration = 13 Hours.
+                Only 2 hours available on 29/02/2024 because task 12 and 13 are planned from 9H to 16H.
+                Only 5 hours available on 28/02/2024 because task 11 is planned from 8H to 11H.
+                The remaining 6 hours will be planned in 27/02/2024 from 10H
+            """
+        )
+        self.assert_new_dates(
+            self.project2_task_7,
+            datetime(year=2024, month=2, day=26, hour=15),
+            datetime(year=2024, month=2, day=27, hour=10),
+            """
+                task 7 duration = 4 Hours.
+                2 hours available on 27/02/2024 from 8H to 10H.
+                2 hours available on 26/02/2024 from 15H to 17H.
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_6,
+            datetime(year=2024, month=2, day=21, hour=13),
+            datetime(year=2024, month=2, day=23, hour=17),
+            """
+                task 6 duration = 20 Hours.
+                no hours available in 26/02/2024 as task 7 was planned from 15H to 17H
+                and task 14 planned from 8H to 15H
+                16 hours will be planned on 22/02 and 23/02
+                4 hours will be planned on 21/02 from 13H to 17H
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_4,
+            datetime(year=2024, month=2, day=19, hour=13),
+            datetime(year=2024, month=2, day=21, hour=12),
+            """
+                task 4 duration = 16 Hours
+                4 Hours on 19/02
+                8 hours on 20/02
+                4 hours on 21/02 from 8H to 12H
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_5, datetime(year=2024, month=2, day=15, hour=13),
+            datetime(year=2024, month=2, day=19, hour=12),
+            """
+                task 5 duration = 16 Hours.
+                4 hours will be planned on 19/02
+                8 hours will be planned on 16/02
+                4 hours will be planned on 15 from 13H to 17H
+            """
+        )
+
+    @users('admin')
+    def test_project2_reschedule_cascading_backward_no_planning_in_the_past(self):
+        """
+        This test concerns project2 tasks, when the left arrow is clicked. task 8 should be moved behind task 0
+        As tasks 4, 6, 5, 7 are ancestors for 8 and should be done before it, they should be moved backward.
+        As we can't plan taks in the past and there are no available intervals to plan, so they should be
+        planned starting from now and it will create conflicts
+
+        fake now (01/04)                 07/04
+                |                          |
+                |                          |
+                |                          |
+
+                   [ 7 ]--->[8]----->[0]->[1]->[2]
+                [ 6 ]
+                [ 4 ]
+                [ 5 ]
+        """
+        self.project2_task_0.planned_date_begin = datetime(year=2021, month=4, day=7, hour=8)
+        self.gantt_reschedule_backward(self.project2_task_8, self.project2_task_0)
+
+        self.assert_new_dates(
+            self.project2_task_8,
+            datetime(year=2021, month=4, day=5, hour=11),
+            datetime(year=2021, month=4, day=6, hour=17),
+            """
+                task 8 duration = 13 Hours.
+                8 hours to plan on 06/04
+                5 hours to plan on 05/04 from 11H to 17H
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_7,
+            datetime(year=2021, month=4, day=2, hour=16),
+            datetime(year=2021, month=4, day=5, hour=11),
+            """
+                task 8 duration = 4 Hours.
+                5 hours to plan on 05/04 from 8H to 11H
+                1 hour to plan on 02/04 from 16H to 17H
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_5,
+            datetime(year=2021, month=4, day=1, hour=8),
+            datetime(year=2021, month=4, day=2, hour=17),
+            """
+                task 8 duration = 16 Hours.
+                No available slot to plan it, so it will be planned in conflict starting from the first available slot 01/04/2021
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_6,
+            datetime(year=2021, month=4, day=1, hour=8),
+            datetime(year=2021, month=4, day=5, hour=12),
+            """
+                task 8 duration = 20 Hours.
+                No available slot to plan it, so it will be planned in conflict starting from the first available slot 01/04/2021
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_4,
+            datetime(year=2021, month=4, day=1, hour=8),
+            datetime(year=2021, month=4, day=2, hour=17),
+            """
+                task 8 duration = 16 Hours.
+                No available slot to plan it, so it will be planned in conflict starting from the first available slot 01/04/2021
+            """
+        )
+
+    @users('admin')
+    def test_compute_task_duration(self):
+        """
+            when task allocated_hours = 0, duration is computed as the intersection of work intervals and [planned_date_begin, date_deadline]
+            example: task 6 is planned from datetime(2024, 3, 9, 8, 0) to datetime(2024, 3, 13, 12, 0)
+            duration is 20:
+            - 0 on 09/03 and 10/03 as it's weekend
+            - 8 on 11/03
+            - 8 on 12/03
+            - 4 from 8H to 12H
+        """
+        durations = self.project2_task_6._get_tasks_durations(self.user_projectuser, 'planned_date_begin', 'date_deadline')
+        self.assertEqual(durations[self.project2_task_6.id], 20 * 3600)
+
+    @users('admin')
+    def test_backward_cross_project(self):
+        """
+            When the move back/for{ward} concerns 2 tasks from 2 different projects, it's done
+            exactly like the previous cases (tasks belonging to same project). There is nothing
+            special for this case.
+        """
+        self.project2_task_7.dependent_ids = self.project2_task_7.dependent_ids.sorted(key=lambda t: t.name)
+        (self.project2_task_0 + self.project2_task_4 + self.project2_task_7).project_id = self.project_pigs.id
+        self.gantt_reschedule_backward(self.project2_task_8, self.project2_task_0)
+        self.assert_task_not_replanned(
+            self.project2_task_0 | self.project2_task_1 | self.project2_task_2 | self.project2_task_3 | self.project2_task_9 |
+            self.project2_task_10 | self.project2_task_11 | self.project2_task_12 | self.project2_task_13 | self.project2_task_14,
+            self.initial_dates,
+        )
+
+        self.assert_new_dates(
+            self.project2_task_8,
+            datetime(year=2024, month=2, day=27, hour=10),
+            datetime(year=2024, month=2, day=29, hour=17),
+            """
+                task 8 duration = 13 Hours.
+                Only 2 hours available on 29/02/2024 because task 12 and 13 are planned from 9H to 16H.
+                Only 5 hours available on 28/02/2024 because task 11 is planned from 8H to 11H.
+                The remaining 6 hours will be planned in 27/02/2024 from 10H
+            """
+        )
+        self.assert_new_dates(
+            self.project2_task_7,
+            datetime(year=2024, month=2, day=26, hour=15),
+            datetime(year=2024, month=2, day=27, hour=10),
+            """
+                task 8 duration = 4 Hours.
+                2 hours available on 27/02/2024 from 8H to 10H.
+                2 hours available on 26/02/2024 from 15H to 17H.
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_5, datetime(year=2024, month=2, day=22, hour=8),
+            datetime(year=2024, month=2, day=23, hour=17),
+            """
+                task 5 duration = 16 Hours.
+                no hours available in 26/02/2024 as task 7 was planned from 15H to 17H
+                and task 14 planned from 8H to 15H
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_6,
+            datetime(year=2024, month=2, day=19, hour=13),
+            datetime(year=2024, month=2, day=21, hour=17),
+            """
+                task 6 duration = 20 Hours.
+                4 Hours on 19/02, 16 Hours on 20/02 and 21/02
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_4,
+            datetime(year=2024, month=2, day=15, hour=13),
+            datetime(year=2024, month=2, day=19, hour=12),
+            """
+                task 4 duration = 16 Hours
+                4 Hours on 15/02
+                8 hours on 16/02
+                4 hours on 19/02 from 8H to 12H
+            """
+        )
+
+    def test_move_forward_without_conflicts(self):
+        """
+                                      [4]->[6]
+                                            |
+                      ----------<x>-------- |
+                      |                   | |    [15]
+                      |                   | |     |
+                      |                   v v     v
+                     [0]->[1]->[2]->[5]->[ 7 ]->[ 8 ]------------>[13]->[ 14 ]--------->[16]
+                           |          |                                  ^  ^
+                           v          v                                  |  |
+                          [3]        [9]->[10]----------------------------  |
+                           |                                                |
+                           v                                                |
+                          [11]->[12]-----------------------------------------
+
+            if we move forward task 0 to task 7, we need to move all the children of 0 stopping at 7
+            (1, 3, 2, 5, 11, 12, 9, 10, 14)
+            the children of 1 that are at the same time ancestors of 8 should be planned before 8
+            with respecting the topological sort for sure (0, 1, 2, 5, 7)
+            3, 11, 12, 9, 10, 14 should also be moved forward after 7.
+            9, 10, 14, 3, 11, 12 is also a valid order but in this test it will be second order as 2 will be visited
+            before 3 from 1
+            4, 6, 7, 15, 8, 13 should not be moved
+            14 should still after 13
+            16 should not move as it's not impacted by any conflict created by any moved task
+        """
+        initial_dates_deep_copy = dict(self.initial_dates)
+        initial_dates_deep_copy['8'] = (datetime(2024, 3, 22, 13, 0), datetime(2024, 3, 22, 17, 0))
+        self.project2_task_8.write({
+            'planned_date_begin': initial_dates_deep_copy['8'][0],
+            'date_deadline': initial_dates_deep_copy['8'][1],
+            'dependent_ids': [Command.link(self.project2_task_13.id), Command.unlink(self.project2_task_0.id)],
+        })
+        initial_dates_deep_copy['7'] = (datetime(2024, 3, 21, 13, 0), datetime(2024, 3, 21, 17, 0))
+        self.project2_task_7.write({
+            'planned_date_begin': initial_dates_deep_copy['7'][0],
+            'date_deadline': initial_dates_deep_copy['7'][1],
+            'depend_on_ids': [Command.link(self.project2_task_0.id)]
+        })
+        initial_dates_deep_copy['5'] = (datetime(2024, 3, 7, 8, 0), datetime(2024, 3, 8, 17, 0))
+        self.project2_task_5.write({
+            'planned_date_begin': initial_dates_deep_copy['5'][0],
+            'date_deadline': initial_dates_deep_copy['5'][1],
+            'depend_on_ids': [Command.link(self.project2_task_2.id)]
+        })
+        initial_dates_deep_copy['15'] = (datetime(2024, 3, 22, 8, 0), datetime(2024, 3, 22, 12, 0))
+        task_15 = self.ProjectTask.create({
+            'name': '15',
+            "user_ids": self.user_projectuser,
+            "project_id": self.project2.id,
+            'dependent_ids': [Command.link(self.project2_task_8.id)],
+            'planned_date_begin': initial_dates_deep_copy['15'][0],
+            'date_deadline': initial_dates_deep_copy['15'][1],
+        })
+        initial_dates_deep_copy['13'] = (datetime(2024, 4, 3, 8, 0), datetime(2024, 4, 3, 12, 0))
+        self.project2_task_13.write({
+            'planned_date_begin': initial_dates_deep_copy['13'][0],
+            'date_deadline': initial_dates_deep_copy['13'][1],
+        })
+        initial_dates_deep_copy['14'] = (datetime(2024, 4, 3, 13, 0), datetime(2024, 4, 5, 17, 0))
+        self.project2_task_14.write({
+            'planned_date_begin': initial_dates_deep_copy['14'][0],
+            'date_deadline': initial_dates_deep_copy['14'][1],
+            'depend_on_ids': [Command.link(self.project2_task_13.id), Command.link(self.project2_task_10.id), Command.link(self.project2_task_12.id)],
+        })
+        initial_dates_deep_copy['16'] = (datetime(2024, 6, 3, 13, 0), datetime(2024, 6, 5, 17, 0))
+        task_16 = self.ProjectTask.create({
+            'name': '16',
+            "user_ids": self.user_projectuser,
+            "project_id": self.project2.id,
+            'planned_date_begin': initial_dates_deep_copy['16'][0],
+            'date_deadline': initial_dates_deep_copy['16'][1],
+            'depend_on_ids': [Command.link(self.project2_task_14.id)],
+        })
+        initial_dates_deep_copy['11'] = (datetime(2024, 3, 15, 13, 0), datetime(2024, 3, 18, 17, 0))
+        self.project2_task_11.write({
+            'planned_date_begin': initial_dates_deep_copy['11'][0],
+            'date_deadline': initial_dates_deep_copy['11'][1],
+            'depend_on_ids': [Command.link(self.project2_task_3.id)],
+        })
+        initial_dates_deep_copy['12'] = (datetime(2024, 3, 19, 8, 0), datetime(2024, 3, 20, 12, 0))
+        self.project2_task_12.write({
+            'planned_date_begin': initial_dates_deep_copy['12'][0],
+            'date_deadline': initial_dates_deep_copy['12'][1],
+            'depend_on_ids': [Command.link(self.project2_task_11.id)],
+        })
+        self.project2_task_3.allocated_hours = 4
+        self.project2_task_1.dependent_ids = self.project2_task_1.dependent_ids.sorted(key=lambda t: t.name)
+
+        self.gantt_reschedule_forward(self.project2_task_0, self.project2_task_7)
+
+        self.assert_task_not_replanned(
+            self.project2_task_4 | self.project2_task_6 | self.project2_task_7 | self.project2_task_8 | task_15 | self.project2_task_13 | task_16,
+            initial_dates_deep_copy,
+        )
+
+        # assert tasks [0]->[1]->[2]->[5] planned first just before [7]
+        self.assert_new_dates(
+            self.project2_task_5,
+            datetime(year=2024, month=3, day=19, hour=13),
+            datetime(year=2024, month=3, day=21, hour=12),
+            """
+                task 5 duration = 16 Hours
+                4 Hours on 19/03
+                8 hours on 20/03
+                4 Hours on 21/03
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_2,
+            datetime(year=2024, month=3, day=19, hour=10),
+            datetime(year=2024, month=3, day=19, hour=12),
+            """
+                task 2 duration = 2 Hours
+                2 Hours on 19/03
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_1,
+            datetime(year=2024, month=3, day=18, hour=15),
+            datetime(year=2024, month=3, day=19, hour=10),
+            """
+                task 1 duration = 4 Hours
+                2 Hours on 18/03 and 2 Hours on 19/03
+            """
+        )
+        self.assert_new_dates(
+            self.project2_task_0,
+            datetime(year=2024, month=3, day=18, hour=10),
+            datetime(year=2024, month=3, day=18, hour=15),
+            """
+                task 0 duration = 4 Hours
+                4 Hours on 18/03
+            """
+        )
+
+        # assert 3, 11, 12, 9, 10, 14 planned after 7
+        self.assert_new_dates(
+            self.project2_task_3,
+            datetime(year=2024, month=3, day=25, hour=8),
+            datetime(year=2024, month=3, day=25, hour=12),
+            """
+                task 3 duration = 4 Hours
+                4 Hours on 25/03
+            """
+        )
+        self.assert_new_dates(
+            self.project2_task_9,
+            datetime(year=2024, month=3, day=25, hour=13),
+            datetime(year=2024, month=3, day=25, hour=17),
+            """
+                task 9 duration = 4 Hours
+                4 Hours on 25/03
+            """
+        )
+        self.assert_new_dates(
+            self.project2_task_11,
+            datetime(year=2024, month=3, day=26, hour=8),
+            datetime(year=2024, month=3, day=27, hour=12),
+            """
+                task 11 duration = 12 Hours
+                8 Hours on 26/03
+                4 Hours on 27/03
+            """
+        )
+        self.assert_new_dates(
+            self.project2_task_10,
+            datetime(year=2024, month=3, day=27, hour=13),
+            datetime(year=2024, month=3, day=27, hour=17),
+            """
+                task 10 duration = 4 Hours
+                4 Hours on 27/03
+            """
+        )
+        self.assert_new_dates(
+            self.project2_task_12,
+            datetime(year=2024, month=3, day=28, hour=8),
+            datetime(year=2024, month=3, day=29, hour=12),
+            """
+                task 12 duration = 12 Hours
+                4 Hours on 28/03
+                8 Hours on 29/03
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_14,
+            datetime(year=2024, month=4, day=3, hour=13),
+            datetime(year=2024, month=4, day=5, hour=17),
+            """
+                task 14 duration = 20 Hours
+                even that, slots are available from 29/03 to 03/04
+                it should be planned after task 13 (date_deadline = 03/04 12H)
+                4 Hours on 03/04
+                8 Hours on 04/04
+                8 Hours on 05/05
+            """
+        )
+
+    def test_move_backward_without_conflicts(self):
+        """
+                  [16]<------------------
+                                        |
+        [18]--------------------->[4]->[6]---------
+                                                  |
+                            ----------<x>-------- |
+                            |                   | |    [15]
+                            |                   | |     |
+                            |                   v v     v
+        [17]-------------->[0]->[1]->[2]->[5]->[ 7 ]->[ 8 ]------------>[13]->[ 14 ]
+                                 |          |                                  ^ ^
+                                 v          v                                  | |
+                                [3]        [9]->[10]---------------------------- |
+                                 |                                               |
+                                 v                                               |
+                                [11]->[12]----------------------------------------
+
+            if we move backward task 7 to task 0, we need to move all the ancestors of 7 stopping at 0
+            (1, 2, 5, 4, 6, 7)
+            the children of 0 that are at the same time ancestors of 7 should be planned after 0
+            with respecting the topological sort for sure (1, 2, 5, 7)
+            4, 6 should also be moved to avoid creating conflicts as 7 will be moved and they should stay planned
+            before 7.
+            18 should not be moved as after moving 4 and 6, no conflict created with task 18
+            3, 11, 12, 9, 10, 8, 15, 13, 14, 16, 17 should not be moved
+        """
+        initial_dates_deep_copy = dict(self.initial_dates)
+        initial_dates_deep_copy['8'] = (datetime(2024, 3, 22, 13, 0), datetime(2024, 3, 22, 17, 0))
+        self.project2_task_8.write({
+            'planned_date_begin': initial_dates_deep_copy['8'][0],
+            'date_deadline': initial_dates_deep_copy['8'][1],
+            'dependent_ids': [Command.link(self.project2_task_13.id), Command.unlink(self.project2_task_0.id)],
+        })
+        initial_dates_deep_copy['7'] = (datetime(2024, 3, 21, 13, 0), datetime(2024, 3, 21, 17, 0))
+        self.project2_task_7.write({
+            'planned_date_begin': initial_dates_deep_copy['7'][0],
+            'date_deadline': initial_dates_deep_copy['7'][1],
+            'depend_on_ids': [Command.link(self.project2_task_0.id)]
+        })
+        initial_dates_deep_copy['5'] = (datetime(2024, 3, 7, 8, 0), datetime(2024, 3, 8, 17, 0))
+        self.project2_task_5.write({
+            'planned_date_begin': initial_dates_deep_copy['5'][0],
+            'date_deadline': initial_dates_deep_copy['5'][1],
+            'depend_on_ids': [Command.link(self.project2_task_2.id)]
+        })
+        initial_dates_deep_copy['15'] = (datetime(2024, 3, 22, 8, 0), datetime(2024, 3, 22, 12, 0))
+        initial_dates_deep_copy['16'] = (datetime(2024, 2, 22, 8, 0), datetime(2024, 2, 22, 12, 0))
+        initial_dates_deep_copy['17'] = (datetime(2024, 2, 1, 8, 0), datetime(2024, 2, 1, 12, 0))
+        initial_dates_deep_copy['18'] = (datetime(2024, 2, 1, 8, 0), datetime(2024, 2, 1, 12, 0))
+
+        task_15, task_16, task_17, task_18 = self.ProjectTask.create([{
+                'name': '15',
+                "user_ids": self.user_projectuser,
+                "project_id": self.project2.id,
+                'dependent_ids': [Command.link(self.project2_task_8.id)],
+                'planned_date_begin': initial_dates_deep_copy['15'][0],
+                'date_deadline': initial_dates_deep_copy['15'][1],
+            },
+            {
+                'name': '16',
+                "user_ids": self.user_projectuser,
+                "project_id": self.project2.id,
+                'depend_on_ids': [Command.link(self.project2_task_6.id)],
+                'planned_date_begin': initial_dates_deep_copy['16'][0],
+                'date_deadline': initial_dates_deep_copy['16'][1],
+            },
+            {
+                'name': '17',
+                "user_ids": self.user_projectuser,
+                "project_id": self.project2.id,
+                'dependent_ids': [Command.link(self.project2_task_0.id)],
+                'planned_date_begin': initial_dates_deep_copy['17'][0],
+                'date_deadline': initial_dates_deep_copy['17'][1],
+            },
+            {
+                'name': '18',
+                "user_ids": self.user_projectuser,
+                "project_id": self.project2.id,
+                'dependent_ids': [Command.link(self.project2_task_4.id)],
+                'planned_date_begin': initial_dates_deep_copy['18'][0],
+                'date_deadline': initial_dates_deep_copy['18'][1],
+            }
+        ])
+
+        initial_dates_deep_copy['13'] = (datetime(2024, 4, 3, 8, 0), datetime(2024, 4, 3, 12, 0))
+        self.project2_task_13.write({
+            'planned_date_begin': initial_dates_deep_copy['13'][0],
+            'date_deadline': initial_dates_deep_copy['13'][1],
+        })
+        initial_dates_deep_copy['14'] = (datetime(2024, 4, 3, 13, 0), datetime(2024, 4, 5, 17, 0))
+        self.project2_task_14.write({
+            'planned_date_begin': initial_dates_deep_copy['14'][0],
+            'date_deadline': initial_dates_deep_copy['14'][1],
+            'depend_on_ids': [Command.link(self.project2_task_13.id), Command.link(self.project2_task_10.id), Command.link(self.project2_task_12.id)],
+        })
+        initial_dates_deep_copy['11'] = (datetime(2024, 3, 15, 13, 0), datetime(2024, 3, 18, 17, 0))
+        self.project2_task_11.write({
+            'planned_date_begin': initial_dates_deep_copy['11'][0],
+            'date_deadline': initial_dates_deep_copy['11'][1],
+            'depend_on_ids': [Command.link(self.project2_task_3.id)],
+        })
+        initial_dates_deep_copy['12'] = (datetime(2024, 3, 19, 8, 0), datetime(2024, 3, 20, 12, 0))
+        self.project2_task_12.write({
+            'planned_date_begin': initial_dates_deep_copy['12'][0],
+            'date_deadline': initial_dates_deep_copy['12'][1],
+            'depend_on_ids': [Command.link(self.project2_task_11.id)],
+        })
+        self.project2_task_3.allocated_hours = 4
+        self.project2_task_1.dependent_ids = self.project2_task_1.dependent_ids.sorted(key=lambda t: t.name)
+
+        self.project2_task_6.write({
+            'planned_date_begin': datetime(2024, 3, 5, 13, 0),
+            'date_deadline': datetime(2024, 3, 5, 17, 0),
+        })
+
+        self.project2_task_4.write({
+            'planned_date_begin': datetime(2024, 3, 4, 8, 0),
+            'date_deadline': datetime(2024, 3, 4, 12, 0),
+        })
+
+        self.gantt_reschedule_backward(self.project2_task_0, self.project2_task_7)
+        self.assert_task_not_replanned(
+            self.project2_task_3 | self.project2_task_11 | self.project2_task_12 | self.project2_task_9 | task_15 | task_16 | task_17 |
+            self.project2_task_13 | self.project2_task_14 | task_18,
+            initial_dates_deep_copy,
+        )
+
+        self.assert_new_dates(
+            self.project2_task_1,
+            datetime(year=2024, month=3, day=1, hour=13),
+            datetime(year=2024, month=3, day=1, hour=17),
+            """
+                task 1 duration = 4 Hours
+                4 Hours on 01/03
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_2,
+            datetime(year=2024, month=3, day=4, hour=8),
+            datetime(year=2024, month=3, day=4, hour=10),
+            """
+                task 2 duration = 2 Hours
+                2 Hours on 04/03
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_5,
+            datetime(year=2024, month=3, day=4, hour=10),
+            datetime(year=2024, month=3, day=6, hour=10),
+            """
+                task 5 duration = 16 Hours
+                6 Hours on 04/03
+                8 Hours on 05/03
+                2 Hours on 06/03
+            """
+        )
+
+        self.assert_new_dates(
+            self.project2_task_7,
+            datetime(year=2024, month=3, day=6, hour=10),
+            datetime(year=2024, month=3, day=6, hour=15),
+            """
+                task 7 duration = 4 Hours
+                4 Hours on 06/03
+            """
+        )
+
+        # assert 4, 6 planned before 0, 6 should be planned before 16
+        self.assert_new_dates(
+            self.project2_task_6,
+            datetime(year=2024, month=2, day=19, hour=13),
+            datetime(year=2024, month=2, day=21, hour=17),
+            """
+                task 6 duration = allocated_hours = 20 Hours
+                even than task 0 starts on 01/03, we need to plan task 6 before task 16 (starts on 22/02 8H)
+            """
+        )
+        self.assert_new_dates(
+            self.project2_task_4,
+            datetime(year=2024, month=2, day=15, hour=13),
+            datetime(year=2024, month=2, day=19, hour=12),
+            """
+                task 4 duration = allocated_hours = 16 Hours
+                4 Hours on 19/02
+                8 Hours on 16/02
+                4 Hours on 15/02
+            """
+        )
+
+    def test_move_forward_with_multi_users(self):
+        """
+                        -------------------------------------------------
+                        |                                               |
+                        v                                               |
+            Raouf 1    [0]->[ 1 ]------>[2]----------->[5]   |->[7]    [8]
+                             |  |        ^      --------|----
+                             |  |        |      |       |
+            Raouf 2          |  -->[3]   |      |       ----->[9]----->[10]
+                             |           |      |
+                             |           |      |
+            Raouf 3          ---------->[4]---->[6]
+
+            When we move 0 in front of 8:
+            - 3, 4 can be planned in // just after the end of 1
+            - 2, 6 can be planned in // just after the end of 4
+            - 5 planned after 2
+            - 9, 10 should wait for 5 to be planned even if there are available slots before
+            - 7 planned after 6
+        """
+        self.project2_task_8.write({
+            'depend_on_ids': [Command.unlink(self.project2_task_7.id)],
+        })
+        (self.project2_task_4 + self.project2_task_6).write({
+            'user_ids': [self.user2.id, self.user1.id],
+        })
+
+        (self.project2_task_9 + self.project2_task_10).write({
+            'user_ids': [self.user1.id],
+        })
+
+        self.project2_task_2.write({
+            'dependent_ids': [Command.link(self.project2_task_5.id)],
+            'depend_on_ids': [Command.link(self.project2_task_4.id), Command.unlink(self.project2_task_7.id)],
+        })
+
+        self.project2_task_5.write({
+            'dependent_ids': [Command.unlink(self.project2_task_7.id)]
+        })
+
+        self.project2_task_1.write({
+            'dependent_ids': [Command.link(self.project2_task_4.id)]
+        })
+
+        self.gantt_reschedule_forward(self.project2_task_8, self.project2_task_0)
+
+        self.assert_new_dates(
+            self.project2_task_0,
+            datetime(year=2024, month=3, day=18, hour=8),
+            datetime(year=2024, month=3, day=18, hour=12),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_1,
+            datetime(year=2024, month=3, day=18, hour=13),
+            datetime(year=2024, month=3, day=18, hour=17),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_3,
+            datetime(year=2024, month=3, day=19, hour=8),
+            datetime(year=2024, month=3, day=19, hour=14),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_4,
+            datetime(year=2024, month=3, day=19, hour=8),
+            datetime(year=2024, month=3, day=20, hour=17),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_2,
+            datetime(year=2024, month=3, day=21, hour=8),
+            datetime(year=2024, month=3, day=21, hour=10),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_6,
+            datetime(year=2024, month=3, day=21, hour=8),
+            datetime(year=2024, month=3, day=25, hour=10),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_7,
+            datetime(year=2024, month=3, day=25, hour=10),
+            datetime(year=2024, month=3, day=25, hour=15),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_5,
+            datetime(year=2024, month=3, day=21, hour=10),
+            datetime(year=2024, month=3, day=25, hour=10),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_9,
+            datetime(year=2024, month=3, day=25, hour=10),
+            datetime(year=2024, month=3, day=25, hour=15),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_10,
+            datetime(year=2024, month=3, day=25, hour=15),
+            datetime(year=2024, month=3, day=26, hour=10),
+        )
+
+    def test_move_backward_with_multi_users(self):
+        """
+                         ----------------------------------------------------------------
+                         |                                                              |
+                         v                                                              |
+            Raouf 1     [11]    [0]->[ 1 ]------>[2]----------->[5]   |->[7]---------->[8]
+                                      |  |        ^      --------|-----                 ^
+                                      |  |        |      |       |                      |
+            Raouf 2                   |  -->[3]   |      |       ----->[9]------------>[10]
+                                      |           |      |
+                                      |           |      |
+            Raouf 3                   ---------->[4]---->[6]
+
+            When we move 8 before 11:
+            - all the ancestors of 8 should move before 8 (0, 1, 4, 2, 6, 7, 5, 9, 10, 8)
+        """
+        self.project2_task_7.dependent_ids = self.project2_task_7.dependent_ids.sorted(key=lambda t: t.name)
+        self.project2_task_8.write({
+            'depend_on_ids': [Command.link(self.project2_task_10.id), Command.link(self.project2_task_7.id)],
+            'dependent_ids': [Command.unlink(self.project2_task_0.id), Command.link(self.project2_task_13.id)],
+        })
+
+        (self.project2_task_4 + self.project2_task_6).write({
+            'user_ids': [self.user2.id, self.user1.id],
+        })
+
+        (self.project2_task_9 + self.project2_task_10).write({
+            'user_ids': [self.user1.id],
+        })
+
+        self.project2_task_2.write({
+            'dependent_ids': [Command.link(self.project2_task_5.id)],
+            'depend_on_ids': [Command.unlink(self.project2_task_7.id), Command.link(self.project2_task_4.id)],
+        })
+
+        self.project2_task_5.write({
+            'dependent_ids': [Command.unlink(self.project2_task_7.id)]
+        })
+
+        self.project2_task_1.write({
+            'dependent_ids': [Command.link(self.project2_task_4.id)]
+        })
+
+        self.gantt_reschedule_backward(self.project2_task_8, self.project2_task_13)
+
+        self.assert_new_dates(
+            self.project2_task_0,
+            datetime(year=2024, month=2, day=16, hour=11),
+            datetime(year=2024, month=2, day=16, hour=16),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_1,
+            datetime(year=2024, month=2, day=16, hour=16),
+            datetime(year=2024, month=2, day=19, hour=11),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_4,
+            datetime(year=2024, month=2, day=19, hour=11),
+            datetime(year=2024, month=2, day=21, hour=11),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_2,
+            datetime(year=2024, month=2, day=21, hour=11),
+            datetime(year=2024, month=2, day=21, hour=14),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_6,
+            datetime(year=2024, month=2, day=21, hour=11),
+            datetime(year=2024, month=2, day=23, hour=16),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_7,
+            datetime(year=2024, month=2, day=23, hour=16),
+            datetime(year=2024, month=2, day=27, hour=9),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_5,
+            datetime(year=2024, month=2, day=21, hour=14),
+            datetime(year=2024, month=2, day=23, hour=16),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_9,
+            datetime(year=2024, month=2, day=26, hour=9),
+            datetime(year=2024, month=2, day=26, hour=14),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_10,
+            datetime(year=2024, month=2, day=26, hour=14),
+            datetime(year=2024, month=2, day=27, hour=9),
+        )
+
+        self.assert_new_dates(
+            self.project2_task_8,
+            datetime(year=2024, month=2, day=27, hour=9),
+            datetime(year=2024, month=2, day=29, hour=9),
+        )

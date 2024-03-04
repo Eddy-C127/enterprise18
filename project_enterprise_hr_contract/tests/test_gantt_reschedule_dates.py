@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from datetime import timedelta
+from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 
@@ -84,10 +84,10 @@ class TestGanttRescheduleOnTasks(AutoShiftDatesHRCommon):
             'planned_date_begin': new_task_3_begin_date,
             'date_deadline': new_task_3_begin_date + (self.task_3_date_deadline - self.task_3_planned_date_begin),
         })
+        old_task_1_begin_task = self.task_1.planned_date_begin
         self.gantt_reschedule_backward(self.task_1, self.task_3)
-        failed_message = "The auto shift date feature should take the company's calendar when no contract cover the period and no calendar is set on the employee."
-        self.assertEqual(self.task_1.planned_date_begin,
-                         new_task_3_begin_date + relativedelta(hour=10), failed_message)
+        failed_message = "The auto shift date feature should not move the task when no contract cover the period and no calendar is set on the employee."
+        self.assertEqual(self.task_1.planned_date_begin, old_task_1_begin_task, failed_message)
         # Reset contract
         self.contract_3.write({
             'date_start': tmp_date_start
@@ -102,6 +102,11 @@ class TestGanttRescheduleOnTasks(AutoShiftDatesHRCommon):
                          new_task_1_begin_date + relativedelta(days=1, hour=13), failed_message)
 
     def test_auto_shift_period_without_contract(self):
+        """
+            When the employee has at least one valid contract, we need to follow the contract.
+            In this case, if no contract covering the period, we can't move the task
+            When the employee has no valid contract, we follow the company calendar
+        """
         self.contract_3 = self.env['hr.contract'].create({
             'date_start': self.task_1_planned_date_begin.date() - relativedelta(months=1),
             'date_end': self.task_1_planned_date_begin.date() - relativedelta(days=5),
@@ -125,13 +130,27 @@ class TestGanttRescheduleOnTasks(AutoShiftDatesHRCommon):
         failed_message = "The auto shift date feature should take the employee's calendar into account."
         self.assertEqual(self.task_1.planned_date_begin,
                          new_task_3_begin_date - relativedelta(days=1, hour=11), failed_message)
-        new_task_3_begin_date = self.task_1.planned_date_begin - relativedelta(days=2)  # 2021 06 21 11:00
         self.task_3.write({
-            'planned_date_begin': new_task_3_begin_date,
-            'date_deadline': new_task_3_begin_date + (self.task_3_date_deadline - self.task_3_planned_date_begin),
+            'planned_date_begin': datetime(2021, 6, 21, 11),
+            'date_deadline': datetime(2021, 6, 21, 15),
         })
+        """
+            task 1 should move before task 3 to solve the conflicts
+            task 1 duration = allocated_hours = 3 Hours
+        """
+        task_1_prev_planned_date_begin, task_1_prev_date_deadline = self.task_1.planned_date_begin, self.task_1.date_deadline
         self.gantt_reschedule_backward(self.task_1, self.task_3)
-        failed_message = "The auto shift date feature should take the company's calendar when no contract covers the period."
-        self.assertEqual(self.task_1.planned_date_begin,
-                         new_task_3_begin_date + relativedelta(day=21, hour=8), failed_message)
-        # between the two contracts, the fallback is done on company calendar.
+        failed_message = "The auto shift date feature should take the first possible time according to the valid contracts."
+        self.assertEqual(self.task_1.date_deadline, datetime(2021, 6, 18, 17), failed_message)
+        self.assertEqual(self.task_1.planned_date_begin, datetime(2021, 6, 18, 14))
+
+        self.armande_employee.contract_ids.unlink()
+        self.task_1.write({
+            'planned_date_begin': task_1_prev_planned_date_begin,
+            'date_deadline': task_1_prev_date_deadline,
+        })
+
+        self.gantt_reschedule_backward(self.task_1, self.task_3)
+        failed_message = "The auto shift date feature should take the company calendar as there are no valid contractss."
+        self.assertEqual(self.task_1.date_deadline, self.task_3.planned_date_begin, failed_message)
+        self.assertEqual(self.task_1.planned_date_begin, self.task_3.planned_date_begin - timedelta(hours=3))

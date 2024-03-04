@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from lxml.builder import E
 
 from odoo import _, api, models
@@ -19,6 +19,7 @@ class Base(models.AbstractModel):
     _WEB_GANTT_RESCHEDULE_FORWARD = 'forward'
     _WEB_GANTT_RESCHEDULE_BACKWARD = 'backward'
     _WEB_GANTT_LOOP_ERROR = 'loop_error'
+    _WEB_GANTT_NO_POSSIBLE_ACTION_ERROR = 'no_possible_action_error'
 
     @api.model
     def _get_default_gantt_view(self):
@@ -155,51 +156,34 @@ class Base(models.AbstractModel):
             trigger_record = slave_record
             related_record = master_record
 
-        cache = self._web_gantt_reschedule_get_empty_cache()
-
-        new_start_date, new_stop_date = trigger_record._web_gantt_reschedule_record(
-            related_record, related_record == master_record,
-            start_date_field_name, stop_date_field_name,
-            cache
-        )
-
-        result = trigger_record._web_gantt_reschedule_write_new_dates(
-            new_start_date, new_stop_date, start_date_field_name, stop_date_field_name,
-        )
+        if not trigger_record._web_gantt_reschedule_is_record_candidate(start_date_field_name, stop_date_field_name):
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'warning',
+                    'message': _('You cannot move %s towards %s.') % (trigger_record.name, related_record.name),
+                }
+            }
 
         sp = self.env.cr.savepoint()
-
-        record_ids_to_exclude = defaultdict(list)
-
-        result = result is True and trigger_record._web_gantt_action_reschedule_related_records(
-            dependency_field_name, dependency_inverted_field_name,
-            start_date_field_name, stop_date_field_name,
-            direction,
-            record_ids_to_exclude,
-            cache
-        )
-
-        if result is not True:
-            if result is False:
+        log_messages = trigger_record._web_gantt_action_reschedule_candidates(dependency_field_name, dependency_inverted_field_name, start_date_field_name, stop_date_field_name, direction, related_record)
+        has_errors = bool(log_messages.get("errors"))
+        sp.close(rollback=has_errors)
+        if has_errors or log_messages.get("warnings"):
+            notification_type = 'info'
+            if has_errors:
                 notification_type = 'warning'
-                message = _('Records that are in the past cannot be automatically rescheduled. They should be manually rescheduled instead.')
-            elif result == self._WEB_GANTT_LOOP_ERROR:
-                notification_type = 'info'
-                message = _('You cannot reschedule tasks that do not follow a direct dependency path. '
-                            'Only the first task has been automatically rescheduled.')
-            else:
-                raise ValueError('Unsupported result value')
-            result = {
-                    'type': 'ir.actions.client',
-                    'tag': 'display_notification',
-                    'params': {
-                        'type': notification_type,
-                        'message': message,
-                    }
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': notification_type,
+                    'message': self._web_gantt_get_reschedule_message(log_messages),
                 }
+            }
 
-        sp.close(rollback=result is not True)
-        return result
+        return True
 
     @api.model
     def gantt_progress_bar(self, fields, res_ids, date_start_str, date_stop_str):
@@ -329,17 +313,101 @@ class Base(models.AbstractModel):
         """
         return rows
 
-    def _web_gantt_action_reschedule_related_records(
+    def _web_gantt_get_candidates(self,
+        dependency_field_name, dependency_inverted_field_name,
+        start_date_field_name, stop_date_field_name,
+        related_record, move_forward_without_conflicts,
+    ):
+        result = {
+            'warnings': [],
+            'errors': [],
+        }
+        # first get the children of self
+        self_children_ids = []
+        pills_to_plan_before = []
+        pills_to_plan_after = []
+
+        if move_forward_without_conflicts:
+            candidates_to_exclude = {related_record.id}
+        else:
+            candidates_to_exclude = {self.id} | set(related_record[dependency_inverted_field_name].ids)
+
+        if self._web_gantt_check_cycle_existance_and_get_rescheduling_candidates(
+            self_children_ids, dependency_inverted_field_name,
+            start_date_field_name, stop_date_field_name,
+            candidates_to_exclude,
+        ):
+            result['errors'].append(self._WEB_GANTT_LOOP_ERROR)
+            return (result, pills_to_plan_before, pills_to_plan_after, [])
+
+        # second, get the ancestors of related_record
+        related_record_ancestors_ids = []
+
+        if move_forward_without_conflicts:
+            candidates_to_exclude = {related_record.id} | set(self[dependency_field_name].ids)
+        else:
+            candidates_to_exclude = {self.id}
+
+        if related_record._web_gantt_check_cycle_existance_and_get_rescheduling_candidates(
+            related_record_ancestors_ids, dependency_field_name,
+            start_date_field_name, stop_date_field_name,
+            candidates_to_exclude,
+        ):
+            result['errors'].append(self._WEB_GANTT_LOOP_ERROR)
+            return (result, pills_to_plan_before, pills_to_plan_after, [])
+
+        # third, get the intersection between self children and related_record ancestors
+        if move_forward_without_conflicts:
+            all_pills_ids, pills_to_check_from_ids = self_children_ids, set(related_record_ancestors_ids)
+        else:
+            related_record_ancestors_ids.reverse()
+            all_pills_ids, pills_to_check_from_ids = related_record_ancestors_ids, self_children_ids
+
+        for pill_id in all_pills_ids:
+            if pill_id in pills_to_check_from_ids:
+                (pills_to_plan_before if move_forward_without_conflicts else pills_to_plan_after).append(pill_id)
+            else:
+                (pills_to_plan_after if move_forward_without_conflicts else pills_to_plan_before).append(pill_id)
+
+        return (result, pills_to_plan_before, pills_to_plan_after, all_pills_ids)
+
+    def _web_gantt_get_reschedule_message_per_key(self, key, params=None):
+        if key == self._WEB_GANTT_LOOP_ERROR:
+            return _("The dependencies are not valid, there is a cycle.")
+        elif key == self._WEB_GANTT_NO_POSSIBLE_ACTION_ERROR:
+            return _("There are no valid candidates to re-plan")
+        elif key == "past_error":
+            if params:  # params is the record that is in the past
+                return _("%s cannot be scheduled in the past", params.display_name)
+            else:
+                return _("Impossible to schedule in the past.")
+        else:
+            return ""
+
+    def _web_gantt_get_reschedule_message(self, log_messages):
+        def get_messages(logs):
+            messages = []
+            for key in logs:
+                message = self._web_gantt_get_reschedule_message_per_key(key, log_messages.get(key))
+                if message:
+                    messages.append(message)
+            return messages
+
+        messages = []
+        errors = log_messages.get("errors")
+        if errors:
+            messages = get_messages(log_messages.get("errors"))
+        else:
+            messages = get_messages(log_messages.get("warnings", []))
+        return "\n".join(messages)
+
+    def _web_gantt_action_reschedule_candidates(
         self,
         dependency_field_name, dependency_inverted_field_name,
         start_date_field_name, stop_date_field_name,
-        direction,
-        record_ids_to_exclude,
-        cache
+        direction, related_record,
     ):
-        """ Reschedule the related records, that is the records available in both fields dependency_field_name and
-            dependency_inverted_field_name and which satisfies some conditions which are tested in
-            _web_gantt_get_rescheduling_candidates
+        """ Prepare the candidates according to the provided parameters and move them.
 
             :param dependency_field_name: The field name of the relation between the master and slave records.
             :param dependency_inverted_field_name: The field name of the relation between the slave and the parent
@@ -347,186 +415,256 @@ class Base(models.AbstractModel):
             :param start_date_field_name: The start date field used in the gantt view.
             :param stop_date_field_name: The stop date field used in the gantt view.
             :param direction: The direction of the rescheduling 'forward' or 'backward'
-            :param record_ids_to_exclude: The record Ids that have to be excluded from the return candidates.
-            :param cache: An object that contains reusable information in the context of gantt record rescheduling.
-            :return: True if successful, False if not.
-            :rtype: bool
+            :param related_record: The record that self will be moving to
+            :return: tuple(valid, message) (valid = True if Successful, message = None or contains the notification text if
+                    text if valid = True or the error text if valid = False.
         """
-        rescheduling_candidates = self._web_gantt_get_rescheduling_candidates(
-            dependency_field_name, dependency_inverted_field_name,
-            start_date_field_name, stop_date_field_name,
-            direction,
-            record_ids_to_exclude
-        )
-
-        if rescheduling_candidates is False:
-            return self._WEB_GANTT_LOOP_ERROR
-
-        if not rescheduling_candidates:
-            return True
-
-        result = True
-        records_to_propagate = self.env[self._name]
-        for rescheduling_candidate in rescheduling_candidates:
-            record, related_record, is_related_record_master = rescheduling_candidate
-
-            new_start_date, new_stop_date = record._web_gantt_reschedule_record(
-                related_record, is_related_record_master,
+        search_forward = direction == self._WEB_GANTT_RESCHEDULE_FORWARD
+        # moving forward without conflicts
+        if search_forward and self[stop_date_field_name] <= related_record[start_date_field_name] and related_record in self[dependency_inverted_field_name]:
+            log_messages, pills_to_plan_before_related_record, pills_to_plan_after_related_record, all_candidates_ids = self._web_gantt_get_candidates(
+                dependency_field_name, dependency_inverted_field_name,
                 start_date_field_name, stop_date_field_name,
-                cache
-            )
-            record_write_result = record._web_gantt_reschedule_write_new_dates(
-                new_start_date, new_stop_date,
-                start_date_field_name, stop_date_field_name,
+                related_record, True,
             )
 
-            if record_write_result:
-                records_to_propagate |= record
-                record_ids_to_exclude[record.id] = record_ids_to_exclude[related_record.id] + [related_record.id]
+            if log_messages.get("errors") or not pills_to_plan_before_related_record:
+                return log_messages
 
-            result &= record_write_result
+            # plan self_children backward from related_record
+            pills_to_plan_before_related_record.reverse()
+            log_messages = self._web_gantt_move_candidates(
+                start_date_field_name, stop_date_field_name,
+                dependency_field_name, dependency_inverted_field_name,
+                False, pills_to_plan_before_related_record,
+                related_record[start_date_field_name],
+                all_candidates_ids, True,
+            )
 
-        for record in self:
-            record_ids_to_exclude.pop(record.id, None)
+            if log_messages.get("errors") or not pills_to_plan_after_related_record:
+                return log_messages
 
-        related_records_result = records_to_propagate._web_gantt_action_reschedule_related_records(
-            dependency_field_name, dependency_inverted_field_name,
-            start_date_field_name, stop_date_field_name,
-            direction,
-            record_ids_to_exclude,
-            cache
-        )
-        if isinstance(related_records_result, bool):
-            result &= related_records_result
+            # plan related_record_ancestors forward from related_record
+            new_log_messages = self._web_gantt_move_candidates(
+                start_date_field_name, stop_date_field_name,
+                dependency_field_name, dependency_inverted_field_name,
+                True, pills_to_plan_after_related_record,
+                self[stop_date_field_name]
+            )
+
+            log_messages.setdefault("errors", []).extend(new_log_messages.get("errors", []))
+            log_messages.setdefault("warnings", []).extend(new_log_messages.get("warnings", []))
+
+            return log_messages
+        # moving backward without conflicts
+        elif related_record[stop_date_field_name] <= self[start_date_field_name] and related_record in self[dependency_field_name]:
+            log_messages, pills_to_plan_before_related_record, pills_to_plan_after_related_record, all_candidates_ids = related_record._web_gantt_get_candidates(
+                dependency_field_name, dependency_inverted_field_name,
+                start_date_field_name, stop_date_field_name,
+                self, False,
+            )
+
+            if log_messages.get("errors") or not pills_to_plan_after_related_record:
+                return log_messages
+
+            # plan related_record_children_ids forward from related_record
+            log_messages = self._web_gantt_move_candidates(
+                start_date_field_name, stop_date_field_name,
+                dependency_field_name, dependency_inverted_field_name,
+                True, pills_to_plan_after_related_record,
+                related_record[stop_date_field_name],
+                all_candidates_ids, True,
+            )
+
+            if log_messages.get("errors") or not pills_to_plan_before_related_record:
+                return log_messages
+
+            # plan self_ancestors_ids backward from related_record
+            pills_to_plan_before_related_record.reverse()
+            new_log_messages = self._web_gantt_move_candidates(
+                start_date_field_name, stop_date_field_name,
+                dependency_field_name, dependency_inverted_field_name,
+                False, pills_to_plan_before_related_record,
+                self[start_date_field_name]
+            )
+
+            log_messages.setdefault("errors", []).extend(new_log_messages.get("errors", []))
+            log_messages.setdefault("warnings", []).extend(new_log_messages.get("warnings", []))
+
+            return log_messages
+        # moving forward or backward with conflicts
         else:
-            result = related_records_result
+            candidates_ids = []
+            dependency = dependency_inverted_field_name if search_forward else dependency_field_name
+            if self._web_gantt_check_cycle_existance_and_get_rescheduling_candidates(
+                candidates_ids, dependency,
+                start_date_field_name, stop_date_field_name,
+            ):
+                log_messages['errors'].append(self._WEB_GANTT_LOOP_ERROR)
+                return {
+                    "errors": [self._WEB_GANTT_LOOP_ERROR],
+                }
+
+            if not candidates_ids:
+                return {
+                    "errors": [self._WEB_GANTT_NO_POSSIBLE_ACTION_ERROR],
+                }
+
+            log_messages = self._web_gantt_move_candidates(
+                start_date_field_name, stop_date_field_name,
+                dependency_field_name, dependency_inverted_field_name,
+                search_forward, candidates_ids,
+                related_record[stop_date_field_name if search_forward else start_date_field_name]
+            )
+
+            return log_messages
+
+    def _web_gantt_is_candidate_in_conflict(self, start_date_field_name, stop_date_field_name, dependency_field_name, dependency_inverted_field_name):
+        return (
+            any(r[start_date_field_name] and r[stop_date_field_name] and self[start_date_field_name] < r[stop_date_field_name] for r in self[dependency_field_name])
+            or any(r[start_date_field_name] and r[stop_date_field_name] and self[stop_date_field_name] > r[start_date_field_name] for r in self[dependency_inverted_field_name])
+        )
+
+    def _web_gantt_move_candidates(self, start_date_field_name, stop_date_field_name, dependency_field_name, dependency_inverted_field_name, search_forward, candidates_ids, date_candidate=None, all_candidates_ids=None, move_not_in_conflicts_candidates=False):
+        """ Move candidates according to the provided parameters.
+
+            :param start_date_field_name: The start date field used in the gantt view.
+            :param stop_date_field_name: The stop date field used in the gantt view.
+            :param dependency_field_name: The field name of the relation between the master and slave records.
+            :param dependency_inverted_field_name: The field name of the relation between the slave and the parent
+                   records.
+            search_forward, candidates_ids, date_candidate
+            :param search_forward: True if the direction = 'forward'
+            :param candidates_ids: The candidates to reschdule
+            :param date_candidate: The first possible date for the rescheduling
+            :param all_candidates_ids: moving without conflicts is done in 2 steps, candidates_ids contains the candidates
+                   to schedule during the step, and all_candidates_ids contains the candidates to schedule in the 2 steps
+            :return: dict of list containing 2 keys, errors and warnings
+        """
+        result = {
+            "errors": [],
+            "warnings": [],
+        }
+        candidates = self.browse(candidates_ids)
+
+        for i, candidate in enumerate(candidates):
+            if not move_not_in_conflicts_candidates and not candidate._web_gantt_is_candidate_in_conflict(start_date_field_name, stop_date_field_name, dependency_field_name, dependency_inverted_field_name):
+                continue
+
+            start_date, end_date = candidate._web_gantt_reschedule_compute_dates(
+                date_candidate,
+                search_forward,
+                start_date_field_name, stop_date_field_name
+            )
+            start_date, end_date = start_date.astimezone(timezone.utc), end_date.astimezone(timezone.utc)
+            if not candidate._web_gantt_reschedule_write_new_dates(
+                start_date, end_date,
+                start_date_field_name, stop_date_field_name
+            ):
+                result["errors"].append("past_error")
+                result["past_error"] = candidate
+                return result
+
+            if i + 1 < len(candidates):
+                next_candidate = candidates[i + 1]
+                if search_forward:
+                    ancestors = next_candidate[dependency_field_name]
+                    if ancestors:
+                        date_candidate = max(ancestors.mapped(stop_date_field_name))
+                    else:
+                        date_candidate = end_date
+                else:
+                    children = next_candidate[dependency_inverted_field_name]
+                    if children:
+                        date_candidate = min(children.mapped(start_date_field_name))
+                    else:
+                        date_candidate = start_date
 
         return result
 
-    def _web_gantt_get_rescheduling_candidates(
-        self,
-        dependency_field_name, dependency_inverted_field_name,
+    def _web_gantt_check_cycle_existance_and_get_rescheduling_candidates(self,
+        candidates_ids, dependency_field_name,
         start_date_field_name, stop_date_field_name,
-        direction,
-        record_ids_to_exclude
+        candidates_to_exclude=None, visited=None, ancestors=None,
     ):
-        """ Get the current records' related records rescheduling candidates (the records that depend on them as well
-            as the records they depend on) for the rescheduling process as well as their reference records (the
-            furthest record that depends on it, as well as the furthest record it depends on).
+        """ Get the current records' related records rescheduling candidates (explained in details
+            in case 1 and case 2 in the below example)
 
+            This method Executes a dfs (depth first search algorithm) on the dependencies tree to:
+                1- detect cycles (detect if it's not a valid tree)
+                2- return the topological sorting of the candidates to reschedule
+
+            Example:
+
+                                      [4]->[6]
+                                            |
+                                            v
+                --->[0]->[1]->[2]     [5]->[7]->[8]-----------------
+                |         |            |                           |
+                |         v            v                           |
+                |        [3]          [9]->[10]                    |
+                |                                                  |
+                ---------------------<x>----------------------------
+
+                [0]->[1]: pill 0 should be done before 1
+                <: left arrow to move pill 8 backward pill 0
+                >: right arrow to move pill 0 forward pill 8
+                x: delete the dependence
+
+                Case 1:
+                    If the right arrow is clicked, pill 0 should move forward. And as 1, 2, 3 are children of 0, they should be done after it,
+                    they should also be moved forward.
+                    This method will return False (no cycles) and a valid order of candidates = [0, 1, 2, 3] that should be scheduled
+
+                Case 2:
+                    If the left arrow is clicked, pill 8 should move backward task 0, as 4, 6, 5, 7 are ancestors for 8, they should be done
+                    before it, they should be moved backward also. 9 and 10 should not be impacted as they are not ancestors of 8.
+                    This method will return False (no cycles) and a valid order of candidates = [5, 4, 6, 7, 8] that should be scheduled
+
+            Example 2:
+                modify the previous tree by adding an edge from pill 2 to pill 0 (no more a tree after this added edge)
+                 -----------
+                 |         |
+                 v         |
+                [0]->[1]->[2]
+
+                This method will return True because there is the cycle illustrated above
+
+            :param candidates_ids: empty list that will contain the candidates at the end
             :param dependency_field_name: The field name of the relation between the master and slave records.
             :param dependency_inverted_field_name: The field name of the relation between the slave and the parent
                    records.
             :param start_date_field_name: The start date field used in the gantt view.
             :param stop_date_field_name: The stop date field used in the gantt view.
-            :param direction: The direction of the rescheduling 'forward' or 'backward'
-            :param record_ids_to_exclude: The record Ids that have to be excluded from the return candidates.
-            :return: a list of tuples (record, related_record, is_related_record_master)
-                     where: - record is the record to be rescheduled
-                            - related_record is the record that is the target of the rescheduling
-                            - is_related_record_master informs whether the related_record is a record that the current
-                              record depends on (so-called master) or a record that depends on the current record
-                              (so-called slave)
-            :rtype: tuple(AbstractModel, AbstractModel, bool)
+            :param candidates_to_exclude: candidates to exclude
+            :param visited: set containing all the visited pills
+            :param ancestors: set containing the visited ancestors for the current pill
+            :return: bool, True if there is a cycle, else False.
+                candidates_id will also contain the pills to plan in a valid topological order
         """
-        rescheduling_forward = direction == self._WEB_GANTT_RESCHEDULE_FORWARD
-        rescheduling_backward = direction == self._WEB_GANTT_RESCHEDULE_BACKWARD
+        if candidates_to_exclude is None:
+            candidates_to_exclude = []
+        if visited is None:
+            visited = set()
+        if ancestors is None:
+            ancestors = []
+        visited.add(self.id)
+        ancestors.append(self.id)
+        for child in self[dependency_field_name]:
+            if child.id in ancestors:
+                return True
 
-        slave_per_record = defaultdict(lambda: self.env[self._name])
-        master_per_record = defaultdict(lambda: self.env[self._name])
-        records_to_reschedule = self.env[self._name]
+            if child.id not in visited and child.id not in candidates_to_exclude and child._web_gantt_check_cycle_existance_and_get_rescheduling_candidates(candidates_ids, dependency_field_name, start_date_field_name, stop_date_field_name, candidates_to_exclude, visited, ancestors):
+                return True
 
-        # The goal is to automatically exclude ids from the `dependency_field_name` and `dependency_inverted_field_name`
-        # fields but not the self.ids. And the later call on _web_gantt_reschedule_is_record_candidate will ensure that
-        # the self.ids are good candidates.
+        ancestors.pop()
+        if self._web_gantt_reschedule_is_record_candidate(start_date_field_name, stop_date_field_name) and self.id not in candidates_to_exclude:
+            candidates_ids.insert(0, self.id)
 
-        for record in self:
-            if record.id in record_ids_to_exclude[record.id] \
-               or not record._web_gantt_reschedule_is_record_candidate(start_date_field_name, stop_date_field_name):
-                continue
-            for master_record in record[dependency_field_name]:
-                #
-                # A      B       C      D
-                #   \      \   /      /
-                #     ------ F ------
-                #          /   \
-                #    G ---       --- H
-                #
-                # So if we are considering we are rescheduling F towards G then, once F is moved, B will be
-                # added to the candidates as it will be assessed as being in conflict with F, but A won't.
-                #
-                # So if we are considering we are rescheduling F towards H then, once F is moved, A, B and G
-                # will be added to the candidates as we are rescheduling forward.
-
-                if master_record.id in record_ids_to_exclude[record.id] \
-                   or not master_record._web_gantt_reschedule_is_record_candidate(
-                        start_date_field_name, stop_date_field_name) \
-                   or not self._web_gantt_reschedule_is_relation_candidate(
-                        master_record, record, start_date_field_name, stop_date_field_name) \
-                   or not self._web_gantt_reschedule_is_in_conflict_or_force(
-                            master_record, record, start_date_field_name, stop_date_field_name, rescheduling_forward):
-                    continue
-
-                # If we have two same candidates, it means that we are resolving a `loop`
-                # with an even number of members.
-                if master_record in slave_per_record:
-                    return False
-
-                slave_per_record[master_record] = record
-                records_to_reschedule |= master_record
-
-            for slave_record in record[dependency_inverted_field_name]:
-                #
-                # A      B       C      D
-                #   \      \   /      /
-                #     ------ F ------
-                #          /   \
-                #    G ---       --- H
-                #
-                # So if we are considering we are rescheduling F towards H then, once F is moved, C will be
-                # added to the candidates as it will be assessed as being in conflict with F, but D won't.
-                #
-                # So if we are considering we are rescheduling F towards G then C, once F is moved, D and H
-                # will be added to the candidates as we are rescheduling backward.
-
-                if slave_record.id in record_ids_to_exclude[record.id] \
-                   or not slave_record._web_gantt_reschedule_is_record_candidate(
-                        start_date_field_name, stop_date_field_name) \
-                   or not self._web_gantt_reschedule_is_relation_candidate(
-                        record, slave_record, start_date_field_name, stop_date_field_name) \
-                   or not self._web_gantt_reschedule_is_in_conflict_or_force(
-                            record, slave_record, start_date_field_name, stop_date_field_name, rescheduling_backward):
-                    continue
-
-                # If we have two same candidates, it means that we are resolving a `loop`
-                # with an even number of members.
-                if slave_record in master_per_record:
-                    return False
-
-                master_per_record[slave_record] = record
-                records_to_reschedule |= slave_record
-
-        # If we have a record that is both a slave and a master candidate, it means that we are resolving a `loop`
-        # with an even number of members.
-        if set.intersection(set(slave_per_record.keys()), set(master_per_record.keys())):
-            if set.intersection(*map(set, [record_ids_to_exclude[rec.id]for rec in self])):
-                return False
-
-        # If we have a record from self that is a slave candidate and a record from self that is a master candidate,
-        # it means that we are resolving a loop with an odd number of members.
-        if any(record in slave_per_record.keys() for record in self) and \
-           any(record in master_per_record.keys() for record in self):
-            return False
-
-        return [
-            (record_to_reschedule,
-             slave_per_record[record_to_reschedule] or master_per_record[record_to_reschedule],
-             bool(master_per_record[record_to_reschedule])
-             ) for record_to_reschedule in records_to_reschedule
-        ]
+        return False
 
     def _web_gantt_reschedule_compute_dates(
-        self, date_candidate, search_forward, start_date_field_name, stop_date_field_name, cache
+        self, date_candidate, search_forward, start_date_field_name, stop_date_field_name
     ):
         """ Compute start_date and end_date according to the provided arguments.
             This method is meant to be overridden when we need to add constraints that have to be taken into account
@@ -535,23 +673,12 @@ class Base(models.AbstractModel):
             :param date_candidate: The optimal date, which does not take any constraint into account.
             :param start_date_field_name: The start date field used in the gantt view.
             :param stop_date_field_name: The stop date field used in the gantt view.
-            :param cache: An object that contains reusable information in the context of gantt record rescheduling.
             :return: a tuple of (start_date, end_date)
             :rtype: tuple(datetime, datetime)
         """
         search_factor = (1 if search_forward else -1)
         duration = search_factor * (self[stop_date_field_name] - self[start_date_field_name])
         return sorted([date_candidate, date_candidate + duration])
-
-    @api.model
-    def _web_gantt_reschedule_get_empty_cache(self):
-        """ Get an empty object that would be used in order to prevent successive database calls during the
-            rescheduling process.
-
-            :return: An object that contains reusable information in the context of gantt record rescheduling.
-            :rtype: dict
-        """
-        return {}
 
     @api.model
     def _web_gantt_reschedule_is_in_conflict(self, master, slave, start_date_field_name, stop_date_field_name):
@@ -625,35 +752,6 @@ class Base(models.AbstractModel):
         """
         return True
 
-    def _web_gantt_reschedule_record(
-        self, related_record, is_related_record_master, start_date_field_name, stop_date_field_name, cache
-    ):
-        """ Shift the record in the future or the past according to the passed arguments.
-
-            :param related_record: The related record (either the master or slave record).
-            :param is_related_record_master: Tells whether the related record is the master or slave in the dependency.
-            :param start_date_field_name: The start date field used in the gantt view.
-            :param stop_date_field_name: The stop date field used in the gantt view.
-            :param cache: An object that contains reusable information in the context of gantt record rescheduling.
-            :return: a tuple of (start_date, end_date)
-            :rtype: tuple(datetime, datetime)
-        """
-        self.ensure_one()
-        # If the related_record is the master, then we look for a date after the value of its stop_date_field_name.
-        # If the related_record is the slave, then we look for a date prior to the value of its start_date_field_name.
-        search_forward = is_related_record_master
-        if search_forward:
-            date_candidate = related_record[stop_date_field_name].replace(tzinfo=timezone.utc)
-        else:
-            date_candidate = related_record[start_date_field_name].replace(tzinfo=timezone.utc)
-
-        return self.sudo()._web_gantt_reschedule_compute_dates(
-            date_candidate,
-            search_forward,
-            start_date_field_name, stop_date_field_name,
-            cache
-        )
-
     def _web_gantt_reschedule_write_new_dates(
         self, new_start_date, new_stop_date, start_date_field_name, stop_date_field_name
     ):
@@ -665,12 +763,16 @@ class Base(models.AbstractModel):
             :param stop_date_field_name: The stop date field used in the gantt view.
             :return: True if successful, False if not.
             :rtype: bool
+
+            epsilon = 30 seconds was added because the first valid interval can be now and because of some seconds, it will become < now() at the comparaison moment
+            it's a matter of some seconds
         """
-        if new_start_date < datetime.now(timezone.utc):
+        new_start_date = new_start_date.astimezone(timezone.utc).replace(tzinfo=None)
+        if new_start_date < datetime.now() + timedelta(seconds=-30):
             return False
 
         self.write({
-            start_date_field_name: new_start_date.astimezone(timezone.utc).replace(tzinfo=None),
+            start_date_field_name: new_start_date,
             stop_date_field_name: new_stop_date.astimezone(timezone.utc).replace(tzinfo=None)
         })
         return True
