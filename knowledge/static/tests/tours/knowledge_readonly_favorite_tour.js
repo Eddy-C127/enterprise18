@@ -30,8 +30,8 @@ registry.category("web_tour.tours").add('knowledge_readonly_favorite_tour', {
     // one and try to resquence the favorite articles
     trigger: 'section[data-section="favorites"] li:last:contains("Readonly Article 2")',
     run: () => dragAndDropArticle(
-        $('section[data-section="favorites"] li:last .o_article_handle'),
-        $('section[data-section="favorites"] li:first .o_article_handle')
+        'section[data-section="favorites"] li:last .o_article_handle',
+        'section[data-section="favorites"] li:first .o_article_handle'
     ),
 }, {
     // Check that articles have been reordered correctly

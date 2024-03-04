@@ -107,8 +107,8 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     trigger: 'div.o_favorite_container .o_article_handle:contains("My Private Article")',
     run: () => {
         dragAndDropArticle(
-            $('div.o_favorite_container .o_article_handle:contains("My Private Article")'),
-            $('div.o_favorite_container .o_article_handle:contains("Workspace Article")'),
+            'div.o_favorite_container .o_article_handle:contains("My Private Article")',
+            'div.o_favorite_container .o_article_handle:contains("Workspace Article")',
         );
     },
 }, {

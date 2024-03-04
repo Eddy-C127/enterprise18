@@ -20,8 +20,8 @@ registry.category("web_tour.tours").add('knowledge_sidebar_readonly_tour', {
     trigger: '.o_article:contains("Private Child")',
     run: () => {
         dragAndDropArticle(
-            $('section[data-section="workspace"] .o_article_name:contains("Workspace Article")'),
-            $('section[data-section="workspace"] .o_article_name:contains("Private Article")'),
+            'section[data-section="workspace"] .o_article_name:contains("Workspace Article")',
+            'section[data-section="workspace"] .o_article_name:contains("Private Article")',
         );
     },
 }, {
@@ -33,8 +33,8 @@ registry.category("web_tour.tours").add('knowledge_sidebar_readonly_tour', {
     trigger: '.o_knowledge_tree .o_article:contains("Workspace Article") + .o_article:contains("Private Article")',
     run: () => {
         dragAndDropArticle(
-            $('section[data-section="workspace"] .o_article_name:contains("Private Article")'),
-            $('section[data-section="workspace"] .o_article_name:contains("Workspace Article")'),
+            'section[data-section="workspace"] .o_article_name:contains("Private Article")',
+            'section[data-section="workspace"] .o_article_name:contains("Workspace Article")',
         );
     },
 }, {

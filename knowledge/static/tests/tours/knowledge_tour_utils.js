@@ -2,6 +2,7 @@
 
 import { SORTABLE_TOLERANCE } from "@knowledge/components/sidebar/sidebar";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
+import { queryOne } from "@odoo/hoot-dom";
 
 export const changeInternalPermission = (permission) => {
     const target = document.querySelector('.o_permission[aria-label="Internal Permission"]');
@@ -9,21 +10,37 @@ export const changeInternalPermission = (permission) => {
     target.dispatchEvent(new Event("change"));
 };
 
+function getOffset(element) {
+    if (!element.getClientRects().length) {
+        return { top: 0, left: 0 };
+    }
+
+    const rect = element.getBoundingClientRect();
+    const win = element.ownerDocument.defaultView;
+    return {
+        top: rect.top + win.pageYOffset,
+        left: rect.left + win.pageXOffset,
+    };
+}
+
 /**
  * Drag&drop an article in the sidebar
- * @param {$.Element} element
- * @param {$.Element} target
+ * @param {MaybeIterable<Node> | string | null | undefined | false} from Hoot Dom target
+ * @param {MaybeIterable<Node> | string | null | undefined | false} to Hoot Dom target
  */
-export const dragAndDropArticle = ($element, $target) => {
-    const elementOffset = $element.offset();
-    const targetOffset = $target.offset();
+export const dragAndDropArticle = (from, to) => {
+    const source = queryOne(from);
+    const target = queryOne(to);
+
+    const elementOffset = getOffset(source);
+    const targetOffset = getOffset(target);
     // If the target is under the element, the cursor needs to be in the upper
     // part of the target to trigger the move. If it is above, the cursor needs
     // to be in the bottom part.
-    const targetY = targetOffset.top + (targetOffset.top > elementOffset.top ? ($target.outerHeight() - 1) : 0); 
+    const targetY =
+        targetOffset.top + (targetOffset.top > elementOffset.top ? target.offsetHeight - 1 : 0);
 
-    const element = $element[0].closest("li");
-    const target = $target[0];
+    const element = source.closest("li");
     element.dispatchEvent(
         new PointerEvent("pointerdown", {
             bubbles: true,

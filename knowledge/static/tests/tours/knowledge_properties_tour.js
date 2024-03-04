@@ -43,8 +43,8 @@ registry.category("web_tour.tours").add('knowledge_properties_tour', {
     trigger: '.breadcrumb .active:contains("InheritPropertiesArticle")',
     run: () => {
         dragAndDropArticle(
-            $('.o_article_handle:contains("InheritPropertiesArticle")'),
-            $('.o_article_handle:contains("ChildArticle")'),
+            '.o_article_handle:contains("InheritPropertiesArticle")',
+            '.o_article_handle:contains("ChildArticle")',
         );
     },
 }, { // verify property

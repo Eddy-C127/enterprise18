@@ -100,8 +100,8 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     trigger: '.o_article_handle:contains("Child Article 2")',
     run: () => {
         dragAndDropArticle(
-            $('.o_article_handle:contains("Child Article 2")'),
-            $('.o_article_handle:contains("Child Article 1")'),
+            '.o_article_handle:contains("Child Article 2")',
+            '.o_article_handle:contains("Child Article 1")',
         );
     },
 }, {
@@ -180,8 +180,8 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     trigger: 'section[data-section="favorites"] .o_article_handle:contains("My Private Article")',
     run: () => {
         dragAndDropArticle(
-            $('section[data-section="favorites"] .o_article_handle:contains("My Private Article")'),
-            $('section[data-section="favorites"] .o_article_handle:contains("My Workspace Article")'),
+            'section[data-section="favorites"] .o_article_handle:contains("My Private Article")',
+            'section[data-section="favorites"] .o_article_handle:contains("My Workspace Article")',
         );
     },
 }, {
