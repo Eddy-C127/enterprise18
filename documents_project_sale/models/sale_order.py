@@ -21,17 +21,18 @@ class SaleOrder(models.Model):
                 if not project.use_documents or project.documents_folder_id:
                     continue
                 template_folders = sols.product_template_id.template_folder_id
+                project_sudo = project.sudo()
 
                 if len(template_folders) > 1:
-                    project.documents_folder_id = template_folders._copy_and_merge({
+                    project_sudo.documents_folder_id = template_folders.sudo()._copy_and_merge({
                         'name': project.name,
                         'company_id': project.company_id.id,
                     })
                     # It is necessary to set the parent after the copy to avoid
                     # infinite recursion issues.
-                    project.documents_folder_id.parent_folder_id = self.env.ref('documents_project.documents_project_folder').id,
+                    project_sudo.documents_folder_id.parent_folder_id = self.env.ref('documents_project.documents_project_folder').id
                 elif len(template_folders) == 1:
-                    project.documents_folder_id = template_folders.copy({
+                    project_sudo.documents_folder_id = template_folders.sudo().copy({
                         'name': project.name,
                         'company_id': project.company_id.id,
                         'parent_folder_id': template_folders.parent_folder_id.id,
