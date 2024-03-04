@@ -316,7 +316,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         })
         individual_accounts.action_generate_declarations()
         self.assertEqual(len(individual_accounts.line_ids), 100)
-        with self.assertQueryCount(admin=1023):
+        with self.assertQueryCount(admin=1024):
             start_time = time.time()
             individual_accounts.line_ids.write({
                 'pdf_to_generate': True,

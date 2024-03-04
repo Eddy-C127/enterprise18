@@ -53,6 +53,9 @@ class HrPayrollEmployeeDeclaration(models.Model):
 
         for (res_model, res_id), declarations in declarations_by_sheet.items():
             sheet = self.env[res_model].browse(res_id)
+            if not sheet.exists():
+                _logger.warning('Sheet %s %s does not exist', res_model, res_id)
+                continue
             report_id = sheet._get_pdf_report().id
             rendering_data = sheet._get_rendering_data(declarations.employee_id)
             if 'error' in rendering_data:
