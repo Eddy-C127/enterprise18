@@ -321,7 +321,7 @@ class AccountReconcileWizard(models.TransientModel):
             # Compute write-off amounts
             most_recent_line = max(amls, key=lambda aml: aml.date)
             if most_recent_line.currency_id == reco_currency:
-                rate = abs(most_recent_line.amount_currency / most_recent_line.balance) if most_recent_line.balance else 1.0
+                rate = abs(most_recent_line.amount_currency / most_recent_line.balance) if most_recent_line.balance else 0.0
             else:
                 rate = wizard.reco_currency_id._get_conversion_rate(amls.company_currency_id, reco_currency, amls.company_id, most_recent_line.date)
 
