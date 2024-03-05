@@ -146,9 +146,58 @@
         <field name="code">l10n_lu_min_social_pay</field>
         <field name="country_id" ref="base.lu"/>
     </record>
-    <record id="rule_parameter_withholding_taxes_threshhold_2_2017" model="hr.rule.parameter.value">
+    <record id="rule_parameter_withholding_taxes_min_social_pay_2022" model="hr.rule.parameter.value">
         <field name="parameter_value">2256.95</field>
         <field name="rule_parameter_id" ref="rule_parameter_withholding_taxes_min_social_pay"/>
         <field name="date_from" eval="datetime(2022, 1, 1).date()"/>
+    </record>
+    <record id="rule_parameter_withholding_taxes_min_social_pay_2023" model="hr.rule.parameter.value">
+        <field name="parameter_value">2387.40</field>
+        <field name="rule_parameter_id" ref="rule_parameter_withholding_taxes_min_social_pay"/>
+        <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+    </record>
+    <record id="rule_parameter_withholding_taxes_min_social_pay_2023_04" model="hr.rule.parameter.value">
+        <field name="parameter_value">2508.24</field>
+        <field name="rule_parameter_id" ref="rule_parameter_withholding_taxes_min_social_pay"/>
+        <field name="date_from" eval="datetime(2023, 4, 1).date()"/>
+    </record>
+    <record id="rule_parameter_withholding_taxes_min_social_pay_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">2570.93</field>
+        <field name="rule_parameter_id" ref="rule_parameter_withholding_taxes_min_social_pay"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_vat_rate" model="hr.rule.parameter">
+        <field name="name">Lux: VAT rate</field>
+        <field name="code">l10n_vat_rate</field>
+        <field name="country_id" ref="base.lu"/>
+    </record>
+    <record id="rule_parameter_vat_rate_2017" model="hr.rule.parameter.value">
+        <field name="parameter_value">0.16</field>
+        <field name="rule_parameter_id" ref="rule_parameter_vat_rate"/>
+        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
+    </record>
+    <record id="rule_parameter_vat_rate_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">0.17</field>
+        <field name="rule_parameter_id" ref="rule_parameter_vat_rate"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_tax_credit" model="hr.rule.parameter">
+        <field name="name">Lux: Tax Credit</field>
+        <field name="code">l10n_tax_credit</field>
+        <field name="country_id" ref="base.lu"/>
+    </record>
+    <record id="rule_parameter_tax_credit_rate" model="hr.rule.parameter.value">
+        <field name="parameter_value">
+[
+(    0.00,        935.99,   00.00,      00.00,    00.00),
+(  936.00,      11265.00,  300.00,    -936.00,    0.029),
+(11266.00,      40000.00,  600.00,      00.00,    00.00),
+(40001.00,      79999.00,  600.00,  -40000.00,    0.015),
+(80000.00,         'inf',   00.00,      00.00,    00.00)
+]</field>
+        <field name="rule_parameter_id" ref="rule_parameter_tax_credit"/>
+        <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
     </record>
 </odoo>
