@@ -29,7 +29,7 @@ if records:
                 <sheet>
                     <group>
                         <group>
-                            <field name="batch_type" readonly="state != 'draft'"/>
+                            <field name="batch_type" readonly="payment_ids.length"/>
                             <field name="journal_id" domain="[('type', '=', 'bank')]" options="{'no_open': True, 'no_create': True}" readonly="state != 'draft'"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="available_payment_method_ids" invisible="1"/>
@@ -77,6 +77,8 @@ if records:
             <field name="arch" type="xml">
                 <search string="Batch Payment">
                     <field name="journal_id" />
+                    <field name="name" />
+                    <field name="amount" />
                     <filter string="Unreconciled" domain="[('state','!=','reconciled')]" name="open"/>
 
                     <group expand="0" string="Group By">
@@ -96,9 +98,9 @@ if records:
                     <field name="journal_id" readonly="state != 'draft'"/>
                     <field name="date" readonly="state != 'draft'"/>
                     <field name="amount"/>
-                    <field name="state"/>
                     <field name="activity_ids" widget="list_activity" optional="show"/>
                     <field name="currency_id" column_invisible="True"/>
+                    <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'sent'" />
                 </tree>
             </field>
         </record>

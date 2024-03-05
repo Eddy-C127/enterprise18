@@ -16,8 +16,8 @@ class AccountPayment(models.Model):
 
     @api.depends('state')
     def _compute_batch_payment_id(self):
-        for payment in self.filtered(lambda p: p.state != 'posted'):
-            # unlink the payment from the batch payment ids, hovewer _compute_amount
+        for payment in self.filtered(lambda p: p.state not in ('posted', 'draft')):
+            # unlink the payment from the batch payment ids, however _compute_amount
             # is not triggered by the ORM when setting batch_payment_id to None
             payment.batch_payment_id.update({'payment_ids': [Command.unlink(payment.id)]})
 

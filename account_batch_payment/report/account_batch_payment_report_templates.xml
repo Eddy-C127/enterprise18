@@ -22,7 +22,9 @@
                 <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
-                            <th class="text-start">Customer</th>
+                            <th t-if="o.batch_type == 'outbound'" class="text-start">Vendor</th>
+                            <th t-if="o.batch_type == 'inbound'" class="text-start">Customer</th>
+                            <th t-if="o.batch_type == 'outbound'" class="text-start">Account Holder Name</th>
                             <th class="text-start">Date</th>
                             <th class="text-start">Memo</th>
                             <th class="text-start">Recipient Bank Account</th>
@@ -31,6 +33,7 @@
                     </thead>
                     <tr t-foreach="o.payment_ids" t-as="payment">
                         <td class="text-start"><span t-out="payment.partner_id.name">ABC Suppliers</span></td>
+                        <td t-if="o.batch_type == 'outbound'" class="text-start"><span t-out="payment.partner_bank_id.acc_holder_name"> ABC Holder Name</span></td>
                         <td class="text-start"><span t-out="payment.date" t-options='{"widget": "date"}'>2023-08-15</span></td>
                         <td class="text-start"><span t-out="payment.ref">Demo Ref</span></td>
                         <td class="text-start"><span t-out="payment.partner_bank_id.acc_number">3956012345678</span></td>
@@ -38,6 +41,7 @@
                     </tr>
                     <tr>
                         <td style="font-weight: bold;">TOTAL</td>
+                        <td t-if="o.batch_type == 'outbound'"></td>
                         <td></td>
                         <td></td>
                         <td></td>

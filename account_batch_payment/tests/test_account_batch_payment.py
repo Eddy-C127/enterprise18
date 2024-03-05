@@ -2,6 +2,7 @@
 from odoo import Command
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.tests import tagged
+from odoo.exceptions import ValidationError
 
 @tagged('post_install', '-at_install')
 class TestAccountBatchPayment(AccountTestInvoicingCommon):
@@ -77,7 +78,41 @@ class TestAccountBatchPayment(AccountTestInvoicingCommon):
         self.assertEqual(batch_payment.amount, 200)
 
         payments[0].action_draft()
-        self.assertEqual(batch_payment.amount, 100)
+
+        # Check that we still keep it
+        self.assertEqual(batch_payment.amount, 200)
+
+    def test_validate_batch(self):
+        """
+        Check that we can only validate a batch if all the payments are posted
+        """
+        payments = self.env['account.payment']
+        for _ in range(2):
+            payments += self.env['account.payment'].create({
+                'amount': 100.0,
+                'payment_type': 'inbound',
+                'partner_type': 'supplier',
+                'partner_id': self.partner_a.id,
+                'destination_account_id': self.partner_a.property_account_payable_id.id,
+                'partner_bank_id': self.partner_bank_account.id,
+            })
+        payments.action_post()
+
+        batch_payment = self.env['account.batch.payment'].create(
+            {
+                'journal_id': payments.journal_id.id,
+                'payment_method_id': payments.payment_method_id.id,
+                'payment_ids': [Command.set(payments.ids)]
+            }
+        )
+
+        payments[0].action_draft()
+
+        with self.assertRaises(ValidationError, msg="Cannot validate a batch if payments are not posted"):
+            batch_payment.validate_batch()
+
+        payments[0].action_post()
+        batch_payment.validate_batch()
 
     def test_batch_payment_sub_company(self):
         """Test the creation of a batch payment from a sub company"""

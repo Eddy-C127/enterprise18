@@ -205,6 +205,9 @@ class AccountBatchPayment(models.Model):
         if not self.payment_ids:
             raise UserError(_("Cannot validate an empty batch. Please add some payments to it first."))
 
+        if self.payment_ids.filtered(lambda p: p.state != 'posted').ids:
+            raise ValidationError(_("All payments must be posted to validate the batch."))
+
         errors = not self.export_file and self.check_payments_for_errors() or []  # We don't re-check for errors if we are regenerating the file (we know there aren't any)
         warnings = self.check_payments_for_warnings()
         if errors or warnings:
