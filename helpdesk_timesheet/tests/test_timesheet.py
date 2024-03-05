@@ -134,3 +134,33 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
         })
         ticket.partner_id = partner
         self.assertEqual(ticket.timesheet_ids.partner_id, partner, "The partner set on the timesheet should follow the one set on the ticket linked.")
+
+    def test_timesheet_bulk_creation_of_timesheets_for_seperate_ticket_id(self):
+        """ Test whether creating timesheets in bulk for separate ticket ids works """
+        # (1) create 2 tickets
+        helpdesk_ticket_1, helpdesk_ticket_2 = self.env['helpdesk.ticket'].create([{
+            'name': 'Test Ticket 1',
+            'team_id': self.helpdesk_team.id,
+            'partner_id': self.partner.id,
+        }, {
+              'name': 'Test Ticket 2',
+            'team_id': self.helpdesk_team.id,
+            'partner_id': self.partner.id,
+        }])
+
+        # (2) create timesheet for each ticket in a bulk create
+        timesheet_1, timesheet_2 = self.env['account.analytic.line'].create([{
+            'name': 'non valid timesheet test',
+            'helpdesk_ticket_id': helpdesk_ticket_1.id,
+            'employee_id': self.empl_employee.id,
+        }, {
+            'name': 'validated timesheet test',
+            'helpdesk_ticket_id': helpdesk_ticket_2.id,
+            'employee_id': self.empl_employee.id,
+        }])
+
+        # (3) Verify each timesheet exists
+        self.assertTrue(timesheet_1, "Bulk creation of timesheets should work for separate ticket ids")
+        self.assertTrue(timesheet_2, "Bulk creation of timesheets should work for separate ticket ids")
+        self.assertEqual(timesheet_1.helpdesk_ticket_id, helpdesk_ticket_1)
+        self.assertEqual(timesheet_2.helpdesk_ticket_id, helpdesk_ticket_2)

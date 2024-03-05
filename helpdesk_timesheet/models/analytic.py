@@ -60,12 +60,12 @@ class AccountAnalyticLine(models.Model):
                 ticket['id']: ticket
                 for ticket in self.env['helpdesk.ticket'].sudo().browse(list(vals_list_per_ticket_id))
             }
-            for ticket_id, vals_list in vals_list_per_ticket_id.items():
+            for ticket_id, ticket_vals_list in vals_list_per_ticket_id.items():
                 ticket = tickets_per_id[ticket_id]
                 vals_update = {'account_id': ticket.analytic_account_id.id}
                 if ticket.project_id:
                     vals_update['project_id'] = ticket.project_id.id
-                for vals in vals_list:
+                for vals in ticket_vals_list:
                     vals.update(vals_update)
         return super(AccountAnalyticLine, self)._timesheet_preprocess(vals_list)
 
