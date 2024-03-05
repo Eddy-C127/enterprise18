@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.5alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-07 09:52+0000\n"
+"POT-Creation-Date: 2024-03-05 09:15+0000\n"
 "PO-Revision-Date: 2023-09-07 09:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -41,25 +42,18 @@ msgstr ""
 "        "
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_void_documents
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.ubl_pe_21_voided_documents
 msgid "#SignVX"
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_void_documents
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.ubl_pe_21_voided_documents
 msgid "1.0"
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_void_documents
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.ubl_pe_21_voided_documents
 msgid "2.0"
-msgstr ""
-
-#. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-msgid "2.1"
 msgstr ""
 
 #. module: l10n_pe_edi
@@ -75,6 +69,31 @@ msgid ""
 msgstr ""
 "<br/>\n"
 "                            ¿Cómo se consigue?:"
+
+#. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid "<span class=\"lh-sm\">Operation subject to the Tax Obligation Payment System - SPOT</span>"
+msgstr "<span class=\"lh-sm\">Operación sujeta al Sistema de Pago de Obligaciónes Tributarias - SPOT</span>"
+
+#. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid "<span>Banco de la Nación account number:</span>"
+msgstr "<span>Nº cuenta Banco de la Nación:</span>"
+
+#. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid "<span>Goods or service code:</span>"
+msgstr "<span>Código bien o servicio:</span>"
+
+#. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid "<span>Withholding amount:</span>"
+msgstr "<span>Monto de detracción:</span>"
+
+#. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid "<span>Withholding percentage:</span>"
+msgstr "<span>Porcentaje de detracción:</span>"
 
 #. module: l10n_pe_edi
 #: model:ir.model.fields.selection,name:l10n_pe_edi.selection__product_template__l10n_pe_withhold_code__015
@@ -133,7 +152,7 @@ msgstr "Ajustes de operaciones de exportación"
 
 #. module: l10n_pe_edi
 #: model:ir.model.fields,field_description:l10n_pe_edi.field_account_tax__l10n_pe_edi_affectation_reason
-msgid "Affect. Reason"
+msgid "Affectation Reason"
 msgstr "EDI Razón de Afectación"
 
 #. module: l10n_pe_edi
@@ -425,11 +444,6 @@ msgid "Credit Reason"
 msgstr "Razón del crédito"
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-msgid "Cuota"
-msgstr ""
-
-#. module: l10n_pe_edi
 #: model:ir.model.fields,field_description:l10n_pe_edi.field_l10n_pe_edi_certificate__date_end
 msgid "Date End"
 msgstr "Fecha final"
@@ -522,16 +536,6 @@ msgid "Electronic Service Provider (ESP)"
 msgstr "Proveedor de Servicios Electrónicos (PSE)"
 
 #. module: l10n_pe_edi
-#: model:ir.model.fields,help:l10n_pe_edi.field_res_company__l10n_pe_edi_test_env
-#: model:ir.model.fields,help:l10n_pe_edi.field_res_config_settings__l10n_pe_edi_test_env
-msgid ""
-"Electronic documents in this setting are processed through a test "
-"environment that does not have a real SUNAT signature. This mode is "
-"recommended only for non-production databases that are used for testing "
-"purposes."
-msgstr "Habilita el uso de credenciales de prueba"
-
-#. module: l10n_pe_edi
 #: model:ir.model.fields.selection,name:l10n_pe_edi.selection__product_template__l10n_pe_withhold_code__018
 msgid "Embarcaciones pesqueras (Obsoleto)"
 msgstr ""
@@ -541,6 +545,12 @@ msgstr ""
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid "Error when requesting CDR status:"
 msgstr "Error al solicitar el estado del CDR:"
+
+#. module: l10n_pe_edi
+#. odoo-python
+#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
+msgid "Errors occured while creating the EDI document (format: %s):"
+msgstr ""
 
 #. module: l10n_pe_edi
 #: model_terms:product.template,description:l10n_pe_edi.product_product_IVAP_1_product_template
@@ -596,11 +606,6 @@ msgstr ""
 "que cliente tenga un RUC valido y que el tipo de documento sea RUC."
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-msgid "FormaPago"
-msgstr ""
-
-#. module: l10n_pe_edi
 #: model:ir.model.fields.selection,name:l10n_pe_edi.selection__account_move__l10n_pe_edi_refund_reason__04
 #: model:ir.model.fields.selection,name:l10n_pe_edi.selection__account_move_reversal__l10n_pe_edi_refund_reason__04
 msgid "Global discount"
@@ -625,8 +630,7 @@ msgid "ID"
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_void_documents
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.ubl_pe_21_voided_documents
 msgid "IDSignKG"
 msgstr ""
 
@@ -762,11 +766,6 @@ msgid "Ley 30737"
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_invoice_body
-msgid "Leyenda: Operacion sujeta a detraccion"
-msgstr ""
-
-#. module: l10n_pe_edi
 #: model:ir.model.fields.selection,name:l10n_pe_edi.selection__product_template__l10n_pe_withhold_code__008
 msgid "Madera"
 msgstr ""
@@ -798,7 +797,6 @@ msgstr ""
 
 #. module: l10n_pe_edi
 #. odoo-python
-#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid "Missing LATAM document code."
 msgstr "El tipo de documento LATAM no ha sido configurado."
@@ -874,8 +872,6 @@ msgstr ""
 #. module: l10n_pe_edi
 #. odoo-python
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
-#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
-#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid "Original message:"
 msgstr "Mensaje original:"
 
@@ -918,6 +914,11 @@ msgstr "Otros Conceptos "
 #. module: l10n_pe_edi
 #: model:ir.model.fields.selection,name:l10n_pe_edi.selection__product_template__l10n_pe_withhold_code__022
 msgid "Otros servicios empresariales"
+msgstr ""
+
+#. module: l10n_pe_edi
+#: model:ir.model,name:l10n_pe_edi.model_account_edi_xml_ubl_pe
+msgid "PE UBL 2.1"
 msgstr ""
 
 #. module: l10n_pe_edi
@@ -988,14 +989,20 @@ msgid ""
 " 'Boleta' and '[0112] Internal Sale - Sustains Natural Person Deductible "
 "Expenses' exclusive for document type 'Factura'It can't be changed after "
 "validation. This is an optional feature added to avoid a warning. Catalog "
-"No. 51"
+"No. 51."
 msgstr ""
 "Define el tipo de operación, todas las opciones pueden ser usadas por todos "
 "los tipos de documento excepto '[0113] Venta Interna-NRUS' que es para el "
 "tipo de documento 'Boleta' and '[0112] Venta Interna - Sustenta Gastos "
 "Deducibles Persona Natural exclusivo para el tipo de docmento 'Factura'. No "
 "puede ser cambiado después de la validación. Este funcionalidad es opcional,"
-" es solo para evitar una advertencia. Cátalogo No. 51"
+" es solo para evitar una advertencia. Cátalogo No. 51."
+
+#. module: l10n_pe_edi
+#: model:ir.model.fields,help:l10n_pe_edi.field_res_company__l10n_pe_edi_test_env
+#: model:ir.model.fields,help:l10n_pe_edi.field_res_config_settings__l10n_pe_edi_test_env
+msgid "Peru: Electronic documents in this setting are processed through a test environment that does not have a real SUNAT signature. This mode is recommended only for non-production databases that are used for testing purposes."
+msgstr ""
 
 #. module: l10n_pe_edi
 #: model:ir.model.fields,help:l10n_pe_edi.field_product_product__l10n_pe_withhold_percentage
@@ -1015,29 +1022,29 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_payment__l10n_pe_edi_cancel_reason
 msgid ""
 "Peru: Reason given by the user for cancelling this move, structure of voided "
-"summary: sac:VoidReasonDescription"
+"summary: sac:VoidReasonDescription."
 msgstr ""
 "Razón dada por el usuario para cancelar esta factura, estructura para el "
-"resumen de cancelación: sac:VoidReasonDescription"
+"resumen de cancelación: sac:VoidReasonDescription."
 
 #. module: l10n_pe_edi
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_bank_statement_line__l10n_pe_edi_legend
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_move__l10n_pe_edi_legend
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_payment__l10n_pe_edi_legend
-msgid "Peru: Specific operation type code"
-msgstr "Perú: Código de tipo de operación específica"
+msgid "Peru: Specific operation type code."
+msgstr "Perú: Código de tipo de operación específica."
 
 #. module: l10n_pe_edi
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_bank_statement_line__l10n_pe_edi_legend_value
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_move__l10n_pe_edi_legend_value
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_payment__l10n_pe_edi_legend_value
-msgid "Peru: Specific operation type value"
+msgid "Peru: Specific operation type value."
 msgstr "Texto para colocar la leyenda o la cantidad en letras."
 
 #. module: l10n_pe_edi
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_tax__l10n_pe_edi_affectation_reason
-msgid "Peru: Type of Affectation to the IGV, Catalog No. 07"
-msgstr "Tipo de afectación al IGV, Catálogo No. 07"
+msgid "Peru: Type of Affectation to the IGV, Catalog No. 07."
+msgstr "Tipo de afectación al IGV, Catálogo No. 07."
 
 #. module: l10n_pe_edi
 #: model_terms:ir.ui.view,arch_db:l10n_pe_edi.view_move_form
@@ -1143,7 +1150,6 @@ msgstr ""
 
 #. module: l10n_pe_edi
 #. odoo-python
-#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid "SOAP status code: "
 msgstr ""
@@ -1427,7 +1433,7 @@ msgstr "La factura ya existe en la SUNAT. CDR recuperado correctamente."
 #. odoo-python
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid ""
-"The invoice related to this Credit Note has been canceled, set this document"
+"The invoice related to this Credit Note has been cancelled, set this document"
 " to draft and cancel it."
 msgstr ""
 "La factura relacionada a esta Nota de Crédito ha sido cancelada, regresa "
@@ -1448,7 +1454,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid ""
-"The invoice related to this Debit Note has been canceled, set this document "
+"The invoice related to this Debit Note has been cancelled, set this document "
 "to draft and cancel it."
 msgstr ""
 "El documento relacionado a esta Nota de Débito ha sido cancelada, regresa "
@@ -1528,6 +1534,11 @@ msgid "The username used to login to SUNAT SOL"
 msgstr "El usuario para ingresar con SUNAT SOL"
 
 #. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid "The withholding has to be paid in the first installment."
+msgstr "La detracción debe pagarse en la primera cuota."
+
+#. module: l10n_pe_edi
 #. odoo-python
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid ""
@@ -1581,8 +1592,6 @@ msgstr ""
 
 #. module: l10n_pe_edi
 #. odoo-python
-#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
-#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid "This document number is now registered by SUNAT as invalid."
 msgstr ""
@@ -1726,10 +1735,6 @@ msgstr ""
 
 #. module: l10n_pe_edi
 #. odoo-python
-#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
-#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
-#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
-#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid "We got an error response from the OSE. "
 msgstr "Obtuvimos un error en la respuesta del OSE."

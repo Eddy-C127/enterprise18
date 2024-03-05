@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.5alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-07 09:51+0000\n"
-"PO-Revision-Date: 2023-09-07 09:51+0000\n"
+"POT-Creation-Date: 2024-03-05 09:15+0000\n"
+"PO-Revision-Date: 2024-03-05 09:15+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,25 +31,18 @@ msgid ""
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_void_documents
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.ubl_pe_21_voided_documents
 msgid "#SignVX"
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_void_documents
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.ubl_pe_21_voided_documents
 msgid "1.0"
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_void_documents
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.ubl_pe_21_voided_documents
 msgid "2.0"
-msgstr ""
-
-#. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-msgid "2.1"
 msgstr ""
 
 #. module: l10n_pe_edi
@@ -62,6 +55,33 @@ msgstr ""
 msgid ""
 "<br/>\n"
 "                            How do you get it?:"
+msgstr ""
+
+#. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid ""
+"<span class=\"lh-sm\">Operation subject to the Tax Obligation Payment System"
+" - SPOT</span>"
+msgstr ""
+
+#. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid "<span>Banco de la Nación account number:</span>"
+msgstr ""
+
+#. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid "<span>Goods or service code:</span>"
+msgstr ""
+
+#. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid "<span>Withholding amount:</span>"
+msgstr ""
+
+#. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid "<span>Withholding percentage:</span>"
 msgstr ""
 
 #. module: l10n_pe_edi
@@ -121,7 +141,7 @@ msgstr ""
 
 #. module: l10n_pe_edi
 #: model:ir.model.fields,field_description:l10n_pe_edi.field_account_tax__l10n_pe_edi_affectation_reason
-msgid "Affect. Reason"
+msgid "Affectation Reason"
 msgstr ""
 
 #. module: l10n_pe_edi
@@ -404,11 +424,6 @@ msgid "Credit Reason"
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-msgid "Cuota"
-msgstr ""
-
-#. module: l10n_pe_edi
 #: model:ir.model.fields,field_description:l10n_pe_edi.field_l10n_pe_edi_certificate__date_end
 msgid "Date End"
 msgstr ""
@@ -501,16 +516,6 @@ msgid "Electronic Service Provider (ESP)"
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model:ir.model.fields,help:l10n_pe_edi.field_res_company__l10n_pe_edi_test_env
-#: model:ir.model.fields,help:l10n_pe_edi.field_res_config_settings__l10n_pe_edi_test_env
-msgid ""
-"Electronic documents in this setting are processed through a test "
-"environment that does not have a real SUNAT signature. This mode is "
-"recommended only for non-production databases that are used for testing "
-"purposes."
-msgstr ""
-
-#. module: l10n_pe_edi
 #: model:ir.model.fields.selection,name:l10n_pe_edi.selection__product_template__l10n_pe_withhold_code__018
 msgid "Embarcaciones pesqueras (Obsoleto)"
 msgstr ""
@@ -519,6 +524,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid "Error when requesting CDR status:"
+msgstr ""
+
+#. module: l10n_pe_edi
+#. odoo-python
+#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
+msgid "Errors occured while creating the EDI document (format: %s):"
 msgstr ""
 
 #. module: l10n_pe_edi
@@ -573,11 +584,6 @@ msgid ""
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-msgid "FormaPago"
-msgstr ""
-
-#. module: l10n_pe_edi
 #: model:ir.model.fields.selection,name:l10n_pe_edi.selection__account_move__l10n_pe_edi_refund_reason__04
 #: model:ir.model.fields.selection,name:l10n_pe_edi.selection__account_move_reversal__l10n_pe_edi_refund_reason__04
 msgid "Global discount"
@@ -602,8 +608,7 @@ msgid "ID"
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_common
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_void_documents
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.ubl_pe_21_voided_documents
 msgid "IDSignKG"
 msgstr ""
 
@@ -727,11 +732,6 @@ msgid "Ley 30737"
 msgstr ""
 
 #. module: l10n_pe_edi
-#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.pe_ubl_2_1_invoice_body
-msgid "Leyenda: Operacion sujeta a detraccion"
-msgstr ""
-
-#. module: l10n_pe_edi
 #: model:ir.model.fields.selection,name:l10n_pe_edi.selection__product_template__l10n_pe_withhold_code__008
 msgid "Madera"
 msgstr ""
@@ -763,7 +763,6 @@ msgstr ""
 
 #. module: l10n_pe_edi
 #. odoo-python
-#: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid "Missing LATAM document code."
 msgstr ""
@@ -877,6 +876,11 @@ msgid "Otros servicios empresariales"
 msgstr ""
 
 #. module: l10n_pe_edi
+#: model:ir.model,name:l10n_pe_edi.model_account_edi_xml_ubl_pe
+msgid "PE UBL 2.1"
+msgstr ""
+
+#. module: l10n_pe_edi
 #: model:ir.model.fields,help:l10n_pe_edi.field_l10n_pe_edi_certificate__content
 msgid "PFX Certificate"
 msgstr ""
@@ -941,7 +945,17 @@ msgid ""
 " 'Boleta' and '[0112] Internal Sale - Sustains Natural Person Deductible "
 "Expenses' exclusive for document type 'Factura'It can't be changed after "
 "validation. This is an optional feature added to avoid a warning. Catalog "
-"No. 51"
+"No. 51."
+msgstr ""
+
+#. module: l10n_pe_edi
+#: model:ir.model.fields,help:l10n_pe_edi.field_res_company__l10n_pe_edi_test_env
+#: model:ir.model.fields,help:l10n_pe_edi.field_res_config_settings__l10n_pe_edi_test_env
+msgid ""
+"Peru: Electronic documents in this setting are processed through a test "
+"environment that does not have a real SUNAT signature. This mode is "
+"recommended only for non-production databases that are used for testing "
+"purposes."
 msgstr ""
 
 #. module: l10n_pe_edi
@@ -958,27 +972,27 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_move__l10n_pe_edi_cancel_reason
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_payment__l10n_pe_edi_cancel_reason
 msgid ""
-"Peru: Reason given by the user for cancelling this move, structure of voided "
-"summary: sac:VoidReasonDescription"
+"Peru: Reason given by the user for cancelling this move, structure of voided"
+" summary: sac:VoidReasonDescription."
 msgstr ""
 
 #. module: l10n_pe_edi
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_bank_statement_line__l10n_pe_edi_legend
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_move__l10n_pe_edi_legend
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_payment__l10n_pe_edi_legend
-msgid "Peru: Specific operation type code"
+msgid "Peru: Specific operation type code."
 msgstr ""
 
 #. module: l10n_pe_edi
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_bank_statement_line__l10n_pe_edi_legend_value
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_move__l10n_pe_edi_legend_value
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_payment__l10n_pe_edi_legend_value
-msgid "Peru: Specific operation type value"
+msgid "Peru: Specific operation type value."
 msgstr ""
 
 #. module: l10n_pe_edi
 #: model:ir.model.fields,help:l10n_pe_edi.field_account_tax__l10n_pe_edi_affectation_reason
-msgid "Peru: Type of Affectation to the IGV, Catalog No. 07"
+msgid "Peru: Type of Affectation to the IGV, Catalog No. 07."
 msgstr ""
 
 #. module: l10n_pe_edi
@@ -1287,7 +1301,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid ""
-"The cancellation reason field should not be empty when canceling the "
+"The cancellation reason field should not be empty when cancelling the "
 "invoice, you must return this invoice to Draft, edit the document and enter "
 "a cancellation reason."
 msgstr ""
@@ -1338,8 +1352,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid ""
-"The invoice related to this Credit Note has been canceled, set this document"
-" to draft and cancel it."
+"The invoice related to this Credit Note has been cancelled, set this "
+"document to draft and cancel it."
 msgstr ""
 
 #. module: l10n_pe_edi
@@ -1354,8 +1368,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_pe_edi/models/account_edi_format.py:0
 msgid ""
-"The invoice related to this Debit Note has been canceled, set this document "
-"to draft and cancel it."
+"The invoice related to this Debit Note has been cancelled, set this document"
+" to draft and cancel it."
 msgstr ""
 
 #. module: l10n_pe_edi
@@ -1415,6 +1429,11 @@ msgstr ""
 #. module: l10n_pe_edi
 #: model:ir.model.fields,help:l10n_pe_edi.field_res_company__l10n_pe_edi_provider_username
 msgid "The username used to login to SUNAT SOL"
+msgstr ""
+
+#. module: l10n_pe_edi
+#: model_terms:ir.ui.view,arch_db:l10n_pe_edi.report_invoice_document
+msgid "The withholding has to be paid in the first installment."
 msgstr ""
 
 #. module: l10n_pe_edi
