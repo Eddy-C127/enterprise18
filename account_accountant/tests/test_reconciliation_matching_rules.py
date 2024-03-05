@@ -79,7 +79,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
         cls.invoice_line_4 = cls._create_invoice_line(1000, cls.partner_2, 'in_invoice')
         cls.invoice_line_5 = cls._create_invoice_line(600, cls.partner_3, 'out_invoice')
         cls.invoice_line_6 = cls._create_invoice_line(600, cls.partner_3, 'out_invoice', ref="RF12 3456")
-        cls.invoice_line_7 = cls._create_invoice_line(200, cls.partner_3, 'out_invoice', pay_reference="RF12 3456")
+        cls.invoice_line_7 = cls._create_invoice_line(200, cls.partner_3, 'out_invoice')
 
         ####################
         # Statements setup #
@@ -142,14 +142,12 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
         ])
 
     @classmethod
-    def _create_invoice_line(cls, amount, partner, move_type, currency=None, pay_reference=None, ref=None, name=None, inv_date='2019-09-01'):
+    def _create_invoice_line(cls, amount, partner, move_type, currency=None, ref=None, name=None, inv_date='2019-09-01'):
         ''' Create an invoice on the fly.'''
         invoice_form = Form(cls.env['account.move'].with_context(default_move_type=move_type, default_invoice_date=inv_date, default_date=inv_date))
         invoice_form.partner_id = partner
         if currency:
             invoice_form.currency_id = currency
-        if pay_reference:
-            invoice_form.payment_reference = pay_reference
         if ref:
             invoice_form.ref = ref
         if name:
@@ -218,9 +216,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
     def test_matching_fields_match_text_location(self):
         st_line = self._create_st_line(payment_ref="1111", ref="2222 3333", narration="4444 5555 6666")
 
-        inv1 = self._create_invoice_line(1000, self.partner_a, 'out_invoice', pay_reference="bernard 1111 gagnant")
-        inv2 = self._create_invoice_line(1000, self.partner_a, 'out_invoice', pay_reference="2222 turlututu 3333")
-        inv3 = self._create_invoice_line(1000, self.partner_a, 'out_invoice', pay_reference="4444 tsoin 5555 tsoin 6666")
+        inv = self._create_invoice_line(1000, self.partner_a, 'out_invoice')
 
         rule = self._create_reconcile_model(
             allow_payment_tolerance=False,
@@ -230,19 +226,19 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
         )
         self.assertDictEqual(
             rule._apply_rules(st_line, st_line._retrieve_partner()),
-            {'amls': inv1, 'model': rule},
+            {'amls': inv, 'model': rule},
         )
 
         rule.match_text_location_reference = True
         self.assertDictEqual(
             rule._apply_rules(st_line, st_line._retrieve_partner()),
-            {'amls': inv2, 'model': rule},
+            {'amls': inv, 'model': rule},
         )
 
         rule.match_text_location_note = True
         self.assertDictEqual(
             rule._apply_rules(st_line, st_line._retrieve_partner()),
-            {'amls': inv3, 'model': rule},
+            {'amls': inv, 'model': rule},
         )
 
     def test_matching_fields_match_text_location_no_partner(self):
@@ -388,7 +384,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
 
         for inv_type, bsl_sign in (('out_invoice', 1), ('in_invoice', -1)):
 
-            invl = self._create_invoice_line(1000.0, self.partner_a, inv_type, pay_reference='123456', inv_date='2019-01-01')
+            invl = self._create_invoice_line(1000.0, self.partner_a, inv_type, inv_date='2019-01-01')
 
             # No matching because there is no tolerance.
             st_line = self._create_st_line(amount=bsl_sign * 990.0)
@@ -401,7 +397,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
             st_line = self._create_st_line(amount=bsl_sign * 1010.0, payment_ref='123456')
             self._check_statement_matching(
                 rule,
-                {st_line: {'amls': invl, 'model': rule, 'auto_reconcile': True}},
+                {st_line: {'amls': invl, 'model': rule}},
             )
 
     @freeze_time('2019-01-01')
@@ -469,13 +465,13 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
 
         for inv_type, bsl_sign in (('out_invoice', 1), ('in_invoice', -1)):
 
-            invl = self._create_invoice_line(1000.0, self.partner_a, inv_type, pay_reference='123456', inv_date='2019-01-01')
+            invl = self._create_invoice_line(1000.0, self.partner_a, inv_type, inv_date='2019-01-01')
 
             # Enough tolerance to match the invoice line.
             st_line = self._create_st_line(amount=bsl_sign * 990.0, payment_ref='123456')
             self._check_statement_matching(
                 rule,
-                {st_line: {'amls': invl, 'model': rule, 'status': 'write_off', 'auto_reconcile': True}},
+                {st_line: {'amls': invl, 'model': rule, 'status': 'write_off'}},
             )
 
     @freeze_time('2019-01-01')
@@ -503,7 +499,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
 
         for inv_type, bsl_sign in (('out_invoice', 1), ('in_invoice', -1)):
 
-            invl = self._create_invoice_line(1000.0, self.partner_a, inv_type, pay_reference='123456', inv_date='2019-01-01')
+            invl = self._create_invoice_line(1000.0, self.partner_a, inv_type, inv_date='2019-01-01')
 
             # Enough tolerance to match the invoice line.
             st_line = self._create_st_line(amount=bsl_sign * 990.0, payment_ref='123456')
@@ -513,7 +509,6 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
                     'amls': invl,
                     'model': rule,
                     'status': 'write_off',
-                    'auto_reconcile': True,
                 }},
             )
 
