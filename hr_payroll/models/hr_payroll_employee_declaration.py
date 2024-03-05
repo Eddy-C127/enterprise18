@@ -70,7 +70,7 @@ class HrPayrollEmployeeDeclaration(models.Model):
                 _logger.info('Printing %s (%s/%s)', sheet._description, counter, sheet_count)
                 counter += 1
                 sheet_filename = sheet._get_pdf_filename(employee)
-                sheet_file, dummy = report_sudo.with_context(lang=employee.lang)._render_qweb_pdf(
+                sheet_file, dummy = report_sudo.with_context(lang=employee.lang or self.env.lang)._render_qweb_pdf(
                     report_id,
                     [employee.id], data={'report_data': employee_data, 'employee': employee, 'company_id': employee.company_id})
                 pdf_files.append((employee, sheet_filename, sheet_file))

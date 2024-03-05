@@ -26,7 +26,7 @@ class HrPayroll(Controller):
         for report, slips in payslip_reports.items():
             for payslip in slips:
                 pdf_content, _ = request.env['ir.actions.report'].\
-                    with_context(lang=payslip.employee_id.lang).\
+                    with_context(lang=payslip.employee_id.lang or payslip.env.lang).\
                     sudo().\
                     _render_qweb_pdf(report, payslip.id, data={'company_id': payslip.company_id})
                 reader = PdfFileReader(io.BytesIO(pdf_content), strict=False, overwriteWarnings=False)
