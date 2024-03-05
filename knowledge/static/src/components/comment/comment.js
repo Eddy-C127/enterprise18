@@ -487,7 +487,7 @@ export class KnowledgeCommentsThread extends Component {
                 this.autoFocusTextarea = true;
             }
             this.state.commenting = true;
-            if ( !this.state.isResolved && this.state.smallUI ) {
+            if (!this.state.isResolved && this.state.smallUI && !this.props.forceFullSize) {
                 this.openPopover({target: this.targetRef.el});
             }
             this.highlightComment(true);
