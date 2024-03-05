@@ -924,7 +924,7 @@ class HelpdeskTeam(models.Model):
                     break
 
             if team.assign_method == 'randomly':  # randomly means new tickets get uniformly distributed
-                last_assigned_user = self.env['helpdesk.ticket'].search([('team_id', '=', team.id)], order='create_date desc, id desc', limit=1).user_id
+                last_assigned_user = self.env['helpdesk.ticket'].search([('team_id', '=', team.id), ('user_id', '!=', False)], order='create_date desc, id desc', limit=1).user_id
                 index = 0
                 if last_assigned_user and last_assigned_user.id in member_ids:
                     previous_index = member_ids.index(last_assigned_user.id)
