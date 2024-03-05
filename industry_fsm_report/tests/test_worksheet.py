@@ -63,20 +63,18 @@ class TestWorksheet(TransactionCase):
             'project_id': self.second_fsm_project.id,
         })
 
-        self.first_subtask = self.env['project.task'].create({
+        self.env['project.task'].create([{
             'parent_id': self.task.id,
             'name': '%s: substask1' % (self.task.name,),
-        })
-
-        self.second_subtask = self.env['project.task'].create({
+        }, {
             'parent_id': self.task.id,
             'name': '%s: subtask2' % (self.task.name,),
             'worksheet_template_id': self.worksheet_template.id
-        })
+        }])
 
-        subtask1_worksheet_template_id = self.second_fsm_project.tasks[-1].child_ids[0].worksheet_template_id
-        subtask2_worksheet_template_id = self.second_fsm_project.tasks[-1].child_ids[1].worksheet_template_id
-        task_copy = self.second_fsm_project.tasks[-1].copy()
+        subtask1_worksheet_template_id = self.task.child_ids[0].worksheet_template_id
+        subtask2_worksheet_template_id = self.task.child_ids[1].worksheet_template_id
+        task_copy = self.task.copy()
         subtask1_copy_worksheet_template_id = task_copy.child_ids[0].worksheet_template_id
         subtask2_copy_worksheet_template_id = task_copy.child_ids[1].worksheet_template_id
         self.assertEqual(subtask1_copy_worksheet_template_id, subtask1_worksheet_template_id, "When duplicating a task, subtasks should keep the same worksheet template that we set before.")
