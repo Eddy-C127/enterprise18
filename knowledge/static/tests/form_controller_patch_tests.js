@@ -44,7 +44,7 @@ QUnit.module("Knowledge - Form Search Button", (hooks) => {
             serverData,
             mockRPC,
         });
-        openFormView("res.partner", partnerId);
+        await openFormView("res.partner", partnerId);
         await contains(".o_control_panel_navigation .o_knowledge_icon_search");
         await contains(".o_command_palette", { count: 0 });
 
@@ -58,7 +58,7 @@ QUnit.module("Knowledge - Form Search Button", (hooks) => {
             serverData,
             mockRPC,
         });
-        openFormView("res.partner");
+        await openFormView("res.partner");
         await contains(".o_control_panel_navigation .o_knowledge_icon_search");
         await contains(".o_command_palette", { count: 0 });
 
@@ -81,7 +81,7 @@ QUnit.module("Knowledge - Form Search Button", (hooks) => {
             serverData,
             mockRPC,
         });
-        openFormView("res.partner");
+        await openFormView("res.partner");
         await contains(".o_control_panel_navigation .o_knowledge_icon_search");
         await contains(".o_command_palette", { count: 0 });
 

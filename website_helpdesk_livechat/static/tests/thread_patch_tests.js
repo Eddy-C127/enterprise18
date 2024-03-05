@@ -54,7 +54,7 @@ QUnit.test("[technical] /ticket command gets a body as kwarg", async (assert) =>
             }
         },
     });
-    openDiscuss(channelId);
+    await openDiscuss(channelId);
     await insertText(".o-mail-Composer-input", "/ticket something");
     await click(".o-mail-Composer-send:not(:disabled)");
     assert.verifySteps(["execute command helpdesk. body: /ticket something"]);
@@ -68,7 +68,7 @@ QUnit.test("canned response should work in helpdesk ticket", async () => {
     });
     const ticketId = pyEnv["helpdesk.ticket"].create({ name: "My helpdesk ticket" });
     const { openFormView } = await start();
-    openFormView("helpdesk.ticket", ticketId);
+    await openFormView("helpdesk.ticket", ticketId);
     await click(".o-mail-Chatter button", { text: "Send message" });
     await contains(".o-mail-Composer-suggestion strong", { count: 0, text: "hello" });
 

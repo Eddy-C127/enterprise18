@@ -44,7 +44,7 @@ QUnit.test(
         const pyEnv = await startServer();
         const fakeId = pyEnv["fake"].create({ phone: "+689 312172" });
         const { openFormView } = await start({ serverData: { views } });
-        openFormView("fake", fakeId, {
+        await openFormView("fake", fakeId, {
             waitUntilDataLoaded: false,
             waitUntilMessagesLoaded: false,
         });
