@@ -1512,6 +1512,15 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.env['stock.quant']._update_available_quantity(self.productserial1, self.shelf2, 1, lot_id=lot2)
         self.env['stock.quant']._update_available_quantity(self.product1, self.shelf2, 4, package_id=pack1)
 
+        # Creates a second pack with some qty in a location the delivery shouldn't have access.
+        pack2 = self.env['stock.quant.package'].create({'name': 'SUSPACK'})
+        other_loc = self.env['stock.location'].create({
+            'name': "Second Stock",
+            'location_id': self.stock_location.location_id.id,
+            'barcode': 'WH-SECOND-STOCK',
+        })
+        self.env['stock.quant']._update_available_quantity(self.product1, other_loc, 4, package_id=pack2)
+
         delivery_picking = self.env['stock.picking'].create({
             'location_id': self.stock_location.id,
             'location_dest_id': self.customer_location.id,

@@ -1302,10 +1302,24 @@ export default class BarcodePickingModel extends BarcodeModel {
             // Scanned a non-existing package: make a put in pack.
             barcodeData.stopped = true;
             return await this._putInPack({ default_name: packageName });
-        } else if (!recPackage || (
-            recPackage.location_id && ![this._defaultDestLocation().id, this.location.id].includes(recPackage.location_id)
-        )) {
+        } else if (!recPackage) {
             return; // No package, package's type or package's name => Nothing to do.
+        }
+        const packLocation = recPackage.location_id
+            ? this.cache.dbIdCache['stock.location'][recPackage.location_id]
+            : false;
+        if (recPackage.location_id && !packLocation) {
+            // The package is in a location but the location was not found in the cache,
+            // surely because this location is not related to this picking.
+            return;
+        }
+        if (packLocation && packLocation.id !== this._defaultDestLocation().id && (
+            (this.config.restrict_scan_source_location && packLocation.id !== this.location.id) ||
+            (!this.config.restrict_scan_source_location && !this._isSublocation(packLocation, this.location))
+        )) {
+            // Package is not located at the destination (result package) and is not located at the
+            // scanned source location (or one of its sublocations) neither.
+            return;
         }
         // If move entire package, checks if the scanned package matches a package line.
         if (this._moveEntirePackage()) {
@@ -1359,11 +1373,11 @@ export default class BarcodePickingModel extends BarcodeModel {
             this.trigger('update');
             return;
         }
-        if (this.location && this.location.id !== recPackage.location_id) {
+
+        if (this.location && (!packLocation || !this._isSublocation(packLocation, this.location))) {
             // Package not at the source location: can't add its content.
             return;
         }
-
         // Checks if the package is already scanned.
         let alreadyExisting = 0;
         for (const line of this.pageLines) {

@@ -1870,22 +1870,6 @@ registry.category("web_tour.tours").add('test_bypass_source_scan', {test: true, 
 
     {
         trigger: '.o_barcode_client_action',
-        run: 'scan THEPACK',
-    },
-
-    {
-        trigger: '.o_notification.border-danger'
-    },
-
-    {
-        trigger: '.o_barcode_client_action',
-        run: function () {
-            helper.assertErrorMessage("You are expected to scan one or more products or a package available at the picking location");
-        },
-    },
-
-    {
-        trigger: '.o_barcode_client_action',
         run: 'scan serial1',
     },
 
@@ -1921,11 +1905,16 @@ registry.category("web_tour.tours").add('test_bypass_source_scan', {test: true, 
         run: 'scan lot1',
     },
 
+    // Tries to scan a pack in a location the delivery shouldn't have access.
+    { trigger: '.o_scan_message.o_scan_product', run: 'scan SUSPACK' },
     {
-        trigger: '.o_scan_message.o_scan_product',
-        run: 'scan LOC-01-02-00',
+        trigger: '.o_notification.border-danger',
+        run: function () {
+            helper.assertErrorMessage("You are expected to scan one or more products or a package available at the picking location");
+        },
     },
-
+    { trigger: 'button.o_notification_close' },
+    // Scans a package in the right location now.
     {
         trigger: '.o_scan_message.o_scan_product',
         run: 'scan THEPACK',
