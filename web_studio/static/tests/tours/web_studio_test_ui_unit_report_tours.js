@@ -579,7 +579,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
             trigger: '.o_web_studio_report_layout_dialog div[data-layout="web.basic_layout"]',
         },
         {
-            trigger: "iframe .page div",
+            trigger: ":iframe .page div",
             async run(helpers) {
                 const el = this.anchor;
                 openEditorPowerBox(el);
@@ -632,10 +632,10 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         },
         {
             // check that field was added successfully
-            trigger: "iframe .page div > span:contains(some default value)",
+            trigger: ":iframe .page div > span:contains(some default value)",
         },
         {
-            trigger: "iframe .page div",
+            trigger: ":iframe .page div",
             run() {
                 insertText(this.anchor, "Custo");
             },
@@ -1102,7 +1102,7 @@ registry.category("web_tour.tours").add("web_studio.test_error_at_loading", {
             trigger: "body:not(:has(.o_error_dialog)) .o-web-studio-report-editor",
         },
         {
-            trigger: "iframe div",
+            trigger: ":iframe div",
             run() {
                 assertEqual(
                     this.anchor.textContent,
@@ -1278,7 +1278,7 @@ registry.category("web_tour.tours").add("web_studio.test_edit_main_arch", {
     test: true,
     steps: () => [
         {
-            trigger: "iframe .outside-t-call",
+            trigger: ":iframe .outside-t-call",
             async run() {
                 const newNode = document.createElement("div");
                 newNode.classList.add("added");
@@ -1301,7 +1301,7 @@ registry.category("web_tour.tours").add("web_studio.test_edit_in_t_call", {
     test: true,
     steps: () => [
         {
-            trigger: "iframe .in-t-call",
+            trigger: ":iframe .in-t-call",
             async run() {
                 const newNode = document.createElement("div");
                 newNode.classList.add("added");
@@ -1324,7 +1324,7 @@ registry.category("web_tour.tours").add("web_studio.test_edit_main_and_in_t_call
     test: true,
     steps: () => [
         {
-            trigger: "iframe #wrapwrap",
+            trigger: ":iframe #wrapwrap",
             async run() {
                 const newNode0 = document.createElement("div");
                 newNode0.classList.add("added0");

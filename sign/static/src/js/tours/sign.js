@@ -25,7 +25,7 @@ registry.category("web_tour.tours").add("sign_tour", {
         },
         {
             trigger:
-                'iframe .o_sign_field_type_toolbar .o_sign_field_type_button:contains("' +
+                ':iframe .o_sign_field_type_toolbar .o_sign_field_type_button:contains("' +
                 _t("Signature") +
                 '")',
             content: markup(_t("<b>Drag & drop “Signature”</b> into the bottom of the document.")),
@@ -33,7 +33,7 @@ registry.category("web_tour.tours").add("sign_tour", {
             run: "click",
         },
         {
-            trigger: "iframe .o_sign_item_display",
+            trigger: ":iframe .o_sign_item_display",
             content: _t(
                 "Click on the field to specify who should fill it in, or if it's mandatory or not."
             ),
@@ -73,13 +73,13 @@ registry.category("web_tour.tours").add("sign_tour", {
             position: "bottom",
         },
         {
-            trigger: "iframe .o_sign_sign_item_navigator",
+            trigger: ":iframe .o_sign_sign_item_navigator",
             content: _t("Follow the guide to sign the document."),
             position: "bottom",
         },
         {
-            trigger: "iframe .o_sign_sign_item_navigator",
-            alt_trigger: "iframe .o_sign_sign_item[data-signature]",
+            trigger: ":iframe .o_sign_sign_item_navigator",
+            alt_trigger: ":iframe .o_sign_sign_item[data-signature]",
             content: markup(
                 _t(
                     "Draw your most beautiful signature!<br>You can also create one automatically or load a signature from your computer."
@@ -95,7 +95,7 @@ registry.category("web_tour.tours").add("sign_tour", {
         },
         {
             trigger: ".o_sign_validate_banner button.o_validate_button",
-            extra_trigger: "iframe body:not(:has(footer.modal-footer button.btn-primary))",
+            extra_trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
             content: _t("Congrats, your signature is ready to be submitted!"),
             position: "top",
         },

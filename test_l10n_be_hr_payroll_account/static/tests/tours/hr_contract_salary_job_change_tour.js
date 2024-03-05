@@ -170,23 +170,23 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         },
         {
             content: "Next 1",
-            trigger: "iframe .o_sign_sign_item_navigator",
+            trigger: ":iframe .o_sign_sign_item_navigator",
             run: "click",
         },
         {
             content: "Type Date",
-            trigger: "iframe input.ui-selected",
+            trigger: ":iframe input.ui-selected",
             run: "text 17/09/2018",
         },
         // fill signature
         {
             content: "Next 2",
-            trigger: "iframe .o_sign_sign_item_navigator",
+            trigger: ":iframe .o_sign_sign_item_navigator",
             run: "click",
         },
         {
             content: "Click Signature",
-            trigger: "iframe button.o_sign_sign_item",
+            trigger: ":iframe button.o_sign_sign_item",
             run: "click",
         },
         {
@@ -201,18 +201,18 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         },
         {
             content: "Wait modal closed",
-            trigger: "iframe body:not(:has(footer.modal-footer button.btn-primary))",
+            trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
             run: function () {},
         },
         // fill date
         {
             content: "Next 4",
-            trigger: 'iframe .o_sign_sign_item_navigator:contains("next")',
+            trigger: ':iframe .o_sign_sign_item_navigator:contains("next")',
             run: "click",
         },
         {
             content: "Type Date",
-            trigger: "iframe input.ui-selected",
+            trigger: ":iframe input.ui-selected",
             run: "text 17/09/2018",
         },
         {

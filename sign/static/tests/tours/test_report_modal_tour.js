@@ -25,12 +25,12 @@ registry.category("web_tour.tours").add("sign_report_modal_tour", {
         },
         {
             content: "Open the modal",
-            extra_trigger: 'iframe .green-savings-page a[data-bs-target=".modal_green_savings"]',
-            trigger: 'iframe a:contains("How are these results calculated?")',
+            extra_trigger: ':iframe .green-savings-page a[data-bs-target=".modal_green_savings"]',
+            trigger: ':iframe a:contains("How are these results calculated?")',
             run: "click",
         },
         {
-            trigger: "iframe .modal_green_savings.show",
+            trigger: ":iframe .modal_green_savings.show",
             run: () => {},
         },
     ],

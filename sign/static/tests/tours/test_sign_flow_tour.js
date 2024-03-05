@@ -47,32 +47,32 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
         },
         {
             content: "Click to start",
-            trigger: 'iframe .o_sign_sign_item_navigator:contains("Click to start")',
+            trigger: ':iframe .o_sign_sign_item_navigator:contains("Click to start")',
             position: "bottom",
         },
         {
-            trigger: "iframe input.o_sign_sign_item:focus",
+            trigger: ":iframe input.o_sign_sign_item:focus",
             auto: true,
             run() {},
         },
         {
             content: "Fill the sign item",
-            trigger: "iframe input.o_sign_sign_item",
+            trigger: ":iframe input.o_sign_sign_item",
             run: "text Mitchell Admin",
         },
         {
             content: "Click next 1",
-            trigger: 'iframe .o_sign_sign_item_navigator:contains("next")',
+            trigger: ':iframe .o_sign_sign_item_navigator:contains("next")',
             run: "click",
         },
         {
             content: "Click sign it",
-            trigger: 'iframe .o_sign_sign_item_navigator:contains("sign it")',
+            trigger: ':iframe .o_sign_sign_item_navigator:contains("sign it")',
             run: "click",
         },
         {
-            trigger: "iframe button.o_sign_sign_item:has(> img)",
-            extra_trigger: "iframe :not(:has(.o_sign_sign_item_navigator))",
+            trigger: ":iframe button.o_sign_sign_item:has(img)",
+            extra_trigger: ":iframe :not(:has(.o_sign_sign_item_navigator))",
             auto: true,
         },
         {

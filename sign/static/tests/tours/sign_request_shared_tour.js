@@ -47,7 +47,7 @@ registry.category("web_tour.tours").add("shared_sign_request_tour", {
         },
         {
             content: "Fill the sign item",
-            trigger: "iframe input.o_sign_sign_item",
+            trigger: ":iframe input.o_sign_sign_item",
             run: "text Mitchell Admin",
         },
         {

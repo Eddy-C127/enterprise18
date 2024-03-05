@@ -82,38 +82,38 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         },
         {
             content: "Wait for iframe to load PDF",
-            trigger: "iframe #viewerContainer",
+            trigger: ":iframe #viewerContainer",
             run: () => {},
         },
         {
             content: "Wait for page to be loaded",
-            trigger: "iframe .page",
+            trigger: ":iframe .page",
             run: () => {},
         },
         {
             content: "Drop Signature Item",
-            trigger: "iframe body",
+            trigger: ":iframe body",
             run: function () {
                 dragAndDropSignItemAtHeight("Signature", 1, 0.5, 0.25);
             },
         },
         {
             content: "Drop Name Sign Item",
-            trigger: "iframe body",
+            trigger: ":iframe body",
             run: function () {
                 dragAndDropSignItemAtHeight("Name", 1, 0.25, 0.25);
             },
         },
         {
             content: "Drop Text Sign Item",
-            trigger: "iframe body",
+            trigger: ":iframe body",
             run: function () {
                 dragAndDropSignItemAtHeight("Text", 1, 0.15, 0.25);
             },
         },
         {
             content: "Open popover on name sign item",
-            trigger: 'iframe .o_sign_sign_item:contains("Name") .o_sign_item_display',
+            trigger: ':iframe .o_sign_sign_item:contains("Name") .o_sign_item_display',
             run: "click",
         },
         {
@@ -131,14 +131,14 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         },
         {
             content: "Drop Selection Sign Item",
-            trigger: "iframe body",
+            trigger: ":iframe body",
             run: function () {
                 dragAndDropSignItemAtHeight("Selection", 1, 0.75, 0.25);
             },
         },
         {
             content: "Open popover on Selection sign item",
-            trigger: 'iframe .o_sign_sign_item:contains("Selection") .o_sign_item_display',
+            trigger: ':iframe .o_sign_sign_item:contains("Selection") .o_sign_item_display',
             run: "click",
         },
         {
@@ -160,7 +160,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         },
         {
             content: "Open popover on text sign item",
-            trigger: "iframe .o_sign_sign_item:contains('Text') .o_sign_item_display",
+            trigger: ":iframe .o_sign_sign_item:contains('Text') .o_sign_item_display",
         },
         {
             content: "Change text placeholder",
