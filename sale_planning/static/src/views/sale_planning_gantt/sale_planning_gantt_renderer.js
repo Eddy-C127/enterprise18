@@ -97,6 +97,9 @@ patch(PlanningGanttRenderer.prototype, {
         const existsShiftToPlan = await this.props.model.searchShiftsToPlan(
             this.getPlanDialogDomain()
         );
+        if (this.model.useSampleModel) {
+            rowId = false;
+        }
         if (!existsShiftToPlan) {
             return this.onCreate(rowId, columnStart, columnStop);
         }
