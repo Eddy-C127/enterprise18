@@ -10,6 +10,13 @@ class AccountAnalyticLine(models.Model):
 
     display_sol = fields.Boolean(compute="_compute_display_sol")
 
+    @api.depends('helpdesk_ticket_id')
+    def _compute_commercial_partner(self):
+        timesheets_with_ticket = self.filtered('helpdesk_ticket_id')
+        super(AccountAnalyticLine, self - timesheets_with_ticket)._compute_commercial_partner()
+        for line in timesheets_with_ticket:
+            line.commercial_partner_id = line.helpdesk_ticket_id.commercial_partner_id
+
     @api.depends('helpdesk_ticket_id', 'helpdesk_ticket_id.use_helpdesk_sale_timesheet')
     def _compute_display_sol(self):
         sale_project_ids = set(self.env['project.project']._search([('helpdesk_team.use_helpdesk_sale_timesheet', '=', True)]))
