@@ -1023,7 +1023,7 @@ class Planning(models.Model):
         """ Used in the form view to auto plan a single shift.
         """
         self.ensure_one()
-        if not self.with_context(planning_slot_id=self.id).auto_plan_ids([('id', '=', self.id)]):
+        if not self.with_context(planning_slot_id=self.id).auto_plan_ids([('id', '=', self.id)])['open_shift_assigned']:
             return self._get_notification_action("danger", _("There are no resources available for this open shift."))
 
     @api.model
