@@ -168,7 +168,18 @@ Content-Transfer-Encoding: quoted-printable
         # we set the assignation method to randomly (=uniformly distributed)
         self.test_team.update({'assign_method': 'randomly', 'auto_assignment': True})
         # we create a bunch of tickets
-        for i in range(10):
+        for i in range(5):
+            self.env['helpdesk.ticket'].create({
+                'name': 'test ticket ' + str(i),
+                'team_id': self.test_team.id,
+            })
+        # add unassigned ticket to test if the distribution is kept equal.
+        self.env['helpdesk.ticket'].create({
+            'name': 'ticket unassigned',
+            'team_id': self.test_team.id,
+            'user_id': False,
+        })
+        for i in range(5, 10):
             self.env['helpdesk.ticket'].create({
                 'name': 'test ticket ' + str(i),
                 'team_id': self.test_team.id,
