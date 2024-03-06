@@ -3,7 +3,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { Command } from "@mail/../tests/helpers/command";
-import { openDiscuss, start } from "@mail/../tests/helpers/test_utils";
+import { openDiscuss, openFormView, start } from "@mail/../tests/helpers/test_utils";
 
 import { click, contains } from "@web/../tests/utils";
 
@@ -83,7 +83,7 @@ QUnit.test(
             res_id: pyEnv.currentPartnerId,
             message_type: "comment",
         });
-        const { openFormView } = await start();
+        await start();
         await openFormView("res.partner", pyEnv.currentPartnerId);
         await click(".o_whatsapp_channel_redirect");
         await contains(".o-mail-ChatWindow");

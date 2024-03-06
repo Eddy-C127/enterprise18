@@ -2,7 +2,7 @@
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openFormView, start } from "@mail/../tests/helpers/test_utils";
 
 import { click, contains } from "@web/../tests/utils";
 
@@ -40,7 +40,7 @@ QUnit.module("Knowledge - Form Search Button", (hooks) => {
     QUnit.test("can search for article on existing record", async (assert) => {
         const pyEnv = await startServer();
         const partnerId = pyEnv["res.partner"].create({ name: "John Doe" });
-        const { openFormView } = await start({
+        await start({
             serverData,
             mockRPC,
         });
@@ -54,7 +54,7 @@ QUnit.module("Knowledge - Form Search Button", (hooks) => {
     });
 
     QUnit.test("can search for article when creating valid record", async (assert) => {
-        const { openFormView } = await start({
+        await start({
             serverData,
             mockRPC,
         });
@@ -77,7 +77,7 @@ QUnit.module("Knowledge - Form Search Button", (hooks) => {
                     <field name="message_ids"/>
                 </div>
             </form>`;
-        const { openFormView } = await start({
+        await start({
             serverData,
             mockRPC,
         });

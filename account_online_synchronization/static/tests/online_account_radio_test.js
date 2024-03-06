@@ -2,7 +2,7 @@
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openFormView, start } from "@mail/../tests/helpers/test_utils";
 
 import { click, contains } from "@web/../tests/utils";
 
@@ -47,7 +47,7 @@ QUnit.module("Views", {}, function () {
                     </div>
                 </form>`,
         };
-        const { openFormView } = await start({
+        await start({
             serverData: { views },
             mockRPC: function (route, args) {
                 if (

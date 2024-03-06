@@ -2,7 +2,7 @@
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openFormView, start } from "@mail/../tests/helpers/test_utils";
 
 import { click, contains } from "@web/../tests/utils";
 
@@ -17,7 +17,7 @@ QUnit.test(
             model: "res.partner",
             status: "approved",
         });
-        const { openFormView } = await start();
+        await start();
         await openFormView("res.partner", pyEnv.currentPartnerId);
         await click("button", { text: "WhatsApp" });
         await contains(".o_dialog h4", { text: "Send WhatsApp Message" });

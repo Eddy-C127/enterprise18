@@ -1,7 +1,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { addFakeModel } from "@bus/../tests/helpers/model_definitions_helpers";
 
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openFormView, start } from "@mail/../tests/helpers/test_utils";
 
 import { click, contains } from "@web/../tests/utils";
 import { nextTick } from "@web/../tests/helpers/utils";
@@ -24,13 +24,10 @@ QUnit.module("phone field");
 QUnit.test("Click on PhoneField link triggers a call.", async (assert) => {
     const pyEnv = await startServer();
     const fakeId = pyEnv["fake"].create({ phone: "+36 55 369 678" });
-    const { openFormView } = await start({
+    await start({
         serverData: { views },
     });
-    await openFormView("fake", fakeId, {
-        waitUntilDataLoaded: false,
-        waitUntilMessagesLoaded: false,
-    });
+    await openFormView("fake", fakeId);
     await click(".o_field_phone a[href='tel:+3655369678']");
     assert.strictEqual(
         pyEnv["voip.call"].searchCount([["phone_number", "=", "+36 55 369 678"]]),
@@ -43,11 +40,8 @@ QUnit.test(
     async () => {
         const pyEnv = await startServer();
         const fakeId = pyEnv["fake"].create({ phone: "+689 312172" });
-        const { openFormView } = await start({ serverData: { views } });
-        await openFormView("fake", fakeId, {
-            waitUntilDataLoaded: false,
-            waitUntilMessagesLoaded: false,
-        });
+        await start({ serverData: { views } });
+        await openFormView("fake", fakeId);
         await click(".o_field_phone a[href='tel:+689312172']");
         await nextTick();
         await contains(".o_form_readonly");

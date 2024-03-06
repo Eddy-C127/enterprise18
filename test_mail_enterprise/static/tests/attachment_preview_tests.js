@@ -3,7 +3,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { patchUiSize, SIZES } from "@mail/../tests/helpers/patch_ui_size";
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openFormView, start } from "@mail/../tests/helpers/test_utils";
 
 import {
     click,
@@ -32,7 +32,7 @@ QUnit.test("Should not have attachment preview for still uploading attachment", 
             </form>`,
     };
     patchUiSize({ size: SIZES.XXL });
-    const { openFormView } = await start({
+    await start({
         async mockRPC(route, args) {
             if (String(route).includes("/web/static/lib/pdfjs/web/viewer.html")) {
                 assert.step("pdf viewer");
@@ -81,7 +81,7 @@ QUnit.test("Attachment on side", async (assert) => {
             </form>`,
     };
     patchUiSize({ size: SIZES.XXL });
-    const { openFormView } = await start({
+    await start({
         mockRPC(route, args) {
             if (String(route).includes("/mail/thread/data")) {
                 assert.step("/mail/thread/data");
@@ -167,7 +167,7 @@ QUnit.test(
                 </form>`,
         };
         patchUiSize({ size: SIZES.XXL });
-        const { openFormView } = await start({
+        await start({
             serverData: { views },
             async mockRPC(route, args) {
                 if (route.includes("/web/static/lib/pdfjs/web/viewer.html")) {
@@ -208,7 +208,7 @@ QUnit.test("Attachment on side on new record", async () => {
             </form>`,
     };
     patchUiSize({ size: SIZES.XXL });
-    const { openFormView } = await start({ serverData: { views } });
+    await start({ serverData: { views } });
     await openFormView("mail.test.simple.main.attachment");
     await contains(".o_form_sheet_bg + .o-mail-Form-chatter");
     await contains(".o_attachment_preview", { count: 0 });
@@ -240,7 +240,7 @@ QUnit.test("Attachment on side not displayed on smaller screens", async () => {
             </form>`,
     };
     patchUiSize({ size: SIZES.XL });
-    const { openFormView } = await start({ serverData: { views } });
+    await start({ serverData: { views } });
     await openFormView("mail.test.simple.main.attachment", recordId);
     await contains(".o_form_sheet_bg + .o-mail-Form-chatter");
     await contains(".o_attachment_preview", { count: 0 });

@@ -1,7 +1,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { patchUiSize, SIZES } from "@mail/../tests/helpers/patch_ui_size";
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openFormView, start } from "@mail/../tests/helpers/test_utils";
 
 import { contains, scroll } from "@web/../tests/utils";
 
@@ -18,7 +18,7 @@ QUnit.test("message list desc order", async (assert) => {
         });
     }
     patchUiSize({ size: SIZES.XXL });
-    const { openFormView } = await start();
+    await start();
     await openFormView("res.partner", partnerId);
     assert.notOk(
         $(".o-mail-Message").prevAll("button:contains(Load More)")[0],

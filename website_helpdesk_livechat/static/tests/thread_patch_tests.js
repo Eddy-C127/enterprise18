@@ -3,7 +3,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { addModelNamesToFetch } from "@bus/../tests/helpers/model_definitions_helpers";
 
-import { openDiscuss, start } from "@mail/../tests/helpers/test_utils";
+import { openDiscuss, openFormView, start } from "@mail/../tests/helpers/test_utils";
 
 import { click, contains, insertText } from "@web/../tests/utils";
 
@@ -67,7 +67,7 @@ QUnit.test("canned response should work in helpdesk ticket", async () => {
         substitution: "Hello! How are you?",
     });
     const ticketId = pyEnv["helpdesk.ticket"].create({ name: "My helpdesk ticket" });
-    const { openFormView } = await start();
+    await start();
     await openFormView("helpdesk.ticket", ticketId);
     await click(".o-mail-Chatter button", { text: "Send message" });
     await contains(".o-mail-Composer-suggestion strong", { count: 0, text: "hello" });

@@ -1,7 +1,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { patchUiSize, SIZES } from "@mail/../tests/helpers/patch_ui_size";
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openFormView, start } from "@mail/../tests/helpers/test_utils";
 
 import { getFixture } from "@web/../tests/helpers/utils";
 import { click, contains, insertText, scroll } from "@web/../tests/utils";
@@ -39,7 +39,7 @@ QUnit.test("Message list loads new messages on scroll", async () => {
     };
     const target = getFixture();
     target.classList.add("o_web_client");
-    const { openFormView } = await start({
+    await start({
         serverData: { views },
         target,
     });
@@ -82,7 +82,7 @@ QUnit.test("Message list is scrolled to new message after posting a message", as
     };
     const target = getFixture();
     target.classList.add("o_web_client");
-    const { openFormView } = await start({
+    await start({
         serverData: { views },
         target,
     });
