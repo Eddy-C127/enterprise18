@@ -4,6 +4,7 @@
     "name": "Australia - Payroll",
     "category": "Human Resources/Payroll",
     "countries": ["au"],
+    'version': '1.0',
     "depends": [
         "hr_payroll",
         "hr_contract_reports",

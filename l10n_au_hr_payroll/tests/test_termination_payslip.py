@@ -4,7 +4,6 @@ from unittest.mock import patch
 
 from odoo import fields
 from odoo.tests import tagged
-from odoo.tools import end_of
 from .common import TestPayrollCommon
 
 
