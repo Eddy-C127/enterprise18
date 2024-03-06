@@ -95,6 +95,9 @@ $knowledge-bg--hover: $gray-300;
                 transition: background-color 0.3s ease-in-out;
                 &.knowledge-thread-highlighted-comment {
                     background-color: rgba($knowledge-bg--active, 0.171);
+                    .knowledge-thread-comment:not(.focused-comment) {
+                        background-color: initial;
+                    }
                     &.focused-comment {
                         background-color: $knowledge-bg--active;
                     }
