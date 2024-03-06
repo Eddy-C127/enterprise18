@@ -58,7 +58,7 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
         const titleFormat = { month: "long", year: "numeric" };
             // The calendar is displayed if there are slots (open or not)
         if (defaultView && (employeeSlotsFcData || openSlotsIds)) {
-            this.calendar = new FullCalendar.Calendar($("#calendar_employee")[0], {
+            this.calendar = new FullCalendar.Calendar(document.querySelector("#calendar_employee .o_calendar_widget"), {
                 // Settings
                 locale: locale,
                 initialView: defaultView,
