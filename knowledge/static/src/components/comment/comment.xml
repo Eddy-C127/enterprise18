@@ -14,7 +14,7 @@
             'd-inline-block position-absolute end-100 rounded': !props.forceFullSize,
             'pt-2': !(state.smallUI || props.record.data.full_width)
         }"
-        t-attf-style="top: ${this.state.top}px; ${this.state.width}; ${this.state.marginRight};"
+        t-attf-style="${!this.props.forceFullSize ? `top: ${this.state.top}px;${this.state.width};${this.state.marginRight};` : ''}"
         t-ref="targetRef">
         <div class="o_knowledge_comment_small_ui"
              t-if="!props.forceFullSize and state.smallUI"
