@@ -2,7 +2,7 @@
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openFormView, start } from "@mail/../tests/helpers/test_utils";
 
 import { makeDeferred } from "@web/../tests/helpers/utils";
 import { click, contains } from "@web/../tests/utils";
@@ -23,12 +23,8 @@ QUnit.test("activity with approval to be made by logged user", async () => {
         res_model: "approval.request",
         user_id: pyEnv.currentUserId,
     });
-    const { openView } = await start();
-    await openView({
-        res_model: "approval.request",
-        res_id: requestId,
-        views: [[false, "form"]],
-    });
+    await start();
+    await openFormView("approval.request", requestId);
     await contains(".o-mail-Activity");
     await contains(".o-mail-Activity-sidebar");
     await contains(".o-mail-Activity-user");
@@ -58,12 +54,8 @@ QUnit.test("activity with approval to be made by another user", async () => {
         res_model: "approval.request",
         user_id: userId,
     });
-    const { openView } = await start();
-    await openView({
-        res_model: "approval.request",
-        res_id: requestId,
-        views: [[false, "form"]],
-    });
+    await start();
+    await openFormView("approval.request", requestId);
     await contains(".o-mail-Activity");
     await contains(".o-mail-Activity-sidebar");
     await contains(".o-mail-Activity-user");
@@ -94,7 +86,7 @@ QUnit.test("approve approval", async (assert) => {
         user_id: pyEnv.currentUserId,
     });
     const def = makeDeferred();
-    const { openView } = await start({
+    await start({
         async mockRPC(route, args) {
             if (args.method === "action_approve") {
                 assert.strictEqual(args.args.length, 1);
@@ -104,11 +96,7 @@ QUnit.test("approve approval", async (assert) => {
             }
         },
     });
-    await openView({
-        res_model: "approval.request",
-        res_id: requestId,
-        views: [[false, "form"]],
-    });
+    await openFormView("approval.request", requestId);
     await click(".o-mail-Activity button", { text: "Approve" });
     await def;
     assert.verifySteps(["action_approve"]);
@@ -129,7 +117,7 @@ QUnit.test("refuse approval", async (assert) => {
         user_id: pyEnv.currentUserId,
     });
     const def = makeDeferred();
-    const { openView } = await start({
+    await start({
         async mockRPC(route, args) {
             if (args.method === "action_refuse") {
                 assert.strictEqual(args.args.length, 1);
@@ -139,11 +127,7 @@ QUnit.test("refuse approval", async (assert) => {
             }
         },
     });
-    await openView({
-        res_model: "approval.request",
-        res_id: requestId,
-        views: [[false, "form"]],
-    });
+    await openFormView("approval.request", requestId);
     await click(".o-mail-Activity button", { text: "Refuse" });
     await def;
     assert.verifySteps(["action_refuse"]);

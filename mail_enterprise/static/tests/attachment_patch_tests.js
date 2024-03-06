@@ -1,7 +1,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { patchUiSize, SIZES } from "@mail/../tests/helpers/patch_ui_size";
-import { openDiscuss, start } from "@mail/../tests/helpers/test_utils";
+import { openDiscuss, openFormView, start } from "@mail/../tests/helpers/test_utils";
 
 import { patchWithCleanup } from "@web/../tests/helpers/utils";
 import { click, contains } from "@web/../tests/utils";
@@ -68,12 +68,8 @@ QUnit.test(
             model: "res.partner",
             res_id: partnerId,
         });
-        const { openView } = await start();
-        await openView({
-            res_id: partnerId,
-            res_model: "res.partner",
-            views: [[false, "form"]],
-        });
+        await start();
+        await openFormView("res.partner", partnerId);
 
         await click(".o-mail-AttachmentImage");
         await contains(".o-FileViewer");
