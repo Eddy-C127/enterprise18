@@ -40,6 +40,7 @@ export class SignTemplateControlPanel extends Component {
             additionalContext: {
                 active_id: this.props.signTemplate.id,
                 sign_directly_without_mail: false,
+                show_email: true,
             },
         });
     }
