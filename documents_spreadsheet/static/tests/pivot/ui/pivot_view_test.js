@@ -594,8 +594,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("Can save a pivot in a new spreadsheet", async (assert) => {
-        assert.expect(2);
-
         const serverData = {
             models: getBasicData(),
             views: {
@@ -625,7 +623,9 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             views: [[false, "pivot"]],
         });
         const target = getFixture();
-        await click(target.querySelector(".o_pivot_add_spreadsheet"));
+        const insertButton = target.querySelector("button.o_pivot_add_spreadsheet");
+        assert.strictEqual(insertButton.parentElement.dataset.tooltip, undefined);
+        await click(insertButton);
         await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
         assert.verifySteps(["action_open_new_spreadsheet"]);
     });

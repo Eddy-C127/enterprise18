@@ -102,7 +102,7 @@ patch(PivotRenderer.prototype, {
         );
     },
 
-    getTooltipTextForDuplicatedGroupbys() {
-        return _t("Pivot contains duplicate groupbys");
+    getInsertButtonTooltip() {
+        return this.hasDuplicatedGroupbys() ? _t("Pivot contains duplicate groupbys") : undefined;
     },
 });
