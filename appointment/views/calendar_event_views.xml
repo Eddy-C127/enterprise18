@@ -8,11 +8,6 @@
         <field name="arch" type="xml">
             <field name="categ_ids" position="after">
                 <field name="appointment_type_id" invisible="not appointment_type_id"/>
-                <field name="appointment_resource_id"
-                       invisible="not appointment_type_id or not appointment_resource_id"
-                       domain="[('appointment_type_ids', 'in', appointment_type_id)]"/>
-                <field name="resource_total_capacity_reserved"
-                       invisible="not appointment_resource_id"/>
             </field>
             <xpath expr="//page[@name='page_invitations']" position="before">
                 <page name="page_appointment" string="Appointment Details"
@@ -122,10 +117,11 @@
                             <field name="appointment_type_id" options="{'no_create': True}"/>
                             <field name="appointment_type_manage_capacity" invisible="1"/>
                             <field name="appointment_type_schedule_based_on" invisible="1"/>
-                            <field name="appointment_resource_id" string="Resource" options="{'no_create': True}"
+                            <field name="appointment_resource_ids" invisible="1"/>
+                            <field name="resource_ids" string="Resources" options="{'no_create': True}"
                                    invisible="not appointment_type_id or appointment_type_schedule_based_on != 'resources'"
-                                   domain="[('appointment_type_ids', 'in', appointment_type_id)]"/>
-                            <div invisible="not appointment_resource_id or not appointment_type_manage_capacity or appointment_type_schedule_based_on != 'resources'" colspan="2">
+                                   domain="[('appointment_type_ids', 'in', appointment_type_id)]" widget="many2many_tags"/>
+                            <div invisible="not resource_ids or not appointment_type_manage_capacity or appointment_type_schedule_based_on != 'resources'" colspan="2">
                                 <label for="resource_total_capacity_reserved" class="me-5"/>
                                 <field name="resource_total_capacity_reserved" string="Total Reserved" class="oe_inline"/>
                                 <span>people</span>
@@ -146,7 +142,7 @@
                 create="1" delete="1" plan="0"
                 date_start="start"
                 date_stop="stop"
-                default_group_by="appointment_resource_id"
+                default_group_by="resource_ids"
                 default_scale="day"
                 display_unavailability="1"
                 form_view_id="%(calendar_event_view_form_gantt_booking)d"
@@ -156,7 +152,6 @@
                 string="Resources"
                 total_row="0">
 
-                <field name="appointment_resource_id"/>
                 <field name="appointment_resource_ids"/>
                 <field name="appointment_type_manage_capacity"/>
                 <field name="appointment_type_id"/>
@@ -218,7 +213,7 @@
             (0, 0, {'view_mode': 'tree', 'view_id': ref('appointment.calendar_event_view_tree_booking')}),
         ]"/>
         <field name="view_mode">gantt,calendar,tree,form</field>
-        <field name="context">{'appointment_booking_gantt_domain': [('appointment_resource_id', '!=', False)],
+        <field name="context">{'appointment_booking_gantt_domain': [('appointment_resource_ids', '!=', False)],
                                'appointment_default_add_organizer_to_attendees': False,
                                'default_partner_ids': [],
                                'default_resource_total_capacity_reserved': 1}</field>

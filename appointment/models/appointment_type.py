@@ -383,10 +383,7 @@ class AppointmentType(models.Model):
                 management_views = ['gantt']
         else:
             action = self.env["ir.actions.actions"]._for_xml_id("appointment.calendar_event_action_view_bookings_resources")
-            if self.resource_manage_capacity:
-                management_views = ['tree']
-            else:
-                management_views = ['gantt']
+            management_views = ['gantt']
         appointments = self.meeting_ids.filtered_domain([
             ('start', '>=', datetime.today())
         ])
@@ -488,7 +485,7 @@ class AppointmentType(models.Model):
         now = datetime.utcnow()
         last_meeting_values = self.env['calendar.event'].search_read([
             ('appointment_type_id', 'in', self.ids),
-            ('appointment_resource_id', '!=', False),
+            ('appointment_resource_ids', '!=', False),
             ('stop', '>=', now.date()),
         ], ['stop'], limit=1, order='stop desc')
         last_meeting_end = last_meeting_values[0]['stop'] if last_meeting_values else False

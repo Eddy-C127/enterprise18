@@ -69,7 +69,7 @@ class AppointmentResource(AppointmentCommon):
         for resource, default_type, expected_type_id in states:
             context = {
                 'booking_gantt_create_record': True,
-                'default_appointment_resource_id': resource.id
+                'default_resource_ids': resource.ids
             }
             if default_type:
                 context.update(default_appointment_type_id=default_type.id)
@@ -183,49 +183,6 @@ class AppointmentResource(AppointmentCommon):
         self.assertEqual(resource_2.linked_resource_ids, new_resource_1 + new_resource_2)
         self.assertEqual(resource_2.source_resource_ids, new_resource_1)
         self.assertEqual(resource_2.destination_resource_ids, new_resource_2)
-
-    @users('apt_manager')
-    def test_appointment_resource_field(self):
-        """Check that the appointment_resource_id field works as expected"""
-        booking = self.env['calendar.event'].with_context(self._test_context).create([{
-            'appointment_type_id': self.appointment_manage_capacity.id,
-            'name': 'Booking',
-            'start': datetime(2022, 2, 15, 14, 0, 0),
-            'stop': datetime(2022, 2, 15, 15, 0, 0),
-        }])
-
-        self.assertFalse(booking.appointment_resource_id)
-
-        booking.appointment_resource_id = self.resource_1
-        self.assertEqual(booking.appointment_resource_id, self.resource_1)
-        self.assertEqual(len(booking.booking_line_ids), 1)
-        self.assertEqual(booking.booking_line_ids.appointment_resource_id, self.resource_1)
-
-        booking_line_1 = booking.booking_line_ids[0]
-
-        booking.write({'booking_line_ids': [Command.create({
-            'appointment_resource_id': self.resource_2.id,
-            'calendar_event_id': booking.id,
-            'capacity_reserved': 1})]
-        })
-        self.assertFalse(booking.appointment_resource_id, 'More than one booking lines should mean no singular resource id.')
-        self.assertEqual(booking.booking_line_ids.appointment_resource_id, self.resource_1 | self.resource_2)
-
-        booking_lines_before = booking.booking_line_ids
-        resources_before = booking.appointment_resource_ids
-        booking.appointment_resource_id = self.resource_3
-        self.assertEqual(len(booking.booking_line_ids), 2, 'Setting the singular resource when there already are multiple booking lines should do nothing.')
-        self.assertEqual(booking_lines_before, booking.booking_line_ids)
-        self.assertEqual(resources_before, booking.appointment_resource_ids)
-
-        booking.booking_line_ids = booking_line_1
-        self.assertEqual(len(booking.booking_line_ids), 1)
-        self.assertEqual(booking.appointment_resource_id, self.resource_1)
-
-        booking.appointment_resource_id = False
-        self.assertEqual(len(booking.booking_line_ids), 0)
-        self.assertFalse(booking.appointment_resource_id)
-        self.assertFalse(booking.booking_line_ids)
 
     @users('apt_manager')
     def test_appointment_resources_remaining_capacity(self):

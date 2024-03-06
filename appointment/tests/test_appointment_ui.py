@@ -207,7 +207,7 @@ class AppointmentUITest(AppointmentUICommon):
             'default_partner_ids': [],
             'initial_date': now,
         }, {
-            'appointment_booking_gantt_domain': [('appointment_resource_id', '!=', False)],
+            'appointment_booking_gantt_domain': [('appointment_resource_ids', '!=', False)],
             'appointment_default_add_organizer_to_attendees': False,
             'default_scale': 'day',
             'default_appointment_type_id': appointment_types[2].id,

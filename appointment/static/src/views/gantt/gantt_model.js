@@ -58,8 +58,8 @@ export class AppointmentBookingGanttModel extends GanttModel {
 
     /**
      * Replace the raw list of ids set by gantt by link and unlink commands
-     * so that only the partner selected by the user changes instead of replacing
-     * all partners with the new one.
+     * so that only the partner/resource selected by the user changes instead of replacing
+     * all partners/resources with the new one.
      *
      * @override
      */
@@ -73,13 +73,27 @@ export class AppointmentBookingGanttModel extends GanttModel {
             this.metaData.groupedBy &&
             this.metaData.groupedBy[0] === "partner_ids" &&
             schedule.partner_ids &&
-            data.partner_ids[0] != schedule.originId // attendee_ids will be messed up without this check
+            data.partner_ids[0] !== schedule.originId // attendee_ids will be messed up without this check
         ) {
             return {
                 ...data,
                 partner_ids: [
                     [3, schedule.originId, 0],
                     [4, data.partner_ids[0], 0],
+                ],
+            };
+        }
+        if (
+            this.metaData.groupedBy &&
+            this.metaData.groupedBy[0] === "resource_ids" &&
+            schedule.resource_ids &&
+            data.resource_ids[0] !== schedule.originId
+        ) {
+            return {
+                ...data,
+                resource_ids: [
+                    [3, schedule.originId, 0],
+                    [4, data.resource_ids[0], 0],
                 ],
             };
         }
