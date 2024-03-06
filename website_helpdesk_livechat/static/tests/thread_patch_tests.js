@@ -3,7 +3,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { addModelNamesToFetch } from "@bus/../tests/helpers/model_definitions_helpers";
 
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openDiscuss, start } from "@mail/../tests/helpers/test_utils";
 
 import { click, contains, insertText } from "@web/../tests/utils";
 
@@ -45,7 +45,7 @@ QUnit.test("[technical] /ticket command gets a body as kwarg", async (assert) =>
     pyEnv["discuss.channel.member"].write([channelMemberId], {
         seen_message_id: messageId,
     });
-    const { openDiscuss } = await start({
+    await start({
         mockRPC(route, { model, method, kwargs }) {
             if (model === "discuss.channel" && method === "execute_command_helpdesk") {
                 assert.step(`execute command helpdesk. body: ${kwargs.body}`);

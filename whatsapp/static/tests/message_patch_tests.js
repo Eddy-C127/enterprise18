@@ -3,7 +3,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { Command } from "@mail/../tests/helpers/command";
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openDiscuss, start } from "@mail/../tests/helpers/test_utils";
 
 import { click, contains } from "@web/../tests/utils";
 
@@ -23,7 +23,7 @@ QUnit.test("WhatsApp channels should not have Edit, Delete and Add Reactions but
         res_id: channelId,
         message_type: "whatsapp_message",
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     await contains(".o-mail-Message-actions");
     await contains(".o-mail-Message-actions .button[title='Add a Reaction']", { count: 0 });
@@ -61,7 +61,7 @@ QUnit.test(
             failure_type: "unknown",
             state: "error",
         });
-        const { openDiscuss } = await start();
+        await start();
         await openDiscuss(channelId);
         await contains(".o-mail-Message-header", { count: 2 });
         await contains(".o-mail-Message-header span.fa-whatsapp.text-danger");
@@ -114,7 +114,7 @@ QUnit.test("Allow SeenIndicators in WhatsApp Channels", async () => {
         fetched_message_id: messageId,
         seen_message_id: false,
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     await contains(".o-mail-MessageSeenIndicator:not(.o-all-seen)");
     await contains(".o-mail-MessageSeenIndicator i");
@@ -158,7 +158,7 @@ QUnit.test("No SeenIndicators if message has whatsapp error", async () => {
         fetched_message_id: messageId,
         seen_message_id: false,
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     await contains(".o-mail-Message .fa.fa-whatsapp.text-danger");
     await contains(".o-mail-MessageSeenIndicator", { count: 0 });
@@ -176,7 +176,7 @@ QUnit.test("whatsapp template messages should have whatsapp icon in message head
         res_id: channelId,
         message_type: "whatsapp_message",
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     await contains(".o-mail-Message-header span.fa-whatsapp");
 });
@@ -194,7 +194,7 @@ QUnit.test("No Reply button if thread is expired", async () => {
         res_id: channelId,
         message_type: "whatsapp_message",
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     await contains(".o-mail-Composer");
     await contains(".o-mail-Message-actions button[title='Reply']", { count: 0 });

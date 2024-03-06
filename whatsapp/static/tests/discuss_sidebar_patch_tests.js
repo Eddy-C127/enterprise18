@@ -3,7 +3,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { Command } from "@mail/../tests/helpers/command";
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openDiscuss, start } from "@mail/../tests/helpers/test_utils";
 
 import { click, contains, insertText } from "@web/../tests/utils";
 
@@ -24,7 +24,7 @@ QUnit.test("Join whatsapp channels from add channel button", async () => {
             ],
         },
     ]);
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss();
     await click(".o-mail-DiscussSidebarCategory-whatsapp .o-mail-DiscussSidebarCategory-add");
     await insertText(".o-discuss-ChannelSelector input", "WhatsApp 2");
@@ -40,7 +40,7 @@ QUnit.test(
             name: "WhatsApp 1",
             channel_type: "whatsapp",
         });
-        const { openDiscuss } = await start();
+        await start();
         await openDiscuss();
         await click("div[title='Unpin Conversation']", {
             parent: [
@@ -72,7 +72,7 @@ QUnit.test("Message unread counter in whatsapp channels", async () => {
             Command.create({ message_unread_counter: 1, partner_id: pyEnv.currentPartnerId }),
         ],
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     await contains(".o-mail-DiscussSidebarChannel", {
         contains: [
@@ -114,7 +114,7 @@ QUnit.test(
                 channel_type: "whatsapp",
             },
         ]);
-        const { openDiscuss } = await start();
+        await start();
         await openDiscuss();
         await contains(".o-mail-DiscussSidebarChannel", { count: 2 });
         await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 2" });

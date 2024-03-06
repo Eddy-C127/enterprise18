@@ -2,8 +2,8 @@
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
-import { start } from "@mail/../tests/helpers/test_utils";
 import { patchUiSize, SIZES } from "@mail/../tests/helpers/patch_ui_size";
+import { openDiscuss, start } from "@mail/../tests/helpers/test_utils";
 
 import { contains, click } from "@web/../tests/utils";
 
@@ -15,7 +15,7 @@ QUnit.test("Basic topbar rendering for whatsapp channels", async () => {
         name: "WhatsApp 1",
         channel_type: "whatsapp",
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     await contains(".o-mail-Discuss-header .o-mail-ThreadIcon .fa-whatsapp");
     await contains(".o-mail-Discuss-threadName:disabled", { value: "WhatsApp 1" });
@@ -32,7 +32,7 @@ QUnit.test("Invite users into whatsapp channel", async () => {
     });
     const partnerId = pyEnv["res.partner"].create({ name: "WhatsApp User" });
     pyEnv["res.users"].create({ partner_id: partnerId });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     await click(".o-mail-Discuss-header button[title='Add Users']");
     await click(".o-discuss-ChannelInvitation-selectable");
@@ -44,7 +44,7 @@ QUnit.test("Mobile has WhatsApp category", async () => {
     const pyEnv = await startServer();
     patchUiSize({ size: SIZES.SM });
     pyEnv["discuss.channel"].create({ name: "WhatsApp 1", channel_type: "whatsapp" });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss();
     await click(".o-mail-MessagingMenu-navbar button", { text: "WhatsApp" });
     await contains(".o-mail-NotificationItem", { text: "WhatsApp 1" });

@@ -2,9 +2,10 @@
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
-import { start } from "@mail/../tests/helpers/test_utils";
+import { openDiscuss, start } from "@mail/../tests/helpers/test_utils";
 import { Composer } from "@mail/core/common/composer";
 import { patchWithCleanup } from "@web/../tests/helpers/utils";
+
 import {
     contains,
     createFile,
@@ -34,7 +35,7 @@ QUnit.test("Allow only single attachment in every message", async () => {
         name: "WhatsApp 1",
         channel_type: "whatsapp",
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     const [file1, file2] = [
         await createFile({
@@ -69,7 +70,7 @@ QUnit.test("Can not add attachment after copy pasting an attachment", async () =
         name: "WhatsApp 1",
         channel_type: "whatsapp",
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     const [file1, file2] = [
         await createFile({
@@ -101,7 +102,7 @@ QUnit.test("Can not add attachment after drag dropping an attachment", async () 
         name: "WhatsApp 1",
         channel_type: "whatsapp",
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     const [file1, file2] = [
         await createFile({
@@ -131,7 +132,7 @@ QUnit.test("Disabled composer should be enabled after message from whatsapp user
         channel_type: "whatsapp",
         whatsapp_channel_valid_until: DateTime.utc().minus({ minutes: 1 }).toSQL(),
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     await contains(".o-mail-Composer-actions");
     await contains("button[title='Attach files']");
@@ -160,7 +161,7 @@ QUnit.test("Allow channel commands for whatsapp channels", async () => {
         name: "WhatsApp 1",
         channel_type: "whatsapp",
     });
-    const { openDiscuss } = await start();
+    await start();
     await openDiscuss(channelId);
     await insertText(".o-mail-Composer-input", "/");
     await contains(".o-mail-NavigableList-item", { text: "leaveLeave this channel" });
