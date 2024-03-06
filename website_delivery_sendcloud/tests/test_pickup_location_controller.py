@@ -19,13 +19,25 @@ def _mock_call():
         responses = {
             'get': {
                 'service-points': [{
+                    'id': 11238037,
                     'name': 'STATION AVIA',
-                    'street': 'CHAUSSÉE DE NAMUR',
+                    'formatted_opening_times': {
+                        '0': ['07:00 - 18:30'],
+                        '1': ['07:00 - 18:30'],
+                        '2': ['07:00 - 18:30'],
+                        '3': ['07:00 - 18:30'],
+                        '4': ['08:00 - 14:00', '15:00 - 18:00'],
+                        '5': ['09:00 - 16:00'],
+                        '6': [],
+                    },
+                    'street': 'CHAUSSEE DE NAMUR',
                     'house_number': '67',
-                    'postal_code': '1367',
                     'city': 'RAMILLIES',
+                    'postal_code': '1367',
                     'country': 'BE',
-                    'distance': 765}],
+                    'latitude': '50.634529',
+                    'longitude': '4.864696',
+                }],
             },
             'post': {
             }
@@ -144,24 +156,29 @@ class TestWebsiteDeliverySendcloudLocationsController(TransactionCase):
 
     def test_controller_pickup_location(self):
         with MockRequest(self.env, website=self.website, sale_order_id=self.order.id):
-            self.assertEqual({}, Delivery.shop_get_pickup_location(self))
             with _mock_call():
-                close_locations = Delivery.shop_get_close_locations(self)
-                self.assertNotEqual({}, Delivery.set_pickup_location(self, pickup_location_data=json.dumps(close_locations['close_locations'][0])))
+                response = Delivery().website_sale_get_pickup_locations()
+                self.assertNotEqual({},
+                    Delivery().website_sale_set_pickup_location(
+                        pickup_location_data=json.dumps(response['pickup_locations'][0])
+                    )
+                )
                 self.assertEqual({
-                    'name': 'STATION AVIA',
-                    'street': 'CHAUSSÉE DE NAMUR',
-                    'house_number': '67',
-                    'postal_code': '1367',
-                    'city': 'RAMILLIES',
-                    'country': 'BE',
-                    'distance': 0.765,
-                    'address': 'CHAUSSÉE DE NAMUR 67, RAMILLIES (1367)',
-                    'pick_up_point_name': 'STATION AVIA',
-                    'pick_up_point_address': 'CHAUSSÉE DE NAMUR 67',
-                    'pick_up_point_postal_code': '1367',
-                    'pick_up_point_town': 'RAMILLIES',
-                    'pick_up_point_country': 'BE',
-                    'pick_up_point_state': None,
-                    'address_stringified': '{"name": "STATION AVIA", "street": "CHAUSS\\u00c9E DE NAMUR", "house_number": "67", "postal_code": "1367", "city": "RAMILLIES", "country": "BE", "distance": 0.765, "address": "CHAUSS\\u00c9E DE NAMUR 67, RAMILLIES (1367)", "pick_up_point_name": "STATION AVIA", "pick_up_point_address": "CHAUSS\\u00c9E DE NAMUR 67", "pick_up_point_postal_code": "1367", "pick_up_point_town": "RAMILLIES", "pick_up_point_country": "BE", "pick_up_point_state": null}',
-                }, self.order.access_point_address)
+                    'id': 11238037,
+                    'name': 'Station Avia',
+                    'opening_hours': {
+                        '0': ['07:00 - 18:30'],
+                        '1': ['07:00 - 18:30'],
+                        '2': ['07:00 - 18:30'],
+                        '3': ['07:00 - 18:30'],
+                        '4': ['08:00 - 14:00', '15:00 - 18:00'],
+                        '5': ['09:00 - 16:00'],
+                        '6': [],
+                    },
+                    'street': 'Chaussee De Namur 67',
+                    'city': 'Ramillies',
+                    'zip_code': '1367',
+                    'country_code': 'BE',
+                    'latitude': '50.634529',
+                    'longitude': '4.864696',
+                }, self.order.pickup_location_data)

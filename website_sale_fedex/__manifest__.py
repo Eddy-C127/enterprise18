@@ -9,11 +9,6 @@
     'data': [
         'views/delivery_fedex_view.xml',
     ],
-    'assets': {
-        'web.assets_frontend': [
-            'website_sale_fedex/static/src/xml/fedex_pickup_locations.xml',
-        ],
-    },
 
     'auto_install': True,
     'license': 'OEEL-1',

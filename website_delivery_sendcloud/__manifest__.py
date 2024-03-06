@@ -10,11 +10,6 @@
     'data': [
         'views/delivery_sendcloud_view.xml',
     ],
-    'assets': {
-        'web.assets_frontend': [
-            'website_delivery_sendcloud/static/src/xml/sendcloud_pickup_locations.xml',
-        ],
-    },
 
     'auto_install': True,
     'license': 'OEEL-1',

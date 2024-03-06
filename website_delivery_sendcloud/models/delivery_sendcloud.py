@@ -83,13 +83,19 @@ class ProviderSendcloud(models.Model):
         slr = SendcloudLocationsRequest(superself.sendcloud_public_key, superself.sendcloud_secret_key, self.log_xml)
 
         locations = slr.get_close_locations(partner_address, distance, self.sendcloud_shipping_id.carrier)
+        close_locations = []
 
         for location in locations:
-            location["address"] = f'{location["street"]} {location["house_number"]}, {location["city"]} ({location["postal_code"]})'
-            location["pick_up_point_name"] = location["name"]
-            location["pick_up_point_address"] = f'{location["street"]} {location["house_number"]}'
-            location["pick_up_point_postal_code"] = location["postal_code"]
-            location["pick_up_point_town"] = location["city"]
-            location["pick_up_point_country"] = location["country"]
-            location["pick_up_point_state"] = None
-        return locations
+            close_locations.append(dict(
+                id=location['id'],
+                name=location['name'].title(),
+                opening_hours=location['formatted_opening_times'],
+                street=f"{location['street'].title()} {location['house_number']}",
+                city=location['city'].title(),
+                zip_code=location['postal_code'],
+                country_code=location['country'],
+                latitude=location['latitude'],
+                longitude=location['longitude'],
+            ))
+
+        return close_locations

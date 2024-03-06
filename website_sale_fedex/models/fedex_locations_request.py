@@ -40,7 +40,6 @@ class FEDEXLocationsRequest(FedexRequest):
         self.LocationsSearchCriterion = 'ADDRESS'
 
         self.Address = self.factory.Address()
-        self.Address.StreetLines = [remove_accents(street) for street in [ship_to.street, ship_to.street2] if street]
         self.Address.City = remove_accents(ship_to.city)
         if ship_to.country_id.code in STATECODE_REQUIRED_COUNTRIES:
             self.Address.StateOrProvinceCode = ship_to.state_id.code
