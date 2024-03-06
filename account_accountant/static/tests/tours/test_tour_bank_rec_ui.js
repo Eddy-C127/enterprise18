@@ -78,7 +78,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Liquidity line displays debit '$ 1,000.00'",
-            trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 1,000.00')",
+            trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 1,000.00')",
             run: () => {},
         },
         {
@@ -92,7 +92,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Liquidity line displays debit '$ 100.00'",
-            trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 100.00')",
+            trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 100.00')",
             run: () => {},
         },
         {
@@ -235,7 +235,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Select the mounted invoice line and check the strikethrough value",
-            extra_trigger: "div[name='line_ids']:has(.text-decoration-line-through:contains('$ 2,000.00'))",
+            extra_trigger: "div[name='line_ids']:has(.text-decoration-line-through:contains('$ 2,000.00'))",
             trigger: "div[name='line_ids'] tr.o_data_row:last() td[field='name']:contains('INV/2019/00003')",
         },
         {
@@ -245,7 +245,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Check the remainder",
-            trigger: "div[name='line_ids'] tr.o_data_row:contains('Suspense') td[field='debit']:contains('$ 1,000.00')",
+            trigger: "div[name='line_ids'] tr.o_data_row:contains('Suspense') td[field='debit']:contains('$ 1,000.00')",
             run: () => {},
         },
         {
@@ -288,7 +288,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "mount the remaining opening balance line",
-            trigger: "div[name='line_ids'] tr.o_data_row:contains('Suspense') td[field='credit']:contains('$ 400.00')",
+            trigger: "div[name='line_ids'] tr.o_data_row:contains('Suspense') td[field='credit']:contains('$ 400.00')",
         },
         {
             content: "Remove the manual entry",
@@ -297,7 +297,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "amls_tab is activated and auto balancing line is 1000",
-            extra_trigger: "div[name='line_ids'] tr.o_data_row:contains('Suspense') td[field='credit']:contains('$ 1,000.00')",
+            extra_trigger: "div[name='line_ids'] tr.o_data_row:contains('Suspense') td[field='credit']:contains('$ 1,000.00')",
             trigger: "a.active[name='amls_tab']",
             run: () => {},
         },
@@ -562,7 +562,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "balance is 2100",
             extra_trigger: ".o_bank_rec_selected_st_line:contains('line1')",
-            trigger: ".btn-link:contains('$ 2,100.00')",
+            trigger: ".btn-link:contains('$ 2,100.00')",
         },
         {
             content: "Breadcrumb back to Bank Reconciliation from the report",
@@ -577,7 +577,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "balance is $222.22",
             extra_trigger: ".o_bank_rec_selected_st_line:contains('line4')",
-            trigger: ".btn-link:contains('$ 222.22')",
+            trigger: ".btn-link:contains('$ 222.22')",
             run: () => {},
         },
         {
@@ -592,8 +592,8 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "balance displays $-333.33",
-            extra_trigger: ".btn-link:contains('$ -333.33')",
-            trigger: ".btn-link:contains('$ -333.33')",
+            extra_trigger: ".btn-link:contains('$ -333.33')",
+            trigger: ".btn-link:contains('$ -333.33')",
             run: () => {},
         },
         {
@@ -603,8 +603,8 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "statement line displays combustion and $-333.33",
-            extra_trigger: ".o_bank_rec_selected_st_line:contains('Combustion'):contains('$ -333.33')",
-            trigger: ".o_bank_rec_selected_st_line:contains('Combustion'):contains('$ -333.33')",
+            extra_trigger: ".o_bank_rec_selected_st_line:contains('Combustion'):contains('$ -333.33')",
+            trigger: ".o_bank_rec_selected_st_line:contains('Combustion'):contains('$ -333.33')",
             run: () => {},
         },
         // Test that changing the balance in the list view updates the right side of the kanban view
@@ -621,7 +621,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Liquidity line displays debit '$ 100.00'",
             extra_trigger: ".o_bank_rec_selected_st_line:contains('line2'):not(:has(div.badge))",
-            trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 100.00')",
+            trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 100.00')",
             run: () => {},
         },
         {
@@ -650,7 +650,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Liquidity line displays debit '$ 500.00'",
-            trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 500.00')",
+            trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 500.00')",
             run: () => {},
         },
         {

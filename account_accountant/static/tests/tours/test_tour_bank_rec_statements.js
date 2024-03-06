@@ -27,7 +27,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
         },
         {
             content: "Click the Valid Statement with $ 1,000.00 that is visible in Kanban",
-            trigger: "span[name='kanban-subline-clickable-amount']:contains('$ 1,000.00')",
+            trigger: "span[name='kanban-subline-clickable-amount']:contains('$ 1,000.00')",
         },
         {
             content: "Modify the end balance",
@@ -41,8 +41,8 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
         },
         {
             content: "Click the red statement, after checking the balance",
-            extra_trigger: ".btn-link:contains('$ 2,100.00')",
-            trigger: "span[name='kanban-subline-clickable-amount']:contains('$ 100.00')",
+            extra_trigger: ".btn-link:contains('$ 2,100.00')",
+            trigger: "span[name='kanban-subline-clickable-amount']:contains('$ 100.00')",
         },
         {
             content: "Delete the statement",
@@ -56,7 +56,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
         {
             content: "balance displays $3000.00 and no statement",
             extra_trigger: ".o_kanban_renderer:not(:has(.kanban-statement))",
-            trigger: ".btn-link:contains('$ 3,000')",
+            trigger: ".btn-link:contains('$ 3,000')",
             isCheck: true,
         },
         // End
