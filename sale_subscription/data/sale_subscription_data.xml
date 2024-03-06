@@ -70,9 +70,7 @@
             <field name="code">model._cron_subscription_expiration()</field>
             <field name="interval_number">1</field>
             <field name="interval_type">weeks</field>
-            <field name="numbercall">-1</field>
             <field name="nextcall" eval="(datetime.now() + timedelta(minutes=5)).strftime('%Y-%m-%d %H:%M:%S')"/>
-            <field name="doall" eval="False"/>
         </record>
 
         <record model="ir.cron" id="account_analytic_cron_for_invoice">
@@ -82,7 +80,6 @@
             <field name="code">model._cron_recurring_create_invoice()</field>
             <field name="interval_number">1</field>
             <field name="interval_type">days</field>
-            <field name="numbercall">-1</field>
             <field name="nextcall" eval="(datetime.now() + timedelta(minutes=7)).strftime('%Y-%m-%d %H:%M:%S')"/>
         </record>
 
@@ -93,7 +90,6 @@
             <field name="code">model._cron_update_kpi()</field>
             <field name="interval_number">1</field>
             <field name="interval_type">weeks</field>
-            <field name="numbercall">-1</field>
             <field name="nextcall" eval="(datetime.now() + timedelta(minutes=9)).strftime('%Y-%m-%d %H:%M:%S')"/>
         </record>
 

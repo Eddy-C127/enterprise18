@@ -8,7 +8,6 @@
         <field name="code">model.search([('state', '=', 'running')]).sync_participants()</field>
         <field name="interval_number">12</field>
         <field name="interval_type">hours</field>
-        <field name="numbercall">-1</field>
     </record>
 
     <record id="ir_cron_campaign_execute_activities" model="ir.cron">
@@ -18,7 +17,6 @@
         <field name="code">model.search([('state', '=', 'running')]).execute_activities()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">hours</field>
-        <field name="numbercall">-1</field>
     </record>
 
 </odoo>

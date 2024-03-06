@@ -4,10 +4,8 @@
         <field name="name">BR EDI: Update status of all pending invoices</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
         <field name="model_id" ref="account.model_account_move"/>
         <field name="code">model._cron_l10n_br_get_invoice_statuses()</field>
-        <field name="doall" eval="False"/>
         <field name="state">code</field>
     </record>
 </odoo>

@@ -10,7 +10,6 @@
             <field name="user_id" ref="base.user_root" />
             <field name="interval_number">1</field>
             <field name="interval_type">days</field>
-            <field name="numbercall">-1</field>
         </record>
         <record forcecreate="True" id="appraisal_create_in_advance_days" model="ir.config_parameter">
             <field name="key">hr_appraisal.appraisal_create_in_advance_days</field>

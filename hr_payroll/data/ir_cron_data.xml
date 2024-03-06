@@ -9,8 +9,6 @@
             <field name="active" eval="True"/>
             <field name="interval_number">1</field>
             <field name="interval_type">months</field>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="False"/>
             <field name="nextcall" eval="DateTime.now().replace(day=20, hour=3, minute=0)"/>
         </record>
 
@@ -20,8 +18,6 @@
             <field name="state">code</field>
             <field name="code">model._cron_generate_pdf()</field>
             <field name="active" eval="True"/>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="False"/>
             <field name="nextcall" eval="(DateTime.now() + timedelta(hours=1))"/>
         </record>
     </data>

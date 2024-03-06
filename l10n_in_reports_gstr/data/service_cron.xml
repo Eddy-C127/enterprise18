@@ -7,8 +7,6 @@
         <field name="code">model._cron_refresh_gst_token()</field>
         <field name="interval_number">5</field>
         <field name="interval_type">hours</field>
-        <field name="numbercall">-1</field>
-        <field name="doall" eval="False"/>
     </record>
 
     <record id="ir_cron_auto_sync_gstr2b_data" model="ir.cron">
@@ -20,7 +18,6 @@ env.ref("l10n_in_reports_gstr.ir_cron_auto_match_gstr2b_data")._trigger()
         <field name="state">code</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
         <field name="active">True</field>
     </record>
 
@@ -28,12 +25,9 @@ env.ref("l10n_in_reports_gstr.ir_cron_auto_match_gstr2b_data")._trigger()
         <field name="name">Indian Accounting; Match GST-2 Data</field>
         <field name="model_id" ref="model_l10n_in_gst_return_period"/>
         <field name="code">model._cron_gstr2b_match_data()</field>
-        <field name="numbercall">-1</field>
-        <field name="doall" eval="False"/>
         <field name="state">code</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
         <field name="active">True</field>
     </record>
 
@@ -44,8 +38,6 @@ env.ref("l10n_in_reports_gstr.ir_cron_auto_match_gstr2b_data")._trigger()
         <field name="code">model._cron_send_gstr1_data()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
-        <field name="doall" eval="False"/>
     </record>
 
      <record id="ir_cron_to_check_gstr1_status" model="ir.cron">
@@ -55,8 +47,6 @@ env.ref("l10n_in_reports_gstr.ir_cron_auto_match_gstr2b_data")._trigger()
         <field name="code">model._cron_check_gstr1_status()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
-        <field name="doall" eval="False"/>
     </record>
 
 </odoo>

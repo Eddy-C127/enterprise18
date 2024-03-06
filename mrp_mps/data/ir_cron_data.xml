@@ -4,8 +4,6 @@
         <field name="name">MPS: replenish automated schedules</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
-        <field name="doall" eval="False"/>
         <field name="model_id" ref="model_mrp_production_schedule"/>
         <field name="code">
             model.action_cron_replenish()
