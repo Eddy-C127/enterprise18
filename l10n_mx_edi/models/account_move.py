@@ -2432,6 +2432,34 @@ class AccountMove(models.Model):
             tax = self._l10n_mx_edi_import_cfdi_get_tax_from_node(tax_node, line)
             if tax:
                 tax_ids.append(tax.id)
+            tax_type = CFDI_CODE_TO_TAX_TYPE.get(tax_node.attrib.get('Impuesto'))
+            tasa_o_cuota = tax_node.attrib.get('TasaOCuota')
+            tipo_factor = tax_node.attrib.get('TipoFactor')
+            if not tasa_o_cuota and tipo_factor != "Exento":
+                self.message_post(body=_("Tax ID %s can not be imported", tax_type))
+            else:
+                amount = float(tasa_o_cuota) * 100 if tipo_factor != "Exento" else 0
+                domain = [
+                    *self.env['account.journal']._check_company_domain(line.company_id),
+                    ('amount', '=', amount),
+                    ('type_tax_use', '=', 'sale' if self.journal_id.type == 'sale' else 'purchase'),
+                    ('amount_type', '=', 'percent'),
+                ]
+                if tipo_factor == 'Exento':
+                    domain.append(('tax_group_id', '=', self.env.ref(f'account.{line.company_id.id}_tax_group_exe_0', raise_if_not_found=False).id))
+                if tax_type:
+                    domain.append(('repartition_line_ids.tag_ids.name', '=', tax_type))
+                tax = self.env['account.tax'].search(domain, limit=1)
+                if not tax:
+                    # try without again without using the tags: some are IVA but only have 'DIOT' tags
+                    domain.pop()
+                    tax = self.env['account.tax'].search(domain, limit=1)
+                if tax:
+                    tax_ids.append(tax.id)
+                elif tax_type:
+                    line.move_id.message_post(body=_("Could not retrieve the %s tax with rate %s%%.", tax_type, amount))
+                else:
+                    line.move_id.message_post(body=_("Could not retrieve the tax with rate %s%%.", amount))
 
         # Withholding Taxes
         for wh_tax_node in tree.findall("{*}Impuestos/{*}Retenciones/{*}Retencion"):

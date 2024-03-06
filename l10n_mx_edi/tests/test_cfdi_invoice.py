@@ -793,8 +793,8 @@ class TestCFDIInvoice(TestMxEdiCommon):
             payment.l10n_mx_edi_payment_document_ids.action_cancel()
         self.assertRecordValues(payment, [{'l10n_mx_edi_cfdi_state': 'cancel'}])
 
-    def test_import_bill_cfdi_extento(self):
-        file_name = "test_bill_import_extento"
+    def test_import_bill_cfdi_with_invalid_tax(self):
+        file_name = "test_bill_import_without_tax"
         file_path = misc.file_path(f'{self.test_module}/tests/test_files/{file_name}.xml')
 
         assert file_path
@@ -821,6 +821,34 @@ class TestCFDIInvoice(TestMxEdiCommon):
                 'price_unit': 17893.00,
                 # This should be empty due to the error causing missing attribute 'TasaOCuota' to result in empty tax_ids
                 'tax_ids': []
+            }
+        ))
+
+    def test_import_bill_cfdi_with_extento_tax(self):
+        file_name = "test_bill_import_extento"
+        full_file_path = misc.file_path(f'{self.test_module}/tests/test_files/{file_name}.xml')
+
+        # Read the xml file
+        with file_open(full_file_path, "rb") as file:
+            new_bill = self._upload_document_on_journal(
+                journal=self.company_data['default_journal_purchase'],
+                content=file.read(),
+                filename=file_name,
+            )
+
+        tax_id_1 = self.env['account.chart.template'].ref('tax14')
+        tax_id_2 = self.env['account.chart.template'].ref('tax20')
+
+        self.assertRecordValues(new_bill.invoice_line_ids, (
+            {
+                'quantity': 1,
+                'price_unit': 54017.48,
+                'tax_ids': [tax_id_1.id]
+            },
+            {
+                'quantity': 1,
+                'price_unit': 17893.00,
+                'tax_ids': [tax_id_2.id]
             }
         ))
 
