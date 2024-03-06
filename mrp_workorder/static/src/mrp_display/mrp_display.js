@@ -154,7 +154,6 @@ export class MrpDisplay extends Component {
             return this._onWorkorderBarcodeScanned(workorder);
         }
         const employee = await this.orm.call("mrp.workcenter", "get_employee_barcode", [
-            undefined,
             barcode,
         ]);
         if (employee) {

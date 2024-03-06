@@ -41,21 +41,6 @@ export function useConnectedEmployee(controllerType, context, actionService, dia
         };
     };
 
-    const openEmployeeSelection = async () => {
-        const connectedEmployees = await orm.call("hr.employee", "get_employees_wo_by_employees", [
-            null,
-            employees.connected.map((emp) => emp.id),
-        ]);
-        openDialog("WorkingEmployeePopupWOList", WorkingEmployeePopupWOList, {
-            popupData: { employees: connectedEmployees },
-            onClosePopup: closePopup.bind(this),
-            onAddEmployee: popupAddEmployee.bind(this),
-            onStopEmployee: stopEmployee.bind(this),
-            onStartEmployee: startEmployee.bind(this),
-            becomeAdmin: setSessionOwner.bind(this),
-        });
-    };
-
     const startEmployee = async (employeeId, workorderId) => {
         await orm.call("mrp.workorder", "start_employee", [workorderId, employeeId]);
     };
@@ -84,14 +69,11 @@ export function useConnectedEmployee(controllerType, context, actionService, dia
         if (employee_function === "login") {
             notification.add(_t("Logged in!"), { type: "success" });
             await getConnectedEmployees();
-            if (controllerType === "kanban" && context.openRecord) {
-                await openRecord(...context.openRecord);
-            }
         } else {
             await stopAllWorkorderFromEmployee(employeeId);
             notification.add(_t("Logged out!"), { type: "success" });
         }
-        dialogService.closeAll()
+        dialogService.closeAll();
         await getConnectedEmployees();
     };
 
@@ -206,33 +188,7 @@ export function useConnectedEmployee(controllerType, context, actionService, dia
         }
     };
 
-    const onBarcodeScanned = async (barcode) => {
-        const employee = await orm.call("mrp.workcenter", "get_employee_barcode", [
-            workcenterId,
-            barcode,
-        ]);
-        if (employee) {
-            selectEmployee(employee);
-        } else {
-            notification.add(_t("This employee is not allowed on this workcenter"), {
-                type: "danger",
-            });
-        }
-    };
-
-    const openRecord = async (record, mode) => {
-        const id = await orm.call("hr.employee", "get_session_owner", [null]);
-        if (id.length == 0) {
-            context.openRecord = [record, mode];
-            openEmployeeSelection();
-            return;
-        }
-        delete context.openRecord;
-        Object.assign(context, { employees: id });
-    };
-
     return {
-        openEmployeeSelection,
         startEmployee,
         stopEmployee,
         getAllEmployees,
@@ -247,8 +203,6 @@ export function useConnectedEmployee(controllerType, context, actionService, dia
         closePopup,
         pinValidation,
         selectEmployee,
-        onBarcodeScanned,
-        openRecord,
         employees,
         popup,
     };

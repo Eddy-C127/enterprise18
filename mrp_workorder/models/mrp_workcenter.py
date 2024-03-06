@@ -32,9 +32,9 @@ class MrpWorkcenter(models.Model):
         action['context'] = dict(literal_eval(context), employee_id=request.session.get('employee_id'), shouldHideNewWorkcenterButton=True)
         return action
 
+    @api.model
     def get_employee_barcode(self, barcode):
-        employee_ids = self.employee_ids or self.env['hr.employee'].search([])
-        return employee_ids.sudo().filtered(lambda e: e.barcode == barcode)[:1].id
+        return self.env['hr.employee'].search([("barcode", "=", barcode)], limit=1).id
 
     @api.depends('time_ids', 'time_ids.date_end', 'time_ids.loss_type')
     def _compute_working_state(self):
