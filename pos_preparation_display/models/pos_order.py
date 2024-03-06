@@ -87,7 +87,7 @@ class PosOrder(models.Model):
 
                         line.internal_note = note['new']
                         flag_change = True
-                        category_ids.update(line.product_id.pos_categ_id.id)
+                        category_ids.update(line.product_id.pos_categ_ids.ids)
 
                         # Delete the data from the dictionary
                         quantity_data.pop(key, None)
