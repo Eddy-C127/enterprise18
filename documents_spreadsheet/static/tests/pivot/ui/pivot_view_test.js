@@ -167,41 +167,12 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             });
 
             const target = getFixture();
-            await toggleMenu(target, "Measures");
-            await toggleMenuItem(target, "Foo");
-            assert.ok(target.querySelector("button.o_pivot_add_spreadsheet").disabled);
-        }
-    );
-
-    QUnit.test(
-        "Insert in spreadsheet is disabled when columns or rows contain duplicate groupbys",
-        async (assert) => {
-            setupControlPanelServiceRegistry();
-            const serverData = {
-                models: getBasicData(),
-            };
-            await makeView({
-                type: "pivot",
-                resModel: "partner",
-                serverData,
-                arch: /*xml*/ `
-                <pivot>
-                    <field name="id" type="col"/>
-                    <field name="bar" type="row"/>
-                    <field name="product_id" type="row"/>
-                    <field name="probability" type="measure"/>
-                </pivot>`,
-                mockRPC: function (route, args) {
-                    if (args.method === "has_group") {
-                        return Promise.resolve(true);
-                    }
-                },
-            });
-
-            const target = getFixture();
-            await toggleMenu(target, "Measures");
-            await toggleMenuItem(target, "Probability");
-            assert.ok(target.querySelector("button.o_pivot_add_spreadsheet").disabled);
+            const insertButton = target.querySelector("button.o_pivot_add_spreadsheet");
+            assert.ok(insertButton.disabled);
+            assert.strictEqual(
+                insertButton.parentElement.dataset.tooltip,
+                "Pivot contains duplicate groupbys"
+            );
         }
     );
 
@@ -611,8 +582,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("Can save a pivot in a new spreadsheet", async (assert) => {
-        assert.expect(2);
-
         const serverData = {
             models: getBasicData(),
             views: {
@@ -642,7 +611,9 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             views: [[false, "pivot"]],
         });
         const target = getFixture();
-        await click(target.querySelector(".o_pivot_add_spreadsheet"));
+        const insertButton = target.querySelector("button.o_pivot_add_spreadsheet");
+        assert.strictEqual(insertButton.parentElement.dataset.tooltip, undefined);
+        await click(insertButton);
         await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
         assert.verifySteps(["action_open_new_spreadsheet"]);
     });
