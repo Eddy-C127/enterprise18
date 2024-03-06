@@ -98,6 +98,13 @@ export class KnowledgeCommentsThread extends Component {
         useBus(this.uiService.bus, 'resize', () => {
             this.state.smallUI = this.isSmallUINeeded();
         });
+        useBus(this.env.bus, `KNOWLEDGE_COMMENT_${this.state.knowledgeThreadId}:HIGHLIGHT`, () => {
+            this.state.commenting = true;
+            if (!this.state.isResolved && this.state.smallUI) {
+                this.openPopover({ target: this.targetRef.el });
+            }
+            this.highlightComment(true);
+        });
         useBus(this.env.bus, `KNOWLEDGE_COMMENT_${this.state.knowledgeThreadId}:COMPUTE_POSITION`, ({detail}) => {
             if (detail) {
                 this.anchors = detail.newAnchors;
@@ -180,8 +187,9 @@ export class KnowledgeCommentsThread extends Component {
         });
 
         onPatched(() => {
-            if (this.state.commenting && !this.state.smallUI) {
+            if (this.autoFocusTextarea) {
                 this.composerDivRef.el?.querySelector('textarea')?.focus();
+                this.autoFocusTextarea = false;
             }
             const { messages } = this.threadService.store.get(this.state.thread.localId);
             if (messages.length && messages.every((message) => !message.body)) {
@@ -475,6 +483,9 @@ export class KnowledgeCommentsThread extends Component {
             ) &&
             !ev.target.closest('.o-mail-Message-actions, .o-mail-Message-content .o-mail-Composer, .o-mail-MessageReaction, .o-mail-Composer ~ span a')
         ) {
+            if (!this.state.smallUI) {
+                this.autoFocusTextarea = true;
+            }
             this.state.commenting = true;
             if ( !this.state.isResolved && this.state.smallUI ) {
                 this.openPopover({target: this.targetRef.el});

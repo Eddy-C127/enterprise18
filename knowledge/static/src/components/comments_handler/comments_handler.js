@@ -187,11 +187,11 @@ export class KnowledgeCommentsHandler extends Component {
         if (commentNode && commentNode.dataset.id) {
             const commentingId = parseInt(commentNode.dataset.id);
             this.commentingId = commentingId;
+            this.env.bus.trigger(`KNOWLEDGE_COMMENT_${commentingId}:HIGHLIGHT`);
             document.querySelector(`.o_knowledge_comment_box[data-id='${commentingId}']`)?.scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest'
             });
-            document.querySelector(`.o_knowledge_comment_box[data-id='${commentingId}']`)?.click();
         } else if (ev.target?.closest('.o_field_knowledge_article_html_field')) {
             this.commentingId = false;
         }
