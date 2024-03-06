@@ -128,3 +128,56 @@ class TestShopFloor(HttpCase):
             {'quality_state': 'pass', 'component_id': False, 'qty_done': 0},
             {'quality_state': 'pass', 'component_id': leg.id, 'qty_done': 2},
         ])
+
+    def test_generate_serials_in_shopfloor(self):
+        component1 = self.env['product.product'].create({
+            'name': 'comp1',
+            'type': 'product',
+        })
+        component2 = self.env['product.product'].create({
+            'name': 'comp2',
+            'type': 'product',
+        })
+        finished = self.env['product.product'].create({
+            'name': 'finish',
+            'type': 'product',
+        })
+        byproduct = self.env['product.product'].create({
+            'name': 'byprod',
+            'type': 'product',
+            'tracking': 'serial',
+        })
+        warehouse = self.env['stock.warehouse'].search([], limit=1)
+        stock_location = warehouse.lot_stock_id
+        self.env['stock.quant']._update_available_quantity(component1, stock_location, quantity=100)
+        self.env['stock.quant']._update_available_quantity(component2, stock_location, quantity=100)
+        workcenter = self.env['mrp.workcenter'].create({
+            'name': 'Assembly Line',
+        })
+        bom = self.env['mrp.bom'].create({
+            'product_tmpl_id': finished.product_tmpl_id.id,
+            'product_qty': 1.0,
+            'operation_ids': [
+                (0, 0, {'name': 'Assemble', 'workcenter_id': workcenter.id}),
+            ],
+            'bom_line_ids': [
+                (0, 0, {'product_id': component1.id, 'product_qty': 1}),
+                (0, 0, {'product_id': component2.id, 'product_qty': 1}),
+            ],
+            'byproduct_ids': [
+                (0, 0, {'product_id': byproduct.id, 'product_qty': 1}),
+            ]
+        })
+        bom.byproduct_ids[0].operation_id = bom.operation_ids[0].id
+        mo = self.env['mrp.production'].create({
+            'product_id': finished.id,
+            'product_qty': 1,
+            'bom_id': bom.id,
+        })
+        mo.action_confirm()
+        mo.action_assign()
+        mo.button_plan()
+
+        action = self.env["ir.actions.actions"]._for_xml_id("mrp_workorder.action_mrp_display")
+        url = '/web?#action=%s' % (action['id'])
+        self.start_tour(url, "test_generate_serials_in_shopfloor", login='admin')
