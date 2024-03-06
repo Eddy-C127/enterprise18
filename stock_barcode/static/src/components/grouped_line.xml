@@ -4,6 +4,7 @@
     <t t-name="stock_barcode.GroupedLineComponent">
         <div t-on-click="select"
             class="o_barcode_line list-group-item d-flex flex-row flex-wrap pt-0"
+            t-att-data-virtual-id="line.virtual_id"
             t-att-data-barcode="line.product_id.barcode" t-attf-class="{{componentClasses}}">
             <div class="o_barcode_line_summary d-flex flex-grow-1 py-2 mt-2" t-att-class="opened ? 'o_unfolded': ''">
                 <div class="o_barcode_line_details flex-grow-1">

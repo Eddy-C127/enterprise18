@@ -369,11 +369,11 @@ export default class BarcodeModel extends EventBus {
             }
             const [ qtyDone, qtyDemand ] = [this.getQtyDone(line), this.getQtyDemand(line)];
             if (qtyDone == 0 || (qtyDemand && qtyDone < qtyDemand)) {
-                return line; // If the line still need to be processed, returns it immediately.
+                return line.lot_id ? this._getParentLine(line) : line; // If the line still need to be processed, returns it immediately.
             }
             foundLine = !foundLine || qtyDone < this.getQtyDone(foundLine) ? line : foundLine;
         }
-        return foundLine;
+        return foundLine.lot_id ? this._getParentLine(foundLine) : foundLine;
     }
 
     /**
