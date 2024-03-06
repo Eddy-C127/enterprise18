@@ -59,6 +59,9 @@ export class MapArchParser {
                 asc: true,
             };
         }
+        if (node.hasAttribute("allow_resequence")) {
+            archInfo.allowResequence = archParseBoolean(node.getAttribute("allow_resequence"));
+        }
     }
     visitField(node, params) {
         params.fieldNames.push(node.getAttribute("name"));

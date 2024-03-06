@@ -26,6 +26,7 @@ export const mapView = {
             const archInfo = parser.parse(arch);
             const views = config.views || [];
             modelParams = {
+                allowResequence: archInfo.allowResequence || false,
                 context: context,
                 defaultOrder: archInfo.defaultOrder,
                 fieldNames: archInfo.fieldNames,

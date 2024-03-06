@@ -58,6 +58,18 @@
                     Sort by
                 </Property>
 
+                <Property
+                    t-if="modelParams.defaultOrder
+                        and modelParams.fields[modelParams.defaultOrder.name].type === 'integer'
+                        and !modelParams.fields[modelParams.defaultOrder.name].readonly"
+                    name="'allow_resequence'"
+                    type="'boolean'"
+                    value="modelParams.allowResequence"
+                    onChange.bind="onViewAttributeChanged"
+                >
+                    Allow Resequencing
+                </Property>
+
                 <SidebarViewToolbox onMore="props.openViewInForm"
                     canEditXml="!viewEditorModel.isEditingSubview"
                     openDefaultValues="props.openDefaultValues" />

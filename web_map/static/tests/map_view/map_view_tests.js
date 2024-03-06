@@ -11,6 +11,7 @@ import {
 import { registry } from "@web/core/registry";
 import {
     click,
+    dragAndDrop,
     getFixture,
     makeDeferred,
     nextTick,
@@ -1256,6 +1257,171 @@ QUnit.module("Views", (hooks) => {
             "The opacity of the polyline should be 1"
         );
     });
+
+    QUnit.test("Resequence records", async function (assert) {
+        patchWithCleanup(session, { map_box_token: MAP_BOX_TOKEN });
+        const taskRecords = [
+            {
+                id: 1,
+                display_name: "Project 1",
+                sequence: 3,
+                partner_id: 1,
+            },
+            {
+                id: 2,
+                display_name: "Project 2",
+                sequence: 4,
+                partner_id: 1,
+            },
+            {
+                id: 3,
+                display_name: "Project 3",
+                sequence: 5,
+                partner_id: 1,
+            },
+            {
+                id: 4,
+                display_name: "Project 4",
+                sequence: 6,
+                partner_id: 1,
+            },
+            {
+                id: 5,
+                display_name: "Project 5",
+                sequence: 7,
+                partner_id: 1,
+            },
+        ];
+        serverData.models["project.task"].records = taskRecords;
+
+        let resequenceCalled = false;
+
+        patchWithCleanup(MapModel.prototype, {
+            async _maxBoxAPI(metaData, data) {
+                if (resequenceCalled) {
+                    // Verify that the API is called with the records correctly ordered
+                    const ids = data.records.map((record) => record.id);
+                    assert.step(`API called ${ids}`);
+                }
+            },
+        });
+
+        const map = await makeView({
+            serverData,
+            type: "map",
+            resModel: "project.task",
+            arch: `
+                <map res_partner="partner_id" routing="1" default_order="sequence" allow_resequence="true">
+                    <field name="sequence"/>
+                </map>
+            `,
+            async mockRPC(route, args) {
+                switch (route) {
+                    case "/web/dataset/resequence":
+                        assert.step(
+                            `resequence ${args.model} ${args.field} ${args.offset} ${args.ids}`
+                        );
+                        resequenceCalled = true;
+                }
+            },
+        });
+        assert.ok(map.model.metaData.allowResequence, "The resequence option should be activated");
+        assert.strictEqual(map.model.metaData.defaultOrder.name, "sequence");
+
+        assert.containsN(target, ".o_row_handle", 5, "Should have one row handle per record");
+
+        let recordsText = [...target.querySelectorAll(".o-map-renderer--pin-list-details li")].map(
+            (elem) => elem.textContent
+        );
+        assert.deepEqual(recordsText, [
+            " 1. Project 1 ",
+            " 2. Project 2 ",
+            " 3. Project 3 ",
+            " 4. Project 4 ",
+            " 5. Project 5 ",
+        ]);
+
+        await dragAndDrop(
+            ".o-map-renderer--pin-located:nth-child(2) .o_row_handle",
+            ".o-map-renderer--pin-located:nth-child(4) .o_row_handle"
+        );
+        await nextTick();
+
+        recordsText = [...target.querySelectorAll(".o-map-renderer--pin-list-details li")].map(
+            (elem) => elem.textContent
+        );
+        assert.deepEqual(recordsText, [
+            " 1. Project 1 ",
+            " 2. Project 3 ",
+            " 3. Project 4 ",
+            " 4. Project 2 ",
+            " 5. Project 5 ",
+        ]);
+
+        assert.verifySteps(["resequence project.task sequence 4 3,4,2", "API called 1,3,4,2,5"]);
+    });
+
+    QUnit.test(
+        "When resequencing, model get notified before the backend call",
+        async function (assert) {
+            const taskRecords = [
+                {
+                    id: 1,
+                    display_name: "Project 1",
+                    sequence: 3,
+                    partner_id: 1,
+                },
+                {
+                    id: 2,
+                    display_name: "Project 2",
+                    sequence: 4,
+                    partner_id: 1,
+                },
+            ];
+            serverData.models["project.task"].records = taskRecords;
+            const defer = makeDeferred();
+            await makeView({
+                serverData,
+                type: "map",
+                resModel: "project.task",
+                arch: `
+                <map res_partner="partner_id" routing="1" default_order="sequence" allow_resequence="true">
+                    <field name="sequence"/>
+                </map>
+            `,
+                async mockRPC(route, args) {
+                    switch (route) {
+                        case "/web/dataset/resequence":
+                            await defer;
+                            assert.step(
+                                `resequence ${args.model} ${args.field} ${args.offset} ${args.ids}`
+                            );
+                    }
+                },
+            });
+
+            let recordsText = [
+                ...target.querySelectorAll(".o-map-renderer--pin-list-details li"),
+            ].map((elem) => elem.textContent);
+            assert.deepEqual(recordsText, [" 1. Project 1 ", " 2. Project 2 "]);
+
+            await dragAndDrop(
+                ".o-map-renderer--pin-located:nth-child(1) .o_row_handle",
+                ".o-map-renderer--pin-located:nth-child(2) .o_row_handle"
+            );
+            await nextTick();
+
+            recordsText = [...target.querySelectorAll(".o-map-renderer--pin-list-details li")].map(
+                (elem) => elem.textContent
+            );
+            // Model got notified before the backend resequence call
+            assert.deepEqual(recordsText, [" 1. Project 2 ", " 2. Project 1 "]);
+
+            defer.resolve();
+            await nextTick();
+            assert.verifySteps(["resequence project.task sequence 3 2,1"]);
+        }
+    );
 
     QUnit.test("Create a view with routingError", async function (assert) {
         assert.expect(1);

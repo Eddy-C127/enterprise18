@@ -3,6 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { Model } from "@web/model/model";
 import { session } from "@web/session";
+import { resequence } from "@web/model/relational_model/utils";
 import { browser } from "@web/core/browser/browser";
 import { formatDateTime, parseDate, parseDateTime } from "@web/core/l10n/dates";
 import { KeepLast } from "@web/core/utils/concurrency";
@@ -85,6 +86,49 @@ export class MapModel extends Model {
         browser.clearTimeout(this.coordinateFetchingTimeoutHandle);
         this.coordinateFetchingTimeoutHandle = undefined;
         this.shouldFetchCoordinates = false;
+    }
+
+    get canResequence() {
+        return (
+            this.metaData.defaultOrder &&
+            !this.metaData.fields[this.metaData.defaultOrder.name].readonly &&
+            this.metaData.fields[this.metaData.defaultOrder.name].type === "integer" &&
+            this.metaData.allowResequence &&
+            !this.metaData.groupBy?.length
+        );
+    }
+
+    /**
+     * Resequence the records in `this.data.records` such that the record with the id
+     * `movedRecordId` is moved after the record with the id `targetRecordId`
+     * @param {Number} movedRecordId
+     * @param {Number} targetRecordId
+     */
+    async resequence(movedId, targetId) {
+        const fieldName = this.metaData.defaultOrder.name;
+        const asc = this.metaData.defaultOrder.asc;
+        const resequenceProm = resequence({
+            records: this.data.records,
+            resModel: this.metaData.resModel,
+            movedId,
+            targetId,
+            fieldName,
+            asc,
+            context: this.metaData.context,
+            orm: this.orm,
+        });
+        // the resequence method modifies this.data.records before the resequence backend call
+        // we need to notify after the synchronous record change
+        this.notify();
+        const resequencedRecords = await resequenceProm;
+        if (resequencedRecords) {
+            for (const resequencedRecord of resequencedRecords) {
+                const record = this.data.records.find((r) => r.id === resequencedRecord.id);
+                record[fieldName] = resequencedRecord[fieldName];
+            }
+            this.notify();
+            await this._updatePartnerCoordinate(this.metaData, this.data);
+        }
     }
 
     //----------------------------------------------------------------------

@@ -15,6 +15,8 @@ import {
     useState,
 } from "@odoo/owl";
 
+import { useSortable } from "@web/core/utils/sortable_owl";
+
 const apiTilesRouteWithToken =
     "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}";
 const apiTilesRouteWithoutToken = "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png";
@@ -78,6 +80,19 @@ export class MapRenderer extends Component {
         );
         useEffect(() => {
             this.updateMap();
+        });
+
+        this.pinListRef = useRef("pinList");
+        useSortable({
+            enable: () => this.props.model.canResequence,
+            ref: this.pinListRef,
+            elements: ".o-map-renderer--pin-located",
+            handle: ".o_row_handle",
+            onDrop: async (params) => {
+                const rowId = parseInt(params.element.dataset.id);
+                const previousRowId = parseInt(params.previous?.dataset?.id) || null;
+                await this.props.model.resequence(rowId, previousRowId);
+            },
         });
 
         onWillUpdateProps(this.onWillUpdateProps);
