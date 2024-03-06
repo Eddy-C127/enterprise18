@@ -6,25 +6,43 @@
         </record>
 
         <!-- internal -->
+
+        <record id="documents_data_design_brief_pdf_document" model="documents.document" forcecreate="0">
+            <field name="name">Interior Design Brief.pdf</field>
+            <field name="datas" type="base64" file="documents/demo/files/Interior_Design_Brief.pdf"/>
+            <field name="folder_id" ref="documents.documents_internal_folder"/>
+            <field name="tag_ids" eval="[(6,0,[ref('documents.documents_internal_status_tc'),
+                                               ref('documents.documents_internal_template_project')])]"/>
+        </record>
+
+        <record id="documents_data_multi_pdf_document" model="documents.document" forcecreate="0">
+            <field name="name">Mails_inbox.pdf</field>
+            <field name="datas" type="base64" file="documents/data/files/Mails_inbox.pdf"/>
+            <field name="folder_id" ref="documents.documents_internal_folder"/>
+            <field name="tag_ids" eval="[(6,0,[ref('documents.documents_internal_status_inbox')])]"/>
+        </record>
+
         <record id="documents_image_city_document" model="documents.document" forcecreate="0">
             <field name="name">city.jpg</field>
             <field name="datas" type="base64" file="documents/demo/files/city.jpg"/>
             <field name="folder_id" ref="documents.documents_internal_folder"/>
         </record>
 
+        <record id="documents_image_mail_document" model="documents.document" forcecreate="0">
+            <field name="name">mail.png</field>
+            <field name="datas" type="base64" file="documents/data/files/mail.png"/>
+            <field name="folder_id" ref="documents.documents_internal_folder"/>
+            <field name="tag_ids" eval="[(6,0,[ref('documents.documents_internal_status_inbox')])]"/>
+        </record>
+        <!-- The thumbnail is added after -->
+        <record id="documents_image_mail_document" model="documents.document" forcecreate="0">
+            <field name="thumbnail" type="base64" file="documents/data/files/mail_thumbnail.png"/>
+        </record>
+
         <record id="documents_image_people_document" model="documents.document" forcecreate="0">
             <field name="name">people.jpg</field>
             <field name="datas" type="base64" file="documents/demo/files/people.jpg"/>
             <field name="folder_id" ref="documents.documents_internal_folder"/>
-        </record>
-
-
-        <record id="documents_data_design_brief" model="documents.document" forcecreate="0">
-            <field name="name">Interior Design Brief.pdf</field>
-            <field name="datas" type="base64" file="documents/demo/files/Interior_Design_Brief.pdf"/>
-            <field name="folder_id" ref="documents.documents_internal_folder"/>
-            <field name="tag_ids" eval="[(6,0,[ref('documents.documents_internal_status_tc'),
-                                               ref('documents.documents_internal_template_project')])]"/>
         </record>
 
         <!-- finance -->
