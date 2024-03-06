@@ -112,3 +112,49 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
     },
     { trigger: '.o_apps', isCheck: true }
 ]})
+
+registry.category("web_tour.tours").add('test_generate_serials_in_shopfloor', {test: true, steps: () => [
+    {
+        content: 'Make sure workcenter is available',
+        trigger: 'button:has(input[name="Assembly Line"])',
+    },
+    {
+        content: 'Confirm workcenter',
+        extra_trigger: 'button.active:has(input[name="Assembly Line"])',
+        trigger: 'button:contains("Confirm")',
+    },
+    {
+        content: 'Select workcenter',
+        trigger: 'button.btn-light:contains("Assembly Line")',
+    },
+    {
+        content: 'Open the wizard',
+        trigger: '.o_mrp_record_line .text-truncate:contains("Register byprod")',
+    },
+    {
+        content: 'Open the serials generation wizard',
+        trigger: '.o_widget_generate_serials button',
+    },
+    {
+        content: 'Input a serial',
+        trigger: '#next_serial_0',
+        run: 'text 00001',
+    },
+    {
+        content: 'Generate the serials',
+        trigger: 'button.btn-primary:contains("Generate")',
+    },
+    {
+        content: 'Save and close the wizard',
+        trigger: '.o_form_button_save:contains("Save")',
+    },
+    {
+        content: 'Set production as done',
+        trigger: 'button.btn-primary:contains("Mark as Done")',
+    },
+    {
+        content: 'Close production',
+        trigger: 'button.btn-primary:contains("Close Production")',
+        isCheck: true,
+    },
+]})
