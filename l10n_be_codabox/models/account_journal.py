@@ -29,16 +29,19 @@ class AccountJournal(models.Model):
         assert file_type in ("codas", "sodas")
         company._l10n_be_codabox_verify_prerequisites()
         if not date_from:
-            date_from = fields.Date.today() - relativedelta(months=3)
+            date_from = fields.Date.to_string(fields.Date.today() - relativedelta(months=3))
         params = {
             "db_uuid": self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
             "fidu_vat": re.sub("[^0-9]", "", company.l10n_be_codabox_fiduciary_vat),
             "company_vat": re.sub("[^0-9]", "", company.vat),
             "iap_token": company.sudo().l10n_be_codabox_iap_token,
-            "from_date": fields.Date.to_string(date_from),
-            "ibans": ibans or [],
+            "from_date": date_from,
         }
-        method = "get_coda_files" if file_type == "codas" else "get_soda_files"
+        if file_type == "sodas":
+            method = "get_soda_files"
+        else:
+            method = "get_coda_files"
+            params["ibans"] = ibans
         try:
             response = session.post(f"{get_iap_endpoint(self.env)}/{method}", json={"params": params}, timeout=(10, 900))
             result = response.json().get("result", {})
@@ -67,10 +70,8 @@ class AccountJournal(models.Model):
         if not company.vat or not company.l10n_be_codabox_is_connected:
             raise UserError(get_error_msg({"type": "error_codabox_not_configured"}))
 
-        # Fetch last bank statement date for each journal, and take the oldest one as from_date
-        # for CodaBox. If any CodaBox journal has no bank statement, take 3 months ago as from_date
-        latest_bank_stmt_dates = []
-        ibans = []
+        date_3_months_ago = fields.Date.to_string(fields.Date.today() - relativedelta(months=3))
+        ibans = {}  # {iban: last_date} where last_date is the date of the last bank statement or transaction
         codabox_journals = self.search([
             ("bank_statements_source", "=", "l10n_be_codabox"),
             ("bank_acc_number", "!=", False),
@@ -84,16 +85,17 @@ class AccountJournal(models.Model):
                 last_date = self.env["account.bank.statement.line"].search([
                     ("journal_id", "=", journal.id),
                 ], order="date DESC", limit=1).date
-            if last_date:
-                latest_bank_stmt_dates.append(last_date)
-            ibans.append(journal.bank_acc_number.replace(" ", "").upper())
-        if not latest_bank_stmt_dates:
-            latest_bank_stmt_dates.append(fields.Date.today() - relativedelta(months=3))
-
+            iban = journal.bank_acc_number.replace(" ", "").upper()
+            last_date = fields.Date.to_string(last_date) or date_3_months_ago
+            if iban not in ibans:
+                ibans[iban] = last_date
+            else:
+                ibans[iban] = min(ibans[iban], last_date)
+        date_from = min(ibans.values()) if ibans else date_3_months_ago
         statement_ids_all = []
         skipped_bank_accounts = set()
         session = requests.Session()
-        codas = self._l10n_be_codabox_fetch_transactions_from_iap(session, company, "codas", min(latest_bank_stmt_dates), ibans)
+        codas = self._l10n_be_codabox_fetch_transactions_from_iap(session, company, "codas", date_from, ibans)
         for coda in codas:
             try:
                 coda_raw_b64, coda_pdf_b64 = coda
@@ -170,7 +172,7 @@ class AccountJournal(models.Model):
         ], order="date DESC", limit=1).date
         if not last_soda_date:
             last_soda_date = fields.Date.today() - relativedelta(years=2)  # API goes back 2 years max
-        sodas = self._l10n_be_codabox_fetch_transactions_from_iap(session, self.company_id, "sodas", last_soda_date)
+        sodas = self._l10n_be_codabox_fetch_transactions_from_iap(session, self.company_id, "sodas", fields.Date.to_string(last_soda_date))
         moves = self.env["account.move"]
         for soda in sodas:
             try:

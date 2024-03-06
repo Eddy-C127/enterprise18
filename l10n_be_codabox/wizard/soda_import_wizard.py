@@ -17,7 +17,6 @@ class SodaImportWizard(models.TransientModel):
         if self.env.context.get('soda_mapping_save_only', False):
             return False
 
-        suspense_account = self.env['account.chart.template'].ref("a499")
         non_mapped_soda_accounts = set()
         moves = self.env['account.move']
         for ref, soda_file in self.soda_files.items():
@@ -32,7 +31,7 @@ class SodaImportWizard(models.TransientModel):
             for entry in soda_file['entries']:
                 account_id = soda_account_mapping[entry['code']]['account_id']
                 if not account_id:
-                    account_id = suspense_account.id
+                    account_id = self.journal_id.company_id.account_journal_suspense_account_id.id
                     non_mapped_soda_accounts.add((entry['code'], entry['name']))
                 move_vals['line_ids'].append(
                     Command.create({
