@@ -16,7 +16,9 @@ class HelpdeskTicket(models.Model):
     sale_line_id = fields.Many2one(
         'sale.order.line', string="Sales Order Item", tracking=True,
         compute="_compute_sale_line_id", store=True, readonly=False,
-        domain="[('company_id', '=', company_id), ('is_service', '=', True), ('order_partner_id', 'child_of', commercial_partner_id), ('is_expense', '=', False), ('state', '=', 'sale'), ('is_downpayment', '=', False)]",
+        domain=lambda self: self.env['sale.order.line']._domain_sale_line_service_str(
+            "[('company_id', '=', company_id), ('order_partner_id', 'child_of', commercial_partner_id)]"
+        ),
         help="Sales Order Item to which the time spent on this ticket will be added in order to be invoiced to your customer.\n"
              "By default the last prepaid sales order item that has time remaining will be selected.\n"
              "Remove the sales order item in order to make this ticket non-billable.\n"
@@ -73,10 +75,19 @@ class HelpdeskTicket(models.Model):
         self.ensure_one()
         if not self.commercial_partner_id or not self.project_id.allow_billable or not self.use_helpdesk_sale_timesheet:
             return False
-        domain = [('company_id', '=', self.company_id.id), ('is_service', '=', True), ('order_partner_id', 'child_of', self.commercial_partner_id.id), ('is_expense', '=', False), ('state', 'in', ['sale', 'done']), ('remaining_hours', '>', 0), ('is_downpayment', '=', False)]
+        SaleOrderLine = self.env['sale.order.line']
+        domain = expression.AND([
+            SaleOrderLine._domain_sale_line_service(check_state=False),
+            [
+                ('company_id', '=', self.company_id.id),
+                ('order_partner_id', 'child_of', self.commercial_partner_id.id),
+                ('state', 'in', ['sale', 'done']),
+                ('remaining_hours', '>', 0),
+            ],
+        ])
         if self.project_id.pricing_type != 'task_rate' and (order_id := self.project_id.sale_order_id) and self.commercial_partner_id == self.project_id.partner_id.commercial_partner_id:
-            domain.append(('order_id', '=?', order_id.id))
-        return self.env['sale.order.line'].search(domain, limit=1)
+            domain = expression.AND([domain, [('order_id', '=?', order_id.id)]])
+        return SaleOrderLine.search(domain, limit=1)
 
     def write(self, values):
         recompute_so_lines = None
