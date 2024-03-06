@@ -13,6 +13,9 @@ This module enables the qrcode scanning feature for the vendor bills for india.
             'l10n_in_qr_code_bill_scan/static/src/**/**/*',
         ],
     },
+    'external_dependencies': {
+        'python': ['pyjwt']
+    },
     'auto_install': ['l10n_in'],
     'installable': True,
     'license': 'OEEL-1',
