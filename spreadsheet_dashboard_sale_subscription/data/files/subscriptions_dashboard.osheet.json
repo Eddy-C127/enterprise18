@@ -2017,17 +2017,17 @@
                 },
                 "B8": {
                     "format": 1,
-                    "content": "=B7/(B5+B7)"
+                    "content": "=IFERROR(B7/(B5+B7), 0)"
                 },
                 "B9": {
                     "content": "=ODOO.PIVOT(12,\"price_subtotal\")"
                 },
                 "B10": {
                     "format": 2,
-                    "content": "=1/B8"
+                    "content": "=IFERROR(1/B8, 0)"
                 },
                 "B11": {
-                    "content": "=B6/B8"
+                    "content": "=IFERROR(B6/B8, 0)"
                 },
                 "C1": {
                     "style": 2,
@@ -2080,7 +2080,7 @@
                 },
                 "D11": {
                     "style": 8,
-                    "content": "=FORMAT.LARGE.NUMBER(B11)"
+                    "content": "=IFERROR(FORMAT.LARGE.NUMBER(B11), 0)"
                 },
                 "E1": {
                     "style": 2,

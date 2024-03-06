@@ -994,7 +994,7 @@
                 },
                 "B6": {
                     "format": 2,
-                    "content": "=(X40+J71+N71+R71)/X40"
+                    "content": "=IFERROR((X40+J71+N71+R71)/X40, 1)"
                 },
                 "B7": {
                     "content": "=IFERROR(Z9/B2,0)"
