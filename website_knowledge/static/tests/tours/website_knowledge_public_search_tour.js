@@ -54,6 +54,6 @@ registry.category("web_tour.tours").add('website_knowledge_public_search_tour', 
     content: "Clean search bar",
     trigger: '.knowledge_search_bar',
     run: function (action) {
-        action.remove_text("", ".knowledge_search_bar");
+        action.remove_text(".knowledge_search_bar");
     },
 }]});

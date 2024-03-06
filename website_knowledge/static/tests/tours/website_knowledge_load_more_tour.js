@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { registry } from "@web/core/registry";
+import { edit, pointerDown } from "@odoo/hoot-dom";
 
 /**
  * Returns the jQuery selector to find the nth element in the specified depth.
@@ -163,7 +164,10 @@ const LOAD_MORE_SIMPLE_STEPS = [{
  */
 const LOAD_MORE_ADVANCED_STEPS = [{
     trigger: 'input.knowledge_search_bar',
-    run: 'text Grand-Child Article 218',
+    run(helpers) {
+        pointerDown(this.anchor);
+        edit("Grand-Child Article 218");
+    }
 }, {
     trigger: 'ul.o_search_tree .o_article a',
 }, {

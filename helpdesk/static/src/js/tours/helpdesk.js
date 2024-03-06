@@ -69,7 +69,7 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     trigger: 'body:not(:has(div.o_view_sample_data)) .o_helpdesk_ticket_kanban_view .o_kanban_record',
     content: markup(_t('<b>Drag &amp; drop</b> the card to change the stage of your ticket.')),
     position: 'right',
-    run: "drag_and_drop .o_kanban_group:eq(2) ",
+    run: "drag_and_drop_native .o_kanban_group:eq(2) ",
 }, {
     trigger: ".o_column_quick_create .o_quick_create_folded",
     content: markup(_t('Adapt your <b>pipeline</b> to your workflow by adding <b>stages</b> <i>(e.g. Awaiting Customer Feedback, etc.).</i>')),
