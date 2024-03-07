@@ -309,6 +309,10 @@ class AccountMove(models.Model):
         return word.word_text
 
     def _find_partner_from_previous_extracts(self):
+        """
+        Try to find the partner according to the detected layout.
+        It is expected that two invoices emitted by the same supplier will share the same detected layout.
+        """
         match_conditions = [
             ('extract_detected_layout', '=', self.extract_detected_layout),
             ('extract_partner_name', '=', self.extract_partner_name),
@@ -451,7 +455,7 @@ class AccountMove(models.Model):
             if partner_vat:
                 return partner_vat, False
 
-        if self.extract_detected_layout:
+        if self.is_purchase_document() and self.extract_detected_layout:
             partner = self._find_partner_from_previous_extracts()
             if partner:
                 return partner, False
