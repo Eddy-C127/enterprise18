@@ -12,7 +12,7 @@ from odoo.tests import tagged, users
 class AppointmentHRLeavesTest(AppointmentHrCommon):
     @users('apt_manager', 'staff_user_bxls')
     def test_partner_on_leave_with_calendar_leave(self):
-        """Check that resource leaves are correctly reflected in the partners_on_leave field.
+        """Check that resource leaves are correctly reflected in the on_leave_partner_ids field.
 
         Overlapping times between the leave time of an employee and the meeting should add the partner
         to the list of unavailable partners.
@@ -27,7 +27,7 @@ class AppointmentHRLeavesTest(AppointmentHrCommon):
               )],
             self.apt_type_bxls_2days.id
         )
-        self.assertFalse(meeting.partners_on_leave)
+        self.assertFalse(meeting.on_leave_partner_ids)
         self.env['resource.calendar.leaves'].sudo().create({
             'calendar_id': self.staff_user_bxls.resource_calendar_id.id,
             'date_from': self.reference_monday + timedelta(days=1),
@@ -36,7 +36,7 @@ class AppointmentHRLeavesTest(AppointmentHrCommon):
         })
         # a sane depedency cannot be expressed so it will only be updated when removed from cache
         meeting.invalidate_recordset()
-        self.assertEqual(meeting.partners_on_leave, self.staff_user_bxls.partner_id)
+        self.assertEqual(meeting.on_leave_partner_ids, self.staff_user_bxls.partner_id)
 
 
 @tagged('appointment_slots')

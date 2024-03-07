@@ -9,13 +9,13 @@ class CalendarEvent(models.Model):
     _inherit = "calendar.event"
 
     @api.depends('start', 'stop', 'partner_ids')
-    def _compute_partners_on_leave(self):
-        super()._compute_partners_on_leave()
+    def _compute_on_leave_partner_ids(self):
+        super()._compute_on_leave_partner_ids()
 
         user_events = self.filtered(
             lambda event:
                 event.appointment_type_id.schedule_based_on == 'users' and
-                event.partner_ids.filtered('user_ids') > event.partners_on_leave
+                event.partner_ids.filtered('user_ids') > event.on_leave_partner_ids
         )
         if not user_events:
             return
@@ -38,7 +38,7 @@ class CalendarEvent(models.Model):
                         continue
                     unavailabilities = calendar_to_unavailabilities.get(employee.resource_calendar_id, {}).get(employee.resource_id.id, [])
                     if any(intervals_overlap(unavailability, (event.start, event.stop)) for unavailability in unavailabilities):
-                        event.partners_on_leave += employee.user_partner_id
+                        event.on_leave_partner_ids += employee.user_partner_id
 
     @api.model
     def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):
