@@ -491,3 +491,15 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
             invoice_doc_values,
             ginvoice_doc_values,
         ])
+
+    def test_refund_order_mx(self):
+        """ Test a pos order completely refunded by the negative lines. """
+        with self.with_pos_session():
+            order = self._create_order({
+                'pos_order_lines_ui_args': [
+                    (self.product, 1.0),
+                ],
+                'payments': [(self.bank_pm1, 1160)],
+            })
+            refund = self.env['pos.order'].browse(order.refund()['res_id'])
+            self.assertEqual(refund.refunded_order_id, order)
