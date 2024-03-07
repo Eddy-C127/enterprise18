@@ -4,10 +4,6 @@ import { ProjectTaskCalendarModel } from '@project/views/project_task_calendar/p
 
 export class FsmTaskCalendarModel extends ProjectTaskCalendarModel {
     makeContextDefaults(record) {
-        const { default_planned_date_start, ...context } = super.makeContextDefaults(record);
-        return {
-            ...context,
-            default_planned_date_begin: default_planned_date_start,
-        };
+        return super.makeContextDefaults(record);
     }
 }
