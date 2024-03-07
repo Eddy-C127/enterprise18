@@ -192,6 +192,7 @@ class ShiftController(http.Controller):
             return request.redirect('/planning/%s/%s?message=%s' % (token_planning, token_employee, 'already_assign'))
 
         slot_sudo.write({'resource_id': employee_sudo.resource_id.id})
+        slot_sudo.slot_properties  # necessary addition to stop the re-computation of the slot_properties field during the redirect (leads to access rights error)
         if message:
             return request.redirect('/planning/%s/%s?message=%s' % (token_planning, token_employee, 'assign'))
         else:
@@ -215,6 +216,7 @@ class ShiftController(http.Controller):
             return request.not_found()
 
         slot_sudo.write({'resource_id': False})
+        slot_sudo.slot_properties  # necessary addition to stop the re-computation of the slot_properties field during the redirect (leads to access rights error)
         if message:
             return request.redirect('/planning/%s/%s?message=%s' % (token_planning, token_employee, 'unassign'))
         else:
@@ -266,6 +268,7 @@ class ShiftController(http.Controller):
 
         if not slot_sudo.employee_id:
             slot_sudo.write({'resource_id': employee.resource_id.id})
+            slot_sudo.slot_properties  # necessary addition to stop the re-computation of the slot_properties field during the redirect (leads to access rights error)
 
         return request.redirect('/web?#action=planning.planning_action_open_shift')
 
@@ -285,6 +288,7 @@ class ShiftController(http.Controller):
             return request.not_found()
 
         slot_sudo.write({'resource_id': False})
+        slot_sudo.slot_properties  # necessary addition to stop the re-computation of the slot_properties field during the redirect (leads to access rights error)
 
         if request.env.user:
             return request.redirect('/web?#action=planning.planning_action_open_shift')
