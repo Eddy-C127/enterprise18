@@ -235,7 +235,6 @@ class SaleOrderLine(models.Model):
         if self.display_type:
             return res
         elif self.order_id.plan_id and (self.recurring_invoice or self.order_id.subscription_state == '7_upsell'):
-            description = "%s - %s" % (self.name, self.order_id.plan_id.billing_period_display)
             lang_code = self.order_id.partner_id.lang
             if self.order_id.subscription_state == '7_upsell':
                 # We start at the beginning of the upsell as it's a part of recurrence
@@ -245,7 +244,6 @@ class SaleOrderLine(models.Model):
                 # We always use next_invoice_date as the recurrence are synchronized with the invoicing periods.
                 # Next invoice date is required and is equal to start_date at the creation of a subscription
                 new_period_start = self.order_id.next_invoice_date
-            format_start = format_date(self.env, new_period_start, lang_code=lang_code)
             parent_order_id = self.order_id.id
             if self.order_id.subscription_state == '7_upsell':
                 # remove 1 day as normal people thinks in terms of inclusive ranges.
@@ -256,8 +254,13 @@ class SaleOrderLine(models.Model):
                 # remove 1 day as normal people thinks in terms of inclusive ranges.
                 next_invoice_date = default_next_invoice_date - relativedelta(days=1)
 
-            format_invoice = format_date(self.env, next_invoice_date, lang_code=lang_code)
-            description += _("\n%s to %s", format_start, format_invoice)
+            description = self.name
+            if self.recurring_invoice:
+                duration = self.order_id.plan_id.billing_period_display
+                format_start = format_date(self.env, new_period_start, lang_code=lang_code)
+                format_next = format_date(self.env, next_invoice_date, lang_code=lang_code)
+                start_to_next = _("\n%s to %s", format_start, format_next)
+                description = f"{description} - {duration}{start_to_next}"
 
             qty_to_invoice = self._get_subscription_qty_to_invoice(last_invoice_date=new_period_start,
                                                                    next_invoice_date=next_invoice_date)

@@ -3655,3 +3655,25 @@ class TestSubscription(TestSubscriptionCommon):
         self.subscription.write({'start_date': False, 'next_invoice_date': False})
         self.subscription.action_confirm()
         self.assertEqual(self.subscription.state, 'sale')
+
+    def test_upsell_descriptions(self):
+        """ On invoicing upsells, only subscription-based items should display a duration. """
+        with freeze_time("2022-10-31"):
+            self.subscription.action_confirm()
+            self.env['sale.order']._cron_recurring_create_invoice()
+
+            action = self.subscription.prepare_upsell_order()
+            upsell_so = self.env['sale.order'].browse(action['res_id'])
+            upsell_so.order_line = [Command.create({'product_id': self.product_a.id})]
+            upsell_so.order_line.filtered('product_id').product_uom_qty = 1
+            upsell_so.action_confirm()
+            invoice = upsell_so._create_invoices()
+
+            self.assertEqual(len(invoice.invoice_line_ids), 4)
+            for line in invoice.invoice_line_ids:
+                name = line.name
+                sol_name = line.sale_line_ids.name
+                if line.sale_line_ids.recurring_invoice:
+                    self.assertRegex(name, rf"^{sol_name} - 1 Month", "Sub lines require duration")
+                else:
+                    self.assertEqual(name, sol_name, "Non-sub lines shouldn't add duration")
