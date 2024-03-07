@@ -14,6 +14,7 @@ import { registry } from "@web/core/registry";
  * @typedef Session
  * @property {"trying"|"ringing"|"ok"} [inviteState]
  * @property {boolean} isMute
+ * @property {boolean} isOnHold
  * @property {import("@voip/core/call_model").Call} call
  * @property {window.sip.Session} [sipSession]
  * @property {string} [transferTarget]
@@ -272,6 +273,7 @@ export class UserAgent {
         this.session = {
             inviteState: "trying",
             isMute: false,
+            isOnHold: false,
             call,
         };
         this.ringtoneService.ringback.play();
@@ -332,14 +334,13 @@ export class UserAgent {
         });
     }
 
-    updateSenderTracks() {
+    updateTracks() {
         if (!this.session?.sipSession?.sessionDescriptionHandler) {
             return;
         }
-        const { peerConnection } = this.session.sipSession.sessionDescriptionHandler;
-        for (const { track } of peerConnection.getSenders()) {
-            track.enabled = !this.session.isMute;
-        }
+        const { sessionDescriptionHandler } = this.session.sipSession;
+        sessionDescriptionHandler.enableReceiverTracks(!this.session.isOnHold);
+        sessionDescriptionHandler.enableSenderTracks(!this.session.isOnHold && !this.session.isMute);
     }
 
     _cleanUpRemoteAudio() {
@@ -435,11 +436,36 @@ export class UserAgent {
         this.session = {
             call,
             isMute: false,
+            isOnHold: false,
             sipSession: inviteSession,
         };
         this.softphone.show();
         this.ringtoneService.incoming.play();
         // TODO send notification
+    }
+
+    async setHold(hold) {
+        if (!this.session?.sipSession) {
+            return;
+        }
+        const session = this.session;
+        session.isOnHold = hold;
+        try {
+            await this.session.sipSession.invite({
+                requestDelegate: {
+                    onAccept() {
+                        session.isOnHold = hold;
+                    },
+                    onReject() {
+                        session.isOnHold = !hold;
+                    },
+                },
+                sessionDescriptionHandlerOptions: { hold },
+            });
+        } catch (error) {
+            console.error(error);
+            this.voip.triggerError(_t("Failed to put the call on hold/unhold."));
+        }
     }
 
     /**

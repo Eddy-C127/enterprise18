@@ -2,9 +2,10 @@
 <templates>
     <t t-name="voip.CorrespondenceDetails">
         <div t-attf-class="o-voip-CorrespondenceDetails {{ props.extraClass }}">
-            <div t-att-class="{ 'bg-success bg-opacity-25': call?.isInProgress }">
-                <button t-att-style="call?.isInProgress ? 'visibility: hidden;' : ''" class="fa fa-2x fa-angle-left my-2 px-3 border-0 bg-transparent text-primary cursor-pointer" title="Close details" t-on-click="onClickClose"/>
+            <div t-att-class="bgStyleClasses">
+                <button t-if="!call?.isInProgress" class="fa fa-2x fa-angle-left my-2 px-3 border-0 bg-transparent text-primary cursor-pointer" title="Close details" t-on-click="onClickClose"/>
                 <div class="d-flex flex-column align-items-center pb-4">
+                    <p t-if="call?.isInProgress" class="my-2 text-info fw-bolder" t-att-class="{ invisible: !isOnHold }">On Hold</p>
                     <img class="o-voip-CorrespondenceDetails-avatar border rounded" t-att-src="props.correspondence.avatarUrl"/>
                     <div t-if="partner"><b class="fw-bolder" t-esc="partner.name"/></div>
                     <div t-esc="displayName" t-if="displayName and (!partner or displayName !== partner.name)"/>
@@ -40,8 +41,11 @@
                         <button class="btn btn-secondary p-3 border rounded-circle" t-att-disabled="areInCallActionsDisabled" title="Transfer" t-ref="transferButton" t-on-click="onClickTransfer">
                             <i class="fa fa-fw fa-lg fa-arrows-h" role="img"/>
                         </button>
-                        <button class="btn btn-secondary p-3 border rounded-circle" t-att-disabled="areInCallActionsDisabled" t-att-title="muteText" t-on-click="onClickMute">
-                            <i t-attf-class="fa fa-fw fa-lg {{ !userAgent.session?.isMute ? 'fa-microphone' : 'fa-microphone-slash' }}" role="img"/>
+                        <button class="btn btn-secondary p-3 border rounded-circle" t-att-disabled="areInCallActionsDisabled || isOnHold" t-att-title="muteText" t-on-click="onClickMute">
+                            <i t-attf-class="fa fa-fw fa-lg {{ !userAgent.session?.isMute and !isOnHold ? 'fa-microphone' : 'fa-microphone-slash' }}" role="img"/>
+                        </button>
+                        <button class="btn btn-secondary p-3 border rounded-circle" t-att-disabled="areInCallActionsDisabled" t-att-title="putOnHoldText" t-on-click="onClickHold">
+                            <i t-attf-class="fa fa-fw fa-lg {{ !isOnHold ? 'fa-pause' : 'fa-play' }}" role="img"/>
                         </button>
                         <button t-if="isMobileOs" class="btn btn-secondary p-3 border rounded-circle" t-att-disabled="areInCallActionsDisabled" title="Change input device" t-on-click="onClickChangeInputDevice">
                             <i t-attf-class="fa fa-fw fa-lg fa-headphones" role="img"/>

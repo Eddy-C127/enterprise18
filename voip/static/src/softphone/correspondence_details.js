@@ -25,10 +25,8 @@ export class CorrespondenceDetails extends Component {
         this.transferButtonRef = useRef("transferButton");
         this.transferPopover = usePopover(TransferPopover, { position: "top" });
         useEffect(
-            () => {
-                this.userAgent.updateSenderTracks();
-            },
-            () => [this.userAgent.session?.isMute]
+            () => this.userAgent.updateTracks(),
+            () => [this.userAgent.session?.isMute, this.userAgent.session?.isOnHold]
         );
     }
 
@@ -40,6 +38,14 @@ export class CorrespondenceDetails extends Component {
     /** @returns {boolean} */
     get areInCallActionsDisabled() {
         return this.call?.state !== "ongoing" || !this.userAgent.session;
+    }
+
+    /** @returns {string} */
+    get bgStyleClasses() {
+        if (!this.call?.isInProgress) {
+            return "";
+        }
+        return `bg-opacity-25 bg-${this.isOnHold ? "info" : "success"}`;
     }
 
     /** @returns {import("@voip/core/call_model").Call | undefined} */
@@ -71,6 +77,11 @@ export class CorrespondenceDetails extends Component {
     /** @returns {boolean} */
     get isMobileOs() {
         return isMobileOS();
+    }
+
+    /** @returns {boolean} */
+    get isOnHold() {
+        return this.userAgent.session?.isOnHold ?? false;
     }
 
     /** @returns {string} */
@@ -109,6 +120,11 @@ export class CorrespondenceDetails extends Component {
     /** @returns {import("@mail/core/persona_model").Persona | undefined} */
     get partner() {
         return this.props.correspondence.partner;
+    }
+
+    /** @returns {string} */
+    get putOnHoldText() {
+        return this.isOnHold ? _t("Resume") : _t("Hold");
     }
 
     /** @param {MouseEvent} ev */
@@ -208,6 +224,14 @@ export class CorrespondenceDetails extends Component {
             return;
         }
         this.userAgent.session.isMute = !this.userAgent.session.isMute;
+    }
+
+    /** @param {MouseEvent} ev */
+    onClickHold(ev) {
+        if (this.areInCallActionsDisabled) {
+            return;
+        }
+        this.userAgent.setHold(!this.isOnHold);
     }
 
     /** @param {MouseEvent} ev */
