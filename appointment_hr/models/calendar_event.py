@@ -8,12 +8,15 @@ from odoo.addons.resource.models.utils import Intervals, timezone_datetime
 class CalendarEvent(models.Model):
     _inherit = "calendar.event"
 
-    partners_on_leave = fields.Many2many('res.partner', string='Unavailable Partners', compute='_compute_partners_on_leave')
-
     @api.depends('start', 'stop', 'partner_ids')
     def _compute_partners_on_leave(self):
-        self.partners_on_leave = False
-        user_events = self.filtered(lambda event: event.appointment_type_id.schedule_based_on == 'users')
+        super()._compute_partners_on_leave()
+
+        user_events = self.filtered(
+            lambda event:
+                event.appointment_type_id.schedule_based_on == 'users' and
+                event.partner_ids.filtered('user_ids') > event.partners_on_leave
+        )
         if not user_events:
             return
 
@@ -27,24 +30,15 @@ class CalendarEvent(models.Model):
                     timezone_datetime(start), timezone_datetime(stop), calendar_to_employees[calendar].resource_id
                 ) for calendar in group_calendars
             }
-
-            events_by_partner_id = events.partner_ids._get_calendar_events(start, stop)
-
             for event in events:
-                partner_employees = event.partner_ids.user_ids.employee_ids
-                event_partners_on_leave = self.env['res.partner']
+                # avoid some work for partners already on the list
+                partner_employees = (event.partner_ids - event.on_leave_partner_ids).user_ids.employee_ids
                 for employee in partner_employees:
                     if not employee.resource_calendar_id or not employee.resource_id:
                         continue
                     unavailabilities = calendar_to_unavailabilities.get(employee.resource_calendar_id, {}).get(employee.resource_id.id, [])
                     if any(intervals_overlap(unavailability, (event.start, event.stop)) for unavailability in unavailabilities):
-                        event_partners_on_leave += employee.user_partner_id
-                # TODO RETH on master move this field to base appointment as it's relevant there too
-                for partner in event.partner_ids:
-                    if any(intervals_overlap((event.start, event.stop), (other_event.start, other_event.stop))
-                           for other_event in events_by_partner_id.get(partner.id, []) if other_event != event):
-                        event_partners_on_leave += partner
-                event.partners_on_leave = event_partners_on_leave
+                        event.partners_on_leave += employee.user_partner_id
 
     @api.model
     def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):

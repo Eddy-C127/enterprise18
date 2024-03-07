@@ -65,6 +65,7 @@ class CalendarEvent(models.Model):
     user_id = fields.Many2one('res.users', group_expand="_read_group_user_id")
     videocall_redirection = fields.Char('Meeting redirection URL', compute='_compute_videocall_redirection')
     appointment_booker_id = fields.Many2one('res.partner', string="Person who is booking the appointment")
+    partners_on_leave = fields.Many2many('res.partner', string='Unavailable Partners', compute='_compute_partners_on_leave')
     resources_on_leave = fields.Many2many('appointment.resource', string='Resources intersecting with leave time', compute="_compute_resources_on_leave")
     _sql_constraints = [
         ('check_resource_and_appointment_type',
@@ -90,6 +91,21 @@ class CalendarEvent(models.Model):
     def _compute_resource_ids(self):
         for event in self:
             event.appointment_resource_ids = event.booking_line_ids.appointment_resource_id
+
+    @api.depends('start', 'stop', 'partner_ids')
+    def _compute_partners_on_leave(self):
+        self.partners_on_leave = False
+        user_events = self.filtered(lambda event: event.appointment_type_id.schedule_based_on == 'users')
+
+        for start, stop, events in interval_from_events(user_events):
+            events_by_partner_id = events.partner_ids._get_calendar_events(start, stop)
+            for event in events:
+                for partner in event.partner_ids:
+                    if any(
+                        intervals_overlap((event.start, event.stop), (other_event.start, other_event.stop))
+                        for other_event in events_by_partner_id.get(partner.id, []) if other_event != event
+                    ):
+                        event.partners_on_leave += partner
 
     @api.depends('start', 'stop', 'appointment_resource_ids', 'appointment_resource_id')
     def _compute_resources_on_leave(self):
