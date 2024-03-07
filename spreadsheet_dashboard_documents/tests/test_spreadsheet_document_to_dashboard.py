@@ -98,7 +98,7 @@ class TestSpreadsheetDocumentToDashboard(TransactionCase):
                 "mimetype": "application/o-spreadsheet",
             }
         )
-        snapshot = base64.b64encode(b'{"sheets": [{ name: "a sheet"}]}')
+        snapshot = base64.b64encode(b'{"sheets": [{ "name": "a sheet"}]}')
         document.spreadsheet_snapshot = snapshot
         revision = self.env["spreadsheet.revision"].create(
             {
