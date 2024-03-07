@@ -404,7 +404,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         for column_group_key, group_options in report._split_options_per_column_group(options).items():
             # Get sums for the account move lines.
             # period: [('date' <= options['date_to']), ('date', '>=', options['date_from'])]
-            table_references, search_condition = report._get_table_expression(group_options, domain=additional_domain, date_scope='strict_range')
+            table_references, search_condition = report._get_sql_table_expression(group_options, domain=additional_domain, date_scope='strict_range')
             ct_query = SQL(report._get_query_currency_table(group_options))
             query = SQL(
                 '''

@@ -81,7 +81,7 @@ class ChileanReportCustomHandler(models.AbstractModel):
 
     @api.model
     def _prepare_query(self, report, options, column_group_key) -> SQL:
-        table_references, search_condition = report._get_table_expression(options, 'normal')
+        table_references, search_condition = report._get_sql_table_expression(options, 'normal')
 
         lang = self.env.user.lang or get_lang(self.env).code
         aa_name = self.with_context(lang=lang).env['account.account']._field_to_sql('aa', 'name')

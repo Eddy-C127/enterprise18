@@ -38,7 +38,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def _l10n_nl_get_opening_balance_query(self, options):
         report = self.env['account.report'].browse(options['report_id'])
         new_options = self._get_options_initial_balance(options)
-        table_references, search_condition = report._get_table_expression(
+        table_references, search_condition = report._get_sql_table_expression(
             new_options,
             'normal',
             domain=[('account_id.include_initial_balance', '=', True)],
@@ -61,7 +61,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     def _l10n_nl_get_partner_values_query(self, options):
         report = self.env['account.report'].browse(options['report_id'])
-        table_references, search_condition = report._get_table_expression(options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
         return SQL(
             """
                SELECT partner.id AS partner_id,
@@ -113,7 +113,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     def _l10n_nl_get_config_values_query(self, options):
         report = self.env['account.report'].browse(options['report_id'])
-        table_references, search_condition = report._get_table_expression(options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
         return SQL(
             """
             SELECT COUNT(account_move_line.id) AS moves_count,
@@ -130,7 +130,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     def _l10n_nl_get_transaction_values_query(self, options):
         report = self.env['account.report'].browse(options['report_id'])
-        table_references, search_condition = report._get_table_expression(options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
         lang = self.env.user.lang or get_lang(self.env).code
         journal_name = f"COALESCE(journal.name->>'{lang}', journal.name->>'en_US')" if self.pool['account.journal'].name.translate else 'journal.name'
         return SQL(

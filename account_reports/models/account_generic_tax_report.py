@@ -34,7 +34,7 @@ class AccountTaxReportHandler(models.AbstractModel):
                 warnings.pop('account_reports.common_warning_draft_in_period')
 
         # Chek the use of inactive tags in the period
-        tables, where_clause = report._get_table_expression(options, 'strict_range')
+        tables, where_clause = report._get_sql_table_expression(options, 'strict_range')
         self._cr.execute(SQL("""
             SELECT 1
             FROM %s
@@ -219,7 +219,7 @@ class AccountTaxReportHandler(models.AbstractModel):
         # position to 'all' when the report is the generic tax report)
         new_options['fiscal_position'] = options['fiscal_position']
 
-        table_references, search_condition = self.env.ref('account.generic_tax_report')._get_table_expression(
+        table_references, search_condition = self.env.ref('account.generic_tax_report')._get_sql_table_expression(
             new_options,
             'strict_range',
             domain=self._get_vat_closing_entry_additional_domain()

@@ -1772,10 +1772,10 @@ class AccountReport(models.Model):
             PendingDeprecationWarning,
             stacklevel=2,
         )
-        table_references, condition = self._get_table_expression(options, date_scope, domain=domain)
+        table_references, condition = self._get_sql_table_expression(options, date_scope, domain=domain)
         return table_references.code, condition.code, table_references.params + condition.params
 
-    def _get_table_expression(self, options, date_scope, domain=None) -> tuple[SQL, SQL]:
+    def _get_sql_table_expression(self, options, date_scope, domain=None) -> tuple[SQL, SQL]:
         """ returns the table reference list and the search condition of the query """
         domain = self._get_options_domain(options, date_scope) + (domain or [])
 
@@ -3147,7 +3147,7 @@ class AccountReport(models.Model):
 
         currency_table_query = SQL(self._get_query_currency_table(options))  # TODO: ask currency_table_query to be a SQL object
         groupby_sql = SQL.identifier('account_move_line', current_groupby) if current_groupby else None
-        table_references, search_condition = self._get_table_expression(options, date_scope)
+        table_references, search_condition = self._get_sql_table_expression(options, date_scope)
         tail_query = self._get_engine_query_tail(offset, limit)
         lang = get_lang(self.env, self.env.user.lang).code
         acc_tag_name = self.with_context(lang=lang).env['account.account.tag']._field_to_sql('acc_tag', 'name')

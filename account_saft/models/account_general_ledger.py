@@ -82,7 +82,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'closing_balance': closing_balance,
             })
         # Fill 'total_debit_in_period', 'total_credit_in_period', 'move_vals_list'.
-        table_references, search_condition = report._get_table_expression(options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
         lang = self.env.user.lang or get_lang(self.env).code
         self_lang = self.with_context(lang=lang)
         tax_name = self_lang.env['account.tax']._field_to_sql('tax', 'name')

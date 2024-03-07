@@ -276,7 +276,7 @@ class ECSalesReportCustomHandler(models.AbstractModel):
             tax_elem_table_name = self.with_context(lang=lang).env['account.account.tag']._field_to_sql('account_account_tag', 'name')
 
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_table_expression(column_group_options, 'strict_range')
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'strict_range')
             if allowed_ids:
                 search_condition = SQL('%s AND %s.id IN %s', search_condition, tax_elem_table, tuple(allowed_ids))
             queries.append(SQL(

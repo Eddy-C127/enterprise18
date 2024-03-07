@@ -95,7 +95,7 @@ class DutchECSalesReportCustomHandler(models.AbstractModel):
 
     def _get_lines_query_params(self, report, options, column_group_key):
         goods, triangular, services = (options['ec_tax_filter_selection'][i]['selected'] for i in range(3))
-        from_clause, where_clause = report._get_table_expression(options, 'strict_range')
+        from_clause, where_clause = report._get_sql_table_expression(options, 'strict_range')
         goods_and_services_0_tax_tags_ids = tuple(self.env.ref('l10n_nl.tax_report_rub_3b_tag')._get_matching_tags().ids)
         triangular_tax = self.env.ref('l10n_nl.tax_report_rub_3bt_tag', raise_if_not_found=False)
         triangular_tax_tags_ids = tuple(triangular_tax._get_matching_tags().ids) if triangular_tax and triangular else (-1,)

@@ -19,7 +19,7 @@ class FuenteReportCustomHandler(models.AbstractModel):
         lang = self.env.user.lang or get_lang(self.env).code
         account_name = self.with_context(lang=lang).env['account.account']._field_to_sql('aa', 'name')
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_table_expression(column_group_options, 'strict_range', domain=domain)
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'strict_range', domain=domain)
             tax_base_amount_select = SQL("""
                 SUM(CASE
                     WHEN account_move_line.credit > 0

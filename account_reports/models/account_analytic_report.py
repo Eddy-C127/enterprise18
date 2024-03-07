@@ -173,12 +173,12 @@ class AccountReport(models.AbstractModel):
 
         self.env.cr.execute(query)
 
-    def _get_table_expression(self, options, date_scope, domain=None) -> tuple[SQL, SQL]:
+    def _get_sql_table_expression(self, options, date_scope, domain=None) -> tuple[SQL, SQL]:
         # Override to add the context key which will eventually trigger the shadowing of the table
         context_self = self.with_context(account_report_analytic_groupby=options.get('analytic_groupby_option'))
 
         # We add the domain filter for analytic_distribution here, as the search is not available
-        table_references, search_condition = super(AccountReport, context_self)._get_table_expression(options, date_scope, domain)
+        table_references, search_condition = super(AccountReport, context_self)._get_sql_table_expression(options, date_scope, domain)
         if options.get('analytic_accounts') and not any(
                 x in options.get('analytic_accounts_list', []) for x in options['analytic_accounts']):
             analytic_account_ids = [[str(account_id) for account_id in options['analytic_accounts']]]

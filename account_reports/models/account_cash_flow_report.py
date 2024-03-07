@@ -224,7 +224,7 @@ class CashFlowReportCustomHandler(models.AbstractModel):
         account_name = self.with_context(lang=lang).env['account.account']._field_to_sql('account_account', 'name')
 
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_table_expression(column_group_options, date_scope, domain=[('account_id', 'in', payment_account_ids)])
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, date_scope, domain=[('account_id', 'in', payment_account_ids)])
 
             queries.append(SQL(
                 '''

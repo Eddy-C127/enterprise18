@@ -79,7 +79,7 @@ class JournalReportCustomHandler(models.AbstractModel):
                 'balance': None
             }
 
-        table, search_conditions = report._get_table_expression(options, 'strict_range')
+        table, search_conditions = report._get_sql_table_expression(options, 'strict_range')
 
         groupby_clause = SQL.identifier('account_move_line', current_groupby)
         select_from_groupby = SQL('%s AS grouping_key', groupby_clause)
@@ -561,7 +561,7 @@ class JournalReportCustomHandler(models.AbstractModel):
         """
         # Ensure that all the data is synchronized with the database before we read it
         self.env.flush_all()
-        table, search_conditions = report._get_table_expression(options, 'strict_range')
+        table, search_conditions = report._get_sql_table_expression(options, 'strict_range')
         lang = self.env.user.lang or get_lang(self.env).code
         self_lang = self.with_context(lang=lang)
         query = SQL(
@@ -968,7 +968,7 @@ class JournalReportCustomHandler(models.AbstractModel):
 
     def _query_bank_journal_initial_balance(self, options, journal_id):
         report = self.env.ref('account_reports.journal_report')
-        table_references, search_conditions = report._get_table_expression(options, 'to_beginning_of_period', domain=[('journal_id', '=', journal_id)])
+        table_references, search_conditions = report._get_sql_table_expression(options, 'to_beginning_of_period', domain=[('journal_id', '=', journal_id)])
         query = SQL(
             """
                 SELECT
@@ -1083,7 +1083,7 @@ class JournalReportCustomHandler(models.AbstractModel):
         # Use the same option as we use to get the tax details, but this time to generate the query used to fetch the
         # grid information
         tax_report_options = self._get_generic_tax_report_options(options, data)
-        table_references, search_condition = report._get_table_expression(tax_report_options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(tax_report_options, 'strict_range')
         lang = self.env.user.lang or get_lang(self.env).code
         self_lang = self.with_context(lang=lang)
         country_name = self_lang.env['res.country']._field_to_sql('country', 'name')

@@ -352,7 +352,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         # triangular use cases are handled by letting the intrastat_country_id editable on
         # invoices. Modifying or emptying it allow to alter the intrastat declaration
         # accordingly to specs (https://www.nbb.be/doc/dq/f_pdf_ex/intra2017fr.pdf (§ 4.x))
-        table_references, search_condition = self.env['account.report'].browse(options['report_id'])._get_table_expression(options, 'strict_range', domain=domain)
+        table_references, search_condition = self.env['account.report'].browse(options['report_id'])._get_sql_table_expression(options, 'strict_range', domain=domain)
 
         import_merchandise_code = _merchandise_import_code.get(self.env.company.country_id.code, '29')
         export_merchandise_code = _merchandise_export_code.get(self.env.company.country_id.code, '19')

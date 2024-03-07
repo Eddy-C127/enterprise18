@@ -437,7 +437,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         account_name = self_lang.env['account.account']._field_to_sql('account', 'name')
         report = self.env.ref('account_reports.partner_ledger_report')
         for column_group_key, group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_table_expression(group_options, 'strict_range')
+            table_references, search_condition = report._get_sql_table_expression(group_options, 'strict_range')
 
             # For the move lines directly linked to this partner
             queries.append(SQL(

@@ -90,7 +90,7 @@ class PolishTaxReportCustomHandler(models.AbstractModel):
             The query gets the information on moves and information aggregated from their lines for the whole move
             like the tax amounts that are grouped by tax grid and move """
 
-        table_references, search_condition = report._get_table_expression(options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
 
         # To get if the line contains a tag, we get the expression (if needed), to get the id. It is then given to the params
         oss_tag = self.env.ref('l10n_eu_oss.tag_oss', raise_if_not_found=False)

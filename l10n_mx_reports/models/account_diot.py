@@ -71,7 +71,7 @@ class MexicanAccountReportCustomHandler(models.AbstractModel):
             return []
 
         cash_basis_journal_ids = self.env.companies.filtered('tax_cash_basis_journal_id').tax_cash_basis_journal_id
-        table_references, search_condition = report._get_table_expression(options, 'strict_range', domain=[
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range', domain=[
             ('parent_state', '=', 'posted'),
             ('journal_id', 'in', cash_basis_journal_ids.ids),
         ])
