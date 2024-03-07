@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, models, _
 from odoo.exceptions import UserError, RedirectWarning
+from odoo.tools import SQL
 from odoo.tools.float_utils import float_split_str
 
 from collections import OrderedDict
@@ -33,17 +34,15 @@ class ArgentinianReportCustomHandler(models.AbstractModel):
 
         # Build full query
         query_list = []
-        full_query_params = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            query, params = self._build_query(report, column_group_options, column_group_key)
-            query_list.append(f"({query})")
-            full_query_params += params
+            query = self._build_query(report, column_group_options, column_group_key)
+            query_list.append(SQL("(%s)", query))
 
             # Set defaults here since the results of the query for this column_group_key might be empty
             total_values_dict.setdefault(column_group_key, dict.fromkeys(number_keys, 0.0))
 
-        full_query = " UNION ALL ".join(query_list)
-        self._cr.execute(full_query, full_query_params)
+        full_query = SQL(" UNION ALL ").join(query_list)
+        self._cr.execute(full_query)
         results = self._cr.dictfetchall()
         for result in results:
             # Iterate over these results in order to fill the move_info_dict dictionary
@@ -123,14 +122,13 @@ class ArgentinianReportCustomHandler(models.AbstractModel):
     # REPORT LINES: CORE
     ####################################################
 
-    def _build_query(self, report, options, column_group_key):
+    def _build_query(self, report, options, column_group_key) -> SQL:
         #pylint: disable=sql-injection
-        tables, where_clause, where_params = report._query_get(options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
 
-        where_clause = f"AND {where_clause}"
         tax_types = tuple(self._vat_book_get_selected_tax_types(options))
 
-        return self.env['account.ar.vat.line']._ar_vat_line_build_query(tables, where_clause, where_params, column_group_key, tax_types)
+        return self.env['account.ar.vat.line']._ar_vat_line_build_query(table_references, search_condition, column_group_key, tax_types)
 
     def _create_report_line(self, report, options, move_vals, move_id, number_values):
         """ Create a standard (non total) line for the report

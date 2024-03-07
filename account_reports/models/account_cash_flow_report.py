@@ -193,21 +193,23 @@ class CashFlowReportCustomHandler(models.AbstractModel):
 
         return tuple(payment_account_ids)
 
-    def _get_move_ids_query(self, report, payment_account_ids, column_group_options):
+    def _get_move_ids_query(self, report, payment_account_ids, column_group_options) -> SQL:
         ''' Get all liquidity moves to be part of the cash flow statement.
         :param payment_account_ids: A tuple containing all account.account's ids being used in a liquidity journal.
         :return: query: The SQL query to retrieve the move IDs.
         '''
 
-        tables, where_clause, where_params = report._query_get(column_group_options, 'strict_range', [('account_id', 'in', list(payment_account_ids))])
-        query = f'''
+        table_references, search_condition = report._get_sql_table_expression(column_group_options, 'strict_range', [('account_id', 'in', list(payment_account_ids))])
+        return SQL(
+            '''
             SELECT
                 array_agg(DISTINCT account_move_line.move_id) AS move_id
-            FROM {tables}
-            WHERE {where_clause}
-        '''
-
-        return self.env.cr.mogrify(query, where_params).decode(self.env.cr.connection.encoding)
+            FROM %(table_references)s
+            WHERE %(search_condition)s
+            ''',
+            table_references=table_references,
+            search_condition=search_condition,
+        )
 
     def _compute_liquidity_balance(self, report, options, currency_table_query, payment_account_ids, date_scope):
         ''' Compute the balance of all liquidity accounts to populate the following sections:
@@ -271,7 +273,7 @@ class CashFlowReportCustomHandler(models.AbstractModel):
         account_name = self.with_context(lang=lang).env['account.account']._field_to_sql('account_account', 'name')
 
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            move_ids_query = SQL(self._get_move_ids_query(report, payment_account_ids, column_group_options))
+            move_ids_query = self._get_move_ids_query(report, payment_account_ids, column_group_options)
 
             queries.append(SQL(
                 '''
@@ -395,7 +397,7 @@ class CashFlowReportCustomHandler(models.AbstractModel):
         queries = []
 
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            move_ids_query = SQL(self._get_move_ids_query(report, payment_account_ids, column_group_options))
+            move_ids_query = self._get_move_ids_query(report, payment_account_ids, column_group_options)
 
             queries.append(SQL(
                 '''

@@ -15,6 +15,7 @@ from werkzeug.urls import url_encode
 
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import RedirectWarning, UserError, ValidationError
+from odoo.tools import SQL
 
 # Order number is constrained by this pattern, an example is given.
 ORDER_NUMBER_PATTERN = re.compile('^[A-Z]{3}[0-6][0-9][0-9]{5}(/)[0-9]{2}$')
@@ -181,9 +182,10 @@ class XmlPolizasExportWizard(models.TransientModel):
     def _do_query(self, ledger, options):
         """ Execute the query
         """
-        tables, where_clause, where_params = ledger._query_get(options, domain=False, date_scope='strict_range')
-        ct_query = self.env['account.report']._get_query_currency_table(options)
-        query = f'''
+        table_references, search_condition = ledger._get_sql_table_expression(options, domain=False, date_scope='strict_range')
+        ct_query = SQL(self.env['account.report']._get_query_currency_table(options))
+        query = SQL(
+            '''
             SELECT
                 account_move_line.id,
                 account_move_line.name,
@@ -203,20 +205,24 @@ class XmlPolizasExportWizard(models.TransientModel):
                 move.l10n_mx_edi_cfdi_uuid    AS l10n_mx_edi_cfdi_uuid,
                 partner.vat                   AS partner_vat,
                 country.code                  AS country_code
-            FROM {tables}
+            FROM %(table_references)s
             LEFT JOIN account_move move          ON move.id = account_move_line.move_id
-            LEFT JOIN {ct_query}                 ON currency_table.company_id = account_move_line.company_id
+            LEFT JOIN %(ct_query)s                 ON currency_table.company_id = account_move_line.company_id
             LEFT JOIN res_company company        ON company.id = account_move_line.company_id
             LEFT JOIN account_account account    ON account.id = account_move_line.account_id
             LEFT JOIN account_journal journal    ON journal.id = account_move_line.journal_id
             LEFT JOIN res_currency currency      ON currency.id = account_move_line.currency_id
             LEFT JOIN res_partner partner        ON account_move_line.partner_id = partner.id
             LEFT JOIN res_country country        ON partner.country_id = country.id
-            WHERE {where_clause}
+            WHERE %(search_condition)s
             ORDER BY account_move_line.date, account_move_line.id
-        '''
+            ''',
+            table_references=table_references,
+            ct_query=ct_query,
+            search_condition=search_condition,
+        )
         self.env['account.move.line'].flush_model()
-        self.env.cr.execute(query, where_params)
+        self.env.cr.execute(query)
 
         result = self._cr.dictfetchall()
 

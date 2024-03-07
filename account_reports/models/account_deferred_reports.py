@@ -6,7 +6,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import models, fields, _, api, Command
 from odoo.exceptions import UserError
-from odoo.tools import groupby
+from odoo.tools import groupby, SQL
 from odoo.addons.account_accountant.models.account_move import DEFERRED_DATE_MIN, DEFERRED_DATE_MAX
 
 
@@ -56,33 +56,38 @@ class DeferredReportCustomHandler(models.AbstractModel):
     @api.model
     def _get_select(self):
         return [
-            "account_move_line.id AS line_id",
-            "account_move_line.account_id AS account_id",
-            "account_move_line.partner_id AS partner_id",
-            "account_move_line.name AS line_name",
-            "account_move_line.deferred_start_date AS deferred_start_date",
-            "account_move_line.deferred_end_date AS deferred_end_date",
-            "account_move_line.deferred_end_date - account_move_line.deferred_start_date AS diff_days",
-            "account_move_line.balance AS balance",
-            "account_move_line.analytic_distribution AS analytic_distribution",
-            "account_move_line__move_id.id as move_id",
-            "account_move_line__move_id.name AS move_name",
-            "account_move_line__account_id.name AS account_name",
+            SQL("account_move_line.id AS line_id"),
+            SQL("account_move_line.account_id AS account_id"),
+            SQL("account_move_line.partner_id AS partner_id"),
+            SQL("account_move_line.name AS line_name"),
+            SQL("account_move_line.deferred_start_date AS deferred_start_date"),
+            SQL("account_move_line.deferred_end_date AS deferred_end_date"),
+            SQL("account_move_line.deferred_end_date - account_move_line.deferred_start_date AS diff_days"),
+            SQL("account_move_line.balance AS balance"),
+            SQL("account_move_line.analytic_distribution AS analytic_distribution"),
+            SQL("account_move_line__move_id.id as move_id"),
+            SQL("account_move_line__move_id.name AS move_name"),
+            SQL("account_move_line__account_id.name AS account_name"),
         ]
 
     def _get_lines(self, report, options, filter_already_generated=False):
         domain = self._get_domain(report, options, filter_already_generated)
-        tables, where_clause, where_params = report._query_get(options, domain=domain, date_scope='from_beginning')
-        select_clause = ', '.join(self._get_select())
+        table_references, search_condition = report._get_sql_table_expression(options, domain=domain, date_scope='from_beginning')
+        select_clause = SQL(', ').join(self._get_select())
 
-        query = f"""
-        SELECT {select_clause}
-        FROM {tables}
-        WHERE {where_clause}
-        ORDER BY "account_move_line"."deferred_start_date", "account_move_line"."id"
-        """
+        query = SQL(
+            """
+            SELECT %(select_clause)s
+            FROM %(table_references)s
+            WHERE %(search_condition)s
+            ORDER BY "account_move_line"."deferred_start_date", "account_move_line"."id"
+            """,
+            select_clause=select_clause,
+            table_references=table_references,
+            search_condition=search_condition,
+        )
 
-        self.env.cr.execute(query, where_params)
+        self.env.cr.execute(query)
         res = self.env.cr.dictfetchall()
         return res
 

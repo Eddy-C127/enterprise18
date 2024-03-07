@@ -3,6 +3,7 @@
 from odoo import models, fields, _
 from odoo.exceptions import UserError
 from odoo.release import version
+from odoo.tools import SQL
 
 try:
     from stdnum.au.abn import is_valid_abn
@@ -110,16 +111,17 @@ class AustralianReportCustomHandler(models.AbstractModel):
             'name': _('TPAR'), 'sequence': 30, 'action': 'export_file', 'action_param': 'get_txt', 'file_export_type': _('TPAR')
         }]
 
-    def _build_query(self, options, column_group_key=None):
-        tables, where_clause, where_params = self.env.ref('l10n_au_reports.tpar_report')._query_get(options, 'strict_range')
+    def _build_query(self, options, column_group_key=None) -> SQL:
+        table_references, search_condition = self.env.ref('l10n_au_reports.tpar_report')._get_sql_table_expression(options, 'strict_range')
 
         self.env['account.move'].flush_model()
         self.env['account.move.line'].flush_model()
         self.env['res.partner'].flush_model()
 
-        query = f"""
+        query = SQL(
+            """
             SELECT
-                %s AS column_group_key,
+                %(column_group_key)s AS column_group_key,
                 payee.id as id,
                 payee.vat as abn,
                 payee.name as name,
@@ -150,42 +152,43 @@ class AustralianReportCustomHandler(models.AbstractModel):
                 -- for the financial year. This amount includes any amounts withheld on the market value
                 -- of non-cash benefits. The amount must be reported in whole dollars.
                 COALESCE(-SUM(
-                    CASE WHEN aml_tag.account_account_tag_id = %s THEN account_move_line.balance ELSE 0 END
+                    CASE WHEN aml_tag.account_account_tag_id = %(tag_withheld_id)s THEN account_move_line.balance ELSE 0 END
                 ), 0) AS tax_withheld,
                 -- # 6.63
                 -- the total of any GST included in the amounts paid
                 COALESCE(SUM(
-                    CASE WHEN aml_tag.account_account_tag_id = %s THEN account_move_line.balance ELSE 0 END
+                    CASE WHEN aml_tag.account_account_tag_id = %(tag_tpar_id)s THEN account_move_line.balance ELSE 0 END
                 ), 0) AS total_gst
-            FROM {tables}
+            FROM %(table_references)s
             RIGHT JOIN res_partner payee ON payee.id = account_move_line.partner_id
             LEFT JOIN res_country_state payee_state ON payee_state.id = payee.state_id
             LEFT JOIN res_country payee_country ON payee_country.id = payee.country_id
             LEFT JOIN res_partner_bank payee_bank ON payee_bank.partner_id = payee.id
             LEFT JOIN account_journal journal ON account_move_line.journal_id = journal.id
             LEFT JOIN account_account_tag_account_move_line_rel aml_tag ON account_move_line.id = aml_tag.account_move_line_id
-            WHERE {where_clause}
+            WHERE %(search_condition)s
             GROUP BY payee.id, payee.vat, payee.name, payee.name, payee.street, payee.street2, payee.city, payee_state.name, payee_state.code, payee.zip, payee_country.name, payee.phone, payee_bank.sanitized_acc_number, payee.email
-            HAVING BOOL_OR(aml_tag.account_account_tag_id IN (%s, %s))
+            HAVING BOOL_OR(aml_tag.account_account_tag_id IN (%(tag_withheld_id)s, %(tag_tpar_id)s))
             ORDER BY payee.name
-        """
-        tag_tpar_id = self.env.ref('l10n_au.service_tag').id
-        tag_withheld_id = self.env.ref('l10n_au.tax_withheld_tag').id
-        query_params = [column_group_key, tag_withheld_id, tag_tpar_id, *where_params, tag_withheld_id, tag_tpar_id]
+            """,
+            column_group_key=column_group_key,
+            tag_withheld_id=self.env.ref('l10n_au.tax_withheld_tag').id,
+            tag_tpar_id=self.env.ref('l10n_au.service_tag').id,
+            table_references=table_references,
+            search_condition=search_condition,
+        )
 
-        return query, query_params
+        return query
 
     def _execute_query(self, options, raise_warning=False):
         query_list = []
-        full_query_params = []
 
         for column_group_key, column_group_options in self.env['account.report']._split_options_per_column_group(options).items():
-            query, params = self._build_query(column_group_options, column_group_key)
-            query_list.append(f"({query})")
-            full_query_params += params
+            query = self._build_query(column_group_options, column_group_key)
+            query_list.append(SQL("(%s)", query))
 
-        full_query = " UNION ALL ".join(query_list)
-        self._cr.execute(full_query, full_query_params)
+        full_query = SQL(" UNION ALL ").join(query_list)
+        self._cr.execute(full_query)
         results = self._cr.dictfetchall()
 
         # small optional sanity check

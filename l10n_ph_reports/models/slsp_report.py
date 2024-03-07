@@ -8,7 +8,7 @@ from PIL import ImageFont
 
 from odoo import api, models, _, fields
 from odoo.exceptions import UserError
-from odoo.tools import date_utils, float_repr
+from odoo.tools import date_utils, float_repr, SQL
 from odoo.tools.misc import format_date, get_lang, file_path
 
 
@@ -53,7 +53,6 @@ class SlspCustomHandler(models.AbstractModel):
     def _build_month_lines(self, report, options):
         """ Fetches the months for which we have entries *that have tax grids* and build a report line for each of them. """
         month_lines = []
-        params = []
         queries = []
 
         # 1) Build the queries to get the months
@@ -61,24 +60,25 @@ class SlspCustomHandler(models.AbstractModel):
             domain = [('move_id.move_type', '=', options['move_type'])]
             if not column_group_options.get('include_no_tin'):
                 domain.append(('partner_id.vat', '!=', False))
-            tables, where_clause, where_params = report._query_get(column_group_options, "strict_range", domain)
-            params.append(column_group_key)
-            params += where_params
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, "strict_range", domain)
             # The joins are there to filter out months for which we would not have any lines in the report.
-            queries.append(
-                f"""
+            queries.append(SQL(
+                """
                   SELECT (date_trunc('month', account_move_line.date::date) + interval '1 month' - interval '1 day')::date AS taxable_month,
-                         %s                                                                                                AS column_group_key
-                    FROM {tables}
+                         %(column_group_key)s                                                                              AS column_group_key
+                    FROM %(table_references)s
                     JOIN account_account_tag_account_move_line_rel account_tag_rel ON account_tag_rel.account_move_line_id = account_move_line.id
                     JOIN account_account_tag account_tag ON account_tag.id = account_tag_rel.account_account_tag_id
-                   WHERE {where_clause}
+                   WHERE %(search_condition)s
                 GROUP BY taxable_month
                 ORDER BY taxable_month DESC
-            """
-            )
+                """,
+                column_group_key=column_group_key,
+                table_references=table_references,
+                search_condition=search_condition,
+            ))
 
-        self.env.cr.execute(" UNION ALL ".join(queries), params)
+        self.env.cr.execute(SQL(" UNION ALL ").join(queries))
 
         # 2) Make the lines
         unfold_all = options['export_mode'] == 'print' or options.get('unfold_all')
@@ -136,7 +136,6 @@ class SlspCustomHandler(models.AbstractModel):
         limit = report.load_more_limit + 1 if report.load_more_limit and options['export_mode'] != 'print' else None
         end_date = fields.Date.from_string(month)  # Month is already set to the last day of the month.
         start_date = date_utils.start_of(end_date, 'month')
-        params = []
         queries = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             domain = [
@@ -147,43 +146,48 @@ class SlspCustomHandler(models.AbstractModel):
             ]
             if not column_group_options.get('include_no_tin'):
                 domain.append(('partner_id.vat', '!=', False))
-            tables, where_clause, where_params = report._query_get(column_group_options, "strict_range", domain=domain)
-            tail_query, tail_params = report._get_engine_query_tail(offset, limit)
-            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
-            params.append(column_group_key)
-            params += where_params
-            params += tail_params
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, "strict_range", domain=domain)
+            tail_query = report._get_engine_query_tail(offset, limit)
+            currency_table_query = SQL(self.env['account.report']._get_query_currency_table(column_group_options))
             lang = self.env.user.lang or get_lang(self.env).code
             if self.pool['account.account.tag'].name.translate:
-                account_tag_name = f"COALESCE(account_tag.name->>'{lang}', account_tag.name->>'en_US')"
+                account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)
             else:
-                account_tag_name = 'account_tag.name'
-            queries.append(f"""
-                  SELECT %s AS column_group_key,
+                account_tag_name = SQL.identifier('account_tag', 'name')
+            queries.append(SQL(
+                """
+                  SELECT %(column_group_key)s AS column_group_key,
                          cp.vat as partner_vat,
                          case when (cp.id = p.id and cp.is_company) or cp.id != p.id then cp.name else '' end as register_name,
                          p.id as partner_id,
                          case when p.is_company = false then p.name else '' end as partner_name,
                          p.last_name || ' ' || p.first_name || ' ' || p.middle_name as formatted_partner_name,
                          p.is_company as is_company,
-                         REGEXP_REPLACE({account_tag_name}, '^[+-]', '') AS tag_name,
+                         REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '') AS tag_name,
                          SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
                              * CASE WHEN account_tag.tax_negate THEN -1 ELSE 1 END
                              * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
                          ) AS balance
-                    FROM {tables}
+                    FROM %(table_references)s
                     JOIN res_partner p ON p.id = account_move_line__move_id.partner_id
                     JOIN res_partner cp ON cp.id = p.commercial_partner_id
                     JOIN account_account_tag_account_move_line_rel account_tag_rel ON account_tag_rel.account_move_line_id = account_move_line.id
                     JOIN account_account_tag account_tag ON account_tag.id = account_tag_rel.account_account_tag_id
-                    JOIN {currency_table_query}
+                    JOIN %(currency_table_query)s
                       ON currency_table.company_id = account_move_line.company_id
-                   WHERE {where_clause}
-                GROUP BY p.id, cp.id, {account_tag_name}
-                {tail_query}
-            """)
+                   WHERE %(search_condition)s
+                GROUP BY p.id, cp.id, %(account_tag_name)s
+                %(tail_query)s
+                """,
+                column_group_key=column_group_key,
+                account_tag_name=account_tag_name,
+                table_references=table_references,
+                currency_table_query=currency_table_query,
+                search_condition=search_condition,
+                tail_query=tail_query,
+            ))
 
-        self.env.cr.execute(" UNION ALL ".join(queries), params)
+        self.env.cr.execute(SQL(" UNION ALL ").join(queries))
         return self._process_partner_lines(self.env.cr.dictfetchall(), options)
 
     def _process_partner_lines(self, data_dict, options):
@@ -297,46 +301,50 @@ class SlspCustomHandler(models.AbstractModel):
         limit = report.load_more_limit + 1 if report.load_more_limit and options['export_mode'] != 'print' else None
         end_date = fields.Date.from_string(month)
         start_date = date_utils.start_of(end_date, 'month')
-        params = []
         queries = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            tables, where_clause, where_params = report._query_get(column_group_options, "strict_range", domain=[
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, "strict_range", domain=[
                 ('move_id.move_type', '=', options['move_type']),
                 # Make sure to only fetch records that are in the parent's row month
                 ('date', '>=', start_date),
                 ('date', '<=', end_date),
                 ('move_id.partner_id', '=', partner_id),
             ])
-            tail_query, tail_params = report._get_engine_query_tail(offset, limit)
-            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
-            params.append(column_group_key)
-            params.extend(where_params)
-            params.extend(tail_params)
+            tail_query = report._get_engine_query_tail(offset, limit)
+            currency_table_query = SQL(self.env['account.report']._get_query_currency_table(column_group_options))
             lang = self.env.user.lang or get_lang(self.env).code
             if self.pool['account.account.tag'].name.translate:
-                account_tag_name = f"COALESCE(account_tag.name->>'{lang}', account_tag.name->>'en_US')"
+                account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)
             else:
-                account_tag_name = 'account_tag.name'
-            queries.append(f"""
-                  SELECT %s AS column_group_key,
+                account_tag_name = SQL.identifier('account_tag', 'name')
+            queries.append(SQL(
+                """
+                  SELECT %(column_group_key)s AS column_group_key,
                          account_move_line__move_id.id AS move_id,
                          account_move_line__move_id.name AS move_name,
-                         REGEXP_REPLACE({account_tag_name}, '^[+-]', '') AS tag_name,
+                         REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '') AS tag_name,
                          SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
                              * CASE WHEN account_tag.tax_negate THEN -1 ELSE 1 END
                              * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
                          ) AS balance
-                    FROM {tables}
+                    FROM %(table_references)s
                     JOIN account_account_tag_account_move_line_rel account_tag_rel ON account_tag_rel.account_move_line_id = account_move_line.id
                     JOIN account_account_tag account_tag ON account_tag.id = account_tag_rel.account_account_tag_id
-                    JOIN {currency_table_query}
+                    JOIN %(currency_table_query)s
                       ON currency_table.company_id = account_move_line.company_id
-                   WHERE {where_clause}
-                GROUP BY account_move_line__move_id.id, {account_tag_name}
-                {tail_query}
-            """)
+                   WHERE %(search_condition)s
+                GROUP BY account_move_line__move_id.id, %(account_tag_name)s
+                %(tail_query)s
+                """,
+                column_group_key=column_group_key,
+                account_tag_name=account_tag_name,
+                table_references=table_references,
+                currency_table_query=currency_table_query,
+                search_condition=search_condition,
+                tail_query=tail_query,
+            ))
 
-        self.env.cr.execute(" UNION ALL ".join(queries), params)
+        self.env.cr.execute(SQL(" UNION ALL ").join(queries))
         return self._process_move_lines(self.env.cr.dictfetchall(), options)
 
     def _process_move_lines(self, data_dict, options):
@@ -401,7 +409,6 @@ class SlspCustomHandler(models.AbstractModel):
 
     def _build_grand_total_line(self, options):
         """ The grand total line is the sum of all values in the given reporting period. """
-        params = []
         queries = []
         report = self.env.ref("l10n_ph_reports.slp_report")
 
@@ -409,33 +416,38 @@ class SlspCustomHandler(models.AbstractModel):
             domain = [('move_id.move_type', '=', options['move_type'])]
             if not column_group_options.get('include_no_tin'):
                 domain.append(('partner_id.vat', '!=', False))
-            tables, where_clause, where_params = report._query_get(column_group_options, "strict_range", domain=domain)
-            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
-            params.append(column_group_key)
-            params += where_params
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, "strict_range", domain=domain)
+            currency_table_query = SQL(self.env['account.report']._get_query_currency_table(column_group_options))
             lang = self.env.user.lang or get_lang(self.env).code
             if self.pool['account.account.tag'].name.translate:
-                account_tag_name = f"COALESCE(account_tag.name->>'{lang}', account_tag.name->>'en_US')"
+                account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)
             else:
-                account_tag_name = 'account_tag.name'
-            queries.append(f"""
-                  SELECT %s AS column_group_key,
-                         REGEXP_REPLACE({account_tag_name}, '^[+-]', '') AS tag_name,
+                account_tag_name = SQL.identifier('account_tag', 'name')
+            queries.append(SQL(
+                """
+                  SELECT %(column_group_key)s AS column_group_key,
+                         REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '') AS tag_name,
                          SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
                              * CASE WHEN account_tag.tax_negate THEN -1 ELSE 1 END
                              * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
                          ) AS balance
-                    FROM {tables}
+                    FROM %(table_references)s
                     JOIN res_partner p ON p.id = account_move_line__move_id.partner_id
                     JOIN res_partner cp ON cp.id = p.commercial_partner_id
                     JOIN account_account_tag_account_move_line_rel account_tag_rel ON account_tag_rel.account_move_line_id = account_move_line.id
                     JOIN account_account_tag account_tag ON account_tag.id = account_tag_rel.account_account_tag_id
-                    JOIN {currency_table_query}
+                    JOIN %(currency_table_query)s
                       ON currency_table.company_id = account_move_line.company_id
-                   WHERE {where_clause}
-                GROUP BY column_group_key, {account_tag_name}
-            """)
-        self.env.cr.execute(" UNION ALL ".join(queries), params)
+                   WHERE %(search_condition)s
+                GROUP BY column_group_key, %(account_tag_name)s
+                """,
+                column_group_key=column_group_key,
+                account_tag_name=account_tag_name,
+                table_references=table_references,
+                currency_table_query=currency_table_query,
+                search_condition=search_condition,
+            ))
+        self.env.cr.execute(SQL(" UNION ALL ").join(queries))
         results = self.env.cr.dictfetchall()
         return results and self._get_report_line_grand_total(options, self._process_grand_total_line(results, options))
 

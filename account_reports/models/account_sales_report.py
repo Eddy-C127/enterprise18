@@ -234,8 +234,8 @@ class ECSalesReportCustomHandler(models.AbstractModel):
         company_currency = self.env.company.currency_id
 
         # Execute the queries and dispatch the results.
-        query, params = self._get_query_sums(report, options)
-        self._cr.execute(query, params)
+        query = self._get_query_sums(report, options)
+        self._cr.execute(query)
 
         dictfetchall = self._cr.dictfetchall()
         for res in dictfetchall:
@@ -248,12 +248,12 @@ class ECSalesReportCustomHandler(models.AbstractModel):
 
         return [(partner, groupby_partners[partner.id]) for partner in partners.sorted()]
 
-    def _get_query_sums(self, report, options):
+    def _get_query_sums(self, report, options) -> SQL:
         ''' Construct a query retrieving all the aggregated sums to build the report. It includes:
         - sums for all partners.
         - sums for the initial balances.
         :param options:             The report options.
-        :return:                    (query, params)
+        :return:                    query as SQL object
         '''
         queries = []
         # Create the currency table.

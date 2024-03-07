@@ -4,6 +4,7 @@ from lxml import etree, objectify
 
 from odoo import _, fields, models
 from odoo.exceptions import RedirectWarning, UserError
+from odoo.tools import SQL
 
 class EstonianTaxReportCustomHandler(models.AbstractModel):
     _name = 'l10n_ee.tax.report.handler'
@@ -168,19 +169,20 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
             (next_groupby.split(',') if next_groupby else []) +
             ([current_groupby] if current_groupby else []))
 
-        tables, where_clause, where_params = report._query_get(options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
 
         if current_groupby:
-            select_from_groupby = f'account_move_line.{current_groupby} AS grouping_key,'
-            groupby_clause = f', account_move_line.{current_groupby}'
+            _current_groupby_column = SQL.identifier('account_move_line', current_groupby)
+            select_from_groupby = SQL("%s AS grouping_key,", _current_groupby_column)
+            groupby_clause = SQL(', %s', _current_groupby_column)
         else:
-            select_from_groupby = ''
-            groupby_clause = ''
+            select_from_groupby = SQL()
+            groupby_clause = SQL()
 
-        with_clause = ''
-        select_part_specific = ''
-        select_comments = ''
-        where_part_specific = ''
+        with_clause = SQL()
+        select_part_specific = SQL()
+        select_comments = SQL()
+        where_part_specific = SQL()
 
         if kmd_inf_part == 'a':
             if current_groupby == 'tax_group_id':
@@ -190,7 +192,8 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
                 # Code 3 is used on every line of an invoice if:
                 # -> There are 2 or more standard taxes of 20, 9 or 5 percent
                 # -> There is a 0 percent or exempt tax on the invoice, amongst others
-                select_comments = """,
+                select_comments = SQL(
+                    """,
                     CONCAT_WS(
                       ',',
                       STRING_AGG(DISTINCT account_tax.l10n_ee_kmd_inf_code, ','),
@@ -202,11 +205,13 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
                         END
                       )
                     ) AS comments
-                """
+                    """,
+                )
                 # Temporary table to list per invoice:
                 # * how many of the 20, 9 and 5 percent taxes we have
                 # * whether we have 0 percent taxes
-                with_clause = """
+                with_clause = SQL(
+                    """
                     WITH move_taxes AS (
                           SELECT aml.move_id AS move_id,
                                  COUNT(DISTINCT account_tax.amount) AS tax_rates_count
@@ -219,13 +224,18 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
                               OR account_tax.l10n_ee_kmd_inf_code != '2')
                         GROUP BY aml.move_id
                     )
-                """
-                tables += """
+                    """,
+                )
+                table_references = SQL(
+                    """       %s
                     LEFT JOIN move_taxes
                            ON move_taxes.move_id = account_move_line__move_id.id
-                """
+                    """,
+                    table_references,
+                )
 
-            select_part_specific = """
+            select_part_specific = SQL(
+                """
                 account_move_line__move_id.amount_untaxed_signed AS invoice_total,
                 (
                   CASE
@@ -242,11 +252,14 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
                     ELSE 0
                   END
                 ) AS sum_for_rate_in_period
-            """
+                """,
+            )
 
             # When we are in part A, we only want the invoices that have one or more lines reported on lines 1, 1¹, 2 or 2¹
             # of the tax report
-            groupby_clause += """
+            groupby_clause = SQL(
+                """
+                       %s
                 HAVING SUM(
                          CASE
                            WHEN account_account_tag.name->>'en_US' IN ('+1', '-1', '+1_1', '-1_1', '+2', '-2', '+2_1', '-2_1')
@@ -254,19 +267,25 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
                            ELSE 0
                          END
                        ) != 0
-            """
+                """,
+                groupby_clause,
+            )
 
         elif kmd_inf_part == 'b':
             if current_groupby == 'move_id':
-                select_comments = """,
+                select_comments = SQL(
+                    """,
                     STRING_AGG(DISTINCT account_tax.l10n_ee_kmd_inf_code, ',') AS comments
-                """
+                    """,
+                )
 
-            select_part_specific = """
+            select_part_specific = SQL(
+                """
                 -account_move_line__move_id.amount_total_signed AS invoice_total,
                 SUM(account_move_line.balance) AS vat_in_period
-            """
-            where_part_specific = "AND account_account_tag.name->>'en_US' IN ('+5', '-5', '+5_1', '-5_1', '+5_2', '-5_2', '+5_3', '-5_3', '+5_4', '-5_4')"
+                """,
+            )
+            where_part_specific = SQL("AND account_account_tag.name->>'en_US' IN ('+5', '-5', '+5_1', '-5_1', '+5_2', '-5_2', '+5_3', '-5_3', '+5_4', '-5_4')")
 
         # Depending on the KMD INF Part, we need to find:
         #
@@ -285,17 +304,18 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
         #   * invoice number
         # where we have at least one line reported on line 5 of the VAT report.
         #
-        query = f"""
-                {with_clause}
-                SELECT {select_from_groupby}
+        query = SQL(
+            """
+                %(with_clause)s
+                SELECT %(select_from_groupby)s
                        res_partner.company_registry AS partner_reg_code,
                        res_partner.name AS partner_name,
-                       account_move_line__move_id.{'name' if kmd_inf_part == 'a' else 'ref'} AS invoice_number,
+                       account_move_line__move_id.%(invoice_number_column)s AS invoice_number,
                        account_move_line__move_id.invoice_date AS invoice_date,
-                       {select_part_specific}
-                       {select_comments}
+                       %(select_part_specific)s
+                       %(select_comments)s
                        -- The `account_move_line` table are the tax lines
-                  FROM {tables}
+                  FROM %(table_references)s
             INNER JOIN account_move_line_account_tax_rel AS aml_tax_rel
                     ON aml_tax_rel.account_tax_id = account_move_line.tax_line_id
                        -- These are the base amounts linked to the tax line
@@ -308,27 +328,36 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
             INNER JOIN res_country
                     ON res_country.id = res_partner.country_id
             INNER JOIN account_account_tag_account_move_line_rel
-                    ON account_account_tag_account_move_line_rel.account_move_line_id = {'aml_base' if kmd_inf_part == 'a' else 'account_move_line'}.id
+                    ON account_account_tag_account_move_line_rel.account_move_line_id = %(aml_table)s.id
             INNER JOIN account_account_tag
                     ON account_account_tag.id = account_account_tag_account_move_line_rel.account_account_tag_id
-                 WHERE {where_clause}
+                 WHERE %(search_condition)s
                    AND res_country.code = 'EE'
                    AND res_partner.is_company IS TRUE
-                   AND account_move_line__move_id.move_type IN %s
+                   AND account_move_line__move_id.move_type IN %(move_types)s
                        -- Only link tax and base lines from the same invoice
                    AND account_move_line.move_id = aml_base.move_id
-                   {where_part_specific}
+                   %(where_part_specific)s
               GROUP BY res_partner.id,
                        account_move_line__move_id.id
-                       {groupby_clause}
+                       %(groupby_clause)s
               ORDER BY invoice_date,
                        invoice_number
-        """
-        where_params.extend([
-            ('out_invoice', 'out_refund') if kmd_inf_part == 'a' else ('in_invoice', 'in_refund')
-        ])
+            """,
+            with_clause=with_clause,
+            select_from_groupby=select_from_groupby,
+            invoice_number_column=SQL.identifier('name' if kmd_inf_part == 'a' else 'ref'),
+            select_part_specific=select_part_specific,
+            select_comments=select_comments,
+            table_references=table_references,
+            aml_table=SQL.identifier('aml_base' if kmd_inf_part == 'a' else 'account_move_line'),
+            search_condition=search_condition,
+            move_types=('out_invoice', 'out_refund') if kmd_inf_part == 'a' else ('in_invoice', 'in_refund'),
+            where_part_specific=where_part_specific,
+            groupby_clause=groupby_clause,
+        )
 
-        self.env.cr.execute(query, where_params)
+        self.env.cr.execute(query)
         query_res_lines = self.env.cr.dictfetchall()
 
         return build_result(query_res_lines)

@@ -203,7 +203,10 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def _saft_fill_report_tax_details_values(self, report, options, values):
         tax_vals_map = {}
 
-        tables, where_clause, where_params = report._query_get(options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+        tables = table_references.code
+        where_clause = search_condition.code
+        where_params = table_references.params + search_condition.params
         tax_details_query, tax_details_params = self.env['account.move.line']._get_query_tax_details(tables, where_clause, where_params)
         tax_details_query = SQL(tax_details_query, *tax_details_params)
         lang = self.env.user.lang or get_lang(self.env).code
@@ -296,17 +299,21 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
         if all_partners:
             domain = [('partner_id', 'in', tuple(all_partners.ids))]
-            tables, where_clause, where_params = report._query_get(new_options, 'strict_range', domain=domain)
-            self._cr.execute(f'''
+            table_references, search_condition = report._get_sql_table_expression(new_options, 'strict_range', domain=domain)
+            self._cr.execute(SQL(
+                '''
                 SELECT
                     account_move_line.partner_id,
                     SUM(account_move_line.balance)
-                FROM {tables}
+                FROM %(table_references)s
                 JOIN account_account account ON account.id = account_move_line.account_id
-                WHERE {where_clause}
+                WHERE %(search_condition)s
                 AND account.account_type IN ('asset_receivable', 'liability_payable')
                 GROUP BY account_move_line.partner_id
-            ''', where_params)
+                ''',
+                table_references=table_references,
+                search_condition=search_condition,
+            ))
 
             for partner_id, balance in self._cr.fetchall():
                 res['partner_detail_map'][partner_id]['type'] = 'customer' if balance >= 0.0 else 'supplier'

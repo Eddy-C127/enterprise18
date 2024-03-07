@@ -6,7 +6,7 @@ from datetime import datetime
 from io import StringIO
 
 from odoo import _, api, models
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, SQL
 from odoo.exceptions import UserError
 
 
@@ -142,7 +142,7 @@ class PeruvianTaxPleReportCustomHandler(models.AbstractModel):
             return result
 
         report = self.env["account.report"].browse(options["report_id"])
-        _tables, where_clause, where_params = report._query_get(options, 'strict_range')
+        _table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
         if self.env.company.chart_template != 'pe':
             return build_result([])
         ref = self.env.ref
@@ -163,7 +163,8 @@ class PeruvianTaxPleReportCustomHandler(models.AbstractModel):
         except ValueError:
             raise UserError(_("In order to generate the PLE reports, please update l10n_pe module to update the required data."))
 
-        query = f"""
+        query = SQL(
+            """
 SELECT
     account_move_line__move_id.id,
     account_move_line__move_id.name as move_name,
@@ -210,53 +211,53 @@ SELECT
     ldt_debit_origin.code as debit_origin_document_type,
     partner_company.vat  AS company_vat,
     company.name AS company_name,
-    sum(CASE WHEN btg.id = {tax_group_igv}
+    sum(CASE WHEN btg.id = %(tax_group_igv)s
         THEN account_move_line.balance ELSE Null END) as base_igv,
-    sum(CASE WHEN ntg.id = {tax_group_igv}
+    sum(CASE WHEN ntg.id = %(tax_group_igv)s
         THEN account_move_line.balance ELSE Null END) as vat_igv,
-    sum(CASE WHEN btg.id = {tax_group_igv_g_ng}
+    sum(CASE WHEN btg.id = %(tax_group_igv_g_ng)s
         THEN account_move_line.balance ELSE Null END) as base_igv_g_ng,
-    sum(CASE WHEN ntg.id = {tax_group_igv_g_ng}
+    sum(CASE WHEN ntg.id = %(tax_group_igv_g_ng)s
         THEN account_move_line.balance ELSE Null END) as vat_igv_g_ng,
-    sum(CASE WHEN btg.id = {tax_group_igv_ng}
+    sum(CASE WHEN btg.id = %(tax_group_igv_ng)s
         THEN account_move_line.balance ELSE Null END) as base_igv_ng,
-    sum(CASE WHEN ntg.id = {tax_group_igv_ng}
+    sum(CASE WHEN ntg.id = %(tax_group_igv_ng)s
         THEN account_move_line.balance ELSE Null END) as vat_igv_ng,
-    sum(CASE WHEN btg.id = {tax_group_exp}
+    sum(CASE WHEN btg.id = %(tax_group_exp)s
         THEN account_move_line.balance ELSE Null END) as base_exp,
-    sum(CASE WHEN ntg.id = {tax_group_exp}
+    sum(CASE WHEN ntg.id = %(tax_group_exp)s
         THEN account_move_line.balance ELSE Null END) as vat_exp,
-    sum(CASE WHEN btg.id = {tax_group_exo}
+    sum(CASE WHEN btg.id = %(tax_group_exo)s
         THEN account_move_line.balance ELSE Null END) as base_exo,
-    sum(CASE WHEN ntg.id = {tax_group_exo}
+    sum(CASE WHEN ntg.id = %(tax_group_exo)s
         THEN account_move_line.balance ELSE Null END) as vat_exo,
-    sum(CASE WHEN btg.id = {tax_group_ina}
+    sum(CASE WHEN btg.id = %(tax_group_ina)s
         THEN account_move_line.balance ELSE Null END) as base_ina,
-    sum(CASE WHEN ntg.id = {tax_group_ina}
+    sum(CASE WHEN ntg.id = %(tax_group_ina)s
         THEN account_move_line.balance ELSE Null END) as vat_ina,
-    sum(CASE WHEN btg.id = {tax_group_ivap}
+    sum(CASE WHEN btg.id = %(tax_group_ivap)s
         THEN account_move_line.balance ELSE Null END) as base_ivap,
-    sum(CASE WHEN ntg.id = {tax_group_ivap}
+    sum(CASE WHEN ntg.id = %(tax_group_ivap)s
         THEN account_move_line.balance ELSE Null END) as vat_ivap,
-    sum(CASE WHEN btg.id = {tax_group_icbper}
+    sum(CASE WHEN btg.id = %(tax_group_icbper)s
         THEN account_move_line.balance ELSE Null END) as base_icbper,
-    sum(CASE WHEN ntg.id = {tax_group_icbper}
+    sum(CASE WHEN ntg.id = %(tax_group_icbper)s
         THEN account_move_line.balance ELSE Null END) as vat_icbper,
-    sum(CASE WHEN btg.id = {tax_group_isc}
+    sum(CASE WHEN btg.id = %(tax_group_isc)s
         THEN account_move_line.balance ELSE Null END) as base_isc,
-    sum(CASE WHEN ntg.id = {tax_group_isc}
+    sum(CASE WHEN ntg.id = %(tax_group_isc)s
         THEN account_move_line.balance ELSE Null END) as vat_isc,
-    sum(CASE WHEN btg.id = {tax_group_gra}
+    sum(CASE WHEN btg.id = %(tax_group_gra)s
         THEN account_move_line.balance ELSE Null END) as base_free,
-    sum(CASE WHEN ntg.id = {tax_group_gra}
+    sum(CASE WHEN ntg.id = %(tax_group_gra)s
         THEN account_move_line.balance ELSE Null END) as vat_free,
-    sum(CASE WHEN btg.id = {tax_group_other}
+    sum(CASE WHEN btg.id = %(tax_group_other)s
         THEN account_move_line.balance ELSE Null END) as base_other,
-    sum(CASE WHEN ntg.id = {tax_group_other}
+    sum(CASE WHEN ntg.id = %(tax_group_other)s
         THEN account_move_line.balance ELSE Null END) as vat_other,
-    sum(CASE WHEN btg.id = {tax_group_ret}
+    sum(CASE WHEN btg.id = %(tax_group_ret)s
         THEN account_move_line.balance ELSE Null END) as base_withholding,
-    sum(CASE WHEN ntg.id = {tax_group_ret}
+    sum(CASE WHEN ntg.id = %(tax_group_ret)s
         THEN account_move_line.balance ELSE Null END) as vat_withholding,
     account_move_line__move_id.amount_total as total,
     account_move_line__move_id.amount_total_signed as amount_currency
@@ -328,7 +329,7 @@ LEFT JOIN
     res_partner AS partner_company
     ON partner_company.id = company.partner_id
 WHERE
-    {where_clause}
+    %(search_condition)s
     AND (account_move_line.tax_line_id is not null or btg.l10n_pe_edi_code is not null)
     AND aj.l10n_latam_use_documents
 GROUP BY
@@ -337,9 +338,23 @@ GROUP BY
     ldt_debit_origin.id, dua.id, ldt_dua.id, rpc.id, lprt.id, company.id, partner_company.id
 ORDER BY
     account_move_line__move_id.date, account_move_line__move_id.name
-        """
+            """,
+            tax_group_igv=tax_group_igv,
+            tax_group_igv_g_ng=tax_group_igv_g_ng,
+            tax_group_igv_ng=tax_group_igv_ng,
+            tax_group_exp=tax_group_exp,
+            tax_group_exo=tax_group_exo,
+            tax_group_ina=tax_group_ina,
+            tax_group_ivap=tax_group_ivap,
+            tax_group_icbper=tax_group_icbper,
+            tax_group_isc=tax_group_isc,
+            tax_group_gra=tax_group_gra,
+            tax_group_other=tax_group_other,
+            tax_group_ret=tax_group_ret,
+            search_condition=search_condition,
+        )
         self.env.flush_all()
-        self.env.cr.execute(query, where_params)
+        self.env.cr.execute(query)
         query_res_lines = self.env.cr.dictfetchall()
 
         return build_result(query_res_lines)

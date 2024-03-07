@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, api
+from odoo.tools import SQL
 
 
 class DeferredReportCustomHandler(models.AbstractModel):
@@ -9,7 +10,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
 
     @api.model
     def _get_select(self):
-        return super()._get_select() + ["account_move_line.vehicle_id AS vehicle_id"]
+        return super()._get_select() + [SQL("account_move_line.vehicle_id AS vehicle_id")]
 
     @api.model
     def _get_grouping_keys_deferred_lines(self, filter_already_generated=False):

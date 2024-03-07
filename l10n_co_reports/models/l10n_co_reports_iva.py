@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models
+from odoo.tools import SQL
 
 
 class IVAReportCustomHandler(models.AbstractModel):
@@ -16,54 +17,70 @@ class IVAReportCustomHandler(models.AbstractModel):
 
     def _get_query_results(self, report, options, domain, bimestre=False):
         queries = []
-        params = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
 
-            tables, where_clause, where_params = report._query_get(column_group_options, 'strict_range', domain=domain)
-            queries.append(f"""
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'strict_range', domain=domain)
+            aa_code_like = '2408%%'
+            bimestre_expression = SQL('CAST(FLOOR((EXTRACT(MONTH FROM account_move_line.date) + 1) / 2) AS INT)')
+            bimestre_column = SQL('%s AS bimestre,', bimestre_expression) if bimestre else SQL()
+            bimestre_having = SQL(
+                '''
+                HAVING SUM(
+                    CASE
+                    WHEN aa.code NOT LIKE %(aa_code_like)s AND account_move_line.credit > 0
+                        THEN account_move_line.tax_base_amount
+                    WHEN aa.code NOT LIKE %(aa_code_like)s AND account_move_line.debit > 0
+                        THEN account_move_line.tax_base_amount * -1
+                    ELSE 0
+                    END
+                ) != 0
+                ''',
+                aa_code_like=aa_code_like,
+            ) if bimestre else SQL()
+            queries.append(SQL(
+                """
                 SELECT
-                    %s AS column_group_key,
+                    %(column_group_key)s AS column_group_key,
                     SUM(CASE
-                        WHEN aa.code LIKE '2408%%'
+                        WHEN aa.code LIKE %(aa_code_like)s
                             THEN account_move_line.credit - account_move_line.debit
                         ELSE 0
                         END
                      ) AS balance_15_over_19,
                     SUM(CASE
-                        WHEN aa.code NOT LIKE '2408%%'
+                        WHEN aa.code NOT LIKE %(aa_code_like)s
                             THEN account_move_line.credit - account_move_line.debit
                         ELSE 0
                         END
                     ) AS balance,
                     SUM(CASE
-                        WHEN aa.code NOT LIKE '2408%%' AND account_move_line.credit > 0
+                        WHEN aa.code NOT LIKE %(aa_code_like)s AND account_move_line.credit > 0
                             THEN account_move_line.tax_base_amount
-                        WHEN aa.code NOT LIKE '2408%%' AND account_move_line.debit > 0
+                        WHEN aa.code NOT LIKE %(aa_code_like)s AND account_move_line.debit > 0
                             THEN account_move_line.tax_base_amount * -1
                         ELSE 0
                         END
                     ) AS tax_base_amount,
-                    {bimestre and 'CAST(FLOOR((EXTRACT(MONTH FROM account_move_line.date) + 1) / 2) AS INT) AS bimestre,' or ''}
+                    %(bimestre_column)s
                     rp.id AS partner_id,
                     rp.name AS partner_name
-                FROM {tables}
+                FROM %(table_references)s
                 JOIN res_partner rp ON account_move_line.partner_id = rp.id
                 JOIN account_account aa ON account_move_line.account_id = aa.id
-                WHERE {where_clause}
-                GROUP BY rp.id {bimestre and ', CAST(FLOOR((EXTRACT(MONTH FROM account_move_line.date) + 1) / 2) AS INT)' or ''}
-                {bimestre and '''HAVING SUM(
-                        CASE
-                        WHEN aa.code NOT LIKE '2408%%' AND account_move_line.credit > 0
-                            THEN account_move_line.tax_base_amount
-                        WHEN aa.code NOT LIKE '2408%%' AND account_move_line.debit > 0
-                            THEN account_move_line.tax_base_amount * -1
-                        ELSE 0
-                        END
-                    ) != 0''' or ''}
-            """)
-            params += [column_group_key, *where_params]
+                WHERE %(search_condition)s
+                GROUP BY rp.id %(bimestre_groupby)s
+                %(bimestre_having)s
+                """,
+                column_group_key=column_group_key,
+                aa_code_like=aa_code_like,
+                bimestre_column=bimestre_column,
+                bimestre_groupby=SQL(', %s', bimestre_expression) if bimestre else SQL(),
+                bimestre_having=bimestre_having,
+                table_references=table_references,
+                search_condition=search_condition,
+            ))
 
-        self._cr.execute(' UNION ALL '.join(queries), params)
+        self._cr.execute(SQL(' UNION ALL ').join(queries))
         return self._cr.dictfetchall()
 
     def _get_domain(self, report, options, line_dict_id=None):

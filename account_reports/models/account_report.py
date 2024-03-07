@@ -8,7 +8,6 @@ import json
 import logging
 import re
 import base64
-import warnings
 from ast import literal_eval
 from collections import defaultdict
 from functools import cmp_to_key
@@ -1765,16 +1764,6 @@ class AccountReport(models.Model):
     # QUERIES
     ####################################################
 
-    @api.model
-    def _query_get(self, options, date_scope, domain=None):
-        warnings.warn(
-            "Use `_get_table_expression` and format result into a proper SQL object",
-            PendingDeprecationWarning,
-            stacklevel=2,
-        )
-        table_references, condition = self._get_sql_table_expression(options, date_scope, domain=domain)
-        return table_references.code, condition.code, table_references.params + condition.params
-
     def _get_sql_table_expression(self, options, date_scope, domain=None) -> tuple[SQL, SQL]:
         """ returns the table reference list and the search condition of the query """
         domain = self._get_options_domain(options, date_scope) + (domain or [])
@@ -3180,12 +3169,12 @@ class AccountReport(models.Model):
             %(tail_query)s
             """,
             acc_tag_name=acc_tag_name,
-            select_groupby_sql=SQL(', %s AS grouping_key', groupby_sql) if groupby_sql else SQL(''),
+            select_groupby_sql=SQL(', %s AS grouping_key', groupby_sql) if groupby_sql else SQL(),
             table_references=table_references,
             tag_ids=tuple(tags.ids),
             currency_table_query=currency_table_query,
             search_condition=search_condition,
-            groupby_sql=SQL(', %s', groupby_sql) if groupby_sql else SQL(''),
+            groupby_sql=SQL(', %s', groupby_sql) if groupby_sql else SQL(),
             tail_query=tail_query,
         )
 
@@ -3238,8 +3227,8 @@ class AccountReport(models.Model):
 
         self._check_groupby_fields((next_groupby.split(',') if next_groupby else []) + ([current_groupby] if current_groupby else []))
 
-        groupby_sql = f'account_move_line.{current_groupby}' if current_groupby else None
-        ct_query = self._get_query_currency_table(options)
+        groupby_sql = SQL.identifier('account_move_line', current_groupby) if current_groupby else None
+        ct_query = SQL(self._get_query_currency_table(options))
 
         rslt = {}
 
@@ -3248,24 +3237,33 @@ class AccountReport(models.Model):
                 line_domain = literal_eval(formula)
             except (ValueError, SyntaxError):
                 raise UserError(_("Invalid domain formula in expression %r of line %r: %s", expressions.label, expressions.report_line_id.name, formula))
-            tables, where_clause, where_params = self._query_get(options, date_scope, domain=line_domain)
+            table_references, search_condition = self._get_sql_table_expression(options, date_scope, domain=line_domain)
 
-            tail_query, tail_params = self._get_engine_query_tail(offset, limit)
-            query = f"""
+            tail_query = self._get_engine_query_tail(offset, limit)
+            query = SQL(
+                """
                 SELECT
                     COALESCE(SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)), 0.0) AS sum,
-                    COUNT(DISTINCT account_move_line.{next_groupby.split(',')[0] if next_groupby else 'id'}) AS count_rows
-                    {f', {groupby_sql} AS grouping_key' if groupby_sql else ''}
-                FROM {tables}
-                JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
-                WHERE {where_clause}
-                {f' GROUP BY {groupby_sql}' if groupby_sql else ''}
-                {tail_query}
-            """
+                    COUNT(DISTINCT account_move_line.%(select_count_field)s) AS count_rows
+                    %(select_groupby_sql)s
+                FROM %(table_references)s
+                JOIN %(currency_table_query)s ON currency_table.company_id = account_move_line.company_id
+                WHERE %(search_condition)s
+                %(group_by_groupby_sql)s
+                %(tail_query)s
+                """,
+                select_count_field=SQL.identifier(next_groupby.split(',')[0] if next_groupby else 'id'),
+                select_groupby_sql=SQL(', %s AS grouping_key', groupby_sql) if groupby_sql else SQL(),
+                table_references=table_references,
+                currency_table_query=ct_query,
+                search_condition=search_condition,
+                group_by_groupby_sql=SQL('GROUP BY %s', groupby_sql) if groupby_sql else SQL(),
+                tail_query=tail_query,
+            )
 
             # Fetch the results.
             formula_rslt = []
-            self._cr.execute(query, where_params + tail_params)
+            self._cr.execute(query)
             all_query_res = self._cr.dictfetchall()
 
             total_sum = 0
@@ -3422,26 +3420,34 @@ class AccountReport(models.Model):
             accounts_prefix_map[account_id].append(tuple(prefix))
 
         # Run main query
-        tables, where_clause, where_params = self._query_get(options, date_scope)
+        table_references, search_condition = self._get_sql_table_expression(options, date_scope)
 
-        currency_table_query = self._get_query_currency_table(options)
-        extra_groupby_sql = f', account_move_line.{current_groupby}' if current_groupby else ''
-        extra_select_sql = f', account_move_line.{current_groupby} AS grouping_key' if current_groupby else ''
-        tail_query, tail_params = self._get_engine_query_tail(offset, limit)
+        currency_table_query = SQL(self._get_query_currency_table(options))
+        extra_groupby_sql = SQL(", %s", SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL()
+        extra_select_sql = SQL(", %s AS grouping_key", SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL()
+        tail_query = self._get_engine_query_tail(offset, limit)
 
-        query = f"""
+        query = SQL(
+            """
             SELECT
                 account_move_line.account_id AS account_id,
                 SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS sum,
                 COUNT(account_move_line.id) AS aml_count
-                {extra_select_sql}
-            FROM {tables}
-            JOIN {currency_table_query} ON currency_table.company_id = account_move_line.company_id
-            WHERE {where_clause}
-            GROUP BY account_move_line.account_id{extra_groupby_sql}
-            {tail_query}
-        """
-        self._cr.execute(query, where_params + tail_params)
+                %(extra_select_sql)s
+            FROM %(table_references)s
+            JOIN %(currency_table_query)s ON currency_table.company_id = account_move_line.company_id
+            WHERE %(search_condition)s
+            GROUP BY account_move_line.account_id%(extra_groupby_sql)s
+            %(tail_query)s
+            """,
+            extra_select_sql=extra_select_sql,
+            table_references=table_references,
+            currency_table_query=currency_table_query,
+            search_condition=search_condition,
+            extra_groupby_sql=extra_groupby_sql,
+            tail_query=tail_query,
+        )
+        self._cr.execute(query)
 
         # Parse result
         rslt = {}
@@ -3517,64 +3523,73 @@ class AccountReport(models.Model):
             external_value_domain.append(('foreign_vat_fiscal_position_id', '=', int(fpos_option)))
 
         # Do the computation
-        dummy, where_clause, where_params = self.env['account.report.external.value']._where_calc(external_value_domain).get_sql()
-        currency_table_query = self._get_query_currency_table(options)
+        where_clause = self.env['account.report.external.value']._where_calc(external_value_domain).where_clause
+        currency_table_query = SQL(self._get_query_currency_table(options))
 
         # We have to execute two separate queries, one for text values and one for numeric values
-        num_queries, num_query_params = [], []
-        string_queries, string_query_params = [], []
-        monetary_queries, monetary_query_params = [], []
+        num_queries = []
+        string_queries = []
+        monetary_queries = []
         for formula, expressions in formulas_dict.items():
-            query_end = ''
+            query_end = SQL()
             if formula == 'most_recent':
-                query_end = """
+                query_end = SQL(
+                    """
                     GROUP BY date
                     ORDER BY date DESC
                     LIMIT 1
-                """
-            string_query = f"""
-                    SELECT %s, text_value
+                    """,
+                )
+            string_query = """
+                    SELECT %(expression_id)s, text_value
                     FROM account_report_external_value
-                    WHERE {where_clause} AND target_report_expression_id = %s
+                    WHERE %(where_clause)s AND target_report_expression_id = %(expression_id)s
                 """
-            monetary_query = f"""
+            monetary_query = """
                 SELECT
-                    %s,
+                    %(expression_id)s,
                     COALESCE(SUM(COALESCE(ROUND(CAST(value AS numeric) * currency_table.rate, currency_table.precision), 0)), 0)
                 FROM account_report_external_value
-                    JOIN {currency_table_query} ON currency_table.company_id = account_report_external_value.company_id
-                WHERE {where_clause} AND target_report_expression_id = %s
-                {query_end}
+                    JOIN %(currency_table_query)s ON currency_table.company_id = account_report_external_value.company_id
+                WHERE %(where_clause)s AND target_report_expression_id = %(expression_id)s
+                %(query_end)s
             """
-            num_query = f"""
-                    SELECT %s, SUM(COALESCE(value, 0))
+            num_query = """
+                    SELECT %(expression_id)s, SUM(COALESCE(value, 0))
                       FROM account_report_external_value
-                     WHERE {where_clause} AND target_report_expression_id = %s
-               {query_end}
+                     WHERE %(where_clause)s AND target_report_expression_id = %(expression_id)s
+               %(query_end)s
             """
 
             for expression in expressions:
-                params = [
-                    expression.id,
-                    *where_params,
-                    expression.id,
-                ]
                 if expression.figure_type == "string":
-                    string_queries.append(string_query)
-                    string_query_params += params
+                    string_queries.append(SQL(
+                        string_query,
+                        expression_id=expression.id,
+                        where_clause=where_clause,
+                    ))
                 elif expression.figure_type == "monetary":
-                    monetary_queries.append(monetary_query)
-                    monetary_query_params += params
+                    monetary_queries.append(SQL(
+                        monetary_query,
+                        expression_id=expression.id,
+                        currency_table_query=currency_table_query,
+                        where_clause=where_clause,
+                        query_end=query_end,
+                    ))
                 else:
-                    num_queries.append(num_query)
-                    num_query_params += params
+                    num_queries.append(SQL(
+                        num_query,
+                        expression_id=expression.id,
+                        where_clause=where_clause,
+                        query_end=query_end,
+                    ))
 
         # Convert to dict to have expression ids as keys
         query_results_dict = {}
-        for query_list, query_params in ((num_queries, num_query_params), (string_queries, string_query_params), (monetary_queries, monetary_query_params)):
+        for query_list in (num_queries, string_queries, monetary_queries):
             if query_list:
-                query = '(' + ') UNION ALL ('.join(query_list) + ')'
-                self._cr.execute(query, query_params)
+                query = SQL(' UNION ALL ').join(SQL("(%s)", query) for query in query_list)
+                self._cr.execute(query)
                 query_results = self._cr.fetchall()
                 query_results_dict.update(dict(query_results))
 
@@ -3602,7 +3617,7 @@ class AccountReport(models.Model):
     def _get_engine_query_tail(self, offset, limit) -> SQL:
         """ Helper to generate the OFFSET, LIMIT and ORDER conditions of formula engines' queries.
         """
-        query_tail = SQL("")
+        query_tail = SQL()
 
         if offset:
             query_tail = SQL("%s OFFSET %s", query_tail, offset)

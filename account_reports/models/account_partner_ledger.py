@@ -186,18 +186,18 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         company_currency = self.env.company.currency_id
 
         # Execute the queries and dispatch the results.
-        query, params = self._get_query_sums(options)
+        query = self._get_query_sums(options)
 
         groupby_partners = {}
 
-        self._cr.execute(query, params)
+        self._cr.execute(query)
         for res in self._cr.dictfetchall():
             assign_sum(res)
 
         # Correct the sums per partner, for the lines without partner reconciled with a line having a partner
-        query, params = self._get_sums_without_partner(options)
+        query = self._get_sums_without_partner(options)
 
-        self._cr.execute(query, params)
+        self._cr.execute(query)
         totals = {}
         for total_field in ['debit', 'credit', 'balance']:
             totals[total_field] = {col_group_key: 0 for col_group_key in options['column_groups']}
@@ -235,64 +235,70 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
 
         return [(partner, groupby_partners[partner.id if partner else None]) for partner in partners]
 
-    def _get_query_sums(self, options):
+    def _get_query_sums(self, options) -> SQL:
         """ Construct a query retrieving all the aggregated sums to build the report. It includes:
         - sums for all partners.
         - sums for the initial balances.
         :param options:             The report options.
-        :return:                    (query, params)
+        :return:                    query as SQL object
         """
-        params = []
         queries = []
         report = self.env.ref('account_reports.partner_ledger_report')
 
         # Create the currency table.
-        ct_query = report._get_query_currency_table(options)
+        ct_query = SQL(report._get_query_currency_table(options))
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            tables, where_clause, where_params = report._query_get(column_group_options, 'normal')
-            params.append(column_group_key)
-            params += where_params
-            queries.append(f"""
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'normal')
+            queries.append(SQL(
+                """
                 SELECT
                     account_move_line.partner_id                                                          AS groupby,
-                    %s                                                                                    AS column_group_key,
+                    %(column_group_key)s                                                                  AS column_group_key,
                     SUM(ROUND(account_move_line.debit * currency_table.rate, currency_table.precision))   AS debit,
                     SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))  AS credit,
                     SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
-                FROM {tables}
-                LEFT JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
-                WHERE {where_clause}
+                FROM %(table_references)s
+                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                WHERE %(search_condition)s
                 GROUP BY account_move_line.partner_id
-            """)
+                """,
+                column_group_key=column_group_key,
+                table_references=table_references,
+                ct_query=ct_query,
+                search_condition=search_condition,
+            ))
 
-        return ' UNION ALL '.join(queries), params
+        return SQL(' UNION ALL ').join(queries)
 
     def _get_initial_balance_values(self, partner_ids, options):
         queries = []
-        params = []
         report = self.env.ref('account_reports.partner_ledger_report')
-        ct_query = report._get_query_currency_table(options)
+        ct_query = SQL(report._get_query_currency_table(options))
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             # Get sums for the initial balance.
             # period: [('date' <= options['date_from'] - 1)]
             new_options = self._get_options_initial_balance(column_group_options)
-            tables, where_clause, where_params = report._query_get(new_options, 'normal', domain=[('partner_id', 'in', partner_ids)])
-            params.append(column_group_key)
-            params += where_params
-            queries.append(f"""
+            table_references, search_condition = report._get_sql_table_expression(new_options, 'normal', domain=[('partner_id', 'in', partner_ids)])
+            queries.append(SQL(
+                """
                 SELECT
                     account_move_line.partner_id,
-                    %s                                                                                    AS column_group_key,
+                    %(column_group_key)s                                                                  AS column_group_key,
                     SUM(ROUND(account_move_line.debit * currency_table.rate, currency_table.precision))   AS debit,
                     SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))  AS credit,
                     SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
-                FROM {tables}
-                LEFT JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
-                WHERE {where_clause}
+                FROM %(table_references)s
+                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                WHERE %(search_condition)s
                 GROUP BY account_move_line.partner_id
-            """)
+                """,
+                column_group_key=column_group_key,
+                table_references=table_references,
+                ct_query=ct_query,
+                search_condition=search_condition,
+            ))
 
-        self._cr.execute(" UNION ALL ".join(queries), params)
+        self._cr.execute(SQL(" UNION ALL ").join(queries))
 
         init_balance_by_col_group = {
             partner_id: {column_group_key: {} for column_group_key in options['column_groups']}
@@ -319,19 +325,14 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         should be considered as belonging to the partner for the reconciled amount as it may clear some of the partner
         invoice/bill and they have to be accounted in the partner balance."""
         queries = []
-        params = []
         report = self.env.ref('account_reports.partner_ledger_report')
-        ct_query = report._get_query_currency_table(options)
+        ct_query = SQL(report._get_query_currency_table(options))
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            tables, where_clause, where_params = report._query_get(column_group_options, 'normal')
-            params += [
-                column_group_key,
-                column_group_options['date']['date_to'],
-                *where_params,
-            ]
-            queries.append(f"""
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'normal')
+            queries.append(SQL(
+                """
                 SELECT
-                    %s                                                                                                    AS column_group_key,
+                    %(column_group_key)s                                                                                  AS column_group_key,
                     aml_with_partner.partner_id                                                                           AS groupby,
                     COALESCE(SUM(CASE WHEN aml_with_partner.balance > 0 THEN 0 ELSE ROUND(
                             partial.amount * currency_table.rate, currency_table.precision) END), 0)                      AS debit,
@@ -339,19 +340,25 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                             partial.amount * currency_table.rate, currency_table.precision) END), 0)                      AS credit,
                     COALESCE(SUM(- sign(aml_with_partner.balance) * ROUND(
                             partial.amount * currency_table.rate, currency_table.precision)), 0)                          AS balance
-                FROM {tables}
+                FROM %(table_references)s
                 JOIN account_partial_reconcile partial
                     ON account_move_line.id = partial.debit_move_id OR account_move_line.id = partial.credit_move_id
                 JOIN account_move_line aml_with_partner ON
                     (aml_with_partner.id = partial.debit_move_id OR aml_with_partner.id = partial.credit_move_id)
                     AND aml_with_partner.partner_id IS NOT NULL
-                LEFT JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
-                WHERE partial.max_date <= %s AND {where_clause}
+                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                WHERE partial.max_date <= %(date_to)s AND %(search_condition)s
                     AND account_move_line.partner_id IS NULL
                 GROUP BY aml_with_partner.partner_id
-            """)
+                """,
+                column_group_key=column_group_key,
+                table_references=table_references,
+                ct_query=ct_query,
+                date_to=column_group_options['date']['date_to'],
+                search_condition=search_condition,
+            ))
 
-        return " UNION ALL ".join(queries), params
+        return SQL(" UNION ALL ").join(queries)
 
     def _report_expand_unfoldable_line_partner_ledger(self, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data=None):
         def init_load_more_progress(line_dict):

@@ -1,5 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, fields, models, tools
+from odoo.tools import SQL
 
 
 class AccountArVatLine(models.Model):
@@ -73,28 +74,30 @@ class AccountArVatLine(models.Model):
         # we use tax_ids for base amount instead of tax_base_amount for two reasons:
         # * zero taxes do not create any aml line, so we can't get base for them with tax_base_amount
         # * we use same method as in odoo tax report to avoid any possible discrepancy with the computed tax_base_amount
-        query, params = self._ar_vat_line_build_query()
-        sql = f"""CREATE or REPLACE VIEW account_ar_vat_line as ({query})"""
-        cr.execute(sql, params)
+        query = self._ar_vat_line_build_query()
+        sql = SQL("""CREATE or REPLACE VIEW account_ar_vat_line as (%s)""", query)
+        cr.execute(sql)
 
     @property
     def _table_query(self):
-        return self.env.cr.mogrify(*self._ar_vat_line_build_query()).decode()
+        return self._ar_vat_line_build_query()
 
     @api.model
-    def _ar_vat_line_build_query(self, tables='account_move_line', where_clause='', where_params=None,
-                                 column_group_key='', tax_types=('sale', 'purchase')):
+    def _ar_vat_line_build_query(self, table_references=None, search_condition=None,
+                                 column_group_key='', tax_types=('sale', 'purchase')) -> SQL:
         """Returns the SQL Select query fetching account_move_lines info in order to build the pivot view for the VAT summary.
         This method is also meant to be used outside this model, which is the reason why it gives the opportunity to
         provide a few parameters, for which the defaults are used in this model.
 
         The query is used to build the VAT book report"""
-        if where_params is None:
-            where_params = []
+        if table_references is None:
+            table_references = SQL('account_move_line')
+        search_condition = SQL('AND (%s)', search_condition) if search_condition else SQL()
 
-        query = f"""
+        query = SQL(
+            """
                 SELECT
-                    %s AS column_group_key,
+                    %(column_group_key)s AS column_group_key,
                     account_move.id,
                     (CASE WHEN lit.l10n_ar_afip_code = '80' THEN rp.vat ELSE NULL END) AS cuit,
                     art.name AS afip_responsibility_type_name,
@@ -130,7 +133,7 @@ class AccountArVatLine(models.Model):
                     SUM(CASE WHEN ntg.l10n_ar_vat_afip_code is NULL and ntg.l10n_ar_tribute_afip_code in ('02', '04', '05', '99') THEN account_move_line.balance ELSE 0 END) AS other_taxes,
                     SUM(account_move_line.balance) AS total
                 FROM
-                    {tables}
+                    %(table_references)s
                     JOIN
                         account_move ON account_move_line.move_id = account_move.id
                     LEFT JOIN
@@ -153,10 +156,16 @@ class AccountArVatLine(models.Model):
                         l10n_ar_afip_responsibility_type AS art ON account_move.l10n_ar_afip_responsibility_type_id = art.id
                 WHERE
                     (account_move_line.tax_line_id is not NULL OR btg.l10n_ar_vat_afip_code is not NULL)
-                    AND (nt.type_tax_use in %s OR bt.type_tax_use in %s)
-                    {where_clause}
+                    AND (nt.type_tax_use in %(tax_types)s OR bt.type_tax_use in %(tax_types)s)
+                    %(search_condition)s
                 GROUP BY
                     account_move.id, art.name, rp.id, lit.id,  COALESCE(nt.type_tax_use, bt.type_tax_use)
                 ORDER BY
-                    account_move.invoice_date, account_move.name"""
-        return query, [column_group_key, tax_types, tax_types, *where_params]
+                    account_move.invoice_date, account_move.name
+            """,
+            column_group_key=column_group_key,
+            table_references=table_references,
+            tax_types=tax_types,
+            search_condition=search_condition,
+        )
+        return query

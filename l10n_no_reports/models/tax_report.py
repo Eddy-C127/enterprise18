@@ -100,7 +100,10 @@ class AccountGenericTaxReport(models.AbstractModel):
           (2) a list of taxes (dictionaries) to be displayed in the XML
         """
 
-        tables, where_clause, where_params = report._query_get(options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+        tables = table_references.code
+        where_clause = search_condition.code
+        where_params = table_references.params + search_condition.params
         tax_details_query, tax_details_params = self.env['account.move.line']._get_query_tax_details(tables, where_clause, where_params)
         tax_details_query = SQL(tax_details_query, *tax_details_params)
 

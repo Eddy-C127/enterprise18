@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import _, models
+from odoo.tools import SQL
 
 
 def _csv_row(*data, delimiter=","):
@@ -22,15 +23,16 @@ class TaxReportPND(models.AbstractModel):
                 _('Total Amount'), _('WHT Amount'), _('WHT Condition'), _('Tax Type')]
 
     def _rows(self, options, report, domain, title=''):
-        tables, where_clause, where_params = report._query_get(options, 'strict_range', domain)
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range', domain)
 
         dp = self.env.company.currency_id.decimal_places
 
-        query = f"""
+        query = SQL(
+            """
             SELECT
                 CAST(ROW_NUMBER() OVER(ORDER BY account_move_line__move_id.date, partner.name, account_move_line__move_id.name, account_move_line.id) AS TEXT) as rnum,
                 COALESCE(partner.vat, '') as vat,
-                %s as title,
+                %(title)s as title,
                 COALESCE(partner.name, '') as name,
                 COALESCE(partner.street, '') as street,
                 COALESCE(partner.street2, '') as street2,
@@ -39,9 +41,9 @@ class TaxReportPND(models.AbstractModel):
                 COALESCE(partner.zip, '') as zip,
                 COALESCE(partner.company_registry, '') as branch_number,
                 TO_CHAR(account_move_line__move_id.date, 'dd/mm/YYYY') as date,
-                ROUND(ABS(tax.amount), %s)::text as tax_amount,
-                ROUnD(ABS(account_move_line.tax_base_amount), %s)::text as tax_base_amount,
-                ROUND(ABS(tax.amount * account_move_line.tax_base_amount / 100), %s)::text as wht_amount,
+                ROUND(ABS(tax.amount), %(decimal_precision)s)::text as tax_amount,
+                ROUND(ABS(account_move_line.tax_base_amount), %(decimal_precision)s)::text as tax_base_amount,
+                ROUND(ABS(tax.amount * account_move_line.tax_base_amount / 100), %(decimal_precision)s)::text as wht_amount,
                 '1' as wht_condition,
                 CASE tax.amount
                     WHEN -1 THEN 'Transportation'
@@ -50,16 +52,20 @@ class TaxReportPND(models.AbstractModel):
                     WHEN -5 THEN 'Rental'
                     ELSE ''
                 END tax_type
-            FROM {tables}
+            FROM %(table_references)s
                 LEFT JOIN res_partner partner on partner.id = account_move_line__move_id.partner_id
                 JOIN account_tax tax on tax.id = account_move_line.tax_line_id
                 LEFT JOIN res_country_state state on partner.state_id = state.id
-            WHERE {where_clause}
+            WHERE %(search_condition)s
          ORDER BY rnum
-        """
+            """,
+            title=title,
+            decimal_precision=dp,
+            table_references=table_references,
+            search_condition=search_condition,
+        )
 
-        params = [title, dp, dp, dp, *where_params]
-        self._cr.execute(query, params)
+        self._cr.execute(query)
         res = self._cr.fetchall()
 
         return res

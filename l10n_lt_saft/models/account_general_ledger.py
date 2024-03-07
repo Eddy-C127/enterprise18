@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
+from odoo.tools import SQL
 
 
 class GeneralLedgerCustomHandler(models.AbstractModel):
@@ -70,21 +71,28 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         date_from = fields.Date.to_date(options['date']['date_from'])
         date_to = fields.Date.to_date(options['date']['date_to'])
         # Fetch data from beginning
-        tables, where_clause, where_params = report._query_get(options, 'from_beginning')
+        table_references, search_condition = report._get_sql_table_expression(options, 'from_beginning')
+
         # The balance dating from earlier periods are computed as opening
         # The balance up to the end of the current period are computed as closing
-        self._cr.execute(f'''
+        self._cr.execute(SQL(
+            '''
             SELECT DISTINCT
                 account_move_line.partner_id,
                 account.code,
-                CASE WHEN account_move_line.date < '{date_from}' THEN SUM(account_move_line.balance) ELSE 0 END AS opening_balance,
-                CASE WHEN account_move_line.date <= '{date_to}'  THEN SUM(account_move_line.balance) ELSE 0 END AS closing_balance
-            FROM {tables}
+                CASE WHEN account_move_line.date < %(date_from)s THEN SUM(account_move_line.balance) ELSE 0 END AS opening_balance,
+                CASE WHEN account_move_line.date <= %(date_to)s  THEN SUM(account_move_line.balance) ELSE 0 END AS closing_balance
+            FROM %(table_references)s
             JOIN account_account account ON account.id = account_move_line.account_id
-            WHERE {where_clause}
+            WHERE %(search_condition)s
             AND account.account_type IN ('asset_receivable', 'liability_payable')
             GROUP BY account_move_line.partner_id, account.code, account_move_line.date
-        ''', where_params)
+            ''',
+            date_from=date_from,
+            date_to=date_to,
+            table_references=table_references,
+            search_condition=search_condition,
+        ))
 
         partners_accounts = {}
         for vals in self._cr.dictfetchall():

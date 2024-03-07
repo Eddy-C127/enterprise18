@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models
+from odoo.tools import SQL
 
 
 class ICAReportCustomHandler(models.AbstractModel):
@@ -16,13 +17,26 @@ class ICAReportCustomHandler(models.AbstractModel):
 
     def _get_query_results(self, report, options, domain, bimestre=False):
         queries = []
-        params = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
 
-            tables, where_clause, where_params = report._query_get(column_group_options, 'strict_range', domain=domain)
-            queries.append(f"""
+            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'strict_range', domain=domain)
+            bimestre_expression = SQL('FLOOR((EXTRACT(MONTH FROM account_move_line.date) + 1) / 2)')
+            bimestre_column = SQL('%s AS bimestre,', bimestre_expression) if bimestre else SQL()
+            bimestre_having = SQL('''
+                HAVING SUM(
+                    CASE
+                    WHEN account_move_line.credit > 0
+                        THEN account_move_line.tax_base_amount
+                    WHEN account_move_line.debit > 0
+                        THEN account_move_line.tax_base_amount * -1
+                    ELSE 0
+                    END
+                ) != 0
+            ''') if bimestre else SQL()
+            queries.append(SQL(
+                """
                 SELECT
-                    %s AS column_group_key,
+                    %(column_group_key)s AS column_group_key,
                     SUM(account_move_line.credit - account_move_line.debit) AS balance,
                     SUM(CASE
                         WHEN account_move_line.credit > 0
@@ -32,27 +46,25 @@ class ICAReportCustomHandler(models.AbstractModel):
                         ELSE 0
                         END
                     ) AS tax_base_amount,
-                    {bimestre and 'FLOOR((EXTRACT(MONTH FROM account_move_line.date) + 1) / 2) AS bimestre,' or ''}
+                    %(bimestre_column)s
                     rp.id AS partner_id,
                     rp.name AS partner_name
-                FROM {tables}
+                FROM %(table_references)s
                 JOIN res_partner rp ON account_move_line.partner_id = rp.id
                 JOIN account_account aa ON account_move_line.account_id = aa.id
-                WHERE {where_clause}
-                GROUP BY rp.id {bimestre and ', FLOOR((EXTRACT(MONTH FROM account_move_line.date) + 1) / 2)' or ''}
-                {bimestre and '''HAVING SUM(
-                        CASE
-                        WHEN account_move_line.credit > 0
-                            THEN account_move_line.tax_base_amount
-                        WHEN account_move_line.debit > 0
-                            THEN account_move_line.tax_base_amount * -1
-                        ELSE 0
-                        END
-                    ) != 0''' or ''}
-            """)
-            params += [column_group_key, *where_params]
+                WHERE %(search_condition)s
+                GROUP BY rp.id %(bimestre_groupby)s
+                %(bimestre_having)s
+                """,
+                column_group_key=column_group_key,
+                bimestre_column=bimestre_column,
+                table_references=table_references,
+                bimestre_groupby=SQL(', %s', bimestre_expression) if bimestre else SQL(),
+                search_condition=search_condition,
+                bimestre_having=bimestre_having,
+            ))
 
-        self._cr.execute(' UNION ALL '.join(queries), params)
+        self._cr.execute(SQL(' UNION ALL ').join(queries))
         return self._cr.dictfetchall()
 
     def _get_domain(self, report, options, line_dict_id=None):

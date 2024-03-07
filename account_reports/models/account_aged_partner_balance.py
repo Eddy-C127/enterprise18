@@ -4,6 +4,7 @@
 import datetime
 
 from odoo import models, fields, _
+from odoo.tools import SQL
 from odoo.tools.misc import format_date
 
 from dateutil.relativedelta import relativedelta
@@ -96,7 +97,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
         def minus_days(date_obj, days):
             return fields.Date.to_string(date_obj - relativedelta(days=days))
 
-        aging_date_field = 'invoice_date' if options['aging_based_on'] == 'base_on_invoice_date' else 'date_maturity'
+        aging_date_field = SQL.identifier('invoice_date') if options['aging_based_on'] == 'base_on_invoice_date' else SQL.identifier('date_maturity')
         date_to = fields.Date.from_string(options['date']['date_to'])
         interval = options['aging_interval']
         periods = [(False, fields.Date.to_string(date_to))]
@@ -152,39 +153,45 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
             (period[0] or None, period[1] or None, i)
             for i, period in enumerate(periods)
         ))
-        period_table = self.env.cr.mogrify(period_table_format, params).decode(self.env.cr.connection.encoding)
+        period_table = SQL(period_table_format, *params)
 
         # Build query
-        tables, where_clause, where_params = report._query_get(options, 'strict_range', domain=[('account_id.account_type', '=', internal_type)])
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range', domain=[('account_id.account_type', '=', internal_type)])
 
-        currency_table = report._get_query_currency_table(options)
-        always_present_groupby = "period_table.period_index, currency_table.rate, currency_table.precision"
+        currency_table = SQL(report._get_query_currency_table(options))
+        always_present_groupby = SQL("period_table.period_index, currency_table.rate, currency_table.precision")
         if current_groupby:
-            select_from_groupby = f"account_move_line.{current_groupby} AS grouping_key,"
-            groupby_clause = f"account_move_line.{current_groupby}, {always_present_groupby}"
+            select_from_groupby = SQL("%s AS grouping_key,", SQL.identifier("account_move_line", current_groupby))
+            groupby_clause = SQL("%s, %s", SQL.identifier("account_move_line", current_groupby), always_present_groupby)
         else:
-            select_from_groupby = ''
+            select_from_groupby = SQL()
             groupby_clause = always_present_groupby
-        select_period_query = ','.join(
-            f"""
-                CASE WHEN period_table.period_index = {i}
-                THEN %s * (
+        multiplicator = -1 if internal_type == 'liability_payable' else 1
+        select_period_query = SQL(',').join(
+            SQL("""
+                CASE WHEN period_table.period_index = %(period_index)s
+                THEN %(multiplicator)s * (
                     SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision))
                     - COALESCE(SUM(ROUND(part_debit.amount * currency_table.rate, currency_table.precision)), 0)
                     + COALESCE(SUM(ROUND(part_credit.amount * currency_table.rate, currency_table.precision)), 0)
                 )
-                ELSE 0 END AS period{i}
-            """
+                ELSE 0 END AS %(column_name)s
+                """,
+                period_index=i,
+                multiplicator=multiplicator,
+                column_name=SQL.identifier(f"period{i}"),
+            )
             for i in range(len(periods))
         )
 
-        tail_query, tail_params = report._get_engine_query_tail(offset, limit)
-        query = f"""
-            WITH period_table(date_start, date_stop, period_index) AS ({period_table})
+        tail_query = report._get_engine_query_tail(offset, limit)
+        query = SQL(
+            """
+            WITH period_table(date_start, date_stop, period_index) AS (%(period_table)s)
 
             SELECT
-                {select_from_groupby}
-                %s * (
+                %(select_from_groupby)s
+                %(multiplicator)s * (
                     SUM(account_move_line.amount_currency)
                     - COALESCE(SUM(part_debit.debit_amount_currency), 0)
                     + COALESCE(SUM(part_credit.credit_amount_currency), 0)
@@ -192,21 +199,21 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                 ARRAY_AGG(DISTINCT account_move_line.partner_id) AS partner_id,
                 ARRAY_AGG(account_move_line.payment_id) AS payment_id,
                 ARRAY_AGG(DISTINCT move.invoice_date) AS invoice_date,
-                ARRAY_AGG(DISTINCT COALESCE(account_move_line.{aging_date_field}, account_move_line.date)) AS report_date,
+                ARRAY_AGG(DISTINCT COALESCE(account_move_line.%(aging_date_field)s, account_move_line.date)) AS report_date,
                 ARRAY_AGG(DISTINCT account_move_line.expected_pay_date) AS expected_date,
                 ARRAY_AGG(DISTINCT account.code) AS account_name,
-                ARRAY_AGG(DISTINCT COALESCE(account_move_line.{aging_date_field}, account_move_line.date)) AS due_date,
+                ARRAY_AGG(DISTINCT COALESCE(account_move_line.%(aging_date_field)s, account_move_line.date)) AS due_date,
                 ARRAY_AGG(DISTINCT account_move_line.currency_id) AS currency_id,
                 COUNT(account_move_line.id) AS aml_count,
                 ARRAY_AGG(account.code) AS account_code,
-                {select_period_query}
+                %(select_period_query)s
 
-            FROM {tables}
+            FROM %(table_references)s
 
             JOIN account_journal journal ON journal.id = account_move_line.journal_id
             JOIN account_account account ON account.id = account_move_line.account_id
             JOIN account_move move ON move.id = account_move_line.move_id
-            JOIN {currency_table} ON currency_table.company_id = account_move_line.company_id
+            JOIN %(currency_table)s ON currency_table.company_id = account_move_line.company_id
 
             LEFT JOIN LATERAL (
                 SELECT
@@ -214,7 +221,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                     SUM(part.debit_amount_currency) AS debit_amount_currency,
                     part.debit_move_id
                 FROM account_partial_reconcile part
-                WHERE part.max_date <= %s AND part.debit_move_id = account_move_line.id
+                WHERE part.max_date <= %(date_to)s AND part.debit_move_id = account_move_line.id
                 GROUP BY part.debit_move_id
             ) part_debit ON TRUE
 
@@ -224,24 +231,24 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                     SUM(part.credit_amount_currency) AS credit_amount_currency,
                     part.credit_move_id
                 FROM account_partial_reconcile part
-                WHERE part.max_date <= %s AND part.credit_move_id = account_move_line.id
+                WHERE part.max_date <= %(date_to)s AND part.credit_move_id = account_move_line.id
                 GROUP BY part.credit_move_id
             ) part_credit ON TRUE
 
             JOIN period_table ON
                 (
                     period_table.date_start IS NULL
-                    OR COALESCE(account_move_line.{aging_date_field}, account_move_line.date) <= DATE(period_table.date_start)
+                    OR COALESCE(account_move_line.%(aging_date_field)s, account_move_line.date) <= DATE(period_table.date_start)
                 )
                 AND
                 (
                     period_table.date_stop IS NULL
-                    OR COALESCE(account_move_line.{aging_date_field}, account_move_line.date) >= DATE(period_table.date_stop)
+                    OR COALESCE(account_move_line.%(aging_date_field)s, account_move_line.date) >= DATE(period_table.date_stop)
                 )
 
-            WHERE {where_clause}
+            WHERE %(search_condition)s
 
-            GROUP BY {groupby_clause}
+            GROUP BY %(groupby_clause)s
 
             HAVING
                 (
@@ -253,19 +260,22 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                     SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))
                     - COALESCE(SUM(ROUND(part_credit.amount * currency_table.rate, currency_table.precision)), 0)
                 ) != 0
-            {tail_query}
-        """
+            %(tail_query)s
+            """,
+            period_table=period_table,
+            select_from_groupby=select_from_groupby,
+            select_period_query=select_period_query,
+            multiplicator=multiplicator,
+            aging_date_field=aging_date_field,
+            table_references=table_references,
+            currency_table=currency_table,
+            date_to=date_to,
+            search_condition=search_condition,
+            groupby_clause=groupby_clause,
+            tail_query=tail_query,
+        )
 
-        multiplicator = -1 if internal_type == 'liability_payable' else 1
-        params = [
-            multiplicator,
-            *([multiplicator] * len(periods)),
-            date_to,
-            date_to,
-            *where_params,
-            *tail_params,
-        ]
-        self._cr.execute(query, params)
+        self._cr.execute(query)
         query_res_lines = self._cr.dictfetchall()
 
         if not current_groupby:

@@ -637,10 +637,11 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
         })
 
         for column_group_key, options in options_by_column_group.items():
-            tables, where_clause, where_params = report._query_get(options, 'strict_range')
+            table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
 
             # Fetch the base amounts.
-            self._cr.execute(f'''
+            self._cr.execute(SQL(
+                '''
                 SELECT
                     tax.id AS tax_id,
                     tax.type_tax_use AS tax_type_tax_use,
@@ -649,12 +650,12 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                     src_tax.id AS src_tax_id,
                     src_tax.type_tax_use AS src_tax_type_tax_use,
                     SUM(account_move_line.balance) AS base_amount
-                FROM {tables}
+                FROM %(table_references)s
                 JOIN account_move_line_account_tax_rel tax_rel ON account_move_line.id = tax_rel.account_move_line_id
                 JOIN account_tax tax ON tax.id = tax_rel.account_tax_id
                 LEFT JOIN account_tax src_tax ON src_tax.id = account_move_line.tax_line_id
                 LEFT JOIN account_tax src_group_tax ON src_group_tax.id = account_move_line.group_tax_id
-                WHERE {where_clause}
+                WHERE %(search_condition)s
                     AND (
                         /* CABA */
                         account_move_line__move_id.always_tax_exigible
@@ -679,7 +680,10 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                     )
                 GROUP BY tax.id, src_group_tax.id, src_tax.id
                 ORDER BY src_group_tax.sequence, src_group_tax.id, src_tax.sequence, src_tax.id, tax.sequence, tax.id
-            ''', where_params)
+                ''',
+                table_references=table_references,
+                search_condition=search_condition,
+            ))
 
             group_of_taxes_with_extra_base_amount = set()
             for row in self._cr.dictfetchall():
@@ -719,26 +723,28 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
 
             # Fetch the tax amounts.
 
-            select_deductible = join_deductible = group_by_deductible = ''
+            select_deductible = join_deductible = group_by_deductible = SQL()
             if options.get('account_journal_report_tax_deductibility_columns'):
-                select_deductible = """, repartition.use_in_tax_closing AS trl_tax_closing
-                                       , SIGN(repartition.factor_percent) AS trl_factor"""
-                join_deductible = 'JOIN account_tax_repartition_line repartition ON account_move_line.tax_repartition_line_id = repartition.id'
-                group_by_deductible = ', repartition.use_in_tax_closing, SIGN(repartition.factor_percent)'
+                select_deductible = SQL(""", repartition.use_in_tax_closing AS trl_tax_closing
+                                           , SIGN(repartition.factor_percent) AS trl_factor""")
+                join_deductible = SQL("""JOIN account_tax_repartition_line repartition
+                                           ON account_move_line.tax_repartition_line_id = repartition.id""")
+                group_by_deductible = SQL(', repartition.use_in_tax_closing, SIGN(repartition.factor_percent)')
 
-            self._cr.execute(f'''
+            self._cr.execute(SQL(
+                '''
                 SELECT
                     tax.id AS tax_id,
                     tax.type_tax_use AS tax_type_tax_use,
                     group_tax.id AS group_tax_id,
                     group_tax.type_tax_use AS group_tax_type_tax_use,
                     SUM(account_move_line.balance) AS tax_amount
-                    {select_deductible}
-                FROM {tables}
+                    %(select_deductible)s
+                FROM %(table_references)s
                 JOIN account_tax tax ON tax.id = account_move_line.tax_line_id
-                {join_deductible}
+                %(join_deductible)s
                 LEFT JOIN account_tax group_tax ON group_tax.id = account_move_line.group_tax_id
-                WHERE {where_clause}
+                WHERE %(search_condition)s
                     AND (
                         /* CABA */
                         account_move_line__move_id.always_tax_exigible
@@ -750,8 +756,14 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                         OR
                         (group_tax.id IS NOT NULL AND group_tax.type_tax_use IN ('sale', 'purchase'))
                     )
-                GROUP BY tax.id, group_tax.id {group_by_deductible}
-            ''', where_params)
+                GROUP BY tax.id, group_tax.id %(group_by_deductible)s
+                ''',
+                select_deductible=select_deductible,
+                table_references=table_references,
+                join_deductible=join_deductible,
+                search_condition=search_condition,
+                group_by_deductible=group_by_deductible,
+            ))
 
             for row in self._cr.dictfetchall():
                 # Manage group of taxes.
@@ -797,17 +809,14 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
         select_clause_list = []
         groupby_query_list = []
         for alias, field in groupby_fields:
-            select_clause_list.append(f'{alias}.{field} AS {alias}_{field}')
-            groupby_query_list.append(f'{alias}.{field}')
+            select_clause_list.append(SQL("%s AS %s", SQL.identifier(alias, field), SQL.identifier(f'{alias}_{field}')))
+            groupby_query_list.append(SQL.identifier(alias, field))
 
             # Fetch both info from the originator tax and the child tax to manage the group of taxes.
             if alias == 'src_tax':
-                select_clause_list.append(f'tax.{field} AS tax_{field}')
-                groupby_query_list.append(f'tax.{field}')
+                select_clause_list.append(SQL("%s AS %s", SQL.identifier('tax', field), SQL.identifier(f'tax_{field}')))
+                groupby_query_list.append(SQL.identifier('tax', field))
                 fetch_group_of_taxes = True
-
-        select_clause_str = ','.join(select_clause_list)
-        groupby_query_str = ','.join(groupby_query_list)
 
         # Fetch the group of taxes.
         # If all children taxes are 'none', all amounts are aggregated and only the group will appear on the report.
@@ -821,20 +830,24 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
 
         res = {}
         for column_group_key, options in options_by_column_group.items():
-            tables, where_clause, where_params = report._query_get(options, 'strict_range')
+            table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+            tables = table_references.code
+            where_clause = search_condition.code
+            where_params = table_references.params + search_condition.params
             tax_details_query, tax_details_params = self.env['account.move.line']._get_query_tax_details(tables, where_clause, where_params)
 
             # Avoid adding multiple times the same base amount sharing the same grouping_key.
             # It could happen when dealing with group of taxes for example.
             row_keys = set()
 
-            self._cr.execute(f'''
+            self._cr.execute(SQL(
+                '''
                 SELECT
-                    {select_clause_str},
+                    %(select_clause)s,
                     trl.document_type = 'refund' AS is_refund,
                     SUM(tdr.base_amount) AS base_amount,
                     SUM(tdr.tax_amount) AS tax_amount
-                FROM ({tax_details_query}) AS tdr
+                FROM (%(tax_details_query)s) AS tdr
                 JOIN account_tax_repartition_line trl ON trl.id = tdr.tax_repartition_line_id
                 JOIN account_tax tax ON tax.id = tdr.tax_id
                 JOIN account_tax src_tax ON
@@ -842,9 +855,13 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                     AND src_tax.type_tax_use IN ('sale', 'purchase')
                 JOIN account_account account ON account.id = tdr.base_account_id
                 WHERE tdr.tax_exigible
-                GROUP BY tdr.tax_repartition_line_id, trl.document_type, tdr.display_type, {groupby_query_str}
+                GROUP BY tdr.tax_repartition_line_id, trl.document_type, tdr.display_type, %(groupby_query)s
                 ORDER BY src_tax.sequence, src_tax.id, tax.sequence, tax.id
-            ''', tax_details_params)
+                ''',
+                select_clause=SQL(',').join(select_clause_list),
+                tax_details_query=SQL(tax_details_query, *tax_details_params),
+                groupby_query=SQL(',').join(groupby_query_list),
+            ))
 
             for row in self._cr.dictfetchall():
                 node = res

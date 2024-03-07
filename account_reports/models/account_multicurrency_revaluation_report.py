@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, fields, api, _
-from odoo.tools import float_is_zero
+from odoo.tools import float_is_zero, SQL
 from odoo.exceptions import UserError
 
 from itertools import chain
@@ -207,21 +207,25 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
 
         query = "(VALUES {})".format(', '.join("(%s, %s)" for rate in options['currency_rates']))
         params = list(chain.from_iterable((cur['currency_id'], cur['rate']) for cur in options['currency_rates'].values()))
-        custom_currency_table_query = self.env.cr.mogrify(query, params).decode(self.env.cr.connection.encoding)
-        select_part_not_an_exchange_move_id = """
+        custom_currency_table_query = SQL(query, *params)
+        date_to = options['date']['date_to']
+        select_part_not_an_exchange_move_id = SQL(
+            """
             NOT EXISTS (
                 SELECT 1
                   FROM account_partial_reconcile part_exch
                  WHERE part_exch.exchange_move_id = account_move_line.move_id
                    AND part_exch.max_date <= %s
             )
-        """
+            """,
+            date_to
+        )
 
-        date_to = fields.Date.from_string(options['date']['date_to'])
-        tables, where_clause, where_params = report._query_get(options, 'strict_range')
-        tail_query, tail_params = report._get_engine_query_tail(offset, limit)
-        full_query = f"""
-            WITH custom_currency_table(currency_id, rate) AS ({custom_currency_table_query})
+        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+        tail_query = report._get_engine_query_tail(offset, limit)
+        full_query = SQL(
+            """
+            WITH custom_currency_table(currency_id, rate) AS (%(custom_currency_table_query)s)
 
             -- Final select that gets the following lines:
             -- (where there is a change in the rates of currency between the creation of the move and the full payments)
@@ -249,7 +253,7 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
                        ) AS adjustment,
                        account_move_line.currency_id AS currency_id,
                        account_move_line.id AS aml_id
-                  FROM {tables},
+                  FROM %(table_references)s,
                        account_account AS account,
                        res_currency AS aml_currency,
                        res_currency AS aml_comp_currency,
@@ -273,7 +277,7 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
                                  FROM account_partial_reconcile part
                                  JOIN res_currency curr ON curr.id = part.debit_currency_id
                                 WHERE account_move_line.id = part.debit_move_id
-                                  AND part.max_date <= %s
+                                  AND part.max_date <= %(date_to)s
                              GROUP BY aml_id,
                                       curr.decimal_places
                            UNION
@@ -290,11 +294,11 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
                                  FROM account_partial_reconcile part
                                  JOIN res_currency curr ON curr.id = part.credit_currency_id
                                 WHERE account_move_line.id = part.credit_move_id
-                                  AND part.max_date <= %s
+                                  AND part.max_date <= %(date_to)s
                              GROUP BY aml_id,
                                       curr.decimal_places
                             ) AS ara
-                 WHERE {where_clause}
+                 WHERE %(search_condition)s
                    AND account_move_line.account_id = account.id
                    AND account_move_line.currency_id = aml_currency.id
                    AND account_move_line.company_currency_id = aml_comp_currency.id
@@ -313,7 +317,7 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
                          WHERE account_account_id = account_move_line.account_id
                            AND res_currency_id = account_move_line.currency_id
                    )
-                   AND ({select_part_not_an_exchange_move_id})
+                   AND (%(select_part_not_an_exchange_move_id)s)
               GROUP BY account_move_line.id, aml_comp_currency.decimal_places,  aml_currency.decimal_places, custom_currency_table.rate
                 HAVING ROUND(account_move_line.balance - SUM(ara.amount_debit) + SUM(ara.amount_credit), aml_comp_currency.decimal_places) != 0
                     OR ROUND(account_move_line.amount_currency - SUM(ara.amount_debit_currency) + SUM(ara.amount_credit_currency), aml_currency.decimal_places) != 0.0
@@ -328,10 +332,10 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
                        account_move_line.amount_currency / custom_currency_table.rate - account_move_line.balance AS adjustment,
                        account_move_line.currency_id AS currency_id,
                        account_move_line.id AS aml_id
-                  FROM {tables}
+                  FROM %(table_references)s
                   JOIN account_account account ON account_move_line.account_id = account.id
                   JOIN custom_currency_table ON custom_currency_table.currency_id = account_move_line.currency_id
-                 WHERE {where_clause}
+                 WHERE %(search_condition)s
                    AND account.account_type NOT IN ('income', 'income_other', 'expense', 'expense_depreciation', 'expense_direct_cost', 'off_balance')
                    AND (
                         account.currency_id != account_move_line.company_currency_id
@@ -346,33 +350,27 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
                          WHERE account_account_id = account_id
                            AND res_currency_id = account_move_line.currency_id
                    )
-                   AND ({select_part_not_an_exchange_move_id})
+                   AND (%(select_part_not_an_exchange_move_id)s)
                    AND NOT EXISTS (
                         SELECT 1 FROM account_partial_reconcile part
                         WHERE (part.debit_move_id = account_move_line.id OR part.credit_move_id = account_move_line.id)
-                          AND part.max_date <= %s
+                          AND part.max_date <= %(date_to)s
                    )
                    AND (account_move_line.balance != 0.0 OR account_move_line.amount_currency != 0.0)
 
             ) subquery
 
             GROUP BY grouping_key
-            {tail_query}
-        """
-        params = [
-            # First part: move line with existing payments
-            date_to,  # lateral join - matched "debit"
-            date_to,  # lateral join - matched "credit"
-            *where_params,  # First params for where_clause
-            date_to,  # select_part_not_an_exchange_move_id
-
-            # Second part: move lines without any payments
-            *where_params,  # Second params for where_clause
-            date_to,  # select_part_not_an_exchange_move_id
-            date_to,  # for check that no payment existing at date
-            *tail_params,
-        ]
-        self._cr.execute(full_query, params)
+            %(tail_query)s
+            """,
+            custom_currency_table_query=custom_currency_table_query,
+            table_references=table_references,
+            date_to=date_to,
+            tail_query=tail_query,
+            search_condition=search_condition,
+            select_part_not_an_exchange_move_id=select_part_not_an_exchange_move_id,
+        )
+        self._cr.execute(full_query)
         query_res_lines = self._cr.dictfetchall()
 
         if not current_groupby:

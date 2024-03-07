@@ -98,13 +98,12 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
         new_options = {**options, 'forced_domain': []} if remove_forced_domain else options
         excluded_tax_ids = self._get_excluded_taxes().ids
 
-        tables, where_clause, where_params = report._query_get(new_options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(new_options, 'strict_range')
         return {
             'options': new_options,
             'excluded_tax_ids': excluded_tax_ids,
-            'tables': tables,
-            'where_clause': where_clause,
-            'where_params': where_params,
+            'table_references': table_references,
+            'search_condition': search_condition,
         }
 
     def _report_custom_engine_partner_vat_listing(self, expressions, options, date_scope, current_groupby, next_groupby, offset=0, limit=None, warnings=None):
@@ -140,22 +139,23 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
         if not partner_ids:
             return [] if current_groupby else {'vat_number': None, 'turnover': 0, 'vat_amount': 0, 'has_sublines': False}
 
-        tail_query, tail_params = report._get_engine_query_tail(offset, limit)
+        tail_query = report._get_engine_query_tail(offset, limit)
 
         if current_groupby == 'partner_id':
-            grouping_key_param = 'res_partner.id'
+            grouping_key_param = SQL.identifier('res_partner', 'id')
         elif current_groupby:
-            grouping_key_param = f'account_move_line.{current_groupby}'
+            grouping_key_param = SQL.identifier('account_move_line', current_groupby)
         else:
-            grouping_key_param = 'NULL'
+            grouping_key_param = None
 
         query_fun_params = self._get_query_fun_params(report, options) | {'partner_ids': partner_ids}
 
-        turnover_from, turnover_where, turnover_where_params = self._get_turnover_query(**query_fun_params)
-        refund_base_from, refund_base_where, refund_base_where_params = self._get_refund_base_query(**query_fun_params)
-        vat_amounts_from, vat_amounts_where, vat_amounts_where_params = self._get_vat_amounts_query(**query_fun_params)
+        turnover_from, turnover_where = self._get_turnover_query(**query_fun_params)
+        refund_base_from, refund_base_where = self._get_refund_base_query(**query_fun_params)
+        vat_amounts_from, vat_amounts_where = self._get_vat_amounts_query(**query_fun_params)
 
-        query = f"""
+        query = SQL(
+            """
         SELECT subquery.grouping_key AS grouping_key,
                SUM(subquery.turnover) AS turnover,
                SUM(subquery.refund_base) AS refund_base,
@@ -163,44 +163,54 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
                SUM(subquery.refund_vat_amount) AS refund_vat_amount
           FROM (
                 SELECT
-                    {grouping_key_param} AS grouping_key,
+                    %(grouping_key_param)s AS grouping_key,
                     COALESCE(SUM(account_move_line.credit - account_move_line.debit), 0) AS turnover,
                     0 AS refund_base,
                     0 AS vat_amount,
                     0 AS refund_vat_amount
-                FROM {turnover_from}
-                WHERE {turnover_where}
-                {f'GROUP BY {grouping_key_param}' if current_groupby else ''}
+                FROM %(turnover_from)s
+                WHERE %(turnover_where)s
+                %(groupby_clause)s
 
                 UNION ALL
 
                 SELECT
-                    {grouping_key_param} AS grouping_key,
+                    %(grouping_key_param)s AS grouping_key,
                     0 AS turnover,
                     COALESCE(SUM(account_move_line.debit - account_move_line.credit), 0) AS refund_base,
                     0 AS vat_amount,
                     0 AS refund_vat_amount
-                FROM {refund_base_from}
-                WHERE {refund_base_where}
-                {f'GROUP BY {grouping_key_param}' if current_groupby else ''}
+                FROM %(refund_base_from)s
+                WHERE %(refund_base_where)s
+                %(groupby_clause)s
 
                 UNION ALL
 
                 SELECT
-                    {grouping_key_param} AS grouping_key,
+                    %(grouping_key_param)s AS grouping_key,
                     0 AS turnover,
                     0 AS refund_base,
                     COALESCE(SUM(account_move_line.credit - account_move_line.debit), 0) AS vat_amount,
                     COALESCE(SUM(account_move_line.debit), 0) AS refund_vat_amount
-                FROM {vat_amounts_from}
-                WHERE {vat_amounts_where}
-                {f'GROUP BY {grouping_key_param}' if current_groupby else ''}
+                FROM %(vat_amounts_from)s
+                WHERE %(vat_amounts_where)s
+                %(groupby_clause)s
           ) AS subquery
           GROUP BY subquery.grouping_key
-          {tail_query}
-      """
+          %(tail_query)s
+            """,
+            grouping_key_param=grouping_key_param,
+            turnover_from=turnover_from,
+            turnover_where=turnover_where,
+            refund_base_from=refund_base_from,
+            refund_base_where=refund_base_where,
+            vat_amounts_from=vat_amounts_from,
+            vat_amounts_where=vat_amounts_where,
+            groupby_clause=SQL('GROUP BY %s', grouping_key_param) if grouping_key_param else SQL(),
+            tail_query=tail_query,
+        )
 
-        self._cr.execute(query, turnover_where_params + refund_base_where_params + vat_amounts_where_params + tail_params)
+        self._cr.execute(query)
         all_query_res = self._cr.dictfetchall()
 
         if not current_groupby:
@@ -221,39 +231,48 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
     def _get_accepted_partners_vat_map(self, report, options):
         query_fun_params = self._get_query_fun_params(report, options, remove_forced_domain=True)
 
-        turnover_from, turnover_where, turnover_where_params = self._get_turnover_query(**query_fun_params)
-        refund_base_from, refund_base_where, refund_base_where_params = self._get_refund_base_query(**query_fun_params)
-        vat_amounts_from, vat_amounts_where, vat_amounts_where_params = self._get_vat_amounts_query(**query_fun_params)
+        turnover_from, turnover_where = self._get_turnover_query(**query_fun_params)
+        refund_base_from, refund_base_where = self._get_refund_base_query(**query_fun_params)
+        vat_amounts_from, vat_amounts_where = self._get_vat_amounts_query(**query_fun_params)
 
-        query = f"""
+        be_format = r'BE%'
+        query = SQL(
+            """
             SELECT res_partner.id, res_partner.vat
-            FROM {turnover_from}
-            WHERE {turnover_where}
-            AND res_partner.vat ILIKE %s
+            FROM %(turnover_from)s
+            WHERE %(turnover_where)s
+            AND res_partner.vat ILIKE %(be_format)s
             GROUP BY res_partner.id, res_partner.vat
             HAVING SUM(account_move_line.credit - account_move_line.debit) > 250
 
             UNION
 
             SELECT res_partner.id, res_partner.vat
-            FROM {refund_base_from}
-            WHERE {refund_base_where}
-            AND res_partner.vat ILIKE %s
+            FROM %(refund_base_from)s
+            WHERE %(refund_base_where)s
+            AND res_partner.vat ILIKE %(be_format)s
             GROUP BY res_partner.id, res_partner.vat
             HAVING SUM(account_move_line.balance) > 0
 
             UNION
 
             SELECT res_partner.id, res_partner.vat
-            FROM {vat_amounts_from}
-            WHERE {vat_amounts_where}
-            AND res_partner.vat ILIKE %s
+            FROM %(vat_amounts_from)s
+            WHERE %(vat_amounts_where)s
+            AND res_partner.vat ILIKE %(be_format)s
             GROUP BY res_partner.id, res_partner.vat
             HAVING SUM(account_move_line.debit) > 0
-        """
+            """,
+            turnover_from=turnover_from,
+            turnover_where=turnover_where,
+            be_format=be_format,
+            refund_base_from=refund_base_from,
+            refund_base_where=refund_base_where,
+            vat_amounts_from=vat_amounts_from,
+            vat_amounts_where=vat_amounts_where,
+        )
 
-        be_format = r'BE%'
-        self._cr.execute(query, [*turnover_where_params, be_format, *refund_base_where_params, be_format, *vat_amounts_where_params, be_format])
+        self._cr.execute(query)
         return dict(self._cr.fetchall())
 
     def _get_warning_partners(self, report, options):
@@ -307,108 +326,136 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
         self._cr.execute(SQL(query, *turnover_where_params, *refund_base_where_params, *vat_amounts_where_params, be_format, be_country_id, be_country_id, be_format))
         return [r[0] for r in self._cr.fetchall()]
 
-    def _get_turnover_query(self, options, excluded_tax_ids, tables, where_clause, where_params, partner_ids=None):
-        turnover_from = f"""
-            {tables}
+    def _get_turnover_query(self, options, excluded_tax_ids, table_references, search_condition, partner_ids=None) -> tuple[SQL, SQL]:
+        turnover_from = SQL(
+            """
+            %(table_references)s
             JOIN account_account_tag_account_move_line_rel aml_tag
                 ON account_move_line.id = aml_tag.account_move_line_id
             LEFT JOIN account_move
                 ON account_move_line.move_id = account_move.id
             LEFT JOIN res_partner
                 ON COALESCE(account_move_line.partner_id, account_move.partner_id) = res_partner.id
-        """
+            """,
+            table_references=table_references,
+        )
 
-        turnover_where = f"""
-            {where_clause}
-            AND aml_tag.account_account_tag_id IN %s
+        partner_id_constraint = SQL('AND res_partner.id IN %s', tuple(partner_ids)) if partner_ids else SQL()
+        excluded_tax_ids_constraint = SQL(
+            """
+            AND NOT EXISTS (
+                SELECT 1
+                FROM account_move_line_account_tax_rel amlatr
+                WHERE account_move_line.id = amlatr.account_move_line_id
+                AND amlatr.account_tax_id IN %s
+            )
+            """,
+            tuple(excluded_tax_ids),
+        ) if excluded_tax_ids else SQL()
+        turnover_where = SQL(
+            """
+            %(search_condition)s
+            AND aml_tag.account_account_tag_id IN %(account_tag_ids)s
             AND (
                 (account_move.move_type = 'entry' AND account_move_line.credit > 0)
                 OR account_move.move_type IN ('out_refund', 'out_invoice')
             )
             AND account_move.state = 'posted'
-            {'AND res_partner.id IN %s' if partner_ids else ''}
-            {'''AND NOT EXISTS (
-                SELECT 1
-                FROM account_move_line_account_tax_rel amlatr
-                WHERE account_move_line.id = amlatr.account_move_line_id
-                AND amlatr.account_tax_id IN %s
-            )''' if excluded_tax_ids else ''}
-        """
+            %(partner_id_constraint)s
+            %(excluded_tax_ids_constraint)s
+            """,
+            search_condition=search_condition,
+            account_tag_ids=tuple(options['partner_vat_listing_operations_tag_ids']),
+            partner_id_constraint=partner_id_constraint,
+            excluded_tax_ids_constraint=excluded_tax_ids_constraint,
+        )
 
-        turnover_where_params = [*where_params, tuple(options['partner_vat_listing_operations_tag_ids'])]
-        if partner_ids:
-            turnover_where_params.append(tuple(partner_ids))
-        if excluded_tax_ids:
-            turnover_where_params.append(tuple(excluded_tax_ids))
+        return turnover_from, turnover_where
 
-        return turnover_from, turnover_where, turnover_where_params
-
-    def _get_refund_base_query(self, options, excluded_tax_ids, tables, where_clause, where_params, partner_ids=None):
-        refund_base_from = f"""
-            {tables}
+    def _get_refund_base_query(self, options, excluded_tax_ids, table_references, search_condition, partner_ids=None) -> tuple[SQL, SQL]:
+        refund_base_from = SQL(
+            """
+            %(table_references)s
             JOIN account_account_tag_account_move_line_rel aml_tag
                 ON account_move_line.id = aml_tag.account_move_line_id
             LEFT JOIN account_move
                 ON account_move_line.move_id = account_move.id
             JOIN res_partner
                 ON COALESCE(account_move_line.partner_id, account_move.partner_id) = res_partner.id
-        """
+            """,
+            table_references=table_references,
+        )
 
-        refund_base_where = f"""
-            {where_clause}
-            AND aml_tag.account_account_tag_id IN %s
+        partner_id_constraint = SQL('AND res_partner.id IN %s', tuple(partner_ids)) if partner_ids else SQL()
+        excluded_tax_ids_constraint = SQL(
+            """
+            AND NOT EXISTS (
+                SELECT 1
+                FROM account_move_line_account_tax_rel amlatr
+                WHERE account_move_line.id = amlatr.account_move_line_id
+                AND amlatr.account_tax_id IN %s
+            )
+            """,
+            tuple(excluded_tax_ids),
+        ) if excluded_tax_ids else SQL()
+        refund_base_where = SQL(
+            """
+            %(search_condition)s
+            AND aml_tag.account_account_tag_id IN %(account_tag_ids)s
             AND (
                 (account_move.move_type = 'entry' AND account_move_line.credit > 0)
                 OR account_move.move_type = 'out_refund'
             )
             AND account_move.state = 'posted'
-            {'AND res_partner.id IN %s' if partner_ids else ''}
-            {'''AND NOT EXISTS (
-                SELECT 1
-                FROM account_move_line_account_tax_rel amlatr
-                WHERE account_move_line.id = amlatr.account_move_line_id
-                AND amlatr.account_tax_id IN %s
-            )''' if excluded_tax_ids else ''}
-        """
+            %(partner_id_constraint)s
+            %(excluded_tax_ids_constraint)s
+            """,
+            search_condition=search_condition,
+            account_tag_ids=tuple(options['partner_vat_listing_operations_tag_ids']),
+            partner_id_constraint=partner_id_constraint,
+            excluded_tax_ids_constraint=excluded_tax_ids_constraint,
+        )
 
-        refund_base_where_params = [*where_params, tuple(options['partner_vat_listing_operations_tag_ids'])]
-        if partner_ids:
-            refund_base_where_params.append(tuple(partner_ids))
-        if excluded_tax_ids:
-            refund_base_where_params.append(tuple(excluded_tax_ids))
+        return refund_base_from, refund_base_where
 
-        return refund_base_from, refund_base_where, refund_base_where_params
-
-    def _get_vat_amounts_query(self, options, excluded_tax_ids, tables, where_clause, where_params, partner_ids=None):
-        vat_amounts_from = f"""
-           {tables}
+    def _get_vat_amounts_query(self, options, excluded_tax_ids, table_references, search_condition, partner_ids=None) -> tuple[SQL, SQL]:
+        vat_amounts_from = SQL(
+           """
+           %(table_references)s
            JOIN account_account_tag_account_move_line_rel aml_tag2
                ON account_move_line.id = aml_tag2.account_move_line_id
            LEFT JOIN account_move
                ON account_move_line.move_id = account_move.id
            JOIN res_partner
                ON COALESCE(account_move_line.partner_id, account_move.partner_id) = res_partner.id
-        """
+           """,
+           table_references=table_references,
+        )
 
-        vat_amounts_where = f"""
-           {where_clause}
-           AND aml_tag2.account_account_tag_id IN %s
+        partner_id_constraint = SQL('AND res_partner.id IN %s', tuple(partner_ids)) if partner_ids else SQL()
+        excluded_tax_ids_constraint = SQL(
+            'AND account_move_line.tax_line_id NOT IN %s',
+            tuple(excluded_tax_ids),
+        ) if excluded_tax_ids else SQL()
+        vat_amounts_where = SQL(
+           """
+           %(search_condition)s
+           AND aml_tag2.account_account_tag_id IN %(account_tag_ids)s
            AND (
                (account_move.move_type = 'entry' AND account_move_line.credit > 0)
                OR account_move.move_type IN ('out_refund', 'out_invoice')
            )
            AND account_move.state = 'posted'
-           {'AND res_partner.id IN %s' if partner_ids else ''}
-           {'AND account_move_line.tax_line_id NOT IN %s' if excluded_tax_ids else ''}
-        """
+           %(partner_id_constraint)s
+           %(excluded_tax_ids_constraint)s
+           """,
+           search_condition=search_condition,
+           account_tag_ids=tuple(options['partner_vat_listing_taxes_tag_ids']),
+           partner_id_constraint=partner_id_constraint,
+           excluded_tax_ids_constraint=excluded_tax_ids_constraint,
+        )
 
-        vat_amounts_where_params = [*where_params, tuple(options['partner_vat_listing_taxes_tag_ids'])]
-        if partner_ids:
-            vat_amounts_where_params.append(tuple(partner_ids))
-        if excluded_tax_ids:
-            vat_amounts_where_params.append(tuple(excluded_tax_ids))
-
-        return vat_amounts_from, vat_amounts_where, vat_amounts_where_params
+        return vat_amounts_from, vat_amounts_where
 
     def partner_vat_listing_open_invoices(self, options, params=None):
         report = self.env['account.report'].browse(options['report_id'])

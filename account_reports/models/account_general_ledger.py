@@ -172,7 +172,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                             - (optional) unaffected_earnings:   {'debit': float, 'credit': float, 'balance': float}
         """
         # Execute the queries and dispatch the results.
-        query, params = self._get_query_sums(report, options)
+        query = self._get_query_sums(report, options)
 
         if not query:
             return []
@@ -180,7 +180,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         groupby_accounts = {}
         groupby_companies = {}
 
-        self._cr.execute(query, params)
+        self._cr.execute(query)
         for res in self._cr.dictfetchall():
             # No result to aggregate.
             if res['groupby'] is None:
@@ -231,22 +231,21 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
         return [(account, groupby_accounts[account.id]) for account in accounts]
 
-    def _get_query_sums(self, report, options):
+    def _get_query_sums(self, report, options) -> SQL:
         """ Construct a query retrieving all the aggregated sums to build the report. It includes:
         - sums for all accounts.
         - sums for the initial balances.
         - sums for the unaffected earnings.
         - sums for the tax declaration.
-        :return:                    (query, params)
+        :return:                    query as SQL object
         """
         options_by_column_group = report._split_options_per_column_group(options)
 
-        params = []
         queries = []
 
         # Create the currency table.
         # As the currency table is the same whatever the comparisons, create it only once.
-        ct_query = report._get_query_currency_table(options)
+        ct_query = SQL(report._get_query_currency_table(options))
 
         # ============================================
         # 1) Get sums for all accounts.
@@ -267,24 +266,28 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             if options_group.get('include_current_year_in_unaff_earnings'):
                 query_domain += [('account_id.include_initial_balance', '=', True)]
 
-            tables, where_clause, where_params = report._query_get(options_group, sum_date_scope, domain=query_domain)
-            params.append(column_group_key)
-            params += where_params
-            queries.append(f"""
+            table_references, search_condition = report._get_sql_table_expression(options_group, sum_date_scope, domain=query_domain)
+            queries.append(SQL(
+                """
                 SELECT
                     account_move_line.account_id                            AS groupby,
                     'sum'                                                   AS key,
                     MAX(account_move_line.date)                             AS max_date,
-                    %s                                                      AS column_group_key,
+                    %(column_group_key)s                                    AS column_group_key,
                     COALESCE(SUM(account_move_line.amount_currency), 0.0)   AS amount_currency,
                     SUM(ROUND(account_move_line.debit * currency_table.rate, currency_table.precision))   AS debit,
                     SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))  AS credit,
                     SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
-                FROM {tables}
-                LEFT JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
-                WHERE {where_clause}
+                FROM %(table_references)s
+                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                WHERE %(search_condition)s
                 GROUP BY account_move_line.account_id
-            """)
+                """,
+                column_group_key=column_group_key,
+                table_references=table_references,
+                ct_query=ct_query,
+                search_condition=search_condition,
+            ))
 
             # ============================================
             # 2) Get sums for the unaffected earnings.
@@ -299,26 +302,30 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 # ]
 
                 new_options = self._get_options_unaffected_earnings(options_group)
-                tables, where_clause, where_params = report._query_get(new_options, 'strict_range', domain=unaff_earnings_domain)
-                params.append(column_group_key)
-                params += where_params
-                queries.append(f"""
+                table_references, search_condition = report._get_sql_table_expression(new_options, 'strict_range', domain=unaff_earnings_domain)
+                queries.append(SQL(
+                    """
                     SELECT
                         account_move_line.company_id                            AS groupby,
                         'unaffected_earnings'                                   AS key,
                         NULL                                                    AS max_date,
-                        %s                                                      AS column_group_key,
+                        %(column_group_key)s                                    AS column_group_key,
                         COALESCE(SUM(account_move_line.amount_currency), 0.0)   AS amount_currency,
                         SUM(ROUND(account_move_line.debit * currency_table.rate, currency_table.precision))   AS debit,
                         SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))  AS credit,
                         SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
-                    FROM {tables}
-                    LEFT JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
-                    WHERE {where_clause}
+                    FROM %(table_references)s
+                    LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                    WHERE %(search_condition)s
                     GROUP BY account_move_line.company_id
-                """)
+                    """,
+                    column_group_key=column_group_key,
+                    table_references=table_references,
+                    ct_query=ct_query,
+                    search_condition=search_condition,
+                ))
 
-        return ' UNION ALL '.join(queries), params
+        return SQL(" UNION ALL ").join(queries)
 
     def _get_options_unaffected_earnings(self, options):
         ''' Create options used to compute the unaffected earnings.
@@ -468,33 +475,36 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         Get sums for the initial balance.
         """
         queries = []
-        params = []
         for column_group_key, options_group in report._split_options_per_column_group(options).items():
             new_options = self._get_options_initial_balance(options_group)
-            ct_query = report._get_query_currency_table(new_options)
+            ct_query = SQL(report._get_query_currency_table(new_options))
             domain = [('account_id', 'in', account_ids)]
             if new_options.get('include_current_year_in_unaff_earnings'):
                 domain += [('account_id.include_initial_balance', '=', True)]
-            tables, where_clause, where_params = report._query_get(new_options, 'normal', domain=domain)
-            params.append(column_group_key)
-            params += where_params
-            queries.append(f"""
+            table_references, search_condition = report._get_sql_table_expression(new_options, 'normal', domain=domain)
+            queries.append(SQL(
+                """
                 SELECT
                     account_move_line.account_id                                                          AS groupby,
                     'initial_balance'                                                                     AS key,
                     NULL                                                                                  AS max_date,
-                    %s                                                                                    AS column_group_key,
+                    %(column_group_key)s                                                                  AS column_group_key,
                     COALESCE(SUM(account_move_line.amount_currency), 0.0)                                 AS amount_currency,
                     SUM(ROUND(account_move_line.debit * currency_table.rate, currency_table.precision))   AS debit,
                     SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))  AS credit,
                     SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
-                FROM {tables}
-                LEFT JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
-                WHERE {where_clause}
+                FROM %(table_references)s
+                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                WHERE %(search_condition)s
                 GROUP BY account_move_line.account_id
-            """)
+                """,
+                column_group_key=column_group_key,
+                table_references=table_references,
+                ct_query=ct_query,
+                search_condition=search_condition,
+            ))
 
-        self._cr.execute(" UNION ALL ".join(queries), params)
+        self._cr.execute(SQL(" UNION ALL ").join(queries))
 
         init_balance_by_col_group = {
             account_id: {column_group_key: {} for column_group_key in options['column_groups']}

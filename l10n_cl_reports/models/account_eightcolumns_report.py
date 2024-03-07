@@ -179,7 +179,7 @@ class ChileanReportCustomHandler(models.AbstractModel):
             fiscal_dates['date_from'] - timedelta(days=1),
             'range',
             period_type='custom')
-        tables, where_clause, where_params = report._query_get(new_options, 'strict_range')
+        table_references, search_condition = report._get_sql_table_expression(new_options, 'strict_range')
         account_types = (
             'equity_unaffected',
             'income',
@@ -188,14 +188,19 @@ class ChileanReportCustomHandler(models.AbstractModel):
             'expense',
             'expense_depreciation'
         )
-        sql_query = f"""
+        sql_query = SQL(
+            """
             SELECT -SUM(account_move_line.balance) as unaffected_earnings
-            FROM account_account AS aa, {tables}
-            WHERE {where_clause}
+            FROM account_account AS aa, %(table_references)s
+            WHERE %(search_condition)s
             AND aa.id = account_move_line.account_id
-            AND aa.account_type IN %s
-        """.strip('\n')
-        self.env.cr.execute(sql_query, where_params + [tuple(account_types)])
+            AND aa.account_type IN %(account_types)s
+            """.strip('\n'),
+            table_references=table_references,
+            search_condition=search_condition,
+            account_types=account_types,
+        )
+        self.env.cr.execute(sql_query)
         value = self.env.cr.fetchone()[0] or 0.0
         return self.env.company.currency_id.round(value)
 
