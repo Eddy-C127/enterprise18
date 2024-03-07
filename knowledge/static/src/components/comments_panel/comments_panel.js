@@ -104,7 +104,9 @@ export class KnowledgeArticleCommentsPanel extends Component {
     }
 
     insertNewThreadFromHandler(event) {
-        const newlyCreatedComment = event.detail.comment;
+        const newlyCreatedComment = Object.assign({}, event.detail.comment, {
+            insertNewThread: this.insertNewThread.bind(this),
+        });
         this.state.commentMode = 'unresolved';
         if (newlyCreatedComment.isCreationMode) {
             this.state.comments['undefined'] = newlyCreatedComment;
