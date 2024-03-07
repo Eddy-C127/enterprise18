@@ -205,6 +205,16 @@ class KnowledgeCommonWData(KnowledgeCommon):
              'parent_id': cls.article_private_manager.id,
             }
         ])
+        index = 1
+        for article in (cls.article_shared + cls.private_children[0]):
+            for _ in range(2):
+                cls.env['knowledge.article.stage'].create({
+                    'name': 'Stage %d' % index,
+                    'sequence': index,
+                    'parent_id': article.id,
+                })
+                index += 1
+
         cls.env.flush_all()
 
 

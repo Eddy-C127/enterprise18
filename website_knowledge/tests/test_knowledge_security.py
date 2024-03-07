@@ -27,6 +27,10 @@ class TestWKnowledgeSecurity(KnowledgeCommonWData):
         with self.assertRaises(exceptions.AccessError, msg='ACLs: No favorite access to public'):
             self.env['knowledge.article.favorite'].search([])
 
+        # STAGE
+        with self.assertRaises(exceptions.AccessError, msg='ACLs: No stage access to public'):
+            self.env['knowledge.article.stage'].search([])
+
     @mute_logger('odoo.addons.base.models.ir_model', 'odoo.addons.base.models.ir_rule')
     @users('portal_test')
     def test_models_as_portal(self):
@@ -36,7 +40,11 @@ class TestWKnowledgeSecurity(KnowledgeCommonWData):
                                msg="ACLs: Internal permission 'none', not for portal"):
             article_shared.body  # access body should trigger acls
 
+        # stages are not readable as the article is not accessible
+        self.assertEqual(self.env['knowledge.article.stage'].search_count([]), 0)
         article_shared.sudo().website_published = True
+        # should be able to read both stages as the article is published
+        self.assertEqual(self.env['knowledge.article.stage'].search_count([]), 2)
         article_shared.body  # access body should trigger acls
         self.assertFalse(article_shared.is_user_favorite)
 
@@ -54,7 +62,11 @@ class TestWKnowledgeSecurity(KnowledgeCommonWData):
                                msg="ACLs: 'none' internal permission"):
             article_hidden.body  # access body should trigger acls
 
+        # stages are not readable as the article is not accessible
+        self.assertEqual(self.env['knowledge.article.stage'].search_count([]), 0)
         article_hidden.sudo().website_published = True
+        # should be able to read both stages as the article is published
+        self.assertEqual(self.env['knowledge.article.stage'].search_count([]), 2)
         article_hidden.body  # access body should trigger acls
         self.assertFalse(article_hidden.is_user_favorite)
 
