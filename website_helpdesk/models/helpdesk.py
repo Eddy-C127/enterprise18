@@ -10,7 +10,7 @@ from odoo.addons.http_routing.models.ir_http import slug
 
 class HelpdeskTeam(models.Model):
     _name = "helpdesk.team"
-    _inherit = ['helpdesk.team', 'website.published.mixin']
+    _inherit = ['helpdesk.team', 'website.published.mixin', 'website.seo.metadata']
 
     feature_form_url = fields.Char('URL to Submit Issue', readonly=True, compute='_compute_form_url')
     website_id = fields.Many2one('website', domain="[('company_id', '=?', company_id)]", compute='_compute_website_id', store=True, readonly=False)
