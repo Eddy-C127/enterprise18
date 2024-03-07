@@ -41,6 +41,7 @@
                 <field name="signers_count" invisible="1"/>
                 <field name="has_default_template" invisible="1"/>
                 <field name="is_user_signer" invisible="1"/>
+                <field name="reference_doc" invisible="1"/>
 
                 <notebook invisible="context.get('sign_directly_without_mail',False)">
                     <page name="signature_request" string="Signature Request">

@@ -142,6 +142,7 @@
                                 <field name="reminder_enabled" class="oe_inline mb-0" nolabel="1" widget="boolean_toggle" options="{'autosave': False}"/> Send a reminder
                                 <span invisible="not reminder_enabled">every<field name="reminder" class="text-center mb-0 o_sign_reminder_field" readonly="state not in ['shared', 'sent']"/> days.</span>
                             </div>
+                            <field name="reference_doc" invisible="not reference_doc" readonly="state != 'sent'"/>
                         </group>
                     </group>
                     <notebook>

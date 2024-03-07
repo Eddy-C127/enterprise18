@@ -42,6 +42,7 @@ class SignSendRequest(models.TransientModel):
         return res
 
     activity_id = fields.Many2one('mail.activity', 'Linked Activity', readonly=True)
+    reference_doc = fields.Char(string="Linked to", readonly=True)
     has_default_template = fields.Boolean()
     template_id = fields.Many2one(
         'sign.template', required=True, ondelete='cascade',
@@ -146,16 +147,23 @@ class SignSendRequest(models.TransientModel):
             'validity': self.validity,
             'reminder': self.reminder,
             'reminder_enabled': self.reminder_enabled,
+            'reference_doc': self.reference_doc,
         })
         sign_request.message_subscribe(partner_ids=cc_partner_ids)
         return sign_request
 
     def send_request(self):
         request = self.create_request()
+        self._create_request_log_note(request)
         if self.activity_id:
             self._activity_done()
             return {'type': 'ir.actions.act_window_close'}
         return request.go_to_document()
+
+    def _create_request_log_note(self, request):
+        if request.reference_doc:
+            body = _("A signature request has been linked to this document: %s", request._get_html_link())
+            request.reference_doc.message_post(body=body)
 
     def sign_directly(self):
         request = self.create_request()

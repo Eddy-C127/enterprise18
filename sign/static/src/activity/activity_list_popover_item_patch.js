@@ -9,9 +9,12 @@ patch(ActivityListPopoverItem.prototype, {
     },
 
     async onClickRequestSign() {
+        const { res_model, res_id } = this.props;
+        const documentReference = res_model && res_id ? `${res_model},${res_id}` : false;
         await this.env.services["mail.activity"].requestSignature(
             this.props.activity.id,
-            this.props.onActivityChanged
+            this.props.onActivityChanged,
+            documentReference
         );
     },
 });

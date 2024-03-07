@@ -66,9 +66,15 @@ class SignRequest(models.Model):
     def _get_mail_link(self, email, subject):
         return "mailto:%s?subject=%s" % (url_quote(email), url_quote(subject))
 
+    @api.model
+    def _selection_target_model(self):
+        return [(model.model, model.name)
+                for model in self.env['ir.model'].sudo().search([('model', '!=', 'sign.request'), ('is_mail_thread', '=', 'True')])]
+
     template_id = fields.Many2one('sign.template', string="Template", required=True)
     subject = fields.Char(string="Email Subject")
     reference = fields.Char(required=True, string="Document Name", help="This is how the document will be named in the mail")
+    reference_doc = fields.Reference(string="Linked To", selection='_selection_target_model')
 
     access_token = fields.Char('Security Token', required=True, default=_default_access_token, readonly=True, copy=False)
     share_link = fields.Char(string="Share Link", compute='_compute_share_link')
@@ -471,6 +477,13 @@ class SignRequest(models.Model):
             if not is_html_empty(self.message_cc):
                 body += self.message_cc
             self.message_post(body=body, attachment_ids=self.attachment_ids.ids + self.completed_document_attachment_ids.ids)
+        if self.reference_doc:
+            record_body = _("The document %s has been fully signed.", self._get_html_link())
+            self.reference_doc.message_post(
+                body=record_body,
+                attachment_ids=self.completed_document_attachment_ids.ids,
+                partner_ids=cc_partners_valid.ids,
+            )
 
     def _send_completed_document_mail(self, signers, request_edited, partner, access_token=None, with_message_cc=True, force_send=False):
         self.ensure_one()
