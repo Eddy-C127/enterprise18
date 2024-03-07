@@ -203,7 +203,7 @@ class MrpProduction(models.Model):
                 'component_id': comp,
             }} for (xmlid, testtype, note, title, page, seq, comp) in (
                 (
-                    'mrp.quality_point_register_serial_production',
+                    'mrp_workorder.quality_point_register_serial_production',
                     'mrp_workorder.test_type_register_production',
                     'Register the produced quantity.',
                     'Register production',
@@ -212,7 +212,7 @@ class MrpProduction(models.Model):
                     None,
                 ),
                 (
-                    'mrp.quality_point_component_registration',
+                    'mrp_workorder.quality_point_component_registration',
                     'mrp_workorder.test_type_register_consumed_materials',
                     'Please register consumption of the table top.',
                     'Component Registration: Table Head',
@@ -221,7 +221,7 @@ class MrpProduction(models.Model):
                     tabletop.id,
                 ),
                 (
-                    'mrp.quality_point_instructions',
+                    'mrp_workorder.quality_point_instructions',
                     'quality.test_type_instructions',
                     'Please ensure you are using the new SRX679 screwdriver.',
                     'Choice of screwdriver',
@@ -230,7 +230,7 @@ class MrpProduction(models.Model):
                     None,
                 ),
                 (
-                    'mrp.quality_point_component_registration_2',
+                    'mrp_workorder.quality_point_component_registration_2',
                     'mrp_workorder.test_type_register_consumed_materials',
                     'Please register consumption of the table legs.',
                     'Component Registration: Table Legs',
@@ -239,7 +239,7 @@ class MrpProduction(models.Model):
                     tableleg.id,
                 ),
                 (
-                    'mrp.quality_point_register_production',
+                    'mrp_workorder.quality_point_register_production',
                     'quality.test_type_instructions',
                     'Please attach the legs to the table as shown below.',
                     'Table Legs',
@@ -248,7 +248,7 @@ class MrpProduction(models.Model):
                     None,
                 ),
                 (
-                    'mrp.quality_point_print_labels',
+                    'mrp_workorder.quality_point_print_labels',
                     'mrp_workorder.test_type_print_label',
                     None,
                     'Print Labels',
