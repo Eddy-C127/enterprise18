@@ -18,8 +18,12 @@
             </div>
 
             <div class="o_pdis_orderline_warning" t-att-class="{ 'o_pdis_orderline--done': this.props.orderline.todo === false }">
-                <div t-if="this.props.orderline.internalNote" class="o_pdis_note d-flex ms-4 px-2 mb-1">
-                    <div class="px-2 rounded bg-warning text-warning bg-opacity-25 small" t-esc="this.props.orderline.internalNote" />
+                <div t-if="this.props.orderline.internalNote" class="list-inline o_pdis_note d-flex ms-4 px-2 mb-1">
+                    <t t-foreach="this.props.orderline.internalNote.split('\n')" t-as="note" t-key="note">
+                        <li t-if="note and note.trim() !== ''" class="internal-note px-1 m-1 badge rounded-pill bg-warning text-warning bg-opacity-25 small" style="font-size: 0.85rem;">
+                            <t t-esc="note" />
+                        </li>
+                    </t>
                 </div>
                 <div t-if="this.props.orderline.productCancelled > 0" class="o_pdis--cancelled d-flex w-100 pe-2">
                     <div
