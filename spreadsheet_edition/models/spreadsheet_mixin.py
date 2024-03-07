@@ -56,8 +56,19 @@ class SpreadsheetMixin(models.AbstractModel):
         if not default or "spreadsheet_revision_ids" not in default:
             for old_spreadsheet, new_spreadsheet in zip(self, new_spreadsheets):
                 old_spreadsheet._copy_revisions_to(new_spreadsheet)
+        if not default or "spreadsheet_data" not in default:
+            new_spreadsheets = new_spreadsheets.with_context(preserve_spreadsheet_revisions=True)
+            for old_spreadsheet, new_spreadsheet in zip(self, new_spreadsheets):
+                new_spreadsheet.spreadsheet_data = old_spreadsheet.spreadsheet_data
+        new_spreadsheets._copy_spreadsheet_image_attachments()
         new_spreadsheets._delete_comments_from_data()
         return new_spreadsheets
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        spreadsheets = super().create(vals_list)
+        spreadsheets._copy_spreadsheet_image_attachments()
+        return spreadsheets
 
     def join_spreadsheet_session(self, share_id=None, access_token=None):
         """Join a spreadsheet session.
@@ -479,3 +490,48 @@ class SpreadsheetMixin(models.AbstractModel):
                 commands.pop(index)
         revision_commands['commands'] = commands
         return json.dumps(revision_commands)
+
+    def _copy_spreadsheet_image_attachments(self):
+        """Ensures the image attachments are linked to the spreadsheet record
+        and duplicates them if necessary and updates the spreadsheet data and revisions to
+        point to the new attachments."""
+        self._check_collaborative_spreadsheet_access("write")
+        for spreadsheet in self:
+            revisions = spreadsheet.sudo().with_context(active_test=False).spreadsheet_revision_ids
+            mapping = {}  # old_attachment_id: new_attachment
+            revisions_with_images = revisions.filtered(lambda r: "CREATE_IMAGE" in r.commands)
+            for revision in revisions_with_images:
+                data = json.loads(revision.commands)
+                commands = data.get("commands", [])
+                for command in commands:
+                    if command["type"] == "CREATE_IMAGE" and command["definition"]["path"].startswith("/web/image/"):
+                        attachment_copy = spreadsheet._get_spreadsheet_image_attachment(command["definition"]["path"], mapping)
+                        if attachment_copy:
+                            command["definition"]["path"] = f"/web/image/{attachment_copy.id}"
+                revision.commands = json.dumps(data)
+            data = json.loads(spreadsheet.spreadsheet_data) if spreadsheet.spreadsheet_data else {}
+            spreadsheet._copy_spreadsheet_images_data(data, mapping)
+            if spreadsheet.spreadsheet_snapshot:
+                snapshot = spreadsheet._get_spreadsheet_snapshot()
+                spreadsheet._copy_spreadsheet_images_data(snapshot, mapping)
+            if mapping:
+                spreadsheet.with_context(preserve_spreadsheet_revisions=True).spreadsheet_data = json.dumps(data)
+                if spreadsheet.spreadsheet_snapshot:
+                    spreadsheet.spreadsheet_snapshot = base64.encodebytes(json.dumps(snapshot).encode())
+
+    def _copy_spreadsheet_images_data(self, data, mapping):
+        for sheet in data.get("sheets", []):
+            for figure in sheet.get("figures", []):
+                if figure["tag"] == "image" and figure["data"]["path"].startswith("/web/image/"):
+                    attachment_copy = self._get_spreadsheet_image_attachment(figure["data"]["path"], mapping)
+                    if attachment_copy:
+                        figure["data"]["path"] = f"/web/image/{attachment_copy.id}"
+
+    def _get_spreadsheet_image_attachment(self, path: str, mapping):
+        attachment_id = int(path.split("/")[3].split("?")[0])
+        attachment = self.env["ir.attachment"].browse(attachment_id).exists()
+        if attachment and (attachment.res_model != self._name or attachment.res_id != self.id):
+            attachment_copy = mapping.get(attachment_id) or attachment.copy({"res_model": self._name, "res_id": self.id})
+            mapping[attachment_id] = attachment_copy
+            return attachment_copy
+        return self.env["ir.attachment"]

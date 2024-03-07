@@ -102,6 +102,10 @@ class Document(models.Model):
         spreadsheets = self.filtered(lambda d: d.handler == "spreadsheet")
         super(Document, self - spreadsheets)._compute_thumbnail()
 
+    def _copy_spreadsheet_image_attachments(self):
+        spreadsheets = self.filtered(lambda d: d.handler == "spreadsheet")
+        super(Document, spreadsheets)._copy_spreadsheet_image_attachments()
+
     def _resize_thumbnail_value(self, vals):
         if 'thumbnail' in vals:
             return dict(

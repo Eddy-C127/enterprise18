@@ -562,12 +562,12 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
     def test_read_spreadsheet_data(self):
         document = self.env["documents.document"].create({
             "name": "test.txt",
-            "datas": base64.encodebytes(b"{ sheets: [] }"),
+            "datas": base64.encodebytes(b'{ "sheets": [] }'),
             "handler": "spreadsheet",
             "mimetype": "application/o-spreadsheet",
             "folder_id": self.folder.id,
         })
-        self.assertEqual(document.spreadsheet_data, "{ sheets: [] }")
+        self.assertEqual(document.spreadsheet_data, '{ "sheets": [] }')
 
     def test_read_spreadsheet_data_bin_size_ctx(self):
         document = self.env["documents.document"].with_context(bin_size=True).create({
@@ -697,3 +697,133 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         self.assertEqual(spreadsheet.display_name, False)
         session_data = spreadsheet.join_spreadsheet_session()
         self.assertEqual(session_data["name"], "")
+
+    def test_copy_image_in_snapshot(self):
+        spreadsheet = self.create_spreadsheet()
+        image = self.env["ir.attachment"].create({
+            "name": "image.png",
+            "datas": b"test",
+            "res_model": "documents.document",
+            "res_id": spreadsheet.id,
+        })
+        spreadsheet_data = {
+            "revisionId": "NEW_REVISION",
+            "sheets": [{
+                "figures": [
+                    {
+                        "id": "14",
+                        "x": 0,
+                        "y": 0,
+                        "width": 10,
+                        "height": 10,
+                        "tag": "image",
+                        "data": {
+                            "path": f"/web/image/{image.id}",
+                            "size": {"width": 10, "height": 10},
+                            "mimetype": "image/png"
+                        }
+                    }
+                ],
+            }],
+        }
+        spreadsheet.spreadsheet_data = json.dumps(spreadsheet_data)
+        self.snapshot(spreadsheet, "START_REVISION", "NEW_REVISION", spreadsheet_data)
+        copy = spreadsheet.copy({
+            "spreadsheet_data": spreadsheet.spreadsheet_data,
+            "spreadsheet_snapshot": spreadsheet.spreadsheet_snapshot,
+        })
+        copied_data = json.loads(copy.spreadsheet_data)
+        copied_snapshot = copy._get_spreadsheet_snapshot()
+        for data_copy in (copied_data, copied_snapshot):
+            image_definition = data_copy["sheets"][0]["figures"][0]["data"]
+            path = image_definition["path"]
+            attachment_copy_id = int(path.split("/")[3])
+            attachment_copy = self.env["ir.attachment"].browse(attachment_copy_id)
+            self.assertNotEqual(attachment_copy_id, image.id)
+            self.assertEqual(attachment_copy.res_id, copy.id)
+            self.assertEqual(attachment_copy.res_model, "documents.document")
+            self.assertEqual(image_definition["path"], f"/web/image/{attachment_copy_id}")
+
+    def test_copy_image_in_revision(self):
+        spreadsheet = self.create_spreadsheet()
+        image = self.env["ir.attachment"].create({
+            "name": "image.png",
+            "datas": b"test",
+            "res_model": "documents.document",
+            "res_id": spreadsheet.id,
+        })
+        commands = [{
+            "type": "CREATE_IMAGE",
+            "figureId": "image-id",
+            "position": {"x": 0, "y": 0},
+            "size": {"width": 1, "height": 1},
+            "definition": {
+                "path": "/web/image/%s" % image.id,
+            }
+        }]
+
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet, commands=commands))
+        copy = spreadsheet.copy()
+        revision = copy.spreadsheet_revision_ids
+        command = json.loads(revision.commands)["commands"][0]
+        path = command["definition"]["path"]
+        attachment_copy_id = int(path.split("/")[3])
+        attachment_copy = self.env["ir.attachment"].browse(attachment_copy_id)
+        self.assertNotEqual(attachment_copy_id, image.id)
+        self.assertEqual(attachment_copy.res_id, copy.id)
+        self.assertEqual(attachment_copy.res_model, "documents.document")
+        self.assertEqual(command["definition"]["path"], f"/web/image/{attachment_copy_id}")
+
+    def test_create_spreadsheet_with_image_linked_to_other_record(self):
+        image = self.env["ir.attachment"].create({
+            "name": "image.png",
+            "datas": b"test",
+            "res_model": self.env.user._name,
+            "res_id": self.env.user.id,
+        })
+        spreadsheet_data = {
+            "sheets": [{
+                "figures": [
+                    {
+                        "id": "14",
+                        "x": 0,
+                        "y": 0,
+                        "width": 10,
+                        "height": 10,
+                        "tag": "image",
+                        "data": {
+                            "path": f"/web/image/{image.id}",
+                            "size": {"width": 10, "height": 10},
+                            "mimetype": "image/png"
+                        }
+                    }
+                ],
+            }],
+        }
+        spreadsheet = self.create_spreadsheet({
+            "spreadsheet_data": json.dumps(spreadsheet_data)
+        })
+        copy = spreadsheet.copy({
+            "spreadsheet_data": spreadsheet.spreadsheet_data,
+            "spreadsheet_snapshot": spreadsheet.spreadsheet_snapshot,
+        })
+        image_definition = json.loads(copy.spreadsheet_data)["sheets"][0]["figures"][0]["data"]
+        path = image_definition["path"]
+        attachment_copy_id = int(path.split("/")[3])
+        attachment_copy = self.env["ir.attachment"].browse(attachment_copy_id)
+        self.assertNotEqual(attachment_copy_id, image.id)
+        self.assertEqual(attachment_copy.res_id, copy.id)
+        self.assertEqual(attachment_copy.res_model, "documents.document")
+        self.assertEqual(image_definition["path"], f"/web/image/{attachment_copy_id}")
+
+    def test_delete_spreadsheet_delete_image(self):
+        spreadsheet = self.create_spreadsheet()
+        image = self.env["ir.attachment"].create({
+            "name": "image.png",
+            "datas": b"test",
+            "res_model": "documents.document",
+            "res_id": spreadsheet.id,
+        })
+        self.assertTrue(image)
+        spreadsheet.unlink()
+        self.assertFalse(image.exists())
