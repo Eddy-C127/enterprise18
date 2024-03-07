@@ -1931,7 +1931,7 @@ class Planning(models.Model):
             return False
         self.ensure_one()
 
-        employee_with_backend = employee_ids.filtered(lambda e: e.user_id and e.user_id.has_group('planning.group_planning_user'))
+        employee_with_backend = employee_ids.filtered(lambda e: e.user_id)
         employee_without_backend = employee_ids - employee_with_backend
         planning = False
         if employee_without_backend:
@@ -1955,8 +1955,8 @@ class Planning(models.Model):
 
         if self.employee_id:
             employee_ids = self.employee_id
-            if self.allow_self_unassign:
-                if employee_ids.filtered(lambda e: e.user_id and e.user_id.has_group('planning.group_planning_user')):
+            if self.allow_self_unassign and not self.is_unassign_deadline_passed:
+                if employee_ids.filtered(lambda e: e.user_id):
                     unavailable_link = '/planning/unassign/%s/%s' % (self.employee_id.sudo().employee_token, self.id)
                 else:
                     unavailable_link = '/planning/%s/%s/unassign/%s?message=1' % (planning.access_token, self.employee_id.sudo().employee_token, self.id)
@@ -1965,9 +1965,9 @@ class Planning(models.Model):
 
         mails_to_send_ids = []
         for employee in employee_ids.filtered(lambda e: e.work_email):
-            if not self.employee_id and employee in employee_with_backend:
+            if not self.employee_id and employee in employee_with_backend and not self.is_past:
                 view_context.update({'available_link': '/planning/assign/%s/%s' % (employee.sudo().employee_token, self.id)})
-            elif not self.employee_id:
+            elif not self.employee_id and not self.is_past:
                 view_context.update({'available_link': '/planning/%s/%s/assign/%s?message=1' % (planning.access_token, employee.sudo().employee_token, self.id)})
             start_datetime = self._format_datetime_to_user_tz(self.start_datetime, employee.env, tz=employee.tz, lang_code=employee.user_partner_id.lang)
             end_datetime = self._format_datetime_to_user_tz(self.end_datetime, employee.env, tz=employee.tz, lang_code=employee.user_partner_id.lang)
@@ -2312,8 +2312,8 @@ class PlanningPlanning(models.Model):
     def _is_slot_in_planning(self, slot_sudo):
         return (
             self
-            and slot_sudo.start_datetime > self.start_datetime
-            and slot_sudo.end_datetime < self.end_datetime
+            and slot_sudo.start_datetime >= self.start_datetime
+            and slot_sudo.end_datetime <= self.end_datetime
             and slot_sudo.state == "published"
         )
 

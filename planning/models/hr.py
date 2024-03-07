@@ -59,7 +59,7 @@ class Employee(models.Model):
     def _planning_get_url(self, planning):
         result = {}
         for employee in self:
-            if employee.user_id and employee.user_id.has_group('planning.group_planning_user'):
+            if employee.user_id:
                 result[employee.id] = '/web?date_start=%s&date_end=%s#action=planning.planning_action_open_shift&menu_id=' % (planning.date_start, planning.date_end)
             else:
                 result[employee.id] = '/planning/%s/%s' % (planning.access_token, employee.employee_token)
