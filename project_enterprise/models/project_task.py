@@ -27,7 +27,7 @@ class Task(models.Model):
 
     planned_date_begin = fields.Datetime("Start date", tracking=True)
     # planned_date_start is added to be able to display tasks in calendar view because both start and end date are mandatory
-    planned_date_start = fields.Datetime(compute="_compute_planned_date_start", search="_search_planned_date_start")
+    planned_date_start = fields.Datetime(compute="_compute_planned_date_start", inverse='_inverse_planned_date_start', search="_search_planned_date_start")
     allocated_hours = fields.Float(compute='_compute_allocated_hours', store=True, readonly=False)
     # Task Dependencies fields
     display_warning_dependency_in_gantt = fields.Boolean(compute="_compute_display_warning_dependency_in_gantt")
@@ -398,6 +398,14 @@ class Task(models.Model):
     def _compute_planned_date_start(self):
         for task in self:
             task.planned_date_start = task.planned_date_begin or task.date_deadline
+
+    def _inverse_planned_date_start(self):
+        """ Inverse method only used for calendar view to update the date start if the date begin was defined """
+        for task in self:
+            if task.planned_date_begin:
+                task.planned_date_begin = task.planned_date_start
+            else:  # to keep the right hour in the date_deadline
+                task.date_deadline = task.planned_date_start
 
     def _search_planned_date_start(self, operator, value):
         return [
