@@ -75,7 +75,7 @@ import {
     dragPill,
     resizePill,
     getTexts,
-} from "@web_gantt/../tests/helpers";
+} from "@web_gantt/../tests/legacy/helpers";
 
 async function ganttResourceWorkIntervalRPC(_, args) {
     if (args.method === "gantt_resource_work_interval") {

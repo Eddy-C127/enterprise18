@@ -19,7 +19,7 @@ import {
     getGridContent,
     hoverGridCell,
     SELECTORS,
-} from "@web_gantt/../tests/helpers";
+} from "@web_gantt/../tests/legacy/helpers";
 import { servicesToDefineInGantt } from "@project_enterprise/../tests/task_gantt_dependency_tests";
 import { browser } from "@web/core/browser/browser";
 
@@ -175,7 +175,7 @@ QUnit.module("Views > TaskGanttView", {
             },
             views: {
                 "task,false,list": '<tree><field name="name"/></tree>',
-            }
+            },
         };
     },
 });

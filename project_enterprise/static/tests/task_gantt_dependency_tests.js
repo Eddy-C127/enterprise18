@@ -4,11 +4,58 @@ import { TaskGanttRenderer } from "@project_enterprise/task_gantt_renderer";
 import { getFixture, patchDate, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
-import { getConnector, getConnectorMap } from "@web_gantt/../tests/gantt_dependency_tests";
-import { SELECTORS } from "@web_gantt/../tests/helpers";
+import { SELECTORS } from "@web_gantt/../tests/legacy/helpers";
 import { COLORS } from "@web_gantt/gantt_connector";
 
-/** @typedef {import("@web_gantt/../tests/gantt_dependency_tests.js").ConnectorTaskIds} ConnectorTaskIds */
+/**
+ * @param {number | "new"} id
+ */
+function getConnector(id) {
+    if (!/^__connector__/.test(id)) {
+        id = `__connector__${id}`;
+    }
+    return getFixture().querySelector([
+        `${SELECTORS.cellContainer} ${SELECTORS.connector}[data-connector-id='${id}']`,
+    ]);
+}
+
+function getConnectorMap(renderer) {
+    /**
+     * @param {PillId} pillId
+     */
+    const getIdAndUserIdFromPill = (pillId) => {
+        /** @type {[ResId, ResId]} */
+        const result = [renderer.pills[pillId]?.record.id || false, false];
+        if (result[0]) {
+            const pills = renderer.mappingRecordToPillsByRow[result[0]]?.pills;
+            if (pills) {
+                const pillEntry = Object.entries(pills).find((e) => e[1].id === pillId);
+                if (pillEntry) {
+                    const [firstGroup] = JSON.parse(pillEntry[0]);
+                    if (firstGroup.user_ids?.length) {
+                        result[1] = firstGroup.user_ids[0] || false;
+                    }
+                }
+            }
+        }
+        return result;
+    };
+
+    /** @type {Map<ConnectorTaskIds, ConnectorProps>} */
+    const connectorMap = new Map();
+    for (const connector of Object.values(renderer.connectors)) {
+        const { sourcePillId, targetPillId } = renderer.mappingConnectorToPills[connector.id];
+        if (!sourcePillId || !targetPillId) {
+            continue;
+        }
+        const key = JSON.stringify([
+            ...getIdAndUserIdFromPill(sourcePillId),
+            ...getIdAndUserIdFromPill(targetPillId),
+        ]);
+        connectorMap.set(key, connector);
+    }
+    return connectorMap;
+}
 
 const ganttViewParams = {
     arch: /* xml */ `

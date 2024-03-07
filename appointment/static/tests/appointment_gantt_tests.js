@@ -2,7 +2,7 @@
 
 import { patchDate } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
-import { dragPill, getGridContent } from "@web_gantt/../tests/helpers";
+import { dragPill, getGridContent } from "@web_gantt/../tests/legacy/helpers";
 import { getServerModels } from "./appointment_tests_common";
 
 // minimalist version of the appointment gantt view
