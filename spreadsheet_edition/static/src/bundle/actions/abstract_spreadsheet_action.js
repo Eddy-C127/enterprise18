@@ -134,8 +134,7 @@ export class AbstractSpreadsheetAction extends Component {
     createModel() {
         const odooDataProvider = new OdooDataProvider(this.env);
         odooDataProvider.addEventListener("data-source-updated", () => {
-            const sheetId = this.model.getters.getActiveSheetId();
-            this.model.dispatch("EVALUATE_CELLS", { sheetId });
+            this.model.dispatch("EVALUATE_CELLS");
         });
         const defaultCurrency = this.record.default_currency;
         const defaultCurrencyFormat = defaultCurrency
