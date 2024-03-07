@@ -9,7 +9,7 @@
             <field name="active"/>
             <field name="parent_folder_id"/>
             <filter string="Parent Workspace" name="by_parent" domain="[]" context="{'group_by': 'parent_folder_id'}"/>
-            <filter string="Archived Workspace" name="archived_workspace_filter" domain="[('active', '=', False)]"/>
+            <filter string="Moved To Trash" name="archived_workspace_filter" domain="[('active', '=', False)]"/>
          </search>
         </field>
     </record>
