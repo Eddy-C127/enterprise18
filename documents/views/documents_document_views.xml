@@ -166,7 +166,7 @@
                     <button type="object" name="create_share" string="Share"/>
                     <button type="object" name="toggle_lock" string="Lock" invisible="lock_uid"/>
                     <button type="object" name="toggle_lock" string="Unlock" invisible="not lock_uid"/>
-                    <button type="object" name="action_archive" string="Archive" invisible="not active"/>
+                    <button type="object" name="action_archive" string="Move to trash" invisible="not active"/>
                     <button type="object" name="action_unarchive" string="Restore" invisible="active"/>
                 </header>
                 <sheet>
@@ -177,7 +177,7 @@
                             </div>
                         </button>
                     </div>
-                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <widget name="web_ribbon" title="Moved to trash" bg_color="text-bg-danger" invisible="active"/>
                     <field name="thumbnail" nolabel="1" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;:&quot;thumbnail&quot;}" invisible="not thumbnail"/>
                     <div class="oe_title" aria-label="Name">
                         <h1>
