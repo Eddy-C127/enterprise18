@@ -1,9 +1,7 @@
 # coding: utf-8
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from os.path import join, dirname, realpath
 from odoo import tools
-from odoo.tools.misc import file_open
 import csv
 
 
@@ -11,7 +9,7 @@ def post_init_hook(env):
     mx_country = env["res.country"].search([("code", "=", "MX")])
     # Load cities
     res_city_vals_list = []
-    with tools.file_open("l10n_mx_edi_extended/data/res.city.csv", "r") as csv_file:
+    with tools.file_open("l10n_mx_edi_extended/data/res.city.csv") as csv_file:
         for row in csv.DictReader(csv_file, delimiter='|', fieldnames=['l10n_mx_edi_code', 'name', 'state_xml_id']):
             state = env.ref('base.%s' % row['state_xml_id'], raise_if_not_found=False)
             res_city_vals_list.append({
@@ -44,9 +42,8 @@ def post_init_hook(env):
     # ==== Load l10n_mx_edi.res.locality ====
 
     if not env['l10n_mx_edi.res.locality'].search_count([]):
-        csv_path = join(dirname(realpath(__file__)), 'data', 'l10n_mx_edi.res.locality.csv')
         tariff_fraction_vals_list = []
-        with file_open(csv_path, 'r') as csv_file:
+        with tools.file_open("l10n_mx_edi_extended/data/l10n_mx_edi.res.locality.csv") as csv_file:
             for row in csv.DictReader(csv_file, delimiter='|', fieldnames=['code', 'name', 'state_xml_id']):
                 state = env.ref('base.%s' % row['state_xml_id'], raise_if_not_found=False)
                 tariff_fraction_vals_list.append({
@@ -75,9 +72,8 @@ def post_init_hook(env):
     # ==== Load l10n_mx_edi.tariff.fraction ====
 
     if not env['l10n_mx_edi.tariff.fraction'].search_count([]):
-        csv_path = join(dirname(realpath(__file__)), 'data', 'l10n_mx_edi.tariff.fraction.csv')
         tariff_fraction_vals_list = []
-        with file_open(csv_path, 'r') as csv_file:
+        with tools.file_open("l10n_mx_edi_extended/data/l10n_mx_edi.tariff.fraction.csv") as csv_file:
             for row in csv.DictReader(csv_file, delimiter='|', fieldnames=['code', 'name', 'uom_code']):
                 tariff_fraction_vals_list.append(row)
 
