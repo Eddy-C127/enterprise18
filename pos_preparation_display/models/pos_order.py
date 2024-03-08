@@ -43,12 +43,12 @@ class PosOrder(models.Model):
 
         # create a dictionary with the key as a tuple of product_id, internal_note and attribute_value_ids
         for pdis_line in pdis_lines:
-            key = (pdis_line.product_id.id, pdis_line.internal_note, json.dumps(pdis_line.attribute_value_ids.ids))
+            key = (pdis_line.product_id.id, pdis_line.internal_note or '', json.dumps(pdis_line.attribute_value_ids.ids))
             line_qty = pdis_line.product_quantity - pdis_line.product_cancelled
             if not quantity_data.get(key):
                 quantity_data[key] = {
                     'attribute_value_ids': pdis_line.attribute_value_ids.ids,
-                    'note': pdis_line.internal_note,
+                    'note': pdis_line.internal_note or '',
                     'product_id': pdis_line.product_id.id,
                     'display': line_qty,
                     'order': 0,
@@ -63,7 +63,7 @@ class PosOrder(models.Model):
             if not quantity_data.get(key):
                 quantity_data[key] = {
                     'attribute_value_ids': line.attribute_value_ids.ids,
-                    'note': line_note,
+                    'note': line_note or '',
                     'product_id': line.product_id.id,
                     'display': 0,
                     'order': line.qty,
@@ -82,8 +82,8 @@ class PosOrder(models.Model):
                         else:
                             note['used_qty'] += line.product_quantity
 
-                        key = (line.product_id.id, line.internal_note, json.dumps(line.attribute_value_ids.ids))
-                        key_new = (line.product_id.id, note['new'], json.dumps(line.attribute_value_ids.ids))
+                        key = (line.product_id.id, line.internal_note or '', json.dumps(line.attribute_value_ids.ids))
+                        key_new = (line.product_id.id, note['new'] or '', json.dumps(line.attribute_value_ids.ids))
 
                         line.internal_note = note['new']
                         flag_change = True

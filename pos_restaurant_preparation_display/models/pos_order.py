@@ -9,4 +9,4 @@ class PosOrder(models.Model):
 
     @api.model
     def _get_line_note(self, line):
-        return line.note
+        return line.note or ''

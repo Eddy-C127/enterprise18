@@ -8,3 +8,12 @@ class PosOrder(models.Model):
     def _send_order(self):
         super()._send_order()
         self.env['pos_preparation_display.order'].sudo().process_order(self.id)
+
+    def write(self, values):
+        res = super().write(values)
+
+        for order in self:
+            if order.state == 'paid' or values.get('state') == 'paid':
+                order._send_order()
+
+        return res
