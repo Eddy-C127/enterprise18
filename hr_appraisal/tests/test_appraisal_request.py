@@ -100,3 +100,16 @@ class TestHrAppraisalRequest(TransactionCase):
             ('message_type', '=', 'comment'),
         ])
         self.assertTrue("<p>My awesome message</p>" in notification.body)
+
+    def test_user_body(self):
+        """ user body should be sent """
+        appraisal = self.env['hr.appraisal'].create({'employee_id': self.employee.id, 'manager_ids': self.employee.parent_id})
+        request = self.request_appraisal_from(appraisal, user=self.employee_user)
+        request.user_body = "Hello World !"
+        request.action_invite()
+        notification = self.env['mail.message'].search([
+            ('model', '=', appraisal._name),
+            ('res_id', '=', appraisal.id),
+            ('message_type', '=', 'comment'),
+        ])
+        self.assertTrue("<p>Hello World !</p>" in notification.body)
