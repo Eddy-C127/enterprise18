@@ -193,6 +193,7 @@ class MobileRoutesTest(HttpCaseWithUserDemo):
 
 @tagged("-at_install", "post_install")
 class MobileRoutesMultidbTest(MobileRoutesTest):
+    allow_inherited_tests_method = True
 
     def run(self, result=None):
         if not config['list_db']:
