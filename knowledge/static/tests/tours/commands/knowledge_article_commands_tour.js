@@ -80,7 +80,7 @@ const fileCommandSteps = [{ // open the command bar
     run: 'click',
 }, {
     trigger: '.o-FileViewer-headerButton[aria-label="Close"]',
-    extra_trigger: 'iframe.o-FileViewer-view body:contains(Content)',
+    extra_trigger: '.o-FileViewer-view:iframe body:contains(Content)',
     run: 'click',
 }, {
     trigger: '.o_knowledge_file_name_container:contains(Onboarding)',

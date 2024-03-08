@@ -276,7 +276,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
             trigger: ".o-web-studio-discard-report.btn-secondary",
         },
         {
-            trigger: ".o-web-studio-report-container iframe body",
+            trigger: ".o-web-studio-report-container :iframe body",
             run() {
                 const element = this.anchor.querySelector(".test-added");
                 if (element) {
