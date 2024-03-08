@@ -176,6 +176,7 @@
         <field name="arch" type="xml">
             <xpath expr="//gantt" position="attributes">
                 <attribute name="color">stage_id</attribute>
+                <attribute name="display_mode">sparse</attribute>
             </xpath>
             <xpath expr="//div[@name='project_id']" position="replace"/>
         </field>
