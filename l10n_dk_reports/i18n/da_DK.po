@@ -843,6 +843,21 @@ msgid "Active"
 msgstr "AKTIVER"
 
 #. module: l10n_dk_reports
+#: model:account.report.column,name:l10n_dk_reports.account_financial_report_ec_sales_goods
+msgid "Amount of goods"
+msgstr "Mængde af varer"
+
+#. module: l10n_dk_reports
+#: model:account.report.column,name:l10n_dk_reports.account_financial_report_ec_sales_service
+msgid "Amount of services"
+msgstr "Mængde af tjenester"
+
+#. module: l10n_dk_reports
+#: model:account.report.column,name:l10n_dk_reports.account_financial_report_ec_sales_tri
+msgid "Amount of third party sales"
+msgstr "Mængden af tredjepartssalg"
+
+#. module: l10n_dk_reports
 #. odoo-python
 #: code:addons/l10n_dk_reports/models/account_general_ledger.py:0
 #, python-format
@@ -870,6 +885,33 @@ msgid "CSV"
 msgstr ""
 
 #. module: l10n_dk_reports
+#: model:account.report.column,name:l10n_dk_reports.account_financial_report_ec_sales_country
+msgid "Country Code"
+msgstr "Landekode"
+
+#. module: l10n_dk_reports
+#. odoo-python
+#: code:addons/l10n_dk_reports/models/account_sales_report.py:0
+msgid "Customer's VAT cannot be empty"
+msgstr "Kundens moms kan ikke være tom"
+
+#. module: l10n_dk_reports
+#. odoo-python
+#: code:addons/l10n_dk_reports/models/account_sales_report.py:0
+msgid "Change the VAT number"
+msgstr "Skift momsnummer"
+
+#. module: l10n_dk_reports
+#: model:ir.model,name:l10n_dk_reports.model_l10n_dk_ec_sales_report_handler
+msgid "Denmark EC Sales Report Custom Handler"
+msgstr ""
+
+#. module: l10n_dk_reports
+#: model:account.report,name:l10n_dk_reports.denmark_ec_sales_report
+msgid "EC Sales List"
+msgstr ""
+
+#. module: l10n_dk_reports
 #: model:ir.model,name:l10n_dk_reports.model_account_general_ledger_report_handler
 msgid "General Ledger Custom Handler"
 msgstr ""
@@ -883,6 +925,12 @@ msgstr "Journal"
 #: model_terms:ir.ui.view,arch_db:l10n_dk_reports.saft_template
 msgid "Moms"
 msgstr ""
+
+#. module: l10n_dk_reports
+#. odoo-python
+#: code:addons/l10n_dk_reports/models/account_sales_report.py:0
+msgid "No CVR number associated with your company."
+msgstr "Der er ikke tilknyttet noget CVR-nummer til din virksomhed."
 
 #. module: l10n_dk_reports
 #: model:account.report.line,name:l10n_dk_reports.account_balance_report_l10n_dk_passiv
