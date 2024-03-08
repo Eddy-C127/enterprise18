@@ -50,7 +50,7 @@ const assertRoomStatus = (assert, target, remainingTime, nbBookings) => {
             "background-image: linear-gradient(#FF0000DD, #FF0000DD), url('/room/room_test/background')",
         );
         // Check that the "Booked" icon is shown
-        assert.containsOnce(target, "i.fa-times-circle.fa-3x");
+        assert.containsOnce(target, "i.fa-calendar-times-o.fa-3x");
     } else {
         assert.containsNone(target, ".o_room_remaining_time");
         // Check that the room uses the available background as there is no ongoing booking
@@ -71,7 +71,7 @@ const assertRoomStatus = (assert, target, remainingTime, nbBookings) => {
  * @returns {Promise}
  */
 const clickQuickBook = async (target) => {
-    click(target, ".btn-light i.fa-plus-circle");
+    click(target, ".btn-dark i.fa-rocket");
     await nextTick();
 };
 

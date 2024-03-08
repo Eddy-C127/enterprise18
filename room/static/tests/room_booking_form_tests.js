@@ -55,7 +55,7 @@ const clickOnSlot = async (target, slot) => {
  * @returns {Promise}
  * */
 const clickSchedule = async (target) => {
-    click(target, ".btn.rounded-pill i.fa-clock-o");
+    click(target, ".btn.rounded-pill i.fa-calendar-plus-o");
     await nextTick();
 };
 
@@ -397,7 +397,7 @@ QUnit.module("Room Booking Form", (hooks) => {
         click(target, ".o_room_scheduler > div:last-child .btn-primary");
         await nextTick();
         // Should come back to main view
-        assert.containsOnce(target, ".fa-times-circle.fa-3x");
+        assert.containsOnce(target, ".fa-calendar-times-o.fa-3x");
     });
 
     // Test reception of a new booking while the view is opened (slots should update accordingly)

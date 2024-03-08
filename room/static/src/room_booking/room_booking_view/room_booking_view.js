@@ -170,6 +170,18 @@ export class RoomBookingView extends Component {
         this.resetBookingForm();
     }
 
+    endCurrentBooking() {
+        this.dialogService.add(ConfirmationDialog, {
+            body: _t("Are you sure you want to end the current booking ?"),
+            confirmLabel: _t("End Booking"),
+            confirm: () => {
+                const { id, name, interval } = this.state.currentBooking;
+                this.editBooking(id, name, interval.start, this.now);
+            },
+            cancel: () => {},
+        });
+    }
+
     /**
      * Load the existing bookings for the room.
      * New bookings will be received through the busService.
