@@ -1,7 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
-from odoo import api, fields, models, tools
+from odoo import api, fields, models
 
 
 class MailActivity(models.Model):
