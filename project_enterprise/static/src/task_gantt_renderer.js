@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { _t } from "@web/core/l10n/translation";
 import { Avatar } from "@mail/views/web/fields/avatar/avatar";
 import { markup, useEffect } from "@odoo/owl";

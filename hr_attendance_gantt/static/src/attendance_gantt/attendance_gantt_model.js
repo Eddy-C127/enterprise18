@@ -1,5 +1,3 @@
- /** @odoo-module **/
-
 import { serializeDateTime } from "@web/core/l10n/dates";
 import { GanttModel, parseServerValues } from "@web_gantt/gantt_model";
 import { Domain } from "@web/core/domain";

@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { ganttView } from "@web_gantt/gantt_view";
 import { registry } from "@web/core/registry";
 import { WorkEntriesGanttController } from "./work_entries_gantt_controller";

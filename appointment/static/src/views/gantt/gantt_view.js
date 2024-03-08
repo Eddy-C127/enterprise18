@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { registry } from "@web/core/registry";
 import { AppointmentBookingGanttController } from "@appointment/views/gantt/gantt_controller";
 import { AppointmentBookingGanttModel } from "@appointment/views/gantt/gantt_model";

@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { Component, useState, xml } from "@odoo/owl";
 import { Domain } from "@web/core/domain";
 import { getFixture, mount, nextTick, patchDate, patchWithCleanup } from "@web/../tests/helpers/utils";

@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { getFixture, patchDate, click } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";

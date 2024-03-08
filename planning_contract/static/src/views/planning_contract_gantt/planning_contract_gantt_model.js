@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { serializeDateTime, deserializeDateTime } from "@web/core/l10n/dates";
 import { PlanningGanttModel } from "@planning/views/planning_gantt/planning_gantt_model";
 import { patch } from "@web/core/utils/patch";

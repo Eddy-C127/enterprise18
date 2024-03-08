@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { Component, onWillRender, useEffect, useRef } from "@odoo/owl";
 
 /**

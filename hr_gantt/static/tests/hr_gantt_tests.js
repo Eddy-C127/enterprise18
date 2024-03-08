@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { getFixture, patchDate } from "@web/../tests/helpers/utils";
 import { start } from "@mail/../tests/helpers/test_utils";

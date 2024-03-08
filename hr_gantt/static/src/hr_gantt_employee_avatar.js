@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { Avatar } from "@mail/views/web/fields/avatar/avatar";
 import { AvatarCardEmployeePopover } from "@hr/components/avatar_card_employee/avatar_card_employee_popover";
 import { usePopover } from "@web/core/popover/popover_hook";

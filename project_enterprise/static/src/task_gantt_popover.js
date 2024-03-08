@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { GanttPopover } from "@web_gantt/gantt_popover";
 
 export class TaskGanttPopover extends GanttPopover {

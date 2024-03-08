@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { Component, useRef } from "@odoo/owl";
 import { setupDisplayName } from "../planning_hooks";
 

@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { _t } from "@web/core/l10n/translation";
 import { deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
 import { formatPercentage } from "@web/views/fields/formatters";

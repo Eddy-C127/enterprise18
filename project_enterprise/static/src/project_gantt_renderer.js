@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { Avatar } from "@mail/views/web/fields/avatar/avatar";
 import { GanttRenderer } from "@web_gantt/gantt_renderer";
 

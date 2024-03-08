@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { GanttArchParser } from "@web_gantt/gantt_arch_parser";
 
 export class TaskGanttArchParser extends GanttArchParser {

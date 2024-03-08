@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { _t } from "@web/core/l10n/translation";
 import { evaluateExpr } from "@web/core/py_js/py";
 import { visitXML } from "@web/core/utils/xml";

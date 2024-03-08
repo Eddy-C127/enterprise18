@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { GanttModel } from "@web_gantt/gantt_model";
 import { useWorkEntry } from "@hr_work_entry_contract/views/work_entry_hook";
 

@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { ganttView } from "@web_gantt/gantt_view";
 import { MRPWorkorderGanttModel } from "./mrp_workorder_gantt_model";
 import { MRPWorkorderGanttRenderer } from "./mrp_workorder_gantt_renderer";

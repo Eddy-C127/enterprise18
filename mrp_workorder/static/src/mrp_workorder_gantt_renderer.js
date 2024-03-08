@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { formatFloatTime } from "@web/views/fields/formatters";
 import { getIntersection, getUnionOfIntersections } from "@web_gantt/gantt_helpers";
 import { GanttRenderer } from "@web_gantt/gantt_renderer";

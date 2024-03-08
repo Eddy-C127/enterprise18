@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { GanttController } from "@web_gantt/gantt_controller";
 import { useWorkEntry } from "@hr_work_entry_contract/views/work_entry_hook";
 const { DateTime } = luxon;

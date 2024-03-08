@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { contains } from "@web/../tests/utils";
 import {
     getFixture,

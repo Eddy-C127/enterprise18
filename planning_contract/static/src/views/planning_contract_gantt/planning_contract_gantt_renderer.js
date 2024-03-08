@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { PlanningGanttRenderer } from "@planning/views/planning_gantt/planning_gantt_renderer";
 import { patch } from "@web/core/utils/patch";
 

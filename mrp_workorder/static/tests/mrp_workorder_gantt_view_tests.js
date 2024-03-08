@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { getFixture, patchDate } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { hoverGridCell, SELECTORS } from "@web_gantt/../tests/legacy/helpers";

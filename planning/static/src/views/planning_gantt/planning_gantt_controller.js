@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { _t } from "@web/core/l10n/translation";
 import { GanttController } from "@web_gantt/gantt_controller";
 import { usePlanningControllerActions } from "../planning_hooks";

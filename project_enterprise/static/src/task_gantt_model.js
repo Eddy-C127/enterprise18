@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { _t } from "@web/core/l10n/translation";
 import { deserializeDate, deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
 import { GanttModel } from "@web_gantt/gantt_model";

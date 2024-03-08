@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { patch } from "@web/core/utils/patch";
 import { useWorkEntryPayslip } from '@hr_payroll/views/work_entry_calendar/work_entry_calendar_hook';
 import { WorkEntriesGanttController } from "@hr_work_entry_contract_enterprise/work_entries_gantt_controller";

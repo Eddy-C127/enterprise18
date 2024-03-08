@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { Domain } from "@web/core/domain";
 import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 import {

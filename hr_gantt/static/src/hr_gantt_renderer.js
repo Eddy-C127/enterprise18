@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { GanttEmployeeAvatar } from "./hr_gantt_employee_avatar";
 import { GanttRenderer } from "@web_gantt/gantt_renderer";
 

@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { ganttView } from "@web_gantt/gantt_view";
 import { ProjectControlPanel } from "@project/components/project_control_panel/project_control_panel";
 import { TaskGanttController } from "./task_gantt_controller";

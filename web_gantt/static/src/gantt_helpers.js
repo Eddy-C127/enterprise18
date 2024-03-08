@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { useEffect } from "@odoo/owl";
 import { makeDraggableHook } from "@web/core/utils/draggable_hook_builder_owl";
 import { clamp } from "@web/core/utils/numbers";

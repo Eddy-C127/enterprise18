@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { ganttView } from "@web_gantt/gantt_view";
 import { HrGanttRenderer } from "./hr_gantt_renderer";
 import { registry } from "@web/core/registry";

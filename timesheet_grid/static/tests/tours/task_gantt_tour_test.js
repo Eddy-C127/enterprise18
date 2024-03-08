@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { registry } from "@web/core/registry";
 import { patch } from "@web/core/utils/patch";
 import "@project_enterprise/../tests/tours/task_gantt_tour_test";

@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { patchDate } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { dragPill, getGridContent } from "@web_gantt/../tests/legacy/helpers";

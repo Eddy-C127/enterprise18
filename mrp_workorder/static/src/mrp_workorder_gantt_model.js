@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
 import { GanttModel } from "@web_gantt/gantt_model";
 import { formatPercentage } from "@web/views/fields/formatters";
