@@ -8,6 +8,7 @@ from dateutil.relativedelta import relativedelta
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError, ValidationError
 from odoo.osv import expression
+from odoo.tools import SQL
 from odoo.tools.float_utils import float_compare, float_is_zero
 
 
@@ -270,8 +271,11 @@ class TransferModel(models.Model):
         query = self.env['account.move.line']._search(domain)
         if self.line_ids.analytic_account_ids.ids:
             query.add_where(
-                '(NOT analytic_distribution ?| array[%s] OR analytic_distribution IS NULL)',
-                [[str(account_id) for account_id in self.line_ids.analytic_account_ids.ids]],
+                SQL(
+                    "(NOT %s && %s OR analytic_distribution IS NULL)",
+                    [str(account_id) for account_id in self.line_ids.analytic_account_ids.ids],
+                    self.env['account.move.line']._query_analytic_accounts(),
+                )
             )
         query_string, query_param = query.select('SUM(balance) AS balance', 'account_id')
         query_string = f"{query_string} GROUP BY account_id ORDER BY account_id"
@@ -389,8 +393,11 @@ class TransferModelLine(models.Model):
             query = self.env['account.move.line']._search(domain)
             if transfer_model_line.analytic_account_ids:
                 query.add_where(
-                    'account_move_line.analytic_distribution ?| array[%s]',
-                    [[str(account_id) for account_id in transfer_model_line.analytic_account_ids.ids]],
+                    SQL(
+                        "%s && %s",
+                        [str(account_id) for account_id in transfer_model_line.analytic_account_ids.ids],
+                        self.env['account.move.line']._query_analytic_accounts(),
+                    )
                 )
             query_string, query_param = query.select('array_agg("account_move_line".id) AS ids', 'SUM(balance) AS balance', 'account_id')
             query_string = f"{query_string} GROUP BY account_id ORDER BY account_id"

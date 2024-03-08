@@ -366,7 +366,7 @@ class AssetsReportCustomHandler(models.AbstractModel):
         if options.get('analytic_accounts_list'):
             analytic_account_ids += [[str(account_id) for account_id in options.get('analytic_accounts_list')]]
         if analytic_account_ids:
-            analytical_query = 'AND asset.analytic_distribution ?| array[%(analytic_account_ids)s]'
+            analytical_query = r"""AND %(analytic_account_ids)s && regexp_split_to_array(jsonb_path_query_array(asset.analytic_distribution, '$.keyvalue()."key"')::text, '\D+')"""
             query_params['analytic_account_ids'] = analytic_account_ids
 
         sql = f"""
