@@ -71,7 +71,7 @@
      <t t-name="project_enterprise.TaskGanttRenderer.TotalRow" t-inherit="web_gantt.GanttRenderer.TotalRow">
         <xpath expr="//div[hasclass('o_gantt_cell')]" position="after">
             <t t-call="project_enterprise.TaskGanttRenderer.ColoredCellBorder">
-                <t t-set="coloredCellBorderStyle" t-value="getGridPosition({ column: column.grid.column, row: 1 })"/>
+                <t t-set="coloredCellBorderStyle" t-value="getGridPosition({ column: column.grid.column })"/>
             </t>
         </xpath>
     </t>

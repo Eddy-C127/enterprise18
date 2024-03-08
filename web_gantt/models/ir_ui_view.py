@@ -31,6 +31,7 @@ GANTT_VALID_ATTRIBUTES = set([
     'total_row',
     'collapse_first_level',
     'offset',
+    'order',
     'scales',
     'thumbnails',
     'precision',
@@ -69,12 +70,16 @@ class View(models.Model):
 
         default_scale = node.get('default_scale')
         if default_scale:
-            if default_scale not in ('day', 'week', 'month', 'year'):
+            if default_scale not in ('day', 'week', 'week_2', 'month', 'month_3', 'year'):
                 self._raise_view_error(_("Invalid default_scale '%s' in gantt", default_scale), node)
         display_mode = node.get('display_mode')
         if display_mode:
             if display_mode not in ('dense', 'sparse'):
                 self._raise_view_error(_("Invalid display_mode '%s' in gantt", display_mode), node)
+        order = node.get('order')
+        if order:
+            if order not in ('ASC', 'DESC', 'asc', 'desc'):
+                self._raise_view_error(_("Invalid order '%s' in gantt", order), node)
         attrs = set(node.attrib)
         if 'date_start' not in attrs:
             msg = _("Gantt must have a 'date_start' attribute")
@@ -95,3 +100,9 @@ class View(models.Model):
                 ','.join(remaining), ','.join(GANTT_VALID_ATTRIBUTES),
             )
             self._raise_view_error(msg, node)
+
+    def _get_view_fields(self, view_type, models):
+        if view_type == 'gantt':
+            models[self._name] = list(self._fields.keys())
+            return models
+        return super()._get_view_fields(view_type, models)

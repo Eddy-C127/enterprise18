@@ -46,8 +46,11 @@ Adds the following options:
         'web.assets_frontend': [
             'industry_fsm/static/src/js/tours/**/*',
         ],
-        'web.qunit_suite_tests': [
-            'industry_fsm/static/tests/**/*.js',
+         'web.qunit_suite_tests': [
+            'industry_fsm/static/tests/views/fsm_task_calendar_view_tests.js',
+        ],
+        'web.assets_unit_tests': [
+            'industry_fsm/static/tests/views/fsm_task_gantt_view.test.js',
         ],
         'web.assets_tests': [
             'industry_fsm/static/tests/tours/**/*',

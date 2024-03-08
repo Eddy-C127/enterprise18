@@ -1,7 +1,7 @@
-import { beforeEach, test } from "@odoo/hoot";
+import { beforeEach, expect, test } from "@odoo/hoot";
 import { queryFirst } from "@odoo/hoot-dom";
 import { mockDate } from "@odoo/hoot-mock";
-import { mountView } from "@web/../tests/web_test_helpers";
+import { mountGanttView } from "./web_gantt_test_helpers";
 import { ResUsers, TASKS_STAGE_SELECTION, Tasks, defineGanttModels } from "./gantt_mock_models";
 
 function randomName(length) {
@@ -28,12 +28,12 @@ test.tags("manual testing").skip("large amount of records (ungrouped)", async ()
     }));
 
     console.time("makeView");
-    await mountView({
+    await mountGanttView({
         resModel: "tasks",
-        type: "gantt",
         arch: `<gantt date_start="start" date_stop="stop"/>`,
     });
     console.timeEnd("makeView");
+    expect(1).toBe(1);
 });
 
 test.tags("manual testing").skip("large amount of records (one level grouped)", async () => {
@@ -63,15 +63,15 @@ test.tags("manual testing").skip("large amount of records (one level grouped)", 
     });
 
     console.time("makeView");
-    await mountView({
+    await mountGanttView({
         resModel: "tasks",
-        type: "gantt",
         arch: `<gantt date_start="start" date_stop="stop"/>`,
         groupBy: ["user_id"],
     });
     console.timeEnd("makeView");
 
     queryFirst(".o_content").style = "max-height: 600px; overflow-y: scroll;";
+    expect(1).toBe(1);
 });
 
 test.tags("manual testing").skip("large amount of records (two level grouped)", async () => {
@@ -92,11 +92,11 @@ test.tags("manual testing").skip("large amount of records (two level grouped)", 
     }));
 
     console.time("makeView");
-    await mountView({
+    await mountGanttView({
         resModel: "tasks",
-        type: "gantt",
         arch: `<gantt date_start="start" date_stop="stop"/>`,
         groupBy: ["user_id", "stage"],
     });
     console.timeEnd("makeView");
+    expect(1).toBe(1);
 });

@@ -6,6 +6,8 @@ import {
     editAnySelect,
     registerViewEditorDependencies,
 } from "@web_studio/../tests/client_action/view_editors/view_editor_tests_utils";
+import { registry } from "@web/core/registry";
+import { datetimePickerService } from "@web/core/datetime/datetimepicker_service";
 
 /** @type {Node} */
 let target;
@@ -51,6 +53,8 @@ QUnit.module(
 
         QUnit.test("empty gantt editor", async function (assert) {
             assert.expect(3);
+
+            registry.category("services").add("datetime_picker", datetimePickerService);
 
             const arch = `<gantt date_start='start' date_stop='stop' />`;
             await createViewEditor({

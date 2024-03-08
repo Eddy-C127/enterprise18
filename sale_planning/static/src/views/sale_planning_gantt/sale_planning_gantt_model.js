@@ -20,8 +20,10 @@ patch(PlanningGanttModel.prototype, {
     },
     addSpecialKeys(context) {
         const { focusDate, startDate, stopDate, scale } = this.metaData;
+        const { callbacks } = this.env.getCurrentFocusDateCallBackRecorder;
+        const focus_date = serializeDateTime(callbacks.length ? callbacks[0]() : focusDate);
         Object.assign(context, {
-            focus_date: serializeDateTime(focusDate),
+            focus_date,
             default_start_datetime: serializeDateTime(startDate),
             default_end_datetime: serializeDateTime(stopDate),
             scale: scale.id,

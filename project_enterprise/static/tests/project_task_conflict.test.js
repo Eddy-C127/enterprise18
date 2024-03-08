@@ -1,8 +1,8 @@
 import { beforeEach, test, describe, expect } from "@odoo/hoot";
 import { click, edit, queryAll } from "@odoo/hoot-dom";
 
-import { mountView, onRpc, removeFacet, webModels } from "@web/../tests/web_test_helpers";
-import { getGridContent } from "@web_gantt/../tests/gantt_test_helpers";
+import { onRpc, removeFacet, webModels } from "@web/../tests/web_test_helpers";
+import { getGridContent, mountGanttView } from "@web_gantt/../tests/web_gantt_test_helpers";
 import { contains, triggerHotkey } from "@mail/../tests/mail_test_helpers";
 import { defineProjectModels, ProjectProject } from "@project/../tests/project_models";
 import { ProjectTask } from "./task_gant_model";
@@ -80,7 +80,7 @@ test("Unassigned tasks will show when search for assignee", async () => {
         }
     });
 
-    await mountView({
+    await mountGanttView({
         resModel: "project.task",
         type: "gantt",
         arch: `
@@ -102,20 +102,20 @@ test("Unassigned tasks will show when search for assignee", async () => {
     expect(getGridContent().rows).toEqual([
         {
             title: "👤 Unassigned",
-            pills: [{ title: "Task 5", level: 0, colSpan: "Wednesday, 13 -> Wednesday, 13" }],
+            pills: [{ title: "Task 5", level: 0, colSpan: "13 W11 2019 -> 13 W11 2019" }],
         },
         {
             title: "User1",
             pills: [
-                { title: "Task 1", level: 0, colSpan: "Tuesday, 12 -> Tuesday, 12" },
-                { title: "Task 2", level: 1, colSpan: "Tuesday, 12 -> Tuesday, 12" },
+                { title: "Task 1", level: 0, colSpan: "12 W11 2019 -> 12 W11 2019" },
+                { title: "Task 2", level: 1, colSpan: "12 W11 2019 -> 12 W11 2019" },
             ],
         },
         {
             title: "User2",
             pills: [
-                { title: "Task 3", level: 0, colSpan: "Monday, 11 -> Monday, 11" },
-                { title: "Task 4", level: 0, colSpan: "Thursday, 14 -> Thursday, 14" },
+                { title: "Task 3", level: 0, colSpan: "11 W11 2019 -> 11 W11 2019" },
+                { title: "Task 4", level: 0, colSpan: "14 W11 2019 -> 14 W11 2019" },
             ],
         },
     ]);
@@ -126,13 +126,13 @@ test("Unassigned tasks will show when search for assignee", async () => {
     expect(getGridContent().rows).toEqual([
         {
             title: "👤 Unassigned",
-            pills: [{ title: "Task 5", level: 0, colSpan: "Wednesday, 13 -> Wednesday, 13" }],
+            pills: [{ title: "Task 5", level: 0, colSpan: "13 W11 2019 -> 13 W11 2019" }],
         },
         {
             title: "User1",
             pills: [
-                { title: "Task 1", level: 0, colSpan: "Tuesday, 12 -> Tuesday, 12" },
-                { title: "Task 2", level: 1, colSpan: "Tuesday, 12 -> Tuesday, 12" },
+                { title: "Task 1", level: 0, colSpan: "12 W11 2019 -> 12 W11 2019" },
+                { title: "Task 2", level: 1, colSpan: "12 W11 2019 -> 12 W11 2019" },
             ],
         },
     ]);
@@ -155,7 +155,7 @@ test("Tasks in conflicting are highlighted, while non-conflicting tasks are in m
         }
     });
 
-    await mountView({
+    await mountGanttView({
         resModel: "project.task",
         type: "gantt",
         arch: `

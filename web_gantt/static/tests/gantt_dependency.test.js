@@ -7,14 +7,23 @@ import {
     fields,
     findComponent,
     models,
-    mountView,
     onRpc,
     patchWithCleanup,
 } from "@web/../tests/web_test_helpers";
-import { CLASSES, SELECTORS, getPill, getPillWrapper } from "./gantt_test_helpers";
-
+import {
+    clickConnectorButton,
+    getConnector,
+    getConnectorMap,
+} from "@web_gantt/../tests/gantt_dependency_helpers";
 import { COLORS } from "@web_gantt/gantt_connector";
 import { GanttRenderer } from "@web_gantt/gantt_renderer";
+import {
+    CLASSES,
+    SELECTORS,
+    getPill,
+    getPillWrapper,
+    mountGanttView,
+} from "./web_gantt_test_helpers";
 
 /** @typedef {import("@web_gantt/gantt_renderer").ConnectorProps} ConnectorProps */
 /** @typedef {import("@web_gantt/gantt_renderer").PillId} PillId */
@@ -26,87 +35,7 @@ import { GanttRenderer } from "@web_gantt/gantt_renderer";
 
 /** @typedef {number | false} ResId */
 
-/**
- * @param {Element} connector
- * @param {"remove" | "reschedule-forward" | "reschedule-backward"} button
- */
-async function clickConnectorButton(connector, button) {
-    hover(connector);
-    await runAllTimers();
-    let element = null;
-    switch (button) {
-        case "remove": {
-            element = queryFirst(SELECTORS.connectorRemoveButton, { root: connector });
-            break;
-        }
-        case "reschedule-backward": {
-            element = queryFirst(`${SELECTORS.connectorRescheduleButton}:first-of-type`, {
-                root: connector,
-            });
-            break;
-        }
-        case "reschedule-forward": {
-            element = queryFirst(`${SELECTORS.connectorRescheduleButton}:last-of-type`, {
-                root: connector,
-            });
-            break;
-        }
-    }
-    return contains(element).click();
-}
-
-/**
- * @param {number | "new"} id
- */
-export function getConnector(id) {
-    if (!/^__connector__/.test(id)) {
-        id = `__connector__${id}`;
-    }
-    return queryFirst(
-        `${SELECTORS.cellContainer} ${SELECTORS.connector}[data-connector-id='${id}']`
-    );
-}
-
-export function getConnectorMap(renderer) {
-    /**
-     * @param {PillId} pillId
-     */
-    const getIdAndUserIdFromPill = (pillId) => {
-        /** @type {[ResId, ResId]} */
-        const result = [renderer.pills[pillId]?.record.id || false, false];
-        if (result[0]) {
-            const pills = renderer.mappingRecordToPillsByRow[result[0]]?.pills;
-            if (pills) {
-                const pillEntry = Object.entries(pills).find((e) => e[1].id === pillId);
-                if (pillEntry) {
-                    const [firstGroup] = JSON.parse(pillEntry[0]);
-                    if (firstGroup.user_ids?.length) {
-                        result[1] = firstGroup.user_ids[0] || false;
-                    }
-                }
-            }
-        }
-        return result;
-    };
-
-    /** @type {Map<ConnectorTaskIds, ConnectorProps>} */
-    const connectorMap = new Map();
-    for (const connector of Object.values(renderer.connectors)) {
-        const { sourcePillId, targetPillId } = renderer.mappingConnectorToPills[connector.id];
-        if (!sourcePillId || !targetPillId) {
-            continue;
-        }
-        const key = JSON.stringify([
-            ...getIdAndUserIdFromPill(sourcePillId),
-            ...getIdAndUserIdFromPill(targetPillId),
-        ]);
-        connectorMap.set(key, connector);
-    }
-    return connectorMap;
-}
-
 const ganttViewParams = {
-    type: "gantt",
     resModel: "project.task",
     arch: /* xml */ `<gantt date_start="planned_date_begin" date_stop="date_deadline" default_scale="month" dependency_field="depend_on_ids" color="color" />`,
     groupBy: ["user_ids"],
@@ -282,7 +211,7 @@ test("Connectors are correctly computed and rendered.", async () => {
         ["[12,2,13,2]", "warning"],
     ]);
 
-    const view = await mountView(ganttViewParams);
+    const view = await mountGanttView(ganttViewParams);
     const renderer = findComponent(view, (c) => c instanceof GanttRenderer);
 
     const connectorMap = getConnectorMap(renderer);
@@ -339,7 +268,7 @@ test("Connectors are correctly rendered.", async () => {
         },
     ];
 
-    const view = await mountView(ganttViewParams);
+    const view = await mountGanttView(ganttViewParams);
     const renderer = findComponent(view, (c) => c instanceof GanttRenderer);
     const connectorMap = getConnectorMap(renderer);
     expect([...connectorMap.keys()]).toEqual(["[2,1,3,false]"], {
@@ -455,7 +384,7 @@ test("Connectors are correctly computed and rendered when consolidation is activ
         },
     ];
 
-    await mountView({
+    await mountGanttView({
         ...ganttViewParams,
         arch: /* xml */ `<gantt date_start="planned_date_begin" date_stop="date_deadline" default_scale="month" dependency_field="depend_on_ids" consolidation_max="{'user_ids': 100 }"/>`,
     });
@@ -490,7 +419,7 @@ test("Connectors are correctly computed and rendered when consolidation is activ
 });
 
 test("Connector hovered state is triggered and color is set accordingly.", async () => {
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     expect(getConnector(1)).not.toHaveClass(CLASSES.highlightedConnector);
     expect(queryFirst(SELECTORS.connectorStroke, { root: getConnector(1) })).toHaveAttribute(
@@ -509,7 +438,7 @@ test("Connector hovered state is triggered and color is set accordingly.", async
 });
 
 test("Buttons are displayed when hovering a connector.", async () => {
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
     expect(queryAll(SELECTORS.connectorStrokeButton, { root: getConnector(1) })).toHaveCount(0);
 
     hover(getConnector(1));
@@ -518,7 +447,7 @@ test("Buttons are displayed when hovering a connector.", async () => {
 });
 
 test("Buttons are displayed when hovering a connector after a pill has been hovered.", async () => {
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
     expect(queryAll(SELECTORS.connectorStrokeButton, { root: getConnector(1) })).toHaveCount(0);
 
     hover(getPill("Task 1"));
@@ -540,7 +469,7 @@ test("Connector buttons: remove a dependency", async () => {
             return true;
         }
     });
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     await clickConnectorButton(getConnector(1), "remove");
     expect([`["write",[[2],{"depend_on_ids":[[3,1,false]]}]]`]).toVerifySteps();
@@ -553,7 +482,7 @@ test("Connector buttons: reschedule task backward date.", async () => {
             return true;
         }
     });
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     await clickConnectorButton(getConnector(1), "reschedule-backward");
     expect([
@@ -568,7 +497,7 @@ test("Connector buttons: reschedule task forward date.", async () => {
             return true;
         }
     });
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     await clickConnectorButton(getConnector(1), "reschedule-forward");
     expect([
@@ -583,7 +512,7 @@ test("Connector buttons: reschedule task start backward, different data.", async
             return true;
         }
     });
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     await clickConnectorButton(getConnector(1), "reschedule-backward");
     expect([
@@ -598,7 +527,7 @@ test("Connector buttons: reschedule task forward, different data.", async () => 
             return true;
         }
     });
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     await clickConnectorButton(getConnector(1), "reschedule-forward");
     expect([
@@ -670,7 +599,7 @@ test("Hovering a task pill should highlight related tasks and dependencies", asy
         },
     ];
 
-    const view = await mountView(ganttViewParams);
+    const view = await mountGanttView(ganttViewParams);
     const renderer = findComponent(view, (c) => c instanceof GanttRenderer);
 
     const connectorMap = getConnectorMap(renderer);
@@ -720,7 +649,7 @@ test("Hovering a task pill should highlight related tasks and dependencies", asy
 });
 
 test("Hovering a connector should cause the connected pills to get highlighted.", async () => {
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
     expect(SELECTORS.highlightedConnector).toHaveCount(0);
     expect(SELECTORS.highlightedPill).toHaveCount(0);
 
@@ -731,7 +660,7 @@ test("Hovering a connector should cause the connected pills to get highlighted."
 
 test("Connectors are displayed behind pills, except on hover.", async () => {
     const getZIndex = (el) => Number(getComputedStyle(el).zIndex) || 0;
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
     expect(getZIndex(getPillWrapper("Task 2"))).toBeGreaterThan(getZIndex(getConnector(1)));
 
     await contains(getConnector(1)).hover();
@@ -740,7 +669,7 @@ test("Connectors are displayed behind pills, except on hover.", async () => {
 
 test("Create a connector from the gantt view.", async () => {
     onRpc("write", ({ args, method }) => expect.step(JSON.stringify([method, args])));
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     // Explicitly shows the connector creator wrapper since its "display: none"
     // disappears on native CSS hover, which cannot be programatically emulated.
@@ -754,7 +683,7 @@ test("Create a connector from the gantt view.", async () => {
 });
 
 test("Create a connector from the gantt view: going fast", async () => {
-    await mountView({
+    await mountGanttView({
         ...ganttViewParams,
         domain: [["id", "in", [1, 3]]],
     });
@@ -767,8 +696,8 @@ test("Create a connector from the gantt view: going fast", async () => {
     const connectorBullet = rightWrapper.querySelector(SELECTORS.connectorCreatorBullet);
     const bulletRect = connectorBullet.getBoundingClientRect();
     const initialPosition = {
-        x: Math.floor(bulletRect.left), // floor to avoid sub-pixel positioning
-        y: Math.floor(bulletRect.top), // floor to avoid sub-pixel positioning
+        x: Math.floor(bulletRect.left + bulletRect.width / 2), // floor to avoid sub-pixel positioning
+        y: Math.floor(bulletRect.top + bulletRect.height / 2), // floor to avoid sub-pixel positioning
     };
     pointerDown(connectorBullet, {
         position: { clientX: initialPosition.x, clientY: initialPosition.y },
@@ -818,12 +747,12 @@ test("Connectors should be rendered if connected pill is not visible", async () 
     }
     ProjectTask._records[12].user_ids = [199];
 
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
     expect(queryAll(SELECTORS.connector, { visible: true })).toHaveCount(13);
 });
 
 test("No display of resize handles when creating a connector", async () => {
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     // Explicitly shows the connector creator wrapper since its "display: none"
     // disappears on native CSS hover, which cannot be programatically emulated.
@@ -842,7 +771,7 @@ test("No display of resize handles when creating a connector", async () => {
 });
 
 test("Renderer in connect mode when creating a connector", async () => {
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     // Explicitly shows the connector creator wrapper since its "display: none"
     // disappears on native CSS hover, which cannot be programatically emulated.
@@ -861,7 +790,7 @@ test("Renderer in connect mode when creating a connector", async () => {
 });
 
 test("Connector creators of initial pill are highlighted when creating a connector", async () => {
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     // Explicitly shows the connector creator wrapper since its "display: none"
     // disappears on native CSS hover, which cannot be programatically emulated.
@@ -881,7 +810,7 @@ test("Connector creators of initial pill are highlighted when creating a connect
 });
 
 test("Connector creators of hovered pill are highlighted when creating a connector", async () => {
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     // Explicitly shows the connector creator wrapper since its "display: none"
     // disappears on native CSS hover, which cannot be programatically emulated.
@@ -908,7 +837,7 @@ test("Connector creators of hovered pill are highlighted when creating a connect
 test("Switch to full-size browser: the connections between pills should be diplayed", async () => {
     resize({ width: 375, height: 667 });
 
-    await mountView(ganttViewParams);
+    await mountGanttView(ganttViewParams);
 
     // Mobile view
     expect("svg.o_gantt_connector").toHaveCount(0, {
@@ -922,4 +851,50 @@ test("Switch to full-size browser: the connections between pills should be dipla
     expect("svg.o_gantt_connector").toHaveCount(22, {
         message: "Gantt connectors should be visible when switching to desktop view",
     });
+});
+
+test("Connect two very distant pills", async () => {
+    ProjectTask._records = [
+        ProjectTask._records[0],
+        {
+            id: 2,
+            name: "Task 2",
+            planned_date_begin: "2021-11-18 08:00:00",
+            date_deadline: "2021-11-18 16:00:00",
+            user_ids: [2],
+            depend_on_ids: [],
+        },
+    ];
+    onRpc("write", ({ args }) => {
+        expect.step(JSON.stringify(args));
+    });
+    await mountGanttView({
+        ...ganttViewParams,
+        context: {
+            default_start_date: "2021-10-01",
+            default_stop_date: "2021-11-30",
+        },
+    });
+    expect(SELECTORS.connector).toHaveCount(0);
+
+    // Explicitly shows the connector creator wrapper since its "display: none"
+    // disappears on native CSS hover, which cannot be programatically emulated.
+    const rightWrapper = queryFirst(SELECTORS.connectorCreatorWrapper);
+    rightWrapper.classList.add("d-block");
+
+    // Creating a connector and hover another pill while dragging it
+    const { drop, moveTo } = await contains(SELECTORS.connectorCreatorBullet, {
+        root: rightWrapper,
+    }).drag();
+
+    const selector = `${SELECTORS.pill}:contains('Task 2')`;
+    expect(selector).toHaveCount(0);
+    moveTo(queryFirst(SELECTORS.pill), { relative: true, position: { x: 1500 } });
+    while (!queryFirst(selector)) {
+        await animationFrame(); // FIXME JUM! -> advanceTime should work!
+    }
+    await moveTo(selector);
+    await drop();
+    expect([`[[2],{"depend_on_ids":[[4,1,false]]}]`]).toVerifySteps();
+    expect(SELECTORS.connector).toHaveCount(1);
 });

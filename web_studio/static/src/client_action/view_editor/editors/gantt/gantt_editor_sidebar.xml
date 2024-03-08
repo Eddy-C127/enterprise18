@@ -71,6 +71,15 @@
                     Default Group by
                 </Property>
                 <Property
+                    name="'display_mode'"
+                    type="'selection'"
+                    value="modelParams.displayMode"
+                    childProps="{ choices: displayModeChoices }"
+                    onChange.bind="onViewAttributeChanged"
+                >
+                    Display Mode
+                </Property>
+                <Property
                     name="'default_scale'"
                     type="'selection'"
                     value="modelParams.defaultScale"
@@ -114,6 +123,15 @@
                     onChange.bind="(value) => this.onPrecisionChanged(value, 'month')"
                 >
                     Month Precision
+                </Property>
+                <Property
+                    name="'order'"
+                    type="'selection'"
+                    value="orderValue"
+                    childProps="{ choices: defaultOrderChoices }"
+                    onChange.bind="onViewAttributeChanged"
+                >
+                    Order
                 </Property>
 
                 <SidebarViewToolbox onMore="props.openViewInForm"

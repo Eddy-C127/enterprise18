@@ -1,7 +1,7 @@
 import { _t } from "@web/core/l10n/translation";
-import { deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
+import { deserializeDateTime, getStartOfLocalWeek, serializeDateTime } from "@web/core/l10n/dates";
 import { formatPercentage } from "@web/views/fields/formatters";
-import { GanttModel, computeRange } from "@web_gantt/gantt_model";
+import { GanttModel } from "@web_gantt/gantt_model";
 import { usePlanningModelActions } from "../planning_hooks";
 import { Domain } from "@web/core/domain";
 import { pick } from "@web/core/utils/objects";
@@ -227,8 +227,8 @@ export class PlanningGanttModel extends GanttModel {
             {
                 context: {
                     ...this.searchParams.context,
-                    default_start_datetime: serializeDateTime(metaData.startDate),
-                    default_end_datetime: serializeDateTime(metaData.stopDate),
+                    default_start_datetime: serializeDateTime(metaData.globalStart),
+                    default_end_datetime: serializeDateTime(metaData.globalStop),
                     current_scale: metaData.scale.id,
                 }
             }
@@ -250,7 +250,8 @@ export class PlanningGanttModel extends GanttModel {
     /**
      * @override
      */
-    _generateRows(_, params) {
+    _generateRows(metaData, params) {
+        const { order } = metaData;
         const { groupedBy, groups, parentGroup } = params;
         if (!this.hideOpenShift) {
             if (parentGroup.length === 0) {
@@ -282,7 +283,7 @@ export class PlanningGanttModel extends GanttModel {
         }
         const rows = super._generateRows(...arguments);
         // keep empty row to the head and sort the other rows alphabetically
-        if (rows.length > 1) {
+        if (rows.length > 1 && !order) {
             rows.sort((a, b) => {
                 if (a.resId && !b.resId) {
                     return 1;
@@ -311,7 +312,7 @@ export class PlanningGanttModel extends GanttModel {
      * @override
      */
     _getInitialRangeParams() {
-        let { focusDate, scaleId } = super._getInitialRangeParams(...arguments);
+        let { focusDate, scaleId, startDate, stopDate } = super._getInitialRangeParams(...arguments);
         // take parameters from url if set https://example.com/web?date_start=2020-11-08
         // this is used by the mail of planning.planning
         const urlState = router.current;
@@ -319,17 +320,20 @@ export class PlanningGanttModel extends GanttModel {
             focusDate = deserializeDateTime(urlState.date_start);
             if (urlState.date_end) {
                 const end = deserializeDateTime(urlState.date_end);
-                const { start: startOfWeek1 } = computeRange("week", focusDate);
-                const { start: startOfWeek2 } = computeRange("week", end);
+                const startOfWeek1 = getStartOfLocalWeek(focusDate);
+                const startOfWeek2 = getStartOfLocalWeek(end);
                 if (startOfWeek1.equals(startOfWeek2)) {
                     scaleId = "week";
                 } else {
                     scaleId = "month";
                 }
             }
+            const { unit } = this.metaData.scales[scaleId];
+            startDate = focusDate.startOf(unit);
+            stopDate = startDate.plus({ [unit]: 1 });
         }
         // TODO: use scale from url like in example (no date_end in example!)?
-        return { focusDate, scaleId };
+        return { focusDate, scaleId, startDate, stopDate };
     }
 
     /**

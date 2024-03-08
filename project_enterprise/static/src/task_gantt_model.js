@@ -89,26 +89,21 @@ export class TaskGanttModel extends GanttModel {
      * @override
      */
     async _fetchData(metaData, additionalContext) {
-        const [ highlightIds ] = await Promise.all([
-            this.getHighlightIds(),
-            super._fetchData(...arguments)
-        ]);
-        this.highlightIds = highlightIds;
-        const startDate = metaData.startDate.toISODate();
-        const stopDate = metaData.stopDate.toISODate();
-        const scale = metaData.scale.id;
+        const globalStart = metaData.globalStart.toISODate();
+        const globalStop = metaData.globalStop.toISODate();
+        const scale = metaData.scale.unit;
         additionalContext = {
             ...(additionalContext || {}),
-            gantt_start_date: startDate,
+            gantt_start_date: globalStart,
             gantt_scale: scale,
         };
-        const proms = [super._fetchData(metaData, additionalContext)];
+        const proms = [this.getHighlightIds(), super._fetchData(metaData, additionalContext)];
         let milestones = [];
         const projectDeadlines = [];
         const projectStartDates = [];
         if (!this.orm.isSample && !this.env.isSmall) {
             const prom = this.orm
-                .call("project.task", "get_all_deadlines", [startDate, stopDate], {
+                .call("project.task", "get_all_deadlines", [globalStart, globalStop], {
                     context: this.searchParams.context,
                 })
                 .then(({ milestone_id, project_id }) => {
@@ -119,13 +114,13 @@ export class TaskGanttModel extends GanttModel {
                     for (const project of project_id) {
                         const dateEnd = project.date;
                         const dateStart = project.date_start;
-                        if (dateEnd >= startDate && dateEnd <= stopDate) {
+                        if (dateEnd >= globalStart && dateEnd <= globalStop) {
                             projectDeadlines.push({
                                 ...project,
                                 date: deserializeDate(dateEnd),
                             });
                         }
-                        if (dateStart >= startDate && dateStart <= stopDate) {
+                        if (dateStart >= globalStart && dateStart <= globalStop) {
                             projectStartDates.push({
                                 ...project,
                                 date: deserializeDate(dateStart),
@@ -135,7 +130,7 @@ export class TaskGanttModel extends GanttModel {
                 });
             proms.push(prom);
         }
-        await Promise.all(proms);
+        this.highlightIds = (await Promise.all(proms))[0];
         this.data.milestones = sortBy(milestones, (m) => m.deadline);
         this.data.projectDeadlines = sortBy(projectDeadlines, (d) => d.date);
         this.data.projectStartDates = sortBy(projectStartDates, (d) => d.date);
@@ -144,7 +139,8 @@ export class TaskGanttModel extends GanttModel {
     /**
      * @override
      */
-    _generateRows(_, params) {
+    _generateRows(metaData, params) {
+        const { order } = metaData;
         const { groupedBy, groups, parentGroup } = params;
         if (groupedBy.length) {
             const groupedByField = groupedBy[0];
@@ -162,7 +158,7 @@ export class TaskGanttModel extends GanttModel {
 
         // keep empty row to the head and sort the other rows alphabetically
         // except when grouping by stage or personal stage
-        if (!["stage_id", "personal_stage_type_ids"].includes(groupedBy[0])) {
+        if (!["stage_id", "personal_stage_type_ids"].includes(groupedBy[0]) && !order) {
             rows.sort((a, b) => {
                 if (a.resId && !b.resId) {
                     return 1;
@@ -238,11 +234,7 @@ export class TaskGanttModel extends GanttModel {
         let displayUnassigned = false;
         if (groupBy.length === 0 || groupBy[groupBy.length - 1] === "user_ids") {
             for (const node of domain) {
-                if (
-                    node.length === 3 &&
-                    node[0] === "user_ids.name" &&
-                    node[1] === "ilike"
-                ) {
+                if (node.length === 3 && node[0] === "user_ids.name" && node[1] === "ilike") {
                     displayUnassigned = true;
                 }
             }
@@ -251,5 +243,5 @@ export class TaskGanttModel extends GanttModel {
             searchParams.domain = Domain.or([domain, "[('user_ids', '=', false)]"]).toList();
         }
         return super.load({ ...searchParams, context: { ...context }, displayUnassigned });
-    };
+    }
 }

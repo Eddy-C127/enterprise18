@@ -28,7 +28,7 @@ export class TaskGanttRenderer extends GanttRenderer {
         this.notificationService = useService("notification");
         useEffect(
             (el) => el.classList.add("o_project_gantt"),
-            () => [this.rootRef.el]
+            () => [this.gridRef.el]
         );
         const position = localization.direction === "rtl" ? "bottom" : "right";
         this.milestonePopover = usePopover(MilestonesPopover, { position });
@@ -40,15 +40,18 @@ export class TaskGanttRenderer extends GanttRenderer {
     enrichPill(pill) {
         const enrichedPill = super.enrichPill(pill);
         if (enrichedPill?.record) {
-            if (this.props.model.highlightIds && !this.props.model.highlightIds.includes(enrichedPill.record.id)) {
+            if (
+                this.props.model.highlightIds &&
+                !this.props.model.highlightIds.includes(enrichedPill.record.id)
+            ) {
                 pill.className += " opacity-25";
             }
         }
         return enrichedPill;
     }
 
-    computeColumns() {
-        super.computeColumns();
+    computeVisibleColumns() {
+        super.computeVisibleColumns();
         this.columnMilestones = {}; // deadlines and milestones by project
         for (const column of this.columns) {
             this.columnMilestones[column.id] = {
@@ -137,7 +140,7 @@ export class TaskGanttRenderer extends GanttRenderer {
                 }
             }
             if (
-                (!project || nextColumn?.stop < project.date) &&
+                (!project || !nextColumn || nextColumn?.stop < project.date) &&
                 (!projectDeadline || column.stop < projectDeadline.date) &&
                 (!milestone || column.stop < milestone.deadline)
             ) {
@@ -192,9 +195,13 @@ export class TaskGanttRenderer extends GanttRenderer {
         const onSelectedAutoPlan = (resIds) => {
             props.context.smart_task_scheduling = true;
             if (resIds.length) {
-                this.model.reschedule(resIds, props.context, this.openPlanDialogCallback.bind(this));
+                this.model.reschedule(
+                    resIds,
+                    props.context,
+                    this.openPlanDialogCallback.bind(this)
+                );
             }
-        }
+        };
         props.onSelectedNoSmartSchedule = props.onSelected;
         props.onSelected = onSelectedAutoPlan;
         props.onCreateEdit = onCreateEdit;

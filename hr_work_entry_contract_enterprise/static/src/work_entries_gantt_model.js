@@ -14,8 +14,8 @@ export class WorkEntriesGanttModel extends GanttModel {
     }
 
     getRange() {
-        const { startDate, stopDate } = this._buildMetaData();
-        return { start: startDate, end: stopDate };
+        const { globalStart, globalStop } = this._buildMetaData();
+        return { start: globalStart, end: globalStop };
     }
 
     /**
@@ -23,8 +23,8 @@ export class WorkEntriesGanttModel extends GanttModel {
      * @override
      */
     async _fetchData(metaData) {
-        const { startDate } = metaData;
-        if (startDate <= DateTime.local().plus({ months: 1 })) {
+        const { globalStart } = metaData;
+        if (globalStart <= DateTime.local().plus({ months: 1 })) {
             await this.generateWorkEntries();
         }
         return super._fetchData(...arguments);

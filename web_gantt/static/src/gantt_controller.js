@@ -1,8 +1,6 @@
 import { _t } from "@web/core/l10n/translation";
-import { Component, onWillUnmount, useEffect, useRef } from "@odoo/owl";
+import { Component, onWillUnmount, useEffect, useRef, useSubEnv } from "@odoo/owl";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
-import { Dropdown } from "@web/core/dropdown/dropdown";
-import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 import { Layout } from "@web/search/layout";
 import { standardViewProps } from "@web/views/standard_view_props";
@@ -12,14 +10,13 @@ import { useService } from "@web/core/utils/hooks";
 import { SearchBar } from "@web/search/search_bar/search_bar";
 import { useSearchBarToggler } from "@web/search/search_bar/search_bar_toggler";
 import { CogMenu } from "@web/search/cog_menu/cog_menu";
+import { CallbackRecorder } from "@web/webclient/actions/action_hook";
 
 import { useSetupView } from "@web/views/view_hook";
 
 export class GanttController extends Component {
     static components = {
         CogMenu,
-        Dropdown,
-        DropdownItem,
         Layout,
         SearchBar,
     };
@@ -38,11 +35,17 @@ export class GanttController extends Component {
         this.dialogService = useService("dialog");
         this.orm = useService("orm");
 
+        useSubEnv({
+            getCurrentFocusDateCallBackRecorder: new CallbackRecorder(),
+        });
+
+        const rootRef = useRef("root");
+
         this.model = useModelWithSampleData(this.props.Model, this.props.modelParams);
         useSetupView({
-            rootRef: useRef("root"),
+            rootRef,
             getLocalState: () => {
-                return { metaData: this.model.metaData };
+                return { metaData: this.model.metaData, displayParams: this.model.displayParams };
             },
         });
 
@@ -63,7 +66,6 @@ export class GanttController extends Component {
             }
         });
 
-        const rootRef = useRef("root");
         useEffect(
             (showNoContentHelp) => {
                 if (showNoContentHelp) {
@@ -74,7 +76,8 @@ export class GanttController extends Component {
                     ];
                     // interactive rows created in extensions (fromServer undefined)
                     const headerContainerWidth =
-                        rootRef.el.querySelector(".o_gantt_header").clientHeight;
+                        rootRef.el.querySelector(".o_gantt_header_groups").clientHeight +
+                        rootRef.el.querySelector(".o_gantt_header_columns").clientHeight;
 
                     const offset = realRows.reduce(
                         (current, el) => current + el.clientHeight,
@@ -173,10 +176,19 @@ export class GanttController extends Component {
     //--------------------------------------------------------------------------
 
     onAddClicked() {
-        const { focusDate, scale } = this.model.metaData;
-        const start = focusDate.startOf(scale.id);
-        const stop = focusDate.endOf(scale.id);
+        const { scale } = this.model.metaData;
+        const focusDate = this.getCurrentFocusDate();
+        const start = focusDate.startOf(scale.unit);
+        const stop = focusDate.endOf(scale.unit);
         const context = this.model.getDialogContext({ start, stop, withDefault: true });
         this.create(context);
+    }
+
+    getCurrentFocusDate() {
+        const { callbacks } = this.env.getCurrentFocusDateCallBackRecorder;
+        if (callbacks.length) {
+            return callbacks[0]();
+        }
+        return this.model.metaData.focusDate;
     }
 }

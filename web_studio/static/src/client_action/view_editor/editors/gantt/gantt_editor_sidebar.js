@@ -25,10 +25,6 @@ export class GanttEditorSidebar extends Component {
         this.editArchAttributes = useEditNodeAttributes({ isRoot: true });
     }
 
-    get modelParams() {
-        return this.viewEditorModel.controllerProps.modelParams.metaData;
-    }
-
     get colorChoices() {
         return this.modelParams.decorationFields.map((value) => {
             return {
@@ -60,10 +56,29 @@ export class GanttEditorSidebar extends Component {
         ];
     }
 
+    get defaultOrderChoices() {
+        return [
+            { value: "asc", label: _t("Ascending") },
+            { value: "desc", label: _t("Descending") },
+        ];
+    }
+
     get defaultScalesChoices() {
-        return Object.values(this.modelParams.scales).map((value) => {
-            return { label: value.description, value: value.id };
-        });
+        return [
+            { value: "day", label: _t("Day") },
+            { value: "week", label: _t("Week") },
+            { value: "week_2", label: _t("Week (expanded)") },
+            { value: "month", label: _t("Month") },
+            { value: "month_3", label: _t("Month (expanded)") },
+            { value: "year", label: _t("Year") },
+        ];
+    }
+
+    get displayModeChoices() {
+        return [
+            { label: _t("Dense"), value: "dense" },
+            { label: _t("Sparse"), value: "sparse" },
+        ];
     }
 
     get fieldsChoices() {
@@ -86,6 +101,14 @@ export class GanttEditorSidebar extends Component {
                     value: f.name,
                 };
             });
+    }
+
+    get modelParams() {
+        return this.viewEditorModel.controllerProps.modelParams.metaData;
+    }
+
+    get orderValue() {
+        return this.modelParams.order?.toLowerCase();
     }
 
     get weekAndMonthPrecisionChoices() {

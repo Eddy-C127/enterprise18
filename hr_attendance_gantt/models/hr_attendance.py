@@ -56,7 +56,7 @@ class HrAttendance(models.Model):
         return values
 
     @api.model
-    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0):
+    def get_gantt_data(self, domain, groupby, read_specification, orderby=None, limit=None, offset=0):
         """
         We override get_gantt_data to allow the display of open-ended records,
         We also want to add in the gantt rows, the active emloyees that have a check in in the previous 7 days
@@ -64,7 +64,7 @@ class HrAttendance(models.Model):
         user_domain = self.env.context.get('user_domain')
         start_date = self.env.context.get('gantt_start_date')
 
-        open_ended_gantt_data = super().get_gantt_data(domain, groupby, read_specification, limit=limit, offset=offset)
+        open_ended_gantt_data = super().get_gantt_data(domain, groupby, read_specification, orderby=orderby, limit=limit, offset=offset)
 
         if start_date and groupby and groupby[0] == 'employee_id':
             active_employees_domain = expression.AND([
@@ -75,7 +75,7 @@ class HrAttendance(models.Model):
                     ('check_in', '>', fields.Datetime.from_string(start_date) - relativedelta(days=7)),
                     ('employee_id', 'not in', [group['employee_id'][0] for group in open_ended_gantt_data['groups']])
                 ]])
-            previously_active_employees = super().get_gantt_data(active_employees_domain, groupby, read_specification, limit=None, offset=0)
+            previously_active_employees = super().get_gantt_data(active_employees_domain, groupby, read_specification, orderby=orderby, limit=None, offset=0)
             for group in previously_active_employees['groups']:
                 del group['__record_ids']  # Records are not needed here
                 open_ended_gantt_data['groups'].append(group)

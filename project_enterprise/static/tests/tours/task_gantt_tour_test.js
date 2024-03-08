@@ -4,6 +4,8 @@
 import { registry } from "@web/core/registry";
 import "@project/../tests/tours/project_tour";
 import { patch } from "@web/core/utils/patch";
+import { click, queryLast } from "@odoo/hoot-dom";
+
 
 function openProjectUpdateAndReturnToTasks(view, viewClass) {
     return [{
@@ -43,21 +45,29 @@ patch(registry.category("web_tour.tours").get("project_test_tour"), {
         });
 
         originalSteps.splice(originalSteps.length, 0, {
-            trigger: ".o_gantt_progress_bar",
-            content: "See user progress bar",
+            trigger: ".o_gantt_picker:last-child",
+            content: "Open right date picker",
+        },
+        {
+            trigger: '.o_zoom_out[title="Select month"]',
+            content: "Click on selected month",
+        },
+        {
+            extra_trigger: '[title="Select year"]',
+            trigger: ".o_today",
+            content: "Select current month",
+        },
+        {
+            trigger: '.o_zoom_out[title="Select month"]',
+            content: "Select last day of current month",
             run() {
-                const progressbar = document.querySelector(".o_gantt_progress_bar");
-                if (progressbar) {
-                    if (progressbar.querySelector("span").style.width === '') {
-                        console.error("Progress bar should be displayed");
-                    }
-                    if (!progressbar.classList.contains("o_gantt_group_danger")) {
-                        console.error("Progress bar should be displayed in danger");
-                    }
-                } else {
-                    console.error("Not able to select progressbar");
-                }
-            }
+                click(queryLast(".o_date_item_cell:not(.o_out_of_range)"));
+            },
+        },
+        {
+            trigger: ".o_gantt_progress_bar.o_gantt_group_danger",
+            content: "See user progress bar",
+            run() {},
         }, ...openProjectUpdateAndReturnToTasks("Gantt", "o_gantt_view"), {
             trigger: '.o_switch_view.o_map',
             content: 'Open Map View',

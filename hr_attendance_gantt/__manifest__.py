@@ -16,7 +16,7 @@
         'web.assets_backend': [
             'hr_attendance_gantt/static/src/**/*',
         ],
-        'web.qunit_suite_tests': [
+        'web.assets_unit_tests': [
             'hr_attendance_gantt/static/tests/**/*',
         ],
     },

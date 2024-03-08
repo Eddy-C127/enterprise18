@@ -68,7 +68,13 @@ Allow clients to Schedule Appointments through the Portal
             'appointment/static/src/js/wysiwyg.js',
         ],
         'web.qunit_suite_tests': [
+            'appointment/static/tests/wysiwyg_tests.js',
+            'appointment/static/tests/appointment_mock_server_qunit.js',
+        ],
+        'web.assets_unit_tests': [
             'appointment/static/tests/*',
+            ('remove', 'appointment/static/tests/wysiwyg_tests.js'),
+            ('remove', 'appointment/static/tests/appointment_mock_server_qunit.js'),
         ],
     }
 }

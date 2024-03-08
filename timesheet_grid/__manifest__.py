@@ -40,9 +40,13 @@
         'web.assets_tests': [
             'timesheet_grid/static/tests/tours/**',
         ],
+        'web.assets_unit_tests': [
+            "timesheet_grid/static/tests/task_progress_gantt.test.js"
+        ],
         'web.qunit_suite_tests': [
             "timesheet_grid/static/tests/*",
             ('remove', "timesheet_grid/static/tests/setup_manager_patch.js"),
+            ('remove', "timesheet_grid/static/tests/task_progress_gantt.test.js"),
         ],
         'web.tests_assets': [
             "timesheet_grid/static/tests/setup_manager_patch.js",

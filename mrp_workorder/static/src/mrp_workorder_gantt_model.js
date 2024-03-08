@@ -22,14 +22,15 @@ export class MRPWorkorderGanttModel extends GanttModel {
         return Promise.all(proms);
     }
     async _fetchWorkcentersUnavailabilities(metaData, data) {
+        const { globalStart, globalStop } = metaData;
         const workcenters = Array.from(new Set(data.records.map(record => record.workcenter_id[0])));
         const result = await this.orm.call(
             metaData.resModel,
             "gantt_unavailability",
             [
-                serializeDateTime(metaData.startDate),
-                serializeDateTime(metaData.stopDate),
-                metaData.scale.id,
+                serializeDateTime(globalStart),
+                serializeDateTime(globalStop),
+                metaData.scale.unit,
                 ["workcenter_id"],
                 workcenters.map((workcenter) => ({
                     groupedBy: ["workcenter_id"],

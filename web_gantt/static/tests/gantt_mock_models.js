@@ -173,7 +173,6 @@ export class Tasks extends models.Model {
         },
     ];
     _views = {
-        gantt: /* xml */ `<gantt js_class="gantt_v3" date_start="start" date_stop="stop" />`,
         search: /* xml */ `<search />`,
     };
 }

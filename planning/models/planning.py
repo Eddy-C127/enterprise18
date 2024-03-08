@@ -1854,7 +1854,7 @@ class Planning(models.Model):
         resource_ids = self.env.context.get('filter_resource_ids', False)
         if resource_ids:
             return self.env['resource.resource'].search([('id', 'in', resource_ids)])
-        if self.env.context.get('planning_expand_resource') and ('start_datetime', '<=') in dom_tuples and ('end_datetime', '>=') in dom_tuples:
+        if self.env.context.get('planning_expand_resource') and ('start_datetime', '<') in dom_tuples and ('end_datetime', '>') in dom_tuples:
             # Search on the roles and resources
             search_on_role_domain = []
             search_on_ressource_domain = []
@@ -1877,7 +1877,7 @@ class Planning(models.Model):
 
     def _read_group_role_id(self, roles, domain):
         dom_tuples = [(dom[0], dom[1]) for dom in domain if isinstance(dom, list) and len(dom) == 3]
-        if self._context.get('planning_expand_role') and ('start_datetime', '<=') in dom_tuples and ('end_datetime', '>=') in dom_tuples:
+        if self._context.get('planning_expand_role') and ('start_datetime', '<') in dom_tuples and ('end_datetime', '>') in dom_tuples:
             if ('role_id', '=') in dom_tuples or ('role_id', 'ilike') in dom_tuples:
                 filter_domain = self._expand_domain_m2o_groupby(domain, 'role_id')
                 return self.env['planning.role'].search(filter_domain)

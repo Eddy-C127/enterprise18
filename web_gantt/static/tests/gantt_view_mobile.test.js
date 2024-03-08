@@ -1,72 +1,255 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
-import { queryAll, queryAllTexts, queryFirst } from "@odoo/hoot-dom";
-import { mockDate } from "@odoo/hoot-mock";
-import {
-    contains,
-    defineModels,
-    fields,
-    getService,
-    models,
-    mountView,
-    mountWithCleanup,
-    onRpc,
-} from "@web/../tests/web_test_helpers";
-import { CLASSES, SELECTORS } from "./gantt_test_helpers";
-
+import { queryAll, queryAllTexts, queryFirst, queryOne } from "@odoo/hoot-dom";
+import { animationFrame, mockDate } from "@odoo/hoot-mock";
+import { contains, getService, mountWithCleanup, onRpc } from "@web/../tests/web_test_helpers";
+import { Domain } from "@web/core/domain";
+import { deserializeDateTime } from "@web/core/l10n/dates";
 import { WebClient } from "@web/webclient/webclient";
-class Tasks extends models.Model {
-    start = fields.Datetime({ string: "Start Date" });
-    stop = fields.Datetime({ string: "Stop Date" });
-    user_id = fields.Many2one({ string: "Assign to", relation: "users" });
+import { Tasks, defineGanttModels } from "./gantt_mock_models";
+import {
+    CLASSES,
+    SELECTORS,
+    getActiveScale,
+    getGridContent,
+    mountGanttView,
+} from "./web_gantt_test_helpers";
 
-    _records = [
-        {
-            id: 1,
-            start: "2018-11-30 18:30:00",
-            stop: "2018-12-31 18:29:59",
-            user_id: 1,
-        },
-        {
-            id: 2,
-            start: "2018-12-17 11:30:00",
-            stop: "2018-12-22 06:29:59",
-            user_id: 2,
-        },
-        {
-            id: 3,
-            start: "2018-12-27 06:30:00",
-            stop: "2019-01-03 06:29:59",
-            user_id: 2,
-        },
-        {
-            id: 4,
-            start: "2018-12-19 22:30:00",
-            stop: "2018-12-20 06:29:59",
-            user_id: 1,
-        },
-        {
-            id: 5,
-            start: "2018-11-08 01:53:10",
-            stop: "2018-12-04 01:34:34",
-            user_id: 1,
-        },
-    ];
-}
-
-class Users extends models.Model {
-    name = fields.Char();
-
-    _records = [
-        { id: 1, name: "User 1" },
-        { id: 2, name: "User 2" },
-    ];
-}
-
-defineModels([Tasks, Users]);
+defineGanttModels();
 
 describe.current.tags("mobile");
 
 beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
+
+test("empty ungrouped gantt rendering", async () => {
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop" />`,
+        domain: [["id", "=", 0]],
+    });
+    const { viewTitle, range, columnHeaders, rows } = getGridContent();
+    expect(viewTitle).toBe(null);
+    expect(range).toBe("01 Dec 201828 Feb 2019");
+    expect(columnHeaders).toHaveLength(10);
+    expect(columnHeaders.at(0).title).toBe("15");
+    expect(columnHeaders.at(-1).title).toBe("24");
+    expect(rows).toEqual([{}]);
+    expect(SELECTORS.noContentHelper).toHaveCount(0);
+});
+
+test("ungrouped gantt rendering", async () => {
+    const task2 = Tasks._records[1];
+    const startDateLocalString = deserializeDateTime(task2.start).toFormat("f");
+    const stopDateLocalString = deserializeDateTime(task2.stop).toFormat("f");
+    Tasks._views.gantt = `<gantt date_start="start" date_stop="stop"/>`;
+    Tasks._views.search = `<search/>`;
+
+    onRpc("get_gantt_data", ({ model }) => expect.step(model));
+    await mountWithCleanup(WebClient);
+    await getService("action").doAction({
+        res_model: "tasks",
+        type: "ir.actions.act_window",
+        views: [[false, "gantt"]],
+    });
+    expect(["tasks"]).toVerifySteps();
+    await animationFrame();
+
+    const { viewTitle, range, columnHeaders, rows } = getGridContent();
+    expect(viewTitle).toBe(null);
+    expect(range).toBe("01 Dec 201828 Feb 2019");
+    expect(columnHeaders).toHaveLength(10);
+    expect(columnHeaders.at(0).title).toBe("15");
+    expect(columnHeaders.at(-1).title).toBe("24");
+    expect(getActiveScale()).toBe("3");
+    expect(SELECTORS.expandCollapseButtons).not.toBeVisible();
+    expect(rows).toEqual([
+        {
+            pills: [
+                { title: "Task 1", level: 1, colSpan: "Out of bounds (1)  -> Out of bounds (63) " },
+                {
+                    title: "Task 2",
+                    level: 0,
+                    colSpan: "17 (1/2) Dec 2018 -> 22 (1/2) Dec 2018",
+                },
+                {
+                    title: "Task 4",
+                    level: 2,
+                    colSpan: "20 Dec 2018 -> 20 (1/2) Dec 2018",
+                },
+                {
+                    title: "Task 7",
+                    level: 2,
+                    colSpan: "20 (1/2) Dec 2018 -> 20 Dec 2018",
+                },
+            ],
+        },
+    ]);
+
+    // test popover and local timezone
+    expect(`.o_popover`).toHaveCount(0);
+    const task2Pill = queryAll(SELECTORS.pill)[1];
+    expect(task2Pill).toHaveText("Task 2");
+
+    await contains(task2Pill).click();
+    expect(`.o_popover`).toHaveCount(1);
+    expect(queryAllTexts`.o_popover .popover-body span`).toEqual([
+        "Task 2",
+        startDateLocalString,
+        stopDateLocalString,
+    ]);
+
+    await contains(`.o_popover .popover-header i.fa.fa-close`).click();
+    expect(`.o_popover`).toHaveCount(0);
+});
+
+test("ordered gantt view", async () => {
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop" progress="progress"/>`,
+        groupBy: ["stage_id"],
+    });
+    const { viewTitle, range, columnHeaders, rows } = getGridContent();
+    expect(viewTitle).toBe("Gantt View");
+    expect(range).toBe("01 Dec 201828 Feb 2019");
+    expect(columnHeaders).toHaveLength(10);
+    expect(columnHeaders.at(0).title).toBe("16");
+    expect(columnHeaders.at(-1).title).toBe("25");
+    expect(SELECTORS.noContentHelper).toHaveCount(0);
+    expect(rows).toEqual([
+        {
+            title: "todo",
+        },
+        {
+            title: "in_progress",
+            pills: [
+                { level: 0, colSpan: "Out of bounds (1)  -> Out of bounds (63) ", title: "Task 1" },
+                {
+                    level: 1,
+                    colSpan: "20 (1/2) Dec 2018 -> 20 Dec 2018",
+                    title: "Task 7",
+                },
+            ],
+        },
+        {
+            title: "done",
+            pills: [
+                {
+                    level: 0,
+                    colSpan: "17 (1/2) Dec 2018 -> 22 (1/2) Dec 2018",
+                    title: "Task 2",
+                },
+            ],
+        },
+        {
+            title: "cancel",
+            pills: [
+                {
+                    level: 0,
+                    colSpan: "20 Dec 2018 -> 20 (1/2) Dec 2018",
+                    title: "Task 4",
+                },
+            ],
+        },
+    ]);
+});
+
+test("empty single-level grouped gantt rendering", async () => {
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop"/>`,
+        groupBy: ["project_id"],
+        domain: Domain.FALSE.toList(),
+    });
+    const { viewTitle, range, columnHeaders, rows } = getGridContent();
+    expect(viewTitle).toBe("Gantt View");
+    expect(range).toBe("01 Dec 201828 Feb 2019");
+    expect(columnHeaders).toHaveLength(10);
+    expect(columnHeaders.at(0).title).toBe("16");
+    expect(columnHeaders.at(-1).title).toBe("25");
+    expect(rows).toEqual([{ title: "" }]);
+    expect(SELECTORS.noContentHelper).toHaveCount(0);
+});
+
+test("single-level grouped gantt rendering", async () => {
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt string="Tasks" date_start="start" date_stop="stop"/>`,
+        groupBy: ["project_id"],
+    });
+    expect(getActiveScale()).toBe("3");
+    expect(SELECTORS.expandCollapseButtons).not.toBeVisible();
+
+    const { range, viewTitle, columnHeaders, rows } = getGridContent();
+    expect(range).toBe("01 Dec 201828 Feb 2019");
+    expect(viewTitle).toBe("Tasks");
+    expect(columnHeaders).toHaveLength(10);
+    expect(columnHeaders.at(0).title).toBe("16");
+    expect(columnHeaders.at(-1).title).toBe("25");
+    expect(rows).toEqual([
+        {
+            title: "Project 1",
+            pills: [
+                {
+                    title: "Task 1",
+                    colSpan: "Out of bounds (1)  -> Out of bounds (63) ",
+                    level: 0,
+                },
+                {
+                    title: "Task 2",
+                    colSpan: "17 (1/2) Dec 2018 -> 22 (1/2) Dec 2018",
+                    level: 1,
+                },
+                {
+                    title: "Task 4",
+                    colSpan: "20 Dec 2018 -> 20 (1/2) Dec 2018",
+                    level: 2,
+                },
+            ],
+        },
+        {
+            title: "Project 2",
+            pills: [
+                {
+                    title: "Task 7",
+                    colSpan: "20 (1/2) Dec 2018 -> 20 Dec 2018",
+                    level: 0,
+                },
+            ],
+        },
+    ]);
+});
+
+test("Controls: rendering is mobile friendly", async () => {
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop" />`,
+    });
+
+    // check toolbar's dropdown
+    const toolbar = queryOne(SELECTORS.toolbar);
+    await contains("button.dropdown-toggle", { root: toolbar }).click();
+    expect(queryAllTexts`.o-dropdown-item`).toEqual([
+        "Descending",
+        "Ascending",
+        "Activate sparse mode",
+    ]);
+
+    // check that pickers open in dialog
+    expect(".modal").toHaveCount(0);
+    await contains(SELECTORS.startDatePicker).click();
+    await animationFrame();
+    expect(".modal").toHaveCount(1);
+    expect(".modal-title").toHaveText("Gantt start date");
+    expect(".modal-body .o_datetime_picker").toHaveCount(1);
+    await contains(".modal-header .btn").click();
+    expect(".modal").toHaveCount(0);
+    await contains(SELECTORS.stopDatePicker).click();
+    await animationFrame();
+    expect(".modal").toHaveCount(1);
+    expect(".modal-title").toHaveText("Gantt stop date");
+    expect(".modal-body .o_datetime_picker").toHaveCount(1);
+    await contains(".modal-header .btn").click();
+    expect(".modal").toHaveCount(0);
+});
 
 test("Progressbar: check the progressbar percentage visibility.", async () => {
     onRpc("gantt_progress_bar", ({ args, model }) => {
@@ -81,9 +264,8 @@ test("Progressbar: check the progressbar percentage visibility.", async () => {
             },
         };
     });
-    await mountView({
+    await mountGanttView({
         resModel: "tasks",
-        type: "gantt",
         arch: `
             <gantt date_start="start" date_stop="stop" default_scale="week" scales="week" default_group_by="user_id" progress_bar="user_id">
                 <field name="user_id"/>
@@ -138,9 +320,8 @@ test("Progressbar: grouped row", async () => {
             },
         };
     });
-    await mountView({
+    await mountGanttView({
         resModel: "tasks",
-        type: "gantt",
         arch: `
             <gantt date_start="start" date_stop="stop" default_scale="week" scales="week" default_group_by="user_id,user_id" progress_bar="user_id">
                 <field name="user_id"/>
@@ -185,20 +366,22 @@ test("horizontal scroll applies to the content [SMALL SCREEN]", async () => {
         type: "ir.actions.act_window",
         views: [[false, "gantt"]],
     });
+    await animationFrame();
 
     const o_view_controller = queryFirst(".o_view_controller");
     const o_content = queryFirst(".o_content");
-    const firstHeaderCell = queryFirst(SELECTORS.headerCell);
-    const initialXHeaderCell = firstHeaderCell.getBoundingClientRect().x;
+    const firstColumnHeader = queryFirst(SELECTORS.columnHeader);
+    const initialXHeaderCell = firstColumnHeader.getBoundingClientRect().x;
 
     expect(o_view_controller).toHaveClass("o_action_delegate_scroll");
     expect(o_view_controller).toHaveStyle({ overflow: "hidden" });
     expect(o_content).toHaveStyle({ overflow: "auto" });
-    expect(o_content).toHaveProperty("scrollLeft", 0);
+    expect(o_content).toHaveProperty("scrollLeft", 762);
 
     // Horizontal scroll
-    await contains(".o_content").scroll({ left: 100 });
+    const newScrollLeft = o_content.scrollLeft - 50;
+    await contains(".o_content").scroll({ left: newScrollLeft });
 
-    expect(o_content).toHaveProperty("scrollLeft", 100);
-    expect(firstHeaderCell.getBoundingClientRect().x).toBe(initialXHeaderCell - 100);
+    expect(o_content).toHaveProperty("scrollLeft", newScrollLeft);
+    expect(firstColumnHeader.getBoundingClientRect().x).toBe(initialXHeaderCell + 50);
 });

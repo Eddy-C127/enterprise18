@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="web_gantt.GanttRendererControls">
+        <div
+            class="o_gantt_renderer_controls d-inline-flex flex-wrap column-gap-2 align-items-center w-100 p-1 bg-view border-bottom sticky-top start-0"
+            t-att-class="{ 'pb-0': env.isSmall }"
+        >
+            <div class="flex-shrink-0 px-2 d-flex align-items-center" t-att-class="{
+                'flex-grow-1 gap-1': !env.isSmall,
+                'w-100 btn-group justify-content-center': env.isSmall,
+            }">
+                <b class="o_gantt_picker" t-att-class="{ 'btn btn-secondary ms-3': env.isSmall }" t-ref="start-picker" t-on-click="() => startPicker.open()">
+                    <t t-esc="getFormattedDate(props.startDate)" />
+                </b>
+                <span t-if="!env.isSmall"> - </span>
+                <b class="o_gantt_picker" t-att-class="{ 'btn btn-secondary me-3': env.isSmall }" t-ref="stop-picker" t-on-click="() => stopPicker.open()">
+                    <t t-esc="getFormattedDate(props.stopDate)" />
+                </b>
+            </div>
+            <hr t-if="env.isSmall" class="mt-1 mb-0 w-100"/>
+            <input
+                type="range"
+                class="form-range flex-grow-1 w-0 px-2"
+                t-att-min="props.scalesRange.min" t-att-max="props.scalesRange.max" step="1"
+                t-att-value="props.currentScale"
+                t-on-change="(ev) => props.setScale(ev.target.value)"
+            />
+            <button
+                class="o_gantt_button_today btn btn-secondary"
+                t-att-class="{ 'btn-sm btn-link p-1': env.isSmall }"
+                title="Today"
+                data-hotkey="t"
+                t-on-click="props.onTodayClicked"
+            >
+                <t t-if="!env.isSmall">Today</t>
+                <t t-else="">
+                    <span class="o_fa_stack">
+                        <i class="fa fa-calendar-o" role="img" aria-label="Today" title="Today"/>
+                        <strong t-esc="todayDay"/>
+                    </span>
+                </t>
+            </button>
+            <div class="btn-toolbar gap-2" role="toolbar" name="ganttToolbar">
+                <t t-if="env.isSmall">
+                    <Dropdown>
+                        <button class="btn btn-secondary fa fa-cog p-2" aria-label="Toolbar menu" />
+                        <t t-set-slot="content">
+                            <t t-call="{{ constructor.toolbarContentTemplate }}" />
+                        </t>
+                    </Dropdown>
+                </t>
+                <t t-else="" t-call="{{ constructor.toolbarContentTemplate }}" />
+            </div>
+        </div>
+    </t>
+
+    <t t-name="web_gantt.GanttRendererControls.ToolbarContent">
+        <t t-if="!env.isSmall">
+            <div class="btn-group" aria-label="Sort gantt">
+                <button class="btn btn-secondary fa fa-sort-amount-desc" data-tooltip="Descending" aria-label="Descending"
+                    t-on-click="() => props.onToggleOrder('DESC')"
+                    t-att-class="{ active: props.currentOrder === 'DESC' }"
+                />
+                <button class="btn btn-secondary fa fa-sort-amount-asc" data-tooltip="Ascending" aria-label="Ascending"
+                    t-on-click="() => props.onToggleOrder('ASC')"
+                    t-att-class="{ active: props.currentOrder === 'ASC' }"
+                />
+            </div>
+            <button class="btn btn-secondary fa"
+                t-att-class="{ 'fa-compress': props.currentDisplayMode === 'sparse', 'fa-expand': props.currentDisplayMode === 'dense'  }"
+                t-att-title="props.currentDisplayMode === 'dense' ? 'Activate sparse mode' : 'Activate dense mode'"
+                t-on-click="() => props.onToggleDisplayMode()"
+            >
+            </button>
+            <div class="btn-group" t-att-class="{ invisible: !props.displayExpandCollapseButtons }" name="expandCollapseButtons">
+                <button class="o_gantt_button_expand_rows btn btn-secondary" title="Expand rows" t-on-click="props.onExpandClicked">
+                    <i class="fa fa-caret-square-o-right"/>
+                </button>
+                <button class="o_gantt_button_collapse_rows btn btn-secondary" title="Collapse rows" t-on-click="props.onCollapseClicked">
+                    <i class="fa fa-caret-square-o-down"/>
+                </button>
+            </div>
+        </t>
+        <t t-else="">
+            <DropdownItem class="{ selected: props.currentOrder === 'DESC' }"
+                          onSelected="() => props.onToggleOrder('DESC')">
+                <i class="fa fa-fw fa-sort-amount-desc"/>
+                <span class="ms-1">Descending</span>
+            </DropdownItem>
+            <DropdownItem class="{ selected: props.currentOrder === 'ASC' }"
+                          onSelected="() => props.onToggleOrder('ASC')">
+                <i class="fa fa-fw fa-sort-amount-asc"/>
+                <span class="ms-1">Ascending</span>
+            </DropdownItem>
+            <div class="dropdown-divider" role="separator"/>
+            <DropdownItem onSelected="() => props.onToggleDisplayMode()">
+                <t t-if="props.currentDisplayMode === 'dense'">
+                    <i class="fa fa-fw fa-expand"/>
+                    <span class="ms-1">Activate sparse mode</span>
+                </t>
+                <t t-else="">
+                    <i class="fa fa-fw fa-compress"/>
+                    <span class="ms-1">Activate dense mode</span>
+                </t>
+            </DropdownItem>
+            <t t-if="props.displayExpandCollapseButtons">
+                <div class="dropdown-divider" role="separator"/>
+                <DropdownItem onSelected="props.onExpandClicked">
+                    <i class="fa fa-fw fa-caret-square-o-right"/>
+                    <span class="ms-1">Expand rows</span>
+                </DropdownItem>
+                <DropdownItem onSelected="props.onCollapseClicked">
+                    <i class="fa fa-fw fa-caret-square-o-down"/>
+                    <span class="ms-1">Collapse rows</span>
+                </DropdownItem>
+            </t>
+        </t>
+    </t>
+
+</templates>

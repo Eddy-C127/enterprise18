@@ -23,7 +23,6 @@ export class ProjectGanttRenderer extends GanttRenderer {
         return super.processRow(...arguments);
     }
 
-
     getAvatarProps(row) {
         return this.rowsWithAvatar[row.id];
     }

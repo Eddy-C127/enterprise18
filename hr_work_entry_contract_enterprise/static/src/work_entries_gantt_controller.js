@@ -35,12 +35,12 @@ export class WorkEntriesGanttController extends GanttController {
     }
 
     onAddClicked() {
-        const { scale, startDate, stopDate } = this.model.metaData;
+        const { scale, globalStart, globalStop } = this.model.metaData;
         const today = DateTime.local().startOf("day");
-        if (scale.id !== "day" && startDate <= today.endOf("day") && today <= stopDate) {
+        if (scale.unit !== "day" && globalStart <= today.endOf("day") && today <= globalStop) {
             let start = today;
             let stop;
-            if (["week", "month"].includes(scale.id)) {
+            if (["week", "month"].includes(scale.unit)) {
                 start = today.set({ hours: 9, minutes: 0, seconds: 0 });
                 stop = today.set({ hours: 17, minutes: 0, seconds: 0 });
             } else {

@@ -468,9 +468,9 @@ class CalendarEvent(models.Model):
         }
 
     @api.model
-    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0):
+    def get_gantt_data(self, domain, groupby, read_specification, orderby=None, limit=None, offset=0):
         """Filter out rows where the partner isn't linked to an staff user."""
-        gantt_data = super().get_gantt_data(domain, groupby, read_specification, limit=limit, offset=offset)
+        gantt_data = super().get_gantt_data(domain, groupby, read_specification, orderby=orderby, limit=limit, offset=offset)
         if self.env.context.get('appointment_booking_gantt_show_all_resources') and groupby and groupby[0] == 'partner_ids':
             staff_partner_ids = self.env['appointment.type'].search([('schedule_based_on', '=', 'users')]).staff_user_ids.partner_id.ids
             gantt_data['groups'] = [group for group in gantt_data['groups'] if group.get('partner_ids') and group['partner_ids'][0] in staff_partner_ids]

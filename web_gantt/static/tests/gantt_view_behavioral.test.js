@@ -1,18 +1,19 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import {
+    click,
     keyDown,
     keyUp,
     manuallyDispatchProgrammaticEvent,
     pointerDown,
     queryAllTexts,
     queryOne,
+    scroll,
 } from "@odoo/hoot-dom";
 import { Deferred, advanceTime, animationFrame, mockDate, runAllTimers } from "@odoo/hoot-mock";
 import {
     contains,
     fields,
     mockService,
-    mountView,
     onRpc,
     patchWithCleanup,
     validateSearch,
@@ -29,9 +30,11 @@ import {
     getPill,
     getPillWrapper,
     hoverGridCell,
+    mountGanttView,
     resizePill,
+    selectGanttRange,
     setScale,
-} from "./gantt_test_helpers";
+} from "./web_gantt_test_helpers";
 
 import { omit } from "@web/core/utils/objects";
 
@@ -57,67 +60,32 @@ test("date navigation with timezone (1h)", async () => {
         expect.step(kwargs.domain.toString());
     });
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
     });
 
-    await runAllTimers();
-    expect(["&,start,<=,2018-12-31 22:59:59,stop,>=,2018-11-30 23:00:00"]).toVerifySteps();
+    expect(["&,start,<,2019-02-28 23:00:00,stop,>,2018-11-30 23:00:00"]).toVerifySteps();
 
-    expect(getGridContent().range).toBe("December 2018");
-
-    // month navigation
-    await contains(SELECTORS.prevButton).click();
-    expect(["&,start,<=,2018-11-30 22:59:59,stop,>=,2018-10-31 23:00:00"]).toVerifySteps();
-    expect(getGridContent().range).toBe("November 2018");
-
-    await contains(SELECTORS.nextButton).click();
-    expect(["&,start,<=,2018-12-31 22:59:59,stop,>=,2018-11-30 23:00:00"]).toVerifySteps();
-    expect(getGridContent().range).toBe("December 2018");
+    expect(getGridContent().range).toBe("01 December 2018 - 28 February 2019");
 
     // switch to day view and check day navigation
-    await setScale("day");
+    await setScale(0);
 
-    expect(["&,start,<=,2018-12-20 22:59:59,stop,>=,2018-12-19 23:00:00"]).toVerifySteps();
-    expect(getGridContent().range).toBe("Thursday, December 20, 2018");
-
-    await contains(SELECTORS.prevButton).click();
-    expect(["&,start,<=,2018-12-19 22:59:59,stop,>=,2018-12-18 23:00:00"]).toVerifySteps();
-    expect(getGridContent().range).toBe("Wednesday, December 19, 2018");
-
-    await contains(SELECTORS.nextButton).click();
-    expect(["&,start,<=,2018-12-20 22:59:59,stop,>=,2018-12-19 23:00:00"]).toVerifySteps();
-    expect(getGridContent().range).toBe("Thursday, December 20, 2018");
+    expect(["&,start,<,2019-02-28 23:00:00,stop,>,2018-11-30 23:00:00"]).toVerifySteps();
+    expect(getGridContent().range).toBe("01 December 2018 - 28 February 2019");
 
     // switch to week view and check week navigation
-    await setScale("week");
+    await setScale(1);
 
-    expect(["&,start,<=,2018-12-22 22:59:59,stop,>=,2018-12-15 23:00:00"]).toVerifySteps();
-    expect(getGridContent().range).toBe("16 December 2018 - 22 December 2018");
-
-    await contains(SELECTORS.prevButton).click();
-    expect(["&,start,<=,2018-12-15 22:59:59,stop,>=,2018-12-08 23:00:00"]).toVerifySteps();
-    expect(getGridContent().range).toBe("09 December 2018 - 15 December 2018");
-
-    await contains(SELECTORS.nextButton).click();
-    expect(["&,start,<=,2018-12-22 22:59:59,stop,>=,2018-12-15 23:00:00"]).toVerifySteps();
-    expect(getGridContent().range).toBe("16 December 2018 - 22 December 2018");
+    expect(["&,start,<,2019-02-28 23:00:00,stop,>,2018-11-30 23:00:00"]).toVerifySteps();
+    expect(getGridContent().range).toBe("01 December 2018 - 28 February 2019");
 
     // switch to year view and check year navigation
-    await setScale("year");
+    await setScale(5);
 
-    expect(["&,start,<=,2018-12-31 22:59:59,stop,>=,2017-12-31 23:00:00"]).toVerifySteps();
-    expect(getGridContent().range).toBe("2018");
-
-    await contains(SELECTORS.prevButton).click();
-    expect(["&,start,<=,2017-12-31 22:59:59,stop,>=,2016-12-31 23:00:00"]).toVerifySteps();
-    expect(getGridContent().range).toBe("2017");
-
-    await contains(SELECTORS.nextButton).click();
-    expect(["&,start,<=,2018-12-31 22:59:59,stop,>=,2017-12-31 23:00:00"]).toVerifySteps();
-    expect(getGridContent().range).toBe("2018");
+    expect(["&,start,<,2019-02-28 23:00:00,stop,>,2018-11-30 23:00:00"]).toVerifySteps();
+    expect(getGridContent().range).toBe("01 December 2018 - 28 February 2019");
 });
 
 test("if a on_create is specified, execute the action rather than opening a dialog. And reloads after the action", async () => {
@@ -142,8 +110,7 @@ test("if a on_create is specified, execute the action rather than opening a dial
         expect.step("get_gantt_data");
     });
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" on_create="this_is_create_action" />',
     });
@@ -159,25 +126,49 @@ test("select cells to plan a task", async () => {
         add(_, props) {
             expect.step(`[dialog] ${props.title}`);
             expect(props.context).toEqual({
-                default_start: "2018-11-30 23:00:00",
-                default_stop: "2018-12-02 22:59:59",
+                default_start: "2018-12-18 23:00:00",
+                default_stop: "2018-12-21 22:59:59",
                 lang: "en",
                 allowed_company_ids: [1],
-                start: "2018-11-30 23:00:00",
-                stop: "2018-12-02 22:59:59",
+                start: "2018-12-18 23:00:00",
+                stop: "2018-12-21 22:59:59",
                 tz: "taht",
                 uid: 7,
             });
         },
     });
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop"/>',
     });
-    await hoverGridCell(1, 1);
-    await contains(getCell(1, 1)).dragAndDrop(getCell(1, 2));
+    await contains(getCell("19 December 2018")).dragAndDrop(getCell("21 December 2018"));
+
+    expect(["[dialog] Plan"]).toVerifySteps();
+});
+
+test("drag and drop on the same cell to plan a task", async () => {
+    mockService("dialog", {
+        add(_, props) {
+            expect.step(`[dialog] ${props.title}`);
+            expect(props.context).toEqual({
+                default_start: "2018-12-14 23:00:00",
+                default_stop: "2018-12-15 22:59:59",
+                lang: "en",
+                allowed_company_ids: [1],
+                start: "2018-12-14 23:00:00",
+                stop: "2018-12-15 22:59:59",
+                tz: "taht",
+                uid: 7,
+            });
+        },
+    });
+
+    await mountGanttView({
+        resModel: "tasks",
+        arch: '<gantt date_start="start" date_stop="stop"/>',
+    });
+    await contains(getCell("15 December 2018")).dragAndDrop(getCell("15 December 2018"));
 
     expect(["[dialog] Plan"]).toVerifySteps();
 });
@@ -191,14 +182,13 @@ test("row id is properly escaped to avoid name issues in selection", async () =>
 
     ResUsers._records[0].name = "O'Reilly";
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" default_group_by="user_id"/>',
     });
 
-    await hoverGridCell(1, 1);
-    await clickCell(1, 1);
+    await hoverGridCell("11 December 2018");
+    await clickCell("11 December 2018");
 
     expect(["[dialog]"]).toVerifySteps();
 });
@@ -208,13 +198,13 @@ test("select cells to plan a task: 1-level grouped", async () => {
         add(_, props) {
             expect.step(`[dialog] ${props.title}`);
             expect(props.context).toEqual({
-                default_start: "2018-11-30 23:00:00",
-                default_stop: "2018-12-02 22:59:59",
+                default_start: "2018-12-10 23:00:00",
+                default_stop: "2018-12-12 22:59:59",
                 default_user_id: 1,
                 lang: "en",
                 allowed_company_ids: [1],
-                start: "2018-11-30 23:00:00",
-                stop: "2018-12-02 22:59:59",
+                start: "2018-12-10 23:00:00",
+                stop: "2018-12-12 22:59:59",
                 tz: "taht",
                 uid: 7,
                 user_id: 1,
@@ -222,15 +212,17 @@ test("select cells to plan a task: 1-level grouped", async () => {
         },
     });
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop"/>',
         groupBy: ["user_id"],
     });
 
-    await hoverGridCell(1, 1);
-    await contains(getCell(1, 1)).dragAndDrop(getCell(1, 2));
+    await hoverGridCell("11 December 2018");
+    const { moveTo, drop } = await contains(getCell("11 December 2018")).drag();
+    moveTo(getCell("12 December 2018"));
+    await runAllTimers(); // Pointer move is subjected to throttleForAnimation in gantt
+    drop();
 
     expect(["[dialog] Plan"]).toVerifySteps();
 });
@@ -241,14 +233,14 @@ test("select cells to plan a task: 2-level grouped", async () => {
             expect.step(`[dialog] ${props.title}`);
             expect(props.context).toEqual({
                 default_project_id: 1,
-                default_start: "2018-11-30 23:00:00",
-                default_stop: "2018-12-02 22:59:59",
+                default_start: "2018-12-10 23:00:00",
+                default_stop: "2018-12-12 22:59:59",
                 default_user_id: 1,
                 allowed_company_ids: [1],
                 lang: "en",
                 project_id: 1,
-                start: "2018-11-30 23:00:00",
-                stop: "2018-12-02 22:59:59",
+                start: "2018-12-10 23:00:00",
+                stop: "2018-12-12 22:59:59",
                 tz: "taht",
                 uid: 7,
                 user_id: 1,
@@ -256,22 +248,21 @@ test("select cells to plan a task: 2-level grouped", async () => {
         },
     });
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop"/>',
         groupBy: ["user_id", "project_id"],
     });
-    await hoverGridCell(1, 1);
-    const dragAndDrop1 = await contains(getCell(1, 1)).drag();
-    dragAndDrop1.moveTo(getCell(1, 2));
+    await hoverGridCell("11 December 2018");
+    const dragAndDrop1 = await contains(getCell("11 December 2018")).drag();
+    dragAndDrop1.moveTo(getCell("12 December 2018"));
     await advanceTime(20); // Pointer move is subjected to throttleForAnimation in gantt
     dragAndDrop1.drop();
     // nothing happens
-    await hoverGridCell(2, 1);
+    await hoverGridCell("11 December 2018", "Project 1");
     await advanceTime(20);
-    const dragAndDrop2 = await contains(getCell(2, 1)).drag();
-    dragAndDrop2.moveTo(getCell(2, 2));
+    const dragAndDrop2 = await contains(getCell("11 December 2018", "Project 1")).drag();
+    dragAndDrop2.moveTo(getCell("12 December 2018", "Project 1"));
     await advanceTime(20);
     dragAndDrop2.drop();
 
@@ -284,8 +275,7 @@ test("hovering a cell with special character", async () => {
     // add special character to data
     ResUsers._records[0].name = "User' 1";
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop"/>',
         groupBy: ["user_id", "project_id"],
@@ -311,8 +301,7 @@ test("open a dialog to add a new task", async () => {
         `,
     };
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
     });
@@ -341,8 +330,7 @@ test("open a dialog to create/edit a task", async () => {
         `,
     };
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" plan="false"/>',
         groupBy: ["user_id", "project_id", "stage"],
@@ -350,8 +338,8 @@ test("open a dialog to create/edit a task", async () => {
 
     // open dialog to create a task
     expect(".modal").toHaveCount(0);
-    await hoverGridCell(4, 10);
-    await clickCell(4, 10);
+    await hoverGridCell("10 December 2018", "In Progress");
+    await clickCell("10 December 2018", "In Progress");
 
     // check that the dialog is opened with prefilled fields
     expect(".modal").toHaveCount(1);
@@ -397,8 +385,7 @@ test("open a dialog to create a task when grouped by many2many field", async () 
         `,
     };
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: `<gantt date_start="start" date_stop="stop" plan="false"/>`,
         groupBy: ["user_ids", "project_id"],
@@ -410,52 +397,70 @@ test("open a dialog to create a task when grouped by many2many field", async () 
             title: "Undefined Assignees",
             isGroup: true,
             pills: [
-                { title: "1", colSpan: "01 -> 04 (1/2)" },
-                { title: "1", colSpan: "17 (1/2) -> 19" },
-                { title: "2", colSpan: "20 -> 20 (1/2)" },
-                { title: "2", colSpan: "20 (1/2) -> 20" },
-                { title: "1", colSpan: "21 -> 22 (1/2)" },
-                { title: "1", colSpan: "27 -> 31" },
+                { title: "1", colSpan: "17 (1/2) December 2018 -> 19 December 2018" },
+                { title: "2", colSpan: "20 December 2018 -> 20 (1/2) December 2018" },
+                { title: "2", colSpan: "20 (1/2) December 2018 -> 20 December 2018" },
+                { title: "1", colSpan: "21 December 2018 -> 22 (1/2) December 2018" },
+                { title: "1", colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
             ],
         },
         {
             title: "Project 1",
             pills: [
-                { level: 0, colSpan: "17 (1/2) -> 22 (1/2)", title: "Task 2" },
-                { level: 1, colSpan: "20 -> 20 (1/2)", title: "Task 4" },
-                { level: 0, colSpan: "27 -> 31", title: "Task 3" },
+                {
+                    level: 0,
+                    colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018",
+                    title: "Task 2",
+                },
+                {
+                    level: 1,
+                    colSpan: "20 December 2018 -> 20 (1/2) December 2018",
+                    title: "Task 4",
+                },
+                {
+                    level: 0,
+                    colSpan: "27 December 2018 -> 03 (1/2) January 2019",
+                    title: "Task 3",
+                },
             ],
         },
         {
             title: "Project 2",
             pills: [
-                { level: 0, colSpan: "01 -> 04 (1/2)", title: "Task 5" },
-                { level: 0, colSpan: "20 (1/2) -> 20", title: "Task 7" },
+                {
+                    level: 0,
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
+                    title: "Task 7",
+                },
             ],
         },
         {
             title: "User 1",
             isGroup: true,
-            pills: [{ title: "1", colSpan: "01 -> 31" }],
+            pills: [{ title: "1", colSpan: "Out of bounds (1)  -> 31 December 2018" }],
         },
         {
             title: "Project 1",
-            pills: [{ level: 0, colSpan: "01 -> 31", title: "Task 1" }],
+            pills: [
+                { level: 0, colSpan: "Out of bounds (1)  -> 31 December 2018", title: "Task 1" },
+            ],
         },
         {
             title: "User 2",
             isGroup: true,
-            pills: [{ title: "1", colSpan: "01 -> 31" }],
+            pills: [{ title: "1", colSpan: "Out of bounds (1)  -> 31 December 2018" }],
         },
         {
             title: "Project 1",
-            pills: [{ level: 0, colSpan: "01 -> 31", title: "Task 1" }],
+            pills: [
+                { level: 0, colSpan: "Out of bounds (1)  -> 31 December 2018", title: "Task 1" },
+            ],
         },
     ]);
 
     // open dialog to create a task with two many2many values
-    await hoverGridCell(5, 10);
-    await clickCell(5, 10);
+    await hoverGridCell("10 December 2018", "Project 1", { num: 2 });
+    await clickCell("10 December 2018", "Project 1", { num: 2 });
     await contains(".o_field_widget[name=name] input").edit("NEW TASK 0");
     await contains(".o_field_widget[name=user_ids] input").fill("User 2", { confirm: false });
     await runAllTimers();
@@ -466,21 +471,21 @@ test("open a dialog to create a task when grouped by many2many field", async () 
     expect(fifthRow).toEqual({
         title: "Project 1",
         pills: [
-            { level: 0, colSpan: "01 -> 31", title: "Task 1" },
-            { level: 1, colSpan: "10 -> 10", title: "NEW TASK 0" },
+            { level: 0, colSpan: "Out of bounds (1)  -> 31 December 2018", title: "Task 1" },
+            { level: 1, colSpan: "10 December 2018 -> 10 December 2018", title: "NEW TASK 0" },
         ],
     });
     expect(seventhRow).toEqual({
         title: "Project 1",
         pills: [
-            { level: 0, colSpan: "01 -> 31", title: "Task 1" },
-            { level: 1, colSpan: "10 -> 10", title: "NEW TASK 0" },
+            { level: 0, colSpan: "Out of bounds (1)  -> 31 December 2018", title: "Task 1" },
+            { level: 1, colSpan: "10 December 2018 -> 10 December 2018", title: "NEW TASK 0" },
         ],
     });
 
     // open dialog to create a task with no many2many values
-    await hoverGridCell(3, 24);
-    await clickCell(3, 24);
+    await hoverGridCell("24 December 2018", "Project 2");
+    await clickCell("24 December 2018", "Project 2");
     await contains(".o_field_widget[name=name] input").edit("NEW TASK 1");
     await contains(".o_form_button_save").click();
     expect(".modal").toHaveCount(0);
@@ -488,9 +493,12 @@ test("open a dialog to create a task when grouped by many2many field", async () 
     expect(thirdRow).toEqual({
         title: "Project 2",
         pills: [
-            { level: 0, colSpan: "01 -> 04 (1/2)", title: "Task 5" },
-            { level: 0, colSpan: "20 (1/2) -> 20", title: "Task 7" },
-            { level: 0, colSpan: "24 -> 24", title: "NEW TASK 1" },
+            {
+                level: 0,
+                colSpan: "20 (1/2) December 2018 -> 20 December 2018",
+                title: "Task 7",
+            },
+            { level: 0, colSpan: "24 December 2018 -> 24 December 2018", title: "NEW TASK 1" },
         ],
     });
 });
@@ -499,14 +507,13 @@ test("open a dialog to create a task, does not have a delete button", async () =
     Tasks._views = {
         form: `<form><field name="name"/></form>`,
     };
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" plan="false"/>',
         groupBy: [],
     });
-    await hoverGridCell(1, 10);
-    await clickCell(1, 10);
+    await hoverGridCell("10 December 2018");
+    await clickCell("10 December 2018");
     expect(".modal").toHaveCount(1);
     expect(".modal .o_btn_remove").toHaveCount(0);
 });
@@ -515,8 +522,7 @@ test("open a dialog to edit a task, has a delete buttton", async () => {
     Tasks._views = {
         form: `<form><field name="name"/></form>`,
     };
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         groupBy: [],
@@ -535,8 +541,7 @@ test("clicking on delete button in edit dialog triggers a confirmation dialog, c
             expect.step(method);
         }
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         groupBy: [],
@@ -562,8 +567,7 @@ test("clicking on delete button in edit dialog triggers a confirmation dialog, c
     onRpc("unlink", () => {
         expect.step("unlink");
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         groupBy: [],
@@ -601,14 +605,13 @@ test("create dialog with timezone", async () => {
         }
     });
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" plan="false"/>',
     });
 
-    await hoverGridCell(1, 10);
-    await clickCell(1, 10);
+    await hoverGridCell("10 December 2018");
+    await clickCell("10 December 2018");
     expect(".o_field_widget[name=start] input").toHaveValue("12/10/2018 00:00:00");
     expect(".o_field_widget[name=stop] input").toHaveValue("12/10/2018 23:59:59");
     await contains(".o_form_button_save").click();
@@ -635,15 +638,14 @@ test("open a dialog to plan a task", async () => {
         }
     });
     onRpc("has_group", () => true);
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
     });
 
     // click on the plan button
-    await hoverGridCell(1, 10);
-    await clickCell(1, 10);
+    await hoverGridCell("10 December 2018");
+    await clickCell("10 December 2018");
     expect(".modal .o_list_view").toHaveCount(1);
     expect(queryAllTexts(".modal .o_list_view .o_data_cell")).toEqual([
         "Task 41",
@@ -683,16 +685,15 @@ test("open a dialog to plan a task (multi-level)", async () => {
     });
     onRpc("has_group", () => true);
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         groupBy: ["user_id", "project_id", "stage"],
     });
 
     // click on the plan button
-    await hoverGridCell(3, 10);
-    await clickCell(3, 10);
+    await hoverGridCell("10 December 2018", "To Do");
+    await clickCell("10 December 2018", "To Do");
     expect(".modal .o_list_view").toHaveCount(1);
     expect(".modal .o_list_view .o_data_cell").toHaveText("Task 41");
 
@@ -704,8 +705,7 @@ test("open a dialog to plan a task (multi-level)", async () => {
 });
 
 test("expand/collapse rows", async () => {
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         groupBy: ["user_id", "project_id", "stage"],
@@ -763,8 +763,7 @@ test("expand/collapse rows", async () => {
 });
 
 test("collapsed rows remain collapsed at reload", async () => {
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         groupBy: ["user_id", "project_id", "stage"],
@@ -816,11 +815,11 @@ test("resize a pill", async () => {
         // initial dates -- start: '2018-11-30 18:30:00', stop: '2018-12-31 18:29:59'
         expect.step(JSON.stringify(args));
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         domain: [["id", "=", 1]],
+        context: { initialDate: "2018-12-25" },
     });
 
     expect(SELECTORS.pill).toHaveCount(1, { message: "there should be one pill (Task 1)" });
@@ -836,8 +835,7 @@ test("resize a pill", async () => {
     // resize to one cell smaller at end (-1 day)
     await resizePill(getPillWrapper("Task 1"), "end", -1);
 
-    // go to previous month (november)
-    await contains(SELECTORS.prevButton).click();
+    await selectGanttRange({ startDate: "2018-11-10", stopDate: "2018-11-30" });
 
     expect(".o_gantt_pill").toHaveCount(1, { message: "there should still be one pill (Task 1)" });
     expect(SELECTORS.resizable).toHaveCount(1);
@@ -865,8 +863,7 @@ test("resize pill in year mode", async () => {
             throw new Error("Should not call write");
         }
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" default_scale="year" />',
     });
@@ -891,8 +888,7 @@ test("resize a pill (2)", async () => {
         }
     });
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         domain: [["id", "=", 2]],
@@ -913,8 +909,7 @@ test("resize a pill (2)", async () => {
 });
 
 test("resize a pill: quickly enter the neighbour pill when resize start", async () => {
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         domain: [["id", "in", [4, 7]]],
@@ -934,15 +929,14 @@ test("resize a pill: quickly enter the neighbour pill when resize start", async 
 
 test("create a task maintains the domain", async () => {
     Tasks._views = { form: '<form><field name="name"/></form>' };
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" plan="false"></gantt>',
         domain: [["user_id", "=", 2]], // I am an important line
     });
     expect(SELECTORS.pill).toHaveCount(3);
-    await hoverGridCell(1, 1);
-    await clickCell(1, 1);
+    await hoverGridCell("06 December 2018");
+    await clickCell("06 December 2018");
 
     await contains(".modal [name=name] input").edit("new task");
     await contains(".modal .o_form_button_save").click();
@@ -957,8 +951,7 @@ test("pill is updated after failed resized", async () => {
         expect.step("write");
         return true;
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         domain: [["id", "=", 7]],
@@ -987,8 +980,7 @@ test("move a pill in the same row", async () => {
             { message: "both start and stop date should be correctly set (+1 day)" }
         );
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         domain: [["id", "=", 7]],
@@ -997,16 +989,28 @@ test("move a pill in the same row", async () => {
     expect(getPillWrapper("Task 7")).toHaveClass(CLASSES.draggable);
     expect(getGridContent().rows).toEqual([
         {
-            pills: [{ title: "Task 7", level: 0, colSpan: "20 (1/2) -> 20" }],
+            pills: [
+                {
+                    title: "Task 7",
+                    level: 0,
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
+                },
+            ],
         },
     ]);
 
     // move a pill in the next cell (+1 day)
     const { drop } = await dragPill("Task 7");
-    await drop({ row: 1, column: 21, part: 2 });
+    await drop({ column: "21 December 2018", part: 2 });
     expect(getGridContent().rows).toEqual([
         {
-            pills: [{ title: "Task 7", level: 0, colSpan: "21 (1/2) -> 21" }],
+            pills: [
+                {
+                    title: "Task 7",
+                    level: 0,
+                    colSpan: "21 (1/2) December 2018 -> 21 December 2018",
+                },
+            ],
         },
     ]);
 });
@@ -1033,8 +1037,7 @@ test("move a pill in the same row (with different timezone)", async () => {
             ]);
         }
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         domain: [["id", "=", 8]],
@@ -1043,19 +1046,20 @@ test("move a pill in the same row (with different timezone)", async () => {
         },
     });
 
+    await contains(".o_content").scroll({ x: 300 });
     expect(getGridContent().rows).toEqual([
         {
-            pills: [{ title: "Task 8", level: 0, colSpan: "30 -> 30 (1/2)" }],
+            pills: [{ title: "Task 8", level: 0, colSpan: "30 March 2019 -> 30 (1/2) March 2019" }],
         },
     ]);
 
     // +1 day -> move beyond the DST switch
     const { drop } = await dragPill("Task 8");
-    await drop({ row: 1, column: 31, part: 1 });
+    await drop({ column: "31 March 2019", part: 1 });
 
     expect(getGridContent().rows).toEqual([
         {
-            pills: [{ title: "Task 8", level: 0, colSpan: "31 -> 31 (1/2)" }],
+            pills: [{ title: "Task 8", level: 0, colSpan: "31 March 2019 -> 31 (1/2) March 2019" }],
         },
     ]);
     expect(["write"]).toVerifySteps();
@@ -1075,8 +1079,7 @@ test("move a pill in another row", async () => {
             { message: "all modified fields should be correctly set" }
         );
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         groupBy: ["project_id"],
@@ -1086,24 +1089,36 @@ test("move a pill in another row", async () => {
     expect(getGridContent().rows).toEqual([
         {
             title: "Project 1",
-            pills: [{ title: "Task 1", level: 0, colSpan: "01 -> 31" }],
+            pills: [
+                { title: "Task 1", level: 0, colSpan: "Out of bounds (1)  -> 31 December 2018" },
+            ],
         },
         {
             title: "Project 2",
-            pills: [{ title: "Task 7", level: 0, colSpan: "20 (1/2) -> 20" }],
+            pills: [
+                {
+                    title: "Task 7",
+                    level: 0,
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
+                },
+            ],
         },
     ]);
 
     // move a pill (task 7) in the other row and in the the next cell (+1 day)
     const { drop } = await dragPill("Task 7");
-    await drop({ row: 1, column: 21, part: 2 });
+    await drop({ column: "21 December 2018", part: 2 });
 
     expect(getGridContent().rows).toEqual([
         {
             title: "Project 1",
             pills: [
-                { title: "Task 1", level: 0, colSpan: "01 -> 31" },
-                { title: "Task 7", level: 1, colSpan: "21 (1/2) -> 21" },
+                { title: "Task 1", level: 0, colSpan: "Out of bounds (1)  -> 31 December 2018" },
+                {
+                    title: "Task 7",
+                    level: 1,
+                    colSpan: "21 (1/2) December 2018 -> 21 December 2018",
+                },
             ],
         },
     ]);
@@ -1123,8 +1138,7 @@ test("copy a pill in another row", async () => {
         );
     });
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         groupBy: ["project_id"],
@@ -1134,11 +1148,19 @@ test("copy a pill in another row", async () => {
     expect(getGridContent().rows).toEqual([
         {
             title: "Project 1",
-            pills: [{ title: "Task 1", level: 0, colSpan: "01 -> 31" }],
+            pills: [
+                { title: "Task 1", level: 0, colSpan: "Out of bounds (1)  -> 31 December 2018" },
+            ],
         },
         {
             title: "Project 2",
-            pills: [{ title: "Task 7", level: 0, colSpan: "20 (1/2) -> 20" }],
+            pills: [
+                {
+                    title: "Task 7",
+                    level: 0,
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
+                },
+            ],
         },
     ]);
 
@@ -1146,7 +1168,7 @@ test("copy a pill in another row", async () => {
 
     // move a pill (task 7) in the other row and in the the next cell (+1 day)
     const { drop, moveTo } = await dragPill("Task 7");
-    await moveTo({ row: 1, column: 21, part: 2 });
+    await moveTo({ column: "21 December 2018", part: 2 });
 
     expect(SELECTORS.renderer).toHaveClass("o_copying");
 
@@ -1155,96 +1177,114 @@ test("copy a pill in another row", async () => {
     expect(SELECTORS.renderer).toHaveClass("o_grabbing");
 
     keyDown("Control");
-    await drop({ row: 1, column: 21, part: 2 });
+    await drop({ column: "21 December 2018", part: 2 });
 
     expect(getGridContent().rows).toEqual([
         {
             title: "Project 1",
             pills: [
-                { title: "Task 1", level: 0, colSpan: "01 -> 31" },
-                { title: "Task 7 (copy)", level: 1, colSpan: "21 (1/2) -> 21" },
+                { title: "Task 1", level: 0, colSpan: "Out of bounds (1)  -> 31 December 2018" },
+                {
+                    title: "Task 7 (copy)",
+                    level: 1,
+                    colSpan: "21 (1/2) December 2018 -> 21 December 2018",
+                },
             ],
         },
         {
             title: "Project 2",
-            pills: [{ title: "Task 7", level: 0, colSpan: "20 (1/2) -> 20" }],
+            pills: [
+                {
+                    title: "Task 7",
+                    level: 0,
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
+                },
+            ],
         },
     ]);
 });
 
 test("move a pill in another row in multi-level grouped", async () => {
-    expect.assertions(5);
-
     onRpc("write", ({ args }) => {
         expect(args).toEqual([[7], { project_id: 1 }], {
             message: "should only write on user_id on the correct record",
         });
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         groupBy: ["user_id", "project_id", "stage"],
         domain: [["id", "in", [3, 7]]],
     });
 
-    expect(`${SELECTORS.pillWrapper}${SELECTORS.draggable}`).toHaveCount(1);
-    expect(`${SELECTORS.pillWrapper}${SELECTORS.undraggable}`).toHaveCount(1);
+    expect(`${SELECTORS.pillWrapper}${SELECTORS.draggable}`).toHaveCount(2);
     expect(getGridContent().rows).toEqual([
         {
             title: "User 2",
             isGroup: true,
             pills: [
-                { title: "1", colSpan: "20 (1/2) -> 20" },
-                { title: "1", colSpan: "27 -> 31" },
+                { title: "1", colSpan: "20 (1/2) December 2018 -> 20 December 2018" },
+                { title: "1", colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
             ],
         },
         {
             title: "Project 1",
             isGroup: true,
-            pills: [{ title: "1", colSpan: "27 -> 31" }],
+            pills: [{ title: "1", colSpan: "27 December 2018 -> 03 (1/2) January 2019" }],
         },
         {
             title: "Cancelled",
-            pills: [{ title: "Task 3", level: 0, colSpan: "27 -> 31" }],
+            pills: [
+                { title: "Task 3", level: 0, colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
+            ],
         },
         {
             title: "Project 2",
             isGroup: true,
-            pills: [{ title: "1", colSpan: "20 (1/2) -> 20" }],
+            pills: [{ title: "1", colSpan: "20 (1/2) December 2018 -> 20 December 2018" }],
         },
         {
             title: "Cancelled",
-            pills: [{ title: "Task 7", level: 0, colSpan: "20 (1/2) -> 20" }],
+            pills: [
+                {
+                    title: "Task 7",
+                    level: 0,
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
+                },
+            ],
         },
     ]);
 
     // move a pill (task 7) in the top-level group (User 2)
     const { drop } = await dragPill("Task 7");
-    await drop({ row: 3, column: 20, part: 2 });
+    await drop({ row: "Cancelled", column: "20 December 2018", part: 2 });
 
     expect(getGridContent().rows).toEqual([
         {
             title: "User 2",
             isGroup: true,
             pills: [
-                { title: "1", colSpan: "20 (1/2) -> 20" },
-                { title: "1", colSpan: "27 -> 31" },
+                { title: "1", colSpan: "20 (1/2) December 2018 -> 20 December 2018" },
+                { title: "1", colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
             ],
         },
         {
             title: "Project 1",
             isGroup: true,
             pills: [
-                { title: "1", colSpan: "20 (1/2) -> 20" },
-                { title: "1", colSpan: "27 -> 31" },
+                { title: "1", colSpan: "20 (1/2) December 2018 -> 20 December 2018" },
+                { title: "1", colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
             ],
         },
         {
             title: "Cancelled",
             pills: [
-                { title: "Task 7", level: 0, colSpan: "20 (1/2) -> 20" },
-                { title: "Task 3", level: 0, colSpan: "27 -> 31" },
+                {
+                    title: "Task 7",
+                    level: 0,
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
+                },
+                { title: "Task 3", level: 0, colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
             ],
         },
     ]);
@@ -1260,8 +1300,7 @@ test("move a pill in another row in multi-level grouped (many2many case)", async
         expect(args[0]).toEqual([2], { message: "should write on the correct record" });
         expect(args[1]).toEqual({ user_ids: false }, { message: "should write these changes" });
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" />',
         groupBy: ["user_id", "project_id", "user_ids"],
@@ -1273,6 +1312,7 @@ test("move a pill in another row in multi-level grouped (many2many case)", async
 
     // sanity check
     expect(queryAllTexts(`${SELECTORS.pillWrapper}${SELECTORS.draggable}`)).toEqual([
+        "Task 3",
         "Task 2",
         "Task 2",
     ]);
@@ -1281,58 +1321,76 @@ test("move a pill in another row in multi-level grouped (many2many case)", async
             title: "User 2",
             isGroup: true,
             pills: [
-                { title: "1", colSpan: "17 (1/2) -> 22 (1/2)" },
-                { title: "1", colSpan: "27 -> 31" },
+                { title: "1", colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018" },
+                { title: "1", colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
             ],
         },
         {
             title: "Project 1",
             isGroup: true,
             pills: [
-                { title: "1", colSpan: "17 (1/2) -> 22 (1/2)" },
-                { title: "1", colSpan: "27 -> 31" },
+                { title: "1", colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018" },
+                { title: "1", colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
             ],
         },
         {
             title: "Undefined Assignees",
-            pills: [{ title: "Task 3", level: 0, colSpan: "27 -> 31" }],
+            pills: [
+                { title: "Task 3", level: 0, colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
+            ],
         },
         {
             title: "User 1",
-            pills: [{ title: "Task 2", level: 0, colSpan: "17 (1/2) -> 22 (1/2)" }],
+            pills: [
+                {
+                    title: "Task 2",
+                    level: 0,
+                    colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018",
+                },
+            ],
         },
         {
             title: "User 2",
-            pills: [{ title: "Task 2", level: 0, colSpan: "17 (1/2) -> 22 (1/2)" }],
+            pills: [
+                {
+                    title: "Task 2",
+                    level: 0,
+                    colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018",
+                },
+            ],
         },
     ]);
 
     // move a pill (first task 2) in "Undefined Assignees"
     const { drop } = await dragPill("Task 2", { nth: 1 });
-    await drop({ row: 3, column: 17, part: 2 });
+    await drop({ row: "Undefined Assignees", column: "17 December 2018", part: 2 });
 
     expect(getGridContent().rows).toEqual([
         {
             title: "User 2",
             isGroup: true,
             pills: [
-                { title: "1", colSpan: "17 (1/2) -> 22 (1/2)" },
-                { title: "1", colSpan: "27 -> 31" },
+                { title: "1", colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018" },
+                { title: "1", colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
             ],
         },
         {
             title: "Project 1",
             isGroup: true,
             pills: [
-                { title: "1", colSpan: "17 (1/2) -> 22 (1/2)" },
-                { title: "1", colSpan: "27 -> 31" },
+                { title: "1", colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018" },
+                { title: "1", colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
             ],
         },
         {
             title: "Undefined Assignees",
             pills: [
-                { title: "Task 2", level: 0, colSpan: "17 (1/2) -> 22 (1/2)" },
-                { title: "Task 3", level: 0, colSpan: "27 -> 31" },
+                {
+                    title: "Task 2",
+                    level: 0,
+                    colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018",
+                },
+                { title: "Task 3", level: 0, colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
             ],
         },
     ]);
@@ -1341,8 +1399,7 @@ test("move a pill in another row in multi-level grouped (many2many case)", async
 test("grey pills should not be resizable nor draggable", async () => {
     expect.assertions(4);
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" color="color" />',
         groupBy: ["user_id", "project_id"],
@@ -1361,8 +1418,7 @@ test("grey pills should not be resizable nor draggable", async () => {
 test("should not be draggable when disable_drag_drop is set", async () => {
     expect.assertions(1);
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" color="color" disable_drag_drop="1" />',
         groupBy: ["user_id", "project_id"],
@@ -1385,8 +1441,7 @@ test("gantt_unavailability reloads when the view's scale changes", async () => {
         return args[4];
     });
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
 
         arch: '<gantt date_start="start" date_stop="stop" display_unavailability="1" />',
@@ -1395,7 +1450,7 @@ test("gantt_unavailability reloads when the view's scale changes", async () => {
     expect(reloadCount).toBe(1, { message: "view should have loaded" });
     expect(unavailabilityCallCount).toBe(1, { message: "view should have loaded unavailability" });
 
-    await setScale("week");
+    await setScale(1);
     expect(reloadCount).toBe(2, {
         message: "view should have reloaded when switching scale to week",
     });
@@ -1406,7 +1461,7 @@ test("gantt_unavailability reloads when the view's scale changes", async () => {
         message: "unavailability should have been called with the week scale",
     });
 
-    await setScale("month");
+    await setScale(3);
     expect(reloadCount).toBe(3, {
         message: "view should have reloaded when switching scale to month",
     });
@@ -1417,7 +1472,7 @@ test("gantt_unavailability reloads when the view's scale changes", async () => {
         message: "unavailability should have been called with the month scale",
     });
 
-    await setScale("year");
+    await setScale(5);
     expect(reloadCount).toBe(4, {
         message: "view should have reloaded when switching scale to year",
     });
@@ -1439,8 +1494,7 @@ test("gantt_unavailability reload when period changes", async () => {
         unavailabilityCallCount++;
         return args[4];
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt date_start="start" date_stop="stop" display_unavailability="1" />',
     });
@@ -1448,17 +1502,13 @@ test("gantt_unavailability reload when period changes", async () => {
     expect(reloadCount).toBe(1, { message: "view should have loaded" });
     expect(unavailabilityCallCount).toBe(1, { message: "view should have loaded unavailability" });
 
-    await contains(SELECTORS.nextButton).click();
-    expect(reloadCount).toBe(2, { message: "view should have reloaded when clicking next" });
-    expect(unavailabilityCallCount).toBe(2, {
-        message: "view should have reloaded unavailability when clicking next",
-    });
+    await selectGanttRange({ startDate: "2019-01-01", stopDate: "2019-02-28" });
+    expect(reloadCount).toBe(2);
+    expect(unavailabilityCallCount).toBe(2);
 
-    await contains(SELECTORS.prevButton).click();
-    expect(reloadCount).toBe(3, { message: "view should have reloaded when clicking prev" });
-    expect(unavailabilityCallCount).toBe(3, {
-        message: "view should have reloaded unavailability when clicking prev",
-    });
+    await selectGanttRange({ startDate: "2019-01-01", stopDate: "2019-01-31" });
+    expect(reloadCount).toBe(3);
+    expect(unavailabilityCallCount).toBe(3);
 });
 
 test("gantt_unavailability should not reload when period changes if display_unavailability is not set", async () => {
@@ -1471,8 +1521,7 @@ test("gantt_unavailability should not reload when period changes if display_unav
         unavailabilityCallCount++;
         return {};
     });
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
 
         arch: '<gantt date_start="start" date_stop="stop" />',
@@ -1483,25 +1532,20 @@ test("gantt_unavailability should not reload when period changes if display_unav
         message: "view should not have loaded unavailability",
     });
 
-    await contains(SELECTORS.nextButton).click();
-    expect(reloadCount).toBe(2, { message: "view should have reloaded when clicking next" });
-    expect(unavailabilityCallCount).toBe(0, {
-        message: "view should not have reloaded unavailability when clicking next",
-    });
+    await selectGanttRange({ startDate: "2019-01-01", stopDate: "2019-02-28" });
+    expect(reloadCount).toBe(2);
+    expect(unavailabilityCallCount).toBe(0);
 
-    await contains(SELECTORS.prevButton).click();
-    expect(reloadCount).toBe(3, { message: "view should have reloaded when clicking prev" });
-    expect(unavailabilityCallCount).toBe(0, {
-        message: "view should not have reloaded unavailability when clicking prev",
-    });
+    await selectGanttRange({ startDate: "2019-01-01", stopDate: "2019-01-31" });
+    expect(reloadCount).toBe(3);
+    expect(unavailabilityCallCount).toBe(0);
 });
 
 test("close tooltip when drag pill", async () => {
     Tasks._records[1].start = "2018-12-16 03:00:00";
     Tasks._views = { form: "<form/>" };
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt default_scale="week" date_start="start" date_stop="stop" />',
     });
@@ -1511,22 +1555,22 @@ test("close tooltip when drag pill", async () => {
             pills: [
                 {
                     title: "Task 1",
-                    colSpan: "Sunday, 16 -> Saturday, 22",
+                    colSpan: "16 W51 2018 -> Out of bounds (33) ",
                     level: 0,
                 },
                 {
                     title: "Task 2",
-                    colSpan: "Sunday, 16 -> Saturday, 22 (1/2)",
+                    colSpan: "16 W51 2018 -> 22 (1/2) W51 2018",
                     level: 1,
                 },
                 {
                     title: "Task 4",
-                    colSpan: "Thursday, 20 -> Thursday, 20 (1/2)",
+                    colSpan: "20 W51 2018 -> 20 (1/2) W51 2018",
                     level: 2,
                 },
                 {
                     title: "Task 7",
-                    colSpan: "Thursday, 20 (1/2) -> Thursday, 20",
+                    colSpan: "20 (1/2) W51 2018 -> 20 W51 2018",
                     level: 2,
                 },
             ],
@@ -1555,8 +1599,7 @@ test("drag&drop on other pill in grouped view", async () => {
     const def = new Deferred();
     onRpc("write", () => def);
 
-    await mountView({
-        type: "gantt",
+    await mountGanttView({
         resModel: "tasks",
         arch: '<gantt default_scale="week" date_start="start" date_stop="stop" />',
         groupBy: ["project_id"],
@@ -1566,14 +1609,14 @@ test("drag&drop on other pill in grouped view", async () => {
         {
             title: "Project 1",
             pills: [
-                { title: "Task 1", level: 0, colSpan: "Sunday, 16 -> Sunday, 16 (1/2)" },
-                { title: "Task 2", level: 0, colSpan: "Monday, 17 (1/2) -> Monday, 17" },
-                { title: "Task 4", level: 0, colSpan: "Thursday, 20 -> Thursday, 20 (1/2)" },
+                { title: "Task 1", level: 0, colSpan: "16 W51 2018 -> 16 (1/2) W51 2018" },
+                { title: "Task 2", level: 0, colSpan: "17 (1/2) W51 2018 -> 17 W51 2018" },
+                { title: "Task 4", level: 0, colSpan: "20 W51 2018 -> 20 (1/2) W51 2018" },
             ],
         },
         {
             title: "Project 2",
-            pills: [{ title: "Task 7", level: 0, colSpan: "Thursday, 20 (1/2) -> Thursday, 20" }],
+            pills: [{ title: "Task 7", level: 0, colSpan: "20 (1/2) W51 2018 -> 20 W51 2018" }],
         },
     ]);
     await contains(getPill("Task 2")).click();
@@ -1593,14 +1636,359 @@ test("drag&drop on other pill in grouped view", async () => {
         {
             title: "Project 1",
             pills: [
-                { title: "Task 2", level: 0, colSpan: "Sunday, 16 -> Sunday, 16 (1/2)" },
-                { title: "Task 1", level: 1, colSpan: "Sunday, 16 -> Sunday, 16 (1/2)" },
-                { title: "Task 4", level: 0, colSpan: "Thursday, 20 -> Thursday, 20 (1/2)" },
+                { title: "Task 2", level: 0, colSpan: "16 W51 2018 -> 16 (1/2) W51 2018" },
+                { title: "Task 1", level: 1, colSpan: "16 W51 2018 -> 16 (1/2) W51 2018" },
+                { title: "Task 4", level: 0, colSpan: "20 W51 2018 -> 20 (1/2) W51 2018" },
             ],
         },
         {
             title: "Project 2",
-            pills: [{ title: "Task 7", level: 0, colSpan: "Thursday, 20 (1/2) -> Thursday, 20" }],
+            pills: [{ title: "Task 7", level: 0, colSpan: "20 (1/2) W51 2018 -> 20 W51 2018" }],
         },
     ]);
+});
+
+test("order buttons", async () => {
+    onRpc("get_gantt_data", ({ kwargs }) => {
+        expect.step(JSON.stringify(kwargs.orderby));
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop" order="asc"/>`,
+    });
+    expect(SELECTORS.asc).toHaveClass("active");
+    expect(SELECTORS.desc).not.toHaveClass("active");
+    expect([`"start:min asc"`]).toVerifySteps();
+
+    click(SELECTORS.desc);
+    await animationFrame();
+    expect([`"start:min desc"`]).toVerifySteps();
+    expect(SELECTORS.asc).not.toHaveClass("active");
+    expect(SELECTORS.desc).toHaveClass("active");
+
+    click(SELECTORS.desc);
+    await animationFrame();
+    expect([`null`]).toVerifySteps();
+    expect(SELECTORS.asc).not.toHaveClass("active");
+    expect(SELECTORS.desc).not.toHaveClass("active");
+});
+
+test("display mode button", async () => {
+    onRpc("get_gantt_data", () => {
+        expect.step("get_gantt_data");
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop" display_mode="sparse"/>`,
+    });
+    expect(["get_gantt_data"]).toVerifySteps();
+    expect(SELECTORS.dense).toHaveCount(1);
+    expect(SELECTORS.sparse).toHaveCount(0);
+
+    const rowsInSparseMode = [
+        {
+            title: "Task 5",
+        },
+        {
+            title: "Task 1",
+            pills: [
+                { title: "Task 1", level: 0, colSpan: "Out of bounds (1)  -> 31 December 2018" },
+            ],
+        },
+        {
+            title: "Task 2",
+            pills: [
+                {
+                    title: "Task 2",
+                    level: 0,
+                    colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018",
+                },
+            ],
+        },
+        {
+            title: "Task 4",
+            pills: [
+                {
+                    title: "Task 4",
+                    level: 0,
+                    colSpan: "20 December 2018 -> 20 (1/2) December 2018",
+                },
+            ],
+        },
+        {
+            title: "Task 7",
+            pills: [
+                {
+                    title: "Task 7",
+                    level: 0,
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
+                },
+            ],
+        },
+        {
+            title: "Task 3",
+            pills: [
+                { title: "Task 3", level: 0, colSpan: "27 December 2018 -> 03 (1/2) January 2019" },
+            ],
+        },
+    ];
+
+    expect(getGridContent().rows).toEqual(rowsInSparseMode);
+
+    click(SELECTORS.dense);
+    await animationFrame();
+    expect(SELECTORS.dense).toHaveCount(0);
+    expect(SELECTORS.sparse).toHaveCount(1);
+
+    expect(getGridContent().rows).toEqual([
+        {
+            pills: [
+                {
+                    title: "Task 1",
+                    colSpan: "Out of bounds (1)  -> 31 December 2018",
+                    level: 1,
+                },
+                {
+                    title: "Task 2",
+                    colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018",
+                    level: 0,
+                },
+                {
+                    title: "Task 4",
+                    colSpan: "20 December 2018 -> 20 (1/2) December 2018",
+                    level: 2,
+                },
+                {
+                    title: "Task 7",
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
+                    level: 2,
+                },
+                {
+                    title: "Task 3",
+                    colSpan: "27 December 2018 -> 03 (1/2) January 2019",
+                    level: 0,
+                },
+            ],
+        },
+    ]);
+
+    click(SELECTORS.sparse);
+    await animationFrame();
+    expect(SELECTORS.dense).toHaveCount(1);
+    expect(SELECTORS.sparse).toHaveCount(0);
+
+    expect(getGridContent().rows).toEqual(rowsInSparseMode);
+
+    expect([]).toVerifySteps();
+});
+
+test("limit reached", async () => {
+    expect.assertions(2);
+    const message = "blabla";
+    onRpc("get_gantt_data", function () {
+        return {
+            error_msg: message,
+            groups: [],
+            records: [],
+            length: 0,
+        };
+    });
+    mockService("notification", {
+        add: (message, options) => {
+            expect(message).toBe(message);
+            expect(options).toBe(undefined);
+        },
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop"/>`,
+    });
+});
+
+test("unavailabilities fetched with right domain", async () => {
+    const unavailabilities = [
+        {
+            start: "2018-12-18 10:00:00",
+            stop: "2018-12-20 14:00:00",
+        },
+    ];
+    onRpc("gantt_unavailability", ({ args }) => {
+        expect.step(JSON.stringify(args.slice(0, 3)));
+        const rows = args[4];
+        return rows.map((row) => Object.assign(row, { unavailabilities }));
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop" display_unavailability="1" default_scale="day"/>`,
+    });
+    expect([`["2018-12-19 23:00:00","2018-12-22 23:00:00","day"]`]).toVerifySteps();
+    await setScale("1");
+    expect([`["2018-12-19 23:00:00","2018-12-22 23:00:00","week"]`]).toVerifySteps();
+    await setScale("3");
+    expect([`["2018-12-19 23:00:00","2018-12-22 23:00:00","month"]`]).toVerifySteps();
+    await setScale("5");
+    expect([`["2018-11-30 23:00:00","2018-12-31 23:00:00","year"]`]).toVerifySteps();
+    await selectGanttRange({ startDate: "2018-12-31", stopDate: "2019-06-15" });
+    expect([
+        `["2018-11-30 23:00:00","2018-12-31 23:00:00","year"]`,
+        `["2018-11-30 23:00:00","2019-06-30 23:00:00","year"]`,
+    ]).toVerifySteps();
+});
+
+test("progress bars fetched with right domain", async () => {
+    onRpc("gantt_progress_bar", ({ args }) => {
+        expect.step(JSON.stringify(args.slice(2)));
+        return {
+            user_id: {
+                1: { value: 50, max_value: 100 },
+                2: { value: 25, max_value: 200 },
+            },
+        };
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `
+            <gantt date_start="start" date_stop="stop" default_group_by="user_id" progress_bar="user_id" default_scale="day" >
+                <field name="user_id"/>
+            </gantt>
+        `,
+    });
+    expect([`["2018-12-19 23:00:00","2018-12-22 23:00:00"]`]).toVerifySteps();
+    await setScale("1");
+    expect([`["2018-12-19 23:00:00","2018-12-22 23:00:00"]`]).toVerifySteps();
+    await setScale("3");
+    expect([`["2018-12-19 23:00:00","2018-12-22 23:00:00"]`]).toVerifySteps();
+    await setScale("5");
+    expect([`["2018-11-30 23:00:00","2018-12-31 23:00:00"]`]).toVerifySteps();
+    await selectGanttRange({ startDate: "2018-12-31", stopDate: "2019-06-15" });
+    expect([
+        `["2018-11-30 23:00:00","2018-12-31 23:00:00"]`,
+        `["2018-11-30 23:00:00","2019-06-30 23:00:00"]`,
+    ]).toVerifySteps();
+});
+
+test("focus today with scroll (in range & outside)", async () => {
+    onRpc("get_gantt_data", () => {
+        expect.step("get_gantt_data");
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: '<gantt date_start="start" date_stop="stop"/>',
+    });
+    expect(["get_gantt_data"]).toVerifySteps();
+    expect(".o_gantt_cell.o_gantt_today").toBeVisible();
+    expect(queryOne(".o_gantt_cell.o_gantt_today")).toBe(getCell("20 December 2018"));
+    let { columnHeaders } = getGridContent();
+    expect(columnHeaders).toHaveLength(34);
+    expect(columnHeaders[0].title).toBe("03"); // December
+    expect(columnHeaders.at(-1).title).toBe("05"); // January
+
+    scroll(".o_content", { left: 800 });
+    await animationFrame();
+
+    expect(".o_gantt_cell.o_gantt_today").toBeVisible();
+    columnHeaders = getGridContent().columnHeaders;
+    expect(columnHeaders).toHaveLength(34);
+    expect(columnHeaders[0].title).toBe("14"); // December
+    expect(columnHeaders.at(-1).title).toBe("16"); // January
+
+    await contains(".o_gantt_button_today").click();
+
+    expect(".o_gantt_cell.o_gantt_today").toBeVisible();
+    columnHeaders = getGridContent().columnHeaders;
+    expect(columnHeaders).toHaveLength(34);
+    expect(columnHeaders[0].title).toBe("03"); // December
+    expect(columnHeaders.at(-1).title).toBe("05"); // January
+
+    scroll(".o_content", { left: 2000 });
+    await animationFrame();
+
+    expect(".o_gantt_cell.o_gantt_today").not.toBeVisible();
+    columnHeaders = getGridContent().columnHeaders;
+    expect(columnHeaders).toHaveLength(34);
+    expect(columnHeaders[0].title).toBe("07"); // January
+    expect(columnHeaders.at(-1).title).toBe("09"); // February
+
+    await contains(".o_gantt_button_today").click();
+    expect(".o_gantt_cell.o_gantt_today").toBeVisible();
+    columnHeaders = getGridContent().columnHeaders;
+    expect(columnHeaders).toHaveLength(34);
+    expect(columnHeaders[0].title).toBe("03"); // December
+    expect(columnHeaders.at(-1).title).toBe("05"); // January
+});
+
+test("focus today with range change (in range & outside)", async () => {
+    onRpc("get_gantt_data", () => {
+        expect.step("get_gantt_data");
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: '<gantt date_start="start" date_stop="stop"/>',
+    });
+    expect(["get_gantt_data"]).toVerifySteps();
+    expect(".o_gantt_cell.o_gantt_today").toBeVisible();
+    expect(queryOne(".o_gantt_cell.o_gantt_today")).toBe(getCell("20 December 2018"));
+    let gridContent = getGridContent();
+    expect(gridContent.range).toBe("01 December 2018 - 28 February 2019");
+    expect(gridContent.columnHeaders).toHaveLength(34);
+    expect(gridContent.columnHeaders[0].title).toBe("03"); // December
+    expect(gridContent.columnHeaders.at(-1).title).toBe("05"); // January
+
+    await selectGanttRange({ startDate: "2018-11-15", stopDate: "2019-02-15" });
+    expect(["get_gantt_data", "get_gantt_data"]).toVerifySteps();
+    expect(".o_gantt_cell.o_gantt_today").toBeVisible();
+    expect(queryOne(".o_gantt_cell.o_gantt_today")).toBe(getCell("20 December 2018"));
+    gridContent = getGridContent();
+    expect(gridContent.range).toBe("15 November 2018 - 15 February 2019");
+    expect(gridContent.columnHeaders).toHaveLength(34);
+    expect(gridContent.columnHeaders[0].title).toBe("03"); // December
+    expect(gridContent.columnHeaders.at(-1).title).toBe("05"); // January
+    await contains(".o_gantt_button_today").click();
+    // nothing happens
+
+    await selectGanttRange({ startDate: "2019-01-01", stopDate: "2019-02-28" });
+    expect(getGridContent().range).toBe("01 January 2019 - 28 February 2019");
+    expect(["get_gantt_data", "get_gantt_data"]).toVerifySteps();
+    expect(".o_gantt_cell.o_gantt_today").not.toBeVisible();
+
+    await contains(".o_gantt_button_today").click();
+    expect(["get_gantt_data"]).toVerifySteps();
+    expect(".o_gantt_cell.o_gantt_today").toBeVisible();
+    expect(getGridContent().range).toBe("21 November 2018 - 17 January 2019");
+});
+
+test("set scale: should keep focused date", async () => {
+    await mountGanttView({
+        resModel: "tasks",
+        arch: '<gantt date_start="start" date_stop="stop"/>',
+    });
+    // set focus around 23 January 2019
+    scroll(".o_content", { left: 2000 });
+    await animationFrame();
+    expect(getCell("23 January 2019")).toBeVisible();
+    // day view
+    await setScale(0);
+    expect(getCell("12pm 23 January 2019")).toBeVisible();
+    // week view
+    await setScale(1);
+    expect(getCell("23 W4 2019")).toBeVisible();
+    // year view
+    await setScale(5);
+    expect(getCell("January 2019")).toBeVisible();
+});
+
+test("set start/stop date: should keep focused date", async () => {
+    await mountGanttView({
+        resModel: "tasks",
+        arch: '<gantt date_start="start" date_stop="stop"/>',
+    });
+    // set focus around 23 January 2019
+    scroll(".o_content", { left: 2000 });
+    await animationFrame();
+    await selectGanttRange({ startDate: "2018-12-01", stopDate: "2019-05-28" });
+    expect(getCell("23 January 2019")).toBeVisible();
+    await selectGanttRange({ startDate: "2019-01-22", stopDate: "2019-05-28" });
+    expect(getCell("23 January 2019")).toBeVisible();
+    await selectGanttRange({ startDate: "2018-12-01", stopDate: "2019-01-22" });
+    expect(getCell("22 January 2019")).toBeVisible();
 });

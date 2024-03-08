@@ -1,7 +1,11 @@
-import { useEffect } from "@odoo/owl";
+import { onWillUnmount, status, useComponent, useEffect, useEnv } from "@odoo/owl";
+import { getEndOfLocalWeek, getStartOfLocalWeek } from "@web/core/l10n/dates";
+import { makePopover, usePopover } from "@web/core/popover/popover_hook";
 import { makeDraggableHook } from "@web/core/utils/draggable_hook_builder_owl";
+import { useService } from "@web/core/utils/hooks";
 import { clamp } from "@web/core/utils/numbers";
 import { pick } from "@web/core/utils/objects";
+import { GanttPopoverInDialog } from "./gantt_popover_in_dialog";
 
 /** @typedef {luxon.DateTime} DateTime */
 
@@ -27,18 +31,27 @@ function closest(target, values) {
  * @param {Record<string, number>} plusParams
  */
 export function dateAddFixedOffset(date, plusParams) {
-    const initialOffset = date.offset;
     const shouldApplyOffset = Object.keys(plusParams).some((key) =>
-        /^(day|hour|minute|(milli)?second)s?$/i.test(key)
+        /^(hour|minute|second)s?$/i.test(key)
     );
     const result = date.plus(plusParams);
-    const diff = initialOffset - result.offset;
-    if (shouldApplyOffset && diff) {
-        const adjusted = result.plus({ minute: diff });
-        return adjusted.offset === initialOffset ? result : adjusted;
-    } else {
-        return result;
+    if (shouldApplyOffset) {
+        const initialOffset = date.offset;
+        const diff = initialOffset - result.offset;
+        if (diff) {
+            const adjusted = result.plus({ minute: diff });
+            return adjusted.offset === initialOffset ? result : adjusted;
+        }
     }
+    return result;
+}
+
+export function localStartOf(date, unit) {
+    return unit === "week" ? getStartOfLocalWeek(date) : date.startOf(unit);
+}
+
+export function localEndOf(date, unit) {
+    return unit === "week" ? getEndOfLocalWeek(date) : date.endOf(unit);
 }
 
 /**
@@ -204,6 +217,14 @@ export function useMultiHover({ ref, selector, related, className }) {
 
 const NB_GANTT_RECORD_COLORS = 12;
 
+function getElementCenter(el) {
+    const { x, y, width, height } = el.getBoundingClientRect();
+    return {
+        x: x + width / 2,
+        y: y + height / 2,
+    };
+}
+
 // Resizable hook handles
 
 const HANDLE_CLASS_START = "o_handle_start";
@@ -235,9 +256,12 @@ export const useGanttConnectorDraggable = makeDraggableHook({
                 addStyle(otherParent, { pointerEvents: "auto" });
             }
         }
-        return { initialPosition: current.initialPosition, sourcePill: parent };
+        return { sourcePill: parent, ...current.connectorCenter };
     },
-    onDrag: ({ ctx }) => pick(ctx.current, "element"),
+    onDrag: ({ ctx }) => {
+        ctx.current.connectorCenter = getElementCenter(ctx.current.element);
+        return pick(ctx.current, "connectorCenter");
+    },
     onDragEnd: ({ ctx }) => pick(ctx.current, "element"),
     onDrop: ({ ctx, target }) => {
         const { current } = ctx;
@@ -248,7 +272,22 @@ export const useGanttConnectorDraggable = makeDraggableHook({
         }
         return { target: targetParent };
     },
+    onWillStartDrag: ({ ctx }) => {
+        ctx.current.connectorCenter = getElementCenter(ctx.current.element);
+    },
 });
+
+function getCoordinate(style, name) {
+    return +style.getPropertyValue(name).slice(1);
+}
+
+function getColumnStart(style) {
+    return getCoordinate(style, "grid-column-start");
+}
+
+function getColumnEnd(style) {
+    return getCoordinate(style, "grid-column-end");
+}
 
 export const useGanttDraggable = makeDraggableHook({
     name: "useGanttDraggable",
@@ -257,18 +296,17 @@ export const useGanttDraggable = makeDraggableHook({
         cellDragClassName: [String, Function],
         ghostClassName: [String, Function],
         hoveredCell: [Object],
+        addStickyCoordinates: [Function],
     },
     onComputeParams({ ctx, params }) {
         ctx.cellSelector = params.cells;
         ctx.ghostClassName = params.ghostClassName;
         ctx.cellDragClassName = params.cellDragClassName;
         ctx.hoveredCell = params.hoveredCell;
+        ctx.addStickyCoordinates = params.addStickyCoordinates;
     },
-    onDragStart({ ctx, addStyle }) {
-        const { cellSelector, current, ghostClassName } = ctx;
-        for (const cell of ctx.ref.el.querySelectorAll(cellSelector)) {
-            addStyle(cell, { pointerEvents: "auto" });
-        }
+    onDragStart({ ctx }) {
+        const { current, ghostClassName } = ctx;
         current.element.before(current.placeHolder);
         if (ghostClassName) {
             current.placeHolder.classList.add(ghostClassName);
@@ -294,21 +332,29 @@ export const useGanttDraggable = makeDraggableHook({
             if (isDifferentCell) {
                 const style = getComputedStyle(cell);
                 current.cell.gridRow = style.getPropertyValue("grid-row");
-                current.cell.gridColumnStart =
-                    Number(style.getPropertyValue("grid-column-start")) + current.gridColumnOffset;
+                current.cell.gridColumnStart = getColumnStart(style) + current.gridColumnOffset;
             }
             // Assign new grid coordinates if in different cell or different cell part
             if (isDifferentCell || isDifferentPart) {
-                const { gridColumnEnd } = current;
+                const { pillSpan } = current;
                 const { gridRow, gridColumnStart: start } = current.cell;
                 const gridColumnStart = clamp(start + part, 1, current.maxGridColumnStart);
+                const gridColumnEnd = gridColumnStart + pillSpan;
 
-                addStyle(current.cellGhost, { gridRow, gridColumnStart, gridColumnEnd });
+                addStyle(current.cellGhost, {
+                    gridRow,
+                    gridColumn: `c${gridColumnStart} / c${gridColumnEnd}`,
+                });
 
-                current.cell.index = gridColumnStart - 1; // Grid incides start at 1
+                const [gridRowStart, gridRowEnd] = /r(\d+) \/ r(\d+)/g.exec(gridRow).slice(1);
+                ctx.addStickyCoordinates(
+                    [gridRowStart, gridRowEnd],
+                    [gridColumnStart, gridColumnEnd]
+                );
+                current.cell.col = gridColumnStart;
             }
         } else {
-            current.cell.index = null;
+            current.cell.col = null;
         }
 
         // Attach or remove cell ghost
@@ -326,16 +372,16 @@ export const useGanttDraggable = makeDraggableHook({
         return { pill: ctx.current.element };
     },
     onDrop({ ctx }) {
-        const { cell, element, initialIndex } = ctx.current;
-        if (cell.index !== null) {
+        const { cell, element, initialCol } = ctx.current;
+        if (cell.col !== null) {
             return {
                 pill: element,
                 cell: cell.el,
-                diff: cell.index - initialIndex,
+                diff: cell.col - initialCol,
             };
         }
     },
-    onWillStartDrag({ ctx, addCleanup, addStyle }) {
+    onWillStartDrag({ ctx, addCleanup, addClass }) {
         const { current } = ctx;
         const { el: cell, part } = ctx.hoveredCell;
 
@@ -349,19 +395,27 @@ export const useGanttDraggable = makeDraggableHook({
         const cellStyle = getComputedStyle(cell);
 
         const gridTemplateColumns = gridStyle.getPropertyValue("grid-template-columns");
-        const pGridColumnStart = Number(pillStyle.getPropertyValue("grid-column-start"));
-        const pGridColumnEnd = pillStyle.getPropertyValue("grid-column-end");
-        const cGridColumnStart = Number(cellStyle.getPropertyValue("grid-column-start")) + part;
-        const spanMatch = pGridColumnEnd.match(/span (\d+)/);
-        const highestGridIndex = gridTemplateColumns.split(" ").length + 1;
-        const pillSpan = spanMatch ? Number(spanMatch[1]) : 1;
+        const pGridColumnStart = getColumnStart(pillStyle);
+        const pGridColumnEnd = getColumnEnd(pillStyle);
+        const cGridColumnStart = getColumnStart(cellStyle) + part;
 
-        current.initialIndex = pGridColumnStart - 1;
-        current.maxGridColumnStart = highestGridIndex - pillSpan;
+        let highestGridCol;
+        for (const e of gridTemplateColumns.split(/\s+/).reverse()) {
+            const res = /\[c(\d+)\]/g.exec(e);
+            if (res) {
+                highestGridCol = +res[1];
+                break;
+            }
+        }
+
+        const pillSpan = pGridColumnEnd - pGridColumnStart;
+
+        current.initialCol = pGridColumnStart;
+        current.maxGridColumnStart = highestGridCol - pillSpan;
         current.gridColumnOffset = pGridColumnStart - cGridColumnStart;
-        current.gridColumnEnd = pillStyle.getPropertyValue("grid-column-end");
+        current.pillSpan = pillSpan;
 
-        addStyle(ctx.ref.el, { pointerEvents: "auto" });
+        addClass(ctx.ref.el, "pe-auto");
         addCleanup(() => {
             current.placeHolder.remove();
             current.cellGhost.remove();
@@ -377,11 +431,11 @@ export const useGanttUndraggable = makeDraggableHook({
     onDragEnd({ ctx }) {
         return { pill: ctx.current.element };
     },
-    onWillStartDrag({ ctx, addCleanup, addStyle, getRect }) {
+    onWillStartDrag({ ctx, addCleanup, addClass, addStyle, getRect }) {
         const { x, y, width, height } = getRect(ctx.current.element);
         ctx.current.container = document.createElement("div");
 
-        addStyle(ctx.ref.el, { pointerEvents: "auto" });
+        addClass(ctx.ref.el, "pe-auto");
         addStyle(ctx.current.container, {
             position: "fixed",
             left: `${x}px`,
@@ -401,6 +455,7 @@ export const useGanttResizable = makeDraggableHook({
     acceptedParams: {
         innerPills: [String, Function],
         handles: [String, Function],
+        hoveredCell: [Object],
         rtl: [Boolean, Function],
         cells: [String, Function],
         precision: [Number, Function],
@@ -444,6 +499,7 @@ export const useGanttResizable = makeDraggableHook({
         };
 
         ctx.cellSelector = params.cells;
+        ctx.hoveredCell = params.hoveredCell;
         ctx.precision = params.precision;
         ctx.rtl = params.rtl;
 
@@ -470,112 +526,210 @@ export const useGanttResizable = makeDraggableHook({
         // Force the handles to stay in place
         ctx.followCursor = false;
     },
-    onDragStart({ ctx, addStyle, getRect }) {
-        const parent = ctx.current.element.closest(ctx.pillSelector);
-        const pRect = getRect(ctx.current.pill);
-
-        addStyle(ctx.current.pill, {
-            position: "fixed !important",
-            left: `${ctx.current.initialPillRect.x}px`,
-            top: `${pRect.y}px`,
-            width: `${pRect.width}px`,
-            height: `${pRect.height}px`,
-            zIndex: 1000,
-        });
-        return { pill: parent };
+    onDragStart({ ctx, addStyle }) {
+        addStyle(ctx.current.pill, { zIndex: 15 });
+        return { pill: ctx.current.pill };
     },
-    onDrag({ ctx, addStyle }) {
-        const { current, pointer, pillSelector, rtl } = ctx;
-        const closestStep = closest(pointer.x, current.steps);
-        const { x, width } = current.initialPillRect;
+    onDrag({ ctx, addStyle, getRect }) {
+        const { cellSelector, current, hoveredCell, pointer, precision, rtl, ref } = ctx;
+        let { el: cell, part } = hoveredCell;
 
-        if (closestStep === current.lastStep) {
+        const point = [pointer.x, current.initialPosition.y];
+        if (!cell) {
+            let rect;
+            cell = document.elementsFromPoint(...point).find((el) => el.matches(cellSelector));
+            if (!cell) {
+                const cells = Array.from(ref.el.querySelectorAll(".o_gantt_cells .o_gantt_cell"));
+                if (pointer.x < current.initialPosition.x) {
+                    cell = rtl ? cells.at(-1) : cells[0];
+                } else {
+                    cell = rtl ? cells[0] : cells.at(-1);
+                }
+                rect = getRect(cell);
+                point[0] = rtl ? rect.right - 1 : rect.left + 1;
+            } else {
+                rect = getRect(cell);
+            }
+            const x = Math.floor(rect.x);
+            const width = Math.floor(rect.width);
+            part = Math.floor((point[0] - x) / (width / precision));
+        }
+
+        const cellStyle = getComputedStyle(cell);
+        const cGridColStart = getColumnStart(cellStyle);
+
+        const { x, width } = getRect(cell);
+        const coef = ((rtl ? -1 : 1) * width) / precision;
+        const startBorder = (rtl ? x + width : x) + part * coef;
+        const endBorder = startBorder + coef;
+
+        const theClosest = closest(point[0], [startBorder, endBorder]);
+
+        let diff =
+            cGridColStart +
+            part +
+            (theClosest === startBorder ? 0 : 1) -
+            (current.isStart ? current.firstCol : current.lastCol);
+
+        if (diff === current.lastDiff) {
             return;
         }
-        current.lastStep = closestStep;
 
-        addStyle(current.element, { position: "absolute !important" });
+        if (current.isStart) {
+            diff = Math.min(diff, current.initialDiff - 1);
+            addStyle(current.pill, { "grid-column-start": `c${current.firstCol + diff}` });
+        } else {
+            diff = Math.max(diff, 1 - current.initialDiff);
+            addStyle(current.pill, { "grid-column-end": `c${current.lastCol + diff}` });
+        }
+        current.lastDiff = diff;
 
         const isLeftHandle = rtl ? !current.isStart : current.isStart;
-        if (isLeftHandle) {
-            addStyle(current.pill, {
-                left: `${closestStep}px`,
-                width: `${x + width - closestStep}px`,
-            });
-        } else {
-            addStyle(current.pill, {
-                left: `${x}px`,
-                width: `${closestStep - x + current.elementRect.width}px`,
-            });
-        }
-
         const grabbedHandle = isLeftHandle ? "left" : "right";
-        const parentPill = current.element.closest(pillSelector);
-        const diff =
-            current.steps.indexOf(closestStep) - current.steps.indexOf(current.initialStep);
-
-        return { pill: parentPill, grabbedHandle, diff };
+        diff = current.isStart ? -diff : diff;
+        return { pill: current.pill, grabbedHandle, diff };
     },
     onDragEnd({ ctx }) {
         const { current, pillSelector } = ctx;
-        const parentPill = current.element.closest(pillSelector);
-        return { pill: parentPill };
+        const pill = current.element.closest(pillSelector);
+        return { pill };
     },
     onDrop({ ctx }) {
-        const { current, pointer, pillSelector } = ctx;
-        const parentPill = current.element.closest(pillSelector);
-        const closestStep = closest(pointer.x, current.steps);
+        const { current } = ctx;
 
-        if (closestStep === current.initialStep) {
+        if (!current.lastDiff) {
             return;
         }
 
         const direction = current.isStart ? "start" : "end";
-        let diff = current.steps.indexOf(closestStep) - current.steps.indexOf(current.initialStep);
-        if (current.isStart) {
-            diff *= -1;
-        }
-
-        return { pill: parentPill, diff, direction };
+        return { pill: current.pill, diff: current.lastDiff, direction };
     },
-    onWillStartDrag({ ctx, addStyle, getRect }) {
-        const { cellSelector, current, pointer, pillSelector, precision, rtl } = ctx;
+    onWillStartDrag({ ctx, addClass }) {
+        const { current, pillSelector } = ctx;
+
+        const pill = ctx.current.element.closest(pillSelector);
+        current.pill = pill;
+
+        const pillStyle = getComputedStyle(pill);
+        current.firstCol = getColumnStart(pillStyle);
+        current.lastCol = getColumnEnd(pillStyle);
+        current.initialDiff = current.lastCol - current.firstCol;
 
         ctx.cursor = getComputedStyle(current.element).cursor;
-        current.pill = current.element.closest(pillSelector);
-
-        const pRect = getRect(current.pill);
-        const handleRect = getRect(current.element);
-        const { x: px, width: pw } = pRect;
 
         current.isStart = current.element.classList.contains(HANDLE_CLASS_START);
-        current.steps = [];
 
-        const isLeftHandle = rtl ? !current.isStart : current.isStart;
-        let step;
-        for (const cell of current.container.querySelectorAll(cellSelector)) {
-            const cRect = getRect(cell);
-            const posX = Math.floor(
-                isLeftHandle ? cRect.x : cRect.x + cRect.width - handleRect.width
-            );
-            step ||= cRect.width / precision;
-            for (let i = 0; i < precision; i++) {
-                const stepOffset = step * i;
-                const x = isLeftHandle ? posX + stepOffset : posX - stepOffset;
-                if (
-                    !current.steps.includes(x) &&
-                    ((isLeftHandle && x <= px + pw - step) || (!isLeftHandle && px <= x))
-                ) {
-                    current.steps.push(x);
+        addClass(ctx.ref.el, "pe-auto");
+    },
+});
+
+function getCellsOnRow(refEl, rowId) {
+    return refEl.querySelectorAll(
+        `.o_gantt_cell:not(.o_gantt_group)[data-row-id='${CSS.escape(rowId)}']`
+    );
+}
+
+function getMinMax(a, b) {
+    return a <= b ? [a, b] : [b, a];
+}
+
+export const useGanttSelectable = makeDraggableHook({
+    name: "useGanttSelectable",
+    acceptedParams: {
+        hoveredCell: [Object],
+        rtl: [Boolean, Function],
+    },
+    onComputeParams({ ctx, params }) {
+        ctx.followCursor = false;
+        ctx.hoveredCell = params.hoveredCell;
+        ctx.rtl = params.rtl;
+    },
+    onDrag({ ctx, addClass, getRect, removeClass }) {
+        const { current, hoveredCell, pointer, ref, rtl } = ctx;
+        let { el: cell } = hoveredCell;
+        if (!cell) {
+            const point = [pointer.x, current.initialPosition.y];
+            cell = document.elementsFromPoint(...point).find((el) => el.matches(".o_gantt_cell"));
+            if (!cell) {
+                const cells = Array.from(ref.el.querySelectorAll(".o_gantt_cells .o_gantt_cell"));
+                if (pointer.x < current.initialPosition.x) {
+                    cell = rtl ? cells.at(-1) : cells[0];
+                } else {
+                    cell = rtl ? cells[0] : cells.at(-1);
                 }
             }
         }
-
-        current.steps.sort((a, b) => (isLeftHandle ? b - a : a - b));
-
-        current.initialPillRect = pRect;
-        current.initialStep = closest(pointer.x, current.steps);
-
-        addStyle(ctx.ref.el, { pointerEvents: "auto" });
+        const col = +cell.dataset.col;
+        const lastSelectedCol = current.lastSelectedCol;
+        current.lastSelectedCol = col;
+        if (lastSelectedCol === col) {
+            return;
+        }
+        const [startCol, stopCol] = getMinMax(current.initialCol, col);
+        for (const cell of getCellsOnRow(ref.el, current.rowId)) {
+            const cellCol = +cell.dataset.col;
+            if (cellCol < startCol || cellCol > stopCol) {
+                removeClass(cell, "o_drag_hover");
+            } else {
+                addClass(cell, "o_drag_hover");
+            }
+        }
+    },
+    onDrop({ ctx }) {
+        const { current } = ctx;
+        const { rowId, initialCol, lastSelectedCol } = current;
+        const [startCol, stopCol] = getMinMax(initialCol, lastSelectedCol);
+        return { rowId, startCol, stopCol };
+    },
+    onWillStartDrag({ ctx, addClass }) {
+        const { current, hoveredCell, ref } = ctx;
+        const { el: cell } = hoveredCell;
+        current.rowId = cell.dataset.rowId;
+        current.initialCol = +cell.dataset.col;
+        addClass(ref.el, "pe-auto");
+        addClass(cell, "pe-auto");
     },
 });
+
+/**
+ * Same as usePopover, but replaces the popover by a dialog when display size is small.
+ *
+ * @param {typeof import("@odoo/owl").Component} component
+ * @param {import("@web/core/popover/popover_service").PopoverServiceAddOptions} [options]
+ * @returns {import("@web/core/popover/popover_hook").PopoverHookReturnType}
+ */
+export function useGanttResponsivePopover(dialogTitle, component, options = {}) {
+    const dialogService = useService("dialog");
+    const env = useEnv();
+    const owner = useComponent();
+    const popover = usePopover(component, options);
+    const onClose = () => {
+        if (status(owner) !== "destroyed") {
+            options.onClose?.();
+        }
+    };
+    const dialogAddFn = (_, comp, props, options) => dialogService.add(comp, props, options);
+    const popoverInDialog = makePopover(dialogAddFn, GanttPopoverInDialog, { onClose });
+    const ganttReponsivePopover = {
+        open: (target, props) => {
+            if (env.isSmall) {
+                popoverInDialog.open(target, {
+                    component: component,
+                    componentProps: props,
+                    dialogTitle,
+                });
+            } else {
+                popover.open(target, props);
+            }
+        },
+        close: () => {
+            popover.close();
+            popoverInDialog.close();
+        },
+        get isOpen() {
+            return popover.isOpen || popoverInDialog.isOpen;
+        },
+    };
+    onWillUnmount(ganttReponsivePopover.close);
+    return ganttReponsivePopover;
+}

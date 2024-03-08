@@ -4,9 +4,12 @@ from collections import defaultdict
 from datetime import datetime, timezone, timedelta
 from lxml.builder import E
 
-from odoo import _, api, models
+from odoo import _, _lt, api, models
 from odoo.exceptions import UserError
 from odoo.tools.misc import OrderedSet, unique
+
+
+ERROR_MESSAGE = _lt("Too many records to display. Only 1000 are shown. Please consider adding a filter")
 
 
 class Base(models.AbstractModel):
@@ -49,9 +52,7 @@ class Base(models.AbstractModel):
         return view
 
     @api.model
-    def get_gantt_data(
-        self, domain, groupby, read_specification, limit=None, offset=0,
-    ):
+    def get_gantt_data(self, domain, groupby, read_specification, orderby=None, limit=None, offset=0):
         """
         Returns the result of a read_group (and optionally search for and read records inside each
         group), and the total number of groups matching the search domain.
@@ -77,7 +78,7 @@ class Base(models.AbstractModel):
         lazy = not limit and not offset and len(groupby) == 1
         # Because there is no limit by group, we can fetch record_ids as aggregate
         final_result = self.web_read_group(
-            domain, ['__record_ids:array_agg(id)'], groupby,
+            domain, ['__record_ids:array_agg(id)'], groupby, orderby=orderby,
             limit=limit, offset=offset, lazy=lazy,
         )
 
@@ -86,6 +87,12 @@ class Base(models.AbstractModel):
             for one_group in final_result['groups']
             for record_id in one_group['__record_ids']
         ))
+
+        LIM = 1000
+        if len(all_record_ids) > LIM:
+            all_record_ids = all_record_ids[:LIM]
+            final_result['error_msg'] = str(ERROR_MESSAGE)
+
         # Do search_fetch to order records (model order can be no-trivial)
         all_records = self.search_fetch([('id', 'in', all_record_ids)], read_specification.keys())
         final_result['records'] = all_records.web_read(read_specification)

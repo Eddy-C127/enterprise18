@@ -6,13 +6,14 @@ import { AppointmentBookingGanttPopover } from "@appointment/views/gantt/gantt_p
 import { patch } from "@web/core/utils/patch";
 const { DateTime } = luxon;
 import { onWillStart } from "@odoo/owl";
+import { AppointmentBookingGanttRendererControls } from "./gantt_renderer_controls";
 
 export class AppointmentBookingGanttRenderer extends GanttRenderer {
     static components = {
         ...GanttRenderer.components,
+        GanttRendererControls: AppointmentBookingGanttRendererControls,
         Popover: AppointmentBookingGanttPopover,
     }
-    static headerTemplate = "appointment.AppointmentBookingGanttRenderer.Header";
 
     /**
      * @override
@@ -82,20 +83,13 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
             return result;
         }
         for (const row of this.rows) {
-            for (const pill of row.pills) {
+            for (const pill of this.rowPills[row.id]) {
                 if (row.resId !== pill.record.partner_id[0]) {
                     pill.className += " o_appointment_booking_gantt_color_grey";
                 }
             }
         }
         return result;
-    }
-
-    /**
-     * Display 'Add Leaves' action button if grouping by appointment resources.
-     */
-    get showAddLeaveButton() {
-        return !!(this.isAppointmentManager && this.model.metaData.groupedBy && this.model.metaData.groupedBy[0] === 'resource_ids');
     }
 
     /**
@@ -108,7 +102,7 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
         let unpatch = null;
         if (this.model.metaData.groupedBy && (this.model.metaData.groupedBy[0] === "partner_ids" || this.model.metaData.groupedBy[0] === "resource_ids")) {
             const originResId = this.rows.find((row) => {
-                return row.pills.some(
+                return this.rowPills[row.id].some(
                     (rowPill) => rowPill.id === this.pills[pill.dataset.pillId].id,
                 );
             })?.resId;
@@ -127,17 +121,32 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
         return ret;
     }
 
-    async onClickAddLeave() {
-        this.env.services.action.doAction({
-            name: _t("Add Closing Day(s)"),
-            type: "ir.actions.act_window",
-            res_model: "appointment.manage.leaves",
-            view_mode: "form",
-            views: [[false, "form"]],
-            target: "new",
-            context: {},
-        }, {
-            onClose: () => this.model.fetchData(),
+    get controlsProps() {
+        return Object.assign(super.controlsProps, {
+            onClickAddLeave: async () => {
+                this.env.services.action.doAction(
+                    {
+                        name: _t("Add Closing Day(s)"),
+                        type: "ir.actions.act_window",
+                        res_model: "appointment.manage.leaves",
+                        view_mode: "form",
+                        views: [[false, "form"]],
+                        target: "new",
+                        context: {},
+                    },
+                    { onClose: () => this.model.fetchData() }
+                );
+            },
+            /**
+             * Display 'Add Leaves' action button if grouping by appointment resources.
+             */
+            get showAddLeaveButton() {
+                return !!(
+                    this.isAppointmentManager &&
+                    this.model.metaData.groupedBy &&
+                    this.model.metaData.groupedBy[0] === "resource_ids"
+                );
+            },
         });
     }
 

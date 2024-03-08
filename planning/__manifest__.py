@@ -45,8 +45,12 @@ Schedule your teams and employees with shift.
             'planning/static/src/scss/planning_calendar_report.scss',
             'planning/static/src/js/planning_calendar_front.js',
         ],
+        'web.assets_unit_tests': [
+            'planning/static/tests/planning_gantt.test.js',
+        ],
         'web.qunit_suite_tests': [
             'planning/static/tests/**/*',
+            ('remove', 'planning/static/tests/planning_gantt.test.js'),
         ],
         'web.assets_tests': [
             'planning/static/tests/tours/*',

@@ -180,12 +180,6 @@ registry.category("web_tour.tours").add('planning_shift_switching_backend', {
     trigger: 'button[name="action_switch_shift"]',
     content: "Click on the 'Switch Shift' button on the Gantt Form view modal",
 }, {
-    trigger: 'div.o_view_scale_selector > .scale_button_selection',
-    content: 'Toggle the view scale selector',
-}, {
-    trigger: '.dropdown-menu .o_scale_button_day',
-    content: 'Click on the dropdown button to change the scale of the gantt view',
-}, {
     trigger: '.o_gantt_pill :contains("test_role")',
     content: "Click on the unwanted shift in the gantt view again",
 },
@@ -223,9 +217,9 @@ registry.category("web_tour.tours").add('planning_assigning_unwanted_shift_backe
 {
     trigger: ".o_field_widget[name='resource_id'] input",
     content: "Assign this shift to another employee.",
-    run: "edit joseph",
+    run: "edit bety",
 }, {
-    trigger: ".o-autocomplete--dropdown-item > a:contains('joseph')",
+    trigger: ".o-autocomplete--dropdown-item > a:contains('bety')",
     auto: true,
     in_modal: false,
 }, {

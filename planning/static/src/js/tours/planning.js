@@ -55,11 +55,6 @@ registry.category("web_tour.tours").add('planning_tour', {
         content: markup(_t("<b>Publish & send</b> your employee's planning.")),
         position: "bottom",
     }, {
-        trigger: "button.o_gantt_button_next",
-        extra_trigger: "body:not(.modal-open)",
-        content: markup(_t("Now that this week is ready, let's get started on <b>next week's schedule</b>.")),
-        position: "bottom",
-    }, {
         trigger: ".o_control_panel .dropdown-toggle",
         content: markup(_t("Plan your shifts in one click by <b>copying the schedule from the previous week</b>. Open the menu to access this option.")),
         position: "bottom",

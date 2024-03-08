@@ -1,16 +1,16 @@
-import { _t } from "@web/core/l10n/translation";
+import { browser } from "@web/core/browser/browser";
 import { Domain } from "@web/core/domain";
 import { deserializeDate, deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
-import { localization } from "@web/core/l10n/localization";
+import { _t } from "@web/core/l10n/translation";
 import { x2ManyCommands } from "@web/core/orm_service";
 import { registry } from "@web/core/registry";
 import { groupBy, unique } from "@web/core/utils/arrays";
 import { KeepLast, Mutex } from "@web/core/utils/concurrency";
 import { pick } from "@web/core/utils/objects";
 import { sprintf } from "@web/core/utils/strings";
-import { formatFloatTime } from "@web/views/fields/formatters";
 import { Model } from "@web/model/model";
-import { browser } from "@web/core/browser/browser";
+import { formatFloatTime } from "@web/views/fields/formatters";
+import { localStartOf } from "./gantt_helpers";
 
 const { DateTime } = luxon;
 
@@ -74,29 +74,20 @@ const { DateTime } = luxon;
  * @property {Row[]} [rows]
  */
 
-/**
- * Returns start and end dates of the given scale (included), in local timezone.
- *
- * @param {ScaleId} scale
- * @param {DateTime} date DateTime object, in local timezone
- */
-export function computeRange(scale, date) {
-    let start = date;
-    let end = date;
+function firstColumnBefore(date, unit) {
+    return localStartOf(date, unit);
+}
 
-    if (scale === "week") {
-        // startOf("week") does not depend on locale and will always give the
-        // "Monday" of the week... (ISO standard)
-        const { weekStart } = localization;
-        const weekday = start.weekday < weekStart ? weekStart - 7 : weekStart;
-        start = start.set({ weekday }).startOf("day");
-        end = start.plus({ weeks: 1, days: -1 }).endOf("day");
-    } else {
-        start = start.startOf(scale);
-        end = end.endOf(scale);
+function firstColumnAfter(date, unit) {
+    const start = localStartOf(date, unit);
+    if (date.equals(start)) {
+        return date;
     }
+    return start.plus({ [unit]: 1 });
+}
 
-    return { start, end };
+export function diffColumn(col1, col2, unit) {
+    return col2.diff(col1, unit).values[`${unit}s`];
 }
 
 /**
@@ -144,11 +135,16 @@ export function parseServerValues(fields, values) {
 }
 
 export class GanttModel extends Model {
-    setup(params) {
+    static services = ["notification"];
+
+    setup(params, services) {
+        this.notification = services.notification;
+
         /** @type {Data} */
         this.data = {};
         /** @type {MetaData} */
         this.metaData = params.metaData;
+        this.displayParams = params.displayParams;
 
         this.searchParams = null;
 
@@ -175,7 +171,7 @@ export class GanttModel extends Model {
             pagerOffset: 0,
         };
 
-        if (!metaData.scale) {
+        if (!metaData.scale || !metaData.startDate || !metaData.stopDate) {
             Object.assign(
                 params,
                 this._getInitialRangeParams(this._buildMetaData(params), searchParams)
@@ -252,8 +248,15 @@ export class GanttModel extends Model {
         this.notify();
     }
 
-    get storageKey() {
-        return `scaleOf-viewId-${this.env.config.viewId}`;
+    async focusToday() {
+        const { startDate: _startDate, stopDate: _stopDate } = this._buildMetaData();
+        const diff = diffColumn(_startDate, _stopDate, "day");
+        const n = Math.floor(diff / 2);
+        const m = diff - n;
+        const focusDate = firstColumnBefore(DateTime.local(), "day");
+        const startDate = focusDate.minus({ day: n });
+        const stopDate = focusDate.plus({ day: m - 1 });
+        await this.fetchData({ focusDate, startDate, stopDate });
     }
 
     /**
@@ -459,40 +462,27 @@ export class GanttModel extends Model {
     }
 
     /**
-     * @template {Record<string, any>} T
-     * @param {T} schedule
-     * @returns {Partial<T>}
-     */
-    _scheduleToData(schedule) {
-        const allowedFields = [
-            this.metaData.dateStartField,
-            this.metaData.dateStopField,
-            ...this.metaData.groupedBy,
-        ];
-        return pick(schedule, ...allowedFields);
-    }
-
-    /**
-     * @param {"previous"|"next"} [direction]
-     */
-    async setFocusDate(direction) {
-        const metaData = this._buildMetaData();
-        let { focusDate, scale } = metaData;
-        if (direction === "next") {
-            focusDate = focusDate.plus({ [scale.id]: 1 });
-        } else if (direction === "previous") {
-            focusDate = focusDate.minus({ [scale.id]: 1 });
-        } else {
-            focusDate = DateTime.local();
-        }
-        await this.fetchData({ focusDate });
-    }
-
-    /**
      * @param {ScaleId} scaleId
      */
-    async setScale(scaleId) {
-        await this.fetchData({ scaleId });
+    async setScale(scaleId, currentFocusDate) {
+        await this.fetchData({ scaleId, currentFocusDate });
+    }
+
+    async setStartDate(startDate, currentFocusDate) {
+        await this.fetchData({ startDate, currentFocusDate });
+    }
+
+    async setStopDate(stopDate, currentFocusDate) {
+        await this.fetchData({ stopDate, currentFocusDate, fixStopDate: true });
+    }
+
+    /**
+     * @param {"ASC"|"DESC"} order
+     */
+    async toggleOrder(order) {
+        const { order: currentOrder } = this._buildMetaData();
+        const nextOrder = currentOrder === order ? null : order;
+        this.fetchData({ order: nextOrder });
     }
 
     /**
@@ -507,6 +497,12 @@ export class GanttModel extends Model {
         this.notify();
     }
 
+    async toggleDisplayMode() {
+        this.displayParams.displayMode =
+            this.displayParams.displayMode === "dense" ? "sparse" : "dense";
+        this.notify();
+    }
+
     async updatePagerParams({ limit, offset }) {
         await this.fetchData({ pagerLimit: limit, pagerOffset: offset });
     }
@@ -514,14 +510,6 @@ export class GanttModel extends Model {
     //-------------------------------------------------------------------------
     // Protected
     //-------------------------------------------------------------------------
-
-    formatTime(floatVal) {
-        const timeStr = formatFloatTime(floatVal, { noLeadingZeroHour: true });
-        const [hourStr, minuteStr] = timeStr.split(":");
-        const hour = parseInt(hourStr, 10);
-        const minute = parseInt(minuteStr, 10);
-        return minute ? _t("%(hour)sh%(minute)s", { hour, minute }) : _t("%sh", hour);
-    }
 
     /**
      * Recursive function to add progressBar info to rows grouped by the field.
@@ -536,8 +524,8 @@ export class GanttModel extends Model {
             if (row.groupedByField === fieldName) {
                 row.progressBar = progressBarInfo[row.resId];
                 if (row.progressBar) {
-                    row.progressBar.value_formatted = this.formatTime(row.progressBar.value);
-                    row.progressBar.max_value_formatted = this.formatTime(
+                    row.progressBar.value_formatted = this._formatTime(row.progressBar.value);
+                    row.progressBar.max_value_formatted = this._formatTime(
                         row.progressBar.max_value
                     );
                     row.progressBar.ratio = row.progressBar.max_value
@@ -560,8 +548,11 @@ export class GanttModel extends Model {
      * @protected
      * @param {Object} params
      * @param {DateTime} [params.focusDate]
+     * @param {DateTime} [params.startDate]
+     * @param {DateTime} [params.stopDate]
      * @param {string[]} [params.groupedBy]
      * @param {ScaleId} [params.scaleId]
+     * @param {boolean} [params.fixStopDate]
      * @returns {MetaData}
      */
     _buildMetaData(params = {}) {
@@ -570,16 +561,22 @@ export class GanttModel extends Model {
         if (params.groupedBy) {
             this._nextMetaData.groupedBy = params.groupedBy;
         }
-
-        let recomputeRange = false;
         if (params.scaleId) {
-            browser.localStorage.setItem(this.storageKey, params.scaleId);
-            this._nextMetaData.scale = { ...this.metaData.scales[params.scaleId] };
-            recomputeRange = true;
+            browser.localStorage.setItem(this._getLocalStorageKey(), params.scaleId);
+            this._nextMetaData.scale = { ...this._nextMetaData.scales[params.scaleId] };
         }
         if (params.focusDate) {
             this._nextMetaData.focusDate = params.focusDate;
-            recomputeRange = true;
+        }
+        if (params.startDate) {
+            this._nextMetaData.startDate = params.startDate;
+        }
+        if (params.stopDate) {
+            this._nextMetaData.stopDate = params.stopDate;
+        }
+
+        if ("order" in params) {
+            this._nextMetaData.order = params.order;
         }
 
         if ("pagerLimit" in params) {
@@ -589,18 +586,48 @@ export class GanttModel extends Model {
             this._nextMetaData.pagerOffset = params.pagerOffset;
         }
 
-        if (recomputeRange) {
-            const { dynamicRange, focusDate, scale } = this._nextMetaData;
-            if (dynamicRange) {
-                this._nextMetaData.startDate = focusDate.startOf(scale.interval);
-                this._nextMetaData.stopDate = this._nextMetaData.startDate.plus({
-                    [scale.id]: 1,
-                    millisecond: -1,
-                });
-            } else {
-                const { start, end } = computeRange(scale.id, focusDate);
-                this._nextMetaData.startDate = start;
-                this._nextMetaData.stopDate = end;
+        if ("scaleId" in params || "startDate" in params || "stopDate" in params) {
+            // we assume that scale, startDate, and stopDate are already set in this._nextMetaData
+
+            let exchange = false;
+            if (this._nextMetaData.startDate > this._nextMetaData.stopDate) {
+                exchange = true;
+                const temp = this._nextMetaData.startDate;
+                this._nextMetaData.startDate = this._nextMetaData.stopDate;
+                this._nextMetaData.stopDate = temp;
+            }
+            const { interval } = this._nextMetaData.scale;
+
+            const rightLimit = this._nextMetaData.startDate.plus({ year: 10, day: -1 });
+            if (this._nextMetaData.stopDate > rightLimit) {
+                if (exchange ? !params.fixStopDate : params.fixStopDate) {
+                    this._nextMetaData.startDate = this._nextMetaData.stopDate.minus({
+                        year: 10,
+                        day: -1,
+                    });
+                } else {
+                    this._nextMetaData.stopDate = this._nextMetaData.startDate.plus({
+                        year: 10,
+                        day: -1,
+                    });
+                }
+            }
+            this._nextMetaData.globalStart = firstColumnBefore(
+                this._nextMetaData.startDate,
+                interval
+            );
+            this._nextMetaData.globalStop = firstColumnAfter(
+                this._nextMetaData.stopDate.plus({ day: 1 }),
+                interval
+            );
+
+            if (params.currentFocusDate) {
+                this._nextMetaData.focusDate = params.currentFocusDate;
+                if (this._nextMetaData.focusDate < this._nextMetaData.startDate) {
+                    this._nextMetaData.focusDate = this._nextMetaData.startDate;
+                } else if (this._nextMetaData.stopDate < this._nextMetaData.focusDate) {
+                    this._nextMetaData.focusDate = this._nextMetaData.stopDate;
+                }
             }
         }
 
@@ -630,7 +657,7 @@ export class GanttModel extends Model {
      * @param {Object} [additionalContext]
      */
     async _fetchData(metaData, additionalContext) {
-        const { groupedBy, pagerLimit, pagerOffset, resModel } = metaData;
+        const { dateStartField, groupedBy, order, pagerLimit, pagerOffset, resModel } = metaData;
         const context = {
             ...this.searchParams.context,
             group_by: groupedBy,
@@ -646,10 +673,15 @@ export class GanttModel extends Model {
             }
         }
 
-        const { length, groups, records } = await this.keepLast.add(
+        const orderby = order
+            ? [`${dateStartField}:min ${order.toLowerCase()}`, ...groupedBy].join(",")
+            : null;
+
+        const { length, groups, records, error_msg } = await this.keepLast.add(
             this.orm.call(resModel, "get_gantt_data", [], {
                 domain,
                 groupby: groupedBy,
+                orderby,
                 read_specification: specification,
                 context,
                 limit: pagerLimit,
@@ -669,6 +701,10 @@ export class GanttModel extends Model {
         });
 
         await this.keepLast.add(this._fetchDataPostProcess(metaData, data));
+
+        if (error_msg) {
+            this.notification.add(error_msg);
+        }
 
         this.data = data;
         this.metaData = metaData;
@@ -716,12 +752,12 @@ export class GanttModel extends Model {
             return;
         }
 
-        const { resModel, scale, startDate } = metaData;
+        const { globalStart, globalStop, resModel } = metaData;
         const progressBarInfo = await this.orm.call(resModel, "gantt_progress_bar", [
             progressBarFields,
             resIds,
-            serializeDateTime(startDate),
-            serializeDateTime(startDate.plus({ [scale.id]: 1 })),
+            serializeDateTime(globalStart),
+            serializeDateTime(globalStop),
         ]);
 
         for (const fieldName in progressBarInfo) {
@@ -737,13 +773,14 @@ export class GanttModel extends Model {
      * @param {Data} data
      */
     async _fetchUnavailability(metaData, data) {
+        const { globalStart, globalStop } = metaData;
         const enrichedRows = await this.orm.call(
             metaData.resModel,
             "gantt_unavailability",
             [
-                serializeDateTime(metaData.startDate),
-                serializeDateTime(metaData.stopDate),
-                metaData.scale.id,
+                serializeDateTime(globalStart),
+                serializeDateTime(globalStop),
+                metaData.scale.unit,
                 metaData.groupedBy,
                 this._computeUnavailabilityRows(data.rows),
             ],
@@ -769,6 +806,19 @@ export class GanttModel extends Model {
             const { type } = metaData.fields[fieldName];
             return !["date", "datetime"].includes(type);
         });
+    }
+
+    /**
+     * @protected
+     * @param {number} floatVal
+     * @param {string}
+     */
+    _formatTime(floatVal) {
+        const timeStr = formatFloatTime(floatVal, { noLeadingZeroHour: true });
+        const [hourStr, minuteStr] = timeStr.split(":");
+        const hour = parseInt(hourStr, 10);
+        const minute = parseInt(minuteStr, 10);
+        return minute ? _t("%(hour)sh%(minute)s", { hour, minute }) : _t("%sh", hour);
     }
 
     /**
@@ -876,13 +926,13 @@ export class GanttModel extends Model {
      * @returns {any[]}
      */
     _getDomain(metaData) {
-        const { dateStartField, dateStopField, startDate, stopDate } = metaData;
+        const { dateStartField, dateStopField, globalStart, globalStop } = metaData;
         const domain = Domain.and([
             this.searchParams.domain,
             [
                 "&",
-                [dateStartField, "<=", serializeDateTime(stopDate)],
-                [dateStopField, ">=", serializeDateTime(startDate)],
+                [dateStartField, "<", serializeDateTime(globalStop)],
+                [dateStopField, ">", serializeDateTime(globalStart)],
             ],
         ]);
         return domain.toList();
@@ -965,20 +1015,53 @@ export class GanttModel extends Model {
      * @protected
      * @param {MetaData} metaData
      * @param {{ context: Record<string, any> }} searchParams
-     * @returns {{ focusDate: DateTime, scaleId: ScaleId }}
+     * @returns {{ focusDate: DateTime, scaleId: ScaleId, startDate: DateTime, stopDate: DateTime }}
      */
     _getInitialRangeParams(metaData, searchParams) {
-        const localScaleId = this._getScaleIdFromLocalStorage(metaData);
         const { context } = searchParams;
+        const localScaleId = this._getScaleIdFromLocalStorage(metaData);
         /** @type {ScaleId} */
         const scaleId = localScaleId || context.default_scale || metaData.defaultScale;
-        /** @type {DateTime} */
-        let focusDate =
-            "initialDate" in context ? deserializeDateTime(context.initialDate) : DateTime.local();
-        if (metaData.offset) {
-            focusDate = focusDate.plus({ [scaleId]: metaData.offset });
+        const { defaultRange, unit } = metaData.scales[scaleId];
+        let startDate = context.default_start_date && deserializeDate(context.default_start_date);
+        let stopDate = context.default_stop_date && deserializeDate(context.default_stop_date);
+        let focusDate;
+        if (!startDate && !stopDate) {
+            /** @type {DateTime} */
+            focusDate =
+                "initialDate" in context
+                    ? deserializeDateTime(context.initialDate)
+                    : DateTime.local();
+            focusDate = focusDate.startOf("day");
+            if (metaData.offset) {
+                focusDate = focusDate.plus({ [unit]: metaData.offset });
+            }
+            startDate = firstColumnBefore(focusDate, defaultRange.unit);
+            stopDate = startDate
+                .plus({ [defaultRange.unit]: defaultRange.count })
+                .minus({ day: 1 });
+        } else if (startDate && !stopDate) {
+            const column = firstColumnBefore(startDate, defaultRange.unit);
+            focusDate = startDate;
+            stopDate = column.plus({ [defaultRange.unit]: defaultRange.count }).minus({ day: 1 });
+        } else if (!startDate && stopDate) {
+            const column = firstColumnAfter(stopDate, defaultRange.unit);
+            focusDate = stopDate;
+            startDate = column.minus({ [defaultRange.unit]: defaultRange.count });
+        } else {
+            focusDate = DateTime.local();
+            if (focusDate < startDate) {
+                focusDate = startDate;
+            } else if (focusDate > stopDate) {
+                focusDate = stopDate;
+            }
         }
-        return { focusDate, scaleId };
+
+        return { focusDate, scaleId, startDate, stopDate };
+    }
+
+    _getLocalStorageKey() {
+        return `scaleOf-viewId-${this.env.config.viewId}`;
     }
 
     /**
@@ -1021,7 +1104,7 @@ export class GanttModel extends Model {
 
     _getScaleIdFromLocalStorage(metaData) {
         const { scales } = metaData;
-        const localScaleId = browser.localStorage.getItem(this.storageKey);
+        const localScaleId = browser.localStorage.getItem(this._getLocalStorageKey());
         return localScaleId in scales ? localScaleId : null;
     }
 
@@ -1032,13 +1115,7 @@ export class GanttModel extends Model {
      * @returns {Record<string, any>[]}
      */
     _parseServerData(metaData, records) {
-        const {
-            startDate: modelStartDate,
-            stopDate: modelStopDate,
-            dateStartField,
-            dateStopField,
-            fields,
-        } = metaData;
+        const { dateStartField, dateStopField, fields, globalStart, globalStop } = metaData;
         /** @type {Record<string, any>[]} */
         const parsedRecords = [];
         for (const record of records) {
@@ -1054,11 +1131,11 @@ export class GanttModel extends Model {
                 }
                 // Record could also be outside the displayed range since the
                 // sample server doesn't take the domain into account
-                if (parsedRecord[dateStopField] < modelStartDate) {
-                    parsedRecord[dateStopField] = modelStartDate;
+                if (parsedRecord[dateStopField] < globalStart) {
+                    parsedRecord[dateStopField] = globalStart;
                 }
-                if (parsedRecord[dateStartField] > modelStopDate) {
-                    parsedRecord[dateStartField] = modelStopDate;
+                if (parsedRecord[dateStartField] > globalStop) {
+                    parsedRecord[dateStartField] = globalStop;
                 }
                 parsedRecords.push(parsedRecord);
             } else if (dateStart <= dateStop) {
@@ -1066,6 +1143,20 @@ export class GanttModel extends Model {
             }
         }
         return parsedRecords;
+    }
+
+    /**
+     * @template {Record<string, any>} T
+     * @param {T} schedule
+     * @returns {Partial<T>}
+     */
+    _scheduleToData(schedule) {
+        const allowedFields = [
+            this.metaData.dateStartField,
+            this.metaData.dateStopField,
+            ...this.metaData.groupedBy,
+        ];
+        return pick(schedule, ...allowedFields);
     }
 
     /**

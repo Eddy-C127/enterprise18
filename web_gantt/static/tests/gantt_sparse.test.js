@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { mockDate } from "@odoo/hoot-mock";
-import { mountView, onRpc } from "@web/../tests/web_test_helpers";
+import { onRpc } from "@web/../tests/web_test_helpers";
 import { defineGanttModels } from "./gantt_mock_models";
-import { SELECTORS, getGridContent } from "./gantt_test_helpers";
+import { SELECTORS, getGridContent, mountGanttView } from "./web_gantt_test_helpers";
 
 describe.current.tags("desktop");
 
@@ -10,36 +10,34 @@ defineGanttModels();
 beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
 
 test("empty sparse gantt", async () => {
-    await mountView({
+    await mountGanttView({
         resModel: "tasks",
-        type: "gantt",
         arch: `<gantt date_start="start" date_stop="stop" display_mode="sparse" />`,
         domain: [["id", "=", 0]],
     });
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe("Gantt View");
-    expect(range).toBe("December 2018");
-    expect(columnHeaders).toHaveLength(31);
+    expect(range).toBe("01 December 2018 - 28 February 2019");
+    expect(columnHeaders).toHaveLength(34);
     expect(rows).toEqual([{ title: "" }]);
     expect(SELECTORS.noContentHelper).toHaveCount(0);
 });
 
 test("sparse gantt", async () => {
-    await mountView({
+    await mountGanttView({
         resModel: "tasks",
-        type: "gantt",
         arch: `<gantt date_start="start" date_stop="stop" display_mode="sparse" />`,
         domain: [["id", "=", 1]],
     });
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe("Gantt View");
-    expect(range).toBe("December 2018");
-    expect(columnHeaders).toHaveLength(31);
+    expect(range).toBe("01 December 2018 - 28 February 2019");
+    expect(columnHeaders).toHaveLength(34);
     expect(rows).toEqual([
         {
             pills: [
                 {
-                    colSpan: "01 -> 31",
+                    colSpan: "Out of bounds (1)  -> 31 December 2018",
                     level: 0,
                     title: "Task 1",
                 },
@@ -51,22 +49,21 @@ test("sparse gantt", async () => {
 });
 
 test("sparse grouped gantt", async () => {
-    await mountView({
+    await mountGanttView({
         resModel: "tasks",
-        type: "gantt",
         arch: `<gantt date_start="start" date_stop="stop" display_mode="sparse" />`,
         groupBy: ["stage"],
     });
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe("Gantt View");
-    expect(range).toBe("December 2018");
-    expect(columnHeaders).toHaveLength(31);
+    expect(range).toBe("01 December 2018 - 28 February 2019");
+    expect(columnHeaders).toHaveLength(34);
     expect(rows).toEqual([
         {
             isGroup: true,
             pills: [
                 {
-                    colSpan: "01 -> 31",
+                    colSpan: "Out of bounds (1)  -> 31 December 2018",
                     title: "1",
                 },
             ],
@@ -75,7 +72,7 @@ test("sparse grouped gantt", async () => {
         {
             pills: [
                 {
-                    colSpan: "01 -> 31",
+                    colSpan: "Out of bounds (1)  -> 31 December 2018",
                     level: 0,
                     title: "Task 1",
                 },
@@ -86,7 +83,7 @@ test("sparse grouped gantt", async () => {
             isGroup: true,
             pills: [
                 {
-                    colSpan: "20 -> 20 (1/2)",
+                    colSpan: "20 December 2018 -> 20 (1/2) December 2018",
                     title: "1",
                 },
             ],
@@ -95,7 +92,7 @@ test("sparse grouped gantt", async () => {
         {
             pills: [
                 {
-                    colSpan: "20 -> 20 (1/2)",
+                    colSpan: "20 December 2018 -> 20 (1/2) December 2018",
                     level: 0,
                     title: "Task 4",
                 },
@@ -106,30 +103,19 @@ test("sparse grouped gantt", async () => {
             isGroup: true,
             pills: [
                 {
-                    colSpan: "01 -> 04 (1/2)",
-                    title: "1",
-                },
-                {
-                    colSpan: "17 (1/2) -> 22 (1/2)",
+                    colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018",
                     title: "1",
                 },
             ],
             title: "Done",
         },
         {
-            pills: [
-                {
-                    colSpan: "01 -> 04 (1/2)",
-                    level: 0,
-                    title: "Task 5",
-                },
-            ],
             title: "Task 5",
         },
         {
             pills: [
                 {
-                    colSpan: "17 (1/2) -> 22 (1/2)",
+                    colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018",
                     level: 0,
                     title: "Task 2",
                 },
@@ -140,11 +126,11 @@ test("sparse grouped gantt", async () => {
             isGroup: true,
             pills: [
                 {
-                    colSpan: "20 (1/2) -> 20",
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
                     title: "1",
                 },
                 {
-                    colSpan: "27 -> 31",
+                    colSpan: "27 December 2018 -> 03 (1/2) January 2019",
                     title: "1",
                 },
             ],
@@ -153,7 +139,7 @@ test("sparse grouped gantt", async () => {
         {
             pills: [
                 {
-                    colSpan: "20 (1/2) -> 20",
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
                     level: 0,
                     title: "Task 7",
                 },
@@ -163,7 +149,7 @@ test("sparse grouped gantt", async () => {
         {
             pills: [
                 {
-                    colSpan: "27 -> 31",
+                    colSpan: "27 December 2018 -> 03 (1/2) January 2019",
                     level: 0,
                     title: "Task 3",
                 },
@@ -175,9 +161,8 @@ test("sparse grouped gantt", async () => {
 });
 
 test("sparse gantt with consolidation", async () => {
-    await mountView({
+    await mountGanttView({
         resModel: "tasks",
-        type: "gantt",
         arch: `
             <gantt
                 date_start="start"
@@ -191,14 +176,14 @@ test("sparse gantt with consolidation", async () => {
     });
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe("Gantt View");
-    expect(range).toBe("December 2018");
-    expect(columnHeaders).toHaveLength(31);
+    expect(range).toBe("01 December 2018 - 28 February 2019");
+    expect(columnHeaders).toHaveLength(34);
     expect(rows).toEqual([
         {
             isGroup: true,
             pills: [
                 {
-                    colSpan: "01 -> 31",
+                    colSpan: "Out of bounds (1)  -> 31 December 2018",
                     title: "1",
                 },
             ],
@@ -207,7 +192,7 @@ test("sparse gantt with consolidation", async () => {
         {
             pills: [
                 {
-                    colSpan: "01 -> 31",
+                    colSpan: "Out of bounds (1)  -> 31 December 2018",
                     level: 0,
                     title: "Task 1",
                 },
@@ -218,7 +203,7 @@ test("sparse gantt with consolidation", async () => {
             isGroup: true,
             pills: [
                 {
-                    colSpan: "20 -> 20 (1/2)",
+                    colSpan: "20 December 2018 -> 20 (1/2) December 2018",
                     title: "1",
                 },
             ],
@@ -227,7 +212,7 @@ test("sparse gantt with consolidation", async () => {
         {
             pills: [
                 {
-                    colSpan: "20 -> 20 (1/2)",
+                    colSpan: "20 December 2018 -> 20 (1/2) December 2018",
                     level: 0,
                     title: "Task 4",
                 },
@@ -238,30 +223,19 @@ test("sparse gantt with consolidation", async () => {
             isGroup: true,
             pills: [
                 {
-                    colSpan: "01 -> 04 (1/2)",
-                    title: "1",
-                },
-                {
-                    colSpan: "17 (1/2) -> 22 (1/2)",
+                    colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018",
                     title: "1",
                 },
             ],
             title: "Done",
         },
         {
-            pills: [
-                {
-                    colSpan: "01 -> 04 (1/2)",
-                    level: 0,
-                    title: "Task 5",
-                },
-            ],
             title: "Task 5",
         },
         {
             pills: [
                 {
-                    colSpan: "17 (1/2) -> 22 (1/2)",
+                    colSpan: "17 (1/2) December 2018 -> 22 (1/2) December 2018",
                     level: 0,
                     title: "Task 2",
                 },
@@ -272,11 +246,11 @@ test("sparse gantt with consolidation", async () => {
             isGroup: true,
             pills: [
                 {
-                    colSpan: "20 (1/2) -> 20",
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
                     title: "1",
                 },
                 {
-                    colSpan: "27 -> 31",
+                    colSpan: "27 December 2018 -> 03 (1/2) January 2019",
                     title: "1",
                 },
             ],
@@ -285,7 +259,7 @@ test("sparse gantt with consolidation", async () => {
         {
             pills: [
                 {
-                    colSpan: "20 (1/2) -> 20",
+                    colSpan: "20 (1/2) December 2018 -> 20 December 2018",
                     level: 0,
                     title: "Task 7",
                 },
@@ -295,7 +269,7 @@ test("sparse gantt with consolidation", async () => {
         {
             pills: [
                 {
-                    colSpan: "27 -> 31",
+                    colSpan: "27 December 2018 -> 03 (1/2) January 2019",
                     level: 0,
                     title: "Task 3",
                 },
@@ -332,9 +306,8 @@ test("sparse gantt with a group expand", async () => {
             ],
         };
     });
-    await mountView({
+    await mountGanttView({
         resModel: "tasks",
-        type: "gantt",
         arch: `
             <gantt
                 date_start="start"
@@ -346,8 +319,8 @@ test("sparse gantt with a group expand", async () => {
     });
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe("Gantt View");
-    expect(range).toBe("December 2018");
-    expect(columnHeaders).toHaveLength(31);
+    expect(range).toBe("01 December 2018 - 28 February 2019");
+    expect(columnHeaders).toHaveLength(34);
     expect(rows).toEqual([
         {
             isGroup: true,
@@ -360,7 +333,7 @@ test("sparse gantt with a group expand", async () => {
             isGroup: true,
             pills: [
                 {
-                    colSpan: "20 -> 20 (1/2)",
+                    colSpan: "20 December 2018 -> 20 (1/2) December 2018",
                     title: "1",
                 },
             ],
@@ -369,7 +342,7 @@ test("sparse gantt with a group expand", async () => {
         {
             pills: [
                 {
-                    colSpan: "20 -> 20 (1/2)",
+                    colSpan: "20 December 2018 -> 20 (1/2) December 2018",
                     level: 0,
                     title: "Task 4",
                 },

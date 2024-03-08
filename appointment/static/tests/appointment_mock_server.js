@@ -1,27 +1,25 @@
-/** @odoo-module **/
-
 import { registry } from "@web/core/registry";
 
-const mockRegistry = registry.category("mock_server");
+const mockRegistry = registry.category("mock_rpc");
 
-mockRegistry.add("/appointment/appointment_type/create_custom", function (route, args) {
-    const slots = args.slots;
-    if (slots.length === 0) {
+mockRegistry.add("/appointment/appointment_type/create_custom", function (request) {
+    const slots = request.json().params.slots;
+    if (!slots.length) {
         return false;
     }
-    const customAppointmentTypeID = this.mockCreate('appointment.type', {
+    const customAppointmentTypeID = this.env["appointment.type"].create({
         name: "Appointment with Actual User",
         staff_user_ids: [1],
-        category: 'custom',
+        category: "custom",
         website_published: true,
     });
-    let slotIDs = [];
-    slots.forEach(slot => {
-        const slotID = this.mockCreate('appointment.slot', {
+    const slotIDs = [];
+    slots.forEach((slot) => {
+        const slotID = this.env["appointment.slot"].create({
             appointment_type_id: customAppointmentTypeID,
             start_datetime: slot.start,
             end_datetime: slot.end,
-            slot_type: 'unique',
+            slot_type: "unique",
         });
         slotIDs.push(slotID);
     });
@@ -31,17 +29,16 @@ mockRegistry.add("/appointment/appointment_type/create_custom", function (route,
     };
 });
 
-mockRegistry.add("/appointment/appointment_type/search_create_anytime", function (route, args) {
-    let anytimeAppointmentID = this.mockSearch(
-        'appointment.type',
-        [[['category', '=', 'anytime'], ['staff_user_ids', 'in', [1]]]],
-        {},
-    )[0];
+mockRegistry.add("/appointment/appointment_type/search_create_anytime", function () {
+    let anytimeAppointmentID = this.env["appointment.type"].search([
+        ["category", "=", "anytime"],
+        ["staff_user_ids", "in", [1]],
+    ])[0];
     if (!anytimeAppointmentID) {
-        anytimeAppointmentID = this.mockCreate('appointment.type', {
+        anytimeAppointmentID = this.env["appointment.type"].create({
             name: "Anytime with Actual User",
             staff_user_ids: [1],
-            category: 'anytime',
+            category: "anytime",
             website_published: true,
         });
     }
@@ -51,14 +48,14 @@ mockRegistry.add("/appointment/appointment_type/search_create_anytime", function
     };
 });
 
-mockRegistry.add("/appointment/appointment_type/get_book_url", function (route, args) {
-    const appointment_type_id = args.appointment_type_id;
+mockRegistry.add("/appointment/appointment_type/get_book_url", function (request) {
+    const appointment_type_id = request.json().params.appointment_type_id;
     return {
         appointment_type_id: appointment_type_id,
         invite_url: `http://amazing.odoo.com/appointment/${appointment_type_id}?filter_staff_user_ids=%5B${1}%5D`,
-    }
+    };
 });
 
-mockRegistry.add("/appointment/appointment_type/get_staff_user_appointment_types", function (route, args) {
-    return {appointment_types_info: []};
+mockRegistry.add("/appointment/appointment_type/get_staff_user_appointment_types", function () {
+    return { appointment_types_info: [] };
 });

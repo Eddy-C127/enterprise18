@@ -14,7 +14,7 @@
         'web.assets_backend': [
             'hr_gantt/static/src/**/*',
         ],
-        'web.qunit_suite_tests': [
+        'web.assets_unit_tests': [
             'hr_gantt/static/tests/**/*',
         ],
     }

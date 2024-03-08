@@ -6,28 +6,29 @@ import { getUnionOfIntersections } from "@web_gantt/gantt_helpers";
 import { PlanningEmployeeAvatar } from "./planning_employee_avatar";
 import { PlanningMaterialRole } from "./planning_material_role";
 import { PlanningGanttRowProgressBar } from "./planning_gantt_row_progress_bar";
-import { useEffect, onWillStart, useRef } from "@odoo/owl";
+import { useEffect, onWillStart, reactive } from "@odoo/owl";
 import { serializeDateTime } from "@web/core/l10n/dates";
 import { planningAskRecurrenceUpdate } from "../planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_hook";
+import { PlanningGanttRendererControls } from "./planning_gantt_renderer_controls";
 
 const { Duration, DateTime } = luxon;
 
 export class PlanningGanttRenderer extends GanttRenderer {
     static rowHeaderTemplate = "planning.PlanningGanttRenderer.RowHeader";
     static pillTemplate = "planning.PlanningGanttRenderer.Pill";
-    static rowContentTemplate = "planning.PlanningGanttRenderer.RowContent";
-    static headerTemplate = "planning.PlanningGanttRenderer.Header";
+    static groupPillTemplate = "planning.PlanningGanttRenderer.GroupPill";
     static components = {
         ...GanttRenderer.components,
         Avatar: PlanningEmployeeAvatar,
+        GanttRendererControls: PlanningGanttRendererControls,
         GanttRowProgressBar: PlanningGanttRowProgressBar,
         Material: PlanningMaterialRole,
     };
     setup() {
-        this.duplicateToolHelperRef = useRef("duplicateToolHelper");
+        this.duplicateToolHelperReactive = reactive({ shouldDisplay: false });
         super.setup();
         useEffect(() => {
-            this.rootRef.el.classList.add("o_planning_gantt");
+            this.gridRef.el.classList.add("o_planning_gantt");
         });
 
         this.isPlanningManager = false;
@@ -56,6 +57,27 @@ export class PlanningGanttRenderer extends GanttRenderer {
         super.computeDerivedParams();
     }
 
+    computeVisiblePills() {
+        super.computeVisiblePills();
+        this.splitTools = {};
+        if (this.env.isSmall || !this.isPlanningManager || this.model.useSampleModel) {
+            return;
+        }
+        const [firstVisibleCol, lastVisibleCol] = this.getVisibleCols();
+        for (const pill of this.pillsToRender) {
+            const [first, last] = pill.grid.column;
+            if (last === first + 1) {
+                continue;
+            }
+            this.splitTools[pill.id] = [];
+            for (let col = Math.max(first + 1, firstVisibleCol); col <= Math.min(last - 1, lastVisibleCol); col++) {
+                const splitTool = { grid: { column: [col, col + 1], row: pill.grid.row } };
+                this.splitTools[pill.id].push(splitTool);
+                this.addCoordinatesToCoarseGrid(splitTool);
+            }
+        }
+    }
+
     /**
      * @override
      */
@@ -63,6 +85,11 @@ export class PlanningGanttRenderer extends GanttRenderer {
         const { allocated_hours, allocated_percentage } = record;
         const res = super.getDurationStr(...arguments);
         return allocated_percentage !== 100 && allocated_hours ? res : "";
+    }
+
+    getSpan({ grid }) {
+        const { column } = grid;
+        return column[1] - column[0];
     }
 
     /**
@@ -97,15 +124,15 @@ export class PlanningGanttRenderer extends GanttRenderer {
         const resource = record.resource_id;
         const resourceId = resource && resource[0];
         if (this.isOpenShift(record) || this.isFlexibleHours(resourceId)) {
-            for (let col = this.getFirstcol(pill); col < this.getLastCol(pill) + 1; col++) {
-                const subColumn = this.subColumns[col - 1];
+            for (let col = this.getFirstGridCol(pill); col < this.getLastGridCol(pill); col++) {
+                const subColumn = this.getSubColumnFromColNumber(col);
                 if (!subColumn) {
                     continue;
                 }
                 const { start, stop } = subColumn;
                 const maxDuration = stop.diff(start);
                 const toMillisRatio = 60 * 60 * 1000;
-                const dailyAllocHours = Math.min(record.allocated_hours * toMillisRatio / pill.grid.column[1], maxDuration);
+                const dailyAllocHours = Math.min(record.allocated_hours * toMillisRatio / this.getSpan(pill), maxDuration);
                 if (dailyAllocHours) {
                     let minutes = Duration.fromMillis(dailyAllocHours).as("minute");
                     minutes = Math.round(minutes / 5) * 5;
@@ -123,8 +150,8 @@ export class PlanningGanttRenderer extends GanttRenderer {
             recordIntervals = [[record.start_datetime, record.end_datetime]];
             percentage = (record.allocated_hours * 3.6e6) / record.end_datetime.diff(record.start_datetime);
         }
-        for (let col = this.getFirstcol(pill) - 1; col <= this.getLastCol(pill) + 1; col++) {
-            const subColumn = this.subColumns[col - 1];
+        for (let col = this.getFirstGridCol(pill) - 1; col <= this.getLastGridCol(pill); col++) {
+            const subColumn = this.getSubColumnFromColNumber(col);
             if (!subColumn) {
                 continue;
             }
@@ -170,17 +197,16 @@ export class PlanningGanttRenderer extends GanttRenderer {
     /**
      * @override
      */
-    getColumnStartStop(columnStartIndex, columnStopIndex = columnStartIndex) {
+    getColumnStartStop() {
         const { scale } = this.model.metaData;
-        if (["week", "month"].includes(scale.id)) {
-            const { start } = this.columns[columnStartIndex];
-            const { stop } = this.columns[columnStopIndex];
+        const { start, stop } = super.getColumnStartStop(...arguments);
+        if (["week", "month"].includes(scale.unit)) {
             return {
                 start: start.set({ hours: 8, minutes: 0, seconds: 0 }),
                 stop: stop.set({ hours: 17, minutes: 0, seconds: 0 }),
             };
         }
-        return super.getColumnStartStop(...arguments);
+        return { start, stop };
     }
 
     /**
@@ -227,6 +253,10 @@ export class PlanningGanttRenderer extends GanttRenderer {
         return recordIntervals;
     }
 
+    getSplitToolGrids(pill) {
+        return this.splitTools[pill.id] || [];
+    }
+
     /**
      * @param {number} resource_id
      * @returns {boolean}
@@ -253,9 +283,14 @@ export class PlanningGanttRenderer extends GanttRenderer {
      * @override
      */
     shouldAggregate(row, g) {
+        const wouldAggregate = super.shouldAggregate(...arguments);
+        if (!wouldAggregate) {
+            return false;
+        }
+
         // These checks only make sense if the gantt view is grouped by the resource
         if (row.groupedBy && row.groupedBy[0] !== 'resource_id') {
-            return super.shouldAggregate(...arguments);
+            return wouldAggregate;
         }
 
         // A row not having work intervals could mean that a resource doesn't have a contract or the row is the "Total" row
@@ -264,17 +299,17 @@ export class PlanningGanttRenderer extends GanttRenderer {
             if (row.groupedByField === "resource_id") {  // If there is no contract, don't show aggregate info
                 return false;
             } else if (!row.groupedByField) {  // If it's not grouped by anything, its the total row, follow default behaviour
-                return super.shouldAggregate(...arguments);
+                return wouldAggregate;
             }
         }
 
         // We show aggregation info in all columns for flexible-hour employees and when there are pills in that day
-        if ((row.resId && !row.unavailabilities) || super.shouldAggregate(...arguments)) {
+        if ((row.resId && !row.unavailabilities) || wouldAggregate) {
             return true;
         }
 
         // We do not show aggregate info on non-working days
-        const group = this.subColumns[g.grid.column[0] - 1];
+        const group = this.getSubColumnFromColNumber(g.grid.column[0]);
         const groupWorkOverlap = getUnionOfIntersections([group.start, group.stop], workIntervals);
         if (!groupWorkOverlap.length) {
             return false;
@@ -307,7 +342,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
         if (group.pills.length) {
             newPill.resourceId = group.pills[0].record.resource_id;
         }
-        const { start, stop } = this.columns[newPill.grid.column[0] - 1]
+        const { start, stop } = this.getColumnFromColNumber(newPill.grid.column[0]);
         newPill.date_start = start;
         newPill.date_end = stop;
         return newPill;
@@ -411,13 +446,10 @@ export class PlanningGanttRenderer extends GanttRenderer {
      * @param {number} splitIndex - Index of the split tool used on the pill
      */
     async onPillSplitToolClicked(ev, pill, splitIndex) {
-        if (!this.isPlanningManager) {
-            return;
-        }
         const pillStart = pill.grid.column[0];
 
         // 1. Create a copy of the current pill after the split tool
-        const startColumnId = pillStart + splitIndex;
+        const startColumnId = pillStart + 1 + splitIndex;
         const { start } = this.getColumnAvailabilitiesLimit(pill, startColumnId, {
             fixed_stop: pill.record.end_datetime,
         });
@@ -452,7 +484,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
         const defaultColumnTiming = super.getColumnStartStop(column);
         let start = fixed_start || defaultColumnTiming.start;
         let stop = fixed_stop || defaultColumnTiming.stop;
-        const currentRow = this.model.data.rows.find(row => row.resId === pill.record.resource_id[0]) || this.model.data.rows.find(row => row.resId === false);
+        const currentRow = this.getRowFromPill(pill);
 
         const unavailability_at_start = currentRow?.unavailabilities?.find(unavailability => start >= unavailability.start && start < unavailability.stop);
         const unavailability_at_stop = currentRow?.unavailabilities?.find(unavailability => stop > unavailability.start && stop <= unavailability.stop);
@@ -473,16 +505,15 @@ export class PlanningGanttRenderer extends GanttRenderer {
         return { start, stop };
     }
 
+    get controlsProps() {
+        return Object.assign(super.controlsProps, {
+            duplicateToolHelperReactive: this.duplicateToolHelperReactive,
+        });
+    }
+
     onInteractionChange() {
         super.onInteractionChange();
-        const { mode } = this.interaction;
-        if (this.duplicateToolHelperRef.el) {
-            if (mode === "drag") {
-                this.duplicateToolHelperRef.el.classList.remove("invisible");
-            } else {
-                this.duplicateToolHelperRef.el.classList.add("invisible");
-            }
-        }
+        this.duplicateToolHelperReactive.shouldDisplay = this.interaction.mode === "drag";
     }
 
     async dragPillDrop({pill}) {

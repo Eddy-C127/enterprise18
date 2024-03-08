@@ -1,8 +1,7 @@
-import { hover, queryAll, queryFirst } from "@odoo/hoot-dom";
+import { hover, queryAll, queryFirst, setInputRange } from "@odoo/hoot-dom";
 import { animationFrame, runAllTimers } from "@odoo/hoot-mock";
-import { contains } from "@web/../tests/web_test_helpers";
-
-import { GanttRenderer } from "@web_gantt/gantt_renderer";
+import { contains, mountView } from "@web/../tests/web_test_helpers";
+import { getPickerCell, zoomOut } from "@web/../tests/core/datetime/datetime_test_helpers";
 
 /**
  * @typedef CellHelperOptions
@@ -24,7 +23,7 @@ import { GanttRenderer } from "@web_gantt/gantt_renderer";
 
 /**
  * @template T
- * @typedef {(row: number, column: number, options: CellHelperOptions) => T} CellHelper
+ * @typedef {(columnHeader: string, rowHeader: string, options: CellHelperOptions) => T} CellHelper
  */
 
 /**
@@ -62,23 +61,23 @@ export const CLASSES = {
 export const SELECTORS = {
     addButton: ".o_gantt_button_add",
     cell: ".o_gantt_cell",
-    cellAddButton: ".o_gantt_cell_add",
-    cellButtons: ".o_gantt_cell_buttons",
     cellContainer: ".o_gantt_cells",
-    cellPlanButton: ".o_gantt_cell_plan",
     collapseButton: ".o_gantt_button_collapse_rows",
+    asc: ".fa-sort-amount-asc",
+    desc: ".fa-sort-amount-desc",
+    dense: ".fa-compress",
+    sparse: ".fa-expand",
     draggable: makeClassSelector(CLASSES.draggable),
     expandButton: ".o_gantt_button_expand_rows",
     expandCollapseButtons: ".o_gantt_button_expand_rows, .o_gantt_button_collapse_rows",
     group: makeClassSelector(CLASSES.group),
-    headerCell: ".o_gantt_header_cell",
+    groupHeader: ".o_gantt_header_title",
+    columnHeader: ".o_gantt_header_cell",
     highlightedPill: makeClassSelector(CLASSES.highlightedPill),
     hoverable: ".o_gantt_hoverable",
-    nextButton: ".o_gantt_button_next",
     noContentHelper: ".o_view_nocontent",
     pill: ".o_gantt_pill",
     pillWrapper: ".o_gantt_pill_wrapper",
-    prevButton: ".o_gantt_button_prev",
     progressBar: ".o_gantt_row_header .o_gantt_progress_bar",
     progressBarBackground: ".o_gantt_row_header .o_gantt_progress_bar > span.bg-opacity-25",
     progressBarForeground:
@@ -94,8 +93,11 @@ export const SELECTORS = {
     rowHeader: ".o_gantt_row_header",
     rowTitle: ".o_gantt_row_title",
     rowTotal: ".o_gantt_row_total",
+    startDatePicker: ".o_gantt_picker:first-child",
+    stopDatePicker: ".o_gantt_picker:last-child",
     thumbnail: ".o_gantt_row_thumbnail",
     todayButton: ".o_gantt_button_today",
+    toolbar: ".o_gantt_renderer_controls div[name='ganttToolbar']",
     undraggable: ".o_undraggable",
     view: ".o_gantt_view",
     viewContent: ".o_gantt_view .o_content",
@@ -111,6 +113,59 @@ export const SELECTORS = {
     connectorStrokeButton: ".o_connector_stroke_button",
     highlightedConnector: makeClassSelector(CLASSES.highlightedConnector),
 };
+
+export async function mountGanttView(params) {
+    const gantt = await mountView({ ...params, type: "gantt" });
+    await animationFrame();
+    return gantt;
+}
+
+/**
+ * @param {string} selector
+ * @param {DateTime} datetime
+ */
+async function selectDateInDatePicker(selector, datetime) {
+    await contains(selector).click();
+    await animationFrame();
+    for (let i = 0; i < 3; i++) {
+        await zoomOut();
+    }
+    await contains(getPickerCell(datetime.year - (datetime.year % 10))).click();
+    await contains(getPickerCell(datetime.year)).click();
+    await contains(getPickerCell(datetime.monthShort)).click();
+    await contains(getPickerCell(datetime.day, true)).click();
+    await animationFrame();
+}
+
+/**
+ * @param {Object} param0
+ * @param {string} param0.startDate
+ * @param {string} param0.stopDate
+ */
+export async function selectGanttRange({ startDate, stopDate }) {
+    const { startDatePicker: START_SELECTOR, stopDatePicker: STOP_SELECTOR } = SELECTORS;
+    let [currentStart, currentStop] = getTexts(".o_gantt_picker").map((d) =>
+        luxon.DateTime.fromFormat(d, "dd MMMM yyyy")
+    );
+    const start = luxon.DateTime.fromISO(startDate);
+    const startOnLeftSide = start <= currentStop;
+    if (
+        (startOnLeftSide && !start.equals(currentStart)) ||
+        (!startOnLeftSide && !start.equals(currentStop))
+    ) {
+        await selectDateInDatePicker(startOnLeftSide ? START_SELECTOR : STOP_SELECTOR, start);
+    }
+    [currentStart, currentStop] = getTexts(".o_gantt_picker").map((d) =>
+        luxon.DateTime.fromFormat(d, "dd MMMM yyyy")
+    );
+    const stop = luxon.DateTime.fromISO(stopDate);
+    if (
+        (startOnLeftSide && !stop.equals(currentStop)) ||
+        (!startOnLeftSide && !stop.equals(currentStart))
+    ) {
+        await selectDateInDatePicker(startOnLeftSide ? STOP_SELECTOR : START_SELECTOR, stop);
+    }
+}
 
 /**
  * @param {string} selector
@@ -138,18 +193,16 @@ export function getTexts(selector) {
 }
 
 export function getActiveScale() {
-    return getText(".scale_button_selection");
+    return queryFirst(".o_gantt_renderer_controls input").value;
 }
 
 /**
- * @param {string} scale
+ * @param {Number} scale
  */
 export async function setScale(scale) {
-    if (!queryAll(".scale_button_selection + .o-dropdown--menu").length) {
-        // open scale menu
-        await contains(".scale_button_selection").click();
-    }
-    await contains(`.o_scale_button_${scale}`).click();
+    setInputRange(".o_gantt_renderer_controls input", scale);
+    await animationFrame();
+    await animationFrame(); // for potential focusDate
 }
 
 /** @type {PillHelper<Promise<DragPillHelpers>>} */
@@ -165,8 +218,8 @@ export async function dragPill(text, options) {
     /** @param {DragParams} params */
     const moveTo = async (params) => {
         let cell;
-        if (params?.row && params?.column) {
-            cell = await hoverGridCell(params.row, params.column, params);
+        if (params?.column) {
+            cell = await hoverGridCell(params.column, params.row, params);
         } else if (params?.pill) {
             cell = await hoverPillCell(getPillWrapper(params.pill, params));
         }
@@ -189,31 +242,44 @@ export async function editPill(text, options) {
     await contains(".o_popover .popover-footer .btn-primary").click();
 }
 
+/**
+ * @param {string} header
+ */
+function findColumnFromHeader(header) {
+    const columnHeaders = getHeaders(SELECTORS.columnHeader);
+    const groupHeaders = getHeaders(SELECTORS.groupHeader);
+    const columnHeader = header.substring(0, header.indexOf(" "));
+    const groupHeader = header.substring(header.indexOf(" ") + 1);
+    const groupRange = groupHeaders.find((header) => header.title === groupHeader).range;
+    return columnHeaders.find(
+        (header) =>
+            header.title === columnHeader &&
+            header.range[0] >= groupRange[0] &&
+            header.range[1] <= groupRange[1]
+    ).range[0];
+}
+
 /** @type {CellHelper<HTMLElement>} */
-export function getCell(row, column, options) {
-    const ignoreHoverableClass = options?.ignoreHoverableClass ?? false;
-    const selector = `${SELECTORS.cell}[data-column-index='${column - 1}']`;
-    let currentRowNumber = 0;
-    let currentGridRowStart = 0;
-    for (const cell of queryAll(selector)) {
-        const [rowStart] = getGridStyle(cell).row;
-        if (currentGridRowStart !== rowStart) {
-            currentGridRowStart = rowStart;
-            currentRowNumber += 1;
-        }
-        if (
-            row === currentRowNumber &&
-            (ignoreHoverableClass || cell.matches(SELECTORS.hoverable))
-        ) {
-            return cell;
-        }
+export function getCell(columnHeader, rowHeader = null, options) {
+    const columnIndex = findColumnFromHeader(columnHeader);
+    const cells = queryAll(`${SELECTORS.cell}[data-col='${columnIndex}']`);
+    if (!cells.length) {
+        throw new Error(`Could not find cell at column ${columnHeader}`);
     }
-    throw new Error(`Could not find hoverable cell at row ${row} and column ${column}`);
+    if (!rowHeader) {
+        return cells[0];
+    }
+    const row = queryAll(`.o_gantt_row_header:contains(${rowHeader})`)?.[(options?.num || 1) - 1];
+    if (!row) {
+        throw new Error(`Could not find row ${rowHeader}`);
+    }
+    const rowId = row.getAttribute("data-row-id");
+    return cells.find((cell) => cell.getAttribute("data-row-id") === rowId);
 }
 
 /** @type {CellHelper<string[]>} */
-export function getCellColorProperties(row, column) {
-    const cell = getCell(row, column, { ignoreHoverableClass: true });
+export function getCellColorProperties(columnHeader, rowHeader = null, options) {
+    const cell = getCell(columnHeader, rowHeader, options);
     const cssVarRegex = /(--[\w-]+)/g;
 
     if (cell.style.background) {
@@ -238,21 +304,44 @@ export function getCellFromPill(pill) {
     const { row, column } = getGridStyle(pill);
     for (const cell of queryAll(SELECTORS.cell)) {
         const { row: cellRow, column: cellColumn } = getGridStyle(cell);
-        if (row[0] < cellRow[0] + cellRow[1] && column[0] < cellColumn[0] + cellColumn[1]) {
+        if (row[0] < cellRow[1] && column[0] < cellColumn[1]) {
             return cell;
         }
     }
     throw new Error(`Could not find hoverable cell for pill "${getText(pill)}".`);
 }
 
-export function getGridContent() {
-    const columnHeaders = getTexts(".o_gantt_header_cell");
-    const range = getTexts(".o_gantt_header_scale > div > *:not(.o_gantt_header_cell)")[2];
-    const viewTitle = getText(".o_gantt_title");
+/**
+ * @param {string} str
+ */
+function parseNumber(str) {
+    return parseInt(str.match(/\d+/)?.[0]) || 1;
+}
 
-    const renderer = queryFirst(SELECTORS.renderer);
-    const templateColumns = Number(renderer.style.getPropertyValue("--Gantt__Template-columns"));
-    const cellParts = templateColumns / columnHeaders.length;
+/**
+ * @param {string} selector
+ */
+function getHeaders(selector) {
+    const groupHeaders = [];
+    for (const el of queryAll(selector)) {
+        const { column: range } = getGridStyle(el);
+        groupHeaders.push({
+            range,
+            title: el.textContent,
+        });
+    }
+    return groupHeaders;
+}
+
+export function getGridContent() {
+    const columnHeaders = getHeaders(SELECTORS.columnHeader);
+    const groupHeaders = getHeaders(SELECTORS.groupHeader);
+    const range = queryFirst(".o_gantt_renderer_controls > div").textContent;
+    const viewTitle = getText(".o_gantt_title");
+    const colsRange = queryFirst(SELECTORS.columnHeader)
+        .style.getPropertyValue("grid-column")
+        .split("/");
+    const cellParts = parseNumber(colsRange[1]) - parseNumber(colsRange[0]);
     const pillEls = new Set(queryAll(`${SELECTORS.cellContainer} ${SELECTORS.pillWrapper}`));
     const rowEls = [...queryAll(`.o_gantt_row_headers > ${SELECTORS.rowHeader}`)];
     const singleRowMode = rowEls.length === 0;
@@ -269,7 +358,6 @@ export function getGridContent() {
     for (const rowEl of rowEls) {
         const isGroup = rowEl.classList.contains(CLASSES.group);
         const { row: gridRow } = getGridStyle(rowEl);
-        const rowEndLevel = gridRow[0] - 1 + gridRow[1];
         const row = singleRowMode ? {} : { title: getText(rowEl) };
         if (isGroup) {
             row.isGroup = true;
@@ -279,29 +367,46 @@ export function getGridContent() {
         }
         const pills = [];
         for (const pillEl of rowEl._isTotal ? totalPillEls : pillEls) {
-            const pillRowLevel = Number(pillEl.style.gridRowStart);
+            const pillRowLevel = parseNumber(pillEl.style.gridRowStart);
             const { column: gridColumn } = getGridStyle(pillEl);
-            const columnEnd = gridColumn[0] - 1 + gridColumn[1];
-            const pillInRow = pillRowLevel >= gridRow[0] && pillRowLevel < rowEndLevel;
+            const pillInRow = pillRowLevel >= gridRow[0] && pillRowLevel < gridRow[1];
             if (singleRowMode || pillInRow || rowEl._isTotal) {
-                let start = columnHeaders[Math.floor((gridColumn[0] - 1) / cellParts)];
-                let end = columnHeaders[Math.floor((columnEnd - 1) / cellParts)];
+                let start = columnHeaders.find(
+                    (header) => gridColumn[0] >= header.range[0] && gridColumn[0] < header.range[1]
+                )?.title;
+                let end = columnHeaders.find(
+                    (header) => gridColumn[1] > header.range[0] && gridColumn[1] <= header.range[1]
+                )?.title;
                 const startPart = (gridColumn[0] - 1) % cellParts;
-                const endPart = columnEnd % cellParts;
-                if (startPart) {
+                const endPart = (gridColumn[1] - 1) % cellParts;
+                if (startPart && start) {
                     start += ` (${startPart}/${cellParts})`;
                 }
-                if (endPart) {
+                if (endPart && end) {
                     end += ` (${endPart}/${cellParts})`;
                 }
                 const pill = {
                     title: getText(pillEl),
-                    colSpan: `${start} -> ${end}`,
+                    colSpan: `${start || "Out of bounds (" + gridColumn[0] + ")"} ${
+                        start
+                            ? groupHeaders.find(
+                                  (header) =>
+                                      gridColumn[0] >= header.range[0] &&
+                                      gridColumn[0] < header.range[1]
+                              ).title
+                            : ""
+                    } -> ${end || "Out of bounds (" + gridColumn[1] + ")"} ${
+                        end
+                            ? groupHeaders.find(
+                                  (header) =>
+                                      gridColumn[1] > header.range[0] &&
+                                      gridColumn[1] <= header.range[1]
+                              ).title
+                            : ""
+                    }`,
                 };
                 if (!isGroup) {
-                    pill.level = singleRowMode
-                        ? (pillRowLevel - 1) / GanttRenderer.ROW_SPAN
-                        : (pillRowLevel - gridRow[0]) / GanttRenderer.ROW_SPAN;
+                    pill.level = singleRowMode ? pillRowLevel - 1 : pillRowLevel - gridRow[0];
                 }
                 pills.push(pill);
                 pillEls.delete(pillEl);
@@ -313,7 +418,7 @@ export function getGridContent() {
         rows.push(row);
     }
 
-    return { columnHeaders, range, rows, viewTitle };
+    return { columnHeaders, groupHeaders, range, rows, viewTitle };
 }
 
 /**
@@ -325,15 +430,10 @@ export function getGridStyle(el) {
      * @returns {[number, number]}
      */
     const getGridProp = (prop) => {
-        const values = [Number(style.getPropertyValue(`grid-${prop}-start`))];
-        const end = style.getPropertyValue(`grid-${prop}-end`);
-        const [spanKey, span] = end.split(" ");
-        if (spanKey === "span") {
-            values.push(Number(span));
-        } else {
-            values.push(Number(spanKey) || 1);
-        }
-        return values;
+        return [
+            parseNumber(style.getPropertyValue(`grid-${prop}-start`)),
+            parseNumber(style.getPropertyValue(`grid-${prop}-end`)),
+        ];
     };
 
     const style = getComputedStyle(el);
@@ -348,10 +448,11 @@ function getCellPositionOffset(cell, part) {
     const position = { x: 1 };
     if (part > 1) {
         const rect = cell.getBoundingClientRect();
-        const columnHeadersCount = getTexts(".o_gantt_header_cell").length;
-        const gridStyle = getComputedStyle(cell.parentElement);
-        const templateColumns = Number(gridStyle.getPropertyValue("--Gantt__Template-columns"));
-        const cellParts = templateColumns / columnHeadersCount;
+        // Calculate cell parts
+        const colsRange = queryFirst(SELECTORS.columnHeader)
+            .style.getPropertyValue("grid-column")
+            .split("/");
+        const cellParts = parseNumber(colsRange[1]) - parseNumber(colsRange[0]);
         const partWidth = rect.width / cellParts;
         position.x += Math.ceil(partWidth * (part - 1));
     }
@@ -372,8 +473,8 @@ async function hoverCell(cell, options) {
  * Hovers a cell found from given grid coordinates.
  * @type {CellHelper<Promise<HTMLElement>>}
  */
-export async function hoverGridCell(row, column, options) {
-    const cell = getCell(row, column, options);
+export async function hoverGridCell(columnHeader, rowHeader = null, options) {
+    const cell = getCell(columnHeader, rowHeader, options);
     await hoverCell(cell, options);
     return cell;
 }
@@ -382,8 +483,8 @@ export async function hoverGridCell(row, column, options) {
  * Click on a cell found from given grid coordinates.
  * @type {CellHelper<Promise<HTMLElement>>}
  */
-export async function clickCell(row, column, options) {
-    const cell = getCell(row, column, options);
+export async function clickCell(columnHeader, rowHeader = null, options) {
+    const cell = getCell(columnHeader, rowHeader, options);
     await contains(cell).click();
 }
 
@@ -413,34 +514,39 @@ export async function resizePill(pill, side, deltaOrPosition, shouldDrop = true)
     const { row, column } = getGridStyle(pill);
 
     // Calculate cell parts
-    const columnHeadersCount = getTexts(".o_gantt_header_cell").length;
-    const gridStyle = getComputedStyle(pill.parentElement);
-    const templateColumns = Number(gridStyle.getPropertyValue("--Gantt__Template-columns"));
-    const cellParts = templateColumns / columnHeadersCount;
+    const colsRange = queryFirst(SELECTORS.columnHeader)
+        .style.getPropertyValue("grid-column")
+        .split("/");
+    const cellParts = parseNumber(colsRange[1]) - parseNumber(colsRange[0]);
 
     // Calculate delta or position
     const delta = typeof deltaOrPosition === "object" ? 0 : deltaOrPosition;
     const position = typeof deltaOrPosition === "object" ? deltaOrPosition : {};
-    const targetColumn = column[0] + (column[1] - 1) + delta * cellParts;
+    const targetColumn = (side === "start" ? column[0] : column[1]) + delta * cellParts;
 
     let targetCell;
     let targetPart;
     for (const cell of queryAll(SELECTORS.cell)) {
         const { row: cRow, column: cCol } = getGridStyle(cell);
-        if (cRow[0] !== row[0]) {
+        if (cRow[0] > row[0] || cRow[1] < row[1]) {
             continue;
         }
-        if (cCol[0] <= targetColumn && targetColumn < cCol[0] + cCol[1]) {
-            targetCell = cell;
-            targetPart = targetColumn - cCol[0];
+        if (cCol[1] < targetColumn) {
+            continue;
+        }
+
+        if (targetColumn < cCol[0]) {
             break;
         }
+
+        targetCell = cell;
+        targetPart = targetColumn - cCol[0];
     }
 
     // Assign position if delta
     if (!position.x) {
-        const rect = targetCell.getBoundingClientRect();
-        position.x = (targetPart + 0.5) * Math.floor(rect.width / cellParts);
+        const { width } = targetCell.getBoundingClientRect();
+        position.x = targetPart * Math.floor(width / cellParts);
     }
 
     // Actual drag actions

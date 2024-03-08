@@ -1,5 +1,7 @@
 import { GanttController } from "@web_gantt/gantt_controller";
 
+const { DateTime } = luxon;
+
 export class AppointmentBookingGanttController extends GanttController {
 
     /**
@@ -24,8 +26,12 @@ export class AppointmentBookingGanttController extends GanttController {
      * The stop datetime is handle by the default_get method on python side which add the appointment type duration.
     */
     onAddClicked() {
-        const { focusDate } = this.model.metaData;
-        const start = focusDate.minute > 30 ? focusDate.plus({ hour: 1 }).set({ minute: 0, second: 0 }) : focusDate.set({ minute: 30, second: 0 });
+        const focusDate = this.getCurrentFocusDate();
+        const now = DateTime.now();
+        const start =
+            now.minute > 30
+                ? focusDate.set({ hour: now.hour + 1, minute: 0, second: 0 })
+                : focusDate.set({ hour: now.hour, minute: 30, second: 0 });
         const context = this.model.getDialogContext({ start, withDefault: true });
         this.create(context);
     }

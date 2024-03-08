@@ -39,7 +39,7 @@ Plan shifts and keep an eye on the hours consumed on your plannable products.
         'web.assets_tests': [
             'sale_planning/static/tests/tours/*',
         ],
-        'web.qunit_suite_tests': [
+        'web.assets_unit_tests': [
             'sale_planning/static/tests/*',
         ]
     },

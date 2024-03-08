@@ -1,15 +1,8 @@
+import { getLocalWeekNumber } from "@web/core/l10n/dates";
 import { _t } from "@web/core/l10n/translation";
 import { evaluateExpr } from "@web/core/py_js/py";
 import { visitXML } from "@web/core/utils/xml";
 import { archParseBoolean, getActiveActions } from "@web/views/utils";
-
-/**
- * @typedef {(typeof SCALES)[ScaleId]} BaseScale
- * @typedef {(typeof PARTS)[CellPartId]} CellPart
- * @typedef {keyof typeof PARTS} CellPartId
- * @typedef {BaseScale & { id: ScaleId, cellPart: CellPart, cellTime: number }} Scale
- * @typedef {keyof typeof SCALES} ScaleId
- */
 
 const DECORATIONS = [
     "decoration-danger",
@@ -18,47 +11,100 @@ const DECORATIONS = [
     "decoration-success",
     "decoration-warning",
 ];
+const ORDERS = ["ASC", "DESC", "asc", "desc", null];
 const PARTS = { full: 1, half: 2, quarter: 4 };
 const SCALES = {
     day: {
+        // determines subcolumns
         cellPrecisions: { full: 60, half: 30, quarter: 15 },
         defaultPrecision: "full",
-        description: _t("Day"),
-        unitDescription: _t("minutes"),
-        format: "DDDD",
-        hotkey: "e",
-        interval: "hour",
         time: "minute",
+        unitDescription: _t("minutes"),
+
+        // determines columns
+        interval: "hour",
+        minimalColumnWidth: 40,
+
+        // determines column groups
+        unit: "day",
+        groupHeaderFormatter: (date) => date.toFormat("dd MMMM yyyy"),
+
+        defaultRange: { unit: "day", count: 3 },
     },
     week: {
         cellPrecisions: { full: 24, half: 12 },
         defaultPrecision: "half",
-        description: _t("Week"),
-        unitDescription: _t("hours"),
-        format: "dd MMMM yyyy",
-        hotkey: "p",
-        interval: "day",
         time: "hour",
+        unitDescription: _t("hours"),
+
+        interval: "day",
+        minimalColumnWidth: 192,
+        colHeaderFormatter: (date) => date.toFormat("dd"),
+
+        unit: "week",
+        groupHeaderFormatter: (date) => date.toFormat(`'W${getLocalWeekNumber(date)}' yyyy`),
+
+        defaultRange: { unit: "week", count: 3 },
+    },
+    week_2: {
+        cellPrecisions: { full: 24, half: 12 },
+        defaultPrecision: "half",
+        time: "hour",
+        unitDescription: _t("hours"),
+
+        interval: "day",
+        minimalColumnWidth: 96,
+        colHeaderFormatter: (date) => date.toFormat("dd"),
+
+        unit: "week",
+        groupHeaderFormatter: (date) => date.toFormat(`'W${getLocalWeekNumber(date)}' yyyy`),
+
+        defaultRange: { unit: "week", count: 6 },
     },
     month: {
         cellPrecisions: { full: 24, half: 12 },
         defaultPrecision: "half",
-        description: _t("Month"),
-        unitDescription: _t("hours"),
-        format: "MMMM yyyy",
-        hotkey: "m",
-        interval: "day",
         time: "hour",
+        unitDescription: _t("hours"),
+
+        interval: "day",
+        minimalColumnWidth: 50,
+        colHeaderFormatter: (date) => date.toFormat("dd"),
+
+        unit: "month",
+        groupHeaderFormatter: (date, env) => date.toFormat(env.isSmall ? "MMM yyyy" : "MMMM yyyy"),
+
+        defaultRange: { unit: "month", count: 3 },
+    },
+    month_3: {
+        cellPrecisions: { full: 24, half: 12 },
+        defaultPrecision: "half",
+        time: "hour",
+        unitDescription: _t("hours"),
+
+        interval: "day",
+        minimalColumnWidth: 18,
+        colHeaderFormatter: (date) => date.toFormat("dd"),
+
+        unit: "month",
+        groupHeaderFormatter: (date, env) => date.toFormat(env.isSmall ? "MMM yyyy" : "MMMM yyyy"),
+
+        defaultRange: { unit: "month", count: 6 },
     },
     year: {
         cellPrecisions: { full: 1 },
         defaultPrecision: "full",
-        description: _t("Year"),
-        unitDescription: _t("months"),
-        format: "yyyy",
-        hotkey: "y",
-        interval: "month",
         time: "month",
+        unitDescription: _t("months"),
+
+        interval: "month",
+        minimalColumnWidth: 60,
+        colHeaderFormatter: (date, env) => date.toFormat(env.isSmall ? "MMM" : "MMMM"),
+
+        unit: "year",
+        groupHeaderFormatter: (date) => date.toFormat("yyyy"),
+
+        defaultRange: { unit: "year", count: 1 },
     },
 };
 
@@ -125,16 +171,16 @@ function getInfoFromRootNode(rootNode) {
     const dependencyEnabled = !!dependencyField;
     const dependencyInvertedField = attrs.dependency_inverted_field || null;
 
-    let allowedScales;
+    const allowedScales = [];
     if (attrs.scales) {
-        allowedScales = [];
         for (const key of attrs.scales.split(",")) {
             if (SCALES[key]) {
                 allowedScales.push(key);
             }
         }
-    } else {
-        allowedScales = Object.keys(SCALES);
+    }
+    if (allowedScales.length === 0) {
+        allowedScales.push(...Object.keys(SCALES));
     }
 
     // Cell precision
@@ -166,7 +212,6 @@ function getInfoFromRootNode(rootNode) {
             cellPart: PARTS[precision],
             cellTime: referenceScale.cellPrecisions[precision],
             id: scaleId,
-            description: referenceScale.description.toString(),
             unitDescription: referenceScale.unitDescription.toString(),
         };
         // protect SCALES content
@@ -204,9 +249,9 @@ function getInfoFromRootNode(rootNode) {
         displayMode: attrs.display_mode || "dense",
         displayTotalRow: archParseBoolean(attrs.total_row),
         displayUnavailability: archParseBoolean(attrs.display_unavailability),
-        dynamicRange: archParseBoolean(attrs.dynamic_range),
         formViewId: attrs.form_view_id ? parseInt(attrs.form_view_id, 10) : false,
         offset: attrs.offset,
+        order: attrs.order && ORDERS.includes(attrs.order) ? attrs.order.toUpperCase() : null,
         pagerLimit: attrs.groups_limit ? parseInt(attrs.groups_limit, 10) : null,
         pillDecorations,
         progressBarFields: attrs.progress_bar ? attrs.progress_bar.split(",") : null,

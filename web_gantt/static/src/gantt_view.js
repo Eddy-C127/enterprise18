@@ -5,6 +5,7 @@ import { GanttArchParser } from "./gantt_arch_parser";
 import { GanttController } from "./gantt_controller";
 import { GanttModel } from "./gantt_model";
 import { GanttRenderer } from "./gantt_renderer";
+import { omit } from "@web/core/utils/objects";
 
 const viewRegistry = registry.category("views");
 
@@ -26,6 +27,7 @@ export const ganttView = {
         if (genericProps.state) {
             scrollPosition = genericProps.state[scrollSymbol];
             modelParams.metaData = genericProps.state.metaData;
+            modelParams.displayParams = genericProps.state.displayParams;
         } else {
             const { arch, fields, resModel } = genericProps;
             const parser = new view.ArchParser();
@@ -40,10 +42,13 @@ export const ganttView = {
             }
 
             modelParams.metaData = {
-                ...archInfo,
+                ...omit(archInfo, "displayMode"),
                 fields,
                 resModel,
                 formViewId,
+            };
+            modelParams.displayParams = {
+                displayMode: archInfo.displayMode,
             };
         }
 

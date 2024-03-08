@@ -1,28 +1,28 @@
-import { _t } from "@web/core/l10n/translation";
 import {
     Component,
     onWillRender,
+    onWillStart,
     onWillUpdateProps,
     reactive,
+    useEffect,
     useExternalListener,
     useRef,
-    useState,
 } from "@odoo/owl";
 import { hasTouch, isMobileOS } from "@web/core/browser/feature_detection";
 import { Domain } from "@web/core/domain";
-import { formatDateTime, serializeDate, serializeDateTime } from "@web/core/l10n/dates";
+import { getStartOfLocalWeek, serializeDate, serializeDateTime } from "@web/core/l10n/dates";
 import { localization } from "@web/core/l10n/localization";
+import { _t } from "@web/core/l10n/translation";
 import { usePopover } from "@web/core/popover/popover_hook";
 import { evaluateBooleanExpr } from "@web/core/py_js/py";
 import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
-import { omit } from "@web/core/utils/objects";
+import { omit, pick } from "@web/core/utils/objects";
 import { debounce, throttleForAnimation } from "@web/core/utils/timing";
 import { url } from "@web/core/utils/urls";
 import { useVirtualGrid } from "@web/core/virtual_grid_hook";
 import { formatFloatTime } from "@web/views/fields/formatters";
 import { useViewCompiler } from "@web/views/view_compiler";
-import { ViewScaleSelector } from "@web/views/view_components/view_scale_selector";
 import { SelectCreateDialog } from "@web/views/view_dialogs/select_create_dialog";
 import { GanttCompiler } from "./gantt_compiler";
 import { GanttConnector } from "./gantt_connector";
@@ -30,17 +30,20 @@ import {
     dateAddFixedOffset,
     getCellColor,
     getColorIndex,
+    localEndOf,
+    localStartOf,
     useGanttConnectorDraggable,
     useGanttDraggable,
     useGanttResizable,
+    useGanttSelectable,
     useGanttUndraggable,
     useMultiHover,
 } from "./gantt_helpers";
+import { diffColumn } from "./gantt_model";
 import { GanttPopover } from "./gantt_popover";
+import { GanttRendererControls } from "./gantt_renderer_controls";
 import { GanttResizeBadge } from "./gantt_resize_badge";
 import { GanttRowProgressBar } from "./gantt_row_progress_bar";
-import { computeRange } from "./gantt_model";
-import { browser } from "@web/core/browser/browser";
 
 const { DateTime } = luxon;
 
@@ -148,10 +151,10 @@ const NEW_CONNECTOR_ID = "__connector__new";
 export class GanttRenderer extends Component {
     static components = {
         GanttConnector,
+        GanttRendererControls,
         GanttResizeBadge,
         GanttRowProgressBar,
         Popover: GanttPopover,
-        ViewScaleSelector,
     };
     static props = [
         "model",
@@ -167,21 +170,18 @@ export class GanttRenderer extends Component {
     static connectorCreatorTemplate = "web_gantt.GanttRenderer.ConnectorCreator";
     static headerTemplate = "web_gantt.GanttRenderer.Header";
     static pillTemplate = "web_gantt.GanttRenderer.Pill";
+    static groupPillTemplate = "web_gantt.GanttRenderer.GroupPill";
     static rowContentTemplate = "web_gantt.GanttRenderer.RowContent";
     static rowHeaderTemplate = "web_gantt.GanttRenderer.RowHeader";
     static totalRowTemplate = "web_gantt.GanttRenderer.TotalRow";
-
-    static GRID_ROW_HEIGHT = 4; // Pixels
-    static GROUP_ROW_SPAN = 6; // --> 24 pixels
-    static ROW_SPAN = 9; // --> 36 pixels
 
     static getRowHeaderWidth = (width) => 100 / (width > 768 ? 6 : 3);
 
     setup() {
         this.model = this.props.model;
 
+        this.gridRef = useRef("grid");
         this.cellContainerRef = useRef("cellContainer");
-        this.rootRef = useRef("root");
 
         this.actionService = useService("action");
         this.dialogService = useService("dialog");
@@ -192,12 +192,6 @@ export class GanttRenderer extends Component {
             hoverable: null,
             pill: null,
         };
-
-        this.selection = {
-            active: false,
-        };
-
-        this.state = useState({ rowHeaderWidth: 0 });
 
         /** @type {Interaction} */
         this.interaction = reactive(
@@ -214,22 +208,27 @@ export class GanttRenderer extends Component {
         /** @type {ResizeBadge} */
         this.resizeBadgeReactive = reactive({});
 
+        /** @type {Object[]} */
+        this.columnsGroups = [];
         /** @type {Column[]} */
         this.columns = [];
-        /** @type {DateTime[]} */
-        this.dateGridColumns = [];
         /** @type {Pill[]} */
         this.extraPills = [];
-        /** @type {Row[]} */
-        this.extraRows = [];
         /** @type {Record<PillId, Pill>} */
         this.pills = {}; // mapping to retrieve pills from pill ids
-        /** @type {RowId[]} */
-        this.rowIds = [];
         /** @type {Row[]} */
         this.rows = [];
         /** @type {SubColumn[]} */
         this.subColumns = [];
+        /** @type {Record<RowId, Pill[]>} */
+        this.rowPills = {};
+
+        this.mappingColToColumn = new Map();
+        this.mappingColToSubColumn = new Map();
+        this.cursorPosition = {
+            x: 0,
+            y: 0,
+        };
 
         const position = localization.direction === "rtl" ? "bottom" : "right";
         this.popover = usePopover(this.constructor.components.Popover, { position });
@@ -241,17 +240,24 @@ export class GanttRenderer extends Component {
             }).popoverTemplate;
         }
 
-        this.throttledOnPointerMove = throttleForAnimation((ev) => this.onPointerMove(ev));
+        this.throttledComputeHoverParams = throttleForAnimation((ev) =>
+            this.computeHoverParams(ev)
+        );
 
         useExternalListener(window, "keydown", (ev) => this.onWindowKeyDown(ev));
         useExternalListener(window, "keyup", (ev) => this.onWindowKeyUp(ev));
-        useExternalListener(window, "pointerup", (ev) => this.onSelectStop(ev));
 
-        const computeColumnWidth = debounce(() => this.computeColumnWidth(), 100);
-        useExternalListener(window, "resize", computeColumnWidth);
+        useExternalListener(
+            window,
+            "resize",
+            debounce(() => {
+                this.shouldComputeSomeWidths = true;
+                this.render();
+            }, 100)
+        );
 
         useMultiHover({
-            ref: this.rootRef,
+            ref: this.gridRef,
             selector: ".o_gantt_group",
             related: ["data-row-id"],
             className: "o_gantt_group_hovered",
@@ -260,9 +266,9 @@ export class GanttRenderer extends Component {
         // Draggable pills
         this.cellForDrag = { el: null, part: 0 };
         const dragState = useGanttDraggable({
-            enable: () => this.cellForDrag.el,
+            enable: () => Boolean(this.cellForDrag.el),
             // Refs and selectors
-            ref: this.rootRef,
+            ref: this.gridRef,
             hoveredCell: this.cellForDrag,
             elements: ".o_draggable",
             ignore: ".o_resize_handle,.o_connector_creator_bullet",
@@ -270,14 +276,22 @@ export class GanttRenderer extends Component {
             // Style classes
             cellDragClassName: "o_gantt_cell o_drag_hover",
             ghostClassName: "o_dragged_pill_ghost",
+            addStickyCoordinates: (rows, columns) => {
+                this.stickyGridRows = Object.assign({}, ...rows.map((row) => ({ [row]: true })));
+                this.stickyGridColumns = Object.assign(
+                    {},
+                    ...columns.map((column) => ({ [column]: true }))
+                );
+                this.setSomeGridStyleProperties();
+            },
             // Handlers
-            onDragStart: () => {
+            onDragStart: ({ pill }) => {
                 this.popover.close();
-                this.setStickyRowFromCell(this.cellForDrag.el);
+                this.setStickyPill(pill);
                 this.interaction.mode = "drag";
             },
             onDragEnd: () => {
-                this.setStickyRowFromCell(null);
+                this.setStickyPill();
                 this.interaction.mode = null;
             },
             onDrop: (params) => this.dragPillDrop(params),
@@ -286,7 +300,7 @@ export class GanttRenderer extends Component {
         // Un-draggable pills
         const unDragState = useGanttUndraggable({
             // Refs and selectors
-            ref: this.rootRef,
+            ref: this.gridRef,
             elements: ".o_undraggable",
             ignore: ".o_resize_handle,.o_connector_creator_bullet",
             edgeScrolling: { enabled: false },
@@ -299,15 +313,38 @@ export class GanttRenderer extends Component {
             },
         });
 
+        // Cells selection
+        const selectState = useGanttSelectable({
+            enable: () => {
+                const { canCellCreate, canPlan } = this.model.metaData;
+                return Boolean(this.cellForDrag.el) && (canCellCreate || canPlan);
+            },
+            ref: this.gridRef,
+            hoveredCell: this.cellForDrag,
+            elements: ".o_gantt_cell:not(.o_gantt_group)",
+            edgeScrolling: { speed: 40, threshold: 150, direction: "horizontal" },
+            rtl: () => localization.direction === "rtl",
+            onDrop: ({ rowId, startCol, stopCol }) => {
+                const { canPlan } = this.model.metaData;
+                if (canPlan) {
+                    this.onPlan(rowId, startCol, stopCol);
+                } else {
+                    this.onCreate(rowId, startCol, stopCol);
+                }
+            },
+        });
+
         // Resizable pills
         const resizeState = useGanttResizable({
             // Refs and selectors
-            ref: this.cellContainerRef,
+            ref: this.gridRef,
+            hoveredCell: this.cellForDrag,
             elements: ".o_resizable",
             innerPills: ".o_gantt_pill",
             cells: ".o_gantt_cell",
             // Other params
             handles: "o_resize_handle",
+            edgeScrolling: { speed: 40, threshold: 150, direction: "horizontal" },
             showHandles: (pillEl) => {
                 const pill = this.pills[pillEl.dataset.pillId];
                 const hideHandles = this.connectorDragState.dragging;
@@ -321,6 +358,7 @@ export class GanttRenderer extends Component {
             // Handlers
             onDragStart: ({ pill, addClass }) => {
                 this.popover.close();
+                this.setStickyPill(pill);
                 addClass(pill, "o_resized");
                 this.interaction.mode = "resize";
             },
@@ -343,6 +381,7 @@ export class GanttRenderer extends Component {
                 delete this.resizeBadgeReactive.position;
                 delete this.resizeBadgeReactive.diff;
                 delete this.resizeBadgeReactive.scale;
+                this.setStickyPill();
                 removeClass(pill, "o_resized");
                 this.interaction.mode = null;
             },
@@ -352,26 +391,32 @@ export class GanttRenderer extends Component {
         // Draggable connector
         let initialPillId;
         this.connectorDragState = useGanttConnectorDraggable({
-            ref: this.rootRef,
+            ref: this.gridRef,
             elements: ".o_connector_creator_bullet",
             parentWrapper: ".o_gantt_cells .o_gantt_pill_wrapper",
-            onDragStart: ({ initialPosition, sourcePill, x, y, addClass }) => {
+            onDragStart: ({ sourcePill, x, y, addClass }) => {
                 this.popover.close();
                 initialPillId = sourcePill.dataset.pillId;
                 addClass(sourcePill, "o_connector_creator_lock");
                 this.setConnector({
                     id: NEW_CONNECTOR_ID,
                     highlighted: true,
-                    sourcePoint: { left: initialPosition.x, top: initialPosition.y },
+                    sourcePoint: { left: x, top: y },
                     targetPoint: { left: x, top: y },
                 });
+                this.setStickyPill(sourcePill);
                 this.interaction.mode = "connect";
             },
-            onDrag: ({ x, y }) => {
-                this.setConnector({ id: NEW_CONNECTOR_ID, targetPoint: { left: x, top: y } });
+            onDrag: ({ connectorCenter, x, y }) => {
+                this.setConnector({
+                    id: NEW_CONNECTOR_ID,
+                    sourcePoint: { left: connectorCenter.x, top: connectorCenter.y },
+                    targetPoint: { left: x, top: y },
+                });
             },
             onDragEnd: () => {
                 this.setConnector({ id: NEW_CONNECTOR_ID, sourcePoint: null, targetPoint: null });
+                this.setStickyPill();
                 this.interaction.mode = null;
             },
             onDrop: ({ target }) => {
@@ -384,29 +429,89 @@ export class GanttRenderer extends Component {
             },
         });
 
-        this.dragStates = [dragState, unDragState, resizeState];
+        this.dragStates = [dragState, unDragState, resizeState, selectState];
 
+        onWillStart(this.computeDerivedParams);
         onWillUpdateProps(this.computeDerivedParams);
-        onWillRender(this.onWillRender);
 
-        /** @type {Row[]} */
         this.virtualGrid = useVirtualGrid({
             scrollableRef: this.props.contentRef,
             initialScroll: this.props.scrollPosition,
+            bufferCoef: 0.1,
+            onChange: (changed) => {
+                if ("columnsIndexes" in changed) {
+                    this.shouldComputeGridColumns = true;
+                }
+                if ("rowsIndexes" in changed) {
+                    this.shouldComputeGridRows = true;
+                }
+                this.render();
+            },
         });
 
-        this.computeDerivedParams();
+        onWillRender(this.onWillRender);
+
+        useEffect(
+            (content) => {
+                content.addEventListener("scroll", this.throttledComputeHoverParams);
+                return () => {
+                    content.removeEventListener("scroll", this.throttledComputeHoverParams);
+                };
+            },
+            () => [this.gridRef.el?.parentElement]
+        );
+
+        useEffect(() => {
+            if (this.useFocusDate) {
+                this.useFocusDate = false;
+                this.focusDate(this.model.metaData.focusDate);
+            }
+        });
+
+        this.env.getCurrentFocusDateCallBackRecorder.add(this, this.getCurrentFocusDate.bind(this));
     }
 
     //-------------------------------------------------------------------------
     // Getters
     //-------------------------------------------------------------------------
 
+    get controlsProps() {
+        const { displayMode } = this.model.displayParams;
+        const { order, scale, scales, startDate, stopDate } = this.model.metaData;
+        return {
+            currentDisplayMode: displayMode,
+            currentOrder: order,
+            currentScale: Object.keys(scales).findIndex((scaleId) => scaleId === scale.id),
+            displayExpandCollapseButtons: this.rows[0]?.isGroup, // all rows on same level have same type
+            onCollapseClicked: () => this.model.collapseRows(),
+            onExpandClicked: () => this.model.expandRows(),
+            onStartDateChanged: (val) => this.model.setStartDate(val, this.getCurrentFocusDate()),
+            onStopDateChanged: (val) => this.model.setStopDate(val, this.getCurrentFocusDate()),
+            onTodayClicked: () => {
+                const today = DateTime.local().startOf("day");
+                const withinBounds = this.focusDate(today, true);
+                if (!withinBounds) {
+                    this.model.focusToday();
+                }
+            },
+            onToggleDisplayMode: () => this.model.toggleDisplayMode(),
+            onToggleOrder: (o) => this.model.toggleOrder(o),
+            scalesRange: { min: 0, max: Object.keys(scales).length - 1 },
+            setScale: (index) => {
+                const selectedScale = Object.values(scales)[index];
+                this.model.setScale(selectedScale.id, this.getCurrentFocusDate());
+            },
+            startDate: startDate,
+            stopDate: stopDate,
+        };
+    }
+
     /**
      * @returns {boolean}
      */
     get hasRowHeaders() {
-        const { groupedBy, displayMode } = this.model.metaData;
+        const { groupedBy } = this.model.metaData;
+        const { displayMode } = this.model.displayParams;
         return groupedBy.length || displayMode === "sparse";
     }
 
@@ -421,23 +526,25 @@ export class GanttRenderer extends Component {
         return isMobileOS() || hasTouch();
     }
 
-    /**
-     * @returns {number}
-     */
-    get pillHeight() {
-        return this.constructor.GRID_ROW_HEIGHT * this.constructor.ROW_SPAN;
-    }
-
-    /**
-     * @returns {number}
-     */
-    get rowHeight() {
-        return this.constructor.GRID_ROW_HEIGHT;
-    }
-
     //-------------------------------------------------------------------------
     // Methods
     //-------------------------------------------------------------------------
+
+    /**
+     *
+     * @param {Object} param
+     * @param {Object} param.grid
+     */
+    addCoordinatesToCoarseGrid({ grid }) {
+        if (grid.row) {
+            this.coarseGridRows[this.getFirstGridRow({ grid })] = true;
+            this.coarseGridRows[this.getLastGridRow({ grid })] = true;
+        }
+        if (grid.column) {
+            this.coarseGridCols[this.getFirstGridCol({ grid })] = true;
+            this.coarseGridCols[this.getLastGridCol({ grid })] = true;
+        }
+    }
 
     /**
      * @param {Pill} pill
@@ -452,11 +559,12 @@ export class GanttRenderer extends Component {
     /**
      * Conditional function for aggregating pills when grouping the gantt view
      * The first, unused parameter is added in case it's needed when overwriting the method.
-     * @param {Group} group
      * @param {Row} row
+     * @param {Group} group
+     * @returns {boolean}
      */
     shouldAggregate(row, group) {
-        return group.pills.length;
+        return Boolean(group.pills.length);
     }
 
     /**
@@ -468,32 +576,36 @@ export class GanttRenderer extends Component {
     aggregatePills(pills, row) {
         /** @type {Record<number, Group>} */
         const groups = {};
-        for (let col = 1; col <= this.subColumns.length; col++) {
-            groups[col] = {
-                break: false,
-                col,
-                pills: [],
-                aggregateValue: 0,
-                grid: { column: [col, 1] },
-            };
-            // group.break = true means that the group cannot be merged with the previous one
-            // We will merge groups that can be merged together (if this.shouldMergeGroups returns true)
+        function getGroup(col) {
+            if (!(col in groups)) {
+                groups[col] = {
+                    break: false,
+                    col,
+                    pills: [],
+                    aggregateValue: 0,
+                    grid: { column: [col, col + 1] },
+                };
+                // group.break = true means that the group cannot be merged with the previous one
+                // We will merge groups that can be merged together (if this.shouldMergeGroups returns true)
+            }
+            return groups[col];
         }
 
         for (const pill of pills) {
             let addedInPreviousCol = false;
             let col;
-            for (col = this.getFirstcol(pill); col <= this.getLastCol(pill); col++) {
-                const group = groups[col];
+            for (col = this.getFirstGridCol(pill); col < this.getLastGridCol(pill); col++) {
+                const group = getGroup(col);
                 const added = this.addTo(pill, group);
                 if (addedInPreviousCol !== added) {
                     group.break = true;
                 }
                 addedInPreviousCol = added;
             }
-            // here col = this.getLastCol(pill) + 1
-            if (addedInPreviousCol && col <= this.subColumns.length) {
-                groups[col].break = true;
+            // here col = this.getLastGridCol(pill)
+            if (addedInPreviousCol && col <= this.columnCount) {
+                const group = getGroup(col);
+                group.break = true;
             }
         }
 
@@ -518,14 +630,14 @@ export class GanttRenderer extends Component {
         const levels = [
             {
                 pills: [firstPill],
-                maxCol: this.getLastCol(firstPill),
+                maxCol: this.getLastGridCol(firstPill) - 1,
             },
         ];
         for (const currentPill of pills.slice(1)) {
-            const lastCol = this.getLastCol(currentPill);
+            const lastCol = this.getLastGridCol(currentPill) - 1;
             for (let l = 0; l < levels.length; l++) {
                 const level = levels[l];
-                if (this.getFirstcol(currentPill) > level.maxCol) {
+                if (this.getFirstGridCol(currentPill) > level.maxCol) {
                     currentPill.level = l;
                     level.pills.push(currentPill);
                     level.maxCol = lastCol;
@@ -543,86 +655,281 @@ export class GanttRenderer extends Component {
         return levels.length;
     }
 
-    /**
-     * Returns the column indexes which fits both given dates inside
-     * @param {DateTime} start
-     * @param {DateTime} end
-     * @param {DateTime[]} dates
-     * @returns {[number, number]}
-     */
-    computeColumnIndexes(start, end, dates) {
-        let startIndex, endIndex;
-        for (let index = 0; index < dates.length; index++) {
-            if (dates[index].ts <= start) {
-                startIndex = index;
-            }
-            if (dates[index].ts >= end) {
-                endIndex = index;
-                break;
-            }
-        }
-        return [startIndex, endIndex];
+    makeSubColumn(start, delta, cellTime, time) {
+        const subCellStart = dateAddFixedOffset(start, { [time]: delta * cellTime });
+        const subCellStop = dateAddFixedOffset(start, {
+            [time]: (delta + 1) * cellTime,
+            seconds: -1,
+        });
+        return { start: subCellStart, stop: subCellStop };
     }
 
-    computeColumns() {
+    computeVisibleColumns() {
+        const [firstIndex, lastIndex] = this.virtualGrid.columnsIndexes;
+        this.columnsGroups = [];
         this.columns = [];
         this.subColumns = [];
-        this.dateGridColumns = [];
+        this.coarseGridCols = {
+            1: true,
+            [this.columnCount * this.model.metaData.scale.cellPart + 1]: true,
+        };
 
-        const { scale, startDate, stopDate } = this.model.metaData;
-        const { cellPart, cellTime, interval, time } = scale;
+        const { globalStart, globalStop, scale } = this.model.metaData;
+        const { cellPart, interval, unit } = scale;
+
         const now = DateTime.local();
-        let cellIndex = 1;
-        let colOffset = 1;
-        let date;
-        for (date = startDate; date <= stopDate; date = date.plus({ [interval]: 1 })) {
-            const start = date;
-            const stop = date.endOf(interval);
-            const index = cellIndex++;
-            const columnId = `__column__${index}`;
+
+        const nowStart = now.startOf(interval);
+        const nowEnd = now.endOf(interval);
+
+        const groupsLeftBound = DateTime.max(
+            globalStart,
+            localStartOf(globalStart.plus({ [interval]: firstIndex }), unit)
+        );
+        const groupsRightBound = DateTime.min(
+            localEndOf(globalStart.plus({ [interval]: lastIndex }), unit),
+            globalStop
+        );
+        let currentGroup = null;
+        for (let j = firstIndex; j <= lastIndex; j++) {
+            const columnId = `__column__${j + 1}`;
+            const col = j * cellPart + 1;
+            const { start, stop } = this.getColumnFromColNumber(col);
             const column = {
                 id: columnId,
-                grid: { column: [colOffset, cellPart] },
+                grid: { column: [col, col + cellPart] },
                 start,
                 stop,
             };
-            const isToday =
-                (["week", "month"].includes(scale.id) && date.hasSame(now, "day")) ||
-                (scale.id === "year" && date.hasSame(now, "month")) ||
-                (scale.id === "day" && date.hasSame(now, "hour"));
-
+            const isToday = nowStart <= start && start <= nowEnd;
             if (isToday) {
                 column.isToday = true;
             }
-
             this.columns.push(column);
 
             for (let i = 0; i < cellPart; i++) {
-                const subCellStart = dateAddFixedOffset(start, { [time]: i * cellTime });
-                const subCellStop = dateAddFixedOffset(start, {
-                    [time]: (i + 1) * cellTime,
-                    seconds: -1,
-                });
-                this.subColumns.push({ start: subCellStart, stop: subCellStop, isToday, columnId });
-                this.dateGridColumns.push(subCellStart);
+                const subColumn = this.getSubColumnFromColNumber(col + i);
+                this.subColumns.push({ ...subColumn, isToday, columnId });
+                this.coarseGridCols[col + i] = true;
             }
 
-            colOffset += cellPart;
+            const groupStart = localStartOf(start, unit);
+            if (!currentGroup || !groupStart.equals(currentGroup.start)) {
+                const groupId = `__group__${this.columnsGroups.length + 1}`;
+                const startingBound = DateTime.max(groupsLeftBound, groupStart);
+                const endingBound = DateTime.min(groupsRightBound, localEndOf(groupStart, unit));
+                const [groupFirstCol, groupLastCol] = this.getGridColumnFromDates(
+                    startingBound,
+                    endingBound
+                );
+                currentGroup = {
+                    id: groupId,
+                    grid: { column: [groupFirstCol, groupLastCol] },
+                    start: groupStart,
+                };
+                this.columnsGroups.push(currentGroup);
+                this.coarseGridCols[groupFirstCol] = true;
+                this.coarseGridCols[groupLastCol] = true;
+            }
         }
-
-        this.dateGridColumns.push(date);
     }
 
-    computeColumnWidth() {
+    computeVisibleRows() {
+        this.coarseGridRows = {
+            1: true,
+            [this.getLastGridRow(this.rows[this.rows.length - 1])]: true,
+        };
+        const [rowStart, rowEnd] = this.virtualGrid.rowsIndexes;
+        this.rowsToRender = new Set();
+        for (const row of this.rows) {
+            const [first, last] = row.grid.row;
+            if (last <= rowStart + 1 || first > rowEnd + 1) {
+                continue;
+            }
+            this.addToRowsToRender(row);
+        }
+    }
+
+    getFirstGridCol({ grid }) {
+        const [first] = grid.column;
+        return first;
+    }
+
+    getLastGridCol({ grid }) {
+        const [, last] = grid.column;
+        return last;
+    }
+
+    getFirstGridRow({ grid }) {
+        const [first] = grid.row;
+        return first;
+    }
+
+    getLastGridRow({ grid }) {
+        const [, last] = grid.row;
+        return last;
+    }
+
+    addToPillsToRender(pill) {
+        this.pillsToRender.add(pill);
+        this.addCoordinatesToCoarseGrid(pill);
+    }
+
+    addToRowsToRender(row) {
+        this.rowsToRender.add(row);
+        const [first, last] = row.grid.row;
+        for (let i = first; i <= last; i++) {
+            this.coarseGridRows[i] = true;
+        }
+    }
+
+    /**
+     * give bounds only
+     */
+    getVisibleCols() {
+        const [columnStart, columnEnd] = this.virtualGrid.columnsIndexes;
         const { cellPart } = this.model.metaData.scale;
-        const subColumnCount = this.columns.length * cellPart;
-        const totalWidth = browser.innerWidth;
-        const rowHeaderWidthPercentage = this.constructor.getRowHeaderWidth(totalWidth);
-        const cellContainerWidthPercentage = 100 - rowHeaderWidthPercentage;
-        let cellContainerWidth = totalWidth * (cellContainerWidthPercentage / 100);
-        cellContainerWidth = Math.round(cellContainerWidth / subColumnCount) * subColumnCount;
-        this.state.rowHeaderWidth = totalWidth - cellContainerWidth;
-        this.state.pillsWidth = cellContainerWidth / subColumnCount;
+        const firstVisibleCol = 1 + cellPart * columnStart;
+        const lastVisibleCol = 1 + cellPart * (columnEnd + 1);
+        return [firstVisibleCol, lastVisibleCol];
+    }
+
+    /**
+     * give bounds only
+     */
+    getVisibleRows() {
+        const [rowStart, rowEnd] = this.virtualGrid.rowsIndexes;
+        const firstVisibleRow = rowStart + 1;
+        const lastVisibleRow = rowEnd + 1;
+        return [firstVisibleRow, lastVisibleRow];
+    }
+
+    computeVisiblePills() {
+        this.pillsToRender = new Set();
+
+        const [firstVisibleCol, lastVisibleCol] = this.getVisibleCols();
+        const [firstVisibleRow, lastVisibleRow] = this.getVisibleRows();
+
+        const isOut = (pill, filterOnRow = true) =>
+            this.getFirstGridCol(pill) > lastVisibleCol ||
+            this.getLastGridCol(pill) < firstVisibleCol ||
+            (filterOnRow &&
+                (this.getFirstGridRow(pill) > lastVisibleRow ||
+                    this.getLastGridRow(pill) - 1 < firstVisibleRow));
+
+        const getRowPills = (row, filterOnRow) =>
+            (this.rowPills[row.id] || []).filter((pill) => !isOut(pill, filterOnRow));
+
+        for (const row of this.rowsToRender) {
+            for (const rowPill of getRowPills(row)) {
+                this.addToPillsToRender(rowPill);
+            }
+            if (!row.isGroup && row.unavailabilities) {
+                row.cellColors = this.getRowCellColors(row);
+            }
+        }
+
+        if (this.stickyPillId) {
+            this.addToPillsToRender(this.pills[this.stickyPillId]);
+        }
+
+        if (this.totalRow) {
+            this.totalRow.pills = getRowPills(this.totalRow, false);
+            for (const pill of this.totalRow.pills) {
+                this.addCoordinatesToCoarseGrid({ grid: omit(pill.grid, "row") });
+            }
+        }
+    }
+
+    computeVisibleConnectors() {
+        const visibleConnectorIds = new Set([NEW_CONNECTOR_ID]);
+
+        for (const pill of this.pillsToRender) {
+            const row = this.getRowFromPill(pill);
+            if (row.isGroup) {
+                continue;
+            }
+            for (const connectorId of this.mappingPillToConnectors[pill.id] || []) {
+                visibleConnectorIds.add(connectorId);
+            }
+        }
+
+        this.connectorsToRender = [];
+        for (const connectorId in this.connectors) {
+            if (!visibleConnectorIds.has(connectorId)) {
+                continue;
+            }
+            this.connectorsToRender.push(this.connectors[connectorId]);
+            const { sourcePillId, targetPillId } = this.mappingConnectorToPills[connectorId];
+            if (sourcePillId) {
+                this.addToPillsToRender(this.pills[sourcePillId]);
+            }
+            if (targetPillId) {
+                this.addToPillsToRender(this.pills[targetPillId]);
+            }
+        }
+    }
+
+    getRowFromPill(pill) {
+        return this.rowByIds[pill.rowId];
+    }
+
+    getColInCoarseGridKeys() {
+        return Object.keys({ ...this.coarseGridCols, ...this.stickyGridColumns });
+    }
+
+    getRowInCoarseGridKeys() {
+        return Object.keys({ ...this.coarseGridRows, ...this.stickyGridRows });
+    }
+
+    computeColsTemplate() {
+        const colsTemplate = [];
+        const colInCoarseGridKeys = this.getColInCoarseGridKeys();
+        for (let i = 0; i < colInCoarseGridKeys.length - 1; i++) {
+            const x = +colInCoarseGridKeys[i];
+            const y = +colInCoarseGridKeys[i + 1];
+            const colName = `c${x}`;
+            const width = (y - x) * this.cellPartWidth;
+            colsTemplate.push(`[${colName}]minmax(${width}px,1fr)`);
+        }
+        colsTemplate.push(`[c${colInCoarseGridKeys.at(-1)}]`);
+        return colsTemplate.join("");
+    }
+
+    computeRowsTemplate() {
+        const rowsTemplate = [];
+        const rowInCoarseGridKeys = this.getRowInCoarseGridKeys();
+        for (let i = 0; i < rowInCoarseGridKeys.length - 1; i++) {
+            const x = +rowInCoarseGridKeys[i];
+            const y = +rowInCoarseGridKeys[i + 1];
+            const rowName = `r${x}`;
+            const height = this.gridRows.slice(x - 1, y - 1).reduce((a, b) => a + b, 0);
+            rowsTemplate.push(`[${rowName}]${height}px`);
+        }
+        rowsTemplate.push(`[r${rowInCoarseGridKeys.at(-1)}]`);
+        return rowsTemplate.join("");
+    }
+
+    computeSomeWidths() {
+        const { cellPart, minimalColumnWidth } = this.model.metaData.scale;
+        this.contentRefWidth = this.props.contentRef.el?.clientWidth ?? document.body.clientWidth;
+        const rowHeaderWidthPercentage = this.hasRowHeaders
+            ? this.constructor.getRowHeaderWidth(this.contentRefWidth)
+            : 0;
+        this.rowHeaderWidth = this.hasRowHeaders
+            ? Math.round((rowHeaderWidthPercentage * this.contentRefWidth) / 100)
+            : 0;
+        const cellContainerWidth = this.contentRefWidth - this.rowHeaderWidth;
+        const columnWidth = Math.floor(cellContainerWidth / this.columnCount);
+        const rectifiedColumnWidth = Math.max(columnWidth, minimalColumnWidth);
+        this.cellPartWidth = Math.floor(rectifiedColumnWidth / cellPart);
+        this.columnWidth = this.cellPartWidth * cellPart;
+        if (columnWidth <= minimalColumnWidth) {
+            // overflow
+            this.totalWidth = this.rowHeaderWidth + this.columnWidth * this.columnCount;
+        } else {
+            this.totalWidth = null;
+        }
     }
 
     computeDerivedParams() {
@@ -639,15 +946,17 @@ export class GanttRenderer extends Component {
             this.mappingPillToConnectors = {};
         }
 
-        this.topOffset = 0;
+        const { globalStart, globalStop, scale, startDate, stopDate } = this.model.metaData;
+        this.columnCount = diffColumn(globalStart, globalStop, scale.interval);
+
+        this.currentGridRow = 1;
+        this.gridRows = [];
         this.nextPillId = 1;
 
         this.pills = {}; // mapping to retrieve pills from pill ids
         this.rows = [];
-        this.rowIds = [];
-
-        this.computeColumns();
-        this.computeColumnWidth();
+        this.rowPills = {};
+        this.rowByIds = {};
 
         const prePills = this.getPills();
 
@@ -658,9 +967,6 @@ export class GanttRenderer extends Component {
             pillsToProcess = result.pillsToProcess;
         }
 
-        this.gridTemplate = this.computeGrid(this.rows, this.columns);
-        this.virtualGrid.setRowsHeights(this.rows.map((row) => this.getRowHeight(row)));
-
         const { displayTotalRow } = this.model.metaData;
         if (displayTotalRow) {
             this.totalRow = this.getTotalRow(prePills);
@@ -670,12 +976,27 @@ export class GanttRenderer extends Component {
             this.initializeConnectors();
             this.generateConnectors();
         }
+
+        this.shouldComputeSomeWidths = true;
+        this.shouldComputeGridColumns = true;
+        this.shouldComputeGridRows = true;
+
+        if (
+            !this.currentStartDate ||
+            diffColumn(this.currentStartDate, startDate, "day") ||
+            diffColumn(this.currentStopDate, stopDate, "day") ||
+            this.currentScaleId !== scale.id
+        ) {
+            this.useFocusDate = true;
+            this.mappingColToColumn = new Map();
+            this.mappingColToSubColumn = new Map();
+        }
+        this.currentStartDate = startDate;
+        this.currentStopDate = stopDate;
+        this.currentScaleId = scale.id;
     }
 
-    /**
-     * @param {PointerEvent} ev
-     */
-    computeDerivedParamsFromHover(ev) {
+    computeDerivedParamsFromHover() {
         const { scale } = this.model.metaData;
 
         const { connector, hoverable, pill } = this.hovered;
@@ -688,7 +1009,12 @@ export class GanttRenderer extends Component {
             const rect = hoverable.getBoundingClientRect();
             const x = Math.floor(rect.x);
             const width = Math.floor(rect.width);
-            this.cellForDrag.part = Math.floor((ev.clientX - x) / (width / scale.cellPart));
+            this.cellForDrag.part = Math.floor(
+                (this.cursorPosition.x - x) / (width / scale.cellPart)
+            );
+            if (localization.direction === "rtl") {
+                this.cellForDrag.part = scale.cellPart - 1 - this.cellForDrag.part;
+            }
         }
 
         if (this.isDragging) {
@@ -719,46 +1045,8 @@ export class GanttRenderer extends Component {
         }
         this.togglePillHighlighting(hoveredPillId, true);
 
-        // Update cell buttons
-        if (
-            this.selection.active &&
-            isCellHovered &&
-            Number(hoverable.dataset.columnIndex) !== this.selection.lastSelectId
-        ) {
-            const isUngroupedCellHovered = hoverable?.matches(".o_gantt_cell:not(.o_gantt_group)");
-            if (isUngroupedCellHovered && !ev?.target.closest(".o_connector_creator")) {
-                const columnIndex = Number(hoverable.dataset.columnIndex);
-                const columnStart = Math.min(this.selection.initialIndex, columnIndex);
-                const columnStop = Math.max(this.selection.initialIndex, columnIndex);
-                this.selection.lastSelectId = columnIndex;
-                for (const cell of this.getCellsOnRow(this.selection.rowId)) {
-                    if (
-                        cell.dataset.columnIndex < columnStart ||
-                        cell.dataset.columnIndex > columnStop
-                    ) {
-                        cell.classList.remove("o_drag_hover");
-                    } else {
-                        cell.classList.add("o_drag_hover");
-                    }
-                }
-            }
-        }
-
         // Update progress bars
         this.progressBarsReactive.hoveredRowId = hoverable ? hoverable.dataset.rowId : null;
-    }
-
-    /**
-     * @param {Row[]} rows
-     * @param {Column[]} columns
-     * @returns {{ rows: number, columns: number }}
-     */
-    computeGrid(rows, columns) {
-        const { cellPart } = this.model.metaData.scale;
-        return {
-            rows: rows.reduce((acc, row) => acc + row.grid.row[1], 0),
-            columns: columns.length * cellPart,
-        };
     }
 
     /**
@@ -854,6 +1142,23 @@ export class GanttRenderer extends Component {
         return pill;
     }
 
+    focusDate(date, ifInBounds) {
+        const { globalStart, globalStop } = this.model.metaData;
+        const diff = date.diff(globalStart);
+        const totalDiff = globalStop.diff(globalStart);
+        const factor = diff / totalDiff;
+        if (ifInBounds && (factor < 0 || 1 < factor)) {
+            return false;
+        }
+        const rtlFactor = localization.direction === "rtl" ? -1 : 1;
+        const scrollLeft =
+            factor * this.cellContainerRef.el.clientWidth +
+            this.rowHeaderWidth -
+            (this.contentRefWidth + this.rowHeaderWidth) / 2;
+        this.props.contentRef.el.scrollLeft = rtlFactor * scrollLeft;
+        return true;
+    }
+
     generateConnectors() {
         this.nextConnectorId = 1;
         this.setConnector({
@@ -916,9 +1221,9 @@ export class GanttRenderer extends Component {
      * @param {number} columnStart
      * @param {number} columnStop
      */
-    getColumnStartStop(columnStartIndex, columnStopIndex = columnStartIndex) {
-        const { start } = this.columns[columnStartIndex];
-        const { stop } = this.columns[columnStopIndex];
+    getColumnStartStop(startCol, stopCol = startCol) {
+        const { start } = this.getColumnFromColNumber(startCol);
+        const { stop } = this.getColumnFromColNumber(stopCol);
         return { start, stop };
     }
 
@@ -941,16 +1246,6 @@ export class GanttRenderer extends Component {
     }
 
     /**
-     * @param {string} rowId
-     * @returns {NodeList[]}
-     */
-    getCellsOnRow(rowId) {
-        return this.cellContainerRef.el.querySelectorAll(
-            `.o_gantt_cell[data-row-id='${CSS.escape(rowId)}']`
-        );
-    }
-
-    /**
      * @param {Row} row
      * @param {Column} column
      * @return {Object}
@@ -963,6 +1258,20 @@ export class GanttRenderer extends Component {
             o_gantt_hoverable: this.isHoverable(row),
             o_group_open: !this.model.isClosed(row.id),
         };
+    }
+
+    getCurrentFocusDate() {
+        const { globalStart, globalStop } = this.model.metaData;
+        const rtlFactor = localization.direction === "rtl" ? -1 : 1;
+        const cellGridMiddleX =
+            rtlFactor * this.props.contentRef.el.scrollLeft +
+            (this.contentRefWidth + this.rowHeaderWidth) / 2;
+        const factor =
+            (cellGridMiddleX - this.rowHeaderWidth) / this.cellContainerRef.el.clientWidth;
+        const totalDiff = globalStop.diff(globalStart);
+        const diff = factor * totalDiff;
+        const focusDate = globalStart.plus(diff);
+        return focusDate;
     }
 
     /**
@@ -1015,8 +1324,7 @@ export class GanttRenderer extends Component {
             stopDate.startOf("day") > startDate.startOf("day") &&
             startDate.endOf("day").diff(startDate, "hours").toObject().hours >= 3 &&
             stopDate.diff(stopDate.startOf("day"), "hours").toObject().hours >= 3;
-        const spanAccrossWeeks =
-            computeRange("week", stopDate).start > computeRange("week", startDate).start;
+        const spanAccrossWeeks = getStartOfLocalWeek(stopDate) > getStartOfLocalWeek(startDate);
         const spanAccrossMonths = stopDate.startOf("month") > startDate.startOf("month");
 
         /** @type {string[]} */
@@ -1061,67 +1369,51 @@ export class GanttRenderer extends Component {
 
     /**
      * @param {Pill} pill
-     * @returns {number}
-     */
-    getFirstcol(pill) {
-        return pill.grid.column[0];
-    }
-
-    /**
-     * @returns {string}
-     */
-    getFormattedFocusDate() {
-        const { focusDate, scale } = this.model.metaData;
-        const { format, id: scaleId } = scale;
-        switch (scaleId) {
-            case "day":
-            case "month":
-            case "year":
-                return formatDateTime(focusDate, { format });
-            case "week": {
-                const { startDate, stopDate } = this.model.metaData;
-                const start = formatDateTime(startDate, { format });
-                const stop = formatDateTime(stopDate, { format });
-                return `${start} - ${stop}`;
-            }
-            default:
-                throw new Error(`Unknown scale id "${scaleId}".`);
-        }
-    }
-
-    /**
-     * @param {Pill} pill
      */
     getGroupPillDisplayName(pill) {
         return pill.aggregateValue;
     }
 
     /**
-     * @param {{ column?: number | number[], row?: number | number[] }} position
+     * @param {{ column?: [number, number], row?: [number, number] }} position
      */
     getGridPosition(position) {
         const style = [];
-        for (const prop of ["column", "row"]) {
-            const [index, span] = Array.isArray(position[prop]) ? position[prop] : [position[prop]];
-            if (span && span !== 1) {
-                if (span === -1) {
-                    style.push(`grid-${prop}:${index} / -1`);
-                } else {
-                    style.push(`grid-${prop}:${index} / span ${span}`);
-                }
-            } else if (index) {
-                style.push(`grid-${prop}:${index}`);
-            }
+        const keys = Object.keys(pick(position, "column", "row"));
+        for (const key of keys) {
+            const prefix = key.slice(0, 1);
+            const [first, last] = position[key];
+            style.push(`grid-${key}:${prefix}${first}/${prefix}${last}`);
         }
         return style.join(";");
     }
 
-    /**
-     * @param {Pill} pill
-     */
-    getLastCol(pill) {
-        const [col, colspan] = pill.grid.column;
-        return col + colspan - 1;
+    setSomeGridStyleProperties() {
+        const rowsTemplate = this.computeRowsTemplate();
+        const colsTemplate = this.computeColsTemplate();
+        this.gridRef.el.style.setProperty("--Gantt__GridRows-grid-template-rows", rowsTemplate);
+        this.gridRef.el.style.setProperty(
+            "--Gantt__GridColumns-grid-template-columns",
+            colsTemplate
+        );
+    }
+
+    getGridStyle() {
+        const rowsTemplate = this.computeRowsTemplate();
+        const colsTemplate = this.computeColsTemplate();
+        const style = {
+            "--Gantt__RowHeader-width": `${this.rowHeaderWidth}px`,
+            "--Gantt__Pill-height": "35px",
+            "--Gantt__Thumbnail-max-height": "16px",
+            "--Gantt__GridRows-grid-template-rows": rowsTemplate,
+            "--Gantt__GridColumns-grid-template-columns": colsTemplate,
+        };
+        if (this.totalWidth !== null) {
+            style.width = `${this.totalWidth}px`;
+        }
+        return Object.entries(style)
+            .map((entry) => entry.join(":"))
+            .join(";");
     }
 
     /**
@@ -1129,41 +1421,97 @@ export class GanttRenderer extends Component {
      * @returns {Partial<Pill>}
      */
     getPill(record) {
-        const { canEdit, dateStartField, dateStopField, disableDrag, startDate, stopDate } =
+        const { canEdit, dateStartField, dateStopField, disableDrag, globalStart, globalStop } =
             this.model.metaData;
 
-        const startOutside = record[dateStartField] < startDate;
-        const stopOutside = record[dateStopField] > stopDate;
+        const startOutside = record[dateStartField] < globalStart;
+        const stopOutside = record[dateStopField] > globalStop;
 
         /** @type {DateTime} */
-        const pillStartDate = startOutside ? startDate : record[dateStartField];
+        const pillStartDate = startOutside ? globalStart : record[dateStartField];
         /** @type {DateTime} */
-        const pillStopDate = stopOutside ? stopDate : record[dateStopField];
+        const pillStopDate = stopOutside ? globalStop : record[dateStopField];
 
         const disableStartResize = !canEdit || startOutside;
         const disableStopResize = !canEdit || stopOutside;
-
-        const [startIndex, stopIndex] = this.computeColumnIndexes(
-            pillStartDate,
-            pillStopDate,
-            this.dateGridColumns
-        );
-
-        const firstCol = startIndex + 1;
-        const span = stopIndex - startIndex;
 
         /** @type {Partial<Pill>} */
         const pill = {
             disableDrag: disableDrag || disableStartResize || disableStopResize,
             disableStartResize,
             disableStopResize,
-            grid: { column: [firstCol, span] },
+            grid: { column: this.getGridColumnFromDates(pillStartDate, pillStopDate) },
             record,
-            startDate: this.dateGridColumns[startIndex],
-            stopDate: this.dateGridColumns[stopIndex],
         };
 
         return pill;
+    }
+
+    getGridColumnFromDates(startDate, stopDate) {
+        const { globalStart, scale } = this.model.metaData;
+        const { cellPart, interval } = scale;
+        const { column: column1, delta: delta1 } = this.getSubColumnFromDate(startDate);
+        const { column: column2, delta: delta2 } = this.getSubColumnFromDate(stopDate, false);
+        const firstCol = 1 + diffColumn(globalStart, column1, interval) * cellPart + delta1;
+        const span = diffColumn(column1, column2, interval) * cellPart + delta2 - delta1;
+        return [firstCol, firstCol + span];
+    }
+
+    getSubColumnFromDate(date, onLeft = true) {
+        const { interval, cellPart, cellTime, time } = this.model.metaData.scale;
+        const column = date.startOf(interval);
+        let delta;
+        if (onLeft) {
+            delta = 0;
+            for (let i = 1; i < cellPart; i++) {
+                const subCellStart = dateAddFixedOffset(column, { [time]: i * cellTime });
+                if (subCellStart <= date) {
+                    delta += 1;
+                } else {
+                    break;
+                }
+            }
+        } else {
+            delta = cellPart;
+            for (let i = cellPart - 1; i >= 0; i--) {
+                const subCellStart = dateAddFixedOffset(column, { [time]: i * cellTime });
+                if (subCellStart >= date) {
+                    delta -= 1;
+                } else {
+                    break;
+                }
+            }
+        }
+        return { column, delta };
+    }
+
+    getSubColumnFromColNumber(col) {
+        let subColumn = this.mappingColToSubColumn.get(col);
+        if (!subColumn) {
+            const { globalStart, scale } = this.model.metaData;
+            const { interval, cellPart, cellTime, time } = scale;
+            const delta = (col - 1) % cellPart;
+            const columnIndex = (col - 1 - delta) / cellPart;
+            const start = globalStart.plus({ [interval]: columnIndex });
+            subColumn = this.makeSubColumn(start, delta, cellTime, time);
+            this.mappingColToSubColumn.set(col, subColumn);
+        }
+        return subColumn;
+    }
+
+    getColumnFromColNumber(col) {
+        let column = this.mappingColToColumn.get(col);
+        if (!column) {
+            const { globalStart, scale } = this.model.metaData;
+            const { interval, cellPart } = scale;
+            const delta = (col - 1) % cellPart;
+            const columnIndex = (col - 1 - delta) / cellPart;
+            const start = globalStart.plus({ [interval]: columnIndex });
+            const stop = start.endOf(interval);
+            column = { start, stop };
+            this.mappingColToColumn.set(col, column);
+        }
+        return column;
     }
 
     /**
@@ -1239,7 +1587,6 @@ export class GanttRenderer extends Component {
             const pill = this.getPill(record);
             pills.push(this.enrichPill(pill));
         }
-        // sorting cannot be done when fetching data --> the snapping of pills breaks order
         return pills.sort(
             (p1, p2) =>
                 p1.grid.column[0] - p2.grid.column[0] ||
@@ -1331,9 +1678,10 @@ export class GanttRenderer extends Component {
     }
 
     /**
-     * @param {Unavailability[]} unavailabilities
+     * @param {Row} row
      */
-    getRowCellColors(unavailabilities) {
+    getRowCellColors(row) {
+        const { unavailabilities } = row;
         const { cellPart } = this.model.metaData.scale;
         // We assume that the unavailabilities have been normalized
         // (i.e. are naturally ordered and are pairwise disjoint).
@@ -1346,16 +1694,17 @@ export class GanttRenderer extends Component {
         const subSlotUnavailabilities = [];
         for (const subColumn of this.subColumns) {
             const { isToday, start, stop, columnId } = subColumn;
-            if (unavailabilities.slice(index).length) {
+            if (index < unavailabilities.length) {
                 let subSlotUnavailable = 0;
                 for (let i = index; i < unavailabilities.length; i++) {
                     const u = unavailabilities[i];
                     if (stop > u.stop) {
                         index++;
+                        continue;
                     } else if (u.start <= start) {
                         subSlotUnavailable = 1;
-                        break;
                     }
+                    break;
                 }
                 subSlotUnavailabilities.push(subSlotUnavailable);
                 if ((j + 1) % cellPart === 0) {
@@ -1372,14 +1721,19 @@ export class GanttRenderer extends Component {
     }
 
     /**
-     * @param {Row} row
+     * @param {"t0" | "t1" | "t2"} type
+     * @returns {number}
      */
-    getRowHeight(row) {
-        return row.grid.row[1] * this.constructor.GRID_ROW_HEIGHT;
+    getRowTypeHeight(type) {
+        return {
+            t0: 24,
+            t1: 36,
+            t2: 16,
+        }[type];
     }
 
     getRowTitleStyle(row) {
-        return this.getGridPosition({ column: row.grid.column });
+        return `grid-column: ${row.groupLevel + 2} / -1`;
     }
 
     openPlanDialogCallback() {}
@@ -1413,18 +1767,15 @@ export class GanttRenderer extends Component {
             recordIds: pills.map(({ record }) => record.id),
         };
 
-        this.topOffset = 0;
+        this.currentGridRow = 1;
         const result = this.processRow(preRow, pills);
         const [totalRow] = result.rows;
-        const maxAggregateValue = Math.max(...totalRow.pills.map((p) => p.aggregateValue));
+        const allPills = this.rowPills[totalRow.id] || [];
+        const maxAggregateValue = Math.max(...allPills.map((p) => p.aggregateValue));
 
         totalRow.factor = maxAggregateValue ? 90 / maxAggregateValue : 0;
 
         return totalRow;
-    }
-
-    getTodayDay() {
-        return DateTime.local().day;
     }
 
     highlightPill(pillId, highlighted) {
@@ -1448,7 +1799,7 @@ export class GanttRenderer extends Component {
     }
 
     isPillSmall(pill) {
-        return this.state.pillsWidth * pill.grid.column[1] < pill.displayName.length * 10;
+        return this.cellPartWidth * pill.grid.column[1] < pill.displayName.length * 10;
     }
 
     /**
@@ -1481,7 +1832,6 @@ export class GanttRenderer extends Component {
             const previousGroup = left.pop();
             group.break = previousGroup.break;
             group.grid.column[0] = previousGroup.grid.column[0];
-            group.grid.column[1] += previousGroup.grid.column[1];
             group.aggregateValue = this.getAggregateValue(group, previousGroup);
         }
         return [...left, ...right];
@@ -1493,49 +1843,47 @@ export class GanttRenderer extends Component {
             this.computeDerivedParams();
         }
 
-        const [rowStart, rowEnd] = this.virtualGrid.rowsIndexes;
-        this.visibleRows = [
-            ...new Set([...this.rows.slice(rowStart, rowEnd + 1), ...this.extraRows]),
-        ];
-
-        if (!this.shouldRenderConnectors()) {
-            this.noDisplayedConnectors = true;
-            return;
+        if (this.shouldComputeSomeWidths) {
+            this.computeSomeWidths();
         }
 
-        const displayedPills = new Set();
-        const visibleConnectorIds = new Set([NEW_CONNECTOR_ID]);
-        for (const row of this.visibleRows) {
-            if (row.isGroup) {
-                continue;
-            }
-            for (const pill of row.pills) {
-                displayedPills.add(pill.id);
-                for (const connectorId of this.mappingPillToConnectors[pill.id] || []) {
-                    visibleConnectorIds.add(connectorId);
-                }
-            }
+        if (this.shouldComputeSomeWidths || this.shouldComputeGridColumns) {
+            this.virtualGrid.setColumnsWidths(new Array(this.columnCount).fill(this.columnWidth));
+            this.computeVisibleColumns();
         }
 
-        this.visibleConnectors = [];
-        const extraPillIds = new Set();
-        for (const connectorId in this.connectors) {
-            if (!visibleConnectorIds.has(connectorId)) {
-                continue;
-            }
-            this.visibleConnectors.push(this.connectors[connectorId]);
-            const { sourcePillId, targetPillId } = this.mappingConnectorToPills[connectorId];
-            if (sourcePillId && !displayedPills.has(sourcePillId)) {
-                extraPillIds.add(sourcePillId);
-            }
-            if (targetPillId && !displayedPills.has(targetPillId)) {
-                extraPillIds.add(targetPillId);
+        if (this.shouldComputeGridRows) {
+            this.virtualGrid.setRowsHeights(this.gridRows);
+            this.computeVisibleRows();
+        }
+
+        if (
+            this.shouldComputeSomeWidths ||
+            this.shouldComputeGridColumns ||
+            this.shouldComputeGridRows
+        ) {
+            delete this.shouldComputeSomeWidths;
+            delete this.shouldComputeGridColumns;
+            delete this.shouldComputeGridRows;
+            this.computeVisiblePills();
+            if (this.shouldRenderConnectors()) {
+                this.computeVisibleConnectors();
+            } else {
+                this.noDisplayedConnectors = true;
             }
         }
 
-        this.extraPills = [];
-        for (const id of extraPillIds) {
-            this.extraPills.push(this.pills[id]);
+        delete this.shouldComputeSomeWidths;
+        delete this.shouldComputeGridColumns;
+        delete this.shouldComputeGridRows;
+    }
+
+    pushGridRows(gridRows) {
+        for (const key of ["t0", "t1", "t2"]) {
+            if (key in gridRows) {
+                const types = new Array(gridRows[key]).fill(this.getRowTypeHeight(key));
+                this.gridRows.push(...types);
+            }
         }
     }
 
@@ -1580,8 +1928,8 @@ export class GanttRenderer extends Component {
      * @param {boolean} [processAsGroup=false]
      */
     processRow(row, pills, processAsGroup = true) {
-        const { GROUP_ROW_SPAN, ROW_SPAN } = this.constructor;
-        const { dependencyField, displayMode, fields } = this.model.metaData;
+        const { dependencyField, fields } = this.model.metaData;
+        const { displayMode } = this.model.displayParams;
         const {
             consolidate,
             fromServer,
@@ -1629,8 +1977,7 @@ export class GanttRenderer extends Component {
 
         const isGroup = displayMode === "sparse" ? processAsGroup : Boolean(rows);
 
-        const baseSpan = isGroup ? GROUP_ROW_SPAN : ROW_SPAN;
-        let span = baseSpan;
+        const gridRowTypes = isGroup ? { t0: 1 } : { t1: 1 };
         if (rowPills.length) {
             if (isGroup) {
                 if (this.shouldComputeAggregateValues(row)) {
@@ -1646,24 +1993,28 @@ export class GanttRenderer extends Component {
                 }
             } else {
                 const level = this.calculatePillsLevel(rowPills);
-                span = level * baseSpan;
+                gridRowTypes.t1 = level;
                 if (!this.isTouchDevice) {
-                    span += 4;
+                    gridRowTypes.t2 = 1;
                 }
             }
         }
-        if (progressBar && this.isTouchDevice && (!rowPills.length || span === baseSpan)) {
+
+        if (progressBar && this.isTouchDevice && (!gridRowTypes.t1 || gridRowTypes.t1 === 1)) {
             // In mobile: rows span over 2 rows to alllow progressbars to properly display
-            span += ROW_SPAN;
+            gridRowTypes.t1 = (gridRowTypes.t1 || 0) + 1;
+        }
+        if (row.id !== "[]") {
+            this.pushGridRows(gridRowTypes);
         }
 
         for (const rowPill of rowPills) {
             rowPill.id = `__pill__${this.nextPillId++}`;
+            const pillFirstRow = this.currentGridRow + rowPill.level;
             rowPill.grid = {
-                ...rowPill.grid,
-                row: [this.topOffset + rowPill.level * baseSpan + 1, baseSpan],
+                ...rowPill.grid, // rowPill is a shallow copy of a prePill (possibly copied several times)
+                row: [pillFirstRow, pillFirstRow + 1],
             };
-
             if (!isGroup) {
                 const { record } = rowPill;
                 if (this.shouldRenderRecordConnectors(record)) {
@@ -1680,28 +2031,32 @@ export class GanttRenderer extends Component {
                     this.mappingRowToPillsByRecord[id][record.id] = rowPill;
                 }
             }
-
+            rowPill.rowId = id;
             this.pills[rowPill.id] = rowPill;
         }
 
+        this.rowPills[id] = rowPills; // all row pills
+
+        const subRowsCount = Object.values(gridRowTypes).reduce((acc, val) => acc + val, 0);
         /** @type {Row} */
         const processedRow = {
+            unavailabilities,
+            cellColors: {},
             fromServer,
             groupedByField,
             groupLevel,
             id,
             isGroup,
             name,
-            pills: rowPills,
             progressBar,
             resId,
             grid: {
-                row: [this.topOffset + 1, span],
-                column: [groupLevel + 2, -1],
+                row: [this.currentGridRow, this.currentGridRow + subRowsCount],
             },
         };
+        this.rowByIds[id] = processedRow;
 
-        this.topOffset += span;
+        this.currentGridRow += subRowsCount;
 
         const field = this.model.metaData.thumbnails[groupedByField];
         if (field) {
@@ -1711,13 +2066,6 @@ export class GanttRenderer extends Component {
                 id: resId,
                 field,
             });
-        }
-
-        if (!isGroup && unavailabilities) {
-            // attribute a color to each cell part according to row unavailabilities
-            processedRow.cellColors = this.getRowCellColors(unavailabilities);
-        } else {
-            processedRow.cellColors = {};
         }
 
         const result = { rows: [processedRow], pillsToProcess: remainingPills };
@@ -1809,17 +2157,10 @@ export class GanttRenderer extends Component {
     }
 
     /**
-     * @param {HTMLElement | null} [cellEl]
+     * @param {HTMLElement} [pillEl]
      */
-    setStickyRowFromCell(cellEl) {
-        this.extraRows = [];
-        if (cellEl) {
-            const { rowId } = cellEl.dataset;
-            const row = this.rows.find((row) => row.id === rowId);
-            if (row) {
-                this.extraRows.push(row);
-            }
-        }
+    setStickyPill(pillEl) {
+        this.stickyPillId = pillEl ? pillEl.dataset.pillId : null;
     }
 
     /**
@@ -1837,8 +2178,6 @@ export class GanttRenderer extends Component {
      * Returns whether connectors should be rendered or not.
      * The connectors won't be rendered on sampleData as we can't be sure that data are coherent.
      * The connectors won't be rendered on mobile as the usability is not guarantied.
-     * The connectors won't be rendered on multiple groupBy as we would need to manage groups folding which seems
-     *     overkill at this stage.
      *
      * @return {boolean}
      */
@@ -1918,13 +2257,21 @@ export class GanttRenderer extends Component {
     // Handlers
     //-------------------------------------------------------------------------
 
-    /**
-     * @param {Object} params
-     * @param {RowId} params.rowId
-     * @param {number} params.columnIndex
-     */
-    onCreate(rowId, columnStart, columnStop) {
-        const { start, stop } = this.getColumnStartStop(columnStart, columnStop);
+    onCellClicked(rowId, col) {
+        if (!this.preventClick) {
+            this.preventClick = true;
+            setTimeout(() => (this.preventClick = false), 1000);
+            const { canCellCreate, canPlan } = this.model.metaData;
+            if (canPlan) {
+                this.onPlan(rowId, col, col);
+            } else if (canCellCreate) {
+                this.onCreate(rowId, col, col);
+            }
+        }
+    }
+
+    onCreate(rowId, startCol, stopCol) {
+        const { start, stop } = this.getColumnStartStop(startCol, stopCol);
         const context = this.model.getDialogContext({
             rowId,
             start,
@@ -1939,51 +2286,15 @@ export class GanttRenderer extends Component {
         if (mode === "drag") {
             mode = dragAction;
         }
-        if (this.rootRef.el) {
+        if (this.gridRef.el) {
             for (const [action, className] of INTERACTION_CLASSNAMES) {
-                this.rootRef.el.classList.toggle(className, mode === action);
-            }
-        }
-    }
-
-    onSelectStart(ev) {
-        if (ev.button !== 0) {
-            return;
-        }
-        const { hoverable } = this.hovered;
-        const { canCellCreate, canPlan } = this.model.metaData;
-        if (canCellCreate || canPlan) {
-            const isUngroupedCellHovered = hoverable?.matches(".o_gantt_cell:not(.o_gantt_group)");
-            if (isUngroupedCellHovered && !ev?.target.closest(".o_connector_creator")) {
-                this.selection.active = true;
-                this.selection.rowId = hoverable.dataset.rowId;
-                this.selection.initialIndex = Number(hoverable.dataset.columnIndex);
-                this.selection.lastSelectId = this.selection.initialIndex;
-                hoverable.classList.add("o_drag_hover");
-            }
-        }
-    }
-
-    onSelectStop() {
-        const { canPlan } = this.model.metaData;
-        if (this.selection.active) {
-            this.selection.active = false;
-            const { rowId, initialIndex, lastSelectId } = this.selection;
-            const columnStart = Math.min(initialIndex, lastSelectId);
-            const columnStop = Math.max(initialIndex, lastSelectId);
-            for (const cell of this.getCellsOnRow(rowId)) {
-                cell.classList.remove("o_drag_hover");
-            }
-            if (canPlan) {
-                this.onPlan(rowId, columnStart, columnStop);
-            } else {
-                this.onCreate(rowId, columnStart, columnStop);
+                this.gridRef.el.classList.toggle(className, mode === action);
             }
         }
     }
 
     onPointerLeave() {
-        this.throttledOnPointerMove.cancel();
+        this.throttledComputeHoverParams.cancel();
 
         if (!this.isDragging) {
             const hoveredConnectorId = this.hovered.connector?.dataset.connectorId;
@@ -2004,12 +2315,20 @@ export class GanttRenderer extends Component {
      * Updates all hovered elements, then calls "computeDerivedParamsFromHover".
      *
      * @see computeDerivedParamsFromHover
-     * @param {PointerEvent} ev
+     * @param {Event} ev
      */
-    onPointerMove(ev) {
+    computeHoverParams(ev) {
         // Lazily compute elements from point as it is a costly operation
         let els = null;
-        const pointedEls = () => els || (els = document.elementsFromPoint(ev.clientX, ev.clientY));
+        let position = {};
+        if (ev.type === "scroll") {
+            position = this.cursorPosition;
+        } else {
+            position.x = ev.clientX;
+            position.y = ev.clientY;
+            this.cursorPosition = position;
+        }
+        const pointedEls = () => els || (els = document.elementsFromPoint(position.x, position.y));
 
         // To find hovered elements, also from pointed elements
         const find = (selector) =>
@@ -2021,7 +2340,7 @@ export class GanttRenderer extends Component {
         this.hovered.hoverable = find(".o_gantt_hoverable");
         this.hovered.pill = find(".o_gantt_pill_wrapper");
 
-        this.computeDerivedParamsFromHover(ev);
+        this.computeDerivedParamsFromHover();
     }
 
     /**
@@ -2036,13 +2355,8 @@ export class GanttRenderer extends Component {
         this.popover.open(popoverTarget, this.getPopoverProps(pill));
     }
 
-    /**
-     * @param {Object} params
-     * @param {RowId} params.rowId
-     * @param {number} params.columnIndex
-     */
-    onPlan(rowId, columnStart, columnStop) {
-        const { start, stop } = this.getColumnStartStop(columnStart, columnStop);
+    onPlan(rowId, startCol, stopCol) {
+        const { start, stop } = this.getColumnStartStop(startCol, stopCol);
         this.dialogService.add(
             SelectCreateDialog,
             this.getSelectCreateDialogProps({ rowId, start, stop, withDefault: true })
@@ -2093,12 +2407,6 @@ export class GanttRenderer extends Component {
                 this.interaction.dragAction === "copy" ? "reschedule" : this.interaction.dragAction;
             this.interaction.dragAction = "copy";
         }
-        if (ev.key === "Escape") {
-            this.selection.active = false;
-            document
-                .querySelectorAll(".o_gantt_cell")
-                .forEach((cell) => cell.classList.remove("o_drag_hover"));
-        }
     }
 
     /**
@@ -2108,29 +2416,5 @@ export class GanttRenderer extends Component {
         if (ev.key === "Control") {
             this.interaction.dragAction = this.prevDragAction || "reschedule";
         }
-    }
-
-    onCollapseClicked() {
-        this.model.collapseRows();
-    }
-
-    onExpandClicked() {
-        this.model.expandRows();
-    }
-
-    onNextPeriodClicked() {
-        this.model.setFocusDate("next");
-    }
-
-    onPreviousPeriodClicked() {
-        this.model.setFocusDate("previous");
-    }
-
-    onTodayClicked() {
-        this.model.setFocusDate();
-    }
-
-    get displayExpandCollapseButtons() {
-        return this.rows[0]?.isGroup; // all rows on same level have same type
     }
 }

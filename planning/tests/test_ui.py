@@ -19,13 +19,13 @@ class TestUi(TestUiCommon):
                                   groups='planning.group_planning_user',
                                   name='Bert User',
                                   email='user@example.com')
-        joseph_user = new_test_user(self.env,
-                                    login='joseph_user',
+        bety_user = new_test_user(self.env,
+                                    login='bety_user',
                                     groups='planning.group_planning_user',
-                                    name='Joseph User',
-                                    email='juser@example.com')
+                                    name='Bety User',
+                                    email='buser@example.com')
         test_role = self.env["planning.role"].create([{'name': 'test_role'}])
-        employee_bert, employee_joseph = self.env['hr.employee'].create([
+        employee_bert, employee_bety = self.env['hr.employee'].create([
             {
                 'name': 'bert',
                 'work_email': 'bert@a.be',
@@ -36,12 +36,12 @@ class TestUi(TestUiCommon):
                 'planning_role_ids': test_role,
             },
             {
-                'name': 'joseph',
-                'work_email': 'joseph@a.be',
+                'name': 'bety',
+                'work_email': 'bety@a.be',
                 'tz': 'UTC',
                 'employee_type': 'freelance',
                 'create_date': '2015-01-01 00:00:00',
-                'user_id': joseph_user.id,
+                'user_id': bety_user.id,
                 'planning_role_ids': test_role,
             }
         ])
@@ -56,7 +56,7 @@ class TestUi(TestUiCommon):
         self.assertEqual(test_slot.request_to_switch, True, 'Before requesting to switch, the request to switch should be False')
         self.start_tour("/", 'planning_assigning_unwanted_shift_backend', login='admin')
         self.assertEqual(test_slot.request_to_switch, False, 'After the assign action, the request to switch should be False')
-        self.assertEqual(test_slot.resource_id, employee_joseph.resource_id, 'The shift should now be assigned to Joseph')
+        self.assertEqual(test_slot.resource_id, employee_bety.resource_id, 'The shift should now be assigned to Bety')
 
     def test_planning_no_email(self):
         aaron_role = self.env["planning.role"].create([{'name': 'aaron_role'}])

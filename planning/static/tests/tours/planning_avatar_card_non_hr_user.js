@@ -10,13 +10,13 @@ registry.category("web_tour.tours").add('planning_avatar_card_non_hr_user', {
     content: "Open the Planning app",
     position: 'bottom',
 }, {
-    trigger: ".scale_button_selection",
+    trigger: 'input[type="range"]',
     content: "The initial default scale should be week",
     run() {
-        const subjectValue = document.querySelector('.scale_button_selection').textContent;
-        if (subjectValue !== "Week") {
+        const subjectValue = document.querySelector('input[type="range"]').value;
+        if (subjectValue !== "1") {
             console.error(
-                `Default scale should be week (actual: ${subjectValue})`
+                `Default scale should be week (1) (actual: ${subjectValue})`
             );
         }
     },

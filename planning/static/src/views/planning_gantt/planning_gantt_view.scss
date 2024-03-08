@@ -2,7 +2,7 @@
     // ========================= Pills Split Tool ==========================
     $splitToolWidth: 15px;//min 10
     .o_gantt_pill_split_tool {
-        z-index: 100;
+        @include o-gantt-zindex(interact);
         width: $splitToolWidth;
         margin-left: -$splitToolWidth * 0.5;
         .fa-scissors {   

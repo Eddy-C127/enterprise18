@@ -17,7 +17,7 @@ export class MRPWorkorderGanttRenderer extends GanttRenderer {
     }
 
     addTo(pill, group) {
-        const { start, stop } = this.subColumns[group.col - 1];
+        const { start, stop } = this.getSubColumnFromColNumber(group.col);
         const { date_start: otherStart, date_finished: otherStop } = pill.record;
         const interval = getIntersection(
             [start, stop.plus({ seconds: 1 })],
