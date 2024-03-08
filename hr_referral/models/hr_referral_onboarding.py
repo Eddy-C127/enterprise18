@@ -11,7 +11,7 @@ class HrReferralOnboarding(models.Model):
     _rec_name = 'text'
 
     sequence = fields.Integer()
-    text = fields.Text(required=True)
+    text = fields.Text(required=True, translate=True)
     image = fields.Binary(required=True)
     company_id = fields.Many2one('res.company', 'Company')
 
