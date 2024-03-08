@@ -507,14 +507,16 @@
                     <field name="empty_retention_message" invisible="1"/>
                     <group>
                         <field name="name" placeholder="The reason for closing a subscription"/>
-                        <field name="visible_in_portal"/>
+                        <field name="visible_in_portal" string="Selectable in Portal" help="Allowing to be selected by customers in the portal when they are closing their subscriptions."/>
                     </group>
-                    <separator string="Portal: retention step"/>
-                    <group>
-                        <field name="retention_message" placeholder="This message will be displayed to convince the customer to stay (e.g., We don't want you to leave, can we offer to schedule a meeting with your account manager?)"/>
-                        <field name="retention_button_text" placeholder="The text to display on the call to action"/>
-                        <field name="retention_button_link" placeholder="The redirect link of the call to action"/>
-                    </group>
+                    <div invisible="not visible_in_portal">
+                        <separator string="Portal: retention step"/>
+                        <group>
+                            <field name="retention_message" placeholder="This message will be displayed to convince the customer to stay (e.g., We don't want you to leave, can we offer to schedule a meeting with your account manager?)"/>
+                            <field name="retention_button_text" placeholder="The text to display on the call to action"/>
+                            <field name="retention_button_link" placeholder="The redirect link of the call to action"/>
+                        </group>
+                    </div>
                     <div role="alert" class="alert alert-warning" invisible="not visible_in_portal or not empty_retention_message and retention_button_text and retention_button_link or empty_retention_message and not retention_button_text and not retention_button_link">
                         <strong>Warning:</strong> the survey can only be shown if all information is set. Please complete:
                         <ul>
