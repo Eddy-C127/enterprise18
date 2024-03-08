@@ -77,7 +77,7 @@ class RequestAppraisal(models.TransientModel):
                 options={'post_process': True}
             )[self.env.user.id]
 
-    @api.depends('template_id', 'recipient_ids')
+    @api.depends('template_id', 'recipient_ids', 'user_body')
     def _compute_body(self):
         for wizard in self:
             user_body = wizard.user_body
