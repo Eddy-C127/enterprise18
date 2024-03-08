@@ -405,6 +405,14 @@ export class GanttRenderer extends Component {
     // Getters
     //-------------------------------------------------------------------------
 
+    /**
+     * @returns {boolean}
+     */
+    get hasRowHeaders() {
+        const { groupedBy, displayMode } = this.model.metaData;
+        return groupedBy.length || displayMode === "sparse";
+    }
+
     get isDragging() {
         return this.dragStates.some((s) => s.dragging);
     }
@@ -778,7 +786,8 @@ export class GanttRenderer extends Component {
 
         params.start =
             diff && dateAddFixedOffset(record[dateStartField], { [time]: cellTime * diff });
-        params.stop = diff && dateAddFixedOffset(record[dateStopField], { [time]: cellTime * diff });
+        params.stop =
+            diff && dateAddFixedOffset(record[dateStopField], { [time]: cellTime * diff });
         params.rowId = rowId;
 
         const schedule = this.model.getSchedule(params);
@@ -1387,7 +1396,6 @@ export class GanttRenderer extends Component {
         const preRow = {
             groupLevel: 0,
             id: "[]",
-            isGroup: true,
             rows: [],
             name: _t("Total"),
             recordIds: pills.map(({ record }) => record.id),
@@ -1428,7 +1436,7 @@ export class GanttRenderer extends Component {
     }
 
     isPillSmall(pill) {
-        return this.state.pillsWidth * pill.grid.column[1] < (pill.displayName.length * 10);
+        return this.state.pillsWidth * pill.grid.column[1] < pill.displayName.length * 10;
     }
 
     /**
@@ -1516,26 +1524,62 @@ export class GanttRenderer extends Component {
         }
     }
 
+    processPillsAsRows(row, pills) {
+        const rows = [];
+        const parsedId = JSON.parse(row.id);
+        if (pills.length) {
+            for (const pill of pills) {
+                const { id: resId, display_name: name } = pill.record;
+                const subRow = {
+                    id: JSON.stringify([...parsedId, { id: resId }]),
+                    resId,
+                    name,
+                    groupLevel: row.groupLevel + 1,
+                    recordIds: [resId],
+                    fromServer: row.fromServer,
+                    unavailabilities: row.unavailabilities,
+                };
+                const res = this.processRow(subRow, [pill], false);
+                rows.push(...res.rows);
+            }
+        } else {
+            const subRow = {
+                id: JSON.stringify([...parsedId, {}]),
+                resId: false,
+                name: "",
+                groupLevel: row.groupLevel + 1,
+                recordIds: [],
+                fromServer: row.fromServer,
+                unavailabilities: row.unavailabilities,
+            };
+            const res = this.processRow(subRow, [], false);
+            rows.push(...res.rows);
+        }
+
+        return rows;
+    }
+
     /**
      * @param {Row} row
      * @param {Pill[]} pills
+     * @param {boolean} [processAsGroup=false]
      */
-    processRow(row, pills) {
+    processRow(row, pills, processAsGroup = true) {
         const { GROUP_ROW_SPAN, ROW_SPAN } = this.constructor;
-        const { dependencyField, fields } = this.model.metaData;
+        const { dependencyField, displayMode, fields } = this.model.metaData;
         const {
             consolidate,
             fromServer,
             groupedByField,
             groupLevel,
             id,
-            isGroup,
             name,
             progressBar,
             resId,
             rows,
             unavailabilities,
             recordIds,
+            __extra__,
         } = row;
 
         // compute the subset pills at row level
@@ -1562,6 +1606,13 @@ export class GanttRenderer extends Component {
                 remainingPills.push(pill);
             }
         }
+
+        if (displayMode === "sparse" && __extra__) {
+            const rows = this.processPillsAsRows(row, groupPills);
+            return { rows, pillsToProcess: remainingPills };
+        }
+
+        const isGroup = displayMode === "sparse" ? processAsGroup : Boolean(rows);
 
         const baseSpan = isGroup ? GROUP_ROW_SPAN : ROW_SPAN;
         let span = baseSpan;
@@ -1656,12 +1707,17 @@ export class GanttRenderer extends Component {
 
         const result = { rows: [processedRow], pillsToProcess: remainingPills };
 
-        let pillsToProcess = groupPills;
-        if (isGroup && !this.model.isClosed(id)) {
-            for (const subRow of rows) {
-                const res = this.processRow(subRow, pillsToProcess);
-                result.rows.push(...res.rows);
-                pillsToProcess = res.pillsToProcess;
+        if (!this.model.isClosed(id)) {
+            if (rows) {
+                let pillsToProcess = groupPills;
+                for (const subRow of rows) {
+                    const res = this.processRow(subRow, pillsToProcess);
+                    result.rows.push(...res.rows);
+                    pillsToProcess = res.pillsToProcess;
+                }
+            } else if (displayMode === "sparse" && processAsGroup) {
+                const rows = this.processPillsAsRows(row, groupPills);
+                result.rows.push(...rows);
             }
         }
 
@@ -1773,10 +1829,7 @@ export class GanttRenderer extends Component {
      */
     shouldRenderConnectors() {
         return (
-            this.model.metaData.dependencyField &&
-            !this.model.useSampleModel &&
-            !this.env.isSmall &&
-            this.model.metaData.groupedBy.length <= 1
+            this.model.metaData.dependencyField && !this.model.useSampleModel && !this.env.isSmall
         );
     }
 
@@ -2063,6 +2116,6 @@ export class GanttRenderer extends Component {
     }
 
     get displayExpandCollapseButtons() {
-        return this.model.data.rows[0]?.isGroup; // all rows on same level have same type
+        return this.rows[0]?.isGroup; // all rows on same level have same type
     }
 }

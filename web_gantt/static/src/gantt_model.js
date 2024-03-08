@@ -66,7 +66,6 @@ const { DateTime } = luxon;
  * @property {string[]} groupedBy
  * @property {string} groupedByField
  * @property {number} groupLevel
- * @property {boolean} isGroup
  * @property {string} name
  * @property {number[]} recordIds
  * @property {ProgressBar} [progressBar]
@@ -192,11 +191,10 @@ export class GanttModel extends Model {
     collapseRows() {
         const collapse = (rows) => {
             for (const row of rows) {
-                if (!row.rows) {
-                    return; // all rows on same level have same type
-                }
                 this.closedRows.add(row.id);
-                collapse(row.rows);
+                if (row.rows) {
+                    collapse(row.rows);
+                }
             }
         };
         collapse(this.data.rows);
@@ -795,9 +793,9 @@ export class GanttModel extends Model {
                 {
                     groupLevel,
                     id: JSON.stringify([...parentGroup, {}]),
-                    isGroup: false,
                     name: "",
                     recordIds: unique(recordIds),
+                    __extra__: true,
                 },
             ];
         }
@@ -821,7 +819,7 @@ export class GanttModel extends Model {
         });
         const { maxField } = metaData.consolidationParams;
         const consolidate = groupLevel === 0 && groupedByField === maxField;
-        const isGroup = maxField ? true : groupedBy.length > 1;
+        const generateSubRow = maxField ? true : groupedBy.length > 1;
         for (const key in currentLevelGroups) {
             const subGroups = currentLevelGroups[key];
             const value = subGroups[0][groupedByField];
@@ -842,13 +840,11 @@ export class GanttModel extends Model {
                 groupedByField,
                 groupLevel,
                 id,
-                isGroup,
                 name: this._getRowName(metaData, groupedByField, value),
                 resId, // not really a resId
                 recordIds: unique(recordIds),
             };
-            // if isGroup Generate sub rows
-            if (isGroup) {
+            if (generateSubRow) {
                 row.rows = this._generateRows(metaData, {
                     ...params,
                     groupedBy: groupedBy.slice(1),

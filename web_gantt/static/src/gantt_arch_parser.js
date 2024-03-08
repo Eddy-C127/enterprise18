@@ -201,6 +201,7 @@ function getInfoFromRootNode(rootNode) {
         dependencyField,
         dependencyInvertedField,
         disableDrag: archParseBoolean(attrs.disable_drag_drop),
+        displayMode: attrs.display_mode || "dense",
         displayTotalRow: archParseBoolean(attrs.total_row),
         displayUnavailability: archParseBoolean(attrs.display_unavailability),
         dynamicRange: archParseBoolean(attrs.dynamic_range),

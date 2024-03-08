@@ -4,7 +4,7 @@
     <t t-name="web_gantt.GanttRenderer">
         <div t-ref="root"
             class="o_gantt_renderer o_renderer bg-view"
-            t-att-class="{ o_no_groups: !model.metaData.groupedBy.length }"
+            t-att-class="{ o_no_groups: !hasRowHeaders }"
             t-attf-style="--Gantt__RowHeader-width:{{
                 state.rowHeaderWidth
             }}px;--Gantt__Pill-height:{{
@@ -20,7 +20,7 @@
             t-on-pointerleave="onPointerLeave"
         >
             <t t-call="{{ constructor.headerTemplate }}"/>
-            <t t-if="model.metaData.groupedBy.length">
+            <t t-if="hasRowHeaders">
                 <div class="o_gantt_row_headers o_gantt_grid_rows">
                     <t t-foreach="visibleRows" t-as="row" t-key="row.id">
                         <t t-call="{{ constructor.rowHeaderTemplate }}" />
@@ -103,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            <b t-if="model.metaData.groupedBy.length"
+            <b t-if="hasRowHeaders"
                 class="o_gantt_title o_gantt_row_sidebar d-flex align-items-center justify-content-center p-2 bg-100"
                 t-esc="model.metaData.string"
            />
@@ -259,7 +259,7 @@
     </t>
 
     <t t-name="web_gantt.GanttRenderer.TotalRow">
-        <t t-if="model.metaData.groupedBy.length">
+        <t t-if="hasRowHeaders">
             <div class="o_gantt_row_sidebar bg-view d-flex align-items-center justify-content-end" t-att-class="{ o_sample_data_disabled: isDisabled()}">
                 <h4
                     class="o_gantt_row_title pe-3 my-0 fw-bold"

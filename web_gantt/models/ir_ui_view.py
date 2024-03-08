@@ -25,6 +25,7 @@ GANTT_VALID_ATTRIBUTES = set([
     'plan',
     'default_group_by',
     'dynamic_range',
+    'display_mode',
     'display_unavailability',
     'disable_drag_drop',
     'total_row',
@@ -70,6 +71,10 @@ class View(models.Model):
         if default_scale:
             if default_scale not in ('day', 'week', 'month', 'year'):
                 self._raise_view_error(_("Invalid default_scale '%s' in gantt", default_scale), node)
+        display_mode = node.get('display_mode')
+        if display_mode:
+            if display_mode not in ('dense', 'sparse'):
+                self._raise_view_error(_("Invalid display_mode '%s' in gantt", display_mode), node)
         attrs = set(node.attrib)
         if 'date_start' not in attrs:
             msg = _("Gantt must have a 'date_start' attribute")
