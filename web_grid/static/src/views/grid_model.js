@@ -88,6 +88,7 @@ export class GridCell {
             return;
         }
         this.row.updateCell(this.column, value);
+        this.model.notify();
     }
 }
 

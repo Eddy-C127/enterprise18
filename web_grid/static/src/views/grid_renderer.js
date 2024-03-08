@@ -6,7 +6,7 @@ import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { escape } from "@web/core/utils/strings";
 import { useDebounced } from "@web/core/utils/timing";
-import { useVirtual } from "@web/core/virtual_hook";
+import { useVirtualGrid } from "@web/core/virtual_grid_hook";
 import { Field } from "@web/views/fields/field";
 import { Record } from "@web/model/record";
 import { getActiveHotkey } from "@web/core/hotkeys/hotkey_service";
@@ -114,11 +114,9 @@ export class GridRenderer extends Component {
         this.shouldFocusOnToday = true;
         this.onMouseOver = useDebounced(this._onMouseOver, 10);
         this.onMouseOut = useDebounced(this._onMouseOut, 10);
-        this.virtualRows = useVirtual({
-            getItems: () => this.props.rows,
+        this.virtualGrid = useVirtualGrid({
             scrollableRef: this.props.contentRef,
             initialScroll: { top: 60 },
-            getItemHeight: (item) => this.getItemHeight(item),
         });
         useExternalListener(window, "click", this.onClick);
         useExternalListener(window, "keydown", this.onKeyDown);
@@ -145,6 +143,12 @@ export class GridRenderer extends Component {
 
     get rowHeight() {
         return 48;
+    }
+
+    get virtualRows() {
+        this.virtualGrid.setRowsHeights(this.props.rows.map((row) => this.getItemHeight(row)));
+        const [start, end] = this.virtualGrid.rowsIndexes;
+        return this.props.rows.slice(start, end + 1);
     }
 
     getRowPosition(row, isCreateInlineRow = false) {

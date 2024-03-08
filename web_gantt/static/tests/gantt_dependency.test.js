@@ -299,9 +299,9 @@ test("Connectors are correctly computed and rendered.", async () => {
         });
 
         const connector = connectorMap.get(testKey);
-        const connectorStroke = queryFirst(SELECTORS.connectorStroke, {
-            root: getConnector(connector.id),
-        });
+        const connectorEl = getConnector(connector.id);
+        expect(connectorEl).not.toBe(null);
+        const connectorStroke = queryFirst(SELECTORS.connectorStroke, { root: connectorEl });
         expect(connectorStroke).toHaveAttribute("stroke", COLORS[colorCode].color);
     }
 

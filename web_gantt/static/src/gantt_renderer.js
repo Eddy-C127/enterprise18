@@ -4,7 +4,6 @@ import {
     onWillRender,
     onWillUpdateProps,
     reactive,
-    toRaw,
     useExternalListener,
     useRef,
     useState,
@@ -20,7 +19,7 @@ import { useService } from "@web/core/utils/hooks";
 import { omit } from "@web/core/utils/objects";
 import { debounce, throttleForAnimation } from "@web/core/utils/timing";
 import { url } from "@web/core/utils/urls";
-import { useVirtual } from "@web/core/virtual_hook";
+import { useVirtualGrid } from "@web/core/virtual_grid_hook";
 import { formatFloatTime } from "@web/views/fields/formatters";
 import { useViewCompiler } from "@web/views/view_compiler";
 import { ViewScaleSelector } from "@web/views/view_components/view_scale_selector";
@@ -391,11 +390,9 @@ export class GanttRenderer extends Component {
         onWillRender(this.onWillRender);
 
         /** @type {Row[]} */
-        this.virtualRows = useVirtual({
-            getItems: () => this.rows,
-            getItemHeight: (row) => this.getRowHeight(row),
-            initialScroll: this.props.scrollPosition,
+        this.virtualGrid = useVirtualGrid({
             scrollableRef: this.props.contentRef,
+            initialScroll: this.props.scrollPosition,
         });
 
         this.computeDerivedParams();
@@ -662,6 +659,7 @@ export class GanttRenderer extends Component {
         }
 
         this.gridTemplate = this.computeGrid(this.rows, this.columns);
+        this.virtualGrid.setRowsHeights(this.rows.map((row) => this.getRowHeight(row)));
 
         const { displayTotalRow } = this.model.metaData;
         if (displayTotalRow) {
@@ -1481,7 +1479,10 @@ export class GanttRenderer extends Component {
             this.computeDerivedParams();
         }
 
-        this.visibleRows = [...new Set([...toRaw(this.virtualRows), ...this.extraRows])];
+        const [rowStart, rowEnd] = this.virtualGrid.rowsIndexes;
+        this.visibleRows = [
+            ...new Set([...this.rows.slice(rowStart, rowEnd + 1), ...this.extraRows]),
+        ];
 
         if (!this.shouldRenderConnectors()) {
             this.noDisplayedConnectors = true;
