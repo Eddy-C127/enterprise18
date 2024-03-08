@@ -3,6 +3,8 @@
 from odoo import api, fields, models, _
 from odoo.osv import expression
 
+from typing import Optional
+
 
 class VoipCall(models.Model):
     _name = "voip.call"
@@ -62,7 +64,7 @@ class VoipCall(models.Model):
             call.display_name = get_name(call)
 
     @api.model
-    def create_and_format(self, res_id: int = None, res_model: str = None, **kwargs) -> list:
+    def create_and_format(self, res_id: Optional[int] = None, res_model: Optional[str] = None, **kwargs) -> list:
         """Creates a call from the provided values and returns it formatted for
         use in JavaScript. If a record is provided via its id and model,
         introspects it for a recipient.
@@ -76,7 +78,9 @@ class VoipCall(models.Model):
         return self.create(kwargs)._format_calls()
 
     @api.model
-    def get_recent_phone_calls(self, search_terms: str = None, offset: int = 0, limit: int = None) -> list:
+    def get_recent_phone_calls(
+        self, search_terms: Optional[str] = None, offset: int = 0, limit: Optional[int] = None
+    ) -> list:
         domain = [("user_id", "=", self.env.uid)]
         if search_terms:
             search_fields = ["phone_number", "partner_id.name", "activity_name"]
@@ -101,7 +105,7 @@ class VoipCall(models.Model):
         self.state = "ongoing"
         return self._format_calls()
 
-    def end_call(self, activity_name: str = None) -> list:
+    def end_call(self, activity_name: Optional[str] = None) -> list:
         self.end_date = fields.Datetime.now()
         self.state = "terminated"
         if activity_name:
