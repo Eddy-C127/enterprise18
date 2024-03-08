@@ -182,7 +182,7 @@ Welcome to {{3}} office''',
             # image
             ['image/jpeg', 'image/png'],
             # video
-            ['video/mp4', 'video/3gp'],
+            ['video/mp4'],
         ]
         all_types = [mimetype for categ in categ_types for mimetype in categ]
         dummy_data = self.image_attachment.datas

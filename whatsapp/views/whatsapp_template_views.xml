@@ -76,8 +76,20 @@
                                 invisible="header_type != 'text'" required="header_type == 'text'" readonly="status != 'draft'"
                                 placeholder="e.g. Invitation for {{1}}"/>
                             <field name="header_attachment_ids"
+                                widget="many2many_binary" options="{'accepted_file_extensions': 'image/jpeg, image/png'}"
+                                attrs="{'invisible': [('header_type','!=', 'image')]}"/>
+                            <field name="header_attachment_ids"
                                 widget="many2many_binary"
+                                options="{
+                                    'accepted_file_extensions': 'text/plain, application/pdf, application/vnd.ms-powerpoint, application/msword, application/vnd.ms-excel,
+                                    application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.presentationml.presentation,
+                                    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                                }"
                                 invisible="header_type not in ['image', 'video', 'document']"/>
+                            <field name="header_attachment_ids"
+                                widget="many2many_binary" options="{'accepted_file_extensions': 'video/mp4'}"
+                                invisible="header_type != 'video'"/>
+                                attrs="{'invisible': [('header_type','!=', 'video')]}"/>
                             <field name="report_id"
                                 invisible="header_type != 'document'"/>
                             <field name="footer_text"

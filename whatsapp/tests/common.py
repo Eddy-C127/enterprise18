@@ -650,9 +650,9 @@ class WhatsAppCommon(MailCommon, WhatsAppCase):
                       "YQAAAFptZXRhAAAAAAAAACFoZGxyAAAAAAAAAABtZGlyYXBwbAAAAAAAAAAAAAAAAC1pbHN0AAAA"
                       "Jal0b28AAAAdZGF0YQAAAAEAAAAATGF2ZjU3LjQxLjEwMA==")
         documents = cls.env['ir.attachment'].with_user(cls.user_employee).create([
-            {'name': 'Document.pdf', 'datas': pdf_data, 'mimetype': 'application/pdf'},
-            {'name': 'Image.jpg', 'datas': image_data, 'mimetype': 'image/jpeg'},
-            {'name': 'Video.mpg', 'datas': video_data, 'mimetype': 'video/mp4'},
+            {'name': 'Document.pdf', 'datas': pdf_data},
+            {'name': 'Image.jpg', 'datas': image_data},
+            {'name': 'Video.mp4', 'datas': video_data},
             {'name': 'Payload.wasm', 'datas': "AGFzbQEAAAA=", 'mimetype': 'application/octet-stream'},
         ])
         cls.document_attachment, cls.image_attachment, cls.video_attachment, cls.invalid_attachment = documents

@@ -24,6 +24,8 @@ class WhatsAppMessage(models.Model):
     _order = 'id desc'
     _rec_name = 'mobile_number'
 
+    # Refer to https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media/#supported-media-types
+    # for more details about supported media types
     _SUPPORTED_ATTACHMENT_TYPE = {
         'audio': ('audio/aac', 'audio/mp4', 'audio/mpeg', 'audio/amr', 'audio/ogg'),
         'document': (
@@ -33,7 +35,7 @@ class WhatsAppMessage(models.Model):
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         ),
         'image': ('image/jpeg', 'image/png'),
-        'video': ('video/mp4', 'video/3gp'),
+        'video': ('video/mp4',),
     }
     # amount of days during which a message is considered active
     # used for GC and for finding an active document channel using a recent whatsapp template message
