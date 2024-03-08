@@ -19,13 +19,15 @@ import { useEditorBreadcrumbs } from "@web_studio/client_action/editor/edition_f
 import { KeepLast } from "@web/core/utils/concurrency";
 import { renderToMarkup } from "@web/core/utils/render";
 import { makeActiveField } from "@web/model/relational_model/utils";
+import { humanReadableError } from "@web_studio/client_action/report_editor/utils";
 
 const notificationErrorTemplate = "web_studio.ReportEditor.NotificationError";
 const errorQweb = `<html><div>The report could not be rendered due to an error</div><html>`;
 
 export class ReportEditorModel extends Reactive {
-    constructor({ services, resModel }) {
+    constructor({ services, debug }) {
         super();
+        this.debug = debug;
         this.bus = markRaw(new EventBus());
         this.mode = "wysiwyg";
         this.warningMessage = "";
@@ -139,6 +141,10 @@ export class ReportEditorModel extends Reactive {
         return this._isInEdition;
     }
 
+    get fullErrorDisplay() {
+        return this.debug ? this._errorMessage : false;
+    }
+
     setInEdition(value) {
         // Reactivity limitation: if we used a setter, the reactivity will trigger the getter
         // thus subscribing us to the key. This is not what we want here.
@@ -196,6 +202,7 @@ export class ReportEditorModel extends Reactive {
                     context: this.routesContext,
                 })
             );
+            this._errorMessage = false;
             this._reportArchs.reportQweb = reportQweb;
         } catch (e) {
             this._errorMessage = e;
@@ -220,8 +227,10 @@ export class ReportEditorModel extends Reactive {
                     context: this.routesContext,
                 })
             );
+            this._errorMessage = false;
             this._reportArchs.reportHtml = reportHtml;
-        } catch {
+        } catch (e) {
+            this._errorMessage = e;
             this._reportArchs.reportHtml = errorQweb;
         }
         this.setInEdition(false);
@@ -261,11 +270,13 @@ export class ReportEditorModel extends Reactive {
                 },
                 { silent: urgent }
             );
-        } catch {
+            this._errorMessage = false;
+        } catch (e) {
             this.setInEdition(false);
             const message = renderToMarkup(notificationErrorTemplate, {
                 reportName: this._reportData.name,
                 recordId: this.reportEnv.currentId,
+                error: humanReadableError(e),
             });
             this._services.unProtectedNotification.add(message, {
                 type: "warning",
@@ -273,9 +284,11 @@ export class ReportEditorModel extends Reactive {
             });
             this.warningMessage = _t("Report edition failed");
 
+            if (this._errorMessage) {
+                this._errorMessage = e;
+            }
+
             return false;
-        } finally {
-            this._errorMessage = false;
         }
 
         if (hasPartsToSave || hasVerbatimToSave) {
@@ -366,7 +379,7 @@ export function useReportEditorModel() {
     const env = useEnv();
     services.studio = { ...env.services.studio };
     services.unProtectedNotification = env.services.notification;
-    const reportEditorModel = new ReportEditorModel({ services });
+    const reportEditorModel = new ReportEditorModel({ services, debug: env.debug });
     useSubEnv({ reportEditorModel });
 
     function getName(rem) {

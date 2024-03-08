@@ -1120,6 +1120,36 @@ registry.category("web_tour.tours").add("web_studio.test_error_at_loading", {
     ],
 });
 
+registry.category("web_tour.tours").add("web_studio.test_error_at_loading_debug", {
+    test: true,
+    sequence: 260,
+    steps: () => [
+        {
+            trigger: "body:not(:has(.o_error_dialog)) .o-web-studio-report-editor",
+        },
+        {
+            trigger: ".o-web-studio-report-container:not(:has(iframe))",
+        },
+        {
+            trigger: ".o-web-studio-report-container strong:contains(builtins.ValueError)",
+        },
+        {
+            trigger: "button[name='report_edit_sources']",
+        },
+        {
+            trigger: ".o_web_studio_xml_editor",
+        },
+        {
+            trigger: ".o-web-studio-report-container:not(:has(iframe))",
+        },
+        {
+            trigger:
+                ".o-web-studio-report-container strong:contains(odoo.addons.base.models.ir_qweb.QWebException)",
+            isCheck: true,
+        },
+    ],
+});
+
 registry.category("web_tour.tours").add("web_studio.test_xml_and_form_diff", {
     test: true,
     sequence: 260,

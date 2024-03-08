@@ -1,9 +1,11 @@
 /** @odoo-module */
 import { Component, useRef, useState } from "@odoo/owl";
 import { getCssFromPaperFormat } from "@web_studio/client_action/report_editor/utils";
-import { useThrottleForAnimation } from '@web/core/utils/timing';
+import { useThrottleForAnimation } from "@web/core/utils/timing";
+import { ErrorDisplay } from "@web_studio/client_action/report_editor/error_display";
 
 export class ReportEditorIframe extends Component {
+    static components = { ErrorDisplay };
     static template = "web_studio.ReportEditor.Iframe";
     static props = {
         iframeKey: String,
@@ -16,9 +18,9 @@ export class ReportEditorIframe extends Component {
         this.iframeRef = useRef("iframeRef");
         this.onContainerScroll = useThrottleForAnimation(() => {
             if (this.iframeRef.el?.contentDocument) {
-                this.iframeRef.el.contentDocument.dispatchEvent(new Event("scroll"))
+                this.iframeRef.el.contentDocument.dispatchEvent(new Event("scroll"));
             }
-        })
+        });
     }
 
     get paperFormatStyle() {

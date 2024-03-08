@@ -838,6 +838,9 @@ class TestReportEditorUIUnit(HttpCase):
         with mute_logger("odoo.http"):
             self.start_tour(self.tour_url, "web_studio.test_error_at_loading", login="admin")
 
+        with mute_logger("odoo.http"):
+            self.start_tour(self.tour_url + "&debug=assets", "web_studio.test_error_at_loading_debug", login="admin")
+
     def test_xml_and_form_diff(self):
         self.start_tour(self.tour_url + "&debug=1", "web_studio.test_xml_and_form_diff", login="admin")
 

@@ -300,9 +300,8 @@ export class ReportEditorWysiwyg extends Component {
                 loadBundle("web_editor.backend_assets_wysiwyg"),
                 this.reportEditorModel.loadReportQweb(),
             ]);
-            const Wysiwyg = (
-                await odoo.loader.modules.get("@web_editor/js/wysiwyg/wysiwyg")
-            ).Wysiwyg;
+            const Wysiwyg = (await odoo.loader.modules.get("@web_editor/js/wysiwyg/wysiwyg"))
+                .Wysiwyg;
             this.Wysiwyg = extendWysiwyg(Wysiwyg);
         });
 
@@ -695,7 +694,9 @@ export class ReportEditorWysiwyg extends Component {
     }
 
     async resetReport() {
-        this.wysiwyg.odooEditor.document.getSelection().removeAllRanges();
+        if (this.wysiwyg?.odooEditor) {
+            this.wysiwyg.odooEditor.document.getSelection().removeAllRanges();
+        }
         const state = reactive({ includeHeaderFooter: true });
         this.addDialog(ResetConfirmatiopnPopup, {
             title: _t("Reset report"),
