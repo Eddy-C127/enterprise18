@@ -1490,6 +1490,51 @@ class TestReportEngines(TestAccountReportsCommon):
                         options,
                     )
 
+    def test_engine_aggregation_cross_bound(self):
+        report_1 = self._create_report([
+            self._prepare_test_report_line(
+                self._prepare_test_expression_aggregation('line_2_1.balance', subformula='cross_report'),
+                name='Line 1-1',
+                code='line_1_1',
+            ),
+        ])
+
+        self._create_report([
+            self._prepare_test_report_line(
+                self._prepare_test_expression_aggregation('14.0', subformula='if_other_expr_above(line_2_1.dudu, EUR(0))'),
+                self._prepare_test_expression_account_codes('101', label='dudu'),
+                name='Line 2-1',
+                code='line_2_1',
+            ),
+        ])
+
+        options = self._generate_options(report_1, '2020-01-01', '2020-01-01')
+
+        self.assertLinesValues(
+            # pylint: disable=bad-whitespace
+            report_1._get_lines(options),
+            [   0,                          1],
+            [
+                ('Line 1-1',              0.0),
+            ],
+            options
+        )
+
+        self._create_test_account_moves([
+            self._prepare_test_account_move_line(10, account_code='101001'),
+            self._prepare_test_account_move_line(-10, account_code='100001'),
+        ])
+
+        self.assertLinesValues(
+            # pylint: disable=bad-whitespace
+            report_1._get_lines(options),
+            [   0,                          1],
+            [
+                ('Line 1-1',             14.0),
+            ],
+            options
+        )
+
     def test_change_expression_engine_to_tax_tags(self):
         """
         Ensure that tax tags are created when switching the expression engine to tax tags if formula is unchanged.

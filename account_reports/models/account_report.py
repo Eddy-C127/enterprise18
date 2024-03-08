@@ -2837,6 +2837,10 @@ class AccountReport(models.Model):
         term_replacement_regex = r"(^|(?<=[ ()+/*-]))%s((?=[ ()+/*-])|$)"
         while to_treat:
             formula, unexpanded_formula, forced_date_scope = to_treat.pop(0)
+
+            full_eval_dict = {**current_report_eval_dict, **other_reports_eval_dict.get(forced_date_scope, {})}
+            full_codes_map = {**current_report_codes_map, **other_reports_codes_map.get(forced_date_scope, {})}
+
             # Evaluate the formula
             terms_to_eval = [term for term in re.split(term_separator_regex, formula) if term and not _check_is_float(term)]
             if terms_to_eval:
@@ -2845,8 +2849,8 @@ class AccountReport(models.Model):
                 for term in terms_to_eval:
                     try:
                         expanded_term = _resolve_subformula_on_dict(
-                            {**current_report_eval_dict, **other_reports_eval_dict.get(forced_date_scope, {})},
-                            {**current_report_codes_map, **other_reports_codes_map.get(forced_date_scope, {})},
+                            full_eval_dict,
+                            full_codes_map,
                             term,
                         )
                     except KeyError:
@@ -2882,8 +2886,12 @@ class AccountReport(models.Model):
 
                         criterium_code = other_expr_criterium_match['line_code']
                         criterium_label = other_expr_criterium_match['expr_label']
-                        criterium_expression_id = current_report_codes_map.get(criterium_code, {}).get(criterium_label)
-                        criterium_val = current_report_eval_dict.get(criterium_expression_id)
+                        criterium_expression_id = full_codes_map.get(criterium_code, {}).get(criterium_label)
+                        criterium_val = full_eval_dict.get(criterium_expression_id)
+
+                        if not criterium_expression_id:
+                            raise UserError(_("This subformula references an unknown expression: %s", expression.subformula))
+
                         if not isinstance(criterium_val, (float, int)):
                             # The criterium expression has not be evaluated yet. Postpone the evaluation of this formula, and skip this expression
                             # for now. We still try to evaluate other expressions using this formula if any; this means those expressions will
