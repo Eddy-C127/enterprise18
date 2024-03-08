@@ -1,6 +1,6 @@
 /* @odoo-module */
 
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { start } from "@mail/../tests/helpers/test_utils";
 
@@ -12,7 +12,7 @@ QUnit.test(
         const pyEnv = await startServer();
         pyEnv["res.users.settings"].create({
             external_device_number: "+247-555-183-184",
-            user_id: pyEnv.currentUserId,
+            user_id: serverState.userId,
         });
         const { env } = await start();
         const { voip } = env.services;

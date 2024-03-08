@@ -1,4 +1,4 @@
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { start } from "@mail/../tests/helpers/test_utils";
 
@@ -82,7 +82,7 @@ QUnit.test(
     "The softphone automatically opens folded when there is at least 1 missed call.",
     async () => {
         const pyEnv = await startServer();
-        pyEnv["voip.call"].create({ state: "missed", user_id: pyEnv.currentUser.id });
+        pyEnv["voip.call"].create({ state: "missed", user_id: serverState.userId });
         await start();
         await contains(".o-voip-Softphone"); // it's displayed…
         await contains(".o-voip-Softphone-content", { count: 0 }); // but it's folded
@@ -93,7 +93,7 @@ QUnit.test(
     "The softphone top bar text is “1 missed call” when there is 1 missed call.",
     async () => {
         const pyEnv = await startServer();
-        pyEnv["voip.call"].create({ state: "missed", user_id: pyEnv.currentUser.id });
+        pyEnv["voip.call"].create({ state: "missed", user_id: serverState.userId });
         await start();
         await contains(".o-voip-Softphone-topbar", { text: "1 missed call" });
     }
@@ -104,8 +104,8 @@ QUnit.test(
     async () => {
         const pyEnv = await startServer();
         patchWithCleanup(translatedTerms, { "2 missed calls": "2 مكالمة فائتة" });
-        pyEnv["voip.call"].create({ state: "missed", user_id: pyEnv.currentUser.id });
-        pyEnv["voip.call"].create({ state: "missed", user_id: pyEnv.currentUser.id });
+        pyEnv["voip.call"].create({ state: "missed", user_id: serverState.userId });
+        pyEnv["voip.call"].create({ state: "missed", user_id: serverState.userId });
         await start();
         await contains(".o-voip-Softphone-topbar", { text: "2 مكالمة فائتة" });
     }
@@ -116,7 +116,7 @@ QUnit.test(
     async () => {
         const pyEnv = await startServer();
         for (let i = 0; i < 513; i++) {
-            pyEnv["voip.call"].create({ state: "missed", user_id: pyEnv.currentUser.id });
+            pyEnv["voip.call"].create({ state: "missed", user_id: serverState.userId });
         }
         await start();
         await contains(".o-voip-Softphone-topbar", { text: "513 missed calls" });

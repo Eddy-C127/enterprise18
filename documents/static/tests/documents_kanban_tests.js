@@ -1,6 +1,6 @@
 /* @odoo-module */
 
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { fileUploadService } from "@web/core/file_upload/file_upload_service";
 import { imStatusService } from "@bus/im_status_service";
@@ -1416,9 +1416,9 @@ QUnit.module("documents", {}, function () {
 
             QUnit.test("document inspector: locked records", async function (assert) {
                 assert.expect(6);
-                const [user] = pyEnv["res.users"].searchRead([["display_name", "=", "Hazard"]]);
+                const [user] = pyEnv["res.users"].search_read([["display_name", "=", "Hazard"]]);
                 pyEnv.authenticate(user.login, user.password);
-                patchUserWithCleanup({ userId: pyEnv.currentUserId });
+                patchUserWithCleanup({ userId: serverState.userId });
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
@@ -1467,9 +1467,9 @@ QUnit.module("documents", {}, function () {
             QUnit.test("document inspector: can (un)lock records", async function (assert) {
                 assert.expect(5);
 
-                const [user] = pyEnv["res.users"].searchRead([["display_name", "=", "Hazard"]]);
+                const [user] = pyEnv["res.users"].search_read([["display_name", "=", "Hazard"]]);
                 pyEnv.authenticate(user.login, user.password);
-                patchUserWithCleanup({ userId: pyEnv.currentUserId });
+                patchUserWithCleanup({ userId: serverState.userId });
                 const kanban = await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
@@ -1492,9 +1492,7 @@ QUnit.module("documents", {}, function () {
                                 args: [
                                     [1],
                                     {
-                                        lock_uid: record.data.lock_uid
-                                            ? false
-                                            : pyEnv.currentUserId,
+                                        lock_uid: record.data.lock_uid ? false : serverState.userId,
                                     },
                                 ],
                             });
@@ -1987,9 +1985,9 @@ QUnit.module("documents", {}, function () {
             QUnit.test("document inspector: remove tag", async function (assert) {
                 assert.expect(4);
 
-                const [user] = pyEnv["res.users"].searchRead([["display_name", "=", "Hazard"]]);
+                const [user] = pyEnv["res.users"].search_read([["display_name", "=", "Hazard"]]);
                 pyEnv.authenticate(user.login, user.password);
-                patchUserWithCleanup({ userId: pyEnv.currentUserId });
+                patchUserWithCleanup({ userId: serverState.userId });
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
@@ -2214,7 +2212,7 @@ QUnit.module("documents", {}, function () {
             QUnit.test("document inspector: unknown tags are hidden", async function (assert) {
                 assert.expect(1);
 
-                const [firstDocumentRecord] = pyEnv["documents.document"].searchRead([]);
+                const [firstDocumentRecord] = pyEnv["documents.document"].search_read([]);
                 pyEnv["documents.document"].write([firstDocumentRecord.id], {
                     tag_ids: [...firstDocumentRecord.tag_ids, 42],
                 });
@@ -2310,9 +2308,11 @@ QUnit.module("documents", {}, function () {
                 async function (assert) {
                     assert.expect(2);
 
-                    const [user] = pyEnv["res.users"].searchRead([["display_name", "=", "Hazard"]]);
+                    const [user] = pyEnv["res.users"].search_read([
+                        ["display_name", "=", "Hazard"],
+                    ]);
                     pyEnv.authenticate(user.login, user.password);
-                    patchUserWithCleanup({ userId: pyEnv.currentUserId });
+                    patchUserWithCleanup({ userId: serverState.userId });
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
@@ -2359,9 +2359,9 @@ QUnit.module("documents", {}, function () {
                     lock_uid: resUsersId1,
                     name: "lockedByAnother",
                 });
-                const [user] = pyEnv["res.users"].searchRead([["display_name", "=", "Hazard"]]);
+                const [user] = pyEnv["res.users"].search_read([["display_name", "=", "Hazard"]]);
                 pyEnv.authenticate(user.login, user.password);
-                patchUserWithCleanup({ userId: pyEnv.currentUserId });
+                patchUserWithCleanup({ userId: serverState.userId });
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
@@ -2938,13 +2938,13 @@ QUnit.module("documents", {}, function () {
             QUnit.test("document chatter: render the activity button 2", async function (assert) {
                 pyEnv["mail.activity"].create({
                     can_write: true,
-                    create_uid: pyEnv.currentUserId,
+                    create_uid: serverState.userId,
                     date_deadline: serializeDate(DateTime.now()),
                     display_name: "An activity",
                     res_id: pyEnv["documents.document"].search([])[0],
                     res_model: "documents.document",
                     state: "today",
-                    user_id: pyEnv.currentUserId,
+                    user_id: serverState.userId,
                 });
 
                 const views = {
@@ -4801,7 +4801,7 @@ QUnit.module("documents", {}, function () {
                 const irAttachmentId1 = pyEnv["ir.attachment"].create({
                     name: "oldYoutubeVideo",
                     create_date: "2019-12-09 14:13:21",
-                    create_uid: pyEnv.currentUserId,
+                    create_uid: serverState.userId,
                 });
                 const documentsDocumentId1 = pyEnv["documents.document"].create({
                     folder_id: pyEnv["documents.folder"].search([])[0],

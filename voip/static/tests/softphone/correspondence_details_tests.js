@@ -1,4 +1,4 @@
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { start } from "@mail/../tests/helpers/test_utils";
 
@@ -33,8 +33,16 @@ QUnit.test("Calls are properly displayed even if their state is broken.", async 
     // If for some reason (e.g. a power outage in the middle of a call) the call
     // is never properly terminated, it may be stuck in the “calling” or
     // “ongoing” state. Let's mock this situation:
-    pyEnv["voip.call"].create({ phone_number: "+263-735-552-56", state: "calling", user_id: pyEnv.currentUserId });
-    pyEnv["voip.call"].create({ phone_number: "+32-495-558-286", state: "ongoing", user_id: pyEnv.currentUserId });
+    pyEnv["voip.call"].create({
+        phone_number: "+263-735-552-56",
+        state: "calling",
+        user_id: serverState.userId,
+    });
+    pyEnv["voip.call"].create({
+        phone_number: "+32-495-558-286",
+        state: "ongoing",
+        user_id: serverState.userId,
+    });
     start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await click(".nav-link", { text: "Recent" });

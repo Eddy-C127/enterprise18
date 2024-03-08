@@ -1,6 +1,6 @@
 /* @odoo-module */
 
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { addModelNamesToFetch } from "@bus/../tests/helpers/model_definitions_helpers";
 
 import { openDiscuss, openFormView, start } from "@mail/../tests/helpers/test_utils";
@@ -40,7 +40,7 @@ QUnit.test("[technical] /ticket command gets a body as kwarg", async (assert) =>
     });
     const [channelMemberId] = pyEnv["discuss.channel.member"].search([
         ["channel_id", "=", channelId],
-        ["partner_id", "=", pyEnv.currentPartnerId],
+        ["partner_id", "=", serverState.partnerId],
     ]);
     pyEnv["discuss.channel.member"].write([channelMemberId], {
         seen_message_id: messageId,

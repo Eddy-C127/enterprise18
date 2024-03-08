@@ -1,4 +1,4 @@
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { Store } from "@mail/core/common/store_service";
 import { start } from "@mail/../tests/helpers/test_utils";
@@ -42,7 +42,7 @@ QUnit.test("Switch audio input", async () => {
     pyEnv["res.partner"].create({ display_name: "Gwonam", phone: "515-555-0170" });
     pyEnv["res.users.settings"].create({
         how_to_call_on_mobile: "voip",
-        user_id: pyEnv.currentUserId,
+        user_id: serverState.userId,
     });
     const { advanceTime } = await start({ hasTimeControl: true });
     await click(".o_menu_systray button[title='Open Softphone']");

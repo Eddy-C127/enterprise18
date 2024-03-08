@@ -1,6 +1,6 @@
 /* @odoo-module */
 
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { start } from "@mail/../tests/helpers/test_utils";
 
@@ -21,11 +21,11 @@ QUnit.test("list activity widget: sign button in dropdown", async (assert) => {
         date_deadline: serializeDate(DateTime.now().plus({ days: 1 })), // tomorrow
         can_write: true,
         state: "planned",
-        user_id: pyEnv.currentUserId,
-        create_uid: pyEnv.currentUserId,
+        user_id: serverState.userId,
+        create_uid: serverState.userId,
         activity_type_id: activityTypeId,
     });
-    pyEnv["res.users"].write([pyEnv.currentUserId], {
+    pyEnv["res.users"].write([serverState.userId], {
         activity_ids: [activityId],
         activity_state: "today",
         activity_summary: "Sign a new contract",

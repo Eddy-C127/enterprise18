@@ -1,6 +1,6 @@
 /* @odoo-module */
 
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { openFormView, start } from "@mail/../tests/helpers/test_utils";
 
@@ -15,13 +15,13 @@ QUnit.test("activity with approval to be made by logged user", async () => {
     pyEnv["approval.approver"].create({
         request_id: requestId,
         status: "pending",
-        user_id: pyEnv.currentUserId,
+        user_id: serverState.userId,
     });
     pyEnv["mail.activity"].create({
         can_write: true,
         res_id: requestId,
         res_model: "approval.request",
-        user_id: pyEnv.currentUserId,
+        user_id: serverState.userId,
     });
     await start();
     await openFormView("approval.request", requestId);
@@ -77,13 +77,13 @@ QUnit.test("approve approval", async (assert) => {
     pyEnv["approval.approver"].create({
         request_id: requestId,
         status: "pending",
-        user_id: pyEnv.currentUserId,
+        user_id: serverState.userId,
     });
     pyEnv["mail.activity"].create({
         can_write: true,
         res_id: requestId,
         res_model: "approval.request",
-        user_id: pyEnv.currentUserId,
+        user_id: serverState.userId,
     });
     const def = makeDeferred();
     await start({
@@ -108,13 +108,13 @@ QUnit.test("refuse approval", async (assert) => {
     pyEnv["approval.approver"].create({
         request_id: requestId,
         status: "pending",
-        user_id: pyEnv.currentUserId,
+        user_id: serverState.userId,
     });
     pyEnv["mail.activity"].create({
         can_write: true,
         res_id: requestId,
         res_model: "approval.request",
-        user_id: pyEnv.currentUserId,
+        user_id: serverState.userId,
     });
     const def = makeDeferred();
     await start({

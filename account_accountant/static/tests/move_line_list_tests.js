@@ -1,6 +1,6 @@
 /* @odoo-module */
 
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { getOrigin } from "@web/core/utils/urls";
 import { assertSteps, click, contains, step } from "@web/../tests/utils";
@@ -67,7 +67,7 @@ QUnit.module("Views", {}, function () {
                      </tree>`,
         };
         patchUiSize({ size: size });
-        const pyEnv = await startServer();
+        await startServer();
         const { openView } = await start({
             serverData: { views },
             mockRPC: function (route, args) {
@@ -85,7 +85,7 @@ QUnit.module("Views", {}, function () {
                 init_messaging: {},
                 failures: true,
                 systray_get_activities: true,
-                context: { lang: "en", tz: "taht", uid: pyEnv.currentUserId },
+                context: { lang: "en", tz: "taht", uid: serverState.userId },
             })}`,
         ]);
         await openView({
@@ -98,7 +98,7 @@ QUnit.module("Views", {}, function () {
     };
 
     QUnit.test("No preview on small devices", async () => {
-        const pyEnv = await startServer();
+        await startServer();
         await OpenPreparedView(SIZES.XL);
         await contains(".o_move_line_list_view");
         await assertSteps([
@@ -114,7 +114,7 @@ QUnit.module("Views", {}, function () {
                     context: {
                         lang: "en",
                         tz: "taht",
-                        uid: pyEnv.currentUserId,
+                        uid: serverState.userId,
                         group_by: ["move_id"],
                     },
                     groupby: ["move_id"],
@@ -145,7 +145,7 @@ QUnit.module("Views", {}, function () {
                     context: {
                         lang: "en",
                         tz: "taht",
-                        uid: pyEnv.currentUserId,
+                        uid: serverState.userId,
                         bin_size: true,
                         group_by: ["move_id"],
                         default_move_id: 1,
@@ -179,7 +179,7 @@ QUnit.module("Views", {}, function () {
                     context: {
                         lang: "en",
                         tz: "taht",
-                        uid: pyEnv.currentUserId,
+                        uid: serverState.userId,
                         bin_size: true,
                         group_by: ["move_id"],
                         default_move_id: 2,
@@ -197,7 +197,7 @@ QUnit.module("Views", {}, function () {
     });
 
     QUnit.test("Fetch and preview of attachments on big devices", async () => {
-        const pyEnv = await startServer();
+        await startServer();
         await OpenPreparedView(SIZES.XXL);
         await contains(".o_move_line_list_view");
         await assertSteps([
@@ -213,7 +213,7 @@ QUnit.module("Views", {}, function () {
                     context: {
                         lang: "en",
                         tz: "taht",
-                        uid: pyEnv.currentUserId,
+                        uid: serverState.userId,
                         group_by: ["move_id"],
                     },
                     groupby: ["move_id"],
@@ -247,7 +247,7 @@ QUnit.module("Views", {}, function () {
                     context: {
                         lang: "en",
                         tz: "taht",
-                        uid: pyEnv.currentUserId,
+                        uid: serverState.userId,
                         bin_size: true,
                         group_by: ["move_id"],
                         default_move_id: 1,
@@ -281,7 +281,7 @@ QUnit.module("Views", {}, function () {
                     context: {
                         lang: "en",
                         tz: "taht",
-                        uid: pyEnv.currentUserId,
+                        uid: serverState.userId,
                         bin_size: true,
                         group_by: ["move_id"],
                         default_move_id: 2,
@@ -325,7 +325,7 @@ QUnit.module("Views", {}, function () {
                     context: {
                         lang: "en",
                         tz: "taht",
-                        uid: pyEnv.currentUserId,
+                        uid: serverState.userId,
                         bin_size: true,
                         group_by: ["move_id"],
                         default_move_id: 3,

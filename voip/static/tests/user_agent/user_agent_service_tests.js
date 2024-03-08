@@ -1,4 +1,4 @@
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { start } from "@mail/../tests/helpers/test_utils";
 
@@ -35,7 +35,7 @@ QUnit.test("SIP.js user agent configuration is set correctly.", async (assert) =
     const pyEnv = await startServer();
     pyEnv["res.users.settings"].create({
         ...settingsData,
-        user_id: pyEnv.currentUserId,
+        user_id: serverState.userId,
     });
     const { env } = await start();
     const config = env.services["voip.user_agent"].sipJsUserAgentConfig;

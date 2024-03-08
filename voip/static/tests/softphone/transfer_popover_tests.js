@@ -1,4 +1,4 @@
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { start } from "@mail/../tests/helpers/test_utils";
 
@@ -12,7 +12,7 @@ QUnit.test("TransferPopover input is pre-filled with external device number.", a
     const pyEnv = await startServer();
     pyEnv["res.users.settings"].create({
         external_device_number: externalDeviceNumber,
-        user_id: pyEnv.currentUserId,
+        user_id: serverState.userId,
     });
     const { advanceTime } = await start({ hasTimeControl: true });
     await click(".o_menu_systray button[title='Open Softphone']");

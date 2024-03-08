@@ -1,6 +1,6 @@
 /* @odoo-module */
 
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { openFormView, start } from "@mail/../tests/helpers/test_utils";
 
@@ -18,7 +18,7 @@ QUnit.test(
             status: "approved",
         });
         await start();
-        await openFormView("res.partner", pyEnv.currentPartnerId);
+        await openFormView("res.partner", serverState.partnerId);
         await click("button", { text: "WhatsApp" });
         await contains(".o_dialog h4", { text: "Send WhatsApp Message" });
     }

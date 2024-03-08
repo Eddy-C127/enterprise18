@@ -1,6 +1,6 @@
 /* @odoo-module */
 
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { Command } from "@mail/../tests/helpers/command";
 import { start } from "@mail/../tests/helpers/test_utils";
@@ -26,7 +26,7 @@ QUnit.test("Notification items should have unread counter for unread messages", 
         name: "WhatsApp 1",
         channel_type: "whatsapp",
         channel_member_ids: [
-            Command.create({ message_unread_counter: 1, partner_id: pyEnv.currentPartnerId }),
+            Command.create({ message_unread_counter: 1, partner_id: serverState.partnerId }),
         ],
     });
     await start();

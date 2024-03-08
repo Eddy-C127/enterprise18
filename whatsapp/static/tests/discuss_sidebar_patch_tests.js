@@ -1,6 +1,6 @@
 /* @odoo-module */
 
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { Command } from "@mail/../tests/helpers/command";
 import { openDiscuss, start } from "@mail/../tests/helpers/test_utils";
@@ -20,7 +20,7 @@ QUnit.test("Join whatsapp channels from add channel button", async () => {
             name: "WhatsApp 2",
             channel_type: "whatsapp",
             channel_member_ids: [
-                Command.create({ is_pinned: false, partner_id: pyEnv.currentPartnerId }),
+                Command.create({ is_pinned: false, partner_id: serverState.partnerId }),
             ],
         },
     ]);
@@ -69,7 +69,7 @@ QUnit.test("Message unread counter in whatsapp channels", async () => {
         name: "WhatsApp 1",
         channel_type: "whatsapp",
         channel_member_ids: [
-            Command.create({ message_unread_counter: 1, partner_id: pyEnv.currentPartnerId }),
+            Command.create({ message_unread_counter: 1, partner_id: serverState.partnerId }),
         ],
     });
     await start();
@@ -96,7 +96,7 @@ QUnit.test(
                 channel_member_ids: [
                     Command.create({
                         last_interest_dt: "2021-01-01 10:00:00",
-                        partner_id: pyEnv.currentPartnerId,
+                        partner_id: serverState.partnerId,
                     }),
                     Command.create({ partner_id: partnerId1 }),
                 ],
@@ -107,7 +107,7 @@ QUnit.test(
                 channel_member_ids: [
                     Command.create({
                         last_interest_dt: "2021-02-01 10:00:00",
-                        partner_id: pyEnv.currentPartnerId,
+                        partner_id: serverState.partnerId,
                     }),
                     Command.create({ partner_id: partnerId2 }),
                 ],

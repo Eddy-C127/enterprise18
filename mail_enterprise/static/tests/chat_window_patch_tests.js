@@ -1,4 +1,4 @@
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { Command } from "@mail/../tests/helpers/command";
 import { patchUiSize, SIZES } from "@mail/../tests/helpers/patch_ui_size";
@@ -22,7 +22,7 @@ QUnit.test("'backbutton' event should close chat window", async () => {
         channel_member_ids: [
             Command.create({
                 fold_state: "open",
-                partner_id: pyEnv.currentPartnerId,
+                partner_id: serverState.partnerId,
             }),
         ],
     });

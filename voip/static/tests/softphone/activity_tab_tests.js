@@ -1,4 +1,4 @@
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { start } from "@mail/../tests/helpers/test_utils";
 
@@ -27,14 +27,14 @@ QUnit.test("Today call activities are displayed in the “Next Activities” tab
             date_deadline: "1999-01-29",
             res_id: partnerId1,
             res_model: "res.partner",
-            user_id: pyEnv.currentUserId,
+            user_id: serverState.userId,
         },
         {
             activity_type_id: activityTypeId,
             date_deadline: "2016-08-06",
             res_id: partnerId2,
             res_model: "res.partner",
-            user_id: pyEnv.currentUserId,
+            user_id: serverState.userId,
         },
     ]);
     await start();
@@ -64,7 +64,7 @@ QUnit.test(
                 date_deadline: "2017-08-13",
                 res_id: partnerId,
                 res_model: "res.partner",
-                user_id: pyEnv.currentUserId,
+                user_id: serverState.userId,
             },
         ]);
         start();
@@ -89,7 +89,7 @@ QUnit.test("Clicking on an activity opens the correspondence details", async () 
             date_deadline: "2022-11-16",
             res_id: partnerId,
             res_model: "res.partner",
-            user_id: pyEnv.currentUserId,
+            user_id: serverState.userId,
         },
     ]);
     start();
