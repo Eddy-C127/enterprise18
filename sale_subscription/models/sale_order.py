@@ -1044,6 +1044,11 @@ class SaleOrder(models.Model):
         action['res_id'] = alternative_so.id
         return action
 
+    def _should_be_locked(self):
+        self.ensure_one()
+        should_lock = super()._should_be_locked()
+        return should_lock and not self.is_subscription
+
     ####################
     # Business Methods #
     ####################
