@@ -324,7 +324,7 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
 
             # Code AD
             (_('[44] < ([00] + [01] + [02] + [03] + [45] + [46] + [47] + [48] + [49]) * 200 if [88] > 99.999'),
-                lambda expr_totals: expr_totals[expr_map['c44']]['value'] < sum(expr_totals[expr_map[grid]]['value'] for grid in ('c00', 'c01', 'c02', 'c03', 'c45', 'c46', 'c47', 'c48', 'c49')) * 200 if expr_totals[expr_map['c88']]['value'] > 99.999 else True),
+                lambda expr_totals: expr_totals[expr_map['c44']]['value'] < sum(expr_totals[expr_map[grid]]['value'] for grid in ('c00', 'c01', 'c02', 'c03', 'c45', 'c46', 'c47', 'c48', 'c49')) * 200 if expr_totals[expr_map['c44']]['value'] > 99.999 else True),
         ]
 
         failed_controls = [
