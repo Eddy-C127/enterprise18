@@ -348,6 +348,26 @@ class Task(models.Model):
             specification['partner_id']['context']['show_address'] = self.is_fsm
         return super().web_read(specification)
 
+    def _server_action_project_task_fsm(self, xml_id_multiple_fsm_projects, xml_id_one_fsm_project, default_user_ids=False):
+        project_ids = self.env['project.project'].search([('is_fsm', '=', True)], limit=2)
+        if len(project_ids) <= 1:
+            action_id = xml_id_one_fsm_project
+            project_id = project_ids.id
+        else:
+            action_id = xml_id_multiple_fsm_projects
+            project_id = False
+        action = self.env['ir.actions.act_window']._for_xml_id(action_id)
+        context = literal_eval(action.get('context', '{}'))
+        if project_id:
+            context['default_project_id'] = project_id
+        return {
+            **action,
+            'context': {
+                **context,
+                'default_user_ids': default_user_ids,
+            },
+        }
+
     # ---------------------------------------------------------
     # Business Methods
     # ---------------------------------------------------------

@@ -251,6 +251,16 @@
         </field>
     </record>
 
+    <record id="project_task_map_view_inherit_fsm_report2" model="ir.ui.view">
+        <field name="name">project.task.view.fsm.report.map2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_task_map_view_inherit_fsm_report"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_id']" position="replace"/>
+        </field>
+    </record>
+
     <record id="action_fsm_task_send_report" model="ir.actions.server">
         <field name="name">Send Report</field>
         <field name="model_id" ref="project.model_project_task"/>
@@ -342,6 +352,16 @@
         </field>
     </record>
 
+    <record id="project_task_gantt_view_groupby_worksheet2" model="ir.ui.view">
+        <field name="name">project.task.gantt.fsm2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_task_gantt_view_groupby_worksheet"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='project_id']" position="replace"/>
+        </field>
+    </record>
+
     <record id="project_task_pivot_view_groupby_worksheet" model="ir.ui.view">
         <field name="name">project.task.pivot.fsm</field>
         <field name="model">project.task</field>
@@ -366,6 +386,18 @@
         </field>
     </record>
 
+    <!-- Planning : by worksheet template server action -->
+    <record id="project_task_fsm_planning_groupby_worksheet_server_action" model="ir.actions.server">
+        <field name="name">Planning by Worksheet Template Server Action</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="state">code</field>
+        <field name="code">action = model._server_action_project_task_fsm(
+            'industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet',
+            'industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet2',
+        )</field>
+    </record>
+
+    <!-- Planning : by worksheet template action if the number of FSM projects > 1 -->
     <record id="project_task_action_fsm_planning_groupby_worksheet" model="ir.actions.act_window">
         <field name="name">Planning by Worksheet Template</field>
         <field name="res_model">project.task</field>
@@ -373,7 +405,7 @@
         <field name="mobile_view_mode">calendar</field>
         <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
         <field name="domain">[('is_fsm', '=', True), ('project_id', '!=', False), ('display_in_project', '=', True)]</field>
-        <field name="context">{'fsm_mode': 1, 'task_nameget_with_hours': 1, 'default_scale': 'week', 'default_user_ids': False}</field>
+        <field name="context">{'fsm_mode': 1, 'task_nameget_with_hours': 1, 'default_scale': 'week'}</field>
         <field name="help" type="html">
             <p class='o_view_nocontent_smiling_face'>
                 No tasks found. Let's create one!
@@ -439,6 +471,80 @@
         <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet"/>
     </record>
 
+    <!-- Planning : by worksheet template action if the number of FSM projects <= 1 -->
+    <record id="project_task_action_fsm_planning_groupby_worksheet2" model="ir.actions.act_window">
+        <field name="name">Planning by Worksheet Template</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,calendar,map,pivot,graph,activity</field>
+        <field name="mobile_view_mode">calendar</field>
+        <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
+        <field name="domain">[('is_fsm', '=', True), ('project_id', '!=', False), ('display_in_project', '=', True)]</field>
+        <field name="context">{'fsm_mode': 1, 'task_nameget_with_hours': 1, 'default_scale': 'week'}</field>
+        <field name="help" type="html">
+            <p class='o_view_nocontent_smiling_face'>
+                No tasks found. Let's create one!
+            </p><p>
+                Schedule your tasks and assign them to your workers.
+            </p>
+        </field>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet2_gantt" model="ir.actions.act_window.view">
+        <field name="sequence" eval="5"/>
+        <field name="view_mode">gantt</field>
+        <field name="view_id" ref="project_task_gantt_view_groupby_worksheet2"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet2"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_fsm2_view_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="industry_fsm.project_task_view_kanban_fsm"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet2"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_fsm2_view_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="10"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="industry_fsm.project_task_view_list_fsm"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet2"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_fsm2_view_calendar" model="ir.actions.act_window.view">
+        <field name="sequence" eval="32"/>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="industry_fsm.project_task_view_calendar_fsm2"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet2"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_fsm2_view_map" model="ir.actions.act_window.view">
+        <field name="sequence" eval="30"/>
+        <field name="view_mode">map</field>
+        <field name="view_id" ref="project_task_map_view_inherit_fsm_report2"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet2"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_fsm2_view_pivot" model="ir.actions.act_window.view">
+        <field name="sequence" eval="35"/>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="project_task_pivot_view_groupby_worksheet"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet2"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_fsm2_view_graph" model="ir.actions.act_window.view">
+        <field name="sequence" eval="40"/>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="project_task_graph_view_groupby_worksheet"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet2"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_fsm2_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="45"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="project.view_task_form2"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet2"/>
+    </record>
+
     <record model="ir.ui.view" id="view_task_tree2_inherited">
         <field name="name">project.task.tree.inherited</field>
         <field name="model">project.task</field>
@@ -476,7 +582,7 @@
     <menuitem id="project_task_menu_planning_by_project_fsm"
         name="By Worksheet Template"
         sequence="20"
-        action="project_task_action_fsm_planning_groupby_worksheet"
+        action="project_task_fsm_planning_groupby_worksheet_server_action"
         parent="industry_fsm.fsm_menu_planning"
         groups="industry_fsm.group_fsm_manager"/>
 
