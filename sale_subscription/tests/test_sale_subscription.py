@@ -3674,3 +3674,11 @@ class TestSubscription(TestSubscriptionCommon):
             order_form.plan_id = self.plan_week
 
         self.assertEqual(order_1.plan_id, self.plan_week)
+
+    def test_subscription_lock_settings(self):
+        """ The settings to automatically lock SO upon confirmation
+        should never be applied to subscription orders. """
+        self.env.user.groups_id += self.env.ref('sale.group_auto_done_setting')
+        self.subscription.write({'start_date': False, 'next_invoice_date': False})
+        self.subscription.action_confirm()
+        self.assertEqual(self.subscription.state, 'sale')
