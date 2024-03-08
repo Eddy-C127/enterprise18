@@ -34,7 +34,7 @@ patch(MockServer.prototype, {
     _mockMailActivity_FormatCallActivities(activities) {
         const formattedActivities = [];
         for (const activity of activities) {
-            const [user] = this.pyEnv["res.users"].searchRead([["id", "=", activity.user_id]]);
+            const [user] = this.pyEnv["res.users"].search_read([["id", "=", activity.user_id]]);
             const state = (() => {
                 const now = serializeDate(today());
                 if (activity.date_deadline === now) {
@@ -45,7 +45,7 @@ patch(MockServer.prototype, {
                     return "planned";
                 }
             })();
-            const [record] = this.pyEnv[activity.res_model].searchRead([
+            const [record] = this.pyEnv[activity.res_model].search_read([
                 ["id", "=", activity.res_id],
             ]);
             const activityData = {
