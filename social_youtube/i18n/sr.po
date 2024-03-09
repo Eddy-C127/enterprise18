@@ -6,8 +6,8 @@
 # Martin Trigaux, 2023
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
 # Milan Bojovic <mbojovic@outlook.com>, 2023
-# コフスタジオ, 2024
 # Jelena Stamatović, 2024
+# コフスタジオ, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jelena Stamatović, 2024\n"
+"Last-Translator: コフスタジオ, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,6 +29,8 @@ msgid ""
 "'Uploads' Playlist ID provided by the YouTube API, this should never be set "
 "manually."
 msgstr ""
+"'Uploads' Playlist ID provided by the YouTube API, this should never be set "
+"manually."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.youtube_preview
@@ -51,17 +53,20 @@ msgid ""
 "<span>These are stored up to 30 days and refreshed often to provide you an accurate depiction of reality. </span>\n"
 "                        <span>To delete these from Odoo, simply delete this account.</span>"
 msgstr ""
+"<span>These are stored up to 30 days and refreshed often to provide you an accurate depiction of reality. </span>\n"
+"                        <span>To delete these from Odoo, simply delete this account.</span>"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "Access to your account can be revoked at any time from"
-msgstr ""
+msgstr "Access to your account can be revoked at any time from"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_account__youtube_access_token
 msgid ""
 "Access token provided by the YouTube API, this should never be set manually."
 msgstr ""
+"Access token provided by the YouTube API, this should never be set manually."
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__account_id
@@ -74,14 +79,14 @@ msgstr "Računi"
 #: code:addons/social_youtube/models/social_stream_post.py:0
 #, python-format
 msgid "An error occurred."
-msgstr ""
+msgstr "An error occurred."
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "Auth endpoint did not provide a refresh token. Please try again."
-msgstr ""
+msgstr "Auth endpoint did not provide a refresh token. Please try again."
 
 #. module: social_youtube
 #. odoo-javascript
@@ -125,6 +130,8 @@ msgid ""
 "Comments are marked as 'disabled' for this video. It could have been set as "
 "'private'."
 msgstr ""
+"Comments are marked as 'disabled' for this video. It could have been set as "
+"'private'."
 
 #. module: social_youtube
 #: model:ir.model,name:social_youtube.model_res_config_settings
@@ -142,12 +149,12 @@ msgstr "Potvrda"
 #: model:ir.model.fields,help:social_youtube.field_social_live_post__youtube_video_id
 #: model:ir.model.fields,help:social_youtube.field_social_post__youtube_video_id
 msgid "Contains the ID of the video as returned by the YouTube API"
-msgstr ""
+msgstr "Contains the ID of the video as returned by the YouTube API"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_post__youtube_video_category_id
 msgid "Contains the ID of the video category as returned by the YouTube API"
-msgstr ""
+msgstr "Contains the ID of the video category as returned by the YouTube API"
 
 #. module: social_youtube
 #. odoo-python
@@ -157,6 +164,8 @@ msgid ""
 "Could not revoke your account.\n"
 "Error: %s"
 msgstr ""
+"Could not revoke your account.\n"
+"Error: %s"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__create_uid
@@ -178,14 +187,14 @@ msgstr "Naziv za prikaz"
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Do you also want to remove the video from your YouTube account?"
-msgstr ""
+msgstr "Do you also want to remove the video from your YouTube account?"
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Draft Video"
-msgstr ""
+msgstr "Draft Video"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_account__youtube_token_expiration_date
@@ -193,6 +202,8 @@ msgid ""
 "Expiration date of the Access Token provided by the YouTube API, this should"
 " never be set manually."
 msgstr ""
+"Expiration date of the Access Token provided by the YouTube API, this should"
+" never be set manually."
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_access_token
@@ -259,11 +270,13 @@ msgid ""
 "Odoo will lose access to your YouTube account\n"
 "                        and delete all its related data from your database."
 msgstr ""
+"Odoo will lose access to your YouTube account\n"
+"                        and delete all its related data from your database."
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_post__youtube_video_privacy
 msgid "Once posted, set the video as Public/Private/Unlisted"
-msgstr ""
+msgstr "Once posted, set the video as Public/Private/Unlisted"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -317,6 +330,8 @@ msgid ""
 "Refresh token provided by the YouTube API, this should never be set "
 "manually."
 msgstr ""
+"Refresh token provided by the YouTube API, this should never be set "
+"manually."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -326,7 +341,7 @@ msgstr "Opozovi"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_revoke_youtube_view_form
 msgid "Revoke & Delete"
-msgstr ""
+msgstr "Revoke & Delete"
 
 #. module: social_youtube
 #. odoo-python
@@ -347,7 +362,7 @@ msgstr "Revoke YouTube Account"
 #: code:addons/social_youtube/models/social_account.py:0
 #, python-format
 msgid "Revoking access tokens is currently limited to YouTube accounts only."
-msgstr ""
+msgstr "Revoking access tokens is currently limited to YouTube accounts only."
 
 #. module: social_youtube
 #. odoo-javascript
@@ -359,12 +374,12 @@ msgstr "Izaberi"
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_accounts_other_count
 msgid "Selected Other Accounts"
-msgstr ""
+msgstr "Selected Other Accounts"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_accounts_count
 msgid "Selected YouTube Accounts"
-msgstr ""
+msgstr "Selected YouTube Accounts"
 
 #. module: social_youtube
 #: model:ir.model.fields,help:social_youtube.field_social_post__youtube_video
@@ -372,6 +387,8 @@ msgid ""
 "Simply holds the filename of the video as the video itself is uploaded "
 "directly to YouTube"
 msgstr ""
+"Simply holds the filename of the video as the video itself is uploaded "
+"directly to YouTube"
 
 #. module: social_youtube
 #: model:ir.model,name:social_youtube.model_social_account
@@ -413,14 +430,14 @@ msgstr "Social Stream Post"
 #: code:addons/social_youtube/models/social_post.py:0
 #, python-format
 msgid "The 'message' field is required for post ID %s"
-msgstr ""
+msgstr "The 'message' field is required for post ID %s"
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "The selected video exceeds the maximum allowed size of %s."
-msgstr ""
+msgstr "The selected video exceeds the maximum allowed size of %s."
 
 #. module: social_youtube
 #. odoo-python
@@ -430,20 +447,22 @@ msgid ""
 "The url that this service requested returned an error. Please contact the "
 "author of the app."
 msgstr ""
+"The url that this service requested returned an error. Please contact the "
+"author of the app."
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_live_post.py:0
 #, python-format
 msgid "The video you are trying to publish has been deleted from YouTube."
-msgstr ""
+msgstr "The video you are trying to publish has been deleted from YouTube."
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "There is no channel linked with this YouTube account."
-msgstr ""
+msgstr "There is no channel linked with this YouTube account."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -451,6 +470,8 @@ msgid ""
 "To provide our application services, note that we store the following data "
 "from your YouTube account:"
 msgstr ""
+"To provide our application services, note that we store the following data "
+"from your YouTube account:"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account__youtube_token_expiration_date
@@ -462,7 +483,7 @@ msgstr "Datum isteka tokena"
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "Unauthorized. Please contact your administrator."
-msgstr ""
+msgstr "Unauthorized. Please contact your administrator."
 
 #. module: social_youtube
 #. odoo-python
@@ -474,21 +495,21 @@ msgstr "Nepoznato"
 #. module: social_youtube
 #: model:ir.model.fields.selection,name:social_youtube.selection__social_post__youtube_video_privacy__unlisted
 msgid "Unlisted"
-msgstr ""
+msgstr "Unlisted"
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/xml/social_youtube_templates.xml:0
 #, python-format
 msgid "Upload Video"
-msgstr ""
+msgstr "Upload Video"
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Upload failed. Please try again."
-msgstr ""
+msgstr "Upload failed. Please try again."
 
 #. module: social_youtube
 #. odoo-javascript
@@ -515,6 +536,8 @@ msgid ""
 "Used to make comparisons when we need to restrict some features to a "
 "specific media ('facebook', 'twitter', ...)."
 msgstr ""
+"Used to make comparisons when we need to restrict some features to a "
+"specific media ('facebook', 'twitter', ...)."
 
 #. module: social_youtube
 #. odoo-python
@@ -526,24 +549,24 @@ msgstr "Video"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
 msgid "Video Description"
-msgstr ""
+msgstr "Video Description"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_video_privacy
 msgid "Video Privacy"
-msgstr ""
+msgstr "Video Privacy"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
 msgid "Video Title"
-msgstr ""
+msgstr "Video Title"
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Video Upload"
-msgstr ""
+msgstr "Video Upload"
 
 #. module: social_youtube
 #. odoo-python
@@ -565,21 +588,21 @@ msgstr "Pregledi"
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Yes, delete it"
-msgstr ""
+msgstr "Yes, delete it"
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_media.py:0
 #, python-format
 msgid "You don't have an active subscription. Please buy one here: %s"
-msgstr ""
+msgstr "You don't have an active subscription. Please buy one here: %s"
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_post.py:0
 #, python-format
 msgid "You have to upload a video when posting on YouTube."
-msgstr ""
+msgstr "You have to upload a video when posting on YouTube."
 
 #. module: social_youtube
 #: model:ir.model.fields.selection,name:social_youtube.selection__social_media__media_type__youtube
@@ -731,26 +754,26 @@ msgstr "YouTube Views"
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "YouTube did not provide a valid access token or it may have expired."
-msgstr ""
+msgstr "YouTube did not provide a valid access token or it may have expired."
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "YouTube did not provide a valid authorization code."
-msgstr ""
+msgstr "YouTube did not provide a valid authorization code."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "Your channel name and picture"
-msgstr ""
+msgstr "Your channel name and picture"
 
 #. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_live_post.py:0
 #, python-format
 msgid "Your video is missing a correct title or description."
-msgstr ""
+msgstr "Your video is missing a correct title or description."
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
@@ -758,6 +781,8 @@ msgid ""
 "Your videos metadata including title and view counts (but never the video "
 "itself)"
 msgstr ""
+"Your videos metadata including title and view counts (but never the video "
+"itself)"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
@@ -765,13 +790,15 @@ msgid ""
 "e.g. Engage your entire community with a single app! "
 "https://www.odoo.com/trial"
 msgstr ""
+"e.g. Engage your entire community with a single app! "
+"https://www.odoo.com/trial"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_post_view_form
 msgid "e.g. Odoo Social Tutorial"
-msgstr ""
+msgstr "e.g. Odoo Social Tutorial"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "the Google Third-party app account access panel"
-msgstr ""
+msgstr "the Google Third-party app account access panel"

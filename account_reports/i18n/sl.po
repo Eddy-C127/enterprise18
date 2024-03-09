@@ -11,10 +11,10 @@
 # Jasmina Macur <jasmina@hbs.si>, 2023
 # Matjaz Mozetic <m.mozetic@matmoz.si>, 2023
 # matjaz k <matjaz@mentis.si>, 2024
-# Katja Deržič, 2024
 # Tadej Lupšina <tadej@hbs.si>, 2024
 # Grega Vavtar <grega@hbs.si>, 2024
 # Martin Trigaux, 2024
+# Katja Deržič, 2024
 # 
 msgid ""
 msgstr ""
@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-27 15:49+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Katja Deržič, 2024\n"
 "Language-Team: Slovenian (https://app.transifex.com/odoo/teams/41243/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid " and %s others"
-msgstr ""
+msgstr "in%s drugi"
 
 #. module: account_reports
 #. odoo-python
@@ -49,14 +49,14 @@ msgstr ""
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid " is not supported by the Journal Report"
-msgstr ""
+msgstr "Ni podprto s poročilom v dnavniku"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "%s is not a numeric value"
-msgstr ""
+msgstr "%s Ni numerična vrednost"
 
 #. module: account_reports
 #. odoo-javascript
@@ -73,6 +73,8 @@ msgid ""
 "'Open General Ledger' caret option is only available form report lines "
 "targetting accounts."
 msgstr ""
+"Možnost \"Odpri glavno knjigo\" je na voljo samo v vrsticah poročila, ki se "
+"nanašajo na račune."
 
 #. module: account_reports
 #. odoo-python
@@ -82,6 +84,8 @@ msgid ""
 "'View Bank Statement' caret option is only available for report lines "
 "targeting bank statements."
 msgstr ""
+"Možnost \"Ogled bančnega izpiska\" je na voljo samo za vrstice poročila, ki "
+"se nanašajo na bančne izpiske."
 
 #. module: account_reports
 #. odoo-python
@@ -95,14 +99,14 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "(%s lines)"
-msgstr ""
+msgstr "(%s vrstice)"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "(1 line)"
-msgstr ""
+msgstr "(1 vrstica)"
 
 #. module: account_reports
 #. odoo-python
@@ -3585,7 +3589,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "View Bank Statement"
-msgstr ""
+msgstr "Ogled bančnega izpiska"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3608,14 +3612,14 @@ msgstr "Prikaz dnevniške vknjižbe"
 #: code:addons/account_reports/models/account_sales_report.py:0
 #, python-format
 msgid "View Partner"
-msgstr ""
+msgstr "Ogled partnerja"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "View Payment"
-msgstr ""
+msgstr "Ogled plačila"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -3736,12 +3740,12 @@ msgstr ""
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 #, python-format
 msgid "You need to activate more than one currency to access this report."
-msgstr ""
+msgstr "Za dostop do tega poročila morate aktivirati več kot eno valuto."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_main
 msgid "[Draft]"
-msgstr ""
+msgstr "[Osnutek]"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3750,7 +3754,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "addressed to"
-msgstr ""
+msgstr "naslovljeno na"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__year
@@ -3763,7 +3767,7 @@ msgstr "letno"
 #: code:addons/account_reports/models/account_aged_partner_balance.py:0
 #, python-format
 msgid "any"
-msgstr ""
+msgstr "vse"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -3786,7 +3790,7 @@ msgstr "vsake 4 mesece"
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/carryover_popover.xml:0
 #, python-format
 msgid "in the next period."
-msgstr ""
+msgstr "v naslednjem obdobju."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3816,7 +3820,7 @@ msgstr "n/a"
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "partners"
-msgstr ""
+msgstr "partnerji"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3852,7 +3856,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "that are not established abroad."
-msgstr ""
+msgstr "ki nimajo sedeža v tujini."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3888,14 +3892,14 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/carryover_popover.xml:0
 #, python-format
 msgid "will be carried over to"
-msgstr ""
+msgstr "se prenese v"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/carryover_popover.xml:0
 #, python-format
 msgid "will be carried over to this line in the next period."
-msgstr ""
+msgstr "bodo v naslednjem obdobju prenesene v to postavko"
 
 #. module: account_reports
 #. odoo-javascript

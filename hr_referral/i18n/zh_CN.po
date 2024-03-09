@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2024
+# 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # Chloe Wang, 2024
 # Yazi Tian, 2024
 # 
@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-03-05 15:02+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Yazi Tian, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
@@ -979,8 +979,13 @@ msgstr "正在进行"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
-msgid "Open"
-msgstr "打开"
+msgid "Open Position"
+msgstr ""
+
+#. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
+msgid "Open Positions"
+msgstr ""
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1042,13 +1047,7 @@ msgstr "待消费点数"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_friend__position
-#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "Position"
-msgstr "位置"
-
-#. module: hr_referral
-#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
-msgid "Positions"
 msgstr "位置"
 
 #. module: hr_referral
@@ -1060,11 +1059,6 @@ msgstr "产品"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__name
 msgid "Product Name"
 msgstr "产品名称"
-
-#. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__rating_ids
-msgid "Ratings"
-msgstr "评级"
 
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_applicant_employee_referral
@@ -1133,6 +1127,13 @@ msgstr "推荐发送邮件"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_report__referral_state
 msgid "Referral State"
 msgstr "推荐状态`"
+
+#. module: hr_referral
+#. odoo-python
+#: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
+#, python-format
+msgid "Referral: %(job_url)s"
+msgstr ""
 
 #. module: hr_referral
 #. odoo-python

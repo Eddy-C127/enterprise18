@@ -9,6 +9,7 @@
 # Martin Aavastik <martin@avalah.ee>, 2023
 # Piia Paurson <piia@avalah.ee>, 2023
 # Andre Roomet <andreroomet@gmail.com>, 2023
+# Arma Gedonsky <armagedonsky@hot.ee>, 2023
 # Rivo Zängov <eraser@eraser.ee>, 2023
 # Leaanika Randmets, 2023
 # Algo Kärp <algokarp@gmail.com>, 2023
@@ -19,16 +20,15 @@
 # Martin Trigaux, 2023
 # JanaAvalah, 2023
 # Mihkel avalah, 2023
-# Anna, 2023
-# Arma Gedonsky <armagedonsky@hot.ee>, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-03-05 15:02+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Arma Gedonsky <armagedonsky@hot.ee>, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1007,8 +1007,13 @@ msgstr "Käimasolev"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
-msgid "Open"
-msgstr "Avatud"
+msgid "Open Position"
+msgstr "Avatud ametikoht"
+
+#. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
+msgid "Open Positions"
+msgstr "Avatud ametikohad"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1070,14 +1075,8 @@ msgstr "Kulutatavad punktid"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_friend__position
-#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "Position"
 msgstr "Amet"
-
-#. module: hr_referral
-#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
-msgid "Positions"
-msgstr "Ametid"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1088,11 +1087,6 @@ msgstr "Toode"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__name
 msgid "Product Name"
 msgstr "Toote nimi"
-
-#. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__rating_ids
-msgid "Ratings"
-msgstr "Hinnangud"
 
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_applicant_employee_referral
@@ -1161,6 +1155,13 @@ msgstr "Referral Send Mail"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_report__referral_state
 msgid "Referral State"
 msgstr "Referral State"
+
+#. module: hr_referral
+#. odoo-python
+#: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
+#, python-format
+msgid "Referral: %(job_url)s"
+msgstr ""
 
 #. module: hr_referral
 #. odoo-python

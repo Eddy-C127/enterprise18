@@ -1614,7 +1614,7 @@ msgstr "Streams Enabled"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__live_post_ids
 msgid "Sub-posts that will be published on each selected social accounts."
-msgstr ""
+msgstr "Sub-posts that will be published on each selected social accounts."
 
 #. module: social
 #. odoo-javascript
@@ -1628,19 +1628,20 @@ msgstr "Synchronize"
 #: code:addons/social/models/social_post_template.py:0
 #, python-format
 msgid "The 'message' field is required for post ID %s"
-msgstr ""
+msgstr "The 'message' field is required for post ID %s"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__account_ids
 #: model:ir.model.fields,help:social.field_social_post_template__account_ids
 msgid "The accounts on which this post will be published."
-msgstr ""
+msgstr "The accounts on which this post will be published."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__author_name
 msgid ""
 "The post author name based on third party information (ex: 'John Doe')."
 msgstr ""
+"The post author name based on third party information (ex: 'John Doe')."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__state
@@ -1648,11 +1649,13 @@ msgid ""
 "The post is considered as 'Posted' when all its sub-posts (one per social "
 "account) are either 'Failed' or 'Posted'"
 msgstr ""
+"The post is considered as 'Posted' when all its sub-posts (one per social "
+"account) are either 'Failed' or 'Posted'"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__published_date
 msgid "The post published date based on third party information."
-msgstr ""
+msgstr "The post published date based on third party information."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_live_post__failure_reason
@@ -1660,16 +1663,18 @@ msgid ""
 "The reason why a post is not successfully posted on the Social Media (eg: "
 "connection error, duplicated post, ...)."
 msgstr ""
+"The reason why a post is not successfully posted on the Social Media (eg: "
+"connection error, duplicated post, ...)."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__media_image
 msgid "The related Social Media's image"
-msgstr ""
+msgstr "The related Social Media's image"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__media_ids
 msgid "The social medias linked to the selected social accounts."
-msgstr ""
+msgstr "The social medias linked to the selected social accounts."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__has_post_errors
@@ -1682,6 +1687,8 @@ msgid ""
 "This token can be used to verify that an incoming request from a social "
 "provider has not been forged."
 msgstr ""
+"This token can be used to verify that an incoming request from a social "
+"provider has not been forged."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__name
@@ -1693,7 +1700,7 @@ msgstr "Naslov"
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #, python-format
 msgid "To add a stream"
-msgstr ""
+msgstr "To add a stream"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__stream_type_id
@@ -1733,7 +1740,7 @@ msgstr "Nepoznata greška"
 #: code:addons/social/models/social_post_template.py:0
 #, python-format
 msgid "Uploaded file does not seem to be a valid image."
-msgstr ""
+msgstr "Uploaded file does not seem to be a valid image."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
@@ -1750,6 +1757,8 @@ msgid ""
 "Used to make comparisons when we need to restrict some features to a "
 "specific media ('facebook', 'twitter', ...)."
 msgstr ""
+"Used to make comparisons when we need to restrict some features to a "
+"specific media ('facebook', 'twitter', ...)."
 
 #. module: social
 #. odoo-javascript
@@ -1781,12 +1790,14 @@ msgid ""
 "When the global post was published. The actual sub-posts published dates may"
 " be different depending on the media."
 msgstr ""
+"When the global post was published. The actual sub-posts published dates may"
+" be different depending on the media."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__image_ids
 #: model:ir.model.fields,help:social.field_social_post_template__image_ids
 msgid "Will attach images to your posts (if the social media supports it)."
-msgstr ""
+msgstr "Will attach images to your posts (if the social media supports it)."
 
 #. module: social
 #. odoo-javascript
@@ -1815,6 +1826,8 @@ msgid ""
 "Write an enticing post, add images and schedule it to be posted later on "
 "multiple platforms at once."
 msgstr ""
+"Write an enticing post, add images and schedule it to be posted later on "
+"multiple platforms at once."
 
 #. module: social
 #. odoo-python
@@ -1824,6 +1837,8 @@ msgid ""
 "You cannot delete these UTM Mediums as they are linked to the following social accounts in Social:\n"
 "%(social_accounts)s"
 msgstr ""
+"You cannot delete these UTM Mediums as they are linked to the following social accounts in Social:\n"
+"%(social_accounts)s"
 
 #. module: social
 #. odoo-python
@@ -1833,6 +1848,8 @@ msgid ""
 "You cannot delete these UTM Sources as they are linked to social posts in Social:\n"
 "%(utm_sources)s"
 msgstr ""
+"You cannot delete these UTM Sources as they are linked to social posts in Social:\n"
+"%(utm_sources)s"
 
 #. module: social
 #. odoo-python
@@ -1875,7 +1892,7 @@ msgstr "comment/reply"
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
 msgid "dashboard"
-msgstr ""
+msgstr "dashboard"
 
 #. module: social
 #. odoo-javascript
@@ -1905,4 +1922,4 @@ msgstr "povežite svoje naloge i počnite sa objavljivanjem."
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_account
 msgid "to start posting from Odoo."
-msgstr ""
+msgstr "to start posting from Odoo."

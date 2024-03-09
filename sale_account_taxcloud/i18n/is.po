@@ -1,18 +1,18 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* sale_account_taxcloud
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0beta+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 08:24+0000\n"
-"PO-Revision-Date: 2022-09-22 05:48+0000\n"
-"Language-Team: Icelandic (https://www.transifex.com/odoo/teams/41243/is/)\n"
-"Language: is\n"
+"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Language-Team: Icelandic (https://app.transifex.com/odoo/teams/41243/is/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: is\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 #. module: sale_account_taxcloud
@@ -27,7 +27,8 @@ msgstr ""
 
 #. module: sale_account_taxcloud
 #: model_terms:ir.ui.view,arch_db:sale_account_taxcloud.view_order_form_inherit
-msgid "Please enter your Taxcloud credentials to compute tax rates automatically."
+msgid ""
+"Please enter your Taxcloud credentials to compute tax rates automatically."
 msgstr ""
 
 #. module: sale_account_taxcloud
@@ -51,6 +52,7 @@ msgid "Tax"
 msgstr ""
 
 #. module: sale_account_taxcloud
+#. odoo-python
 #: code:addons/sale_account_taxcloud/models/sale_order.py:0
 #, python-format
 msgid "Unable to retrieve taxes from TaxCloud: "
@@ -68,5 +70,6 @@ msgstr ""
 
 #. module: sale_account_taxcloud
 #: model:ir.model.fields,help:sale_account_taxcloud.field_sale_order__is_taxcloud_configured
-msgid "Used to determine whether or not to warn the user to configure TaxCloud."
+msgid ""
+"Used to determine whether or not to warn the user to configure TaxCloud."
 msgstr ""

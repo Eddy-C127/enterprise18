@@ -9,14 +9,15 @@
 # Maitê Dietze, 2024
 # Wil Odoo, 2024
 # Carlos Teles, 2024
+# Peter Lawrence Romão <peterromao@yahoo.co.uk>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 20:55+0000\n"
+"POT-Creation-Date: 2024-02-22 15:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Carlos Teles, 2024\n"
+"Last-Translator: Peter Lawrence Romão <peterromao@yahoo.co.uk>, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/odoo/teams/41243/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1364,7 +1365,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__country_id
 msgid "Customer Country"
-msgstr ""
+msgstr "País do Cliente"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__commercial_partner_id
@@ -2302,7 +2303,7 @@ msgstr "Nome"
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__health__normal
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_report__health__normal
 msgid "Neutral"
-msgstr ""
+msgstr "Neutro"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
@@ -2586,7 +2587,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_payment_provider
 msgid "Payment Provider"
-msgstr ""
+msgstr "Prestador de Pagamento"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__payment_term_id
@@ -2954,6 +2955,8 @@ msgstr "Receita recorrente"
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
+#: code:addons/sale_subscription/models/sale_subscription_plan.py:0
+#: model:ir.model.constraint,message:sale_subscription.constraint_sale_subscription_plan_check_for_valid_billing_period_value
 #, python-format
 msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
@@ -3052,7 +3055,7 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "Reopen"
-msgstr ""
+msgstr "Reabrir"
 
 #. module: sale_subscription
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_report

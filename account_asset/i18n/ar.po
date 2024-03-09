@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Malaz Abuidris <msea@odoo.com>, 2023
+# Malaz Abuidris <msea@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-02-13 09:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2023\n"
+"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -618,12 +618,13 @@ msgid "Computation"
 msgstr "احتساب"
 
 #. module: account_asset
-#: model:ir.actions.server,name:account_asset.action_account_asset_run
+#: model:ir.actions.server,name:account_asset.action_account_asset_compute_depreciations
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Compute Depreciation"
 msgstr "احتساب الإهلاك "
 
 #. module: account_asset
+#: model:ir.actions.server,name:account_asset.action_account_asset_run
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Confirm"
 msgstr "تأكيد"
@@ -1854,3 +1855,24 @@ msgstr "القيود"
 #, python-format
 msgid "entry"
 msgstr "دخول"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "gain"
+msgstr "الأرباح "
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "gain/loss"
+msgstr "الأرباح/الخسائر "
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "loss"
+msgstr "الخسائر "

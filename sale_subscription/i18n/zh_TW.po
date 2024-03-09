@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 20:55+0000\n"
+"POT-Creation-Date: 2024-02-22 15:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -332,7 +332,7 @@ msgstr "<i class=\"fa fa-print\"/> 列印"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_so_portal_template
 msgid "<i class=\"oi oi-arrow-right me-1\"/>Back to your subscription"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-right me-1\"/> 返回你的定期訂購"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
@@ -1108,7 +1108,7 @@ msgstr "添加新計劃"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.product_template_view_form_recurring
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_form
 msgid "Add a price rule"
-msgstr ""
+msgstr "新增價格規則"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1412,12 +1412,12 @@ msgstr "更改客戶"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_so_portal_template
 msgid "Change Plan"
-msgstr ""
+msgstr "更改規劃"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_so_portal_template
 msgid "Change Plan for"
-msgstr ""
+msgstr "更改規劃："
 
 #. module: sale_subscription
 #: model:ir.actions.server,name:sale_subscription.model_sale_order_subscription_change_customer
@@ -1718,7 +1718,7 @@ msgstr "貨幣"
 #: model:ir.model.fields,field_description:sale_subscription.field_product_product__product_subscription_pricing_ids
 #: model:ir.model.fields,field_description:sale_subscription.field_product_template__product_subscription_pricing_ids
 msgid "Custom Subscription Pricings"
-msgstr ""
+msgstr "自訂定期訂購價格"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__partner_id
@@ -1918,7 +1918,7 @@ msgstr "時長"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_template__duration_unit
 msgid "Duration Unit"
-msgstr ""
+msgstr "持續時長單位"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__template_id
@@ -1931,6 +1931,8 @@ msgid ""
 "Email template used to send invoicing email automatically.\n"
 "Leave it empty if you don't want to send email automatically."
 msgstr ""
+"用於自動發送發票電郵的電子郵件範本。\n"
+"如果不想自動發送電子郵件，請留空。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_close_reason__empty_retention_message
@@ -2354,7 +2356,7 @@ msgstr "KPI 3 個月 MRR 變動差額"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_template__is_unlimited
 msgid "Last Forever"
-msgstr ""
+msgstr "永遠持續"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__last_run
@@ -3042,7 +3044,7 @@ msgstr "計劃"
 #: code:addons/sale_subscription/static/src/xml/payment_form_templates.xml:0
 #, python-format
 msgid "Please provide another payment method for these subscriptions first."
-msgstr ""
+msgstr "請先為這些定期訂購提供另一種付款方式。"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
@@ -3312,7 +3314,7 @@ msgstr "經常性價格"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.product_pricelist_view
 #: model_terms:ir.ui.view,arch_db:sale_subscription.product_template_view_form_recurring
 msgid "Recurring Prices"
-msgstr ""
+msgstr "經常價格"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_product_pricelist__product_subscription_pricing_ids
@@ -3328,6 +3330,8 @@ msgstr "每月遞延收入"
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
+#: code:addons/sale_subscription/models/sale_subscription_plan.py:0
+#: model:ir.model.constraint,message:sale_subscription.constraint_sale_subscription_plan_check_for_valid_billing_period_value
 #, python-format
 msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
@@ -4155,7 +4159,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_template_check_duration_value
 msgid "The duration can't be negative or 0."
-msgstr ""
+msgstr "持續時長不可為負數或 0。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__first_contract_date
@@ -4279,12 +4283,12 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is a"
-msgstr ""
+msgstr "有一個"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is an"
-msgstr ""
+msgstr "有一個"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
@@ -4315,6 +4319,8 @@ msgid ""
 "This payment method cannot be deleted, because it is currently linked to the\n"
 "                following active subscriptions:"
 msgstr ""
+"此付款方式無法刪除，因它目前連結至\n"
+"                以下有效訂購計劃："
 
 #. module: sale_subscription
 #. odoo-python
@@ -5024,25 +5030,25 @@ msgstr "每年"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "quotation and"
-msgstr ""
+msgstr "報價及"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid ""
 "quotation existing for this subscription, please confirm it or reject it."
-msgstr ""
+msgstr "此訂購計劃已有報價，請確認或拒絕。"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid ""
 "quotation existing for this subscription, please confirm them or reject "
 "them."
-msgstr ""
+msgstr "此訂購計劃已有報價，請確認或拒絕它們。"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "renewal"
-msgstr ""
+msgstr "續訂"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -5052,7 +5058,7 @@ msgstr "至今天）將自動處理。"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "upsell"
-msgstr ""
+msgstr "追加銷售"
 
 #. module: sale_subscription
 #: model:sms.template,body:sale_subscription.sms_template_data_payment_failure

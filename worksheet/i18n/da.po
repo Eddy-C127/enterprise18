@@ -5,6 +5,7 @@
 # Translators:
 # Martin Trigaux, 2023
 # Mads Søndergaard, 2023
+# Sanne Kristensen <sanne@vkdata.dk>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Mads Søndergaard, 2023\n"
+"Last-Translator: Sanne Kristensen <sanne@vkdata.dk>, 2024\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +31,7 @@ msgstr "%s (kopi)"
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_form
 msgid "<span class=\"o_stat_text\">Worksheets</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Arbejdssedler</span>"
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__action_id
@@ -91,7 +92,7 @@ msgstr "Vis navn"
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__res_model
 msgid "Host Model"
-msgstr ""
+msgstr "Værtsmodel"
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__id
@@ -133,12 +134,12 @@ msgstr "Sekvens"
 #: code:addons/worksheet/models/worksheet_template.py:0
 #, python-format
 msgid "The host model name should be an existing model."
-msgstr ""
+msgstr "Værtsmodelnavnet skal være en eksisterende model."
 
 #. module: worksheet
 #: model:ir.model.fields,help:worksheet.field_worksheet_template__res_model
 msgid "The model that is using this template"
-msgstr ""
+msgstr "Modellen, der bruger denne skabelon"
 
 #. module: worksheet
 #. odoo-python
@@ -158,6 +159,9 @@ msgid ""
 "Unfortunately, you cannot unlink this worksheet template from %s because the"
 " template is still connected to tasks within the company."
 msgstr ""
+"Desværre kan du ikke afbryde forbindelsen til denne arbejdsseddels skabelon "
+"fra %s, fordi skabelonen stadig er forbundet til opgaver inden for "
+"virksomheden."
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__worksheet_count
@@ -172,7 +176,7 @@ msgstr "Arbejdsseddel skabelon"
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_search
 msgid "Worksheet Template Search"
-msgstr ""
+msgstr "Arbejdsseddel skabelonssøgning"
 
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_list
@@ -182,4 +186,4 @@ msgstr "Arbejdssedler"
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_form
 msgid "e.g Device Installation"
-msgstr ""
+msgstr "f.eks. Enhedsinstallation"

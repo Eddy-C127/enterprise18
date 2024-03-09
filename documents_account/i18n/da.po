@@ -4,12 +4,12 @@
 # 
 # Translators:
 # Pernille Kristensen <pernillekristensen1994@gmail.com>, 2023
-# Sanne Kristensen <sanne@vkdata.dk>, 2023
 # Martin Trigaux, 2023
 # lhmflexerp <lhm@flexerp.dk>, 2023
 # Mads Søndergaard, 2023
 # Ejner Sønniksen <ejner@vkdata.dk>, 2023
 # Mads Søndergaard, 2023
+# Sanne Kristensen <sanne@vkdata.dk>, 2024
 # 
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Mads Søndergaard, 2023\n"
+"Last-Translator: Sanne Kristensen <sanne@vkdata.dk>, 2024\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,6 +33,13 @@ msgid "<b>Deselect this page</b> as we plan to process all bills first."
 msgstr ""
 "<b>Fravælg denne side</b> eftersom vi planlægger at behandle alle regninger "
 "først."
+
+#. module: documents_account
+#. odoo-javascript
+#: code:addons/documents_account/static/src/js/tour.js:0
+#, python-format
+msgid "<b>Select</b> this page to continue."
+msgstr "<b>Vælg</b> denne side for at fortsætte."
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_documents_workflow_rule
@@ -136,7 +143,7 @@ msgstr "Opret"
 #. module: documents_account
 #: model:documents.workflow.rule,name:documents_account.credit_note_rule
 msgid "Create Customer Credit Note"
-msgstr ""
+msgstr "Opret kundekreditnota"
 
 #. module: documents_account
 #: model:documents.workflow.rule,name:documents_account.customer_invoice_rule
@@ -151,7 +158,7 @@ msgstr ""
 #. module: documents_account
 #: model:documents.workflow.rule,name:documents_account.vendor_bill_rule_financial
 msgid "Create Vendor Bill"
-msgstr ""
+msgstr "Opret leverandørregning"
 
 #. module: documents_account
 #: model:documents.workflow.rule,name:documents_account.documents_vendor_receipt_rule
@@ -309,6 +316,8 @@ msgid ""
 "Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your "
 "process, according to the workspace.</i>"
 msgstr ""
+"Lad os mærke denne mail som lovlig<br/> <i>Tips: handlinger kan skræddersyes"
+" til din proces i henhold til arbejdsområdet.</i>"
 
 #. module: documents_account
 #: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_entry

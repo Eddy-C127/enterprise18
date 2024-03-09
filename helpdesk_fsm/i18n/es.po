@@ -4,7 +4,6 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Martin Trigaux, 2023
 # Larissa Manderfeld, 2024
 # 
 msgid ""
@@ -47,7 +46,7 @@ msgstr "Crear tarea"
 #: model:ir.model,name:helpdesk_fsm.model_helpdesk_create_fsm_task
 #, python-format
 msgid "Create a Field Service task"
-msgstr "Crear una tarea en el campo de servicio"
+msgstr "Crear una tarea de servicio externo"
 
 #. module: helpdesk_fsm
 #: model:ir.model.fields,field_description:helpdesk_fsm.field_helpdesk_create_fsm_task__create_uid
@@ -82,7 +81,7 @@ msgstr "Mostrar ticket"
 #. module: helpdesk_fsm
 #: model:ir.model.fields,field_description:helpdesk_fsm.field_helpdesk_team__fsm_project_id
 msgid "FSM Project"
-msgstr "FSM del proyecto"
+msgstr "Proyecto de servicio externo"
 
 #. module: helpdesk_fsm
 #: model:ir.model.fields,field_description:helpdesk_fsm.field_helpdesk_ticket__use_fsm
@@ -92,7 +91,7 @@ msgstr "Servicio externo"
 #. module: helpdesk_fsm
 #: model:ir.model.fields,field_description:helpdesk_fsm.field_helpdesk_ticket__fsm_task_count
 msgid "Fsm Task Count"
-msgstr "Número de tareas del campo de servicio"
+msgstr "Número de tareas de servicio externo"
 
 #. module: helpdesk_fsm
 #: model:ir.model,name:helpdesk_fsm.model_helpdesk_team
@@ -127,7 +126,7 @@ msgstr "Ticket original"
 #. module: helpdesk_fsm
 #: model_terms:ir.ui.view,arch_db:helpdesk_fsm.helpdesk_ticket_view_form
 msgid "Plan Intervention"
-msgstr "Planear intervención"
+msgstr "Planificar intervención"
 
 #. module: helpdesk_fsm
 #: model:ir.model.fields,field_description:helpdesk_fsm.field_helpdesk_create_fsm_task__project_id
@@ -189,7 +188,7 @@ msgstr "Tareas"
 #: code:addons/helpdesk_fsm/wizard/create_task.py:0
 #, python-format
 msgid "Tasks from Tickets"
-msgstr "Tareas desde Tickets"
+msgstr "Tareas desde tickets"
 
 #. module: helpdesk_fsm
 #: model:ir.model.fields,help:helpdesk_fsm.field_helpdesk_ticket__fsm_task_ids
@@ -202,7 +201,7 @@ msgstr "Tareas generadas a partir de este ticket"
 #: model_terms:ir.ui.view,arch_db:helpdesk_fsm.project_sharing_inherit_project_task_view_form
 #, python-format
 msgid "Ticket"
-msgstr "Entrada"
+msgstr "Ticket"
 
 #. module: helpdesk_fsm
 #: model_terms:ir.ui.view,arch_db:helpdesk_fsm.project_sharing_inherit_project_task_view_form

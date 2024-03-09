@@ -5,7 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2023
-# Lucia Pacheco, 2023
+# Fernanda Alvarez, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Lucia Pacheco, 2023\n"
+"Last-Translator: Fernanda Alvarez, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,10 +57,10 @@ msgstr ""
 "\n"
 "    Apreciable <t t-out=\"object.partner_id.name or 'customer'\">cliente</t>,<br><br>\n"
 "    <t t-if=\"date_begin and date_end\">\n"
-"        Su intervención <t t-out=\"object.name or ''\">de mantenimiento de calentador</t> está programada desde el <t t-out=\"date_begin or ''\">05/31/2021 12:30:00</t> al <t t-out=\"date_end or ''\">05/31/2021 14:30:00</t>.\n"
+"        Su intervención <t t-out=\"object.name or ''\">Mantenimiento de calentador</t> está programada del <t t-out=\"date_begin or ''\">05/31/2021 12:30:00</t> al <t t-out=\"date_end or ''\">05/31/2021 14:30:00</t>.\n"
 "    </t>\n"
 "    <t t-else=\"\">\n"
-"        Su intervención de <t t-out=\"object.name or ''\">mantenimiento de calentador</t> está programada.\n"
+"        Su intervención <t t-out=\"object.name or ''\">Mantenimiento de calentador</t> está programada.\n"
 "    </t>\n"
 "    <br><br>\n"
 "    Saludos cordiales,\n"
@@ -74,7 +74,7 @@ msgstr ""
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.portal_task_sign_button
 msgid "<i class=\"fa fa-check me-1\"/>Sign"
-msgstr "<i class=\"fa fa-check me-1\"/>Firma"
+msgstr "<i class=\"fa fa-check me-1\"/>Firmar"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_task_form2_inherit
@@ -95,7 +95,8 @@ msgstr "<strong>Fecha planeada:</strong>"
 #. module: industry_fsm
 #: model:ir.model.constraint,message:industry_fsm.constraint_project_project_company_id_required_for_fsm_project
 msgid "A fsm project must be company restricted"
-msgstr "Un proyecto fsm debe estar restringido por la empresa "
+msgstr ""
+"Un proyecto de servicio externo debe estar restringido por la empresa "
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__active
@@ -105,7 +106,7 @@ msgstr "Activo"
 #. module: industry_fsm
 #: model:ir.ui.menu,name:industry_fsm.mail_activity_plan_menu_config_task
 msgid "Activity Plans"
-msgstr "Planes de actividades"
+msgstr "Planes de actividad"
 
 #. module: industry_fsm
 #: model:ir.ui.menu,name:industry_fsm.fsm_menu_config_activity_type
@@ -154,7 +155,7 @@ msgstr "Calificación promedio"
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__dependent_ids
 msgid "Block"
-msgstr "Bloque"
+msgstr "Bloquear"
 
 #. module: industry_fsm
 #: model:ir.ui.menu,name:industry_fsm.project_task_menu_planning_by_project_fsm
@@ -209,8 +210,8 @@ msgid ""
 "Confirm the <b>time spent</b> on your task. <i>Tip: note that the duration "
 "has automatically been rounded to 15 minutes.</i>"
 msgstr ""
-"Confirme el <b>tiempo dedicado</b> en su tarea. <i>Consejo: tome en cuenta "
-"que la duración se redondeó de forma automática a 15 minutos.</i>"
+"Confirme el <b>tiempo utilizado</b> en la tarea. <i>Consejo: tome en cuenta "
+"que la duración se redondea a 15 minutos de forma automática.</i>"
 
 #. module: industry_fsm
 #: model:ir.model,name:industry_fsm.model_res_partner
@@ -350,7 +351,7 @@ msgstr ""
 #: code:addons/industry_fsm/models/project_task.py:0
 #, python-format
 msgid "Do you want to stop the running timers?"
-msgstr "¿Desea detener los temporizadores en ejecución?"
+msgstr "¿Desea detener los temporizadores activos?"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__date_end
@@ -365,7 +366,7 @@ msgstr "Cotizaciones adicionales"
 #. module: industry_fsm
 #: model:ir.model,name:industry_fsm.model_report_project_task_user_fsm
 msgid "FSM Tasks Analysis"
-msgstr "Análisis de las tareas del Servicio externo "
+msgstr "Análisis de las tareas del servicio externo "
 
 #. module: industry_fsm
 #. odoo-python
@@ -445,8 +446,8 @@ msgid ""
 "Keep track of the products used for your tasks, and invoice your time and "
 "material to your customers"
 msgstr ""
-"Lleve el seguimiento de los productos utilizados en sus tareas, y facture su"
-" tiempo y materiales a sus clientes"
+"Lleve el seguimiento de los productos utilizados en sus tareas y facture su "
+"tiempo y materiales a los clientes"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__date_last_stage_update
@@ -488,14 +489,14 @@ msgid ""
 "automatically be updated, and your task will be closed.</i>"
 msgstr ""
 "<b>¡Marquemos su tarea como hecha!</b> <i>Consejo: al hacerlo, sus "
-"existencias se actualizarán de forma automática, y su tarea se cerrará.</i>"
+"existencias se actualizarán de forma automática y su tarea se cerrará.</i>"
 
 #. module: industry_fsm
 #. odoo-javascript
 #: code:addons/industry_fsm/static/src/js/tours/industry_fsm_tour.js:0
 #, python-format
 msgid "Let's create your first <b>task</b>."
-msgstr "Vamos a crear su primer <b>tarea</b>."
+msgstr "Creemos su primer <b>tarea</b>."
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task_stop_timers_wizard__line_ids
@@ -547,17 +548,17 @@ msgstr "Ir a"
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_user_action_report_fsm
 msgid "No data yet!"
-msgstr "¡No hay datos aún!"
+msgstr "Todavía no hay información"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_project_action_only_fsm
 msgid "No projects found. Let's create one!"
-msgstr "No se encontraron proyectos. ¡Vamos a crear uno!"
+msgstr "No se encontraron proyectos. ¡Creemos uno!"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_type_action_fsm
 msgid "No stages found. Let's create one!"
-msgstr "No hay etapas ¡hay que crear una!"
+msgstr "No se encontraron etapas. ¡Creemos una!"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_all_fsm
@@ -568,7 +569,7 @@ msgstr "No hay etapas ¡hay que crear una!"
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_to_schedule_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_tasks_action_fsm
 msgid "No tasks found. Let's create one!"
-msgstr "No se encontraron tareas. ¡Vamos a crear una!"
+msgstr "No se encontraron tareas. ¡Creemos una!"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__overtime
@@ -656,8 +657,8 @@ msgid ""
 "Ready to <b>manage your onsite interventions</b>? <i>Click Field Service to "
 "start.</i>"
 msgstr ""
-"¿Listo para <b>gestionar sus intervenciones en instalaciones</b>? <i>Haga "
-"clic en Servicio externo para empezar.</i>"
+"¿Listo para <b>gestionar sus intervenciones presenciales</b>? <i>Haga clic "
+"en Servicio externo para empezar.</i>"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__remaining_hours
@@ -718,7 +719,7 @@ msgstr ""
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.portal_task_sign_button
 msgid "Sign"
-msgstr "Firma "
+msgstr "Firmar"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.portal_task_sign_button
@@ -731,8 +732,8 @@ msgid ""
 "Some employees are still running their timer for this task. Are you sure you"
 " want to continue?"
 msgstr ""
-"Algunos empleados siguen ejecutando su temporizador para esta tarea. ¿Está "
-"seguro que desea continuar?"
+"Algunos empleados aún tienen el temporizador activo en esta tarea. ¿Está "
+"seguro de que desea continuar?"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__stage_id
@@ -793,7 +794,7 @@ msgstr "Tarea hecha"
 #. module: industry_fsm
 #: model:ir.model,name:industry_fsm.model_project_task_recurrence
 msgid "Task Recurrence"
-msgstr "Recurrencia de tareas"
+msgstr "Recurrencia de la tarea"
 
 #. module: industry_fsm
 #: model:ir.model,name:industry_fsm.model_project_task_type
@@ -804,15 +805,15 @@ msgstr "Etapa de la tarea"
 #: model:ir.model,name:industry_fsm.model_project_task_stop_timers_wizard
 msgid "Task stop running timers confirmation wizard"
 msgstr ""
-"Asistente de confirmación para detener la ejecución de temporizadores en las"
-" tareas"
+"Asistente de confirmación para detener los temporizadores activos en las "
+"tareas"
 
 #. module: industry_fsm
 #: model:ir.model,name:industry_fsm.model_project_task_stop_timers_wizard_line
 msgid "Task stop running timers confirmation wizard line"
 msgstr ""
-"Línea de asistente de confirmación para detener la ejecución de "
-"temporizadores en las tareas"
+"Línea de asistente de confirmación para detener los temporizadores activos "
+"en las tareas"
 
 #. module: industry_fsm
 #: model:ir.actions.act_window,name:industry_fsm.project_tasks_action_fsm
@@ -843,7 +844,7 @@ msgstr "Tiempo"
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.timesheet_view_form
 msgid "Time Spent"
-msgstr "Tiempo dedicado"
+msgstr "Tiempo utilizado"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_res_config_settings__module_industry_fsm_sale
@@ -858,7 +859,7 @@ msgstr "Tiempo registrado en esta tarea"
 #. module: industry_fsm
 #: model:ir.model.fields,help:industry_fsm.field_report_project_task_user_fsm__total_hours_spent
 msgid "Time spent on this task, including its sub-tasks."
-msgstr "Tiempo dedicado en esta tarea, incluyendo las subtareas."
+msgstr "Tiempo utilizado en esta tarea y sus subtareas."
 
 #. module: industry_fsm
 #. odoo-python
@@ -989,9 +990,8 @@ msgid ""
 "lang_code=object.partner_id.lang) or '' }}"
 msgstr ""
 "Se programó su intervención {{ object.planned_date_begin and "
-"object.date_deadline and 'from the ' + "
-"format_datetime(object.planned_date_begin, tz=object.partner_id.tz, "
-"lang_code=object.partner_id.lang) + ' to the ' + "
+"object.date_deadline and 'del ' + format_datetime(object.planned_date_begin,"
+" tz=object.partner_id.tz, lang_code=object.partner_id.lang) + ' al ' + "
 "format_datetime(object.date_deadline, tz=object.partner_id.tz, "
 "lang_code=object.partner_id.lang) or '' }}"
 
@@ -1003,7 +1003,7 @@ msgstr "Por ejemplo, \"Reemplazo de calentador\""
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_task_form2_inherit
 msgid "is FSM?"
-msgstr "¿es un Servicio externo?"
+msgstr "¿es Servicio externo?"
 
 #. module: industry_fsm
 #: model:ir.actions.server,name:industry_fsm.fsm_customer_ratings_server_action

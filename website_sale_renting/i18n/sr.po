@@ -5,9 +5,9 @@
 # Translators:
 # Martin Trigaux, 2023
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
-# コフスタジオ, 2024
 # Jelena Stamatović, 2024
 # Milan Bojovic <mbojovic@outlook.com>, 2024
+# コフスタジオ, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:12+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Milan Bojovic <mbojovic@outlook.com>, 2024\n"
+"Last-Translator: コフスタジオ, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,6 +44,10 @@ msgid ""
 "                rentals that last less than %(duration)s %(unit)s.\n"
 "            "
 msgstr ""
+"\n"
+"                Your rental duration was too short. Unfortunately, we do not process\n"
+"                rentals that last less than %(duration)s %(unit)s.\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -55,6 +59,10 @@ msgid ""
 "                Unfortunately, we do not process pickups on that weekday.\n"
 "            "
 msgstr ""
+"\n"
+"                Your rental product had invalid date of pickup (%(start_date)s).\n"
+"                Unfortunately, we do not process pickups on that weekday.\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -66,6 +74,10 @@ msgid ""
 "                Unfortunately, we do not process returns on that weekday.\n"
 "            "
 msgstr ""
+"\n"
+"                Your rental product had invalid date of return (%(end_date)s).\n"
+"                Unfortunately, we do not process returns on that weekday.\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -78,6 +90,11 @@ msgid ""
 "                returns on those weekdays.\n"
 "            "
 msgstr ""
+"\n"
+"                Your rental product had invalid dates of pickup (%(start_date)s) and\n"
+"                return (%(end_date)s). Unfortunately, we do not process pickups nor\n"
+"                returns on those weekdays.\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -239,13 +256,13 @@ msgstr "Sati"
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_minimal_time_duration
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_config_settings__renting_minimal_time_duration
 msgid "Minimal Rental Duration"
-msgstr ""
+msgstr "Minimal Rental Duration"
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_minimal_time_unit
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_config_settings__renting_minimal_time_unit
 msgid "Minimal Rental Duration Unit"
-msgstr ""
+msgstr "Minimal Rental Duration Unit"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
@@ -368,7 +385,7 @@ msgstr "Datum preuzimanja ne može biti u prošlosti."
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "The rental lasts less than the minimal rental duration %s"
-msgstr ""
+msgstr "The rental lasts less than the minimal rental duration %s"
 
 #. module: website_sale_renting
 #. odoo-javascript

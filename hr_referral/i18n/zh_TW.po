@@ -3,14 +3,14 @@
 # 	* hr_referral
 # 
 # Translators:
-# Wil Odoo, 2024
+# Wil Odoo, 2023
 # Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-03-05 15:02+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -32,12 +32,12 @@ msgstr "您已獲得{gained}點數。{new_line}您的總點數達到{total}點�
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_recruitment_report__referral_hired
 msgid "# Hired by Referral"
-msgstr ""
+msgstr "經推薦聘用數目"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_applicant_employee_referral_kanban
 msgid "<b>Responsible: </b>"
-msgstr ""
+msgstr "<b>負責人：</b>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_applicant_employee_referral_kanban
@@ -47,23 +47,23 @@ msgstr ""
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_applicant_employee_referral_kanban
 msgid "<i class=\"fa fa-square-o\" title=\"Open\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-square-o\" title=\"開放\"/>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_applicant_employee_referral_kanban
 msgid "<i class=\"text-danger fa fa-times\" title=\"Closed\"/>"
-msgstr ""
+msgstr "<i class=\"text-danger fa fa-times\" title=\"已關閉\"/>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_applicant_employee_referral_kanban
 msgid "<i class=\"text-success fa fa-check\" title=\"Done\"/>"
-msgstr ""
+msgstr "<i class=\"text-success fa fa-check\" title=\"已完成\"/>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_level_form
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_form
 msgid "<span class=\"ml8\">Points</span>"
-msgstr ""
+msgstr "<span class=\"ml8\">分</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_form
@@ -82,11 +82,13 @@ msgid ""
 "<span title=\"Buy\"><i class=\"fa fa-shopping-basket me-3\" role=\"img\" "
 "aria-label=\"Buy\"/>Buy</span>"
 msgstr ""
+"<span title=\"購買\"><i class=\"fa fa-shopping-basket me-3\" role=\"img\" "
+"aria-label=\"購買\"/>購買</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "<span title=\"More info\">More info</span>"
-msgstr ""
+msgstr "<span title=\"更多資訊\">更多資訊</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -94,11 +96,13 @@ msgid ""
 "<span title=\"My Link to Share\"><i class=\"fa fa-lg fa-link\" role=\"img\" "
 "aria-label=\"My Link to Share\"/></span>"
 msgstr ""
+"<span title=\"我的分享連結\"><i class=\"fa fa-lg fa-link\" role=\"img\" aria-"
+"label=\"我的分享連結\"/></span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "<span title=\"Send by Mail\">Refer Friend</span>"
-msgstr ""
+msgstr "<span title=\"以郵件傳送\">推薦朋友</span>"
 
 #. module: hr_referral
 #. odoo-python
@@ -972,8 +976,13 @@ msgstr "正在進行"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
-msgid "Open"
-msgstr "開啟"
+msgid "Open Position"
+msgstr ""
+
+#. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
+msgid "Open Positions"
+msgstr ""
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1035,14 +1044,8 @@ msgstr ""
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_friend__position
-#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "Position"
 msgstr "職位"
-
-#. module: hr_referral
-#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
-msgid "Positions"
-msgstr ""
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1053,11 +1056,6 @@ msgstr "商品"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__name
 msgid "Product Name"
 msgstr "產品名稱"
-
-#. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__rating_ids
-msgid "Ratings"
-msgstr "點評"
 
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_applicant_employee_referral
@@ -1125,6 +1123,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__referral_state
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_report__referral_state
 msgid "Referral State"
+msgstr ""
+
+#. module: hr_referral
+#. odoo-python
+#: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
+#, python-format
+msgid "Referral: %(job_url)s"
 msgstr ""
 
 #. module: hr_referral

@@ -38,6 +38,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Refresh"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Opdater"
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
@@ -45,6 +47,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Retry"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Prøv igen"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_needaction
@@ -73,14 +77,14 @@ msgstr "Antal vedhæftninger"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_journal__alias_auto_extract_pdfs_only
 msgid "Auto extract PDFs only"
-msgstr ""
+msgstr "Udtræk kun PDF'er automatisk"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_can_show_banners
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_can_show_banners
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_can_show_banners
 msgid "Can show the ocr banners"
-msgstr ""
+msgstr "Kan vise ocr bannerne"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_can_show_send_button
@@ -102,7 +106,7 @@ msgstr "Konfigurer opsætning"
 #: code:addons/account_invoice_extract/models/account_invoice.py:0
 #, python-format
 msgid "Couldn't reload AI data."
-msgstr ""
+msgstr "Kunne ikke genindlæse AI data."
 
 #. module: account_invoice_extract
 #. odoo-javascript
@@ -129,34 +133,34 @@ msgstr "Kundefakturaer"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_out_invoice_digitalization_mode
 msgid "Digitization mode on customer invoices"
-msgstr ""
+msgstr "Digitaliseringstilstand på kunde fakturaer"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_in_invoice_digitalization_mode
 msgid "Digitization mode on vendor bills"
-msgstr ""
+msgstr "Digitaliseringstilstand på kreditor regninger"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_in_invoice_digitalization_mode__auto_send
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_out_invoice_digitalization_mode__auto_send
 msgid "Digitize automatically"
-msgstr ""
+msgstr "Digitaliser automatisk"
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
 msgid "Digitize document"
-msgstr ""
+msgstr "Digitalisere dokument"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_in_invoice_digitalization_mode__manual_send
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_out_invoice_digitalization_mode__manual_send
 msgid "Digitize on demand only"
-msgstr ""
+msgstr "Digitaliser kun efter behov"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_journal__display_alias_auto_extract_pdfs_only
 msgid "Display Alias Auto Extract Pdfs Only"
-msgstr ""
+msgstr "Vis kun alias automatisk udtræk pdf'er"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__display_name
@@ -167,7 +171,7 @@ msgstr "Vis navn"
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_in_invoice_digitalization_mode__no_send
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_out_invoice_digitalization_mode__no_send
 msgid "Do not digitize"
-msgstr ""
+msgstr "Må ikke digitaliseres"
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.res_config_settings_view_form
@@ -184,26 +188,26 @@ msgstr "Fejl besked"
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_attachment_id
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_attachment_id
 msgid "Extract Attachment"
-msgstr ""
+msgstr "Udtræk vedhæftning"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_detected_layout
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_detected_layout
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_detected_layout
 msgid "Extract Detected Layout Id"
-msgstr ""
+msgstr "Udtræk detekteret layout-id"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_partner_name
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_partner_name
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_partner_name
 msgid "Extract Detected Partner Name"
-msgstr ""
+msgstr "Udtræk detekteret partnernavn"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_state_processed
 msgid "Extract State Processed"
-msgstr ""
+msgstr "Udtræks status behandlet"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_word_ids
@@ -220,7 +224,7 @@ msgstr "Udtræk tilstand"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_status
 msgid "Extract status"
-msgstr ""
+msgstr "Udtræks status"
 
 #. module: account_invoice_extract
 #: model:ir.model,name:account_invoice_extract.model_account_invoice_extract_words
@@ -260,7 +264,7 @@ msgstr "ID"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
-msgstr ""
+msgstr "ID på anmodning til IAP-OCR'en"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,help:account_invoice_extract.field_account_move__message_needaction
@@ -286,7 +290,7 @@ msgstr "Faktura OCR: Opdaer alle status"
 #. module: account_invoice_extract
 #: model:ir.actions.server,name:account_invoice_extract.ir_cron_ocr_validate_ir_actions_server
 msgid "Invoice OCR: Validate Invoices"
-msgstr ""
+msgstr "Faktura OCR: Validere fakturaer"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_is_follower
@@ -296,7 +300,7 @@ msgstr "Er følger"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__is_in_extractable_state
 msgid "Is In Extractable State"
-msgstr ""
+msgstr "Er i udtræks status"
 
 #. module: account_invoice_extract
 #: model:ir.model,name:account_invoice_extract.model_account_journal
@@ -356,13 +360,15 @@ msgstr "Antal beskeder med leveringsfejl"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__ocr_selected
 msgid "Ocr Selected"
-msgstr ""
+msgstr "Ocr valgt"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,help:account_invoice_extract.field_account_journal__alias_auto_extract_pdfs_only
 msgid ""
 "Only extract PDF files attached to email arriving trough this email alias."
 msgstr ""
+"Udtræk kun PDF-filer vedhæftet til e-mailen, der ankommer via dette e-mail-"
+"alias."
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__rating_ids
@@ -372,7 +378,7 @@ msgstr "Bedømmelser"
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
 msgid "Reload AI Data"
-msgstr ""
+msgstr "Genindlæs AI data"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_has_sms_error
@@ -382,13 +388,13 @@ msgstr "SMS leveringsfejl"
 #. module: account_invoice_extract
 #: model:ir.actions.server,name:account_invoice_extract.model_account_send_for_digitalization
 msgid "Send Bills for digitization"
-msgstr ""
+msgstr "Send regninger til digitalisering"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_single_line_per_tax
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_config_settings__extract_single_line_per_tax
 msgid "Single Invoice Line Per Tax"
-msgstr ""
+msgstr "En faktura linje per afgift"
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
@@ -396,6 +402,8 @@ msgid ""
 "The data extraction is not finished yet. The extraction usually takes "
 "between 5 and 10 seconds."
 msgstr ""
+"Data udtrækket er ikke fuldført endnu. Udtrækningen tager typisk mellem 5 og"
+" 10 sekunder."
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__user_selected

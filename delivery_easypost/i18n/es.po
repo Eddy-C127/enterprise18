@@ -190,7 +190,7 @@ msgstr "Referencia de la orden Easypost"
 #. module: delivery_easypost
 #: model:ir.model,name:delivery_easypost.model_easypost_service
 msgid "Easypost Service"
-msgstr "Servicio Easypost"
+msgstr "Servicio de Easypost"
 
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.res_config_settings_view_form_sale
@@ -201,7 +201,7 @@ msgstr "Métodos de envío Easypost"
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
 msgid "Easypost Tutorial"
-msgstr "Tutorial Easypost"
+msgstr "Tutorial de Easypost"
 
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
@@ -218,12 +218,12 @@ msgstr "Easypost reportó un error: %s"
 #. module: delivery_easypost
 #: model:ir.model.fields,help:delivery_easypost.field_delivery_carrier__easypost_production_api_key
 msgid "Enter your API production key from Easypost account"
-msgstr "Introduce tu clave de producción API desde la cuenta de Easypost"
+msgstr "Ingrese su clave de producción de la API de la cuenta de Easypost"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,help:delivery_easypost.field_delivery_carrier__easypost_test_api_key
 msgid "Enter your API test key from Easypost account."
-msgstr "Introduce tu clave de prueba API desde la cuenta de Easypost.`"
+msgstr "Ingrese su clave de prueba de la API de la cuenta de Easypost."
 
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
@@ -333,7 +333,7 @@ msgstr "Proveedor"
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
 #, python-format
 msgid "Return Label<br/>"
-msgstr "Etiqueta de retorno <br/>"
+msgstr "Etiqueta de devolución<br/>"
 
 #. module: delivery_easypost
 #. odoo-python
@@ -392,8 +392,8 @@ msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Default Package Type)"
 msgstr ""
-"Falta el %s transportista (Campo(s) faltante(s):\n"
-"embalaje del producto por defecto)"
+"Falta el  transportista %s (Campo(s) faltante(s):\n"
+"tipo de paquete por defecto)"
 
 #. module: delivery_easypost
 #. odoo-python
@@ -403,8 +403,8 @@ msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Delivery Carrier Type)"
 msgstr ""
-"Falta el %s transportista (Campo(s) faltante(s):\n"
-"Tipo de Transportista de Entrega)"
+"Falta el transportista %s (Campo(s) faltante(s):\n"
+"Tipo de transportista de entrega)"
 
 #. module: delivery_easypost
 #. odoo-python
@@ -414,8 +414,8 @@ msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Production API Key)"
 msgstr ""
-"Falta el %s transportista (Campo(s) faltante(s):\n"
-"Clave API de Fabricación)"
+"Falta el transportista %s (Campo(s) faltante(s):\n"
+"Clave API de producción)"
 
 #. module: delivery_easypost
 #. odoo-python
@@ -425,8 +425,8 @@ msgid ""
 "The %s carrier is missing (Missing field(s) :\n"
 " Test API Key)"
 msgstr ""
-"Falta el %s transportista (Campo(s) faltante(s):\n"
-"Probar Clave de API)"
+"Falta el transportista %s (Campo(s) faltante(s):\n"
+"Clave API de prueba)"
 
 #. module: delivery_easypost
 #. odoo-python
@@ -502,9 +502,9 @@ msgid ""
 "You have no carrier linked to your Easypost Account.                Please "
 "connect to Easypost, link your account to carriers and then retry."
 msgstr ""
-"No tienes ningún transportista vinculado a tu cuenta de Easypost."
-"                Por favor, inicia sesión en Easypost, vincula tu cuenta con "
-"los transportistas y luego vuelve a intentarlo."
+"No tiene ningún transportista vinculado a su cuenta de Easypost."
+"                Inicie sesión en Easypost, vincule su cuenta con los "
+"transportistas y vuelva a intentarlo."
 
 #. module: delivery_easypost
 #: model:ir.model.fields.selection,name:delivery_easypost.selection__delivery_carrier__easypost_label_file_type__zpl

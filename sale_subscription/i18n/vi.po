@@ -5,16 +5,16 @@
 # Translators:
 # Martin Trigaux, 2023
 # Vo Thanh Thuy, 2023
-# Thi Huong Nguyen, 2023
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 20:55+0000\n"
+"POT-Creation-Date: 2024-02-22 15:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3388,6 +3388,8 @@ msgstr "Doanh thu định kỳ"
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
+#: code:addons/sale_subscription/models/sale_subscription_plan.py:0
+#: model:ir.model.constraint,message:sale_subscription.constraint_sale_subscription_plan_check_for_valid_billing_period_value
 #, python-format
 msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
@@ -4303,7 +4305,7 @@ msgid ""
 "The reason %s is required by the Subscription application and cannot be "
 "deleted."
 msgstr ""
-"Lý do %s là điều kiện bắt buộc cho ứng dụng Đăng ký và không thể xóa được."
+"Không thể xóa lý do %s vì đây là yếu tố bắt buộc cho ứng dụng Đăng ký."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form

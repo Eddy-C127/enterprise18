@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Thi Huong Nguyen, 2023
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2023\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -168,6 +168,41 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"                    <p>\n"
+"                        Xin chào <t t-out=\"ctx.get('old_assignee_name', 'Mitchel Admin')\"></t>,\n"
+"                        <br><br>\n"
+"                        Ca làm việc sau đây của bạn đã được phân công lại cho <t t-out=\"ctx.get('new_assignee_name', 'Marc Demo')\"></t>.\n"
+"                    </p>\n"
+"                    <br>\n"
+"                    <table style=\"width: 80%; margin: auto;\">\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left;\">Từ</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"ctx.get('start_datetime') or ''\">05/31/2021 08:00:00</td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left;\">Đến</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"ctx.get('end_datetime') or ''\">05/31/2021 16:00:00</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"object.role_id\">\n"
+"                            <th style=\"padding: 5px;text-align: left;\">Vai trò</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">Nhân viên pha chế</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
+"                            <th style=\"padding: 5px;text-align: left;\">Dự án</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">Họp mặt</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Mục đơn bán hàng</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\"></td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
+"                            <th style=\"padding: 5px;text-align: left;\">Ghi chú</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"                </div>\n"
+"            "
 
 #. module: planning
 #: model:mail.template,body_html:planning.email_template_planning_planning
@@ -220,6 +255,53 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"                    <p>\n"
+"                    <t t-if=\"ctx.get('employee')\">\n"
+"                        Xin chào <t t-out=\"ctx['employee'].name or ''\"></t>,\n"
+"                    </t>\n"
+"                    <t t-else=\"\">\n"
+"                        Xin chào,\n"
+"                    </t>\n"
+"                        <br><br>\n"
+"                    <t t-if=\"ctx.get('assigned_new_shift')\">\n"
+"                        Bạn đã được phân công ca làm việc mới:\n"
+"                    </t>\n"
+"                    <t t-else=\"\">\n"
+"                        Vui lòng xem kế hoạch làm việc của bạn trong khoảng thời gian sau:\n"
+"                    </t>\n"
+"                    </p>\n"
+"                    <br>\n"
+"\n"
+"                    <table style=\"table-layout: fixed; width: 80%; margin: auto;\">\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Từ</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"format_date(ctx.get('start_datetime')) or ''\">05/05/2021</td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Đến</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"format_date(ctx.get('end_datetime')) or ''\">05/05/2021</td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"\n"
+"                    <div t-if=\"ctx.get('planning_url')\" style=\"margin: 15px;\">\n"
+"                        <a t-att-href=\"ctx.get('planning_url')\" target=\"_blank\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">Xem kế hoạch</a>\n"
+"                    </div>\n"
+"\n"
+"                    <div t-if=\"ctx.get('slot_unassigned')\">\n"
+"                        <p>Nếu có ca làm việc trống phù hợp với thời gian của bạn, thì hãy tự nhận ca này.</p>\n"
+"                    </div>\n"
+"                    <br>\n"
+"\n"
+"                    <t t-if=\"ctx.get('message')\">\n"
+"                        <p t-out=\"ctx['message'] or ''\"></p>\n"
+"                    </t>\n"
+"\n"
+"                    <p t-if=\"hasattr(object, 'allow_self_unassign') and object.allow_self_unassign and hasattr(object, 'self_unassign_days_before') and object.self_unassign_days_before\">\n"
+"                        Lưu ý rằng nếu có việc đột xuất, bạn có thể bỏ ca làm việc trong vòng <t t-out=\"object.self_unassign_days_before or ''\">5</t> ngày trước khi ca làm việc bắt đầu. Cảm ơn sự thấu hiểu từ bạn!\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: planning
 #: model:mail.template,body_html:planning.email_template_slot_single
@@ -262,6 +344,43 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"                    <p>Xin chào <t t-out=\"ctx.get('employee_name', '')\">Anita Oliver</t>,<br><br></p>\n"
+"                    <t t-if=\"ctx.get('open_shift_available')\">\n"
+"                        <p>Có một ca làm việc mới đang trống:</p>\n"
+"                    </t>\n"
+"                    <t t-else=\"\">\n"
+"                        <p>Bạn đã được phân công làm việc theo lịch trình sau đây:</p>\n"
+"                    </t>\n"
+"                    <br>\n"
+"                    <table style=\"width: 80%; margin: auto;\">\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left;\">Từ</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"ctx.get('start_datetime') or ''\">05/31/2021 08:00:00</td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left;\">Đến</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"ctx.get('end_datetime') or ''\">05/31/2021 16:00:00</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"object.role_id\">\n"
+"                            <th style=\"padding: 5px;text-align: left;\">Vai trò</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">Nhân viên pha chế</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
+"                            <th style=\"padding: 5px;text-align: left;\">Dự án</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">Họp mặt</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Mục đơn bán hàng</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\"></td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
+"                            <th style=\"padding: 5px;text-align: left;\">Ghi chú</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"                </div>\n"
+"            "
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -382,14 +501,14 @@ msgid ""
 msgstr ""
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "<span class=\"ms-0 me-4\">Edit</span>"
+msgstr ""
+
+#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
 msgstr "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
-msgid "<span class=\"ms-2 me-4\">Edit</span>"
-msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -474,6 +593,11 @@ msgid ""
 "<span class=\"o_start_date\"/>\n"
 "                                    <i class=\"mx-1 fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>\n"
 "                                    <span class=\"o_end_date\"/>"
+msgstr ""
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
+msgid "<span class=\"o_stat_text\">Planning</span>"
 msgstr ""
 
 #. module: planning
@@ -1227,7 +1351,10 @@ msgid "Hours"
 msgstr "Giờ"
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__user
+#, python-format
 msgid "Human"
 msgstr "Con người"
 
@@ -1419,7 +1546,10 @@ msgid "Marc Demo"
 msgstr "Marc Demo"
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
+#, python-format
 msgid "Material"
 msgstr "Nguyên liệu/Máy móc"
 
@@ -2266,8 +2396,8 @@ msgid "The shift has successfully been sent."
 msgstr "Ca làm đã được gửi thành công."
 
 #. module: planning
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 #: code:addons/planning/wizard/planning_send.py:0
 #, python-format

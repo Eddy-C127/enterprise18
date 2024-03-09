@@ -37,12 +37,12 @@ msgstr ""
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "(%s days span)"
-msgstr ""
+msgstr "（%s 天期間）"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 msgid ".&amp;nbsp;"
-msgstr ""
+msgstr "。"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
@@ -415,7 +415,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
 msgid "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Hours\" title=\"Hours\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"小時\" title=\"小時\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_assignee_contact_popover
@@ -423,6 +423,8 @@ msgid ""
 "<i class=\"fa fa-envelope-o\" title=\"Mail\" role=\"img\" style=\"padding-"
 "right: 2px\"/>"
 msgstr ""
+"<i class=\"fa fa-envelope-o\" title=\"郵件\" role=\"img\" style=\"padding-"
+"right: 2px\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -458,7 +460,7 @@ msgstr "<i class=\"fa fa-long-arrow-right\" title=\"箭嘴\"/>"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_assignee_contact_popover
 msgid "<i class=\"fa fa-phone\" title=\"Phone\" role=\"img\" style=\"padding-right: 2px\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-phone\" title=\"電話\" role=\"img\" style=\"padding-right: 2px\"/>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -506,7 +508,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
-msgstr ""
+msgstr "<span class=\"ms-2 flex-shrink-1\"> 工時</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -755,12 +757,12 @@ msgstr "分配類別"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allow_template_creation
 msgid "Allow Template Creation"
-msgstr ""
+msgstr "允許建立範本"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_allow_self_unassign
 msgid "Allow Unassignment"
-msgstr ""
+msgstr "允許取消指派"
 
 #. module: planning
 #. odoo-python
@@ -819,7 +821,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "Ask to Switch"
-msgstr ""
+msgstr "要求調換"
 
 #. module: planning
 #. odoo-javascript
@@ -889,19 +891,19 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "CANCEL SWITCH"
-msgstr ""
+msgstr "取消調換"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_allow_self_unassign
 msgid "Can Employee Un-Assign Themselves?"
-msgstr ""
+msgstr "員工可以取消指派自己嗎？"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "Cancel Switch"
-msgstr ""
+msgstr "取消調換"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_simplified
@@ -1031,7 +1033,7 @@ msgstr "天內"
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_self_unassign_days_before
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_self_unassign_days_before
 msgid "Days before shift for unassignment"
-msgstr ""
+msgstr "最遲在班次/更份前多少天可取消指派"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -1041,7 +1043,7 @@ msgstr "截止日期"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__unassign_deadline
 msgid "Deadline for unassignment"
-msgstr ""
+msgstr "取消指派期限"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_planning__self_unassign_days_before
@@ -1049,7 +1051,7 @@ msgstr ""
 #: model:ir.model.fields,help:planning.field_res_company__planning_self_unassign_days_before
 #: model:ir.model.fields,help:planning.field_res_config_settings__planning_self_unassign_days_before
 msgid "Deadline in days for shift unassignment"
-msgstr ""
+msgstr "取消輪班指派的限期（天）"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_hr_employee__default_planning_role_id
@@ -1173,7 +1175,7 @@ msgstr "時長"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration_days
 msgid "Duration Days"
-msgstr ""
+msgstr "持續天數"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_kanban
@@ -1191,18 +1193,18 @@ msgstr ""
 msgid ""
 "Email sent automatically when employee self assigns to an unwanted shift of "
 "another employee"
-msgstr ""
+msgstr "員工向另一員工分配自己不想要的班次時，自動發送電子郵件"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_slot_single
 msgid "Email sent automatically when publishing a shift"
-msgstr ""
+msgstr "發佈班次時自動發送電子郵件"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_planning_planning
 msgid ""
 "Email sent automatically when publishing the schedule of your employees"
-msgstr ""
+msgstr "發佈員工工作時間表時，自動發送電子郵件"
 
 #. module: planning
 #: model:ir.model,name:planning.model_hr_employee
@@ -1254,7 +1256,7 @@ msgstr "結束日期"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__end_time
 msgid "End Hour"
-msgstr ""
+msgstr "結束時間"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_hr_employee_employee_token_unique
@@ -1311,7 +1313,7 @@ msgstr "永遠"
 #: code:addons/planning/models/planning_recurrency.py:0
 #, python-format
 msgid "Forever, every %s week(s)"
-msgstr ""
+msgstr "每 %s 星期舉行，永遠重複"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -1367,12 +1369,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "I Take It"
-msgstr ""
+msgstr "我頂替"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "I am unavailable"
-msgstr ""
+msgstr "我沒空"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__id
@@ -1405,12 +1407,12 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__include_unassigned
 msgid "Include Open Shifts"
-msgstr ""
+msgstr "包括開放班次"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__include_unassigned
 msgid "Includes Open Shifts"
-msgstr ""
+msgstr "包括開放班次"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_hatched
@@ -1420,7 +1422,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_assigned_to_me
 msgid "Is This Shift Assigned To The Current User"
-msgstr ""
+msgstr "此班次是否已指派給目前使用者"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_past
@@ -1435,7 +1437,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_unassign_deadline_passed
 msgid "Is unassignement deadline not past"
-msgstr ""
+msgstr "取消指派期限是否已過"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1485,7 +1487,7 @@ msgstr "圖例"
 #: model:ir.model.fields,field_description:planning.field_planning_planning__allow_self_unassign
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allow_self_unassign
 msgid "Let Employee Unassign Themselves"
-msgstr ""
+msgstr "讓員工取消指派自己"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -1518,7 +1520,7 @@ msgstr "清單"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_shift_template
 msgid "Make encoding shifts easy with templates."
-msgstr ""
+msgstr "利用範本，使輪班編碼更容易。"
 
 #. module: planning
 #: model:planning.role,name:planning.planning_role_management
@@ -1596,7 +1598,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Roles"
-msgstr ""
+msgstr "我的角色"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
@@ -1651,7 +1653,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_shift_template
 msgid "No shift templates found. Let's create one!"
-msgstr ""
+msgstr "未找到班次範本。讓我們建立一個吧！"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_my_calendar
@@ -1708,7 +1710,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 msgid "Open Shifts Available"
-msgstr ""
+msgstr "有開放的班次"
 
 #. module: planning
 #. odoo-python
@@ -1820,22 +1822,22 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "Planning:"
-msgstr ""
+msgstr "規劃："
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_planning_planning
 msgid "Planning: New Schedule"
-msgstr ""
+msgstr "規劃：新安排"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_slot_single
 msgid "Planning: New Shift"
-msgstr ""
+msgstr "規劃：新班次"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_shift_switch_email
 msgid "Planning: Shift Re-assigned"
-msgstr ""
+msgstr "規劃：班次已重新分配"
 
 #. module: planning
 #: model:ir.actions.server,name:planning.ir_cron_forecast_schedule_ir_actions_server
@@ -1864,7 +1866,7 @@ msgstr "計劃"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__previous_template_id
 msgid "Previous Template"
-msgstr ""
+msgstr "上一個範本"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__module_project_forecast
@@ -2088,7 +2090,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_creation
 msgid "Save as Template"
-msgstr ""
+msgstr "儲存為範本"
 
 #. module: planning
 #. odoo-javascript
@@ -2191,19 +2193,19 @@ msgstr "排班範本"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "Shift Template Form"
-msgstr ""
+msgstr "班次範本表單"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_tree
 msgid "Shift Template List"
-msgstr ""
+msgstr "班次範本列表"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_shift_template
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_id
 #: model:ir.ui.menu,name:planning.planning_menu_settings_shift_template
 msgid "Shift Templates"
-msgstr ""
+msgstr "班次範本"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
@@ -2213,7 +2215,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "Shifts from"
-msgstr ""
+msgstr "班次來自"
 
 #. module: planning
 #. odoo-python
@@ -2251,7 +2253,7 @@ msgstr "開始"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "Start & End Hours"
-msgstr ""
+msgstr "開始及結束時間"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__start_datetime
@@ -2276,18 +2278,18 @@ msgstr "截止日期"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_autocomplete_ids
 msgid "Template Autocomplete"
-msgstr ""
+msgstr "範本自動完成"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_reset
 msgid "Template Reset"
-msgstr ""
+msgstr "範本重設"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_res_company_planning_self_unassign_days_before_positive
 msgid ""
 "The amount of days before unassignment must be positive or equal to zero."
-msgstr ""
+msgstr "取消指派前的天數，必須為正數或等於零。"
 
 #. module: planning
 #. odoo-python
@@ -2306,14 +2308,14 @@ msgstr ""
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_duration_positive
 msgid "The duration cannot be negative."
-msgstr ""
+msgstr "持續時長不可為負數。"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "The duration is too long."
-msgstr ""
+msgstr "持續時長太長。"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_check_start_date_lower_end_date
@@ -2365,7 +2367,7 @@ msgstr ""
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "The selected duration creates a date too far into the future."
-msgstr ""
+msgstr "選取的持續時長，會建立一個太久遠的未來日期。"
 
 #. module: planning
 #. odoo-python
@@ -2401,19 +2403,19 @@ msgstr ""
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_lower_than_24
 msgid "The start hour cannot be greater than 24."
-msgstr ""
+msgstr "開始時間不可大於 24。"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_positive
 msgid "The start hour cannot be negative."
-msgstr ""
+msgstr "開始時間不可為負數。"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "The start hour must be greater or equal to 0 and lower than 24."
-msgstr ""
+msgstr "開始時間必須大於或等於 0、並小於 24。"
 
 #. module: planning
 #. odoo-python
@@ -2467,7 +2469,7 @@ msgstr ""
 msgid ""
 "This open shift is no longer available, or the planning has been updated in "
 "the meantime. Please contact your manager for further information."
-msgstr ""
+msgstr "此開放班次已不再可用，或在此期間有關規劃已更新。要獲取更多資訊，請與你的經理聯絡。"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__this
@@ -2539,7 +2541,7 @@ msgstr "直到"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "Unwanted Shifts Available"
-msgstr ""
+msgstr "有其他人不想要的班次"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_recurrency__repeat_until
@@ -2698,12 +2700,12 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.slot_unassign
 msgid "You have been successfully unassigned from this shift"
-msgstr ""
+msgstr "你已成功取消指派此班次"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.slot_unassign
 msgid "Your Planning"
-msgstr ""
+msgstr "你的規劃"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_planning_planning
@@ -2738,7 +2740,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "days span)"
-msgstr ""
+msgstr "天期間）"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form

@@ -144,8 +144,8 @@ msgstr ""
 "                }\n"
 "            </style>\n"
 "            <div>\n"
-"                <p>Hubo algunos errores en la sincronización de las ordenes de envío y no se completó.</p>\n"
-"                <p>Corrija los problemas antes de sincronizar de nuevo las ordenes de envío, pues no se intentará otra sincronización.</p>\n"
+"                <p>Hubo algunos errores en la sincronización de las órdenes de entrega y no se completó.</p>\n"
+"                <p>Corrija los problemas antes de sincronizar de nuevo las órdenes de entrega, pues no se intentará otra sincronización.</p>\n"
 "                <p>Estos son los errores que Amazon detectó: </p>\n"
 "                <table class=\"amz_table\">\n"
 "                    <thead>\n"
@@ -591,7 +591,7 @@ msgstr "Amazon: sincronizar inventario disponible"
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_pickings_ir_actions_server
 msgid "Amazon: sync delivery orders"
-msgstr "Amazon: sincronizar las ordenes de entrega"
+msgstr "Amazon: sincronizar las órdenes de entrega"
 
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_feeds_ir_actions_server
@@ -606,7 +606,7 @@ msgstr "Amazon: sincronizar pedidos"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.authorization_error
 msgid "An error occurred"
-msgstr "Se ha producido un error"
+msgstr "Ocurrió un error"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.authorization_error
@@ -644,14 +644,14 @@ msgstr "Contacto"
 #: code:addons/sale_amazon/utils.py:0 code:addons/sale_amazon/utils.py:0
 #, python-format
 msgid "Could not establish the connection to the API."
-msgstr "No se ha podido establecer la conexión con el API."
+msgstr "No se ha podido establecer la conexión con la API."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
 #, python-format
 msgid "Could not establish the connection to the feed URL."
-msgstr "No se ha podido establecer la conexión con el URL ingresado."
+msgstr "No se ha podido establecer la conexión con la URL del feed."
 
 #. module: sale_amazon
 #. odoo-python
@@ -951,12 +951,12 @@ msgstr "Solo se pueden seleccionar los mercados disponibles"
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__order_count
 msgid "Order Count"
-msgstr "Recuento de pedidos"
+msgstr "Número de órdenes"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "Order Follow-up"
-msgstr "Seguimiento de pedidos"
+msgstr "Seguimiento de órdenes"
 
 #. module: sale_amazon
 #. odoo-python
@@ -964,7 +964,7 @@ msgstr "Seguimiento de pedidos"
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 #, python-format
 msgid "Orders"
-msgstr "Pedidos"
+msgstr "Órdenes"
 
 #. module: sale_amazon
 #: model:ir.model.fields.selection,name:sale_amazon.selection__stock_picking__amazon_sync_status__pending
@@ -1511,7 +1511,7 @@ msgstr "Ver en Seller Central"
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "Warning"
-msgstr "Alerta"
+msgstr "Advertencia"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__synchronize_inventory

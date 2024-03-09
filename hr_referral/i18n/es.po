@@ -3,14 +3,14 @@
 # 	* hr_referral
 # 
 # Translators:
-# Wil Odoo, 2024
+# Wil Odoo, 2023
 # Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-03-05 15:02+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -560,7 +560,7 @@ msgstr "Icono de Font Awesome p. ej. fa-tasks"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_onboarding_tree
 msgid "Force Onboarding"
-msgstr "Forzar integración"
+msgstr "Forzar incorporación"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_applicant__friend_id
@@ -676,7 +676,7 @@ msgstr "Nivel de recomendación de RR.HH."
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_res_users__hr_referral_onboarding_page
 msgid "Hr Referral Onboarding Page"
-msgstr "Página de integración de recomendaciones de RR.HH."
+msgstr "Página de incorporación de recomendaciones de RR.HH."
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_alert__id
@@ -997,8 +997,13 @@ msgstr "En proceso"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
-msgid "Open"
-msgstr "Abierto"
+msgid "Open Position"
+msgstr "Puesto abierto"
+
+#. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
+msgid "Open Positions"
+msgstr "Puestos abiertos"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1060,14 +1065,8 @@ msgstr "Puntos para gastar"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_friend__position
-#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
 msgid "Position"
 msgstr "Cargo"
-
-#. module: hr_referral
-#: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
-msgid "Positions"
-msgstr "Puestos"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1078,11 +1077,6 @@ msgstr "Producto"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__name
 msgid "Product Name"
 msgstr "Nombre del producto"
-
-#. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__rating_ids
-msgid "Ratings"
-msgstr "Valoraciones"
 
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_applicant_employee_referral
@@ -1151,6 +1145,13 @@ msgstr "Mandar correo de recomendación"
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_report__referral_state
 msgid "Referral State"
 msgstr "Estado de recomendación"
+
+#. module: hr_referral
+#. odoo-python
+#: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
+#, python-format
+msgid "Referral: %(job_url)s"
+msgstr ""
 
 #. module: hr_referral
 #. odoo-python
@@ -1270,7 +1271,7 @@ msgstr "Enviar trabajo por correo electrónico"
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_send_mail_view_form
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_alert_form
 msgid "Send Mail"
-msgstr "Enviar correo"
+msgstr "Enviar correo electrónico"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_onboarding__sequence
@@ -1470,8 +1471,8 @@ msgid ""
 "This will make the onboarding visible to all employees who have already seen"
 " it. Do you want to continue?"
 msgstr ""
-"Esto hará que la integración sea visible para todos los empleados que ya la "
-"hayan visto, ¿desea continuar?"
+"Esto hará que la incorporación sea visible para todos los empleados que ya "
+"la hayan visto, ¿desea continuar?"
 
 #. module: hr_referral
 #. odoo-javascript
@@ -1580,7 +1581,7 @@ msgstr "Historial de comunicación del sitio web"
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_onboarding
 msgid "Welcome Onboarding in Referral App"
-msgstr "Integración de bienvenida en la aplicacion de recomendaciones"
+msgstr "Incorporación de bienvenida en la aplicacion de recomendaciones"
 
 #. module: hr_referral
 #. odoo-python

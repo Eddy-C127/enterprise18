@@ -73,6 +73,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Refresh"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Opdater"
 
 #. module: hr_expense_extract
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.hr_expense_extract_view_form
@@ -80,6 +82,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
 "                        Retry"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
+"                        Prøv igen"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_needaction
@@ -177,18 +181,18 @@ msgstr "Valuta"
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__res_company__expense_extract_show_ocr_option_selection__auto_send
 msgid "Digitize automatically"
-msgstr ""
+msgstr "Digitaliser automatisk"
 
 #. module: hr_expense_extract
 #: model:ir.actions.server,name:hr_expense_extract.hr_expense_parse_action_server
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.hr_expense_extract_view_form
 msgid "Digitize document"
-msgstr ""
+msgstr "Digitalisere dokument"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__res_company__expense_extract_show_ocr_option_selection__manual_send
 msgid "Digitize on demand only"
-msgstr ""
+msgstr "Digitaliser kun efter behov"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_expense_sample_receipt__display_name
@@ -199,7 +203,7 @@ msgstr "Vis navn"
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__res_company__expense_extract_show_ocr_option_selection__no_send
 msgid "Do not digitize"
-msgstr ""
+msgstr "Må ikke digitaliseres"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_error_message
@@ -240,7 +244,7 @@ msgstr ""
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_state_processed
 msgid "Extract State Processed"
-msgstr ""
+msgstr "Udtræks tilstand behandlet"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_state
@@ -250,7 +254,7 @@ msgstr "Udtræk tilstand"
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_status
 msgid "Extract status"
-msgstr ""
+msgstr "Udtræks status"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_follower_ids
@@ -286,7 +290,7 @@ msgstr "ID"
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
-msgstr ""
+msgstr "ID på anmodning til IAP-OCR'en"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,help:hr_expense_extract.field_hr_expense__message_needaction
@@ -307,7 +311,7 @@ msgstr "Er følger"
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__is_in_extractable_state
 msgid "Is In Extractable State"
-msgstr ""
+msgstr "Er i udtræks status"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_expense_sample_register__journal_id
@@ -473,6 +477,8 @@ msgid ""
 "The data extraction is not finished yet. The extraction usually takes "
 "between 5 and 10 seconds."
 msgstr ""
+"Data udtrækket er ikke fuldført endnu. Udtrækningen tager typisk mellem 5 og"
+" 10 sekunder."
 
 #. module: hr_expense_extract
 #. odoo-python

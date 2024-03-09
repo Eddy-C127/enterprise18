@@ -6,8 +6,8 @@
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Milan Bojovic <mbojovic@outlook.com>, 2023
-# コフスタジオ, 2024
 # Jelena Stamatović, 2024
+# コフスタジオ, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jelena Stamatović, 2024\n"
+"Last-Translator: コフスタジオ, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -235,7 +235,7 @@ msgstr "Iznos"
 #: code:addons/timesheet_grid/models/analytic.py:0
 #, python-format
 msgid "An employee must be linked to your user to record time."
-msgstr ""
+msgstr "An employee must be linked to your user to record time."
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_account_analytic_line
@@ -265,6 +265,8 @@ msgid ""
 "Check that your employees correctly filled in their timesheets and that "
 "their time is billable."
 msgstr ""
+"Check that your employees correctly filled in their timesheets and that "
+"their time is billable."
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -313,6 +315,8 @@ msgid ""
 "Congratulations, you are up to date. <br>\n"
 "                    Let's wait for your employees to start new activities."
 msgstr ""
+"Congratulations, you are up to date. <br>\n"
+"                    Let's wait for your employees to start new activities."
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_project_task_create_timesheet
@@ -370,6 +374,7 @@ msgstr "Dana za podsetiti korisnika"
 msgid ""
 "Define an 'hourly cost' on the employee to track the cost of their time."
 msgstr ""
+"Define an 'hourly cost' on the employee to track the cost of their time."
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
@@ -465,35 +470,35 @@ msgstr "Prikaz tajmera"
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_pause
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_pause
 msgid "Display Timer Pause"
-msgstr ""
+msgstr "Display Timer Pause"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_resume
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_resume
 msgid "Display Timer Resume"
-msgstr ""
+msgstr "Display Timer Resume"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_start_primary
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_start_primary
 msgid "Display Timer Start Primary"
-msgstr ""
+msgstr "Display Timer Start Primary"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_start_secondary
 msgid "Display Timer Start Secondary"
-msgstr ""
+msgstr "Display Timer Start Secondary"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_stop
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_stop
 msgid "Display Timer Stop"
-msgstr ""
+msgstr "Display Timer Stop"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timesheet_timer
 msgid "Display Timesheet Time"
-msgstr ""
+msgstr "Display Timesheet Time"
 
 #. module: timesheet_grid
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__account_analytic_line__validated_status__draft
@@ -527,7 +532,7 @@ msgstr "Podsetnik za zaposlene dana"
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__encoding_uom_id
 msgid "Encoding Uom"
-msgstr ""
+msgstr "Encoding Uom"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -592,7 +597,7 @@ msgstr "Poslednji put ažurirano"
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_employee__last_validated_timesheet_date
 msgid "Last Validated Timesheet Date"
-msgstr ""
+msgstr "Last Validated Timesheet Date"
 
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_week
@@ -609,6 +614,10 @@ msgid ""
 "can also directly add 15 minutes to this project by hitting the <b>shift + "
 "[A] keys</b>.</i>"
 msgstr ""
+"Launch the <b>timer</b> for this project by pressing the <b>[a] key</b>. "
+"Easily switch from one project to another by using those keys. <i>Tip: you "
+"can also directly add 15 minutes to this project by hitting the <b>shift + "
+"[A] keys</b>.</i>"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -701,6 +710,9 @@ msgid ""
 "email reminder will be sent to timesheet managers that still have timesheets"
 " to validate."
 msgstr ""
+"Number of days after the end of the week/month after which an automatic "
+"email reminder will be sent to timesheet managers that still have timesheets"
+" to validate."
 
 #. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_res_config_settings__reminder_user_delay
@@ -709,6 +721,9 @@ msgid ""
 "email reminder will be sent to timesheet users that still have timesheets to"
 " encode (according to their working hours)."
 msgstr ""
+"Numbers of days after the end of the week/month after which an automatic "
+"email reminder will be sent to timesheet users that still have timesheets to"
+" encode (according to their working hours)."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -718,6 +733,8 @@ msgid ""
 "Only a Timesheets Approver or Manager is allowed to modify a validated "
 "entry."
 msgstr ""
+"Only a Timesheets Approver or Manager is allowed to modify a validated "
+"entry."
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_view_form
@@ -786,7 +803,7 @@ msgstr "Zaokruži"
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
 msgid "Rounding applied when tracking your time using the timer"
-msgstr ""
+msgstr "Rounding applied when tracking your time using the timer"
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
@@ -812,6 +829,8 @@ msgid ""
 "Select the user responsible for approving \"Timesheet\" of this employee.\n"
 "If empty, the approval is done by a Timesheets > Administrator or a Timesheets > User: all timesheets (as determined in the users settings)."
 msgstr ""
+"Select the user responsible for approving \"Timesheet\" of this employee.\n"
+"If empty, the approval is done by a Timesheets > Administrator or a Timesheets > User: all timesheets (as determined in the users settings)."
 
 #. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_account_analytic_line__is_timesheet
@@ -911,6 +930,11 @@ msgid ""
 "00:30 (assuming you have a round up of 15 min). We recommend having the same"
 " value for the minimal duration and for the round up."
 msgstr ""
+"The duration of timesheets encoded through the timer will automatically be "
+"rounded up to this number. For instance, if you stop your timer at 00:16:56,"
+" the duration of the timesheet entry will automatically be rounded up to "
+"00:30 (assuming you have a round up of 15 min). We recommend having the same"
+" value for the minimal duration and for the round up."
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -1020,7 +1044,7 @@ msgstr "Timesheet Approver"
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_timesheet_grid_mixin
 msgid "Timesheet Grid mixin"
-msgstr ""
+msgstr "Timesheet Grid mixin"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__duration_unit_amount
@@ -1046,7 +1070,7 @@ msgstr ""
 #. module: timesheet_grid
 #: model:ir.actions.server,name:timesheet_grid.timesheet_reminder_user_ir_actions_server
 msgid "Timesheet: Employees Email Reminder"
-msgstr ""
+msgstr "Timesheet: Employees Email Reminder"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__timesheet_ids
@@ -1069,6 +1093,8 @@ msgid ""
 "Timesheets before the %s (included) have been validated, and can no longer "
 "be %s."
 msgstr ""
+"Timesheets before the %s (included) have been validated, and can no longer "
+"be %s."
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
@@ -1080,6 +1106,12 @@ msgid ""
 "of 15 min). We recommend having the same value for the minimal duration and "
 "for the round up."
 msgstr ""
+"Timesheets encoded via the timer that do not meet the minimal duration will "
+"automatically be rounded up to the defined value. For instance, if you stop "
+"your timer at 00:04:36, the duration of the timesheet entry will "
+"automatically be rounded up to 00:15 (assuming you have a minimal duration "
+"of 15 min). We recommend having the same value for the minimal duration and "
+"for the round up."
 
 #. module: timesheet_grid
 #: model:ir.actions.act_window,name:timesheet_grid.action_timesheet_previous_month
@@ -1123,7 +1155,7 @@ msgstr "Korisnik može potvrditi"
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_user_interval
 msgid "User Reminder Frequency"
-msgstr ""
+msgstr "User Reminder Frequency"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__user_timer_id
@@ -1135,6 +1167,7 @@ msgstr "User Timer"
 #: model:ir.model.fields,help:timesheet_grid.field_hr_employee_public__timesheet_manager_id
 msgid "User responsible of timesheet validation. Should be Timesheet Manager."
 msgstr ""
+"User responsible of timesheet validation. Should be Timesheet Manager."
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -1163,12 +1196,12 @@ msgstr "Validirani status"
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__validated
 #: model:ir.model.fields,field_description:timesheet_grid.field_timesheets_analysis_report__validated
 msgid "Validated line"
-msgstr ""
+msgstr "Validated line"
 
 #. module: timesheet_grid
 #: model:ir.actions.server,name:timesheet_grid.timesheet_grid_all_timesheets_action_server
 msgid "Validation All Timesheet Server Action"
-msgstr ""
+msgstr "Validation All Timesheet Server Action"
 
 #. module: timesheet_grid
 #: model:ir.actions.server,name:timesheet_grid.timesheet_grid_week_action_server
@@ -1199,6 +1232,7 @@ msgstr ""
 msgid ""
 "Whether or not the current user can validate/reset to draft the record."
 msgstr ""
+"Whether or not the current user can validate/reset to draft the record."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1216,6 +1250,8 @@ msgid ""
 "You can only reset to draft the timesheets of employees of whom you are the "
 "manager or the timesheet approver."
 msgstr ""
+"You can only reset to draft the timesheets of employees of whom you are the "
+"manager or the timesheet approver."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1226,6 +1262,8 @@ msgid ""
 "You can only validate the timesheets of employees of whom you are the "
 "manager or the timesheet approver."
 msgstr ""
+"You can only validate the timesheets of employees of whom you are the "
+"manager or the timesheet approver."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1243,6 +1281,8 @@ msgid ""
 "You cannot adjust the time of the timesheet for a project with timesheets "
 "disabled."
 msgstr ""
+"You cannot adjust the time of the timesheet for a project with timesheets "
+"disabled."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1252,6 +1292,8 @@ msgid ""
 "You cannot delete a validated entry. Please, contact your manager or your "
 "timesheet approver."
 msgstr ""
+"You cannot delete a validated entry. Please, contact your manager or your "
+"timesheet approver."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1261,6 +1303,8 @@ msgid ""
 "You cannot start the timer for a project in a company encoding its "
 "timesheets in days."
 msgstr ""
+"You cannot start the timer for a project in a company encoding its "
+"timesheets in days."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1271,7 +1315,7 @@ msgstr ""
 #: code:addons/timesheet_grid/models/analytic.py:0
 #, python-format
 msgid "You cannot use the timer on validated timesheets."
-msgstr ""
+msgstr "You cannot use the timer on validated timesheets."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1282,6 +1326,9 @@ msgid ""
 "employees who are not part of your team or are not in a state that can be "
 "validated. This may be due to the fact that they are dated in the future."
 msgstr ""
+"You cannot validate the selected timesheets as they either belong to "
+"employees who are not part of your team or are not in a state that can be "
+"validated. This may be due to the fact that they are dated in the future."
 
 #. module: timesheet_grid
 #. odoo-python

@@ -5,7 +5,7 @@
 # Translators:
 # Martin Trigaux, 2023
 # Wil Odoo, 2023
-# Thi Huong Nguyen, 2023
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2023\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1026,7 +1026,7 @@ msgstr "Xóa"
 #: code:addons/stock_barcode/static/src/components/main.xml:0
 #, python-format
 msgid "Return Products"
-msgstr "Trả lại hàng"
+msgstr "Trả hàng"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1345,6 +1345,13 @@ msgstr ""
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid "Scanning package"
+msgstr ""
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: model:ir.model,name:stock_barcode.model_stock_scrap
 #, python-format
 msgid "Scrap"
@@ -1648,6 +1655,15 @@ msgstr ""
 #, python-format
 msgid "You can't register scrap at this state of the operation"
 msgstr "Bạn không thể ghi nhận phế phẩm ở trạng thái hoạt động này"
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid ""
+"You have already scanned %s items of this package. Do you want to scan the "
+"whole package?"
+msgstr ""
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation

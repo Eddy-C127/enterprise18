@@ -1,22 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* account_invoice_extract
-#
+# 
 # Translators:
-# Heiðar Sigurðsson, 2022
-#
+# Heiðar Sigurðsson, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:02+0000\n"
-"PO-Revision-Date: 2022-09-22 05:45+0000\n"
-"Last-Translator: Heiðar Sigurðsson, 2022\n"
-"Language-Team: Icelandic (https://www.transifex.com/odoo/teams/41243/is/)\n"
-"Language: is\n"
+"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Heiðar Sigurðsson, 2024\n"
+"Language-Team: Icelandic (https://app.transifex.com/odoo/teams/41243/is/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: is\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 #. module: account_invoice_extract
@@ -37,7 +37,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
 msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/>\n"
-"                        Resend For Digitization"
+"                        Retry"
 msgstr ""
 
 #. module: account_invoice_extract
@@ -47,7 +47,9 @@ msgstr ""
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
-msgid "All fields will be automated by Artificial Intelligence, it might take 5 seconds."
+msgid ""
+"All fields will be automated by Artificial Intelligence, it might take 5 "
+"seconds."
 msgstr ""
 
 #. module: account_invoice_extract
@@ -66,13 +68,6 @@ msgid "Auto extract PDFs only"
 msgstr ""
 
 #. module: account_invoice_extract
-#. odoo-python
-#: code:addons/account_invoice_extract/models/account_invoice.py:0
-#, python-format
-msgid "Bill is being Digitized"
-msgstr ""
-
-#. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_can_show_banners
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_can_show_banners
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_payment__extract_can_show_banners
@@ -87,7 +82,7 @@ msgstr ""
 #. module: account_invoice_extract
 #: model:ir.model,name:account_invoice_extract.model_res_company
 msgid "Companies"
-msgstr "Fyrirtæki"
+msgstr ""
 
 #. module: account_invoice_extract
 #: model:ir.model,name:account_invoice_extract.model_res_config_settings
@@ -111,12 +106,12 @@ msgstr ""
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__create_uid
 msgid "Created by"
-msgstr "Búið til af"
+msgstr ""
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__create_date
 msgid "Created on"
-msgstr "Stofnað þann"
+msgstr ""
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_config_settings__extract_out_invoice_digitalization_mode
@@ -140,6 +135,11 @@ msgid "Digitize automatically"
 msgstr ""
 
 #. module: account_invoice_extract
+#: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
+msgid "Digitize document"
+msgstr ""
+
+#. module: account_invoice_extract
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_in_invoice_digitalization_mode__manual_send
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_out_invoice_digitalization_mode__manual_send
 msgid "Digitize on demand only"
@@ -153,7 +153,7 @@ msgstr ""
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__display_name
 msgid "Display Name"
-msgstr "Nafn"
+msgstr ""
 
 #. module: account_invoice_extract
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_in_invoice_digitalization_mode__no_send
@@ -227,7 +227,7 @@ msgstr ""
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__field
 msgid "Field"
-msgstr "Field"
+msgstr ""
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_follower_ids
@@ -247,7 +247,7 @@ msgstr ""
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__id
 msgid "ID"
-msgstr "Auðkenni"
+msgstr ""
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_document_uuid
@@ -268,11 +268,6 @@ msgstr ""
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__invoice_id
 msgid "Invoice"
-msgstr "Reikningur"
-
-#. module: account_invoice_extract
-#: model:ir.actions.server,name:account_invoice_extract.ir_cron_ocr_parse_ir_actions_server
-msgid "Invoice OCR: Parse Invoices"
 msgstr ""
 
 #. module: account_invoice_extract
@@ -298,7 +293,7 @@ msgstr ""
 #. module: account_invoice_extract
 #: model:ir.model,name:account_invoice_extract.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Dagbók"
 
 #. module: account_invoice_extract
 #: model:ir.model,name:account_invoice_extract.model_account_move
@@ -308,12 +303,12 @@ msgstr "Dagbókarfærsla"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__write_uid
 msgid "Last Updated by"
-msgstr "Síðast uppfært af"
+msgstr ""
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__write_date
 msgid "Last Updated on"
-msgstr "Síðast uppfært þann"
+msgstr ""
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_main_attachment_id
@@ -342,7 +337,7 @@ msgstr ""
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,help:account_invoice_extract.field_account_move__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: account_invoice_extract
@@ -357,7 +352,8 @@ msgstr ""
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,help:account_invoice_extract.field_account_journal__alias_auto_extract_pdfs_only
-msgid "Only extract PDF files attached to email arriving trough this email alias."
+msgid ""
+"Only extract PDF files attached to email arriving trough this email alias."
 msgstr ""
 
 #. module: account_invoice_extract
@@ -381,11 +377,6 @@ msgid "Send Bills for digitization"
 msgstr ""
 
 #. module: account_invoice_extract
-#: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
-msgid "Send For Digitization"
-msgstr ""
-
-#. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_single_line_per_tax
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_config_settings__extract_single_line_per_tax
 msgid "Single Invoice Line Per Tax"
@@ -393,7 +384,9 @@ msgstr ""
 
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
-msgid "The data extraction is not finished yet. The extraction usually takes between 5 and 10 seconds."
+msgid ""
+"The data extraction is not finished yet. The extraction usually takes "
+"between 5 and 10 seconds."
 msgstr ""
 
 #. module: account_invoice_extract
@@ -449,6 +442,13 @@ msgstr ""
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__word_text
 msgid "Word Text"
+msgstr ""
+
+#. module: account_invoice_extract
+#. odoo-python
+#: code:addons/account_invoice_extract/models/account_invoice.py:0
+#, python-format
+msgid "You cannot send a expense that is not in draft state!"
 msgstr ""
 
 #. module: account_invoice_extract

@@ -254,7 +254,7 @@ msgstr "クリックして新しい見積書を作成する"
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
 #, python-format
 msgid "Click here to register the pickup."
-msgstr "クリックしてピックアップを登録する"
+msgstr "クリックして貸出を登録する"
 
 #. module: sale_renting
 #. odoo-javascript
@@ -684,7 +684,7 @@ msgstr "遅延"
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_form
 msgid "Late Pickup"
-msgstr "集荷遅れ"
+msgstr "貸出(ピックアップ)遅れ"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
@@ -850,19 +850,19 @@ msgstr "期間"
 #. module: sale_renting
 #: model:ir.model,name:sale_renting.model_rental_order_wizard
 msgid "Pick-up/Return products"
-msgstr "プロダクト集荷/返却"
+msgstr "プロダクト貸出/返却"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_gantt
 msgid "Picked-Up"
-msgstr "ピックアップ済"
+msgstr "貸出済"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_rental_order_wizard_line__qty_delivered
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_form
 msgid "Picked-up"
-msgstr "ピックアップ済"
+msgstr "貸出済"
 
 #. module: sale_renting
 #: model:ir.model.fields.selection,name:sale_renting.selection__sale_order__rental_status__return
@@ -870,7 +870,7 @@ msgstr "ピックアップ済"
 #: model:ir.model.fields.selection,name:sale_renting.selection__sale_rental_schedule__report_line_status__pickedup
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "Pickedup"
-msgstr "集荷済"
+msgstr "貸出済"
 
 #. module: sale_renting
 #: model:ir.model.fields.selection,name:sale_renting.selection__rental_order_wizard__status__pickup
@@ -891,22 +891,22 @@ msgstr "貸出日"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "Pickup Receipt #"
-msgstr "集荷レシート数"
+msgstr "貸出領収書数"
 
 #. module: sale_renting
 #: model:ir.actions.report,name:sale_renting.action_report_rental_saleorder
 msgid "Pickup and Return Receipt"
-msgstr "集荷および返却レシート"
+msgstr "貸出・返却領収書"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order_line__reservation_begin
 msgid "Pickup date - padding time"
-msgstr "集荷日 - バッファ時間"
+msgstr "貸出日 - バッファ時間"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_view_kanban
 msgid "Pickup:"
-msgstr "ピックアップ："
+msgstr "貸出:"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_pricing__price
@@ -1004,7 +1004,7 @@ msgstr "オーダ数量"
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__qty_delivered
 msgid "Qty Picked-Up"
-msgstr "ピックアップ済数"
+msgstr "貸出済数"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__qty_returned
@@ -1398,7 +1398,7 @@ msgstr "プロダクトは販売オーダに費用を追加するために使用
 #: model:ir.model.fields,help:sale_renting.field_rental_order_wizard__is_late
 #: model:ir.model.fields,help:sale_renting.field_sale_order__is_late
 msgid "The products haven't been picked-up or returned in time"
-msgstr "プロダクトが期日までにピックアップまたは返却されませんでした"
+msgstr "プロダクトが期日までに貸出または返却されませんでした"
 
 #. module: sale_renting
 #. odoo-javascript
@@ -1416,7 +1416,7 @@ msgstr "レンタル開始日は、レンタル返却日がある場合はその
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_order_today_pickup_action
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_order_today_return_action
 msgid "There isn't any scheduled pickup or return."
-msgstr "予定されている集荷または返却はありません。"
+msgstr "予定されている貸出または返却はありません。"
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_day
@@ -1463,12 +1463,12 @@ msgstr "本日のTo Do"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_view_search_without_searchpanel
 msgid "To Pickup"
-msgstr "集荷する"
+msgstr "未貸出"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_view_search_without_searchpanel
 msgid "To Return"
-msgstr "返却予定"
+msgstr "未返却"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_view_tree
@@ -1501,7 +1501,7 @@ msgstr "検証"
 #: code:addons/sale_renting/models/sale_order.py:0
 #, python-format
 msgid "Validate a pickup"
-msgstr "集荷を検証する"
+msgstr "貸出を検証する"
 
 #. module: sale_renting
 #. odoo-python
@@ -1515,7 +1515,7 @@ msgstr "返却を検証する"
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
 #, python-format
 msgid "Validate the operation after checking the picked-up quantities."
-msgstr "集荷された数量を確認した後、オペレーションを検証する"
+msgstr "貸出された数量を確認した後、オペレーションを検証する"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_pricelist_view
@@ -1598,7 +1598,7 @@ msgstr ""
 #: code:addons/sale_renting/wizard/rental_processing.py:0
 #, python-format
 msgid "You can't return more than what's been picked-up."
-msgstr "集荷したより多い数量を返却することはできません。"
+msgstr "貸出したより多い数量を返却することはできません。"
 
 #. module: sale_renting
 #. odoo-python
@@ -1612,7 +1612,7 @@ msgstr "同じバリアント、定期および価格リストに複数の価格
 #. module: sale_renting
 #: model:ir.model.constraint,message:sale_renting.constraint_sale_order_line_rental_stock_coherence
 msgid "You cannot return more than what has been picked up."
-msgstr "集荷したより多い数量を返却することはできません。"
+msgstr "貸出したより多い数量を返却することはできません。"
 
 #. module: sale_renting
 #. odoo-javascript

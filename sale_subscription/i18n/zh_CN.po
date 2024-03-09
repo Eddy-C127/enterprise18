@@ -5,18 +5,18 @@
 # Translators:
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # 何彬 <vnsoft.he@gmail.com>, 2023
-# Jeffery CHEN <jeffery9@gmail.com>, 2023
 # Chloe Wang, 2024
 # Wil Odoo, 2024
 # 湘子 南 <1360857908@qq.com>, 2024
+# Jeffery CHEN <jeffery9@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 20:55+0000\n"
+"POT-Creation-Date: 2024-02-22 15:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: 湘子 南 <1360857908@qq.com>, 2024\n"
+"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3338,6 +3338,8 @@ msgstr "周期收益"
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
+#: code:addons/sale_subscription/models/sale_subscription_plan.py:0
+#: model:ir.model.constraint,message:sale_subscription.constraint_sale_subscription_plan_check_for_valid_billing_period_value
 #, python-format
 msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
@@ -4467,7 +4469,7 @@ msgstr "触发参考显示名称"
 msgid ""
 "Trigger alerts for salespersons or customers: churn, invoice not paid, "
 "upsell, etc."
-msgstr "触发销售人员或客户的警报：流失、未付结算单、加售销售等。"
+msgstr "触发销售人员或客户的警报：流失、发票未付款、追加销售等。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_close_reason__retention_message
@@ -4746,7 +4748,7 @@ msgstr "不能删除已确认的订阅。须先关闭并取消订阅，然后才
 msgid ""
 "You can not upsell or renew a subscription that has not been invoiced yet. "
 "Please, update directly the %s contract or invoice it first."
-msgstr "尚未开具发票的订阅，无法进行追加销售或续订。请直接更新%s合约，或先开具发票。"
+msgstr "尚未开具发票的订阅，无法进行追加销售或续订。请直接更新%s合约或先开具发票。"
 
 #. module: sale_subscription
 #. odoo-python

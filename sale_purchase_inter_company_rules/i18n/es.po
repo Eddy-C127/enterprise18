@@ -130,7 +130,7 @@ msgstr ""
 #, python-format
 msgid "Provide at least one user for inter company relation for %(name)s"
 msgstr ""
-"Proporcionar al menos un usuario para la relación interempresarial para "
+"Proporcione al menos un usuario para la relación interempresarial para "
 "%(name)s"
 
 #. module: sale_purchase_inter_company_rules
@@ -165,18 +165,18 @@ msgstr "Línea de orden de venta"
 #: model:ir.model.fields,help:sale_purchase_inter_company_rules.field_res_company__rule_type
 msgid "Select the type to setup inter company rules in selected company."
 msgstr ""
-"Selecciona el tipo para establecer reglas interempresariales en la empresa "
+"Seleccione el tipo para establecer reglas interempresariales en la compañía "
 "seleccionada."
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_sale_order__auto_purchase_order_id
 msgid "Source Purchase Order"
-msgstr "Origen del pedido de compra"
+msgstr "Orden de compra de origen"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_purchase_order__auto_sale_order_id
 msgid "Source Sales Order"
-msgstr "Origen del pedido de venta"
+msgstr "Orden de venta de origen"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields.selection,name:sale_purchase_inter_company_rules.selection__res_company__rule_type__purchase
@@ -196,7 +196,7 @@ msgstr "Sincronizar órdenes de venta y de compra"
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model,name:sale_purchase_inter_company_rules.model_stock_picking
 msgid "Transfer"
-msgstr "Albarán"
+msgstr "Traslado"
 
 #. module: sale_purchase_inter_company_rules
 #: model_terms:ir.ui.view,arch_db:sale_purchase_inter_company_rules.res_config_settings_view_form
@@ -211,7 +211,7 @@ msgstr "Almacén"
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_config_settings__warehouse_id
 msgid "Warehouse For Purchase Orders"
-msgstr "Almacén para pedidos de compra"
+msgstr "Almacén para órdenes de compra"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
@@ -223,10 +223,10 @@ msgid ""
 "\n"
 "(SO currency: %(so_currency)s, Pricelist: %(pricelist)s, Partner: %(partner)s (ID: %(id)s))"
 msgstr ""
-"No se puede crear una orden de venta desde una orden de compra porque la divisa de la lista de precios de venta es diferente a la de la lista de precios de compra.\n"
-"La moneda de la orden de venta se obtiene de la lista de precios del partner de la empresa.\n"
+"No se puede crear una orden de venta desde una orden de compra porque la moneda de la lista de precios de venta es diferente a la de la lista de precios de compra.\n"
+"La moneda de la orden de venta se obtiene de la lista de precios del contacto de la empresa.\n"
 "\n"
-"(Divisa de la orden de venta: %(so_currency)s, Lista de precios: %(pricelist)s, Partner: %(partner)s (ID: %(id)s))"
+"(Moneda de la orden de venta: %(so_currency)s, Lista de precios: %(pricelist)s, Contacto: %(partner)s (ID: %(id)s))"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
