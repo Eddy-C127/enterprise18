@@ -3,7 +3,7 @@ from contextlib import contextmanager
 from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo.tests import tagged
+from odoo.tests import Form, tagged
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 from odoo import Command
 
@@ -466,3 +466,10 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
         ):
             message = self.env['mail.message'].search([('subject', 'like', "Pay me noooow !")])
             self.assertEqual(message.email_from, "test@odoo.com")
+
+    def test_compute_render_model(self):
+        with Form(self.env['account_followup.manual_reminder'].with_context(
+            active_model='res.partner',
+            active_ids=self.partner_a.ids,
+        )) as wizard:
+            self.assertEqual(wizard.render_model, "res.partner")
