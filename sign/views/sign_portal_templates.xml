@@ -90,67 +90,61 @@
                     <t t-set="backend_url" t-value="'/web#model=sign.request&amp;id=%s&amp;view_type=form' % (sign.request.id)"/>
                 </t>
             </t>
-            <t t-call="portal.portal_record_layout">
-                <t t-set="card_header">
-                    <h3 class="mb-1 mb-md-0">
-                        <span t-field="my_sign_item.reference"/>
-                        <span t-field="my_sign_item.sign_request_id.state" class="badge rounded-pill text-bg-info fs-6 fw-normal"
-                            title="Current status of the signature request"/>
-                    </h3>
-                </t>
-                <t t-set="card_body">
-                    <div class="o_sign_portal">
-                        <div class="row mb-3" t-if="my_sign_item.partner_id">
-                            <div class="col-12 col-md-6">
-                                <p class="o_portal_category text-muted">Summary</p>
-                                <div>
-                                    <strong>Creation Date:</strong>
-                                    <span t-field="my_sign_item.create_date" t-options="{'widget': 'date'}"/>
-                                </div>
-                                <div>
-                                    <t t-foreach="my_sign_item.sign_request_id.request_item_ids" t-as="sign">
-                                        <div class="_status clearfix" t-att-data-id="sign.id">
-                                            <t t-if="sign.state == 'sent'">
-                                                <b><t t-esc="sign.partner_id.name if sign.partner_id else 'Public user'"/></b>
-                                                <t t-if="sign.role_id"><t t-esc="' - ' + sign.role_id.name"/></t> - <em>
-                                                    Waiting Signature
-                                                </em>
-                                                <em t-if="not sign.is_mail_sent"><br/>(the email access has not been sent)</em>
-                                            </t>
-                                            <t t-if="sign.state == 'canceled'">
-                                                <b><t t-esc="sign.partner_id.name"/></b>
-                                                <t t-if="sign.role_id"><t t-esc="' - ' + sign.role_id.name"/></t> - <em>Cancelled</em>
-                                            </t>
-                                            <t t-if="sign.state == 'completed'">
-                                                <b><t t-esc="sign.partner_id.name"/></b>
-                                                <t t-if="sign.role_id"><t t-esc="' - ' + sign.role_id.name"/></t> - <em>Signed on <span t-field="sign.signing_date"></span></em>
-                                            </t>
-                                        </div>
+            <h3 class="mb-3">
+                <span t-field="my_sign_item.reference"/>
+                <span t-field="my_sign_item.sign_request_id.state" class="badge rounded-pill text-bg-info smaller"
+                    title="Current status of the signature request"/>
+            </h3>
+            <div class="o_sign_portal">
+                <div class="row mb-3" t-if="my_sign_item.partner_id">
+                    <div class="col-12 col-md-6">
+                        <p class="o_portal_category text-muted">Summary</p>
+                        <div>
+                            <strong>Creation Date:</strong>
+                            <span t-field="my_sign_item.create_date" t-options="{'widget': 'date'}"/>
+                        </div>
+                        <div>
+                            <t t-foreach="my_sign_item.sign_request_id.request_item_ids" t-as="sign">
+                                <div class="_status clearfix" t-att-data-id="sign.id">
+                                    <t t-if="sign.state == 'sent'">
+                                        <b><t t-esc="sign.partner_id.name if sign.partner_id else 'Public user'"/></b>
+                                        <t t-if="sign.role_id"><t t-esc="' - ' + sign.role_id.name"/></t> - <em>
+                                            Waiting Signature
+                                        </em>
+                                        <em t-if="not sign.is_mail_sent"><br/>(the email access has not been sent)</em>
+                                    </t>
+                                    <t t-if="sign.state == 'canceled'">
+                                        <b><t t-esc="sign.partner_id.name"/></b>
+                                        <t t-if="sign.role_id"><t t-esc="' - ' + sign.role_id.name"/></t> - <em>Cancelled</em>
+                                    </t>
+                                    <t t-if="sign.state == 'completed'">
+                                        <b><t t-esc="sign.partner_id.name"/></b>
+                                        <t t-if="sign.role_id"><t t-esc="' - ' + sign.role_id.name"/></t> - <em>Signed on <span t-field="sign.signing_date"></span></em>
                                     </t>
                                 </div>
-                            </div>
-                            <div class="col-12 col-md-6" t-if="my_sign_item.partner_id">
-                                <p class="o_portal_category text-muted">Your Information</p>
-                                <div class="d-flex justify-content-start align-items-center gap-3 mb-2">
-                                    <img class="o_portal_contact_img rounded"
-                                    t-att-src="image_data_uri(my_sign_item.partner_id.avatar_1024)" alt="Contact" width="50"/>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h5 class="mb-0" t-out="my_sign_item.partner_id.name"/>
-                                        <p class="mb-0 text-muted" t-out="my_sign_item.partner_id.company_name"/>
-                                    </div>
-                                </div>
-                                <div t-field="my_sign_item.partner_id" t-options="{'widget': 'contact', 'fields': ['email', 'phone']}"/>
-                            </div>
-                        </div>
-                        <div class="o_sign_button">
-                            <a t-att-href="url" class="btn btn-primary btn-block">
-                                <div class="o_sign_button_content" t-if="my_sign_item.state == 'completed'">View Document</div>
-                                <div class="o_sign_button_content" t-else="">Sign</div>
-                            </a>
+                            </t>
                         </div>
                     </div>
-                </t>
-            </t>
+                    <div class="col-12 col-md-6 mt-4 mt-md-0" t-if="my_sign_item.partner_id">
+                        <p class="o_portal_category text-muted">Your Information</p>
+                        <div class="d-flex justify-content-start align-items-center gap-3 mb-2">
+                            <img class="o_portal_contact_img rounded"
+                            t-att-src="image_data_uri(my_sign_item.partner_id.avatar_1024)" alt="Contact" width="50"/>
+                            <div class="d-flex flex-column justify-content-center">
+                                <h5 class="mb-0" t-out="my_sign_item.partner_id.name"/>
+                                <p class="mb-0 text-muted" t-out="my_sign_item.partner_id.company_name"/>
+                            </div>
+                        </div>
+                        <div t-field="my_sign_item.partner_id" t-options="{'widget': 'contact', 'fields': ['email', 'phone']}"/>
+                    </div>
+                </div>
+                <div class="o_sign_button">
+                    <a t-att-href="url" class="btn btn-primary btn-block">
+                        <div class="o_sign_button_content" t-if="my_sign_item.state == 'completed'">View Document</div>
+                        <div class="o_sign_button_content" t-else="">Sign</div>
+                    </a>
+                </div>
+            </div>
             <hr/>
             <div>
                 <h3>Communication history</h3>
