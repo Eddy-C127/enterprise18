@@ -64,8 +64,8 @@
                                 <i class="fa fa-calendar-times-o fa-3x"/>
                                 <h1 class="mb-0 text-uppercase fw-bold display-3 text-white">Booked</h1>
                                 <span t-out="state.currentBooking.name" class="fs-5 opacity-75"/>
-                                <RoomBookingRemainingTime endTime="state.currentBooking.interval.end"/>
                             </div>
+                            <RoomBookingRemainingTime endTime="state.currentBooking.interval.end"/>
                         </t>
                         <div class="d-flex flex-column flex-xl-row gap-4">
                             <button t-if="state.currentBooking" class="btn btn-lg btn-dark d-flex justify-content-center align-items-center gap-3 rounded-pill py-lg-3 px-3 px-lg-5" t-on-click="endCurrentBooking">
