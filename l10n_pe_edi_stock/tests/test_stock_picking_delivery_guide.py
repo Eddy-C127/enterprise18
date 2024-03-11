@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from unittest.mock import patch
 
 from odoo.addons.l10n_pe_edi.tests.common import TestPeEdiCommon
+from odoo.addons.l10n_pe_edi_stock.models.stock_picking import Picking
 from odoo.tests import tagged
 
+
+@tagged('post_install_l10n', 'post_install', '-at_install')
 class TestPEDeliveryGuideCommon(TestPeEdiCommon):
 
     @classmethod
@@ -32,6 +36,7 @@ class TestPEDeliveryGuideCommon(TestPeEdiCommon):
             'date_end': datetime.today() + relativedelta(years=1),
         })
 
+        cls.company_data['company'].l10n_pe_edi_stock_client_id = "Company SUNAT ID"
         cls.company_data['company'].partner_id.l10n_latam_identification_type_id = cls.env.ref('l10n_pe.it_RUC')
         cls.company_data['company'].partner_id.l10n_pe_district = cls.env.ref('l10n_pe.district_pe_030101')
         cls.company_data['company'].partner_id.street = 'Rocafort 314'
@@ -79,6 +84,7 @@ class TestPEDeliveryGuideCommon(TestPeEdiCommon):
             'l10n_pe_edi_reason_for_transfer': '01',
             'l10n_pe_edi_departure_start_date': datetime.today(),
             'state': 'draft',
+            'l10n_pe_edi_vehicle_id': cls.vehicle_luigys.id,
         })
 
         cls.env['stock.move'].create({
@@ -99,9 +105,6 @@ class TestPEDeliveryGuideCommon(TestPeEdiCommon):
         cls.picking.move_ids[0].picked = True
         cls.picking._action_done()
 
-
-@tagged('post_install', 'post_install_l10n', '-at_install')
-class TestGeneratePEDeliveryGuide(TestPEDeliveryGuideCommon):
     def test_generate_delivery_guide(self):
         """ Check the XML in the test delivery is correctly generated """
         self.picking.l10n_latam_document_number = "T001-00000001"
@@ -187,6 +190,12 @@ class TestGeneratePEDeliveryGuide(TestPEDeliveryGuideCommon):
             </cac:Despatch>
         </cac:Delivery>
         <cac:TransportHandlingUnit>
+            <cac:TransportEquipment>
+                <cbc:ID>ABC123</cbc:ID>
+                <cac:ShipmentDocumentReference>
+                    <cbc:ID schemeName="Entidad Autorizadora" schemeAgencyName="PE:SUNAT"></cbc:ID>
+                </cac:ShipmentDocumentReference>
+            </cac:TransportEquipment>
         </cac:TransportHandlingUnit>
     </cac:Shipment>
     <cac:DespatchLine>
@@ -216,11 +225,10 @@ class TestGeneratePEDeliveryGuide(TestPEDeliveryGuideCommon):
         expected_etree = self.get_xml_tree_from_string(expected_document)
         self.assertXmlTreeEqual(current_etree, expected_etree)
 
-
-@tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
-class TestSendPEDeliveryGuide(TestPEDeliveryGuideCommon):
     def test_send_delivery_guide(self):
-        """Ensure that delivery guide is generated and signed in the SUNAT."""
+        """Ensure that delivery guide is generated and sent to the SUNAT."""
+
         self.picking.l10n_latam_document_number = 'T001-%s' % datetime.now().strftime('%H%M%S')
-        self.picking.action_send_delivery_guide()
+        with patch.object(Picking, '_l10n_pe_edi_sign', lambda *_args, **_kwargs: {'cdr': '1234567890'}):
+            self.picking.action_send_delivery_guide()
         self.assertEqual(self.picking.l10n_pe_edi_status, 'sent', self.picking.l10n_pe_edi_error)
