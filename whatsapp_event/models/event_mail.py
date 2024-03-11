@@ -50,7 +50,7 @@ class EventMailScheduler(models.Model):
                 })._send_whatsapp_template(force_send_by_cron=True)
             scheduler.update({
                 'mail_done': True,
-                'mail_count_done': scheduler.event_id.seats_reserved + scheduler.event_id.seats_used,
+                'mail_count_done': len(scheduler.event_id.registration_ids.filtered(lambda r: r.state != 'cancel')),
             })
         now = self.env.cr.now()
         wa_schedulers = self.filtered(lambda s: s.notification_type == "whatsapp" and s.interval_type != "after_sub")
