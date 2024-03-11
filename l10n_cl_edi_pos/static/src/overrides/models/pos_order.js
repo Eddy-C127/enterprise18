@@ -39,9 +39,16 @@ patch(PosOrder.prototype, {
         return true;
     },
     export_for_printing(baseUrl, headerData) {
+        const result = super.export_for_printing(...arguments);
+        if (!this.isChileanCompany()) {
+            return result;
+        }
         return {
-            ...super.export_for_printing(...arguments),
-            voucherNumber: this.voucher_number,
+            ...result,
+            voucher_number: this.voucher_number,
+            l10n_cl_sii_barcode_image: this.account_move.l10n_cl_sii_barcode_image,
+            l10n_cl_dte_resolution_number: this.company_id.l10n_cl_dte_resolution_number,
+            l10n_cl_dte_resolution_date: this.company_id.l10n_cl_dte_resolution_date,
         };
     },
 });

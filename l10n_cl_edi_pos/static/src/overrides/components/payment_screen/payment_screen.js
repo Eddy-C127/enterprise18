@@ -80,7 +80,7 @@ patch(PaymentScreen.prototype, {
             if (!voucherNumber) {
                 return;
             }
-            this.currentOrder.voucherNumber = voucherNumber;
+            this.currentOrder.voucher_number = voucherNumber;
         }
         await super.validateOrder(...arguments);
     },

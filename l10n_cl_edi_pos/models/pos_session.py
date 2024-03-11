@@ -12,10 +12,18 @@ class PosSession(models.Model):
 
         if self.company_id.country_code == 'CL':
             params['res.partner']['fields'] += ['l10n_latam_identification_type_id', 'l10n_cl_sii_taxpayer_type', 'l10n_cl_activity_description', 'l10n_cl_dte_email']
-            params['res.company']['fields'] += ['l10n_cl_dte_resolution_number', 'l10n_cl_dte_resolution_date']
+            params['res.company']['fields'] += ['l10n_cl_dte_resolution_number', 'l10n_cl_dte_resolution_date', 'l10n_cl_sii_regional_office']
             params['l10n_latam.identification.type'] = {
                 'domain': [('active', '=', True)],
                 'fields': ['name'],
+            }
+            params['account.move'] = {
+                'fields': ['l10n_latam_document_type_id', 'l10n_latam_document_number', 'l10n_cl_sii_barcode_image'],
+                'domain': [('id', '=', False)],
+            }
+            params['l10n_latam.document.type'] = {
+                'fields': ['name'],
+                'domain': [('id', '=', False)],
             }
 
         return params
@@ -26,5 +34,6 @@ class PosSession(models.Model):
         if not only_data:
             response['custom']['sii_taxpayer_types'] = self.env['res.partner'].get_sii_taxpayer_types()
             response['custom']['consumidor_final_anonimo_id'] = self.env.ref('l10n_cl.par_cfa').id
+            response['custom']['l10n_cl_sii_regional_office_selection'] = dict(self.env.company._fields['l10n_cl_sii_regional_office'].selection)
 
         return response

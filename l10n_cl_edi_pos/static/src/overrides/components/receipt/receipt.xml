@@ -4,10 +4,18 @@
         <xpath expr="//div[hasclass('before-footer')]" position="after">
             <br/>
             <br/>
-            <div t-if="props.data.voucherNumber">
+            <div t-if="props.data.voucher_number">
                 <div class="pos-receipt-order-data">
-                    Voucher Number: <t t-esc="props.data.voucherNumber"/>
+                    Voucher Number: <t t-esc="props.data.voucher_number"/>
                 </div>
+            </div>
+            <br/>
+            <div class="d-flex flex-column align-items-center pos-receipt-order-data">
+                <img class="img-fluid w-100" t-attf-src="data:image/*;base64,{{props.data.l10n_cl_sii_barcode_image}}"/>
+                <span>Timbre Electrónico SII</span>
+                <span>Resolución Nº: <t t-out="props.data.l10n_cl_dte_resolution_number"/></span>
+                <span>de Fecha: <t t-out="props.data.l10n_cl_dte_resolution_date"/></span>
+                <span>Verifique documento en www.sii.cl</span>
             </div>
         </xpath>
     </t>
