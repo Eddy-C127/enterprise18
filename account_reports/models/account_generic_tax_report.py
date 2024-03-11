@@ -712,9 +712,9 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
             select_deductible = join_deductible = group_by_deductible = ''
             if options.get('account_journal_report_tax_deductibility_columns'):
                 select_deductible = """, repartition.use_in_tax_closing AS trl_tax_closing
-                                       , repartition.factor_percent / ABS(repartition.factor_percent) AS trl_factor"""
+                                       , SIGN(repartition.factor_percent) AS trl_factor"""
                 join_deductible = 'JOIN account_tax_repartition_line repartition ON account_move_line.tax_repartition_line_id = repartition.id'
-                group_by_deductible = ', repartition.use_in_tax_closing, repartition.factor_percent / ABS(repartition.factor_percent)'
+                group_by_deductible = ', repartition.use_in_tax_closing, SIGN(repartition.factor_percent)'
 
             self._cr.execute(f'''
                 SELECT

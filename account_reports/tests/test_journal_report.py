@@ -464,3 +464,50 @@ class TestJournalAuditReport(TestAccountReportsCommon):
             ],
             options,
         )
+
+    def test_journal_report_zero_percent_distribution_line(self):
+        # Setup data for zero percent distribution line
+        # Test zero factory percent on journal report
+        tax = self.env['account.tax'].create({
+            'name': 'none of nothing X',
+            'amount': 21,
+            'amount_type': 'percent',
+            'type_tax_use': 'sale',
+            'invoice_repartition_line_ids': [
+                Command.create({'factor_percent': 100, 'repartition_type': 'base'}),
+                Command.create({'factor_percent': 0, 'repartition_type': 'tax', 'account_id': self.company_data['default_account_receivable'].id}),
+            ],
+            'refund_repartition_line_ids': [
+                Command.create({'factor_percent': 100, 'repartition_type': 'base'}),
+                Command.create({'factor_percent': 0, 'repartition_type': 'tax', 'account_id': self.company_data['default_account_payable'].id}),
+            ],
+        })
+
+        move = self.env['account.move'].create({
+            'move_type': 'entry',
+            'date': '2024-01-01',
+            'journal_id': self.company_data['default_journal_sale'].id,
+            'line_ids': [
+                Command.create({
+                    'debit': 1000.0,
+                    'credit': 0.0,
+                    'account_id': self.env.company.partner_id.property_account_receivable_id.id,
+                    'tax_repartition_line_id': tax.invoice_repartition_line_ids.filtered(lambda x: x.repartition_type == 'tax').id,
+                }),
+                Command.create({
+                    'debit': 0.0,
+                    'credit': 1000.0,
+                    'tax_repartition_line_id': tax.invoice_repartition_line_ids.filtered(lambda x: x.repartition_type == 'tax').id,
+                    'tax_ids': [Command.set([tax.id])],
+                    'account_id': self.env.company.partner_id.property_account_payable_id.id,
+                }),
+            ],
+        })
+
+        move.action_post()
+
+        report = self.env.ref('account_reports.journal_report')
+        options = self._generate_options(report, fields.Date.from_string('2024-01-01'), fields.Date.from_string('2024-01-31'))
+        options['unfolded_lines'] = [report._get_generic_line_id('account.journal', self.company_data['default_journal_sale'].id)]
+
+        self.assertTrue(report._get_lines(options))
