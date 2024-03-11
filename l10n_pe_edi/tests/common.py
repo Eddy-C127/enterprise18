@@ -8,6 +8,9 @@ from odoo.tools import misc
 from odoo.modules import module as modules
 from odoo.addons.account_edi.tests.common import AccountEdiTestCommon
 
+MAX_WAIT_ITER = 6
+CODE_98_ERROR_MSG = "<p>The cancellation request has not yet finished processing by SUNAT. Please retry in a few minutes.<br><br><b>SOAP status code: </b>98</p>"
+
 
 def mocked_l10n_pe_edi_post_invoice_web_service(edi_format, invoice, edi_filename, edi_str):
     # simulate the EDI always success.
@@ -792,6 +795,8 @@ class TestPeEdiCommon(AccountEdiTestCommon):
             })],
         }
         vals.update(kwargs)
+        # Increment the name to make sure it is unique at each call
+        self.time_name = str(int(self.time_name) + 1)
         return self.env['account.move'].create(vals)
 
     def _create_refund(self, **kwargs):
