@@ -97,10 +97,10 @@ export class SpreadsheetName extends Component {
      */
     _onNameChanged(ev) {
         const value = ev.target.value.trim();
-        ev.target.value = value;
-        this._setInputSize(value);
+        this.state.name = value || this.props.name;
+        this._setInputSize(this.state.name);
         this.props.onSpreadsheetNameChanged({
-            name: value,
+            name: this.state.name,
         });
         ev.target.blur();
     }

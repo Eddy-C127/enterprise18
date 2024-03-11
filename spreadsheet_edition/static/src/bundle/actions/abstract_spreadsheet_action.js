@@ -233,8 +233,10 @@ export class AbstractSpreadsheetAction extends Component {
 
     async _onSpreadSheetNameChanged(detail) {
         const { name } = detail;
-        this.state.spreadsheetName = name;
-        this.env.config.setDisplayName(this.state.spreadsheetName);
+        if (name && name !== this.state.spreadsheetName) {
+            this.state.spreadsheetName = name;
+            this.env.config.setDisplayName(this.state.spreadsheetName);
+        }
     }
 
     async createNewSpreadsheet() {

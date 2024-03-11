@@ -44,6 +44,40 @@ QUnit.module(
             assert.hasClass(input, "o-spreadsheet-untitled", "It should be styled as untitled");
         });
 
+        QUnit.test("spreadsheet name can never be empty (white spaces)", async function (assert) {
+            await createSpreadsheet();
+            const input = target.querySelector(".o_spreadsheet_name input");
+            assert.equal(
+                input.value,
+                "Untitled spreadsheet",
+                "The input should have the placeholder value initially"
+            );
+
+            await editInput(input, null, "     ");
+            await triggerEvent(input, null, "change");
+            assert.equal(
+                input.value,
+                "Untitled spreadsheet",
+                "The input should retain the placeholder value when set to empty spaces"
+            );
+
+            await editInput(input, null, "My spreadsheet");
+            await triggerEvent(input, null, "change");
+            assert.equal(
+                input.value,
+                "My spreadsheet",
+                "The input should update to the new value when set to a valid name"
+            );
+
+            await editInput(input, null, "     ");
+            await triggerEvent(input, null, "change");
+            assert.equal(
+                input.value,
+                "My spreadsheet",
+                "The input should retain the new value even when set to empty spaces"
+            );
+        });
+
         QUnit.test("untitled spreadsheet", async function (assert) {
             assert.expect(3);
             await createSpreadsheet({ spreadsheetId: 2 });
@@ -68,7 +102,10 @@ QUnit.module(
             assert.ok(width < input.offsetWidth, "It should have grown to fit content");
             width = input.offsetWidth;
             await editInput(input, null, "");
-            assert.ok(width < input.offsetWidth, "It should have the size of the placeholder text");
+            assert.ok(
+                width === input.offsetWidth,
+                "It should have the size of the previous content"
+            );
         });
 
         QUnit.test("changing the input saves the name", async function (assert) {
@@ -110,12 +147,6 @@ QUnit.module(
                 input.value.length,
                 "It should have selected the value"
             );
-        });
-        QUnit.test("only white spaces show the placeholder", async function (assert) {
-            await createSpreadsheet();
-            const input = target.querySelector(".o_spreadsheet_name input");
-            await editInput(input, null, "  ");
-            assert.equal(input.value, "", "It should be empty");
         });
 
         QUnit.test("share spreadsheet from control panel", async function (assert) {
