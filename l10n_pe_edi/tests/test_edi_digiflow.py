@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo.tests import tagged
-from .common import TestPeEdiCommon
+from .common import TestPeEdiCommon, CODE_98_ERROR_MSG, MAX_WAIT_ITER
 
 from datetime import timedelta
 from time import sleep
@@ -34,13 +34,17 @@ class TestEdiDigiflow(TestPeEdiCommon):
         self.assertTrue(move.l10n_pe_edi_cancel_cdr_number)
         self.assertRecordValues(move, [{'edi_state': 'to_cancel'}])
 
-        # We need to wait a bit before requesting the cancellation's status
-        # to avoid getting a status code 98 (cancellation still being processed).
-        sleep(10)
-
         # Cancel step 2
         doc = move.edi_document_ids.filtered(lambda d: d.state in ('to_send', 'to_cancel'))
-        move.action_process_edi_web_services(with_commit=False)
+
+        # We need to wait a bit before requesting the cancellation's status
+        # to avoid getting a status code 98 (cancellation still being processed).
+        for _ in range(MAX_WAIT_ITER):
+            sleep(10)
+            move.action_process_edi_web_services(with_commit=False)
+            if not doc.error or doc.error != CODE_98_ERROR_MSG:
+                break
+
         self.assertRecordValues(doc, [{'error': False}])
         self.assertRecordValues(move, [{'edi_state': 'cancelled'}])
 
@@ -67,13 +71,17 @@ class TestEdiDigiflow(TestPeEdiCommon):
         self.assertTrue(move.l10n_pe_edi_cancel_cdr_number)
         self.assertRecordValues(move, [{'edi_state': 'to_cancel'}])
 
-        # We need to wait a bit before requesting the cancellation's status
-        # to avoid getting a status code 98 (cancellation still being processed).
-        sleep(10)
-
         # Cancel step 2
         doc = move.edi_document_ids.filtered(lambda d: d.state in ('to_send', 'to_cancel'))
-        move.action_process_edi_web_services(with_commit=False)
+
+        # We need to wait a bit before requesting the cancellation's status
+        # to avoid getting a status code 98 (cancellation still being processed).
+        for _ in range(MAX_WAIT_ITER):
+            sleep(10)
+            move.action_process_edi_web_services(with_commit=False)
+            if not doc.error or doc.error != CODE_98_ERROR_MSG:
+                break
+
         self.assertRecordValues(doc, [{'error': False}])
         self.assertRecordValues(move, [{'edi_state': 'cancelled'}])
 
@@ -99,13 +107,17 @@ class TestEdiDigiflow(TestPeEdiCommon):
         self.assertTrue(move.l10n_pe_edi_cancel_cdr_number)
         self.assertRecordValues(move, [{'edi_state': 'to_cancel'}])
 
-        # We need to wait a bit before requesting the cancellation's status
-        # to avoid getting a status code 98 (cancellation still being processed).
-        sleep(10)
-
         # Cancel step 2
         doc = move.edi_document_ids.filtered(lambda d: d.state in ('to_send', 'to_cancel'))
-        move.action_process_edi_web_services(with_commit=False)
+
+        # We need to wait a bit before requesting the cancellation's status
+        # to avoid getting a status code 98 (cancellation still being processed).
+        for _ in range(MAX_WAIT_ITER):
+            sleep(10)
+            move.action_process_edi_web_services(with_commit=False)
+            if not doc.error or doc.error != CODE_98_ERROR_MSG:
+                break
+
         self.assertRecordValues(doc, [{'error': False}])
         self.assertRecordValues(move, [{'edi_state': 'cancelled'}])
 
@@ -139,13 +151,17 @@ class TestEdiDigiflow(TestPeEdiCommon):
         self.assertTrue(move.l10n_pe_edi_cancel_cdr_number)
         self.assertRecordValues(move, [{'edi_state': 'to_cancel'}])
 
-        # We need to wait a bit before requesting the cancellation's status
-        # to avoid getting a status code 98 (cancellation still being processed).
-        sleep(10)
-
         # Cancel step 2
         doc = move.edi_document_ids.filtered(lambda d: d.state in ('to_send', 'to_cancel'))
-        move.action_process_edi_web_services(with_commit=False)
+
+        # We need to wait a bit before requesting the cancellation's status
+        # to avoid getting a status code 98 (cancellation still being processed).
+        for _ in range(MAX_WAIT_ITER):
+            sleep(10)
+            move.action_process_edi_web_services(with_commit=False)
+            if doc.error and doc.error != CODE_98_ERROR_MSG:
+                break
+
         expected_error = "<p>We got an error response from the OSE. <br><br><b>Original message:</b><br>2375|Fecha de emision del comprobante no coincide con la fecha de emision consignada en la comunicación"
         self.assertTrue(doc.error.startswith(expected_error), 'Error response: %s' % doc.error)
         self.assertRecordValues(move, [{'edi_state': 'to_cancel'}])
