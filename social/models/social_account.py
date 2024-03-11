@@ -177,7 +177,7 @@ class SocialAccount(models.Model):
 
         cids = request.httprequest.cookies.get('cids')
         if cids:
-            allowed_company_ids = {int(cid) for cid in cids.split(',')}
+            allowed_company_ids = {int(cid) for cid in cids.split('-')}
         else:
             allowed_company_ids = {self.env.company.id}
 

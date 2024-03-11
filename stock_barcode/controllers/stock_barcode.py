@@ -293,7 +293,7 @@ class StockBarcodeController(http.Controller):
         :returns: List of active companies. The first company id in the returned list is the selected company.
         """
         cids = request.httprequest.cookies.get('cids', str(request.env.user.company_id.id))
-        return [int(cid) for cid in cids.split(',')]
+        return [int(cid) for cid in cids.split('-')]
 
     def _get_picking_type_domain(self, barcode_type, allowed_company_ids):
         return [

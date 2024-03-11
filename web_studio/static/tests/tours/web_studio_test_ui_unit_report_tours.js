@@ -4,6 +4,7 @@ import { download } from "@web/core/network/download";
 import { patch } from "@web/core/utils/patch";
 import { parseXML, serializeXML } from "@web/core/utils/xml";
 import { assertEqual, stepNotInStudio, nextTick } from "@web_studio/../tests/tours/tour_helpers";
+import { cookie } from "@web/core/browser/cookie";
 
 const getBoundingClientRect = Element.prototype.getBoundingClientRect;
 
@@ -797,8 +798,7 @@ registry.category("web_tour.tours").add("web_studio.test_render_multicompany", {
         {
             trigger: ".o-web-studio-report-container :iframe img",
             run() {
-                const currentUrl = new URL(window.location);
-                const cids = currentUrl.searchParams.get("cids").split("-");
+                const cids = cookie.get("cids").split("-");
                 assertEqual(this.anchor.getAttribute("src"), `/logo.png?company=${cids[0]}`);
             },
         },

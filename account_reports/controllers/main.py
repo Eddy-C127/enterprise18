@@ -22,7 +22,7 @@ class AccountReportController(http.Controller):
         allowed_company_ids = request.env['account.report'].get_report_company_ids(options)
         if not allowed_company_ids:
             company_str = request.httprequest.cookies.get('cids', str(request.env.user.company_id.id))
-            allowed_company_ids = [int(str_id) for str_id in company_str.split(',')]
+            allowed_company_ids = [int(str_id) for str_id in company_str.split('-')]
 
         report = request.env['account.report'].with_user(uid).with_context(allowed_company_ids=allowed_company_ids).browse(options['report_id'])
 

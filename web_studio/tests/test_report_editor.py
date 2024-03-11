@@ -809,8 +809,7 @@ class TestReportEditorUIUnit(HttpCase):
         company2 = self.env["res.company"].create({"name": "couic", "external_report_layout_id": external_report_layout_id.id})
         self.env["res.users"].browse(2).write({"company_ids": [Command.link(company2.id)]})
 
-        tour_url = self.tour_url + f"&cids={company2.id}-{company1.id}"
-        self.start_tour(tour_url, "web_studio.test_render_multicompany", login="admin")
+        self.start_tour(self.tour_url, "web_studio.test_render_multicompany", login="admin", cookies={"cids": f"{company2.id}-{company1.id}"})
 
     def test_report_edition_binary_field(self):
         self.env["ir.model.fields"].create({
