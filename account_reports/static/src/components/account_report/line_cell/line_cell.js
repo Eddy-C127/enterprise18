@@ -145,7 +145,7 @@ export class AccountReportLineCell extends Component {
             },
             {
                 closeOnClickAway: true,
-                position: localization.direction === "rtl" ? "bottom" : "left",
+                position: localization.direction === "rtl" ? "bottom" : "right",
             },
         );
     }

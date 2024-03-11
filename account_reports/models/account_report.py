@@ -2374,7 +2374,7 @@ class AccountReport(models.Model):
 
                 carryover_expression = line_expressions_map[carryover_expr_label]
                 if carryover_expression.carryover_target:
-                    info_popup_data['carryover_target'] = carryover_expression._get_carryover_target_expression(options).display_name
+                    info_popup_data['carryover_target'] = carryover_expression._get_carryover_target_expression(options).report_line_name
                 # If it's not set, it means the carryover needs to target the same expression
 
             applied_carryover_value = target_line_res_dict.get('_applied_carryover_%s' % column_expr_label, {}).get('value', 0)
