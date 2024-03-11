@@ -53,12 +53,14 @@ class AccountEdiXmlUBLPE(models.AbstractModel):
     def _get_invoice_payment_terms_vals_list(self, invoice):
         # OVERRIDES account.edi.xml.ubl_21
         spot = invoice._l10n_pe_edi_get_spot()
+        if spot:
+            spot_amount = spot['amount'] if invoice.currency_id == invoice.company_id.currency_id else spot['spot_amount']
         invoice_date_due_vals_list = []
         first_time = True
         for rec_line in invoice.line_ids.filtered(lambda l: l.account_type == 'asset_receivable'):
             amount = rec_line.amount_currency
             if spot and first_time:
-                amount -= spot['spot_amount']
+                amount -= spot_amount
             first_time = False
             invoice_date_due_vals_list.append({
                 'currency_name': rec_line.currency_id.name,
@@ -69,7 +71,7 @@ class AccountEdiXmlUBLPE(models.AbstractModel):
         if not spot:
             total_after_spot = abs(invoice.amount_total)
         else:
-            total_after_spot = abs(invoice.amount_total) - spot['spot_amount']
+            total_after_spot = abs(invoice.amount_total) - spot_amount
         payment_means_id = invoice._l10n_pe_edi_get_payment_means()
         vals = []
         if spot:

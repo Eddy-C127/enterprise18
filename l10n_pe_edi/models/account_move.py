@@ -196,8 +196,8 @@ class AccountMove(models.Model):
             'payment_means_id': line.product_id.l10n_pe_withhold_code,
             'payee_financial_account': national_bank_account_number,
             'payment_means_code': '999',
-            'spot_amount': float_round(self.amount_total * (max_percent/100.0), precision_rounding=2),
-            'amount': float_round(self.amount_total_signed * (max_percent/100.0), precision_rounding=2),
+            'spot_amount': float_round(self.amount_total * (max_percent / 100.0), precision_rounding=0.01),
+            'amount': float_round(self.amount_total_signed * (max_percent / 100.0), precision_rounding=1),
             'payment_percent': max_percent,
             'spot_message': "Operación sujeta al sistema de Pago de Obligaciones Tributarias-SPOT, Banco de la Nacion %s%% Cod Serv. %s" % (
                 line.product_id.l10n_pe_withhold_percentage, line.product_id.l10n_pe_withhold_code)
