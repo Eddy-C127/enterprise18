@@ -2919,11 +2919,14 @@ class AccountReport(models.Model):
 
             else:
                 # The formula contains only digits and operators; it can be evaluated
-                try:
+                if all(expr.subformula == "ignore_zero_division" for expr in formulas_dict[(unexpanded_formula, forced_date_scope)]):
+                    try:
+                        formula_result = expr_eval(formula)
+                    except ZeroDivisionError:
+                        # Arbitrary choice; for clarity of the report. A 0 division could typically happen when there is no result in the period.
+                        formula_result = 0
+                else:
                     formula_result = expr_eval(formula)
-                except ZeroDivisionError:
-                    # Arbitrary choice; for clarity of the report. A 0 division could typically happen when there is no result in the period.
-                    formula_result = 0
 
                 for expression in formulas_dict[(unexpanded_formula, forced_date_scope)]:
                     # Apply subformula
@@ -3002,7 +3005,7 @@ class AccountReport(models.Model):
             precision_string = re.match(r"round\((?P<precision>\d+)\)", subformula)['precision']
             return round(unbound_value, int(precision_string))
 
-        if subformula != 'cross_report':
+        if subformula not in {'cross_report', 'ignore_zero_division'}:
             company_currency = self.env.company.currency_id
             date_to = column_group_options['date']['date_to']
 

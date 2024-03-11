@@ -804,7 +804,7 @@ class TestReportEngines(TestAccountReportsCommon):
             self._prepare_test_expression_domain([('account_id.code', '=', '101002')], 'sum', label='domain'),
             self._prepare_test_expression_external('sum', [self._prepare_test_external_values(100.0, '2020-01-01')], label='external'),
             self._prepare_test_expression_aggregation('test1.tax_tags + test1.domain', column='aggregation'),
-            self._prepare_test_expression_aggregation('test1.tax_tags / 0'),
+            self._prepare_test_expression_aggregation('test1.tax_tags / 0', subformula='ignore_zero_division'),
             self._prepare_test_expression_external('sum', [self._prepare_test_external_values(100.47, '2020-01-01')], label='external_decimal'),
             name='test1', code='test1',
         )
