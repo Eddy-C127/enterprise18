@@ -598,7 +598,7 @@ class Document(models.Model):
     def search_panel_select_range(self, field_name, **kwargs):
         if field_name == 'folder_id':
             enable_counters = kwargs.get('enable_counters', False)
-            fields = ['display_name', 'description', 'parent_folder_id', 'has_write_access']
+            fields = ['display_name', 'description', 'parent_folder_id', 'has_write_access', 'company_id']
             available_folders = self.env['documents.folder'].search([])
             folder_domain = expression.OR([[('parent_folder_id', 'parent_of', available_folders.ids)], [('id', 'in', available_folders.ids)]])
             # also fetches the ancestors of the available folders to display the complete folder tree for all available folders.

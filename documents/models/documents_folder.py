@@ -79,6 +79,13 @@ class DocumentFolder(models.Model):
     deletion_delay = fields.Integer("Deletion delay", compute="_compute_deletion_delay",
                                     help="Delay after permanent deletion of the document in the trash (days)")
 
+    @api.depends('company_id')
+    @api.depends_context('uid', 'allowed_company_ids')
+    def _compute_display_name(self):
+        restricted_folders = self.filtered(lambda f: f.company_id - self.env.companies)
+        restricted_folders.display_name = _('Restricted Folder')
+        super(DocumentFolder, self - restricted_folders)._compute_display_name()
+
     def _compute_deletion_delay(self):
         self.deletion_delay = self.env['documents.document'].get_deletion_delay()
 

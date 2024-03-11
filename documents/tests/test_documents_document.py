@@ -495,6 +495,29 @@ class TestCaseDocuments(TransactionCase):
             self.assertEqual(document.file_extension, sanitized_extension,
                              f'"{extension}" must be sanitized to "{sanitized_extension}" at edition')
 
+    def test_restricted_folder_multi_company(self):
+        """
+        Tests the behavior of a restricted folder in a multi-company environment
+        """
+
+        company_a = self.env.company
+        company_b = self.env['res.company'].create({'name': 'Company B'})
+
+        user_b = self.env['res.users'].create({
+            'name': 'User of company B',
+            'login': 'user_b',
+            'groups_id': [(6, 0, [self.ref('documents.group_documents_manager')])],
+            'company_id': company_b.id,
+            'company_ids': [(6, 0, [company_b.id])]
+        })
+
+        self.folder_a.company_id = company_a
+
+        self.assertEqual(self.folder_a.display_name,
+            'folder A', "The folder should not be restricted")
+        self.assertEqual(self.folder_a.with_user(user_b).sudo().display_name,
+            'Restricted Folder', "The folder should be restricted")
+
     def test_unlink_attachments_with_documents(self):
         """
         Tests a documents.document unlink method.
