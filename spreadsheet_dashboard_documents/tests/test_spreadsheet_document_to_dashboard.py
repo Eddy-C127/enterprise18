@@ -134,7 +134,7 @@ class TestSpreadsheetDocumentToDashboard(TransactionCase):
         self.assertEqual(action["type"], "ir.actions.client")
         self.assertEqual(action["tag"], "action_edit_dashboard")
 
-    def _test_create_dashboard_and_archive_document(self):
+    def test_create_dashboard_and_archive_document(self):
         group = self.env["spreadsheet.dashboard.group"].create(
             {"name": "a group"}
         )
@@ -146,7 +146,15 @@ class TestSpreadsheetDocumentToDashboard(TransactionCase):
                 "mimetype": "application/o-spreadsheet",
             }
         )
-        self.env["spreadsheet.dashboard"].add_document_spreadsheet_to_dashboard(group.id, document.id)
+        wizard = self.env["spreadsheet.document.to.dashboard"].create(
+            {
+                "name": "a dashboard",
+                "document_id": document.id,
+                "dashboard_group_id": group.id,
+                "group_ids": self.env.ref("documents.group_documents_user")
+            }
+        )
+        wizard.create_dashboard()
         self.assertFalse(document.active, "The original document should be archived")
 
     def test_create_dashboard_wizard_moves_comments(self):
