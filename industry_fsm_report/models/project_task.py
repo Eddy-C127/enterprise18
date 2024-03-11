@@ -172,6 +172,11 @@ class ProjectTask(models.Model):
             'url': self.get_portal_url(query_string=f'&source={source}')
         }
 
+    def action_fsm_task_mobile_view(self):
+        action = super().action_fsm_task_mobile_view()
+        action['context']['industry_fsm_has_same_worksheet_template'] = self.worksheet_template_id == self.project_id.sudo().worksheet_template_id
+        return action
+
     def _get_report_base_filename(self):
         self.ensure_one()
         return 'Worksheet %s - %s' % (self.name, self.partner_id.name)

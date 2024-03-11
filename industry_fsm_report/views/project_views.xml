@@ -186,7 +186,7 @@
                 <button name="action_send_report" type="object" string="Send Report" class="btn-secondary"
                     invisible="not display_send_report_secondary" data-hotkey="g"/>
             </xpath>
-            <xpath expr="//button[@name='action_view_timesheets']" position="after">
+            <xpath expr="//div[@name='button_box']" position="inside">
                 <button
                     string="Customer Preview"
                     class="oe_stat_button"
@@ -203,7 +203,7 @@
                     context="{'form_view_ref': 'industry_fsm_report.worksheet_template_view_form_footer_design_button', 'default_res_model': 'project.task'}"
                     invisible="not allow_worksheets or (not partner_id and not is_fsm)"/>
             </xpath>
-            <xpath expr="//button[@name='action_recurring_tasks']" position="before">
+            <xpath expr="//span[@id='button_worksheet']" position="after">
                 <field name="worksheet_count" invisible="1"/>
                 <button
                     class="oe_stat_button oe_worksheet"
@@ -455,6 +455,17 @@
             <field name="worksheet_template_id" position="attributes">
                 <attribute name="optional">show</attribute>
             </field>
+        </field>
+    </record>
+
+    <record id="project_task_view_mobile_form_inherit" model="ir.ui.view">
+        <field name="name">industry_fsm_sale.project.task.view.mobile.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="industry_fsm.project_task_view_mobile_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/field[@name='worksheet_template_id']" position="attributes">
+                <attribute name="invisible" add="context.get('industry_fsm_has_same_worksheet_template', False)" separator=" or "/>
+            </xpath>
         </field>
     </record>
 

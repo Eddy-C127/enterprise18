@@ -50,7 +50,7 @@ Adds the following options:
             'industry_fsm/static/tests/views/fsm_task_calendar_view_tests.js',
         ],
         'web.assets_unit_tests': [
-            'industry_fsm/static/tests/views/fsm_task_gantt_view.test.js',
+            'industry_fsm/static/tests/views/*.test.js',
         ],
         'web.assets_tests': [
             'industry_fsm/static/tests/tours/**/*',

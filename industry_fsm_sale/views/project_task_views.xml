@@ -237,4 +237,18 @@
         </field>
     </record>
 
+    <record id="project_task_view_mobile_form_inherit" model="ir.ui.view">
+        <field name="name">industry_fsm_sale.project.task.view.mobile.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="industry_fsm.project_task_view_mobile_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='sale_line_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//group/div[@name='sale_line_div']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>

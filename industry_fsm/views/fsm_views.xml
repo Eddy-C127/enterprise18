@@ -9,6 +9,7 @@
         <field name="arch" type="xml">
             <tree position="attributes">
                 <attribute name="default_order">planned_date_begin</attribute>
+                <attribute name="js_class">project_task_list</attribute>
             </tree>
             <tree position="inside">
                 <field name="activity_exception_decoration" widget="activity_exception"/>
@@ -29,6 +30,19 @@
                 <attribute name="string">Planned Date</attribute>
                 <attribute name="options">{'start_date_field': 'planned_date_begin', 'always_range': '1'}</attribute>
             </field>
+        </field>
+    </record>
+
+    <record id="project_task_view_list_fsm_my_task" model="ir.ui.view">
+        <field name="name">project.task.tree.fsm.my.task</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_task_view_list_fsm"/>
+        <field name="mode">primary</field>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="js_class">fsm_my_task_list</attribute>
+            </tree>
         </field>
     </record>
 
@@ -125,6 +139,19 @@
         </field>
     </record>
 
+    <record id="project_task_map_view_fsm_my_task" model="ir.ui.view">
+        <field name="name">project.task.view.map.fsm</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_task_map_view_fsm"/>
+        <field name="mode">primary</field>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <map position="attributes">
+                <attribute name="js_class">fsm_my_task_map</attribute>
+            </map>
+        </field>
+    </record>
+
     <!-- Non primary kanban inherit (fsm tasks must display start date instead of deadline in all application) -->
     <record id="project_task_view_kanban" model="ir.ui.view">
         <field name="name">project.task.kanban.fsm.nonprimary</field>
@@ -176,11 +203,25 @@
         </field>
     </record>
 
-    <record id="project_task_action_fsm_no_quick_create" model="ir.ui.view">
-        <field name="name">project.task.kanban.fsm.no.quick.create</field>
+    <record id="project_task_view_kanban_fsm_my_task" model="ir.ui.view">
+        <field name="name">project.task.kanban.fsm.my.task</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project_task_view_kanban_fsm"/>
         <field name="mode">primary</field>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="js_class">fsm_my_task_kanban</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_task_action_fsm_no_quick_create" model="ir.ui.view">
+        <field name="name">project.task.kanban.fsm.no.quick.create</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_task_view_kanban_fsm_my_task"/>
+        <field name="mode">primary</field>
+        <field name="priority">999</field>
         <field name="arch" type="xml">
             <xpath expr="//kanban" position="attributes">
                 <attribute name="quick_create">0</attribute>
@@ -308,6 +349,43 @@
         </field>
     </record>
 
+    <record id="fsm_project_task_view_calendar" model="ir.ui.view">
+        <field name="name">fsm.project.task.calendar</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_task_view_calendar_fsm"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <calendar position="attributes">
+                <attribute name="js_class">fsm_my_task_calendar</attribute>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="fsm_project_task_view_gantt" model="ir.ui.view">
+        <field name="name">fsm.project.task.view.gantt</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_enterprise.project_task_view_gantt"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <gantt position="attributes">
+                <attribute name="js_class">fsm_task_gantt</attribute>
+            </gantt>
+        </field>
+    </record>
+
+    <record id="project_task_view_activity" model="ir.ui.view">
+        <field name="name">industry_fsm.project.task.activity.view</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.project_task_view_activity"/>
+        <field name="mode">primary</field>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <activity position="attributes">
+                <attribute name="js_class">fsm_my_task_activity</attribute>
+            </activity>
+        </field>
+    </record>
+
     <!--
         FSM Actions
     -->
@@ -344,28 +422,28 @@
     <record id="project_task_action_fsm_view_map" model="ir.actions.act_window.view">
         <field name="sequence" eval="10"/>
         <field name="view_mode">map</field>
-        <field name="view_id" ref="project_task_map_view_fsm"/>
+        <field name="view_id" ref="project_task_map_view_fsm_my_task"/>
         <field name="act_window_id" ref="project_task_action_fsm"/>
     </record>
 
     <record id="project_task_action_fsm_view_calendar" model="ir.actions.act_window.view">
         <field name="sequence" eval="20"/>
         <field name="view_mode">calendar</field>
-        <field name="view_id" ref="industry_fsm.project_task_view_calendar_fsm"/>
+        <field name="view_id" ref="fsm_project_task_view_calendar"/>
         <field name="act_window_id" ref="project_task_action_fsm"/>
     </record>
 
     <record id="project_task_action_fsm_view_gantt" model="ir.actions.act_window.view">
         <field name="sequence" eval="25"/>
         <field name="view_mode">gantt</field>
-        <field name="view_id" ref="project_enterprise.project_task_view_gantt"/>
+        <field name="view_id" ref="fsm_project_task_view_gantt"/>
         <field name="act_window_id" ref="project_task_action_fsm"/>
     </record>
 
      <record id="project_task_action_fsm_view_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="7"/>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="project_task_view_list_fsm"/>
+        <field name="view_id" ref="project_task_view_list_fsm_my_task"/>
         <field name="act_window_id" ref="project_task_action_fsm"/>
     </record>
 
@@ -387,6 +465,13 @@
         <field name="sequence" eval="34"/>
         <field name="view_mode">graph</field>
         <field name="view_id" ref="project_task_view_graph_group_by_planned_date_begin_fsm"/>
+        <field name="act_window_id" ref="project_task_action_fsm"/>
+    </record>
+
+    <record id="project_task_action_fsm_map_view_activity" model="ir.actions.act_window.view">
+        <field name="sequence" eval="60"/>
+        <field name="view_mode">activity</field>
+        <field name="view_id" ref="industry_fsm.project_task_view_activity"/>
         <field name="act_window_id" ref="project_task_action_fsm"/>
     </record>
 
@@ -417,35 +502,35 @@
     <record id="project_task_action_fsm_map_view_map" model="ir.actions.act_window.view">
         <field name="sequence" eval="5"/>
         <field name="view_mode">map</field>
-        <field name="view_id" ref="project_task_map_view_fsm"/>
+        <field name="view_id" ref="project_task_map_view_fsm_my_task"/>
         <field name="act_window_id" ref="project_task_action_fsm_map"/>
     </record>
 
     <record id="project_task_action_fsm_map_view_kanban" model="ir.actions.act_window.view">
         <field name="sequence" eval="20"/>
         <field name="view_mode">kanban</field>
-        <field name="view_id" ref="project_task_view_kanban_fsm"/>
+        <field name="view_id" ref="project_task_view_kanban_fsm_my_task"/>
         <field name="act_window_id" ref="project_task_action_fsm_map"/>
     </record>
 
     <record id="project_task_action_fsm_map_view_calendar" model="ir.actions.act_window.view">
         <field name="sequence" eval="10"/>
         <field name="view_mode">calendar</field>
-        <field name="view_id" ref="industry_fsm.project_task_view_calendar_fsm"/>
+        <field name="view_id" ref="fsm_project_task_view_calendar"/>
         <field name="act_window_id" ref="project_task_action_fsm_map"/>
     </record>
 
     <record id="project_task_action_fsm_map_view_gantt" model="ir.actions.act_window.view">
         <field name="sequence" eval="15"/>
         <field name="view_mode">gantt</field>
-        <field name="view_id" ref="project_enterprise.project_task_view_gantt"/>
+        <field name="view_id" ref="fsm_project_task_view_gantt"/>
         <field name="act_window_id" ref="project_task_action_fsm_map"/>
     </record>
 
     <record id="project_task_action_fsm_map_view_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="25"/>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="project_task_view_list_fsm"/>
+        <field name="view_id" ref="project_task_view_list_fsm_my_task"/>
         <field name="act_window_id" ref="project_task_action_fsm_map"/>
     </record>
 
@@ -466,6 +551,13 @@
         <field name="sequence" eval="50"/>
         <field name="view_mode">graph</field>
         <field name="view_id" ref="project.view_project_task_graph"/>
+        <field name="act_window_id" ref="project_task_action_fsm_map"/>
+    </record>
+
+    <record id="project_task_action_fsm_map_view_activity" model="ir.actions.act_window.view">
+        <field name="sequence" eval="60"/>
+        <field name="view_mode">activity</field>
+        <field name="view_id" ref="industry_fsm.project_task_view_activity"/>
         <field name="act_window_id" ref="project_task_action_fsm_map"/>
     </record>
 

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from datetime import timedelta, datetime
+from ast import literal_eval
 from typing import Dict, List
 import pytz
 
@@ -250,6 +249,24 @@ class Task(models.Model):
                 'default_task_id': self.id,
             }
         }
+
+    def action_fsm_task_mobile_view(self):
+        action = self.env['ir.actions.act_window']._for_xml_id('industry_fsm.project_task_action_fsm')
+        mobile_form_view = self.env.ref('industry_fsm.project_task_view_mobile_form', raise_if_not_found=False)
+        if mobile_form_view:
+            action['views'] = [(mobile_form_view.id, 'form')]
+        context = action.get('context', {})
+        context = context.replace('uid', str(self.env.uid))
+        context = dict(literal_eval(context), active_test=True)
+        fsm_project_count = self.env['project.project'].search_count([('is_fsm', '=', True)], limit=2)
+        context.update(
+            industry_fsm_one_project=fsm_project_count == 1,
+            industry_fsm_hide_user_ids=bool(self.user_ids) and self.env.user not in self.user_ids,
+        )
+        action['context'] = context
+        action['view_mode'] = 'form'
+        action['res_id'] = self.id
+        return action
 
     def action_fsm_validate(self, stop_running_timers=False):
         """ Moves Task to done state.
