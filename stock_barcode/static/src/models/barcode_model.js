@@ -430,12 +430,6 @@ export default class BarcodeModel extends EventBus {
             }
             line.location_id = location_id;
         }
-        if (!location_id && this.lastScanned.sourceLocation) {
-            line.location_id = this.lastScanned.sourceLocation;
-            if(line.package_id && line.package_id.location_id != line.location_id.id) {
-                line.package_id = false;
-            }
-        }
         if (lot_id) {
             if (typeof lot_id === 'number') {
                 lot_id = this.cache.getRecord('stock.lot', args.lot_id);
@@ -583,7 +577,8 @@ export default class BarcodeModel extends EventBus {
     }
 
     _defaultLocation() {
-        return Object.values(this.cache.dbIdCache['stock.location'])[0];
+        const lastScannedLocation = this.lastScanned.sourceLocation;
+        return lastScannedLocation || Object.values(this.cache.dbIdCache['stock.location'])[0];
     }
 
     _defaultDestLocation() {
