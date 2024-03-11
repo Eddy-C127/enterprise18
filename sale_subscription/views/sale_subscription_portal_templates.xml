@@ -379,7 +379,7 @@
          </li>
     </template>
 
-    <template id="portal_my_home_subscription" name="Show Subscriptions" customize_show="True" inherit_id="portal.portal_my_home" priority="90">
+    <template id="portal_my_home_subscription" name="Subscriptions" customize_show="True" inherit_id="portal.portal_my_home" priority="90">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
             <t t-set="portal_client_client_enable" t-value="True"/>
         </xpath>

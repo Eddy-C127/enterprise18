@@ -17,7 +17,7 @@
         </xpath>
     </template>
 
-    <template id="portal_my_home_helpdesk_ticket" name="Show Tickets" customize_show="True" inherit_id="portal.portal_my_home" priority="50">
+    <template id="portal_my_home_helpdesk_ticket" name="Helpdesk Tickets" customize_show="True" inherit_id="portal.portal_my_home" priority="50">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
             <t t-set="portal_service_category_enable" t-value="True"/>
         </xpath>
