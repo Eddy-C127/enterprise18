@@ -16,10 +16,15 @@ class TestNlICPSBR(AccountSalesReportCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref='nl'):
         super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.env.company.write({
+
+        company_vals = {
             'vat': 'NL123456782B90',
             'country_id': cls.env.ref('base.nl').id,
-        })
+        }
+        omzetbelasting_module = cls.env['ir.module.module']._get('l10n_nl_reports_sbr_ob_nummer')
+        if omzetbelasting_module.state == 'installed':
+            company_vals['l10n_nl_reports_sbr_ob_nummer'] = '987654321B09'
+        cls.env.company.write(company_vals)
 
     @freeze_time('2019-02-23 18:45')
     def test_icp_xbrl_export(self):
@@ -62,10 +67,16 @@ class TestNlICPSBR(AccountSalesReportCommon):
             .with_context(default_date_from=date_from, default_date_to=date_to, options=options)\
             .create({ 'tax_consultant_number': '123456' })
 
+        omzetbelasting_module = self.env['ir.module.module']._get('l10n_nl_reports_sbr_ob_nummer')
+        if omzetbelasting_module.state == 'installed':
+            omzetbelastingnummer = '987654321B09'
+        else:
+            omzetbelastingnummer = self.env.company.vat[2:] if self.env.company.vat.startswith('NL') else self.env.company.vat
+
         # This call will add the wanted values in the options
         wizard.action_download_xbrl_file()
         generated_xbrl = self.get_xml_tree_from_string(self.env['l10n_nl.ec.sales.report.handler'].export_icp_report_to_xbrl(options).get('file_content'))
-        expected_xbrl = self.get_xml_tree_from_string('''
+        expected_xbrl = self.get_xml_tree_from_string(f'''
             <xbrli:xbrl xmlns:link="http://www.xbrl.org/2003/linkbase"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:bd-t="http://www.nltaxonomie.nl/nt16/bd/20211208/dictionary/bd-tuples"
@@ -76,7 +87,7 @@ class TestNlICPSBR(AccountSalesReportCommon):
                     xlink:href="http://www.nltaxonomie.nl/nt16/bd/20211208/entrypoints/bd-rpt-icp-opgaaf-2022.xsd" />
                 <xbrli:context id="CD_Opgaaf">
                     <xbrli:entity>
-                        <xbrli:identifier scheme="www.belastingdienst.nl/omzetbelastingnummer">123456782B90</xbrli:identifier>
+                        <xbrli:identifier scheme="www.belastingdienst.nl/omzetbelastingnummer">{omzetbelastingnummer}</xbrli:identifier>
                     </xbrli:entity>
                     <xbrli:period>
                         <xbrli:startDate>2019-01-01</xbrli:startDate>
@@ -136,10 +147,14 @@ class TestNlSBRFlow(TestAccountReportsCommon):
     def setUpClass(cls, chart_template_ref='l10n_nl.l10nnl_chart_template'):
         super().setUpClass(chart_template_ref=chart_template_ref)
 
-        cls.env.company.write({
+        company_vals = {
             'vat': 'NL123456782B90',
             'country_id': cls.env.ref('base.nl').id,
-        })
+        }
+        omzetbelasting_module = cls.env['ir.module.module']._get('l10n_nl_reports_sbr_ob_nummer')
+        if omzetbelasting_module.state == 'installed':
+            company_vals['l10n_nl_reports_sbr_ob_nummer'] = '987654321B09'
+        cls.env.company.write(company_vals)
 
         cls.NL_SBR_CERT = os.getenv("NL_SBR_CERT")
         cls.NL_SBR_PWD = os.getenv("NL_SBR_PWD")
