@@ -26,6 +26,16 @@ class AccountMoveSend(models.TransientModel):
         values['l10n_mx_edi_cfdi'] = self.l10n_mx_edi_checkbox_cfdi
         return values
 
+    @api.model
+    def _get_wizard_vals_restrict_to(self, only_options):
+        # EXTENDS 'account'
+        values = super()._get_wizard_vals_restrict_to(only_options)
+        return {
+            **values,
+            'l10n_mx_edi_checkbox_cfdi': False,
+            **only_options,
+        }
+
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
     # -------------------------------------------------------------------------
