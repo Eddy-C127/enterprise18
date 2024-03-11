@@ -37,6 +37,34 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(quants.mapped('inventory_quantity'), [0, 0])
         self.assertEqual(quants.mapped('inventory_diff_quantity'), [0, 0])
 
+    def test_inventory_adjustment_dont_update_location(self):
+        """ Ensures the existing quants location cannot be update."""
+        self.clean_access_rights()
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
+        # Adds some quants and request a count.
+        # Adds quants for the same product in two locations.
+        self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, 5)
+        self.env['stock.quant']._update_available_quantity(self.product1, self.shelf2, 5)
+        # Marks them as to count by the user.
+        quants = self.env['stock.quant'].search([('product_id', '=', self.product1.id)])
+        quants.user_id = self.env.user
+        quants.inventory_quantity_set = True
+        quants.inventory_date = fields.Date.today()
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = "/web#action=" + str(action_id.id)
+        self.start_tour(url, 'test_inventory_adjustment_dont_update_location', login='admin', timeout=180)
+        quants = self.env['stock.quant'].search([
+            ('product_id', '=', self.product1.id),
+            ('location_id.usage', '=', 'internal'),
+        ])
+        self.assertRecordValues(quants, [
+            {'location_id': self.stock_location.id, 'quantity': 1},
+            {'location_id': self.shelf2.id, 'quantity': 0},
+            {'location_id': self.shelf1.id, 'quantity': 1},
+        ])
+
     def test_inventory_adjustment_multi_company(self):
         """ When doing an Inventory Adjustment, ensures only products belonging
         to current company or to no company can be scanned."""

@@ -183,7 +183,7 @@ export default class BarcodePickingModel extends BarcodeModel {
 
     async updateLine(line, args) {
         await super.updateLine(...arguments);
-        let { location_dest_id, result_package_id } = args;
+        let { location_id, location_dest_id, result_package_id } = args;
         if (result_package_id) {
             if (typeof result_package_id === 'number') {
                 result_package_id = this.cache.getRecord('stock.quant.package', result_package_id);
@@ -193,7 +193,12 @@ export default class BarcodePickingModel extends BarcodeModel {
             }
             line.result_package_id = result_package_id;
         }
-
+        if (!location_id && this.lastScanned.sourceLocation) {
+            line.location_id = this.lastScanned.sourceLocation;
+            if (line.package_id && line.package_id.location_id != line.location_id.id) {
+                line.package_id = false;
+            }
+        }
         if (location_dest_id) {
             if (typeof location_dest_id === 'number') {
                 location_dest_id = this.cache.getRecord('stock.location', args.location_dest_id);

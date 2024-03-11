@@ -104,6 +104,47 @@ registry.category("web_tour.tours").add('test_inventory_adjustment', {test: true
     },
 ]});
 
+registry.category("web_tour.tours").add('test_inventory_adjustment_dont_update_location', {test: true, steps: () => [
+    { trigger: '.button_inventory' },
+    {
+        trigger: '.o_barcode_client_action',
+        run: function () {
+            helper.assertLinesCount(2);
+            const [line1, line2] = helper.getLines({ barcode: 'product1' });
+            helper.assertLineQty(line1, '0 / 5');
+            helper.assertLineQty(line2, '0 / 5');
+            helper.assertLineSourceLocation(line1, "WH/Stock");
+            helper.assertLineSourceLocation(line2, "WH/Stock/Section 2");
+        }
+    },
+    // Scan WH/Stock/Section 1.
+    { trigger: '.o_barcode_client_action', run: "scan LOC-01-01-00" },
+    { trigger: '.o_barcode_line:first-child' },
+    { trigger: '.o_barcode_line.o_selected button.o_add_quantity' },
+    {
+        trigger: '.o_barcode_client_action',
+        run: function () {
+            helper.assertLinesCount(2);
+            const selectedLine = helper.getLine({ selected: true });
+            helper.assertLineQty(selectedLine, '1 / 5');
+            helper.assertLineSourceLocation(selectedLine, "WH/Stock");
+        }
+    },
+    // Scans product1 -> A new line for this product should be created in Section 1.
+    { trigger: '.o_barcode_client_action', run: "scan product1" },
+    {
+        trigger: '.o_barcode_line:nth-child(3)',
+        run: function () {
+            helper.assertLinesCount(3);
+            const selectedLine = helper.getLine({ selected: true });
+            helper.assertLineQty(selectedLine, '1');
+            helper.assertLineSourceLocation(selectedLine, "WH/Stock/Section 1");
+        }
+    },
+    { trigger: '.o_apply_page.btn-success' },
+    { trigger: '.o_notification.border-success', isCheck: true },
+]});
+
 registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company", {test: true, steps: () => [
     // Open the company switcher.
     { trigger: ".o_switch_company_menu > button" },
