@@ -686,23 +686,24 @@ class SaleOrder(models.Model):
         recurring_order = self.env['sale.order']
         upsell = self.env['sale.order']
         renewal = self.env['sale.order']
-        for order in self:
-            if order.subscription_id:
-                if order.subscription_state == '7_upsell' and order.state in ['draft', 'sent']:
-                    upsell |= order
-                elif order.subscription_state == '2_renewal':
-                    renewal |= order
-            if order.is_subscription:
-                recurring_order |= order
-                if not order.subscription_state:
-                    order.subscription_state = '1_draft'
-            elif order.subscription_state != '7_upsell':
-                order.subscription_state = False
 
-        # The sale_subscription override of `_compute_discount` added `order_id.start_date` to `api.depends`;
-        # as this field may get added on subscription confirmation, the discount field requires protection
-        # to avoid overwriting manually applied discounts
+        # The sale_subscription override of `_compute_discount` added `order_id.start_date` and
+        # `order_id.subscription_state` to `api.depends`; as this method modifies these fields,
+        # the discount field requires protection to avoid overwriting manually applied discounts
         with self.env.protecting([self.order_line._fields['discount']], self.order_line):
+            for order in self:
+                if order.subscription_id:
+                    if order.subscription_state == '7_upsell' and order.state in ['draft', 'sent']:
+                        upsell |= order
+                    elif order.subscription_state == '2_renewal':
+                        renewal |= order
+                if order.is_subscription:
+                    recurring_order |= order
+                    if not order.subscription_state:
+                        order.subscription_state = '1_draft'
+                elif order.subscription_state != '7_upsell':
+                    order.subscription_state = False
+
             # _prepare_confirmation_values will update subscription_state for all confirmed subscription.
             # We call super for two batches to avoid trigger the stage_coherence constraint.
             res_sub = super(SaleOrder, recurring_order).action_confirm()

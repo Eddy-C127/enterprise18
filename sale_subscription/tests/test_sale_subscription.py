@@ -2901,6 +2901,29 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(sub.order_line.mapped('discount'), [20, 20, 20],
              "Discounts should not be reset on confirmation.")
 
+    def test_non_subscription_pricelist_discount(self):
+        context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True, }
+        pricelist = self.company_data['default_pricelist']
+        pricelist.discount_policy = 'without_discount'
+        pricelist.item_ids.create({
+            'pricelist_id': pricelist.id,
+            'compute_price': 'percentage',
+            'percent_price': 50,
+        })
+        so = self.env["sale.order"].with_context(**context_no_mail).create({
+            'name': 'TestNonSubscription',
+            'is_subscription': False,
+            'partner_id': self.user_portal.partner_id.id,
+            'pricelist_id': pricelist.id,
+            'order_line': [(0, 0, {'product_id': self.product_a.id})],
+        })
+        self.assertEqual(so.order_line.discount, 50)
+        so.order_line.discount = 20
+        self.assertEqual(so.order_line.discount, 20)
+        so.action_confirm()
+        self.assertEqual(so.order_line.discount, 20,
+             "Discounts should not be reset on confirmation.")
+
     def test_churn_log_renew(self):
         """ Test the behavior of the logs when we confirm a renewal quote after the parent has been closed.
         """
