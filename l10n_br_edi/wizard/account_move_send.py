@@ -56,6 +56,16 @@ class AccountMoveSend(models.TransientModel):
         res["l10n_br_edi_is_enabled"] = self.l10n_br_edi_is_enabled
         return res
 
+    @api.model
+    def _get_wizard_vals_restrict_to(self, only_options):
+        # EXTENDS 'account'
+        values = super()._get_wizard_vals_restrict_to(only_options)
+        return {
+            **values,
+            'l10n_br_edi_is_enabled': False,
+            **only_options,
+        }
+
     def _get_placeholder_mail_attachments_data(self, move):
         # EXTENDS 'account'
         res = super()._get_placeholder_mail_attachments_data(move)
