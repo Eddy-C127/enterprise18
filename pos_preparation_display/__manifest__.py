@@ -33,17 +33,16 @@
         ],
         'pos_preparation_display.assets_tour_tests': [
             ("include", "point_of_sale.base_tests"),
-            'point_of_sale/static/tests/tours/**/*',
-            'pos_preparation_display/static/tests/tours/**/*',
+            'pos_preparation_display/static/tests/tours/preparation_display/**/*',
         ],
         'point_of_sale._assets_pos': [
             'pos_preparation_display/static/src/override/**/*.js',
         ],
         'point_of_sale.assets_qunit_tests': [
-            'pos_preparation_display/static/tests/*.js',
+            'pos_preparation_display/static/tests/unit/**/*',
         ],
         'web.assets_tests': [
-            'pos_preparation_display/static/tests/tours/**/*',
+            'pos_preparation_display/static/tests/tours/point_of_sale/**/*',
         ],
     },
     'license': 'OEEL-1',

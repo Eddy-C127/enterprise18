@@ -1,6 +1,5 @@
 /** @odoo-module */
 
-import * as PreparationDisplay from "@pos_preparation_display/../tests/tours/helpers/PreparationDisplayTourMethods";
 import * as ProductScreen from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
 import * as PaymentScreen from "@point_of_sale/../tests/tours/helpers/PaymentScreenTourMethods";
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/helpers/ReceiptScreenTourMethods";
@@ -76,10 +75,4 @@ registry.category("web_tour.tours").add("PreparationDisplayTourConfigurableProdu
             PaymentScreen.clickValidate(),
             ReceiptScreen.isShown(),
         ].flat(),
-});
-
-registry.category("web_tour.tours").add("PreparationDisplayTourProductName", {
-    test: true,
-    steps: () =>
-        [PreparationDisplay.containsProduct("Configurable Chair (Red, Metal, Leather)")].flat(),
 });
