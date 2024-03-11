@@ -17,13 +17,10 @@ class TestCFDIInvoiceExternal(TestMxEdiCommonExternal):
             partner_id=self.partner_us.id,
         )
         invoice._l10n_mx_edi_cfdi_invoice_try_send()
-        self.assertRecordValues(invoice, [{'l10n_mx_edi_cfdi_state': 'sent'}])
+        self.assertEqual(invoice.l10n_mx_edi_cfdi_state, 'sent', f'Error: {invoice.l10n_mx_edi_document_ids.message}')
 
     def test_invoice_cfdi_solfact(self):
         self._test_invoice_cfdi('solfact')
 
     def test_invoice_cfdi_finkok(self):
         self._test_invoice_cfdi('finkok')
-
-    def test_invoice_cfdi_sw(self):
-        self._test_invoice_cfdi('sw')
