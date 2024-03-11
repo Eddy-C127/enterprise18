@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, _
+from odoo.exceptions import RedirectWarning
 
 from lxml import etree
 
@@ -12,6 +13,17 @@ class DutchECSalesReportCustomHandler(models.AbstractModel):
         options['buttons'].append({'name': _('XBRL'), 'sequence': 40, 'action': 'open_xbrl_wizard', 'file_export_type': _('XBRL')})
 
     def open_xbrl_wizard(self, options):
+        omzetbelasting_module = self.env['ir.module.module']._get('l10n_nl_reports_sbr_ob_nummer')
+        if omzetbelasting_module.state != 'installed':
+            raise RedirectWarning(
+                message=_("A new module (l10n_nl_reports_sbr_ob_nummer) needs to be installed for the service to work correctly."),
+                action=self.env.ref('base.open_module_tree').id,
+                button_text=_("Go to Apps"),
+                additional_context={
+                    'search_default_name': 'l10n_nl_reports_sbr_ob_nummer',
+                    'search_default_extra': True,
+                },
+            )
         res = self.env['l10n_nl.tax.report.handler'].open_xbrl_wizard(options)
         res.update({
             'name': _('EC Sales (ICP) SBR'),

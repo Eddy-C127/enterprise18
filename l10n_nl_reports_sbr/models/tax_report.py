@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, RedirectWarning
 
 import datetime
 from lxml import etree
@@ -15,6 +15,17 @@ class DutchReportCustomHandler(models.AbstractModel):
         options['buttons'].append({'name': _('XBRL'), 'sequence': 30, 'action': 'open_xbrl_wizard', 'file_export_type': _('XBRL')})
 
     def open_xbrl_wizard(self, options):
+        omzetbelasting_module = self.env['ir.module.module']._get('l10n_nl_reports_sbr_ob_nummer')
+        if omzetbelasting_module.state != 'installed':
+            raise RedirectWarning(
+                message=_("A new module (l10n_nl_reports_sbr_ob_nummer) needs to be installed for the service to work correctly."),
+                action=self.env.ref('base.open_module_tree').id,
+                button_text=_("Go to Apps"),
+                additional_context={
+                    'search_default_name': 'l10n_nl_reports_sbr_ob_nummer',
+                    'search_default_extra': True,
+                },
+            )
         report = self.env['account.report'].browse(options['report_id'])
         if report.filter_multi_company != 'tax_units' and len(options['companies']) > 1:
             raise UserError(_('Please select only one company to send the report. If you wish to aggregate multiple companies, please create a tax unit.'))

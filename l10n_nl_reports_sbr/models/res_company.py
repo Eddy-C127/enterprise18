@@ -56,6 +56,8 @@ class ResCompany(models.Model):
             cert_obj, pkey_obj = (x509.load_pem_x509_certificate(stored_certificate), serialization.load_pem_private_key(stored_key, password or None))
         except TypeError:
             raise UserError(_('The certificate or private key you uploaded is encrypted. Please specify your password.'))
+        except ValueError:
+            raise UserError(_('An error occurred while decrypting your certificate or private key. Please verify your password.'))
 
         cert_bytes = cert_obj.public_bytes(serialization.Encoding.PEM)
         pkey_bytes = pkey_obj.private_bytes(
@@ -72,7 +74,7 @@ class ResCompany(models.Model):
         cert_root_bytes = base64.b64decode(self.l10n_nl_reports_sbr_server_root_cert or '')
         if not cert_root_bytes or x509.load_pem_x509_certificate(cert_root_bytes).not_valid_after < datetime.now():
             try:
-                req_root = requests.get('http://cert.pkioverheid.nl/PrivateRootCA-G1.cer', timeout=30)
+                req_root = requests.get('https://cert.pkioverheid.nl/PrivateRootCA-G1.cer', timeout=30)
                 req_root.raise_for_status()
 
                 # This certificate is a .cer and is in DER format, we need to change it to PEM format for the libraries

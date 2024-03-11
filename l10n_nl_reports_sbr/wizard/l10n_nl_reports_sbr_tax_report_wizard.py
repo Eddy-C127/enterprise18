@@ -282,6 +282,10 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
                 _('Company settings')
             )
 
+    def _get_sbr_identifier(self):
+        # To be overridden by fix module
+        return False
+
     def action_download_xbrl_file(self):
         options = self.env.context['options']
         options['codes_values'] = self._generate_general_codes_values(options)
@@ -332,7 +336,7 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
             delivery_client.service.aanleveren(
                 berichtsoort='Omzetbelasting',
                 aanleverkenmerk=wsse.utils.get_unique_id(),
-                identiteitBelanghebbende=factory.identiteitType(nummer=self.env.company.vat[2:] if self.env.company.vat.startswith('NL') else self.env.company.vat, type='BTW'),
+                identiteitBelanghebbende=factory.identiteitType(nummer=self._get_sbr_identifier() or (self.env.company.vat[2:] if self.env.company.vat.startswith('NL') else self.env.company.vat), type='BTW'),
                 rolBelanghebbende='Bedrijf',
                 berichtInhoud=factory.berichtInhoudType(mimeType='application/xml', bestandsnaam='TaxReport.xbrl', inhoud=report_file),
                 autorisatieAdres='http://geenausp.nl',
@@ -370,7 +374,7 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
         report = self.env['account.report'].browse(options['report_id'])
         vat = report.get_vat_for_export(options)
         return {
-            'identifier': vat[2:] if vat.startswith('NL') else vat,
+            'identifier': self._get_sbr_identifier() or (vat[2:] if vat.startswith('NL') else vat),
             'startDate': fields.Date.to_string(self.date_from),
             'endDate': fields.Date.to_string(self.date_to),
             'ContactInitials': self.contact_initials or '',
