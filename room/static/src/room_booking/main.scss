@@ -36,6 +36,14 @@
         }
     }
 
+    .o_room_remaining_time {
+        width: 250px;
+        @include media-breakpoint-up(lg) {
+            width: 400px;
+        }
+
+    }
+
     .o_room_scheduler {
         .o_room_scheduler_slots .col {
             aspect-ratio: 1; // Square slots
