@@ -90,8 +90,8 @@ class SwedishTaxReportTest(AccountSalesReportCommon):
                 <MomsImportUtgHog>75</MomsImportUtgHog>
                 <MomsImportUtgMedel>0</MomsImportUtgMedel>
                 <MomsImportUtgLag>0</MomsImportUtgLag>
-                <MomsIngAvdr>-12</MomsIngAvdr>
-                <MomsBetala>63</MomsBetala>
+                <MomsIngAvdr>12</MomsIngAvdr>
+                <MomsBetala>87</MomsBetala>
                 <TextUpplysningMoms />
             </Moms>
         </eSKDUpload>
