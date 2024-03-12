@@ -103,7 +103,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def l10n_dk_export_general_ledger_csv(self, options):
         report = self.env['account.report'].browse(options['report_id'])
         # account number, account name, balance
-        csv_lines = [("KONTONUMMER", "KONTONAVN", "VAERDI")]
+        # _20230131 is not the export date, but rather the date at which the norm of this csv export was enforced
+        csv_lines = [("KONTONUMMER_20230131", "KONTONAVN_20230131", "VAERDI_20230131")]
         # fold all report lines to make sure we only get the account details
         new_options = report.get_options(previous_options={**options, 'unfolded_lines': [], 'unfold_all': False})
 
