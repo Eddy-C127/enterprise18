@@ -643,9 +643,16 @@ class SaleOrder(models.Model):
                 order.subscription_id.message_post(body=cancel_message_body)
             elif (order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + SUBSCRIPTION_DRAFT_STATE
                   and not any(state in ['draft', 'posted'] for state in order.order_line.invoice_lines.move_id.mapped('state'))):
-                order.order_log_ids.sudo().unlink()
-                parent_transfer_log = order.subscription_id.order_log_ids.filtered(lambda log: log.event_type == '3_transfer' and log.amount_signed < 0)
-                if parent_transfer_log and parent_transfer_log == order.subscription_id.order_log_ids[:1]:
+                # subscription_id means a renewal because no upsell could enter this condition
+                # When we cancel a quote or a confirmed subscription that was not invoiced, we remove the order logs and
+                # reopen the parent order if the conditions are met.
+                # We know if the order is a renewal with transfer log by looking at the logs of the parent and the log of the order.
+                transfer_logs = order.subscription_id and order.order_log_ids.filtered(lambda log: log.event_type == '3_transfer' and log.amount_signed >= 0)
+                # last transfer amount
+                transfer_amount = transfer_logs and transfer_logs[:1].amount_signed
+                parent_transfer_log = transfer_amount and order.subscription_id.order_log_ids.filtered(lambda log: log.event_type == '3_transfer' and log.amount_signed == - transfer_amount)
+                last_parent_log = order.subscription_id.order_log_ids.sorted()[:1]
+                if parent_transfer_log and parent_transfer_log == last_parent_log:
                     # Delete the parent transfer log if it is the last log of the parent.
                     parent_transfer_log.sudo().unlink()
                     # Reopen the parent order and avoid recreating logs
@@ -664,7 +671,8 @@ class SaleOrder(models.Model):
                         note=cancel_activity_body,
                         user_id=order.subscription_id.user_id.id
                     )
-                order.subscription_state = False
+                order.order_log_ids.sudo().unlink()
+                order.subscription_state = '2_renewal' if order.subscription_id else False
             elif order.subscription_state in SUBSCRIPTION_PROGRESS_STATE:
                 raise ValidationError(_('You cannot cancel a subscription that has been invoiced.'))
         return super()._action_cancel()
