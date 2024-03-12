@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from freezegun import freeze_time
 from unittest.mock import patch
 
+from odoo import exceptions
 from odoo.addons.event.tests.common import EventCase
 from odoo.addons.whatsapp.tests.common import WhatsAppCommon
 from odoo.tests import tagged, users
@@ -136,7 +137,28 @@ class TestWhatsappSchedule(EventCase, WhatsAppCommon):
         self.assertTrue(before_scheduler.mail_done)
         self.assertEqual(before_scheduler.mail_count_done, 5, "2 pre-existing + 3 new")
 
-    @mute_logger('odoo.addons.whatsapp_event.models.event_mail')
+    @mute_logger('odoo.addons.event.models.event_mail',
+                 'odoo.addons.whatsapp_event.models.event_mail',
+                 'odoo.addons.whatsapp_event.models.event_mail_registration')
+    @users('user_eventmanager')
+    def test_whatsapp_schedule_fail_global_composer(self):
+        # Simulate a fail during composer usage e.g. invalid field path, template
+        # model change, ... to check defensive behavior
+        cron = self.env.ref("event.event_mail_scheduler").sudo()
+        before_scheduler = self.test_event.event_mail_ids.filtered(lambda s: s.interval_type == "before_event")
+
+        def _patched_composer_send(self, *args, **kwargs):
+            raise exceptions.ValidationError('Some error')
+
+        with patch.object(type(self.env["whatsapp.composer"]), "_send_whatsapp_template", _patched_composer_send):
+            with self.mock_datetime_and_now(self.reference_now + timedelta(days=3)), \
+                 self.mockWhatsappGateway():
+                cron.method_direct_trigger()
+        self.assertFalse(before_scheduler.mail_done)
+
+    @mute_logger('odoo.addons.event.models.event_mail',
+                 'odoo.addons.whatsapp_event.models.event_mail',
+                 'odoo.addons.whatsapp_event.models.event_mail_registration')
     @users('user_eventmanager')
     def test_whatsapp_schedule_fail_global_template_draft(self):
         """ Test flow where scheduler fails due to template ref being in draft
@@ -184,6 +206,28 @@ class TestWhatsappSchedule(EventCase, WhatsAppCommon):
              self.mockWhatsappGateway():
             cron.method_direct_trigger()
         self.assertFalse(before_scheduler.mail_done)
+
+    @mute_logger('odoo.addons.whatsapp_event.models.event_mail_registration')
+    @users('user_eventmanager')
+    def test_whatsapp_schedule_fail_registration_composer(self):
+        """ Simulate a fail during composer usage e.g. invalid field path, template
+        # model change, ... to check defensive behavior """
+        onsub_scheduler = self.test_event.event_mail_ids.filtered(lambda s: s.interval_type == "after_sub")
+
+        def _patched_composer_send(self, *args, **kwargs):
+            raise exceptions.ValidationError('Some error')
+
+        with patch.object(type(self.env["whatsapp.composer"]), "_send_whatsapp_template", _patched_composer_send):
+            with self.mockWhatsappGateway():
+                registration = self.env['event.registration'].create({
+                    "email": "test@email.com",
+                    "event_id": self.test_event.id,
+                    "name": "Mitchell Admin",
+                    "phone": "(255)-595-8393",
+                })
+        self.assertTrue(registration.exists(), "Registration record should exist after creation.")
+        self.assertEqual(onsub_scheduler.mail_count_done, 2)
+        self.assertFalse(onsub_scheduler.mail_done)
 
     @mute_logger('odoo.addons.whatsapp_event.models.event_mail')
     @users('user_eventmanager')
