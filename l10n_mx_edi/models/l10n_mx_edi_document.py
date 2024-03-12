@@ -975,6 +975,10 @@ class L10nMxEdiDocument(models.Model):
                 product_unspsc_code = '84111506'
                 uom_unspsc_code = 'ACT'
                 description = "Devolución de mercancias"
+            elif line.get('product_unspsc_code'):
+                product_unspsc_code = line['product_unspsc_code']
+                uom_unspsc_code = 'ACT'
+                description = line['name']
             else:
                 product_unspsc_code = product.unspsc_code_id.code
                 uom_unspsc_code = uom.unspsc_code_id.code

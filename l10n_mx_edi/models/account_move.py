@@ -913,11 +913,13 @@ class AccountMove(models.Model):
         self.ensure_one()
         Document = self.env['l10n_mx_edi.document']
 
+        downpayment_lines = self.line_ids._get_downpayment_lines()
         base_lines = [
             {
                 **invl._convert_to_tax_base_line_dict(),
                 'uom': invl.product_uom_id,
                 'name': invl.name,
+                'product_unspsc_code': '84111506' if invl in downpayment_lines else None,
             }
             for invl in self._l10n_mx_edi_cfdi_invoice_line_ids()
         ]
