@@ -70,10 +70,10 @@ class PosOrder(models.Model):
 
                 self.env['l10n_cl.account.invoice.reference'].create({
                     'move_id': move.id,
-                    'origin_doc_number': reversed_move_id.name,
+                    'origin_doc_number': reversed_move_id.l10n_latam_document_number,
                     'l10n_cl_reference_doc_type_id': reversed_move_id.l10n_latam_document_type_id.id,
                     'reference_doc_code': reference_doc_code,
-                    'reason': 'Anulación NC por aceptación con reparo (' + reversed_move_id.name + ')',
+                    'reason': 'Anulación NC por aceptación con reparo (' + reversed_move_id.l10n_latam_document_number + ')',
                     'date': move.date,
                 })
         return move
