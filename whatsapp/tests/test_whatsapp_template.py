@@ -405,6 +405,69 @@ class WhatsAppTemplateForm(WhatsAppTemplateCommon):
 
 
 @tagged('wa_template')
+class WhatsAppTemplateInternals(WhatsAppTemplateCommon):
+    """ Internals: copy, computed fields behavior, ... """
+
+    @users('user_wa_admin')
+    def test_copy_variables(self):
+        """ Test that copying the template is copying the variables but also the
+        buttons with their respective variables. """
+        for button_type in ['static']:  # , 'dynamic'
+            with self.subTest(button_type=button_type):
+                template = self.env['whatsapp.template'].create({
+                    "body": "Hello I am {{1}}, Come visit our website: {{2}}",
+                    "button_ids": [
+                        (0, 0, {
+                            "button_type": "url",
+                            "name": "Button url",
+                            "url_type": button_type,
+                            "website_url": "https://www.example.com",
+                        }),
+                        (0, 0, {
+                            "button_type": "url",
+                            "name": "Button url 2",
+                            "url_type": button_type,
+                            "website_url": "https://www.example.com/2",
+                        })
+                    ],
+                    "name": "Test copy template",
+                    "status": "approved",
+                    "variable_ids": [
+                        (0, 0, {
+                            "demo_value": "Nishant",
+                            "line_type": "body",
+                            "field_type": "user_name",
+                            "name": "{{1}}",
+                        }), (0, 0, {
+                            "demo_value": "https://www.portal_example.com",
+                            "field_type": "portal_url",
+                            "line_type": "body",
+                            "name": "{{2}}",
+                        }),
+                    ],
+                    "wa_account_id": self.whatsapp_account.id,
+                })
+                expected_variables = [
+                    [
+                        "{{1}}", "body", "user_name",
+                        {"demo_value": "Nishant", "button_id": self.env["whatsapp.template.button"]},
+                    ],
+                    [
+                        "{{2}}", "body", "portal_url",
+                        {"demo_value": "https://www.portal_example.com", "button_id": self.env["whatsapp.template.button"]},
+                    ],
+                ]
+                self.assertWATemplateVariables(template, expected_variables)
+                self.assertFalse(template.button_ids.variable_ids)
+
+                clone = template.copy()
+                self.assertEqual(len(clone.button_ids), 2, 'Should copy buttons')
+
+                self.assertWATemplateVariables(clone, expected_variables)
+                self.assertFalse(template.button_ids.variable_ids)
+
+
+@tagged('wa_template')
 class WhatsAppTemplatePreview(WhatsAppTemplateCommon):
 
     @users('user_wa_admin')

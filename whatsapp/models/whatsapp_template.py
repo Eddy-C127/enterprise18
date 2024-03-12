@@ -117,7 +117,9 @@ class WhatsAppTemplate(models.Model):
     report_id = fields.Many2one(comodel_name='ir.actions.report', string="Report", domain="[('model_id', '=', model_id)]", tracking=True)
     variable_ids = fields.One2many('whatsapp.template.variable', 'wa_template_id', copy=True,
         string="Template Variables", store=True, compute='_compute_variable_ids', precompute=True, readonly=False)
-    button_ids = fields.One2many('whatsapp.template.button', 'wa_template_id', string="Buttons")
+    button_ids = fields.One2many(
+        'whatsapp.template.button', 'wa_template_id', string="Buttons",
+        copy=True)
     has_invalid_button_number = fields.Boolean(compute="_compute_has_invalid_button_number")
 
     messages_count = fields.Integer(string="Messages Count", compute='_compute_messages_count')
@@ -223,10 +225,6 @@ class WhatsAppTemplate(models.Model):
     #                 Compute Methods
     #=====================================================
 
-    @api.depends('button_ids.has_invalid_number')
-    def _compute_has_invalid_button_number(self):
-        for template in self:
-            template.has_invalid_button_number = any(template.button_ids.mapped('has_invalid_number'))
 
     @api.depends('model')
     def _compute_phone_field(self):
@@ -294,6 +292,11 @@ class WhatsAppTemplate(models.Model):
             update_commands = [Command.delete(to_delete_id) for to_delete_id in to_delete] + [Command.create(vals) for vals in to_create]
             if update_commands:
                 tmpl.variable_ids = update_commands
+
+    @api.depends('button_ids')
+    def _compute_has_invalid_button_number(self):
+        for template in self:
+            template.has_invalid_button_number = any(template.button_ids.mapped('has_invalid_number'))
 
     @api.depends('model_id')
     def _compute_has_action(self):
