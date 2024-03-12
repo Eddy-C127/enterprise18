@@ -39,17 +39,7 @@ export class AccountReportHeader extends Component {
     // Subheaders
     //------------------------------------------------------------------------------------------------------------------
     get subheaders() {
-        let subheaders = JSON.parse(JSON.stringify(this.controller.options.columns));
-
-        subheaders.forEach((subheader) => {
-            if (subheader.figure_type === 'monetary') {
-                const roundingUnit = this.controller.options.rounding_unit;
-
-                subheader.name += ` ( ${ this.controller.options.rounding_unit_names[roundingUnit] } )`;
-            }
-        });
-
-        return subheaders;
+        return JSON.parse(JSON.stringify(this.controller.options.columns));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
