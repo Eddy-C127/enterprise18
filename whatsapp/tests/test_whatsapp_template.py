@@ -412,7 +412,7 @@ class WhatsAppTemplateInternals(WhatsAppTemplateCommon):
     def test_copy_variables(self):
         """ Test that copying the template is copying the variables but also the
         buttons with their respective variables. """
-        for button_type in ['static']:  # , 'dynamic'
+        for button_type in ['static', 'dynamic']:
             with self.subTest(button_type=button_type):
                 template = self.env['whatsapp.template'].create({
                     "body": "Hello I am {{1}}, Come visit our website: {{2}}",
@@ -457,14 +457,34 @@ class WhatsAppTemplateInternals(WhatsAppTemplateCommon):
                         {"demo_value": "https://www.portal_example.com", "button_id": self.env["whatsapp.template.button"]},
                     ],
                 ]
+                if button_type == 'dynamic':
+                    expected_variables += [
+                        [
+                            "{{1}}", "button", "free_text",
+                            {"demo_value": "https://www.example.com???", "button_id": template.button_ids[0]},
+                        ],
+                        [
+                            "{{1}}", "button", "free_text",
+                            {"demo_value": "https://www.example.com/2???", "button_id": template.button_ids[1]},
+                        ],
+                    ]
                 self.assertWATemplateVariables(template, expected_variables)
-                self.assertFalse(template.button_ids.variable_ids)
+                if button_type == 'dynamic':
+                    self.assertTrue(template.button_ids.variable_ids < template.variable_ids)
+                else:
+                    self.assertFalse(template.button_ids.variable_ids)
                 self.assertEqual(template.template_name, f'test_copy_template_{button_type}')
 
                 clone = template.copy()
                 self.assertEqual(len(clone.button_ids), 2, 'Should copy buttons')
+                if button_type == 'dynamic':
+                    expected_variables[2][3]["button_id"] = clone.button_ids[0]
+                    expected_variables[3][3]["button_id"] = clone.button_ids[1]
                 self.assertWATemplateVariables(clone, expected_variables)
-                self.assertFalse(template.button_ids.variable_ids)
+                if button_type == 'dynamic':
+                    self.assertTrue(clone.button_ids.variable_ids < clone.variable_ids)
+                else:
+                    self.assertFalse(template.button_ids.variable_ids)
                 self.assertEqual(clone.template_name, f'test_copy_template_{button_type}_copy')
 
 

@@ -26,8 +26,10 @@ class WhatsAppTemplateButton(models.Model):
     website_url = fields.Char(string="Website URL")
     call_number = fields.Char(string="Call Number")
     has_invalid_number = fields.Boolean(compute="_compute_has_invalid_number")
-    variable_ids = fields.One2many('whatsapp.template.variable', 'button_id',
-                                   compute='_compute_variable_ids', precompute=True, store=True)
+    variable_ids = fields.One2many(
+        'whatsapp.template.variable', 'button_id',
+        compute='_compute_variable_ids', precompute=True, store=True,
+        copy=True)
 
     _sql_constraints = [
         (
