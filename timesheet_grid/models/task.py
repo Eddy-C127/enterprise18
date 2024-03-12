@@ -64,7 +64,7 @@ class Task(models.Model):
             }
 
     def _set_allocated_hours_for_tasks(self):
-        super(Task, self.filtered(lambda task: not task.allow_timesheets))
+        super(Task, self.filtered(lambda task: not task.allow_timesheets))._set_allocated_hours_for_tasks()
 
     def _gantt_progress_bar_project_id(self, res_ids):
         timesheet_read_group = self.env['account.analytic.line']._read_group(
