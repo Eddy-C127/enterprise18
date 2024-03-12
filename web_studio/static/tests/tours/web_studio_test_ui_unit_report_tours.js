@@ -208,7 +208,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
         },
         {
             extra_trigger: ".o-web-studio-save-report:not(.btn-primary)",
-            trigger: ".o-web-studio-report-container iframe body",
+            trigger: ".o-web-studio-report-container :iframe body",
             run() {
                 assertEqual(
                     this.anchor.querySelector(".test-added-0").textContent,
@@ -357,7 +357,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
             },
         },
         {
-            trigger: ".o-web-studio-report-container iframe body",
+            trigger: ".o-web-studio-report-container :iframe body",
             run() {
                 const element = this.anchor.querySelector(".test-added");
                 if (element) {
@@ -459,7 +459,7 @@ registry.category("web_tour.tours").add("web_studio.test_table_rendering", {
         },
         {
             trigger:
-                ".o-web-studio-report-editor-wysiwyg iframe .invalid_table [oe-origin-tag='td']",
+                ".o-web-studio-report-editor-wysiwyg :iframe .invalid_table [oe-origin-tag='td']",
             run: "text edited with odooEditor",
         },
         {
@@ -745,7 +745,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_xml_other_record
         },
         {
             extra_trigger: ".o_web_studio_xml_editor",
-            trigger: ".o-web-studio-report-container iframe body p:contains(partner_1)",
+            trigger: ".o-web-studio-report-container :iframe body p:contains(partner_1)",
             run() {
                 assertEqual(
                     document.querySelector(".o-web-studio-report-search-record input").value,
@@ -757,7 +757,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_xml_other_record
             trigger: ".o-web-studio-report-pager .o_pager_next",
         },
         {
-            trigger: ".o-web-studio-report-container iframe body p:contains(partner_2)",
+            trigger: ".o-web-studio-report-container :iframe body p:contains(partner_2)",
             run() {
                 assertEqual(
                     document.querySelector(".o-web-studio-report-search-record input").value,
@@ -773,7 +773,7 @@ registry.category("web_tour.tours").add("web_studio.test_partial_eval", {
     sequence: 260,
     steps: () => [
         {
-            trigger: ".o-web-studio-report-container iframe .lol",
+            trigger: ".o-web-studio-report-container :iframe .lol",
             run() {
                 const closestContextElement = this.anchor.closest("[oe-context]");
                 const oeContext = closestContextElement.getAttribute("oe-context");
@@ -788,7 +788,7 @@ registry.category("web_tour.tours").add("web_studio.test_partial_eval", {
             },
         },
         {
-            trigger: ".o-web-studio-report-container iframe .couic",
+            trigger: ".o-web-studio-report-container :iframe .couic",
             isCheck: true,
         },
     ],
@@ -799,11 +799,11 @@ registry.category("web_tour.tours").add("web_studio.test_render_multicompany", {
     sequence: 260,
     steps: () => [
         {
-            trigger: ".o-web-studio-report-container iframe .test_layout",
+            trigger: ".o-web-studio-report-container :iframe .test_layout",
             run() {},
         },
         {
-            trigger: ".o-web-studio-report-container iframe img",
+            trigger: ".o-web-studio-report-container :iframe img",
             run() {
                 const currentUrl = new URL(window.location);
                 const cids = currentUrl.searchParams.get("cids").split("-");
@@ -818,7 +818,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_non_searchable_fiel
     sequence: 260,
     steps: () => [
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg iframe p:eq(2)",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
             async run(helpers) {
                 const el = this.anchor;
                 openEditorPowerBox(el);
@@ -992,7 +992,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         },
         {
             trigger:
-                ".o-web-studio-report-editor-wysiwyg iframe table tr td:contains(First Column)",
+                ".o-web-studio-report-editor-wysiwyg :iframe table tr td:contains(First Column)",
             isCheck: true,
         },
         {
@@ -1230,7 +1230,7 @@ registry.category("web_tour.tours").add("web_studio.test_remove_branding_on_copy
     test: true,
     steps: () => [
         {
-            trigger: "body iframe #wrapwrap",
+            trigger: "body :iframe #wrapwrap",
             async run() {
                 const originNode = this.anchor.querySelector(`[ws-view-id]`);
                 const copy = originNode.cloneNode(true);
@@ -1352,7 +1352,7 @@ registry.category("web_tour.tours").add("web_studio.test_image_crop", {
     test: true,
     steps: () => [
         {
-            trigger: "body iframe .myimg",
+            trigger: "body :iframe .myimg",
         },
         {
             trigger: "body .oe-toolbar #image-crop",
@@ -1368,7 +1368,7 @@ registry.category("web_tour.tours").add("web_studio.test_translations_are_copied
     test: true,
     steps: () => [
         {
-            trigger: "body iframe #wrapwrap div:contains(term2)",
+            trigger: "body :iframe #wrapwrap div:contains(term2)",
             run() {
                 const newNode = document.createElement("div");
                 (newNode.textContent = "term3 from edition"),
