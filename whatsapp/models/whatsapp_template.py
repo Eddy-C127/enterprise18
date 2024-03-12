@@ -118,11 +118,13 @@ class WhatsAppTemplate(models.Model):
     header_attachment_ids = fields.Many2many('ir.attachment', string="Template Static Header", copy=False)
     footer_text = fields.Char(string="Footer Message")
     report_id = fields.Many2one(comodel_name='ir.actions.report', string="Report", domain="[('model_id', '=', model_id)]", tracking=True)
-    variable_ids = fields.One2many('whatsapp.template.variable', 'wa_template_id', copy=True,
-        string="Template Variables", store=True, compute='_compute_variable_ids', precompute=True, readonly=False)
+    variable_ids = fields.One2many(
+        'whatsapp.template.variable', 'wa_template_id', string="Template Variables",
+        store=True, compute='_compute_variable_ids', precompute=True, readonly=False,
+        copy=False)  # done with custom code due to buttons variables
     button_ids = fields.One2many(
         'whatsapp.template.button', 'wa_template_id', string="Buttons",
-        copy=True)
+        copy=True)  # will copy their variables
 
     messages_count = fields.Integer(string="Messages Count", compute='_compute_messages_count')
     has_action = fields.Boolean(string="Has Action", compute='_compute_has_action')
@@ -312,6 +314,14 @@ class WhatsAppTemplate(models.Model):
         for tmpl in self:
             tmpl.messages_count = messages_by_template.get(tmpl, 0)
 
+    @api.depends('name', 'wa_account_id')
+    def _compute_display_name(self):
+        for template in self:
+            template.display_name = _('%(template_name)s [%(account_name)s]',
+                                        template_name=template.name,
+                                        account_name=template.wa_account_id.name
+                                    ) if template.wa_account_id.name else template.name
+
     @api.onchange('header_attachment_ids')
     def _onchange_header_attachment_ids(self):
         for template in self:
@@ -360,13 +370,22 @@ class WhatsAppTemplate(models.Model):
             default['template_name'] = f'{self.template_name}_copy'
         return super().copy(default)
 
-    @api.depends('name', 'wa_account_id')
-    def _compute_display_name(self):
-        for template in self:
-            template.display_name = _('%(template_name)s [%(account_name)s]',
-                                        template_name=template.name,
-                                        account_name=template.wa_account_id.name
-                                    ) if template.wa_account_id.name else template.name
+    def copy_data(self, default=None):
+        values = super().copy_data(default=default)
+        if values and values[0] and self.variable_ids:
+            variable_commands = values[0].get('variable_ids', []) + [
+                (0, 0, {
+                    'button_id': False,
+                    'demo_value': variable.demo_value,
+                    'field_type': variable.field_type,
+                    'line_type': variable.line_type,
+                    'name': variable.name,
+                })
+                for variable in self.variable_ids if not variable.button_id
+            ]
+            if variable_commands:
+                values[0]['variable_ids'] = variable_commands
+        return values
 
     #===================================================================
     #                 Register template to whatsapp
