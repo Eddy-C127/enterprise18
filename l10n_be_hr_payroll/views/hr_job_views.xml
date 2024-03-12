@@ -5,6 +5,9 @@
         <field name="model">hr.job</field>
         <field name="inherit_id" ref="hr.view_hr_job_form"/>
         <field name="arch" type="xml">
+            <page name="job_description_page" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </page>
             <field name="description" position="before">
                 <group invisible="not display_l10n_be_scale">
                     <field name="display_l10n_be_scale" invisible="1"/>
