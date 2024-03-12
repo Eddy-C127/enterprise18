@@ -1827,7 +1827,7 @@ class SaleOrder(models.Model):
         for invoice in invoices:
             # We may have different subscriptions per invoice
             subscriptions = invoice.invoice_line_ids.subscription_id
-            if not subscriptions or not invoice.is_move_sent or not invoice._is_ready_to_be_sent() or invoice.state != 'posted':
+            if not subscriptions or not invoice._is_ready_to_be_sent() or invoice.state != 'posted':
                 continue
             invoice_values = {sub.id: invoice for sub in subscriptions}
             subscription_ids += subscriptions.ids
