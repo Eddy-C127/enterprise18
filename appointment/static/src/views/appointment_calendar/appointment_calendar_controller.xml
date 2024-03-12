@@ -12,13 +12,7 @@
                         Pick your availabilities
                     </b>
                     <div class="d-flex align-items-center gap-1 flex-wrap">
-                        <button class="o_appointment_open_form btn btn-primary flex-fill text-nowrap"
-                                t-att-class="{ 'd-none': !this.appointmentState.lastAppointment.id and !this.hasSlotEvents() }"
-                                aria-label="Open"
-                                t-on-click="onClickOpenForm">
-                            <i class="fa fa-external-link me-1" role="img" aria-label="Open"/>Open
-                        </button>
-                        <button class="o_appointment_get_link btn btn-secondary flex-fill text-nowrap"
+                        <button class="o_appointment_get_link btn btn-primary flex-fill text-nowrap"
                                 t-att-class="{ 'd-none': !this.appointmentState.lastAppointment.id and !this.hasSlotEvents() }"
                                 title="Get Share Link"
                                 aria-label="Get Share Link"
@@ -26,10 +20,16 @@
                                 t-ref="copyLinkRef">
                             <i class="fa fa-copy me-1" role="img" aria-label="Copy Link"/>Copy Link
                         </button>
-                        <button class="o_appointment_discard_slots btn btn-secondary flex-fill"
+                        <button class="o_appointment_open_form btn btn-secondary flex-fill text-nowrap"
+                                t-att-class="{ 'd-none': !this.appointmentState.lastAppointment.id and !this.hasSlotEvents() }"
+                                aria-label="Configure"
+                                t-on-click="onClickOpenForm">
+                            <i class="fa fa-cog me-1" role="img" aria-label="Configure"/>Configure
+                        </button>
+                        <button class="o_appointment_discard_slots btn btn-light flex-fill"
                                 aria-label="Discard"
                                 t-on-click="onClickDiscard">
-                            Discard
+                                <i class="oi oi-close" role="img" aria-label="Discard"/>
                         </button>
                     </div>
                 </t>
