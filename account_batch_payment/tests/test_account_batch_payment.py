@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from odoo import Command
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.tests import tagged
 
@@ -77,3 +78,38 @@ class TestAccountBatchPayment(AccountTestInvoicingCommon):
 
         payments[0].action_draft()
         self.assertEqual(batch_payment.amount, 100)
+
+    def test_batch_payment_sub_company(self):
+        """Test the creation of a batch payment from a sub company"""
+        self.company_data['company'].write({'child_ids': [Command.create({'name': 'Good Company'})]})
+        child_comp = self.company_data['company'].child_ids[0]
+
+        # needed for computation of payment.destination_account_id
+        (self.env['ir.property']
+         .search([('name', '=', 'property_account_receivable_id'), ('company_id', '=', self.company_data['company'].id)], limit=1)
+         .copy({'company_id': child_comp.id}))
+
+        self.env.user.write({
+            'company_ids': [Command.set((self.company_data['company'] + child_comp).ids)],
+            'company_id': child_comp.id,
+        })
+
+        payment = self.env['account.payment'].with_company(child_comp).create({
+            'amount': 100.0,
+            'payment_type': 'inbound',
+            'partner_type': 'customer',
+            'partner_id': self.partner_a.id,
+        })
+        payment.action_post()
+
+        context = {
+            **self.env.context,
+            'allowed_company_ids': self.env.company.ids,
+            'active_ids': payment.ids,
+            'active_model': 'account.payment',
+        }
+
+        batch = self.env['account.batch.payment'].with_context(context).create({
+            'journal_id': payment.journal_id.id,
+        })
+        self.assertTrue(batch)
