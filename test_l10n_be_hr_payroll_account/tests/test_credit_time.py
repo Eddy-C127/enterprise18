@@ -54,8 +54,14 @@ class TestCreditTime(AccountTestInvoicingCommon):
             'resource_calendar_id': cls.classic_38h_calendar.id,
         })
 
+        cls.model_a3 = cls.env["fleet.vehicle.model"].create({
+            'name': ' A3',
+            'brand_id': cls.env.ref('fleet.brand_audi').id,
+            'vehicle_type': 'car',
+        })
+
         cls.car = cls.env['fleet.vehicle'].create({
-            'model_id': cls.env.ref("fleet.model_a3").id,
+            'model_id': cls.model_a3.id,
             'license_plate': '1-JFC-095',
             'acquisition_date': time.strftime('%Y-01-01'),
             'co2': 88,

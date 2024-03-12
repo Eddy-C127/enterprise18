@@ -93,7 +93,7 @@
         <field name="user_id" ref="l10n_be_hr_contract_salary.user_laurie_poiret"/>
     </record>
 
-    <record id="fleet.model_corsa" model="fleet.vehicle.model">
+    <record id="fleet.model_corolla_ts" model="fleet.vehicle.model">
         <field name="can_be_requested" eval="True"/>
         <field name="default_car_value">18000</field>
         <field name="default_co2">88</field>
@@ -106,7 +106,7 @@
         <field name="fields_id" search="[
             ('model', '=', 'fleet.vehicle.model'),
             ('name', '=', 'can_be_requested')]"/>
-        <field name="res_id" model="fleet.vehicle" eval="'fleet.vehicle.model,' + str(obj().env.ref('fleet.model_corsa').id)"/>
+        <field name="res_id" model="fleet.vehicle" eval="'fleet.vehicle.model,' + str(obj().env.ref('fleet.model_corolla_ts').id)"/>
         <field name="type">boolean</field>
         <field name="value" eval="True"/>
         <field name="company_id" ref="base.demo_company_be"/>
@@ -116,12 +116,12 @@
         <field name="name">Small Family Car</field>
     </record>
 
-    <record id="fleet.model_a3" model="fleet.vehicle.model">
+    <record id="fleet.model_golf_8" model="fleet.vehicle.model">
         <field name="category_id" ref="l10n_be_hr_contract_salary.fleet_vehicle_model_category_family_car"/>
     </record>
 
-    <record id="fleet_vehicle_audi_a3_laurie_poiret" model="fleet.vehicle">
-        <field name="model_id" ref="fleet.model_a3"/>
+    <record id="fleet_vehicle_golf_8_laurie_poiret" model="fleet.vehicle">
+        <field name="model_id" ref="fleet.model_golf_8"/>
         <field name="license_plate">1-JFC-095</field>
         <field name="acquisition_date" eval="time.strftime('2020-01-01')"/>
         <field name="co2">88</field>
@@ -131,10 +131,10 @@
         <field name="transmission">manual</field>
     </record>
 
-    <record id="fleet_vehicle_log_contract_audi_a3_laurie_poiret" model="fleet.vehicle.log.contract">
+    <record id="fleet_vehicle_log_contract_golf_8_laurie_poiret" model="fleet.vehicle.log.contract">
         <field name="recurring_cost_amount_depreciated">450.0</field>
         <field name="state">open</field>
-        <field name="vehicle_id" ref="fleet_vehicle_audi_a3_laurie_poiret"/>
+        <field name="vehicle_id" ref="fleet_vehicle_golf_8_laurie_poiret"/>
     </record>
 
     <record id="fleet_vehicle_brand_eddy_merckx" model="fleet.vehicle.model.brand">
@@ -179,7 +179,7 @@
         <field name="commission_on_target">0.0</field>
         <field name="transport_mode_car" eval="True"/>
         <field name="new_car" eval="True"/>
-        <field name="new_car_model_id" ref="fleet.model_corsa"/>
+        <field name="new_car_model_id" ref="fleet.model_corolla_ts"/>
         <field name="ip_wage_rate">25</field>
         <field name="hr_responsible_id" ref="base.user_demo"/>
         <field name="sign_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
@@ -203,7 +203,7 @@
         <field name="commission_on_target">0.0</field>
         <field name="transport_mode_car" eval="True"/>
         <field name="new_car" eval="False"/>
-        <field name="car_id" ref="fleet_vehicle_audi_a3_laurie_poiret"/>
+        <field name="car_id" ref="fleet_vehicle_golf_8_laurie_poiret"/>
         <field name="transport_mode_bike" eval="False"/>
         <field name="bike_id" ref="fleet_vehicle_bike_laurie_poiret"/>
         <field name="state">close</field>
@@ -230,7 +230,7 @@
         <field name="commission_on_target">0.0</field>
         <field name="transport_mode_car" eval="True"/>
         <field name="new_car" eval="False"/>
-        <field name="car_id" ref="fleet_vehicle_audi_a3_laurie_poiret"/>
+        <field name="car_id" ref="fleet_vehicle_golf_8_laurie_poiret"/>
         <field name="transport_mode_bike" eval="False"/>
         <field name="bike_id" ref="fleet_vehicle_bike_laurie_poiret"/>
         <field name="state">open</field>

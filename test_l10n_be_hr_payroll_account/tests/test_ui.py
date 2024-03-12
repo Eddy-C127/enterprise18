@@ -38,7 +38,6 @@ class Testl10nBeHrPayrollAccountUi(common.TestPayrollAccountCommon):
 
             # In the new contract, we can choose to order a car in the wishlist.
             self.env['ir.config_parameter'].sudo().set_param('l10n_be_hr_payroll_fleet.max_unused_cars', 1)
-            model_corsa = self.env.ref("fleet.model_corsa")
 
         with freeze_time("2022-01-01 12:00:00"):
             self.start_tour("/", 'hr_contract_salary_tour_2', login='admin', timeout=350)
@@ -47,18 +46,18 @@ class Testl10nBeHrPayrollAccountUi(common.TestPayrollAccountCommon):
             new_employee_id = new_contract_id.employee_id
             self.assertTrue(new_employee_id, 'An employee has been created')
             self.assertTrue(new_employee_id.active, 'Employee is active')
-            self.assertEqual(new_contract_id.new_car_model_id, model_corsa, 'Car is right model')
+            self.assertEqual(new_contract_id.new_car_model_id, self.model_corsa, 'Car is right model')
 
-            vehicle = self.env['fleet.vehicle'].search([('company_id', '=', self.company_id.id), ('model_id', '=', model_corsa.id)])
+            vehicle = self.env['fleet.vehicle'].search([('company_id', '=', self.company_id.id), ('model_id', '=', self.model_corsa.id)])
             self.assertFalse(vehicle, 'A vehicle has not been created')
 
         with freeze_time("2022-01-01 13:00:00"):
             # We now fully sign the offer to see if the vehicle to order is created correctly
             self.start_tour("/", 'hr_contract_salary_tour_counter_sign', login='admin', timeout=350, step_delay=300)
 
-            vehicle = self.env['fleet.vehicle'].search([('company_id', '=', self.company_id.id), ('model_id', '=', model_corsa.id)])
+            vehicle = self.env['fleet.vehicle'].search([('company_id', '=', self.company_id.id), ('model_id', '=', self.model_corsa.id)])
             self.assertTrue(vehicle, 'A vehicle has been created')
-            self.assertEqual(vehicle.model_id, model_corsa, 'Car is right model')
+            self.assertEqual(vehicle.model_id, self.model_corsa, 'Car is right model')
             self.assertEqual(vehicle.future_driver_id, new_employee_id.work_contact_id, 'Future Driver is set correctly')
             self.assertEqual(vehicle, new_contract_id.ordered_car_id, 'Ordered Car appears in contract')
             self.assertEqual(vehicle.state_id, self.env.ref('fleet.fleet_vehicle_state_new_request'), 'Car created in right state')

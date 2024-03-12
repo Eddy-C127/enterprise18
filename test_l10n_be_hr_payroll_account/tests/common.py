@@ -174,12 +174,27 @@ class TestPayrollAccountCommon(odoo.tests.HttpCase):
             'default_car_value': 2000,
             'default_recurring_cost_amount_depreciated': 50,
         })
-        cls.model_a3 = cls.env.ref("fleet.model_a3").with_company(cls.company_id)
-        cls.model_a3.default_recurring_cost_amount_depreciated = 450
-        cls.model_a3.can_be_requested = True
+        cls.model_a3 = cls.env["fleet.vehicle.model"].with_company(cls.company_id).create({
+            'name': ' A3',
+            'brand_id': cls.env.ref('fleet.brand_audi').id,
+            'default_recurring_cost_amount_depreciated': 450,
+            'can_be_requested': True,
+            'vehicle_type': 'car',
+        })
 
-        model_opel = cls.env.ref("fleet.model_corsa").with_company(cls.company_id)
-        model_opel.can_be_requested = True
+        cls.model_category_compact = cls.env["fleet.vehicle.model.category"].create({'name': 'Compact Test'})
+
+        cls.model_corsa = cls.env["fleet.vehicle.model"].with_company(cls.company_id).create({
+            'name': 'Corsa',
+            'vehicle_type': 'car',
+            'brand_id': cls.env.ref('fleet.brand_opel').id,
+            'category_id': cls.model_category_compact.id,
+            'default_car_value': 18000,
+            'default_co2': 88,
+            'default_fuel_type': 'diesel',
+            'default_recurring_cost_amount_depreciated': '450.00',
+            'can_be_requested': True,
+        })
 
         vehicle = cls.env['fleet.vehicle'].create({
             'model_id': cls.model_a3.id,
@@ -197,14 +212,6 @@ class TestPayrollAccountCommon(odoo.tests.HttpCase):
             'purchaser_id': vehicle.driver_id.id,
             'company_id': vehicle.company_id.id,
             'user_id': vehicle.manager_id.id if vehicle.manager_id else cls.env.user.id
-        })
-
-        cls.env.ref('fleet.model_corsa').write({
-            'can_be_requested': True,
-            'default_car_value': 18000,
-            'default_co2': 88,
-            'default_fuel_type': 'diesel',
-            'default_recurring_cost_amount_depreciated': '450.00',
         })
 
         if not cls.env.ref('fleet.fleet_vehicle_state_waiting_list', raise_if_not_found=False):

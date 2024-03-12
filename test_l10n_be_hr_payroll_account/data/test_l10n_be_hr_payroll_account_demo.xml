@@ -2091,8 +2091,8 @@
         <field name="sdworx_code">0000021</field>
     </record>
 
-    <record id="fleet_vehicle_audi_a3_joseph_noluck" model="fleet.vehicle">
-        <field name="model_id" ref="fleet.model_a3"/>
+    <record id="fleet_vehicle_golf_8_joseph_noluck" model="fleet.vehicle">
+        <field name="model_id" ref="fleet.model_golf_8"/>
         <field name="license_plate">1-HGN-535</field>
         <field name="acquisition_date" eval="time.strftime('2019-01-01')"/>
         <field name="co2">88</field>
@@ -2101,10 +2101,10 @@
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
 
-    <record id="fleet_vehicle_log_contract_audi_a3_joseph_noluck" model="fleet.vehicle.log.contract">
+    <record id="fleet_vehicle_log_contract_golf_8_joseph_noluck" model="fleet.vehicle.log.contract">
         <field name="recurring_cost_amount_depreciated">450.0</field>
         <field name="state">open</field>
-        <field name="vehicle_id" ref="fleet_vehicle_audi_a3_joseph_noluck"/>
+        <field name="vehicle_id" ref="fleet_vehicle_golf_8_joseph_noluck"/>
     </record>
 
     <record id="hr_contract_cdi_joseph_noluck_1" model="hr.contract">
@@ -2118,7 +2118,7 @@
         <field name="commission_on_target">1500</field>
         <field name="transport_mode_car" eval="True"/>
         <field name="new_car" eval="False"/>
-        <field name="car_id" ref="fleet_vehicle_audi_a3_joseph_noluck"/>
+        <field name="car_id" ref="fleet_vehicle_golf_8_joseph_noluck"/>
         <field name="state">close</field>
         <field name="ip_wage_rate">25</field>
         <field name="ip" eval="True"/>
@@ -2143,7 +2143,7 @@
         <field name="commission_on_target">1500</field>
         <field name="transport_mode_car" eval="True"/>
         <field name="new_car" eval="False"/>
-        <field name="car_id" ref="fleet_vehicle_audi_a3_joseph_noluck"/>
+        <field name="car_id" ref="fleet_vehicle_golf_8_joseph_noluck"/>
         <field name="state">open</field>
         <field name="ip_wage_rate">25</field>
         <field name="ip" eval="True"/>
