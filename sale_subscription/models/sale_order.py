@@ -1035,7 +1035,7 @@ class SaleOrder(models.Model):
         for order in self:
             # We don't propagate the line description from the upsell order to the subscription
             create_values, update_values = order.order_line.filtered(lambda sol: not sol.display_type)._subscription_update_line_data(order.subscription_id)
-            order.subscription_id.with_context(context).write({'order_line': create_values + update_values})
+            order.subscription_id.with_context(**context).write({'order_line': create_values + update_values})
         return create_values, update_values
 
     def _set_closed_state(self, renew=False):
