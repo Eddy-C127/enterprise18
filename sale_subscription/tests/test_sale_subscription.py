@@ -3423,7 +3423,7 @@ class TestSubscription(TestSubscriptionCommon):
 
             self.flush_tracking()
             self.assertEqual(renewal_so.subscription_state, '3_progress')
-            self.assertFalse(renewal_so2.subscription_state)
+            self.assertEqual(renewal_so2.subscription_state, '2_renewal')
         with freeze_time("2024-02-03"):
             renewal_so._create_recurring_invoice()
             self.flush_tracking()
