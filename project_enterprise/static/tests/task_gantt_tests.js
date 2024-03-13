@@ -967,7 +967,8 @@ QUnit.test("Smart scheduling", async (assert) => {
     await hoverGridCell(1, 1);
     await clickCell(1, 1);
     assert.containsOnce(target, ".o_dialog");
-    await click(target, ".o_dialog .o_data_cell");
+    await click(target, ".o_dialog .o_data_row .o-checkbox");
+    await click(target, ".o_dialog .o_auto_plan_button");
     assert.deepEqual(getGridContent().rows, [
         {
             title: "👤 Unassigned",
@@ -1025,7 +1026,8 @@ QUnit.test("Smart scheduling: display warnings", async (assert) => {
     await hoverGridCell(1, 1);
     await clickCell(1, 1);
     assert.containsOnce(target, ".o_dialog");
-    await click(target, ".o_dialog .o_data_cell");
+    await click(target, ".o_dialog .o_data_row .o-checkbox");
+    await click(target, ".o_dialog .o_auto_plan_button");
 
     await contains(".o_notification");
 

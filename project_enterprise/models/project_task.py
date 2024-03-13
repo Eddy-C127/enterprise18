@@ -478,12 +478,13 @@ class Task(models.Model):
                 tasks_no_assignees.write({"allocated_hours": hours})
             compute_allocated_hours -= tasks_no_assignees
 
-            # 3) Remove the already set allocated hours from the capacity
-            capacity -= sum(self.filtered(lambda task: task.allocated_hours and task.user_ids).mapped('allocated_hours'))
+            if compute_allocated_hours: # this recordset could be empty, and we don't want to divide by 0 when checking the length of it
+                # 3) Remove the already set allocated hours from the capacity
+                capacity -= sum(self.filtered(lambda task: task.allocated_hours and task.user_ids).mapped('allocated_hours'))
 
-            # 4) Split capacity for every task and plan them
-            if capacity > 0:
-                compute_allocated_hours.write({"allocated_hours": capacity / len(compute_allocated_hours)})
+                # 4) Split capacity for every task and plan them
+                if capacity > 0:
+                    compute_allocated_hours.write({"allocated_hours": capacity / len(compute_allocated_hours)})
 
         return res
 

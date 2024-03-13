@@ -7,9 +7,15 @@ export class SelectCreateAutoPlanDialog extends SelectCreateDialog {
         onSelectedNoSmartSchedule: { type: Function },
     }
 
-    selectNoSmartSchedule(resIds) {
+    select(resIds) {
         if (this.props.onSelectedNoSmartSchedule) {
             this.executeOnceAndClose(() => this.props.onSelectedNoSmartSchedule(resIds));
+        }
+    }
+
+    selectWithSmartSchedule(resIds) {
+        if (this.props.onSelected) {
+            this.executeOnceAndClose(() => this.props.onSelected(resIds));
         }
     }
 }
