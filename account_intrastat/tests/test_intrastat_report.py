@@ -299,6 +299,65 @@ class TestIntrastatReport(TestAccountReportsCommon):
             options,
         )
 
+    def test_unfold_with_product_origin_country_united_kingdom(self):
+        """ The aim of this test is verifying that we can unfold
+            grouped lines for product that have an origin country
+            set to United Kingdom
+        """
+        move = self.env['account.move'].create([
+            {
+                'move_type': 'out_invoice',
+                'partner_id': self.partner_a.id,
+                'invoice_date': '2022-01-04',
+                'date': '2022-01-04',
+                'intrastat_country_id': self.env.ref('base.fr').id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'name': 'line_1',
+                        'product_id': self.product_1.id,
+                        'intrastat_transaction_id': self.intrastat_codes['transaction'].id,
+                        'intrastat_product_origin_country_id': self.env.ref('base.uk').id,
+                        'quantity': 1.0,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 50.0,
+                    }),
+                ],
+            },
+            {
+                'move_type': 'out_invoice',
+                'partner_id': self.partner_a.id,
+                'invoice_date': '2022-01-05',
+                'date': '2022-01-05',
+                'intrastat_country_id': self.env.ref('base.fr').id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'name': 'line_1',
+                        'product_id': self.product_1.id,
+                        'intrastat_transaction_id': self.intrastat_codes['transaction'].id,
+                        'intrastat_product_origin_country_id': self.env.ref('base.uk').id,
+                        'quantity': 1.0,
+                        'account_id': self.company_data['default_account_revenue'].id,
+                        'price_unit': 50.0,
+                    }),
+                ],
+            },
+        ])
+        move.action_post()
+
+        options = self._generate_options(self.report, '2022-01-01', '2022-01-31', default_options={'unfold_all': True})
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            self.report._get_lines(options),
+            # 0/name,                                                 2/country, 6/origin country, 12/value
+            [   0,                                                        2,        6,    12],
+            [
+                ('Dispatch - 101 - 100 - XU - QV999999999999 - FR - 102', 'France', 'XU', 100.0),
+                ('INV/2022/00002',                                        'France', 'XU', 50.0),
+                ('INV/2022/00001',                                        'France', 'XU', 50.0),
+            ],
+            options,
+        )
+
     def test_unfold_dispatch_arrival_intrastrat_report_lines(self):
         """ This test checks that intrastat_report lines only
             contain what they have to contain.
