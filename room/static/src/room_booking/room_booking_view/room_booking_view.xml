@@ -111,7 +111,7 @@
                         </t>
                         <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-start cursor-pointer"
                             t-att-class="state.bookingToEdit?.id === booking.id ? 'active' : ''"
-                            t-on-click="() => state.bookingToEdit = booking">
+                            t-on-click="() => state.bookingToEdit = {...booking}">
                             <div class="text-break">
                                 <div class="d-flex align-items-center">
                                     <span t-out="booking.interval.start.toLocaleString(timeFormat)"/>
