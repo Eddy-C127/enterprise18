@@ -1940,8 +1940,6 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         picking_receipt = create_picking(self.picking_type_in)
         picking_receipt.action_confirm()
         picking_receipt.action_assign()
-        # Get the storage operation (automatically created by the receipt).
-        picking_internal = picking_receipt.move_ids.move_dest_ids.picking_id
 
         # Creates the pick, pack, ship.
         picking_pick = create_picking(warehouse.pick_type_id)
@@ -1954,6 +1952,8 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.start_tour(url, 'test_picking_type_mandatory_scan_complete_flux_receipt', login='admin', timeout=180)
         self.assertEqual(picking_receipt.state, 'done')
 
+        # Get the storage operation (created by the receipt).
+        picking_internal = picking_receipt.move_ids.move_dest_ids.picking_id
         url = self._get_client_action_url(picking_internal.id)
         self.start_tour(url, 'test_picking_type_mandatory_scan_complete_flux_internal', login='admin', timeout=180)
         self.assertEqual(picking_internal.state, 'done')

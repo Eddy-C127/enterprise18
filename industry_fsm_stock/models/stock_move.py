@@ -12,7 +12,9 @@ class StockMove(models.Model):
     def _update_reserved_quantity(self, need, location_id, quant_ids=None, lot_id=None, package_id=None, owner_id=None, strict=True):
         if self.product_id.tracking == 'none':
             return super()._update_reserved_quantity(need, location_id, quant_ids=quant_ids, lot_id=lot_id, package_id=package_id, owner_id=owner_id, strict=strict)
-        lot = self.sale_line_id.sudo().fsm_lot_id or lot_id
+        lot = lot_id
+        if self.sale_line_id.sudo().fsm_lot_id and self.location_dest_id == self.location_final_id:
+            lot = self.sale_line_id.sudo().fsm_lot_id or lot
         if lot and self.product_id.tracking != "serial":
             return super()._update_reserved_quantity(need, location_id, quant_ids=quant_ids, lot_id=lot, package_id=package_id, owner_id=owner_id, strict=strict)
 
@@ -21,7 +23,8 @@ class StockMove(models.Model):
             return super()._update_reserved_quantity(need, location_id, quant_ids=quant_ids, lot_id=lot_id, package_id=package_id, owner_id=owner_id, strict=strict)
 
         already_used_by_lots = defaultdict(float)
-        for ml in self.move_dest_ids.move_orig_ids.move_line_ids:
+        sibling_moves = self.move_dest_ids.move_orig_ids if self.move_dest_ids else self.picking_id.move_ids
+        for ml in sibling_moves.move_line_ids:
             qty = ml.quantity
             qty = ml.product_uom_id._compute_quantity(qty, ml.product_id.uom_id)
             already_used_by_lots[ml.lot_id] += qty

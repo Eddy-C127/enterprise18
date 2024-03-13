@@ -30,6 +30,7 @@ class StockMove(models.Model):
         distinct_fields = super()._prepare_merge_moves_distinct_fields()
         if any(sale_order.is_rental_order for sale_order in self.group_id.sale_id):
             distinct_fields.remove('origin_returned_move_id')
+            distinct_fields.remove('procure_method')
         return distinct_fields
 
     def _action_assign(self, force_qty=False):

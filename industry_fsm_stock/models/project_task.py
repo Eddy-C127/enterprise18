@@ -21,7 +21,7 @@ class Task(models.Model):
             sale_line = self.env['sale.order.line'].sudo().search([('order_id', '=', task.sale_order_id.id), ('task_id', '=', task.id)])
             for order_line in sale_line:
                 to_log = {}
-                total_qty = sum(order_line.move_ids.filtered(lambda p: p.state not in ['cancel']).mapped('product_uom_qty'))
+                total_qty = sum(order_line.move_ids.filtered(lambda m: m.state != 'cancel' and not m.move_dest_ids).mapped('product_uom_qty'))
                 if float_compare(order_line.product_uom_qty, total_qty, order_line.product_uom.rounding) < 0:
                     to_log[order_line] = (order_line.product_uom_qty, total_qty)
 
@@ -33,8 +33,10 @@ class Task(models.Model):
             if not exception:
                 task.sudo()._validate_stock()
 
-    def _validate_stock(self):
+    def _validate_stock(self, done_picking_ids=None):
         self.ensure_one()
+        if not done_picking_ids:
+            done_picking_ids = set()
         all_fsm_sn_moves = self.env['stock.move']
         ml_to_create = []
         for so_line in self.sale_order_id.order_line:
@@ -45,13 +47,14 @@ class Task(models.Model):
             if not qty:
                 continue
             for move in so_line.move_ids:
-                if move.state in ['done', 'cancel'] or move.quantity >= qty:
+                if move.state in ['done', 'cancel'] or (move.quantity >= qty and move.picked):
                     continue
                 fsm_sn_moves |= move
                 while move.move_orig_ids.filtered(lambda m: not m.picked or m.quantity < qty):
                     move = move.move_orig_ids
                     fsm_sn_moves |= move
             for fsm_sn_move in fsm_sn_moves:
+                ml_vals = False
                 if not fsm_sn_move.move_line_ids:
                     ml_vals = fsm_sn_move._prepare_move_line_vals(quantity=0)
                     ml_vals['quantity'] = fsm_sn_move.product_uom_qty
@@ -68,7 +71,7 @@ class Task(models.Model):
                         ml_vals['quantity'] = missing_qty
                         ml_vals['lot_id'] = so_line.fsm_lot_id.id
                         ml_to_create.append(ml_vals)
-                if fsm_sn_move.product_id.tracking == "serial":
+                if fsm_sn_move.product_id.tracking == "serial" and ml_vals:
                     quants = self.env['stock.quant']._gather(fsm_sn_move.product_id, fsm_sn_move.location_id, lot_id=so_line.fsm_lot_id)
                     quant = quants.filtered(lambda q: q.quantity == 1.0)[:1]
                     ml_vals['location_id'] = quant.location_id.id or fsm_sn_move.location_id.id
@@ -108,6 +111,12 @@ class Task(models.Model):
                     rounding_method='HALF-UP')
                 move.quantity = qty_to_do
         pickings_to_do.with_context(skip_sms=True, cancel_backorder=True).button_validate()
+
+        # With new push rules, some pickings may not be created before previous picking validation, hence the need to go through the pickings again.
+        done_picking_ids.update(pickings_to_do.ids)
+        remaining_to_do = self.sale_order_id.picking_ids.filtered(lambda p: p.state not in ['done', 'cancel'] and is_fsm_material_picking(p, self))
+        if any(remaining_id not in done_picking_ids for remaining_id in remaining_to_do.ids):
+            self._validate_stock(done_picking_ids=done_picking_ids)
 
     def _get_task_SOL_stock_move_customer(self):
         return self.env['stock.move'].search([

@@ -77,6 +77,7 @@ class TestRentalKits(TestRentalCommon):
         rental_order_1.order_line.write({'product_uom_qty': 3})
         self.assertEqual(outgoing_picking_2.move_ids.mapped('product_uom_qty'), [2.0, 4.0])
         self.assertEqual(incoming_picking.move_ids.mapped('product_uom_qty'), [3.0, 6.0])
+        incoming_picking.action_assign()
         self.assertEqual(incoming_picking.move_ids.mapped('quantity'), [1.0, 2.0])
 
         outgoing_picking_2.move_ids[0].quantity = 1

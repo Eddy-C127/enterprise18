@@ -32,6 +32,9 @@ class FsmStockTracking(models.TransientModel):
 
     def _get_moves_dict(self, sale_order):
         default_warehouse = self.env.user._get_default_warehouse_id()
+        triggering_rule = default_warehouse.delivery_route_id.rule_ids[0]
+        if triggering_rule.location_dest_id != triggering_rule.picking_type_id.default_location_dest_id:
+            return {}
         pickings_to_update = sale_order.picking_ids.filtered(
             lambda p:
                 (
@@ -89,7 +92,8 @@ class FsmStockTracking(models.TransientModel):
                         new_line_needed = False
                         break
                 # if no ml were available, create a new one
-                if new_line_needed:
+                move = moves_from_intermediate_pickings[pick][0] if moves_from_intermediate_pickings[pick] else False
+                if new_line_needed and move:
                     ml_vals = move._prepare_move_line_vals(quantity=0)
                     ml_vals['quantity'] = qty_added
                     ml_vals['lot_id'] = lot.id

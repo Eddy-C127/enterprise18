@@ -257,7 +257,6 @@ class TestDeliveryUPS(TransactionCase):
 
         so.action_confirm()
         pick01 = so.picking_ids.filtered(lambda p: p.location_id == stock_location)
-        out01 = so.picking_ids - pick01
 
         # First step with 2 x Product A
         pick01.move_ids.filtered(lambda m: m.product_id == product_a).write({'quantity': 2, 'picked': True})
@@ -265,8 +264,8 @@ class TestDeliveryUPS(TransactionCase):
         # First step with 2 x Product B
         pick02 = pick01.backorder_ids
         process_picking(pick02)
-
-        # Second step with 1 x Product A
+        out01 = so.picking_ids - pick01 - pick02
+        # Second step with 1 x Pr  oduct A
         out01.move_ids.filtered(lambda m: m.product_id == product_a).write({'quantity': 1, 'picked': True})
         process_picking(out01)
         out02 = out01.backorder_ids

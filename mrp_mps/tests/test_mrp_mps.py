@@ -624,54 +624,6 @@ class TestMpsMps(common.TransactionCase):
         state = mps.get_production_schedule_view_state()[0]
         self.assertTrue(all(forecast['outgoing_qty'] == 0 for forecast in state['forecast_ids']))
 
-    def test_incoming_sm_and_lead_time_out_of_date_range(self):
-        """
-        Set a lead time on sam rule. Then generate an outgoing SM based on that
-        rule with:
-        - its date in dates range of MPS
-        - its date + rule's lead time outside the dates range of MPS
-        As a result, for the product mps, each incoming quantity should be zero
-        """
-        self.env.company.manufacturing_period = 'day'
-        self.env.company.manufacturing_period_to_display = 10
-
-        warehouse = self.warehouse
-        warehouse.manufacture_steps = 'pbm_sam'
-        post_production_location = warehouse.sam_loc_id
-        stock_location = self.warehouse.lot_stock_id
-
-        pull_sam = self.env['stock.rule'].search([
-            ('warehouse_id', '=', self.warehouse.id),
-            ('location_src_id', '=', post_production_location.id),
-            ('location_dest_id', '=', stock_location.id),
-            ('action', '=', 'pull')
-        ], limit=1)
-        pull_sam.delay = 15
-
-        template = self.bom_wardrobe.product_tmpl_id
-        template.route_ids = [(6, 0, pull_sam.route_id.ids)]
-        product = template.product_variant_id
-
-        procurement = self.env["procurement.group"].Procurement(
-            product, 1, product.uom_id,
-            stock_location,
-            product.name,
-            "/",
-            self.env.company,
-            {
-                "warehouse_id": self.warehouse,
-                "date_planned": date.today() + timedelta(days=16),
-            }
-        )
-        self.env["procurement.group"].run([procurement])
-
-        tomorrow = start_of(datetime.now() + timedelta(days=1), 'day')
-        move = self.env['stock.move'].search([('product_id', '=', product.id)], limit=1)
-        self.assertEqual(move.date, tomorrow)
-
-        state = self.mps_wardrobe.get_production_schedule_view_state()[0]
-        self.assertTrue(all(forecast['incoming_qty'] == 0 for forecast in state['forecast_ids']))
-
     def test_product_variants_in_mps(self):
         """
         Test that only the impacted  components are updated when the forecast demand of a product is changed.

@@ -7,5 +7,14 @@
             <field name="value" model="product.template" eval="obj().env.company.padding_time"/>
             <field name="type">float</field>
         </record>
+
+        <record id="route_rental" model='stock.route'>
+            <field name="name">Rental</field>
+            <field name="company_id"></field>
+            <field name="sequence">10</field>
+            <field name="product_selectable">False</field>
+            <field name="active">False</field>
+        </record>
     </data>
+
 </odoo>

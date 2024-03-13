@@ -12,29 +12,35 @@ class StockWarehouse(models.Model):
         for warehouse in warehouses:
             warehouse._create_or_update_route()
 
-    def get_rules_dict(self):
-        """ Add or remove the push rules necessary for rental return pickings. """
-        result = super().get_rules_dict()
-        if self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
-            for warehouse in self:
-                rental_location_id = warehouse.company_id.rental_loc_id
-                if self.Routing(rental_location_id, warehouse.lot_stock_id, warehouse.in_type_id, 'push') not in result[warehouse.id].get('one_step'):
-                    result[warehouse.id].update({
-                        'one_step': result[warehouse.id]['one_step'] + [self.Routing(rental_location_id, warehouse.lot_stock_id, warehouse.in_type_id, 'push')],
-                        'two_steps': result[warehouse.id]['two_steps'] + [self.Routing(rental_location_id, warehouse.wh_input_stock_loc_id, warehouse.in_type_id, 'push')],
-                        'three_steps': result[warehouse.id]['three_steps'] + [self.Routing(rental_location_id, warehouse.wh_input_stock_loc_id, warehouse.in_type_id, 'push')],
-                    })
-        return result
+    def _create_or_update_route(self):
+        warehouse_rental_route = self.env.ref('sale_stock_renting.route_rental')
+        if warehouse_rental_route.active and not self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
+            warehouse_rental_route.rule_ids.unlink()
+            warehouse_rental_route.active = True
+            return super()._create_or_update_route()
 
-    def _get_receive_rules_dict(self):
-        """ Make sure that the push rules are always present for the rental location. """
-        self.ensure_one()
-        result = super()._get_receive_rules_dict()
-        if self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
-            rental_location_id = self.company_id.rental_loc_id
-            result.update({
-                'one_step': result['one_step'] + [self.Routing(rental_location_id, self.lot_stock_id, self.in_type_id, 'push')],
-                'two_steps': result['two_steps'] + [self.Routing(rental_location_id, self.wh_input_stock_loc_id, self.in_type_id, 'push')],
-                'three_steps': result['three_steps'] + [self.Routing(rental_location_id, self.wh_input_stock_loc_id, self.in_type_id, 'push')],
+        warehouse_rental_route.active = True
+        rental_rules = self.env['stock.rule'].search([
+            ('route_id', '=', warehouse_rental_route.id),
+            ('warehouse_id', 'in', self.ids)
+        ])
+        rule_by_warehouse = {rule.warehouse_id.id: rule for rule in rental_rules}
+        for warehouse in self:
+            rule = rule_by_warehouse.get(warehouse.id)
+            source_location = warehouse.company_id.rental_loc_id
+            destination_location = warehouse.lot_stock_id
+            if rule:
+                continue
+            self.env['stock.rule'].create({
+                'name': warehouse._format_rulename(source_location, destination_location, f'rental-{warehouse.code}-'),
+                'route_id': warehouse_rental_route.id,
+                'location_src_id': source_location.id,
+                'location_dest_id': destination_location.id,
+                'action': 'pull',
+                'auto': 'manual',
+                'picking_type_id': warehouse.in_type_id.id,
+                'procure_method': 'make_to_stock',
+                'warehouse_id': warehouse.id,
+                'company_id': warehouse.company_id.id,
             })
-        return result
+        return super()._create_or_update_route()

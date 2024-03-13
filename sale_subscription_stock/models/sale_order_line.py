@@ -26,16 +26,16 @@ class SaleOrderLine(models.Model):
     #           Utils
     # =============================
 
-    def _get_outgoing_incoming_moves(self):
+    def _get_outgoing_incoming_moves(self, strict=True):
         """ Get the moves which are related to the given period.
         """
         sub_stock = self._get_stock_subscription_lines()
-        outgoing_moves, incoming_moves = super(SaleOrderLine, self - sub_stock)._get_outgoing_incoming_moves()
+        outgoing_moves, incoming_moves = super(SaleOrderLine, self - sub_stock)._get_outgoing_incoming_moves(strict)
 
         for line in sub_stock:
             period_start = line.order_id.last_invoice_date or line.order_id.start_date
             period_end = line.order_id.next_invoice_date
-            sub_outgoing_moves, sub_incoming_moves = super(SaleOrderLine, line)._get_outgoing_incoming_moves()
+            sub_outgoing_moves, sub_incoming_moves = super(SaleOrderLine, line)._get_outgoing_incoming_moves(strict)
             is_period = lambda m: m.date and \
                                   (not period_start or period_start <= m.date.date()) and \
                                   (not period_end or m.date.date() < period_end)

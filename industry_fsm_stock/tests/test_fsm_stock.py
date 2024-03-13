@@ -11,6 +11,20 @@ from odoo.addons.industry_fsm_sale.tests.common import TestFsmFlowSaleCommon
 @common.tagged('post_install', '-at_install')
 class TestFsmFlowStock(TestFsmFlowSaleCommon):
 
+    def _generate_3_steps_warehouse(self, code):
+        warehouse = self.env['stock.warehouse'].create({
+            'name': code,
+            'code': code,
+            'delivery_steps': 'pick_pack_ship',
+        })
+        delivery_route = warehouse.delivery_route_id
+        delivery_route.rule_ids[0].write({
+            'location_dest_id': delivery_route.rule_ids[1].location_src_id.id,
+        })
+        delivery_route.rule_ids[1].write({'action': 'pull'})
+        delivery_route.rule_ids[2].write({'action': 'pull'})
+        return warehouse
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -86,6 +100,7 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
                 'partner_id': cls.env.company.partner_id.id,
             },
         ])
+        cls.warehouse_3s_pull = cls._generate_3_steps_warehouse(cls, 'WH3S')
 
         # create tests products for SN/lot propagation through move-lines
         cls.product_lot_stock, cls.product_lot_no_stock, cls.product_sn_stock, cls.product_sn_no_stock = cls.env['product.product'].create([{
@@ -611,13 +626,14 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         self.consu_product_ordered.with_user(self.project_user).with_context({'fsm_task_id': self.task.id}).fsm_add_quantity()
         self.assertEqual(self.task.material_line_product_count, 1)
 
-        self.assertEqual(self.task.sale_order_id.delivery_count, 3)
+        self.assertEqual(self.task.sale_order_id.delivery_count, 1, "Only 'pick' should be created at this point")
         self.task.with_user(self.project_user).action_fsm_validate()
+        self.assertEqual(self.task.sale_order_id.delivery_count, 3)
         self.assertEqual(self.task.sale_order_id.picking_ids.mapped('state'), ['done', 'done', 'done'], "Pickings should be set as done")
 
     def test_multi_routing_with_serial_product(self):
-        """
-            This test ensures that when the delivery is set to pick_pack_ship, the lot_id are correctly set for the intermediate deliveries.
+        """ This test ensures that when the delivery is set to pick_pack_ship,
+        the lot_id are correctly set for the intermediate deliveries.
         """
         user_warehouse = self.project_user._get_default_warehouse_id()
         user_warehouse.write({'delivery_steps': 'pick_pack_ship'})
@@ -633,19 +649,9 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         # after adding these products, the picking from stock to packing should have 4 moves, with 2 move lines each with the correct serial numbers/lot_id
         # after adding these products, the picking from packing to output should have 4 moves, with 2 move lines each with the correct serial numbers/lot_id
         # after adding these products, the picking from output to the client should have 8 moves, with 1 move line each with the correct serial numbers/lot_id
-        pickings_waiting = self.task.sale_order_id.picking_ids[0] | self.task.sale_order_id.picking_ids[1]
-        pickings_step = self.task.sale_order_id.picking_ids[1] | self.task.sale_order_id.picking_ids[2]
-
-        # moves
+        pick = self.task.sale_order_id.picking_ids
         # Ensures the quantity, the lot_ids, and the product_uom_qty are correctly set
-        for pick in pickings_step:
-            self.assertRecordValues(pick.move_ids, [
-                {'product_id': self.product_lot_stock.id, 'product_uom_qty': 5.0, 'quantity': 5.0},
-                {'product_id': self.product_lot_no_stock.id, 'product_uom_qty': 9.0, 'quantity': 9.0},
-                {'product_id': self.product_sn_stock.id, 'product_uom_qty': 2.0, 'lot_ids': [self.serial_stock_1.id, self.serial_stock_2.id], 'quantity': 2.0},
-                {'product_id': self.product_sn_no_stock.id, 'product_uom_qty': 2.0, 'lot_ids': [self.serial_no_stock_1.id, self.serial_no_stock_2.id], 'quantity': 2.0},
-            ])
-        self.assertRecordValues(self.task.sale_order_id.picking_ids[0].move_ids, [
+        self.assertRecordValues(pick.move_ids, [
             {'product_id': self.product_lot_stock.id, 'product_uom_qty': 2.0, 'quantity': 2.0},
             {'product_id': self.product_lot_stock.id, 'product_uom_qty': 3.0, 'quantity': 3.0},
             {'product_id': self.product_lot_no_stock.id, 'product_uom_qty': 4.0, 'quantity': 4.0},
@@ -655,33 +661,22 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
             {'product_id': self.product_sn_no_stock.id, 'lot_ids': self.serial_no_stock_1.id, 'product_uom_qty': 1.0, 'quantity': 1.0},
             {'product_id': self.product_sn_no_stock.id, 'lot_ids': self.serial_no_stock_2.id, 'product_uom_qty': 1.0, 'quantity': 1.0},
         ])
-        # move_lines
-        # Ensures the quantity, the lot_id and the quantity are correctly set.
-        self.assertRecordValues(self.task.sale_order_id.picking_ids[2].move_ids.move_line_ids, [
-            {'product_id': self.product_lot_stock.id, 'lot_id': self.lot_pls_1.id, 'quantity': 2.0},
-            {'product_id': self.product_lot_stock.id, 'lot_id': self.lot_pls_2.id, 'quantity': 3.0},
-            {'product_id': self.product_lot_no_stock.id, 'lot_id': self.lot_plns_1.id, 'quantity': 4.0},
-            {'product_id': self.product_lot_no_stock.id, 'lot_id': self.lot_plns_2.id, 'quantity': 5.0},
-            {'product_id': self.product_sn_stock.id, 'lot_id': self.serial_stock_1.id, 'quantity': 1.0},
-            {'product_id': self.product_sn_stock.id, 'lot_id': self.serial_stock_2.id, 'quantity': 1.0},
-            {'product_id': self.product_sn_no_stock.id, 'lot_id': self.serial_no_stock_1.id, 'quantity': 1.0},
-            {'product_id': self.product_sn_no_stock.id, 'lot_id': self.serial_no_stock_2.id, 'quantity': 1.0},
-        ])
-        for pick in pickings_waiting:
-            self.assertRecordValues(pick.move_ids.move_line_ids, [
-                {'product_id': self.product_lot_stock.id, 'lot_id': self.lot_pls_1.id, 'quantity': 2.0},
-                {'product_id': self.product_lot_stock.id, 'lot_id': self.lot_pls_2.id, 'quantity': 3.0},
-                {'product_id': self.product_lot_no_stock.id, 'lot_id': self.lot_plns_1.id, 'quantity': 4.0},
-                {'product_id': self.product_lot_no_stock.id, 'lot_id': self.lot_plns_2.id, 'quantity': 5.0},
-                {'product_id': self.product_sn_stock.id, 'lot_id': self.serial_stock_1.id, 'quantity': 1.0},
-                {'product_id': self.product_sn_stock.id, 'lot_id': self.serial_stock_2.id, 'quantity': 1.0},
-                {'product_id': self.product_sn_no_stock.id, 'lot_id': self.serial_no_stock_1.id, 'quantity': 1.0},
-                {'product_id': self.product_sn_no_stock.id, 'lot_id': self.serial_no_stock_2.id, 'quantity': 1.0},
-            ])
 
         # mark the task as done
         self.task.action_fsm_validate()
+        out = self.task.sale_order_id.picking_ids.filtered(lambda p: p.picking_type_id.code == 'outgoing')
+        self.assertRecordValues(out.move_ids, [
+            {'product_id': self.product_lot_stock.id, 'product_uom_qty': 2.0, 'quantity': 2.0},
+            {'product_id': self.product_lot_stock.id, 'product_uom_qty': 3.0, 'quantity': 3.0},
+            {'product_id': self.product_lot_no_stock.id, 'product_uom_qty': 4.0, 'quantity': 4.0},
+            {'product_id': self.product_lot_no_stock.id, 'product_uom_qty': 5.0, 'quantity': 5.0},
+            {'product_id': self.product_sn_stock.id, 'lot_ids': self.serial_stock_1.id, 'product_uom_qty': 1.0, 'quantity': 1.0},
+            {'product_id': self.product_sn_stock.id, 'lot_ids': self.serial_stock_2.id, 'product_uom_qty': 1.0, 'quantity': 1.0},
+            {'product_id': self.product_sn_no_stock.id, 'lot_ids': self.serial_no_stock_1.id, 'product_uom_qty': 1.0, 'quantity': 1.0},
+            {'product_id': self.product_sn_no_stock.id, 'lot_ids': self.serial_no_stock_2.id, 'product_uom_qty': 1.0, 'quantity': 1.0},
+        ])
         # all deliveries should be validated
+        self.assertEqual(len(self.task.sale_order_id.picking_ids), 3)
         for pick in self.task.sale_order_id.picking_ids:
             self.assertEqual('done', pick.state, "the delivery should be validated")
 
@@ -689,14 +684,16 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         """
             This test ensures that when the delivery is set to pick_pack_ship, the lot_id are correctly updated for all the deliveries when wizard lines are added or removed.
         """
-        user_warehouse = self.project_user._get_default_warehouse_id()
-        user_warehouse.write({'delivery_steps': 'pick_pack_ship'})
+        wh_user = self.warehouse_3s_pull
+        wh_other = self._generate_3_steps_warehouse('WH3O')
+
+        self.env.user.write({'property_warehouse_id': wh_user.id})
+
         self.task.write({'partner_id': self.partner_1.id})
         self.task._fsm_ensure_sale_order()
 
         # change the user's warehouse
-        self.warehouse_A.write({'delivery_steps': 'pick_pack_ship'})
-        self.env.user.write({'property_warehouse_id': self.warehouse_A.id})
+        self.env.user.write({'property_warehouse_id': wh_other.id})
 
         # add products (one lot product and one serial product) to the task
         self._add_lot_product(self.product_lot_no_stock, [{'lot_id': self.lot_plns_1.id, 'qty': 4}])
@@ -706,7 +703,7 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         self._add_serial_product(self.product_sn_no_stock, [self.serial_no_stock_2.id])
 
         # update the user's warehouse and repeat
-        self.env.user.write({'property_warehouse_id': user_warehouse.id})
+        self.env.user.write({'property_warehouse_id': wh_user.id})
         self._add_lot_product(self.product_lot_no_stock, [{'lot_id': self.lot_plns_1.id, 'qty': 5}])
         self._add_serial_product(self.product_sn_no_stock, [self.serial_no_stock_1.id])
         self._add_lot_product(self.product_lot_no_stock, [{'lot_id': self.lot_plns_2.id, 'qty': 3}])
@@ -768,10 +765,10 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         ])
 
         # remove one line from each warehouse for each product
-        self.env.user.write({'property_warehouse_id': self.warehouse_A.id})
+        self.env.user.write({'property_warehouse_id': wh_other.id})
         self._unlink_product(self.product_lot_no_stock, [1])
         self._unlink_product(self.product_sn_no_stock, [1])
-        self.env.user.write({'property_warehouse_id': user_warehouse.id})
+        self.env.user.write({'property_warehouse_id': wh_user.id})
         self._unlink_product(self.product_lot_no_stock, [2])
         self._unlink_product(self.product_sn_no_stock, [2])
 
@@ -823,10 +820,10 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         ])
 
         # remove the remaining line in each wizard for each delivery
-        self.env.user.write({'property_warehouse_id': self.warehouse_A.id})
+        self.env.user.write({'property_warehouse_id': wh_other.id})
         self._unlink_product(self.product_lot_no_stock, [0])
         self._unlink_product(self.product_sn_no_stock, [0])
-        self.env.user.write({'property_warehouse_id': user_warehouse.id})
+        self.env.user.write({'property_warehouse_id': wh_user.id})
         self._unlink_product(self.product_lot_no_stock, [0])
         self._unlink_product(self.product_sn_no_stock, [0])
 
@@ -862,8 +859,7 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
             self.assertEqual('cancel', pick.state, "the delivery should be canceled")
 
     def test_multi_routing_update_quantity_and_lot_id_on_serial_product(self):
-        """
-            This test ensures that when the delivery is set to pick_pack_ship, the lot_id are correctly updated for all the deliveries when wizard lines are added or removed.
+        """ This test ensures that when the delivery is set to pick_pack_ship, the lot_id are correctly updated for all the deliveries when wizard lines are added or removed.
         """
         user_warehouse = self.project_user._get_default_warehouse_id()
         user_warehouse.write({'delivery_steps': 'pick_pack_ship'})
@@ -909,16 +905,11 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         self.env.user.write({'property_warehouse_id': user_warehouse.id})
         self._update_product(self.product_lot_no_stock, [{'index': 1, 'qty': 2, 'lot_id': self.lot_plns_2}])
         self.env.user.write({'property_warehouse_id': self.warehouse_A.id})
-        picking_out = self.task.sale_order_id.picking_ids[0] + self.task.sale_order_id.picking_ids[3]
-        picking_step = self.task.sale_order_id.picking_ids - picking_out
+        picking_step = self.task.sale_order_id.picking_ids
         # ensures the lot_id is correctly updated
         for pick in picking_step:
-            self.assertEqual(0, pick.move_ids[0].move_line_ids[0].quantity)
-            self.assertEqual(self.lot_plns_1, pick.move_ids[0].move_line_ids[0].lot_id)
-            self.assertEqual(2, pick.move_ids[0].move_line_ids[1].quantity)
-            self.assertEqual(self.lot_plns_2, pick.move_ids[0].move_line_ids[1].lot_id)
-        self.assertEqual(2, picking_out.move_ids[0].move_line_ids[0].quantity)
-        self.assertEqual(self.lot_plns_2, picking_out.move_ids[0].move_line_ids[0].lot_id)
+            self.assertEqual(2, pick.move_ids.move_line_ids.quantity)
+            self.assertEqual(self.lot_plns_2, pick.move_ids.move_line_ids.lot_id)
 
         # add serial products to the task
         self._add_serial_product(self.product_sn_no_stock, [self.serial_no_stock_1.id])
@@ -933,16 +924,15 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
 
         # ensures the sn is correctly updated
         for pick in picking_step:
-            self.assertEqual(0, pick.move_ids[1].move_line_ids[0].quantity)
-            self.assertEqual(self.serial_no_stock_1, pick.move_ids[1].move_line_ids[0].lot_id)
-            self.assertEqual(1, pick.move_ids[1].move_line_ids[1].quantity)
-            self.assertEqual(self.serial_no_stock_2, pick.move_ids[1].move_line_ids[1].lot_id)
-        self.assertEqual(1, picking_out.move_ids[1].move_line_ids[0].quantity)
-        self.assertEqual(self.serial_no_stock_2, picking_out.move_ids[1].move_line_ids[0].lot_id)
+            self.assertEqual(1, pick.move_ids.move_line_ids[1].quantity)
+            self.assertEqual(self.serial_no_stock_2, pick.move_ids.move_line_ids[1].lot_id)
 
         # we set the lot_id of the first wizard line to a different lot_id in order to have different SN for each line.
         self._update_product(self.product_sn_no_stock, [{'index': 0, 'qty': 1, 'lot_id': self.serial_no_stock_1}])
         self.task.action_fsm_validate()
+        picking_out = self.task.sale_order_id.picking_ids.filtered(lambda p: p.picking_type_id.code == 'outgoing')
+        self.assertEqual(1, picking_out.move_ids[1].move_line_ids[0].quantity)
+        self.assertEqual(self.serial_no_stock_2, picking_out.move_ids[1].move_line_ids[0].lot_id)
         # all deliveries should be validated
         for pick in self.task.sale_order_id.picking_ids:
             self.assertEqual('done', pick.state, "the delivery should be validated")
@@ -965,20 +955,21 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         # add products to the task
         self._add_lot_product(self.product_lot_no_stock, [{'lot_id': self.lot_plns_1.id, 'qty': 1}, {'lot_id': self.lot_plns_1.id, 'qty': 2}])
 
-        picking_out = self.task.sale_order_id.picking_ids[0] | self.task.sale_order_id.picking_ids[3]
-        picking_step = self.task.sale_order_id.picking_ids - picking_out
+        picking_step = self.task.sale_order_id.picking_ids[0] | self.task.sale_order_id.picking_ids[1]
 
         # ensures that the correct quantity is set on the deliveries
         for pick in picking_step:
-            self.assertEqual(3, pick.move_ids[0].move_line_ids[0].quantity)
+            self.assertEqual(1, pick.move_ids[0].move_line_ids[0].quantity)
+            self.assertEqual(2, pick.move_ids[1].move_line_ids[0].quantity)
             self.assertEqual(self.lot_plns_1, pick.move_ids[0].move_line_ids[0].lot_id)
+
+        self.task.action_fsm_validate()
+        picking_out = self.task.sale_order_id.picking_ids.filtered(lambda p: p.picking_type_id.code == 'outgoing')
         for pick in picking_out:
             self.assertEqual(1, pick.move_ids[0].move_line_ids[0].quantity)
             self.assertEqual(self.lot_plns_1, pick.move_ids[0].move_line_ids[0].lot_id)
             self.assertEqual(2, pick.move_ids[1].move_line_ids[0].quantity)
             self.assertEqual(self.lot_plns_1, pick.move_ids[1].move_line_ids[0].lot_id)
-
-        self.task.action_fsm_validate()
         # all deliveries should be validated
         for pick in self.task.sale_order_id.picking_ids:
             self.assertEqual('done', pick.state, "the delivery should be validated")
@@ -1010,26 +1001,28 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         self.env.user.write({'property_warehouse_id': user_warehouse.id})
         self._add_lot_product(self.product_lot_no_stock, [{'lot_id': self.lot_plns_1.id, 'qty': 1}, {'lot_id': self.lot_plns_1.id, 'qty': 2}])
         self.env.user.write({'property_warehouse_id': self.warehouse_A.id})
-        self.assertEqual(12, len(self.task.sale_order_id.picking_ids))
+        self.assertEqual(8, len(self.task.sale_order_id.picking_ids))  # 6 already done + 2 new 'Pick' pickings
 
-        new_pickings = self.task.sale_order_id.picking_ids - old_pickings
-
-        picking_out = new_pickings[0] | new_pickings[3]
-        picking_step = new_pickings - picking_out
+        picking_step = self.task.sale_order_id.picking_ids - old_pickings
         # ensures that the correct quantity is set on the deliveries
         for pick in picking_step:
-            self.assertEqual(3, pick.move_ids[0].move_line_ids[0].quantity)
+            self.assertEqual(1, pick.move_ids[0].move_line_ids[0].quantity)
             self.assertEqual(self.lot_plns_1, pick.move_ids[0].move_line_ids[0].lot_id)
+            self.assertEqual(2, pick.move_ids[1].move_line_ids[0].quantity)
+            self.assertEqual(self.lot_plns_1, pick.move_ids[1].move_line_ids[0].lot_id)
+        self.task.action_fsm_validate()
+
+        picking_out = self.task.sale_order_id.picking_ids.filtered(lambda p: p.picking_type_id == user_warehouse.out_type_id) - old_pickings
         for pick in picking_out:
             self.assertEqual(1, pick.move_ids[0].move_line_ids[0].quantity)
             self.assertEqual(self.lot_plns_1, pick.move_ids[0].move_line_ids[0].lot_id)
             self.assertEqual(2, pick.move_ids[1].move_line_ids[0].quantity)
             self.assertEqual(self.lot_plns_1, pick.move_ids[1].move_line_ids[0].lot_id)
 
-        self.task.action_fsm_validate()
         # all deliveries should be validated
-        for pick in new_pickings:
+        for pick in self.task.sale_order_id.picking_ids:
             self.assertEqual('done', pick.state, "the delivery should be validated")
+        self.assertEqual(12, len(self.task.sale_order_id.picking_ids))
 
     def _unlink_product(self, product, line_indexes):
         wizard_action = product.with_context({'fsm_task_id': self.task.id}).action_assign_serial()
@@ -1513,7 +1506,7 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         wizard.generate_lot()
 
         so = self.task.sale_order_id
-        delivery, picking = so.picking_ids
+        picking = so.picking_ids
         self.assertRecordValues(picking.move_ids.move_line_ids, [
             {'product_id': product_01_sn.id, 'lot_id': p01sn01.id, 'quantity': 1.0},
             {'product_id': product_01_sn.id, 'lot_id': p01sn03.id, 'quantity': 1.0},
@@ -1523,6 +1516,7 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         ])
         picking.button_validate()
 
+        delivery = so.picking_ids - picking
         self.assertRecordValues(delivery.move_ids.move_line_ids, [
             {'product_id': product_01_sn.id, 'lot_id': p01sn01.id, 'quantity': 1.0},
             {'product_id': product_01_sn.id, 'lot_id': p01sn03.id, 'quantity': 1.0},

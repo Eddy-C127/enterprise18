@@ -13,7 +13,6 @@ class TestRentalCommon(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-
         cls.rental_start_date = Datetime.today() + timedelta(days=1)
         cls.rental_return_date = Datetime.today() + timedelta(days=7)
         cls.warehouse_id = cls.env.user._get_default_warehouse_id()
