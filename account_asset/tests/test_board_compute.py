@@ -1114,3 +1114,34 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2023-12-31', depreciation_value=12000, remaining_value=12000, depreciated_value=48000, state='draft'),
             self._get_depreciation_move_values(date='2024-12-31', depreciation_value=12000, remaining_value=0, depreciated_value=60000, state='draft'),
         ])
+
+    def test_assets_one_complete_period(self):
+        """Test the depreciation move value in case of having just one complete period (year or month) asset."""
+        datas = [
+            ('monthly', '2022-01-31', 'linear'),
+            ('monthly', '2022-01-31', 'degressive'),
+            ('monthly', '2022-01-31', 'degressive_then_linear'),
+            ('yearly', '2022-12-31', 'linear'),
+            ('yearly', '2022-12-31', 'degressive'),
+            ('yearly', '2022-12-31', 'degressive_then_linear'),
+        ]
+        for periodicity, end_depreciation_date, method in datas:
+            with self.subTest(period=periodicity, method=method, end_depreciation_date=end_depreciation_date):
+                asset = self.create_asset(
+                    value=1000,
+                    periodicity=periodicity,
+                    periods=1,
+                    method=method,
+                    acquisition_date='2022-01-01',
+                    prorata_date='2022-01-01',
+                    prorata_computation_type='constant_periods',
+                    account_depreciation_id=self.company_data['default_account_assets'].id,
+                )
+
+                asset.compute_depreciation_board()
+                self.assertEqual(asset.state, 'draft')
+                self.assertRecordValues(asset.depreciation_move_ids, [
+                    self._get_depreciation_move_values(date=end_depreciation_date, depreciation_value=1000.0, remaining_value=0.0, depreciated_value=1000.0, state='draft'),
+                ])
+                asset.validate()
+                self.assertEqual(asset.state, 'open')

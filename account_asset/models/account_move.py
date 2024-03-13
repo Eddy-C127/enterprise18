@@ -63,11 +63,13 @@ class AccountMove(models.Model):
                     move.line_ids.filtered(lambda l: l.account_id.internal_group == account_internal_group or l.account_id == asset.account_depreciation_expense_id).mapped('balance')
                 )
                 # Special case of closing entry - only disposed assets of type 'purchase' should match this condition
+                # The condition on len(move.line_ids) is to avoid the case where there is only one depreciation move, and it is not a disposal move
+                # The condition will be matched because a disposal move from a disposal move will always have more than 2 lines, unlike a normal depreciation move
                 if any(
                     line.account_id == asset.account_asset_id
                     and float_compare(-line.balance, asset.original_value, precision_rounding=asset.currency_id.rounding) == 0
                     for line in move.line_ids
-                ):
+                ) and len(move.line_ids) > 2:
                     asset_depreciation = (
                         asset.original_value
                         - asset.salvage_value
