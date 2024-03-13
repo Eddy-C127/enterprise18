@@ -14,7 +14,6 @@ The connection must be done by the Accounting Firm.
         'l10n_be_coda',
         'l10n_be_soda',
     ],
-    'auto_install': True,
     'data': [
         'views/res_config_settings_views.xml',
         'views/account_journal_views.xml',
@@ -26,4 +25,5 @@ The connection must be done by the Accounting Firm.
         ],
     },
     'license': 'OEEL-1',
+    'pre_init_hook': '_l10n_be_codabox_pre_init_hook',
 }

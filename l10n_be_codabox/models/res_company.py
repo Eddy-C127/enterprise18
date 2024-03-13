@@ -11,18 +11,17 @@ from odoo.addons.l10n_be_codabox.const import get_error_msg, get_iap_endpoint
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    l10n_be_codabox_fiduciary_vat = fields.Char(string="Fiduciary VAT", readonly=False)
+    l10n_be_codabox_fiduciary_vat = fields.Char(string="Accounting Firm VAT", compute="_compute_l10n_be_codabox_fiduciary_vat")
     l10n_be_codabox_iap_token = fields.Char(string="IAP Access Token")
     l10n_be_codabox_is_connected = fields.Boolean(string="CodaBox Is Connected")
     l10n_be_codabox_soda_journal = fields.Many2one("account.journal", string="Journal in which SODA's will be imported", domain="[('type', '=', 'bank')]")
 
-    # TODO: fix in master by adding account_report module in manifest and changing
-    # l10n_be_codabox_fiduciary_vat to a computed field using this method.
-    # because the account_representative_id field is defined in account_report module
     def _compute_l10n_be_codabox_fiduciary_vat(self):
         for company in self:
-            fidu_vat = re.sub("[^0-9]", "", company.account_representative_id.vat or "")
-            company.l10n_be_codabox_fiduciary_vat = company.l10n_be_codabox_fiduciary_vat or fidu_vat
+            if "account_representative_id" in self.env['res.company']._fields:
+                company.l10n_be_codabox_fiduciary_vat = re.sub("[^0-9]", "", company.account_representative_id.vat or "")
+            else:
+                company.l10n_be_codabox_fiduciary_vat = False
 
     @api.model
     def _l10_be_codabox_call_iap(self, url, params):

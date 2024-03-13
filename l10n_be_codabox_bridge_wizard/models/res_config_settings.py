@@ -52,13 +52,12 @@ class ResConfigSettings(models.TransientModel):
 
     def l10n_be_codabox_open_soda_mapping(self):
         self.ensure_one()
-        if not self.l10n_be_codabox_soda_journal:
-            raise UserError(_("You must select a journal in which SODA's will be imported."))
+        journal = self.l10n_be_codabox_soda_journal or self.env['account.journal'].search([('type', '=', 'general')], limit=1)
         wizard = self.env['soda.import.wizard'].create({
             'soda_files': {},
             'soda_code_to_name_mapping': {},
             'company_id': self.company_id.id,
-            'journal_id': self.l10n_be_codabox_soda_journal.id,
+            'journal_id': journal.id,  # Required by the wizard but not used
         })
         res = self.company_id._l10n_be_codabox_return_wizard(
             name=_('SODA Mapping'),

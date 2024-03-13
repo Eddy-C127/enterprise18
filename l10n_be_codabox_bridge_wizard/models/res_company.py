@@ -15,10 +15,11 @@ class ResCompany(models.Model):
     l10n_be_codabox_show_iap_token = fields.Boolean()
 
     def _l10n_be_codabox_get_iap_common_params(self):
+        self._l10n_be_codabox_verify_prerequisites()
         return {
             "db_uuid": self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
             "company_vat": re.sub("[^0-9]", "", self.vat),
-            "fidu_vat": re.sub("[^0-9]", "", self.account_representative_id.vat or self.vat),
+            "fidu_vat": re.sub("[^0-9]", "", self.l10n_be_codabox_fiduciary_vat),
         }
 
     @api.model
@@ -50,6 +51,8 @@ class ResCompany(models.Model):
         self.ensure_one()
         if not self.vat:
             raise UserError(_("The company VAT number is not set."))
+        if not self.l10n_be_codabox_fiduciary_vat:
+            raise UserError(_("The feature is restricted to Accounting Firms."))
 
     @api.depends("l10n_be_codabox_iap_token")
     def _compute_l10n_be_codabox_is_connected(self):
@@ -66,7 +69,6 @@ class ResCompany(models.Model):
         """
         error = ""
         try:
-            self._l10n_be_codabox_verify_prerequisites()
             params = self._l10n_be_codabox_get_iap_common_params()
             params["iap_token"] = self.l10n_be_codabox_iap_token
             result = self._l10_be_codabox_call_iap_route("check_status", params)

@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//block[@id='l10n_be_codabox']/setting[1]" position="replace">
                     <setting
-                            string="Connection"
+                            string="CodaBox Connection"
                             documentation="/applications/finance/fiscal_localizations/belgium.html#codabox"
                             title="The Access Token should be left empty for the first connection. It can be used later to generate new tokens for new connections">
                         <field name="l10n_be_codabox_show_iap_token" invisible="1"/>

@@ -19,12 +19,13 @@ class AccountJournal(models.Model):
     ############################
 
     def _l10n_be_codabox_fetch_transactions_from_iap(self, session, company, file_type, date_from=None, ibans=None):
+        company._l10n_be_codabox_verify_prerequisites()
         assert file_type in ("codas", "sodas")
         if not date_from:
             date_from = fields.Date.today() - relativedelta(months=3)
         params = {
             "db_uuid": self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
-            "fidu_vat": re.sub("[^0-9]", "", company.account_representative_id.vat or company.vat),
+            "fidu_vat": re.sub("[^0-9]", "", company.l10n_be_codabox_fiduciary_vat),
             "company_vat": re.sub("[^0-9]", "", company.vat),
             "iap_token": company.sudo().l10n_be_codabox_iap_token,
             "from_date": fields.Date.to_string(date_from),
