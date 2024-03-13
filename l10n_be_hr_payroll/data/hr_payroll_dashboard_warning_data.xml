@@ -82,15 +82,17 @@ sick_more_than_30days_leave = self.env['hr.leave'].search([
     ('state', '=', 'validate'),
 ])
 
-employees_on_long_sick_leave = self.env['hr.employee']
-for employee in sick_more_than_30days_leave.employee_id:
-    employee_leaves = sick_more_than_30days_leave.filtered(lambda l: l.employee_id == employee)
-    total_duration = sum([(leave.date_to - leave.date_from).days for leave in employee_leaves])
+employee_duration = defaultdict(int)
+for leave in sick_more_than_30days_leave:
+    duration = (leave.date_to - leave.date_from).days
+    employee_duration[leave.employee_id] += duration
+
+warning_count = 0
+warning_records = self.env['hr.employee']
+for employee, total_duration in employee_duration.items():
     if total_duration > 30:
-        employees_on_long_sick_leave += employee
-if employees_on_long_sick_leave:
-    warning_count = len(employees_on_long_sick_leave)
-    warning_records = employees_on_long_sick_leave
+        warning_count += 1
+        warning_records |= employee
             </field>
         </record>
     </data>
