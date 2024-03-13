@@ -48,7 +48,7 @@ class SaleOrder(models.Model):
                               ondelete='restrict', readonly=False, store=True, index='btree_not_null')
     subscription_state = fields.Selection(
         string='Subscription Status',
-        selection=SUBSCRIPTION_STATES,
+        selection=SUBSCRIPTION_STATES, readonly=False,
         compute='_compute_subscription_state', store=True, index='btree_not_null', tracking=True, group_expand='_group_expand_states',
     )
 
