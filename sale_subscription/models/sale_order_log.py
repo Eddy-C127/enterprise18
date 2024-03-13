@@ -128,7 +128,10 @@ class SaleOrderLog(models.Model):
         mrr_difference = values.get('amount_signed', 0)
         if sub.origin_order_id: # Is a confirmed renewal ( origin_order_id and category in progress)
             existing_transfer_log = sub.order_log_ids.filtered(lambda ev: ev.event_type == '3_transfer')
-            if not existing_transfer_log:
+            # Warning, sometimes we don't have transfer log but we have similar log:
+            # new or expansion going from 0 to RM. We don't want to create transfer in that case.
+            similar_log = sub.order_log_ids.filtered(lambda ev: ev.amount_signed == ev.recurring_monthly)
+            if not existing_transfer_log and not similar_log and sub.subscription_id.subscription_state == '5_renewed':
                 return self._create_starting_transfer_log(values.copy())
 
         if not float_is_zero(mrr_difference, precision_rounding=sub.currency_id.rounding):
