@@ -66,7 +66,7 @@ class TestPayrollCommon(TransactionCase):
             "schedule_pay": "monthly",
             "l10n_au_employment_basis_code": "F",
             "l10n_au_income_stream_type": "SAW",
-            "l10n_au_withholding_variation": False,
+            "l10n_au_withholding_variation": 'none',
             "l10n_au_withholding_variation_amount": 0,
             "l10n_au_workplace_giving": 0,
             "l10n_au_tax_treatment_category": "R",
@@ -448,6 +448,7 @@ class TestPayrollCommon(TransactionCase):
             "l10n_au_child_support_deduction": 0,
             "l10n_au_scale": contract_info.get('scale', '2'),
             "l10n_au_extra_pay": contract_info.get('extra_pay', False),
+            "l10n_au_training_loan": contract_info.get('l10n_au_training_loan', True)
         })
 
         contract_id = self.env["hr.contract"].create({
@@ -465,7 +466,7 @@ class TestPayrollCommon(TransactionCase):
             "schedule_pay": contract_info.get("schedule_pay", "monthly"),
             "l10n_au_employment_basis_code": contract_info.get('employment_basis_code', 'F'),
             "l10n_au_income_stream_type": "SAW",
-            "l10n_au_withholding_variation": False,
+            "l10n_au_withholding_variation": 'none',
             "l10n_au_withholding_variation_amount": 0,
             "l10n_au_leave_loading": contract_info.get('leave_loading', False),
             "l10n_au_leave_loading_rate": contract_info.get('leave_loading_rate', 0),
@@ -480,10 +481,9 @@ class TestPayrollCommon(TransactionCase):
         employee_id.contract_id = contract_id
         return employee_id, contract_id
 
-    def _create_employee(self, contract_info, loan=True):
+    def _create_employee(self, contract_info):
         employee, contract = self.create_employee_and_contract(5000, contract_info)
         contract._compute_wages()
-        employee.l10n_au_training_loan = loan
         return employee, contract
 
     def _test_payslip(self, employee, contract, expected_lines, expected_worked_days=False, input_lines=False, payslip_date_from=False, payslip_date_to=False, is_termination=False):

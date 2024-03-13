@@ -28,7 +28,7 @@ class TestRegularPayslip(TestPayrollCommon):
             'wage_type': 'monthly',
             'wage': 5000,
             'casual_loading': 0,
-        }, loan=False)
+            'l10n_au_training_loan': False})
         self._test_payslip(
             employee,
             contract,
@@ -73,7 +73,7 @@ class TestRegularPayslip(TestPayrollCommon):
             'wage_type': 'monthly',
             'wage': 5000,
             'casual_loading': 0,
-        }, loan=False)
+            'l10n_au_training_loan': False})
         self._test_payslip(
             employee,
             contract,
@@ -112,7 +112,7 @@ class TestRegularPayslip(TestPayrollCommon):
             'wage_type': 'monthly',
             'wage': 5000,
             'casual_loading': 0,
-        }, loan=False)
+            'l10n_au_training_loan': False})
         self._test_payslip(
             employee,
             contract,
@@ -150,7 +150,7 @@ class TestRegularPayslip(TestPayrollCommon):
             'wage_type': 'monthly',
             'wage': 5000,
             'casual_loading': 0,
-        }, loan=False)
+            'l10n_au_training_loan': False})
         self._test_payslip(
             employee,
             contract,
@@ -189,7 +189,7 @@ class TestRegularPayslip(TestPayrollCommon):
             'wage_type': 'monthly',
             'wage': 5000,
             'casual_loading': 0,
-        }, loan=False)
+            'l10n_au_training_loan': False})
         self._test_payslip(
             employee,
             contract,
@@ -230,7 +230,7 @@ class TestRegularPayslip(TestPayrollCommon):
             'wage': 1250,
             'casual_loading': 0,
             'extra_pay': True,
-        }, loan=False)
+            'l10n_au_training_loan': False})
         payslip_date = date(2023, 7, 3)
         payslip_end_date = date(2023, 7, 9)
         self._test_payslip(

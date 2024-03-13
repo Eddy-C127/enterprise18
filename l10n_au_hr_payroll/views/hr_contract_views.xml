@@ -29,7 +29,7 @@
                             <label for="l10n_au_withholding_variation"/>
                             <div class="o_row">
                                 <field name="l10n_au_withholding_variation"/>
-                                <span invisible="not l10n_au_withholding_variation" class="d-flex">
+                                <span invisible="l10n_au_withholding_variation == 'none'" class="d-flex">
                                     <field name="l10n_au_withholding_variation_amount" class="w-25"/>%
                                 </span>
                             </div>

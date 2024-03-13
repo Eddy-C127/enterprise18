@@ -99,7 +99,17 @@ class HrContract(models.Model):
             "C": the natural conclusion of a limited employment relationship due to contract/engagement duration or task completion, seasonal work completion, or to cease casuals that are no longer required.
             "T": the administrative arrangements performed to transfer employees across payroll systems, move them temporarily to another employer (machinery of government for public servants), transfer of business, move them to outsourcing arrangements or other such technical activities.
         """)
-    l10n_au_withholding_variation = fields.Boolean(string="Withholding Variation", help="Employee has a custom withholding rate.")
+    l10n_au_withholding_variation = fields.Selection(
+        selection=[
+            ("none", "None"),
+            ("salaries", "Salaries"),
+            ("leaves", "Salaries and Unused Leaves"),
+        ],
+        string="Withholding Variation",
+        default="none",
+        required=True,
+        help="Employee has a custom withholding rate.",
+    )
     l10n_au_withholding_variation_amount = fields.Float(string="Withholding Variation rate")
     l10n_au_performances_per_week = fields.Integer(string="Performances per week")
     l10n_au_income_stream_type = fields.Selection(related="structure_type_id.l10n_au_income_stream_type", readonly=False)
@@ -153,7 +163,7 @@ class HrContract(models.Model):
             elif contract.l10n_au_tax_treatment_category == "N":
                 tax_treatment = "F" if is_non_resident else "A"
             elif contract.l10n_au_tax_treatment_category == "D":
-                tax_treatment = "V" if contract.l10n_au_withholding_variation else "B"
+                tax_treatment = "V" if contract.l10n_au_withholding_variation != 'none' else "B"
             else:
                 tax_treatment = contract.l10n_au_tax_treatment_option
             contract.l10n_au_tax_treatment_option = tax_treatment

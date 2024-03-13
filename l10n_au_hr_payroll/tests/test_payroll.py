@@ -164,7 +164,7 @@ class TestPayroll(TestPayrollCommon):
         return lines_by_code
 
     def test_withholding_monthly_regular_employee(self):
-        employee_id, contract_id = self.create_employee_and_contract(5000, {'schedule_pay': 'monthly'})
+        employee_id, contract_id = self.create_employee_and_contract(5000, {'schedule_pay': 'monthly', "l10n_au_training_loan": False})
         no_tfn_structure_type = self.env.ref("l10n_au_hr_payroll.structure_type_no_tfn")
         payslip_id = self.env["hr.payslip"].create({
             "name": "payslip",
@@ -278,18 +278,18 @@ class TestPayroll(TestPayrollCommon):
 
         # Scenario 14: Withholding variation
         payslip_id.contract_id.write({
-            "l10n_au_withholding_variation": True,
+            "l10n_au_withholding_variation": 'salaries',
             "l10n_au_withholding_variation_amount": 15,
         })
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
         self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 750, "test scenario 14: Withholding variation")
         payslip_id.contract_id.write({
-            "l10n_au_withholding_variation": False,
+            "l10n_au_withholding_variation": 'none',
         })
 
     def test_withholding_weekly_regular_employee(self):
-        employee_id, contract_id = self.create_employee_and_contract(1000, {'schedule_pay': 'weekly'})
+        employee_id, contract_id = self.create_employee_and_contract(1000, {'schedule_pay': 'weekly', "l10n_au_training_loan": False})
         no_tfn_structure_type = self.env.ref("l10n_au_hr_payroll.structure_type_no_tfn")
         payslip_id = self.env["hr.payslip"].create({
             "name": "payslip",
@@ -406,14 +406,14 @@ class TestPayroll(TestPayrollCommon):
 
         # Scenario 39: Withholding variation
         payslip_id.contract_id.write({
-            "l10n_au_withholding_variation": True,
+            "l10n_au_withholding_variation": 'salaries',
             "l10n_au_withholding_variation_amount": 15,
         })
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
         self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 150, "test scenario 39: Withholding variation")
         payslip_id.contract_id.write({
-            "l10n_au_withholding_variation": False,
+            "l10n_au_withholding_variation": 'none',
         })
 
     def test_termination_payment_unused_leaves(self):

@@ -161,7 +161,7 @@ class HrPayslip(models.Model):
         employee_id = self.employee_id
         contract = self.contract_id
         # if custom withholding rate
-        if contract.l10n_au_withholding_variation:
+        if contract.l10n_au_withholding_variation != 'none':
             return period_earning * contract.l10n_au_withholding_variation_amount / 100
 
         # Compute the weekly earning as per government legislation.
@@ -474,7 +474,10 @@ class HrPayslip(models.Model):
     def _l10n_au_compute_unused_leaves_withhold(self, basic_amount):
         self.ensure_one()
         leaves = self._l10n_au_get_leaves_for_withhold()
-        l10n_au_leave_withholding = self._rule_parameter("l10n_au_leave_withholding")
+        if self.contract_id.l10n_au_withholding_variation == 'leaves':
+            l10n_au_leave_withholding = self.contract_id.l10n_au_withholding_variation_amount
+        else:
+            l10n_au_leave_withholding = self._rule_parameter("l10n_au_leave_withholding")
         withholding = 0.0
         # 2. Calculate long service leave withholding
         long_service_leaves = leaves["long_service"]

@@ -119,7 +119,7 @@ result = age &gt; 18 or age &lt; 18 and\
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-if contract.l10n_au_withholding_variation:
+if contract.l10n_au_withholding_variation != 'none':
     result_rate = contract.l10n_au_withholding_variation_amount / 100
 else:
     params = payslip._rule_parameter("l10n_au_withholding_schedule_3")
