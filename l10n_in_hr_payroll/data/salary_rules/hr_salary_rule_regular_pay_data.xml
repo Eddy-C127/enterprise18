@@ -187,7 +187,7 @@ result = - categories['BASIC'] * 0.12 if  ((categories['BASIC']) &lt; 15000) els
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = -inputs['ATTACH_SALARY'].amount
-result_name = -inputs['ATTACH_SALARY'].name
+result_name = inputs['ATTACH_SALARY'].name
         </field>
         <field name="struct_id" ref="l10n_in_hr_payroll.hr_payroll_structure_in_employee_salary"/>
     </record>
