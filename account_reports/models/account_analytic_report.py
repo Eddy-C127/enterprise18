@@ -145,7 +145,7 @@ class AccountReport(models.AbstractModel):
                 elif line_fields[fname].get("type") in ["selection", "reference"]:
                     typecast = sql.SQL('text')
                 else:
-                    typecast = sql.SQL(line_fields[fname].get("type"))
+                    typecast = sql.SQL(self.env['account.move.line']._fields[fname].column_type[0])
                 selected_fields.append(sql.SQL('cast(NULL AS {typecast}) AS "account_move_line.{fname}"').format(
                     typecast=typecast,
                     fname=sql.SQL(fname),
