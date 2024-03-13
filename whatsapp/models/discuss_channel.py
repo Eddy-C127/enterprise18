@@ -251,7 +251,7 @@ class DiscussChannel(models.Model):
         member = self.channel_member_ids.filtered(lambda m: m.partner_id == current_partner)
         if member:
             if not member.is_pinned:
-                member.write({'is_pinned': True})
+                member.write({'unpin_dt': False})
         else:
             new_member = self.env['discuss.channel.member'].with_context(tools.clean_context(self.env.context)).sudo().create([{
                 'partner_id': current_partner.id,
