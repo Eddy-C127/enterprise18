@@ -98,8 +98,16 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         return name
 
     def _get_report_line_id(self, report, move_info):
-        markup = ",".join(str(move_info.get(key)) for key in REPORT_LINE_ID_KEYS)
-        return report._get_generic_line_id('account.move', None, markup=markup)
+        move_values = []
+        for key in REPORT_LINE_ID_KEYS:
+            if key == 'intrastat_product_origin_country_code' and move_info.get(key) == 'XU':
+                # Special case for the United Kingdom where the code is XU instead of GB,
+                # to avoid issue when we fetch children lines, we set to GB in the line id.
+                move_values.append('GB')
+            else:
+                move_values.append(str(move_info.get(key)))
+
+        return report._get_generic_line_id('account.move', None, markup=",".join(move_values))
 
     def _custom_options_initializer(self, report, options, previous_options=None):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
