@@ -25,8 +25,12 @@ class AccountJournal(models.Model):
 
     def _l10n_be_check_soda_format(self, attachment):
         try:
-            return attachment.mimetype in ('application/xml', 'text/xml') and \
-                   etree.parse(io.BytesIO(attachment.raw)).getroot().tag == 'SocialDocument'
+            return (
+                (attachment.mimetype in ('application/xml', 'text/xml')
+                # XML files sent by email have text/plain as mimetype
+                or (attachment.mimetype == 'text/plain' and attachment.name.lower().endswith('.xml')))
+                and etree.parse(io.BytesIO(attachment.raw)).getroot().tag == 'SocialDocument'
+            )
         except etree.XMLSyntaxError:
             return False
 
