@@ -6,7 +6,7 @@ patch(Activity.prototype, {
         const { res_model, res_id } = this.props.activity;
         const documentReference = res_model && res_id ? `${res_model},${res_id}` : false;
         await this.props.activity.requestSignature(
-            this.props.onActivityChanged.bind(this, this.thread),
+            this.props.reloadParentView,
             documentReference
         );
     },
