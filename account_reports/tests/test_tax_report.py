@@ -787,6 +787,7 @@ class TestTaxReport(TestAccountReportsCommon):
         refund_wizard = self.env['account.move.reversal'].with_context(active_model="account.move", active_ids=invoice.ids).create({
             'reason': 'Test refund tax repartition',
             'journal_id': invoice.journal_id.id,
+            'date': invoice.date,
         })
         refund_wizard.modify_moves()
 
