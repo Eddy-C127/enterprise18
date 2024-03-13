@@ -91,13 +91,13 @@
                                          <t t-if="allowance[0] in ['Basic','Gross']">
                                              <td><strong><span t-esc="allowance[0]"/></strong></td>
                                              <t t-foreach="allowance[1:13]" t-as="allow">
-                                                 <td><span t-esc="allow"/></td>
+                                                 <td><span t-esc="allow" t-options="{'widget': 'monetary', 'display_currency': employee.company_id.currency_id}"/></td>
                                              </t>
                                          </t>
                                          <t t-if="allowance[0] not in ['Basic','Gross']">
                                              <td><span t-esc="allowance[0]"/></td>
                                              <t t-foreach="allowance[1:13]" t-as="allow">
-                                                 <td><span t-esc="allow"/></td>
+                                                 <td><span t-esc="allow" t-options="{'widget': 'monetary', 'display_currency': employee.company_id.currency_id}"/></td>
                                              </t>
                                          </t>
                                          <td t-esc="allowance[13]" t-options="{'widget': 'monetary', 'display_currency': employee.company_id.currency_id}"/>
@@ -110,8 +110,8 @@
                                            <t t-if="deduct[0] not in ['Net']">
                                                <td><span t-esc="deduct[0]"/></td>
                                            </t>
-                                           <t t-foreach="deduct[1:12]" t-as="d">
-                                               <td><span t-esc="d"/></td>
+                                           <t t-foreach="deduct[1:13]" t-as="d">
+                                               <td><span t-esc="d" t-options="{'widget': 'monetary', 'display_currency': employee.company_id.currency_id}"/></td>
                                            </t>
                                            <td t-esc="deduct[13]" t-options="{'widget': 'monetary', 'display_currency': employee.company_id.currency_id}"/>
                                        </tr>

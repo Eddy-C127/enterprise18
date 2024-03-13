@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import date
@@ -46,7 +45,8 @@ class ReportHrSalaryEmployeeBymonth(models.AbstractModel):
                             left join hr_payslip as p on pl.slip_id = p.id
                             left join hr_employee as emp on emp.id = p.employee_id
                             left join resource_resource as r on r.id = emp.resource_id
-                            where p.state = 'done' and p.employee_id = %s and pl.category_id = %s
+                            left join hr_salary_rule as sr on sr.id = pl.salary_rule_id
+                            where p.state = 'done' and p.employee_id = %s and sr.category_id = %s
                             group by r.name, p.date_to,emp.id""",
                             (emp_id, category_id,))
         sal = self.env.cr.fetchall()

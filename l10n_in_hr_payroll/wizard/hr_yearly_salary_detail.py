@@ -1,12 +1,22 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class YearlySalaryDetail(models.TransientModel):
     _name = 'yearly.salary.detail'
     _description = 'Hr Salary Employee By Category Report'
+
+    @api.model
+    def default_get(self, field_list=None):
+        if self.env.company.country_id.code != "IN":
+            raise UserError(_('You must be logged in a Indian company to use this feature'))
+        return super().default_get(field_list)
+
+    def _get_employee_domain(self):
+        in_company_ids = self.env.companies.filtered(lambda c: c.country_id.code == 'IN')
+        return [('company_id', 'in', in_company_ids.ids)]
 
     def _get_default_date_from(self):
         year = fields.Date.from_string(fields.Date.today()).strftime('%Y')
@@ -16,7 +26,8 @@ class YearlySalaryDetail(models.TransientModel):
         date = fields.Date.from_string(fields.Date.today())
         return date.strftime('%Y') + '-' + date.strftime('%m') + '-' + date.strftime('%d')
 
-    employee_ids = fields.Many2many('hr.employee', 'payroll_emp_rel', 'payroll_id', 'employee_id', string='Employees', required=True)
+    employee_ids = fields.Many2many('hr.employee', 'payroll_emp_rel', 'payroll_id', 'employee_id', string='Employees', required=True,
+                                    domain=lambda self: self._get_employee_domain())
     date_from = fields.Date(string='Start Date', required=True, default=_get_default_date_from)
     date_to = fields.Date(string='End Date', required=True, default=_get_default_date_to)
 

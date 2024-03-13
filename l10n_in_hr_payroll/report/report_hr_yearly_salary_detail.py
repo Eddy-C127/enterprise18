@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import date
@@ -74,11 +73,12 @@ class EmployeesYearlySalaryReport(models.AbstractModel):
         salaries = {}
         self.env.cr.execute('''SELECT rc.code, pl.name, sum(pl.total), \
                 to_char(p.date_to,'mm-yyyy') as to_date  FROM hr_payslip_line as pl \
-                LEFT JOIN hr_salary_rule_category AS rc on (pl.category_id = rc.id) \
+                LEFT JOIN hr_salary_rule AS sr on sr.id = pl.salary_rule_id \
+                LEFT JOIN hr_salary_rule_category AS rc on (sr.category_id = rc.id) \
                 LEFT JOIN hr_payslip as p on pl.slip_id = p.id \
                 LEFT JOIN hr_employee as emp on emp.id = p.employee_id \
                 WHERE p.employee_id = %s \
-                GROUP BY rc.parent_id, pl.sequence, pl.id, pl.category_id,pl.name,p.date_to,rc.code \
+                GROUP BY rc.parent_id, pl.sequence, pl.id, sr.category_id,pl.name,p.date_to,rc.code \
                 ORDER BY pl.sequence, rc.parent_id''', (emp_id,))
         salary = self.env.cr.fetchall()
         for category in salary:
@@ -95,7 +95,7 @@ class EmployeesYearlySalaryReport(models.AbstractModel):
         for code in categories:
             if code in salaries:
                 res = self.salary_list(salaries[code], months)
-            result.append(res)
+                result.append(res)
         return result
 
     def salary_list(self, salaries, months):

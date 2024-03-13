@@ -29,7 +29,7 @@
                                         <td><span t-esc="e[0]"/></td>
                                         <t t-foreach="e[1:month_len]" t-as="month_sal">
                                             <td class="text-end">
-                                                <span t-esc="month_sal"/>
+                                                <span t-esc="month_sal" t-options="{'widget': 'monetary', 'display_currency': o.env.user.company_id.currency_id}"/>
                                             </td>
                                         </t>
                                         <td class="text-end">
