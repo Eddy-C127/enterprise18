@@ -198,7 +198,7 @@ class StudioApprovalRule(models.Model):
         # retrieve all approvals, and patch their corresponding model
         for approval in self.search([]):
             Model = self.env.get(approval.model_name)
-            if approval.method:
+            if approval.method and Model is not None:
                 approval_method = _make_approval_method(approval.method, approval.model_name)
                 _patch(Model, approval.method, approval_method)
 
