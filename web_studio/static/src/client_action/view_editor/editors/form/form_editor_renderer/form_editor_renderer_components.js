@@ -234,23 +234,13 @@ export class ButtonBox extends components.ButtonBox {
         ...components.ButtonBox.props,
         studioIsVisible: { type: Boolean, optional: true },
     };
-    getButtons() {
-        const maxVisibleButtons = this.getMaxButtons();
-        const visible = [];
-        const additional = [];
-        for (const [slotName, slot] of Object.entries(this.props.slots)) {
-            if (
-                this.env.viewEditorModel.showInvisible ||
-                !("isVisible" in slot) ||
-                slot.isVisible
-            ) {
-                if (visible.length >= maxVisibleButtons) {
-                    additional.push(slotName);
-                } else {
-                    visible.push(slotName);
-                }
-            }
-        }
-        return { visible, additional };
+
+    setup() {
+        super.setup();
+        this.viewEditorModel = useState(this.env.viewEditorModel);
+    }
+
+    isSlotVisible(slot) {
+        return this.viewEditorModel.showInvisible || super.isSlotVisible(slot);
     }
 }

@@ -2592,12 +2592,17 @@ QUnit.module("View Editors", (hooks) => {
         assert.containsNone(target, ".o_dialog .modal", "should not display the create modal");
     });
 
-    QUnit.test("new button in buttonbox with first element invisible", async function (assert) {
+    QUnit.test("buttonbox with invisible button, then show invisible", async function (assert) {
         serverData.models["coucou"].records[0] = {
             display_name: "someName",
             id: 99,
         };
-        const arch = `
+
+        await createViewEditor({
+            serverData,
+            type: "form",
+            resModel: "coucou",
+            arch: `
                 <form>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
@@ -2606,16 +2611,16 @@ QUnit.module("View Editors", (hooks) => {
                         </div>
                         <field name='display_name'/>
                     </sheet>
-                </form>`;
-        await createViewEditor({
-            serverData,
-            type: "form",
-            resModel: "coucou",
-            arch: arch,
+                </form>`,
             resId: 99,
         });
         assert.containsOnce(target, ".o-form-buttonbox .o_web_studio_button_hook");
         assert.containsNone(target, "button.someClass");
+
+        await click(selectorContains(target, ".o_web_studio_sidebar .nav-link", "View"));
+        await click(target.querySelector(".o_web_studio_sidebar #show_invisible"));
+
+        assert.containsOnce(target, "button.someClass");
     });
 
     QUnit.test("element removal", async function (assert) {
