@@ -45,7 +45,11 @@ class DocumentsDocument(models.Model):
         """
         self.ensure_one()
 
-        if not self.mimetype or not self.mimetype.endswith('/xml'):
+        if not self.mimetype:
+            return False
+
+        if not (self.mimetype.endswith('/xml')
+                or (self.mimetype == 'text/plain' and self.name.lower().endswith('.xml'))):
             return False
 
         try:
