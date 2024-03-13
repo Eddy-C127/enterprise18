@@ -3628,3 +3628,22 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(len(self.subscription.order_line), 2)
         self.assertEqual(upsell_so.order_line.name, nr_product.name)
         self.assertFalse(nr_product in self.subscription.order_line.product_template_id)
+
+    def test_change_recurrence_plan_with_option(self):
+        """
+        A recurring order with a line for a recurring produce and a sale order option for a recurring product yields an
+            exception when changing the recurring plan via Form, preventing the plan from being changed
+        """
+        order_1 = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [Command.create({'product_id': self.product.id})],
+        })
+        self.env['sale.order.option'].create({
+            'order_id': order_1.id,
+            'product_id': self.product.id,
+        })
+
+        with Form(order_1) as order_form:
+            order_form.plan_id = self.plan_week
+
+        self.assertEqual(order_1.plan_id, self.plan_week)
