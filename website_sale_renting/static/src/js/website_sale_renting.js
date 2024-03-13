@@ -22,6 +22,14 @@ WebsiteSale.include({
         'click .clear-daterange': '_onDatePickerClear',
     }),
 
+    /**
+     * @override
+     */
+    async start() {
+        await this._super(...arguments);
+        this.$('[data-bs-toggle="tooltip"]').tooltip();
+    },
+
     async _check_new_dates_on_cart(){
         const { start_date, end_date, values } = await rpc(
             '/shop/cart/update_renting',

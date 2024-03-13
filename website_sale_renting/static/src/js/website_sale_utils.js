@@ -12,12 +12,16 @@ patch(cartHandlerMixin, {
         const data = await super._addToCartInPage(...arguments);
         const datepickerElements = document.querySelectorAll('.o_website_sale_daterange_picker_input');
         const clearBtnElements = document.querySelectorAll('.clear-daterange');
+        const infoMessageElements = document.querySelectorAll('.o_rental_info_message');
         if (data.line_id && params.start_date) {
             datepickerElements.forEach((elements) => {
                 elements.disabled=true;
             });
             clearBtnElements.forEach((elements) => {
                 elements.classList.add('d-none');
+            });
+            infoMessageElements.forEach((elements) => {
+                elements.classList.remove('d-none');
             });
         }
         return data;
