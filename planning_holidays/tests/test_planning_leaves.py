@@ -11,24 +11,23 @@ class TestPlanningLeaves(TestCommon):
     def test_simple_employee_leave(self):
         leave = self.env['hr.leave'].sudo().create({
             'holiday_status_id': self.leave_type.id,
-            'employee_id': self.patrick.id,
+            'employee_id': self.employee_bert.id,
             'request_date_from': '2020-1-1',
             'request_date_to': '2020-1-1',
         })
 
         slot_1 = self.env['planning.slot'].create({
-            'resource_id': self.res_patrick.id,
+            'resource_id': self.resource_bert.id,
             'start_datetime': datetime.datetime(2020, 1, 1, 8, 0),
             'end_datetime': datetime.datetime(2020, 1, 1, 17, 0),
         })
         slot_2 = self.env['planning.slot'].create({
-            'resource_id': self.res_patrick.id,
+            'resource_id': self.resource_bert.id,
             'start_datetime': datetime.datetime(2020, 1, 2, 8, 0),
             'end_datetime': datetime.datetime(2020, 1, 2, 17, 0),
         })
 
-        self.assertNotEqual(slot_1.leave_warning, False,
-                    "leave is not validated , but warning for requested time off")
+        self.assertNotEqual(slot_1.leave_warning, False, "leave is not validated , but warning for requested time off")
 
         leave.action_validate()
 
@@ -36,7 +35,7 @@ class TestPlanningLeaves(TestCommon):
                             "employee is on leave, should have a warning")
         # The warning should display the whole concerned leave period
         self.assertEqual(slot_1.leave_warning,
-                         "patrick is on time off from 01/01/2020 at 09:00:00 to 01/01/2020 at 18:00:00. \n")
+                         "bert is on time off from 01/01/2020 at 09:00:00 to 01/01/2020 at 18:00:00. \n")
 
         self.assertEqual(slot_2.leave_warning, False,
                          "employee is not on leave, no warning")
@@ -44,20 +43,20 @@ class TestPlanningLeaves(TestCommon):
     def test_multiple_leaves(self):
         self.env['hr.leave'].sudo().create({
             'holiday_status_id': self.leave_type.id,
-            'employee_id': self.patrick.id,
+            'employee_id': self.employee_bert.id,
             'request_date_from': '2020-1-6',
             'request_date_to': '2020-1-7',
         }).action_validate()
 
         self.env['hr.leave'].sudo().create({
             'holiday_status_id': self.leave_type.id,
-            'employee_id': self.patrick.id,
+            'employee_id': self.employee_bert.id,
             'request_date_from': '2020-1-8',
             'request_date_to': '2020-1-10',
         }).action_validate()
 
         slot_1 = self.env['planning.slot'].create({
-            'resource_id': self.res_patrick.id,
+            'resource_id': self.resource_bert.id,
             'start_datetime': datetime.datetime(2020, 1, 6, 8, 0),
             'end_datetime': datetime.datetime(2020, 1, 6, 17, 0),
         })
@@ -66,22 +65,22 @@ class TestPlanningLeaves(TestCommon):
                             "employee is on leave, should have a warning")
         # The warning should display the whole concerned leave period
         self.assertEqual(slot_1.leave_warning,
-                         "patrick is on time off from 01/06/2020 to 01/07/2020. \n")
+                         "bert is on time off from 01/06/2020 to 01/07/2020. \n")
 
         slot_2 = self.env['planning.slot'].create({
-            'resource_id': self.res_patrick.id,
+            'resource_id': self.resource_bert.id,
             'start_datetime': datetime.datetime(2020, 1, 6, 8, 0),
             'end_datetime': datetime.datetime(2020, 1, 7, 17, 0),
         })
         self.assertEqual(slot_2.leave_warning,
-                         "patrick is on time off from 01/06/2020 to 01/07/2020. \n")
+                         "bert is on time off from 01/06/2020 to 01/07/2020. \n")
 
         slot_3 = self.env['planning.slot'].create({
-            'resource_id': self.res_patrick.id,
+            'resource_id': self.resource_bert.id,
             'start_datetime': datetime.datetime(2020, 1, 6, 8, 0),
             'end_datetime': datetime.datetime(2020, 1, 10, 17, 0),
         })
-        self.assertEqual(slot_3.leave_warning, "patrick is on time off from 01/06/2020 to 01/10/2020. \n",
+        self.assertEqual(slot_3.leave_warning, "bert is on time off from 01/06/2020 to 01/10/2020. \n",
                          "should show the start of the 1st leave and end of the 2nd")
 
     def test_shift_update_according_time_off(self):

@@ -5,27 +5,10 @@ from contextlib import contextmanager
 
 from odoo import fields
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.planning.tests.common import TestCommonPlanning
 
 
-class TestCommonForecast(TransactionCase):
-
-    @classmethod
-    def setUpEmployees(cls):
-        cls.employee_joseph = cls.env['hr.employee'].create({
-            'name': 'joseph',
-            'work_email': 'joseph@a.be',
-            'employee_type': 'freelance',  # to avoid using contract if hr_contract is installed before
-            'tz': 'UTC'
-        })
-        cls.resource_joseph = cls.employee_joseph.resource_id
-        cls.employee_bert = cls.env['hr.employee'].create({
-            'name': 'bert',
-            'work_email': 'bert@a.be',
-            'employee_type': 'freelance',  # to avoid using contract if hr_contract is installed before
-            'tz': 'UTC'
-        })
-        cls.resource_bert = cls.employee_bert.resource_id
+class TestCommonForecast(TestCommonPlanning):
 
     @classmethod
     def setUpProjects(cls):

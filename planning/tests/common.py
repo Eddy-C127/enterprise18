@@ -1,42 +1,10 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details
-
-from contextlib import contextmanager
-
-from odoo import fields
+from datetime import datetime
 
 from odoo.tests.common import TransactionCase
 
 
 class TestCommonPlanning(TransactionCase):
-
-    @contextmanager
-    def _patch_now(self, datetime_str):
-        datetime_now_old = getattr(fields.Datetime, 'now')
-        datetime_today_old = getattr(fields.Datetime, 'today')
-        date_today_old = getattr(fields.Date, 'today')
-
-        def new_now():
-            return fields.Datetime.from_string(datetime_str)
-
-        def new_today():
-            return fields.Datetime.from_string(datetime_str).replace(hour=0, minute=0, second=0)
-
-        def new_date_today():
-            return fields.Date.from_string(datetime_str)
-
-        try:
-            setattr(fields.Datetime, 'now', new_now)
-            setattr(fields.Datetime, 'today', new_today)
-            setattr(fields.Date, 'today', new_date_today)
-
-            yield
-        finally:
-            # back
-            setattr(fields.Datetime, 'now', datetime_now_old)
-            setattr(fields.Datetime, 'today', datetime_today_old)
-            setattr(fields.Date, 'today', date_today_old)
-
     def get_by_employee(self, employee):
         return self.env['planning.slot'].search([('employee_id', '=', employee.id)])
 
@@ -67,3 +35,9 @@ class TestCommonPlanning(TransactionCase):
             'create_date': '2015-01-01 00:00:00',
         })
         cls.resource_janice = cls.employee_janice.resource_id
+
+    @classmethod
+    def setUpDates(cls):
+        cls.random_date = datetime(2020, 11, 27)  # it doesn't really matter but it lands on a Friday
+        cls.random_sunday_date = datetime(2024, 3, 10)  # this should be a Sunday and thus a closing day
+        cls.random_monday_date = datetime(2024, 3, 11)  # this should be a Monday

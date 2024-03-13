@@ -15,7 +15,7 @@ class TestPerformance(TestCommon):
             issue when some public leaves are created or some leaves are validated for
             a employe or sone leaves are renoved.
         """
-        self.patrick.create_date = datetime(2020, 1, 1)
+        self.employee_bert.create_date = datetime(2020, 1, 1)
         public_holiday = self.env['resource.calendar.leaves'].create({
             'name': 'Public holiday',
             'calendar_id': self.calendar.id,
@@ -23,23 +23,23 @@ class TestPerformance(TestCommon):
             'date_to': datetime(2020, 5, 1, 17, 0),
         })
         leaves = self.env['resource.calendar.leaves'].create([{
-            'resource_id': self.patrick.resource_id.id,
+            'resource_id': self.resource_bert.id,
             'date_from': datetime(2020, 5, 3 + 7 * i),
             'date_to': datetime(2020, 5, 3 + 7 * i),
         } for i in range(5)])
 
         slot_vals_list = [{
-            'employee_id': self.patrick.id,
+            'employee_id': self.employee_bert.id,
             'start_datetime': datetime(2020, 4, 30, 8, 0),
             'end_datetime': datetime(2020, 4, 30, 17, 0),
         }]
         slot_vals_list += [{
-            'employee_id': self.patrick.id,
+            'employee_id': self.employee_bert.id,
             'start_datetime': datetime(2020, 5, i, 8, 0),
             'end_datetime': datetime(2020, 5, i, 12, 0),
         } for i in range(1, 31)]
         slot_vals_list += [{
-            'employee_id': self.patrick.id,
+            'employee_id': self.employee_bert.id,
             'start_datetime': datetime(2020, 5, i, 13, 0),
             'end_datetime': datetime(2020, 5, i, 17, 0),
         } for i in range(1, 31)]

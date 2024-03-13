@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details
 
 from datetime import datetime, timedelta
+from freezegun import freeze_time
 
 from .common import TestCommonPlanning
 
@@ -16,6 +17,7 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
     def setUpClass(cls):
         super(TestRecurrencySlotGeneration, cls).setUpClass()
         cls.setUpEmployees()
+        cls.setUpDates()
 
     def configure_recurrency_span(self, span_qty):
         self.env.company.write({
@@ -51,7 +53,7 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
                                         2019-08-08
                                         NOT 2019-08-15 because it hits the soft limit
         """
-        with self._patch_now('2019-06-27 08:00:00'):
+        with freeze_time('2019-06-27 08:00:00'):
             self.configure_recurrency_span(1)
 
             self.assertFalse(self.get_by_employee(self.employee_joseph))
@@ -86,7 +88,7 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
 
         # now run cron two weeks later, should yield two more slots
         # because the repeat_interval is 1 week
-        with self._patch_now('2019-07-11 08:00:00'):
+        with freeze_time('2019-07-11 08:00:00'):
             self.env['planning.recurrency']._cron_schedule_next()
             generated_slots = self.get_by_employee(self.employee_joseph)
             all_slots_dates = set(map(lambda slot: slot.start_datetime, generated_slots))
@@ -96,6 +98,7 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             }
             self.assertTrue(all_slots_dates == new_expected_slots_dates, 'first cron run should have generated 2 more slots')
 
+    @freeze_time('2019-06-27 08:00:00')
     def test_repeat_until_no_repeat(self):
         """create a recurrency with repeat until set which is less than next cron span, should
             stop repeating upon creation
@@ -103,29 +106,28 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             first run:
                 now :                   2019-6-27
                 initial_start :         2019-6-27
-                repeat_until :          2019-6-29  
+                repeat_until :          2019-6-29
                 generated slots:
                                         2019-6-27
                                         NOT 2019-7-4 because it's after the recurrency's repeat_until
         """
-        with self._patch_now('2019-06-27 08:00:00'):
+        self.configure_recurrency_span(1)
 
-            self.configure_recurrency_span(1)
+        self.assertFalse(self.get_by_employee(self.employee_joseph))
 
-            self.assertFalse(self.get_by_employee(self.employee_joseph))
+        self.env['planning.slot'].create({
+            'start_datetime': datetime(2019, 6, 27, 8, 0, 0),
+            'end_datetime': datetime(2019, 6, 27, 17, 0, 0),
+            'resource_id': self.resource_joseph.id,
+            'repeat': True,
+            'repeat_type': 'until',
+            'repeat_interval': 1,
+            'repeat_until': datetime(2019, 6, 29, 8, 0, 0),
+        })
 
-            self.env['planning.slot'].create({
-                'start_datetime': datetime(2019, 6, 27, 8, 0, 0),
-                'end_datetime': datetime(2019, 6, 27, 17, 0, 0),
-                'resource_id': self.resource_joseph.id,
-                'repeat': True,
-                'repeat_type': 'until',
-                'repeat_interval': 1,
-                'repeat_until': datetime(2019, 6, 29, 8, 0, 0),
-            })
+        self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 1, 'first run should only have created 1 slot since repeat until is set at 1 week')
 
-            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 1, 'first run should only have created 1 slot since repeat until is set at 1 week')
-
+    @freeze_time('2019-06-27 08:00:00')
     def test_repeat_until_cron_idempotent(self):
         """Create a recurrency with repeat_until set, it allows a full first run, but not on next cron
             first run:
@@ -143,27 +145,26 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
                 generated slots:
                                         NOT 2019-07-11 because it still hits the repeat end
         """
-        with self._patch_now('2019-06-27 08:00:00'):
-            self.configure_recurrency_span(1)
+        self.configure_recurrency_span(1)
 
-            self.assertFalse(self.get_by_employee(self.employee_joseph))
+        self.assertFalse(self.get_by_employee(self.employee_joseph))
 
-            # repeat until is big enough for the first pass to generate all 2 slots
-            self.env['planning.slot'].create({
-                'start_datetime': datetime(2019, 6, 27, 8, 0, 0),
-                'end_datetime': datetime(2019, 6, 27, 17, 0, 0),
-                'resource_id': self.resource_joseph.id,
-                'repeat': True,
-                'repeat_type': 'until',
-                'repeat_interval': 1,
-                'repeat_until': datetime(2019, 7, 10, 8, 0, 0),
-            })
-            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 2, 'initial run should have generated 2 slots')
+        # repeat until is big enough for the first pass to generate all 2 slots
+        self.env['planning.slot'].create({
+            'start_datetime': datetime(2019, 6, 27, 8, 0, 0),
+            'end_datetime': datetime(2019, 6, 27, 17, 0, 0),
+            'resource_id': self.resource_joseph.id,
+            'repeat': True,
+            'repeat_type': 'until',
+            'repeat_interval': 1,
+            'repeat_until': datetime(2019, 7, 10, 8, 0, 0),
+        })
+        self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 2, 'initial run should have generated 2 slots')
 
-            # run the cron, since last generated slot is less than one week (one week being the repeat_interval) before repeat_until, the next
-            # slots would be after repeat_until, so none will be generated.
-            self.env['planning.recurrency']._cron_schedule_next()
-            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 2, 'running the cron right after should not generate new slots')
+        # run the cron, since last generated slot is less than one week (one week being the repeat_interval) before repeat_until, the next
+        # slots would be after repeat_until, so none will be generated.
+        self.env['planning.recurrency']._cron_schedule_next()
+        self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 2, 'running the cron right after should not generate new slots')
 
     def test_repeat_until_cron_generation(self):
         """Generate a recurrence with repeat_until that allows first run, then first cron.
@@ -192,7 +193,7 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
                 generated slots:
                                         NOT 2019-10-20 because all recurring slots are already generated in the company interval
         """
-        with self._patch_now('2019-08-31 08:00:00'):
+        with freeze_time('2019-08-31 08:00:00'):
             self.configure_recurrency_span(1)
 
             self.assertFalse(self.get_by_employee(self.employee_joseph))
@@ -209,11 +210,11 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             })
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 5, 'first run should have generated 5 slots')
         # run the cron, since last generated slot do not hit the soft limit, there will be 2 more
-        with self._patch_now('2019-09-14 08:00:00'):
+        with freeze_time('2019-09-14 08:00:00'):
             self.env['planning.recurrency']._cron_schedule_next()
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 7, 'first cron should have generated 2 more slots')
         # run the cron again, since last generated slot do hit the soft limit, there won't be more
-        with self._patch_now('2019-09-16 08:00:00'):
+        with freeze_time('2019-09-16 08:00:00'):
             self.env['planning.recurrency']._cron_schedule_next()
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 7, 'second cron should not generate any slots')
 
@@ -238,7 +239,7 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             So there is just enough room for one.
             This ensure slots are always generated up to x time in advance with x being the company's repeat span
         """
-        with self._patch_now('2019-06-01 08:00:00'):
+        with freeze_time('2019-06-01 08:00:00'):
             self.configure_recurrency_span(6)
 
             self.assertFalse(self.get_by_employee(self.employee_joseph))
@@ -256,30 +257,30 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 27, 'first run has generated 27 slots')
         # one week later, always having the slots generated 6 months in advance means we
         # have generated one more, which makes 28
-        with self._patch_now('2019-06-08 08:00:00'):
+        with freeze_time('2019-06-08 08:00:00'):
             self.env['planning.recurrency']._cron_schedule_next()
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 28, 'second cron should only generate 1 more slot')
 
+    @freeze_time('2019-06-27 08:00:00')
     def test_repat_until_cancel_repeat(self):
-        with self._patch_now('2019-06-27 08:00:00'):
-            self.configure_recurrency_span(1)
+        self.configure_recurrency_span(1)
 
-            self.assertFalse(self.get_by_employee(self.employee_joseph))
+        self.assertFalse(self.get_by_employee(self.employee_joseph))
 
-            # since repeat span is 1 month, we should have 5 slots
-            planning_slot = self.env['planning.slot'].create({
-                'start_datetime': datetime(2019, 6, 27, 8, 0, 0),
-                'end_datetime': datetime(2019, 6, 27, 17, 0, 0),
-                'resource_id': self.resource_joseph.id,
-                'repeat': True,
-                'repeat_type': 'until',
-                'repeat_interval': 1,
-                'repeat_until': datetime(2019, 6, 29, 8, 0, 0),
-            })
-            planning_slot_form = Form(planning_slot)
-            planning_slot_form.repeat = False
-            planning_slot_form.save()
-            self.assertFalse(planning_slot.repeat)
+        # since repeat span is 1 month, we should have 5 slots
+        planning_slot = self.env['planning.slot'].create({
+            'start_datetime': datetime(2019, 6, 27, 8, 0, 0),
+            'end_datetime': datetime(2019, 6, 27, 17, 0, 0),
+            'resource_id': self.resource_joseph.id,
+            'repeat': True,
+            'repeat_type': 'until',
+            'repeat_interval': 1,
+            'repeat_until': datetime(2019, 6, 29, 8, 0, 0),
+        })
+        planning_slot_form = Form(planning_slot)
+        planning_slot_form.repeat = False
+        planning_slot_form.save()
+        self.assertFalse(planning_slot.repeat)
 
     def test_repeat_forever(self):
         """ Since the recurrency cron is meant to run every week, make sure generation works accordingly when
@@ -309,7 +310,7 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
                 generated slots:
                                         N/A (we are still 6 months in advance)
         """
-        with self._patch_now('2019-05-16 08:00:00'):
+        with freeze_time('2019-05-16 08:00:00'):
             self.configure_recurrency_span(6)
 
             self.assertFalse(self.get_by_employee(self.employee_joseph))
@@ -328,12 +329,12 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
 
         # one week later, always having the slots generated 6 months in advance means we
         # have generated one more, which makes 8
-        with self._patch_now('2019-05-24 08:00:00'):
+        with freeze_time('2019-05-24 08:00:00'):
             self.env['planning.recurrency']._cron_schedule_next()
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 7, 'first cron should generate one more slot')
 
         # again one week later, we are now up-to-date so there should still be 8 slots
-        with self._patch_now('2019-05-31 08:00:00'):
+        with freeze_time('2019-05-31 08:00:00'):
             self.env['planning.recurrency']._cron_schedule_next()
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 7, 'second run should not generate any slots')
 
@@ -366,7 +367,7 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
                 repeat_end              2020-05-25
                 generated slots:
         """
-        with self._patch_now('2020-04-20 08:00:00'):
+        with freeze_time('2020-04-20 08:00:00'):
             self.configure_recurrency_span(1)
 
             self.env['planning.slot'].create({
@@ -383,35 +384,36 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 5, 'first run should generated 5 slots')
 
         # one week later, always having the slots generated 1 month in advance means we have generated one more, which makes 6
-        with self._patch_now('2020-04-27 08:00:00'):
+        with freeze_time('2020-04-27 08:00:00'):
             self.env['planning.recurrency']._cron_schedule_next()
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 6, 'first cron should generate one more slot')
 
         # again one week later, we are now up-to-date so there should still be 6 slots
-        with self._patch_now('2020-05-04 08:00:00'):
+        with freeze_time('2020-05-04 08:00:00'):
             self.env['planning.recurrency']._cron_schedule_next()
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 6, 'second run should not generate any slots')
 
     @unittest.skip
+    @freeze_time('2019-06-01 08:00:00')
     def kkktest_slot_remove_all(self):
-        with self._patch_now('2019-06-01 08:00:00'):
-            self.configure_recurrency_span(6)
-            initial_start_dt = datetime(2019, 6, 1, 8, 0, 0)
-            initial_end_dt = datetime(2019, 6, 1, 17, 0, 0)
-            slot_values = {
-                'resource_id': self.resource_joseph.id,
-            }
+        self.configure_recurrency_span(6)
+        initial_start_dt = datetime(2019, 6, 1, 8, 0, 0)
+        initial_end_dt = datetime(2019, 6, 1, 17, 0, 0)
+        slot_values = {
+            'resource_id': self.resource_joseph.id,
+        }
 
-            recurrency = self.env['planning.recurrency'].create({
-                'repeat_interval': 1,
-            })
-            self.assertFalse(self.get_by_employee(self.employee_joseph))
-            recurrency.create_slot(initial_start_dt, initial_end_dt, slot_values)
+        recurrency = self.env['planning.recurrency'].create({
+            'repeat_interval': 1,
+        })
+        self.assertFalse(self.get_by_employee(self.employee_joseph))
+        recurrency.create_slot(initial_start_dt, initial_end_dt, slot_values)
 
-            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 27, 'first run has generated 27 slots')
-            recurrency.action_remove_all()
-            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 0, 'calling remove after on any slot from the recurrency remove all slots linked to the recurrency')
+        self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 27, 'first run has generated 27 slots')
+        recurrency.action_remove_all()
+        self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 0, 'calling remove after on any slot from the recurrency remove all slots linked to the recurrency')
 
+    @freeze_time('2020-04-20 08:00:00')
     def test_recurrency_interval_type(self):
         """ Since the recurrency cron is meant to run every week, make sure generation works accordingly when
             both the company's repeat span and the repeat interval are much larger
@@ -426,151 +428,150 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
                 - delete extra slots except original one
                 - update repeat_unit to year and repeat_until according slots we need to generates
         """
+        self.configure_recurrency_span(12)
 
-        with self._patch_now('2020-04-20 08:00:00'):
-            self.configure_recurrency_span(12)
+        slot = self.env['planning.slot'].create({
+            'start_datetime': datetime(2020, 4, 20, 8, 0, 0),
+            'end_datetime': datetime(2020, 4, 20, 17, 0, 0),
+            'resource_id': self.resource_joseph.id,
+            'repeat': True,
+            'repeat_interval': 1,
+            'repeat_unit': 'day',
+            'repeat_type': 'until',
+            'repeat_until': datetime(2020, 4, 24, 8, 0, 0),
+        })
 
-            slot = self.env['planning.slot'].create({
-                        'start_datetime': datetime(2020, 4, 20, 8, 0, 0),
-                        'end_datetime': datetime(2020, 4, 20, 17, 0, 0),
-                        'resource_id': self.resource_joseph.id,
-                        'repeat': True,
-                        'repeat_interval': 1,
-                        'repeat_unit': 'day',
-                        'repeat_type': 'until',
-                        'repeat_until': datetime(2020, 4, 24, 8, 0, 0),
-                    })
+        # generated 5 slots
+        self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 5, 'first run should generated 5 slots')
 
-            # generated 5 slots
-            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 5, 'first run should generated 5 slots')
+        def _modify_slot(repeat_unit, repeat_until):
+            slot.write({
+                'repeat_unit': repeat_unit,
+                'repeat_until': repeat_until,
+            })
 
-            def _modify_slot(repeat_unit, repeat_until):
-                slot.write({
-                    'repeat_unit': repeat_unit,
-                    'repeat_until': repeat_until,
-                })
+        _modify_slot('week', datetime(2020, 5, 11, 8, 0, 0))  # generated 4 slots
+        self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 4, 'After change unit to week generated slots should be 4')
 
-            _modify_slot('week', datetime(2020, 5, 11, 8, 0, 0)) # generated 4 slots
-            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 4, 'After change unit to week generated slots should be 4')
+        _modify_slot('month', datetime(2020, 8, 31, 8, 0, 0))  # generated 4 slots, one of the slots would have landed on a weekend
+        self.assertEqual(
+            len(self.get_by_employee(self.employee_joseph)),
+            4,
+            'After change unit to month, generated slots should be 4 as one of the slots lands on company closing day and thus should not be generated'
+        )
 
-            _modify_slot('month', datetime(2020, 8, 31, 8, 0, 0)) # generated 4 slots, one of the slots would have landed on a weekend
-            self.assertEqual(
-                len(self.get_by_employee(self.employee_joseph)),
-                4,
-                'After change unit to month, generated slots should be 4 as one of the slots lands on company closing day and thus should not be generated'
-            )
-
-            _modify_slot('year', datetime(2020, 4, 26, 8, 0, 0)) # generated 1 slot
-            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 1, 'After change unit to year generated slots should be 1')
+        _modify_slot('year', datetime(2020, 4, 26, 8, 0, 0))  # generated 1 slot
+        self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 1, 'After change unit to year generated slots should be 1')
 
     # ---------------------------------------------------------
     # Recurring Slot Misc
     # ---------------------------------------------------------
 
+    @freeze_time('2019-06-01 08:00:00')
     def test_recurring_slot_company(self):
-        with self._patch_now('2019-06-01 08:00:00'):
-            initial_company = self.env['res.company'].create({'name': 'original'})
-            initial_company.write({
-                'planning_generation_interval': 2,
-            })
-            # Should be able to create a slot with a company_id != employee.company_id
-            slot1 = self.env['planning.slot'].create({
-                'start_datetime': datetime(2019, 6, 3, 8, 0, 0),
-                'end_datetime': datetime(2019, 6, 3, 17, 0, 0),
-                'resource_id': self.resource_bert.id,
-                'repeat': True,
-                'repeat_type': 'forever',
-                'repeat_interval': 1,
-                'company_id': initial_company.id,
-            })
+        initial_company = self.env['res.company'].create({'name': 'original'})
+        initial_company.write({
+            'planning_generation_interval': 2,
+        })
+        # Should be able to create a slot with a company_id != employee.company_id
+        slot1 = self.env['planning.slot'].create({
+            'start_datetime': datetime(2019, 6, 3, 8, 0, 0),
+            'end_datetime': datetime(2019, 6, 3, 17, 0, 0),
+            'resource_id': self.resource_bert.id,
+            'repeat': True,
+            'repeat_type': 'forever',
+            'repeat_interval': 1,
+            'company_id': initial_company.id,
+        })
 
-            # put the employee in the second company
-            self.employee_bert.write({'company_id': initial_company.id})
+        # put the employee in the second company
+        self.employee_bert.write({'company_id': initial_company.id})
 
-            slot1 = self.env['planning.slot'].create({
-                'start_datetime': datetime(2019, 6, 3, 8, 0, 0),
-                'end_datetime': datetime(2019, 6, 3, 17, 0, 0),
-                'resource_id': self.resource_bert.id,
-                'repeat': True,
-                'repeat_type': 'forever',
-                'repeat_interval': 1,
-                'company_id': initial_company.id,
-            })
+        slot1 = self.env['planning.slot'].create({
+            'start_datetime': datetime(2019, 6, 3, 8, 0, 0),
+            'end_datetime': datetime(2019, 6, 3, 17, 0, 0),
+            'resource_id': self.resource_bert.id,
+            'repeat': True,
+            'repeat_type': 'forever',
+            'repeat_interval': 1,
+            'company_id': initial_company.id,
+        })
 
-            other_company = self.env['res.company'].create({'name': 'other'})
-            other_company.write({
-                'planning_generation_interval': 1,
-            })
-            self.employee_joseph.write({'company_id': other_company.id})
-            slot2 = self.env['planning.slot'].create({
-                'start_datetime': datetime(2019, 6, 3, 8, 0, 0),
-                'end_datetime': datetime(2019, 6, 3, 17, 0, 0),
-                'resource_id': self.resource_joseph.id,
-                'repeat': True,
-                'repeat_type': 'forever',
-                'repeat_interval': 1,
-                'company_id': other_company.id,
-            })
+        other_company = self.env['res.company'].create({'name': 'other'})
+        other_company.write({
+            'planning_generation_interval': 1,
+        })
+        self.employee_joseph.write({'company_id': other_company.id})
+        slot2 = self.env['planning.slot'].create({
+            'start_datetime': datetime(2019, 6, 3, 8, 0, 0),
+            'end_datetime': datetime(2019, 6, 3, 17, 0, 0),
+            'resource_id': self.resource_joseph.id,
+            'repeat': True,
+            'repeat_type': 'forever',
+            'repeat_interval': 1,
+            'company_id': other_company.id,
+        })
 
-            # initial company's recurrency should have created 9 slots since it's span is two month
-            # other company's recurrency should have create 4 slots since it's span is one month
-            self.assertEqual(len(self.get_by_employee(self.employee_bert)), 10, 'There will be a 10 slots because becuase other companys slot will become open slots')
-            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 4, 'other company\'s span is one month, so only 4 slots')
+        # initial company's recurrency should have created 9 slots since it's span is two month
+        # other company's recurrency should have create 4 slots since it's span is one month
+        self.assertEqual(len(self.get_by_employee(self.employee_bert)), 10, 'There will be a 10 slots because becuase other companys slot will become open slots')
+        self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 4, 'other company\'s span is one month, so only 4 slots')
 
-            self.assertEqual(slot1.company_id, slot1.recurrency_id.company_id, "Recurrence and slots (1) must have the same company")
-            self.assertEqual(slot1.recurrency_id.company_id, slot1.recurrency_id.slot_ids.mapped('company_id'), "All slots in the same recurrence (1) must have the same company")
-            self.assertEqual(slot2.company_id, slot2.recurrency_id.company_id, "Recurrence and slots (2) must have the same company")
-            self.assertEqual(slot2.recurrency_id.company_id, slot2.recurrency_id.slot_ids.mapped('company_id'), "All slots in the same recurrence (1) must have the same company")
+        self.assertEqual(slot1.company_id, slot1.recurrency_id.company_id, "Recurrence and slots (1) must have the same company")
+        self.assertEqual(slot1.recurrency_id.company_id, slot1.recurrency_id.slot_ids.mapped('company_id'), "All slots in the same recurrence (1) must have the same company")
+        self.assertEqual(slot2.company_id, slot2.recurrency_id.company_id, "Recurrence and slots (2) must have the same company")
+        self.assertEqual(slot2.recurrency_id.company_id, slot2.recurrency_id.slot_ids.mapped('company_id'), "All slots in the same recurrence (1) must have the same company")
 
+    @freeze_time('2020-06-27 08:00:00')
     def test_empty_recurrency(self):
         """ Check empty recurrency is removed by cron """
-        with self._patch_now('2020-06-27 08:00:00'):
-            # insert empty recurrency
-            empty_recurrency_id = self.env['planning.recurrency'].create({
-                'repeat_interval': 1,
-                'repeat_type': 'forever',
-                'repeat_until': False,
-                'last_generated_end_datetime': datetime(2019, 6, 27, 8, 0, 0)
-            }).id
+        # insert empty recurrency
+        empty_recurrency_id = self.env['planning.recurrency'].create({
+            'repeat_interval': 1,
+            'repeat_type': 'forever',
+            'repeat_until': False,
+            'last_generated_end_datetime': datetime(2019, 6, 27, 8, 0, 0)
+        }).id
 
-            self.assertEqual(len(list(filter(lambda recu: recu.id == empty_recurrency_id, self.env['planning.recurrency'].search([])))), 1, "the empty recurrency we created should be in the db")
-            self.env['planning.recurrency']._cron_schedule_next()
-            # cron with no slot gets deleted (there is no original slot to copy from)
-            self.assertEqual(len(list(filter(lambda recu: recu.id == empty_recurrency_id, self.env['planning.recurrency'].search([])))), 0, 'the empty recurrency we created should not be in the db anymore')
-            recurrencies = self.env['planning.recurrency'].search([])
-            self.assertFalse(len(list(filter(lambda recu: len(recu.slot_ids) == 0, recurrencies))), 'cron with no slot gets deleted (there is no original slot to copy from)')
+        self.assertEqual(len(list(filter(lambda recu: recu.id == empty_recurrency_id, self.env['planning.recurrency'].search([])))), 1, "the empty recurrency we created should be in the db")
+        self.env['planning.recurrency']._cron_schedule_next()
+        # cron with no slot gets deleted (there is no original slot to copy from)
+        self.assertEqual(len(list(filter(lambda recu: recu.id == empty_recurrency_id, self.env['planning.recurrency'].search([])))), 0, 'the empty recurrency we created should not be in the db anymore')
+        recurrencies = self.env['planning.recurrency'].search([])
+        self.assertFalse(len(list(filter(lambda recu: len(recu.slot_ids) == 0, recurrencies))), 'cron with no slot gets deleted (there is no original slot to copy from)')
 
+    @freeze_time('2020-01-01 08:00:00')
     def test_recurrency_change_date(self):
-        with self._patch_now('2020-01-01 08:00:00'):
-            slot = self.env['planning.slot'].create({
+        slot = self.env['planning.slot'].create({
+            'start_datetime': datetime(2020, 1, 1, 8, 0, 0),
+            'end_datetime': datetime(2020, 1, 1, 17, 0, 0),
+            'resource_id': self.resource_bert.id,
+            'repeat': True,
+            'repeat_type': 'until',
+            'repeat_until': datetime(2020, 2, 29, 17, 0, 0),
+            'repeat_interval': 1,
+            'repeat_unit': 'week',
+        })
+        self.assertEqual(len(self.get_by_employee(self.employee_bert)), 9, 'There are 9 weeks between start_datetime and repeat_until')
+
+        slot.update({'repeat_type': 'forever'})
+        self.assertEqual(slot.recurrency_id.repeat_until, False, 'Repeat forever should not have a date')
+        self.assertEqual(len(self.get_by_employee(self.employee_bert)), 26, 'There are 26 weeks in 6 months (max duration of shift generation)')
+
+    @freeze_time('2020-01-01 08:00:00')
+    def test_recurrency_past(self):
+        with self.assertRaises(UserError):
+            self.env['planning.slot'].create({
                 'start_datetime': datetime(2020, 1, 1, 8, 0, 0),
                 'end_datetime': datetime(2020, 1, 1, 17, 0, 0),
-                'resource_id': self.resource_bert.id,
+                'resource_id': self.resource_joseph.id,
                 'repeat': True,
                 'repeat_type': 'until',
-                'repeat_until': datetime(2020, 2, 29, 17, 0, 0),
+                'repeat_until': datetime(2019, 12, 25, 17, 0, 0),
                 'repeat_interval': 1,
-                'repeat_unit': 'week',
             })
-            self.assertEqual(len(self.get_by_employee(self.employee_bert)), 9, 'There are 9 weeks between start_datetime and repeat_until')
 
-            slot.update({'repeat_type': 'forever'})
-            self.assertEqual(slot.recurrency_id.repeat_until, False, 'Repeat forever should not have a date')
-            self.assertEqual(len(self.get_by_employee(self.employee_bert)), 26, 'There are 26 weeks in 6 months (max duration of shift generation)')
-
-    def test_recurrency_past(self):
-        with self._patch_now('2020-01-01 08:00:00'):
-            with self.assertRaises(UserError):
-                slot = self.env['planning.slot'].create({
-                    'start_datetime': datetime(2020, 1, 1, 8, 0, 0),
-                    'end_datetime': datetime(2020, 1, 1, 17, 0, 0),
-                    'resource_id': self.resource_joseph.id,
-                    'repeat': True,
-                    'repeat_type': 'until',
-                    'repeat_until': datetime(2019, 12, 25, 17, 0, 0),
-                    'repeat_interval': 1,
-                })
-
+    @freeze_time('2020-10-19 08:00:00')
     def test_recurrency_timezone(self):
         """
         We need to calculate the recurrency in the user's timezone
@@ -584,27 +585,25 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
                                         10/20/2020 08:00 CEST
                                         10/27/2020 08:00 CET (07:00 GMT)
         """
-        # with self._patch_now('2019-01-01 08:00:00'):
-        #     self.configure_recurrency_span(1)
-        with self._patch_now('2020-10-19 08:00:00'):
-            self.configure_recurrency_span(1)
+        self.configure_recurrency_span(1)
 
-            self.assertFalse(self.get_by_employee(self.employee_bert))
+        self.assertFalse(self.get_by_employee(self.employee_bert))
 
-            self.env.user.tz = 'Europe/Brussels'
-            slot = self.env['planning.slot'].create({
-                'start_datetime': datetime(2020, 10, 20, 6, 0, 0),
-                'end_datetime': datetime(2020, 10, 20, 15, 0, 0),
-                'resource_id': self.resource_bert.id,
-                'repeat': True,
-                'repeat_type': 'until',
-                'repeat_until': datetime(2022, 6, 27, 15, 0, 0),
-                'repeat_interval': 1,
-            })
-            slots = self.get_by_employee(self.employee_bert).sorted('start_datetime')
-            self.assertEqual('2020-10-20 06:00:00', str(slots[0].start_datetime))
-            self.assertEqual('2020-10-27 07:00:00', str(slots[1].start_datetime))
+        self.env.user.tz = 'Europe/Brussels'
+        self.env['planning.slot'].create({
+            'start_datetime': datetime(2020, 10, 20, 6, 0, 0),
+            'end_datetime': datetime(2020, 10, 20, 15, 0, 0),
+            'resource_id': self.resource_bert.id,
+            'repeat': True,
+            'repeat_type': 'until',
+            'repeat_until': datetime(2022, 6, 27, 15, 0, 0),
+            'repeat_interval': 1,
+        })
+        slots = self.get_by_employee(self.employee_bert).sorted('start_datetime')
+        self.assertEqual('2020-10-20 06:00:00', str(slots[0].start_datetime))
+        self.assertEqual('2020-10-27 07:00:00', str(slots[1].start_datetime))
 
+    @freeze_time('2020-10-17 08:00:00')
     def test_recurrency_timezone_at_dst(self):
         """
         Check we don't crash if we try to recur ON the DST boundary
@@ -620,40 +619,37 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
                                         10/25/2020 02:30 CEST (00:30 GMT)
                                         11/01/2020 02:30 CET (01:30 GMT)
         """
-        # with self._patch_now('2019-01-01 08:00:00'):
-        #     self.configure_recurrency_span(1)
-        with self._patch_now('2020-10-17 08:00:00'):
-            self.configure_recurrency_span(1)
+        self.configure_recurrency_span(1)
 
-            self.assertFalse(self.get_by_employee(self.employee_bert))
+        self.assertFalse(self.get_by_employee(self.employee_bert))
 
-            self.env.user.tz = 'Europe/Brussels'
-            slot = self.env['planning.slot'].create({
-                'start_datetime': datetime(2020, 10, 25, 0, 30, 0),
-                'end_datetime': datetime(2020, 10, 25, 9, 0, 0),
-                'resource_id': self.resource_bert.id,
-                'repeat': True,
-                'repeat_type': 'until',
-                'repeat_until': datetime(2022, 6, 27, 15, 0, 0),
-                'repeat_interval': 1,
-            })
-            slots = self.get_by_employee(self.employee_bert).sorted('start_datetime')
-            self.assertEqual('2020-10-25 00:30:00', str(slots[0].start_datetime))
-            self.assertEqual('2020-11-01 01:30:00', str(slots[1].start_datetime))
+        self.env.user.tz = 'Europe/Brussels'
+        self.env['planning.slot'].create({
+            'start_datetime': datetime(2020, 10, 25, 0, 30, 0),
+            'end_datetime': datetime(2020, 10, 25, 9, 0, 0),
+            'resource_id': self.resource_bert.id,
+            'repeat': True,
+            'repeat_type': 'until',
+            'repeat_until': datetime(2022, 6, 27, 15, 0, 0),
+            'repeat_interval': 1,
+        })
+        slots = self.get_by_employee(self.employee_bert).sorted('start_datetime')
+        self.assertEqual('2020-10-25 00:30:00', str(slots[0].start_datetime))
+        self.assertEqual('2020-11-01 01:30:00', str(slots[1].start_datetime))
 
+    @freeze_time('2020-10-17 08:00:00')
     def test_recurrence_update(self):
-        with self._patch_now('2020-10-17 08:00:00'):
-            self.configure_recurrency_span(1)
-            slot = self.env['planning.slot'].create({
-                'name': 'coucou',
-                'start_datetime': datetime(2020, 10, 25, 0, 30, 0),
-                'end_datetime': datetime(2020, 10, 25, 9, 0, 0),
-                'resource_id': self.resource_bert.id,
-                'repeat': True,
-                'repeat_type': 'until',
-                'repeat_until': datetime(2020, 12, 25, 0, 0, 0),
-                'repeat_interval': 1,
-            })
+        self.configure_recurrency_span(1)
+        slot = self.env['planning.slot'].create({
+            'name': 'coucou',
+            'start_datetime': datetime(2020, 10, 25, 0, 30, 0),
+            'end_datetime': datetime(2020, 10, 25, 9, 0, 0),
+            'resource_id': self.resource_bert.id,
+            'repeat': True,
+            'repeat_type': 'until',
+            'repeat_until': datetime(2020, 12, 25, 0, 0, 0),
+            'repeat_interval': 1,
+        })
 
         all_slots = slot.recurrency_id.slot_ids
         other_slots = all_slots - slot
@@ -677,27 +673,27 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
         self.assertEqual(slot.name, 'cuicui', 'This slot should not be modified')
         self.assertTrue(all(slot.name == 'coucou' for slot in other_slots), 'Other slots should be modified')
 
+    @freeze_time('2020-01-01 08:00:00')
     def test_recurrence_with_already_planned_shift(self):
-        with self._patch_now('2020-01-01 08:00:00'):
-            PlanningSlot = self.env['planning.slot']
-            dummy, slot = PlanningSlot.create([{
-                'start_datetime': datetime(2020, 1, 8, 8, 0),
-                'end_datetime': datetime(2020, 1, 8, 17, 0),
-                'resource_id': self.resource_bert.id,
-            }, {
-                'start_datetime': datetime(2020, 1, 6, 8, 0),
-                'end_datetime': datetime(2020, 1, 6, 17, 0),
-                'resource_id': self.resource_bert.id,
-                'repeat': True,
-                'repeat_unit': 'day',
-                'repeat_type': 'until',
-                'repeat_until': datetime(2020, 1, 10, 15, 0),
-                'repeat_interval': 1,
-            }])
+        PlanningSlot = self.env['planning.slot']
+        dummy, slot = PlanningSlot.create([{
+            'start_datetime': datetime(2020, 1, 8, 8, 0),
+            'end_datetime': datetime(2020, 1, 8, 17, 0),
+            'resource_id': self.resource_bert.id,
+        }, {
+            'start_datetime': datetime(2020, 1, 6, 8, 0),
+            'end_datetime': datetime(2020, 1, 6, 17, 0),
+            'resource_id': self.resource_bert.id,
+            'repeat': True,
+            'repeat_unit': 'day',
+            'repeat_type': 'until',
+            'repeat_until': datetime(2020, 1, 10, 15, 0),
+            'repeat_interval': 1,
+        }])
 
-            open_shift_count = PlanningSlot.search_count([('resource_id', '=', False), ('recurrency_id', '=', slot.recurrency_id.id)])
-            self.assertEqual(open_shift_count, 1, 'Open shift should be created instead of recurring shift if resource already has a shift planned')
-            self.assertEqual(len(self.get_by_employee(self.employee_bert)), 5, 'There should be 5 shifts: 1 already planned shift and 4 recurring shifts')
+        open_shift_count = PlanningSlot.search_count([('resource_id', '=', False), ('recurrency_id', '=', slot.recurrency_id.id)])
+        self.assertEqual(open_shift_count, 1, 'Open shift should be created instead of recurring shift if resource already has a shift planned')
+        self.assertEqual(len(self.get_by_employee(self.employee_bert)), 5, 'There should be 5 shifts: 1 already planned shift and 4 recurring shifts')
 
     def test_recurrency_last_day_of_month(self):
         self.configure_recurrency_span(1)
@@ -751,10 +747,9 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
         )
 
     def test_recurrency_date_change_week(self):
-        first_slot_dt = datetime(2020, 11, 27)
         first_slot = self.env['planning.slot'].create({
-            'start_datetime': first_slot_dt + timedelta(hours=8),
-            'end_datetime': first_slot_dt + timedelta(hours=9),
+            'start_datetime': self.random_date + timedelta(hours=8),
+            'end_datetime': self.random_date + timedelta(hours=9),
             'repeat': True,
             'repeat_type': 'x_times',
             'repeat_number': 3,
@@ -762,12 +757,12 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             'repeat_unit': 'week',
         })
         first_slot.recurrency_id.slot_ids[1].write({
-            'start_datetime': first_slot_dt + timedelta(days=9, hours=8),
-            'end_datetime': first_slot_dt + timedelta(days=9, hours=9),
+            'start_datetime': self.random_date + timedelta(days=9, hours=8),
+            'end_datetime': self.random_date + timedelta(days=9, hours=9),
         })
         first_slot.write({
-            'start_datetime': first_slot_dt + timedelta(days=-1, hours=8),
-            'end_datetime': first_slot_dt + timedelta(days=-1, hours=9),
+            'start_datetime': self.random_date + timedelta(days=-1, hours=8),
+            'end_datetime': self.random_date + timedelta(days=-1, hours=9),
             'recurrence_update': 'all',
         })
         self.assertTrue(
@@ -776,10 +771,9 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
         )
 
     def test_recurrency_date_change_month(self):
-        first_slot_dt = datetime(2020, 11, 27)
         first_slot = self.env['planning.slot'].create({
-            'start_datetime': first_slot_dt + timedelta(hours=8),
-            'end_datetime': first_slot_dt + timedelta(hours=9),
+            'start_datetime': self.random_date + timedelta(hours=8),
+            'end_datetime': self.random_date + timedelta(hours=9),
             'repeat': True,
             'repeat_type': 'x_times',
             'repeat_number': 3,
@@ -787,15 +781,197 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             'repeat_unit': 'month',
         })
         first_slot.recurrency_id.slot_ids[1].write({
-            'start_datetime': first_slot_dt + timedelta(days=2, hours=8),
-            'end_datetime': first_slot_dt + timedelta(days=2, hours=9),
+            'start_datetime': self.random_date + timedelta(days=2, hours=8),
+            'end_datetime': self.random_date + timedelta(days=2, hours=9),
         })
         first_slot.write({
-            'start_datetime': first_slot_dt + timedelta(days=-10, hours=8),
-            'end_datetime': first_slot_dt + timedelta(days=-10, hours=9),
+            'start_datetime': self.random_date + timedelta(days=-10, hours=8),
+            'end_datetime': self.random_date + timedelta(days=-10, hours=9),
             'recurrence_update': 'all',
         })
         self.assertTrue(
             slot.start_datetime.day == 17 and slot._get_slot_duration() == 1
             for slot in first_slot.recurrency_id.slot_ids
+        )
+
+    def test_recurrency_with_slot_on_closing_day(self):
+        """
+        This test covers the case in which the initially planned shift in the recurrence is planned on a closing (non-working) day.
+        This is an exception from the regular flow.
+        In this case, we should generate all the recurring shifts normally even if they land on non-working days.
+        """
+        first_slot = self.env['planning.slot'].create({  # this should be land on a Sunday (a closing day)
+            'start_datetime': self.random_sunday_date + timedelta(hours=8),
+            'end_datetime': self.random_sunday_date + timedelta(hours=10),
+            'repeat': True,
+            'repeat_type': 'x_times',
+            'repeat_number': 7,
+            'repeat_interval': 1,
+            'repeat_unit': 'day',
+        })
+
+        self.assertEqual(
+            len(first_slot.recurrency_id.slot_ids),
+            7,
+            'Since the initial slot was planned on a closing day, all recurring slots should be generated normally regardless of whether they land on a closing day.'
+        )
+
+    def test_recurrency_resource_partially_busy_below_100(self):
+        """
+        This test covers the case where the resource has occuring slots at the same time as the recurrent slot but their hour sum doesn't go
+        over the available hours in the period we are planning over.
+        Specifically, the resource should have these 3 shifts on their calendar:
+            - 12/3/24 8:00 - 14:00 (1h allocated)
+            - 12/3/24 12:00 - 16:00 (1h allocated)
+            - 12/3/24 7:00 - 10:00 (1h allocated)
+        They all overlap with the recurring shift which should be generated like so:
+            - 12/3/24 8:00 - 14:00 (2h allocated)
+        The sum of the allocated hours is 5h while we are planning over a 9h period.
+        Thus we generate the recurring shift normally without making it open.
+        """
+        first_slot = self.env['planning.slot'].create([{  # this should land on a Monday
+            'start_datetime': self.random_monday_date + timedelta(hours=8),
+            'end_datetime': self.random_monday_date + timedelta(hours=14),
+            'resource_id': self.resource_bert.id,
+            'allocated_hours': 2,
+            'repeat': True,
+            'repeat_type': 'x_times',
+            'repeat_number': 2,
+            'repeat_interval': 1,
+            'repeat_unit': 'day',
+        }, {
+            'start_datetime': self.random_monday_date + timedelta(days=1, hours=8),
+            'end_datetime': self.random_monday_date + timedelta(days=1, hours=14),
+            'resource_id': self.resource_bert.id,
+            'allocated_hours': 1,
+        }, {
+            'start_datetime': self.random_monday_date + timedelta(days=1, hours=12),
+            'end_datetime': self.random_monday_date + timedelta(days=1, hours=16),
+            'resource_id': self.resource_bert.id,
+            'allocated_hours': 1,
+        }, {
+            'start_datetime': self.random_monday_date + timedelta(days=1, hours=7),
+            'end_datetime': self.random_monday_date + timedelta(days=1, hours=10),
+            'resource_id': self.resource_bert.id,
+            'allocated_hours': 1,
+        }])[0]
+
+        self.assertTrue(
+            first_slot.recurrency_id.slot_ids[1].resource_id,
+            'The 2nd recurring slot can be generated normally as the recurrent shift and the other occuring shifts would not pass 100 percent allocated percentage.'
+        )
+
+    def test_recurrency_resource_partially_busy_above_100(self):
+        """
+        This test is similar to the one above but this time, the recurrent shift would leave the resource over-planned and thus it is not generated.
+        Specifically, the resource should have these 1 shift on their calendar:
+            - 12/3/24 8:00 - 10:00 (2h allocated)
+        It will overlap with the recurring shift which should be generated like so:
+            - 12/3/24 8:00 - 11:00 (2h allocated)
+        The sum of the allocated hours is 4h while we are planning over a 3h period.
+        Thus we generate the recurring shift as an open shift.
+        """
+        first_slot = self.env['planning.slot'].create([{  # this should land on a Monday
+            'start_datetime': self.random_monday_date + timedelta(hours=8),
+            'end_datetime': self.random_monday_date + timedelta(hours=11),
+            'resource_id': self.resource_bert.id,
+            'allocated_hours': 2,
+            'repeat': True,
+            'repeat_type': 'x_times',
+            'repeat_number': 2,
+            'repeat_interval': 1,
+            'repeat_unit': 'day',
+        }, {
+            'start_datetime': self.random_monday_date + timedelta(days=1, hours=8),
+            'end_datetime': self.random_monday_date + timedelta(days=1, hours=10),
+            'resource_id': self.resource_bert.id,
+            'allocated_hours': 2,
+        }])[0]
+
+        self.assertEqual(
+            first_slot.recurrency_id.slot_ids[0].resource_id.id,
+            self.resource_bert.id,
+            'The 1st recurring slot will be generated normally since the resource is available on that day.'
+        )
+        self.assertFalse(
+            first_slot.recurrency_id.slot_ids[1].resource_id,
+            'The 2nd recurring slot will be generated as an open shift because the resource cannot accomodate the extra slot given its allocated hours.'
+        )
+
+    def test_recurrency_with_slot_outside_working_hours(self):
+        """
+        This test covers the case in which the initially planned shift in the recurrence is planned outisde the resources working hours.
+        This is an exception from the regular flow.
+        In this case, we should generate all the recurring shifts normally even if they land on non-working hours.
+        The initial shift will be at 18:00 in the afternoon and should be repeated 5 times.
+        """
+        first_slot = self.env['planning.slot'].create({  # this should land on a Monday
+            'start_datetime': self.random_monday_date + timedelta(hours=18),
+            'end_datetime': self.random_monday_date + timedelta(hours=20),
+            'resource_id': self.resource_bert.id,
+            'repeat': True,
+            'repeat_type': 'x_times',
+            'repeat_number': 5,
+            'repeat_interval': 1,
+            'repeat_unit': 'day',
+        })
+
+        resources_per_slot = [slot.resource_id.id for slot in first_slot.recurrency_id.slot_ids]
+
+        self.assertTrue(
+            all(resources_per_slot),
+            'Since the initial slot was planned outside working hours, all recurring slots should be generated normally regardless of the hour of the day.'
+        )
+
+    def test_recurrency_outside_working_hours(self):
+        """
+        This test covers the case in which the initially planned shift in the recurrence is planned inside the resources working hours,
+        but some of the repeated shifts will land outisde the resource's working hours.
+        In this case, the recurring shifts that land inside of the resource's working hours will be planned normally. The ones that dont,
+        will still be planned but as open shifts (without a resource).
+        In this example:
+            - The resource will not work on Tuesday and Thursday afternoon.
+            - The initial shift will be at 15:00 in the afternoon and should be repeated 5 times.
+            -> 3 shifts should be planned normally (for Monday, Wednesday, and Friday) and 2 as open shifts (Tuesday and Thursday)
+        """
+        part_time_calendar = self.env['resource.calendar'].create({
+            'name': 'Part time calendar',
+            'tz': 'UTC',
+            'hours_per_day': 8.0,
+            'attendance_ids': [
+                (0, 0, {'name': 'Monday Morning', 'dayofweek': '0', 'hour_from': 8, 'hour_to': 12, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Monday Afternoon', 'dayofweek': '0', 'hour_from': 13, 'hour_to': 17, 'day_period': 'afternoon'}),
+                (0, 0, {'name': 'Tuesday Morning', 'dayofweek': '1', 'hour_from': 8, 'hour_to': 12, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Wednesday Morning', 'dayofweek': '2', 'hour_from': 8, 'hour_to': 12, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Wednesday Afternoon', 'dayofweek': '2', 'hour_from': 13, 'hour_to': 17, 'day_period': 'afternoon'}),
+                (0, 0, {'name': 'Thursday Morning', 'dayofweek': '3', 'hour_from': 8, 'hour_to': 12, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Friday Morning', 'dayofweek': '4', 'hour_from': 8, 'hour_to': 12, 'day_period': 'morning'}),
+                (0, 0, {'name': 'Friday Afternoon', 'dayofweek': '4', 'hour_from': 13, 'hour_to': 17, 'day_period': 'afternoon'})
+            ]
+        })
+        self.employee_bert.resource_calendar_id = part_time_calendar
+        first_slot = self.env['planning.slot'].create({  # this should land on a Monday
+            'start_datetime': self.random_monday_date + timedelta(hours=15),
+            'end_datetime': self.random_monday_date + timedelta(hours=16),
+            'resource_id': self.resource_bert.id,
+            'repeat': True,
+            'repeat_type': 'x_times',
+            'repeat_number': 5,
+            'repeat_interval': 1,
+            'repeat_unit': 'day',
+        })
+
+        resources_per_slot = [slot.resource_id.id for slot in first_slot.recurrency_id.slot_ids]
+
+        self.assertFalse(
+            all(resources_per_slot),
+            'Since the initial slot was planned during work hours, recurring slots outside work hours are generated as open shifts.'
+        )
+        self.assertFalse(
+            first_slot.recurrency_id.slot_ids[1].resource_id,
+            'The recurring shift to be planned on Tuesday should be an open shift.'
+        )
+        self.assertFalse(
+            first_slot.recurrency_id.slot_ids[3].resource_id,
+            'The recurring shift to be planned on Thursday should be an open shift.'
         )
