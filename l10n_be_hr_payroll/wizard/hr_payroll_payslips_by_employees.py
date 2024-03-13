@@ -4,10 +4,20 @@
 from collections import defaultdict
 
 from odoo import models
+from odoo.osv import expression
 
 
 class HrPayslipEmployees(models.TransientModel):
     _inherit = 'hr.payslip.employees'
+
+    def _get_domain(self):
+        domain = super()._get_domain()
+        if self.structure_id and self.structure_id == self.env.ref('l10n_be_hr_payroll.hr_payroll_structure_cp200_thirteen_month'):
+            domain = expression.AND([
+                domain,
+                [('employee_type', '=', 'employee')]
+            ])
+        return domain
 
     def _filter_contracts(self, contracts):
         contracts = super()._filter_contracts(contracts)

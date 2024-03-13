@@ -32,16 +32,20 @@ class HrPayslipEmployees(models.TransientModel):
     structure_id = fields.Many2one('hr.payroll.structure', string='Salary Structure')
     department_id = fields.Many2one('hr.department')
 
-    @api.depends('department_id')
+    @api.depends('structure_id', 'department_id')
     def _compute_employee_ids(self):
         for wizard in self:
-            domain = wizard._get_available_contracts_domain()
-            if wizard.department_id:
-                domain = expression.AND([
-                    domain,
-                    [('department_id', 'child_of', self.department_id.id)]
-                ])
+            domain = wizard._get_domain()
             wizard.employee_ids = self.env['hr.employee'].search(domain)
+
+    def _get_domain(self):
+        domain = self._get_available_contracts_domain()
+        if self.department_id:
+            domain = expression.AND([
+                domain,
+                [('department_id', 'child_of', self.department_id.id)]
+            ])
+        return domain
 
     def _filter_contracts(self, contracts):
         # Could be overriden to avoid having 2 'end of the year bonus' payslips, etc.

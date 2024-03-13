@@ -4,7 +4,7 @@
 from pytz import timezone
 from dateutil.relativedelta import relativedelta, MO, SU
 from dateutil import rrule
-from collections import defaultdict
+from collections import defaultdict, Counter
 from datetime import date, datetime, timedelta
 from odoo import api, models, fields, _
 from odoo.tools import float_round, float_is_zero, date_utils, ormcache
@@ -377,10 +377,10 @@ class Payslip(models.Model):
         number_of_month = min(12, number_of_month)
         return total_amount / number_of_month if number_of_month else 0
 
-    def _compute_number_complete_months_of_work(self, date_from, date_to, contracts):
-        invalid_days_by_year = defaultdict(lambda: defaultdict(dict))
+    def _compute_number_complete_months_of_work(self, date_from, date_to, contracts, use_work_rate=False):
+        days_by_contract_by_year = defaultdict(lambda: defaultdict(dict))
         for day in rrule.rrule(rrule.DAILY, dtstart=date_from + relativedelta(day=1), until=date_to + relativedelta(day=31)):
-            invalid_days_by_year[day.year][day.month][day.date()] = True
+            days_by_contract_by_year[day.year][day.month][day.date()] = None
 
         public_holidays = [(leave.date_from.date(), leave.date_to.date()) for leave in self.employee_id._get_public_holidays(date_from, date_to)]
         for contract in contracts:
@@ -391,24 +391,29 @@ class Payslip(models.Model):
             days_to_check = rrule.rrule(rrule.DAILY, dtstart=previous_week_start, until=next_week_end)
             for day in days_to_check:
                 day = day.date()
-                out_of_schedule = True
 
                 # Full time credit time doesn't count
                 if contract.time_credit and not contract.work_time_rate:
                     continue
-                if (contract.date_start <= day <= (contract.date_end or date.max) or
-                        day.weekday() not in work_days or
+                if contract.date_start <= day <= (contract.date_end or date.max):
+                    days_by_contract_by_year[day.year][day.month][day] = contract
+                elif (day.weekday() not in work_days or
                         any(date_from <= day <= date_to for date_from, date_to in public_holidays)):
-                    out_of_schedule = False
-                invalid_days_by_year[day.year][day.month][day] &= out_of_schedule
+                    days_by_contract_by_year[day.year][day.month][day] = 'holiday'
 
-        complete_months = [
-            month
-            for year, invalid_days_by_months in invalid_days_by_year.items()
-            for month, days in invalid_days_by_months.items()
-            if not any(days.values())
-        ]
-        return len(complete_months)
+        months = 0
+        for year, invalid_days_by_months in days_by_contract_by_year.items():
+            for month, days in invalid_days_by_months.items():
+                counter = Counter(days.values())
+                if None in counter:
+                    continue
+                if use_work_rate:
+                    under_contract_days = sum(counter.values()) - counter.pop('holiday', 0)
+                    for contract, n_days in counter.items():
+                        months += n_days / under_contract_days * contract.work_time_rate
+                else:
+                    months += 1
+        return months
 
     def _compute_presence_prorata(self, date_from, date_to, contracts):
         unpaid_work_entry_types = self.struct_id.unpaid_work_entry_type_ids
@@ -416,7 +421,7 @@ class Payslip(models.Model):
         hours = contracts.get_work_hours(date_from, date_to)
         paid_hours = sum(v for k, v in hours.items() if k in paid_work_entry_types.ids)
         unpaid_hours = sum(v for k, v in hours.items() if k in unpaid_work_entry_types.ids)
-        # Take 30 unpaid sick open days as paid time off
+        # Take 60 unpaid sick open days as paid time off
         if self.struct_id.code == 'CP200THIRTEEN':
             unpaid_sick_codes = ['LEAVE280', 'LEAVE214']
             date_from = datetime.combine(date_from, datetime.min.time())
@@ -434,7 +439,7 @@ class Payslip(models.Model):
                 work_entry_date = work_entry.date_start.date()
                 if work_entry_date in valid_days:
                     valid_sick_hours += work_entry.duration
-                elif days_count < 30:
+                elif days_count < 60:
                     valid_days.add(work_entry_date)
                     days_count += 1
                     valid_sick_hours += work_entry.duration
@@ -443,19 +448,9 @@ class Payslip(models.Model):
         return paid_hours / (paid_hours + unpaid_hours) if paid_hours or unpaid_hours else 0
 
     def _get_paid_amount_13th_month(self):
-        # Counts the number of fully worked month
-        # If any day in the month is not covered by the contract dates coverage
-        # the entire month is not taken into account for the proratization
-        contracts = self.employee_id.contract_ids.filtered(lambda c: c.state not in ['draft', 'cancel'] and c.structure_type_id == self.struct_id.type_id)
+        contracts = self.employee_id.contract_ids.filtered(lambda c: c.state not in ['draft', 'cancel'] and c.structure_type_id == self.struct_id.type_id).sorted(key=lambda c: c.date_start)
         first_contract_date = self.contract_id.employee_id._get_first_contract_date(no_gap=False)
         if not contracts or not first_contract_date:
-            return 0.0
-        # Only employee with at least 6 months of XP can benefit from the 13th month bonus
-        # aka employee who started before the 7th of July (to avoid issues when the month starts
-        # with holidays / week-ends, etc)
-        if first_contract_date.year == self.date_from.year and \
-                ((first_contract_date.month == 7 and first_contract_date.day > 7) \
-                or (first_contract_date.month > 7)):
             return 0.0
 
         date_from = max(first_contract_date, self.date_from + relativedelta(day=1, month=1))
@@ -464,31 +459,37 @@ class Payslip(models.Model):
         basic = self.contract_id._get_contract_wage()
 
         force_months = self.input_line_ids.filtered(lambda l: l.code == 'MONTHS')
+        work_time_rates = contracts.resource_calendar_id.mapped('work_time_rate')[::-1]
+        non_zero_rates = [rate for rate in work_time_rates if rate != 0]
+        if not non_zero_rates:
+            return 0.0
+        current_work_rate = non_zero_rates[0] / 100
+
         if force_months:
             n_months = force_months[0].amount
-            presence_prorata = 1
+            if n_months < 6:
+                return 0.0
+            fixed_salary = basic * n_months / 12
         else:
-            # 1. Number of months
-            n_months = min(12, self._compute_number_complete_months_of_work(date_from, date_to, contracts))
-            # 2. Deduct absences
+            # Number of complete months (any work rate)
+            months_worked = self._compute_number_complete_months_of_work(date_from, date_to, contracts)
+            if months_worked < 6:
+                return 0.0
+
+            # Quantity of months worked equivalently in full-time
+            full_time_months = self._compute_number_complete_months_of_work(date_from, date_to, contracts, True)
+            # Deduct absences
             presence_prorata = self._compute_presence_prorata(date_from, date_to, contracts)
 
-        # Could happen for contracts with gaps
-        if n_months < 6:
-            return 0.0
-
-        fixed_salary = basic * n_months / 12 * presence_prorata
+            fixed_salary = basic * full_time_months / 12 * presence_prorata / current_work_rate
 
         force_avg_variable_revenues = self.input_line_ids.filtered(lambda l: l.code == 'VARIABLE')
         if force_avg_variable_revenues:
             avg_variable_revenues = force_avg_variable_revenues[0].amount
         else:
-            if not n_months:
-                avg_variable_revenues = 0
-            else:
-                avg_variable_revenues = self.with_context(
-                    variable_revenue_date_from=self.date_from
-                )._get_last_year_average_variable_revenues()
+            avg_variable_revenues = self.with_context(
+                variable_revenue_date_from=self.date_from
+            )._get_last_year_average_variable_revenues()
         return fixed_salary + avg_variable_revenues
 
     def _get_paid_amount_warrant(self):

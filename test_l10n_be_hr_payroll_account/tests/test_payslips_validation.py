@@ -10449,7 +10449,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         self._validate_payslip(payslip, payslip_results)
 
     def test_thirteen_month_sick_leave(self):
-        # 30 days of unpaid sick leaves are taken into account as attendances on
+        # 60 days of unpaid sick leaves are taken into account as attendances on
         # the gross computation
         sick_leave = self.env['hr.leave'].new({
             'name': 'Sick Time Off 2 Months',
@@ -10469,20 +10469,20 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
 
         payslip = self._generate_payslip(datetime.date(2023, 6, 1), datetime.date(2023, 6, 30), struct_id=self.env.ref('l10n_be_hr_payroll.hr_payroll_structure_cp200_thirteen_month').id)
         payslip_results = {
-            'BASIC': 1182.31,
-            'SALARY': 1182.31,
-            'ONSS': -154.53,
-            'GROSS': 1027.78,
-            'P.P': -477.3,
-            'PPTOTAL': 477.3,
-            'NET': 550.48,
-            'ONSSEMPLOYERBASIC': 295.93,
-            'ONSSEMPLOYERFFE': 0.83,
-            'ONSSEMPLOYERMFFE': 1.18,
-            'ONSSEMPLOYERCPAE': 2.72,
-            'ONSSEMPLOYERRESTREINT': 19.98,
-            'ONSSEMPLOYERUNEMP': 1.18,
-            'ONSSEMPLOYER': 321.82,
+            'BASIC': 1325.0,
+            'SALARY': 1325.0,
+            'ONSS': -173.18,
+            'GROSS': 1151.82,
+            'P.P': -534.91,
+            'PPTOTAL': 534.91,
+            'NET': 616.92,
+            'ONSSEMPLOYERBASIC': 331.65,
+            'ONSSEMPLOYERFFE': 0.93,
+            'ONSSEMPLOYERMFFE': 1.33,
+            'ONSSEMPLOYERCPAE': 3.05,
+            'ONSSEMPLOYERRESTREINT': 22.39,
+            'ONSSEMPLOYERUNEMP': 1.33,
+            'ONSSEMPLOYER': 360.67,
         }
         self._validate_payslip(payslip, payslip_results)
 
