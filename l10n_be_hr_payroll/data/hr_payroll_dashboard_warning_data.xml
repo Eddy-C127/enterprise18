@@ -90,7 +90,7 @@ for leave in sick_more_than_30days_leave:
 warning_count = 0
 warning_records = self.env['hr.employee']
 for employee, total_duration in employee_duration.items():
-    if total_duration > 30:
+    if employee.active and total_duration > 30:
         warning_count += 1
         warning_records |= employee
             </field>
