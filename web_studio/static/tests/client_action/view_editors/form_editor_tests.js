@@ -128,12 +128,12 @@ function getFormEditorServerData() {
                     },
                 ],
             },
-            'ir.model.fields': {
+            "ir.model.fields": {
                 fields: {
                     id: { string: "Id", type: "integer" },
-                    display_name: { string: "Name", type:"char" },
-                    relation: { string: "Relation", type:"char" },
-                    ttype: { string: "Type", type:"char" },
+                    display_name: { string: "Name", type: "char" },
+                    relation: { string: "Relation", type: "char" },
+                    ttype: { string: "Type", type: "char" },
                     store: { string: "Store", type: "boolean" },
                 },
                 records: [
@@ -510,9 +510,10 @@ QUnit.module("View Editors", (hooks) => {
                     let newArch;
                     if (editViewCount === 1) {
                         assert.deepEqual(
-                            args.operations[0].new_attrs, {
-                                "options": "{\"preview_image\":\"image\"}"
-                              },
+                            args.operations[0].new_attrs,
+                            {
+                                options: '{"preview_image":"image"}',
+                            },
                             "size is no longer present in the attrs of the image field"
                         );
                         newArch = `<form>
@@ -536,9 +537,17 @@ QUnit.module("View Editors", (hooks) => {
         );
 
         await click(target.querySelector(".o_field_widget[name='image']"));
-        assert.strictEqual(target.querySelector(".o_web_studio_property_size .o_select_menu").textContent, "Small");
-        await click(target.querySelector(".o_web_studio_property_size .o_select_menu_toggler_clear"));
-        assert.strictEqual(target.querySelector(".o_web_studio_property_size .o_select_menu").textContent, "");
+        assert.strictEqual(
+            target.querySelector(".o_web_studio_property_size .o_select_menu").textContent,
+            "Small"
+        );
+        await click(
+            target.querySelector(".o_web_studio_property_size .o_select_menu_toggler_clear")
+        );
+        assert.strictEqual(
+            target.querySelector(".o_web_studio_property_size .o_select_menu").textContent,
+            ""
+        );
     });
 
     QUnit.test("signature field edition (change full_name)", async function (assert) {
@@ -2433,8 +2442,6 @@ QUnit.module("View Editors", (hooks) => {
         assert.containsNone(target, ".o_dialog .modal", "should not display the create modal");
     });
 
-
-
     QUnit.test("new button in buttonbox through 'Search more'", async function (assert) {
         patchWithCleanup(browser, { setTimeout: () => 1 });
         const arch = `<form><sheet><field name='display_name'/></sheet></form>`;
@@ -2498,7 +2505,7 @@ QUnit.module("View Editors", (hooks) => {
             "notification shown at confirm when no field selected"
         );
         assert.containsOnce(target, ".o_dialog .modal", "dialog is still present");
-        
+
         await click(target.querySelector(".o-autocomplete--input"));
         await click(target.querySelector(".o_m2o_dropdown_option_search_more"));
         await click(target.querySelector(".o_list_view .o_data_row .o_data_cell"));
@@ -2507,12 +2514,17 @@ QUnit.module("View Editors", (hooks) => {
         assert.containsNone(target, ".o_dialog .modal", "should not display the create modal");
     });
 
-    QUnit.test("new button in buttonbox with first element invisible", async function (assert) {
+    QUnit.test("buttonbox with invisible button, then show invisible", async function (assert) {
         serverData.models["coucou"].records[0] = {
             display_name: "someName",
             id: 99,
         };
-        const arch = `
+
+        await createViewEditor({
+            serverData,
+            type: "form",
+            resModel: "coucou",
+            arch: `
                 <form>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
@@ -2521,16 +2533,16 @@ QUnit.module("View Editors", (hooks) => {
                         </div>
                         <field name='display_name'/>
                     </sheet>
-                </form>`;
-        await createViewEditor({
-            serverData,
-            type: "form",
-            resModel: "coucou",
-            arch: arch,
+                </form>`,
             resId: 99,
         });
         assert.containsOnce(target, ".o-form-buttonbox .o_web_studio_button_hook");
         assert.containsNone(target, "button.someClass");
+
+        await click(selectorContains(target, ".o_web_studio_sidebar .nav-link", "View"));
+        await click(target.querySelector(".o_web_studio_sidebar #show_invisible"));
+
+        assert.containsOnce(target, "button.someClass");
     });
 
     QUnit.test("element removal", async function (assert) {
@@ -3126,7 +3138,7 @@ QUnit.module("View Editors", (hooks) => {
         await createViewEditor({
             serverData,
             type: "form",
-            resModel: 'coucou',
+            resModel: "coucou",
             arch: `
                 <form>
                 <sheet>
@@ -3135,15 +3147,19 @@ QUnit.module("View Editors", (hooks) => {
                     </div>
                 </sheet>
                 </form>`,
-             mockRPC: function(route, args) {
-                 if (route === "/web_studio/edit_view") {
+            mockRPC: function (route, args) {
+                if (route === "/web_studio/edit_view") {
                     assert.step("edit_view");
                     if (count === 0) {
-                        assert.deepEqual(args.operations[0].new_attrs, {
-                            "effect": {
-                                "fadeout": "fast"
-                            }
-                        }, "new fadeout value is being set properly");
+                        assert.deepEqual(
+                            args.operations[0].new_attrs,
+                            {
+                                effect: {
+                                    fadeout: "fast",
+                                },
+                            },
+                            "new fadeout value is being set properly"
+                        );
                         const newArch = `
                             <form>
                                 <sheet>
@@ -3154,24 +3170,32 @@ QUnit.module("View Editors", (hooks) => {
                             </form>`;
                         return createMockViewResult(serverData, "form", newArch, "coucou");
                     } else {
-                        assert.deepEqual(args.operations[0].new_attrs, {
-                            "effect": {}
-                        }, "fadeout attribute has been removed from the effect");
+                        assert.deepEqual(
+                            args.operations[0].new_attrs,
+                            {
+                                effect: {},
+                            },
+                            "fadeout attribute has been removed from the effect"
+                        );
                     }
                     count++;
-                 }
-             }
+                }
+            },
         });
 
         await click(target.querySelector("button.oe_stat_button[data-studio-xpath]"));
-        assert.strictEqual(target.querySelector(".o_web_studio_sidebar [name='effect']").checked, true);
-        assert.strictEqual(target.querySelector(".o_web_studio_sidebar .o_select_menu .o_select_menu_toggler").textContent, "Medium", "current value is displayed properly");
-
-        await editAnySelect(
-            target,
-            ".o_web_studio_sidebar .o_select_menu",
-            "Fast"
+        assert.strictEqual(
+            target.querySelector(".o_web_studio_sidebar [name='effect']").checked,
+            true
         );
+        assert.strictEqual(
+            target.querySelector(".o_web_studio_sidebar .o_select_menu .o_select_menu_toggler")
+                .textContent,
+            "Medium",
+            "current value is displayed properly"
+        );
+
+        await editAnySelect(target, ".o_web_studio_sidebar .o_select_menu", "Fast");
         assert.verifySteps(["edit_view"]);
 
         await click(target.querySelector(".o_select_menu .o_select_menu_toggler_clear"));
@@ -3390,34 +3414,43 @@ QUnit.module("View Editors", (hooks) => {
         );
     });
 
-    QUnit.test('Restrict drag and drop of notebook and group in a inner group', async function (assert) {
-        const arch = `<form>
+    QUnit.test(
+        "Restrict drag and drop of notebook and group in a inner group",
+        async function (assert) {
+            const arch = `<form>
             <sheet>
                 <group>
                     <field name='display_name'/>
                 </group>
             </sheet>
         </form>`;
-        let editViewCount = 0;
-        await createViewEditor({
-            serverData,
-            type: "form",
-            resModel: "coucou",
-            arch: arch,
-            mockRPC: function (route, args) {
-                if (route === "/web_studio/edit_view") {
-                    editViewCount++;
-                    return createMockViewResult(serverData, "form", arch, "coucou");
-                }
-            },
-        });
-        await dragAndDrop(target.querySelector('.o_web_studio_field_type_container .o_web_studio_field_tabs'), target.querySelector('.o_inner_group .o_wrap_field'));
-        assert.strictEqual(editViewCount, 0,
-            "the notebook cannot be dropped inside a group");
-        await dragAndDrop(target.querySelector('.o_web_studio_field_type_container .o_web_studio_field_columns'), target.querySelector('.o_inner_group .o_wrap_field'));
-        assert.strictEqual(editViewCount, 0,
-            "the group cannot be dropped inside a group");
-    });
+            let editViewCount = 0;
+            await createViewEditor({
+                serverData,
+                type: "form",
+                resModel: "coucou",
+                arch: arch,
+                mockRPC: function (route, args) {
+                    if (route === "/web_studio/edit_view") {
+                        editViewCount++;
+                        return createMockViewResult(serverData, "form", arch, "coucou");
+                    }
+                },
+            });
+            await dragAndDrop(
+                target.querySelector(".o_web_studio_field_type_container .o_web_studio_field_tabs"),
+                target.querySelector(".o_inner_group .o_wrap_field")
+            );
+            assert.strictEqual(editViewCount, 0, "the notebook cannot be dropped inside a group");
+            await dragAndDrop(
+                target.querySelector(
+                    ".o_web_studio_field_type_container .o_web_studio_field_columns"
+                ),
+                target.querySelector(".o_inner_group .o_wrap_field")
+            );
+            assert.strictEqual(editViewCount, 0, "the group cannot be dropped inside a group");
+        }
+    );
 
     QUnit.test("edit_view route includes the context of the action", async (assert) => {
         registry.category("services").add("enterprise_subscription", {
