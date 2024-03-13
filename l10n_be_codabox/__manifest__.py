@@ -15,7 +15,6 @@ The connection must be done by the Accounting Firm.
         'l10n_be_soda',
         'l10n_be_reports',
     ],
-    'auto_install': True,
     'data': [
         'data/ir_cron.xml',
         'security/ir.model.access.csv',
@@ -26,4 +25,5 @@ The connection must be done by the Accounting Firm.
         'wizard/validation_wizard.xml',
     ],
     'license': 'OEEL-1',
+    'pre_init_hook': '_l10n_be_codabox_pre_init_hook',
 }

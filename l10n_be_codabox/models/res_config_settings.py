@@ -11,6 +11,7 @@ from odoo.addons.l10n_be_codabox.const import get_error_msg
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    l10n_be_codabox_fiduciary_vat = fields.Char(related="company_id.l10n_be_codabox_fiduciary_vat")
     l10n_be_codabox_iap_token = fields.Char(related="company_id.l10n_be_codabox_iap_token", readonly=False)
     l10n_be_codabox_is_connected = fields.Boolean(related="company_id.l10n_be_codabox_is_connected")
     l10n_be_codabox_soda_journal = fields.Many2one(related="company_id.l10n_be_codabox_soda_journal", readonly=False)
@@ -55,13 +56,10 @@ class ResConfigSettings(models.TransientModel):
 
     def l10n_be_codabox_open_soda_mapping(self):
         self.ensure_one()
-        if not self.l10n_be_codabox_soda_journal:
-            raise UserError(_("You must select a journal in which SODA's will be imported."))
         wizard = self.env['soda.import.wizard'].create({
             'soda_files': {},
             'soda_code_to_name_mapping': {},
             'company_id': self.company_id.id,
-            'journal_id': self.l10n_be_codabox_soda_journal.id,
         })
         res = self.company_id._l10n_be_codabox_return_wizard(
             name=_('SODA Mapping'),

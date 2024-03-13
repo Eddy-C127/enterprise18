@@ -26,7 +26,7 @@ class SodaImportWizard(models.TransientModel):
     # A dict mapping the SODA account code to its description
     soda_code_to_name_mapping = fields.Json(required=True)
     company_id = fields.Many2one('res.company', required=True)
-    journal_id = fields.Many2one('account.journal', required=True)
+    journal_id = fields.Many2one('account.journal')
     soda_account_mapping_ids = fields.Many2many('soda.account.mapping', compute='_compute_soda_account_mapping_ids', readonly=False)
 
     @api.depends('soda_code_to_name_mapping', 'company_id')

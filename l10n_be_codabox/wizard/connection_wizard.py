@@ -22,7 +22,7 @@ class L10nBeCodaBoxConnectionWizard(models.TransientModel):
     )
     fiduciary_vat = fields.Char(
         string='Accounting Firm VAT',
-        compute='_compute_fiduciary_vat',
+        related='company_id.l10n_be_codabox_fiduciary_vat',
     )
     l10n_be_codabox_is_connected = fields.Boolean(related='company_id.l10n_be_codabox_is_connected')
     fidu_password = fields.Char(
@@ -34,10 +34,6 @@ class L10nBeCodaBoxConnectionWizard(models.TransientModel):
     nb_connections = fields.Integer()
     connection_exists = fields.Boolean()
     is_fidu_consent_valid = fields.Boolean()
-
-    def _compute_fiduciary_vat(self):
-        for wizard in self:
-            wizard.fiduciary_vat = wizard.company_id.account_representative_id.vat or wizard.company_id.vat
 
     def _compute_show_fidu_password(self):
         for wizard in self:
