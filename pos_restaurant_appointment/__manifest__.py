@@ -22,5 +22,8 @@
         'point_of_sale._assets_pos': [
             'pos_restaurant_appointment/static/src/app/**/*',
         ],
+    'web.assets_tests': [
+            'pos_restaurant_appointment/static/tests/tours/**/*',
+        ],
     }
 }

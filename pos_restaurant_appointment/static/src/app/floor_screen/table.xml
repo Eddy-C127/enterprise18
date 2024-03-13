@@ -2,7 +2,7 @@
 <templates id="template" xml:space="preserve">
     <t t-name="pos_restaurant_appointment.Table" t-inherit="pos_restaurant.Table" t-inherit-mode="extension">
         <xpath expr="//div[hasclass('info')]" position="inside">
-            <div t-if="firstAppointment" class="p-1 d-flex flex-column align-items-center position-absolute w-100 start-50 translate-middle-x top-100" t-att-style="textStyle">
+            <div t-if="firstAppointment" class="appointment-label p-1 d-flex flex-column align-items-center position-absolute w-100 start-50 translate-middle-x top-100" t-att-style="textStyle">
                 <div class="w-100 p-0 d-flex justify-content-between">
                     <div class="text-nowrap px-1">
                         <i class="fa fa-clock-o"/> <t t-esc="getFormatedDate(firstAppointment.start)" />
