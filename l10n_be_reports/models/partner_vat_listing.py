@@ -8,6 +8,7 @@ from itertools import groupby
 from .account_report import _raw_phonenumber, _get_xml_export_representative_node
 
 from stdnum.eu.vat import compact
+from stdnum.be.vat import compact as vat_be_compact
 
 
 class PartnerVATListingCustomHandler(models.AbstractModel):
@@ -367,10 +368,8 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
 
         # Write xml
         seq_declarantnum = self.env['ir.sequence'].next_by_code('declarantnum')
-        company_vat = company_vat.replace(' ', '').upper()
-        SenderId = company_vat[2:]
-        issued_by = company_vat[:2]
-        dnum = company_vat[2:] + seq_declarantnum[-4:]
+        company_bce_number = vat_be_compact(company_vat)
+        dnum = f'{company_bce_number}{seq_declarantnum[-4:]}'
         street = city = country = ''
         addr = company.partner_id.address_get(['invoice'])
 
@@ -420,7 +419,7 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
             sum_tax += vat_amount
             amount_data = {
                 'seq': str(seq),
-                'only_vat': vat_number[2:],
+                'only_vat': vat_be_compact(vat_number),
                 'turnover': turnover,
                 'vat_amount': vat_amount,
             }
@@ -432,8 +431,6 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
         </ns2:Client>""") % amount_data
 
         annual_listing_data = {
-            'issued_by': issued_by,
-            'company_vat': company_vat,
             'comp_name': company.name,
             'street': street,
             'zip_code': zip_code,
@@ -441,7 +438,7 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
             'country': country,
             'email': email,
             'phone': phone,
-            'SenderId': SenderId,
+            'SenderId': company_bce_number,
             'period': options['date'].get('date_from')[0:4],
             'comments': '',
             'seq': str(seq),

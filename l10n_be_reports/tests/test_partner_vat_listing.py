@@ -2,7 +2,7 @@
 # pylint: disable=C0326
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.tests import tagged
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 
@@ -278,6 +278,68 @@ class BelgiumPartnerVatListingTest(TestAccountReportsCommon):
                 ('Partner VAT Listing',     '',                 0,                  0),
             ],
             options,
+        )
+
+    @freeze_time('2019-12-31')
+    def test_generate_xml_with_company_without_be_in_vat_number(self):
+        """ The aim of this test is verifying that we generate the Partner VAT Listing
+            XML correctly, even if the company vat number doesn't start with 'BE'.
+        """
+        self.company_data['company'].vat = self.company_data['company'].vat.upper().replace('BE', '')
+        options = self._generate_options(self.report, '2019-12-01', '2019-12-31')
+
+        # The sequence changes between execution of the test. To handle that, we increase by 1 more, so we can get its value here
+        sequence_number = self.env['ir.sequence'].next_by_code('declarantnum')
+        ref = f"0477472701{str(int(sequence_number) + 1).zfill(4)[-4:]}"
+
+        partner_be = self.env['res.partner'].create({
+            'name': 'Belgian Partner',
+            'vat': 'BE0694545041',
+            'country_id': self.env.ref('base.be').id,
+        })
+
+        move = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'date': '2019-12-22',
+            'partner_id': partner_be.id,
+            'invoice_line_ids': [
+                Command.create({
+                    'name': 'test',
+                    'price_unit': 3500.0,
+                    'quantity': 1,
+                    'tax_ids': [Command.link(self.tax_sale_a.id)],
+                })
+            ]
+        })
+        move.action_post()
+
+        expected_xml = f"""
+            <ns2:ClientListingConsignment xmlns="http://www.minfin.fgov.be/InputCommon" xmlns:ns2="http://www.minfin.fgov.be/ClientListingConsignment" ClientListingsNbr="1">
+                <ns2:ClientListing SequenceNumber="1" ClientsNbr="1" DeclarantReference="{ref}" TurnOverSum="3500.00" VATAmountSum="735.00">
+                    <ns2:Declarant>
+                        <VATNumber>0477472701</VATNumber>
+                        <Name>company_1_data</Name>
+                        <Street></Street>
+                        <PostCode></PostCode>
+                        <City></City>
+                        <CountryCode>BE</CountryCode>
+                        <EmailAddress>jsmith@mail.com</EmailAddress>
+                        <Phone>+32475123456</Phone>
+                    </ns2:Declarant>
+                    <ns2:Period>2019</ns2:Period>
+                    <ns2:Client SequenceNumber="1">
+                        <ns2:CompanyVATNumber issuedBy="BE">0694545041</ns2:CompanyVATNumber>
+                        <ns2:TurnOver>3500.00</ns2:TurnOver>
+                        <ns2:VATAmount>735.00</ns2:VATAmount>
+                    </ns2:Client>
+                    <ns2:Comment></ns2:Comment>
+                </ns2:ClientListing>
+            </ns2:ClientListingConsignment>
+        """
+
+        self.assertXmlTreeEqual(
+            self.get_xml_tree_from_string(self.env[self.report._get_custom_handler_model()].partner_vat_listing_export_to_xml(options)['file_content']),
+            self.get_xml_tree_from_string(expected_xml)
         )
 
     @freeze_time('2019-12-31')
