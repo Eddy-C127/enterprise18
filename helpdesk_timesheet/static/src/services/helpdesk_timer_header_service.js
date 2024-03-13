@@ -5,7 +5,7 @@ import { registry } from "@web/core/registry";
 export const timerHelpdeskService = {
     dependencies: ["orm", "user"],
     async: [
-        "getHelpdeskProjects",
+        "fetchHelpdeskProjects",
     ],
     start(env, { orm, user }) {
         let helpdeskProjects;
