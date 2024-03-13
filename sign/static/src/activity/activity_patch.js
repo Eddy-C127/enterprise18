@@ -7,7 +7,7 @@ patch(Activity.prototype, {
     async onClickRequestSign() {
         await this.env.services["mail.activity"].requestSignature(
             this.props.data.id,
-            this.props.onUpdate.bind(this, this.thread)
+            this.props.reloadParentView
         );
     },
 });
