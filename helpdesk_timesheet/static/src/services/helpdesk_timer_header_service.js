@@ -6,7 +6,7 @@ import { user } from "@web/core/user";
 export const timerHelpdeskService = {
     dependencies: ["orm"],
     async: [
-        "getHelpdeskProjects",
+        "fetchHelpdeskProjects",
     ],
     start(env, { orm }) {
         let helpdeskProjects;
