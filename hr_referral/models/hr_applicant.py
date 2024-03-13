@@ -73,7 +73,7 @@ class Applicant(models.Model):
         result = super().check_field_access_rights(operation, field_names)
         if field_names:
             if (
-                not self.env.is_admin() and not self.env.user.has_group('hr_recruitment.group_hr_recruitment_interviewer')
+                not self.env.is_admin() and not self.env.user.has_group('hr_referral.group_hr_recruitment_referral_user')
                 and operation == 'read' and not set(field_names) - referral_fields
             ):
                 raise AccessError(_('You are not allowed to access applicant records.'))

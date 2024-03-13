@@ -22,6 +22,11 @@
             <field name="image" type="base64" file="hr_referral/static/src/img/amazon-vouchers.png"/>
         </record>
 
+        <record id="hr_recruitment.hr_case_financejob0" model="hr.applicant">
+            <field name="ref_user_id" ref="base.user_demo"/>
+            <field name="medium_id" ref="utm.utm_medium_direct"/>
+        </record>
+
         <record id="hr_recruitment.hr_case_financejob1" model="hr.applicant">
             <field name="ref_user_id" ref="base.user_admin"/>
             <field name="medium_id" ref="utm.utm_medium_direct"/>
