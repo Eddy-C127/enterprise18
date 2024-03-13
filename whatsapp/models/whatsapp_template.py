@@ -52,7 +52,10 @@ class WhatsAppTemplate(models.Model):
         ]
 
     name = fields.Char(string="Name", tracking=True)
-    template_name = fields.Char(string="Template Name", compute='_compute_template_name', readonly=False, store=True)
+    template_name = fields.Char(
+        string="Template Name",
+        compute='_compute_template_name', readonly=False, store=True,
+        copy=False)
     sequence = fields.Integer(required=True, default=0)
     active = fields.Boolean(default=True)
 
@@ -237,10 +240,10 @@ class WhatsAppTemplate(models.Model):
             elif 'phone' in self.env[template.model]._fields:
                 template.phone_field = 'phone'
 
-    @api.depends('name')
+    @api.depends('name', 'status', 'wa_template_uid')
     def _compute_template_name(self):
         for template in self:
-            if template.status == 'draft' and not template.wa_template_uid:
+            if not template.template_name or (template.status == 'draft' and not template.wa_template_uid):
                 template.template_name = re.sub(r'\W+', '_', slugify(template.name or ''))
 
     @api.depends('model')

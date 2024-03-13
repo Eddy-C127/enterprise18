@@ -133,7 +133,7 @@ Welcome to {{4}} office''',
             'body': '''Hello I am {{1}},
 Here my mobile number: {{2}},
 Welcome to {{3}} office''',
-            'name': 'Test-dynamic-complex',
+            'name': 'Test-dynamic-complex-with-variables',
             'status': 'approved',
             'wa_account_id': self.whatsapp_account.id,
             'variable_ids': [
@@ -419,7 +419,7 @@ class WhatsAppTemplateInternals(WhatsAppTemplateCommon):
                             "website_url": "https://www.example.com/2",
                         })
                     ],
-                    "name": "Test copy template",
+                    "name": f"Test copy template {button_type}",
                     "status": "approved",
                     "variable_ids": [
                         (0, 0, {
@@ -448,12 +448,13 @@ class WhatsAppTemplateInternals(WhatsAppTemplateCommon):
                 ]
                 self.assertWATemplateVariables(template, expected_variables)
                 self.assertFalse(template.button_ids.variable_ids)
+                self.assertEqual(template.template_name, f'test_copy_template_{button_type}')
 
                 clone = template.copy()
                 self.assertEqual(len(clone.button_ids), 2, 'Should copy buttons')
-
                 self.assertWATemplateVariables(clone, expected_variables)
                 self.assertFalse(template.button_ids.variable_ids)
+                self.assertEqual(clone.template_name, f'test_copy_template_{button_type}_copy')
 
 
 @tagged('wa_template')
