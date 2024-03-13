@@ -8,12 +8,12 @@ patch(OdooPivot.prototype, {
      * @param {string} fieldName
      */
     getPossibleValuesForGroupBy(fieldName) {
-        this._assertDataIsLoaded();
+        this.assertIsValid();
         return this._model.getPossibleValuesForGroupBy(fieldName);
     },
 
     async prepareForTemplateGeneration() {
-        this._assertDataIsLoaded();
+        this.assertIsValid();
         await this._model.prepareForTemplateGeneration();
     },
 });

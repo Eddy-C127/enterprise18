@@ -58,7 +58,7 @@ patch(OdooPivot.prototype, {
      * @returns {boolean}
      */
     isUsedValue(domain, measure) {
-        this._assertDataIsLoaded();
+        this.assertIsValid();
         return this._usedValueDomains.has(measure + "," + domain.join());
     },
 
@@ -67,7 +67,7 @@ patch(OdooPivot.prototype, {
      * @returns {boolean}
      */
     isUsedHeader(domain) {
-        this._assertDataIsLoaded();
+        this.assertIsValid();
         return this._usedHeaderDomains.has(domain.join());
     },
 
