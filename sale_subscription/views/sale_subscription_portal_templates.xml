@@ -136,8 +136,8 @@
             <t t-set="upsell_url" t-value="sale_order._get_upsell_portal_url()"/>
             <t t-set="renewal_url" t-value="sale_order._get_renewal_portal_url()"/>
             <div class="alert alert-warning text-center" role="alert" t-if="upsell_url or renewal_url">
-                <t t-if="upsell_url and renewal_url">There is an <a t-att-href="upsell_url">upsell</a> quotation and <a t-att-href="renewal_url">renewal</a> quotation existing for this subscription, please confirm them or reject them.</t>
-                <t t-elif="upsell_url">There is an <a t-att-href="upsell_url">upsell</a> quotation existing for this subscription, please confirm it or reject it.</t>
+                <t t-if="upsell_url and renewal_url">There is a <a t-att-href="upsell_url">quotation</a> and <a t-att-href="renewal_url">renewal</a> quotation existing for this subscription, please confirm them or reject them.</t>
+                <t t-elif="upsell_url">There is a <a t-att-href="upsell_url">quotation</a> existing for this subscription, please confirm it or reject it.</t>
                 <t t-elif="renewal_url">There is a <a t-att-href="renewal_url">renewal</a> quotation existing for this subscription, please confirm it or reject it.</t>
             </div>
         </div>
