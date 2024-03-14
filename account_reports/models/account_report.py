@@ -2185,6 +2185,9 @@ class AccountReport(models.Model):
     def _format_column_values(self, options, line_dict_list, force_format=False):
         for line_dict in line_dict_list:
             for column_dict in line_dict['columns']:
+                if not column_dict:
+                    continue
+
                 if 'name' in column_dict and not force_format:
                     # Columns which have already received a name are assumed to be already formatted; nothing needs to be done for them.
                     # This gives additional flexibility to custom reports, if needed.
@@ -2196,7 +2199,7 @@ class AccountReport(models.Model):
                     currency=column_dict['currency'],
                     blank_if_zero=column_dict['blank_if_zero'],
                     figure_type=column_dict['figure_type'],
-                    digits=column_dict['digits']
+                    digits=column_dict['digits'],
                 )
 
     def _generate_common_warnings(self, options, warnings):
@@ -2421,7 +2424,7 @@ class AccountReport(models.Model):
             'auditable': col_value is not None and column_expression.auditable,
             'blank_if_zero': blank_if_zero,
             'column_group_key': col_data.get('column_group_key'),
-            'currency': currency,
+            'currency': currency.id if currency else None,
             'currency_symbol': self.env.company.currency_id.symbol if options.get('multi_currency') else None,
             'digits': digits,
             'expression_label': col_data.get('expression_label'),
@@ -4709,7 +4712,7 @@ class AccountReport(models.Model):
 
     @api.model
     def format_value(self, options, value, currency=None, blank_if_zero=False, figure_type=None, digits=1):
-        currency_id = currency.id if currency else None
+        currency_id = int(currency or 0)
         currency = self.env['res.currency'].browse(currency_id)
 
         return self._format_value(options=options, value=value, currency=currency, blank_if_zero=blank_if_zero, figure_type=figure_type, digits=digits)
