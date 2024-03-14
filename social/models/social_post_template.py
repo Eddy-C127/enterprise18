@@ -68,7 +68,7 @@ class SocialPostTemplate(models.Model):
     def _compute_image_urls(self):
         """See field 'help' for more information."""
         for post in self:
-            post.image_urls = json.dumps(['web/image/%s' % image_id.id for image_id in post.image_ids if image_id.id])
+            post.image_urls = json.dumps(['/web/image/%s' % image_id.id for image_id in post.image_ids if image_id.id])
 
     @api.depends('message')
     def _compute_message_length(self):
