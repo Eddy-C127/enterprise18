@@ -2218,7 +2218,9 @@ class AccountReport(models.Model):
                     # This gives additional flexibility to custom reports, if needed.
                     continue
 
-                if not column_dict or (column_dict['blank_if_zero'] and column_dict['is_zero']):
+                if not column_dict:
+                    continue
+                elif column_dict['blank_if_zero'] and column_dict['is_zero']:
                     rslt = ''
                 else:
                     rslt = self.format_value(
