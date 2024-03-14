@@ -458,7 +458,7 @@ class WhatsAppCase(MockOutgoingWhatsApp):
 
     def assertWATemplate(self, template, status='pending',
                          fields_values=None, attachment_values=None,
-                         template_variables=None):
+                         template_variables=None, template_variables_strict=True):
         """ Assert content of WhatsApp template.
 
         :param <whatsapp.template> template: whatsapp template whose content
@@ -469,6 +469,7 @@ class WhatsAppCase(MockOutgoingWhatsApp):
         :param dict attachment_values: if given, should be a dictionary of field
           names / values allowing to check attachment values (e.g. mimetype);
         :param list template_variables: see 'assertWATemplateVariables';
+        :param boolean template_variables_strict: see 'assertWATemplateVariables';
         """
         # check base template data
         self.assertEqual(template.status, status,
@@ -496,20 +497,40 @@ class WhatsAppCase(MockOutgoingWhatsApp):
                         f'whatsapp.template invalid attachment: expected {fvalue} for {fname}, got {attachment_value}'
                     )
         if template_variables:
-            self.assertWATemplateVariables(template, template_variables)
+            self.assertWATemplateVariables(template, template_variables, strict=template_variables_strict)
 
-    def assertWATemplateVariables(self, template, expected_variables):
-        """ Assert content of 'variable_ids' field of a template """
+    def assertWATemplateVariables(self, template, expected_variables, strict=True):
+        """ Assert content of 'variable_ids' field of a template
+
+        :param list expected_variables: values of variables expected in template;
+        :param bool strict: in addition to content ensure there are no other
+          variables;
+        """
         for (exp_name, exp_line_type, exp_field_type, exp_vals) in expected_variables:
             with self.subTest(exp_name=exp_name):
+                exp_demo_value = exp_vals.get('demo_value')
                 tpl_variable = template.variable_ids.filtered(
-                    lambda v: v.name == exp_name and v.line_type == exp_line_type
+                    lambda v: (
+                        v.name == exp_name and v.line_type == exp_line_type and
+                        (not exp_demo_value or v.demo_value == exp_demo_value)
+                    )
                 )
-                self.assertTrue(tpl_variable)
+                if not tpl_variable or len(tpl_variable) > 1:
+                    notfound_msg = f'Not found variable for {exp_name} / {exp_line_type}'
+                    if exp_demo_value:
+                        notfound_msg += f' (demo value {exp_demo_value})'
+                    existing = '\n'.join(
+                        f'{var.name} / {var.line_type} (demo: {var.demo_value})'
+                        for var in template.variable_ids
+                    )
+                    notfound_msg += f'\n{existing}'
+                    self.assertTrue(tpl_variable and len(tpl_variable) == 1, notfound_msg)
                 self.assertEqual(tpl_variable.field_type, exp_field_type)
                 self.assertEqual(tpl_variable.line_type, exp_line_type)
                 for fname, fvalue in (exp_vals or {}).items():
                     self.assertEqual(tpl_variable[fname], fvalue)
+        if strict:
+            self.assertEqual(len(template.variable_ids), len(expected_variables))
 
 
 class WhatsAppCommon(MailCommon, WhatsAppCase):

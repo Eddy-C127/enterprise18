@@ -25,26 +25,65 @@ class WhatsAppTemplateCommon(WhatsAppCommon, MockIncomingWhatsApp):
 class WhatsAppTemplate(WhatsAppTemplateCommon):
 
     @users('user_wa_admin')
-    def test_template_button_dynamic_url(self):
-        """ Test button with dynamic url """
+    def test_template_button(self):
+        """ Test various combination of buttons """
         template = self.env['whatsapp.template'].create({
-            'body': 'Dynamic url button template',
+            'body': 'Dynamic url button template {{1}}',
             'name': 'Test-dynamic',
             'status': 'approved',
             'wa_account_id': self.whatsapp_account.id,
+        })
+        for button_values_lst, exp_tmpl_vars in [
+            (
+                [{'button_type': 'url', 'name': 'Dynamic URL Button', 'url_type': 'dynamic', 'website_url': 'https://www.example.com'}],
+                [
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'body - {{1}}'}),
+                    ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com???', 'display_name': 'button "Dynamic URL Button" - {{1}}'}),
+                ],
+            ), (
+                [{'button_type': 'url', 'name': 'Static URL Button', 'url_type': 'static', 'website_url': 'https://www.example.com'}],
+                [
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'body - {{1}}'}),
+                ],
+            ), (
+                [{'button_type': 'phone_number', 'call_number': '+91 12345 67891'}],
+                [
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'body - {{1}}'}),
+                ],
+            ), (
+                [
+                    {'button_type': 'quick_reply'},
+                    {'button_type': 'url', 'name': 'Dynamic 1', 'url_type': 'dynamic', 'website_url': 'https://www.example.com/1'},
+                    {'button_type': 'url', 'name': 'Dynamic 2', 'url_type': 'dynamic', 'website_url': 'https://www.example.com/2'},
+                ],
+                [
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'body - {{1}}'}),
+                    ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/1???', 'display_name': 'button "Dynamic 1" - {{1}}'}),
+                    ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/2???', 'display_name': 'button "Dynamic 2" - {{1}}'}),
+                ],
+            )
+        ]:
+            with self.subTest():
+                template.write({'button_ids': [(5, 0)] + [(0, 0, button_values) for button_values in button_values_lst]})
+                self.assertWATemplateVariables(template, exp_tmpl_vars)
+
+        # test update
+        template.write({
             'button_ids': [
-                Command.create({
-                    'button_type': 'url', 'name': 'Button url',
-                    'url_type': 'dynamic', 'website_url': 'https://www.example.com'
-                }),
+                (1, template.button_ids[0].id, {'button_type': 'url', 'name': 'Update', 'url_type': 'dynamic', 'website_url': 'https://www.example.com/new'}),
+                (1, template.button_ids[1].id, {'button_type': 'quick_reply'}),
+                (1, template.button_ids[2].id, {'name': 'Update 2', 'website_url': 'https://www.example.com/new2'}),
             ],
         })
-        self.assertWATemplateVariables(
-            template,
-            [
-                ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com???'}),
-            ]
-        )
+        template.invalidate_recordset(['variable_ids'])  # buttons do not trigger a compute
+        template.button_ids.flush_recordset()
+        template.flush_recordset()
+        # FIXME: currently not really computed again, computation is weird and wrong
+        # self.assertWATemplateVariables(template, [
+        #     ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'body - {{1}}'}),
+        #     ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/new???', 'display_name': 'button "Update" - {{1}}'}),
+        #     ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/new2???', 'display_name': 'button "Update 2" - {{1}}'}),
+        # ])
 
     @users('user_wa_admin')
     def test_template_content_dynamic(self):
@@ -404,7 +443,7 @@ class WhatsAppTemplatePreview(WhatsAppTemplateCommon):
 class WhatsAppTemplateSync(WhatsAppTemplateCommon):
 
     @users('user_wa_admin')
-    def test_synchornize_archived(self):
+    def test_synchronize_archived(self):
         """ If template is archived then it should sync the archived template
         instead of creating new one. """
         self.basic_template.write({
