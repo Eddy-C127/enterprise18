@@ -76,7 +76,9 @@ class AccountJournal(models.Model):
         statements = self.env['account.bank.statement'].browse(statement_ids_all)
         line_to_reconcile = statements.line_ids
         if line_to_reconcile:
-            cron_limit_time = tools.config['limit_time_real_cron']  # default is -1
+            # 'limit_time_real_cron' defaults to -1.
+            # Manual fallback applied for non-POSIX systems where this key is disabled (set to None).
+            cron_limit_time = tools.config['limit_time_real_cron'] or -1
             limit_time = cron_limit_time if 0 < cron_limit_time < 180 else 180
             line_to_reconcile._cron_try_auto_reconcile_statement_lines(limit_time=limit_time)
 
