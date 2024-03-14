@@ -32,7 +32,7 @@
                     </div>
 
                     <div>
-                        <table class="o_account_reports_table" t-att-width="'100%'" style="page-break-inside: avoid">
+                        <table class="table table-borderless o_account_reports_table" t-att-width="'100%'" style="page-break-inside: avoid">
                             <t t-call="account_followup.table_header_template_followup_report">
                                 <t t-set="column_headers" t-value="[report._get_followup_report_columns_name()]"/>
                             </t>

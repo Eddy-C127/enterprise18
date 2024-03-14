@@ -12,24 +12,24 @@
                     <!-- Invoice & partner information -->
                     <div id="informations" class="row mt-4 mb-4">
                         <t t-set="partner" t-value="o.commercial_partner_id"/>
-                        <div class="col-auto col-3 mw-100 mb-2" name="l10n_ec_partner">
-                            <strong>Partner: </strong>
-                            <p class="m-0">
+                        <div class="col" name="l10n_ec_partner">
+                            <strong>Partner</strong>
+                            <div>
                                 <t t-esc="partner.commercial_company_name or partner.name"/>
                                 <div t-if="partner.vat">
                                     <t t-if="partner.l10n_latam_identification_type_id" t-out="partner.l10n_latam_identification_type_id.name" id="inv_tax_id_label"/>
                                     <t t-else="">RUC/Cédula</t>: <span t-field="partner.vat"/>
                                 </div>
-                            </p>
+                            </div>
                         </div>
-                        <div class="col-auto col-3 mw-100 mb-2" t-if="o.l10n_ec_withhold_date" name="l10n_ec_withhold_date">
-                            <strong>Withhold Date:</strong>
-                            <p class="m-0" t-field="o.l10n_ec_withhold_date"/>
+                        <div class="col" t-if="o.l10n_ec_withhold_date" name="l10n_ec_withhold_date">
+                            <strong>Withhold Date</strong>
+                            <div t-field="o.l10n_ec_withhold_date"/>
                         </div>
                     </div>
 
                     <!-- Withhold lines -->
-                    <table class="table table-sm" name="withhold_line_table" style="font-size:11px;">
+                    <table class="table table-borderless" name="withhold_line_table" style="font-size:11px;">
                         <thead>
                             <tr>
                                 <t t-set="colspan" t-value="6"/>
@@ -100,7 +100,7 @@
 
                         <!--Tax totals per group-->
                         <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
-                            <table class="table table-sm" style="page-break-inside: avoid; font-size:11px;">
+                            <table class="table table-borderless" style="page-break-inside: avoid; font-size:11px;">
                                 <t t-set="tax_totals" t-value="o.l10n_ec_withhold_subtotals"/>
                                 <t t-if="tax_totals" t-call="l10n_ec_edi.document_tax_totals"/>
                             </table>

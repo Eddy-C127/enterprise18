@@ -62,7 +62,7 @@
         </xpath>
 
         <xpath expr="//t[@id='taxe_sales']" position="replace">
-            <table  class="table table-sm">
+            <table  class="table table-borderless">
                 <thead><tr>
                     <th>Name</th>
                     <t t-if="isBelgium">
@@ -85,7 +85,7 @@
         </xpath>
 
         <xpath expr="//t[@id='taxe_refunds']" position="replace">
-            <table  class="table table-sm">
+            <table  class="table table-borderless">
                 <thead><tr>
                     <th>Name</th>
                     <t t-if="isBelgium">
@@ -110,7 +110,7 @@
         <xpath expr="//div[hasclass('page')]" position="inside">
             <t t-if="isBelgium">
                 <p style="page-break-after:always;"/>
-                <table  class="table">
+                <table  class="table table-borderless">
                     <thead><tr>
                         <th>Name</th>
                         <th>Value</th>

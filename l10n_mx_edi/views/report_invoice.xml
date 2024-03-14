@@ -33,26 +33,26 @@
         <xpath expr="//div[@name='customer_code']" position="after">
             <t t-set="cfdi_values" t-value="o._l10n_mx_edi_get_extra_invoice_report_values()"/>
             <t t-set="original_o_grid_layout" t-value="o_grid_layout"/>
-            <t t-set="o_grid_layout" t-value="'col-auto col-3 mw-100 mb-2'"/>
+            <t t-set="o_grid_layout" t-value="'col'"/>
             <t t-if="cfdi_values.get('usage')">
                 <div name="cfdi_values['usage']" t-att-class="o_grid_layout">
-                    <strong>Usage:</strong>
-                    <p><span t-out="cfdi_values['usage']">S01 - Without fiscal effects</span><span> - </span><span t-field="o.l10n_mx_edi_usage">S01</span></p>
+                    <strong>Usage</strong>
+                    <div><span t-out="cfdi_values['usage']">S01 - Without fiscal effects</span><span> - </span><span t-field="o.l10n_mx_edi_usage">S01</span></div>
                 </div>
             </t>
             <t t-if="cfdi_values.get('payment_way')">
                 <div name="l10n_mx_edi_cfdi_payment_way" t-att-class="o_grid_layout">
                     <strong>Payment Way:</strong>
-                    <p t-out="cfdi_values['payment_way']">01 - Efectivo</p>
+                    <div t-out="cfdi_values['payment_way']">01 - Efectivo</div>
                 </div>
             </t>
             <div name="l10n_mx_edi_cfdi_payment_method" t-att-class="o_grid_layout">
                 <strong>Payment Method:</strong>
-                <p t-out="cfdi_values.get('payment_method')">PUE</p>
+                <div t-out="cfdi_values.get('payment_method')">PUE</div>
             </div>
             <div name="l10n_mx_edi_cfdi_bank_account" t-if="cfdi_values.get('bank_account')" t-att-class="o_grid_layout">
                 <strong>Bank Account:</strong>
-                <p t-out="cfdi_values['bank_account']">No identificado</p>
+                <div t-out="cfdi_values['bank_account']">No identificado</div>
             </div>
             <t t-set="o_grid_layout" t-value="original_o_grid_layout"/>
         </xpath>

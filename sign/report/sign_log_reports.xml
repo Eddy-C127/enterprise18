@@ -39,7 +39,7 @@
                     <br/>
                     <div class="oe_structure"></div>
                     <h5>Participants</h5>
-                    <table class="table table-sm o_main_table small mb-1">
+                    <table class="table table-borderless o_main_table small mb-1">
                         <t t-set="has_sms_validation" t-value="o.sudo().request_item_ids.filtered(lambda i: i.sms_token)"/>
                         <thead>
                             <tr>
@@ -91,7 +91,7 @@
                         <div class="oe_structure"></div>
                     </section>
                     <h5>Signing Events</h5>
-                    <table class="table table-sm o_main_table small mb-4">
+                    <table class="table table-borderless o_main_table small mb-4">
                         <t t-set="has_sms_validation" t-value="o.sudo().request_item_ids.filtered(lambda i: i.sms_token)"/>
                         <thead>
                             <tr>
@@ -148,7 +148,7 @@
                         <p>The final document and this completion history have been sent by email on&amp;nbsp; <span t-field="o.completion_date">20-03-2000</span> to: <t t-out="', '.join(o.sudo()._get_final_recipients())"/>.</p>
                     </div>
                     <h5>Access Logs</h5>
-                    <table class="table table-sm o_main_table small mb-4">
+                    <table class="table table-borderless o_main_table small mb-4">
                         <thead>
                             <tr>
                                 <th class="text-start">Viewed/downloaded by</th>

@@ -105,7 +105,7 @@
             <div id="references" class="row">
                 <div class="col-12">
                     <t t-if="o.sale_id.client_order_ref">
-                        <table class="table table-sm o_main_table small" name="invoice_references">
+                        <table class="table o_main_table table-borderless small" name="invoice_references">
                             <thead>
                                 <tr>
                                     <th name="th_reference_origin" class="text-center">
@@ -184,7 +184,7 @@
                             <t t-set="prepared_amounts" t-value="o._prepare_pdf_values()"/>
                             <t t-set="has_unit_price" t-value="prepared_amounts['has_unit_price']"/>
                             <t t-set="has_discount" t-value="prepared_amounts['has_discount']"/>
-                            <table class="table table-sm" t-if="o.move_ids">
+                            <table class="o_has_total_table table table-borderless" t-if="o.move_ids">
                                 <thead>
                                     <tr>
                                         <th name="th_code">
@@ -248,10 +248,10 @@
                                 </tbody>
                             </table>
                             <div class="clearfix">
-                                <div id="total" class="row">
+                                <div id="total" class="row mt-n3">
                                     <t t-set="amounts" t-value="prepared_amounts.get('amounts', {})"/>
                                     <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
-                                        <table class="table table-sm" style="page-break-inside: avoid;">
+                                        <table class="o_total_table table table-borderless" style="page-break-inside: avoid;">
                                             <tr t-if="amounts.get('subtotal_amount_taxable', False)"
                                                 class="border-black o_subtotal">
                                                 <td>

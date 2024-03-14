@@ -20,9 +20,9 @@
 
         <!-- Add a few extra items to Informations (and rename a field) -->
         <xpath expr="//div[@id='informations']/*" position="before">
-            <div class="col-auto col-3 mw-100 mb-2" name="partner_name">
-                <strong>Partner:</strong>
-                <p class="m-0">
+            <div class="col" name="partner_name">
+                <strong>Partner</strong>
+                <div>
                     <t t-esc="o.partner_id.name"/>
                     <div t-if="o.partner_id.vat">
                         <t t-if="o.partner_id.l10n_latam_identification_type_id" t-out="o.partner_id.l10n_latam_identification_type_id.name" id="inv_tax_id_label"/>
@@ -31,20 +31,20 @@
                     <div>
                         <t t-out="o.partner_id.street"/>
                     </div>
-                </p>
+                </div>
             </div>
-            <div class="col-auto col-3 mw-100 mb-2" t-if="o.reversed_entry_id" name="modified_document">
-                <strong>Modified document:</strong>
-                <p class="m-0" t-esc="o.reversed_entry_id.l10n_latam_document_number or o.reversed_entry_id.name"/>
+            <div class="col" t-if="o.reversed_entry_id" name="modified_document">
+                <strong>Modified document</strong>
+                <div t-esc="o.reversed_entry_id.l10n_latam_document_number or o.reversed_entry_id.name"/>
             </div>
-            <div class="col-auto col-3 mw-100 mb-2" t-if="o.reversed_entry_id" name="issue_date_modified_document">
-                <strong>Original Issue Date:</strong>
-                <p class="m-0" t-field="o.reversed_entry_id.invoice_date"/>
+            <div class="col" t-if="o.reversed_entry_id" name="issue_date_modified_document">
+                <strong>Original Issue Date</strong>
+                <div t-field="o.reversed_entry_id.invoice_date"/>
             </div>
         </xpath>
         <xpath t-if="o.move_type in ('out_refund', 'in_refund') or o.l10n_latam_document_type_id.internal_type == 'debit_note'"
             expr="//div[@id='informations']/div[@name='reference']/strong" position="replace">
-            <strong>Reason for Modification:</strong>
+            <strong>Reason for Modification</strong>
         </xpath>
 
         <!-- Add column to the invoice lines table -->

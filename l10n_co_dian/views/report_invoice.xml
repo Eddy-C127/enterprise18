@@ -14,17 +14,17 @@
         <!-- Payment Means & Payment Method -->
         <xpath expr="//div[@id='informations']/div[@name='due_date']" position="after">
             <div name="payment_means"
-                 t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2"
+                 class="col"
                  t-if="o.l10n_co_edi_payment_option_id">
-                <strong>Payment Means:</strong><br/>
-                <span t-field="o.l10n_co_edi_payment_option_id.name">Crédito ACH</span>
+                <strong>Payment Means</strong>
+                <div t-field="o.l10n_co_edi_payment_option_id.name">Crédito ACH</div>
             </div>
             <div name="payment_method"
-                 t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2"
+                 class="col"
                  t-if="o.l10n_co_edi_payment_option_id.code in ('1', '2')">
-                <strong>Payment Method:</strong><br/>
-                <span t-if="o.l10n_co_edi_is_direct_payment">Contado</span>
-                <span t-else="">Crédito</span>
+                <strong>Payment Method</strong>
+                <div t-if="o.l10n_co_edi_is_direct_payment">Contado</div>
+                <div t-else="">Crédito</div>
             </div>
         </xpath>
 

@@ -22,22 +22,22 @@
             </t>
             <div class="page">
                 <div class="oe_structure"/>
-                <h2 class="mt16">
+                <h2>
                     <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
                         <span t-if="doc.state not in ['draft','sent']">Pickup Receipt # </span>
                     </t>
                     <span t-field="doc.name">Sample Document</span>
                 </h2>
                 <div class="oe_structure"/>
-                <div class="row mt32 mb32" id="informations">
-                    <div t-if="doc.user_id.name" class="col-auto mw-100 mb-2">
+                <div class="row mb-4" id="informations">
+                    <div t-if="doc.user_id.name" class="col">
                         <strong>Salesperson:</strong>
-                        <span class="m-0" t-field="doc.user_id">Jane Doe</span>
+                        <span t-field="doc.user_id">Jane Doe</span>
                     </div>
                 </div>
 
                 <div class="oe_structure"/>
-                <table class="table table-sm o_main_table">
+                <table class="table table-borderless o_main_table">
                     <thead>
                         <tr>
                             <th class="text-start">Description</th>
