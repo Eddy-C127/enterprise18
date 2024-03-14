@@ -34,8 +34,11 @@
     .o_knowledge_behavior_type_embedded_view .o_list_renderer thead {
         position: relative;
         z-index: auto;
-    }
 
+        .position-sticky {
+            position: unset !important;
+        }
+    }
     .o_breadcrumb_article_name > input:not(.o_readonly_modifier):hover {
         border-bottom: $input-border-width solid $o-brand-primary;
     }
