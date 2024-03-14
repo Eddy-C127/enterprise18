@@ -318,6 +318,10 @@
     }
 }
 
+.o_knowledge_article_view_calendar_embedded_view tr:not(.fc-scrollgrid-section-liquid) .fc-scroller {
+    overflow: hidden !important  // FC adds inline style
+}
+
 .o_knowledge_toggle_favorite {
     i.fa {
         font-size: 16px;
