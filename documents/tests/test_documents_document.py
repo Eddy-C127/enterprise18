@@ -495,6 +495,10 @@ class TestCaseDocuments(TransactionCase):
             self.assertEqual(document.file_extension, sanitized_extension,
                              f'"{extension}" must be sanitized to "{sanitized_extension}" at edition')
 
+        # test extension when filename is changed (i.e. name is edited or file is replaced)
+        document.name = 'test.png'
+        self.assertEqual(document.file_extension, 'png', "extension must be updated on change in filename")
+
     def test_restricted_folder_multi_company(self):
         """
         Tests the behavior of a restricted folder in a multi-company environment
