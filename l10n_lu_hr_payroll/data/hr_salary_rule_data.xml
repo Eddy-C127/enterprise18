@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="l10n_lu_employees_atn_transport" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_lu_hr_payroll.hr_salary_rule_category_bik_transport"/>
+        <field name="name">Benefit in Kind (Transportation)(DEPRECATED)</field>
+        <field name="code">BIK_TRANSPORT</field>
+        <field name="sequence">5</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = False</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+# Deprecated rule. Instead we use l10n_lu_employees_atn_transport_without_VAT
+result = 0
+        </field>
+        <field name="struct_id" ref="l10n_lu_hr_payroll.hr_payroll_structure_lux_employee_salary"/>
+    </record>
+
     <record id="l10n_lu_employees_atn_transport_without_VAT" model="hr.salary.rule">
         <field name="category_id" ref="l10n_lu_hr_payroll.hr_salary_rule_category_bik"/>
         <field name="name">Benefit in Kind (Transportation) without VAT</field>
