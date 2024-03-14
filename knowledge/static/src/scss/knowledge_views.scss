@@ -316,6 +316,19 @@
     .o_knowledge_kanban_card {
         min-height: 6rem;
     }
+    .o_kanban_quick_create {
+        // as quick create cards don't have as much space as forms, make properties take all
+        // available width, use 2 lines instead of 1 and remove draggable handle to save space
+        .o_field_properties .o_inner_group {
+            width: 100% !important;
+            .o_property_field.o_wrap_label {
+                display: block !important;
+            }
+            i.oi-draggable {
+                display: none;
+            }
+        }
+    }
 }
 
 .o_knowledge_article_view_calendar_embedded_view tr:not(.fc-scrollgrid-section-liquid) .fc-scroller {
