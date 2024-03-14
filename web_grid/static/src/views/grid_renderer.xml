@@ -90,7 +90,7 @@
                 t-key="column.id"
                 class="o_grid_section o_grid_highlightable position-relative d-flex align-items-center justify-content-center fw-bold"
                 t-att-class="{
-                    'border-top bg-info bg-opacity-50' : column.isToday,
+                    'bg-info bg-opacity-50' : column.isToday,
                     'bg-200 border-top' : !column.isToday,
                     'bg-opacity-75' : getUnavailableClass(column) === 'o_grid_unavailable'
                 }"
