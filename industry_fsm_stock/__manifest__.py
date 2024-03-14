@@ -13,6 +13,7 @@ Validate stock moves for Field Service
     'data': [
         'security/ir.model.access.csv',
         'wizard/fsm_stock_tracking_views.xml',
+        'views/product_product_views.xml',
     ],
     'assets': {
         'web.assets_backend': [
