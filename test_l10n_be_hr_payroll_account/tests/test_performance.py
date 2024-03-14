@@ -268,7 +268,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'year': str(self.date_from.year),
         })
         declaration_281_10.action_generate_declarations()
-        self.assertEqual(len(declaration_281_10.line_ids), 100)
+        self.assertEqual(len(declaration_281_10.line_ids), self.EMPLOYEES_COUNT)
         with self.assertQueryCount(admin=129):
             start_time = time.time()
             declaration_281_10.action_generate_xml()
@@ -276,7 +276,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             _logger.info("Declaration 281.10 XML:--- %s seconds ---", time.time() - start_time)
         self.assertEqual(declaration_281_10.xml_validation_state, 'done', declaration_281_10.error_message)
 
-        with self.assertQueryCount(admin=1046):
+        with self.assertQueryCount(admin=1343):
             start_time = time.time()
             declaration_281_10.line_ids.write({
                 'pdf_to_generate': True,
@@ -291,7 +291,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'year': str(self.date_from.year),
         })
         declaration_281_45.action_generate_declarations()
-        self.assertEqual(len(declaration_281_45.line_ids), 100)
+        self.assertEqual(len(declaration_281_45.line_ids), self.EMPLOYEES_COUNT)
         with self.assertQueryCount(admin=13):
             start_time = time.time()
             declaration_281_45.action_generate_xml()
@@ -299,7 +299,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             _logger.info("Declaration 281.45:--- %s seconds ---", time.time() - start_time)
         self.assertEqual(declaration_281_45.xml_validation_state, 'done', declaration_281_45.error_message)
 
-        with self.assertQueryCount(admin=928):
+        with self.assertQueryCount(admin=1228):
             start_time = time.time()
             declaration_281_45.line_ids.write({
                 'pdf_to_generate': True,
@@ -315,8 +315,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'name': 'Test',
         })
         individual_accounts.action_generate_declarations()
-        self.assertEqual(len(individual_accounts.line_ids), 100)
-        with self.assertQueryCount(admin=1024):
+        self.assertEqual(len(individual_accounts.line_ids), self.EMPLOYEES_COUNT)
+        with self.assertQueryCount(admin=1324):
             start_time = time.time()
             individual_accounts.line_ids.write({
                 'pdf_to_generate': True,

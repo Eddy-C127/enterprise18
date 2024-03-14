@@ -538,7 +538,8 @@ class HrContractSalary(http.Controller):
                 del work_contact_vals['name']
             partner = employee.work_contact_id
             # We shouldn't modify the partner email like this
-            work_contact_vals.pop('email', None)
+            if employee.work_contact_id.email:
+                work_contact_vals.pop('email', None)
             partner.write(work_contact_vals)
         else:
             work_contact_vals['active'] = False
