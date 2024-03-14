@@ -333,7 +333,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
                 invoice_sudo = order_sudo.with_context(lang=partner_sudo.lang,) \
                     ._create_invoices(final=True)
             kwargs.update({
-                'amount': invoice_sudo[:1].amount_total,
+                'amount': kwargs.get('amount', 0) or invoice_sudo[:1].amount_total,
                 'currency_id': order_sudo.currency_id.id,
                 'tokenization_requested': True,  # Renewal transactions are always tokenized
             })

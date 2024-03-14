@@ -231,6 +231,7 @@
                     <div>
                         <hr class="mt-1 mb-2"/>
                         <t t-call="payment.form">
+                            <t t-set="amount" t-value="False"/>
                             <t t-set="landing_route" t-value="sale_order.get_portal_url()"/>
                         </t>
                     </div>
