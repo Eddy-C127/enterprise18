@@ -382,6 +382,7 @@ class WhatsAppTemplate(models.Model):
                 (0, 0, {
                     'button_id': False,
                     'demo_value': variable.demo_value,
+                    'field_name': variable.field_name,
                     'field_type': variable.field_type,
                     'line_type': variable.line_type,
                     'name': variable.name,
