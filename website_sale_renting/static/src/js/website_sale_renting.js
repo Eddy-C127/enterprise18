@@ -155,7 +155,9 @@ WebsiteSale.include({
 
     _onDatePickerApply: function (ev, { start_date, end_date }) {
         if (document.querySelector(".oe_cart")) {
-            this._check_new_dates_on_cart();
+            if (start_date && end_date) {
+                this._check_new_dates_on_cart();
+            }
         } else if (document.querySelector(".o_website_sale_shop_daterange_picker")) {
             this._addDatesToQuery(start_date, end_date);
         }
