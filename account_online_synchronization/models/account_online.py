@@ -666,8 +666,12 @@ class AccountOnlineLink(models.Model):
 
     def _pre_check_fetch_transactions(self):
         self.ensure_one()
-        cron_limit_time = tools.config['limit_time_real_cron']  # time after which cron process is killed
-        limit_time = (cron_limit_time if cron_limit_time > 0 else tools.config['limit_time_real']) + 20  # Add 20 seconds to be sure that the process will have been killed
+        # 'limit_time_real_cron' and 'limit_time_real' default respectively to -1 and 120.
+        # Manual fallbacks applied for non-POSIX systems where this key is disabled (set to None).
+        limit_time = tools.config['limit_time_real_cron'] or -1
+        if limit_time <= 0:
+            limit_time = tools.config['limit_time_real'] or 120
+        limit_time += 20  # Add 20 seconds to be sure that the process will have been killed
         # if any account is actually creating entries and last_refresh was made less than cron_limit_time ago, skip fetching
         if (self.account_online_account_ids.filtered(lambda account: account.fetching_status == 'processing') and
                 self.last_refresh + relativedelta(seconds=limit_time) > fields.Datetime.now()):
