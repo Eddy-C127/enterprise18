@@ -59,7 +59,7 @@ class WhatsAppMessage(models.Model):
         ('blacklisted', 'Phone is blacklisted'),
         ('network', 'Invalid query or unreachable endpoint'),
         ('phone_invalid', 'Phone number in the wrong format'),
-        ('template', 'Template cannot be used'),
+        ('template', 'Template quality rating too low'),
         ('unknown', 'Unidentified error'),
         ('whatsapp_recoverable', 'Fixable Whatsapp error'),
         ('whatsapp_unrecoverable', 'Unfixable Whatsapp error')
@@ -258,7 +258,7 @@ class WhatsAppMessage(models.Model):
                     raise WhatsAppError(failure_type='blacklisted')
                 if whatsapp_message.wa_template_id:
                     message_type = 'template'
-                    if whatsapp_message.wa_template_id.status != 'approved' or whatsapp_message.wa_template_id.quality in ('red', 'yellow'):
+                    if whatsapp_message.wa_template_id.status != 'approved' or whatsapp_message.wa_template_id.quality == 'red':
                         raise WhatsAppError(failure_type='template')
                     whatsapp_message.message_type = 'outbound'
                     if whatsapp_message.mail_message_id.model != whatsapp_message.wa_template_id.model:
