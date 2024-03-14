@@ -362,15 +362,13 @@ class WhatsAppTemplate(models.Model):
             self.variable_ids._check_field_name()
         return res
 
-    def copy(self, default=None):
-        self.ensure_one()
-        default = default or {}
+    def copy_data(self, default=None):
+        default = {} if default is None else default
         if not default.get('name'):
             default['name'] = _('%(original_name)s (copy)', original_name=self.name)
+        if not default.get('template_name'):
             default['template_name'] = f'{self.template_name}_copy'
-        return super().copy(default)
 
-    def copy_data(self, default=None):
         values = super().copy_data(default=default)
         if values and values[0] and self.variable_ids:
             variable_commands = values[0].get('variable_ids', []) + [
