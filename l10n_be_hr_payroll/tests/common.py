@@ -35,7 +35,7 @@ class TestPayrollCommon(TransactionCase):
             'name': 'Paid Time Off',
             'requires_allocation': 'yes',
             'employee_requests': 'no',
-            'allocation_validation_type': 'officer',
+            'allocation_validation_type': 'hr',
             'leave_validation_type': 'both',
             'responsible_ids': [Command.link(cls.env.ref('base.user_admin').id)],
             'request_unit': 'day'

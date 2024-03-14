@@ -76,7 +76,7 @@ class TestHR(AccountTestInvoicingCommon):
         return user
 
     @classmethod
-    def create_leave_type(cls, user, name='Leave Type', requires_allocation='no', employee_requests='yes', request_unit='day', validation='no_validation', allocation_validation='officer'):
+    def create_leave_type(cls, user, name='Leave Type', requires_allocation='no', employee_requests='yes', request_unit='day', validation='no_validation', allocation_validation='hr'):
         leave_type_form = Form(cls.env['hr.leave.type'].with_user(user))
         leave_type_form.name = name
         leave_type_form.requires_allocation = requires_allocation
@@ -141,7 +141,7 @@ class TestHR(AccountTestInvoicingCommon):
             name='Leave Type (allocation by HR, no validation, half day)',
             requires_allocation='yes',
             employee_requests='no',
-            allocation_validation='officer',
+            allocation_validation='hr',
             request_unit='half_day',
             validation='no_validation',
         )
@@ -152,7 +152,7 @@ class TestHR(AccountTestInvoicingCommon):
             employee_requests='yes',
             request_unit='hour',
             validation='both',
-            allocation_validation='officer',
+            allocation_validation='hr',
         )
 
         # --------------------------------------------------
@@ -169,6 +169,7 @@ class TestHR(AccountTestInvoicingCommon):
         self.assertEqual(allocation_no_validation.state, 'refuse')
 
         # Holiday user approve allocation
+        allocation_no_validation.action_set_to_confirm()
         allocation_no_validation.action_validate()
         self.assertEqual(allocation_no_validation.state, 'validate')
         self.assertEqual(allocation_no_validation.approver_id, self.hr_holidays_user.employee_id)
