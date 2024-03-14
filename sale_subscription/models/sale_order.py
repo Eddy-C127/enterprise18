@@ -229,7 +229,7 @@ class SaleOrder(models.Model):
             if order.is_subscription and order.state == 'sale':
                 order.type_name = _('Subscription')
             elif order.subscription_state == '7_upsell':
-                order.type_name = _('Upsell')
+                order.type_name = _('Quotation')
             elif order.subscription_state == '2_renewal':
                 order.type_name = _('Renewal Quotation')
             else:
