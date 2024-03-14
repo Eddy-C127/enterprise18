@@ -110,7 +110,7 @@ class Document(models.Model):
         for record in self:
             if record.type != 'binary':
                 record.file_extension = False
-            elif not record.file_extension and record.name:
+            elif record.name:
                 record.file_extension = _sanitize_file_extension(get_extension(record.name.strip())) or False
 
     def _inverse_file_extension(self):
