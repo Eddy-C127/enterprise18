@@ -75,10 +75,10 @@ class DocumentShare(models.Model):
         """
         if self.type == 'ids':
             return []
-        elif self.include_sub_folders:
-            return [[('folder_id', 'child_of', self.folder_id.id)]]
-        else:
-            return [[('folder_id', '=', self.folder_id.id)]]
+        domains_list = [[('folder_id', 'child_of' if self.include_sub_folders else '=', self.folder_id.id)]]
+        if self.tag_ids:
+            domains_list = [expression.AND([domains_list[0], [('tag_ids', 'in', self.tag_ids.ids)]])]
+        return domains_list
 
     def _get_documents(self, document_ids=None):
         """
@@ -190,7 +190,7 @@ class DocumentShare(models.Model):
             record.full_url = (f'{record.get_base_url()}/document/share/'
                                f'{record._origin.id or record.id}/{record.access_token}')
 
-    @api.depends('type', 'document_ids', 'domain')
+    @api.depends('type', 'document_ids', 'domain', 'tag_ids')
     def _compute_links_count(self):
         domains = [record._get_documents_domain()[0] for record in self if record.type == "domain"]
         documents_from_domain = self.env['documents.document'].search(expression.OR(domains))

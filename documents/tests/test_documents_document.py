@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from odoo import Command
 from odoo.tests.common import TransactionCase, new_test_user
 from odoo.exceptions import AccessError
 import base64
@@ -328,6 +329,10 @@ class TestCaseDocuments(TransactionCase):
     def test_documents_share_popup(self):
         share_folder = self.env['documents.folder'].create({
             'name': 'share folder',
+            'document_ids': [
+                Command.create({'datas': GIF, 'name': 'file.gif', 'mimetype': 'image/gif'}),
+                Command.create({'type': 'url', 'url': 'https://odoo.com'}),
+            ],
         })
         share_tag_category = self.env['documents.facet'].create({
             'folder_id': share_folder.id,
@@ -337,6 +342,7 @@ class TestCaseDocuments(TransactionCase):
             'facet_id': share_tag_category.id,
             'name': "share tag",
         })
+        share_folder.document_ids[0].tag_ids = [Command.set(share_tag.ids)]
         domain = [('folder_id', 'in', share_folder.id)]
         action = self.env['documents.share'].open_share_popup({
             'domain': domain,
@@ -344,6 +350,8 @@ class TestCaseDocuments(TransactionCase):
             'tag_ids': [[6, 0, [share_tag.id]]],
             'type': 'domain',
         })
+        share = self.env['documents.share'].browse(action['res_id'])
+        self.assertEqual(share.links_count, 0, "There should be no links counted in this share")
         action_context = action['context']
         self.assertTrue(action_context)
         self.assertEqual(action_context['default_owner_id'], self.env.user.partner_id.id, "the action should open a view with the current user as default owner")
