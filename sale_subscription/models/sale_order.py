@@ -715,7 +715,7 @@ class SaleOrder(models.Model):
                 recurring_order |= order
                 if not order.subscription_state:
                     order.subscription_state = '1_draft'
-            elif order.subscription_state != '7_upsell':
+            elif order.subscription_state != '7_upsell' and order.subscription_state:
                 order.subscription_state = False
 
         # The sale_subscription override of `_compute_discount` added `order_id.start_date` to `api.depends`;
