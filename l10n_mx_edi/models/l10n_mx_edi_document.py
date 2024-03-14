@@ -2256,10 +2256,13 @@ Content-Disposition: form-data; name="xml"; filename="xml"
 
     @api.model
     def _fetch_and_update_sat_status(self, batch_size=100, extra_domain=None):
-        ''' Call the SAT to know if the invoice is available government-side or if the invoice has been cancelled.
+        """ Call the SAT to know if the invoice is available government-side or if the invoice has been cancelled.
         In the second case, the cancellation could be done Odoo-side and then we need to check if the SAT is up-to-date,
         or could be done manually government-side forcing Odoo to update the invoice's state.
-        '''
+
+        :param batch_size:      The maximum size of the batch of documents to process to avoid timeout.
+        :param extra_domain:    An optional extra domain to be injected when searching for documents to update.
+        """
         domain = expression.OR(self._get_update_sat_status_domains())
         if extra_domain:
             domain = expression.AND([domain, extra_domain])
