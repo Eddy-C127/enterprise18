@@ -6,6 +6,7 @@ from .sign_request_common import SignRequestCommon
 from odoo import Command
 from odoo.exceptions import UserError, ValidationError
 
+from datetime import datetime, timedelta
 
 class TestSignRequest(SignRequestCommon):
     def test_sign_request_create(self):
@@ -456,3 +457,10 @@ class TestSignRequest(SignRequestCommon):
         wizard = Form(self.env['sign.send.request'].with_context(active_id=self.template_3_roles.id, sign_directly_without_mail=False))
         wizard.set_sign_order = True
         self.assertEqual([record['mail_sent_order'] for record in wizard.signer_ids._records], [1, 2, 3])
+
+    def test_archived_requests_dont_send_reminders(self):
+        """ Create a request with old validity and archived, trigger cron reminder and ensure no reminder was created. """
+        archived_request = self.create_sign_request_no_item(signer=self.partner_1, cc_partners=self.partner_4)
+        archived_request.write({'active': False, 'validity': datetime.now() - timedelta(days=2)})
+        self.env['sign.request']._cron_reminder()
+        self.assertTrue(archived_request.state != 'expired')
