@@ -18,6 +18,7 @@ from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools.translate import _
 
 BANXICO_DATE_FORMAT = '%d/%m/%Y'
+PROXY_URL = 'https://iap-services.odoo.com'
 CBUAE_URL = "https://centralbank.ae/umbraco/Surface/Exchange/GetExchangeRateAllCurrency"
 CBEGY_URL = "https://www.cbe.org.eg/en/economic-research/statistics/cbe-exchange-rates"
 MAP_CURRENCIES = {
@@ -570,12 +571,30 @@ class ResCompany(models.Model):
             - SF60653 USD SAT - Officially used from SAT institution
         Source: http://www.banxico.org.mx/portal-mercado-cambiario/
         """
-        icp = self.env['ir.config_parameter'].sudo()
-        token = icp.get_param('banxico_token')
-        if not token:
-            # https://www.banxico.org.mx/SieAPIRest/service/v1/token
-            token = '6a85ed7c0cbd586a8a9186f03b9911fc0ffad5f2cfc9730096c09da8bf253198'  # noqa
-            icp.set_param('banxico_token', token)
+        try:
+            payload = {
+                'jsonrpc': '2.0',
+                'method': 'call',
+                'params': {'provider': 'banxico'},
+            }
+            response = requests.get(
+                f'{PROXY_URL}/api/currency_rate/1/get_currency_rates',  # Send request to Odoo proxy
+                json=payload,
+                headers={'content-type': 'application/json'},
+                timeout=30,
+            ).json()
+
+            if response.get('error'):
+                return False
+            series = response['result']
+        except requests.RequestException as e:
+            _logger.error(e)
+            return False
+
+        available_currency_names = available_currencies.mapped('name')
+        rslt = {
+            'MXN': (1.0, fields.Date.today().strftime(DEFAULT_SERVER_DATE_FORMAT)),
+        }
         foreigns = {
             # position order of the rates from webservices
             'SF46410': 'EUR',
@@ -584,23 +603,6 @@ class ResCompany(models.Model):
             'SF46407': 'GBP',
             'SF60653': 'USD',
         }
-        url = 'https://www.banxico.org.mx/SieAPIRest/service/v1/series/%s/datos/%s/%s?token=%s' # noqa
-        date_mx = datetime.datetime.now(timezone('America/Mexico_City'))
-        today = date_mx.strftime(DEFAULT_SERVER_DATE_FORMAT)
-        yesterday = (date_mx - datetime.timedelta(days=1)).strftime(DEFAULT_SERVER_DATE_FORMAT)
-        res = requests.get(url % (','.join(foreigns), yesterday, today, token), timeout=30)
-        res.raise_for_status()
-        series = res.json()['bmx']['series']
-        series = {serie['idSerie']: {dato['fecha']: dato['dato'] for dato in serie['datos']} for serie in series if 'datos' in serie}
-
-        available_currency_names = available_currencies.mapped('name')
-
-        rslt = {
-            'MXN': (1.0, fields.Date.today().strftime(DEFAULT_SERVER_DATE_FORMAT)),
-        }
-
-        today = date_mx.strftime(BANXICO_DATE_FORMAT)
-        yesterday = (date_mx - datetime.timedelta(days=1)).strftime(BANXICO_DATE_FORMAT)
         for index, currency in foreigns.items():
             if not series.get(index, False):
                 continue
