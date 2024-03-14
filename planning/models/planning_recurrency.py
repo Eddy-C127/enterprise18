@@ -136,7 +136,7 @@ class PlanningRecurrency(models.Model):
                     ('company_id', '=', resource.company_id.id),
                     ('end_datetime', '>=', slot.start_datetime),
                     ('start_datetime', '<=', range_limit)
-                ], ['start_datetime', 'end_datetime', 'allocated_percentage'])
+                ], ['start_datetime', 'end_datetime', 'allocated_hours'])
 
                 # get the resource's availability intervals
                 resource_availability = resource._get_valid_work_intervals(start_duration, end_duration)[0][resource.id]
@@ -151,13 +151,23 @@ class PlanningRecurrency(models.Model):
                 def can_slot_be_assigned(next_start, next_end):
                     next_start_utc = next_start.replace(tzinfo=pytz.utc)
                     next_end_utc = next_end.replace(tzinfo=pytz.utc)
-                    # First we will check whether the resource is busy (whether they have another slot which would take them to more than 100%)
-                    is_resource_busy = any(
-                        next_start <= occurring_slot['end_datetime'] and
-                        next_end >= occurring_slot['start_datetime'] and
-                        (slot.allocated_percentage + occurring_slot['allocated_percentage'] > 100.0)
+                    # First we will check whether the resource is busy - we begin by collecting all overlapping slots
+                    is_resource_busy = False
+                    overlapping_slots = [
+                        occurring_slot
                         for occurring_slot in occurring_slots
-                    )
+                        if (
+                            next_start <= occurring_slot['end_datetime'] and
+                            next_end >= occurring_slot['start_datetime']
+                        )
+                    ] + [{'start_datetime': next_start, 'end_datetime': next_end, 'allocated_hours': slot.allocated_hours}]  # we do this to include the current slot in the overlapping slots
+                    # If we have overlapping slots, we check whether the resource is fully busy by comparing the planned hours to the total hours in the overlap period
+                    if len(overlapping_slots) > 1:  # check that we have more than one overlapping slot (the first is always the one being planned)
+                        earliest_start = min([overlapping_slot['start_datetime'] for overlapping_slot in overlapping_slots])
+                        latest_end = max([overlapping_slot['end_datetime'] for overlapping_slot in overlapping_slots])
+                        total_hours_planned = sum([slot['allocated_hours'] for slot in overlapping_slots])
+                        total_hours_in_overlap = (latest_end - earliest_start).total_seconds() / 3600
+                        is_resource_busy = total_hours_planned > total_hours_in_overlap
                     # Then we check whether the resource is working at that time (they have intervals or are flexible)
                     # (if the initial shift is planned outside working hours, then the recurring shifts will be normaly assigned)
                     is_resource_working = any(

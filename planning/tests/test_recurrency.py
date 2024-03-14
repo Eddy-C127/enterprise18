@@ -475,8 +475,8 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             })
             # Should be able to create a slot with a company_id != employee.company_id
             slot1 = self.env['planning.slot'].create({
-                'start_datetime': datetime(2019, 6, 1, 8, 0, 0),
-                'end_datetime': datetime(2019, 6, 1, 17, 0, 0),
+                'start_datetime': datetime(2019, 6, 3, 8, 0, 0),
+                'end_datetime': datetime(2019, 6, 3, 17, 0, 0),
                 'resource_id': self.resource_bert.id,
                 'repeat': True,
                 'repeat_type': 'forever',
@@ -488,8 +488,8 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             self.employee_bert.write({'company_id': initial_company.id})
 
             slot1 = self.env['planning.slot'].create({
-                'start_datetime': datetime(2019, 6, 1, 8, 0, 0),
-                'end_datetime': datetime(2019, 6, 1, 17, 0, 0),
+                'start_datetime': datetime(2019, 6, 3, 8, 0, 0),
+                'end_datetime': datetime(2019, 6, 3, 17, 0, 0),
                 'resource_id': self.resource_bert.id,
                 'repeat': True,
                 'repeat_type': 'forever',
@@ -503,8 +503,8 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             })
             self.employee_joseph.write({'company_id': other_company.id})
             slot2 = self.env['planning.slot'].create({
-                'start_datetime': datetime(2019, 6, 1, 8, 0, 0),
-                'end_datetime': datetime(2019, 6, 1, 17, 0, 0),
+                'start_datetime': datetime(2019, 6, 3, 8, 0, 0),
+                'end_datetime': datetime(2019, 6, 3, 17, 0, 0),
                 'resource_id': self.resource_joseph.id,
                 'repeat': True,
                 'repeat_type': 'forever',
@@ -513,9 +513,9 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             })
 
             # initial company's recurrency should have created 9 slots since it's span is two month
-            # other company's recurrency should have create 5 slots since it's span is one month
+            # other company's recurrency should have create 4 slots since it's span is one month
             self.assertEqual(len(self.get_by_employee(self.employee_bert)), 10, 'There will be a 10 slots because becuase other companys slot will become open slots')
-            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 5, 'other company\'s span is one month, so only 5 slots')
+            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 4, 'other company\'s span is one month, so only 4 slots')
 
             self.assertEqual(slot1.company_id, slot1.recurrency_id.company_id, "Recurrence and slots (1) must have the same company")
             self.assertEqual(slot1.recurrency_id.company_id, slot1.recurrency_id.slot_ids.mapped('company_id'), "All slots in the same recurrence (1) must have the same company")
