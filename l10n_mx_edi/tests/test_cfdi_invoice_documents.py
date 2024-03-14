@@ -108,7 +108,7 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
             sent_doc_values,
         ])
 
-        # Cancel
+        # Cancel.
         with freeze_time('2017-02-07'), self.with_mocked_pac_cancel_success():
             self.env['l10n_mx_edi.invoice.cancel'] \
                 .with_context(invoice.button_request_cancel()['context']) \
@@ -935,6 +935,66 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
         ])
         self.assertRecordValues(invoice4, [{
             'l10n_mx_edi_update_payments_needed': False,
+        }])
+
+    @freeze_time('2017-01-01')
+    def test_invoice_sat_sign_cancel(self):
+        """ Test the cancellation of the invoice is made after the approval of the SAT when using a production environment. """
+        self.env.company.l10n_mx_edi_pac_test_env = False
+        self.env.company.l10n_mx_edi_pac_username = 'test'
+        self.env.company.l10n_mx_edi_pac_password = 'test'
+
+        invoice = self._create_invoice(invoice_date_due='2017-02-01')  # Force PPD
+
+        # Sign.
+        with self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+        sent_doc_values = {
+            'move_id': invoice.id,
+            'state': 'invoice_sent',
+            'sat_state': 'not_defined',
+        }
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids, [sent_doc_values])
+
+        # Approval of the sat.
+        with self.with_mocked_sat_call(lambda _x: 'valid'):
+            invoice.l10n_mx_edi_cfdi_try_sat()
+        sent_doc_values['sat_state'] = 'valid'
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids, [sent_doc_values])
+
+        # Cancel.
+        with self.with_mocked_pac_cancel_success():
+            self.env['l10n_mx_edi.invoice.cancel']\
+                .with_context(invoice.button_request_cancel()['context'])\
+                .create({'cancellation_reason': '02'})\
+                .action_cancel_invoice()
+        cancel_doc_values = {
+            'move_id': invoice.id,
+            'state': 'invoice_cancel',
+            'sat_state': 'not_defined',
+        }
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids.sorted(), [
+            cancel_doc_values,
+            sent_doc_values,
+        ])
+        # We wait until the approval of the SAT.
+        self.assertRecordValues(invoice, [{
+            'state': 'posted',
+            'show_reset_to_draft_button': False,
+        }])
+
+        # Approval of the sat.
+        with self.with_mocked_sat_call(lambda _x: 'cancelled'):
+            invoice.l10n_mx_edi_cfdi_try_sat()
+        cancel_doc_values['sat_state'] = 'cancelled'
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids.sorted(), [
+            cancel_doc_values,
+            sent_doc_values,
+        ])
+        # Automatic cancellation.
+        self.assertRecordValues(invoice, [{
+            'state': 'cancel',
+            'show_reset_to_draft_button': True,
         }])
 
     @freeze_time('2017-01-01')

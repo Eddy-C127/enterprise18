@@ -701,6 +701,21 @@ class AccountMove(models.Model):
     def _compute_duplicated_ref_ids(self):
         return super()._compute_duplicated_ref_ids()
 
+    @api.depends('l10n_mx_edi_cfdi_state', 'l10n_mx_edi_cfdi_sat_state')
+    def _compute_show_reset_to_draft_button(self):
+        # EXTENDS 'account'
+        # When the PAC approved the cancellation but we are awaiting the SAT confirmation,
+        # don't allow to reset draft the invoice.
+        super()._compute_show_reset_to_draft_button()
+        for move in self:
+            if (
+                move.show_reset_to_draft_button
+                and move.l10n_mx_edi_cfdi_state == 'cancel'
+                and move.l10n_mx_edi_cfdi_sat_state != 'cancelled'
+                and move.state == 'posted'
+            ):
+                move.show_reset_to_draft_button = False
+
     # -------------------------------------------------------------------------
     # CONSTRAINTS
     # -------------------------------------------------------------------------
@@ -1624,14 +1639,16 @@ class AccountMove(models.Model):
                 .with_context(no_new_invoice=True)\
                 .message_post(body=_("The CFDI document has been successfully cancelled."))
 
-            try:
-                self._check_fiscalyear_lock_date()
-                self.line_ids._check_tax_lock_date()
+            cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(self.company_id)
+            if cfdi_values['root_company'].l10n_mx_edi_pac_test_env:
+                try:
+                    self._check_fiscalyear_lock_date()
+                    self.line_ids._check_tax_lock_date()
 
-                self.button_draft()
-                self.button_cancel()
-            except UserError:
-                pass
+                    self.button_draft()
+                    self.button_cancel()
+                except UserError:
+                    pass
 
         document._cancel_api(self.company_id, cancel_reason, on_failure, on_success)
 
@@ -1645,6 +1662,14 @@ class AccountMove(models.Model):
             return
 
         self.env['l10n_mx_edi.document']._fetch_and_update_sat_status(extra_domain=[('id', 'in', documents.ids)])
+
+        if (
+            self.l10n_mx_edi_cfdi_state == 'cancel'
+            and self.l10n_mx_edi_cfdi_sat_state == 'cancelled'
+            and self.state == 'posted'
+        ):
+            self.button_draft()
+            self.button_cancel()
 
     def _l10n_mx_edi_cfdi_invoice_get_reconciled_payments_values(self):
         """ Compute the residual amounts before/after each payment reconciled with the current invoices.
@@ -1858,14 +1883,16 @@ class AccountMove(models.Model):
         def on_success():
             self._l10n_mx_edi_cfdi_payment_document_cancel(document, cancel_reason)
 
-            try:
-                self._check_fiscalyear_lock_date()
-                self.line_ids._check_tax_lock_date()
+            cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(self.company_id)
+            if cfdi_values['root_company'].l10n_mx_edi_pac_test_env:
+                try:
+                    self._check_fiscalyear_lock_date()
+                    self.line_ids._check_tax_lock_date()
 
-                self.button_draft()
-                self.button_cancel()
-            except UserError:
-                pass
+                    self.button_draft()
+                    self.button_cancel()
+                except UserError:
+                    pass
 
         document._cancel_api(self.company_id, cancel_reason, on_failure, on_success)
 
