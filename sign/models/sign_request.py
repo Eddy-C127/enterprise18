@@ -396,10 +396,12 @@ class SignRequest(models.Model):
         today = fields.Date.today()
         # find all expired sign requests and those that need a reminder
         # in one query, the code will handle them differently
+        # note: archived requests are not fetched.
         self.env.cr.execute(f'''
         SELECT id 
         FROM sign_request sr
         WHERE sr.state = 'sent'
+        AND active = TRUE
         AND (
             sr.validity < '{today}' 
             OR (sr.reminder_enabled AND sr.last_reminder + sr.reminder * ('1 day'::interval) <= '{today}')
