@@ -88,3 +88,35 @@ class TestFsmSaleProducts(HttpCase, TestFsmFlowCommon):
         self.assertTrue(main_so.order_line.filtered(lambda sol: 'task 1' in sol.task_id.name and sol.product_id == super_product))
         self.assertTrue(main_so.order_line.filtered(lambda sol: 'task 2' in sol.task_id.name and sol.product_id == super_product))
         self.assertTrue(main_so.order_line.filtered(lambda sol: 'task 3' in sol.task_id.name and sol.product_id == super_product))
+
+    def test_sol_sequence(self):
+        sale_order = self.env['sale.order'].create({
+            'partner_id': self.partner_1.id,
+            'order_line': [
+                Command.create({
+                    'name': '',
+                    'product_id': self.env['product.product'].create({
+                        'name': 'pet',
+                        'type': 'service',
+                        'list_price': 100,
+                        'service_policy': 'ordered_prepaid',
+                        'project_id': self.fsm_project.id,
+                        'service_tracking': 'task_global_project',
+                    }).id,
+                    'product_uom_qty': 1.0,
+                }),
+                Command.create({
+                    'name': '',
+                    'product_id': self.consu_product_ordered.id,
+                    'product_uom_qty': 1.0,
+                }),
+            ],
+        })
+        previous_sale_order_line_ids = sale_order.order_line.ids
+        sale_order.action_confirm()
+        self.consu_product_delivered.with_context(fsm_task_id=sale_order.order_line.task_id.id).set_fsm_quantity(1)
+
+        self.assertNotIn(
+            sale_order.order_line.ids[-1], previous_sale_order_line_ids,
+            "The last SOL should be the one that was added after the confirmation of the SO."
+        )

@@ -81,6 +81,8 @@ class ProductProduct(models.Model):
                         vals['price_unit'] = 0
                     if product.service_type == 'manual':
                         vals['qty_delivered'] = diff_qty
+                    if task.sale_order_id.order_line:
+                        vals['sequence'] = max(task.sale_order_id.order_line.mapped('sequence')) + 1
 
                     sol_sudo = SaleOrderLine_sudo.create(vals)
 
