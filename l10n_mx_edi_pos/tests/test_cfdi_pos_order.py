@@ -379,6 +379,8 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
                 'customer': self.partner_mx,
                 'uid': '0001',
             })
+        self.assertFalse(order.l10n_mx_edi_cfdi_to_public)  # a MX partner is set on the order
+        order.l10n_mx_edi_cfdi_to_public = True  # needed to create a global invoice for this order
 
         with self.with_mocked_pac_sign_success():
             self.env['l10n_mx_edi.global_invoice.create'] \
@@ -513,6 +515,28 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
             invoice_doc_values,
             ginvoice_doc_values,
         ])
+
+    @freeze_time('2017-01-01')
+    def test_invoiced_order_mx_customer(self):
+        with self.create_and_invoice_order() as order:
+            order.partner_id = self.partner_mx
+            self.assertFalse(order.l10n_mx_edi_cfdi_to_public)
+        self._assert_invoice_cfdi(order.account_move, 'test_invoiced_order_mx_customer')
+
+    @freeze_time('2017-01-01')
+    def test_invoiced_order_foreign_customer(self):
+        with self.create_and_invoice_order() as order:
+            order.partner_id = self.partner_us
+            self.assertFalse(order.l10n_mx_edi_cfdi_to_public)
+        self._assert_invoice_cfdi(order.account_move, 'test_invoiced_order_foreign_customer')
+
+    @freeze_time('2017-01-01')
+    def test_invoiced_order_customer_with_no_country(self):
+        with self.create_and_invoice_order() as order:
+            self.partner_us.country_id = None
+            order.partner_id = self.partner_us
+            self.assertTrue(order.l10n_mx_edi_cfdi_to_public)
+        self._assert_invoice_cfdi(order.account_move, 'test_invoiced_order_customer_with_no_country')
 
     def test_refund_order_mx(self):
         """ Test a pos order completely refunded by the negative lines. """

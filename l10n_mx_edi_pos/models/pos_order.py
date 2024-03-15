@@ -232,10 +232,18 @@ class PosOrder(models.Model):
                     order.l10n_mx_edi_cfdi_attachment_id = doc.attachment_id
                     break
 
-    @api.depends('l10n_mx_edi_is_cfdi_needed')
+    @api.depends('l10n_mx_edi_is_cfdi_needed', 'partner_id', 'company_id')
     def _compute_l10n_mx_edi_cfdi_to_public(self):
         for order in self:
-            order.l10n_mx_edi_cfdi_to_public = order.l10n_mx_edi_is_cfdi_needed
+            if order.l10n_mx_edi_is_cfdi_needed and order.partner_id and order.company_id:
+                cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(order.company_id)
+                self.env['l10n_mx_edi.document']._add_customer_cfdi_values(
+                    cfdi_values,
+                    customer=order.partner_id,
+                )
+                order.l10n_mx_edi_cfdi_to_public = cfdi_values['receptor']['rfc'] == 'XAXX010101000'
+            else:
+                order.l10n_mx_edi_cfdi_to_public = order.l10n_mx_edi_is_cfdi_needed
 
     @api.depends('l10n_mx_edi_document_ids.state')
     def _compute_l10n_mx_edi_update_sat_needed(self):
