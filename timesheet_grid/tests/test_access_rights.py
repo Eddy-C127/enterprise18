@@ -475,3 +475,26 @@ class TestAccessRightsTimesheetGrid(TestCommonTimesheet):
         self.assertEqual(self.timesheet2.validated, True, "The timesheet should be validated")
         self.timesheet2.with_user(self.user_approver).write({'unit_amount': 4})
         self.assertEqual(self.timesheet2.unit_amount, 4, "The timesheet should have 4 hours")
+
+    def test_recursive_approver_validation(self):
+        """Check that a timesheet of an employee can be validated and then edited by its n+2 approver"""
+
+        # Check that both approver and approver 2 are team approvers and not full managers
+        # If the n+2 approver would be full manager, he would be allowed in any case to validate
+        self.assertFalse(self.empl_approver.user_id.has_group("hr_timesheet.group_timesheet_manager"))
+        self.assertFalse(self.empl_approver2.user_id.has_group("hr_timesheet.group_timesheet_manager"))
+
+        # Create a hierarchy employee -> approver 2 -> approver
+        self.empl_employee.parent_id = self.empl_approver2
+        self.empl_employee.timesheet_manager_id = self.empl_approver2.user_id
+        self.empl_approver2.parent_id = self.empl_approver
+        self.empl_approver2.timesheet_manager_id = self.empl_approver.user_id
+
+        # Check the timsheet is assigned to the lowest employee in the hierarchy
+        self.assertEqual(self.timesheet.employee_id, self.empl_employee)
+
+        # Check the n+2 approver can validate the timesheet
+        self.timesheet.with_user(self.user_approver).action_validate_timesheet()
+
+        # Check the n+2 approver can edit the validated timesheet
+        self.timesheet.with_user(self.user_approver).date = fields.Date.today() - timedelta(days=2)

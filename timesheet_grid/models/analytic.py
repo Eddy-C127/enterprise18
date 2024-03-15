@@ -260,6 +260,7 @@ class AnalyticLine(models.Model):
                 ('user_id', '!=', self._uid),
                 '|', ('parent_id.user_id', '=', self._uid),
                 '|', ('timesheet_manager_id', '=', self._uid),
+                '|', ('id', 'in', self.env.user.employee_id.subordinate_ids.ids),
                 '&', ('parent_id', '=', False), ('timesheet_manager_id', '=', False),
             ])
 
