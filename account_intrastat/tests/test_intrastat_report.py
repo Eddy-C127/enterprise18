@@ -285,13 +285,13 @@ class TestIntrastatReport(TestAccountReportsCommon):
         self.assertLinesValues(
             # pylint: disable=C0326
             self.report._get_lines(options),
-            # 0/name, 1/system, 2/country, 3/transaction code, 4/region code, 5/commodity code, 6/origin country, 10/weight, 12/value
+            # 0/name, 1/system, 2/country, 3/transaction code, 4/region code, 5/commodity code, 6/origin country, 12/value
             [    0,                                                           1,               2,         3,     4,     5,          6,    12],
             [
                 # BE Partner with VAT
                 ('Dispatch - None - 22042176 - ES - BE0477472701 - BE - 102', '19 (Dispatch)', 'Belgium',    '', '102', '22042176', 'ES', 160.0),
-                ('INV/2022/00002',                                            '19 (Dispatch)', 'Belgium',  None, '102', '22042176', 'ES',  80.0),
-                ('INV/2022/00001',                                            '19 (Dispatch)', 'Belgium',  None, '102', '22042176', 'ES',  80.0),
+                ('INV/2022/00002',                                            '19 (Dispatch)', 'Belgium',    '', '102', '22042176', 'ES',  80.0),
+                ('INV/2022/00001',                                            '19 (Dispatch)', 'Belgium',    '', '102', '22042176', 'ES',  80.0),
                 # FR Partner without VAT
                 ('Dispatch - 101 - 100 - QV - QV999999999999 - FR - 102',     '19 (Dispatch)',  'France', '101', '102',      '100', 'QV',  50.0),
                 ('INV/2022/00003',                                            '19 (Dispatch)',  'France', '101', '102',      '100', 'QV',  50.0),
@@ -376,11 +376,11 @@ class TestIntrastatReport(TestAccountReportsCommon):
             [
                 # account.move (invoice)
                 ('Dispatch - 101 - 100 - QV - QV999999999999 - NL - 102', '19 (Dispatch)', 'Netherlands', '101', '102', '100', 'QV', '1.5', 320.0),
-                ('INV/2022/00001',                                        '19 (Dispatch)', 'Netherlands', '101', '102', '100', 'QV',  0.3,  80.0),
-                ('INV/2022/00001',                                        '19 (Dispatch)', 'Netherlands', '101', '102', '100', 'QV',  1.2, 240.0),
+                ('INV/2022/00001',                                        '19 (Dispatch)', 'Netherlands', '101', '102', '100', 'QV', '0.3',  80.0),
+                ('INV/2022/00001',                                        '19 (Dispatch)', 'Netherlands', '101', '102', '100', 'QV', '1.2', 240.0),
                 # account.move (bill)
                 ('Arrival - 101 - 100 - QV - QV999999999999 - NL - 102',  '29 (Arrival)',  'Netherlands', '101', '102', '100', 'QV', '0.5', 950.0),
-                ('BILL/2022/01/0001',                                     '29 (Arrival)',  'Netherlands', '101', '102', '100', 'QV',  0.5, 950.0),
+                ('BILL/2022/01/0001',                                     '29 (Arrival)',  'Netherlands', '101', '102', '100', 'QV', '0.5', 950.0),
             ],
             options,
         )

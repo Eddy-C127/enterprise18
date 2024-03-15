@@ -288,28 +288,10 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             col_expr_label = column['expression_label']
             col_value = aml_data.get(col_expr_label)
 
-            if col_value is None:
-                line_columns.append({
-                    'name': None,
-                    'no_format': None,
-                    'class': '',
-                })
-            else:
-                col_class = ''
-                formatted_value = col_value
-                if options.get('commodity_flow') != 'code' and column['expression_label'] == 'system':
-                    formatted_value = f"{col_value} ({aml_data.get('type', False)})"
-                elif col_expr_label == 'date':
-                    formatted_value = format_date(self.env, col_value)
-                    col_class = 'date'
-                elif col_expr_label == 'value':
-                    formatted_value = report.format_value(options, col_value, figure_type=column['figure_type'])
-                    col_class = 'number'
-                line_columns.append({
-                    'name': formatted_value,
-                    'no_format': col_value,
-                    'class': col_class,
-                })
+            if col_expr_label == 'system' and options.get('commodity_flow') != 'code':
+                col_value = f"{col_value} ({aml_data['type']})"
+            new_column = report._build_column_dict(col_value, column, options=options)
+            line_columns.append(new_column)
 
         return {
             'id': report._get_generic_line_id('account.move.line', aml_data['id'], parent_line_id=parent_line_id),
