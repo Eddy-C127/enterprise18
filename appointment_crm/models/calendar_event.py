@@ -58,10 +58,8 @@ class CalendarEventCrm(models.Model):
         return leads
 
     def _get_lead_values(self, partner):
-        appointment_tag = self.env.ref('appointment_crm.appointment_crm_tag', raise_if_not_found=False)
         return {
             'name': self.name,
-            'tag_ids': [Command.link(appointment_tag.id)] if appointment_tag else False,
             'partner_id': partner.id,
             'type': 'opportunity',
             'user_id': self.user_id.id,

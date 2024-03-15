@@ -55,7 +55,7 @@
                 </t>
             </xpath>
             <xpath expr="//div[hasclass('o_ma_icon')]/span" position="after">
-                <span class="fa fa-mobile" t-elif="record.activity_type.raw_value == 'sms'" title="SMS" role="img" aria-label="SMS"/>
+                <span class="fa fa-mobile fs-2" t-elif="record.activity_type.raw_value == 'sms'" title="SMS" role="img" aria-label="SMS"/>
             </xpath>
             <xpath expr="//button[@name='action_view_mailings']" position="after">
                 <button name="action_view_sms" type="object" icon="fa-mobile" class="oe_stat_button"

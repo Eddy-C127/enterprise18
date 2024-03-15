@@ -46,8 +46,8 @@ class WhatsAppTemplateVariable(models.Model):
             raise ValidationError(_("Field template variables must be associated with a field."))
         for var in self.filtered('button_id'):
             if not var.demo_value.startswith(var.button_id.website_url):
-                raise ValidationError(_('Demo value of a dynamic url must start with the non-dynamic part'
-                                        'of the url such as "https://www.example.com/menu?id=20"'))
+                raise ValidationError(_('Dynamic values can only be added at the end of the link\n'
+                                        'e.g. "https://www.example.com/menu?id=20"'))
 
     @api.constrains('field_name')
     def _check_field_name(self):

@@ -47,30 +47,6 @@ class WhatsAppTemplate(WhatsAppTemplateCommon):
         )
 
     @users('user_wa_admin')
-    def test_template_button_validation(self):
-        """ Test validation done on buttons """
-        template = self.env['whatsapp.template'].create({
-            'body': 'Hello World',
-            'name': 'Test-basic',
-            'status': 'approved',
-            'wa_account_id': self.whatsapp_account.id,
-        })
-
-        # Test that the WhatsApp message fails validation when a phone number button with an invalid number is added.
-        with self.assertRaises(exceptions.UserError):
-            self._add_button_to_template(
-                template, button_type="phone_number",
-                call_number="91 12345 12345", name="test call fail",
-            )
-
-        # Test that the WhatsApp message fails validation when a URL button with an invalid URL is added.
-        with self.assertRaises(exceptions.ValidationError):
-            self._add_button_to_template(
-                template, button_type='url',
-                name="test url fail", website_url="odoo.com",
-            )
-
-    @users('user_wa_admin')
     def test_template_content_dynamic(self):
         """ Test body with multiple variables """
         template = self.env['whatsapp.template'].create({
@@ -352,6 +328,41 @@ class WhatsAppTemplateForm(WhatsAppTemplateCommon):
 
         self.assertEqual(template.model, 'res.users')
         self.assertEqual(template.model_id, self.env['ir.model']._get('res.users'))
+
+    @users('user_wa_admin')
+    def test_template_buttons_format(self):
+        """ Test detection of invalid phone number on button and update of
+            url of button, updating scheme to https when not in ('http', 'https')
+        """
+        template_form = Form(self.env['whatsapp.template'])
+        template_form.name = 'Test Buttons'
+        template_form.body = 'Hello World'
+
+        with template_form.button_ids.new() as button:
+            button.button_type = 'url'
+            button.name = 'Test Https Prefix'
+            button.website_url = 'odoo.com'
+
+        with template_form.button_ids.new() as button:
+            button.button_type = 'phone_number'
+            button.name = 'BE no prefix'
+            button.call_number = '0456 12 34 56'
+
+        template = template_form.save()
+        self.assertEqual(template.button_ids[0].website_url, 'https://odoo.com')
+
+        for country, number, is_invalid in (
+            (self.env.ref('base.in'), '0456 12 34 56', True),
+            (self.env.ref('base.be'), '0456 12 34 56', False),
+            (self.env.ref('base.be'), '98 765 4321 4321', True)
+        ):
+            with self.subTest(country=country, number=number, is_invalid=is_invalid):
+                self.env.user.country_id = country
+                template.button_ids[1].call_number = number
+                template.button_ids.invalidate_recordset(['has_invalid_number'])
+                template.invalidate_recordset(['has_invalid_button_number'])
+                self.assertEqual(template.button_ids[1].has_invalid_number, is_invalid)
+                self.assertEqual(template.has_invalid_button_number, is_invalid)
 
 
 @tagged('wa_template')

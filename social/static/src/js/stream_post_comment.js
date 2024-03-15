@@ -44,7 +44,8 @@ export class StreamPostComment extends SocialPostFormatterMixin(Component) {
     _deleteComment() {
         this.dialog.add(ConfirmationDialog, {
             title: _t('Delete Comment'),
-            body: _t('Do you really want to delete %s', this.commentName),
+            body: _t('Do you really want to delete this %s?', this.commentName),
+            confirmLabel: _t("Delete"),
             confirm: () => {
                 this._confirmDeleteComment();
             },

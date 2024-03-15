@@ -5,6 +5,7 @@
         <field name="model">whatsapp.template</field>
         <field name="arch" type="xml">
             <form string="WhatsApp Template">
+                <field name="has_invalid_button_number" invisible="1"/>
                 <header>
                     <field name="has_action" invisible="1"/>
                     <button name="button_reset_to_draft"
@@ -33,6 +34,9 @@
                         context="{'active_id': id, 'dialog_size': 'medium'}"/>
                     <field name="status" widget="statusbar" statusbar_visible="draft,pending,approved"/>
                 </header>
+                <div class="alert alert-warning mb0 pb8" role="alert" invisible="not has_invalid_button_number">
+                    The phone number set in "Buttons" does not look correct.
+                </div>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button type="object" name="action_open_messages" class="oe_stat_button" icon="fa-whatsapp">
@@ -97,7 +101,7 @@
                                     <field name="call_number"
                                         readonly="button_type != 'phone_number'" required="button_type == 'phone_number'" invisible="button_type != 'phone_number'"/>
                                     <field name="website_url"
-                                        readonly="button_type != 'url'" required="button_type == 'url'" invisible="button_type != 'url'"/>
+                                        readonly="button_type != 'url'" required="button_type == 'url'" invisible="button_type != 'url'"
                                         placeholder="e.g. https://www.example.com"/>
                                     <field name="url_type"
                                         required="button_type == 'url'" invisible="button_type != 'url'"/>

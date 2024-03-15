@@ -17,7 +17,6 @@ Allow to generate lead from Scheduled Appointments through your Website
     'depends': ['appointment', 'crm'],
     'data': [
         'views/appointment_type_views.xml',
-        'data/crm_tag.xml',
     ],
     'auto_install': True,
     'license': 'OEEL-1',

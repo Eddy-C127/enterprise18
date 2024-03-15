@@ -95,17 +95,9 @@
                         height: 14px;
                         background: $o-ma-color-white;
                         border: 1px solid $card-border-color;
+                        border-right: 0px;
+                        border-top: 0px;
                         transform: rotate(45deg);
-                    }
-                    // Timeline dot
-                    &:after {
-                        content: '';
-                        @include o-position-absolute($top: 14px, $left: -28px);
-                        width: 12px;
-                        height: 12px;
-                        border: 2px solid $o-brand-primary;
-                        border-radius: 10px;
-                        background: $o-ma-hierarchy-background;
                     }
                 }
             }
@@ -138,29 +130,16 @@
             border-bottom: 1px solid $o-ma-border-color;
             @include border-top-radius(3px);
             background-color: $o-ma-color-white;
-            .o_ma_icon {
-                display: inline-block;
-                padding: 3px 7px;
-                margin: 5px;
-                width: 28px;
-                height: 28px;
-                color: white;
-                font-size: 14px;
-                border-radius: 3px;
-                background: linear-gradient(to right bottom, $o-brand-primary, darken($o-brand-primary, 5%));
-            }
+            height: 39px;
             .o_ma_title {
                 @include o-position-absolute;
                 display: inline-block;
-                margin-top: 5px;
+                margin-top: 4px;
                 h3 {
                     font-weight: 500;
                     a {
                         @include o-text-overflow;
-                        width: 296px;
-                        &.o_ma_full {
-                            width: 378px;
-                        }
+                        width: 378px;
                     }
                 }
                 .o_ma_desc {
@@ -274,6 +253,32 @@
                 height: 53px;
             }
         }
+        .o_ma_body {
+            // Timeline Icon
+            .o_ma_card {
+                margin-left: 28px;
+            }
+            .o_ma_icon {
+                @include o-position-absolute($left: -19px);
+                display: inline-block;
+                padding: 3px 7px;
+                margin: 5px;
+                width: 28px;
+                height: 28px;
+                color: white;
+                font-size: 14px;
+                border-radius: 3px;
+                background: linear-gradient(to right bottom, $o-brand-primary, darken($o-brand-primary, 5%));
+            }
+            .o_ma_timeline {
+                @include o-position-absolute($top: 26px, $left: -112px);
+                width: 90px;
+                padding: 3px 0px;
+                border-radius: 3px;
+                background-color: $o-ma-color-white;
+                box-shadow: 0 1px 2px rgba(0,0,0,.1);
+            }
+        }
     }
 }
 
@@ -288,8 +293,20 @@
             padding: 0;
         }
 
-        .o_ma_body .o_ma_timeline {
-            top: 20px;
+        .o_ma_body {
+            // Timeline dot
+            .o_ma_card:after {
+                content: '';
+                @include o-position-absolute($top: 14px, $left: -28px);
+                width: 12px;
+                height: 12px;
+                border: 2px solid $o-brand-primary;
+                border-radius: 10px;
+                background: $o-ma-hierarchy-background;
+            }
+            .o_ma_timeline {
+                top: 20px;
+            }
         }
         .o_ma_icon {
             position: relative;
