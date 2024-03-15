@@ -241,3 +241,70 @@ class TestCFDIPayment(TestMxEdiCommon):
             payment2.move_id,
             'test_residual_payment_partial_on_different_date_mxn_invoice_2',
         )
+
+    def test_foreign_curr_payment_comp_curr_invoice_forced_balance(self):
+        with freeze_time('2016-01-02'):
+            invoice = self._create_invoice(
+                invoice_date='2016-01-01',
+                date='2016-01-01',
+                invoice_line_ids=[
+                    Command.create({
+                        'product_id': self.product.id,
+                        'price_unit': 2000.0,
+                    }),
+                ],
+            )
+            with self.with_mocked_pac_sign_success():
+                invoice._l10n_mx_edi_cfdi_invoice_try_send()
+
+        with freeze_time('2017-01-02'):
+            payment = self.env['account.payment.register'] \
+                .with_context(active_model='account.move', active_ids=invoice.ids) \
+                .create({
+                    'payment_date': '2017-01-01',
+                    'currency_id': self.foreign_curr_1.id,
+                    'amount': 4600,  # instead of 4640
+                    'payment_difference_handling': 'reconcile',
+                    'writeoff_account_id': self.env.company.expense_currency_exchange_account_id.id,
+                }) \
+                ._create_payments()
+            with self.with_mocked_pac_sign_success():
+                payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
+            self._assert_invoice_payment_cfdi(
+                payment.move_id,
+                'test_foreign_curr_payment_comp_curr_invoice_forced_balance',
+            )
+
+    def test_comp_curr_payment_foreign_curr_invoice_forced_balance(self):
+        with freeze_time('2016-01-02'):
+            invoice = self._create_invoice(
+                invoice_date='2016-01-01',
+                date='2016-01-01',
+                currency_id=self.foreign_curr_1.id,
+                invoice_line_ids=[
+                    Command.create({
+                        'product_id': self.product.id,
+                        'price_unit': 6000.0,
+                    }),
+                ],
+            )
+            with self.with_mocked_pac_sign_success():
+                invoice._l10n_mx_edi_cfdi_invoice_try_send()
+
+        with freeze_time('2017-01-02'):
+            payment = self.env['account.payment.register'] \
+                .with_context(active_model='account.move', active_ids=invoice.ids) \
+                .create({
+                    'payment_date': '2017-01-01',
+                    'currency_id': self.comp_curr.id,
+                    'amount': 2300,  # instead of 2320
+                    'payment_difference_handling': 'reconcile',
+                    'writeoff_account_id': self.env.company.expense_currency_exchange_account_id.id,
+                }) \
+                ._create_payments()
+            with self.with_mocked_pac_sign_success():
+                payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
+            self._assert_invoice_payment_cfdi(
+                payment.move_id,
+                'test_comp_curr_payment_foreign_curr_invoice_forced_balance',
+            )
