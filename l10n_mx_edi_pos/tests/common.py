@@ -25,6 +25,23 @@ class TestMxEdiPosCommon(TestMxEdiCommon, TestPoSCommon):
         session.post_closing_cash_details(0.0)
         session.close_session_from_ui()
 
+    @contextmanager
+    def create_and_invoice_order(self):
+        # create order without customer
+        with self.with_pos_session() as _session:
+            order = self._create_order({
+                'pos_order_lines_ui_args': [(self.product, 10)],
+                'payments': [(self.bank_pm1, 11600.0)],
+            })
+        self.assertTrue(order.l10n_mx_edi_cfdi_to_public)
+        yield order
+        # invoice order
+        action = order._generate_pos_order_invoice()
+        invoice = self.env['account.move'].browse(action['res_id'])
+        # generate CFDI
+        with self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+
     def _create_order(self, ui_data):
         order_data = self.create_ui_order_data(**ui_data)
         results = self.env['pos.order'].create_from_ui([order_data])
