@@ -103,7 +103,7 @@ class CalendarEvent(models.Model):
                 for partner in event.partner_ids:
                     if any(
                         intervals_overlap((event.start, event.stop), (other_event.start, other_event.stop))
-                        for other_event in events_by_partner_id.get(partner.id, []) if other_event != event
+                        for other_event in events_by_partner_id.get(partner._origin.id, []) if other_event != event
                     ):
                         event.on_leave_partner_ids += partner
 
