@@ -65,7 +65,8 @@ class CalendarEvent(models.Model):
     user_id = fields.Many2one('res.users', group_expand="_read_group_user_id")
     videocall_redirection = fields.Char('Meeting redirection URL', compute='_compute_videocall_redirection')
     appointment_booker_id = fields.Many2one('res.partner', string="Person who is booking the appointment")
-    resources_on_leave = fields.Many2many('appointment.resource', string='Resources intersecting with leave time', compute="_compute_resources_on_leave")
+    on_leave_partner_ids = fields.Many2many('res.partner', string='Unavailable Partners', compute='_compute_on_leave_partner_ids')
+    on_leave_resource_ids = fields.Many2many('appointment.resource', string='Resources intersecting with leave time', compute="_compute_on_leave_resource_ids")
     _sql_constraints = [
         ('check_resource_and_appointment_type',
          "CHECK(appointment_resource_id IS NULL OR (appointment_resource_id IS NOT NULL AND appointment_type_id IS NOT NULL))",
@@ -91,10 +92,25 @@ class CalendarEvent(models.Model):
         for event in self:
             event.appointment_resource_ids = event.booking_line_ids.appointment_resource_id
 
+    @api.depends('start', 'stop', 'partner_ids')
+    def _compute_on_leave_partner_ids(self):
+        self.on_leave_partner_ids = False
+        user_events = self.filtered(lambda event: event.appointment_type_id.schedule_based_on == 'users')
+
+        for start, stop, events in interval_from_events(user_events):
+            events_by_partner_id = events.partner_ids._get_calendar_events(start, stop)
+            for event in events:
+                for partner in event.partner_ids:
+                    if any(
+                        intervals_overlap((event.start, event.stop), (other_event.start, other_event.stop))
+                        for other_event in events_by_partner_id.get(partner._origin.id, []) if other_event != event
+                    ):
+                        event.on_leave_partner_ids += partner
+
     @api.depends('start', 'stop', 'appointment_resource_ids', 'appointment_resource_id')
-    def _compute_resources_on_leave(self):
+    def _compute_on_leave_resource_ids(self):
         resource_events = self.filtered(lambda event: event.appointment_resource_ids or event.appointment_resource_id)
-        (self - resource_events).resources_on_leave = False
+        (self - resource_events).on_leave_resource_ids = False
         if not resource_events:
             return
 
@@ -103,7 +119,7 @@ class CalendarEvent(models.Model):
             unavailabilities = group_resources.sudo().resource_id._get_unavailable_intervals(start, stop)
             for event in events:
                 event_resources = event.appointment_resource_ids | event.appointment_resource_id
-                event.resources_on_leave = event_resources.filtered(lambda resource: any(
+                event.on_leave_resource_ids = event_resources.filtered(lambda resource: any(
                     intervals_overlap(interval, (event.start, event.stop)) for interval
                     in unavailabilities.get(resource.resource_id.id, [])
                 ))
