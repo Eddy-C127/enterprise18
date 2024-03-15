@@ -73,7 +73,7 @@ QUnit.module(
                 apps: [
                     {
                         actionID: 121,
-                        href: "/odoo/act-121",
+                        href: "/odoo/action-121",
                         appID: 1,
                         id: 1,
                         label: "Discuss",
@@ -83,7 +83,7 @@ QUnit.module(
                     },
                     {
                         actionID: 122,
-                        href: "/odoo/act-122",
+                        href: "/odoo/action-122",
                         appID: 2,
                         id: 2,
                         label: "Calendar",
@@ -229,7 +229,7 @@ QUnit.module(
                 apps: new Array(8).fill().map((x, i) => {
                     return {
                         actionID: 121,
-                        href: "/odoo/act-121",
+                        href: "/odoo/action-121",
                         appID: i + 1,
                         id: i + 1,
                         label: `0${i}`,
@@ -298,7 +298,7 @@ QUnit.module(
                 apps: new Array(8).fill().map((x, i) => {
                     return {
                         actionID: 121,
-                        href: "/odoo/act-121",
+                        href: "/odoo/action-121",
                         appID: i + 1,
                         id: i + 1,
                         label: `0${i}`,

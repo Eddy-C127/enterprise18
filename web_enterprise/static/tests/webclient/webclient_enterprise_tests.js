@@ -421,7 +421,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
                 ],
             });
             assert.strictEqual(browser.history.length, 2);
-            assert.strictEqual(browser.location.href, "http://example.com/odoo/act-1002");
+            assert.strictEqual(browser.location.href, "http://example.com/odoo/action-1002");
 
             await click(fixture.querySelector(".o_menu_toggle"));
             await nextTick();
@@ -465,7 +465,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
                 "clicking another app creates a new action stack (ie empties the breadcrumb)"
             );
             assert.strictEqual(browser.history.length, 4);
-            assert.strictEqual(browser.location.href, "http://example.com/odoo/act-1001");
+            assert.strictEqual(browser.location.href, "http://example.com/odoo/action-1001");
 
             browser.history.back();
             await nextTick();
@@ -505,7 +505,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
                 ],
             });
             assert.strictEqual(browser.history.length, 4);
-            assert.strictEqual(browser.location.href, "http://example.com/odoo/act-1002");
+            assert.strictEqual(browser.location.href, "http://example.com/odoo/action-1002");
         }
     );
 
@@ -719,9 +719,9 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             assert.containsOnce(fixture, ".o_home_menu");
             assert.verifySteps([
                 // "/odoo", // All tests starts with "/odoo" so it doesn't push it again.
-                "/odoo/act-1002",
+                "/odoo/action-1002",
                 "/odoo",
-                "/odoo/act-1001",
+                "/odoo/action-1001",
                 "/odoo",
             ]);
         }

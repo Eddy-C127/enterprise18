@@ -91,7 +91,7 @@ QUnit.test("lazy load mobile-friendly view", async function (assert) {
         assert.step(args.method || route);
     };
 
-    redirect("/odoo/act-1/new");
+    redirect("/odoo/action-1/new");
     await createWebClient({ serverData, mockRPC });
 
     assert.containsNone(target, ".o_list_view");
