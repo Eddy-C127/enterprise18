@@ -99,8 +99,8 @@ test("Progressbar: check the progressbar percentage visibility.", async () => {
     expect(progressBar1).toHaveClass("o_gantt_group_success");
     expect(progressBar2).toHaveClass("o_gantt_group_success");
     const [rowHeader1, rowHeader2] = [progressBar1.parentElement, progressBar2.parentElement];
-    expect(rowHeader1.matches(SELECTORS.rowHeader)).toBeTruthy();
-    expect(rowHeader2.matches(SELECTORS.rowHeader)).toBeTruthy();
+    expect(rowHeader1.matches(SELECTORS.rowHeader)).toBe(true);
+    expect(rowHeader2.matches(SELECTORS.rowHeader)).toBe(true);
     expect(rowHeader1).not.toHaveClass(CLASSES.group);
     expect(rowHeader2).not.toHaveClass(CLASSES.group);
     expect(queryAll(SELECTORS.progressBarBackground).map((el) => el.style.width)).toEqual([
@@ -111,9 +111,9 @@ test("Progressbar: check the progressbar percentage visibility.", async () => {
     expect(queryAllTexts(SELECTORS.progressBarForeground)).toEqual(["50h / 100h", "25h / 200h"]);
 
     // Check the style of one of the progress bars
-    expect(rowHeader1.children.length).toBe(2);
+    expect(rowHeader1.children).toHaveLength(2);
     const rowTitle1 = rowHeader1.children[0];
-    expect(rowTitle1.matches(SELECTORS.rowTitle)).toBeTruthy();
+    expect(rowTitle1.matches(SELECTORS.rowTitle)).toBe(true);
     expect(rowTitle1.nextElementSibling).toBe(progressBar1);
 
     expect(rowHeader1).toHaveStyle({ gridTemplateRows: "36px 35px" });
@@ -156,8 +156,8 @@ test("Progressbar: grouped row", async () => {
     expect(progressBar1).toHaveClass("o_gantt_group_success");
     expect(progressBar2).toHaveClass("o_gantt_group_success");
     const [rowHeader1, rowHeader2] = [progressBar1.parentElement, progressBar2.parentElement];
-    expect(rowHeader1.matches(SELECTORS.rowHeader)).toBeTruthy();
-    expect(rowHeader2.matches(SELECTORS.rowHeader)).toBeTruthy();
+    expect(rowHeader1.matches(SELECTORS.rowHeader)).toBe(true);
+    expect(rowHeader2.matches(SELECTORS.rowHeader)).toBe(true);
     expect(rowHeader1).toHaveClass(CLASSES.group);
     expect(rowHeader2).toHaveClass(CLASSES.group);
     expect(queryAll(SELECTORS.progressBarBackground).map((el) => el.style.width)).toEqual([
@@ -168,9 +168,9 @@ test("Progressbar: grouped row", async () => {
     expect(queryAllTexts(SELECTORS.progressBarForeground)).toEqual(["50h / 100h", "25h / 200h"]);
 
     // Check the style of one of the progress bars
-    expect(rowHeader1.children.length).toBe(2);
+    expect(rowHeader1.children).toHaveLength(2);
     const rowTitle1 = rowHeader1.children[0];
-    expect(rowTitle1.matches(SELECTORS.rowTitle)).toBeTruthy();
+    expect(rowTitle1.matches(SELECTORS.rowTitle)).toBe(true);
     expect(rowTitle1.nextElementSibling).toBe(progressBar1);
 
     expect(rowHeader1).toHaveStyle({ gridTemplateRows: "24px 35px" });

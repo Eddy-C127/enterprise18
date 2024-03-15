@@ -54,7 +54,7 @@ test("concurrent scale switches return in inverse order", async () => {
     let content = getGridContent();
     expect(getActiveScale()).toBe("Month");
     expect(content.range).toBe("December 2018");
-    expect(model.data.records.length).toBe(6);
+    expect(model.data.records).toHaveLength(6);
 
     // switch to 'week' scale (this rpc will be delayed)
     firstReloadProm = new Deferred();
@@ -64,7 +64,7 @@ test("concurrent scale switches return in inverse order", async () => {
     content = getGridContent();
     expect(getActiveScale()).toBe("Month");
     expect(content.range).toBe("December 2018");
-    expect(model.data.records.length).toBe(6);
+    expect(model.data.records).toHaveLength(6);
 
     // switch to 'year' scale
     reloadProm = null;
@@ -73,7 +73,7 @@ test("concurrent scale switches return in inverse order", async () => {
     content = getGridContent();
     expect(getActiveScale()).toBe("Year");
     expect(content.range).toBe("2018");
-    expect(model.data.records.length).toBe(7);
+    expect(model.data.records).toHaveLength(7);
 
     firstReloadProm.resolve();
     await animationFrame();
@@ -81,7 +81,7 @@ test("concurrent scale switches return in inverse order", async () => {
     content = getGridContent();
     expect(getActiveScale()).toBe("Year");
     expect(content.range).toBe("2018");
-    expect(model.data.records.length).toBe(7);
+    expect(model.data.records).toHaveLength(7);
     expect(["patched"]).toVerifySteps(); // should only be patched once
 });
 
@@ -122,7 +122,7 @@ test("concurrent scale switches return with gantt_unavailability", async () => {
     let content = getGridContent();
     expect(getActiveScale()).toBe("Month");
     expect(content.range).toBe("December 2018");
-    expect(model.data.records.length).toBe(6);
+    expect(model.data.records).toHaveLength(6);
     expect(getCellColorProperties(1, 8)).toEqual([]);
     expect(getCellColorProperties(1, 11)).toEqual(["--Gantt__DayOff-background-color"]);
 
@@ -134,7 +134,7 @@ test("concurrent scale switches return with gantt_unavailability", async () => {
     content = getGridContent();
     expect(getActiveScale()).toBe("Month");
     expect(content.range).toBe("December 2018");
-    expect(model.data.records.length).toBe(6);
+    expect(model.data.records).toHaveLength(6);
     expect(getCellColorProperties(1, 8)).toEqual([]);
     expect(getCellColorProperties(1, 11)).toEqual(["--Gantt__DayOff-background-color"]);
 
@@ -145,7 +145,7 @@ test("concurrent scale switches return with gantt_unavailability", async () => {
     content = getGridContent();
     expect(getActiveScale()).toBe("Year");
     expect(content.range).toBe("2018");
-    expect(model.data.records.length).toBe(7);
+    expect(model.data.records).toHaveLength(7);
     expect(getCellColorProperties(1, 8)).toEqual(["--Gantt__DayOff-background-color"]);
     expect(getCellColorProperties(1, 11)).toEqual([]);
 
@@ -155,7 +155,7 @@ test("concurrent scale switches return with gantt_unavailability", async () => {
     content = getGridContent();
     expect(getActiveScale()).toBe("Year");
     expect(content.range).toBe("2018");
-    expect(model.data.records.length).toBe(7);
+    expect(model.data.records).toHaveLength(7);
     expect(getCellColorProperties(1, 8)).toEqual(["--Gantt__DayOff-background-color"]);
     expect(getCellColorProperties(1, 11)).toEqual([]);
     expect(["patched"]).toVerifySteps(); // should only be patched once

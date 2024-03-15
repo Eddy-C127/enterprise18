@@ -33,7 +33,7 @@ test("empty ungrouped gantt rendering", async () => {
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe(null);
     expect(range).toBe("December 2018");
-    expect(columnHeaders.length).toBe(31);
+    expect(columnHeaders).toHaveLength(31);
     expect(rows).toEqual([{}]);
     expect(SELECTORS.noContentHelper).toHaveCount(0);
 });
@@ -57,7 +57,7 @@ test("ungrouped gantt rendering", async () => {
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe(null);
     expect(range).toBe("December 2018");
-    expect(columnHeaders.length).toBe(31);
+    expect(columnHeaders).toHaveLength(31);
     expect(getActiveScale()).toBe("Month");
     expect(SELECTORS.expandCollapseButtons).toHaveCount(0);
     expect(rows).toEqual([
@@ -100,7 +100,7 @@ test("ordered gantt view", async () => {
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe("Gantt View");
     expect(range).toBe("December 2018");
-    expect(columnHeaders.length).toBe(31);
+    expect(columnHeaders).toHaveLength(31);
     expect(SELECTORS.noContentHelper).toHaveCount(0);
     expect(rows).toEqual([
         {
@@ -139,7 +139,7 @@ test("empty single-level grouped gantt rendering", async () => {
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe("Gantt View");
     expect(range).toBe("December 2018");
-    expect(columnHeaders.length).toBe(31);
+    expect(columnHeaders).toHaveLength(31);
     expect(rows).toEqual([{ title: "" }]);
     expect(SELECTORS.noContentHelper).toHaveCount(0);
 });
@@ -157,7 +157,7 @@ test("single-level grouped gantt rendering", async () => {
     const { range, viewTitle, columnHeaders, rows } = getGridContent();
     expect(range).toBe("December 2018");
     expect(viewTitle).toBe("Tasks");
-    expect(columnHeaders.length).toBe(31);
+    expect(columnHeaders).toHaveLength(31);
     expect(rows).toEqual([
         {
             title: "Project 1",
@@ -226,7 +226,7 @@ test("single-level grouped gantt rendering with group_expand", async () => {
     const { range, viewTitle, columnHeaders, rows } = getGridContent();
     expect(range).toBe("December 2018");
     expect(viewTitle).toBe("Tasks");
-    expect(columnHeaders.length).toBe(31);
+    expect(columnHeaders).toHaveLength(31);
     expect(rows).toEqual([
         { title: "Unused Project 1" },
         { title: "Unused Project 2" },
@@ -287,7 +287,7 @@ test("multi-level grouped gantt rendering", async () => {
     const { range, viewTitle, columnHeaders, rows } = getGridContent();
     expect(range).toBe("December 2018");
     expect(viewTitle).toBe("Tasks");
-    expect(columnHeaders.length).toBe(31);
+    expect(columnHeaders).toHaveLength(31);
     expect(rows).toEqual([
         {
             title: "User 1",
@@ -382,7 +382,7 @@ test("many2many grouped gantt rendering", async () => {
     const { range, viewTitle, columnHeaders, rows } = getGridContent();
     expect(range).toBe("December 2018");
     expect(viewTitle).toBe("Tasks");
-    expect(columnHeaders.length).toBe(31);
+    expect(columnHeaders).toHaveLength(31);
     expect(rows).toEqual([
         {
             title: "Undefined Assignees",
@@ -421,7 +421,7 @@ test("multi-level grouped with many2many field in gantt view", async () => {
     const { range, viewTitle, columnHeaders, rows } = getGridContent();
     expect(range).toBe("December 2018");
     expect(viewTitle).toBe("Tasks");
-    expect(columnHeaders.length).toBe(31);
+    expect(columnHeaders).toHaveLength(31);
     expect(rows).toEqual([
         {
             title: "Undefined Assignees",
@@ -484,7 +484,7 @@ test("full precision gantt rendering", async () => {
     const { range, viewTitle, columnHeaders, rows } = getGridContent();
     expect(range).toBe("16 December 2018 - 22 December 2018");
     expect(viewTitle).toBe("Gantt View");
-    expect(columnHeaders.length).toBe(7);
+    expect(columnHeaders).toHaveLength(7);
     expect(rows).toEqual([
         {
             title: "User 1",
@@ -619,7 +619,7 @@ test.tags("desktop")("scale switching", async () => {
     expect(SELECTORS.expandCollapseButtons).toHaveCount(0);
     let gridContent = getGridContent();
     expect(gridContent.range).toBe("December 2018");
-    expect(gridContent.columnHeaders.length).toBe(31);
+    expect(gridContent.columnHeaders).toHaveLength(31);
     expect(gridContent.rows).toEqual([
         {
             pills: [
@@ -640,7 +640,7 @@ test.tags("desktop")("scale switching", async () => {
     expect(SELECTORS.expandCollapseButtons).toHaveCount(0);
     gridContent = getGridContent();
     expect(gridContent.range).toBe("Thursday, December 20, 2018");
-    expect(gridContent.columnHeaders.length).toBe(24);
+    expect(gridContent.columnHeaders).toHaveLength(24);
     expect(gridContent.rows).toEqual([
         {
             pills: [
@@ -659,7 +659,7 @@ test.tags("desktop")("scale switching", async () => {
     expect(SELECTORS.expandCollapseButtons).toHaveCount(0);
     gridContent = getGridContent();
     expect(gridContent.range).toBe("16 December 2018 - 22 December 2018");
-    expect(gridContent.columnHeaders.length).toBe(7);
+    expect(gridContent.columnHeaders).toHaveLength(7);
     expect(gridContent.rows).toEqual([
         {
             pills: [
@@ -682,7 +682,7 @@ test.tags("desktop")("scale switching", async () => {
     expect(SELECTORS.expandCollapseButtons).toHaveCount(0);
     gridContent = getGridContent();
     expect(gridContent.range).toBe("December 2018");
-    expect(gridContent.columnHeaders.length).toBe(31);
+    expect(gridContent.columnHeaders).toHaveLength(31);
     expect(gridContent.rows).toEqual([
         {
             pills: [
@@ -703,7 +703,7 @@ test.tags("desktop")("scale switching", async () => {
     expect(SELECTORS.expandCollapseButtons).toHaveCount(0);
     gridContent = getGridContent();
     expect(gridContent.range).toBe("2018");
-    expect(gridContent.columnHeaders.length).toBe(12);
+    expect(gridContent.columnHeaders).toHaveLength(12);
     expect(gridContent.rows).toEqual([
         {
             pills: [

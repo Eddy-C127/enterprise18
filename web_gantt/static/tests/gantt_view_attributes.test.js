@@ -181,7 +181,7 @@ test("default_scale attribute", async () => {
     expect(getActiveScale()).toBe("Day");
     const { columnHeaders, range } = getGridContent();
     expect(range).toBe("Thursday, December 20, 2018");
-    expect(columnHeaders.length).toBe(24);
+    expect(columnHeaders).toHaveLength(24);
 });
 
 test("scales attribute", async () => {
@@ -312,14 +312,14 @@ test("consolidation feature", async () => {
     });
 
     const { rows } = getGridContent();
-    expect(rows.length).toBe(18);
-    expect(rows.filter((r) => r.isGroup).length).toBe(12);
+    expect(rows).toHaveLength(18);
+    expect(rows.filter((r) => r.isGroup)).toHaveLength(12);
     expect(".o_gantt_row_headers").toHaveCount(1);
 
     // Check grouped rows
-    expect(rows[0].isGroup).toBeTruthy();
+    expect(rows[0].isGroup).toBe(true);
     expect(rows[0].title).toBe("User 1");
-    expect(rows[9].isGroup).toBeTruthy();
+    expect(rows[9].isGroup).toBe(true);
     expect(rows[9].title).toBe("User 2");
 
     // Consolidation

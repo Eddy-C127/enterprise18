@@ -1,5 +1,5 @@
 import { beforeEach, expect, test } from "@odoo/hoot";
-import { keyDown, keyUp, queryAllTexts, queryFirst, queryOne } from "@odoo/hoot-dom";
+import { keyDown, keyUp, queryAllTexts, queryOne } from "@odoo/hoot-dom";
 import { Deferred, advanceTime, animationFrame, runAllTimers } from "@odoo/hoot-mock";
 import {
     contains,
@@ -290,7 +290,7 @@ test("hovering a cell with special character", async () => {
     // the "'" must be escaped with "\\'" in findSiblings to prevent the selector to crash
     await contains(".o_gantt_row_header").hover();
 
-    expect(queryFirst(".o_gantt_row_header")).toHaveClass("o_gantt_group_hovered", {
+    expect(".o_gantt_row_header:first").toHaveClass("o_gantt_group_hovered", {
         message: "hover style is applied to the element",
     });
 });

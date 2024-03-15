@@ -293,7 +293,7 @@ test("Connectors are correctly computed and rendered.", async () => {
     for (const [testKey, colorCode] of testMap.entries()) {
         const [masterTaskId, masterTaskUserId, taskId, taskUserId] = JSON.parse(testKey);
 
-        expect(connectorMap.has(testKey)).toBeTruthy({
+        expect(connectorMap.has(testKey)).toBe(true, {
             message: `There should be a connector between task ${masterTaskId} from group user ${masterTaskUserId} and task ${taskId} from group user ${taskUserId}.`,
         });
 
@@ -304,7 +304,7 @@ test("Connectors are correctly computed and rendered.", async () => {
         expect(connectorStroke).toHaveAttribute("stroke", COLORS[colorCode].color);
     }
 
-    expect(testMap.size).toBe(connectorMap.size);
+    expect(testMap).toHaveLength(connectorMap.size);
     expect(SELECTORS.connector).toHaveCount(testMap.size);
 });
 
@@ -688,7 +688,7 @@ test("Hovering a task pill should highlight related tasks and dependencies", asy
 
     const task2Pills = pills.filter((p) => p.recordId === 2);
 
-    expect(task2Pills.length).toBe(2);
+    expect(task2Pills).toHaveLength(2);
     expect(CLASSES.highlightedPill).toHaveCount(0);
 
     // Check that all connectors are not in hover state.

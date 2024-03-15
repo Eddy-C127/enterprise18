@@ -219,7 +219,7 @@ test("move a pill in multi-level grop row after collapse and expand grouped row"
         groupBy: ["project_id", "stage"],
         domain: [["id", "in", [1, 7]]],
     });
-    expect(getGridContent().rows.length).toBe(4);
+    expect(getGridContent().rows).toHaveLength(4);
 
     // collapse the first group
     await contains(`${SELECTORS.rowHeader}${SELECTORS.group}:nth-child(1)`).click();
@@ -232,7 +232,7 @@ test("move a pill in multi-level grop row after collapse and expand grouped row"
     const { drop } = await dragPill("Task 7");
     await drop({ row: 1, column: 2, part: 2 });
     expect(["write"]).toVerifySteps();
-    expect(getGridContent().rows.filter((x) => x.isGroup).length).toBe(1);
+    expect(getGridContent().rows.filter((x) => x.isGroup)).toHaveLength(1);
 });
 
 test.tags("desktop")(
@@ -333,8 +333,8 @@ test.tags("desktop")("Progress bar rpc is triggered when option set.", async () 
     expect(progressBar1).toHaveClass("o_gantt_group_success");
     expect(progressBar2).toHaveClass("o_gantt_group_success");
     const [rowHeader1, rowHeader2] = [progressBar1.parentElement, progressBar2.parentElement];
-    expect(rowHeader1.matches(SELECTORS.rowHeader)).toBeTruthy();
-    expect(rowHeader2.matches(SELECTORS.rowHeader)).toBeTruthy();
+    expect(rowHeader1.matches(SELECTORS.rowHeader)).toBe(true);
+    expect(rowHeader2.matches(SELECTORS.rowHeader)).toBe(true);
     expect(rowHeader1).not.toHaveClass(CLASSES.group);
     expect(rowHeader2).not.toHaveClass(CLASSES.group);
     expect(queryAll(SELECTORS.progressBarBackground).map((el) => el.style.width)).toEqual([
@@ -410,8 +410,8 @@ test.tags("desktop")("Progress bar when multilevel grouped.", async () => {
     expect(progressBar1).toHaveClass("o_gantt_group_success");
     expect(progressBar2).toHaveClass("o_gantt_group_success");
     const [rowHeader1, rowHeader2] = [progressBar1.parentElement, progressBar2.parentElement];
-    expect(rowHeader1.matches(SELECTORS.rowHeader)).toBeTruthy();
-    expect(rowHeader2.matches(SELECTORS.rowHeader)).toBeTruthy();
+    expect(rowHeader1.matches(SELECTORS.rowHeader)).toBe(true);
+    expect(rowHeader2.matches(SELECTORS.rowHeader)).toBe(true);
     expect(rowHeader1).toHaveClass(CLASSES.group);
     expect(rowHeader2).toHaveClass(CLASSES.group);
     expect(queryAll(SELECTORS.progressBarBackground).map((el) => el.style.width)).toEqual([
@@ -450,7 +450,7 @@ test.tags("desktop")("Progress bar warning when max_value is zero", async () => 
     expect(SELECTORS.progressBarWarning).toHaveCount(0);
     await hoverGridCell(1, 1);
     expect(SELECTORS.progressBarWarning).toHaveCount(1);
-    expect(queryFirst(SELECTORS.progressBarWarning).parentElement.textContent).toBe("50h");
+    expect(queryFirst(SELECTORS.progressBarWarning).parentElement).toHaveText("50h");
     expect(queryFirst(SELECTORS.progressBarWarning).parentElement.title).toBe("plop");
 });
 
