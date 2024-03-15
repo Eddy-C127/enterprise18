@@ -247,7 +247,7 @@ export class GridRenderer extends Component {
     getSectionColumnsClasses(column, row) {
         const isToday = column.isToday;
         return {
-            'border-top bg-info bg-opacity-50': isToday,
+            'bg-info bg-opacity-50': isToday,
             'bg-200 border-top': !isToday,
             'bg-opacity-75': this.getUnavailableClass(column) === 'o_grid_unavailable' && row.cells[column.id].value === 0,
         }
