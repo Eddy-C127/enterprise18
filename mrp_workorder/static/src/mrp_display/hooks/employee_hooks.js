@@ -3,13 +3,11 @@
 import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
 import { browser } from "@web/core/browser/browser";
-import { SelectionPopup } from "@mrp_workorder/components/popup";
-import { WorkingEmployeePopupWOList } from "@mrp_workorder/components/working_employee_popup_wo_list";
 import { PinPopup } from "@mrp_workorder/components/pin_popup";
 import { DialogWrapper } from "@mrp_workorder/components/dialog_wrapper";
 import { useState } from "@odoo/owl";
 
-export function useConnectedEmployee(controllerType, context, workcenterId, env) {
+export function useConnectedEmployee(controllerType, context, actionService, dialogService ) {
     const orm = useService("orm");
     const notification = useService("notification");
     const dialog = useService("dialog");
@@ -21,12 +19,6 @@ export function useConnectedEmployee(controllerType, context, workcenterId, env)
     });
     const popup = useState({
         PinPopup: {
-            isShown: false,
-        },
-        SelectionPopup: {
-            isShown: false,
-        },
-        WorkingEmployeePopupWOList: {
             isShown: false,
         },
     });
@@ -99,7 +91,7 @@ export function useConnectedEmployee(controllerType, context, workcenterId, env)
             await stopAllWorkorderFromEmployee(employeeId);
             notification.add(_t("Logged out!"), { type: "success" });
         }
-        closePopup("SelectionPopup");
+        dialogService.closeAll()
         await getConnectedEmployees();
     };
 
@@ -183,18 +175,10 @@ export function useConnectedEmployee(controllerType, context, workcenterId, env)
     };
 
     const popupAddEmployee = () => {
-        const list = employees.all.map((employee) =>
-            Object.create({
-                id: employee.id,
-                item: employee,
-                label: employee.name,
-                isSelected: employees.connected.find((e) => e.id === employee.id),
-            })
-        );
-        openDialog("SelectionPopup", SelectionPopup, {
-            popupData: { title: _t("Select Employee"), list: list },
-            onClosePopup: closePopup.bind(this),
-            onSelectEmployee: selectEmployee.bind(this),
+        actionService.doAction("mrp_workorder.action_open_employee_list", {
+            props: {
+                selectEmployee: (id) => selectEmployee(id),
+            },
         });
     };
 

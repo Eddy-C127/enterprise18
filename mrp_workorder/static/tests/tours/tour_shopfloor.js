@@ -27,8 +27,8 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         trigger: 'button:contains("Operator")'
     },
     {
-        content: 'Select the Billy Demo employee',
-        trigger: '.modal-body .popup .selection div:contains("Billy Demo")'
+        content: 'Select the Marc Demo employee',
+        trigger: '.modal-body .o_mrp_employee_tree_view .o_data_row td:contains("Billy Demo")'
     },
     {
         content: 'Go to workcenter Savannah from MO card',

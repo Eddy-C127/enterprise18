@@ -12,7 +12,6 @@ import { MrpDisplayRecord } from "@mrp_workorder/mrp_display/mrp_display_record"
 import { MrpWorkcenterDialog } from "./dialog/mrp_workcenter_dialog";
 import { makeActiveField } from "@web/model/relational_model/utils";
 import { MrpDisplayEmployeesPanel } from "@mrp_workorder/mrp_display/employees_panel";
-import { SelectionPopup } from "@mrp_workorder/components/popup";
 import { PinPopup } from "@mrp_workorder/components/pin_popup";
 import { useConnectedEmployee } from "@mrp_workorder/mrp_display/hooks/employee_hooks";
 import { MrpDisplaySearchBar } from "@mrp_workorder/mrp_display/search_bar";
@@ -26,7 +25,6 @@ export class MrpDisplay extends Component {
         ControlPanelButtons,
         MrpDisplayRecord,
         MrpDisplayEmployeesPanel,
-        SelectionPopup,
         PinPopup,
         MrpDisplaySearchBar,
         CheckboxItem,
@@ -90,7 +88,7 @@ export class MrpDisplay extends Component {
                 await this.useEmployee.getConnectedEmployees();
             },
         });
-        this.useEmployee = useConnectedEmployee("mrp_display", this.props.context, this.env);
+        this.useEmployee = useConnectedEmployee("mrp_display", this.props.context, this.actionService, this.dialogService);
         this.barcode = useService("barcode");
         useBus(this.barcode.bus, "barcode_scanned", (event) =>
             this._onBarcodeScanned(event.detail.barcode)
