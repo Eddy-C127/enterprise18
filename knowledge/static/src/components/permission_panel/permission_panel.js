@@ -5,7 +5,7 @@ import { rpc } from "@web/core/network/rpc";
 import { ConfirmationDialog, AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { useService } from '@web/core/utils/hooks';
-import { Component, onWillStart, useState } from "@odoo/owl";
+import { Component, onWillStart, useEffect, useState} from "@odoo/owl";
 
 const permissionLevel = {'none': 0, 'read': 1, 'write': 2}
 const restrictMessage = _t("Are you sure you want to restrict access to this article? "
@@ -36,6 +36,9 @@ export class PermissionPanel extends Component {
             this.loadPanel();
             this.isInternalUser = await user.hasGroup('base.group_user');
         });
+        useEffect(() => {
+            this.loadPanel();
+        }, () => [this.props.record.resId]);
     }
 
     async loadPanel () {
