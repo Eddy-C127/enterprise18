@@ -59,7 +59,6 @@ test("date navigation with timezone (1h)", async () => {
     });
 
     await runAllTimers();
-    await animationFrame();
     expect(["&,start,<=,2018-12-31 22:59:59,stop,>=,2018-11-30 23:00:00"]).toVerifySteps();
 
     expect(getGridContent().range).toBe("December 2018");
@@ -173,10 +172,7 @@ test("select cells to plan a task", async () => {
         arch: '<gantt date_start="start" date_stop="stop"/>',
     });
     await hoverGridCell(1, 1);
-    const { moveTo, drop } = await contains(getCell(1, 1)).drag();
-    moveTo(getCell(1, 2));
-    await runAllTimers(); // Pointer move is subjected to throttleForAnimation in gantt
-    drop();
+    await contains(getCell(1, 1)).dragAndDrop(getCell(1, 2));
 
     expect(["[dialog] Plan"]).toVerifySteps();
 });
@@ -229,10 +225,7 @@ test("select cells to plan a task: 1-level grouped", async () => {
     });
 
     await hoverGridCell(1, 1);
-    const { moveTo, drop } = await contains(getCell(1, 1)).drag();
-    moveTo(getCell(1, 2));
-    await runAllTimers(); // Pointer move is subjected to throttleForAnimation in gantt
-    drop();
+    await contains(getCell(1, 1)).dragAndDrop(getCell(1, 2));
 
     expect(["[dialog] Plan"]).toVerifySteps();
 });
@@ -460,6 +453,7 @@ test.tags("desktop")("open a dialog to create a task when grouped by many2many f
     await clickCell(5, 10);
     await contains(".o_field_widget[name=name] input").edit("NEW TASK 0");
     await contains(".o_field_widget[name=user_ids] input").fill("User 2", { confirm: false });
+    await runAllTimers();
     await contains(".o-autocomplete--dropdown-menu li:first-child a").click();
     await contains(".o_form_button_save").click();
     expect(".modal").toHaveCount(0);

@@ -34,7 +34,6 @@ import { GanttRenderer } from "@web_gantt/gantt_renderer";
 async function clickConnectorButton(connector, button) {
     hover(connector);
     await runAllTimers();
-    await animationFrame();
     let element = null;
     switch (button) {
         case "remove": {
@@ -881,7 +880,6 @@ test("Switch to full-size browser: the connections between pills should be dipla
     // Resizing browser to leave mobile view
     resize({ width: 1366, height: 768 });
     await runAllTimers();
-    await animationFrame();
 
     expect("svg.o_gantt_connector").toHaveCount(22, {
         message: "Gantt connectors should be visible when switching to desktop view",

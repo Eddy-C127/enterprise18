@@ -366,7 +366,6 @@ async function hoverCell(cell, options) {
     const part = options?.part ?? 1;
     hover(cell, { position: getCellPositionOffset(cell, part), relative: true });
     await runAllTimers();
-    await animationFrame();
 }
 
 /**
