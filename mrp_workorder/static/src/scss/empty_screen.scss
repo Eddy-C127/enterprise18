@@ -9,8 +9,12 @@
 }
 
 .o_view_nocontent {
+    top: 10vh;
     &_workorder:before {
-        @include no-content-image('workorder.png');
+        @extend %o-nocontent-init-image;
+        background: transparent url(/mrp_workorder/static/img/workorder.png) no-repeat center;
+        width: 100%;
+        height: 325px;
     }
     &_steps:before {
         @include no-content-image('steps.png');
