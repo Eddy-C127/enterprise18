@@ -43,3 +43,23 @@ class TestIndustryFsmTask(TestFsmFlowSaleCommon):
         self.task.project_id.allow_billable = False
         so.partner_shipping_id = partner_2
         self.assertFalse(self.task.partner_id, "Partner id should be set to False for non-billable tasks")
+
+    def test_fsm_task_under_warranty(self):
+        """ Ensure that the product price is zero in the sales order line for task is under warranty.
+                Test Case:
+                =========
+                1. Create a task and add timesheet line to it
+                2. Set the task under warranty
+                3. Validate the task
+                4. Check the price unit of the sale order line
+        """
+        self.task.write({'under_warranty': True, 'partner_id': self.partner_1.id})
+        self.env['account.analytic.line'].create({
+            'name': 'Timesheet',
+            'task_id': self.task.id,
+            'unit_amount': 0.25,
+            'date': '2024-04-22',
+            'employee_id': self.employee_user2.id,
+        })
+        self.task.action_fsm_validate()
+        self.assertEqual(self.task.sale_line_id.price_unit, 0.0, "If task is under warranty, the price of the sale order line should be 0.0")

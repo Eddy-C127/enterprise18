@@ -24,6 +24,9 @@ class Task(models.Model):
     warning_message = fields.Char('Warning Message', compute='_compute_warning_message', export_string_translation=False)
     invoice_count = fields.Integer("Number of invoices", related='sale_order_id.invoice_count')
     pricelist_id = fields.Many2one('product.pricelist', compute="_compute_pricelist_id", export_string_translation=False)
+    under_warranty = fields.Boolean('Under Warranty',
+        help='If ticked, the time and materials used for this task will not be billed to the customer. '
+            'However, the inventory of consumed materials will still be updated.')
 
     # Project Sharing fields
     portal_quotation_count = fields.Integer(compute='_compute_portal_quotation_count')
@@ -87,6 +90,9 @@ class Task(models.Model):
         for task in self:
             task.portal_quotation_count = mapped_data.get(task.id, 0)
 
+    def _has_no_billable_products(self):
+        return all(line.price_unit == 0 for line in self.sale_order_id.order_line)
+
     @api.depends('sale_order_id.order_line.product_uom_qty', 'sale_order_id.order_line.price_total')
     def _compute_material_line_totals(self):
 
@@ -130,6 +136,8 @@ class Task(models.Model):
                 elif task.invoice_count > 0 and task.invoice_status == 'no':
                     secondary = False
                     primary = False
+                elif task.under_warranty and task._has_no_billable_products():
+                    primary, secondary = False, False
                 else:  # Means invoice status is 'Nothing to Invoice'
                     primary = False
             task.update({
@@ -225,7 +233,8 @@ class Task(models.Model):
 
     def _show_time_and_material(self):
         # check time and material section should visible or not in portal
-        return self.allow_material and self.allow_billable and self.sale_order_id and self.is_fsm
+        return self.allow_material and self.allow_billable and self.sale_order_id and self.is_fsm and \
+            not self.under_warranty and not self._has_no_billable_products()
 
     def action_view_invoices(self):
         invoices = self.mapped('sale_order_id.invoice_ids')
@@ -415,6 +424,16 @@ class Task(models.Model):
 
         self.sale_order_id = sale_order
 
+    def _get_sale_order_line_vals(self):
+        self.ensure_one()
+        return {
+            'order_id': self.sale_order_id.id,
+            # The project and the task are given to prevent the SOL to create a new project or task based on the config of the product.
+            'project_id': self.project_id.id,
+            'task_id': self.id,
+            'product_uom': self.project_id.timesheet_product_id.uom_id.id,
+        }
+
     def _fsm_create_sale_order_line(self):
         """ Generate sales order item based on the pricing_type on the project and the timesheets in the current task
 
@@ -503,17 +522,13 @@ class Task(models.Model):
             for (timesheet_product_id, price_unit, uom_id), timesheets in product_timesheets_dict.items():
                 sol = sols_by_product_and_price_dict.get((timesheet_product_id, price_unit))  # get the existing SOL with the product and the correct price unit
                 if not sol:  # Then we create it
-                    sol = self.env['sale.order.line'].sudo().create({
-                        'order_id': self.sale_order_id.id,
+                    sol_vals = {
+                        **self._get_sale_order_line_vals(),
+                        'price_unit': 0.0 if self.under_warranty else price_unit,
                         'product_id': timesheet_product_id,
-                        'price_unit': price_unit,
-                        # The project and the task are given to prevent the SOL to create a new project or task based on the config of the product.
-                        'project_id': self.project_id.id,
-                        'task_id': self.id,
                         'product_uom_qty': sum(timesheets.mapped('unit_amount')),
-                        'product_uom': uom_id,
-                    })
-
+                    }
+                    sol = self.env['sale.order.line'].sudo().create(sol_vals)
                 # Link the SOL to the timesheets
                 update_timesheet_commands.extend([fields.Command.update(timesheet.id, {'so_line': sol.id}) for timesheet in timesheets if not timesheet.is_so_line_edited])
                 if not sol_in_task and (not product or (product.id == timesheet_product_id and product.lst_price == price_unit)):
@@ -530,14 +545,13 @@ class Task(models.Model):
             # Check if there is a SOL containing the default product of the project before to create a new one.
             sale_order_line = self.sale_order_id and self.sudo().sale_order_id.order_line.filtered(lambda sol: sol.product_id == self.project_id.timesheet_product_id)[:1]
             if not sale_order_line:
-                sale_order_line = self.env['sale.order.line'].sudo().create({
-                    'order_id': self.sale_order_id.id,
+                sol_vals = {
+                    **self._get_sale_order_line_vals(),
+                    'price_unit': 0.0 if self.under_warranty else self.timesheet_product_id.lst_price,
                     'product_id': self.timesheet_product_id.id,
-                    # The project and the task are given to prevent the SOL to create a new project or task based on the config of the product.
-                    'project_id': self.project_id.id,
-                    'task_id': self.id,
                     'product_uom_qty': sum(timesheet_id.unit_amount for timesheet_id in not_billed_timesheets),
-                })
+                }
+                sale_order_line = self.env['sale.order.line'].sudo().create(sol_vals)
             self.sudo().write({  # We need to sudo in case the user cannot see all timesheets in the current task.
                 'sale_line_id': sale_order_line.id,
                 # assign SOL to timesheets

@@ -17,6 +17,9 @@
                 <attribute name="invisible">not allow_billable and not is_fsm</attribute>
                 <attribute name="required">is_fsm</attribute>
             </field>
+            <xpath expr="//field[@name='sale_line_id']" position="after">
+                <field name="under_warranty" optional="hide"/>
+            </xpath>
         </field>
     </record>
 
@@ -228,6 +231,9 @@
                     'default_is_fsm': context.get('fsm_mode'),
                 }</attribute>
             </field>
+            <xpath expr="//field[@name='allow_billable']" position="before">
+                <field name="under_warranty" invisible="not allow_material"/>
+            </xpath>
         </field>
     </record>
 

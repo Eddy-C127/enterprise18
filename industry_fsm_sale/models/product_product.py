@@ -52,6 +52,8 @@ class ProductProduct(models.Model):
                         vals = {
                             'product_uom_qty': all_editable_lines[0].product_uom_qty + diff_qty,
                         }
+                        if task.under_warranty:
+                            vals['price_unit'] = 0
                         if product.service_type == 'manual':
                             vals['qty_delivered'] = all_editable_lines[0].product_uom_qty + diff_qty
                         all_editable_lines[0].with_context(fsm_no_message_post=True).write(vals)
@@ -63,6 +65,8 @@ class ProductProduct(models.Model):
                         if product.service_type == 'manual':
                             line.with_context(fsm_no_message_post=True).qty_delivered = new_line_qty
                         line.with_context(fsm_no_message_post=True).product_uom_qty = new_line_qty
+                        if task.under_warranty:
+                            line.price_unit = 0
                         if diff_qty == 0:
                             break
                 elif diff_qty > 0:  # create new SOL
@@ -73,6 +77,8 @@ class ProductProduct(models.Model):
                         'product_uom': product.uom_id.id,
                         'task_id': task.id
                     }
+                    if task.under_warranty:
+                        vals['price_unit'] = 0
                     if product.service_type == 'manual':
                         vals['qty_delivered'] = diff_qty
 
