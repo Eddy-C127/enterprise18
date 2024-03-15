@@ -1,4 +1,3 @@
-/** @odoo-module */
 import { Component, toRaw } from "@odoo/owl";
 
 import { closest, touching } from "@web/core/utils/ui";
@@ -20,7 +19,6 @@ import {
     SelectionValuesEditor,
     RelationalFieldConfigurator,
     RelatedChainBuilder,
-    FilterConfiguration,
 } from "@web_studio/client_action/view_editor/interactive_editor/field_configuration/field_configuration";
 import {
     getNodesFromXpath,
@@ -81,6 +79,7 @@ export class InteractiveEditor extends Component {
         // Those are fine because editor defines the t-key
         const prepareForDrag = this.props.editor.prepareForDrag;
         const isValidHook = this.props.editor.isValidHook || (() => true);
+        this.addViewStructure = this.props.editor.addViewStructure;
         const styleNearestHook =
             this.props.editor.styleNearestHook ||
             ((ref, hook) => {
@@ -290,7 +289,7 @@ export class InteractiveEditor extends Component {
         };
     }
 
-    async addField(droppedData, targetInfo) {
+    async addField(droppedData) {
         const data = JSON.parse(droppedData);
         const isExistingField = "fieldName" in data;
 
@@ -323,107 +322,31 @@ export class InteractiveEditor extends Component {
             newNode.attrs.optional = "show";
         }
 
-        const operation = {
+        return {
             node: newNode,
-            target: this.viewEditorModel.getFullTarget(targetInfo.xpath),
-            position: targetInfo.position,
-            type: "add",
         };
-        this.setAutoClick(targetInfo, newNode);
-        return this.viewEditorModel.doOperation(operation);
     }
 
     async addStructure(structure, droppedData, targetInfo) {
-        if (structure === "field" && !["groupBy", "filter"].includes(targetInfo.type)) {
-            // AddField in form,list,kanban
-            return this.addField(droppedData, targetInfo);
-        }
-
-        if (["notebook", "group", "separator"].includes(structure)) {
-            // Add specific structure that don't need configuration (form, search)
-            const operation = {
-                node: {
-                    tag: structure,
-                    attrs: {
-                        name: randomName(`studio_${structure}`),
-                    },
-                },
-                target: this.viewEditorModel.getFullTarget(targetInfo.xpath),
-                position: targetInfo.position,
-                type: "add",
-            };
-            this.setAutoClick(targetInfo, operation.node);
-            return this.viewEditorModel.doOperation(operation);
-        }
-
-        if (structure === "filter") {
-            // For search editor
-            const filterData = await new Promise((resolve) => {
-                this.addDialog(FieldConfigurationDialog, {
-                    title: _t("New Filter"),
-                    size: "md",
-                    confirm: (data) => resolve(data),
-                    cancel: () => resolve(false),
-                    Component: FilterConfiguration,
-                    componentProps: { resModel: this.viewEditorModel.resModel },
-                });
+        let _operation;
+        if (this.addViewStructure) {
+            _operation = await this.addViewStructure(structure, {
+                droppedData,
+                targetInfo,
+                addDialog: this.addDialog.bind(this),
             });
-            if (!filterData) {
-                return;
-            }
-            const node = {
-                tag: "filter",
-                attrs: {
-                    domain: filterData.domain,
-                    name: randomName("studio_filter"),
-                    string: filterData.filterLabel,
-                },
-            };
-            const operation = {
-                node,
-                target: this.viewEditorModel.getFullTarget(targetInfo.xpath),
-                position: targetInfo.position,
-                type: "add",
-            };
-            this.setAutoClick(targetInfo, operation.node);
-            return this.viewEditorModel.doOperation(operation);
         }
-
-        if (
-            this.viewEditorModel.viewType === "search" &&
-            structure === "field" &&
-            ["groupBy", "filter"].includes(targetInfo.type)
-        ) {
-            // Add field as a filter or as a groupBy, for search editor
-            const fieldName = JSON.parse(droppedData).fieldName;
-            const fieldGet = this.viewEditorModel.fields[fieldName];
-            const willBeGroupBy = targetInfo.type === "groupBy";
-
-            const node = {
-                tag: "filter",
-                attrs: {
-                    name: randomName(`studio_${willBeGroupBy ? "group" : "filter"}_by`),
-                    string: fieldGet.string,
-                },
-            };
-
-            if (willBeGroupBy) {
-                node.attrs.context = `{'group_by': '${fieldName}'}`;
-                if (targetInfo.infos && JSON.parse(targetInfo.infos).create_group) {
-                    node.attrs.create_group = true;
-                }
-            } else {
-                node.attrs.date = fieldName;
-            }
-            const operation = {
-                node,
-                target: this.viewEditorModel.getFullTarget(targetInfo.xpath),
-                position: targetInfo.position,
-                type: "add",
-            };
-            this.setAutoClick(targetInfo, operation.node);
-            return this.viewEditorModel.doOperation(operation);
+        if (!_operation && structure === "field") {
+            _operation = await this.addField(droppedData);
         }
+        const operation = {
+            target: this.viewEditorModel.getFullTarget(targetInfo.xpath),
+            position: targetInfo.position,
+            type: "add",
+            ..._operation,
+        };
+        this.setAutoClick(targetInfo, operation.node);
+        return this.viewEditorModel.doOperation(operation);
     }
 
     async getNewFieldNode(data) {
@@ -495,7 +418,10 @@ export class InteractiveEditor extends Component {
             }
         }
 
-        if (fieldType === "monetary" || (fieldType === "related" && newNode.field_description?.type === 'monetary')) {
+        if (
+            fieldType === "monetary" ||
+            (fieldType === "related" && newNode.field_description?.type === "monetary")
+        ) {
             this.setCurrencyInfos(newNode.field_description);
         }
 

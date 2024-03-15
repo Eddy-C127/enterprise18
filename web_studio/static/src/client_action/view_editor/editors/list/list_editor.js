@@ -1,4 +1,3 @@
-/** @odoo-module */
 import { listView } from "@web/views/list/list_view";
 import { computeXpath } from "../xml_utils";
 import { registry } from "@web/core/registry";

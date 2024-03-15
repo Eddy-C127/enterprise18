@@ -1,12 +1,13 @@
-/** @odoo-module */
-
 import { formView } from "@web/views/form/form_view";
 import { FormEditorRenderer } from "./form_editor_renderer/form_editor_renderer";
 import { FormEditorController } from "./form_editor_controller/form_editor_controller";
 import { FormEditorCompiler } from "./form_editor_compiler";
 import { registry } from "@web/core/registry";
 import { omit } from "@web/core/utils/objects";
-import { makeModelErrorResilient } from "@web_studio/client_action/view_editor/editors/utils";
+import {
+    makeModelErrorResilient,
+    randomName,
+} from "@web_studio/client_action/view_editor/editors/utils";
 import { getModifier } from "@web/views/view_compiler";
 import { FormEditorSidebar } from "./form_editor_sidebar/form_editor_sidebar";
 import { getStudioNoFetchFields } from "../utils";
@@ -29,7 +30,6 @@ class EditorArchParser extends formView.ArchParser {
                 }
             }
         }
-
     }
 }
 
@@ -133,3 +133,20 @@ function isValidFormHook({ hook, element }) {
     return true;
 }
 formEditor.isValidHook = isValidFormHook;
+
+function addFormViewStructure(structure) {
+    switch (structure) {
+        case "notebook":
+        case "group": {
+            return {
+                node: {
+                    tag: structure,
+                    attrs: {
+                        name: randomName(`studio_${structure}`),
+                    },
+                },
+            };
+        }
+    }
+}
+formEditor.addViewStructure = addFormViewStructure;

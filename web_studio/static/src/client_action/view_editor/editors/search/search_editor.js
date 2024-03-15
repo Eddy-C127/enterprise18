@@ -1,4 +1,3 @@
-/** @odoo-module */
 import { Component, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { computeXpath } from "@web_studio/client_action/view_editor/editors/xml_utils";
@@ -14,6 +13,11 @@ import { memoize } from "@web/core/utils/functions";
 import { useOwnedDialogs } from "@web/core/utils/hooks";
 import { SidebarPropertiesToolbox } from "@web_studio/client_action/view_editor/interactive_editor/properties/sidebar_properties_toolbox/sidebar_properties_toolbox";
 import { standardViewProps } from "@web/views/standard_view_props";
+import {
+    FieldConfigurationDialog,
+    FilterConfiguration,
+} from "@web_studio/client_action/view_editor/interactive_editor/field_configuration/field_configuration";
+import { randomName } from "@web_studio/client_action/view_editor/editors/utils";
 
 function getGroupByFieldNameFromString(str) {
     const matches = str.match(/(,\s*)?(["'])group_by\2\1(\s*:\s*)?\2(?<fieldName>.*)\2/);
@@ -347,6 +351,79 @@ const searchEditor = {
 };
 
 registry.category("studio_editors").add("search", searchEditor);
+
+async function addSearchViewStructure(structure, { droppedData, targetInfo, addDialog }) {
+    switch (structure) {
+        case "group":
+        case "separator": {
+            return {
+                node: {
+                    tag: structure,
+                    attrs: {
+                        name: randomName(`studio_${structure}`),
+                    },
+                },
+            };
+        }
+
+        case "field": {
+            if (!["groupBy", "filter"].includes(targetInfo.type)) {
+                return;
+            } else {
+                const fieldName = JSON.parse(droppedData).fieldName;
+                const fieldGet = this.env.viewEditorModel.fields[fieldName];
+                const willBeGroupBy = targetInfo.type === "groupBy";
+
+                const node = {
+                    tag: "filter",
+                    attrs: {
+                        name: randomName(`studio_${willBeGroupBy ? "group" : "filter"}_by`),
+                        string: fieldGet.string,
+                    },
+                };
+
+                if (willBeGroupBy) {
+                    node.attrs.context = `{'group_by': '${fieldName}'}`;
+                    if (targetInfo.infos && JSON.parse(targetInfo.infos).create_group) {
+                        node.attrs.create_group = true;
+                    }
+                } else {
+                    node.attrs.date = fieldName;
+                }
+                return {
+                    node,
+                };
+            }
+        }
+        case "filter": {
+            const filterData = await new Promise((resolve) => {
+                addDialog(FieldConfigurationDialog, {
+                    title: _t("New Filter"),
+                    size: "md",
+                    confirm: (data) => resolve(data),
+                    cancel: () => resolve(false),
+                    Component: FilterConfiguration,
+                    componentProps: { resModel: this.env.viewEditorModel.resModel },
+                });
+            });
+            if (!filterData) {
+                return;
+            }
+            const node = {
+                tag: "filter",
+                attrs: {
+                    domain: filterData.domain,
+                    name: randomName("studio_filter"),
+                    string: filterData.filterLabel,
+                },
+            };
+            return {
+                node,
+            };
+        }
+    }
+}
+searchEditor.addViewStructure = addSearchViewStructure;
 
 /** Drag/Drop */
 
