@@ -1135,19 +1135,14 @@ class AccountReport(models.Model):
 
     def _init_options_companies(self, options, previous_options=None):
         if self.filter_multi_company == 'selector':
-            self._multi_company_selector_init_options(options, previous_options=previous_options)
+            companies = self.env.companies
         elif self.filter_multi_company == 'tax_units':
-            self._multi_company_tax_units_init_options(options, previous_options=previous_options)
+            companies = self._multi_company_tax_units_init_options(options, previous_options=previous_options)
         else:
             # Multi-company is disabled for this report ; only accept the sub-branches of the current company from the selector
-            options['companies'] = [{'name': company.name, 'id': company.id} for company in self.env.company._accessible_branches()]
+            companies = self.env.company._accessible_branches()
 
-    def _multi_company_selector_init_options(self, options, previous_options=None):
-        """ Initializes the companies option for reports configured to compute it from the company selector.
-        """
-        options['companies'] = [
-            {'id': c.id, 'name': c.name, 'currency_id': c.currency_id.id} for c in self.env.companies
-        ]
+        options['companies'] = [{'name': c.name, 'id': c.id, 'currency_id': c.currency_id.id} for c in companies]
 
     def _multi_company_tax_units_init_options(self, options, previous_options=None):
         """ Initializes the companies option for reports configured to compute it from tax units.
@@ -1201,7 +1196,7 @@ class AccountReport(models.Model):
             tax_unit = available_tax_units.filtered(lambda x: x.id == options['tax_unit'])
             companies = tax_unit.company_ids
 
-        options['companies'] = [{'name': company.name, 'id': company.id} for company in companies]
+        return companies
 
     ####################################################
     # OPTIONS: MULTI CURRENCY
