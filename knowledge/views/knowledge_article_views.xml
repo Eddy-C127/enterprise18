@@ -471,6 +471,7 @@
     <record id="knowledge_article_action" model="ir.actions.act_window">
         <field name="name">Articles</field>
         <field name="res_model">knowledge.article</field>
+        <field name="path">articles</field>
         <field name="view_mode">tree,kanban,hierarchy,form</field>
         <field name="context">{'search_default_filter_not_is_article_item': 1}</field>
         <field name="domain">[('is_template', '=', False)]</field>

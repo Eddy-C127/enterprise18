@@ -470,6 +470,7 @@
     <record id="helpdesk_ticket_action_main_my" model="ir.actions.act_window">
         <field name="name">My Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
+        <field name="path">my-tickets</field>
         <field name="view_mode">tree,kanban,form,activity,pivot,graph,cohort</field>
         <field name="search_view_id" ref="helpdesk_tickets_view_search"/>
         <field name="context">{
@@ -508,6 +509,7 @@
     <record id="helpdesk_ticket_action_main_tree" model="ir.actions.act_window">
         <field name="name">All Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
+        <field name="path">all-tickets</field>
         <field name="view_mode">tree,kanban,form,activity,pivot,graph,cohort</field>
         <field name="search_view_id" ref="helpdesk_tickets_view_search"/>
         <field name="context">{'search_default_is_open': True}</field>

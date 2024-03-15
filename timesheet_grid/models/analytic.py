@@ -734,6 +734,7 @@ class AnalyticLine(models.Model):
                 if view[1] != "pivot"
             ]
         action['context'] = context
+        action['path'] = 'validate-timesheets'
         return action
 
     def _get_domain_for_validation_timesheets(self, validated=False):

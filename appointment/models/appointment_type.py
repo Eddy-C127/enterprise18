@@ -413,6 +413,7 @@ class AppointmentType(models.Model):
         action['context'].update({
             'default_scale': self.search([('schedule_based_on', '=', 'resources')])._get_gantt_scale(),
         })
+        action['path'] = 'resource-bookings'
         return action
 
     @api.model
@@ -423,6 +424,7 @@ class AppointmentType(models.Model):
         action['context'].update({
             'default_scale': self.search([('schedule_based_on', '=', 'users')])._get_gantt_scale(),
         })
+        action['path'] = 'staff-bookings'
         return action
 
     def action_share_invite(self):

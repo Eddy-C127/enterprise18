@@ -599,6 +599,7 @@
     <record id="planning_action_my_calendar" model="ir.actions.act_window">
         <field name="name">My Planning</field>
         <field name="res_model">planning.slot</field>
+        <field name="path">my-planning</field>
         <field name="view_mode">calendar,gantt,tree,form,kanban</field>
         <field name="mobile_view_mode">calendar</field>
         <field name="context">{'search_default_my_shifts': 1, 'search_default_open_shifts': 1, 'search_default_unwanted_shifts': 1, 'planning_expand_resource': 1, 'planning_expand_role': 1}</field>
@@ -744,6 +745,7 @@
 
     <record id="planning_action_schedule_by_role" model="ir.actions.act_window">
         <field name="name">Schedule by Role</field>
+        <field name="path">planning-by-role</field>
         <field name="res_model">planning.slot</field>
         <field name="view_mode">gantt,calendar,tree,form,kanban,pivot,graph</field>
         <field name="mobile_view_mode">calendar</field>

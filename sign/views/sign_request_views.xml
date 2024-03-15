@@ -221,6 +221,7 @@
     <record id="sign_request_action" model="ir.actions.act_window">
         <field name="name">Documents</field>
         <field name="res_model">sign.request</field>
+        <field name="path">sign-documents</field>
         <field name="view_mode">kanban,tree,form,activity</field>
         <field name="search_view_id" ref="sign_request_view_search"/>
         <field name="context" eval="{'search_default_my_docs': 1, 'search_default_my_sign_request': 1}"/>
@@ -237,6 +238,7 @@
     <record id="sign_request_waiting_for_me_action" model="ir.actions.act_window">
         <field name="name">Waiting for me</field>
         <field name="res_model">sign.request</field>
+        <field name="path">waiting-for-signature</field>
         <field name="view_mode">kanban,tree,form,activity</field>
         <field name="search_view_id" ref="sign_request_view_search"/>
         <field name="domain">[('request_item_ids.partner_id.user_ids', 'in', uid)]</field>
@@ -253,6 +255,7 @@
     <record id="sign_request_my_requests_action" model="ir.actions.act_window">
         <field name="name">My requests</field>
         <field name="res_model">sign.request</field>
+        <field name="path">my-sign-requests</field>
         <field name="view_mode">kanban,tree,form,activity</field>
         <field name="search_view_id" ref="sign_request_view_search"/>
         <field name="domain">['|', ('create_uid', '=', uid), ('request_item_ids.partner_id.user_ids', 'in', uid)]</field>

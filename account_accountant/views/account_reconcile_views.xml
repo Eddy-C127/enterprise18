@@ -107,6 +107,7 @@
     <record id="action_move_line_posted_unreconciled" model="ir.actions.act_window">
         <field name="name">Journal Items to reconcile</field>
         <field name="res_model">account.move.line</field>
+        <field name="path">reconcile</field>
         <field name="view_mode">tree</field>
         <field name="search_view_id" ref="view_account_move_line_reconcile_search"/>
         <field name="view_id" ref="view_move_line_reconcile_tree"/>
