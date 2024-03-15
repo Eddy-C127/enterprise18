@@ -436,7 +436,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
                         },
                         {
                             action: "menu",
-                            displayName: "",
+                            displayName: "HomeMenuAction",
                         },
                     ],
                 },
@@ -480,7 +480,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
                         },
                         {
                             action: "menu",
-                            displayName: "",
+                            displayName: "HomeMenuAction",
                         },
                     ],
                 },

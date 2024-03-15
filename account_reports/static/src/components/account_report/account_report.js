@@ -15,15 +15,11 @@ import { AccountReportLine } from "@account_reports/components/account_report/li
 import { AccountReportLineCell } from "@account_reports/components/account_report/line_cell/line_cell";
 import { AccountReportLineName } from "@account_reports/components/account_report/line_name/line_name";
 import { AccountReportSearchBar } from "@account_reports/components/account_report/search_bar/search_bar";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 export class AccountReport extends Component {
     static template = "account_reports.AccountReport";
-    static props = {
-        action: Object,
-        actionId: { type: Number, optional: true },
-        className: { type: String, optional: true },
-        globalState: { type: Object, optional: true },
-    };
+    static props = { ...standardActionServiceProps };
     static components = {
         ControlPanel,
         AccountReportButtonsBar,

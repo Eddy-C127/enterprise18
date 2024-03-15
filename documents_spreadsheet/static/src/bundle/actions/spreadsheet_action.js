@@ -22,6 +22,9 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
         DocumentsSpreadsheetControlPanel,
         SpreadsheetName,
     };
+    static path = "spreadsheet";
+    static displayName = _t("Spreadsheet");
+
     resModel = "documents.document";
     threadField = "document_id";
 

@@ -8,6 +8,7 @@ import { PayrollDashboardPayslipBatch } from '@hr_payroll/components/dashboard/p
 import { PayrollDashboardTodo } from '@hr_payroll/components/dashboard/todo_list/todo_list';
 import { PayrollDashboardStats } from '@hr_payroll/components/dashboard/payroll_stats/payroll_stats';
 import { Component, onWillStart } from "@odoo/owl";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 class PayrollDashboardComponent extends Component {
     static template = "hr_payroll.Dashboard";
@@ -17,11 +18,7 @@ class PayrollDashboardComponent extends Component {
         PayrollDashboardTodo,
         PayrollDashboardStats,
     };
-    static props = {
-        action: Object,
-        actionId: { type: Number, optional: true },
-        className: { type: String, optional: true },
-    };
+    static props = { ...standardActionServiceProps };
 
     setup() {
         this.orm = useService('orm');

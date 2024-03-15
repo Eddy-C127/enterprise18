@@ -9,14 +9,10 @@ import { useBus, useService } from "@web/core/utils/hooks";
 import { serializeDate, today } from "@web/core/l10n/dates";
 import { Component, onWillStart, useState } from "@odoo/owl";
 import { ManualBarcodeScanner } from "./components/manual_barcode";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 export class MainMenu extends Component {
-    static props = {
-        action: { Object },
-        actionId: { type: Number, optional: true },
-        className: String,
-        globalState: { type: Object, optional: true },
-    };
+    static props = { ...standardActionServiceProps };
     static template = "stock_barcode.MainMenu";
 
     setup() {

@@ -49,7 +49,8 @@ export class AbstractSpreadsheetAction extends Component {
         }
         this.isEmptySpreadsheet = this.params.is_new_spreadsheet || false;
         this.resId =
-            this.params.spreadsheet_id ||
+            this.params.resId ||
+            this.params.spreadsheet_id || // backward compatibility. res_id used to be spreadsheet_id
             this.params.active_id || // backward compatibility. spreadsheet_id used to be active_id
             (this.props.state && this.props.state.resId); // used when going back to a spreadsheet via breadcrumb
         this.shareId = this.params.share_id || this.props.state?.shareId;
@@ -106,8 +107,8 @@ export class AbstractSpreadsheetAction extends Component {
         });
         onMounted(() => {
             const commentsStore = stores.get(CommentsStore);
+            this.props.updateResId(this.resId);
             router.pushState({
-                spreadsheet_id: this.resId,
                 access_token: this.accessToken,
                 share_id: this.shareId,
             });

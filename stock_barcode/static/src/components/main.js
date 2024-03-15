@@ -18,6 +18,7 @@ import { url } from '@web/core/utils/urls';
 import { utils as uiUtils } from "@web/core/ui/ui_service";
 import { Component, EventBus, onPatched, onWillStart, useState, useSubEnv } from "@odoo/owl";
 import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 // Lets `barcodeGenericHandlers` knows those commands exist so it doesn't warn when scanned.
 COMMANDS["O-CMD.MAIN-MENU"] = () => {};
@@ -48,7 +49,7 @@ registry.category("view_widgets").add("stock_barcode_unlink_button", {
  */
 
 class MainComponent extends Component {
-    static props = ["action", "actionId?", "className?", "globalState?", "resId?"];
+    static props = { ...standardActionServiceProps };
     static template = "stock_barcode.MainComponent";
     static components = {
         Chatter,

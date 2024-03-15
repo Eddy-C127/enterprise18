@@ -2,6 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { loadSpreadsheetAction } from "@spreadsheet/assets_backend/spreadsheet_action_loader";
+import { _t } from "@web/core/l10n/translation";
 
 const actionRegistry = registry.category("actions");
 
@@ -15,6 +16,8 @@ const loadActionSpreadsheet = async (env, context) => {
         type: "ir.actions.client",
     };
 };
+loadActionSpreadsheet.path = "spreadsheet";
+loadActionSpreadsheet.displayName = _t("Spreadsheet");
 
 const loadActionSpreadsheetTemplate = async (env, context) => {
     await loadSpreadsheetAction(env, "action_open_template", loadActionSpreadsheetTemplate);

@@ -7,6 +7,7 @@ import { Component, onWillStart, useEffect, useRef, useState, markup } from "@od
 import { SignRequestControlPanel } from "@sign/backend_components/sign_request/sign_request_control_panel";
 import { Document } from "@sign/components/sign_request/document_signable";
 import { PDFIframe } from "@sign/components/sign_request/PDF_iframe";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 export class SignRequest extends Component {
     static template = "sign.SignRequest";
@@ -14,11 +15,7 @@ export class SignRequest extends Component {
         SignRequestControlPanel,
         Document,
     };
-    static props = {
-        action: Object,
-        actionId: { type: Number, optional: true },
-        className: { type: String, optional: true },
-    };
+    static props = { ...standardActionServiceProps };
 
     get markupHtml() {
         return markup(this.html);
