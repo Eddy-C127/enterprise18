@@ -21,7 +21,7 @@ export class GridTimesheetTimerHeader extends Component {
         stepTimer: Number,
         timerRunning: Boolean,
         addTimeMode: Boolean,
-        headerReadonly: { type: Boolean, optional: true },
+        otherCompany: { type: Boolean, optional: true },
         model: Object,
         resId: { type: Number, optional: true },
         updateTimesheet: Function,

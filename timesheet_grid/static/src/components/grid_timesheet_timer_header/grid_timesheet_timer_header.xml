@@ -2,7 +2,7 @@
 <templates xml:space="preserve">
 
     <t t-name="timesheet_grid.GridTimesheetTimerHeader">
-        <t t-if="props.timerRunning and !props.headerReadonly">
+        <t t-if="props.timerRunning and !props.otherCompany">
             <Record
                 fields="fields"
                 activeFields="activeFields"
@@ -16,7 +16,7 @@
                     timesheet="data.record"
                     addTimeMode="props.addTimeMode"
                     timerRunning="props.timerRunning"
-                    headerReadonly="props.headerReadonly"
+                    otherCompany="props.otherCompany"
                     fields="activeFields"
                     stepTimer="props.stepTimer"
                     timerReactive="timerReactive"
@@ -30,7 +30,7 @@
             <TimesheetTimerHeader
                 addTimeMode="props.addTimeMode"
                 timerRunning="props.timerRunning"
-                headerReadonly="props.headerReadonly"
+                otherCompany="props.otherCompany"
                 fields="activeFields"
                 stepTimer="props.stepTimer"
                 onTimerStarted="props.onTimerStarted"

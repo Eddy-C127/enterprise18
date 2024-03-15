@@ -34,9 +34,8 @@ export class TimesheetTimerRendererHook {
             timesheetId: undefined,
             addTimeMode: false,
             timerRunning: false,
-            headerReadonly: false,
+            otherCompany: false,
         });
-        this.propsList.model.hooks.onRecordChanged = this.onRecordChanged.bind(this);
     }
 
     get showTimer() {
@@ -185,7 +184,7 @@ export class TimesheetTimerRendererHook {
             !this.timerState.timesheetId ||
             (this.timesheet &&
                 this.timesheet.resId === this.timerState.timesheetId) ||
-            this.timerState.headerReadonly
+            this.timerState.otherCompany
         ) {
             return;
         }
@@ -206,11 +205,11 @@ export class TimesheetTimerRendererHook {
     }
 
     _setTimerStateData(vals) {
-        if (vals.id || vals.readonly) {
+        if (vals.id || vals.other_company) {
             Object.assign(this.timerState, {
                 timerRunning: true,
                 timesheetId: vals.id,
-                headerReadonly: !!vals.readonly,
+                otherCompany: !!vals.other_company,
             });
         } else if (this.timerState.timerRunning && this.timesheet?.data.project_id) {
             this._resetTimerState();
@@ -228,7 +227,7 @@ export class TimesheetTimerRendererHook {
         Object.assign(this.timerState, {
             timesheetId: undefined,
             timerRunning: false,
-            headerReadonly: false,
+            otherCompany: false,
         });
     }
 
@@ -239,11 +238,11 @@ export class TimesheetTimerRendererHook {
         ) {
             return;
         }
-        const { headerReadonly, timerRunning } = this.timerState;
+        const { otherCompany, timerRunning } = this.timerState;
         switch (ev.key) {
             case "Enter":
                 ev.preventDefault();
-                if (!headerReadonly) {
+                if (!otherCompany) {
                     if (timerRunning) {
                         this._onTimerStopped();
                     } else {
@@ -252,7 +251,7 @@ export class TimesheetTimerRendererHook {
                 }
                 break;
             case "Escape":
-                if (!headerReadonly && timerRunning) {
+                if (!otherCompany && timerRunning) {
                     ev.preventDefault();
                     this._onTimerUnlinked();
                 }

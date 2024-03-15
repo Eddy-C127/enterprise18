@@ -17,7 +17,7 @@ export class TimesheetTimerHeader extends Component {
         timerRunning: Boolean,
         addTimeMode: Boolean,
         fields: { type: Object, optional: true },
-        headerReadonly: { type: Boolean, optional: true },
+        otherCompany: { type: Boolean, optional: true },
         timerReactive: { type: Object, optional: true },
         onTimerStarted: Function,
         onTimerStopped: Function,
@@ -61,8 +61,8 @@ export class TimesheetTimerHeader extends Component {
         return this.props.timerRunning;
     }
 
-    get _headerReadonly() {
-        return this.props.headerReadonly;
+    get otherCompany() {
+        return this.props.otherCompany;
     }
 
     get isMobile() {

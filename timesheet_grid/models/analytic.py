@@ -380,7 +380,7 @@ class AnalyticLine(models.Model):
         self.check_if_allowed(delete=True)
 
     def unlink(self):
-        res = super(AnalyticLine, self).unlink()
+        res = super().unlink()
         self.env['timer.timer'].search([
             ('res_model', '=', self._name),
             ('res_id', 'in', self.ids)
@@ -455,7 +455,7 @@ class AnalyticLine(models.Model):
                 timesheet = self.create(self._get_new_timesheet_timer_vals())
                 timesheet.action_timer_start()
             else:
-                super(AnalyticLine, self).action_timer_start()
+                super().action_timer_start()
 
     def _get_last_timesheet_domain(self):
         self.ensure_one()
@@ -545,7 +545,7 @@ class AnalyticLine(models.Model):
     def _get_timesheet_timer_data(self, timer=None):
         if self.company_id in self.env.companies:
             return {'id': (timer or self.user_timer_id).res_id}
-        return {'readonly': True}
+        return {'other_company': True}
 
     @api.model
     def get_running_timer(self):

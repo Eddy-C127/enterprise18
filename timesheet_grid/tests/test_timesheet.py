@@ -529,7 +529,7 @@ class TestTimesheetValidation(TestCommonTimesheet, MockEmail):
         timesheet.write({
             'project_id': project_other_company.id,
         })
-        self.assertDictEqual(timesheet._get_timesheet_timer_data(), {'readonly': True})
+        self.assertDictEqual(timesheet._get_timesheet_timer_data(), {'other_company': True})
 
     def test_new_entry_when_timer_started_on_future_entry(self):
         """

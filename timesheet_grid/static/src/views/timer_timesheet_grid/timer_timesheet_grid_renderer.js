@@ -44,7 +44,7 @@ export class TimerTimesheetGridRenderer extends TimesheetGridRenderer {
         const newState = this.getDefaultTimerState(nextProps);
         this.timerState.timesheet = newState.timesheet;
         this.timerState.timerRunning = newState.timerRunning;
-        this.timerState.headerReadonly = newState.headerReadonly;
+        this.timerState.otherCompany = newState.otherCompany;
         this.timerState.timerRunningRowId = newState.timerRunningRowId;
     }
 
@@ -62,8 +62,8 @@ export class TimerTimesheetGridRenderer extends TimesheetGridRenderer {
             timesheet: timerData.timesheet || { id: timerData.id },
             addTimeMode: false,
             startSeconds: 0,
-            timerRunning: Boolean(timerData.id || timerData.readonly),
-            headerReadonly: Boolean(timerData.readonly),
+            timerRunning: Boolean(timerData.id || timerData.other_company),
+            otherCompany: Boolean(timerData.other_company),
             timerRunningRowId: timerData.row?.id || false,
         };
     }
@@ -177,7 +177,7 @@ export class TimerTimesheetGridRenderer extends TimesheetGridRenderer {
                 this.timerState.addTimeMode = true;
             }
         } else if (!ev.altKey && !ev.ctrlKey && !ev.metaKey && this.showTimerButton) {
-            if (ev.key === "Escape" && this.timerState.timerRunning && !this.timerState.headerReadonly) {
+            if (ev.key === "Escape" && this.timerState.timerRunning && !this.timerState.otherCompany) {
                 this.onTimerUnlinked();
                 return;
             }
