@@ -183,7 +183,7 @@ class TestMrpAnalyticAccountHr(TestMrpAnalyticAccount):
         # mo.analytic_distribution = {str(self.analytic_account.id): 100.0},
         # mo.analytic_account_id = self.analytic_account
         mo.action_confirm()
-        self.env['mrp.workcenter.productivity'].create({
+        time = self.env['mrp.workcenter.productivity'].create({
             'workcenter_id': workcenter.id,
             'date_start': datetime.now() - timedelta(minutes=30),
             'date_end': datetime.now(),
@@ -196,3 +196,8 @@ class TestMrpAnalyticAccountHr(TestMrpAnalyticAccount):
         mo = mo_form.save()
         mo.button_mark_done()
         self.assertEqual(len(self.analytic_account.with_context(analytic_plan_id=self.analytic_account.plan_id.id).line_ids), 4, '2 lines for workcenters costs 2 for employee cost')
+
+        # delete a time from a workorder
+        time.unlink()
+        self.assertEqual(self.analytic_account.balance, -32.5, '-40 + 7.5 (30 mins worker time)')
+        self.assertEqual(mo.workorder_ids[1].duration, 0, 'no time left on workorder')

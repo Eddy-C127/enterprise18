@@ -44,6 +44,12 @@ class MrpWorkcenterProductivity(models.Model):
         if line_vals:
             self.workorder_id.employee_analytic_account_line_ids += self.env['account.analytic.line'].sudo().create(line_vals)
 
+    def unlink(self):
+        for time in self:
+            # set previous_duration to 2 * time.duration to effectively
+            # create an analytic entry for a length of -time.duration
+            time._create_analytic_entry(2 * time.duration)
+        return super().unlink()
 
 class MrpWorkorder(models.Model):
     _inherit = "mrp.workorder"
