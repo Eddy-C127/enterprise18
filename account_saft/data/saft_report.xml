@@ -219,11 +219,11 @@
                 <TotalDebit t-out="format_float(total_debit_in_period)"/>
                 <TotalCredit t-out="format_float(total_credit_in_period)"/>
                 <Journal t-foreach="journal_vals_list" t-as="journal_vals">
-                    <JournalID t-out="journal_vals['id']"/>
+                    <JournalID t-out="journal_vals['code']"/>
                     <Description t-out="journal_vals['name'][:256]"/>
                     <Type t-out="journal_vals['type'][:9]"/>
                     <Transaction t-foreach="journal_vals['move_vals_list']" t-as="move_vals">
-                        <TransactionID t-out="move_vals['id']"/>
+                        <TransactionID t-out="move_vals['name']"/>
                         <Period t-out="format_date(move_vals['date'], '%m')"/>
                         <PeriodYear t-out="format_date(move_vals['date'], '%Y')"/>
                         <TransactionDate t-out="move_vals['date']"/>

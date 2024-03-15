@@ -317,11 +317,6 @@ class SaftImportWizard(models.TransientModel):
         :returns: moves_to_create: values for the moves to create
         """
 
-        def _get_next_journal_code(previous_code):
-            """ Helper to generate new journal codes """
-            next_code_id = int(previous_code.replace('SAF', '0')) + 1
-            return f'SAF{next_code_id}'
-
         nsmap = self._get_cleaned_namespace(tree)
         journals_to_create = {}
         moves_to_create = {}
@@ -329,23 +324,15 @@ class SaftImportWizard(models.TransientModel):
         existing_journal_xml_ids = {xml_id[0]: journal_id for journal_id, xml_id in existing_journal_xml_ids.items() if xml_id}
         possible_journal_types = self.env['account.journal']._fields['type'].get_values(self.env)
 
-        journal_saft = self.env['account.journal'].search_fetch(
-            [*self.env['account.journal']._check_company_domain(self.company_id), ('code', 'like', 'SAF%')],
-            field_names=['code'],
-            order='code DESC',
-            limit=1,
-        )
-        journal_code = journal_saft.code or 'SAF0'
-
         for element_journal in tree.findall('.//saft:Journal', namespaces=nsmap):
-            saft_journal_id = element_journal.find('saft:JournalID', namespaces=nsmap).text
+            saft_journal_code = element_journal.find('saft:JournalID', namespaces=nsmap).text
             name = element_journal.find('saft:Description', namespaces=nsmap).text
             journal_type = element_journal.find('saft:Type', namespaces=nsmap)
             journal_type = journal_type.text if journal_type is not None and journal_type.text in possible_journal_types else 'general'
-            xml_id = self._make_xml_id('journal', saft_journal_id)
+            xml_id = self._make_xml_id('journal', saft_journal_code)
             journal_id = existing_journal_xml_ids.get(xml_id) or xml_id
             if xml_id not in existing_journal_xml_ids:
-                journal_code = _get_next_journal_code(previous_code=journal_code)
+                journal_code = saft_journal_code
                 journals_to_create[xml_id] = {
                     'company_id': self.company_id.id,
                     'name': name,
@@ -353,16 +340,16 @@ class SaftImportWizard(models.TransientModel):
                     'type': journal_type,
                     'alias_name': f"{name}-{journal_code}-{self.company_id.name}",
                 }
-            moves_to_create.update(self._prepare_move_data(element_journal, default_currency, saft_journal_id, journal_id, map_accounts, map_taxes, map_currencies, map_partners))
+            moves_to_create.update(self._prepare_move_data(element_journal, default_currency, saft_journal_code, journal_id, map_accounts, map_taxes, map_currencies, map_partners))
 
         return journals_to_create, moves_to_create
 
-    def _prepare_move_data(self, journal_tree, default_currency, saft_journal_id, journal_id, map_accounts, map_taxes, map_currencies, map_partners):
+    def _prepare_move_data(self, journal_tree, default_currency, saft_journal_code, journal_id, map_accounts, map_taxes, map_currencies, map_partners):
         """ Extracts the data on moves to be created. Those with the same name and journal won't be re-imported.
 
         :param journal_tree: tree of the xml hierarchy for the journal concerned
         :param default_currency: base currency defined in the SAF-T file
-        :param saft_journal_id: saft id of the journal
+        :param saft_journal_code: saft code of the journal
         :param journal_id: odoo id of the journal
         :param map_accounts: mapping between saft and odoo ids (and balance) for accounts
         :param map_taxes: mapping between saft and odoo ids for taxes
@@ -374,18 +361,18 @@ class SaftImportWizard(models.TransientModel):
         nsmap = self._get_cleaned_namespace(journal_tree)
         moves_to_create = {}
         already_imported_move_xmlids = self.env['ir.model.data'].sudo().search_fetch(
-            [('name', 'like', f'{self.company_id.id}_move_{saft_journal_id}_'), ('model', '=', 'account.move')],
+            [('name', 'like', f'{self.company_id.id}_move_{saft_journal_code}_'), ('model', '=', 'account.move')],
             field_names=['module', 'name'],
         )
         already_imported_move_xmlids = [f'{move_data.module}.{move_data.name}' for move_data in already_imported_move_xmlids]
 
         for move_node in journal_tree.findall('saft:Transaction', namespaces=nsmap):
             move_date = move_node.find('./saft:TransactionDate', namespaces=nsmap)
-            move_name = move_node.find('./saft:Description', namespaces=nsmap)
+            move_name = move_node.find('./saft:TransactionID', namespaces=nsmap)
             move_customer = move_node.find('./saft:CustomerID', namespaces=nsmap)
             move_supplier = move_node.find('./saft:SupplierID', namespaces=nsmap)
             move_partner = move_customer.text if move_customer is not None else move_supplier.text if move_supplier is not None else None
-            xml_id = self._make_xml_id('move', f'{saft_journal_id}_{move_name.text}')
+            xml_id = self._make_xml_id('move', f'{saft_journal_code}_{move_name.text}')
             if xml_id in already_imported_move_xmlids:
                 continue
             line_data = []

@@ -161,6 +161,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 journal_vals_map.setdefault(line_vals['journal_id'], {
                     'id': line_vals['journal_id'],
                     'name': line_vals['journal_name'],
+                    'code': line_vals['journal_code'],
                     'type': line_vals['journal_type'],
                     'move_vals_map': {},
                 })

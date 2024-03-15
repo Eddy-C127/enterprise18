@@ -35,7 +35,7 @@ class AccountTestSAFTImport(AccountTestInvoicingCommon):
         wizard.action_import()
 
         # Check journals
-        journals = self.env['account.journal'].search([('code', 'like', 'SAF%')])
+        journals = self.env['account.journal'].search([('code', 'like', 'JOU%')])
         self.assertTrue(len(journals.ids) == 3, "Journal creation failed")
 
         # Check partners
