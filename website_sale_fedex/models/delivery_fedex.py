@@ -43,7 +43,7 @@ class ProviderFedex(models.Model):
 
     def _fedex_update_srm(self, srm, request_type, order=None, picking=None):
         """Add alternate delivery address to the shipment."""
-        res = super(ProviderFedex, self)._fedex_update_srm(srm, picking, order)
+        res = super(ProviderFedex, self)._fedex_update_srm(srm, request_type, order, picking)
         if picking:
             order = picking.sale_id
         if order and order.access_point_address:
