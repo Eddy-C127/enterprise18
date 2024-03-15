@@ -94,7 +94,9 @@ export class PlanningGanttRenderer extends GanttRenderer {
         if (percentage === 0) {
             return pill;
         }
-        if (this.isOpenShift(record) || this.isFlexibleHours(record)) {
+        const resource = record.resource_id;
+        const resourceId = resource && resource[0];
+        if (this.isOpenShift(record) || this.isFlexibleHours(resourceId)) {
             for (let col = this.getFirstcol(pill); col < this.getLastCol(pill) + 1; col++) {
                 const subColumn = this.subColumns[col - 1];
                 if (!subColumn) {
