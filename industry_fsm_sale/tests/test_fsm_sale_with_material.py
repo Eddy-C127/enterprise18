@@ -76,25 +76,12 @@ class TestFsmSaleWithMaterial(TestFsmFlowCommon):
         self.assertFalse(self.task.material_line_total_price)
         product = self.product_a.with_context({"fsm_task_id": self.task.id})
         self.task.write({'partner_id': self.partner_1.id})
-        pricelist = self.env['product.pricelist'].create({
-            'name': 'Sale pricelist',
-            'discount_policy': 'with_discount',
-            'item_ids': [(0, 0, {
-                'compute_price': 'formula',
-                'base': 'list_price',  # based on public price
-                'price_discount': 10,
-                'min_quantity': 2,
-                'product_id': product.id,
-                'applied_on': '0_product_variant',
-            })]
-        })
         self.assertFalse(self.task.sale_order_id)
         self.task._fsm_ensure_sale_order()
         self.assertTrue(self.task.sale_order_id)
         self.assertEqual(self.task.sale_order_id.state, 'draft')
         self.task.sale_order_id.action_confirm()
         self.assertEqual(self.task.sale_order_id.state, 'sale')
-        self.task.sale_order_id.pricelist_id = pricelist
 
         self.assertEqual(product.fsm_quantity, 0)
         expected_product_count = 1
