@@ -25,7 +25,7 @@ msgstr ""
 #: code:addons/timesheet_grid/models/analytic.py:0
 #, python-format
 msgid "%s Spent"
-msgstr "%s Utilizado"
+msgstr "%s dedicado"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -547,7 +547,7 @@ msgid ""
 "Describe your activity <i>(e.g. sent an e-mail, meeting with the "
 "customer...)</i>."
 msgstr ""
-"Describa su actividad<i>(p. ej. enviar un e-mail, junta con el "
+"Describa su actividad<i>(p. ej. enviar un e-mail, reunión con el "
 "cliente...)</i>."
 
 #. module: timesheet_grid
@@ -557,7 +557,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
 #, python-format
 msgid "Describe your activity..."
-msgstr "Describe tu actividad..."
+msgstr "Describa su actividad..."
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__name
@@ -595,8 +595,8 @@ msgid ""
 "Difference between the number of hours recorded and the number of hours the "
 "employee was supposed to work according to his contract"
 msgstr ""
-"Diferenciar entre el número de horas registradas y el número de horas que el"
-" empleado debe trabajar de acuerdo con su contacto."
+"Diferencia entre el número de horas registradas y el número de horas que el "
+"empleado debe trabajar de acuerdo con su contacto."
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -681,7 +681,7 @@ msgstr "Frecuencia del empleado"
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_employee_allow
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_user_allow
 msgid "Employee Reminder"
-msgstr "Recordatorio para empleados"
+msgstr "Recordatorio del empleado"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_employee_delay
@@ -691,7 +691,7 @@ msgstr "Días para recordar al empleado"
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__encoding_uom_id
 msgid "Encoding Uom"
-msgstr "Codificación de UdM"
+msgstr "UdM de la codificación"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -844,18 +844,18 @@ msgstr "Mi equipo"
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_nextdate
 msgid "Next scheduled date for approver reminder"
-msgstr "Siguiente fecha planificada para el recordatorio del aprobador"
+msgstr "Siguiente fecha prevista para el recordatorio del aprobador"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_employee_nextdate
 msgid "Next scheduled date for employee reminder"
-msgstr "Siguiente fecha programada para recordar al empleado"
+msgstr "Siguiente fecha prevista para el recordatorio del empleado"
 
 #. module: timesheet_grid
 #: model_terms:ir.actions.act_window,help:timesheet_grid.action_timesheet_previous_month
 #: model_terms:ir.actions.act_window,help:timesheet_grid.action_timesheet_previous_week
 msgid "No activities to validate."
-msgstr "No hay actividades para validad."
+msgstr "No hay actividades para validar."
 
 #. module: timesheet_grid
 #: model_terms:ir.actions.act_window,help:timesheet_grid.timesheet_grid_to_validate_action
@@ -908,7 +908,7 @@ msgstr "Detener"
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "Press"
-msgstr "Prensa"
+msgstr "Presione"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -936,7 +936,7 @@ msgstr "Cantidad"
 #. module: timesheet_grid
 #: model:mail.template,subject:timesheet_grid.mail_template_timesheet_reminder_user
 msgid "Reminder to log your timesheets"
-msgstr "Recordatorio de que debe registrar sus hojas de asistencia"
+msgstr "Recordatorio para registrar sus hojas de asistencia"
 
 #. module: timesheet_grid
 #: model:mail.template,subject:timesheet_grid.mail_template_timesheet_reminder
@@ -952,7 +952,7 @@ msgstr "Restablecer a borrador"
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_view_form
 msgid "Resume"
-msgstr "Currículo"
+msgstr "Continuar"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__timesheet_rounding
@@ -1017,8 +1017,8 @@ msgid ""
 "<i>Tip: use the tab keys to easily navigate from one cell to another.</i>"
 msgstr ""
 "Indique el número de horas que trabajará en este proyecto (p. ej. 1:30 o "
-"1.5). <i>Consejo: use las teclas de tab para navegar de una celda a otra "
-"fácilmente. </i>"
+"1.5). <i>Consejo: utilice las teclas de tabulación para pasar fácilmente de "
+"una celda a otra. </i>"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -1076,7 +1076,7 @@ msgstr "Tarea"
 #. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_project_task_create_timesheet__task_id
 msgid "Task for which we are creating a sales order"
-msgstr "Tareas para las que estamos creando una orden de venta"
+msgstr "Tarea para la que estamos creando una orden de venta"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_account_analytic_line__display_timer
@@ -1095,12 +1095,12 @@ msgid ""
 "00:30 (assuming you have a round up of 15 min). We recommend having the same"
 " value for the minimal duration and for the round up."
 msgstr ""
-"La duración de las hojas de asistencia registradas a través del temporizador"
-" se redondeará a este número. Por ejemplo, si para su temporizador en "
-"00:16:56, la duración del registro de la hoja de asistencia automáticamente "
-"se redondeará a 00:30 (asumiendo que su redondeo es de 15 minutos). Le "
-"recomendamos tener el mismo valor para la duración mínima y para el "
-"redondeo."
+"La duración de las hojas de horas que se hayan registrado mediante el "
+"temporizador se redondearán automáticamente a este número. Por ejemplo, si "
+"detiene el temporizador cuando el tiempo sea 00:16:56 la duración en la hoja"
+" de horas se redondeará a 00:30 (suponiendo que eligió redondear por 15 "
+"minutos). Le recomendamos que la cantidad que tenga en la duración mínima y "
+"en el redondeo sea la misma."
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -1133,7 +1133,7 @@ msgstr "Las hojas de asistencia se han restablecido correctamente a borrador."
 #: code:addons/timesheet_grid/models/analytic.py:0
 #, python-format
 msgid "The timesheets have successfully been validated."
-msgstr "Las hojas de tiempo han sido validadas con éxito."
+msgstr "Las hojas de horas se han validado correctamente."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1222,12 +1222,12 @@ msgstr "Cantidad Init de hojas de hora"
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__is_timesheet
 #: model:ir.model.fields,field_description:timesheet_grid.field_timesheets_analysis_report__is_timesheet
 msgid "Timesheet Line"
-msgstr "Línea hoja de servicios"
+msgstr "Línea de hoja de asistencia"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__unit_amount_validate
 msgid "Timesheet Unit Time"
-msgstr "Unidad de tiempo de las hojas de hora"
+msgstr "Unidad de tiempo de las hojas de asistencia"
 
 #. module: timesheet_grid
 #: model:ir.actions.server,name:timesheet_grid.timesheet_reminder_ir_actions_server
@@ -1240,7 +1240,7 @@ msgstr ""
 #: model:ir.actions.server,name:timesheet_grid.timesheet_reminder_user_ir_actions_server
 msgid "Timesheet: Employees Email Reminder"
 msgstr ""
-"Parte de hora: Recordatorio mediante correo electrónico para empleados"
+"Hojas de asistencia: Recordatorio mediante correo electrónico para empleados"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__timesheet_ids
@@ -1263,8 +1263,8 @@ msgid ""
 "Timesheets before the %s (included) have been validated, and can no longer "
 "be %s."
 msgstr ""
-"Las hojas de asistencia antes del %s (incluido) se validaron y ya no pueden "
-"ser %s."
+"Las hojas de asistencia antes del %s (incluido) han sido validadas y ya no "
+"pueden ser %s."
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
@@ -1288,17 +1288,17 @@ msgstr ""
 #: model:ir.actions.act_window,name:timesheet_grid.action_timesheet_previous_week
 #: model:ir.actions.act_window,name:timesheet_grid.timesheet_grid_to_validate_action
 msgid "Timesheets to Validate"
-msgstr "Hojas de asistencia por validar"
+msgstr "Hojas de asistencia a validar"
 
 #. module: timesheet_grid
 #: model:mail.template,name:timesheet_grid.mail_template_timesheet_reminder
 msgid "Timesheets: Approver Reminder"
-msgstr "Hojas de hora: Recordatorio de aprobador"
+msgstr "Hojas de asistencia: Recordatorio del aprobador"
 
 #. module: timesheet_grid
 #: model:mail.template,name:timesheet_grid.mail_template_timesheet_reminder_user
 msgid "Timesheets: Employee Reminder"
-msgstr "Hojas de hora: Recordatorio de empleados"
+msgstr "Hojas de asistencia: Recordatorio del empleado"
 
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate
@@ -1311,7 +1311,7 @@ msgstr "A validar"
 #, python-format
 msgid "Track the <b>time spent</b> on your projects. <i>It starts here.</i>"
 msgstr ""
-"Supervise el <b>tiempo que se lleva</b> en sus proyectos. <i>Todo empieza "
+"Supervise el <b>tiempo dedicado</b> en sus proyectos. <i>Todo empieza "
 "aquí.</i>"
 
 #. module: timesheet_grid
@@ -1521,7 +1521,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__res_company__timesheet_mail_employee_interval__months
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__res_company__timesheet_mail_interval__months
 msgid "after the end of the month"
-msgstr "después de fin del mes"
+msgstr "después del fin del mes"
 
 #. module: timesheet_grid
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__res_company__timesheet_mail_employee_interval__weeks

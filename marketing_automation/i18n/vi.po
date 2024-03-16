@@ -6,7 +6,7 @@
 # Vo Thanh Thuy, 2023
 # Dao Nguyen <trucdao.uel@gmail.com>, 2023
 # Wil Odoo, 2023
-# Thi Huong Nguyen, 2023
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2023\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,7 +60,7 @@ msgstr "# người tham gia thử"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "<i class=\"fa fa-check-circle\"/> Bounced"
-msgstr "<i class=\"fa fa-check-circle\"/> Bị trả lại"
+msgstr "<i class=\"fa fa-check-circle\"/> Bị trả về"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -83,6 +83,8 @@ msgid ""
 "<i class=\"fa fa-clock-o pe-1\" role=\"img\" aria-label=\"Select time\" "
 "title=\"Select time\"/>"
 msgstr ""
+"<i class=\"fa fa-clock-o pe-1\" role=\"img\" aria-label=\"Chọn thời gian\" "
+"title=\"Chọn thời gian\"/>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -97,7 +99,7 @@ msgstr "<i class=\"fa fa-envelope-open-o\"/> Đã mở sau"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "<i class=\"fa fa-exclamation-circle\"/> Bounced after"
-msgstr "<i class=\"fa fa-exclamation-circle\"/> Bị trả lại sau khi"
+msgstr "<i class=\"fa fa-exclamation-circle\"/> Bị trả về sau khi"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -137,11 +139,15 @@ msgid ""
 "title=\"Add Another Activity\" role=\"img\" aria-label=\"Add Another "
 "Activity\"/>"
 msgstr ""
+"<i data-trigger-type=\"activity\" class=\"fa fa-code-fork fa-rotate-180 fa-"
+"flip-vertical o_ma_text_processed o_add_child_activity text-success\" "
+"title=\"Thêm một hoạt động khác\" role=\"img\" aria-label=\"Thêm một hoạt "
+"động khác\"/>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "<span class=\"d-inline-block w-25\">after</span>"
-msgstr ""
+msgstr "<span class=\"d-inline-block w-25\">sau khi</span>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -158,6 +164,12 @@ msgid ""
 "                                                            <i class=\"fa fa-filter\"/>\n"
 "                                                        </span>"
 msgstr ""
+"<span role=\"img\" title=\"Biểu đồ\" aria-label=\"Biểu đồ\" class=\"o_ma_activity_tab active\" data-tab-type=\"graph\">\n"
+"                                                            <i class=\"fa fa-pie-chart\"/>\n"
+"                                                        </span>\n"
+"                                                        <span title=\"Bộ lọc\" role=\"img\" aria-label=\"Bộ lọc\" class=\"o_ma_activity_tab\" data-tab-type=\"filter\">\n"
+"                                                            <i class=\"fa fa-filter\"/>\n"
+"                                                        </span>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_kanban
@@ -248,7 +260,7 @@ msgstr ""
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Add Hot Category"
-msgstr ""
+msgstr "Thêm danh mục hot"
 
 #. module: marketing_automation
 #. odoo-python
@@ -262,7 +274,7 @@ msgstr "Thêm thẻ"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Add To Confirmed List"
-msgstr ""
+msgstr "Thêm vào danh sách đã xác nhận"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -279,7 +291,7 @@ msgstr "Thêm vào mẫu"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Add to list"
-msgstr ""
+msgstr "Thêm vào danh sách"
 
 #. module: marketing_automation
 #. odoo-python
@@ -325,6 +337,8 @@ msgid ""
 "Are you sure you want to create a new participant for each matching record "
 "that has not been used yet?"
 msgstr ""
+"Bạn có chắc chắn muốn tạo người tham gia mới cho mỗi tập dữ liệu trùng khớp "
+"chưa được sử dụng không?"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
@@ -350,14 +364,14 @@ msgstr ""
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Blacklist Bounces"
-msgstr ""
+msgstr "Blacklist Bounces"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Blacklist record"
-msgstr ""
+msgstr "Blacklist record"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -383,7 +397,7 @@ msgstr "Chiến dịch"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__name
 msgid "Campaign Identifier"
-msgstr ""
+msgstr "Mã số chiến dịch"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__title
@@ -417,14 +431,14 @@ msgstr "Đã huỷ"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Check Bounce Contact"
-msgstr ""
+msgstr "Kiểm tra liên hệ thư bị trả về"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Check Email Address"
-msgstr ""
+msgstr "Kiểm tra địa chỉ email"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_activity__validity_duration
@@ -433,6 +447,8 @@ msgid ""
 "amount of time after the scheduled date. (e.g. Time-limited offer, Upcoming "
 "event, …)"
 msgstr ""
+"Chọn để bảo đảm hành động của bạn không được thực thi sau một khoảng thời "
+"gian nhất định sau ngày lên lịch (VD: Ưu đãi có hạn, Sự kiện sắp tới,...)."
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__child_ids
@@ -502,7 +518,7 @@ msgstr "Xác nhận"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Confirmed contacts"
-msgstr ""
+msgstr "Liên hệ đã xác nhận"
 
 #. module: marketing_automation
 #. odoo-javascript
@@ -517,7 +533,7 @@ msgstr "Tạo một chiến dịch"
 #: code:addons/marketing_automation/static/src/xml/marketing_automation_templates.xml:0
 #, python-format
 msgid "Create one or load a template prepared by our experts."
-msgstr ""
+msgstr "Tạo mới hoặc tải một mẫu mà các chuyên gia của chúng tôi đã tạo sẵn."
 
 #. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.marketing_campaign_action
@@ -525,6 +541,8 @@ msgid ""
 "Create one or load a template prepared by our experts.\n"
 "                    Then sit down and let Odoo handle the rest."
 msgstr ""
+"Tạo mới hoặc tải một mẫu mà các chuyên gia của chúng tôi đã tạo sẵn.\n"
+"                    Sau đó thư giãn và để Odoo xử lý phần việc còn lại."
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__create_uid
@@ -579,6 +597,8 @@ msgid ""
 "Deleting this activity will delete ALL its children activities. Are you "
 "sure?"
 msgstr ""
+"Việc xóa hoạt động này sẽ xóa TẤT CẢ hoạt động thành phần của nó. Bạn có "
+"chắc chắn không?"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__child_ids
@@ -620,7 +640,7 @@ msgstr "Đừng cập nhật"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Double Opt-in"
-msgstr ""
+msgstr "Double Opt-in"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -726,7 +746,7 @@ msgstr "Tạo người tham gia"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Get 10% OFF"
-msgstr ""
+msgstr "GIẢM GIÁ 10%"
 
 #. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.marketing_trace_action
@@ -742,7 +762,7 @@ msgstr ""
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Hot"
-msgstr ""
+msgstr "Hot"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__interval_type__hours
@@ -862,7 +882,7 @@ msgstr "Mẫu mail"
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__trigger_type__mail_bounce
 msgid "Mail: bounced"
-msgstr "Mail: bị trả lại"
+msgstr "Mail: bị trả về"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__trigger_type__mail_click
@@ -917,7 +937,7 @@ msgstr "Mailings"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Mails sent and not bounced"
-msgstr "Mail đã gửi và không bị trả lại"
+msgstr "Mail đã gửi và không bị trả về"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1071,7 +1091,7 @@ msgstr "Mới"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Next activity: Check Email Address"
-msgstr ""
+msgstr "Hoạt động tiếp theo: Kiểm tra địa chỉ email"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -1081,7 +1101,7 @@ msgstr "Không có hoạt động"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "No activity for this campaign."
-msgstr ""
+msgstr "Không có hoạt động nào cho chiến dịch này."
 
 #. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.link_tracker_action_marketing_campaign
@@ -1108,7 +1128,7 @@ msgstr "Chưa được phản hồi"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "Not bounced yet"
-msgstr ""
+msgstr "Chưa bị trả về"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -1246,22 +1266,22 @@ msgstr "Người tham gia của %s (%s)"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "Pick a Server Action"
-msgstr ""
+msgstr "Chọn một hành động máy chủ"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "Pick a Template"
-msgstr ""
+msgstr "Chọn một mẫu"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "Pick a record..."
-msgstr ""
+msgstr "Chọn một tập dữ liệu..."
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
 msgid "Pick or create a/an"
-msgstr ""
+msgstr "Chọn hoặc tạo một"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__processed
@@ -1386,6 +1406,7 @@ msgstr "Chạy"
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Run the next scheduled activity for each participant of this campaign?"
 msgstr ""
+"Chạy hoạt động đã lên lịch tiếp theo cho mỗi người tham gia chiến dịch này?"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_campaign__state__running
@@ -1436,7 +1457,7 @@ msgstr "Lựa chọn để xác định phiên bản thư chiến thắng sẽ �
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send 10% Welcome Discount"
-msgstr ""
+msgstr "Gửi phiếu giảm giá chào mừng 10%"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_schedule_datetime
@@ -1448,14 +1469,14 @@ msgstr "Gửi bản cuối vào"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send Welcome Email"
-msgstr ""
+msgstr "Gửi email chào mừng"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send a free catalog and follow-up according to reactions."
-msgstr ""
+msgstr "Gửi một danh mục miễn phí và follow-up theo phản ứng."
 
 #. module: marketing_automation
 #. odoo-python
@@ -1463,6 +1484,7 @@ msgstr ""
 #, python-format
 msgid "Send a welcome email to contacts and tag them if they click in it."
 msgstr ""
+"Gửi email chào mừng tới các liên hệ và gắn thẻ họ nếu họ nhấp vào email."
 
 #. module: marketing_automation
 #. odoo-python
@@ -1471,6 +1493,7 @@ msgstr ""
 msgid ""
 "Send a welcome email to new subscribers, remove the address that bounced."
 msgstr ""
+"Gửi email chào mừng tới những người đăng ký mới, xóa địa chỉ thư bị trả về."
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__interval_number
@@ -1487,7 +1510,7 @@ msgstr "Gửi sau (tính theo giờ)"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send an email to new recipients to confirm their consent."
-msgstr ""
+msgstr "Gửi email tới người nhận mới để xác nhận sự đồng ý của họ."
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1609,7 +1632,7 @@ msgstr "Bắt buộc đồng bộ hoá người tham gia"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Tag Hot Contacts"
-msgstr ""
+msgstr "Gắn thẻ liên hệ hot"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__tag_ids
@@ -1661,13 +1684,15 @@ msgid ""
 "The saved filter targets different model and is incompatible with this "
 "campaign."
 msgstr ""
+"Bộ lọc đã lưu nhắm mục tiêu đến mô hình khác và không tương thích với chiến "
+"dịch này."
 
 #. module: marketing_automation
 #. odoo-javascript
 #: code:addons/marketing_automation/static/src/xml/marketing_automation_templates.xml:0
 #, python-format
 msgid "Then sit down and let Odoo handle the rest!"
-msgstr ""
+msgstr "Sau đó thư giãn và để Odoo xử lý phần việc còn lại."
 
 #. module: marketing_automation
 #. odoo-python
@@ -1813,7 +1838,7 @@ msgstr "Tuần"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Welcome Flow"
-msgstr ""
+msgstr "Chu trình chào mừng"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1858,6 +1883,8 @@ msgid ""
 "You cannot delete these UTM Campaigns as they are linked to the following marketing campaigns in Marketing Automation:\n"
 "%(campaign_names)s"
 msgstr ""
+"Bạn không thể xóa các Chiến dịch UTM này vì chúng được liên kết với những chiến dịch marketing sau trong Tự động hoá Marketing:\n"
+"%(campaign_names)s"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1867,6 +1894,8 @@ msgid ""
 "You cannot delete these UTM Sources as they are linked to the following marketing activities in Marketing Automation:\n"
 "%(activities_names)s"
 msgstr ""
+"Bạn không thể xóa các Nguồn UTM này vì chúng được liên kết với những hoạt động marketing sau trong Tự động hoá Marketing:\n"
+"%(activities_names)s"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1888,7 +1917,7 @@ msgstr "bắt đầu quy trình"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
 msgid "e.g. \"Brandon Freeman\""
-msgstr ""
+msgstr "VD: \"Brandon Freeman\""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
@@ -1898,9 +1927,9 @@ msgstr "ví dụ. Ưu đãi thương mại điện tử"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "e.g. eCommerce Offers Plan"
-msgstr ""
+msgstr "VD: Kế hoạch khuyến mại Thương mại điện tử"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
 msgid "to generate a Test Participant"
-msgstr ""
+msgstr "để tạo một Người tham gia kiểm thử"

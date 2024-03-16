@@ -5,9 +5,9 @@
 # Translators:
 # Vida Potočnik <vida.potocnik@mentis.si>, 2023
 # laznikd <laznik@mentis.si>, 2023
+# Jasmina Macur <jasmina@hbs.si>, 2023
 # Boris Kodelja <boris@hbs.si>, 2023
 # Tomaž Jug <tomaz@editor.si>, 2023
-# Jasmina Macur <jasmina@hbs.si>, 2023
 # matjaz k <matjaz@mentis.si>, 2023
 # Matjaz Mozetic <m.mozetic@matmoz.si>, 2023
 # Martin Trigaux, 2023
@@ -445,6 +445,14 @@ msgid "Office Name"
 msgstr ""
 
 #. module: room
+#. odoo-javascript
+#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
+#, python-format
+msgid ""
+"Oops! Looks like you have multiple tabs opened. Make sure to use only one."
+msgstr ""
+
+#. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
 msgid "Open"
 msgstr "Odprto"
@@ -484,12 +492,6 @@ msgstr ""
 #, python-format
 msgid "Public Booking"
 msgstr ""
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__rating_ids
-#: model:ir.model.fields,field_description:room.field_room_room__rating_ids
-msgid "Ratings"
-msgstr "Ocene"
 
 #. module: room
 #: model:ir.actions.act_window,name:room.room_room_action

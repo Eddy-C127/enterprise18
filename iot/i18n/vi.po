@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Thi Huong Nguyen, 2023
 # Trần Hà <tranthuha13590@gmail.com>, 2023
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Trần Hà <tranthuha13590@gmail.com>, 2023\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,16 +30,21 @@ msgid ""
 "                    1. Read the pairing code from a display or thermal printer connected to the IoT Box.<br/>\n"
 "                    2. Enter the code below and click on \"Pair\".<br/>"
 msgstr ""
+"0. Bật nguồn Hộp IoT<br/><br/>\n"
+"\n"
+"                   <strong>A. Kết nối Ethernet</strong><br/>\n"
+"                   1. Đọc mã ghép nối từ màn hình hoặc máy in nhiệt được kết nối với Hộp IoT.<br/>\n"
+"                   2. Nhập mã bên dưới và nhấp vào \"Ghép nối\".<br/>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
 msgid "<span class=\"badge text-bg-secondary\">Disconnected</span>"
-msgstr ""
+msgstr "<span class=\"badge text-bg-secondary\">Đã ngắt kết nối</span>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
 msgid "<span class=\"badge text-bg-success\">Connected</span>"
-msgstr ""
+msgstr "<span class=\"badge text-bg-success\">Đã kết nối</span>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -51,6 +56,12 @@ msgid ""
 "                    4. You will be redirected to the IoT Box Homepage<br/>\n"
 "                    5. Paste the token in token field and follow the steps described on the IoT Box Homepage<br/>"
 msgstr ""
+"<strong>B. Kết nối WiFi (hoặc Kết nối Ethernet không hoạt động)</strong><br/>\n"
+"                    1. Đảm bảo không có cáp ethernet nào được kết nối với Hộp IoT<br/>\n"
+"                    2. Sao chép token bên dưới<br/>\n"
+"                    3. Kết nối với mạng WiFi Hộp IoT (bạn sẽ thấy mạng này trong các mạng WiFi khả dụng của mình)<br/>\n"
+"                    4. Bạn sẽ được chuyển hướng đến Trang chủ Hộp IoT<br/>\n"
+"                    5. Dán token vào trường token và làm theo các bước được trình bày trên Trang chủ Hộp IoT<br/>"
 
 #. module: iot
 #: model:ir.model,name:iot.model_add_iot_box
@@ -62,24 +73,24 @@ msgstr "Thêm hướng dẫn IoT Box"
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Are you sure you want to reboot the IoT box?"
-msgstr ""
+msgstr "Bạn có chắc chắn muốn khởi động lại hộp IoT không?"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Are you sure you want to restart Odoo on the IoT box?"
-msgstr ""
+msgstr "Bạn có chắc chắn muốn khởi động lại hộp IoT không?"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__drivers_auto_update
 msgid "Automatic drivers update"
-msgstr ""
+msgstr "Cập nhật trình điều khiển tự động"
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_box__drivers_auto_update
 msgid "Automatically update drivers when the IoT Box boots"
-msgstr ""
+msgstr "Tự động cập nhật trình điều khiển khi Hộp IoT khởi động"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__scanner
@@ -112,14 +123,14 @@ msgstr "Kiểm tra liệu thiết bị vẫn kết nối"
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
 #: model:ir.ui.menu,name:iot.view_iot_selected_printer_local_action
 msgid "Clear Selected Devices"
-msgstr ""
+msgstr "Xoá thiết bị đã chọn"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #, python-format
 msgid "Clear automatic reports"
-msgstr ""
+msgstr "Xoá báo cáo tự động"
 
 #. module: iot
 #. odoo-javascript
@@ -148,7 +159,7 @@ msgstr ""
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "Click on the"
-msgstr ""
+msgstr "Nhấp vào"
 
 #. module: iot
 #. odoo-javascript
@@ -263,7 +274,7 @@ msgstr "Hiển thị"
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_select_printers_wizard__display_device_ids
 msgid "Display Device"
-msgstr ""
+msgstr "Hiển thị thiết bị"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__display_name
@@ -345,7 +356,7 @@ msgstr "Định danh"
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__identifier
 msgid "Identifier (Mac Address)"
-msgstr ""
+msgstr "Mã định danh (Địa chỉ Mac)"
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__connected
@@ -446,7 +457,7 @@ msgstr "Cập nhật lần cuối vào"
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Last restarting process hasn't finished yet"
-msgstr ""
+msgstr "Quá trình khởi động lại cuối cùng vẫn chưa kết thúc"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__layout
@@ -466,7 +477,7 @@ msgstr "Manually read the measurement from the device"
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__is_scanner
 msgid "Manually switch the device type between keyboard and scanner"
-msgstr ""
+msgstr "Chuyển đổi loại thiết bị giữa bàn phím và máy quét theo cách thủ công"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__manufacturer
@@ -489,31 +500,31 @@ msgstr "Network"
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "No IoT Box found!"
-msgstr ""
+msgstr "Không tìm thấy Hộp IoT nào!"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #, python-format
 msgid "No report to display"
-msgstr ""
+msgstr "Không có báo cáo để hiển thị"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 #, python-format
 msgid "Odoo cannot reach the IoT Box."
-msgstr ""
+msgstr "Odoo không thể kết nối với Hộp IoT."
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid "Pair"
-msgstr ""
+msgstr "Ghép nối"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__pairing_code
 msgid "Pairing Code"
-msgstr ""
+msgstr "Mã ghép nối"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__payment
@@ -528,6 +539,8 @@ msgid ""
 "Please accept the certificate of your IoT Box (procedure depends on your "
 "browser):"
 msgstr ""
+"Vui lòng chấp nhận chứng chỉ Hộp IoT của bạn (quy trình tùy thuộc vào trình "
+"duyệt bạn sử dụng):"
 
 #. module: iot
 #. odoo-javascript
@@ -557,7 +570,7 @@ msgstr "Máy In"
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_form
 msgid "Printer Reports"
-msgstr ""
+msgstr "Báo cáo máy in"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_select_printers_wizard
@@ -567,7 +580,7 @@ msgstr "Máy in"
 #. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
 msgid "Publisher Warranty Contract For IoT Box"
-msgstr ""
+msgstr "Hợp đồng bảo hành nhà phát hành cho Hộp IoT"
 
 #. module: iot
 #: model:ir.model,name:iot.model_ir_actions_report
@@ -591,21 +604,21 @@ msgstr "Báo cáo"
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Restart Failed"
-msgstr ""
+msgstr "Khởi động lại không thành công"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Restart finished"
-msgstr ""
+msgstr "Khởi động lại hoàn tất"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Restarting"
-msgstr ""
+msgstr "Đang khởi động lại"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_select_printers_wizard
@@ -620,7 +633,7 @@ msgstr "Cân"
 #. module: iot
 #: model:ir.model,name:iot.model_select_printers_wizard
 msgid "Selection of printers"
-msgstr ""
+msgstr "Lựa chọn máy in"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -642,12 +655,12 @@ msgstr "Thành công"
 #. module: iot
 #: model:ir.model,name:iot.model_iot_channel
 msgid "The Websocket Iot Channel"
-msgstr ""
+msgstr "Kênh Websocket Iot"
 
 #. module: iot
 #: model:ir.model.constraint,message:iot.constraint_iot_channel_unique_name
 msgid "The channel name must be unique"
-msgstr ""
+msgstr "Tên kênh không được trùng lặp"
 
 #. module: iot
 #. odoo-python
@@ -657,23 +670,25 @@ msgid ""
 "The pairing code you provided was not found in our system. Please check that"
 " you entered it correctly."
 msgstr ""
+"Không tìm thấy mã ghép nối bạn cung cấp trong hệ thống của chúng tôi. Vui "
+"lòng kiểm tra lại để đảm bảo bạn đã nhập đúng mã."
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_device_action_search_iot_box
 msgid "There is no device connected to this IoT Box"
-msgstr ""
+msgstr "Không có thiết bị nào được kết nối với Hộp IoT này"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_device_action
 msgid "There is no device connected to your IoT Boxes"
-msgstr ""
+msgstr "Không có thiết bị nào được kết nối với Hộp IoT của bạn"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Timed out"
-msgstr ""
+msgstr "Hết thời gian"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__token
@@ -688,12 +703,12 @@ msgstr "Loại"
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__connection
 msgid "Type of connection."
-msgstr ""
+msgstr "Loại kết nối."
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__type
 msgid "Type of device."
-msgstr ""
+msgstr "Loại thiết bị."
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__display_url
@@ -701,11 +716,13 @@ msgid ""
 "URL of the page that will be displayed by the device, leave empty to use the"
 " customer facing display of the POS."
 msgstr ""
+"URL của trang mà thiết bị sẽ hiển thị, hãy để trống để sử dụng màn hình hiển"
+" thị cho khách hàng của POS."
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__direct
 msgid "USB"
-msgstr ""
+msgstr "USB"
 
 #. module: iot
 #. odoo-javascript
@@ -724,7 +741,7 @@ msgstr "Biến thể"
 #: code:addons/iot/wizard/add_iot_box.py:0
 #, python-format
 msgid "We had troubles pairing your IoT Box. Please try again later."
-msgstr ""
+msgstr "Đã gặp sự cố khi ghép nối Hộp IoT của bạn. Vui lòng thử lại sau."
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_ir_actions_report__device_ids
@@ -732,13 +749,15 @@ msgid ""
 "When setting a device here, the report will be printed through this device "
 "on the IoT Box"
 msgstr ""
+"Khi cài đặt thiết bị tại đây, báo cáo sẽ được in trên Hộp IoT thông qua "
+"thiết bị này"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "connect"
-msgstr ""
+msgstr "kết nối"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "to add an IoT Box."
-msgstr ""
+msgstr "để thêm một Hộp IoT."

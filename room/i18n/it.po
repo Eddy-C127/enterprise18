@@ -442,6 +442,14 @@ msgid "Office Name"
 msgstr "Nome ufficio"
 
 #. module: room
+#. odoo-javascript
+#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
+#, python-format
+msgid ""
+"Oops! Looks like you have multiple tabs opened. Make sure to use only one."
+msgstr ""
+
+#. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
 msgid "Open"
 msgstr "Apri"
@@ -481,12 +489,6 @@ msgstr "Proiettore, lavagna"
 #, python-format
 msgid "Public Booking"
 msgstr "Prenotazione pubblica"
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__rating_ids
-#: model:ir.model.fields,field_description:room.field_room_room__rating_ids
-msgid "Ratings"
-msgstr "Valutazioni"
 
 #. module: room
 #: model:ir.actions.act_window,name:room.room_room_action

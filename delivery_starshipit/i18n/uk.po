@@ -196,18 +196,20 @@ msgid ""
 "Order %s was sent to the carrier during label creation.As you are in a test environment, please make sure to cancel the order with your carrier directly.\n"
 "Manifest number: %s"
 msgstr ""
+"Замовлення %s було надіслано перевізнику під час створення етикетки. Оскільки ви перебуваєте в тестовому середовищі, переконайтеся, що скасували замовлення безпосередньо у свого перевізника.\n"
+"Номер маніфесту: %s"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Order %s was sent to the carrier."
-msgstr ""
+msgstr "Замовлення %s було надіслане перевізнику."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_origin_address
 msgid "Origin Address"
-msgstr ""
+msgstr "Адреса походження"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_default_package_type_id
@@ -215,20 +217,22 @@ msgid ""
 "Package dimensions are required to get more accurate rates. You can define "
 "these in a package type that you set as default"
 msgstr ""
+"Розміри упаковки потрібні для отримання точніших показників. Ви можете "
+"визначити їх у типі упаковки, який ви встановите за замовчуванням"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Please delete the order on Starshipit then try again."
-msgstr ""
+msgstr "Видаліть замовлення на Starshipit потім спробуйте знову."
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Please fill in the fields %s on the %s partner."
-msgstr ""
+msgstr "Заповніть поля %s на %s партнері."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__delivery_type
@@ -245,7 +249,7 @@ msgstr "Повернути комплектування"
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Return labels were generated for the order %s"
-msgstr ""
+msgstr "Для замовлення створено етикетки повернення %s"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -255,13 +259,15 @@ msgid ""
 "Return order %s was already sent to the carrier during label creation.\n"
 "Manifest number: %s"
 msgstr ""
+"Замовлення на повернення %s вже було надіслане перевізнику через створення етикетки.\n"
+"Номер маніфесту: %s"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Return order %s was archived."
-msgstr ""
+msgstr "Замовлення на повернення %s заархівоване."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -271,28 +277,30 @@ msgid ""
 "Return order %s was sent to the carrier during label creation.As you are in a test environment, please make sure to cancel the order with your carrier directly.\n"
 "Manifest number: %s"
 msgstr ""
+"Замовлення на повернення %s було надіслано перевізнику під час створення етикетки. Оскільки ви перебуваєте в тестовому середовищі, переконайтеся, що скасували замовлення безпосередньо у свого перевізника.\n"
+"Номер маніфесту: %s"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Return order %s was sent to the carrier."
-msgstr ""
+msgstr "Замовлення на повернення %s надіслане перевізнику."
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_delivery_carrier_form
 msgid "Select a service linked to your starshipit account"
-msgstr ""
+msgstr "Оберіть послугу, повʼязану з обліковим записом starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__selected_service_code
 msgid "Selected Service"
-msgstr ""
+msgstr "Обрана послуга"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_service_code
 msgid "Service Code"
-msgstr ""
+msgstr "Код послуги"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_service_name
@@ -314,61 +322,61 @@ msgstr "Товар доставки"
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Something went wrong, please try again later: %s"
-msgstr ""
+msgstr "Щось пішло не так, спробуйте ще раз: %s"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields.selection,name:delivery_starshipit.selection__delivery_carrier__delivery_type__starshipit
 #: model:ir.model.fields.selection,name:delivery_starshipit.selection__stock_package_type__package_carrier_type__starshipit
 msgid "Starshipit"
-msgstr ""
+msgstr "Starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_api_key
 msgid "Starshipit API Integration key"
-msgstr ""
+msgstr "Ключ інтеграції Starshipit API"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_subscription_key
 msgid "Starshipit API Subscription key"
-msgstr ""
+msgstr "Ключ підписки Starshipit API"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Starshipit API rate exceeded. Please try again later."
-msgstr ""
+msgstr "Перевищена норма Starshipit API. Спробуйте ще раз пізніше."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_api_key
 msgid "Starshipit Api Key"
-msgstr ""
+msgstr "Ключ Starshipit Api"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_delivery_carrier_form
 msgid "Starshipit Configuration"
-msgstr ""
+msgstr "Налаштування Starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_stock_picking__starshipit_parcel_reference
 msgid "Starshipit Parcel Reference"
-msgstr ""
+msgstr "Референс Starshipit Parcel"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_stock_picking__starshipit_return_parcel_reference
 msgid "Starshipit Return Parcel Reference"
-msgstr ""
+msgstr "Референс повернення Starshipit Parcel"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.res_config_settings_view_form_sale_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.res_config_settings_view_form_stock_starshipit
 msgid "Starshipit Shipping Methods"
-msgstr ""
+msgstr "Способи доставки Starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_subscription_key
 msgid "Starshipit Subscription Key"
-msgstr ""
+msgstr "Ключ підписки Starshipit"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -378,13 +386,15 @@ msgid ""
 "Starshipit cannot generate returns for the carrier %s. Please handle this "
 "return with the carrier directly."
 msgstr ""
+"Starshipit не може генерувати повернення перевізнику %s. Будь ласка, "
+"вирішуйте це повернення безпосередньо з перевізником."
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Starshipit returned an error: %(message)s"
-msgstr ""
+msgstr "Starshipit повернув помилку: %(message)s"
 
 #. module: delivery_starshipit
 #: model:ir.model,name:delivery_starshipit.model_stock_package_type
@@ -397,6 +407,8 @@ msgid ""
 "The carrier on starshipit used by this carrier. The service code belongs to "
 "it."
 msgstr ""
+"Перевізник на starshipit використовується цим перевізником. Код послуги "
+"належить до нього."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -406,13 +418,16 @@ msgid ""
 "The picking %(picking_name)s sequence is too long for Starshipit. Please "
 "update your pickings sequence in order to use at most 50 characters."
 msgstr ""
+"Послідовність пікінгу %(picking_name)s занадто довга для Starshipit. Будь "
+"ласка, оновіть свою послідовність пікінгу, щоб використовувати щонайбільше "
+"50 символів."
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "The return label creation failed."
-msgstr ""
+msgstr "Невдалося створення етикетки повернення."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -423,6 +438,9 @@ msgid ""
 "the code inside starshipit to be at most 100 characters, then update your "
 "shipping carrier %(shipping_carrier)s to the new code."
 msgstr ""
+"Код послуги %(service_code)s занадто довгий для Starshipit. Оновіть код у "
+"starshipit до 100 символів, а потім оновіть перевізника %(shipping_carrier)s"
+" до нового коду."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_service_code
@@ -431,6 +449,8 @@ msgid ""
 "The service that will be used for this carrier. This is set when you select "
 "a carrier from the wizard."
 msgstr ""
+"Послуга, яка використовуватиметься для цього оператора. Це встановлюється, "
+"коли ви вибираєте оператора з помічника."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -440,6 +460,8 @@ msgid ""
 "The shipping label creation failed with the following error:\n"
 "%(error)s"
 msgstr ""
+"Створення етикетки не вдалося з наступною помилкою:\n"
+"%(error)s"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -449,20 +471,22 @@ msgid ""
 "There are no shipping services available, please verify the shipping address"
 " or activate suitable carriers in your starshipit account."
 msgstr ""
+"Немає доступних служб доставки. Перевірте адресу доставки або активуйте "
+"відповідних перевізників у своєму обліковому записі starshipit."
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "There was an issue when creating the order, please try again"
-msgstr ""
+msgstr "Під час створення замовлення виникла проблема. Повторіть спробу"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "This action requires a Starshipit carrier."
-msgstr ""
+msgstr "Дія вимагає перевізника Starshipit."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_origin_address
@@ -470,6 +494,8 @@ msgid ""
 "This address will be used when fetching the available services from "
 "starshipit."
 msgstr ""
+"Ця адреса буде використана під час отримання доступних послуг від "
+"starshipit."
 
 #. module: delivery_starshipit
 #: model:ir.model,name:delivery_starshipit.model_stock_picking

@@ -3,8 +3,8 @@
 # 	* mrp_workorder
 # 
 # Translators:
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023
 # Wil Odoo, 2024
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,7 +47,7 @@ msgstr "+ Новий оператор"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "< Back"
-msgstr ""
+msgstr "< Назад"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
@@ -62,7 +62,7 @@ msgstr "<span class=\"o_stat_text\">Інструкції</span>"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
 msgid "<span invisible=\"employee_name\">Log In </span>"
-msgstr ""
+msgstr "<span invisible=\"employee_name\">Вхід </span>"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_ids
@@ -172,7 +172,7 @@ msgstr "Дозволені всі співробітники"
 #: code:addons/mrp_workorder/static/src/mrp_display/control_panel.js:0
 #, python-format
 msgid "All MO"
-msgstr ""
+msgstr "Усі MO"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__allow_producing_quantity_change
@@ -314,7 +314,7 @@ msgstr "Закрити"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.xml:0
 #, python-format
 msgid "Close Production"
-msgstr ""
+msgstr "Закрити виробництво"
 
 #. module: mrp_workorder
 #: model:product.attribute,name:mrp_workorder.product_attribute_color_radio
@@ -390,14 +390,14 @@ msgstr "Продовжити"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.quality_check_view_form_tablet
 msgid "Continue Consumption"
-msgstr ""
+msgstr "Продовжити споживання"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "Continue consumption"
-msgstr ""
+msgstr "Продовжити споживання"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder_additional_product__product_uom_category_id
@@ -419,7 +419,7 @@ msgstr "Вартість"
 #: code:addons/mrp_workorder/static/src/components/viewer.js:0
 #, python-format
 msgid "Could not display the selected %s"
-msgstr ""
+msgstr "Неможливо відобразити обраний %s"
 
 #. module: mrp_workorder
 #: model_terms:ir.actions.act_window,help:mrp_workorder.mrp_stock_picking_type_action
@@ -570,7 +570,7 @@ msgstr "Невдалий"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "Fill in worksheet"
-msgstr ""
+msgstr "Заповнити в робочому аркуші"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -638,6 +638,8 @@ msgid ""
 "If this checkbox is ticked, the serial numbers lines for this operation type"
 " will be pre-filled in the shop floor."
 msgstr ""
+"Якщо цей чекбокс позначено, рядки серійних номерів для цього типу операції "
+"будуть попередньо заповнені в цеху."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__worksheet_document
@@ -737,7 +739,7 @@ msgstr "Останнє оновлення"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "Load Samples"
-msgstr ""
+msgstr "Завантажити приклади"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -773,17 +775,18 @@ msgstr "Звіт огляду MO"
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_tablet_timer
 msgid "Manage Work Order timer on Shop Floor"
-msgstr ""
+msgstr "Керуйте таймером робочого замовлення на цеху"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
 msgid "Manage your manufacturing orders from the shop floor app"
-msgstr ""
+msgstr "Керуйте своїми виробничими замовленнями з додатку цеху"
 
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_shop_floor
 msgid "Manage your manufacturing orders from the shop floor display app"
 msgstr ""
+"Керуйте своїми замовленнями на виробницвто з додатка для відображення цеху"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_production_tree_view_planning
@@ -847,7 +850,7 @@ msgstr "Дедлайн моєї дії"
 #: code:addons/mrp_workorder/static/src/mrp_display/control_panel.js:0
 #, python-format
 msgid "My WO"
-msgstr ""
+msgstr "Мої WO"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_production_workorder_form_view_filter_my_work_orders
@@ -939,6 +942,8 @@ msgid ""
 "No workcenters are available, please create one first to add it to the shop "
 "floor view"
 msgstr ""
+"Немає доступних робочих центрів. Спершу створіть один, щоб додати його до "
+"перегляду цеху"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1091,7 +1096,7 @@ msgstr ""
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid "Please unblock the work center to start the work order"
-msgstr ""
+msgstr "Будь ласка, розблокуйте робочий центр, щоб почати робоче замовлення"
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1103,7 +1108,7 @@ msgstr "Будь ласка, завантажте фотографію."
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_stock_picking_type__prefill_lot_tablet
 msgid "Pre-fill Lot/Serial Numbers in Shop Floor"
-msgstr ""
+msgstr "Попередньо заповніть номери партії/серії в цеху"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__previous_check_id
@@ -1286,7 +1291,7 @@ msgstr "Зареєструвати виробництво"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.js:0
 #, python-format
 msgid "Register Production: %s"
-msgstr ""
+msgstr "Зареєструвати виробництво: %s"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__additional
@@ -1334,14 +1339,14 @@ msgstr "Результат"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
 #, python-format
 msgid "STARTED work on workorder %s"
-msgstr ""
+msgstr "РОЗПОЧАТИ роботу в робочому замовленні %s"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
 #, python-format
 msgid "STOPPED work on workorder %s"
-msgstr ""
+msgstr "ПРИПИНИТИ роботу в робочому замовленні %s"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1363,7 +1368,7 @@ msgstr "Вибрати працівника"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
 #, python-format
 msgid "Select Work Centers for this station"
-msgstr ""
+msgstr "Оберіть робочі центри для цієї станції"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1410,7 +1415,7 @@ msgstr "Зал магазину"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "Shop Floor Control Panel"
-msgstr ""
+msgstr "Контрольна панель для цеху"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_routing_workcenter_tree_view_inherited
@@ -1427,7 +1432,7 @@ msgstr "Показати таймер на екрані робочого зам�
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "Skip >"
-msgstr ""
+msgstr "Пропустити >"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1612,6 +1617,8 @@ msgid ""
 "Track work orders, show instructions and record manufacturing operations from here:\n"
 "                                quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
+"Відстежуйте робочі замовлення, показуйте інструкції та записуйте виробничі операції звідси:\n"
+"контроль якості, спожиті кількості, номери партій/серій тощо."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1642,6 +1649,7 @@ msgstr "Тип дії виключення на записі."
 msgid ""
 "Unable to load samples when you already have existing manufacturing orders"
 msgstr ""
+"Неможливо завантажити зразки, якщо у вас уже є замовлення на виробництво"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -1747,14 +1755,14 @@ msgstr "Значення останнього відсканованого шт�
 #: code:addons/mrp_workorder/static/src/mrp_display/search_bar.xml:0
 #, python-format
 msgid "WO"
-msgstr ""
+msgstr "WO"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "WO Filters"
-msgstr ""
+msgstr "Фільтри WO"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1919,6 +1927,8 @@ msgid ""
 "You need to complete Quality Checks using the Shop Floor before marking Work"
 " Order as Done."
 msgstr ""
+"Перш ніж позначати робоче замовлення як виконане, вам потрібно завершити "
+"перевірку якості за допомогою цеху."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1946,7 +1956,7 @@ msgstr "Вам необхідно увійти, щоб обробити це з�
 #: code:addons/mrp_workorder/models/mrp_production.py:0
 #, python-format
 msgid "You need to supply a Lot/Serial Number for the final product."
-msgstr ""
+msgstr "Вам потрібно надати номер партії/серійний номер кінцевого товару."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1968,7 +1978,7 @@ msgstr "Вам досі потрібно перевірити якість!"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.js:0
 #, python-format
 msgid "Your suggestion to delete the %s step was succesfully created."
-msgstr ""
+msgstr "Вашу пропозицію видалення кроку %s успішно створено."
 
 #. module: mrp_workorder
 #: model:ir.model.fields.selection,name:mrp_workorder.selection__quality_point__test_report_type__zpl

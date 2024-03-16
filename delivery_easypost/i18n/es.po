@@ -26,7 +26,7 @@ msgid ""
 "<b>Copy your API keys in Odoo</b>\n"
 "                <br/>"
 msgstr ""
-"<b>Copia tus claves de API en Odoo</b>\n"
+"<b>Copie sus claves de API en Odoo</b>\n"
 "                <br/>"
 
 #. module: delivery_easypost
@@ -36,8 +36,8 @@ msgid ""
 "                <b>You can add new carrier accounts on the right side of the same page.</b>\n"
 "                <br/>"
 msgstr ""
-"<b>Una vez has creado su cuenta, vaya a su Tablero de Control y haga clic en la flecha al lado de su nombre de usuario para configurar sus cuentas de operador. </b>\n"
-"                <b>Puede agregar nuevas cuentas de transportista en el lado derecho de la misma página.</b>\n"
+"<b>Una vez que haya creado su cuenta, vaya a su tablero y haga clic en la flecha junto a su nombre de usuario para configurar sus cuentas de transportista. </b>\n"
+"                <b>Puede agregar nuevas cuentas desde el lado derecho de la misma página.</b>\n"
 "                <br/>"
 
 #. module: delivery_easypost
@@ -116,12 +116,12 @@ msgstr "Tipo de paquete por defecto"
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__easypost_default_package_type_id
 msgid "Default Package Type for Easypost"
-msgstr "Tipo de paquete predeterminado para Easypost"
+msgstr "Tipo de paquete por defecto para Easypost"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__easypost_default_service_id
 msgid "Default Service Level"
-msgstr "Nivel de servicio predeterminado"
+msgstr "Nivel de servicio por defecto"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier_easypost__delivery_carrier_id
@@ -140,7 +140,7 @@ msgid ""
 "Do not forget to load your Easypost carrier accounts for a valid "
 "configuration."
 msgstr ""
-"No olvides introducir tus cuentas de transportista de Easypost para que la "
+"No olvide proporcionar sus cuentas de transportista de Easypost para que la "
 "configuración sea válida."
 
 #. module: delivery_easypost
@@ -213,7 +213,7 @@ msgstr "Página web de Easypost"
 #: code:addons/delivery_easypost/models/easypost_request.py:0
 #, python-format
 msgid "Easypost returned an error: %s"
-msgstr "Easypost reportó un error: %s"
+msgstr "Ocurrió un error en Easypost: %s"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,help:delivery_easypost.field_delivery_carrier__easypost_production_api_key
@@ -350,7 +350,7 @@ msgstr "Seleccionar"
 #. module: delivery_easypost
 #: model:ir.actions.act_window,name:delivery_easypost.act_delivery_easypost_carrier_type
 msgid "Select a carrier"
-msgstr "Selecciona un transportista"
+msgstr "Seleccione un transportista"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_easypost_service__name
@@ -436,8 +436,8 @@ msgid ""
 "The estimated price cannot be computed because the weight of your product is"
 " missing."
 msgstr ""
-"El precio estimado no se puede calcular porque no se encontró el peso de tu "
-"producto."
+"El precio estimado no se puede calcular porque el peso de su producto no "
+"está disponible."
 
 #. module: delivery_easypost
 #. odoo-python
@@ -459,7 +459,7 @@ msgid ""
 "package. Please choose another service level."
 msgstr ""
 "No hay ninguna tarifa disponible para el nivel de servicio seleccionado para"
-" uno de tus paquetes. Por favor, elige otro nivel de servicio."
+" uno de sus paquetes. Elija otro nivel de servicio."
 
 #. module: delivery_easypost
 #: model:ir.model,name:delivery_easypost.model_stock_picking
@@ -471,7 +471,7 @@ msgstr "Albarán"
 #: code:addons/delivery_easypost/models/delivery_carrier.py:0
 #, python-format
 msgid "Unable to retrieve your default insurance rates."
-msgstr "No fue posible recuperar sus tarifas de seguro predeterminadas."
+msgstr "No fue posible recuperar sus tarifas de seguro por defecto."
 
 #. module: delivery_easypost
 #. odoo-python

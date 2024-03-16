@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Thi Huong Nguyen, 2023
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2023\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,11 +25,13 @@ msgstr ""
 msgid ""
 "'Field Service Report - %s - %s' % (object.name, object.partner_id.name)"
 msgstr ""
+"'Báo cáo dịch vụ hiện trường - %s - %s' % (object.name, "
+"object.partner_id.name)"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "10 days"
-msgstr ""
+msgstr "10 ngày"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
@@ -44,14 +46,14 @@ msgstr "2023-01-01"
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "5 days"
-msgstr ""
+msgstr "5 ngày"
 
 #. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 #, python-format
 msgid "<b>Review and sign</b> the <b>task report</b> with your customer."
-msgstr ""
+msgstr "<b>Rà soát và ký</b> <b>báo cáo nhiệm vụ</b> với khách hàng của bạn."
 
 #. module: industry_fsm_report
 #. odoo-javascript
@@ -59,7 +61,7 @@ msgstr ""
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 #, python-format
 msgid "<b>Send your task report</b> to your customer."
-msgstr ""
+msgstr "<b>Gửi báo cáo nhiệm vụ</b> cho khách hàng của bạn."
 
 #. module: industry_fsm_report
 #: model:mail.template,body_html:industry_fsm_report.mail_template_data_task_report
@@ -72,6 +74,13 @@ msgid ""
 "            </p>\n"
 "        "
 msgstr ""
+"<p>\n"
+"                Kính gửi <t t-out=\"object.partner_id.name or 'Quý khách'\">Quý khách</t>,<br><br>\n"
+"                Vui lòng xem báo cáo dịch vụ hiện trường về hoạt động xử lý tại chỗ của chúng tôi trong tệp đính kèm. <br><br>\n"
+"                Và đừng ngần ngại liên hệ với chúng tôi, nếu Quý khách có bất kỳ thắc mắc nào.<br><br>\n"
+"                Trân trọng,<br><br>\n"
+"            </p>\n"
+"        "
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_project_kanban_inherit_industry_fsm_report
@@ -79,16 +88,18 @@ msgid ""
 "<span class=\"fa fa-pencil me-1\" aria-label=\"Worksheet Template\" "
 "title=\"Worksheet Template\"/>"
 msgstr ""
+"<span class=\"fa fa-pencil me-1\" aria-label=\"Mẫu bảng công tác\" "
+"title=\"Mẫu bảng công tác\"/>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_kanban
 msgid "<span class=\"o_label ms-2\">Worksheets</span>"
-msgstr ""
+msgstr "<span class=\"o_label ms-2\">Bảng công tác</span>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_task_form2_inherit
 msgid "<span class=\"o_stat_text\">Worksheet</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Bảng công tác</span>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_task_form2_inherit
@@ -96,6 +107,8 @@ msgid ""
 "<span class=\"o_stat_text\">Worksheet</span>\n"
 "                            <span class=\"o_stat_text\">Complete</span>"
 msgstr ""
+"<span class=\"o_stat_text\">Hoàn thành</span>\n"
+"                            <span class=\"o_stat_text\">Bảng công tác</span>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
@@ -104,11 +117,14 @@ msgid ""
 "                            Signed\n"
 "                        </span>"
 msgstr ""
+"<span style=\"                             font-size: 10px;                             color: #fff;                             text-transform: uppercase;                             text-align: center;                             font-weight: bold; line-height: 20px;                             transform: rotate(45deg);                             width: 100px; height: auto; display: block;                             background: green;                             position: absolute;                             top: 19px; right: -21px; left: auto;                             padding: 0;\">\n"
+"                            Đã ký\n"
+"                        </span>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "<strong class=\"me-2\">Total</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">Tổng</strong>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
@@ -118,19 +134,19 @@ msgstr "<strong>Khách hàng: </strong>"
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_task_view_gantt_fsm_worksheet
 msgid "<strong>Template — </strong>"
-msgstr ""
+msgstr "<strong>Mẫu — </strong>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "<strong>Worker: </strong>"
-msgstr ""
+msgstr "<strong>Nhân công: </strong>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_3
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.x_project_task_worksheet_template_3_ir_ui_view_1
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.x_project_task_worksheet_template_4_ir_ui_view_1
 msgid "Add details about your intervention..."
-msgstr ""
+msgstr "Thêm chi tiết về cuộc xử lý của bạn..."
 
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_project_task_burndown_chart_report
@@ -140,7 +156,7 @@ msgstr "Sơ đồ chi tiết"
 #. module: industry_fsm_report
 #: model:ir.ui.menu,name:industry_fsm_report.project_task_menu_planning_by_project_fsm
 msgid "By Worksheet Template"
-msgstr ""
+msgstr "Theo mẫu bảng công tác"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__worksheet_color
@@ -155,7 +171,7 @@ msgstr "Bình luận"
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_project_form_inherit_industry_fsm_report
 msgid "Create reports to be signed off by your customers"
-msgstr ""
+msgstr "Tạo báo cáo để khách hàng của bạn ký duyệt"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,help:industry_fsm_report.field_project_task__worksheet_template_id
@@ -163,6 +179,8 @@ msgid ""
 "Create templates for each type of intervention you have and customize their "
 "content with your own custom fields."
 msgstr ""
+"Tạo mẫu cho từng loại hình cuộc xử lý mà bạn có và tùy chỉnh nội dung của "
+"chúng bằng các trường tùy chỉnh của riêng bạn."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.x_project_task_worksheet_template_3_ir_ui_view_3
@@ -178,7 +196,7 @@ msgstr "Xem trước khách hàng"
 #. module: industry_fsm_report
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.fsm_worksheets_action_settings
 msgid "Customize worksheet templates for each type of intervention.<br>"
-msgstr ""
+msgstr "Tùy chỉnh các mẫu bảng công tác cho từng loại hình cuộc xử lý.<br>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
@@ -195,7 +213,7 @@ msgstr "Ngày đã dùng"
 #: model:ir.model,name:industry_fsm_report.x_project_task_worksheet_template_3_ir_model_1
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_project__worksheet_template_id
 msgid "Default Worksheet"
-msgstr ""
+msgstr "Bảng công tác mặc định"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
@@ -205,52 +223,52 @@ msgstr "Mô tả"
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Description of the Intervention"
-msgstr ""
+msgstr "Mô tả về cuộc xử lý"
 
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.x_project_task_worksheet_template_4_ir_model_1
 msgid "Device Installation and Maintenance"
-msgstr ""
+msgstr "Lắp đặt và bảo trì thiết bị"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_send_report_primary
 msgid "Display Send Report Primary"
-msgstr ""
+msgstr "Hiển thị Gửi báo cáo chính"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_send_report_secondary
 msgid "Display Send Report Secondary"
-msgstr ""
+msgstr "Hiển thị Gửi báo cáo thứ cấp"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_sign_report_primary
 msgid "Display Sign Report Primary"
-msgstr ""
+msgstr "Hiển thị Ký báo cáo chính"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_sign_report_secondary
 msgid "Display Sign Report Secondary"
-msgstr ""
+msgstr "Hiển thị Ký báo cáo thứ cấp"
 
 #. module: industry_fsm_report
 #: model:mail.template,description:industry_fsm_report.mail_template_data_task_report
 msgid "Email sent when clicking on \"send report\" in a task"
-msgstr ""
+msgstr "Email được gửi khi nhấp vào \"gửi báo cáo\" trong một nhiệm vụ"
 
 #. module: industry_fsm_report
 #: model:ir.actions.report,name:industry_fsm_report.task_custom_report
 msgid "Field Service Report"
-msgstr ""
+msgstr "Báo cáo dịch vụ hiện trường"
 
 #. module: industry_fsm_report
 #: model:mail.template,subject:industry_fsm_report.mail_template_data_task_report
 msgid "Field Service Report - {{ object.name }}"
-msgstr ""
+msgstr "Báo cáo dịch vụ hiện trường - {{ object.name }}"
 
 #. module: industry_fsm_report
 #: model:mail.template,name:industry_fsm_report.mail_template_data_task_report
 msgid "Field Service: Field Service Report"
-msgstr ""
+msgstr "Dịch vụ hiện trường: Báo cáo dịch vụ hiện trường"
 
 #. module: industry_fsm_report
 #. odoo-javascript
@@ -258,13 +276,14 @@ msgstr ""
 #, python-format
 msgid "Fill in your <b>worksheet</b> with the details of your intervention."
 msgstr ""
+"Điền thông tin chi tiết về cuộc xử lý của bạn vào <b>bảng công tác</b>. "
 
 #. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 #, python-format
 msgid "Go back to your Field Service <b>task</b>."
-msgstr ""
+msgstr "Trở lại <b>nhiệm vụ</b> Dịch vụ hiện trường của bạn."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
@@ -277,18 +296,20 @@ msgid ""
 "I hereby certify that this device meets the requirements of an acceptable "
 "device at the time of testing."
 msgstr ""
+"Tôi xác nhận rằng thiết bị này đáp ứng các yêu cầu của một thiết bị đạt "
+"chuẩn tại thời điểm kiểm thử."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Intervention Type"
-msgstr ""
+msgstr "Loại hình cuộc xử lý"
 
 #. module: industry_fsm_report
 #. odoo-python
 #: code:addons/industry_fsm_report/controllers/portal.py:0
 #, python-format
 msgid "Invalid Task."
-msgstr ""
+msgstr "Nhiệm vụ không hợp lệ."
 
 #. module: industry_fsm_report
 #. odoo-python
@@ -302,27 +323,27 @@ msgstr "Dữ liệu chữ ký không hợp lệ."
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 #, python-format
 msgid "Invite your customer to <b>validate and sign your task report</b>."
-msgstr ""
+msgstr "Mời khách hàng <b>xác thực và ký báo cáo nhiệm vụ của bạn</b>."
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__fsm_is_sent
 msgid "Is Worksheet sent"
-msgstr ""
+msgstr "Đã gửi bảng công tác"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "Jane Worker"
-msgstr ""
+msgstr "Jane Worker"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "Jane smith"
-msgstr ""
+msgstr "Jane smith"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "Manage SME"
-msgstr ""
+msgstr "Quản lý SME"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
@@ -347,7 +368,7 @@ msgstr "Không tìm thấy nhiệm vụ nào. Hãy tạo một nhiệm vụ!"
 #. module: industry_fsm_report
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.fsm_worksheets_action_settings
 msgid "No worksheet templates found. Let's create one!"
-msgstr ""
+msgstr "Không tìm thấy mẫu bảng công tác nào. Hãy tạo một mẫu!"
 
 #. module: industry_fsm_report
 #. odoo-javascript
@@ -357,11 +378,12 @@ msgid ""
 "Open your <b>worksheet</b> in order to fill it in with the details of your "
 "intervention."
 msgstr ""
+"Mở <b>bảng công tác</b> của bạn để điền thông tin chi tiết về cuộc xử lý."
 
 #. module: industry_fsm_report
 #: model:ir.actions.act_window,name:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet
 msgid "Planning by Worksheet Template"
-msgstr ""
+msgstr "Lập kế hoạch bằng Mẫu bảng công tác"
 
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_project_project
@@ -373,12 +395,12 @@ msgstr "Dự án"
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 #, python-format
 msgid "Save time by automatically generating a <b>signature</b>."
-msgstr ""
+msgstr "Tiết kiệm thời gian bằng cách tự động tạo <b>chữ ký</b>."
 
 #. module: industry_fsm_report
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet
 msgid "Schedule your tasks and assign them to your workers."
-msgstr ""
+msgstr "Lên lịch trình nhiệm vụ và giao chúng cho nhân công của bạn."
 
 #. module: industry_fsm_report
 #: model:ir.actions.server,name:industry_fsm_report.action_fsm_task_send_report
@@ -391,7 +413,7 @@ msgstr "Gửi báo cáo"
 #: code:addons/industry_fsm_report/models/project_task.py:0
 #, python-format
 msgid "Send report"
-msgstr ""
+msgstr "Gửi báo cáo"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
@@ -401,7 +423,7 @@ msgstr "Số sê-ri"
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_task_form2_inherit
 msgid "Sign Report"
-msgstr ""
+msgstr "Ký báo cáo"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__worksheet_signature
@@ -435,7 +457,7 @@ msgstr "Nhiệm vụ định kỳ"
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_report_industry_fsm_report_worksheet_custom
 msgid "Task Worksheet Custom Report"
-msgstr ""
+msgstr "Báo cáo tuỳ chỉnh về bảng công tác nhiệm vụ"
 
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_report_project_task_user
@@ -447,21 +469,21 @@ msgstr "Phân tích nhiệm vụ"
 #: code:addons/industry_fsm_report/controllers/portal.py:0
 #, python-format
 msgid "The worksheet has been signed"
-msgstr ""
+msgstr "Bảng công tác này đã được ký"
 
 #. module: industry_fsm_report
 #. odoo-python
 #: code:addons/industry_fsm_report/controllers/portal.py:0
 #, python-format
 msgid "The worksheet is not in a state requiring customer signature."
-msgstr ""
+msgstr "Bảng công tác không ở trạng thái cần có chữ ký khách hàng. "
 
 #. module: industry_fsm_report
 #. odoo-python
 #: code:addons/industry_fsm_report/models/project_task.py:0
 #, python-format
 msgid "There are no reports to send."
-msgstr ""
+msgstr "Không có báo cáo nào cần gửi."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
@@ -473,7 +495,7 @@ msgstr "Bảng chấm công"
 #: code:addons/industry_fsm_report/models/project_task.py:0
 #, python-format
 msgid "To send the report, you need to select a worksheet template"
-msgstr ""
+msgstr "Để gửi báo cáo, bạn cần chọn một mẫu bảng công tác"
 
 #. module: industry_fsm_report
 #. odoo-javascript
@@ -487,17 +509,17 @@ msgstr "Sử dụng thanh điều hướng để trở lại <b>nhiệm vụ c�
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 #, python-format
 msgid "Validate the <b>signature</b>."
-msgstr ""
+msgstr "Xác thực <b>chữ ký</b>."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "Worker"
-msgstr "Người làm"
+msgstr "Nhân công"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Worker Signature"
-msgstr ""
+msgstr "Chữ ký của nhân công"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.portal_my_task
@@ -527,7 +549,7 @@ msgstr "Mẫu bảng công tác"
 #: model:ir.actions.act_window,name:industry_fsm_report.fsm_worksheets_action_settings
 #: model:ir.ui.menu,name:industry_fsm_report.fsm_settings_worksheets
 msgid "Worksheet Templates"
-msgstr ""
+msgstr "Mẫu bảng công tác"
 
 #. module: industry_fsm_report
 #: model:ir.actions.act_window,name:industry_fsm_report.x_project_task_worksheet_template_3_ir_actions_act_window_1

@@ -3,7 +3,7 @@
 # 	* partner_commission
 # 
 # Translators:
-# Wil Odoo, 2023
+# Wil Odoo, 2024
 # Tony Ng, 2024
 # 
 msgid ""
@@ -65,13 +65,13 @@ msgstr ""
 #: model:ir.model.fields.selection,name:partner_commission.selection__purchase_order__purchase_type__commission
 #: model:product.template,name:partner_commission.product_commission_product_template
 msgid "Commission"
-msgstr "Commission"
+msgstr "佣金"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_res_company__commission_automatic_po_frequency
 #: model:ir.model.fields,field_description:partner_commission.field_res_config_settings__commission_automatic_po_frequency
 msgid "Commission Automatic Po Frequency"
-msgstr ""
+msgstr "佣金自動採購單頻率"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__plan_id
@@ -81,37 +81,37 @@ msgstr ""
 #: model:ir.model.fields,field_description:partner_commission.field_sale_order_log_report__commission_plan_id
 #: model:ir.model.fields,field_description:partner_commission.field_sale_subscription_report__commission_plan_id
 msgid "Commission Plan"
-msgstr ""
+msgstr "佣金計劃"
 
 #. module: partner_commission
 #: model:ir.actions.act_window,name:partner_commission.action_commission_plans
 #: model:ir.ui.menu,name:partner_commission.menu_commission_plans
 msgid "Commission Plans"
-msgstr ""
+msgstr "佣金計劃"
 
 #. module: partner_commission
 #. odoo-python
 #: code:addons/partner_commission/models/account_move.py:0
 #, python-format
 msgid "Commission on %(invoice)s, %(partner)s, %(amount)s"
-msgstr ""
+msgstr "佣金：有關 %(invoice)s, %(partner)s, %(amount)s"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_commission_plan
 msgid "Commission plan"
-msgstr ""
+msgstr "佣金計劃"
 
 #. module: partner_commission
 #. odoo-python
 #: code:addons/partner_commission/models/account_move.py:0
 #, python-format
 msgid "Commission refunded. Invoice: %s. Amount: %s."
-msgstr ""
+msgstr "佣金已退款。發票：%s，金額：%s。"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_commission_rule
 msgid "Commission rules management."
-msgstr ""
+msgstr "佣金規則管理。"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_res_company
@@ -153,7 +153,7 @@ msgstr "客戶發票"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_res_partner_grade__default_commission_plan_id
 msgid "Default Commission Plan"
-msgstr ""
+msgstr "預設佣金計劃"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__display_name
@@ -184,11 +184,14 @@ msgid ""
 "The product must belong to the selected category.\n"
 "Use several rules if you need to match multiple products within a category."
 msgstr ""
+"如果設置，規則便不適用於整個類別，只適用於指定產品。\n"
+"產品必須屬於所選取的類別。\n"
+"如果需要符合類別中的多種產品，請使用多項規則。"
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_purchase_order__invoice_commission_count
 msgid "Invoices that have generated commissions included in this order"
-msgstr ""
+msgstr "包含此訂單內已產生佣金的發票"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_account_move
@@ -225,12 +228,12 @@ msgstr "手工"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__max_commission
 msgid "Max Commission"
-msgstr ""
+msgstr "最高佣金"
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_commission_rule__max_commission
 msgid "Maximum amount, specified in the currency of the pricelist, if given."
-msgstr ""
+msgstr "最高金額，以價格表的貨幣計算（如有）。"
 
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
@@ -241,7 +244,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:partner_commission.field_res_company__commission_po_minimum
 #: model:ir.model.fields,field_description:partner_commission.field_res_config_settings__commission_po_minimum
 msgid "Minimum Total Amount for PO commission"
-msgstr ""
+msgstr "採購單佣金最低總額"
 
 #. module: partner_commission
 #: model:ir.model.fields.selection,name:partner_commission.selection__res_company__commission_automatic_po_frequency__monthly
@@ -258,7 +261,7 @@ msgstr "名稱"
 #: code:addons/partner_commission/models/account_move.py:0
 #, python-format
 msgid "New commission. Invoice: %s. Amount: %s."
-msgstr ""
+msgstr "新佣金。發票：%s，金額：%s。"
 
 #. module: partner_commission
 #: model:res.groups,name:partner_commission.group_commission_user
@@ -268,7 +271,7 @@ msgstr "只限自己的文件"
 #. module: partner_commission
 #: model:ir.actions.server,name:partner_commission.cron_confirm_purchase_orders_ir_actions_server
 msgid "Partner Commission: confirm purchase orders"
-msgstr ""
+msgstr "合作夥伴佣金：確認採購單"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_res_partner_grade
@@ -278,7 +281,7 @@ msgstr "合作夥伴評級"
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
 msgid "Partners Commissions"
-msgstr ""
+msgstr "合作夥伴佣金"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__pricelist_id
@@ -355,7 +358,7 @@ msgstr ""
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_sale_order__commission
 msgid "Referrer Commission"
-msgstr ""
+msgstr "推薦人佣金"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_account_bank_statement_line__commission_po_line_id
@@ -404,7 +407,7 @@ msgstr "訂閱分析"
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_sale_order__commission_plan_id
 msgid "Takes precedence over the Referrer's commission plan."
-msgstr ""
+msgstr "較推薦人佣金計劃優先考慮。"
 
 #. module: partner_commission
 #. odoo-python
@@ -413,14 +416,14 @@ msgstr ""
 msgid ""
 "The commission partner order %s must be checked manually (especially refund "
 "lines which can be duplicated)."
-msgstr ""
+msgstr "佣金合作夥伴訂單 %s 必須手動檢查（尤其是退款資料行，它們可以重複）。"
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_res_partner_grade__default_commission_plan_id
 msgid ""
 "The default commission plan used for this grade. Can be overwritten on the "
 "partner form."
-msgstr ""
+msgstr "此階級使用的預設佣金計劃。可在合作夥伴表單內覆寫。"
 
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
@@ -437,11 +440,11 @@ msgstr "每週"
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_commission_rule__is_capped
 msgid "Whether the commission is capped."
-msgstr ""
+msgstr "佣金有否上限。"
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_sale_order__commission_plan_frozen
 msgid ""
 "Whether the commission plan is frozen. When checked, the commission plan "
 "won't automatically be updated according to the partner level."
-msgstr ""
+msgstr "佣金計劃是否已凍結。勾選後，佣金計劃不會根據合作夥伴等級自動更新。"

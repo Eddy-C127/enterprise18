@@ -85,7 +85,7 @@ msgstr "Reposición real "
 #: code:addons/mrp_mps/models/mrp_mps.py:0
 #, python-format
 msgid "Actual Replenishment %s %s (%s - %s)"
-msgstr "Reposición real%s%s(%s-%s)"
+msgstr "Reposición real %s%s(%s-%s)"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -230,7 +230,7 @@ msgstr "Mostrar demanda real del año pasado"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__mrp_mps_show_actual_replenishment
 msgid "Display Actual Replenishment"
-msgstr "Mostrar reabastecimiento real"
+msgstr "Mostrar reposición real"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__mrp_mps_show_available_to_promise
@@ -272,7 +272,7 @@ msgstr "Mostrar para reponer "
 #. module: mrp_mps
 #: model:ir.model.fields.selection,name:mrp_mps.selection__mrp_production_schedule__replenish_state__excessive_replenishment
 msgid "Excessive Replenishment"
-msgstr "Reabastecimiento excesivo"
+msgstr "Reposición excesiva"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -528,12 +528,12 @@ msgstr "Recepciones"
 #: code:addons/mrp_mps/static/src/components/main.xml:0
 #, python-format
 msgid "Replenish"
-msgstr "Reabastecer"
+msgstr "Reponer"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__replenish_state
 msgid "Replenish State"
-msgstr "Estado de reabastecimiento"
+msgstr "Estado de reposición"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_product_forecast__replenish_qty_updated
@@ -543,12 +543,12 @@ msgstr "Replenish_qty se ha actualizado manualmente"
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
 msgid "Replenishment Too High"
-msgstr "Reabastecimiento demasiado alto"
+msgstr "Reposición demasiado alta"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
 msgid "Replenishment Too Low"
-msgstr "Reabastecimiento demasiado bajo"
+msgstr "Reposición demasiado baja"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_forecast_details_form_view
@@ -616,12 +616,12 @@ msgstr "Regla de inventario"
 #: code:addons/mrp_mps/static/src/components/line.xml:0
 #, python-format
 msgid "Suggested Replenishment"
-msgstr "Reabastecimiento sugerido"
+msgstr "Reposición sugerida"
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__replenish_state
 msgid "Technical field to support filtering by replenish state"
-msgstr "Campo técnico para apoyar el filtrado por estado de reabastecimiento"
+msgstr "Campo técnico para apoyar el filtrado por estado de reposición"
 
 #. module: mrp_mps
 #: model:ir.model.constraint,message:mrp_mps.constraint_mrp_production_schedule_warehouse_product_ref_uniq
@@ -643,8 +643,8 @@ msgid ""
 "The forecasted demand to fulfill the needs in components of the "
 "Manufacturing Orders."
 msgstr ""
-"La demanda prevista para satisfacer las necesidades de los componentes de "
-"los pedidos de fabricación."
+"La demanda pronosticada para satisfacer las necesidades de los componentes "
+"de las órdenes de fabricación."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -678,7 +678,7 @@ msgid ""
 msgstr ""
 "El programa maestro traduce sus ventas y pronóstico de demanda en un plan de producción y compra para cada componente.\n"
 "                    Asegura que todo se programe a tiempo, según limitaciones como: existencias de seguridad, capacidad de producción, plazos.\n"
-"                    Es la herramienta perfecta para apoyar sus juntas de planificación de ventas y operaciones."
+"                    Es la herramienta perfecta para apoyar sus reuniones de planificación de ventas y operaciones."
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__max_to_replenish_qty
@@ -687,10 +687,9 @@ msgid ""
 "MPS. Note that if the demand is higher than that amount, the remaining "
 "quantity will be transferred to the next period automatically."
 msgstr ""
-"El reabastecimiento máximo que desea usar en cada periodo en el programa "
-"maestro de producción. Tome en cuenta que si la demanda es mayor que esta "
-"cifra, la cantidad restante se transferirá al siguiente periodo de forma "
-"automática."
+"La reposición máxima que desea usar en cada periodo en el plan maestro de "
+"producción. Tome en cuenta que si la demanda es mayor que esta cifra, la "
+"cantidad restante se transferirá automáticamente al siguiente periodo."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -701,7 +700,7 @@ msgid ""
 "Manufacturing Orders."
 msgstr ""
 "La cantidad que se repone, en función de las solicitudes de presupuesto y "
-"los pedidos de fabricación."
+"los órdenes de fabricación."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -734,19 +733,19 @@ msgstr "Periodo de tiempo"
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
 #, python-format
 msgid "To Replenish"
-msgstr "Reponer"
+msgstr "A reponer"
 
 #. module: mrp_mps
 #: model:ir.model.fields.selection,name:mrp_mps.selection__mrp_production_schedule__replenish_state__under_replenishment
 msgid "Under Replenishment"
-msgstr "En reabastecimiento"
+msgstr "Bajo reposición"
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__min_to_replenish_qty
 msgid ""
 "Unless the demand is 0, Odoo will always at least replenish this quantity."
 msgstr ""
-"A menos que la demanda sea 0, Odoo siempre reabastecerá por lo menos esta "
+"A menos que la demanda sea 0, Odoo siempre repondrá por lo menos esta "
 "cantidad."
 
 #. module: mrp_mps

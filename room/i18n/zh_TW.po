@@ -209,7 +209,7 @@ msgstr "公司"
 #. module: room
 #: model_terms:ir.actions.act_window,help:room.room_room_action
 msgid "Create Rooms"
-msgstr ""
+msgstr "建立房間"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__create_uid
@@ -441,6 +441,14 @@ msgid "Office Name"
 msgstr ""
 
 #. module: room
+#. odoo-javascript
+#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
+#, python-format
+msgid ""
+"Oops! Looks like you have multiple tabs opened. Make sure to use only one."
+msgstr ""
+
+#. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
 msgid "Open"
 msgstr "開啟"
@@ -480,12 +488,6 @@ msgstr ""
 #, python-format
 msgid "Public Booking"
 msgstr ""
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__rating_ids
-#: model:ir.model.fields,field_description:room.field_room_room__rating_ids
-msgid "Ratings"
-msgstr "點評"
 
 #. module: room
 #: model:ir.actions.act_window,name:room.room_room_action
@@ -570,7 +572,7 @@ msgstr ""
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.js:0
 #, python-format
 msgid "The booking you were editing has been deleted."
-msgstr ""
+msgstr "你剛在編輯的預訂，已被刪除。"
 
 #. module: room
 #. odoo-javascript

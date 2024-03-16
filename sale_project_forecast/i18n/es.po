@@ -28,10 +28,10 @@ msgid ""
 "when confirming the Sales Order. Only employees with this role will "
 "automatically be assigned shifts for Sales Orders containing this service."
 msgstr ""
-"Si se habilita, se generará un turno de forma automática para la función "
-"seleccionada al confirmar la orden de venta. Solo se asignarán turnos a los "
-"empleados con esta función se asignarán de forma automática para las órdenes"
-" de venta que contienen este servicio."
+"Si se habilita, se generará automáticamente un turno para el rol "
+"seleccionado al confirmar la orden de venta. Sólo a los empleados con este "
+"rol se les asignarán automáticamente turnos para las órdenes de venta que "
+"contengan este servicio."
 
 #. module: sale_project_forecast
 #: model:ir.model.fields,field_description:sale_project_forecast.field_product_product__planning_enabled
@@ -52,7 +52,7 @@ msgstr "Producto"
 #. module: sale_project_forecast
 #: model:ir.model.fields,field_description:sale_project_forecast.field_planning_slot__sale_line_id
 msgid "Sales Order Item"
-msgstr "Elemento del pedido de venta"
+msgstr "Artículo de la orden de venta"
 
 #. module: sale_project_forecast
 #: model:ir.model,name:sale_project_forecast.model_sale_order_line
@@ -67,6 +67,6 @@ msgid ""
 "well as the role defined on the service, are taken into account."
 msgstr ""
 "Artículo de orden de venta para el que se realizará este turno. Cuando las "
-"órdenes de venta se planean de forma automática, se consideran las horas "
+"órdenes de venta se planifican automáticamente, se consideran las horas "
 "restantes del artículo de la orden de venta, así como la función que se "
 "define en el servicio."

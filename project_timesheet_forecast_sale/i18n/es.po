@@ -25,7 +25,7 @@ msgstr ""
 #: code:addons/project_timesheet_forecast_sale/models/project.py:0
 #, python-format
 msgid "%(name)s's Timesheets and Planning Analysis"
-msgstr "Hojas de tiempo y análisis de planificación de %(name)s"
+msgstr "Análisis de Hojas de asistencia y Planificación de %(name)s"
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model,name:project_timesheet_forecast_sale.model_account_analytic_line
@@ -45,7 +45,7 @@ msgstr "Consultor"
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_project__display_planning_timesheet_analysis
 msgid "Display Planning Timesheet Analysis"
-msgstr "Muestre el análisis de los hojas de asistencia planificados"
+msgstr "Mostrar el análisis de los hojas de asistencia planificados"
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,field_description:project_timesheet_forecast_sale.field_project_timesheet_forecast_report_analysis__effective_billable_hours
@@ -137,17 +137,21 @@ msgstr "Arquitecto de software senior"
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,help:project_timesheet_forecast_sale.field_planning_analysis_report__billable_allocated_hours
 msgid "Sum of hours allocated to shifts linked to a SOL."
-msgstr "Suma de horas asignadas a turnos vinculados a un SOL."
+msgstr ""
+"Suma de las horas asignadas a turnos vinculados a una línea de orden de "
+"venta."
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model.fields,help:project_timesheet_forecast_sale.field_planning_analysis_report__non_billable_allocated_hours
 msgid "Sum of hours allocated to shifts not linked to a SOL."
-msgstr "Suma de horas asignadas a turnos no vinculados a un SOL."
+msgstr ""
+"Suma de horas asignadas a turnos que no están vinculados a las líneas de una"
+" orden de venta."
 
 #. module: project_timesheet_forecast_sale
 #: model:ir.model,name:project_timesheet_forecast_sale.model_project_timesheet_forecast_report_analysis
 msgid "Timesheet & Planning Statistics"
-msgstr "Hoja de tiempo y Estadísticas de planificación"
+msgstr "Estadísticas de hojas de asistencia y planificación"
 
 #. module: project_timesheet_forecast_sale
 #. odoo-python

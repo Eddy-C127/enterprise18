@@ -55,7 +55,7 @@ msgstr ""
 "\n"
 "    <t t-set=\"date_end\" t-value=\"format_datetime(object.date_deadline, tz=object.partner_id.tz, lang_code=object.partner_id.lang)\"></t>\n"
 "\n"
-"    Apreciable <t t-out=\"object.partner_id.name or 'customer'\">cliente</t>,<br><br>\n"
+"    Estimado/a <t t-out=\"object.partner_id.name or 'customer'\">cliente</t>,<br><br>\n"
 "    <t t-if=\"date_begin and date_end\">\n"
 "        Su intervención <t t-out=\"object.name or ''\">de mantenimiento de calentador</t> está programada desde el <t t-out=\"date_begin or ''\">05/31/2021 12:30:00</t> al <t t-out=\"date_end or ''\">05/31/2021 14:30:00</t>.\n"
 "    </t>\n"
@@ -97,7 +97,7 @@ msgstr "<strong>Fecha planificada:</strong>"
 msgid "A fsm project must be company restricted"
 msgstr ""
 "Un proyecto de la gestión de servicio externo debe estar restringido por la "
-"empresa "
+"compañía"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__active
@@ -386,7 +386,7 @@ msgstr "Servicio externo"
 #. module: industry_fsm
 #: model:mail.template,name:industry_fsm.mail_template_data_intervention_details
 msgid "Field Service: Intervention Scheduled"
-msgstr "Servicio externo: Intervención planeada"
+msgstr "Servicio externo: intervención planificada"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm_map
@@ -470,7 +470,7 @@ msgstr "Última actualización el"
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_view_search_fsm
 msgid "Late Activities"
-msgstr "Actividades tardías"
+msgstr "Actividades retrasadas"
 
 #. module: industry_fsm
 #. odoo-javascript
@@ -497,7 +497,7 @@ msgstr ""
 #: code:addons/industry_fsm/static/src/js/tours/industry_fsm_tour.js:0
 #, python-format
 msgid "Let's create your first <b>task</b>."
-msgstr "Creemos tu primera <b>tarea</b> ."
+msgstr "Creemos su primera <b>tarea</b>."
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task_stop_timers_wizard__line_ids
@@ -507,7 +507,7 @@ msgstr "Línea"
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_view_form_inherit
 msgid "Manage tasks in the Field Service module"
-msgstr "Gestiona tareas en el módulo de Servicio externo"
+msgstr "Gestione tareas en el módulo de Servicio externo"
 
 #. module: industry_fsm
 #: model:ir.actions.act_window,name:industry_fsm.project_task_action_fsm_map
@@ -923,7 +923,7 @@ msgstr "Actividades de hoy"
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__total_hours_spent
 msgid "Total Hours"
-msgstr "Horas totales"
+msgstr "Total de horas"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_type_action_fsm
@@ -956,24 +956,24 @@ msgstr "Asistente"
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__working_days_open
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_user_view_graph
 msgid "Working Days to Assign"
-msgstr "Días laborables por asignar"
+msgstr "Días laborables a asignar"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__working_days_close
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_user_view_graph
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_user_view_pivot
 msgid "Working Days to Close"
-msgstr "Días laborables por cerrar"
+msgstr "Días laborables a cerrar"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__working_hours_open
 msgid "Working Hours to Assign"
-msgstr "Horas laborables por asignar"
+msgstr "Horas laborables a asignar"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__working_hours_close
 msgid "Working Hours to Close"
-msgstr "Horas laborables por cerrar"
+msgstr "Horas laborables a cerrar"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_res_config_settings__module_industry_fsm_report

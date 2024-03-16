@@ -34,6 +34,8 @@ msgid ""
 "<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serial/Lot Number\" "
 "invisible=\"product_tracking not in ['serial', 'lot']\"/>"
 msgstr ""
+"<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Sarja- tai eränumero\" "
+"invisible=\"product_tracking not in ['serial', 'lot']\"/>"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
@@ -41,6 +43,8 @@ msgid ""
 "<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serial/Lot Number\" "
 "invisible=\"tracking not in ['serial', 'lot']\"/>"
 msgstr ""
+"<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Sarja- tai eränumero\" "
+"invisible=\"tracking not in ['serial', 'lot']\"/>"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -76,7 +80,7 @@ msgstr "<i class=\"fa fa-fw fa-lg fa-tags me-3\" title=\"Tuote\"/>"
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print barcode commands and operation types"
-msgstr ""
+msgstr "<i class=\"fa fa-print\"/> Tulosta viivakoodikomennot ja toimintatyypit"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
@@ -93,7 +97,7 @@ msgstr "Lisää komponentti"
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.view_picking_type_form
 msgid "Allow full order validation"
-msgstr ""
+msgstr "Salli täydellinen tilauksen validointi"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,help:stock_barcode_mrp.field_stock_move_line__pick_type_create_components_lots
@@ -104,18 +108,19 @@ msgstr "Mahdollistaa uusien erä-/sarjanumeroiden luomisen komponenteille"
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.view_picking_type_form
 msgid "Allow user to produce all even if no components were scanned"
 msgstr ""
+"Salli käyttäjän tuottaa kaikki, vaikka komponentteja ei olisi skannattu"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/components/main.js:0
 #, python-format
 msgid "Are you sure you want to cancel this manufacturing order?"
-msgstr ""
+msgstr "Haluatko varmasti peruuttaa tämän valmistustilauksen?"
 
 #. module: stock_barcode_mrp
 #: model:ir.actions.client,name:stock_barcode_mrp.stock_barcode_mo_client_action
 msgid "Barcode MO Client Action"
-msgstr ""
+msgstr "Viivakoodi Valmistustilauksen (MO) Asiakkaan toiminta"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
@@ -127,14 +132,14 @@ msgstr "Viivakoodi nimistö"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Cancel Manufacturing Order"
-msgstr ""
+msgstr "Peruuta valmistustilaus"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/components/main.js:0
 #, python-format
 msgid "Cancel manufacturing order?"
-msgstr ""
+msgstr "Haluatko peruuttaa valmistustilauksen?"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
@@ -151,7 +156,7 @@ msgstr "Vahvista"
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_picking_type__count_mo_confirmed
 msgid "Count Mo Confirmed"
-msgstr ""
+msgstr "Laske vahvistetut valmistustilaukset (MO)"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_move_line__pick_type_create_components_lots
@@ -161,7 +166,7 @@ msgstr "Uusien erien/sarjanumeroiden luominen komponenteille"
 #. module: stock_barcode_mrp
 #: model_terms:ir.actions.act_window,help:stock_barcode_mrp.mrp_action_kanban
 msgid "Create a new Manufacturing Order"
-msgstr ""
+msgstr "Luo uusi valmistustilaus"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -189,12 +194,12 @@ msgstr "Manuaalinen kulutus"
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__move_byproduct_line_ids
 msgid "Move Byproduct Line"
-msgstr ""
+msgstr "Siirrä oheistuotteen rivi"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__move_raw_line_ids
 msgid "Move Raw Line"
-msgstr ""
+msgstr "Siirrä raakarivi"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__backorder_ids
@@ -213,14 +218,14 @@ msgstr "Uusi"
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 #, python-format
 msgid "No Manufacturing Order ready for this %(barcode_type)s"
-msgstr ""
+msgstr "Ei valmistustilausta valmiina tälle %(barcode_type)s"
 
 #. module: stock_barcode_mrp
 #. odoo-python
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 #, python-format
 msgid "No product or order found for barcode %s"
-msgstr ""
+msgstr "Viivakoodille %s ei löytynyt tuotetta tai tilausta"
 
 #. module: stock_barcode_mrp
 #: model:ir.actions.act_window,name:stock_barcode_mrp.mrp_action_kanban
@@ -237,21 +242,21 @@ msgstr "Keräilyn tyyppi"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Print Finished Product Label (PDF)"
-msgstr ""
+msgstr "Tulosta valmiin tuotteen etiketti (PDF)"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Print Finished Product Label (ZPL)"
-msgstr ""
+msgstr "Tulosta valmiin tuotteen etiketti (ZPL)"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Print Production Order"
-msgstr ""
+msgstr "Tulosta tuotantotilaus"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -289,7 +294,7 @@ msgstr "Tuotevariaatio"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Product not Allowed"
-msgstr ""
+msgstr "Tuote ei sallittu"
 
 #. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_mrp_production
@@ -307,14 +312,14 @@ msgstr "Määrä"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Scan a component"
-msgstr ""
+msgstr "Skannaa komponentti"
 
 #. module: stock_barcode_mrp
 #. odoo-python
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 #, python-format
 msgid "Scan a product to filter the orders."
-msgstr ""
+msgstr "Skannaa tuote suodattaaksesi tilauksia."
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -328,14 +333,14 @@ msgstr "Skannaa siirto, tuote tai paketti suodattaaksesi tietueesi"
 #: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban.xml:0
 #, python-format
 msgid "Scan an order or a product to filter your records"
-msgstr ""
+msgstr "Skannaa tilaus tai tuote suodattaaksesi tietueita"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Scan your final product or more components"
-msgstr ""
+msgstr "Skannaa lopputuote tai useampi komponentti"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -359,7 +364,7 @@ msgstr "Varastosiirto"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "The Manufacturing Order has been cancelled"
-msgstr ""
+msgstr "Tuotantotilaus on peruutettu"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -377,21 +382,21 @@ msgstr ""
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "The manufacturing order has been validated"
-msgstr ""
+msgstr "Valmistustilaus on vahvistettu"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "This order is already done"
-msgstr ""
+msgstr "Tämä tilaus on jo tehty"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "This order is cancelled"
-msgstr ""
+msgstr "Tämä tilaus on peruttu"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.stock_mrp_picking_type_kanban
@@ -403,7 +408,7 @@ msgstr "Tehtävänä"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "To produce more products create a new MO."
-msgstr ""
+msgstr "Tuottaaksesi lisää tuotteita luo uusi MO."
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.actions.act_window,help:stock_barcode_mrp.mrp_action_kanban
@@ -431,4 +436,4 @@ msgstr ""
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "You can't add the final product of a MO as a byproduct."
-msgstr ""
+msgstr "Valmistustilauksen lopputuotetta ei voi lisätä sivutuotteena."

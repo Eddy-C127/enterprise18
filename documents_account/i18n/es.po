@@ -119,6 +119,13 @@ msgstr ""
 "páginas ya que pertenecen al mismo documento."
 
 #. module: documents_account
+#. openerp-web
+#: code:addons/documents_account/static/src/js/tour.js:0
+#, python-format
+msgid "Click the cross to <b>exit preview</b>."
+msgstr "Haga clic en la cruz para <b>salir de la vista previa</b>."
+
+#. module: documents_account
 #: model:ir.model,name:documents_account.model_res_company
 msgid "Companies"
 msgstr "Compañías"
@@ -141,7 +148,7 @@ msgstr "Crear"
 #. module: documents_account
 #: model:documents.workflow.rule,name:documents_account.credit_note_rule
 msgid "Create Customer Credit Note"
-msgstr "Crear una nota de crédito para el cliente "
+msgstr "Crear una factura rectificativa para el cliente "
 
 #. module: documents_account
 #: model:documents.workflow.rule,name:documents_account.customer_invoice_rule
@@ -181,7 +188,7 @@ msgstr "Creado el"
 #. module: documents_account
 #: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_out_refund
 msgid "Credit note"
-msgstr "Nota de crédito"
+msgstr "Factura rectificativa"
 
 #. module: documents_account
 #: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_out_invoice
@@ -345,7 +352,7 @@ msgstr "Solicitar un documento de una línea del estado de cuenta"
 #, python-format
 msgid "Send this letter to the legal department, by assigning the right tags."
 msgstr ""
-"Envía esta carta al departamento legal asignándole las etiquetas adecuadas."
+"Envíe esta carta al departamento legal al asignarle las etiquetas adecuadas."
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_workflow_rule__suitable_journal_ids
@@ -386,8 +393,8 @@ msgstr "Factura de proveedor"
 msgid ""
 "Want to become a <b>paperless company</b>? Let's discover Odoo Documents."
 msgstr ""
-"¿Quieres convertirte en una <b>empresa libre de papel</b>? Descubre "
-"Documentos de Odoo."
+"¿Quiere convertirse en una <b>empresa sin papel</b>? Descubre Odoo "
+"Documentos."
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__folder_id
@@ -409,9 +416,9 @@ msgstr ""
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_res_config_settings__account_folder
 msgid "account default folder"
-msgstr "Carpeta de cuenta predeterminada"
+msgstr "carpeta de cuenta por defecto"
 
 #. module: documents_account
 #: model_terms:ir.ui.view,arch_db:documents_account.view_account_move_form_inherit_documents_account
 msgid "to mark this invoice as paid."
-msgstr "factura por marcar como pagada."
+msgstr "para marcar esta factura como pagada."

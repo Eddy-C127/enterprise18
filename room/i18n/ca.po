@@ -11,7 +11,6 @@
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2023
 # Sandra Franch <sandra.franch@upc.edu>, 2023
 # Carles Antoli <carlesantoli@hotmail.com>, 2023
-# Arnau Ros, 2023
 # marcescu, 2023
 # Óscar Fonseca <tecnico@pyming.com>, 2023
 # Josep Anton Belchi, 2023
@@ -452,6 +451,14 @@ msgid "Office Name"
 msgstr ""
 
 #. module: room
+#. odoo-javascript
+#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
+#, python-format
+msgid ""
+"Oops! Looks like you have multiple tabs opened. Make sure to use only one."
+msgstr ""
+
+#. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
 msgid "Open"
 msgstr "Oberts"
@@ -491,12 +498,6 @@ msgstr ""
 #, python-format
 msgid "Public Booking"
 msgstr ""
-
-#. module: room
-#: model:ir.model.fields,field_description:room.field_room_booking__rating_ids
-#: model:ir.model.fields,field_description:room.field_room_room__rating_ids
-msgid "Ratings"
-msgstr "Valoracions"
 
 #. module: room
 #: model:ir.actions.act_window,name:room.room_room_action

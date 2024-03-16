@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Ryoko Tsuda <ryoko@quartile.co>, 2023
 # Junko Augias, 2024
+# Ryoko Tsuda <ryoko@quartile.co>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -736,9 +736,9 @@ msgid ""
 "- When the benefit is set: Unique signature request the first time the employee will take the benefit\n"
 "- When the benefit is modified: Signature request will be created for each change regarding the benefit."
 msgstr ""
-"システムが新しいサイン要求を作成するタイミングを定義します:\n"
-"- 福利厚生が設定されたとき： 従業員が初めて福利厚生を利用する際の一意の署名要求\n"
-"- 福利厚生が変更されたとき： 署名要求は、福利厚生に関する変更ごとに作成されます。"
+"システムが新しい署名依頼を作成するタイミングを定義します:\n"
+"- 福利厚生が設定されたとき： 従業員が初めて福利厚生を利用する際の一意の署名依頼\n"
+"- 福利厚生が変更されたとき： 署名依頼は、福利厚生に関する変更ごとに作成されます。"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__department_id
@@ -812,7 +812,7 @@ msgid ""
 "signatures related to the benefit. eg: A company car policy to approve if "
 "you choose a company car."
 msgstr ""
-"ここで選択されたドキュメントは、その福利厚生に関連する追加の署名のために従業員に要求されます。例: 社用車を選択した場合に承認する社用車規定。"
+"ここで選択されたドキュメントは、その福利厚生に関連する追加の署名のために従業員に依頼されます。例: 社用車を選択した場合に承認する社用車規定。"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_sign_document_wizard__sign_template_ids
@@ -1745,7 +1745,7 @@ msgstr "要求済ドキュメントフィールド"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__sign_request_ids
 msgid "Requested Signatures"
-msgstr "要求された署名"
+msgstr "依頼された署名"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__requested_documents_fields_string
@@ -1996,7 +1996,7 @@ msgstr "契約書のドキュメントに署名"
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "Signature Request - %s"
-msgstr "署名ようきゅう - %s"
+msgstr "署名依頼 - %s"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__slider

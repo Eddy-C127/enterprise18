@@ -80,7 +80,7 @@ msgstr "阻塞工作中心"
 #: model:ir.model.fields,help:mrp_maintenance.field_maintenance_request__recurring_leaves_count
 msgid ""
 "Block the workcenter for this many time slots in the future in advance."
-msgstr ""
+msgstr "提前預留此數量的工作中心未來時段。"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__company_id
@@ -223,7 +223,7 @@ msgstr "是關注者"
 msgid ""
 "It won't be possible to plan work orders or other maintenances on this "
 "workcenter during this time."
-msgstr ""
+msgstr "在此期間，將無法規劃此工作中心的工作單或其他維護工作。"
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
@@ -528,6 +528,8 @@ msgid ""
 "When this box is unticked, and the maintenance is of the type 'Work Center', no leave is created on the respective work center when a maintenance request is created.\n"
 "If the box is ticked, the work center is automatically blocked for the listed duration, either at the specified date, or as soon as possible, if the work center is unavailable then."
 msgstr ""
+"如果未勾選該勾選方格，且維護類型為 \"工作中心\"，則在創建維護請求時不會在相應的工作中心創建休假。\n"
+"如果勾選了該勾選方格，工作中心會在指定日期或盡快(如果工作中心當時不可用)在列出的期限內自動關閉。"
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_mrp_workcenter

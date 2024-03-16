@@ -17,8 +17,8 @@
 # Simon S, 2023
 # Martin Trigaux, 2023
 # Jakob Krabbe <jakob.krabbe@vertel.se>, 2023
-# Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
 # Lasse L, 2024
+# Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
 # 
 msgid ""
 msgstr ""
@@ -26,7 +26,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Lasse L, 2024\n"
+"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,6 +64,12 @@ msgid ""
 "- Follow-up Address: Preferred address for follow-up reports. Selected by default when you send reminders about overdue invoices.\n"
 "- Other: Other address for the company (e.g. subsidiary, ...)"
 msgstr ""
+"- Kontakt: Använd detta för att organisera kontaktuppgifterna för anställda i ett visst företag (t.ex. VD, CFO, ...).\n"
+"- Fakturaadress: Rekommenderad adress för alla fakturor. Väljs som standard när du fakturerar en order som tillhör detta företag.\n"
+"- Leveransadress: Rekommenderad adress för alla leveranser. Markeras som standard när du levererar en order som tillhör det här företaget.\n"
+"- Privat: Privata adresser är endast synliga för behöriga användare och innehåller känsliga uppgifter (anställdas hemadresser, ...).\n"
+"- Uppföljningsadress: Rekommenderad adress för uppföljningsrapporter. Vald som standard när du skickar påminnelser om förfallna fakturor.\n"
+"- Annan: Annan adress för företaget (t.ex. dotterbolag, ...)"
 
 #. module: account_followup
 #: model:account_followup.followup.line,name:account_followup.demo_followup_line1
@@ -381,7 +387,7 @@ msgstr "Automatisk"
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_manual_reminder__body_has_template_value
 msgid "Body content is the same as the template"
-msgstr ""
+msgstr "Innehållet är detsamma som i mallen"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_manual_reminder__can_edit_body
