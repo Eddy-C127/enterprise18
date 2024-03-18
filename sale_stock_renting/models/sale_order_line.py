@@ -265,7 +265,7 @@ class RentalOrderLine(models.Model):
             if moves and moves.mapped('product_id') != line.product_id:
                 raise ValidationError(_("You cannot change the product of lines linked to stock moves."))
 
-    def _create_procurements(self, product_qty, procurement_uom, values):
+    def _create_procurements(self, product_qty, procurement_uom, origin, values):
         """ Change the destination for rental procurement groups. """
         if self.is_rental:
             values['route_ids'] = self.env.ref('sale_stock_renting.route_rental')
@@ -282,11 +282,11 @@ class RentalOrderLine(models.Model):
             return [
                 self.env['procurement.group'].Procurement(
                     self.product_id, product_qty, procurement_uom, self.order_id.company_id.rental_loc_id,
-                    self.product_id.display_name, self.order_id.name, self.order_id.company_id, delivery_values),
+                    self.product_id.display_name, origin, self.order_id.company_id, delivery_values),
                 self.env['procurement.group'].Procurement(
                     self.product_id, product_qty, procurement_uom, self.order_id.warehouse_id.lot_stock_id,
-                    self.product_id.display_name, self.order_id.name, self.order_id.company_id, return_values)]
-        return super()._create_procurements(product_qty, procurement_uom, values)
+                    self.product_id.display_name, origin, self.order_id.company_id, return_values)]
+        return super()._create_procurements(product_qty, procurement_uom, origin, values)
 
     def _action_launch_stock_rule(self, previous_product_uom_qty=False):
         """ If the rental picking setting is deactivated:
