@@ -241,7 +241,7 @@ class AccountAsset(models.Model):
                         months=int(asset.parent_id.asset_lifetime_days / DAYS_PER_MONTH),
                         days=int(asset.parent_id.asset_lifetime_days % DAYS_PER_MONTH) - 1
                     )
-                asset.asset_lifetime_days = self._get_delta_days(asset.prorata_date, parent_end_date)
+                asset.asset_lifetime_days = asset._get_delta_days(asset.prorata_date, parent_end_date)
 
     @api.depends('acquisition_date', 'company_id', 'prorata_computation_type')
     def _compute_prorata_date(self):
