@@ -297,8 +297,8 @@
                                     <field name="appointment_tz"/>
                                     <field name="location_id" context="{'show_address': True, 'default_is_company': True}"
                                         domain="[('is_company', '=', True)]"
-                                        placeholder="If empty, the meeting is considered as taking place online"/>
-                                    <field name="event_videocall_source"/>
+                                        placeholder="Online Meeting"/>
+                                    <field name="event_videocall_source" placeholder="None"/>
                                     <label for="resource_manual_confirmation" invisible="schedule_based_on == 'users'"/>
                                     <div class="d-flex" invisible="schedule_based_on == 'users'">
                                         <field name="resource_manual_confirmation" class="oe_inline"/>
@@ -388,6 +388,38 @@
             <xpath expr="//header" position="replace"/>
             <xpath expr="//div[hasclass('oe_button_box')]" position="replace"/>
             <xpath expr="//field[@name='message_partner_ids']" position="replace"/>
+        </field>
+    </record>
+
+    <record id="appointment_type_view_form_custom_share" model="ir.ui.view">
+        <field name="name">appointment.type.view.form.custom.share</field>
+        <field name="model">appointment.type</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <form string="Share Availabilities" js_class="appointment_type_view_form_custom_share">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder='e.g. "Technical Demo"'/></h1>
+                    </div>
+                    <group>
+                        <field name="staff_user_ids" widget="many2many_avatar_user" required="1"/>
+                        <field name="location_id" context="{'show_address': True, 'default_is_company': True}"
+                            domain="[('is_company', '=', True)]"
+                            placeholder="Online Meeting"/>
+                        <field name="event_videocall_source" placeholder="None"/>
+                        <field name="allow_guests"/>
+                    </group>
+                    <group>
+                        <label for="message_intro" string="Introduction Message" colspan="2"/>
+                        <field name="message_intro" nolabel="1" colspan="2"
+                            placeholder="e.g. &quot;During this meeting, we will...&quot;"/>
+                        <label for="message_confirmation" string="Extra Message on Confirmation" colspan="2"/>
+                        <field name="message_confirmation" nolabel="1" colspan="2"
+                            placeholder="e.g. &quot;Thank you for your trust, we look forward to meeting you!&quot;"/>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 
