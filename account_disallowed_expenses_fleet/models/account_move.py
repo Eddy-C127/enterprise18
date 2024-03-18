@@ -12,15 +12,15 @@ class AccountMoveLine(models.Model):
     def _compute_tax_key(self):
         super()._compute_tax_key()
         for line in self:
-            if line.vehicle_id:
+            if line.tax_repartition_line_id:
                 line.tax_key = frozendict(**line.tax_key, vehicle_id=line.vehicle_id.id)
 
     @api.depends('vehicle_id')
     def _compute_all_tax(self):
         super()._compute_all_tax()
         for line in self:
-            if line.vehicle_id:
-                for key in list(line.compute_all_tax.keys()):
+            for key in list(line.compute_all_tax.keys()):
+                if 'tax_repartition_line_id' in key:
                     new_key = frozendict(**key, vehicle_id=line.vehicle_id.id)
                     line.compute_all_tax[new_key] = line.compute_all_tax.pop(key)
 
