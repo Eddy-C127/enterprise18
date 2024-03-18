@@ -607,6 +607,34 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2022-06-30', depreciation_value=24000, remaining_value=0, depreciated_value=60000, state='draft'),
         ])
 
+    def test_linear_reevaluation_increase_then_disposal(self):
+        asset = self.create_asset(value=36000, periodicity="yearly", periods=3, method="linear", acquisition_date="2022-01-01", prorata="constant_periods")
+        asset.validate()
+        self.loss_account_id = self.company_data['default_account_expense'].copy().id
+        self.asset_counterpart_account_id = self.company_data['default_account_expense'].copy().id
+
+        self.env['asset.modify'].create({
+            'asset_id': asset.id,
+            'name': 'Test reason',
+            'date':  fields.Date.to_date("2022-04-15"),
+            'value_residual': asset.value_residual + 8500,
+            "account_asset_counterpart_id": self.asset_counterpart_account_id,
+        }).modify()
+
+        self.env['asset.modify'].create({
+            'asset_id': asset.id,
+            'date':  fields.Date.to_date("2022-06-30"),
+            'modify_action': 'dispose',
+            'loss_account_id': self.loss_account_id,
+        }).sell_dispose()
+
+        self.assertRecordValues(asset.depreciation_move_ids.sorted(lambda mv: (mv.date, mv.id)), [
+            self._get_depreciation_move_values(date='2022-04-15', depreciation_value=3500, remaining_value=32500, depreciated_value=3500, state='posted'),
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=2500, remaining_value=30000, depreciated_value=6000, state='posted'),
+            # disposal move
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=30000, remaining_value=0, depreciated_value=36000, state='draft'),
+        ])
+
     def test_linear_reevaluation_increase_constant_periods(self):
         asset = self.create_asset(value=1200, periodicity="monthly", periods=12, method="linear", acquisition_date="2021-10-01", prorata="constant_periods")
         asset.validate()
