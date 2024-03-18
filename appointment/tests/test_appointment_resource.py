@@ -69,7 +69,7 @@ class AppointmentResource(AppointmentCommon):
         for resource, default_type, expected_type_id in states:
             context = {
                 'booking_gantt_create_record': True,
-                'default_appointment_resource_id': resource.id
+                'default_resource_ids': resource.ids
             }
             if default_type:
                 context.update(default_appointment_type_id=default_type.id)

@@ -91,7 +91,7 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
      * Display 'Add Leaves' action button if grouping by appointment resources.
      */
     get showAddLeaveButton() {
-        return !!(this.model.metaData.groupedBy && this.model.metaData.groupedBy[0] === 'appointment_resource_id');
+        return !!(this.model.metaData.groupedBy && this.model.metaData.groupedBy[0] === 'resource_ids');
     }
 
     /**
@@ -102,7 +102,7 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
      */
     async dragPillDrop({ pill, cell, diff }) {
         let unpatch = null;
-        if (this.model.metaData.groupedBy && this.model.metaData.groupedBy[0] === "partner_ids") {
+        if (this.model.metaData.groupedBy && (this.model.metaData.groupedBy[0] === "partner_ids" || this.model.metaData.groupedBy[0] === "resource_ids")) {
             const originResId = this.rows.find((row) => {
                 return row.pills.some(
                     (rowPill) => rowPill.id === this.pills[pill.dataset.pillId].id,
