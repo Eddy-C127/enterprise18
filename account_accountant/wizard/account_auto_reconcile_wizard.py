@@ -167,7 +167,7 @@ class AccountAutoReconcileWizard(models.TransientModel):
                 'name': _("Automatically Reconciled Entries"),
                 'type': 'ir.actions.act_window',
                 'res_model': 'account.move.line',
-                'context': "{'group_by': 'full_reconcile_id'}",
+                'context': "{'search_default_group_by_matching': True}",
                 'view_mode': 'list',
                 'domain': [('id', 'in', reconciled_amls_and_related.ids)],
             }
