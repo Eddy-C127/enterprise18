@@ -133,6 +133,48 @@ QUnit.module("Comments Thread Plugin", {}, () => {
         });
     });
 
+    QUnit.test("Threads are not affected by copy/paste", (assert) => {
+        const model = new Model();
+        const sheetId = model.getters.getActiveSheetId();
+        model.dispatch("ADD_COMMENT_THREAD", {
+            sheetId,
+            ...toCartesian("B2"),
+            threadId: 1,
+        });
+        model.selection.selectCell(1, 1);
+        model.dispatch("COPY");
+        model.dispatch("PASTE", { target: [toZone("C2")] });
+        assert.deepEqual(model.getters.getThreadInfo(1), {
+            sheetId,
+            ...toCartesian("B2"),
+            threadId: 1,
+            isResolved: false,
+        });
+    });
+
+    QUnit.test("Threads are not affected by paste from clipboard os", (assert) => {
+        const model = new Model();
+        const sheetId = model.getters.getActiveSheetId();
+        model.dispatch("ADD_COMMENT_THREAD", {
+            sheetId,
+            ...toCartesian("B2"),
+            threadId: 1,
+        });
+        model.selection.selectCell(1, 1);
+        model.dispatch("PASTE_FROM_OS_CLIPBOARD", {
+            target: [toZone("C2")],
+            text: "coucou",
+            pasteOption: {},
+        });
+        model.dispatch("PASTE", { target: [toZone("C2")] });
+        assert.deepEqual(model.getters.getThreadInfo(1), {
+            sheetId,
+            ...toCartesian("B2"),
+            threadId: 1,
+            isResolved: false,
+        });
+    });
+
     QUnit.test("Resolve/re-open a thread", (assert) => {
         const model = new Model();
         const threadId = 1;

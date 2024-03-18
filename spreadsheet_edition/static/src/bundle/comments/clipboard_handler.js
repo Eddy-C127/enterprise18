@@ -20,12 +20,12 @@ export class CellThreadsClipboardHandler extends AbstractCellClipboardHandler {
      * Paste the clipboard content in the given target
      */
     paste(target, content, options) {
-        if (!content.threads.length || !target.zones.length) {
+        if (!content.threads?.length || !target.zones.length) {
             return;
         }
-        const zones = target.zones;
-        const sheetId = this.getters.getActiveSheetId();
         if (options?.isCutOperation && !options?.pasteOption) {
+            const zones = target.zones;
+            const sheetId = this.getters.getActiveSheetId();
             this.pasteFromCut(sheetId, zones, content);
         }
     }
