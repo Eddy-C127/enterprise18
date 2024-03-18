@@ -125,3 +125,110 @@ QUnit.test("fields already used are filtered", async (assert) => {
     store.update({ colGroupBys: ["bar", "baz"] });
     assert.strictEqual(store.unusedGroupableFields.length, 0);
 });
+
+QUnit.test("non measure fields are filtered and sorted", async (assert) => {
+    const models = getBasicData();
+    models.partner.fields = {
+        foo: {
+            string: "Foo",
+            type: "integer",
+            store: true,
+        },
+        bar: {
+            string: "Bar",
+            type: "boolean",
+            store: true,
+        },
+        probability: {
+            string: "Probability",
+            type: "integer",
+            aggregator: "sum",
+            store: true,
+        },
+        dummy_float: {
+            string: "Dummy float",
+            type: "float",
+            aggregator: "sum",
+            store: true,
+        },
+        dummy_monetary: {
+            string: "Dummy monetary",
+            type: "monetary",
+            aggregator: "sum",
+            store: true,
+        },
+        dummy_many2one: {
+            string: "Dummy many2one",
+            type: "many2one",
+            aggregator: "sum",
+            store: true,
+        },
+        dummy_binary: {
+            string: "Dummy binary",
+            type: "binary",
+            aggregator: "sum",
+            store: true,
+        },
+        foo_non_stored: {
+            string: "Foo non stored",
+            type: "integer",
+            aggregator: "sum",
+            store: false,
+        },
+    };
+    models.partner.records = [];
+    const { model, pivotId } = await createSpreadsheetWithPivot({
+        serverData: { models },
+        arch: /* xml */ `
+            <pivot>
+            </pivot>`,
+    });
+    const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
+    assert.strictEqual(store.unusedMeasureFields.length, 5);
+    const measures = ["__count", "dummy_float", "dummy_many2one", "dummy_monetary", "probability"];
+    assert.deepEqual(
+        store.unusedMeasureFields.map((m) => m.name),
+        measures
+    );
+});
+
+QUnit.test("Existing measure fields are filtered", async (assert) => {
+    const models = getBasicData();
+    models.partner.fields = {
+        foo: {
+            string: "Foo",
+            type: "integer",
+            aggregator: "sum",
+            store: true,
+        },
+        bar: {
+            string: "Bar",
+            type: "boolean",
+            store: true,
+        },
+        probability: {
+            string: "Probability",
+            type: "integer",
+            aggregator: "sum",
+            store: true,
+        },
+    };
+    models.partner.records = [];
+    const { model, pivotId } = await createSpreadsheetWithPivot({
+        serverData: { models },
+        arch: /* xml */ `
+            <pivot>
+                <field name="__count" type="measure"/>
+            </pivot>`,
+    });
+    const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
+    assert.strictEqual(store.unusedMeasureFields.length, 2);
+    const measures = ["foo", "probability"];
+    assert.deepEqual(
+        store.unusedMeasureFields.map((m) => m.name),
+        measures
+    );
+    store.update({ measures: ["__count", "probability"] });
+    assert.strictEqual(store.unusedMeasureFields.length, 1);
+    assert.strictEqual(store.unusedMeasureFields[0].name, "foo");
+});

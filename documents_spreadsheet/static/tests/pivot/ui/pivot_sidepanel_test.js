@@ -43,7 +43,7 @@ QUnit.module(
             const [pivotName, pivotModel, dimensions, domain, lastUpdate] = sections;
             assert.deepEqual(
                 [...dimensions.children].map((el) => el.innerText),
-                ["Columns\nAdd", "Foo", "Rows\nAdd", "Bar", "Measures", "Count", "Probability"]
+                ["Columns\nAdd", "Foo", "Rows\nAdd", "Bar", "Measures\nAdd", "Count", "Probability"]
             );
 
             assert.equal(pivotName.children[0].innerText, "Pivot name");
@@ -135,7 +135,7 @@ QUnit.module(
                 const dimensionElements = target.querySelectorAll(".pivot-dimensions > div");
                 assert.deepEqual(
                     Array.from(dimensionElements).map((el) => el.textContent.trim()),
-                    ["Columns Add", "Foo", "Rows Add", "Bar", "Measures", "Probability"]
+                    ["Columns Add", "Foo", "Rows Add", "Bar", "Measures Add", "Probability"]
                 );
             }
         );
@@ -312,7 +312,7 @@ QUnit.module(
             let dimensionElements = fixture.querySelectorAll(".pivot-dimensions > div");
             assert.deepEqual(
                 Array.from(dimensionElements).map((el) => el.textContent.trim()),
-                ["Columns Add", "Foo", "Rows Add", "Bar", "Measures", "Probability"]
+                ["Columns Add", "Foo", "Rows Add", "Bar", "Measures Add", "Probability"]
             );
             await dragAndDrop(
                 ".pivot-dimensions div:nth-child(2)",
@@ -329,7 +329,7 @@ QUnit.module(
             dimensionElements = fixture.querySelectorAll(".pivot-dimensions > div");
             assert.deepEqual(
                 Array.from(dimensionElements).map((el) => el.textContent.trim()),
-                ["Columns Add", "Rows Add", "Bar", "Foo", "Measures", "Probability"]
+                ["Columns Add", "Rows Add", "Bar", "Foo", "Measures Add", "Probability"]
             );
             let definition = model.getters.getPivotDefinition(pivotId);
             // update is not applied until the user clicks on the save button
@@ -561,8 +561,63 @@ QUnit.module(
             const dimensionElements = fixture.querySelectorAll(".pivot-dimensions > div");
             assert.deepEqual(
                 Array.from(dimensionElements).map((el) => el.textContent.trim()),
-                ["Columns Add", "FooBar", "Rows Add", "Measures", "Probability"]
+                ["Columns Add", "FooBar", "Rows Add", "Measures Add", "Probability"]
             );
+        });
+
+        QUnit.test("remove pivot measure", async function (assert) {
+            const { model, env, pivotId } = await createSpreadsheetFromPivotView({
+                serverData: {
+                    models: getBasicData(),
+                    views: {
+                        "partner,false,pivot": /*xml*/ `
+                            <pivot>
+                                <field name="foo" type="col"/>
+                                <field name="bar" type="row"/>
+                                <field name="probability" type="measure"/>
+                            </pivot>`,
+                        "partner,false,search": `<search/>`,
+                    },
+                },
+            });
+            const fixture = getFixture();
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
+            await nextTick();
+            const allDiv = fixture.querySelectorAll(".pivot-dimensions div");
+            await click(allDiv[allDiv.length - 1].querySelector(".fa-times"));
+            await nextTick();
+            await click(fixture, ".pivot-defer-update .btn-link");
+            const definition = model.getters.getPivotDefinition(pivotId);
+            assert.deepEqual(definition.colGroupBys, ["foo"]);
+            assert.deepEqual(definition.rowGroupBys, ["bar"]);
+            assert.deepEqual(definition.measures, []);
+        });
+
+        QUnit.test("add measure", async function (assert) {
+            const { model, env, pivotId } = await createSpreadsheetFromPivotView({
+                serverData: {
+                    models: getBasicData(),
+                    views: {
+                        "partner,false,pivot": /*xml*/ `
+                            <pivot>
+                                <field name="foo" type="col"/>
+                                <field name="bar" type="row"/>
+                                <field name="probability" type="measure"/>
+                            </pivot>`,
+                        "partner,false,search": `<search/>`,
+                    },
+                },
+            });
+            const fixture = getFixture();
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
+            await nextTick();
+            await click(fixture.querySelectorAll(".add-dimension.btn")[2]);
+            await click(fixture.querySelectorAll(".o-popover div")[1]);
+            await click(fixture, ".pivot-defer-update .btn-link");
+            const definition = model.getters.getPivotDefinition(pivotId);
+            assert.deepEqual(definition.colGroupBys, ["foo"]);
+            assert.deepEqual(definition.rowGroupBys, ["bar"]);
+            assert.deepEqual(definition.measures, ["probability", "__count"]);
         });
     }
 );

@@ -26,9 +26,17 @@
                     <PivotDimension dimension="row" onRemoved.bind="removeDimension"/>
                 </div>
             </t>
-            <div class="fw-bold pt-2 pb-1">Measures</div>
+            <div class="fw-bold pt-2 pb-1 d-flex flex-row justify-content-between align-items-center">
+                Measures <AddDimensionButton onFieldPicked.bind="addMeasureDimension" fields="props.unusedMeasureFields"/>
+            </div>
             <t t-foreach="props.definition.measures" t-as="measure" t-key="measure.name">
-                <PivotDimension dimension="measure"/>
+                <div
+                    t-on-pointerdown="(ev) => this.startDragAndDropMeasures(measure, ev)"
+                    t-att-style="dragAndDrop.itemsStyle[measure.name]"
+                    class="pt-1"
+                >
+                    <PivotDimension dimension="measure" onRemoved.bind="removeMeasureDimension"/>
+                </div>
             </t>
         </div>
     </t>
