@@ -3,6 +3,8 @@ from .common import TestMxEdiCommon
 from odoo import Command
 from odoo.exceptions import RedirectWarning, UserError
 from odoo.tests import tagged
+from odoo.tools import misc
+from odoo.tools.misc import file_open
 
 from freezegun import freeze_time
 
@@ -839,3 +841,34 @@ class TestCFDIInvoice(TestMxEdiCommon):
         with self.with_mocked_pac_cancel_success():
             payment.l10n_mx_edi_payment_document_ids.action_cancel()
         self.assertRecordValues(payment, [{'l10n_mx_edi_cfdi_state': 'cancel'}])
+
+    def test_import_bill_cfdi_extento(self):
+        file_name = "test_bill_import_extento"
+        file_path = misc.file_path(f'{self.test_module}/tests/test_files/{file_name}.xml')
+
+        assert file_path
+        with file_open(file_path, 'rb') as file:
+            content = file.read()
+
+        # Read the problematic xml file that kept causing crash on bill uploads
+        new_bill = self._upload_document_on_journal(
+            journal=self.company_data['default_journal_purchase'],
+            content=content,
+            filename=file_name,
+        )
+
+        tax_id = self.env['account.chart.template'].ref('tax14')
+
+        self.assertRecordValues(new_bill.invoice_line_ids, (
+            {
+                'quantity': 1,
+                'price_unit': 54017.48,
+                'tax_ids': [tax_id.id]
+            },
+            {
+                'quantity': 1,
+                'price_unit': 17893.00,
+                # This should be empty due to the error causing missing attribute 'TasaOCuota' to result in empty tax_ids
+                'tax_ids': []
+            }
+        ))
