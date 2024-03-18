@@ -6,7 +6,7 @@ class AccountMoveSend(models.TransientModel):
     _inherit = "account.move.send"
 
     l10n_br_edi_is_visible = fields.Boolean(
-        compute="_compute_send_mail_extra_fields",
+        compute="_compute_l10n_br_edi_is_visible",
         help="Brazil: technical field to determine if the option to submit a Brazilian electronic invoice is visible.",
     )
     l10n_br_edi_is_enabled = fields.Boolean(
@@ -23,7 +23,12 @@ class AccountMoveSend(models.TransientModel):
         help="Brazil: used to display warnings in the wizard before sending.",
     )
 
-    @api.depends("l10n_br_edi_is_visible", "move_ids")
+    @api.depends("move_ids")
+    def _compute_l10n_br_edi_is_visible(self):
+        for wizard in self:
+            wizard.l10n_br_edi_is_visible = any(move.l10n_br_edi_is_needed for move in wizard.move_ids)
+
+    @api.depends("l10n_br_edi_is_visible")
     def _compute_l10n_br_edi_is_enabled(self):
         for wizard in self:
             # Enable e-invoicing by default if possible for this invoice.
@@ -33,7 +38,7 @@ class AccountMoveSend(models.TransientModel):
     def _compute_l10n_br_edi_warning(self):
         self.l10n_br_edi_warning = False
         for wizard in self.filtered("l10n_br_edi_is_enabled"):
-            if non_eligible := self.move_ids.filtered(lambda move: not move.l10n_br_edi_is_needed):
+            if non_eligible := wizard.move_ids.filtered(lambda move: not move.l10n_br_edi_is_needed):
                 wizard.l10n_br_edi_warning = _(
                     "Brazilian e-invoicing was enabled but the following invoices cannot be e-invoiced:\n%s\n"
                     "If this is not intended, please check if an Avatax fiscal position is used on those invoices and if the invoice isn't already e-invoiced.",
@@ -43,12 +48,6 @@ class AccountMoveSend(models.TransientModel):
     def _get_invoice_extra_attachments(self, move):
         # EXTENDS 'account'
         return super()._get_invoice_extra_attachments(move) + move.l10n_br_edi_xml_attachment_id
-
-    def _compute_send_mail_extra_fields(self):
-        # EXTENDS 'account'
-        super()._compute_send_mail_extra_fields()
-        for wizard in self:
-            wizard.l10n_br_edi_is_visible = any(move.l10n_br_edi_is_needed for move in wizard.move_ids)
 
     def _get_wizard_values(self):
         # EXTENDS 'account'
