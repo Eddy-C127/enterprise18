@@ -36,7 +36,7 @@ class SaleOrder(models.Model):
                 )
         return res
 
-    def _get_product_catalog_record_lines(self, product_ids):
+    def _get_product_catalog_record_lines(self, product_ids, **kwarg):
         """
             Accessing the catalog from the smart button of a "field service" should compute
             the content of the catalog related to that field service rather than the content
@@ -49,7 +49,7 @@ class SaleOrder(models.Model):
                 if line.task_id.id == task_id and line.product_id.id in product_ids:
                     grouped_lines[line.product_id] |= line
             return grouped_lines
-        return super()._get_product_catalog_record_lines(product_ids)
+        return super()._get_product_catalog_record_lines(product_ids, **kwarg)
 
 
 class SaleOrderLine(models.Model):
