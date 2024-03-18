@@ -201,7 +201,7 @@ class SaleOrder(models.Model):
     def _process_transaction_product(self, transaction):
         Template = self.env['product.template']
         ebay_id = transaction['Item']['ItemID']
-        product = Template.search([('ebay_id', '=', ebay_id)], limit=1)
+        product = Template.search([('ebay_id', '=', ebay_id)], order='ebay_use desc', limit=1)
         if not product:
             product = Template.create({
                 'name': transaction['Item']['Title'],
