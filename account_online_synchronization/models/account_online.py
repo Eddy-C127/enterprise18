@@ -752,11 +752,14 @@ class AccountOnlineLink(models.Model):
                     total = sum([transaction['amount'] for transaction in transactions])
                     statement_lines = self.env['account.bank.statement.line'].with_context(transactions_total=total)._online_sync_bank_statement(sorted_transactions[:100], online_account)
                     online_account.fetching_status = 'planned' if len(transactions) > 100 else 'done'
+                    domain = None
+                    if statement_lines:
+                        domain = [('id', 'in', statement_lines.ids)]
 
                     return self.env['account.bank.statement.line']._action_open_bank_reconciliation_widget(
-                        extra_domain=[('id', 'in', statement_lines.ids)],
+                        extra_domain=domain,
                         name=_('Fetched Transactions'),
-                        default_context=self.env.context,
+                        default_context={**self.env.context, 'default_journal_id': journal},
                     )
                 else:
                     statement_lines = self.env['account.bank.statement.line']._online_sync_bank_statement(sorted_transactions, online_account)
