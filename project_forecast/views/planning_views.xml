@@ -207,7 +207,7 @@
         <record id="project_forecast_action_schedule_by_employee" model="ir.actions.act_window">
             <field name="name">Schedule by Resource</field>
             <field name="res_model">planning.slot</field>
-            <field name="path">planning</field>
+            <field name="path">employees-planning</field>
             <field name="view_mode">gantt,calendar,tree,form,kanban,pivot,graph</field>
             <field name="view_id" ref="project_forecast.planning_view_gantt"/>
             <field name="mobile_view_mode">calendar</field>
