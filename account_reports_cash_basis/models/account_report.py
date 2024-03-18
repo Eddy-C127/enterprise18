@@ -103,6 +103,11 @@ class AccountReport(models.Model):
                 )
             )
             {where_journals};
+
+            -- Create an composite index to avoid seq.scan
+            CREATE INDEX IF NOT EXISTS cash_basis_temp_account_move_line_composite_idx on cash_basis_temp_account_move_line(date, journal_id, company_id, parent_state);
+            -- Update statistics for correct planning
+            ANALYZE cash_basis_temp_account_move_line;
         """.format(
             all_fields=', '.join(f'"{f}"' for f in (unchanged_fields + changed_fields)),
             unchanged_fields=', '.join([f'"account_move_line"."{f}"' for f in unchanged_fields]),
