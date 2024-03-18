@@ -634,7 +634,7 @@ class HrContract(models.Model):
             employee_contracts = employee._get_contracts(min_date_from, max_date_to, states=['open', 'close'])
             work_hours_data_by_calendar = {
                 c.resource_calendar_id: [work_day for work_day, work_hours in employee.with_context(
-                    compute_leaves=False).list_work_time_per_day(min_date_from, max_date_to, c.resource_calendar_id)]
+                    compute_leaves=False)._list_work_time_per_day(min_date_from, max_date_to, c.resource_calendar_id)[employee.id]]
                 for c in employee_contracts}
             effective_worked_days = {
                 calendar: [

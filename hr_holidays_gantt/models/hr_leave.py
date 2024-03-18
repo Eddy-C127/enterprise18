@@ -116,7 +116,7 @@ class HrLeave(models.Model):
         """
             Returns all the leaves happening between `planned_date_begin` and `date_deadline`
         """
-        work_times = {wk[0]: wk[1] for wk in employee_id.list_work_time_per_day(date_from, date_to)}
+        work_times = {wk[0]: wk[1] for wk in employee_id._list_work_time_per_day(date_from, date_to)[employee_id.id]}
 
         def has_working_hours(start_dt, end_dt):
             """
