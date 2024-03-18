@@ -60,9 +60,8 @@ class AccountMoveSend(models.TransientModel):
         # EXTENDS 'account'
         values = super()._get_wizard_vals_restrict_to(only_options)
         return {
-            **values,
             'l10n_br_edi_is_enabled': False,
-            **only_options,
+            **values,
         }
 
     def _get_placeholder_mail_attachments_data(self, move):
