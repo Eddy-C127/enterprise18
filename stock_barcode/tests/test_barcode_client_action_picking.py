@@ -461,6 +461,61 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(receipt_picking.move_line_ids.product_id.mapped('id'), [self.product1.id, self.product2.id])
         self.assertEqual(receipt_picking.move_line_ids.mapped('quantity'), [2, 1])
 
+    def test_delivery_source_location(self):
+        """ Ensures a location who isn't the picking's source location or one of its sublocations
+        can't be scanned as the source while processing a delivery."""
+        self.clean_access_rights()
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
+        # Creates a new location at the same level than WH/Stock.
+        sibling_loc = self.env['stock.location'].create({
+            'name': "Second Stock",
+            'location_id': self.stock_location.location_id.id,
+            'barcode': 'WH-SECOND-STOCK',
+        })
+        # Adds some quantities in stock and creates a delivery using them.
+        self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, 4)
+        delivery_from_stock = self.env['stock.picking'].create({
+            'name': 'delivery_from_stock',
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+        })
+        self.env['stock.move'].create({
+            'name': 'product1 x4 (WH/Stock)',
+            'location_id': delivery_from_stock.location_id.id,
+            'location_dest_id': delivery_from_stock.location_dest_id.id,
+            'product_id': self.product1.id,
+            'product_uom': self.uom_unit.id,
+            'product_uom_qty': 4,
+            'picking_id': delivery_from_stock.id,
+        })
+        delivery_from_stock.action_confirm()
+        delivery_from_stock.action_assign()
+        # Adds some quantities in 2nd stock and creates a delivery using them.
+        self.env['stock.quant']._update_available_quantity(self.product1, sibling_loc, 4)
+        delivery_from_stock_2 = self.env['stock.picking'].create({
+            'name': 'delivery_from_second_stock',
+            'location_id': sibling_loc.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+        })
+        self.env['stock.move'].create({
+            'name': 'product1 x4 (WH/Second Stock)',
+            'location_id': delivery_from_stock_2.location_id.id,
+            'location_dest_id': delivery_from_stock_2.location_dest_id.id,
+            'product_id': self.product1.id,
+            'product_uom': self.uom_unit.id,
+            'product_uom_qty': 4,
+            'picking_id': delivery_from_stock_2.id,
+        })
+        delivery_from_stock_2.action_confirm()
+        delivery_from_stock_2.action_assign()
+
+        action = self.env["ir.actions.actions"]._for_xml_id("stock_barcode.stock_barcode_action_main_menu")
+        url = f'/web#action={action["id"]}'
+        self.start_tour(url, 'test_delivery_source_location', login='admin', timeout=180)
+
     def test_delivery_lot_with_multi_companies(self):
         """ This test ensures that scanning a lot or serial number who exists for
         multiple companies will fetch only the one who belongs to the active company.
@@ -1325,7 +1380,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         # Creates a delivery transfer for this package.
         picking_form = Form(self.env['stock.picking'])
         picking_form.picking_type_id = self.picking_type_out
-        picking_form.location_id = self.shelf1
+        picking_form.location_id = self.stock_location
         with picking_form.move_ids_without_package.new() as move:
             move.product_id = self.product1
             move.product_uom_qty = 1
