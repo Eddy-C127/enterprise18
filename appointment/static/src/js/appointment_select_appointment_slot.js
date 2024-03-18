@@ -32,7 +32,7 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
     /**
      * Initializes variables and design
      * - $slotsList: the block containing the availabilities
-     * - $resourceSelection: the block containing the resources selection
+     * - $resourceSelection: resources or users selection for time_resource mode
      * - $first: the first day containing a slot
      */
     initSlots: async function () {
@@ -174,6 +174,9 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
             slots: slots,
             getAvailableResources: (slot) => {
                 return scheduleBasedOn === 'resources' ? JSON.stringify(slot['available_resources']) : false;
+            },
+            getAvailableUsers: (slot) => {
+                return scheduleBasedOn === 'users' ? JSON.stringify(slot['available_staff_users']) : false;
             }
         }));
         this.$resourceSelection.addClass('d-none');
@@ -188,7 +191,7 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
         // before confirming the slot.
         const assignMethod = this.$el.find("input[name='assign_method']").val();
         const scheduleBasedOn = this.$("input[name='schedule_based_on']").val();
-        if (assignMethod !== "time_resource" || scheduleBasedOn === 'users') {
+        if (assignMethod !== "time_resource") {
             const appointmentTypeID = this.$("input[name='appointment_type_id']").val();
             const urlParameters = decodeURIComponent(this.$(".o_slot_hours_selected").data('urlParameters'));
             const url = new URL(
@@ -199,13 +202,20 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
         }
 
         const availableResources = this.$(ev.currentTarget).data('available_resources');
-        const previousResourceIdSelected = this.$("select[name='resource_id']").val();
+        const availableStaffUsers = this.$(ev.currentTarget).data('available_staff_users');
+        const previousSelection = this.$("select[name='resource_id']").val();
         this.$('#resourceSelection').empty().append(renderToFragment('appointment.resources_list', {
-            availableResources: availableResources,
+            availableResources,
+            availableStaffUsers,
+            scheduleBasedOn,
         }));
-        this.$("select[name='resource_id']").attr('disabled', availableResources.length === 1);
-        if (previousResourceIdSelected && this.$(`select[name='resource_id'] > option[value='${previousResourceIdSelected}']`).length) {
-            this.$("select[name='resource_id']").val(previousResourceIdSelected);
+        if (scheduleBasedOn === "resources") {
+            this.$("select[name='resource_id']").attr('disabled', availableResources.length === 1);
+        } else {
+            this.$("select[name='resource_id']").attr('disabled', availableStaffUsers.length === 1);
+        }
+        if (previousSelection && this.$(`select[name='resource_id'] > option[value='${previousSelection}']`).length) {
+            this.$("select[name='resource_id']").val(previousSelection);
         }
         this.$('#resourceSelection').removeClass('d-none');
     },
@@ -213,20 +223,25 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
     _onClickConfirmSlot: function (ev) {
         const appointmentTypeID = this.$("input[name='appointment_type_id']").val();
         const resourceId = parseInt(this.$("select[name='resource_id']").val());
-        const resourceCapacity = parseInt(this.$("select[name='resourceCapacity']").val()) || 1;
+        const scheduleBasedOn = this.$("input[name='schedule_based_on']").val();
         const urlParameters = decodeURIComponent(this.$(".o_slot_hours_selected").data('urlParameters'));
         const url = new URL(
             `/appointment/${encodeURIComponent(appointmentTypeID)}/info?${urlParameters}`,
             location.origin);
         const assignMethod = this.$("input[name='assign_method']").val();
-        let resourceIds = JSON.parse(url.searchParams.get('available_resource_ids'));
-        const $resourceSelected = $(this.$('.o_resources_list').prop('selectedOptions')[0]);
-        if (assignMethod === "time_resource" && $resourceSelected.data('resourceCapacity') >= resourceCapacity) {
-            resourceIds = [resourceId];
+        if (scheduleBasedOn === "resources") {
+            const resourceCapacity = parseInt(this.$("select[name='resourceCapacity']").val()) || 1;
+            const $resourceSelected = $(this.$(".o_resources_list").prop("selectedOptions")[0]);
+            let resourceIds = JSON.parse(url.searchParams.get('available_resource_ids'));
+            if (assignMethod === "time_resource" && $resourceSelected.data("resourceCapacity") >= resourceCapacity) {
+                resourceIds = [resourceId];
+            }
+            url.searchParams.set('resource_selected_id', encodeURIComponent(resourceId));
+            url.searchParams.set('available_resource_ids', JSON.stringify(resourceIds));
+            url.searchParams.set('asked_capacity', encodeURIComponent(resourceCapacity));
+        } else {
+            url.searchParams.set("staff_user_id", encodeURIComponent(resourceId));
         }
-        url.searchParams.set('resource_selected_id', encodeURIComponent(resourceId));
-        url.searchParams.set('available_resource_ids', JSON.stringify(resourceIds));
-        url.searchParams.set('asked_capacity', encodeURIComponent(resourceCapacity));
         document.location = encodeURI(url.href);
     },
 

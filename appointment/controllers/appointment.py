@@ -282,7 +282,7 @@ class AppointmentController(http.Controller):
         resource_selected_id = int(resource_selected_id) if resource_selected_id else False
 
         if appointment_type.schedule_based_on == 'users':
-            if appointment_type.assign_method != 'time_auto_assign' and users_possible:
+            if appointment_type.assign_method == 'resource_time' and users_possible:
                 if staff_user_id and staff_user_id in users_possible.ids:
                     user_selected = request.env['res.users'].sudo().browse(staff_user_id)
                 user_default = users_possible[0]

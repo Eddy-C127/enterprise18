@@ -83,12 +83,6 @@ class AppointmentType(models.Model):
         ('time_auto_assign', 'Select Time then auto-assign')],
         string="Assignment Method", default="resource_time", required=True,
         help="How users and resources will be assigned to meetings customers book on your website.")
-    # Technical field to hide "time_resource" when "users" are selected as this option is currently not supported
-    user_assign_method = fields.Selection([
-        ('resource_time', 'Pick User/Resource then Time'),
-        ('time_auto_assign', 'Select Time then auto-assign')],
-        compute="_compute_user_assign_method", inverse='_inverse_user_assign_method',
-        help="How users and resources will be assigned to meetings customers book on your website.")
     avatars_display = fields.Selection(
         [('hide', 'No Picture'), ('show', 'Show Pictures')],
         string='Front-End Display', compute='_compute_avatars_display', readonly=False, store=True,
@@ -294,19 +288,6 @@ class AppointmentType(models.Model):
     def _compute_staff_user_count(self):
         for record in self:
             record.staff_user_count = len(record.staff_user_ids)
-
-    @api.depends('assign_method', 'schedule_based_on')
-    def _compute_user_assign_method(self):
-        for appointment_type in self:
-            if appointment_type.assign_method != 'time_resource':
-                appointment_type.user_assign_method = appointment_type.assign_method
-            elif appointment_type.schedule_based_on == 'users':
-                appointment_type.user_assign_method = 'resource_time'
-
-    def _inverse_user_assign_method(self):
-        for appointment_type in self:
-            if appointment_type.user_assign_method:
-                appointment_type.assign_method = appointment_type.user_assign_method
 
     @api.constrains('category', 'start_datetime', 'end_datetime')
     def _check_appointment_category_time_boundaries(self):
@@ -793,7 +774,7 @@ class AppointmentType(models.Model):
                 last_day_end_of_day.astimezone(pytz.UTC),
                 valid_users,
             )
-            slot_field_label = 'staff_user_id'
+            slot_field_label = 'available_staff_users' if self.assign_method == 'time_resource' else 'staff_user_id'
         else:
             self._slots_fill_resources_availability(
                 slots,
@@ -840,13 +821,19 @@ class AppointmentType(models.Model):
                                 slot_start_dt_tz = slots[0][timezone][0].strftime('%Y-%m-%d %H:%M:%S')
                                 slot = {
                                     'datetime': slot_start_dt_tz,
-                                    'staff_user_id': slots[0]['staff_user_id'].id if self.schedule_based_on == 'users' else False,
                                     'available_resources': [{
                                         'id': resource.id,
                                         'name': resource.name,
                                         'capacity': resource.capacity,
                                     } for resource in slots[0]['available_resource_ids']] if self.schedule_based_on == 'resources' else False,
                                 }
+                                if self.schedule_based_on == 'users' and self.assign_method == 'time_resource':
+                                    slot.update({'available_staff_users': [{
+                                        'id': staff.id,
+                                        'name': staff.name,
+                                    } for staff in slots[0]['available_staff_users']]})
+                                elif self.schedule_based_on == 'users':
+                                    slot.update({'staff_user_id': slots[0]['staff_user_id'].id})
                                 if slots[0]['slot'].allday:
                                     slot_duration = 24
                                     slot.update({
@@ -865,9 +852,9 @@ class AppointmentType(models.Model):
                                     'date_time': slot_start_dt_tz,
                                     'duration': slot_duration,
                                 }
-                                if self.schedule_based_on == 'users':
+                                if self.schedule_based_on == 'users' and self.assign_method != 'time_resource':
                                     url_parameters.update(staff_user_id=str(slots[0]['staff_user_id'].id))
-                                else:
+                                elif self.schedule_based_on == 'resources':
                                     url_parameters.update(available_resource_ids=str(slots[0]['available_resource_ids'].ids))
                                 slot['url_parameters'] = url_encode(url_parameters)
                                 today_slots.append(slot)
@@ -918,7 +905,9 @@ class AppointmentType(models.Model):
         elif slots and self_sudo.schedule_based_on == 'resources' and (not resources or all(r in self_sudo.resource_ids for r in resources)):
             self_sudo._slots_fill_resources_availability(slots, start_dt, end_dt, filter_resources=resources, asked_capacity=asked_capacity)
         for slot in slots:
-            if staff_user and slot.get("staff_user_id", False) != staff_user:
+            if staff_user and self.assign_method != 'time_resource' and slot.get("staff_user_id", False) != staff_user:
+                continue
+            if staff_user and self.assign_method == 'time_resource' and staff_user not in slot.get("available_staff_users", self.env['res.users']):
                 continue
             if resources and any(resource not in slot.get("available_resource_ids", []) for resource in resources):
                 continue
@@ -1005,8 +994,8 @@ class AppointmentType(models.Model):
           for fixed appointment types or can contain several users e.g. with random assignment and
           filters) If not set, use all users assigned to this appointment type.
 
-        :return: None but instead update ``slots`` adding ``staff_user_id`` key
-          containing found available user ID;
+        :return: None but instead update ``slots`` adding ``staff_user_id`` or ``available_staff_users`` key
+          containing available user(s);
         """
         # shuffle the available users into a random order to avoid having the same
         # one assigned every time, force timezone
@@ -1023,15 +1012,28 @@ class AppointmentType(models.Model):
         )
 
         for slot in slots:
-            available_staff_user = next(
-                (staff_user for staff_user in available_users_tz if self._slot_availability_is_user_available(
-                    slot,
-                    staff_user,
-                    availability_values
-                )),
-                False)
-            if available_staff_user:
-                slot['staff_user_id'] = available_staff_user
+            if self.assign_method == 'time_resource':
+                available_staff_users = available_users_tz.filtered(
+                    lambda staff_user: self._slot_availability_is_user_available(
+                        slot,
+                        staff_user,
+                        availability_values
+                    )
+                )
+            else:
+                available_staff_users = next(
+                    (staff_user for staff_user in available_users_tz if self._slot_availability_is_user_available(
+                        slot,
+                        staff_user,
+                        availability_values
+                    )),
+                    False)
+            if available_staff_users:
+                if self.assign_method == 'time_resource':
+                    slot['available_staff_users'] = available_staff_users
+                else:
+                    slot['staff_user_id'] = available_staff_users
+
 
     def _slot_availability_is_user_available(self, slot, staff_user, availability_values):
         """ This method verifies if the user is available on the given slot.

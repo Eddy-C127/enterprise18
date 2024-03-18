@@ -48,7 +48,7 @@
         </xpath>
         <xpath expr="//t[@t-call='appointment.staff_user_select']" position="attributes">
             <attribute name="t-if">
-                appointment_type.assign_method != 'time_auto_assign' and based_on_users and not skip_resource_selection
+                appointment_type.assign_method == 'resource_time' and based_on_users and not skip_resource_selection
             </attribute>
         </xpath>
         <xpath expr="//div[@name='resource_select']" position="attributes">
