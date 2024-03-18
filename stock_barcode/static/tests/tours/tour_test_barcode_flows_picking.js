@@ -632,6 +632,44 @@ registry.category("web_tour.tours").add('test_receipt_product_not_consecutively'
     },
 ]});
 
+registry.category("web_tour.tours").add("test_delivery_source_location", {test: true, steps: () => [
+    // FIRST DELIVERY (using stock from WH/Stock)
+    { trigger: ".o_stock_barcode_main_menu", run: 'scan delivery_from_stock' },
+    // Tries to scan a location who doesn't belong to the delivery's source location.
+    { trigger: '.o_scan_message.o_scan_src', run: 'scan WH-SECOND-STOCK' },
+    {
+        trigger: '.o_notification_bar.bg-danger',
+        run: () => {
+            helper.assertErrorMessage("The scanned location doesn't belong to this operation's location");
+    }},
+    { trigger: 'button.o_notification_close' },
+    // Scans the right location now.
+    { trigger: '.o_barcode_client_action', run: 'scan LOC-01-00-00' },
+    { trigger: '.o_scan_message.o_scan_product', run: 'scan product1' },
+    { trigger: '.o_barcode_line.o_selected', run: 'scan product1' },
+    { trigger: '.o_barcode_line.o_selected', run: 'scan product1' },
+    { trigger: '.o_barcode_line.o_selected', run: 'scan product1' },
+    { trigger: '.o_validate_page.btn-success' },
+
+    // SECOND DELIVERY (using stock from WH/Second Stock)
+    { trigger: ".o_stock_barcode_main_menu", run: 'scan delivery_from_second_stock' },
+    // Tries to scan a location who doesn't belong to the delivery's source location.
+    { trigger: '.o_scan_message.o_scan_src', run: 'scan LOC-01-00-00' },
+    {
+        trigger: '.o_notification_bar.bg-danger',
+        run: () => {
+            helper.assertErrorMessage("The scanned location doesn't belong to this operation's location");
+    }},
+    { trigger: 'button.o_notification_close' },
+    // Scans the right location now.
+    { trigger: '.o_barcode_client_action', run: 'scan WH-SECOND-STOCK' },
+    { trigger: '.o_scan_message.o_scan_product', run: 'scan product1' },
+    { trigger: '.o_barcode_line.o_selected', run: 'scan product1' },
+    { trigger: '.o_barcode_line.o_selected', run: 'scan product1' },
+    { trigger: '.o_barcode_line.o_selected', run: 'scan product1' },
+    ...stepUtils.validateBarcodeOperation('.o_validate_page.btn-success'),
+]});
+
 registry.category("web_tour.tours").add("test_delivery_lot_with_multi_companies", {test: true, steps: () => [
     // Scans tsn-002: should find nothing since this SN belongs to another company.
     { trigger: ".o_barcode_client_action", run: "scan tsn-002" },

@@ -905,9 +905,7 @@ export default class BarcodePickingModel extends BarcodeModel {
         }
 
         if (this.config.restrict_scan_source_location && !this._currentLocation && !this.selectedLine) { // Source Location.
-            if (location) {
-                this.location = location;
-            } else {
+            if (!location) {
                 check.title = _t("Mandatory Source Location");
                 check.message = _t(
                     "You are supposed to scan %s or another source location",
@@ -1238,9 +1236,14 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     async _processLocationSource(barcodeData){
+        // Checks the scanned location belongs to the picking's source (do nothing if not the case.)
+        if (!this._isSublocation(barcodeData.location, this._defaultLocation())) {
+            barcodeData.stopped = true;
+            const message = _t("The scanned location doesn't belong to this operation's location");
+            return this.notification(message, { type: 'danger' });
+        }
         super._processLocationSource(...arguments);
-        // check if line has qty_done, create a new line with the rest,
-        // and update the reserved qty of current line to qty_done, marked complete
+        // Splits uncompleted lines to be able to add reserved products from unreserved location.
         let currentLine = this.selectedLine || this.lastScannedLine;
         currentLine = this._getParentLine(currentLine) || currentLine;
         if (currentLine && currentLine.location_id.id !== barcodeData.location.id){
@@ -1278,6 +1281,16 @@ export default class BarcodePickingModel extends BarcodeModel {
                 this._markLineAsDirty(currentLine);
             }
         }
+    }
+
+    /**
+     * Returns true if the first given location is a sublocation of the second given location.
+     * @param {Object} childLocation
+     * @param {Object} parentLocation
+     * @returns {boolean}
+     */
+    _isSublocation(childLocation, parentLocation) {
+        return childLocation.parent_path.includes(parentLocation.parent_path);
     }
 
     async _processLocationDestination(barcodeData) {
