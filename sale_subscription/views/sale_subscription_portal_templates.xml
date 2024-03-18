@@ -6,7 +6,7 @@
                 <a class="alert-info" t-att-href="sale_order.subscription_id.get_portal_url()"><i class="oi oi-arrow-right me-1"/>Back to your subscription</a>
             </div>
         </div>
-        <t t-call="payment.transaction_status" position="attributes">
+        <t t-call="payment.state_header" position="attributes">
             <attribute name="t-if">sale_order.get_portal_last_transaction().operation != 'validation'</attribute>
         </t>
 

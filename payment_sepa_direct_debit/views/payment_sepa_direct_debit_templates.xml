@@ -17,7 +17,7 @@
         </div>
     </template>
 
-    <template id="sepa_transaction_status" inherit_id="payment_custom.custom_transaction_status">
+    <template id="sepa_state_header" inherit_id="payment_custom.custom_state_header">
         <xpath expr="//div[@id='o_payment_status_message_details']" position="inside">
             <div>
                 <strong>Amount: </strong><span t-out="tx.amount"/> €
