@@ -188,7 +188,8 @@ class HrContractSalary(main.HrContractSalary):
         mapped_benefits, mapped_dependent_benefits, mandatory_benefits, mandatory_benefits_names, benefit_types, dropdown_options, dropdown_group_options, initial_values = super()._get_benefits_values(contract, offer)
 
         available_cars = request.env['fleet.vehicle'].sudo().with_company(contract.company_id).search(
-            contract._get_available_vehicles_domain(contract.employee_id.work_contact_id)).sorted(key=lambda car: car.total_depreciated_cost)
+            contract._get_available_vehicles_domain(contract.employee_id.work_contact_id)
+        ).filtered(lambda car: not car.state_id.hide_in_offer).sorted(key=lambda car: car.total_depreciated_cost)
         available_bikes = request.env['fleet.vehicle'].sudo().with_company(contract.company_id).search(
             contract._get_available_vehicles_domain(contract.employee_id.work_contact_id, vehicle_type='bike')).sorted(key=lambda car: car.total_depreciated_cost)
         force_car = offer.car_id
