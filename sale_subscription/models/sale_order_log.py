@@ -46,18 +46,6 @@ class SaleOrderLog(models.Model):
         for log in self:
             log.origin_order_id = log.order_id.origin_order_id or log.order_id
 
-    @api.depends('order_id')
-    def _compute_origin_order_id(self):
-        for log in self:
-            log.origin_order_id = log.order_id.origin_order_id or log.order_id
-    @api.depends('amount_signed')
-    def _compute_amount(self):
-        for log in self:
-            if log.currency_id.compare_amounts(log.amount_signed, 0) < 0:
-                log.amount_contraction = log.amount_signed
-            else:
-                log.amount_expansion = log.amount_signed
-
     #######################
     #       LOG GEN       #
     #######################
@@ -67,7 +55,6 @@ class SaleOrderLog(models.Model):
         if currency.compare_amounts(mrr_difference, 0) <= 0:
             return '15_contraction'
         return '1_expansion'
-
 
     @api.model
     def _create_starting_transfer_log(self, values):
