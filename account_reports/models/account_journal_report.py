@@ -381,6 +381,10 @@ class JournalReportCustomHandler(models.AbstractModel):
         columns = []
         has_multicurrency = self.env.user.has_group('base.group_multi_currency')
         report = self.env['account.report'].browse(options['report_id'])
+
+        # code assumes additional_col_1 & additional_col_2 are last columns, but since no sequences are set on columns,
+        # it might happen (i.e. after db update from 16 to 17) that that's not the case.
+        options['columns'] = sorted(options['columns'], key=lambda col: col.get('expression_label') in ['additional_col_1', 'additional_col_2'])
         for column in options['columns']:
             if column['expression_label'] == 'additional_col_1':
                 if journal_type in ['sale', 'purchase']:
