@@ -71,7 +71,7 @@ patch(ListRenderer.prototype, {
     async getListForSpreadsheet(name) {
         const model = this.env.model.root;
         const { actionId } = this.env.config;
-        const { xml_id } = actionId ? await this.actionService.loadAction(actionId) : {};
+        const { xml_id } = actionId ? await this.actionService.loadAction(actionId, this.props.list.context) : {};
         return {
             list: {
                 model: model.resModel,
