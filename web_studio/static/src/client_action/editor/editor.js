@@ -73,6 +73,9 @@ export class Editor extends Component {
     setup() {
         const globalBus = this.env.bus;
         const newBus = new EventBus();
+        useBus(globalBus, "CLEAR-UNCOMMITTED-CHANGES", (ev) =>
+            newBus.trigger("CLEAR-UNCOMMITTED-CHANGES", ev.detail)
+        );
         newBus.addEventListener("CLEAR-CACHES", () => globalBus.trigger("CLEAR-CACHES"));
 
         useSubEnv({
