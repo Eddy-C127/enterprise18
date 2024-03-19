@@ -956,9 +956,13 @@ Are you sure you want to remove the selection values of those records?""", len(r
         method = is_method and btn_name
         action = not is_method and int(btn_name)
         rule_domain = request.env['studio.approval.rule']._get_rule_domain(model, method, action)
-        has_rules = request.env['studio.approval.rule'].search_count(rule_domain)
-        if not has_rules:
+        existing_rules = request.env['studio.approval.rule'].search(rule_domain)
+        enabling_rules = operation.get("enable")
+        if enabling_rules and not existing_rules:
             request.env['studio.approval.rule'].create_rule(model, method, action, btn_string)
+        if not enabling_rules and existing_rules:
+            existing_rules.write({"active": False})
+
         matching_buttons = base_arch.findall(".//button[@type='%s'][@name='%s']" % (btn_type, btn_name))
         for idx, btn in enumerate(matching_buttons):
             # note that these xpath are not the sexiest, but they will be cleaned
@@ -968,7 +972,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
             'position': 'attributes'
             })
             attribute_node = etree.Element('attribute', name='studio_approval')
-            attribute_node.text = str(operation.get('enable'))
+            attribute_node.text = str(enabling_rules)
             # NOTE: this will leave some extended views with `studio_approval=False`
             # which is handled client side to do nothing
             xpath_node.insert(0, attribute_node)

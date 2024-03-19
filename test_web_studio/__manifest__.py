@@ -15,4 +15,9 @@ tests independently to functional aspects of other models. """,
     ],
     'installable': True,
     'license': 'OEEL-1',
+    "assets": {
+        'web.assets_tests': [
+            'test_web_studio/static/tests/**/*',
+        ],
+    }
 }
