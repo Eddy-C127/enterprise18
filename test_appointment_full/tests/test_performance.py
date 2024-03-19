@@ -17,6 +17,13 @@ _logger = getLogger(__name__)
 
 @tagged('appointment_performance', 'post_install', '-at_install')
 class OnelineWAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrPerformanceCase):
+    def setUp(self):
+        super().setUp()
+        # remove menu containing a slug url (only website_helpdesk normally), to
+        # avoid the menu cache being disabled, which would increase sql queries.
+        self.env['website.menu'].search([
+            ('url', '=like', '/%/%-%'),
+        ]).unlink()
 
     @classmethod
     def setUpClass(cls):
