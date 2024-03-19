@@ -259,12 +259,12 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         });
         const pivot = model.getters.getPivotDefinition(pivotId);
         assert.deepEqual(pivot, {
-            colGroupBys: ["foo"],
+            columns: [{ name: "foo" }],
             context: {},
             domain: [],
-            measures: ["probability"],
+            measures: [{ name: "probability", aggregator: "avg" }],
             model: "partner",
-            rowGroupBys: ["date"],
+            rows: [{ name: "date" }],
             name: "Partners by Foo",
             sortedColumn: null,
             type: "ODOO",
@@ -327,12 +327,12 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         });
         const pivot = model.getters.getPivotDefinition(pivotId);
         assert.deepEqual(pivot, {
-            colGroupBys: [],
+            columns: [],
             context: {},
             domain: [],
-            measures: ["probability"],
+            measures: [{ name: "probability", aggregator: "avg" }],
             model: "partner",
-            rowGroupBys: ["date"],
+            rows: [{ name: "date" }],
             name: "Partners by Date",
             sortedColumn: null,
             type: "ODOO",

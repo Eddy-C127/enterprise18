@@ -2,7 +2,11 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { UIPlugin, tokenize } from "@odoo/o-spreadsheet";
-import { getNumberOfPivotFormulas, makePivotFormula } from "@spreadsheet/pivot/pivot_helpers";
+import {
+    getNumberOfPivotFormulas,
+    isDateField,
+    makePivotFormula,
+} from "@spreadsheet/pivot/pivot_helpers";
 import { pivotTimeAdapter } from "@spreadsheet/pivot/pivot_time_adapters";
 
 /**
@@ -83,7 +87,9 @@ export class PivotAutofillPlugin extends UIPlugin {
                     // UP-DOWN
                     builder = this._autofillPivotColHeader.bind(this);
                 }
-            } else if (definition.rows.map((row) => row.name).includes(evaluatedArgs[1])) {
+            } else if (
+                definition.rows.map((row) => row.nameWithGranularity).includes(evaluatedArgs[1])
+            ) {
                 builder = this._autofillPivotRowHeader.bind(this);
             } else {
                 builder = this._autofillPivotColHeader.bind(this);
@@ -492,11 +498,11 @@ export class PivotAutofillPlugin extends UIPlugin {
     _getCurrentHeaderElement(args, definition) {
         const values = this._parseArgs(args.slice(1));
         const cols = this._getFieldValues(
-            [...definition.columns.map((col) => col.name), "measure"],
+            [...definition.columns.map((col) => col.nameWithGranularity), "measure"],
             values
         );
         const rows = this._getFieldValues(
-            definition.rows.map((row) => row.name),
+            definition.rows.map((row) => row.nameWithGranularity),
             values
         );
         return { cols, rows };
@@ -515,12 +521,12 @@ export class PivotAutofillPlugin extends UIPlugin {
     _getCurrentValueElement(args, definition) {
         const values = this._parseArgs(args.slice(2));
         const cols = this._getFieldValues(
-            definition.columns.map((col) => col.name),
+            definition.columns.map((col) => col.nameWithGranularity),
             values
         );
         cols.push(args[1]); // measure
         const rows = this._getFieldValues(
-            definition.rows.map((row) => row.name),
+            definition.rows.map((row) => row.nameWithGranularity),
             values
         );
         return { cols, rows };
@@ -667,7 +673,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             args.push(measure);
         }
         for (const index in rows) {
-            args.push(definition.rows[index].name);
+            args.push(definition.rows[index].nameWithGranularity);
             args.push(rows[index]);
         }
         if (cols.length === 1 && definition.measures.map((m) => m.name).includes(cols[0])) {
@@ -676,7 +682,7 @@ export class PivotAutofillPlugin extends UIPlugin {
         } else {
             for (const index in cols) {
                 const column = definition.columns[index];
-                args.push(column ? column.name : "measure");
+                args.push(column ? column.nameWithGranularity : "measure");
                 args.push(cols[index]);
             }
         }
@@ -689,7 +695,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _isGroupedOnlyByOneDate(definition, dimension) {
         const groupBys = dimension === "COLUMN" ? definition.columns : definition.rows;
-        return groupBys.length === 1 && ["date", "datetime"].includes(groupBys[0].type);
+        return groupBys.length === 1 && isDateField(groupBys[0]);
     }
     /**
      * @param {OdooPivotDefinition} definition
@@ -700,7 +706,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             return undefined;
         }
         const groupBys = dimension === "COLUMN" ? definition.columns : definition.rows;
-        return groupBys[0].aggregateOperator;
+        return groupBys[0].granularity || "month";
     }
 
     /**
@@ -719,7 +725,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _isColumnGroupBy(dataSource, definition, fieldName) {
         const name = dataSource.parseGroupField(fieldName).field.name;
-        return definition.columns.map((col) => col.fieldName).includes(name);
+        return definition.columns.map((col) => col.name).includes(name);
     }
 
     /**
@@ -730,7 +736,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _isRowGroupBy(dataSource, definition, fieldName) {
         const name = dataSource.parseGroupField(fieldName).field.name;
-        return definition.rows.map((row) => row.fieldName).includes(name);
+        return definition.rows.map((row) => row.name).includes(name);
     }
 }
 

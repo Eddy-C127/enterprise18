@@ -5,5 +5,6 @@ export class PivotDimension extends Component {
     static props = {
         dimension: Object,
         onRemoved: { type: Function, optional: true },
+        slots: { type: Object, optional: true },
     };
 }

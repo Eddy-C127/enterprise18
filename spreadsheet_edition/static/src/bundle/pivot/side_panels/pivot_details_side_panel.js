@@ -131,7 +131,7 @@ export class PivotDetailsSidePanel extends Component {
         );
     }
 
-    onDimensionsUpdated({ rows, columns, measures }) {
-        this.store.update({ rowGroupBys: rows, colGroupBys: columns, measures });
+    onDimensionsUpdated(definition) {
+        this.store.update(definition);
     }
 }

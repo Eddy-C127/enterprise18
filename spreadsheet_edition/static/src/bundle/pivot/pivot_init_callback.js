@@ -3,6 +3,7 @@
 
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
+import { parseDimension } from "@spreadsheet/pivot/pivot_helpers";
 import { Domain } from "@web/core/domain";
 import { deepCopy } from "@web/core/utils/objects";
 
@@ -20,16 +21,21 @@ function ensureSuccess(result) {
 }
 
 export function insertPivot(pivotData) {
+    const fields = pivotData.metaData.fields;
+    const measures = pivotData.metaData.activeMeasures.map((measure) => ({
+        name: measure,
+        aggregator: fields[measure]?.aggregator,
+    }));
     /** @type {import("@spreadsheet").OdooPivotDefinition} */
     const pivot = deepCopy({
         type: "ODOO",
         domain: new Domain(pivotData.searchParams.domain).toJson(),
         context: pivotData.searchParams.context,
         sortedColumn: pivotData.metaData.sortedColumn,
-        measures: pivotData.metaData.activeMeasures,
+        measures,
         model: pivotData.metaData.resModel,
-        colGroupBys: pivotData.metaData.fullColGroupBys,
-        rowGroupBys: pivotData.metaData.fullRowGroupBys,
+        columns: pivotData.metaData.fullColGroupBys.map(parseDimension),
+        rows: pivotData.metaData.fullRowGroupBys.map(parseDimension),
         name: pivotData.name,
         actionXmlId: pivotData.actionXmlId,
     });

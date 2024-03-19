@@ -22,9 +22,14 @@ export async function insertPivot(model, sheetId = model.getters.getActiveSheetI
     const pivotId = "PIVOT#1";
     /** @type {OdooPivotDefinition} */
     const pivot = {
-        colGroupBys: ["foo"],
-        rowGroupBys: ["bar"],
-        measures: ["probability"],
+        columns: [{ name: "foo" }],
+        rows: [{ name: "bar" }],
+        measures: [
+            {
+                name: "probability",
+                aggregator: "sum",
+            },
+        ],
         model: "partner",
         domain: [],
         context: {},
@@ -187,7 +192,7 @@ QUnit.test("update and remove a pivot concurrently", async (assert) => {
             pivot: {
                 type: "ODOO",
                 ...alice.getters.getPivotDefinition("PIVOT#1"),
-                colGroupBys: [],
+                columns: [],
             },
         });
         bob.dispatch("REMOVE_PIVOT", {

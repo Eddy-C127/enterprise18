@@ -3,7 +3,7 @@
     <t t-name="spreadsheet_edition.AddDimensionButton">
         <span class="btn btn-sm btn-link add-dimension" t-on-click="togglePopover" t-ref="button">Add</span>
         <Popover t-if="popover.isOpen" t-props="popoverProps">
-            <div class="p-2 bg-white border-bottom d-flex align-items-baseline">
+            <div class="p-2 border-bottom d-flex align-items-baseline pivot-dimension-search">
                 <i class="pe-1 pivot-dimension-search-field-icon">
                     <t t-call="o-spreadsheet-Icon.SEARCH"/>
                 </i>
@@ -16,7 +16,7 @@
                 t-esc="field.string"
                 t-att-title="field.help"
                 t-on-click="() => this.pickField(field)"
-                class="p-1 px-2 bg-white"
+                class="p-1 px-2 pivot-dimension-field"
                 role="button"
             />
         </Popover>

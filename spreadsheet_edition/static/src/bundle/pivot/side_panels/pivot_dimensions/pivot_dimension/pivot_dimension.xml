@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
     <t t-name="spreadsheet_edition.PivotDimension">
-        <div class="border bg-white py-1 px-2 d-flex flex-row justify-content-between align-items-center">
-            <span t-esc="props.dimension.displayName"/>
-            <i class="btn fa fa-times pe-0" t-if="props.onRemoved" t-on-click="() => props.onRemoved(props.dimension)"/>
+        <div class="border py-1 px-2 d-flex flex-column shadow-sm pivot-dimension">
+            <div class="d-flex flex-row justify-content-between align-items-center">
+                <span class="fw-bold" t-esc="props.dimension.displayName"/>
+                <i class="btn fa fa-times pe-0" t-if="props.onRemoved" t-on-click="() => props.onRemoved(props.dimension)"/>
+            </div>
+            <t t-slot="default"/>
         </div>
     </t>
 </templates>

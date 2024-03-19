@@ -64,7 +64,7 @@ registries.autoCompleteProviders.add("pivot_measures", {
         const fields = dataSource.getFields();
         const definition = this.getters.getPivotDefinition(pivotId);
         return definition.measures.map((measure) => {
-            if (measure === "__count") {
+            if (measure.name === "__count") {
                 const text = '"__count"';
                 return {
                     text,
@@ -73,7 +73,7 @@ registries.autoCompleteProviders.add("pivot_measures", {
                     fuzzySearchKey: _t("Count") + text,
                 };
             }
-            const field = fields[measure];
+            const field = fields[measure.name];
             return makeFieldProposal(field);
         });
     },
@@ -109,9 +109,9 @@ registries.autoCompleteProviders.add("pivot_group_fields", {
         }
         const argGroupBys = args.map((ast) => ast?.value).filter(isDefined);
         const fields = dataSource.getFields();
-        const { colGroupBys, rowGroupBys } = this.getters.getPivotDefinition(pivotId);
-        const colFields = colGroupBys.map((groupBy) => groupBy.split(":")[0]);
-        const rowFields = rowGroupBys.map((groupBy) => groupBy.split(":")[0]);
+        const { columns, rows } = this.getters.getPivotDefinition(pivotId);
+        const colFields = columns.map((groupBy) => groupBy.name);
+        const rowFields = rows.map((groupBy) => groupBy.name);
 
         const proposals = [];
         const previousGroupBy = ["ARG_SEPARATOR", "SPACE"].includes(tokenAtCursor.type)

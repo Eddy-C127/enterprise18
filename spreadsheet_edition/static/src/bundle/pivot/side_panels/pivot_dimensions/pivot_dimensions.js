@@ -1,38 +1,39 @@
 import { hooks } from "@odoo/o-spreadsheet";
 import { Component, useRef } from "@odoo/owl";
 import { PivotDimension } from "./pivot_dimension/pivot_dimension";
+import { PivotDimensionOrder } from "./pivot_dimension_order/pivot_dimension_order";
 import { AddDimensionButton } from "./add_dimension_button/add_dimension_button";
+import { AGGREGATORS, isDateField, parseDimension } from "@spreadsheet/pivot/pivot_helpers";
+import { PivotDimensionGranularity } from "./pivot_dimension_granularity/pivot_dimension_granularity";
 
 const { useDragAndDropListItems } = hooks;
 
 export class PivotDimensions extends Component {
     static template = "spreadsheet_edition.PivotDimensions";
-    static components = { AddDimensionButton, PivotDimension };
+    static components = {
+        AddDimensionButton,
+        PivotDimension,
+        PivotDimensionOrder,
+        PivotDimensionGranularity,
+    };
     static props = {
         definition: Object,
         onDimensionsUpdated: Function,
         unusedGroupableFields: Array,
         unusedMeasureFields: Array,
+        unusedDateTimeGranularities: Object,
     };
 
     setup() {
         this.dimensionsRef = useRef("pivot-dimensions");
         this.dragAndDrop = useDragAndDropListItems();
-    }
-
-    updateDimensions(dimensions) {
-        const definition = this.props.definition;
-        const { columns, rows, measures } = definition;
-        this.props.onDimensionsUpdated({
-            columns: columns.map((col) => col.name),
-            rows: rows.map((row) => row.name),
-            measures: measures.map((m) => m.name),
-            ...dimensions,
-        });
+        this.AGGREGATORS = AGGREGATORS;
+        //@ts-ignore Used in the template
+        this.isDateField = isDateField;
     }
 
     startDragAndDrop(dimension, event) {
-        if (event.button !== 0) {
+        if (event.button !== 0 || event.target.tagName === "SELECT") {
             return;
         }
 
@@ -40,36 +41,41 @@ export class PivotDimensions extends Component {
         const definition = this.props.definition;
         const { columns, rows } = definition;
         const draggableIds = [
-            "__column_title__",
-            ...columns.map((col) => col.name),
+            ...columns.map((col) => col.nameWithGranularity),
             "__rows_title__",
-            ...rows.map((row) => row.name),
+            ...rows.map((row) => row.nameWithGranularity),
         ];
+        const offset = 1; // column title
         const draggableItems = draggableIds.map((id, index) => ({
             id,
-            size: rects[index].height,
-            position: rects[index].y,
+            size: rects[index + offset].height,
+            position: rects[index + offset].y,
         }));
         this.dragAndDrop.start("vertical", {
-            draggedItemId: dimension.name,
+            draggedItemId: dimension.nameWithGranularity,
             initialMousePosition: event.clientY,
             items: draggableItems,
             containerEl: this.dimensionsRef.el,
             onDragEnd: (dimensionName, finalIndex) => {
                 const originalIndex = draggableIds.findIndex((id) => id === dimensionName);
+                if (originalIndex === finalIndex) {
+                    return;
+                }
                 const draggedItems = [...draggableIds];
                 draggedItems.splice(originalIndex, 1);
                 draggedItems.splice(finalIndex, 0, dimensionName);
-                draggedItems.splice(draggedItems.indexOf("__column_title__"), 1);
                 const columns = draggedItems.slice(0, draggedItems.indexOf("__rows_title__"));
                 const rows = draggedItems.slice(draggedItems.indexOf("__rows_title__") + 1);
-                this.updateDimensions({ columns, rows });
+                this.props.onDimensionsUpdated({
+                    columns: columns.map(parseDimension),
+                    rows: rows.map(parseDimension),
+                });
             },
         });
     }
 
     startDragAndDropMeasures(measure, event) {
-        if (event.button !== 0) {
+        if (event.button !== 0 || event.target.tagName === "SELECT") {
             return;
         }
 
@@ -90,10 +96,17 @@ export class PivotDimensions extends Component {
             containerEl: this.dimensionsRef.el,
             onDragEnd: (measureName, finalIndex) => {
                 const originalIndex = draggableIds.findIndex((id) => id === measureName);
+                if (originalIndex === finalIndex) {
+                    return;
+                }
                 const draggedItems = [...draggableIds];
                 draggedItems.splice(originalIndex, 1);
                 draggedItems.splice(finalIndex, 0, measureName);
-                this.updateDimensions({ measures: draggedItems });
+                this.props.onDimensionsUpdated({
+                    measures: draggedItems.map((m) =>
+                        measures.find((measure) => measure.name === m)
+                    ),
+                });
             },
         });
     }
@@ -117,37 +130,87 @@ export class PivotDimensions extends Component {
 
     removeDimension(dimension) {
         const { columns, rows } = this.props.definition;
-        this.updateDimensions({
-            columns: columns.filter((col) => col.name !== dimension.name).map((col) => col.name),
-            rows: rows.filter((row) => row.name !== dimension.name).map((row) => row.name),
+        this.props.onDimensionsUpdated({
+            columns: columns.filter(
+                (col) => col.nameWithGranularity !== dimension.nameWithGranularity
+            ),
+            rows: rows.filter((row) => row.nameWithGranularity !== dimension.nameWithGranularity),
         });
     }
 
     removeMeasureDimension(measure) {
         const { measures } = this.props.definition;
-        this.updateDimensions({
-            measures: measures.filter((m) => m.name !== measure.name).map((m) => m.name),
+        this.props.onDimensionsUpdated({
+            measures: measures.filter((m) => m.name !== measure.name),
         });
     }
 
     addColumnDimension(fieldName) {
         const { columns } = this.props.definition;
-        this.updateDimensions({
-            columns: columns.map((col) => col.name).concat([fieldName]),
+        this.props.onDimensionsUpdated({
+            columns: columns.map((col) => col).concat([{ name: fieldName }]),
         });
     }
 
     addRowDimension(fieldName) {
         const { rows } = this.props.definition;
-        this.updateDimensions({
-            rows: rows.map((col) => col.name).concat([fieldName]),
+        this.props.onDimensionsUpdated({
+            rows: rows.map((col) => col).concat([{ name: fieldName }]),
         });
     }
 
     addMeasureDimension(fieldName) {
         const { measures } = this.props.definition;
-        this.updateDimensions({
-            measures: measures.map((m) => m.name).concat([fieldName]),
+        this.props.onDimensionsUpdated({
+            measures: measures.concat([{ name: fieldName }]),
+        });
+    }
+
+    updateAggregator(updatedMeasure, aggregator) {
+        const { measures } = this.props.definition;
+        this.props.onDimensionsUpdated({
+            measures: measures.map((measure) => {
+                if (measure === updatedMeasure) {
+                    return { ...measure, aggregator };
+                }
+                return measure;
+            }),
+        });
+    }
+
+    updateOrder(updateDimension, order) {
+        const { rows, columns } = this.props.definition;
+        this.props.onDimensionsUpdated({
+            rows: rows.map((row) => {
+                if (row.nameWithGranularity === updateDimension.nameWithGranularity) {
+                    return { ...row, order: order || undefined };
+                }
+                return row;
+            }),
+            columns: columns.map((col) => {
+                if (col.nameWithGranularity === updateDimension.nameWithGranularity) {
+                    return { ...col, order: order || undefined };
+                }
+                return col;
+            }),
+        });
+    }
+
+    updateGranularity(dimension, granularity) {
+        const { rows, columns } = this.props.definition;
+        this.props.onDimensionsUpdated({
+            rows: rows.map((row) => {
+                if (row.nameWithGranularity === dimension.nameWithGranularity) {
+                    return { ...row, granularity };
+                }
+                return row;
+            }),
+            columns: columns.map((col) => {
+                if (col.nameWithGranularity === dimension.nameWithGranularity) {
+                    return { ...col, granularity };
+                }
+                return col;
+            }),
         });
     }
 }
