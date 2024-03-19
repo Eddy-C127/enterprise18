@@ -342,7 +342,7 @@
         <field name="name">helpdesk.ticket.form</field>
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
-            <form string="Helpdesk Ticket">
+            <form string="Helpdesk Ticket" js_class="form_description_expander">
                 <header>
                     <field name="stage_id" widget="statusbar_duration" options="{'clickable': '1', 'fold_field': 'fold'}"/>
                 </header>
