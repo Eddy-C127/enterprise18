@@ -28,6 +28,9 @@
                     <group name="end_of_service_provision" string="End Of Service Provision" invisible="country_code != 'SA'">
                         <field name="l10n_sa_number_of_days" string="Number of Days"/>
                     </group>
+                    <group name="wps_info" string="WPS Information" invisible="country_code != 'SA'">
+                        <field name="l10n_sa_wps_description" />
+                    </group>
                 </group>
             </field>
         </record>

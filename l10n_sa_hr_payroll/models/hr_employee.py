@@ -12,6 +12,8 @@ class HrEmployee(models.Model):
         compute='_compute_l10n_sa_leaves_count_compensable',
         groups="hr.group_hr_user")
 
+    l10n_sa_employee_code = fields.Char(string="Saudi National / IQAMA ID", groups="hr.group_hr_user")
+
     def _l10n_sa_get_remaining_leaves_compensable(self):
         """ Copy of _get_remaining_leaves but filtered only to include compensable leave types
         """
