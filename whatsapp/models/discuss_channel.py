@@ -261,9 +261,10 @@ class DiscussChannel(models.Model):
     def _to_store(self, store: Store):
         super()._to_store(store)
         for channel in self.filtered(lambda channel: channel.channel_type == "whatsapp"):
-            store.add(
-                channel, {"whatsapp_channel_valid_until": channel.whatsapp_channel_valid_until}
-            )
+            store.add(channel, {
+                "whatsapp_channel_valid_until": channel.whatsapp_channel_valid_until,
+                "whatsapp_partner_id": Store.one(channel.whatsapp_partner_id, only_id=True),
+            })
 
     def _types_allowing_seen_infos(self):
         return super()._types_allowing_seen_infos() + ["whatsapp"]

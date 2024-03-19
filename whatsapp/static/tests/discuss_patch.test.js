@@ -9,6 +9,7 @@ import {
     startServer,
 } from "@mail/../tests/mail_test_helpers";
 import { describe, test } from "@odoo/hoot";
+import { Command, serverState } from "@web/../tests/web_test_helpers";
 import { defineWhatsAppModels } from "@whatsapp/../tests/whatsapp_test_helpers";
 
 describe.current.tags("desktop");
@@ -25,6 +26,7 @@ test("Basic topbar rendering for whatsapp channels", async () => {
     await contains(".o-mail-Discuss-header .o-mail-ThreadIcon .fa-whatsapp");
     await contains(".o-mail-Discuss-threadName:disabled", { value: "WhatsApp 1" });
     await contains(".o-mail-Discuss-header button[title='Add Users']");
+    await contains(".o-mail-Discuss-header button[name='member-list']");
     await contains(".o-mail-Discuss-header button[name='call']", { count: 0 });
     await contains(".o-mail-Discuss-header button[name='settings']", { count: 0 });
 });
@@ -43,6 +45,29 @@ test("Invite users into whatsapp channel", async () => {
     await click(".o-discuss-ChannelInvitation-selectable");
     await click("button[title='Invite']:enabled");
     await contains(".o_mail_notification", { text: "invited WhatsApp User to the channel" });
+});
+
+test("Shows whatsapp user in member list", async () => {
+    const pyEnv = await startServer();
+    const partnerId = pyEnv["res.partner"].create({ name: "WhatsApp Partner" });
+    const channelId = pyEnv["discuss.channel"].create({
+        name: "WhatsApp 1",
+        channel_type: "whatsapp",
+        channel_member_ids: [
+            Command.create({ partner_id: serverState.partnerId }),
+            Command.create({ partner_id: partnerId }),
+        ],
+        whatsapp_partner_id: partnerId,
+    });
+    await start();
+    await openDiscuss(channelId);
+    await click(".o-mail-Discuss-header button[name='member-list']");
+    await contains(".o-discuss-ChannelMember.cursor-pointer", { text: "Mitchell Admin" });
+    await contains(".o-discuss-ChannelMemberList h6", { text: "WhatsApp User" });
+    await contains(".o-discuss-ChannelMember:not(.cursor-pointer)", {
+        text: "WhatsApp Partner",
+        contains: [".o-mail-ImStatus [title='WhatsApp User']"],
+    });
 });
 
 test("Mobile has WhatsApp category", async () => {
