@@ -65,5 +65,48 @@
     </div>
 </template>
 
+<template id="ckus_check_blank">
+    <div t-attf-class="ckus_check ckus_check_blank">
+        <img class="ckus_company_logo" t-if="page['company_logo']" t-att-src="image_data_uri(page['company_logo'])" alt="company logo"/>
+        <div class="ckus_company_block">
+            <div class="ckus_company_name" t-out="page['company_name']"/>
+            <div class="ckus_company_street" t-out="page['company_street']"/>
+            <div class="ckus_company_city_state" t-out="page['company_city_state']"/>
+        </div>
+        <div class="ckus_pay_order">PAY TO THE<br/>ORDER OF</div>
+        <div class="ckus_payee_name" t-out="page['partner_name']"/>
+        <div class="ckus_amount_in_word" t-out="page['ckus_amount_in_word']"/>
+        <hr class="ckus_amount_in_word_line ckus_hr_line"/>
+        <div class="ckus_payee_addr">
+            <div t-out="page['partner_name']"/>
+            <div t-out="page['partner_street']"/>
+            <div t-out="page['partner_city_state']"/>
+        </div>
+        <div class="ckus_memo_blank">MEMO</div>
+        <div class="ckus_memo" t-out="page['memo']"/>
+        <div class="ckus_number sequence_number" t-if="page['sequence_number']" t-out="page['sequence_number']"/>
+        <div class="ckus_blank_date" t-out="page['date']"/>
+        <div class="ckus_bank_block">
+            <div class="fw-bold" t-out="page['bank_name']"/>
+            <div t-if="page['bank_street']" t-out="page['bank_street']"/>
+            <div t-if="page['bank_city_state']" t-out="page['bank_city_state']"/><br/>
+            <div class="ckus_bank_routing" t-if="page['bank_routing']" t-out="page['bank_routing']"/>
+        </div>
+        <div class="ckus_dollar_symbol">$</div>
+        <div class="ckus_amount" t-out="page['amount'].replace(o.currency_id.symbol, '')"/>
+        <div class="ckus_dollar_text">DOLLARS</div>
+        <hr class="ckus_signature_line ckus_hr_line"/>
+        <div class="ckus_signature">AUTHORIZED SIGNATURE</div>
+        <div class="ckus_special_line" t-out="page['ckus_special_line']"/>
+    </div>
+</template>
+
+<template id="ckus_stub_blank">
+    <div t-attf-class="ckus_stub_blank ckus_stub_blank_{{ stub_num }}">
+        <div class="ckus_name" t-out="page['company_name']"/>
+        <div class="ckus_number sequence_number" t-if="page['sequence_number']" t-out="page['sequence_number']"/>
+    </div>
+</template>
+
 </data>
 </odoo>

@@ -25,6 +25,9 @@ You can choose between:
     'depends' : ['account_check_printing', 'l10n_us'],
     'data': [
         'data/us_check_printing.xml',
+        'report/print_blank_check_bottom.xml',
+        'report/print_blank_check_middle.xml',
+        'report/print_blank_check_top.xml',
         'report/print_check.xml',
         'report/print_check_top.xml',
         'report/print_check_middle.xml',

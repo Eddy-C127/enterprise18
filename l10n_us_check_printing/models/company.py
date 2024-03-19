@@ -13,8 +13,14 @@ class Company(models.Model):
         ('l10n_us_check_printing.action_print_check_top', 'Print Check (Top) - US'),
         ('l10n_us_check_printing.action_print_check_middle', 'Print Check (Middle) - US'),
         ('l10n_us_check_printing.action_print_check_bottom', 'Print Check (Bottom) - US'),
+        ('l10n_us_check_printing.action_print_blank_check_top', 'Print Blank Check (Top) - US'),
+        ('l10n_us_check_printing.action_print_blank_check_middle', 'Print Blank Check (Middle) - US'),
+        ('l10n_us_check_printing.action_print_blank_check_bottom', 'Print Blank Check (Bottom) - US'),
     ], ondelete={
         'l10n_us_check_printing.action_print_check_top': 'set default',
         'l10n_us_check_printing.action_print_check_middle': 'set default',
         'l10n_us_check_printing.action_print_check_bottom': 'set default',
+        'l10n_us_check_printing.action_print_blank_check_top': 'set default',
+        'l10n_us_check_printing.action_print_blank_check_middle': 'set default',
+        'l10n_us_check_printing.action_print_blank_check_bottom': 'set default',
     })
