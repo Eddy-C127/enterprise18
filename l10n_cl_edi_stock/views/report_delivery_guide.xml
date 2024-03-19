@@ -253,7 +253,7 @@
                                     <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
                                         <table class="o_total_table table table-borderless" style="page-break-inside: avoid;">
                                             <tr t-if="amounts.get('subtotal_amount_taxable', False)"
-                                                class="border-black o_subtotal">
+                                                class="o_subtotal">
                                                 <td>
                                                     <strong>Subtotal Neto</strong>
                                                 </td>
@@ -262,7 +262,7 @@
                                                           t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                                                 </td>
                                             </tr>
-                                            <tr t-if="amounts.get('subtotal_amount_exempt', False)" class="border-black o_subtotal">
+                                            <tr t-if="amounts.get('subtotal_amount_exempt', False)" class="o_subtotal">
                                                 <td>
                                                     <strong>Subtotal Exento</strong>
                                                 </td>
@@ -272,7 +272,7 @@
                                                 </td>
                                             </tr>
                                             <tr t-if="amounts.get('vat_percent', False)"
-                                                class="border-black o_subtotal">
+                                                class="o_subtotal">
                                                 <td>
                                                     <strong t-out="'IVA %s ' % amounts['vat_percent']"/>
                                                     <strong>%</strong>
@@ -294,7 +294,7 @@
                                                     </td>
                                                 </tr>
                                             </t>
-                                            <tr class="border-black o_total">
+                                            <tr class="o_total">
                                                 <td>
                                                     <strong>Total</strong>
                                                 </td>

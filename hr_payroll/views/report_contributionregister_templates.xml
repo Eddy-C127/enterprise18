@@ -44,7 +44,7 @@
                         <div class="row justify-content-end">
                             <div class="col-4">
                                 <table class="table table-sm">
-                                    <tr class="border-black">
+                                    <tr class="border-top">
                                         <td><strong>Total</strong></td>
                                         <td class="text-end">
                                             <span t-out="lines_total.get(o.id)" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'>100</span>

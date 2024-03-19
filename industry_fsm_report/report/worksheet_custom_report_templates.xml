@@ -60,7 +60,7 @@
                         <div class="row justify-content-end">
                             <div t-att-class="'col-sm-2' if report_type == 'pdf' else 'col-auto'">
                                 <table class="table table-borderless">
-                                    <tr class="border-black o_total">
+                                    <tr class="o_total">
                                         <td colspan="4" class="text-end">
                                             <strong class="me-2">Total</strong>
                                             <span t-if="is_uom_day" t-out="line._convert_hours_to_days(doc.effective_hours)">10 days</span>
