@@ -1,6 +1,7 @@
 from odoo import Command
 
-from odoo.tests.common import TransactionCase, tagged
+from odoo.tests.common import TransactionCase, HttpCase, tagged
+from odoo.addons.web_studio.tests.test_ui import setup_view_editor_data
 
 @tagged("-at_install", "post_install")
 class TestStudioApprovals(TransactionCase):
@@ -222,3 +223,30 @@ class TestStudioApprovals(TransactionCase):
         self.assertEqual(model_action.step, 0)
         self.assertEqual(model_action.message_ids[0].preview, f"@{self.demo_user.name} @test An approval for 'R0' has been requested on test")
         self.assertEqual(len(model_action.activity_ids), 0)
+
+@tagged("-at_install", "post_install")
+class TestStudioApprovalsUIUnit(HttpCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        setup_view_editor_data(cls)
+        cls.testAction.res_model = "test.studio.model_action"
+        cls.testView.model = "test.studio.model_action"
+        cls.testView.arch = """
+            <form>
+                <button name="action_confirm" type="object" studio_approval="True" class="mybutton"/>
+            </form>
+        """
+        cls.admin_user = cls.env.ref("base.user_admin")
+
+    def test_disable_approvals(self):
+        rule = self.env["studio.approval.rule"].create({
+            "model_id": self.env["ir.model"]._get("test.studio.model_action").id,
+            "method": "action_confirm",
+            "responsible_id": self.admin_user.id,
+            "users_to_notify": [Command.link(self.admin_user.id)],
+        })
+
+        url = f"/web#action=studio&mode=editor&_action={self.testAction.id}&_view_type=form&_tab=views&menu_id={self.testMenu.id}"
+        self.start_tour(url, "test_web_studio.test_disable_approvals", login="admin")
+        self.assertEqual(rule.active, False)

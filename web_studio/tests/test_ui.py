@@ -132,49 +132,49 @@ def watch_create_new_field(test, on_create_new_field):
 
     test.patch(WebStudioController, "create_new_field", create_new_field_mocked)
 
+def setup_view_editor_data(cls):
+    cls.env.company.country_id = cls.env.ref('base.us')
+    cls.testView = cls.env["ir.ui.view"].create({
+        "name": "simple partner",
+        "model": "res.partner",
+        "type": "form",
+        "arch": '''
+            <form>
+                <field name="name" />
+            </form>
+        '''
+    })
+    cls.testAction = cls.env["ir.actions.act_window"].create({
+        "name": "simple partner",
+        "res_model": "res.partner",
+        "view_ids": [Command.create({"view_id": cls.testView.id, "view_mode": "form"})]
+    })
+    cls.testActionXmlId = cls.env["ir.model.data"].create({
+        "name": "studio_test_partner_action",
+        "model": "ir.actions.act_window",
+        "module": "web_studio",
+        "res_id": cls.testAction.id,
+    })
+    cls.testMenu = cls.env["ir.ui.menu"].create({
+        "name": "Studio Test Partner",
+        "action": "ir.actions.act_window,%s" % cls.testAction.id
+    })
+    cls.testMenuXmlId = cls.env["ir.model.data"].create({
+        "name": "studio_test_partner_menu",
+        "model": "ir.ui.menu",
+        "module": "web_studio",
+        "res_id": cls.testMenu.id,
+    })
+
 
 @odoo.tests.tagged('post_install', '-at_install')
 class TestStudioUIUnit(odoo.tests.HttpCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env.company.country_id = cls.env.ref('base.us')
-        cls.testView = cls.env["ir.ui.view"].create({
-            "name": "simple partner",
-            "model": "res.partner",
-            "type": "form",
-            "arch": '''
-                <form>
-                    <field name="name" />
-                </form>
-            '''
-        })
-        cls.testAction = cls.env["ir.actions.act_window"].create({
-            "name": "simple partner",
-            "res_model": "res.partner",
-            "view_ids": [Command.create({"view_id": cls.testView.id, "view_mode": "form"})]
-        })
-        cls.testActionXmlId = cls.env["ir.model.data"].create({
-            "name": "studio_test_partner_action",
-            "model": "ir.actions.act_window",
-            "module": "web_studio",
-            "res_id": cls.testAction.id,
-        })
-        cls.testMenu = cls.env["ir.ui.menu"].create({
-            "name": "Studio Test Partner",
-            "action": "ir.actions.act_window,%s" % cls.testAction.id
-        })
-        cls.testMenuXmlId = cls.env["ir.model.data"].create({
-            "name": "studio_test_partner_menu",
-            "model": "ir.ui.menu",
-            "module": "web_studio",
-            "res_id": cls.testMenu.id,
-        })
-
+        setup_view_editor_data(cls)
 
     def create_empty_app(self):
-
         self.newModel = self.env['ir.model'].create({
             'name': 'Test Model',
             'model': 'x_test_model',
