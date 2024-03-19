@@ -26,7 +26,7 @@
         <field name="folded" eval="True"/>
         <field name="fold_label">Company Car (To order)</field>
         <field name="fold_res_field_id" model="ir.model.fields" eval="obj().search([('model', '=', 'hr.contract'), ('name', '=', 'new_car')])"/>
-        <field name="display_type">dropdown</field>
+        <field name="display_type">dropdown-group</field>
         <field name="impacts_net_salary" eval="False"/>
     </record>
 
