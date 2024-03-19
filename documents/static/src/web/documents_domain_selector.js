@@ -9,15 +9,11 @@ patch(DomainSelector.prototype, {
      * since it is no longer relevant.
      *
      * @override
-     * @param {string} resModel
-     * @param {Set<string>} paths
      */
-    async loadFieldDefs(resModel, paths) {
-        await super.loadFieldDefs(resModel, paths);
-        if (resModel === "documents.document") {
-            if ("active" in this.fieldDefs) {
-                delete this.fieldDefs.active;
-            }
+    getShowArchivedCheckBox(_, props) {
+        if (props.resModel === "documents.document") {
+            return false;
         }
+        return super.getShowArchivedCheckBox(...arguments);
     },
 });
