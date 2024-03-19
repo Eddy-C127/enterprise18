@@ -367,6 +367,8 @@ class UPSRequest:
         if shipment_info.get('require_invoice'):
             shipment_service_options['InternationalForms'] = self._set_invoice(shipment_info, [c for pkg in packages for c in pkg.commodities],
                                                                                ship_to, is_return)
+            shipment_service_options['InternationalForms']['PurchaseOrderNumber'] = shipment_info.get('purchase_order_number')
+            shipment_service_options['InternationalForms']['TermsOfShipment'] = shipment_info.get('terms_of_shipment')
         if saturday_delivery:
             shipment_service_options['SaturdayDeliveryIndicator'] = saturday_delivery
 
