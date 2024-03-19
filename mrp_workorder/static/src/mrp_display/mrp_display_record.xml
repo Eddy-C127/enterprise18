@@ -49,8 +49,8 @@
                     </t>
                     <button t-else="" t-on-click.stop="quickRegisterProduction" class="btn btn-secondary btn-sm text-nowrap"
                             t-att-class="productionComplete ? 'opacity-50 bg-transparent text-black' : ''">
-                            <span t-if="record.qty_producing &amp;&amp; record.qty_producing != quantityToProduce">
-                                <t t-esc="record.qty_producing"/> /
+                            <span t-if="quantityProducing &amp;&amp; quantityProducing != quantityToProduce">
+                                <t t-out="quantityProducing"/> /
                             </span>
                         <t t-out="quantityToProduce"/>
                         <span class="ms-1" t-esc="uom"/>

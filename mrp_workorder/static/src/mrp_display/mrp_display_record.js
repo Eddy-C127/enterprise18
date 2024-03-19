@@ -62,7 +62,7 @@ export class MrpDisplayRecord extends Component {
                 (qc) => qc.data.test_type === "register_production"
             );
         }
-        this.quantityToProduce = this.record.product_qty || this.record.qty_remaining;
+        this.quantityToProduce = this.record.product_qty || this.props.production.data.product_qty;
         this.displayUOM = this.props.groups.uom;
     }
 
@@ -117,7 +117,7 @@ export class MrpDisplayRecord extends Component {
     }
 
     get quantityProducing() {
-        return this.props.record.data.qty_producing;
+        return this.props.production.data.qty_producing;
     }
 
     getByproductLabel(record) {
