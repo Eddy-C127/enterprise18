@@ -197,11 +197,11 @@ L10N_EC_EDI_XML_OUT_INV = """
             </totalImpuesto>
         </totalConImpuestos>
         <importeTotal>448.00</importeTotal>
+        <moneda>DOLAR</moneda>
         <pagos>
             <pago>
                 <formaPago>16</formaPago>
                 <total>448.00</total>
-                <moneda>DOLAR</moneda>
             </pago>
         </pagos>
     </infoFactura>
@@ -306,6 +306,7 @@ L10N_EC_EDI_XML_CREDIT_NOTE = """
         <fechaEmisionDocSustento>25/01/2022</fechaEmisionDocSustento>
         <totalSinImpuestos>400.000000</totalSinImpuestos>
         <valorModificacion>448.00</valorModificacion>
+        <moneda>DOLAR</moneda>
         <totalConImpuestos>
             <totalImpuesto>
                 <codigo>2</codigo>
@@ -375,18 +376,17 @@ L10N_EC_EDI_XML_PURCHASE_LIQ = """
             </totalImpuesto>
         </totalConImpuestos>
         <importeTotal>448.00</importeTotal>
+        <moneda>DOLAR</moneda>
         <pagos>
             <pago>
                 <formaPago>16</formaPago>
                 <total>134.40</total>
-                <moneda>DOLAR</moneda>
                 <plazo>0</plazo>
                 <unidadTiempo>dias</unidadTiempo>
             </pago>
             <pago>
                 <formaPago>16</formaPago>
                 <total>313.60</total>
-                <moneda>DOLAR</moneda>
                 <plazo>34</plazo>
                 <unidadTiempo>dias</unidadTiempo>
             </pago>
@@ -471,7 +471,6 @@ L10N_EC_EDI_XML_IN_WTH = """
                 <pago>
                     <formaPago>01</formaPago>
                     <total>448.00</total>
-                    <moneda>DOLAR</moneda>
                 </pago>
             </pagos>
         </docSustento>
@@ -536,7 +535,6 @@ L10N_EC_EDI_XML_PURCHASE_LIQ_WTH = """
                 <pago>
                     <formaPago>16</formaPago>
                     <total>112.00</total>
-                    <moneda>DOLAR</moneda>
                 </pago>
             </pagos>
         </docSustento>
@@ -570,7 +568,6 @@ L10N_EC_EDI_XML_PURCHASE_LIQ_WTH = """
                 <pago>
                     <formaPago>16</formaPago>
                     <total>224.00</total>
-                    <moneda>DOLAR</moneda>
                 </pago>
             </pagos>
         </docSustento>
@@ -613,7 +610,6 @@ L10N_EC_EDI_XPATH_INVOICE_IN = """
                 <pago>
                 <formaPago>01</formaPago>
                 <total>448.00</total>
-                <moneda>DOLAR</moneda>
                 </pago>
             </pagos>
         </docSustento>
@@ -647,7 +643,6 @@ L10N_EC_EDI_XPATH_INVOICE_IN = """
                 <pago>
                 <formaPago>01</formaPago>
                 <total>560.00</total>
-                <moneda>DOLAR</moneda>
                 </pago>
             </pagos>
         </docSustento>
@@ -681,7 +676,6 @@ L10N_EC_EDI_XPATH_INVOICE_IN = """
                 <pago>
                 <formaPago>01</formaPago>
                 <total>350.00</total>
-                <moneda>DOLAR</moneda>
                 </pago>
             </pagos>
         </docSustento>

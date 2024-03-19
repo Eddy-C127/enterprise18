@@ -102,7 +102,6 @@
                         <pago>
                             <formaPago t-out="taxsupport['invoice_payments'][0]['payment_code']"/>
                             <total t-out="format_num_2(taxsupport['invoice_payments'][0]['payment_amount'])"/>
-                            <moneda t-out="taxsupport['currency']"/>
                         </pago>
                     </pagos>
                 </docSustento>
@@ -162,6 +161,7 @@
             <!-- Tax-free totals (all docs except withholds) -->
             <totalSinImpuestos t-if="not is_withhold" t-out="format_num_6(abs(move.amount_untaxed_signed))"/>
             <valorModificacion t-if="is_cnote" t-out="format_num_2(abs(move.amount_total_signed))"/>
+            <moneda t-if="is_cnote">DOLAR</moneda>
             <totalDescuento t-if="is_invoice or is_liquidation" t-out="format_num_2(discount_total)"/>
 
             <!-- Tax-included totals (all docs except withholds) -->
@@ -181,6 +181,7 @@
                 </impuesto>
             </impuestos>
             <importeTotal t-if="is_invoice or is_liquidation" t-out="format_num_2(abs(move.amount_total_signed))"/>
+            <moneda t-if="is_invoice or is_liquidation">DOLAR</moneda>
             <valorTotal t-if="is_dnote" t-out="format_num_2(abs(move.amount_total_signed))"/>
 
             <!-- Miscellaneous -->
@@ -248,7 +249,6 @@
                 <pago t-as="pago" t-foreach="pagos">
                     <formaPago t-out="pago['payment_code']"/>
                     <total t-out="format_num_2(pago['payment_total'])"/>
-                    <moneda t-out="pago['currency']"/>
                     <plazo t-if="is_liquidation and pago.get('time_unit')" t-out="pago['payment_term']"/>
                     <unidadTiempo t-if="is_liquidation and pago.get('time_unit')" t-out="pago['time_unit']"/>
                 </pago>
