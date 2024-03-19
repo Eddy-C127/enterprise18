@@ -129,6 +129,7 @@ class StockPickingBatch(models.Model):
     def _get_fields_stock_barcode(self):
         return [
             'company_id',
+            'move_ids',
             'move_line_ids',
             'name',
             'picking_type_id',

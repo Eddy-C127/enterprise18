@@ -227,7 +227,7 @@ class MainComponent extends Component {
 
     async exit(ev) {
         if (this.state.view === "barcodeLines") {
-            await this.env.model.save();
+            await this.env.model.beforeQuit();
             this.env.config.historyBack();
         } else {
             this.toggleBarcodeLines();

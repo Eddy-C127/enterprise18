@@ -381,3 +381,57 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         mo = self.env['mrp.production'].search([], order='id desc', limit=1)
         self.assertEqual(len(mo.move_byproduct_ids), 1)
         self.assertEqual(mo.move_byproduct_ids.product_id.display_name, 'By Product')
+
+    def test_split_line_on_exit_for_production(self):
+        """ Ensures that exit an unfinished MO will split the uncompleted move lines to have one
+        move line with all picked quantity and one move line with the remaining qty."""
+        self.clean_access_rights()
+
+        # Creates a product with a BoM.
+        product_final = self.env['product.product'].create({
+            'name': 'Final Product',
+            'type': 'product',
+        })
+        bom = self.env['mrp.bom'].create({
+            'product_id': product_final.id,
+            'product_tmpl_id': product_final.product_tmpl_id.id,
+            'product_uom_id': product_final.uom_id.id,
+            'product_qty': 1.0,
+            'type': 'normal',
+            'consumption':  'flexible',
+            'bom_line_ids': [
+                (0, 0, {'product_id': self.product1.id, 'product_qty': 2}),
+                (0, 0, {'product_id': self.product2.id, 'product_qty': 1})
+            ]})
+
+        # Adds some quantity in stock.
+        self.env['stock.quant'].create({
+            'quantity': 4,
+            'product_id': self.product1.id,
+            'location_id': self.stock_location.id,
+        })
+        self.env['stock.quant'].create({
+            'quantity': 2,
+            'product_id': self.product2.id,
+            'location_id': self.stock_location.id,
+        })
+
+        # Creates and confirms manufacturing order for 2 product_final.
+        production = self.env['mrp.production'].create({
+            'name': "production_split_line_on_exit",
+            'bom_id': bom.id,
+            'product_id': product_final.id,
+            'product_qty': 2,
+        })
+        production.action_confirm()
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = f"/web#action={action_id.id}"
+        self.start_tour(url, 'test_split_line_on_exit_for_production', login='admin')
+        # Checks production moves raw values.
+        self.assertRecordValues(production.move_raw_ids, [
+            {'product_id': self.product1.id, 'quantity': 3, 'picked': True},
+            {'product_id': self.product2.id, 'quantity': 1, 'picked': True},
+            {'product_id': self.product2.id, 'quantity': 1, 'picked': False},
+            {'product_id': self.product1.id, 'quantity': 1, 'picked': False},
+        ])

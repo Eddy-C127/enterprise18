@@ -91,6 +91,10 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         return false;
     }
 
+    get moveIds() {
+        return this.record.move_raw_ids;
+    }
+
     get useExistingLots() {
         return true;
     }

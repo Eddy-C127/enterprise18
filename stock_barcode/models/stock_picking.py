@@ -180,6 +180,7 @@ class StockPicking(models.Model):
         to inject new fields to the client action.
         """
         return [
+            'move_ids',
             'move_line_ids',
             'picking_type_id',
             'location_id',

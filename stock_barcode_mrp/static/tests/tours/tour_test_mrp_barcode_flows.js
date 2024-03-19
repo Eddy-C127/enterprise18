@@ -738,3 +738,64 @@ registry.category("web_tour.tours").add("test_barcode_production_add_byproduct",
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
+registry.category("web_tour.tours").add('test_split_line_on_exit_for_production', {test: true, steps: () => [
+    // Opens the manufacturing order and check its lines.
+    { trigger: ".o_stock_barcode_main_menu", run: "scan production_split_line_on_exit" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(3);
+            helper.assertLineProduct(0, "Final Product");
+            helper.assertLineQty(0, "0 / 2");
+            helper.assertLineProduct(1, "product1");
+            helper.assertLineQty(1, "0 / 4");
+            helper.assertLineProduct(2, "product2");
+            helper.assertLineQty(2, "0 / 2");
+        }
+    },
+    // Scans 1x product2 then goes back to the main menu.
+    { trigger: ".o_barcode_client_action", run: "scan product2" },
+    { extra_trigger: ".o_barcode_line.o_selected", trigger: "button.o_exit" },
+    // Reopens the production => product2 line should be split in two.
+    { trigger: ".o_stock_barcode_main_menu", run: "scan production_split_line_on_exit" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(4);
+            helper.assertLineProduct(0, "Final Product");
+            helper.assertLineQty(0, "0 / 2");
+            helper.assertLineProduct(1, "product1");
+            helper.assertLineQty(1, "0 / 4");
+            helper.assertLineProduct(2, "product2");
+            helper.assertLineQty(2, "0 / 1");
+            helper.assertLineProduct(3, "product2");
+            helper.assertLineQty(3, "1 / 1");
+        }
+    },
+    // Scans 3x product1 then goes back again on the main menu.
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    {
+        extra_trigger: ".o_barcode_line.o_selected .qty-done:contains('3')",
+        trigger: "button.o_exit",
+    },
+    // Re-opens the MO and checks lines.
+    { trigger: ".o_stock_barcode_main_menu", run: "scan production_split_line_on_exit" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(5);
+            helper.assertLineProduct(0, "Final Product");
+            helper.assertLineQty(0, "0 / 2");
+            helper.assertLineProduct(1, "product1");
+            helper.assertLineQty(1, "0 / 1");
+            helper.assertLineProduct(2, "product2");
+            helper.assertLineQty(2, "0 / 1");
+            helper.assertLineProduct(3, "product1");
+            helper.assertLineQty(3, "3 / 3");
+            helper.assertLineProduct(4, "product2");
+            helper.assertLineQty(4, "1 / 1");
+        }
+    },
+]});

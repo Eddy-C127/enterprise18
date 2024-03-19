@@ -372,6 +372,10 @@ export default class BarcodeModel extends EventBus {
         this._createState();
     }
 
+    beforeQuit() {
+        return this.save();
+    }
+
     async save() {
         const { route, params } = this._getSaveCommand();
         if (route) {

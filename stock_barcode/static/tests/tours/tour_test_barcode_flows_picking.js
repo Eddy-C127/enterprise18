@@ -3918,6 +3918,65 @@ registry.category("web_tour.tours").add('test_split_line_on_destination_scan', {
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
+registry.category("web_tour.tours").add('test_split_line_on_exit_for_receipt', {test: true, steps: () => [
+    // Opens the receipt and check its lines.
+    { trigger: ".o_stock_barcode_main_menu", run: "scan receipt_split_line_on_exit" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(2);
+            helper.assertLineProduct(0, "product1");
+            helper.assertLineQty(0, "0 / 4");
+            helper.assertLineProduct(1, "product2");
+            helper.assertLineQty(1, "0 / 4");
+        }
+    },
+    // Scans 1x product1 then put in pack => Should split the line.
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_line.o_selected", run: "scan O-BTN.pack" },
+    // Scans again 2x product1 => The line with no package just be incremented.
+    { trigger: ".o_barcode_line.o_selected .result-package", run: "scan product1" },
+    { trigger: ".o_barcode_line.o_selected.o_line_not_completed", run: "scan product1" },
+    // Scans 1x product2 then checks the lines' state.
+    { trigger: ".o_barcode_line.o_selected .qty-done:contains('2')", run: "scan product2" },
+    {
+        trigger: ".o_barcode_line.o_selected .qty-done:contains('1')",
+        run: () => {
+            helper.assertLinesCount(3);
+            const [line1, line2, line3] = helper.getLines();
+            helper.assertLineProduct(line1, "product1");
+            helper.assertLineQty(line1, "2 / 3");
+            helper.assertLineProduct(line2, "product2");
+            helper.assertLineQty(line2, "1 / 4");
+            helper.assertLineProduct(line3, "product1");
+            helper.assertLineQty(line3, "1 / 1");
+            helper.assert(line3.querySelector(".result-package").innerText, "PACK0001000")
+        }
+    },
+    // Goes back to the main menu (that's here the uncompleted lines shoud be split.)
+    { trigger: "button.o_exit" },
+    // Re-opens the picking and checks uncompleted lines were split.
+    { trigger: ".o_stock_barcode_main_menu", run: "scan receipt_split_line_on_exit" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(5);
+            const [line1, line2, line3, line4, line5] = helper.getLines();
+            helper.assertLineProduct(line1, "product1");
+            helper.assertLineQty(line1, "0 / 1");
+            helper.assertLineProduct(line2, "product2");
+            helper.assertLineQty(line2, "0 / 3");
+            helper.assertLineProduct(line3, "product1");
+            helper.assertLineQty(line3, "2 / 2");
+            helper.assertLineProduct(line4, "product1");
+            helper.assertLineQty(line4, "1 / 1");
+            helper.assert(line4.querySelector(".result-package").innerText, "PACK0001000")
+            helper.assertLineProduct(line5, "product2");
+            helper.assertLineQty(line5, "1 / 1");
+        }
+    },
+]});
+
 registry.category("web_tour.tours").add('test_split_line_on_scan', {test: true, steps: () => [
     // Scan product2 twice
     {

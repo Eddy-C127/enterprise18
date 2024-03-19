@@ -2427,6 +2427,53 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             {'qty_done': 2, 'location_dest_id': self.shelf1.id},
         ])
 
+    def test_split_line_on_exit_for_receipt(self):
+        """ Ensures that exit an unfinished operation will split the uncompleted move lines to have
+        one move line with all picked quantity and one move line with the remaining quantity."""
+        self.clean_access_rights()
+        # Enables package to check the split after a put in pack.
+        group_pack = self.env.ref('stock.group_tracking_lot')
+        self.env.user.write({'groups_id': [(4, group_pack.id, 0)]})
+        # Set packages' sequence to 1000 to find it easily during the tour.
+        package_sequence = self.env['ir.sequence'].search([('code', '=', 'stock.quant.package')], limit=1)
+        package_sequence.write({'number_next_actual': 1000})
+
+        # Creates a receipt for 4x product1 and 4x product2.
+        receipt = self.env['stock.picking'].create({
+            'name': "receipt_split_line_on_exit",
+            'location_id': self.supplier_location.id,
+            'location_dest_id': self.stock_location.id,
+            'picking_type_id': self.picking_type_in.id,
+        })
+        self.env['stock.move'].create({
+            'location_dest_id': receipt.location_dest_id.id,
+            'location_id': receipt.location_id.id,
+            'name': "product1 x4",
+            'picking_id': receipt.id,
+            'product_id': self.product1.id,
+            'product_uom_qty': 4,
+        })
+        self.env['stock.move'].create({
+            'location_dest_id': receipt.location_dest_id.id,
+            'location_id': receipt.location_id.id,
+            'name': "product2 x4",
+            'picking_id': receipt.id,
+            'product_id': self.product2.id,
+            'product_uom_qty': 4,
+        })
+        receipt.action_confirm()
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = f"/web#action={action_id.id}"
+        self.start_tour(url, 'test_split_line_on_exit_for_receipt', login='admin')
+        # Checks receipt moves values.
+        self.assertRecordValues(receipt.move_ids, [
+            {'product_id': self.product1.id, 'quantity': 3, 'picked': True},
+            {'product_id': self.product2.id, 'quantity': 1, 'picked': True},
+            {'product_id': self.product1.id, 'quantity': 1, 'picked': False},
+            {'product_id': self.product2.id, 'quantity': 3, 'picked': False},
+        ])
+
     def test_editing_done_picking(self):
         """ Create and validate a picking then try editing it."""
         self.clean_access_rights()
