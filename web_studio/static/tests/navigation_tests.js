@@ -18,7 +18,7 @@ import { toggleSearchBarMenu, toggleMenuItem } from "@web/../tests/search/helper
 import { companyService } from "@web/webclient/company_service";
 import { commandService } from "@web/core/commands/command_service";
 import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
-import { getActionManagerServerData } from "@web/../tests/webclient/helpers";
+import { doAction, getActionManagerServerData } from "@web/../tests/webclient/helpers";
 import {
     leaveStudio,
     openStudio,
@@ -1093,5 +1093,57 @@ QUnit.module("Studio", (hooks) => {
             "/web/dataset/call_kw/pony/get_views",
             "/web/dataset/call_kw/pony/web_read",
         ]);
+    });
+
+    QUnit.test("auto-save feature works in studio (not editing a view)", async (assert) => {
+        serverData.models["base.automation"] = {
+            fields: {},
+            records: [],
+        };
+
+        serverData.views[
+            "base.automation,false,list"
+        ] = `<tree><field name="display_name" /></tree>`;
+        serverData.views["base.automation,false,search"] = `<search/>`;
+
+        serverData.views[
+            "base.automation,false,form"
+        ] = `<form><field name="display_name" /></form>`;
+        const mockRPC = (route, args) => {
+            if (route === "/web_studio/get_studio_action") {
+                return {
+                    name: "Automated Actions",
+                    type: "ir.actions.act_window",
+                    res_model: "base.automation",
+                    views: [
+                        [false, "list"],
+                        [false, "form"],
+                    ],
+                };
+            }
+
+            if (args.method === "web_save") {
+                assert.step(`web_save: ${args.model}: ${JSON.stringify(args.args)}`);
+            }
+        };
+        const webClient = await createEnterpriseWebClient({ serverData, mockRPC });
+        await doAction(webClient.env, 1);
+        await openStudio(target);
+        const menuAutomations = Array.from(target.querySelectorAll(".o_menu_sections a")).find(
+            (el) => el.textContent === "Automations"
+        );
+        await click(menuAutomations);
+        await click(target.querySelectorAll(".o_web_studio_editor .o_list_button_add")[1]);
+        await editInput(
+            target,
+            ".o_field_widget[name='display_name'] input",
+            "created base automation"
+        );
+        await click(target, ".o_web_studio_leave");
+        assert.verifySteps([
+            'web_save: base.automation: [[],{"display_name":"created base automation"}]',
+        ]);
+        assert.containsNone(target, ".o_studio");
+        assert.containsOnce(target, ".o_kanban_view");
     });
 });
