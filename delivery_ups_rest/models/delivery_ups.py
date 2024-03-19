@@ -14,10 +14,10 @@ class ProviderUPS(models.Model):
         ('ups_rest', "UPS")
     ], ondelete={'ups_rest': lambda recs: recs.write({'delivery_type': 'fixed', 'fixed_price': 0})})
 
-    ups_shipper_number = fields.Char(string='UPS Account Number')
-    ups_client_id = fields.Char(string='UPS Client ID')
-    ups_client_secret = fields.Char(string='UPS Client Secret')
-    ups_access_token = fields.Char(string='UPS Access Token')
+    ups_shipper_number = fields.Char(string='UPS Account Number', groups="base.group_system")
+    ups_client_id = fields.Char(string='UPS Client ID', groups="base.group_system")
+    ups_client_secret = fields.Char(string='UPS Client Secret', groups="base.group_system")
+    ups_access_token = fields.Char(string='UPS Access Token', groups="base.group_system")
     ups_default_packaging_id = fields.Many2one('stock.package.type', string='UPS Package Type')
     ups_default_service_type = fields.Selection([
         ('03', 'UPS Ground'),
