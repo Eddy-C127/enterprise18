@@ -20,7 +20,8 @@
     'post_init_hook': '_pos_restaurant_appointment_after_init',
     'assets': {
         'point_of_sale._assets_pos': [
-            'pos_restaurant_appointment/static/src/app/**/*',
+            'web_gantt/static/src/**/*',
+            'pos_restaurant_appointment/static/src/**/*',
         ],
     'web.assets_tests': [
             'pos_restaurant_appointment/static/tests/tours/**/*',

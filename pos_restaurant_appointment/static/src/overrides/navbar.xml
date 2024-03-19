@@ -3,7 +3,7 @@
 
     <t t-name="pos_restaurant.Navbar" t-inherit="point_of_sale.Navbar" t-inherit-mode="extension">
         <xpath expr="//DropdownItem[contains(text(), 'Backend')]" position="before">
-            <DropdownItem t-if="pos.config.module_pos_restaurant_appointment" onSelected="() => this.manageBookings()">
+            <DropdownItem t-if="pos.config.module_pos_restaurant_appointment" onSelected="() => this.pos.manageBookings()">
                 Manage Bookings
             </DropdownItem>
         </xpath>
