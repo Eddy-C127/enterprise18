@@ -680,6 +680,10 @@ export default class BarcodePickingModel extends BarcodeModel {
         return this._useReservation && line.qty_done > line.reserved_uom_qty;
     }
 
+    get moveIds() {
+        return this.record.move_ids;
+    }
+
     get packageLines() {
         if (!this._moveEntirePackage()) {
             return [];
@@ -780,6 +784,11 @@ export default class BarcodePickingModel extends BarcodeModel {
 
     get reloadingMoveLines() {
         return this.currentState !== undefined;
+    }
+
+    async beforeQuit() {
+        await super.beforeQuit();
+        return this.orm.call("stock.move", "split_uncompleted_moves", [this.moveIds]);
     }
 
     async save() {
