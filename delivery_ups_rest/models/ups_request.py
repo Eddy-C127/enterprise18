@@ -22,12 +22,13 @@ TOKEN_TYPE = "Bearer"
 class UPSRequest:
 
     def __init__(self, carrier):
+        super_carrier = carrier.sudo()
         self.logger = carrier.log_xml
         self.base_url = PROD_BASE_URL if carrier.prod_environment else TEST_BASE_URL
-        self.access_token = carrier.ups_access_token
-        self.client_id = carrier.ups_client_id
-        self.client_secret = carrier.ups_client_secret
-        self.shipper_number = carrier.ups_shipper_number
+        self.access_token = super_carrier.ups_access_token
+        self.client_id = super_carrier.ups_client_id
+        self.client_secret = super_carrier.ups_client_secret
+        self.shipper_number = super_carrier.ups_shipper_number
         self.carrier = carrier
         self.session = requests.Session()
 
