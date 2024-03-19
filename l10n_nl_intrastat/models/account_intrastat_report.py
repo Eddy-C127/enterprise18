@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, fields, models, release, _
 from odoo.exceptions import ValidationError
+from odoo.tools import SQL
 
 from datetime import datetime, date
 from math import copysign
@@ -32,6 +33,34 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             return False
         return super()._show_region_code()
 
+    def _get_exporting_query_data(self):
+        res = super()._get_exporting_query_data()
+        return SQL('%s %s', res, SQL("""
+            account_move_line.product_id AS product_id,
+            account_move_line.quantity AS quantity,
+            account_move.invoice_date AS invoice_date,
+            account_move.move_type AS move_type,
+            account_move.name AS name,
+            account_move_line.price_subtotal AS price_subtotal,
+            prodt.list_price AS lst_price,
+            country.code AS country_dest_code,
+        """))
+
+    def _get_exporting_dict_data(self, result_dict, query_res):
+        super()._get_exporting_dict_data(result_dict, query_res)
+        result_dict.update({
+            'system': result_dict['system'][0:2],
+            'product_id': query_res['product_id'],
+            'quantity': query_res['quantity'],
+            'price_subtotal': query_res['price_subtotal'],
+            'lst_price': query_res['lst_price'],
+            'country_dest_code': query_res['country_dest_code'],
+            'name': query_res['name'],
+            'invoice_date': query_res['invoice_date'],
+            'move_type': query_res['move_type'],
+        })
+        return result_dict
+
     @api.model
     def l10n_nl_export_to_csv(self, options):
         """ Export the Centraal Bureau voor de Statistiek (CBS) file.
@@ -47,18 +76,18 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         """
         #pylint: disable=sql-injection
         # Fetch data.
+        report = self.env['account.report'].browse(options['report_id'])
+        options = report.get_options(previous_options={**options, 'export_mode': 'file'})
         self.env['account.move.line'].check_access_rights('read')
 
         company = self.env.company
         date_from = options['date']['date_from']
         date_to = options['date']['date_to']
 
-        query = self._prepare_query(options)
-
-        self._cr.execute(query)
-        query_res = self._cr.dictfetchall()
-        query_res = self._fill_missing_values(query_res)
-        line_map = dict((l.id, l) for l in self.env['account.move.line'].browse(res['id'] for res in query_res))
+        expressions = report.line_ids.expression_ids
+        results = self._report_custom_engine_intrastat(expressions, options, expressions[0].date_scope, 'id', None)
+        for index, line_result in enumerate(results):
+            results[index] = line_result[1]
 
         # Create csv file content.
         vat = company.vat
@@ -72,9 +101,9 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         # Changes to the format of the transaction codes require different report structures
         # The old transaction codes are single-digit
         if fields.Date.to_date(date_to) < date(2022, 1, 1):
-            if all(len(str(res['transaction_code'])) == 1 for res in query_res):
+            if all(len(str(res['transaction_code'])) == 1 for res in results):
                 new_codes = False
-            elif all(len(str(res['transaction_code'])) == 2 for res in query_res) \
+            elif all(len(str(res['transaction_code'])) == 2 for res in results) \
                  and fields.Date.to_date(date_from).year == 2021:
                 new_codes = True
             else:
@@ -85,7 +114,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                     "specified period utilise the correct transaction codes."
                 ))
         else:
-            if all(len(str(res['transaction_code'])) == 2 for res in query_res):
+            if all(len(str(res['transaction_code'])) == 2 for res in results):
                 new_codes = True
             else:
                 raise ValidationError(_(
@@ -111,12 +140,10 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
         # CONTENT LINES
         i = 1
-        for res in query_res:
-            line = line_map[res['id']]
-            inv = line.move_id
-            country_dest_code = inv.partner_shipping_id.country_id and inv.partner_shipping_id.country_id.code or ''
-            country_origin_code = res['intrastat_product_origin_country_code'] if res['type'] == 'Dispatch' and fields.Date.to_date(date_to) > date(2022, 1, 1) else ''
-            country = inv.intrastat_country_id.code and inv.intrastat_country_id.code or '' if res['type'] == 'Arrival' else country_dest_code
+        for res in results:
+            country_dest_code = res['country_dest_code'] or ''
+            country_origin_code = res['country_code'] if res['system'] == 6 and date_to > '2022-1-1' else ''
+            country = res['country_code'] if res['system'] == 6 else country_dest_code
 
             # From the Manual for Statistical Declarations International Trade in Goods:
             #
@@ -129,7 +156,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             #  5.2 => 5; -5.2 => -5; 0.2 => 1; -0.2 => -1
             # If the mass is zero, we leave it like this: it means the user forgot to set the weight
             # of the products, so it should be corrected.
-            mass = line.product_id and line.quantity * (line.product_id.weight or line.product_id.product_tmpl_id.weight) or 0
+            mass = res['product_id'] and res['quantity'] * res['weight'] or 0
             if mass:
                 mass = copysign(round(mass) or 1.0, mass)
             supp_unit = str(round(res['supplementary_units'])).zfill(10) if res['supplementary_units'] else '0000000000'
@@ -139,11 +166,11 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             # provisions apply. This applies, for instance, in the event of free delivery...
             # [...]
             # The actual value of the goods must be given
-            value = line.price_subtotal or line.product_id.lst_price
-            transaction_period = str(inv.invoice_date.year) + str(inv.invoice_date.month).rjust(2, '0')
+            value = res['price_subtotal'] or res['lst_price']
+            transaction_period = str(res['invoice_date'].year) + str(res['invoice_date'].month).rjust(2, '0')
             file_content += ''.join([
                 transaction_period,                                             # Transaction period    length=6
-                '6' if res['type'] == 'Arrival' else '7',                       # Commodity flow        length=1
+                str(res['system']),                                             # Commodity flow        length=1
                 vat and vat[2:].replace(' ', '').ljust(12) or ''.ljust(12),     # VAT number            length=12
                 str(i).zfill(5),                                                # Line number           length=5
                 country_origin_code.ljust(3),                                   # Country of origin     length=3
@@ -158,12 +185,13 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 mass >= 0 and '+' or '-',                                       # Mass sign             length=1
                 str(int(abs(mass))).zfill(10),                                  # Mass                  length=10
                 '+',                                                            # Supplementary sign    length=1
-                inv.move_type in ['in_invoice', 'out_invoice'] and '+' or '-',  # Invoice sign          length=1
+                res['move_type'] in ['in_invoice', 'out_invoice'] and '+'
+                or '-',                                                         # Invoice sign          length=1
                 supp_unit,                                                      # Supplementary unit    length=10
                 str(int(value)).zfill(10),                                      # Invoice value         length=10
                 '+',                                                            # Statistical sign      length=1
                 '0000000000',                                                   # Statistical value     length=10
-                (inv.name or '')[-10:].ljust(10),                               # Administration number length=10
+                (res['name'] or '')[-10:].ljust(10),                           # Administration number length=10
                 ''.ljust(3),                                                    # Reserve               length=3
                 ' ',                                                            # Correction items      length=1
                 '000',                                                          # Preference            length=3

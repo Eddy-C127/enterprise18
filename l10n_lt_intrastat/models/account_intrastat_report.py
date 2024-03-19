@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, RedirectWarning
+from odoo.tools import SQL
 
 
 class IntrastatReportCustomHandler(models.AbstractModel):
@@ -32,9 +33,23 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             return False
         return super()._show_region_code()
 
+    def _get_exporting_query_data(self):
+        res = super()._get_exporting_query_data()
+        return SQL('%s %s', res, SQL("prodt.description AS goods_description,"))
+
+    def _get_exporting_dict_data(self, result_dict, query_res):
+        super()._get_exporting_dict_data(result_dict, query_res)
+        result_dict.update({
+            'goods_description': query_res['goods_description'],
+            'system': result_dict['system'][0:2],
+        })
+        return result_dict
+
     @api.model
     def lt_intrastat_export_to_xml(self, options):
         # Generate XML content
+        report = self.env['account.report'].browse(options['report_id'])
+        options = report.get_options(previous_options={**options, 'export_mode': 'file'})
         date_1 = fields.Date.to_date(options['date']['date_from'])
         date_2 = fields.Date.to_date(options['date']['date_to'])
         final_day_month = date_1 + relativedelta(day=31)
@@ -56,14 +71,23 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             }
             raise RedirectWarning(error_msg, action_error, _('Add company registry'))
 
-        query, params = self._prepare_query(options)
-        self._cr.execute(query, params)  # pylint: disable=sql-injection
-        query_res = self._cr.dictfetchall()
-        query_res = self._fill_missing_values(query_res)
-        query_res = self._prepare_values_for_export(query_res)
+        in_vals = []
+        out_vals = []
+
+        expressions = report.line_ids.expression_ids
+        results = self._report_custom_engine_intrastat(expressions, options, expressions[0].date_scope, 'id', None)
+        for index, line_result in enumerate(results):
+            results[index] = line_result[1]
+        results = self._prepare_values_for_export(results)
+
+        for line in results:
+            if line['system'] == '29':
+                in_vals.append(line)
+            else:
+                out_vals.append(line)
 
         version = f'Odoo {self.sudo().env.ref("base.module_base").latest_version}'
-        total_invoiced_amount = sum([item['value'] for item in query_res])
+        total_invoiced_amount = sum(item['value'] for item in results)
 
         today = datetime.today()
         envelopeId = f"VK{today.strftime('%Y%m%d%H%M%S')}"
@@ -72,15 +96,15 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             'company': company,
             'envelopeId': envelopeId,
             'user': user,
-            'in_vals': [elem for elem in query_res if elem['type'] == 'Arrival'],
-            'out_vals': [elem for elem in query_res if elem['type'] == 'Dispatch'],
+            'in_vals': in_vals,
+            'out_vals': out_vals,
             'total_invoiced_amount': round(total_invoiced_amount),
             'extended': options.get('intrastat_extended'),
             'date': date,
             'sending_date': today,
             'is_test': False,
             'version': version,
-            'number_of_declarations': len(query_res),
+            'number_of_declarations': len(results),
         })
 
         return {

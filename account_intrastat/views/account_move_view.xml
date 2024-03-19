@@ -74,6 +74,19 @@
                 </tree>
             </field>
         </record>
+        
+        <record id="account_intrastat_aml_missing_product_tree" model="ir.ui.view">
+            <field name="name">account.intrastat.aml.missing.product.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree multi_edit="1" editable="bottom">
+                    <field name="move_id"/>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="price_subtotal"/>
+                </tree>
+            </field>
+        </record>
 
         <record id="account_move_tree_view_account_intrastat_transport_codes" model="ir.ui.view">
             <field name="name">account.move.tree.account.intrastat.transport.code</field>

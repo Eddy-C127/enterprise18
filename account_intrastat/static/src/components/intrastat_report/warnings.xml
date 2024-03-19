@@ -81,4 +81,15 @@
         </a>
         when they are required.
     </t>
+
+    <t t-name="account_intrastat.intrastat_warning_missing_product">
+        There are some
+        <a
+            type="action"
+            t-on-click="(ev) => controller.reportAction(ev, 'action_missing_product', warningParams)"
+        >
+            journals items with no product
+        </a>
+        , which cannot be reported.
+    </t>
 </templates>

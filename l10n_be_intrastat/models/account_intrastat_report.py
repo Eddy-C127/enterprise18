@@ -26,7 +26,6 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             'file_export_type': _('XML'),
         }
         options['buttons'].append(xml_button)
-        options['intrastat_grouped'] = previous_options.get('intrastat_grouped', True)
 
     def _show_region_code(self):
         if self.env.company.account_fiscal_country_id.code == 'BE' and not self.env.company.intrastat_region_id:
@@ -36,6 +35,8 @@ class IntrastatReportCustomHandler(models.AbstractModel):
     @api.model
     def be_intrastat_export_to_xml(self, options):
         # Generate XML content
+        report = self.env['account.report'].browse(options['report_id'])
+        options = report.get_options(previous_options={**options, 'export_mode': 'file'})
         date_1 = datetime.strptime(options['date']['date_from'], DEFAULT_SERVER_DATE_FORMAT)
         date_2 = datetime.strptime(options['date']['date_to'], DEFAULT_SERVER_DATE_FORMAT)
         a_day = timedelta(days=1)
@@ -58,16 +59,22 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             raise RedirectWarning(error_msg, action_error, _('Add company registry'))
 
         self.env.cr.flush()
-        query = self._build_query_group(options)
-        self._cr.execute(query)  # pylint: disable=sql-injection
-        query_res = self._cr.dictfetchall()
-        query_res = self._fill_missing_values(query_res)
 
         # create in_vals (resp. out_vals) corresponding to invoices with cash-in (resp. cash-out)
         in_vals = []
         out_vals = []
-        for result in query_res:
-            in_vals.append(result) if result['type'] == 'Arrival' else out_vals.append(result)
+        expressions = report.line_ids.expression_ids
+        results = self._report_custom_engine_intrastat(expressions, options, expressions[0].date_scope, 'intrastat_grouping', None)
+        for index, line_result in enumerate(results):
+            results[index] = line_result[1]
+
+        for line in results:
+            line['system'] = line['system'][0:2]
+
+            if line['system'] == '19':
+                in_vals.append(line)
+            else:
+                out_vals.append(line)
 
         file_content = self.env['ir.qweb']._render('l10n_be_intrastat.intrastat_report_export_xml', {
             'company': company,

@@ -30,6 +30,7 @@ class IntrastatExpiryReportTest(TestAccountReportsCommon):
             )
         ]
         cls.intrastat_codes = {}
+        cls.env.company.totals_below_sections = False
         for i, vals in enumerate(values, 100):
             vals['code'] = str(i)
             cls.intrastat_codes[vals['name']] = cls.env['account.intrastat.code'].sudo().create(vals)
@@ -101,7 +102,7 @@ class IntrastatExpiryReportTest(TestAccountReportsCommon):
             report,
             date_from=fields.Date.from_string('2022-01-01'),
             date_to=fields.Date.from_string('2022-01-31'),
-            default_options={'country_format': 'code', 'intrastat_grouped': True},
+            default_options={'country_format': 'code'},
         )
         report_information = report.get_report_information(options)
         lines, warnings = report_information['lines'], report_information['warnings']
@@ -109,8 +110,9 @@ class IntrastatExpiryReportTest(TestAccountReportsCommon):
             # pylint: disable=C0326
             lines,
             #    country code,  transaction code,  origin country
-            [    2,             3,                 6   ],
+            [2,             3,                 6],
             [
+                ('',            '',                ''),
                 ('DE',          '103',             'QU'),
                 ('DE',          '104',             'QU'),
                 ('DE',          '105',             'QU'),
@@ -142,7 +144,7 @@ class IntrastatExpiryReportTest(TestAccountReportsCommon):
             report,
             date_from=fields.Date.from_string('2022-01-01'),
             date_to=fields.Date.from_string('2022-01-31'),
-            default_options={'country_format': 'code', 'intrastat_grouped': True},
+            default_options={'country_format': 'code'},
         )
         report_information = report.get_report_information(options)
         lines, warnings = report_information['lines'], report_information['warnings']
@@ -150,8 +152,9 @@ class IntrastatExpiryReportTest(TestAccountReportsCommon):
             # pylint: disable=C0326
             lines,
             #    country code,  transaction code,  commodity code,  origin country
-            [    2,             3,                 5,               6  ],
+            [2,         3,                 5,               6],
             [
+                ('',            '',                '',              ''),
                 ('DE',          '',                '100',           'QU'),
                 ('DE',          '',                '101',           'QU'),
                 ('DE',          '',                '102',           'QU'),

@@ -5,6 +5,7 @@ import io
 import zipfile
 from odoo import api, models, _
 from odoo.exceptions import UserError
+from odoo.tools import SQL
 from odoo.tools.misc import xlsxwriter
 
 
@@ -22,12 +23,26 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         xlsx_button_option['action_param'] = 'dk_export_to_xlsx'
         xlsx_button_option['name'] = _('XLSX (IDEP.web)')
 
+    def _get_exporting_query_data(self):
+        res = super()._get_exporting_query_data()
+        return SQL('%s %s', res, SQL("""
+            account_move.name AS name,
+        """))
+
+    def _get_exporting_dict_data(self, result_dict, query_res):
+        super()._get_exporting_dict_data(result_dict, query_res)
+        result_dict.update({
+            'name': query_res['name'],
+        })
+        return result_dict
+
     def dk_export_to_xlsx(self, options):
         """ Exports a xlsx document containing the required intrastat data, compliant with the official format.
         If filter intrastat_type is set to either 'Arrival' or 'Dispatch', then exports only the xlsx file.
         If both options are activated, then exports a zip file containing both arrivals and dispatches xlsx documents.
         """
         report = self.env['account.report'].browse(options['report_id'])
+        options = report.get_options({**options, 'unfold_all': True, 'export_mode': 'file'})
 
         include_arrivals, include_dispatches = super()._determine_inclusion(options)
 
@@ -69,7 +84,6 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         option_col_country['expression_label'] = 'country_code'
 
         options_copy['columns'] = self._dk_format_columns_options(col_order, options_copy)
-        options_copy['intrastat_grouped'] = False  # deactivate the grouping in case it's activated
 
         Move = self.env['account.move']
         move_types = Move.get_outbound_types(False) if intrastat_type == 'arrivals' else Move.get_inbound_types(False)
@@ -135,13 +149,19 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         """ Returns a list of lists, each containing one row used in the xlsx.
         The first row is the column titles
         """
-        lines = report._get_lines(options)
+        expressions = report.line_ids.expression_ids
+        lines = self._report_custom_engine_intrastat(expressions, options, expressions[0].date_scope, 'id', None)
+        for index, line_result in enumerate(lines):
+            lines[index] = line_result[1]
+
         results = []
         column_titles = []
+        column_labels = []
 
         # Add column row
         for column in options['columns']:
             column_titles.append(column.get('name', ''))
+            column_labels.append(column.get('expression_label', ''))
 
             # In both the arrivals and dispatches cases, the 'Reference' column is on the right of the 'value' column
             if column['expression_label'] == 'value':
@@ -151,10 +171,10 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         # Add line rows
         for line in lines:
             res_line = []
-            for column in line['columns']:
-                res_line.append(str(column['no_format'] or ''))
+            for column in column_labels:
+                res_line.append(str(line[column] or ''))
 
-                if column['expression_label'] == 'value':
+                if column == 'value':
                     res_line.append(line['name'])
             results.append(res_line)
 

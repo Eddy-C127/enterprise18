@@ -74,7 +74,7 @@ class TestDKIntrastatReport(TestAccountReportsCommon):
         """ Test that data provided for the xlsx export of intrastat report with Danish
         company will correspond to the expected format in case only arrivals are requested
         """
-        options = self._generate_options(self.report, '2024-05-01', '2024-05-31')
+        options = self._generate_options(self.report, '2024-05-01', '2024-05-31', default_options={'unfold_all': True, 'export_mode': 'file'})
 
         options['intrastat_type'][0]['selected'] = True   # arrivals
         options['intrastat_type'][1]['selected'] = False  # dispatches
@@ -98,7 +98,7 @@ class TestDKIntrastatReport(TestAccountReportsCommon):
         """ Test that data provided for the xlsx export of intrastat report with Danish
         company will correspond to the expected format in case only dispatches are requested
         """
-        options = self._generate_options(self.report, '2024-05-01', '2024-05-31')
+        options = self._generate_options(self.report, '2024-05-01', '2024-05-31', default_options={'unfold_all': True, 'export_mode': 'file'})
 
         options['intrastat_type'][0]['selected'] = False  # arrivals
         options['intrastat_type'][1]['selected'] = True   # dispatches

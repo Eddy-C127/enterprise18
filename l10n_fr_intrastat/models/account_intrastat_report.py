@@ -20,6 +20,9 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         if self.env.company.account_fiscal_country_id.code != 'FR':
             return
 
+        if options.get('export_mode') == 'file':
+            options['l10n_fr_intrastat_wizard_id'] = previous_options.get('l10n_fr_intrastat_wizard_id')
+
         options.setdefault('buttons', []).append({
             'name': _('XML (DEBWEB2)'),
             'sequence': 30,
@@ -49,39 +52,33 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             return False
         return self.env['l10n_fr_intrastat.export.wizard'].browse(wizard_id)
 
-    @api.model
-    def _build_query(self, options, column_group_key=None, expanded_line_options=None):
-        if self.env.company.country_id.code != 'FR':
-            return super()._build_query(options, column_group_key, expanded_line_options)
+    def _get_exporting_query_data(self):
+        res = super()._get_exporting_query_data()
+        return SQL('%s %s', res, SQL("""
+                code.supplementary_unit AS supplementary_units_code,
+                account_move_line.product_id AS product_id,
+                account_move_line.move_id AS move_id,
+                account_move_line.partner_id AS partner_id,
+        """))
 
-        fr_intrastat_wizard = self._retrieve_fr_intrastat_wizard(options)
-        if not fr_intrastat_wizard:
-            return super()._build_query(options, column_group_key, expanded_line_options)
-
-        export_type = fr_intrastat_wizard.export_type
-        emebi_flow = fr_intrastat_wizard.emebi_flow
-
-        query = super()._build_query(options, column_group_key, expanded_line_options)
-
-        if export_type == 'statistical_survey' and emebi_flow == 'arrivals':
-            # Only system 11 are needed (arrivals)
-            query['where'] = SQL("%s AND account_move.move_type IN ('in_invoice', 'out_refund')", query['where'])
-
-        if (
-            (export_type == 'statistical_survey' and emebi_flow == 'dispatches')
-            or (export_type == 'vat_summary_statement')
-            or (export_type == 'statistical_survey_and_vat_summary_statement' and emebi_flow == 'dispatches')
-        ):
-            # Only system 21 are needed (displatches)
-            query['where'] = SQL("%s AND account_move.move_type NOT IN ('in_invoice', 'out_refund')", query['where'])
-
-        return query
+    def _get_exporting_dict_data(self, result_dict, query_res):
+        super()._get_exporting_dict_data(result_dict, query_res)
+        result_dict.update({
+            'system': result_dict['system'][0:2],
+            'supplementary_units_code': query_res['supplementary_units_code'],
+            'product_id': query_res['product_id'],
+            'move_id': query_res['move_id'],
+            'partner_id': query_res['partner_id'],
+            'grouping_key': query_res['grouping_key'],
+        })
+        return result_dict
 
     @api.model
     def l10n_fr_intrastat_export_to_xml(self, options):
         """Generate XML content of the French Intrastat declaration"""
 
         report = self.env['account.report'].browse(options['report_id'])
+        options = report.get_options(previous_options={**options, 'export_mode': 'file'})
         fr_intrastat_wizard = self._retrieve_fr_intrastat_wizard(options)
 
         # Determine whether items with regime 21 should be detailed or not
@@ -103,15 +100,28 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             'partner_vat': set()
         }
 
+        if fr_intrastat_wizard:
+            export_type = fr_intrastat_wizard.export_type
+            emebi_flow = fr_intrastat_wizard.emebi_flow
+
+            if export_type == 'statistical_survey' and emebi_flow == 'arrivals':
+                options.setdefault('forced_domain', []).append(('move_type', 'in', self.env['account.move'].get_outbound_types(False)))
+
+            if (
+                    (export_type == 'statistical_survey' and emebi_flow == 'dispatches')
+                    or (export_type == 'vat_summary_statement')
+                    or (export_type == 'statistical_survey_and_vat_summary_statement' and emebi_flow == 'dispatches')
+            ):
+                options.setdefault('forced_domain', []).append(('move_type', 'in', self.env['account.move'].get_inbound_types(False)))
+
         self.env.flush_all()
-        query, params = self._prepare_query(options)
-        self._cr.execute(query, params)
-        query_res = self._cr.dictfetchall()
-        query_res = self._fill_missing_values(query_res)
+
+        expressions = report.line_ids.expression_ids
+        results = self._report_custom_engine_intrastat(expressions, options, expressions[0].date_scope, 'id', None)
 
         # items are divided by regime (system)
         items = defaultdict(list)
-        for item in query_res:
+        for _grouping_key, item in results:
             # Should never be True, but we make sure because so far we only handle regime 11 and 21
             if item['system'] not in ('11', '21'):
                 continue
@@ -156,19 +166,19 @@ class IntrastatReportCustomHandler(models.AbstractModel):
     @api.model
     def _check_missing_required_values(self, item, missing_required_values):
         if not item['transaction_code']:
-            missing_required_values['transaction_code'].append(item['id'])
+            missing_required_values['transaction_code'].append(item['grouping_key'])
 
         if not item['commodity_code']:
             missing_required_values['commodity_code'].add(item['product_id'])
 
         if not item['intrastat_product_origin_country_code'] or item['intrastat_product_origin_country_code'] == 'QU':
-            missing_required_values['intrastat_product_origin_country_code'].append(item['id'])
+            missing_required_values['intrastat_product_origin_country_code'].append(item['grouping_key'])
 
         if not item['region_code']:
-            missing_required_values['region_code'].append(item['id'])
+            missing_required_values['region_code'].append(item['grouping_key'])
 
         if not item['transport_code']:
-            missing_required_values['transport_code'].append(item['invoice_id'])
+            missing_required_values['transport_code'].append(item['move_id'])
 
         # default intrastat use QV OR QN for missing partner VAT code but France does not accept this notation
         if item['system'] == '21' and (not item['partner_vat'] or item['partner_vat'].startswith('QV') or item['partner_vat'].startswith('QN')):
