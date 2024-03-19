@@ -3,3 +3,4 @@
 
 from . import account_journal
 from . import soda_account_mapping
+from . import res_config_settings

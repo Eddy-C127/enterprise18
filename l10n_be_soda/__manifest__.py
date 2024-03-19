@@ -13,6 +13,7 @@ Module to import SODA files.
         'security/ir.model.access.csv',
         'views/account_journal_dashboard_view.xml',
         'views/account_move_views.xml',
+        'views/res_config_settings_views.xml',
         'wizard/soda_import_wizard.xml',
     ],
     'auto_install': True,

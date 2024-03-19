@@ -3,7 +3,6 @@
 import requests
 
 from odoo import fields, models, _
-from odoo.tools import frozendict
 from odoo.exceptions import UserError
 from odoo.addons.l10n_be_codabox.const import get_error_msg
 
@@ -53,19 +52,3 @@ class ResConfigSettings(models.TransientModel):
             )
         except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
             raise UserError(get_error_msg({"type": "error_connecting_iap"}))
-
-    def l10n_be_codabox_open_soda_mapping(self):
-        self.ensure_one()
-        wizard = self.env['soda.import.wizard'].create({
-            'soda_files': {},
-            'soda_code_to_name_mapping': {},
-            'company_id': self.company_id.id,
-        })
-        res = self.company_id._l10n_be_codabox_return_wizard(
-            name=_('SODA Mapping'),
-            view_id=self.env.ref('l10n_be_codabox.soda_import_wizard_view_form_codabox').id,
-            res_model='soda.import.wizard',
-            res_id=wizard.id,
-        )
-        res['context'] = frozendict(**res['context'], soda_mapping_save_only=True)
-        return res

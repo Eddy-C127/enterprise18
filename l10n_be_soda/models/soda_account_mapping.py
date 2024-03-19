@@ -65,3 +65,7 @@ class SodaAccountMapping(models.Model):
                 })
         soda_account_mappings |= self.create(new_soda_account_mappings)
         return soda_account_mappings
+
+    def action_unlink(self):
+        self.unlink()
+        return self.env['res.config.settings'].l10n_be_soda_open_soda_mapping()

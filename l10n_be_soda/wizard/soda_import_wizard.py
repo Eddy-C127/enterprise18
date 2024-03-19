@@ -1,5 +1,5 @@
+from markupsafe import Markup
 from odoo import Command, _, api, fields, models
-from odoo.exceptions import UserError
 
 
 class SodaImportWizard(models.TransientModel):
@@ -24,7 +24,7 @@ class SodaImportWizard(models.TransientModel):
     # }
     soda_files = fields.Json()
     # A dict mapping the SODA account code to its description
-    soda_code_to_name_mapping = fields.Json(required=True)
+    soda_code_to_name_mapping = fields.Json(required=False)
     company_id = fields.Many2one('res.company', required=True)
     journal_id = fields.Many2one('account.journal')
     soda_account_mapping_ids = fields.Many2many('soda.account.mapping', compute='_compute_soda_account_mapping_ids', readonly=False)
@@ -40,40 +40,15 @@ class SodaImportWizard(models.TransientModel):
 
     def _action_save_and_import(self):
         # We find all mapping lines where there's no account set
-        empty_mappings = self.soda_account_mapping_ids.filtered(lambda m: not m.account_id)
-        if empty_mappings:
-            new_account_codes = empty_mappings.mapped('code')
-            existing_accounts = self.env['account.account'].search(
-                [('code', 'in', new_account_codes), ('company_id', '=', self.company_id.id)]
-            )
-            # If there's no account set, but there exists one in the database, we raise an error and the user should
-            # select the right account in the wizard.
-            if len(existing_accounts) == 1:
-                raise UserError(_(
-                    'Could not create the account %(account_code)s. An account with this number already exists.',
-                    account_code=existing_accounts.code
-                ))
-            elif len(existing_accounts) > 1:
-                raise UserError(_(
-                    'Could not create the following accounts: %(account_codes)s. Accounts with these numbers already exist.',
-                    account_codes=', '.join(existing_accounts.mapped('code'))
-                ))
-
-            # We create the new accounts for the empty SODA mappings
-            new_accounts = self.env['account.account'].create([{
-                'code': code,
-                'name': self.soda_code_to_name_mapping[code],
-                'company_id': self.company_id.id,
-            } for code in new_account_codes])
-
-            # We assign the new accounts to the right SODA mappings
-            for mapping in empty_mappings:
-                mapping.account_id = new_accounts.search([('code', '=', mapping.code)])
-
         soda_account_mapping = {}
         for mapping in self.soda_account_mapping_ids:
             soda_account_mapping[mapping.code] = {'account_id': mapping.account_id.id, 'name': mapping.name}
 
+        if self.env.context.get('soda_mapping_save_only', False):
+            return False
+
+        suspense_account = self.journal_id.company_id.account_journal_suspense_account_id
+        non_mapped_soda_accounts = set()
         moves = self.env['account.move']
         for ref, soda_file in self.soda_files.items():
             # We create a move for every SODA file containing the entries according to the mapping
@@ -81,17 +56,38 @@ class SodaImportWizard(models.TransientModel):
                 'move_type': 'entry',
                 'journal_id': self.journal_id.id,
                 'ref': ref,
+                'line_ids': [],
                 'date': soda_file['date'],
-                'line_ids': [Command.create({
-                    'name': entry['name'] or soda_account_mapping[entry['code']]['name'],
-                    'account_id': soda_account_mapping[entry['code']]['account_id'],
-                    'debit': entry['debit'],
-                    'credit': entry['credit'],
-                }) for entry in soda_file['entries']],
             }
+            for entry in soda_file['entries']:
+                account_id = soda_account_mapping[entry['code']]['account_id']
+                if not account_id:
+                    account_id = suspense_account.id
+                    non_mapped_soda_accounts.add((entry['code'], entry['name']))
+                move_vals['line_ids'].append(
+                    Command.create({
+                        'name': entry['name'] or soda_account_mapping[entry['code']]['name'],
+                        'account_id': account_id,
+                        'debit': entry['debit'],
+                        'credit': entry['credit'],
+                    })
+                )
             move = self.env['account.move'].create(move_vals)
             attachment = self.env['ir.attachment'].browse(soda_file['attachment_id'])
             move.message_post(attachment_ids=[attachment.id])
+            if non_mapped_soda_accounts:
+                move.message_post(
+                    body=Markup("{first}<ul>{accounts}</ul>{second}<br/>{link}").format(
+                        first=_("The following accounts were found in the SODA file but have no mapping:"),
+                        accounts=Markup().join(Markup("<li>%s (%s)</li>") % (code, name) for code, name in non_mapped_soda_accounts),
+                        second=_("They have been imported in the Suspense Account (499000) for now."),
+                        link=_(
+                            "For future imports, you can map them correctly in %(left)sConfiguration > Settings > Accounting > SODA%(right)s",
+                            left=Markup("<a href='#action=l10n_be_soda.action_open_accounting_settings&model=res.config.settings'>"),
+                            right=Markup("</a>"),
+                        ),
+                    )
+                )
             attachment.write({'res_model': 'account.move', 'res_id': move.id})
             moves += move
         return moves

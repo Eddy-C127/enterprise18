@@ -21,7 +21,6 @@ The connection must be done by the Accounting Firm.
         'views/res_config_settings_views.xml',
         'views/account_journal_views.xml',
         'wizard/connection_wizard.xml',
-        'wizard/soda_import_wizard.xml',
         'wizard/validation_wizard.xml',
     ],
     'license': 'OEEL-1',
