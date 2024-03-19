@@ -68,7 +68,7 @@
         </template>
 
         <template id="ec_sales_report_xml">
-            <v1:VD_deklaratsioon xmlns:v1="https://www.emta.ee/ariklient/e-teenused-koolitused/e-teenuste-kasutamine/teenuste-tehniline-info#vd-aruanne">
+            <v1:VD_deklaratsioon xmlns:v1="http://www.emta.ee/VD/xsd/webimport/v1">
                 <deklareerijaKood t-out="tax_payer_reg_code"/>
                 <perioodAasta t-out="year"/>
                 <perioodKuu t-out="month"/>

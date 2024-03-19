@@ -7,6 +7,7 @@ from odoo import _, fields, models
 from odoo.exceptions import RedirectWarning, UserError
 from odoo.tools import float_round
 
+
 class EstonianECSalesReportCustomHandler(models.AbstractModel):
     _name = 'l10n_ee.ec.sales.report.handler'
     _inherit = 'account.ec.sales.report.handler'
@@ -67,9 +68,9 @@ class EstonianECSalesReportCustomHandler(models.AbstractModel):
             rows.append({
                 'country_code': line['columns'][colexpr_to_idx['country_code']].get('name', ''),
                 'vat_number': vat_number,
-                'goods': float_round(line['columns'][colexpr_to_idx['goods']]['no_format'], precision_digits=0),
-                'triangular': float_round(line['columns'][colexpr_to_idx['triangular']]['no_format'], precision_digits=0),
-                'services': float_round(line['columns'][colexpr_to_idx['services']]['no_format'], precision_digits=0),
+                'goods': int(float_round(line['columns'][colexpr_to_idx['goods']]['no_format'], precision_digits=0)),
+                'triangular': int(float_round(line['columns'][colexpr_to_idx['triangular']]['no_format'], precision_digits=0)),
+                'services': int(float_round(line['columns'][colexpr_to_idx['services']]['no_format'], precision_digits=0)),
             })
 
         if undefined_vat_partners:

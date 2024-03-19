@@ -253,7 +253,7 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
                            THEN -aml_base.balance
                            ELSE 0
                          END
-                       ) > 0
+                       ) != 0
             """
 
         elif kmd_inf_part == 'b':
