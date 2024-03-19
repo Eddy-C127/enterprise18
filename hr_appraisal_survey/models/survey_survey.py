@@ -8,6 +8,10 @@ class SurveySurvey(models.Model):
     _inherit = 'survey.survey'
 
     survey_type = fields.Selection(selection_add=[('appraisal', 'Appraisal')], ondelete={'appraisal': 'set default'})
+    appraisal_manager_user_ids = fields.Many2many(
+        'res.users', relation='survey_survey_res_users_appraisal_rel', string='Appraisals Managers Users',
+        compute='_compute_appraisal_manager_user_ids', store=True, readonly=True,
+        help='Users allowed to view the survey used in an appraisal')
 
     @api.onchange('survey_type')
     def _onchange_survey_type(self):
@@ -26,6 +30,13 @@ class SurveySurvey(models.Model):
         if self.env.user.has_group('hr_appraisal.group_hr_appraisal_user') or \
                 self.env.user.has_group('survey.group_survey_user'):
             self.allowed_survey_types = (self.allowed_survey_types or []) + [('appraisal', 'Appraisal')]
+
+    @api.depends('survey_type', 'user_input_ids', 'user_input_ids.appraisal_id', 'user_input_ids.appraisal_id.manager_ids')
+    def _compute_appraisal_manager_user_ids(self):
+        appraisal_surveys = self.filtered(lambda s: s.survey_type == 'appraisal' and s.user_input_ids)
+        (self - appraisal_surveys).appraisal_manager_user_ids = False
+        for survey in appraisal_surveys:
+            survey.appraisal_manager_user_ids = survey.user_input_ids.appraisal_id.manager_ids.user_id
 
     def action_open_all_survey_inputs(self):
         return {
@@ -63,7 +74,7 @@ class SurveySurvey(models.Model):
 class SurveyUserInput(models.Model):
     _inherit = 'survey.user_input'
 
-    appraisal_id = fields.Many2one('hr.appraisal')
+    appraisal_id = fields.Many2one('hr.appraisal', index='btree_not_null')
     requested_by = fields.Many2one(related="create_uid.partner_id", string='Requested by')
 
     def action_open_survey_inputs(self):

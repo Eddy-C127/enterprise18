@@ -117,7 +117,7 @@
             <field name="name">Survey question: employee manager on appraisal: read</field>
             <field name="model_id" ref="survey.model_survey_question"/>
             <field name="domain_force">[('survey_id.survey_type', '=', 'appraisal'),
-                '|', '|', ('survey_id.user_input_ids.appraisal_id.manager_ids.user_id', 'in', user.ids),
+                '|', '|', ('survey_id.appraisal_manager_user_ids', 'in', user.ids),
                 ('survey_id.restrict_user_ids', 'in', user.id),
                 ('survey_id.restrict_user_ids', '=', False)]</field>
             <field name="groups" eval="[(4, ref('base.group_user'))]"/>
@@ -130,7 +130,7 @@
             <field name="name">Survey: employee manager on appraisal: read</field>
             <field name="model_id" ref="survey.model_survey_survey"/>
             <field name="domain_force">[('survey_type', '=', 'appraisal'),
-                '|', '|',('user_input_ids.appraisal_id.manager_ids.user_id', 'in', user.ids),
+                '|', '|', ('appraisal_manager_user_ids', 'in', user.ids),
                 ('restrict_user_ids', 'in', user.id),
                 ('restrict_user_ids', '=', False)]</field>
             <field name="groups" eval="[(4, ref('base.group_user'))]"/>
