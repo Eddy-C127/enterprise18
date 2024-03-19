@@ -120,7 +120,7 @@ class HrContractSalary(main.HrContractSalary):
                 res['new_value'] = round(request.env['fleet.vehicle.model'].sudo().with_company(contract.company_id).browse(int(vehicle_id)).default_total_depreciated_cost, 2)
             else:
                 res['new_value'] = round(request.env['fleet.vehicle'].sudo().with_company(contract.company_id).browse(int(vehicle_id)).total_depreciated_cost, 2)
-        elif benefit_field == 'wishlist_car_total_depreciated_cost':
+        elif benefit_field == 'wishlist_car_total_depreciated_cost' and new_value:
             car_options, vehicle_id = new_value.split('-')
             if car_options == 'new':
                 contract = self._check_access_rights(contract_id)
