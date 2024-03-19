@@ -95,9 +95,10 @@
                 <header>
                     <field name="user_status" invisible="1"/>
                     <field name="has_access_to_request" invisible="1"/>
-                    <button name="action_confirm" string="Submit" type="object" invisible="not approver_ids or request_status != 'new'" class="btn-primary" data-hotkey="q"/>
-                    <button name="action_approve" string="Approve" type="object" invisible="not attachment_number or (request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending')" class="btn-primary" data-hotkey="v"/>
-                    <button name="action_approve" string="Approve" type="object" invisible="attachment_number or (request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending')" data-hotkey="v"/>
+                    <button name="action_confirm" string="Submit" type="object" invisible="attachment_number &lt; 1 or not approver_ids or request_status != 'new'" class="btn-primary" data-hotkey="q"/>
+                    <button name="action_confirm" string="Submit" type="object" invisible="attachment_number &gt;= 1 or not approver_ids or request_status != 'new'" data-hotkey="q"/>
+                    <button name="action_approve" string="Approve" type="object" invisible="attachment_number &lt; 1 or request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending'" class="btn-primary" data-hotkey="v"/>
+                    <button name="action_approve" string="Approve" type="object" invisible="attachment_number &gt;= 1 or request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending'" data-hotkey="v"/>
                     <button name="action_refuse" string="Refuse" type="object" invisible="request_status in ['approved', 'refused', 'cancel'] or user_status != 'pending'" data-hotkey="z"/>
                     <button name="action_withdraw" string="Withdraw" type="object" invisible="request_status == 'new' or user_status in ['waiting', 'pending', 'cancel'] or not user_status" data-hotkey="y"/>
                     <button name="action_draft" string="Back To Draft" type="object" invisible="request_status != 'cancel' or not user_status and not has_access_to_request" data-hotkey="w"/>
@@ -155,10 +156,12 @@
                             <label for="date_start" string="Period" invisible="has_period == 'no'"/>
                             <div invisible="has_period == 'no'">
                                 <div>
-                                  <span>From: </span><field name="date_start" class="oe_inline" readonly="request_status != 'new'" required="has_period == 'required'"/>
+                                    <label for="date_start" class="col-lg-2" string="From:"/>
+                                    <field name="date_start" class="oe_inline" readonly="request_status != 'new'" required="has_period == 'required'"/>
                                 </div>
                                 <div>
-                                  <span>to: </span><field name="date_end" class="oe_inline ms-4" readonly="request_status != 'new'" required="has_period == 'required'"/>
+                                    <label for="date_end" class="col-lg-2" string="to:"/>
+                                    <field name="date_end" class="oe_inline" readonly="request_status != 'new'" required="has_period == 'required'"/>
                                 </div>
                             </div>
                             <field name="location" invisible="has_location == 'no'" readonly="request_status != 'new'" required="has_location == 'required'" placeholder="e.g. Brussels" />
