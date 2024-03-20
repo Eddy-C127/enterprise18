@@ -11,7 +11,9 @@ from cryptography.x509 import load_pem_x509_certificate
 from lxml import builder
 from lxml import etree
 from requests.adapters import HTTPAdapter
+from requests.exceptions import HTTPError
 from urllib3.util.ssl_ import create_urllib3_context
+
 import time
 import datetime
 import base64
@@ -160,7 +162,10 @@ class L10nArAfipwsConnection(models.Model):
         if hint_msg:
             error_msg += '\n\nPISTA: ' + hint_msg
         else:
-            error_msg += '\n\n' + _('Please report this error to your Odoo provider')
+            if isinstance(error, HTTPError) and error.response.status_code == 503:
+                error_msg += '\n\n' + _('The AFIP electronic billing webservice is not available. Wait a few minutes for it to reset and try to validate the action again.')
+            else:
+                error_msg += '\n\n' + _('Please report this error to your Odoo provider')
         raise UserError(error_msg)
 
     def _l10n_ar_get_token_data(self, company, afip_ws):
