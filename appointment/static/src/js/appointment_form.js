@@ -3,6 +3,7 @@
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { findInvalidEmailFromText } from  "./utils.js"
 import { _t } from "@web/core/l10n/translation";
+import { addLoadingEffect } from '@web/core/utils/ui';
 
 publicWidget.registry.appointmentForm = publicWidget.Widget.extend({
     selector: '.o_appointment_attendee_form',
@@ -71,6 +72,7 @@ publicWidget.registry.appointmentForm = publicWidget.Widget.extend({
                 }
             }
             appointmentForm.submit();
+            addLoadingEffect(event.target);
         }
     },
 
