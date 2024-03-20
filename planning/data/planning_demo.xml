@@ -307,6 +307,29 @@
             <field name="planning_role_ids" eval="[Command.set([ref('planning.planning_maintenance_technician'), ref('planning.planning_furniture_assembler')])]"/>
         </record>
 
+        <record id="res_partner_oza" model="res.partner">
+            <field name="name">Suman Oza</field>
+            <field name="email">oza@test.com</field>
+        </record>
+
+        <record id="employee_oza" model="hr.employee">
+            <field name="name">Suman Oza</field>
+            <field name="department_id" ref="hr.dep_ps"/>
+            <field name="parent_id" ref="hr.employee_admin"/>
+            <field name="job_id" ref="job_maintenance_technician"/>
+            <field name="job_title">Maintenance Technician</field>
+            <field name="category_ids" eval="[Command.set([ref('hr.employee_category_4')])]"/>
+            <field name="work_location_id" ref="hr.work_location_1"/>
+            <field name="work_phone">+3281813700</field>
+            <field name="work_contact_id" ref="planning.res_partner_oza"/>
+            <field name="image_1920" type="base64" file="planning/static/img/sumanoza.jpg"/>
+            <field name="create_date">2023-01-01 00:00:00</field>
+            <!-- Set resource calendar to False for fully flexible working hours -->
+            <field name="resource_calendar_id" eval="False"/>
+            <field name="default_planning_role_id" ref="planning.planning_maintenance_technician"></field>
+            <field name="planning_role_ids" eval="[Command.set([ref('planning.planning_maintenance_technician'), ref('planning.planning_furniture_assembler')])]"/>
+        </record>
+
         <!--                                     Previous week                                    -->
 
         <!-- Monday morning shifts -->
@@ -940,6 +963,14 @@
             <field name="end_datetime" eval="(datetime.today() - timedelta(days=datetime.today().weekday() + 3)).strftime('%Y-%m-%d 15:00:00')"/>
             <field name="resource_id" model="resource.resource" eval="obj().env.ref('planning.employee_cry').resource_id.id"/>
             <field name="role_id" ref="planning_furniture_assembler"/>
+        </record>
+
+        <!-- Saturday shifts (for flexible schedules)-->
+        <record id="planning_slot_601" model="planning.slot">
+            <field name="start_datetime" eval="(datetime.today() - timedelta(days=datetime.today().weekday() + 2)).strftime('%Y-%m-%d 07:00:00')"/>
+            <field name="end_datetime" eval="(datetime.today() - timedelta(days=datetime.today().weekday() + 2)).strftime('%Y-%m-%d 13:00:00')"/>
+            <field name="resource_id" model="resource.resource" eval="obj().env.ref('planning.employee_oza').resource_id.id"/>
+            <field name="role_id" ref="planning_maintenance_technician"/>
         </record>
 
         <!--                                        Week 1                                        -->
@@ -1584,6 +1615,14 @@
             <field name="resource_id" ref="planning_resource_4"/>
             <field name="publication_warning" eval="False"/>
             <field name="state">published</field>
+        </record>
+
+        <!-- Saturday shifts (for flexible schedules)-->
+        <record id="planning_slot_602" model="planning.slot">
+            <field name="start_datetime" eval="(datetime.today() - timedelta(days=datetime.today().weekday() - 5)).strftime('%Y-%m-%d 07:00:00')"/>
+            <field name="end_datetime" eval="(datetime.today() - timedelta(days=datetime.today().weekday() - 5)).strftime('%Y-%m-%d 17:00:00')"/>
+            <field name="resource_id" model="resource.resource" eval="obj().env.ref('planning.employee_oza').resource_id.id"/>
+            <field name="role_id" ref="planning_maintenance_technician"/>
         </record>
 
         <!--                                        Week 2                                        -->
