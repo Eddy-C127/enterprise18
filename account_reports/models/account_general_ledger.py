@@ -586,7 +586,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def _get_account_title_line(self, report, options, account, has_lines, eval_dict):
         line_columns = []
         for column in options['columns']:
-            col_value = eval_dict[column['column_group_key']].get(column['expression_label'])
+            col_value = eval_dict.get(column['column_group_key'], {}).get(column['expression_label'])
             col_expr_label = column['expression_label']
 
             value = None if col_value is None or (col_expr_label == 'amount_currency' and not account.currency_id) else col_value

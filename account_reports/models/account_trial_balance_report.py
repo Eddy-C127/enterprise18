@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, _, fields
+from odoo import api, models, _, fields
 from odoo.tools import float_compare
 from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
@@ -93,11 +93,39 @@ class TrialBalanceCustomHandler(models.AbstractModel):
             ],
         }
 
+    def _get_column_group_creation_data(self, report, options, previous_options=None):
+        """
+        Return tuple of tuples containing a reference to the column_group creation function and on which side ('left' | 'right') of the report the column_group goes
+        """
+        return (
+            (self._create_column_group_initial_balance, 'left'),
+            (self._create_column_group_end_balance, 'right'),
+        )
+
+    @api.model
+    def _create_and_append_column_group(self, report, options, header_name, forced_options, side_to_append, group_vals, exclude_initial_balance=False, append_col_groups=True):
+        header_element = [{'name': header_name, 'forced_options': forced_options}]
+        column_headers = [header_element, *options['column_headers'][1:]]
+        column_group_vals = report._generate_columns_group_vals_recursively(column_headers, group_vals)
+
+        if exclude_initial_balance:
+            # This column group must not include initial balance; we use a special option key for that in general ledger
+            for column_group in column_group_vals:
+                column_group['forced_options']['general_ledger_strict_range'] = True
+
+        columns, column_groups = report._build_columns_from_column_group_vals(forced_options, column_group_vals)
+
+        side_to_append['column_headers'] += header_element
+        if append_col_groups:
+            side_to_append['column_groups'] |= column_groups
+        side_to_append['columns'] += columns
+
     def _custom_options_initializer(self, report, options, previous_options=None):
         """ Modifies the provided options to add a column group for initial balance and end balance, as well as the appropriate columns.
         """
-        super()._custom_options_initializer(report, options, previous_options=previous_options)
         default_group_vals = {'horizontal_groupby_element': {}, 'forced_options': {}}
+        left_side = {'column_headers': [], 'column_groups': {}, 'columns': []}
+        right_side = {'column_headers': [], 'column_groups': {}, 'columns': []}
 
         # Columns between initial and end balance must not include initial balance; we use a special option key for that in general ledger
         for column_group in options['column_groups'].values():
@@ -121,44 +149,16 @@ class TrialBalanceCustomHandler(models.AbstractModel):
             options['columns'] = new_columns_order
             options['column_headers'][0][:] = reversed(options['column_headers'][0])
 
-        # Initial balance
-        initial_balance_options = self.env['account.general.ledger.report.handler']._get_options_initial_balance(options)
-        initial_forced_options = {
-            'date': initial_balance_options['date'],
-            'include_current_year_in_unaff_earnings': initial_balance_options['include_current_year_in_unaff_earnings']
-        }
-        initial_header_element = [{'name': _("Initial Balance"), 'forced_options': initial_forced_options}]
-        col_headers_initial = [
-            initial_header_element,
-            *options['column_headers'][1:],
-        ]
-        initial_column_group_vals = report._generate_columns_group_vals_recursively(col_headers_initial, default_group_vals)
-        initial_columns, initial_column_groups = report._build_columns_from_column_group_vals(initial_forced_options, initial_column_group_vals)
-
-        # End balance
-        end_date_to = options['date']['date_to']
-        end_date_from = options['comparison']['periods'][-1]['date_from'] if options.get('comparison', {}).get('periods') else options['date']['date_from']
-        end_forced_options = {
-            'date': {
-                'mode': 'range',
-                'date_to': fields.Date.from_string(end_date_to).strftime(DEFAULT_SERVER_DATE_FORMAT),
-                'date_from': fields.Date.from_string(end_date_from).strftime(DEFAULT_SERVER_DATE_FORMAT)
-            }
-        }
-        end_header_element = [{'name': _("End Balance"), 'forced_options': end_forced_options}]
-        col_headers_end = [
-            end_header_element,
-            *options['column_headers'][1:],
-        ]
-        end_column_group_vals = report._generate_columns_group_vals_recursively(col_headers_end, default_group_vals)
-        end_columns, end_column_groups = report._build_columns_from_column_group_vals(end_forced_options, end_column_group_vals)
+        # Create column groups
+        for function, side in self._get_column_group_creation_data(report, options, previous_options):
+            function(report, options, previous_options, default_group_vals, left_side if side == 'left' else right_side)
 
         # Update options
-        options['column_headers'][0] = initial_header_element + options['column_headers'][0] + end_header_element
-        options['column_groups'].update(initial_column_groups)
-        options['column_groups'].update(end_column_groups)
-        options['columns'] = initial_columns + options['columns'] + end_columns
-        options['ignore_totals_below_sections'] = True # So that GL does not compute them
+        options['column_headers'][0] = left_side['column_headers'] + options['column_headers'][0] + right_side['column_headers']
+        options['column_groups'].update(left_side['column_groups'])
+        options['column_groups'].update(right_side['column_groups'])
+        options['columns'] = left_side['columns'] + options['columns'] + right_side['columns']
+        options['ignore_totals_below_sections'] = True  # So that GL does not compute them
 
         report._init_options_order_column(options, previous_options)
 
@@ -172,3 +172,39 @@ class TrialBalanceCustomHandler(models.AbstractModel):
                     line['class'] = line_classes + ' o_account_coa_column_contrast_hierarchy'
 
         return lines
+
+    def _create_column_group_initial_balance(self, report, options, previous_options, default_group_vals, side_to_append):
+        initial_balance_options = self.env['account.general.ledger.report.handler']._get_options_initial_balance(options)
+        initial_forced_options = {
+            'date': initial_balance_options['date'],
+            'include_current_year_in_unaff_earnings': initial_balance_options['include_current_year_in_unaff_earnings']
+        }
+
+        self._create_and_append_column_group(
+            report,
+            options,
+            _("Initial Balance"),
+            initial_forced_options,
+            side_to_append,
+            default_group_vals,
+        )
+
+    def _create_column_group_end_balance(self, report, options, previous_options, default_group_vals, side_to_append):
+        end_date_to = options['date']['date_to']
+        end_date_from = options['comparison']['periods'][-1]['date_from'] if options.get('comparison', {}).get('periods') else options['date']['date_from']
+        end_forced_options = {
+            'date': {
+                'mode': 'range',
+                'date_to': fields.Date.from_string(end_date_to).strftime(DEFAULT_SERVER_DATE_FORMAT),
+                'date_from': fields.Date.from_string(end_date_from).strftime(DEFAULT_SERVER_DATE_FORMAT)
+            }
+        }
+
+        self._create_and_append_column_group(
+            report,
+            options,
+            _("End Balance"),
+            end_forced_options,
+            side_to_append,
+            default_group_vals,
+        )
