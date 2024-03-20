@@ -3,8 +3,11 @@
 import { formatDateTime } from "@web/core/l10n/dates";
 import { localization } from "@web/core/l10n/localization";
 import { patch } from "@web/core/utils/patch";
-
-import { QtyAtDatePopover, QtyAtDateWidget } from "@sale_stock/widgets/qty_at_date_widget";
+import {
+    QtyAtDatePopover,
+    QtyAtDateWidget,
+    qtyAtDateWidget,
+} from "@sale_stock/widgets/qty_at_date_widget";
 
 patch(QtyAtDatePopover.prototype, {
     async openRentalGanttView() {
@@ -32,3 +35,12 @@ patch(QtyAtDateWidget.prototype, {
         this.calcData.stock_start_date = formatDateTime(data.start_date, { format: localization.dateFormat });
     },
 });
+
+export const rentalQtyAtDateWidget = {
+    ...qtyAtDateWidget,
+    fieldDependencies: [
+        { name: 'start_date', type: 'datetime' },
+        { name: 'return_date', type: 'datetime' },
+    ],
+};
+patch(qtyAtDateWidget, rentalQtyAtDateWidget);
