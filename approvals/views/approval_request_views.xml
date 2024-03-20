@@ -366,14 +366,14 @@
         id="approvals_menu_product_template"
         parent="approvals_menu_product"
         name="Products"
-        action="product.product_template_action"
+        action="product_template_action"
         sequence="10"/>
 
     <menuitem
         id="approvals_menu_product_variant"
         parent="approvals_menu_product"
         name="Product Variants"
-        action="product.product_normal_action"
+        action="product_product_action"
         groups="product.group_product_variant"
         sequence="20"/>
 </odoo>
