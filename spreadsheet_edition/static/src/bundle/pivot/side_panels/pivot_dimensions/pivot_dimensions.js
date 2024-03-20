@@ -75,9 +75,9 @@ export class PivotDimensions extends Component {
 
         const rects = this.getDimensionElementsRects();
         const definition = this.props.definition;
-        const { measures } = definition;
+        const { measures, columns, rows } = definition;
         const draggableIds = measures.map((m) => m.name);
-        const offset = 5; // column title, columns, row title, rows, measure title
+        const offset = 3 + columns.length + rows.length; // column title, row title, measure title
         const draggableItems = draggableIds.map((id, index) => ({
             id,
             size: rects[index + offset].height,
