@@ -13,7 +13,7 @@ patch(MessagingMenu.prototype, {
     get tabs() {
         const items = super.tabs;
         const hasWhatsApp = Object.values(this.store.Thread.records).some(
-            ({ type }) => type === "whatsapp"
+            ({ channel_type }) => channel_type === "whatsapp"
         );
         if (hasWhatsApp) {
             items.push({

@@ -73,7 +73,10 @@ patch(Composer.prototype, {
     },
 
     processFileUploading(ev, superCb) {
-        if (this.thread?.type === "whatsapp" && this.props.composer.attachments.length > 0) {
+        if (
+            this.thread?.channel_type === "whatsapp" &&
+            this.props.composer.attachments.length > 0
+        ) {
             ev.preventDefault();
             this.env.services.notification.add(
                 _t("Only one attachment is allowed for each message"),

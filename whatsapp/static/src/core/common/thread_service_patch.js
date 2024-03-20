@@ -15,12 +15,14 @@ patch(ThreadService.prototype, {
 
     async openWhatsAppChannel(id, name) {
         const thread = this.store.Thread.insert({
+            channel_type: "whatsapp",
             id,
             model: "discuss.channel",
             name,
-            type: "whatsapp",
-            channel: { avatarCacheKey: "hello" },
         });
+        if (!thread.avatarCacheKey) {
+            thread.avatarCacheKey = "hello";
+        }
         if (!thread.hasSelfAsMember) {
             const data = await this.orm.call("discuss.channel", "whatsapp_channel_join_and_pin", [
                 [id],
