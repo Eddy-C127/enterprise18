@@ -2,16 +2,13 @@
 
 import base64
 import io
+import logging
 import re
 from ast import literal_eval
 from collections import OrderedDict
 
 import requests
 from PyPDF2 import PdfFileReader
-try:
-    from PyPDF2.errors import PdfReadError
-except ImportError:
-    from PyPDF2.utils import PdfReadError
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
@@ -23,6 +20,8 @@ from odoo.tools.misc import clean_context
 from odoo.addons.mail.tools import link_preview
 
 from .documents_facet import N_FACET_COLORS
+
+_logger = logging.getLogger(__name__)
 
 
 def _sanitize_file_extension(extension):
@@ -209,19 +208,22 @@ class Document(models.Model):
         return int(self.env['ir.config_parameter'].sudo().get_param('documents.deletion_delay', '30'))
 
     def _get_is_multipage(self):
-        """
-        :return: Whether the document can be considered multipage or `None` if unable determine
+        """Whether the document can be considered multipage, if able to determine.
+
+        :return: `None` if mimetype not handled, `False` if single page or error occurred, `True` otherwise.
         :rtype: bool | None
         """
-        if self.mimetype in ('application/pdf', 'application/pdf;base64'):
-            stream = io.BytesIO(base64.b64decode(self.datas))
-            try:
-                return PdfFileReader(stream, strict=False).numPages > 1
-            except (ValueError, PdfReadError, KeyError):
-                # ValueError for known bug in PyPDF2 v.1.26 (details in commit message)
-                # PdfReadError: Non-pdf attachment stored as pdf in accounting (details in commit message)
-                # KeyError happens when the user uploads a corrupted pdf (details in commit message)
-                pass
+        if self.mimetype not in ('application/pdf', 'application/pdf;base64'):
+            return None
+        stream = io.BytesIO(base64.b64decode(self.datas))
+        try:
+            return PdfFileReader(stream, strict=False).numPages > 1
+        except AttributeError:
+            raise  # If PyPDF's API changes and the `numPages` property isn't there anymore, not if its computation fails.
+        except Exception:  # noqa: BLE001
+            _logger.warning('Impossible to count pages in %r. It could be due to a malformed document or a '
+                            '(possibly known) issue within PyPDF2.', self.name, exc_info=True)
+            return False
 
     def _get_models(self, domain):
         """
