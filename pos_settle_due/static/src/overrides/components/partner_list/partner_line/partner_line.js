@@ -12,4 +12,8 @@ patch(PartnerLine.prototype, {
     get partnerInfos() {
         return this.pos.getPartnerCredit(this.props.partner);
     },
+    settleCustomerDue() {
+        this.props.close();
+        this.pos.settleCustomerDue(this.props.partner);
+    },
 });

@@ -2,6 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
+import * as Chrome from "@point_of_sale/../tests/tours/utils/chrome_util";
 
 registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order", {
     test: true,
@@ -38,32 +39,6 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order", {
             run: "select 1",
         },
         Dialog.confirm(),
-        {
-            content: "Open the list of customers",
-            trigger: "span:contains('Customer')",
-        },
-        {
-            content: "Open the details for the first customer",
-            trigger: "button.edit-partner-button:first",
-        },
-        {
-            content: "Set the country as Mexico",
-            trigger: "select[name='country_id']",
-            run: "selectByLabel Mexico",
-        },
-        {
-            content: "Set the fiscal regime as 'Consolidación'",
-            trigger: "select[name='l10n_mx_edi_fiscal_regime']",
-            run: "select 609",
-        },
-        {
-            content: "Check the No Tax Breakdown checkbox",
-            trigger: "input[name='l10n_mx_edi_no_tax_breakdown']",
-        },
-        {
-            content: "Verify No Tax Breakdown checkbox is checked",
-            trigger: "input[name='l10n_mx_edi_no_tax_breakdown']:checked",
-            isCheck: true,
-        },
+        Chrome.endTour(),
     ],
 });

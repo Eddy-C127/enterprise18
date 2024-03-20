@@ -8,5 +8,10 @@
                 <span t-if="this.partnerInfos.useLimit">Credit limit: <t t-esc="env.utils.formatCurrency(this.partnerInfos.creditLimit)"/></span>
             </div>
         </xpath>
+        <xpath expr="//DropdownItem[last()]" position="after">
+            <DropdownItem t-if="partnerInfos.totalDue" onSelected="() => this.settleCustomerDue()">
+                Settle Due Accounts
+            </DropdownItem>
+        </xpath>
     </t>
  </templates>
