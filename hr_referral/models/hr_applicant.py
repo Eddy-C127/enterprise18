@@ -34,7 +34,7 @@ class Applicant(models.Model):
             raise NotImplementedError(_("Unsupported search on field is_accessible_to_current_user: %s operator & %s value. Only = and != operator and boolean values are supported.", operator, value))
         if self.env.user.has_group('hr_recruitment.group_hr_recruitment_user'):
             return []
-        applications = self.env['hr.applicant'].search([
+        applications = self.env['hr.applicant'].with_context(active_test=False).search([
             '|',
                 ('job_id', 'any', [('interviewer_ids', 'in', self.env.user.id)]),
                 ('interviewer_ids', 'in', self.env.user.id),
