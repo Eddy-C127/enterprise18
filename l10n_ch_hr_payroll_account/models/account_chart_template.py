@@ -55,7 +55,7 @@ class AccountChartTemplate(models.AbstractModel):
         rules_mapping[rule]['credit'] = '5000'
 
         rule = self.env.ref('l10n_ch_hr_payroll.l10n_ch_employees_advance')
-        rules_mapping[rule]['credit'] = '5004'
+        rules_mapping[rule]['credit'] = '5003'
 
         rule = self.env.ref('l10n_ch_hr_payroll.l10n_ch_employees_departure_time_off')
         rules_mapping[rule]['credit'] = '5004'
