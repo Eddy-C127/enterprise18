@@ -67,8 +67,14 @@ export class KnowledgeWysiwyg extends Wysiwyg {
     _configureToolbar(options) {
         this.knowledgeCommentsToolbarBtnRef.el?.addEventListener('click', () => {
             getDeepRange(this.$editable[0], { splitText: true, select: true, correctTripleClick: true });
-            const selectedNodes = getSelectedNodes(this.$editable[0])
-                .filter(selectedNode => selectedNode.nodeType === Node.TEXT_NODE && closestElement(selectedNode).isContentEditable);
+            const selectedNodes = getSelectedNodes(this.$editable[0]).filter((selectedNode) => {
+                const textContent =
+                    selectedNode.nodeType === Node.TEXT_NODE && selectedNode.textContent.trim();
+                const elementToCheck = closestElement(selectedNode);
+                const isImage = elementToCheck.tagName === "IMG";
+                const isContentEditable = elementToCheck.isContentEditable;
+                return (textContent || isImage) && isContentEditable;
+            });
             this.env.bus.trigger('KNOWLEDGE:CREATE_COMMENT_THREAD', {selectedNodes});
         });
         super._configureToolbar(...arguments);

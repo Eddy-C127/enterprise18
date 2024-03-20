@@ -213,14 +213,19 @@ export class KnowledgeCommentsHandler extends Component {
             return;
         }
         const commentAnchors = selectedNodes.map((selectedNode) => {
-            const commentThreadAnchor = document.createElement('span');
+            let commentThreadAnchor;
+            if (Node.TEXT_NODE === selectedNode.nodeType) {
+                commentThreadAnchor = document.createElement("span");
+                const range = document.createRange();
+                range.setStartBefore(selectedNode);
+                range.setEndAfter(selectedNode);
+                range.surroundContents(commentThreadAnchor);
+            } else {
+                commentThreadAnchor = selectedNode;
+            }
             commentThreadAnchor.classList.add('knowledge-thread-highlighted-comment', 'knowledge-thread-comment');
             commentThreadAnchor.setAttribute('tabindex', '-1');
             commentThreadAnchor.dataset.id = 'undefined';
-            const range = document.createRange();
-            range.setStartBefore(selectedNode);
-            range.setEndAfter(selectedNode);
-            range.surroundContents(commentThreadAnchor);
             return commentThreadAnchor;
         });
         if (!commentAnchors || !commentAnchors.length) {
