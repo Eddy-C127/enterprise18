@@ -99,6 +99,14 @@ class IotDevice(models.Model):
         for device in self:
             device.manual_measurement = device.manufacturer == 'Adam'
 
+    def write(self, vals):
+        return_value = super().write(vals)
+        if 'report_ids' in vals:
+            channel = self.env['iot.channel'].search([('company_id', '=', self.env.company.id)])
+            if (channel):
+                channel.update_is_open()
+        return return_value
+
 class KeyboardLayout(models.Model):
     _name = 'iot.keyboard.layout'
     _description = 'Keyboard Layout'
@@ -113,14 +121,19 @@ class IotChannel(models.Model):
 
     name = fields.Char('Name', default=lambda self: f'iot_channel-{secrets.token_hex(16)}')
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company) #One2one
+    is_open = fields.Boolean(default=False)
 
-    def get_iot_channel(self):
+    def get_iot_channel(self, check=False):
         if self.env.is_system() or self.env.user._is_internal():
-            iot_channel = self.env['iot.channel'].search([('company_id', "=", self.env.company.id)], limit=1)
+            iot_channel = self.search([('company_id', "=", self.env.company.id)], limit=1)
             if not iot_channel.ids:
                 iot_channel = self.env['iot.channel'].sudo().create({})
-            return iot_channel.name
-        return False
+            if not check or iot_channel.is_open:
+                return iot_channel.name
+        return ''
+
+    def update_is_open(self):
+        self.is_open = bool(self.env['iot.device'].search_count([('report_ids', '!=', False)], limit=1))
 
     _sql_constraints = [
         ('unique_name', 'unique(name)', 'The channel name must be unique'),

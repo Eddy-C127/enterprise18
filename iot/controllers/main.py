@@ -143,7 +143,7 @@ class IoTController(http.Controller):
             # Mark the received devices as connected, disconnect the others.
             connected_iot_devices.write({'connected': True})
             (previously_connected_iot_devices - connected_iot_devices).write({'connected': False})
-            iot_channel = request.env['iot.channel'].sudo().get_iot_channel()
+            iot_channel = request.env['iot.channel'].sudo().get_iot_channel(check=True)
             return iot_channel
 
     def _is_iot_log_enabled(self):

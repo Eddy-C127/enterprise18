@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { browser } from "@web/core/browser/browser"
 
@@ -24,8 +25,8 @@ export class IotWebsocket {
         setTimeout(() => {
             if (this.jobs[id].length != 0) {
                 for (let device in this.jobs[id]) {
-                    this.notification.add("Check if the printer is still connected", {
-                        title: ("Connection to printer failed " + this.jobs[id][device]["name"]),
+                    this.notification.add(_t("Check IoT box connection. Try restarting if needed."), {
+                        title: (_t("Connection to printer failed ") + this.jobs[id][device]["name"]),
                         type: "danger",
                     });
                 }
