@@ -47,7 +47,9 @@ class StockMove(models.Model):
                 free_reserved_lots = sale_lines.reserved_lot_ids.filtered(lambda s: s not in moves.move_line_ids.lot_id)
                 to_assign_move_lines = moves.move_line_ids.filtered(lambda l: l.lot_id not in sale_lines.reserved_lot_ids)
                 for line, lot in zip(to_assign_move_lines, free_reserved_lots):
-                    line.lot_id = lot
+                    quant = lot.quant_ids.filtered(lambda q: q.location_id == line.location_id and q.quantity == 1 and q.reserved_quantity == 0)
+                    if quant:
+                        line.lot_id = lot
 
     def _action_done(self, cancel_backorder=False):
         """ Correctly set the qty_delivered and qty_returned of rental order lines when using pickings."""
