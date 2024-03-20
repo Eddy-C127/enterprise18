@@ -526,25 +526,9 @@ class SaleOrder(models.Model):
             order.note_order.internal_note = order.internal_note_display
 
     def _mail_track(self, tracked_fields, initial_values):
-        """ For a given record, fields to check (tuple column name, column info)
-                and initial values, return a structure that is a tuple containing :
-                 - a set of updated column names
-                 - a list of ORM (0, 0, values) commands to create 'mail.tracking.value' """
         res = super()._mail_track(tracked_fields, initial_values)
-        if not self.is_subscription:
-            return res
-        # When the mrr is < 0, the contract is considered free, it does not invoice and therefore we should not consider that amount in the logs
-        mrr = max(self.recurring_monthly, 0) if self.subscription_state in SUBSCRIPTION_PROGRESS_STATE else 0
-        initial_mrr = max(initial_values.get('recurring_monthly', mrr), 0) if initial_values.get('subscription_state', self.subscription_state) in SUBSCRIPTION_PROGRESS_STATE else 0
-        values = {'event_date': fields.Date.context_today(self),
-                  'order_id': self.id,
-                  'currency_id': self.currency_id.id,
-                  'subscription_state': self.subscription_state,
-                  'recurring_monthly': mrr,
-                  'amount_signed': mrr - initial_mrr,
-                  'user_id': self.user_id.id,
-                  'team_id': self.team_id.id}
-        self.env['sale.order.log']._create_log(values, initial_values)
+        if self.is_subscription:
+            self.env['sale.order.log']._create_log(self, initial_values.copy())
         return res
 
     def _prepare_invoice(self):
@@ -700,7 +684,6 @@ class SaleOrder(models.Model):
                     order.subscription_state = False
 
             # _prepare_confirmation_values will update subscription_state for all confirmed subscription.
-            # We call super for two batches to avoid trigger the stage_coherence constraint.
             res_sub = super(SaleOrder, recurring_order).action_confirm()
             res_other = super(SaleOrder, self - recurring_order).action_confirm()
             recurring_order._confirm_subscription()
@@ -791,10 +774,6 @@ class SaleOrder(models.Model):
                 auto_commit = not bool(config['test_enable'] or config['test_file'])
                 # Force the creation of the reopen logs.
                 self._subscription_commit_cursor(auto_commit=auto_commit)
-                # Make sure to delete the churn log as it won't be cleaned by mail-track
-                churn_logs = parent.order_log_ids.filtered(lambda log: log.event_type == '2_churn')
-                churn_log = churn_logs and churn_logs[-1]
-                churn_log.sudo().unlink()
             other_renew_so_ids = parent.subscription_child_ids.filtered(lambda so: so.subscription_state == '2_renewal' and so.state != 'cancel') - renew
             if other_renew_so_ids:
                 other_renew_so_ids._action_cancel()
@@ -902,7 +881,6 @@ class SaleOrder(models.Model):
         action.update({
             'name': _('MRR changes'),
             'domain': [('order_id', 'in', genealogy_orders_ids.ids)],
-            'context': {'search_default_group_by_event_date': 1},
         })
         return action
 
@@ -1812,7 +1790,7 @@ class SaleOrder(models.Model):
                 continue
             email_context = {**self.env.context.copy(),
                              'payment_token': subscription.payment_token_id.payment_details,
-                             '5_renewed': True,
+                             '5_renewed': True,     # TODO master remove or rename
                              'total_amount': tx.amount,
                              'next_date': next_date,
                              'previous_date': subscription.next_invoice_date,

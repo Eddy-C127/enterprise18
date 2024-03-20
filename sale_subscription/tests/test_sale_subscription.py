@@ -1272,11 +1272,11 @@ class TestSubscription(TestSubscriptionCommon):
 
         order_log_ids = sub.order_log_ids.sorted('event_date')
         sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log in order_log_ids]
-        self.assertEqual(sub_data, [('0_creation', datetime.date(2021, 1, 1), '3_progress', 21, 21),
+        self.assertEqual(sub_data, [('0_creation', datetime.date(2021, 1, 1), '1_draft', 21, 21),
                                     ('3_transfer', datetime.date(2021, 4, 1), '5_renewed', -21, 0)])
         renew_logs = renewal_so.order_log_ids.sorted(key=lambda log: (log.event_date, log.id))
         renew_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log in renew_logs]
-        self.assertEqual(renew_data, [('3_transfer', datetime.date(2021, 4, 1), '3_progress', 21.0, 21.0),
+        self.assertEqual(renew_data, [('3_transfer', datetime.date(2021, 4, 1), '2_renewal', 21.0, 21.0),
                                       ('1_expansion', datetime.date(2021, 4, 1), '3_progress', 42.0, 63.0),
                                       ('1_expansion', datetime.date(2021, 4, 20), '3_progress', 20.0, 83.0),
                                       ('1_expansion', datetime.date(2021, 9, 1), '3_progress', 22, 105.0)])
@@ -1284,18 +1284,18 @@ class TestSubscription(TestSubscriptionCommon):
         free_log_ids = free_sub.order_log_ids.sorted(key=lambda log: (log.event_date, log.id))
         sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log in
                     free_log_ids]
-        self.assertEqual(sub_data, [('0_creation', datetime.date(2021, 1, 1), '3_progress', 0, 0),
+        self.assertEqual(sub_data, [('0_creation', datetime.date(2021, 1, 1), '1_draft', 0, 0),
                                     ('3_transfer', datetime.date(2021, 4, 1), '5_renewed', 0, 0)])
         renew_logs = free_renewal_so.order_log_ids.sorted(key=lambda log: (log.event_date, log.id))
         renew_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log
                       in renew_logs]
-        self.assertEqual(renew_data, [('3_transfer', datetime.date(2021, 4, 1), '3_progress', 0, 0),
+        self.assertEqual(renew_data, [('3_transfer', datetime.date(2021, 4, 1), '2_renewal', 0, 0),
                                       ('1_expansion', datetime.date(2021, 9, 1), '3_progress', 20.0, 20.0)])
 
         future_data = future_sub.order_log_ids.sorted(key=lambda log: (log.event_date, log.id)) # several events aggregated on the same date
         simple_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log
                        in future_data]
-        self.assertEqual(simple_data, [('0_creation', datetime.date(2021, 1, 1), '3_progress', 1.0, 1.0),
+        self.assertEqual(simple_data, [('0_creation', datetime.date(2021, 1, 1), '1_draft', 1.0, 1.0),
                                        ('1_expansion', datetime.date(2021, 4, 1), '3_progress', 3.0, 4.0)])
         self.assertEqual(future_sub.start_date, datetime.date(2021, 6, 1), "the start date is in june but the events are recorded as today")
 
@@ -2629,14 +2629,14 @@ class TestSubscription(TestSubscriptionCommon):
             sub_data = [
                 (log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly)
                 for log in order_log_ids]
-            self.assertEqual(sub_data, [('0_creation', datetime.date(2023, 3, 1), '3_progress', 3.0, 3.0),
+            self.assertEqual(sub_data, [('0_creation', datetime.date(2023, 3, 1), '1_draft', 3.0, 3.0),
                                         ('1_expansion', datetime.date(2023, 3, 2), '3_progress', 7.0, 10.0)])
             order_log_ids = sub_mrr_change.order_log_ids.sorted('event_date')
             sub_data = [
                 (log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly)
                 for log in order_log_ids]
 
-            self.assertEqual(sub_data, [('0_creation', datetime.date(2023, 3, 1), '3_progress', 3.0, 3.0),
+            self.assertEqual(sub_data, [('0_creation', datetime.date(2023, 3, 1), '1_draft', 3.0, 3.0),
                                         ('1_expansion', datetime.date(2023, 3, 2), '3_progress', 7.0, 10.0),
                                         ('15_contraction', datetime.date(2023, 3, 10), '3_progress', -4.0, 6.0)])
 
@@ -2867,11 +2867,11 @@ class TestSubscription(TestSubscriptionCommon):
             sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly)
                         for log in order_log_ids]
             self.assertEqual(sub_data,
-                             [('0_creation', datetime.date(2021, 1, 1), '3_progress', 21.0, 21.0),
-                              ('3_transfer', datetime.date(2021, 1, 1), '5_renewed', -21.0, 0.0)])
+                             [('0_creation', datetime.date(2021, 1, 1), '1_draft', 21.0, 21.0),
+                              ('3_transfer', datetime.date(2021, 1, 1), '3_progress', -21.0, 0.0)])
             order_log_ids = renewal_so.order_log_ids.sorted('id')
             renew_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log in order_log_ids]
-            self.assertEqual(renew_data, [('3_transfer', datetime.date(2021, 1, 1), '3_progress', 21, 21),
+            self.assertEqual(renew_data, [('3_transfer', datetime.date(2021, 1, 1), '2_renewal', 21, 21),
                                           ('1_expansion', datetime.date(2021, 1, 1), '3_progress', 42.0, 63)])
 
     def test_subscription_pricelist_discount(self):
@@ -2971,13 +2971,13 @@ class TestSubscription(TestSubscriptionCommon):
             order_log_ids = sub.order_log_ids.sorted('id')
             sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log in
                         order_log_ids]
-            self.assertEqual(sub_data, [('0_creation', today, '3_progress', 21, 21),
+            self.assertEqual(sub_data, [('0_creation', today, '1_draft', 21, 21),
                                         ('1_expansion', today, '3_progress', 21.0, 42.0),
-                                        ('3_transfer', today, '5_renewed', -42, 0)])
+                                        ('3_transfer', today, '3_progress', -42, 0)])
             renew_logs = renewal_so.order_log_ids.sorted('id')
             renew_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log
                         in renew_logs]
-            self.assertEqual(renew_data, [('3_transfer', today, '3_progress', 42, 42),
+            self.assertEqual(renew_data, [('3_transfer', today, '2_renewal', 42, 42),
                                         ('1_expansion', today, '3_progress', 21.0, 63.0)])
 
     def test_paused_resume_logs(self):
@@ -3005,7 +3005,7 @@ class TestSubscription(TestSubscriptionCommon):
         order_log_ids = sub.order_log_ids.sorted('id')
         sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly)
                     for log in order_log_ids]
-        self.assertEqual(sub_data, [('0_creation', today, '3_progress', 21, 21)])
+        self.assertEqual(sub_data, [('0_creation', today, '1_draft', 21, 21)])
 
     def test_renewal_different_period(self):
         """ When a renewal quote is negotiated for more than a month, we need to update the start date of the
@@ -3401,16 +3401,16 @@ class TestSubscription(TestSubscriptionCommon):
         order_log_ids = self.env['sale.order.log'].search([('order_id', 'in', (sub_negative_recurring|renewal_so1).ids)], order='id')
         sub_data1 = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly)
                     for log in order_log_ids]
-        self.assertEqual(sub_data1, [('0_creation', datetime.date(2023, 1, 1), '3_progress', 0, 0),
-                                     ('3_transfer', datetime.date(2023, 2, 15), '3_progress', 0, 0),
-                                     ('3_transfer', datetime.date(2023, 2, 15), '5_renewed', 0, 0)])
+        self.assertEqual(sub_data1, [('0_creation', datetime.date(2023, 1, 1), '1_draft', 0, 0),
+                                     ('3_transfer', datetime.date(2023, 2, 15), '5_renewed', 0, 0),
+                                     ('3_transfer', datetime.date(2023, 2, 15), '2_renewal', 0, 0)])
 
         order_log_ids = self.env['sale.order.log'].search([('order_id', 'in', (negative_nonrecurring_sub|renewal_so2).ids)], order='id')
         sub_data2 = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly)
                     for log in order_log_ids]
-        self.assertEqual(sub_data2, [('0_creation', datetime.date(2023, 1, 1), '3_progress', 0, 0),
-                                     ('3_transfer', datetime.date(2023, 2, 15), '3_progress', 0, 0),
-                                     ('3_transfer', datetime.date(2023, 2, 15), '5_renewed', 0, 0)])
+        self.assertEqual(sub_data2, [('0_creation', datetime.date(2023, 1, 1), '1_draft', 0, 0),
+                                     ('3_transfer', datetime.date(2023, 2, 15), '5_renewed', 0, 0),
+                                     ('3_transfer', datetime.date(2023, 2, 15), '2_renewal', 0, 0)])
         self.assertEqual(renewal_so1.recurring_monthly, -480, "The MRR field is negative but it does not produce logs")
         self.assertEqual(renewal_so2.recurring_monthly, -140, "The MRR field is negative but it does not produce logs")
 
@@ -3498,81 +3498,6 @@ class TestSubscription(TestSubscriptionCommon):
             'subscription_state': '6_churn',
             'action': 'next_activity',
         }])
-
-    def test_multiple_churn_log(self):
-        with freeze_time("2024-01-22"):
-            subscription = self.env['sale.order'].create({
-                'name': 'TestSubscription',
-                'is_subscription': True,
-                'partner_id': self.user_portal.partner_id.id,
-                'pricelist_id': self.company_data['default_pricelist'].id,
-                'plan_id': self.plan_month.id,
-                'sale_order_template_id': self.subscription_tmpl.id,
-            })
-            subscription._onchange_sale_order_template_id()
-            self.flush_tracking()
-            subscription.action_confirm()
-            self.flush_tracking()
-            self.env['sale.order']._cron_recurring_create_invoice()
-            self.flush_tracking()
-            # create crappy logs to simulate issues on history logs
-            self.env['sale.order.log'].sudo().create([
-                {
-                    'event_type': '2_churn',
-                    'event_date': fields.Date.today() + relativedelta(days=6),
-                    'order_id': subscription.id,
-                    'origin_order_id': subscription.id,
-                    'amount_signed': - subscription.recurring_monthly,
-                    'recurring_monthly': 0,
-                    'currency_id': subscription.currency_id.id,
-                    'subscription_state': '6_churn',
-                }, {
-                    'event_type': '2_churn',
-                    'event_date': fields.Date.today(),
-                    'order_id': subscription.id,
-                    'origin_order_id': subscription.id,
-                    'amount_signed': - subscription.recurring_monthly,
-                    'recurring_monthly': 0,
-                    'currency_id': subscription.currency_id.id,
-                    'subscription_state': '6_churn',
-                }, {
-                    'event_type': '0_creation',
-                    'event_date': fields.Date.today() + relativedelta(days=5),
-                    'order_id': subscription.id,
-                    'origin_order_id': subscription.id,
-                    'amount_signed': subscription.recurring_monthly,
-                    'recurring_monthly': subscription.recurring_monthly,
-                    'currency_id': subscription.currency_id.id,
-                    'subscription_state': '3_progress',
-                }
-            ])
-        with freeze_time("2024-02-02"):
-            subscription.set_close()
-            self.flush_tracking()
-        order_log_ids = subscription.order_log_ids.sorted('id')
-        sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly)
-            for log in order_log_ids]
-
-        self.assertEqual(sub_data, [
-            ('0_creation', datetime.date(2024, 1, 22), '3_progress', 21.0, 21.0),
-            ('2_churn', datetime.date(2024, 1, 28), '6_churn', -21.0, 0.0), # weird order by design to make sure it does not affect the business logic
-            ('2_churn', datetime.date(2024, 1, 22), '6_churn', -21.0, 0.0), # order by date is correct
-            ('0_creation', datetime.date(2024, 1, 27), '3_progress', 21.0, 21.0),
-            ('2_churn', datetime.date(2024, 2, 2), '6_churn', -21.0, 0.0),
-        ])
-
-        with freeze_time("2024-02-03"):
-            subscription.reopen_order()
-        self.flush_tracking()
-        order_log_ids = subscription.order_log_ids.sorted('id')
-        sub_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly)
-                    for log in order_log_ids]
-        self.assertEqual(sub_data, [
-            ('0_creation', datetime.date(2024, 1, 22), '3_progress', 21.0, 21.0),
-            ('2_churn', datetime.date(2024, 1, 28), '6_churn', -21.0, 0.0), # weird order by id, order by date is more logical
-            ('2_churn', datetime.date(2024, 1, 22), '6_churn', -21.0, 0.0),
-            ('0_creation', datetime.date(2024, 1, 27), '3_progress', 21.0, 21.0),
-        ], "The last churn is removed")
 
     def test_recurring_plan_price_recalc_adding_optional_product(self):
         """

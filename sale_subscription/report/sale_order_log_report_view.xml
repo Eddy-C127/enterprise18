@@ -38,7 +38,7 @@
         <field name="arch" type="xml">
             <tree string="Subscription Log Analysis" create="0" delete="0"
                   decoration-muted="event_type == '3_transfer'"
-                  default_order="order_id asc, event_date desc, id desc"
+                  default_order="order_id desc, id desc"
                   action="action_open_sale_order" type="object">
                 <field name="id" groups="base.group_no_one"/>
                 <field name="order_id"/>
@@ -95,10 +95,7 @@
         <field name="name">MRR Analysis</field>
         <field name="res_model">sale.order.log.report</field>
         <field name="view_mode">graph,tree,pivot</field>
-        <field name="context">{
-            'search_default_group_by_event_date': 1,
-            }
-        </field>
+        <field name="context">{}</field>
     </record>
 
     <record id="sale_order_log_analysis_action_graph" model="ir.actions.act_window.view">

@@ -293,7 +293,8 @@
                     decoration-success="state == 'sale'"
                     decoration-info="state == 'draft'"
                     decoration-primary="state == 'sent'"
-                    widget="badge" optional="hide"/>            <field name="pricelist_id" readonly="1" column_invisible="True"/>
+                    widget="badge" optional="hide"/>
+            <field name="pricelist_id" readonly="1" column_invisible="True"/>
             <field name="currency_id" readonly="1" column_invisible="True"/>
             <field name="invoice_status" column_invisible="True"/>
         </tree>
