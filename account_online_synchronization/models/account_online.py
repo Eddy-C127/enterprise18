@@ -316,7 +316,7 @@ class AccountOnlineLink(models.Model):
     client_id = fields.Char(help="Represent a link for a given user towards a banking institution", readonly=True)
     refresh_token = fields.Char(help="Token used to sign API request, Never disclose it",
                                 readonly=True, groups="base.group_system")
-    access_token = fields.Char(help="Token used to access API.", readonly=True, groups="account.group_account_user")
+    access_token = fields.Char(help="Token used to access API.", readonly=True, groups="account.group_account_basic")
     provider_data = fields.Char(help="Information needed to interact with third party provider", readonly=True)
     expiring_synchronization_date = fields.Date(help="Date when the consent for this connection expires",
                                                 readonly=True)

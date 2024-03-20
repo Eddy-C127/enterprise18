@@ -2,18 +2,14 @@
 
     import { _t } from "@web/core/l10n/translation";
     import { registry } from "@web/core/registry";
-    import { stepUtils } from "@web_tour/tour_service/tour_utils";
     import { patch } from "@web/core/utils/patch";
     import { markup } from "@odoo/owl";
+    import { accountTourSteps } from "@account/js/tours/account";
 
-    // Update the invoicing tour as the menu items have changed, but we want the test to still work
     patch(registry.category("web_tour.tours").get("account_tour"), {
         steps() {
             const originalSteps = super.steps();
-            originalSteps.splice(0, 3,
-                ...stepUtils
-                    .goToAppSteps("account_accountant.menu_accounting", _t("Go to invoicing"))
-                    .map((step) => Object.assign(step, { auto: true })),
+            originalSteps.splice(3, 0,
                 {
                     trigger: 'button[data-menu-xmlid="account.menu_finance_receivables"]',
                     content: _t('Go to invoicing'),
@@ -40,7 +36,7 @@
             url: "/web",
             sequence: 50,
             steps: () => [
-            ...stepUtils.goToAppSteps('account_accountant.menu_accounting', _t('Let’s automate your bills, bank transactions and accounting processes.')),
+            ...accountTourSteps.goToAccountMenu('Let’s automate your bills, bank transactions and accounting processes.'),
             // The tour will stop here if there is at least 1 vendor bill in the database.
             // While not ideal, it is ok, since that means the user obviously knows how to create a vendor bill...
             {

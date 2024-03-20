@@ -2,6 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
+import { accountTourSteps } from "@account/js/tours/account";
 
 registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
     {
@@ -9,7 +10,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         url: '/web',
         steps: () => [
         stepUtils.showAppsMenuItem(),
-        ...stepUtils.goToAppSteps('account_accountant.menu_accounting', "Open the accounting module"),
+        ...accountTourSteps.goToAccountMenu("Open the accounting module"),
 
         // Open the widget. The first line should be selected by default.
         {
@@ -603,10 +604,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         // Test the Balance when changing journal and liquidity line
         stepUtils.toggleHomeMenu(),
-        ...stepUtils.goToAppSteps(
-            'account_accountant.menu_accounting',
-            "Reset back to accounting module"
-        ),
+        ...accountTourSteps.goToAccountMenu("Reset back to accounting module"),
         {
             content: "Open the bank reconciliation widget for Bank2",
             extra_trigger: ".o_breadcrumb",
@@ -737,10 +735,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         // End
         stepUtils.toggleHomeMenu(),
-        ...stepUtils.goToAppSteps(
-            'account_accountant.menu_accounting',
-            "Reset back to accounting module"
-        ),
+        ...accountTourSteps.goToAccountMenu("Reset back to accounting module"),
         {
             content: "check that we're back on the dashboard",
             trigger: 'a:contains("Customer Invoices")',

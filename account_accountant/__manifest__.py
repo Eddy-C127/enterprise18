@@ -1,22 +1,21 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'Accounting',
+    'name': 'Invoicing',
     'version': '1.1',
     'category': 'Accounting/Accounting',
     'sequence': 30,
-    'summary': 'Manage financial and analytic accounting',
+    'summary': 'Invoices, Payments, Follow-ups & Bank synchronization (Enterprise)',
+    'icon': '/account/static/description/icon.png',
     'description': """
-Accounting Access Rights
+Invoicing Access Rights
 ========================
-It gives the Administrator user access to all accounting features such as journal items and the chart of accounts.
+It gives the Administrator user access to important invoicing features such as bank recon and tax report.
 
-It assigns manager and user access rights to the Administrator for the accounting application and only user rights to the Demo user.
 """,
     'website': 'https://www.odoo.com/app/accounting',
     'depends': ['account', 'mail_enterprise', 'web_tour'],
     'data': [
-        'data/account_accountant_data.xml',
         'data/ir_cron.xml',
         'data/digest_data.xml',
 
@@ -41,9 +40,8 @@ It assigns manager and user access rights to the Administrator for the accountin
         'wizard/account_reconcile_wizard.xml',
         'wizard/reconcile_model_wizard.xml',
     ],
-    'demo': ['data/account_accountant_demo.xml'],
     'installable': True,
-    'application': True,
+    'auto_install': True,
     'post_init_hook': '_account_accountant_post_init',
     'uninstall_hook': "uninstall_hook",
     'license': 'OEEL-1',

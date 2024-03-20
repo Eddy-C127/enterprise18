@@ -23,7 +23,7 @@
                         <button string="Follow up" name="%(manual_reminder_action)d"
                                 type="action" class="button btn-secondary" invisible="followup_status == 'in_need_of_action'"/>
                         <button string="Reconcile" name="action_open_unreconciled_partner"
-                                class="btn btn-secondary" type="object"/>
+                                class="btn btn-secondary" type="object" groups="account.group_account_user"/>
                         <field name="followup_line_id" widget="statusbar" options="{'clickable': '1'}"/>
                     </header>
                     <sheet>
@@ -164,7 +164,7 @@
             </field>
         </record>
 
-        <menuitem id="customer_statements_menu" name="Follow-up Reports" parent="account.menu_finance_receivables" groups="account.group_account_invoice"
+        <menuitem id="customer_statements_menu" name="Follow-up Reports" parent="account.account_reports_partners_reports_menu" groups="account.group_account_invoice"
                 action="action_view_list_customer_statements" sequence="20"/>
 
     </data>

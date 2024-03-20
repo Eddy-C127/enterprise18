@@ -22,7 +22,7 @@ of recall defined. You can define different policies for different companies.
 
 """,
     'website': 'https://www.odoo.com/app/invoicing',
-    'depends': ['account', 'mail', 'sms', 'account_reports'],
+    'depends': ['account', 'mail', 'sms', 'account_accountant'],
     'data': [
         'security/account_followup_security.xml',
         'security/ir.model.access.csv',
