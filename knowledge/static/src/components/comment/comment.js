@@ -67,7 +67,6 @@ export class KnowledgeCommentsThread extends Component {
         // Main anchor used for the positioning
         this.mainAnchor = this.anchors[0];
         this.state = useState({
-            loading: true,
             commenting: false,
             thread: this.props.thread,
             isResolved: this.props.isResolved,
@@ -146,7 +145,6 @@ export class KnowledgeCommentsThread extends Component {
             this.mainAnchor = nextProps.anchors[0];
         });
         onMounted(() => {
-            this.state.loading = false;
             // If the returned string is longer than 50, this means that the getter added the
             // ellipsis at the end of the text and the original text is longer than 50 chars.
             // Thus we need to show the `Read More` and `Read Less` buttons.
