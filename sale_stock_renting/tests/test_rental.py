@@ -521,11 +521,49 @@ class TestRentalPicking(TestRentalCommon):
         final_picking.button_validate()
 
     def test_flow_serial(self):
+        empty_lot = self.env['stock.lot'].create({
+            'product_id': self.tracked_product_id.id,
+            'name': "Dofus Ocre",
+            'company_id': self.env.company.id,
+        })
+        available_lot = self.env['stock.lot'].create({
+            'product_id': self.tracked_product_id.id,
+            'name': "Dofawa",
+            'company_id': self.env.company.id,
+        })
+        available_quant = self.env['stock.quant'].create({
+            'product_id': self.tracked_product_id.id,
+            'inventory_quantity': 1.0,
+            'lot_id': available_lot.id,
+            'location_id': self.env.user._get_default_warehouse_id().lot_stock_id.id
+        })
+        reserved_lot = self.env['stock.lot'].create({
+            'product_id': self.tracked_product_id.id,
+            'name': "Dolmanax",
+            'company_id': self.env.company.id,
+        })
+        reserved_quant = self.env['stock.quant'].create({
+            'product_id': self.tracked_product_id.id,
+            'inventory_quantity': 1.0,
+            'lot_id': reserved_lot.id,
+            'location_id': self.env.user._get_default_warehouse_id().lot_stock_id.id
+        })
+        (available_quant + reserved_quant).action_apply_inventory()
+
+        # Reserve 1 serial
+        reserved_rental = self.sale_order_id.copy()
+        reserved_rental.order_line.write({'product_id': self.tracked_product_id.id, 'reserved_lot_ids': reserved_lot, 'product_uom_qty': 1})
+        reserved_rental.order_line.is_rental = True
+        reserved_rental.rental_start_date = self.rental_start_date
+        reserved_rental.rental_return_date = self.rental_return_date
+        reserved_rental.action_confirm()
+
+        # Test with 3 serials: 1 available, 1 reserved and 1 empty
         rental_order_1 = self.sale_order_id.copy()
         rental_order_1.order_line.write({
             'product_id': self.tracked_product_id.id,
-            'reserved_lot_ids': [Command.set(self.lot_id3.ids)],
-            'product_uom_qty': 2,
+            'reserved_lot_ids': [Command.set((available_lot + reserved_lot + empty_lot).ids)],
+            'product_uom_qty': 3,
         })
         rental_order_1.order_line.is_rental = True
         rental_order_1.rental_start_date = self.rental_start_date
@@ -534,20 +572,22 @@ class TestRentalPicking(TestRentalCommon):
         self.assertEqual(len(rental_order_1.picking_ids), 2)
 
         outgoing_picking = rental_order_1.picking_ids.filtered(lambda p: p.state == 'assigned')
-        self.assertEqual(len(outgoing_picking.move_ids.move_line_ids), 2)
-        self.assertEqual(outgoing_picking.move_ids.move_line_ids.lot_id, self.lot_id3 + self.lot_id2)
+        self.assertEqual(len(outgoing_picking.move_ids.move_line_ids), 3)
+        self.assertEqual(outgoing_picking.move_ids.move_line_ids.lot_id, self.lot_id2 + self.lot_id3 + available_lot)
 
         outgoing_picking.button_validate()
-        self.assertEqual(rental_order_1.order_line.qty_delivered, 2)
+        self.assertEqual(rental_order_1.order_line.qty_delivered, 3)
+        self.assertEqual(available_lot.quant_ids.filtered(lambda q: q.quantity == 1).location_id, self.env.company.rental_loc_id)
         self.assertEqual(self.lot_id2.quant_ids.filtered(lambda q: q.quantity == 1).location_id, self.env.company.rental_loc_id)
         self.assertEqual(self.lot_id3.quant_ids.filtered(lambda q: q.quantity == 1).location_id, self.env.company.rental_loc_id)
 
         incoming_picking = rental_order_1.picking_ids.filtered(lambda p: p.state == 'assigned')
-        self.assertEqual(len(incoming_picking.move_ids.move_line_ids), 2)
-        self.assertEqual(incoming_picking.move_ids.move_line_ids.lot_id, self.lot_id3 + self.lot_id2)
+        self.assertEqual(len(incoming_picking.move_ids.move_line_ids), 3)
+        self.assertEqual(incoming_picking.move_ids.move_line_ids.lot_id, self.lot_id2 + self.lot_id3 + available_lot)
 
         incoming_picking.button_validate()
-        self.assertEqual(rental_order_1.order_line.qty_returned, 2)
+        self.assertEqual(rental_order_1.order_line.qty_returned, 3)
+        self.assertEqual(available_lot.quant_ids.filtered(lambda q: q.quantity == 1).location_id, self.warehouse_id.lot_stock_id)
         self.assertEqual(self.lot_id2.quant_ids.filtered(lambda q: q.quantity == 1).location_id, self.warehouse_id.lot_stock_id)
         self.assertEqual(self.lot_id3.quant_ids.filtered(lambda q: q.quantity == 1).location_id, self.warehouse_id.lot_stock_id)
 
