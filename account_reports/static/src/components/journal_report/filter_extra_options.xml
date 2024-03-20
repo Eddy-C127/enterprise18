@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_reports.JournalReportFilterExtraOptions" t-inherit="account_reports.AccountReportFilterExtraOptions">
-        <xpath expr="//DropdownItem[contains(@class, 'filter_show_draft_hook')]" position="after">
+        <xpath expr="//Dropdown/t[@t-set-slot='content']" position="inside">
             <DropdownItem
                 class="{ 'selected': controller.options.show_payment_lines }"
                 onSelected="() => this.filterClicked('show_payment_lines')"
@@ -9,23 +9,6 @@
             >
                 Include Payments
             </DropdownItem>
-
-            <DropdownItem
-                class="{ 'selected': controller.options.sort_by_date }"
-                onSelected="() => this.filterClicked('sort_by_date')"
-                closingMode="'none'"
-            >
-                Sort By Date
-            </DropdownItem>
-
-            <DropdownItem
-                class="{ 'selected': controller.options.group_by_months }"
-                onSelected="() => this.filterClicked('group_by_months')"
-                closingMode="'none'"
-            >
-                Group By Months
-            </DropdownItem>
-
         </xpath>
     </t>
 </templates>

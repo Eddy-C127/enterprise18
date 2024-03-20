@@ -50,7 +50,7 @@
                                                 </t>
 
                                                 <td>
-                                                    <a
+                                                    <a class="link"
                                                         t-on-click="(ev) => controller.reportAction(ev,
                                                             'journal_report_action_dropdown_audit_default_tax_report', {
                                                                 line_id: tax.line_id,
@@ -114,10 +114,10 @@
                                                 </t>
 
                                                 <td>
-                                                    <a
+                                                    <a class="link"
                                                         t-on-click="(ev) => controller.reportAction(ev,
                                                             'journal_report_tax_tag_template_open_aml', {
-                                                                tag_id: taxGrids[country][grid]['tag_id'],
+                                                                tag_id: taxGrids[country][grid]['tag_ids'],
                                                                 date_form: props.line.date_from,
                                                                 date_to: props.line.date_to,
                                                         })"

@@ -1,874 +1,624 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import io
+import datetime
+
+from PIL import ImageFont
+from markupsafe import Markup
 
 from odoo import models, _
-from odoo.tools import format_date, date_utils, get_lang, SQL
+from odoo.tools import get_lang, SQL
+from odoo.tools.misc import xlsxwriter, file_path
 from collections import defaultdict
-from odoo.exceptions import UserError, RedirectWarning
 
-import json
-import datetime
+XLSX_GRAY_200 = '#EEEEEE'
+XLSX_BORDER_COLOR = '#B4B4B4'
+XLSX_FONT_SIZE_DEFAULT = 8
+XLSX_FONT_SIZE_HEADING = 11
 
 
 class JournalReportCustomHandler(models.AbstractModel):
-    _name = 'account.journal.report.handler'
-    _inherit = 'account.report.custom.handler'
-    _description = 'Journal Report Custom Handler'
+    _name = "account.journal.report.handler"
+    _inherit = "account.report.custom.handler"
+    _description = "Journal Report Custom Handler"
+
+    def _custom_options_initializer(self, report, options, previous_options=None):
+        """ Initialize the options for the journal report. """
+
+        # Initialise the custom option for this report.
+        options['ignore_totals_below_sections'] = True
+        options['show_payment_lines'] = previous_options.get('show_payment_lines', True) if previous_options else True
 
     def _get_custom_display_config(self):
         return {
             'css_custom_class': 'journal_report',
+            'pdf_css_custom_class': 'journal_report_pdf',
             'components': {
                 'AccountReportLine': 'account_reports.JournalReportLine',
             },
             'templates': {
                 'AccountReportFilters': 'account_reports.JournalReportFilters',
-                'AccountReportHeader': 'account_reports.JournalReportHeader',
                 'AccountReportLineName': 'account_reports.JournalReportLineName',
-            },
-            'pdf_export': {
-                'pdf_export_main_table_header': 'account_reports.journal_report_pdf_export_main_table_header',
-                'pdf_export_filters': 'account_reports.journal_report_pdf_export_filters',
-                'pdf_export_main_table_body': 'account_reports.journal_report_pdf_export_main_table_body',
-            },
-        }
-
-    def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
-        """ Returns the first level of the report, journal lines. """
-        journal_query_res = self._query_journal(options)
-
-        # Set the options with the journals that should be unfolded by default.
-        lines = []
-        unfolded_journals = []
-        for journal_index, (journal_id, journal_vals) in enumerate(journal_query_res.items()):
-            journal_key = report._get_generic_line_id('account.journal', journal_id)
-            unfolded = journal_key in options.get('unfolded_lines') or options.get('unfold_all')
-            if unfolded:
-                unfolded_journals.append(unfolded)
-            lines.append(self._get_journal_line(options, journal_key, journal_vals, unfolded, is_first_journal=len(unfolded_journals) == 1))
-        global_tax_summary_lines = self._get_global_tax_summary_lines(options)
-        lines.extend(global_tax_summary_lines)
-
-        return [(0, line) for line in lines]
-
-    def _get_global_tax_summary_lines(self, options):
-        # It is faster to first check that we need a tax section; this avoids computing a tax report for nothing.
-        aml_has_tax_domain = [('tax_ids', '!=', False)]
-        if options.get('date', {}).get('date_from'):
-            aml_has_tax_domain.append(('date', '>=', options['date']['date_from']))
-        if options.get('date', {}).get('date_to'):
-            aml_has_tax_domain.append(('date', '<=', options['date']['date_to']))
-        has_tax = bool(self.env['account.move.line'].search_count(aml_has_tax_domain, limit=1))
-        if not has_tax:
-            return []
-
-        report = self.env.ref('account_reports.journal_report')
-        tax_data = {
-            'date_from': options.get('date', {}).get('date_from'),
-            'date_to': options.get('date', {}).get('date_to'),
-        }
-        # This is a special line with a special template to render it.
-        # It will contain two tables, which are the tax report and tax grid summary sections.
-        tax_report_lines = self._get_generic_tax_summary_for_sections(options, tax_data)
-
-        tax_non_deductible_column = any(line.get('tax_non_deductible_no_format') for lines_per_country in tax_report_lines.values() for line in lines_per_country)
-        tax_deductible_column = any(line.get('tax_deductible_no_format') for lines_per_country in tax_report_lines.values() for line in lines_per_country)
-        tax_due_column = any(line.get('tax_due_no_format') for lines_per_country in tax_report_lines.values() for line in lines_per_country)
-        extra_columns = int(tax_non_deductible_column) + int(tax_deductible_column) + int(tax_due_column)
-
-        tax_grid_summary_lines = self._get_tax_grids_summary(options, tax_data)
-
-        if not tax_report_lines and not tax_grid_summary_lines:
-            return []
-
-        return [
-            {
-                'id': report._get_generic_line_id(False, False, markup='tax_report_section_heading'),
-                'name': _('Global Tax Summary'),
-                'level': 0,
-                'columns': [],
-                'unfoldable': False,
-                'page_break': True,
-                'colspan': len(options['columns']) + 1  # We want it to take the whole line. It makes it easier to unfold it.
-            },
-            {
-                'id': report._get_generic_line_id(False, False, markup='tax_report_section'),
-                'name': '',
-                'is_tax_section_line': True,
-                'tax_report_lines': tax_report_lines,
-                'tax_non_deductible_column': tax_non_deductible_column,
-                'tax_deductible_column': tax_deductible_column,
-                'tax_due_column': tax_due_column,
-                'extra_columns': extra_columns,
-                'tax_grid_summary_lines': tax_grid_summary_lines,
-                'date_from': tax_data['date_from'],
-                'date_to': tax_data['date_to'],
-                'columns': [],
-                'colspan': len(options['columns']) + 1,
-                'level': 3,
-                'class': 'o_account_reports_ja_subtable',
-            },
-        ]
-
-    def _custom_options_initializer(self, report, options, previous_options=None):
-        """ Initialize the options for the journal report. """
-        # This dictionnary makes it possible to make options unavailable for the report. The structure of the dictionnary is
-        # { <type: str - Name of the disabled option>: <type: tuple - tuple containing striclty two elements, a and b> }
-        # with a <type: list - list of the keys that must be reached in the options dictionnary to get the value to test>
-        # and b <type: list - list of the values that are authorized for the said option>
-        restricted_options = {
-            _("Analytic Accounts Groupby"): (['analytic_accounts_groupby'], []),
-            _("Analytic Plans Groupby"): (['analytic_plans_groupby'], []),
-            _("Horizontal Grouping"): (['selected_horizontal_group_id'], []),
-            _("Period comparison"): (['comparison', 'filter'], ['no_comparison']),
-        }
-        for name, (path, authorized_value) in restricted_options.items():
-            option = options
-            while path and option:
-                option = option.get(path.pop(0))
-
-            if option and (not authorized_value or option not in authorized_value):
-                raise UserError(name + _(" is not supported by the Journal Report"))
-
-        super()._custom_options_initializer(report, options, previous_options=previous_options)
-        # Initialise the custom options for this report.
-        custom_filters = {
-            'sort_by_date': False,
-            'group_by_months': False,
-            'show_payment_lines': True,
-        }
-        for name, default_val in custom_filters.items():
-            options[name] = (previous_options or {}).get(name, default_val)
-
-        # if no journal is selected (so, all are) and no other line is unfolded, unfold the first journal
-        # Ensure that all selected journals are unfolded by default
-        available_journal_ids = {j['id'] for j in options['journals']}
-        selected_journal_ids = {j['id'] for j in options['journals'] if j.get('selected', False)}
-        any_unfolded_journal = any(report._parse_line_id(unfolded_line)[-1][1] == 'account.journal' for unfolded_line in options['unfolded_lines'] if report._parse_line_id(unfolded_line)[-1][2] in available_journal_ids)
-        unfolded_lines = options['unfolded_lines']
-        if selected_journal_ids:
-            for journal_id in selected_journal_ids:
-                line_id = report._get_generic_line_id('account.journal', journal_id)
-                if line_id not in unfolded_lines:
-                    unfolded_lines.append(line_id)
-        elif not any_unfolded_journal and not options['export_mode'] == 'print':
-            line_id = report._get_generic_line_id('account.journal', next(iter(available_journal_ids)))
-            if line_id not in unfolded_lines:
-                unfolded_lines.append(line_id)
-
-        if self.env.user.has_group('base.group_multi_currency'):
-            options['multi_currency'] = True
-
-    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
-        if options['export_mode'] != 'print':
-            return lines
-        new_lines = []
-        for line in lines:
-            model_info = self.env['account.report']._get_model_info_from_id(line['id'])
-            if model_info[0] == 'account.journal' and line.get('unfolded', False) or model_info[0] != 'account.journal':
-                new_lines.append(line)
-        return new_lines
-
-    def _query_journal(self, options):
-        queries = []
-        report = self.env.ref('account_reports.journal_report')
-        lang = self.env.user.lang or get_lang(self.env).code
-        j_name = self.with_context(lang=lang).env['account.journal']._field_to_sql('j', 'name')
-
-        for column_group_key, options_group in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_table_expression(options_group, 'strict_range')  # pylint: disable=unused-variable
-            queries.append(SQL("""
-                SELECT
-                    %(column_group_key)s as column_group_key,
-                    j.id,
-                    %(j_name)s as name,
-                    j.code,
-                    j.type,
-                    j.currency_id,
-                    journal_curr.name as currency_name,
-                    cp.currency_id as company_currency
-                FROM account_journal j
-                JOIN account_move_line ON j.id = account_move_line.journal_id
-                JOIN res_company cp ON cp.id = "account_move_line".company_id
-                LEFT JOIN res_currency journal_curr on journal_curr.id = j.currency_id
-                WHERE %(search_condition)s
-                GROUP BY
-                    j.id, %(j_name)s, j.code, j.type, j.currency_id, journal_curr.name, cp.currency_id
-                ORDER BY j.id
-            """, column_group_key=column_group_key, j_name=j_name, search_condition=search_condition))
-
-        rslt = {}
-        self._cr.execute(SQL(" UNION ALL ").join(SQL("(%s)", query) for query in queries))
-        for journal_res in self._cr.dictfetchall():
-            if journal_res['id'] not in rslt:
-                rslt[journal_res['id']] = {col_group_key: {} for col_group_key in options['column_groups']}
-            rslt[journal_res['id']][journal_res['column_group_key']] = journal_res
-
-        return rslt
-
-    ##########################################################################
-    # Get lines methods
-    ##########################################################################
-
-    def _get_lines_for_group(self, options, parent_line_id, journal, progress, offset):
-        """ Create the report lines for a group of moves. A group is either a journal, or a month if the report is grouped by month."""
-
-        def cumulate_balance(line, current_balances, is_unreconciled_payment):
-            # For bank journals, we want to cumulate the balances and display their evolution line by line until the end.
-            for column_group_key in options['column_groups']:
-                # For bank journals, we want to cumulate the balances and display their evolution line by line until the end.
-                if journal.type == 'bank' and line[column_group_key]['account_type'] not in ('liability_credit_card', 'asset_cash') and not is_unreconciled_payment:
-                    current_balances[column_group_key] += -line[column_group_key]['balance']
-                    line[column_group_key]['cumulated_balance'] = current_balances[column_group_key]
-
-        lines, after_load_more_lines = [], []
-        current_balances, next_progress = {}, {}
-        # Treated result count also consider the lines not rendered in the report, and is used for the query offset.
-        # Rendered line count does not consider the lines not rendered, and allows to stop rendering more when the quota has been reached.
-        treated_results_count = 0
-        has_more_lines = False
-
-        eval_dict = self._query_aml(options, offset, journal)
-        if offset == 0:
-            lines.append(self._get_columns_line(options, parent_line_id, journal.type))
-
-        if journal.type == 'bank':
-            # Get initial balance, only if the journal is of type 'bank', and we have no offset yet (first unfolding)
-            if offset == 0:
-                if journal.type == 'bank':
-                    init_balance_by_col_group = self._get_journal_initial_balance(options, journal.id)
-                    initial_balance_line = self._get_journal_balance_line(
-                        options, parent_line_id, init_balance_by_col_group, is_starting_balance=True)
-                    if initial_balance_line:
-                        lines.append(initial_balance_line)
-                        # For the first expansion of the line, the initial balance line gives the progress
-                        progress = {
-                            column['column_group_key']: line_col.get('no_format', 0.0)
-                            for column, line_col in zip(options['columns'], initial_balance_line['columns'])
-                            if column['expression_label'] == 'additional_col_1'
-                        }
-            # Weither we just fetched them or not, the balance is now in the progress.
-            for column_group_key in options['column_groups']:
-                current_balances[column_group_key] = progress.get(column_group_key, 0.0)
-
-        # Group the lines by moves, to simplify the following code.
-        line_dict_grouped = self._group_lines_by_move(options, eval_dict, parent_line_id)
-
-        report = self.env.ref('account_reports.journal_report')
-
-        treated_amls_count = 0
-        for move_key, move_line_vals_list in line_dict_grouped.items():
-            # All move lines for a move will share static values, like if the move is multicurrency, the journal,..
-            # These can be fetched using any column groups or lines for this move.
-            first_move_line = move_line_vals_list[0]
-            general_line_vals = next(col_group_val for col_group_val in first_move_line.values())
-            if report.load_more_limit and len(move_line_vals_list) + treated_amls_count > report.load_more_limit and options['export_mode'] != 'print':
-                # This element won't generate a line now, but we use it to know that we'll need to add a load_more line.
-                has_more_lines = True
-                if treated_amls_count == 0:
-                    # A single move lines count exceed the load more limit, we need to raise to inform the user
-                    msg = _("The 'load more limit' setting of this report is too low to display all the lines of the entry you're trying to show.")
-                    if self.env.user.has_group('account.group_account_manager'):
-                        action = {
-                            "view_mode": "form",
-                            "res_model": "account.report",
-                            "type": "ir.actions.act_window",
-                            "res_id" : report.id,
-                            "views": [[self.env.ref("account_reports.account_report_form").id, "form"]],
-                        }
-                        title = _('Go to report configuration')
-
-                        raise RedirectWarning(msg, action, title)
-                    raise UserError(msg)
-                break
-            is_unreconciled_payment = journal.type == 'bank' and not any(line for line in move_line_vals_list if next(col_group_val for col_group_val in line.values())['account_type'] in ('liability_credit_card', 'asset_cash'))
-            if journal.type == 'bank':
-                cumulate_balance(first_move_line, current_balances, is_unreconciled_payment)
-
-            # Do not display payments move on bank journal if the options isn't enabled.
-            if not options.get('show_payment_lines') and is_unreconciled_payment:
-                treated_results_count += len(move_line_vals_list)   # used to get the offset
-                continue
-            # Create the first line separately, as we want to give it some specific behavior and styling
-            lines.append(self._get_first_move_line(options, parent_line_id, move_key, first_move_line, is_unreconciled_payment))
-            treated_amls_count += len(move_line_vals_list)
-            treated_results_count += 1
-            for line_index, move_line_vals in enumerate(move_line_vals_list[1:]):
-                if journal.type == 'bank':
-                    cumulate_balance(move_line_vals, current_balances, is_unreconciled_payment)
-                line = self._get_aml_line(options, parent_line_id, move_line_vals, line_index, journal, is_unreconciled_payment)
-                treated_results_count += 1
-                if line:
-                    lines.append(line)
-
-                multicurrency_name = self._get_aml_line_name(options, journal, -1, first_move_line, is_unreconciled_payment)
-                # Add a currency line if we have a foreign currency on the move but no place to put this info beforehand in the name of a line.
-                # This can happen if we have two lines only and a ref: the ref take the name of the second line and we need a new one for the currency.
-                if general_line_vals['is_multicurrency'] \
-                        and len(move_line_vals_list) == 2 \
-                        and self.env.user.has_group('base.group_multi_currency') \
-                        and lines[-1]['name'] != multicurrency_name \
-                        and journal.type != 'bank':
-                    lines.append({
-                        'id': report._get_generic_line_id('account.move.line', general_line_vals['move_id'], parent_line_id=parent_line_id, markup='amount_currency_total'),
-                        'name': multicurrency_name,
-                        'level': 3,
-                        'parent_id': parent_line_id,
-                        'columns': [{} for column in options['columns']],
-                    })
-                if journal.type == 'bank':
-                    next_progress = {
-                        column['column_group_key']: line_col.get('no_format', 0.0)
-                        for column, line_col in zip(options['columns'], lines[-1]['columns'])
-                        if column['expression_label'] == 'additional_col_1'
-                    }
-        # If we have no offsets, check if we can create a tax line: This line will contain two tables, one for the tax summary and one for the tax grid summary.
-        if offset == 0:
-            # It is faster to first check that we need a tax section; this avoids computing a tax report for nothing.
-            aml_has_tax_domain = [('journal_id', '=', journal.id), ('tax_ids', '!=', False)]
-            if options.get('date', {}).get('date_from'):
-                aml_has_tax_domain.append(('date', '>=', options['date']['date_from']))
-            if options.get('date', {}).get('date_to'):
-                aml_has_tax_domain.append(('date', '<=', options['date']['date_to']))
-            journal_has_tax = bool(self.env['account.move.line'].search_count(aml_has_tax_domain, limit=1))
-            if journal_has_tax:
-                tax_data = {
-                    'date_from': options.get('date', {}).get('date_from'),
-                    'date_to': options.get('date', {}).get('date_to'),
-                    'journal_id': journal.id,
-                    'journal_type': journal.type,
-                }
-                # This is a special line with a special template to render it.
-                # It will contain two tables, which are the tax report and tax grid summary sections.
-                tax_report_lines = self._get_generic_tax_summary_for_sections(options, tax_data)
-
-                tax_non_deductible_column = any(line.get('tax_non_deductible_no_format') for country in tax_report_lines.values() for line in country)
-                tax_deductible_column = any(line.get('tax_deductible_no_format') for country in tax_report_lines.values() for line in country)
-                tax_due_column = any(line.get('tax_due_no_format') for country in tax_report_lines.values() for line in country)
-                extra_columns = int(tax_non_deductible_column) + int(tax_deductible_column) + int(tax_due_column)
-
-                tax_grid_summary_lines = self._get_tax_grids_summary(options, tax_data)
-                if tax_report_lines or tax_grid_summary_lines:
-                    after_load_more_lines.append({
-                        'id': report._get_generic_line_id(False, False, parent_line_id=parent_line_id, markup='tax_report_section'),
-                        'name': '',
-                        'parent_id': parent_line_id,
-                        'journal_id': journal.id,
-                        'is_tax_section_line': True,
-                        'tax_report_lines': tax_report_lines,
-                        'tax_non_deductible_column': tax_non_deductible_column,
-                        'tax_deductible_column': tax_deductible_column,
-                        'tax_due_column': tax_due_column,
-                        'extra_columns': extra_columns,
-                        'tax_grid_summary_lines': tax_grid_summary_lines,
-                        'date_from': tax_data['date_from'],
-                        'date_to': tax_data['date_to'],
-                        'columns': [],
-                        'colspan': len(options['columns']) + 1,
-                        'level': 3,
-                    })
-
-        return lines, after_load_more_lines, has_more_lines, treated_results_count, next_progress, current_balances
-
-    def _get_columns_line(self, options, parent_key, journal_type):
-        """ returns the line displaying the columns used by the journal.
-        The report isn't using the table header, as different journal type needs different columns.
-
-        :param options: The report options
-        :param parent_key: the key of the parent line, journal or month
-        :param journal_type: the journal type
-        """
-        columns = []
-        has_multicurrency = self.env.user.has_group('base.group_multi_currency')
-        report = self.env['account.report'].browse(options['report_id'])
-
-        # code assumes additional_col_1 & additional_col_2 are last columns, but since no sequences are set on columns,
-        # it might happen (i.e. after db update from 16 to 17) that that's not the case.
-        options['columns'] = sorted(options['columns'], key=lambda col: col.get('expression_label') in ['additional_col_1', 'additional_col_2'])
-        for column in options['columns']:
-            if column['expression_label'] == 'additional_col_1':
-                if journal_type in ['sale', 'purchase']:
-                    col_value = _('Taxes')
-                elif journal_type == 'bank':
-                    col_value = _('Balance')
-                else:
-                    col_value = ''
-            elif column['expression_label'] == 'additional_col_2':
-                if journal_type in ['sale', 'purchase']:
-                    col_value = _('Tax Grids')
-                elif journal_type == 'bank' and has_multicurrency:
-                    col_value = _('Amount In Currency')
-                else:
-                    col_value = ''
-            elif column['expression_label'] == 'invoice_date':
-                col_value = column['name'] if journal_type in ['sale', 'purchase', 'general'] else ''
-
-            else:
-                col_value = column['name']
-
-            columns.append(report._build_column_dict(col_value, column, options=options))
-
-        return {
-            'id': report._get_generic_line_id(None, None, parent_line_id=parent_key, markup='headers'),
-            'name': _('Name'),
-            'columns': columns,
-            'level': 3,
-            'parent_id': parent_key,
-        }
-
-    def _get_journal_line(self, options, line_id, eval_dict, unfolded, is_first_journal):
-        """ returns the line that is representing a journal in the report.
-
-        :param options: The report options
-        :param line_id: The line id for this journal
-        :param eval_dict: The values for this journal
-        :param is_first_journal: If this is the first journal in the report or not. Additional journals will have a page break used when printing in PDF.
-        """
-        # The column group does not matter for these values: any group will share the same journal.
-        journal_vals = next(col_group_val for col_group_val in eval_dict.values())
-        has_foreign_currency = journal_vals['currency_id'] and journal_vals['currency_id'] != journal_vals['company_currency']
-        return {
-            'id': line_id,
-            'name': f"{journal_vals['name']} ({journal_vals['code']}){' ' + journal_vals['currency_name'] if has_foreign_currency else ''}",
-            'level': 0,
-            'columns': [],
-            'unfoldable': True,
-            'unfolded': unfolded,
-            'journal_id': journal_vals['id'],
-            'journal_type': journal_vals['type'],
-            'page_break': unfolded and not is_first_journal,
-            'expand_function': '_report_expand_unfoldable_line_journal_report' if not options['group_by_months'] else '_report_expand_unfoldable_line_journal_report_expand_journal_line_by_month',
-            'colspan': len(options['columns']) + 1  # We want it to take the whole line. It makes it easier to unfold it.
-        }
-
-    def _report_expand_unfoldable_line_journal_report(self, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data):
-        report = self.env['account.report'].browse(options['report_id'])
-        new_options = options.copy()
-        if options['group_by_months']:
-            # If grouped by month, we get the journal info from the parent line.
-            parsed_line_id = report._parse_line_id(line_dict_id)
-            model = parsed_line_id[-2][1]
-            journal_id = parsed_line_id[-2][2]
-
-            # We force the date in the options to be the ones for this month.
-            year, month = parsed_line_id[-1][0].split(' ')[1:]
-            date = datetime.date(int(year), int(month), 1)
-            new_options['date'] = {
-                'mode': 'range',
-                'date_from': date_utils.start_of(date, 'month'),
-                'date_to': date_utils.end_of(date, 'month'),
             }
-        else:
-            model, journal_id = report._get_model_info_from_id(line_dict_id)
-
-        if model != 'account.journal':
-            raise UserError(_('Trying to use the journal line expand function on a line that is not linked to a journal.'))
-
-        lines = []
-        journal = self.env[model].browse(journal_id)
-
-        # Get move lines
-        new_lines, after_load_more_lines, has_more, treated_results_count, next_progress, ending_balance_by_col_group = self._get_lines_for_group(new_options, line_dict_id, journal, progress, offset)
-        lines.extend(new_lines)
-        if not has_more and journal.type == 'bank' and ending_balance_by_col_group:
-            ending_balance_line = self._get_journal_balance_line(new_options, line_dict_id, ending_balance_by_col_group, is_starting_balance=False)
-            if ending_balance_line:
-                lines.append(ending_balance_line)
-
-        return {
-            'lines': lines,
-            'after_load_more_lines': after_load_more_lines,
-            'offset_increment': treated_results_count,
-            'has_more': has_more,
-            'progress': next_progress,
         }
-
-    def _report_expand_unfoldable_line_journal_report_expand_journal_line_by_month(self, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data):
-        model, record_id = self.env['account.report']._get_model_info_from_id(line_dict_id)
-
-        if model != 'account.journal':
-            raise UserError(_('Trying to use the journal line expand function on a line that is not linked to a journal.'))
-
-        lines = []
-        journal = self.env[model].browse(record_id)
-        aml_results = self._query_months(options, line_dict_id, offset, journal)
-        lines.extend(self._get_month_lines(options, line_dict_id, aml_results, progress, offset))
-
-        return {
-            'lines': lines,
-        }
-
-    def _get_month_lines(self, options, line_dict_id, aml_results, progress, offset):
-        report = self.env['account.report'].browse(options['report_id'])
-        lines = []
-
-        for month, months_with_vals in aml_results.items():
-            for month_vals in months_with_vals.values():
-                date = datetime.datetime.strptime(month, '%m %Y').date()
-                line_id = report._get_generic_line_id(None, None, parent_line_id=line_dict_id, markup=f'month_line {date.year} {date.month}')
-                lines.append({
-                    'id': line_id,
-                    'name': month_vals['display_month'],
-                    'level': 2,
-                    'columns': [],
-                    'unfoldable': True,
-                    'unfolded': line_id in options.get('unfolded_lines') or options.get('unfold_all'),
-                    'parent_id': line_dict_id,
-                    'colspan': len(options['columns']) + 1,
-                    'expand_function': '_report_expand_unfoldable_line_journal_report',
-                })
-        return lines
-
-    def _get_journal_initial_balance(self, options, journal_id, date_month=False):
-        queries = []
-        params = []
-        report = self.env.ref('account_reports.journal_report')
-        for column_group_key, options_group in report._split_options_per_column_group(options).items():
-            new_options = self.env['account.general.ledger.report.handler']._get_options_initial_balance(options_group)  # Same options as the general ledger
-            tables, where_clause, where_params = report._query_get(new_options, 'normal', domain=[('journal_id', '=', journal_id)])
-            params.append(column_group_key)
-            params += where_params
-            queries.append(f"""
-                SELECT
-                    %s AS column_group_key,
-                    sum("account_move_line".balance) as balance
-                FROM {tables}
-                JOIN account_journal journal ON journal.id = "account_move_line".journal_id AND "account_move_line".account_id = journal.default_account_id
-                WHERE {where_clause}
-                GROUP BY journal.id
-            """)
-
-        self._cr.execute(" UNION ALL ".join(queries), params)
-
-        init_balance_by_col_group = {column_group_key: 0.0 for column_group_key in options['column_groups']}
-        for result in self._cr.dictfetchall():
-            init_balance_by_col_group[result['column_group_key']] = result['balance']
-
-        return init_balance_by_col_group
-
-    def _get_journal_balance_line(self, options, parent_line_id, eval_dict, is_starting_balance=True):
-        """ Returns the line holding information about either the starting, or ending balance of a bank journal in the selected period.
-
-        :param options: dictionary containing the options for the current report
-        :param parent_key: the key of the parent line, either the journal or the month
-        :param balance: the starting/ending balance of the journal
-        :param is_starting_balance: whether the balance is the starting or ending balance. Used for formatting.
-        """
-        line_columns = []
-        report = self.env['account.report'].browse(options['report_id'])
-
-        for column in options['columns']:
-            if column['expression_label'] == 'credit':  # Add a text in the credit column
-                col_name = _('Starting Balance:') if is_starting_balance else _('Ending Balance:')
-            elif column['expression_label'] == 'additional_col_1':
-                col_name = eval_dict[column['column_group_key']]
-            else:
-                col_name = ''
-
-            line_columns.append(report._build_column_dict(col_name, column, options=options))
-
-        return {
-            'id': report._get_generic_line_id(None, None, parent_line_id=parent_line_id, markup='initial' if is_starting_balance else 'final'),
-            'name': '',
-            'parent_id': parent_line_id,
-            'columns': line_columns,
-            'level': 3,
-        }
-
-    def _get_first_move_line(self, options, parent_key, line_key, values, is_unreconciled_payment):
-        """ Returns the first line of a move.
-        It is different from the other lines, as it contains more information such as the date, partner, and a link to the move itself.
-
-        :param options: The report options.
-        :param parent_key: The id of the lines that should be parenting the aml lines. Should be the group line (either the journal, or month).
-        :param line_key: The id of the move line itself.
-        :param values: The values of the move line.
-        :param new_balance: The new balance of the move line, if any. Use to display the cumulated balance for bank journals.
-        """
-        report = self.env['account.report'].browse(options['report_id'])
-        # Helps to format the line. If a line is linked to a partner but the account isn't receivable or payable, we want to display it in blue.
-        columns = []
-        for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            values = values[column_group_key]
-
-            for column in options['columns']:
-                if column.get('expression_label') not in ['additional_col_1', 'additional_col_2']:
-                    if column.get('expression_label') == 'account':
-                        col_value = '%s %s' % (values['account_code'], values['partner_name'] or values['account_name'])
-                    elif column.get('expression_label') == 'label':
-                        col_value = values['name']
-                    elif column.get('expression_label') == 'invoice_date':
-                        if values['journal_type'] == 'sale':
-                            col_value = values['invoice_date'] if values['debit'] else ''
-                        elif values['journal_type'] == 'purchase':
-                            col_value = values['invoice_date'] if values['credit'] else ''
-                        elif values['journal_code'] == 'POSS':
-                            col_value = values['date']
-                        else:
-                            col_value = ''
-                    else:
-                        col_value = values[column.get('expression_label')]
-
-                    columns.append(report._build_column_dict(col_value, column, options=options))
-                else:
-                    balance = False if column_group_options.get('show_payment_lines') and is_unreconciled_payment else values.get('cumulated_balance')
-                    columns += self._get_move_line_additional_col(column_group_options, balance, values, is_unreconciled_payment)
-                    break
-
-        return {
-            'id': line_key,
-            'name': values['move_name'],
-            'level': 3,
-            'date': format_date(self.env, values['date']),
-            'columns': columns,
-            'parent_id': parent_key,
-            'move_id': values['move_id'],
-        }
-
-    def _get_aml_line(self, options, parent_key, eval_dict, line_index, journal, is_unreconciled_payment):
-        """ Returns the line of an account move line.
-
-        :param options: The report options.
-        :param parent_key: The id of the lines that should be parenting the aml lines. Should be the group line (either the journal, or month).
-        :param values: The values of the move line.
-        :param current_balance: The current balance of the move line, if any. Use to display the cumulated balance for bank journals.
-        :param line_index: The index of the line in the move line list. Used to write additional information in the name, such as the move reference, or the ammount in currency.
-        """
-        report = self.env['account.report'].browse(options['report_id'])
-        columns = []
-        general_vals = next(col_group_val for col_group_val in eval_dict.values())
-        if general_vals['journal_type'] == 'bank' and general_vals['account_type'] in ('liability_credit_card', 'asset_cash'):
-            # Do not display bank account lines for bank journals
-            return None
-
-        for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            values = eval_dict[column_group_key]
-
-            for column in options['columns']:
-                if column.get('expression_label') not in ['additional_col_1', 'additional_col_2']:
-                    if column.get('expression_label') == 'account':
-                        if values['journal_type'] == 'bank':  # For additional lines still showing in the bank journal, make sure to use the partner on the account if available.
-                            col_value = '%s %s' % (values['account_code'], values['partner_name'] or values['account_name'])
-                        elif values['journal_type'] == 'sale':
-                            if values['debit']:
-                                col_value = '%s %s' % (values['account_code'], values['partner_name'] or values['account_name'])
-                            else:
-                                col_value = '%s %s' % (values['account_code'], values['account_name'])
-                        else:
-                            col_value = '%s %s' % (values['account_code'], values['account_name'])
-                    elif column.get('expression_label') == 'label':
-                        col_value = values['name']
-                    elif column.get('expression_label') == 'invoice_date':
-                        col_value = ''
-                    else:
-                        col_value = values[column.get('expression_label')]
-
-                    columns.append(report._build_column_dict(col_value, column, options=options))
-                else:
-                    balance = False if column_group_options.get('show_payment_lines') and is_unreconciled_payment else values.get('cumulated_balance')
-                    columns += self._get_move_line_additional_col(column_group_options, balance, values, is_unreconciled_payment)
-                    break
-
-        return {
-            'id': report._get_generic_line_id('account.move.line', values['move_line_id'], parent_line_id=parent_key),
-            'name': self._get_aml_line_name(options, journal, line_index, eval_dict, is_unreconciled_payment),
-            'level': 3,
-            'parent_id': parent_key,
-            'columns': columns,
-        }
-
-    def _get_aml_line_name(self, options, journal, line_index, values, is_unreconciled_payment):
-        """ Returns the information to write as the name of the move lines, if needed.
-        Typically, this is the move reference, or the amount in currency if we are in a multicurrency environment and the move is using a foreign currency.
-
-        :param options: The report options.
-        :param line_index: The index of the line in the move line list. We always want the reference second if existing and the amount in currency third if needed.
-        :param values: The values of the move line.
-        """
-        # Returns the first occurrence. There is only one column group anyway.
-        for column_group_key in options['column_groups']:
-            if journal.type == 'bank' or not (self.env.user.has_group('base.group_multi_currency') and values[column_group_key]['is_multicurrency']):
-                amount_currency_name = ''
-            else:
-                amount_currency_name = _(
-                    'Amount in currency: %s',
-                    self.env['account.report']._format_value(
-                        options,
-                        values[column_group_key]['amount_currency_total'],
-                        'monetary',
-                        format_params={'currency_id': values[column_group_key]['move_currency']},
-                    ),
-                )
-            if line_index == 0:
-                res = values[column_group_key]['reference'] or amount_currency_name
-                # if the invoice ref equals the payment ref then let's not repeat the information
-                return res if res != values[column_group_key]['move_name'] else ''
-            elif line_index == 1:
-                return values[column_group_key]['reference'] and amount_currency_name or ''
-            elif line_index == -1:  # Only when we create a line just for the amount currency. It's the only time we always want the amount.
-                return amount_currency_name
-            else:
-                return ''
-
-    def _get_move_line_additional_col(self, options, current_balance, values, is_unreconciled_payment):
-        """ Returns the additional columns to be displayed on an account move line.
-        These are the column coming after the debit and credit columns.
-        For a sale or purchase journal, they will contain the taxes' information.
-        For a bank journal, they will contain the cumulated amount.
-
-        :param current_balance: The current balance of the move line, if any.
-        :param values: The values of the move line.
-        """
-        report = self.env['account.report']
-        additional_col = [
-            report._build_column_dict('', {'figure_type': 'string', 'expression_label': 'additional_col_1'}, options=options),
-            report._build_column_dict('', {'figure_type': 'string', 'expression_label': 'additional_col_2'}, options=options),
-        ]
-        if values['journal_type'] in ['sale', 'purchase']:
-            tax_val = ''
-            if values['taxes']:
-                # Display the taxes affecting the line, formatted as such: "T: t1, t2"
-                tax_val = _('T: %s', ', '.join(values['taxes']))
-            elif values['tax_base_amount']:
-                # Display the base amount on wich this tax line is based off, formatted as such: "B: $0.0"
-                tax_val = _('B: %s', report._format_value(options, values['tax_base_amount'], 'monetary'))
-            additional_col = [
-                report._build_column_dict(tax_val, {'figure_type': 'string', 'expression_label': 'additional_col_1'}, options=options),
-                report._build_column_dict(', '.join(values['tax_grids']), {'figure_type': 'string', 'expression_label': 'additional_col_2'}, options=options),
-            ]
-        elif values['journal_type'] == 'bank':
-            if values['account_type'] not in ('liability_credit_card', 'asset_cash') and current_balance:
-                additional_col = [
-                    report._build_column_dict(current_balance, {'figure_type': 'monetary', 'expression_label': 'additional_col_1'}, options=options),
-                    report._build_column_dict('', {'figure_type': 'string', 'expression_label': 'additional_col_2'}, options=options),
-                ]
-            if self.env.user.has_group('base.group_multi_currency') and values['move_line_currency'] != values['company_currency']:
-                amount = -values['amount_currency'] if not is_unreconciled_payment else values['amount_currency']
-                additional_col[-1] = report._build_column_dict(
-                    amount,
-                    {
-                        'figure_type': 'monetary',
-                        'expression_label': 'additional_col_2',
-                    },
-                    options=options,
-                    currency=self.env['res.currency'].browse(values['move_line_currency']),
-                )
-
-        return additional_col
 
     ##########################################################################
-    # Helper methods
+    # UI
     ##########################################################################
 
-    def _get_generic_tax_report_options(self, options, data):
-        """
-        Return an option dictionnary set to fetch the reports with the parameters needed for this journal.
-        The important bits are the journals, date, and fetch the generic tax reports that contains all taxes.
-        We also provide the information about wether to take all entries or only posted ones.
-        """
-        generix_tax_report = self.env.ref('account.generic_tax_report')
-        previous_option = options.copy()
-        # Force the dates to the selected ones. Allows to get it correctly when grouped by months
-        previous_option.update({
-            'selected_variant_id': generix_tax_report.id,
-            'date_from': data.get('date_from'),
-            'date_to': data.get('date_to'),
-        })
-        tax_report_options = generix_tax_report.get_options(previous_option)
-        # Even though it doesn't have a journal selector, we can force a journal in the options to only get the lines for a specific journal.
-        if data.get('journal_id') or data.get('journal_type'):
-            tax_report_options['journals'] = [{
-                'id': data.get('journal_id'),
-                'model': 'account.journal',
-            'type': data.get('journal_type'),
-                'selected': True,
-            }]
-        else:
-            tax_report_options['journals'] = options.get('journals')
-        return tax_report_options
+    def _report_custom_engine_journal_report(self, expressions, options, date_scope, current_groupby, next_groupby, offset=0, limit=None, warnings=None):
 
-    def _group_lines_by_move(self, options, eval_dict, parent_line_id):
+        def build_result_dict(current_groupby, query_line):
+            """
+            Creates a line entry used by the custom engine
+            """
+            if current_groupby == 'account_id':
+                code = query_line['account_code'][0]
+            elif current_groupby == 'journal_id':
+                code = query_line['journal_code'][0]
+            else:
+                code = None
+
+            result_line_dict = {
+                'code': code,
+                'credit': query_line['credit'],
+                'debit': query_line['debit'],
+                'balance': query_line['balance'] if current_groupby == 'account_id' else None
+            }
+            return query_line['grouping_key'], result_line_dict
+
         report = self.env['account.report'].browse(options['report_id'])
-        grouped_dict = defaultdict(list)
-        for move_line_vals in eval_dict.values():
-            # We don't care about which column group is used for the id as it will be the same for all of them.
-            move_id = next(col_group_val for col_group_val in move_line_vals.values())['move_id']
-            move_key = report._get_generic_line_id('account.move', move_id, parent_line_id=parent_line_id)
-            grouped_dict[move_key].append(move_line_vals)
-        return grouped_dict
+        report._check_groupby_fields((next_groupby.split(',') if next_groupby else []) + ([current_groupby] if current_groupby else []))
 
-    ####################################################
-    # Queries
-    ####################################################
+        # If it is the first line, we want to render our column label
+        # Since we don't use the one from the base report
+        if not current_groupby:
+            return {
+                'code': None,
+                'debit': None,
+                'credit': None,
+                'balance': None
+            }
 
-    def _query_aml(self, options, offset=0, journal=False):
-        queries = []
-        lang = self.env.user.lang or get_lang(self.env).code
-        self_lang = self.with_context(lang=lang)
-        acc_name = self_lang.env['account.account']._field_to_sql('acc', 'name')
-        j_name = self_lang.env['account.journal']._field_to_sql('j', 'name')
-        tax_name = self_lang.env['account.tax']._field_to_sql('tax', 'name')
-        tag_name = self_lang.env['account.account.tag']._field_to_sql('tag', 'name')
-        report = self.env.ref('account_reports.journal_report')
-        for column_group_key, options_group in report._split_options_per_column_group(options).items():
-            # Override any forced options: We want the ones given in the options
-            options_group['date'] = options['date']
-            table_references, search_condition = report._get_table_expression(options_group, 'strict_range', domain=[('journal_id', '=', journal.id)])
-            sort_by_date = options_group.get('sort_by_date')
-            am_order = SQL('am.date, am.name') if sort_by_date else SQL('am.name , am.date')
-            limit_to_load = report.load_more_limit + 1 if report.load_more_limit and options['export_mode'] != 'print' else None
+        table, search_conditions = report._get_table_expression(options, 'strict_range')
 
-            queries.append(SQL(
-                """
+        groupby_clause = SQL.identifier('account_move_line', current_groupby)
+        select_from_groupby = SQL('%s AS grouping_key', groupby_clause)
+
+        query = SQL(
+            """
                 SELECT
-                    %(column_group_key)s AS column_group_key,
-                    "account_move_line".id as move_line_id,
-                    "account_move_line".name,
-                    "account_move_line".date,
-                    "account_move_line".invoice_date,
-                    "account_move_line".amount_currency,
-                    "account_move_line".tax_base_amount,
-                    "account_move_line".currency_id as move_line_currency,
-                    "account_move_line".amount_currency,
-                    am.id as move_id,
-                    am.name as move_name,
-                    am.journal_id,
-                    am.currency_id as move_currency,
-                    am.amount_total_in_currency_signed as amount_currency_total,
-                    am.currency_id != cp.currency_id as is_multicurrency,
-                    p.name as partner_name,
-                    acc.code as account_code,
-                    %(acc_name)s as account_name,
-                    acc.account_type as account_type,
-                    COALESCE("account_move_line".debit, 0) as debit,
-                    COALESCE("account_move_line".credit, 0) as credit,
-                    COALESCE("account_move_line".balance, 0) as balance,
-                    %(j_name)s as journal_name,
-                    j.code as journal_code,
-                    j.type as journal_type,
-                    j.currency_id as journal_currency,
-                    journal_curr.name as journal_currency_name,
-                    cp.currency_id as company_currency,
-                    CASE WHEN j.type = 'sale' THEN am.payment_reference WHEN j.type = 'purchase' THEN am.ref ELSE '' END as reference,
-                    array_remove(array_agg(DISTINCT %(tax_name)s), NULL) as taxes,
-                    array_remove(array_agg(DISTINCT %(tag_name)s), NULL) as tax_grids
-                FROM %(table_references)s
-                JOIN account_move am ON am.id = "account_move_line".move_id
-                JOIN account_account acc ON acc.id = "account_move_line".account_id
-                LEFT JOIN res_partner p ON p.id = "account_move_line".partner_id
+                    %(select_from_groupby)s,
+                    ARRAY_AGG(DISTINCT acc.code) AS account_code,
+                    ARRAY_AGG(DISTINCT j.code) AS journal_code,
+                    SUM("account_move_line".debit) AS debit,
+                    SUM("account_move_line".credit) AS credit,
+                    SUM("account_move_line".balance) AS balance
+                FROM %(table)s
+                JOIN account_move am ON am.id = account_move_line.move_id
+                JOIN account_account acc ON acc.id = account_move_line.account_id
                 JOIN account_journal j ON j.id = am.journal_id
                 JOIN res_company cp ON cp.id = am.company_id
-                LEFT JOIN account_move_line_account_tax_rel aml_at_rel ON aml_at_rel.account_move_line_id = "account_move_line".id
-                LEFT JOIN account_tax parent_tax ON parent_tax.id = aml_at_rel.account_tax_id and parent_tax.amount_type = 'group'
-                LEFT JOIN account_tax_filiation_rel tax_filiation_rel ON tax_filiation_rel.parent_tax = parent_tax.id
-                LEFT JOIN account_tax tax ON (tax.id = aml_at_rel.account_tax_id and tax.amount_type != 'group') or tax.id = tax_filiation_rel.child_tax
-                LEFT JOIN account_account_tag_account_move_line_rel tag_rel ON tag_rel.account_move_line_id = "account_move_line".id
-                LEFT JOIN account_account_tag tag on tag_rel.account_account_tag_id = tag.id
-                LEFT JOIN res_currency journal_curr on journal_curr.id = j.currency_id
-                WHERE %(search_condition)s
-                GROUP BY "account_move_line".id, am.id, p.id, acc.id, j.id, cp.id, journal_curr.id
-                ORDER BY j.id, CASE when am.name = '/' then 1 else 0 end,
-                %(am_order)s,
+                WHERE %(case_statement)s AND %(search_conditions)s
+                GROUP BY %(groupby_clause)s
+                ORDER BY %(groupby_clause)s
+            """,
+            select_from_groupby=select_from_groupby,
+            table=table,
+            search_conditions=search_conditions,
+            case_statement=self._get_payment_lines_filter_case_statement(options),
+            groupby_clause=groupby_clause
+        )
+        self._cr.execute(query)
+        query_lines = self._cr.dictfetchall()
+        result_lines = []
+
+        for query_line in query_lines:
+            result_lines.append(build_result_dict(current_groupby, query_line))
+
+        return result_lines
+
+    def _custom_line_postprocessor(self, report, options, lines):
+        """
+        Process the lines generated by the engine to add metadata and add the tax summary lines
+        """
+        new_lines = []
+
+        for i, line in enumerate(lines):
+            new_lines.append(line)
+            line_id = line['id']
+
+            # If this line is an account move line
+            if report._get_model_info_from_id(line_id)[0] == 'account.account':
+                res_ids_map = report._get_res_ids_from_line_id(line_id, ['account.journal', 'account.account'])
+                line['journal_id'] = res_ids_map['account.journal']
+                line['account_id'] = res_ids_map['account.account']
+                line['date'] = options['date']
+
+                journal = self.env['account.journal'].browse(line['journal_id'])
+
+                # If it is the last line of the journal section
+                # Check if the journal has taxes and if so, add the tax summaries
+                if (i + 1 == len(lines) or (i + 1 < len(lines) and report._get_model_info_from_id(lines[i + 1]['id'])[0] != 'account.account')) and self._section_has_tax(options, journal.id):
+                    tax_summary_line = {
+                        'id': report._get_generic_line_id(False, False, parent_line_id=line['parent_id'], markup='tax_report_section'),
+                        'name': '',
+                        'parent_id': line['parent_id'],
+                        'journal_id': journal.id,
+                        'is_tax_section_line': True,
+                        'columns': [],
+                        'colspan': len(options['columns']) + 1,
+                        'level': 4,
+                        **self._get_tax_summary_section(options, {'id': journal.id, 'type': journal.type})
+                    }
+                    new_lines.append(tax_summary_line)
+
+        # If we render the first level it means that we need to render
+        # the global tax summary lines
+        if report._get_model_info_from_id(lines[0]['id'])[0] == 'account.report.line':
+            if self._section_has_tax(options, False):
+                # We only add the global summary line if it has taxes
+                new_lines.append({
+                        'id': report._get_generic_line_id(False, False, markup='tax_report_section_heading'),
+                        'name': _('Global Tax Summary'),
+                        'level': 0,
+                        'columns': [],
+                        'unfoldable': False,
+                        'colspan': len(options['columns']) + 1
+                        # We want it to take the whole line. It makes it easier to unfold it.
+                    })
+                summary_line = {
+                    'id': report._get_generic_line_id(False, False, markup='tax_report_section'),
+                    'name': '',
+                    'is_tax_section_line': True,
+                    'columns': [],
+                    'colspan': len(options['columns']) + 1,
+                    'level': 4,
+                    'class': 'o_account_reports_ja_subtable',
+                    **self._get_tax_summary_section(options)
+                }
+                new_lines.append(summary_line)
+
+        return new_lines
+
+    ##########################################################################
+    # PDF Export
+    ##########################################################################
+
+    def export_to_pdf(self, options):
+        """
+        Overrides the default export_to_pdf function from account.report to
+        not use the default lines system since we make a different report
+        from the UI
+        """
+        report = self.env['account.report'].browse(options['report_id'])
+        base_url = report.get_base_url()
+        print_options = {
+            **report.get_options(previous_options={**options, 'export_mode': 'print'}),
+            'css_custom_class': self._get_custom_display_config().get('pdf_css_custom_class', 'journal_report_pdf')
+        }
+        rcontext = {
+            'mode': 'print',
+            'base_url': base_url,
+            'company': self.env.company,
+        }
+
+        footer = self.env['ir.actions.report']._render_template('account_reports.internal_layout', values=rcontext)
+        footer = self.env['ir.actions.report']._render_template('web.minimal_layout', values=dict(rcontext, subst=True, body=Markup(footer.decode())))
+
+        document_data = self._generate_document_data_for_export(report, print_options, 'pdf')
+        render_values = {
+            'report': report,
+            'options': print_options,
+            'base_url': base_url,
+            'document_data': document_data
+        }
+        body = self.env['ir.qweb']._render('account_reports.journal_report_pdf_export_main', render_values)
+
+        action_report = self.env['ir.actions.report']
+        pdf_file_stream = io.BytesIO(action_report._run_wkhtmltopdf(
+            [body],
+            footer=footer.decode(),
+            landscape=False,
+            specific_paperformat_args={
+                'data-report-margin-top': 10,
+                'data-report-header-spacing': 10,
+                'data-report-margin-bottom': 15,
+            }
+        ))
+
+        pdf_result = pdf_file_stream.getvalue()
+        pdf_file_stream.close()
+
+        return {
+            'file_name': report.get_default_report_filename(print_options, 'pdf'),
+            'file_content': pdf_result,
+            'file_type': 'pdf',
+        }
+
+    ##########################################################################
+    # XLSX Export
+    ##########################################################################
+
+    def export_to_xlsx(self, options, response=None):
+        """
+        Overrides the default XLSX Generation from account.repor to use a custom one.
+        """
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {
+            'in_memory': True,
+            'strings_to_formulas': False,
+        })
+        report = self.env['account.report'].search([('id', '=', options['report_id'])], limit=1)
+        print_options = report.get_options(previous_options={**options, 'export_mode': 'print'})
+        document_data = self._generate_document_data_for_export(report, print_options, 'xlsx')
+
+        # We need to use fonts to calculate column width otherwise column width would be ugly
+        # Using Lato as reference font is a hack and is not recommended. Customer computers don't have this font by default and so
+        # the generated xlsx wouldn't have this font. Since it is not by default, we preferred using Arial font as default and keep
+        # Lato as reference for columns width calculations.
+        fonts = {}
+        for font_size in (XLSX_FONT_SIZE_HEADING, XLSX_FONT_SIZE_DEFAULT):
+            fonts[font_size] = defaultdict()
+            for font_type in ('Reg', 'Bol', 'RegIta', 'BolIta'):
+                try:
+                    lato_path = f'web/static/fonts/lato/Lato-{font_type}-webfont.ttf'
+                    fonts[font_size][font_type] = ImageFont.truetype(file_path(lato_path), font_size)
+                except (OSError, FileNotFoundError):
+                    # This won't give great result, but it will work.
+                    fonts[font_size][font_type] = ImageFont.load_default()
+
+        for journal_vals in document_data['journals_vals']:
+            cursor_x = 0
+            cursor_y = 0
+
+            # Default sheet properties
+            sheet = workbook.add_worksheet(journal_vals['name'][:31])
+            columns = journal_vals['columns']
+
+            for column in columns:
+                align = 'left'
+                if 'o_right_alignment' in column.get('class', ''):
+                    align = 'right'
+                self._write_cell(cursor_x, cursor_y, column['name'], 1, False, report, fonts, workbook, sheet, XLSX_FONT_SIZE_HEADING,
+                                 True, XLSX_GRAY_200, align, 2, 2)
+                cursor_x = cursor_x + 1
+
+            # Set cursor coordinates for the table generation
+            cursor_y += 1
+            cursor_x = 0
+            for line in journal_vals['lines'][:-1]:
+                is_first_aml_line = False
+                for column in columns:
+                    border_top = 0 if not is_first_aml_line else 1
+                    align = 'left'
+
+                    if line.get(column['label'], {}).get('data'):
+                        data = line[column['label']]['data']
+                        is_date = isinstance(data, datetime.date)
+                        bold = False
+
+                        if 'o_right_alignment' in column.get('class', ''):
+                            align = 'right'
+
+                        if line[column['label']].get('class') and 'o_bold' in line[column['label']]['class']:
+                            # if the cell has bold styling, should only be on the first line of each aml
+                            is_first_aml_line = True
+                            border_top = 1
+                            bold = True
+
+                        self._write_cell(cursor_x, cursor_y, data, 1, is_date, report, fonts, workbook, sheet, XLSX_FONT_SIZE_DEFAULT,
+                                         bold, 'white', align, 0, border_top, XLSX_BORDER_COLOR)
+
+                    else:
+                        # Empty value
+                        self._write_cell(cursor_x, cursor_y, '', 1, False, report, fonts, workbook, sheet, XLSX_FONT_SIZE_DEFAULT, False,
+                                         'white', align, 0, border_top, XLSX_BORDER_COLOR)
+
+                    cursor_x += 1
+                cursor_x = 0
+                cursor_y += 1
+
+            # Draw total line
+            total_line = journal_vals['lines'][-1]
+            for column in columns:
+                data = ''
+                align = 'left'
+
+                if total_line.get(column['label'], {}).get('data'):
+                    data = total_line[column['label']]['data']
+
+                if 'o_right_alignment' in column.get('class', ''):
+                    align = 'right'
+
+                self._write_cell(cursor_x, cursor_y, data, 1, False, report, fonts, workbook, sheet, XLSX_FONT_SIZE_DEFAULT, True,
+                                 XLSX_GRAY_200, align, 2, 2)
+                cursor_x += 1
+
+            cursor_x = 0
+
+            sheet.set_default_row(20)
+            sheet.set_row(0, 30)
+
+            # Tax tables drawing
+            if journal_vals.get('tax_summary'):
+                self._write_tax_summaries_to_sheet(report, workbook, sheet, fonts, len(columns) + 1, 1, journal_vals['tax_summary'])
+
+        if document_data.get('global_tax_summary'):
+            self._write_tax_summaries_to_sheet(
+                report,
+                workbook,
+                workbook.add_worksheet(_('Global Tax Summary')[:31]),
+                fonts,
+                0,
+                0,
+                document_data['global_tax_summary']
+            )
+
+        workbook.close()
+        output.seek(0)
+        generated_file = output.read()
+        output.close()
+
+        return {
+            'file_name': report.get_default_report_filename(options, 'xlsx'),
+            'file_content': generated_file,
+            'file_type': 'xlsx',
+        }
+
+    def _write_cell(self, x, y, value, colspan, datetime, report, fonts, workbook, sheet, font_size, bold=False,
+                    bg_color='white', align='left', border_bottom=0, border_top=0, border_color='0x000000'):
+        """
+        Write a value to a specific cell in the sheet with specific styling
+
+        This helps to not create style format for every use case
+
+        :param x:               The x coordinate of the cell to write in
+        :param y:               The y coordinate of the cell to write in
+        :param value:           The value to write
+        :param colspan:         The number of columns to extend
+        :param datetime:        True if the value is a date else False
+        :param report:          The current report
+        :param fonts:           The fonts used to calculate the size of each cells. We use Lato because we cannot get Arial but, we write in Arial since we cannot embed Lato on the worksheet
+        :param workbook:        The workbook currently using
+        :param sheet:           The sheet from the workbook to write on
+        :param font_size:       The font size to write with
+        :param bold:            True if the written value should be bold default: False
+        :param bg_color:        The background color of the cell in hex or string ex: '#fff' default: 'white'
+        :param align:           The alignement of the text ex: 'left', 'right', 'center' default: 'left'
+        :param border_bottom:   The width of the bottom border default: 0
+        :param border_top:      The width of the top border default: 0
+        :param border_color:    The color of the borders in hex or string default: '0x000'
+        """
+        style = workbook.add_format({
+            'font_name': 'Arial',
+            'font_size': font_size,
+            'bold': bold,
+            'bg_color': bg_color,
+            'align': align,
+            'bottom': border_bottom,
+            'top': border_top,
+            'border_color': border_color,
+        })
+
+        if colspan == 1:
+            if datetime:
+                style.set_num_format('yyyy-mm-dd')
+                sheet.write_datetime(y, x, value, style)
+            else:
+                # Some account_move_lines cells can have multiple lines: one for the title then some additional lines for text.
+                # On Xlsx it's better to keep everything on one line so when you click on cell, all the value is shown and not juste the title
+                if isinstance(value, str):
+                    value = value.replace('\n', ' ')
+                report._set_xlsx_cell_sizes(sheet, fonts[font_size], x, y, value, style, colspan > 1)
+                sheet.write(y, x, value, style)
+        else:
+            sheet.merge_range(y, x, y, x + colspan - 1, value, style)
+
+    def _write_tax_summaries_to_sheet(self, report, workbook, sheet, fonts, start_x, start_y, tax_summary):
+        cursor_x = start_x
+        cursor_y = start_y
+
+        # Tax applied
+        columns = []
+        taxes = tax_summary.get('tax_report_lines')
+        if taxes:
+            start_align_right = start_x + 1
+
+            if len(taxes) > 1:
+                start_align_right += 1
+                columns.append(_('Country'))
+
+            columns += [_('Name'), _('Base Amount'), _('Tax Amount')]
+            if tax_summary.get('tax_non_deductible_column'):
+                columns.append(_('Non-Deductible'))
+            if tax_summary.get('tax_deductible_column'):
+                columns.append(_('Deductible'))
+            if tax_summary.get('tax_due_column'):
+                columns.append(_('Due'))
+
+            # Draw Tax Applied Table
+            # Write tax applied header amd columns
+            self._write_cell(cursor_x, cursor_y, _('Taxes Applied'), len(columns), False, report, fonts, workbook, sheet,
+                             XLSX_FONT_SIZE_HEADING, True, 'white', 'left', 2)
+            cursor_y += 1
+            for column in columns:
+                align = 'left'
+                if cursor_x >= start_align_right:
+                    align = 'right'
+                self._write_cell(cursor_x, cursor_y, column, 1, False, report, fonts, workbook, sheet, XLSX_FONT_SIZE_DEFAULT, True,
+                                 XLSX_GRAY_200, align, 2)
+                cursor_x += 1
+
+            cursor_x = start_x
+            cursor_y += 1
+
+            for country in taxes:
+                is_country_first_line = True
+                for tax in taxes[country]:
+                    if len(taxes) > 1:
+                        if is_country_first_line:
+                            is_country_first_line = not is_country_first_line
+                            self._write_cell(cursor_x, cursor_y, country, 1, False, report, fonts, workbook, sheet,
+                                             XLSX_FONT_SIZE_DEFAULT, True, 'white', 'left', 1, 0, XLSX_BORDER_COLOR)
+
+                        cursor_x += 1
+
+                    self._write_cell(cursor_x, cursor_y, tax['name'], 1, False, report, fonts, workbook, sheet, XLSX_FONT_SIZE_DEFAULT,
+                                     True, 'white', 'left', 1, 0, XLSX_BORDER_COLOR)
+                    self._write_cell(cursor_x + 1, cursor_y, tax['base_amount'], 1, False, report, fonts, workbook, sheet,
+                                     XLSX_FONT_SIZE_DEFAULT, False, 'white', 'right', 1, 0, XLSX_BORDER_COLOR)
+                    self._write_cell(cursor_x + 2, cursor_y, tax['tax_amount'], 1, False, report, fonts, workbook, sheet,
+                                     XLSX_FONT_SIZE_DEFAULT, False, 'white', 'right', 1, 0, XLSX_BORDER_COLOR)
+                    cursor_x += 3
+
+                    if tax_summary.get('tax_non_deductible_column'):
+                        self._write_cell(cursor_x, cursor_y, tax['tax_non_deductible'], 1, False, report, fonts, workbook, sheet,
+                                         XLSX_FONT_SIZE_DEFAULT, False, 'white', 'right', 1, 0, XLSX_BORDER_COLOR)
+                        cursor_x += 1
+
+                    if tax_summary.get('tax_deductible_column'):
+                        self._write_cell(cursor_x, cursor_y, tax['tax_deductible'], 1, False, report, fonts, workbook, sheet,
+                                         XLSX_FONT_SIZE_DEFAULT, False, 'white', 'right', 1, 0, XLSX_BORDER_COLOR)
+                        cursor_x += 1
+
+                    if tax_summary.get('tax_due_column'):
+                        self._write_cell(cursor_x, cursor_y, tax['tax_due'], 1, False, report, fonts, workbook, sheet,
+                                         XLSX_FONT_SIZE_DEFAULT, False, 'white', 'right', 1, 0, XLSX_BORDER_COLOR)
+
+                    cursor_x = start_x
+                    cursor_y += 1
+
+        cursor_x = start_x
+        cursor_y += 2
+
+        # Tax grids
+        columns = []
+        grids = tax_summary.get('tax_grid_summary_lines')
+        if grids:
+            start_align_right = start_x + 1
+            if len(grids) > 1:
+                start_align_right += 1
+                columns.append(_('Country'))
+
+            columns += [_('Grid'), _('+'), _('-'), _('Impact On Grid')]
+
+            # Draw Tax Applied Table
+            # Write tax applied columns and header
+            self._write_cell(cursor_x, cursor_y, _('Impact On Grid'), len(columns), False, report, fonts, workbook, sheet,
+                             XLSX_FONT_SIZE_HEADING, True, 'white', 'left', 2)
+
+            cursor_y += 1
+            for column in columns:
+                align = 'left'
+                if cursor_x >= start_align_right:
+                    align = 'right'
+                self._write_cell(cursor_x, cursor_y, column, 1, False, report, fonts, workbook, sheet, XLSX_FONT_SIZE_DEFAULT, True,
+                                 XLSX_GRAY_200, align, 2)
+                cursor_x += 1
+
+            cursor_x = start_x
+            cursor_y += 1
+
+            for country in grids:
+                is_country_first_line = True
+                for grid_name in grids[country]:
+                    if len(grids) > 1:
+                        if is_country_first_line:
+                            is_country_first_line = not is_country_first_line
+                            self._write_cell(cursor_x, cursor_y, country, 1, False, report, fonts, workbook, sheet, XLSX_FONT_SIZE_DEFAULT,
+                                            True, 'white', 'left', 1, 0, XLSX_BORDER_COLOR)
+
+                        cursor_x += 1
+
+                    self._write_cell(cursor_x, cursor_y, grid_name, 1, False, report, fonts, workbook, sheet, XLSX_FONT_SIZE_DEFAULT, True,
+                                     'white', 'left', 1, 0, XLSX_BORDER_COLOR)
+                    self._write_cell(cursor_x + 1, cursor_y, grids[country][grid_name].get('+', 0), 1, False, report, fonts, workbook,
+                                     sheet, XLSX_FONT_SIZE_DEFAULT, False, 'white', 'right', 1, 0, XLSX_BORDER_COLOR)
+                    self._write_cell(cursor_x + 2, cursor_y, grids[country][grid_name].get('-', 0), 1, False, report, fonts, workbook,
+                                     sheet, XLSX_FONT_SIZE_DEFAULT, False, 'white', 'right', 1, 0, XLSX_BORDER_COLOR)
+                    self._write_cell(cursor_x + 3, cursor_y, grids[country][grid_name]['impact'], 1, False, report, fonts, workbook,
+                                     sheet, XLSX_FONT_SIZE_DEFAULT, False, 'white', 'right', 1, 0, XLSX_BORDER_COLOR)
+
+                    cursor_x = start_x
+                    cursor_y += 1
+
+    ##########################################################################
+    # Document Data Generation
+    ##########################################################################
+
+    def _generate_document_data_for_export(self, report, options, export_type='pdf'):
+        """
+        Used to generate all the data needed for the rendering of the export
+
+        :param export_type:     The export type the generation need to use can be ('pdf' or 'xslx')
+
+        :return: a dictionnary containing a list of all lines grouped by journals and a dictionnay with the global tax summary lines
+        - journals_vals (mandatory):                    List of dictionary containing all the lines, columns, and tax summaries
+            - lines (mandatory):                        A list of dict containing all tha data for each lines in format returned by _get_lines_for_journal
+            - columns (mandatory):                      A list of columns for this journal returned in the format returned by _get_columns_for_journal
+            - tax_summary (optional):                   A dict of data for the tax summaries inside journals in the format returned by _get_tax_summary_section
+        - global_tax_summary:                           A dict with the global tax summaries data in the format returned by _get_tax_summary_section
+        """
+        # Ensure that all the data is synchronized with the database before we read it
+        self.env.flush_all()
+        table, search_conditions = report._get_table_expression(options, 'strict_range')
+        lang = self.env.user.lang or get_lang(self.env).code
+        self_lang = self.with_context(lang=lang)
+        query = SQL(
+            """
+            SELECT
+                account_move_line.id AS move_line_id,
+                account_move_line.name,
+                account_move_line.date,
+                account_move_line.invoice_date,
+                account_move_line.amount_currency,
+                account_move_line.tax_base_amount,
+                account_move_line.currency_id AS move_line_currency,
+                am.id AS move_id,
+                am.name AS move_name,
+                am.journal_id,
+                am.currency_id AS move_currency,
+                am.amount_total_in_currency_signed AS amount_currency_total,
+                am.currency_id != cp.currency_id AS is_multicurrency,
+                p.name AS partner_name,
+                acc.code AS account_code,
+                %(acc_name)s AS account_name,
+                acc.account_type AS account_type,
+                COALESCE(account_move_line.debit, 0) AS debit,
+                COALESCE(account_move_line.credit, 0) AS credit,
+                COALESCE(account_move_line.balance, 0) AS balance,
+                %(j_name)s AS journal_name,
+                j.code AS journal_code,
+                j.type AS journal_type,
+                cp.currency_id AS company_currency,
+                CASE WHEN j.type = 'sale' THEN am.payment_reference WHEN j.type = 'purchase' THEN am.ref END AS reference,
+                array_remove(array_agg(DISTINCT %(tax_name)s), NULL) AS taxes,
+                array_remove(array_agg(DISTINCT %(tag_name)s), NULL) AS tax_grids
+            FROM %(table)s
+            JOIN account_move am ON am.id = account_move_line.move_id
+            JOIN account_account acc ON acc.id = account_move_line.account_id
+            LEFT JOIN res_partner p ON p.id = account_move_line.partner_id
+            JOIN account_journal j ON j.id = am.journal_id
+            JOIN res_company cp ON cp.id = am.company_id
+            LEFT JOIN account_move_line_account_tax_rel aml_at_rel ON aml_at_rel.account_move_line_id = account_move_line.id
+            LEFT JOIN account_tax parent_tax ON parent_tax.id = aml_at_rel.account_tax_id and parent_tax.amount_type = 'group'
+            LEFT JOIN account_tax_filiation_rel tax_filiation_rel ON tax_filiation_rel.parent_tax = parent_tax.id
+            LEFT JOIN account_tax tax ON (tax.id = aml_at_rel.account_tax_id and tax.amount_type != 'group') or tax.id = tax_filiation_rel.child_tax
+            LEFT JOIN account_account_tag_account_move_line_rel tag_rel ON tag_rel.account_move_line_id = account_move_line.id
+            LEFT JOIN account_account_tag tag ON tag_rel.account_account_tag_id = tag.id
+            LEFT JOIN res_currency journal_curr ON journal_curr.id = j.currency_id
+            WHERE %(case_statement)s AND %(search_conditions)s
+            GROUP BY "account_move_line".id, am.id, p.id, acc.id, j.id, cp.id, journal_curr.id
+            ORDER BY
+                CASE j.type
+                    WHEN 'sale' THEN 1
+                    WHEN 'purchase' THEN 2
+                    WHEN 'general' THEN 3
+                    WHEN 'bank' THEN 4
+                    ELSE 5
+                END,
+                j.sequence,
+                CASE WHEN am.name = '/' THEN 1 ELSE 0 END, am.date, am.name,
                 CASE acc.account_type
                     WHEN 'liability_payable' THEN 1
                     WHEN 'asset_receivable' THEN 1
@@ -876,59 +626,437 @@ class JournalReportCustomHandler(models.AbstractModel):
                     WHEN 'asset_cash' THEN 5
                     ELSE 2
                 END,
-                "account_move_line".tax_line_id NULLS FIRST
-                LIMIT %(limit)s
-                OFFSET %(offset)s
-                """,
-                column_group_key=column_group_key,
-                acc_name=acc_name,
-                j_name=j_name,
-                tax_name=tax_name,
-                tag_name=tag_name,
-                table_references=table_references,
-                search_condition=search_condition,
-                am_order=am_order,
-                limit=limit_to_load,
-                offset=offset,
-            ))
+                account_move_line.tax_line_id NULLS FIRST
+            """,
+            table=table,
+            case_statement=self._get_payment_lines_filter_case_statement(options),
+            search_conditions=search_conditions,
+            acc_name=self_lang.env['account.account']._field_to_sql('acc', 'name'),
+            j_name=self_lang.env['account.journal']._field_to_sql('j', 'name'),
+            tax_name=self_lang.env['account.tax']._field_to_sql('tax', 'name'),
+            tag_name=self_lang.env['account.account.tag']._field_to_sql('tag', 'name')
+        )
 
-        # 1.2.Fetch data from DB
-        rslt = {}
-        self._cr.execute(SQL(" UNION ALL ").join(SQL("(%s)", query) for query in queries))
-        for aml_result in self._cr.dictfetchall():
-            rslt.setdefault(aml_result['move_line_id'], {col_group_key: {} for col_group_key in options['column_groups']})
-            rslt[aml_result['move_line_id']][aml_result['column_group_key']] = aml_result
+        self._cr.execute(query)
+        result = {}
 
-        return rslt
+        # Grouping by journal_id then move_id
+        for entry in self._cr.dictfetchall():
+            result.setdefault(entry['journal_id'], {})
+            result[entry['journal_id']].setdefault(entry['move_id'], [])
+            result[entry['journal_id']][entry['move_id']].append(entry)
 
-    def _query_months(self, options, line_id=False, offset=0, journal=False):
-        params = []
-        queries = []
-        report = self.env.ref('account_reports.journal_report')
-        for column_group_key, options_group in report._split_options_per_column_group(options).items():
-            tables, where_clause, where_params = report._query_get(options_group, 'strict_range', domain=[('journal_id', '=', journal.id)])
-            params.append(column_group_key)
-            params += where_params
-            # Fetch all months for which we have any move lines, ordered chronologically.
-            queries.append(f"""
-                (WITH aml_by_months AS (
-                    SELECT DISTINCT ON (to_char("account_move_line".date, 'MM YYYY')) to_char("account_move_line".date, 'MM YYYY') AS month, to_char("account_move_line".date, 'fmMon YYYY') AS display_month, %s as column_group_key, "account_move_line".date
-                    FROM {tables}
-                    WHERE {where_clause}
+        journals_vals = []
+        any_journal_group_has_taxes = False
+
+        for journal_entry_dict in result.values():
+            account_move_vals_list = list(journal_entry_dict.values())
+            journal_vals = {
+                'id': account_move_vals_list[0][0]['journal_id'],
+                'name': account_move_vals_list[0][0]['journal_name'],
+                'code': account_move_vals_list[0][0]['journal_code'],
+                'type': account_move_vals_list[0][0]['journal_type']
+            }
+
+            if self._section_has_tax(options, journal_vals['id']):
+                journal_vals['tax_summary'] = self._get_tax_summary_section(options, journal_vals)
+                any_journal_group_has_taxes = True
+
+            journal_vals['lines'] = self._get_export_lines_for_journal(report, options, export_type, journal_vals, account_move_vals_list)
+            journal_vals['columns'] = self._get_columns_for_journal(journal_vals, export_type)
+            journals_vals.append(journal_vals)
+
+        return {
+            'journals_vals': journals_vals,
+            'global_tax_summary': self._get_tax_summary_section(options) if any_journal_group_has_taxes else False
+        }
+
+    def _get_columns_for_journal(self, journal, export_type='pdf'):
+        """
+        Creates a columns list that will be used in this journal for the pdf report
+
+        :return: A list of the columns as dict each having:
+            - name (mandatory):     A string that will be displayed
+            - label (mandatory):    A string used to link lines with the column
+            - class (optional):     A string with css classes that need to be applied to all that column
+        """
+        columns = [
+            {'name': _('Document'), 'label': 'document'},
+        ]
+
+        # We have different columns regarding we are exporting to a PDF file or an XLSX document
+        if export_type == 'pdf':
+            columns.append({'name': _('Account'), 'label': 'account_label'})
+        else:
+            columns.extend([
+                {'name': _('Account Code'), 'label': 'account_code'},
+                {'name': _('Account Label'), 'label': 'account_label'}
+            ])
+
+        columns.extend([
+            {'name': _('Name'), 'label': 'name'},
+            {'name': _('Debit'), 'label': 'debit', 'class': 'o_right_alignment '},
+            {'name': _('Credit'), 'label': 'credit', 'class': 'o_right_alignment '},
+        ])
+
+        if journal.get('tax_summary'):
+            columns.append(
+                {'name': _('Taxes'), 'label': 'taxes'},
+            )
+            if journal['tax_summary'].get('tax_grid_summary_lines'):
+                columns.append({'name': _('Tax Grids'), 'label': 'tax_grids'})
+
+        if journal['type'] == 'bank':
+            columns.append({
+                'name': _('Balance'),
+                'label': 'balance',
+                'class': 'o_right_alignment '
+            })
+
+            if journal.get('multicurrency_column'):
+                columns.append({
+                    'name': _('Amount Currency'),
+                    'label': 'amount_currency',
+                    'class': 'o_right_alignment '
+                })
+
+        return columns
+
+    def _get_export_lines_for_journal(self, report, options, export_type, journal_vals, account_move_vals_list):
+        """
+        Default document lines generation it will generate a list of lines in a format valid for the pdf and xlsx
+
+        If it is a bank journal it will be redirected to _get_lines_for_bank_journal since this type of journals
+        require more complexity
+        We want to be as lightweight as possible and not at unnecessary calculations
+
+        :return: A list of lines. Each line is a dict having:
+            - 'column_label':           A dict containing the values for a cell with a key that links to the label of a column
+                - data (mandatory):     The formatted cell value
+                - class (optional):     Additional css classes to apply to the current cell
+            - line_class (optional):    Additional css classes that applies to the entire line
+        """
+        lines = []
+
+        if journal_vals['type'] == 'bank':
+            return self._get_export_lines_for_bank_journal(report, options, export_type, journal_vals, account_move_vals_list)
+
+        total_credit = 0
+        total_debit = 0
+
+        for i, account_move_line_vals_list in enumerate(account_move_vals_list):
+            for j, move_line_entry_vals in enumerate(account_move_line_vals_list):
+                document = False
+                if j == 0:
+                    document = move_line_entry_vals['move_name']
+                elif j == 1:
+                    document = move_line_entry_vals['date']
+
+                line = self._get_base_line(report, options, export_type, document, move_line_entry_vals, j, i % 2 != 0, journal_vals.get('tax_summary'))
+
+                total_credit += move_line_entry_vals['credit']
+                total_debit += move_line_entry_vals['debit']
+
+                lines.append(line)
+
+            # Add other currency amout if this move is using multiple currencies
+            move_vals_entry = account_move_line_vals_list[0]
+            if move_vals_entry['is_multicurrency']:
+                amount_currency_name = _(
+                    'Amount in currency: %s',
+                    report._format_value(
+                        options,
+                        move_vals_entry['amount_currency_total'],
+                        'monetary',
+                        format_params={'currency_id': move_vals_entry['move_currency']},
+                    ),
                 )
-                SELECT column_group_key, month, display_month
-                FROM aml_by_months
-                ORDER BY date)
-            """)
+                if len(account_move_line_vals_list) <= 2:
+                    lines.append({
+                        'document': {'data': amount_currency_name},
+                        'line_class': 'o_even ' if i % 2 == 0 else 'o_odd ',
+                        'amount': {'data': move_vals_entry['amount_currency_total']},
+                        'currency_id': {'data': move_vals_entry['move_currency']}
+                    })
+                else:
+                    lines[-1]['document'] = {'data': amount_currency_name}
+                    lines[-1]['amount'] = {'data': move_vals_entry['amount_currency_total']}
+                    lines[-1]['currency_id'] = {'data': move_vals_entry['move_currency']}
 
-        # 1.2.Fetch data from DB
-        self._cr.execute(" UNION ALL ".join(queries), params)
-        rslt = {}
-        for aml_result in self._cr.dictfetchall():
-            rslt.setdefault(aml_result['month'], {col_group_key: {} for col_group_key in options['column_groups']})
-            rslt[aml_result['month']][aml_result['column_group_key']] = aml_result
+        # Add an empty line to add a separation between the total section and the data section
+        lines.append({})
 
-        return rslt
+        total_line = {
+            'name': {'data': _('Total')},
+            'debit': {'data': report._format_value(options, total_debit, 'monetary')},
+            'credit': {'data': report._format_value(options, total_credit, 'monetary')},
+        }
+
+        lines.append(total_line)
+
+        return lines
+
+    def _get_export_lines_for_bank_journal(self, report, options, export_type, journal_vals, account_moves_vals_list):
+        """
+        Bank journals are more complex and should be calculated separately from other journal types
+
+        :return: A list of lines. Each line is a dict having:
+            - 'column_label':           A dict containing the values for a cell with a key that links to the label of a column
+                - data (mandatory):     The formatted cell value
+                - class (optional):     Additional css classes to apply to the current cell
+            - line_class (optional):    Additional css classes that applies to the entire line
+        """
+        lines = []
+
+        # Initial balance
+        current_balance = self._query_bank_journal_initial_balance(options, journal_vals['id'])
+        lines.append({
+            'name': {'data': _('Starting Balance')},
+            'balance': {'data': report._format_value(options, current_balance, 'monetary')},
+        })
+
+        # Debit and credit accumulators
+        total_credit = 0
+        total_debit = 0
+
+        for i, account_move_line_vals_list in enumerate(account_moves_vals_list):
+            is_unreconciled_payment = not any(
+                line for line in account_move_line_vals_list if line['account_type'] in ('liability_credit_card', 'asset_cash')
+            )
+
+            for j, move_line_entry_vals in enumerate(account_move_line_vals_list):
+                # Do not display bank account lines for bank journals
+                if move_line_entry_vals['account_type'] not in ('liability_credit_card', 'asset_cash'):
+                    document = ''
+                    if j == 0:
+                        document = f'{move_line_entry_vals["move_name"]} ({move_line_entry_vals["date"]})'
+                    line = self._get_base_line(report, options, export_type, document, move_line_entry_vals, j, i % 2 != 0, journal_vals.get('tax_summary'))
+
+                    total_credit += move_line_entry_vals['credit']
+                    total_debit += move_line_entry_vals['debit']
+
+                    if not is_unreconciled_payment:
+                        # We need to invert the balance since it is a bank journal
+                        line_balance = -move_line_entry_vals['balance']
+                        current_balance += line_balance
+                        line.update({
+                            'balance': {
+                                'data': report._format_value(options, current_balance, 'monetary'),
+                                'class': 'o_muted ' if self.env.company.currency_id.is_zero(line_balance) else ''
+                            },
+                        })
+
+                    if self.env.user.has_group('base.group_multi_currency') and move_line_entry_vals['move_line_currency'] != move_line_entry_vals['company_currency']:
+                        journal_vals['multicurrency_column'] = True
+                        amount_currency = -move_line_entry_vals['amount_currency'] if not is_unreconciled_payment else move_line_entry_vals['amount_currency']
+                        move_line_currency = self.env['res.currency'].browse(move_line_entry_vals['move_line_currency'])
+                        line.update({
+                            'amount_currency': {
+                                'data': report._format_value(
+                                    options,
+                                    amount_currency,
+                                    'monetary',
+                                    format_params={'currency_id': move_line_currency.id},
+                                ),
+                                'class': 'o_muted ' if move_line_currency.is_zero(amount_currency) else '',
+                            }
+                        })
+                    lines.append(line)
+
+        # Add an empty line to add a separation between the total section and the data section
+        lines.append({})
+
+        total_line = {
+            'name': {'data': _('Total')},
+            'balance': {'data': report._format_value(options, current_balance, 'monetary')},
+        }
+        lines.append(total_line)
+
+        return lines
+
+    def _get_base_line(self, report, options, export_type, document, line_entry, line_index, even, has_taxes):
+        """
+        Returns the generic part of a line that is used by both '_get_lines_for_journal' and '_get_lines_for_bank_journal'
+
+        :return:                                    A dict with base values for the line
+            - line_class (mandatory):                   Css classes that applies to this whole line
+            - document (mandatory):                     A dict containing the cell data for the column document
+                - data (mandatory):                         The value of the cell formatted
+                - class (mandatory):                        css class for this cell
+            - account (mandatory):                      A dict containing the cell data for the column account
+                - data (mandatory):                         The value of the cell formatted
+            - account_code (mandatory):                 A dict containing the cell data for the column account_code
+                - data (mandatory):                         The value of the cell formatted
+            - account_label (mandatory):                A dict containing the cell data for the column account_label
+                - data (mandatory):                         The value of the cell formatted
+            - name (mandatory):                         A dict containing the cell data for the column name
+                - data (mandatory):                         The value of the cell formatted
+            - debit (mandatory):                        A dict containing the cell data for the column debit
+                - data (mandatory):                         The value of the cell formatted
+                - class (mandatory):                        css class for this cell
+            - credit (mandatory):                       A dict containing the cell data for the column credit
+                - data (mandatory):                         The value of the cell formatted
+                - class (mandatory):                        css class for this cell
+
+            - taxes(optional):                          A dict containing the cell data for the column taxes
+                - data (mandatory):                         The value of the cell formatted
+            - tax_grids(optional):                          A dict containing the cell data for the column taxes
+                - data (mandatory):                         The value of the cell formatted
+        """
+        company_currency = self.env.company.currency_id
+
+        name = line_entry['name'] or line_entry['reference']
+        account_label = line_entry['partner_name'] or line_entry['account_name']
+        if line_entry['partner_name'] and line_entry['account_type'] == 'asset_receivable':
+            formatted_account_label = _('AR %s', account_label)  # AR="Account Receivable"
+        elif line_entry['partner_name'] and line_entry['account_type'] == 'liability_payable':
+            formatted_account_label = _('AP %s', account_label)  # AP="Account Payable"
+        else:
+            account_label = line_entry['account_name']
+            formatted_account_label = _('G %s', line_entry["account_code"])  # G="General"
+
+        line = {
+            'line_class': 'o_even ' if even else 'o_odd ',
+            'document': {'data': document, 'class': 'o_bold ' if line_index == 0 else ''},
+            'account_code': {'data': line_entry['account_code']},
+            'account_label': {'data': account_label if export_type != 'pdf' else formatted_account_label},
+            'name': {'data': name},
+            'debit': {
+                'data': report._format_value(options, line_entry['debit'], 'monetary'),
+                'class': 'o_muted ' if company_currency.is_zero(line_entry['debit']) else ''
+            },
+            'credit': {
+                'data': report._format_value(options, line_entry['credit'], 'monetary'),
+                'class': 'o_muted ' if company_currency.is_zero(line_entry['credit']) else ''
+            },
+        }
+
+        if has_taxes:
+            tax_val = ''
+            if line_entry['taxes']:
+                tax_val = _('T: %s', ', '.join(line_entry['taxes']))
+            elif line_entry['tax_base_amount'] is not None:
+                tax_val = _('B: %s', report._format_value(options, line_entry['tax_base_amount'], 'monetary'))
+
+            line.update({
+                'taxes': {'data': tax_val},
+                'tax_grids': {'data': ', '.join(line_entry['tax_grids'])},
+            })
+
+        return line
+
+    ##########################################################################
+    # Queries
+    ##########################################################################
+
+    def _get_payment_lines_filter_case_statement(self, options):
+        if not options.get('show_payment_lines'):
+            return SQL(
+                """
+                    (j.type != 'bank' OR EXISTS(
+                        SELECT
+                            1
+                        FROM account_move_line
+                        JOIN account_account acc ON acc.id = account_move_line.account_id
+                        WHERE account_move_line.move_id = am.id
+                        AND acc.account_type IN ('liability_credit_card', 'asset_cash')
+                    ))
+                """
+            )
+        else:
+            return SQL('TRUE')
+
+    def _query_bank_journal_initial_balance(self, options, journal_id):
+        report = self.env.ref('account_reports.journal_report')
+        table_references, search_conditions = report._get_table_expression(options, 'to_beginning_of_period', domain=[('journal_id', '=', journal_id)])
+        query = SQL(
+            """
+                SELECT
+                    COALESCE(SUM(account_move_line.balance), 0) AS balance
+                FROM %(table)s
+                JOIN account_journal journal ON journal.id = "account_move_line".journal_id AND account_move_line.account_id = journal.default_account_id
+                WHERE %(search_conditions)s
+                GROUP BY journal.id
+            """,
+            table=table_references,
+            search_conditions=search_conditions
+        )
+        self._cr.execute(query)
+        result = self._cr.dictfetchall()
+        init_balance = result[0]['balance'] if len(result) >= 1 else 0
+        return init_balance
+
+    ##########################################################################
+    # Tax Grids
+    ##########################################################################
+
+    def _section_has_tax(self, options, journal_id):
+        report = self.env['account.report'].browse(options.get('report_id'))
+        aml_has_tax_domain = [('tax_ids', '!=', False)]
+        if journal_id:
+            aml_has_tax_domain.append(('journal_id', '=', journal_id))
+        aml_has_tax_domain += report._get_options_domain(options, 'strict_range')
+        return bool(self.env['account.move.line'].search_count(aml_has_tax_domain, limit=1))
+
+    def _get_tax_summary_section(self, options, journal_vals=None):
+        """
+        Get the journal tax summary if it is passed as parameter.
+        In case no journal is passed, it will return the global tax summary data
+        """
+        tax_data = {
+            'date_from': options.get('date', {}).get('date_from'),
+            'date_to': options.get('date', {}).get('date_to'),
+        }
+
+        if journal_vals:
+            tax_data['journal_id'] = journal_vals['id']
+            tax_data['journal_type'] = journal_vals['type']
+
+        tax_report_lines = self._get_generic_tax_summary_for_sections(options, tax_data)
+        tax_non_deductible_column = any(line.get('tax_non_deductible_no_format') for country_vals_list in tax_report_lines.values() for line in country_vals_list)
+        tax_deductible_column = any(line.get('tax_deductible_no_format') for country_vals_list in tax_report_lines.values() for line in country_vals_list)
+        tax_due_column = any(line.get('tax_due_no_format') for country_vals_list in tax_report_lines.values() for line in country_vals_list)
+        extra_columns = int(tax_non_deductible_column) + int(tax_deductible_column) + int(tax_due_column)
+
+        tax_grid_summary_lines = self._get_tax_grids_summary(options, tax_data)
+
+        return {
+            'tax_report_lines': tax_report_lines,
+            'tax_non_deductible_column': tax_non_deductible_column,
+            'tax_deductible_column': tax_deductible_column,
+            'tax_due_column': tax_due_column,
+            'extra_columns': extra_columns,
+            'tax_grid_summary_lines': tax_grid_summary_lines,
+        }
+
+    def _get_generic_tax_report_options(self, options, data):
+        """
+        Return an option dictionnary set to fetch the reports with the parameters needed for this journal.
+        The important bits are the journals, date, and fetch the generic tax reports that contains all taxes.
+        We also provide the information about wether to take all entries or only posted ones.
+        """
+        generic_tax_report = self.env.ref('account.generic_tax_report')
+        previous_option = options.copy()
+        # Force the dates to the selected ones. Allows to get it correctly when grouped by months
+        previous_option.update({
+            'selected_variant_id': generic_tax_report.id,
+            'date_from': data.get('date_from'),
+            'date_to': data.get('date_to'),
+        })
+        tax_report_options = generic_tax_report.get_options(previous_option)
+        journal_report = self.env['account.report'].browse(options['report_id'])
+        tax_report_options['forced_domain'] = tax_report_options.get('forced_domain', []) + journal_report._get_options_domain(options, 'strict_range')
+
+        # Even though it doesn't have a journal selector, we can force a journal in the options to only get the lines for a specific journal.
+        if data.get('journal_id') or data.get('journal_type'):
+            tax_report_options['journals'] = [{
+                'id': data.get('journal_id'),
+                'model': 'account.journal',
+                'type': data.get('journal_type'),
+                'selected': True,
+            }]
+
+        return tax_report_options
 
     def _get_tax_grids_summary(self, options, data):
         """
@@ -961,7 +1089,7 @@ class JournalReportCustomHandler(models.AbstractModel):
         country_name = self_lang.env['res.country']._field_to_sql('country', 'name')
         tag_name = self_lang.env['account.account.tag']._field_to_sql('tag', 'name')
         query = SQL("""
-            WITH tag_info (country_name, tag_id, tag_name, tag_sign, balance) as (
+            WITH tag_info (country_name, tag_id, tag_name, tag_sign, balance) AS (
                 SELECT
                     %(country_name)s AS country_name,
                     tag.id,
@@ -972,7 +1100,7 @@ class JournalReportCustomHandler(models.AbstractModel):
                         ) AS balance
                 FROM account_account_tag tag
                 JOIN account_account_tag_account_move_line_rel rel ON tag.id = rel.account_account_tag_id
-                JOIN res_country country on country.id = tag.country_id
+                JOIN res_country country ON country.id = tag.country_id
                 , %(table_references)s
                 WHERE %(search_condition)s
                   AND applicability = 'taxes'
@@ -991,10 +1119,11 @@ class JournalReportCustomHandler(models.AbstractModel):
         self._cr.execute(query)
         query_res = self.env.cr.fetchall()
 
-        res = defaultdict(lambda: defaultdict(dict))
+        res = {}
         opposite = {'+': '-', '-': '+'}
         for country_name, tag_id, name, balance, sign in query_res:
-            res[country_name][name].setdefault('tag_id', []).append(tag_id)
+            res.setdefault(country_name, {}).setdefault(name, {})
+            res[country_name][name].setdefault('tag_ids', []).append(tag_id)
             res[country_name][name][sign] = report._format_value(options, balance, 'monetary')
 
             # We need them formatted, to ensure they are displayed correctly in the report. (E.g. 0.0, not 0)
@@ -1048,9 +1177,9 @@ class JournalReportCustomHandler(models.AbstractModel):
 
         # Make the final data dict that will be used by the template, using the taxes information.
         taxes = self.env['account.tax'].browse(tax_values.keys())
-        res = defaultdict(list)
+        res = {}
         for tax in taxes:
-            res[tax.country_id.name].append({
+            res.setdefault(tax.country_id.name, []).append({
                 'base_amount': report._format_value(options, tax_values[tax.id]['base_amount'], 'monetary'),
                 'tax_amount': report._format_value(options, tax_values[tax.id]['tax_amount'], 'monetary'),
                 'tax_non_deductible': report._format_value(options, tax_values[tax.id]['tax_non_deductible'], 'monetary'),
@@ -1066,20 +1195,18 @@ class JournalReportCustomHandler(models.AbstractModel):
         # Return the result, ordered by country name
         return dict(sorted(res.items()))
 
-    ####################################################
+    ##########################################################################
     # Actions
-    ####################################################
+    ##########################################################################
 
     def journal_report_tax_tag_template_open_aml(self, options, params=None):
         """ returns an action to open a tree view of the account.move.line having the selected tax tag """
-        tag_id = params.get('tag_id')
-        # When grouped by month, we don't use the report dates directly, but the ones of the month. So they need to replace the ones in the options.
-        new_options = options.copy()
-        new_options['date'].update({
-            'date_from': params and params.get('date_from') or options.get('date', {}).get('date_from'),
-            'date_to': params and params.get('date_to') or options.get('date', {}).get('date_to'),
-        })
-        domain = self.env['account.report'].browse(options['report_id'])._get_options_domain(new_options, 'strict_range') + [('tax_tag_ids', 'in', tag_id)] + self.env['account.move.line']._get_tax_exigible_domain()
+        tag_ids = params.get('tag_ids')
+        domain = (
+            self.env['account.report'].browse(options['report_id'])._get_options_domain(options, 'strict_range')
+            + [('tax_tag_ids', 'in', [tag_ids])]
+            + self.env['account.move.line']._get_tax_exigible_domain()
+        )
 
         return {
             'type': 'ir.actions.act_window',
@@ -1091,13 +1218,7 @@ class JournalReportCustomHandler(models.AbstractModel):
         }
 
     def journal_report_action_dropdown_audit_default_tax_report(self, options, params):
-        # See above
-        new_options = options.copy()
-        new_options['date'].update({
-            'date_from': params and params.get('date_from') or options.get('date', {}).get('date_from'),
-            'date_to': params and params.get('date_to') or options.get('date', {}).get('date_to'),
-        })
-        return self.env['account.generic.tax.report.handler'].caret_option_audit_tax(new_options, params)
+        return self.env['account.generic.tax.report.handler'].caret_option_audit_tax(options, params)
 
     def journal_report_action_open_tax_journal_items(self, options, params):
         """
@@ -1146,15 +1267,24 @@ class JournalReportCustomHandler(models.AbstractModel):
             'context': ctx,
         }
 
-    def open_journal_items(self, options, params):
+    def journal_report_action_open_account_move_lines_by_account(self, options, params):
+        """
+        Open a tree view of the journal account move lines
+        corresponding to the date filter and the current account line clicked
+        :param options: The current options of the report
+        :param params: The params given from the report UI (journal_id, account_id, date)
+        :return: act_window on journal items filtered on the current journal and the current account within a date.
+        """
         report = self.env['account.report'].browse(options['report_id'])
-        action = report.open_journal_items(options=options, params=params)
-        action.get('context', {}).update({'search_default_group_by_account': 0, 'search_default_group_by_move': 1})
-        return action
+        domain = [
+            ('journal_id.id', '=', params['journal_id']),
+            ('account_id.id', '=', params['account_id']),
+        ]
+        domain += report._get_options_domain(options, 'strict_range')
 
-    def journal_report_action_open_business_doc(self, options, params):
-        model, record_id = self.env['account.report']._get_model_info_from_id(params['line_id'])
-        record = self.env[model].browse(record_id)
-        if record._name in ['account.move', 'account.move.line']:
-            return record.action_open_business_doc()
-        raise UserError(_("The selected report line does not target a Journal Entry or a Journal Item."))
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.move.line',
+            'views': [[False, 'tree']],
+            'domain': domain
+        }

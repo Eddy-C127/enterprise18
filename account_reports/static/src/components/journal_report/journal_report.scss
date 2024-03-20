@@ -1,15 +1,8 @@
-.account_report.journal_report {
-    // Reset the stripping
-    table.striped {
-        > thead > tr:not(:first-child) > th:nth-child(2n+3) { background: inherit }
-        > tbody {
-            > tr:not(.line_level_0):not(.empty) > td:nth-child(2n+3) { background: inherit }
-            > tr.line_level_0 > td:nth-child(2n+3) { background: inherit }
-        }
-    }
-
+.journal_report {
     .sheet { min-width: 1140px }
-    .line_level_0 { background-color: inherit }
+
+    table.striped > tbody > tr:not(.line_level_0):not(.empty) > td:nth-child(2n+3) { background: inherit }
+
 
     .table > tbody > tr {
         &.accent_header { background-color: $o-gray-200 }
