@@ -6,26 +6,24 @@ import { FormController } from "@web/views/form/form_controller";
 import { formView } from "@web/views/form/form_view";
 
 class WorksheetValidationController extends FormController {
+    static template = "quality_control_worksheet.WorksheetValidationController";
+
     setup() {
         super.setup();
         this.orm = useService("orm");
     }
 
-    async saveButtonClicked(params = {}) {
-        // closable is a param that is set by default on form saves and will trigger a close window action if true
-        // its set to false here to prevent the action close from closing the action in `onRecordSaved`
-        params.closable = false;
-        return super.saveButtonClicked(params);
-    }
-
-    async onRecordSaved(record) {
+    async validate() {
+        await this.saveButtonClicked({ closable:false });
+        const record = this.model.root.data;
+        const context = this.model.root.context;
         if (record.mode != "readonly") {
-            record.context['from_worksheet'] = true
+            context['from_worksheet'] = true
             const action = await this.orm.call(
                 "quality.check",
                 "action_worksheet_check",
-                [record.data.x_quality_check_id[0]],
-                { context: record.context }
+                [record.x_quality_check_id[0]],
+                { context }
             );
             if (action) {
                 await this.model.action.doAction(action);
@@ -34,6 +32,7 @@ class WorksheetValidationController extends FormController {
     }
 
     async discard() {
+        await this.saveButtonClicked({ closable:false });
         await super.discard();
         const record = this.model.root.data;
         const context = this.model.root.context;
@@ -43,7 +42,41 @@ class WorksheetValidationController extends FormController {
             [record.x_quality_check_id[0]],
             { context }
         );
-        this.action.doAction(action);
+        this.model.action.doAction(action);
+    }
+
+    async next() {
+        const context = this.model.root.context;
+        const action = await this.orm.call(
+            "quality.check.wizard",
+            "action_generate_next_window",
+            [context.quality_wizard_id],
+            { context }
+        );
+        await this.saveButtonClicked({ closable:false });
+        this.model.action.doAction(action);
+    }
+
+    async previous() {
+        const context = this.model.root.context;
+        const action = await this.orm.call(
+            "quality.check.wizard",
+            "action_generate_previous_window",
+            [context.quality_wizard_id],
+            { context }
+        );
+        await this.saveButtonClicked({ closable:false });
+        this.model.action.doAction(action);
+    }
+
+    showNextButton() {
+        const context = this.model.root.context;
+        return context.quality_wizard_id && context.default_current_check_id !== context.default_check_ids[context.default_check_ids.length - 1];
+    }
+
+    showPreviousButton() {
+        const context = this.model.root.context;
+        return context.quality_wizard_id && context.default_current_check_id !== context.default_check_ids[0];
     }
 }
 
