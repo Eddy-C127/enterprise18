@@ -349,6 +349,9 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         }
         args.manual_consumption = 'manual_consumption' in args ? args.manual_consumption : true;
         super.updateLine(...arguments);
+        if (args.move_uom_id) {
+            line.product_uom_id = this.cache.getRecord('uom.uom', args.move_uom_id);
+        }
     }
 
     updateLineQty(virtualId, qty=1, manual_consumption=true, location_id=null) {
@@ -445,6 +448,9 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
                     location_id: move.location_id,
                     qty_done: qtyRemaining,
                     move_id: moveId,
+                }
+                if (this.groups.group_uom) {
+                    fieldsParams.move_uom_id = move.product_uom;
                 }
                 this._createNewLine({ fieldsParams });
             }

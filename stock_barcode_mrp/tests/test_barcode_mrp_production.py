@@ -449,3 +449,20 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
             {'product_id': self.product2.id, 'quantity': 1, 'picked': False},
             {'product_id': self.product1.id, 'quantity': 1, 'picked': False},
         ])
+
+    def test_barcode_production_component_different_uom(self):
+        self.clean_access_rights()
+        self.env.ref('base.user_admin').groups_id += self.env.ref('uom.group_uom')
+        uom_kg = self.env.ref('uom.product_uom_kgm')
+        uom_gm = self.env.ref('uom.product_uom_gram')
+        self.component01.uom_id = uom_gm
+        self.env['mrp.bom'].create({
+            'product_tmpl_id': self.final_product.product_tmpl_id.id,
+            'product_qty': 1.0,
+            'bom_line_ids': [
+                (0, 0, {'product_id': self.component01.id, 'product_qty': 1.0, 'product_uom_id': uom_kg.id}),
+            ],
+        })
+        action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
+        url = "/web#action=" + str(action_id.id)
+        self.start_tour(url, 'test_barcode_production_component_different_uom', login='admin', timeout=180)
