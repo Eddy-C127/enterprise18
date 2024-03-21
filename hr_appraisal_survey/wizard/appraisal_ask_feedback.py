@@ -169,7 +169,7 @@ class AppraisalAskFeedback(models.TransientModel):
         for answer in answers:
             self._send_mail(answer)
 
-        for employee in self.employee_ids.filtered(lambda e: e.user_id.has_group('hr_appraisal.group_hr_appraisal_user')):
+        for employee in self.employee_ids.filtered(lambda e: e.user_id and e.user_id.has_group('hr_appraisal.group_hr_appraisal_user')):
             answer = answers.filtered(lambda l: l.partner_id and l.partner_id == employee.user_id.partner_id)
             if answer:
                 self.appraisal_id.with_context(mail_activity_quick_update=True).activity_schedule(
