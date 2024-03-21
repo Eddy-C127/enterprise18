@@ -45,6 +45,7 @@ class ActivityTriggersCase(TestMACommon):
         cls.test_mailing_sms = cls._create_mailing(
             'marketing.test.sms',
             mailing_type='sms',
+            body_plaintext='Test SMS',
             user_id=cls.user_marketing_automation.id,
         )
 
@@ -83,7 +84,7 @@ for record in records:
 
 
 @tagged('marketing_automation', 'marketing_activity')
-class TestActivityTriggersMail(ActivityTriggersCase):
+class TestActivityTriggers(ActivityTriggersCase):
 
     @classmethod
     def setUpClass(cls):
@@ -108,6 +109,21 @@ class TestActivityTriggersMail(ActivityTriggersCase):
             parent_id=cls.activity_mailing_mail.id,
             interval_number=0,
             trigger_type='mail_open',
+        )
+
+        cls.activity_mailing_sms = cls._create_activity(
+            cls.campaign,
+            create_date=cls.date_reference,
+            mailing=cls.test_mailing_sms,
+            interval_number=1, interval_type='hours',
+            trigger_type='begin',
+        )
+        cls.activity_sms_not_click = cls._create_activity(
+            cls.campaign,
+            action=cls.test_sa_descr_mail_open,
+            parent_id=cls.activity_mailing_sms.id,
+            interval_number=0,
+            trigger_type='sms_not_click',
         )
 
     @users('user_marketing_automation')
@@ -217,3 +233,28 @@ class TestActivityTriggersMail(ActivityTriggersCase):
             }],
             activity_sa_notopen,
         )
+
+    @users('user_marketing_automation')
+    def test_triggers(self):
+        self._launch_campaign(self.campaign)
+        date_send = self.date_reference + timedelta(hours=1)
+        date_not_clicked = date_send + timedelta(hours=0)
+        date_not_open = date_send + timedelta(days=1)
+
+        with freeze_time(date_send), self.mock_mail_gateway():
+            self.campaign.execute_activities()
+
+        for sub_activity, schedule_date in [
+            (self.activity_sms_not_click, date_not_clicked),
+            (self.activity_sa_notopen, date_not_open),
+        ]:
+            self.assertMarketAutoTraces(
+                [{
+                    'records': self.test_records,
+                    'status': 'scheduled',
+                    'fields_values': {
+                        'schedule_date': schedule_date,
+                    }
+                }],
+                sub_activity,
+            )

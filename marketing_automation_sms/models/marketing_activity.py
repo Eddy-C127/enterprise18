@@ -46,6 +46,11 @@ class MarketingActivity(models.Model):
 
         super(MarketingActivity, non_sms_trigger_category)._compute_trigger_category()
 
+    def _get_reschedule_trigger_types(self):
+        trigger_types = super()._get_reschedule_trigger_types()
+        trigger_types.add('sms_not_click')
+        return trigger_types
+
     def _execute_sms(self, traces):
         res_ids = [r for r in set(traces.mapped('res_id'))]
 
