@@ -1,4 +1,4 @@
-import { beforeEach, expect, test } from "@odoo/hoot";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { keyDown, keyUp, queryAllTexts, queryOne } from "@odoo/hoot-dom";
 import { Deferred, advanceTime, animationFrame, runAllTimers } from "@odoo/hoot-mock";
 import {
@@ -42,6 +42,8 @@ const DST_DATES = {
         after: "2019-10-27",
     },
 };
+
+describe.current.tags("desktop");
 
 beforeEach(() => {
     patchDate("2018-12-20T08:00:00", +1);
@@ -374,7 +376,7 @@ test("open a dialog to create/edit a task", async () => {
     expect(".o_field_widget[name=stage] select").toHaveValue('"in_progress"');
 });
 
-test.tags("desktop")("open a dialog to create a task when grouped by many2many field", async () => {
+test("open a dialog to create a task when grouped by many2many field", async () => {
     Tasks._fields.user_ids = fields.Many2many({
         string: "Assignees",
         relation: "res.users",
@@ -609,7 +611,7 @@ test("create dialog with timezone", async () => {
     await contains(".o_form_button_save").click();
 });
 
-test.tags("desktop")("open a dialog to plan a task", async () => {
+test("open a dialog to plan a task", async () => {
     Tasks._views = {
         list: '<tree><field name="name"/></tree>',
         search: '<search><field name="name"/></search>',
@@ -653,7 +655,7 @@ test.tags("desktop")("open a dialog to plan a task", async () => {
     expect(["tasks"]).toVerifySteps();
 });
 
-test.tags("desktop")("open a dialog to plan a task (multi-level)", async () => {
+test("open a dialog to plan a task (multi-level)", async () => {
     Tasks._views = {
         list: '<tree><field name="name"/></tree>',
         search: '<search><field name="name"/></search>',

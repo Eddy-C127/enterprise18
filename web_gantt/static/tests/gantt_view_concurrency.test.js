@@ -1,4 +1,4 @@
-import { beforeEach, expect, test } from "@odoo/hoot";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { Deferred, animationFrame } from "@odoo/hoot-mock";
 import { onPatched } from "@odoo/owl";
 import {
@@ -25,6 +25,8 @@ import {
 } from "./gantt_test_helpers";
 
 defineGanttModels();
+
+describe.current.tags("desktop");
 
 beforeEach(() => {
     patchDate("2018-12-20T08:00:00", +1);

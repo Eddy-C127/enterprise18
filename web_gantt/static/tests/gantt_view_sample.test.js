@@ -1,4 +1,4 @@
-import { beforeEach, expect, test } from "@odoo/hoot";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { queryFirst } from "@odoo/hoot-dom";
 import { markup } from "@odoo/owl";
 import {
@@ -18,11 +18,13 @@ import { WebClient } from "@web/webclient/webclient";
 
 defineGanttModels();
 
+describe.current.tags("desktop");
+
 beforeEach(() => {
     patchDate("2018-12-20T08:00:00", 1);
 });
 
-test.tags("desktop")(`empty grouped gantt with sample="1"`, async () => {
+test(`empty grouped gantt with sample="1"`, async () => {
     Tasks._views = {
         gantt: `<gantt date_start="start" date_stop="stop" sample="1"/>`,
         graph: `<graph/>`,
@@ -51,7 +53,7 @@ test.tags("desktop")(`empty grouped gantt with sample="1"`, async () => {
     expect(SELECTORS.noContentHelper).toHaveCount(1);
 });
 
-test.tags("desktop")("empty gantt with sample data and default_group_by", async () => {
+test("empty gantt with sample data and default_group_by", async () => {
     Tasks._views = {
         gantt: `<gantt date_start="start" date_stop="stop" sample="1" default_group_by="project_id"/>`,
         graph: `<graph/>`,
@@ -79,48 +81,45 @@ test.tags("desktop")("empty gantt with sample data and default_group_by", async 
     expect(SELECTORS.noContentHelper).toHaveCount(1);
 });
 
-test.tags("desktop")(
-    "empty gantt with sample data and default_group_by (switch view)",
-    async () => {
-        Tasks._views = {
-            gantt: `<gantt date_start="start" date_stop="stop" sample="1" default_group_by="project_id"/>`,
-            list: `<tree/>`,
-            search: `<search/>`,
-        };
+test("empty gantt with sample data and default_group_by (switch view)", async () => {
+    Tasks._views = {
+        gantt: `<gantt date_start="start" date_stop="stop" sample="1" default_group_by="project_id"/>`,
+        list: `<tree/>`,
+        search: `<search/>`,
+    };
 
-        await mountWithCleanup(WebClient);
-        await getService("action").doAction({
-            res_model: "tasks",
-            type: "ir.actions.act_window",
-            views: [
-                [false, "gantt"],
-                [false, "list"],
-            ],
-            domain: Domain.FALSE.toList(),
-        });
+    await mountWithCleanup(WebClient);
+    await getService("action").doAction({
+        res_model: "tasks",
+        type: "ir.actions.act_window",
+        views: [
+            [false, "gantt"],
+            [false, "list"],
+        ],
+        domain: Domain.FALSE.toList(),
+    });
 
-        // the gantt view should be in sample mode
-        expect(SELECTORS.viewContent).toHaveClass("o_view_sample_data");
-        expect(SELECTORS.pill).toHaveCount(10);
-        expect(SELECTORS.noContentHelper).toHaveCount(1);
-        const content = queryFirst(SELECTORS.viewContent).innerHTML;
+    // the gantt view should be in sample mode
+    expect(SELECTORS.viewContent).toHaveClass("o_view_sample_data");
+    expect(SELECTORS.pill).toHaveCount(10);
+    expect(SELECTORS.noContentHelper).toHaveCount(1);
+    const content = queryFirst(SELECTORS.viewContent).innerHTML;
 
-        // switch to list view
-        await switchView("list");
-        expect(SELECTORS.view).toHaveCount(0);
+    // switch to list view
+    await switchView("list");
+    expect(SELECTORS.view).toHaveCount(0);
 
-        // go back to gantt view
-        await switchView("gantt");
-        expect(SELECTORS.view).toHaveCount(1);
+    // go back to gantt view
+    await switchView("gantt");
+    expect(SELECTORS.view).toHaveCount(1);
 
-        // the gantt view should be still in sample mode
-        expect(SELECTORS.viewContent).toHaveClass("o_view_sample_data");
-        expect(SELECTORS.noContentHelper).toHaveCount(1);
-        expect(queryFirst(SELECTORS.viewContent).innerHTML).toBe(content);
-    }
-);
+    // the gantt view should be still in sample mode
+    expect(SELECTORS.viewContent).toHaveClass("o_view_sample_data");
+    expect(SELECTORS.noContentHelper).toHaveCount(1);
+    expect(queryFirst(SELECTORS.viewContent).innerHTML).toBe(content);
+});
 
-test.tags("desktop")(`empty gantt with sample="1"`, async () => {
+test(`empty gantt with sample="1"`, async () => {
     Tasks._views = {
         gantt: `<gantt date_start="start" date_stop="stop" sample="1"/>`,
         graph: `<graph/>`,

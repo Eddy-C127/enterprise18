@@ -1,4 +1,4 @@
-import { beforeEach, expect, test } from "@odoo/hoot";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { leave, queryAll, queryAllTexts, queryFirst } from "@odoo/hoot-dom";
 import { animationFrame } from "@odoo/hoot-mock";
 import { contains, mountView, onRpc, patchDate } from "@web/../tests/web_test_helpers";
@@ -18,11 +18,13 @@ import {
 
 defineGanttModels();
 
+describe.current.tags("desktop");
+
 beforeEach(() => {
     patchDate("2018-12-20T07:00:00", 1);
 });
 
-test.tags("desktop")("create attribute", async () => {
+test("create attribute", async () => {
     Tasks._views.list = `<tree><field name="name"/></tree>`;
     Tasks._views.search = `<search><field name="name"/></search>`;
     onRpc("has_group", () => true);
@@ -592,7 +594,7 @@ test("Today style of group rows", async () => {
     expect(cell5).toHaveStyle({ backgroundColor: "rgb(252, 250, 243)" });
 });
 
-test.tags("desktop")("style without unavailabilities", async () => {
+test("style without unavailabilities", async () => {
     patchDate("2018-12-05T02:00:00");
     onRpc("gantt_unavailability", (_, { args }) => {
         return args[4];

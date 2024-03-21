@@ -1,4 +1,4 @@
-import { beforeEach, expect, test } from "@odoo/hoot";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { queryAll, queryAllTexts, queryFirst, queryText } from "@odoo/hoot-dom";
 import { onRendered, useEffect, useRef } from "@odoo/owl";
 import {
@@ -46,6 +46,8 @@ const DST_DATES = {
 };
 
 defineGanttModels();
+
+describe.current.tags("desktop");
 
 beforeEach(() => {
     patchDate("2018-12-20T08:00:00", +1);
@@ -145,7 +147,7 @@ test("DST fall back", async () => {
     ]);
 });
 
-test.tags("desktop")("Records spanning across DST should be displayed normally", async () => {
+test("Records spanning across DST should be displayed normally", async () => {
     patchTimeZone("Europe/Brussels");
     Tasks._records = [
         {
@@ -235,65 +237,62 @@ test("move a pill in multi-level grop row after collapse and expand grouped row"
     expect(getGridContent().rows.filter((x) => x.isGroup)).toHaveLength(1);
 });
 
-test.tags("desktop")(
-    "plan dialog initial domain has the action domain as its only base",
-    async () => {
-        Tasks._views = {
-            gantt: `<gantt date_start="start" date_stop="stop"/>`,
-            list: `<tree><field name="name"/></tree>`,
-            search: `
+test("plan dialog initial domain has the action domain as its only base", async () => {
+    Tasks._views = {
+        gantt: `<gantt date_start="start" date_stop="stop"/>`,
+        list: `<tree><field name="name"/></tree>`,
+        search: `
             <search>
                 <filter name="project_one" string="Project 1" domain="[('project_id', '=', 1)]"/>
             </search>
         `,
-        };
-        onRpc("get_gantt_data", (_, { kwargs }) => expect.step(kwargs.domain.toString()));
-        onRpc("web_search_read", (_, { kwargs }) => expect.step(kwargs.domain.toString()));
-        await mountWithCleanup(WebClient);
-        const ganttAction = {
-            name: "Tasks Gantt",
-            res_model: "tasks",
-            type: "ir.actions.act_window",
-            views: [[false, "gantt"]],
-        };
+    };
+    onRpc("get_gantt_data", (_, { kwargs }) => expect.step(kwargs.domain.toString()));
+    onRpc("web_search_read", (_, { kwargs }) => expect.step(kwargs.domain.toString()));
+    await mountWithCleanup(WebClient);
+    const ganttAction = {
+        name: "Tasks Gantt",
+        res_model: "tasks",
+        type: "ir.actions.act_window",
+        views: [[false, "gantt"]],
+    };
 
-        // Load action without domain and open plan dialog
-        await getService("action").doAction(ganttAction);
-        expect(["&,start,<=,2018-12-31 22:59:59,stop,>=,2018-11-30 23:00:00"]).toVerifySteps();
-        await hoverGridCell(1, 10);
-        await clickCell(1, 10);
-        expect(["|,start,=,false,stop,=,false"]).toVerifySteps();
+    // Load action without domain and open plan dialog
+    await getService("action").doAction(ganttAction);
+    expect(["&,start,<=,2018-12-31 22:59:59,stop,>=,2018-11-30 23:00:00"]).toVerifySteps();
+    await hoverGridCell(1, 10);
+    await clickCell(1, 10);
+    expect(["|,start,=,false,stop,=,false"]).toVerifySteps();
 
-        // Load action WITH domain and open plan dialog
-        await getService("action").doAction({
-            ...ganttAction,
-            domain: [["project_id", "=", 1]],
-        });
-        expect([
-            "&,project_id,=,1,&,start,<=,2018-12-31 22:59:59,stop,>=,2018-11-30 23:00:00",
-        ]).toVerifySteps();
+    // Load action WITH domain and open plan dialog
+    await getService("action").doAction({
+        ...ganttAction,
+        domain: [["project_id", "=", 1]],
+    });
+    expect([
+        "&,project_id,=,1,&,start,<=,2018-12-31 22:59:59,stop,>=,2018-11-30 23:00:00",
+    ]).toVerifySteps();
 
-        await hoverGridCell(1, 10);
-        await clickCell(1, 10);
-        expect(["&,project_id,=,1,|,start,=,false,stop,=,false"]).toVerifySteps();
+    await hoverGridCell(1, 10);
+    await clickCell(1, 10);
+    expect(["&,project_id,=,1,|,start,=,false,stop,=,false"]).toVerifySteps();
 
-        // Load action without domain, activate a filter and then open plan dialog
-        await getService("action").doAction(ganttAction);
-        expect(["&,start,<=,2018-12-31 22:59:59,stop,>=,2018-11-30 23:00:00"]).toVerifySteps();
+    // Load action without domain, activate a filter and then open plan dialog
+    await getService("action").doAction(ganttAction);
+    expect(["&,start,<=,2018-12-31 22:59:59,stop,>=,2018-11-30 23:00:00"]).toVerifySteps();
 
-        await toggleSearchBarMenu();
-        await toggleMenuItem("Project 1");
-        expect([
-            "&,project_id,=,1,&,start,<=,2018-12-31 22:59:59,stop,>=,2018-11-30 23:00:00",
-        ]).toVerifySteps();
+    await toggleSearchBarMenu();
+    await toggleMenuItem("Project 1");
+    expect([
+        "&,project_id,=,1,&,start,<=,2018-12-31 22:59:59,stop,>=,2018-11-30 23:00:00",
+    ]).toVerifySteps();
 
-        await hoverGridCell(1, 10);
-        await clickCell(1, 10);
-        expect(["|,start,=,false,stop,=,false"]).toVerifySteps();
-    }
-);
+    await hoverGridCell(1, 10);
+    await clickCell(1, 10);
+    expect(["|,start,=,false,stop,=,false"]).toVerifySteps();
+});
 
-test.tags("desktop")("No progress bar when no option set.", async () => {
+test("No progress bar when no option set.", async () => {
     onRpc("gantt_progress_bar", () => {
         throw new Error("Method should not be called");
     });
@@ -305,7 +304,7 @@ test.tags("desktop")("No progress bar when no option set.", async () => {
     expect(SELECTORS.progressBar).toHaveCount(0);
 });
 
-test.tags("desktop")("Progress bar rpc is triggered when option set.", async () => {
+test("Progress bar rpc is triggered when option set.", async () => {
     onRpc("gantt_progress_bar", (_, { model, args }) => {
         expect.step("gantt_progress_bar");
         expect(model).toBe("tasks");
@@ -376,7 +375,7 @@ test("Progress bar component will not render when hovering cells of the same row
     expect(["rendering progress bar", "rendering progress bar"]).toVerifySteps();
 });
 
-test.tags("desktop")("Progress bar when multilevel grouped.", async () => {
+test("Progress bar when multilevel grouped.", async () => {
     // Here the view is grouped twice on the same field.
     // This is not a common use case, but it is possible to achieve it
     // bu saving a default favorite with a groupby then apply it twice
@@ -424,7 +423,7 @@ test.tags("desktop")("Progress bar when multilevel grouped.", async () => {
     expect(SELECTORS.progressBarForeground).toHaveText("25h / 200h");
 });
 
-test.tags("desktop")("Progress bar warning when max_value is zero", async () => {
+test("Progress bar warning when max_value is zero", async () => {
     onRpc("gantt_progress_bar", (_, { model, args }) => {
         expect.step("gantt_progress_bar");
         expect(model).toBe("tasks");
@@ -527,7 +526,7 @@ test("Falsy search field will return an empty rows", async () => {
     expect(SELECTORS.progressBar).toHaveCount(0);
 });
 
-test.tags("desktop")("Search field return rows with progressbar", async () => {
+test("Search field return rows with progressbar", async () => {
     onRpc("gantt_progress_bar", (_, { model, args }) => {
         expect.step("gantt_progress_bar");
         expect(model).toBe("tasks");
@@ -607,129 +606,123 @@ test("The date and task name appears in the pill title when the pill_label optio
     ]);
 });
 
-test.tags("desktop")(
-    "A task should always have a title (pill_label='1', scale 'week')",
-    async () => {
-        Tasks._fields.allocated_hours = fields.Float({ string: "Allocated Hours" });
-        Tasks._records = [
-            {
-                id: 1,
-                name: "Task 1",
-                start: "2018-12-17 08:30:00",
-                stop: "2018-12-17 19:30:00", // span only one day
-                allocated_hours: 0,
-            },
-            {
-                id: 2,
-                name: "Task 2",
-                start: "2018-12-18 08:30:00",
-                stop: "2018-12-18 19:30:00", // span only one day
-                allocated_hours: 6,
-            },
-            {
-                id: 3,
-                name: "Task 3",
-                start: "2018-12-18 08:30:00",
-                stop: "2018-12-19 19:30:00", // span two days
-                allocated_hours: 6,
-            },
-            {
-                id: 4,
-                name: "Task 4",
-                start: "2018-12-08 08:30:00",
-                stop: "2019-02-18 19:30:00", // span two weeks
-                allocated_hours: 6,
-            },
-            {
-                id: 5,
-                name: "Task 5",
-                start: "2018-12-18 08:30:00",
-                stop: "2019-02-18 19:30:00", // span two months
-                allocated_hours: 6,
-            },
-        ];
-        await mountView({
-            resModel: "tasks",
-            type: "gantt",
-            arch: `
+test("A task should always have a title (pill_label='1', scale 'week')", async () => {
+    Tasks._fields.allocated_hours = fields.Float({ string: "Allocated Hours" });
+    Tasks._records = [
+        {
+            id: 1,
+            name: "Task 1",
+            start: "2018-12-17 08:30:00",
+            stop: "2018-12-17 19:30:00", // span only one day
+            allocated_hours: 0,
+        },
+        {
+            id: 2,
+            name: "Task 2",
+            start: "2018-12-18 08:30:00",
+            stop: "2018-12-18 19:30:00", // span only one day
+            allocated_hours: 6,
+        },
+        {
+            id: 3,
+            name: "Task 3",
+            start: "2018-12-18 08:30:00",
+            stop: "2018-12-19 19:30:00", // span two days
+            allocated_hours: 6,
+        },
+        {
+            id: 4,
+            name: "Task 4",
+            start: "2018-12-08 08:30:00",
+            stop: "2019-02-18 19:30:00", // span two weeks
+            allocated_hours: 6,
+        },
+        {
+            id: 5,
+            name: "Task 5",
+            start: "2018-12-18 08:30:00",
+            stop: "2019-02-18 19:30:00", // span two months
+            allocated_hours: 6,
+        },
+    ];
+    await mountView({
+        resModel: "tasks",
+        type: "gantt",
+        arch: `
             <gantt date_start="start" date_stop="stop" pill_label="True" default_scale="week">
                 <field name="allocated_hours"/>
             </gantt>
         `,
-        });
-        const titleMapping = [
-            { name: "Task 4", title: "12/8 - 2/18 - Task 4" },
-            { name: "Task 1", title: "Task 1" },
-            { name: "Task 2", title: "9:30 AM - 8:30 PM (6h) - Task 2" },
-            { name: "Task 3", title: "Task 3" },
-            { name: "Task 5", title: "12/18 - 2/18 - Task 5" },
-        ];
-        expect(queryAllTexts(".o_gantt_pill")).toEqual(titleMapping.map((e) => e.title));
-        const pills = queryAll(".o_gantt_pill");
-        for (let i = 0; i < pills.length; i++) {
-            await contains(pills[i]).click();
-            expect(queryText(".o_popover .popover-header")).toBe(titleMapping[i].name);
-        }
+    });
+    const titleMapping = [
+        { name: "Task 4", title: "12/8 - 2/18 - Task 4" },
+        { name: "Task 1", title: "Task 1" },
+        { name: "Task 2", title: "9:30 AM - 8:30 PM (6h) - Task 2" },
+        { name: "Task 3", title: "Task 3" },
+        { name: "Task 5", title: "12/18 - 2/18 - Task 5" },
+    ];
+    expect(queryAllTexts(".o_gantt_pill")).toEqual(titleMapping.map((e) => e.title));
+    const pills = queryAll(".o_gantt_pill");
+    for (let i = 0; i < pills.length; i++) {
+        await contains(pills[i]).click();
+        expect(queryText(".o_popover .popover-header")).toBe(titleMapping[i].name);
     }
-);
+});
 
-test.tags("desktop")(
-    "A task should always have a title (pill_label='1', scale 'month')",
-    async () => {
-        Tasks._fields.allocated_hours = fields.Float({ string: "Allocated Hours" });
-        Tasks._records = [
-            {
-                id: 1,
-                name: "Task 1",
-                start: "2018-12-15 08:30:00",
-                stop: "2018-12-15 19:30:00", // span only one day
-                allocated_hours: 0,
-            },
-            {
-                id: 2,
-                name: "Task 2",
-                start: "2018-12-16 08:30:00",
-                stop: "2018-12-16 19:30:00", // span only one day
-                allocated_hours: 6,
-            },
-            {
-                id: 3,
-                name: "Task 3",
-                start: "2018-12-16 08:30:00",
-                stop: "2018-12-17 18:30:00", // span two days
-                allocated_hours: 6,
-            },
-            {
-                id: 4,
-                name: "Task 4",
-                start: "2018-12-16 08:30:00",
-                stop: "2019-02-18 19:30:00", // span two months
-                allocated_hours: 6,
-            },
-        ];
-        await mountView({
-            resModel: "tasks",
-            type: "gantt",
-            arch: `
+test("A task should always have a title (pill_label='1', scale 'month')", async () => {
+    Tasks._fields.allocated_hours = fields.Float({ string: "Allocated Hours" });
+    Tasks._records = [
+        {
+            id: 1,
+            name: "Task 1",
+            start: "2018-12-15 08:30:00",
+            stop: "2018-12-15 19:30:00", // span only one day
+            allocated_hours: 0,
+        },
+        {
+            id: 2,
+            name: "Task 2",
+            start: "2018-12-16 08:30:00",
+            stop: "2018-12-16 19:30:00", // span only one day
+            allocated_hours: 6,
+        },
+        {
+            id: 3,
+            name: "Task 3",
+            start: "2018-12-16 08:30:00",
+            stop: "2018-12-17 18:30:00", // span two days
+            allocated_hours: 6,
+        },
+        {
+            id: 4,
+            name: "Task 4",
+            start: "2018-12-16 08:30:00",
+            stop: "2019-02-18 19:30:00", // span two months
+            allocated_hours: 6,
+        },
+    ];
+    await mountView({
+        resModel: "tasks",
+        type: "gantt",
+        arch: `
             <gantt date_start="start" date_stop="stop" pill_label="True">
                 <field name="allocated_hours"/>
             </gantt>
         `,
-        });
-        const titleMapping = [
-            { name: "Task 1", title: "Task 1" },
-            { name: "Task 2", title: "9:30 AM - 8:30 PM (6h)" },
-            { name: "Task 3", title: "Task 3" },
-            { name: "Task 4", title: "12/16 - 2/18 - Task 4" },
-        ];
-        expect(queryAllTexts(".o_gantt_pill")).toEqual(titleMapping.map((e) => e.title));
-        const pills = queryAll(".o_gantt_pill");
-        for (let i = 0; i < pills.length; i++) {
-            await contains(pills[i]).click();
-            expect(queryText(".o_popover .popover-header")).toBe(titleMapping[i].name);
-        }
+    });
+    const titleMapping = [
+        { name: "Task 1", title: "Task 1" },
+        { name: "Task 2", title: "9:30 AM - 8:30 PM (6h)" },
+        { name: "Task 3", title: "Task 3" },
+        { name: "Task 4", title: "12/16 - 2/18 - Task 4" },
+    ];
+    expect(queryAllTexts(".o_gantt_pill")).toEqual(titleMapping.map((e) => e.title));
+    const pills = queryAll(".o_gantt_pill");
+    for (let i = 0; i < pills.length; i++) {
+        await contains(pills[i]).click();
+        expect(queryText(".o_popover .popover-header")).toBe(titleMapping[i].name);
     }
-);
+});
 
 test("position of no content help in sample mode", async () => {
     patchWithCleanup(GanttController.prototype, {

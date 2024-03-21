@@ -1,4 +1,4 @@
-import { beforeEach, expect, test } from "@odoo/hoot";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { queryAll, queryAllTexts } from "@odoo/hoot-dom";
 import {
     contains,
@@ -18,6 +18,8 @@ import { deserializeDateTime } from "@web/core/l10n/dates";
 import { WebClient } from "@web/webclient/webclient";
 
 defineGanttModels();
+
+describe.current.tags("desktop");
 
 beforeEach(() => {
     patchDate("2018-12-20T08:00:00", +1);
@@ -607,7 +609,7 @@ test("gantt rendering, pills must be chronologically ordered", async () => {
     ]);
 });
 
-test.tags("desktop")("scale switching", async () => {
+test("scale switching", async () => {
     await mountView({
         resModel: "tasks",
         type: "gantt",
@@ -729,7 +731,7 @@ test("today is highlighted", async () => {
     expect(`.o_gantt_header_cell.o_gantt_today`).toHaveText("20");
 });
 
-test.tags("desktop")("current month is highlighted'", async () => {
+test("current month is highlighted'", async () => {
     await mountView({
         resModel: "tasks",
         type: "gantt",
@@ -739,7 +741,7 @@ test.tags("desktop")("current month is highlighted'", async () => {
     expect(`.o_gantt_header_cell.o_gantt_today`).toHaveText("December");
 });
 
-test.tags("desktop")("current hour is highlighted'", async () => {
+test("current hour is highlighted'", async () => {
     await mountView({
         resModel: "tasks",
         type: "gantt",

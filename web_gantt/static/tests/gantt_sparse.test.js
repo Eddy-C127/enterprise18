@@ -1,9 +1,11 @@
-import { beforeEach, expect, test } from "@odoo/hoot";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { mountView, onRpc, patchDate } from "@web/../tests/web_test_helpers";
 import { defineGanttModels } from "./gantt_mock_models";
 import { SELECTORS, getGridContent } from "./gantt_test_helpers";
 
 defineGanttModels();
+
+describe.current.tags("desktop");
 
 beforeEach(() => {
     patchDate("2018-12-20T08:00:00", +1);
