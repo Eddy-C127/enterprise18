@@ -154,7 +154,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'date': self.test_date,
         }
         write_off_expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off', 'balance': -500.0},
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label', 'balance': -500.0},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label', 'balance': 500.0},
         ]
         self.assertWizardReconcileValues(line_1 + line_2, wizard_input_values, write_off_expected_values)
@@ -171,7 +171,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'date': self.test_date,
         }
         expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off',
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
              'balance': -500.0, 'amount_currency': -1500.0, 'currency_id': self.foreign_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 500.0, 'amount_currency': 1500.0, 'currency_id': self.foreign_currency.id},
@@ -191,7 +191,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'date': self.test_date,
         }
         expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off',
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
              'balance': -100.0, 'amount_currency': -100.0, 'currency_id': self.company_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 100.0, 'amount_currency': 100.0, 'currency_id': self.company_currency.id},
@@ -217,7 +217,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'date': new_date,
         }
         expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off',
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
              'balance': -1000.0, 'amount_currency': -333.333, 'currency_id': foreign_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 1000.0, 'amount_currency': 333.333, 'currency_id': foreign_currency.id},
@@ -238,7 +238,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'date': new_date,
         }
         expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off',
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
              'balance': -100.0, 'amount_currency': -100.0, 'currency_id': self.company_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 100.0, 'amount_currency': 100.0, 'currency_id': self.company_currency.id},
@@ -262,7 +262,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
              'balance': 100.0, 'amount_currency': 100.0, 'currency_id': self.company_currency.id},
         ]
         expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off',
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
              'balance': -1100.0, 'amount_currency': -1100.0, 'currency_id': self.company_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 1100.0, 'amount_currency': 1100.0, 'currency_id': self.company_currency.id},
@@ -286,7 +286,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
              'balance': 100.0, 'amount_currency': 300.0, 'currency_id': self.foreign_currency.id},
         ]
         expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off',
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
              'balance': -1200.0, 'amount_currency': -3600.0, 'currency_id': self.foreign_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 1200.0, 'amount_currency': 3600.0, 'currency_id': self.foreign_currency.id},
@@ -323,7 +323,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
              'balance': 400.0, 'amount_currency': 1200.0, 'currency_id': self.foreign_currency.id, 'partner_id': partner_2.id},
         ]
         expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off',
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
              'balance': -300.0, 'amount_currency': -900.0, 'currency_id': self.foreign_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 300.0, 'amount_currency': 900.0, 'currency_id': self.foreign_currency.id},
@@ -374,7 +374,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'date': self.test_date,
         }
         write_off_expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off', 'balance': -500.0},
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label', 'balance': -500.0},
             {'account_id': tax_recover_account_id.id, 'name': f'{tax_id.name}', 'balance': 100.0, 'tax_tag_ids': 'tax_tax_tag'},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label', 'balance': 400.0, 'tax_tag_ids': 'base_tax_tag'},
         ]
@@ -430,7 +430,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'date': self.test_date,
         }
         expected_values = [
-            {'account_id': account.id, 'name': 'Write-Off',
+            {'account_id': account.id, 'name': 'Write-Off Test Label',
              'balance': -500.0, 'amount_currency': -500.0, 'currency_id': self.company_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 500.0, 'amount_currency': 500.0, 'currency_id': self.company_currency.id},
@@ -459,7 +459,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
              'balance': 100.0, 'amount_currency': 0.0, 'currency_id': self.foreign_currency.id},
         ]
         expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off',
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
              'balance': -50.0, 'amount_currency': -50.0, 'currency_id': self.company_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 50.0, 'amount_currency': 50.0, 'currency_id': self.company_currency.id},
@@ -480,7 +480,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'date': self.test_date,
         }
         write_off_expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off', 'balance': -3000.0},
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label', 'balance': -3000.0},
             {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label', 'balance': 3000.0},
         ]
         self.assertWizardReconcileValues(line_1 + line_2, wizard_input_values, write_off_expected_values)
@@ -567,7 +567,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'tax_id': self.tax_sale_a.id,
         }
         write_off_expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off', 'balance': -1000.0, 'partner_id': partner_1.id},
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label', 'balance': -1000.0, 'partner_id': partner_1.id},
             {'account_id': self.company_data['default_account_tax_sale'].id, 'name': '15%', 'balance': 130.43, 'partner_id': partner_2.id},
             {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label', 'balance': 869.57, 'partner_id': partner_2.id},
         ]
@@ -593,7 +593,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
              'balance': 1000.0, 'amount_currency': 1000.0, 'currency_id': self.company_currency.id},
         ]
         write_off_expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off', 'balance': -1000.0, 'partner_id': partner_1.id},
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label', 'balance': -1000.0, 'partner_id': partner_1.id},
             {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label', 'balance': 1000.0, 'partner_id': partner_2.id},
         ]
         self.assertWizardReconcileValues(line_1 + line_2, wizard_input_values, write_off_expected_values, expected_transfer_values)
@@ -607,7 +607,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'edit_mode_amount_currency': 30.0,
         }
         expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off',
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
              'balance': -10.0, 'amount_currency': -30.0, 'currency_id': self.foreign_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 10.0, 'amount_currency': 30.0, 'currency_id': self.foreign_currency.id},
@@ -623,7 +623,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'edit_mode_amount_currency': 100.0,
         }
         expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off',
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
              'balance': -100.0, 'amount_currency': -100.0, 'currency_id': self.company_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 100.0, 'amount_currency': 100.0, 'currency_id': self.company_currency.id},
@@ -650,7 +650,7 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             'edit_mode_amount_currency': 300.0,
         }
         expected_values = [
-            {'account_id': self.receivable_account.id, 'name': 'Write-Off',
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
              'balance': -300.0, 'amount_currency': -300.0, 'currency_id': self.company_currency.id},
             {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
              'balance': 300.0, 'amount_currency': 300.0, 'currency_id': self.company_currency.id},

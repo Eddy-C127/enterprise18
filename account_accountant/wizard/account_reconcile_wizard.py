@@ -528,7 +528,7 @@ class AccountReconcileWizard(models.TransientModel):
         amount = self.edit_mode_amount or self.amount
         line_ids_commands = [
             Command.create({
-                'name': _('Write-Off'),
+                'name': self.label or _('Write-Off'),
                 'account_id': self.reco_account_id.id,
                 'partner_id': partner.id,
                 'currency_id': self.reco_currency_id.id,
