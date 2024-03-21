@@ -18,15 +18,8 @@ from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
-DEBUG = False
 SANDBOX_API_URL = 'https://test-api.service.hmrc.gov.uk'
 PRODUCTION_API_URL = 'https://api.service.hmrc.gov.uk'
-if DEBUG:
-    HMRC_CLIENT_ID = 'dTdANDSeX4fiw63DicmUaAVQDSMa'
-    PROXY_SERVER = 'https://l10n-uk-hmrc.test.odoo.com'
-else:
-    HMRC_CLIENT_ID = 'GqJgi8Hal1hsEwbG6rY6i9Ag1qUa'
-    PROXY_SERVER = 'https://l10n-uk-hmrc.api.odoo.com'
 TIMEOUT = 10
 
 
@@ -50,7 +43,7 @@ class HmrcService(models.AbstractModel):
         if user.l10n_uk_user_token:
             if not user.l10n_uk_hmrc_vat_token or user.l10n_uk_hmrc_vat_token_expiration_time < datetime.now() + timedelta(minutes=1):
                 try:
-                    url = PROXY_SERVER + '/onlinesync/l10n_uk/get_tokens'
+                    url = self._get_proxy_server() + '/onlinesync/l10n_uk/get_tokens'
                     dbuuid = self.env['ir.config_parameter'].sudo().get_param('database.uuid')
                     data = json.dumps({'params': {'user_token': self.env.user.l10n_uk_user_token, 'dbuuid': dbuuid}})
                     resp = requests.request('GET', url, data=data,
@@ -72,7 +65,7 @@ class HmrcService(models.AbstractModel):
                         ))
         else:
             # if no user_token, ask for one
-            url = PROXY_SERVER + '/onlinesync/l10n_uk/get_user'
+            url = self._get_proxy_server() + '/onlinesync/l10n_uk/get_user'
             dbuuid = self.env['ir.config_parameter'].sudo().get_param('database.uuid')
             data = json.dumps({'params': {'dbuuid': dbuuid}})
             resp = requests.request('POST', url, data=data, headers={'content-type': 'application/json', 'Accept': 'text/plain'})
@@ -175,7 +168,7 @@ class HmrcService(models.AbstractModel):
     def _get_local_hmrc_oauth_url(self):
         """ The user will be redirected to this url after accepting (or not) permission grant.
         """
-        return PROXY_SERVER + '/onlinesync/l10n_uk/hmrc'
+        return self._get_proxy_server() + '/onlinesync/l10n_uk/hmrc'
 
     @api.model
     def _get_state(self, userlogin):
@@ -195,7 +188,7 @@ class HmrcService(models.AbstractModel):
         oauth_url = self._get_endpoint_url('/oauth/authorize')
         url_params = {
             'response_type': 'code',
-            'client_id': HMRC_CLIENT_ID,
+            'client_id': self._get_hmrc_client_id(),
             'scope': 'read:vat write:vat',
             'state': self._get_state(login),
             'redirect_uri': self._get_local_hmrc_oauth_url(),
@@ -204,5 +197,18 @@ class HmrcService(models.AbstractModel):
 
     @api.model
     def _get_endpoint_url(self, endpoint):
-        base_url = SANDBOX_API_URL if DEBUG else PRODUCTION_API_URL
+        mode = self.env['ir.config_parameter'].sudo().get_param("l10n_uk_reports.hmrc_mode", 'production')
+        base_url = PRODUCTION_API_URL if mode == 'production' else SANDBOX_API_URL
         return base_url + endpoint
+
+    @api.model
+    def _get_proxy_server(self):
+        mode = self.env['ir.config_parameter'].sudo().get_param("l10n_uk_reports.hmrc_mode", 'production')
+        proxy_server = 'https://l10n-uk-hmrc.api.odoo.com' if mode == 'production' else 'https://l10n-uk-hmrc.test.odoo.com'
+        return proxy_server
+
+    @api.model
+    def _get_hmrc_client_id(self):
+        mode = self.env['ir.config_parameter'].sudo().get_param("l10n_uk_reports.hmrc_mode", 'production')
+        hmrc_client_id = 'GqJgi8Hal1hsEwbG6rY6i9Ag1qUa' if mode == 'production' else 'dTdANDSeX4fiw63DicmUaAVQDSMa'
+        return hmrc_client_id
