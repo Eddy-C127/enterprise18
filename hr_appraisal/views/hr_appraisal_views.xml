@@ -166,8 +166,8 @@
                 <field name="employee_id" string="Name" readonly="1" widget="many2one_avatar_user"/>
                 <field name="department_id"/>
                 <field name="create_date" widget="timeless_date" optional="hide"/>
-                <field name="date_close"/>
-                <field name="date_final_interview" widget="remaining_days"/>
+                <field name="date_close" widget="appraisal_remaining_days"/>
+                <field name="date_final_interview" widget="appraisal_remaining_days"/>
                 <field name="assessment_note" optional="hide"/>
                 <field name="state" widget="badge" readonly="1"
                     decoration-warning="state == 'new'" decoration-info="state == 'pending'" decoration-success="state == 'done'"/>
@@ -183,12 +183,9 @@
         <field name="inherit_id" ref="view_hr_appraisal_tree"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <field name="date_close" position="attributes">
-                <attribute name="widget"/>
-            </field>
             <tree position="attributes">
-                <attribute name="default_order">date_close desc</attribute> 
-                <attribute name="expand">1</attribute> 
+                <attribute name="default_order">date_close desc</attribute>
+                <attribute name="expand">1</attribute>
             </tree>
         </field>
     </record>
@@ -199,7 +196,7 @@
         <field name="arch" type="xml">
             <search string="Search Appraisal">
                 <field name="employee_id"/>
-                <filter string="To Do" name="my_appraisals" domain="['|', ('state', '=', 'new'), ('state', '=', 'pending')]"/>
+                <filter string="To Do" name="todo_appraisals" domain="['|', ('state', '=', 'new'), ('state', '=', 'pending')]"/>
                 <filter string="Ready" name="filter_ready" domain="[('employee_feedback_published', '=', True), ('manager_feedback_published', '=', True), ('state', '=', 'pending')]"/>
                 <filter string="Done" name="filter_done" domain="[('state', '=', 'done')]"/>
                 <separator/>
@@ -239,7 +236,7 @@
         <field name="name">hr.appraisal.kanban</field>
         <field name="model">hr.appraisal</field>
         <field name="arch" type="xml">
-            <kanban quick_create="false" default_order="state desc, date_close" class="o_hr_employee_kanban" sample="1">
+            <kanban quick_create="false" class="o_hr_employee_kanban" sample="1">
                 <field name="state"/>
                 <field name="activity_ids" />
                 <field name="activity_state" />
@@ -271,8 +268,7 @@
                                     </div>
                                     <div class="o_kanban_inline_block">
                                         <div>
-                                        <t t-if="record.date_close.raw_value and luxon.DateTime.fromISO(record.date_close.raw_value) &lt; luxon.DateTime.local()" t-set="red">oe_kanban_text_red</t>
-                                            <span t-attf-class="#{red}"><field name="date_close"/></span>
+                                            <field name="date_close" widget="appraisal_remaining_days"/>
                                         </div>
                                     </div>
                                     <div>
@@ -312,6 +308,7 @@
         <field name="arch" type="xml">
             <activity string="Appraisal">
                 <field name="employee_id" class="o_text_block"/>
+                <field name="state" invisible="1"/> <!-- will be used by appraisal_remaining_days widget-->
                 <templates>
                     <div t-name="activity-box">
                         <img class="rounded-circle" t-att-src="activity_image('hr.employee', 'avatar_128', record.employee_id.raw_value)" t-att-title="record.employee_id.value" t-att-alt="record.employee_id.value"/>
@@ -320,8 +317,7 @@
                                 <field name="employee_id" class="o_text_block"/>
                             </div>
                             <div class="text-muted">
-                                <t t-if="record.date_close.raw_value and luxon.DateTime.fromISO(record.date_close.raw_value) &lt; luxon.DateTime.local()" t-set="red">text-danger</t>
-                                Deadline: <span t-attf-class="#{red}"><i><field name="date_close"/></i></span>
+                                Deadline: <field name="date_close" widget="appraisal_remaining_days"/>
                             </div>
                         </div>
                     </div>
@@ -367,7 +363,7 @@
         <field name="path">appraisals</field>
         <field name="res_model">hr.appraisal</field>
         <field name="view_mode">kanban,tree,gantt,calendar,form,activity</field>
-        <field name="context">{}</field>
+        <field name="context">{'search_default_todo_appraisals': 1}</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
             Schedule an appraisal
@@ -388,7 +384,7 @@
         <field name="name">Appraisal</field>
         <field name="res_model">hr.appraisal</field>
         <field name="view_mode">kanban,tree,form,activity</field>
-        <field name="context">{"search_default_employee_id": [active_id], "default_employee_id": active_id}}</field>
+        <field name="context">{"search_default_employee_id": [active_id], "default_employee_id": active_id}</field>
     </record>
 
     <record model="ir.actions.act_window" id="hr_appraisal_action">
@@ -396,7 +392,7 @@
         <field name="res_model">hr.appraisal</field>
         <field name="view_mode">kanban,tree,form,activity</field>
         <field name="domain">[('employee_id.user_id', '=', uid)]</field>
-        <field name="context">{'search_default_my_appraisals': 1}</field>
+        <field name="context">{'search_default_todo_appraisals': 1}</field>
     </record>
 
     <record model="ir.actions.act_window" id="hr_appraisal_action_my">

@@ -17,7 +17,7 @@ class HrAppraisal(models.Model):
     _name = "hr.appraisal"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Employee Appraisal"
-    _order = 'state desc, id desc'
+    _order = 'state desc, date_close, id desc'
     _rec_name = 'employee_id'
     _mail_post_access = 'read'
 
@@ -49,7 +49,7 @@ class HrAppraisal(models.Model):
     manager_feedback_template = fields.Html(default=lambda self: self.env.company.appraisal_manager_feedback_template, compute='_compute_feedback_templates', translate=True)
 
     date_close = fields.Date(
-        string='Appraisal Date', help='Date of the appraisal, automatically updated when the appraisal is Done or Cancelled.', required=True, index=True,
+        string='Appraisal Date', required=True, index=True,
         default=lambda self: datetime.date.today() + relativedelta(months=+1))
     state = fields.Selection(
         [('new', 'To Confirm'),
@@ -81,7 +81,7 @@ class HrAppraisal(models.Model):
     can_see_employee_publish = fields.Boolean(compute='_compute_buttons_display')
     can_see_manager_publish = fields.Boolean(compute='_compute_buttons_display')
     assessment_note = fields.Many2one('hr.appraisal.note', string="Final Rating", help="This field is not visible to the Employee.", domain="[('company_id', '=', company_id)]")
-    note = fields.Html(string="Private Note", help="The content of this note is not visible by the Employee.")
+    note = fields.Html(string="Private Note")
     appraisal_plan_posted = fields.Boolean()
     appraisal_properties = fields.Properties("Properties", definition="department_id.appraisal_properties_definition", precompute=False)
     duplicate_appraisal_id = fields.Many2one('hr.appraisal', compute='_compute_duplicate_appraisal_id', export_string_translation=False, store=False)
@@ -375,33 +375,32 @@ class HrAppraisal(models.Model):
             user_employees = self.env.user.employee_ids
             force_published = self.filtered(lambda a: (a.is_manager) and not (a.employee_feedback_published or a.employee_id in user_employees))
         current_date = datetime.date.today()
-        if 'state' in vals and vals['state'] in ['pending', 'done']:
+        if vals.get('state') in ['pending', 'done']:
+            self.activity_ids.action_feedback()
+            not_done_appraisal = self.env['hr.appraisal']
             for appraisal in self:
                 appraisal.employee_id.sudo().write({
                     'last_appraisal_id': appraisal.id,
                     'last_appraisal_date': current_date,
                 })
-        if 'state' in vals and vals['state'] == 'pending':
-            for appraisal in self:
                 if appraisal.state != 'done':
-                    vals['employee_feedback_published'] = False
-                    vals['manager_feedback_published'] = False
-                    appraisal.activity_feedback(['mail.mail_activity_data_meeting', 'mail.mail_activity_data_todo'])
-                    appraisal.send_appraisal()
-        if 'state' in vals and vals['state'] == 'done':
-            vals['employee_feedback_published'] = True
-            vals['manager_feedback_published'] = True
-            vals['date_close'] = current_date
-            self.activity_feedback(['mail.mail_activity_data_meeting', 'mail.mail_activity_data_todo'])
-            self._appraisal_plan_post()
-            body = _("The appraisal's status has been set to Done by %s", self.env.user.name)
-            appraisal.message_notify(
-                body=body,
-                subject=_("Your Appraisal has been completed"),
-                partner_ids=appraisal.message_partner_ids.ids,
-            )
-            appraisal.message_post(body=body)
-        if 'state' in vals and vals['state'] == 'cancel':
+                    not_done_appraisal |= appraisal
+            if vals.get('state') == 'pending':
+                vals['employee_feedback_published'] = False
+                vals['manager_feedback_published'] = False
+                not_done_appraisal.send_appraisal()
+            else:
+                vals['employee_feedback_published'] = True
+                vals['manager_feedback_published'] = True
+                self._appraisal_plan_post()
+                body = _("The appraisal's status has been set to Done by %s", self.env.user.name)
+                self.message_notify(
+                    body=body,
+                    subject=_("Your Appraisal has been completed"),
+                    partner_ids=appraisal.message_partner_ids.ids,
+                )
+                self.message_post(body=body)
+        elif vals.get('state') == 'cancel':
             self.meeting_ids.unlink()
             self.activity_unlink(['mail.mail_activity_data_meeting', 'mail.mail_activity_data_todo'])
             previous_appraisals = self._find_previous_appraisals()
