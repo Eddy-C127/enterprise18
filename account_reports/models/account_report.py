@@ -8,6 +8,7 @@ import json
 import logging
 import re
 import base64
+import warnings
 from ast import literal_eval
 from collections import defaultdict
 from functools import cmp_to_key
@@ -1764,6 +1765,11 @@ class AccountReport(models.Model):
 
     @api.model
     def _query_get(self, options, date_scope, domain=None):
+        warnings.warn(
+            "Use `_get_table_expression` and format result into a proper SQL object",
+            PendingDeprecationWarning,
+            stacklevel=2,
+        )
         table_references, condition = self._get_table_expression(options, date_scope, domain=domain)
         return table_references.code, condition.code, table_references.params + condition.params
 

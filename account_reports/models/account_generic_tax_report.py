@@ -23,18 +23,18 @@ class AccountTaxReportHandler(models.AbstractModel):
         options['buttons'].append({'name': _('Closing Entry'), 'action': 'action_periodic_vat_entries', 'sequence': 110, 'always_show': True})
 
         if not previous_options or not previous_options.get('disable_archived_tag_test'):
-            tables, where_clause, where_params = report._query_get(options, 'strict_range')
-            self._cr.execute(f"""
+            tables, where_clause = report._get_table_expression(options, 'strict_range')
+            self._cr.execute(SQL("""
                 SELECT 1
-                FROM {tables}
+                FROM %s
                 JOIN account_account_tag_account_move_line_rel aml_tag
                     ON account_move_line.id = aml_tag.account_move_line_id
                 JOIN account_account_tag tag
                     ON aml_tag.account_account_tag_id = tag.id
-                WHERE {where_clause}
+                WHERE %s
                 AND NOT tag.active
                 LIMIT 1
-            """, where_params)
+            """, tables, where_clause))
 
             options['contains_archived_tag'] = bool(self._cr.fetchone())
 

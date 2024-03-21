@@ -360,20 +360,20 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
         # Retrieve opening balance values
         new_options = self._get_options_initial_balance(options)
-        tables, where_clause, where_params = report._query_get(new_options, 'normal', domain=[
+        tables, where_clause = report._get_table_expression(new_options, 'normal', domain=[
             ('account_id.include_initial_balance', '=', True),
         ])
-        self._cr.execute(f"""
+        self._cr.execute(SQL("""
             SELECT acc.id AS account_id,
                    acc.code AS account_code,
                    COUNT(*) AS lines_count,
                    SUM(account_move_line.debit) AS sum_debit,
                    SUM(account_move_line.credit) AS sum_credit
-            FROM {tables}
+            FROM %s
             JOIN account_account acc ON account_move_line.account_id = acc.id
-            WHERE {where_clause}
+            WHERE %s
             GROUP BY acc.id
-        """, where_params)
+        """, tables, where_clause))
 
         opening_lines = []
         lines_count = 0

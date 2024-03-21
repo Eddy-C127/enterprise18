@@ -24,8 +24,8 @@ class DutchECSalesReportCustomHandler(models.AbstractModel):
     def export_icp_report_to_xbrl(self, options):
         # This will generate the XBRL file (similar style to XML).
         report = self.env['account.report'].browse(options['report_id'])
-        query, params = self._get_lines_query_params(report, options, 'icp')
-        self._cr.execute(query, params)
+        query = self._get_lines_query_params(report, options, 'icp')
+        self._cr.execute(query)
         lines = self._cr.dictfetchall()
         data = self._generate_codes_values(lines, options.get('codes_values'))
 
