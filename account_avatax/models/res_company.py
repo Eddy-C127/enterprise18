@@ -77,6 +77,9 @@ class ResConfigSettings(models.TransientModel):
         related='company_id.setting_account_avatax',
         readonly=False,
     )
+    show_setting_account_avatax = fields.Boolean(
+        related='company_id.partner_id.show_avalara_fields',
+    )
 
     def avatax_sync_company_params(self):
         """Sync all the (supported) parameters that can be configured in Avatax."""

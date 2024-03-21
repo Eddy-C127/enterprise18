@@ -6,9 +6,10 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <group name="sale" position="inside">
-                <field name="avatax_unique_code"/>
-                <field name="avalara_partner_code" invisible="parent_id or not is_company"/>
-                <field name="avalara_exemption_id" invisible="parent_id or not is_company"/>
+                <field name="show_avalara_fields" invisible="True"/>
+                <field name="avatax_unique_code" invisible="not show_avalara_fields"/>
+                <field name="avalara_partner_code" invisible="parent_id or not is_company or not show_avalara_fields"/>
+                <field name="avalara_exemption_id" invisible="parent_id or not is_company or not show_avalara_fields"/>
             </group>
             <xpath expr="//div[@name='partner_address_country']" position="inside">
                 <field name="avalara_show_address_validation" invisible="1"/>
