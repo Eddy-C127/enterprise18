@@ -60,7 +60,7 @@ class SocialAccountLinkedin(models.Model):
         headers.pop('X-Restli-Protocol-Version', None)
         response = requests.get(
             endpoint,
-            params={'edgeType': 'CompanyFollowedByMember'},
+            params={'edgeType': 'COMPANY_FOLLOWED_BY_MEMBER'},
             headers=headers,
             timeout=3)
         if response.status_code != 200:
