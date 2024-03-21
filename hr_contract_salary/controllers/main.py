@@ -497,9 +497,14 @@ class HrContractSalary(http.Controller):
         if not employee_infos['job_title']:
             employee_infos['job_title'] = job.name
 
+        if employee.department_id.parent_path:
+            employee_department = employee.department_id.id if str(employee_infos['department_id']) in employee.department_id.parent_path.split('/') else employee_infos['department_id']
+        else:
+            employee_department = employee_infos['department_id']
+
         employee_vals = {'job_title': employee_infos['job_title'],
                          'job_id': employee_infos['employee_job_id'],
-                         'department_id': employee_infos['department_id']}
+                         'department_id': employee_department}
         work_contact_vals = {}
         bank_account_vals = {}
         attachment_create_vals = []
