@@ -45,8 +45,8 @@ export class MrpMenuDialog extends Component {
             const workcenter = workcenters[0];
             this.props.record.update(
                 { workcenter_id: [workcenter.id, workcenter.display_name] },
-                { save: true }
             );
+            this.props.record.save();
             this.props.removeFromCache(this.props.record.resId);
             this.props.close();
         }
