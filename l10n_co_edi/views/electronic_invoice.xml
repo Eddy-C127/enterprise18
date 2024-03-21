@@ -29,7 +29,16 @@
                 <t t-set="tax" t-value="tax_details['tax_details_per_record'][line]['tax_details'][group]" />
                 <TII t-foreach="tax['group_tax_details']" t-as="group_tax_details">
                     <t t-set="IIM_2" t-value="abs(group_tax_details['tax_amount_currency'])"/>
-                    <t t-set="IIM_4" t-if="tax['l10n_co_edi_type'].code == '05'" t-value="abs(group_tax_details['tax_amount_currency'] * 100 / 15)"/>
+
+                    <!--
+                        HACK: This is a workaround for calculating the base amount for VAT Withholding taxes.
+                        Due to the limitations of the current system, we have no way of properly finding the amount on which the withholding was applied.
+                        So we've resorted to hardcoding the calculation based on the specific VAT withholding rates applicable in Colombia:
+                        * 19% VAT with a 15% withholding (i.e. 2.85% withholding on the base amount)
+                        * 5% VAT with a 15% withholding (i.e. 0.75% withholding on the base amount). 
+                    -->
+                    <t t-set="IIM_4" t-if="tax['l10n_co_edi_type'].code == '05'" t-value="abs(group_tax_details['base_amount_currency'] * 0.19) if tax['tax'].amount == -2.85 else abs(group_tax_details['base_amount_currency'] * 0.05)"/>
+
                     <t t-set="IIM_4" t-elif="tax['l10n_co_edi_type'].code == '34'" t-value="sum(line.product_id.volume * line.quantity for line in tax['records'])"/>
                     <t t-set="IIM_4" t-else="" t-value="abs(group_tax_details['base_amount_currency'])"/>
                     <t t-set="IIM_6" t-value="'15' if tax['l10n_co_edi_type'].code == '05' else tax['tax'].amount"/>

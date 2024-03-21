@@ -1,8 +1,8 @@
 # coding: utf-8
-
+from odoo import Command
 from .common import TestCoEdiCommon
 from odoo.tests import tagged
-from odoo.tools import mute_logger
+from odoo.tools import mute_logger, misc
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
 class TestColombianInvoice(TestCoEdiCommon):
@@ -98,3 +98,35 @@ class TestColombianInvoice(TestCoEdiCommon):
             ('debit_origin_id', '=', self.invoice.id),
         ])
         self.assertRecordValues(debit_note, [{'amount_total': 48750.0}])
+
+    def test_invoice_withholded_taxes(self):
+        company = self.company_data['company']
+
+        withholded_15_on_19 = self.env.ref(f'account.{company.id}_l10n_co_tax_56')
+        withholded_15_on_5 = self.env.ref(f'account.{company.id}_l10n_co_tax_55')
+
+        invoice = self.env['account.move'].create({
+            'partner_id': company.partner_id.id,
+            'move_type': 'out_invoice',
+            'ref': 'reference',
+            'invoice_payment_term_id': self.env.ref('account.account_payment_term_end_following_month').id,
+            'invoice_line_ids': [
+                Command.create({
+                    'quantity': 1,
+                    'price_unit': 100.9,
+                    'name': 'Line 1',
+                    'tax_ids': [Command.set(withholded_15_on_19.ids)],
+                }),
+                Command.create({
+                    'quantity': 1,
+                    'price_unit': 101,
+                    'name': 'Line 2',
+                    'tax_ids': [Command.set(withholded_15_on_5.ids)],
+                }),
+            ]
+        })
+
+        expected_invoice_taxes_withholded = misc.file_open('l10n_co_edi/tests/invoice_taxes_withholded.xml', 'rb').read()
+
+        with self.mock_carvajal():
+            self.l10n_co_assert_generated_file_equal(invoice, expected_invoice_taxes_withholded)
