@@ -1557,3 +1557,42 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
 
         self.assertTrue(self.project_user.has_group('stock.group_reception_report'))
         self.assertTrue(all(self.task.sale_order_id.picking_ids.mapped(lambda p: p.state == 'done')), "Pickings should be set as done")
+
+    def test_fsm_task_and_tracked_product_confirmation(self):
+        """
+        2-steps pick ship delivery
+        Ensure 2 sale line ids with the same product.
+        """
+        self.warehouse.delivery_steps = 'pick_ship'
+        self.task.write({'partner_id': self.partner_1.id})
+        self.task.with_user(self.project_user)._fsm_ensure_sale_order()
+
+        product = self.env['product.product'].create([{
+            'name': 'Product T',
+            'type': 'product',
+            'tracking': 'none',
+        }]).with_context({'fsm_task_id': self.task.id})
+
+        # Create the two so lines with the same product and 1 qty
+        so = self.task.sale_order_id
+        so.write({
+            'order_line': [
+                Command.create({
+                    'product_id': product.id,
+                    'product_uom_qty': 1,
+                    'task_id': self.task.id,
+                }),
+                Command.create({
+                    'product_id': product.id,
+                    'product_uom_qty': 1,
+                    'task_id': self.task.id,
+                }),
+            ],
+        })
+        self.assertEqual(len(so.picking_ids), 2, "There are two pickings generated, pick and ship")
+        picking, delivery = so.picking_ids
+        # Mark the delivery as a priotiry then validate the task
+        picking.write({'priority': "1"})
+        self.task.with_user(self.project_user).action_fsm_validate()
+        self.assertEqual(self.task.fsm_done, True)
+
