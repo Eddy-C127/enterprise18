@@ -27,15 +27,6 @@ easyCTEP.startTransaction.argtypes = [
 # int abortTransaction(CTEPManager* manager, char* error)
 easyCTEP.abortTransaction.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
 
-# int lastTransactionStatus(
-easyCTEP.lastTransactionStatus.argtypes = [
-    ctypes.c_void_p,    # CTEPManager* manager
-    ulong_pointer,      # unsigned long* action_identifier
-    double_pointer,     # double* amount
-    ctypes.c_char_p,    # char* time
-    ctypes.c_char_p     # char* error
-]
-
 # All the terminal errors can be found in the section "Codes d'erreur" here:
 # https://help.winbooks.be/pages/viewpage.action?pageId=64455643#LiaisonversleterminaldepaiementBanksysenTCP/IP-Codesd'erreur
 TERMINAL_ERRORS = {
@@ -131,30 +122,3 @@ class WorldlineDriver(CtypesTerminalDriver):
             error_msg = '%s (Error code: %s)' % (TERMINAL_ERRORS.get(error_code, 'Transaction could not be cancelled'), error_code)
             _logger.info(error_msg)
             self.send_status(stage='Cancel', error=error_msg, request_data=transaction)
-
-    def lastTransactionStatus(self, request_data):
-        action_identifier = ctypes.c_ulong()
-        amount = ctypes.c_double()
-        time = create_ctypes_string_buffer()
-        error_code = create_ctypes_string_buffer()
-        _logger.info("last transaction status request")
-        result = easyCTEP.lastTransactionStatus(ctypes.cast(self.dev, ctypes.c_void_p), ctypes.byref(action_identifier), ctypes.byref(amount), time, error_code)
-        _logger.debug("end last transaction status request")
-
-        if result:
-            self.send_status(value={
-                    'action_identifier': action_identifier.value,
-                    'amount': amount.value,
-                    'time': time.value,
-                },
-                request_data=request_data,
-            )
-        else:
-            error_code = error_code.value.decode('utf-8')
-            error_msg = '%s (Error code: %s)' % (TERMINAL_ERRORS.get(error_code, 'Last Transaction was not processed correctly'), error_code)
-            self.send_status(
-                value={
-                    'error' : error_msg,
-                },
-                request_data=request_data,
-            )

@@ -82,7 +82,7 @@ class CtypesTerminalDriver(Driver):
         data_message_type = data.get('messageType')
         data['owner'] = self.data.get('owner')
         _logger.debug('%s: _action_default %s %s', self.device_name, data_message_type, data)
-        if data_message_type in ['Transaction', 'LastTransactionStatus']:
+        if data_message_type == 'Transaction':
             if self.terminal_busy:
                 self.send_status(error=f'{self.device_name} is currently busy. Try again later.', request_data=data)
             else:
@@ -97,10 +97,7 @@ class CtypesTerminalDriver(Driver):
             action = self.queue_actions.get()
             action_type = action.get('messageType')
             _logger.debug("%s: Starting next action in queue: %s", self.device_name, action_type)
-            if action_type == 'Transaction':
-                self.processTransaction(action)
-            elif action_type == 'LastTransactionStatus':
-                self.lastTransactionStatus(action)  # Only for Worldline
+            self.processTransaction(action)
             self.terminal_busy = False
 
     def _check_transaction_delay(self):
@@ -144,10 +141,4 @@ class CtypesTerminalDriver(Driver):
     def cancelTransaction(self, transaction):
         """
         Method implementing the ongoing transaction request cancellation
-        """
-
-    def lastTransactionStatus(self, transaction):
-        """
-        Method implementing the last transaction status request (only for Worldline)
-        Not an abstract method as it remains undefined for Six
         """
