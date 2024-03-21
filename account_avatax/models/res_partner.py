@@ -31,10 +31,9 @@ class ResPartner(models.Model):
 
     @api.depends('country_id')
     def _compute_avalara_show_address_validation(self):
-        valid_country_ids = self.env.ref('base.us') | self.env.ref('base.ca')
         for partner in self:
             company = partner.company_id or self.env.company
-            partner.avalara_show_address_validation = company.avalara_address_validation and partner.street and (not partner.country_id or partner.country_id in valid_country_ids)
+            partner.avalara_show_address_validation = company.avalara_address_validation and partner.street and (not partner.country_id or partner.fiscal_country_codes in ('US', 'CA'))
 
     def _get_avatax_description(self):
         return 'Contact'

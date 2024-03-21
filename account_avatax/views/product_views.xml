@@ -6,7 +6,8 @@
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <field name="taxes_id" position="after">
-                <field name="avatax_category_id"/>
+                <field name="fiscal_country_codes" invisible="True"/>
+                <field name="avatax_category_id" invisible="fiscal_country_codes not in ('US', 'CA')"/>
             </field>
         </field>
     </record>

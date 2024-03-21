@@ -26,6 +26,9 @@
         <field name="inherit_id" ref="account.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <field name="module_account_avatax" position="replace"/>
+            <setting id="avatax_settings" position="attributes">
+                <attribute name="invisible">country_code not in ('US', 'CA')</attribute>
+            </setting>
             <setting id="avatax_settings" position="inside">
                     <field name="setting_account_avatax"/>
                     <div class="content-group" invisible="not setting_account_avatax">
