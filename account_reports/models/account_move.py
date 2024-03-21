@@ -65,7 +65,21 @@ class AccountMove(models.Model):
                 raise UserError(_("You cannot reset this closing entry to draft, as it would delete carryover values impacting the tax report of a "
                                   "locked period. To do this, you first need to modify you tax return lock date."))
 
+            if self._has_subsequent_posted_closing_moves():
+                raise UserError(_("You cannot reset this closing entry to draft, as another closing entry has been posted at a later date."))
+
             carryover_values.unlink()
+
+    def _has_subsequent_posted_closing_moves(self):
+        self.ensure_one()
+        closing_domains = [
+            ('company_id', '=', self.company_id.id),
+            ('tax_closing_end_date', '!=', False),
+            ('state', '=', 'posted'),
+            ('date', '>', self.date),
+            ('fiscal_position_id', '=', self.fiscal_position_id.id)
+        ]
+        return bool(self.env['account.move'].search_count(closing_domains, limit=1))
 
     def action_open_tax_report(self):
         action = self.env["ir.actions.actions"]._for_xml_id("account_reports.action_account_report_gt")
