@@ -89,7 +89,7 @@ class CrossoveredBudgetLines(models.Model):
         compute='_compute_theoritical_amount', string='Theoretical Amount',
         help="Amount you are supposed to have earned/spent at this date.")
     percentage = fields.Float(
-        compute='_compute_percentage', string='Achievement',
+        compute='_compute_percentage', string='Achievement', group_operator='avg',
         help="Comparison between practical and theoretical amount. This measure tells you if you are below or over budget.")
     company_id = fields.Many2one(related='crossovered_budget_id.company_id', comodel_name='res.company',
         string='Company', store=True, readonly=True)
@@ -98,7 +98,7 @@ class CrossoveredBudgetLines(models.Model):
 
     @api.model
     def _read_group(self, domain, groupby=(), aggregates=(), having=(), offset=0, limit=None, order=None):
-        SPECIAL = {'practical_amount:sum', 'theoritical_amount:sum', 'percentage:sum'}
+        SPECIAL = {'practical_amount:sum', 'theoritical_amount:sum', 'percentage:avg'}
         if SPECIAL.isdisjoint(aggregates):
             return super()._read_group(domain, groupby, aggregates, having, offset, limit, order)
 
@@ -110,8 +110,11 @@ class CrossoveredBudgetLines(models.Model):
         for *other, records in base_result:
             for index, spec in enumerate(itertools.chain(groupby, aggregates)):
                 if spec in SPECIAL:
-                    field_name = spec.split(':')[0]
-                    other.insert(index, sum(records.mapped(field_name)))
+                    field_name, op = spec.split(':')
+                    res = sum(records.mapped(field_name))
+                    if op == 'avg' and records:
+                        res /= len(records)
+                    other.insert(index, res)
             result.append(tuple(other))
 
         return result
