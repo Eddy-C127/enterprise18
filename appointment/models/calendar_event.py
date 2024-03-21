@@ -38,10 +38,18 @@ class CalendarEvent(models.Model):
                 appointment_types = self.env['appointment.type'].search([('staff_user_ids', 'in', user_id)])
             if appointment_types:
                 res['appointment_type_id'] = appointment_types[0].id
-        if self.env.context.get('appointment_default_add_organizer_to_attendees') and 'partner_ids' in fields_list:
-            organizer_partner = self.env['res.users'].browse(res.get('user_id', [])).partner_id
-            if organizer_partner:
-                res['partner_ids'] = [Command.set(organizer_partner.ids)]
+        if self.env.context.get('appointment_default_assign_user_attendees'):
+            default_partner_ids = self.env.context.get('default_partner_ids', [])
+            # If there is only one attendee -> set him as organizer of the calendar event
+            # Mostly used when you click on a specific slot in the appointment kanban
+            if len(default_partner_ids) == 1 and 'user_id' in fields_list:
+                attendee_user = self.env['res.partner'].browse(default_partner_ids).user_ids
+                if attendee_user:
+                    res['user_id'] = attendee_user[0].id
+            # Special gantt case: we want to assign the current user to the attendees if he's set as organizer
+            elif res.get('user_id') and res.get('partner_ids', Command.set([])) == [Command.set([])] and \
+                res['user_id'] == self.env.uid and 'partner_ids' in fields_list:
+                res['partner_ids'] = [Command.set(self.env.user.partner_id.ids)]
         return res
 
     def _default_access_token(self):

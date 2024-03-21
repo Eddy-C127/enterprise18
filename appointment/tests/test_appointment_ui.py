@@ -198,7 +198,7 @@ class AppointmentUITest(AppointmentUICommon):
             'default_partner_ids': [],
             'initial_date': now,
         }, {
-            'appointment_default_add_organizer_to_attendees': True,
+            'appointment_default_assign_user_attendees': True,
             'default_scale': 'day',
             'default_appointment_type_id': appointment_types[1].id,
             'default_duration': appointment_types[1].appointment_duration,
@@ -208,7 +208,7 @@ class AppointmentUITest(AppointmentUICommon):
             'initial_date': now,
         }, {
             'appointment_booking_gantt_domain': [('appointment_resource_ids', '!=', False)],
-            'appointment_default_add_organizer_to_attendees': False,
+            'appointment_default_assign_user_attendees': False,
             'default_scale': 'day',
             'default_appointment_type_id': appointment_types[2].id,
             'default_duration': appointment_types[2].appointment_duration,

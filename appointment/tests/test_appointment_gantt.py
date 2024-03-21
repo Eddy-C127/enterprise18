@@ -3,6 +3,7 @@
 from datetime import timedelta
 
 from odoo.addons.mail.tests.common import mail_new_test_user
+from odoo.tests import users
 from .common import AppointmentCommon
 
 
@@ -49,6 +50,58 @@ class AppointmentGanttTestCommon(AppointmentCommon):
         cls.gantt_domain = [('appointment_type_id', 'in', cls.apt_types.ids)]
 
 class AppointmentGanttTest(AppointmentGanttTestCommon):
+    @users('apt_manager')
+    def test_default_assign_user_attendees(self):
+        """
+        1> To check, Single attendee should be set as an organizer by default.
+        (This is typically applied when selecting a specific slot in the
+        appointment kanban.)
+
+        2> (special gantt case) The current user should be an attendee if
+        he is set as the organizer.
+        """
+        # context while clicking the 'New' btn
+        no_attendees_context = {
+            'booking_gantt_create_record': True,
+            'appointment_default_assign_user_attendees': True,
+            'default_partner_ids': [],
+        }
+
+        # context while clicking the time slot of the staff user
+        single_attendee_context = {
+            **no_attendees_context,
+            'default_partner_ids': [self.user_bob.partner_id.id],
+        }
+
+        # Case 1: Specify a single attendee, simulating clicking a slot on the gantt view
+        event_with_partner = self.env['calendar.event'].with_context(single_attendee_context).create({
+            'name': 'event with partner',
+            'appointment_type_id': self.apt_types[0].id,
+        })
+        # Case 2: Create an appointment without specifying attendees
+        event_without_partner = self.env['calendar.event'].with_context(no_attendees_context).create({
+            'name': 'event without partner',
+            'appointment_type_id': self.apt_types[0].id,
+        })
+
+        # Case 1 check
+        self.assertEqual(
+            event_with_partner.user_id,
+            self.user_bob,
+            "Single attendee should be set as an organizer by default",
+        )
+        # Case 2 check
+        self.assertEqual(
+            event_without_partner.user_id,
+            self.apt_manager,
+            "The current user should be an organizer",
+        )
+        self.assertEqual(
+            event_without_partner.attendee_ids.partner_id,
+            self.apt_manager.partner_id,
+            "If we don't specify an attendee, the current user should be set as an attendee",
+        )
+
     def test_gantt_empty_groups(self):
         """Check that the data sent to gantt includes the right groups in the context of appointments."""
         gantt_data = self.env['calendar.event'].with_context(self.gantt_context).get_gantt_data(
