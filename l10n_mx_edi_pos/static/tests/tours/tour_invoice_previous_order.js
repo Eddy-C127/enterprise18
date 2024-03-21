@@ -61,8 +61,8 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_o
         },
         Dialog.confirm(),
         {
-            content: "Select first partner in the list",
-            trigger: "tr.partner-line:first",
+            content: "Select the partner 'Arturo Garcia'",
+            trigger: "tr.partner-line:contains('Arturo Garcia')",
         },
         {
             content: "Set Usage: 'General Expenses'",
