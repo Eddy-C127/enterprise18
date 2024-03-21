@@ -435,7 +435,7 @@
                     <notebook>
                         <field name="display_extra_info" invisible="1"/>
                         <page string="Description" name="description">
-                            <field name="description"/>
+                            <field name="description" options="{'collaborative': true}"/>
                         </page>
                         <page string="Extra Info" name="extra_info"
                               invisible="not display_extra_info">
