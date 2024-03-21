@@ -12,9 +12,7 @@ import {
 import { VideoSelectorDialog } from '@knowledge/components/video_selector_dialog/video_selector_dialog';
 import { ArticleSelectionBehaviorDialog } from '@knowledge/components/behaviors/article_behavior_dialog/article_behavior_dialog';
 import { DrawBehaviorDialog } from '@knowledge/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog';
-import {
-    encodeDataBehaviorProps,
-} from "@knowledge/js/knowledge_utils";
+import { encodeDataBehaviorProps, getBehaviorTypeClass } from "@knowledge/js/knowledge_utils";
 import { patch } from "@web/core/utils/patch";
 import { _t } from "@web/core/l10n/translation";
 import { KnowledgeMediaDialog } from '@knowledge/components/media_dialog/knowledge_media_dialog';
@@ -227,7 +225,7 @@ patch(Wysiwyg.prototype, {
      *                   custom handling
      */
     _notifyNewBehavior(anchor, restoreSelection, insert = null) {
-        const type = Array.from(anchor.classList).find(className => className.startsWith('o_knowledge_behavior_type_'));
+        const type = getBehaviorTypeClass(anchor);
         this.$editable[0].dispatchEvent(new CustomEvent('mount_knowledge_behaviors', { detail: { behaviorData: {
             anchor,
             behaviorType: type,
@@ -370,27 +368,41 @@ patch(Wysiwyg.prototype, {
      * is properly appended even when the content is reset by the collaboration.
      *
      * @param {HTMLElement} behaviorBlueprint element to append to the editable
+     * @param {boolean} inline whether the behavior should be inserted in a
+     *                  paragraph or beside it.
      */
-    appendBehaviorBlueprint(behaviorBlueprint) {
+    appendBehaviorBlueprint(behaviorBlueprint, inline = false) {
         const restoreSelection = () => {
             // Set the cursor to the end of the article by not normalizing the position.
             // By not normalizing we ensure that we will use the articleś body as the container
             // and not an invisible character.
             return setCursorEnd(this.odooEditor.editable, false);
-        }
-        const insert = (anchor) => {
-            const fragment = this.odooEditor.document.createDocumentFragment();
-            // Add a P after the Behavior to be able to continue typing
-            // after it
-            const p = this.odooEditor.document.createElement('p');
-            p.append(this.odooEditor.document.createElement('br'));
-            fragment.append(anchor, p);
-            const insertedNodes = this.odooEditor.execCommand('insert', fragment);
+        };
+        const inlineInsert = (anchor) => {
+            // Create a P which will contain the inline Behavior
+            const p = this.odooEditor.document.createElement("p");
+            const br = this.odooEditor.document.createElement("br");
+            p.append(anchor, br);
+            const insertedNodes = this.odooEditor.execCommand("insert", p);
             if (insertedNodes) {
                 insertedNodes[0].scrollIntoView();
                 return insertedNodes;
             }
         };
+        const blockInsert = (anchor) => {
+            const fragment = this.odooEditor.document.createDocumentFragment();
+            // Add a P after the Behavior to be able to continue typing
+            // after it
+            const p = this.odooEditor.document.createElement("p");
+            p.append(this.odooEditor.document.createElement("br"));
+            fragment.append(anchor, p);
+            const insertedNodes = this.odooEditor.execCommand("insert", fragment);
+            if (insertedNodes) {
+                insertedNodes[0].scrollIntoView();
+                return insertedNodes;
+            }
+        };
+        const insert = inline ? inlineInsert : blockInsert;
         // Clone behaviorBlueprint to be sure that the nodes are not modified
         // during the first insertion attempt and that the correct nodes
         // are inserted the second time.

@@ -137,6 +137,18 @@ export function encodeDataBehaviorProps(dataBehaviorPropsObject) {
 }
 
 /**
+ * Extract the type class of the behavior from its anchor.
+ *
+ * @param {Element} anchor in which the Behavior should be mounted
+ * @returns {String} string representation of the Behavior type
+ */
+export function getBehaviorTypeClass(anchor) {
+    return Array.from(anchor.classList).find((className) =>
+        className.startsWith("o_knowledge_behavior_type_")
+    );
+}
+
+/**
  * Return any existing propName node owned by the Behavior related to `anchor`.
  * Filter out propName nodes owned by children Behavior.
  *

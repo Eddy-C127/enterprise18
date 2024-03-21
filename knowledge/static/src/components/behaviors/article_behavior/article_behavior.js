@@ -14,6 +14,7 @@ export class ArticleBehavior extends AbstractBehavior {
         display_name: { type: String, optional: false },
     };
     static template = "knowledge.ArticleBehavior";
+    static inline = true;
 
     setup () {
         super.setup();

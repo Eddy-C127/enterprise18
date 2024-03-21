@@ -7,6 +7,7 @@ import { getTemplate } from "@web/core/templates";
 import {
     copyOids,
     decodeDataBehaviorProps,
+    getBehaviorTypeClass,
     getPropNameNodes,
 } from "@knowledge/js/knowledge_utils";
 import { debounce } from "@web/core/utils/timing";
@@ -240,7 +241,11 @@ const HtmlFieldPatch = {
             resId: this.props.record.resId,
         });
         if (behaviorBlueprint) {
-            this.wysiwyg.appendBehaviorBlueprint(behaviorBlueprint);
+            const type = getBehaviorTypeClass(behaviorBlueprint);
+            const Behavior = this.behaviorTypes[type].Behavior;
+            if (Behavior) {
+                this.wysiwyg.appendBehaviorBlueprint(behaviorBlueprint, Behavior.inline);
+            }
         }
     },
 

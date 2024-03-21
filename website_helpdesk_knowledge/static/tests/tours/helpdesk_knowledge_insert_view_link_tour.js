@@ -33,9 +33,12 @@ registry.category("web_tour.tours").add('helpdesk_insert_kanban_view_link_in_kno
     run: 'click',
 }, { // wait for Knowledge to open
     trigger: '.o_knowledge_form_view',
+}, { // open the popover
+    trigger: ".o_knowledge_view_link",
+    run: "click",
 }, { // the user should be redirected to the new article
-    trigger: '.o_knowledge_behavior_type_view_link',
-    run: 'dblclick',
+    trigger: "div.o_popover > div:nth-child(1) > div:contains('All Tickets')",
+    run: "click",
 }, { // check that the user is redirected to the view
     trigger: '.o_kanban_renderer',
 }, { // check that the view has the selected facet
