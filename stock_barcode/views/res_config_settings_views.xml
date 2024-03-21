@@ -17,18 +17,18 @@
                     </div>
                 </div>
                 <div>
-                    <a href="stock_barcode/print_inventory_commands?barcode_type=barcode_commands_and_operation_types" class="oe_link" target="_blank">
+                    <a href="/stock_barcode/print_inventory_commands?barcode_type=barcode_commands_and_operation_types" class="oe_link" target="_blank">
                         <i class="fa fa-print"/> Print barcode commands and operation types
                     </a>
                 </div>
                 <div groups="stock.group_stock_multi_locations">
-                    <a href="stock_barcode/print_inventory_commands?barcode_type=locations" class="oe_link" target="_blank">
+                    <a href="/stock_barcode/print_inventory_commands?barcode_type=locations" class="oe_link" target="_blank">
                         <i class="fa fa-print"/> Print storage locations
                     </a>
                 </div>
                 <field name="stock_barcode_demo_active" invisible="1"/>
                 <div invisible="not stock_barcode_demo_active">
-                    <a href="stock_barcode/static/img/barcodes_demo.pdf" class="oe_link" target="_blank">
+                    <a href="/stock_barcode/static/img/barcodes_demo.pdf" class="oe_link" target="_blank">
                         <i class="fa fa-print"/> Print barcode demo sheet
                     </a>
                 </div>
