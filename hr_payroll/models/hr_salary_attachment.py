@@ -84,6 +84,7 @@ class HrSalaryAttachment(models.Model):
     )
     payslip_ids = fields.Many2many('hr.payslip', relation='hr_payslip_hr_salary_attachment_rel', string='Payslips', copy=False)
     payslip_count = fields.Integer('# Payslips', compute='_compute_payslip_count')
+    has_done_payslip = fields.Boolean(compute="_compute_has_done_payslip")
 
     attachment = fields.Binary('Document', copy=False)
     attachment_name = fields.Char()
@@ -163,6 +164,11 @@ class HrSalaryAttachment(models.Model):
                 similar = similar.filtered(lambda s: s.employee_count == 1)
             record.has_similar_attachment = similar if record.state == 'open' else False
             record.has_similar_attachment_warning = similar and _('Warning, a similar attachment has been found.')
+
+    @api.depends("payslip_ids.state")
+    def _compute_has_done_payslip(self):
+        for record in self:
+            record.has_done_payslip = any(payslip.state in ['done', 'paid'] for payslip in record.payslip_ids)
 
     def action_done(self):
         self.ensure_one()

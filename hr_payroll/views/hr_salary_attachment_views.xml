@@ -6,15 +6,16 @@
         <field name="arch" type="xml">
             <tree string="Salary Attachments" multi_edit="1">
                 <field name="currency_id" column_invisible="True"/>
-                <field name="employee_ids" widget="many2many_avatar_employee"/>
-                <field name="description"/>
-                <field name="deduction_type_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True}"/>
+                <field name="employee_ids" widget="many2many_avatar_employee" readonly="has_done_payslip"/>
+                <field name="description" readonly="has_done_payslip"/>
+                <field name="deduction_type_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True}" readonly="has_done_payslip"/>
                 <field name="monthly_amount" sum="Monthly Amount" widget="monetary"/>
                 <field name="total_amount" optional="hide" widget="monetary"/>
-                <field name="paid_amount" optional="hide" widget="monetary"/>
-                <field name="date_start"/>
+                <field name="paid_amount" optional="hide" widget="monetary" readonly="has_done_payslip"/>
+                <field name="date_start" readonly="has_done_payslip"/>
                 <field name="employee_count" column_invisible="True"/>
                 <field name="state" widget="badge" decoration-success="state == 'open'" decoration-info="state == 'close'" decoration-danger="state == 'cancel'" invisible="state == 'open' and employee_count &gt; 1"/>
+                <field name="has_done_payslip" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -52,20 +53,21 @@
                     <field name="has_total_amount" invisible="1"/>
                     <field name="attachment_name" invisible="1"/>
                     <field name="employee_count" invisible="1"/>
+                    <field name="has_done_payslip" invisible="1"/>
                     <group>
                         <group>
-                            <field name="employee_ids" widget="many2many_avatar_employee"/>
-                            <field name="description"/>
-                            <field name="deduction_type_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True}"/>
-                            <field name="date_start"/>
+                            <field name="employee_ids" widget="many2many_avatar_employee" readonly="has_done_payslip"/>
+                            <field name="description" readonly="has_done_payslip"/>
+                            <field name="deduction_type_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True}" readonly="has_done_payslip"/>
+                            <field name="date_start" readonly="has_done_payslip"/>
                             <field name="date_estimated_end" invisible="not date_estimated_end"/>
-                            <field name="date_end" invisible="not date_end or state == 'open'"/>
+                            <field name="date_end" invisible="not date_end or state == 'open'" readonly="has_done_payslip"/>
                             <field name="attachment" filename="attachment_name"/>
                         </group>
                         <group>
                             <field name="monthly_amount"/>
                             <field name="total_amount" invisible="not has_total_amount" required="has_total_amount"/>
-                            <field name="paid_amount" invisible="paid_amount == 0"/>
+                            <field name="paid_amount" invisible="paid_amount == 0" readonly="has_done_payslip"/>
                         </group>
                     </group>
                 </sheet>
