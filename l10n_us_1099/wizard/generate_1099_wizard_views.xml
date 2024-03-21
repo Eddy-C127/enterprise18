@@ -10,7 +10,7 @@
                     <field name="end_date"/>
                 </group>
                 <group>
-                    <field name="lines_to_export" nolabel="1" colspan="2">
+                    <field name="lines_to_export" nolabel="1" colspan="2" context="{'search_default_date_between': True, 'date_from': start_date, 'date_to': end_date}">
                         <tree>
                             <field name="date"/>
                             <field name="partner_id"/>
