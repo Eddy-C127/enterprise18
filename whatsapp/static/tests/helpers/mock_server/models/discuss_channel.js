@@ -38,7 +38,7 @@ patch(MockServer.prototype, {
         ]);
         if (currentPartnerMember) {
             this.pyEnv["discuss.channel.member"].write([currentPartnerMember.id], {
-                is_pinned: true,
+                unpin_dt: false,
             });
         } else {
             this.pyEnv["discuss.channel.member"].create({

@@ -20,7 +20,11 @@ QUnit.test("Join whatsapp channels from add channel button", async () => {
             name: "WhatsApp 2",
             channel_type: "whatsapp",
             channel_member_ids: [
-                Command.create({ is_pinned: false, partner_id: serverState.partnerId }),
+                Command.create({ 
+                    unpin_dt: "2021-01-01 12:00:00",
+                    last_interest_dt: "2021-01-01 10:00:00",
+                    partner_id: serverState.partnerId
+                }),
             ],
         },
     ]);
