@@ -21,6 +21,18 @@ class TestTaskGanttView(TestProjectCommon):
         cls.project_gantt_test_1, cls.project_gantt_test_2 = cls.env['project.project'].create([{
             'name': 'Project Gantt View Test',
         }] * 2)
+        cls.tasks = cls.env['project.task'].create([
+            {
+                'name': 'Test gantt 1',
+                'project_id': cls.project_gantt_test_1.id,
+                'user_ids': False,
+            },
+            {
+                'name': 'Test gantt 2',
+                'project_id': cls.project_gantt_test_1.id,
+                'user_ids': False,
+            },
+        ])
 
     def test_empty_line_task_last_period(self):
         """ In the gantt view of the tasks of a project, there should be an empty
@@ -164,3 +176,47 @@ class TestTaskGanttView(TestProjectCommon):
                 self.assertDictEqual(milestone_result, project_pigs_milestone_1_expected)
             else:
                 self.assertDictEqual(milestone_result, project_pigs_milestone_2_expected)
+
+    def test_plan_tasks_no_assignee_allocated_hours(self):
+        self.tasks.write({
+            'planned_date_begin': '2024-03-07 00:00:00',
+            'date_deadline': '2024-03-08 23:59:59',
+        })  # capacity of 16h
+        self.assertEqual(self.tasks.mapped('allocated_hours'), [16.0, 16.0], 'The allocated hours should be 16.0 both')
+
+    def test_capacity_split_allocated_hours(self):
+        self.tasks.write({
+            'user_ids': [self.project_gantt_test_1.user_id.id],
+            'planned_date_begin': '2024-03-07 00:00:00',
+            'date_deadline': '2024-03-08 23:59:59',
+        })  # capacity of 16h, should be split in two (8h for both tasks)
+        self.assertEqual(self.tasks.mapped('allocated_hours'), [8.0, 8.0], 'The allocated hours should be 8.0 both')
+
+    def test_capacity_split_allocated_hours_substitute(self):
+        self.tasks |= self.env['project.task'].create({
+            'name': 'Test gantt',
+            'project_id': self.project_gantt_test_1.id,
+            'allocated_hours': 12.0,
+        })
+        self.tasks.write({
+            'user_ids': [self.project_gantt_test_1.user_id.id],
+            'planned_date_begin': '2024-03-07 00:00:00',
+            'date_deadline': '2024-03-08 23:59:59',
+        })  # capacity of 16h
+        self.assertEqual(self.tasks.mapped('allocated_hours'), [2.0, 2.0, 12.0], 'The capacity should be 4h since a task with 12h allocated hours is in the recordset')
+
+    def test_smart_scheduling_no_allocated_hours(self):
+        task = self.tasks[0]
+        task.with_context(smart_task_scheduling=True).write({
+            'planned_date_begin': '2024-03-07 00:00:00',
+            'date_deadline': '2024-03-08 23:59:59',
+        })
+        self.assertEqual(task.allocated_hours, 0.0, 'This task was scheduled using smart scheduling, so the allocated hours should remain the same')
+
+    def test_no_recompute_allocated_hours_present(self):
+        self.tasks.write({
+            'allocated_hours': 12.0,  # set allocated hours to 12
+            'planned_date_begin': '2024-03-07 00:00:00',
+            'date_deadline': '2024-03-08 23:59:59',
+        })
+        self.assertEqual(self.tasks.mapped('allocated_hours'), [12.0, 12.0], 'The tasks\'s allocated hours shouldn\'t have been recomputed since the allocated hours are being/already set')
