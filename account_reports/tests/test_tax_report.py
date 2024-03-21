@@ -7,6 +7,7 @@ from .common import TestAccountReportsCommon
 from odoo import fields, Command
 from odoo.tests import tagged
 from odoo.tests.common import Form
+from odoo.exceptions import UserError
 
 
 @tagged('post_install', '-at_install')
@@ -2805,3 +2806,21 @@ class TestTaxReport(TestAccountReportsCommon):
                 main_closing_move.action_post()
                 self.assertTrue(all(move.state == 'posted' for move in closing_moves), "Posting the main closing should have posted all the depending closings")
                 self.assertFalse(main_closing_move.tax_closing_show_multi_closing_warning)
+
+    def test_tax_report_prevent_draft_if_subsequent_posted(self):
+        """
+        Test the reset to draft functionality to ensure it is not possible to reset to draft a closing entry
+        if subsequent closing entries are already posted.
+        """
+        options = self._generate_options(self.basic_tax_report, '2023-01-01', '2023-03-31')
+        vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
+        Q1_closing_entry = self.env['account.move'].browse(vat_closing_action['res_id'])
+        Q1_closing_entry.action_post()
+
+        options = self._generate_options(self.basic_tax_report, '2023-04-01', '2023-06-30')
+        vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
+        Q2_closing_entry = self.env['account.move'].browse(vat_closing_action['res_id'])
+        Q2_closing_entry.action_post()
+
+        with self.assertRaises(UserError):
+            Q1_closing_entry.button_draft()

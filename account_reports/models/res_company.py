@@ -120,6 +120,7 @@ class ResCompany(models.Model):
                 ('state', '=', 'draft'),
                 ('company_id', '=', self.id),
                 ('tax_closing_end_date', '>=', period_start),
+                ('tax_closing_end_date', '<=', period_end),
                 ('fiscal_position_id', '=', fpos.id if fpos else None),
             ])
 
