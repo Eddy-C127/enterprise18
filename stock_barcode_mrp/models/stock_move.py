@@ -11,4 +11,5 @@ class StockMove(models.Model):
             'location_id',
             'product_uom_qty',
             'move_line_ids',
+            'product_uom',
         ]
