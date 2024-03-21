@@ -3,7 +3,7 @@
 
 from odoo import  models, api, fields
 from odoo.tools.date_utils import relativedelta
-from odoo.tools import format_date
+from odoo.tools import format_date, clean_context
 
 
 class SaleOrderLine(models.Model):
@@ -66,7 +66,7 @@ class SaleOrderLine(models.Model):
             for the period we just invoiced and launch stock rule for the next period.
         """
         stock_subscription_line = self._get_stock_subscription_lines()
-        stock_subscription_line._action_launch_stock_rule()
+        stock_subscription_line.with_context(clean_context(self._context))._action_launch_stock_rule()
         return super(SaleOrderLine, self - stock_subscription_line)._reset_subscription_quantity_post_invoice()
 
     def _action_launch_stock_rule(self, previous_product_uom_qty=False):
