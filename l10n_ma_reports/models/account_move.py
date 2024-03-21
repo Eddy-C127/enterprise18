@@ -22,7 +22,7 @@ class AccountMove(models.Model):
     @api.depends('payment_id')
     def _compute_l10n_ma_reports_payment_method(self):
         for move in self:
-            payments = move._get_reconciled_payments()
+            payments = move.sudo()._get_reconciled_payments()
             if payments:
                 move.l10n_ma_reports_payment_method = payments.sorted(lambda p: p.date)[-1].l10n_ma_reports_payment_method
             else:
