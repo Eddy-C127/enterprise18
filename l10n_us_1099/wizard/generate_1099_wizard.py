@@ -52,6 +52,7 @@ class Generate1099Wizard(models.TransientModel):
         since they can be paid in different ways (e.g. a credit somewhere else). It also should show refunds for vendor bills,
         since they are allowed to use to offset the reported amount."""
         for wizard in self:
+            wizard.lines_to_export = self.env["account.move.line"]
             lines = self.env["account.move.line"].search([
                 ("company_id", "in", self.env.companies.ids),
                 ("parent_state", "=", "posted"),
