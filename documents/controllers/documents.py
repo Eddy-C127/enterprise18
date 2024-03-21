@@ -228,7 +228,7 @@ class ShareRoute(http.Controller):
         document.check_access_rights('read')
         document.check_access_rule('read')
         if document.thumbnail_status != 'client_generated':
-            raise Forbidden()
+            return
         document.sudo().write({
             'thumbnail': thumbnail,
             'thumbnail_status': 'present' if thumbnail else 'error',
