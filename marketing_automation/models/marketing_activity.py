@@ -486,7 +486,7 @@ class MarketingActivity(models.Model):
                     'participant_id': trace.participant_id.id,
                     'activity_id': activity.id
                 }
-                if activity.trigger_type in ['activity', 'mail_not_open', 'mail_not_click', 'mail_not_reply']:
+                if activity.trigger_type in self._get_reschedule_trigger_types():
                     schedule_date = Datetime.from_string(trace.schedule_date) + activity_offset
                     vals['schedule_date'] = schedule_date
                     cron_trigger_dates.add(schedule_date)
@@ -500,6 +500,13 @@ class MarketingActivity(models.Model):
             cron._trigger(cron_trigger_dates)
 
         return child_traces
+
+    def _get_reschedule_trigger_types(self):
+        """ Retrieve a set of trigger types used for rescheduling actions.
+        The marketing activity will be rescheduled after these triggers are activated.
+        :returns set[str]: set of elements, each containing trigger_type
+        """
+        return {'activity', 'mail_not_open', 'mail_not_click', 'mail_not_reply'}
 
     def action_view_sent(self):
         return self._action_view_documents_filtered('sent')
