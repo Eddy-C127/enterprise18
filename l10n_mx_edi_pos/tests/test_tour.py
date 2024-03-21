@@ -15,10 +15,17 @@ class TestUi(TestMxEdiCommon, TestPointOfSaleHttpCommon):
 
     def test_mx_pos_invoice_previous_order(self):
         self.product.available_in_pos = True
+        partner_mx = self.env['res.partner'].create({
+            'name': "Arturo Garcia",
+            'country_id': self.env.ref('base.mx').id,
+        })
         self.start_tour("/web", "l10n_mx_edi_pos.tour_invoice_previous_order", login=self.env.user.login)
         invoice = self.env['account.move'].search([('move_type', '=', 'out_invoice')], order='id desc', limit=1)
-        self.assertEqual(invoice.l10n_mx_edi_usage, 'G03', 'Invoice values not saved')
-        self.assertEqual(invoice.l10n_mx_edi_cfdi_to_public, True, 'Invoice values not saved')
+        self.assertRecordValues(invoice, [{
+            'partner_id': partner_mx.id,
+            'l10n_mx_edi_usage': "G03",
+            'l10n_mx_edi_cfdi_to_public': True,
+        }])
 
     def test_qr_code_receipt_mx(self):
         """This test make sure that no user is created when a partner is set on the PoS order.
