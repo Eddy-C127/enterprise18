@@ -99,3 +99,18 @@ class AppointmentGanttTest(AppointmentGanttTestCommon):
         self.assertIn(self.user_bob.partner_id.id, group_partner_ids)
         self.assertNotIn(self.user_john.partner_id.id, group_partner_ids)
         self.assertEqual(gantt_data['records'], [{'id': meeting.id}])
+
+    def test_gantt_without_attendees(self):
+        meeting = self._create_meetings(
+            self.user_john[0],
+            [(self.reference_monday, self.reference_monday + timedelta(hours=1), False)],
+            self.apt_types[0].id
+        )
+        meeting.partner_ids = False
+        gantt_data = self.env['calendar.event'].with_context(self.gantt_context).get_gantt_data(
+            self.gantt_domain, ['partner_ids'], {}
+        )
+        group_partner_ids = [group['partner_ids'][0] for group in gantt_data['groups']]
+        self.assertIn(self.user_bob.partner_id.id, group_partner_ids)
+        self.assertNotIn(self.user_john.partner_id.id, group_partner_ids)
+        self.assertEqual(gantt_data['records'], [{'id': meeting.id}])
