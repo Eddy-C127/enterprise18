@@ -38,7 +38,6 @@ patch(PlanningGanttRenderer.prototype, {
             search_default_sale_order_id:
             props.context.planning_gantt_active_sale_order_id || null,
         });
-        this.model.addSpecialKeys(props.context);
         const template = xml`
             <p class="o_view_nocontent_smiling_face">${escape(_t("No shifts found!"))}</p>
             <p>${escape(

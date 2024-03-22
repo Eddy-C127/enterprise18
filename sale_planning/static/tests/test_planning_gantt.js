@@ -2,9 +2,11 @@ import { Component, useState, xml } from "@odoo/owl";
 import { Domain } from "@web/core/domain";
 import { getFixture, mount, nextTick, patchDate, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
-import { setupViewRegistries } from "@web/../tests/views/helpers";
+import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { PlanningGanttRenderer } from "@planning/views/planning_gantt/planning_gantt_renderer";
 import { View } from "@web/views/view";
+import { SelectCreateDialog } from "@web/views/view_dialogs/select_create_dialog";
+import { clickCell, hoverGridCell } from "@web_gantt/../tests/legacy/helpers";
 
 
 let serverData;
@@ -146,4 +148,43 @@ QUnit.test('Process domain for plan dialog', async function (assert) {
         renderer.getPlanDialogDomain(),
         expectedDomain.toList()
     );
+});
+
+QUnit.test("check default planned dates on the plan dialog", async function (assert) {
+    assert.expect(4);
+    patchWithCleanup(SelectCreateDialog.prototype, {
+        setup() {
+            super.setup(...arguments);
+            assert.ok(this.props.context.default_start_datetime.startsWith("2021-10-11"));
+            assert.ok(this.props.context.default_end_datetime.startsWith("2021-10-11"));
+            assert.ok(this.props.context.focus_date.startsWith("2021-10-10"));
+            assert.strictEqual(this.props.context.scale, "week");
+        },
+    });
+
+    serverData.models["planning.slot"].records.push({
+        id: 2,
+        role_id: 1,
+        sale_line_id: 1,
+        resource_id: false,
+        start_datetime: false,
+        end_datetime: false,
+    });
+
+    serverData.views = { "planning.slot,false,list": "<tree/>" };
+
+    await makeView({
+        type: "gantt",
+        resModel: "planning.slot",
+        serverData,
+        arch: `<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" default_scale="week"/>`,
+        async mockRPC(route, args) {
+            if (args.method === "gantt_resource_work_interval") {
+                return [];
+            }
+        },
+    });
+
+    await hoverGridCell(1, 2);
+    await clickCell(1, 2);
 });
