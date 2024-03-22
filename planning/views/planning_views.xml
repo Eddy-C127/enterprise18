@@ -8,7 +8,7 @@
             <tree string="Shift List" multi_edit="1" sample="1" editable="bottom" js_class="planning_tree" open_form_view="True">
                 <header>
                     <button name="action_planning_publish_and_send" class="btn btn-secondary mx-1"
-                        string="Publish &amp; Send" type="object" groups="planning.group_planning_manager" invisible="context.get('search_default_my_shifts')"/>
+                        string="Publish &amp; Send" type="object" groups="planning.group_planning_manager" invisible="context.get('my_planning_action')"/>
                 </header>
                 <field name="resource_color" column_invisible="1"/>
                 <field name="start_datetime" widget="daterange" options="{'end_date_field': 'end_datetime'}"/>
@@ -35,7 +35,7 @@
             <form js_class="planning_form">
                 <header>
                     <button string="Publish &amp; Send" type="object" name="action_send" class="btn btn-primary"
-                        close="1" groups="planning.group_planning_manager" data-hotkey="q" invisible="context.get('search_default_my_shifts') or (state == 'published' or resource_type == 'material')"/>
+                        close="1" groups="planning.group_planning_manager" data-hotkey="q" invisible="context.get('my_planning_action') or (state == 'published' or resource_type == 'material')"/>
                     <button name="action_self_assign" class="btn btn-primary" type="object" string="I Take It" groups="!planning.group_planning_manager"
                         close="1" invisible="context.get('search_default_my_shifts') or (not is_users_role or is_past or not start_datetime or not end_datetime or resource_id and not request_to_switch or user_id == uid and (allow_self_unassign or request_to_switch))"/>
                     <button name="action_self_assign" class="btn btn-secondary" type="object" string="I Take It" groups="!planning.group_planning_manager"
@@ -48,13 +48,13 @@
                     <button name="action_self_unassign" class="btn btn-secondary" type="object" string="I Am Unavailable"
                         invisible="not context.get('search_default_my_shifts') or (not is_assigned_to_me or not allow_self_unassign or is_past or is_unassign_deadline_passed or resource_type == 'material')"/>
                     <button string="Send" type="object" name="action_send" class="btn btn-secondary" close="1"
-                        groups="planning.group_planning_manager" data-hotkey="v" invisible="context.get('search_default_my_shifts') or (state == 'draft' or resource_type == 'material')"/>
+                        groups="planning.group_planning_manager" data-hotkey="v" invisible="context.get('my_planning_action') or (state == 'draft' or resource_type == 'material')"/>
                     <button string="Reset to Draft" type="object" name="action_unpublish"
                         class="btn btn-secondary" close="1" groups="planning.group_planning_manager"
                         invisible="state == 'draft' or resource_type == 'material'" data-hotkey="q"/>
                     <button string="Auto Plan" type="object" name="auto_plan_id" class="btn btn-secondary"
-                        groups="planning.group_planning_manager" data-hotkey="p" invisible="context.get('search_default_my_shifts') or resource_id"/>
-                    <field name="state" widget="statusbar" groups="planning.group_planning_manager" invisible="context.get('search_default_my_shifts')"/>
+                        groups="planning.group_planning_manager" data-hotkey="p" invisible="context.get('my_planning_action') or resource_id"/>
+                    <field name="state" widget="statusbar" groups="planning.group_planning_manager" invisible="context.get('my_planning_action')"/>
                 </header>
                 <field name="is_past" invisible="1"/>
                 <field name="is_unassign_deadline_passed" invisible="1"/>
@@ -256,13 +256,13 @@
                     <button string="Save" special="save" data-hotkey="q" class="btn btn-primary ms-1" close="1" groups="planning.group_planning_manager" invisible="confirm_delete"/>
                     <button string="Save" special="save" data-hotkey="q" class="btn btn-primary ms-1" close="1" groups="planning.group_planning_manager" invisible="not confirm_delete" confirm="All subsequent shifts will be deleted. Are you sure you want to continue?" />
                     <button string="Publish &amp; Send" type="object" name="action_send" class="btn btn-primary" close="1"
-                        groups="planning.group_planning_manager" data-hotkey="v" invisible="context.get('search_default_my_shifts') or (state == 'published' or resource_type == 'material')"/>
+                        groups="planning.group_planning_manager" data-hotkey="v" invisible="context.get('my_planning_action') or (state == 'published' or resource_type == 'material')"/>
                     <button string="Send" type="object" name="action_send" class="btn btn-secondary" close="1"
-                        groups="planning.group_planning_manager" data-hotkey="s" invisible="context.get('search_default_my_shifts') or (state == 'draft' or resource_type == 'material')"/>
+                        groups="planning.group_planning_manager" data-hotkey="s" invisible="context.get('my_planning_action') or (state == 'draft' or resource_type == 'material')"/>
                     <button string="Auto Plan" type="object" name="auto_plan_id" class="btn btn-secondary"
-                        groups="planning.group_planning_manager" data-hotkey="p" invisible="context.get('search_default_my_shifts') or resource_id"/>
+                        groups="planning.group_planning_manager" data-hotkey="p" invisible="context.get('my_planning_action') or resource_id"/>
                     <button string="Reset to Draft" type="object" name="action_unpublish" class="btn btn-secondary" close="1"
-                        groups="planning.group_planning_manager" data-hotkey="r" invisible="context.get('search_default_my_shifts') or (state == 'draft' or resource_type == 'material')"/>
+                        groups="planning.group_planning_manager" data-hotkey="r" invisible="context.get('my_planning_action') or (state == 'draft' or resource_type == 'material')"/>
 
                     <button name="action_self_assign" class="btn btn-primary" type="object" string="I Take It" groups="!planning.group_planning_manager"
                         invisible="not is_users_role or is_past or not start_datetime or not end_datetime or resource_id and not request_to_switch or user_id == uid and (allow_self_unassign or request_to_switch)" close="1"/>
@@ -274,7 +274,7 @@
                         invisible="not start_datetime or not end_datetime or not request_to_switch or allow_self_unassign or user_id != uid and request_to_switch" close="1"/>
 
                     <button name="action_self_unassign" class="btn btn-secondary float-end" type="object" string="I Am Unavailable" data-hotkey="w" close="1"
-                        invisible="not is_assigned_to_me or not allow_self_unassign or is_past or is_unassign_deadline_passed or not context.get('search_default_my_shifts')"/>
+                        invisible="not is_assigned_to_me or not allow_self_unassign or is_past or is_unassign_deadline_passed or not context.get('my_planning_action')"/>
                     <button string="Discard" special="cancel" data-hotkey="x" class="btn-secondary float-end" close="1" fullscreen="True" groups="planning.group_planning_manager"/>
                     <button name="unlink" type="object" icon="fa-trash" title="Remove" class="btn-secondary float-end d-none d-md-inline" close="1" invisible="not id" groups="planning.group_planning_manager" data-hotkey="d"/>
                 </footer>
@@ -582,7 +582,7 @@
         <field name="name">My Planning</field>
         <field name="res_model">planning.slot</field>
         <field name="view_mode">calendar,gantt,tree,form,kanban</field>
-        <field name="context">{'search_default_my_shifts': 1, 'search_default_open_shifts': 1, 'search_default_unwanted_shifts': 1, 'planning_expand_resource': 1, 'planning_expand_role': 1}</field>
+        <field name="context">{'search_default_my_shifts': 1, 'my_planning_action': 1, 'search_default_open_shifts': 1, 'search_default_unwanted_shifts': 1, 'planning_expand_resource': 1, 'planning_expand_role': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No shifts found. Let's create one!
@@ -623,7 +623,7 @@
         <field name="name">My Planning</field>
         <field name="res_model">planning.slot</field>
         <field name="view_mode">gantt,calendar,tree,form</field>
-        <field name="context">{'search_default_open_shifts': 1, 'search_default_unwanted_shifts': 1, 'search_default_my_shifts': 1, 'default_resource_id': False}</field>
+        <field name="context">{'search_default_open_shifts': 1, 'search_default_unwanted_shifts': 1, 'search_default_my_shifts': 1, 'default_resource_id': False, 'my_planning_action': 1}</field>
     </record>
 
         <record id="planning_action_open_shift_view_gantt" model="ir.actions.act_window.view">

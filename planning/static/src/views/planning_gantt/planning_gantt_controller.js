@@ -56,6 +56,7 @@ export class PlanningGanttController extends GanttController {
     openDialog(props, options) {
         const record = this.model.data.records.find((r) => r.id === props.resId);
         const title = record ? record.display_name : _t("Add Shift");
-        super.openDialog({ ...props, title }, options);
+        const context = { ...props.context, my_planning_action: this.props.context.my_planning_action };
+        super.openDialog({ ...props, title, context }, options);
     }
 }
