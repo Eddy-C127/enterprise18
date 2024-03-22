@@ -47,7 +47,7 @@ test("ungrouped gantt rendering", async () => {
     Tasks._views.gantt = `<gantt date_start="start" date_stop="stop"/>`;
     Tasks._views.search = `<search/>`;
 
-    onRpc("get_gantt_data", (_, { model }) => expect.step(model));
+    onRpc("get_gantt_data", ({ model }) => expect.step(model));
     await mountWithCleanup(WebClient);
     await getService("action").doAction({
         res_model: "tasks",
@@ -525,7 +525,7 @@ test("full precision gantt rendering", async () => {
 });
 
 test("gantt rendering, thumbnails", async () => {
-    onRpc("get_gantt_data", async () => ({
+    onRpc("get_gantt_data", () => ({
         groups: [
             {
                 user_id: [1, "User 1"],
@@ -566,7 +566,7 @@ test("gantt rendering, thumbnails", async () => {
 });
 
 test("gantt rendering, pills must be chronologically ordered", async () => {
-    onRpc("get_gantt_data", async () => ({
+    onRpc("get_gantt_data", () => ({
         groups: [
             {
                 user_id: [1, "User 1"],

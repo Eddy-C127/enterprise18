@@ -106,7 +106,7 @@ test("concurrent scale switches return with gantt_unavailability", async () => {
 
     let firstReloadProm = null;
     let reloadProm = null;
-    onRpc("gantt_unavailability", async (_, { args }) => {
+    onRpc("gantt_unavailability", async ({ args }) => {
         await reloadProm;
         const rows = args[4];
         return rows.map((row) =>
@@ -191,10 +191,10 @@ test("concurrent focusDate selections", async () => {
 test("concurrent pill resize and groupBy change", async () => {
     let awaitWriteDef = false;
     const writeDef = new Deferred();
-    onRpc("*", async (_, { args, method }) => {
+    onRpc(({ args, method }) => {
         expect.step(JSON.stringify([method, args]));
         if (method === "write" && awaitWriteDef) {
-            await writeDef;
+            return writeDef;
         }
     });
     await mountView({
@@ -290,10 +290,10 @@ test("concurrent pill resize and groupBy change", async () => {
 test("concurrent pill resizes return in inverse order", async () => {
     let awaitWriteDef = false;
     const writeDef = new Deferred();
-    onRpc("*", async (_, { args, method }) => {
+    onRpc(({ args, method }) => {
         expect.step(JSON.stringify([method, args]));
         if (method === "write" && awaitWriteDef) {
-            await writeDef;
+            return writeDef;
         }
     });
     await mountView({

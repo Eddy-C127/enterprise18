@@ -71,7 +71,7 @@ beforeEach(() => {
 });
 
 test("Progressbar: check the progressbar percentage visibility.", async () => {
-    onRpc("gantt_progress_bar", (_, { model, args }) => {
+    onRpc("gantt_progress_bar", ({ args, model }) => {
         expect.step("gantt_progress_bar");
         expect(model).toBe("tasks");
         expect(args[0]).toEqual(["user_id"]);
@@ -128,7 +128,7 @@ test("Progressbar: grouped row", async () => {
     // on the same field through the groupby menu.
     // In this case, the progress bar should be displayed only once,
     // on the first level of grouping.
-    onRpc("gantt_progress_bar", (_, { model, args }) => {
+    onRpc("gantt_progress_bar", ({ args, model }) => {
         expect.step("gantt_progress_bar");
         expect(model).toBe("tasks");
         expect(args[0]).toEqual(["user_id"]);

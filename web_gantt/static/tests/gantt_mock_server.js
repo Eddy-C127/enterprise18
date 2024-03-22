@@ -1,6 +1,6 @@
 import { registry } from "@web/core/registry";
 
-function _mockGetGanttData(_, { model, kwargs }) {
+function _mockGetGanttData({ kwargs, model }) {
     const lazy = !kwargs.limit && !kwargs.offset && kwargs.groupby.length === 1;
 
     const { groups, length } = this.env[model].web_read_group({

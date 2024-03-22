@@ -50,7 +50,7 @@ beforeEach(() => {
 });
 
 test("date navigation with timezone (1h)", async () => {
-    onRpc("get_gantt_data", (_, { kwargs }) => {
+    onRpc("get_gantt_data", ({ kwargs }) => {
         expect.step(kwargs.domain.toString());
     });
 
@@ -527,7 +527,7 @@ test("clicking on delete button in edit dialog triggers a confirmation dialog, c
     Tasks._views = {
         form: `<form><field name="name"/></form>`,
     };
-    onRpc((_, { method }) => {
+    onRpc(({ method }) => {
         if (method === "unlink") {
             expect.step(method);
         }
@@ -589,7 +589,7 @@ test("create dialog with timezone", async () => {
         form: `<form><field name="start"/><field name="stop"/></form>`,
     };
 
-    onRpc((_, { method, args }) => {
+    onRpc(({ method, args }) => {
         if (method === "web_save") {
             expect(args[1]).toEqual({
                 start: "2018-12-09 23:00:00",
@@ -621,7 +621,7 @@ test("open a dialog to plan a task", async () => {
         { id: 42, name: "Task 42", stop: "2018-12-31 18:29:59" },
         { id: 43, name: "Task 43", start: "2018-11-30 18:30:00" }
     );
-    onRpc((_, { method, args, model }) => {
+    onRpc(({ method, args, model }) => {
         if (method === "write") {
             expect.step(model);
             expect(args[0]).toEqual([41, 42], { message: "should write on the selected ids" });
@@ -662,7 +662,7 @@ test("open a dialog to plan a task (multi-level)", async () => {
     };
     Tasks._records.push({ id: 41, name: "Task 41" });
 
-    onRpc((_, { args, method, model }) => {
+    onRpc(({ args, method, model }) => {
         if (method === "write") {
             expect.step(model);
             expect(args[0]).toEqual([41], { message: "should write on the selected id" });
@@ -809,7 +809,7 @@ test("collapsed rows remain collapsed at reload", async () => {
 test("resize a pill", async () => {
     expect.assertions(10);
 
-    onRpc("write", (_, { args }) => {
+    onRpc("write", ({ args }) => {
         // initial dates -- start: '2018-11-30 18:30:00', stop: '2018-12-31 18:29:59'
         expect.step(JSON.stringify(args));
     });
@@ -857,7 +857,7 @@ test("resize a pill", async () => {
 test("resize pill in year mode", async () => {
     expect.assertions(2);
 
-    onRpc((_, { method }) => {
+    onRpc(({ method }) => {
         if (method === "write") {
             throw new Error("Should not call write");
         }
@@ -882,7 +882,7 @@ test("resize pill in year mode", async () => {
 
 test("resize a pill (2)", async () => {
     expect.assertions(5);
-    onRpc((_, { args, method }) => {
+    onRpc(({ args, method }) => {
         if (method === "write") {
             expect.step(JSON.stringify(args));
         }
@@ -954,7 +954,7 @@ test("pill is updated after failed resized", async () => {
 test("move a pill in the same row", async () => {
     expect.assertions(5);
 
-    onRpc("write", (_, { args }) => {
+    onRpc("write", ({ args }) => {
         expect(args[0]).toEqual([7], { message: "should write on the correct record" });
         expect(args[1]).toEqual(
             {
@@ -998,7 +998,7 @@ test("move a pill in the same row (with different timezone)", async () => {
     Tasks._records[7].start = `${DST_DATES.winterToSummer.before} 05:00:00`;
     Tasks._records[7].stop = `${DST_DATES.winterToSummer.before} 06:30:00`;
 
-    onRpc((_, { args, method }) => {
+    onRpc(({ args, method }) => {
         if (method === "write") {
             expect.step("write");
             expect(args).toEqual([
@@ -1041,7 +1041,7 @@ test("move a pill in the same row (with different timezone)", async () => {
 test("move a pill in another row", async () => {
     expect.assertions(4);
 
-    onRpc("write", (_, { args }) => {
+    onRpc("write", ({ args }) => {
         expect(args[0]).toEqual([7], { message: "should write on the correct record" });
         expect(args[1]).toEqual(
             {
@@ -1088,7 +1088,7 @@ test("move a pill in another row", async () => {
 
 test("copy a pill in another row", async () => {
     expect.assertions(6);
-    onRpc("copy", (_, { args, kwargs }) => {
+    onRpc("copy", ({ args, kwargs }) => {
         expect(args[0]).toEqual([7], { message: "should copy the correct record" });
         expect(kwargs.default).toEqual(
             {
@@ -1152,7 +1152,7 @@ test("copy a pill in another row", async () => {
 test("move a pill in another row in multi-level grouped", async () => {
     expect.assertions(5);
 
-    onRpc("write", (_, { args }) => {
+    onRpc("write", ({ args }) => {
         expect(args).toEqual([[7], { project_id: 1 }], {
             message: "should only write on user_id on the correct record",
         });
@@ -1233,7 +1233,7 @@ test("move a pill in another row in multi-level grouped (many2many case)", async
     Tasks._fields.user_ids = fields.Many2many({ string: "Assignees", relation: "res.users" });
     Tasks._records[1].user_ids = [1, 2];
 
-    onRpc("write", (_, { args }) => {
+    onRpc("write", ({ args }) => {
         expect(args[0]).toEqual([2], { message: "should write on the correct record" });
         expect(args[1]).toEqual({ user_ids: false }, { message: "should write these changes" });
     });
@@ -1356,7 +1356,7 @@ test("gantt_unavailability reloads when the view's scale changes", async () => {
     onRpc("get_gantt_data", () => {
         reloadCount++;
     });
-    onRpc("gantt_unavailability", (_, { args }) => {
+    onRpc("gantt_unavailability", ({ args }) => {
         unavailabilityCallCount++;
         unavailabilityScaleArg = args[2];
         return args[4];
@@ -1410,7 +1410,7 @@ test("gantt_unavailability reload when period changes", async () => {
     onRpc("get_gantt_data", () => {
         reloadCount++;
     });
-    onRpc("gantt_unavailability", (_, { args }) => {
+    onRpc("gantt_unavailability", ({ args }) => {
         unavailabilityCallCount++;
         return args[4];
     });
@@ -1442,7 +1442,7 @@ test("gantt_unavailability should not reload when period changes if display_unav
     onRpc("get_gantt_data", () => {
         reloadCount++;
     });
-    onRpc("gantt_unavailability", (_, { args }) => {
+    onRpc("gantt_unavailability", ({ args }) => {
         unavailabilityCallCount++;
         return {};
     });
@@ -1528,9 +1528,8 @@ test("drag&drop on other pill in grouped view", async () => {
     Tasks._views = { form: `<form />` };
 
     const def = new Deferred();
-    onRpc("write", async () => {
-        await def;
-    });
+    onRpc("write", () => def);
+
     await mountView({
         type: "gantt",
         resModel: "tasks",

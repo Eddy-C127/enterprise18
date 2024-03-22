@@ -198,7 +198,7 @@ test("scales attribute", async () => {
 });
 
 test("precision attribute", async () => {
-    onRpc("write", (_, { args }) => expect.step(JSON.stringify(args)));
+    onRpc("write", ({ args }) => expect.step(JSON.stringify(args)));
     await mountView({
         resModel: "tasks",
         type: "gantt",
@@ -250,9 +250,7 @@ test("progress attribute", async () => {
 
 test("form_view_id attribute", async () => {
     Tasks._views[["form", 42]] = `<form><field name="name"/></form>`;
-    onRpc("get_views", (_, { kwargs }) =>
-        expect.step(`get_views: ${JSON.stringify(kwargs.views)}`)
-    );
+    onRpc("get_views", ({ kwargs }) => expect.step(`get_views: ${JSON.stringify(kwargs.views)}`));
     await mountView({
         resModel: "tasks",
         type: "gantt",
@@ -511,7 +509,7 @@ test(`Today style with unavailabilities ("week": "day:half")`, async () => {
         },
     ];
 
-    onRpc("gantt_unavailability", (_, { args, model }) => {
+    onRpc("gantt_unavailability", ({ args }) => {
         const rows = args[4];
         return rows.map((row) => Object.assign(row, { unavailabilities }));
     });
@@ -547,7 +545,7 @@ test("Today style of group rows", async () => {
     ];
     Tasks._records = [Tasks._records[3]]; // id: 4
 
-    onRpc("gantt_unavailability", (_, { args }) => {
+    onRpc("gantt_unavailability", ({ args }) => {
         const rows = args[4];
         for (const r of rows) {
             r.unavailabilities = unavailabilities;
@@ -596,7 +594,7 @@ test("Today style of group rows", async () => {
 
 test("style without unavailabilities", async () => {
     patchDate("2018-12-05T02:00:00");
-    onRpc("gantt_unavailability", (_, { args }) => {
+    onRpc("gantt_unavailability", ({ args }) => {
         return args[4];
     });
     await mountView({
@@ -623,7 +621,7 @@ test(`Unavailabilities ("month": "day:half")`, async () => {
             stop: "2018-12-18 13:00:00",
         },
     ];
-    onRpc("gantt_unavailability", (_, { args, model }) => {
+    onRpc("gantt_unavailability", ({ args, model }) => {
         expect.step("gantt_unavailability");
         expect(model).toBe("tasks");
         expect(args[0]).toBe("2018-11-30 23:00:00");
@@ -675,7 +673,7 @@ test(`Unavailabilities ("day": "hours:quarter")`, async () => {
             stop: "2018-12-20 20:50:00",
         },
     ];
-    onRpc("gantt_unavailability", (_, { args }) => {
+    onRpc("gantt_unavailability", ({ args }) => {
         const rows = args[4];
         for (const r of rows) {
             r.unavailabilities = unavailabilities;

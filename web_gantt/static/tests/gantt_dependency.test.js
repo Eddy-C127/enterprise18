@@ -537,7 +537,7 @@ test("Buttons are displayed when hovering a connector after a pill has been hove
 });
 
 test("Connector buttons: remove a dependency", async () => {
-    onRpc((_, { method, model, args }) => {
+    onRpc(({ method, model, args }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
             expect.step(JSON.stringify([method, args]));
             return true;
@@ -550,7 +550,7 @@ test("Connector buttons: remove a dependency", async () => {
 });
 
 test("Connector buttons: reschedule task backward date.", async () => {
-    onRpc((_, { method, model, args }) => {
+    onRpc(({ method, model, args }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
             expect.step(JSON.stringify([method, args]));
             return true;
@@ -565,7 +565,7 @@ test("Connector buttons: reschedule task backward date.", async () => {
 });
 
 test("Connector buttons: reschedule task forward date.", async () => {
-    onRpc((_, { method, model, args }) => {
+    onRpc(({ args, method, model }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
             expect.step(JSON.stringify([method, args]));
             return true;
@@ -580,7 +580,7 @@ test("Connector buttons: reschedule task forward date.", async () => {
 });
 
 test("Connector buttons: reschedule task start backward, different data.", async () => {
-    onRpc((_, { method, model, args }) => {
+    onRpc(({ method, model, args }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
             expect.step(JSON.stringify([method, args]));
             return true;
@@ -595,7 +595,7 @@ test("Connector buttons: reschedule task start backward, different data.", async
 });
 
 test("Connector buttons: reschedule task forward, different data.", async () => {
-    onRpc((_, { method, model, args }) => {
+    onRpc(({ method, model, args }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
             expect.step(JSON.stringify([method, args]));
             return true;
@@ -742,7 +742,7 @@ test("Connectors are displayed behind pills, except on hover.", async () => {
 });
 
 test("Create a connector from the gantt view.", async () => {
-    onRpc("write", (_, { method, args }) => expect.step(JSON.stringify([method, args])));
+    onRpc("write", ({ args, method }) => expect.step(JSON.stringify([method, args])));
     await mountView(ganttViewParams);
 
     // Explicitly shows the connector creator wrapper since its "display: none"

@@ -203,7 +203,7 @@ test("delete attribute on dialog", async () => {
 });
 
 test("move a pill in multi-level grop row after collapse and expand grouped row", async () => {
-    onRpc("write", (_, { args }) => {
+    onRpc("write", ({ args }) => {
         expect.step("write");
         expect(args).toEqual([
             [7],
@@ -247,8 +247,8 @@ test("plan dialog initial domain has the action domain as its only base", async 
             </search>
         `,
     };
-    onRpc("get_gantt_data", (_, { kwargs }) => expect.step(kwargs.domain.toString()));
-    onRpc("web_search_read", (_, { kwargs }) => expect.step(kwargs.domain.toString()));
+    onRpc("get_gantt_data", ({ kwargs }) => expect.step(kwargs.domain.toString()));
+    onRpc("web_search_read", ({ kwargs }) => expect.step(kwargs.domain.toString()));
     await mountWithCleanup(WebClient);
     const ganttAction = {
         name: "Tasks Gantt",
@@ -305,9 +305,8 @@ test("No progress bar when no option set.", async () => {
 });
 
 test("Progress bar rpc is triggered when option set.", async () => {
-    onRpc("gantt_progress_bar", (_, { model, args }) => {
+    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
         expect.step("gantt_progress_bar");
-        expect(model).toBe("tasks");
         expect(args[0]).toEqual(["user_id"]);
         expect(args[1]).toEqual({ user_id: [1, 2] });
         return {
@@ -382,9 +381,8 @@ test("Progress bar when multilevel grouped.", async () => {
     // on the same field through the groupby menu.
     // In this case, the progress bar should be displayed only once,
     // on the first level of grouping.
-    onRpc("gantt_progress_bar", (_, { model, args }) => {
+    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
         expect.step("gantt_progress_bar");
-        expect(model).toBe("tasks");
         expect(args[0]).toEqual(["user_id"]);
         expect(args[1]).toEqual({ user_id: [1, 2] });
         return {
@@ -424,9 +422,8 @@ test("Progress bar when multilevel grouped.", async () => {
 });
 
 test("Progress bar warning when max_value is zero", async () => {
-    onRpc("gantt_progress_bar", (_, { model, args }) => {
+    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
         expect.step("gantt_progress_bar");
-        expect(model).toBe("tasks");
         expect(args[0]).toEqual(["user_id"]);
         expect(args[1]).toEqual({ user_id: [1, 2] });
         return {
@@ -454,9 +451,8 @@ test("Progress bar warning when max_value is zero", async () => {
 });
 
 test("Progress bar when value less than hour", async () => {
-    onRpc("gantt_progress_bar", (_, { model, args }) => {
+    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
         expect.step("gantt_progress_bar");
-        expect(model).toBe("tasks");
         expect(args[0]).toEqual(["user_id"]);
         expect(args[1]).toEqual({ user_id: [1, 2] });
         return {
@@ -481,9 +477,8 @@ test("Progress bar when value less than hour", async () => {
 });
 
 test("Progress bar danger when ratio > 100", async () => {
-    onRpc("gantt_progress_bar", (_, { model, args }) => {
+    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
         expect.step("gantt_progress_bar");
-        expect(model).toBe("tasks");
         expect(args[0]).toEqual(["user_id"]);
         expect(args[1]).toEqual({ user_id: [1, 2] });
         return {
@@ -527,9 +522,8 @@ test("Falsy search field will return an empty rows", async () => {
 });
 
 test("Search field return rows with progressbar", async () => {
-    onRpc("gantt_progress_bar", (_, { model, args }) => {
+    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
         expect.step("gantt_progress_bar");
-        expect(model).toBe("tasks");
         expect(args[0]).toEqual(["user_id"]);
         expect(args[1]).toEqual({ user_id: [2] });
         return {
@@ -1499,7 +1493,7 @@ test("date grid and dst summerToWinter (2 cell part)", async () => {
 });
 
 test("groups_limit attribute (no groupBy)", async () => {
-    onRpc("*", (_, { method, kwargs }) => {
+    onRpc(({ method, kwargs }) => {
         expect.step(method);
         if (kwargs.limit) {
             expect.step(`with limit ${kwargs.limit}`);
@@ -1552,7 +1546,7 @@ test("groups_limit attribute (no groupBy)", async () => {
 });
 
 test("groups_limit attribute (one groupBy)", async () => {
-    onRpc("*", (_, { method, kwargs }) => {
+    onRpc(({ method, kwargs }) => {
         expect.step(method);
         if (kwargs.limit) {
             expect.step(`with limit ${kwargs.limit}`);
@@ -1633,7 +1627,7 @@ test("groups_limit attribute (one groupBy)", async () => {
 });
 
 test("groups_limit attribute (two groupBys)", async () => {
-    onRpc("*", (_, { method, kwargs }) => {
+    onRpc(({ method, kwargs }) => {
         expect.step(method);
         if (kwargs.limit) {
             expect.step(`with limit ${kwargs.limit}`);
@@ -1781,7 +1775,7 @@ test("groups_limit attribute (two groupBys)", async () => {
 });
 
 test("groups_limit attribute in sample mode (no groupBy)", async () => {
-    onRpc("*", (_, { method, kwargs }) => {
+    onRpc(({ method, kwargs }) => {
         expect.step(method);
         if (kwargs.limit) {
             expect.step(`with limit ${kwargs.limit}`);
@@ -1798,7 +1792,7 @@ test("groups_limit attribute in sample mode (no groupBy)", async () => {
 });
 
 test("groups_limit attribute in sample mode (one groupBy)", async () => {
-    onRpc("*", (_, { method, kwargs }) => {
+    onRpc(({ method, kwargs }) => {
         expect.step(method);
         if (kwargs.limit) {
             expect.step(`with limit ${kwargs.limit}`);
@@ -1820,7 +1814,7 @@ test("groups_limit attribute in sample mode (one groupBy)", async () => {
 });
 
 test("groups_limit attribute in sample mode (two groupBys)", async () => {
-    onRpc("*", (_, { method, kwargs }) => {
+    onRpc(({ method, kwargs }) => {
         expect.step(method);
         if (kwargs.limit) {
             expect.step(`with limit ${kwargs.limit}`);
