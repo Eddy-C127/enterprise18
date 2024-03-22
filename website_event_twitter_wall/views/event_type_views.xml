@@ -6,7 +6,7 @@
         <field name="model">event.type</field>
         <field name="inherit_id" ref="website_event.event_type_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//span[@name='menu_register_cta']" position="before">
+            <xpath expr="//span[@name='community_menu']" position="before">
                 <span>
                     <label for="social_menu"/>
                     <field name="social_menu"/>
