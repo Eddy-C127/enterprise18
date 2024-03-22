@@ -3,7 +3,7 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { getFixture, nextTick } from "@web/../tests/helpers/utils";
 import { setupViewRegistries } from "@web/../tests/views/helpers";
-import { click } from "@web/../tests/utils";
+import { click, contains, insertText } from "@web/../tests/utils";
 import {
     createDocumentsView as originalCreateDocumentsView,
     loadServices,
@@ -34,7 +34,7 @@ async function createDocumentsActivityView(records, onRouteCalled, params) {
                 <div t-name="activity-box">
                     <div>
                         <field name="folder_id" invisible="1"/>
-                        <field name="name"/>
+                        <field name="name" required="True"/>
                         <field name="owner_id" invisible="1"/>
                         <field name="activity_ids" invisible="1"/>
                     </div>
@@ -194,6 +194,32 @@ QUnit.module("documents", {}, function () {
                 await confirmDeletionButton.click();
                 assert.verifySteps(["unlink"]);
             });
+
+            QUnit.test(
+                "document inspector: update document info from activity view",
+                async function (assert) {
+                    assert.expect(11);
+                    function onRouteCalled(args) {
+                        if (args.method === "write") {
+                            assert.deepEqual(args.args[0], [records[0].id]);
+                            assert.deepEqual(args.args[1], { name: "Document 1A" });
+                            assert.step("documents.documents/write");
+                        }
+                    }
+                    await createDocumentsActivityView(records, onRouteCalled);
+                    await click(".o_activity_record", { text: "Document 1" });
+                    await insertText("input", "A", {
+                        parent: [".o_inspector_table tr", { text: "Name" }],
+                    });
+                    await contains(".o_activity_record", { text: "Document 1A" });
+                    await insertText("input", "", {
+                        parent: [".o_inspector_table tr", { text: "Name" }],
+                        replace: true,
+                    });
+                    await contains(".modal-content", { text: "No valid record to save" });
+                    assert.verifySteps(["documents.documents/write"]);
+                }
+            );
         }
     );
 });
