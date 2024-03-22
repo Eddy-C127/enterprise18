@@ -62,8 +62,8 @@ export class SignTemplateControlPanel extends Component {
     }
 
     async duplicateTemplate() {
-        const duplicatedTemplateId = await this.orm.call("sign.template", "copy", [
-            this.props.signTemplate.id,
+        const duplicatedTemplateIds = await this.orm.call("sign.template", "copy", [
+            [this.props.signTemplate.id],
         ]);
 
         this.action.doAction({
@@ -71,7 +71,7 @@ export class SignTemplateControlPanel extends Component {
             tag: "sign.Template",
             name: _t("Duplicated Template"),
             params: {
-                id: duplicatedTemplateId,
+                id: duplicatedTemplateIds[0],
             },
         });
     }
