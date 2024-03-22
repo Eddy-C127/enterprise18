@@ -110,7 +110,7 @@ class TestHR(AccountTestInvoicingCommon):
         #     for allocation in self:
         #         if len(allocation.employee_ids) == 1:
         #             allocation.employee_id = allocation.employee_ids[0]._origin
-        allocation_form.employee_ids.add(employee)
+        allocation_form.employee_id = employee
         allocation_form.date_from = time.strftime('2015-1-1')
         allocation_form.date_to = time.strftime('%Y-12-31')
         allocation_form.holiday_status_id = leave_type
