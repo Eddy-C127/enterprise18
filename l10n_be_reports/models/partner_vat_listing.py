@@ -9,6 +9,7 @@ from .account_report import _raw_phonenumber, _get_xml_export_representative_nod
 
 from stdnum.eu.vat import compact
 from stdnum.be.vat import compact as vat_be_compact
+from stdnum.exceptions import ValidationError
 
 
 class PartnerVATListingCustomHandler(models.AbstractModel):
@@ -61,8 +62,16 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
 
     def _report_custom_engine_partner_vat_listing(self, expressions, options, date_scope, current_groupby, next_groupby, offset=0, limit=None, warnings=None):
         def build_result_dict(query_res_lines, partners_vat_map):
+            vat_number = None
+            if current_groupby == 'partner_id':
+                partner_vat = partners_vat_map[query_res_lines[0]['grouping_key']]
+                try:
+                    vat_number = compact(partner_vat)
+                except ValidationError:
+                    vat_number = partner_vat
+
             rslt = {
-                'vat_number': compact(partners_vat_map[query_res_lines[0]['grouping_key']]) if current_groupby == 'partner_id' else None,
+                'vat_number': vat_number,
                 'turnover': 0,
                 'vat_amount': 0,
                 'has_sublines': False,
