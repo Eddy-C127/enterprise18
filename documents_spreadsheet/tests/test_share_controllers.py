@@ -136,3 +136,20 @@ class TestShareController(SpreadsheetTestCommon, HttpCase):
         with mute_logger('odoo.http'):
             response = self.url_open(url)
         self.assertEqual(response.status_code, 404)
+
+    def test_share_portal_folder_with_one_document(self):
+        document = self.create_spreadsheet()
+        url = self.env["documents.share"].action_get_share_url({
+            'folder_id': document.folder_id.id,
+            'domain': [],
+            'document_ids': [(6, 0, [document.id])],
+            'type': 'domain',
+            'date_deadline': '3052-01-01',
+            'action': 'downloadupload',
+        })
+
+        response = self.url_open(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Untitled Spreadsheet", response.text)
+        self.assertIn('o_docs_share_page', response.text)
