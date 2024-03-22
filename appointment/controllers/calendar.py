@@ -12,7 +12,6 @@ from odoo import fields, _
 from odoo.addons.base.models.ir_qweb import keep_query
 from odoo.addons.calendar.controllers.main import CalendarController
 from odoo.http import content_disposition, request, route
-from odoo.tools import is_html_empty
 from odoo.tools.misc import get_lang
 
 
@@ -43,7 +42,7 @@ class AppointmentCalendarController(CalendarController):
         return request.redirect(f'/calendar/view/{attendee.event_id.access_token}?partner_id={attendee.partner_id.id}')
 
     @route(['/calendar/view/<string:access_token>'], type='http', auth="public", website=True)
-    def appointment_view(self, access_token, partner_id, state=False, **kwargs):
+    def appointment_view(self, access_token, partner_id=False, state=False, **kwargs):
         """
         Render the validation of an appointment and display a summary of it
 
@@ -53,7 +52,7 @@ class AppointmentCalendarController(CalendarController):
             - 'new': Info message displayed when the appointment has been correctly created
             - other values: see _get_prevent_cancel_status
         """
-        partner_id = int(partner_id)
+        partner_id = int(partner_id) if partner_id else False
         event = request.env['calendar.event'].with_context(active_test=False).sudo().search([('access_token', '=', access_token)], limit=1)
         if not event:
             return request.not_found()
@@ -96,8 +95,7 @@ class AppointmentCalendarController(CalendarController):
             'google_url': google_url,
             'state': state,
             'partner_id': partner_id,
-            'attendee_status': event.attendee_ids.filtered(lambda a: a.partner_id.id == partner_id).state,
-            'is_html_empty': is_html_empty,
+            'attendee_status': event.attendee_ids.filtered(lambda a: a.partner_id.id == partner_id).state if partner_id else False,
             'is_cancelled': not event.active,
         }, headers={'Cache-Control': 'no-store'})
 
@@ -126,7 +124,7 @@ class AppointmentCalendarController(CalendarController):
     @route(['/calendar/cancel/<string:access_token>',
             '/calendar/<string:access_token>/cancel',
            ], type='http', auth="public", website=True)
-    def appointment_cancel(self, access_token, partner_id, **kwargs):
+    def appointment_cancel(self, access_token, partner_id=False, **kwargs):
         """
             Route to cancel an appointment event, this route is linked to a button in the validation page
         """
@@ -137,7 +135,7 @@ class AppointmentCalendarController(CalendarController):
             return request.not_found()
         if cancel_status := self._get_prevent_cancel_status(event):
             return request.redirect(f'/calendar/view/{access_token}?state={cancel_status}&partner_id={partner_id}')
-        event.with_context(mail_notify_author=True).sudo().action_cancel_meeting([int(partner_id)])
+        event.with_context(mail_notify_author=True).sudo().action_cancel_meeting([int(partner_id)] if partner_id else [])
         if appointment_invite:
             redirect_url = appointment_invite.redirect_url + '&state=cancel'
         else:

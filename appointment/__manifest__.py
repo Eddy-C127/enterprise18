@@ -11,7 +11,7 @@
     'description': """
 Allow clients to Schedule Appointments through the Portal
     """,
-    'depends': ['calendar', 'portal', 'resource', 'web_gantt'],
+    'depends': ['calendar', 'phone_validation', 'portal', 'resource', 'web_gantt'],
     'data': [
         'data/calendar_data.xml',
         'data/mail_message_subtype_data.xml',

@@ -15,7 +15,7 @@
                 <field name="appointment_type_schedule_based_on" invisible="1"/>
                 <field name="appointment_type_manage_capacity" invisible="1"/>
             </field>
-            <xpath expr="//page[@name='page_invitations']" position="before">
+            <xpath expr="//page[@name='page_invitations']" position="after">
                 <page name="page_appointment" string="Appointment Details"
                     invisible="not appointment_type_id or appointment_type_schedule_based_on != 'resources' or not appointment_type_manage_capacity">
                     <field name="booking_line_ids" invisible="not active">
@@ -24,6 +24,21 @@
                             <field name="appointment_resource_id" domain="[('appointment_type_ids', 'in', appointment_type_id)]" options="{'no_create': True}"/>
                             <field name="capacity_reserved" sum="Total Capacity Reserved"/>
                             <field name="capacity_used" optional="hide" sum="Total Capacity Used"/>
+                        </list>
+                    </field>
+                </page>
+                <page name="page_questions" string="Questions"
+                    invisible="not appointment_type_id or not appointment_answer_input_ids">
+                    <field name="appointment_answer_input_ids">
+                        <list editable="bottom" create="false">
+                            <field name="appointment_type_id" column_invisible="True"/>
+                            <field name="question_id" domain="[('appointment_type_id', '=', appointment_type_id)]" options="{'no_create': True}"/>
+                            <field name="question_type" string="Type"/>
+                            <field name="value_answer_id"
+                                invisible="question_type not in ('radio','checkbox','select')"
+                                domain="[('question_id','=', question_id)]"
+                                options="{'no_create': True}"/>
+                            <field name="value_text_box" invisible="question_type in ('radio','checkbox','select')"/>
                         </list>
                     </field>
                 </page>

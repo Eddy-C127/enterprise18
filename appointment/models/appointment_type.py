@@ -982,7 +982,7 @@ class AppointmentType(models.Model):
         return []
 
     def _prepare_calendar_event_values(
-        self, asked_capacity, booking_line_values, description, duration,
+        self, asked_capacity, booking_line_values, duration,
         appointment_invite, guests, name, customer, staff_user, start, stop
     ):
         """ Returns all values needed to create the calendar event from the values outputed
@@ -1012,7 +1012,6 @@ class AppointmentType(models.Model):
             'appointment_type_id': self.id,
             'attendee_ids': attendee_values,
             'booking_line_ids': [Command.create(vals) for vals in booking_line_values],
-            'description': description,
             'duration': duration,
             'location': self.location,
             'name': _('%(attendee_name)s - %(appointment_name)s Booking',

@@ -42,10 +42,12 @@ class WebsiteAppointmentUITest(AppointmentCommon):
             'abc@gmail.com', 'Appointment Manager'
         ]
         new_partners = self.env['res.partner'].search_count([('name', 'in', guest_names)])
-        self.assertEqual(new_partners, 7)
+        self.assertEqual(new_partners, 8)
         event = self.env['calendar.event'].search([('name', '=', 'Appointment Manager - Test Booking')], limit=1)
-        expected_names = {'Appointment Manager', 'test1@gmail.com', 'Portal User', 'test2@gmail.com',
-            'new_zeadland2@test.example.com', 'Raoul', 'def@gmail.example.com', 'abc@gmail.com'}
+        expected_names = [
+            'Appointment Manager', 'Appointment Manager', 'Portal User', 'Raoul', 'abc@gmail.com',
+            'def@gmail.example.com', 'new_zeadland2@test.example.com', 'test1@gmail.com', 'test2@gmail.com'
+        ]
         attendees = self.env['calendar.attendee'].search([('event_id', '=', event.id)])
-        self.assertEqual(len(attendees), 8)
-        self.assertEqual(set(attendees.mapped('common_name')), expected_names)
+        self.assertEqual(len(attendees), 9)
+        self.assertListEqual(attendees.sorted('common_name').mapped('common_name'), expected_names)

@@ -568,24 +568,29 @@ class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
     def test_customer_event_description(self):
         """Check calendar file description generation."""
         appointment_type = self.apt_type_bxls_2days
-        host_user = self.apt_manager
-        host_partner = host_user.partner_id
-
-        message_confirmation = '<p>Please try to be there <strong>5 minutes</strong> before the time.<p><br>Thank you.'
-        host_name = 'Appointment Manager'
-        host_mail = 'manager@appointments.lan'
-        host_phone = '2519475531'
-
-        def _set_values(message=message_confirmation, name=host_name, mail=host_mail, phone=host_phone):
-            appointment_type.message_confirmation = message
-            host_partner.write({
-                'name': name,
-                'email': mail,
-                'phone': phone,
-            })
-        attendee = self.env['res.partner'].sudo().create({
-            'name': 'John Doe',
+        host_partner = self.apt_manager.partner_id
+        appointment_type.message_confirmation = '<p>Please try to be there <strong>5 minutes</strong> before the time.<p><br>Thank you.'
+        appointment_question = self.env['appointment.question'].create({
+            'appointment_type_id': appointment_type.id,
+            'name': 'How are you ?',
+            'question_type': 'char',
         })
+        appointment_answer_input_values = {
+            'appointment_type_id': appointment_type.id,
+            'question_id': appointment_question.id,
+            'value_text_box': 'I am Good',
+        }
+        attendee = self.env['res.partner'].sudo().create({
+            'name': '<p>John Doe</p>',
+            'email': 'john@example.com',
+            'phone': '123456789',
+        })
+        extra_attendee = self.env['res.partner'].sudo().create({
+            'name': 'Jean',
+            'email': 'jean@example.com',
+            'phone': '888888888',
+        })
+        host_partner.phone = '+32456111111'
         appointment = self.env['calendar.event'].create({
             'name': '%s with %s' % (appointment_type.name, attendee.name),
             'start': datetime.now(),
@@ -593,38 +598,23 @@ class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
             'stop': datetime.now() + timedelta(hours=1),
             'allday': False,
             'duration': appointment_type.appointment_duration,
-            'description': "<p>Test</p>",
             'location': appointment_type.location,
-            'partner_ids': [odoo.Command.link(partner.id) for partner in [attendee, host_partner]],
+            'partner_ids': [odoo.Command.link(partner.id) for partner in [attendee, host_partner, extra_attendee]],
+            'appointment_booker_id': attendee.id,
             'appointment_type_id': appointment_type.id,
-            'user_id': host_user.id,
+            'appointment_answer_input_ids': [(0, 0, appointment_answer_input_values)],
+            'user_id': self.apt_manager.id,
         })
-        # sanity check with a simple test
-        _set_values()
-        self.assertEqual(appointment._get_customer_description(),
-                         'Please try to be there *5 minutes* before the time.\nThank you.\n\n'
-                         'Contact Details:\n'
-                         'Appointment Manager\nEmail: manager@appointments.lan\nPhone: 2519475531')
-        for changes in [{},
-                        {'message': False},
-                        {'name': ''}, {'mail': False}, {'phone': False},
-                        {'name': '', 'mail': False, 'phone': False},
-                        {'message': False, 'name': '', 'mail': False, 'phone': False}]:
-            _set_values(**changes)
-            message = ''
-            details = ''
-            if appointment_type.message_confirmation:
-                message = 'Please try to be there *5 minutes* before the time.\nThank you.\n\n'
-            if host_partner.name or host_partner.email or host_partner.phone:
-                details = '\n'.join(line for line in (
-                    'Contact Details:',
-                    host_partner.name,
-                    f'Email: {host_partner.email}' if host_partner.email else False,
-                    f'Phone: {host_partner.phone}' if host_partner.phone else False)
-                    if line)
-            self.assertEqual(appointment._get_customer_description(), (message + details).strip())
-            self.assertEqual(appointment._get_customer_summary(),
-                             f'{appointment_type.name} with {host_partner.name or "somebody"}')
+        url = f"{appointment_type.get_base_url()}/calendar/view/{appointment.access_token}"
+        description = (
+            '<div><span>Contact Details</span><br><span>&lt;p&gt;John Doe&lt;/p&gt; - john@example.com - 123456789</span>'
+            '<br><span>Appointment Manager - apt_manager@test.example.com - +32456111111</span><br><span>Jean - jean@example.com</span>'
+            '</div><br><div><span>Questions</span><br><span>How are you ?: I am Good</span></div><br>'
+            '<p>Please try to be there <strong>5 minutes</strong> before the time.</p><p><br>Thank you.</p>'
+            '<span>Need to reschedule? <a href=%s>Click here</a></span>'
+        ) % (url)
+        self.assertEqual(appointment._get_customer_description(), description)
+        self.assertEqual(appointment._get_customer_summary(), f'{appointment_type.name} with {host_partner.name or "somebody"}')
 
     @users('apt_manager')
     @freeze_time('2022-02-13T20:00:00')

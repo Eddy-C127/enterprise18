@@ -25,7 +25,6 @@ class CalendarBooking(models.Model):
     # Calendar Event Data
     appointment_invite_id = fields.Many2one('appointment.invite')
     appointment_type_id = fields.Many2one('appointment.type', ondelete="cascade", required=True)
-    description = fields.Html('Description')
     duration = fields.Float('Duration', compute="_compute_duration")
     guest_ids = fields.Many2many('res.partner', string="Guests")
     name = fields.Char('Customer Name')  # Could differ from partner
@@ -150,7 +149,7 @@ class CalendarBooking(models.Model):
             } for line in booking.booking_line_ids]
 
             calendar_event_values = booking.appointment_type_id._prepare_calendar_event_values(
-                booking.asked_capacity, booking_line_values, booking.description, booking.duration, booking.appointment_invite_id,
+                booking.asked_capacity, booking_line_values, booking.duration, booking.appointment_invite_id,
                 booking.guest_ids, booking.name, booking.partner_id, booking.staff_user_id, booking.start, booking.stop
             )
             calendar_event_values['appointment_answer_input_ids'] = [Command.set(booking.appointment_answer_input_ids.ids)]

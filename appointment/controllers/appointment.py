@@ -17,11 +17,12 @@ from werkzeug.urls import url_encode
 from odoo import Command, exceptions, http, fields, _
 from odoo.http import request, route
 from odoo.osv import expression
-from odoo.tools import plaintext2html, DEFAULT_SERVER_DATETIME_FORMAT as dtf
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as dtf, email_normalize
 from odoo.tools.mail import is_html_empty
 from odoo.tools.misc import babel_locale_parse, get_lang
 from odoo.addons.base.models.ir_qweb import keep_query
 from odoo.addons.base.models.res_partner import _tz_get
+from odoo.addons.phone_validation.tools import phone_validation
 from odoo.exceptions import UserError
 
 
@@ -677,16 +678,21 @@ class AppointmentController(http.Controller):
             if guest_emails_str:
                 guests = request.env['calendar.event'].sudo()._find_or_create_partners(guest_emails_str)
 
-        customer = self._get_customer_partner() or request.env['res.partner'].sudo().search([('email', '=like', email)], limit=1)
-        if customer:
-            if customer.user_ids:
-                if request.env.user._is_public() or request.env.user not in customer.user_ids:
-                    raise UserError(_('Please connect to book the appointment'))
-            if not customer.mobile:
-                customer.write({'mobile': phone})
-            if not customer.email:
-                customer.write({'email': email})
-        else:
+        customer = self._get_customer_partner()
+
+        # considering phone and email are mandatory
+        new_customer = not (customer.email) or not (customer.phone)
+        if not new_customer and customer.email != email and customer.email_normalized != email_normalize(email):
+            new_customer = True
+        if not new_customer and not customer.phone:
+            new_customer = True
+        if not new_customer:
+            customer_phone_fmt = customer._phone_format(fname="phone")
+            input_country = self._get_customer_country()
+            input_phone_fmt = phone_validation.phone_format(phone, input_country.code, input_country.phone_code, force_format="E164", raise_exception=False)
+            new_customer = customer.phone != phone and customer_phone_fmt != input_phone_fmt
+
+        if new_customer:
             customer = customer.create({
                 'name': name,
                 'phone': customer._phone_format(number=phone, country=self._get_customer_country()) or phone,
@@ -715,13 +721,6 @@ class AppointmentController(http.Controller):
             'appointment_type_id': appointment_type.id,
             'partner_id': customer.id,
         }
-        description_bits = []
-        description = ''
-
-        if phone:
-            description_bits.append(_('Phone: %s', phone))
-        if email:
-            description_bits.append(_('Email: %s', email))
 
         for question in appointment_type.question_ids.filtered(lambda question: question.id in partner_inputs.keys()):
             if question.question_type == 'checkbox':
@@ -729,28 +728,14 @@ class AppointmentController(http.Controller):
                 answer_input_values.extend([
                     dict(base_answer_input_vals, question_id=question.id, value_answer_id=answer.id) for answer in answers
                 ])
-                description_bits.append(f'{question.name}: {", ".join(answers.mapped("name"))}')
             elif question.question_type in ['select', 'radio']:
                 answer_input_values.append(
                     dict(base_answer_input_vals, question_id=question.id, value_answer_id=int(partner_inputs[question.id]))
                 )
-                selected_answer = question.answer_ids.filtered(lambda answer: answer.id == int(partner_inputs[question.id]))
-                description_bits.append(f'{question.name}: {selected_answer.name}')
-            elif question.question_type == 'char':
-                answer_escaped = plaintext2html(partner_inputs[question.id].strip())
+            elif question.question_type in ['char', 'text']:
                 answer_input_values.append(
                     dict(base_answer_input_vals, question_id=question.id, value_text_box=partner_inputs[question.id].strip())
                 )
-                description_bits.append(f'{question.name}: {answer_escaped}')
-            elif question.question_type == 'text':
-                answer_escaped = plaintext2html(partner_inputs[question.id].strip())
-                answer_input_values.append(
-                    dict(base_answer_input_vals, question_id=question.id, value_text_box=partner_inputs[question.id].strip())
-                )
-                description_bits.append(Markup('{}:<br/>{}').format(question.name, answer_escaped))
-
-        if description_bits:
-            description = f"<ul>{''.join(f'<li>{bit}</li>' for bit in description_bits)}</ul>"
 
         booking_line_values = []
         if appointment_type.schedule_based_on == 'resources':
@@ -771,14 +756,14 @@ class AppointmentController(http.Controller):
             appointment_invite = request.env['appointment.invite']
 
         return self._handle_appointment_form_submission(
-            appointment_type, date_start, date_end, duration, description, answer_input_values, name,
+            appointment_type, date_start, date_end, duration, answer_input_values, name,
             customer, appointment_invite, guests, staff_user, asked_capacity, booking_line_values
         )
 
     def _handle_appointment_form_submission(
         self, appointment_type,
         date_start, date_end, duration,  # appointment boundaries
-        description, answer_input_values, name, customer, appointment_invite, guests=None,  # customer info
+        answer_input_values, name, customer, appointment_invite, guests=None,  # customer info
         staff_user=None, asked_capacity=1, booking_line_values=None  # appointment staff / resources
     ):
         """ This method takes the output of the processing of appointment's form submission and
@@ -795,7 +780,7 @@ class AppointmentController(http.Controller):
         ).sudo().create({
             'appointment_answer_input_ids': [Command.create(vals) for vals in answer_input_values],
             **appointment_type._prepare_calendar_event_values(
-                asked_capacity, booking_line_values, description, duration,
+                asked_capacity, booking_line_values, duration,
                 appointment_invite, guests, name, customer, staff_user, date_start, date_end
             )
         })

@@ -4,10 +4,11 @@
 import uuid
 import logging
 from datetime import datetime, timedelta
+from markupsafe import Markup
 
 from odoo import _, api, Command, fields, models, SUPERUSER_ID
 from odoo.exceptions import ValidationError
-from odoo.tools.mail import html2plaintext, email_normalize, email_split_tuples
+from odoo.tools.mail import email_normalize, email_split_tuples, html_sanitize, is_html_empty, plaintext2html
 from odoo.addons.appointment.utils import invert_intervals
 from odoo.addons.resource.models.utils import Intervals, timezone_datetime
 from ..utils import interval_from_events, intervals_overlap
@@ -331,19 +332,15 @@ class CalendarEvent(models.Model):
             We'll just remove the attendee(s) that made the cancellation request
         """
         self.ensure_one()
-        attendees = self.env['calendar.attendee'].search([('event_id', '=', self.id), ('partner_id', 'in', partner_ids)])
-        if attendees:
-            cancelling_attendees = ", ".join([attendee.display_name for attendee in attendees])
-            message_body = _("Appointment cancelled by: %(partners)s", partners=cancelling_attendees)
-            if self.appointment_booker_id.id == partner_ids[0] or len(self.attendee_ids - attendees) < 2:
-                self._track_set_log_message(message_body)
-                # Use the organizer if set or fallback on SUPERUSER to notify attendees that the event is archived
-                self.with_user(self.user_id or SUPERUSER_ID).sudo().action_archive()
-            else:
-                # Use the organizer as the author if set or fallback on the first attendee cancelling
-                author_id = self.user_id.partner_id.id or partner_ids[0]
-                self.message_post(body=message_body, message_type='notification', author_id=author_id)
-                self.partner_ids -= attendees.partner_id
+        message_body = _("Appointment cancelled")
+        if partner_ids:
+            attendees = self.env['calendar.attendee'].search([('event_id', '=', self.id), ('partner_id', 'in', partner_ids)])
+            if attendees:
+                cancelling_attendees = ", ".join([attendee.display_name for attendee in attendees])
+                message_body = _("Appointment cancelled by: %(partners)s", partners=cancelling_attendees)
+        self._track_set_log_message(message_body)
+        # Use the organizer if set or fallback on SUPERUSER to notify attendees that the event is archived
+        self.with_user(self.user_id or SUPERUSER_ID).sudo().action_archive()
 
     def _find_or_create_partners(self, guest_emails_str):
         """Used to find the partners from the emails strings and creates partners if not found.
@@ -425,15 +422,56 @@ class CalendarEvent(models.Model):
 
     def _get_customer_description(self):
         # Description should make sense for the person who booked the meeting
-        if self.appointment_type_id:
-            message_confirmation = self.appointment_type_id.message_confirmation or ''
-            contact_details = ''
-            if self.partner_id and (self.partner_id.name or self.partner_id.email or self.partner_id.phone):
-                email_detail_line = _('Email: %(email)s', email=self.partner_id.email) if self.partner_id.email else ''
-                phone_detail_line = _('Phone: %(phone)s', phone=self.partner_id.phone) if self.partner_id.phone else ''
-                contact_details = '\n'.join(line for line in (_('Contact Details:'), self.partner_id.name, email_detail_line, phone_detail_line) if line)
-            return f"{html2plaintext(message_confirmation)}\n\n{contact_details}".strip()
-        return super()._get_customer_description()
+        if not self.appointment_type_id:
+            return super()._get_customer_description()
+
+        confirmation_html = html_sanitize(self.appointment_type_id.message_confirmation or '')
+        base_url = self.appointment_type_id.get_base_url()
+        url = f"{base_url}/calendar/view/{self.access_token}"
+        link_html = Markup("<span>%s <a href=%s>%s</a></span>") % (_("Need to reschedule?"), url, _("Click here"))
+
+        return Markup("").join([
+            self._get_attendee_description(),
+            Markup('<br>'),
+            confirmation_html,
+            link_html,
+        ])
+
+    def _get_attendee_description(self):
+        """:return (html): Sanitized HTML description of attendees and their responses to the questions"""
+        include_phone_partners = self.attendee_ids.filtered(lambda attendee: attendee.partner_id in (self.appointment_booker_id + self.partner_id))
+        attendee_descriptions = [
+            Markup('<span>%s</span>') % ' - '.join(
+                attendee[field] for field in ('common_name', 'email', 'phone') if attendee[field] and (field != 'phone' or (attendee & include_phone_partners))
+            )
+            for attendee in self.attendee_ids
+        ]
+
+        questions = []
+        answers = []
+        for question, answer in self.appointment_answer_input_ids.sorted('id').grouped('question_id').items():
+            questions.append(question.name)
+            answers.append(Markup(', ').join((plaintext2html(ans.value_text_box) if question.question_type == 'text'
+                                              else ans.value_text_box or ans.value_answer_id.name)
+                                             for ans in answer))
+        question_descriptions = [
+            Markup('<span>%s: %s</span>') % (question, answer)
+            for question, answer in zip(questions, answers)
+        ]
+        if not attendee_descriptions and not question_descriptions:
+            return ''
+
+        if attendee_descriptions:
+            attendee_descriptions.insert(0, Markup('<span>Contact Details</span>'))
+        if question_descriptions:
+            question_descriptions.insert(0, Markup('<span>Questions</span>'))
+        complete_description = (
+            Markup('<br/>').join([
+                Markup('<div>%s</div>') % Markup('<br/>').join(paragraph)
+                for paragraph in (attendee_descriptions, question_descriptions) if paragraph
+            ])
+        )
+        return html_sanitize(complete_description) if not is_html_empty(complete_description) else ''
 
     def _get_customer_summary(self):
         # Summary should make sense for the person who booked the meeting

@@ -321,39 +321,6 @@ class AppointmentUITest(AppointmentUICommon):
             "Crossing over the manual confirmation percentage should confirm the attendees immediately.")
         self.assertEqual(meeting.resource_total_capacity_reserved, 4)
 
-    @users('apt_manager')
-    def test_appointment_question_answer(self):
-        CalendarEvent = self.env['calendar.event']
-        self.authenticate(self.env.user.login, self.env.user.login)
-        question_answer = "<b>cool</b>"
-        appointment = self.env['appointment.type'].create({
-            'name': 'Test apt',
-            'staff_user_ids': self.staff_user_bxls,
-        })
-
-        appointment_question = self.env['appointment.question'].create({
-            'appointment_type_id': appointment.id,
-            'name': 'How are you?',
-            'question_type': 'char',
-        })
-
-        appointment_data = {
-            'duration_str': '1.0',
-            'datetime_str': '2022-07-04 12:30:00',
-            'staff_user_id': self.staff_user_bxls.id,
-            'name': 'Online Meeting',
-            'phone': '2025550999',
-            'email': 'test1@test.example.com',
-            'csrf_token': http.Request.csrf_token(self),
-            f'question_{appointment_question.id}': question_answer
-        }
-
-        url = f"/appointment/{appointment.id}/submit"
-        res = self.url_open(url, data=appointment_data)
-        self.assertEqual(res.status_code, 200, "Response should = OK")
-        event = CalendarEvent.search([('appointment_type_id', '=', appointment.id)])
-        self.assertIn('<p>&lt;b&gt;cool&lt;/b&gt;</p>', event.description)
-
     @freeze_time('2022-02-14')
     @users('apt_manager')
     def test_appointment_staff_user_manual_confirmation(self):
@@ -524,12 +491,9 @@ class CalendarTest(AppointmentUICommon):
         self.assertFalse(event.active)
 
     @freeze_time('2023, 11, 22')
-    def test_meeting_cancel_authenticated(self):
-        """ Test multiple cancellation scenarios with various cases
-        Case 1: Do not archive the meeting if any other attendee cancel the meeting
-        Case 2: Archive the meeting if there is only one participant left
-        """
-        self.authenticate(self.portal_user.login, self.portal_user.login)
+    def test_meeting_cancel_no_partner(self):
+        """ Test cancellation of meeting with no partner. """
+        self.authenticate(None, None)
         self.apt_type_bxls_2days.write({'is_published': 'True'})
         event = self.env['calendar.event'].create({
             'name': 'Test-Meeting 1',
@@ -544,24 +508,11 @@ class CalendarTest(AppointmentUICommon):
             ],
             'appointment_type_id': self.apt_type_bxls_2days.id,
         })
-        # Case 1:
         cancel_meeting_data = {
             'access_token': event.access_token,
-            'partner_id': self.portal_user.partner_id.id,
             'csrf_token': http.Request.csrf_token(self),
         }
         cancel_meeting_url = f"/calendar/{event.access_token}/cancel"
-        res = self.url_open(cancel_meeting_url, data=cancel_meeting_data)
-        self.assertEqual(res.status_code, 200)
-        self.assertTrue(event.active)
-        expected_attendee = self.staff_user_aust.partner_id + self.staff_user_nz.partner_id
-        self.assertEqual(event.attendee_ids.partner_id, expected_attendee)
-        # Case 2:
-        cancel_meeting_data = {
-            'access_token': event.access_token,
-            'partner_id': self.staff_user_aust.partner_id.id,
-            'csrf_token': http.Request.csrf_token(self),
-        }
         res = self.url_open(cancel_meeting_url, data=cancel_meeting_data)
         self.assertEqual(res.status_code, 200)
         self.assertFalse(event.active)

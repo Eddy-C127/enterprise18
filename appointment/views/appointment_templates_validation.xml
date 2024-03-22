@@ -7,6 +7,7 @@
             <t t-set="staff_user" t-value="event.user_id"/>
             <t t-set="resources" t-value="event.appointment_resource_ids"/>
             <t t-set="based_on_users" t-value="appointment_type.schedule_based_on == 'users'"/>
+            <t t-set="attendee_description" t-value="event._get_attendee_description()"/>
             <div id="wrap" class="o_appointment d-flex bg-o-color-4 p-4">
                 <div class="oe_structure"/>
                 <div class="oe_structure container">
@@ -149,18 +150,13 @@
                                     <span class="text-muted">Attendees</span>
                                 </div>
                                 <div class="col-9">
-                                    <div class="list-group">
-                                        <div t-foreach="event.attendee_ids" t-as="attendee" class="list-group-item">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <span t-out="attendee.common_name"/>
-                                                <t t-if="not is_cancelled">
-                                                    <span t-if="attendee.state == 'accepted'" class="fa fa-check text-success" title="Confirmed" role="img" aria-label="Confirmed"/>
-                                                    <span t-if="attendee.state == 'declined'" class="fa fa-times text-danger" title="Declined" role="img" aria-label="Declined"/>
-                                                    <span t-if="attendee.state == 'needsAction'" class="fa fa-fw fa-question-circle text-warning" title="Uncertain" role="img" aria-label="Uncertain"/>
-                                                </t>
-                                            </div>
-                                            <small class="text-muted" t-out="attendee.email"></small>
-                                        </div>
+                                    <div t-foreach="event.attendee_ids" t-as="attendee">
+                                        <span t-out="attendee.common_name"/>
+                                        <t t-if="not is_cancelled">
+                                            <span t-if="attendee.state == 'accepted'" class="fa fa-check text-success" title="Confirmed" role="img" aria-label="Confirmed"/>
+                                            <span t-if="attendee.state == 'declined'" class="fa fa-times text-danger" title="Declined" role="img" aria-label="Declined"/>
+                                            <span t-if="attendee.state == 'needsAction'" class="fa fa-fw fa-question-circle text-warning" title="Uncertain" role="img" aria-label="Uncertain"/>
+                                        </t>
                                     </div>
                                     <form t-if="appointment_type.allow_guests and not is_cancelled">
                                         <input type="hidden" id="access_token" t-att-value="event.access_token"/>
@@ -177,15 +173,15 @@
                                     </form>
                                 </div>
                             </div>
-                            <div t-if="not is_html_empty(event.description)" class="row mb-4">
+                            <div t-if="attendee_description" class="row mb-4">
                                 <div class="col-3">
                                     <span class="text-muted">Details</span>
                                 </div>
                                 <div class="col-9">
-                                    <div t-field="event.description"/>
+                                    <div t-out="attendee_description"/>
                                 </div>
                             </div>
-                            <div t-if="appointment_type and (event.appointment_booker_id.id == partner_id or not appointment_type.allow_guests) and not is_cancelled" class="row mb-4">
+                            <div t-if="appointment_type and (not partner_id or event.appointment_booker_id.id == partner_id or not appointment_type.allow_guests) and not is_cancelled" class="row mb-4">
                                 <div class="col-12">
                                     <span>Not available anymore?</span>
                                     <a class="ms-2 text-decoration-underline o_appointment_cancel_link"

@@ -69,38 +69,34 @@ class AppointmentTestTracking(AppointmentCommon, MailCase):
     @freeze_time('2017-01-01')
     def test_cancel_meeting_message(self):
         """ Make sure appointments send a custom message on archival/cancellation """
-        meeting = self.appointment_meeting_id
-        self.assertGreater(meeting.start, datetime.now(), 'Test expects `datetime.now` to be before start of meeting')
+        meeting1 = self.appointment_meeting_id
+        meeting2 = meeting1.copy()
+        self.flush_tracking()
+        self.assertGreater(meeting1.start, datetime.now(), 'Test expects `datetime.now` to be before start of meeting')
         permanent_followers = self.apt_manager.partner_id + self.apt_type_follower
-        self.assertEqual(meeting.partner_ids, self.apt_manager.partner_id + self.appointment_attendee_ids,
+        self.assertEqual(meeting1.partner_ids, self.apt_manager.partner_id + self.appointment_attendee_ids,
                          'Manager and attendees should be there')
-        self.assertEqual(meeting.message_partner_ids, permanent_followers + self.appointment_attendee_ids,
+        self.assertEqual(meeting1.message_partner_ids, permanent_followers + self.appointment_attendee_ids,
                          'All attendees and concerned users should be followers')
 
         with self.mock_mail_gateway(), self.mock_mail_app():
-            meeting.with_context(mail_notify_force_send=True).action_cancel_meeting(self.appointment_attendee_ids[0].ids)
+            meeting1.with_context(mail_notify_force_send=True).action_cancel_meeting(self.appointment_attendee_ids[0].ids)
             self.flush_tracking()
 
-        self.assertEqual(meeting.partner_ids, self.apt_manager.partner_id + self.appointment_attendee_ids[1],
-                         'Manager and only one attendee should remain')
-        self.assertEqual(meeting.message_partner_ids,
-                         permanent_followers + self.appointment_attendee_ids[1],
-                         'Only one attendee should be following anymore')
-
-        self.assertEqual(len(self._new_msgs), 1, 'Should be a single message for the cancellation')
-        self.assertMessageFields(self._new_msgs, {
+        self.assertFalse(meeting1.active, 'Meeting should be archived')
+        self.assertMessageFields(self._new_msgs[0], {
             'body': f'<p>Appointment cancelled by: {self.appointment_attendee_ids[0].display_name}</p>',
             'notification_ids': self.env['mail.notification'],
             'subtype_id': self.env.ref('mail.mt_note'),
         })
-        with self.mock_mail_gateway(), self.mock_mail_app():
-            meeting.with_user(self.apt_manager).action_cancel_meeting(self.appointment_attendee_ids[1].ids)
-            self.flush_tracking()
 
-        self.assertFalse(meeting.active, 'Meeting should be archived')
+        # check with no partner
+        with self.mock_mail_gateway(), self.mock_mail_app():
+            meeting2.with_user(self.apt_manager).action_cancel_meeting([])
+            self.flush_tracking()
+        self.assertFalse(meeting1.active, 'Meeting should be archived')
         self.assertMessageFields(self._new_msgs[0], {
-            'body': f'<p>Appointment cancelled by: {self.appointment_attendee_ids[1].display_name}</p>',
+            'body': '<p>Appointment cancelled</p>',
             'notification_ids': self.env['mail.notification'],
             'subtype_id': self.env.ref('mail.mt_note'),
         })
-        self.assertMailMail(self.appointment_attendee_ids[1], "sent", author=self.apt_manager.partner_id)

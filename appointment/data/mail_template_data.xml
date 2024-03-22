@@ -13,6 +13,7 @@
     <t t-set="colors" t-value="{'needsAction': 'grey', 'accepted': 'green', 'tentative': '#FFFF00', 'declined': 'red'}" />
     <t t-set="recurrent" t-value="object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')" />
     <t t-set="mail_tz" t-value="object._get_mail_tz() or ctx.get('mail_tz')" />
+    <t t-set="attendee_description" t-value="object._get_attendee_description()"/>
     <p>
     Appointment booked for <t t-out="object.appointment_type_id.name or ''">Technical Demo</t>
     <t t-if="object.appointment_type_id.category != 'custom' and object.appointment_type_id.schedule_based_on == 'users'"> with <t t-out="object.partner_id.name or ''">Brandon Freeman</t></t>.
@@ -89,12 +90,11 @@
                             t-out="object.videocall_redirection or ''">www.mycompany.com/calendar/videocall/xyz</a>
                     </li>
                 </ul>
-                <t t-if="not is_html_empty(object.description)">
-                    <li>Description of the event:
-                    <t t-out="object.description"></t></li>
-                </t>
             </td>
     </tr></table>
+    <div t-if="attendee_description" style="color:#000000;">
+        Description of the event:<div t-out="attendee_description"/>
+    </div>
     <t t-set="upcoming_appointments"
         t-value="(object.appointment_booker_id.upcoming_appointment_ids - object).sorted('start')"/>
     <div t-if="upcoming_appointments">
@@ -128,6 +128,7 @@
     <t t-set="colors" t-value="{'needsAction': 'grey', 'accepted': 'green', 'tentative': '#FFFF00', 'declined': 'red'}"/>
     <t t-set="recurrent" t-value="object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')"/>
     <t t-set="mail_tz" t-value="object._get_mail_tz() or ctx.get('mail_tz')" />
+    <t t-set="attendee_description" t-value="object._get_attendee_description()"/>
     <p>
     The appointment for <t t-out="object.appointment_type_id.name or ''">Technical Demo</t> <t t-if="object.appointment_type_id.category != 'custom' and object.appointment_type_id.schedule_based_on == 'users'"> with <t t-out="object.partner_id.name or ''">Brandon Freeman</t></t> has been canceled.
     </p>
@@ -183,13 +184,12 @@
                                 t-out="object.videocall_redirection or ''">www.mycompany.com/calendar/videocall/xyz</a>
                         </li>
                     </ul>
-                    <t t-if="not is_html_empty(object.description)">
-                        <li>Description of the event:
-                        <t t-out="object.description"></t></li>
-                    </t>
                 </del>
             </td>
     </tr></table>
+    <del t-if="attendee_description">
+        <div style="color:#000000;">Description of the event:<div t-out="attendee_description"/></div>
+    </del>
 </div>
             </field>
             <field name="lang">{{ object.partner_id.lang }}</field>
@@ -212,6 +212,8 @@
     <t t-set="target_responsible" t-value="object.partner_id == object.event_id.partner_id"/>
     <t t-set="target_customer" t-value="object.partner_id == customer"/>
     <t t-set="recurrent" t-value="object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')"/>
+    <t t-set="attendee_description" t-value="object.event_id._get_attendee_description()"/>
+    <t t-set="extra_message" t-value="object.event_id.appointment_type_id.message_confirmation"/>
 
     <p>
         Hello <t t-out="object.common_name or ''">Wood Corner</t>,<br/><br/>
@@ -221,6 +223,10 @@
             <t t-if="object.state != 'accepted' and object.event_id.appointment_type_id.schedule_based_on == 'resources' and object.event_id.appointment_type_id.appointment_manual_confirmation">
                 You will receive a mail of confirmation with more details when your appointment will be confirmed.
             </t>
+            <div>
+                Need to reschedule? Use this
+                <a t-attf-href="/calendar/meeting/view?token={{object.access_token}}&amp;id={{object.event_id.id}}">link</a>
+            </div>
         </t>
         <t t-elif="target_responsible">
             <t t-if="customer">
@@ -243,9 +249,8 @@
                 style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px">
                 Decline</a>
         </t>
-        <a t-attf-href="/calendar/meeting/view?token={{object.access_token}}&amp;id={{object.event_id.id}}"
-            style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px"
-            ><t t-out="'Reschedule' if target_customer else 'View'">View</t></a>
+        <a t-if="not target_customer" t-attf-href="/calendar/meeting/view?token={{object.access_token}}&amp;id={{object.event_id.id}}"
+            style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px">View</a>
     </div>
     <table border="0" cellpadding="0" cellspacing="0"><tr>
         <td width="130px;" style="min-width: 130px;">
@@ -317,13 +322,13 @@
                     <a t-attf-href="{{ object.event_id.videocall_redirection }}" target="_blank"
                         t-out="object.event_id.videocall_redirection or ''">www.mycompany.com/calendar/videocall/xyz</a>
                 </li>
-                <t t-if="not is_html_empty(object.event_id.description)">
-                    <li>Description of the event:
-                    <t t-out="object.event_id.description">Internal meeting for discussion for new pricing for product and services.</t></li>
-                </t>
             </ul>
         </td>
     </tr></table>
+    <div t-if="attendee_description" style="color:#000000;">
+        Description of the event:
+        <div t-out="attendee_description">Internal meeting for discussion for new pricing for product and services.</div>
+    </div>
     <t t-set="upcoming_appointments"
         t-value="(object.event_id.appointment_booker_id.upcoming_appointment_ids - object.event_id).sorted('start')"/>
     <div t-if="target_customer and upcoming_appointments">
@@ -341,6 +346,7 @@
         </ul>
     </div>
     <br/>
+    <t t-if="extra_message" t-out="extra_message"/>
     Thank you,
     <t t-if="object.event_id.user_id.signature">
         <br />

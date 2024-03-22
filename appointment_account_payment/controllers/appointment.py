@@ -62,7 +62,7 @@ class AppointmentAccountPayment(AppointmentController):
     def _handle_appointment_form_submission(
         self, appointment_type,
         date_start, date_end, duration,
-        description, answer_input_values, name, customer, appointment_invite, guests=None,
+        answer_input_values, name, customer, appointment_invite, guests=None,
         staff_user=None, asked_capacity=1, booking_line_values=None
     ):
         """ Override: when a payment step is necessary, we create the calendar booking model to store all relevant information
@@ -76,7 +76,6 @@ class AppointmentAccountPayment(AppointmentController):
                 'appointment_type_id': appointment_type.id,
                 'booking_line_ids': [Command.create(vals) for vals in booking_line_values],
                 'asked_capacity': asked_capacity,
-                'description': description,
                 'guest_ids': [Command.link(pid) for pid in guests.ids] if guests else [],
                 'name': name,
                 'partner_id': customer.id,
@@ -88,7 +87,7 @@ class AppointmentAccountPayment(AppointmentController):
             return self._redirect_to_payment(calendar_booking)
 
         return super()._handle_appointment_form_submission(
-            appointment_type, date_start, date_end, duration, description, answer_input_values, name,
+            appointment_type, date_start, date_end, duration, answer_input_values, name,
             customer, appointment_invite, guests, staff_user, asked_capacity, booking_line_values
         )
 
