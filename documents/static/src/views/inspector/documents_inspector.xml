@@ -33,6 +33,10 @@
             <t t-set="additionalRecordData" t-value="getRecordAdditionalData(record)"/>
             <div name="document_preview" t-att-class="getPreviewClasses(record, additionalRecordData)">
                 <t t-set="mimetype" t-value="record.data.mimetype"/>
+                <!-- Some image formats (such as webp) do not support dynamic server resizing, hence the need for an additional class-->
+                <t t-set="imageClass" t-value="nbPreviews === 1 ? 'o_documents_inspector_img_preview_300_150'
+                                             : nbPreviews === 2 ? 'o_documents_inspector_img_preview_120_130'
+                                             : 'o_documents_inspector_img_preview_120_75'"/>
                 <t t-if="additionalRecordData.isImage or additionalRecordData.isGif or additionalRecordData.isYoutubeVideo or (record.isPdf() and record.hasThumbnail())">
                     <t t-set="size" t-value="nbPreviews === 1 ? '268x130' : nbPreviews === 2 ? '120x130' : '120x75'"/>
                     <img t-if="additionalRecordData.isYoutubeVideo"
@@ -43,12 +47,12 @@
                          alt="Youtube Video"/>
                     <t t-else="">
                         <t t-set="unique" t-value="record.data.checksum ? record.data.checksum.slice(-8) : ''"/>
-                        <img t-if="!record.isPdf()" class="o_preview_available o_documents_image_background"
+                        <img t-if="!record.isPdf()" t-attf-class="o_preview_available o_documents_image_background #{imageClass}"
                              t-on-click.stop.prevent="() => this.openPreview(record)"
                              draggable="false"
                              t-attf-src="/documents/image/{{record.resId}}/{{size}}?unique={{unique}}"
                              t-att-title="record.data.name"/>
-                        <img t-else="" class="o_preview_available o_documents_image_background"
+                        <img t-else="" t-attf-class="o_preview_available o_documents_image_background #{imageClass}"
                              t-on-click.stop.prevent="() => this.openPreview(record)"
                              draggable="false"
                              t-attf-src="/documents/image/{{record.resId}}/{{size}}?field=thumbnail&amp;unique={{unique}}"
@@ -60,7 +64,7 @@
                         <img t-att-src="record.data.url_preview_image"
                             t-att-title="record.data.name"
                             t-att-href="record.data.url"
-                            class="o_documents_inspector_image o_preview_available o_object_fit_contain"/>
+                            t-attf-class="#{imageClass} o_preview_available o_object_fit_contain"/>
                     </a>
                 </t>
                 <div t-elif="record.data.url" class="o_image o_mimetype_icon"

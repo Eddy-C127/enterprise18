@@ -53,11 +53,6 @@
                     max-height: 100%;
                     max-width: 100%;
                 }
-
-                .o_documents_inspector_image {
-                    width: 120px;
-                    height: 75px;
-                }
             }
 
             &.o_documents_single_preview {
@@ -70,11 +65,6 @@
                     width: auto;
                     height: 100%;
                     object-fit: contain;
-                }
-
-                .o_documents_inspector_image {
-                    width: 268px;
-                    height: 150px;
                 }
 
                 &.o_documents_preview_mimetype {
@@ -93,6 +83,21 @@
 
                 &.o_documents_image_background {
                     background-color: white;
+                }
+
+                &.o_documents_inspector_img_preview_300_150 {
+                    max-width: 300px;
+                    max-height: 150px;
+                }
+
+                &.o_documents_inspector_img_preview_120_130 {
+                    max-width: 120px;
+                    max-height: 130px;
+                }
+
+                &.o_documents_inspector_img_preview_120_75 {
+                    max-width: 120px;
+                    max-height: 75px;
                 }
             }
 
