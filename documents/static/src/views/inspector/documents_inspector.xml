@@ -34,6 +34,10 @@
             <t t-set="additionalRecordData" t-value="getRecordAdditionalData(record)"/>
             <div name="document_preview" t-att-class="getPreviewClasses(record, additionalRecordData)">
                 <t t-set="mimetype" t-value="record.data.mimetype"/>
+                <!-- Some image formats (such as webp) do not support dynamic server resizing, hence the need for an additional class-->
+                <t t-set="imageClass" t-value="nbPreviews === 1 ? 'o_documents_inspector_img_preview_300_150'
+                                             : nbPreviews === 2 ? 'o_documents_inspector_img_preview_120_130'
+                                             : 'o_documents_inspector_img_preview_120_75'"/>
                 <img t-if="additionalRecordData.isYoutubeVideo"
                      t-on-click.stop.prevent="() => this.openPreview(record)"
                      t-att-data-id="record.resId"
@@ -43,7 +47,7 @@
                 <t t-elif="record.hasStoredThumbnail()">
                     <t t-set="size" t-value="nbPreviews === 1 ? '268x130' : nbPreviews === 2 ? '120x130' : '120x75'"/>
                     <t t-set="unique" t-value="record.data.checksum ? record.data.checksum.slice(-8) : ''"/>
-                    <img class="o_preview_available o_documents_image_background"
+                    <img t-attf-class="o_preview_available o_documents_image_background #{imageClass}"
                          t-on-click.stop.prevent="() => this.openPreview(record)"
                          draggable="false"
                          t-attf-src="/documents/image/{{record.resId}}/{{size}}?field=thumbnail&amp;unique={{unique}}"
@@ -55,7 +59,7 @@
                         t-att-title="record.data.name"
                         draggable="false"
                         t-att-href="record.data.url"
-                        class="o_documents_inspector_image o_preview_available o_object_fit_contain"/>
+                        t-attf-class="#{imageClass} o_preview_available o_object_fit_contain"/>
                 </a>
                 <div t-elif="record.data.url" class="o_image o_mimetype_icon"
                     t-att-data-mimetype="mimetype"
