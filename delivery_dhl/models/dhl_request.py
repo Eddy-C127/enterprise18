@@ -330,4 +330,6 @@ class DHLProvider():
             export_declaration.ExportReason = 'RETURN'
 
         export_declaration.ExportLineItem = export_lines
+        if picking.sale_id:
+            export_declaration.ReceiverReference = picking.sale_id.client_order_ref or picking.sale_id.name
         return export_declaration
