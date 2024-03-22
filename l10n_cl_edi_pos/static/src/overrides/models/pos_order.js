@@ -41,7 +41,7 @@ patch(PosOrder.prototype, {
         }
         return true;
     },
-    export_for_printing() {
+    export_for_printing(baseUrl, headerData) {
         return {
             ...super.export_for_printing(...arguments),
             voucherNumber: this.voucher_number,

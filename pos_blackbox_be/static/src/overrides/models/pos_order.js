@@ -32,7 +32,7 @@ patch(PosOrder.prototype, {
         const sha1 = Sha1.hash(order_str);
         return sha1.slice(sha1.length - 8);
     },
-    export_for_printing() {
+    export_for_printing(baseUrl, headerData) {
         const result = super.export_for_printing(...arguments);
         result.useBlackboxBe = Boolean(this.useBlackBoxBe());
         if (this.useBlackBoxBe()) {

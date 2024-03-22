@@ -103,7 +103,7 @@ patch(ControlButtons.prototype, {
 
         await this.pos.push_single_order(order);
         await this.printer.print(OrderReceipt, {
-            data: order.export_for_printing(),
+            data: this.pos.orderExportForPrinting(order),
             formatCurrency: this.env.utils.formatCurrency,
         });
 

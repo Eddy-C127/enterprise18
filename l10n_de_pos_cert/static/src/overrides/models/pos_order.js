@@ -58,7 +58,7 @@ patch(PosOrder.prototype, {
         return this.transactionState === "finished" || this.l10n_de_fiskaly_time_start;
     },
     // @Override
-    export_for_printing() {
+    export_for_printing(baseUrl, headerData) {
         const receipt = super.export_for_printing(...arguments);
         if (this.isCountryGermanyAndFiskaly()) {
             if (this.isTransactionFinished()) {

@@ -22,7 +22,7 @@ patch(PosOrder.prototype, {
         result = Boolean(this.useBlackBoxSweden() || result);
         return result;
     },
-    export_for_printing() {
+    export_for_printing(baseUrl, headerData) {
         const result = super.export_for_printing(...arguments);
         if (!this.useBlackBoxSweden()) {
             return result;
