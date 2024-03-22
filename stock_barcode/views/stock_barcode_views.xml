@@ -28,13 +28,6 @@
         <!--High priority to not be the standard view of pickings in inventory app-->
         <field name="priority">100</field>
         <field name="arch" type="xml">
-            <xpath expr="//kanban" position="inside">
-                <header>
-                    <button type="action" name="stock_barcode.stock_barcode_action_main_menu"
-                            class="btn-secondary btn-link order-first px-0"
-                            icon="fa-chevron-left" title="Go to the main menu" display="always"/>
-                </header>
-            </xpath>
             <xpath expr="//kanban[hasclass('o_kanban_mobile')]" position="attributes">
                 <attribute name="js_class">stock_barcode_list_kanban</attribute>
                 <attribute name="import">false</attribute>
@@ -71,11 +64,6 @@
         <field name="priority">20</field>
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile o_emphasize_colors" create="0" sample="1" action="get_action_picking_tree_ready_kanban" type="object">
-                <header>
-                    <button type="action" name="stock_barcode.stock_barcode_action_main_menu"
-                            class="btn-secondary btn-link order-first px-0"
-                            icon="fa-chevron-left" title="Go to the main menu" display="always"/>
-                </header>
                 <field name="display_name"/>
                 <field name="color"/>
                 <field name="count_picking_ready"/>
