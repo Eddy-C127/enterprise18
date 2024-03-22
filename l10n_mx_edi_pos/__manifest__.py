@@ -22,8 +22,8 @@
             'l10n_mx_edi_pos/static/src/**/*',
         ],
         'web.assets_tests': [
-            'l10n_mx_edi_pos/static/tests/tours/tour_invoice_order.js',
-            'l10n_mx_edi_pos/static/tests/tours/tour_invoice_previous_order.js',
+            'l10n_mx_edi_pos/static/tests/tours/invoice_order_tour.js',
+            'l10n_mx_edi_pos/static/tests/tours/invoice_previous_order_tour.js',
         ],
     },
     'installable': True,

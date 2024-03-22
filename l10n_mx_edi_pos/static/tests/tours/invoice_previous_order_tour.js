@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
+import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
 
 registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_order", {
     test: true,

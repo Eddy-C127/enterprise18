@@ -3,10 +3,10 @@
 
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
-import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
-import * as Numpad from "@point_of_sale/../tests/tours/helpers/NumpadTourMethods";
-import * as Order from "@point_of_sale/../tests/tours/helpers/generic_components/OrderWidgetMethods";
-import { inLeftSide } from "@point_of_sale/../tests/tours/helpers/utils";
+import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
+import * as Numpad from "@point_of_sale/../tests/tours/utils/numpad_util";
+import * as Order from "@point_of_sale/../tests/tours/utils/generic_components/order_widget_util";
+import { inLeftSide } from "@point_of_sale/../tests/tours/utils/common";
 class TerminalProxy {
     action(data) {
         var self = this;

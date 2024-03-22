@@ -1,11 +1,11 @@
 /** @odoo-module */
 
-import * as PaymentScreen from "@point_of_sale/../tests/tours/helpers/PaymentScreenTourMethods";
-import * as ReceiptScreen from "@point_of_sale/../tests/tours/helpers/ReceiptScreenTourMethods";
-import * as FloorScreen from "@pos_restaurant/../tests/tours/helpers/FloorScreenTourMethods";
-import * as ProductScreenPos from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
-import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
-import * as ProductScreenResto from "@pos_restaurant/../tests/tours/helpers/ProductScreenTourMethods";
+import * as PaymentScreen from "@point_of_sale/../tests/tours/utils/payment_screen_util";
+import * as ReceiptScreen from "@point_of_sale/../tests/tours/utils/receipt_screen_util";
+import * as FloorScreen from "@pos_restaurant/../tests/tours/utils/floor_screen_util";
+import * as ProductScreenPos from "@point_of_sale/../tests/tours/utils/product_screen_util";
+import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
+import * as ProductScreenResto from "@pos_restaurant/../tests/tours/utils/product_screen_util";
 const ProductScreen = { ...ProductScreenPos, ...ProductScreenResto };
 import { registry } from "@web/core/registry";
 

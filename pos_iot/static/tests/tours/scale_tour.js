@@ -3,8 +3,8 @@
 
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
-import * as Order from "@point_of_sale/../tests/tours/helpers/generic_components/OrderWidgetMethods";
-import * as Dialog from "@point_of_sale/../tests/tours/helpers/DialogTourMethods";
+import * as Order from "@point_of_sale/../tests/tours/utils/generic_components/order_widget_util";
+import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
 
 class PosScaleDummy {
     action() {}
