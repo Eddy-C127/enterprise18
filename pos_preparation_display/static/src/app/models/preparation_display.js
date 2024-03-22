@@ -45,6 +45,7 @@ export class PreparationDisplay extends Reactive {
         this.processOrders();
         this.attributes = data.attributes;
         this.attributeValues = data.attribute_values;
+        this.configPaperStatus = data.config_paper_status;
         this.posHasProducts = await this.loadPosHasProducts();
         this.loadingProducts = false;
     }

@@ -30,7 +30,8 @@
                     <button t-if="isBurgerMenuClosed()" class="btn position-relative h-100 px-4 rounded-0 border-start shadow-none" t-on-click="openMenu">
                         <div class="d-flex px-1">
                             <i class="d-block fa fa-bars" aria-hidden="true"></i>
-                            <span t-if="filterSelected>0" class="openMenu badge text-bg-info rounded-pill" t-esc="filterSelected"/>
+                            <span t-if="filterSelected>0" class="openMenu badge right text-bg-info rounded-pill" t-esc="filterSelected"/>
+                            <span t-if="outOfPaperListFiltered.length>0" class="openMenu badge left text-bg-danger rounded-pill" t-esc="outOfPaperListFiltered.length"/>
                         </div>
                     </button>
                     <button t-else="" class="menu btn position-relative h-100 px-4 rounded-0 border-start shadow-none" t-on-click="closeMenu">
@@ -38,6 +39,13 @@
                             <i class="d-block fa fa-bars" aria-hidden="true"></i>
                         </div>
                         <ul class="dropdown-menu sub-menu position-absolute d-flex flex-column align-items-stretch w-100 bg-white shadow-lg z-index-1">
+                            <t t-foreach="outOfPaperListFiltered" t-as="configPaperStatus" t-key="configPaperStatus">
+                                <li class="menu-item navbar-button" t-on-click="() => this.paperNotificationClick(configPaperStatus)">
+                                    <a class="dropdown-item py-2 text-wrap text-danger">
+                                        <span t-esc="configPaperStatus.name"/> out of paper
+                                    </a>
+                                </li>
+                            </t>
                             <li t-if="!isLastStage and !isAllStage" class="menu-item navbar-button" t-on-click="() => this.recallLastChange()">
                                 <a class="dropdown-item py-2"
                                     t-att-class="{'disabled': isHistoryEmpty()}">
@@ -69,7 +77,31 @@
                     </button>
                 </div>
                 <div class="d-none d-lg-flex">
-                    <div class="d-flex align-items-center justify-content-end h-100 border-start border-bottom ">
+                    <section t-if="outOfPaperListFiltered.length>0" class="d-flex align-items-center h-100 border-start border-bottom">
+                        <button t-if="!state.isAlertMenu" class="menu btn btn-light btn-lg position-relative h-100 px-4 rounded-0 shadow-none" t-on-click="openAlertMenu">
+                            <div class="d-flex px-1">
+                                <i class="fa fa-exclamation-triangle oi-large" aria-hidden="true"></i>
+                                <span class="d-none d-lg-inline-block px-2">Alert</span>
+                                <span t-if="outOfPaperListFiltered.length>0" class="openMenu badge right text-bg-danger rounded-pill" t-esc="outOfPaperListFiltered.length"/>
+                            </div>
+                        </button>
+                        <button t-else="" class="menu btn btn-light btn-lg position-relative h-100 px-4 rounded-0 shadow-none" t-on-click="closeAlertMenu">
+                            <div class="position-relative px-1">
+                                <i class="fa fa-exclamation-triangle oi-large" aria-hidden="true"></i>
+                                <span class="d-none d-lg-inline-block px-2">Alert</span>
+                            </div>
+                            <ul class="dropdown-menu sub-menu position-absolute d-flex flex-column align-items-stretch w-100 bg-white shadow-lg z-index-1">
+                                <t t-foreach="outOfPaperListFiltered" t-as="configPaperStatus" t-key="configPaperStatus">
+                                    <li class="menu-item navbar-button" t-on-click="() => this.paperNotificationClick(configPaperStatus)">
+                                        <a class="dropdown-item py-2 text-wrap text-danger">
+                                            <span t-esc="configPaperStatus.name"/> out of paper
+                                        </a>
+                                    </li>
+                                </t>
+                            </ul>
+                        </button>
+                    </section>
+                    <div class="d-flex align-items-center h-100 justify-content-end border-bottom border-start">
                         <button t-if="!isLastStage and !isAllStage" class="btn btn-light btn-lg h-100 px-4 rounded-0"
                             t-att-class="{'disabled': isHistoryEmpty()}"
                             t-on-click="() => this.recallLastChange()">

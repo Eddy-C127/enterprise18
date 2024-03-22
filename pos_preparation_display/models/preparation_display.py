@@ -37,6 +37,11 @@ class PosPreparationDisplay(models.Model):
         """
         return any(categ_id in self._get_pos_category_ids().ids for categ_id in orderline.product_id.pos_categ_ids.ids)
 
+    def _paper_status_change(self, pos_config):
+        preparation_displays = self.search(['|', ('pos_config_ids', 'in', pos_config.ids), ('pos_config_ids', '=', False)])
+        for p_dis in preparation_displays:
+            p_dis._send_load_printer_status_message(pos_config.read(['id', 'name', 'has_paper']))
+
     def get_pos_config_ids(self):
         self.ensure_one()
         if not self.pos_config_ids:
@@ -51,6 +56,7 @@ class PosPreparationDisplay(models.Model):
             'orders': self.env["pos_preparation_display.order"].get_preparation_display_order(self.id),
             'attributes': self.env['product.attribute'].search([]).read(['id', 'name']),
             'attribute_values': self.env['product.template.attribute.value'].search([]).read(['id', 'name', 'attribute_id']),
+            'config_paper_status': self.get_pos_config_ids().read(['id', 'name', 'has_paper']),
         }
 
     def open_reset_wizard(self):
@@ -98,6 +104,10 @@ class PosPreparationDisplay(models.Model):
     def _send_load_orders_message(self, sound=False):
         self.ensure_one()
         self._notify('LOAD_ORDERS', {'sound': sound})
+
+    def _send_load_printer_status_message(self, pos_config):
+        self.ensure_one()
+        self._notify('PAPER_STATUS', pos_config)
 
     @api.depends('stage_ids', 'pos_config_ids', 'category_ids')
     def _compute_order_count(self):
@@ -152,3 +162,8 @@ class PosPreparationDisplay(models.Model):
 
         categories = self._get_pos_category_ids().read(['id', 'display_name', 'sequence'])
         return categories
+
+    @api.model
+    def change_paper_status(self, config_id, has_paper):
+        pos_config = self.env['pos.config'].search([('id', '=', config_id)])
+        pos_config.write({'has_paper': has_paper})

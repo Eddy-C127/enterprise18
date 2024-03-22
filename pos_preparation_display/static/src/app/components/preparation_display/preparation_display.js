@@ -6,6 +6,7 @@ import { MainComponentsContainer } from "@web/core/main_components_container";
 import { usePreparationDisplay } from "@pos_preparation_display/app/preparation_display_service";
 import { Component, onPatched, useState, whenReady } from "@odoo/owl";
 import { mountComponent } from "@web/env";
+import { useService } from "@web/core/utils/hooks";
 
 export class PreparationDisplay extends Component {
     static components = { Category, Stages, Order, MainComponentsContainer };
@@ -17,8 +18,10 @@ export class PreparationDisplay extends Component {
         this.displayName = odoo.preparation_display.name;
         this.showSidebar = true;
         this.onNextPatch = new Set();
+        this.orm = useService("orm");
         this.state = useState({
             isMenuOpened: false,
+            isAlertMenu: false,
         });
 
         onPatched(() => {
@@ -32,6 +35,10 @@ export class PreparationDisplay extends Component {
             this.preparationDisplay.selectedCategories.size +
             this.preparationDisplay.selectedProducts.size
         );
+    }
+    get outOfPaperListFiltered() {
+        const outOfPaperList = this.preparationDisplay.configPaperStatus;
+        return outOfPaperList.filter((outOfPaperList) => !outOfPaperList.has_paper);
     }
     archiveAllVisibleOrders() {
         const lastStageVisibleOrderIds = this.preparationDisplay.filteredOrders.filter(
@@ -87,6 +94,21 @@ export class PreparationDisplay extends Component {
     }
     openMenu() {
         this.state.isMenuOpened = true;
+    }
+    closeAlertMenu() {
+        this.state.isAlertMenu = false;
+    }
+    openAlertMenu() {
+        this.state.isAlertMenu = true;
+    }
+    async paperNotificationClick(configPaperStatus) {
+        configPaperStatus.has_paper = !configPaperStatus.has_paper;
+        await this.orm.call(
+            "pos_preparation_display.display",
+            "change_paper_status",
+            [configPaperStatus.id, configPaperStatus.has_paper],
+            {}
+        );
     }
 }
 whenReady(() => mountComponent(PreparationDisplay, document.body));

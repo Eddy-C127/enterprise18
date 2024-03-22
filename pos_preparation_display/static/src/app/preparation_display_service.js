@@ -49,6 +49,11 @@ export const preparationDisplayService = {
                 preparationDisplayService.orderlines[status.id].todo = status.todo;
             }
         });
+        onNotified("PAPER_STATUS", (posConfigChange) => {
+            preparationDisplayService.configPaperStatus.find(
+                (posConfig) => posConfig.id == posConfigChange[0].id
+            ).has_paper = posConfigChange[0].has_paper;
+        });
         bus_service.addEventListener("reconnect", () => {
             sound.play("notification");
             preparationDisplayService.getOrders();
