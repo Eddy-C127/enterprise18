@@ -16,7 +16,7 @@ class StockWarehouse(models.Model):
         warehouse_rental_route = self.env.ref('sale_stock_renting.route_rental')
         if warehouse_rental_route.active and not self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
             warehouse_rental_route.rule_ids.unlink()
-            warehouse_rental_route.active = True
+            warehouse_rental_route.active = False
             return super()._create_or_update_route()
 
         warehouse_rental_route.active = True
