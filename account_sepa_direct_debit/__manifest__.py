@@ -41,6 +41,7 @@ try to use this method on an invoice for whose payment no mandate can be used.
     'depends': ['base_iban', 'account_batch_payment', 'account'],
 
     'data': [
+        'security/account_sepa_direct_debit_security.xml',
         'security/ir.model.access.csv',
         'report/empty_mandate_report.xml',
         'data/account_data.xml',
