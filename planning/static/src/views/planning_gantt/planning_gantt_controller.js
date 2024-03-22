@@ -84,6 +84,7 @@ export class PlanningGanttController extends GanttController {
         const title = record ? record.display_name : _t("Add Shift");
         const context = {
             ...props.context,
+            my_planning_action: this.props.context.my_planning_action,
             is_record_created: !record,
             view_start_date: serializeDateTime(this.model.metaData.globalStart),
             view_end_date: serializeDateTime(this.model.metaData.globalStop),
