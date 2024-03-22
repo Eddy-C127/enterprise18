@@ -21,9 +21,11 @@
                 </xpath>
 
                 <xpath expr="//div[hasclass('o_kanban_manage_reports')]" position="inside">
-                    <a groups="hr_appraisal.group_hr_appraisal_user" role="menuitem" class="dropdown-item" name="%(action_appraisal_report_all)d" type="action">
-                        Appraisals
-                    </a>
+                    <div role="menuitem">
+                        <a groups="hr_appraisal.group_hr_appraisal_user" class="dropdown-item" name="%(action_appraisal_report_all)d" type="action">
+                            Appraisals
+                        </a>
+                    </div>
                 </xpath>
             </data>
         </field>
