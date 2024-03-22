@@ -1,17 +1,17 @@
 #!/bin/sh
 
 barcode -t 2x7+40+40 -m 40x20 -p "210x297mm" -e code128b -n > barcodes_TMP_FILE.ps  << BARCODES
-O-BTN.pause
-O-BTN.next
-O-BTN.prev
-O-BTN.skip
-O-BTN.cloWO
-O-BTN.cloMO
-O-BTN.pass
-O-BTN.fail
-O-BTN.finish
-O-BTN.record
-O-BTN.continue
+OBTPAUS
+OBTNEXT
+OBTPREV
+OBTSKIP
+OBTCLWO
+OBTCLMO
+OBTPASS
+OBTFAIL
+OBTFINI
+OBTRECO
+OBTCONT
 BARCODES
 
 cat > barcodesHeaders_TMP_FILE.ps << HEADER

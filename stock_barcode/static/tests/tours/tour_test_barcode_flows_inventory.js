@@ -89,7 +89,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment', {test: true
     {
         extra_trigger: '.o_scan_message.o_scan_product',
         trigger: '.o_barcode_line',
-        run: 'scan O-BTN.validate',
+        run: 'scan OBTVALI',
     },
 
     {
@@ -197,7 +197,7 @@ registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company
         }
     },
     // Validate the Inventory Adjustment.
-    { trigger: ".o_barcode_line", run: "scan O-BTN.validate" },
+    { trigger: ".o_barcode_line", run: "scan OBTVALI" },
     {
         trigger: ".o_stock_barcode_main_menu",
         extra_trigger: ".o_notification_bar.bg-success",
@@ -274,7 +274,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_multi_locatio
 
     {
         trigger: '.o_barcode_client_action',
-        run: 'scan O-BTN.validate',
+        run: 'scan OBTVALI',
     },
 
     {
@@ -422,7 +422,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
 
     {
         trigger: '.o_barcode_client_action',
-        run: 'scan O-BTN.validate',
+        run: 'scan OBTVALI',
     },
 
     {

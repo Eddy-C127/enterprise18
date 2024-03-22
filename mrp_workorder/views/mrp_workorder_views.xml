@@ -187,8 +187,8 @@
                     <div class="o_workorder_bar_left o_workorder_action o_workorder_bar_content">
                         <button name="openMenuPopup" class="btn btn-secondary o_workorder_icon_btn fa fa-bars" type="workorder_event" title="menu"/>
                         <span groups="mrp_workorder.group_mrp_wo_tablet_timer">
-                            <button name="button_pending" type="object" class="btn btn-secondary" invisible="True" barcode_trigger="pause" string="PAUSE"/>
-                            <button name="button_start" type="object" class="btn btn-warning" invisible="True" barcode_trigger="pause" string="CONTINUE"/>
+                            <button name="button_pending" type="object" class="btn btn-secondary" invisible="True" barcode_trigger="PAUS" string="PAUSE"/>
+                            <button name="button_start" type="object" class="btn btn-warning" invisible="True" barcode_trigger="CONT" string="CONTINUE"/>
                             <button name="button_unblock" type="object" class="btn btn-secondary btn-danger o_unblock" invisible="working_state != 'blocked'">Unblock</button>
                             <field name="duration" widget="mrp_timer" class="ms-1" readonly="1"/>
                         </span>
@@ -204,9 +204,9 @@
                         </div>
                     </div>
                     <div class="o_workorder_bar_right o_workorder_bar_content">
-                        <button name="do_finish" type="object" string="Mark as Done" icon="fa-check" invisible="current_quality_check_id or not is_last_unfinished_wo and not is_last_lot" class="btn-primary" barcode_trigger="cloWO"/>
-                        <button name="action_open_manufacturing_order" type="object" string="Mark as Done and Close MO" icon="fa-check" invisible="current_quality_check_id or not is_last_unfinished_wo" class="btn-primary" barcode_trigger="cloMO"/>
-                        <button name="record_production" type="object" string="Record production" invisible="current_quality_check_id or is_last_unfinished_wo or is_last_lot" barcode_trigger="record" class="btn-primary"/>
+                        <button name="do_finish" type="object" string="Mark as Done" icon="fa-check" invisible="current_quality_check_id or not is_last_unfinished_wo and not is_last_lot" class="btn-primary" barcode_trigger="CLWO"/>
+                        <button name="action_open_manufacturing_order" type="object" string="Mark as Done and Close MO" icon="fa-check" invisible="current_quality_check_id or not is_last_unfinished_wo" class="btn-primary" barcode_trigger="CLMO"/>
+                        <button name="record_production" type="object" string="Record production" invisible="current_quality_check_id or is_last_unfinished_wo or is_last_lot" barcode_trigger="RECO" class="btn-primary"/>
                     </div>
                 </div>
             </form>

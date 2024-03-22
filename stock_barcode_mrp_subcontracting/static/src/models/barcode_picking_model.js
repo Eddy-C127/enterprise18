@@ -86,7 +86,7 @@ patch(BarcodePickingModel.prototype, {
     _getCommands() {
         const commands = super._getCommands();
         if (!this.isDone) {
-            commands['O-BTN.record-components'] = this._actionRecordComponents.bind(this);
+            commands['OBTRECO'] = this._actionRecordComponents.bind(this);
         }
         return commands;
     },

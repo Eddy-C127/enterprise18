@@ -19,21 +19,21 @@ class IotTrigger(models.Model):
     key = fields.Char('Key')
     workcenter_id = fields.Many2one('mrp.workcenter')
     action = fields.Selection([('picture', 'Take Picture'),
-                               ('skip', 'Skip'),
-                               ('pause', 'Pause'),
-                               ('prev', 'Previous'),
-                               ('next', 'Next'),
-                               ('validate', 'Validate'),
-                               ('cloMO', 'Close MO'),
-                               ('cloWO', 'Close WO'),
-                               ('finish', 'Finish'),
-                               ('record', 'Record Production'),
-                               ('cancel', 'Cancel'),
-                               ('print-op', 'Print Operation'),
-                               ('print-slip', 'Print Delivery Slip'),
-                               ('print', 'Print Labels'),
-                               ('pack', 'Pack'),
-                               ('scrap', 'Scrap'),])
+                               ('SKIP', 'Skip'),
+                               ('PAUS', 'Pause'),
+                               ('PREV', 'Previous'),
+                               ('NEXT', 'Next'),
+                               ('VALI', 'Validate'),
+                               ('CLMO', 'Close MO'),
+                               ('CLWO', 'Close WO'),
+                               ('FINI', 'Finish'),
+                               ('RECO', 'Record Production'),
+                               ('CANC', 'Cancel'),
+                               ('PROP', 'Print Operation'),
+                               ('PRSL', 'Print Delivery Slip'),
+                               ('PRNT', 'Print Labels'),
+                               ('PACK', 'Pack'),
+                               ('SCRA', 'Scrap')])
 
 class IoTDevice(models.Model):
     _inherit = "iot.device"

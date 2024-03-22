@@ -233,7 +233,7 @@ export default class BarcodeQuantModel extends BarcodeModel {
 
     _getCommands() {
         return Object.assign(super._getCommands(), {
-            'O-BTN.apply': this.apply.bind(this),
+            'OBTAPPLY': this.apply.bind(this),
         });
     }
 

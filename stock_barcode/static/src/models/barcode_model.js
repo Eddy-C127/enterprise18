@@ -590,9 +590,9 @@ export default class BarcodeModel extends EventBus {
     }
 
     _getCommands() {
-        const commands = {'O-CMD.MAIN-MENU': this._goToMainMenu.bind(this)};
+        const commands = {'OCDMENU': this._goToMainMenu.bind(this)};
         if (!this.isDone) {
-            commands['O-BTN.validate'] = () => {
+            commands['OBTVALI'] = () => {
                 if (this.canBeValidate) {
                     this.validate();
                 } else {

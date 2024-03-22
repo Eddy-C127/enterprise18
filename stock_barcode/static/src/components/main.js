@@ -21,8 +21,8 @@ import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 // Lets `barcodeGenericHandlers` knows those commands exist so it doesn't warn when scanned.
-COMMANDS["O-CMD.MAIN-MENU"] = () => {};
-COMMANDS["O-CMD.cancel"] = () => {};
+COMMANDS["OCDMENU"] = () => {};
+COMMANDS["OCDCANC"] = () => {};
 
 const bus = new EventBus();
 

@@ -49,11 +49,11 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         extra_trigger: 'span.o_qc_lot',
         trigger: '.o_mrp_record_line span:contains("Instructions")'
     },
-    { trigger: 'button[barcode_trigger="Next"]' },
+    { trigger: 'button[barcode_trigger="NEXT"]' },
     {
         content: 'Component not tracked registration and continue production',
         extra_trigger: '.modal-title:contains("Register legs")',
-        trigger: 'button[barcode_trigger="continue"]'
+        trigger: 'button[barcode_trigger="CONT"]'
     },
     {
         content: 'Add 2 units',
@@ -64,7 +64,7 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
     {
         content: 'Click on "Validate"',
         extra_trigger: '.o_field_widget[name="qty_done"] input:value("2.00")',
-        trigger: 'button[barcode_trigger="Next"]',
+        trigger: 'button[barcode_trigger="NEXT"]',
     },
     {
         extra_trigger: '.modal-title:contains("Release")',
@@ -78,7 +78,7 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
     {
         content: 'Close first operation',
         extra_trigger: '.o_mrp_record_line:contains("Release") button.text-success',
-        trigger: '.card-footer button[barcode_trigger="cloWO"]',
+        trigger: '.card-footer button[barcode_trigger="CLWO"]',
     },
     {
         content: 'Switch to second workcenter for next operation',
@@ -103,8 +103,8 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         extra_trigger: 'div.o_dialog input#product_id_0:value("Color")',
         trigger: 'button[name=add_product]',
     },
-    { trigger: 'button[barcode_trigger=cloWO]' },
-    { trigger: 'button[barcode_trigger=cloMO]' },
+    { trigger: 'button[barcode_trigger=CLWO]' },
+    { trigger: 'button[barcode_trigger=CLMO]' },
     {
         content: 'Leave shopfloor',
         extra_trigger: '.o_nocontent_help',

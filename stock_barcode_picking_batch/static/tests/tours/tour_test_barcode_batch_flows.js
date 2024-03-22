@@ -715,7 +715,7 @@ registry.category("web_tour.tours").add('test_put_in_pack_scan_suggested_package
     },
     {
         trigger: '.o_barcode_line:first-child.o_selected.o_line_completed',
-        run: 'scan O-BTN.pack',
+        run: 'scan OBTPACK',
     },
     {
         trigger: '.o_barcode_line:contains("test_delivery_1"):contains("PACK")',
@@ -747,7 +747,7 @@ registry.category("web_tour.tours").add('test_put_in_pack_scan_suggested_package
     },
     {
         trigger: '.o_barcode_line.o_selected.o_line_completed',
-        run: 'scan O-BTN.pack',
+        run: 'scan OBTPACK',
     },
     {
         trigger: '.o_barcode_line:contains("test_delivery_2"):contains("PACK")',

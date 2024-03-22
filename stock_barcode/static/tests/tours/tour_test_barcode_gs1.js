@@ -276,7 +276,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
     },
     {
         trigger: '.o_barcode_client_action',
-        run: 'scan O-BTN.validate',
+        run: 'scan OBTVALI',
     },
     // Ask for confirmation when validate because of quantities for tracked product without SN.
     {
@@ -391,7 +391,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
 
 registry.category("web_tour.tours").add('test_gs1_package_receipt', {test: true, steps: () => [
     { trigger: '.o_stock_barcode_main_menu:contains("Barcode Scanning")' },
-    { trigger: '.o_stock_barcode_main_menu', run: 'scan WH-RECEIPTS' },
+    { trigger: '.o_stock_barcode_main_menu', run: 'scan WHIN' },
     // Scans PRO_GTIN_8 x4
     { trigger: '.o_barcode_client_action', run: 'scan 0100000082655853300004' },
     {
@@ -534,7 +534,7 @@ registry.category("web_tour.tours").add('test_gs1_package_delivery', {test: true
     { trigger: '.o_stock_barcode_main_menu:contains("Barcode Scanning")' },
     {
         trigger: '.o_stock_barcode_main_menu',
-        run: 'scan WH-DELIVERY',
+        run: 'scan WHOUT',
     },
     // Scans the package
     {
@@ -770,7 +770,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_3
 
 registry.category("web_tour.tours").add("test_gs1_receipt_conflicting_barcodes_mistaken_as_gs1", {test: true, steps: () => [
     // Creates a new receipt.
-    { trigger: ".o_stock_barcode_main_menu", run: "scan WH-RECEIPTS" },
+    { trigger: ".o_stock_barcode_main_menu", run: "scan WHIN" },
     // Scans 3000000015 -> Will be parsed as 15 units by the GS1 nomenclature
     // but since we don't expect a quantity here (no line yet), it should also
     // check if this barcode matches something else (by-passing the nomenclature.)

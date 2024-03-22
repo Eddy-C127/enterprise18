@@ -100,9 +100,9 @@
                 <field name="measure_success" invisible="1"/>
             </xpath>
             <xpath expr="//button[@name='action_next']" position="before">
-                <button name="action_fail_and_next" type="object" class="btn-danger" invisible="test_type != 'passfail'" barcode_trigger="fail" string="Fail"/>
-                <button name="action_pass_and_next" type="object" class="btn-success" invisible="test_type != 'passfail'" barcode_trigger="pass" string="Pass"/>
-                <button name="do_measure" type="object" class="btn-primary" string="Validate" invisible="test_type != 'measure'" barcode_trigger="next"/>
+                <button name="action_fail_and_next" type="object" class="btn-danger" invisible="test_type != 'passfail'" barcode_trigger="FAIL" string="Fail"/>
+                <button name="action_pass_and_next" type="object" class="btn-success" invisible="test_type != 'passfail'" barcode_trigger="PASS" string="Pass"/>
+                <button name="do_measure" type="object" class="btn-primary" string="Validate" invisible="test_type != 'measure'" barcode_trigger="NEXT"/>
             </xpath>
             <xpath expr="//field[@name='note']" position="before">
                 <div invisible="test_type != 'measure'" class="o_workorder_bar_left o_workorder_bar_content">

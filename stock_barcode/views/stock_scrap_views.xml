@@ -10,12 +10,12 @@
                 <field name="_barcode_scanned" widget="barcode_handler"/>
             </form>
             <xpath expr="//button[@name='action_validate']" position="attributes">
-                <attribute name="barcode_trigger">validate</attribute>
+                <attribute name="barcode_trigger">VLDT</attribute>
             </xpath>
             <xpath expr="//button[@special='cancel']" position="attributes">
                 <!-- TODO : Clarify next 2 lines-->
-                <attribute name="barcode_trigger">discard</attribute> <!--O-BTN.discard : Legit but unavailable in PDF-->
-                <attribute name="class" add="o_form_button_cancel" separator=" "/> <!--O-CMD.discard : Hacky but available in PDF-->
+                <attribute name="barcode_trigger">DISC</attribute> <!--OCDDISC : Legit but unavailable in PDF-->
+                <attribute name="class" add="o_form_button_cancel" separator=" "/> <!--OCDDISC : Hacky but available in PDF-->
             </xpath>
         </field>
     </record>

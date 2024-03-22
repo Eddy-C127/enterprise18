@@ -9,7 +9,7 @@
                 <div invisible="test_type != 'worksheet'">
                     <button name="action_fill_sheet" type="object" class="btn-primary" icon="fa-pencil" string="Fill in Worksheet"/>
                 </div>
-                <button name="action_worksheet_check" type="object" class="btn-primary" string="Validate" invisible="test_type != 'worksheet'" barcode_trigger="next"/>
+                <button name="action_worksheet_check" type="object" class="btn-primary" string="Validate" invisible="test_type != 'worksheet'" barcode_trigger="NEXT"/>
             </xpath>
         </field>
     </record>

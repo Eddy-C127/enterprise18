@@ -144,7 +144,7 @@ export class MrpDisplay extends Component {
     }
 
     async _onBarcodeScanned(barcode) {
-        if (barcode.startsWith("O-BTN.") || barcode.startsWith("O-CMD.")) {
+        if (barcode.startsWith("OBT") || barcode.startsWith("OCD")) {
             return;
         }
         const production = this.productions.find((mo) => mo.data.name === barcode);

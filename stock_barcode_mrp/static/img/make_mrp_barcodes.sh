@@ -1,13 +1,13 @@
 #!/bin/sh
 
 barcode -t 2x7+40+40 -m 50x30 -p "210x297mm" -e code128b -n > barcodes_actions_barcode.ps << BARCODES
-O-CMD.MAIN-MENU
-O-CMD.DISCARD
-O-BTN.validate
-O-CMD.cancel
-O-BTN.print-mo
-O-BTN.print-product-label
-O-BTN.scrap
+OCDMENU
+OCDDISC
+OBTVALI
+OCDCANC
+OBTPRMO
+OBTPRPL
+OBTSCRA
 BARCODES
 
 cat > barcodes_actions_header.ps << HEADER

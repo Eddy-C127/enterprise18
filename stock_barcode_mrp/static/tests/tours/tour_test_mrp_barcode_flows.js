@@ -677,7 +677,7 @@ registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {te
     // Add a Scrap product
     {
         trigger: ".o_barcode_client_action",
-        run: "scan O-BTN.scrap",
+        run: "scan OBTSCRA",
     },
     {
         trigger: "input#product_id_0",
@@ -687,8 +687,8 @@ registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {te
     {
         trigger: 'button[name="action_validate"]',
         run: "click",
-        // Alternatively, we may have triggered this by scanning O-BTN.VALIDATE (once focus is not on an editable input tag !)
-        // However, there's still a bug such that O-BTN.VALIDATE will also validate the MO in addition to the scrap form...
+        // Alternatively, we may have triggered this by scanning OBTVALI (once focus is not on an editable input tag !)
+        // However, there's still a bug such that OBTVALI will also validate the MO in addition to the scrap form...
     },
     // Ensure adding Compo 01 as a scrap product didn't add it as an used component
     {

@@ -73,7 +73,7 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
 
     {
         trigger: '.o_barcode_client_action',
-        run: 'scan O-BTN.record-components',
+        run: 'scan OBTRECO',
     },
 
     {

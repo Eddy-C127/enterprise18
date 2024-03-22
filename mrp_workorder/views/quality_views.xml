@@ -100,35 +100,35 @@
                             type="object"
                             class="btn-primary"
                             invisible="not is_user_working or (quality_state == 'none' or test_type != 'passfail') and test_type != 'instructions'"
-                            barcode_trigger="next"
+                            barcode_trigger="NEXT"
                             string="Next"/>
                         <button
                             name="action_next"
                             type="object"
                             class="btn-secondary"
                             invisible="not is_user_working or test_type not in ['register_consumed_materials', 'register_byproducts', 'picture'] or consumption == 'strict' or consumption in ['flexible', 'warning'] and component_qty_to_do &gt;= 0"
-                            barcode_trigger="next"
+                            barcode_trigger="NEXT"
                             string="Validate"/>
                         <button
                             name="action_next"
                             type="object"
                             class="btn-primary"
                             invisible="test_type not in ['register_consumed_materials', 'register_byproducts', 'picture'] or component_qty_to_do &lt; 0"
-                            barcode_trigger="next"
+                            barcode_trigger="NEXT"
                             string="Validate"/>
                         <button name="action_continue"
                             type="object"
                             class="btn-secondary"
                             invisible="not is_user_working or test_type not in ('register_consumed_materials', 'register_byproducts') or component_qty_to_do &gt;= 0"
-                            barcode_trigger="continue"
+                            barcode_trigger="CONT"
                             string="Continue Consumption"/>
                         <button name="action_continue"
                             type="object"
                             class="btn-secondary"
                             invisible="test_type not in ('register_consumed_materials', 'register_byproducts') or consumption == 'strict' or consumption in ['flexible', 'warning'] and component_qty_to_do &lt; 0"
-                            barcode_trigger="continue"
+                            barcode_trigger="CONT"
                             string="Continue Consumption"/>
-                        <button name="action_print" type="object" class="btn-primary" invisible="test_type != 'print_label'" barcode_trigger="print" string="Print Labels"/>
+                        <button name="action_print" type="object" class="btn-primary" invisible="test_type != 'print_label'" barcode_trigger="PRPL" string="Print Labels"/>
                     </div>
                 </div>
             </form>

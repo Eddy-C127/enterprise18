@@ -51,10 +51,10 @@ footer = [(45, 45, "Don't have any barcode scanner? Right click on your screen >
 # page 1
 # format is (x, y, "barcode")
 # barcodes to generate
-barcodes = [(75, 640, "WH-RECEIPTS"), (260, 640, "0106016478556677300000000510Lot0001"), (445, 640, "0106016478556677300000000510Lot0002"),
-            (75, 505, "0106016478556677300000000510Lot0003"), (260, 505, "O-BTN.validate"),
-            (75, 350, "WH-RECEIPTS"), (260, 350, "01060164785599993650000010"), (445, 350, "01060164785599823160000002"),
-            (75, 220, "O-BTN.validate")]
+barcodes = [(75, 640, "WHIN"), (260, 640, "0106016478556677300000000510Lot0001"), (445, 640, "0106016478556677300000000510Lot0002"),
+            (75, 505, "0106016478556677300000000510Lot0003"), (260, 505, "OBTVALI"),
+            (75, 350, "WHIN"), (260, 350, "01060164785599993650000010"), (445, 350, "01060164785599823160000002"),
+            (75, 220, "OBTVALI")]
 
 header = [(45, 785, "GS1 Barcodes (set Barcode Nomenclature to Default GS1 Nomenclature)")]
 # text to describe barcode flow
@@ -68,10 +68,10 @@ barcode_titles = [(55, 733, "YourCompany Receipts"), (215, 733, "Cable Managemen
                   (93, 315, "Validate")]
 
 # text of barcode code (below), but made to look pretty (not literal barcode)
-barcode_code = [(85, 631, "WH-RECEIPTS"), (220, 631, "(01)06016478556677(30)00000005(10)Lot0001"), (405, 631, "(01)06016478556677(30)00000005(10)Lot0002"),
-                (45, 495, "(01)06016478556677(30)00000005(10)Lot0003"), (270, 495, "O-BTN.validate"),
-                (85, 340, "WH-RECEIPTS"), (238, 340, "(01)06016478559999(3650)000010"), (425, 340, "(01)06016478559982(3160)000002"),
-                (85, 212, "O-BTN.validate")]
+barcode_code = [(85, 631, "WHIN"), (220, 631, "(01)06016478556677(30)00000005(10)Lot0001"), (405, 631, "(01)06016478556677(30)00000005(10)Lot0002"),
+                (45, 495, "(01)06016478556677(30)00000005(10)Lot0003"), (270, 495, "OBTVALI"),
+                (85, 340, "WHIN"), (238, 340, "(01)06016478559999(3650)000010"), (425, 340, "(01)06016478559982(3160)000002"),
+                (85, 212, "OBTVALI")]
 
 
 font_size_and_texts = [(HEADER_FONT_SIZE, header),
@@ -85,8 +85,8 @@ page1 = create_page(barcodes, font_size_and_texts)
 # page 2
 # format is (x, y, "barcode")
 # barcodes to generate
-barcodes = [(75, 640, "WH-RECEIPTS"), (260, 640, "0106016478556332305"), (445, 640, "0006016471234567890591PAL"),
-            (75, 505, "O-BTN.validate")]
+barcodes = [(75, 640, "WHIN"), (260, 640, "0106016478556332305"), (445, 640, "0006016471234567890591PAL"),
+            (75, 505, "OBTVALI")]
 
 header = []
 # text to describe barcode flow
@@ -97,8 +97,8 @@ barcode_titles = [(55, 733, "YourCompany Receipts"), (233, 733, "Individual Work
                   (93, 600, "Validate")]
 
 # text of barcode code (below), but made to look pretty (not literal barcode)
-barcode_code = [(85, 631, "WH-RECEIPTS"), (245, 631, "(01)06016478556332(30)10"), (425, 631, "(00)060164712345678905(91)PAL"),
-                (85, 495, "O-BTN.validate")]
+barcode_code = [(85, 631, "WHIN"), (245, 631, "(01)06016478556332(30)10"), (425, 631, "(00)060164712345678905(91)PAL"),
+                (85, 495, "OBTVALI")]
 
 font_size_and_texts = [(HEADER_FONT_SIZE, header),
                        (LABEL_FONT_SIZE, flow_labels),

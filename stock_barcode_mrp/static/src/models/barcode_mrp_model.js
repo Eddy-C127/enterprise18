@@ -555,8 +555,8 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
 
     _getCommands() {
         return Object.assign(super._getCommands(), {
-            'O-BTN.print-mo': this.print.bind(this, 'mrp.action_report_production_order'),
-            'O-BTN.print-product-label': this.print.bind(this, 'mrp.action_report_finished_product'),
+            'OBTPRMO': this.print.bind(this, 'mrp.action_report_production_order'),
+            'OBTPRPL': this.print.bind(this, 'mrp.action_report_finished_product'),
         });
     }
 

@@ -12,7 +12,7 @@ export const stepUtils = {
         return [
             {
                 trigger,
-                run: 'scan O-BTN.validate',
+                run: 'scan OBTVALI',
             },
             {
                 trigger: '.o_notification_bar.bg-success',
