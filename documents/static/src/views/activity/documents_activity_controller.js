@@ -26,6 +26,12 @@ export class DocumentsActivityController extends ActivityController {
         return props;
     }
 
+    get modelParams() {
+        const modelParams = super.modelParams;
+        modelParams.multiEdit = true;
+        return modelParams;
+    }
+
     /**
      * Override this to add view options.
      */
