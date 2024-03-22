@@ -16,7 +16,7 @@ registries.autoCompleteProviders.add("pivot_ids", {
     autoSelectFirstProposal: true,
     getProposals(tokenAtCursor) {
         const functionContext = tokenAtCursor.functionContext;
-        const pivotFunction = ["ODOO.PIVOT", "ODOO.PIVOT.HEADER", "ODOO.PIVOT.TABLE"];
+        const pivotFunction = ["PIVOT.VALUE", "PIVOT.HEADER", "PIVOT"];
         if (
             !pivotFunction.includes(functionContext?.parent.toUpperCase()) ||
             functionContext.argPosition !== 0
@@ -47,7 +47,7 @@ registries.autoCompleteProviders.add("pivot_measures", {
     getProposals(tokenAtCursor) {
         const functionContext = tokenAtCursor.functionContext;
         if (
-            functionContext?.parent.toUpperCase() !== "ODOO.PIVOT" ||
+            functionContext?.parent.toUpperCase() !== "PIVOT.VALUE" ||
             functionContext.argPosition !== 1
         ) {
             return;
@@ -101,7 +101,7 @@ registries.autoCompleteProviders.add("pivot_group_fields", {
             return;
         }
         let args = functionContext.args;
-        if (functionContext?.parent.toUpperCase() === "ODOO.PIVOT") {
+        if (functionContext?.parent.toUpperCase() === "PIVOT.VALUE") {
             args = args.filter((ast, index) => index % 2 === 0); // keep only the field names
             args = args.slice(1, functionContext.argPosition); // remove the first even argument (the pivot id)
         } else {
@@ -158,7 +158,7 @@ registries.autoCompleteProviders.add("pivot_group_fields", {
 function canAutoCompletePivotField(tokenAtCursor) {
     const functionContext = tokenAtCursor.functionContext;
     return (
-        functionContext?.parent.toUpperCase() === "ODOO.PIVOT" &&
+        functionContext?.parent.toUpperCase() === "PIVOT.VALUE" &&
         functionContext.argPosition >= 2 && // the first two arguments are the pivot id and the measure
         functionContext.argPosition % 2 === 0 // only the even arguments are the group bys
     );
@@ -167,7 +167,7 @@ function canAutoCompletePivotField(tokenAtCursor) {
 function canAutoCompletePivotHeaderField(tokenAtCursor) {
     const functionContext = tokenAtCursor.functionContext;
     return (
-        functionContext?.parent.toUpperCase() === "ODOO.PIVOT.HEADER" &&
+        functionContext?.parent.toUpperCase() === "PIVOT.HEADER" &&
         functionContext.argPosition >= 1 && // the first argument is the pivot id
         functionContext.argPosition % 2 === 1 // only the odd arguments are the group bys
     );
@@ -216,7 +216,7 @@ registries.autoCompleteProviders.add("pivot_group_values", {
 function canAutoCompletePivotGroupValue(tokenAtCursor) {
     const functionContext = tokenAtCursor.functionContext;
     return (
-        functionContext?.parent.toUpperCase() === "ODOO.PIVOT" &&
+        functionContext?.parent.toUpperCase() === "PIVOT.VALUE" &&
         functionContext.argPosition >= 2 && // the first two arguments are the pivot id and the measure
         functionContext.argPosition % 2 === 1 // only the odd arguments are the group by values
     );
@@ -225,7 +225,7 @@ function canAutoCompletePivotGroupValue(tokenAtCursor) {
 function canAutoCompletePivotHeaderGroupValue(tokenAtCursor) {
     const functionContext = tokenAtCursor.functionContext;
     return (
-        functionContext?.parent.toUpperCase() === "ODOO.PIVOT.HEADER" &&
+        functionContext?.parent.toUpperCase() === "PIVOT.HEADER" &&
         functionContext.argPosition >= 1 && // the first argument is the pivot id
         functionContext.argPosition % 2 === 0 // only the even arguments are the group by values
     );
