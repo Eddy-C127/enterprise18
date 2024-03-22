@@ -89,8 +89,8 @@ const embedKanbanSteps = [{ // scroll to the embedded view to load it
 }, { // wait for the kanban view to be mounted
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer`,
     run: () => {},
-}, { // check that the "new" button is not shown
-    trigger: `${embedViewSelector(embedKanbanName)} .o_control_panel_main:not(:has(.o-kanban-button-new))`,
+}, { // check that the "new" button and quick create buttons are not shown
+    trigger: `${embedViewSelector(embedKanbanName)}:not(:has(.o-kanban-button-new)):not(:has(.o_kanban_quick_add))`,
     run: () => {},
 }];
 

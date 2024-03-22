@@ -8,11 +8,13 @@ import { registry } from "@web/core/registry";
 export class KnowledgeArticleItemsListController extends EmbeddedControllersPatch(ListController) {
     /**
      * @override
-     * Item creation is not allowed if the user can not edit the parent article
+     * Item creation is not allowed if the user can not edit the parent article.
+     * (note: since this piece of data is stored in the context, it will be lost on reload and item
+     * creation will be enabled by default).
      */
     setup() {
         super.setup();
-        if (!this.env.knowledgeArticleUserCanWrite) {
+        if (this.env.searchModel.context.knowledgeArticleUserCanWrite === false) {
             this.activeActions.create = false;
         }
     }

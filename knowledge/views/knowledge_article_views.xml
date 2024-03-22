@@ -238,6 +238,8 @@
             <form>
                 <field name="icon" widget="knowledge_icon" allow_random_icon_selection="1"/>
                 <field name="name" placeholder="My New Item" class="ms-2 mb-3"/>
+                <field name="parent_id" invisible="1"/>
+                <field name="article_properties"/>
             </form>
         </field>
     </record>
@@ -248,6 +250,9 @@
         <field name="priority">32</field>
         <field name="arch" type="xml">
             <tree create="1" js_class="knowledge_article_view_tree_embedded" default_order="sequence asc, write_date desc, id desc">
+                <header>
+                    <button string="Trash" icon="fa-trash" type="object" name="action_send_to_trash" class="btn"/>
+                </header>
                 <field name="sequence" widget="handle"/>
                 <field name="display_name" string="Name"/>
                 <field name="is_user_favorite" column_invisible="True"/>
@@ -391,6 +396,7 @@
             but it will not be used: the itemCalendarController will overwrite
             it in onWillStartModel using the property selected by the user -->
             <calendar js_class="knowledge_article_view_calendar_embedded" string="Items" date_start="article_properties">
+                <field name="user_can_write" invisible="1"/>
                 <field name="parent_id" invisible="1"/>
                 <field name="article_properties"/>
             </calendar>

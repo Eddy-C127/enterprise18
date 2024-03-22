@@ -8,13 +8,24 @@ import { registry } from "@web/core/registry";
 export class KnowledgeArticleItemsKanbanController extends EmbeddedControllersPatch(KanbanController) {
     /**
      * @override
-     * Item creation is not allowed if the user can not edit the parent article
+     * Some actions require write access on the parent article. Disable those actions if the user
+     * does not have it.
+     * (note: since this piece of data is stored in the context, it will be lost on reload and the
+     * actions will be enabled by default).
      */
-    get canCreate() { 
-        if (!this.env.knowledgeArticleUserCanWrite) {
-            return false;
+    setup() {
+        super.setup();
+        if (!this.env.searchModel.context.knowledgeArticleUserCanWrite) {
+            if (this.env.searchModel.context.knowledgeArticleUserCanWrite === false) {
+                ["create", "createGroup", "deleteGroup", "editGroup"].forEach(
+                    (action) => (this.props.archInfo.activeActions[action] = false),
+                );
+                this.props.archInfo.groupsDraggable = false;
+            }
+            // Quick creation is disabled if the knowledgeArticleUserCanWrite key is missing,
+            // because in that case other keys needed for quick creation are missing too
+            this.props.archInfo.activeActions.quickCreate = false;
         }
-        return super.canCreate;
     }
 }
 
