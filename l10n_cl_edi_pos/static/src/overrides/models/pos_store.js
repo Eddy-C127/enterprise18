@@ -41,4 +41,11 @@ patch(PosStore.prototype, {
         }
         return context;
     },
+    createNewOrder() {
+        const order = super.createNewOrder(...arguments);
+        if (!order.partner_id) {
+            order.update({ partner_id: this.consumidor_final_anonimo_id });
+        }
+        return order;
+    },
 });

@@ -8,8 +8,4 @@ patch(PosOrder.prototype, {
         super.setup(...arguments);
         this.uiState.noteHistory = {};
     },
-    setCustomerCount(count) {
-        super.setCustomerCount(count);
-        this.pos.addPendingOrder([this.id]);
-    },
 });

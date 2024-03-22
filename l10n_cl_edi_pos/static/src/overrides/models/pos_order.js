@@ -9,9 +9,6 @@ patch(PosOrder.prototype, {
         if (this.isChileanCompany()) {
             this.to_invoice = vals.to_invoice === false ? vals.to_invoice : true;
             this.invoice_type = vals.invoice_type || "boleta";
-            if (!this.partner_id) {
-                this.partner_id = this.pos.consumidor_final_anonimo_id;
-            }
             this.voucher_number = vals.voucher_number || "";
         }
     },
