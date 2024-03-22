@@ -6,15 +6,15 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <group string="Signers">
+                    <group>
                         <field name="template_id" context="{'kanban_view_ref': 'sign.sign_template_view_kanban_mobile'}" invisible="has_default_template" options="{'no_create_edit': True}"/>
+                        <field name="signer_ids" colspan="2" nolabel="1" widget="signer_x2many" invisible="signers_count == 0"></field>
                         <div class="d-flex flex-row align-items-center" colspan="2" invisible="signers_count &lt; 2 or context.get('sign_directly_without_mail',False)">
                             <field name="set_sign_order" nolabel="1" widget="boolean_toggle" class="oe_inline" options="{'autosave': false}"/>
                             <label for="set_sign_order" class="fw-bold"/>
                         </div>
-                        <field name="signer_ids" colspan="2" nolabel="1" widget="signer_x2many" invisible="signers_count == 0"></field>
                     </group>
-                    <group invisible="context.get('sign_directly_without_mail', False)" string="Options">
+                    <group invisible="context.get('sign_directly_without_mail', False)">
                         <field name="filename" placeholder="Name for the file" colspan="2"/>
                         <field name="validity"/>
                         <label for="reminder_enabled" string="Reminder"/>
@@ -60,7 +60,7 @@
                 </notebook>
 
                 <group invisible="context.get('sign_directly_without_mail',False)">
-                    <field name="attachment_ids" widget="many2many_binary" string="Attach a file" nolabel="1" class="o_sign_attachments"/>
+                    <field name="attachment_ids" widget="many2many_binary_sign_request" string="Attach a file" nolabel="1" class="o_sign_attachments"/>
                 </group>
 
                 <footer>

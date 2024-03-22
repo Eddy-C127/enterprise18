@@ -48,7 +48,7 @@ class SignSendRequest(models.TransientModel):
         default=lambda self: self.env.context.get('active_id', None),
     )
     signer_ids = fields.One2many('sign.send.request.signer', 'sign_send_request_id', string="Signers")
-    set_sign_order = fields.Boolean(string="Specify Signing Order",
+    set_sign_order = fields.Boolean(string="Signing Order",
                                     help="""Specify the order for each signer. The signature request only gets sent to \
                                     the next signers in the sequence when all signers from the previous level have \
                                     signed the document.
@@ -64,7 +64,7 @@ class SignSendRequest(models.TransientModel):
     attachment_ids = fields.Many2many('ir.attachment', string='Attachments')
     filename = fields.Char("Filename", required=True)
 
-    validity = fields.Date(string='Valid Until', default=lambda self: fields.Date.today() + relativedelta(months=6))
+    validity = fields.Date(string='Valid Until', default=lambda self: fields.Date.today() + relativedelta(months=6), help="Leave empty for requests without expiration.")
     reminder_enabled = fields.Boolean(default=False)
     reminder = fields.Integer(string='Reminder', default=7)
 

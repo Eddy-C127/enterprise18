@@ -47,12 +47,12 @@
                             </div>
                             <div class="o_kanban_record_body flex-grow-1">
                                 <field name="template_tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
-                                <div class="o_signers container-fluid mt-2">
+                                <div class="o_signers mt-2">
                                     <div t-foreach="record.request_item_infos.raw_value || []" t-as="request_item_info" t-key="request_item_info.id"
-                                         t-att-class="(request_item_info.state === 'completed') ? 'o_sign_completed text-success d-flex' :
+                                         t-att-class="(request_item_info.state === 'completed') ? 'o_sign_completed d-flex align-items-start' :
                                                       (request_item_info.state === 'refused') ? 'o_sign_refused text-danger d-flex' : 'o_sign_waiting d-flex'">
                                         <div t-if="request_item_info.state === 'refused'" class="mt-1 me-1 fa fa-times" title="Refused"/>
-                                        <input t-else="" t-att-checked="(request_item_info.state === 'completed') ? 'checked' : undefined" class="mt-1 me-1" type="checkbox" disabled="True"/>
+                                        <input t-else="" t-att-checked="(request_item_info.state === 'completed') ? 'checked' : undefined" class="mt-1 me-1" type="checkbox" style="accent-color: green"/>
                                         <span>
                                             <t t-esc="request_item_info.partner_name"/><t t-if="request_item_info.signing_date" class="ms-1" t-esc="' ' + request_item_info.signing_date"/>
                                         </span>
