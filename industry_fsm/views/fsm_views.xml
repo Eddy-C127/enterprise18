@@ -486,6 +486,7 @@
     <record id="project_task_fsm_server_action" model="ir.actions.server">
         <field name="name">My Tasks Server Action</field>
         <field name="model_id" ref="project.model_project_task"/>
+        <field name="path">field-service</field>
         <field name="state">code</field>
         <field name="code">action = model._server_action_project_task_fsm(
             'industry_fsm.project_task_action_fsm',
@@ -497,7 +498,6 @@
     <!-- My Tasks: kanban action if the number of FSM projects > 1 -->
     <record id="project_task_action_fsm" model="ir.actions.act_window">
         <field name="name">My Tasks</field>
-        <field name="path">field-service</field>
         <field name="res_model">project.task</field>
         <field name="view_mode">kanban,list,map,calendar,gantt,form,graph,pivot,activity</field>
         <field name="search_view_id" ref="project_task_view_search_fsm"/>
@@ -665,6 +665,7 @@
     <record id="project_task_fsm_map_server_action" model="ir.actions.server">
         <field name="name">Map Server Action</field>
         <field name="model_id" ref="project.model_project_task"/>
+        <field name="path">field-service-map</field>
         <field name="state">code</field>
         <field name="code">action = model._server_action_project_task_fsm(
             'industry_fsm.project_task_action_fsm_map',
@@ -871,6 +872,7 @@
     <record id="project_task_all_fsm_server_action" model="ir.actions.server">
         <field name="name">All Tasks Server Action</field>
         <field name="model_id" ref="project.model_project_task"/>
+        <field name="path">field-service-tasks</field>
         <field name="state">code</field>
         <field name="code">action = model._server_action_project_task_fsm(
             'industry_fsm.project_task_action_all_fsm',
@@ -1007,6 +1009,7 @@
     <record id="project_task_to_schedule_fsm_server_action" model="ir.actions.server">
         <field name="name">To Schedule Server Action</field>
         <field name="model_id" ref="project.model_project_task"/>
+        <field name="path">field-service-to-schedule</field>
         <field name="state">code</field>
         <field name="code">action = model._server_action_project_task_fsm(
             'industry_fsm.project_task_action_to_schedule_fsm',
@@ -1183,6 +1186,7 @@
     <record id="project_task_fsm_planning_groupby_user_server_action" model="ir.actions.server">
         <field name="name">Planning by User Action</field>
         <field name="model_id" ref="project.model_project_task"/>
+        <field name="path">tasks-planning-user</field>
         <field name="state">code</field>
         <field name="code">action = model._server_action_project_task_fsm(
             'industry_fsm.project_task_action_fsm_planning_groupby_user',
@@ -1328,6 +1332,7 @@
     <record id="project_task_fsm_planning_groupby_project_server_action" model="ir.actions.server">
         <field name="name">Planning by Project Server Action</field>
         <field name="model_id" ref="project.model_project_task"/>
+        <field name="path">tasks-planning-project</field>
         <field name="state">code</field>
         <field name="code">action = model._server_action_project_task_fsm(
             'industry_fsm.project_task_action_fsm_planning_groupby_project',
@@ -1473,6 +1478,7 @@
     <record id="project_task_fsm_planning_groupby_location_server_action" model="ir.actions.server">
         <field name="name">Planning by Location Server Action</field>
         <field name="model_id" ref="project.model_project_task"/>
+        <field name="path">tasks-planning-location</field>
         <field name="state">code</field>
         <field name="code">action = model._server_action_project_task_fsm(
             'industry_fsm.project_task_action_fsm_planning_groupby_location',
@@ -1729,6 +1735,7 @@
     <record id="project_project_action_only_fsm" model="ir.actions.act_window" >
         <field name="name">Projects</field>
         <field name="res_model">project.project</field>
+        <field name="path">field-service-projects</field>
         <field name="domain">[('is_fsm', '=', True)]</field>
         <field name="view_mode">list,kanban,form</field>
         <field name="view_id" eval="False"/>
@@ -1789,6 +1796,7 @@
     <record id="fsm_customer_ratings_server_action" model="ir.actions.server">
         <field name="name">project.project.fsm</field>
         <field name="model_id" ref="industry_fsm.model_project_project"/>
+        <field name="path">field-service-task-ratings</field>
         <field name="state">code</field>
         <field name="code">
             action = model.action_view_fsm_projects_rating()</field>

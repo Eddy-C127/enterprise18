@@ -828,6 +828,7 @@
     <record id="helpdesk_ticket_action_team" model="ir.actions.act_window">
         <field name="name">Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
+        <field name="path">tickets</field>
         <field name="view_mode">kanban,list,form,activity,pivot,graph,cohort</field>
         <field name="domain">[('team_id', '=', active_id)]</field>
         <field name="context">{'default_team_id': active_id}</field>

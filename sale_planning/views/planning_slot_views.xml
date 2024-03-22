@@ -229,6 +229,7 @@
     <record id="sale_planning_action_schedule_by_sale_order" model="ir.actions.act_window">
         <field name="name">Schedule by Sales Order</field>
         <field name="res_model">planning.slot</field>
+        <field name="path">schedule-by-sales-order</field>
         <field name="view_mode">gantt,calendar,list,form,kanban,pivot,graph</field>
         <field name="mobile_view_mode">calendar</field>
         <field name="domain">[('start_datetime', '!=', False), ('end_datetime', '!=', False)]</field>

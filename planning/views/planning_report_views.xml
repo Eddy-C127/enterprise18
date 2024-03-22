@@ -38,6 +38,7 @@
     <record id="planning_report_action_analysis" model="ir.actions.act_window">
         <field name="name">Planning Analysis</field>
         <field name="res_model">planning.analysis.report</field>
+        <field name="path">planning-analysis</field>
         <field name="view_mode">pivot,graph</field>
         <field name="search_view_id" ref="planning.planning_analysis_report_view_search"></field>
         <field name="help" type="html">

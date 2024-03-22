@@ -394,6 +394,7 @@
     <record id="helpdesk_team_action" model="ir.actions.act_window">
         <field name="name">Helpdesk Teams</field>
         <field name="res_model">helpdesk.team</field>
+        <field name="path">helpdesk-teams</field>
         <field name="view_mode">list,form,kanban</field>
         <field name="context">{'default_use_sla': True}</field>
         <field name="help" type="html">
