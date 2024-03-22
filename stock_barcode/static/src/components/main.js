@@ -108,7 +108,7 @@ class MainComponent extends Component {
             this.env.model.addEventListener('process-action', this._onDoAction.bind(this));
             this.env.model.addEventListener('refresh', (ev) => this._onRefreshState(ev.detail));
             this.env.model.addEventListener('update', () => this.render(true));
-            this.env.model.addEventListener('history-back', () => this.env.config.historyBack());
+            this.env.model.addEventListener('history-back', () => this._exit());
         });
 
         onPatched(() => {
@@ -196,7 +196,7 @@ class MainComponent extends Component {
         const onClose = res => {
             if (res && res.cancelled) {
                 this.env.model._cancelNotification();
-                this.env.config.historyBack();
+                this._exit();
             }
         };
         this.action.doAction(action, {
@@ -228,14 +228,28 @@ class MainComponent extends Component {
     async exit(ev) {
         if (this.state.view === "barcodeLines") {
             await this.env.model.save();
-            if (this.env.config.breadcrumbs.length === 1) {
-                // Bring back to the Barcode App home menu when there is no breadcrumb.
-                this.action.doAction("stock_barcode.stock_barcode_action_main_menu");
-            } else {
-                this.env.config.historyBack();
-            }
+            this._exit();
         } else {
             this.toggleBarcodeLines();
+        }
+    }
+
+    _exit() {
+        const { breadcrumbs } = this.env.config;
+        if (breadcrumbs.length === 1) {
+            // Bring back to the Barcode App home menu when there is no breadcrumb.
+            this.action.doAction("stock_barcode.stock_barcode_action_main_menu");
+        } else {
+            const previousPath = breadcrumbs[breadcrumbs.length - 2].url.split("/");
+
+            if (isNaN(previousPath[previousPath.length - 1])) {
+                this.env.config.historyBack();
+            } else {
+                // If previous controller path's last part is a number, it will
+                // open the current record form view (happens after a refresh of
+                // the web browser.) Avoid that by calling browser's history back.
+                history.back();
+            }
         }
     }
 

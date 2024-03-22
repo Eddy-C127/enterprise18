@@ -84,7 +84,7 @@ patch(MainComponent.prototype, {
                 });
             });
             this.env.model._cancelNotification();
-            this.env.config.historyBack();
+            this._exit();
             return;
         }
         await super.cancel(...arguments);
