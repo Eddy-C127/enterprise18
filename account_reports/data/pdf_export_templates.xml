@@ -59,10 +59,11 @@
 
         <address class="mb-0 o_text_muted" t-field="env.company.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
 
-        <t t-if="env.company.vat">
-            <span class="o_text_muted">
-                VAT:<t t-out="env.company.vat"/>
-            </span>
+        <t t-if="options.get('tax_unit') == 'company_only'">
+            VAT: <t t-out="env.company.vat"/>
+        </t>
+        <t t-else="">
+            VAT: <t t-out="env['account.tax.unit'].browse(options.get('tax_unit')).vat"/>
         </t>
     </template>
 
