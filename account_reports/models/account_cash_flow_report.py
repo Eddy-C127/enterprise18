@@ -216,12 +216,11 @@ class CashFlowReportCustomHandler(models.AbstractModel):
             'Cash and cash equivalents, beginning of period' and 'Cash and cash equivalents, closing balance'.
 
         :param options:                 The report options.
-        :param currency_table_query:    The custom query containing the multi-companies rates.
+        :param currency_table_query:    The custom query containing the multi-companies rates, as an SQL object.
         :param payment_account_ids:     A tuple containing all account.account's ids being used in a liquidity journal.
         :return:                        A list of tuple (account_id, account_code, account_name, balance).
         '''
         queries = []
-        currency_table_query = SQL(currency_table_query)  # TODO: ask currency_table_query to be a SQL object
         lang = self.env.user.lang or get_lang(self.env).code
         account_name = self.with_context(lang=lang).env['account.account']._field_to_sql('account_account', 'name')
 
@@ -260,13 +259,12 @@ class CashFlowReportCustomHandler(models.AbstractModel):
         The difficulty is to represent only the not-reconciled part of balance.
 
         :param options:                 The report options.
-        :param currency_table_query:    The floating query to handle a multi-company/multi-currency environment.
+        :param currency_table_query:    The floating query to handle a multi-company/multi-currency environment, as an SQL object.
         :param payment_account_ids:     A tuple containing all account.account's ids being used in a liquidity journal.
         :return:                        A list of tuple (account_id, account_code, account_name, account_type, amount).
         '''
 
         reconciled_aml_groupby_account = {}
-        currency_table_query = SQL(currency_table_query)  # TODO: ask currency_table_query to be a SQL object
 
         queries = []
         lang = self.env.user.lang or get_lang(self.env).code
@@ -385,12 +383,11 @@ class CashFlowReportCustomHandler(models.AbstractModel):
         E.g. An invoice of 1000 being paid at 50% must be valued at 500.
 
         :param options:                 The report options.
-        :param currency_table_query:    The floating query to handle a multi-company/multi-currency environment.
+        :param currency_table_query:    The floating query to handle a multi-company/multi-currency environment, as an SQL object.
         :param payment_account_ids:     A tuple containing all account.account's ids being used in a liquidity journal.
         :return:                        A list of tuple (account_id, account_code, account_name, account_type, amount).
         '''
 
-        currency_table_query = SQL(currency_table_query)  # TODO: ask currency_table_query to be a SQL object
         reconciled_account_ids = {column_group_key: set() for column_group_key in options['column_groups']}
         reconciled_percentage_per_move = {column_group_key: {} for column_group_key in options['column_groups']}
 

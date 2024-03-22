@@ -4,7 +4,7 @@
 from collections import defaultdict
 
 from odoo import api, fields, models
-from odoo.tools import float_round
+from odoo.tools import float_round, SQL
 
 
 class MrpCostStructure(models.AbstractModel):
@@ -33,7 +33,7 @@ class MrpCostStructure(models.AbstractModel):
             # Get the cost of raw material effectively used
             raw_material_moves = {}
             total_cost_components = 0.0
-            query_str = """SELECT
+            query = SQL("""SELECT
                                 sm.product_id,
                                 mo.id,
                                 abs(SUM(svl.quantity)),
@@ -42,10 +42,12 @@ class MrpCostStructure(models.AbstractModel):
                              FROM stock_move AS sm
                        INNER JOIN stock_valuation_layer AS svl ON svl.stock_move_id = sm.id
                        LEFT JOIN mrp_production AS mo on sm.raw_material_production_id = mo.id
-                       LEFT JOIN {currency_table} ON currency_table.company_id = mo.company_id
-                            WHERE sm.raw_material_production_id in %s AND sm.state != 'cancel' AND sm.product_qty != 0 AND scrapped != 't'
-                         GROUP BY sm.product_id, mo.id, currency_table.rate""".format(currency_table=currency_table,)
-            self.env.cr.execute(query_str, (tuple(mos.ids), ))
+                       LEFT JOIN %(currency_table)s ON currency_table.company_id = mo.company_id
+                            WHERE sm.raw_material_production_id in %(mos_ids)s AND sm.state != 'cancel' AND sm.product_qty != 0 AND scrapped != 't'
+                         GROUP BY sm.product_id, mo.id, currency_table.rate""",
+                        currency_table=currency_table,
+                        mos_ids=tuple(mos.ids))
+            self.env.cr.execute(query)
             for product_id, mo_id, qty, cost, currency_rate in self.env.cr.fetchall():
                 cost *= currency_rate
                 if product_id in raw_material_moves:
@@ -125,7 +127,7 @@ class MrpCostStructure(models.AbstractModel):
         return {'lines': res}
 
     def _compute_mo_operation_cost(self, currency_table, Workorders, total_cost_by_mo, operation_cost_by_mo, total_cost_operations, operations):
-        query_str = """  SELECT
+        query = SQL("""  SELECT
                         wo.production_id,
                         wo.id,
                         op.id,
@@ -138,12 +140,14 @@ class MrpCostStructure(models.AbstractModel):
                     LEFT JOIN mrp_workorder wo ON (wo.id = t.workorder_id)
                     LEFT JOIN mrp_workcenter wc ON (wc.id = t.workcenter_id)
                     LEFT JOIN mrp_routing_workcenter op ON (wo.operation_id = op.id)
-                    LEFT JOIN {currency_table} ON currency_table.company_id = t.company_id
-                    WHERE t.workorder_id IS NOT NULL AND t.workorder_id IN %s
+                    LEFT JOIN %(currency_table)s ON currency_table.company_id = t.company_id
+                    WHERE t.workorder_id IS NOT NULL AND t.workorder_id IN %(workorder_ids)s
                     GROUP BY wo.production_id, wo.id, op.id, wo.name, wc.costs_hour, wc.name, currency_table.rate
                     ORDER BY wo.name, wc.name
-                """.format(currency_table=currency_table,)
-        self.env.cr.execute(query_str, (tuple(Workorders.ids), ))
+                    """,
+                    currency_table=currency_table,
+                    workorder_ids=tuple(Workorders.ids))
+        self.env.cr.execute(query)
         for mo_id, dummy_wo_id, op_id, wo_name, wc_name, duration, cost_hour, currency_rate in self.env.cr.fetchall():
             cost = duration / 60.0 * cost_hour * currency_rate
             total_cost_by_mo[mo_id] += cost

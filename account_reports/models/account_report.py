@@ -3134,7 +3134,7 @@ class AccountReport(models.Model):
             all_expressions |= expressions
         tags = all_expressions._get_matching_tags()
 
-        currency_table_query = SQL(self._get_query_currency_table(options))  # TODO: ask currency_table_query to be a SQL object
+        currency_table_query = self._get_query_currency_table(options)
         groupby_sql = SQL.identifier('account_move_line', current_groupby) if current_groupby else None
         table_references, search_condition = self._get_sql_table_expression(options, date_scope)
         tail_query = self._get_engine_query_tail(offset, limit)
@@ -3228,7 +3228,7 @@ class AccountReport(models.Model):
         self._check_groupby_fields((next_groupby.split(',') if next_groupby else []) + ([current_groupby] if current_groupby else []))
 
         groupby_sql = SQL.identifier('account_move_line', current_groupby) if current_groupby else None
-        ct_query = SQL(self._get_query_currency_table(options))
+        ct_query = self._get_query_currency_table(options)
 
         rslt = {}
 
@@ -3422,7 +3422,7 @@ class AccountReport(models.Model):
         # Run main query
         table_references, search_condition = self._get_sql_table_expression(options, date_scope)
 
-        currency_table_query = SQL(self._get_query_currency_table(options))
+        currency_table_query = self._get_query_currency_table(options)
         extra_groupby_sql = SQL(", %s", SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL()
         extra_select_sql = SQL(", %s AS grouping_key", SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL()
         tail_query = self._get_engine_query_tail(offset, limit)
@@ -3524,7 +3524,7 @@ class AccountReport(models.Model):
 
         # Do the computation
         where_clause = self.env['account.report.external.value']._where_calc(external_value_domain).where_clause
-        currency_table_query = SQL(self._get_query_currency_table(options))
+        currency_table_query = self._get_query_currency_table(options)
 
         # We have to execute two separate queries, one for text values and one for numeric values
         num_queries = []
@@ -5450,7 +5450,7 @@ class AccountReport(models.Model):
         return [comp_data['id'] for comp_data in options['companies']]
 
     @api.model
-    def _get_query_currency_table(self, options):
+    def _get_query_currency_table(self, options) -> SQL:
         company_ids = self.get_report_company_ids(options)
         conversion_date = options['date']['date_to']
         return self.env['res.currency']._get_query_currency_table(company_ids, conversion_date)

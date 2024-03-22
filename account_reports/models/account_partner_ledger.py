@@ -246,7 +246,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         report = self.env.ref('account_reports.partner_ledger_report')
 
         # Create the currency table.
-        ct_query = SQL(report._get_query_currency_table(options))
+        ct_query = report._get_query_currency_table(options)
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             table_references, search_condition = report._get_sql_table_expression(column_group_options, 'normal')
             queries.append(SQL(
@@ -273,7 +273,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
     def _get_initial_balance_values(self, partner_ids, options):
         queries = []
         report = self.env.ref('account_reports.partner_ledger_report')
-        ct_query = SQL(report._get_query_currency_table(options))
+        ct_query = report._get_query_currency_table(options)
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             # Get sums for the initial balance.
             # period: [('date' <= options['date_from'] - 1)]
@@ -326,7 +326,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         invoice/bill and they have to be accounted in the partner balance."""
         queries = []
         report = self.env.ref('account_reports.partner_ledger_report')
-        ct_query = SQL(report._get_query_currency_table(options))
+        ct_query = report._get_query_currency_table(options)
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             table_references, search_condition = report._get_sql_table_expression(column_group_options, 'normal')
             queries.append(SQL(
@@ -436,7 +436,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
             indirectly_linked_aml_partner_clause = SQL('aml_with_partner.partner_id IN %s', tuple(partner_ids_wo_none))
         directly_linked_aml_partner_clause = SQL('(%s)', SQL(' OR ').join(directly_linked_aml_partner_clauses))
 
-        ct_query = SQL(self.env['account.report']._get_query_currency_table(options))  # todo: improve
+        ct_query = self.env['account.report']._get_query_currency_table(options)
         queries = []
         lang = self.env.lang or get_lang(self.env).code
         self_lang = self.with_context(lang=lang)

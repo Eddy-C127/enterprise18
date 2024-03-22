@@ -133,6 +133,7 @@ class MrpReport(models.Model):
         Subqueries will return 0.0 as value whenever value IS NULL to prevent SELECT calculations from being nulled (e.g. there is no cost then
         it is mathematically 0 anyways).
         """
+        currency_table_sql = self.env['res.currency']._get_query_currency_table(self.env.companies.ids, fields.Date.today())
         from_str = """
             FROM mrp_production AS mo
             JOIN res_company AS rc ON rc.id = {company_id}
@@ -144,7 +145,7 @@ class MrpReport(models.Model):
             {exp_comp_cost_unit}
             {exp_oper_cost_unit}
         """.format(
-            currency_table=self.env['res.currency']._get_query_currency_table(self.env.companies.ids, fields.Date.today()),
+            currency_table=self.env.cr.mogrify(currency_table_sql).decode(self.env.cr.connection.encoding),
             company_id=int(self.env.company.id),
             comp_cost=self._join_component_cost(),
             op_cost=self._join_operations_cost(),

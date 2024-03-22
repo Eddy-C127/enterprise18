@@ -148,7 +148,7 @@ class SlspCustomHandler(models.AbstractModel):
                 domain.append(('partner_id.vat', '!=', False))
             table_references, search_condition = report._get_sql_table_expression(column_group_options, "strict_range", domain=domain)
             tail_query = report._get_engine_query_tail(offset, limit)
-            currency_table_query = SQL(self.env['account.report']._get_query_currency_table(column_group_options))
+            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
             lang = self.env.user.lang or get_lang(self.env).code
             if self.pool['account.account.tag'].name.translate:
                 account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)
@@ -311,7 +311,7 @@ class SlspCustomHandler(models.AbstractModel):
                 ('move_id.partner_id', '=', partner_id),
             ])
             tail_query = report._get_engine_query_tail(offset, limit)
-            currency_table_query = SQL(self.env['account.report']._get_query_currency_table(column_group_options))
+            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
             lang = self.env.user.lang or get_lang(self.env).code
             if self.pool['account.account.tag'].name.translate:
                 account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)
@@ -417,7 +417,7 @@ class SlspCustomHandler(models.AbstractModel):
             if not column_group_options.get('include_no_tin'):
                 domain.append(('partner_id.vat', '!=', False))
             table_references, search_condition = report._get_sql_table_expression(column_group_options, "strict_range", domain=domain)
-            currency_table_query = SQL(self.env['account.report']._get_query_currency_table(column_group_options))
+            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
             lang = self.env.user.lang or get_lang(self.env).code
             if self.pool['account.account.tag'].name.translate:
                 account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)

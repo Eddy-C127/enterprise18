@@ -257,7 +257,7 @@ class ECSalesReportCustomHandler(models.AbstractModel):
         '''
         queries = []
         # Create the currency table.
-        ct_query = SQL(report._get_query_currency_table(options))
+        ct_query = report._get_query_currency_table(options)
         allowed_ids = self._get_tag_ids_filtered(options)
 
         # In the case of the generic report, we don't have a country defined. So no reliable tax report whose

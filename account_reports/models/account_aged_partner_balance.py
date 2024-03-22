@@ -158,7 +158,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
         # Build query
         table_references, search_condition = report._get_sql_table_expression(options, 'strict_range', domain=[('account_id.account_type', '=', internal_type)])
 
-        currency_table = SQL(report._get_query_currency_table(options))
+        currency_table = report._get_query_currency_table(options)
         always_present_groupby = SQL("period_table.period_index, currency_table.rate, currency_table.precision")
         if current_groupby:
             select_from_groupby = SQL("%s AS grouping_key,", SQL.identifier("account_move_line", current_groupby))

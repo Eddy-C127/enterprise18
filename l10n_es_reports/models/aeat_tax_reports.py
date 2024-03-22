@@ -867,7 +867,7 @@ class SpanishMod347TaxReportCustomHandler(models.AbstractModel):
             })
 
         # First get all the partners that match the domain but don't reach the threshold. We'll have to exclude them
-        ct_query = SQL(report._get_query_currency_table(options))
+        ct_query = report._get_query_currency_table(options)
         table_references, search_condition = report._get_sql_table_expression(fy_options, date_scope, domain=domain + options.get('forced_domain', []))
         threshold_value = self._convert_threshold_to_company_currency(3005.06, options)
         partners_to_exclude_query = SQL(

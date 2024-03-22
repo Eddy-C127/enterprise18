@@ -183,7 +183,7 @@ class XmlPolizasExportWizard(models.TransientModel):
         """ Execute the query
         """
         table_references, search_condition = ledger._get_sql_table_expression(options, domain=False, date_scope='strict_range')
-        ct_query = SQL(self.env['account.report']._get_query_currency_table(options))
+        ct_query = self.env['account.report']._get_query_currency_table(options)
         query = SQL(
             '''
             SELECT
