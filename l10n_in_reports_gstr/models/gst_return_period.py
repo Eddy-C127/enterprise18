@@ -11,7 +11,7 @@ from markupsafe import Markup
 from odoo import api, fields, models, _
 from odoo.addons.iap import jsonrpc
 from odoo.exceptions import UserError, AccessError, ValidationError, RedirectWarning
-from odoo.tools import date_utils, get_lang, html_escape
+from odoo.tools import date_utils, get_lang, html_escape, SQL
 from odoo.tools.misc import format_date
 from odoo.addons.l10n_in_edi.models.account_edi_format import DEFAULT_IAP_ENDPOINT, DEFAULT_IAP_TEST_ENDPOINT
 
@@ -391,8 +391,9 @@ class L10nInGSTReturnPeriod(models.Model):
         tags_id = self._get_l10n_in_taxes_tags_id_by_name(only_gst_tags=True)
         all_gst_tag = (tags_id['igst'], tags_id['cgst'], tags_id['sgst'])
         journal_items = self.env['account.move.line'].search(domain)
-        tax_details_query, tax_details_params = self.env['account.move.line']._get_query_tax_details_from_domain(domain=domain)
-        self._cr.execute(f'''
+        tax_details_query = self.env['account.move.line']._get_query_tax_details_from_domain(domain=domain)
+        self._cr.execute(SQL(
+            '''
              WITH RECURSIVE tax_child_tree(id, child_ids) AS (
                 SELECT tax_fil_rel.parent_tax,
                        ARRAY_AGG(tax_fil_rel.child_tax)
@@ -413,7 +414,7 @@ class L10nInGSTReturnPeriod(models.Model):
                     FROM account_tax_repartition_line at_rl
                     JOIN account_account_tag_account_tax_repartition_line_rel tax_tag ON tax_tag.account_tax_repartition_line_id = at_rl.id
                    where (at_rl.tax_id = at.id OR at_rl.tax_id = aml_taxs.account_tax_id)
-                     and tax_tag.account_account_tag_id in {all_gst_tag}
+                     and tax_tag.account_account_tag_id in %(all_gst_tag)s
                 )
                 GROUP BY aml.id
             ),
@@ -428,17 +429,24 @@ class L10nInGSTReturnPeriod(models.Model):
                 aml_tags.tag_ids,
                 at.l10n_in_reverse_charge,
                 CASE
-                    WHEN {tags_id['igst']} = any(aml_tags.tag_ids) THEN 'IGST'
-                    WHEN {tags_id['cgst']} = any(aml_tags.tag_ids) THEN 'CGST'
-                    WHEN {tags_id['sgst']} = any(aml_tags.tag_ids) THEN 'SGST'
-                    WHEN {tags_id['cess']} = any(aml_tags.tag_ids) THEN 'CESS'
+                    WHEN %(tags_id_igst)s = any(aml_tags.tag_ids) THEN 'IGST'
+                    WHEN %(tags_id_cgst)s = any(aml_tags.tag_ids) THEN 'CGST'
+                    WHEN %(tags_id_sgst)s = any(aml_tags.tag_ids) THEN 'SGST'
+                    WHEN %(tags_id_cess)s = any(aml_tags.tag_ids) THEN 'CESS'
                 END as tax_type,
                 tax_detail.*
-            FROM ({tax_details_query}) AS tax_detail
+            FROM (%(tax_details_query)s) AS tax_detail
        LEFT JOIN account_tax at ON at.id = tax_detail.tax_id
        LEFT JOIN base_line_with_gst_rate aml_gst_rate ON aml_gst_rate.id = tax_detail.base_line_id
        LEFT JOIN tax_line_with_tags aml_tags ON aml_tags.id = tax_detail.tax_line_id
-        ''', tax_details_params)
+            ''',
+            tax_details_query=tax_details_query,
+            all_gst_tag=all_gst_tag,
+            tags_id_igst=tags_id['igst'],
+            tags_id_cgst=tags_id['cgst'],
+            tags_id_sgst=tags_id['sgst'],
+            tags_id_cess=tags_id['cess'],
+        ))
         for tax_vals in self._cr.dictfetchall():
             base_line = self.env['account.move.line'].browse(tax_vals.get('base_line_id'))
             journal_items -= base_line

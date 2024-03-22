@@ -101,11 +101,7 @@ class AccountGenericTaxReport(models.AbstractModel):
         """
 
         table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
-        tables = table_references.code
-        where_clause = search_condition.code
-        where_params = table_references.params + search_condition.params
-        tax_details_query, tax_details_params = self.env['account.move.line']._get_query_tax_details(tables, where_clause, where_params)
-        tax_details_query = SQL(tax_details_query, *tax_details_params)
+        tax_details_query = self.env['account.move.line']._get_query_tax_details(table_references, search_condition)
 
         # The following tax details query will group taxes with their tax repartition lines in order to have one result
         # per standard tax and two results per deductible taxes.

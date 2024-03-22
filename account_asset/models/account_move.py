@@ -3,7 +3,7 @@
 
 from odoo import api, fields, models, _, _lt, Command
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_compare
+from odoo.tools import float_compare, SQL
 from odoo.tools.misc import formatLang
 from collections import defaultdict, namedtuple
 from dateutil.relativedelta import relativedelta
@@ -339,20 +339,24 @@ class AccountMoveLine(models.Model):
         res = {}
         if non_deductible_tax_ids:
             domain = [('move_id', 'in', self.move_id.ids)]
-            tax_details_query, tax_details_params = self._get_query_tax_details_from_domain(domain)
+            tax_details_query = self._get_query_tax_details_from_domain(domain)
 
             self.flush_model()
-            self._cr.execute(f'''
+            self._cr.execute(SQL(
+                '''
                 SELECT
                     tdq.base_line_id,
                     SUM(tdq.tax_amount_currency)
-                FROM ({tax_details_query}) AS tdq
+                FROM (%(tax_details_query)s) AS tdq
                 JOIN account_move_line aml ON aml.id = tdq.tax_line_id
                 JOIN account_tax_repartition_line trl ON trl.id = tdq.tax_repartition_line_id
-                WHERE tdq.base_line_id IN %s
+                WHERE tdq.base_line_id IN %(base_line_ids)s
                 AND trl.use_in_tax_closing IS FALSE
                 GROUP BY tdq.base_line_id
-            ''', tax_details_params + [tuple(self.ids)])
+                ''',
+                tax_details_query=tax_details_query,
+                base_line_ids=tuple(self.ids),
+            ))
 
             res = {row['base_line_id']: row['sum'] for row in self._cr.dictfetchall()}
 
