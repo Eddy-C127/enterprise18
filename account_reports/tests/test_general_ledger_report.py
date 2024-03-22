@@ -642,3 +642,36 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
             ],
             options,
         )
+
+    def test_general_ledger_same_date_ordering(self):
+        self.env.company.account_sale_tax_id = None
+        self.env.company.totals_below_sections = False
+
+        report = self.env.ref('account_reports.general_ledger_report')
+        options = self._generate_options(report, fields.Date.from_string('2010-01-01'), fields.Date.from_string('2010-01-01'), default_options={'unfold_all': True})
+
+        move_1 = self.init_invoice('out_invoice', invoice_date='2010-01-01', amounts=[100])
+        move_2 = self.init_invoice('out_invoice', invoice_date='2010-01-01', amounts=[200])
+
+        # Make sure no sequence is set on them by default, so that move_2 can receive a lower sequence when posting
+        (move_1 + move_2).write({'name': ''})
+
+        # Post the moves in reverse order than the one they were created in, so that their line ids' respective order does not match their sequences'
+        move_2.action_post()
+        move_1.action_post()
+
+        self.assertLinesValues(
+            report._get_lines(options),
+            #   Name                                      Debit       Credit      Balance
+            [   0,                                           4,           5,          6],
+            [
+                ('121000 Account Receivable',            300.0,         0.0,      300.0),
+                (move_2.name,                            200.0,         0.0,      200.0),
+                (move_1.name,                            100.0,         0.0,      300.0),
+                ('400000 Product Sales',                   0.0,       300.0,     -300.0),
+                (move_2.name,                              0.0,       200.0,     -200.0),
+                (move_1.name,                              0.0,       100.0,     -300.0),
+                ('Total',                                300.0,       300.0,        0.0),
+            ],
+            options
+        )
