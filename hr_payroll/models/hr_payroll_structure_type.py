@@ -8,7 +8,7 @@ from odoo.exceptions import UserError
 class HrPayrollStructureType(models.Model):
     _inherit = 'hr.payroll.structure.type'
     _description = 'Salary Structure Type'
-    _order = 'sequence'
+    _order = 'sequence, id'
 
     sequence = fields.Integer(default=10)
     name = fields.Char('Structure Type', required=True)
