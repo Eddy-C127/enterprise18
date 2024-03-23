@@ -685,7 +685,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_send__note
 msgid "Additional message displayed in the email sent to employees"
-msgstr ""
+msgstr "發送給員工電郵中顯示的附加訊息"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -776,7 +776,7 @@ msgstr ""
 msgid ""
 "Analyze the allocation of your resources across roles, projects, and sales "
 "orders, and estimate future needs."
-msgstr ""
+msgstr "分析不同職能角色、專案項目及銷售訂單之間的資源分配，並估算未來需求。"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_form
@@ -941,7 +941,7 @@ msgstr "公司"
 msgid ""
 "Company linked to the material resource. Leave empty for the resource to be "
 "available in every company."
-msgstr ""
+msgstr "連結至物料資源的公司。留空可讓該資源在每間公司都可用。"
 
 #. module: planning
 #: model:ir.model,name:planning.model_res_config_settings
@@ -1057,7 +1057,7 @@ msgstr "取消輪班指派的限期（天）"
 #: model:ir.model.fields,field_description:planning.field_hr_employee__default_planning_role_id
 #: model:ir.model.fields,field_description:planning.field_resource_resource__default_role_id
 msgid "Default Role"
-msgstr ""
+msgstr "預設角色"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
@@ -1142,7 +1142,7 @@ msgstr "顯示名稱"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
 msgid "Distribute your material resources across projects and sales orders."
-msgstr ""
+msgstr "將物料資源分配至不同專案項目及銷售訂單。"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1262,7 +1262,7 @@ msgstr "結束時間"
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_hr_employee_employee_token_unique
 msgid "Error: each employee token must be unique"
-msgstr ""
+msgstr "錯誤：員工權杖必須獨一無二"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -1286,17 +1286,17 @@ msgstr ""
 msgid ""
 "Find here your planning. Assign yourself open shifts that match your roles, "
 "or indicate your unavailability."
-msgstr ""
+msgstr "此處可找到你的規劃。為你自己分配與你職能角色相符的開放班次，或指明你沒空工作的班次。"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Fixed Hours"
-msgstr ""
+msgstr "固定工時"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Flexible Hours"
-msgstr ""
+msgstr "靈活工時"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__allocation_type__forecast
@@ -1338,7 +1338,7 @@ msgstr "分組依據"
 #: model:ir.model.fields,field_description:planning.field_hr_employee_base__has_slots
 #: model:ir.model.fields,field_description:planning.field_hr_employee_public__has_slots
 msgid "Has Slots"
-msgstr ""
+msgstr "有空檔時段"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__request_to_switch
@@ -1394,7 +1394,7 @@ msgstr "識別號"
 msgid ""
 "If checked, it means that the shift contains has changed since its last "
 "publish."
-msgstr ""
+msgstr "若勾選，表示班次內容在上次發佈之後已變更。"
 
 #. module: planning
 #. odoo-javascript
@@ -2051,6 +2051,8 @@ msgid ""
 "Role that will be selected by default when creating a shift for this employee.\n"
 "This role will also have precedence over the other roles of the employee when planning orders."
 msgstr ""
+"為此員工建立班次時，預設選擇的職能角色。\n"
+"規劃訂單時，此角色會較員工的其他角色優先考慮。"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_resource_resource__default_role_id
@@ -2058,6 +2060,8 @@ msgid ""
 "Role that will be selected by default when creating a shift for this resource.\n"
 "This role will also have precedence over the other roles of the resource when planning shifts."
 msgstr ""
+"為此資源建立班次時，預設選擇的職能角色。\n"
+"規劃班次時，此角色會較資源的其他角色優先考慮。"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_roles
@@ -2077,6 +2081,10 @@ msgid ""
 "Additionally, the employee will only be assigned orders for these roles (with the default planning role having precedence over the other ones).\n"
 "Leave empty for the employee to be assigned shifts regardless of the role."
 msgstr ""
+"員工可使用的職能角色。為這名員工建立班次時，只會顯示這些角色的班次範本。\n"
+"同樣，發佈工作時間表時，只有這些角色的可用開放班次，才會發送給員工。\n"
+"此外，員工只會獲指派這些角色的訂單（預設規劃角色會較其他角色優先考慮）。\n"
+"若留空，員工可以獲指派任何角色的班次。"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt

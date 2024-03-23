@@ -24,7 +24,7 @@ msgstr ""
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__link_tracker_click_count
 msgid "# Clicks"
-msgstr ""
+msgstr "點擊次數"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__mailing_filter_count
@@ -34,7 +34,7 @@ msgstr "最愛篩選器數目"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__mass_mailing_count
 msgid "# Mailings"
-msgstr ""
+msgstr "推廣郵件數目"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__total_participant_count
@@ -54,7 +54,7 @@ msgstr "已完成參與者的 #"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__test_participant_count
 msgid "# of test participants"
-msgstr ""
+msgstr "測試參加者數目"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -81,7 +81,7 @@ msgstr "<i class=\"fa fa-check-circle\"/> 已回覆"
 msgid ""
 "<i class=\"fa fa-clock-o pe-1\" role=\"img\" aria-label=\"Select time\" "
 "title=\"Select time\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-clock-o pe-1\" role=\"img\" aria-label=\"選擇時間\" title=\"選擇時間\"/>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -96,7 +96,7 @@ msgstr "<i class=\"fa fa-envelope-open-o\"/> 在指定時間後打開"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "<i class=\"fa fa-exclamation-circle\"/> Bounced after"
-msgstr ""
+msgstr "<i class=\"fa fa-exclamation-circle\"/> 此期限後彈回："
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -111,7 +111,7 @@ msgstr "<i class=\"fa fa-hand-pointer-o\"/> 未在指定時間內點選"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "<i class=\"fa fa-pie-chart\"/> Details"
-msgstr ""
+msgstr "<i class=\"fa fa-pie-chart\"/> 詳情"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -143,7 +143,7 @@ msgstr ""
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "<span class=\"d-inline-block w-25\">after</span>"
-msgstr ""
+msgstr "<span class=\"d-inline-block w-25\">在此之後：</span>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -229,12 +229,12 @@ msgstr "活動"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__activity_domain
 msgid "Activity Filter"
-msgstr ""
+msgstr "活動篩選器"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "Activity Name"
-msgstr ""
+msgstr "活動名稱"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__activity_type
@@ -254,7 +254,7 @@ msgstr "只限在記錄滿足這個範圍時（該範圍是結合活動篩選器
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Add Hot Category"
-msgstr ""
+msgstr "新增熱門類別"
 
 #. module: marketing_automation
 #. odoo-python
@@ -268,12 +268,12 @@ msgstr "添加標籤"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Add To Confirmed List"
-msgstr ""
+msgstr "加入已確認清單"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Add new activity"
-msgstr ""
+msgstr "加入新活動"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
@@ -285,7 +285,7 @@ msgstr "加入至範本"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Add to list"
-msgstr ""
+msgstr "加入清單"
 
 #. module: marketing_automation
 #. odoo-python
@@ -302,12 +302,12 @@ msgstr "所有可以成為此活動母項的活動"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__social_post_ids
 msgid "All related social media posts"
-msgstr ""
+msgstr "所有相關的社交媒體帖文"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__allowed_parent_ids
 msgid "Allowed parents"
-msgstr ""
+msgstr "允許的母項"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_campaign__is_auto_campaign
@@ -317,7 +317,7 @@ msgstr "允許我們過濾相關行銷活動"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__domain
 msgid "Applied Filter"
-msgstr ""
+msgstr "已套用的篩選"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -330,7 +330,7 @@ msgstr "已封存"
 msgid ""
 "Are you sure you want to create a new participant for each matching record "
 "that has not been used yet?"
-msgstr ""
+msgstr "確定要為每一項未用的配對記錄新增參加者？"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
@@ -354,7 +354,7 @@ msgstr "請注意，沒有更多活動的參與者可重新進入行銷活動，
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Blacklist Bounces"
-msgstr ""
+msgstr "將彈回加入黑名單"
 
 #. module: marketing_automation
 #. odoo-python
@@ -409,7 +409,7 @@ msgstr "取消"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "Cancel after"
-msgstr ""
+msgstr "在此後取消："
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_trace__state__canceled
@@ -421,14 +421,14 @@ msgstr "已取消"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Check Bounce Contact"
-msgstr ""
+msgstr "檢查彈回聯絡人"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Check Email Address"
-msgstr ""
+msgstr "檢查電郵地址"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_activity__validity_duration
@@ -477,7 +477,7 @@ msgstr "推廣計劃開始運行後，你可返回此處，概覽參加者情況
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Commercial prospection"
-msgstr ""
+msgstr "商業尋找新客戶"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_participant__state__completed
@@ -504,7 +504,7 @@ msgstr "確認"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Confirmed contacts"
-msgstr ""
+msgstr "已確認聯絡人"
 
 #. module: marketing_automation
 #. odoo-javascript
@@ -580,7 +580,7 @@ msgstr "刪除"
 msgid ""
 "Deleting this activity will delete ALL its children activities. Are you "
 "sure?"
-msgstr ""
+msgstr "刪除此活動亦會刪除其所有子活動。確定要繼續？"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__child_ids
@@ -622,7 +622,7 @@ msgstr "不更新"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Double Opt-in"
-msgstr ""
+msgstr "雙重步驟訂閱"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -654,7 +654,7 @@ msgstr "信件撰寫引導"
 #: code:addons/marketing_automation/models/marketing_activity.py:0
 #, python-format
 msgid "Email failed"
-msgstr ""
+msgstr "電郵失敗"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_trace__state__error
@@ -691,12 +691,12 @@ msgstr "伺服器操作異常：%s"
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_search
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_trace_view_search
 msgid "Exclude Test"
-msgstr ""
+msgstr "排除測試"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "Expiry Duration"
-msgstr ""
+msgstr "到期持續時間"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__mailing_filter_id
@@ -721,14 +721,14 @@ msgstr "篩選"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Generate participants"
-msgstr ""
+msgstr "生成參加者"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Get 10% OFF"
-msgstr ""
+msgstr "獲取 10% 折扣"
 
 #. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.marketing_trace_action
@@ -742,7 +742,7 @@ msgstr "此處可查看所有自動化推廣計劃的郵件結果。"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Hot"
-msgstr ""
+msgstr "熱門"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__interval_type__hours
@@ -774,7 +774,7 @@ msgstr "儲存此記錄後將自動生成參與者。"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Join partnership!"
-msgstr ""
+msgstr "加入合作夥伴計劃！"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__write_uid
@@ -826,7 +826,7 @@ msgstr "潛在商機/商機數量"
 #. module: marketing_automation
 #: model:ir.actions.act_window,name:marketing_automation.link_tracker_action_marketing_campaign
 msgid "Link Statistics"
-msgstr ""
+msgstr "連結統計"
 
 #. module: marketing_automation
 #: model:ir.ui.menu,name:marketing_automation.link_tracker_menu_reporting_marketing_automation
@@ -934,7 +934,7 @@ msgstr "已標記為已完成"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_mailing_mailing__marketing_activity_ids
 msgid "Marketing Activities"
-msgstr ""
+msgstr "推廣活動"
 
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_marketing_activity
@@ -951,7 +951,7 @@ msgstr "市場行銷自動化"
 #. module: marketing_automation
 #: model:ir.actions.act_window,name:marketing_automation.mail_mass_mailing_action_marketing_automation
 msgid "Marketing Automation Mailings"
-msgstr ""
+msgstr "自動化推廣郵件發送"
 
 #. module: marketing_automation
 #: model:ir.actions.server,name:marketing_automation.ir_cron_campaign_execute_activities_ir_actions_server
@@ -971,7 +971,7 @@ msgstr "市場行銷"
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_marketing_campaign_test
 msgid "Marketing Campaign: Launch a Test"
-msgstr ""
+msgstr "推廣活動：開展測試活動"
 
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_marketing_participant
@@ -981,7 +981,7 @@ msgstr "市場行銷參與者"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__mass_mailing_id
 msgid "Marketing Template"
-msgstr ""
+msgstr "推廣範本"
 
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_marketing_trace
@@ -1067,7 +1067,7 @@ msgstr "新增"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Next activity: Check Email Address"
-msgstr ""
+msgstr "下一活動：檢查電郵地址"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -1077,7 +1077,7 @@ msgstr "沒有活動"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "No activity for this campaign."
-msgstr ""
+msgstr "此推廣計劃未有活動。"
 
 #. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.link_tracker_action_marketing_campaign
@@ -1089,22 +1089,22 @@ msgstr "暫無資料！"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Not Clicked"
-msgstr ""
+msgstr "未點擊"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Not Opened"
-msgstr ""
+msgstr "未開啟"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Not Replied"
-msgstr ""
+msgstr "未回覆"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "Not bounced yet"
-msgstr ""
+msgstr "尚未彈回"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -1135,14 +1135,14 @@ msgstr "行銷活動產生的點擊次數"
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__social_engagement
 msgid ""
 "Number of interactions (likes, shares, comments ...) with the social posts"
-msgstr ""
+msgstr "社交帖文互動次數（讚好、分享、留言⋯）"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Offer free catalog"
-msgstr ""
+msgstr "免費提供目錄"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1163,7 +1163,7 @@ msgstr "選項"
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "Other activity"
-msgstr ""
+msgstr "其他活動"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__parent_id
@@ -1209,13 +1209,13 @@ msgstr "參與者"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_tree
 msgid "Participant Name"
-msgstr ""
+msgstr "參加者姓名"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_graph
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_pivot
 msgid "Participant summary"
-msgstr ""
+msgstr "參加者摘要"
 
 #. module: marketing_automation
 #: model:ir.actions.act_window,name:marketing_automation.marketing_participant_action_campaign
@@ -1235,7 +1235,7 @@ msgstr "訊息參與者"
 #: code:addons/marketing_automation/models/marketing_activity.py:0
 #, python-format
 msgid "Participants of %s (%s)"
-msgstr ""
+msgstr "%s（%s）的參加者"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
@@ -1250,12 +1250,12 @@ msgstr ""
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "Pick a record..."
-msgstr ""
+msgstr "選擇一項記錄⋯"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
 msgid "Pick or create a/an"
-msgstr ""
+msgstr "選擇或新增一個"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__processed
@@ -1379,7 +1379,7 @@ msgstr "執行"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Run the next scheduled activity for each participant of this campaign?"
-msgstr ""
+msgstr "為此活動的所有參加者運行下一個已規劃的活動？"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_campaign__state__running
@@ -1413,12 +1413,12 @@ msgstr "搜尋行銷活動"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_search
 msgid "Search Participant"
-msgstr ""
+msgstr "搜尋參加者"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_trace_view_search
 msgid "Search Traces"
-msgstr ""
+msgstr "搜尋追溯"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_campaign__ab_testing_winner_selection
@@ -1430,7 +1430,7 @@ msgstr "確定將會發送的優勝者郵件的選擇。"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send 10% Welcome Discount"
-msgstr ""
+msgstr "傳送 10% 歡迎折扣"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_schedule_datetime
@@ -1442,21 +1442,21 @@ msgstr "傳送最後版本在"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send Welcome Email"
-msgstr ""
+msgstr "傳送歡迎電郵"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send a free catalog and follow-up according to reactions."
-msgstr ""
+msgstr "傳送免費目錄，並根據反應進行跟進。"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send a welcome email to contacts and tag them if they click in it."
-msgstr ""
+msgstr "向聯絡人發送歡迎電郵，並在他們點擊開啟時，為他們加入標籤。"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1464,7 +1464,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Send a welcome email to new subscribers, remove the address that bounced."
-msgstr ""
+msgstr "向新訂閱者發送歡迎電郵，然後刪除彈回的地址。"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__interval_number
@@ -1481,7 +1481,7 @@ msgstr "在指定時間（以小時計）後發送"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send an email to new recipients to confirm their consent."
-msgstr ""
+msgstr "向新的收件人發送電子郵件，以確認他們同意。"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1497,7 +1497,7 @@ msgstr "伺服器動作"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__social_posts_count
 msgid "Social Media Posts"
-msgstr ""
+msgstr "社交媒體帖文"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1586,7 +1586,7 @@ msgstr "成功"
 msgid ""
 "Switching Target Model invalidates the existing activities. Either update "
 "your activity actions to match the new Target Model or delete them."
-msgstr ""
+msgstr "切換目標模型會使現有活動變為無效。請更新你的活動動作，以符合新的目標模型，或刪除動作。"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__require_sync
@@ -1599,7 +1599,7 @@ msgstr "需要同步參與者"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Tag Hot Contacts"
-msgstr ""
+msgstr "為熱門聯絡人加入標籤"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__tag_ids
@@ -1631,12 +1631,12 @@ msgstr "測試"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_participant__is_test
 msgid "Test Record"
-msgstr ""
+msgstr "測試記錄"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__is_test
 msgid "Test Trace"
-msgstr ""
+msgstr "測試追溯"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1650,7 +1650,7 @@ msgstr "測試"
 msgid ""
 "The saved filter targets different model and is incompatible with this "
 "campaign."
-msgstr ""
+msgstr "已儲存的篩選器用於不同模型，不兼容此活動。"
 
 #. module: marketing_automation
 #. odoo-javascript
@@ -1709,7 +1709,7 @@ msgstr "觸發器"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__trigger_category
 msgid "Trigger Category"
-msgstr ""
+msgstr "觸發類別"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__trigger_type
@@ -1732,7 +1732,7 @@ msgstr "UTM來源"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Unicity based on"
-msgstr ""
+msgstr "unicity基於"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__unique_field_id
@@ -1800,7 +1800,7 @@ msgstr "星期"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Welcome Flow"
-msgstr ""
+msgstr "歡迎流程"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1834,6 +1834,8 @@ msgid ""
 "You are trying to set the activity \"%s\" as \"%s\" while its child \"%s\" has the trigger type \"%s\"\n"
 "Please modify one of those activities before saving."
 msgstr ""
+"你正嘗試將活動「%s」設為 %s，而它的子活動「%s」的觸發器類型為 %s。\n"
+"請修改其中一項活動，然後才儲存。"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1872,12 +1874,12 @@ msgstr "其他活動"
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__trigger_type__begin
 msgid "beginning of workflow"
-msgstr ""
+msgstr "工作流程的開始"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
 msgid "e.g. \"Brandon Freeman\""
-msgstr ""
+msgstr "例：\"Brandon Freeman\""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
@@ -1887,9 +1889,9 @@ msgstr "例如，電子商務提議"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "e.g. eCommerce Offers Plan"
-msgstr ""
+msgstr "例：電子商務優惠計劃"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
 msgid "to generate a Test Participant"
-msgstr ""
+msgstr "以生成一名測試參加者"

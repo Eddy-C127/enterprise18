@@ -30,7 +30,7 @@ msgstr "# Accounts"
 #: code:addons/social/models/social_post.py:0
 #, python-format
 msgid "%s (max %s chars)"
-msgstr ""
+msgstr "%s（最多 %s 字元）"
 
 #. module: social
 #. odoo-javascript
@@ -42,27 +42,27 @@ msgstr "，須先連結一個社交媒體。"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_http_error_view
 msgid "<b>An error occurred while trying to link your account</b>"
-msgstr ""
+msgstr "<b>嘗試連結你的帳戶時，發生錯誤</b>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 msgid "<i class=\"fa fa-globe ms-1\" title=\"See the post\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-globe ms-1\" title=\"查看帖文\"/>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_http_error_view
 msgid "<i class=\"oi oi-arrow-left\"/> Go back to Odoo"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-left\"/> 返回 Odoo"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "<small class=\"pe-1\">Clicks:</small>"
-msgstr ""
+msgstr "<small class=\"pe-1\">點擊次數：</small>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "<small class=\"pe-1\">Engagement:</small>"
-msgstr ""
+msgstr "<small class=\"pe-1\">互動參與：</small>"
 
 #. module: social
 #. odoo-javascript
@@ -71,7 +71,7 @@ msgstr ""
 msgid ""
 "<strong>Congrats! Come back in a few minutes to check your "
 "statistics.</strong>"
-msgstr ""
+msgstr "<strong>恭喜！幾分鐘後回來看看你的統計數據。</strong>"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_needaction
@@ -114,7 +114,7 @@ msgstr "加入"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.utm_campaign_view_form
 msgid "Add Post"
-msgstr ""
+msgstr "新增帖文"
 
 #. module: social
 #. odoo-javascript
@@ -123,12 +123,12 @@ msgstr ""
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #, python-format
 msgid "Add a Stream"
-msgstr ""
+msgstr "新增訊息流"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream_post
 msgid "Add a stream"
-msgstr ""
+msgstr "新增訊息流"
 
 #. module: social
 #. odoo-javascript
@@ -147,12 +147,12 @@ msgstr "所有公司"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_utm_campaign__social_post_ids
 msgid "All related social media posts"
-msgstr ""
+msgstr "所有相關的社交媒體帖文"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__account_allowed_ids
 msgid "Allowed Accounts"
-msgstr ""
+msgstr "允許的帳戶"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_account_view_search
@@ -188,12 +188,12 @@ msgstr "讀者"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__audience_trend
 msgid "Audience Trend"
-msgstr ""
+msgstr "受眾趨勢"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__author_link
 msgid "Author Link"
-msgstr ""
+msgstr "作者連結"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__author_name
@@ -204,7 +204,7 @@ msgstr "作者名字"
 #: model:ir.model.fields,help:social.field_social_stream_post__author_link
 msgid ""
 "Author link to the external social.media (ex: link to the Twitter Account)."
-msgstr ""
+msgstr "指向外部 social.media 的作者連結（例如：指向 Twitter 帳戶的連結）。"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
@@ -214,12 +214,12 @@ msgstr "發佈前，連結會先轉換為可追蹤連結。"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_stream_post_view_search
 msgid "By Stream"
-msgstr ""
+msgstr "按訊息流"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__csrf_token
 msgid "CSRF Token"
-msgstr ""
+msgstr "CSRF token"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__calendar_date
@@ -251,7 +251,7 @@ msgstr "行銷活動用於集中您的營銷工作並跟踪其結果。"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__can_link_accounts
 msgid "Can link accounts?"
-msgstr ""
+msgstr "可連結帳戶？"
 
 #. module: social
 #. odoo-javascript
@@ -266,7 +266,7 @@ msgstr "取消"
 #: code:addons/social/static/src/js/tours/social.js:0
 #, python-format
 msgid "Choose which <b>account</b> you would like to link first."
-msgstr ""
+msgstr "首先，選擇你想連結的<b>帳戶</b>。"
 
 #. module: social
 #. odoo-javascript
@@ -333,12 +333,12 @@ msgstr "經處理的社交帖文訊息內容（縮短連結，加入 UTM 等）�
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__has_streams
 msgid "Controls if social streams are handled on this social media."
-msgstr ""
+msgstr "控制是否在此社交媒體處理社交訊息流。"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__can_link_accounts
 msgid "Controls if we can link accounts or not."
-msgstr ""
+msgstr "控制我們是否可以連結帳戶。"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_view_utm_campaigns
@@ -391,11 +391,13 @@ msgid ""
 "Defines whether this account has Audience/Engagements/Stories stats.\n"
 "        Account with stats are displayed on the dashboard."
 msgstr ""
+"定義此帳戶是否擁有受眾/互動/故事的統計資料。\n"
+"        有統計數據的帳戶會在概覽畫面顯示。"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__has_trends
 msgid "Defines whether this account has statistics tends or not."
-msgstr ""
+msgstr "定義此帳戶是否有統計趨勢。"
 
 #. module: social
 #. odoo-javascript
@@ -408,7 +410,7 @@ msgstr "刪除留言"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
 msgid "Demo Mode"
-msgstr ""
+msgstr "演示模式"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__media_description
@@ -418,7 +420,7 @@ msgstr "說明"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
 msgid "Developer Accounts"
-msgstr ""
+msgstr "開發人員帳戶"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__display_name
@@ -438,7 +440,7 @@ msgstr "顯示名稱"
 #: code:addons/social/static/src/js/stream_post_comment.js:0
 #, python-format
 msgid "Do you really want to delete %s"
-msgstr ""
+msgstr "確定要刪除 %s？"
 
 #. module: social
 #: model:ir.model.fields.selection,name:social.selection__social_post__state__draft
@@ -453,6 +455,8 @@ msgid ""
 "Due to length restrictions, the following posts cannot be posted:\n"
 " %s"
 msgstr ""
+"由於篇幅限制，以下帖文未能發佈：\n"
+" %s"
 
 #. module: social
 #. odoo-javascript
@@ -464,14 +468,14 @@ msgstr "編輯留言"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_res_config_settings__module_social_demo
 msgid "Enable Demo Mode"
-msgstr ""
+msgstr "啟用演示模式"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
 msgid ""
 "Enable this option and load demo data to test the social module. This must "
 "never be used on a production database!"
-msgstr ""
+msgstr "啟用此選項並載入模擬數據，以測試社交媒體模組。切勿在正式運行資料庫上使用此選項！"
 
 #. module: social
 #. odoo-javascript
@@ -488,7 +492,7 @@ msgstr "受眾互動"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__engagement_trend
 msgid "Engagement Trend"
-msgstr ""
+msgstr "互動參與趨勢"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__utm_medium_id
@@ -512,7 +516,7 @@ msgstr "失效原因"
 #: model:ir.actions.act_window,name:social.action_social_stream_post
 #: model:ir.ui.menu,name:social.menu_social_stream_post
 msgid "Feed"
-msgstr ""
+msgstr "訊息牆"
 
 #. module: social
 #. odoo-python
@@ -520,12 +524,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 #, python-format
 msgid "Feed Posts"
-msgstr ""
+msgstr "訊息牆帖文"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__stream_posts_count
 msgid "Feed Posts Count"
-msgstr ""
+msgstr "訊息牆帖文數目"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_follower_ids
@@ -547,18 +551,18 @@ msgstr "Font awesome 圖示，例如，fa-task"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__formatted_published_date
 msgid "Formatted Published Date"
-msgstr ""
+msgstr "格式化的發佈日期"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__audience
 msgid ""
 "General audience of the Social Account (Page Likes, Account Follows, ...)."
-msgstr ""
+msgstr "社交帳戶的一般受眾（專頁讚好、關注等）。"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
 msgid "Go to the"
-msgstr ""
+msgstr "請前往"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_account_view_search
@@ -571,19 +575,19 @@ msgstr "分組依據"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__social_account_handle
 msgid "Handle / Short Name"
-msgstr ""
+msgstr "用戶名/簡短名稱"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/tours/social.js:0
 #, python-format
 msgid "Happy with the result? Let's post it!"
-msgstr ""
+msgstr "對結果滿意嗎？讓我們將它發佈出去！"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__has_account_stats
 msgid "Has Account Stats"
-msgstr ""
+msgstr "有帳戶統計數據"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__has_message
@@ -594,7 +598,7 @@ msgstr "有訊息"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__has_trends
 msgid "Has Trends?"
-msgstr ""
+msgstr "有趨勢嗎？"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__is_hatched
@@ -665,7 +669,7 @@ msgstr "圖片網址"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__stream_post_image_ids
 msgid "Images that were shared with this post."
-msgstr ""
+msgstr "與這篇帖文分享的圖片。"
 
 #. module: social
 #. odoo-javascript
@@ -677,7 +681,7 @@ msgstr "洞察數據"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__is_author
 msgid "Is Author"
-msgstr ""
+msgstr "是作者"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_is_follower
@@ -699,7 +703,7 @@ msgstr "社交媒體連結似乎有問題，請按此處重新連結帳戶"
 #: code:addons/social/static/src/js/stream_post_kanban_controller.js:0
 #, python-format
 msgid "It will appear in the Feed once it has posts to display."
-msgstr ""
+msgstr "當有可以顯示的帖文時，就會出現在訊息牆。"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__write_uid
@@ -732,21 +736,21 @@ msgstr "最後更新於"
 #: code:addons/social/static/src/js/tours/social.js:0
 #, python-format
 msgid "Let's <b>connect</b> to Facebook, LinkedIn or Twitter."
-msgstr ""
+msgstr "你可<b>連接</b> Facebook、LinkedIn 或 Twitter。"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/tours/social.js:0
 #, python-format
 msgid "Let's create your own <b>social media</b> dashboard."
-msgstr ""
+msgstr "你可建立屬於你自己的<b>社交媒體</b>概覽畫面。"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/tours/social.js:0
 #, python-format
 msgid "Let's start posting."
-msgstr ""
+msgstr "開始發佈帖文吧！"
 
 #. module: social
 #. odoo-javascript
@@ -765,7 +769,7 @@ msgstr "喜愛"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__link_description
 msgid "Link Description"
-msgstr ""
+msgstr "連結描述"
 
 #. module: social
 #. odoo-javascript
@@ -779,12 +783,12 @@ msgstr "連結圖片"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__link_image_url
 msgid "Link Image URL"
-msgstr ""
+msgstr "連結圖片網址"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__link_title
 msgid "Link Title"
-msgstr ""
+msgstr "連結標題"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__link_url
@@ -801,12 +805,12 @@ msgstr "連結新帳戶"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_media_view_kanban
 msgid "Link account"
-msgstr ""
+msgstr "連結帳戶"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_account
 msgid "Link an Account"
-msgstr ""
+msgstr "連結一個帳戶"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__company_id
@@ -816,12 +820,12 @@ msgstr ""
 msgid ""
 "Link an account to a company to restrict its usage or keep empty to let all "
 "companies use it."
-msgstr ""
+msgstr "將帳戶連結至公司，以限制帳戶使用，或留空以允許所有公司使用帳戶。"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_live_post__live_post_link
 msgid "Link of the live post on the target media."
-msgstr ""
+msgstr "目標媒體上實時帖文的連結。"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
@@ -831,22 +835,22 @@ msgstr "連結社交帳戶"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__stats_link
 msgid "Link to the external Social Account statistics"
-msgstr ""
+msgstr "指向外部社交帳戶統計數據的連結"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__is_media_disconnected
 msgid "Link with external Social Media is broken"
-msgstr ""
+msgstr "與外部社交媒體的連結已損壞"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__account_allowed_ids
 msgid "List of the accounts which can be selected for this post."
-msgstr ""
+msgstr "此帖文可選取的帳戶清單。"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__live_posts_by_media
 msgid "Live Posts by Social Media"
-msgstr ""
+msgstr "社交媒體實時帖文"
 
 #. module: social
 #. odoo-javascript
@@ -858,7 +862,7 @@ msgstr "載入更多留言⋯"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__max_post_length
 msgid "Max Post Length"
-msgstr ""
+msgstr "帖文長度上限"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__media_ids
@@ -870,7 +874,7 @@ msgstr "媒體"
 #: model:ir.model.fields,field_description:social.field_social_account__media_type
 #: model:ir.model.fields,field_description:social.field_social_media__media_type
 msgid "Media Type"
-msgstr ""
+msgstr "媒介類型"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_live_post__message
@@ -897,7 +901,7 @@ msgstr "訊息長度"
 #: code:addons/social/models/social_post.py:0
 #, python-format
 msgid "Message posted"
-msgstr ""
+msgstr "訊息已發佈"
 
 #. module: social
 #. odoo-python
@@ -905,7 +909,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Message posted partially. These are the ones that couldn't be posted:%s"
-msgstr ""
+msgstr "已發佈部份訊息。以下是未能發佈的內容：%s"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_ids
@@ -919,6 +923,8 @@ msgid ""
 "Most social.live.posts directly go from Ready to Posted/Failed since they result of a single call to the third party API.\n"
 "        A 'Posting' state is also available for those that are sent through batching (like push notifications)."
 msgstr ""
+"大多數的 social.live.posts 會直接由「就緒」變成「已發佈」/「失敗」，因為它們是向第三方 API 單次呼叫的結果。\n"
+"        「發佈中」狀態也適用於大批傳送的內容（例如推播通知）。"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__my_activity_date_deadline
@@ -933,7 +939,7 @@ msgstr "我的貼文"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_stream_post_view_search
 msgid "My Streams"
-msgstr ""
+msgstr "我的訊息流"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__name
@@ -990,17 +996,17 @@ msgstr "下一活動類型"
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_account
 msgid "No Social Account yet!"
-msgstr ""
+msgstr "尚未有社交帳戶！"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
 msgid "No Social Streams yet!"
-msgstr ""
+msgstr "尚未有社交訊息流！"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream_post
 msgid "No Stream added yet!"
-msgstr ""
+msgstr "尚未加入訊息流！"
 
 #. module: social
 #. odoo-javascript
@@ -1014,7 +1020,7 @@ msgstr "尚未有留言。"
 #: code:addons/social/static/src/js/stream_post_kanban_controller.js:0
 #, python-format
 msgid "No social accounts configured, please contact your administrator."
-msgstr ""
+msgstr "未有配置社交帳戶。請聯絡你的管理員。"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_needaction_counter
@@ -1044,7 +1050,7 @@ msgstr "錯誤數量"
 #: model:ir.model.fields,field_description:social.field_utm_campaign__social_engagement
 msgid ""
 "Number of interactions (likes, shares, comments ...) with the social posts"
-msgstr ""
+msgstr "社交帖文互動次數（讚好、分享、留言⋯）"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__message_needaction_counter
@@ -1062,12 +1068,12 @@ msgstr "有發送錯誤的郵件數量"
 #: model:ir.model.fields,help:social.field_social_live_post__engagement
 #: model:ir.model.fields,help:social.field_social_post__engagement
 msgid "Number of people engagements with the post (Likes, comments...)"
-msgstr ""
+msgstr "帖文的互動人數（讚好、留言等）。"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__engagement
 msgid "Number of people engagements with your posts (Likes, Comments, ...)."
-msgstr ""
+msgstr "你帖文的互動人數（讚好、留言等）。"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__stories
@@ -1102,25 +1108,25 @@ msgstr "或添加"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__audience_trend
 msgid "Percentage of increase/decrease of the audience over a defined period."
-msgstr ""
+msgstr "特定期間內受眾增加/減少的百分比。"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__engagement_trend
 msgid ""
 "Percentage of increase/decrease of the engagement over a defined period."
-msgstr ""
+msgstr "特定期間內互動人數增加/減少的百分比。"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__stories_trend
 msgid "Percentage of increase/decrease of the stories over a defined period."
-msgstr ""
+msgstr "特定期間內，故事數目增加/減少的百分比。"
 
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
 #, python-format
 msgid "Please specify at least one account to post into (for post ID(s) %s)."
-msgstr ""
+msgstr "請指定最少一個發佈用的帳號（對於帖文識別碼：%s）。"
 
 #. module: social
 #. odoo-python
@@ -1147,31 +1153,31 @@ msgstr "帖文圖片"
 #: code:addons/social/static/src/js/stream_post_kanban_renderer.js:0
 #, python-format
 msgid "Post Images"
-msgstr ""
+msgstr "帖文圖片"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_live_post__live_post_link
 #: model:ir.model.fields,field_description:social.field_social_stream_post__post_link
 msgid "Post Link"
-msgstr ""
+msgstr "帖文連結"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_search
 #: model_terms:ir.ui.view,arch_db:social.social_stream_post_view_search
 msgid "Post Message"
-msgstr ""
+msgstr "帖文訊息"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 msgid "Post Now"
-msgstr ""
+msgstr "立即發佈"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__post_link
 msgid ""
 "Post link to the external social.media (ex: link to the actual Facebook "
 "Post)."
-msgstr ""
+msgstr "將外部 social.media 的連結發佈（例如：指向實際 Facebook 帖文的連結）。"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
@@ -1201,12 +1207,12 @@ msgstr "貼文"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__live_post_ids
 msgid "Posts By Account"
-msgstr ""
+msgstr "帖文（按帳戶）"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 msgid "Posts By Accounts"
-msgstr ""
+msgstr "帖文（按帳戶）"
 
 #. module: social
 #. odoo-javascript
@@ -1230,12 +1236,12 @@ msgstr "前一個"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__post_method
 msgid "Publish your post immediately or schedule it at a later time."
-msgstr ""
+msgstr "即時發佈帖文，或安排稍後發佈。"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_search
 msgid "Published By"
-msgstr ""
+msgstr "發佈者："
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__published_date
@@ -1261,17 +1267,17 @@ msgstr "準備好"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__media_type
 msgid "Related Social Media"
-msgstr ""
+msgstr "相關社交媒體"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__media_id
 msgid "Related Social Media (Facebook, Twitter, ...)."
-msgstr ""
+msgstr "相關社交媒體（Facebook、Twitter 等）。"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__account_id
 msgid "Related social Account"
-msgstr ""
+msgstr "相關社交帳戶"
 
 #. module: social
 #. odoo-javascript
@@ -1305,7 +1311,7 @@ msgstr "預約"
 #. module: social
 #: model:ir.model.fields.selection,name:social.selection__social_post__post_method__scheduled
 msgid "Schedule later"
-msgstr ""
+msgstr "排期至稍後"
 
 #. module: social
 #: model:ir.model.fields.selection,name:social.selection__social_post__state__scheduled
@@ -1322,7 +1328,7 @@ msgstr "預定日期"
 #: code:addons/social/models/social_post.py:0
 #, python-format
 msgid "Selected accounts (%s) do not match the selected company (%s)"
-msgstr ""
+msgstr "選取的帳戶（%s）與所選公司（%s）不相符。"
 
 #. module: social
 #: model:ir.model.fields.selection,name:social.selection__social_post__post_method__now
@@ -1337,13 +1343,13 @@ msgstr "序列號"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream__sequence
 msgid "Sequence used to order streams (mainly for the 'Feed' kanban view)"
-msgstr ""
+msgstr "訊息流排列順序（主要用於「訊息牆」看板檢視畫面）"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__max_post_length
 msgid ""
 "Set a maximum number of characters can be posted in post. 0 for no limit."
-msgstr ""
+msgstr "設定可以發佈的帖文字元數目上限。0（零）表示無限制。"
 
 #. module: social
 #: model:ir.actions.act_window,name:social.action_social_global_settings
@@ -1372,12 +1378,12 @@ msgstr "社交帳戶"
 #. module: social
 #: model:ir.model,name:social.model_social_live_post
 msgid "Social Live Post"
-msgstr ""
+msgstr "社交媒體實時帖文"
 
 #. module: social
 #: model:res.groups,name:social.group_social_manager
 msgid "Social Manager"
-msgstr ""
+msgstr "社交媒體管理員"
 
 #. module: social
 #: model:ir.ui.menu,name:social.menu_social_global
@@ -1403,7 +1409,7 @@ msgstr "社交媒體"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_utm_campaign__social_posts_count
 msgid "Social Media Posts"
-msgstr ""
+msgstr "社交媒體帖文"
 
 #. module: social
 #: model:ir.model,name:social.model_social_post
@@ -1441,28 +1447,28 @@ msgstr "社交圈"
 #: model:ir.model,name:social.model_social_stream_post
 #: model:ir.model,name:social.model_social_stream_type
 msgid "Social Stream Post"
-msgstr ""
+msgstr "社交訊息流帖文"
 
 #. module: social
 #: model:ir.model,name:social.model_social_stream_post_image
 msgid "Social Stream Post Image Attachment"
-msgstr ""
+msgstr "社交訊息流帖文圖片附件"
 
 #. module: social
 #: model:ir.actions.act_window,name:social.action_social_stream
 #: model:ir.ui.menu,name:social.menu_social_stream
 msgid "Social Streams"
-msgstr ""
+msgstr "社交媒體訊息流"
 
 #. module: social
 #: model:res.groups,name:social.group_social_user
 msgid "Social User"
-msgstr ""
+msgstr "社交媒體用戶"
 
 #. module: social
 #: model:ir.actions.server,name:social.ir_cron_post_scheduled_ir_actions_server
 msgid "Social: Publish Scheduled Posts"
-msgstr ""
+msgstr "社交媒體：發佈預先排期帖文"
 
 #. module: social
 #. odoo-javascript
@@ -1472,6 +1478,8 @@ msgid ""
 "Something went wrong while posting the comment. \n"
 "%s"
 msgstr ""
+"發佈留言時出現錯誤。 \n"
+"%s"
 
 #. module: social
 #. odoo-javascript
@@ -1480,7 +1488,7 @@ msgstr ""
 msgid ""
 "Sorry, you're not allowed to re-link this account, please contact your "
 "administrator."
-msgstr ""
+msgstr "抱歉，你未獲允許重新連結此帳戶，請聯絡你的管理員。"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__source_id
@@ -1497,7 +1505,7 @@ msgstr "裝載一組dict數據的特殊技術欄位，內含按媒體識別碼�
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__stats_link
 msgid "Stats Link"
-msgstr ""
+msgstr "統計數據連結"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_live_post__state
@@ -1529,50 +1537,50 @@ msgstr "動態"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__stories_trend
 msgid "Stories Trend"
-msgstr ""
+msgstr "故事趨勢"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_kanban_controller.js:0
 #, python-format
 msgid "Stream Added (%s)"
-msgstr ""
+msgstr "已新增訊息流（%s）"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post_image__stream_post_id
 msgid "Stream Post"
-msgstr ""
+msgstr "訊息流帖文"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__stream_post_image_ids
 msgid "Stream Post Images"
-msgstr ""
+msgstr "訊息流帖文圖片"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__stream_post_image_urls
 msgid "Stream Post Images URLs"
-msgstr ""
+msgstr "訊息流帖文圖片網址"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__stream_type_ids
 msgid "Stream Types"
-msgstr ""
+msgstr "訊息流類型"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__stream_type_type
 #: model:ir.model.fields,field_description:social.field_social_stream_type__stream_type
 msgid "Stream type name (technical)"
-msgstr ""
+msgstr "訊息流類型名稱（技術性）"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__has_streams
 msgid "Streams Enabled"
-msgstr ""
+msgstr "已啟用訊息流"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__live_post_ids
 msgid "Sub-posts that will be published on each selected social accounts."
-msgstr ""
+msgstr "這些子帖文將在每個已選取的社交帳戶發佈。"
 
 #. module: social
 #. odoo-javascript
@@ -1598,19 +1606,19 @@ msgstr "此帖文將會發佈至的帳戶。"
 #: model:ir.model.fields,help:social.field_social_stream_post__author_name
 msgid ""
 "The post author name based on third party information (ex: 'John Doe')."
-msgstr ""
+msgstr "基於第三方資訊的帖文作者名稱（例如：「陳大文」）。"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__state
 msgid ""
 "The post is considered as 'Posted' when all its sub-posts (one per social "
 "account) are either 'Failed' or 'Posted'"
-msgstr ""
+msgstr "若帖文的所有子帖文（每個社交帳戶一個）都是「失敗」或「已發佈」時，整個帖文將視為「已發佈」"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__published_date
 msgid "The post published date based on third party information."
-msgstr ""
+msgstr "基於第三方資訊的帖文發佈日期"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_live_post__failure_reason
@@ -1622,24 +1630,24 @@ msgstr "貼文未能成功張貼至社交媒體的原因（例如：連線錯誤
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__media_image
 msgid "The related Social Media's image"
-msgstr ""
+msgstr "相關社交媒體的圖片"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__media_ids
 msgid "The social medias linked to the selected social accounts."
-msgstr ""
+msgstr "連結至所選社交帳戶的社交媒體。"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__has_post_errors
 msgid "There are post errors on sub-posts"
-msgstr ""
+msgstr "子帖文有帖文錯誤"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__csrf_token
 msgid ""
 "This token can be used to verify that an incoming request from a social "
 "provider has not been forged."
-msgstr ""
+msgstr "此權杖可用於驗證社交網絡提供商傳入的請求是否偽造。"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__name
@@ -1698,7 +1706,7 @@ msgstr "上載的檔案似乎不是有效圖片。"
 msgid ""
 "Use your own Developer Accounts on our Social app. Those credentials are "
 "provided in the developer section of your professional social media account."
-msgstr ""
+msgstr "在我們的社交應用程式上，使用你自己的開發人員帳戶。登入資訊是在你的專業社交媒體帳戶的開發人員部份中提供。"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__media_type
@@ -1707,7 +1715,7 @@ msgstr ""
 msgid ""
 "Used to make comparisons when we need to restrict some features to a "
 "specific media ('facebook', 'twitter', ...)."
-msgstr ""
+msgstr "需要將某些功能限制至指定媒介時（例如 'facebook', 'twitter' 等），可用作進行比較。"
 
 #. module: social
 #. odoo-javascript
@@ -1738,7 +1746,7 @@ msgstr "何時"
 msgid ""
 "When the global post was published. The actual sub-posts published dates may"
 " be different depending on the media."
-msgstr ""
+msgstr "全球帖文的發佈時間。子帖文的實際發佈日期可能會因媒體而異。"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__image_ids
@@ -1758,7 +1766,7 @@ msgstr "編輯一個評論..."
 #: code:addons/social/static/src/js/tours/social.js:0
 #, python-format
 msgid "Write a message to get a preview of your post."
-msgstr ""
+msgstr "寫一則訊息，以預覽你的帖文。"
 
 #. module: social
 #. odoo-javascript
@@ -1772,7 +1780,7 @@ msgstr "寫回覆⋯"
 msgid ""
 "Write an enticing post, add images and schedule it to be posted later on "
 "multiple platforms at once."
-msgstr ""
+msgstr "寫一篇吸引人的帖文，加入圖片並安排帖文於稍後在多個平台上同一時間發佈。"
 
 #. module: social
 #. odoo-python
@@ -1801,14 +1809,14 @@ msgstr ""
 #: code:addons/social/models/social_post.py:0
 #, python-format
 msgid "You cannot reschedule a post that has already been posted."
-msgstr ""
+msgstr "不可重新安排已經發佈的帖文。"
 
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
 #, python-format
 msgid "You cannot schedule a post in the past."
-msgstr ""
+msgstr "不可將帖文排期至過往日期。"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
@@ -1832,12 +1840,12 @@ msgstr "在發佈帖文前。"
 #: code:addons/social/static/src/js/stream_post_comment.js:0
 #, python-format
 msgid "comment/reply"
-msgstr ""
+msgstr "留言/回覆"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
 msgid "dashboard"
-msgstr ""
+msgstr "概覽畫面"
 
 #. module: social
 #. odoo-javascript
@@ -1856,14 +1864,14 @@ msgstr "回覆⋯"
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream_post
 msgid "to keep an eye on your own posts and monitor all social activities."
-msgstr ""
+msgstr "以留意你自己的帖文，並監察所有社交活動。"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
 msgid "to link your accounts and start posting."
-msgstr ""
+msgstr "以連結你的帳戶，並開始發佈。"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_account
 msgid "to start posting from Odoo."
-msgstr ""
+msgstr "以開始從 Odoo 發佈帖文。"

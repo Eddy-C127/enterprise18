@@ -26,7 +26,7 @@ msgstr ""
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "%(minutes)s min %(seconds)s sec"
-msgstr "%(minutes)s min %(seconds)s s"
+msgstr "%(minutes)s min %(seconds)s seg"
 
 #. module: voip
 #. odoo-javascript
@@ -138,7 +138,7 @@ msgstr "Nombre de la actividad"
 #: code:addons/voip/static/src/web/call_queue_switch.js:0
 #, python-format
 msgid "Add to Call Queue"
-msgstr "Agregar a la Lista de Llamadas"
+msgstr "Agregar a la cola de llamadas"
 
 #. module: voip
 #. odoo-javascript
@@ -173,7 +173,7 @@ msgid ""
 "\n"
 "Error: %(error)s"
 msgstr ""
-"Se ha producido un error al intentar invitar al siguiente número:%(phoneNumber)s\n"
+"Ocurrió un error al intentar invitar al siguiente número: %(phoneNumber)s\n"
 "\n"
 "Error: %(error)s"
 
@@ -191,7 +191,7 @@ msgstr ""
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__ask
 msgid "Ask"
-msgstr "Pregunta"
+msgstr "Preguntar"
 
 #. module: voip
 #. odoo-javascript
@@ -242,14 +242,14 @@ msgstr "Llamada rechazada (motivo: “%(reasonPhrase)s”)"
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call to %(correspondent)s"
-msgstr "Llamar a %(correspondent)s"
+msgstr "Llamada a %(correspondent)s"
 
 #. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call to %(phone_number)s"
-msgstr "Llamar a %(phone_number)s"
+msgstr "Llamada a %(phone_number)s"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__calling
@@ -312,7 +312,7 @@ msgstr "Cambiar dispositivo de entrada"
 #: code:addons/voip/static/src/mobile/devise_selection_dialog.xml:0
 #, python-format
 msgid "Choose a device:"
-msgstr "Elegir dispositivo:"
+msgstr "Elija un dispositivo:"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__how_to_call_on_mobile
@@ -349,7 +349,7 @@ msgstr "Cerrar teclado numérico"
 #: code:addons/voip/static/src/web/voip_systray_item.js:0
 #, python-format
 msgid "Close Softphone"
-msgstr "Cerrar Softphone"
+msgstr "Cerrar softphone"
 
 #. module: voip
 #. odoo-javascript
@@ -459,7 +459,7 @@ msgstr "Finalizar llamada"
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__end_date
 msgid "End Date"
-msgstr "Fecha final"
+msgstr "Fecha de finalización"
 
 #. module: voip
 #. odoo-javascript
@@ -535,7 +535,7 @@ msgid ""
 msgstr ""
 "Si se activa, realizar la llamada en Odoo transferirá la llamada al \"número"
 " de dispositivo externo\". Use esta opción para realizar una llamada en Odoo"
-" pero manejarla desde otro dispositivo - por ejemplo, el teléfono de su "
+" pero tomarla desde otro dispositivo, por ejemplo, el teléfono de su "
 "escritorio."
 
 #. module: voip
@@ -613,7 +613,7 @@ msgstr "Me equivoqué, lo siento."
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__missed
 msgid "Missed"
-msgstr "Fallado"
+msgstr "Perdida"
 
 #. module: voip
 #. odoo-python
@@ -678,7 +678,7 @@ msgstr "No hay resultados de búsqueda 💔"
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__ongoing
 msgid "Ongoing"
-msgstr "En proceso"
+msgstr "En curso"
 
 #. module: voip
 #. odoo-javascript
@@ -702,7 +702,7 @@ msgstr "Saliente"
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_config_settings__pbx_ip
 msgid "PBX Server IP"
-msgstr "IP Servidor PBX "
+msgstr "Dirección IP del servidor PBX"
 
 #. module: voip
 #. odoo-javascript
@@ -802,7 +802,7 @@ msgstr "¿Recuerda? "
 #: code:addons/voip/static/src/web/call_queue_switch.js:0
 #, python-format
 msgid "Remove from Call Queue"
-msgstr "Eliminar de la lista de llamadas"
+msgstr "Eliminar de la cola de llamadas"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__user_id
@@ -826,14 +826,14 @@ msgstr "Programe y realice llamadas desde su base de datos"
 #: code:addons/voip/static/src/softphone/correspondence_details.xml:0
 #, python-format
 msgid "Schedule Activity"
-msgstr "Planificación de actividad"
+msgstr "Planificar actividad"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/softphone.xml:0
 #, python-format
 msgid "Search"
-msgstr "Búsqueda"
+msgstr "Buscar"
 
 #. module: voip
 #. odoo-javascript
@@ -857,7 +857,7 @@ msgid ""
 "Some documents cannot be added to the call queue as they do not have a phone"
 " number set: %(record_names)s"
 msgstr ""
-"Algunos documentos no se pueden agregar a las llamadas en espera ya que no "
+"Algunos documentos no se pueden agregar a la cola de llamadas ya que no "
 "tienen un número de teléfono configurado: %(record_names)s"
 
 #. module: voip
@@ -875,7 +875,7 @@ msgstr "Estado"
 #: code:addons/voip/static/src/mobile/call_method_selection_dialog.xml:0
 #, python-format
 msgid "Tell us how to make the call:"
-msgstr "Dinos cómo hacer la llamada:"
+msgstr "Díganos cómo hacer la llamada:"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__terminated
@@ -962,7 +962,7 @@ msgid ""
 msgstr ""
 "No se ha podido ejecutar el agente de usuario. La URL del servidor de "
 "websocket puede ser incorrecta. Pida a un administrador que compruebe la URL"
-" del servidor de websocket en la Configuración general."
+" del servidor de websocket en los ajustes generales."
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__voip_username
@@ -982,7 +982,7 @@ msgid ""
 "The websocket connection with the server has been lost. Please try to "
 "refresh the page."
 msgstr ""
-"Se perdió la conexión de websocket con el servidor. Intente refrescar la "
+"Se perdió la conexión de websocket con el servidor. Intente actualizar la "
 "página."
 
 #. module: voip
@@ -1001,7 +1001,7 @@ msgstr ""
 #: code:addons/voip/static/src/softphone/transfer_popover.xml:0
 #, python-format
 msgid "Transfer"
-msgstr "Albarán"
+msgstr "Transferir"
 
 #. module: voip
 #. odoo-javascript

@@ -92,7 +92,7 @@ msgid ""
 "                        <span class=\"o_stat_text\">Fail:</span>"
 msgstr ""
 "<span class=\"o_stat_text\">Aprovado:</span>\n"
-"                        <span class=\"o_stat_text\">Falha:</span>"
+"                        <span class=\"o_stat_text\">Reprovado:</span>"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.stock_picking_view_form_inherit_quality
@@ -936,12 +936,12 @@ msgstr "Análise de verificação de qualidade"
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_stock_picking__quality_check_fail
 msgid "Quality Check Fail"
-msgstr "Falha na verificação de qualidade"
+msgstr "Reprovação no controle de qualidade"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_wizard_form_failure
 msgid "Quality Check Failed"
-msgstr "Falha na verificação de qualidade"
+msgstr "Reprovado no controle de qualidade"
 
 #. module: quality_control
 #. odoo-python
@@ -1010,7 +1010,7 @@ msgstr "Pontos de controle de qualidade"
 #: model:ir.model.fields,field_description:quality_control.field_product_product__quality_fail_qty
 #: model:ir.model.fields,field_description:quality_control.field_product_template__quality_fail_qty
 msgid "Quality Fail Qty"
-msgstr "Qtd. de falhas de qualidade"
+msgstr "Qtd. de reprovações de qualidade"
 
 #. module: quality_control
 #: model:ir.actions.act_window,name:quality_control.quality_alert_team_action

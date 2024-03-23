@@ -70,7 +70,7 @@ msgstr "附件數"
 #. module: iap_extract
 #: model:ir.model,name:iap_extract.model_extract_mixin
 msgid "Base class to extract data from documents"
-msgstr ""
+msgstr "提取文件數據的基礎類"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_can_show_send_button
@@ -90,21 +90,21 @@ msgstr "完工流程"
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Document is being digitized"
-msgstr ""
+msgstr "文件現正進行數碼化"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Document sent for digitization"
-msgstr ""
+msgstr "文件已傳送作數碼化"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Documents sent for digitization"
-msgstr ""
+msgstr "文件已傳送作數碼化"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_error_message
@@ -215,14 +215,14 @@ msgstr "沒有匯出申請"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_applicant__extract_state__not_enough_credit
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__not_enough_credit
 msgid "Not enough credits"
-msgstr ""
+msgstr "點數不足"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Not enough credits for data extraction"
-msgstr ""
+msgstr "點數不足以提取數據"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_needaction_counter
@@ -268,7 +268,7 @@ msgstr "伺服器暫停服務。請稍後再試"
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Some documents were skipped as they were already digitized"
-msgstr ""
+msgstr "部份文件已經數碼化，所以跳過"
 
 #. module: iap_extract
 #. odoo-python
@@ -298,7 +298,7 @@ msgstr "該文件因太小而被拒絕"
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "The selected documents are already digitized"
-msgstr ""
+msgstr "所選文件已經數碼化"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__to_validate
@@ -344,7 +344,7 @@ msgstr "你的 PDF 文件受密碼保護，無法使用 OCR 提取當中資料"
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Your document contains too many pages"
-msgstr ""
+msgstr "文件頁數太多"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__extract_not_ready

@@ -75,7 +75,7 @@ msgstr "<strong>Organisator:</strong>"
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_kanban
 msgid "<strong>Room: </strong>"
-msgstr "<strong>Kamer:</strong>"
+msgstr "<strong>Ruimte:</strong>"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__access_token
@@ -210,7 +210,7 @@ msgstr "Bedrijf"
 #. module: room
 #: model_terms:ir.actions.act_window,help:room.room_room_action
 msgid "Create Rooms"
-msgstr "Kamers maken"
+msgstr "Ruimtes maken"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__create_uid
@@ -259,8 +259,8 @@ msgstr "Bijv. projector, capaciteit 6 personen"
 #: model:ir.module.category,description:room.module_category_room
 msgid "Enable the user to manage meeting rooms available for booking"
 msgstr ""
-"Stel de gebruiker in staat vergaderruimten te beheren die beschikbaar zijn "
-"om te boeken"
+"Stel de gebruiker in staat vergaderruimtes te beheren die beschikbaar zijn "
+"om te boeken."
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__stop_datetime
@@ -323,7 +323,7 @@ msgstr "Is een volger"
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__is_available
 msgid "Is Room Currently Available"
-msgstr "Is er momenteel een kamer beschikbaar"
+msgstr "Is er momenteel een ruimtes beschikbaar"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__write_uid
@@ -347,12 +347,12 @@ msgstr "Hoofdkantoor"
 #. module: room
 #: model:res.groups,name:room.group_room_manager
 msgid "Manage Rooms"
-msgstr "Beheer kamers"
+msgstr "Beheer ruimtes"
 
 #. module: room
 #: model:ir.ui.menu,name:room.room_menu_root
 msgid "Meeting Rooms"
-msgstr "Vergaderzalen"
+msgstr "Vergaderruimtes"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_search
@@ -450,6 +450,8 @@ msgstr "Kantoornaam"
 msgid ""
 "Oops! Looks like you have multiple tabs opened. Make sure to use only one."
 msgstr ""
+"Oeps! Het lijkt erop dat je meerdere tabbladen hebt geopend. Zorg ervoor dat"
+" je er maar één gebruikt."
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
@@ -499,24 +501,25 @@ msgstr "Openbare boeking"
 #: model:ir.module.category,name:room.module_category_room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_search
 msgid "Room"
-msgstr "Kamer"
+msgstr "Ruimte"
 
 #. module: room
 #. odoo-python
 #: code:addons/room/models/room_booking.py:0
 #, python-format
 msgid "Room %(room_name)s is already booked during the selected time slot."
-msgstr "Kamer %(room_name)s is al geboekt tijdens het geselecteerde tijdslot."
+msgstr ""
+"Ruimte %(room_name)s is al geboekt tijdens het geselecteerde tijdslot."
 
 #. module: room
 #: model:ir.model,name:room.model_room_booking
 msgid "Room Booking"
-msgstr "Kamer Boeking"
+msgstr "Boeking van ruimte"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__room_booking_url
 msgid "Room Booking URL"
-msgstr "URL voor kamerboeking"
+msgstr "URL voor boeking"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__name
@@ -527,7 +530,7 @@ msgstr "Ruimtenaam"
 #. module: room
 #: model:ir.model,name:room.model_room_office
 msgid "Room Office"
-msgstr "Kamer Kantoor"
+msgstr "Kantoorruimte"
 
 #. module: room
 #: model:ir.ui.menu,name:room.room_room_menu
@@ -609,7 +612,7 @@ msgstr ""
 #, python-format
 msgid "This room is as free as a fish in a sea of endless possibilities"
 msgstr ""
-"Deze kamer is zo vrij als een vis in een zee van eindeloze mogelijkheden"
+"Deze ruimte is zo vrij als een vis in een zee van eindeloze mogelijkheden"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_kanban

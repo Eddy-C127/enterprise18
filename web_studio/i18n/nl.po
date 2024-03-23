@@ -6,8 +6,8 @@
 # Martin Trigaux, 2023
 # Wil Odoo, 2023
 # Jolien De Paepe, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # Gunther Clauwaert <gclauwae@hotmail.com>, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:09+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Gunther Clauwaert <gclauwae@hotmail.com>, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1571,14 +1571,14 @@ msgstr "Fout"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Error message:"
-msgstr ""
+msgstr "Foutmelding:"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Error name:"
-msgstr ""
+msgstr "Foutnaam:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1956,7 +1956,7 @@ msgstr "ID"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "IDs"
-msgstr ""
+msgstr "IDs"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2612,7 +2612,7 @@ msgstr "Odoo Studio"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "On view (ir.ui.view):"
-msgstr ""
+msgstr "OP weergave (ir.ui.view):"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2689,7 +2689,7 @@ msgstr "Bovenliggend menu"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Parent View (inherit_id)"
-msgstr ""
+msgstr "Bovenliggende weergave (inherit_id)"
 
 #. module: web_studio
 #. odoo-python
@@ -3305,7 +3305,7 @@ msgstr "Toon onzichtbare elementen"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Show Traceback"
-msgstr ""
+msgstr "Geef traceback"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3653,6 +3653,10 @@ msgid ""
 "some view inherits from another but targets a node that doesn't exist. It "
 "might be due to the mutations of the base views during the upgrade process."
 msgstr ""
+"Het rapport kon niet worden geladen omdat er een fout is opgetreden. Meestal"
+" betekent dit dat een bepaalde weergave overerft van een andere, maar zich "
+"richt op een knooppunt dat niet bestaat. Dit kan te wijten zijn aan de "
+"aanpassingen van de basisweergaven tijdens het upgradeproces."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3930,7 +3934,7 @@ msgstr "Bekijk"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "View in Error:"
-msgstr ""
+msgstr "Weergave met fout:"
 
 #. module: web_studio
 #. odoo-javascript

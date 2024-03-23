@@ -195,7 +195,7 @@ msgstr "Crear Factura"
 #. module: industry_fsm_sale
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.project_view_form_inherit
 msgid "Create new quotations directly from tasks"
-msgstr "Crea nuevos presupuestos directamente desde las tareas"
+msgstr "Crear nuevos presupuestos directamente desde las tareas"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__currency_id
@@ -205,7 +205,7 @@ msgstr "Moneda"
 #. module: industry_fsm_sale
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.project_view_form_inherit
 msgid "Default Service"
-msgstr "Servicio predeterminado"
+msgstr "Servicio por defecto"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_sale_order_line__delivered_price_subtotal
@@ -237,7 +237,7 @@ msgstr "Mostrar crear factura secundario"
 #: code:addons/industry_fsm_sale/models/sale_order.py:0
 #, python-format
 msgid "Extra Quotation Created: %s"
-msgstr "Creación de un presupuesto adicional: %s"
+msgstr "Presupuesto adicional creado: %s"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_project__allow_quotations
@@ -263,7 +263,7 @@ msgstr "Divisa del precio de partner de Servicio externo"
 #. module: industry_fsm_sale
 #: model:ir.model.fields.selection,name:industry_fsm_sale.selection__report_project_task_user_fsm__invoice_status__invoiced
 msgid "Fully Invoiced"
-msgstr "Facturado"
+msgstr "Facturado por completo"
 
 #. module: industry_fsm_sale
 #. odoo-python
@@ -284,12 +284,12 @@ msgstr "Valor no válido: %s"
 #: code:addons/industry_fsm_sale/models/project_task.py:0
 #, python-format
 msgid "Invoice"
-msgstr "Facturas de clientes"
+msgstr "Factura"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__portal_invoice_count
 msgid "Invoice Count"
-msgstr "Recuento de facturas"
+msgstr "Número de facturas"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__invoice_status
@@ -332,7 +332,7 @@ msgstr "Creemos un nuevo <b>producto</b>."
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__material_line_product_count
 msgid "Material Line Product Count"
-msgstr "Recuento de línea de material de producto"
+msgstr "Número de líneas de material de producto"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__material_line_total_price
@@ -347,22 +347,22 @@ msgstr "Cantidad de material"
 #. module: industry_fsm_sale
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.view_task_form2_inherit
 msgid "New Quotation"
-msgstr "Nuevo Presupuesto"
+msgstr "Nuevo presupuesto"
 
 #. module: industry_fsm_sale
 #: model_terms:ir.actions.act_window,help:industry_fsm_sale.product_action_fsm
 msgid "No products found. Let's create one!"
-msgstr "No se encontraron productos. ¡Vamos a crear uno!"
+msgstr "No se encontraron productos. ¡Creemos uno!"
 
 #. module: industry_fsm_sale
 #: model_terms:ir.actions.act_window,help:industry_fsm_sale.project_task_action_to_invoice_fsm
 msgid "No tasks found. Let's create one!"
-msgstr "No se encontraron tareas. ¡Creemos uno!"
+msgstr "No se encontraron tareas. ¡Creemos una!"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields.selection,name:industry_fsm_sale.selection__report_project_task_user_fsm__invoice_status__no
 msgid "Nothing to Invoice"
-msgstr "Nada que Facturar"
+msgstr "Nada que facturar"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__invoice_count
@@ -372,7 +372,7 @@ msgstr "Número de facturas"
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_product_product__fsm_partner_price
 msgid "Partner Price"
-msgstr "Precio de partner"
+msgstr "Precio del contacto"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__portal_quotation_count
@@ -436,7 +436,7 @@ msgstr "Presupuesto"
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__quotation_count
 msgid "Quotation Count"
-msgstr "Nº de presupuestos"
+msgstr "Número de presupuestos"
 
 #. module: industry_fsm_sale
 #. odoo-python
@@ -455,7 +455,7 @@ msgstr "Tarea relacionada"
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_sale_advance_payment_inv
 msgid "Sales Advance Payment Invoice"
-msgstr "Ventas. Anticipo pago factura"
+msgstr "Pago anticipado para factura de ventas"
 
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_sale_order
@@ -476,8 +476,8 @@ msgid ""
 "Remove the sales order item in order to make this task non billable. You can also change or remove the sales order item of each timesheet entry individually."
 msgstr ""
 "Artículo de la orden de venta en el que agregará el tiempo dedicado para ser facturado al cliente.\n"
-"De forma predeterminada, se seleccionará el artículo de la orden de venta establecido en el proyecto. Si no hay uno establecido, se utilizará el último artículo de la orden de venta prepagado que tenga tiempo restante.\n"
-"Borre el artículo de la orden de venta para hacer que esta tarea sea no facturable. También puede cambiar o borrar el artículo de la orden de venta de cada entrada de hoja de asistencia de forma individual."
+"Por defecto, se seleccionará el artículo de la orden de venta establecido en el proyecto. Si no hay uno establecido, se utilizará el último artículo de la orden de venta prepagado que tenga tiempo restante.\n"
+"Elimine el artículo de la orden de venta para hacer que esta tarea sea no facturable. También puede cambiar o eliminar individualmente el artículo de la orden de venta de cada entrada de hoja de asistencia."
 
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_sale_order_line
@@ -490,7 +490,7 @@ msgid ""
 "Sales order item that will be selected by default on the tasks and timesheets of this project, except if the employee set on the timesheets is explicitely linked to another sales order item on the project.\n"
 "It can be modified on each task and timesheet entry individually if necessary."
 msgstr ""
-"Artículo de orden de venta que se seleccionará de forma predeterminada en las tareas y hojas de asistencia de este proyecto, excepto si el empleado establecido en las hojas de asistencia está explícitamente vinculado a otro artículo de orden de venta del proyecto.\n"
+"Artículo de orden de venta que se seleccionará por defecto en las tareas y hojas de asistencia de este proyecto, excepto si el empleado establecido en las hojas de asistencia está explícitamente vinculado a otro artículo de orden de venta del proyecto.\n"
 "Se puede modificar en cada tarea y entrada de hoja de asistencia si es necesario."
 
 #. module: industry_fsm_sale
@@ -563,7 +563,8 @@ msgstr ""
 #. module: industry_fsm_sale
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.project_view_form_inherit
 msgid "Track the material used to complete tasks"
-msgstr "Registra los materiales utilizados para completar tareas"
+msgstr ""
+"Lleve el seguimiento de los materiales utilizados para completar tareas"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_sale_line_employee_map__price_unit

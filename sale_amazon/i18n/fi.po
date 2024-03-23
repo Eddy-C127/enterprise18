@@ -12,8 +12,8 @@
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2023
 # Martin Trigaux, 2023
 # Konsta Aavaranta, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -124,6 +124,62 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<style>\n"
+"                .amz_table {\n"
+"                    width: 100%;\n"
+"                    max-width: 900px;\n"
+"                    border-collapse: collapse;\n"
+"                }\n"
+"\n"
+"                .amz_table th,\n"
+"                .amz_table td {\n"
+"                    border: ;\n"
+"                }\n"
+"\n"
+"                .amz_table th {\n"
+"                    white-space: nowrap;\n"
+"                }\n"
+"\n"
+"                .amz_table thead th {\n"
+"                    padding: 0.5em 0.5em;\n"
+"                    text-align: center;\n"
+"                    border-bottom: 1px solid #888;\n"
+"                }\n"
+"\n"
+"                .amz_table tbody th,\n"
+"                .amz_table tbody td {\n"
+"                    padding: 0.5em 0.5em 1em;\n"
+"                    vertical-align: top;\n"
+"                }\n"
+"            </style>\n"
+"            <div>\n"
+"                <p>Toimitustilausten synkronoinnissa ilmeni virheitä, eikä sitä saatu päätökseen.</p>\n"
+"                <p>Korjaa ongelma ennen kuin synkronoit toimitustilaukset manuaalisesti uudelleen, sillä muuta synkronointia ei yritetä.</p>\n"
+"                <p>Tässä ovat Amazonin lähettämät virheet: </p>\n"
+"                <table class=\"amz_table\">\n"
+"                    <thead>\n"
+"                        <tr>\n"
+"                            <th>Tilausviite</th>\n"
+"                            <th>Viesti</th>\n"
+"                        </tr>\n"
+"                    </thead>\n"
+"                    <tbody>\n"
+"                        <tr t-foreach=\"ctx.get('error_messages')\" t-as=\"error\">\n"
+"                            <th><t t-out=\"error['order_ref']\"></t></th>\n"
+"                            <td>\n"
+"                                <t t-if=\"error['message']\" t-out=\"error['message']\"></t>\n"
+"                                <t t-else=\"\">Tuntematon virhe ilmeni synkronoinnin aikana Amazonin kanssa.\n"
+"                                    Sinun on tarkistettava manuaalisesti, onko tilauksen tila oikea vai ei.\n"
+"                                    Löydät kaikki tiedot tästä\n"
+"                                   <a href=\"https://www.odoo.com/documentation/latest/applications/sales/sales/amazon_connector/manage.html#manage_deliveries_errors\">\n"
+"                                        dokumentaatiosta </a>\n"
+"                                    .</t>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"            </div>\n"
+"        "
 
 #. module: sale_amazon
 #: model:mail.template,body_html:sale_amazon.inventory_sync_failure
@@ -183,6 +239,60 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<style>\n"
+"                .amz_table {\n"
+"                    width: 100%;\n"
+"                    max-width: 900px;\n"
+"                    border-collapse: collapse;\n"
+"                }\n"
+"\n"
+"                .amz_table th,\n"
+"                .amz_table td {\n"
+"                    border: ;\n"
+"                }\n"
+"\n"
+"                .amz_table th {\n"
+"                    white-space: nowrap;\n"
+"                }\n"
+"\n"
+"                .amz_table thead th {\n"
+"                    padding: 0.5em 0.5em;\n"
+"                    text-align: center;\n"
+"                    border-bottom: 1px solid #888;\n"
+"                }\n"
+"\n"
+"                .amz_table tbody th,\n"
+"                .amz_table tbody td {\n"
+"                    padding: 0.5em 0.5em 1em;\n"
+"                    vertical-align: top;\n"
+"                }\n"
+"            </style>\n"
+"            <div>\n"
+"                <p>Tuotteiden saatavuuden synkronointi Amazon-tilille\n"
+"                    <b><t t-out=\"ctx.get('amazon_account') or ''\">REF</t></b>\n"
+"                    kohtasi joitakin virheitä, eikä sitä saatu päätökseen.</p>\n"
+"                <p>Tässä ovat Amazonin lähettämät virheet: </p>\n"
+"                <table class=\"amz_table\">\n"
+"                    <thead>\n"
+"                        <tr>\n"
+"                            <th>SKU</th>\n"
+"                            <th>Viesti</th>\n"
+"                        </tr>\n"
+"                    </thead>\n"
+"                    <tbody>\n"
+"                        <tr t-foreach=\"ctx.get('error_messages')\" t-as=\"error\">\n"
+"                            <th><t t-out=\"error['sku']\"></t></th>\n"
+"                            <td>\n"
+"                                <t t-if=\"error['message']\" t-out=\"error['message']\"></t>\n"
+"                                <t t-else=\"\">Tuntematon virhe tapahtui synkronoinnin aikana Amazonin kanssa.\n"
+"                                    Sinun on tarkistettava manuaalisesti, onko tuotteen käytettävissä oleva määrä oikea vai ei.\n"
+"                                </t>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"            </div>\n"
+"        "
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_marketplace__api_ref
@@ -255,7 +365,7 @@ msgstr "Amazon Sähköposti"
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_offer__amazon_feed_ref
 #: model:ir.model.fields,field_description:sale_amazon.field_stock_picking__amazon_feed_ref
 msgid "Amazon Feed Reference"
-msgstr ""
+msgstr "Amazonin syötteen viite"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_sale_order_line__amazon_item_ref
@@ -289,17 +399,17 @@ msgstr "Amazon Tarjoukset"
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_recover_order_wizard__amazon_order_ref
 msgid "Amazon Order Reference"
-msgstr ""
+msgstr "Amazonin tilausviite"
 
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_amazon_recover_order_wizard
 msgid "Amazon Recover Order Wizard"
-msgstr ""
+msgstr "Amazon tilauksen palautuksen ohjattu toiminto"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_sale_order__amazon_order_ref
 msgid "Amazon Reference"
-msgstr ""
+msgstr "Amazonin viite"
 
 #. module: sale_amazon
 #: model:product.template,name:sale_amazon.default_product_product_template
@@ -315,7 +425,7 @@ msgstr "Amazon Shipping"
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_offer__amazon_sync_status
 #: model:ir.model.fields,field_description:sale_amazon.field_stock_picking__amazon_sync_status
 msgid "Amazon Synchronization Status"
-msgstr ""
+msgstr "Amazonin synkronoinnin tila"
 
 #. module: sale_amazon
 #: model_terms:ir.actions.act_window,help:sale_amazon.list_amazon_account_action
@@ -334,7 +444,7 @@ msgstr "Amazonin markkinapaikkoja ei voi poistaa."
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "Amazon move: %s"
-msgstr ""
+msgstr "Amazonin siirto: %s"
 
 #. module: sale_amazon
 #. odoo-python
@@ -469,11 +579,12 @@ msgstr "Amazon.sg"
 #: model:mail.template,name:sale_amazon.inventory_sync_failure
 msgid "Amazon: Available Inventory for Offers Synchronization Failure"
 msgstr ""
+"Amazon: Synkronointihäiriö tarjousten käytettävissä olevassa varastossa"
 
 #. module: sale_amazon
 #: model:mail.template,name:sale_amazon.picking_sync_failure
 msgid "Amazon: Delivery Order Synchronization Failure"
-msgstr ""
+msgstr "Amazon: Toimitustilauksen synkronoinnin epäonnistuminen"
 
 #. module: sale_amazon
 #: model:mail.template,name:sale_amazon.order_sync_failure
@@ -483,17 +594,17 @@ msgstr "Amazon: Tilauksen synkronoinnin epäonnistuminen"
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_inventory_ir_actions_server
 msgid "Amazon: sync available inventory"
-msgstr ""
+msgstr "Amazon: synkronoi käytettävissä oleva varasto"
 
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_pickings_ir_actions_server
 msgid "Amazon: sync delivery orders"
-msgstr ""
+msgstr "Amazon: synkronoi toimitustilaukset"
 
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_feeds_ir_actions_server
 msgid "Amazon: sync feeds"
-msgstr ""
+msgstr "Amazon: synkronointi syötteet"
 
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_orders_ir_actions_server
@@ -569,7 +680,7 @@ msgstr "Ei löydy Amazon-tiliä tunnuksella %s"
 #: code:addons/sale_amazon/utils.py:0
 #, python-format
 msgid "Could not process the feed document send by Amazon."
-msgstr ""
+msgstr "Amazonin lähettämää syöttöasiakirjaa ei voitu käsitellä."
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__create_uid
@@ -681,7 +792,7 @@ msgstr ""
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__base_marketplace_id
 msgid "Home Marketplace"
-msgstr ""
+msgstr "Markkinapaikan koti"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__id
@@ -731,7 +842,7 @@ msgstr ""
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.picking_view_form
 msgid "In Processing by Amazon"
-msgstr ""
+msgstr "Amazonin käsittelyssä"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_search
@@ -791,7 +902,7 @@ msgstr ""
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "Linked Account"
-msgstr ""
+msgstr "Linkitetty tili"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_order_view_form
@@ -907,7 +1018,7 @@ msgstr ""
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.recover_order_wizard_form
 msgid "Recover"
-msgstr ""
+msgstr "Palauta"
 
 #. module: sale_amazon
 #. odoo-python
@@ -916,7 +1027,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_amazon.recover_order_wizard_form
 #, python-format
 msgid "Recover Order"
-msgstr ""
+msgstr "Palautustilaus"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_marketplace__region
@@ -941,7 +1052,7 @@ msgstr "Rajoitettujen tietojen tunniste"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.picking_view_form
 msgid "Retry Amazon Sync"
-msgstr ""
+msgstr "Yritä Amazon-synkronointia uudelleen"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_offer__sku
@@ -951,7 +1062,7 @@ msgstr "SKU"
 #. module: sale_amazon
 #: model:ir.model.constraint,message:sale_amazon.constraint_amazon_offer_unique_sku
 msgid "SKU must be unique for a given account."
-msgstr ""
+msgstr "SKU:n on oltava yksilöllinen tietylle tilille."
 
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_sale_order
@@ -976,7 +1087,7 @@ msgstr "Myyjä"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.picking_view_form
 msgid "Scheduled for Amazon Synchronization"
-msgstr ""
+msgstr "Aikataulutettu Amazonin synkronointia varten"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -984,6 +1095,8 @@ msgid ""
 "Select the marketplace on which your seller account\n"
 "                                                was initially created."
 msgstr ""
+"Valitse markkinapaikka, jolla myyjätilisi\n"
+"                                                luotiin alun perin."
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_marketplace__seller_central_url
@@ -1010,17 +1123,17 @@ msgstr "Päivitetty onnistuneesti tilin käytettävissä olevat markkinapaikat!"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "Sync Deliveries"
-msgstr ""
+msgstr "Synkronoi toimitukset"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "Sync FBM Inventory"
-msgstr ""
+msgstr "Synkronoi FBM inventaario"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "Sync Feeds Status"
-msgstr ""
+msgstr "Synkronointisyötteiden tila"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__active_marketplace_ids
@@ -1036,7 +1149,7 @@ msgstr "Synkronoi tilaukset"
 #. module: sale_amazon
 #: model:mail.template,subject:sale_amazon.inventory_sync_failure
 msgid "Synchronization of Amazon Stock has failed"
-msgstr ""
+msgstr "Amazon Stockin synkronointi on epäonnistunut"
 
 #. module: sale_amazon
 #: model:mail.template,subject:sale_amazon.order_sync_failure
@@ -1048,22 +1161,22 @@ msgstr ""
 #. module: sale_amazon
 #: model:mail.template,subject:sale_amazon.picking_sync_failure
 msgid "Synchronization of delivery orders has failed"
-msgstr ""
+msgstr "Toimitustilausten synkronointi on epäonnistunut"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.picking_view_form
 msgid "Synchronization with Amazon failed"
-msgstr ""
+msgstr "Synkronointi Amazonin kanssa epäonnistui"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__synchronize_inventory
 msgid "Synchronize FBM Inventory"
-msgstr ""
+msgstr "Synkronoi FBM:n inventaario"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.picking_view_form
 msgid "Synchronized with Amazon"
-msgstr ""
+msgstr "Synkronoitu Amazonin kanssa"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_marketplace__tax_included
@@ -1075,7 +1188,7 @@ msgstr "Verollinen"
 #: code:addons/sale_amazon/wizards/recover_order_wizard.py:0
 #, python-format
 msgid "The Amazon order reference must be in 3-7-7 format."
-msgstr ""
+msgstr "Amazon-tilausviitteen on oltava 3-7-7-muodossa."
 
 #. module: sale_amazon
 #. odoo-python
@@ -1086,6 +1199,9 @@ msgid ""
 " (%(status)s) is not eligible for synchronization for its fulfillment "
 "channel (%(channel)s)."
 msgstr ""
+"Amazon-tilausta, jonka viite on %(ref)s, ei saatu takaisin, koska sen tila "
+"(%(status)s) ei kelpaa synkronoitavaksi sen täyttökanavan (%(channel)s) "
+"osalta."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_marketplace__region
@@ -1148,7 +1264,7 @@ msgstr "Asiakkaan salattu sähköpostiosoite. Ei lähetä sähköposteja eteenp�
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__base_marketplace_id
 msgid "The home marketplace of this account; used for authentication only."
-msgstr ""
+msgstr "Tämän tilin kotimarkkinapaikka; käytetään vain todennukseen."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__last_orders_sync
@@ -1226,19 +1342,19 @@ msgstr ""
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "The order was not found on this account's marketplaces."
-msgstr ""
+msgstr "Tilausta ei löytynyt tämän tilin markkinapaikoilta."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "The provided reference does not match any Amazon order."
-msgstr ""
+msgstr "Annettu viite ei vastaa mitään Amazonin tilausta."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_recover_order_wizard__amazon_order_ref
 msgid "The reference to the Amazon order to recover, in 3-7-7 format"
-msgstr ""
+msgstr "Viittaus Amazonin palautustilaukseen 3-7-7-muodossa"
 
 #. module: sale_amazon
 #. odoo-python
@@ -1247,6 +1363,7 @@ msgstr ""
 msgid ""
 "The sales order of this delivery order is not linked to an Amazon account."
 msgstr ""
+"Tämän toimitustilauksen myyntitilausta ei ole yhdistetty Amazon-tiliin."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__account_id
@@ -1302,6 +1419,11 @@ msgid ""
 "- Done: The delivery details have been processed.\n"
 "- Error: The synchronization of the delivery order failed."
 msgstr ""
+"Toimitustilauksen synkronointitila Amazonille:\n"
+"- Vireillä: Toimitustilaus on vahvistettu ja synkronoidaan pian.\n"
+"- Käsittely: Synkronointi on synkronoitu: Toimitustiedot on lähetetty ja niitä käsitellään parhaillaan.\n"
+"- Valmis: Toimitustiedot on käsitelty.\n"
+"- Virhe: Toimitustilauksen synkronointi epäonnistui."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__amazon_sync_status
@@ -1311,6 +1433,10 @@ msgid ""
 "- Done: The stock level has been processed.\n"
 "- Error: The synchronization of the stock level failed."
 msgstr ""
+"Tuotteen varastotason synkronointitilanne Amazoniin:\n"
+"- Käsittely: Varastotaso on lähetetty ja sitä käsitellään parhaillaan.\n"
+"- Valmis: Varastotaso on käsitelty.\n"
+"- Virhe: Varastotason synkronointi epäonnistui."
 
 #. module: sale_amazon
 #. odoo-python
@@ -1320,6 +1446,8 @@ msgid ""
 "The synchronization with Amazon failed. Amazon gave us this information "
 "about the problem:"
 msgstr ""
+"Synkronointi Amazonin kanssa epäonnistui. Amazon antoi seuraavat tiedot "
+"ongelmasta:"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__name
@@ -1366,7 +1494,7 @@ msgstr "Poista linkki tililtä"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "Unlinked Account"
-msgstr ""
+msgstr "Linkittämätön tili"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1391,6 +1519,8 @@ msgid ""
 "Whether the available quantities of FBM products linked to this account are "
 "synchronized with Amazon."
 msgstr ""
+"Synkronoidaanko tähän tiliin liittyvien FBM-tuotteiden käytettävissä olevat "
+"määrät Amazonin kanssa."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_marketplace__tax_included

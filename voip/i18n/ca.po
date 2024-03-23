@@ -9,7 +9,6 @@
 # Carles Antoli <carlesantoli@hotmail.com>, 2023
 # Quim - eccit <quim@eccit.com>, 2023
 # Josep Sànchez <papapep@gmx.com>, 2023
-# Josep Anton Belchi, 2023
 # Eric Antones <eantones@users.noreply.github.com>, 2023
 # Óscar Fonseca <tecnico@pyming.com>, 2023
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2023
@@ -18,6 +17,7 @@
 # Jonatan Gk, 2023
 # Ivan Espinola, 2023
 # marcescu, 2023
+# Josep Anton Belchi, 2024
 # 
 msgid ""
 msgstr ""
@@ -25,7 +25,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: marcescu, 2023\n"
+"Last-Translator: Josep Anton Belchi, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,35 +38,35 @@ msgstr ""
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "%(minutes)s min %(seconds)s sec"
-msgstr ""
+msgstr "%(minutes)s min %(seconds)s seg"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "%(minutes)s minutes"
-msgstr ""
+msgstr "%(minutes)s minuts"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "%(number)s missed calls"
-msgstr ""
+msgstr "%(number)s trucades perdudes"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "%(seconds)s seconds"
-msgstr ""
+msgstr "%(seconds)s segons"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "1 minute"
-msgstr ""
+msgstr "1 minut"
 
 #. module: voip
 #. odoo-javascript
@@ -80,14 +80,14 @@ msgstr "1 trucada perduda"
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "1 second"
-msgstr ""
+msgstr "1 segon"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "2 minutes"
-msgstr ""
+msgstr "2 minuts"
 
 #. module: voip
 #. odoo-javascript
@@ -101,7 +101,7 @@ msgstr "2 trucades perdudes"
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "2 seconds"
-msgstr ""
+msgstr "2 segons"
 
 #. module: voip
 #. odoo-javascript
@@ -111,23 +111,26 @@ msgid ""
 "A hardware error has occurred while trying to access the audio recording "
 "device. Please ensure that your drivers are up to date and try again."
 msgstr ""
+"S'ha esdevingut un error de hardware mentre s'intentava accedir al "
+"dispositiu d'enregistrament d'àudio. Assegureu-vos que els vostres drivers "
+"estan actualitzats i torneu-ho a provar."
 
 #. module: voip
 #: model:ir.model,name:voip.model_voip_call
 msgid "A phone call handled using the VoIP application"
-msgstr ""
+msgstr "Una trucada telefónica gestionada amb l'aplicació de veu IP"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__aborted
 msgid "Aborted"
-msgstr ""
+msgstr "Cancel·lat"
 
 #. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Aborted call to %(phone_number)s"
-msgstr ""
+msgstr "Trucada a %(phone_number)s cancel·lada"
 
 #. module: voip
 #. odoo-javascript
@@ -157,6 +160,8 @@ msgid ""
 "An error occured involving the audio recording device (%(errorName)s):\n"
 "%(errorMessage)s"
 msgstr ""
+"S'ha esdevingut un error relacionat amb el dispositiu d'enregistrament (%(errorName)s):\n"
+"%(errorMessage)s"
 
 #. module: voip
 #. odoo-javascript
@@ -167,6 +172,19 @@ msgid ""
 "\n"
 "%(error)s"
 msgstr ""
+"S'ha esdevingut un error mentre s'instanciava l'agent d'usuari:\n"
+"\n"
+"%(error)s"
+
+#. module: voip
+#. odoo-javascript
+#: code:addons/voip/static/src/core/user_agent_service.js:0
+#, python-format
+msgid ""
+"An error occurred trying to invite the following number: %(phoneNumber)s\n"
+"\n"
+"Error: %(error)s"
+msgstr ""
 
 #. module: voip
 #. odoo-javascript
@@ -175,7 +193,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to delete this activity? It will be lost forever, "
 "which is quite a long time 😔"
-msgstr ""
+msgstr "Segur que voleu esborrar aquesta activitat? Es perdrà definitivament"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__ask
@@ -204,14 +222,14 @@ msgstr "Trucada"
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call from %(correspondent)s"
-msgstr ""
+msgstr "Trucada des de %(correspondent)s"
 
 #. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call from %(phone_number)s"
-msgstr ""
+msgstr "Trucada des de %(phone_number)s"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
@@ -224,7 +242,7 @@ msgstr "Truca des d'un altre dispositiu"
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "Call rejected (reason: “%(reasonPhrase)s”)"
-msgstr ""
+msgstr "Trucada rebutjada (motiu: “%(reasonPhrase)s”)"
 
 #. module: voip
 #. odoo-python
@@ -243,20 +261,20 @@ msgstr ""
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__calling
 msgid "Calling"
-msgstr ""
+msgstr "Trucant"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "Calling %(phone number)s"
-msgstr ""
+msgstr "Trucant %(phone number)s"
 
 #. module: voip
 #: model:ir.actions.act_window,name:voip.voip_call_view
 #: model_terms:ir.ui.view,arch_db:voip.voip_call_tree_view
 msgid "Calls"
-msgstr ""
+msgstr "Trucades"
 
 #. module: voip
 #. odoo-javascript
@@ -283,6 +301,10 @@ msgid ""
 "website is running over HTTPS and that your browser is not set to deny "
 "access to media devices."
 msgstr ""
+"No es pot accedir al dispositiu d'enregistrament d'àudio. Si heu denegat "
+"l'accés al vostre micròfon, permeteu-lo i torneu a provar. En altre cas, "
+"assegureu-vos que aquest lloc web fa servir HTTPS i que el vostre navegador "
+"no està configurat per a denegar accés a dispositius multimèdia."
 
 #. module: voip
 #. odoo-javascript

@@ -30,6 +30,10 @@ msgid ""
 "                Your changes on the rental period are not taken into account.\n"
 "            "
 msgstr ""
+"\n"
+"                新的租賃期對購物車內部份產品無效。\n"
+"                你對租賃期的變更不會生效。\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -191,7 +195,7 @@ msgstr "所有"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.cart
 msgid "Applies to all rented items"
-msgstr ""
+msgstr "適用於所有租賃物品"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.s_rental_search_options
@@ -319,7 +323,7 @@ msgstr "網上租用"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.cart_summary
 msgid "Rental Period"
-msgstr ""
+msgstr "租賃期"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.snippets
@@ -329,7 +333,7 @@ msgstr "搜尋租賃"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.cart
 msgid "Rental period"
-msgstr ""
+msgstr "租賃期"
 
 #. module: website_sale_renting
 #: model:ir.model,name:website_sale_renting.model_sale_order
@@ -354,7 +358,7 @@ msgstr "星期六"
 msgid ""
 "Some of your rental products cannot be rented during the selected period and"
 " your cart must be updated. We're sorry for the inconvenience."
-msgstr ""
+msgstr "在所選期間內，你的部份租賃產品未能出租，你的購物車必須更新。對造成的不便，我們表示抱歉。"
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_sun
@@ -369,6 +373,8 @@ msgid ""
 "The period must be the same for all products of your cart.\n"
 "You must change the period on your cart or create different orders if you want different periods."
 msgstr ""
+"購物車中所有產品的租賃期，必須相同。\n"
+"若想有不同的租賃期，你必須更改購物車的租賃期，或建立不同的訂單。"
 
 #. module: website_sale_renting
 #. odoo-javascript

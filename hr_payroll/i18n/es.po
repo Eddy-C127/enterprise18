@@ -93,7 +93,7 @@ msgstr "%s-declaración-%s"
 #. module: hr_payroll
 #: model:ir.actions.report,print_report_name:hr_payroll.action_report_payslip
 msgid "'Payslip - %s' % (object.name)"
-msgstr "'Nómina - %s' % (object.name)"
+msgstr "'Recibo de nómina - %s' % (object.name)"
 
 #. module: hr_payroll
 #. odoo-python
@@ -179,7 +179,7 @@ msgstr "/ año"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "1. Save documents to terminated employees"
-msgstr "1. Guarda los documentos para los empleados despedidos"
+msgstr "1. Guardar los documentos para los empleados despedidos"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.contribution_register
@@ -201,7 +201,7 @@ msgstr "1er semestre de %s"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "2. Index salaries for Marketing department"
-msgstr "2. Index de salario para el departamento de marketing"
+msgstr "2. Indexar los sueldos para el departamento de marketing"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.contribution_register
@@ -228,7 +228,8 @@ msgstr "2do semestre de %s"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "3. Create a new contract for Marc Demo with his new position"
-msgstr "3. crear un nuevo contrato para marc demo con su nueva posición"
+msgstr ""
+"3. Crear un nuevo contrato para Marc Demo con su nuevo puesto de trabajo"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -323,10 +324,10 @@ msgid ""
 "automatic recalculation. Be careful that reordering the lines doesn't "
 "recompute them.</span>"
 msgstr ""
-"<span><strong>Consejo:</strong> Cada vez que editas la cantidad o el importe"
-" en una línea, recalculamos las siguientes líneas. Recomendamos que edites "
-"de arriba hacia abajo para prevenir que tu edición sea sobrescrita por el "
-"recálculo automático. Ten en cuenta que reordenar las líneas no las "
+"<span><strong>Consejo:</strong> cada vez que edite la cantidad o el importe "
+"en una línea, recalculamos las siguientes líneas. Recomendamos que edite de "
+"arriba hacia abajo para prevenir que su edición sea sobrescrita por el "
+"recálculo automático. Tenga en cuenta que reabastecer las líneas no las "
 "recalcula.</span>"
 
 #. module: hr_payroll
@@ -1058,7 +1059,7 @@ msgstr "Confirmar"
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 #, python-format
 msgid "Confirm the <strong>Payslip</strong>."
-msgstr "confirme la <strong>nómina de sueldo</strong>."
+msgstr "Confirme el <strong>recibo de nómina</strong>."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip_run__state__verify
@@ -1085,8 +1086,7 @@ msgid ""
 "Congratulations! You created your first contract and generated your first "
 "payslip!"
 msgstr ""
-"Enhorabuena! has creado tu primer contrato y generado tu primer nómina de "
-"sueldos"
+"¡Enhorabuena! ¡Creó su primer contrato y generó su primer recibo de nómina!"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__contract_id
@@ -1539,7 +1539,7 @@ msgstr "Recibos realizados"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Double Holiday Pay"
-msgstr "Pago de día festivo doble"
+msgstr "Paga extra de verano"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days_type__down
@@ -2468,7 +2468,7 @@ msgid ""
 "the default value is 'Salary Slip'"
 msgstr ""
 "Nombre que se establecerá en un recibo de nómina. Ejemplo: 'Bono de fin de "
-"año'. Si no se establece, el valor predeterminado es 'Salario'"
+"año'. Si no se establece, el valor por defecto es 'Salario'"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__negative_net_to_report_amount
@@ -3023,7 +3023,7 @@ msgstr "Lotes de recibos de nómina"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__payslip_count
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__payslip_count
 msgid "Payslip Count"
-msgstr "Recuento de recibos de nómina"
+msgstr "Número de recibos de nómina"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__payslip_end_date
@@ -3125,7 +3125,7 @@ msgstr "Lotes de recibos de nómina"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_tree
 msgid "Payslips Count"
-msgstr "recuento de nominas"
+msgstr "Número de recibos de nómina"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3137,14 +3137,14 @@ msgstr "nominas generadas en contratos previos"
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.hr_payslip_action_view_to_pay
 msgid "Payslips To Pay"
-msgstr "Recibos de nómina por pagar"
+msgstr "Recibos de nómina a pagar"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Payslips With Negative Amounts"
-msgstr "nominas con cantidades negativas"
+msgstr "Recibos de nómina con importes negativos"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
@@ -3156,7 +3156,7 @@ msgstr "Recibos de nómina por empleados"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Payslips with negative NET"
-msgstr "nominas con neto negativo"
+msgstr "Recibos de nómina con neto negativo"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__pdf_filename
@@ -3222,7 +3222,7 @@ msgstr "Publicar recibos de nómina en contabilidad"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Previous Negative Payslip to Report"
-msgstr "Recibo de nómina negativo anterior para reportar"
+msgstr "Recibo de nómina negativo anterior a comunicar"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
@@ -4211,7 +4211,7 @@ msgstr "Importe total"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Total Working Days"
-msgstr "Días de trabajo totales"
+msgstr "Total de días laborables"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
@@ -4427,7 +4427,7 @@ msgstr "Advertencia: se encontró un archivo adjunto similar."
 #: code:addons/hr_payroll/static/src/components/dashboard/action_box/action_box.xml:0
 #, python-format
 msgid "Warnings"
-msgstr "Avisos"
+msgstr "Advertencias"
 
 #. module: hr_payroll
 #. odoo-python
@@ -4546,8 +4546,8 @@ msgid ""
 "Work Entries are generated for each <strong>time period</strong> defined in "
 "the Working Schedule of the Contract."
 msgstr ""
-"Entradas de trabajo que generan por cada <strong>tiempo de "
-"periodo</strong>definido en el horario de trabajo del contrato"
+"Entradas de trabajo que generan por cada <strong>tiempo de periodo</strong> "
+"definido en el horario de trabajo del contrato"
 
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_work_entry_report
@@ -4611,7 +4611,7 @@ msgid ""
 "100 %."
 msgstr ""
 "La tasa de tiempo de trabajo versus el horario de trabajo a tiempo completo "
-"debe estar entre 0 y 100%."
+"debe estar entre 0 y 100 %."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract__work_time_rate
@@ -4797,7 +4797,8 @@ msgid ""
 "You cannot reset a batch to draft if some of the payslips have already been "
 "paid."
 msgstr ""
-"no puedes resetear un lote si alguna de las nóminas ya han sido pagadas"
+"No puede restablecer un lote a borrador si ya se pagaron algunos recibos de "
+"nómina."
 
 #. module: hr_payroll
 #. odoo-python
@@ -4830,8 +4831,7 @@ msgstr "Debe iniciar sesión en una empresa %s para utilizar esta función"
 #, python-format
 msgid "You must select employee(s) to generate payslip(s)."
 msgstr ""
-"Debes seleccionar un empleado o empleados para generar los recibos de "
-"nómina."
+"Debe seleccionar un empleado o empleados para generar los recibos de nómina."
 
 #. module: hr_payroll
 #. odoo-python
@@ -4871,7 +4871,7 @@ msgstr "p. ej. neto"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
 msgid "e.g. Net Salary"
-msgstr "p. ej. salario neto"
+msgstr "p. ej. sueldo neto"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_employee_grade_form

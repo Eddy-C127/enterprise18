@@ -15,7 +15,6 @@
 # MichaelHadar, 2023
 # Netta Waizer, 2023
 # david danilov, 2023
-# hed shefer <hed@laylinetech.com>, 2023
 # NoaFarkash, 2023
 # Ha Ketem <haketem@gmail.com>, 2023
 # Moshe Flam <pashute@gmail.com>, 2023
@@ -23,6 +22,7 @@
 # Martin Trigaux, 2023
 # yael terner, 2023
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
+# hed shefer <hed@laylinetech.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -30,13 +30,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024\n"
+"Last-Translator: hed shefer <hed@laylinetech.com>, 2024\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: he\n"
-"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;\n"
 
 #. module: account_accountant
 #. odoo-python
@@ -1195,7 +1195,7 @@ msgstr "סגירת ההנהלה"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Manual Operations"
-msgstr "פעולות ידניות"
+msgstr "תנועת התאמה ידנית"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__manual
@@ -1221,7 +1221,7 @@ msgstr "התאם"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Match Existing Entries"
-msgstr ""
+msgstr "התאם תנועות בספרים"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_kanban_bank_rec_widget

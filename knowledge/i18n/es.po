@@ -88,6 +88,9 @@ msgid ""
 "cannot be restored on its own. Contact the owner of \"%(article_name)s\" to "
 "have it restored instead."
 msgstr ""
+"\"%(article_item_name)s\" es un elemento de artículo de \"%(article_name)s\""
+" y no puede restaurarse por sí solo. En su lugar, contacte al proprietario "
+"de \"%(article_name)s\" para restaurarlo."
 
 #. module: knowledge
 #. odoo-python
@@ -3349,7 +3352,7 @@ msgstr "Propiedades de fecha y hora"
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
 msgid "Dear"
-msgstr "Estimado"
+msgstr "Estimado/a"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_minutes_template
@@ -3706,7 +3709,7 @@ msgstr "Para las demás categorías, solo le pedimos que siga estas reglas."
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Full Width"
-msgstr "Anchura completa"
+msgstr "Ancho completo"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__full_width
@@ -4538,7 +4541,7 @@ msgstr "Última actualización el"
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.js:0
 #, python-format
 msgid "Leave"
-msgstr "Ausencia"
+msgstr "Abandonar"
 
 #. module: knowledge
 #. odoo-javascript

@@ -194,7 +194,7 @@ msgstr ""
 msgid ""
 "Default value for the time ranges in Master Production Schedule report."
 msgstr ""
-"Valor predeterminado para los intervalos de tiempo del Programa Maestro de "
+"Valor por defecto para los intervalos de tiempo del Programa Maestro de "
 "Producción"
 
 #. module: mrp_mps
@@ -210,7 +210,7 @@ msgstr "Eliminar"
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_product_forecast__forecast_qty
 #, python-format
 msgid "Demand Forecast"
-msgstr "Demanda prevista"
+msgstr "Pronóstico de la demanda"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__mrp_mps_show_actual_demand
@@ -291,14 +291,14 @@ msgstr "ID externo"
 #. module: mrp_mps
 #: model:ir.model,name:mrp_mps.model_mrp_mps_forecast_details
 msgid "Forecast Demand Details"
-msgstr "Detalles de demanda previstos"
+msgstr "Detalles de la demanda pronosticada"
 
 #. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/line.xml:0
 #, python-format
 msgid "Forecast Report"
-msgstr "Informe de Previsión"
+msgstr "Informe de pronóstico"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -326,7 +326,7 @@ msgstr "Stock pronosticado"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__forecast_ids
 msgid "Forecasted quantity at date"
-msgstr "Cantidad prevista hasta la fecha"
+msgstr "Cantidad pronosticada hasta la fecha"
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__sequence
@@ -364,7 +364,7 @@ msgstr "Última actualización el"
 #. module: mrp_mps
 #: model:ir.ui.menu,name:mrp_mps.mrp_mps_menu_planning
 msgid "MPS"
-msgstr "CPE (Calendario de Producción Estandar)"
+msgstr "MPS"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_forecast_details_form_view
@@ -385,7 +385,7 @@ msgstr "Periodo de fabricación"
 #: model:ir.ui.menu,name:mrp_mps.stock_mrp_mps_report_menu
 #, python-format
 msgid "Master Production Schedule"
-msgstr "Programa Maestro de Producción"
+msgstr "Plan maestro de producción"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__max_to_replenish_qty
@@ -565,9 +565,7 @@ msgstr "Filas"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__forecast_target_qty
 msgid "Safety Stock Target"
-msgstr ""
-"Objetivo de stock de seguridad\n"
-" "
+msgstr "Objetivo de stock de seguridad"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view

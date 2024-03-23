@@ -28,14 +28,16 @@ msgstr "(Facturar a mi cuenta)"
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.payment_delivery_methods
 msgid "<i class=\"fa fa-trash-o\" role=\"img\" aria-label=\"Delete\" title=\"Delete\"/>"
-msgstr "<i class=\"fa fa-trash-o\" role=\"img\" aria-label=\"Eliminar\" title=\"Eliminar\"/>"
+msgstr "<i class=\"fa fa-trash-o\" role=\"img\" aria-label=\"Delete\" title=\"Delete\"/>"
 
 #. module: website_sale_ups
 #: model_terms:payment.provider,pending_msg:website_sale_ups.payment_provider_ups_cod
 msgid ""
 "<i>Pending</i>, Thanks for choosing COD(Collect on Delivery/Cash on "
 "Delivery) option. Delivery boy will collect the payment on delivery."
-msgstr "<i/>"
+msgstr ""
+"<i>Pendiente</i>, gracias por elegir la opción de pago a contrareembolso. El"
+" repartidor le cobrará en el momento de la entrega."
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.payment_delivery_methods
@@ -55,12 +57,12 @@ msgstr "Cancelar"
 #. module: website_sale_ups
 #: model:ir.model.fields.selection,name:website_sale_ups.selection__payment_provider__custom_mode__cash_on_delivery
 msgid "Cash On Delivery"
-msgstr "Pago a contraentrega"
+msgstr "Pago a contrareembolso"
 
 #. module: website_sale_ups
 #: model:payment.provider,name:website_sale_ups.payment_provider_ups_cod
 msgid "Cash on Delivery"
-msgstr "Envío contra reembolso"
+msgstr "Envío contrareembolso"
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.ups_bill_my_account_dialog

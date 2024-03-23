@@ -25,14 +25,14 @@ msgstr ""
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "%(minutes)s min %(seconds)s sec"
-msgstr ""
+msgstr "%(minutes)s 分 %(seconds)s 秒"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "%(minutes)s minutes"
-msgstr ""
+msgstr "%(minutes)s 分鐘"
 
 #. module: voip
 #. odoo-javascript
@@ -46,14 +46,14 @@ msgstr ""
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "%(seconds)s seconds"
-msgstr ""
+msgstr "%(seconds)s 秒"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "1 minute"
-msgstr ""
+msgstr "1 分鐘"
 
 #. module: voip
 #. odoo-javascript
@@ -67,14 +67,14 @@ msgstr ""
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "1 second"
-msgstr ""
+msgstr "1 秒"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "2 minutes"
-msgstr ""
+msgstr "2 分鐘"
 
 #. module: voip
 #. odoo-javascript
@@ -88,7 +88,7 @@ msgstr ""
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "2 seconds"
-msgstr ""
+msgstr "2 秒"
 
 #. module: voip
 #. odoo-javascript
@@ -102,12 +102,12 @@ msgstr ""
 #. module: voip
 #: model:ir.model,name:voip.model_voip_call
 msgid "A phone call handled using the VoIP application"
-msgstr ""
+msgstr "使用 VoIP 網絡通話應用程式處理的電話通話"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__aborted
 msgid "Aborted"
-msgstr ""
+msgstr "已中止"
 
 #. module: voip
 #. odoo-python
@@ -127,14 +127,14 @@ msgstr "活動"
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__activity_name
 msgid "Activity Name"
-msgstr ""
+msgstr "活動名稱"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/web/call_queue_switch.js:0
 #, python-format
 msgid "Add to Call Queue"
-msgstr ""
+msgstr "加入至通話列隊"
 
 #. module: voip
 #. odoo-javascript
@@ -204,7 +204,7 @@ msgstr "語音通話"
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call from %(correspondent)s"
-msgstr ""
+msgstr "%(correspondent)s 撥入通話"
 
 #. module: voip
 #. odoo-python
@@ -217,7 +217,7 @@ msgstr "通話要求，來電者：%(phone_number)s"
 #: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_call_from_another_device
 msgid "Call from another device"
-msgstr ""
+msgstr "來自另一裝置的通話"
 
 #. module: voip
 #. odoo-javascript
@@ -231,7 +231,7 @@ msgstr ""
 #: code:addons/voip/models/voip_call.py:0
 #, python-format
 msgid "Call to %(correspondent)s"
-msgstr ""
+msgstr "撥打至 %(correspondent)s 的通話"
 
 #. module: voip
 #. odoo-python
@@ -243,7 +243,7 @@ msgstr "撥號至 %(phone_number)s"
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__calling
 msgid "Calling"
-msgstr ""
+msgstr "正在撥打"
 
 #. module: voip
 #. odoo-javascript
@@ -256,7 +256,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:voip.voip_call_view
 #: model_terms:ir.ui.view,arch_db:voip.voip_call_tree_view
 msgid "Calls"
-msgstr ""
+msgstr "通話"
 
 #. module: voip
 #. odoo-javascript
@@ -296,7 +296,7 @@ msgstr ""
 #: code:addons/voip/static/src/mobile/devise_selection_dialog.xml:0
 #, python-format
 msgid "Choose a device:"
-msgstr ""
+msgstr "選擇裝置："
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__how_to_call_on_mobile
@@ -308,6 +308,11 @@ msgid ""
 "            • Ask: Always ask whether the softphone or the device's phone must be used\n"
 "        "
 msgstr ""
+"選擇流動應用程式撥打電話的方法：\n"
+"            • VoIP：每次都使用 Odoo 的電話軟件（VoIP 網絡通話）\n"
+"            • 裝置的電話：每次都使用裝置的電話\n"
+"            • 詢問：每次詢問是使用電話軟件還是裝置電話\n"
+"        "
 
 #. module: voip
 #. odoo-javascript
@@ -402,7 +407,7 @@ msgstr "範例"
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__phone
 msgid "Device's phone"
-msgstr ""
+msgstr "裝置的電話"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__direction
@@ -488,7 +493,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:voip.field_res_users__how_to_call_on_mobile
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__how_to_call_on_mobile
 msgid "How to place calls on mobile"
-msgstr ""
+msgstr "如何在流動裝置撥打電話"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__id
@@ -499,7 +504,7 @@ msgstr "識別號"
 #: model:ir.model.fields,help:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,help:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "If enabled, incoming calls will be automatically declined in Odoo."
-msgstr ""
+msgstr "如果啟用，Odoo 會自動拒絕來電。"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__should_call_from_another_device
@@ -509,6 +514,7 @@ msgid ""
 "device number\". Use this option to place the call in Odoo but handle it "
 "from another device - e.g. your desk phone."
 msgstr ""
+"如果啟用，在 Odoo 中撥打電話會將通話轉駁至「外部裝置號碼」。使用此選項可在 Odoo 中撥打電話，但從其他裝置處理該次通話，例如你的桌上電話。"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__external_device_number
@@ -516,7 +522,7 @@ msgstr ""
 msgid ""
 "If the \"Call from another device\" option is enabled, calls placed in Odoo "
 "will be transfered to this phone number."
-msgstr ""
+msgstr "若已啟用「從其他裝置撥打」選項，在 Odoo 中撥打的電話將會轉駁至此電話號碼。"
 
 #. module: voip
 #. odoo-javascript
@@ -535,26 +541,26 @@ msgstr "入庫"
 #: code:addons/voip/static/src/softphone/call_invitation.xml:0
 #, python-format
 msgid "Incoming call from…"
-msgstr ""
+msgstr "撥入通話來自⋯"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/mobile/device_selection_dialog.js:0
 #, python-format
 msgid "Input device selection"
-msgstr ""
+msgstr "輸入裝置選擇"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_partner__has_call_in_queue
 #: model:ir.model.fields,field_description:voip.field_res_users__has_call_in_queue
 #: model:ir.model.fields,field_description:voip.field_voip_queue_mixin__has_call_in_queue
 msgid "Is in the Call Queue"
-msgstr ""
+msgstr "是在通話列隊內"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__last_seen_phone_call
 msgid "Last Seen Phone Call"
-msgstr ""
+msgstr "上次電話通話"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__write_uid
@@ -735,7 +741,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "Reject incoming calls"
-msgstr ""
+msgstr "拒絕來電"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__rejected
@@ -761,14 +767,14 @@ msgstr "已拒絕撥號至%(phone_number)s"
 #: code:addons/voip/static/src/mobile/call_method_selection_dialog.xml:0
 #, python-format
 msgid "Remember?"
-msgstr ""
+msgstr "記得嗎？"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/web/call_queue_switch.js:0
 #, python-format
 msgid "Remove from Call Queue"
-msgstr ""
+msgstr "從通話列隊中移除"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__user_id
@@ -806,7 +812,7 @@ msgstr "搜尋"
 #: code:addons/voip/static/src/mobile/call_method_selection_dialog.js:0
 #, python-format
 msgid "Select a call method"
-msgstr ""
+msgstr "選擇通話方法"
 
 #. module: voip
 #. odoo-javascript
@@ -839,22 +845,22 @@ msgstr "狀態"
 #: code:addons/voip/static/src/mobile/call_method_selection_dialog.xml:0
 #, python-format
 msgid "Tell us how to make the call:"
-msgstr ""
+msgstr "告訴我們如何撥打電話："
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__terminated
 msgid "Terminated"
-msgstr ""
+msgstr "已被終止"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_config_settings__pbx_ip
 msgid "The IP address of your PBX Server"
-msgstr ""
+msgstr "你的 PBX 伺服器的 IP 位址"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_config_settings__wsServer
 msgid "The URL of your WebSocket"
-msgstr ""
+msgstr "你的 WebSocket 的網址"
 
 #. module: voip
 #. odoo-javascript
@@ -869,7 +875,7 @@ msgstr ""
 #. module: voip
 #: model:ir.model.fields,help:voip.field_voip_call__activity_name
 msgid "The name of the activity related to this phone call, if any."
-msgstr ""
+msgstr "關聯至此電話通話的活動名稱（如果有）。"
 
 #. module: voip
 #. odoo-javascript
@@ -884,7 +890,7 @@ msgstr ""
 #: model:ir.model.fields,help:voip.field_res_users__voip_secret
 #: model:ir.model.fields,help:voip.field_res_users_settings__voip_secret
 msgid "The password that will be used to register with the PBX server."
-msgstr ""
+msgstr "將用於在 PBX 伺服器註冊的密碼。"
 
 #. module: voip
 #. odoo-javascript
@@ -919,7 +925,7 @@ msgstr ""
 msgid ""
 "The username (typically the extension number) that will be used to register "
 "with the PBX server."
-msgstr ""
+msgstr "將用作向 PBX 伺服器註冊的使用者名稱（通常是分機號碼）。"
 
 #. module: voip
 #. odoo-javascript
@@ -982,14 +988,14 @@ msgstr "使用者設定"
 #: code:addons/voip/static/src/mobile/call_method_selection_dialog.xml:0
 #, python-format
 msgid "Using VoIP"
-msgstr ""
+msgstr "使用 VoIP 網絡通話"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/mobile/call_method_selection_dialog.xml:0
 #, python-format
 msgid "Using device's phone"
-msgstr ""
+msgstr "使用裝置的電話"
 
 #. module: voip
 #: model:ir.model,name:voip.model_voip_queue_mixin
@@ -1031,7 +1037,7 @@ msgstr ""
 #. module: voip
 #: model:ir.ui.menu,name:voip.menu_voip_call_view
 msgid "Voip / Calls"
-msgstr ""
+msgstr "Voip / 通話"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_config_settings__wsServer
@@ -1074,4 +1080,4 @@ msgstr ""
 #: code:addons/voip/static/src/core/call_model.js:0
 #, python-format
 msgid "less than a second"
-msgstr ""
+msgstr "少於一秒"

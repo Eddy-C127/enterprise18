@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,12 +23,12 @@ msgstr ""
 #. module: marketing_automation_sms
 #: model:ir.model.fields,field_description:marketing_automation_sms.field_marketing_campaign__mailing_sms_count
 msgid "# SMS Mailings"
-msgstr ""
+msgstr "發送短訊數目"
 
 #. module: marketing_automation_sms
 #: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_campaign_view_form
 msgid "<i class=\"fa fa-exclamation-circle\"/> Bounced after"
-msgstr ""
+msgstr "<i class=\"fa fa-exclamation-circle\"/> 此期限後彈回："
 
 #. module: marketing_automation_sms
 #: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_campaign_view_form
@@ -42,7 +43,7 @@ msgstr "<i class=\"fa fa-hand-pointer-o\"/> 未在指定時間內點選"
 #. module: marketing_automation_sms
 #: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_campaign_view_form
 msgid "<i class=\"fa fa-pie-chart\"/> Details"
-msgstr ""
+msgstr "<i class=\"fa fa-pie-chart\"/> 詳情"
 
 #. module: marketing_automation_sms
 #: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_campaign_view_form
@@ -75,7 +76,7 @@ msgstr "點選率"
 #: code:addons/marketing_automation_sms/models/marketing_activity.py:0
 #, python-format
 msgid "Exception in SMS Marketing: %s"
-msgstr ""
+msgstr "短訊推廣遇到例外情況：%s"
 
 #. module: marketing_automation_sms
 #: model:ir.model,name:marketing_automation_sms.model_mailing_trace
@@ -96,7 +97,7 @@ msgstr "市場行銷活動"
 #. module: marketing_automation_sms
 #: model:ir.actions.act_window,name:marketing_automation_sms.mail_mass_mailing_action_marketing_automation_sms
 msgid "Marketing Automation SMS"
-msgstr ""
+msgstr "自動化推廣短訊"
 
 #. module: marketing_automation_sms
 #: model:ir.model,name:marketing_automation_sms.model_marketing_campaign
@@ -118,14 +119,14 @@ msgstr "群發信件"
 #: code:addons/marketing_automation_sms/models/marketing_trace.py:0
 #, python-format
 msgid "Parent activity SMS bounced"
-msgstr ""
+msgstr "母項活動的短訊已被彈回"
 
 #. module: marketing_automation_sms
 #. odoo-python
 #: code:addons/marketing_automation_sms/models/marketing_trace.py:0
 #, python-format
 msgid "Parent activity SMS clicked"
-msgstr ""
+msgstr "母項活動的短訊已獲點擊"
 
 #. module: marketing_automation_sms
 #: model:ir.model.fields.selection,name:marketing_automation_sms.selection__marketing_activity__activity_type__sms
@@ -145,7 +146,7 @@ msgstr "SMS 內容"
 #. module: marketing_automation_sms
 #: model_terms:ir.ui.view,arch_db:marketing_automation_sms.mailing_mailing_view_form_marketing_activity
 msgid "SMS Options"
-msgstr ""
+msgstr "短訊選項"
 
 #. module: marketing_automation_sms
 #: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_campaign_view_form
@@ -170,22 +171,22 @@ msgstr ""
 #: code:addons/marketing_automation_sms/models/marketing_activity.py:0
 #, python-format
 msgid "SMS failed"
-msgstr ""
+msgstr "短訊發送失敗"
 
 #. module: marketing_automation_sms
 #: model:ir.model.fields.selection,name:marketing_automation_sms.selection__marketing_activity__trigger_type__sms_bounce
 msgid "SMS: bounced"
-msgstr ""
+msgstr "短訊：已彈回"
 
 #. module: marketing_automation_sms
 #: model:ir.model.fields.selection,name:marketing_automation_sms.selection__marketing_activity__trigger_type__sms_click
 msgid "SMS: clicked"
-msgstr ""
+msgstr "短訊：已點擊"
 
 #. module: marketing_automation_sms
 #: model:ir.model.fields.selection,name:marketing_automation_sms.selection__marketing_activity__trigger_type__sms_not_click
 msgid "SMS: not clicked"
-msgstr ""
+msgstr "短訊：未點擊"
 
 #. module: marketing_automation_sms
 #: model:ir.model,name:marketing_automation_sms.model_sms_composer
@@ -209,7 +210,7 @@ msgstr "要使用此功能，必須是管理員或者是行銷自動化組成員
 #. module: marketing_automation_sms
 #: model:ir.model.fields,field_description:marketing_automation_sms.field_marketing_activity__trigger_category
 msgid "Trigger Category"
-msgstr ""
+msgstr "觸發類別"
 
 #. module: marketing_automation_sms
 #: model:ir.model.fields,field_description:marketing_automation_sms.field_marketing_activity__trigger_type

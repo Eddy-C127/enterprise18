@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Tony Ng, 2024
 # Martin Trigaux, 2024
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:09+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -428,7 +428,7 @@ msgstr ""
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__responsible_id
 msgid ""
 "An activity will be assigned to this user when an approval is requested"
-msgstr ""
+msgstr "提出批核請求時，將會向此使用者分配一項活動"
 
 #. module: web_studio
 #. odoo-python
@@ -805,7 +805,7 @@ msgstr ""
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_ir_model_data__studio
 msgid "Checked if it has been edited with Studio."
-msgstr ""
+msgstr "若曾使用 Studio 編輯，會勾選。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1550,14 +1550,14 @@ msgstr "錯誤"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Error message:"
-msgstr ""
+msgstr "錯誤訊息："
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Error name:"
-msgstr ""
+msgstr "錯誤名稱："
 
 #. module: web_studio
 #. odoo-javascript
@@ -1928,7 +1928,7 @@ msgstr "識別號"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "IDs"
-msgstr ""
+msgstr "識別碼"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1940,14 +1940,14 @@ msgstr "圖示"
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__domain
 msgid "If set, the rule will only apply on records that match the domain."
-msgstr ""
+msgstr "如果設置，該規則將只會適用於與該網域相符的記錄。"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__exclusive_user
 msgid ""
 "If set, the user who approves this rule will not be able to approve other "
 "rules for the same record"
-msgstr ""
+msgstr "如果設置，批核此規則的使用者將無法批核同一記錄的其他規則"
 
 #. module: web_studio
 #. odoo-python
@@ -2576,7 +2576,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "On view (ir.ui.view):"
-msgstr ""
+msgstr "顯示時(ir.ui.view):"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2651,7 +2651,7 @@ msgstr "上層功能表"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Parent View (inherit_id)"
-msgstr ""
+msgstr "母項檢視畫面(inherit_id)"
 
 #. module: web_studio
 #. odoo-python
@@ -3255,7 +3255,7 @@ msgstr "顯示隱藏項目"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Show Traceback"
-msgstr ""
+msgstr "顯示追溯"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3601,6 +3601,7 @@ msgid ""
 "some view inherits from another but targets a node that doesn't exist. It "
 "might be due to the mutations of the base views during the upgrade process."
 msgstr ""
+"由於發生某些錯誤，未能載入該報告。通常這意味某個檢視畫面繼承自另一個檢視畫面，但目標節點不存在。這可能是由於升級過程中，基本檢視畫面突變而造成。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3655,7 +3656,7 @@ msgstr ""
 msgid ""
 "These users will receive a notification via internal note when an approval "
 "is requested"
-msgstr ""
+msgstr "提出批核請求時，這些使用者將收到內部備註通知"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3703,7 +3704,7 @@ msgstr ""
 msgid ""
 "This message will be displayed to users that cannot proceed without this "
 "approval"
-msgstr ""
+msgstr "若使用者未經這項批准便無法繼續操作，將顯示此訊息"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3856,7 +3857,7 @@ msgstr "檢視"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "View in Error:"
-msgstr ""
+msgstr "在錯誤中檢視："
 
 #. module: web_studio
 #. odoo-javascript
@@ -3924,7 +3925,7 @@ msgstr ""
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__can_validate
 msgid "Whether the rule can be approved by the current user"
-msgstr ""
+msgstr "目前使用者是否可以批准該規則"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_ir_model__abstract

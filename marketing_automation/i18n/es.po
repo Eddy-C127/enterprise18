@@ -3,8 +3,8 @@
 # 	* marketing_automation
 # 
 # Translators:
-# Martin Trigaux, 2023
 # Wil Odoo, 2023
+# Martin Trigaux, 2023
 # Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2023
 # Larissa Manderfeld, 2024
 # 
@@ -40,7 +40,7 @@ msgstr "# Correos"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__total_participant_count
 msgid "# of active and completed participants"
-msgstr "N.º de participantes activos y que han completado las actividades"
+msgstr "Número de participantes activos y que han completado las actividades"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__running_participant_count
@@ -50,7 +50,7 @@ msgstr "# de participantes activos"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__completed_participant_count
 msgid "# of completed participants"
-msgstr "N.º de participantes que han completado las actividades"
+msgstr "Número de participantes que han completado las actividades"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__test_participant_count
@@ -690,14 +690,14 @@ msgstr "Mensaje de error"
 #: code:addons/marketing_automation/models/marketing_activity.py:0
 #, python-format
 msgid "Error! You can't create recursive hierarchy of Activity."
-msgstr "¡Error! No puede crear una jerarquía recursiva de Actividad."
+msgstr "¡Error! No puede crear una jerarquía recursiva de actividad."
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_activity.py:0
 #, python-format
 msgid "Exception in mass mailing: %s"
-msgstr "Excepción en los envíos masivos: %s"
+msgstr "Excepción en los correos masivos: %s"
 
 #. module: marketing_automation
 #. odoo-python
@@ -823,7 +823,7 @@ msgstr "Última sincronización de actividades"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
 msgid "Launch"
-msgstr "Lanzamiento"
+msgstr "Comenzar"
 
 #. module: marketing_automation
 #. odoo-python
@@ -831,23 +831,23 @@ msgstr "Lanzamiento"
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 #, python-format
 msgid "Launch a Test"
-msgstr "Lanzar un test"
+msgstr "Comenzar una prueba"
 
 #. module: marketing_automation
 #: model:ir.actions.act_window,name:marketing_automation.marketing_campaign_test_action
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
 msgid "Launch a test"
-msgstr "Lanzar un test"
+msgstr "Comenzar una prueba"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__crm_lead_count
 msgid "Leads/Opportunities count"
-msgstr "Contador de leads/oportunidades"
+msgstr "Número de leads/oportunidades"
 
 #. module: marketing_automation
 #: model:ir.actions.act_window,name:marketing_automation.link_tracker_action_marketing_campaign
 msgid "Link Statistics"
-msgstr "Enlace Estadísticas "
+msgstr "Estadísticas de enlaces"
 
 #. module: marketing_automation
 #: model:ir.ui.menu,name:marketing_automation.link_tracker_menu_reporting_marketing_automation
@@ -866,7 +866,7 @@ msgstr ""
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__trigger_category__email
 msgid "Mail"
-msgstr "Correo electrónico"
+msgstr "Correo"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
@@ -979,12 +979,12 @@ msgstr "Envíos de automatización de mercadeo "
 #. module: marketing_automation
 #: model:ir.actions.server,name:marketing_automation.ir_cron_campaign_execute_activities_ir_actions_server
 msgid "Marketing Automation: execute activities"
-msgstr "Marketing automatizado: ejecutar actividades"
+msgstr "Automatización de marketing: ejecutar actividades"
 
 #. module: marketing_automation
 #: model:ir.actions.server,name:marketing_automation.ir_cron_campaign_sync_participants_ir_actions_server
 msgid "Marketing Automation: sync participants"
-msgstr "Marketing automatizado: sincronizar participantes"
+msgstr "Automatización de marketing: sincronizar participantes"
 
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_marketing_campaign
@@ -994,7 +994,7 @@ msgstr "Campaña de marketing"
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_marketing_campaign_test
 msgid "Marketing Campaign: Launch a Test"
-msgstr "Campaña de mercadeo: lanzar una prueba"
+msgstr "Campaña de marketing: comenzar una prueba"
 
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_marketing_participant
@@ -1031,12 +1031,12 @@ msgstr "Correo masivo"
 #: model:ir.model,name:marketing_automation.model_mailing_trace_report
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_trace_view_form
 msgid "Mass Mailing Statistics"
-msgstr "Estadísticas de envíos masivos"
+msgstr "Estadísticas de correos masivos"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__mailing_mail_ids
 msgid "Mass Mailings"
-msgstr "Envíos masivos"
+msgstr "Correos masivos"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__mailing_trace_ids
@@ -1855,7 +1855,7 @@ msgstr "Flujo de bienvenida"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Welcome!"
-msgstr "¡Bienvenido!"
+msgstr "¡Bienvenido/a!"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_winner_selection
@@ -1911,7 +1911,7 @@ msgstr ""
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "You must set up at least one activity to start this campaign."
-msgstr "Debes configurar al menos una actividad para comenzar esta campaña."
+msgstr "Debe configurar al menos una actividad para comenzar esta campaña."
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__trigger_type__activity
