@@ -908,13 +908,13 @@
         </record>
         <record id="planning_slot_535" model="planning.slot">
             <field name="start_datetime" eval="(datetime.today() - relativedelta(weeks=2, weekday=4)).strftime('%Y-%m-%d 11:00:00')"/>
-            <field name="end_datetime" eval="(datetime.today() - relativedelta(weeks=2, weekday=5)).strftime('%Y-%m-%d 15:00:00')"/>
+            <field name="end_datetime" eval="(datetime.today() - relativedelta(weeks=2, weekday=4) + relativedelta(days=1)).strftime('%Y-%m-%d 15:00:00')"/>
             <field name="resource_id" ref="planning_resource_projector_2"/>
             <field name="role_id" ref="planning_role_projector"/>
         </record>
         <record id="planning_slot_536" model="planning.slot">
             <field name="start_datetime" eval="(datetime.today() - relativedelta(weeks=2, weekday=4)).strftime('%Y-%m-%d 11:00:00')"/>
-            <field name="end_datetime" eval="(datetime.today() - relativedelta(weeks=2, weekday=5)).strftime('%Y-%m-%d 15:00:00')"/>
+            <field name="end_datetime" eval="(datetime.today() - relativedelta(weeks=2, weekday=4) + relativedelta(days=1)).strftime('%Y-%m-%d 15:00:00')"/>
             <field name="resource_id" ref="planning_resource_scanner_1"/>
             <field name="role_id" ref="planning_role_scanner"/>
         </record>
