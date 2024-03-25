@@ -2837,7 +2837,7 @@ class AccountReport(models.Model):
             default_figure_type = figure_types_cache[expr_report][expression.label]
             figure_type = expression.figure_type or default_figure_type
             value = expression_res['value']
-            if figure_type in ('float', 'integer', 'percentage', 'monetary'):
+            if figure_type == 'monetary':
                 value = self.env.company.currency_id.round(value)
 
             if cross_report:
@@ -3482,6 +3482,7 @@ class AccountReport(models.Model):
         # We have to execute two separate queries, one for text values and one for numeric values
         num_queries, num_query_params = [], []
         string_queries, string_query_params = [], []
+        monetary_queries, monetary_query_params = [], []
         for formula, expressions in formulas_dict.items():
             query_end = ''
             if formula == 'most_recent':
@@ -3495,7 +3496,7 @@ class AccountReport(models.Model):
                     FROM account_report_external_value
                     WHERE {where_clause} AND target_report_expression_id = %s
                 """
-            num_query = f"""
+            monetary_query = f"""
                 SELECT
                     %s,
                     COALESCE(SUM(COALESCE(ROUND(CAST(value AS numeric) * currency_table.rate, currency_table.precision), 0)), 0)
@@ -3503,6 +3504,12 @@ class AccountReport(models.Model):
                     JOIN {currency_table_query} ON currency_table.company_id = account_report_external_value.company_id
                 WHERE {where_clause} AND target_report_expression_id = %s
                 {query_end}
+            """
+            num_query = f"""
+                    SELECT %s, SUM(COALESCE(value, 0))
+                      FROM account_report_external_value
+                     WHERE {where_clause} AND target_report_expression_id = %s
+               {query_end}
             """
 
             for expression in expressions:
@@ -3514,13 +3521,16 @@ class AccountReport(models.Model):
                 if expression.figure_type == "string":
                     string_queries.append(string_query)
                     string_query_params += params
+                elif expression.figure_type == "monetary":
+                    monetary_queries.append(monetary_query)
+                    monetary_query_params += params
                 else:
                     num_queries.append(num_query)
                     num_query_params += params
 
         # Convert to dict to have expression ids as keys
         query_results_dict = {}
-        for query_list, query_params in ((num_queries, num_query_params), (string_queries, string_query_params)):
+        for query_list, query_params in ((num_queries, num_query_params), (string_queries, string_query_params), (monetary_queries, monetary_query_params)):
             if query_list:
                 query = '(' + ') UNION ALL ('.join(query_list) + ')'
                 self._cr.execute(query, query_params)
