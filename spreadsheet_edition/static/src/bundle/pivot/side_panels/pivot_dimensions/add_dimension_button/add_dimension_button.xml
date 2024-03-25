@@ -7,7 +7,7 @@
                 <i class="pe-1 pivot-dimension-search-field-icon">
                     <t t-call="o-spreadsheet-Icon.SEARCH"/>
                 </i>
-                <input t-model="search.input" t-on-keydown="onKeyDown" class="border-0 pivot-dimension-search-field" autofocus="1"/>
+                <input t-model="search.input" t-on-keydown="onKeyDown" class="border-0 w-100 pivot-dimension-search-field" autofocus="1"/>
             </div>
             <div
                 t-foreach="filteredFields"
