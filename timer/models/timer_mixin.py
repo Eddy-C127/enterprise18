@@ -37,6 +37,7 @@ class TimerMixin(models.AbstractModel):
         timer_query = self.env['timer.timer']._search([
             ('id', operator, value),
             ('user_id', '=', self.env.user.id),
+            ('res_model', '=', self._name),
         ])
         return [('id', 'inselect', timer_query.select('res_id'))]
 
