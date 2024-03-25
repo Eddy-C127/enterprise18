@@ -19,7 +19,7 @@ export default class PackageLineComponent extends LineComponent {
         const reservedQuantity = this.line.lines.reduce((r, l) => r + l.reserved_uom_qty, 0);
         const doneQuantity = this.line.lines.reduce((r, l) => r + l.qty_done, 0);
         if (reservedQuantity > 0) {
-            return doneQuantity / reservedQuantity;
+            return this.applyRounding(doneQuantity / reservedQuantity);
         }
         return doneQuantity >= 0 ? 1 : 0;
     }

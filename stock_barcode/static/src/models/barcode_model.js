@@ -54,6 +54,7 @@ export default class BarcodeModel extends EventBus {
         this._createState();
         this.linesToSave = [];
         this.selectedLineVirtualId = false;
+        this.precision = data.data.precision;
 
         // UI stuff.
         this.name = this._getName();

@@ -3191,6 +3191,44 @@ registry.category("web_tour.tours").add('test_put_in_pack_from_multiple_pages', 
     ...stepUtils.validateBarcodeOperation('.o_barcode_line:contains("PACK")'),
 ]});
 
+registry.category("web_tour.tours").add('test_put_in_pack_float_rounding', {test: true, steps: () => [
+    { trigger: 'button.button_operations' },
+    { trigger: '.o_kanban_record:contains(Receipts)' },
+
+    { trigger: '.o_kanban_record_headings:last' },
+
+    { trigger: '.o_edit' },
+
+    {
+        trigger: ".o_field_widget[name=qty_done] input",
+        run: 'text 5.66',
+    },
+
+    { trigger: '.o_save' },
+
+    { trigger: '.o_put_in_pack' },
+
+    { trigger: '.o_line_button.o_toggle_sublines' },
+
+    { trigger: '.o_sublines .o_barcode_line:nth-child(1) .o_edit' },
+
+    {
+        trigger: ".o_field_widget[name=qty_done] input",
+        run: 'text 4.44',
+    },
+
+    { trigger: '.o_save' },
+
+    { trigger: '.o_line_button.o_toggle_sublines .fa-caret-up' },
+
+    {
+        trigger: '.o_line_button.o_toggle_sublines .fa-caret-down',
+        run: function () {
+            helper.assertLineQty(0, "10.1 / 13.5");
+        },
+    },
+]});
+
 registry.category("web_tour.tours").add('test_reload_flow', {test: true, steps: () => [
     {
         trigger: '.o_stock_barcode_main_menu',

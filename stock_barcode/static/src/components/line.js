@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { Component } from "@odoo/owl";
+import { formatFloat } from "@web/views/fields/formatters";
 
 export default class LineComponent extends Component {
     get destinationLocationPath () {
@@ -56,12 +57,21 @@ export default class LineComponent extends Component {
         }
     }
 
+    applyRounding(value){
+        if (!value) {
+            return value;
+        }
+        const digits = [false, this.env.model.precision];
+        const options = { digits, decimalPoint: ".", thousandsSep: "" };
+        return parseFloat(formatFloat(value, options));
+    }
+
     get qtyDemand() {
-        return this.env.model.getQtyDemand(this.line);
+        return this.applyRounding(this.env.model.getQtyDemand(this.line));
     }
 
     get qtyDone() {
-        return this.env.model.getQtyDone(this.line);
+        return this.applyRounding(this.env.model.getQtyDone(this.line));
     }
 
     get quantityIsSet() {

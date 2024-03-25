@@ -1558,6 +1558,25 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(len(pack.quant_ids), 2)
         self.assertEqual(sum(pack.quant_ids.mapped('quantity')), 4)
 
+    def test_put_in_pack_float_rounding(self):
+        """ Test that qtyDemand and qtyDone with the value 10.1000001 is rounded to 10.10 """
+        self.clean_access_rights()
+        self.env['res.config.settings'].create({'group_stock_tracking_lot': True}).execute()
+
+        receipt_form = Form(self.env['stock.picking'])
+        receipt_form.picking_type_id = self.picking_type_in
+        with receipt_form.move_ids_without_package.new() as move:
+            move.product_id = self.productlot1
+            move.product_uom_qty = 13.5
+
+        receipt = receipt_form.save()
+        receipt.action_confirm()
+        receipt.action_assign()
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = "/web#action=" + str(action_id.id)
+        self.start_tour(url, 'test_put_in_pack_float_rounding', login='admin', timeout=180)
+
     def test_reload_flow(self):
         self.clean_access_rights()
         grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
