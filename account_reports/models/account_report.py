@@ -2195,11 +2195,11 @@ class AccountReport(models.Model):
 
                 column_dict['name'] = self.format_value(
                     options,
-                    column_dict['no_format'],
-                    currency=column_dict['currency'],
-                    blank_if_zero=column_dict['blank_if_zero'],
-                    figure_type=column_dict['figure_type'],
-                    digits=column_dict['digits'],
+                    column_dict.get('no_format'),
+                    currency=column_dict.get('currency'),
+                    blank_if_zero=column_dict.get('blank_if_zero'),
+                    figure_type=column_dict.get('figure_type'),
+                    digits=column_dict.get('digits')
                 )
 
     def _generate_common_warnings(self, options, warnings):
