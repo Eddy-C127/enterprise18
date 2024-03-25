@@ -2813,21 +2813,52 @@ class AccountReport(models.Model):
             except ValueError:
                 return False
 
+        def add_expression_to_map(expression, expression_res, figure_types_cache, current_report_eval_dict, current_report_codes_map, other_reports_eval_dict, other_reports_codes_map, cross_report=False):
+            """
+                Process an expression and its result, updating various dictionaries with relevant information.
+                Parameters:
+                - expression (object): The expression object to process.
+                - expression_res (dict): The result of the expression.
+                - figure_types_cache (dict): {report : {label: figure_type}}.
+                - current_report_eval_dict (dict): {expression_id: value}.
+                - current_report_codes_map (dict): {line_code: {expression_label: expression_id}}.
+                - other_reports_eval_dict (dict): {forced_date_scope: {expression_id: value}}.
+                - other_reports_codes_map (dict): {forced_date_scope: {line_code: {expression_label: expression_id}}}.
+                - cross_report: A boolean to know if we are processsing cross_report expression.
+            """
+
+            expr_report = expression.report_line_id.report_id
+            report_default_figure_types = figure_types_cache.setdefault(expr_report, {})
+            expression_label = report_default_figure_types.get(expression.label, '_not_in_cache')
+            if expression_label == '_not_in_cache':
+                report_default_figure_types[expression.label] = expr_report.column_ids.filtered(
+                    lambda x: x.expression_label == expression.label).figure_type
+
+            default_figure_type = figure_types_cache[expr_report][expression.label]
+            figure_type = expression.figure_type or default_figure_type
+            value = expression_res['value']
+            if figure_type in ('float', 'integer', 'percentage', 'monetary'):
+                value = self.env.company.currency_id.round(value)
+
+            if cross_report:
+                other_reports_eval_dict.setdefault(forced_date_scope, {})[expression.id] = value
+            else:
+                current_report_eval_dict[expression.id] = value
+
         current_report_eval_dict = {} # {expression_id: value}
         other_reports_eval_dict = {} # {forced_date_scope: {expression_id: value}}
         current_report_codes_map = {} # {line_code: {expression_label: expression_id}}
         other_reports_codes_map = {} # {forced_date_scope: {line_code: {expression_label: expression_id}}}
 
+        figure_types_cache = {}  # {report : {label: figure_type}}
         for expression, expression_res in other_current_report_expr_totals.items():
-            if expression.figure_type != 'string':
-                current_report_eval_dict[expression.id] = self.env.company.currency_id.round(expression_res['value'])
+            add_expression_to_map(expression, expression_res, figure_types_cache, current_report_eval_dict, current_report_codes_map, other_reports_eval_dict, other_reports_codes_map)
             if expression.report_line_id.code:
                 current_report_codes_map.setdefault(expression.report_line_id.code, {})[expression.label] = expression.id
 
         for forced_date_scope, scope_expr_totals in other_cross_report_expr_totals_by_scope.items():
             for expression, expression_res in scope_expr_totals.items():
-                if expression.figure_type != 'string':
-                    other_reports_eval_dict.setdefault(forced_date_scope, {})[expression.id] = self.env.company.currency_id.round(expression_res['value'])
+                add_expression_to_map(expression, expression_res, figure_types_cache, current_report_eval_dict, current_report_codes_map, other_reports_eval_dict, other_reports_codes_map, True)
                 if expression.report_line_id.code:
                     other_reports_codes_map.setdefault(forced_date_scope, {}).setdefault(expression.report_line_id.code, {})[expression.label] = expression.id
 
