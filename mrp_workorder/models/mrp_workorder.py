@@ -911,8 +911,10 @@ class MrpProductionWorkcenterLine(models.Model):
                 })
         self.env['mrp.workcenter.productivity'].create(productivity)
 
-    def _compute_expected_operation_cost(self):
+    def _compute_expected_operation_cost(self, without_employee_cost=False):
         expected_machine_cost = super()._compute_expected_operation_cost()
+        if without_employee_cost:
+            return expected_machine_cost
         expected_labour_cost = (self.duration_expected / 60) * self.workcenter_id.employee_costs_hour * (self.operation_id.employee_ratio or 1)
         return expected_machine_cost + expected_labour_cost
 

@@ -31,6 +31,7 @@ class ReportMoOverview(models.AbstractModel):
                         'uom_precision': 4,
                         'unit_cost': hourly_cost,
                         'mo_cost': currency.round(operation_cost),
+                        'bom_cost': False,
                         'real_cost': currency.round(operation_cost),
                         'currency_id': currency.id,
                         'currency': currency,

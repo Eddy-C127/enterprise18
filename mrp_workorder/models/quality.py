@@ -32,6 +32,10 @@ class MrpRouting(models.Model):
 
     employee_ratio = fields.Float("Employee Capacity", default=1, help="Number of employees needed to complete operation.")
 
+    def _compute_operation_cost(self):
+        expected_employee_cost = (self.time_cycle / 60) * self.workcenter_id.employee_costs_hour * (self.employee_ratio or 1)
+        return super()._compute_operation_cost() + expected_employee_cost
+
     @api.depends('quality_point_ids')
     def _compute_quality_point_count(self):
         read_group_res = self.env['quality.point'].sudo()._read_group(
