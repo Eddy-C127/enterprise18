@@ -77,3 +77,10 @@ class L10nCLWebsiteSale(WebsiteSale):
         if 'l10n_cl_type_document' not in values['default_value']:
             values['default_value'].update(l10n_cl_type_document='ticket')
         return request.render('l10n_cl_edi_website_sale.l10n_cl_edi_invoicing_info', values)
+
+    def _check_billing_partner_mandatory_fields(self, partner):
+        # In case of 'ticket' l10n_cl_document_type, the invoicing partner is a generic anonymous
+        # one that cannot and shouldn't be edited by the customer.
+        if partner.id == request.env['ir.model.data']._xmlid_to_res_id('l10n_cl.par_cfa'):
+            return True
+        return super()._check_billing_partner_mandatory_fields(partner)
