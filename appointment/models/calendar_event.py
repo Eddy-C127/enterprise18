@@ -63,6 +63,7 @@ class CalendarEvent(models.Model):
     # thus avoid the duplication of information.
     resource_ids = fields.Many2many('appointment.resource', string="Resources",
                                     compute="_compute_resource_ids", inverse="_inverse_resource_ids_or_capacity",
+                                    search="_search_resource_ids",
                                     group_expand="_read_group_appointment_resource_ids")
     booking_line_ids = fields.One2many('appointment.booking.line', 'calendar_event_id', string="Booking Lines")
     partner_ids = fields.Many2many('res.partner', group_expand="_read_group_partner_ids")
@@ -206,6 +207,21 @@ class CalendarEvent(models.Model):
             else:
                 event.booking_line_ids.unlink()
         self.env['appointment.booking.line'].create(booking_lines)
+
+    def _search_resource_ids(self, operator, value):
+        return [('appointment_resource_ids', operator, value)]
+
+    def _read_group_groupby(self, groupby_spec, query):
+        """ Simulate group_by on resource_ids by using appointment_resource_ids.
+            appointment_resource_ids is only used to store the data through the appointment_booking_line
+            table. All computation on the resources and the capacity reserved is done with capacity_reserved.
+            Simulating the group_by on resource_ids also avoids to do weird override in JS on appointment_resource_ids.
+            This is needed because when simply writing on the field, it tries to create the corresponding booking line
+            with the field capacity_reserved required leading to ValidationError.
+        """
+        if groupby_spec == 'resource_ids':
+            return super()._read_group_groupby('appointment_resource_ids', query)
+        return super()._read_group_groupby(groupby_spec, query)
 
     def _read_group_appointment_resource_ids(self, resources, domain):
         if not self.env.context.get('appointment_booking_gantt_show_all_resources'):
