@@ -30,7 +30,7 @@ patch(StreamPostKanbanRecord.prototype, {
             stream_post_id: postId,
             comments_count: this.commentsCount
         }).then((result) => {
-            this.dialog.add(StreamPostCommentsLinkedin, {
+            const closeDialog = this.dialog.add(StreamPostCommentsLinkedin, {
                 title: _t('LinkedIn Comments'),
                 commentsCount: this.commentsCount,
                 accountId: this.record.account_id.raw_value,
@@ -41,6 +41,12 @@ patch(StreamPostKanbanRecord.prototype, {
                 postAuthorImage: result.postAuthorImage,
                 currentUserUrn: result.currentUserUrn,
                 offset: result.offset,
+                onPostUpdate: (newMessage) => this.props.record.update({message: newMessage}),
+                onPostDeleted: async () => {
+                    // remove the record from the kanban view
+                    await this.props.record.model.root._removeRecords([this.props.record.id]);
+                    closeDialog();
+                },
             });
         });
     },

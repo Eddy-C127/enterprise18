@@ -1,13 +1,18 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import re
+import logging
 import requests
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 from datetime import datetime
 from werkzeug.urls import url_join
 
 from odoo import _, models, fields
+
+from odoo.exceptions import UserError
+from odoo.addons.social_linkedin.utils import urn_to_id, id_to_urn
+
+_logger = logging.getLogger(__name__)
 
 
 class SocialStreamPostLinkedIn(models.Model):
@@ -24,10 +29,7 @@ class SocialStreamPostLinkedIn(models.Model):
 
     def _compute_linkedin_author_urn(self):
         for post in self:
-            if post.linkedin_author_urn:
-                post.linkedin_author_id = post.linkedin_author_urn.split(':')[-1]
-            else:
-                post.linkedin_author_id = False
+            post.linkedin_author_id = urn_to_id(post.linkedin_author_urn)
 
     def _compute_author_link(self):
         linkedin_posts = self._filter_by_media_types(['linkedin'])
@@ -57,10 +59,64 @@ class SocialStreamPostLinkedIn(models.Model):
             post.is_author = post.linkedin_author_urn == post.account_id.linkedin_account_urn
 
     # ========================================================
+    # POST EDITION
+    # ========================================================
+
+    def _linkedin_edit_post(self, new_message):
+        """Make a API call to update the post message."""
+        self.ensure_one()
+        self.check_access_rights("write")
+        self.check_access_rule("write")
+
+        response = self.account_id._linkedin_request(
+            f"posts/{quote(self.linkedin_post_urn)}",
+            json={"patch": {"$set": {"commentary": new_message}}},
+            headers={"X-RestLi-Method": "PARTIAL_UPDATE"},
+        )
+        if not response.ok:
+            raise UserError(_("Couldn't update the post: %r.", response.text))
+
+        self.message = new_message
+
+    def _linkedin_delete_post(self):
+        """Make a API call to delete the post."""
+        self.ensure_one()
+        self.check_access_rights("unlink")
+        self.check_access_rule("unlink")
+
+        response = self.account_id._linkedin_request(
+            f"posts/{quote(self.linkedin_post_urn)}", method="DELETE")
+
+        if not response.ok:
+            raise UserError(_("Couldn't delete the post: %r.", response.text))
+
+        self.unlink()
+
+    # ========================================================
     # COMMENTS / LIKES
     # ========================================================
 
-    def _linkedin_comment_add(self, message, comment_urn=None):
+    def _linkedin_like_comment(self, comment_urn, like):
+        """Like or remove the like on the given comment."""
+        self.ensure_one()
+        if like:
+            response = self.account_id._linkedin_request(
+                'reactions',
+                params={'actor': self.account_id.linkedin_account_urn},
+                json={
+                    "root": comment_urn,
+                    "reactionType": "LIKE",
+                },
+            )
+        else:
+            like_urn = f"(actor:{quote(self.account_id.linkedin_account_urn)},entity:{quote(comment_urn)})"
+            response = self.account_id._linkedin_request(f'reactions/{like_urn}', method='DELETE')
+
+        if not response.ok:
+            _logger.error('Error during comment like / dislike %r', response.text)
+            raise UserError(_('Could not like / dislike this comment.'))
+
+    def _linkedin_comment_add(self, message, comment_urn=None, attachment=None):
         data = {
             'actor': self.account_id.linkedin_account_urn,
             'message': {
@@ -73,36 +129,59 @@ class SocialStreamPostLinkedIn(models.Model):
             # we reply yo an existing comment
             data['parentComment'] = comment_urn
 
+        if attachment:
+            # we upload an image with our comment
+            image_urn = self.account_id._linkedin_upload_image(attachment)
+            data['content'] = [{'entity': {'image': image_urn}}]
+
         response = self.account_id._linkedin_request(
-            'socialActions/%s/comments' % quote(self.linkedin_post_urn),
-            method="POST",
+            f'socialActions/{quote(self.linkedin_post_urn)}/comments',
             json=data,
-        ).json()
+        )
 
-        if 'created' not in response:
+        if not response.ok or 'created' not in response.json():
             self.sudo().account_id._action_disconnect_accounts(response)
-            return {}
+            raise UserError(_(
+                "Failed to post the comment: %(error_description)r",
+                error_description=response.text))
 
-        response['from'] = {  # fill with our own information to save an API call
+        result = response.json()
+        result['from'] = {  # fill with our own information to save an API call
             'id': self.account_id.linkedin_account_urn,
             'name': self.account_id.name,
             'authorUrn': self.account_id.linkedin_account_urn,
             'picture': f"/web/image?model=social.account&id={self.account_id.id}&field=image",
             'isOrganization': True,
         }
-        return self._linkedin_format_comment(response)
+        if attachment:
+            urls = self.account_id._linkedin_request_images([urn_to_id(image_urn)])
+            result['content'][0]['url'] = next(iter(urls.values()), None)
+
+        return self._linkedin_format_comment(result)
 
     def _linkedin_comment_delete(self, comment_urn):
-        comment_id = re.search(r'urn:li:comment:\(urn:li:activity:\w+,(\w+)\)', comment_urn).group(1)
-
         response = self.account_id._linkedin_request(
-            'socialActions/%s/comments/%s' % (quote(self.linkedin_post_urn), quote(comment_id)),
+            'socialActions/%s/comments/%s' % (quote(self.linkedin_post_urn), quote(urn_to_id(comment_urn))),
             method='DELETE',
             params={'actor': self.account_id.linkedin_account_urn},
         )
 
-        if response.status_code != 204:
+        if not response.ok:
+            _logger.error('Error during comment deletion %r', response.text)
             self.sudo().account_id._action_disconnect_accounts(response.json())
+
+    def _linkedin_comment_edit(self, message, comment_urn):
+        response = self.account_id._linkedin_request(
+            f'socialActions/{quote(self.linkedin_post_urn)}/comments/{quote(urn_to_id(comment_urn))}',
+            json={'patch': {'message': {'$set': {'text': message}}}},
+            params={'actor': self.account_id.linkedin_account_urn}
+        ).json()
+
+        if 'created' not in response:
+            self.sudo().account_id._action_disconnect_accounts(response)
+            return {}
+
+        return {'message': response.get('message', {}).get('text', '')}
 
     def _linkedin_comment_fetch(self, comment_urn=None, offset=0, count=20):
         """Retrieve comments on a LinkedIn element.
@@ -115,11 +194,8 @@ class SocialStreamPostLinkedIn(models.Model):
         element_urn = comment_urn or self.linkedin_post_urn
 
         response = self.account_id._linkedin_request(
-            'socialActions/%s/comments' % quote(element_urn),
-            params={
-                'start': offset,
-                'count': count,
-            },
+            f'socialActions/{quote(element_urn)}/comments',
+            params={'start': offset, 'count': count},
         ).json()
         if 'elements' not in response:
             self.sudo().account_id._action_disconnect_accounts(response)
@@ -127,9 +203,14 @@ class SocialStreamPostLinkedIn(models.Model):
         comments = response.get('elements', [])
 
         persons_ids = {comment.get('actor') for comment in comments if comment.get('actor')}
-        organizations_ids = {author.split(":")[-1] for author in persons_ids if author.startswith("urn:li:organization:")}
-        persons = {author.split(":")[-1] for author in persons_ids if author.startswith("urn:li:person:")}
-        images_ids = []
+        organizations_ids = {urn_to_id(author) for author in persons_ids if author.startswith("urn:li:organization:")}
+        persons = {urn_to_id(author) for author in persons_ids if author.startswith("urn:li:person:")}
+        images_ids = [
+            urn_to_id(content.get('entity', {}).get('image'))
+            for comment in comments
+            for content in comment.get('content', [])
+            if content.get('type') == 'IMAGE'
+        ]
 
         formatted_authors = {}
 
@@ -142,7 +223,7 @@ class SocialStreamPostLinkedIn(models.Model):
             ).json()
             for organization_id, organization in response.get('results', {}).items():
                 organization_urn = f"urn:li:organization:{organization_id}"
-                image_id = organization.get('logoV2', {}).get('original', '').split(':')[-1]
+                image_id = urn_to_id(organization.get('logoV2', {}).get('original'))
                 images_ids.append(image_id)
                 formatted_authors[organization_urn] = {
                     'id': organization_urn,
@@ -163,9 +244,8 @@ class SocialStreamPostLinkedIn(models.Model):
                 timeout=5).json()
 
             for person_id, person_values in response.get('results', {}).items():
-                person_id = person_id.split(':')[-1][:-1]  # LinkedIn return weird format
-                person_urn = f"urn:li:person:{person_id}"
-                image_id = person_values.get('profilePicture', {}).get('displayImage', '').split(':')[-1]
+                person_urn = id_to_urn(person_values['id'], "li:person")
+                image_id = urn_to_id(person_values.get('profilePicture', {}).get('displayImage'))
                 images_ids.append(image_id)
                 formatted_authors[person_urn] = {
                     'id': person_urn,
@@ -181,6 +261,12 @@ class SocialStreamPostLinkedIn(models.Model):
             for author in formatted_authors.values():
                 author['picture'] = image_ids_to_url.get(author['picture'])
 
+            for comment in comments:
+                # add the URL in the comment if the API didn't return it
+                for content in comment.get('content', []):
+                    if content.get('type') == 'IMAGE' and not content.get('url'):
+                        content['url'] = image_ids_to_url.get(urn_to_id(content.get('entity', {}).get('image')))
+
         default_author = {'id': '', 'authorUrn': '', 'name': _('Unknown')}
         for comment in comments:
             comment['from'] = formatted_authors.get(comment.get('actor'), default_author)
@@ -190,6 +276,12 @@ class SocialStreamPostLinkedIn(models.Model):
             # replies on comments should be sorted chronologically
             comments = comments[::-1]
 
+        liked_per_comment_urn = self._linkedin_comments_user_liked(comments)
+
+        for comment in comments:
+            comment_urn = comment["id"].replace('urn:li:activity', 'activity')
+            comment["user_likes"] = liked_per_comment_urn.get(comment_urn, False)
+
         return {
             'postAuthorImage': self.linkedin_author_image_url,
             'currentUserUrn': self.account_id.linkedin_account_urn,
@@ -197,6 +289,45 @@ class SocialStreamPostLinkedIn(models.Model):
             'comments': comments,
             'offset': offset + count,
             'summary': {'total_count': response.get('paging', {}).get('total', 0)},
+        }
+
+    def _linkedin_comments_user_liked(self, comments):
+        """Determine for each comment, if the current company page liked it or not.
+
+        The key "likedByCurrentUser" is already returned when we fetch all comments,
+        but it's true if the current user liked the comment, not if the
+        current *page* liked it, so we can not use this field.
+        """
+        self.ensure_one()
+        if not comments:
+            return {}
+
+        # comment URN passed in URL is in different format
+        # than the comment URN returned by the API...
+        comment_urns = [
+            comment["id"].replace('urn:li:activity', 'activity')
+            for comment in comments
+        ]
+
+        response = self.account_id._linkedin_request(
+            'reactions',
+            complex_object_ids=[
+                {"actor": self.account_id.linkedin_account_urn, "entity": comment_urn}
+                for comment_urn in comment_urns
+            ],
+        )
+
+        if not response.ok:
+            _logger.error('Error during likes fetch %r', response.text)
+            return {}
+
+        response = response.json()
+
+        return {
+            # (actor:urn:li:organization:123,entity:urn:li:comment:(activity:456,789))
+            # -> urn:li:comment:(activity:456,789)
+            unquote(like_urn).split('entity:')[-1][:-1]: True
+            for like_urn, values in response.get("results", {}).items()
         }
 
     # ========================================================
@@ -216,8 +347,6 @@ class SocialStreamPostLinkedIn(models.Model):
             'likes': {
                 'summary': {
                     'total_count': json_data.get('likesSummary', {}).get('totalLikes', 0),
-                    'can_like': False,
-                    'has_liked': json_data.get('likesSummary', {}).get('likedByCurrentUser', 0),
                 }
             },
             'comments': {

@@ -9,11 +9,14 @@ export class StreamPostCommentsReplyLinkedin extends StreamPostCommentsReply {
     }
 
     get canAddImage() {
-        return false;
+        return true;
     }
 
     get addCommentEndpoint() {
         return '/social_linkedin/comment';
     }
 
+    get allowImageOnlyComment() {
+        return true;
+    }
 }

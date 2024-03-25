@@ -4,8 +4,7 @@
 import contextlib
 import logging
 import requests
-from urllib.parse import quote, urlparse
-from werkzeug.urls import url_join
+from urllib.parse import urlparse
 import re
 
 from odoo import models, fields, tools, _
@@ -46,11 +45,7 @@ class SocialLivePostLinkedin(models.Model):
             # An LinkedIn URN is approximatively 40 characters
             # So we keep a big margin and we split over 50 LinkedIn posts
             for batch_linkedin_post_ids in tools.split_every(50, linkedin_post_ids):
-                endpoint = url_join(
-                    self.env['social.media']._LINKEDIN_ENDPOINT,
-                    'socialMetadata?ids=List(%s)' % ','.join(map(quote, batch_linkedin_post_ids)))
-
-                response = session.get(endpoint, headers=account._linkedin_bearer_headers(), timeout=10)
+                response = account._linkedin_request('socialMetadata', session=session, object_ids=batch_linkedin_post_ids)
 
                 if not response.ok or 'results' not in response.json():
                     account._action_disconnect_accounts(response.json())
@@ -86,7 +81,8 @@ class SocialLivePostLinkedin(models.Model):
             if live_post.post_id.image_ids:
                 try:
                     images_urn = [
-                        self._linkedin_upload_image(live_post.account_id, image_id)
+                        live_post.account_id._linkedin_upload_image(
+                            image_id.with_context(bin_size=False).raw)
                         for image_id in live_post.post_id.image_ids
                     ]
                 except UserError as e:
@@ -123,13 +119,10 @@ class SocialLivePostLinkedin(models.Model):
                 if image_url := preview.get('og_image'):
                     with contextlib.suppress(Exception):
                         if (image_response := requests.get(image_url, timeout=3)).ok:
-                            image_urn = self._linkedin_upload_image(live_post.account_id, image_response.content)
+                            image_urn = self.account_id._linkedin_upload_image(image_response.content)
                             data['content']['article']['thumbnail'] = image_urn
 
-            response = requests.post(
-                url_join(self.env['social.media']._LINKEDIN_ENDPOINT, 'posts'),
-                headers=live_post.account_id._linkedin_bearer_headers(),
-                json=data, timeout=10)
+            response = live_post.account_id._linkedin_request('posts', json=data)
 
             post_id = response.headers.get('x-restli-id')
             if response.ok and post_id:
@@ -153,50 +146,6 @@ class SocialLivePostLinkedin(models.Model):
                     self.account_id._action_disconnect_accounts(response)
 
             live_post.write(values)
-
-    def _linkedin_upload_image(self, account_id, image_id):
-        """Upload an image on LinkedIn.
-
-        :param account_id: The social.account to use to upload the image
-        :param image_id: The attachment or the raw bytes of the image
-        """
-        # 1 - Register your image to be uploaded
-        data = {
-            "initializeUploadRequest": {
-                "owner": account_id.linkedin_account_urn,
-            },
-        }
-        response = requests.post(
-                url_join(self.env['social.media']._LINKEDIN_ENDPOINT, 'images?action=initializeUpload'),
-                headers=account_id._linkedin_bearer_headers(),
-                json=data, timeout=10)
-
-        if not response.ok:
-            _logger.error('Could not upload the image: %r.', response.text)
-
-        response = response.json()
-        if 'value' not in response or 'uploadUrl' not in response['value']:
-            raise UserError(_("We could not upload your image, try reducing its size and posting it again (error: Failed during upload registering)."))
-
-        # 2 - Upload image binary file
-        upload_url = response['value']['uploadUrl']
-        image_urn = response['value']['image']
-
-        if isinstance(image_id, bytes):
-            data = image_id
-        else:
-            # TODO: clean in master (always give the raw bytes)
-            data = image_id.with_context(bin_size=False).raw
-
-        headers = account_id._linkedin_bearer_headers()
-        headers['Content-Type'] = 'application/octet-stream'
-
-        response = requests.request('POST', upload_url, data=data, headers=headers, timeout=15)
-
-        if not response.ok:
-            raise UserError(_("We could not upload your image, try reducing its size and posting it again."))
-
-        return image_urn
 
     def _format_to_linkedin_little_text(self, input_string):
         """
