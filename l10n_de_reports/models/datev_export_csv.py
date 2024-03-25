@@ -128,7 +128,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         writer = pycompat.csv_writer(output, delimiter=';', quotechar='"', quoting=2)
         preheader = ['EXTF', 510, 16, 'Debitoren/Kreditoren', 4, None, None, '', '', '', datev_info[0], datev_info[1], fy, account_length,
             '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-        header = ['Konto', 'Name (AdressatentypUnternehmen)', 'Name (Adressatentypnatürl. Person)', '', '', '', 'Adressatentyp']
+        header = ['Konto', 'Name (AdressatentypUnternehmen)', 'Name (Adressatentypnatürl. Person)', '', '', '', 'Adressatentyp', '', '', 'EU-UStId']
         lines = [preheader, header]
 
         if len(move_line_ids):
@@ -156,7 +156,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'code': code,
                 'company_name': partner.name if partner.is_company else '',
                 'person_name': '' if partner.is_company else partner.name,
-                'natural': partner.is_company and '2' or '1'
+                'natural': partner.is_company and '2' or '1',
+                'vat': partner.vat or '',
             }
             # Idiotic program needs to have a line with 243 elements ordered in a given fashion as it
             # does not take into account the header and non mandatory fields
@@ -165,6 +166,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             array[1] = line_value.get('company_name')
             array[2] = line_value.get('person_name')
             array[6] = line_value.get('natural')
+            array[9] = line_value.get('vat')
             lines.append(array)
         writer.writerows(lines)
         return output.getvalue()
