@@ -16,9 +16,12 @@ class EventMailRegistration(models.Model):
             (registration.scheduled_date and registration.scheduled_date <= now) and \
             registration.scheduler_id.notification_type == 'whatsapp'
         )
+        # Exclude schedulers linked to invalid/unusable templates
+        valid = todo.scheduler_id._filter_wa_template_ref()
+
         # Group todo by templates so if one tempalte then we can send in one shot
         tosend_by_template = defaultdict(list)
-        for registration in todo:
+        for registration in todo.filtered(lambda r: r.scheduler_id in valid):
             tosend_by_template.setdefault(registration.scheduler_id.template_ref.id, [])
             tosend_by_template[registration.scheduler_id.template_ref.id].append(registration.registration_id.id)
         # Create whatsapp composer and send message by cron
@@ -29,5 +32,9 @@ class EventMailRegistration(models.Model):
             }).create({
                 'wa_template_id': wa_template_id,
             })._send_whatsapp_template(force_send_by_cron=True)
-        todo.mail_sent = True
+
+        # mark as sent only if really sent
+        todo.filtered(
+            lambda reg: reg.scheduler_id in valid
+        ).mail_sent = True
         return super().execute()
