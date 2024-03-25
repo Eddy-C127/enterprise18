@@ -270,29 +270,29 @@ registry.category("web_tour.tours").add('account_reports', {
         },
         {
             content: "Unfold not previously unfolded line",
-            trigger: "tr:nth-child(35):contains('Current Liabilities') td:first()",
+            trigger: "tr:nth-child(22):contains('Current Liabilities') td:first()",
             run: "click",
         },
         {
             content: "Line is unfolded",
-            trigger: "tr:nth-child(36) .name:contains('251000')",
+            trigger: "tr:nth-child(23) .name:contains('251000')",
         },
         {
             content: "Sortable (asc)",
-            trigger: "tr:nth-child(19) td:nth-child(2):contains('25.00')",
+            trigger: "tr:nth-child(8) td:nth-child(2):contains('25.00')",
             run: () => {
-                // Receivables
-                Asserts.isEqual(document.querySelector("tr:nth-child(19) td:nth-child(2)").textContent, "25.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(20) td:nth-child(2)").textContent, "25.00");
-
                 // Bank and Cash Accounts
-                Asserts.isEqual(document.querySelector("tr:nth-child(22) td:nth-child(2)").textContent, "75.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(23) td:nth-child(2)").textContent, "75.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent, "75.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(6) td:nth-child(2)").textContent, "75.00");
+
+                // Receivables
+                Asserts.isEqual(document.querySelector("tr:nth-child(8) td:nth-child(2)").textContent, "25.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(9) td:nth-child(2)").textContent, "25.00");
 
                 // Current Assets
-                Asserts.isEqual(document.querySelector("tr:nth-child(25) td:nth-child(2)").textContent, "50.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(26) td:nth-child(2)").textContent, "100.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(27) td:nth-child(2)").textContent, "150.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(11) td:nth-child(2)").textContent, "50.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(12) td:nth-child(2)").textContent, "100.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(13) td:nth-child(2)").textContent, "150.00");
             }
         },
         {
@@ -302,20 +302,20 @@ registry.category("web_tour.tours").add('account_reports', {
         },
         {
             content: "Sortable (desc)",
-            trigger: "tr:nth-child(5) td:nth-child(2):contains('100.00')",
+            trigger: "tr:nth-child(5) td:nth-child(2):contains('75.00')",
             run: () => {
-                // Current Assets
-                Asserts.isEqual(document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent, "100.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(6) td:nth-child(2)").textContent, "50.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(7) td:nth-child(2)").textContent, "150.00");
-
                 // Bank and Cash Accounts
-                Asserts.isEqual(document.querySelector("tr:nth-child(9) td:nth-child(2)").textContent, "75.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(10) td:nth-child(2)").textContent, "75.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent, "75.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(6) td:nth-child(2)").textContent, "75.00");
 
                 // Receivables
-                Asserts.isEqual(document.querySelector("tr:nth-child(12) td:nth-child(2)").textContent, "25.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(13) td:nth-child(2)").textContent, "25.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(8) td:nth-child(2)").textContent, "25.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(9) td:nth-child(2)").textContent, "25.00");
+
+                // Current Assets
+                Asserts.isEqual(document.querySelector("tr:nth-child(11) td:nth-child(2)").textContent, "100.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(12) td:nth-child(2)").textContent, "50.00");
+                Asserts.isEqual(document.querySelector("tr:nth-child(13) td:nth-child(2)").textContent, "150.00");
             }
         },
         {

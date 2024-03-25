@@ -4247,7 +4247,9 @@ class AccountReport(models.Model):
 
         This method has some limitations:
         - The selected_column must have 'sortable' in its classes.
-        - All lines are sorted expect those having the 'total' class.
+        - All lines are sorted except:
+            - lines having the 'total' class
+            - static lines (lines with model 'account.report.line')
         - This only works when each line has an unique id.
         - All lines inside the selected_column must have a 'no_format' value.
 
@@ -4302,6 +4304,12 @@ class AccountReport(models.Model):
             b_line_dict = lines[b_line] if result_as_index else b_line
             a_total = needs_to_be_at_bottom(a_line_dict)
             b_total = needs_to_be_at_bottom(b_line_dict)
+            a_model = self._get_model_info_from_id(a_line_dict['id'])[0]
+            b_model = self._get_model_info_from_id(b_line_dict['id'])[0]
+
+            # static lines are not sorted
+            if a_model == b_model == 'account.report.line':
+                return 0
 
             if a_total:
                 if b_total:  # a_total & b_total
