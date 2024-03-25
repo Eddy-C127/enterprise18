@@ -23,8 +23,8 @@ class TestUi(TestMxEdiCommon, TestPointOfSaleHttpCommon):
         invoice = self.env['account.move'].search([('move_type', '=', 'out_invoice')], order='id desc', limit=1)
         self.assertRecordValues(invoice, [{
             'partner_id': partner_mx.id,
-            'l10n_mx_edi_usage': "G03",
-            'l10n_mx_edi_cfdi_to_public': True,
+            'l10n_mx_edi_usage': "I01",
+            'l10n_mx_edi_cfdi_to_public': False,
         }])
 
     def test_qr_code_receipt_mx(self):
