@@ -8,11 +8,11 @@ import {
     onWillUnmount,
 } from "@odoo/owl";
 import {useService} from "@web/core/utils/hooks";
-
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 class WebsiteGenerator extends Component {
     static template = "website_generator.WebsiteGenerator";
-    static props = {};
+    static props = { ...standardActionServiceProps };
     setup() {
         this.orm = useService("orm");
         this.dialog = useService("dialog");

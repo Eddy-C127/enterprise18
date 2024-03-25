@@ -5,15 +5,12 @@ import { ControlPanel } from "@web/search/control_panel/control_panel";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart, onWillRender } from "@odoo/owl";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 export class AccountImportGuide extends Component {
     static template = "account_base_import.accountImportTemplate";
     static components = { ControlPanel };
-    static props = {
-        action: Object,
-        actionId: { type: Number, optional: true },
-        className: { type: String, optional: true },
-    };
+    static props = { ...standardActionServiceProps };
     setup() {
         this.actionService = useService("action");
         this.orm = useService("orm");
