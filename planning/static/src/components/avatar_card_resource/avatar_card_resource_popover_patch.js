@@ -26,13 +26,14 @@ export const patchAvatarCardResourcePopover = {
     },
     get fieldNames() {
         const additionalFields = ["role_ids"];
+        const excludedFields = ["work_location_name", "work_location_type"];
         if (this.hr_access) {
             additionalFields.push("default_role_id");
         }
         return [
             ...super.fieldNames,
             ...additionalFields,
-        ];
+        ].filter((field) => !excludedFields.includes(field));
     },
     get roleTags() {
         return this.roles.map(({ id, color, name }) => ({
