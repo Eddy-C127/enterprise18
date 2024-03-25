@@ -29,7 +29,7 @@ class SurveySurvey(models.Model):
         super()._compute_allowed_survey_types()
         if self.env.user.has_group('hr_appraisal.group_hr_appraisal_user') or \
                 self.env.user.has_group('survey.group_survey_user'):
-            self.allowed_survey_types = (self.allowed_survey_types or []) + [('appraisal', 'Appraisal')]
+            self.allowed_survey_types = (self.allowed_survey_types or []) + ['appraisal']
 
     @api.depends('survey_type', 'user_input_ids', 'user_input_ids.appraisal_id', 'user_input_ids.appraisal_id.manager_ids')
     def _compute_appraisal_manager_user_ids(self):
