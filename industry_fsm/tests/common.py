@@ -31,8 +31,8 @@ class TestIndustryFsmCommon(TransactionCase):
             'name': 'Employee User',
             'hourly_cost': 15,
         })
-        cls.george_user = new_test_user(cls.env, login='george', groups='industry_fsm.group_fsm_user')
-        cls.marcel_user = new_test_user(cls.env, login='marcel', groups='industry_fsm.group_fsm_user')
+        cls.george_user = new_test_user(cls.env, login='george', name='George', groups='industry_fsm.group_fsm_user')
+        cls.marcel_user = new_test_user(cls.env, login='marcel', name='Marcel', groups='industry_fsm.group_fsm_user')
         cls.henri_user = new_test_user(cls.env, login='henri', groups='industry_fsm.group_fsm_user')
         cls.employee_timer_timesheet = cls.env['hr.employee'].create({
             'name': 'Employee Timesheet Timer',

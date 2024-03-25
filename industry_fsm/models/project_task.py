@@ -70,6 +70,8 @@ class Task(models.Model):
             task_id = row["id"]
             if task_id not in overlap_mapping:
                 overlap_mapping[task_id] = {row["user_id"]: {}}
+            if row["user_id"] not in overlap_mapping[task_id]:
+                overlap_mapping[task_id][row["user_id"]] = {}
             overlap_data = overlap_mapping[task_id][row["user_id"]]
             overlap_data['partner_name'] = row['partner_name']
             existing_task_ids = overlap_data.get('overlapping_tasks_ids', [])

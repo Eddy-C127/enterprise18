@@ -10,3 +10,4 @@ from . import test_auto_create_fsm_project
 from . import test_fsm_task_analysis
 from . import test_fsm_project_task
 from . import test_task_group_expand
+from . import test_fsm_planning_overlap
