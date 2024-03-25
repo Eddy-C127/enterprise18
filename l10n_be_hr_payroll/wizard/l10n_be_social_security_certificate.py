@@ -4,7 +4,7 @@
 import base64
 
 from dateutil.relativedelta import relativedelta
-from odoo.tools.misc import xlsxwriter
+from odoo.tools.misc import xlsxwriter, format_date
 from io import BytesIO
 
 from odoo import api, fields, models, _
@@ -59,16 +59,12 @@ class L10nBeSocialSecurityCertificate(models.TransientModel):
         student_pay = self.env.ref('l10n_be_hr_payroll.hr_payroll_structure_student_regular_pay')
         warrant_pay = self.env.ref('l10n_be_hr_payroll.hr_payroll_structure_cp200_structure_warrant')
 
-        structures = monthly_pay + termination_pay + holiday_pay_n + holiday_pay_n1 + double_pay + thirteen_pay + student_pay
-
         all_payslips = self.env['hr.payslip'].search([
             ('state', 'in', ['done', 'paid']),
             ('struct_id', '!=', warrant_pay.id),
             ('company_id', '=', self.company_id.id),
             ('date_from', '>=', date_from),
             ('date_to', '<=', date_to)])
-        employees = all_payslips.mapped('employee_id')
-        worker_count = len(employees)
 
         grouped_payslips = []
         if self.aggregation_level == 'company':
@@ -161,18 +157,29 @@ class L10nBeSocialSecurityCertificate(models.TransientModel):
             total_employer_cost = emp_onss + emp_termination_onss + closure_fund + charges_redistribution + co2_fees + structural_reductions + meal_voucher_employer + withholding_taxes_deduction
             holiday_pay_provision = 0
 
-            wizard_274 = self.env['l10n_be.274_xx'].new({
-                'date_start': date_from,
-                'date_end': date_to,
-            })
-            if self.aggregation_level in ['department', 'employee']:
-                employee_ids = aggregate_payslips.employee_id.ids
-                wizard_274.with_context(wizard_274xx_force_employee_ids=employee_ids)._compute_line_ids()
+            wizard_range = (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1
+            date_start = self.date_from
+            withholding_taxes_exemption_32 = 0
+            withholding_taxes_exemption_33 = 0
+            withholding_taxes_exemption_34 = 0
+            withholding_taxes_capping = 0
+            for offset in range(1, wizard_range + 1):
+                date_end = self.date_to if wizard_range == offset else date_start + relativedelta(day=31)
+                wizard_274 = self.env['l10n_be.274_xx'].new({
+                    'date_start': date_start,
+                    'date_end': date_end,
+                })
+                if self.aggregation_level in ['department', 'employee']:
+                    employee_ids = aggregate_payslips.employee_id.ids
+                    wizard_274.with_context(wizard_274xx_force_employee_ids=employee_ids)._compute_line_ids()
 
-            withholding_taxes_exemption_32 = wizard_274.deducted_amount_32
-            withholding_taxes_exemption_33 = wizard_274.deducted_amount_33
-            withholding_taxes_exemption_34 = wizard_274.deducted_amount_34
-            withholding_taxes_capping = -wizard_274.capped_amount_34
+                withholding_taxes_exemption_32 += wizard_274.deducted_amount_32
+                withholding_taxes_exemption_33 += wizard_274.deducted_amount_33
+                withholding_taxes_exemption_34 += wizard_274.deducted_amount_34
+                withholding_taxes_capping -= wizard_274.capped_amount_34
+                if offset == 1:
+                    date_start = date_start.replace(day=1)
+                date_start += relativedelta(months=1)
 
             aggregate_data = {
                 'gross_before_onss': gross_before_onss,
@@ -238,8 +245,8 @@ class L10nBeSocialSecurityCertificate(models.TransientModel):
         report_data = self._get_report_data()
         filename = _(
             'SocialBalance-%(date_from)s-%(date_to)s.pdf',
-            date_from=self.date_from.strftime("%d%B%Y"),
-            date_to=self.date_to.strftime("%d%B%Y"))
+            date_from=format_date(self.env, self.date_from),
+            date_to=format_date(self.env, self.date_to))
         export_274_sheet_pdf, dummy = self.env["ir.actions.report"].sudo()._render_qweb_pdf(
             self.env.ref('l10n_be_hr_payroll.action_report_social_security_certificate').id,
             res_ids=self.ids, data={'report_data': report_data})
@@ -823,8 +830,8 @@ class L10nBeSocialSecurityCertificate(models.TransientModel):
         base64_xlsx = base64.encodebytes(output.getvalue())
         filename = _(
             'SocialBalance-%(date_from)s-%(date_to)s.xlsx',
-            date_from=self.date_from.strftime("%d%B%Y"),
-            date_to=self.date_to.strftime("%d%B%Y"))
+            date_from=format_date(self.env, self.date_from),
+            date_to=format_date(self.env, self.date_to))
         self.social_security_filename_xlsx = filename
         self.social_security_xlsx = base64_xlsx
         self.state_xlsx = 'done'

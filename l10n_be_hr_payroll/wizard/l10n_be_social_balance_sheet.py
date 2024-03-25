@@ -9,7 +9,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
-from odoo.tools.misc import xlsxwriter
+from odoo.tools.misc import xlsxwriter, format_date
 
 
 class L10nBeSocialBalanceSheet(models.TransientModel):
@@ -53,6 +53,7 @@ class L10nBeSocialBalanceSheet(models.TransientModel):
             raise UserError(_('Please configure a gender (either male or female) for the following employees:\n\n%s', '\n'.join(invalid_employees.mapped('name'))))
 
         reports_data = {}
+        max_int_len = len(str(number_of_months_period + 1))
         for i in range(number_of_months_period + 1):
             if i == number_of_months_period:
                 date_from = self.date_from
@@ -369,7 +370,7 @@ class L10nBeSocialBalanceSheet(models.TransientModel):
             else:
                 report_data['month'] = date_from.strftime('%B')
                 report_data['year'] = date_from.strftime('%Y')
-                reports_data['SBS%s' % (i)] = report_data
+                reports_data['SBS{:0{}}'.format(i, max_int_len)] = report_data
         return collections.OrderedDict(sorted(reports_data.items(), key=lambda t: t[0], reverse=True))
 
     def print_report(self):
@@ -377,8 +378,8 @@ class L10nBeSocialBalanceSheet(models.TransientModel):
         report_data.pop('social_balance_sheet')
         filename = _(
             'SocialBalance-%(date_from)s-%(date_to)s.pdf',
-            date_from=self.date_from.strftime("%d%B%Y"),
-            date_to=self.date_to.strftime("%d%B%Y"))
+            date_from=format_date(self.env, self.date_from),
+            date_to=format_date(self.env, self.date_to))
         export_274_sheet_pdf, dummy = self.env["ir.actions.report"].sudo()._render_qweb_pdf(
             self.env.ref('l10n_be_hr_payroll.action_report_social_balance').id,
             res_ids=self.ids, data={'sbs_data': report_data})
@@ -1311,7 +1312,10 @@ class L10nBeSocialBalanceSheet(models.TransientModel):
         workbook.close()
 
         base64_xlsx = base64.encodebytes(output.getvalue())
-        filename = 'SocialBalance-%s-%s.xlsx' % (self.date_from.strftime("%d%B%Y"), self.date_to.strftime("%d%B%Y"))
+        filename = _(
+            'SocialBalance-%(date_from)s-%(date_to)s.xlsx',
+            date_from=format_date(self.env, self.date_from),
+            date_to=format_date(self.env, self.date_to))
         self.social_balance_filename_xlsx = filename
         self.social_balance_xlsx = base64_xlsx
         self.state_xlsx = 'done'
