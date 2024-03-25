@@ -648,6 +648,72 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(move_line_2.package_id, package2)
         self.assertEqual(move_line_2.owner_id, partner)
 
+    def test_delivery_lot_with_package_delivery_step(self):
+        """
+        Test that we unpack from the right package in case of having
+        multiple packages (or package and no package) for the same lot
+        in multi-locations configuration.
+        """
+        self.clean_access_rights()
+        grp_lot = self.env.ref('stock.group_production_lot')
+        grp_pack = self.env.ref('stock.group_tracking_lot')
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+
+        self.env.user.write({'groups_id': [(4, grp_lot.id, 0)]})
+        self.env.user.write({'groups_id': [(4, grp_pack.id, 0)]})
+        self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
+
+        sn = self.env['stock.lot'].create({'name': 'sn', 'product_id': self.productlot1.id, 'company_id': self.env.company.id})
+        package1 = self.env['stock.quant.package'].create({'name': 'pack_sn'})
+        package2 = self.env['stock.quant.package'].create({'name': 'pack_sn_2'})
+        self.env['stock.quant'].create([
+            {
+                'product_id': self.productlot1.id,
+                'inventory_quantity': 1,
+                'lot_id': sn.id,
+                'location_id': self.shelf1.id,
+                'package_id': package1.id,
+            }, {
+                'product_id': self.productlot1.id,
+                'inventory_quantity': 1,
+                'lot_id': sn.id,
+                'location_id': self.shelf2.id,
+            },
+            {
+                'product_id': self.productlot1.id,
+                'inventory_quantity': 1,
+                'lot_id': sn.id,
+                'location_id': self.shelf2.id,
+                'package_id': package2.id,
+            }
+        ]).action_apply_inventory()
+
+        # Creates and confirms the delivery.
+        delivery_picking = self.env['stock.picking'].create({
+            'location_id': self.shelf2.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+        })
+        move = self.env['stock.move'].create({
+            'name': self.productlot1.name,
+            'product_id': self.productlot1.id,
+            'product_uom_qty': 1,
+            'product_uom': self.productlot1.uom_id.id,
+            'picking_id': delivery_picking.id,
+            'location_id': self.shelf2.id,
+            'location_dest_id': self.customer_location.id,
+        })
+        delivery_picking.action_confirm()
+        delivery_picking.action_assign()
+
+        # Runs the tour.
+        url = self._get_client_action_url(delivery_picking.id)
+        self.start_tour(url, 'test_delivery_lot_with_package_delivery_step', login='admin', timeout=180)
+        self.assertEqual(delivery_picking.state, "done")
+        self.assertRecordValues(move.move_line_ids, [
+            {'lot_id': sn.id, 'product_id': self.productlot1.id, 'qty_done': 1, 'package_id': package2.id, 'result_package_id': False},
+        ])
+
     def test_delivery_reserved_1(self):
         self.clean_access_rights()
         grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')

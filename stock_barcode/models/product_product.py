@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, api
+from odoo.osv import expression
 
 
 class Product(models.Model):
@@ -24,14 +25,22 @@ class Product(models.Model):
         }
 
     def prefilled_owner_package_stock_barcode(self, lot_id=False, lot_name=False):
+        domain = [
+            lot_id and ('lot_id', '=', lot_id) or lot_name and ('lot_id.name', '=', lot_name),
+            ('product_id', '=', self.id),
+            '|', ('package_id', '!=', False), ('owner_id', '!=', False),
+        ]
+
+        location_id = self.env.context.get('location_id', {}).get('id')
+        if location_id:
+            domain = expression.AND([domain, [('location_id', '=', location_id)]])
+        else:
+            domain = expression.AND([domain, [('location_id.usage', '=', 'internal')]])
+
         quant = self.env['stock.quant'].search_read(
-            [
-                lot_id and ('lot_id', '=', lot_id) or lot_name and ('lot_id.name', '=', lot_name),
-                ('location_id.usage', '=', 'internal'),
-                ('product_id', '=', self.id),
-            ],
+            domain,
             ['package_id', 'owner_id'],
-            limit=1, load=False
+            limit=1, load=False, order='package_id',
         )
         if quant:
             quant = quant[0]
