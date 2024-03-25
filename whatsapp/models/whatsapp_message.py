@@ -240,7 +240,10 @@ class WhatsAppMessage(models.Model):
 
         for whatsapp_message in self:
             wa_api = message_to_api[whatsapp_message]
-            whatsapp_message = whatsapp_message.with_user(whatsapp_message.create_uid)
+            # try to make changes with current user (notably due to ACLs), but limit
+            # to internal users to avoid crash - rewrite me in master please
+            if whatsapp_message.create_uid._is_internal():
+                whatsapp_message = whatsapp_message.with_user(whatsapp_message.create_uid)
             if whatsapp_message.state != 'outgoing':
                 _logger.info("Message state in %s state so it will not sent.", whatsapp_message.state)
                 continue
