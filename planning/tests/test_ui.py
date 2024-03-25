@@ -59,6 +59,15 @@ class TestUi(TestUiCommon):
         self.assertEqual(test_slot.resource_id, employee_joseph.resource_id, 'The shift should now be assigned to Joseph')
 
     def test_split_shift_ui(self):
+        # create a user with planning manager rights and timezone set to UTC
+        hugo = new_test_user(
+            self.env,
+            login='hugo_user',
+            groups='planning.group_planning_manager',
+            name='Hugo',
+            email='hugo@example.com',
+            tz='UTC',
+        )
         # 1. Creating work schedule in UTC
         attendance_schedule = { # To round to hours!
             'start_am': time.fromisoformat('08:00:00'),
@@ -140,7 +149,7 @@ class TestUi(TestUiCommon):
         end_date_normal = datetime.combine(end_date, attendance_schedule['end_pm'])
         end_date_early = datetime.combine(end_date, attendance_schedule['start_am']) - relativedelta(hours=2)
 
-        self.env['planning.slot'].create([
+        self.env['planning.slot'].with_user(hugo).create([
             {
                 'start_datetime': start_date_normal,
                 'end_datetime': end_date_normal,
@@ -171,7 +180,7 @@ class TestUi(TestUiCommon):
         self.assertEqual(self.env['planning.slot'].search_count([('resource_id', '=', employee_porthos.resource_id.id)]), 3)
 
         # 4. Launching tour (Browser in UTC by default)
-        self.start_tour("/", 'planning_split_shift_week', login='admin')
+        self.start_tour("/", 'planning_split_shift_week', login='hugo_user')
 
         # 5. Verify the resulting slots after splitting
         slots_aramis = self.env['planning.slot'].search_read([('resource_id', '=', employee_aramis.resource_id.id)],
