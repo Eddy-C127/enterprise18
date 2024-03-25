@@ -499,7 +499,9 @@ QUnit.module(
                 triggerEvent(target, "div[data-name='item_pivot_1']", "mouseenter");
                 const pivotId = model.getters.getPivotIds()[0];
                 const zone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
-                assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
+                assert.deepEqual(getHighlightsFromStore(env), [
+                    { color: "#37A850", sheetId, zone, noFill: true },
+                ]);
 
                 triggerEvent(target, "div[data-name='item_pivot_1']", "mouseleave");
                 assert.deepEqual(getHighlightsFromStore(env), []);

@@ -1,16 +1,12 @@
 /** @odoo-module */
 
 import { _t } from "@web/core/l10n/translation";
-import { UIPlugin, tokenize } from "@odoo/o-spreadsheet";
-import {
-    getNumberOfPivotFormulas,
-    isDateField,
-    makePivotFormula,
-} from "@spreadsheet/pivot/pivot_helpers";
-import { pivotTimeAdapter } from "@spreadsheet/pivot/pivot_time_adapters";
+import { UIPlugin, tokenize, helpers } from "@odoo/o-spreadsheet";
+
+const { makePivotFormula, getNumberOfPivotFunctions, isDateField, pivotTimeAdapter } = helpers;
 
 /**
- * @typedef {import("@spreadsheet/pivot/pivot_table").SpreadsheetPivotTable} SpreadsheetPivotTable
+ * @typedef {import("@odoo/o-spreadsheet").SpreadsheetPivotTable} SpreadsheetPivotTable
  * @typedef {import("@spreadsheet").OdooPivotDefinition} OdooPivotDefinition
  * @typedef {import("@spreadsheet/pivot/pivot_data_source").OdooPivot} OdooPivot
  */
@@ -44,7 +40,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     getPivotNextAutofillValue(formula, isColumn, increment) {
         const tokens = tokenize(formula);
-        if (getNumberOfPivotFormulas(tokens) !== 1) {
+        if (getNumberOfPivotFunctions(tokens) !== 1) {
             return formula;
         }
         const { functionName, args } = this.getters.getFirstPivotFunction(tokens);
@@ -112,7 +108,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     getTooltipFormula(formula, isColumn) {
         const tokens = tokenize(formula);
-        if (getNumberOfPivotFormulas(tokens) !== 1) {
+        if (getNumberOfPivotFunctions(tokens) !== 1) {
             return [];
         }
         const { functionName, args } = this.getters.getFirstPivotFunction(tokens);
@@ -188,7 +184,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                 cols[0] = this._incrementDate(cols[0], group, increment);
                 measure = cols.pop();
             } else {
-                const currentColIndex = table.getColMeasureIndex(currentElement.cols);
+                const currentColIndex = this._getColMeasureIndex(table, currentElement.cols);
                 if (currentColIndex === -1) {
                     return "";
                 }
@@ -202,7 +198,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                     return "";
                 }
                 // Targeting value
-                const measureCell = table.getCellFromMeasureRowAtIndex(nextColIndex);
+                const measureCell = this._getCellFromMeasureRowAtIndex(table, nextColIndex);
                 cols = [...measureCell.values];
                 measure = cols.pop();
             }
@@ -218,7 +214,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                 rows = currentElement.rows;
                 rows[0] = this._incrementDate(rows[0], group, increment);
             } else {
-                const currentRowIndex = table.getRowIndex(currentElement.rows);
+                const currentRowIndex = this._getRowIndex(table, currentElement.rows);
                 if (currentRowIndex === -1) {
                     return "";
                 }
@@ -233,12 +229,12 @@ export class PivotAutofillPlugin extends UIPlugin {
                         definition
                     );
                 }
-                if (nextRowIndex >= table.getNumberOfDataRows()) {
+                if (nextRowIndex >= table.rows.length) {
                     // Outside the pivot
                     return "";
                 }
                 // Targeting value
-                rows = [...table.getCellsFromRowAtIndex(nextRowIndex).values];
+                rows = [...this._getCellsFromRowAtIndex(table, nextRowIndex).values];
             }
             measure = cols.pop();
         }
@@ -287,7 +283,7 @@ export class PivotAutofillPlugin extends UIPlugin {
         /** @type {SpreadsheetPivotTable} */
         const table = dataSource.getTableStructure();
         const currentElement = this._getCurrentHeaderElement(args, definition);
-        const currentColIndex = table.getColMeasureIndex(currentElement.cols);
+        const currentColIndex = this._getColMeasureIndex(table, currentElement.cols);
         const isDate = this._isGroupedOnlyByOneDate(definition, "COLUMN");
         if (isColumn) {
             // LEFT-RIGHT
@@ -300,7 +296,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             } else {
                 const rowIndex = currentElement.cols.length - 1;
                 const nextColIndex = currentColIndex + increment;
-                const nextGroup = table.getNextColCell(nextColIndex, rowIndex);
+                const nextGroup = this._getNextColCell(table, nextColIndex, rowIndex);
                 if (
                     currentColIndex === -1 ||
                     nextColIndex < 0 ||
@@ -321,28 +317,32 @@ export class PivotAutofillPlugin extends UIPlugin {
             // UP-DOWN
             const rowIndex =
                 currentColIndex === table.getNumberOfDataColumns() - 1
-                    ? table.getNumberOfHeaderRows() - 2 + currentElement.cols.length
+                    ? table.columns.length - 2 + currentElement.cols.length
                     : currentElement.cols.length - 1;
             const nextRowIndex = rowIndex + increment;
             const groupLevels = this._getNumberOfColGroupBys(definition);
-            if (nextRowIndex < 0 || nextRowIndex >= groupLevels + 1 + table.getNumberOfDataRows()) {
+            if (nextRowIndex < 0 || nextRowIndex >= groupLevels + 1 + table.rows.length) {
                 // Outside the pivot
                 return "";
             }
             if (nextRowIndex >= groupLevels + 1) {
                 // Targeting a value
                 const rowIndex = nextRowIndex - groupLevels - 1;
-                const measureCell = table.getCellFromMeasureRowAtIndex(currentColIndex);
+                const measureCell = this._getCellFromMeasureRowAtIndex(table, currentColIndex);
                 const cols = [...measureCell.values];
                 const measure = cols.pop();
-                const rows = [...table.getCellsFromRowAtIndex(rowIndex).values];
+                const rows = [...this._getCellsFromRowAtIndex(table, rowIndex).values];
                 return makePivotFormula(
                     "PIVOT.VALUE",
                     this._buildArgs(pivotId, measure, rows, cols, definition)
                 );
             } else {
                 // Targeting a col.header
-                const groupValues = table.getNextColCell(currentColIndex, nextRowIndex).values;
+                const groupValues = this._getNextColCell(
+                    table,
+                    currentColIndex,
+                    nextRowIndex
+                ).values;
                 return makePivotFormula(
                     "PIVOT.HEADER",
                     this._buildArgs(pivotId, undefined, [], groupValues, definition)
@@ -384,7 +384,7 @@ export class PivotAutofillPlugin extends UIPlugin {
     _autofillPivotRowHeader(pivotId, args, isColumn, increment, dataSource, definition) {
         const table = dataSource.getTableStructure();
         const currentElement = this._getCurrentHeaderElement(args, definition);
-        const currentIndex = table.getRowIndex(currentElement.rows);
+        const currentIndex = this._getRowIndex(table, currentElement.rows);
         const isDate = this._isGroupedOnlyByOneDate(definition, "ROW");
         if (isColumn) {
             const colIndex = increment - 1;
@@ -393,7 +393,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                 // Outside the pivot
                 return "";
             }
-            const measureCell = table.getCellFromMeasureRowAtIndex(colIndex);
+            const measureCell = this._getCellFromMeasureRowAtIndex(table, colIndex);
             const values = [...measureCell.values];
             const measure = values.pop();
             return makePivotFormula(
@@ -410,14 +410,10 @@ export class PivotAutofillPlugin extends UIPlugin {
                 rows[0] = this._incrementDate(rows[0], group, increment);
             } else {
                 const nextIndex = currentIndex + increment;
-                if (
-                    currentIndex === -1 ||
-                    nextIndex < 0 ||
-                    nextIndex >= table.getNumberOfDataRows()
-                ) {
+                if (currentIndex === -1 || nextIndex < 0 || nextIndex >= table.rows.length) {
                     return "";
                 }
-                rows = [...table.getCellsFromRowAtIndex(nextIndex).values];
+                rows = [...this._getCellsFromRowAtIndex(table, nextIndex).values];
             }
             return makePivotFormula(
                 "PIVOT.HEADER",
@@ -443,7 +439,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             return "";
         }
         const table = dataSource.getTableStructure();
-        const groupIndex = table.getColMeasureIndex(currentElement.cols);
+        const groupIndex = this._getColMeasureIndex(table, currentElement.cols);
         if (groupIndex < 0) {
             return "";
         }
@@ -737,6 +733,37 @@ export class PivotAutofillPlugin extends UIPlugin {
     _isRowGroupBy(dataSource, definition, fieldName) {
         const name = dataSource.parseGroupField(fieldName).field.name;
         return definition.rows.map((row) => row.name).includes(name);
+    }
+
+    _getColMeasureIndex(table, values) {
+        const vals = JSON.stringify(values);
+        const maxLength = Math.max(...table.columns.map((col) => col.length));
+        for (let i = 0; i < maxLength; i++) {
+            const cellValues = table.columns.map((col) => JSON.stringify((col[i] || {}).values));
+            if (cellValues.includes(vals)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    _getNextColCell(table, colIndex, rowIndex) {
+        return table.columns[rowIndex][colIndex];
+    }
+
+    _getRowIndex(table, values) {
+        const vals = JSON.stringify(values);
+        return table.rows.findIndex(
+            (cell) => JSON.stringify(cell.values.map((val) => val.toString())) === vals
+        );
+    }
+
+    _getCellFromMeasureRowAtIndex(table, index) {
+        return table.columns.at(-1)[index];
+    }
+
+    _getCellsFromRowAtIndex(table, index) {
+        return table.rows[index];
     }
 }
 

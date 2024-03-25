@@ -5,10 +5,8 @@ import { PivotDialogTable } from "./spreadsheet_pivot_dialog_table";
 
 import * as spreadsheet from "@odoo/o-spreadsheet";
 
-import { makePivotFormula } from "@spreadsheet/pivot/pivot_helpers";
-
 import { Component, useState } from "@odoo/owl";
-const formatValue = spreadsheet.helpers.formatValue;
+const { makePivotFormula, formatValue } = spreadsheet.helpers;
 
 /**
  * @typedef {Object} PivotDialogColumn
@@ -112,7 +110,7 @@ export class PivotDialog extends Component {
      * @returns {Array<number>}
      */
     _addRecursiveRow(index) {
-        const rows = this.dataSource.getTableStructure().getRowHeaders();
+        const rows = this.dataSource.getTableStructure().rows;
         const row = [...rows[index].values];
         if (row.length <= 1) {
             return [index];
@@ -277,7 +275,7 @@ export class PivotDialog extends Component {
      */
     _buildColHeaders(id, table) {
         const headers = [];
-        for (const row of table.getColHeaders()) {
+        for (const row of table.columns) {
             const current = [];
             for (const cell of row) {
                 const domain = [];
@@ -314,7 +312,7 @@ export class PivotDialog extends Component {
      */
     _buildRowHeaders(id, table) {
         const headers = [];
-        for (const row of table.getRowHeaders()) {
+        for (const row of table.rows) {
             const domain = [];
             for (let i = 0; i < row.fields.length; i++) {
                 domain.push(row.fields[i]);
@@ -344,10 +342,10 @@ export class PivotDialog extends Component {
      */
     _buildValues(id, table) {
         const values = [];
-        for (const col of table.getMeasureHeaders()) {
+        for (const col of table.columns.at(-1)) {
             const current = [];
             const measure = col.values[col.values.length - 1];
-            for (const row of table.getRowHeaders()) {
+            for (const row of table.rows) {
                 const domain = [];
                 for (let i = 0; i < row.fields.length; i++) {
                     domain.push(row.fields[i]);

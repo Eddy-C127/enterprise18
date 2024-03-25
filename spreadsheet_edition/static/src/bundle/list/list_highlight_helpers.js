@@ -1,7 +1,6 @@
 import { helpers } from "@odoo/o-spreadsheet";
-import { mergeContiguousZones } from "../helpers/zone_helpers";
 
-const { positionToZone } = helpers;
+const { positionToZone, mergeContiguousZones } = helpers;
 
 export function getListHighlights(getters, listId) {
     const sheetId = getters.getActiveSheetId();

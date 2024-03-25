@@ -1,7 +1,7 @@
 /** @odoo-module */
 
-import { registries, tokenColors } from "@odoo/o-spreadsheet";
-import { insertTokenAfterLeftParenthesis } from "../helpers/auto_complete";
+import { registries, tokenColors, helpers } from "@odoo/o-spreadsheet";
+const { insertTokenAfterLeftParenthesis } = helpers;
 
 registries.autoCompleteProviders.add("global_filters", {
     sequence: 50,

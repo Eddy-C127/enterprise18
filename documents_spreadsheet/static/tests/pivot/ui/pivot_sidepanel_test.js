@@ -9,15 +9,17 @@ import {
     triggerEvent,
 } from "@web/../tests/helpers/utils";
 import { getBasicData, getBasicPivotArch } from "@spreadsheet/../tests/utils/data";
-import { createSpreadsheetFromPivotView } from "../../utils/pivot_helpers";
-import { PivotUIPlugin } from "@spreadsheet/pivot/plugins/pivot_ui_plugin";
 import {
     insertPivotInSpreadsheet,
     getZoneOfInsertedDataSource,
 } from "@spreadsheet/../tests/utils/pivot";
+import { createSpreadsheetFromPivotView } from "../../utils/pivot_helpers";
 import * as dsHelpers from "@web/../tests/core/domain_selector_tests";
 import { getHighlightsFromStore } from "../../utils/store_helpers";
 import { dragAndDrop } from "@web/../tests/legacy/helpers/utils";
+import { registries } from "@odoo/o-spreadsheet";
+
+const { coreViewsPluginRegistry } = registries;
 
 let target;
 
@@ -110,6 +112,7 @@ QUnit.module(
         QUnit.test(
             "Open pivot properties properties with non-loaded field",
             async function (assert) {
+                const PivotUIPlugin = coreViewsPluginRegistry.get("pivot_ui");
                 const { model, env, pivotId } = await createSpreadsheetFromPivotView();
                 const pivotPlugin = model["handlers"].find(
                     (handler) => handler instanceof PivotUIPlugin
@@ -150,12 +153,14 @@ QUnit.module(
             await dsHelpers.addNewRule(fixture);
             await click(fixture.querySelector(".modal-footer .btn-primary"));
             assert.deepEqual(
-                model.getters.getPivotDefinition(pivotId).domain,
+                model.getters.getPivotCoreDefinition(pivotId).domain,
                 [],
                 "update is deferred"
             );
             await click(fixture, ".pivot-defer-update .btn-link");
-            assert.deepEqual(model.getters.getPivotDefinition(pivotId).domain, [["id", "=", 1]]);
+            assert.deepEqual(model.getters.getPivotCoreDefinition(pivotId).domain, [
+                ["id", "=", 1],
+            ]);
             assert.equal(dsHelpers.getConditionText(fixture), "ID = 1");
         });
 
@@ -292,7 +297,9 @@ QUnit.module(
                 ".pivot-defer-update .btn",
                 "it should not show the update/discard buttons"
             );
-            let definition = JSON.parse(JSON.stringify(model.getters.getPivotDefinition(pivotId)));
+            let definition = JSON.parse(
+                JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
+            );
             assert.deepEqual(definition.columns, [{ name: "foo" }]);
             assert.deepEqual(definition.rows, [{ name: "bar" }]);
             await dragAndDrop(
@@ -308,7 +315,7 @@ QUnit.module(
             );
             await nextTick();
             // TODO use a snapshot
-            definition = JSON.parse(JSON.stringify(model.getters.getPivotDefinition(pivotId)));
+            definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
             // update is not applied until the user clicks on the save button
             assert.deepEqual(definition.columns, [{ name: "foo" }]);
             assert.deepEqual(definition.rows, [{ name: "bar" }]);
@@ -318,7 +325,7 @@ QUnit.module(
                 ".pivot-defer-update .btn",
                 "it should not show the update/discard buttons"
             );
-            definition = JSON.parse(JSON.stringify(model.getters.getPivotDefinition(pivotId)));
+            definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
             assert.deepEqual(definition.columns, []);
             assert.deepEqual(definition.rows, [{ name: "bar" }, { name: "foo" }]);
         });
@@ -356,7 +363,7 @@ QUnit.module(
                     "it should not show the update/discard buttons"
                 );
                 const definition = JSON.parse(
-                    JSON.stringify(model.getters.getPivotDefinition(pivotId))
+                    JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
                 );
                 assert.deepEqual(definition.columns, []);
                 assert.deepEqual(definition.rows, [{ name: "bar" }, { name: "foo" }]);
@@ -385,7 +392,7 @@ QUnit.module(
             await nextTick();
             await click(fixture, ".pivot-defer-update .btn-link");
             const definition = JSON.parse(
-                JSON.stringify(model.getters.getPivotDefinition(pivotId))
+                JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
             );
             assert.deepEqual(definition.columns, []);
             assert.deepEqual(definition.rows, [{ name: "bar" }]);
@@ -413,7 +420,7 @@ QUnit.module(
             await nextTick();
             await click(fixture, ".pivot-defer-update .btn-link");
             const definition = JSON.parse(
-                JSON.stringify(model.getters.getPivotDefinition(pivotId))
+                JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
             );
             assert.deepEqual(definition.rows, [{ name: "date", granularity: "month" }]);
         });
@@ -438,7 +445,7 @@ QUnit.module(
             await click(fixture.querySelectorAll(".o-popover div")[1]);
             await click(fixture, ".pivot-defer-update .btn-link");
             const definition = JSON.parse(
-                JSON.stringify(model.getters.getPivotDefinition(pivotId))
+                JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
             );
             assert.deepEqual(definition.columns, [{ name: "bar" }]);
             assert.deepEqual(definition.rows, []);
@@ -464,7 +471,7 @@ QUnit.module(
             await click(fixture.querySelectorAll(".o-popover div")[1]);
             await click(fixture, ".pivot-defer-update .btn-link");
             const definition = JSON.parse(
-                JSON.stringify(model.getters.getPivotDefinition(pivotId))
+                JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
             );
             assert.deepEqual(definition.columns, []);
             assert.deepEqual(definition.rows, [{ name: "bar" }]);
@@ -562,14 +569,14 @@ QUnit.module(
             await triggerEvent(fixture, ".o-popover input", "keydown", {
                 key: "Enter",
             });
-            assert.deepEqual(model.getters.getPivotDefinition(pivotId).columns, []);
-            assert.deepEqual(model.getters.getPivotDefinition(pivotId).rows, []);
+            assert.deepEqual(model.getters.getPivotCoreDefinition(pivotId).columns, []);
+            assert.deepEqual(model.getters.getPivotCoreDefinition(pivotId).rows, []);
             await click(fixture, ".pivot-defer-update .btn-link");
             assert.deepEqual(
-                JSON.parse(JSON.stringify(model.getters.getPivotDefinition(pivotId))).columns,
+                JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))).columns,
                 [{ name: "foobar" }]
             );
-            assert.deepEqual(model.getters.getPivotDefinition(pivotId).rows, []);
+            assert.deepEqual(model.getters.getPivotCoreDefinition(pivotId).rows, []);
         });
 
         QUnit.test("remove pivot measure", async function (assert) {
@@ -595,7 +602,7 @@ QUnit.module(
             await nextTick();
             await click(fixture, ".pivot-defer-update .btn-link");
             const definition = JSON.parse(
-                JSON.stringify(model.getters.getPivotDefinition(pivotId))
+                JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
             );
             assert.deepEqual(definition.columns, [{ name: "foo" }]);
             assert.deepEqual(definition.rows, [{ name: "bar" }]);
@@ -624,7 +631,7 @@ QUnit.module(
             await click(fixture.querySelectorAll(".o-popover div")[1]);
             await click(fixture, ".pivot-defer-update .btn-link");
             const definition = JSON.parse(
-                JSON.stringify(model.getters.getPivotDefinition(pivotId))
+                JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
             );
             assert.deepEqual(definition.columns, [{ name: "foo" }]);
             assert.deepEqual(definition.rows, [{ name: "bar" }]);
@@ -654,7 +661,7 @@ QUnit.module(
             await editSelect(fixture, ".pivot-measure select", "sum");
             await click(fixture, ".pivot-defer-update .btn-link");
             assert.strictEqual(fixture.querySelector(".pivot-measure select").value, "sum");
-            const definition = model.getters.getPivotDefinition(pivotId);
+            const definition = model.getters.getPivotCoreDefinition(pivotId);
             assert.deepEqual(definition.measures, [{ name: "probability", aggregator: "sum" }]);
         });
 
@@ -679,13 +686,15 @@ QUnit.module(
             await editSelect(fixture.querySelector(".pivot-dimensions select"), null, "desc");
             assert.strictEqual(fixture.querySelector(".pivot-dimensions select").value, "desc");
             await click(fixture, ".pivot-defer-update .btn-link");
-            let definition = JSON.parse(JSON.stringify(model.getters.getPivotDefinition(pivotId)));
+            let definition = JSON.parse(
+                JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
+            );
             assert.deepEqual(definition.rows, [{ name: "foo", order: "desc" }]);
 
             // reset to automatic
             await editSelect(fixture.querySelector(".pivot-dimensions select"), null, "");
             await click(fixture, ".pivot-defer-update .btn-link");
-            definition = JSON.parse(JSON.stringify(model.getters.getPivotDefinition(pivotId)));
+            definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
             assert.deepEqual(definition.rows, [{ name: "foo" }]);
         });
 
@@ -717,7 +726,7 @@ QUnit.module(
             );
             await click(fixture, ".pivot-defer-update .btn-link");
             const definition = JSON.parse(
-                JSON.stringify(model.getters.getPivotDefinition(pivotId))
+                JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
             );
             assert.deepEqual(definition.rows, [{ name: "date", granularity: "week" }]);
         });
@@ -761,7 +770,9 @@ QUnit.module(
                 await nextTick();
 
                 const zone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
-                assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
+                assert.deepEqual(getHighlightsFromStore(env), [
+                    { color: "#37A850", sheetId, zone, noFill: true },
+                ]);
                 await click(target, ".o-sidePanelClose");
                 assert.deepEqual(getHighlightsFromStore(env), []);
             }
@@ -780,7 +791,9 @@ QUnit.module(
 
                 triggerEvent(target, ".o_side_panel_select", "mouseenter");
                 const zone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
-                assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
+                assert.deepEqual(getHighlightsFromStore(env), [
+                    { color: "#37A850", sheetId, zone, noFill: true },
+                ]);
 
                 triggerEvent(target, ".o_side_panel_select", "mouseleave");
                 assert.deepEqual(getHighlightsFromStore(env), []);

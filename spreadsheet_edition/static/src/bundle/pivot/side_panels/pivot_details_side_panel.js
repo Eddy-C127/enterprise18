@@ -5,18 +5,14 @@ import { DomainSelector } from "@web/core/domain_selector/domain_selector";
 import { DomainSelectorDialog } from "@web/core/domain_selector_dialog/domain_selector_dialog";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
-import { EditableName } from "../../o_spreadsheet/editable_name/editable_name";
 import { components, helpers, stores, hooks } from "@odoo/o-spreadsheet";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
-import { getPivotHighlights } from "../pivot_highlight_helpers";
-
-import { PivotSidePanelStore } from "./pivot_detail_side_panel_store";
-import { PivotDimensions } from "./pivot_dimensions/pivot_dimensions";
 
 const uuidGenerator = new helpers.UuidGenerator();
-const { Checkbox, Section, ValidationMessages } = components;
+const { Checkbox, Section, ValidationMessages, PivotDimensions, EditableName } = components;
 const { useHighlights } = hooks;
-const { useLocalStore } = stores;
+const { useLocalStore, PivotSidePanelStore } = stores;
+const { getPivotHighlights } = helpers;
 
 export class PivotDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.PivotDetailsSidePanel";

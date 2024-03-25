@@ -1,12 +1,10 @@
 /** @odoo-module */
 
-import { registries, tokenColors } from "@odoo/o-spreadsheet";
+import { registries, tokenColors, helpers } from "@odoo/o-spreadsheet";
 import { extractDataSourceId } from "@spreadsheet/helpers/odoo_functions_helpers";
-import {
-    insertTokenAfterArgSeparator,
-    insertTokenAfterLeftParenthesis,
-    makeFieldProposal,
-} from "../helpers/auto_complete";
+
+const { insertTokenAfterArgSeparator, insertTokenAfterLeftParenthesis, makeFieldProposal } =
+    helpers;
 
 registries.autoCompleteProviders.add("list_fields", {
     sequence: 50,

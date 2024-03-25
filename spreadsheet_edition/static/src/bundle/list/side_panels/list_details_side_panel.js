@@ -8,11 +8,10 @@ import { _t } from "@web/core/l10n/translation";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
 import { getListHighlights } from "../list_highlight_helpers";
 
-import { EditableName } from "../../o_spreadsheet/editable_name/editable_name";
 import { hooks, components } from "@odoo/o-spreadsheet";
 
-const { ValidationMessages } = components;
 const { useHighlights } = hooks;
+const { ValidationMessages, EditableName } = components;
 
 export class ListDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.ListDetailsSidePanel";

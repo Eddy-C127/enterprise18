@@ -1,7 +1,8 @@
-import { PivotSidePanelStore } from "@spreadsheet_edition/bundle/pivot/side_panels/pivot_detail_side_panel_store";
 import { getBasicData } from "@spreadsheet/../tests/utils/data";
 import { createSpreadsheetWithPivot } from "@spreadsheet/../tests/utils/pivot";
 import { makeStoreWithModel } from "@spreadsheet/../tests/utils/stores";
+import { stores } from "@odoo/o-spreadsheet";
+const { PivotSidePanelStore } = stores;
 
 QUnit.module("spreadsheet pivot side panel store");
 
@@ -20,12 +21,12 @@ QUnit.test("deferred updates", async (assert) => {
     assert.strictEqual(store.isDirty, true);
     assert.deepEqual(store.definition.columns[0].name, "bar");
     assert.deepEqual(store.definition.rows[0].name, "foo");
-    let definition = JSON.parse(JSON.stringify(model.getters.getPivotDefinition(pivotId)));
+    let definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     assert.deepEqual(definition.columns, [{ name: "product_id" }], "updates are defered");
     assert.deepEqual(definition.rows, [{ name: "foo" }], "updates are defered");
     store.applyUpdate();
     assert.strictEqual(store.isDirty, false);
-    definition = JSON.parse(JSON.stringify(model.getters.getPivotDefinition(pivotId)));
+    definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     assert.deepEqual(definition.columns, [{ name: "bar" }]);
     assert.deepEqual(definition.rows, [{ name: "foo" }]);
 });
@@ -43,7 +44,7 @@ QUnit.test("uncheck the defer updates checkbox applies the update", async (asser
     assert.strictEqual(store.isDirty, false);
     store.update({ columns: [{ name: "bar" }] });
     store.deferUpdates(false);
-    const definition = JSON.parse(JSON.stringify(model.getters.getPivotDefinition(pivotId)));
+    const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     assert.deepEqual(definition.columns, [{ name: "bar" }]);
     assert.deepEqual(definition.rows, [{ name: "foo" }]);
     assert.strictEqual(store.isDirty, false);

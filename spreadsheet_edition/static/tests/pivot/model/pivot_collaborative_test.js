@@ -191,7 +191,7 @@ QUnit.test("update and remove a pivot concurrently", async (assert) => {
             pivotId: "PIVOT#1",
             pivot: {
                 type: "ODOO",
-                ...alice.getters.getPivotDefinition("PIVOT#1"),
+                ...alice.getters.getPivotCoreDefinition("PIVOT#1"),
                 columns: [],
             },
         });

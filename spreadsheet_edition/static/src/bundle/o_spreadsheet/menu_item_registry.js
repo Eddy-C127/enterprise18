@@ -4,7 +4,6 @@ import { _t } from "@web/core/l10n/translation";
 import { registries, stores } from "@odoo/o-spreadsheet";
 import { REINSERT_LIST_CHILDREN } from "../list/list_actions";
 import { INSERT_PIVOT_CELL_CHILDREN, REINSERT_PIVOT_CHILDREN } from "../pivot/pivot_actions";
-import { getPivotHighlights } from "../pivot/pivot_highlight_helpers";
 import { getListHighlights } from "../list/list_highlight_helpers";
 const { topbarMenuRegistry } = registries;
 const { HighlightStore } = stores;
@@ -66,29 +65,6 @@ topbarMenuRegistry.addChild("download_as_json", ["file"], {
 
 topbarMenuRegistry.addChild("data_sources_data", ["data"], (env) => {
     let sequence = 1000;
-    const pivots_items = env.model.getters.getPivotIds().map((pivotId, index) => {
-        const highlightProvider = {
-            get highlights() {
-                return getPivotHighlights(env.model.getters, pivotId);
-            },
-        };
-        return {
-            id: `item_pivot_${env.model.getters.getPivotFormulaId(pivotId)}`,
-            name: env.model.getters.getPivotDisplayName(pivotId),
-            sequence: sequence++,
-            execute: (env) => {
-                env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
-            },
-            onStartHover: (env) => env.getStore(HighlightStore).register(highlightProvider),
-            onStopHover: (env) => env.getStore(HighlightStore).unRegister(highlightProvider),
-            icon: "o-spreadsheet-Icon.PIVOT",
-            separator: index === env.model.getters.getPivotIds().length - 1,
-            secondaryIcon: (env) =>
-                env.model.getters.isPivotUnused(pivotId)
-                    ? "o-spreadsheet-Icon.UNUSED_PIVOT_WARNING"
-                    : undefined,
-        };
-    });
     const lists_items = env.model.getters.getListIds().map((listId, index) => {
         const highlightProvider = {
             get highlights() {
@@ -125,21 +101,18 @@ topbarMenuRegistry.addChild("data_sources_data", ["data"], (env) => {
             separator: index === env.model.getters.getOdooChartIds().length - 1,
         };
     });
-    return pivots_items
-        .concat(lists_items)
-        .concat(charts_items)
-        .concat([
-            {
-                id: "refresh_all_data",
-                name: _t("Refresh all data"),
-                sequence: sequence++,
-                execute: (env) => {
-                    env.model.dispatch("REFRESH_ALL_DATA_SOURCES");
-                },
-                separator: true,
-                icon: "o-spreadsheet-Icon.REFRESH_DATA",
+    return lists_items.concat(charts_items).concat([
+        {
+            id: "refresh_all_data",
+            name: _t("Refresh all data"),
+            sequence: sequence++,
+            execute: (env) => {
+                env.model.dispatch("REFRESH_ALL_DATA_SOURCES");
             },
-        ]);
+            separator: true,
+            icon: "o-spreadsheet-Icon.REFRESH_DATA",
+        },
+    ]);
 });
 
 const insertPivotMenu = {

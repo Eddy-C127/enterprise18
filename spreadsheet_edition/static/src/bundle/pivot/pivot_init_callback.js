@@ -3,11 +3,11 @@
 
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
-import { parseDimension } from "@spreadsheet/pivot/pivot_helpers";
 import { Domain } from "@web/core/domain";
 import { deepCopy } from "@web/core/utils/objects";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
+const { parseDimension } = spreadsheet.helpers;
 
 /**
  * Asserts that the given result is successful, otherwise throws an error.

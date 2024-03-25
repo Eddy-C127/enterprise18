@@ -1,9 +1,8 @@
 /** @odoo-module */
 
-import { mergeContiguousZones } from "../../src/bundle/helpers/zone_helpers";
 import { helpers } from "@odoo/o-spreadsheet";
 
-const { toZone } = helpers;
+const { toZone, mergeContiguousZones } = helpers;
 
 QUnit.module("spreadsheet > zone helpers", {});
 
