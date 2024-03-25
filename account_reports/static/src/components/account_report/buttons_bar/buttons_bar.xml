@@ -43,13 +43,11 @@
                             <t t-set-slot="content">
                                 <t t-foreach="groupedButtons" t-as="groupedButton" t-key="groupedButton_index">
                                     <t t-if="groupedButton_index !== 0">
-                                        <DropdownItem>
-                                            <button
-                                                t-att-class="'btn btn-link text-nowrap' + (groupedButton.disabled ? ' disabled' : '')"
-                                                t-on-click="(ev) => controller.reportAction(ev, groupedButton.action, groupedButton.action_param, true)"
-                                            >
-                                                <t t-out="groupedButton.name"/>
-                                            </button>
+                                        <DropdownItem
+                                            class="{'disabled': groupedButton.disabled}"
+                                            onSelected="(ev) => controller.reportAction(ev, groupedButton.action, groupedButton.action_param, true)"
+                                        >
+                                            <button class="btn btn-link text-nowrap" t-out="groupedButton.name"/>
                                         </DropdownItem>
                                     </t>
                                 </t>
