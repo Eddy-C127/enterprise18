@@ -1091,7 +1091,8 @@ export default class BarcodeModel extends EventBus {
                     {
                         lot_id: lotId,
                         lot_name: (!lotId && barcodeData.lotName) || false,
-                    }
+                        context: { location_id: currentLine.location_id },
+                    },
                 );
                 this.cache.setCache(res.records);
                 if (prefilledPackage && res.quant && res.quant.package_id) {

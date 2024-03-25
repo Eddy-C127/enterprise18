@@ -776,6 +776,31 @@ registry.category("web_tour.tours").add('test_delivery_lot_with_package', {test:
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
+registry.category("web_tour.tours").add('test_delivery_lot_with_package_delivery_step', {test: true, steps: () => [
+    {
+        trigger: '.o_barcode_line',
+        run: 'scan LOC-01-02-00',
+    },
+    {
+        trigger: '.o_barcode_line',
+        run: 'scan productlot1',
+    },
+    {
+        trigger: '.o_barcode_line',
+        run: 'scan sn'
+    },
+    {
+        trigger: '.o_barcode_line:contains("sn")',
+        run: 'scan O-BTN.validate'
+    },
+    {
+        trigger: '.o_notification.border-success',
+        run: function () {
+            helper.assertErrorMessage('The transfer has been validated');
+        },
+    },
+]});
+
 registry.category("web_tour.tours").add('test_delivery_reserved_1', {test: true, steps: () => [
     // test that picking note properly pops up + close it
     { trigger: '.alert:contains("A Test Note")' },
