@@ -650,3 +650,24 @@ class WhatsAppCommon(MailCommon, WhatsAppCase):
             {'name': 'Payload.wasm', 'datas': "AGFzbQEAAAA=", 'mimetype': 'application/octet-stream'},
         ])
         cls.document_attachment, cls.image_attachment, cls.video_attachment, cls.invalid_attachment = documents
+
+    @classmethod
+    def _setup_share_users(cls):
+        cls.test_portal_user = mail_new_test_user(
+            cls.env,
+            login='test_portal_user',
+            mobile='+32 494 12 34 56',
+            phone='+32 494 12 34 89',
+            name='Portal User',
+            email='portal@test.example.com',
+            groups='base.group_portal',
+        )
+        cls.test_public_user = mail_new_test_user(
+            cls.env,
+            login='test_public_user',
+            mobile='+32 494 65 43 21',
+            phone='+32 494 98 43 21',
+            name='Public User',
+            email='public@test.example.com',
+            groups='base.group_public',
+        )

@@ -333,3 +333,31 @@ class WhatsAppComposerPreview(WhatsAppComposerCase):
             'Thank *you*',
         ]:
             self.assertIn(expected_str, composer.preview_whatsapp)
+
+
+@tagged('wa_composer')
+class WhatsAppComposerUsage(WhatsAppComposerCase):
+
+    def test_composer_template_send_user_access(self):
+        """ Test that WA message send through SUDO-ed flow, involving public
+        user """
+        self._setup_share_users()
+
+        for test_user in self.test_public_user + self.test_portal_user + self.user_employee:
+            with self.subTest(test_user_login=test_user.login):
+                composer = self.env['whatsapp.composer'].with_context(
+                    active_model=self.customers[0]._name, active_ids=self.customers[0].ids,
+                ).with_user(test_user).sudo().create({
+                    'wa_template_id': self.template_dynamic_cplx.id,
+                })
+
+                with self.mockWhatsappGateway():
+                    composer.sudo().action_send_whatsapp_template()
+                    self.assertWAMessage(
+                        "sent",
+                        fields_values={
+                            "create_uid": test_user,
+                            "body": f"<p>Hello I am { test_user.name },<br>Here my mobile number: { test_user.mobile },"
+                                    f"<br>You are coming from { self.customers[0].country_id.name }.<br>Welcome to Odoo In office</p>",
+                        },
+                    )
