@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import textwrap
+
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 
-import textwrap
 
 DESCRIPTION_CREDIT_CODE = [
     ("1", "Devolución parcial de los bienes y/o no aceptación parcial del servicio"),
@@ -21,19 +22,26 @@ DESCRIPTION_DEBIT_CODE = [
     ('4', 'Otros'),
 ]
 
+L10N_CO_EDI_TYPE = {
+    'Sales Invoice': '1',
+    'Export Invoice': '2',
+    'Electronic transmission document - type 03': '3',
+    'Electronic Sales Invoice - type 04': '4',
+    'Credit Note': '91',
+    'Debit Note': '92',
+    'Event (Application Response)': '96',
+}
+
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    l10n_co_edi_type = fields.Selection([
-        ('1', 'Factura de venta'),
-        ('2', 'Factura de exportación'),
-        ('3', 'Documento electrónico de transmisión – tipo 03'),
-        ('4', 'Factura electrónica de Venta - tipo 04'),
-        ('91', 'Nota Crédito'),
-        ('92', 'Nota Débito'),
-        ('96', 'Eventos (Application Response)'),
-    ], compute='_compute_l10n_co_edi_type', store=True, string='Electronic Invoice Type')
+    l10n_co_edi_type = fields.Selection(
+        selection=[(code, label) for label, code in L10N_CO_EDI_TYPE.items()],
+        compute='_compute_l10n_co_edi_type',
+        store=True,
+        string='Electronic Invoice Type',
+    )
     l10n_co_edi_attachment_url = fields.Char('Electronic Invoice Attachment URL',
                                              help='''Will be included in electronic invoice and can point to
                                              e.g. a ZIP containing additional information about the invoice.''', copy=False)
@@ -73,31 +81,21 @@ class AccountMove(models.Model):
         CO_moves = self.filtered(lambda move: move.company_id.account_fiscal_country_id.code == 'CO')
         for move in CO_moves:
             if move.move_type == 'out_refund':
-                move.l10n_co_edi_type = '91'
+                move.l10n_co_edi_type = L10N_CO_EDI_TYPE['Credit Note']
             elif move.l10n_co_edi_debit_note:
-                move.l10n_co_edi_type = '92'
+                move.l10n_co_edi_type = L10N_CO_EDI_TYPE['Debit Note']
             elif not move.l10n_co_edi_type:
-                move.l10n_co_edi_type = '1'
+                move.l10n_co_edi_type = L10N_CO_EDI_TYPE['Sales Invoice']
 
     @api.depends('move_type', 'reversed_entry_id', 'edi_document_ids.state', 'l10n_co_edi_cufe_cude_ref')
     def _compute_operation_type(self):
-        for rec in self:
-            operation_type = False
-            if rec.move_type == 'out_refund':
-                if rec.reversed_entry_id:
-                    operation_type = '20'
-                else:
-                    operation_type = '22'
-            else:
-                if rec.l10n_co_edi_debit_note:
-                    state = rec._get_edi_document(self.env.ref('l10n_co_edi.edi_carvajal')).state
-                    if state == 'sent' and not rec.l10n_co_edi_cufe_cude_ref:
-                        operation_type = '23'
-                    elif rec.debit_origin_id:
-                        operation_type = '30'
-                    else:
-                        operation_type = '32'
-            rec.l10n_co_edi_operation_type = operation_type or '10'
+        for move in self:
+            operation_type = '10'
+            if move.move_type == 'out_refund':
+                operation_type = '20' if move.reversed_entry_id else '22'
+            elif move.l10n_co_edi_debit_note:
+                operation_type = '30' if move.debit_origin_id else '32'
+            move.l10n_co_edi_operation_type = operation_type
 
     @api.depends('invoice_date_due', 'date')
     def _compute_l10n_co_edi_is_direct_payment(self):
@@ -158,7 +156,7 @@ class AccountMoveLine(models.Model):
         """
         self.ensure_one()
         if self.product_id:
-            if self.move_id.l10n_co_edi_type == '2':
+            if self.move_id.l10n_co_edi_type == L10N_CO_EDI_TYPE['Export Invoice']:
                 if not self.product_id.l10n_co_edi_customs_code:
                     raise UserError(_('Exportation invoices require custom code in all the products, please fill in this information before validating the invoice'))
                 return (self.product_id.l10n_co_edi_customs_code, '020', 'Partida Alanceraria')

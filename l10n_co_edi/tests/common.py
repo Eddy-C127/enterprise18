@@ -77,6 +77,10 @@ class TestCoEdiCommon(AccountEdiTestCommon):
             'tax_calculation_rounding_method': 'round_globally',
         })
 
+        if 'l10n_co_dian_provider' in cls.env['res.company']._fields:
+            # when l10n_co_dian is installed, DIAN is used by default (and Carvajal is disabled)
+            cls.company_data['company'].l10n_co_dian_provider = 'carvajal'
+
         cls.company_data['company'].partner_id.write({
             'l10n_latam_identification_type_id': cls.env.ref('l10n_co.rut').id,
             'l10n_co_edi_obligation_type_ids': [(6, 0, [cls.env.ref('l10n_co_edi.obligation_type_1').id])],

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import fields, models
+from odoo import fields, models, api
+
+FINAL_CONSUMER_VAT = '222222222222'  # 'Consumidor Final' is the generic partner used in B2C
 
 
 class ResPartner(models.Model):
@@ -19,11 +21,19 @@ class ResPartner(models.Model):
                                                        'partner_id', 'type_id',
                                                        string='Obligaciones y Responsabilidades')
 
+    @api.model
+    def _commercial_fields(self):
+        return super()._commercial_fields() + [
+            'l10n_co_edi_fiscal_regimen',
+            'l10n_co_edi_obligation_type_ids',
+            'l10n_co_edi_large_taxpayer',
+            'l10n_co_edi_commercial_name',
+        ]
+
     def _get_vat_without_verification_code(self):
         self.ensure_one()
-        # last digit is the verification code
         # last digit is the verification code, but it could have a - before
-        if self.l10n_latam_identification_type_id.l10n_co_document_code != 'rut' or self.vat == '222222222222':
+        if self.l10n_latam_identification_type_id.l10n_co_document_code != 'rut' or self.vat == FINAL_CONSUMER_VAT:
             return self.vat
         elif self.vat and "-" in self.vat:
             return self.vat.split('-')[0]
@@ -59,6 +69,7 @@ class ResPartner(models.Model):
             'foreign_resident_card': '22',
             'diplomatic_card': '',
             'PPT': '48',
+            'vat': '50',
         }
 
         identification_type = self.l10n_latam_identification_type_id.l10n_co_document_code

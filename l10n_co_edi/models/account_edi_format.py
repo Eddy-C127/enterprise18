@@ -13,6 +13,7 @@ import re
 from collections import defaultdict
 from datetime import timedelta
 from markupsafe import Markup
+from .account_invoice import L10N_CO_EDI_TYPE
 
 
 class AccountEdiFormat(models.Model):
@@ -457,7 +458,11 @@ class AccountEdiFormat(models.Model):
     def _get_move_applicability(self, move):
         # EXTENDS account_edi
         self.ensure_one()
-        if self.code != 'ubl_carvajal':
+        is_dian_used = (
+            'l10n_co_dian_provider' in move.company_id._fields
+            and move.company_id.l10n_co_dian_provider == 'dian'
+        )
+        if self.code != 'ubl_carvajal' or is_dian_used:
             return super()._get_move_applicability(move)
 
         # Determine on which invoices the EDI must be generated.
@@ -503,8 +508,8 @@ class AccountEdiFormat(models.Model):
             edi_result.append(_("You cannot send Documents in Carvajal without an amount."))
         if not move.partner_id.commercial_partner_id.l10n_co_edi_obligation_type_ids:
             edi_result.append(_("'Obligaciones y Responsabilidades' on the Customer Fiscal Data section needs to be set for the partner %s.", move.partner_id.commercial_partner_id.display_name))
-        if (move.l10n_co_edi_type == '2' and \
-                any(l.product_id and not l.product_id.l10n_co_edi_customs_code for l in move.invoice_line_ids)):
+        if move.l10n_co_edi_type == L10N_CO_EDI_TYPE['Export Invoice'] and \
+                any(l.product_id and not l.product_id.l10n_co_edi_customs_code for l in move.invoice_line_ids):
             edi_result.append(_("Every exportation product must have a customs code."))
         elif move.invoice_date and not (oldest_date <= fields.Datetime.to_datetime(move.invoice_date) <= newest_date):
             move.message_post(body=_('The issue date can not be older than 5 days or more than 5 days in the future'))
