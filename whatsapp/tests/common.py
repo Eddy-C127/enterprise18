@@ -656,6 +656,13 @@ class WhatsAppCommon(MailCommon, WhatsAppCase):
             {'name': 'Payload.wasm', 'datas': "AGFzbQEAAAA=", 'mimetype': 'application/octet-stream'},
         ])
         cls.document_attachment, cls.image_attachment, cls.video_attachment, cls.invalid_attachment = documents
+        documents_wa_admin = cls.env['ir.attachment'].with_user(cls.user_wa_admin).create([
+            {'name': 'Document.pdf', 'datas': pdf_data},
+            {'name': 'Image.jpg', 'datas': image_data},
+            {'name': 'Video.mpg', 'datas': video_data},
+            {'name': 'Payload.wasm', 'datas': "AGFzbQEAAAA=", 'mimetype': 'application/octet-stream'},
+        ])
+        cls.document_attachment_wa_admin, cls.image_attachment_wa_admin, cls.video_attachment_wa_admin, cls.invalid_attachment_wa_admin = documents_wa_admin
 
     @classmethod
     def _setup_share_users(cls):
