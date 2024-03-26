@@ -7,10 +7,8 @@ import { Deferred } from "@web/core/utils/concurrency";
 import { _t } from "@web/core/l10n/translation";
 import { escape } from '@web/core/utils/strings';
 import { user } from '@web/core/user';
-import { markup, EventBus } from '@odoo/owl';
+import { markup } from '@odoo/owl';
 import { formatFloat } from "@web/core/utils/numbers";
-
-const bus = new EventBus();
 
 export default class BarcodePickingModel extends BarcodeModel {
     constructor(resModel, resId, services) {
@@ -593,10 +591,6 @@ export default class BarcodePickingModel extends BarcodeModel {
 
     get displayAddProductButton() {
         return !this._useReservation || this.config.barcode_allow_extra_product;
-    }
-
-    get displaySplitButton() {
-        return true;
     }
 
     get displayCancelButton() {
@@ -1529,15 +1523,6 @@ export default class BarcodePickingModel extends BarcodeModel {
             [[this.resId]]
          )
         return this.action.doAction(action, { stackPosition: "replaceCurrentAction" });
-    }
-
-    async split() {
-        await this.orm.call(
-            this.resModel,
-            'action_split_transfer',
-            [[this.resId]]
-        );
-        bus.trigger('refresh');
     }
 
     async _scrap() {

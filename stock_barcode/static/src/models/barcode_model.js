@@ -147,10 +147,6 @@ export default class BarcodeModel extends EventBus {
         return false;
     }
 
-    get displaySplitButton() {
-        return false;
-    }
-
     get displayCancelButton() {
         return false;
     }
