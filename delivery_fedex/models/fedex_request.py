@@ -102,6 +102,7 @@ class FedexRequest():
         Contact.PersonName = remove_accents(company_partner.name) if not company_partner.is_company else ''
         Contact.CompanyName = remove_accents(company_partner.commercial_company_name) or ''
         Contact.PhoneNumber = warehouse_partner.phone or ''
+        Contact.EMailAddress = warehouse_partner.email or ''
         # TODO fedex documentation asks for TIN number, but it seems to work without
 
         Address = self.factory.Address()
@@ -127,6 +128,7 @@ class FedexRequest():
             Contact.PersonName = remove_accents(recipient_partner.name)
             Contact.CompanyName = remove_accents(recipient_partner.commercial_company_name) or ''
         Contact.PhoneNumber = recipient_partner.phone or ''
+        Contact.EMailAddress = recipient_partner.email or ''
 
         Address = self.factory.Address()
         Address.StreetLines = [remove_accents(recipient_partner.street) or '', remove_accents(recipient_partner.street2) or '']
