@@ -54,7 +54,7 @@ class TestHelpdeskStock(common.HelpdeskCommon):
         self.assertEqual(return_picking.product_return_moves[0].product_id, product,
             "The product of the picking line does not match the product of the sale order")
 
-        return_picking.create_returns()
+        return_picking.action_create_returns()
 
         return_picking = self.env['stock.picking'].search([
             ('partner_id', '=', self.partner.id),

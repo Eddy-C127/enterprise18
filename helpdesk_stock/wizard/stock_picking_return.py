@@ -66,9 +66,8 @@ class ReturnPicking(models.TransientModel):
                 domain += [('partner_id', 'child_of', r.ticket_id.partner_id.commercial_partner_id.id)]
             r.suitable_sale_order_ids = self.env['sale.order'].search(domain)
 
-    def create_returns(self):
-        res = super(ReturnPicking, self).create_returns()
-        res['context'].update({'create': False})
+    def action_create_returns(self):
+        res = super().action_create_returns()
         picking_id = self.env['stock.picking'].browse(res['res_id'])
         ticket_id = self.ticket_id or self.env['helpdesk.ticket'].sudo().search([('picking_ids', 'in', self.picking_id.id)], limit=1)
         if ticket_id:

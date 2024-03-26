@@ -19,6 +19,7 @@
         'security/sale_stock_renting_security.xml',
         'data/rental_stock_data.xml',
         'wizard/rental_processing_views.xml',
+        'wizard/stock_picking_return_views.xml',
         'report/rental_schedule_views.xml',
         'report/rental_report_views.xml',
         'report/rental_order_report_templates.xml',
