@@ -677,6 +677,8 @@ class TestCFDIInvoice(TestMxEdiCommon):
 
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_invoice_try_send()
+        original_fiscal_folio = invoice.l10n_mx_edi_cfdi_uuid
+        invoice.l10n_mx_edi_cfdi_uuid = "DEMOFOLIOFISCAL"  # Prevent blocking duplicate fiscal folio
 
         new_invoice = self._upload_document_on_journal(
             journal=self.company_data['default_journal_sale'],
@@ -686,6 +688,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
 
         # Check the newly created invoice
         expected_vals, expected_line_vals = self._export_move_vals(invoice)
+        expected_vals["l10n_mx_edi_cfdi_uuid"] = original_fiscal_folio  # Reset original fiscal folio for the check
         self.assertRecordValues(new_invoice, [expected_vals])
         self.assertRecordValues(new_invoice.invoice_line_ids, expected_line_vals)
 
@@ -712,11 +715,26 @@ class TestCFDIInvoice(TestMxEdiCommon):
             filename='new_bill.xml',
         ).action_post()
 
-        with self.assertRaisesRegex(RedirectWarning, 'Duplicated vendor reference detected. You probably encoded twice the same vendor bill/credit note.'):
+        # It fails when uploading the same vendor bill twice
+        with self.assertRaisesRegex(
+            RedirectWarning,
+            "Duplicated vendor reference detected. You probably encoded twice the same vendor bill/credit note.",
+        ):
             self._upload_document_on_journal(
                 journal=self.company_data['default_journal_purchase'],
                 content=bill_content,
                 filename='duplicate_bill.xml',
+            ).action_post()
+
+        # It fails when uploading an existing customer invoice
+        with self.assertRaisesRegex(
+            RedirectWarning,
+            "Duplicate fiscal folio detected. You probably encoded the same document twice.",
+        ):
+            self._upload_document_on_journal(
+                journal=self.company_data["default_journal_sale"],
+                content=bill_content,
+                filename="duplicate_invoice.xml",
             ).action_post()
 
     @freeze_time('2017-01-01')

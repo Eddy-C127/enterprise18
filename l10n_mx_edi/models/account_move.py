@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collections import defaultdict
 from datetime import datetime
 import logging
@@ -14,9 +13,9 @@ from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import (
     CFDI_CODE_TO_TAX_TYPE,
     USAGE_SELECTION,
 )
-from odoo.exceptions import ValidationError, UserError
+from odoo.exceptions import RedirectWarning, UserError, ValidationError
 from odoo.osv import expression
-from odoo.tools import frozendict
+from odoo.tools import flatten, frozendict
 from odoo.tools.float_utils import float_round
 from odoo.tools.sql import column_exists, create_column
 from odoo.addons.base.models.ir_qweb import keep_query
@@ -745,8 +744,27 @@ class AccountMove(models.Model):
 
     @api.constrains('state', 'l10n_mx_edi_cfdi_uuid')
     def _check_duplicate_fiscal_folio(self):
-        """ Assert the move which is about to be posted isn't a duplicated move from another posted entry"""
-        return self.filtered(lambda m: m.state == 'posted')._check_duplicate_supplier_reference()
+        """Check customer invoices for duplicate fiscal folio.
+        Vendor bills will be handled by the generic check.
+        """
+        move_to_duplicates = self.filtered(
+            lambda m: m.state == "posted" and m.is_sale_document()
+        )._fetch_duplicate_fiscal_folio(matching_states=("posted",))
+        if any(move_to_duplicates.values()):
+            duplicate_move_ids = list(
+                set(flatten([move.ids + dup_moves.ids for move, dup_moves in move_to_duplicates.items() if dup_moves]))
+            )
+            action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_line_form")
+            action["domain"] = [("id", "in", duplicate_move_ids)]
+            action["views"] = [
+                ((view_id, "list") if view_type == "tree" else (view_id, view_type))
+                for view_id, view_type in action["views"]
+            ]
+            raise RedirectWarning(
+                message=_("Duplicate fiscal folio detected. You probably encoded the same document twice."),
+                action=action,
+                button_text=_("Open list"),
+            )
 
     # -------------------------------------------------------------------------
     # BUSINESS METHODS
@@ -837,14 +855,19 @@ class AccountMove(models.Model):
         # EXTENDS 'account'
         return super()._get_edi_doc_attachments_to_export() + self.l10n_mx_edi_cfdi_attachment_id
 
-    def _fetch_duplicate_reference(self, matching_states=('draft', 'posted')):
-        # EXTENDS account
-        # We check whether there are moves with the same fiscal folio if we have Mexican bills
-        mx_vendor_bills = self.filtered(lambda m: m.is_purchase_document() and m.l10n_mx_edi_cfdi_uuid and m._origin.id)
-        if not mx_vendor_bills:
-            return super()._fetch_duplicate_reference(matching_states=matching_states)
+    def _fetch_duplicate_fiscal_folio(self, matching_states=("draft", "posted")):
+        """ Fetch duplicate moves having the same folio fiscal.
 
-        self.env['account.move'].flush_model(('company_id', 'move_type', 'l10n_mx_edi_cfdi_uuid'))
+            :param only_posted: indicates if you want to check only posted duplicates
+            :return: a dict mapping original moves to its duplicates according to the folio fiscal
+        """
+        mx_moves = self.filtered(
+            lambda m: (m.is_purchase_document() or m.is_sale_document()) and m.l10n_mx_edi_cfdi_uuid and m._origin.id
+        )
+        if not mx_moves:
+            return {}
+
+        self.env["account.move"].flush_model(("company_id", "move_type", "l10n_mx_edi_cfdi_uuid"))
 
         self.env.cr.execute(
             """
@@ -856,19 +879,27 @@ class AccountMove(models.Model):
                  AND move.move_type = duplicate_move.move_type
                  AND move.id != duplicate_move.id
                  AND move.l10n_mx_edi_cfdi_uuid = duplicate_move.l10n_mx_edi_cfdi_uuid
+                 AND duplicate_move.state IN %(matching_states)s
                WHERE move.id IN %(moves)s
+                 AND move.l10n_mx_edi_cfdi_state NOT IN ('global_sent', 'global_cancel')
             GROUP BY move.id
             """,
             {
-                'moves': tuple(mx_vendor_bills.ids),
+                "matching_states": tuple(matching_states),
+                "moves": tuple(mx_moves.ids),
             },
         )
-        folio_fiscal_duplicates = {
-            self.env['account.move'].browse(res['move_id']): self.env['account.move'].browse(res['duplicate_ids'])
+        return {
+            self.env["account.move"].browse(res["move_id"]): self.env["account.move"].browse(res["duplicate_ids"])
             for res in self.env.cr.dictfetchall()
         }
+
+    def _fetch_duplicate_reference(self, matching_states=('draft', 'posted')):
+        # EXTENDS account
+        # We check whether there are moves with the same fiscal folio if we have Mexican bills
+        fiscal_folio_duplicates = self._fetch_duplicate_fiscal_folio(matching_states=matching_states)
         move_duplicates = super()._fetch_duplicate_reference(matching_states=matching_states)
-        for move, duplicates in folio_fiscal_duplicates.items():
+        for move, duplicates in fiscal_folio_duplicates.items():
             move_duplicates[move] = move_duplicates.get(move, self.env['account.move']) | duplicates
         return move_duplicates
 
