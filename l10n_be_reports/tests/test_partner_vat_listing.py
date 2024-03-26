@@ -93,6 +93,166 @@ class BelgiumPartnerVatListingTest(TestAccountReportsCommon):
             options,
         )
 
+    def test_report_load_more_limit(self):
+        """ The aim of this test is to ensure that we load report columns/lines
+            correctly when we have a load more limit.
+            If we have 3 moves for 3 different partners, with a load more
+            limit sets to 2 elements, the report should give us 4 report lines.
+            1 parent line containing the totals
+            2 lines (one per partner)
+            and a load more line to load the last partner.
+            The test is also verifying that the XML is correctly generated and that
+            the load_more_limit doesn't impact it at all.
+        """
+        self.env.companies = self.env.company
+        self.report.load_more_limit = 2
+        options = self._generate_options(
+            self.report,
+            '2022-06-01',
+            '2022-06-30',
+        )
+
+        self.create_and_post_account_move('out_invoice', self.partner_a_be.id, '2022-06-01', product_quantity=10, product_price_unit=100)
+        self.create_and_post_account_move('out_invoice', self.partner_b_be.id, '2022-06-01', product_quantity=10, product_price_unit=200)
+        self.create_and_post_account_move('out_invoice', self.partner_c_be.id, '2022-06-01', product_quantity=10, product_price_unit=300)
+
+        self.assertLinesValues(
+            self.report._get_lines(options),
+            #   Name                        VAT number          Turnover            VAT amount
+            [0,                             1,                  2,                  3],
+            [
+                ('Partner VAT Listing',     '',                 6000.0,             1260.0),
+                ('Partner A (BE)',          'BE0246697724',     1000.0,             210.0),
+                ('Partner B (BE)',          'BE0766998497',     2000.0,             420.0),
+                ('Load more...',            '',                 '',                 ''),
+            ],
+            options,
+        )
+
+        # The sequence changes between executions of the test. To handle that, we increase it by 1 more, so we can get its value here
+        sequence_number = self.env['ir.sequence'].next_by_code('declarantnum')
+        ref = f"0477472701{str(int(sequence_number) + 1).zfill(4)[-4:]}"
+
+        expected_xml = f"""
+            <ns2:ClientListingConsignment xmlns="http://www.minfin.fgov.be/InputCommon" xmlns:ns2="http://www.minfin.fgov.be/ClientListingConsignment" ClientListingsNbr="1">
+                <ns2:ClientListing SequenceNumber="1" ClientsNbr="3" DeclarantReference="{ref}" TurnOverSum="6000.00" VATAmountSum="1260.00">
+                    <ns2:Declarant>
+                        <VATNumber>0477472701</VATNumber>
+                        <Name>company_1_data</Name>
+                        <Street></Street>
+                        <PostCode></PostCode>
+                        <City></City>
+                        <CountryCode>BE</CountryCode>
+                        <EmailAddress>jsmith@mail.com</EmailAddress>
+                        <Phone>+32475123456</Phone>
+                    </ns2:Declarant>
+                    <ns2:Period>2022</ns2:Period>
+                    <ns2:Client SequenceNumber="1">
+                        <ns2:CompanyVATNumber issuedBy="BE">0246697724</ns2:CompanyVATNumber>
+                        <ns2:TurnOver>1000.00</ns2:TurnOver>
+                        <ns2:VATAmount>210.00</ns2:VATAmount>
+                    </ns2:Client>
+                    <ns2:Client SequenceNumber="2">
+                        <ns2:CompanyVATNumber issuedBy="BE">0766998497</ns2:CompanyVATNumber>
+                        <ns2:TurnOver>2000.00</ns2:TurnOver>
+                        <ns2:VATAmount>420.00</ns2:VATAmount>
+                    </ns2:Client>
+                    <ns2:Client SequenceNumber="3">
+                        <ns2:CompanyVATNumber issuedBy="BE">0477472701</ns2:CompanyVATNumber>
+                        <ns2:TurnOver>3000.00</ns2:TurnOver>
+                        <ns2:VATAmount>630.00</ns2:VATAmount>
+                    </ns2:Client>
+                    <ns2:Comment></ns2:Comment>
+                </ns2:ClientListing>
+            </ns2:ClientListingConsignment>
+        """
+
+        # Following what export_file function does
+        options['export_mode'] = 'file'
+        self.assertXmlTreeEqual(
+            self.get_xml_tree_from_string(self.env[self.report._get_custom_handler_model()].partner_vat_listing_export_to_xml(options)['file_content']),
+            self.get_xml_tree_from_string(expected_xml)
+        )
+
+    def test_report_2_different_partners_with_same_vat(self):
+        """ The aim of this test is to ensure that two different partners
+            with the same vat number are correctly represented in the report.
+            The report should have one line per partner even if they have the same
+            vat number.
+            However, for the XML generation, the logic is a bit different and the
+            report should give us one line per vat number instead of per partner.
+        """
+        self.env.companies = self.env.company
+        options = self._generate_options(
+            self.report,
+            '2022-06-01',
+            '2022-06-30',
+        )
+
+        # Copy an existing partner to have the same VAT but not the same name
+        # The idea behind this is verifying that even if lines are not sorted on the vat number,
+        # when we do the grouping for the XML generation (based on the vat number),
+        # we still have the Partner A and Z batched in one partner.
+        partner_a_be_copy = self.partner_a_be.copy()
+        partner_a_be_copy.name = 'Partner Z (BE)'
+
+        self.create_and_post_account_move('out_invoice', self.partner_a_be.id, '2022-06-01', product_quantity=10, product_price_unit=300)
+        self.create_and_post_account_move('out_invoice', self.partner_b_be.id, '2022-06-01', product_quantity=10, product_price_unit=200)
+        self.create_and_post_account_move('out_invoice', partner_a_be_copy.id, '2022-06-01', product_quantity=10, product_price_unit=400)
+
+        self.assertLinesValues(
+            self.report._get_lines(options),
+            #   Name                        VAT number          Turnover            VAT amount
+            [0,                             1,                  2,                  3],
+            [
+                ('Partner VAT Listing',     '',                 9000.0,             1890.0),
+                ('Partner A (BE)',          'BE0246697724',     3000.0,             630.0),
+                ('Partner B (BE)',          'BE0766998497',     2000.0,             420.0),
+                ('Partner Z (BE)',          'BE0246697724',     4000.0,             840.0),
+            ],
+            options,
+        )
+
+        # The sequence changes between executions of the test. To handle that, we increase it by 1 more, so we can get its value here
+        sequence_number = self.env['ir.sequence'].next_by_code('declarantnum')
+        ref = f"0477472701{str(int(sequence_number) + 1).zfill(4)[-4:]}"
+
+        expected_xml = f"""
+            <ns2:ClientListingConsignment xmlns="http://www.minfin.fgov.be/InputCommon" xmlns:ns2="http://www.minfin.fgov.be/ClientListingConsignment" ClientListingsNbr="1">
+                <ns2:ClientListing SequenceNumber="1" ClientsNbr="2" DeclarantReference="{ref}" TurnOverSum="9000.00" VATAmountSum="1890.00">
+                    <ns2:Declarant>
+                        <VATNumber>0477472701</VATNumber>
+                        <Name>company_1_data</Name>
+                        <Street></Street>
+                        <PostCode></PostCode>
+                        <City></City>
+                        <CountryCode>BE</CountryCode>
+                        <EmailAddress>jsmith@mail.com</EmailAddress>
+                        <Phone>+32475123456</Phone>
+                    </ns2:Declarant>
+                    <ns2:Period>2022</ns2:Period>
+                    <ns2:Client SequenceNumber="1">
+                        <ns2:CompanyVATNumber issuedBy="BE">0246697724</ns2:CompanyVATNumber>
+                        <ns2:TurnOver>7000.00</ns2:TurnOver>
+                        <ns2:VATAmount>1470.00</ns2:VATAmount>
+                    </ns2:Client>
+                    <ns2:Client SequenceNumber="2">
+                        <ns2:CompanyVATNumber issuedBy="BE">0766998497</ns2:CompanyVATNumber>
+                        <ns2:TurnOver>2000.00</ns2:TurnOver>
+                        <ns2:VATAmount>420.00</ns2:VATAmount>
+                    </ns2:Client>
+                    <ns2:Comment></ns2:Comment>
+                </ns2:ClientListing>
+            </ns2:ClientListingConsignment>
+        """
+
+        # Following what export_file function does
+        options['export_mode'] = 'file'
+        self.assertXmlTreeEqual(
+            self.get_xml_tree_from_string(self.env[self.report._get_custom_handler_model()].partner_vat_listing_export_to_xml(options)['file_content']),
+            self.get_xml_tree_from_string(expected_xml)
+        )
+
     def test_misc_operation(self):
         self.env.companies = self.env.company
         options = self._generate_options(self.report, fields.Date.from_string('2022-06-01'), fields.Date.from_string('2022-06-30'))
