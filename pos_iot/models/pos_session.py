@@ -22,11 +22,3 @@ class PosSession(models.Model):
         }
 
         return params
-
-    def load_data(self, models_to_load, only_data=False):
-        response = super().load_data(models_to_load, only_data)
-
-        if len(models_to_load) == 0 or 'iot.device' in models_to_load and len(response['data'].get('iot.device', 0)) > 0:
-            response['data']['pos.config'][0]['use_proxy'] = True
-
-        return response

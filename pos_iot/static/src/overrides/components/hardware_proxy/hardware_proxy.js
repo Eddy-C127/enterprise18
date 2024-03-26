@@ -66,10 +66,11 @@ patch(HardwareProxy.prototype, {
      */
     async statusLoop() {
         this.statusLoopRunning = true;
+        const device_ids = this.pos.config.iot_device_ids.map((device) => device.id);
         const devices = await this.pos.data.searchRead(
             "iot.device",
             [
-                ["id", "in", this.pos.config.iot_device_ids],
+                ["id", "in", device_ids],
                 ["connected", "=", true],
             ],
             ["type"]
