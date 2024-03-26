@@ -2,9 +2,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, _
+from odoo.tools import groupby
 from odoo.exceptions import UserError
 from markupsafe import Markup
-from itertools import groupby
 from .account_report import _raw_phonenumber, _get_xml_export_representative_node
 
 from stdnum.eu.vat import compact
@@ -125,45 +125,52 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
         vat_amounts_from, vat_amounts_where, vat_amounts_where_params = self._get_vat_amounts_query(**query_fun_params)
 
         query = f"""
-            SELECT
-                {grouping_key_param} AS grouping_key,
-                COALESCE(SUM(account_move_line.credit - account_move_line.debit), 0) AS turnover,
-                0 AS refund_base,
-                0 AS vat_amount,
-                0 AS refund_vat_amount
-            FROM {turnover_from}
-            WHERE {turnover_where}
-            {f'GROUP BY {grouping_key_param}' if current_groupby else ''}
+        SELECT subquery.grouping_key AS grouping_key,
+               SUM(subquery.turnover) AS turnover,
+               SUM(subquery.refund_base) AS refund_base,
+               SUM(subquery.vat_amount) AS vat_amount,
+               SUM(subquery.refund_vat_amount) AS refund_vat_amount
+          FROM (
+                SELECT
+                    {grouping_key_param} AS grouping_key,
+                    COALESCE(SUM(account_move_line.credit - account_move_line.debit), 0) AS turnover,
+                    0 AS refund_base,
+                    0 AS vat_amount,
+                    0 AS refund_vat_amount
+                FROM {turnover_from}
+                WHERE {turnover_where}
+                {f'GROUP BY {grouping_key_param}' if current_groupby else ''}
 
-            UNION ALL
+                UNION ALL
 
-            SELECT
-                {grouping_key_param} AS grouping_key,
-                0 AS turnover,
-                COALESCE(SUM(account_move_line.debit - account_move_line.credit), 0) AS refund_base,
-                0 AS vat_amount,
-                0 AS refund_vat_amount
-            FROM {refund_base_from}
-            WHERE {refund_base_where}
-            {f'GROUP BY {grouping_key_param}' if current_groupby else ''}
+                SELECT
+                    {grouping_key_param} AS grouping_key,
+                    0 AS turnover,
+                    COALESCE(SUM(account_move_line.debit - account_move_line.credit), 0) AS refund_base,
+                    0 AS vat_amount,
+                    0 AS refund_vat_amount
+                FROM {refund_base_from}
+                WHERE {refund_base_where}
+                {f'GROUP BY {grouping_key_param}' if current_groupby else ''}
 
-            UNION ALL
+                UNION ALL
 
-            SELECT
-                {grouping_key_param} AS grouping_key,
-                0 AS turnover,
-                0 AS refund_base,
-                COALESCE(SUM(account_move_line.credit - account_move_line.debit), 0) AS vat_amount,
-                COALESCE(SUM(account_move_line.debit), 0) AS refund_vat_amount
-            FROM {vat_amounts_from}
-            WHERE {vat_amounts_where}
-            {f'GROUP BY {grouping_key_param}' if current_groupby else ''}
-        """ + tail_query
+                SELECT
+                    {grouping_key_param} AS grouping_key,
+                    0 AS turnover,
+                    0 AS refund_base,
+                    COALESCE(SUM(account_move_line.credit - account_move_line.debit), 0) AS vat_amount,
+                    COALESCE(SUM(account_move_line.debit), 0) AS refund_vat_amount
+                FROM {vat_amounts_from}
+                WHERE {vat_amounts_where}
+                {f'GROUP BY {grouping_key_param}' if current_groupby else ''}
+          ) AS subquery
+          GROUP BY subquery.grouping_key
+          {tail_query}
+      """
 
         self._cr.execute(query, turnover_where_params + refund_base_where_params + vat_amounts_where_params + tail_params)
-
-        all_query_res = sorted(self._cr.dictfetchall(),
-                               key=lambda x: (-x['turnover'], partners_vat_map[x['grouping_key']] if current_groupby == 'partner_id' else None))
+        all_query_res = self._cr.dictfetchall()
 
         if not current_groupby:
             return build_result_dict(all_query_res, partners_vat_map)
