@@ -36,10 +36,10 @@
         <field name="arch" type="xml">
             <graph string="Helpdesk Tickets" type="bar" sample="1" js_class="helpdesk_ticket_graph">
                 <field name="stage_id"/>
-                <field name="rating_last_value" string="Rating (/5)"/>
+                <field name="rating_last_value" string="Rating (1-5)"/>
                 <field name="user_id" string="Assigned"/>
-                <field name="close_hours" string="Hours to Close" widget="float_time" invisible="1"/>
-                <field name="assign_hours" string="Hours to Assign" widget="float_time" invisible="1"/>
+                <field name="close_hours" string="Working Hours to Close" widget="float_time" invisible="1"/>
+                <field name="assign_hours" string="Working Hours to Assign" widget="float_time" invisible="1"/>
                 <field name="color" invisible="1"/>
                 <field name="answered_customer_message_count" invisible="1"/>
                 <field name="total_response_hours" invisible="1"/>
@@ -53,9 +53,9 @@
         <field name="arch" type="xml">
             <pivot string="Helpdesk Tickets" sample="1" js_class="helpdesk_ticket_pivot">
                 <field name="stage_id" type="col"/>
-                <field name="rating_last_value" string="Rating (/5)"/>
-                <field name="close_hours" string="Hours to Close" widget="float_time"/>
-                <field name="assign_hours" string="Hours to Assign" widget="float_time"/>
+                <field name="rating_last_value" string="Rating (1-5)"/>
+                <field name="close_hours" string="Working Hours to Close" widget="float_time"/>
+                <field name="assign_hours" string="Working Hours to Assign" widget="float_time"/>
                 <field name="color" invisible="1"/>
                 <field name="answered_customer_message_count" invisible="1"/>
                 <field name="total_response_hours" invisible="1"/>
@@ -459,9 +459,9 @@
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
             <cohort string="Tickets" date_start="create_date" date_stop="close_date" interval="day" sample="1">
-                <field name="rating_last_value" string="Rating (/5)"/>
-                <field name="close_hours" string="Hours to Close"/>
-                <field name="assign_hours" string="Hours to Assign"/>
+                <field name="rating_last_value" string="Rating (1-5)"/>
+                <field name="close_hours" string="Working Hours to Close"/>
+                <field name="assign_hours" string="Working Hours to Assign"/>
                 <field name="color" invisible="1"/>
                 <field name="answered_customer_message_count" invisible="1"/>
                 <field name="total_response_hours" invisible="1"/>

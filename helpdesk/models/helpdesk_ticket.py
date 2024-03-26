@@ -69,9 +69,9 @@ class HelpdeskTicket(models.Model):
     company_id = fields.Many2one(related='team_id.company_id', string='Company', store=True, readonly=True)
     color = fields.Integer(string='Color Index')
     kanban_state = fields.Selection([
-        ('normal', 'Grey'),
-        ('done', 'Green'),
-        ('blocked', 'Red')], string='Kanban State',
+        ('normal', 'In progress'),
+        ('done', 'Ready'),
+        ('blocked', 'Blocked')], string='Kanban State',
         copy=False, default='normal', required=True)
     kanban_state_label = fields.Char(compute='_compute_kanban_state_label', string='Kanban State Label', tracking=True)
     legend_blocked = fields.Char(related='stage_id.legend_blocked', string='Kanban Blocked Explanation', readonly=True, related_sudo=False)
@@ -115,7 +115,7 @@ class HelpdeskTicket(models.Model):
     sla_reached_late = fields.Boolean("Has SLA reached late", compute='_compute_sla_reached_late', compute_sudo=True, store=True)
     sla_reached = fields.Boolean("Has SLA reached", compute='_compute_sla_reached', compute_sudo=True, store=True)
     sla_deadline = fields.Datetime("SLA Deadline", compute='_compute_sla_deadline', compute_sudo=True, store=True)
-    sla_deadline_hours = fields.Float("Hours until SLA Deadline", compute='_compute_sla_deadline', compute_sudo=True, store=True)
+    sla_deadline_hours = fields.Float("Working Hours until SLA Deadline", compute='_compute_sla_deadline', compute_sudo=True, store=True)
     sla_fail = fields.Boolean("Failed SLA Policy", compute='_compute_sla_fail', search='_search_sla_fail')
     sla_success = fields.Boolean("Success SLA Policy", compute='_compute_sla_success', search='_search_sla_success')
 
@@ -131,7 +131,7 @@ class HelpdeskTicket(models.Model):
     website_message_ids = fields.One2many(domain=lambda self: [('model', '=', self._name), ('message_type', 'in', ['email', 'comment', 'email_outgoing'])], export_string_translation=False)
 
     first_response_hours = fields.Float("Hours to First Response")
-    avg_response_hours = fields.Float("Hours to Respond")
+    avg_response_hours = fields.Float("Average Hours to Respond")
     oldest_unanswered_customer_message_date = fields.Datetime("Oldest Unanswered Customer Message Date", export_string_translation=False)
     answered_customer_message_count = fields.Integer('# Exchanges')
     total_response_hours = fields.Float("Total Exchange Time in Hours")

@@ -35,10 +35,10 @@ class HelpdeskTicketReport(models.Model):
     ticket_deadline_hours = fields.Float("Working Hours until SLA Deadline", aggregator="avg", readonly=True)
     ticket_close_hours = fields.Float("Working Hours to Close", aggregator="avg", readonly=True)
     ticket_open_hours = fields.Float("Hours Open", aggregator="avg", readonly=True)
-    ticket_assignation_hours = fields.Float("Hours to Assign", aggregator="avg", readonly=True)
+    ticket_assignation_hours = fields.Float("Working Hours to Assign", aggregator="avg", readonly=True)
     close_date = fields.Datetime("Closing Date", readonly=True)
     assign_date = fields.Datetime("First assignment date", readonly=True)
-    rating_last_value = fields.Float("Rating (/5)", aggregator="avg", readonly=True)
+    rating_last_value = fields.Float("Rating (1-5)", aggregator="avg", readonly=True)
     active = fields.Boolean("Active", readonly=True)
     team_id = fields.Many2one('helpdesk.team', string='Helpdesk Team', readonly=True)
     company_id = fields.Many2one('res.company', string='Company', readonly=True)
@@ -48,7 +48,7 @@ class HelpdeskTicketReport(models.Model):
         ('done', 'Green'),
         ('blocked', 'Red')], string='Kanban State', readonly=True)
     first_response_hours = fields.Float("Hours to First Response", aggregator="avg", readonly=True)
-    avg_response_hours = fields.Float("Hours to Respond", aggregator="avg", readonly=True)
+    avg_response_hours = fields.Float("Average Hours to Respond", aggregator="avg", readonly=True)
     rating_avg = fields.Float('Average Rating', readonly=True, aggregator='avg')
 
     def _select(self):

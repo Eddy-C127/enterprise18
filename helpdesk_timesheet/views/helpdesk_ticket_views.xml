@@ -138,7 +138,7 @@
         <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_pivot_main"/>
         <field name="arch" type="xml">
             <field name='assign_hours' position="after">
-                <field name="total_hours_spent" string="Time Spent" widget="timesheet_uom"/>
+                <field name="total_hours_spent" string="Time Spent (Timesheets)" widget="timesheet_uom"/>
             </field>
         </field>
     </record>
@@ -150,7 +150,7 @@
         <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_graph_main"/>
         <field name="arch" type="xml">
             <field name='assign_hours' position="after">
-                <field name="total_hours_spent" string="Time Spent" widget="timesheet_uom"/>
+                <field name="total_hours_spent" string="Time Spent (Timesheets)" widget="timesheet_uom"/>
             </field>
         </field>
     </record>
@@ -162,7 +162,7 @@
         <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_cohort"/>
         <field name="arch" type="xml">
             <field name='assign_hours' position="after">
-                <field name="total_hours_spent" string="Time Spent"/>
+                <field name="total_hours_spent" string="Time Spent (Timesheets)"/>
             </field>
         </field>
     </record>
