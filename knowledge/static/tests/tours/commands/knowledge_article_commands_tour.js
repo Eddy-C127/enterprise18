@@ -246,7 +246,7 @@ const videoCommandSteps = [{ // patch the components
     run: `edit https://www.youtube.com/watch?v=${YoutubeVideoId}`,
 }, {
     content: "Wait for preview to appear",
-    trigger: `.o_video_iframe_src:contains("//www.youtube.com/embed/${YoutubeVideoId}?rel=0&autoplay=0")`,
+    trigger: `.o_video_iframe_src:contains("//www.youtube-nocookie.com/embed/${YoutubeVideoId}?rel=0&autoplay=0")`,
     run: () => {},
 }, {
     content: "Confirm selection",
