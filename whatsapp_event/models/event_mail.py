@@ -42,11 +42,12 @@ class EventMailScheduler(models.Model):
             self.template_ref = "{},{}".format('whatsapp.template', record.id) if record.id else False
 
     def execute(self):
-        def send_whatsapp(scheduler):
-            self.env['whatsapp.composer'].with_context({'active_ids': registration.ids}).create({
-                'res_model': 'event.registration',
-                'wa_template_id': scheduler.template_ref.id
-            })._send_whatsapp_template(force_send_by_cron=True)
+        def send_whatsapp(scheduler, registrations):
+            if registrations:
+                self.env['whatsapp.composer'].with_context({'active_ids': registrations.ids}).create({
+                    'res_model': 'event.registration',
+                    'wa_template_id': scheduler.template_ref.id
+                })._send_whatsapp_template(force_send_by_cron=True)
             scheduler.update({
                 'mail_done': True,
                 'mail_count_done': scheduler.event_id.seats_reserved + scheduler.event_id.seats_used,
@@ -57,8 +58,8 @@ class EventMailScheduler(models.Model):
         for scheduler in wa_schedulers._filter_wa_template_ref():
             # do not send whatsapp if the whatsapp was scheduled before the event but the event is over
             if scheduler.scheduled_date <= now and (scheduler.interval_type != 'before_event' or scheduler.event_id.date_end > now):
-                registration = scheduler.event_id.registration_ids.filtered(lambda registration: registration.state != 'cancel')
-                send_whatsapp(scheduler)
+                registrations = scheduler.event_id.registration_ids.filtered(lambda registration: registration.state != 'cancel')
+                send_whatsapp(scheduler, registrations)
         return super().execute()
 
     def _filter_wa_template_ref(self):
