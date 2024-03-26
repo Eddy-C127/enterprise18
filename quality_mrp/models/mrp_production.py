@@ -44,11 +44,27 @@ class MrpProduction(models.Model):
         }
         return action
 
-    def button_mark_done(self):
-        for order in self:
-            if any(x.quality_state == 'none' for x in order.check_ids):
-                raise UserError(_('You still need to do the quality checks!'))
-        return super(MrpProduction, self).button_mark_done()
+    def pre_button_mark_done(self):
+        res = super().pre_button_mark_done()
+        if isinstance(res, dict) and res.get('type') == 'ir.actions.act_window':
+            return res
+        is_qc_status_ok = self._check_qc_status()
+        if not is_qc_status_ok and self.env.context.get('from_wizard'):
+            return {'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'message': _('You still need to do the quality checks!'),
+                    'next': {'type': 'ir.actions.act_window_close'},
+                    'sticky': False,
+                    'type': 'warning',
+                }
+            }
+        elif not is_qc_status_ok:
+            raise UserError(_('You still need to do the quality checks!'))
+        return res
+
+    def _check_qc_status(self):
+        return 'none' not in self.check_ids.mapped('quality_state')
 
     def open_quality_alert_mo(self):
         self.ensure_one()
