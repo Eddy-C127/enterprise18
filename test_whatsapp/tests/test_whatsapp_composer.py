@@ -314,7 +314,7 @@ class WhatsAppComposerRendering(WhatsAppComposerCase, WhatsAppFullCase, CronMixi
                 {},
             ), (
                 # text
-                {},
+                {'body': f'<p>Header World<br>Hello {self.test_base_records[0].name}</p>'},
                 {'body': f'<p>Header {sample_text}<br>Hello {self.test_base_records[0].name}</p>'},
                 {'body': f'<p>Header {self.env.user.name}<br>Hello {self.test_base_records[0].name}</p>'},
                 {'body': f'<p>Header {self.env.user.mobile}<br>Hello {self.test_base_records[0].name}</p>'},

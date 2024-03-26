@@ -853,10 +853,11 @@ class WhatsAppTemplate(models.Model):
         variable_values = variable_values or {}
         header = ''
         if self.header_type == 'text' and self.header_text:
+            header = self.header_text
             header_variables = self.variable_ids.filtered(lambda line: line.line_type == 'header')
             if header_variables:
                 fallback_value = header_variables[0].demo_value if demo_fallback else ' '
-                header = self.header_text.replace('{{1}}', variable_values.get('header-{{1}}', fallback_value))
+                header = header.replace('{{1}}', variable_values.get('header-{{1}}', fallback_value))
         body = self.body
         for var in self.variable_ids.filtered(lambda var: var.line_type == 'body'):
             fallback_value = var.demo_value if demo_fallback else ' '
