@@ -374,6 +374,62 @@ class WhatsAppTemplateForm(WhatsAppTemplateCommon):
     """ Form tool based unit tests, to check notably computed fields, live
     ACLs, ... """
 
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.test_partner_report = cls.env['ir.actions.report'].create({
+            "model": "res.partner",
+            "name": "Test Report",
+            "print_report_name": "'TestReport for %s' % object.name",
+            "report_type": "qweb-pdf",
+            "report_name": "whatsapp.res_partner_template_report",
+        })
+        cls.test_wa_base_report_view = cls.env['ir.ui.view'].create({
+            "arch_db": """<div><p t-foreach="docs" t-as="doc">External report for <t t-out="doc.name"/></p></div>""",
+            "key": "whatsapp.res_partner_template_report",
+            "name": "whatsapp.res_partner_template_report",
+            "type": "qweb",
+        })
+
+    @users('user_wa_admin')
+    def test_header_onchange(self):
+        """ Test reset / update of fields during onchange to keep header related
+        fields coherent and avoid useless validation errors """
+        template_form = Form(self.env['whatsapp.template'])
+        self.assertEqual(template_form.model, 'res.partner')
+
+        template_form.name = "Test Header Onchange"
+        template_form.body = "Test Body"
+        template_form.header_type = "document"
+
+        # check validation
+        template_form.header_attachment_ids.add(self.document_attachment_wa_admin)
+        template_form.header_attachment_ids.add(self.video_attachment_wa_admin)
+        with self.assertRaises(exceptions.ValidationError):
+            template_form.save()
+
+        template_form.header_attachment_ids.remove(id=self.video_attachment_wa_admin.id)
+        template = template_form.save()
+
+        # test onchange
+        with Form(template) as template_form:
+            template_form.header_type = "text"
+            template_form.header_text = "Header Text {{1}}"
+            template = template_form.save()
+        self.assertFalse(template.header_attachment_ids, 'Text header: should reset attachments')
+
+        # test reverse onchange
+        with Form(template) as template_form:
+            template_form.header_type = "document"
+
+            # attachment or report is mandatory
+            with self.assertRaises(exceptions.ValidationError):
+                template = template_form.save()
+
+            template_form.report_id = self.test_partner_report
+            template = template_form.save()
+        self.assertFalse(template.header_text, 'Document header: should reset text header')
+
     @users('user_wa_admin')
     def test_model_update(self):
         """ WA admins that are not sys admins should be able to chose / change

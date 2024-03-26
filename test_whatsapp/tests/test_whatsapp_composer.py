@@ -261,7 +261,7 @@ class WhatsAppComposerRendering(WhatsAppComposerCase, WhatsAppFullCase, CronMixi
             ('text', 'text', 'text', 'text', 'image', 'video', 'document', 'document', 'location'),
             (
                 # text
-                {'header_text': 'Hello World'},
+                {'header_text': 'Header World'},
                 {'header_text': 'Header {{1}}',
                  'variable_ids': [
                     (5, 0),

@@ -325,6 +325,16 @@ class WhatsAppTemplate(models.Model):
                                         account_name=template.wa_account_id.name
                                     ) if template.wa_account_id.name else template.name
 
+    @api.onchange('header_type')
+    def _onchange_header_type(self):
+        toreset_attachments = self.filtered(lambda t: t.header_type not in {"image", "video", "document"})
+        if toreset_attachments:
+            toreset_attachments.header_attachment_ids = [(5, 0)]
+            toreset_attachments.report_id = False
+        toreset_text = self.filtered(lambda t: t.header_type != "text")
+        if toreset_text:
+            toreset_text.header_text = False
+
     @api.onchange('header_attachment_ids')
     def _onchange_header_attachment_ids(self):
         for template in self:
