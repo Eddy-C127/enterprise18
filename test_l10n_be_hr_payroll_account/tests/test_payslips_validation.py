@@ -2610,7 +2610,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
     def test_private_car(self):
         self.employee.km_home_work = 41
         self.contract.write({
-            'wage': 3926.08,
+            'wage_with_holidays': 3707.12,
             'holidays': 12.0,
             'transport_mode_car': False,
             'transport_mode_private_car': True,
