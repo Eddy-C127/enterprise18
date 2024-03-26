@@ -244,21 +244,19 @@ class AccountMove(models.Model):
                     ) for (account, coeff) in [(line.account_id, -1), (deferred_account, 1)]
                 ],
             })
-            line.move_id.deferred_move_ids |= move_fully_deferred
-            move_fully_deferred._post(soft=True)
 
             # Create the deferred entries for the periods [deferred_start_date, deferred_end_date]
+            deferral_moves = self.create([{
+                'move_type': 'entry',
+                'deferred_original_move_ids': [Command.set(line.move_id.ids)],
+                'journal_id': deferred_journal.id,
+                'partner_id': line.partner_id.id,
+                'date': period[1],
+                'auto_post': 'at_date',
+                'ref': ref,
+            } for period in periods])
             remaining_balance = line.balance
-            for period_index, period in enumerate(periods):
-                deferral_move = self.create({
-                    'move_type': 'entry',
-                    'deferred_original_move_ids': [Command.set(line.move_id.ids)],
-                    'journal_id': deferred_journal.id,
-                    'partner_id': line.partner_id.id,
-                    'date': period[1],
-                    'auto_post': 'at_date',
-                    'ref': ref,
-                })
+            for period_index, (period, deferral_move) in enumerate(zip(periods, deferral_moves)):
                 # For the last deferral move the balance is forced to remaining balance to avoid rounding errors
                 force_balance = remaining_balance if period_index == len(periods) - 1 else None
                 # Same as before, to avoid adding taxes for deferred moves.
@@ -266,8 +264,10 @@ class AccountMove(models.Model):
                     'line_ids': self._get_deferred_lines(line, deferred_account, period, ref, force_balance=force_balance),
                 })
                 remaining_balance -= deferral_move.line_ids[0].balance
-                line.move_id.deferred_move_ids |= deferral_move
-                deferral_move._post(soft=True)
+
+            deferred_moves = move_fully_deferred + deferral_moves
+            line.move_id.deferred_move_ids |= deferred_moves
+            deferred_moves._post(soft=True)
 
     def open_deferred_entries(self):
         self.ensure_one()
