@@ -82,6 +82,8 @@ class MoroccanTaxReportCustomHandler(models.AbstractModel):
 
         index = 1
         for bill in bills:
+            # In the case of a foreign partner we will fall back to the default value, if he is from morocco, he needs
+            # to have a vat and ice number otherwise the move is ignored
             if not ((bill.partner_id.vat and bill.partner_id.l10n_ma_ice) or bill.partner_id.country_code != 'MA'):
                 continue
 
