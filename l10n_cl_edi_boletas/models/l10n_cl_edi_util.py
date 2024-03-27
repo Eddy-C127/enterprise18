@@ -165,4 +165,4 @@ class L10nClEdiUtilMixin(models.AbstractModel):
                 return 'accepted'
             if summary['reparos'] >= 1:
                 return 'objected'
-        return 'rejected'
+        return 'ask_for_status'

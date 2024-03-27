@@ -53,3 +53,57 @@ class TestL10nClDTE(TestL10nClEdiCommon):
             self.get_xml_tree_from_attachment(invoice.l10n_cl_sii_send_file),
             self.get_xml_tree_from_string(xml_expected_dte.encode()),
         )
+
+    def test_analyze_sii_result_ask_for_status_1(self):
+        """ Test 'ask_for_status' status when (detail_rep_rech == None) """
+        invoice = self.env['account.move'].create({
+            'partner_id': self.partner_anonimo.id,
+            'move_type': 'out_invoice',
+            'l10n_latam_document_type_id': self.env.ref('l10n_cl.dc_b_f_dte').id,
+        })
+        sii_result = {
+            'rut_emisor': '11111111-1',
+            'rut_envia': '22222222-0',
+            'trackid': '12345678',
+            'fecha_recepcion': '26/03/2024 10:00:00',
+            'estado': 'REC',
+            'estadistica': None,
+            'detalle_rep_rech': None,
+        }
+        self.assertEqual(invoice._analyze_sii_result_rest(sii_result), 'ask_for_status')
+
+    def test_analyze_sii_result_ask_for_status_2(self):
+        """ Test 'ask_for_status' status when (estado == 'SOK' and estadistica == []) """
+        invoice = self.env['account.move'].create({
+            'partner_id': self.partner_anonimo.id,
+            'move_type': 'out_invoice',
+            'l10n_latam_document_type_id': self.env.ref('l10n_cl.dc_b_f_dte').id,
+        })
+        sii_result = {
+            'rut_emisor': '11111111-1',
+            'rut_envia': '22222222-0',
+            'trackid': '12345678',
+            'fecha_recepcion': '26/03/2024 10:00:00',
+            'estado': 'SOK',
+            'estadistica': [],
+            'detalle_rep_rech': [],
+        }
+        self.assertEqual(invoice._analyze_sii_result_rest(sii_result), 'ask_for_status')
+
+    def test_analyze_sii_result_accepted(self):
+        """ Test 'accepted' status when (estadistica['informados'] == estadistica['aceptados']) """
+        invoice = self.env['account.move'].create({
+            'partner_id': self.partner_anonimo.id,
+            'move_type': 'out_invoice',
+            'l10n_latam_document_type_id': self.env.ref('l10n_cl.dc_b_f_dte').id,
+        })
+        sii_result = {
+            'rut_emisor': '11111111-1',
+            'rut_envia': '22222222-0',
+            'trackid': '12345678',
+            'fecha_recepcion': '26/03/2024 10:00:00',
+            'estado': 'EPR',
+            'estadistica': [{'tipo': 39, 'informados': 1, 'aceptados': 1, 'rechazados': 0, 'reparos': 0}],
+            'detalle_rep_rech': [],
+        }
+        self.assertEqual(invoice._analyze_sii_result_rest(sii_result), 'accepted')
