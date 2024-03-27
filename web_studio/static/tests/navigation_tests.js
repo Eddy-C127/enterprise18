@@ -427,7 +427,7 @@ QUnit.module("Studio", (hooks) => {
                 nbLoadAction++;
                 if (nbLoadAction === 2) {
                     assert.strictEqual(
-                        args.additional_context.active_id,
+                        args.context.active_id,
                         1,
                         "the context should be correctly passed when leaving Studio"
                     );
