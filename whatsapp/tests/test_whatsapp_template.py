@@ -414,14 +414,21 @@ class WhatsAppTemplateForm(WhatsAppTemplateCommon):
         self.assertEqual(template_form.model, 'res.partner')
         self.assertEqual(template_form.model_id, self.env['ir.model']._get('res.partner'))
 
+        # add mandatory body then model-dependent content to check the reset
         template_form.body = 'Test Body'
+        template_form.header_type = "document"
+        template_form.report_id = self.test_partner_report
+
         template_form.model_id = self.env['ir.model']._get('res.users')
         template_form.name = 'Test Model Update'
         self.assertEqual(template_form.model, 'res.users')
+        self.assertFalse(template_form.report_id, "Changing model should reset report")
+        template_form.header_type = "none"
         template = template_form.save()
 
         self.assertEqual(template.model, 'res.users')
         self.assertEqual(template.model_id, self.env['ir.model']._get('res.users'))
+        self.assertFalse(template.report_id)
 
     @users('user_wa_admin')
     def test_template_buttons_format(self):

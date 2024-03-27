@@ -258,7 +258,13 @@ class WhatsAppComposerRendering(WhatsAppComposerCase, WhatsAppFullCase, CronMixi
         ]
 
         for header_type, template_upd_values, exp_att_values, exp_field_values in zip(
-            ('text', 'text', 'text', 'text', 'image', 'video', 'document', 'document', 'location'),
+            (
+                'text', 'text', 'text', 'text',
+                'image',
+                'video',
+                'document', 'document', 'document',
+                'location',
+            ),
             (
                 # text
                 {'header_text': 'Header World'},
@@ -287,6 +293,10 @@ class WhatsAppComposerRendering(WhatsAppComposerCase, WhatsAppFullCase, CronMixi
                 # document
                 {'header_attachment_ids': [(6, 0, self.document_attachment.ids)]},
                 {'report_id': self.test_wa_base_report.id},
+                {
+                    'header_attachment_ids': [(6, 0, self.document_attachment.ids)],
+                    'report_id': self.test_wa_base_report.id,
+                },
                 # location
                 {'variable_ids': [
                     (0, 0, {'name': 'name', 'line_type': 'location', 'demo_value': 'LocName'}),
@@ -310,6 +320,10 @@ class WhatsAppComposerRendering(WhatsAppComposerCase, WhatsAppFullCase, CronMixi
                     'name': f'TestReport for {self.test_base_records[0].name}.html',
                     'raw': b'<div><p>External report for %s</p></div>' % self.test_base_records[0].name.encode(),
                 },
+                {
+                    'name': f'TestReport for {self.test_base_records[0].name}.html',
+                    'raw': b'<div><p>External report for %s</p></div>' % self.test_base_records[0].name.encode("utf-8"),
+                },
                 # location
                 {},
             ), (
@@ -323,6 +337,7 @@ class WhatsAppComposerRendering(WhatsAppComposerCase, WhatsAppFullCase, CronMixi
                 # video
                 {},
                 # document
+                {},
                 {},
                 {},
                 # location

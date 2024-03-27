@@ -120,7 +120,10 @@ class WhatsAppTemplate(models.Model):
         'ir.attachment', string="Template Static Header",
         copy=False)  # keep False to avoid linking attachments; we have to copy them instead
     footer_text = fields.Char(string="Footer Message")
-    report_id = fields.Many2one(comodel_name='ir.actions.report', string="Report", domain="[('model_id', '=', model_id)]", tracking=True)
+    report_id = fields.Many2one(
+        comodel_name='ir.actions.report', string="Report",
+        compute="_compute_report_id", readonly=False, store=True,
+        domain="[('model', '=', model)]", tracking=True)
     variable_ids = fields.One2many(
         'whatsapp.template.variable', 'wa_template_id', string="Template Variables",
         store=True, compute='_compute_variable_ids', precompute=True, readonly=False,
@@ -258,6 +261,13 @@ class WhatsAppTemplate(models.Model):
         self.filtered(lambda tpl: not tpl.model).model_id = False
         for template in self.filtered('model'):
             template.model_id = self.env['ir.model']._get_id(template.model)
+
+    @api.depends('model')
+    def _compute_report_id(self):
+        """ Reset if model changes to avoid ill defined reports """
+        to_reset = self.filtered(lambda tpl: tpl.report_id.model != tpl.model)
+        if to_reset:
+            to_reset.report_id = False
 
     @api.depends('header_type', 'header_text', 'body')
     def _compute_variable_ids(self):
@@ -747,7 +757,14 @@ class WhatsAppTemplate(models.Model):
         self.ensure_one()
         components = []
         template_variables_value = self.variable_ids._get_variables_value(record)
-        attachment = attachment or self.header_attachment_ids or self._generate_attachment_from_report(record)
+
+        # generate attachment
+        if not attachment and self.report_id:
+            attachment = self._generate_attachment_from_report(record)
+        if not attachment and self.header_attachment_ids:
+            attachment = self.header_attachment_ids[0]
+
+        # generate content
         header = self._get_header_component(free_text_json=free_text_json, attachment=attachment, template_variables_value=template_variables_value)
         body = self._get_body_component(free_text_json=free_text_json, template_variables_value=template_variables_value)
         buttons = self._get_button_components(free_text_json=free_text_json, template_variables_value=template_variables_value)
