@@ -430,8 +430,8 @@ class HrContractSalary(http.Controller):
         contract_vals = {
             'active': False,
             'name': contract.name if contract.state == 'draft' else "Package Simulation",
-            'job_id': contract.job_id.id or employee.job_id.id,
-            'department_id': contract.department_id.id or employee.department_id.id,
+            'job_id': offer.employee_job_id.id or contract.job_id.id or employee.job_id.id,
+            'department_id': offer.department_id.id or contract.department_id.id or employee.department_id.id,
             'company_id': contract.company_id.id,
             'currency_id': contract.company_id.currency_id.id,
             'employee_id': employee.id,
