@@ -296,7 +296,7 @@
 
     <record id="input_lpp_comp" model="hr.payslip.input.type">
         <field name="name">LPP Comp. Part.</field>
-        <field name="code">LPPCOMP</field>
+        <field name="code">LPP.COMP</field>
         <field name="country_id" ref="base.ch"/>
         <field name="struct_ids" eval="[(4, ref('l10n_ch_hr_payroll.hr_payroll_structure_ch_employee_salary'))]"/>
     </record>
