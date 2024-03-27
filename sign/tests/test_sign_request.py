@@ -181,9 +181,9 @@ class TestSignRequest(SignRequestCommon):
         sign_request_3_roles_token = sign_request_3_roles.access_token
         sign_request_item_employee._refuse('bad document')
         self.assertEqual(sign_request_item_customer.state, 'completed', 'The sign.request.item should be completed')
-        self.assertEqual(sign_request_item_employee.state, 'refused', 'The sign.request.item should be completed')
+        self.assertEqual(sign_request_item_employee.state, 'canceled', 'The sign.request.item should be completed')
         self.assertEqual(sign_request_item_company.state, 'canceled', 'The sign.request.item should be canceled')
-        self.assertEqual(sign_request_3_roles.state, 'refused', 'The sign request should be refused')
+        self.assertEqual(sign_request_3_roles.state, 'canceled', 'The sign request should be canceled')
         self.assertEqual(sign_request_item_customer.access_token, sign_request_item_customer_token, 'The access token should not be changed')
         self.assertEqual(sign_request_item_employee.access_token, sign_request_item_employee_token, 'The access token should not be changed')
         self.assertEqual(sign_request_item_company.access_token, sign_request_item_company_token, 'The access token should not be changed')
@@ -200,7 +200,7 @@ class TestSignRequest(SignRequestCommon):
         # cancel
         sign_request_3_roles.cancel()
         self.assertEqual(sign_request_item_customer.state, 'completed', 'The sign.request.item should be completed')
-        self.assertEqual(sign_request_item_employee.state, 'refused', 'The sign.request.item should be completed')
+        self.assertEqual(sign_request_item_employee.state, 'canceled', 'The sign.request.item should be completed')
         self.assertEqual(sign_request_item_company.state, 'canceled', 'The sign.request.item should be canceled')
         self.assertEqual(sign_request_3_roles.state, 'canceled', 'The sign request should be canceled')
         self.assertNotEqual(sign_request_item_customer.access_token, sign_request_item_customer_token, 'The access token should be changed')

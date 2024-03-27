@@ -4,7 +4,7 @@
         <Dialog t-props="dialogProps">
             <t t-set-slot="header" t-slot-scope="scope">
                 <h4 class="modal-title text-break" t-att-class="{ 'me-auto': scope.isFullscreen }">
-                    Thank you! Your signature has been submitted.
+                    All done!
                 </h4>
             </t>
             <h5 t-if="props.subtitle" id="thank-you-subtitle"><t t-esc="props.subtitle"/></h5>
@@ -17,7 +17,7 @@
                 <table class="table table-sm">
                     <tbody>
                         <t t-foreach="state.nextDocuments" t-as="doc" t-key="doc.id">
-                            <tr t-attf-class="next-document {{ doc.ignored ? 'text-muted' : '' }}">
+                            <tr t-attf-class="next-document {{ doc.canceled ? 'text-muted' : '' }}">
                                 <td>
                                     <strong t-out="doc.name"></strong>
                                 </td>
@@ -25,8 +25,8 @@
                                     <span>Sent by <span t-out="doc.user"></span> on <span t-out="doc.date"></span></span>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-secondary o_thankyou_next_sign me-1" t-att-disabled="doc.ignored" t-on-click="() => this.clickNextSign(doc.requestId, doc.accessToken)">Sign</button>
-                                    <button class="btn btn-sm btn-secondary o_thankyou_next_ignore" t-att-disabled="doc.ignored" t-on-click="() => this.clickNextIgnore(doc)">Ignore</button>
+                                    <button class="btn btn-sm btn-secondary o_thankyou_next_sign me-1" t-att-disabled="doc.canceled" t-on-click="() => this.clickNextSign(doc.requestId, doc.accessToken)">Sign</button>
+                                    <button class="btn btn-sm btn-secondary o_thankyou_next_cancel" t-att-disabled="doc.canceled" t-on-click="() => this.clickNextCancel(doc)">Cancel</button>
                                 </td>
                             </tr>
                         </t>

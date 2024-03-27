@@ -28,7 +28,7 @@ class CustomerPortal(portal.CustomerPortal):
         if 'sign_count' in counters:
             partner_id = request.env.user.partner_id
             values['sign_count'] = request.env['sign.request.item'].sudo().search_count([
-                ('partner_id', '=', partner_id.id), '|', ('sign_request_id.state', '=', 'refused'), '|', ('state', '=', 'completed'), ('is_mail_sent', '=', True)
+                ('partner_id', '=', partner_id.id), '|', ('state', '=', 'completed'), ('is_mail_sent', '=', True)
             ])
         return values
 
@@ -39,7 +39,7 @@ class CustomerPortal(portal.CustomerPortal):
         values = self._prepare_portal_layout_values()
         partner_id = request.env.user.partner_id
         SignRequestItem = request.env['sign.request.item'].sudo()
-        default_domain = [('partner_id', '=', partner_id.id), '|', ('sign_request_id.state', '=', 'refused'), '|', ('state', '=', 'completed'), ('is_mail_sent', '=', True)]
+        default_domain = [('partner_id', '=', partner_id.id), '|', ('state', '=', 'completed'), ('is_mail_sent', '=', True)]
 
         searchbar_sortings = {
             'new': {'label': _('Newest'), 'order': 'sign_request_id desc'},
@@ -71,7 +71,8 @@ class CustomerPortal(portal.CustomerPortal):
         # default filter by value
         if not filterby:
             filterby = 'all'
-        domain = searchbar_filters[filterby]['domain']
+        # get the search  bar filters and remove the cancelled requests
+        domain = AND([searchbar_filters[filterby]['domain'], [('state', '!=', 'canceled')]])
         if date_begin and date_end:
             domain = AND([domain, [('signing_date', '>', date_begin), ('signing_date', '<=', date_end)]])
         # search only the document name

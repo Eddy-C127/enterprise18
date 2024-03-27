@@ -37,6 +37,7 @@ export class ThankYouDialog extends Component {
     setup() {
         this.dialog = useService("dialog");
         this.signInfo = useService("signInfo");
+        this.orm = useService("orm");
         this.state = useState({
             nextDocuments: [],
             buttons: [],
@@ -86,7 +87,7 @@ export class ThankYouDialog extends Component {
                         user: doc.user,
                         accessToken: doc.token,
                         requestId: doc.requestId,
-                        ignored: false,
+                        canceled: false,
                     };
                 });
             }
@@ -173,33 +174,31 @@ export class ThankYouDialog extends Component {
     }
 
     clickButtonNext() {
-        const nextDocument = this.state.nextDocuments.find((document) => !document.ignored);
+        const nextDocument = this.state.nextDocuments.find((document) => !document.canceled);
         this.goToDocument(nextDocument.requestId, nextDocument.accessToken);
     }
 
-    async clickNextIgnore(doc) {
-        const result = await rpc(`/sign/ignore_sign_request_item/${doc.id}/${doc.accessToken}`);
-        if (result) {
-            this.state.nextDocuments = this.state.nextDocuments.map((nextDoc) => {
-                if (nextDoc.id === doc.id) {
+    async clickNextCancel(doc) {
+        await this.orm.call("sign.request", "cancel", [doc.requestID]);
+        this.state.nextDocuments = this.state.nextDocuments.map((nextDoc) => {
+            if (nextDoc.id === doc.id) {
+                return {
+                    ...nextDoc,
+                    canceled: true,
+                };
+            }
+            return nextDoc;
+        });
+        if (this.state.nextDocuments.every((doc) => doc.canceled)) {
+            this.state.buttons = this.state.buttons.map((button) => {
+                if (button.name === _t("Sign Next Document")) {
                     return {
-                        ...nextDoc,
-                        ignored: true,
+                        ...button,
+                        disabled: true,
                     };
                 }
-                return nextDoc;
+                return button;
             });
-            if (this.state.nextDocuments.every((doc) => doc.ignored)) {
-                this.state.buttons = this.state.buttons.map((button) => {
-                    if (button.name === _t("Sign Next Document")) {
-                        return {
-                            ...button,
-                            disabled: true,
-                        };
-                    }
-                    return button;
-                });
-            }
         }
     }
 

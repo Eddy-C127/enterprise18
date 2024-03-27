@@ -518,7 +518,6 @@ class Sign(http.Controller):
             domain=[
                 ('partner_id', '=', request.env.user.partner_id.id),
                 ('state', '=', 'sent'),
-                ('ignored', '=', False),
             ],
             fields=['access_token', 'sign_request_id', 'create_uid', 'create_date'],
             order='create_date DESC',
@@ -536,25 +535,11 @@ class Sign(http.Controller):
             'date': item['create_date'].date(),
         } for item in items]
 
-    @http.route(['/sign/ignore_sign_request_item/<int:item_id>/<token>'], type='json', auth='user')
-    def ignore_sign_request_item(self, item_id, token):
-        """
-        Sets the state of a sign request item to "ignored".
-        :param item_id: id of the item
-        :param token: access token of the item
-        :return: bool (whether the item was successfully accessed)
-        """
-        sign_request_item = request.env['sign.request.item'].sudo().browse(item_id).exists()
-        if not consteq(sign_request_item.access_token, token):
-            return http.request.not_found()
-        if not sign_request_item:
-            return False
-        sign_request_item.ignored = True
-        return True
-
-    @http.route(['/sign/sign_ignore/<int:item_id>/<token>'], type='http', auth='public')
-    def ignore_sign_request_item_from_mail(self, item_id, token):
-        if self.ignore_sign_request_item(item_id, token):
-            return http.request.render('sign.ignore_sign_request_item')
+    @http.route(['/sign/sign_cancel/<int:item_id>/<token>'], type='http', auth='public')
+    def cancel_sign_request_item_from_mail(self, item_id, token):
+        sign_request_item = request.env['sign.request.item'].sudo().browse(item_id)
+        if sign_request_item and consteq(sign_request_item.access_token, token):
+            sign_request_item.sign_request_id.cancel()
+            return http.request.render('sign.canceled_sign_request_item')
         else:
             return http.request.not_found()

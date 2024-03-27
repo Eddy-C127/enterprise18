@@ -75,7 +75,7 @@ QUnit.module("thank you dialog", (hooks) => {
 
         assert.strictEqual(
             target.querySelector(".modal-title").textContent.trim(),
-            "Thank you! Your signature has been submitted."
+            "All done!"
         );
         assert.strictEqual(
             target.querySelector("#thank-you-message").textContent,
@@ -120,7 +120,7 @@ QUnit.module("thank you dialog", (hooks) => {
                 return "draft";
             } else if (route === "/sign/sign_request_items") {
                 return nextDocuments;
-            } else if (route.includes("/sign/ignore_sign_request_item")) {
+            } else if (route === "/web/dataset/call_kw/sign.request/cancel") {
                 return true;
             }
         };
@@ -154,13 +154,13 @@ QUnit.module("thank you dialog", (hooks) => {
         );
         await click(target.querySelector(".next-document .o_thankyou_next_sign"));
 
-        // ignore first document, see that class changes
-        await click(target.querySelector(".next-document .o_thankyou_next_ignore"));
+        // cancel first document, see that class changes
+        await click(target.querySelector(".next-document .o_thankyou_next_cancel"));
 
         assert.containsOnce(
             target,
             ".next-document.text-muted",
-            "Should add muted class after a document is ignored"
+            "Should add muted class after a document is canceled"
         );
 
         const signNextDocumentButton = Array.from(target.querySelectorAll("button")).find(
@@ -176,13 +176,13 @@ QUnit.module("thank you dialog", (hooks) => {
             "Sign next document button should be enabled at first"
         );
         await click(
-            target.querySelector(".next-document:not(.text-muted) .o_thankyou_next_ignore")
+            target.querySelector(".next-document:not(.text-muted) .o_thankyou_next_cancel")
         );
         assert.containsN(target, ".next-document.text-muted", 2, "All documents should be muted");
         assert.equal(
             signNextDocumentButton.disabled,
             true,
-            "Sign next document should be disabled as all documents are ignored"
+            "Sign next document should be disabled as all documents are canceled"
         );
     });
 

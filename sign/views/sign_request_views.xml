@@ -21,7 +21,8 @@
                     <div t-name="kanban-menu">
                         <a role="menuitem" type="object" name="get_formview_action" class="dropdown-item">Details</a>
                         <a role="menuitem" type="object" name="open_template" class="dropdown-item">Template</a>
-                        <a role="menuitem" type="object" name="toggle_active" class="dropdown-item" invisible="state not in ('sent', 'signed', 'refused', 'canceled')">
+                        <a role="menuitem" type="object" name="cancel" class="dropdown-item" invisible="state in ('signed', 'canceled')">Cancel</a>
+                        <a role="menuitem" type="object" name="toggle_active" class="dropdown-item" invisible="state not in ('sent', 'signed', 'canceled')">
                             <t t-if="!record.active.raw_value">Restore</t>
                             <t t-if="record.active.raw_value">Archive</t>
                         </a>
@@ -49,10 +50,9 @@
                                 <field name="template_tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
                                 <div class="o_signers mt-2">
                                     <div t-foreach="record.request_item_infos.raw_value || []" t-as="request_item_info" t-key="request_item_info.id"
-                                         t-att-class="(request_item_info.state === 'completed') ? 'o_sign_completed d-flex align-items-start' :
-                                                      (request_item_info.state === 'refused') ? 'o_sign_refused text-danger d-flex' : 'o_sign_waiting d-flex'">
-                                        <div t-if="request_item_info.state === 'refused'" class="mt-1 me-1 fa fa-times" title="Refused"/>
-                                        <input t-else="" t-att-checked="(request_item_info.state === 'completed') ? 'checked' : undefined" class="mt-1 me-1" type="checkbox" style="accent-color: green"/>
+                                        t-att-class="(request_item_info.state === 'completed') ? 'o_sign_completed text-success d-flex' : (request_item_info.state === 'canceled') ? 'o_sign_canceled text-danger d-flex' : 'o_sign_waiting d-flex'">
+                                         <div t-if="request_item_info.state === 'canceled'" class="mt-1 me-1 fa fa-times" title="Canceled"/>
+                                        <input t-else="" t-att-checked="(request_item_info.state === 'completed') ? 'checked' : undefined" class="mt-1 me-1" type="checkbox" disabled="True"/>
                                         <span>
                                             <t t-esc="request_item_info.partner_name"/><t t-if="request_item_info.signing_date" class="ms-1" t-esc="' ' + request_item_info.signing_date"/>
                                         </span>
@@ -81,7 +81,7 @@
         <field name="name">sign.request.tree</field>
         <field name="model">sign.request</field>
         <field name="arch" type="xml">
-            <tree multi_edit="1" sample="1" js_class="sign_list" decoration-info="state in ('shared', 'sent')" decoration-muted="state in ('refused', 'canceled')">
+            <tree multi_edit="1" sample="1" js_class="sign_list" decoration-info="state in ('shared', 'sent')" decoration-muted="state == 'canceled'">
                 <header>
                     <button type="object" name="send_signature_accesses" class="btn btn-secondary" string="Resend"/>
                     <button type="object" name="get_completed_document" class="btn btn-secondary" string="Download"/>
@@ -294,7 +294,7 @@
         <field name="arch" type="xml">
             <tree editable="bottom" create="false" delete="false">
                 <field name="change_authorized" column_invisible="True"/>
-                <field name="partner_id" readonly="not change_authorized or state in ['completed', 'refused']"/>
+                <field name="partner_id" readonly="not change_authorized or state in ['completed']"/>
                 <field name="signer_email"/>
                 <field name="role_id"/>
                 <field name="state"/>

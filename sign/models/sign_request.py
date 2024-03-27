@@ -84,7 +84,6 @@ class SignRequest(models.Model):
         ("shared", "Shared"),
         ("sent", "Sent"),
         ("signed", "Fully Signed"),
-        ("refused", "Refused"),
         ("canceled", "Cancelled"),
         ("expired", "Expired"),
     ], default='sent', tracking=True, group_expand=True, copy=False, index=True)
@@ -348,7 +347,7 @@ class SignRequest(models.Model):
         if self.state != 'sent':
             raise UserError(_("This sign request cannot be refused"))
         self._check_senders_validity()
-        self.write({'state': 'refused'})
+        self.write({'state': 'canceled'})
         self.request_item_ids._cancel(no_access=False)
 
         # cancel request and activities for other unsigned users
@@ -821,12 +820,10 @@ class SignRequestItem(models.Model):
     signing_date = fields.Date('Signed on', readonly=True, copy=False)
     state = fields.Selection([
         ("sent", "To Sign"),
-        ("refused", "Refused"),
         ("completed", "Completed"),
         ("canceled", "Cancelled"),
     ], readonly=True, default="sent", copy=False, index=True)
     color = fields.Integer(compute='_compute_color')
-    ignored = fields.Boolean(required=True, default=False, copy=False)
 
     signer_email = fields.Char(string='Email', compute="_compute_email", store=True)
     is_mail_sent = fields.Boolean(readonly=True, copy=False, help="The signature mail has been sent.")
@@ -924,7 +921,7 @@ class SignRequestItem(models.Model):
         if self.state != 'sent' or self.sign_request_id.state != 'sent':
             raise UserError(_("This sign request item cannot be refused"))
         self.env['sign.log'].create({'sign_request_item_id': self.id, 'action': 'refuse'})
-        self.write({'signing_date': fields.Date.context_today(self), 'state': 'refused'})
+        self.write({'signing_date': fields.Date.context_today(self), 'state': 'canceled'})
         refuse_user = self.partner_id.user_ids[:1]
         # mark the activity as done for the refuser
         if refuse_user and refuse_user.has_group('sign.group_sign_user'):
@@ -1150,7 +1147,6 @@ class SignRequestItem(models.Model):
             if not sign_request.communication_company_id:
                 sign_request.communication_company_id = self.env.company
             sign_request.message_post(body=body, attachment_ids=sign_request.attachment_ids.ids)
-        self.write({'ignored': False})
         self._send_signature_access_mail()
 
     def _get_user_signature(self, signature_type='sign_signature'):
@@ -1217,7 +1213,6 @@ class SignRequestItem(models.Model):
     def _compute_color(self):
         color_map = {"canceled": 0,
                      "sent": 0,
-                     "refused": 1,
                      "completed": 10}
         for sign_request_item in self:
             sign_request_item.color = color_map[sign_request_item.state]

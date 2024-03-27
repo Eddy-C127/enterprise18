@@ -74,9 +74,6 @@
                                 <span t-field="sign_request_item.signing_date"/>
                             </td>
                             <td class="text-end lh-1">
-                                <t t-if="sign_request_item.ignored">
-                                    <span class="badge rounded-pill text-bg-light">Ignored</span>
-                                </t>
                                 <span class="badge rounded-pill text-bg-info"
                                       t-field="sign_request_item.sudo().sign_request_id.state"/>
                             </td>
@@ -116,17 +113,13 @@
                                             <t t-if="sign.state == 'sent'">
                                                 <b><t t-esc="sign.partner_id.name if sign.partner_id else 'Public user'"/></b>
                                                 <t t-if="sign.role_id"><t t-esc="' - ' + sign.role_id.name"/></t> - <em>
-                                                    Waiting Signature<t t-if="(my_sign_item == sign) and sign.ignored"> (Ignored)</t>
+                                                    Waiting Signature
                                                 </em>
                                                 <em t-if="not sign.is_mail_sent"><br/>(the email access has not been sent)</em>
                                             </t>
                                             <t t-if="sign.state == 'canceled'">
                                                 <b><t t-esc="sign.partner_id.name"/></b>
                                                 <t t-if="sign.role_id"><t t-esc="' - ' + sign.role_id.name"/></t> - <em>Cancelled</em>
-                                            </t>
-                                            <t t-if="sign.state == 'refused'">
-                                                <b><t t-esc="sign.partner_id.name"/></b>
-                                                <t t-if="sign.role_id"><t t-esc="' - ' + sign.role_id.name"/></t> - <em>Refused on <span t-field="sign.signing_date"></span></em>
                                             </t>
                                             <t t-if="sign.state == 'completed'">
                                                 <b><t t-esc="sign.partner_id.name"/></b>

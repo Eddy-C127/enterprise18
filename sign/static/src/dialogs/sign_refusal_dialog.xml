@@ -3,7 +3,6 @@
     <t t-name="sign.SignRefusalDialog">
         <Dialog t-props="dialogProps">
             <div>
-                <h3>Reason</h3>
                 <textarea class="o_sign_refuse_confirm_message"
                     placeholder="Why do you refuse to sign this document?"
                     t-ref="refuse-reason"

@@ -239,6 +239,12 @@
     }
 }
 
+@media only screen and (min-width:769px) {
+    .mobile-tablet-show {
+        display: none !important;
+    }
+}
+
 @include media-breakpoint-down(md) {
 
     .o_sign_item_bottom_sheet {

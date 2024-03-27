@@ -74,7 +74,7 @@ registry.category("web_tour.tours").add("shared_sign_request_tour", {
         {
             content: "Download Document",
             trigger: "button.btn.btn-primary",
-            extra_trigger: '.modal-title:contains("Thank you!")',
+            extra_trigger: '.modal-title:contains("All done!")',
             run() {},
         },
     ],

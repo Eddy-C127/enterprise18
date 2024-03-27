@@ -89,6 +89,7 @@ export class SignRequest extends Component {
     get controlPanelProps() {
         return {
             signerStatus: this.signerStatus,
+            goBackToKanban: this.goBackToKanban,
         };
     }
 }

@@ -10,7 +10,10 @@ export class SignableRequestControlPanel extends Component {
     static components = {
         ControlPanel,
     };
-    static props = ["signerStatus"];
+    static props = {
+        signerStatus: { type: "String" },
+        goBackToKanban: { type: Function },
+    };
 
     setup() {
         this.controlPanelDisplay = {};

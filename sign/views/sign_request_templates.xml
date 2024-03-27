@@ -78,13 +78,24 @@
                         <div class="justify-content-end d-flex">
                             <t t-call="sign.signer_status_wrapper"/>
                             <t t-set="has_actions" t-value="(current_request_item and current_request_item.state == 'sent') or sign_request.state == 'signed'"/>
-                            <div class="dropdown" t-if="portal or has_actions">
-                                <a role="button" class="fa fa-bars btn" data-bs-toggle="dropdown" href="#" aria-label="Dropdown menu" title="Dropdown menu"/>
-                                <div class="dropdown-menu dropdown-menu-end" role="menu">
-                                    <a t-if="sign_request.state == 'sent'" role="menuitem" href="#" class="dropdown-item o_sign_refuse_document_button">Refuse Document</a>
+                            <div class="dropdown d-flex btn-group m-1" t-if="portal or has_actions">
+                                <button t-if="current_request_item and current_request_item.state == 'sent'" class="btn btn-primary dropdown-item o_sign_refuse_document_button mobile-tablet-hide">Refuse Document</button>
+                                <!-- Web page dropdown: visible only when user is logged in with options to be shown. -->
+                                <button t-if="portal" class="mobile-tablet-hide btn btn-secondary dropdown-toggle btn-sm" data-bs-toggle="dropdown" aria-label="Dropdown menu" title="Dropdown menu"/>
+                                <div t-if="portal" class="mobile-tablet-hide dropdown-menu dropdown-menu-end" role="menu">
                                     <a t-if="sign_request.state == 'signed'" role="menuitem" t-attf-href="/sign/download/{{sign_request.id}}/{{sign_request.access_token}}/completed" class="dropdown-item">Document <i class="fa fa-download"/></a>
                                     <a t-if="sign_request.state == 'signed'" role="menuitem" t-attf-href="/sign/download/{{sign_request.id}}/{{sign_request.access_token}}/log" class="dropdown-item">Certificate <i class="fa fa-download"/></a>
-                                    <div t-if="portal and has_actions" class="dropdown-divider"></div>
+                                    <div t-if="sign_request.state == 'signed' and portal" class="dropdown-divider"></div>
+                                    <a t-if="portal" role="menuitem" t-attf-href="/my/" class="dropdown-item">Home</a>
+                                    <a t-if="portal" role="menuitem" t-attf-href="/my/signature/{{current_request_item.id}}?{{ keep_query() }}" class="dropdown-item">Details</a>
+                                </div>
+                                <!-- Mobile dropdown: always visible with the 'Refuse' option. -->
+                                <button class="mobile-tablet-show btn btn-secondary dropdown-toggle btn-sm" data-bs-toggle="dropdown" aria-label="Dropdown menu" title="Dropdown menu"/>
+                                <div class="mobile-tablet-show dropdown-menu dropdown-menu-end" role="menu">
+                                    <a t-if="sign_request.state == 'signed'" role="menuitem" t-attf-href="/sign/download/{{sign_request.id}}/{{sign_request.access_token}}/completed" class="dropdown-item">Document <i class="fa fa-download"/></a>
+                                    <a t-if="sign_request.state == 'signed'" role="menuitem" t-attf-href="/sign/download/{{sign_request.id}}/{{sign_request.access_token}}/log" class="dropdown-item">Certificate <i class="fa fa-download"/></a>
+                                    <div t-if="sign_request.state == 'signed' and portal" class="dropdown-divider"></div>
+                                    <button t-if="current_request_item and current_request_item.state == 'sent'" role="menuitem" class="btn dropdown-item o_sign_refuse_document_button mobile-tablet-show">Refuse Document</button>
                                     <a t-if="portal" role="menuitem" t-attf-href="/my/" class="dropdown-item">Home</a>
                                     <a t-if="portal" role="menuitem" t-attf-href="/my/signature/{{current_request_item.id}}?{{ keep_query() }}" class="dropdown-item">Details</a>
                                 </div>
@@ -101,14 +112,13 @@
 
     <template id="sign.signer_status_wrapper" name="">
         <div class="o_sign_signer_status_wrapper justify-content-end d-flex">
-            <div t-if="current_request_item" t-attf-class="o_sign_signer_status ps-4 {{{'refused': 'o_sign_signer_refused', 'completed': 'o_sign_signer_completed'}.get(current_request_item.state, '')}}" t-att-data-id="current_request_item.id">
+            <div t-if="current_request_item" t-attf-class="o_sign_signer_status ps-4 {{'o_sign_signer_completed' if current_request_item.state == 'completed' else ''}}" t-att-data-id="current_request_item.id">
                 <img t-if="current_request_item.state == 'completed' and current_request_item.signature" class="mobile-hide" t-attf-src="data:image/png;base64,{{current_request_item.signature}}" alt="Signature"/>
                 <div class="o_sign_signer_status_info flex-column">
                     <div class="text-start"><b><t t-esc="current_request_item.partner_id.name if current_request_item.partner_id else 'Public user'"/></b></div>
                     <div class="text-start"><small><i>
                         <t t-if="current_request_item.state == 'sent'"> Is Signing </t>
                         <t t-if="current_request_item.state == 'canceled'"> Cancelled </t>
-                        <t t-if="current_request_item.state == 'refused'"> Refused on <t t-esc="current_request_item.signing_date"/></t>
                         <t t-if="current_request_item.state == 'completed'"> Signed on <t t-esc="current_request_item.signing_date"/></t>
                     </i></small></div>
                 </div>
@@ -118,7 +128,7 @@
                     <div t-if="sign.access_token != token" class="o_sign_signer_status o_sign_signer_waiting ps-4" t-att-data-id="sign.id">
                         <div class="o_sign_signer_status_info flex-column">
                             <div class="text-start"><b><t t-esc="sign.partner_id.name if sign.partner_id else 'Public user'"/></b></div>
-                            <div class="text-start"><small><i> Waiting Signature<t t-if="(env.user.partner_id == sign.partner_id) and sign.ignored"> (Ignored)</t> </i></small></div>
+                            <div class="text-start"><small><i> Waiting Signature </i></small></div>
                         </div>
                     </div>
                 </t>
@@ -127,14 +137,6 @@
                         <div class="o_sign_signer_status_info flex-column ps-4">
                             <div class="text-start"><b><t t-esc="sign.partner_id.name if sign.partner_id else 'Public user'"/></b></div>
                             <div class="text-start"><small><i> Cancelled </i></small></div>
-                        </div>
-                    </div>
-                </t>
-                <t t-foreach="state_to_sign_request_items_map.get('refused')" t-as="sign">
-                    <div t-if="sign.access_token != token" class="o_sign_signer_status o_sign_signer_refused">
-                        <div class="o_sign_signer_status_info flex-column ps-4">
-                            <div class="text-start"><b><t t-esc="sign.partner_id.name if sign.partner_id else 'Public user'"/></b></div>
-                            <div class="text-start"><small><i> Refused on <t t-esc="sign.signing_date"/></i></small></div>
                         </div>
                     </div>
                 </t>
@@ -216,7 +218,7 @@
         </t>
     </template>
 
-    <template id="ignore_sign_request_item" name="Signature Request Ignored">
+    <template id="canceled_sign_request_item" name="Signature Request Canceled">
         <t t-call="web.basic_layout">
             <t t-set="title" t-value="'Odoo Sign'"/>
             <div class="oe_structure oe_empty">
@@ -224,7 +226,7 @@
                     <div class="container">
                         <div class="text-center">
                             <h1 class="visually-hidden">Operation successful</h1>
-                            <h2>The signature request has been ignored</h2>
+                            <h2>The signature request has been cancelled</h2>
                             You won't receive any notification for this signature request anymore.
                         </div>
                         <div class="col-lg-12">

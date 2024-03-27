@@ -161,11 +161,13 @@ function usePublicRefuseButton() {
     const component = useComponent();
     useEffect(
         () => {
-            const refuseButton = document.querySelector(".o_sign_refuse_document_button");
-            if (refuseButton) {
-                refuseButton.addEventListener("click", () => {
-                    component.dialog.add(SignRefusalDialog);
-                });
+            const refuseButtons = document.querySelectorAll(".o_sign_refuse_document_button");
+            if (refuseButtons) {
+                refuseButtons.forEach(button =>
+                    button.addEventListener("click", () => {
+                        component.dialog.add(SignRefusalDialog);
+                    })
+                );
             }
         },
         () => []

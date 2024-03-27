@@ -58,6 +58,7 @@ export class SignRequestControlPanel extends Component {
             type: Object,
             optional: true,
         },
+        goBackToKanban: { type: Function },
     };
 
     setup() {
@@ -79,12 +80,23 @@ export class SignRequestControlPanel extends Component {
         return isAuthor && documentSent;
     }
 
+    get allowCancel() {
+        const needToSign = this.signInfo.get("needToSign");
+        const state = this.signInfo.get("signRequestState");
+        return needToSign && !["signed", "canceled"].includes(state);
+    }
+
     async signDocument() {
         const action = await this.orm.call("sign.request", "go_to_signable_document", [
             [this.signInfo.get("documentId")],
         ]);
         action.name = _t("Sign");
         this.action.doAction(action);
+    }
+
+    async cancelDocument() {
+        await this.orm.call("sign.request", "cancel", [this.signInfo.get("documentId")]);
+        this.props.goBackToKanban();
     }
 
     async goToNextDocument() {

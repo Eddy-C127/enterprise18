@@ -27,7 +27,7 @@ export class SignRefusalDialog extends Component {
     get dialogProps() {
         return {
             size: "md",
-            title: _t("Refuse Document"),
+            title: _t("Refuse to sign"),
         };
     }
 
