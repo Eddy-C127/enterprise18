@@ -154,6 +154,9 @@
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="model_id"/>
+                <field name="wa_account_id"
+                       groups="whatsapp.group_whatsapp_admin"
+                       optional="hidden"/>
                 <field name="template_name" optional="hidden"/>
                 <field name="header_type" optional="hidden"/>
                 <field name="create_uid" widget="many2one_avatar"/>
@@ -234,6 +237,7 @@
                     <group expand="0" string="Group By">
                         <filter string="Model" name="model_id" domain="[]" context="{'group_by': 'model_id'}"/>
                         <filter string="Status" name="status" domain="[]" context="{'group_by': 'status'}"/>
+                        <filter string="Account" name="groupby_wa_account_id" domain="[]" context="{'group_by': 'wa_account_id'}"/>
                     </group>
                 </search>
             </field>
