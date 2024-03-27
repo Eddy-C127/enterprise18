@@ -30,3 +30,6 @@ class HrSalaryRule(models.Model):
         help="Tags assigned to this line will impact financial reports when translated into an accounting journal entry."
             "They will be applied on the credit account line in the journal entry.",
     )
+    split_move_lines = fields.Boolean(
+        string="Split account line based on name",
+        help="Enable this option to split the accountig entries for this rule according to the payslip line name. It could be useful for deduction/reimbursement or salary attachments for instance.")
