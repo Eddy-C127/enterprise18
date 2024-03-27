@@ -1575,9 +1575,9 @@ result_name = inputs['LPPRED'].name
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = inputs['LPPCOMP'].amount if 'LPPCOMP' in inputs else 0
-if 'LPPCOMP' in inputs:
-    result_name = inputs['LPPCOMP'].name
+result = inputs['LPP.COMP'].amount if 'LPP.COMP' in inputs else 0
+if 'LPP.COMP' in inputs:
+    result_name = inputs['LPP.COMP'].name
         </field>
         <field name="appears_on_payslip" eval="False"/>
         <field name="note">
