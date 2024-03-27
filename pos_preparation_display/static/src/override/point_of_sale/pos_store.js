@@ -53,6 +53,9 @@ patch(PosStore.prototype, {
 
         if (this.preparationDisplayCategoryIds.size) {
             result = await order.sendChanges(cancelled);
+            if (order.originalSplittedOrder) {
+                result = await order.originalSplittedOrder.sendChanges(cancelled) && result;
+            }
         }
 
         // We display this error popup only if the PoS is connected,
