@@ -20,10 +20,11 @@ patch(PaymentScreen.prototype, {
     async validateOrder(isForceValidate) {
         const order = this.currentOrder;
         const change = order.get_change();
-        const paylaterPaymentMethod = this.pos.models["pos.payment.method"].filter(
-            (method) =>
-                this.pos.config.payment_method_ids.includes(method.id) && method.type == "pay_later"
-        )[0];
+        const paylaterPaymentMethod = this.pos.models["pos.payment.method"].find(
+            (pm) =>
+                this.pos.config.payment_method_ids.some((m) => m.id === pm.id) &&
+                pm.type === "pay_later"
+        );
         const existingPayLaterPayment = order.payment_ids.find(
             (payment) => payment.payment_method_id.type == "pay_later"
         );
