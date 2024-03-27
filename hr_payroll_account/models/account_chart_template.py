@@ -101,14 +101,14 @@ class AccountChartTemplate(models.AbstractModel):
             'account_type': 'liability_payable',
             'reconcile': True,
         }
-        if self.env.ref('hr_payroll.hr_salary_rule_houserentallowance1', raise_if_not_found=False):
+        if self.env.ref('hr_payroll.hr_salary_rule_houserentallowance1', raise_if_not_found=False) and self.ref('hr_payslip_account', raise_if_not_found=False):
             demo_data['hr.salary.rule'] = {
                 'hr_payroll.hr_salary_rule_houserentallowance1': {
                     'account_debit': 'hr_payslip_account',
                     'account_credit': 'hr_payslip_account',
                 }
             }
-        if self.env.ref('hr_payroll.structure_003', raise_if_not_found=False):
+        if self.env.ref('hr_payroll.structure_003', raise_if_not_found=False) and self.ref('hr_payroll_account_journal', raise_if_not_found=False):
             demo_data['hr.payroll.structure'] = {
                 'hr_payroll.structure_003': {
                     'journal_id': 'hr_payroll_account_journal',
