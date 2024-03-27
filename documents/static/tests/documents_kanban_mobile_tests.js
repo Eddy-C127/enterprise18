@@ -2,22 +2,11 @@
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
-import { createDocumentsViewWithMessaging } from "./documents_test_utils";
-import { documentService } from "@documents/core/document_service";
-import { storeService } from "@mail/core/common/store_service";
-import { attachmentService } from "@mail/core/common/attachment_service";
-import { voiceMessageService } from "@mail/discuss/voice_message/common/voice_message_service";
-import { multiTabService } from "@bus/multi_tab_service";
-import { busParametersService } from "@bus/bus_parameters_service";
-import { busService } from "@bus/services/bus_service";
+import { createDocumentsViewWithMessaging, loadServices } from "./documents_test_utils";
 
-import { registry } from "@web/core/registry";
 import { click, getFixture, nextTick, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { setupViewRegistries } from "@web/../tests/views/helpers";
-import { fileUploadService } from "@web/core/file_upload/file_upload_service";
 import { DocumentsListRenderer } from "@documents/views/list/documents_list_renderer";
-
-const serviceRegistry = registry.category("services");
 
 let target;
 
@@ -27,29 +16,10 @@ QUnit.module("documents", {}, function () {
         {
             async beforeEach() {
                 setupViewRegistries();
+                loadServices();
+
                 target = getFixture();
-                const REQUIRED_SERVICES = {
-                    documents_pdf_thumbnail: {
-                        start() {
-                            return {
-                                enqueueRecords: () => {},
-                            };
-                        },
-                    },
-                    "document.document": documentService,
-                    "mail.attachment": attachmentService,
-                    "mail.store": storeService,
-                    "discuss.voice_message": voiceMessageService,
-                    multi_tab: multiTabService,
-                    bus_service: busService,
-                    "bus.parameters": busParametersService,
-                    file_upload: fileUploadService,
-                };
-                for (const [serviceName, service] of Object.entries(REQUIRED_SERVICES)) {
-                    if (!serviceRegistry.contains(serviceName)) {
-                        serviceRegistry.add(serviceName, service);
-                    }
-                }
+
                 patchWithCleanup(DocumentsListRenderer, {
                     init() {
                         super.init(...arguments);

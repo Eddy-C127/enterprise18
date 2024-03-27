@@ -3,18 +3,12 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { fileUploadService } from "@web/core/file_upload/file_upload_service";
-import { multiTabService } from "@bus/multi_tab_service";
-import { busParametersService } from "@bus/bus_parameters_service";
-import { busService } from "@bus/services/bus_service";
 import { DocumentsKanbanRenderer } from "@documents/views/kanban/documents_kanban_renderer";
-import { documentService } from "@documents/core/document_service";
-import { storeService } from "@mail/core/common/store_service";
-import { attachmentService } from "@mail/core/common/attachment_service";
-import { voiceMessageService } from "@mail/discuss/voice_message/common/voice_message_service";
 import {
     createDocumentsView as originalCreateDocumentsView,
     createDocumentsViewWithMessaging,
     getEnrichedSearchArch,
+    loadServices,
 } from "./documents_test_utils";
 import { registry } from "@web/core/registry";
 import { getOrigin } from "@web/core/utils/urls";
@@ -73,28 +67,7 @@ QUnit.module("documents", {}, function () {
         "documents_kanban_tests.js",
         {
             async beforeEach() {
-                const REQUIRED_SERVICES = {
-                    documents_pdf_thumbnail: {
-                        start() {
-                            return {
-                                enqueueRecords: () => {},
-                            };
-                        },
-                    },
-                    "document.document": documentService,
-                    "mail.attachment": attachmentService,
-                    "mail.store": storeService,
-                    "discuss.voice_message": voiceMessageService,
-                    multi_tab: multiTabService,
-                    bus_service: busService,
-                    "bus.parameters": busParametersService,
-                    file_upload: fileUploadService,
-                };
-                for (const [serviceName, service] of Object.entries(REQUIRED_SERVICES)) {
-                    if (!serviceRegistry.contains(serviceName)) {
-                        serviceRegistry.add(serviceName, service);
-                    }
-                }
+                loadServices();
                 patchWithCleanup(browser, {
                     navigator: {
                         ...browser.navigator,
