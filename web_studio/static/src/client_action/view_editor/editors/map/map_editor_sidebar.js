@@ -70,7 +70,7 @@ export class MapEditorSidebar extends Component {
     get defaultOrderChoices() {
         return Object.values(this.viewEditorModel.fields)
             .filter(
-                (field) => field.store && ["one2many", "many2many", "binary"].includes(field.type)
+                (field) => field.store && !["one2many", "many2many", "binary"].includes(field.type)
             )
             .map((field) => ({ label: `${field.string} (${field.name})`, value: field.name }));
     }

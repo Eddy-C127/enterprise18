@@ -236,5 +236,43 @@ QUnit.module(
             await click(target, ".o_field_many2many_tags input");
             assert.verifySteps(["name_search"]);
         });
+
+        QUnit.test("many2many, one2many and binary fields cannot be selected in SortBy dropdown for map editor", async function (assert) {
+            assert.expect(1);
+
+            serverData.models["project.task"].fields.display_name.store = true;
+
+            serverData.models["project.task"].fields.o2m_field = {
+                string: "One2Many Field",
+                type: "one2many",
+                relation: "res.partner",
+                store: true,
+            };
+
+            serverData.models["project.task"].fields.m2m_field = {
+                string: "Many2Many Field",
+                type: "many2many",
+                relation: "res.partner",
+                store: true,
+            };
+
+            serverData.models["project.task"].fields.binary_field = {
+                string: "Binary Field",
+                type: "binary",
+                store: true,
+            };
+
+            await createViewEditor({
+                serverData,
+                type: "map",
+                resModel: "project.task",
+                arch: `<map routing='true'/>`
+            });
+
+            // Check that the many2many, one2many, and binary fields cannot be selected in the SortBy dropdown
+            await click(target.querySelectorAll(".dropdown-toggle.o_select_menu_toggler")[1]);
+            const sortByDropdownMenu = target.querySelectorAll(".o_select_menu_item");
+            assert.strictEqual(sortByDropdownMenu.length, 1, "There should be 1 items in the SortBy dropdown");
+        });
     }
 );
