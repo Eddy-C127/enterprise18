@@ -148,10 +148,6 @@ export class EmbeddedViewBehavior extends AbstractBehavior {
         this.props.anchor.dataset.behaviorProps = encodeDataBehaviorProps(behaviorProps);
         this.embeddedViewManagerProps.action.name = name;
         this.embeddedViewManagerProps.action.display_name = name;
-        const title = this.props.anchor.querySelector('.o_control_panel .o_last_breadcrumb_item.active span');
-        if (title) {
-            title.textContent = name;
-        }
     }
 
     //--------------------------------------------------------------------------
