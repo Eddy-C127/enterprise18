@@ -88,7 +88,7 @@ class SendCloud:
         if not shipping_prices:
             raise UserError(_('There is no rate available for this order with the selected shipping product'))
 
-        shipping_price = min(shipping_prices.items(), key=lambda p: p[1]['price'])
+        shipping_price = min(shipping_prices.items(), key=lambda p: float(p[1]['price']))
         price = float(shipping_price[1].get('price')) * packages_no
         currency = shipping_price[1].get('currency')
         currency_id = carrier.env['res.currency'].with_context(active_test=False).search([('name', '=', currency)])
