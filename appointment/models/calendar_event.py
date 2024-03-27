@@ -107,18 +107,18 @@ class CalendarEvent(models.Model):
                     ):
                         event.on_leave_partner_ids += partner
 
-    @api.depends('start', 'stop', 'appointment_resource_ids')
+    @api.depends('start', 'stop', 'resource_ids')
     def _compute_on_leave_resource_ids(self):
-        resource_events = self.filtered(lambda event: event.appointment_resource_ids)
+        resource_events = self.filtered(lambda event: event.resource_ids)
         (self - resource_events).on_leave_resource_ids = False
         if not resource_events:
             return
 
         for start, stop, events in interval_from_events(resource_events):
-            group_resources = events.appointment_resource_ids
+            group_resources = events.resource_ids
             unavailabilities = group_resources.sudo().resource_id._get_unavailable_intervals(start, stop)
             for event in events:
-                event_resources = event.appointment_resource_ids
+                event_resources = event.resource_ids
                 event.on_leave_resource_ids = event_resources.filtered(lambda resource: any(
                     intervals_overlap(interval, (event.start, event.stop)) for interval
                     in unavailabilities.get(resource.resource_id.id, [])
