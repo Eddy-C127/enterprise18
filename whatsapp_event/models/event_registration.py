@@ -7,8 +7,12 @@ class EventRegistration(models.Model):
     _inherit = 'event.registration'
 
     def _whatsapp_get_portal_url(self):
+        """ Return website_url if website_event is installed (introspect fields
+        to avoid yet another bridge module) """
         self.ensure_one()
-        return self.event_id.website_url
+        if "website_url" in self.event_id:
+            return self.event_id.website_url
+        return super()._whatsapp_get_portal_url()
 
     def _whatsapp_get_responsible(self, related_message=False, related_record=False, whatsapp_account=False):
         if self.event_user_id:
