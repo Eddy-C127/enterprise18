@@ -101,6 +101,78 @@ class TestFetchmailServer(TestL10nClEdiCommon):
         self.assertEqual(move.amount_total, 351390)
         self.assertEqual(move.amount_tax, 56104)
 
+    @patch('odoo.fields.Date.context_today', return_value=fields.Date.from_string('2019-11-23'))
+    def test_create_invoice_33_from_attachment_with_discounts(self, context_today):
+        """DTE with discounts """
+        att_name = 'incoming_invoice_33_with_discount.xml'
+        from_address = 'incoming_dte@test.com'
+        att_content = misc.file_open('l10n_cl_edi/tests/fetchmail_dtes/' + att_name).read()
+        moves = self.env['fetchmail.server']._create_document_from_attachment(
+            att_content, att_name, from_address, self.company_data['company'].id)
+
+        self.assertEqual(len(moves), 1)
+
+        move = moves[0]
+        self.assertEqual(move.name, 'FAC 002033')
+        self.assertEqual(move.partner_id, self.env['res.partner'])
+        self.assertEqual(move.date, fields.Date.from_string('2019-11-23'))
+        self.assertEqual(move.invoice_date, fields.Date.from_string('2019-11-23'))
+        self.assertEqual(move.invoice_date_due, fields.Date.from_string('2019-11-23'))
+        self.assertEqual(move.journal_id.type, 'purchase')
+        self.assertEqual(move.l10n_latam_document_number, '002033')
+        self.assertEqual(move.l10n_cl_dte_acceptation_status, 'received')
+        self.assertEqual(move.invoice_source_email, from_address)
+        self.assertEqual(move.l10n_latam_document_type_id.code, '33')
+        self.assertEqual(move.company_id, self.company_data['company'])
+        self.assertEqual(len(move.invoice_line_ids), 2)
+        self.assertEqual(move.invoice_line_ids[0].price_subtotal, 251146)
+        self.assertEqual(move.invoice_line_ids[1].price_subtotal, 92054)
+        self.assertEqual(move.currency_id.name, 'CLP')
+        self.assertEqual(move.amount_untaxed, 343200)
+
+    @patch('odoo.fields.Date.context_today', return_value=fields.Date.from_string('2019-11-23'))
+    def test_create_invoice_33_from_attachment_with_discount_tax_incl(self, context_today):
+        """DTE with discounts tax included"""
+        att_name = 'incoming_invoice_33_with_discount_tax_incl.xml'
+        att_content = misc.file_open('l10n_cl_edi/tests/fetchmail_dtes/' + att_name).read()
+
+        # Process the XML file
+        moves = self.env['fetchmail.server']._create_document_from_attachment(
+            att_content, att_name, 'incoming_dte@test.com', self.company_data['company'].id)
+
+        # Retrieve the created invoice
+        move = moves[0]
+
+        # Check the invoice details
+        self.assertEqual(move.name, 'FAC 002034')
+        self.assertEqual(move.date, fields.Date.from_string('2019-11-23'))
+        self.assertEqual(move.invoice_date, fields.Date.from_string('2019-11-23'))
+        self.assertEqual(move.invoice_date_due, fields.Date.from_string('2019-11-23'))
+        self.assertEqual(move.journal_id.type, 'purchase')
+        self.assertEqual(move.move_type, 'in_invoice')
+        self.assertEqual(move.l10n_latam_document_type_id.code, '33')
+        self.assertEqual(move.l10n_latam_document_number, '002034')
+        self.assertEqual(len(move.invoice_line_ids), 2)
+
+        # Check the first invoice line
+        line1 = move.invoice_line_ids[0]
+        self.assertEqual(line1.product_id, self.product_a)
+        self.assertEqual(line1.quantity, 1)
+        self.assertEqual(line1.price_unit, 250894)
+        self.assertEqual(line1.price_subtotal, 250894)
+        self.assertEqual(line1.discount, 0)
+
+        # Check the second invoice line
+        line2 = move.invoice_line_ids[1]
+        self.assertEqual(line2.product_id, self.product_b)
+        self.assertEqual(line2.quantity, 2)
+        self.assertEqual(line2.price_unit, 46011)
+        self.assertEqual(line2.price_subtotal, 46011 * 2)
+        self.assertEqual(line2.discount, 0)
+
+        # Check the invoice status
+        self.assertEqual(move.l10n_cl_dte_acceptation_status, 'received')
+
     # Patch out the VAT check since the VAT number from the sender is invalid
     @patch('odoo.addons.base_vat.models.res_partner.ResPartner.check_vat', MagicMock())
     def test_create_invoice_33_from_attachment_with_sending_partner_defined_on_other_company(self):

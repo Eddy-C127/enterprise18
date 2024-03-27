@@ -541,18 +541,18 @@ class FetchmailServer(models.Model):
             # in the same case, PrcItem is not mandatory if QtyItem is not present, but MontoItem IS mandatory
             # this happens whenever QtyItem is not present in the invoice.
             # See http://www.sii.cl/factura_electronica/formato_dte.pdf row 38 of tag table.
-            price_unit = float(dte_line.findtext(
-                './/ns0:PrcItem', default=dte_line.findtext('.//ns0:MontoItem', namespaces=XML_NAMESPACES),
-                namespaces=XML_NAMESPACES))
-            discount = float(dte_line.findtext('.//ns0:DescuentoPct', default=0, namespaces=XML_NAMESPACES))\
-                       or (float(dte_line.findtext('.//ns0:DescuentoMonto', default=0, namespaces=XML_NAMESPACES)) / (price_unit * quantity) * 100
-                           if price_unit * quantity != 0 else 0)
+            qty1 = quantity or 1
+            price_unit = float(dte_line.findtext('.//ns0:MontoItem', default=0, namespaces=XML_NAMESPACES)) / qty1
+            # See http://www.sii.cl/factura_electronica/formato_dte.pdf,
+            # where MontoItem is defined as (price_unit * quantity ) - discount + surcharge
+            # The amount present in "MontoItem" contains
+            # the value with discount or surcharge applied, so we don't need to calculate it, just dividing this amount
+            # by the quantity we get the price unit we should use in Odoo.
             values = {
                 'product': product,
                 'name': product.name if product else dte_line.findtext('.//ns0:NmbItem', namespaces=XML_NAMESPACES),
                 'quantity': quantity,
                 'price_unit': price_unit,
-                'discount': discount,
                 'default_tax': False
             }
             if (dte_xml.findtext('.//ns0:TasaIVA', namespaces=XML_NAMESPACES) is not None and
@@ -571,13 +571,13 @@ class FetchmailServer(models.Model):
         for desc_rcg_global in dte_xml.findall('.//ns0:DscRcgGlobal', namespaces=XML_NAMESPACES):
             line_type = desc_rcg_global.findtext('.//ns0:TpoMov', namespaces=XML_NAMESPACES)
             price_type = desc_rcg_global.findtext('.//ns0:TpoValor', namespaces=XML_NAMESPACES)
-            valor_dr = (desc_rcg_global.findtext('.//ns0:ValorDROtrMnda', namespaces=XML_NAMESPACES) or
+            discount_surcharge_value = (desc_rcg_global.findtext('.//ns0:ValorDROtrMnda', namespaces=XML_NAMESPACES) or
                         desc_rcg_global.findtext('.//ns0:ValorDR', namespaces=XML_NAMESPACES))
             values = {
                 'name': 'DESCUENTO' if line_type == 'D' else 'RECARGO',
                 'quantity': 1,
             }
-            amount_dr = float(valor_dr)
+            amount_dr = float(discount_surcharge_value)
             percent_dr = amount_dr / 100
             # The price unit of a discount line should be negative while surcharge should be positive
             price_unit_multiplier = 1 if line_type == 'D' else -1
