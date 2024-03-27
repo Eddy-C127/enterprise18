@@ -144,7 +144,9 @@ class WhatsAppTemplate(models.Model):
         for tmpl in self.filtered(lambda l: l.header_type == 'text'):
             header_variables = list(re.findall(r'{{[1-9][0-9]*}}', tmpl.header_text))
             if len(header_variables) > 1 or (header_variables and header_variables[0] != '{{1}}'):
-                raise ValidationError(_("Header text can only contain a single {{variable}}."))
+                raise ValidationError(
+                    _("The Header Text must either contain no variable or the first one {{1}}.")
+                )
 
     @api.constrains('phone_field', 'model')
     def _check_phone_field(self):

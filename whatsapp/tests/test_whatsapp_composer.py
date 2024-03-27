@@ -257,14 +257,11 @@ class WhatsAppComposerInternals(WhatsAppComposerCase, CronMixinCase):
                 'category_id', 'category_id.color', 'category_id.partner_ids',
                 # integer without value
                 'color',
-                # void seems be supported
-                '', False, None,
             ], [
                 'Belgium', 'Belgium',
                 '', '',
                 'Tag0 Tag1 Tag2', '0 1 2', 'Test Partner',
                 '0',
-                '', '', '',
             ]
         ):
             with self.subTest(field_path=field_path):
@@ -287,6 +284,8 @@ class WhatsAppComposerInternals(WhatsAppComposerCase, CronMixinCase):
             'country_id.wrong',
             # does not exist
             'wrong',
+            # void is not supported
+            '', False, None,
         ]:
             with self.subTest(field_path=field_path):
                 with self.assertRaises(exceptions.ValidationError):
