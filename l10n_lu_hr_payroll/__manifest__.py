@@ -32,6 +32,7 @@ Luxembourg Payroll Rules.
         'data/hr_thirteen_month_rule_data.xml',
         'data/hr_holidays_data.xml',
         'data/hr_payroll_dashboard_warning_data.xml',
+        'data/hr_payslip_input_type_data.xml',
         'views/hr_contract_views.xml',
         'views/hr_employee_views.xml',
         'views/hr_payroll_views.xml',

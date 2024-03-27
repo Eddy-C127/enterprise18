@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="hr_salary_rule_category_bik_transport" model="hr.salary.rule.category">
+        <field name="name">Benefit in Kind (Transportation)</field>
+        <field name="code">BIK_TRANSPORT</field>
+        <field name="parent_id" ref="hr_payroll.ALW"/>
+    </record>
 
     <record id="hr_salary_rule_category_gross_tmp" model="hr.salary.rule.category">
         <field name="name">Temporary Gross</field>
@@ -40,5 +45,11 @@
     <record id="hr_salary_rule_category_gratification" model="hr.salary.rule.category">
         <field name="name">Gratification</field>
         <field name="code">GRAT</field>
+    </record>
+
+    <record id="hr_salary_rule_category_net_gratification" model="hr.salary.rule.category">
+        <field name="name">Net Gratification</field>
+        <field name="code">NET_GRAT</field>
+        <field name="parent_id" ref="hr_payroll.ALW"/>
     </record>
 </odoo>
