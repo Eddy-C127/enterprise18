@@ -3,20 +3,12 @@
 import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { fileUploadService } from "@web/core/file_upload/file_upload_service";
-import { imStatusService } from "@bus/im_status_service";
-import { presenceService } from "@bus/services/presence_service";
-import { multiTabService } from "@bus/multi_tab_service";
-import { busParametersService } from "@bus/bus_parameters_service";
-import { busService } from "@bus/services/bus_service";
 import { DocumentsKanbanRenderer } from "@documents/views/kanban/documents_kanban_renderer";
-import { documentService } from "@documents/core/document_service";
-import { storeService } from "@mail/core/common/store_service";
-import { voiceMessageService } from "@mail/discuss/voice_message/common/voice_message_service";
 import {
     createDocumentsView as originalCreateDocumentsView,
     createDocumentsViewWithMessaging,
+    loadServices,
 } from "./documents_test_utils";
-import { registry } from "@web/core/registry";
 import * as dsHelpers from "@web/../tests/core/domain_selector_tests";
 import { setupViewRegistries } from "@web/../tests/views/helpers";
 import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
@@ -54,7 +46,6 @@ import {
 } from "@web/../tests/utils";
 
 const { DateTime } = luxon;
-const serviceRegistry = registry.category("services");
 
 function createDocumentsView(params) {
     return originalCreateDocumentsView({
@@ -71,29 +62,7 @@ QUnit.module("documents", {}, function () {
         "documents_kanban_tests.js",
         {
             async beforeEach() {
-                const REQUIRED_SERVICES = {
-                    documents_pdf_thumbnail: {
-                        start() {
-                            return {
-                                enqueueRecords: () => {},
-                            };
-                        },
-                    },
-                    "document.document": documentService,
-                    im_status: imStatusService,
-                    presence: presenceService,
-                    "mail.store": storeService,
-                    "discuss.voice_message": voiceMessageService,
-                    multi_tab: multiTabService,
-                    bus_service: busService,
-                    "bus.parameters": busParametersService,
-                    file_upload: fileUploadService,
-                };
-                for (const [serviceName, service] of Object.entries(REQUIRED_SERVICES)) {
-                    if (!serviceRegistry.contains(serviceName)) {
-                        serviceRegistry.add(serviceName, service);
-                    }
-                }
+                loadServices();
                 patchWithCleanup(browser, {
                     navigator: {
                         ...browser.navigator,
