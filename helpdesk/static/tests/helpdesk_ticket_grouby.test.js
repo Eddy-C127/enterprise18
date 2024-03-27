@@ -1,4 +1,5 @@
-import { beforeEach, describe, test } from "@odoo/hoot";
+import { beforeEach, describe, test, expect } from "@odoo/hoot";
+import { onRpc } from "@web/../tests/web_test_helpers";
 import {
     contains,
     openKanbanView,
@@ -87,4 +88,37 @@ test("Test group label for empty SLA Deadline in pivot", async () => {
             </pivot>`,
     });
     await contains("tr:nth-of-type(2) .o_pivot_header_cell_closed", { text: "Deadline reached" });
+});
+
+test("Prevent helpdesk users from reordering ticket stages", async () => {
+    await start();
+    onRpc("has_group", (group) => group === "helpdesk.group_helpdesk_user");
+    await openKanbanView("helpdesk.ticket", {
+        arch: `<kanban default_group_by="stage_id" js_class="helpdesk_ticket_kanban">
+            <templates>
+                <t t-name="kanban-box">
+                    <div>
+                        <field name="name"/>
+                    </div>
+                </t>
+            </templates>
+        </kanban>`,
+    });
+    expect(".o_group_draggable").toHaveCount(0);
+});
+
+test("Access for helpdesk manager to reordering ticket stages", async () => {
+    await start();
+    await openKanbanView("helpdesk.ticket", {
+        arch: `<kanban default_group_by="stage_id" js_class="helpdesk_ticket_kanban">
+            <templates>
+                <t t-name="kanban-box">
+                    <div>
+                        <field name="name"/>
+                    </div>
+                </t>
+            </templates>
+        </kanban>`,
+    });
+    expect(".o_group_draggable").toHaveCount(2);
 });

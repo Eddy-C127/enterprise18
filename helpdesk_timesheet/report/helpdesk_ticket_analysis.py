@@ -7,7 +7,12 @@ from odoo import fields, models
 class HelpdeskTicketReport(models.Model):
     _inherit = 'helpdesk.ticket.report.analysis'
 
-    total_hours_spent = fields.Float("Time Spent (Timesheets)", aggregator="avg", readonly=True)
+    total_hours_spent = fields.Float(
+        "Hours Spent (Timesheets)",
+        aggregator="avg",
+        readonly=True,
+        groups="hr_timesheet.group_hr_timesheet_user",
+    )
     employee_parent_id = fields.Many2one('hr.employee', string='Manager', readonly=True)
     department_id = fields.Many2one('hr.department', string='Department', readonly=True)
     employee_id = fields.Many2one('hr.employee', string='Employee', readonly=True)

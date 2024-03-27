@@ -12,7 +12,12 @@ class HelpdeskTicket(models.Model):
         check_company=True,
         domain="[('sale_ok', '=', True), ('id', 'in', suitable_product_ids)]",
         help="Product this ticket is about. If selected, only the sales orders, deliveries and invoices including this product will be visible.")
-    suitable_product_ids = fields.Many2many('product.product', compute='_compute_suitable_product_ids', export_string_translation=False)
+    suitable_product_ids = fields.Many2many(
+        'product.product',
+        compute='_compute_suitable_product_ids',
+        export_string_translation=False,
+        groups="stock.group_stock_user",
+    )
     has_partner_picking = fields.Boolean(compute='_compute_suitable_product_ids')
     tracking = fields.Selection(related='product_id.tracking')
     lot_id = fields.Many2one('stock.lot', string='Lot/Serial Number', domain="[('product_id', '=', product_id)]", tracking=True)
