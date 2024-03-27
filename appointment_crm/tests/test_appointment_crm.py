@@ -59,6 +59,8 @@ class AppointmentCRMTest(TestCrmCommon):
         """ Test the creation of a lead based on the creation of an event
         with appointment type configured to create lead
         """
+        # add current user to staff users so they can read the appointment during create
+        self.appointment_type_create.sudo().staff_user_ids += self.env.user
         event = self._create_meetings_from_appointment_type(
             self.appointment_type_create, self.user_sales_leads, self.contact_1
         )
@@ -84,6 +86,8 @@ class AppointmentCRMTest(TestCrmCommon):
         """ Test the creation of a lead based on the creation of an event
         with appointment type configured to create lead
         """
+        # add current user to staff users so they can read the appointment during create
+        (self.appointment_type_create + self.appointment_type_nocreate).sudo().staff_user_ids += self.env.user
         events = self.env['calendar.event'].create([
             self._prepare_event_value(
                 self.appointment_type_create,
@@ -124,6 +128,8 @@ class AppointmentCRMTest(TestCrmCommon):
             'company_id': self.company_2,
         })
 
+        # add current user to staff users so they can read the appointment during create
+        self.appointment_type_create.sudo().staff_user_ids += self.env.user
         event = self.env['calendar.event'].create(self._prepare_event_value(
             self.appointment_type_create,
             self.user_sales_leads,
