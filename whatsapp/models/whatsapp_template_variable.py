@@ -1,10 +1,10 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from functools import reduce
 from werkzeug.urls import url_join
 
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError, ValidationError
+
 
 class WhatsAppTemplateVariable(models.Model):
     _name = 'whatsapp.template.variable'
@@ -38,21 +38,28 @@ class WhatsAppTemplateVariable(models.Model):
         ),
     ]
 
-    @api.constrains('field_type', 'demo_value')
+    @api.constrains("field_type", "demo_value", "button_id")
     def _check_demo_values(self):
         if self.filtered(lambda var: var.field_type == 'free_text' and not var.demo_value):
             raise ValidationError(_('Free Text template variables must have a demo value.'))
-        if self.filtered(lambda var: var.field_type == 'field' and not var.field_name):
-            raise ValidationError(_("Field template variables must be associated with a field."))
         for var in self.filtered('button_id'):
             if not var.demo_value.startswith(var.button_id.website_url):
                 raise ValidationError(_('Dynamic values can only be added at the end of the link\n'
                                         'e.g. "https://www.example.com/menu?id=20"'))
 
-    @api.constrains('field_name')
+    @api.constrains("field_type", "field_name")
     def _check_field_name(self):
         is_system = self.env.user.has_group('base.group_system')
-        for variable in self.filtered('field_name'):
+        failing = self.browse()
+        to_check = self.filtered(lambda v: v.field_type == "field")
+        missing = to_check.filtered(lambda v: not v.field_name):
+        if missing:
+            raise ValidationError(
+                _("Field template variables %(var_names)s must be associated with a field.",
+                  var_names=", ".join(missing.mapped("name")),
+                )
+            )
+        for variable in to_check:
             model = self.env[variable.model]
             if not is_system:
                 if not model.check_access_rights('read', raise_exception=False):
@@ -68,10 +75,16 @@ class WhatsAppTemplateVariable(models.Model):
                     )
             try:
                 model._find_value_from_field_path(variable.field_name)
-            except UserError as err:
-                raise ValidationError(
-                    _("'%(field)s' does not seem to be a valid field path", field=variable.field_name)
-                ) from err
+            except UserError:
+                failing += variable
+        if failing:
+            model_description = self.env['ir.model']._get(failing.mapped('model')[0]).display_name
+            raise ValidationError(
+                _("Variables %(field_names)s do not seem to be valid field path for model %(model_name)s.",
+                  field_names=", ".join(failing.mapped("field_name")),
+                  model_name=model_description,
+                )
+            )
 
     @api.constrains('name')
     def _check_name(self):
