@@ -79,7 +79,7 @@
                                             <field name="cover_image_position" invisible="1" />
                                             <widget name="knowledge_cover" invisible="not cover_image_id"/>
                                             <!-- Article Icon -->
-                                            <field name="icon" widget="knowledge_icon" invisible="not icon" readonly="is_locked or not user_can_write or not active" class="o_knowledge_icon o_large mt-n3 mb-n4"/>
+                                            <field name="icon" widget="knowledge_icon" invisible="not icon" readonly="is_locked or not user_can_write or not active" class="o_knowledge_icon o_large"/>
                                             <!-- Article body -->
                                             <div class="o_knowledge_editor mt-3">
                                                 <field name="body" widget="knowledge_article_html_field" class="o_field_html" no_label="1" groups="base.group_user"

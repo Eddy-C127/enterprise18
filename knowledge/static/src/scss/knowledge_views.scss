@@ -54,7 +54,6 @@
     .o_knowledge_editor .o_field_html .note-editable,
     .o_knowledge_editor .o_field_html .o_readonly,
     .o_knowledge_editor .o_field_html .o_knowledge_helper {
-        margin-bottom: -0.5rem;
         padding-left: var(--editor-gutter-size) !important;
         padding-right: calc(var(--editor-gutter-size) + 2rem) !important;
     }
@@ -175,6 +174,21 @@
             li >:not(ul) {
                 pointer-events: none;
             }
+        }
+    }
+
+    .o_knowledge_body {
+        .o_field_knowledge_icon {
+            font-size: 3em;
+            line-height: normal;
+            margin-top: map-get($spacers, 3) !important;
+            margin-bottom: 0 !important;
+        }
+        .o_widget_knowledge_cover + .o_field_knowledge_icon {
+            margin-top: -0.7em !important;
+        }
+        .o_article_emoji {
+            position: relative;
         }
     }
 
@@ -373,18 +387,10 @@
 }
 
 @include media-breakpoint-up(sm) {
-    .o_knowledge_form_view {
-        .o_scroll_view {
-            // Make icon overwrap the cover
-            .o_widget_knowledge_cover + .o_field_knowledge_icon {
-                margin-bottom: -80px !important;
-                .o_article_emoji {
-                    position:relative;
-                    top: -50px;
-                }
-            }
-            .o_field_knowledge_icon.o_large {
-                    font-size: 80px;
+    .o_knowledge_article_view_form_view {
+        .o_knowledge_body {
+            .o_field_knowledge_icon {
+                font-size: 5em;
             }
         }
     }
