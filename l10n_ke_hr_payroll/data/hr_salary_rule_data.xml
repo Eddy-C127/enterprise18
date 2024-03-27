@@ -289,10 +289,10 @@ result = income_tax
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-gross = result_rules['GROSS_TAXABLE']['total']
+basic = categories['BASIC']
 result = 0
 for high, rate in payslip._rule_parameter('l10n_ke_nhif'):
-    if gross &lt; float(high):
+    if basic &lt; float(high):
         result = rate
         break
         </field>
@@ -402,8 +402,8 @@ result = - payslip._rule_parameter('l10n_ke_personal_relief')
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-gross = result_rules['GROSS_TAXABLE']['total'] - employee.l10n_ke_disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
-result = payslip._rule_parameter('l10n_ke_ahl_employee') * gross
+basic = categories['BASIC'] - employee.l10n_ke_disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
+result = payslip._rule_parameter('l10n_ke_ahl_employee') * basic
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -626,8 +626,8 @@ result = result_rules['NSSF_AMOUNT']['total']
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-gross = result_rules['GROSS_TAXABLE']['total'] - employee.l10n_ke_disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
-result = payslip._rule_parameter('l10n_ke_ahl_employer') * gross
+basic = categories['BASIC'] - employee.l10n_ke_disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
+result = payslip._rule_parameter('l10n_ke_ahl_employer') * basic
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payslip" eval="False"/>
