@@ -33,10 +33,10 @@ class TestShareController(SpreadsheetTestCommon, HttpCase):
         self.authenticate("raoul", "Password!1")
         response = self.url_open(f"/document/share/{share.id}/{share.access_token}")
         url = urlparse(response.url)
-        self.assertEqual(url.path, "/web")
+        self.assertEqual(url.path, f"/odoo/documents/spreadsheet/{spreadsheet.id}")
         self.assertEqual(
-            url.fragment,
-            f"spreadsheet_id={spreadsheet.id}&action=action_open_spreadsheet&access_token={share.access_token}&share_id={share.id}",
+            url.query,
+            f"access_token={share.access_token}&share_id={share.id}",
         )
 
     def test_public_spreadsheet(self):

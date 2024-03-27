@@ -89,7 +89,7 @@ class SpreadsheetShareRoute(ShareRoute):
         if request.env.user._is_internal():
             document_id = spreadsheet.document_id.id
             return request.redirect(
-                f"/web#spreadsheet_id={document_id}&action=action_open_spreadsheet&access_token={token}&share_id={share.id}"
+                f"/odoo/documents/spreadsheet/{document_id}?access_token={token}&share_id={share.id}"
             )
         return request.render(
             "spreadsheet.public_spreadsheet_layout",
