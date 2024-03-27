@@ -4620,7 +4620,7 @@ class AccountReport(models.Model):
 
         line = self.env['account.report.line'].browse(report_line_id)
 
-        if ',' not in groupby and options['export_mode'] != 'print':
+        if ',' not in groupby and options['export_mode'] is None:
             # if ',' not in groupby, then its a terminal groupby (like 'id' in 'partner_id, id'), so we can use the 'load more' feature if necessary
             # When printing, we want to ignore the limit.
             limit_to_load = self.load_more_limit or None
@@ -4632,7 +4632,7 @@ class AccountReport(models.Model):
         rslt_lines = line._expand_groupby(line_dict_id, groupby, options, offset=offset, limit=limit_to_load, load_one_more=bool(limit_to_load), unfold_all_batch_data=unfold_all_batch_data)
         lines_to_load = rslt_lines[:self.load_more_limit] if limit_to_load else rslt_lines
 
-        if not limit_to_load and options['export_mode'] != 'print':
+        if not limit_to_load and options['export_mode'] is None:
             lines_to_load = self._regroup_lines_by_name_prefix(options, rslt_lines, '_report_expand_unfoldable_line_groupby_prefix_group', line.hierarchy_level,
                                                                groupby=groupby, parent_line_dict_id=line_dict_id)
 
