@@ -111,7 +111,7 @@ class PosOrder(models.Model):
     def sync_from_ui(self, orders):
         # EXTENDS 'point_of_sale'
         for order in orders:
-            if order['to_invoice'] and self.env['pos.session'].browse(order['session_id']).company_id.country_id.code == 'MX':
+            if order.get('to_invoice', False) and self.env['pos.session'].browse(order['session_id']).company_id.country_id.code == 'MX':
                 order['l10n_mx_edi_cfdi_to_public'] = order.get('l10n_mx_edi_cfdi_to_public', False)
                 order['l10n_mx_edi_usage'] = order.get('l10n_mx_edi_usage', False)
 
