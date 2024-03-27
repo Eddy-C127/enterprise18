@@ -89,7 +89,7 @@ export class ListEditorSidebar extends Component {
     }
 
     get sortChoices() {
-        return fieldsToChoices(this.archInfo.fieldNodes);
+        return fieldsToChoices(this.archInfo.fieldNodes, (field) => !["one2many", "many2many", "binary"].includes(field.type));
     }
 
     get orderChoices() {

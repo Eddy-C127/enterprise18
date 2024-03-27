@@ -908,6 +908,49 @@ QUnit.module(
             );
         });
 
+        QUnit.test("many2many, one2many and binary fields cannot be selected in SortBy dropdown for list editor", async function (assert) {
+            assert.expect(4);
+
+            serverData.models.coucou.fields.m2m_field = {
+                string: "Many2Many Field",
+                type: "many2many",
+                relation: "product",
+            };
+
+            serverData.models.coucou.fields.binary_field = {
+                string: "Binary Field",
+                type: "binary",
+            };
+
+            await createViewEditor({
+                serverData,
+                type: "list",
+                resModel: "coucou",
+                arch: `
+                    <tree>
+                        <field name="id"/>
+                        <field name="display_name"/>
+                        <field name="m2o"/>
+                        <field name="product_ids"/>
+                        <field name="m2m_field"/>
+                        <field name="binary_field"/>
+                    </tree>
+                `,
+            });
+
+            await click(target.querySelector(".nav-tabs > li:nth-child(2) a"));
+
+            // Check that the one2many, many2many and binary fields are present in the view
+            assert.containsOnce(target, 'th[data-studio-xpath="/tree[1]/field[4]"]', "One2many field is present in the view");
+            assert.containsOnce(target, 'th[data-studio-xpath="/tree[1]/field[5]"]', "Many2many field is present in the view");
+            assert.containsOnce(target, 'th[data-studio-xpath="/tree[1]/field[6]"]', "Binary field is present in the view");
+
+            // Check that the one2many, many2many and binary fields cannot be selected in the Sort By dropdown
+            await click(target.querySelector(".o_web_studio_sidebar .o_web_studio_property_sort_by .o_select_menu_toggler"));
+            const sortByDropdownMenu = target.querySelectorAll(".dropdown-item.o_select_menu_item");
+            assert.strictEqual(sortByDropdownMenu.length, 3, "There should be 3 items in the Sort By dropdown");
+        });
+
         QUnit.test(
             "already selected unsafe widget without description property should be shown in sidebar with its technical name",
             async function (assert) {
