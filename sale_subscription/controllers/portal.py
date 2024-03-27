@@ -332,17 +332,20 @@ class PaymentPortal(payment_portal.PaymentPortal):
             if not invoice_sudo:
                 invoice_sudo = order_sudo.with_context(lang=partner_sudo.lang,) \
                     ._create_invoices(final=True)
+            amount = kwargs.get('amount', 0) or invoice_sudo[:1].amount_total
+            recurring_amount = sum(order_sudo.order_line.filtered(lambda l: l.recurring_invoice).mapped('price_total'))
+            tokenize = amount >= recurring_amount
             kwargs.update({
-                'amount': kwargs.get('amount', 0) or invoice_sudo[:1].amount_total,
+                'amount': amount,
                 'currency_id': order_sudo.currency_id.id,
-                'tokenization_requested': True,  # Renewal transactions are always tokenized
+                'tokenization_requested': tokenize,  # Renewal transactions are always tokenized
             })
             # Create the transaction.
             tx_sudo = self._create_transaction(
                 custom_create_values={
                     'sale_order_ids': [Command.set([order_id])],
                     'invoice_ids': [Command.set([invoice_sudo[:1].id])],
-                    'subscription_action': 'assign_token',
+                    'subscription_action': 'assign_token' if tokenize else None,
                 },
                 is_validation=is_validation,
                 **kwargs
