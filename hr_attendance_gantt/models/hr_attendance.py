@@ -55,7 +55,7 @@ class HrAttendance(models.Model):
             # Retrieve expected attendance for that employee
             values[employee.id] = {
                 'value': employee_data.get(employee.id, 0),
-                'max_value': employee._get_expected_attendances(start, stop)['hours'],
+                'max_value': self.env['resource.calendar']._get_attendance_intervals_days_data(employee._get_expected_attendances(start, stop))['hours'],
             }
 
         return values
