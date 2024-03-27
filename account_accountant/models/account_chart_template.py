@@ -8,7 +8,12 @@ class AccountChartTemplate(models.AbstractModel):
     def _get_account_accountant_res_company(self, chart_template):
         # Called when installing the Accountant module
         company = self.env.company
-        company_data = self._get_chart_template_data(chart_template)['res.company'].get(company.id, {})
+        data = self._get_chart_template_data(chart_template)
+        company_data = data['res.company'].get(company.id, {})
+
+        # Pre-reload to ensure the necessary xmlids for the load exist in case they were deleted or not created yet.
+        required_data = {k: v for k, v in data.items() if k in ['account.journal', 'account.account']}
+        self._pre_reload_data(company, data['template_data'], required_data)
 
         return {
             company.id: {
