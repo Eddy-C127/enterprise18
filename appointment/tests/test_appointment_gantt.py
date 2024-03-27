@@ -102,6 +102,31 @@ class AppointmentGanttTest(AppointmentGanttTestCommon):
             "If we don't specify an attendee, the current user should be set as an attendee",
         )
 
+    def test_gantt_calendar_unavailability(self):
+        """Checks whether the Gantt view correctly excludes free events and considers only busy events for calculating unavailability."""
+        self._create_meetings(
+            self.user_john,
+            [(self.reference_monday, self.reference_monday + timedelta(hours=2), False)],
+            show_as='busy'  # Event with 'busy' status
+        )
+        self._create_meetings(
+            self.user_bob,
+            [(self.reference_monday, self.reference_monday + timedelta(hours=1), False)],
+            show_as='free'  # Event with 'free' status
+        )
+
+        # Call the gantt_unavailability function
+        john_data, bob_data = self.env['calendar.event'].gantt_unavailability(
+            self.reference_monday.replace(hour=0),
+            self.reference_monday.replace(hour=23),
+            'day',
+            group_bys=['partner_ids'],
+            rows=[{'resId': self.user_john.partner_id.id}, {'resId': self.user_bob.partner_id.id}],
+        )
+
+        self.assertEqual(len(john_data.get('unavailabilities', [])), 1, "Busy events should be counted as unavailability.")
+        self.assertEqual(len(bob_data.get('unavailabilities', [])), 0, "Free events should not be counted as unavailability.")
+
     def test_gantt_empty_groups(self):
         """Check that the data sent to gantt includes the right groups in the context of appointments."""
         gantt_data = self.env['calendar.event'].with_context(self.gantt_context).get_gantt_data(

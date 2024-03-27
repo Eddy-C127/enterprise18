@@ -106,7 +106,7 @@ class CalendarEvent(models.Model):
         user_events = self.filtered(lambda event: event.appointment_type_id.schedule_based_on == 'users')
 
         for start, stop, events in interval_from_events(user_events):
-            events_by_partner_id = events.partner_ids._get_calendar_events(start, stop)
+            events_by_partner_id = events.partner_ids._get_busy_calendar_events(start, stop)
             for event in events:
                 for partner in event.partner_ids:
                     if any(
@@ -432,7 +432,7 @@ class CalendarEvent(models.Model):
         return {
             attendee.id: Intervals([
                 (timezone_datetime(event.start), timezone_datetime(event.stop), attendee)
-                for event in partners._get_calendar_events(start_datetime, end_datetime).get(attendee.id, [])
+                for event in partners._get_busy_calendar_events(start_datetime, end_datetime).get(attendee.id, [])
             ]) for attendee in partners
         }
 

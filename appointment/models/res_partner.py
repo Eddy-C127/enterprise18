@@ -40,13 +40,13 @@ class Partner(models.Model):
 
         return True
 
-    def _get_calendar_events(self, start_datetime, end_datetime):
+    def _get_busy_calendar_events(self, start_datetime, end_datetime):
         """Get a mapping from partner id to attended events intersecting with the time interval.
 
         :return dict[int, <calendar.event>]:
         """
         events = self.env['calendar.event'].search([
-            ('stop', '>=', start_datetime), ('start', '<=', end_datetime), ('partner_ids', 'in', self.ids)])
+            ('stop', '>=', start_datetime), ('start', '<=', end_datetime), ('partner_ids', 'in', self.ids), ('show_as', '=', 'busy')])
 
         event_by_partner_id = defaultdict(lambda: self.env['calendar.event'])
         for event in events:

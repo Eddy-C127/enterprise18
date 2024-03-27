@@ -124,7 +124,7 @@ class AppointmentCommon(MailCommon, common.HttpCase):
         url += ('?' not in url and '?' or '&') + 'nocache'
         return self.url_open(url)
 
-    def _create_meetings(self, user, time_info, appointment_type_id=None):
+    def _create_meetings(self, user, time_info, appointment_type_id=None, show_as='busy'):
         return self.env['calendar.event'].with_context(self._test_context).create([
             {'allday': allday,
              'attendee_ids': [(0, 0, {'partner_id': user.partner_id.id})],
@@ -133,7 +133,8 @@ class AppointmentCommon(MailCommon, common.HttpCase):
              'start': start,
              'stop': stop,
              'user_id': user.id,
-             'appointment_type_id': appointment_type_id
+             'appointment_type_id': appointment_type_id,
+             'show_as': show_as
             }
             for start, stop, allday in time_info
         ])
