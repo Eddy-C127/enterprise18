@@ -3,7 +3,7 @@
 import { patch } from "@web/core/utils/patch";
 import { Table } from "@pos_restaurant/app/floor_screen/table";
 import { getMin } from "@point_of_sale/utils";
-import { deserializeDateTime } from "@web/core/l10n/dates";
+import { deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
 const { DateTime } = luxon;
 
 patch(Table.prototype, {
@@ -18,6 +18,15 @@ patch(Table.prototype, {
         if (!appointments) {
             return false;
         }
+        const startOfToday = DateTime.now().set({ hours: 0, minutes: 0, seconds: 0 });
+        appointments.map((appointment) => {
+            if (
+                deserializeDateTime(appointment.start).toFormat("yyyy-MM-dd") <
+                DateTime.now().toFormat("yyyy-MM-dd")
+            ) {
+                appointment.start = serializeDateTime(startOfToday);
+            }
+        });
         return getMin(
             appointments.filter(
                 (a) => deserializeDateTime(a.start).ts > DateTime.now() - (a.duration / 2) * 3600000
@@ -51,6 +60,7 @@ patch(Table.prototype, {
         if (dateNow < dateStart) {
             style += `opacity: 0.7;`;
         }
+        style += `z-index: 1000;`;
         return style;
     },
 });
