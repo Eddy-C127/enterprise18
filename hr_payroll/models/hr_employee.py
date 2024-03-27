@@ -12,7 +12,7 @@ class HrEmployee(models.Model):
         "res.currency",
         string='Currency',
         related='company_id.currency_id')
-    slip_ids = fields.One2many('hr.payslip', 'employee_id', string='Payslips', readonly=True)
+    slip_ids = fields.One2many('hr.payslip', 'employee_id', string='Payslips', readonly=True, groups="hr_payroll.group_hr_payroll_user")
     payslip_count = fields.Integer(compute='_compute_payslip_count', string='Payslip Count', groups="hr_payroll.group_hr_payroll_user")
     registration_number = fields.Char('Registration Number of the Employee', groups="hr.group_hr_user", copy=False)
     salary_attachment_ids = fields.Many2many(

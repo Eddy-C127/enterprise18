@@ -7,7 +7,7 @@ class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
     billable_time_target = fields.Float("Billing Time Target", groups="hr.group_hr_user")
-    show_billable_time_target = fields.Boolean(related="company_id.timesheet_show_rates")
+    show_billable_time_target = fields.Boolean(related="company_id.timesheet_show_rates", groups="hr.group_hr_user")
 
     _sql_constraints = [
         (

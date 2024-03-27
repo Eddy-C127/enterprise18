@@ -21,7 +21,7 @@ class HrEmployee(models.Model):
         ('low_pension', 'With Low Pensions'),
         ('high_pension', 'With High Pensions')
     ], string='Tax status for spouse', groups="hr.group_hr_user", default='without_income', required=False)
-    spouse_fiscal_status_explanation = fields.Char(compute='_compute_spouse_fiscal_status_explanation')
+    spouse_fiscal_status_explanation = fields.Char(compute='_compute_spouse_fiscal_status_explanation', groups="hr.group_hr_user")
     disabled = fields.Boolean(string="Disabled", help="If the employee is declared disabled by law", groups="hr.group_hr_user")
     disabled_spouse_bool = fields.Boolean(string='Disabled Spouse', help='if recipient spouse is declared disabled by law', groups="hr.group_hr_user")
     disabled_children_bool = fields.Boolean(string='Disabled Children', help='if recipient children is/are declared disabled by law', groups="hr.group_hr_user")
@@ -50,8 +50,8 @@ Source: Opinion on the indexation of the amounts set in Article 1, paragraph 4, 
     l10n_be_scale_seniority = fields.Integer(string="Seniority at Hiring", groups="hr.group_hr_user", tracking=True)
 
     # The attestation for the year of the first contract date
-    first_contract_year_n = fields.Char(compute='_compute_first_contract_year')
-    first_contract_year_n_plus_1 = fields.Char(compute='_compute_first_contract_year')
+    first_contract_year_n = fields.Char(compute='_compute_first_contract_year', groups="hr_payroll.group_hr_payroll_user")
+    first_contract_year_n_plus_1 = fields.Char(compute='_compute_first_contract_year', groups="hr_payroll.group_hr_payroll_user")
     l10n_be_holiday_pay_to_recover_n = fields.Float(
         string="Simple Holiday Pay to Recover (N)", tracking=True, groups="hr_payroll.group_hr_payroll_user",
         help="Amount of the holiday pay paid by the previous employer to recover.")
@@ -69,7 +69,7 @@ Source: Opinion on the indexation of the amounts set in Article 1, paragraph 4, 
         string='Previous Occupations (N)', groups="hr_payroll.group_hr_payroll_user")
 
     # The attestation for the previous year of the first contract date
-    first_contract_year_n1 = fields.Char(compute='_compute_first_contract_year')
+    first_contract_year_n1 = fields.Char(compute='_compute_first_contract_year', groups="hr_payroll.group_hr_payroll_user")
     l10n_be_holiday_pay_to_recover_n1 = fields.Float(
         string="Simple Holiday Pay to Recover (N-1)", tracking=True, groups="hr_payroll.group_hr_payroll_user",
         help="Amount of the holiday pay paid by the previous employer to recover.")
@@ -85,7 +85,7 @@ Source: Opinion on the indexation of the amounts set in Article 1, paragraph 4, 
         compute='_compute_from_double_pay_line_ids', readonly=False,
         inverse='_inverse_double_pay_line_n1_ids',
         string='Previous Occupations (N-1)', groups="hr_payroll.group_hr_payroll_user")
-    first_contract_year = fields.Integer(compute='_compute_first_contract_year')
+    first_contract_year = fields.Integer(compute='_compute_first_contract_year', groups="hr_payroll.group_hr_payroll_user")
     double_pay_line_ids = fields.One2many(
         'l10n.be.double.pay.recovery.line', 'employee_id',
         string='Previous Occupations', groups="hr_payroll.group_hr_payroll_user")

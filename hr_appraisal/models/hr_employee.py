@@ -19,9 +19,9 @@ class HrEmployee(models.Model):
     related_partner_id = fields.Many2one('res.partner', compute='_compute_related_partner', groups="hr.group_hr_user")
     ongoing_appraisal_count = fields.Integer(compute='_compute_ongoing_appraisal_count', store=True, groups="hr.group_hr_user")
     appraisal_count = fields.Integer(compute='_compute_appraisal_count', store=True, groups="hr.group_hr_user")
-    uncomplete_goals_count = fields.Integer(compute='_compute_uncomplete_goals_count')
-    goals_count = fields.Integer(compute='_compute_goals_count')
-    appraisal_ids = fields.One2many('hr.appraisal', 'employee_id')
+    uncomplete_goals_count = fields.Integer(compute='_compute_uncomplete_goals_count', groups="hr.group_hr_user")
+    goals_count = fields.Integer(compute='_compute_goals_count', groups="hr.group_hr_user")
+    appraisal_ids = fields.One2many('hr.appraisal', 'employee_id', groups="hr.group_hr_user")
     can_request_appraisal = fields.Boolean(compute='_compute_can_request_appraisal')
 
     @api.constrains('next_appraisal_date')

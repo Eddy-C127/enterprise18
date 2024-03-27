@@ -9,7 +9,7 @@ class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
     sign_request_ids = fields.Many2many(
-        'sign.request', string='Requested Signatures')
+        'sign.request', string='Requested Signatures', groups="hr.group_hr_user")
     sign_request_count = fields.Integer(
         compute="_compute_sign_request_count",
         groups="hr_contract.group_hr_contract_manager",

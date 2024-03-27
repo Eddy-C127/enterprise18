@@ -9,11 +9,12 @@ from odoo.tools.translate import _
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
-    insz_or_bis_number = fields.Char("INSZ or BIS number")
+    insz_or_bis_number = fields.Char("INSZ or BIS number", groups="hr.group_hr_user")
     clocked_session_ids = fields.Many2many(
         "pos.session",
         "employees_session_clocking_info",
         string="Users Clocked In",
+        groups="hr.group_hr_user",
         help="This is a technical field used for tracking the status of the session for each employees.",
     )
 
