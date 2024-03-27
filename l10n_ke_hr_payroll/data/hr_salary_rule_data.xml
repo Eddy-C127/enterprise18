@@ -505,7 +505,9 @@ result = contract.l10n_ke_voluntary_medical_insurance
         <field name="code">LIFE_INSURANCE</field>
         <field name="sequence">63</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_ke_life_insurance</field>
+        <field name="condition_python">
+result = contract.l10n_ke_life_insurance and not contract.l10n_ke_is_li_managed_by_employee
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = contract.l10n_ke_life_insurance

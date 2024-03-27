@@ -1,8 +1,6 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+from odoo import fields, models
 
 
 class HrContract(models.Model):
@@ -16,4 +14,7 @@ class HrContract(models.Model):
 
     l10n_ke_voluntary_medical_insurance = fields.Monetary("Voluntary medical Insurance")
     l10n_ke_life_insurance = fields.Monetary("Life Insurance")
+    l10n_ke_is_li_managed_by_employee = fields.Boolean(
+        string="Managed by Employee",
+        help="If selected, Life Insurance will be paid by the employee on his own, only the life insurance relief will be deduced from payslip.")
     l10n_ke_education = fields.Monetary("Education")

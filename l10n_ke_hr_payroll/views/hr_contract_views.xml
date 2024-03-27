@@ -41,6 +41,8 @@
                         <field name="l10n_ke_life_insurance" class="o_hr_narrow_field" nolabel="1"/>
                         <span>/ month</span>
                     </div>
+                    <field name="l10n_ke_is_li_managed_by_employee"
+                        invisible="country_code != 'KE' or not l10n_ke_life_insurance"/>
                     <label for="l10n_ke_education" invisible="country_code != 'KE'"/>
                     <div class="o_row" invisible="country_code != 'KE'">
                         <field name="l10n_ke_education" class="o_hr_narrow_field" nolabel="1"/>
