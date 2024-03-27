@@ -89,13 +89,13 @@ patch(StreamPostKanbanRecord.prototype, {
             });
     },
 
-    _onTwitterTweetLike() {
+    async _onTwitterTweetLike() {
         const userLikes = this.record.twitter_user_likes.raw_value;
         rpc(sprintf('social_twitter/%s/like_tweet', this.record.stream_id.raw_value), {
             tweet_id: this.record.twitter_tweet_id.raw_value,
             like: !userLikes
         });
-        this._updateLikesCount('twitter_user_likes', 'twitter_likes_count');
+        await this._updateLikesCount("twitter_user_likes", "twitter_likes_count");
     },
 
     _onTwitterRetweet(ev) {

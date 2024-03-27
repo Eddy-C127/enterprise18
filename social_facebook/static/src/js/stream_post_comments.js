@@ -44,6 +44,10 @@ export class StreamPostCommentsFacebook extends StreamPostComments {
         this.nextRecordsToken = nextComments.nextRecordsToken;
     }
 
+    async _onFacebookPostLike() {
+        await this.props.onFacebookPostLike();
+    }
+
     get commentListComponent() {
         return StreamPostCommentListFacebook;
     }

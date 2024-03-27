@@ -32,7 +32,8 @@
             <div class="o_social_original_post_facebook_stats d-flex justify-content-around pt-2"
                 t-if="originalPost.media_type.raw_value === 'facebook'">
                 <div class="o_social_facebook_likes px-2 mb-2"
-                     t-att-class="{'o_social_facebook_user_likes': originalPost.facebook_user_likes.raw_value}">
+                     t-att-class="{'o_social_facebook_user_likes': originalPost.facebook_user_likes.raw_value}"
+                     t-on-click="() => this._onFacebookPostLike()">
                     <t t-if="originalPost.facebook_likes_count.raw_value !== 0">
                         <t t-foreach="facebookReactions || []" t-as="reaction" t-key="reaction[0]">
                             <b t-out="reaction[0]"/>

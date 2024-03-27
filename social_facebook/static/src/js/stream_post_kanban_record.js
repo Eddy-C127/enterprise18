@@ -48,17 +48,18 @@ patch(StreamPostKanbanRecord.prototype, {
                 comments: result.comments,
                 summary: result.summary,
                 nextRecordsToken: result.nextRecordsToken,
+                onFacebookPostLike: this._onFacebookPostLike.bind(this),
             });
         });
     },
 
-    _onFacebookPostLike() {
+    async _onFacebookPostLike() {
         const userLikes = this.record.facebook_user_likes.raw_value;
         rpc("/social_facebook/like_post", {
             stream_post_id: this.record.id.raw_value,
             like: !userLikes,
         });
-        this._updateLikesCount("facebook_user_likes", "facebook_likes_count");
+        await this._updateLikesCount("facebook_user_likes", "facebook_likes_count");
     },
 
     /**
