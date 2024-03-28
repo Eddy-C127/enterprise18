@@ -3,8 +3,8 @@
 
 import json
 import logging
-from zeep import Client, Settings, helpers
-from zeep.exceptions import Fault
+from odoo.tools.zeep import Client, Settings, helpers
+from odoo.tools.zeep.exceptions import Fault
 
 from odoo.exceptions import UserError
 from odoo.addons.delivery_fedex.models.fedex_request import remove_accents, FedexRequest, LogPlugin, STATECODE_REQUIRED_COUNTRIES

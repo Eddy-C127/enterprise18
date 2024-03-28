@@ -4,7 +4,7 @@ import logging
 import time
 
 from markupsafe import Markup
-from zeep.helpers import serialize_object
+from odoo.tools.zeep.helpers import serialize_object
 
 from odoo import api, models, fields, _, tools
 from odoo.exceptions import UserError

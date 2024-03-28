@@ -15,9 +15,8 @@ from odoo.tools import float_repr, float_round, html_escape
 from odoo.tools.xml_utils import cleanup_xml_node, validate_xml_from_attachment
 from pytz import timezone
 from requests.exceptions import ConnectionError as RConnectionError
-from zeep import Client
-from zeep.exceptions import Error as ZeepError
-from zeep.transports import Transport
+from odoo.tools.zeep import Client
+from odoo.tools.zeep.exceptions import Error as ZeepError
 
 TEST_URL = {
     'reception': 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl',
@@ -434,8 +433,7 @@ class AccountEdiFormat(models.Model):
         errors, warnings = [], []
         response = None
         try:
-            transport = Transport(timeout=DEFAULT_TIMEOUT_WS)
-            client = Client(wsdl=wsdl_url, transport=transport)
+            client = Client(wsdl=wsdl_url, timeout=DEFAULT_TIMEOUT_WS)
             if mode == "reception":
                 response = client.service.validarComprobante(**kwargs)
             elif mode == "authorization":

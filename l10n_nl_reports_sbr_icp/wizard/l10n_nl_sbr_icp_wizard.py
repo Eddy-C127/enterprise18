@@ -6,8 +6,8 @@ from odoo.addons.l10n_nl_reports_sbr.wizard.l10n_nl_reports_sbr_tax_report_wizar
 import json
 import os
 from tempfile import NamedTemporaryFile
-from zeep import wsse
-from zeep.exceptions import Fault
+from odoo.tools.zeep import wsse
+from odoo.tools.zeep.exceptions import Fault
 
 class L10nNlICPSBRWizard(models.TransientModel):
     _name = 'l10n_nl_reports_sbr_icp.icp.wizard'

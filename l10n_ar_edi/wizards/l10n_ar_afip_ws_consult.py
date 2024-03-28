@@ -1,7 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-import zeep
+from odoo.tools.zeep.helpers import serialize_object
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -82,7 +82,7 @@ class L10nArAfipWsConsult(models.TransientModel):
             raise UserError(_('AFIP Errors') + ' %s' % error)
 
         msg = ''
-        data = zeep.helpers.serialize_object(res, dict)
+        data = serialize_object(res, dict)
         for key, value in data.items():
             msg += " * %s: %s\n" % (key, value or '')
         raise UserError(title + msg)

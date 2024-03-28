@@ -11,8 +11,7 @@ from datetime import datetime
 from json.decoder import JSONDecodeError
 from lxml import etree
 from psycopg2 import OperationalError
-from zeep import Client
-from zeep.transports import Transport
+from odoo.tools.zeep import Client
 
 from odoo import _, api, models, modules, fields, tools
 from odoo.exceptions import UserError
@@ -1400,8 +1399,7 @@ class L10nMxEdiDocument(models.Model):
         ''' Send the CFDI XML document to Finkok for signature. Does not depend on a recordset
         '''
         try:
-            transport = Transport(timeout=20)
-            client = Client(credentials['sign_url'], transport=transport)
+            client = Client(credentials['sign_url'], timeout=20)
             response = client.service.stamp(cfdi, credentials['username'], credentials['password'])
             # pylint: disable=broad-except
         except Exception as e:
@@ -1440,8 +1438,7 @@ class L10nMxEdiDocument(models.Model):
         cer_pem = certificate._get_pem_cer(certificate.content)
         key_pem = certificate._get_pem_key(certificate.key, certificate.password)
         try:
-            transport = Transport(timeout=20)
-            client = Client(credentials['cancel_url'], transport=transport)
+            client = Client(credentials['cancel_url'], timeout=20)
             factory = client.type_factory('apps.services.soap.core.views')
             uuid_type = factory.UUID()
             uuid_type.UUID = uuid
@@ -1514,8 +1511,7 @@ class L10nMxEdiDocument(models.Model):
         ''' Send the CFDI XML document to Solucion Factible for signature. Does not depend on a recordset
         '''
         try:
-            transport = Transport(timeout=20)
-            client = Client(credentials['url'], transport=transport)
+            client = Client(credentials['url'], timeout=20)
             response = client.service.timbrar(credentials['username'], credentials['password'], cfdi, False)
             # pylint: disable=broad-except
         except Exception as e:
@@ -1560,8 +1556,7 @@ class L10nMxEdiDocument(models.Model):
         key_password = certificate.password
 
         try:
-            transport = Transport(timeout=20)
-            client = Client(credentials['url'], transport=transport)
+            client = Client(credentials['url'], timeout=20)
             response = client.service.cancelar(
                 credentials['username'], credentials['password'],
                 uuid_param, cer_pem, key_pem, key_password

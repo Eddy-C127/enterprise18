@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from .dhl_request import DHLProvider
 from markupsafe import Markup
-from zeep.helpers import serialize_object
+from odoo.tools.zeep.helpers import serialize_object
 
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError

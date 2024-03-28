@@ -6,9 +6,9 @@ import re
 
 from datetime import datetime, date
 from os.path import join as opj
-from zeep import Client, Plugin, Settings
-from zeep.exceptions import Fault
-from zeep.wsdl.utils import etree_to_string
+from odoo.tools.zeep import Client, Plugin, Settings
+from odoo.tools.zeep.exceptions import Fault
+from odoo.tools.zeep.wsdl.utils import etree_to_string
 
 from odoo.tools import remove_accents, float_repr
 from odoo.tools.misc import file_path
