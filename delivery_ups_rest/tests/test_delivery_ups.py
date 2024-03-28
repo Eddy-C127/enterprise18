@@ -14,7 +14,9 @@ def _mock_request_call():
         responses = {
             'token': {'access_token': 'mock_token'},
             'rating': {'RateResponse': {
-                'Response': {},
+                'Response': {
+                    "Alert": {"Code": "string", "Description": "string"},
+                },
                 'RatedShipment': {'TotalCharges': {'MonetaryValue': '5.5', 'CurrencyCode': 'USD'}}}},
             'ship': {'ShipmentResponse': {'ShipmentResults': {
                 'ShipmentCharges': {'TotalCharges': {'MonetaryValue': '5.5', 'CurrencyCode': 'USD'}},
