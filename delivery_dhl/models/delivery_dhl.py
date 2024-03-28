@@ -229,7 +229,10 @@ class Providerdhl(models.Model):
             shipment_request['Billing'] = srm._set_billing(account_number, "S", self.dhl_duty_payment, self.dhl_dutiable)
             shipment_request['Consignee'] = srm._set_consignee(picking.partner_id)
             shipment_request['Shipper'] = srm._set_shipper(account_number, picking.company_id.partner_id, picking.picking_type_id.warehouse_id.partner_id)
-            shipment_request['Reference'] = {'ReferenceID': shipment_request['Shipper']['ShipperID'], 'ReferenceType': 'CU'}
+            shipment_request['Reference'] = {
+                'ReferenceID': picking.sale_id.name if picking.sale_id else picking.name,
+                'ReferenceType': 'CU'
+            }
             total_value, currency_name = self._dhl_calculate_value(picking)
             if self.dhl_dutiable:
                 incoterm = picking.sale_id.incoterm or self.env.company.incoterm_id
