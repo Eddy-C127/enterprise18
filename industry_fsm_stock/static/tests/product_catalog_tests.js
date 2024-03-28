@@ -22,6 +22,7 @@ export const stockSaleOrderLineInfo = {
         deliveredQty: 0,
         minimumQuantityOnProduct: 0,
         tracking: false,
+        productType: "consu",
     },
     2: {
         quantity: 1,
@@ -30,6 +31,7 @@ export const stockSaleOrderLineInfo = {
         deliveredQty: 0,
         minimumQuantityOnProduct: 0,
         tracking: true,
+        productType: "consu",
     },
     3: {
         quantity: 3,
@@ -38,6 +40,7 @@ export const stockSaleOrderLineInfo = {
         deliveredQty: 2,
         minimumQuantityOnProduct: 2,
         tracking: false,
+        productType: "consu",
     },
 };
 

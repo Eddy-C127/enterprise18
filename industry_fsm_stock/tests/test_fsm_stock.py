@@ -1664,10 +1664,10 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         self.assertDictEqual(
             products_catalog,
             {
-                self.product_lot_no_stock.id: {'quantity': 3.0, 'readOnly': False, 'deliveredQty': 0.0, 'tracking': True, 'minimumQuantityOnProduct': 0.0, 'price': 60},
-                self.storable_product_ordered.id: {'quantity': 4.0, 'readOnly': False, 'deliveredQty': 0.0, 'tracking': False, 'minimumQuantityOnProduct': 0.0, 'price': 60},
-                self.storable_product_delivered.id: {'quantity': 0, 'readOnly': False, 'deliveredQty': 0, 'tracking': False, 'minimumQuantityOnProduct': 0, 'price': 75.6},
-                self.product_sn_no_stock.id: {'quantity': 0, 'readOnly': False, 'deliveredQty': 0, 'tracking': True, 'minimumQuantityOnProduct': 0, 'price': 60}
+                self.product_lot_no_stock.id: {'quantity': 3.0, 'readOnly': False, 'deliveredQty': 0.0, 'tracking': True, 'minimumQuantityOnProduct': 0.0, 'price': 60, 'productType': 'product'},
+                self.storable_product_ordered.id: {'quantity': 4.0, 'readOnly': False, 'deliveredQty': 0.0, 'tracking': False, 'minimumQuantityOnProduct': 0.0, 'price': 60, 'productType': 'product'},
+                self.storable_product_delivered.id: {'quantity': 0, 'readOnly': False, 'deliveredQty': 0, 'tracking': False, 'minimumQuantityOnProduct': 0, 'price': 75.6, 'productType': 'product'},
+                self.product_sn_no_stock.id: {'quantity': 0, 'readOnly': False, 'deliveredQty': 0, 'tracking': True, 'minimumQuantityOnProduct': 0, 'price': 60, 'productType': 'product'}
             },
             "The tracked product should have the 'tracking' key set to True, even if the product was not added to the task."
         )

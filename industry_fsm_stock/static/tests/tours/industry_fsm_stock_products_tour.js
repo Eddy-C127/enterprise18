@@ -11,12 +11,17 @@ patch(registry.category("web_tour.tours").get("industry_fsm_sale_products_tour")
             trigger: '.o_fsm_product_kanban_view .o_kanban_group:has(.o_kanban_header:has(span:contains("Service"))) .o_kanban_record:has(span:contains("Acoustic Bloc Screens"))',
             content: 'Add 1 quantity to the Service product',
         }, {
-            trigger: '.o_fsm_product_kanban_view .o_kanban_group:has(.o_kanban_header:has(span:contains("Service"))) .o_kanban_record:has(span:contains("Acoustic Bloc Screens")) .o_product_catalog_quantity:has(button:has(i.fa-minus)[disabled])',
-            content: 'Check that the quantity of the Service product is not decreasable anymore',
-            isCheck: true,
+            trigger: '.o_fsm_product_kanban_view .o_kanban_group:has(.o_kanban_header:has(span:contains("Service"))) .o_kanban_record:has(span:contains("Acoustic Bloc Screens"))',
+            content: 'Add 1 quantity to the Service product',
         }, {
-            trigger: '.o_fsm_product_kanban_view .o_kanban_group:has(.o_kanban_header:has(span:contains("Service"))) .o_kanban_record:has(span:contains("Acoustic Bloc Screens")) .o_product_catalog_buttons:has(button:has(i.fa-trash)[disabled])',
-            content: 'Check that the quantity of the Service product is not removable anymore',
+            trigger: '.o_fsm_product_kanban_view .o_kanban_group:has(.o_kanban_header:has(span:contains("Service"))) .o_kanban_record:has(span:contains("Acoustic Bloc Screens")) button:has(i.fa-minus:not([disabled]))',
+            content: 'Check that the quantity of the Service product is still decreasable even though it is considered delivered by default',
+        }, {
+            trigger: '.o_fsm_product_kanban_view .o_kanban_group:has(.o_kanban_header:has(span:contains("Service"))) .o_kanban_record:has(span:contains("Acoustic Bloc Screens")) .o_product_catalog_buttons .fa-trash',
+            content: 'Check that the quantity of the Service product is still removable even though it is considered delivered by default',
+        }, {
+            trigger: '.o_fsm_product_kanban_view .o_kanban_group:has(.o_kanban_header:has(span:contains("Service"))) .o_kanban_record:has(span:contains("Acoustic Bloc Screens")) .o_product_catalog_buttons .fa-shopping-cart',
+            content: 'Check that the quantity of the Service product were correctly removed',
             isCheck: true,
         });
         return originalSteps;

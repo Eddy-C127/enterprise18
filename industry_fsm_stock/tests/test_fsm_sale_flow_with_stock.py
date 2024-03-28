@@ -35,10 +35,6 @@ class TestFsmFlowSaleWithStock(TestFsmFlowSaleCommon):
         self.service_product_delivered.with_user(self.project_user).with_context({'fsm_task_id': self.task.id}).fsm_add_quantity()
         self.assertEqual(self.task.material_line_product_count, expected_product_count, f"{expected_product_count} product should be linked to the task")
 
-        #When the industry_fsm_stock module is installed, it is not allowed to removed a service product from a fsm task, for its SO is alaways in a 'confirmed' state.
-        with self.assertRaises(UserError):
-            self.service_product_delivered.with_user(self.project_user).with_context({'fsm_task_id': self.task.id}).fsm_remove_quantity()
-
         expected_product_count += 1
         self.service_product_delivered.with_user(self.project_user).with_context({'fsm_task_id': self.task.id}).fsm_add_quantity()
         self.assertEqual(self.task.material_line_product_count, expected_product_count, f"{expected_product_count} product should be linked to the task")

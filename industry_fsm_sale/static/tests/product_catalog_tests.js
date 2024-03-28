@@ -12,16 +12,19 @@ export const saleOrderLineInfo = {
         quantity: 0,
         readOnly: false,
         price: 14,
+        productType: "consu",
     },
     2: {
         quantity: 1,
         readOnly: false,
         price: 400,
+        productType: "consu",
     },
     3: {
         quantity: 3,
         price: 70,
         readOnly: false,
+        productType: "consu",
     },
 };
 
