@@ -345,7 +345,7 @@ Welcome to {{3}} office''',
         )
 
 
-@tagged('wa_template')
+@tagged('wa_template', 'wip')
 class WhatsAppTemplateForm(WhatsAppTemplateCommon):
     """ Form tool based unit tests, to check notably computed fields, live
     ACLs, ... """
@@ -366,6 +366,41 @@ class WhatsAppTemplateForm(WhatsAppTemplateCommon):
             "name": "whatsapp.res_partner_template_report",
             "type": "qweb",
         })
+
+    @users('user_wa_admin')
+    def test_button_format(self):
+        """ Test detection of invalid phone number on button and update of
+        url of button, updating scheme to https when not in ('http', 'https')
+        """
+        template_form = Form(self.env['whatsapp.template'])
+        template_form.name = 'Test Buttons'
+        template_form.body = 'Hello World'
+
+        with template_form.button_ids.new() as button:
+            button.button_type = 'url'
+            button.name = 'Test Https Prefix'
+            button.website_url = 'odoo.com'
+
+        with template_form.button_ids.new() as button:
+            button.button_type = 'phone_number'
+            button.name = 'BE no prefix'
+            button.call_number = '0456 12 34 56'
+
+        template = template_form.save()
+        self.assertEqual(template.button_ids[0].website_url, 'https://odoo.com')
+
+        for country, number, is_invalid in (
+            (self.env.ref('base.in'), '0456 12 34 56', True),
+            (self.env.ref('base.be'), '0456 12 34 56', False),
+            (self.env.ref('base.be'), '98 765 4321 4321', True)
+        ):
+            with self.subTest(country=country, number=number, is_invalid=is_invalid):
+                self.env.user.country_id = country
+                template.button_ids[1].call_number = number
+                template.button_ids.invalidate_recordset(['has_invalid_number'])
+                template.invalidate_recordset(['has_invalid_button_number'])
+                self.assertEqual(template.button_ids[1].has_invalid_number, is_invalid)
+                self.assertEqual(template.has_invalid_button_number, is_invalid)
 
     @users('user_wa_admin')
     def test_header_onchange(self):
@@ -430,40 +465,78 @@ class WhatsAppTemplateForm(WhatsAppTemplateCommon):
         self.assertEqual(template.model_id, self.env['ir.model']._get('res.users'))
         self.assertFalse(template.report_id)
 
-    @users('user_wa_admin')
-    def test_template_buttons_format(self):
-        """ Test detection of invalid phone number on button and update of
-            url of button, updating scheme to https when not in ('http', 'https')
-        """
-        template_form = Form(self.env['whatsapp.template'])
-        template_form.name = 'Test Buttons'
-        template_form.body = 'Hello World'
+    @users("user_wa_admin")
+    def test_variables_new_mode(self):
+        """ Test "_compute_variable_ids" as it has a lot to do, especially in
+        new mode. """
+        template_form = Form(self.env["whatsapp.template"])
+        template_form.name = "Test Variables"
 
-        with template_form.button_ids.new() as button:
-            button.button_type = 'url'
-            button.name = 'Test Https Prefix'
-            button.website_url = 'odoo.com'
+        # header_type location: should add 4 location variables
+        template_form.header_type = "location"
+        exp_variables = [
+            ("name", "location"),
+            ("address", "location"),
+            ("latitude", "location"),
+            ("longitude", "location"),
+        ]
+        self.assertEqual(
+            len(template_form.variable_ids), len(exp_variables),
+            'Should have 4 location variables')
+        for (name, line_type) in exp_variables:
+            match = next(
+                rec for rec in template_form.variable_ids._records
+                if rec["name"] == name
+            )
+            self.assertEqual(match["line_type"], line_type)
+            self.assertEqual(match["model"], template_form.model)
 
-        with template_form.button_ids.new() as button:
-            button.button_type = 'phone_number'
-            button.name = 'BE no prefix'
-            button.call_number = '0456 12 34 56'
+        # update body, should add matching variables
+        template_form.body = "Hello {{1}} this is {{2}}"
+        exp_variables += [
+            ("{{1}}", "body"),
+            ("{{2}}", "body"),
+        ]
+        self.assertEqual(
+            len(template_form.variable_ids), len(exp_variables),
+            'Should have 4 location variables and 2 body variables')
+        for (name, line_type) in exp_variables:
+            match = next(
+                rec for rec in template_form.variable_ids._records
+                if rec["name"] == name
+            )
+            self.assertEqual(match["line_type"], line_type)
+            self.assertEqual(match["model"], template_form.model)
 
+        # change header type: shoud remove location variables
+        template_form.header_type = "text"
+        template_form.header_text = "Header {{1}}"
+        exp_variables = [
+            ("{{1}}", "body"),
+            ("{{2}}", "body"),
+            ("{{1}}", "header"),
+        ]
+        self.assertEqual(
+            len(template_form.variable_ids), len(exp_variables),
+            'Should have 1 header text variable and 2 body variables')
+        for (name, line_type) in exp_variables:
+            match = next(
+                rec for rec in template_form.variable_ids._records
+                if rec["name"] == name and rec["line_type"] == line_type
+            )
+            self.assertEqual(match["model"], template_form.model)
+
+        # save, check final content
         template = template_form.save()
-        self.assertEqual(template.button_ids[0].website_url, 'https://odoo.com')
-
-        for country, number, is_invalid in (
-            (self.env.ref('base.in'), '0456 12 34 56', True),
-            (self.env.ref('base.be'), '0456 12 34 56', False),
-            (self.env.ref('base.be'), '98 765 4321 4321', True)
-        ):
-            with self.subTest(country=country, number=number, is_invalid=is_invalid):
-                self.env.user.country_id = country
-                template.button_ids[1].call_number = number
-                template.button_ids.invalidate_recordset(['has_invalid_number'])
-                template.invalidate_recordset(['has_invalid_button_number'])
-                self.assertEqual(template.button_ids[1].has_invalid_number, is_invalid)
-                self.assertEqual(template.has_invalid_button_number, is_invalid)
+        self.assertWATemplate(
+            template,
+            status="draft",
+            template_variables=[
+                ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+                ('{{2}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+                ('{{1}}', 'header', 'free_text', {'demo_value': 'Sample Value'}),
+            ],
+        )
 
 
 @tagged('wa_template')

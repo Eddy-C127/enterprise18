@@ -52,7 +52,7 @@ class WhatsAppTemplateVariable(models.Model):
         is_system = self.env.user.has_group('base.group_system')
         failing = self.browse()
         to_check = self.filtered(lambda v: v.field_type == "field")
-        missing = to_check.filtered(lambda v: not v.field_name):
+        missing = to_check.filtered(lambda v: not v.field_name)
         if missing:
             raise ValidationError(
                 _("Field template variables %(var_names)s must be associated with a field.",
