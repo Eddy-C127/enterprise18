@@ -115,7 +115,9 @@ class WhatsAppTemplate(models.Model):
         ('document', 'Document'),
         ('location', 'Location')], string="Header Type", default='none')
     header_text = fields.Char(string="Template Header Text", size=60)
-    header_attachment_ids = fields.Many2many('ir.attachment', string="Template Static Header", copy=False)
+    header_attachment_ids = fields.Many2many(
+        'ir.attachment', string="Template Static Header",
+        copy=False)  # keep False to avoid linking attachments; we have to copy them instead
     footer_text = fields.Char(string="Footer Message")
     report_id = fields.Many2one(comodel_name='ir.actions.report', string="Report", domain="[('model_id', '=', model_id)]", tracking=True)
     variable_ids = fields.One2many(
@@ -169,7 +171,7 @@ class WhatsAppTemplate(models.Model):
                       model=tmpl.model)
                 ) from err
 
-    @api.constrains('header_attachment_ids', 'header_type')
+    @api.constrains('header_attachment_ids', 'header_type', 'report_id')
     def _check_header_attachment_ids(self):
         templates_with_attachments = self.filtered('header_attachment_ids')
         for tmpl in templates_with_attachments:
@@ -378,6 +380,11 @@ class WhatsAppTemplate(models.Model):
                 values["name"] = _('%(original_name)s (copy)', original_name=template.name)
             if not values.get("template_name"):
                 values["template_name"] = f'{template.template_name}_copy'
+            if not values.get('header_attachment_ids') and template.header_attachment_ids:
+                values['header_attachment_ids'] = [
+                    (0, 0, att.copy_data(default={'res_id': False})[0])
+                    for att in template.header_attachment_ids
+                ]
             if template.variable_ids:
                 variable_commands = values.get('variable_ids', []) + [
                     (0, 0, {

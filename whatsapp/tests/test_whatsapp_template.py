@@ -409,6 +409,22 @@ class WhatsAppTemplateInternals(WhatsAppTemplateCommon):
     """ Internals: copy, computed fields behavior, ... """
 
     @users('user_wa_admin')
+    def test_copy_attachments(self):
+        """ Test that copying a template also copy either the report either
+        attachments when used in headers, to avoid validation errors. """
+        template = self.env['whatsapp.template'].create({
+            "header_attachment_ids": [(4, self.document_attachment_wa_admin.id)],
+            "header_type": "document",
+            "name": "Test Copy Document Header",
+        })
+        clone = template.copy()
+        self.assertEqual(template.header_attachment_ids.res_model, template._name)
+        self.assertEqual(template.header_attachment_ids.res_id, template.id)
+        self.assertEqual(clone.header_attachment_ids.res_id, clone.id)
+        self.assertEqual(clone.header_attachment_ids.res_model, clone._name)
+        self.assertNotEqual(template.header_attachment_ids, clone.header_attachment_ids)
+
+    @users('user_wa_admin')
     def test_copy_variables(self):
         """ Test that copying the template is copying the variables but also the
         buttons with their respective variables. """
