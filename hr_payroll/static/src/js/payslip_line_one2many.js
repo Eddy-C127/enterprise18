@@ -85,7 +85,8 @@ export class PayslipLineField extends Field {
             const oldUpdate = record.update.bind(record);
             record.update = async (changes) => {
                 if ('amount' in changes || 'quantity' in changes) {
-                    await oldUpdate(changes, { save: true });
+                    oldUpdate(changes, { save: true });
+                    await record.save();
                     const wizardId = record.model.config.resId;
                     if (wizardId) {
                         const line_id = record.resId;
