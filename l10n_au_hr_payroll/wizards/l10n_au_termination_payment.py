@@ -35,6 +35,12 @@ class TerminationPaymentWizard(models.TransientModel):
         ("genuine", "Genuine Redundancy"),
     ], required=True, default="normal", string="Termination Type")
 
+    @api.model
+    def default_get(self, field_list=None):
+        if self.env.company.country_id.code != 'AU':
+            raise UserError(_("You must be logged in an Australian company to use that feature."))
+        return super().default_get(field_list)
+
     @api.depends('employee_id', 'contract_end_date')
     def _compute_contract_id(self):
         for record in self:
@@ -79,7 +85,6 @@ class TerminationPaymentWizard(models.TransientModel):
             "contract_id": self.contract_id.id,
             "date_from": self._get_termination_payslip_period_start(),
             "date_to": self.contract_end_date,
-            "l10n_au_is_termination": True,
             "l10n_au_termination_type": self.termination_type})
 
         return {

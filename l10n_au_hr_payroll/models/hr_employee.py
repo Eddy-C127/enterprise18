@@ -222,6 +222,7 @@ class HrEmployee(models.Model):
         ctx['default_employee_id'] = self.id
         return {
             'type': 'ir.actions.act_window',
+            'name': _('Termination'),
             'res_model': 'l10n_au.termination.payment',
             'views': [[self.env.ref("l10n_au_hr_payroll.l10n_au_termination_payment_view_form").id, 'form']],
             'view_mode': 'form',

@@ -6,10 +6,6 @@
         <field name="priority" eval="110"/>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//header" position="inside">
-                <field name="contract_id" invisible="1"/>
-                <button string="Terminate Employee" name="action_terminate_contract" type="object" class="text-danger" invisible="not contract_id" groups="hr_contract.group_hr_contract_manager" />
-            </xpath>
             <xpath expr="//header" position="after">
                 <div
                     class="alert alert-warning mb-0" role="alert"
@@ -64,6 +60,17 @@
                     </field>
                 </page>
             </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="action_terminate_contract">
+        <field name="name">Terminate Employee</field>
+        <field name="model_id" ref="model_hr_employee"/>
+        <field name="binding_model_id" ref="model_hr_employee"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_terminate_contract()
         </field>
     </record>
 </odoo>

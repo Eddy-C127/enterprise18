@@ -91,7 +91,7 @@ result = -contract.l10n_au_workplace_giving
         <field name="code">ETP.GROSS</field>
         <field name="sequence">101</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip.l10n_au_is_termination and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 etp_withholding, tax_free_component = payslip._l10n_au_compute_termination_withhold(employee, ytd_total)
@@ -106,7 +106,7 @@ result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_i
         <field name="code">TAX.FREE</field>
         <field name="sequence">102</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip.l10n_au_is_termination and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = tax_free_component
@@ -121,7 +121,7 @@ result = tax_free_component
         <field name="code">ETP.BASE</field>
         <field name="sequence">103</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip.l10n_au_is_termination and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp).mapped('amount')) - tax_free_component
@@ -136,7 +136,7 @@ result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_i
         <field name="code">ETP.LEAVE.GROSS</field>
         <field name="sequence">105</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip.l10n_au_is_termination</field>
+        <field name="condition_python">result = payslip.l10n_au_termination_type</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 leave_amount, _, _ = payslip._l10n_au_compute_unused_leaves_withhold(categories['BASIC'])
@@ -270,7 +270,7 @@ result = payslip._l10n_au_compute_medicare_adjustment(categories['GROSS'], contr
         <field name="code">ETP.WITHHOLD</field>
         <field name="sequence">160</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip.l10n_au_is_termination and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = -etp_withholding
@@ -284,7 +284,7 @@ result = -etp_withholding
         <field name="code">ETP.LEAVE.WITHHOLD</field>
         <field name="sequence">162</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip.l10n_au_is_termination</field>
+        <field name="condition_python">result = payslip.l10n_au_termination_type</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 _, leave_withholding, _ = payslip._l10n_au_compute_unused_leaves_withhold(categories['BASIC'])

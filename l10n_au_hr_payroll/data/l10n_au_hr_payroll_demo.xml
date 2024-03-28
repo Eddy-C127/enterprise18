@@ -30,11 +30,14 @@
         <field name="company_id" ref="base.demo_company_au"/>
         <field name="resource_calendar_id" ref="l10n_au_hr_payroll.resource_calendar_au_38"/>
         <field name="work_contact_id" ref="l10n_au_hr_payroll.res_partner_employee_au"/>
-        <field name="name">Roger</field>
-        <field name="work_phone">123456789</field>
+        <field name="name">Roger Woodrum</field>
+        <field name="job_title">Salesperson</field>
+        <field name="work_phone">0123 456 789</field>
+        <field name="work_email">roger.woodrum@example.com</field>
         <field name="private_street">Australian Street</field>
         <field name="private_city">Sydney</field>
         <field name="birthday" eval="datetime(1970, 3, 21).date()"/>
+        <field name="image_1920" type="base64" file="hr/static/img/employee_han-image.jpg"/>
         <field name="l10n_au_tfn_declaration">provided</field>
         <field name="l10n_au_tfn">123456789</field>
         <field name="l10n_au_training_loan">True</field>
@@ -101,7 +104,7 @@
         <field name="name">Roger Payslip September Termination</field>
         <field name="date_from" eval="datetime(2023, 9, 1).date()"/>
         <field name="date_to" eval="datetime(2023, 9, 30).date()"/>
-        <field name="l10n_au_is_termination" eval="True"/>
+        <field name="l10n_au_termination_type">normal</field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
         <field name="input_line_ids" eval="[(5, 0, 0),
             (0, 0, {'input_type_id': ref('l10n_au_hr_payroll.input_severance_pay'), 'amount': 15000}),

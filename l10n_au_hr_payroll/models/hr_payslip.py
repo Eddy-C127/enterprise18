@@ -36,8 +36,7 @@ class HrPayslip(models.Model):
     l10n_au_termination_type = fields.Selection([
         ("normal", "Non-Genuine Redundancy"),
         ("genuine", "Genuine Redundancy"),
-    ], required=True, default="normal", string="Termination Type")
-    l10n_au_is_termination = fields.Boolean("Termination Payslip")
+    ], string="Termination Type", readonly=True)
 
     def _get_base_local_dict(self):
         res = super()._get_base_local_dict()

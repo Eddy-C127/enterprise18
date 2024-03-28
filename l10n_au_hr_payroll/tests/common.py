@@ -501,7 +501,7 @@ class TestPayrollCommon(TransactionCase):
             "date_from": payslip_date_from or date(2023, 7, 1),
             "date_to": payslip_date_to or date(2023, 7, 31),
             "input_line_ids": [Command.create(input_line) for input_line in input_lines] if input_lines else [],
-            "l10n_au_is_termination": is_termination,
+            "l10n_au_termination_type": "normal" if is_termination else False,
         })
 
         # 2) Recompute the payslip.

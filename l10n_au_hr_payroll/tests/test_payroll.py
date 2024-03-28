@@ -433,7 +433,6 @@ class TestPayroll(TestPayrollCommon):
             "name": "Termination Payment",
             "employee_id": employee_id.id,
             "contract_id": contract_id.id,
-            "l10n_au_is_termination": True,
             "struct_id": self.env.ref("l10n_au_hr_payroll.hr_payroll_structure_au_regular").id,
             "l10n_au_termination_type": "genuine",
             "date_from": date(2023, 8, 1),
