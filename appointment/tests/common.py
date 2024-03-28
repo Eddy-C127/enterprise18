@@ -303,18 +303,22 @@ class AppointmentSecurityCommon(AppointmentCommon):
             for hour in range(8, 14)
         ]
         cls.apt_type_apt_manager, cls.apt_type_apt_user, cls.apt_type_internal_user, cls.apt_type_no_staff = cls.env['appointment.type'].create([{
+            'appointment_tz': 'UTC',
             'name': "Appointment with Manager as staff",
             'slot_ids': slots_configuration,
             'staff_user_ids': [(4, cls.apt_manager.id)],
         }, {
+            'appointment_tz': 'UTC',
             'name': "Appointment with User as staff",
             'slot_ids': slots_configuration,
             'staff_user_ids': [(4, cls.apt_user.id)],
         }, {
+            'appointment_tz': 'UTC',
             'name': "Appointment with Internal as staff",
             'slot_ids': slots_configuration,
             'staff_user_ids': [(4, cls.internal_user.id)],
         }, {
+            'appointment_tz': 'UTC',
             'name': "Appointment without staff",
             'slot_ids': slots_configuration,
             'staff_user_ids': False,
