@@ -13,4 +13,5 @@
         'views/appointment_templates_validation.xml',
         'views/appointment_type_views.xml',
     ],
+    'auto_install': True,
 }

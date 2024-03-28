@@ -86,7 +86,7 @@
                         <t t-if="object.videocall_source == 'discuss'"> Join with Odoo Discuss</t>
                         <t t-else=""> Join at</t><br/>
                         <a t-attf-href="{{ object.videocall_redirection }}" target="_blank"
-                            t-out="object.videocall_redirection or ''">www.mycompany.com/calendar/join_videocall/xyz</a>
+                            t-out="object.videocall_redirection or ''">www.mycompany.com/calendar/videocall/xyz</a>
                     </li>
                 </ul>
                 <t t-if="not is_html_empty(object.description)">
@@ -159,11 +159,12 @@
                                 </t>
                             </li>
                         </ul></li>
-                        <li t-if="object.videocall_location">
+                        <li t-if="object.videocall_redirection">
                             How to Join:
-                            <t t-if="object.get_base_url() in object.videocall_location"> Join with Odoo Discuss</t>
+                            <t t-if="object.videocall_source == 'discuss'"> Join with Odoo Discuss</t>
                             <t t-else=""> Join at</t><br/>
-                            <a t-attf-href="{{ object.videocall_location }}" target="_blank" t-out="object.videocall_location or ''">www.mycompany.com/calendar/join_videocall/xyz</a>
+                            <a t-attf-href="{{ object.videocall_redirection }}" target="_blank"
+                                t-out="object.videocall_redirection or ''">www.mycompany.com/calendar/videocall/xyz</a>
                         </li>
                     </ul>
                     <t t-if="not is_html_empty(object.description)">
@@ -293,14 +294,13 @@
                         </li>
                     </ul>
                 </li>
-                <t t-if="object.event_id.videocall_location">
-                    <li>
-                        How to Join:
-                        <t t-if="object.get_base_url() in object.event_id.videocall_location"> Join with Odoo Discuss</t>
-                        <t t-else=""> Join at</t><br/>
-                        <a t-att-href="object.event_id.videocall_location" target="_blank" t-out="object.event_id.videocall_location or ''">www.mycompany.com/calendar/join_videocall/xyz</a>
-                    </li>
-                </t>
+                <li t-if="object.event_id.videocall_redirection">
+                    How to Join:
+                    <t t-if="object.event_id.videocall_source == 'discuss'"> Join with Odoo Discuss</t>
+                    <t t-else=""> Join at</t><br/>
+                    <a t-attf-href="{{ object.event_id.videocall_redirection }}" target="_blank"
+                        t-out="object.event_id.videocall_redirection or ''">www.mycompany.com/calendar/videocall/xyz</a>
+                </li>
                 <t t-if="not is_html_empty(object.event_id.description)">
                     <li>Description of the event:
                     <t t-out="object.event_id.description">Internal meeting for discussion for new pricing for product and services.</t></li>
