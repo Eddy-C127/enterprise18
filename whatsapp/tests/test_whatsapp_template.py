@@ -369,7 +369,7 @@ Welcome to {{3}} office''',
         )
 
 
-@tagged('wa_template')
+@tagged('wa_template', 'wip')
 class WhatsAppTemplateForm(WhatsAppTemplateCommon):
     """ Form tool based unit tests, to check notably computed fields, live
     ACLs, ... """
@@ -453,6 +453,79 @@ class WhatsAppTemplateForm(WhatsAppTemplateCommon):
         self.assertEqual(template.model, 'res.users')
         self.assertEqual(template.model_id, self.env['ir.model']._get('res.users'))
         self.assertFalse(template.report_id)
+
+    @users("user_wa_admin")
+    def test_variables_new_mode(self):
+        """ Test "_compute_variable_ids" as it has a lot to do, especially in
+        new mode. """
+        template_form = Form(self.env["whatsapp.template"])
+        template_form.name = "Test Variables"
+
+        # header_type location: should add 4 location variables
+        template_form.header_type = "location"
+        exp_variables = [
+            ("name", "location"),
+            ("address", "location"),
+            ("latitude", "location"),
+            ("longitude", "location"),
+        ]
+        self.assertEqual(
+            len(template_form.variable_ids), len(exp_variables),
+            'Should have 4 location variables')
+        for (name, line_type) in exp_variables:
+            match = next(
+                rec for rec in template_form.variable_ids._records
+                if rec["name"] == name
+            )
+            self.assertEqual(match["line_type"], line_type)
+            self.assertEqual(match["model"], template_form.model)
+
+        # update body, should add matching variables
+        template_form.body = "Hello {{1}} this is {{2}}"
+        exp_variables += [
+            ("{{1}}", "body"),
+            ("{{2}}", "body"),
+        ]
+        self.assertEqual(
+            len(template_form.variable_ids), len(exp_variables),
+            'Should have 4 location variables and 2 body variables')
+        for (name, line_type) in exp_variables:
+            match = next(
+                rec for rec in template_form.variable_ids._records
+                if rec["name"] == name
+            )
+            self.assertEqual(match["line_type"], line_type)
+            self.assertEqual(match["model"], template_form.model)
+
+        # change header type: shoud remove location variables
+        template_form.header_type = "text"
+        template_form.header_text = "Header {{1}}"
+        exp_variables = [
+            ("{{1}}", "body"),
+            ("{{2}}", "body"),
+            ("{{1}}", "header"),
+        ]
+        self.assertEqual(
+            len(template_form.variable_ids), len(exp_variables),
+            'Should have 1 header text variable and 2 body variables')
+        for (name, line_type) in exp_variables:
+            match = next(
+                rec for rec in template_form.variable_ids._records
+                if rec["name"] == name and rec["line_type"] == line_type
+            )
+            self.assertEqual(match["model"], template_form.model)
+
+        # save, check final content
+        template = template_form.save()
+        self.assertWATemplate(
+            template,
+            status="draft",
+            template_variables=[
+                ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+                ('{{2}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+                ('{{1}}', 'header', 'free_text', {'demo_value': 'Sample Value'}),
+            ],
+        )
 
 
 @tagged('wa_template')

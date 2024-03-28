@@ -273,43 +273,48 @@ class WhatsAppTemplate(models.Model):
     def _compute_variable_ids(self):
         """compute template variable according to header text, body and buttons"""
         for tmpl in self:
-            to_delete = []
-            to_create = []
+            to_delete = self.env["whatsapp.template.variable"]
+            to_keep = self.env["whatsapp.template.variable"]
+            to_create_values = []
+
             header_variables = list(re.findall(r'{{[1-9][0-9]*}}', tmpl.header_text or ''))
             body_variables = set(re.findall(r'{{[1-9][0-9]*}}', tmpl.body or ''))
 
             # if there is header text
             existing_header_text_variable = tmpl.variable_ids.filtered(lambda line: line.line_type == 'header')
             if header_variables and not existing_header_text_variable:
-                to_create.append({'name': header_variables[0], 'line_type': 'header', 'wa_template_id': tmpl.id})
+                to_create_values.append({'name': header_variables[0], 'line_type': 'header', 'wa_template_id': tmpl.id})
             elif not header_variables and existing_header_text_variable:
-                to_delete.append(existing_header_text_variable.id)
+                to_delete += existing_header_text_variable
+            elif existing_header_text_variable:
+                to_keep += existing_header_text_variable
 
             # if the header is a location
             existing_header_location_variables = tmpl.variable_ids.filtered(lambda line: line.line_type == 'location')
-            if tmpl.header_type == 'location':
-                if not existing_header_location_variables:
-                    to_create += [
-                        {'name': 'name', 'line_type': 'location', 'wa_template_id': tmpl.id},
-                        {'name': 'address', 'line_type': 'location', 'wa_template_id': tmpl.id},
-                        {'name': 'latitude', 'line_type': 'location', 'wa_template_id': tmpl.id},
-                        {'name': 'longitude', 'line_type': 'location', 'wa_template_id': tmpl.id}
-                    ]
-            else:
-                to_delete += existing_header_location_variables.ids
+            if tmpl.header_type == 'location' and not existing_header_location_variables:
+                to_create_values += [
+                    {'name': 'name', 'line_type': 'location', 'wa_template_id': tmpl.id},
+                    {'name': 'address', 'line_type': 'location', 'wa_template_id': tmpl.id},
+                    {'name': 'latitude', 'line_type': 'location', 'wa_template_id': tmpl.id},
+                    {'name': 'longitude', 'line_type': 'location', 'wa_template_id': tmpl.id}
+                ]
+            elif tmpl.header_type != 'location' and existing_header_location_variables:
+                to_delete += existing_header_location_variables
+            elif existing_header_location_variables:
+                to_keep += existing_header_location_variables
 
             # body
             existing_body_variables = tmpl.variable_ids.filtered(lambda line: line.line_type == 'body')
-            existing_body_variables = {var.name: var for var in existing_body_variables}
-            new_body_variable_names = [var_name for var_name in body_variables if var_name not in existing_body_variables]
-            deleted_body_variables = [var.id for name, var in existing_body_variables.items() if name not in body_variables]
+            new_body_variable_names = [var_name for var_name in body_variables if var_name not in existing_body_variables.mapped('name')]
+            deleted_body_variables = existing_body_variables.filtered(lambda var: var.name not in body_variables)
 
-            to_create += [{'name': var_name, 'line_type': 'body', 'wa_template_id': tmpl.id} for var_name in set(new_body_variable_names)]
+            to_create_values += [{'name': var_name, 'line_type': 'body', 'wa_template_id': tmpl.id} for var_name in set(new_body_variable_names)]
             to_delete += deleted_body_variables
+            to_keep += existing_body_variables - deleted_body_variables
 
-            update_commands = [Command.delete(to_delete_id) for to_delete_id in to_delete] + [Command.create(vals) for vals in to_create]
-            if update_commands:
-                tmpl.variable_ids = update_commands
+            # if to_delete:
+            #     to_delete.unlink()
+            tmpl.variable_ids = [(3, to_remove.id) for to_remove in to_delete] + [(0, 0, vals) for vals in to_create_values]
 
     @api.depends('model_id')
     def _compute_has_action(self):
