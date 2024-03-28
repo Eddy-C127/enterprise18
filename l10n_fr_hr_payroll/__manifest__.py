@@ -16,16 +16,9 @@ French Payroll Rules.
     - All main contributions rules for French payslip, for 'cadre' and 'non-cadre'
     - New payslip report
 
-TODO:
------
-    - Integration with holidays module for deduction and allowance
-    - Integration with hr_payroll_account for the automatic account_move_line
-      creation from the payslip
-    - Continue to integrate the contribution. Only the main contribution are
-      currently implemented
-    - Remake the report under webkit
-    - The payslip.line with appears_in_payslip = False should appears in the
-      payslip interface, but not in the payslip report
+This module was not done by the R&D Payroll team. We can't promise you the accuracy of the data it contains.
+============================================================================================================
+
     """,
     'data': [
         'data/l10n_fr_hr_payroll_data.xml',
