@@ -100,7 +100,7 @@
                         <i class="fa fa-fw fs-6 fa-comments"/>
                     </a>
                     <a t-ref="btn_history"
-                       t-if="props.record.resId and isInternalUser"
+                       t-if="props.record.resId and isInternalUser and props.record.data.user_can_write"
                        role="button"
                        t-attf-class="btn btn-light btn-history #{state.displayHistory ? 'active' : ''}"
                        data-hotkey="h"
