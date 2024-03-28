@@ -75,7 +75,11 @@ class ProductProduct(models.Model):
             ['product_id'],
             ['product_uom_qty:sum', 'qty_delivered:sum'],
         )
-        product_uom_qty_per_product = {product.id: product_uom_qty - qty_delivered for product, product_uom_qty, qty_delivered in sale_lines_read_group if product_uom_qty > qty_delivered}
+        product_uom_qty_per_product = {
+            product.id: product_uom_qty - qty_delivered if product.service_policy != 'delivered_manual' else product_uom_qty
+            for product, product_uom_qty, qty_delivered in sale_lines_read_group
+            if product_uom_qty > qty_delivered or product.service_policy == 'delivered_manual'
+        }
 
         for product in self:
             product.quantity_decreasable_sum = move_per_product.get(product.id, product_uom_qty_per_product.get(product.id, 0))

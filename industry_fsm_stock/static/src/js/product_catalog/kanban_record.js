@@ -15,7 +15,7 @@ patch(FSMProductCatalogKanbanRecord.prototype, {
             this.props.record.load();
             this.props.record.model.notify();
         } else {
-            super.updateQuantity(Math.max(quantity, this.productCatalogData.deliveredQty));
+            super.updateQuantity(Math.max(quantity, this.productCatalogData.minimumQuantityOnProduct));
         }
     },
 });
