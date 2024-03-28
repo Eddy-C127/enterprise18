@@ -73,43 +73,43 @@
                 },
                 "A33": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(1,\"#product_id\",1)"
+                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",1)"
                 },
                 "A34": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(1,\"#product_id\",2)"
+                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",2)"
                 },
                 "A35": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(1,\"#product_id\",3)"
+                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",3)"
                 },
                 "A36": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(1,\"#product_id\",4)"
+                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",4)"
                 },
                 "A37": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(1,\"#product_id\",5)"
+                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",5)"
                 },
                 "A38": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(1,\"#product_id\",6)"
+                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",6)"
                 },
                 "A39": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(1,\"#product_id\",7)"
+                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",7)"
                 },
                 "A40": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(1,\"#product_id\",8)"
+                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",8)"
                 },
                 "A41": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(1,\"#product_id\",9)"
+                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",9)"
                 },
                 "A42": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(1,\"#product_id\",10)"
+                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",10)"
                 },
                 "A44": {
                     "style": 1,
@@ -123,43 +123,43 @@
                 },
                 "A46": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(3,\"#picking_type_id\",1)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#picking_type_id\",1)"
                 },
                 "A47": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(3,\"#picking_type_id\",2)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#picking_type_id\",2)"
                 },
                 "A48": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(3,\"#picking_type_id\",3)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#picking_type_id\",3)"
                 },
                 "A49": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(3,\"#picking_type_id\",4)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#picking_type_id\",4)"
                 },
                 "A50": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(3,\"#picking_type_id\",5)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#picking_type_id\",5)"
                 },
                 "A51": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(3,\"#picking_type_id\",6)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#picking_type_id\",6)"
                 },
                 "A52": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(3,\"#picking_type_id\",7)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#picking_type_id\",7)"
                 },
                 "A53": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(3,\"#picking_type_id\",8)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#picking_type_id\",8)"
                 },
                 "A54": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(3,\"#picking_type_id\",9)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#picking_type_id\",9)"
                 },
                 "A55": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(3,\"#picking_type_id\",10)"
+                    "content": "=ODOO.PIVOT.HEADER(3,\"#picking_type_id\",10)"
                 },
                 "B7": {
                     "style": 5,
@@ -181,47 +181,47 @@
                 "B33": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",1)"
+                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",1)"
                 },
                 "B34": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",2)"
+                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",2)"
                 },
                 "B35": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",3)"
+                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",3)"
                 },
                 "B36": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",4)"
+                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",4)"
                 },
                 "B37": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",5)"
+                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",5)"
                 },
                 "B38": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",6)"
+                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",6)"
                 },
                 "B39": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",7)"
+                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",7)"
                 },
                 "B40": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",8)"
+                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",8)"
                 },
                 "B41": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",9)"
+                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",9)"
                 },
                 "B42": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",10)"
+                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",10)"
                 },
                 "B44": {
                     "style": 5,
@@ -235,47 +235,47 @@
                 "B46": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"__count\",\"#picking_type_id\",1)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#picking_type_id\",1)"
                 },
                 "B47": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"__count\",\"#picking_type_id\",2)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#picking_type_id\",2)"
                 },
                 "B48": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"__count\",\"#picking_type_id\",3)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#picking_type_id\",3)"
                 },
                 "B49": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"__count\",\"#picking_type_id\",4)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#picking_type_id\",4)"
                 },
                 "B50": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"__count\",\"#picking_type_id\",5)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#picking_type_id\",5)"
                 },
                 "B51": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"__count\",\"#picking_type_id\",6)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#picking_type_id\",6)"
                 },
                 "B52": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"__count\",\"#picking_type_id\",7)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#picking_type_id\",7)"
                 },
                 "B53": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"__count\",\"#picking_type_id\",8)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#picking_type_id\",8)"
                 },
                 "B54": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"__count\",\"#picking_type_id\",9)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#picking_type_id\",9)"
                 },
                 "B55": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"__count\",\"#picking_type_id\",10)"
+                    "content": "=ODOO.PIVOT(3,\"__count\",\"#picking_type_id\",10)"
                 },
                 "C7": {
                     "style": 5,
@@ -297,47 +297,47 @@
                 "C33": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",1)"
+                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",1)"
                 },
                 "C34": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",2)"
+                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",2)"
                 },
                 "C35": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",3)"
+                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",3)"
                 },
                 "C36": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",4)"
+                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",4)"
                 },
                 "C37": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",5)"
+                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",5)"
                 },
                 "C38": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",6)"
+                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",6)"
                 },
                 "C39": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",7)"
+                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",7)"
                 },
                 "C40": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",8)"
+                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",8)"
                 },
                 "C41": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",9)"
+                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",9)"
                 },
                 "C42": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",10)"
+                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",10)"
                 },
                 "C44": {
                     "style": 5,
@@ -351,47 +351,47 @@
                 "C46": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#picking_type_id\",1)"
+                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#picking_type_id\",1)"
                 },
                 "C47": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#picking_type_id\",2)"
+                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#picking_type_id\",2)"
                 },
                 "C48": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#picking_type_id\",3)"
+                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#picking_type_id\",3)"
                 },
                 "C49": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#picking_type_id\",4)"
+                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#picking_type_id\",4)"
                 },
                 "C50": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#picking_type_id\",5)"
+                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#picking_type_id\",5)"
                 },
                 "C51": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#picking_type_id\",6)"
+                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#picking_type_id\",6)"
                 },
                 "C52": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#picking_type_id\",7)"
+                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#picking_type_id\",7)"
                 },
                 "C53": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#picking_type_id\",8)"
+                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#picking_type_id\",8)"
                 },
                 "C54": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#picking_type_id\",9)"
+                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#picking_type_id\",9)"
                 },
                 "C55": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#picking_type_id\",10)"
+                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#picking_type_id\",10)"
                 },
                 "D7": {
                     "style": 5,
@@ -413,43 +413,43 @@
                 },
                 "E33": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",1)"
+                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",1)"
                 },
                 "E34": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",2)"
+                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",2)"
                 },
                 "E35": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",3)"
+                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",3)"
                 },
                 "E36": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",4)"
+                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",4)"
                 },
                 "E37": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",5)"
+                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",5)"
                 },
                 "E38": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",6)"
+                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",6)"
                 },
                 "E39": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",7)"
+                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",7)"
                 },
                 "E40": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",8)"
+                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",8)"
                 },
                 "E41": {
                     "style": 3,
-                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",9)"
+                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",9)"
                 },
                 "E42": {
                     "style": 4,
-                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",10)"
+                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",10)"
                 },
                 "F7": {
                     "style": 5,
@@ -467,47 +467,47 @@
                 "F33": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",1)"
+                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",1)"
                 },
                 "F34": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",2)"
+                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",2)"
                 },
                 "F35": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",3)"
+                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",3)"
                 },
                 "F36": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",4)"
+                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",4)"
                 },
                 "F37": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",5)"
+                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",5)"
                 },
                 "F38": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",6)"
+                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",6)"
                 },
                 "F39": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",7)"
+                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",7)"
                 },
                 "F40": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",8)"
+                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",8)"
                 },
                 "F41": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",9)"
+                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",9)"
                 },
                 "F42": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",10)"
+                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",10)"
                 },
                 "G7": {
                     "style": 5,
@@ -525,47 +525,47 @@
                 "G33": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",1)"
+                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",1)"
                 },
                 "G34": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",2)"
+                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",2)"
                 },
                 "G35": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",3)"
+                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",3)"
                 },
                 "G36": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",4)"
+                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",4)"
                 },
                 "G37": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",5)"
+                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",5)"
                 },
                 "G38": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",6)"
+                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",6)"
                 },
                 "G39": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",7)"
+                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",7)"
                 },
                 "G40": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",8)"
+                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",8)"
                 },
                 "G41": {
                     "style": 7,
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",9)"
+                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",9)"
                 },
                 "G42": {
                     "format": 1,
-                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",10)"
+                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",10)"
                 },
                 "A8": {
                     "border": 2
@@ -862,50 +862,50 @@
                     "content": "=_t(\"Current\")"
                 },
                 "B2": {
-                    "content": "=PIVOT.VALUE(5,\"__count\")"
+                    "content": "=ODOO.PIVOT(5,\"__count\")"
                 },
                 "B3": {
-                    "content": "=PIVOT.VALUE(5,\"product_uom_qty\")"
+                    "content": "=ODOO.PIVOT(5,\"product_uom_qty\")"
                 },
                 "B4": {
-                    "content": "=PIVOT.VALUE(7,\"duration\")"
+                    "content": "=ODOO.PIVOT(7,\"duration\")"
                 },
                 "B5": {
-                    "content": "=PIVOT.VALUE(7,\"duration\",\"loss_type\",\"availability\")"
+                    "content": "=ODOO.PIVOT(7,\"duration\",\"loss_type\",\"availability\")"
                 },
                 "B6": {
-                    "content": "=PIVOT.VALUE(7,\"duration\",\"loss_type\",\"productive\")"
+                    "content": "=ODOO.PIVOT(7,\"duration\",\"loss_type\",\"productive\")"
                 },
                 "B7": {
                     "content": "=IFERROR(B6/B4)"
                 },
                 "B8": {
-                    "content": "=PIVOT.VALUE(9,\"unit_cost\")"
+                    "content": "=ODOO.PIVOT(9,\"unit_cost\")"
                 },
                 "C1": {
                     "style": 2,
                     "content": "=_t(\"Previous\")"
                 },
                 "C2": {
-                    "content": "=PIVOT.VALUE(6,\"__count\")"
+                    "content": "=ODOO.PIVOT(6,\"__count\")"
                 },
                 "C3": {
-                    "content": "=PIVOT.VALUE(6,\"product_uom_qty\")"
+                    "content": "=ODOO.PIVOT(6,\"product_uom_qty\")"
                 },
                 "C4": {
-                    "content": "=PIVOT.VALUE(8,\"duration\")"
+                    "content": "=ODOO.PIVOT(8,\"duration\")"
                 },
                 "C5": {
-                    "content": "=PIVOT.VALUE(8,\"duration\",\"loss_type\",\"availability\")"
+                    "content": "=ODOO.PIVOT(8,\"duration\",\"loss_type\",\"availability\")"
                 },
                 "C6": {
-                    "content": "=PIVOT.VALUE(8,\"duration\",\"loss_type\",\"productive\")"
+                    "content": "=ODOO.PIVOT(8,\"duration\",\"loss_type\",\"productive\")"
                 },
                 "C7": {
                     "content": "=IFERROR(C6/C4)"
                 },
                 "C8": {
-                    "content": "=PIVOT.VALUE(10,\"unit_cost\")"
+                    "content": "=ODOO.PIVOT(10,\"unit_cost\")"
                 },
                 "D1": {
                     "style": 2,
