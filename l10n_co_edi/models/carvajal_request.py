@@ -14,9 +14,10 @@ from lxml import etree
 
 from datetime import datetime
 from hashlib import sha256
-from zeep import Client, Plugin, Transport
-from zeep.exceptions import Fault
-from zeep.wsse.username import UsernameToken
+
+from odoo.tools.zeep import Client, Plugin
+from odoo.tools.zeep.exceptions import Fault
+from odoo.tools.zeep.wsse.username import UsernameToken
 
 
 _logger = logging.getLogger(__name__)
@@ -71,8 +72,7 @@ class CarvajalRequest():
     def client(self):
         if not hasattr(self, '_client'):
             token = self._create_wsse_header(self.username, self.password)
-            transport = Transport(operation_timeout=10)
-            self._client = Client(self.wsdl, plugins=[CarvajalPlugin()], wsse=token, transport=transport)
+            self._client = Client(self.wsdl, plugins=[CarvajalPlugin()], wsse=token, operation_timeout=10)
         return self._client
 
     def _handle_exception(self, e):

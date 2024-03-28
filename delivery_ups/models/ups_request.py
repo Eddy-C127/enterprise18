@@ -9,9 +9,9 @@ import logging
 import os
 import re
 
-from zeep import Client, Plugin
-from zeep.exceptions import Fault
-from zeep.wsdl.utils import etree_to_string
+from odoo.tools.zeep import Client, Plugin
+from odoo.tools.zeep.exceptions import Fault
+from odoo.tools.zeep.wsdl.utils import etree_to_string
 
 from odoo import _, _lt
 from odoo.tools.float_utils import float_repr
@@ -137,12 +137,12 @@ class UPSRequest():
         # set the detail which require to authenticate
         user_token = {'Username': self.username, 'Password': self.password}
         access_token = {'AccessLicenseNumber': self.access_number}
-        security = client.get_element('ns0:UPSSecurity')(UsernameToken=user_token, ServiceAccessToken=access_token)
-        client.set_default_soapheaders([security])
+        security = client._Client__obj.get_element('ns0:UPSSecurity')(UsernameToken=user_token, ServiceAccessToken=access_token)
+        client._Client__obj.set_default_soapheaders([security])
 
     def _set_service(self, client, api):
         service = client.create_service(
-            next(iter(client.wsdl.bindings)),
+            next(iter(client._Client__obj.wsdl.bindings)),
             '%s%s' % (self.endurl, api))
         return service
 

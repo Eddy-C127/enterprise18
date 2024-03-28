@@ -6,8 +6,8 @@ import logging
 import re
 import requests
 
-from zeep import Client
-from zeep.exceptions import Fault
+from odoo.tools.zeep import Client
+from odoo.tools.zeep.exceptions import Fault
 
 from odoo import modules, fields, _
 

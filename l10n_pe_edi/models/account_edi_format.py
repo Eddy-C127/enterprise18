@@ -5,9 +5,8 @@ import base64
 import zipfile
 import io
 from requests.exceptions import ConnectionError as ReqConnectionError, HTTPError, InvalidSchema, InvalidURL, ReadTimeout
-from zeep.wsse.username import UsernameToken
-from zeep import Client, Settings
-from zeep.transports import Transport
+from odoo.tools.zeep.wsse.username import UsernameToken
+from odoo.tools.zeep import Client, Settings
 from lxml import etree
 from lxml import objectify
 from copy import deepcopy
@@ -624,14 +623,14 @@ class AccountEdiFormat(models.Model):
         edi_str = etree.tostring(edi_tree, xml_declaration=True, encoding='ISO-8859-1')
 
         zip_edi_str = self._l10n_pe_edi_zip_edi_document([('%s.xml' % edi_filename, edi_str)])
-        transport = Transport(operation_timeout=15, timeout=15)
         try:
             settings = Settings(raw_response=True)
             client = Client(
                 wsdl=credentials['wsdl'],
                 wsse=credentials['token'],
                 settings=settings,
-                transport=transport,
+                operation_timeout=15,
+                timeout=15,
             )
             result = client.service.sendBill('%s.zip' % edi_filename, zip_edi_str)
             # SUNAT will return a 500 Server Error (!) with a SOAP response if the invoice already exists.
@@ -687,14 +686,14 @@ class AccountEdiFormat(models.Model):
         return self._l10n_pe_edi_get_status_cdr_sunat_digiflow_service_common(credentials, company.vat, serie_folio, latam_document_type)
 
     def _l10n_pe_edi_get_status_cdr_sunat_digiflow_service_common(self, credentials, vat_number, serie_folio, latam_document_type):
-        transport = Transport(operation_timeout=15, timeout=15)
         try:
             settings = Settings(raw_response=True)
             client = Client(
                 wsdl=credentials['wsdl'],
                 wsse=credentials['token'],
                 settings=settings,
-                transport=transport,
+                operation_timeout=15,
+                timeout=15,
             )
             result = client.service.getStatusCdr(vat_number, latam_document_type, serie_folio['serie'], serie_folio['folio'])
             result.raise_for_status()
@@ -719,7 +718,6 @@ class AccountEdiFormat(models.Model):
         void_tree = company.l10n_pe_edi_certificate_id.sudo()._sign(void_tree)
         void_str = etree.tostring(void_tree, xml_declaration=True, encoding='ISO-8859-1')
         zip_void_str = self._l10n_pe_edi_zip_edi_document([('%s.xml' % void_filename, void_str)])
-        transport = Transport(operation_timeout=15, timeout=15)
 
         try:
             settings = Settings(raw_response=True)
@@ -727,7 +725,8 @@ class AccountEdiFormat(models.Model):
                 wsdl=credentials['wsdl'],
                 wsse=credentials['token'],
                 settings=settings,
-                transport=transport,
+                operation_timeout=15,
+                timeout=15,
             )
             result = client.service.sendSummary('%s.zip' % void_filename,  zip_void_str)
             result.raise_for_status()
@@ -753,15 +752,14 @@ class AccountEdiFormat(models.Model):
     def _l10n_pe_edi_cancel_invoices_step_2_sunat_digiflow_common(self, company, edi_values, cdr_number, credentials):
         self.ensure_one()
 
-        transport = Transport(operation_timeout=15, timeout=15)
-
         try:
             settings = Settings(raw_response=True)
             client = Client(
                 wsdl=credentials['wsdl'],
                 wsse=credentials['token'],
                 settings=settings,
-                transport=transport,
+                operation_timeout=15,
+                timeout=15,
             )
             result = client.service.getStatus(cdr_number)
             result.raise_for_status()

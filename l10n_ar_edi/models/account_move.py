@@ -608,7 +608,7 @@ class AccountMove(models.Model):
     def _ws_verify_request_data(self, client, auth, ws_method, request_data):
         """ Validate that all the request data sent is ok """
         try:
-            client.create_message(client.service, ws_method, auth, request_data)
+            client._Client__obj.create_message(client._Client__obj.service, ws_method, auth, request_data)
         except Exception as error:
             raise UserError(repr(error))
 

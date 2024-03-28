@@ -7,8 +7,8 @@ import json
 import os
 from dateutil.relativedelta import relativedelta
 from tempfile import NamedTemporaryFile
-from zeep import wsse
-from zeep.exceptions import Fault
+from odoo.tools.zeep import wsse
+from odoo.tools.zeep.exceptions import Fault
 
 class L10nNlICPSBRWizard(models.TransientModel):
     _name = 'l10n_nl_reports_sbr_icp.icp.wizard'

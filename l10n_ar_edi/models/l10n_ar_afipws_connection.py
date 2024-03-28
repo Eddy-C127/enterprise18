@@ -5,12 +5,12 @@ from lxml import builder
 from lxml import etree
 from requests.adapters import HTTPAdapter
 from urllib3.util.ssl_ import create_urllib3_context, DEFAULT_CIPHERS
-from zeep import transports
 import time
 import datetime
 import base64
-import zeep
 import logging
+
+from odoo.tools.zeep import Client, Transport
 
 _logger = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ class L10nArHTTPAdapter(HTTPAdapter):
         return super().init_poolmanager(*args, **kwargs)
 
 
-class ARTransport(transports.Transport):
+class ARTransport(Transport):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -49,6 +49,20 @@ class ARTransport(transports.Transport):
         self.xml_response = etree.tostring(
             etree.fromstring(response.content), pretty_print=True).decode('utf-8')
         return response
+
+
+class SimpleTransport:
+
+    def __init__(self, transport):
+        self.__obj = transport
+
+    @property
+    def xml_request(self):
+        return self.__obj.xml_request
+
+    @property
+    def xml_response(self):
+        return self.__obj.xml_response
 
 
 class L10nArAfipwsConnection(models.Model):
@@ -95,11 +109,11 @@ class L10nArAfipwsConnection(models.Model):
         auth = {'Token': self.token, 'Sign': self.sign, 'Cuit': self.company_id.partner_id.ensure_vat()}
         try:
             transport = ARTransport(operation_timeout=60, timeout=60)
-            client = zeep.Client(wsdl, transport=transport)
+            client = Client(wsdl, transport=transport)
         except Exception as error:
             self._l10n_ar_process_connection_error(error, self.type, self.l10n_ar_afip_ws)
         if return_transport:
-            return client, auth, transport
+            return client, auth, SimpleTransport(transport)
         return client, auth
 
     @api.model
@@ -176,7 +190,7 @@ class L10nArAfipwsConnection(models.Model):
         try:
             _logger.info('Connect to AFIP to get token: %s %s %s' % (afip_ws, company.l10n_ar_afip_ws_crt_fname, company.name))
             transport = ARTransport(operation_timeout=60, timeout=60)
-            client = zeep.Client(wsdl, transport=transport)
+            client = Client(wsdl, transport=transport)
             response = client.service.loginCms(base64.b64encode(signed_request).decode())
         except Exception as error:
             return self._l10n_ar_process_connection_error(error, environment_type, afip_ws)

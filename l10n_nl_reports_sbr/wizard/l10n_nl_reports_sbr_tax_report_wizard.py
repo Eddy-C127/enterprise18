@@ -8,12 +8,11 @@ import re
 import requests
 import uuid
 import xmlsec
-import zeep
 from cryptography.hazmat.primitives.serialization import Encoding
 from tempfile import NamedTemporaryFile
-from zeep import Client, wsse, wsa
-from zeep.transports import Transport
-from zeep.exceptions import Fault
+from odoo.tools import zeep
+from odoo.tools.zeep import Client, wsse, wsa
+from odoo.tools.zeep.exceptions import Fault
 from lxml import etree
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -32,10 +31,9 @@ def _create_soap_client(wsdl_address, root_cert_file, client_cert, client_pkey):
         session.mount('https://', MemoryCertificateAndKeyHTTPAdapter())
         session.cert = (client_cert, client_pkey)
         session.verify = root_cert_file.name
-        transport = Transport(session=session)
         signature = BinarySignatureTimestamp(client_pkey, client_cert)
         plugins = [WsaSBR()]
-        return Client(wsdl_address, wsse=signature, transport=transport, plugins=plugins)
+        return Client(wsdl_address, wsse=signature, session=session, plugins=plugins)
     except SSLError as e:
         # The certificate was not accepted by the government server
         raise UserError(_("An error occured while using your certificate. Please verify the certificate you uploaded and try again.")) from e
