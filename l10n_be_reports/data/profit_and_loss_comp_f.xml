@@ -493,8 +493,8 @@
                                 <record id="account_financial_report_pl_comp_f_a_pltba_plppbf" model="account.report.line">
                                     <field name="name">14P - Profit (Loss) of the Preceding Period Brought Forward (+)/(-)</field>
                                     <field name="code">BE_PL_14P</field>
-                                    <field name="groupby">account_id</field>
-                                    <field name="foldable" eval="True"/>
+                                    <field name="groupby" eval="False"/>
+                                    <field name="foldable" eval="False"/>
                                     <field name="expression_ids">
                                         <record id="account_financial_report_pl_comp_f_a_pltba_plppbf_balance" model="account.report.expression">
                                             <field name="label">balance</field>
