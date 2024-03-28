@@ -22,6 +22,7 @@ registry
         return result;
     })
     .add("documents.document/dispatch_spreadsheet_message", () => false)
+    .add("ir.model/has_searchable_parent_relation", () => false)
     .add("documents.document/action_open_new_spreadsheet", function (route, args) {
         const spreadsheetId = this.mockCreate("documents.document", {
             name: "Untitled spreadsheet",

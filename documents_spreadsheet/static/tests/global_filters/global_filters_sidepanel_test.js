@@ -57,7 +57,7 @@ async function clickCreateFilter(type) {
 }
 
 async function selectModelForRelation(relation) {
-    await click(target, ".o_side_panel_related_model input");
+    await click(target, '.o_side_panel_related_model input[type="text"]');
     await click(target, `.o_model_selector_${relation}`);
 }
 
@@ -800,6 +800,97 @@ QUnit.module(
                 assert.deepEqual([user.userId], userId);
                 assert.strictEqual(globalFilter.defaultValue, "current_user");
                 assert.strictEqual(globalFilter.label, "Users");
+            }
+        );
+
+        QUnit.test(
+            "Create a new relational global filter with a parent/child model",
+            async function (assert) {
+                const serverData = getBasicServerData();
+                const { model } = await createSpreadsheetFromPivotView({
+                    serverData,
+                    mockRPC: async function (route, args) {
+                        if (
+                            args.method === "has_searchable_parent_relation" &&
+                            args.args[0] === "product"
+                        ) {
+                            return true;
+                        }
+                    },
+                });
+                await nextTick();
+                await openGlobalFilterSidePanel();
+                await clickCreateFilter("relation");
+                await selectModelForRelation("product");
+                const checkbox = target.querySelector(".o-checkbox");
+                assert.strictEqual(checkbox.innerText, "Include children");
+                assert.strictEqual(checkbox.querySelector("input").checked, true);
+                await saveGlobalFilter();
+                const [globalFilter] = model.getters.getGlobalFilters();
+                assert.strictEqual(globalFilter.includeChildren, true);
+            }
+        );
+
+        QUnit.test(
+            "edit a relational global filter to uncheck a parent/child model",
+            async function (assert) {
+                const serverData = getBasicServerData();
+                const { model } = await createSpreadsheetFromPivotView({ serverData });
+                await addGlobalFilter(model, {
+                    id: "42",
+                    type: "relation",
+                    modelName: "product",
+                    label: "Relation Filter",
+                    includeChildren: true,
+                    defaultValue: [],
+                });
+                await nextTick();
+                await openGlobalFilterSidePanel();
+                await click(target, ".fa-cog");
+                const checkbox = target.querySelector(".o-checkbox");
+                assert.strictEqual(checkbox.querySelector("input").checked, true);
+                await click(checkbox);
+                await saveGlobalFilter();
+                const [globalFilter] = model.getters.getGlobalFilters();
+                assert.strictEqual(globalFilter.includeChildren, false);
+            }
+        );
+
+        QUnit.test(
+            "switching relational model displays the children checkbox or not",
+            async function (assert) {
+                const serverData = getBasicServerData();
+                serverData.models["ir.model"].records.push({
+                    id: 999,
+                    name: "Currency",
+                    model: "res.currency",
+                });
+                await createSpreadsheetFromPivotView({
+                    serverData,
+                    mockRPC: async function (route, args) {
+                        if (
+                            args.method === "has_searchable_parent_relation" &&
+                            args.args[0] === "product"
+                        ) {
+                            return true;
+                        }
+                    },
+                });
+                await nextTick();
+                await openGlobalFilterSidePanel();
+                const sidePanel = target.querySelector(".o-sidePanel");
+                await clickCreateFilter("relation");
+                assert.containsNone(sidePanel, ".o-checkbox");
+
+                await selectModelForRelation("res\\.currency");
+                assert.containsNone(sidePanel, ".o-checkbox");
+
+                await selectModelForRelation("product");
+                assert.containsOnce(sidePanel, ".o-checkbox");
+                assert.strictEqual(sidePanel.querySelector(".o-checkbox input").checked, true);
+
+                await selectModelForRelation("res\\.currency");
+                assert.containsNone(sidePanel, ".o-checkbox");
             }
         );
 

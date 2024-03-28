@@ -7,6 +7,9 @@ import { useService } from "@web/core/utils/hooks";
 import { MultiRecordSelector } from "@web/core/record_selectors/multi_record_selector";
 
 import { useState } from "@odoo/owl";
+import { components } from "@odoo/o-spreadsheet";
+
+const { Checkbox } = components;
 
 /**
  * @typedef {import("@spreadsheet/data_sources/metadata_repository").Field} Field
@@ -17,6 +20,7 @@ import { useState } from "@odoo/owl";
  * @property {GlobalFilter["defaultValue"]} defaultValue
  * @property {Array} displayNames
  * @property {{label?: string, technical?: string}} relatedModel
+ * @property {boolean} [includeChildren]
  */
 
 /**
@@ -29,6 +33,7 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
         ModelSelector,
         MultiRecordSelector,
         FilterEditorFieldMatching,
+        Checkbox,
     };
     setup() {
         super.setup();
@@ -38,6 +43,7 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
         this.relationState = useState({
             defaultValue: [],
             displayNames: [],
+            includeChildren: undefined,
             relatedModel: {
                 label: undefined,
                 technical: undefined,
@@ -66,6 +72,7 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
             defaultValue: this.relationState.defaultValue,
             defaultValueDisplayNames: this.relationState.displayNames,
             modelName: this.relationState.relatedModel.technical,
+            includeChildren: this.relationState.includeChildren,
         };
     }
 
@@ -96,11 +103,18 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
     loadSpecificFilterValues(globalFilter) {
         this.relationState.defaultValue = globalFilter.defaultValue;
         this.relationState.relatedModel.technical = globalFilter.modelName;
+        this.relationState.includeChildren = globalFilter.includeChildren;
     }
 
     async onWillStart() {
         await super.onWillStart();
-        await this.fetchModelFromName();
+        const promises = [this.fetchModelFromName()];
+        if (this.relationState.includeChildren) {
+            this.relationState.relatedModel.hasParentRelation = true;
+        } else {
+            promises.push(this.fetchModelRelation());
+        }
+        await Promise.all(promises);
     }
 
     /**
@@ -132,6 +146,8 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
             const field = this._findRelation(object.fields());
             this.onSelectedField(index, field ? field.name : undefined, field);
         });
+        await this.fetchModelRelation();
+        this.relationState.includeChildren = this.relationState.relatedModel.hasParentRelation;
     }
 
     async fetchModelFromName() {
@@ -145,6 +161,16 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
         if (!this.genericState.label) {
             this.genericState.label = this.relationState.relatedModel.label;
         }
+    }
+
+    async fetchModelRelation() {
+        const technicalName = this.relationState.relatedModel.technical;
+        const hasParentRelation = await this.orm.call(
+            "ir.model",
+            "has_searchable_parent_relation",
+            [technicalName]
+        );
+        this.relationState.relatedModel.hasParentRelation = hasParentRelation;
     }
 
     /**
