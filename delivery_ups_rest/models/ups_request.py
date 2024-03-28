@@ -66,11 +66,11 @@ class UPSRequest:
         return ','.join(err_msgs)
 
     def _process_alerts(self, response):
-        messages = []
         alerts = response.get('Alert', [])
-        for alert in alerts:
-            messages.append(alert['Description'])
-        return '\n'.join(messages)
+        if isinstance(alerts, list):
+            messages = [alert['Description'] for alert in alerts]
+            return '\n'.join(messages)
+        return alerts['Description']
 
     def _get_new_access_token(self):
         if not self.client_id or not self.client_secret:
