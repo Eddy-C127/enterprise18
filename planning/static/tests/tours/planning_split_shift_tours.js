@@ -73,12 +73,18 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
     trigger: ".o_gantt_pill_wrapper[data-pill-id='__pill__4']",
     content: "Wait for the new shift to appear",
 }, {
+    trigger: ".o_notification_buttons button i[title='Undo']",
+    content: "An Undo notification should appear",
+}, {
     trigger: ".o_gantt_pill_split_tool[data-split-tool-pill-id='__pill__3_1']",
     content: "Split the slot assigned to Athos after two days",
     run: 'click',
 }, {
     trigger: ".o_gantt_pill_wrapper[data-pill-id='__pill__5']",
     content: "Wait for the new shift to appear",
+}, {
+    trigger: ".o_notification_buttons button i[title='Undo']",
+    content: "An Undo notification should appear",
 }, {
     trigger: ".o_gantt_pill_split_tool[data-split-tool-pill-id='__pill__3_0']",
     content: "Split the first slot assigned to Athos after one day",
@@ -87,10 +93,17 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
     trigger: ".o_gantt_pill_wrapper[data-pill-id='__pill__6']",
     content: "Wait for the new shift to appear",
 }, {
+    trigger: ".o_notification_buttons button i[title='Undo']",
+    content: "An Undo notification should appear",
+}, {
     trigger: ".o_gantt_pill_split_tool[data-split-tool-pill-id='__pill__6_0']",
     content: "Split the first slot assigned to Porthos after one day",
     run: 'click',
 }, {
     trigger: ".o_gantt_pill_wrapper[data-pill-id='__pill__7']",
     content: "Wait for the new shift to appear",
-}]});
+}, {
+    trigger: ".o_notification_buttons button i[title='Undo']",
+    content: "An Undo notification should appear",
+},
+]});

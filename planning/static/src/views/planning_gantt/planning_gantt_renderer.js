@@ -6,10 +6,13 @@ import { getUnionOfIntersections } from "@web_gantt/gantt_helpers";
 import { PlanningEmployeeAvatar } from "./planning_employee_avatar";
 import { PlanningMaterialRole } from "./planning_material_role";
 import { PlanningGanttRowProgressBar } from "./planning_gantt_row_progress_bar";
-import { useEffect, onWillStart, reactive } from "@odoo/owl";
+import { useEffect, onWillStart, reactive, onWillUnmount, markup } from "@odoo/owl";
 import { serializeDateTime } from "@web/core/l10n/dates";
 import { planningAskRecurrenceUpdate } from "../planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_hook";
 import { PlanningGanttRendererControls } from "./planning_gantt_renderer_controls";
+import { escape } from "@web/core/utils/strings";
+import { useService } from "@web/core/utils/hooks";
+import { _t } from "@web/core/l10n/translation";
 
 const { Duration, DateTime } = luxon;
 
@@ -32,11 +35,17 @@ export class PlanningGanttRenderer extends GanttRenderer {
         });
 
         this.isPlanningManager = false;
+        this.notificationService = useService("notification");
         onWillStart(this.onWillStart);
+        onWillUnmount(this.onWillUnmount);
     }
 
     async onWillStart() {
         this.isPlanningManager = await user.hasGroup('planning.group_planning_manager');
+    }
+
+    async onWillUnmount() {
+        this.closePillSplitToolNotifications();
     }
 
     /**
@@ -456,7 +465,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
         });
         const values = { start_datetime: serializeDateTime(start) };
         const context = { planning_split_tool: true };
-        await this.model.orm.call(
+        const [ copiedShiftId ] = await this.model.orm.call(
             this.model.metaData.resModel,
             'copy',
             [[pill.record.id]],
@@ -469,6 +478,64 @@ export class PlanningGanttRenderer extends GanttRenderer {
         });
         const schedule = { end_datetime: serializeDateTime(stop) };
         this.model.reschedule(pill.record.id, schedule, this.openPlanDialogCallback);
+
+        // 3. Close the last split notification if any and show a new split notification with an Undo button
+        this.notificationSplit?.();
+        this.notificationSplit = this.notificationService.add(
+            markup(
+                `<i class="fa fa-fw fa-check"></i><span class="ms-1">${escape(_t(
+                    "Shift divided into two"
+                ))}</span>`
+            ),
+            {
+                type: "success",
+                className: "planning_notification",
+                buttons: [{
+                    name: 'Undo',
+                    icon: 'fa-undo',
+                    onClick: async () => {
+                        // Undo the shift split based on the schedule that was before the split
+                        const result = await this.model.orm.call(
+                            this.model.metaData.resModel,
+                            'undo_split_shift',
+                            [
+                                [pill.record.id, copiedShiftId],
+                                serializeDateTime(pill.record.start_datetime),
+                                serializeDateTime(pill.record.end_datetime),
+                                !pill.record.resource_id ? false : pill.record.resource_id[0],
+                            ],
+                        );
+                        this.closePillSplitToolNotifications();
+                        if (!result) {
+                            this.notificationFail = this.notificationService.add(
+                                markup(
+                                    `<i class="fa fa-fw fa-check"></i><span class="ms-1">${escape(_t(
+                                        "Shifts could not be merged back"
+                                    ))}</span>`
+                                ),
+                                { type: 'danger' },
+                            );
+                        } else {
+                            this.model.fetchData();
+                            this.notificationMerge = this.notificationService.add(
+                                markup(
+                                    `<i class="fa fa-fw fa-check"></i><span class="ms-1">${escape(_t(
+                                        "Shifts merged back"
+                                    ))}</span>`
+                                ),
+                                { type: 'success' },
+                            );
+                        }
+                    },
+                }],
+            }
+        );
+    }
+
+    closePillSplitToolNotifications() {
+        this.notificationFail?.();
+        this.notificationMerge?.();
+        this.notificationSplit?.();
     }
 
     /**

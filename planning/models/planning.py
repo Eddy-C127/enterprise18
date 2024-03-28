@@ -2312,6 +2312,18 @@ class Planning(models.Model):
             'template_id': self.template_id.id,
         }
 
+    def undo_split_shift(self, start_datetime, end_datetime, resource_id):
+        if len(self) != 2:
+            raise ValueError(_("This method must take two slots in argument."))
+        initial_shift, copied_shift = self
+        if not (initial_shift.exists() and copied_shift.exists()):
+            return False
+        initial_shift.start_datetime = start_datetime
+        initial_shift.end_datetime = end_datetime
+        initial_shift.resource_id = resource_id
+        copied_shift.unlink()
+        return True
+
 class PlanningRole(models.Model):
     _name = 'planning.role'
     _description = "Planning Role"

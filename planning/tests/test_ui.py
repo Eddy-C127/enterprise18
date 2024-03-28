@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from collections import defaultdict
 from datetime import datetime, date, time
 from dateutil.relativedelta import relativedelta
 
@@ -78,6 +79,7 @@ class TestUi(TestUiCommon):
         self.start_tour("/", 'planning_test_tour_no_email', login='admin')
 
     def test_split_shift_ui(self):
+        PlanningSlot = self.env['planning.slot']
         # create a user with planning manager rights and timezone set to UTC
         hugo = new_test_user(
             self.env,
@@ -144,7 +146,11 @@ class TestUi(TestUiCommon):
         ])
 
         # 2. Creating employees using those work schedules
-        employee_aramis, employee_athos, employee_porthos = self.env['hr.employee'].create([
+        employees = (
+            employee_aramis,
+            employee_athos,
+            employee_porthos,
+        ) = self.env['hr.employee'].create([
             {
                 'name': 'Aramis',
                 'resource_calendar_id': work_schedule_calendar.id,
@@ -168,7 +174,7 @@ class TestUi(TestUiCommon):
         end_date_normal = datetime.combine(end_date, attendance_schedule['end_pm'])
         end_date_early = datetime.combine(end_date, attendance_schedule['start_am']) - relativedelta(hours=2)
 
-        self.env['planning.slot'].with_user(hugo).create([
+        full_slot_aramis, full_slot_athos, _ = PlanningSlot.with_user(hugo).create([
             {
                 'start_datetime': start_date_normal,
                 'end_datetime': end_date_normal,
@@ -194,23 +200,33 @@ class TestUi(TestUiCommon):
             },
         ])
         # Initially 1 slot assigned to Aramis, 1 to Athos and 3 to Porthos
-        self.assertEqual(self.env['planning.slot'].search_count([('resource_id', '=', employee_aramis.resource_id.id)]), 1)
-        self.assertEqual(self.env['planning.slot'].search_count([('resource_id', '=', employee_athos.resource_id.id)]), 1)
-        self.assertEqual(self.env['planning.slot'].search_count([('resource_id', '=', employee_porthos.resource_id.id)]), 3)
+        slot_count_per_resource = dict(PlanningSlot._read_group(
+            [('resource_id', 'in', employees.resource_id.ids)],
+            ['resource_id'], ['__count'],
+        ))
+        self.assertDictEqual(slot_count_per_resource, {
+            employee_aramis.resource_id: 1,
+            employee_athos.resource_id: 1,
+            employee_porthos.resource_id: 3,
+        })
 
         # 4. Launching tour (Browser in UTC by default)
         self.start_tour("/", 'planning_split_shift_week', login='hugo_user')
 
         # 5. Verify the resulting slots after splitting
-        slots_aramis = self.env['planning.slot'].search_read([('resource_id', '=', employee_aramis.resource_id.id)],
-                                                             fields=['start_datetime', 'end_datetime', 'allocated_hours'],
-                                                             order='start_datetime ASC')
-        slots_athos = self.env['planning.slot'].search_read([('resource_id', '=', employee_athos.resource_id.id)],
-                                                            fields=['start_datetime', 'end_datetime', 'allocated_hours'],
-                                                            order='start_datetime ASC')
-        slots_porthos = self.env['planning.slot'].search_read([('resource_id', '=', employee_porthos.resource_id.id)],
-                                                              fields=['start_datetime', 'end_datetime', 'allocated_hours'],
-                                                              order='start_datetime ASC')
+        slot_data = PlanningSlot.search_read(
+            [('resource_id', 'in', employees.resource_id.ids)],
+            fields=['resource_id', 'start_datetime', 'end_datetime'],
+            order='start_datetime ASC',
+            load=False,
+        )
+        slots_per_resource_id = defaultdict(list)
+        for slot in slot_data:
+            slots_per_resource_id[slot['resource_id']].append(slot)
+        slots_aramis, slots_athos, slots_porthos = (
+            slots_per_resource_id[employee.resource_id.id]
+            for employee in employees
+        )
         # After splitting: 2 slot assigned to Aramis, 3 to Athos and 4 to Porthos
         self.assertEqual(len(slots_aramis), 2)
         self.assertEqual(len(slots_athos), 3)
@@ -225,6 +241,25 @@ class TestUi(TestUiCommon):
                          "When splitting a shift ending before the start of resource's work schedule at the end of the penultimate day, last resulting shift should start one second before it ends.")
         self.assertEqual([slots_porthos[2]['start_datetime'], slots_porthos[2]['end_datetime']], [start_date_normal + relativedelta(weeks=1), end_date_normal + relativedelta(weeks=1)],
                          "Splitting a recurrent shift should only split one occurrence")
+
+        # 6. Undo the splits
+        # One split was done on the slot of Aramis, we undo it and check that the dates of the resulting slot correspond to the ones we had before the split
+        slot1_aramis, slot2_aramis = PlanningSlot.browse([slot['id'] for slot in slots_aramis])
+        (slot1_aramis + slot2_aramis).undo_split_shift(full_slot_aramis.start_datetime, full_slot_aramis.end_datetime, slot1_aramis.resource_id)
+        self.assertFalse(slot2_aramis.exists())
+        self.assertEqual([slot1_aramis.start_datetime, slot1_aramis.end_datetime], [full_slot_aramis.start_datetime, full_slot_aramis.end_datetime])
+
+        # Two splits were done on the slot of Athos, we first undo the second split (between part 1 and part 2 of the slot)
+        slot1_athos, slot2_athos, slot3_athos = PlanningSlot.browse([slot['id'] for slot in slots_athos])
+        slot_athos12_start_date = slot1_athos.start_datetime
+        slot_athos12_end_datetime = slot2_athos.end_datetime
+        (slot1_athos + slot2_athos).undo_split_shift(slot_athos12_start_date, slot_athos12_end_datetime, slot1_athos.resource_id)
+        self.assertFalse(slot2_athos.exists())
+        self.assertEqual([slot1_athos.start_datetime, slot1_athos.end_datetime], [slot_athos12_start_date, slot_athos12_end_datetime])
+        # We then undo the first split (between resulting part and part 3 of the slot)
+        (slot1_athos + slot3_athos).undo_split_shift(full_slot_athos.start_datetime, full_slot_athos.end_datetime, slot1_athos.resource_id)
+        self.assertFalse(slot3_athos.exists())
+        self.assertEqual([slot1_athos.start_datetime, slot1_athos.end_datetime], [full_slot_athos.start_datetime, full_slot_athos.end_datetime])
 
     def test_onboarding_tour(self):
         self.start_tour("/odoo", 'planning_tour', login='admin')
