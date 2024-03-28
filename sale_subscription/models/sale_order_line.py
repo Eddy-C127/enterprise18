@@ -445,7 +445,9 @@ class SaleOrderLine(models.Model):
     # === PRICE COMPUTING HOOKS === #
 
     def _get_pricelist_price(self):
-        if pricing := self.recurring_invoice and \
-                      self.env['sale.subscription.pricing']._get_first_suitable_recurring_pricing(self.product_id, self.order_id.plan_id, self.order_id.pricelist_id):
-            return pricing.currency_id._convert(pricing.price, self.currency_id, self.company_id, fields.date.today())
+        if self.recurring_invoice:
+            pricing = self.env['sale.subscription.pricing']._get_first_suitable_recurring_pricing(self.product_id, self.order_id.plan_id, self.order_id.pricelist_id)
+            if pricing:
+                return pricing.currency_id._convert(pricing.price, self.currency_id, self.company_id, fields.date.today())
+            return super()._get_pricelist_price() or self.price_unit
         return super()._get_pricelist_price()

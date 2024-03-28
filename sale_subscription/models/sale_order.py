@@ -174,10 +174,11 @@ class SaleOrder(models.Model):
                 # so created before merge sale.subscription into sale.order upgrade.
                 # This is the so that created the sale.subscription records.
                 continue
-            if so in recurring_product_orders and not so.plan_id:
-                raise UserError(_('You cannot save a sale order with recurring product and no recurring plan.'))
-            if so.plan_id and so not in recurring_product_orders:
-                raise UserError(_('You cannot save a sale order with a recurring plan and no recurring product.'))
+
+            if so.has_recurring_line and not so.plan_id:
+                raise UserError(_('Please add a recurring plan on the subscription or remove the recurring product.'))
+            if so.plan_id and not so.has_recurring_line:
+                raise UserError(_('Please add a recurring product in the subscription or remove the recurring plan.'))
 
     @api.constrains('subscription_state', 'state')
     def _constraint_canceled_subscription(self):
@@ -205,16 +206,12 @@ class SaleOrder(models.Model):
 
     @api.depends('is_subscription')
     def _compute_subscription_state(self):
-        # The compute method is used to set a default state for quotations
-        # Once the order is confirmed, the state is updated by the actions (renew etc)
         for order in self:
             if order.state not in ['draft', 'sent']:
                 continue
             elif order.subscription_state in ['2_renewal', '7_upsell']:
                 continue
-            elif order.is_subscription or order.state == 'draft' and order.subscription_state == '1_draft':
-                # We keep the subscription state 1_draft to keep the subscription quotation in the subscription app
-                # quotation view.
+            elif order.is_subscription:
                 order.subscription_state = '2_renewal' if order.subscription_id else '1_draft'
             else:
                 order.subscription_state = False
@@ -512,7 +509,7 @@ class SaleOrder(models.Model):
         for order in self:
             order.display_late = order.subscription_state in SUBSCRIPTION_PROGRESS_STATE and order.next_invoice_date and order.next_invoice_date < today
 
-    @api.depends('order_line')
+    @api.depends('order_line', 'order_line.recurring_invoice')
     def _compute_has_recurring_line(self):
         recurring_product_orders = self.order_line.filtered(lambda l: l.product_id.recurring_invoice).order_id
         recurring_product_orders.has_recurring_line = True
@@ -735,9 +732,9 @@ class SaleOrder(models.Model):
             # Raise error before other popup if used on one SO.
             has_recurring_line = self.order_line.filtered(lambda l: l.product_id.recurring_invoice)
             if has_recurring_line and not self.plan_id:
-                raise UserError(_('You cannot send a sale order with recurring product and no subscription plan.'))
+                raise UserError(_('Please set a recurring plan on the subscription before sending the email.'))
             if self.plan_id and not has_recurring_line:
-                raise UserError(_('You cannot send a sale order with a subscription plan and no recurring product.'))
+                raise UserError(_('Please remove the recurring plan on the subscription before sending the email.'))
         return super().action_quotation_send()
 
     def _confirm_subscription(self):

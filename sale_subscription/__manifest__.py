@@ -32,6 +32,7 @@ Features:
         'wizard/sale_subscription_close_reason_wizard_views.xml',
         'wizard/sale_subscription_change_customer_wizard_views.xml',
         'wizard/res_config_settings_views.xml',
+        'views/sale_subscription_plan_views.xml',
         'views/sale_order_views.xml',
         'views/sale_order_template.xml',
         'views/product_template_views.xml',
@@ -45,7 +46,6 @@ Features:
         'views/payment_form_templates.xml',
         'views/mail_activity_plan_views.xml',
         'views/mail_activity_views.xml',
-        'views/sale_subscription_plan_views.xml',
         'data/mail_template_data.xml',
         'data/sale_subscription_data.xml',
         'data/sms_template_data.xml',
@@ -65,6 +65,7 @@ Features:
             'sale_subscription/static/src/js/product_configurator_dialog/*',
             'sale_subscription/static/src/js/sale_product_field.js',
             'sale_subscription/static/src/js/tours/sale_subscription.js',
+            'sale_subscription/static/src/scss/sale_subscription.scss',
         ],
         'web.assets_frontend': [
             'sale_subscription/static/src/js/payment_form.js',

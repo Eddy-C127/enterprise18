@@ -18,7 +18,7 @@ class SaleSubscriptionPlan(models.Model):
     billing_period_unit = fields.Selection([("week", "Weeks"), ("month", "Months"), ('year', 'Years')],
                                            string="Unit", required=True, default='month')
 
-    billing_period_display = fields.Char(compute='_compute_billing_period_display', string="Billing Period")
+    billing_period_display = fields.Char(compute='_compute_billing_period_display', string="Billing Period", search='_search_billing_period_display')
     billing_period_display_sentence = fields.Char(compute='_compute_billing_period_display_sentence', string="Billing Period Display")
 
     # Self Service
@@ -73,6 +73,15 @@ class SaleSubscriptionPlan(models.Model):
                     to_add.related_plan_id = [Command.link(plan.id)]
         return res
 
+    def _search_billing_period_display(self, operator, value):
+        if operator not in ['=', 'in']:
+            raise NotImplementedError
+        plan_ids = self.env['sale.subscription.plan']
+        for plan in self.env['sale.subscription.plan'].search([]):
+            if value in plan.billing_period_display:
+                plan_ids += plan
+        return [('id', 'in', plan_ids.ids)]
+
     def _compute_active_subs_count(self):
         self.active_subs_count = 0
         res = self.env['sale.order'].read_group(
@@ -98,12 +107,14 @@ class SaleSubscriptionPlan(models.Model):
             return False
         return get_timedelta(self.billing_period_value, self.billing_period_unit)
 
+    @api.depends_context('lang')
     @api.depends('billing_period_value', 'billing_period_unit')
     def _compute_billing_period_display(self):
         labels = dict(self._fields['billing_period_unit']._description_selection(self.env))
         for plan in self:
             plan.billing_period_display = f"{plan.billing_period_value} {labels[plan.billing_period_unit]}"
 
+    @api.depends_context('lang')
     @api.depends('billing_period_value', 'billing_period_unit')
     def _compute_billing_period_display_sentence(self):
         for plan in self:

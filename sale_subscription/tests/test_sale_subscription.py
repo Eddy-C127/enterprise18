@@ -2032,12 +2032,12 @@ class TestSubscription(TestSubscriptionCommon):
     def test_subscription_constraint(self):
         sub = self.subscription.copy()
         self.subscription.plan_id = False
-        with self.assertRaisesRegex(UserError, 'You cannot save a sale order with recurring product and no recurring plan.'):
+        with self.assertRaisesRegex(UserError, 'Please add a recurring plan on the subscription or remove the recurring product.'):
             self.subscription.action_confirm()
         self.subscription.plan_id = self.plan_month
         self.product.recurring_invoice = False
         self.product2.recurring_invoice = False
-        with self.assertRaisesRegex(UserError, 'You cannot save a sale order with a recurring plan and no recurring product.'):
+        with self.assertRaisesRegex(UserError, 'Please add a recurring product in the subscription or remove the recurring plan.'):
             sub2 = self.subscription.copy()
             sub2.action_confirm()
         # order linked to subscription with recurring product and no recurrence: it was created before the upgrade
@@ -2326,8 +2326,8 @@ class TestSubscription(TestSubscriptionCommon):
         })
         self.assertFalse(sub_2.is_subscription,
             "Subscription quotation without plan_id isn't a subscription")
-        self.assertEqual(sub_2.subscription_state, '1_draft',
-            "Draft subscription quotation without plan_id should retain subscription_state")
+        self.assertEqual(sub_2.subscription_state, False,
+            "Draft subscription quotation without plan_id should lose subscription_state")
         sub_2.action_confirm()
         self.assertFalse(sub_2.subscription_state,
             "SO without subscription plan should lose subscription_state on confirmation")
