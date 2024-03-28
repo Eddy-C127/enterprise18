@@ -8,7 +8,6 @@
 App to upload and manage your documents.
     """,
 
-    'author': "Odoo",
     'category': 'Productivity/Documents',
     'sequence': 80,
     'version': '1.3',
