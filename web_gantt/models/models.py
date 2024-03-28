@@ -127,7 +127,7 @@ class Base(models.AbstractModel):
         master_record, slave_record = self.env[self._name].browse([master_record_id, slave_record_id])
 
         search_domain = [(dependency_field_name, 'in', master_record.id), ('id', '=', slave_record.id)]
-        if not self.env[self._name].search(search_domain, limit=1):
+        if not self.env[self._name].search_count(search_domain, limit=1):
             raise ValueError("Record '%r' is not a parent record of '%r'" % (master_record.name, slave_record.name))
 
         if not self._web_gantt_reschedule_is_relation_candidate(

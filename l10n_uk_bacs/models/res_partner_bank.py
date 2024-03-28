@@ -8,5 +8,5 @@ class ResPartnerBank(models.Model):
 
     @api.ondelete(at_uninstall=False)
     def _unlink_except_linked_to_ddi(self):
-        if self.env['bacs.ddi'].search([('partner_bank_id', 'in', self.ids), ('state', '=', 'active')]):
+        if self.env['bacs.ddi'].search_count([('partner_bank_id', 'in', self.ids), ('state', '=', 'active')], limit=1):
             raise UserError(_('You cannot delete a bank account linked to an active BACS Direct Debit Instruction.'))

@@ -755,7 +755,7 @@ class AccountMove(models.Model):
 
                 if self.is_purchase_document():
                     iban = qr_content_list[3]
-                    if iban and not self.env['res.partner.bank'].search([('acc_number', '=ilike', iban)]):
+                    if iban and not self.env['res.partner.bank'].search_count([('acc_number', '=ilike', iban)], limit=1):
                         move_form.partner_bank_id = self.with_context(clean_context(self.env.context)).env['res.partner.bank'].create({
                             'acc_number': iban,
                             'company_id': move_form.company_id.id,

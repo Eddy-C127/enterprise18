@@ -112,9 +112,9 @@ class ArgentinianReportCustomHandler(models.AbstractModel):
 
         # 2 columns are conditional, depending on some taxes being active or inactive
         columns_to_remove = []
-        if not self.env['account.tax'].search([('type_tax_use', 'in', tax_types), ('tax_group_id.l10n_ar_vat_afip_code', '=', '9')]):
+        if not self.env['account.tax'].search_count([('type_tax_use', 'in', tax_types), ('tax_group_id.l10n_ar_vat_afip_code', '=', '9')], limit=1):
             columns_to_remove.append('vat_25')
-        if not self.env['account.tax'].search([('type_tax_use', 'in', tax_types), ('tax_group_id.l10n_ar_vat_afip_code', '=', '8')]):
+        if not self.env['account.tax'].search_count([('type_tax_use', 'in', tax_types), ('tax_group_id.l10n_ar_vat_afip_code', '=', '8')], limit=1):
             columns_to_remove.append('vat_5')
 
         options['columns'] = [col for col in options['columns'] if col['expression_label'] not in columns_to_remove]

@@ -1208,7 +1208,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
             return
 
         color_field_name = 'x_color'
-        if not request.env['ir.model.fields'].search([('model_id', '=', model_id), ('name', '=', color_field_name), ('ttype', '=', 'integer')]):
+        if not request.env['ir.model.fields'].search_count([('model_id', '=', model_id), ('name', '=', color_field_name), ('ttype', '=', 'integer')], limit=1):
             # create a field if it doesn't exist in the model
             request.env['ir.model.fields'].create({
                 'model': model,

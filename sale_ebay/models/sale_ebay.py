@@ -127,7 +127,7 @@ class EbayCategory(models.Model):
                     if not isinstance(conditions, list):
                         conditions = [conditions]
                     for condition in conditions:
-                        if not self.env['ebay.item.condition'].search([('code', '=', condition['ID'])]):
+                        if not self.env['ebay.item.condition'].search_count([('code', '=', condition['ID'])], limit=1):
                             self.env['ebay.item.condition'].create({
                                 'code': condition['ID'],
                                 'name': condition['DisplayName'],

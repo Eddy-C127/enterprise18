@@ -8,5 +8,5 @@ class ResPartnerBank(models.Model):
 
     @api.ondelete(at_uninstall=False)
     def _unlink_except_linked_to_mandate(self):
-        if self.env['sdd.mandate'].search([('partner_bank_id', 'in', self.ids),('state','=','active')]):
+        if self.env['sdd.mandate'].search_count([('partner_bank_id', 'in', self.ids), ('state', '=', 'active')], limit=1):
             raise UserError(_('You cannot delete a bank account linked to an active SEPA Direct Debit mandate.'))

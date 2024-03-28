@@ -147,7 +147,7 @@ class ConsolidationJournalLine(models.Model):
                 domain = [('account_id', '=', record.account_id.id), ('journal_id', '=', record.journal_id.id)]
                 if record.id:
                     domain.append(('id', '!=', record.id))
-                if existings.get((record.journal_id, record.account_id), False) or record.search(domain):
+                if existings.get((record.journal_id, record.account_id), False) or record.search_count(domain, limit=1):
                     raise ValidationError(_('Only one entry by account should be created for a generated journal entry!'))
                 existings[(record.journal_id, record.account_id)] = True
 

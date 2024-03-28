@@ -115,7 +115,7 @@ class Picking(models.Model):
         self.l10n_latam_document_type_id = document_type
         self._l10n_cl_create_delivery_guide_validation()
 
-        if not self.env['ir.sequence'].search([('code', '=', 'l10n_cl_edi_stock.stock_picking_caf_sequence'),
+        if not self.env['ir.sequence'].search_count([('code', '=', 'l10n_cl_edi_stock.stock_picking_caf_sequence'),
                                                 ('company_id', '=', self.company_id.id)], limit=1):
             self.l10n_cl_draft_status = True
             return True
@@ -152,7 +152,7 @@ class Picking(models.Model):
 
     def l10n_cl_confirm_draft_delivery_guide(self):
         for record in self:
-            if not self.env['ir.sequence'].search([('code', '=', 'l10n_cl_edi_stock.stock_picking_caf_sequence'),
+            if not self.env['ir.sequence'].search_count([('code', '=', 'l10n_cl_edi_stock.stock_picking_caf_sequence'),
                                                    ('company_id', '=', self.company_id.id)], limit=1):
                 if not record.l10n_latam_document_number:
                     raise UserError(_('You need to specify a Document Number'))

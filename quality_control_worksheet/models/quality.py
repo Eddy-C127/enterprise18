@@ -96,7 +96,7 @@ class QualityCheck(models.Model):
             if not quality_wizard_id:
                 return {'type': 'ir.actions.act_window_close'}
             quality_wizard = self.env['quality.check.wizard'].browse(quality_wizard_id)
-            if model.search(expression.AND([domain, [('x_quality_check_id', '=', self.id)]])):
+            if model.search_count(expression.AND([domain, [('x_quality_check_id', '=', self.id)]]), limit=1):
                 return quality_wizard.do_pass()
             else:
                 # TODO: Write fail message ?

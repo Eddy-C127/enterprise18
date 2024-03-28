@@ -310,7 +310,7 @@ class MrpProductionSchedule(models.Model):
                 if component[0].product_id.type != 'consu':
                     components_list.add((component[0].product_id.id, record.warehouse_id.id, record.company_id.id))
         for component in components_list:
-            if self.env['mrp.production.schedule'].search([
+            if self.env['mrp.production.schedule'].search_count([
                 ('product_id', '=', component[0]),
                 ('warehouse_id', '=', component[1]),
                 ('company_id', '=', component[2]),

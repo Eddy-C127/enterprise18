@@ -266,7 +266,7 @@ class AssetModify(models.TransientModel):
         salvage_increase = max(0, self.salvage_value - new_salvage)
 
         if not self.env.context.get('resume_after_pause'):
-            if self.env['account.move'].search([('asset_id', '=', self.asset_id.id), ('state', '=', 'draft'), ('date', '<=', self.date)]):
+            if self.env['account.move'].search_count([('asset_id', '=', self.asset_id.id), ('state', '=', 'draft'), ('date', '<=', self.date)], limit=1):
                 raise UserError(_('There are unposted depreciations prior to the selected operation date, please deal with them first.'))
             self.asset_id._create_move_before_date(self.date)
 
