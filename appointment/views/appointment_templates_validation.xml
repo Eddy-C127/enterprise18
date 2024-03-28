@@ -73,6 +73,18 @@
                                     <a t-att-href="event.videocall_location" target="_blank" t-out="event.videocall_location"/>
                                 </div>
                             </div>
+                            <div t-elif="event.videocall_redirection" class="row mb-4">
+                                <div class="col-3">
+                                    <label class="text-muted">How to join</label>
+                                </div>
+                                <div class="col-9 text-break">
+                                    <label class="text-muted">
+                                        <t t-if="event.videocall_source == 'discuss'"> Join with Odoo Discuss</t>
+                                        <t t-else=""> Join at</t>
+                                    </label><br/>
+                                    <a t-att-href="event.videocall_redirection" target="_blank" t-out="event.videocall_redirection"/>
+                                </div>
+                            </div>
                             <div t-if="event.resource_total_capacity_reserved > 1" class="row mb-4">
                                 <div class="col-3">
                                     <label class="text-muted">For</label>
