@@ -375,10 +375,11 @@ class ProviderFedex(models.Model):
 
             order_currency = picking.sale_id.currency_id or picking.company_id.currency_id
 
-            for commodity in packages.commodities:
+            commodities = [com for pack in packages for com in pack.commodities]
+            for commodity in commodities:
                 srm.commodities(self, commodity, _convert_curr_iso_fdx(order_currency.name))
 
-            total_commodities_amount = sum(c.monetary_value * c.qty for c in packages.commodities)
+            total_commodities_amount = sum(com.monetary_value * com.qty for com in commodities)
             srm.customs_value(_convert_curr_iso_fdx(order_currency.name), total_commodities_amount, "NON_DOCUMENTS")
             srm.duties_payment(order.warehouse_id.partner_id, superself.fedex_account_number, superself.fedex_duty_payment)
 
