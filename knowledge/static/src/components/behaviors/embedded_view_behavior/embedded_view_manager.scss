@@ -15,6 +15,9 @@
         .o_content:not(.o_view_sample_data) .o_view_nocontent:not(.o_knowledge_item_calendar_nocontent) {
             display: none !important;
         }
+        .o_content {
+            max-height: 80vh;
+        }
     }
     .o_view_nocontent_empty_folder:before {
         @extend %o-nocontent-empty-document;
