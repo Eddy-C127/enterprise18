@@ -470,6 +470,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         company_a = self.env['res.company'].create({'name': 'Company "Ah !" (le meme TMTC)'})
         company_b = self.env['res.company'].create({'name': 'Company Bae 😏😘'})
         self.env.user.write({
+            'groups_id': [(4, self.env.ref('stock.group_production_lot').id)],
             'company_ids': [(4, company_a.id), (4, company_b.id)],
             'company_id': company_b.id,
         })
@@ -2564,7 +2565,11 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         this record can still be found anyway while using the GS1 nomenclature."""
         self.clean_access_rights()
         group_package = self.env.ref('stock.group_tracking_lot')
-        self.env.user.write({'groups_id': [(4, group_package.id, 0)]})
+        group_lot = self.env.ref('stock.group_production_lot')
+        self.env.user.write({'groups_id': [
+            (4, group_package.id, 0),
+            (4, group_lot.id, 0),
+        ]})
         self.env.company.nomenclature_id = self.env.ref('barcodes_gs1_nomenclature.default_gs1_nomenclature')
         # Creates two products and a package with misleading barcode.
         self.env['product.product'].create({
