@@ -8,7 +8,7 @@ import {
     Many2ManyTagsField,
     Many2ManyTagsFieldColorEditable,
 } from "@web/views/fields/many2many_tags/many2many_tags_field";
-import { Component, useRef } from "@odoo/owl";
+import { Component, useRef, useState } from "@odoo/owl";
 
 const actionFieldsGet = {
     tag_ids: { type: "many2many", relation: "sign.template.tag", string: "Tags" },
@@ -45,6 +45,7 @@ export class SignTemplateTopBar extends Component {
         hasSignRequests: { type: Boolean },
         onTemplateNameChange: { type: Function },
         manageTemplateAccess: { type: Boolean },
+        resModel: { type: String },
     };
 
     setup() {
@@ -53,6 +54,9 @@ export class SignTemplateTopBar extends Component {
         this.notification = useService("notification");
         this.orm = useService("orm");
         this.signTemplateFieldsGet = getActionActiveFields();
+        this.state = useState({
+            properties: false,
+        });
     }
 
     changeInputSize() {
@@ -75,6 +79,19 @@ export class SignTemplateTopBar extends Component {
         if (e.key === "Enter") {
             this.displayNameInput.el.blur();
         }
+    }
+
+    /**
+    * Saves the current signature document as sign template,
+    * and updates the button's property state accordingly.
+    *
+    * @returns {Promise|boolean}
+    */
+    async onTemplateSaveClick() {
+        const templateId = this.props.signTemplate.id;
+        this.state.properties = await this.orm.call("sign.template", "write", [[templateId], { active: true }]);
+        this.notification.add(_t("Document saved as Template."), { type: "success" });
+        return this.state.properties;
     }
 
     onTemplatePropertiesClick() {

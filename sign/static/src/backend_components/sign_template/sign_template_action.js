@@ -26,6 +26,7 @@ export class SignTemplate extends Component {
         const params = this.props.action.params;
         this.templateID = params.id;
         this.actionType = params.sign_edit_call || "";
+        this.resModel = params.resModel || "";
         onWillStart(async () => {
             if (!this.templateID) {
                 return this.goBackToKanban();
@@ -37,7 +38,7 @@ export class SignTemplate extends Component {
     async fetchTemplateData() {
         const template = await this.orm.call("sign.template", "read", [
             [this.templateID],
-            ["id", "attachment_id", "has_sign_requests", "responsible_count", "display_name"],
+            ["id", "attachment_id", "has_sign_requests", "responsible_count", "display_name", "active"],
         ]);
         if (!template.length) {
             this.templateID = undefined;

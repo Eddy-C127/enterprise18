@@ -14,8 +14,15 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             run: "click",
         },
         {
+            content: "Click on Template Menu",
+            trigger: 'a[data-menu-xmlid="sign.sign_template_menu"]',
+            position: "bottom",
+            run: "click",
+        },
+        {
             content: "Remove My Favorites filter",
             trigger: ".o_cp_searchview .o_facet_remove",
+            extra_trigger: ".o_last_breadcrumb_item > span:contains('Templates')",
             run: "click",
         },
         {

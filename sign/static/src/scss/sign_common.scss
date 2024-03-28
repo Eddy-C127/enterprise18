@@ -287,3 +287,34 @@
         display: none !important;
     }
 }
+
+.o_sign_view {
+    .o_view_nocontent {
+        .o_view_nocontent_sign:before {
+            @extend %o-nocontent-init-image;
+            width: 130px;
+            height: 130px;
+            background: transparent url(/sign/static/img/sign_template.svg) no-repeat center;
+            background-size: 130px 130px;
+            margin-bottom: 0.75rem;
+        }
+    }
+}
+
+.o_sign_template_kanban, .o_content {
+    .o_dropzone {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: #AAAA;
+        z-index: 10;
+        left: 0;
+        top: 0;
+        i {
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+    }
+}

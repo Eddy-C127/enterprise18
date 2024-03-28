@@ -61,7 +61,7 @@
                             </div>
                             <div class="o_kanban_record_bottom">
                                 <div class="oe_kanban_bottom_left">
-                                    <em><field name="create_date"/></em>
+                                    <em><field name="create_date" widget="datetime_no_seconds"/></em>
                                     <div class="o_kanban_inline_block">
                                         <field name="activity_ids" widget="kanban_activity"/>
                                     </div>
@@ -236,36 +236,19 @@
         </field>
     </record>
 
-    <record id="sign_request_waiting_for_me_action" model="ir.actions.act_window">
-        <field name="name">Waiting for me</field>
+    <record id="sign_all_request_action" model="ir.actions.act_window">
+        <field name="name">All Documents</field>
         <field name="res_model">sign.request</field>
-        <field name="path">waiting-for-signature</field>
+        <field name="path">sign-all-documents</field>
         <field name="view_mode">kanban,tree,form,activity</field>
         <field name="search_view_id" ref="sign_request_view_search"/>
-        <field name="domain">[('request_item_ids.partner_id.user_ids', 'in', uid)]</field>
-        <field name="context" eval="{'search_default_waiting_for_me': 1}"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Nothing to sign at the moment!
+                No document yet
             </p><p>
-                You will find documents waiting for your signature here.
+                You're one click away from automating your signature process!
             </p>
-        </field>
-    </record>
-
-    <record id="sign_request_my_requests_action" model="ir.actions.act_window">
-        <field name="name">My requests</field>
-        <field name="res_model">sign.request</field>
-        <field name="path">my-sign-requests</field>
-        <field name="view_mode">kanban,tree,form,activity</field>
-        <field name="search_view_id" ref="sign_request_view_search"/>
-        <field name="domain">['|', ('create_uid', '=', uid), ('request_item_ids.partner_id.user_ids', 'in', uid)]</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Nothing yet!
-            </p><p>
-                You will find all documents that you participate in here, either as a signatory or as the person who requested the signature.
-            </p>
+            <p>Upload a PDF file or use an existing template to begin.</p>
         </field>
     </record>
 

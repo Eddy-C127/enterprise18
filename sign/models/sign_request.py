@@ -82,7 +82,7 @@ class SignRequest(models.Model):
     request_item_ids = fields.One2many('sign.request.item', 'sign_request_id', string="Signers", copy=True)
     state = fields.Selection([
         ("shared", "Shared"),
-        ("sent", "Sent"),
+        ("sent", "To Sign"),
         ("signed", "Fully Signed"),
         ("canceled", "Cancelled"),
         ("expired", "Expired"),

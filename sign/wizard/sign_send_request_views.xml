@@ -13,6 +13,7 @@
                             <field name="set_sign_order" nolabel="1" widget="boolean_toggle" class="oe_inline" options="{'autosave': false}"/>
                             <label for="set_sign_order" class="fw-bold"/>
                         </div>
+                        <field name="signer_id" string="Contacts" class="w-90" invisible="signers_count != 0 or not template_id" required="signers_count == 0" options="{'no_quick_create': True}" context="{'show_email': True, 'form_view_ref': 'base.view_partner_simple_form'}"/>
                     </group>
                     <group invisible="context.get('sign_directly_without_mail', False)">
                         <field name="filename" placeholder="Name for the file" colspan="2"/>
@@ -36,7 +37,6 @@
                     </group>
                 </group>
 
-                <field name="signer_id" invisible="signers_count != 0 or not template_id" required="signers_count == 0" options="{'no_quick_create': True}" context="{'show_email': True, 'form_view_ref': 'base.view_partner_simple_form'}"/>
                 <field name="activity_id" invisible="1"/>
                 <field name="signers_count" invisible="1"/>
                 <field name="has_default_template" invisible="1"/>

@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { click, getFixture, mount, patchWithCleanup } from "@web/../tests/helpers/utils";
+import { getFixture, mount } from "@web/../tests/helpers/utils";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import {
     makeFakeDialogService,
@@ -91,98 +91,6 @@ QUnit.module("thank you dialog", (hooks) => {
             target.querySelector("button.btn-primary").textContent,
             "Close",
             "Should render close button"
-        );
-    });
-
-    QUnit.test("Thank you dialog shows nextDocuments", async (assert) => {
-        const nextDocuments = [
-            {
-                id: 1,
-                name: "Test",
-                date: "2022-12-12",
-                user: 1,
-                token: "123abc",
-                requestId: 2,
-            },
-            {
-                id: 2,
-                name: "Test 2",
-                date: "2022-12-12",
-                user: 1,
-                token: "abc123",
-                requestId: 3,
-            },
-        ];
-        const mockRPC = (route) => {
-            if (route === "/sign/encrypted/23") {
-                return false;
-            } else if (route === "/sign/sign_request_state/23/abc") {
-                return "draft";
-            } else if (route === "/sign/sign_request_items") {
-                return nextDocuments;
-            } else if (route === "/web/dataset/call_kw/sign.request/cancel") {
-                return true;
-            }
-        };
-
-        patchWithCleanup(ThankYouDialog.prototype, {
-            goToDocument: (id, token) => {
-                if (id === nextDocuments[0].requestId && token === nextDocuments[0].token) {
-                    assert.step("sign-first-document");
-                } else if (id === nextDocuments[1].requestId && token === nextDocuments[1].token) {
-                    assert.step("sign-second-document");
-                }
-            },
-        });
-
-        await mountThankYouDialog(await createEnv(mockRPC));
-
-        assert.containsN(target, ".next-document", 2, "Should render two next documents to sign");
-        const nextDocumentNames = Array.from(target.querySelectorAll(".next-document strong")).map(
-            (item) => item.textContent
-        );
-        assert.deepEqual(
-            nextDocumentNames,
-            ["Test", "Test 2"],
-            "Should render the names of the next documents"
-        );
-
-        assert.containsOnce(
-            target,
-            "button:contains('Sign Next Document')",
-            "Should render sign next document button"
-        );
-        await click(target.querySelector(".next-document .o_thankyou_next_sign"));
-
-        // cancel first document, see that class changes
-        await click(target.querySelector(".next-document .o_thankyou_next_cancel"));
-
-        assert.containsOnce(
-            target,
-            ".next-document.text-muted",
-            "Should add muted class after a document is canceled"
-        );
-
-        const signNextDocumentButton = Array.from(target.querySelectorAll("button")).find(
-            (button) => button.textContent === "Sign Next Document"
-        );
-
-        await click(signNextDocumentButton);
-        assert.verifySteps(["sign-first-document", "sign-second-document"]);
-
-        assert.equal(
-            signNextDocumentButton.disabled,
-            false,
-            "Sign next document button should be enabled at first"
-        );
-        await click(
-            target.querySelector(".next-document:not(.text-muted) .o_thankyou_next_cancel")
-        );
-        assert.containsN(target, ".next-document.text-muted", 2, "All documents should be muted");
-        assert.equal(
-            signNextDocumentButton.disabled,
-            true,
-            "Sign next document should be disabled as all documents are canceled"
         );
     });
 

@@ -134,19 +134,12 @@ export class ThankYouDialog extends Component {
                         window.location.assign("/my/signatures");
                     } else {
                         this.props.close();
-                        this.env.services.action.doAction("sign.sign_template_action", {
+                        this.env.services.action.doAction("sign.sign_request_action", {
                             clearBreadcrumbs: true,
                         });
                     }
                 },
             });
-            if (this.state.nextDocuments.length > 0) {
-                this.state.buttons.push({
-                    name: _t("Sign Next Document"),
-                    classes: "o_thankyou_button_next",
-                    click: this.clickButtonNext,
-                });
-            }
         }
 
         for (let i = 0; i < this.state.buttons.length; i++) {

@@ -72,10 +72,11 @@ Let your customers follow the signature process easily.
             'sign/static/src/css/green_saving_reports.scss',
         ],
         'web.assets_backend': [
-            'sign/static/src/js/tours/sign.js',
+            'sign/static/src/js/**/*',
             'sign/static/src/scss/sign_common.scss',
             'sign/static/src/scss/sign_backend.scss',
             'sign/static/src/activity/**',
+            'sign/static/src/mixin/**/*',
             'sign/static/src/components/**/*',
             'sign/static/src/backend_components/**/*',
             'sign/static/src/views/**/*',
@@ -96,6 +97,10 @@ Let your customers follow the signature process easily.
         'web.qunit_suite_tests': [
             'sign/static/tests/**/*',
             ('remove', 'sign/static/tests/tours/**/*'),
+            ('remove', 'sign/static/tests/mock_server/**/*'),
+        ],
+        'web.assets_unit_tests': [
+            'sign/static/tests/mock_server/**/*',
         ],
         'sign.assets_public_sign': [
             ('include', 'web._assets_helpers'),

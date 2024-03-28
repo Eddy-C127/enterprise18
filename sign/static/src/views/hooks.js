@@ -1,12 +1,12 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
-import { useService } from "@web/core/utils/hooks";
+import { useService, useBus } from "@web/core/utils/hooks";
 import { multiFileUpload } from "@sign/backend_components/multi_file_upload";
 import { user } from "@web/core/user";
 import { getDataURLFromFile } from "@web/core/utils/urls";
 import { TemplateAlertDialog } from "@sign/backend_components/template_alert_dialog/template_alert_dialog";
-import { onWillStart, useComponent, useRef } from "@odoo/owl";
+import { onWillStart, useComponent, useRef, useEnv } from "@odoo/owl";
 
 export function useSignViewButtons() {
     const component = useComponent();
@@ -14,6 +14,7 @@ export function useSignViewButtons() {
     const orm = useService("orm");
     const dialog = useService("dialog");
     const action = useService("action");
+    const env = useEnv();
 
     onWillStart(async () => {
         component.isSignUser = await user.hasGroup("sign.group_sign_user");
@@ -21,9 +22,11 @@ export function useSignViewButtons() {
 
     let latestRequestContext;
     let inactive;
+    let resModel;
 
     const uploadFile = async (file) => {
         const dataUrl = await getDataURLFromFile(file);
+        inactive = resModel === 'sign.template' ? true : false;
         const args = [file.name, dataUrl.split(",")[1], inactive];
         return await orm.call("sign.template", "create_with_attachment_data", args);
     };
@@ -45,19 +48,20 @@ export function useSignViewButtons() {
                 sign_edit_call: latestRequestContext,
                 id: file.template,
                 sign_directly_without_mail: false,
+                resModel: resModel,
             },
         });
     };
 
-    return {
+    const upload = {
         /**
          * Handles the template file upload logic.
          */
         onFileInputChange: async (ev) => {
-            if (!ev.target.files.length) {
+            const files = ev?.type === "change" ? ev.target.files : ev.detail.files;
+            if (!files || !files.length) {
                 return;
             }
-            const files = ev.target.files;
             const uploadedTemplates = await Promise.all(Array.from(files).map(uploadFile));
             const templates = uploadedTemplates.map((template, index) => ({
                 template,
@@ -88,13 +92,24 @@ export function useSignViewButtons() {
         },
 
         /**
-         * Opens the file input dialog and sets the given properties
-         * for the file upload.
-         */
-        requestFile(active, context) {
-            inactive = !active;
+        * Initiates the file upload process by opening a file input dialog
+        * and configuring the 'save as template' button based on the provided model
+        * and other properties.
+        *
+        * @param {Object}
+        */
+        requestFile(context) {
             latestRequestContext = context;
+            resModel = this.props.resModel;
             fileInput.el.click();
         },
     };
+
+    useBus(env.bus, "change_file_input", async (ev) => {
+        fileInput.el.files = ev.detail.files;
+        resModel = ev.detail.resModel
+        await upload.onFileInputChange(ev);
+    });
+
+    return upload
 }

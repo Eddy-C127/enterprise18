@@ -35,14 +35,6 @@ registry.category("web_tour.tours").add("sign_tour", {
             run: "click",
         },
         {
-            trigger: ":iframe .o_sign_item_display",
-            content: _t(
-                "Click on the field to specify who should fill it in, or if it's mandatory or not."
-            ),
-            position: "top",
-            run: "click",
-        },
-        {
             trigger: ".o_control_panel .o_sign_template_send",
             content: markup(
                 _t(
