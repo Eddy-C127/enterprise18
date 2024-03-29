@@ -1,6 +1,7 @@
 /** @odoo-module */
 
-import { KnowledgeSearchModel } from "@knowledge/search_model/search_model";
+import { KnowledgeSearchModelMixin } from "@knowledge/search_model/search_model";
+import { SearchModel } from "@web/search/search_model";
 import { View } from "@web/views/view";
 
 export class EmbeddedView extends View {
@@ -14,7 +15,9 @@ export class EmbeddedView extends View {
         const {additionalViewProps, onDeleteKnowledgeFavorite, onSaveKnowledgeFavorite, ...viewProps} = props;
         Object.assign(viewProps, additionalViewProps);
         await super.loadView(viewProps);
-        this.withSearchProps.SearchModel = KnowledgeSearchModel;
+        this.withSearchProps.SearchModel = KnowledgeSearchModelMixin(
+            this.withSearchProps.SearchModel || SearchModel
+        );
         this.withSearchProps.searchModelArgs = {
             onSaveKnowledgeFavorite,
             onDeleteKnowledgeFavorite,
