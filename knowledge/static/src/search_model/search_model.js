@@ -2,7 +2,7 @@
 
 import { SearchModel } from "@web/search/search_model";
 
-export class KnowledgeSearchModel extends SearchModel {
+export const KnowledgeSearchModelMixin = (T) => class extends T {
     setup(services, args) {
         this.onSaveKnowledgeFavorite = args.onSaveKnowledgeFavorite;
         this.onDeleteKnowledgeFavorite = args.onDeleteKnowledgeFavorite;
@@ -69,3 +69,5 @@ export class KnowledgeSearchModel extends SearchModel {
         this.isStateCompleteForEmbeddedView = state.isStateCompleteForEmbeddedView;
     }
 }
+
+export class KnowledgeSearchModel extends KnowledgeSearchModelMixin(SearchModel) {}
