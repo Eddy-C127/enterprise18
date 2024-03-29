@@ -32,9 +32,6 @@ class MailActivity(models.Model):
                 ('attachment_id', '=', False)
             ])
             if documents:
-                to_remove = self.env['documents.document'].search([('attachment_id', '=', attachment_ids[0])])
-                if to_remove:
-                    to_remove.unlink()
                 if not feedback:
                     feedback = _("Document Request: %(name)s Uploaded by: %(user)s", name=documents[0].name, user=self.env.user.name)
                 documents.write({
