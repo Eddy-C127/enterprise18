@@ -13,7 +13,7 @@ registry.category("web_tour.tours").add("OrderLotsRentalTour", {
     steps: () =>
         [
             Dialog.confirm("Open session"),
-            ProductScreen.controlButton("Quotation/Order"),
+            ProductScreen.clickControlButton("Quotation/Order"),
             ProductScreen.selectFirstOrder(),
             ProductScreen.clickLotIcon(),
             ProductScreen.enterLotNumber("123456789"),

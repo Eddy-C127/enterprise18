@@ -57,7 +57,7 @@ registry.category("web_tour.tours").add("PreparationDisplayTourResto", {
             ProductScreen.clickOrderButton(),
             ProductScreen.orderlinesHaveNoChange(),
             ProductScreen.selectedOrderlineHas("Minute Maid", "1.00"),
-            ProductScreen.pressNumpad("⌫"),
+            ProductScreen.clickNumpad("⌫"),
             ProductScreen.selectedOrderlineHas("Minute Maid", "0.00"),
             ProductScreen.clickPayButton(),
             PaymentScreen.clickPaymentMethod("Cash"),
