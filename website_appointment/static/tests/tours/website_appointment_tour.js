@@ -17,10 +17,11 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
     }, {
         content: 'Set name of appointment type',
         trigger: '#name_0',
+        run: "edit Test",
     }, {
         content: 'Set max scheduled days',
         trigger: '#max_schedule_days_0',
-        run: 'text 45',
+        run: "edit 45",
     }, {
         content: 'Open the options tab',
         trigger: 'a[name="options"]',
@@ -43,7 +44,7 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
     }, {
         content: 'Fill tel field',
         trigger: 'input[name="phone"]',
-        run: 'text 0123456789',
+        run: "edit 0123456789",
     }, {
         content: 'Click on the add guest link',
         trigger: 'button.btn-link',

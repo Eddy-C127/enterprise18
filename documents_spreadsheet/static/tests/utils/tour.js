@@ -7,12 +7,10 @@ import { registry } from "@web/core/registry";
  * @param {string} templateName
  */
 export function registerTemplateTour(tourName, templateName) {
-    registry.category("web_tour.tours").add(
-        tourName,
-        {
-            test: true,
-            url: "/web",
-            steps: () => [
+    registry.category("web_tour.tours").add(tourName, {
+        test: true,
+        url: "/web",
+        steps: () => [
             {
                 trigger: '.o_app[data-menu-xmlid="documents.menu_root"]',
                 content: "Open document app",
@@ -37,7 +35,7 @@ export function registerTemplateTour(tourName, templateName) {
             {
                 trigger: "input.o_searchview_input",
                 content: "Search the template",
-                run: `text ${templateName}`,
+                run: `edit ${templateName}`,
             },
             {
                 trigger: ".o_menu_item.focus",
@@ -58,6 +56,6 @@ export function registerTemplateTour(tourName, templateName) {
                 content: "Redirected to spreadsheet",
                 isCheck: true,
             },
-        ]
+        ],
     });
 }

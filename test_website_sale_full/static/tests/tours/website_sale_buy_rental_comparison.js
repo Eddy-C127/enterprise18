@@ -14,7 +14,7 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_comparison', {
         {
             content: "Search Warranty write text",
             trigger: 'form input[name="search"]',
-            run: "text Warranty",
+            run: "edit Warranty",
         },
         {
             content: "Search Warranty click",

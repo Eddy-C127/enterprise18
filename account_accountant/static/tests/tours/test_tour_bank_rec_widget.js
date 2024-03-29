@@ -134,7 +134,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
         {
             content: "Search for 'partner_a'",
             trigger: "div[name='partner_id'] input",
-            run: "text partner_a",
+            run: "edit partner_a",
         },
         {
             content: "Select 'partner_a'",
@@ -150,7 +150,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
             content: "Enter a tax",
             extra_trigger: "tr:not(.o_bank_rec_auto_balance_line) td[field='account_id']:contains('Payable')",
             trigger: "div[name='tax_ids'] input",
-            run: "text 15",
+            run: "edit 15",
         },
         {
             content: "Select 'Tax 15% (Sales)'",

@@ -40,7 +40,7 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
 }, {
     trigger: ".o_searchview_input",
     content: "Search planning shifts assigned to Aramis",
-    run: "text Aramis",
+    run: "fill Aramis",
 }, {
     trigger: ".o_menu_item.dropdown-item > a:not(.o_expand)",
     content: "Select filter resource = Aramis",
@@ -48,7 +48,7 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
 }, {
     trigger: ".o_searchview_input",
     content: "Search planning shifts assigned to Athos",
-    run: "text Athos",
+    run: "fill Athos",
 }, {
     trigger: ".o_menu_item.dropdown-item > a:not(.o_expand)",
     content: "Select filter resource = Athos",
@@ -56,7 +56,7 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
 }, {
     trigger: ".o_searchview_input",
     content: "Search planning shifts assigned to Porthos",
-    run: "text Porthos",
+    run: "fill Porthos",
 }, {
     trigger: ".o_menu_item.dropdown-item > a:not(.o_expand)",
     content: "Select filter resource = Porthos",

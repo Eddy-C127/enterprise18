@@ -43,7 +43,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 const textTriggerElement = this.anchor.querySelector(htmlFieldSelector)
                     || this.anchor.querySelector(inputFieldSelector)
                     || this.anchor;
-                actions.text('My intervention details', textTriggerElement);
+                actions.edit('My intervention details', textTriggerElement);
             },
             position: 'bottom',
         }, {

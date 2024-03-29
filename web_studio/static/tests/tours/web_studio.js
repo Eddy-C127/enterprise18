@@ -50,7 +50,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             trigger: ".o_web_studio_app_creator_name > input",
             content: markup(_t("How do you want to <b>name</b> your app? Library, Academy, …?")),
             position: "right",
-            run: "text " + utils.randomString(6),
+            run: "edit " + utils.randomString(6),
         },
         {
             trigger: ".o_web_studio_selectors .o_web_studio_selector_icon > button",
@@ -68,7 +68,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 _t("How do you want to name your first <b>menu</b>? My books, My courses?")
             ),
             position: "right",
-            run: "text " + utils.randomString(6),
+            run: "edit " + utils.randomString(6),
         },
         {
             trigger: ".o_web_studio_app_creator_next.is_ready",
@@ -109,7 +109,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 )
             ),
             position: "bottom",
-            run: "text My Field",
+            run: "edit My Field && blur",
         },
         {
             // wait for the field to be renamed
@@ -138,7 +138,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 _t("Create your <b>selection values</b> (e.g.: Romance, Polar, Fantasy, etc.)")
             ),
             position: "top",
-            run: "text " + utils.randomString(6),
+            run: "edit " + utils.randomString(6),
         },
         {
             trigger:
@@ -151,6 +151,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
         },
         {
             trigger: ".o_web_studio_sidebar [name='string']",
+            run: "edit Test",
             auto: true,
         },
         {
@@ -167,6 +168,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 )
             ),
             position: "bottom",
+            run: "edit Test",
         },
         {
             trigger: ".o_web_studio_leave",
@@ -181,6 +183,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             trigger: ".o_field_char.o_required_modifier > input",
             auto: true,
             position: "bottom",
+            run: "edit Test",
         },
         {
             trigger: ".o_control_panel .o_form_button_save",

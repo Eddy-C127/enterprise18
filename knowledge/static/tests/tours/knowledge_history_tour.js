@@ -18,7 +18,7 @@ function changeArticleContentAndSave(newContent) {
     return [ {
         // change the content of the article
         trigger: '.note-editable.odoo-editor-editable h1',
-        run: 'text ' + newContent,  // modify the article content
+        run: `editor ${newContent}`,  // modify the article content
     }, {
         // reload knowledge articles to make sure that the article is saved
         trigger: 'a[data-menu-xmlid="knowledge.knowledge_menu_home"]',

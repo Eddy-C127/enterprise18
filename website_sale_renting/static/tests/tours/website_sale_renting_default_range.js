@@ -11,7 +11,7 @@ registry
             {
                 content: "Search computer write text",
                 trigger: 'form input[name="search"]',
-                run: "text computer",
+                run: "edit computer",
             },
             {
                 content: "Search computer click",

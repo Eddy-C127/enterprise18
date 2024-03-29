@@ -19,12 +19,12 @@ registry.category("web_tour.tours").add('timesheet_record_time', {
     {
         trigger: 'div[name=name] input',
         content: "Describe your activity.",
-        run: "text Description"
+        run: "edit Description"
     },
     {
         trigger: '.timesheet-timer div[name="project_id"] input',
         content: "Select the project on which you are working.",
-        run: "text Test Project",
+        run: "edit Test Project",
     },
     {
         trigger: ".ui-autocomplete > li > a:contains(Test Project)",

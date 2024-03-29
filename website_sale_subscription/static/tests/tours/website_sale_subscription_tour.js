@@ -10,7 +10,7 @@ registry.category("web_tour.tours").add('shop_buy_subscription_product', {
         {
             content: "Search streaming write text",
             trigger: 'form input[name="search"]',
-            run: "text Streaming SUB Week",
+            run: "edit Streaming SUB Week",
         },
         {
             content: "Search streaming click",
@@ -38,7 +38,7 @@ registry.category("web_tour.tours").add('shop_buy_subscription_product', {
         {
             content: "Search streaming monthly write text",
             trigger: 'form input[name="search"]',
-            run: "text Streaming SUB month",
+            run: "edit Streaming SUB month",
         },
         {
             content: "Search streaming monthly click",

@@ -14,7 +14,7 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     trigger: '.o-kanban-button-new',
 }, {
     trigger: '.o_required_modifier[name=partner_id] input',
-    run: 'text Tajine Saucisse',
+    run: "edit Tajine Saucisse",
 }, {
     trigger: '.ui-menu-item > a:contains("Tajine Saucisse")',
     auto: true,
@@ -22,7 +22,7 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     trigger: 'a:contains("Add a product")'
 }, {
     trigger: 'div[name="product_template_id"] input',
-    run: 'text Custom',
+    run: "edit Custom",
 }, {
     trigger: 'ul.ui-autocomplete a:contains("Customizable Desk (TEST)")',
 },
@@ -50,10 +50,10 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     run: "click",
 }, {
     trigger: ".o_data_row:eq(0) .o_data_cell[name='product_uom_qty'] input",
-    run: "text 2.0",
+    run: "edit 2.0 && blur",
 }, {
     trigger: ".o_data_row:eq(0) .o_data_cell[name='price_unit'] input",
-    run: "text 42.0",
+    run: "edit 42.0 && blur",
 }, {
     content: 'Wait for the unit price to be rerendered.',
     trigger: '.o_selected_row [name=price_unit] input:value(42.00)',
@@ -65,7 +65,7 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     trigger: 'a:contains("Add a product")',
 }, {
     trigger: 'div[name="product_template_id"] input',
-    run: 'text Custom',
+    run: "edit Custom",
 }, {
     trigger: 'ul.ui-autocomplete a:contains("Customizable Desk (TEST)")',
 },
@@ -84,7 +84,7 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     run: "click",
 }, {
     trigger: ".o_data_row:eq(3) .o_data_cell[name='product_uom_qty'] input",
-    run: "text 5.0",
+    run: "edit 5.0 && blur",
 }, {
     trigger: 'button[name=action_confirm]',
     position: 'bottom',

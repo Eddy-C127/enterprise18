@@ -23,14 +23,14 @@ registry.category("web_tour.tours").add('test_serial_tracked_and_register', {tes
     {
         trigger: 'div.o_field_widget[name="lot_id"] input ',
         position: 'bottom',
-        run: 'text Magic_3',
+        run: "edit Magic_3",
     },
     { trigger: '.ui-menu-item > a:contains("Magic_3")' },
     { trigger: '.o_tablet_client_action' },
     {
         trigger: 'div.o_field_widget[name="finished_lot_id"] input ',
         position: 'bottom',
-        run: 'text Magic Potion_2',
+        run: "edit Magic Potion_2",
     },
     { trigger: '.ui-menu-item > a:contains("Magic Potion_2")' },
     {
@@ -44,7 +44,7 @@ registry.category("web_tour.tours").add('test_serial_tracked_and_register', {tes
     {
         trigger: 'div.o_field_widget[name="lot_id"] input ',
         position: 'bottom',
-        run: 'text Magic_1',
+        run: "edit Magic_1",
     },
     { trigger: '.ui-menu-item > a:contains("Magic_1")' },
     { trigger: '.o_tablet_client_action' },

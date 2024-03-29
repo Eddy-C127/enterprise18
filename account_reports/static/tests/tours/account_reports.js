@@ -121,7 +121,7 @@ registry.category("web_tour.tours").add('account_reports', {
         {
             content: "Add text to annotate",
             trigger: "textarea",
-            run: "text Footnote 121000"
+            run: "edit Footnote 121000",
         },
         {
             content: "Submit footnote",
@@ -164,11 +164,12 @@ registry.category("web_tour.tours").add('account_reports', {
         {
             content: "Annotate contains previous text value",
             trigger: "textarea:value(Footnote 121000)",
+            run: "edit Test",
         },
         {
             content: "Add text to annotate",
             trigger: "textarea",
-            run: "text Footnote 121000 edited"
+            run: "edit Footnote 121000 edited"
         },
         {
             content: "Submit footnote",

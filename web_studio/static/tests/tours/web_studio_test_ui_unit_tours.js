@@ -351,7 +351,7 @@ registry.category("web_tour.tours").add("web_studio_set_tree_node_conditional_in
         },
         {
             trigger: ".o_tree_editor_condition input.o_input",
-            run: "text Robert",
+            run: "edit Robert && blur",
         },
         {
             trigger: ".modal-footer .btn-primary",
@@ -463,7 +463,7 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
         },
         {
             trigger: ".o_web_studio_add_selection .o-web-studio-interactive-list-item-input",
-            run: "text some value",
+            run: "edit some value",
         },
         {
             trigger: ".modal-footer .btn-primary",
@@ -485,7 +485,7 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
         {
             in_modal: true,
             trigger: ".o_web_studio_add_selection .o-web-studio-interactive-list-item-input",
-            run: "text another value cancel",
+            run: "edit another value cancel",
         },
         {
             trigger: ".o_web_studio_add_selection .o-web-studio-interactive-list-edit-item",
@@ -511,7 +511,7 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
         {
             in_modal: true,
             trigger: ".o_web_studio_add_selection .o-web-studio-interactive-list-item-input",
-            run: "text another value",
+            run: "edit another value",
         },
         {
             trigger: ".modal-footer .btn-primary",
@@ -547,7 +547,7 @@ registry.category("web_tour.tours").add("web_studio_test_create_one2many_lines_t
         {
             extra_trigger: ".o_web_studio_sidebar .o_web_studio_properties.active",
             trigger: "input[name='string']",
-            run: "text new name",
+            run: "edit new name && blur",
         },
         {
             trigger: ".o_web_studio_leave",
@@ -619,7 +619,7 @@ registry.category("web_tour.tours").add("web_studio_test_create_new_model_from_e
         {
             extra_trigger: ".modal-dialog",
             trigger: "input[name='model_name']",
-            run: "text new model",
+            run: "edit new model",
         },
         {
             trigger: ".confirm_button",
@@ -651,7 +651,7 @@ registry.category("web_tour.tours").add("web_studio_test_create_model_with_click
         {
             extra_trigger: ".modal-dialog",
             trigger: "input[name='model_name']",
-            run: "text new model",
+            run: "edit new model",
         },
         {
             trigger: ".confirm_button",
@@ -668,7 +668,7 @@ registry.category("web_tour.tours").add("web_studio_test_create_model_with_click
         {
             extra_trigger: ".o_form_view",
             trigger: "input#x_name_0",
-            run: "text new record",
+            run: "edit new record",
         },
         {
             trigger: ".o_arrow_button:contains(In Progress)",
@@ -982,7 +982,7 @@ registry.category("web_tour.tours").add("web_studio_test_related_file", {
             in_modal: false,
             extra_trigger: ".o_model_field_selector_popover",
             trigger: ".o_model_field_selector_popover_search input",
-            run: "text Related Partner",
+            run: "edit Related Partner",
         },
         {
             in_modal: false,
@@ -991,7 +991,7 @@ registry.category("web_tour.tours").add("web_studio_test_related_file", {
         {
             in_modal: false,
             trigger: ".o_model_field_selector_popover_search input",
-            run: "text New File",
+            run: "edit New File",
         },
         {
             in_modal: false,
@@ -1087,7 +1087,7 @@ registry.category("web_tour.tours").add("web_studio_test_new_field_rename_descri
         },
         {
             trigger: ".o_web_studio_sidebar input[name='string']",
-            run: "text my new field",
+            run: "edit my new field && blur",
         },
         {
             trigger:
@@ -1118,7 +1118,7 @@ registry.category("web_tour.tours").add("web_studio_test_edit_digits_option", {
         },
         {
             trigger: "input#digits",
-            run: "text 2",
+            run: "edit 2 && blur",
         },
         {
             trigger: ".o_web_studio_leave",
@@ -1135,7 +1135,7 @@ registry.category("web_tour.tours").add("web_studio_no_fetch_subview", {
         },
         {
             trigger: "input#name_0",
-            run: "text value",
+            run: "edit value",
         },
         {
             trigger: "button.o_form_button_save",
@@ -1150,7 +1150,7 @@ registry.category("web_tour.tours").add("web_studio_no_fetch_subview", {
         },
         {
             trigger: ".o_record_selector input",
-            run: "text Contact",
+            run: "edit Contact",
         },
         {
             trigger: "a.dropdown-item:contains(Contact)",

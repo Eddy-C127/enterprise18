@@ -20,7 +20,7 @@ const validateFavoriteFilterPersistence = function(kanban, filterName) {
     }, {
         content: 'Give the name to the item',
         trigger: 'input#name_0',
-        run: 'text Item 1',
+        run: "edit Item 1",
     }, {
         content: 'click on the edit button',
         trigger: '.o_kanban_edit',
@@ -94,10 +94,11 @@ const validateFavoriteFiltersSteps = function (kanban1, kanban2) {
         trigger: ".o_favorite_menu .o_add_favorite",
     }, {
         trigger: ".o_favorite_menu:contains(Favorites) input[type='text']",
-        run: "text testFilter",
+        run: "edit testFilter && blur .o_favorite_menu",
     }, {
         // use by default
-        trigger: ".o_favorite_menu .o-checkbox:contains(Default filter) input",
+        trigger: ".o_favorite_menu .o-checkbox label:contains(Default filter)",
+        run: "click",
     }, {
         trigger: ".o_favorite_menu .o_save_favorite",
     },
@@ -172,7 +173,7 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         },
         {
             trigger: ".modal-body input.form-control",
-            run: "text Items 1",
+            run: "edit Items 1",
         },
         {
             trigger: "button:contains('Insert')",
@@ -194,7 +195,7 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         },
         {
             trigger: ".modal-body input.form-control",
-            run: "text Items 2",
+            run: "edit Items 2",
         },
         {
             trigger: "button:contains('Insert')",
@@ -224,7 +225,7 @@ registry.category("web_tour.tours").add("knowledge_search_favorites_tour", {
             trigger: '.dropdown-item:contains(Edit)'
         }, { // rename the view Kanban 1
             trigger: '.modal-dialog input.form-control',
-            run: `text Kanban 1`,
+            run: `edit Kanban 1`,
         }, { // click on rename
             trigger: "button:contains('Rename')",
         }, { // check the application of the rename

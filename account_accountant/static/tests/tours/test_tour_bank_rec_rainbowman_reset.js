@@ -37,7 +37,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_rain
             content: "No records brings rainbows",
             extra_trigger: ".o_bank_rec_selected_st_line:contains('line2')",
             trigger: "div.o_kanban_view .o_searchview_input",
-            run: "text thisShouldNotReturnAnyRecords",
+            run: "fill thisShouldNotReturnAnyRecords",
         },
         {
             content: "Select the Journal Entry search option from the dropdown",
@@ -52,7 +52,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_rain
             content: "Search for no results again",
             extra_trigger: ".o_bank_rec_st_line:contains('line2')",
             trigger: "div.o_kanban_view .o_searchview_input",
-            run: "text thisShouldNotReturnAnyRecords",
+            run: "fill thisShouldNotReturnAnyRecords",
         },
         {
             content: "Select the Journal Entry search option from the dropdown",

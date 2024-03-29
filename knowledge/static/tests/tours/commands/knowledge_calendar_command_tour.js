@@ -82,7 +82,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     },
 }, { // Set the name of the item
     trigger: '.o_knowledge_editor .odoo-editor-editable h1',
-    run: 'text Item Article',
+    run: "editor Item Article",
 }, { // Go back to parent article
     trigger: '.o_knowledge_tree .o_article_name:contains("EditorCommandsArticle")',
     run: 'click',
@@ -111,7 +111,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, { // Create a new start property
     trigger: '.o_select_menu_menu input',
     in_modal: false,
-    run: 'text Start Property'
+    run: "edit Start Property",
 }, {
     trigger: '.o_select_menu_menu .o_select_menu_item.o_create_datetime',
     in_modal: false,
@@ -122,7 +122,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, { // Create a new stop property
     trigger: '.o_select_menu_menu input',
     in_modal: false,
-    run: 'text Stop Property'
+    run: "edit Stop Property",
 }, {
     trigger: '.o_select_menu_menu .o_select_menu_item.o_create_choice',
     in_modal: false,
@@ -162,7 +162,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, {
     trigger: '.o_field_property_definition_header',
-    run: 'text Date Property',
+    run: "edit Date Property",
 }, {
     trigger: '.o_field_property_definition_type button.dropdown-toggle',
     run: 'click',
@@ -177,7 +177,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, {
     trigger: '.o_field_property_definition_header',
-    run: 'text Boolean Property',
+    run: "edit Boolean Property",
 }, {
     trigger: '.o_field_property_definition_type button.dropdown-toggle',
     run: 'click',
@@ -192,7 +192,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, {
     trigger: '.o_field_property_definition_header',
-    run: 'text Text Property',
+    run: "edit Text Property",
 }, {
     trigger: '.o_field_property_definition_type button.dropdown-toggle',
     run: 'click',
@@ -204,10 +204,10 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, { // Set the text property
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Text Property") input',
-    run: 'text Custom text',
+    run: 'edit Custom text && blur',
 }, { // Set the name of the item
     trigger: '.o_knowledge_editor .odoo-editor-editable h1',
-    run: 'text Item Article',
+    run: "editor Item Article",
 }, { // Go back to parent article
     trigger: '.o_knowledge_tree .o_article_name:contains("Article Items")',
     run: 'click',
@@ -355,7 +355,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: function () {
         const input = this.anchor.querySelector("input");
         if (!input.value.includes("09:00:00")) {
-            throw new Error('Item start date property has not been updated');
+            console.error('Item start date property has not been updated');
         }
     },
 }, {
@@ -364,7 +364,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
         const input = this.anchor.querySelector("input");
         // When resizing an event, the event spans the hovered row, so we need to add 15 minutes
         if (!input.value.includes("11:15:00")) {
-            throw new Error('Item stop date property has not been updated');
+            console.error('Item stop date property has not been updated');
         }
     },
 }, { // Check text property did not change
@@ -372,7 +372,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: function () {
         const input = this.anchor.querySelector("input");
         if (!input.value.includes("Custom text")) {
-            throw new Error('Item text property has changed');
+            console.error('Item text property has changed');
         }
     },
 }, {

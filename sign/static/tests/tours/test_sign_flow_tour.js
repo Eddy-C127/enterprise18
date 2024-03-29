@@ -21,7 +21,7 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
         {
             content: 'Search template "template_1_roles"',
             trigger: ".o_cp_searchview input",
-            run: "text template_1_role(2)",
+            run: "edit template_1_role(2)",
             position: "bottom",
         },
         {
@@ -58,7 +58,7 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
         {
             content: "Fill the sign item",
             trigger: ":iframe input.o_sign_sign_item",
-            run: "text Mitchell Admin",
+            run: "edit Mitchell Admin",
         },
         {
             content: "Click next 1",

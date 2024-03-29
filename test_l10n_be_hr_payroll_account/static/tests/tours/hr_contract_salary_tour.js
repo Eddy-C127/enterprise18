@@ -2,7 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { createFile, inputFiles } from "@web/../tests/utils";
-import { queryOne, queryAll } from "@odoo/hoot-dom";
+import { queryOne } from "@odoo/hoot-dom";
 
 registry.category("web_tour.tours").add("hr_contract_salary_tour", {
     test: true,
@@ -46,7 +46,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Job's Name",
             trigger: ".o_field_widget[name='name'] textarea",
-            run: "text Experienced Developer (BE)",
+            run: "edit Experienced Developer (BE)",
         },
         {
             content: "Select Recruitment Tab",
@@ -56,7 +56,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Contract Template",
             trigger: ".o_field_widget.o_field_many2one[name=default_contract_id] input",
-            run: `text New Developer Template Contract`,
+            run: `edit New Developer Template Contract`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains(New Developer Template Contract)",
@@ -83,17 +83,17 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Applicant Name",
             trigger: '.oe_title [name="name"] textarea',
-            run: "text Jojo Zeboss' Application",
+            run: "edit Jojo Zeboss' Application",
         },
         {
             content: "Applicant's Name",
             trigger: '.oe_title [name="partner_name"] input',
-            run: "text Mitchell Admin 2",
+            run: "edit Mitchell Admin 2",
         },
         {
             content: "Applicant's Email",
             trigger: '.o_group [name="email_from"] input',
-            run: "text mitchell2.stephen@example.com",
+            run: "edit mitchell2.stephen@example.com",
         },
         {
             content: "Generate Offer",
@@ -154,7 +154,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Set Public Transportation Amount",
             trigger: 'input[name="public_transport_reimbursed_amount_manual"]',
-            run: "text 100",
+            run: "edit 100 && blur",
         },
         {
             content: "Unchoose Public Transportation",
@@ -171,7 +171,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Set Train Transportation Amount",
             trigger: 'input[name="train_transport_reimbursed_amount_manual"]',
-            run: "text 150",
+            run: "edit 150 && blur",
         },
         {
             content: "Unchoose Public Transportation",
@@ -188,19 +188,19 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Set Private Car Transportation Amount",
             trigger: 'input[name="private_car_reimbursed_amount_manual"]',
-            run: "text 150",
+            run: "edit 150 && blur",
         },
         {
             content: "Change km_home_work on personal info",
             trigger: 'input[name="km_home_work"]',
             extra_trigger: 'input[name="Gross"][value="2886.87"]',
-            run: "text 75",
+            run: "edit 75 && blur",
         },
         {
             content: "Reset 150 km",
             trigger: 'input[name="km_home_work"]',
             extra_trigger: 'input[name="Gross"][value="2930.88"]',
-            run: "text 150",
+            run: "edit 150 && blur",
         },
         {
             content: "Unchoose Private Car Transportation",
@@ -216,32 +216,17 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose Bike 2",
-            trigger: "label[for=company_bike_depreciated_cost]",
+            trigger: "select[name=select_company_bike_depreciated_cost]",
+            allowInvisible: true,
             extra_trigger: 'input[name="Gross"][value="2982.81"]',
-            run: function () {
-                queryOne(
-                    "select[name=select_company_bike_depreciated_cost] option:contains(Bike 2)"
-                ).selected = true;
-                const el = document.querySelector(
-                    "select[name=select_company_bike_depreciated_cost]"
-                );
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-
-            },
+            run: "selectByLabel Bike 2",
         },
         {
             content: "Choose Bike 1",
-            trigger: "label[for=company_bike_depreciated_cost]",
+            trigger: "select[name=select_company_bike_depreciated_cost]",
+            allowInvisible: true,
             extra_trigger: 'input[name="Gross"][value="2965.61"]',
-            run: function () {
-                queryOne(
-                    "select[name=select_company_bike_depreciated_cost] option:contains(Bike 1)"
-                ).selected = true;
-                const el = document.querySelector(
-                    "select[name=select_company_bike_depreciated_cost]"
-                );
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            run: "selectByLabel Bike 1",
         },
         {
             content: "Unchoose Bike",
@@ -253,13 +238,13 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Unset Internet",
             trigger: 'input[name="internet_manual"]',
             extra_trigger: 'input[name="Gross"][value="3000"]',
-            run: "text 0",
+            run: "edit 0 && blur",
         },
         {
             content: "Reset Internet",
             trigger: 'input[name="internet_manual"]',
             extra_trigger: 'input[name="Gross"][value="3026.13"]',
-            run: "text 38",
+            run: "edit 38 && blur",
         },
         {
             content: "Unset Mobile",
@@ -277,23 +262,13 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Take Extra-Legal Leaves",
             trigger: 'input[list="holidays_range"]',
             extra_trigger: 'input[name="Gross"][value="3000"]',
-            run() {
-                this.anchor.value = 10;
-                this.anchor.dispatchEvent(
-                    new Event("change", { bubbles: true, cancelable: false })
-                );
-            },
+            run: "range 10",
         },
         {
             content: "Untake Extra-Legal Leaves",
             trigger: 'input[list="holidays_range"]',
             extra_trigger: 'input[name="Gross"][value="2860.17"]',
-            run: function () {
-                this.anchor.value = 0;
-                this.anchor.dispatchEvent(
-                    new Event("change", { bubbles: true, cancelable: false })
-                );
-            },
+            run: "range 0",
         },
         {
             content: "Take IP",
@@ -330,23 +305,13 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Take Fuel Card",
             trigger: 'input[list="fuel_card_range"]',
             extra_trigger: 'input[name="Gross"][value="2671.14"]',
-            run: function () {
-                this.anchor.value = 250;
-                this.anchor.dispatchEvent(
-                    new Event("change", { bubbles: true, cancelable: false })
-                );
-            },
+            run: "range 250",
         },
         {
             content: "Untake Fuel Card",
             trigger: 'input[list="fuel_card_range"]',
             extra_trigger: 'input[name="Gross"][value="2499.2"]',
-            run: function () {
-                this.anchor.value = 0;
-                this.anchor.dispatchEvent(
-                    new Event("change", { bubbles: true, cancelable: false })
-                );
-            },
+            run: "range 0",
         },
         {
             content: "Unchoose a car",
@@ -357,7 +322,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Name",
             trigger: 'input[name="name"]',
-            run: "text Nathalie",
+            run: "edit Nathalie",
         },
         {
             content: "BirthDate",
@@ -376,113 +341,101 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "National Identification Number",
             trigger: 'input[name="identification_id"]',
-            run: "text 11.11.11-111.11",
+            run: "edit 11.11.11-111.11",
         },
         {
             content: "Street",
             trigger: 'input[name="private_street"]',
-            run: "text Rue des Wallons",
+            run: "edit Rue des Wallons",
         },
         {
             content: "City",
             trigger: 'input[name="private_city"]',
-            run: "text Louvain-la-Neuve",
+            run: "edit Louvain-la-Neuve",
         },
         {
             content: "Zip Code",
             trigger: 'input[name="private_zip"]',
-            run: "text 1348",
+            run: "edit 1348",
         },
         {
             content: "Email",
             trigger: 'input[name="private_email"]',
-            run: "text nathalie.stephen@example.com",
+            run: "edit nathalie.stephen@example.com",
         },
         {
             content: "Phone Number",
             trigger: 'input[name="private_phone"]',
-            run: "text 1234567890",
+            run: "edit 1234567890",
         },
         {
             content: "Place of Birth",
             trigger: 'input[name="place_of_birth"]',
-            run: "text Brussels",
+            run: "edit Brussels",
         },
         {
             content: "KM Home/Work",
             trigger: 'input[name="km_home_work"]',
-            run: "text 75",
+            run: "edit 75",
         },
         {
             content: "Certificate",
-            trigger: "label[for=certificate]",
-            run: function () {
-                queryOne("select[name=certificate] option:contains(Master)").selected = true;
-                const el = document.querySelector("select[name=certificate]");
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            trigger: "select[name=certificate]",
+            allowInvisible: true,
+            run: "selectByLabel Master",
         },
         {
             content: "School",
             trigger: 'input[name="study_school"]',
-            run: "text UCL",
+            run: "edit UCL",
         },
         {
             content: "School Level",
             trigger: 'input[name="study_field"]',
-            run: "text Civil Engineering, Applied Mathematics",
+            run: "edit Civil Engineering, Applied Mathematics",
         },
         {
             content: "Set Seniority at Hiring",
             trigger: 'input[name="l10n_be_scale_seniority"]',
-            run: "text 1",
+            run: "edit 1",
         },
         {
             content: "Bank Account",
             trigger: 'input[name="acc_number"]',
-            run: "text BE10 3631 0709 4104",
+            run: "edit BE10 3631 0709 4104",
         },
         {
             content: "Private License Plate",
             trigger: 'input[name="private_car_plate"]',
-            run: "text 1-ABC-123",
+            run: "edit 1-ABC-123",
         },
         {
             content: "Emergency Contact",
             trigger: 'input[name="emergency_contact"]',
-            run: "text Batman",
+            run: "edit Batman",
         },
         {
             content: "Emergency Phone",
             trigger: 'input[name="emergency_phone"]',
-            run: "text +32 2 290 34 90",
+            run: "edit +32 2 290 34 90",
         },
         {
             content: "Nationality",
-            trigger: "label[for=country_id]:eq(0)",
-            run: function () {
-                queryAll("select[name=country_id] option:contains(Belgium)").at(0).selected = true;
-                const el = document.querySelector("select[name=country_id]");
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            trigger: "select[name=country_id]",
+            allowInvisible: true,
+            run: "selectByLabel Belgium",
         },
         {
             content: "Country of Birth",
-            trigger: "label[for=country_of_birth]:eq(0)",
-            run: function () {
-                queryAll("select[name=country_of_birth] option:contains(Belgium)").at(0).selected = true;
-                const el = document.querySelector("select[name=country_of_birth]");
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            trigger: "select[name=country_of_birth]",
+            allowInvisible: true,
+            run: "selectByLabel Belgium",
         },
         {
             content: "Lang",
-            trigger: "label[for=lang]:eq(0)",
-            run: function () {
-                queryAll("select[name=lang] option:contains(English)").at(0).selected = true;
-                const el = document.querySelector("select[name=lang]");
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            trigger: "select[name=lang]",
+            allowInvisible: true,
+            run: "selectByLabel English",
         },
         {
             content: "Check Disabled",
@@ -497,13 +450,10 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Set Married",
-            trigger: "label[for=marital]",
+            trigger: "select[name=marital]",
             extra_trigger: 'input[name="Net"][value="2114.69"]',
-            run: function () {
-                queryOne("select[name=marital] option:contains(Married)").selected = true;
-                const el = document.querySelector("select[name=marital]");
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            allowInvisible: true,
+            run: "selectByLabel Married",
         },
         {
             content: "Check Disabled Spouse Bool",
@@ -519,31 +469,23 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Set High Spouse Income",
-            trigger: "label[for=spouse_fiscal_status]",
+            trigger: "select[name=spouse_fiscal_status]",
             extra_trigger: 'input[name="Net"][value="2431.1"]',
-            run: function () {
-                queryOne(
-                    'select[name=spouse_fiscal_status] option:contains("With High Income")'
-                ).selected = true;
-                const el = document.querySelector("select[name=spouse_fiscal_status]");
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            allowInvisible: true,
+            run: "selectByLabel With High Income",
         },
         {
             content: "Unset Married",
-            trigger: "label[for=marital]",
+            trigger: "select[name=marital]",
             extra_trigger: 'input[name="Net"][value="2114.69"]',
-            run: function () {
-                queryOne("select[name=marital] option:contains(Single)").selected = true;
-                const el = document.querySelector("select[name=marital]");
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            allowInvisible: true,
+            run: "selectByLabel Single",
         },
         {
             content: "Set Children",
             trigger: "input[name=children]",
             extra_trigger: 'input[name="Net"][value="2114.69"]',
-            run: "text 3",
+            run: "edit 3 && blur",
         },
         {
             content: "Check Disabled Children",
@@ -555,13 +497,13 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Set 1 Disabled Children",
             trigger: "input[name=disabled_children_number]",
             extra_trigger: 'input[name="Net"][value="2444.69"]',
-            run: "text 1",
+            run: "edit 1 && blur",
         },
         {
             content: "Set 0 Disabled Children",
             trigger: "input[name=disabled_children_number]",
             extra_trigger: 'input[name="Net"][value="2663.69"]',
-            run: "text_blur 0",
+            run: "edit 0 && blur",
         },
         {
             content: "Uncheck Disabled Children",
@@ -573,7 +515,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Unset Children",
             trigger: "input[name=children]",
             extra_trigger: 'input[name="Net"][value="2444.69"]',
-            run: "text 0",
+            run: "edit 0 && blur",
         },
         {
             content: "Check Other Dependent People",
@@ -585,49 +527,49 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Set 2 Senior",
             trigger: "input[name=other_senior_dependent]",
             extra_trigger: 'input[name="Net"][value="2114.69"]',
-            run: "text 2",
+            run: "edit 2 && blur",
         },
         {
             content: "Set 1 disabled Senior",
             trigger: "input[name=other_disabled_senior_dependent]",
             extra_trigger: 'input[name="Net"][value="2282.69"]',
-            run: "text 1",
+            run: "edit 1 && blur",
         },
         {
             content: "Set 2 Juniors",
             trigger: "input[name=other_juniors_dependent]",
             extra_trigger: 'input[name="Net"][value="2366.69"]',
-            run: "text 2",
+            run: "edit 2 && blur",
         },
         {
             content: "Set 1 disabled Junior",
             trigger: "input[name=other_disabled_juniors_dependent]",
             extra_trigger: 'input[name="Net"][value="2444.69"]',
-            run: "text 1",
+            run: "edit 1 && blur",
         },
         {
             content: "Unset 1 disabled Senior over 2",
             trigger: "input[name=other_disabled_juniors_dependent]",
             extra_trigger: 'input[name="Net"][value="2483.69"]',
-            run: "text 0",
+            run: "edit 0 && blur",
         },
         {
             content: "Unset 2 Juniors",
             trigger: "input[name=other_juniors_dependent]",
             extra_trigger: 'input[name="Net"][value="2444.69"]',
-            run: "text 0",
+            run: "edit 0 && blur",
         },
         {
             content: "Unset 1 disabled Senior",
             trigger: "input[name=other_disabled_senior_dependent]",
             extra_trigger: 'input[name="Net"][value="2366.69"]',
-            run: "text 0",
+            run: "edit 0 && blur",
         },
         {
             content: "Unset 2 Seniors",
             trigger: "input[name=other_senior_dependent]",
             extra_trigger: 'input[name="Net"][value="2282.69"]',
-            run: "text 0",
+            run: "edit 0 && blur",
         },
         {
             content: "Uncheck Other Dependent People",
@@ -643,16 +585,9 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose a new car",
-            trigger: "label[for=company_car_total_depreciated_cost]",
-            run: function () {
-                queryOne(
-                    'select[name="select_company_car_total_depreciated_cost"] option:contains(a3)'
-                ).selected = true;
-                const el = document.querySelector(
-                    'select[name="select_company_car_total_depreciated_cost"]'
-                );
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            trigger: `select[name="select_company_car_total_depreciated_cost"]`,
+            allowInvisible: true,
+            run: "selectByLabel a3",
         },
         // set personal info
         {
@@ -734,7 +669,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Type Date",
             trigger: ":iframe input.ui-selected",
-            run: "text 17/09/2018",
+            run: "edit 17/09/2018",
         },
         {
             content: "Next 2",
@@ -744,7 +679,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Type Number",
             trigger: ":iframe input.ui-selected",
-            run: "text 58/4",
+            run: "edit 58/4",
         },
         // fill signature
         {
@@ -781,7 +716,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Type Date",
             trigger: ":iframe input.ui-selected",
-            run: "text 17/09/2018",
+            run: "edit 17/09/2018",
         },
         {
             content: "Validate and Sign",
@@ -910,17 +845,17 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Application Name",
             trigger: '.oe_title [name="name"] textarea',
-            run: "text Mitchell's Application",
+            run: "edit Mitchell's Application",
         },
         {
             content: "Applicant's Name",
             trigger: '.oe_title [name="partner_name"] input',
-            run: "text Mitchell Admin 3",
+            run: "edit Mitchell Admin 3",
         },
         {
             content: "Add Email Address",
             trigger: '.o_group [name="email_from"] input',
-            run: "text mitchell2.stephen@example.com",
+            run: "edit mitchell2.stephen@example.com",
         },
         {
             content: "Confirm Applicant Creation",
@@ -952,7 +887,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             content: "Manager",
             trigger:
                 ".o_field_widget.o_field_many2one_avatar_user.o_field_many2one_avatar[name=parent_id] input",
-            run: `text Mitchell`,
+            run: `edit Mitchell`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains(Mitchell)",
@@ -961,7 +896,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Add Work Email",
             trigger: '.o_group [name="work_email"] input',
-            run: "text mitchel3_work@example.com",
+            run: "edit mitchel3_work@example.com",
         },
         {
             content: "Save Employee",
@@ -978,12 +913,12 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Contract Reference",
             trigger: '.modal-content .o_field_widget[name="name"] input',
-            run: "text Mitchell Admin PFI Contract",
+            run: "edit Mitchell Admin PFI Contract",
         },
         {
             content: "Salary Structure Type",
             trigger: ".modal-content .o_field_widget.o_field_many2one[name=structure_type_id] input",
-            run: `text CP200: Belgian Employee`,
+            run: `edit CP200: Belgian Employee`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('CP200: Belgian Employee')",
@@ -998,7 +933,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             content: "HR Responsible",
             trigger:
                 "div.o_field_widget.o_required_modifier.o_field_many2one_avatar_user.o_field_many2one_avatar[name=hr_responsible_id] input",
-            run: `text Mitchell`,
+            run: `edit Mitchell`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('Mitchell Admin')",
@@ -1007,7 +942,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Contract Update Template",
             trigger: ".o_field_widget.o_field_many2one[name=contract_update_template_id] input",
-            run: `text test_employee_contract`
+            run: `edit test_employee_contract`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('test_employee_contract')",
@@ -1016,7 +951,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "New Contract Document Template",
             trigger: ".o_field_widget.o_field_many2one[name=sign_template_id] input",
-            run: `text test_employee_contract`
+            run: `edit test_employee_contract`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('test_employee_contract')",
@@ -1030,7 +965,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Contract Information",
             trigger: "div[name='wage'] input",
-            run: "text 2950",
+            run: "edit 2950",
         },
         {
             content: "Contract Information",
@@ -1040,7 +975,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Contract Information",
             trigger: ".o_field_widget.o_field_many2one[name=car_id] input",
-            run: `text JFC`,
+            run: `edit JFC`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('1-JFC-095')",
@@ -1049,17 +984,17 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Contract Information",
             trigger: "div[name='fuel_card'] input",
-            run: "text 250",
+            run: "edit 250 && blur",
         },
         {
             content: "Contract Information",
             trigger: "div[name='commission_on_target'] input",
-            run: "text 1000",
+            run: "edit 1000 && blur",
         },
         {
             content: "Contract Information",
             trigger: "[name='ip_wage_rate'] input",
-            run: "text 25",
+            run: "edit 25 && blur",
         },
         {
             content: "Contract Information",
@@ -1085,7 +1020,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Select Contract",
             trigger: ".o_field_widget.o_field_many2one[name=contract_id] input",
-            run: `text Mitchell Admin PFI`,
+            run: `edit Mitchell Admin PFI`,
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('Mitchell Admin PFI Contract')",
@@ -1139,21 +1074,17 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Choose a new car in waiting list",
-            trigger: "label[for=wishlist_car_total_depreciated_cost]",
-            run: function () {
-                queryOne(
-                    'select[name="select_wishlist_car_total_depreciated_cost"] option:contains(Corsa)'
-                ).selected = true;
-                const el = document.querySelector(
-                    'select[name="select_wishlist_car_total_depreciated_cost"]'
-                );
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            extra_trigger: "label[for=wishlist_car_total_depreciated_cost]",
+            trigger: `select[name="select_wishlist_car_total_depreciated_cost"]`,
+            allowInvisible: true,
+            run: "selectByLabel Corsa",
         },
         {
             content: "BirthDate",
             trigger: 'input[name="birthday"]',
-            run: "text 2017-09-01",
+            run() {
+                this.anchor.value = "2017-09-01";
+            },
         },
         {
             content: "Gender",
@@ -1165,126 +1096,111 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "National Identification Number",
             trigger: 'input[name="identification_id"]',
-            run: "text 11.11.11-111.11",
+            run: "edit 11.11.11-111.11",
         },
         {
             content: "Street",
             trigger: 'input[name="private_street"]',
-            run: "text Rue des Wallons",
+            run: "edit Rue des Wallons",
         },
         {
             content: "City",
             trigger: 'input[name="private_city"]',
-            run: "text Louvain-la-Neuve",
+            run: "edit Louvain-la-Neuve",
         },
         {
             content: "Zip Code",
             trigger: 'input[name="private_zip"]',
-            run: "text 1348",
+            run: "edit 1348",
         },
         {
             content: "Email",
             trigger: 'input[name="private_email"]',
-            run: "text mitchell2.stephen@example.com",
+            run: "edit mitchell2.stephen@example.com",
         },
         {
             content: "Phone Number",
             trigger: 'input[name="private_phone"]',
-            run: "text 1234567890",
+            run: "edit 1234567890",
         },
         {
             content: "Place of Birth",
             trigger: 'input[name="place_of_birth"]',
-            run: "text Brussels",
+            run: "edit Brussels",
         },
         {
             content: "KM Home/Work",
             trigger: 'input[name="km_home_work"]',
-            run: "text 75",
+            run: "edit 75",
         },
         {
             content: "Certificate",
-            trigger: "label[for=certificate]",
-            run: function () {
-                queryOne("select[name=certificate] option:contains(Master)").selected = true;
-                this.anchor.dispatchEvent(
-                    new Event("change", { bubbles: true, cancelable: false })
-                );
-            },
+            trigger: "select[name=certificate]",
+            extra_trigger: "label[for=certificate]",
+            allowInvisible: true,
+            run: "selectByLabel Master",
         },
         {
             content: "School",
             trigger: 'input[name="study_school"]',
-            run: "text UCL",
+            run: "edit UCL",
         },
         {
             content: "School Level",
             trigger: 'input[name="study_field"]',
-            run: "text Civil Engineering, Applied Mathematics",
+            run: "edit Civil Engineering, Applied Mathematics",
         },
         {
             content: "Set Seniority at Hiring",
             trigger: 'input[name="l10n_be_scale_seniority"]',
-            run: "text 1",
+            run: "edit 1 && blur",
         },
         {
             content: "Lang",
-            trigger: "label[for=lang]:eq(0)",
-            run: function () {
-                queryOne("select[name=lang] option:contains(English)").selected = true;
-                const el = document.querySelector("select[name=lang]");
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            extra_trigger: "label[for=lang]:eq(0)",
+            trigger: "select[name=lang]",
+            allowInvisible: true,
+            run: "selectByLabel English",
         },
         {
             content: "Bank Account",
             trigger: 'input[name="acc_number"]',
-            run: "text BE10 3631 0709 4104",
+            run: "edit BE10 3631 0709 4104",
         },
         {
             content: "Bank Account",
             trigger: 'input[name="emergency_contact"]',
-            run: "text Batman",
+            run: "edit Batman",
         },
         {
             content: "Bank Account",
             trigger: 'input[name="emergency_phone"]',
-            run: "text +32 2 290 34 90",
+            run: "edit +32 2 290 34 90",
         },
         {
             content: "Nationality",
-            trigger: "label[for=country_id]:eq(0)",
-            run: function () {
-                queryOne("select[name=country_id] option:contains(Belgium)").selected = true;
-                const el = document.querySelector("select[name=country_id]");
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            trigger: "select[name=country_id]",
+            extra_trigger: "label[for=country_id]:eq(0)",
+            allowInvisible: true,
+            run: "selectByLabel Belgium",
         },
         {
             content: "Country of Birth",
-            trigger: "label[for=country_of_birth]",
-            run: function () {
-                queryOne("select[name=country_of_birth] option:contains(Belgium)").selected = true;
-                this.anchor.dispatchEvent(
-                    new Event("change", { bubbles: true, cancelable: false })
-                );
-            },
+            trigger: "select[name=country_of_birth]",
+            allowInvisible: true,
+            run: "selectByLabel Belgium",
         },
         {
             content: "Country",
-            trigger: "label[for=private_country_id]:eq(0)",
-            run: function () {
-                queryOne(
-                    "select[name=private_country_id] option:contains(Belgium)"
-                ).selected = true;
-                const el = document.querySelector("select[name=private_country_id]");
-                el.dispatchEvent(new Event("change", { bubbles: true, cancelable: false }));
-            },
+            trigger: "select[name=private_country_id]",
+            extra_trigger: "label[for=private_country_id]:eq(0)",
+            allowInvisible: true,
+            run: "selectByLabel Belgium",
         },
         {
             content: "Set 0 Children",
             trigger: "input[name=children]",
-            run: "text 0",
+            run: "edit 0 && blur",
         },
         // set personal info
         {
@@ -1352,7 +1268,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Type Date",
             trigger: ":iframe input.ui-selected",
-            run: "text 17/09/2018",
+            run: "edit 17/09/2018",
         },
         {
             content: "Next 7",
@@ -1362,7 +1278,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Type Number",
             trigger: ":iframe input.ui-selected",
-            run: "text 58/4",
+            run: "edit 58/4",
         },
         // fill signature
         {
@@ -1399,7 +1315,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Type Date",
             trigger: ":iframe input.ui-selected",
-            run: "text 17/09/2018",
+            run: "edit 17/09/2018",
         },
         {
             content: "Validate and Sign",

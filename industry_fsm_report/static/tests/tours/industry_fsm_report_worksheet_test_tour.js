@@ -26,7 +26,7 @@ registry.category("web_tour.tours").add('industry_fsm_report_worksheet_test_tour
     {
         content: 'Set name for the new worksheet',
         trigger: 'div[name="name"] input[type="text"]',
-        run: 'text A very original worksheet',
+        run: "edit A very original worksheet",
     },
     {
         content: 'Save changes',

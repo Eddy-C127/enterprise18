@@ -27,13 +27,11 @@ registry.category("web_tour.tours").add('website_knowledge_public_search_tour', 
 }, { // Write search term in search bar
     content: "Write 'M' in the search bar",
     trigger: '.knowledge_search_bar',
-    run: 'text My'
+    run: "edit My",
 }, {
     content: "Trigger keyup event to start the search",
     trigger: '.knowledge_search_bar',
-    run() {
-        $('.knowledge_search_bar').trigger($.Event("keyup", { key: "Enter" }));
-    },
+    run: "press Enter",
 }, { // Check tree rendering with matching articles
     content: "Check that search tree contains 'My Article'",
     trigger: '.o_article_name:contains("My Article")',
@@ -49,7 +47,5 @@ registry.category("web_tour.tours").add('website_knowledge_public_search_tour', 
 }, { // Clean search bar
     content: "Clean search bar",
     trigger: '.knowledge_search_bar',
-    run: function (action) {
-        action.remove_text(".knowledge_search_bar");
-    },
+    run: "clear",
 }]});

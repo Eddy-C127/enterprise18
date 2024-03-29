@@ -29,6 +29,7 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     extra_trigger: '.o_form_editable',
     content: markup(_t('Enter the <b>subject</b> of your ticket <br/><i>(e.g. Problem with my installation, Wrong order, etc.).</i>')),
     position: 'right',
+    run: "edit Test",
 }, {
     trigger: '.o_field_widget.field_partner_id',
     extra_trigger: '.o_form_editable',

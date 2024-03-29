@@ -14,7 +14,7 @@ registry.category("web_tour.tours").add("account_reports_analytic_filters", {
         {
             content: "insert text in the searchbar",
             trigger: ".o_multi_record_selector input",
-            run: "text Time",
+            run: "edit Time",
         },
         {
             content: "click on the item",

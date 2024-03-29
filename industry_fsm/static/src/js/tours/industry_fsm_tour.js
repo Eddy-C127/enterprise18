@@ -22,6 +22,7 @@ registry.category("web_tour.tours").add('industry_fsm_tour', {
     content: markup(_t('Give it a <b>title</b> <i>(e.g. Boiler maintenance, Air-conditioning installation, etc.).</i>')),
     position: 'right',
     width: 200,
+    run: "edit Test",
 }, {
     trigger: ".o_field_widget[name=partner_id]",
     content: markup(_t('Select the <b>customer</b> for your task.')),

@@ -72,7 +72,7 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
             run: () => {}
         }, { // Switch to "resolved" mode
             trigger: '.o_knowledge_comments_panel select',
-            run: 'text resolved'
+            run: "select resolved",
         }, { // Panel loads resolved messages
             trigger: '.o-mail-Thread :contains("Sure thing boss, all done!")',
             run: () => {}

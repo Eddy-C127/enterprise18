@@ -272,18 +272,18 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
     },
     {
         trigger: ".o_field_widget[name=product_id] input",
-        run: 'text productlot1',
+        run: "edit productlot1",
     },
     {
         trigger: ".ui-menu-item > a:contains('productlot1')",
     },
     {
         trigger: ".o_field_widget[name=qty_done] input",
-        run: 'text 0',
+        run: "edit 0",
     },
     {
         trigger: ".o_field_widget[name=picking_id] input",
-        run: 'text picking_receipt_2',
+        run: "edit picking_receipt_2",
     },
     {
         trigger: ".ui-menu-item > a:contains('picking_receipt_2')",
@@ -995,13 +995,16 @@ registry.category("web_tour.tours").add('test_setting_group_lines_by_product', {
     { trigger: ".o_add_line" },
     {
         trigger: "#picking_id_0",
-        run: "text receipt"
+        run: "edit receipt"
     },
     { trigger: "a.dropdown-item:contains('receipt3')" },
-    { trigger: "#product_id_0" },
+    { 
+        trigger: "#product_id_0",
+        run: "edit Test",
+    },
     {
         trigger: "input#product_id_0",
-        run: "text product2",
+        run: "edit product2",
     },
     { trigger: "a.dropdown-item:contains('product2')" },
     {

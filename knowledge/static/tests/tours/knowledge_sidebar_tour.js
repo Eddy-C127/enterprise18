@@ -36,7 +36,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Workspace Article',
+    run: "edit Workspace Article && blur",
 }, {
     // Check that the name has been updated in the sidebar
     trigger: '.o_article_active:contains("Workspace Article")',
@@ -44,7 +44,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Add content to the article
     trigger: '.note-editable.odoo-editor-editable',
-    run: 'text Content of Workspace Article',
+    run: "editor Content of Workspace Article",
 },
 // Create a private article
 {
@@ -63,7 +63,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Private Article',
+    run: "edit Private Article && blur",
 },
 // Create a shared article
 {
@@ -78,7 +78,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: 'text Shared Article',
+    run: "edit Shared Article && blur",
 }, {
     // Open the share dropdown
     trigger: '.o_knowledge_header .btn:contains("Share")',
@@ -88,7 +88,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Type the invited person's name
     trigger: '.o_field_many2many_tags_email[name=partner_ids] input',
-    run: 'text henri@knowledge.com',
+    run: "edit henri@knowledge.com",
 }, {
     // Open the simplified create form view
     trigger: '.o-autocomplete--dropdown-menu .o_m2o_dropdown_option_create_edit a',
@@ -96,7 +96,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Give an email address to the partner
     trigger: '.o_field_widget[name=email] input',
-    run: 'text henri@knowledge.com',
+    run: "edit henri@knowledge.com",
 }, {
     // Save the new partner
     trigger: '.o_form_button_save',
@@ -126,7 +126,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Workspace Child',
+    run: "edit Workspace Child && blur",
 },
 // Create a child of a private article
 {
@@ -145,7 +145,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Private Child 1',
+    run: "edit Private Child 1 && blur",
 },
 // Create a child of a shared article
 {
@@ -164,7 +164,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Shared Child',
+    run: "edit Shared Child && blur",
 },
 // Open an article by clicking on it
 {
@@ -276,7 +276,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Private Child 2',
+    run: "edit Private Child 2 && blur",
 }, {
     // Check that the article has been renamed in the favorite tree
     trigger: 'section[data-section="favorites"] .o_article_name:contains("Private Child 2")',
@@ -342,7 +342,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Private Child 3',
+    run: 'edit Private Child 3 && blur',
 },
 // Add a random icon
 {
@@ -572,7 +572,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     trigger: '.o_knowledge_share_panel .btn:contains("Invite")',
 }, {
     trigger: '.o_field_many2many_tags_email[name=partner_ids] input',
-    run: 'text henri@knowledge.com',
+    run: "edit henri@knowledge.com",
 }, {
     trigger: '.o-autocomplete--dropdown-item:contains("henri@")',
     extra_trigger: '.o-autocomplete--dropdown-menu.show',
@@ -719,7 +719,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: 'text Private Child 4',
+    run: "edit Private Child 4 && blur",
 }, {
     trigger: '.o_article_active:contains("Private Child 4")',
     run: () => {
@@ -828,7 +828,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: 'text Shared 2',
+    run: "edit Shared 2 && blur",
 }, {
     // Share the article
     trigger: '.o_knowledge_header .btn:contains("Share")',
@@ -836,7 +836,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     trigger: '.o_knowledge_share_panel .btn:contains("Invite")',
 }, {
     trigger: '.o_field_many2many_tags_email[name=partner_ids] input',
-    run: 'text henri@knowledge.com',
+    run: 'edit henri@knowledge.com',
 }, {
     trigger: '.o-autocomplete--dropdown-item:contains("henri@")',
     extra_trigger: '.o-autocomplete--dropdown-menu.show',
@@ -866,7 +866,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: 'text Moved to Share',
+    run: "edit Moved to Share && blur",
 }, {
     trigger: '.o_article_active:contains("Moved to Share")',
     run: () => {

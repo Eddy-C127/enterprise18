@@ -32,14 +32,14 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             trigger: ".o_web_studio_app_creator_name > input",
-            run: "text " + (createdAppString = randomString(6)),
+            run: `edit ${(createdAppString = randomString(6))}`,
         },
         {
             trigger: ".o_web_studio_app_creator_next.is_ready",
         },
         {
             trigger: ".o_web_studio_menu_creator > input",
-            run: "text " + (createdMenuString = randomString(6)),
+            run: `edit ${(createdMenuString = randomString(6))}`,
         },
         {
             trigger: ".o_web_studio_app_creator_next.is_ready",
@@ -77,14 +77,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         {
             // go back to the previous app
             trigger: ".o_home_menu",
-            run: () => {
-                window.dispatchEvent(
-                    new KeyboardEvent("keydown", {
-                        bubbles: true,
-                        key: "Escape",
-                    })
-                );
-            },
+            run: "press Escape",
         },
         {
             // this should open the previous app outside of studio
@@ -95,24 +88,18 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         {
             trigger: "input.o_search_hidden",
             // Open Command Palette
-            run: "text " + createdMenuString[0],
+            run: `edit ${createdMenuString[0]}`,
         },
         {
             trigger: ".o_command_palette_search input",
-            run: "text " + "/" + createdMenuString,
+            run: `edit /${createdMenuString}`,
         },
         {
             // search results should have been updated
             extra_trigger: `.o_command.focused:contains(${createdAppString} / ${createdMenuString})`,
             trigger: ".o_command_palette",
             // Close the Command Palette
-            run: () => {
-                window.dispatchEvent(
-                    new KeyboardEvent("keydown", {
-                        key: "Escape",
-                    })
-                );
-            },
+            run: "press Escape",
         },
         {
             // enter Studio
@@ -158,14 +145,14 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             trigger: 'input[name="menuName"]',
-            run: "text " + (createdMenuString = randomString(6)),
+            run: `edit ${(createdMenuString = randomString(6))}`,
         },
         {
             trigger: 'div.o_web_studio_menu_creator_model_choice input[value="existing"]',
         },
         {
             trigger: "div.o_web_studio_menu_creator_model .o_record_selector input",
-            run: "text a",
+            run: "edit a",
         },
         {
             trigger:
@@ -206,7 +193,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         {
             // rename the label
             trigger: '.o_web_studio_sidebar input[name="string"]',
-            run: "text My Coucou Field",
+            run: "edit My Coucou Field && blur .o_web_studio_sidebar",
         },
         stepNextTick(),
         {
@@ -214,7 +201,8 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             trigger: '.o_web_studio_sidebar input[name="technical_name"]',
             run(helper) {
                 assertEqual(this.anchor.value, "my_coucou_field");
-                helper.text("coucou");
+                helper.edit("coucou");
+                helper.blur(".o_web_studio_sidebar");
             },
             // the rename operation (/web_studio/rename_field + /web_studio/edit_view)
             // takes a while and sometimes reaches the default 10s timeout
@@ -236,7 +224,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         {
             // rename the field with the same name
             trigger: '.o_web_studio_sidebar input[name="technical_name"]',
-            run: "text coucou",
+            run: "edit coucou && blur",
         },
         {
             // an alert dialog should be opened
@@ -245,7 +233,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         {
             // rename the label
             trigger: '.o_web_studio_sidebar input[name="string"]',
-            run: "text COUCOU",
+            run: "edit COUCOU && blur",
         },
         stepNextTick(),
         {
@@ -296,7 +284,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             in_modal: true,
             // we are sure "Activity" exists since studio depends on mail.
             //Also, it is determinisic and field names should not conflict too much.
-            run: "text mail.activity",
+            run: "fill mail.activity",
         },
         {
             // select Activity as model
@@ -386,37 +374,23 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         {
             trigger: "input.o_search_hidden",
             // Open Command Palette
-            run: "text " + createdMenuString[0],
+            run: `edit ${createdMenuString[0]}`,
         },
         {
             trigger: ".o_command_palette_search input",
-            run: "text " + "/" + createdMenuString,
+            run: `edit /${createdMenuString}`,
         },
         {
             // search results should have been updated
             extra_trigger: `.o_command.focused:contains(${createdAppString} / ${createdMenuString})`,
             trigger: ".o_command_palette",
             // Close the Command Palette
-            run: () => {
-                window.dispatchEvent(
-                    new KeyboardEvent("keydown", {
-                        bubbles: true,
-                        key: "Escape",
-                    })
-                );
-            },
+            run: `press Escape`,
         },
         {
             trigger: ".o_home_menu",
             // go back again to the app (using keyboard)
-            run: () => {
-                window.dispatchEvent(
-                    new KeyboardEvent("keydown", {
-                        bubbles: true,
-                        key: "Escape",
-                    })
-                );
-            },
+            run: `press Escape`,
         },
         {
             // wait to be back in the list view
@@ -556,7 +530,7 @@ registry.category("web_tour.tours").add("web_studio_hide_fields_tour", {
             trigger: `
         .o_web_studio_app_creator_name
         > input`,
-            run: `text ${randomString(6)}`,
+            run: `edit ${randomString(6)}`,
         },
         {
             // make another interaction to show "next" button
@@ -571,7 +545,7 @@ registry.category("web_tour.tours").add("web_studio_hide_fields_tour", {
             trigger: `
         .o_web_studio_menu_creator
         > input`,
-            run: `text ${randomString(6)}`,
+            run: `edit ${randomString(6)}`,
         },
         {
             trigger: ".o_web_studio_app_creator_next",
@@ -587,7 +561,7 @@ registry.category("web_tour.tours").add("web_studio_hide_fields_tour", {
         },
         {
             trigger: ".oe_title input",
-            run: "text Test",
+            run: "edit Test",
         },
         {
             trigger: ".o_form_button_save",
@@ -661,7 +635,7 @@ registry.category("web_tour.tours").add("web_studio_model_option_value_tour", {
             trigger: `
         .o_web_studio_app_creator_name
         > input`,
-            run: `text ${randomString(6)}`,
+            run: `edit ${randomString(6)}`,
         },
         {
             trigger: `
@@ -675,7 +649,7 @@ registry.category("web_tour.tours").add("web_studio_model_option_value_tour", {
             trigger: `
         .o_web_studio_menu_creator
         > input`,
-            run: `text ${randomString(6)}`,
+            run: `edit ${randomString(6)}`,
         },
         {
             trigger: ".o_web_studio_app_creator_next",
@@ -729,7 +703,7 @@ registry.category("web_tour.tours").add("web_studio_new_submenu_tour", {
         },
         {
             trigger: "input[name=model_name]",
-            run: "text second menu" + randomString(6),
+            run: `edit second menu ${randomString(6)}`,
         },
         {
             trigger: ".confirm_button",
@@ -783,14 +757,12 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         {
             // edit report name
             trigger: '.o_web_studio_sidebar input[id="name"]',
-            run: "text My Awesome Report",
+            run: "edit My Awesome Report && blur",
         },
         {
             // add a new group on the node
             trigger: '.o_web_studio_sidebar .o_field_many2many_tags[name="groups_id"] input',
-            run(helpers) {
-                helpers.click();
-            },
+            run: "click",
         },
         {
             trigger: ".o-autocomplete--dropdown-menu li:contains(Access Rights)",
@@ -819,7 +791,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         {
             trigger:
                 ".o-web-studio-report-editor-wysiwyg :iframe .odoo-editor-editable div.page div",
-            run: "text some new text",
+            run: "editor some new text",
         },
         {
             trigger: ".o_web_studio_menu .o-web-studio-save-report.btn-primary",
@@ -835,12 +807,12 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         {
             // a invisible element cannot be used as a trigger so this small hack is
             // mandatory for the next step
+            trigger: ".o_kanban_view",
             run: function () {
                 queryOne(
                     ".o_kanban_record:contains(My Awesome Report) .dropdown-toggle"
                 ).style.visibility = "visible";
             },
-            trigger: ".o_kanban_view",
         },
         {
             // open the dropdown
@@ -908,14 +880,12 @@ registry.category("web_tour.tours").add("web_studio_new_report_basic_layout_tour
         {
             // edit report name
             trigger: '.o_web_studio_sidebar input[id="name"]',
-            run: "text My Awesome basic layout Report",
+            run: "edit My Awesome basic layout Report && blur",
         },
         {
             // add a new group on the node
             trigger: '.o_web_studio_sidebar .o_field_many2many_tags[name="groups_id"] input',
-            run(helpers) {
-                helpers.click();
-            },
+            run: "click",
         },
         {
             trigger: ".o-autocomplete--dropdown-menu li:contains(Access Rights)",
@@ -1006,7 +976,7 @@ registry.category("web_tour.tours").add("web_studio_approval_tour", {
         {
             // set approval message
             trigger: '.o_web_studio_sidebar_approval input[name*="approval_message"]',
-            run: "text nope",
+            run: "edit nope",
         },
         {
             // set domain on first rule
@@ -1215,14 +1185,14 @@ registry.category("web_tour.tours").add("web_studio_create_app_with_pipeline_and
         },
         {
             trigger: ".o_web_studio_app_creator_name > input",
-            run: "text " + (createdAppString = randomString(6)),
+            run: `edit ${(createdAppString = randomString(6))}`,
         },
         {
             trigger: ".o_web_studio_app_creator_next.is_ready",
         },
         {
             trigger: ".o_web_studio_menu_creator > input",
-            run: "text " + (createdMenuString = randomString(6)),
+            run: `edit ${(createdAppString = randomString(6))}`,
         },
         {
             trigger: ".o_web_studio_app_creator_next.is_ready",
@@ -1274,14 +1244,14 @@ registry.category("web_tour.tours").add("web_studio_alter_field_existing_in_mult
         },
         {
             trigger: ".o_web_studio_app_creator_name > input",
-            run: "text " + (createdAppString = randomString(6)),
+            run: `edit ${(createdAppString = randomString(6))}`,
         },
         {
             trigger: ".o_web_studio_app_creator_next.is_ready",
         },
         {
             trigger: ".o_web_studio_menu_creator > input",
-            run: `text ${createdAppString}`,
+            run: `edit ${createdAppString}`,
         },
         {
             trigger: ".o_web_studio_app_creator_next.is_ready",
@@ -1313,7 +1283,7 @@ registry.category("web_tour.tours").add("web_studio_alter_field_existing_in_mult
             extra_trigger: ".modal-body",
             in_modal: true,
             trigger: '[name="relation_id"] input',
-            run: `text ${createdAppString}`,
+            run: `edit ${createdAppString}`,
         },
         {
             // select the first model
@@ -1381,14 +1351,14 @@ const addActionButtonModalSteps = (
     },
     {
         trigger: ".o-web-studio-editor--modal-add-action input#set_label",
-        run: `text ${ActionLabel}`,
+        run: `edit ${ActionLabel}`,
     },
     {
         trigger: ".o-web-studio-editor--modal-add-action input#set_button_type_to_action",
     },
     {
         trigger: ".o-web-studio-editor--modal-add-action .o_record_selector input",
-        run: `text ${ActionName}`,
+        run: `edit ${ActionName}`,
     },
     {
         trigger: `.o-web-studio-editor--modal-add-action .o-autocomplete--dropdown-menu li a:not(:has(.fa-spin)):contains(${ActionName})`,
@@ -1404,14 +1374,14 @@ const addMethodButtonModalSteps = () => [
     },
     {
         trigger: ".o-web-studio-editor--modal-add-action input#set_label",
-        run: `text test`,
+        run: `edit test`,
     },
     {
         trigger: ".o-web-studio-editor--modal-add-action input#set_button_type_to_object",
     },
     {
         trigger: ".o-web-studio-editor--modal-add-action  input#set_method",
-        run: `text demo`,
+        run: `edit demo && blur`,
     },
 ];
 
@@ -1624,9 +1594,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_nam
         {
             // change the currency name
             trigger: "input[name='string']",
-            run(helper) {
-                helper.text("NewCurrency");
-            },
+            run: "edit NewCurrency && blur",
         },
         {
             // click on monetary
@@ -1669,7 +1637,7 @@ registry.category("web_tour.tours").add("web_studio_related_monetary_creation", 
         {
             in_modal: false,
             trigger: ".o_model_field_selector_popover_search input",
-            run: "text X Test",
+            run: "edit X Test",
         },
         {
             in_modal: false,
@@ -1679,7 +1647,7 @@ registry.category("web_tour.tours").add("web_studio_related_monetary_creation", 
         {
             in_modal: false,
             trigger: ".o_model_field_selector_popover_search input",
-            run: "text X Studio Monetary Test",
+            run: "edit X Studio Monetary Test",
         },
         {
             in_modal: false,
@@ -1713,12 +1681,12 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_fie
         {
             // fill the required char input
             trigger: ".o_field_char input",
-            run: "text title",
+            run: "edit title",
         },
         {
             // fill the new currency (many2one) input #1
             trigger: "div [name='x_studio_currency_test2'] input",
-            run: "text USD",
+            run: "edit USD",
         },
         {
             // add a new currency field step #2
@@ -1923,14 +1891,14 @@ registry.category("web_tour.tours").add("web_studio_add_field_into_empty_group_b
         },
         {
             trigger: ".o_web_studio_app_creator_name > input",
-            run: `text ${randomString(6)}`,
+            run: `edit ${randomString(6)}`,
         },
         {
             trigger: ".o_web_studio_app_creator_next.is_ready",
         },
         {
             trigger: ".o_web_studio_menu_creator > input",
-            run: `text ${randomString(6)}`,
+            run: `edit ${randomString(6)}`,
         },
         {
             trigger: ".o_web_studio_app_creator_next.is_ready",

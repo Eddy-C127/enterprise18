@@ -30,12 +30,12 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order", {
         {
             content: "Set Usage: 'General Expenses'",
             trigger: "select[name='l10n_mx_edi_usage']",
-            run: "text G03",
+            run: "select G03",
         },
         {
             content: "Set Invoice to Public: 'Yes'",
             trigger: "select[name='l10n_mx_edi_cfdi_to_public']",
-            run: "text 1",
+            run: "select 1",
         },
         Dialog.confirm(),
         {
@@ -49,12 +49,12 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order", {
         {
             content: "Set the country as Mexico",
             trigger: "select[name='country_id']",
-            run: "text Mexico",
+            run: "selectByLabel Mexico",
         },
         {
             content: "Set the fiscal regime as 'Consolidación'",
             trigger: "select[name='l10n_mx_edi_fiscal_regime']",
-            run: "text 609",
+            run: "select 609",
         },
         {
             content: "Check the No Tax Breakdown checkbox",

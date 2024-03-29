@@ -23,7 +23,7 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
         {
             content: "Set the name of the page",
             trigger: "div[name='page_name'] input",
-            run: "text_blur MyCustom Name"
+            run: "edit MyCustom Name && blur",
         },
         {
             trigger: "div[name='name_slugified']",
@@ -74,7 +74,7 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
         {
             content: "Set the name of the page",
             trigger: "div[name='page_name'] input",
-            run: "text_blur MyCustom Name"
+            run: "edit MyCustom Name && blur",
         },
         {
             trigger: "div[name='name_slugified']",

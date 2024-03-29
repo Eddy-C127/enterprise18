@@ -26,6 +26,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             trigger: '.o_field_text textarea',
             content: markup(_t('Choose a <b>name</b> for your product <i>(e.g. Bolts, Screws, Boiler, etc.).</i>')),
             position: 'right',
+            run: "edit Test",
         }, {
             trigger: ".breadcrumb-item.o_back_button",
             content: markup(_t("Use the breadcrumbs to navigate to your <b>list of products</b>.")),

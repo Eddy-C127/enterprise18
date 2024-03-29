@@ -10,7 +10,7 @@ patch(registry.category("web_tour.tours").get("planning_test_tour"), {
         originalSteps.splice(projectPlanningStartStepIndex + 1, 0, {
             trigger: ".o_field_many2one[name='project_id'] input",
             content: "Create project named-'New Project' for this shift",
-            run: "text New Project",
+            run: "edit New Project",
         }, {
             trigger: "ul.ui-autocomplete a:contains(New Project)",
             auto: true,

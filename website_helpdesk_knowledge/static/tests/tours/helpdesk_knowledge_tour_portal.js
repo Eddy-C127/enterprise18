@@ -10,7 +10,7 @@ registry.category("web_tour.tours").add('access_helpdesk_article_portal_tour', {
 }, {
     content: "Write 'Article' in the search bar",
     trigger: 'input[name="search"]',
-    run: 'text Article'
+    run: "edit Article",
 }, {
     content: "Check that results contain 'Helpdesk Article'",
     trigger: '.dropdown-item:contains("Helpdesk Article")',

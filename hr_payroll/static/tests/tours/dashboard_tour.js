@@ -29,7 +29,7 @@ registry.category("web_tour.tours").add('payroll_dashboard_ui_tour', {
         content: "Input contract name",
         trigger: '.modal-content .o_field_char[name="name"] input',
         id: "input_contract_name",
-        run: 'text Laurie\'s Contract',
+        run: "edit Laurie's Contract",
     },
     {
         content: "Save contract",
@@ -64,7 +64,7 @@ registry.category("web_tour.tours").add('payroll_dashboard_ui_tour', {
     {
         content: "Set a name",
         trigger: 'li.o_hr_payroll_todo_tab input',
-        run: "text_blur Dashboard Todo List"
+        run: "edit Dashboard Todo List && blur",
     },
     {
         content: "Edit the note in dashboard view",
@@ -75,6 +75,6 @@ registry.category("web_tour.tours").add('payroll_dashboard_ui_tour', {
     {
         content: "Write in the note",
         trigger: ".note-editable.odoo-editor-editable",
-        run: "text Todo List"
+        run: "editor Todo List",
     }
 ]});

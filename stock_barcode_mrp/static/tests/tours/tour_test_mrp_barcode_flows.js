@@ -284,7 +284,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create_tracked_
     },
     {
         trigger: 'div[name="product_qty"] .o_input',
-        run: 'text 3',
+        run: "edit 3",
     },
     {
         trigger: 'button[name="change_prod_qty"]',
@@ -346,14 +346,19 @@ registry.category("web_tour.tours").add('test_barcode_production_create_tracked_
     },
     {
         trigger: 'div[name="product_id"] .o_input',
-        run: 'text By Product',
+        run: "edit By Product",
     },
     {
         trigger: '.dropdown-item:contains("By Product")',
     },
     {
         trigger: 'div[name="qty_done"] .o_input',
-        run: 'text 2',
+        run() {
+            //input type number not supported by tour helpers.
+            // It would work if the clipboard was mocked in tours the same way it is in unit tests.
+            this.anchor.value = 2;
+            this.anchor.dispatchEvent(new InputEvent("input", { bubbles: true }));
+        },
     },
     {
         trigger: '.o_save',
@@ -676,7 +681,7 @@ registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {te
     },
     {
         trigger: "input#product_id_0",
-        run: 'text Compo 01',
+        run: "edit Compo 01",
     },
     { trigger: '.dropdown-item:contains("Compo 01")' },
     {

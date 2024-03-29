@@ -13,7 +13,7 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
     trigger: '.o-kanban-button-new',
 }, {
     trigger: '.o_required_modifier[name=partner_id] input',
-    run: 'text Tajine Saucisse',
+    run: "edit Tajine Saucisse",
 }, {
     trigger: '.ui-menu-item > a:contains("Tajine Saucisse")',
     auto: true,
@@ -23,7 +23,7 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
     trigger: 'a:contains("Add a product")'
 }, {
     trigger: 'div[name="product_template_id"] input',
-    run: 'text protection',
+    run: "edit protection",
 }, {
     trigger: 'ul.ui-autocomplete a:contains("Chair floor protection (TEST)")',
 },
@@ -33,7 +33,7 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
     extra_trigger: 'td[name="product_template_id"][data-tooltip*="floor protection"],td[name="product_id"][data-tooltip*="floor protection"]',
 }, {
     trigger: 'div[name="product_template_id"] input',
-    run: 'text Projector',
+    run: "edit Projector",
 }, {
     trigger: 'ul.ui-autocomplete a:contains("Projector (TEST)")',
 },
@@ -43,7 +43,7 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
     extra_trigger: 'td[name="product_template_id"][data-tooltip*="Projector"],td[name="product_id"][data-tooltip*="Projector"]',
 }, {
     trigger: 'div[name="product_template_id"] input',
-    run: 'text Matrix',
+    run: "edit Matrix",
 }, {
     trigger: 'ul.ui-autocomplete a:contains("Matrix")',
 }, {

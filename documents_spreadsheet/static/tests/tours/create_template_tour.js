@@ -6,12 +6,10 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 const SHEET_NAME = "Res Partner Test Spreadsheet";
 const TEMPLATE_NAME = `${SHEET_NAME} - Template`;
 
-registry.category("web_tour.tours").add(
-    "documents_spreadsheet_create_template_tour",
-    {
-        test: true,
-        url: "/web",
-        steps: () => [
+registry.category("web_tour.tours").add("documents_spreadsheet_create_template_tour", {
+    test: true,
+    url: "/web",
+    steps: () => [
         ...stepUtils.goToAppSteps("documents.menu_root", "Open Document app"),
         {
             trigger: 'li[title="Test folder"] header',
@@ -67,7 +65,7 @@ registry.category("web_tour.tours").add(
         {
             trigger: "input.o_searchview_input",
             content: "Search the template",
-            run: `text ${TEMPLATE_NAME}`,
+            run: `edit ${TEMPLATE_NAME}`,
         },
         {
             trigger: ".o_menu_item.focus",
@@ -87,5 +85,5 @@ registry.category("web_tour.tours").add(
             trigger: ".o-spreadsheet",
             content: "Redirected to spreadsheet",
         },
-    ]
+    ],
 });

@@ -68,7 +68,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: 'Search template "blank_template"',
             trigger: ".o_cp_searchview input",
-            run: "text blank_template",
+            run: "fill blank_template",
         },
         {
             content: "Search Document Name",
@@ -119,7 +119,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: "Change responsible",
             trigger: ".o_popover .o_input_dropdown input",
-            run: "text employee",
+            run: "edit employee",
         },
         {
             content: "select employee",
@@ -144,7 +144,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: "Write new selection option name",
             trigger: ".o_popover .o_input_dropdown input",
-            run: "text option",
+            run: "edit option",
         },
         {
             content: "Create new selection option",
@@ -165,7 +165,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: "Change text placeholder",
             trigger: ".o_popover .o_popover_placeholder input",
-            run: "text placeholder",
+            run: "edit placeholder && blur .o_popover",
         },
         {
             content: "Validate changes",
@@ -174,7 +174,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: "Change template name",
             trigger: ".o_sign_template_name_input",
-            run: "text filled_template",
+            run: "edit filled_template && blur",
         },
         {
             trigger: ".breadcrumb .o_back_button",

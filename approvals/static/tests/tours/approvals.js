@@ -19,27 +19,27 @@ registry.category("web_tour.tours").add("approvals_tour", {
         {
             trigger: '.o_field_widget[name="name"] input',
             content: "give name",
-            run: "text Business Trip To Berlin",
+            run: "edit Business Trip To Berlin",
         },
         {
             trigger: '.o_field_widget[name="date_start"] input',
             content: "give start date",
-            run: "text 12/13/2018 13:00:00",
+            run: "edit 12/13/2018 13:00:00",
         },
         {
             trigger: '.o_field_widget[name="date_end"] input',
             content: "give end date",
-            run: "text 12/20/2018 13:00:00",
+            run: "edit 12/20/2018 13:00:00",
         },
         {
             trigger: '.o_field_widget[name="location"] input',
             content: "give location",
-            run: "text Berlin, Schulz Hotel",
+            run: "edit Berlin, Schulz Hotel",
         },
         {
             trigger: 'div[name="reason"]',
             content: "give description",
-            run: "text We need to go, because reason (and also for beer))",
+            run: "editor (We need to go, because reason (and also for beer)))",
         },
         {
             trigger: 'a:contains("Approver(s)"):first',
@@ -54,7 +54,7 @@ registry.category("web_tour.tours").add("approvals_tour", {
         {
             content: "select an approver",
             trigger: ".o_selected_row .o_input_dropdown input",
-            run: "text Marc",
+            run: "edit Marc",
         },
         {
             trigger: ".ui-autocomplete > li > a:contains(Marc)",

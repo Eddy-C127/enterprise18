@@ -89,10 +89,7 @@ const fileCommandSteps = [{ // open the command bar
     }
 }, {
     trigger: 'input[placeholder="Onboarding.txt"]',
-    run: function (helpers) {
-        helpers.text("Renamed");
-        this.anchor.dispatchEvent(new Event("blur"));
-    }
+    run: "edit Renamed && blur",
 }, {
     trigger: 'span.o_knowledge_file_name',
     run: function () {
@@ -205,7 +202,7 @@ const clipboardCommandSteps = [{ // go to the custom article
     run: () => {},
 }, { // enter text into the clipboard template
     trigger: '.o_knowledge_content > p',
-    run: 'text Hello world'
+    run: "editor Hello world",
 }, { // verify that the text was correctly inserted
     trigger: '.o_knowledge_content > p:contains(Hello world)',
 }];
@@ -246,7 +243,7 @@ const videoCommandSteps = [{ // patch the components
 }, {
     content: "Enter a video URL",
     trigger: ".modal-body #o_video_text",
-    run: `text https://www.youtube.com/watch?v=${YoutubeVideoId}`,
+    run: `edit https://www.youtube.com/watch?v=${YoutubeVideoId}`,
 }, {
     content: "Wait for preview to appear",
     trigger: `.o_video_iframe_src:contains("//www.youtube.com/embed/${YoutubeVideoId}?rel=0&autoplay=0")`,
@@ -285,7 +282,7 @@ const listCommandSteps = [{ // open the command bar
     run: 'click',
 }, { // input a test name for the view
     trigger: '.modal-dialog #label',
-    run: `text ${embedListName}`,
+    run: `edit ${embedListName}`,
 }, { // choose a name for the embedded view
     trigger: '.modal-footer button.btn-primary',
     run: 'click'
@@ -332,7 +329,7 @@ const listCommandSteps = [{ // open the command bar
     trigger: '.dropdown-item:contains(Edit)'
 }, { // rename the view
     trigger: '.modal-body input',
-    run: 'text New Title',
+    run: "edit New Title",
 }, { // click to validate the modal
     trigger: '.modal-footer button.btn-primary',
     run: 'click',
@@ -354,7 +351,7 @@ const embedKanbanSteps = [{ // open the command bar
     run: 'click',
 }, { // input a test name for the view
     trigger: '.modal-dialog #label',
-    run: `text ${embedKanbanName}`,
+    run: `edit ${embedKanbanName}`,
 }, { // choose a name for the embedded view
     trigger: `.modal-dialog:contains("Insert a Kanban View") .modal-footer button.btn-primary`,
     run: 'click',
@@ -368,7 +365,7 @@ const embedKanbanSteps = [{ // open the command bar
     run: 'click',
 }, { // Type a Title for new article in the quick create form
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_quick_create .o_input`,
-    run: 'text New Quick Create Item',
+    run: "edit New Quick Create Item",
 }, { // Add a random icon to the new article in the quick create form
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_quick_create a[title="Add a random icon"]`,
     run: 'click',
@@ -406,7 +403,7 @@ const embedCardsKanbanSteps = [{ // open the command bar
     run: 'click',
 }, { // input a test name for the view
     trigger: '.modal-dialog #label',
-    run: `text ${embedCardsKanbanName}`,
+    run: `edit ${embedCardsKanbanName}`,
 }, { // choose a name for the embedded view
     trigger: `.modal-dialog:contains("Insert a Kanban View") .modal-footer button.btn-primary`,
     run: 'click',
@@ -473,7 +470,7 @@ const embedViewFiltersSteps = [{
     run: () => {}
 }, { // add a simple filter
     trigger: '.o_searchview_input_container input',
-    run: 'text 1'
+    run: "edit 1",
 }, {
     trigger: 'li[id="1"]'
 }, { // Check that the filter is effective
@@ -509,7 +506,7 @@ const embedKanbanEditArticleSteps = [{ // Create a new article using quick creat
     run: 'click'
 }, { // Type a Title for new article in the quick create form
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_group:has(.o_kanban_header_title:contains("Ongoing")) .o_kanban_quick_create .o_input`,
-    run: 'text Quick Create Ongoing Item',
+    run: "edit Quick Create Ongoing Item",
 }, { // Click on Edit to open the article in edition in his own form view
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_quick_create .o_kanban_edit`,
     run: 'click'

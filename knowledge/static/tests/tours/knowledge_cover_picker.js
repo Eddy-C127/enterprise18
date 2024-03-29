@@ -28,7 +28,7 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     // Set the name of the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: 'text Birds',
+    run: "edit Birds && blur",
 }, {
     // Make the add cover button visible (only visible on hover)
     trigger: '.o_article_active:contains("Birds")',
@@ -48,7 +48,7 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     // Change the search query to find odoo_logo file
     trigger: '.modal-body input.o_we_search',
     extra_trigger: '.modal-body .o_nocontent_help',
-    run: 'text odoo_logo',
+    run: "edit odoo_logo",
 }, {
     // Choose the odoo_logo cover
     trigger: '.o_existing_attachment_cell img[title*="odoo_logo"]',
@@ -99,7 +99,7 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     // Change the name of the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: 'text odoo',
+    run: "edit odoo && blur",
 }, {
     // Go back to previous article
     trigger: '.o_knowledge_sidebar .o_article_name:contains("Birds")',
@@ -163,7 +163,7 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     // and remove search query
     trigger: '.modal-body input.o_we_search',
     extra_trigger: '.modal-body .o_nocontent_help',
-    run: 'remove_text',
+    run: "clear",
 }, {
     // Check that odoo logo is now shown in the cover selector, and make the trash
     // button visible

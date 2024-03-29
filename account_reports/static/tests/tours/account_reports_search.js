@@ -14,7 +14,7 @@ registry.category("web_tour.tours").add('account_reports_search', {
         {
             content: 'insert text in the searchbar',
             trigger: '.o_searchview_input',
-            run: 'text 40'
+            run: "edit 40",
         },
         {
             content: 'test if the product sale line is present',
@@ -28,7 +28,7 @@ registry.category("web_tour.tours").add('account_reports_search', {
         {
             content: 'insert text in the search bar',
             trigger: '.o_searchview_input',
-            run: 'text Account'
+            run: "edit Account",
         },
         {
             content: 'test if the receivable line is present',

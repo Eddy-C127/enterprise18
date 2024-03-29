@@ -164,9 +164,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
     { trigger: '.o_barcode_client_action .o_stock_mobile_barcode' },
     {
         trigger: '.modal-content .modal-body #manual_barcode',
-        run: function(actions) {
-            actions.text("305Alt02910LOT-AAA");
-        }
+        run: "edit 305Alt02910LOT-AAA",
     },
     { trigger: '.modal-content .modal-footer .btn-primary:not(:disabled)' },
 
@@ -862,9 +860,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
     // Manually add '(01)00000076543210(10)b1-b001(30)00000008' barcode for GS1 test.
     {
         trigger: '.modal-content .modal-body #manual_barcode',
-        run: function(actions) {
-            actions.text("(01)00000076543210(30)00000008");
-        }
+        run: "edit ((01)00000076543210(30)00000008)",
     },
     // Apply the manual entry of barcode.
     {
@@ -1001,12 +997,12 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
     { trigger: '.o_add_line' },
     {
         trigger: '.o_field_widget[name=product_id] input',
-        run: 'text B1',
+        run: "edit B1",
     },
     { trigger: ".ui-menu-item > a:contains('Battle Droid')" },
     {
         trigger: '[name=qty_done] input',
-        run: 'text 0',
+        run: "edit 0",
     },
     { trigger: '.o_save' },
     {

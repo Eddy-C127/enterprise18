@@ -11,7 +11,7 @@ patch(registry.category("web_tour.tours").get("project_test_tour"), {
         originalSteps.splice(ganttAddTaskStepIndex + 1, 0, {
             trigger: 'div[name="allocated_hours"] input',
             content: "Set allocated_hours",
-            run: "text 200",
+            run: "edit 200",
         });
         return originalSteps;
     },

@@ -16,7 +16,7 @@ registry.category("web_tour.tours").add(
             }, {
                 content: "Create a new task from form view in fsm",
                 trigger: 'div[name="name"] textarea.o_input',
-                run: 'text New fsm parent task',
+                run: "edit New fsm parent task",
             }, {
                 content: "Go to subtask tab of the notebook",
                 trigger: 'a[name="sub_tasks_page"]',
@@ -28,11 +28,11 @@ registry.category("web_tour.tours").add(
             }, {
                 content: 'Set subtask name',
                 trigger: '.o_field_subtasks_one2many div[name="name"] input',
-                run: 'text New fsm child task',
+                run: "edit New fsm child task",
             }, {
                 content: 'Add a customer to the parent task',
                 trigger: 'div[name="partner_id"] input.o_input',
-                run: 'text Azure Interior',
+                run: "edit Azure Interior",
             }, {
                 content: 'Validate Customer',
                 trigger: '.ui-menu-item a:contains("Azure Interior")',

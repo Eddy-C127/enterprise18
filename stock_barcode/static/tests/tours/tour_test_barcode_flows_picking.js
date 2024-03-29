@@ -14,12 +14,12 @@ registry.category("web_tour.tours").add('test_internal_picking_from_scratch', {t
     {
         extra_trigger: '.o_field_widget[name="product_id"]',
         trigger: ".o_field_widget[name=qty_done] input",
-        run: 'text 2',
+        run: "edit 2",
     },
 
     {
         trigger: ".o_field_widget[name=product_id] input",
-        run: 'text product1',
+        run: "edit product1",
     },
 
     {
@@ -28,7 +28,7 @@ registry.category("web_tour.tours").add('test_internal_picking_from_scratch', {t
 
     {
         trigger: ".o_field_widget[name=location_id] input",
-        run: 'text Section 1',
+        run: "edit Section 1",
     },
 
     {
@@ -37,7 +37,7 @@ registry.category("web_tour.tours").add('test_internal_picking_from_scratch', {t
 
     {
         trigger: ".o_field_widget[name=location_dest_id] input",
-        run: 'text Section 2',
+        run: "edit Section 2",
     },
 
     {
@@ -65,7 +65,7 @@ registry.category("web_tour.tours").add('test_internal_picking_from_scratch', {t
     {
         extra_trigger: '.o_field_widget[name="product_id"]',
         trigger: ".o_field_widget[name=product_id] input",
-        run: 'text product2',
+        run: "edit product2",
     },
 
     {
@@ -74,7 +74,7 @@ registry.category("web_tour.tours").add('test_internal_picking_from_scratch', {t
 
     {
         trigger: ".o_field_widget[name=location_id] input",
-        run: 'text Section 1',
+        run: "edit Section 1",
     },
 
     {
@@ -83,7 +83,7 @@ registry.category("web_tour.tours").add('test_internal_picking_from_scratch', {t
 
     {
         trigger: ".o_field_widget[name=location_dest_id] input",
-        run: 'text WH/Stock/Section 3',
+        run: "edit WH/Stock/Section 3",
     },
 
     {
@@ -130,7 +130,7 @@ registry.category("web_tour.tours").add('test_internal_picking_from_scratch', {t
     {
         extra_trigger: '.o_field_widget[name="product_id"]',
         trigger: ".o_field_widget[name=product_id] input",
-        run: 'text product2',
+        run: "edit product2",
     },
 
     {
@@ -139,7 +139,7 @@ registry.category("web_tour.tours").add('test_internal_picking_from_scratch', {t
 
     {
         trigger: ".o_field_widget[name=location_id] input",
-        run: 'text Section 1',
+        run: "edit Section 1",
     },
 
     {
@@ -148,7 +148,7 @@ registry.category("web_tour.tours").add('test_internal_picking_from_scratch', {t
 
     {
         trigger: ".o_field_widget[name=location_dest_id] input",
-        run: 'text Section 2',
+        run: "edit Section 2",
     },
 
     {
@@ -475,10 +475,7 @@ registry.category("web_tour.tours").add('test_receipt_reserved_1', {test: true, 
     // Manually add 'product1'.
     {
         trigger: '.modal-content .modal-body #manual_barcode',
-        run: function(actions) {
-            var barcode = 'product1';
-            actions.text(barcode);
-        }
+        run: "edit product1",
     },
 
     // Apply the manual entry of barcode.
@@ -1134,7 +1131,12 @@ registry.category("web_tour.tours").add('test_remaining_decimal_accuracy', {test
     { trigger: '.o_barcode_line:first-child .o_edit' },
     {
         trigger: 'div[name=qty_done] input',
-        run: 'text 2.2',
+        run() {
+            //input type number not supported by tour helpers.
+            // It would work if the clipboard was mocked in tours the same way it is in unit tests.
+            this.anchor.value = "2.2";
+            this.anchor.dispatchEvent(new InputEvent("input", { bubbles: true }));
+        }
     },
     { trigger: '.o_save' },
     {
@@ -1868,12 +1870,12 @@ registry.category("web_tour.tours").add('test_bypass_source_scan', {test: true, 
         trigger: '.o_field_many2one[name=lot_id] input',
         extra_trigger: '.o_field_widget[name="qty_done"]',
         position: "bottom",
-        run: "remove_text",
+        run: "clear",
     },
 
     {
         trigger: '.o_field_widget[name=qty_done] input',
-        run: 'text 0',
+        run: "edit 0",
     },
 
     {
@@ -3093,7 +3095,7 @@ registry.category("web_tour.tours").add('test_reload_flow', {test: true, steps: 
     {
         extra_trigger: '.o_field_widget[name="product_id"]',
         trigger: '.o_field_widget[name=qty_done] input',
-        run: 'text 2',
+        run: "edit 2",
     },
 
     {
@@ -3106,7 +3108,7 @@ registry.category("web_tour.tours").add('test_reload_flow', {test: true, steps: 
 
     {
         trigger: ".o_field_widget[name=product_id] input",
-        run: 'text product2',
+        run: "edit product2",
     },
 
     {

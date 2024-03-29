@@ -34,7 +34,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: () => {},
 }, {
     trigger: '.note-editable.odoo-editor-editable h1',
-    run: 'text My Private Article',  // modify the article content
+    run: "editor My Private Article",  // modify the article content
 }, {
     trigger: 'section[data-section="workspace"]',
     run: () => {
@@ -56,10 +56,10 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: () => {},
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text My Workspace Article',  // modify the article name
+    run: 'edit My Workspace Article && blur',  // modify the article name
 }, {
     trigger: '.note-editable.odoo-editor-editable',
-    run: 'text Content of My Workspace Article',  // modify the article content
+    run: "editor Content of My Workspace Article",  // modify the article content
 }, {
     trigger: '.o_article:contains("My Workspace Article")',
     run: () => {
@@ -79,7 +79,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: () => {},
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Child Article 1',  // modify the article name
+    run: "edit Child Article 1 && blur",  // modify the article name
 }, {
     trigger: '.o_article:contains("My Workspace Article")',
 }, {
@@ -94,7 +94,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: () => {},
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Child Article 2',  // modify the article name
+    run: "edit Child Article 2 && blur",  // modify the article name
 }, {
     // move child article 2 above child article 1
     trigger: '.o_article_handle:contains("Child Article 2")',
@@ -127,7 +127,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // Type the invited person's name
     trigger: '.o_field_many2many_tags_email[name=partner_ids] input',
-    run: 'text micheline@knowledge.com',
+    run: "edit micheline@knowledge.com",
 }, {
     // Open the simplified create form view
     trigger: '.o-autocomplete--dropdown-menu .o_m2o_dropdown_option_create_edit a',
@@ -135,7 +135,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // Give an email address to the partner
     trigger: '.o_field_widget[name=email] input',
-    run: 'text micheline@knowledge.com',
+    run: "edit micheline@knowledge.com",
 }, {
     // Save the new partner
     trigger: '.o_form_button_save',
@@ -210,7 +210,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: () => {},
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Article to be moved',  // modify the article name
+    run: "edit Article to be moved && blur",  // modify the article name
 }, {// move article
     trigger: 'a#dropdown_tools_panel',
     run: 'click'

@@ -25,10 +25,10 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: () => {},  // check that the article is correctly created (private section)
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text My Private Article',  // modify the article name
+    run: "edit My Private Article && blur",  // modify the article name
 }, {
     trigger: '.note-editable.odoo-editor-editable',
-    run: 'text Content of My Private Article',  // modify the article content
+    run: "editor Content of My Private Article",  // modify the article content
 }, {
     trigger: 'body',
     run: () => {
@@ -51,7 +51,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: () => {},  // wait for article to be correctly loaded
 }, {
     trigger: '.note-editable.odoo-editor-editable',
-    run: 'text Edited Content of Workspace Article',  // modify the article content
+    run: "editor Edited Content of Workspace Article",  // modify the article content
 }, {
     trigger: '.o_article:contains("Workspace Article")',
     run: () => {
@@ -66,7 +66,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: () => {},  // check that the article is correctly created (workspace section)
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Child Article 1',  // modify the article name
+    run: "edit Child Article 1 && blur",  // modify the article name
 }, {
     // create child article (2)
     trigger: '.o_article:contains("Workspace Article") a.o_article_create',
@@ -75,7 +75,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: () => {},  // check that the article is correctly created (workspace section)
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Child Article 2',  // modify the article name
+    run: "edit Child Article 2 && blur",  // modify the article name
 }, {
     // go back to main workspace article
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Workspace Article")',

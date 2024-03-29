@@ -59,7 +59,7 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         content: 'Add 2 units',
         extra_trigger: '.o_field_widget[name="qty_done"] input:value("0.00")',
         trigger: '.o_field_widget[name="qty_done"] input',
-        run: 'text 2',
+        run: "edit 2 && blur .modal-body"
     },
     {
         content: 'Click on "Validate"',
@@ -96,7 +96,7 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
     {
         content: 'Add Color',
         trigger: '.o_field_widget[name=product_id] input',
-        run: 'text color'
+        run: "edit color",
     },
     { trigger: '.ui-menu-item > a:contains("Color")' },
     {
@@ -138,7 +138,7 @@ registry.category("web_tour.tours").add('test_generate_serials_in_shopfloor', {t
     {
         content: 'Input a serial',
         trigger: '#next_serial_0',
-        run: 'text 00001',
+        run: "edit 00001",
     },
     {
         content: 'Generate the serials',

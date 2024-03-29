@@ -70,7 +70,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment', {test: true
 
     {
         trigger: ".o_field_widget[name=product_id] input",
-        run: 'text product2',
+        run: "edit product2",
     },
 
     {
@@ -79,7 +79,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment', {test: true
 
     {
         trigger: ".o_field_widget[name=inventory_quantity] input",
-        run: 'text 2',
+        run: "edit 2",
     },
 
     {
@@ -193,10 +193,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_multi_locatio
     // Manually add 'product1'.
     {
         trigger: '.modal-content .modal-body #manual_barcode',
-        run: function(actions) {
-            var barcode = 'product1';
-            actions.text(barcode);
-        }
+        run: "edit product1",
     },
     // Apply the manual entry of barcode.
     {
@@ -338,7 +335,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
 
     {
         trigger: ".o_field_widget[name=product_id] input",
-        run: 'text productserial1',
+        run: "edit productserial1",
     },
 
     {
@@ -582,7 +579,7 @@ registry.category("web_tour.tours").add('test_inventory_create_quant', {test: tr
     },
     {
         trigger: '.o_field_widget[name=inventory_quantity] input',
-        run: 'text 0',
+        run: "edit 0",
     },
     { trigger: '.o_save' },
     {
@@ -642,7 +639,7 @@ registry.category("web_tour.tours").add('test_inventory_package', {test: true, s
 
     {
         trigger: '[name="inventory_quantity"] input',
-        run: 'text 21'
+        run: "edit 21",
     },
 
     {

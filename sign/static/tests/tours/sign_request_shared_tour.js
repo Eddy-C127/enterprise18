@@ -19,7 +19,7 @@ registry.category("web_tour.tours").add("shared_sign_request_tour", {
         {
             content: 'Search template "template_1_role"',
             trigger: ".o_cp_searchview input",
-            run: "text template_1_role",
+            run: "edit template_1_role",
         },
         {
             content: "Search Document Name",
@@ -48,7 +48,7 @@ registry.category("web_tour.tours").add("shared_sign_request_tour", {
         {
             content: "Fill the sign item",
             trigger: ":iframe input.o_sign_sign_item",
-            run: "text Mitchell Admin",
+            run: "edit Mitchell Admin",
         },
         {
             content: "Validate & Send Completed Document",
@@ -59,12 +59,12 @@ registry.category("web_tour.tours").add("shared_sign_request_tour", {
             content: "Fill name",
             trigger: "#o_sign_public_signer_name_input",
             extra_trigger: '.modal-title:contains("Final Validation")',
-            run: "text Mitchell Admin",
+            run: "edit Mitchell Admin",
         },
         {
             content: "Fill email",
             trigger: "#o_sign_public_signer_mail_input",
-            run: "text mitchell.admin@public.com",
+            run: "edit mitchell.admin@public.com",
         },
         {
             content: "Validate & Send",

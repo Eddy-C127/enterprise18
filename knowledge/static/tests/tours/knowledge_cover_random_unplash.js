@@ -48,7 +48,7 @@ registry.category("web_tour.tours").add('knowledge_random_cover_tour', {
 }, {
     // Set the name of the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'text Birds',
+    run: "edit Birds && blur",
 }, {
     // Make the add cover button visible
     trigger: '.o_article_active:contains("Birds")',

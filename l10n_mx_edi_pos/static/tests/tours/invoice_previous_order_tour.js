@@ -67,12 +67,12 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_o
         {
             content: "Set Usage: 'General Expenses'",
             trigger: "select[name='l10n_mx_edi_usage']",
-            run: "text I01",
+            run: "select I01",
         },
         {
             content: "Set Invoice to Public: 'Yes'",
             trigger: "select[name='l10n_mx_edi_cfdi_to_public']",
-            run: "text 0",
+            run: "select 0",
         },
         Dialog.confirm(),
         {

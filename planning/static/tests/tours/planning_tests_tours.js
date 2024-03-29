@@ -17,7 +17,7 @@ registry.category("web_tour.tours").add('planning_test_tour', {
 }, {
     trigger: ".o_field_widget[name='resource_id'] input",
     content: markup("Assign this shift to your <b>resource</b>, or leave it open for the moment."),
-    run: 'text Aaron',
+    run: "edit Aaron",
 }, {
     trigger: ".o-autocomplete--dropdown-item > a:contains('Aaron')",
     auto: true,
@@ -25,7 +25,7 @@ registry.category("web_tour.tours").add('planning_test_tour', {
 }, {
     trigger: ".o_field_widget[name='role_id'] input",
     content: markup("Select the <b>role</b> your employee will have (<i>e.g. Chef, Bartender, Waiter, etc.</i>)."),
-    run: 'text Developer',
+    run: "edit Developer",
 }, {
     trigger: ".o-autocomplete--dropdown-item > a:contains('Developer')",
     auto: true,
@@ -194,7 +194,7 @@ registry.category("web_tour.tours").add('planning_assigning_unwanted_shift_backe
 {
     trigger: ".o_field_widget[name='resource_id'] input",
     content: "Assign this shift to another employee.",
-    run: 'text joseph',
+    run: "edit joseph",
 }, {
     trigger: ".o-autocomplete--dropdown-item > a:contains('joseph')",
     auto: true,

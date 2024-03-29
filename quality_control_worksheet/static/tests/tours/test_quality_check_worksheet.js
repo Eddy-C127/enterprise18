@@ -18,7 +18,7 @@ registry.category("web_tour.tours").add('test_multiple_worksheet_checks', {
             content: 'Enter failed qty',
             extra_trigger: '.modal-title:contains("Check Failed for Office Chair")',
             trigger: 'div[name="qty_failed"] .o_input',
-            run: 'text 1.0',
+            run: "edit 1.0",
         },
         {
             content: 'Choose fail location',

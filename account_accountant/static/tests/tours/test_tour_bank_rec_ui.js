@@ -65,7 +65,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Search for INV/2019/00001",
             extra_trigger: "a.active[name='amls_tab']",
             trigger: "div.bank_rec_widget_form_amls_list_anchor .o_searchview_input",
-            run: "text INV/2019/00001",
+            run: "edit INV/2019/00001",
         },
         {
             content: "Select the Journal Entry search option from the dropdown",
@@ -88,7 +88,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Modify the liquidity line amount",
             trigger: "div[name='balance'] input",
-            run: "text 100.00",
+            run: "edit 100.00 && blur",
         },
         {
             content: "Liquidity line displays debit '$ 100.00'",
@@ -132,7 +132,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Search for line2",
             extra_trigger: "a.active[name='amls_tab']",
             trigger: "div.o_kanban_view .o_searchview_input",
-            run: "text line2",
+            run: "fill line2",
         },
         {
             content: "Select the Transaction search option from the dropdown",
@@ -200,7 +200,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Change pager to display lines 1-2",
             trigger: "input.o_pager_value",
-            run: "text 1-2",
+            run: "edit 1-2 && blur",
         },
         {
             content: "Last St Line is line2",
@@ -284,7 +284,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "add manual entry 1",
             trigger: "div[name='balance'] input",
-            run: "text -600.0"
+            run: "edit -600.0 && blur",
         },
         {
             content: "mount the remaining opening balance line",
@@ -292,7 +292,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Remove the manual entry",
-            extra_trigger: "div[name='balance'] input:value('-400.00'):focus",
+            extra_trigger: "div[name='balance'] input:value('-400.00'):focus-within",
             trigger: ".o_list_record_remove .fa-trash-o",
         },
         {
@@ -346,7 +346,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Change pager to display lines 1-3",
             trigger: "input.o_pager_value",
-            run: "text 1-3",
+            run: "edit 1-3 && blur",
         },
         {
             content: "manually select line2 again by clicking it's matched icon",
@@ -434,7 +434,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "model name",
             trigger: "input#name_0",
-            run: "text Bank Fees",
+            run: "edit Bank Fees",
         },
         {
             content: "add an account",
@@ -443,7 +443,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "search for bank fees account",
             trigger: "[name='account_id'] input",
-            run: "text Bank Fees"
+            run: "edit Bank Fees",
         },
         {
             content: "select the bank fees account",
@@ -586,9 +586,9 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Modify the liquidity line amount",
-            extra_trigger: "div[name='balance'] input:focus",
+            extra_trigger: "div[name='balance'] input:focus-within",
             trigger: "div[name='balance'] input",
-            run: "text -333.33",
+            run: "edit -333.33 && blur",
         },
         {
             content: "balance displays $-333.33",
@@ -599,11 +599,10 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Modify the label",
             trigger: "div[name='name'] input",
-            run: "text Spontaneous Combustion",
+            run: "edit Spontaneous Combustion && blur",
         },
         {
             content: "statement line displays combustion and $-333.33",
-            extra_trigger: ".o_bank_rec_selected_st_line:contains('Combustion'):contains('$ -333.33')",
             trigger: ".o_bank_rec_selected_st_line:contains('Combustion'):contains('$ -333.33')",
             run: () => {},
         },
@@ -636,7 +635,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Set balance of 'line2' (selected row) to 500.00",
             trigger: "table.o_list_table tr.o_data_row.o_selected_row td[name='amount'] input",
-            run: "text 500.00",
+            run: "edit 500.00 && blur",
         },
         {
             content: "Switch back to kanban",

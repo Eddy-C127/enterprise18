@@ -12,22 +12,22 @@ registry.category("web_tour.tours").add("required_fields_tour", {
         {
             content: "Filling the details",
             trigger: "input#company",
-            run: "text Office",
+            run: "edit Office",
         },
         {
             content: "Filling the details",
             trigger: "input#name",
-            run: "text Test_Tour_2",
+            run: "edit Test_Tour_2",
         },
         {
             content: "Filling the details",
             trigger: "input#phone",
-            run: "text 1234567890",
+            run: "edit 1234567890",
         },
         {
             content: "Filling the details",
             trigger: "input#email",
-            run: "text test@example.com",
+            run: "edit test@example.com",
         },
         {
             content: "Click on the check in button",

@@ -35,7 +35,7 @@ const AddTrackingLineAndValidateSteps = [
         content: 'Enter the lot number',
         trigger: 'div[name="tracking_line_ids"] tr.o_data_row.o_selected_row div[name="lot_id"] input[type="text"]',
         extra_trigger: 'div[role="dialog"]',
-        run: 'text Lot_1',
+        run: 'edit Lot_1',
     },
     {
         content: 'Select Lot_1',
@@ -193,7 +193,7 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         content: 'Change the default warehouse to WH B',
         trigger: 'div[name="property_warehouse_id"] input[type="text"]',
-        run: 'text WH B',
+        run: 'edit WH B',
     },
     {
         content: 'Select WH B',

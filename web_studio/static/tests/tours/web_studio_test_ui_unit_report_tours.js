@@ -115,7 +115,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition", 
     steps: () => [
         {
             trigger: ".o_web_studio_sidebar input[id='name']",
-            run: "text modified in test",
+            run: "edit modified in test && blur",
         },
         {
             trigger: ".o_web_studio_menu .breadcrumb-item.active",
@@ -125,11 +125,11 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition", 
         },
         {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(0)",
-            run: "text edited with odoo editor",
+            run: "editor edited with odoo editor",
         },
         {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
-            run: "text edited with odoo editor 2",
+            run: "editor edited with odoo editor 2",
         },
         {
             // Don't explicitly save, this is a feature
@@ -226,7 +226,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_di
     steps: () => [
         {
             trigger: ".o_web_studio_sidebar input[id='name']",
-            run: "text modified in test",
+            run: "edit modified in test && blur",
         },
         {
             trigger: ".o_web_studio_menu .breadcrumb-item.active",
@@ -236,11 +236,11 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_di
         },
         {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(0)",
-            run: "text edited with odoo editor",
+            run: "editor edited with odoo editor",
         },
         {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
-            run: "text edited with odoo editor 2",
+            run: "editor edited with odoo editor 2",
         },
         {
             trigger: ".o-web-studio-discard-report.btn-secondary",
@@ -293,7 +293,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_er
     steps: () => [
         {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(0)",
-            run: "text edited with odoo editor",
+            run: "editor edited with odoo editor",
         },
         {
             // Brutally add a t-else: this will crash in python on save
@@ -308,7 +308,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_er
         },
         {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
-            run: "text edited with odoo editor 2",
+            run: "editor edited with odoo editor 2",
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
@@ -460,15 +460,15 @@ registry.category("web_tour.tours").add("web_studio.test_table_rendering", {
         {
             trigger:
                 ".o-web-studio-report-editor-wysiwyg :iframe .invalid_table [oe-origin-tag='td']",
-            run: "text edited with odooEditor",
+            run: "editor edited with odooEditor",
         },
         {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(1)",
-            run: "text p edited with odooEditor",
+            run: "editor p edited with odooEditor",
         },
         {
             trigger: ".o_web_studio_sidebar input[id='name']",
-            run: "text modified",
+            run: "edit modified && blur",
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
@@ -518,7 +518,7 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_search input",
-            run: "text Job Position",
+            run: "edit Job Position",
         },
         {
             trigger:
@@ -527,15 +527,11 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_default_value_input input",
-            run: "text some default value",
+            run: "edit some default value",
         },
         {
             trigger: ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover",
-            run() {
-                this.anchor.dispatchEvent(
-                    new KeyboardEvent("keydown", { key: "Enter", bubbles: true })
-                );
-            },
+            run: "press Enter",
         },
         {
             trigger:
@@ -611,7 +607,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_search input",
-            run: "text Job Position",
+            run: "edit Job Position",
         },
         {
             trigger:
@@ -620,15 +616,11 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_default_value_input input",
-            run: "text some default value",
+            run: "edit some default value",
         },
         {
             trigger: ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover",
-            run() {
-                this.anchor.dispatchEvent(
-                    new KeyboardEvent("keydown", { key: "Enter", bubbles: true })
-                );
-            },
+            run: "press Enter",
         },
         {
             // check that field was added successfully
@@ -724,7 +716,7 @@ registry.category("web_tour.tours").add("web_studio.test_edition_without_lang", 
         },
         {
             trigger: ".o_translation_dialog .row:eq(1) textarea",
-            run: "text translated edited term",
+            run: "edit translated edited term && blur",
         },
         {
             trigger: ".modal-footer button.btn-primary",
@@ -831,7 +823,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_non_searchable_fiel
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_search input",
-            run: "text New",
+            run: "edit New",
         },
         {
             trigger: "[data-name=avatar_1024] > button.o_model_field_selector_popover_item_name",
@@ -839,15 +831,11 @@ registry.category("web_tour.tours").add("web_studio.test_add_non_searchable_fiel
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_default_value_input input",
-            run: "text file default value",
+            run: "edit file default value",
         },
         {
             trigger: ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover",
-            run() {
-                this.anchor.dispatchEvent(
-                    new KeyboardEvent("keydown", { key: "Enter", bubbles: true })
-                );
-            },
+            run: "press Enter",
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
@@ -877,7 +865,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_search input",
-            run: "text Company",
+            run: "edit Company",
         },
         {
             trigger: "[data-name=company_id] > button.o_model_field_selector_popover_item_relation",
@@ -885,7 +873,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_search input",
-            run: "text New File",
+            run: "edit New File",
         },
         {
             trigger:
@@ -894,15 +882,11 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_default_value_input input",
-            run: "text file default value",
+            run: "edit file default value",
         },
         {
             trigger: ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover",
-            run() {
-                this.anchor.dispatchEvent(
-                    new KeyboardEvent("keydown", { key: "Enter", bubbles: true })
-                );
-            },
+            run: "press Enter",
         },
         {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
@@ -918,7 +902,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_search input",
-            run: "text Company",
+            run: "edit Company",
         },
         {
             trigger: "[data-name=company_id] > button.o_model_field_selector_popover_item_relation",
@@ -926,7 +910,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_search input",
-            run: "text New Image",
+            run: "edit New Image",
         },
         {
             trigger: ".o_model_field_selector_popover_item_name:contains(New Image)",
@@ -934,15 +918,11 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_default_value_input input",
-            run: "text image default value",
+            run: "edit image default value",
         },
         {
             trigger: ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover",
-            run() {
-                this.anchor.dispatchEvent(
-                    new KeyboardEvent("keydown", { key: "Enter", bubbles: true })
-                );
-            },
+            run: "press Enter",
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
@@ -972,7 +952,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_search input",
-            run: "text Activities",
+            run: "edit Activities",
         },
         {
             trigger: "[data-name=activity_ids] > button.o_model_field_selector_popover_item_name",
@@ -980,15 +960,11 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_default_value_input input",
-            run: "text First Column",
+            run: "edit First Column",
         },
         {
             trigger: ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover",
-            run() {
-                this.anchor.dispatchEvent(
-                    new KeyboardEvent("keydown", { key: "Enter", bubbles: true })
-                );
-            },
+            run: "press Enter",
         },
         {
             trigger:
@@ -1018,7 +994,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_search input",
-            run: "text Summary",
+            run: "edit Summary",
         },
         {
             trigger:
@@ -1027,15 +1003,11 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_default_value_input input",
-            run: "text Some Summary",
+            run: "edit Some Summary",
         },
         {
             trigger: ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover",
-            run() {
-                this.anchor.dispatchEvent(
-                    new KeyboardEvent("keydown", { key: "Enter", bubbles: true })
-                );
-            },
+            run: "press Enter",
         },
         {
             trigger:
@@ -1229,7 +1201,7 @@ registry.category("web_tour.tours").add("web_studio.test_record_model_differs_fr
             },
             {
                 trigger: ".o_studio_report_kanban_view .o_searchview input",
-                run: "text dummy test",
+                run: "fill dummy test",
             },
             {
                 trigger:

@@ -47,7 +47,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         {
             content: "Change job position",
             trigger: ".o_input#employee_job_id_0",
-            run: "text Senior Developer BE",
+            run: "edit Senior Developer BE",
         },
         {
             trigger: "a.dropdown-item:contains('Senior Developer BE')",
@@ -79,12 +79,12 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         {
             content: "Log as employee - input login",
             trigger: "input#login",
-            run: "text jeanjasse",
+            run: "edit jeanjasse",
         },
         {
             content: "Log as employee - input password",
             trigger: "input#password",
-            run: "text jeanjasse",
+            run: "edit jeanjasse",
         },
         {
             content: "Log as employee",
@@ -176,7 +176,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         {
             content: "Type Date",
             trigger: ":iframe input.ui-selected",
-            run: "text 17/09/2018",
+            run: "edit 17/09/2018",
         },
         // fill signature
         {
@@ -213,7 +213,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         {
             content: "Type Date",
             trigger: ":iframe input.ui-selected",
-            run: "text 17/09/2018",
+            run: "edit 17/09/2018",
         },
         {
             content: "Validate and Sign",

@@ -24,7 +24,7 @@ registry.category("web_tour.tours").add('knowledge_embedded_view_filters_tour', 
         run: () => {}
     }, { // add a simple filter
         trigger: '.o_searchview_input_container input',
-        run: 'text 1'
+        run: "edit 1",
     }, {
         trigger: 'li#1'
     }, { // Check that the filter is effective

@@ -10,7 +10,7 @@ registry.category("web_tour.tours").add('shop_buy_rental_stock_product', {
         {
             content: "Search computer write text",
             trigger: 'form input[name="search"]',
-            run: "text computer",
+            run: "edit computer",
         },
         {
             content: "Search computer click",
@@ -38,12 +38,12 @@ registry.category("web_tour.tours").add('shop_buy_rental_stock_product', {
         {
             content: "Pick start time",
             trigger: '.o_time_picker_select:eq(0)',
-            run: "text 8",
+            run: "select 8",
         },
         {
             content: "Pick end time",
             trigger: '.o_time_picker_select:eq(2)',
-            run: "text 12",
+            run: "select 12",
         },
         {
             content: "Apply change",

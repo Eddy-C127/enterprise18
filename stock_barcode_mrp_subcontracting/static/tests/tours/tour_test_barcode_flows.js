@@ -31,12 +31,12 @@ registry.category("web_tour.tours").add('test_receipt_classic_subcontracted_prod
     { trigger: '.o_add_line' },
     {
         trigger: '.o_field_widget[name=product_id] input',
-        run: 'text Chocolate Eclairs',
+        run: "edit Chocolate Eclairs",
     },
     { trigger: ".ui-menu-item > a:contains('Chocolate Eclairs')" },
     {
         trigger: '[name=qty_done] input',
-        run: 'text 1',
+        run: "edit 1",
     },
     { trigger: '.o_save' },
     {
@@ -56,7 +56,7 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
     {
         trigger: ".o_field_widget[name=qty_producing] input",
         position: "right",
-        run: "text 1",
+        run: "edit 1 && blur",
     },
 
     {
@@ -79,7 +79,7 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
     {
         trigger: ".o_field_widget[name=qty_producing] input",
         position: "right",
-        run: "text 1",
+        run: "edit 1 && blur",
     },
 
     {
@@ -105,7 +105,7 @@ registry.category("web_tour.tours").add('test_receipt_flexible_subcontracted_pro
     {
         trigger: ".o_field_widget[name=qty_producing] input",
         position: "right",
-        run: "text 1",
+        run: "edit 1 && blur",
     },
     {
         trigger: "div[name=move_line_raw_ids] td[name=quantity]",
@@ -113,7 +113,7 @@ registry.category("web_tour.tours").add('test_receipt_flexible_subcontracted_pro
 
     {
         trigger: "div[name=move_line_raw_ids] [name=quantity] input",
-        run: "text 2",
+        run: "edit 2",
     },
     {
         trigger: ".modal-footer .btn-primary[name=subcontracting_record_component]",

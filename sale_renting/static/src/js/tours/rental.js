@@ -27,6 +27,7 @@ registry.category("web_tour.tours").add('rental_tour', {
     trigger: ".o_field_widget[name='name'] textarea",
     content: _t("Enter the product name."),
     position: 'bottom',
+    run: "edit Test",
 }, {
     trigger: '.o_form_button_save',
     content: _t("Save the product."),
@@ -52,7 +53,7 @@ registry.category("web_tour.tours").add('rental_tour', {
     trigger: ".o_field_widget[name=partner_id] input",
     content: _t("Create or select a customer here."),
     position: 'bottom',
-    run: 'text Agrolait',
+    run: "edit Agrolait",
 }, {
     trigger: '.o_field_widget[name=partner_id] .ui-menu-item > a:contains(Agrolait)',
     auto: true,
@@ -66,6 +67,7 @@ registry.category("web_tour.tours").add('rental_tour', {
     trigger: ".o_field_widget[name=product_id] input, .o_field_widget[name=product_template_id] input",
     content: _t("Select your rental product."),
     position: 'bottom',
+    run: "edit Test",
 }, {
     trigger: ".ui-menu-item a:contains('Test')",
     auto: true,
@@ -73,6 +75,7 @@ registry.category("web_tour.tours").add('rental_tour', {
     trigger: ".o_field_widget[name=product_id] input, .o_field_widget[name=product_template_id] input",
     content: _t("Select the rental dates and check the price."),
     position: 'bottom',
+    run: "edit Test",
 }, {
     trigger: 'td.o_data_cell:contains("Test (Rental)")',
     isCheck: true,
