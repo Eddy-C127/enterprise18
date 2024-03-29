@@ -8,10 +8,10 @@ class MrpReport(models.Model):
     _inherit = 'mrp.report'
 
     employee_cost = fields.Monetary(
-        "Total Employee Cost", readonly=True,
+        "Total Employee Cost", readonly=True, groups="mrp.group_mrp_routings",
         help="Total cost of employees for manufacturing order")
     unit_employee_cost = fields.Monetary(
-        "Average Employee Cost / Unit", readonly=True, aggregator="avg",
+        "Average Employee Cost / Unit", readonly=True, aggregator="avg", groups="mrp.group_mrp_routings",
         help="Employee Cost per unit produced (in product UoM) of manufacturing order")
 
     def _select_total_cost(self):

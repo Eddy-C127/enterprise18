@@ -61,6 +61,22 @@ class MrpReport(models.Model):
         "By-Products Total Cost", readonly=True,
         groups="mrp.group_mrp_byproducts")
 
+    expected_component_cost_unit = fields.Monetary(
+        "Expected Component Cost / Unit", readonly=True, aggregator="avg",
+    )
+    expected_employee_cost_unit = fields.Monetary(
+        "Expected Employee Cost / Unit", readonly=True, aggregator="avg",
+        groups="mrp.group_mrp_routings"
+    )
+    expected_operation_cost_unit = fields.Monetary(
+        "Expected Operation Cost / Unit", readonly=True, aggregator="avg",
+        groups="mrp.group_mrp_routings"
+    )
+    expected_total_cost_unit = fields.Monetary(
+        "Expected Total Cost / Unit", readonly=True, aggregator="avg",
+        groups="mrp.group_mrp_routings"
+    )
+
     @property
     def _table_query(self):
         ''' Report needs to be dynamic to take into account multi-company selected + multi-currency rates '''
@@ -89,7 +105,18 @@ class MrpReport(models.Model):
                 op_cost.total * (1 - cost_share.byproduct_cost_share) / prod_qty.product_qty * currency_table.rate                      AS unit_operation_cost,
                 ({self._select_total_cost()}) * (1 - cost_share.byproduct_cost_share) / prod_qty.product_qty * currency_table.rate      AS unit_cost,
                 op_cost.total_duration / prod_qty.product_qty                                                                           AS unit_duration,
-                ({self._select_total_cost()}) * cost_share.byproduct_cost_share * currency_table.rate                                   AS byproduct_cost
+                ({self._select_total_cost()}) * cost_share.byproduct_cost_share * currency_table.rate                                   AS byproduct_cost,
+                AVG(
+                    COALESCE(product_standard_price.value,0)
+                        / prod_qty.product_qty
+                )                                                          AS expected_component_cost_unit,
+                AVG(COALESCE(operation.employee_cost,0))                   AS expected_employee_cost_unit,
+                AVG(COALESCE(operation.workcenter_cost,0))                 AS expected_operation_cost_unit,
+                AVG(
+                    COALESCE(product_standard_price.value,0) +
+                    COALESCE(operation.employee_cost,0) +
+                    COALESCE(operation.workcenter_cost,0)
+                )                                                          AS expected_total_cost_unit
         """
 
         return select_str
@@ -114,16 +141,118 @@ class MrpReport(models.Model):
             {byproducts_cost}
             {total_produced}
             LEFT JOIN {currency_table} ON currency_table.company_id = mo.company_id
+            {exp_comp_cost_unit}
+            {exp_oper_cost_unit}
         """.format(
             currency_table=self.env['res.currency']._get_query_currency_table(self.env.companies.ids, fields.Date.today()),
             company_id=int(self.env.company.id),
             comp_cost=self._join_component_cost(),
             op_cost=self._join_operations_cost(),
             byproducts_cost=self._join_byproducts_cost_share(),
-            total_produced=self._join_total_qty_produced()
+            total_produced=self._join_total_qty_produced(),
+            exp_comp_cost_unit=self._join_expected_component_cost_unit(),
+            exp_oper_cost_unit=self._join_expected_operation_cost_unit()
         )
 
         return from_str
+
+    def _join_expected_component_cost_unit(self):
+        return f"""
+            LEFT JOIN (
+                SELECT
+                    SUM(ir_prop.value_float * bom_line.product_qty)                     AS value,
+                    MIN(mo.id)                                                          AS mo_id
+                FROM mrp_production                                                     AS mo
+                JOIN res_company                                                        AS rc
+                    ON rc.id = {int(self.env.company.id)}
+                JOIN mrp_bom_line                                                       AS bom_line
+                    ON bom_line.bom_id = mo.bom_id
+                JOIN ir_property                                                        AS ir_prop
+                    ON ir_prop.res_id = 'product.product,' || bom_line.product_id
+                WHERE ir_prop.name = 'standard_price'
+                    AND mo.state = 'done'
+                GROUP BY mo.id
+            ) product_standard_price
+                ON product_standard_price.mo_id = mo.id
+        """
+
+    def _join_expected_operation_cost_unit(self):
+        return f"""
+            LEFT JOIN (
+                SELECT
+                    MIN(mo.id)                                                                  AS mo_id,
+                    SUM(
+                        {self._get_expected_duration()} * wc.costs_hour
+                    )                                                                           AS workcenter_cost,
+                    SUM(
+                        {self._get_expected_duration()} * wc.employee_costs_hour * op.employee_ratio
+                    )                                                                           AS employee_cost
+                FROM mrp_production                                                             AS mo
+                JOIN res_company                                                                AS rc
+                    ON rc.id = {int(self.env.company.id)}
+                JOIN mrp_bom                                                                    AS bom
+                    ON mo.bom_id = bom.id
+                JOIN mrp_routing_workcenter                                                     AS op
+                    ON op.bom_id = bom.id
+                JOIN mrp_workcenter                                                             AS wc
+                    ON wc.id = op.workcenter_id
+                LEFT JOIN mrp_workcenter_capacity                                               AS cap
+                    ON cap.product_id = bom.product_tmpl_id
+                    AND cap.workcenter_id = wc.id
+                    AND mo.state = 'done'
+                GROUP BY mo.id
+            ) operation
+                ON operation.mo_id = mo.id
+        """
+
+    def _get_expected_duration(self):
+        return f"""
+            (
+                (
+                    (
+                        ({self._get_operation_time_cycle()})
+                        * 100 / wc.time_efficiency
+                    )
+                    + COALESCE(cap.time_start, COALESCE(wc.time_start,0))
+                    + COALESCE(cap.time_stop, COALESCE(wc.time_stop,0))
+                )
+                / 60
+            )
+        """
+
+    def _get_operation_time_cycle(self):
+        return """
+            WITH cycle_info AS (
+                SELECT
+                    SUM(wo.duration)                                            AS total_duration,
+                    SUM(
+                        COALESCE(
+                            CEIL(
+                                wo.qty_produced
+                                / COALESCE(cap.capacity,wc.default_capacity)
+                            ),
+                            1
+                        )
+                    )                                                           AS cycle_number
+                FROM mrp_workorder                                              AS wo
+                JOIN mrp_workcenter                                             AS wc
+                    ON wc.id = wo.workcenter_id
+                LEFT JOIN mrp_workcenter_capacity                               AS cap
+                    ON cap.workcenter_id = wc.id
+                        AND cap.product_id = bom.product_tmpl_id
+                WHERE wo.operation_id = op.id
+                    AND wo.qty_produced > 0
+                    AND wo.state = 'done'
+                GROUP BY op.id
+            )
+            SELECT
+                CASE
+                    WHEN op.time_mode = 'manual'        THEN op.time_cycle_manual
+                    WHEN cycle_info.cycle_number = 0    THEN op.time_cycle_manual
+                    ELSE cycle_info.total_duration / cycle_info.cycle_number
+                END
+            FROM cycle_info
+        """
 
     def _join_component_cost(self):
         return """
