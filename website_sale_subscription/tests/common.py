@@ -13,7 +13,10 @@ class TestWebsiteSaleSubscriptionCommon(TestSubscriptionCommon):
             'name': 'Subscription Company',
         })
 
-        cls.current_website = cls.env['website'].get_current_website()
+        cls.current_website = cls.env['website'].create({
+            'company_id': cls.company.id,
+            'name': 'Test Website'
+        })
 
         ProductTemplate = cls.env['product.template']
         ProductAttributeVal = cls.env['product.attribute.value']

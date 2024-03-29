@@ -19,6 +19,7 @@ class TestWebsiteSaleSubscription(TestWebsiteSaleSubscriptionCommon):
         })
         so = self.env['sale.order'].create({
             'partner_id': self.partner.id,
+            'company_id': self.company.id,
         })
 
         # Mocking to check if error raised on Website when adding
