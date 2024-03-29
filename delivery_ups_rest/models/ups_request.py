@@ -52,7 +52,7 @@ class UPSRequest:
         res = _request_call(headers)
         if res.status_code == 401 and auth is None:
             self.access_token = self._get_new_access_token()
-            self.carrier.ups_access_token = self.access_token
+            self.carrier.sudo().ups_access_token = self.access_token
             res = _request_call(None)
 
         return res
