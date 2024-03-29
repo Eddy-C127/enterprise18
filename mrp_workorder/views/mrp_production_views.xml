@@ -64,6 +64,18 @@
         <field name="view_id" ref="mrp_production_tree_view_planning"/>
     </record>
 
+    <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.form.inherit.mrp_workorder</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_shop_floor" type="object" icon="oi-view-kanban" string="Shop Floor" 
+                        groups="mrp_workorder.group_mrp_wo_shop_floor" invisible="state in ('draft', 'done', 'cancel')"/>
+            </xpath>
+        </field>
+    </record>
+
     <menuitem id="mrp_workorder_menu_planning"
         name="Work Orders"
         sequence="2"

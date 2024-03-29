@@ -64,6 +64,16 @@ class MrpProduction(models.Model):
             }
         }
 
+    def action_open_shop_floor(self):
+        self.ensure_one()
+        action = self.env['ir.actions.actions']._for_xml_id('mrp_workorder.action_mrp_display')
+        action['context'] = {
+            'show_all_workorders': True,
+            'search_default_name': self.name,
+            'shouldHideNewWorkcenterButton': True,
+        }
+        return action
+
     @api.depends('workorder_ids', 'workorder_ids.employee_ids')
     def _compute_employee_ids(self):
         for record in self:
