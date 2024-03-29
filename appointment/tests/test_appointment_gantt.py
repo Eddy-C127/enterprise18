@@ -36,9 +36,11 @@ class AppointmentGanttTestCommon(AppointmentCommon):
         cls.apt_users = cls.user_bob + cls.user_john
 
         cls.apt_types = cls.env['appointment.type'].create([{
+            'appointment_tz': 'UTC',
             'name': 'bob apt type',
             'staff_user_ids': [(4, cls.user_bob.id)],
         }, {
+            'appointment_tz': 'UTC',
             'name': 'nouser apt type',
             'staff_user_ids': [],
         }])
