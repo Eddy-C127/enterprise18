@@ -323,6 +323,7 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         const { product_id } = params.fieldsParams;
         if (!this.record.product_id && product_id ) {
             this.record.product_id = product_id;
+            this.trigger("playSound", "success");
             return await this.save();
         }
         return super.createNewLine(...arguments);

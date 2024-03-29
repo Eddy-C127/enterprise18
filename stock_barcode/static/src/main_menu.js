@@ -10,6 +10,7 @@ import { serializeDate, today } from "@web/core/l10n/dates";
 import { Component, onWillStart, useState } from "@odoo/owl";
 import { ManualBarcodeScanner } from "./components/manual_barcode";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
+import { url } from '@web/core/utils/urls';
 
 export class MainMenu extends Component {
     static props = { ...standardActionServiceProps };
@@ -36,6 +37,11 @@ export class MainMenu extends Component {
                 ["inventory_date", "<=", serializeDate(today())],
             ]
             this.quantCount = await orm.searchCount("stock.quant", args);
+            const fileExtension = new Audio().canPlayType("audio/ogg") ? "ogg" : "mp3";
+            this.sounds = {
+                success: new Audio(url(`/stock_barcode/static/src/audio/success.${fileExtension}`)),
+            };
+            this.sounds.success.load();
         });
     }
 
@@ -65,6 +71,7 @@ export class MainMenu extends Component {
     async _onBarcodeScanned(barcode) {
         const res = await rpc('/stock_barcode/scan_from_main_menu', { barcode });
         if (res.action) {
+            this.sounds["success"].play();
             return this.actionService.doAction(res.action);
         }
         this.notificationService.add(res.warning, { type: 'danger' });

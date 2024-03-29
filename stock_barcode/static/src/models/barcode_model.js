@@ -1173,6 +1173,7 @@ export default class BarcodeModel extends EventBus {
                     fieldsParams.uom = barcodeData.uom;
                 }
                 await this.updateLine(currentLine, fieldsParams);
+                this.trigger("playSound", "success");
             }
             if (exceedingQuantity) { // Creates a new line for the excess quantity.
                 barcodeData.quantity = exceedingQuantity;
@@ -1191,6 +1192,9 @@ export default class BarcodeModel extends EventBus {
                 fieldsParams.uom = barcodeData.uom;
             }
             currentLine = await this.createNewLine({fieldsParams});
+            if(currentLine){
+                this.trigger("playSound", "success");
+            }
         }
 
         // And finally, if the scanned barcode modified a line, selects this line.
@@ -1214,6 +1218,7 @@ export default class BarcodeModel extends EventBus {
     async _processLocation(barcodeData) {
         if (barcodeData.location) {
             await this._processLocationSource(barcodeData);
+            this.trigger("playSound", "success");
             this.trigger('update');
         }
     }
@@ -1287,6 +1292,7 @@ export default class BarcodeModel extends EventBus {
 
     _selectLine(line) {
         const virtualId = line.virtual_id;
+        this.trigger("playSound", "success");
         if (this.selectedLineVirtualId === virtualId) {
             return; // Don't select the line if it's already selected.
         }

@@ -103,9 +103,11 @@ class MainComponent extends Component {
                 this.sounds = {
                     error: new Audio(url(`/stock_barcode/static/src/audio/error.${fileExtension}`)),
                     notify: new Audio(url(`/mail/static/src/audio/ting.${fileExtension}`)),
+                    success: new Audio(url(`/stock_barcode/static/src/audio/success.${fileExtension}`)),
                 };
                 this.sounds.error.load();
                 this.sounds.notify.load();
+                this.sounds.success.load();
             }
             this.groups = barcodeData.groups;
             this.env.model.setData(barcodeData);
