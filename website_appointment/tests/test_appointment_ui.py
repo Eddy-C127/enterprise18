@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.addons.appointment.tests.common import AppointmentCommon
+from odoo.addons.mail.tests.common import mail_new_test_user
 from odoo.tests import tagged
 
 
@@ -32,12 +33,15 @@ class WebsiteAppointmentUITest(AppointmentCommon):
         self.assertEqual(res.status_code, 200, "Response should = OK")
 
     def test_website_appointment_tour(self):
-        self.start_tour('/web', 'website_appointment_tour', login='admin')
+        mail_new_test_user(
+            self.env, login='user_portal', groups='base.group_portal', name='Portal User',
+            company_id=self.company_admin.id, email='portal@example.com')
+        self.start_tour('/web', 'website_appointment_tour', login='apt_manager')
         guest_names = ['Raoul', 'new_zeadland2@test.example.com', 'def@gmail.example.com', 'test1@gmail.com', 'test2@gmail.com', 'abc@gmail.com']
         new_partners = self.env['res.partner'].search_count([('name', 'in', guest_names)])
         self.assertEqual(new_partners, 6)
-        event = self.env['calendar.event'].search([('name', '=', 'Mitchell Admin - Test Booking')], limit=1)
-        expected_names = {'Mitchell Admin', 'test1@gmail.com', 'Joel Willis', 'test2@gmail.com',
+        event = self.env['calendar.event'].search([('name', '=', 'Appointment Manager - Test Booking')], limit=1)
+        expected_names = {'Appointment Manager', 'test1@gmail.com', 'Portal User', 'test2@gmail.com',
             'new_zeadland2@test.example.com', 'Raoul', 'def@gmail.example.com', 'abc@gmail.com'}
         attendees = self.env['calendar.attendee'].search([('event_id', '=', event.id)])
         self.assertEqual(len(attendees), 8)

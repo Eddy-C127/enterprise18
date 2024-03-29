@@ -52,7 +52,7 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         content: 'Enter the emails of the guests',
         trigger: '#o_appointment_input_guest_emails',
         run:()=>{
-            document.querySelector('#o_appointment_input_guest_emails').value = 'test1@gmail.com\r\njoel.willis63@example.com\r\naaaa'
+            document.querySelector('#o_appointment_input_guest_emails').value = 'test1@gmail.com\r\nportal@example.com\r\naaaa'
         }
     }, {
         content: 'Click on the add guest button',
@@ -65,7 +65,7 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         content: 'Removing the Invalid Email from the text area',
         trigger: '#o_appointment_input_guest_emails',
         run:()=>{
-            document.querySelector('#o_appointment_input_guest_emails').value = '"Raoul" <hello@gmail.com>\r\ntest1@gmail.com\r\nnew_zeadland2@test.example.com\r\n\r\njoel.willis63@example.com'
+            document.querySelector('#o_appointment_input_guest_emails').value = '"Raoul" <hello@gmail.com>\r\ntest1@gmail.com\r\nnew_zeadland2@test.example.com\r\n\r\nportal@example.com'
         }
     }, {
         content: 'Confirm the appointment',
@@ -74,7 +74,7 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         trigger: 'div:contains("test1@gmail.com")',
         isCheck: true
     }, {
-        trigger: 'div:contains("Joel Willis")',
+        trigger: 'div:contains("Portal User")',
         isCheck: true
     }, {
         trigger: 'div:contains("new_zeadland2@test.example.com")',
