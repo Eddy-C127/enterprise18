@@ -342,3 +342,13 @@ class TestAccountReportsCommon(AccountTestInvoicingCommon):
                 test_xml = fp.read()
         test_xml_tree = self.get_xml_tree_from_string(test_xml)
         self.assertXmlTreeEqual(report_xml, test_xml_tree)
+
+    @classmethod
+    def _fill_tax_report_line_external_value(cls, target, amount, date):
+        cls.env['account.report.external.value'].create({
+            'company_id': cls.company_data['company'].id,
+            'target_report_expression_id': cls.env.ref(target).id,
+            'name': 'Manual value',
+            'date': fields.Date.from_string(date),
+            'value': amount,
+        })

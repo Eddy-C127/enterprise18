@@ -14,6 +14,8 @@ Accounting reports for Czech Republic
     'data': [
         'data/profit_loss.xml',
         'data/balance_sheet.xml',
+        'data/tax_report.xml',
+        'data/tax_report_export.xml',
     ],
     'auto_install': True,
     'installable': True,
