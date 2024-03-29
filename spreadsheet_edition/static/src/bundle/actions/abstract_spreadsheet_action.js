@@ -14,6 +14,7 @@ import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks"
 import { RecordFileStore } from "../image/record_file_store";
 import { useSpreadsheetCurrencies, useSpreadsheetLocales, useSpreadsheetThumbnail } from "../hooks";
 import { useSpreadsheetPrint } from "@spreadsheet/hooks";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
@@ -322,6 +323,7 @@ export class AbstractSpreadsheetAction extends Component {
     async download() {
         this.ui.block();
         try {
+            await waitForDataLoaded(this.model);
             await this.actionService.doAction({
                 type: "ir.actions.client",
                 tag: "action_download_spreadsheet",
