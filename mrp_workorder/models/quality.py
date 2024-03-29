@@ -188,10 +188,10 @@ class QualityCheck(models.Model):
     _inherit = "quality.check"
 
     workorder_id = fields.Many2one(
-        'mrp.workorder', 'Operation', check_company=True)
+        'mrp.workorder', 'Operation', check_company=True, index='btree_not_null')
     workcenter_id = fields.Many2one('mrp.workcenter', related='workorder_id.workcenter_id', store=True, readonly=True)  # TDE: necessary ?
     production_id = fields.Many2one(
-        'mrp.production', 'Production Order', check_company=True)
+        'mrp.production', 'Production Order', check_company=True, index='btree_not_null')
     product_tracking = fields.Selection(related='production_id.product_tracking')
 
     # doubly linked chain for tablet view navigation
