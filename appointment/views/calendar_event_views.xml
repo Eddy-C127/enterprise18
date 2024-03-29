@@ -119,7 +119,7 @@
                             <field name="appointment_type_manage_capacity" invisible="1"/>
                             <field name="appointment_type_schedule_based_on" invisible="1"/>
                             <field name="appointment_resource_id" string="Resource" options="{'no_create': True}"
-                                    domain="[('appointment_type_ids', 'in', appointment_type_id)]"/>
+                                   invisible="1" domain="[('appointment_type_ids', 'in', appointment_type_id)]"/>
                             <field name="appointment_resource_ids" invisible="1"/>
                             <field name="resource_ids" string="Resources" options="{'no_create': True}"
                                    invisible="not appointment_type_id or appointment_type_schedule_based_on != 'resources'"
