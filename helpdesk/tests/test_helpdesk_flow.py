@@ -472,7 +472,7 @@ Content-Transfer-Encoding: quoted-printable
 
     def test_email_with_mail_template_internal_user(self):
         """
-        Internal users do not receive an email when they create a ticket
+        Internal users receive an email when they create a ticket by email.
         """
         self.stage_new.template_id = self.env.ref('helpdesk.new_ticket_request_email_template')
         self.helpdesk_user.email = self.email_to_alias_from
@@ -483,10 +483,11 @@ Content-Transfer-Encoding: quoted-printable
 
         self.flush_tracking()
 
-        # check that when an internal user creates a ticket there is one message on the ticket:
+        # check that when an internal user creates a ticket there is two messages on the ticket:
         # - the creation message note
-        self.assertEqual(len(helpdesk_ticket.message_ids), 1)
-        creation_log = helpdesk_ticket.message_ids
+        # - the mail from the stage mail template
+        template_msg, creation_log = helpdesk_ticket.message_ids
+        self.assertEqual(template_msg.subtype_id, self.env.ref('mail.mt_note'))
         self.assertEqual(creation_log.subtype_id, self.env.ref('helpdesk.mt_ticket_new'))
 
     def test_team_assignation_balanced_sla(self):
