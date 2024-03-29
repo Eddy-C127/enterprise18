@@ -48,7 +48,9 @@ class TestEcEdiWithholdWizard(TestEcEdiCommon):
         """Creates a purchase invoice and checks that when adding a withhold
         - the suggested taxes match the product default taxes
         - the tax supports are a subset of the invoice's tax supports
-        - the withhold is successfully posted"""
+        - the withhold is successfully posted
+        - it is not allowed to add another withhold
+        """
 
         # Create purchase invoice and withhold wizard
         wizard, purchase_invoice = self.get_wizard_and_purchase_invoice()
@@ -67,6 +69,32 @@ class TestEcEdiWithholdWizard(TestEcEdiCommon):
         with freeze_time(self.frozen_today):
             withhold = wizard.action_create_and_post_withhold()
         self.assertEqual(withhold.state, 'posted')
+
+        purchase_invoice._compute_l10n_ec_withhold_inv_fields()
+        with self.assertRaises(ValidationError, msg="Multiple invoices are only supported in customer withholds"):
+            with freeze_time(self.frozen_today):
+                wizard = self.env['l10n_ec.wizard.account.withhold'].with_context(active_ids=purchase_invoice.id, active_model='account.move').create({})
+
+    def test_multiple_purchase_invoice_withhold(self, custom_taxpayer=False):
+        """
+        Test creation of single withholds from multiple bills is blocked
+        """
+        purchase_invoices = self.env['account.move']
+        for partner in (self.partner_a, self.partner_b):
+            with freeze_time(self.frozen_today):
+                purchase_invoices |= self.get_invoice({
+                    'move_type': 'in_invoice',
+                    'partner_id': partner.id,
+                    'journal_id': self.company_data['default_journal_purchase'].id,
+                    'l10n_ec_sri_payment_id': self.env.ref('l10n_ec.P1').id,
+                    'invoice_line_ids': self.get_custom_purchase_invoice_line_vals(),
+                })
+        purchase_invoices.action_post()
+        with self.assertRaises(ValidationError, msg="Multiple invoices are only supported in customer withholds"):
+            with freeze_time(self.frozen_today):
+                wizard = self.env['l10n_ec.wizard.account.withhold'].with_context(active_ids=purchase_invoices.ids, active_model='account.move').create({})
+                wizard.document_number = '001-001-000000001'
+                wizard.action_create_and_post_withhold()
 
     def test_custom_taxpayer_type_partner_on_purchase_invoice(self):
         """Tests test_purchase_invoice_withhold with a custom taxpayer as a partner."""
