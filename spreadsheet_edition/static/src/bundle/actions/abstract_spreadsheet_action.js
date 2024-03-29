@@ -19,6 +19,7 @@ import { router } from "@web/core/browser/router";
 import { InputDialog } from "./input_dialog/input_dialog";
 import { OdooDataProvider } from "@spreadsheet/data_sources/odoo_data_provider";
 import { CommentsStore } from "../comments/comments_store";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
@@ -345,6 +346,7 @@ export class AbstractSpreadsheetAction extends Component {
     async download() {
         this.ui.block();
         try {
+            await waitForDataLoaded(this.model);
             await this.actionService.doAction({
                 type: "ir.actions.client",
                 tag: "action_download_spreadsheet",

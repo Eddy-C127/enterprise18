@@ -9,7 +9,7 @@ import { createSpreadsheet } from "../spreadsheet_test_utils";
 import { mockActionService } from "@documents_spreadsheet/../tests/spreadsheet_test_utils";
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
 import { setCellContent } from "@spreadsheet/../tests/utils/commands";
-import { getCellContent } from "@spreadsheet/../tests/utils/getters";
+import { getCellContent, getCellValue } from "@spreadsheet/../tests/utils/getters";
 
 const { topbarMenuRegistry } = spreadsheet.registries;
 
@@ -48,6 +48,51 @@ QUnit.module("documents_spreadsheet > Topbar Menu Items", {}, function () {
             });
         }
     );
+
+    QUnit.test("Datasources are loaded before exporting in Excel", async function (assert) {
+        const spreadsheetData = {
+            sheets: [
+                {
+                    id: "sh1",
+                },
+                {
+                    id: "sh2",
+                    cells: {
+                        A2: { content: `=ODOO.PIVOT(1,"probability","bar","false","foo",2)` },
+                    },
+                },
+            ],
+            pivots: {
+                1: {
+                    id: 1,
+                    colGroupBys: ["foo"],
+                    domain: [],
+                    measures: [{ field: "probability", operator: "avg" }],
+                    model: "partner",
+                    rowGroupBys: ["bar"],
+                    context: {},
+                },
+            },
+        };
+        const serverData = getBasicServerData();
+        serverData.models["documents.document"].records.push({
+            id: 45,
+            spreadsheet_data: JSON.stringify(spreadsheetData),
+            name: "Spreadsheet",
+            handler: "spreadsheet",
+        });
+        const { model, env } = await createSpreadsheet({
+            serverData,
+            spreadsheetId: 45,
+        });
+        mockActionService(env, (action) =>
+            assert.step(getCellValue(model, "A2", "sh2").toString())
+        );
+        const file = topbarMenuRegistry.getAll().find((item) => item.id === "file");
+        const download = file.children.find((item) => item.id === "download");
+        await download.execute(env);
+        assert.verifySteps(["15"]);
+    });
 
     QUnit.test("Can download xlsx file", async function (assert) {
         mockDownload((options) => {
