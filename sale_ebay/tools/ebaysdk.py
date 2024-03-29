@@ -9,6 +9,7 @@
 import uuid
 import sys
 
+from ebaysdk.exception import EbaySDKError
 from ebaysdk.trading import Connection
 from ebaysdk import UserAgent
 from requests import Request
@@ -56,3 +57,27 @@ class Trading(Connection):
                           )
 
         self.request = request.prepare()
+
+
+class EbayConnection:
+    def __init__(self, **kwargs):
+        self.__obj = Trading(**kwargs)
+
+    def execute(self, *args, **kwargs):
+        try:
+            response = self.__obj.execute(*args, **kwargs)
+            return EbayConnectionResponse(response)
+        except EbaySDKError as e:
+            raise EbayConnectionError(e)
+
+
+class EbayConnectionResponse:
+    def __init__(self, response):
+        self.dict = response.dict
+        self.text = response.text
+
+
+class EbayConnectionError(Exception):
+    def __init__(self, exception):
+        super().__init__(exception.message)
+        self.response = EbayConnectionResponse(exception.response)

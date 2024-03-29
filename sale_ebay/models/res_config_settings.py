@@ -3,13 +3,12 @@
 
 import uuid
 
-from ebaysdk.exception import ConnectionError
 from werkzeug import urls
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.addons.sale_ebay.controllers.main import EbayController
-from odoo.addons.sale_ebay.tools.ebaysdk import Trading
+from odoo.addons.sale_ebay.tools.ebaysdk import EbayConnection, EbayConnectionError
 from odoo.tools.misc import str2bool
 
 
@@ -92,7 +91,7 @@ class ResConfigSettings(models.TransientModel):
 
             if self.ebay_domain == 'sand':
                 if self.ebay_sandbox_token and self.ebay_sandbox_cert_id and self.ebay_sandbox_app_id:
-                    ebay_api = Trading(
+                    ebay_api = EbayConnection(
                         domain='api.sandbox.ebay.com',
                         config_file=None,
                         appid=self.ebay_sandbox_app_id,
@@ -105,11 +104,11 @@ class ResConfigSettings(models.TransientModel):
                     }
                     try:
                         ebay_api.execute('SetUserPreferences', call_data)
-                    except ConnectionError:
+                    except EbayConnectionError:
                         pass
             else:
                 if self.ebay_prod_token and self.ebay_prod_cert_id and self.ebay_prod_app_id:
-                    ebay_api = Trading(
+                    ebay_api = EbayConnection(
                         domain='api.ebay.com',
                         config_file=None,
                         appid=self.ebay_prod_app_id,
@@ -122,7 +121,7 @@ class ResConfigSettings(models.TransientModel):
                     }
                     try:
                         ebay_api.execute('SetUserPreferences', call_data)
-                    except ConnectionError:
+                    except EbayConnectionError:
                         pass
 
     @api.model
