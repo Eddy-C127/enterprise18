@@ -8,15 +8,15 @@ import logging
 from PIL import Image
 
 from datetime import datetime, timedelta
-from ebaysdk.exception import ConnectionError
 from markupsafe import Markup
-from odoo.addons.sale_ebay.tools.ebaysdk import Trading
 from xml.sax.saxutils import escape
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
 from odoo.tools import check_barcode_encoding
 from odoo.osv import expression
+
+from odoo.addons.sale_ebay.tools.ebaysdk import EbayConnection, EbayConnectionError
 
 _logger = logging.getLogger(__name__)
 
@@ -349,14 +349,14 @@ class ProductTemplate(models.Model):
             raise RedirectWarning(_('One parameter is missing.'),
                                   action.id, _('Configure The eBay Integrator Now'))
 
-        return Trading(**params)
+        return EbayConnection(**params)
 
     @api.model
     def _ebay_execute(self, verb, data=None, list_nodes=[], verb_attrs=None, files=None):
         ebay_api = self._get_ebay_api()
         try:
             return ebay_api.execute(verb, data, list_nodes, verb_attrs, files)
-        except ConnectionError as e:
+        except EbayConnectionError as e:
             errors = e.response.dict()['Errors']
             if not isinstance(errors, list):
                 errors = [errors]
