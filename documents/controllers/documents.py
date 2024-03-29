@@ -11,6 +11,7 @@ from markupsafe import Markup
 from werkzeug.exceptions import Forbidden
 
 from odoo import Command, http
+from odoo.addons.mail.controllers.attachment import AttachmentController
 from odoo.exceptions import AccessError
 from odoo.http import request, content_disposition
 from odoo.tools.translate import _
@@ -486,3 +487,16 @@ class ShareRoute(http.Controller):
         except Exception:
             logger.exception("Failed to generate the multi file share portal")
         return request.not_found()
+
+
+class DocumentsAttachmentController(AttachmentController):
+
+    @http.route()
+    def mail_attachment_upload(self, *args, **kw):
+        """ Override to prevent the creation of a document when uploading
+            an attachment from an activity already linked to a document."""
+        if kw.get('activity_id'):
+            document = request.env['documents.document'].search([('request_activity_id', '=', int(kw['activity_id']))])
+            if document:
+                request.update_context(no_document=True)
+        return super().mail_attachment_upload(*args, **kw)

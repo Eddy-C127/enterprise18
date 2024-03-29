@@ -32,6 +32,10 @@ class MailActivity(models.Model):
                 ('attachment_id', '=', False)
             ])
             if documents:
+                # TODO: since the route `mail_attachment_upload` has been overridden to avoid having two
+                # documents created when uploading an attachment through an activity, we should remove
+                # the following code in master (we keep it just in case some existing documents have been
+                # created with the old behavior).
                 to_remove = self.env['documents.document'].search([('attachment_id', '=', attachment_ids[0])])
                 if to_remove:
                     to_remove.unlink()
