@@ -761,7 +761,7 @@ msgstr ""
 "                    <t t-if=\"ctx.get('payment_token') and ctx.get('total_amount')\">\n"
 "                        Hubo un error en nuestro último intento de procesar el pago de su suscripción utilizando el método de pago\n"
 "                        <t t-out=\"ctx.get('payment_token') or ''\">TOKEN</t>\n"
-"                        por <t t-out=\"ctx['total_amount'] or ''\">100</t><t t-out=\"ctx.get('currency') or ''\">€</t>.\n"
+"                        por <t t-out=\"ctx['total_amount'] or ''\">100</t> <t t-out=\"ctx.get('currency') or ''\">€</t>.\n"
 "                        <t t-if=\"ctx.get('error')\">\n"
 "                            Su banco o entidad de crédito proporcionó los siguientes datos al respecto: <pre t-out=\"ctx['error'] or ''\"></pre>.\n"
 "                        </t>\n"
@@ -1014,7 +1014,7 @@ msgid ""
 "A canceled SO cannot be in progress. You should close %s before canceling "
 "it."
 msgstr ""
-"Una orden de ventas cancelada no puede estar en progreso. Debe cerrar %s "
+"Una orden de venta cancelada no puede estar en progreso. Debe cerrar %s "
 "antes de cancelarla."
 
 #. module: sale_subscription
@@ -1997,7 +1997,7 @@ msgstr "Finalizar después de"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
 msgid "End Date"
-msgstr "Fecha final"
+msgstr "Fecha de finalización"
 
 #. module: sale_subscription
 #: model:sale.order.close.reason,name:sale_subscription.close_reason_end_of_contract
@@ -2063,7 +2063,7 @@ msgstr "Primer contrato"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
 msgid "First Contract Date"
-msgstr "Primera fecha del contrato"
+msgstr "Fecha del primer contrato"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__origin_order_id
@@ -2079,7 +2079,7 @@ msgstr "Primer contrato"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__first_contract_date
 msgid "First contract date"
-msgstr "Primera fecha de contrato"
+msgstr "Fecha del primer contrato"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__message_follower_ids
@@ -2457,17 +2457,17 @@ msgstr "Actividades retrasadas"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
 msgid "Latest Rating: Dissatisfied"
-msgstr "Última valoración: Inconforme"
+msgstr "Última calificación: Insatisfecho"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
 msgid "Latest Rating: Okay"
-msgstr "Última valoración: Bien"
+msgstr "Última calificación: Bien"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
 msgid "Latest Rating: Satisfied"
-msgstr "Última valoración: Satisfecho"
+msgstr "Última calificación: Satisfecho"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__least_delay_msg
@@ -2493,8 +2493,7 @@ msgstr "Configuremos el precio del producto"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Let's go to the catalog to create our first subscription product"
-msgstr ""
-"Dirijámonos al catálogo para crear nuestro primer producto de suscripción"
+msgstr "Vamos al catálogo para crear nuestro primer producto de suscripción"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__log_webhook_calls
@@ -2550,7 +2549,7 @@ msgstr "Cambio de MRR (normalizado)"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__mrr_change_amount
 msgid "MRR Change Amount"
-msgstr "Modificar importe del MRR"
+msgstr "Importe del cambio de MRR"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
@@ -2560,22 +2559,22 @@ msgstr "Aumento de MRR"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__mrr_change_period
 msgid "MRR Change Period"
-msgstr "Modificar periodo del MRR"
+msgstr "Periodo del cambio de MRR"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__mrr_change_unit
 msgid "MRR Change Unit"
-msgstr "Cambiar unidad del MRR"
+msgstr "Unidad del cambio de MRR"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__mrr_max
 msgid "MRR Range Max"
-msgstr "Rango máximo del MRR"
+msgstr "Rango máximo de MRR"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__mrr_min
 msgid "MRR Range Min"
-msgstr "Rango mínimo del MRR"
+msgstr "Rango mínimo de MRR"
 
 #. module: sale_subscription
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_order_log_analysis_report
@@ -2592,7 +2591,7 @@ msgstr "Cambio de MRR"
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "MRR changes"
-msgstr "Cambios en el MRR"
+msgstr "Cambios de MRR"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_log__recurring_monthly
@@ -2642,7 +2641,7 @@ msgstr "Margen"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__medium_id
 msgid "Medium"
-msgstr "Media"
+msgstr "Medio"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__starred_user_ids
@@ -2673,7 +2672,7 @@ msgid ""
 "be fixed manually"
 msgstr ""
 "Mezcla de líneas recurrentes negativas y líneas no recurrentes. El contrato "
-"debe fijarse de forma manual"
+"debe fijarse manualmente"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__model_id
@@ -2913,8 +2912,8 @@ msgid ""
 "            state. After the negotiation, the salesman should close or renew\n"
 "            pending subscriptions."
 msgstr ""
-"Odoo establece automáticamente las suscripciones a renovar como pendientes\n"
-"            Después de la negociación, el vendedor debe cancelar o renovar\n"
+"Odoo establece automáticamente las suscripciones a renovar como pendientes.\n"
+"            Después de la negociación, el comercial debe cancelar o renovar\n"
 "            las suscripciones pendientes."
 
 #. module: sale_subscription
@@ -3184,7 +3183,7 @@ msgstr "Productos"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_delivered
 msgid "Qty Delivered"
-msgstr "Cant. Enviada"
+msgstr "Cant. entregada"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_invoiced
@@ -3199,12 +3198,12 @@ msgstr "Cant. Ordenada"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_to_deliver
 msgid "Qty To Deliver"
-msgstr "Cant. Por Entregar"
+msgstr "Cant. a entregar"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_to_invoice
 msgid "Qty To Invoice"
-msgstr "Cant. para Facturar"
+msgstr "Cant. a facturar"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_analysis_view_graph
@@ -3269,7 +3268,7 @@ msgstr "Presupuestos"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__rating_avg_text
 msgid "Rating Avg Text"
-msgstr "Texto de calificación promedio"
+msgstr "Texto de calificación media"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__rating_last_feedback
@@ -3289,18 +3288,18 @@ msgstr "Último valor de la calificación"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__rating_operator
 msgid "Rating Operator"
-msgstr "Operador de valoración"
+msgstr "Operador de calificación"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__rating_percentage
 msgid "Rating Percentage"
-msgstr "Porcentaje de la valoración"
+msgstr "Porcentaje de la calificación"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__rating_percentage_satisfaction
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "Rating Satisfaction"
-msgstr "Valoración de Satisfacción"
+msgstr "Satisfacción de calificación"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__rating_percentage
@@ -4090,7 +4089,7 @@ msgstr "Suscripción: Alerta por defecto por correo electrónico"
 #. module: sale_subscription
 #: model:sms.template,name:sale_subscription.sms_template_data_default_alert
 msgid "Subscription: Default SMS Alert"
-msgstr "Suscripción: Alerta predeterminada por SMS"
+msgstr "Suscripción: Alerta por defecto por SMS"
 
 #. module: sale_subscription
 #: model:mail.template,name:sale_subscription.email_payment_close
@@ -4469,7 +4468,7 @@ msgstr "Esta suscripción es la renovación de la suscripción."
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_digest
 msgid "This upsell order has been created from the subscription"
-msgstr "Esta orden de venta adicional se creó desde la suscripción"
+msgstr "Esta orden de venta adicional se ha creado desde la suscripción"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
@@ -4603,8 +4602,8 @@ msgid ""
 "Try to prevent customers from leaving and closing their subscriptions, "
 "thanks to a catchy message and a call to action."
 msgstr ""
-"Intente evitar que sus clientes se vayan o que cierren sus suscripciones, "
-"con la ayuda de un mensaje llamativo y que invite a tomar acción."
+"Intente evitar que sus clientes se vayan o cancelen sus suscripciones, con "
+"la ayuda de un mensaje llamativo y que invite a tomar acción."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log__event_type
@@ -4669,7 +4668,7 @@ msgstr "Total sin impuestos:"
 #. module: sale_subscription
 #: model:base.automation,name:sale_subscription.subscription_alert_bad_health_base_automation
 msgid "Update health value according to MRR"
-msgstr "Actualizar el valor de salud de acuerdo con el MRR"
+msgstr "Actualizar el valor de salud de acuerdo con los MRR"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4727,7 +4726,7 @@ msgid ""
 "                the alerts for the renewal of the subscriptions to the right salesperson."
 msgstr ""
 "Use suscripciones para seguir tareas, incidencias, hojas de asistencia o facturaciones basadas en\n"
-" trabajo realizado, gastos y/o pedidos de venta. Odoo derivará automáticamente\n"
+" trabajo realizado, gastos y/o órdenes de venta. Odoo derivará automáticamente\n"
 " las alertas de renovación de las suscripciones al comercial apropiado."
 
 #. module: sale_subscription
@@ -4783,7 +4782,7 @@ msgstr "Lamentamos que se vaya."
 #. module: sale_subscription
 #: model_terms:sale.order.close.reason,retention_message:sale_subscription.close_reason_1
 msgid "We don't want you to leave us like this."
-msgstr "No queremos que nos deje así."
+msgstr "No nos gustaría que se fuera ahora"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__webhook_uuid
@@ -4958,7 +4957,7 @@ msgid ""
 "You cannot save a sale order with a subscription plan and no recurring "
 "product."
 msgstr ""
-"No puede guardar una orden de ventas con un plan de suscripción y sin un "
+"No puede guardar una orden de venta con un plan de suscripción y sin un "
 "producto recurrente."
 
 #. module: sale_subscription
@@ -5032,8 +5031,7 @@ msgid ""
 "Please, invoice directly the %s contract."
 msgstr ""
 "No puede realizar una venta adicional para una suscripción cuya fecha de "
-"factura siguiente está en el pasado. Facture de manera directa el contrato "
-"%s."
+"factura siguiente está en el pasado. Facture directamente el contrato %s."
 
 #. module: sale_subscription
 #. odoo-python
@@ -5085,8 +5083,7 @@ msgstr "Su contrato es recurrente"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.payment_method_form
 msgid "Your payment details will be saved for automatic renewals."
-msgstr ""
-"Los detalles de tu pago serán guardados para renovaciones automáticas."
+msgstr "Sus datos de pago serán guardados automáticamente para renovaciones."
 
 #. module: sale_subscription
 #. odoo-python
@@ -5128,7 +5125,7 @@ msgstr "p. ej. suscripción cancelada"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "e.g. Discuss proposal"
-msgstr "Por ejemplo, conversación de una propuesta"
+msgstr "p. ej. Discutir propuesta"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__rating_operator__>
@@ -5245,8 +5242,8 @@ msgid ""
 "object.next_invoice_date }}, your subscription has been terminated."
 msgstr ""
 "{{ object.company_id.name }}: Nuestro último intento de procesar el pago "
-"para tu suscripción falló. En vista de que tu pago tuvo que haber sido "
-"realizado el {{ object.next_invoice_date }}, tu suscripción ha sido "
+"para su suscripción falló. En vista de que su pago tuvo que haber sido "
+"realizado el {{ object.next_invoice_date }}, su suscripción ha sido "
 "cancelada."
 
 #. module: sale_subscription
@@ -5269,8 +5266,8 @@ msgid ""
 " suspended on {{ object.next_invoice_date }} unless the payment succeeds in "
 "the meantime."
 msgstr ""
-"{{ object.company_id.name }}: No pudimos procesar el pago para tu "
-"suscripçión. Tu suscripción {{ object.name }} todavía es válida pero será "
+"{{ object.company_id.name }}:No pudimos procesar el pago para su "
+"suscripçión. Su suscripción {{ object.name }} todavía es válida pero será "
 "suspendida el {{ object.next_invoice_date }} a menos de que el pago sea "
 "realizado exitosamente antes de dicha fecha."
 

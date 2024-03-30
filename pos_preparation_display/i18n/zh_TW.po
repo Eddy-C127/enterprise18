@@ -24,19 +24,19 @@ msgstr ""
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "<span>Average time</span>"
-msgstr ""
+msgstr "<span>平均時間</span>"
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "<span>In progress</span>"
-msgstr ""
+msgstr "<span>進行中</span>"
 
 #. module: pos_preparation_display
 #. odoo-python
 #: code:addons/pos_preparation_display/models/preparation_display.py:0
 #, python-format
 msgid "A preparation display must have a minimum of one step."
-msgstr ""
+msgstr "準備工作顯示必須最少有一個步驟。"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__access_token
@@ -46,7 +46,7 @@ msgstr "存取代碼(token)"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__alert_timer
 msgid "Alert timer (min)"
-msgstr ""
+msgstr "警報計時器（分鐘）"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -63,7 +63,7 @@ msgstr "所有PoS"
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_form
 msgid "All categories"
-msgstr ""
+msgstr "所有類別"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_order__order_stage_ids
@@ -75,7 +75,7 @@ msgstr "訂單所在的所有階段識別碼"
 msgid ""
 "Archive all preparation display's orders for a fresh start. This will not "
 "affect the PoS order history."
-msgstr ""
+msgstr "封存所有準備工作顯示的訂單，以重新開始。這不會影響 PoS 訂單歷史記錄。"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_display__average_time
@@ -85,14 +85,14 @@ msgstr "所有並非在已完成階段的訂單的平均時間。"
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_reset_wizard
 msgid "Check products"
-msgstr ""
+msgstr "檢查產品"
 
 #. module: pos_preparation_display
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 #, python-format
 msgid "Clear All Filters"
-msgstr ""
+msgstr "清除所有篩選器"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -186,14 +186,14 @@ msgstr "顯示名稱"
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 #, python-format
 msgid "Explore demo data"
-msgstr ""
+msgstr "探索模擬數據"
 
 #. module: pos_preparation_display
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/override/point_of_sale/pos_store.js:0
 #, python-format
 msgid "Failed in sending the changes to preparation display"
-msgstr ""
+msgstr "未能向準備工作顯示屏發送變更"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -236,7 +236,7 @@ msgstr "為酒吧/餐廳"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order_stage__done
 msgid "Is the order done"
-msgstr ""
+msgstr "訂單是否已完成"
 
 #. module: pos_preparation_display
 #: model:ir.actions.server,name:pos_preparation_display.action_pos_preparation_display_kitchen_display
@@ -298,7 +298,7 @@ msgstr "聘用邀約"
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "Open Preparation Display"
-msgstr ""
+msgstr "開啟準備工作顯示"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order_stage__order_id
@@ -313,22 +313,22 @@ msgstr "訂單明細"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__order_stage_ids
 msgid "Order Stage"
-msgstr ""
+msgstr "訂單階段"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__average_time
 msgid "Order average time"
-msgstr ""
+msgstr "訂單平均時間"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__order_count
 msgid "Order count"
-msgstr ""
+msgstr "訂單數目"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__displayed
 msgid "Order is displayed"
-msgstr ""
+msgstr "訂單會顯示"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__pos_config_ids
@@ -349,12 +349,12 @@ msgstr "POS營業點"
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_orderline
 msgid "Point of Sale preparation order line"
-msgstr ""
+msgstr "銷售點準備工作單資料行"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_stage
 msgid "Point of Sale preparation stage"
-msgstr ""
+msgstr "銷售點準備工作階段"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__pos_order_id
@@ -375,28 +375,28 @@ msgstr "準備工作顯示"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__preparation_display_order_id
 msgid "Preparation Display Order"
-msgstr ""
+msgstr "準備工作顯示順序"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__preparation_display_id
 msgid "Preparation display"
-msgstr ""
+msgstr "準備工作顯示"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_order
 msgid "Preparation orders"
-msgstr ""
+msgstr "準備工作單"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__product_id
 msgid "Product ID"
-msgstr ""
+msgstr "產品識別碼"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__category_ids
 msgid "Product categories"
-msgstr ""
+msgstr "產品類別"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_display__category_ids
@@ -406,12 +406,12 @@ msgstr "此螢幕將會顯示的產品類別。"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__product_cancelled
 msgid "Quantity of cancelled product"
-msgstr ""
+msgstr "已取消產品數量"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__product_quantity
 msgid "Quantity of ordered product"
-msgstr ""
+msgstr "訂單產品數量"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -419,7 +419,7 @@ msgstr ""
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 #, python-format
 msgid "Recall"
-msgstr ""
+msgstr "召回"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -434,17 +434,17 @@ msgstr "重設"
 #: code:addons/pos_preparation_display/models/preparation_display.py:0
 #, python-format
 msgid "Reset Preparation Display"
-msgstr ""
+msgstr "重設準備工作顯示"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_reset_wizard
 msgid "Reset all current order in a preparation display"
-msgstr ""
+msgstr "重設準備工作顯示中目前所有訂單"
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "Reset all orders"
-msgstr ""
+msgstr "重設所有訂單"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__attribute_value_ids
@@ -456,7 +456,7 @@ msgstr "已選取屬性"
 #: code:addons/pos_preparation_display/static/src/override/point_of_sale/pos_store.js:0
 #, python-format
 msgid "Send failed"
-msgstr ""
+msgstr "發送失敗"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__sequence
@@ -471,7 +471,7 @@ msgstr "階段"
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_order_stage
 msgid "Stage of orders by preparation display"
-msgstr ""
+msgstr "按準備工作顯示的訂單階段"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__stage_ids
@@ -482,7 +482,7 @@ msgstr "階段"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__todo
 msgid "Status of the orderline"
-msgstr ""
+msgstr "訂單資料行狀態"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_orderline__todo
@@ -499,7 +499,7 @@ msgstr "計時器時間，之後訂單會突出標示"
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 #, python-format
 msgid "or simply wait for orders to be sent for preparation."
-msgstr ""
+msgstr "或只等待需要發送至準備工作的訂單。"
 
 #. module: pos_preparation_display
 #. odoo-javascript

@@ -39,7 +39,7 @@ msgstr "%(minutes)s 分鐘"
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "%(number)s missed calls"
-msgstr ""
+msgstr "%(number)s 個未接來電"
 
 #. module: voip
 #. odoo-javascript
@@ -60,7 +60,7 @@ msgstr "1 分鐘"
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "1 missed call"
-msgstr ""
+msgstr "1 個未接來電"
 
 #. module: voip
 #. odoo-javascript
@@ -81,7 +81,7 @@ msgstr "2 分鐘"
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "2 missed calls"
-msgstr ""
+msgstr "2 個未接來電"
 
 #. module: voip
 #. odoo-javascript
@@ -97,7 +97,7 @@ msgstr "2 秒"
 msgid ""
 "A hardware error has occurred while trying to access the audio recording "
 "device. Please ensure that your drivers are up to date and try again."
-msgstr ""
+msgstr "嘗試存取錄音裝置時，發生硬件錯誤。請確保驅動程式是最新的，然後再試。"
 
 #. module: voip
 #: model:ir.model,name:voip.model_voip_call
@@ -144,6 +144,8 @@ msgid ""
 "An error occured involving the audio recording device (%(errorName)s):\n"
 "%(errorMessage)s"
 msgstr ""
+"發生涉及錄音設備的錯誤（%(errorName)s）：\n"
+"%(errorMessage)s"
 
 #. module: voip
 #. odoo-javascript
@@ -154,6 +156,9 @@ msgid ""
 "\n"
 "%(error)s"
 msgstr ""
+"使用者代理實例化期間，發生錯誤：\n"
+"\n"
+"%(error)s"
 
 #. module: voip
 #. odoo-javascript
@@ -175,7 +180,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to delete this activity? It will be lost forever, "
 "which is quite a long time 😔"
-msgstr ""
+msgstr "確定要刪除此活動？它將會永遠消失⋯ 😔"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__ask
@@ -224,7 +229,7 @@ msgstr "來自另一裝置的通話"
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "Call rejected (reason: “%(reasonPhrase)s”)"
-msgstr ""
+msgstr "通話被拒（原因：“%(reasonPhrase)s”）"
 
 #. module: voip
 #. odoo-python
@@ -250,7 +255,7 @@ msgstr "正在撥打"
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "Calling %(phone number)s"
-msgstr ""
+msgstr "正在撥號至 %(phone number)s"
 
 #. module: voip
 #: model:ir.actions.act_window,name:voip.voip_call_view
@@ -271,7 +276,7 @@ msgstr "取消"
 #: code:addons/voip/static/src/softphone/activities_tab.xml:0
 #, python-format
 msgid "Cancel the activity"
-msgstr ""
+msgstr "取消活動"
 
 #. module: voip
 #. odoo-javascript
@@ -283,13 +288,14 @@ msgid ""
 "website is running over HTTPS and that your browser is not set to deny "
 "access to media devices."
 msgstr ""
+"未能存取錄音設備。如果你拒絕存取麥克風，請允許存取然後再試。否則，請確保網站透過 HTTPS 運作，以及你的瀏覽器並非設為拒絕存取媒體裝置。"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/correspondence_details.xml:0
 #, python-format
 msgid "Change input device"
-msgstr ""
+msgstr "更改輸入裝置"
 
 #. module: voip
 #. odoo-javascript
@@ -326,21 +332,21 @@ msgstr "關閉"
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "Close Numpad"
-msgstr ""
+msgstr "關閉撥號鍵盤"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/web/voip_systray_item.js:0
 #, python-format
 msgid "Close Softphone"
-msgstr ""
+msgstr "關閉軟件電話"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/correspondence_details.xml:0
 #, python-format
 msgid "Close details"
-msgstr ""
+msgstr "關閉詳情"
 
 #. module: voip
 #: model:ir.model,name:voip.model_res_config_settings
@@ -360,7 +366,7 @@ msgstr "確認"
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "Connecting…"
-msgstr ""
+msgstr "連接中⋯"
 
 #. module: voip
 #: model:ir.model,name:voip.model_res_partner
@@ -380,7 +386,7 @@ msgstr "聯絡人"
 #: code:addons/voip/static/src/softphone/contacts_tab.xml:0
 #, python-format
 msgid "Contacts with a phone number will be shown here."
-msgstr ""
+msgstr "此處將顯示有電話號碼的聯絡人。"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__create_uid
@@ -438,7 +444,7 @@ msgstr "編輯"
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "End Call"
-msgstr ""
+msgstr "結束通話"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_voip_call__end_date
@@ -450,20 +456,20 @@ msgstr "結束日期"
 #: code:addons/voip/static/src/softphone/transfer_popover.xml:0
 #, python-format
 msgid "Enter number or name"
-msgstr ""
+msgstr "輸入號碼或姓名"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/numpad.xml:0
 #, python-format
 msgid "Enter the number…"
-msgstr ""
+msgstr "輸入號碼⋯"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__external_device_number
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__external_device_number
 msgid "External device number"
-msgstr ""
+msgstr "外部裝置號碼"
 
 #. module: voip
 #. odoo-javascript
@@ -474,20 +480,23 @@ msgid ""
 "\n"
 "%(error)s"
 msgstr ""
+"載入 SIP.js 程式庫失敗：\n"
+"\n"
+"%(error)s"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/softphone.xml:0
 #, python-format
 msgid "Hang up but keep call in queue"
-msgstr ""
+msgstr "掛線但保留通話在列隊中"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/activities_tab.js:0
 #, python-format
 msgid "Hold on!"
-msgstr ""
+msgstr "請稍等，不要掛線！"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__how_to_call_on_mobile
@@ -529,7 +538,7 @@ msgstr "若已啟用「從其他裝置撥打」選項，在 Odoo 中撥打的電
 #: code:addons/voip/static/src/softphone/correspondence_details.js:0
 #, python-format
 msgid "In call for: %(minutes)s:%(seconds)s"
-msgstr ""
+msgstr "通話持續時間：%(minutes)s:%(seconds)s"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__direction__incoming
@@ -584,7 +593,7 @@ msgstr "標記為完成"
 #: code:addons/voip/static/src/softphone/activities_tab.js:0
 #, python-format
 msgid "Missclicked, sorry."
-msgstr ""
+msgstr "按錯了，抱歉。"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__missed
@@ -631,14 +640,14 @@ msgstr "下一步活動"
 msgid ""
 "No audio recording device available. The application requires a microphone "
 "in order to be used."
-msgstr ""
+msgstr "沒有可用的錄音設備。應用程式需要有麥克風才可使用。"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/activities_tab.xml:0
 #, python-format
 msgid "No calls scheduled for today 😎"
-msgstr ""
+msgstr "今天沒有安排通話 😎"
 
 #. module: voip
 #. odoo-javascript
@@ -647,7 +656,7 @@ msgstr ""
 #: code:addons/voip/static/src/softphone/recent_tab.xml:0
 #, python-format
 msgid "No search results 💔"
-msgstr ""
+msgstr "沒有搜尋結果 💔"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__ongoing
@@ -659,14 +668,14 @@ msgstr "進行中"
 #: code:addons/voip/static/src/softphone/softphone.js:0
 #, python-format
 msgid "Open Numpad"
-msgstr ""
+msgstr "開啟撥號鍵盤"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/web/voip_systray_item.js:0
 #, python-format
 msgid "Open Softphone"
-msgstr ""
+msgstr "開啟軟件電話"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__direction__outgoing
@@ -676,14 +685,14 @@ msgstr "出向"
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_config_settings__pbx_ip
 msgid "PBX Server IP"
-msgstr ""
+msgstr "PBX 伺服器 IP"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "PBX or Websocket address is missing. Please check your settings."
-msgstr ""
+msgstr "PBX 或 Websocket 位址缺漏。請檢查設定。"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_mail_activity__phone
@@ -707,7 +716,7 @@ msgstr "電話："
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "Please accept the use of the microphone."
-msgstr ""
+msgstr "請同意使用麥克風。"
 
 #. module: voip
 #. odoo-javascript
@@ -716,7 +725,7 @@ msgstr ""
 msgid ""
 "Please try again later. If the problem persists, you may want to ask an "
 "administrator to check the configuration."
-msgstr ""
+msgstr "請稍後再試。如果問題持續，你可能需要請管理員檢查配置。"
 
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__res_config_settings__mode__prod
@@ -735,7 +744,7 @@ msgstr "最近"
 #: code:addons/voip/static/src/core/registerer.js:0
 #, python-format
 msgid "Registration rejected: %(statusCode)s %(reasonPhrase)s."
-msgstr ""
+msgstr "登記被拒：%(statusCode)s %(reasonPhrase)s。"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
@@ -786,12 +795,12 @@ msgstr "負責人"
 #: code:addons/voip/static/src/softphone/correspondence_details.js:0
 #, python-format
 msgid "Ringing…"
-msgstr ""
+msgstr "響鈴中⋯"
 
 #. module: voip
 #: model_terms:ir.ui.view,arch_db:voip.res_config_settings_view_form
 msgid "Schedule & make calls from your database"
-msgstr ""
+msgstr "在資料庫中安排及撥打電話"
 
 #. module: voip
 #. odoo-javascript
@@ -819,7 +828,7 @@ msgstr "選擇通話方法"
 #: code:addons/voip/static/src/softphone/correspondence_details.xml:0
 #, python-format
 msgid "Send e-mail"
-msgstr ""
+msgstr "傳送電郵"
 
 #. module: voip
 #. odoo-python
@@ -870,7 +879,7 @@ msgid ""
 "The error may come from the transport layer. Please have an administrator "
 "verify the websocket server URL in the General Settings. If the problem "
 "persists, this is probably an issue with the server."
-msgstr ""
+msgstr "此錯誤可能來自傳輸層。請要求管理員在一般設定中，驗證 websocket 伺服器網址。如果問題持續，可能是伺服器有問題。"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_voip_call__activity_name
@@ -885,6 +894,8 @@ msgid ""
 "The number is incorrect, the user credentials could be wrong or the connection cannot be made. Please check your configuration.\n"
 "(Reason received: %(reasonPhrase)s)"
 msgstr ""
+"號碼不正確、使用者登入憑證可能有錯誤，或無法建立連線。請檢查配置。\n"
+"（收到的原因：%(reasonPhrase)s）"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__voip_secret
@@ -897,7 +908,7 @@ msgstr "將用於在 PBX 伺服器註冊的密碼。"
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid "The person you try to contact is currently unavailable."
-msgstr ""
+msgstr "你嘗試聯絡的人目前未可聯絡上。"
 
 #. module: voip
 #. odoo-javascript
@@ -908,6 +919,7 @@ msgid ""
 "that you are reaching the right server (PBX server IP in the General "
 "Settings) and that the credentials in your user preferences are correct."
 msgstr ""
+"伺服器未能驗證你的身份。請要求管理員驗證你正嘗試存取的伺服器正確（一般設定中的 PBX 伺服器 IP 位址），以及你的使用者偏好設定中的登入資訊正確。"
 
 #. module: voip
 #. odoo-javascript
@@ -917,7 +929,7 @@ msgid ""
 "The user agent could not be started. The websocket server URL may be "
 "incorrect. Please have an administrator check the websocket server URL in "
 "the General Settings."
-msgstr ""
+msgstr "未能啟動使用者代理。可能是 websocket 伺服器網址不正確。請要求管理員在一般設定中，檢查 websocket 伺服器網址。"
 
 #. module: voip
 #: model:ir.model.fields,help:voip.field_res_users__voip_username
@@ -934,7 +946,7 @@ msgstr "將用作向 PBX 伺服器註冊的使用者名稱（通常是分機號�
 msgid ""
 "The websocket connection with the server has been lost. Please try to "
 "refresh the page."
-msgstr ""
+msgstr "與伺服器的 websocket 連線已斷線。請嘗試重新載入頁面。"
 
 #. module: voip
 #. odoo-javascript
@@ -942,7 +954,7 @@ msgstr ""
 #, python-format
 msgid ""
 "There is still a call in progress, are you sure you want to leave the page?"
-msgstr ""
+msgstr "仍有通話正在進行，確定要離開頁面？"
 
 #. module: voip
 #. odoo-javascript
@@ -964,7 +976,7 @@ msgstr "調撥至"
 #: code:addons/voip/static/src/web/voip_systray_item.js:0
 #, python-format
 msgid "Unfold Softphone"
-msgstr ""
+msgstr "展開軟件電話"
 
 #. module: voip
 #. odoo-javascript
@@ -1000,7 +1012,7 @@ msgstr "使用裝置的電話"
 #. module: voip
 #: model:ir.model,name:voip.model_voip_queue_mixin
 msgid "VOIP Queue support"
-msgstr ""
+msgstr "VoIP 列隊支援"
 
 #. module: voip
 #. odoo-javascript
@@ -1015,24 +1027,24 @@ msgstr "VoIP 網絡電話"
 #. module: voip
 #: model_terms:ir.ui.view,arch_db:voip.voip_res_users_settings_view_form
 msgid "VoIP Configuration"
-msgstr ""
+msgstr "VoIP 配置"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_config_settings__mode
 msgid "VoIP Environment"
-msgstr ""
+msgstr "VoIP 環境"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__voip_secret
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_secret
 msgid "VoIP secret"
-msgstr ""
+msgstr "VoIP 秘密"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__voip_username
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_username
 msgid "VoIP username / Extension number"
-msgstr ""
+msgstr "VoIP 使用者名稱 / 分機號碼"
 
 #. module: voip
 #: model:ir.ui.menu,name:voip.menu_voip_call_view
@@ -1042,14 +1054,14 @@ msgstr "Voip / 通話"
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_config_settings__wsServer
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/activities_tab.js:0
 #, python-format
 msgid "Yes, do it."
-msgstr ""
+msgstr "好，就這樣做。"
 
 #. module: voip
 #. odoo-javascript
@@ -1058,14 +1070,14 @@ msgstr ""
 msgid ""
 "Your browser does not support some of the features required for VoIP to "
 "work. Please try updating your browser or using a different one."
-msgstr ""
+msgstr "你的瀏覽器不支援 VoIP 網絡通話運作所需的部份功能。請嘗試更新你的瀏覽器，或使用其他瀏覽器。"
 
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/recent_tab.xml:0
 #, python-format
 msgid "Your call history is empty! Make a call now and have it listed here 💡"
-msgstr ""
+msgstr "通話記錄仍是空白。立即撥打電話吧，資料將在此處列出 💡"
 
 #. module: voip
 #. odoo-javascript
@@ -1073,7 +1085,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Your login details are not set correctly. Please contact your administrator."
-msgstr ""
+msgstr "你的登入詳情未正確設定。請聯絡你的管理員。"
 
 #. module: voip
 #. odoo-javascript

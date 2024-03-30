@@ -691,7 +691,7 @@ msgstr "Nombre del botón de acción"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__action_count
 msgid "Action Count"
-msgstr "Total de acciones"
+msgstr "Número de acciones"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
@@ -925,7 +925,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/hooks.js:0
 #, python-format
 msgid "An error occured while uploading."
-msgstr "Ocurrió un error durante la carga."
+msgstr "Ocurrió un error durante la subida."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -943,6 +943,12 @@ msgstr "Archivar archivo(s) original(es)"
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "Archived"
 msgstr "Archivado"
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
+#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
+msgid "Moved to trash"
+msgstr ""
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
@@ -1077,7 +1083,7 @@ msgstr "Folletos"
 #: model:ir.model.fields,help:documents.field_mail_activity_type__folder_id
 msgid "By defining a folder, the upload activities will generate a document"
 msgstr ""
-"Al definir una carpeta, las actividades de carga generarán un documento"
+"Al definir una carpeta, las actividades de subida generarán un documento"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
@@ -1171,7 +1177,7 @@ msgid ""
 "Click on the <b>page separator</b>: we don't want to split these two pages "
 "as they belong to the same document."
 msgstr ""
-"Haga clic en el <b>separador de páginas</b>: No queremos separar estas dos "
+"Haga clic en el <b>separador de páginas</b>: no queremos separar estas dos "
 "páginas ya que pertenecen al mismo documento."
 
 #. module: documents
@@ -1773,7 +1779,7 @@ msgstr "Centralización de archivos"
 msgid "Files will be sent to trash and deleted forever after"
 msgstr ""
 "Los archivos se moverán a la papelera y después se eliminarán "
-"definitivamente"
+"definitivamente después de"
 
 #. module: documents
 #. odoo-javascript
@@ -1996,10 +2002,10 @@ msgid ""
 "Incoming letters sent to <span class=\"o_folder_description_alias\">inbox "
 "email alias</span> will be added to your inbox automatically."
 msgstr ""
-"Las cartas entrantes enviadas a la <span "
-"class=\"o_folder_description_alias\">bandeja de entrada del seudónimo de "
-"correo electrónico</span> serán agregadas a su bandeja de entrada de forma "
-"automática."
+"Correos electrónicos entrantes enviados a la <span "
+"class=\"o_folder_description_alias\">bandeja de entrada</span> del alias del"
+" correo electrónico serán automáticamente agregados  a su bandeja de "
+"entrada."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__index_content
@@ -2019,7 +2025,7 @@ msgstr "Es un archivo adjunto editable"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_favorited
 msgid "Is Favorited"
-msgstr "Favorito"
+msgstr "Es favorito"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_is_follower
@@ -2257,7 +2263,7 @@ msgstr "Mensajes"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__mimetype
 msgid "Mime Type"
-msgstr "Tipo MIME"
+msgstr "Tipo de MIME"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
@@ -2309,6 +2315,7 @@ msgstr "Mover al espacio de trabajo"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
 #, python-format
 msgid "Move to trash"
 msgstr "Mover a la papelera"
@@ -2827,6 +2834,12 @@ msgid "Restore"
 msgstr "Restaurar"
 
 #. module: documents
+#: code:addons/documents/models/folder.py:0
+#, python-format
+msgid "Restricted Folder"
+msgstr ""
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_has_sms_error
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_has_sms_error
 msgid "SMS Delivery error"
@@ -2846,7 +2859,7 @@ msgstr "Guardar"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__activity_option
 msgid "Schedule Activity"
-msgstr "Planificación de actividad"
+msgstr "Planificar actividad"
 
 #. module: documents
 #. odoo-javascript

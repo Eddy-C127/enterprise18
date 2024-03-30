@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-27 15:49+0000\n"
+"POT-Creation-Date: 2024-03-19 08:15+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Konsta Aavaranta, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -1228,6 +1228,13 @@ msgstr "Poistot"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_line__display_custom_groupby_warning
 msgid "Display Custom Groupby Warning"
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_generic_tax_report.py:0
+#, python-format
+msgid "Difference from rounding taxes"
 msgstr ""
 
 #. module: account_reports
@@ -3796,6 +3803,15 @@ msgstr ""
 "Et voi palauttaa tätä lopetuskirjausta luonnokseksi, koska se poistaisi "
 "siirtoarvot, jotka vaikuttavat lukitun kauden veroraporttiin. Tätä varten on"
 " ensin muutettava veroilmoituksen lukituspäivää."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_move.py:0
+#, python-format
+msgid ""
+"You cannot reset this closing entry to draft, as another closing entry has "
+"been posted at a later date."
+msgstr ""
 
 #. module: account_reports
 #. odoo-python

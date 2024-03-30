@@ -23,7 +23,7 @@ msgstr ""
 #. module: payment_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.sepa_transaction_status
 msgid "<strong>Amount: </strong>"
-msgstr ""
+msgstr "<strong>金額：</strong>"
 
 #. module: payment_sepa_direct_debit
 #: model:mail.template,body_html:payment_sepa_direct_debit.mail_template_sepa_notify_debit
@@ -376,14 +376,14 @@ msgstr "IBAN"
 #. module: payment_sepa_direct_debit
 #: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_payment_transaction__mandate_id
 msgid "Mandate"
-msgstr ""
+msgstr "授權"
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/controllers/main.py:0
 #, python-format
 msgid "Missing or invalid IBAN."
-msgstr ""
+msgstr "IBAN 缺漏或無效。"
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
@@ -424,7 +424,7 @@ msgstr "付款處理失敗"
 #: code:addons/payment_sepa_direct_debit/models/payment_provider.py:0
 #, python-format
 msgid "Restricted to countries in the SEPA zone. Forbidden countries: %s"
-msgstr ""
+msgstr "只限 SEPA 區內國家。禁用國家/地區：%s"
 
 #. module: payment_sepa_direct_debit
 #: model:ir.model,name:payment_sepa_direct_debit.model_sdd_mandate
@@ -439,7 +439,7 @@ msgstr "SEPA 直接扣賬"
 #. module: payment_sepa_direct_debit
 #: model:account.payment.method,name:payment_sepa_direct_debit.payment_method_sepa_direct_debit
 msgid "SEPA Direct Debit (provider)"
-msgstr ""
+msgstr "SEPA 直接扣賬（服務商）"
 
 #. module: payment_sepa_direct_debit
 #: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_payment_token__sdd_mandate_id
@@ -455,7 +455,7 @@ msgstr "SEPA 直接扣賬：收費通知"
 #. module: payment_sepa_direct_debit
 #: model:ir.actions.server,name:payment_sepa_direct_debit.cron_auto_confirm_paid_sepa_txs_ir_actions_server
 msgid "SEPA Direct Debit: Confirm paid transactions"
-msgstr ""
+msgstr "SEPA 直接扣賬：確認已付款交易"
 
 #. module: payment_sepa_direct_debit
 #: model:mail.template,name:payment_sepa_direct_debit.mail_template_sepa_notify_validation
@@ -478,28 +478,28 @@ msgstr "發送給客戶，以表明他們的賬戶將被收取費用"
 #: code:addons/payment_sepa_direct_debit/models/payment_provider.py:0
 #, python-format
 msgid "The bank account of the journal is not a valid IBAN."
-msgstr ""
+msgstr "日記賬的銀行賬戶不是有效的 IBAN。"
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_transaction.py:0
 #, python-format
 msgid "The mandate is invalid."
-msgstr ""
+msgstr "該授權無效。"
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_provider.py:0
 #, python-format
 msgid "The mandate owner and customer do not match."
-msgstr ""
+msgstr "授權擁有人與客戶不相符。"
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_transaction.py:0
 #, python-format
 msgid "The token is not linked to a mandate."
-msgstr ""
+msgstr "權杖未連結至授權。"
 
 #. module: payment_sepa_direct_debit
 #. odoo-python

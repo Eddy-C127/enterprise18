@@ -9,13 +9,13 @@
 # Irina Fedulova <istartlin@gmail.com>, 2023
 # Sergey Vilizhanin, 2023
 # alenafairy, 2023
-# Collex100, 2023
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2023
 # ILMIR <karamov@it-projects.info>, 2023
 # Martin Trigaux, 2023
 # Сергей Шебанин <sergey@shebanin.ru>, 2023
 # Alena Vlasova, 2023
 # Wil Odoo, 2024
+# Collex100, 2024
 # 
 msgid ""
 msgstr ""
@@ -23,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Collex100, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -136,7 +136,7 @@ msgstr ""
 #: code:addons/documents/static/src/js/tours/documents.js:0
 #, python-format
 msgid "<b>Select</b> this page to continue."
-msgstr ""
+msgstr "<b>Выберите</b> эту страницу, чтобы продолжить."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -953,6 +953,12 @@ msgid "Archived"
 msgstr "Архивировано"
 
 #. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
+#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
+msgid "Moved to trash"
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
 msgid "Archived Workspace"
 msgstr "Заархивированное рабочее пространство"
@@ -1199,6 +1205,7 @@ msgstr "Закрыть инструменты разделения"
 #, python-format
 msgid "Click the cross to <b>exit preview</b>."
 msgstr ""
+"Нажмите на крестик, чтобы <b>выйти из режима предварительного просмотра</b>."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__company_id
@@ -2305,6 +2312,7 @@ msgstr "Перейти в рабочее пространство"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
 #, python-format
 msgid "Move to trash"
 msgstr "Переместить в корзину"
@@ -2821,6 +2829,12 @@ msgstr "Ответственный пользователь"
 #, python-format
 msgid "Restore"
 msgstr "Восстановить"
+
+#. module: documents
+#: code:addons/documents/models/folder.py:0
+#, python-format
+msgid "Restricted Folder"
+msgstr ""
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_has_sms_error

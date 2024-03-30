@@ -109,37 +109,37 @@ msgstr "Mostrar tarea"
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__display_timer
 msgid "Display Timer"
-msgstr "Botón de temporizador"
+msgstr "Mostar el temporizador"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__display_timer_pause
 msgid "Display Timer Pause"
-msgstr "Botón para pausar temporizador"
+msgstr "Mostar botón para pausar temporizador"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__display_timer_resume
 msgid "Display Timer Resume"
-msgstr "Botón para resumir temporizador"
+msgstr "Mostar botón para reanudar temporizador"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__display_timer_start_primary
 msgid "Display Timer Start Primary"
-msgstr "Botón de inicio del temporizador "
+msgstr "Mostar botón de inicio del temporizador"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__display_timer_start_secondary
 msgid "Display Timer Start Secondary"
-msgstr "Botón secundario de inicio para temporizador"
+msgstr "Mostar botón secundario de inicio del temporizador"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__display_timer_stop
 msgid "Display Timer Stop"
-msgstr "Botón para detener temporizador "
+msgstr "Mostar botón para detener temporizador "
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__display_timesheet_timer
 msgid "Display Timesheet Time"
-msgstr "Botón de tiempo en hojas de tiempo"
+msgstr "Mostar botón de tiempo en hojas de asistencia"
 
 #. module: helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet
@@ -167,7 +167,7 @@ msgstr "Tiene equipos de servicio de asistencia"
 #: model:ir.model,name:helpdesk_timesheet.model_helpdesk_team
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_project_project__helpdesk_team
 msgid "Helpdesk Team"
-msgstr "Equipo de soporte"
+msgstr "Equipo de servicio de asistencia"
 
 #. module: helpdesk_timesheet
 #: model:ir.model,name:helpdesk_timesheet.model_helpdesk_ticket
@@ -195,12 +195,12 @@ msgstr "ID"
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__is_timer_running
 msgid "Is Timer Running"
-msgstr "El temporizador está activo"
+msgstr "El temporizador está en marcha"
 
 #. module: helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.timesheet_table
 msgid "Issue with new portal system"
-msgstr "Problema con el nuevo portal del sistema "
+msgstr "Hay un problema con el nuevo portal del sistema "
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket_create_timesheet__write_uid
@@ -235,7 +235,7 @@ msgstr "Operación no admitida"
 #. module: helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet
 msgid "Pause"
-msgstr "Detener"
+msgstr "Pausar"
 
 #. module: helpdesk_timesheet
 #: model:ir.model,name:helpdesk_timesheet.model_project_project
@@ -292,7 +292,7 @@ msgstr "Iniciar"
 #. module: helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet
 msgid "Stop"
-msgstr "Parar"
+msgstr "Detener"
 
 #. module: helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.timesheet_table
@@ -350,8 +350,8 @@ msgid ""
 "Time spent on this ticket. By default, your timesheets will be linked to the sales order item of your ticket.\n"
 "Remove the sales order item to make your timesheet entries non billable."
 msgstr ""
-"Tiempo dedicado a este ticket. De manera predeterminada, sus hojas de tiempo estarán vinculadas al artículo de pedido de venta de su ticket.\n"
-"Elimine el artículo del pedido de ventas para que las entradas de su hoja de asistencia no sean facturables."
+"Tiempo dedicado a este ticket. Por defecto, sus hojas de asistencia estarán vinculadas al artículo de orden de venta de su ticket.\n"
+"Elimine el artículo de la orden de venta para que las entradas de su hoja de asistencia no sean facturables."
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__timer_pause
@@ -409,8 +409,8 @@ msgid ""
 "Track your working hours by projects every day and invoice this time to your"
 " customers."
 msgstr ""
-"Da seguimiento a las horas que dedicas por proyecto todos los días y factura"
-" este tiempo a tus clientes."
+"Lleve el seguimiento de las horas que dedica por proyecto todos los días y "
+"facture este tiempo a sus clientes."
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__user_timer_id

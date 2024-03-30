@@ -1200,7 +1200,7 @@ msgstr "アーカイブ済プロダクト"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__activity_user
 msgid "Assign To"
-msgstr "割当先"
+msgstr "担当者"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__payment_transaction__subscription_action__assign_token
@@ -1837,7 +1837,8 @@ msgid ""
 "Delay after the trigger date. You can put a negative number if you need a "
 "delay before the trigger date, like sending a reminder 15 minutes before a "
 "meeting."
-msgstr "トリガ日以降の遅延。トリガ日の15分前にリマインダを送信するなど、トリガ日よりも前に遅延が必要な場合は、負の数を入力することができます。"
+msgstr ""
+"トリガー日以降の遅延。トリガ日ーの15分前にリマインダを送信するなど、トリガー日よりも前に遅延が必要な場合は、負の数を入力することができます。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_range
@@ -2479,7 +2480,7 @@ msgstr "MRR範囲"
 #: model:ir.actions.act_window,name:sale_subscription.sale_order_log_growth_action
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_order_log_growth_report
 msgid "MRR Breakdown"
-msgstr "MRRブレークダウン"
+msgstr "MRR内訳"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__amount_signed
@@ -2866,7 +2867,7 @@ msgstr "オフィスクリーニングサービス（サブスク）"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__on_change_field_ids
 msgid "On Change Fields Trigger"
-msgstr "オンチェンジ項目トリガ"
+msgstr "オンチェンジ項目トリガー"
 
 #. module: sale_subscription
 #. odoo-python
@@ -3297,19 +3298,19 @@ msgstr "定期詳細"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
 msgid "Recurring Plan"
-msgstr "定期的計画"
+msgstr "定期プラン"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_portal_content_inherit
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Recurring Plan:"
-msgstr "定期的計画:"
+msgstr "定期プラン:"
 
 #. module: sale_subscription
 #: model:ir.actions.act_window,name:sale_subscription.sale_subscription_plan_action
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_plans
 msgid "Recurring Plans"
-msgstr "定期的計画"
+msgstr "定期プラン"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_pricing__price
@@ -3737,7 +3738,7 @@ msgstr "状態を表示する"
 msgid ""
 "Some triggers need a reference to a selection field. This field is used to "
 "store it."
-msgstr "いくつかのトリガは選択フィールドへの参照を必要とします。"
+msgstr "いくつかのトリガーは選択フィールドへの参照を必要とします。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_field_ref
@@ -4147,7 +4148,7 @@ msgstr ""
 msgid ""
 "The automation rule will be triggered if and only if one of these fields is "
 "updated.If empty, all fields are watched."
-msgstr "これらのフィールドの1つが更新された場合にのみ、自動化規則がトリガされます。空の場合、すべてのフィールドが監視されます。"
+msgstr "これらのフィールドの1つが更新された場合にのみ、自動化規則がトリガーされます。空の場合、すべてのフィールドが監視されます。"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4353,7 +4354,7 @@ msgstr "このアップセルオーダはサブスクリプションから作成
 msgid ""
 "This will trigger the action on all linked subsccriptions, regardless of "
 "possible timed conditions. Are you sure you want to proceed?"
-msgstr "これにより、あり得る時間的条件に関係なく、リンクされたすべてのサブスクリプションに対してアクションがトリガーされます。本当に進めますか？"
+msgstr "これにより、あり得る時間的条件に関係なく、リンクされた全てのサブスクリプションに対してアクションがトリガーされます。本当に進めますか？"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__trigger_condition__on_time
@@ -4430,12 +4431,12 @@ msgstr "トリガー日"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_selection_field_id
 msgid "Trigger Field"
-msgstr "フィールドをトリガ"
+msgstr "フィールドをトリガー"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_field_ref_model_name
 msgid "Trigger Field Model"
-msgstr "フィールドモデルをトリガ"
+msgstr "フィールドモデルをトリガー"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trigger_field_ids
@@ -4455,12 +4456,12 @@ msgstr "トリガー条件"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_field_ref
 msgid "Trigger Reference"
-msgstr "参照をトリガ"
+msgstr "参照をトリガー"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_field_ref_display_name
 msgid "Trigger Reference Display Name"
-msgstr "参照表示名をトリガ"
+msgstr "参照表示名をトリガー"
 
 #. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_alert_action

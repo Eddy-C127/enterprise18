@@ -3,9 +3,9 @@
 # 	* helpdesk
 # 
 # Translators:
+# Wil Odoo, 2024
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Fernanda Alvarez, 2024
-# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:09+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Fernanda Alvarez, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -131,12 +131,12 @@ msgstr ""
 "<div>\n"
 "        Apreciable<t t-out=\"object.sudo().partner_id.name or 'Madam/Sir'\">Señor/Señora</t>,<br><br>\n"
 "        Le informamos que su ticket (con referencia <t t-out=\"object.id or ''\">15</t>) se cerró. \n"
-"        Esperamos que los servicios que le proporcionamos hayan cumplido con sus expectativas y esté satisfecho con la resolución de su problema.<br><br>\n"
-"        Sin embargo, si tiene alguna pregunta o comentario, no dude en responder a este correo para reabrir su ticket. \n"
-"        Nuestro equipo siempre estará disponible para ayudarle y estaremos encantados de auxiliarlo en otras dudas que pueda tener.<br><br>\n"
-"        Gracias por escoger nuestros servicios y por su cooperación a lo largo del proceso. Valoramos mucho su negocio y le agrádecemos la oportunidad de dejarnos ayudarle.<br><br>\n"
+"        Esperamos que los servicios que le proporcionamos hayan cumplido con sus expectativas y esté satisfecho con cómo se solucionó su problema.<br><br>\n"
+"        Sin embargo, si tiene alguna pregunta o comentario, no dude en responder a este correo para volver a abrir su ticket. \n"
+"        Nuestro equipo siempre estará disponible para usted y estaremos encantados de ayudarle en otras dudas que pueda tener.<br><br>\n"
+"        Gracias por escoger nuestros servicios y por su cooperación a lo largo del proceso. Su empresa es muy importante para nosotros y le agradecemos la oportunidad de dejarnos ayudarle.<br><br>\n"
 "        Saludos cordiales,<br><br>\n"
-"       Equipo del <t t-out=\"object.team_id.name or 'Helpdesk'\">Servicio de Asistencia</t> .\n"
+"       El equipo del <t t-out=\"object.team_id.name or 'Helpdesk'\">Servicio de Asistencia</t> .\n"
 "    </div>\n"
 "        "
 
@@ -213,9 +213,9 @@ msgstr ""
 "            <t t-else=\"\">\n"
 "                Hola,<br>\n"
 "            </t>\n"
-"            Nos gustaría que se tomara un momento para calificar nuestros servicios en relación con el ticket \"<strong t-out=\"object.name or ''\">Las patas de la mesa no están balanceadas</strong>\"\n"
+"            Nos gustaría que se tomara un momento para calificar los servicios que le brindamos para solucionar el ticket \"<strong t-out=\"object.name or ''\">Las patas de la mesa no están balanceadas</strong>\"\n"
 "            <t t-if=\"object._rating_get_operator().name\">\n"
-"                asignado a <strong t-out=\"object._rating_get_operator().name or ''\">Mitchell Admin</strong>.<br><br>\n"
+"                que se le asignó a <strong t-out=\"object._rating_get_operator().name or ''\">Mitchell Admin</strong>.<br><br>\n"
 "            </t>\n"
 "            <t t-else=\"\">\n"
 "                .<br><br>\n"
@@ -224,7 +224,7 @@ msgstr ""
 "        <tr><td style=\"text-align: center;\">\n"
 "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"o_mail_notification\" style=\"width:100%; margin: 32px 0px 32px 0px;\">\n"
 "                <tr><td style=\"font-size: 14px;\">\n"
-"                    <strong>Díganos como se sintió con nuestros servicios</strong><br>\n"
+"                    <strong>Díganos cómo sintió nuestro servicio</strong><br>\n"
 "                    <span style=\"text-color: #888888\">(haga clic en una de estas caritas)</span>\n"
 "                </td></tr>\n"
 "                <tr><td style=\"font-size: 14px;\">\n"
@@ -232,17 +232,17 @@ msgstr ""
 "                        <tr>\n"
 "                            <td>\n"
 "                                <a t-attf-href=\"/rate/{{ access_token }}/5\">\n"
-"                                    <img alt=\"Satisfied\" src=\"/rating/static/src/img/rating_5.png\" title=\"Satisfied\">\n"
+"                                    <img alt=\"Excelente\" src=\"/rating/static/src/img/rating_5.png\" title=\"Excelente\"/>\n"
 "                                </a>\n"
 "                            </td>\n"
 "                            <td>\n"
 "                                <a t-attf-href=\"/rate/{{ access_token }}/3\">\n"
-"                                    <img alt=\"Okay\" src=\"/rating/static/src/img/rating_3.png\" title=\"Okay\">\n"
+"                                    <img alt=\"Bien\" src=\"/rating/static/src/img/rating_3.png\" title=\"Bien\"/>\n"
 "                                </a>\n"
 "                            </td>\n"
 "                            <td>\n"
 "                                <a t-attf-href=\"/rate/{{ access_token }}/1\">\n"
-"                                    <img alt=\"Dissatisfied\" src=\"/rating/static/src/img/rating_1.png\" title=\"Dissatisfied\">\n"
+"                                    <img alt=\"Mal\" src=\"/rating/static/src/img/rating_1.png\" title=\"Mal\"/>\n"
 "                                </a>\n"
 "                            </td>\n"
 "                        </tr>\n"
@@ -251,8 +251,8 @@ msgstr ""
 "            </table>\n"
 "        </td></tr>\n"
 "        <tr><td valign=\"top\" style=\"font-size: 14px;\">\n"
-"            Apreciamos su retroalimentación. Nos ayuda a seguir mejorando.\n"
-"            <br><br><span style=\"margin: 0px 0px 0px 0px; font-size: 12px; opacity: 0.5; color: #454748;\">Se le envió esta encuesta de cliente porque su ticket pasó a la etapa de <b t-out=\"object.stage_id.name or ''\">En Progreso</b>.</span>\n"
+"            Su retroalimentación nos ayuda a seguir mejorando.\n"
+"            <br><br><span style=\"margin: 0px 0px 0px 0px; font-size: 12px; opacity: 0.5; color: #454748;\">Se le envió esta encuesta de cliente porque su ticket pasó a la etapa <b t-out=\"object.stage_id.name or ''\">En Progreso</b>.</span>\n"
 "        </td></tr>\n"
 "    </tbody>\n"
 "    </table>\n"
@@ -345,9 +345,9 @@ msgid ""
 "                            <i class=\"fa fa-fw o_button_icon fa-meh-o text-warning\" invisible=\"rating_avg &lt; 2.33 or rating_avg &gt;= 3.66\" title=\"Okay\"/>\n"
 "                            <i class=\"fa fa-fw o_button_icon fa-frown-o text-danger\" invisible=\"rating_avg &gt;= 2.33\" title=\"Dissatisfied\"/>"
 msgstr ""
-"<i class=\"fa fa-fw o_button_icon fa-smile-o text-success\" invisible=\"rating_avg < 3.66\" title=\"Satisfecho\"/>\n"
+"<i class=\"fa fa-fw o_button_icon fa-smile-o text-success\" invisible=\"rating_avg < 3.66\" title=\"Excelente\"/>\n"
 "                            <i class=\"fa fa-fw o_button_icon fa-meh-o text-warning\" invisible=\"rating_avg < 2.33 or rating_avg >= 3.66\" title=\"Bien\"/>\n"
-"                            <i class=\"fa fa-fw o_button_icon fa-frown-o text-danger\" invisible=\"rating_avg >= 2.33\" title=\"Inconforme\"/>"
+"                            <i class=\"fa fa-fw o_button_icon fa-frown-o text-danger\" invisible=\"rating_avg >= 2.33\" title=\"Mal\"/>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
@@ -1005,8 +1005,8 @@ msgid ""
 "to search your articles in the help center for answers to their questions."
 msgstr ""
 "Centralice, gestione, comparta y haga crecer su biblioteca de información. "
-"Permita que los clientes busquen las respuestas a sus preguntas en sus "
-"artículos en el centro de ayuda."
+"Permita que los clientes encuentren las respuestas a sus dudas con ayuda de "
+"los artículos."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1350,7 +1350,7 @@ msgstr "Tablero"
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_status__reached_datetime
 msgid "Datetime at which the SLA stage was reached for the first time"
-msgstr "Fecha/hora en la que se alcanzó por primera vez la etapa SLA"
+msgstr "Fecha y hora en la que se alcanzó por primera vez la etapa SLA"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_report_analysis__sla_exceeded_hours
@@ -1452,7 +1452,7 @@ msgstr "Nombre en pantalla"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_progress_data
 msgid "Dissatisfied"
-msgstr "Insatisfecho"
+msgstr "Mal"
 
 #. module: helpdesk
 #. odoo-python
@@ -1508,7 +1508,7 @@ msgid ""
 "Otherwise it will be sent from the company's email address, or from the catchall (as defined in the System Parameters)."
 msgstr ""
 "Cuando el ticket llega a esta etapa se envía un correo electrónico automático al cliente.\n"
-"Automáticamente el correo electrónico se enviará desde la dirección de correo electrónico con el alias del equipo de asistencia.\n"
+"Automáticamente el correo electrónico se enviará desde la dirección de correo electrónico con el alias del equipo de soporte.\n"
 "De lo contrario, se enviará desde el alias de correo de la empresa, o desde el catchall (como se defina en los parámetros del sistema)."
 
 #. module: helpdesk
@@ -2266,7 +2266,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__medium_id
 msgid "Medium"
-msgstr "Media"
+msgstr "Medio"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
@@ -2429,12 +2429,12 @@ msgstr "Siguiente tipo de actividad"
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_sla_action
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_sla_action_main
 msgid "No SLA policies found. Let's create one!"
-msgstr "No hay políticas SLA, ¡vamos a crearlas!"
+msgstr "No hay políticas SLA, hay que crearlas."
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.mail_activity_type_action_config_helpdesk
 msgid "No activity types found. Let's create one!"
-msgstr "No se encontraron tipos de actividad, ¡creemos uno!"
+msgstr "No se encontraron tipos de actividad, hay que crear uno."
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_sla_report_analysis_action
@@ -2450,17 +2450,17 @@ msgstr "No se encontraron tipos de actividad, ¡creemos uno!"
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_analysis_dashboard_action
 #: model_terms:ir.actions.act_window,help:helpdesk.rating_rating_action_helpdesk
 msgid "No data yet!"
-msgstr "¡No hay datos aún!"
+msgstr "Todavía no hay información"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_stage_action
 msgid "No stages found. Let's create one!"
-msgstr "No se encontraron etapas. ¡Creemos una!"
+msgstr "No se encontraron etapas, hay que crear una"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_tag_action
 msgid "No tags found. Let's create one!"
-msgstr "No se encontraron etiquetas. ¡Creemos una!"
+msgstr "No se encontraron etiquetas, hay que crear una."
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_team_dashboard_action_main
@@ -2470,7 +2470,7 @@ msgstr "No se encontraron equipos "
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_team_action
 msgid "No teams found. Let's create one!"
-msgstr "No se encontraron equipos. ¡Creemos uno!"
+msgstr "No se encontraron equipos, hay que crear uno."
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_my_ticket_action_no_create
@@ -3012,7 +3012,7 @@ msgstr "Fecha límite de SLA"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "SLA Failed"
-msgstr "No se logró cumplir con las SLA"
+msgstr "No se logró cumplir con el acuerdo de nivel de servicio"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_sla_action
@@ -3301,7 +3301,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__sla_id
 msgid "Sla"
-msgstr "Sla"
+msgstr "SLA"
 
 #. module: helpdesk
 #: model:helpdesk.stage,name:helpdesk.stage_solved

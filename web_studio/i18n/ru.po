@@ -13,6 +13,7 @@
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2023
 # Wil Odoo, 2024
 # ILMIR <karamov@it-projects.info>, 2024
+# Collex100, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:09+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: ILMIR <karamov@it-projects.info>, 2024\n"
+"Last-Translator: Collex100, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -254,7 +255,7 @@ msgid ""
 msgstr ""
 "Действия могут вызывать определенные изменения, такие как открытие просмотра"
 " календаря или автоматическая пометка, как это было сделано при загрузке "
-"документа."
+"документа"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1579,14 +1580,14 @@ msgstr "Ошибка"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Error message:"
-msgstr ""
+msgstr "Сообщение об ошибке:"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Error name:"
-msgstr ""
+msgstr "Имя ошибки:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1963,7 +1964,7 @@ msgstr "ID"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "IDs"
-msgstr ""
+msgstr "IDs"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2619,7 +2620,7 @@ msgstr "Odoo Студия"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "On view (ir.ui.view):"
-msgstr ""
+msgstr "При просмотре (ir.ui.view):"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2697,7 +2698,7 @@ msgstr "Главное меню"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Parent View (inherit_id)"
-msgstr ""
+msgstr "Родительский вид (inherit_id)"
 
 #. module: web_studio
 #. odoo-python
@@ -3309,7 +3310,7 @@ msgstr "Показать невидимые элементы"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Show Traceback"
-msgstr ""
+msgstr "Показать трассировку"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3347,8 +3348,8 @@ msgid ""
 "Some records were skipped because approvals were missing to"
 "                                    proceed with your request: "
 msgstr ""
-"Некоторые записи были пропущены, потому что не было одобрения для выполнения"
-" вашего запроса:"
+"Некоторые записи были пропущены, потому что не было одобрения для"
+"                                     выполнения вашего запроса: "
 
 #. module: web_studio
 #. odoo-javascript
@@ -3657,6 +3658,10 @@ msgid ""
 "some view inherits from another but targets a node that doesn't exist. It "
 "might be due to the mutations of the base views during the upgrade process."
 msgstr ""
+"Отчет не удалось загрузить, так как произошла какая-то ошибка. Обычно это "
+"означает, что какое-то представление наследуется от другого, но нацелено на "
+"несуществующий узел. Это может быть связано с мутациями базовых "
+"представлений в процессе обновления."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3933,7 +3938,7 @@ msgstr "Просмотр"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "View in Error:"
-msgstr ""
+msgstr "Просмотр в ошибке:"
 
 #. module: web_studio
 #. odoo-javascript

@@ -9,6 +9,7 @@
 # ILMIR <karamov@it-projects.info>, 2023
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2023
 # Martin Trigaux, 2023
+# Collex100, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Collex100, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +28,7 @@ msgstr ""
 #. module: account_taxcloud
 #: model_terms:ir.ui.view,arch_db:account_taxcloud.res_config_settings_view_form
 msgid "<i class=\"oi oi-fw oi-arrow-right\"/>How to Get Credentials"
-msgstr ""
+msgstr "<i class=\"oi oi-fw oi-arrow-right\"/>Как получить удостоверения"
 
 #. module: account_taxcloud
 #: model_terms:ir.ui.view,arch_db:account_taxcloud.res_config_settings_view_form
@@ -51,7 +52,7 @@ msgstr "КЛЮЧ API"
 #. module: account_taxcloud
 #: model:account.fiscal.position,name:account_taxcloud.account_fiscal_position_taxcloud_us
 msgid "Automatic Tax Mapping (TaxCloud)"
-msgstr ""
+msgstr "Автоматическое сопоставление налогов (TaxCloud)"
 
 #. module: account_taxcloud
 #: model:ir.model,name:account_taxcloud.model_res_company
@@ -95,6 +96,8 @@ msgid ""
 "Enable <b>Detect Automatically</b> to automatically use TaxCloud when "
 "selling to American customers."
 msgstr ""
+"Включите <b>автоматическое обнаружение</b>, чтобы автоматически использовать"
+" TaxCloud при продаже американским клиентам."
 
 #. module: account_taxcloud
 #: model:ir.model,name:account_taxcloud.model_account_fiscal_position
@@ -105,7 +108,7 @@ msgstr "Система налогов"
 #: model_terms:ir.ui.view,arch_db:account_taxcloud.account_position_taxcloud_inherit_from_view
 #: model_terms:ir.ui.view,arch_db:account_taxcloud.invoice_form_inherit
 msgid "Go to Settings."
-msgstr ""
+msgstr "Перейдите в раздел \"Настройки\"."
 
 #. module: account_taxcloud
 #: model:ir.model.fields,field_description:account_taxcloud.field_product_tic_category__id
@@ -119,7 +122,7 @@ msgstr "Идентификатор"
 #: model:ir.model.fields,field_description:account_taxcloud.field_account_payment__is_taxcloud_configured
 #: model:ir.model.fields,field_description:account_taxcloud.field_res_company__is_taxcloud_configured
 msgid "Is Taxcloud Configured"
-msgstr ""
+msgstr "Настроен ли Taxcloud"
 
 #. module: account_taxcloud
 #: model:ir.model,name:account_taxcloud.model_account_move
@@ -149,6 +152,8 @@ msgid ""
 "Please configure taxcloud credentials on the current company or use a "
 "different fiscal position"
 msgstr ""
+"Пожалуйста, настройте учетные данные taxcloud на текущую компанию или "
+"используйте другую фискальную позицию"
 
 #. module: account_taxcloud
 #: model_terms:ir.ui.view,arch_db:account_taxcloud.account_position_taxcloud_inherit_from_view
@@ -156,6 +161,8 @@ msgstr ""
 msgid ""
 "Please enter your Taxcloud credentials to compute tax rates automatically."
 msgstr ""
+"Введите учетные данные Taxcloud для автоматического расчета налоговых "
+"ставок."
 
 #. module: account_taxcloud
 #: model:ir.model,name:account_taxcloud.model_product_template
@@ -187,6 +194,11 @@ msgid ""
 "By default, TaxCloud relies on the TIC *[0] Uncategorized* default referring"
 " to general goods and services."
 msgstr ""
+"TIC (Taxability Information Codes) позволяют получить конкретные налоговые "
+"ставки для каждого типа товара. Это значение по умолчанию применяется, если "
+"в заказе/счете-фактуре не используется товар или если для товара или его "
+"товарной категории не задан TIC. По умолчанию TaxCloud использует значение "
+"TIC *[0] Uncategorized*, относящееся к товарам и услугам общего назначения."
 
 #. module: account_taxcloud
 #: model_terms:ir.ui.view,arch_db:account_taxcloud.account_taxcloud_tic_category_tree
@@ -230,7 +242,7 @@ msgstr "TaxCloud API KEY"
 #: model:ir.actions.act_window,name:account_taxcloud.account_taxcloud_tic_category_action
 #: model:ir.ui.menu,name:account_taxcloud.menu_taxcloud_tic_category_action
 msgid "TaxCloud Categories"
-msgstr "категории TaxCloud"
+msgstr "Категории TaxCloud"
 
 #. module: account_taxcloud
 #: model:ir.model.fields,field_description:account_taxcloud.field_product_product__tic_category_id
@@ -245,7 +257,7 @@ msgstr "Категория TaxCloud"
 #: code:addons/account_taxcloud/models/product.py:0
 #, python-format
 msgid "The Taxcloud Category must be integer."
-msgstr ""
+msgstr "Категория Taxcloud должна быть целочисленной."
 
 #. module: account_taxcloud
 #. odoo-python
@@ -265,6 +277,10 @@ msgid ""
 "TaxCloud to compute specific tax rates for each product type. The value set "
 "here prevails over the one set on the product category."
 msgstr ""
+"Это относится к TIC (Taxability Information Codes), которые используются "
+"TaxCloud для расчета конкретных налоговых ставок для каждого типа товара. "
+"Значение, установленное здесь, превалирует над значением, установленным в "
+"категории товара."
 
 #. module: account_taxcloud
 #: model:ir.model.fields,help:account_taxcloud.field_product_category__tic_category_id
@@ -274,6 +290,11 @@ msgid ""
 "used when no TIC is set on the product. If no value is set here, the default"
 " value set in Invoicing settings is used."
 msgstr ""
+"Это относится к TIC (Taxability Information Codes), которые используются "
+"TaxCloud для расчета конкретных налоговых ставок для каждого типа продукта. "
+"Это значение используется, если для товара не задан TIC. Если значение здесь"
+" не задано, используется значение по умолчанию, установленное в настройках "
+"Invoicing."
 
 #. module: account_taxcloud
 #. odoo-python
@@ -281,7 +302,7 @@ msgstr ""
 #: code:addons/account_taxcloud/models/res_config_settings.py:0
 #, python-format
 msgid "Unable to retrieve taxes from TaxCloud: "
-msgstr "Невозможно получить налоги с TaxCloud:"
+msgstr "Невозможно получить налоги из TaxCloud: "
 
 #. module: account_taxcloud
 #: model:ir.model.fields,field_description:account_taxcloud.field_account_bank_statement_line__is_taxcloud
@@ -300,6 +321,8 @@ msgstr "Использование TaxCloud API"
 msgid ""
 "Used to determine whether or not to warn the user to configure TaxCloud."
 msgstr ""
+"Используется для определения того, нужно ли предупреждать пользователя о "
+"необходимости настройки TaxCloud."
 
 #. module: account_taxcloud
 #. odoo-python
@@ -310,6 +333,9 @@ msgid ""
 "You need to issue a refund (credit note) for it instead.\n"
 "This way the tax entries will be cancelled in TaxCloud."
 msgstr ""
+"Вы не можете отменить счет-фактуру, отправленный в TaxCloud.\n"
+"Вместо этого необходимо выписать возврат (кредит-ноту).\n"
+"Таким образом, налоговые проводки будут отменены в TaxCloud."
 
 #. module: account_taxcloud
 #. odoo-python

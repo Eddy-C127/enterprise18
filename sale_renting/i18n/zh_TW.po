@@ -43,14 +43,14 @@ msgstr "%(amount)s (固定)"
 #: code:addons/sale_renting/models/product_pricing.py:0
 #, python-format
 msgid "%(amount)s / %(duration)s"
-msgstr ""
+msgstr "%(amount)s / %(duration)s"
 
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/models/sale_order_recurrence.py:0
 #, python-format
 msgid "%(duration)s %(unit)s"
-msgstr ""
+msgstr "%(duration)s %(unit)s"
 
 #. module: sale_renting
 #. odoo-python
@@ -72,7 +72,7 @@ msgstr ""
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "123 Main St"
-msgstr ""
+msgstr "範例街道名稱123號"
 
 #. module: sale_renting
 #: model:sale.temporal.recurrence,name:sale_renting.recurrence_2_weeks
@@ -82,7 +82,7 @@ msgstr "2 星期"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "2023-08-01"
-msgstr ""
+msgstr "2023-08-01"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
@@ -102,7 +102,7 @@ msgstr "3 年"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "456 Other St"
-msgstr ""
+msgstr "範例街道名稱456號"
 
 #. module: sale_renting
 #: model:sale.temporal.recurrence,name:sale_renting.recurrence5_year
@@ -528,7 +528,7 @@ msgstr "預計交還"
 #: code:addons/sale_renting/models/sale_order_line.py:0
 #, python-format
 msgid "Expected: %(date)s"
-msgstr ""
+msgstr "預計：%(date)s"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_product__extra_daily
@@ -577,7 +577,7 @@ msgstr "分組依據"
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__show_update_duration
 msgid "Has Duration Changed"
-msgstr ""
+msgstr "租期有否更改"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__has_pickable_lines
@@ -650,7 +650,7 @@ msgstr "已逾期"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "Jane Doe"
-msgstr ""
+msgstr "陳大文"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
@@ -932,7 +932,7 @@ msgstr "價目表"
 #. module: sale_renting
 #: model:ir.model,name:sale_renting.model_product_pricing
 msgid "Pricing rule of rental products"
-msgstr ""
+msgstr "租賃產品定價規則"
 
 #. module: sale_renting
 #: model:ir.model,name:sale_renting.model_product_template
@@ -1046,12 +1046,12 @@ msgstr "報價單"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
 msgid "Recompute all prices based on this duration"
-msgstr ""
+msgstr "以此租期重新計算所有價格"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__remaining_hours
 msgid "Remaining duration in hours"
-msgstr ""
+msgstr "剩餘租用時間（小時）"
 
 #. module: sale_renting
 #: model:ir.ui.menu,name:sale_renting.rental_menu_root
@@ -1095,13 +1095,13 @@ msgstr "租賃訂單"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_pricelist_view
 msgid "Rental Pricelist Rules"
-msgstr ""
+msgstr "租金價目表規則"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__rental_return_date
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order_line__return_date
 msgid "Rental Return Date"
-msgstr ""
+msgstr "租賃歸還日期"
 
 #. module: sale_renting
 #: model:ir.model,name:sale_renting.model_sale_rental_schedule
@@ -1112,7 +1112,7 @@ msgstr "租賃日程"
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__rental_start_date
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order_line__start_date
 msgid "Rental Start Date"
-msgstr ""
+msgstr "租賃開始日期"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__rental_status
@@ -1156,12 +1156,12 @@ msgstr "租賃價格"
 #: code:addons/sale_renting/models/sale_order.py:0
 #, python-format
 msgid "Rental prices have been recomputed with the new period."
-msgstr ""
+msgstr "租金價格已根據新的期間重新計算。"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_pricelist_view
 msgid "Rental rules"
-msgstr ""
+msgstr "租賃規則"
 
 #. module: sale_renting
 #: model:ir.model,name:sale_renting.model_rental_order_wizard_line
@@ -1176,12 +1176,12 @@ msgstr "租賃安排"
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_pricing__recurrence_id
 msgid "Renting Period"
-msgstr ""
+msgstr "租賃期"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_pricelist__product_pricing_ids
 msgid "Renting Price Rules"
-msgstr ""
+msgstr "租金價格規則"
 
 #. module: sale_renting
 #: model:ir.ui.menu,name:sale_renting.menu_rental_reporting
@@ -1240,7 +1240,7 @@ msgstr "已交還"
 #: code:addons/sale_renting/models/sale_order_line.py:0
 #, python-format
 msgid "Returned: %(date)s"
-msgstr ""
+msgstr "已歸還：%(date)s"
 
 #. module: sale_renting
 #: model:ir.model,name:sale_renting.model_sale_temporal_recurrence
@@ -1282,7 +1282,7 @@ msgstr "銷售員"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "Sample Document"
-msgstr ""
+msgstr "範例文件"
 
 #. module: sale_renting
 #. odoo-javascript
@@ -1322,7 +1322,7 @@ msgstr "選擇套用此定價的產品。"
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
 #, python-format
 msgid "Select the rental dates and check the price."
-msgstr ""
+msgstr "選擇租賃日期，並檢查價格。"
 
 #. module: sale_renting
 #. odoo-javascript
@@ -1408,7 +1408,7 @@ msgstr "租賃配置可在此處找到。"
 #. module: sale_renting
 #: model:ir.model.constraint,message:sale_renting.constraint_sale_order_rental_period_coherence
 msgid "The rental start date must be before the rental return date if any."
-msgstr ""
+msgstr "租賃開始日期必須早於租賃歸還日期（如果有）。"
 
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_order_today_pickup_action
@@ -1440,7 +1440,7 @@ msgstr "此產品將用於在租賃訂單中加入罰款。"
 msgid ""
 "This will update the unit price of all rental products based on the new "
 "period."
-msgstr ""
+msgstr "這會根據新的期間，更新所有租賃產品的單價。"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.res_config_settings_view_form
@@ -1485,7 +1485,7 @@ msgstr "量度單位"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
 msgid "Update Rental Prices"
-msgstr ""
+msgstr "更新租賃價格"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_wizard_view_form
@@ -1575,7 +1575,7 @@ msgstr "你也可在產品表單中勾選「可出售」，建立其他用作出
 #: code:addons/sale_renting/models/product_pricelist.py:0
 #, python-format
 msgid "You can not have a time-based rule for products that are not rentable."
-msgstr ""
+msgstr "非出租產品不可設立基於時間的規則。"
 
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_order_today_pickup_action

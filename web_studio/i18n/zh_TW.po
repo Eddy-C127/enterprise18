@@ -61,6 +61,9 @@ msgid ""
 "    There are no many2one fields related to the current model.\n"
 "    To create a one2many field on the current model, you must first create its many2one counterpart on the model you want to relate to.\n"
 msgstr ""
+"\n"
+"    沒有與目前模型相關聯的多對一（many2one）欄位。\n"
+"    要在目前模型建立一對多（one2many）欄位，必須先在想要關聯的模型上，建立對應的多對一（many2one）欄位。\n"
 
 #. module: web_studio
 #. odoo-python
@@ -97,7 +100,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "\" failed."
-msgstr ""
+msgstr "\" 失敗。"
 
 #. module: web_studio
 #. odoo-python
@@ -111,14 +114,14 @@ msgstr "%(rule_string)s (%(model_name)s)"
 #: code:addons/web_studio/controllers/report.py:0
 #, python-format
 msgid "%s Report"
-msgstr ""
+msgstr "%s 報告"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/new_model_item/new_model_item.xml:0
 #, python-format
 msgid "'My model'"
-msgstr ""
+msgstr "'我的模型'"
 
 #. module: web_studio
 #. odoo-python
@@ -140,41 +143,41 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/view_editor_model.js:0
 #, python-format
 msgid "A field with the same name already exists."
-msgstr ""
+msgstr "已有同名欄位。"
 
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_approval_entry_uniq_combination
 msgid "A rule can only be approved/rejected once per record."
-msgstr ""
+msgstr "在個別記錄上，一項規則只准批核/拒絕一次。"
 
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_approval_rule_method_or_action_together
 msgid "A rule must apply to an action or a method (but not both)."
-msgstr ""
+msgstr "規則必須套用至一項操作或方法（但不能同時套用至兩者）。"
 
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_approval_rule_method_or_action_not_null
 msgid "A rule must apply to an action or a method."
-msgstr ""
+msgstr "規則必須套用至操作或方法。"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_ir_model__abstract
 msgid "Abstract"
-msgstr ""
+msgstr "提要"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/editor_menu/editor_menu.js:0
 #, python-format
 msgid "Access Control"
-msgstr ""
+msgstr "存取控制"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "Access Control Lists"
-msgstr ""
+msgstr "存取控制列表"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_res_groups
@@ -186,14 +189,14 @@ msgstr "存取組"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/pivot/pivot_editor_sidebar.xml:0
 #, python-format
 msgid "Access records from cell"
-msgstr ""
+msgstr "從儲存格存取記錄"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor_sidebar.xml:0
 #, python-format
 msgid "Access records from graph"
-msgstr ""
+msgstr "從圖表中存取記錄"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_mail_activity_type__category
@@ -219,21 +222,21 @@ msgstr "動作窗檢視"
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #, python-format
 msgid "Action to approve:"
-msgstr ""
+msgstr "待批核動作："
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Action to run"
-msgstr ""
+msgstr "待運行的動作"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #, python-format
 msgid "Action's title"
-msgstr ""
+msgstr "動作的標題"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_mail_activity_type__category
@@ -249,7 +252,7 @@ msgstr "操作可能會觸發特定行為，如打開日曆視圖或自動標記
 #: code:addons/web_studio/static/src/client_action/editor/new_view_dialogs/new_view_dialog.xml:0
 #, python-format
 msgid "Activate View"
-msgstr ""
+msgstr "啟動檢視畫面"
 
 #. module: web_studio
 #. odoo-python
@@ -279,7 +282,7 @@ msgstr "活動類型"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 #, python-format
 msgid "Activity view unavailable on this model"
-msgstr ""
+msgstr "此模型沒有活動檢視畫面"
 
 #. module: web_studio
 #. odoo-javascript
@@ -293,21 +296,21 @@ msgstr "加入"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/chatter_container.xml:0
 #, python-format
 msgid "Add Chatter Widget"
-msgstr ""
+msgstr "加入聊天小工具"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.xml:0
 #, python-format
 msgid "Add Picture"
-msgstr ""
+msgstr "加入圖片"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/new_button_box_dialog.js:0
 #, python-format
 msgid "Add a Button"
-msgstr ""
+msgstr "新增按鈕"
 
 #. module: web_studio
 #. odoo-javascript
@@ -328,35 +331,35 @@ msgstr "添加描述"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.xml:0
 #, python-format
 msgid "Add a pipeline status bar"
-msgstr ""
+msgstr "加入管道狀態列"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_compiler.js:0
 #, python-format
 msgid "Add a priority"
-msgstr ""
+msgstr "新增優先等級"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #, python-format
 msgid "Add an approval rule"
-msgstr ""
+msgstr "新增批核規則"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_compiler.js:0
 #, python-format
 msgid "Add an avatar"
-msgstr ""
+msgstr "加入頭像"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Add details to your records with an embedded list view"
-msgstr ""
+msgstr "使用嵌入的列表檢視畫面，為記錄加入詳細資訊"
 
 #. module: web_studio
 #. odoo-javascript
@@ -370,21 +373,21 @@ msgstr "添加新的值"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 #, python-format
 msgid "Add record at the bottom"
-msgstr ""
+msgstr "新增記錄至最底"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 #, python-format
 msgid "Add record on top"
-msgstr ""
+msgstr "新增記錄至最頂"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_compiler.js:0
 #, python-format
 msgid "Add tags"
-msgstr ""
+msgstr "加入標籤"
 
 #. module: web_studio
 #. odoo-javascript
@@ -414,7 +417,7 @@ msgstr "全天"
 msgid ""
 "All changes done to the report's structure will be discarded and the report "
 "will be reset to its factory settings."
-msgstr ""
+msgstr "對報告結構所做的所有變更，都將會捨棄，而報告會重設為出廠設定。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -422,7 +425,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__group_id
 #, python-format
 msgid "Allowed Group"
-msgstr ""
+msgstr "允許的組別"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__responsible_id
@@ -435,7 +438,7 @@ msgstr "提出批核請求時，將會向此使用者分配一項活動"
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "An approval for '%(rule_name)s' has been requested on %(record_name)s"
-msgstr ""
+msgstr "已請求就「%(rule_name)s」規則，對以下記錄進行批核：%(record_name)s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -447,18 +450,18 @@ msgstr "核准方式"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_entry_search_view
 msgid "Approval Entries"
-msgstr ""
+msgstr "批核記項"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__rule_id
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_request__rule_id
 msgid "Approval Rule"
-msgstr ""
+msgstr "批核規則"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_search_view
 msgid "Approval Rules"
-msgstr ""
+msgstr "批核規則"
 
 #. module: web_studio
 #. odoo-javascript
@@ -473,14 +476,14 @@ msgstr "審批"
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "Approvals can only be done on a method or an action, not both."
-msgstr ""
+msgstr "批准只可在一項方法或操作上進行，不能同時對兩者進行。"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "Approvals missing"
-msgstr ""
+msgstr "缺漏批核"
 
 #. module: web_studio
 #. odoo-javascript
@@ -498,26 +501,26 @@ msgstr "已審批"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Approved as"
-msgstr ""
+msgstr "已批核為"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #, python-format
 msgid "Approved on"
-msgstr ""
+msgstr "批核日期"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__user_id
 msgid "Approved/rejected by"
-msgstr ""
+msgstr "批核人/拒絕的使用者"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Archive deprecated records"
-msgstr ""
+msgstr "封存已棄用的記錄"
 
 #. module: web_studio
 #. odoo-python
@@ -534,28 +537,28 @@ msgstr "已封存"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Archiving"
-msgstr ""
+msgstr "正在封存"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_properties.js:0
 #, python-format
 msgid "Are you sure you want to remove the selection values?"
-msgstr ""
+msgstr "確定要移除該些選取值？"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/sidebar_properties_toolbox/sidebar_properties_toolbox.js:0
 #, python-format
 msgid "Are you sure you want to remove this %s from the view?"
-msgstr ""
+msgstr "確定要移除檢視畫面的這個 %s 嗎？"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/navbar/home_menu_customizer/home_menu_customizer.js:0
 #, python-format
 msgid "Are you sure you want to reset the background image?"
-msgstr ""
+msgstr "確定要重設背景圖片？"
 
 #. module: web_studio
 #. odoo-javascript
@@ -565,6 +568,8 @@ msgid ""
 "Are you sure you want to restore the default view?\r\n"
 "All customization done with studio on this view will be lost."
 msgstr ""
+"確定要恢復預設檢視畫面嗎？\r\n"
+"以 Studio 對此檢視畫面所做的全部自訂，將會遺失。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -579,28 +584,28 @@ msgstr "升序"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Assign a responsible to each record"
-msgstr ""
+msgstr "為每項記錄分配一名負責人"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Assign dates and visualize records in a calendar"
-msgstr ""
+msgstr "指定相關日期，並在日曆中視覺化呈現記錄"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Attach a picture to a record"
-msgstr ""
+msgstr "加入圖片至記錄中"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/search/search_editor.xml:0
 #, python-format
 msgid "Autocompletion Fields"
-msgstr ""
+msgstr "自動完成欄位"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_base_automation
@@ -626,21 +631,21 @@ msgstr "平均"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 #, python-format
 msgid "Average of %s"
-msgstr ""
+msgstr "平均 %s"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #, python-format
 msgid "Awaiting approval"
-msgstr ""
+msgstr "等待批核"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/cohort/cohort_editor.js:0
 #, python-format
 msgid "Backwards"
-msgstr ""
+msgstr "向後"
 
 #. module: web_studio
 #. odoo-javascript
@@ -680,14 +685,14 @@ msgstr "粗線"
 #: code:addons/web_studio/static/src/views/kanban_report/new_report_dialog.js:0
 #, python-format
 msgid "Business header/footer"
-msgstr ""
+msgstr "商業頁首/頁尾"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.js:0
 #, python-format
 msgid "Buttons Properties"
-msgstr ""
+msgstr "按鈕屬性"
 
 #. module: web_studio
 #. odoo-javascript
@@ -702,7 +707,7 @@ msgstr "日曆"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Call a method"
-msgstr ""
+msgstr "召用一個方法"
 
 #. module: web_studio
 #. odoo-javascript
@@ -712,7 +717,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 #, python-format
 msgid "Can Create"
-msgstr ""
+msgstr "可以建立"
 
 #. module: web_studio
 #. odoo-javascript
@@ -720,7 +725,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 #, python-format
 msgid "Can Delete"
-msgstr ""
+msgstr "可刪除"
 
 #. module: web_studio
 #. odoo-javascript
@@ -734,21 +739,21 @@ msgstr "能編輯"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__can_validate
 msgid "Can be approved"
-msgstr ""
+msgstr "可被批核"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "Can't patch 'create', 'write' and 'unlink'."
-msgstr ""
+msgstr "未能修補\"建立\"、\"寫入\"及\"取消連結\"。"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "Can't patch private methods."
-msgstr ""
+msgstr "無法修補私密方法。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -772,7 +777,7 @@ msgstr "取消"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Categorize records with custom tags"
-msgstr ""
+msgstr "使用自訂標籤，將記錄分類"
 
 #. module: web_studio
 #. odoo-javascript
@@ -786,21 +791,21 @@ msgstr "更改背景"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/rainbow_effect.xml:0
 #, python-format
 msgid "Change Image"
-msgstr ""
+msgstr "更換圖片"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Chatter"
-msgstr ""
+msgstr "聊天視窗"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/view_structures/view_structures.js:0
 #, python-format
 msgid "CheckBox"
-msgstr ""
+msgstr "勾選方格"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_ir_model_data__studio
@@ -812,14 +817,14 @@ msgstr "若曾使用 Studio 編輯，會勾選。"
 #: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
 #, python-format
 msgid "Choose an app name"
-msgstr ""
+msgstr "選擇一個應用程式名稱"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/menu_creator/menu_creator.xml:0
 #, python-format
 msgid "Choose the name of the menu"
-msgstr ""
+msgstr "選擇選單名稱"
 
 #. module: web_studio
 #. odoo-javascript
@@ -833,7 +838,7 @@ msgstr "流失"
 #: code:addons/web_studio/static/src/approval/studio_approval.xml:0
 #, python-format
 msgid "Click to see all approval rules."
-msgstr ""
+msgstr "按一下查看所有批核規則。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -869,7 +874,7 @@ msgstr "顏色"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/pivot/pivot_editor_sidebar.xml:0
 #, python-format
 msgid "Column grouping"
-msgstr ""
+msgstr "欄分組"
 
 #. module: web_studio
 #. odoo-javascript
@@ -905,12 +910,12 @@ msgstr "配件"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/modifiers/modifiers_properties.xml:0
 #, python-format
 msgid "Conditional"
-msgstr ""
+msgstr "條件化"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__conditional
 msgid "Conditional Rule"
-msgstr ""
+msgstr "條件規則"
 
 #. module: web_studio
 #. odoo-python
@@ -925,14 +930,14 @@ msgstr "配置"
 #: code:addons/web_studio/static/src/client_action/editor/new_model_item/new_model_item.xml:0
 #, python-format
 msgid "Configure Model"
-msgstr ""
+msgstr "配置模型"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/menu_creator/menu_creator.xml:0
 #, python-format
 msgid "Configure model"
-msgstr ""
+msgstr "配置模型"
 
 #. module: web_studio
 #. odoo-javascript
@@ -968,21 +973,21 @@ msgstr "聯絡人"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 #, python-format
 msgid "Contact Field"
-msgstr ""
+msgstr "聯絡人欄位"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/new_view_dialogs/map_new_view_dialog.js:0
 #, python-format
 msgid "Contact Field Required"
-msgstr ""
+msgstr "聯絡方式欄位屬必填"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Contact details"
-msgstr ""
+msgstr "聯絡方法"
 
 #. module: web_studio
 #. odoo-javascript
@@ -996,7 +1001,7 @@ msgstr "上下文"
 #: code:addons/web_studio/static/src/client_action/navbar/home_menu_customizer/home_menu_customizer.js:0
 #, python-format
 msgid "Could not change the background"
-msgstr ""
+msgstr "未能更改背景"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1010,21 +1015,21 @@ msgstr "新增功能表"
 #: code:addons/web_studio/static/src/client_action/editor/new_model_item/new_model_item.js:0
 #, python-format
 msgid "Create Model"
-msgstr ""
+msgstr "建立模型"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/new_model_item/new_model_item.js:0
 #, python-format
 msgid "Create a new Model"
-msgstr ""
+msgstr "建立一個新模型"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
 #, python-format
 msgid "Create your App"
-msgstr ""
+msgstr "創製你的應用程式"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1032,21 +1037,21 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
 #, python-format
 msgid "Create your app"
-msgstr ""
+msgstr "創製你的應用程式"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
 #, python-format
 msgid "Create your first menu"
-msgstr ""
+msgstr "建立你的第一個選單"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/menu_creator/menu_creator.js:0
 #, python-format
 msgid "Create your menu"
-msgstr ""
+msgstr "創製你的選單"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__create_uid
@@ -1067,7 +1072,7 @@ msgstr "建立於"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 #, python-format
 msgid "Creating this type of view is not currently supported in Studio."
-msgstr ""
+msgstr "Studio 目前不支援建立此類型的檢視畫面。"
 
 #. module: web_studio
 #. odoo-python
@@ -1081,14 +1086,14 @@ msgstr "貨幣"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "Current model:"
-msgstr ""
+msgstr "目前模型："
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/ir_ui_menu.py:0
 #, python-format
 msgid "Custom Configuration"
-msgstr ""
+msgstr "自訂配置"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_base_module_uninstall__custom_fields
@@ -1098,24 +1103,24 @@ msgstr "自訂欄位"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_base_module_uninstall__custom_models
 msgid "Custom Models"
-msgstr ""
+msgstr "自訂模型"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_base_module_uninstall__custom_reports
 msgid "Custom Reports"
-msgstr ""
+msgstr "自訂報告"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Custom Sorting"
-msgstr ""
+msgstr "自訂排序"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_base_module_uninstall__custom_views
 msgid "Custom Views"
-msgstr ""
+msgstr "自訂檢視畫面"
 
 #. module: web_studio
 #. odoo-python
@@ -1132,22 +1137,22 @@ msgstr "自訂欄位："
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_base_module_uninstall_studio
 msgid "Custom models:"
-msgstr ""
+msgstr "自訂模型："
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_base_module_uninstall_studio
 msgid "Custom reports:"
-msgstr ""
+msgstr "自訂報告："
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_base_module_uninstall_studio
 msgid "Custom views:"
-msgstr ""
+msgstr "自訂檢視畫面："
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_base_module_uninstall_studio
 msgid "Customization made with Studio will be permanently lost"
-msgstr ""
+msgstr "使用 Studio 所做的自訂將永久遺失"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1161,7 +1166,7 @@ msgstr "自訂"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_xml/report_editor_xml.xml:0
 #, python-format
 msgid "DIFF"
-msgstr ""
+msgstr "diff 比對"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1178,14 +1183,14 @@ msgstr "日期"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Date & Calendar"
-msgstr ""
+msgstr "日期及日曆"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Date range & Gantt"
-msgstr ""
+msgstr "日期範圍及甘特圖"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1207,7 +1212,7 @@ msgstr "日"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Day Precision"
-msgstr ""
+msgstr "天數精確度"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1229,14 +1234,14 @@ msgstr "預設顯示模式"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 #, python-format
 msgid "Default Group By"
-msgstr ""
+msgstr "預設分組依據"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Default Group by"
-msgstr ""
+msgstr "預設分組依據"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1267,21 +1272,21 @@ msgstr "預設值"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #, python-format
 msgid "Default view"
-msgstr ""
+msgstr "預設檢視畫面"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Define start/end dates and visualize records in a Gantt chart"
-msgstr ""
+msgstr "定義開始/結束日期，並在甘特圖中視覺化呈現記錄"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/calendar/calendar_editor_sidebar.xml:0
 #, python-format
 msgid "Delay Field"
-msgstr ""
+msgstr "延遲欄位"
 
 #. module: web_studio
 #. odoo-python
@@ -1316,14 +1321,14 @@ msgstr "說明"
 #: code:addons/web_studio/static/src/client_action/icon_creator/icon_creator.xml:0
 #, python-format
 msgid "Design your Icon"
-msgstr ""
+msgstr "設計你的圖示"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #, python-format
 msgid "Disable View"
-msgstr ""
+msgstr "停用檢視畫面"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1351,21 +1356,21 @@ msgstr "顯示名稱"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Display Total row"
-msgstr ""
+msgstr "顯示總列數"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Display Unavailability"
-msgstr ""
+msgstr "顯示不可用"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_record.js:0
 #, python-format
 msgid "Do you want to add a dropdown with colors?"
-msgstr ""
+msgstr "你想加入有不同顏色的下拉式選單嗎？"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1396,7 +1401,7 @@ msgstr "將選單向右拖曳，以建立子選單"
 #: code:addons/web_studio/models/ir_ui_view.py:0
 #, python-format
 msgid "Dropdown Menu"
-msgstr ""
+msgstr "下拉式選單"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.act_report_xml_view_kanban
@@ -1408,7 +1413,7 @@ msgstr "複製"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
 msgid "Dynamic Table"
-msgstr ""
+msgstr "動態表格"
 
 #. module: web_studio
 #. odoo-python
@@ -1422,14 +1427,14 @@ msgstr "編輯"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/components/field_content_overlay.js:0
 #, python-format
 msgid "Edit %s view"
-msgstr ""
+msgstr "編輯 %s 檢視畫面"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/studio_home_menu/icon_creator_dialog/icon_creator_dialog.js:0
 #, python-format
 msgid "Edit Application Icon"
-msgstr ""
+msgstr "編輯應用程式圖示"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1444,21 +1449,21 @@ msgstr "編輯選單"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_properties.xml:0
 #, python-format
 msgid "Edit Values"
-msgstr ""
+msgstr "編輯值"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/app_menu_editor/app_menu_editor.xml:0
 #, python-format
 msgid "Edit selection"
-msgstr ""
+msgstr "編輯選取項"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "Edit sources"
-msgstr ""
+msgstr "編輯來源"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1474,7 +1479,7 @@ msgstr "不建議通過此編輯器編輯內置文件，因為它會阻止在以
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog.xml:0
 #, python-format
 msgid "Editing item:"
-msgstr ""
+msgstr "正在編輯項目："
 
 #. module: web_studio
 #. odoo-python
@@ -1505,21 +1510,21 @@ msgstr "電子郵件行程"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #, python-format
 msgid "Empty List Message"
-msgstr ""
+msgstr "清單空白時的訊息"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 #, python-format
 msgid "Enable Mass Editing"
-msgstr ""
+msgstr "啟用大批編輯"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 #, python-format
 msgid "Enable Routing"
-msgstr ""
+msgstr "啟用路線功能"
 
 #. module: web_studio
 #. odoo-python
@@ -1564,12 +1569,12 @@ msgstr "錯誤名稱："
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #, python-format
 msgid "Exclusive Approval"
-msgstr ""
+msgstr "專有批核權"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__exclusive_user
 msgid "Exclusive approval"
-msgstr ""
+msgstr "專有批核權"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1583,7 +1588,7 @@ msgstr "現有欄位"
 #: code:addons/web_studio/static/src/client_action/menu_creator/menu_creator.js:0
 #, python-format
 msgid "Existing Model"
-msgstr ""
+msgstr "現存模型"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1604,7 +1609,7 @@ msgstr "外部"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/rainbow_effect.xml:0
 #, python-format
 msgid "Fadeout Speed"
-msgstr ""
+msgstr "淡出速度"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1633,14 +1638,14 @@ msgstr "欄位"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog.js:0
 #, python-format
 msgid "Field Properties"
-msgstr ""
+msgstr "欄位屬性"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/field_configuration.js:0
 #, python-format
 msgid "Field properties: %s"
-msgstr ""
+msgstr "欄位屬性：%s"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_model_fields
@@ -1660,7 +1665,7 @@ msgstr "文件"
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "Filename for %s"
-msgstr ""
+msgstr "%s 的檔案名稱"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1676,14 +1681,14 @@ msgstr "篩選"
 #: code:addons/web_studio/static/src/client_action/editor/editor_menu/editor_menu.js:0
 #, python-format
 msgid "Filter Rules"
-msgstr ""
+msgstr "篩選規則"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/field_configuration.xml:0
 #, python-format
 msgid "Filter label"
-msgstr ""
+msgstr "篩選標籤"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1698,14 +1703,14 @@ msgstr "篩選"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.js:0
 #, python-format
 msgid "First Status"
-msgstr ""
+msgstr "首個狀態"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor_sidebar.xml:0
 #, python-format
 msgid "First dimension"
-msgstr ""
+msgstr "第一個維度"
 
 #. module: web_studio
 #. odoo-python
@@ -1736,7 +1741,7 @@ msgstr "文字格式"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/cohort/cohort_editor.js:0
 #, python-format
 msgid "Forward"
-msgstr ""
+msgstr "向前"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1751,21 +1756,21 @@ msgstr "甘特圖"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 #, python-format
 msgid "General views"
-msgstr ""
+msgstr "一般檢視畫面"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/new_view_dialogs/new_view_dialog.js:0
 #, python-format
 msgid "Generate %s View"
-msgstr ""
+msgstr "生成 %s 檢視畫面"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Get contact, phone and email fields on records"
-msgstr ""
+msgstr "取得記錄的聯絡人、電話及電郵地址欄位"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1796,7 +1801,7 @@ msgstr "圖形"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/rainbow_effect.xml:0
 #, python-format
 msgid "Great !"
-msgstr ""
+msgstr "很好！"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__group_id
@@ -1825,14 +1830,14 @@ msgstr "分組"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 #, python-format
 msgid "Grouping is not applied while in Studio to allow editing."
-msgstr ""
+msgstr "Studio 不會套用分組，以允許編輯。"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "Groups used in approval rules must have an external identifier."
-msgstr ""
+msgstr "批核規則中使用的群組，必須擁有外部識別碼。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1858,7 +1863,7 @@ msgstr "半天"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 #, python-format
 msgid "Half Hour"
-msgstr ""
+msgstr "半小時"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1867,35 +1872,35 @@ msgstr ""
 msgid ""
 "Header and footer are shared with other reports which may be impacted by the"
 " reset."
-msgstr ""
+msgstr "頁首及頁尾會共享，給其他可能受重設影響的報告使用。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_properties.xml:0
 #, python-format
 msgid "Help Tooltip"
-msgstr ""
+msgstr "幫助提示"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 #, python-format
 msgid "Hide Address"
-msgstr ""
+msgstr "隱藏地址"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 #, python-format
 msgid "Hide Name"
-msgstr ""
+msgstr "隱藏名稱"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_properties.js:0
 #, python-format
 msgid "Hide by default"
-msgstr ""
+msgstr "預設隱藏"
 
 #. module: web_studio
 #. odoo-python
@@ -1907,7 +1912,7 @@ msgstr "高優先級別"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_res_company__background_image
 msgid "Home Menu Background Image"
-msgstr ""
+msgstr "主頁選單背景圖片"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1957,7 +1962,7 @@ msgstr "如果設置，批核此規則的使用者將無法批核同一記錄的
 msgid ""
 "If you don't want to create a new model, an existing model should be "
 "selected."
-msgstr ""
+msgstr "若不想建立新模型，便應該選擇現有模型。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1988,7 +1993,7 @@ msgstr "進行中"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "Include header and footer"
-msgstr ""
+msgstr "包括頁首及頁尾"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_ir_ui_menu__is_studio_configuration
@@ -2002,21 +2007,21 @@ msgstr "表示此選單是在Studio創建的，用於裝載配置子選單"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
 msgid "Insert a field"
-msgstr ""
+msgstr "插入欄位"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
 msgid "Insert a field..."
-msgstr ""
+msgstr "插入欄位⋯"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
 msgid "Insert a table based on a relational field."
-msgstr ""
+msgstr "插入表格，資料基於關係欄位。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2051,12 +2056,12 @@ msgstr "按鈕內的 studio_approval %s 無效"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/modifiers/modifiers_properties.xml:0
 #, python-format
 msgid "Invisible"
-msgstr ""
+msgstr "隱藏"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_base_module_uninstall__is_studio
 msgid "Is Studio"
-msgstr ""
+msgstr "是 Studio"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2064,14 +2069,14 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #, python-format
 msgid "Is default view"
-msgstr ""
+msgstr "是預設檢視畫面"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "It lacks a method to check."
-msgstr ""
+msgstr "它缺乏一種檢查方法。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2107,7 +2112,7 @@ msgstr "標籤"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Label of the button"
-msgstr ""
+msgstr "按鈕標籤"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__write_uid
@@ -2128,7 +2133,7 @@ msgstr "最後更新於"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_xml/report_editor_xml.xml:0
 #, python-format
 msgid "Leave DIFF"
-msgstr ""
+msgstr "離開 diff 比對"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2137,7 +2142,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
 #, python-format
 msgid "Limit visibility to groups"
-msgstr ""
+msgstr "限制群組可見性"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2172,14 +2177,14 @@ msgstr "清單"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Manually sort records in the list view"
-msgstr ""
+msgstr "在列表檢視畫面中，對記錄手動排序"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/view_structures/view_structures.js:0
 #, python-format
 msgid "Many2Many"
-msgstr ""
+msgstr "Many2Many(多對多)"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2208,7 +2213,7 @@ msgstr "測量"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/cohort/cohort_editor_sidebar.xml:0
 #, python-format
 msgid "Measure Field"
-msgstr ""
+msgstr "量度欄位"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2250,14 +2255,14 @@ msgstr "方法"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Method to run"
-msgstr ""
+msgstr "待運行方法"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/views/kanban_report/new_report_dialog.js:0
 #, python-format
 msgid "Minimal header/footer"
-msgstr ""
+msgstr "簡約頁首/頁尾"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2310,7 +2315,7 @@ msgstr "型號"
 #: code:addons/web_studio/static/src/client_action/xml_resource_editor/xml_resource_editor.xml:0
 #, python-format
 msgid "Modified by:"
-msgstr ""
+msgstr "修改者："
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_module_module
@@ -2334,7 +2339,7 @@ msgstr "貨幣的"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Monetary value"
-msgstr ""
+msgstr "金錢價值"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2348,7 +2353,7 @@ msgstr "月"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Month Precision"
-msgstr ""
+msgstr "月份精確度"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2365,33 +2370,33 @@ msgstr "更多"
 #: code:addons/web_studio/static/src/client_action/view_editor/view_structures/view_structures.js:0
 #, python-format
 msgid "Multine Text"
-msgstr ""
+msgstr "多行文字"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 #, python-format
 msgid "Multiple records views"
-msgstr ""
+msgstr "多記錄檢視畫面"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/ir_ui_view.py:0
 #, python-format
 msgid "My %s"
-msgstr ""
+msgstr "我的 %s"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/new_button_box_dialog.xml:0
 #, python-format
 msgid "My Button"
-msgstr ""
+msgstr "我的按鈕"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_entry_search_view
 msgid "My entries"
-msgstr ""
+msgstr "我的記項"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2430,21 +2435,21 @@ msgstr "新%s"
 #: code:addons/web_studio/static/src/client_action/studio_home_menu/studio_home_menu.js:0
 #, python-format
 msgid "New App"
-msgstr ""
+msgstr "新應用程式"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "New Approval Entry"
-msgstr ""
+msgstr "新批核記項"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/components/field_selector_dialog.xml:0
 #, python-format
 msgid "New Field"
-msgstr ""
+msgstr "新欄位"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2458,21 +2463,21 @@ msgstr "新欄位"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/interactive_editor.js:0
 #, python-format
 msgid "New Filter"
-msgstr ""
+msgstr "新篩選器"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/ir_model.py:0
 #, python-format
 msgid "New Lines"
-msgstr ""
+msgstr "新行"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/app_menu_editor/app_menu_editor.xml:0
 #, python-format
 msgid "New Menu"
-msgstr ""
+msgstr "新選單"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2480,7 +2485,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/menu_creator/menu_creator.js:0
 #, python-format
 msgid "New Model"
-msgstr ""
+msgstr "新模型"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2494,7 +2499,7 @@ msgstr "新網頁"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/new_button_box_dialog.js:0
 #, python-format
 msgid "New button"
-msgstr ""
+msgstr "新按鈕"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2512,28 +2517,28 @@ msgstr "下一頁"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_type_properties.js:0
 #, python-format
 msgid "No aggregation"
-msgstr ""
+msgstr "不作匯合"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "No approval found for this rule, record and user combination."
-msgstr ""
+msgstr "就此規則、記錄及使用者組合，找不到相符的批准。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/views/kanban_report/new_report_dialog.js:0
 #, python-format
 msgid "No header/footer"
-msgstr ""
+msgstr "無頁首/頁尾"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/interactive_editor.js:0
 #, python-format
 msgid "No related many2one fields found"
-msgstr ""
+msgstr "找不到關聯的many2one欄位"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2557,7 +2562,7 @@ msgstr "備註"
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__notification_order
 #, python-format
 msgid "Notification Order"
-msgstr ""
+msgstr "通知次序"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__entries_count
@@ -2569,7 +2574,7 @@ msgstr "折舊次數"
 #: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
 #, python-format
 msgid "Odoo Studio"
-msgstr ""
+msgstr "Odoo Studio"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2583,14 +2588,14 @@ msgstr "顯示時(ir.ui.view):"
 #: code:addons/web_studio/static/src/client_action/view_editor/view_structures/view_structures.js:0
 #, python-format
 msgid "One2Many"
-msgstr ""
+msgstr "One2Many(一對多)"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "Only %s members can approve this rule."
-msgstr ""
+msgstr "只限 %s 成員才可批核此規則。"
 
 #. module: web_studio
 #. odoo-python
@@ -2599,14 +2604,14 @@ msgstr ""
 msgid ""
 "Only groups with an external ID can be used here. Please choose another "
 "group or assign manually an external ID to this group."
-msgstr ""
+msgstr "此處只可使用擁有外部識別碼的群組。請選擇另一個群組，或手動編配一個外部識別碼給此群組。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 #, python-format
 msgid "Open form view"
-msgstr ""
+msgstr "開啟表單檢視畫面"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2687,14 +2692,14 @@ msgstr "Pie"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Pipeline stages"
-msgstr ""
+msgstr "管道階段"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.js:0
 #, python-format
 msgid "Pipeline status bar"
-msgstr ""
+msgstr "管道狀態列"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2716,14 +2721,14 @@ msgstr "提示文字"
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "Please specify a field."
-msgstr ""
+msgstr "請指定一個欄位。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_record.xml:0
 #, python-format
 msgid "Preview is not available"
-msgstr ""
+msgstr "預覽不可用"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2740,7 +2745,7 @@ msgstr "前一個"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "Print preview"
-msgstr ""
+msgstr "列印預覽"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2756,7 +2761,7 @@ msgstr "優先級"
 msgid ""
 "Private methods cannot be restricted (since they cannot be called remotely, "
 "this would be useless)."
-msgstr ""
+msgstr "私密方法不能被限制（因為它們不能由遠端呼叫召用，這樣做是沒有用的）。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2770,7 +2775,7 @@ msgstr "屬性"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 #, python-format
 msgid "Quarter Hour"
-msgstr ""
+msgstr "一刻鐘（15 分鐘）"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2778,14 +2783,14 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
 #, python-format
 msgid "Quick Create"
-msgstr ""
+msgstr "快速建立"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/calendar/calendar_editor_sidebar.xml:0
 #, python-format
 msgid "Quick Create Field"
-msgstr ""
+msgstr "快速建立欄位"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_qweb
@@ -2797,14 +2802,14 @@ msgstr "Qweb"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/rainbow_effect.xml:0
 #, python-format
 msgid "Rainbow Effect"
-msgstr ""
+msgstr "彩虹效果"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/rainbow_effect.xml:0
 #, python-format
 msgid "Rainbow Man"
-msgstr ""
+msgstr "彩虹人"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2859,14 +2864,14 @@ msgstr "已拒絕"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Rejected as"
-msgstr ""
+msgstr "已拒絕為"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #, python-format
 msgid "Rejected on"
-msgstr ""
+msgstr "拒絕時間"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2887,7 +2892,7 @@ msgstr "從附件重新載入"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/sidebar_properties_toolbox/sidebar_properties_toolbox.xml:0
 #, python-format
 msgid "Remove from View"
-msgstr ""
+msgstr "從檢視畫面移除"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2908,7 +2913,7 @@ msgstr "報表動作"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
 msgid "Report Tools"
-msgstr ""
+msgstr "報告工具"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2916,28 +2921,28 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 #, python-format
 msgid "Report edition failed"
-msgstr ""
+msgstr "報告編輯失敗"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "Report name"
-msgstr ""
+msgstr "報告名稱"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #, python-format
 msgid "Report preview not available"
-msgstr ""
+msgstr "沒有可用報告預覽"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 #, python-format
 msgid "Reporting views"
-msgstr ""
+msgstr "報告檢視畫面"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2960,7 +2965,7 @@ msgstr "必填項"
 #: code:addons/web_studio/static/src/client_action/navbar/home_menu_customizer/home_menu_customizer.xml:0
 #, python-format
 msgid "Reset Default Background"
-msgstr ""
+msgstr "重設預設背景"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2977,7 +2982,7 @@ msgstr "重置檢視"
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_reset_view_arch_wizard
 msgid "Reset View Architecture Wizard"
-msgstr "重置檢視架構引導"
+msgstr "重設檢視畫面架構精靈"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2986,7 +2991,7 @@ msgstr "重置檢視架構引導"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "Reset report"
-msgstr ""
+msgstr "重設報告"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3005,7 +3010,7 @@ msgstr "負責人"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox.xml:0
 #, python-format
 msgid "Restore Default View"
-msgstr ""
+msgstr "恢復預設檢視畫面"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3033,14 +3038,14 @@ msgstr "取消"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/pivot/pivot_editor_sidebar.xml:0
 #, python-format
 msgid "Row grouping - First level"
-msgstr ""
+msgstr "列分組 - 第一層級"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/pivot/pivot_editor_sidebar.xml:0
 #, python-format
 msgid "Row grouping - Second level"
-msgstr ""
+msgstr "列分組 - 第二層級"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_rule
@@ -3054,7 +3059,7 @@ msgstr "規則"
 msgid ""
 "Rules with existing entries cannot be deleted since it would delete existing"
 " approval entries. You should archive the rule instead."
-msgstr ""
+msgstr "擁有現存記項的規則不可刪除，因為會刪除現存的批核記項。應該改為將規則封存。"
 
 #. module: web_studio
 #. odoo-python
@@ -3063,14 +3068,14 @@ msgstr ""
 msgid ""
 "Rules with existing entries cannot be modified since it would break existing"
 " approval entries. You should archive the rule and create a new one instead."
-msgstr ""
+msgstr "擁有現存記項的規則不可修改，因為會破壞現存的批核記項。應該先將規則封存，然後建立一個新規則。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Run a Server Action"
-msgstr ""
+msgstr "運行伺服器操作"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3099,14 +3104,14 @@ msgstr "儲存中⋯"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 #, python-format
 msgid "Saving both some report's parts and full xml is not permitted."
-msgstr ""
+msgstr "不允許同時儲存某些報告的部份及完整xml。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "Saving the report \""
-msgstr ""
+msgstr "正在儲存報告 \""
 
 #. module: web_studio
 #. odoo-javascript
@@ -3128,28 +3133,28 @@ msgstr "搜尋⋯"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.js:0
 #, python-format
 msgid "Second Status"
-msgstr ""
+msgstr "第二個狀態"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor_sidebar.xml:0
 #, python-format
 msgid "Second dimension"
-msgstr ""
+msgstr "第二個維度"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/new_button_box_dialog.xml:0
 #, python-format
 msgid "Select a related field"
-msgstr ""
+msgstr "選擇一個相關聯欄位"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/new_button_box_dialog.js:0
 #, python-format
 msgid "Select a related field."
-msgstr ""
+msgstr "選擇一個相關聯欄位。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3157,21 +3162,21 @@ msgstr ""
 #, python-format
 msgid ""
 "Select the contact field to use to get the coordinates of your records."
-msgstr ""
+msgstr "選擇用作取得記錄座標的聯絡人欄位。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/field_configuration.xml:0
 #, python-format
 msgid "Select the model in relation to this one"
-msgstr ""
+msgstr "選擇與此模型相關聯的模型"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/field_configuration.xml:0
 #, python-format
 msgid "Select the reciprocal ManyToOne field"
-msgstr ""
+msgstr "選擇相對應的ManyToOne欄位"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3185,14 +3190,14 @@ msgstr "選單"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/chatter_properties/chatter_properties.xml:0
 #, python-format
 msgid "Send a"
-msgstr ""
+msgstr "發送一個"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Send messages, log notes and schedule activities"
-msgstr ""
+msgstr "發送訊息、記錄備註，及安排活動"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3220,7 +3225,7 @@ msgstr "伺服器動作"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #, python-format
 msgid "Set As Default"
-msgstr ""
+msgstr "設為預設"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3234,14 +3239,14 @@ msgstr "設定封面圖像"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Set a price or cost on records"
-msgstr ""
+msgstr "設定記錄的價格或成本"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #, python-format
 msgid "Set approval rules"
-msgstr ""
+msgstr "設定批核規則"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3262,14 +3267,14 @@ msgstr "顯示追溯"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_properties.js:0
 #, python-format
 msgid "Show by default"
-msgstr ""
+msgstr "預設顯示"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "Show in print menu"
-msgstr ""
+msgstr "在列印選單顯示"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3292,14 +3297,14 @@ msgstr "慢"
 msgid ""
 "Some records were skipped because approvals were missing to"
 "                                    proceed with your request: "
-msgstr ""
+msgstr "由於缺漏繼續處理你的請求所需的批准，因此已跳過部份記錄："
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 #, python-format
 msgid "Sort By"
-msgstr ""
+msgstr "排序方式"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3320,14 +3325,14 @@ msgstr "排序"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog.xml:0
 #, python-format
 msgid "Specify all possible values"
-msgstr ""
+msgstr "指定所有可能的值"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor_sidebar.xml:0
 #, python-format
 msgid "Stacked graph"
-msgstr ""
+msgstr "堆疊圖表"
 
 #. module: web_studio
 #. odoo-python
@@ -3349,7 +3354,7 @@ msgstr "階段名稱"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Stage and visualize records in a custom pipeline"
-msgstr ""
+msgstr "在自訂管道中暫存及視覺化呈現記錄"
 
 #. module: web_studio
 #. odoo-python
@@ -3367,7 +3372,7 @@ msgstr "開始日期"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Start Date Field"
-msgstr ""
+msgstr "開始日期欄位"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3377,7 +3382,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Stop Date Field"
-msgstr ""
+msgstr "結束日期欄位"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_ir_model_data__studio
@@ -3387,51 +3392,51 @@ msgstr "工作室"
 #. module: web_studio
 #: model:ir.actions.client,name:web_studio.action_web_studio_app_creator
 msgid "Studio App Creator"
-msgstr ""
+msgstr "Studio 應用程式創建者"
 
 #. module: web_studio
 #: model:ir.actions.act_window,name:web_studio.studio_approval_entry_action
 #: model:ir.ui.menu,name:web_studio.menu_studio_approval_entry
 msgid "Studio Approval Entries"
-msgstr ""
+msgstr "Studio 批核記項"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_entry
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_entry_form_view
 msgid "Studio Approval Entry"
-msgstr ""
+msgstr "Studio 批核記項"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_request
 msgid "Studio Approval Request"
-msgstr ""
+msgstr "Studio 批核請求"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 msgid "Studio Approval Rule"
-msgstr ""
+msgstr "Studio 批核規則"
 
 #. module: web_studio
 #: model:ir.actions.act_window,name:web_studio.studio_approval_rule_action
 #: model:ir.ui.menu,name:web_studio.menu_studio_approval_rule
 msgid "Studio Approval Rules"
-msgstr ""
+msgstr "Studio 批核規則"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_ir_ui_menu__is_studio_configuration
 msgid "Studio Configuration Menu"
-msgstr ""
+msgstr "Studio 配置選單"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_customizations_filter
 msgid "Studio Customizations"
-msgstr ""
+msgstr "Studio 自訂功能"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_mixin
 msgid "Studio Mixin"
-msgstr ""
+msgstr "Studio 混入程式"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3439,7 +3444,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.xml:0
 #, python-format
 msgid "Suggested features for your new model"
-msgstr ""
+msgstr "為你的新模型推薦的功能"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3453,7 +3458,7 @@ msgstr "總數"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 #, python-format
 msgid "Sum of %s"
-msgstr ""
+msgstr "%s 總計"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3484,7 +3489,7 @@ msgstr "技術名稱"
 #: code:addons/web_studio/models/ir_ui_view.py:0
 #, python-format
 msgid "Template '%s' not found"
-msgstr ""
+msgstr "找不到範本「%s」"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3498,7 +3503,7 @@ msgstr "文字"
 #: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
 #, python-format
 msgid "The fastest way to create a web application."
-msgstr ""
+msgstr "創製網絡應用程式的最快方式。"
 
 #. module: web_studio
 #. odoo-python
@@ -3508,7 +3513,7 @@ msgstr ""
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The field %s does not exist."
-msgstr ""
+msgstr "欄位 %s 不存在。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3517,7 +3522,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 #, python-format
 msgid "The following approvals are missing:"
-msgstr ""
+msgstr "缺漏以下批准："
 
 #. module: web_studio
 #. odoo-javascript
@@ -3531,28 +3536,28 @@ msgstr "以下欄位目前未加入至檢視畫面。"
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The icon has not a correct format"
-msgstr ""
+msgstr "圖示格式不正確"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The icon is not linked to an attachment"
-msgstr ""
+msgstr "該圖示未連結至附件"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The method %s does not exist on the model %s."
-msgstr ""
+msgstr "方法 %s 並不存在於模型 %s 上。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.js:0
 #, python-format
 msgid "The method %s is private."
-msgstr ""
+msgstr "方法 %s 是私密方法。"
 
 #. module: web_studio
 #. odoo-python
@@ -3562,35 +3567,35 @@ msgstr ""
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The model %s does not exist."
-msgstr ""
+msgstr "模型 %s 不存在。"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The model %s doesn't exist."
-msgstr ""
+msgstr "模型 %s 不存在。"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The model %s doesn't support adding fields."
-msgstr ""
+msgstr "%s 模型不支援新增欄位。"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The operation  type \"%s\" is not supported"
-msgstr ""
+msgstr "不支援「%s」操作類型"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "The related field of a button has to be a many2one to %s."
-msgstr ""
+msgstr "按鈕的相關聯欄位，必須是目標為 %s 的many2one。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3608,7 +3613,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 #, python-format
 msgid "The report is in error. Only editing the XML sources is permitted"
-msgstr ""
+msgstr "報告有錯誤。只允許編輯 XML 來源"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3617,7 +3622,7 @@ msgstr ""
 msgid ""
 "The requested change caused an error in the view. It could be because a "
 "field was deleted, but still used somewhere else."
-msgstr ""
+msgstr "要求的變更引致檢視畫面中出現錯誤。可能是因為某個欄位已被刪除，但其他地方仍使用它。"
 
 #. module: web_studio
 #. odoo-python
@@ -3627,13 +3632,15 @@ msgid ""
 "There are %s records using selection values not listed in those you are trying to save.\n"
 "Are you sure you want to remove the selection values of those records?"
 msgstr ""
+"有 %s 記錄使用的選取值，未包含在你嘗試儲存的記錄中。\n"
+"確定要移除該些記錄的選取值？"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "There is no method %s on the model %s (%s)"
-msgstr ""
+msgstr "並沒有方法 %s 存在於模型 %s 上（%s）"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3642,14 +3649,14 @@ msgstr ""
 msgid ""
 "There is no record on which this report can be previewed. Create at least "
 "one record to preview the report."
-msgstr ""
+msgstr "沒有可以用此報告預覽的記錄。請建立最少一項記錄，以預覽報告。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "There is no record to preview"
-msgstr ""
+msgstr "沒有記錄可以預覽"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__users_to_notify
@@ -3663,7 +3670,7 @@ msgstr "提出批核請求時，這些使用者將收到內部備註通知"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.js:0
 #, python-format
 msgid "Third Status"
-msgstr ""
+msgstr "第三個狀態"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3672,7 +3679,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/studio_service.js:0
 #, python-format
 msgid "This action is not editable by Studio"
-msgstr ""
+msgstr "Studio 無法編輯此操作"
 
 #. module: web_studio
 #. odoo-python
@@ -3682,6 +3689,8 @@ msgid ""
 "This approval or the one you already submitted limits you to a single approval on this action.\n"
 "Another user is required to further approve this action."
 msgstr ""
+"此批核或你已提交的批核，限制你只可對此操作進行一次批准。\n"
+"若要進一步批核此操作，需要另一位用戶。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3690,14 +3699,14 @@ msgstr ""
 msgid ""
 "This could also be due to the absence of a real record to render the report "
 "with."
-msgstr ""
+msgstr "也可能是由於缺乏用作繪製報告的真實記錄。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "This may be due to an incorrect syntax in the edited parts."
-msgstr ""
+msgstr "可能是因為已編輯部份內，出現不正確的語法。"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__message
@@ -3711,21 +3720,21 @@ msgstr "若使用者未經這項批准便無法繼續操作，將顯示此訊息
 #: code:addons/web_studio/static/src/client_action/view_editor/view_editor_model.js:0
 #, python-format
 msgid "This operation caused an error, probably because a xpath was broken"
-msgstr ""
+msgstr "此操作引致錯誤，可能是因為 xpath 損壞"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "This rule has already been approved/rejected."
-msgstr ""
+msgstr "此規則已被批准/拒絕。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #, python-format
 msgid "This rule limits this user to a single approval for this action."
-msgstr ""
+msgstr "此規則限制此使用者只准對此操作進行一次批核。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3739,7 +3748,7 @@ msgstr "時間軸"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 #, python-format
 msgid "Timeline views"
-msgstr ""
+msgstr "時間線檢視畫面"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3747,7 +3756,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/systray_item/systray_item.xml:0
 #, python-format
 msgid "Toggle Studio"
-msgstr ""
+msgstr "切換開關 Studio"
 
 #. module: web_studio
 #. odoo-python
@@ -3768,7 +3777,7 @@ msgstr "類型"
 #: code:addons/web_studio/models/ir_ui_view.py:0
 #, python-format
 msgid "Type down your notes here..."
-msgstr ""
+msgstr "此處輸入備註⋯"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3796,21 +3805,21 @@ msgstr "使用者"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "User assignment"
-msgstr ""
+msgstr "使用者分配"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/approval/studio_approval.xml:0
 #, python-format
 msgid "User avatar placeholder"
-msgstr ""
+msgstr "使用者頭像佔位符"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "User is not a member of the selected group."
-msgstr ""
+msgstr "使用者不是所選群組的成員。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3818,14 +3827,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__users_to_notify
 #, python-format
 msgid "Users to notify"
-msgstr ""
+msgstr "要通知的使用者"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/xml_resource_editor/xml_resource_editor.xml:0
 #, python-format
 msgid "Uses:"
-msgstr ""
+msgstr "使用："
 
 #. module: web_studio
 #. odoo-javascript
@@ -3842,7 +3851,7 @@ msgstr "值"
 #: code:addons/web_studio/static/src/client_action/editor/app_menu_editor/app_menu_editor.xml:0
 #, python-format
 msgid "Value of list"
-msgstr ""
+msgstr "列表值"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3871,21 +3880,21 @@ msgstr "視圖"
 #: code:addons/web_studio/static/src/approval/studio_approval.xml:0
 #, python-format
 msgid "Waiting for approval"
-msgstr ""
+msgstr "等待批核"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
 msgid "Webhook Automations"
-msgstr ""
+msgstr "網絡鈎子自動化操作"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/editor/editor_menu/editor_menu.js:0
 #, python-format
 msgid "Webhooks"
-msgstr ""
+msgstr "網絡鈎子"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3899,7 +3908,7 @@ msgstr "星期"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.xml:0
 #, python-format
 msgid "Week Precision"
-msgstr ""
+msgstr "星期精確度"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3913,14 +3922,14 @@ msgstr "歡迎來到"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "What should the button do"
-msgstr ""
+msgstr "按鈕應該做的行為"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 #, python-format
 msgid "When Creating Record"
-msgstr ""
+msgstr "建立記錄時"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__can_validate
@@ -3944,14 +3953,14 @@ msgstr "小工具"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Write additional notes or comments"
-msgstr ""
+msgstr "輸入額外備註或留言"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox.xml:0
 #, python-format
 msgid "XML"
-msgstr ""
+msgstr "XML"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3965,21 +3974,21 @@ msgstr "年"
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "You cannot cancel an approval you didn't set yourself."
-msgstr ""
+msgstr "不可取消並非由你自己設定的批准。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 #, python-format
 msgid "You cannot deactivate this view as it is the last one active."
-msgstr ""
+msgstr "不可停用此檢視畫面，因為它是最後一個生效的檢視畫面。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_record.js:0
 #, python-format
 msgid "You first need to create a many2many field in the form view."
-msgstr ""
+msgstr "你需要先在表單檢視畫面中，建立一個many2many欄位。"
 
 #. module: web_studio
 #. odoo-python
@@ -3993,28 +4002,28 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/chatter_properties/chatter_properties.xml:0
 #, python-format
 msgid "domain not defined"
-msgstr ""
+msgstr "未定義網域"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/sidebar_properties_toolbox/sidebar_properties_toolbox.js:0
 #, python-format
 msgid "dropdown"
-msgstr ""
+msgstr "下拉"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/menu_creator/menu_creator.xml:0
 #, python-format
 msgid "e.g. Properties"
-msgstr ""
+msgstr "例：屬性"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/app_creator/app_creator.xml:0
 #, python-format
 msgid "e.g. Real Estate"
-msgstr ""
+msgstr "例：房地產"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4056,21 +4065,21 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/chatter_properties/chatter_properties.xml:0
 #, python-format
 msgid "test email"
-msgstr ""
+msgstr "測試電郵"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/icon_creator/icon_creator.xml:0
 #, python-format
 msgid "upload it"
-msgstr ""
+msgstr "上載它"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/icon_creator/icon_creator.xml:0
 #, python-format
 msgid "upload one"
-msgstr ""
+msgstr "上載一個"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4084,4 +4093,4 @@ msgstr "x_studio_"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog.xml:0
 #, python-format
 msgid "{{ item.isInEdition ? 'Add selection' : 'Edit selection' }}"
-msgstr ""
+msgstr "{{ item.isInEdition ? '加入選取項' : '編輯選取項' }}"

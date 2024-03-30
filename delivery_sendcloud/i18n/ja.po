@@ -48,7 +48,7 @@ msgstr ""
 "%s\n"
 "また、個々の商品によっては、最も重量が重い配送方法が選択される場合があります。\n"
 "\n"
-"可能であれば、以下の商品の数量を分割して梱包するか、他の運送業者をお選び下さい。\n"
+"可能であれば、以下の商品の数量を分割して梱包するか、他の運送会社をお選び下さい。\n"
 "\t%s"
 
 #. module: delivery_sendcloud
@@ -62,7 +62,7 @@ msgid ""
 msgstr ""
 "%s 最も重い発送方法をお選び下さい。\n"
 "\n"
-"プロダクトを重量%s%s以下の梱包で配送するか、別の運送業者を選択するようにして下さい。"
+"プロダクトを重量%s%s以下の梱包で配送するか、別の運送会社を選択するようにして下さい。"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -90,7 +90,7 @@ msgid ""
 "enabled carriers in your Sendcloud account."
 msgstr ""
 "<i class=\"fa fa-info-circle\"/> "
-"利用可能な配送商品は、Sendcloudアカウントで有効になっているキャリアによって異なります。"
+"利用可能な配送商品は、Sendcloudアカウントで有効になっている運送会社によって異なります。"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__sendcloud_products_code
@@ -119,7 +119,7 @@ msgstr "取消"
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_stock_package_type__package_carrier_type
 #, python-format
 msgid "Carrier"
-msgstr "配送業者"
+msgstr "運送会社"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -585,7 +585,7 @@ msgstr "以下の合計重量"
 msgid ""
 "There are no shipping products available, please update the 'Shipping From' "
 "field or activate suitable carriers in your sendcloud account"
-msgstr "利用可能な配送商品がありません。'配送元'フィールドを更新するか、Sendcloudアカウントで適切なキャリアを有効にして下さい。"
+msgstr "利用可能な配送商品がありません。'配送元'フィールドを更新するか、Sendcloudアカウントで適切な運送会社を有効にして下さい。"
 
 #. module: delivery_sendcloud
 #. odoo-python
