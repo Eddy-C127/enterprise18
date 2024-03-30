@@ -12,7 +12,7 @@ export class JournalDashboardActivityTaxReport extends JournalDashboardActivity 
 
     async openActivity(activity) {
         if (activity.activity_category === 'tax_report') {
-            const act = await this.orm.call("mail.activity", "action_open_tax_report", [activity.id], {});
+            const act = await this.orm.call("mail.activity", "action_open_tax_activity", [activity.id], {});
             this.action.doAction(act);
         } else {
             super.openActivity(activity);

@@ -57,3 +57,21 @@ class AccountMove(models.Model):
             attachments.append((xml_data['file_name'], xml_data['file_content']))
 
         return attachments
+
+    def _action_tax_to_pay_wizard(self):
+        # EXTENDS account_reports
+        payable_tax = self._get_tax_to_pay_on_closing()
+        if self.company_id.account_fiscal_country_id.code == 'BE' and payable_tax > 0:
+            return {
+                'type': 'ir.actions.act_window',
+                'name': _("VAT Payment"),
+                'res_model': 'l10n_be.vat.pay.wizard',
+                'views': [(False, 'form')],
+                'target': 'new',
+                'context': {
+                    'default_move_id': self.id,
+                    'default_amount': payable_tax,
+                    'dialog_size': 'medium',
+                },
+            }
+        return super()._action_tax_to_pay_wizard()

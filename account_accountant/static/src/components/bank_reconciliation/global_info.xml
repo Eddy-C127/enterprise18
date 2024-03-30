@@ -4,7 +4,8 @@
     <t t-name="account_accountant.BankRecGlobalInfo">
         <div t-if="props.journalId"
              class="journal-balance d-flex w-100"
-             t-on-click="(ev) => this.actionOpenBankGL()">
+             t-att-class="{'pe-none': !hasGroupReadOnly}"
+             t-on-click="(ev) => hasGroupReadOnly ? this.actionOpenBankGL() : {}">
             <span class="btn flex-fill text-900 text-start ps-0 fw-bold fs-4 align-self-center">
                 Balance
             </span>

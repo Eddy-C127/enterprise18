@@ -310,7 +310,8 @@ export class BankRecKanbanController extends KanbanController {
     async onWillStartAfterLoad(){
         // Fetch groups.
         this.hasGroupAnalyticAccounting = await user.hasGroup("analytic.group_analytic_accounting");
-        this.hasGroupNoOne = await user.hasGroup("base.group_no_one");
+        this.hasGroupReadOnly = await user.hasGroup("account.group_account_readonly");
+
 
         // Prepare bankRecoModel.
         await this.initBankRecModel();
@@ -681,9 +682,8 @@ export class BankRecKanbanController extends KanbanController {
 
         // Prepare columns.
         let columns = [
-            ["account", _t("Account")],
-            ["partner", _t("Partner")],
             ["date", _t("Date")],
+            ["partner", _t("Partner")],
         ];
         if(lineIdsRecords.some((x) => Boolean(Object.keys(x.data.analytic_distribution).length))){
             columns.push(["analytic_distribution", _t("Analytic")]);
@@ -694,11 +694,19 @@ export class BankRecKanbanController extends KanbanController {
         if(lineIdsRecords.some((x) => x.data.currency_id[0] !== data.company_currency_id[0])){
             columns.push(["amount_currency", _t("Amount in Currency")], ["currency", _t("Currency")]);
         }
-        columns.push(
-            ["debit", _t("Debit")],
-            ["credit", _t("Credit")],
-            ["__trash", ""],
-        );
+        if (this.hasGroupReadOnly) {
+            columns.unshift(["account", _t("Account")]);
+            columns.push(
+                ["debit", _t("Debit")],
+                ["credit", _t("Credit")],
+                ["__trash", ""],
+            );
+        } else {
+            columns.push(
+                ["balance", _t("Amount")],
+                ["__trash", ""],
+            );
+        }
 
         return columns;
     }

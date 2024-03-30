@@ -45,9 +45,9 @@
                     <field name="journal_id"
                            optional="hidden" readonly="state != 'draft'"/>
                     <field name="amount_residual_currency"
-                           string="Open Amount (in Currency)"/>
+                           string="Amount Due (in currency)"/>
                     <field name="amount_residual"
-                           string="Open Amount"
+                           string="Amount Due"
                            groups="base.group_multi_currency"
                            optional="hidden"/>
 

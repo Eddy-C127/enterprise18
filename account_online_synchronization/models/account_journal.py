@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import logging
+import requests
 from dateutil.relativedelta import relativedelta
+from requests.exceptions import RequestException, Timeout
 
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError, ValidationError, RedirectWarning
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountJournal(models.Model):
@@ -63,6 +68,22 @@ class AccountJournal(models.Model):
             except (UserError, RedirectWarning):
                 # We need to rollback here otherwise the next iteration will still have the error when trying to commit
                 self.env.cr.rollback()
+
+    def fetch_online_sync_favorite_institutions(self):
+        self.ensure_one()
+        timeout = int(self.env['ir.config_parameter'].sudo().get_param('account_online_synchronization.request_timeout')) or 60
+        endpoint_url = self.env['account.online.link']._get_odoofin_url('/proxy_rpc_call/v1/get_favorite_institutions')
+        params = {'country': self.company_id.account_fiscal_country_id.code, 'limit': 28}
+        try:
+            resp = requests.post(endpoint_url, json=params, timeout=timeout)
+            resp_dict = resp.json()['result']
+            for institution in resp_dict:
+                if institution['picture'].startswith('/'):
+                    institution['picture'] = self.env['account.online.link']._get_odoofin_url(institution['picture'])
+            return resp_dict
+        except (Timeout, ConnectionError, RequestException, ValueError) as e:
+            _logger.warning(e)
+            return []
 
     @api.model
     def _cron_fetch_waiting_online_transactions(self):

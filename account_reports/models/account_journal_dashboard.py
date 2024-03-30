@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import models
 
 import ast
@@ -6,6 +5,11 @@ import ast
 
 class AccountJournal(models.Model):
     _inherit = 'account.journal'
+
+    def _fill_general_dashboard_data(self, dashboard_data):
+        super()._fill_general_dashboard_data(dashboard_data)
+        for journal in self.filtered(lambda journal: journal.type == 'general'):
+            dashboard_data[journal.id]['is_account_tax_periodicity_journal'] = journal == journal.company_id.account_tax_periodicity_journal_id
 
     def action_open_bank_balance_in_gl(self):
         ''' Show the bank balance inside the General Ledger report.

@@ -342,10 +342,10 @@ class AccountOnlineLink(models.Model):
         ctx = self.env.context
         # if this was called from kanban box, active_model is in context
         if self.env.context.get('active_model') == 'account.journal':
-            ctx = {**ctx, 'default_linked_journal_id': ctx.get('active_id', False)}
+            ctx = {**ctx, 'default_linked_journal_id': ctx.get('active_id', False), 'dialog_size': 'medium'}
         return {
             'type': 'ir.actions.act_window',
-            'name': _('Create a Bank Account'),
+            'name': _('Setup Bank Account'),
             'res_model': 'account.setup.bank.manual.config',
             'target': 'new',
             'view_mode': 'form',
@@ -462,6 +462,16 @@ class AccountOnlineLink(models.Model):
     # Generic methods to contact server and handle errors #
     #######################################################
 
+    @api.model
+    def _get_odoofin_url(self, url):
+        proxy_mode = self.env['ir.config_parameter'].sudo().get_param('account_online_synchronization.proxy_mode') or 'production'
+        if not pattern.match(proxy_mode) and not runbot_pattern.match(proxy_mode):
+            raise UserError(_('Invalid value for proxy_mode config parameter.'))
+        endpoint_url = 'https://%s.odoofin.com%s' % (proxy_mode, url)
+        if runbot_pattern.match(proxy_mode):
+            endpoint_url = '%s%s' % (proxy_mode, url)
+        return endpoint_url
+
     def _fetch_odoo_fin(self, url, data=None, ignore_status=False):
         """
         Method used to fetch data from the Odoo Fin proxy.
@@ -477,12 +487,7 @@ class AccountOnlineLink(models.Model):
             raise UserError(_('Invalid URL'))
 
         timeout = int(self.env['ir.config_parameter'].sudo().get_param('account_online_synchronization.request_timeout')) or 60
-        proxy_mode = self.env['ir.config_parameter'].sudo().get_param('account_online_synchronization.proxy_mode') or 'production'
-        if not pattern.match(proxy_mode) and not runbot_pattern.match(proxy_mode):
-            raise UserError(_('Invalid value for proxy_mode config parameter.'))
-        endpoint_url = 'https://%s.odoofin.com%s' % (proxy_mode, url)
-        if runbot_pattern.match(proxy_mode):
-            endpoint_url = '%s%s' % (proxy_mode, url)
+        endpoint_url = self._get_odoofin_url(url)
         cron = self.env.context.get('cron', False)
         data['utils'] = {
             'request_timeout': timeout,
@@ -961,7 +966,7 @@ class AccountOnlineLink(models.Model):
     # action buttons #
     ##################
 
-    def action_new_synchronization(self):
+    def action_new_synchronization(self, preferred_inst=None, journal_id=False):
         # Search for an existing link that was not fully connected
         online_link = self
         if not online_link or online_link.provider_data:
@@ -969,7 +974,7 @@ class AccountOnlineLink(models.Model):
         # If not found, create a new one
         if not online_link or online_link.provider_data:
             online_link = self.create({})
-        return online_link._open_iframe('link')
+        return online_link._open_iframe('link', preferred_institution=preferred_inst, journal_id=journal_id)
 
     def action_update_credentials(self):
         return self._open_iframe('updateCredentials')
@@ -981,7 +986,7 @@ class AccountOnlineLink(models.Model):
     def action_reconnect_account(self):
         return self._open_iframe('reconnect')
 
-    def _open_iframe(self, mode='link'):
+    def _open_iframe(self, mode='link', preferred_institution=False, journal_id=False):
         self.ensure_one()
         if self.client_id and self.sudo().refresh_token:
             try:
@@ -992,7 +997,7 @@ class AccountOnlineLink(models.Model):
                 return self.create({})._open_iframe('link')
 
         proxy_mode = self.env['ir.config_parameter'].sudo().get_param('account_online_synchronization.proxy_mode') or 'production'
-        country = self.env.company.country_id
+        country = self.env['account.journal'].browse(journal_id).company_id.account_fiscal_country_id or self.env.company.country_id
         action = {
             'type': 'ir.actions.client',
             'tag': 'odoo_fin_connector',
@@ -1010,9 +1015,17 @@ class AccountOnlineLink(models.Model):
                     'mfa_type': self.env.user._mfa_type(),
                 }
             },
+            'context': {
+                'dialog_size': 'medium',
+            },
         }
         if self.provider_data:
             action['params']['providerData'] = self.provider_data
+        if preferred_institution:
+            action['params']['includeParam']['clickedInstitution'] = preferred_institution
+        if journal_id:
+            action['context']['active_model'] = 'account.journal'
+            action['context']['active_id'] = journal_id
 
         if mode == 'link':
             user_email = self.env.user.email or self.env.ref('base.user_admin').email or ''  # Necessary for some providers onboarding

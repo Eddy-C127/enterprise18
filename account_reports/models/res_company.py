@@ -55,15 +55,19 @@ class ResCompany(models.Model):
         return self.env['account.journal'].search([
             *self.env['account.journal']._check_company_domain(self),
             ('type', '=', 'general'),
-            ('show_on_dashboard', '=', True),
         ], limit=1)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        companies = super().create(vals_list)
+        companies._initiate_account_onboardings()
+        return companies
 
     def write(self, values):
         tax_closing_update_dependencies = ('account_tax_periodicity', 'account_tax_periodicity_reminder_day', 'account_tax_periodicity_journal_id.id')
         to_update = self.env['res.company']
         for company in self:
             if company.account_tax_periodicity_journal_id:
-
                 need_tax_closing_update = any(
                     update_dep in values and company.mapped(update_dep)[0] != values[update_dep]
                     for update_dep in tax_closing_update_dependencies
@@ -76,6 +80,10 @@ class ResCompany(models.Model):
 
         for update_company in to_update:
             update_company._update_tax_closing_after_periodicity_change()
+
+        hidden_tax_journals = self.account_tax_periodicity_journal_id.sudo().filtered(lambda j: not j.show_on_dashboard)
+        if hidden_tax_journals:
+            hidden_tax_journals.show_on_dashboard = True
 
         return res
 
@@ -137,7 +145,7 @@ class ResCompany(models.Model):
                 raise UserError(error)
 
             # Compute tax closing description
-            ref = self._get_tax_closing_move_description(self.account_tax_periodicity, period_start, period_end, fpos)
+            ref = _("Tax return %s", self._get_tax_closing_move_description(self.account_tax_periodicity, period_start, period_end, fpos))
 
             # Values for update/creation of closing move
             closing_vals = {
@@ -181,7 +189,8 @@ class ResCompany(models.Model):
                         'activity_type_id': tax_closing_activity_type_id,
                         'date_deadline': activity_deadline,
                         'automated': True,
-                        'user_id':  advisor_user.id or self.env.user.id
+                        'summary': ref,
+                        'user_id':  advisor_user.id or self.env.user.id,
                     })
 
             all_closing_moves += tax_closing_move
@@ -224,13 +233,13 @@ class ResCompany(models.Model):
             region_string = ''
 
         if periodicity == 'year':
-            return _("Tax return for %(year)s%(region)s", year=period_start.year, region=region_string)
+            return _("for %(year)s%(region)s", year=period_start.year, region=region_string)
         elif periodicity == 'trimester':
-            return _("Tax return for %(trimester)s%(region)s", trimester=format_date(self.env, period_start, date_format='qqq yyyy'), region=region_string)
+            return _("for %(trimester)s%(region)s", trimester=format_date(self.env, period_start, date_format='qqq yyyy'), region=region_string)
         elif periodicity == 'monthly':
-            return _("Tax return for %(month)s%(region)s", month=format_date(self.env, period_start, date_format='LLLL yyyy'), region=region_string)
+            return _("for %(month)s%(region)s", month=format_date(self.env, period_start, date_format='LLLL yyyy'), region=region_string)
         else:
-            return _("Tax return from %(period_start)s to %(period_end)s%(region)s", period_start=format_date(self.env, period_start), period_end=format_date(self.env, period_end), region=region_string)
+            return _("from %(period_start)s to %(period_end)s%(region)s", period_start=format_date(self.env, period_start), period_end=format_date(self.env, period_end), region=region_string)
 
     def _get_tax_closing_period_boundaries(self, date):
         """ Returns the boundaries of the tax period containing the provided date

@@ -36,9 +36,9 @@
                     </t>
                 </xpath>
 
-                <xpath expr='//button[@name="action_configure_bank_journal"]' position='replace'>
-                    <button groups="account.group_account_manager" invisible="account_online_account_id"
-                            type="object" name="action_configure_bank_journal" class="btn btn-primary me-1">Connect Bank</button>
+                <xpath expr="//t[@t-name='bank_configuration_placeholder']" position="replace">
+                    <widget t-if="bank_unconfigured" name="bank_configure"/>
+                    <t t-else="" t-call="JournalBodyBankCash" t-name="bank_configuration_placeholder"/>
                 </xpath>
             </field>
         </record>

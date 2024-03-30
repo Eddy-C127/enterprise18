@@ -6,24 +6,18 @@
     import { markup } from "@odoo/owl";
     import { accountTourSteps } from "@account/js/tours/account";
 
-    patch(registry.category("web_tour.tours").get("account_tour"), {
-        steps() {
-            const originalSteps = super.steps();
-            originalSteps.splice(3, 0,
+    patch(accountTourSteps, {
+        newInvoice() {
+            return [
                 {
-                    trigger: 'button[data-menu-xmlid="account.menu_finance_receivables"]',
-                    content: _t('Go to invoicing'),
-                    auto: true,
+                    trigger: "button[name=action_create_new]",
+                    content: _t("Now, we'll create your first invoice (accountant)"),
                     run: "click",
-                }, {
-                    trigger: '.dropdown-item[data-menu-xmlid="account.menu_action_move_out_invoice_type"]',
-                    content: _t('Go to invoicing'),
-                    auto: true,
-                    run: "click",
-                });
-            return originalSteps;
-        }
+                }
+            ]
+        },
     });
+
 
     registry.category("web_tour.tours").add('account_accountant_tour', {
             rainbowManMessage: function({ isTourConsumed }) {
@@ -40,21 +34,9 @@
             // The tour will stop here if there is at least 1 vendor bill in the database.
             // While not ideal, it is ok, since that means the user obviously knows how to create a vendor bill...
             {
-                trigger: 'button.btn-primary[name="action_create_vendor_bill"]',
+                trigger: 'a[name="action_create_vendor_bill"]',
                 content: markup(_t('Create your first vendor bill.<br/><br/><i>Tip: If you don’t have one on hand, use our sample bill.</i>')),
                 position: 'bottom',
-                run: "click",
-            }, {
-                trigger: 'button[name="apply"]',
-                content: markup(_t('Great! Let’s continue.<br/><br/><i>Tip: If you choose to upload your bill, don’t forget to attach it.</i>')),
-                position: 'top',
-                run: "click",
-            }, {
-                trigger: '.o_data_cell',
-                extra_trigger: 'tr:not(.o_sample_data_disabled)>td:has(div[name="state"])',
-                content: _t('Let’s see how a bill looks like in form view.'),
-                position: 'bottom',
-                skip_trigger: 'button.btn-primary[name="action_post"]',
                 run: "click",
             }, {
                 trigger: 'button.btn-primary[name="action_post"]',
@@ -68,7 +50,7 @@
                 position: 'bottom',
                 run: "click",
             }, {
-                trigger: 'a[data-method="action_open_step_bank_account"].o_onboarding_step_action',
+                trigger: 'button[name="action_configure_bank_journal"]',
                 content: _t('Connect your bank and get your latest transactions.'),
                 position: 'bottom',
                 run: function () {

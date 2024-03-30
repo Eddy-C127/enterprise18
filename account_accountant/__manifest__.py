@@ -10,7 +10,7 @@
     'description': """
 Invoicing Access Rights
 ========================
-It gives the Administrator user access to important invoicing features such as bank recon and tax report.
+It gives the Administrator user access to important invoicing features such as bank recon and payment follow-up.
 
 """,
     'website': 'https://www.odoo.com/app/accounting',

@@ -48,6 +48,15 @@
                 </div>
             </xpath>
 
+            <!-- Add subtitle & onboarding to account_tax_periodicity_journals -->
+            <xpath expr="//div[hasclass('o_kanban_card_header_title')]/div[@t-if='journal_is_empty']" position="inside">
+                <span class="text-muted" t-if="journal_type == 'general' and dashboard['is_account_tax_periodicity_journal']">Never miss a tax deadline.</span>
+            </xpath>
+
+            <xpath expr="//div[field/@widget='kanban_vat_activity']" position="after">
+                <widget name="account_onboarding" t-if="!record.has_posted_entries.raw_value and dashboard['onboarding'] and dashboard['is_account_tax_periodicity_journal']"/>
+            </xpath>
+
         </field>
     </record>
 </odoo>

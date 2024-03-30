@@ -378,6 +378,7 @@
 
                     <field name="account_id"
                            options="{'no_open': True, 'no_create': True}"
+                           groups="account.group_account_readonly"
                            optional="show"/>
                     <field name="journal_id"
                            optional="hidden"/>
@@ -385,7 +386,8 @@
                            optional="show"/>
                     <field name="invoice_date" string="Invoice Date" optional="hide"/>
                     <field name="date"/>
-                    <field name="move_id"/>
+                    <field name="move_id" string="Document" groups="!account.group_account_readonly"/>
+                    <field name="move_id" groups="account.group_account_readonly"/>
                     <field name="name"/>
                     <field name="date_maturity" optional="hidden"/>
                     <field name="ref"
@@ -397,10 +399,10 @@
                     <field name="amount_residual_currency"
                            decoration-danger="amount_residual_currency &lt; 0"
                            groups="base.group_multi_currency"
-                           string="Open Amount in Currency"/>
+                           string="Amount Due (in currency)"/>
                     <field name="amount_residual"
                            decoration-danger="amount_residual &lt; 0"
-                           string="Open Amount"/>
+                           string="Amount Due"/>
 
                     <button name="action_open_business_doc"
                             type="object"

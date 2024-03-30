@@ -57,9 +57,6 @@
                 <field name="partner_id" position="attributes">
                     <attribute name="invisible">context.get('sdd_mandate') == True</attribute>
                 </field>
-                <field name="acc_holder_name" position="attributes">
-                    <attribute name="invisible">context.get('sdd_mandate') == True</attribute>
-                </field>
             </field>
         </record>
 
