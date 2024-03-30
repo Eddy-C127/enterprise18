@@ -4,3 +4,4 @@
 from . import common
 from . import test_planning_slot
 from . import test_recurrency
+from . import test_gantt_resource_employees_working_periods
