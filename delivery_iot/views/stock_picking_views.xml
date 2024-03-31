@@ -14,11 +14,12 @@
                     <group string="Scales">
                         <field name="iot_scale_ids" widget="many2many_tags" string="Connect Scale"/>
                     </group>
-                    <group>
+                    <group string="">
                         <div colspan="2">
                             If you connect your scales through the IoT App, the
                             weight of the package will be set automatically when
                             you do a "Put in Pack" operation.
+                            <br/>
                             <a href="https://www.odoo.com/documentation/master/applications/productivity/iot/devices/scale.html"
                                 target="_blank" class="fa fa-arrow-right">
                                 How to connect scales?
