@@ -435,3 +435,20 @@ class AccountTestFecImport(AccountTestInvoicingCommon):
         self.assertFalse(new.line_ids.full_reconcile_id, "Reconciliation is only temporary before posting")
         new.action_post()
         self.assertEqual(len(new.line_ids.full_reconcile_id), 2, "It is fully reconciled after posting")
+
+    def test_key_is_empty(self):
+        test_content = """
+           JournalLib\tEcritureNum\tEcritureDate\tCompteNum\tCompteLib\tCompAuxNum\tCompAuxLib\tPieceRef\tPieceDate\tEcritureLib\tDebit\tCredit\tEcritureLet\tDateLet\tValidDate\tMontantdevise\tIdevise
+            ACHATS\tACH000001\t20180910\t62270000\tLegal costs and litigation\t\t\t3\t20180910\tPARTNER 01\t100,00\t0,00\t\t\t20190725\t\t
+            ACHATS\tACH000001\t20180910\t40100000\tSuppliers\tPARTNER01\tPARTNER 01\t3\t20180910\tPARTNER 01\t0,00\t100,00\tAA\t\t20190725\t\t
+            BANQUE\tBNK000001\t20180808\t40100000\tSuppliers\tPARTNER01\tPARTNER 01\t1\t20180808\tPayment\t100,00\t0,00\tAA\t\t20190725\t\t
+            BANQUE\tBNK000001\t20180808\t51200000\tBanque\t\t\t1\t20180808\tPayment\t0,00\t100,00\t\t\t20190725\t\t
+            ACHATS\tACH000002\t20180910\t62270000\tLegal costs and litigation\t\t\t3\t20180910\tPARTNER 01\t100,00\t0,00\t\t\t20190725\t\t
+            ACHATS\tACH000002\t20180910\t40100000\tSuppliers\tPARTNER01\tPARTNER 01\t3\t20180910\tPARTNER 01\t0,00\t100,00\tBB\t\t20190725\t\t
+            BANQUE\tBNK000002\t20180808\t40100000\tSuppliers\tPARTNER01\tPARTNER 01\t1\t20180808\tPayment\t100,00\t0,00\tBB\t\t20190725\t\t
+            BANQUE\tBNK000002\t20180808\t51200000\tBanque\t\t\t1\t20180808\tPayment\t0,00\t100,00\t\t\t20190725\t\t
+        """
+
+        self._attach_file_to_wizard(test_content, self.wizard)
+        with self.assertRaisesRegex(UserError, "journal not found"):
+            self.wizard._import_files(['account.account', 'account.journal', 'res.partner', 'account.move'])

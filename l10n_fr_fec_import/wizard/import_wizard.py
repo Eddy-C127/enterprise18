@@ -106,7 +106,10 @@ class FecImportWizard(models.TransientModel):
     # -----------------------------------
     def _make_xml_id(self, prefix, key):
         if '_' in prefix:
-            raise ValueError('`prefix` cannot contain an underscore')
+            raise ValueError(_('`prefix` cannot contain an underscore'))
+
+        if not key:
+            raise UserError(_("%s not found", prefix))
         key = key.replace(' ', '_')
         return f"l10n_fr_fec_import.{self.company_id.id}_{prefix}_{key}"
 
