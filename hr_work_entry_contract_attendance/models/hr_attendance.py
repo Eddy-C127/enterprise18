@@ -3,8 +3,9 @@
 
 from datetime import datetime, time
 from collections import defaultdict
+from odoo.exceptions import UserError
 
-from odoo import api, models
+from odoo import api, models, _
 from odoo.fields import Datetime
 
 class HrAttendance(models.Model):
@@ -80,6 +81,9 @@ class HrAttendance(models.Model):
         return res
 
     def write(self, vals):
+        validated_work_entries = self.env['hr.work.entry'].sudo().search([('attendance_id', 'in', self.ids), ('state', '=', 'validated')])
+        if validated_work_entries:
+            raise UserError(_("This attendance record is linked to a validated working entry. You can't modify it."))
         new_check_out = vals.get('check_out')
         open_attendances = self.filtered(lambda a: not a.check_out) if new_check_out else self.env['hr.attendance']
         res = super().write(vals)
@@ -91,6 +95,12 @@ class HrAttendance(models.Model):
         with self.env['hr.work.entry']._error_checking(start=start, stop=stop, skip=skip_check, employee_ids=self.employee_id.ids):
             open_attendances._create_work_entries()
         return res
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_validated_work_entries(self):
+        validated_work_entries = self.env['hr.work.entry'].sudo().search([('attendance_id', 'in', self.ids), ('state', '=', 'validated')])
+        if validated_work_entries:
+            raise UserError(_("This attendance record is linked to a validated working entry. You can't delete it."))
 
     def unlink(self):
         # Archive linked work entries upon deleting attendances

@@ -2,7 +2,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
-from odoo import api, models
+from odoo import api, models, _
+from odoo.exceptions import UserError
 
 def batch(iterable, batch_size):
     l = len(iterable)
@@ -81,12 +82,22 @@ class PlanningSlot(models.Model):
         return res
 
     def write(self, vals):
+        if vals.get('resource_id') or vals.get('start_datetime') or vals.get('end_datetime') or vals.get('allocated_hours'):
+            validated_work_entries = self.env['hr.work.entry'].sudo().search([('planning_slot_id', 'in', self.ids), ('state', '=', 'validated')])
+            if validated_work_entries:
+                raise UserError(_("This shift record is linked to a validated working entry. You can't modify it."))
         state = vals.get('state')
         concerned_slots = self.filtered(lambda s: s.state != state) if state\
             else self.env['planning.slot']
         res = super().write(vals)
         concerned_slots._create_work_entries()
         return res
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_validated_work_entries(self):
+        validated_work_entries = self.env['hr.work.entry'].sudo().search([('planning_slot_id', 'in', self.ids), ('state', '=', 'validated')])
+        if validated_work_entries:
+            raise UserError(_("This shift record is linked to a validated working entry. You can't delete it."))
 
     def unlink(self):
         # Archive linked work entries upon deleting slots
