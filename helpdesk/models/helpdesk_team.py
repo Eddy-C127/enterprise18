@@ -734,9 +734,9 @@ class HelpdeskTeam(models.Model):
             domain += [('close_date', '>=', fields.Datetime.to_string((datetime.date.today() - relativedelta.relativedelta(days=6))))]
             update_views[self.env.ref("helpdesk.rating_rating_view_seven_days_pivot_inherit_helpdesk").id] = 'pivot'
             update_views[self.env.ref('helpdesk.rating_rating_view_seven_days_graph_inherit_helpdesk').id] = 'graph'
-            context['search_default_last_7days'] = True
+            context['search_default_filter_create_date'] = 'custom_create_date_last_7_days'
         elif period == 'today':
-            context['search_default_today'] = True
+            context['search_default_filter_create_date'] = 'custom_create_date_today'
             if '__count__' in context.get('pivot_measures', {}):
                 context.get('pivot_measures').remove('__count__')
             domain += [('close_date', '>=', fields.Datetime.to_string(datetime.date.today()))]
@@ -777,7 +777,7 @@ class HelpdeskTeam(models.Model):
             domain = expression.AND([domain, [
                 ('close_date', '>=', datetime.date.today() - datetime.timedelta(days=6)),
             ]])
-            context.update(search_default_closed_last_7days=True)
+            context.update(search_default_closed_on='custom_closed_on_last_7_days')
         return {
             'domain': domain,
             'context': context,
@@ -872,7 +872,7 @@ class HelpdeskTeam(models.Model):
                 'res_id': ratings.id
             })
         else:
-            action['context'] = {'search_default_rating_last_30_days': 1}
+            action['context'] = {'search_default_filter_create_date': 'custom_create_date_last_30_days'}
         return action
 
     def action_view_open_ticket_view(self):
