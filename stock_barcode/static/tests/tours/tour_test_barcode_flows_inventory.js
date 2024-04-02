@@ -122,7 +122,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_dont_update_l
     { trigger: '.o_barcode_line:first-child' },
     { trigger: '.o_barcode_line.o_selected button.o_add_quantity' },
     {
-        trigger: '.o_barcode_client_action',
+        trigger: 'button.o_remove_unit:not([disabled])',
         run: function () {
             helper.assertLinesCount(2);
             const selectedLine = helper.getLine({ selected: true });
