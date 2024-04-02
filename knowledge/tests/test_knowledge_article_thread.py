@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.tests.common import tagged, HttpCase
+from odoo.tests.common import tagged
+from odoo.addons.base.tests.common import HttpCaseWithUserDemo
 
 
 @tagged('post_install', '-at_install', 'knowledge', 'knowledge_tour', 'knowledge_comments')
-class TestKnowledgeArticleTours(HttpCase):
+class TestKnowledgeArticleTours(HttpCaseWithUserDemo):
 
     @classmethod
     def setUpClass(cls):
