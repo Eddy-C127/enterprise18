@@ -52,7 +52,7 @@ class TestSaleReport(TestSubscriptionCommon):
     def test_report_no_confirm_upsell(self):
         action = self.original_subscription.prepare_upsell_order()
         upsell_sub = self.env['sale.order'].browse(action['res_id'])
-        self.env['sale.order'].flush_model()
+        self.env.flush_all()
 
         report_lines = self.env['sale.report'].search([('name', 'in', [self.original_subscription.name, upsell_sub.name])])
         self.assertEqual(len(report_lines), 1)
@@ -63,7 +63,7 @@ class TestSaleReport(TestSubscriptionCommon):
         action = self.original_subscription.prepare_upsell_order()
         upsell_sub = self.env['sale.order'].browse(action['res_id'])
         upsell_sub.action_confirm()
-        self.env['sale.order'].flush_model()
+        self.env.flush_all()
 
         report_lines = self.env['sale.report'].search([('name', 'in', [self.original_subscription.name, upsell_sub.name])])
         self.assertEqual(len(report_lines), 1)
@@ -80,7 +80,7 @@ class TestSaleReport(TestSubscriptionCommon):
                 'price_unit': self.recurring_product.list_price,
             })]
         upsell_sub.action_confirm()
-        self.env['sale.order'].flush_model()
+        self.env.flush_all()
 
         report_lines = self.env['sale.report'].search([('name', 'in', [self.original_subscription.name, upsell_sub.name])])
         self.assertEqual(len(report_lines), 1)
@@ -98,7 +98,7 @@ class TestSaleReport(TestSubscriptionCommon):
                 'price_unit': self.no_recurring_product.list_price,
             })]
         upsell_sub.action_confirm()
-        self.env['sale.order'].flush_model()
+        self.env.flush_all()
 
         report_lines = self.env['sale.report'].search([('name', 'in', [self.original_subscription.name, upsell_sub.name])])
         self.assertEqual(len(report_lines), 1)
@@ -117,7 +117,7 @@ class TestSaleReport(TestSubscriptionCommon):
                 'discount': 30,
             })]
         upsell_sub.action_confirm()
-        self.env['sale.order'].flush_model()
+        self.env.flush_all()
 
         report_lines = self.env['sale.report'].search([('name', 'in', [self.original_subscription.name, upsell_sub.name])])
         self.assertEqual(len(report_lines), 1)
