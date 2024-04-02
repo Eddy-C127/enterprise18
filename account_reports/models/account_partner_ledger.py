@@ -51,7 +51,10 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
             }
             for column_group_key in options['column_groups']
         }
-        for partner, results in self._query_partners(options):
+
+        partners_results = self._query_partners(options)
+
+        for partner, results in partners_results:
             partner_values = defaultdict(dict)
             for column_group_key in options['column_groups']:
                 partner_sum = results.get(column_group_key, {})
@@ -222,7 +225,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         # - the amls affecting the initial balance.
         if groupby_partners:
             # Note a search is done instead of a browse to preserve the table ordering.
-            partners = self.env['res.partner'].with_context(active_test=False).search([('id', 'in', list(groupby_partners.keys()))])
+            partners = self.env['res.partner'].with_context(active_test=False).search_fetch([('id', 'in', list(groupby_partners.keys()))], ["id", "name", "trust", "company_registry", "vat"])
         else:
             partners = []
 
