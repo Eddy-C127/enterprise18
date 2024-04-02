@@ -343,7 +343,15 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
             )
         except Fault as fault:
             detail_fault = fault.detail.getchildren()[0]
-            raise ValidationError(detail_fault.find("fault:foutbeschrijving", namespaces={**fault.detail.nsmap, **detail_fault.nsmap}).text)
+            raise RedirectWarning(
+                message=_("The Tax Services returned the error hereunder. Please upgrade your module and try again before submitting a ticket.") + "\n\n" + detail_fault.find("fault:foutbeschrijving", namespaces={**fault.detail.nsmap, **detail_fault.nsmap}).text,
+                action=self.env.ref('base.open_module_tree').id,
+                button_text=_("Go to Apps"),
+                additional_context={
+                    'search_default_name': 'l10n_nl_reports_sbr',
+                    'search_default_extra': True,
+                },
+            )
         finally:
             os.unlink(f.name)
 
