@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
 from odoo.tests import tagged, Form
 from odoo.exceptions import ValidationError
 
@@ -263,6 +262,6 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
         timesheet_validated.with_user(self.user_manager).action_validate_timesheet()
 
         # change the helpdesk_team of the ticket only containing validated timesheet, to the helpdesk_team without timesheet feature
-        helpdesk_ticket_valid.with_user(self.env.user).write({'project_id': no_timesheet_helpdesk_team.id})
+        helpdesk_ticket_valid.with_user(self.env.user).write({'team_id': no_timesheet_helpdesk_team.id})
         warning = helpdesk_ticket_valid._onchange_team_id()
         self.assertFalse(warning, "No warning should be raised when the ticket's timesheets are validated.")
