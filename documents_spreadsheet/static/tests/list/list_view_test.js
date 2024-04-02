@@ -34,7 +34,8 @@ import {
     invokeInsertListInSpreadsheetDialog,
 } from "../utils/list_helpers";
 import { createSpreadsheet } from "../spreadsheet_test_utils.js";
-import { doMenuAction } from "@spreadsheet/../tests/utils/ui";
+import { doMenuAction, getActionMenu } from "@spreadsheet/../tests/utils/ui";
+
 import { user } from "@web/core/user";
 import { session } from "@web/session";
 import * as dsHelpers from "@web/../tests/core/domain_selector_tests";
@@ -627,6 +628,15 @@ QUnit.module(
             await nextTick();
             const root = cellMenuRegistry.getAll().find((item) => item.id === "list_see_record");
             assert.notOk(root.isVisible(env));
+        });
+
+        QUnit.test("Cannot see record of list formula without value", async function (assert) {
+            const { env, model } = await createSpreadsheetFromListView();
+            assert.strictEqual(getCellFormula(model, "A6"), `=ODOO.LIST(1,5,"foo")`);
+            assert.strictEqual(getCellValue(model, "A6"), "", "A6 is empty");
+            selectCell(model, "A6");
+            const action = await getActionMenu(cellMenuRegistry, ["list_see_record"], env);
+            assert.notOk(action.isVisible(env));
         });
 
         QUnit.test(
