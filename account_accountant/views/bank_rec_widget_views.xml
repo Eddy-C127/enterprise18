@@ -54,7 +54,7 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_bank_statement_form_bank_rec_widget"/>
             <field name="target">new</field>
-            <field name="context">{'dialog_size': 'medium'}</field>
+            <field name="context">{'dialog_size': 'medium', 'show_running_balance_latest': True}</field>
         </record>
 
         <!-- Search view on aml to be injected inside the form (view_bank_rec_widget_form) -->
