@@ -94,5 +94,5 @@ class TestPlanningForm(TestCommonPlanning):
     def test_planning_employee_different_timezone(self):
         # When a slot is selected on the frontend, the start and end datetime are from 00:00:00 to 23:59:59 in the user timezone
         start, end = datetime(2020, 1, 1, 23, 0, 0), datetime(2020, 1, 2, 22, 59, 59)
-        self.planning_form('Asia/Calcutta', start, end, 8, 16.6)
+        self.planning_form('Asia/Kolkata', start, end, 8, 16.6)
         self.planning_form('America/Montreal', start, end, 8, 16.6)
