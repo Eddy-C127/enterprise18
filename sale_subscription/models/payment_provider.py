@@ -20,7 +20,8 @@ class PaymentProvider(models.Model):
         """
         if sale_order_id:
             sale_order = self.env['sale.order'].browse(sale_order_id).exists()
-            if sale_order.is_subscription or sale_order.subscription_id.is_subscription:
+            if (sale_order.is_subscription or sale_order.subscription_id.is_subscription) and \
+                    not kwargs.get('show_non_tokenize_provider'):
                 return True
         return super()._is_tokenization_required(sale_order_id=sale_order_id, **kwargs)
 
@@ -37,7 +38,7 @@ class PaymentProvider(models.Model):
         :rtype: recordset of `payment.provider`
         """
         compatible_providers = super()._get_compatible_providers(
-            *args, sale_order_id=sale_order_id, website_id=website_id, report=report, **kwargs
+            *args, sale_order_id=sale_order_id, website_id=website_id, report=report, show_non_tokenize_provider=True, **kwargs
         )
         if sale_order_id:
             sale_order = self.env['sale.order'].browse(sale_order_id).exists()

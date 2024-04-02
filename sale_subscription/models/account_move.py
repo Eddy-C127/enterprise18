@@ -36,6 +36,7 @@ class AccountMove(models.Model):
                 # Renewed sub should not be incremented as the renewal is the running contract.
                 # Invoices for renewed contract can be posted when the delivered products arrived after the renewal date.
                 subscription.next_invoice_date = subscription.next_invoice_date + subscription.plan_id.billing_period
+                subscription.last_reminder_date = False
             subscription.pending_transaction = False
         if all_subscriptions:
             # update the renewal quotes to start at the next invoice date values

@@ -37,19 +37,6 @@ class TestSubscriptionPaymentFlows(TestSubscriptionCommon, PaymentHttpCommon):
         # Portal access rule currently relies on mail follower(s) of the order
         cls.order._message_subscribe(partner_ids=[cls.user_with_so_access.partner_id.id])
 
-    def test_tokenization_support_is_required(self):
-        """ Test that tokenization support is required from both payment providers and payment
-        methods when paying for a subscription on the portal. """
-        if self.env['ir.module.module']._get('website').state != 'installed':
-            self.skipTest("The website module is required to run this test with a request mock.")
-
-        with MockRequest(self.env), patch(
-            'odoo.addons.payment.models.payment_method.PaymentMethod'
-            '._get_compatible_payment_methods'
-        ) as patched:
-            SaleCustomerPortal()._get_payment_values(self.subscription)
-            self.assertTrue(patched.call_args.kwargs.get('force_tokenization'))
-
     def _my_sub_assign_token(self, **values):
         url = self._build_url(f"/my/subscriptions/assign_token/{self.order.id}")
         with mute_logger('odoo.addons.base.models.ir_rule', 'odoo.http'):

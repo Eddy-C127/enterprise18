@@ -83,6 +83,16 @@
             <field name="nextcall" eval="(datetime.now() + timedelta(minutes=7)).strftime('%Y-%m-%d %H:%M:%S')"/>
         </record>
 
+        <record model="ir.cron" id="send_payment_reminder">
+            <field name="name">Sale Subscription: send reminder for subscriptions with no token</field>
+            <field name="model_id" ref="sale_subscription.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_recurring_send_payment_reminder()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(datetime.now() + timedelta(minutes=11)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        </record>
+
         <record id="ir_cron_sale_subscription_update_kpi" model="ir.cron">
             <field name="name">Sale Subscription: Update KPI</field>
             <field name="model_id" ref="sale_subscription.model_sale_order"/>

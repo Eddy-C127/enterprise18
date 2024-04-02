@@ -129,6 +129,7 @@ class SaleOrder(models.Model):
         with freeze_time(time_start.replace(day=10)):
             action = sub_1.prepare_renewal_order()
             renew_so_1 = self.env['sale.order'].browse(action['res_id'])
+            renew_so_1.require_payment = False
             renew_so_1.order_line[0].product_uom_qty += 10 # 11 --> 21
             self._test_demo_flush_tracking()
             renew_so_1.action_confirm()
@@ -161,6 +162,7 @@ class SaleOrder(models.Model):
         with freeze_time(time_start.replace(day=10)):
             action = sub_2.prepare_renewal_order()
             renew_so_2 = self.env['sale.order'].browse(action['res_id'])
+            renew_so_2.require_payment = False
             renew_so_2.order_line[0].product_uom_qty = 12
             self._test_demo_flush_tracking()
             renew_so_2.action_confirm()

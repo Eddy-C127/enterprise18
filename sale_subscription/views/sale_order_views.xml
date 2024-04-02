@@ -164,6 +164,9 @@
             <xpath expr="//field[@name='order_line']/list/field[@name='price_total']" position='attributes'>
                 <attribute name="decoration-info">recurring_invoice</attribute>
             </xpath>
+            <xpath expr="//field[@name='require_payment']" position='attributes'>
+                <attribute name="help">Request a online payment from the customer to confirm the order. For a subscription, a payment will be required also before each renewal</attribute>
+            </xpath>
             <page name="customer_signature" position="after">
                 <page string="Notes" name="notes">
                     <field name="internal_note_display" nolabel="1" placeholder="Internal notes"/>

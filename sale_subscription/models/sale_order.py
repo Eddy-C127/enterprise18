@@ -94,6 +94,7 @@ class SaleOrder(models.Model):
                                         copy=False)
     payment_term_id = fields.Many2one(tracking=True)
     currency_id = fields.Many2one(tracking=True)
+    last_reminder_date = fields.Date(help="Last time when we sent a payment reminder")
 
     ###################
     # KPI / reporting #
@@ -1279,6 +1280,7 @@ class SaleOrder(models.Model):
             last_invoice_date = order.next_invoice_date or order.start_date
             if last_invoice_date:
                 order.next_invoice_date = last_invoice_date + order.plan_id.billing_period
+                order.last_reminder_date = False
 
     def _update_subscription_payment_failure_values(self):
         # allow to override the subscription values in case of payment failure
@@ -1380,6 +1382,24 @@ class SaleOrder(models.Model):
         grouping_keys.remove('partner_id')
         return grouping_keys
 
+    def _get_invoiced_subscriptions(self):
+        """ return invoiced subscriptions """
+        return set(self.env['account.move.line'].search([
+            ('subscription_id', 'in', self.ids),
+            ('move_type', '=', 'out_invoice'),
+            ('move_id.state', 'in', ["draft", "posted"])
+        ]).subscription_id.ids)
+
+    def _get_subscriptions_to_invoice(self):
+        """ remove subscriptions that should send a reminder instead of invoicing. """
+        invoiced_sub_ids = self._get_invoiced_subscriptions()
+        # remove subscriptions which have no payment token and online payment true
+        # only when prepayment_per is 100 or if there is no invoice in case prepayment_per < 100
+        to_invoice_ids = []
+        for sub in self:
+            if sub.payment_token_id or not sub.require_payment or (sub.id not in invoiced_sub_ids and sub.prepayment_percent != 1):
+                to_invoice_ids.append(sub.id)
+        return self.browse(to_invoice_ids)
 
     def _recurring_invoice_get_subscriptions(self, grouped=False, batch_size=30):
         """ Return a boolean and an iterable of recordsets.
@@ -1402,8 +1422,12 @@ class SaleOrder(models.Model):
                 self._get_auto_invoice_grouping_keys(),
                 limit=limit, lazy=False)
             all_subscriptions = [self.browse(res['id']) for res in all_subscriptions]
+            # We get a list of record sets when grouped is true. For each record set in all_subscriptions,
+            # we call the '_get_subscriptions_to_invoice' method to process them.
+            all_subscriptions = [subscription._get_subscriptions_to_invoice() for subscription in all_subscriptions]
         else:
             all_subscriptions = self.search(domain, limit=limit)
+            all_subscriptions = all_subscriptions._get_subscriptions_to_invoice()
 
         if batch_size:
             need_cron_trigger = len(all_subscriptions) > batch_size
@@ -1568,6 +1592,13 @@ class SaleOrder(models.Model):
         close_contract_ids.set_close()
         return close_contract_ids
 
+    def _should_post_invoice(self):
+        """ This method define the conditions if an invoice should be posted inside the cron creating the subscription invoices.
+        It can be overriden to fit other needs
+        """
+        # We post if we have several different token (for several orders in self) or no token at all
+        return not self.payment_token_id or len(self.payment_token_id) > 1
+
     def _process_auto_invoice(self, invoice):
         """ Hook for extension, to support different invoice states """
         invoice.action_post()
@@ -1579,8 +1610,7 @@ class SaleOrder(models.Model):
         # Set the contract in exception. If something go wrong, the exception remains.
         self.with_context(mail_notrack=True).write({'payment_exception': True})
         payment_token = self.payment_token_id
-
-        if not payment_token or len(payment_token) > 1:
+        if self._should_post_invoice():
             self._process_auto_invoice(invoice)
             return invoice
 
@@ -1977,3 +2007,73 @@ class SaleOrder(models.Model):
                     date_end=sub.next_invoice_date, nl=Markup('&nbsp;<br>')
                 )
             )
+
+    def _subscription_reminder_parameters(self):
+        """ Compute domain and next invoices dates for subscriptions for which we should send a payment reminder.
+            These subscription have no payment token set and online payment is required.
+        :return: dict of reminder parameters:
+                    Search domain for subscriptions for which we need to send payment reminders.
+                    Next invoice dates for which we need to send a
+        """
+        current_date = fields.Date.today()
+        reminder_days = [0, 2, 7, 14, -2, -7, -14]
+        reminder_cron = self.env.ref('sale_subscription.send_payment_reminder', raise_if_not_found=False)
+        if not reminder_cron:
+            return
+        last_call = reminder_cron.lastcall
+        next_invoice_dates = [current_date + relativedelta(days=x) for x in reminder_days]
+        cron_call_shift = last_call and (current_date - last_call.date()).days
+        if cron_call_shift and cron_call_shift > 1 and not self.env.context.get('subscription_no_lost_reminder'):
+            # if we are the 1st of the month, we want to send reminder for subscriptions whose next_invoice date occurs on
+            # - today (1st), 3rd, 8th, 15th of the current month.
+            # When the cron is stopped for a few days, we may want to send reminder instead of closing contrats
+            # We loop over all the dates when the cron should have run
+            check_date = last_call.date() + relativedelta(days=1)
+            while check_date < current_date:
+                next_invice_date_with_delay = [check_date + relativedelta(days=x) for x in reminder_days]
+                check_date += relativedelta(days=1)
+                next_invoice_dates += next_invice_date_with_delay
+        search_domain = [
+            ('is_subscription', '=', True),
+            ('subscription_state', '=', '3_progress'),
+            ('pending_transaction', '=', False),
+            ('payment_token_id', '=', False),
+            ('require_payment', '=', True),
+            ('last_reminder_date', '!=', current_date),
+            # either next invoice date is upcoming (send reminder) or passed (close contract)
+            '|', ('next_invoice_date', 'in', list(set(next_invoice_dates))), ('next_invoice_date', '<=', current_date),
+        ]
+        return {'domain': search_domain, 'next_invoice_dates': set(next_invoice_dates)}
+
+    def _cron_recurring_send_payment_reminder(self):
+        """ Sends payment reminders and closes subscriptions nearing auto-close limit.
+        Processes subscriptions without payment tokens and requiring online payment.
+        """
+        today = fields.Date.today()
+        parameters = self._subscription_reminder_parameters()
+        if not parameters:
+            return
+        all_subscriptions = self.search(parameters['domain'])
+        invoiced_sub_ids = all_subscriptions._get_invoiced_subscriptions()
+        for subscription in all_subscriptions:
+            if subscription.prepayment_percent != 1 and not subscription.id in invoiced_sub_ids:
+                # don't send reminder when prepayment_per <100 and there is no invoice created
+                continue
+            auto_close_days = subscription.plan_id.auto_close_limit or 15
+            date_close = subscription.next_invoice_date + relativedelta(days=auto_close_days)
+            close_contract = today >= date_close
+            email_context = subscription._get_subscription_mail_payment_context()
+            if close_contract and subscription.next_invoice_date not in parameters['next_invoice_dates']:
+                # Auto close expired contrat, customer did not paid in time
+                close_mail_template = self.env.ref('sale_subscription.email_payment_close', raise_if_not_found=False)
+                if close_mail_template:
+                    close_mail_template.with_context(email_context).send_mail(subscription.id)
+                subscription.set_close(close_reason_id=self.env.ref('sale_subscription.close_reason_auto_close_limit_reached').id)
+            else:
+                # Send the reminder
+                if (not subscription.last_reminder_date or subscription.last_reminder_date != today) and subscription.next_invoice_date in parameters['next_invoice_dates']:
+                    reminder_mail_template = self.env.ref('sale_subscription.email_payment_reminder', raise_if_not_found=False)
+                    email_context.update({'date_close': date_close, 'payment_link': subscription.get_portal_url()})
+                    if reminder_mail_template:
+                        reminder_mail_template.with_context(email_context).send_mail(subscription.id)
+                        subscription.last_reminder_date = today

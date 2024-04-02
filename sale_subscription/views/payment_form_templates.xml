@@ -17,7 +17,7 @@
     <!-- Mention that the token will be saved when paying for a subscription. -->
     <template id="payment_method_form" inherit_id="payment.method_form">
         <xpath expr="//div[@name='o_payment_inline_form']" position="inside">
-            <label t-if="is_subscription and sale_order" class="fst-italic">
+            <label t-if="is_subscription and sale_order and provider_sudo.allow_tokenization and pm_sudo.support_tokenization" class="fst-italic">
                 Your payment details will be saved for automatic renewals.
             </label>
         </xpath>

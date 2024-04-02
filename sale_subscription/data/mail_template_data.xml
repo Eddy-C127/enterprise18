@@ -145,7 +145,7 @@
                         </t>
                     </t>
                     <t t-else="">
-                        We were unable to process a payment for your subscription because we have no payment method recorded for you.
+                        Your subscription <t t-out="ctx.get('code') or ''">CODE</t> is due for renewal but we haven’t received your payment yet. To keep your subscription active, please make your payment as soon as possible.
                     </t>
                     <br/><br/>
                     Your subscription <t t-out="ctx.get('code') or ''">CODE</t> is still valid but will be <strong>suspended</strong>

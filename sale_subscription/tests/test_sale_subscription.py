@@ -4,6 +4,7 @@ from markupsafe import Markup
 from unittest.mock import patch
 
 from odoo.addons.account_accountant.tests.test_signature import TestInvoiceSignature
+from odoo.addons.mail.tests.common import MockEmail
 from odoo.addons.sale_subscription.tests.common_sale_subscription import TestSubscriptionCommon
 from odoo.addons.sale_subscription.models.sale_order import SaleOrder
 from odoo.tests import Form, tagged, freeze_time
@@ -13,7 +14,7 @@ from odoo.exceptions import AccessError, ValidationError, UserError
 
 
 @tagged('post_install', '-at_install')
-class TestSubscription(TestSubscriptionCommon):
+class TestSubscription(TestSubscriptionCommon, MockEmail):
 
     def flush_tracking(self):
         """ Force the creation of tracking values. """
@@ -29,6 +30,11 @@ class TestSubscription(TestSubscriptionCommon):
         self.other_currency = self.setup_other_currency('CAD')
         self.env.ref('base.group_user').write({"implied_ids": [(4, self.env.ref('sale_management.group_sale_order_template').id)]})
         self.flush_tracking()
+
+        self.post_process_patcher = patch(
+            'odoo.addons.account_payment.models.payment_transaction.PaymentTransaction._post_process',
+        )
+        self.startPatcher(self.post_process_patcher)
 
     @mute_logger('odoo.addons.base.models.ir_model', 'odoo.models')
     def test_automatic(self):
@@ -3884,6 +3890,260 @@ class TestSubscription(TestSubscriptionCommon):
             self.assertEqual(sub.amount_to_invoice, 0.0)
             posted_invoice_lines = sub.order_line.invoice_lines.filtered(lambda line: line.parent_state == 'posted')
             self.assertEqual(sum(posted_invoice_lines.mapped('price_total')), 330.0)
+
+    def test_subscription_online_payment_no_token(self):
+        with freeze_time("2024-05-01"):
+            self.subscription.require_payment = True
+            self.subscription.action_confirm()
+            self.env['sale.order']._cron_recurring_create_invoice()
+            # it should not create a invoice
+            self.assertEqual(self.subscription.invoice_count, 0)
+
+        with self.mock_mail_gateway():
+            with freeze_time("2024-04-17"):
+                self.env['sale.order']._cron_recurring_send_payment_reminder()
+                # it will send payment reminder mail to customer before 14
+                self.assertEqual(len(self._new_mails), 1)
+                self.assertEqual(self.subscription.last_reminder_date, fields.Date.today())
+            with freeze_time("2024-04-24"):
+                self.env['sale.order']._cron_recurring_send_payment_reminder()
+                # it will send payment reminder mail to customer before 7 days
+                self.assertEqual(len(self._new_mails), 2)
+                self.assertEqual(self.subscription.last_reminder_date, fields.Date.today())
+            with freeze_time("2024-04-29"):
+                self.env['sale.order']._cron_recurring_send_payment_reminder()
+                # it will send payment reminder mail to customer before 2 days
+                self.assertEqual(len(self._new_mails), 3)
+                self.assertEqual(self.subscription.last_reminder_date, fields.Date.today())
+            with freeze_time("2024-05-01"):
+                self.env['sale.order']._cron_recurring_send_payment_reminder()
+                # it will send payment reminder mail to customer
+                self.assertEqual(len(self._new_mails), 4)
+                self.assertEqual(self.subscription.last_reminder_date, fields.Date.today())
+            with freeze_time("2024-05-03"):
+                self.env['sale.order']._cron_recurring_send_payment_reminder()
+                # it will send payment reminder mail to customer
+                self.assertEqual(len(self._new_mails), 5)
+                self.assertEqual(self.subscription.last_reminder_date, fields.Date.today())
+            with freeze_time("2024-05-08"):
+                self.env['sale.order']._cron_recurring_send_payment_reminder()
+                # it will send payment reminder mail to customer
+                self.assertEqual(len(self._new_mails), 6)
+                self.assertEqual(self.subscription.last_reminder_date, fields.Date.today())
+            with freeze_time("2024-05-15"):
+                self.env['sale.order']._cron_recurring_send_payment_reminder()
+                # it will send payment reminder mail to customer
+                self.assertEqual(len(self._new_mails), 7)
+                self.assertEqual(self.subscription.last_reminder_date, fields.Date.today())
+            with freeze_time("2024-05-16"):
+                self.env['sale.order']._cron_recurring_send_payment_reminder()
+                # it should close the subscription
+                self.assertEqual(self.subscription.subscription_state, '6_churn')
+
+    def test_cron_recurring_send_payment_reminder_failure(self):
+        with freeze_time("2024-05-01"):
+            self.subscription.require_payment = True
+            self.subscription.action_confirm()
+        with self.mock_mail_gateway():
+            with freeze_time("2024-04-17"):
+                self.env.ref('sale_subscription.send_payment_reminder').lastcall = False
+                self.env['sale.order']._cron_recurring_send_payment_reminder()
+                self.assertEqual(self.subscription.last_reminder_date, fields.Date.today())
+                self.assertEqual(len(self._new_mails), 1)
+            with freeze_time("2024-04-25"):
+                # we will set lastcall of cron to 23/4.
+                # if cron run on 24/4 then it should send reminder on that day but we skip 24/4 and run the cron on 25/4
+                # it should send reminder mail on 25/4 as the cron failed to run on 24/4.
+                self.env.ref('sale_subscription.send_payment_reminder').lastcall = datetime.datetime(2024, 4, 23, 0, 0, 0)
+                self.env['sale.order']._cron_recurring_send_payment_reminder()
+                self.assertEqual(self.subscription.last_reminder_date, fields.Date.today())
+                self.assertEqual(len(self._new_mails), 2)
+
+    def test_subscription_online_payment_with_token(self):
+        with freeze_time("2024-05-01"):
+            self.subscription.require_payment = True
+            self.subscription.payment_token_id = self.payment_token.id
+            self.subscription.end_date = datetime.date(2024, 8, 1)
+            self.subscription.action_confirm()
+            with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
+                self.env['sale.order']._cron_recurring_create_invoice()
+                self.subscription.transaction_ids._get_last()._post_process()
+            # it should create an invoice
+            self.assertEqual(self.subscription.invoice_count, 1)
+        with freeze_time("2024-06-01"):
+            with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
+                self.env['sale.order']._cron_recurring_create_invoice()
+                self.subscription.transaction_ids._get_last()._post_process()
+            # it should create an invoice
+            self.assertEqual(self.subscription.invoice_count, 2)
+        with freeze_time("2024-07-01"):
+            with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
+                self.env['sale.order']._cron_recurring_create_invoice()
+                self.subscription.transaction_ids._get_last()._post_process()
+            # it should create an invoice
+            self.assertEqual(self.subscription.invoice_count, 3)
+        with freeze_time("2024-08-01"):
+            with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
+                self.env['sale.order']._cron_recurring_create_invoice()
+            # subscription should be closed on end date
+            self.assertEqual(self.subscription.subscription_state, '6_churn')
+
+    def test_subscription_recurring_invoice_and_reminder_domain(self):
+        SaleOrder = self.env['sale.order']
+        with freeze_time("2024-05-01"):
+            sub_1 = SaleOrder.create({
+                'name': 'with token and online payment true',
+                'is_subscription': True,
+                'partner_id': self.user_portal.partner_id.id,
+                'pricelist_id': self.company_data['default_pricelist'].id,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    Command.create({
+                        'product_id': self.product.id,
+                        'product_uom_qty': 1
+                    }),
+                ],
+                'require_payment': True,
+                'payment_token_id': self.payment_token.id,
+            })
+            sub_1.action_confirm()
+
+            sub_2 = SaleOrder.create({
+                'name': 'without token and online payment true',
+                'is_subscription': True,
+                'partner_id': self.user_portal.partner_id.id,
+                'pricelist_id': self.company_data['default_pricelist'].id,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    Command.create({
+                        'product_id': self.product.id,
+                        'product_uom_qty': 1
+                    }),
+                ],
+                'require_payment': True,
+            })
+            sub_2.action_confirm()
+
+            sub_3 = SaleOrder.create({
+                'name': 'with token and online payment false',
+                'is_subscription': True,
+                'partner_id': self.user_portal.partner_id.id,
+                'pricelist_id': self.company_data['default_pricelist'].id,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    Command.create({
+                        'product_id': self.product.id,
+                        'product_uom_qty': 1
+                    }),
+                ],
+                'payment_token_id': self.payment_token.id,
+            })
+            sub_3.action_confirm()
+
+            sub_4 = SaleOrder.create({
+                'name': 'without token and online payment false',
+                'is_subscription': True,
+                'partner_id': self.user_portal.partner_id.id,
+                'pricelist_id': self.company_data['default_pricelist'].id,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    Command.create({
+                        'product_id': self.product.id,
+                        'product_uom_qty': 1
+                    }),
+                ],
+            })
+            sub_4.action_confirm()
+
+            sub_5 = SaleOrder.create({
+                'name': 'without token online payment true and prepayment percent < 100',
+                'is_subscription': True,
+                'partner_id': self.user_portal.partner_id.id,
+                'pricelist_id': self.company_data['default_pricelist'].id,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    Command.create({
+                        'product_id': self.product.id,
+                        'product_uom_qty': 1
+                    }),
+                ],
+                'require_payment': True,
+                'prepayment_percent': 0.5,
+            })
+            sub_5.action_confirm()
+
+            sub_6 = SaleOrder.create({
+                'name': 'with token online payment true and prepayment percent < 100',
+                'is_subscription': True,
+                'partner_id': self.user_portal.partner_id.id,
+                'pricelist_id': self.company_data['default_pricelist'].id,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    Command.create({
+                        'product_id': self.product.id,
+                        'product_uom_qty': 1
+                    }),
+                ],
+                'require_payment': True,
+                'prepayment_percent': 0.5,
+                'payment_token_id': self.payment_token.id,
+            })
+            sub_6.action_confirm()
+
+            # filter out subscription for which "_create_recurring_invoice" cron should run
+            all_subscriptions, need_cron_trigger = SaleOrder._recurring_invoice_get_subscriptions()
+            self.assertFalse(need_cron_trigger)
+            self.assertEqual([sub_6.id, sub_5.id, sub_4.id, sub_3.id, sub_1.id], all_subscriptions.ids, "subscriptions are not filtered correctly.")
+            self.assertNotIn(sub_2.id, all_subscriptions.ids, "second subscription should not filtered in this domain")
+
+            # filter out subscription for which "_cron_recurring_send_payment_reminder" cron should run
+            parameters = SaleOrder._subscription_reminder_parameters()
+            send_reminder_sub = SaleOrder.search(parameters['domain'])
+            self.assertEqual([sub_5.id, sub_2.id], send_reminder_sub.ids, "subscriptions are not filtered correctly.")
+
+            # run both the crons
+            with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
+                SaleOrder._cron_recurring_create_invoice()
+                sub_1.transaction_ids._get_last()._post_process()
+                sub_3.transaction_ids._get_last()._post_process()
+                sub_6.transaction_ids._get_last()._post_process()
+            SaleOrder._cron_recurring_send_payment_reminder()
+
+        with freeze_time("2024-05-03"):
+            # Filter out subscription for which "_create_recurring_invoice" cron should run
+            all_subscriptions, need_cron_trigger = SaleOrder._recurring_invoice_get_subscriptions()
+            self.assertFalse(need_cron_trigger)
+            # No subscription should be filterd out.
+            self.assertFalse(all_subscriptions, "subscriptions are not filtered correctly.")
+
+            # Filter out subscription for which "_cron_recurring_send_payment_reminder" cron should run
+            parameters = SaleOrder._subscription_reminder_parameters()
+            send_reminder_sub = SaleOrder.search(parameters['domain'])
+            self.assertEqual([sub_2.id], send_reminder_sub.ids, "subscriptions are not filtered correctly.")
+
+            SaleOrder._cron_recurring_send_payment_reminder()
+
+        with freeze_time("2024-06-01"):
+            # filter out subscription for which "_create_recurring_invoice" cron should run
+            all_subscriptions, need_cron_trigger = SaleOrder._recurring_invoice_get_subscriptions()
+            self.assertFalse(need_cron_trigger)
+            # sub 5 should be invoiced only for first time after we will send email for payment reminder
+            self.assertEqual([sub_6.id, sub_4.id, sub_3.id, sub_1.id], all_subscriptions.ids, "subscriptions are not filtered correctly.")
+            self.assertNotIn([sub_5.id, sub_2.id], all_subscriptions.ids, "second subscription should not filtered in this domain")
+
+            # filter out subscription for which "_cron_recurring_send_payment_reminder" cron should run
+            parameters = SaleOrder._subscription_reminder_parameters()
+            send_reminder_sub = SaleOrder.search(parameters['domain'])
+            self.assertEqual([sub_5.id, sub_2.id], send_reminder_sub.ids, "subscriptions are not filtered correctly.")
+
+            # run both the crons
+            with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
+                SaleOrder._cron_recurring_create_invoice()
+                sub_1.transaction_ids._get_last()._post_process()
+                sub_3.transaction_ids._get_last()._post_process()
+                sub_6.transaction_ids._get_last()._post_process()
+
+            SaleOrder._cron_recurring_send_payment_reminder()
 
 
 @tagged('post_install', '-at_install')
