@@ -66,7 +66,7 @@ class AppointmentCommon(MailCommon, common.HttpCase):
             name='Employee Australian',
             notification_type='email',
             login='staff_user_aust',
-            tz='Australia/West'  # UTC + 8 (at least in February)
+            tz='Australia/Perth'  # UTC + 8 (at least in February)
         )
         cls.staff_user_nz = mail_new_test_user(
             cls.env,

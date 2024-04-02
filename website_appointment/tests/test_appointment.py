@@ -47,7 +47,7 @@ class WebsiteAppointmentTest(AppointmentCommon, MockVisitor):
             )
 
             # Test appointment timezone when user has timezone
-            test_user.tz = 'Asia/Calcutta'
+            test_user.tz = 'Asia/Kolkata'
             AppointmentType.with_user(test_user).create_and_get_website_url(**{'name': 'Appointment User Timezone'})
             self.assertEqual(
                 AppointmentType.search([
