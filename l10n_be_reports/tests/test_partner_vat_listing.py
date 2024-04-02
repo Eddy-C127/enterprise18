@@ -261,7 +261,7 @@ class BelgiumPartnerVatListingTest(TestAccountReportsCommon):
         move_2 = self.create_and_post_account_move('out_invoice', self.partner_a_be.id, '2022-06-01', product_quantity=10, product_price_unit=100)
 
         # Those moves are misc operations that are identical to invoices
-        (move_1 + move_2).write({'move_type': 'entry', 'date': '2022-06-01'})
+        (move_1 + move_2).with_context(skip_readonly_check=True).write({'move_type': 'entry', 'date': '2022-06-01'})
 
         self.assertLinesValues(
             self.report._get_lines(options),

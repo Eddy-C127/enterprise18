@@ -1307,10 +1307,9 @@ class BankRecWidget(models.Model):
         # Update the move.
         move_ctx = move.with_context(
             force_delete=True,
+            skip_readonly_check=True,
         )
         move_ctx.write({'partner_id': partner_to_set.id, 'line_ids': [Command.clear()] + line_ids_create_command_list})
-        if move_ctx.state == 'draft':
-            move_ctx.action_post()
 
         AccountMoveLine = self.env['account.move.line']
         sequence2lines = move_ctx.line_ids.grouped('sequence')
@@ -1348,7 +1347,7 @@ class BankRecWidget(models.Model):
             (line.matched_debit_ids + line.matched_credit_ids).exchange_move_id = exchange_diff_moves[index]
 
         # Fill missing partner.
-        st_line_ctx = st_line.with_context(skip_account_move_synchronization=True)
+        st_line_ctx = st_line.with_context(skip_account_move_synchronization=True, skip_readonly_check=True)
         st_line_ctx.partner_id = partner_to_set
 
         # Create missing partner bank if necessary.
