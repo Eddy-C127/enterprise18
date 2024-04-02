@@ -779,7 +779,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_hr_sign", {
         },
         {
             content: "Sign",
-            trigger: "button:contains(Sign Document)",
+            trigger: "button:contains(Sign Now)",
             run: 'click',
         },
         {
