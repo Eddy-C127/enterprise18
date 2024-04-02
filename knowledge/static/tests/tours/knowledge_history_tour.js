@@ -89,7 +89,7 @@ registry.category("web_tour.tours").add('knowledge_history_tour', {
         trigger: '#history-comparison-tab',
         run: function () {
             const comparaisonHtml = document.querySelector('#history-comparison-tab').innerHTML;
-            const correctHtml = '<h1><removed>Modified Title 03</removed><added>' + testArticleName + '</added></h1>';
+            const correctHtml = '<h1><added>' + testArticleName + '</added><removed>Modified Title 03</removed></h1>';
             if (comparaisonHtml !== correctHtml) {
                 throw new Error('Expect comparison to be ' + correctHtml + ', got ' + comparaisonHtml);
             }
