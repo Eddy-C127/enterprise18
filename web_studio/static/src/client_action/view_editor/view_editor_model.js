@@ -732,6 +732,15 @@ export class ViewEditorModel extends Reactive {
         }
     }
 
+    async restoreDefaultView(viewId) {
+        const result = await this._editionFlow.restoreDefaultView(viewId, this.mainViewType);
+        if (result) {
+            this.viewDescriptions.relatedModels = result.models;
+            this._views[this.mainViewType].arch = result.views[this.mainViewType].arch;
+            this._operations.clear();
+        }
+    }
+
     _handleDone({ mode, pending, pendingUndone, result }) {
         this.env.bus.trigger("CLEAR-CACHES");
         if (result) {

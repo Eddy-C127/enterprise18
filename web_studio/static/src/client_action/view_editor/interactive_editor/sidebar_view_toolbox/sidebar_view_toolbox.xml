@@ -23,7 +23,7 @@
       </button>
       <button
         class="o_web_studio_restore btn btn-danger btn-lg mt-0 w-100"
-        t-on-click="() => env.editionFlow.restoreDefaultView(env.viewEditorModel.mainView.id)"
+        t-on-click="() => env.viewEditorModel.restoreDefaultView(env.viewEditorModel.mainView.id)"
       >
         Restore Default View
       </button>

@@ -1725,3 +1725,6 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
            </sheet>
         </form>
         """)
+
+    def test_reload_after_restoring_default_view(self):
+        self.start_tour("/web?debug=tests", 'web_studio_test_reload_after_restoring_default_view', login="admin")

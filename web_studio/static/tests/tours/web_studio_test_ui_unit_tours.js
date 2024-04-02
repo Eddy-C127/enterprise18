@@ -1238,3 +1238,37 @@ registry.category("web_tour.tours").add("web_studio.test_res_users_fake_fields",
         }
     ]
 });
+
+registry.category("web_tour.tours").add("web_studio_test_reload_after_restoring_default_view", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
+        },
+        {
+            extra_trigger: ".o_form_view",
+            trigger: ".o_web_studio_navbar_item button",
+        },
+        {
+            trigger: ".o_web_studio_form_view_editor .o_field_widget[name='name']",
+        },
+        {
+            trigger: ".o_web_studio_sidebar input[name='string']",
+            run: "text new name",
+        },
+        {
+            trigger: ".o_web_studio_sidebar .o_web_studio_view",
+        },
+        {
+            trigger: ".o_web_studio_restore"
+        },
+        {
+            trigger: ".modal-footer .btn-primary",
+        },
+        {
+            extra_trigger: ".o_web_studio_undo:not(.o_web_studio_active)",
+            trigger: ".o_web_studio_form_view_editor .o_field_widget[name='name'] span:contains('Name')",
+            isCheck: true,
+        },
+    ]
+});
