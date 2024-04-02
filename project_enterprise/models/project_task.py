@@ -637,9 +637,22 @@ class Task(models.Model):
             self.write(vals)
             return {}
 
-        return self.sorted(
-            lambda t: (not t.date_deadline, t.date_deadline, t._get_hours_to_plan() <= 0, -int(t.priority))
-        )._scheduling(vals)
+        def sort_tasks(tasks):
+            return tasks.sorted(
+                lambda t: (not t.date_deadline, t.date_deadline, t._get_hours_to_plan() <= 0, -int(t.priority))
+            )
+
+        if ('user_ids' in vals):
+            return sort_tasks(self)._scheduling(vals)
+
+        """ If the smart scheduling is triggered from the unassigned row, we group the tasks according to their
+            already set assignee.
+            The smart scheduling will then compute the planned dates according to the correct calendars.
+        """
+        warnings = {}
+        for tasks in self.grouped('user_ids').values():
+            warnings.update(sort_tasks(tasks)._scheduling(vals))
+        return warnings
 
     def _scheduling(self, vals):
         tasks_to_write = {}
