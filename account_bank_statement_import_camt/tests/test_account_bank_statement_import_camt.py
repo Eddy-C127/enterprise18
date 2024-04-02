@@ -397,3 +397,13 @@ class TestAccountBankStatementImportCamt(AccountTestInvoicingCommon):
         import_file()
         with self.assertRaises(UserError, msg='You already have imported that file.'):
             import_file()
+
+    def test_import_camt_with_nordic_tags(self):
+        usd_currency = self.env.ref('base.USD')
+        self.assertEqual(self.env.company.currency_id.id, usd_currency.id)
+        self._import_camt_file('camt_053_several_tx_details_nordic.xml', usd_currency)
+        imported_statement = self.env['account.bank.statement'].search([('company_id', '=', self.env.company.id)], order='id desc', limit=1)
+        self.assertEqual(len(imported_statement.line_ids), 3)
+        third_line = imported_statement.line_ids[2]
+        self.assertEqual(third_line.payment_ref, 'Transaction 03 name')  # and not label03: AddtlRmtInf should take precedence on Ustrd
+        self.assertEqual(third_line.partner_name, 'Ultimate Debtor Name')

@@ -583,7 +583,11 @@ class CAMT:
             ))
 
     _get_partner_name = partial(_generic_get,
-        xpath='.//ns:RltdPties/ns:{placeholder}/ns:Nm/text() | .//ns:RltdPties/ns:{placeholder}/ns:Pty/ns:Nm/text()')
+        xpath=('.//ns:RltdPties/ns:Ultmt{placeholder}/ns:Nm/text()'
+            ' | .//ns:RltdPties/ns:Ultmt{placeholder}/ns:Pty/ns:Nm/text()'
+            ' | .//ns:RltdPties/ns:{placeholder}/ns:Nm/text()'
+            ' | .//ns:RltdPties/ns:{placeholder}/ns:Pty/ns:Nm/text()'
+            ))
 
     _get_account_number = partial(_generic_get,
         xpath=('.//ns:RltdPties/ns:{placeholder}Acct/ns:Id/ns:IBAN/text()'
@@ -725,9 +729,11 @@ class CAMT:
 
     @staticmethod
     def _get_transaction_name(node, namespaces):
-        xpaths = ('.//ns:RmtInf/ns:Ustrd/text()',
-                './/ns:RmtInf/ns:Strd/ns:CdtrRefInf/ns:Ref/text()',
-                'ns:AddtlNtryInf/text()')
+        xpaths = (
+            './/ns:RmtInf/ns:Strd/ns:AddtlRmtInf/text()',
+            './/ns:RmtInf/ns:Ustrd/text()',
+            './/ns:RmtInf/ns:Strd/ns:CdtrRefInf/ns:Ref/text()',
+            'ns:AddtlNtryInf/text()')
         for xpath in xpaths:
             transaction_name = node.xpath(xpath, namespaces=namespaces)
             if transaction_name:
