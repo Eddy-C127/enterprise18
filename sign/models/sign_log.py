@@ -24,7 +24,7 @@ class SignLog(models.Model):
     sign_request_item_id = fields.Many2one('sign.request.item')
     # Accessed as ?
     user_id = fields.Many2one('res.users', groups="sign.group_sign_manager")
-    partner_id = fields.Many2one('res.partner')
+    partner_id = fields.Many2one('res.partner', index='btree_not_null')
 
     # Accessed from ?
     # If defined on request item when signing: take from it

@@ -22,7 +22,7 @@ class DiscussChannel(models.Model):
         ondelete={'whatsapp': 'cascade'})
     whatsapp_number = fields.Char(string="Phone Number")
     whatsapp_channel_valid_until = fields.Datetime(string="WhatsApp Partner Last Message Datetime", compute="_compute_whatsapp_channel_valid_until")
-    whatsapp_partner_id = fields.Many2one(comodel_name='res.partner', string="WhatsApp Partner")
+    whatsapp_partner_id = fields.Many2one(comodel_name='res.partner', string="WhatsApp Partner", index='btree_not_null')
     whatsapp_mail_message_id = fields.Many2one(comodel_name='mail.message', string="Related message", index="btree_not_null")
     wa_account_id = fields.Many2one(comodel_name='whatsapp.account', string="WhatsApp Business Account")
 

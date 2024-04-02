@@ -71,7 +71,7 @@ class CalendarEvent(models.Model):
     resource_total_capacity_used = fields.Integer('Total Capacity Used', compute="_compute_resource_total_capacity")
     user_id = fields.Many2one('res.users', group_expand="_read_group_user_id")
     videocall_redirection = fields.Char('Meeting redirection URL', compute='_compute_videocall_redirection')
-    appointment_booker_id = fields.Many2one('res.partner', string="Person who is booking the appointment")
+    appointment_booker_id = fields.Many2one('res.partner', string="Person who is booking the appointment", index='btree_not_null')
     on_leave_partner_ids = fields.Many2many('res.partner', string='Unavailable Partners', compute='_compute_on_leave_partner_ids')
     on_leave_resource_ids = fields.Many2many('appointment.resource', string='Resources intersecting with leave time', compute="_compute_on_leave_resource_ids")
 
