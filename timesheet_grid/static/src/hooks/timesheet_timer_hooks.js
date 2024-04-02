@@ -10,6 +10,7 @@ import {
     useState,
     useComponent,
     onWillStart,
+    onMounted,
     onWillUnmount,
     onWillUpdateProps,
     useEffect,
@@ -87,6 +88,12 @@ export class TimesheetTimerRendererHook {
         await this._fetchRunningTimer();
         await this._popRecord();
         this._setAddTimeMode(false);
+    }
+
+    async onMounted() {
+        if (this.timesheet) {
+            await this.propsList.enterEditMode(this.timesheet);
+        }
     }
 
     onWillUnmount() {}
@@ -206,10 +213,6 @@ export class TimesheetTimerRendererHook {
         if (!timesheet) {
             return;
         }
-        if (this.propsList.editedRecord) {
-            this.propsList.leaveEditMode();
-        }
-        await this.propsList.enterEditMode(timesheet);
         this.timesheet = timesheet;
     }
 
@@ -334,6 +337,7 @@ export function useTimesheetTimerRendererHook() {
         timerState: timesheetTimerRendererHook.timerState,
     });
     onWillStart(timesheetTimerRendererHook.onWillStart.bind(timesheetTimerRendererHook));
+    onMounted(timesheetTimerRendererHook.onMounted.bind(timesheetTimerRendererHook));
     onWillUnmount(timesheetTimerRendererHook.onWillUnmount.bind(timesheetTimerRendererHook));
     onWillUpdateProps(
         timesheetTimerRendererHook.onWillUpdateProps.bind(timesheetTimerRendererHook)
