@@ -178,17 +178,17 @@
     }
 
     .o_knowledge_body {
-        .o_field_knowledge_icon {
+        .o_knowledge_icon {
             font-size: 3em;
             line-height: normal;
             margin-top: map-get($spacers, 3) !important;
             margin-bottom: 0 !important;
+            .o_article_emoji {
+                position: relative;
+            }
         }
-        .o_widget_knowledge_cover + .o_field_knowledge_icon {
+        .o_widget_knowledge_cover + .o_knowledge_icon {
             margin-top: -0.7em !important;
-        }
-        .o_article_emoji {
-            position: relative;
         }
     }
 
@@ -389,7 +389,7 @@
 @include media-breakpoint-up(sm) {
     .o_knowledge_article_view_form_view {
         .o_knowledge_body {
-            .o_field_knowledge_icon {
+            .o_knowledge_icon {
                 font-size: 5em;
             }
         }
