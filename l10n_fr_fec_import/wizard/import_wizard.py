@@ -29,6 +29,15 @@ class FecImportWizard(models.TransientModel):
     attachment_name = fields.Char(string="Filename")
     attachment_id = fields.Binary(string="File", required=True, help="Accounting FEC data file to be imported")
     company_id = fields.Many2one(comodel_name="res.company", string="Company", help="Company used for the import", default=lambda self: self.env.company, required=True, readonly=True)
+    document_prefix = fields.Char(string="Document prefix")
+    duplicate_documents_handling = fields.Selection(
+        selection=[
+            ('ignore', "Ignore"),
+            ('update', "Update"),
+        ],
+        string="Duplicate documents handling",
+        default='update',
+    )
 
     # ------------------------------------
     # Reading
@@ -419,6 +428,9 @@ class FecImportWizard(models.TransientModel):
             if not move_name:
                 raise UserError(_("Line %s has an invalid move name", idx))
 
+            if self.document_prefix:
+                move_name = self.document_prefix.strip() + ' ' + move_name
+
             # The move_date sometimes is not provided, use the piece_date instead
             piece_date = record.get("PieceDate", "")
             piece_date = piece_date and datetime.datetime.strptime(piece_date, "%Y%m%d")
@@ -732,7 +744,7 @@ class FecImportWizard(models.TransientModel):
 
             data[model] = dict(records)
 
-        created_vals = self.env['account.chart.template']._load_data(data)
+        created_vals = self.env['account.chart.template']._load_data(data, ignore_duplicates=self.duplicate_documents_handling == 'ignore')
 
         moves = created_vals.get("account.move", [])
         for move in moves:
