@@ -55,17 +55,27 @@ class TestMarketingCampaign(MarketingAutomationCommon):
 
     @users('user_marketing_automation')
     def test_duplicate_campaign(self):
-        # duplicate campaign
         original_campaign = self.campaign.with_user(self.env.user)
+
+        # Add server activity to campaign
+        server_action = self.env['ir.actions.server'].sudo().create({
+            'name': 'Test Server Action',
+            'model_id': self.env['ir.model']._get_id('res.partner'),
+            'state': 'code',
+            'code': 'pass',
+        })
+        self._create_activity(self.campaign, mailing=None, action=server_action)
+
         duplicated_campaign = original_campaign.copy()
         for campaign in original_campaign + duplicated_campaign:
-            with self.subTest(campaign=campaign.name):
-                campaign.sync_participants()
-                with self.mock_mail_gateway(mail_unlink_sent=False):
-                    campaign.execute_activities()
-                self.assertMarketAutoTraces(
-                    [{
-                        'status': 'processed',
-                        'records': self.test_contacts,
-                        'trace_status': 'sent',
-                    }], campaign.marketing_activity_ids)
+            campaign.sync_participants()
+            with self.mock_mail_gateway(mail_unlink_sent=False):
+                campaign.execute_activities()
+            for activity in campaign.marketing_activity_ids:
+                with self.subTest(msg=f'campaign.name="{campaign.name}"', activity=activity):
+                    self.assertMarketAutoTraces(
+                        [{
+                            'status': 'processed',
+                            'records': self.test_contacts,
+                            'trace_status': 'sent',
+                        }], activity)

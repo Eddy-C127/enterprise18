@@ -228,7 +228,8 @@ class MarketingActivity(models.Model):
     def copy_data(self, default=None):
         """ When copying the activities, we should also copy their mailings. """
         default = dict(default or {})
-        default['mass_mailing_id'] = self.mass_mailing_id.copy().id
+        if self.mass_mailing_id:
+            default['mass_mailing_id'] = self.mass_mailing_id.copy().id
         return super(MarketingActivity, self).copy_data(default=default)
 
     def write(self, values):
