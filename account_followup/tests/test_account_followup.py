@@ -6,6 +6,7 @@ from freezegun import freeze_time
 from odoo import Command, fields
 from odoo.tests import Form, tagged
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from dateutil.relativedelta import relativedelta
 
 
 @tagged('post_install', '-at_install')
@@ -339,6 +340,14 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
             {'amount_residual_currency': 500.0},
             {'amount_residual_currency': 400.0},
         ])
+
+    def test_compute_total_due(self):
+        self.create_invoice('2016-01-01')
+        self.partner_a.unreconciled_aml_ids.blocked = True
+        self.create_invoice('2017-01-01')
+        self.create_invoice(fields.Date.today() + relativedelta(months=1))
+        self.assertRecordValues(self.partner_a, [{'total_due': 1000.0}])
+        self.assertRecordValues(self.partner_a, [{'total_overdue': 500.0}])
 
     def test_send_followup_no_due_date(self):
         """

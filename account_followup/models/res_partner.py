@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import ast
+from collections import defaultdict
 import logging
+
 from odoo import api, fields, models, _
 from odoo.tools.misc import format_date
 from datetime import datetime, timedelta
@@ -29,7 +31,7 @@ class ResPartner(models.Model):
 
     # readonly=False in order to be able to edit it directly in the view form, without having to click on 'Edit'
     # It's mainly used for usability purposes to easily include/exclude unreconciled move lines
-    unreconciled_aml_ids = fields.One2many('account.move.line', compute='_compute_unreconciled_aml_ids', readonly=False)
+    unreconciled_aml_ids = fields.One2many('account.move.line', compute='_compute_total_due', readonly=False)
 
     unpaid_invoice_ids = fields.One2many('account.move', compute='_compute_unpaid_invoices')
     unpaid_invoices_count = fields.Integer(compute='_compute_unpaid_invoices')
@@ -107,22 +109,6 @@ class ResPartner(models.Model):
 
     @api.depends('unreconciled_aml_ids', 'followup_next_action_date')
     @api.depends_context('company', 'allowed_company_ids')
-    def _compute_total_due(self):
-        today = fields.Date.context_today(self)
-        for partner in self:
-            total_overdue = 0
-            total_due = 0
-            for aml in partner.unreconciled_aml_ids:
-                is_overdue = today > aml.date_maturity if aml.date_maturity else today > aml.date
-                if self.env.company in aml.company_id.parent_ids and not aml.blocked:
-                    total_due += aml.amount_residual
-                    if is_overdue:
-                        total_overdue += aml.amount_residual
-            partner.total_due = total_due
-            partner.total_overdue = total_overdue
-
-    @api.depends('unreconciled_aml_ids', 'followup_next_action_date')
-    @api.depends_context('company', 'allowed_company_ids')
     def _compute_followup_status(self):
         all_data = self._query_followup_data()
         for partner in self:
@@ -165,17 +151,25 @@ class ResPartner(models.Model):
 
     @api.depends('invoice_ids')
     @api.depends_context('company', 'allowed_company_ids')
-    def _compute_unreconciled_aml_ids(self):
-        values = {
-            partner.id: line_ids
-            for partner, line_ids in self.env['account.move.line']._read_group(
-                domain=self._get_unreconciled_aml_domain(),
-                groupby=['partner_id'],
-                aggregates=['id:array_agg'],
-            )
-        }
+    def _compute_total_due(self):
+        due_data = defaultdict(float)
+        overdue_data = defaultdict(float)
+        unreconciled_aml_ids = defaultdict(list)
+        for overdue, partner, blocked, amount_residual_sum, aml_ids in self.env['account.move.line']._read_group(
+            domain=self._get_unreconciled_aml_domain(),
+            groupby=['followup_overdue', 'partner_id', 'blocked'],
+            aggregates=['amount_residual:sum', 'id:array_agg'],
+        ):
+            unreconciled_aml_ids[partner] += aml_ids
+            if not blocked:
+                due_data[partner] += amount_residual_sum
+                if overdue:
+                    overdue_data[partner] += amount_residual_sum
+
         for partner in self:
-            partner.unreconciled_aml_ids = values.get(partner.id, False)
+            partner.total_due = due_data.get(partner, 0.0)
+            partner.total_overdue = overdue_data.get(partner, 0.0)
+            partner.unreconciled_aml_ids = self.env['account.move.line'].browse(unreconciled_aml_ids.get(partner, []))
 
     def _set_followup_line_on_unreconciled_amls(self):
         today = fields.Date.context_today(self)
