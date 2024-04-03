@@ -16,7 +16,7 @@ $o-web-grid-cell-minwidth: 10ch;
 
 .o_view_sample_data .o_grid_renderer {
     overflow: hidden;
-    pointer-events: none;
+    @include o-sample-data-disabled;
 }
 
 .o_grid_renderer {
