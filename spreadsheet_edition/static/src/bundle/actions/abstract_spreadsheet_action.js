@@ -72,13 +72,7 @@ export class AbstractSpreadsheetAction extends Component {
         this.loadCurrencies = useSpreadsheetCurrencies();
         this.getThumbnail = useSpreadsheetThumbnail();
         this.fileStore = new RecordFileStore(this.resModel, this.resId, this.http, this.orm);
-        const spreadsheetService = useService("spreadsheet_collaborative");
-        this.transportService = spreadsheetService.makeCollaborativeChannel(
-            this.resModel,
-            this.resId,
-            this.shareId,
-            this.accessToken
-        );
+        this.spreadsheetService = useService("spreadsheet_collaborative");
         this.stores = useStoreProvider();
         this.threadId = this.params?.thread_id;
         useSetupAction({
@@ -89,6 +83,8 @@ export class AbstractSpreadsheetAction extends Component {
                     resId: this.resId,
                     shareId: this.shareId,
                     accessToken: this.accessToken,
+                    data: this.data,
+                    model: this.model,
                 };
             },
         });
@@ -108,10 +104,17 @@ export class AbstractSpreadsheetAction extends Component {
         });
 
         onWillStart(async () => {
-            await this.fetchData();
-            this.createModel();
-            this.stores.inject(ModelStore, this.model);
-            await this.execInitCallbacks();
+            if (this.props.state?.model && this.props.state?.data) {
+                this._initializeWith(this.props.state.data);
+                this.model = this.props.state.model;
+                this.model.joinSession();
+                this.stores.inject(ModelStore, this.model);
+            } else {
+                await this.fetchData();
+                this.createModel();
+                this.stores.inject(ModelStore, this.model);
+                await this.execInitCallbacks();
+            }
         });
         onMounted(() => {
             const commentsStore = this.stores.get(CommentsStore);
@@ -153,6 +156,12 @@ export class AbstractSpreadsheetAction extends Component {
     }
 
     createModel() {
+        const transportService = this.spreadsheetService.makeCollaborativeChannel(
+            this.resModel,
+            this.resId,
+            this.shareId,
+            this.accessToken
+        );
         const odooDataProvider = new OdooDataProvider(this.env);
         odooDataProvider.addEventListener("data-source-updated", () => {
             this.model.dispatch("EVALUATE_CELLS");
@@ -167,7 +176,7 @@ export class AbstractSpreadsheetAction extends Component {
                     loadLocales: this.loadLocales,
                 },
                 defaultCurrency: createDefaultCurrency(this.data.default_currency),
-                transportService: this.transportService,
+                transportService,
                 client: {
                     id: uuidGenerator.uuidv4(),
                     name: user.name,

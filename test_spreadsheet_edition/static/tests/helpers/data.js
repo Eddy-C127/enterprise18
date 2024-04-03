@@ -9,6 +9,7 @@ export class SpreadsheetTest extends models.Model {
     _name = "spreadsheet.test";
 
     name = fields.Char({ string: "Name" });
+    thumbnail = fields.Binary({ string: "Thumbnail" });
     spreadsheet_data = fields.Text({ string: "Data" });
 
     join_spreadsheet_session(resId, shareId, accessToken) {
