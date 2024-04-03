@@ -1,6 +1,6 @@
 # coding: utf-8
 from odoo import Command
-from odoo.addons.l10n_mx_edi.tests.common import TestMxEdiCommon
+from odoo.addons.l10n_mx_edi.tests.common import TestMxEdiCommon, EXTERNAL_MODE, RATE_WITH_USD, TEST_RATE_WITH_USD
 
 
 class TestMxExtendedEdiCommon(TestMxEdiCommon):
@@ -8,24 +8,22 @@ class TestMxExtendedEdiCommon(TestMxEdiCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref='mx'):
         super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.env.company.write({
-            'street': "Campobasso Sur 3201 - 9001",
-            'state_id': cls.env.ref('base.state_mx_ags').id,
-            'zip': 20914,
-            'country_id': cls.env.ref('base.mx').id,
-            'bank_ids': [Command.create({'acc_number': "0123456789"})],
-            'l10n_mx_edi_colony_code': '0858',
-            'l10n_mx_edi_fiscal_regime': '601',
-        })
+        cls.env.company.bank_ids = [Command.create({'acc_number': "0123456789"})]
         cls.env.company.partner_id.write({
+            'street_name': "Campobasso Norte",
+            'street_number': 3206,
+            'street_number2': 9000,
             'city_id': cls.env.ref('l10n_mx_edi_extended.res_city_mx_agu_005').id,
-            'l10n_mx_edi_external_trade': True,
         })
+
+        cls.partner_mx.city_id = cls.env.ref('l10n_mx_edi_extended.res_city_mx_chh_032')
 
         cls.product.write({
             'l10n_mx_edi_tariff_fraction_id': cls.env.ref('l10n_mx_edi_extended.tariff_fraction_7212100399').id,
-            'l10n_mx_edi_umt_aduana_id': cls.env.ref('uom.product_uom_unit').id,
+            'l10n_mx_edi_umt_aduana_id': cls.env.ref('uom.product_uom_kgm').id,
         })
+
+        cls.setup_rates(cls.usd, [cls.frozen_today.date(), 1 / (RATE_WITH_USD if EXTERNAL_MODE else TEST_RATE_WITH_USD)])
 
     def _create_invoice(self, **kwargs):
         if 'invoice_line_ids' not in kwargs:

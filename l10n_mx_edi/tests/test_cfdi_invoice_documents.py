@@ -9,7 +9,8 @@ from freezegun import freeze_time
 class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
 
     def test_invoice_workflow(self):
-        invoice = self._create_invoice(invoice_date_due='2017-02-01')  # Force PPD
+        with freeze_time('2017-01-01'):
+            invoice = self._create_invoice(invoice_date_due='2017-02-01')  # Force PPD
 
         # No pac found.
         self.env.company.l10n_mx_edi_pac = None
@@ -657,7 +658,7 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
 
         # Create a payment with an higher amount than invoice1 and reconcile it.
         payment = self.env['account.payment'].create({
-            'partner_id': self.partner_a.id,
+            'partner_id': self.partner_mx.id,
             'payment_type': 'inbound',
             'partner_type': 'customer',
             'date': invoice1.date,
@@ -1240,8 +1241,8 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
 
     @freeze_time('2017-01-01')
     def test_payment_to_multiple_invoices_with_different_rfc(self):
-        invoice1 = self._create_invoice(invoice_date_due='2017-02-01')
-        invoice2 = self._create_invoice(partner_id=self.partner_mx2.id, invoice_date_due='2017-02-01')
+        invoice1 = self._create_invoice(partner_id=self.partner_mx.id, invoice_date_due='2017-02-01')
+        invoice2 = self._create_invoice(partner_id=self.partner_us.id, invoice_date_due='2017-02-01')
 
         with self.with_mocked_pac_sign_success():
             invoice1._l10n_mx_edi_cfdi_invoice_try_send()
@@ -1681,17 +1682,17 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
             invoice._l10n_mx_edi_cfdi_global_invoice_try_send()
         self.assertEqual(len(invoice.l10n_mx_edi_invoice_document_ids), 1)
 
-    def test_invoice_cancellation_then_replacement_foreign_currency(self):
+    def test_invoice_cancellation_then_replacement_in_foreign_currency(self):
         date_1 = '2017-01-01'
         date_2 = '2017-01-02'
-        self.setup_usd_rates((date_1, 17.187), (date_2, 17.0357))
+        self.setup_rates(self.usd, (date_1, 1 / 17.187), (date_2, 1 / 17.0357))
 
         with freeze_time(date_1):
             # create an invoice in USD when currency rate is 17.187
             invoice = self._create_invoice(
                 invoice_date=date_1,
                 date=date_1,
-                currency_id=self.fake_usd_data['currency'].id,
+                currency_id=self.usd.id,
                 invoice_line_ids=[
                     Command.create({
                         'product_id': self.product.id,
@@ -1704,50 +1705,56 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
             with self.with_mocked_pac_sign_success():
                 invoice._l10n_mx_edi_cfdi_invoice_try_send()
 
-        self.assertRecordValues(invoice.line_ids, [{
-            'amount_currency': -100.0,
-            'balance': -1718.7,
-            'debit': 0.0,
-            'credit': 1718.7,
-            'tax_base_amount': 0.0,
-        }, {
-            'amount_currency': -16.0,
-            'balance': -274.99,
-            'debit': 0.0,
-            'credit': 274.99,
-            'tax_base_amount': 1718.7,
-        }, {
-            'amount_currency': 116.0,
-            'balance': 1993.69,
-            'debit': 1993.69,
-            'credit': 0.0,
-            'tax_base_amount': 0.0,
-        }])
+        self.assertRecordValues(invoice.line_ids, [
+            {
+                'amount_currency': -100.0,
+                'balance': -1718.7,
+                'debit': 0.0,
+                'credit': 1718.7,
+            },
+            {
+                'amount_currency': -16.0,
+                'balance': -274.99,
+                'debit': 0.0,
+                'credit': 274.99,
+            },
+            {
+                'amount_currency': 116.0,
+                'balance': 1993.69,
+                'debit': 1993.69,
+                'credit': 0.0,
+            },
+        ])
 
+        # create a replacement invoice when currency rate is 17.0357
         with freeze_time(date_2):
-            # create a replacement invoice when currency rate is 17.0357
             action_results = self.env['l10n_mx_edi.invoice.cancel'] \
                 .with_context(invoice.button_request_cancel()['context']) \
                 .create({}) \
                 .action_create_replacement_invoice()
             new_invoice = self.env['account.move'].browse(action_results['res_id'])
+
         # the amounts of the replacement invoice should use the current rate
-        self.assertRecordValues(new_invoice.line_ids, [{
-            'amount_currency': -100.0,
-            'balance': -1703.57,
-            'debit': 0.0,
-            'credit': 1703.57,
-            'tax_base_amount': 0.0,
-        }, {
-            'amount_currency': -16.0,
-            'balance': -272.57,
-            'debit': 0.0,
-            'credit': 272.57,
-            'tax_base_amount': 1703.57,
-        }, {
-            'amount_currency': 116.0,
-            'balance': 1976.14,
-            'debit': 1976.14,
-            'credit': 0.0,
-            'tax_base_amount': 0.0,
-        }])
+        self.assertRecordValues(new_invoice.line_ids, [
+            {
+                'amount_currency': -100.0,
+                'balance': -1703.57,
+                'debit': 0.0,
+                'credit': 1703.57,
+                'tax_base_amount': 0.0,
+            },
+            {
+                'amount_currency': -16.0,
+                'balance': -272.57,
+                'debit': 0.0,
+                'credit': 272.57,
+                'tax_base_amount': 1703.57,
+            },
+            {
+                'amount_currency': 116.0,
+                'balance': 1976.14,
+                'debit': 1976.14,
+                'credit': 0.0,
+                'tax_base_amount': 0.0,
+            },
+        ])

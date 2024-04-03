@@ -277,8 +277,8 @@ class PosOrder(models.Model):
         for order in self:
             order_lines = order.lines._l10n_mx_edi_cfdi_lines()
             if (
-                order_lines and
-                order.l10n_mx_edi_is_cfdi_needed
+                order_lines
+                and order.l10n_mx_edi_is_cfdi_needed
                 and (
                     (
                         order.refunded_order_ids

@@ -2403,6 +2403,7 @@ class AccountMove(models.Model):
             name=cleaned_name,
             default_code=code,
             extra_domain=[('unspsc_code_id.code', '=', unspsc_code)],
+            company=self.company_id,
         )
         if not product:
             product = self.env['product.product']._retrieve_product(name=cleaned_name, default_code=code)

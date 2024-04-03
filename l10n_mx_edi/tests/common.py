@@ -3,17 +3,35 @@ from odoo import fields, Command
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.exceptions import ValidationError
 from odoo.tools import misc
+from odoo.tools.zeep.client import SERIALIZABLE_TYPES
 
 import base64
-import datetime
+import logging
+import pprint
 
 from contextlib import contextmanager
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
+from freezegun.api import FakeDatetime
 from lxml import etree
-from pytz import timezone
 from unittest.mock import patch
 from unittest import SkipTest
+
+_logger = logging.getLogger(__name__)
+
+# Allow the whole test suite to work as 'external' tests and really send the documents to the PAC
+# in order to ensure their validity.
+# [!] DON'T COMMIT THE CHANGE OF THIS VALUE
+EXTERNAL_MODE = False
+
+# For external trade, we need to use the rate of the day. The first time you send a document, you will get
+# a message from the government with the rate of the day. Put it here to validate your documents.
+# [!] DON'T COMMIT THE CHANGE OF THIS VALUE
+RATE_WITH_USD = 17.1098
+
+# The rate with the USD used by tests in _extended.
+# RATE_WITH_USD will be used when EXTERNAL_MODE is true, TEST_RATE_WITH_USD otherwise.
+TEST_RATE_WITH_USD = 16.9995
 
 
 class TestMxEdiCommon(AccountTestInvoicingCommon):
@@ -22,12 +40,23 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
     def setUpClass(cls, chart_template_ref='mx'):
         super().setUpClass(chart_template_ref=chart_template_ref)
 
-        cls.frozen_today = datetime.datetime(year=2017, month=1, day=1, hour=0, minute=0, second=0, tzinfo=timezone('utc'))
+        cls.frozen_today = fields.datetime.now()
 
         # Allow to see the full result of AssertionError.
         cls.maxDiff = None
 
         # ==== Config ====
+
+        with freeze_time(cls.frozen_today):
+            cls.certificate = cls.env['l10n_mx_edi.certificate'].create({
+                'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.cer', 'rb').read()),
+                'key': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.key', 'rb').read()),
+                'password': '12345678a',
+            })
+        cls.certificate.write({
+            'date_start': '2016-01-01',
+            'date_end': '2018-01-01',
+        })
 
         # do not use demo data and avoid having duplicated companies
         cls.env['res.company'].search([('vat', '=', "EKU9003173C9")]).write({'vat': False})
@@ -38,14 +67,14 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
             'vat': 'EKU9003173C9',
             'street': 'Campobasso Norte 3206 - 9000',
             'street2': 'Fraccionamiento Montecarlo',
-            'zip': '85134',
-            'city': 'Ciudad Obregón',
+            'zip': '20914',
+            'city': 'Jesús María',
             'country_id': cls.env.ref('base.mx').id,
-            'state_id': cls.env.ref('base.state_mx_son').id,
+            'state_id': cls.env.ref('base.state_mx_ags').id,
             'l10n_mx_edi_pac': 'solfact',
             'l10n_mx_edi_pac_test_env': True,
             'l10n_mx_edi_fiscal_regime': '601',
-            'account_fiscal_country_id': cls.env.ref('base.mx').id,
+            'l10n_mx_edi_certificate_ids': [Command.set(cls.certificate.ids)],
         })
 
         with freeze_time(cls.frozen_today):
@@ -62,9 +91,12 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
 
         # ==== Business ====
         cls.tax_16 = cls.env["account.chart.template"].ref('tax12')
+        cls.tax_16_purchase = cls.env["account.chart.template"].ref('tax14')
+        cls.tax_4_purchase_withholding = cls.env["account.chart.template"].ref('tax1')
         cls.tax_0 = cls.env["account.chart.template"].ref('tax9')
         cls.tax_0_exento = cls.tax_0.copy()
         cls.tax_0_exento.l10n_mx_factor_type = 'Exento'
+        cls.tax_0_exento_purchase = cls.env["account.chart.template"].ref('tax20')
         cls.tax_8 = cls.env["account.chart.template"].ref('tax17')
         cls.tax_8_ieps = cls.env["account.chart.template"].ref('ieps_8_sale')
         cls.tax_0_ieps = cls.tax_8_ieps.copy(default={'amount': 0.0})
@@ -91,12 +123,6 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
             (cls.tax_53_ieps + cls.tax_16,),
         ]
 
-        # TODO: Temporary fix awaiting:
-        # - https://github.com/odoo/odoo/pull/142972
-        # - https://github.com/odoo/enterprise/pull/51286
-        (cls.tax_8_ieps + cls.tax_53_ieps).l10n_mx_tax_type = 'ieps'
-        cls.tax_10_ret_isr.l10n_mx_tax_type = 'isr'
-
         cls.product = cls._create_product()
 
         cls.payment_term = cls.env['account.payment.term'].create({
@@ -108,40 +134,17 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
             })],
         })
 
-        cls.partner_a.write({
-            'property_supplier_payment_term_id': cls.payment_term.id,
-            'country_id': cls.env.ref('base.us').id,
-            'state_id': cls.env.ref('base.state_us_23').id,
-            'zip': 39301,
-            'vat': '123456789',
-            'l10n_mx_edi_no_tax_breakdown': False,
-            'l10n_mx_edi_fiscal_regime': '616',
-        })
-
         cls.partner_mx = cls.env['res.partner'].create({
-            'name': 'partner_mx',
+            'name': "INMOBILIARIA CVA",
             'property_account_receivable_id': cls.company_data['default_account_receivable'].id,
             'property_account_payable_id': cls.company_data['default_account_payable'].id,
             'street': "Campobasso Sur 3201 - 9001",
-            'city': "Hidalgo",
-            'state_id': cls.env.ref('base.state_mx_coah').id,
-            'zip': 26670,
-            'country_id': cls.env.ref('base.mx').id,
-            'vat': 'XIA190128J61',
-            'bank_ids': [Command.create({'acc_number': "0123456789"})],
-            'l10n_mx_edi_fiscal_regime': '601',
-        })
-        cls.partner_mx2 = cls.env['res.partner'].create({
-            'name': 'partner_mx2',
-            'property_account_receivable_id': cls.company_data['default_account_receivable'].id,
-            'property_account_payable_id': cls.company_data['default_account_payable'].id,
-            'street': "Campobasso Oeste 3201 - 9001",
             'city': "Hidalgo del Parral",
             'state_id': cls.env.ref('base.state_mx_chih').id,
-            'zip': 33826,
+            'zip': '33826',
             'country_id': cls.env.ref('base.mx').id,
             'vat': 'ICV060329BY0',
-            'bank_ids': [Command.create({'acc_number': "9876543210"})],
+            'bank_ids': [Command.create({'acc_number': "0123456789"})],
             'l10n_mx_edi_fiscal_regime': '601',
         })
         cls.partner_us = cls.env['res.partner'].create({
@@ -151,7 +154,7 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
             'street': "77 Santa Barbara Rd",
             'city': "Pleasant Hill",
             'state_id': cls.env.ref('base.state_us_5').id,
-            'zip': 94523,
+            'zip': '94523',
             'country_id': cls.env.ref('base.us').id,
             'vat': '123456789',
             'bank_ids': [Command.create({'acc_number': "BE01234567890123"})],
@@ -159,49 +162,63 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
 
         cls.payment_method_efectivo = cls.env.ref('l10n_mx_edi.payment_method_efectivo')
 
-        # The XSD only allows specific currency names.
-        cls.env.ref('base.USD').name = 'FUSD'
-        cls.env.ref('base.BHD').name = 'FEUR'
-        cls.currency_data['currency'].write({
-            'name': 'BHD',
-            'l10n_mx_edi_decimal_places': 3,
-        })
-        cls.env['res.currency'].flush_model(['name'])
-        cls.fake_usd_data = cls.setup_multi_currency_data(default_values={
-            'name': 'USD',
-            'symbol': '$',
-            'rounding': 0.01,
-            'l10n_mx_edi_decimal_places': 2,
-        }, rate2016=6.0, rate2017=4.0)
-
-        # Rates.
-        cls.env['res.currency.rate'].create({
-            'name': '2018-01-01',
-            'rate': 4.0,
-            'currency_id': cls.currency_data['currency'].id,
-            'company_id': cls.env.company.id,
-        })
-        cls.env['res.currency.rate'].create({
-            'name': '2018-01-01',
-            'rate': 8.0,
-            'currency_id': cls.fake_usd_data['currency'].id,
-            'company_id': cls.env.company.id,
-        })
-
+        # Multi-currency setup.
+        cls.env['res.currency.rate'].sudo().search([]).unlink()
+        cls.usd = cls.env.ref('base.USD')
+        cls.usd.active = True
+        cls.chf = cls.env.ref('base.CHF')
+        cls.chf.active = True
         cls.comp_curr = cls.company_data['currency']
-        cls.foreign_curr_1 = cls.currency_data['currency'] # 3:1 in 2016, 2:1 in 2017, 4:1 in 2018
-        cls.foreign_curr_2 = cls.fake_usd_data['currency'] # 6:1 in 2016, 4:1 in 2017, 8:1 in 2018
 
         cls.uuid = 0
 
-    def setup_usd_rates(self, *rates):
-        usd = self.fake_usd_data['currency']
-        usd.sudo().rate_ids.unlink()
-        self.env['res.currency.rate'].create([
+    @contextmanager
+    def mx_external_setup(self, date_obj):
+        """ This must wrap all MX tests and allow to correctly mock the date and to easily
+        check the validity of generated files using the web-services instead of mocking everything.
+        To "really" test the files, set 'EXTERNAL_MODE' to True.
+        That way, the files will be checked by SolucionFactible.
+
+        :param date_obj:    A representation of the time as a datetime object.
+        """
+        # Ensure the certificate is always valid.
+        self.certificate.write({
+            'date_start': date_obj - relativedelta(years=2),
+            'date_end': date_obj + relativedelta(years=2),
+        })
+
+        with freeze_time(date_obj), patch('odoo.tools.zeep.client.SERIALIZABLE_TYPES', SERIALIZABLE_TYPES + (FakeDatetime,)):
+            yield
+
+    @contextmanager
+    def mocked_retrieve_partner(self, allowed_partners=None):
+        """ Mock the res.partner._retrieve_partner method to restrict the result
+        to allowed partners inside the sandbox test environment.
+
+        :param allowed_partners:    The allowed partners as a result.
+        :return:                    The result of the mocked method.
+        """
+        super_method = self.env.registry['res.partner']._retrieve_partner
+
+        def retrieve_partner(*args, **kwargs):
+            partner = super_method(*args, **kwargs)
+
+            if not allowed_partners or (partner not in allowed_partners):
+                return self.env['res.partner']
+
+            return partner
+
+        with patch.object(self.env.registry['res.partner'], '_retrieve_partner', retrieve_partner):
+            yield
+
+    @classmethod
+    def setup_rates(cls, currency, *rates):
+        currency.sudo().rate_ids.unlink()
+        cls.env['res.currency.rate'].create([
             {
                 'name': rate_date,
-                'inverse_company_rate': rate,
-                'currency_id': usd.id,
+                'rate': rate,
+                'currency_id': currency.id,
             }
             for rate_date, rate in rates
         ])
@@ -217,8 +234,12 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
             yield
 
     def with_mocked_pac_sign_success(self):
+        """ Mock the signature method to fake a success response whatever the selected PAC.
+        However, if EXTERNAL_MODE is True, the web-service is made using SolFact.
+        """
+        method_name = f'_{self.env.company.l10n_mx_edi_pac}_sign'
 
-        def success(_record, _credentials, cfdi_str):
+        def fake_success(_record, _credentials, cfdi_str):
             # Inject UUID.
             tree = etree.fromstring(cfdi_str)
             self.uuid += 1
@@ -231,9 +252,12 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
                     xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd"
                     Version="1.1"
                     UUID="{uuid}"
-                    FechaTimbrado="2017-01-01T18:56:50"
+                    FechaTimbrado="___ignore___"
+                    NoCertificadoSAT="___ignore___"
                     RfcProvCertif="___ignore___"
-                    SelloCFD="___ignore___"/>
+                    SelloCFD="___ignore___"
+                    SelloSAT="___ignore___"
+                />
             """
             complemento_node = tree.xpath("//*[local-name()='Complemento']")
             if complemento_node:
@@ -253,7 +277,18 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
 
             return {'cfdi_str': cfdi_str}
 
-        return self.with_mocked_pac_method(f'_{self.env.company.l10n_mx_edi_pac}_sign', success)
+        if not EXTERNAL_MODE:
+            return self.with_mocked_pac_method(method_name, fake_success)
+
+        super_solfact_sign = self.env.registry['l10n_mx_edi.document']._solfact_sign
+
+        def solfact_sign(record, credentials, cfdi_str):
+            results = super_solfact_sign(record, credentials, cfdi_str)
+            if results.get('errors'):
+                raise Exception(pprint.pformat(results['errors']))
+            return results
+
+        return self.with_mocked_pac_method('_solfact_sign', solfact_sign)
 
     def with_mocked_pac_sign_error(self):
         def error(_record, *args, **kwargs):
@@ -321,16 +356,18 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
             'property_account_expense_id': cls.company_data['default_account_expense'].id,
             'unspsc_code_id': cls.env.ref('product_unspsc.unspsc_code_01010101').id,
             'taxes_id': [Command.set(cls.tax_16.ids)],
+            'company_id': cls.env.company.id,
             **kwargs,
         })
 
     def _create_invoice(self, **kwargs):
+        today = fields.Date.today()
         invoice = self.env['account.move'].create({
             'move_type': 'out_invoice',
             'partner_id': self.partner_mx.id,
-            'invoice_date': '2017-01-01',
-            'date': '2017-01-01',
-            'invoice_date_due': '2017-02-01', # PPD by default
+            'date': today,
+            'invoice_date': today,
+            'invoice_date_due': today + relativedelta(days=40),  # PPD by default
             'l10n_mx_edi_payment_method_id': self.payment_method_efectivo.id,
             'currency_id': self.comp_curr.id,
             'invoice_line_ids': [Command.create({'product_id': self.product.id})],
@@ -397,39 +434,12 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
         action_vals = journal.create_document_from_attachment(attachment.ids)
         return self.env['account.move'].browse(action_vals['res_id'])
 
-    def _export_move_vals(self, move):
-        move_vals = {
-            field: move[field].id if move._fields[field].type == 'many2one' else move[field]
-            for field in [
-                'currency_id',
-                'partner_id',
-                'amount_tax',
-                'amount_untaxed',
-                'amount_total',
-                'invoice_date',
-                'l10n_mx_edi_payment_method_id',
-                'l10n_mx_edi_payment_policy',
-                'l10n_mx_edi_usage',
-                'l10n_mx_edi_cfdi_uuid',
-            ]
-        }
-        move_line_vals = [{
-            'quantity': line.quantity,
-            'price_unit': line.price_unit,
-            'discount': line.discount,
-            'product_id': line.product_id.id,
-            'product_uom_id': line.product_uom_id.id,
-            'tax_ids': line.tax_ids.ids,
-        } for line in move.invoice_line_ids]
-        return move_vals, move_line_vals
-
 
 class TestMxEdiCommonExternal(TestMxEdiCommon):
 
     @classmethod
     def setUpClass(cls, chart_template_ref='mx'):
         super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.frozen_today = fields.datetime.now() - relativedelta(hours=8) # Mexico timezone
 
         try:
             with freeze_time(cls.frozen_today):

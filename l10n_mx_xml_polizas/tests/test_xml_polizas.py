@@ -443,7 +443,7 @@ class AccountXmlPolizasWizard(TestMxEdiCommon, TestAccountReportsCommon):
                         <PLZ:CompNal UUID_CFDI="AAAAAAAA-ABCD-ABCD-ABCD-AAAAAAAAAAAA" RFC="XEXX010101000" MontoTotal="-1820.00"/>
                       </PLZ:Transaccion>
                 </PLZ:Poliza>
-                <PLZ:Poliza Fecha="2017-01-02" Concepto="Exchange Difference" NumUnIdenPol="EXCH/2017/01/0001">
+                <PLZ:Poliza Fecha="2017-01-31" Concepto="Exchange Difference" NumUnIdenPol="EXCH/2017/01/0001">
                     <PLZ:Transaccion Concepto="Exchange Difference - Currency exchange rate difference" DesCta="___ignore___" NumCta="105.01.01" Haber="182.00" Debe="0.00">
                       </PLZ:Transaccion>
                     <PLZ:Transaccion Concepto="Exchange Difference - Currency exchange rate difference" DesCta="___ignore___" NumCta="701.01.01" Haber="0.00" Debe="182.00">

@@ -1,43 +1,23 @@
 # -*- coding: utf-8 -*-
 from odoo import Command
-from odoo.addons.l10n_mx_edi.tests.common import TestMxEdiCommon
+from odoo.addons.l10n_mx_edi_extended.tests.common import TestMxExtendedEdiCommon
 
 
-class TestMXEdiStockCommon(TestMxEdiCommon):
+class TestMXEdiStockCommon(TestMxExtendedEdiCommon):
 
     @classmethod
     def setUpClass(cls, chart_template_ref='mx'):
         super().setUpClass(chart_template_ref=chart_template_ref)
 
-        # Adjust Demo Data since the PAC's only sign documents with valid companies
-        cls.env['res.company']\
-            .search([('name', '=', 'ESCUELA KEMPER URGATE')])\
-            .name = 'The school formally known as KEMPER URGATE'
-
-        cls.company_data['company'].write({
-            'name': 'ESCUELA KEMPER URGATE',
-            'zip': '20928',
-            'state_id': cls.env.ref('base.state_mx_ags').id,
-            'l10n_mx_edi_pac': 'finkok',
-        })
-
         cls.customer_location = cls.env.ref('stock.stock_location_customers')
 
-        cls.product_c = cls.env['product.product'].create({
-            'name': "product_c",
+        cls.custom_regime_imd = cls.env.ref('l10n_mx_edi_stock_extended_30.l10n_mx_edi_customs_regime_imd')
+        cls.custom_regime_exd = cls.env.ref('l10n_mx_edi_stock_extended_30.l10n_mx_edi_customs_regime_exd')
+
+        cls.product.write({
             'type': 'product',
             'unspsc_code_id': cls.env.ref('product_unspsc.unspsc_code_56101500').id,
             'weight': 1,
-        })
-
-        cls.partner_mx = cls.env['res.partner'].create({
-            'name': 'INMOBILIARIA CVA',
-            'street': 'Street Calle',
-            'city': 'Hidalgo del Parral',
-            'country_id': cls.env.ref('base.mx').id,
-            'state_id': cls.env.ref('base.state_mx_chih').id,
-            'zip': '33826',
-            'vat': 'ICV060329BY0',
         })
 
         cls.operator_pedro = cls.env['res.partner'].create({
@@ -99,20 +79,20 @@ class TestMXEdiStockCommon(TestMxEdiCommon):
 
         move_vals = move_vals or {}
         self.env['stock.move'].create({
-            'name': self.product_c.name,
-            'product_id': self.product_c.id,
+            'name': self.product.name,
+            'product_id': self.product.id,
             'product_uom_qty': 10,
-            'product_uom': self.product_c.uom_id.id,
+            'product_uom': self.product.uom_id.id,
             'picking_id': picking.id,
             'location_id': warehouse.lot_stock_id.id,
             'location_dest_id': self.customer_location.id,
             'state': 'confirmed',
-            'description_picking': self.product_c.name,
+            'description_picking': self.product.name,
             'company_id': warehouse.company_id.id,
             **move_vals,
         })
 
-        self.env['stock.quant']._update_available_quantity(self.product_c, warehouse.lot_stock_id, 10.0)
+        self.env['stock.quant']._update_available_quantity(self.product, warehouse.lot_stock_id, 10.0)
         picking.action_confirm()
         picking.action_assign()
         picking.move_ids[0].move_line_ids[0].quantity = 10
@@ -121,6 +101,6 @@ class TestMXEdiStockCommon(TestMxEdiCommon):
         return picking
 
     def _assert_picking_cfdi(self, picking, filename):
-        document = picking.l10n_mx_edi_document_ids \
-            .filtered(lambda x: x.state == 'picking_sent')[:1]
+        document = picking.l10n_mx_edi_document_ids.filtered(lambda x: x.state == 'picking_sent')[:1]
+        self.assertTrue(document)
         self._assert_document_cfdi(document, filename)

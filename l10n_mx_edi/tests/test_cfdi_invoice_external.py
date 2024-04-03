@@ -8,14 +8,7 @@ class TestCFDIInvoiceExternal(TestMxEdiCommonExternal):
 
     def _test_invoice_cfdi(self, pac_name):
         self.env.company.l10n_mx_edi_pac = pac_name
-        today = self.frozen_today.date()
-
-        invoice = self._create_invoice(
-            date=today,
-            invoice_date=today,
-            invoice_date_due=today,
-            partner_id=self.partner_us.id,
-        )
+        invoice = self._create_invoice(partner_id=self.partner_us.id)
         invoice._l10n_mx_edi_cfdi_invoice_try_send()
         self.assertEqual(invoice.l10n_mx_edi_cfdi_state, 'sent', f'Error: {invoice.l10n_mx_edi_document_ids.message}')
 
