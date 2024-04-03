@@ -27,6 +27,66 @@ class TestEcEdiXmls(TestEcEdiCommon):
         }, invoice_line_args=invoice_line_args)
         self.assert_xml_tree_equal(out_invoice, L10N_EC_EDI_XML_OUT_INV, xpath=xpath)
 
+    def test_xml_tree_out_05_invoice_basic(self):
+        line_vals = self.get_invoice_line_vals(vat_tax_xmlid='tax_vat_05_510_sup_01')
+        self.test_xml_tree_out_invoice_basic(invoice_line_args=line_vals, xpath="""
+            <xpath expr="//totalConImpuestos/totalImpuesto" position="replace">
+                <totalImpuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>5</codigoPorcentaje>
+                    <baseImponible>400.000000</baseImponible>
+                    <tarifa>5.000000</tarifa>
+                    <valor>20.00</valor>
+                </totalImpuesto>
+            </xpath>
+            <xpath expr="//importeTotal" position="replace">
+                <importeTotal>420.00</importeTotal>
+            </xpath>
+            <xpath expr="//pago/total" position="replace">
+                <total>420.00</total>
+            </xpath>
+            <xpath expr="//detalle/impuestos/impuesto" position="replace">
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>5</codigoPorcentaje>
+                    <tarifa>5.000000</tarifa>
+                    <baseImponible>400.000000</baseImponible>
+                    <valor>20.00</valor>
+                </impuesto>
+            </xpath>
+        """)
+
+    def test_xml_tree_out_15_invoice_basic(self):
+        line_vals = self.get_invoice_line_vals(vat_tax_xmlid='tax_vat_15_510_sup_01')
+        self.test_xml_tree_out_invoice_basic(
+            invoice_line_args=line_vals,
+            xpath="""
+            <xpath expr="//totalConImpuestos/totalImpuesto" position="replace">
+                <totalImpuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>4</codigoPorcentaje>
+                    <baseImponible>400.000000</baseImponible>
+                    <tarifa>15.000000</tarifa>
+                    <valor>60.00</valor>
+                </totalImpuesto>
+            </xpath>
+            <xpath expr="//importeTotal" position="replace">
+                <importeTotal>460.00</importeTotal>
+            </xpath>
+            <xpath expr="//pago/total" position="replace">
+                <total>460.00</total>
+            </xpath>
+            <xpath expr="//detalle/impuestos/impuesto" position="replace">
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>4</codigoPorcentaje>
+                    <tarifa>15.000000</tarifa>
+                    <baseImponible>400.000000</baseImponible>
+                    <valor>60.00</valor>
+                </impuesto>
+            </xpath>
+        """)
+
     def test_xml_tree_out_invoice_tax_included(self):
         """Checks the XML of the basic invoice when a tax is modified to be included in price."""
         self._get_tax_by_xml_id('tax_vat_510_sup_01').price_include = True

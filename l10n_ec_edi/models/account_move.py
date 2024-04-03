@@ -11,25 +11,34 @@ from odoo.exceptions import ValidationError
 from odoo.addons.l10n_ec_edi.models.account_tax import L10N_EC_TAXSUPPORTS
 
 L10N_EC_VAT_RATES = {
+    5: 5.0,
     2: 12.0,
+    10: 13.0,
     3: 14.0,
+    4: 15.0,
     0: 0.0,
     6: 0.0,
     7: 0.0,
     8: 8.0,
 }
 L10N_EC_VAT_SUBTAXES = {
+    'vat05': 5,
     'vat08': 8,
     'vat12': 2,
+    'vat13': 10,
     'vat14': 3,
+    'vat15': 4,
     'zero_vat': 0,
     'not_charged_vat': 6,
     'exempt_vat': 7,
 }  # NOTE: non-IVA cases such as ICE and IRBPNR not supported
 L10N_EC_VAT_TAX_NOT_ZERO_GROUPS = (
+    'vat05',
     'vat08',
     'vat12',
+    'vat13',
     'vat14',
+    'vat15',
 )
 L10N_EC_VAT_TAX_ZERO_GROUPS = (
     'zero_vat',
@@ -825,7 +834,7 @@ class AccountMoveLine(models.Model):
 
         # suggest vat withhold
         tax_groups = self.tax_ids.mapped('tax_group_id.l10n_ec_type')
-        if 'vat08' in tax_groups or 'vat12' in tax_groups or 'vat14' in tax_groups:
+        if set(L10N_EC_VAT_TAX_NOT_ZERO_GROUPS) & set(tax_groups):
             if self.journal_id.l10n_ec_is_purchase_liquidation:
                 # law mandates to withhold 100% VAT on purchase liquidations
                 vat_withhold_tax = self.env['account.tax'].search([

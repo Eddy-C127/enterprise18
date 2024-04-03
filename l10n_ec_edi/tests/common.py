@@ -85,14 +85,14 @@ class TestEcEdiCommon(AccountEdiTestCommon):
         """
         return cls.env.ref(f'account.{cls.env.company.id}_{trailing_xml_id}')
 
-    def get_invoice_line_vals(self):
+    def get_invoice_line_vals(self, vat_tax_xmlid='tax_vat_510_sup_01'):
         """Default values for invoice line creation"""
         return [Command.create({
             'product_id': self.product_a.id,
             'price_unit': 100.0,
             'quantity': 5,
             'discount': 20,
-            'tax_ids': [Command.set(self._get_tax_by_xml_id('tax_vat_510_sup_01').ids)],
+            'tax_ids': [Command.set(self._get_tax_by_xml_id(vat_tax_xmlid).ids)],
         })]
 
     def get_invoice_vals(self, invoice_line_args):

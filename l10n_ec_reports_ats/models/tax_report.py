@@ -5,6 +5,7 @@ from odoo import models, fields, _, api
 from odoo.tools import float_repr, float_round, groupby
 from odoo.exceptions import RedirectWarning, ValidationError
 from odoo.addons.l10n_ec.models.res_partner import PartnerIdTypeEc
+from odoo.addons.l10n_ec_edi.models.account_move import L10N_EC_VAT_TAX_NOT_ZERO_GROUPS
 
 import unicodedata
 import re
@@ -113,7 +114,8 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
         def get_taxsupport(taxes):
             return (taxes & ec_vat_taxes).l10n_ec_code_taxsupport or '02'
 
-        ec_vat_taxes = self.env['account.tax'].search([
+        # Get all VAT taxes, including the ones that are archived like 12% since 29/02/2024
+        ec_vat_taxes = self.env['account.tax'].with_context(active_test=False).search([
             ('tax_group_id.l10n_ec_type', 'not in', (False, 'ice', 'irbpnr', 'other')),
             ('company_id', '=', self.env.company.id),
         ])
@@ -250,9 +252,9 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
                     'codSustento': taxsupport,
                     'baseNoGraIva': base_amounts[taxsupport]['not_charged_vat'],
                     'baseImponible': base_amounts[taxsupport]['zero_vat'],
-                    'baseImpGrav': base_amounts[taxsupport]['vat12'] + base_amounts[taxsupport]['vat14'],
+                    'baseImpGrav': sum(base_amounts[taxsupport].get(ec_type, 0.0) for ec_type in L10N_EC_VAT_TAX_NOT_ZERO_GROUPS),
                     'baseImpExe': base_amounts[taxsupport]['exempt_vat'],
-                    'montoIva': tax_amounts[taxsupport]['vat12'] + tax_amounts[taxsupport]['vat14'],
+                    'montoIva': sum(tax_amounts[taxsupport].get(ec_type, 0.0) for ec_type in L10N_EC_VAT_TAX_NOT_ZERO_GROUPS),
                 })
 
                 # 2.2. VAT withholdings
@@ -395,7 +397,8 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
         def get_ec_type(taxes):
             return (taxes & ec_vat_taxes).tax_group_id.l10n_ec_type or 'zero_vat'
 
-        ec_vat_taxes = self.env['account.tax'].search([
+        # Get all VAT taxes, including the ones that are archived like 12% since 29/02/2024
+        ec_vat_taxes = self.env['account.tax'].with_context(active_test=False).search([
             ('tax_group_id.l10n_ec_type', 'not in', (False, 'ice', 'irbpnr', 'other')),
             ('company_id', '=', self.env.company.id),
         ])
@@ -458,8 +461,8 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
                 'tipoEmision': emission_type,
                 'baseNoGraIva': base_amounts['exempt_vat'] + base_amounts['not_charged_vat'],
                 'baseImponible': base_amounts['zero_vat'],
-                'baseImpGrav': base_amounts['vat12'] + base_amounts['vat14'],
-                'montoIva': tax_amounts['vat12'] + tax_amounts['vat14'],
+                'baseImpGrav': sum(base_amounts.get(ec_type, 0.0) for ec_type in L10N_EC_VAT_TAX_NOT_ZERO_GROUPS),
+                'montoIva': sum(tax_amounts.get(ec_type, 0.0) for ec_type in L10N_EC_VAT_TAX_NOT_ZERO_GROUPS),
                 'amount_untaxed_signed': invoice.amount_untaxed_signed,
             }
             if invoice.l10n_ec_sri_payment_id.code:
