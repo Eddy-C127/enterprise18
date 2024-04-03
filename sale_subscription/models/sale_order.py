@@ -1395,22 +1395,23 @@ class SaleOrder(models.Model):
         If grouped, each recordset contains SO with the same grouping keys.
         """
         need_cron_trigger = False
+        limit = False
         if self:
             domain = [('id', 'in', self.ids), ('subscription_state', 'in', SUBSCRIPTION_PROGRESS_STATE)]
             batch_size = False
         else:
             domain = self._recurring_invoice_domain()
-            batch_size = batch_size and batch_size + 1
+            limit = batch_size and batch_size + 1
 
         if grouped:
             all_subscriptions = self.read_group(
                 domain,
                 ['id:array_agg'],
                 self._get_auto_invoice_grouping_keys(),
-                limit=batch_size, lazy=False)
+                limit=limit, lazy=False)
             all_subscriptions = [self.browse(res['id']) for res in all_subscriptions]
         else:
-            all_subscriptions = self.search(domain, limit=batch_size)
+            all_subscriptions = self.search(domain, limit=limit)
 
         if batch_size:
             need_cron_trigger = len(all_subscriptions) > batch_size
