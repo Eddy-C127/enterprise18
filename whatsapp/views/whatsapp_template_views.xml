@@ -72,9 +72,23 @@
                                 placeholder="e.g. Invitation for {{1}}"/>
                             <field name="header_attachment_ids"
                                 widget="many2many_binary"
-                                invisible="header_type not in ['image', 'video', 'document']"/>
+                                options="{'accepted_file_extensions': 'image/jpeg, image/png', 'number_of_files': 1}"
+                                invisible="header_type != 'image'"/>
+                            <field name="header_attachment_ids"
+                                widget="many2many_binary"
+                                options="{
+                                    'accepted_file_extensions': 'text/plain, application/pdf, application/vnd.ms-powerpoint, application/msword, application/vnd.ms-excel,
+                                    application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.presentationml.presentation,
+                                    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                    'number_of_files': 1
+                                }"
+                                invisible="header_type != 'document' or report_id != False"/>
+                            <field name="header_attachment_ids"
+                                widget="many2many_binary"
+                                options="{'accepted_file_extensions': 'video/mp4', 'number_of_files': 1}"
+                                invisible="header_type != 'video'"/>
                             <field name="report_id"
-                                invisible="header_type != 'document'"/>
+                                invisible="header_type != 'document' or header_attachment_ids != []"/>
                             <field name="footer_text"
                                 readonly="status != 'draft'"/>
                             <field name="quality" widget="priority"
@@ -138,6 +152,9 @@
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="model_id"/>
+                <field name="wa_account_id"
+                       groups="whatsapp.group_whatsapp_admin"
+                       optional="hidden"/>
                 <field name="template_name" optional="hidden"/>
                 <field name="header_type" optional="hidden"/>
                 <field name="create_uid" widget="many2one_avatar"/>
@@ -213,6 +230,7 @@
                     <group expand="0" string="Group By">
                         <filter string="Model" name="model_id" domain="[]" context="{'group_by': 'model_id'}"/>
                         <filter string="Status" name="status" domain="[]" context="{'group_by': 'status'}"/>
+                        <filter string="Account" name="groupby_wa_account_id" domain="[]" context="{'group_by': 'wa_account_id'}"/>
                     </group>
                 </search>
             </field>

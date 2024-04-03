@@ -25,26 +25,64 @@ class WhatsAppTemplateCommon(WhatsAppCommon, MockIncomingWhatsApp):
 class WhatsAppTemplate(WhatsAppTemplateCommon):
 
     @users('user_wa_admin')
-    def test_template_button_dynamic_url(self):
-        """ Test button with dynamic url """
+    def test_template_button(self):
+        """ Test various combination of buttons """
         template = self.env['whatsapp.template'].create({
-            'body': 'Dynamic url button template',
+            'body': 'Dynamic url button template {{1}}',
             'name': 'Test-dynamic',
             'status': 'approved',
             'wa_account_id': self.whatsapp_account.id,
+        })
+        for button_values_lst, exp_tmpl_vars in [
+            (
+                [{'button_type': 'url', 'name': 'Dynamic URL Button', 'url_type': 'dynamic', 'website_url': 'https://www.example.com'}],
+                [
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'Body - {{1}}'}),
+                    ('Dynamic URL Button', 'button', 'free_text', {'demo_value': 'https://www.example.com???', 'display_name': 'Button - Dynamic URL Button'}),
+                ],
+            ), (
+                [{'button_type': 'url', 'name': 'Static URL Button', 'url_type': 'static', 'website_url': 'https://www.example.com'}],
+                [
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'Body - {{1}}'}),
+                ],
+            ), (
+                [{'button_type': 'phone_number', 'call_number': '+91 12345 67891'}],
+                [
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'Body - {{1}}'}),
+                ],
+            ), (
+                [
+                    {'button_type': 'quick_reply'},
+                    {'button_type': 'url', 'name': 'Dynamic 1', 'url_type': 'dynamic', 'website_url': 'https://www.example.com/1'},
+                    {'button_type': 'url', 'name': 'Dynamic 2', 'url_type': 'dynamic', 'website_url': 'https://www.example.com/2'},
+                ],
+                [
+                    ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'Body - {{1}}'}),
+                    ('Dynamic 1', 'button', 'free_text', {'demo_value': 'https://www.example.com/1???', 'display_name': 'Button - Dynamic 1'}),
+                    ('Dynamic 2', 'button', 'free_text', {'demo_value': 'https://www.example.com/2???', 'display_name': 'Button - Dynamic 2'}),
+                ],
+            )
+        ]:
+            with self.subTest():
+                template.write({'button_ids': [(5, 0)] + [(0, 0, button_values) for button_values in button_values_lst]})
+                self.assertWATemplateVariables(template, exp_tmpl_vars)
+
+        # test update
+        template.write({
             'button_ids': [
-                Command.create({
-                    'button_type': 'url', 'name': 'Button url',
-                    'url_type': 'dynamic', 'website_url': 'https://www.example.com'
-                }),
+                (1, template.button_ids[0].id, {'button_type': 'url', 'name': 'Update', 'url_type': 'dynamic', 'website_url': 'https://www.example.com/new'}),
+                (1, template.button_ids[1].id, {'button_type': 'quick_reply'}),
+                (1, template.button_ids[2].id, {'name': 'Update 2', 'website_url': 'https://www.example.com/new2'}),
             ],
         })
-        self.assertWATemplateVariables(
-            template,
-            [
-                ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com???'}),
-            ]
-        )
+        template.invalidate_recordset(['variable_ids'])  # buttons do not trigger a compute
+        template.button_ids.flush_recordset()
+        template.flush_recordset()
+        self.assertWATemplateVariables(template, [
+            ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value', 'display_name': 'Body - {{1}}'}),
+            ('Update', 'button', 'free_text', {'demo_value': 'https://www.example.com/new???', 'display_name': 'Button - Update'}),
+            ('Update 2', 'button', 'free_text', {'demo_value': 'https://www.example.com/new2???', 'display_name': 'Button - Update 2'}),
+        ])
 
     @users('user_wa_admin')
     def test_template_button_validation(self):
@@ -94,7 +132,7 @@ Welcome to {{4}} office''',
             'body': '''Hello I am {{1}},
 Here my mobile number: {{2}},
 Welcome to {{3}} office''',
-            'name': 'Test-dynamic-complex',
+            'name': 'Test-dynamic-complex-with-variables',
             'status': 'approved',
             'wa_account_id': self.whatsapp_account.id,
             'variable_ids': [
@@ -168,7 +206,7 @@ Welcome to {{3}} office''',
             # image
             ['image/jpeg', 'image/png'],
             # video
-            ['video/mp4', 'video/3gp'],
+            ['video/mp4'],
         ]
         all_types = [mimetype for categ in categ_types for mimetype in categ]
         dummy_data = self.image_attachment.datas
@@ -331,10 +369,66 @@ Welcome to {{3}} office''',
         )
 
 
-@tagged('wa_template')
+@tagged('wa_template', 'wip')
 class WhatsAppTemplateForm(WhatsAppTemplateCommon):
     """ Form tool based unit tests, to check notably computed fields, live
     ACLs, ... """
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.test_partner_report = cls.env['ir.actions.report'].create({
+            "model": "res.partner",
+            "name": "Test Report",
+            "print_report_name": "'TestReport for %s' % object.name",
+            "report_type": "qweb-pdf",
+            "report_name": "whatsapp.res_partner_template_report",
+        })
+        cls.test_wa_base_report_view = cls.env['ir.ui.view'].create({
+            "arch_db": """<div><p t-foreach="docs" t-as="doc">External report for <t t-out="doc.name"/></p></div>""",
+            "key": "whatsapp.res_partner_template_report",
+            "name": "whatsapp.res_partner_template_report",
+            "type": "qweb",
+        })
+
+    @users('user_wa_admin')
+    def test_header_onchange(self):
+        """ Test reset / update of fields during onchange to keep header related
+        fields coherent and avoid useless validation errors """
+        template_form = Form(self.env['whatsapp.template'])
+        self.assertEqual(template_form.model, 'res.partner')
+
+        template_form.name = "Test Header Onchange"
+        template_form.body = "Test Body"
+        template_form.header_type = "document"
+
+        # check validation
+        template_form.header_attachment_ids.add(self.document_attachment_wa_admin)
+        template_form.header_attachment_ids.add(self.video_attachment_wa_admin)
+        with self.assertRaises(exceptions.ValidationError):
+            template_form.save()
+
+        template_form.header_attachment_ids.remove(id=self.video_attachment_wa_admin.id)
+        template = template_form.save()
+
+        # test onchange
+        with Form(template) as template_form:
+            template_form.header_type = "text"
+            template_form.header_text = "Header Text {{1}}"
+            template = template_form.save()
+        self.assertFalse(template.header_attachment_ids, 'Text header: should reset attachments')
+
+        # test reverse onchange
+        with Form(template) as template_form:
+            template_form.header_type = "document"
+
+            # attachment or report is mandatory
+            with self.assertRaises(exceptions.ValidationError):
+                template = template_form.save()
+
+            template_form.report_id = self.test_partner_report
+            template = template_form.save()
+        self.assertFalse(template.header_text, 'Document header: should reset text header')
 
     @users('user_wa_admin')
     def test_model_update(self):
@@ -344,14 +438,194 @@ class WhatsAppTemplateForm(WhatsAppTemplateCommon):
         self.assertEqual(template_form.model, 'res.partner')
         self.assertEqual(template_form.model_id, self.env['ir.model']._get('res.partner'))
 
+        # add mandatory body then model-dependent content to check the reset
         template_form.body = 'Test Body'
+        template_form.header_type = "document"
+        template_form.report_id = self.test_partner_report
+
         template_form.model_id = self.env['ir.model']._get('res.users')
         template_form.name = 'Test Model Update'
         self.assertEqual(template_form.model, 'res.users')
+        self.assertFalse(template_form.report_id, "Changing model should reset report")
+        template_form.header_type = "none"
         template = template_form.save()
 
         self.assertEqual(template.model, 'res.users')
         self.assertEqual(template.model_id, self.env['ir.model']._get('res.users'))
+        self.assertFalse(template.report_id)
+
+    @users("user_wa_admin")
+    def test_variables_new_mode(self):
+        """ Test "_compute_variable_ids" as it has a lot to do, especially in
+        new mode. """
+        template_form = Form(self.env["whatsapp.template"])
+        template_form.name = "Test Variables"
+
+        # header_type location: should add 4 location variables
+        template_form.header_type = "location"
+        exp_variables = [
+            ("name", "location"),
+            ("address", "location"),
+            ("latitude", "location"),
+            ("longitude", "location"),
+        ]
+        self.assertEqual(
+            len(template_form.variable_ids), len(exp_variables),
+            'Should have 4 location variables')
+        for (name, line_type) in exp_variables:
+            match = next(
+                rec for rec in template_form.variable_ids._records
+                if rec["name"] == name
+            )
+            self.assertEqual(match["line_type"], line_type)
+            self.assertEqual(match["model"], template_form.model)
+
+        # update body, should add matching variables
+        template_form.body = "Hello {{1}} this is {{2}}"
+        exp_variables += [
+            ("{{1}}", "body"),
+            ("{{2}}", "body"),
+        ]
+        self.assertEqual(
+            len(template_form.variable_ids), len(exp_variables),
+            'Should have 4 location variables and 2 body variables')
+        for (name, line_type) in exp_variables:
+            match = next(
+                rec for rec in template_form.variable_ids._records
+                if rec["name"] == name
+            )
+            self.assertEqual(match["line_type"], line_type)
+            self.assertEqual(match["model"], template_form.model)
+
+        # change header type: shoud remove location variables
+        template_form.header_type = "text"
+        template_form.header_text = "Header {{1}}"
+        exp_variables = [
+            ("{{1}}", "body"),
+            ("{{2}}", "body"),
+            ("{{1}}", "header"),
+        ]
+        self.assertEqual(
+            len(template_form.variable_ids), len(exp_variables),
+            'Should have 1 header text variable and 2 body variables')
+        for (name, line_type) in exp_variables:
+            match = next(
+                rec for rec in template_form.variable_ids._records
+                if rec["name"] == name and rec["line_type"] == line_type
+            )
+            self.assertEqual(match["model"], template_form.model)
+
+        # save, check final content
+        template = template_form.save()
+        self.assertWATemplate(
+            template,
+            status="draft",
+            template_variables=[
+                ('{{1}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+                ('{{2}}', 'body', 'free_text', {'demo_value': 'Sample Value'}),
+                ('{{1}}', 'header', 'free_text', {'demo_value': 'Sample Value'}),
+            ],
+        )
+
+
+@tagged('wa_template')
+class WhatsAppTemplateInternals(WhatsAppTemplateCommon):
+    """ Internals: copy, computed fields behavior, ... """
+
+    @users('user_wa_admin')
+    def test_copy_attachments(self):
+        """ Test that copying a template also copy either the report either
+        attachments when used in headers, to avoid validation errors. """
+        template = self.env['whatsapp.template'].create({
+            "header_attachment_ids": [(4, self.document_attachment_wa_admin.id)],
+            "header_type": "document",
+            "name": "Test Copy Document Header",
+        })
+        clone = template.copy()
+        self.assertEqual(template.header_attachment_ids.res_model, template._name)
+        self.assertEqual(template.header_attachment_ids.res_id, template.id)
+        self.assertEqual(clone.header_attachment_ids.res_id, clone.id)
+        self.assertEqual(clone.header_attachment_ids.res_model, clone._name)
+        self.assertNotEqual(template.header_attachment_ids, clone.header_attachment_ids)
+
+    @users('user_wa_admin')
+    def test_copy_variables(self):
+        """ Test that copying the template is copying the variables but also the
+        buttons with their respective variables. """
+        for button_type in ['static', 'dynamic']:
+            with self.subTest(button_type=button_type):
+                template = self.env['whatsapp.template'].create({
+                    "body": "Hello I am {{1}}, Come visit our website: {{2}}",
+                    "button_ids": [
+                        (0, 0, {
+                            "button_type": "url",
+                            "name": "Button url",
+                            "url_type": button_type,
+                            "website_url": "https://www.example.com",
+                        }),
+                        (0, 0, {
+                            "button_type": "url",
+                            "name": "Button url 2",
+                            "url_type": button_type,
+                            "website_url": "https://www.example.com/2",
+                        })
+                    ],
+                    "name": f"Test copy template {button_type}",
+                    "status": "approved",
+                    "variable_ids": [
+                        (0, 0, {
+                            "demo_value": "Nishant",
+                            "line_type": "body",
+                            "field_type": "user_name",
+                            "name": "{{1}}",
+                        }), (0, 0, {
+                            "demo_value": "https://www.portal_example.com",
+                            "field_type": "portal_url",
+                            "line_type": "body",
+                            "name": "{{2}}",
+                        }),
+                    ],
+                    "wa_account_id": self.whatsapp_account.id,
+                })
+                expected_variables = [
+                    [
+                        "{{1}}", "body", "user_name",
+                        {"demo_value": "Nishant", "button_id": self.env["whatsapp.template.button"]},
+                    ],
+                    [
+                        "{{2}}", "body", "portal_url",
+                        {"demo_value": "https://www.portal_example.com", "button_id": self.env["whatsapp.template.button"]},
+                    ],
+                ]
+                if button_type == 'dynamic':
+                    expected_variables += [
+                        [
+                            "Button url", "button", "free_text",
+                            {"demo_value": "https://www.example.com???", "button_id": template.button_ids[0]},
+                        ],
+                        [
+                            "Button url 2", "button", "free_text",
+                            {"demo_value": "https://www.example.com/2???", "button_id": template.button_ids[1]},
+                        ],
+                    ]
+                self.assertWATemplateVariables(template, expected_variables)
+                if button_type == 'dynamic':
+                    self.assertTrue(template.button_ids.variable_ids < template.variable_ids)
+                else:
+                    self.assertFalse(template.button_ids.variable_ids)
+                self.assertEqual(template.template_name, f'test_copy_template_{button_type}')
+
+                clone = template.copy()
+                self.assertEqual(len(clone.button_ids), 2, 'Should copy buttons')
+                if button_type == 'dynamic':
+                    expected_variables[2][3]["button_id"] = clone.button_ids[0]
+                    expected_variables[3][3]["button_id"] = clone.button_ids[1]
+                self.assertWATemplateVariables(clone, expected_variables)
+                if button_type == 'dynamic':
+                    self.assertTrue(clone.button_ids.variable_ids < clone.variable_ids)
+                else:
+                    self.assertFalse(template.button_ids.variable_ids)
+                self.assertEqual(clone.template_name, f'test_copy_template_{button_type}_copy')
 
 
 @tagged('wa_template')
@@ -393,7 +667,7 @@ class WhatsAppTemplatePreview(WhatsAppTemplateCommon):
 class WhatsAppTemplateSync(WhatsAppTemplateCommon):
 
     @users('user_wa_admin')
-    def test_synchornize_archived(self):
+    def test_synchronize_archived(self):
         """ If template is archived then it should sync the archived template
         instead of creating new one. """
         self.basic_template.write({
@@ -438,6 +712,23 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 'body': 'Hello, how are you? Thank you for reaching out to us.',
                 'wa_template_uid': '972203162638803'
             }
+        )
+
+        # Check template with image header
+        self.assertTrue(templates["test_image_header"])
+        self.assertWATemplate(
+            templates["test_image_header"],
+            status='approved',
+            attachment_values={
+                'raw': b'R0lGODlhAQABAIAAANvf7wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==',
+                'name': 'test_image_header.jpg',
+                'mimetype': 'image/jpeg',
+            },
+            fields_values={
+                'template_type': 'utility',
+                'header_type': 'image',
+                'wa_template_uid': '948089559314656'
+            },
         )
 
         # Check template with dynamic header and dynamic body
@@ -497,7 +788,7 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
                 ('{{1}}', 'body', 'free_text', {'demo_value': 'Jigar'}),
                 ('{{2}}', 'body', 'free_text', {'demo_value': '+91 12345 12345'}),
-                ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
+                ('Visit Website', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
             ]
         )
 
@@ -551,7 +842,7 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
                 ('{{1}}', 'body', 'free_text', {'demo_value': 'Jigar'}),
                 ('{{2}}', 'body', 'free_text', {'demo_value': '+91 12345 12345'}),
-                ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
+                ('Visit Website', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
             ]
         )
 
@@ -575,12 +866,10 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
         templates = self.env['whatsapp.template'].search([('wa_account_id', '=', self.whatsapp_account.id)])
         templates = templates.grouped('template_name')
         # Now modify existing template and sync template one by one
-        templates["test_simple_text"].write(
-            {
-                'body': 'Hello, how are you? Thank you for reaching out to us. Modified',
-                'template_type': 'utility'
-            }
-        )
+        templates["test_simple_text"].write({
+            'body': 'Hello, how are you? Thank you for reaching out to us. Modified',
+            'template_type': 'utility',
+        })
         with self.mockWhatsappGateway():
             templates["test_simple_text"].button_sync_template()
         self.assertWATemplate(
@@ -591,6 +880,28 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 'body': 'Hello, how are you? Thank you for reaching out to us.',
                 'wa_template_uid': '972203162638803',
 
+            }
+        )
+
+        templates["test_image_header"].write({
+            'header_attachment_ids': [(5, 0, 0)],
+            'header_type': 'none',
+        })
+        self.assertFalse(templates["test_image_header"].header_attachment_ids)
+        with self.mockWhatsappGateway():
+            templates["test_image_header"].button_sync_template()
+        self.assertWATemplate(
+            templates["test_image_header"],
+            status='approved',
+            attachment_values={
+                'raw': b'R0lGODlhAQABAIAAANvf7wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==',
+                'name': 'test_image_header.jpg',
+                'mimetype': 'image/jpeg',
+            },
+            fields_values={
+                'template_type': 'utility',
+                'header_type': 'image',
+                'wa_template_uid': '948089559314656',
             }
         )
 
@@ -619,7 +930,7 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
                 ('{{1}}', 'body', 'free_text', {'demo_value': 'Jigar'}),
                 ('{{2}}', 'body', 'free_text', {'demo_value': '+91 12345 12345'}),
-                ('{{1}}', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
+                ('Visit Website', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
             ]
         )
 

@@ -24,6 +24,8 @@ class WhatsAppMessage(models.Model):
     _order = 'id desc'
     _rec_name = 'mobile_number'
 
+    # Refer to https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media/#supported-media-types
+    # for more details about supported media types
     _SUPPORTED_ATTACHMENT_TYPE = {
         'audio': ('audio/aac', 'audio/mp4', 'audio/mpeg', 'audio/amr', 'audio/ogg'),
         'document': (
@@ -33,7 +35,7 @@ class WhatsAppMessage(models.Model):
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         ),
         'image': ('image/jpeg', 'image/png'),
-        'video': ('video/mp4', 'video/3gp'),
+        'video': ('video/mp4',),
     }
     # amount of days during which a message is considered active
     # used for GC and for finding an active document channel using a recent whatsapp template message
@@ -59,7 +61,7 @@ class WhatsAppMessage(models.Model):
         ('blacklisted', 'Phone is blacklisted'),
         ('network', 'Invalid query or unreachable endpoint'),
         ('phone_invalid', 'Phone number in the wrong format'),
-        ('template', 'Template cannot be used'),
+        ('template', 'Template quality rating too low'),
         ('unknown', 'Unidentified error'),
         ('whatsapp_recoverable', 'Fixable Whatsapp error'),
         ('whatsapp_unrecoverable', 'Unfixable Whatsapp error')
@@ -240,7 +242,10 @@ class WhatsAppMessage(models.Model):
 
         for whatsapp_message in self:
             wa_api = message_to_api[whatsapp_message]
-            whatsapp_message = whatsapp_message.with_user(whatsapp_message.create_uid)
+            # try to make changes with current user (notably due to ACLs), but limit
+            # to internal users to avoid crash - rewrite me in master please
+            if whatsapp_message.create_uid._is_internal():
+                whatsapp_message = whatsapp_message.with_user(whatsapp_message.create_uid)
             if whatsapp_message.state != 'outgoing':
                 _logger.info("Message state in %s state so it will not sent.", whatsapp_message.state)
                 continue
@@ -256,9 +261,11 @@ class WhatsAppMessage(models.Model):
                     raise WhatsAppError(failure_type='phone_invalid')
                 if self.env['phone.blacklist'].sudo().search([('number', 'ilike', number), ('active', '=', True)]):
                     raise WhatsAppError(failure_type='blacklisted')
+
+                # based on template
                 if whatsapp_message.wa_template_id:
                     message_type = 'template'
-                    if whatsapp_message.wa_template_id.status != 'approved' or whatsapp_message.wa_template_id.quality in ('red', 'yellow'):
+                    if whatsapp_message.wa_template_id.status != 'approved' or whatsapp_message.wa_template_id.quality == 'red':
                         raise WhatsAppError(failure_type='template')
                     whatsapp_message.message_type = 'outbound'
                     if whatsapp_message.mail_message_id.model != whatsapp_message.wa_template_id.model:
@@ -266,15 +273,21 @@ class WhatsAppMessage(models.Model):
 
                     RecordModel = self.env[whatsapp_message.mail_message_id.model].with_user(whatsapp_message.create_uid)
                     from_record = RecordModel.browse(whatsapp_message.mail_message_id.res_id)
+
+                    # if retrying message then we need to unlink previous attachment
+                    # in case of header with report in order to generate it again
+                    if whatsapp_message.wa_template_id.report_id and whatsapp_message.wa_template_id.header_type == 'document' and whatsapp_message.mail_message_id.attachment_ids:
+                        whatsapp_message.mail_message_id.attachment_ids.unlink()
+
+                    # generate sending values, components and attachments
                     send_vals, attachment = whatsapp_message.wa_template_id._get_send_template_vals(
-                        record=from_record, free_text_json=whatsapp_message.free_text_json,
-                        attachment=whatsapp_message.mail_message_id.attachment_ids)
-                    if attachment:
-                        # If retrying message then we need to remove previous attachment and add new attachment.
-                        if whatsapp_message.mail_message_id.attachment_ids and whatsapp_message.wa_template_id.header_type == 'document' and whatsapp_message.wa_template_id.report_id:
-                            whatsapp_message.mail_message_id.attachment_ids.unlink()
-                        if attachment not in whatsapp_message.mail_message_id.attachment_ids:
-                            whatsapp_message.mail_message_id.attachment_ids = [Command.link(attachment.id)]
+                        record=from_record,
+                        free_text_json=whatsapp_message.free_text_json,
+                        attachment=whatsapp_message.mail_message_id.attachment_ids,
+                    )
+                    if attachment and attachment not in whatsapp_message.mail_message_id.attachment_ids:
+                        whatsapp_message.mail_message_id.attachment_ids = [(4, attachment.id)]
+                # no template
                 elif whatsapp_message.mail_message_id.attachment_ids:
                     attachment_vals = whatsapp_message._prepare_attachment_vals(whatsapp_message.mail_message_id.attachment_ids[0], wa_account_id=whatsapp_message.wa_account_id)
                     message_type = attachment_vals.get('type')

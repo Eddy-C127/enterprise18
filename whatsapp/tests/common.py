@@ -75,6 +75,11 @@ class MockOutgoingWhatsApp(common.BaseCase):
                 }
             raise WhatsAppError("Please ensure you are using the correct file type and try again.")
 
+        def _get_header_data_from_handle(url):
+            if url == 'demo_image_url':
+                return b'R0lGODlhAQABAIAAANvf7wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==', 'image/jpeg'
+            raise WhatsAppError("Please ensure you are using the correct file type and try again.")
+
         # ------------------------------------------------------------
         # Whatsapp Models
         # ------------------------------------------------------------
@@ -97,6 +102,7 @@ class MockOutgoingWhatsApp(common.BaseCase):
                  patch.object(WhatsAppApi, '_upload_whatsapp_document', side_effect=_upload_whatsapp_document), \
                  patch.object(WhatsAppApi, '_send_whatsapp', side_effect=_send_whatsapp), \
                  patch.object(WhatsAppApi, '_submit_template_new', side_effect=_submit_template_new), \
+                 patch.object(WhatsAppApi, '_get_header_data_from_handle', side_effect=_get_header_data_from_handle), \
                  patch.object(WhatsAppMessage, 'create', autospec=True, wraps=WhatsAppMessage, side_effect=_wa_message_create):
                 yield
         finally:
@@ -121,6 +127,41 @@ class MockIncomingWhatsApp(common.HttpCase):
             msg=message_data.encode(),
             digestmod=hashlib.sha256,
         ).hexdigest()
+
+    def _receive_message_update(self, account, display_phone_number, extra_value=None):
+        """ Simulate reception of a message update from WhatsApp API.
+
+        param account: whatsapp.account
+        param display_phone_number: phone number from which message was created
+          (e.g. "+91 12345 67891")
+        param extra_value: extra data added in "value" of "changes", to send in the request
+          (e.g. "statuses": [{"status": "failed"}, ...])
+        """
+        data = json.dumps({
+            "entry": [{
+                "id": account.account_uid,
+                "changes": [{
+                    "field": "messages",
+                    "value": dict(
+                        {
+                            "messaging_product": "whatsapp",
+                            "metadata": {
+                                "display_phone_number": display_phone_number,
+                                "phone_number_id": account.phone_uid,
+                            },
+                        }, **(extra_value or {}))
+                }]
+            }]
+        })
+
+        return self._make_webhook_request(
+            account,
+            message_data=data,
+            headers={
+                "Content-Type": "application/json",
+                "X-Hub-Signature-256": f"sha256={self._get_message_signature(account, data)}",
+            }
+        )
 
     def _receive_template_update(self, field, account, data):
         """ Simulate reception of a template update from WhatsApp API.
@@ -458,7 +499,7 @@ class WhatsAppCase(MockOutgoingWhatsApp):
 
     def assertWATemplate(self, template, status='pending',
                          fields_values=None, attachment_values=None,
-                         template_variables=None):
+                         template_variables=None, template_variables_strict=True):
         """ Assert content of WhatsApp template.
 
         :param <whatsapp.template> template: whatsapp template whose content
@@ -469,6 +510,7 @@ class WhatsAppCase(MockOutgoingWhatsApp):
         :param dict attachment_values: if given, should be a dictionary of field
           names / values allowing to check attachment values (e.g. mimetype);
         :param list template_variables: see 'assertWATemplateVariables';
+        :param boolean template_variables_strict: see 'assertWATemplateVariables';
         """
         # check base template data
         self.assertEqual(template.status, status,
@@ -484,7 +526,7 @@ class WhatsAppCase(MockOutgoingWhatsApp):
 
         if attachment_values:
             # check attachment values
-            attachment = template.attachment_ids
+            attachment = template.header_attachment_ids
             # only support one attachment for whatsapp templates
             self.assertEqual(len(attachment), 1, 'whatsapp.template: should have only one attachment')
 
@@ -496,20 +538,40 @@ class WhatsAppCase(MockOutgoingWhatsApp):
                         f'whatsapp.template invalid attachment: expected {fvalue} for {fname}, got {attachment_value}'
                     )
         if template_variables:
-            self.assertWATemplateVariables(template, template_variables)
+            self.assertWATemplateVariables(template, template_variables, strict=template_variables_strict)
 
-    def assertWATemplateVariables(self, template, expected_variables):
-        """ Assert content of 'variable_ids' field of a template """
+    def assertWATemplateVariables(self, template, expected_variables, strict=True):
+        """ Assert content of 'variable_ids' field of a template
+
+        :param list expected_variables: values of variables expected in template;
+        :param bool strict: in addition to content ensure there are no other
+          variables;
+        """
         for (exp_name, exp_line_type, exp_field_type, exp_vals) in expected_variables:
             with self.subTest(exp_name=exp_name):
+                exp_demo_value = exp_vals.get('demo_value')
                 tpl_variable = template.variable_ids.filtered(
-                    lambda v: v.name == exp_name and v.line_type == exp_line_type
+                    lambda v: (
+                        v.name == exp_name and v.line_type == exp_line_type and
+                        (not exp_demo_value or v.demo_value == exp_demo_value)
+                    )
                 )
-                self.assertTrue(tpl_variable)
+                if not tpl_variable or len(tpl_variable) > 1:
+                    notfound_msg = f'Not found variable for {exp_name} / {exp_line_type}'
+                    if exp_demo_value:
+                        notfound_msg += f' (demo value {exp_demo_value})'
+                    existing = '\n'.join(
+                        f'{var.name} / {var.line_type} (demo: {var.demo_value})'
+                        for var in template.variable_ids
+                    )
+                    notfound_msg += f'\n{existing}'
+                    self.assertTrue(tpl_variable and len(tpl_variable) == 1, notfound_msg)
                 self.assertEqual(tpl_variable.field_type, exp_field_type)
                 self.assertEqual(tpl_variable.line_type, exp_line_type)
                 for fname, fvalue in (exp_vals or {}).items():
                     self.assertEqual(tpl_variable[fname], fvalue)
+        if strict:
+            self.assertEqual(len(template.variable_ids), len(expected_variables))
 
 
 class WhatsAppCommon(MailCommon, WhatsAppCase):
@@ -588,9 +650,37 @@ class WhatsAppCommon(MailCommon, WhatsAppCase):
                       "YQAAAFptZXRhAAAAAAAAACFoZGxyAAAAAAAAAABtZGlyYXBwbAAAAAAAAAAAAAAAAC1pbHN0AAAA"
                       "Jal0b28AAAAdZGF0YQAAAAEAAAAATGF2ZjU3LjQxLjEwMA==")
         documents = cls.env['ir.attachment'].with_user(cls.user_employee).create([
-            {'name': 'Document.pdf', 'datas': pdf_data, 'mimetype': 'application/pdf'},
-            {'name': 'Image.jpg', 'datas': image_data, 'mimetype': 'image/jpeg'},
-            {'name': 'Video.mpg', 'datas': video_data, 'mimetype': 'video/mp4'},
+            {'name': 'Document.pdf', 'datas': pdf_data},
+            {'name': 'Image.jpg', 'datas': image_data},
+            {'name': 'Video.mp4', 'datas': video_data},
             {'name': 'Payload.wasm', 'datas': "AGFzbQEAAAA=", 'mimetype': 'application/octet-stream'},
         ])
         cls.document_attachment, cls.image_attachment, cls.video_attachment, cls.invalid_attachment = documents
+        documents_wa_admin = cls.env['ir.attachment'].with_user(cls.user_wa_admin).create([
+            {'name': 'Document.pdf', 'datas': pdf_data},
+            {'name': 'Image.jpg', 'datas': image_data},
+            {'name': 'Video.mpg', 'datas': video_data},
+            {'name': 'Payload.wasm', 'datas': "AGFzbQEAAAA=", 'mimetype': 'application/octet-stream'},
+        ])
+        cls.document_attachment_wa_admin, cls.image_attachment_wa_admin, cls.video_attachment_wa_admin, cls.invalid_attachment_wa_admin = documents_wa_admin
+
+    @classmethod
+    def _setup_share_users(cls):
+        cls.test_portal_user = mail_new_test_user(
+            cls.env,
+            login='test_portal_user',
+            mobile='+32 494 12 34 56',
+            phone='+32 494 12 34 89',
+            name='Portal User',
+            email='portal@test.example.com',
+            groups='base.group_portal',
+        )
+        cls.test_public_user = mail_new_test_user(
+            cls.env,
+            login='test_public_user',
+            mobile='+32 494 65 43 21',
+            phone='+32 494 98 43 21',
+            name='Public User',
+            email='public@test.example.com',
+            groups='base.group_public',
+        )

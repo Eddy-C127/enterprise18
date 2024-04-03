@@ -1,10 +1,10 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from functools import reduce
 from werkzeug.urls import url_join
 
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError, ValidationError
+
 
 class WhatsAppTemplateVariable(models.Model):
     _name = 'whatsapp.template.variable'
@@ -38,21 +38,28 @@ class WhatsAppTemplateVariable(models.Model):
         ),
     ]
 
-    @api.constrains('field_type', 'demo_value')
+    @api.constrains("field_type", "demo_value", "button_id")
     def _check_demo_values(self):
         if self.filtered(lambda var: var.field_type == 'free_text' and not var.demo_value):
             raise ValidationError(_('Free Text template variables must have a demo value.'))
-        if self.filtered(lambda var: var.field_type == 'field' and not var.field_name):
-            raise ValidationError(_("Field template variables must be associated with a field."))
         for var in self.filtered('button_id'):
             if not var.demo_value.startswith(var.button_id.website_url):
                 raise ValidationError(_('Demo value of a dynamic url must start with the non-dynamic part'
                                         'of the url such as "https://www.example.com/menu?id=20"'))
 
-    @api.constrains('field_name')
+    @api.constrains("field_type", "field_name")
     def _check_field_name(self):
         is_system = self.user_has_groups('base.group_system')
-        for variable in self.filtered('field_name'):
+        failing = self.browse()
+        to_check = self.filtered(lambda v: v.field_type == "field")
+        missing = to_check.filtered(lambda v: not v.field_name)
+        if missing:
+            raise ValidationError(
+                _("Field template variables %(var_names)s must be associated with a field.",
+                  var_names=", ".join(missing.mapped("name")),
+                )
+            )
+        for variable in to_check:
             model = self.env[variable.model]
             if not is_system:
                 if not model.check_access_rights('read', raise_exception=False):
@@ -68,10 +75,16 @@ class WhatsAppTemplateVariable(models.Model):
                     )
             try:
                 model._find_value_from_field_path(variable.field_name)
-            except UserError as err:
-                raise ValidationError(
-                    _("'%(field)s' does not seem to be a valid field path", field=variable.field_name)
-                ) from err
+            except UserError:
+                failing += variable
+        if failing:
+            model_description = self.env['ir.model']._get(failing.mapped('model')[0]).display_name
+            raise ValidationError(
+                _("Variables %(field_names)s do not seem to be valid field path for model %(model_name)s.",
+                  field_names=", ".join(failing.mapped("field_name")),
+                  model_name=model_description,
+                )
+            )
 
     @api.constrains('name')
     def _check_name(self):
@@ -80,9 +93,11 @@ class WhatsAppTemplateVariable(models.Model):
                 raise ValidationError(
                     _("Location variable should be 'name', 'address', 'latitude' or 'longitude'. Cannot parse '%(placeholder)s'",
                       placeholder=variable.name))
-            if variable.line_type != 'location' and not variable._extract_variable_index():
+            elif variable.line_type == 'button' and variable.name != variable.button_id.name:
+                raise ValidationError(_("Dynamic button variable name must be the same as its respective button's name"))
+            elif variable.line_type in ('header', 'body') and not variable._extract_variable_index():
                 raise ValidationError(
-                    _('"Template variable should be in format {{number}}. Cannot parse "%(placeholder)s"',
+                    _('Template variable should be in format {{number}}. Cannot parse "%(placeholder)s"',
                       placeholder=variable.name))
 
     @api.constrains('button_id', 'line_type')
@@ -93,13 +108,10 @@ class WhatsAppTemplateVariable(models.Model):
 
     @api.depends('line_type', 'name')
     def _compute_display_name(self):
+        type_names = dict(self._fields["line_type"]._description_selection(self.env))
         for variable in self:
-            if variable.line_type in ('body', 'location'):
-                variable.display_name = f'{variable.line_type} - {variable.name}'
-            elif variable.line_type == 'button':
-                variable.display_name = f'{variable.line_type} "{variable.button_id.name}" - {variable.name}'
-            else:
-                variable.display_name = variable.line_type
+            type_name = type_names[variable.line_type or 'body']
+            variable.display_name = type_name if variable.line_type == 'header' else f'{type_name} - {variable.name}'
 
     @api.onchange('model')
     def _onchange_model_id(self):

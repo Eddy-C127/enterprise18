@@ -41,4 +41,25 @@ class WhatsAppFullCase(WhatsAppCommon):
             'wa_account_id': cls.whatsapp_account.id,
         })
 
+        # test report records
+        cls.test_wa_base_report = cls.env['ir.actions.report'].create({
+            "model": "whatsapp.test.base",
+            "name": "Test Report",
+            "print_report_name": "'TestReport for %s' % object.name",
+            "report_type": "qweb-pdf",
+            "report_name": "test_whatsapp.whatsapp_base_template_report",
+        })
+        cls.test_wa_base_report_view = cls.env['ir.ui.view'].create({
+            "arch_db": """<div><p t-foreach="docs" t-as="doc">External report for <t t-out="doc.name"/></p></div>""",
+            "key": "test_whatsapp.whatsapp_base_template_report",
+            "name": "test_whatsapp.whatsapp_base_template_report",
+            "type": "qweb",
+        })
+        cls.env["ir.model.data"].create({
+            "model": "ir.ui.view",
+            "module": "test_whatsapp",
+            "name": "whatsapp_base_template_report",
+            "res_id": cls.test_wa_base_report_view.id,
+        })
+
         cls.env.flush_all()

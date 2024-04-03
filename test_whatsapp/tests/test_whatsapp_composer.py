@@ -2,7 +2,9 @@
 
 from datetime import datetime
 
-from odoo.addons.whatsapp.tests.common import WhatsAppCommon
+from odoo.addons.base.tests.test_ir_cron import CronMixinCase
+from odoo.addons.test_whatsapp.tests.common import WhatsAppFullCase
+from odoo.addons.whatsapp.tests.common import MockIncomingWhatsApp, WhatsAppCommon
 from odoo.tests import tagged, users
 
 
@@ -65,7 +67,7 @@ Welcome to {{4}} office''',
 
 
 @tagged('wa_composer')
-class WhatsAppComposerRendering(WhatsAppComposerCase):
+class WhatsAppComposerRendering(WhatsAppComposerCase, WhatsAppFullCase, CronMixinCase, MockIncomingWhatsApp):
     """ Test rendering based on various templates, notably using static or
     dynamic content, headers, ... """
 
@@ -108,7 +110,7 @@ class WhatsAppComposerRendering(WhatsAppComposerCase):
 
     @users('employee')
     def test_composer_tpl_base_rendering_datetime(self):
-
+        """ Specific case involving datetimes """
         #template setup
         self.template_basic.write({
             'body' : 'Hello, your dates are here {{1}}',
@@ -186,6 +188,67 @@ class WhatsAppComposerRendering(WhatsAppComposerCase):
         )
 
     @users('employee')
+    def test_composer_tpl_header_report_resend(self):
+        """ In case of resend and reports, it has to be generated again, so
+        it deserves its own test. """
+        # template setup with report
+        self.template_basic.write({
+            'header_type': 'document',
+            'report_id': self.test_wa_base_report.id,
+        })
+        test_template = self.template_basic.with_user(self.env.user)
+        test_record = self.test_base_records[0].with_env(self.env)
+
+        composer = self._instanciate_wa_composer_from_records(test_template, test_record)
+        with self.mockWhatsappGateway():
+            composer.action_send_whatsapp_template()
+        self.assertWAMessageFromRecord(
+            test_record,
+            attachment_values={
+                'name': f'TestReport for {test_record.name}.html',
+            },
+            fields_values={
+                'body': '<p>Hello World</p>',
+            },
+        )
+        message = self._new_wa_msg
+        old_attachment_ids = message.mail_message_id.attachment_ids
+
+        # fail the message using the webhook
+        self._receive_message_update(
+            account=self.whatsapp_account,
+            display_phone_number=self.test_base_records[0].phone,
+            extra_value={
+                "statuses": [{
+                    "id": message.msg_uid,
+                    "status": "failed",
+                    "errors": [{
+                        "code": 131000,
+                        "title": "Message failed to send due to an unknown error."
+                    }],
+                }],
+            },
+        )
+
+        # retry the failed message
+        with self.capture_triggers('whatsapp.ir_cron_send_whatsapp_queue') as capt:
+            message.button_resend()
+        self.assertEqual(len(capt.records), 1)
+        with self.mockWhatsappGateway():
+            message._send_message()
+        self._assertWAMessage(
+            message,
+            attachment_values={
+                'name': f'TestReport for {test_record.name}.html',
+            },
+            fields_values={
+                'body': '<p>Hello World</p>',
+            },
+        )
+        self.assertFalse(old_attachment_ids.exists())
+        self.assertTrue(message.mail_message_id.attachment_ids)
+
+    @users('employee')
     def test_composer_tpl_header_various(self):
         """ Test sending with rendering, including header """
         sample_text = 'Header Free Text'
@@ -194,10 +257,17 @@ class WhatsAppComposerRendering(WhatsAppComposerCase):
             (0, 0, {'name': '{{1}}', 'line_type': 'body', 'field_type': 'field', 'demo_value': 'Customer', 'field_name': 'name'}),
         ]
 
-        for header_type, template_upd_values, check_values in zip(
-            ('text', 'text', 'text', 'text', 'image', 'video', 'document', 'location'),
+        for header_type, template_upd_values, exp_att_values, exp_field_values in zip(
             (
-                {'header_text': 'Hello World'},
+                'text', 'text', 'text', 'text',
+                'image',
+                'video',
+                'document', 'document', 'document',
+                'location',
+            ),
+            (
+                # text
+                {'header_text': 'Header World'},
                 {'header_text': 'Header {{1}}',
                  'variable_ids': [
                     (5, 0),
@@ -216,9 +286,18 @@ class WhatsAppComposerRendering(WhatsAppComposerCase):
                     (0, 0, {'name': '{{1}}', 'line_type': 'header', 'field_type': 'user_mobile', 'demo_value': sample_text})
                  ] + base_variable_ids,
                  },
+                # image
                 {'header_attachment_ids': [(6, 0, self.image_attachment.ids)]},
+                # video
                 {'header_attachment_ids': [(6, 0, self.video_attachment.ids)]},
+                # document
                 {'header_attachment_ids': [(6, 0, self.document_attachment.ids)]},
+                {'report_id': self.test_wa_base_report.id},
+                {
+                    'header_attachment_ids': [(6, 0, self.document_attachment.ids)],
+                    'report_id': self.test_wa_base_report.id,
+                },
+                # location
                 {'variable_ids': [
                     (0, 0, {'name': 'name', 'line_type': 'location', 'demo_value': 'LocName'}),
                     (0, 0, {'name': 'address', 'line_type': 'location', 'demo_value': 'Gandhinagar, Gujarat'}),
@@ -226,13 +305,42 @@ class WhatsAppComposerRendering(WhatsAppComposerCase):
                     (0, 0, {'name': 'longitude', 'line_type': 'location', 'demo_value': '72.6366633'})],
                  },
             ), (
+                # text
                 {},
+                {},
+                {},
+                {},
+                # image
+                {'name': self.image_attachment.name, 'datas': self.image_attachment.datas},
+                # video
+                {'name': self.video_attachment.name, 'datas': self.video_attachment.datas},
+                # document
+                {'name': self.document_attachment.name, 'datas': self.document_attachment.datas},
+                {
+                    'name': f'TestReport for {self.test_base_records[0].name}.html',
+                    'raw': b'<div><p>External report for %s</p></div>' % self.test_base_records[0].name.encode(),
+                },
+                {
+                    'name': f'TestReport for {self.test_base_records[0].name}.html',
+                    'raw': b'<div><p>External report for %s</p></div>' % self.test_base_records[0].name.encode("utf-8"),
+                },
+                # location
+                {},
+            ), (
+                # text
+                {'body': f'<p>Header World<br>Hello {self.test_base_records[0].name}</p>'},
                 {'body': f'<p>Header {sample_text}<br>Hello {self.test_base_records[0].name}</p>'},
                 {'body': f'<p>Header {self.env.user.name}<br>Hello {self.test_base_records[0].name}</p>'},
                 {'body': f'<p>Header {self.env.user.mobile}<br>Hello {self.test_base_records[0].name}</p>'},
+                # image
+                {},
+                # video
+                {},
+                # document
                 {},
                 {},
                 {},
+                # location
                 {},
             ),
         ):
@@ -240,6 +348,7 @@ class WhatsAppComposerRendering(WhatsAppComposerCase):
                 self.template_dynamic.write({
                     'header_attachment_ids': [(5, 0, 0)],
                     'header_type': header_type,
+                    'report_id': False,
                     **template_upd_values,
                 })
                 template = self.template_dynamic.with_user(self.env.user)
@@ -250,8 +359,9 @@ class WhatsAppComposerRendering(WhatsAppComposerCase):
                 fields_values = {
                     'body': f'<p>Hello {self.test_base_records[0].name}</p>',
                 }
-                fields_values.update(**(check_values or {}))
+                fields_values.update(**(exp_field_values or {}))
                 self.assertWAMessageFromRecord(
                     self.test_base_records[0],
+                    attachment_values=exp_att_values,
                     fields_values=fields_values,
                 )
