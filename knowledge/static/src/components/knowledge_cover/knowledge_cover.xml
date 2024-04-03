@@ -22,7 +22,9 @@
                 <t t-else="">
                     <a role="button" t-on-click="changeCover"
                        class="btn btn-light text-capitalize me-3 o_knowledge_replace_cover o_knowledge_option_button">
-                        <i class="fa fa-lg fa-picture-o me-1" title="Change cover"/> Replace cover
+                        <i class="fa fa-lg fa-picture-o" title="Change cover"/>
+                        <span class="d-none d-sm-inline ms-1">Replace cover</span>
+                        <span class="d-sm-none ms-1">Replace</span>
                     </a>
                     <a t-if="!this.env.isSmall" role="button" t-on-click="repositionCover"
                        class="btn btn-light text-capitalize me-3 o_knowledge_reposition_cover o_knowledge_option_button">
@@ -30,7 +32,7 @@
                     </a>
                     <a role="button" t-on-click="removeCover"
                        class="btn btn-light text-capitalize o_knowledge_remove_cover o_knowledge_option_button">
-                        <i class="fa fa-lg fa-trash-o me-1" title="Remove cover"/> Remove
+                        <i class="fa fa-lg fa-trash-o" title="Remove cover"/><span class="d-none d-sm-inline ms-1">Remove</span>
                     </a>
                 </t>
             </span>
