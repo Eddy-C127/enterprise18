@@ -412,7 +412,7 @@ class UPSRequest:
             }
         res = self._send_request(url, 'POST', json=request)
         if res.status_code == 401:
-            return {'unauthorized': 1}
+            raise ValidationError(_("Invalid Authentication Information: Please check your credentials and configuration within UPS's system."))
         try:
             res_body = res.json()
         except JSONDecodeError as err:
@@ -446,7 +446,7 @@ class UPSRequest:
         url = f'/api/shipments/{API_VERSION}/void/cancel/{shipping_id}'
         res = self._send_request(url, 'DELETE')
         if res.status_code == 401:
-            return {'unauthorized': 1}
+            raise ValidationError(_("Invalid Authentication Information: Please check your credentials and configuration within UPS's system."))
         try:
             res_body = res.json()
         except JSONDecodeError as err:
