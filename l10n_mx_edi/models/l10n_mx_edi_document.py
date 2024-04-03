@@ -1347,6 +1347,11 @@ class L10nMxEdiDocument(models.Model):
                 else:
                     cfdi_line_values['objeto_imp'] = '01'
                 cfdi_line_values['valor_unitario'] = cfdi_line_values['importe'] / cfdi_line_values['cantidad']
+
+                # 'valor_unitario' must be different to zero.
+                if not cfdi_line_values['valor_unitario']:
+                    continue
+
                 line_values_list.append(cfdi_line_values)
 
         # Taxes.
