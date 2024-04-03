@@ -120,11 +120,16 @@ patch(Wysiwyg.prototype, {
                             'create_default_item_stages',
                             [[this.options.recordInfo.res_id]],
                         );
-                        this._insertEmbeddedView('knowledge.knowledge_article_item_action_stages', undefined, viewType, name, restoreSelection, {
-                            active_id: this.options.recordInfo.res_id,
-                            default_parent_id: this.options.recordInfo.res_id,
-                            default_is_article_item: true,
-                        });
+                        this._insertEmbeddedView({
+                            action_xml_id: 'knowledge.knowledge_article_item_action_stages',
+                            display_name: name,
+                            view_type: viewType,
+                            context: {
+                                active_id: this.options.recordInfo.res_id,
+                                default_parent_id: this.options.recordInfo.res_id,
+                                default_is_article_item: true,
+                            }
+                        }, restoreSelection);
                     }, restoreSelection);
                 }
             }, {
@@ -138,11 +143,16 @@ patch(Wysiwyg.prototype, {
                     const restoreSelection = preserveCursor(this.odooEditor.document);
                     const viewType = 'kanban';
                     this._openEmbeddedViewDialog(viewType, name => {
-                        this._insertEmbeddedView('knowledge.knowledge_article_item_action', undefined, viewType, name, restoreSelection, {
-                            active_id: this.options.recordInfo.res_id,
-                            default_parent_id: this.options.recordInfo.res_id,
-                            default_is_article_item: true,
-                        });
+                        this._insertEmbeddedView({
+                            action_xml_id: 'knowledge.knowledge_article_item_action',
+                            display_name: name,
+                            view_type: viewType,
+                            context: {
+                                active_id: this.options.recordInfo.res_id,
+                                default_parent_id: this.options.recordInfo.res_id,
+                                default_is_article_item: true,
+                            }
+                        }, restoreSelection);
                     }, restoreSelection);
                 }
             }, {
@@ -156,11 +166,16 @@ patch(Wysiwyg.prototype, {
                     const restoreSelection = preserveCursor(this.odooEditor.document);
                     const viewType = 'list';
                     this._openEmbeddedViewDialog(viewType, name => {
-                        this._insertEmbeddedView('knowledge.knowledge_article_item_action', undefined, viewType, name, restoreSelection, {
-                            active_id: this.options.recordInfo.res_id,
-                            default_parent_id: this.options.recordInfo.res_id,
-                            default_is_article_item: true,
-                        });
+                        this._insertEmbeddedView({
+                            action_xml_id: 'knowledge.knowledge_article_item_action',
+                            display_name: name,
+                            view_type: viewType,
+                            context: {
+                                active_id: this.options.recordInfo.res_id,
+                                default_parent_id: this.options.recordInfo.res_id,
+                                default_is_article_item: true,
+                            }
+                        }, restoreSelection);
                     }, restoreSelection);
                 }
             }, {
@@ -312,38 +327,14 @@ patch(Wysiwyg.prototype, {
     },
     /**
      * Inserts a view in the editor
-     * @param {String} [actWindowId] - action xml id (specify either this or
-     *                 the object)
-     * @param {Object} [actWindowObject] - ActionDescription as specified by
-     *                 @see action_service
-     * @param {String} viewType - View type
-     * @param {String} name - Name
+     * @param {Object} props - Props to encode in the behavior
      * @param {Function} restoreSelection - function to restore the selection
      *                   to insert the embedded view where the user typed the
      *                   command.
-     * @param {Object} context - Context
-     * @param {Object} additionalProps - props to pass to the view when loading
-     *                 it.
      */
-    _insertEmbeddedView: async function (
-        actWindowXMLId, actWindowObject, viewType, name, restoreSelection,
-        context={}, additionalViewProps=undefined
-    ) {
-        const actionWindow = actWindowXMLId ? { action_xml_id: actWindowXMLId } : { act_window: actWindowObject };
-        const props = {
-            ...actionWindow,
-            display_name: name,
-            view_type: viewType,
-            context,
-        };
-        if (additionalViewProps) {
-            props.additionalViewProps = additionalViewProps;
-        }
+    _insertEmbeddedView(props, restoreSelection) {
         const behaviorProps = encodeDataBehaviorProps(props);
-        const embeddedViewBlock = renderToElement('knowledge.EmbeddedViewBehaviorBlueprint', {
-            behaviorProps,
-            action_help: actionWindow.act_window?.help,
-        });
+        const embeddedViewBlock = renderToElement('knowledge.EmbeddedViewBehaviorBlueprint', { behaviorProps });
         this._notifyNewBehavior(embeddedViewBlock, restoreSelection);
         this.env.model.root.update({'full_width': true});
     },
@@ -459,14 +450,20 @@ patch(Wysiwyg.prototype, {
             isNew: true,
             knowledgeArticleId: this.options.recordInfo.res_id,
             saveItemCalendarProps: (name, itemCalendarProps) => {
-                this._insertEmbeddedView('knowledge.knowledge_article_action_item_calendar', undefined, 'calendar', name, restoreSelection, {
-                    active_id: this.options.recordInfo.res_id,
-                    default_parent_id: this.options.recordInfo.res_id,
-                    default_icon: '📄',
-                    default_is_article_item: true,
-                }, {
-                    itemCalendarProps,
-                });
+                this._insertEmbeddedView({
+                    action_xml_id: 'knowledge.knowledge_article_action_item_calendar',
+                    display_name: name,
+                    view_type: 'calendar',
+                    context: {
+                        active_id: this.options.recordInfo.res_id,
+                        default_parent_id: this.options.recordInfo.res_id,
+                        default_icon: '📄',
+                        default_is_article_item: true,
+                    },
+                    additionalViewProps: {
+                        itemCalendarProps
+                    }
+                }, restoreSelection);
             }
         }, {
             onClose: () => {

@@ -28,7 +28,11 @@ const insertKanbanEmbed = async (htmlField, action) => {
     const wysiwyg = htmlField.wysiwyg;
 
     wysiwyg.odooEditor.observerUnactive();
-    await wysiwyg._insertEmbeddedView(null, action, 'kanban', 'External Kanban');
+    wysiwyg._insertEmbeddedView({
+        act_window: action,
+        display_name: 'External Kanban',
+        view_type: 'kanban',
+    });
     await htmlFieldReadyPromise;
     await htmlField.mountBehaviors();
     wysiwyg.odooEditor.observerActive();
