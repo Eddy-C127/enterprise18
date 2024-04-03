@@ -934,7 +934,7 @@ class AccountMove(models.Model):
             ))
         return errors
 
-    def _l10n_mx_edi_add_invoice_cfdi_values(self, cfdi_values, percentage_paid=None, global_invoice=False):
+    def _l10n_mx_edi_add_invoice_cfdi_values(self, cfdi_values, global_invoice=False):
         self.ensure_one()
         Document = self.env['l10n_mx_edi.document']
 
@@ -983,11 +983,7 @@ class AccountMove(models.Model):
             to_public=self.l10n_mx_edi_cfdi_to_public,
         )
         Document._add_tax_objected_cfdi_values(cfdi_values, cfdi_lines)
-        Document._add_base_lines_cfdi_values(
-            cfdi_values,
-            cfdi_lines,
-            percentage_paid=percentage_paid,
-        )
+        Document._add_base_lines_cfdi_values(cfdi_values, cfdi_lines)
 
         # Date.
         if self.invoice_date >= fields.Date.context_today(self) and self.invoice_date == self.l10n_mx_edi_post_time.date():
@@ -1605,7 +1601,7 @@ class AccountMove(models.Model):
                     attachment_ids=document.attachment_id.ids,
                 )
 
-        qweb_template, _xsd_attachment_name = self.env['l10n_mx_edi.document']._get_invoice_cfdi_template()
+        qweb_template = self.env['l10n_mx_edi.document']._get_invoice_cfdi_template()
         self.env['l10n_mx_edi.document']._send_api(
             self.company_id,
             qweb_template,
@@ -2086,7 +2082,7 @@ class AccountMove(models.Model):
                     attachment_ids=document.attachment_id.ids,
                 )
 
-        qweb_template, _xsd_attachment_name = self.env['l10n_mx_edi.document']._get_invoice_cfdi_template()
+        qweb_template = self.env['l10n_mx_edi.document']._get_invoice_cfdi_template()
         cfdi_filename = f"{self.journal_id.code}-MX-Global-Invoice-4.0.xml".replace('/', '')
         self.env['l10n_mx_edi.document']._send_api(
             self.company_id,

@@ -449,9 +449,9 @@ class L10nMxEdiDocument(models.Model):
     def _get_invoice_cfdi_template(self):
         """ Hook to be overridden in case the CFDI version changes.
 
-        :return: a tuple (<qweb_template>, <xsd_attachment_name>)
+        :return: the qweb_template
         """
-        return 'l10n_mx_edi.cfdiv40', 'cfdv40.xsd'
+        return 'l10n_mx_edi.cfdiv40'
 
     @api.model
     def _get_payment_cfdi_template(self):
@@ -865,26 +865,6 @@ class L10nMxEdiDocument(models.Model):
         return results
 
     @api.model
-    def _preprocess_cfdi_base_lines(self, currency, base_lines, tax_details_transferred, tax_details_withholding):
-        """ Decode the current invoice lines into dictionaries and try to distribute the negative ones across the
-        others since negative lines are not allowed in the CFDI.
-
-        :param currency:                The currency of the document.
-        :param base_lines:              A list of dictionaries representing the base lines.
-        :param tax_details_transferred: The computed taxes results for transferred taxes.
-        :param tax_details_withholding: The computed taxes results for withholding taxes.
-        :return: A list of dictionaries representing the invoice lines values to consider for the CFDI.
-        """
-        # TO BE REMOVED IN MASTER
-
-        # Mimic '_add_base_lines_taxes_amounts'
-        for base_line in base_lines:
-            base_line['tax_details_transferred'] = list(tax_details_transferred['tax_details_per_record'][base_line['record']]['tax_details'].values())
-            base_line['tax_details_withholding'] = list(tax_details_withholding['tax_details_per_record'][base_line['record']]['tax_details'].values())
-
-        return self._dispatch_cfdi_base_lines(base_lines)['cfdi_lines']
-
-    @api.model
     def _add_base_lines_tax_amounts(self, base_lines, company):
         """ Add the taxes to each base line.
 
@@ -956,13 +936,12 @@ class L10nMxEdiDocument(models.Model):
                 base_line['withholding_values_list'].append(tax_values)
 
     @api.model
-    def _add_base_lines_cfdi_values(self, cfdi_values, base_lines, percentage_paid=None):
+    def _add_base_lines_cfdi_values(self, cfdi_values, base_lines):
         """ Add the values about the lines to 'cfdi_values'.
 
         :param cfdi_values:     The current CFDI values.
         :param base_lines:      A list of dictionaries representing the lines of the document.
                                 (see '_convert_to_tax_base_line_dict' in account.tax).
-        :param percentage_paid: The percentage of the document lines to consider (when computing the payment CFDI).
         """
         currency = cfdi_values['currency']
         tax_objected = cfdi_values['objeto_imp']
@@ -974,13 +953,6 @@ class L10nMxEdiDocument(models.Model):
             quantity = line['quantity']
             uom = line['uom']
             discount = line['discount']
-
-            if percentage_paid:
-                for key in ('transferred_values_list', 'withholding_values_list'):
-                    for tax_values in line[key]:
-                        tax_values['base'] = currency.round(tax_values['base'] * percentage_paid)
-                        tax_values['importe'] = currency.round(tax_values['importe'] * percentage_paid)
-
             transferred_values_list = line['transferred_values_list']
             withholding_values_list = line['withholding_values_list']
 

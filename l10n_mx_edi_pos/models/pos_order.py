@@ -648,7 +648,7 @@ class PosOrder(models.Model):
         def on_success(_cfdi_values, cfdi_filename, cfdi_str, populate_return=None):
             self._l10n_mx_edi_cfdi_invoice_document_sent(cfdi_filename, cfdi_str)
 
-        qweb_template, _xsd_attachment_name = self.env['l10n_mx_edi.document']._get_invoice_cfdi_template()
+        qweb_template = self.env['l10n_mx_edi.document']._get_invoice_cfdi_template()
         cfdi_filename = "MX-Refund-4.0.xml".replace('/', '')
         self.env['l10n_mx_edi.document']._send_api(
             self.company_id,
@@ -766,7 +766,7 @@ class PosOrder(models.Model):
             self.env['l10n_mx_edi.document']._consume_global_invoice_cfdi_sequence(populate_return, int(cfdi_values['folio']))
             orders._l10n_mx_edi_cfdi_global_invoice_document_sent(cfdi_filename, cfdi_str)
 
-        qweb_template, _xsd_attachment_name = self.env['l10n_mx_edi.document']._get_invoice_cfdi_template()
+        qweb_template = self.env['l10n_mx_edi.document']._get_invoice_cfdi_template()
         cfdi_filename = "MX-Global-Invoice-4.0.xml".replace('/', '')
         self.env['l10n_mx_edi.document']._send_api(
             self.company_id,
