@@ -239,12 +239,12 @@
         </field>
     </record>
 
-    <record id="documents_view_list" model="ir.ui.view">
+    <record id="documents_view_list_main" model="ir.ui.view">
         <field name="name">documents list</field>
         <field name="model">documents.document</field>
+        <field name="priority">1</field>
         <field name="arch" type="xml">
-            <tree js_class="documents_list"
-                  create="false"
+            <tree create="false"
                   decoration-info="type == 'empty'"
                   sample="1">
                 <field name="id" optional="hide"/>
@@ -256,9 +256,23 @@
                 <field name="lock_uid" optional="hide"/>
                 <field name="type" optional="show"/>
                 <field name="create_date" optional="show"/>
-                <field name="activity_exception_decoration" widget="activity_exception" nolabel="True"/>
                 <field name="file_extension" optional="hide"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="documents_view_list" model="ir.ui.view">
+        <field name="name">documents list</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents_view_list_main"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="js_class">documents_list</attribute>
+            </xpath>
+            <field name="create_date" position="after">
+                <field name="activity_exception_decoration" widget="activity_exception" nolabel="True"/>
+            </field>
         </field>
     </record>
 
