@@ -1,25 +1,33 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from collections import defaultdict
 from odoo import api, models, fields
+from datetime import timedelta
+from itertools import chain
 
 
 class CalendarEvent(models.Model):
-    _inherit = "calendar.event"
+    _name = 'calendar.event'
+    _inherit = ["calendar.event", "pos.load.mixin"]
+
+    @api.model
+    def _load_pos_data_domain(self, data):
+        now = fields.Datetime.now()
+        dayAfter = fields.Date.today() + timedelta(days=1)
+        appointment_type_ids = list(chain.from_iterable([config['appointment_type_ids'] for config in data['pos.config']['data']]))
+        return [
+            ('booking_line_ids.appointment_resource_id', 'in', [table['appointment_resource_id'] for table in data['restaurant.table']['data']]),
+            ('appointment_type_id', 'in', appointment_type_ids),
+            '|', '&', ('start', '>=', now), ('start', '<=', dayAfter), '&', ('stop', '>=', now), ('stop', '<=', dayAfter),
+        ]
+
+    @api.model
+    def _load_pos_data_fields(self, config_id):
+        return self.env['calendar.event']._fields_for_restaurant_table()
 
     @api.model
     def _fields_for_restaurant_table(self):
-        return [
-            'id',
-            'start',
-            'duration',
-            'stop',
-            'name',
-            'appointment_type_id',
-            'appointment_resource_ids',
-            'resource_total_capacity_reserved',
-        ]
+        return ['id', 'start', 'duration', 'stop', 'name', 'appointment_type_id', 'appointment_resource_ids', 'resource_total_capacity_reserved']
 
     @api.model
     def _send_table_notifications(self, events, command):

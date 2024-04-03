@@ -6,15 +6,6 @@ import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 
 patch(PosStore.prototype, {
-    //@override
-    async processServerData() {
-        await super.processServerData();
-        if (this.company.country_id?.code === "MX") {
-            this.l10n_mx_edi_fiscal_regime = this.data.custom["l10n_mx_edi_fiscal_regime"];
-            this.l10n_mx_country_id = this.data.custom["l10n_mx_country_id"];
-            this.l10n_mx_edi_usage = this.data.custom["l10n_mx_edi_usage"];
-        }
-    },
     async pay() {
         if (this.company.country_id?.code === "MX") {
             const currentOrder = this.get_order();

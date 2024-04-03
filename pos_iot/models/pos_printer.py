@@ -16,3 +16,9 @@ class RestaurantPrinter(models.Model):
         for record in self:
             if record.printer_type == 'iot' and record.device_id and not record.proxy_ip:
                 raise ValidationError(_("Proxy IP cannot be empty."))
+
+    @api.model
+    def _load_pos_data_fields(self, config_id):
+        result = super()._load_pos_data_fields(config_id)
+        result += ['device_identifier']
+        return result

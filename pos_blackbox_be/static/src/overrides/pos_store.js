@@ -73,12 +73,12 @@ patch(PosStore.prototype, {
         await super.processServerData(loadedData);
 
         this.config.workInProduct = this.models["product.product"].get(
-            this.data.custom.product_product_work_in
+            this.session._product_product_work_in
         );
         this.config.workOutProduct = this.models["product.product"].get(
-            this.data.custom.product_product_work_out
+            this.session._product_product_work_out
         );
-        this.config.server_version = this.server_version;
+        this.config.server_version = this.session._server_version;
     },
     useBlackBoxBe() {
         return this.config.iface_fiscal_data_module;

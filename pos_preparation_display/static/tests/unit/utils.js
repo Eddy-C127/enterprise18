@@ -9,7 +9,7 @@ registry.category("mock_server").add(
     "pos.session/load_data",
     async function () {
         const res = await loadPosData.call(this, ...arguments);
-        res["data"]["pos_preparation_display.display"] = [];
+        res["pos_preparation_display.display"] = { relations: {}, fields: {}, data: [] };
         return res;
     },
     { force: true }

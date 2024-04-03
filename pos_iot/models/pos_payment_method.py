@@ -32,3 +32,9 @@ class PoSPaymentMethod(models.Model):
             elif payment_method.use_payment_terminal == 'six_iot':
                 domain.append(('manufacturer', '=', 'Six'))
             payment_method.payment_terminal_ids = self.env['iot.device'].search(domain)
+
+    @api.model
+    def _load_pos_data_fields(self, config_id):
+        result = super()._load_pos_data_fields(config_id)
+        result += ['iot_device_id']
+        return result

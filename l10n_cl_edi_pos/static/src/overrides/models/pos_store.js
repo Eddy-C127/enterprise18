@@ -9,13 +9,6 @@ patch(PosStore.prototype, {
         await super.processServerData();
 
         if (this.isChileanCompany()) {
-            this.sii_taxpayer_types = this.data.custom["sii_taxpayer_types"];
-            this.consumidor_final_anonimo_id = this.models["res.partner"].get(
-                this.data.custom.consumidor_final_anonimo_id
-            );
-            this.config.consumidor_final_anonimo_id = this.models["res.partner"].get(
-                this.data.custom.consumidor_final_anonimo_id
-            );
             this["l10n_latam.identification.type"] =
                 this.models["l10n_latam.identification.type"].getFirst();
             this.l10n_cl_sii_regional_office_selection =
@@ -45,8 +38,8 @@ patch(PosStore.prototype, {
     },
     createNewOrder() {
         const order = super.createNewOrder(...arguments);
-        if (!order.partner_id) {
-            order.update({ partner_id: this.consumidor_final_anonimo_id });
+        if (!order.partner_id && this.isChileanCompany()) {
+            order.update({ partner_id: this.session._consumidor_final_anonimo_id });
         }
         return order;
     },

@@ -9,9 +9,8 @@ registry.category("mock_server").add(
     "pos.session/load_data",
     async function () {
         const res = await loadPosData.call(this, ...arguments);
-        res["data"]["iot.device"] = [];
-        res["relations"]["iot.device"] = {};
-        res["relations"]["iot.box"] = {};
+        res["iot.box"] = { relations: {}, fields: {}, data: [] };
+        res["iot.device"] = { relations: {}, fields: {}, data: [] };
         return res;
     },
     { force: true }

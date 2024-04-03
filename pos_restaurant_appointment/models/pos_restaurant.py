@@ -1,13 +1,16 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from collections import defaultdict
 from odoo import api, fields, models
-from datetime import timedelta
 
 class RestaurantTable(models.Model):
     _inherit = 'restaurant.table'
 
     appointment_resource_id = fields.Many2one('appointment.resource', string='Appointment resource')
+
+    @api.model
+    def _load_pos_data_fields(self, config_id):
+        data = super()._load_pos_data_fields(config_id)
+        data += ['appointment_resource_id']
+        return data
 
     @api.model_create_multi
     def create(self, vals_list):

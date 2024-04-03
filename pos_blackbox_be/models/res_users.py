@@ -17,6 +17,14 @@ class ResUser(models.Model):
         help="This is a technical field used for tracking the status of the session for each users.",
     )
 
+    @api.model
+    def _load_pos_data_fields(self, config_id):
+        result = super()._load_pos_data_fields(config_id)
+        config_id = self.env["pos.config"].browse(config_id)
+        if config_id.iface_fiscal_data_module:
+            result['fields'] += ['insz_or_bis_number']
+        return result
+
     @property
     def SELF_READABLE_FIELDS(self):
         return super().SELF_READABLE_FIELDS + ["insz_or_bis_number"]

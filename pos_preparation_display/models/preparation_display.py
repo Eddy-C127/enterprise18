@@ -5,7 +5,7 @@ from odoo.addons.pos_preparation_display.models.preparation_display_orderline im
 
 class PosPreparationDisplay(models.Model):
     _name = 'pos_preparation_display.display'
-    _inherit = ["pos.bus.mixin"]
+    _inherit = ["pos.bus.mixin", "pos.load.mixin"]
     _description = "Preparation display"
 
     name = fields.Char("Name", required=True)
@@ -21,6 +21,10 @@ class PosPreparationDisplay(models.Model):
     ])
     contains_bar_restaurant = fields.Boolean("Is a Bar/Restaurant", compute='_compute_contains_bar_restaurant', store=True)
     access_token = fields.Char("Access Token", default=lambda self: self._ensure_access_token())
+
+    @api.model
+    def _load_pos_data_domain(self, data):
+        return ['|', ('pos_config_ids', '=', data['pos.config']['data'][0]['id']), ('pos_config_ids', '=', False)]
 
     # getter for pos_category_ids and pos_config_ids, in case of no one selected, return all of each.
     def _get_pos_category_ids(self):
