@@ -296,6 +296,7 @@ QUnit.module(
                         assert.step("action_open_new_spreadsheet");
                     }
                 },
+                additionalTemplates: TEST_TEMPLATES,
             });
             mockActionService(env, mockDoAction);
 

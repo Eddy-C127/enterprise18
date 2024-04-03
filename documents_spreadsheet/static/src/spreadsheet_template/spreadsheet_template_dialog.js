@@ -84,6 +84,10 @@ export class TemplateDialog extends Component {
                 searchViewFields: views.fields,
             });
             await this._fetchTemplates();
+            if (this.state.templatesCount === 0) {
+                this.state.templateId = null;
+                this._createSpreadsheet();
+            }
         });
 
         useEffect(
