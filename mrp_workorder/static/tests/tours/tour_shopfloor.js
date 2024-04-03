@@ -6,11 +6,6 @@ import { TourError } from "@web_tour/tour_service/tour_utils";
 registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: () => [
     {
         content: 'Select the workcenter the first time we enter in shopfloor',
-        trigger: '.form-check:has(input[name="Savannah"])'
-    },
-    {
-        content: 'Select the second workcenter',
-        extra_trigger: '.form-check:has(input[name="Savannah"]:checked)',
         trigger: '.form-check:has(input[name="Jungle"])'
     },
     {
@@ -19,7 +14,7 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
     },
     {
         content: 'Open the employee panel',
-        extra_trigger: '.o_control_panel_actions button:contains("Savannah")',
+        extra_trigger: '.o_control_panel_actions button:contains("Jungle")',
         trigger: 'button[name="employeePanelButton"]'
     },
     {

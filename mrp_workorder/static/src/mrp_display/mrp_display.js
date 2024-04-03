@@ -233,7 +233,7 @@ export class MrpDisplay extends Component {
         return this.workorders.filter((wo) => activeStates.includes(wo.data.state));
     }
 
-    async toggleWorkcenter(workcenters) {
+    toggleWorkcenter(workcenters) {
         const localStorageName = this.env.localStorageName;
         localStorage.setItem(localStorageName, JSON.stringify(workcenters));
         this.state.workcenters = workcenters;
@@ -369,10 +369,27 @@ export class MrpDisplay extends Component {
         const result = await this.processValidationStack();
         if (result.success) {
             this.env.searchModel.invalidateRecordCache();
+            const workcencenterIds = this.state.workcenters.map((wc) => wc.id);
             this.state.activeWorkcenter = Number(workcenterId);
             this.state.activeResModel = this.state.activeWorkcenter
-                ? "mrp.workorder"
-                : "mrp.production";
+            ? "mrp.workorder"
+            : "mrp.production";
+            if (
+                this.state.activeWorkcenter > 0 &&
+                !workcencenterIds.includes(this.state.activeWorkcenter)
+            ) {
+                const workcenters = await this.orm.searchRead(
+                    "mrp.workcenter", [], ["display_name"]
+                );
+                const workcenterToToggle = [
+                    ...workcencenterIds,
+                    this.state.activeWorkcenter,
+                ].reduce((acc, id) => {
+                    const res = workcenters.find((wc) => wc.id === id);
+                    return res ? [...acc, res] : acc;
+                }, []);
+                this.toggleWorkcenter(workcenterToToggle);
+            }
         }
     }
 
