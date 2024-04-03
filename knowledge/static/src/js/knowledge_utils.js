@@ -37,8 +37,13 @@ export async function getRandomIcon() {
  * @return {string|boolean} The modified URL with the specified hostname included, or false if the URL does not meet the conditions
  */
 export function checkURL(url, hostnameList) {
-    if (url && URL.canParse(url)) {
-        const potentialURL = new URL(url);
+    if (url) {
+        let potentialURL;
+        try {
+            potentialURL = new URL(url);
+        } catch {
+            return false;
+        }
         if (hostnameList.includes(potentialURL.hostname)) {
             return `https://${potentialURL.hostname}${potentialURL.pathname}`;
         }
