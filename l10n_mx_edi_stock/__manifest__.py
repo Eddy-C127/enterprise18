@@ -28,6 +28,7 @@ guide.
         'views/stock_picking_views.xml',
         'views/l10n_mx_edi_vehicle_views.xml',
         'views/report_deliveryslip.xml',
+        'views/report_cartaporte.xml',
     ],
     'installable': True,
     'auto_install': True,

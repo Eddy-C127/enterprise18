@@ -24,6 +24,7 @@ Bridge module to extend the delivery guide (Complemento XML Carta de Porte)
         'views/l10n_mx_edi_customs_document_type_views.xml',
         'views/l10n_mx_edi_customs_regime_views.xml',
         'views/product_views.xml',
+        'views/report_cartaporte.xml',
         'views/report_deliveryslip.xml',
         'views/stock_picking_views.xml',
         'views/vehicle_views.xml',

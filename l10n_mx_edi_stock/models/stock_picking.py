@@ -123,6 +123,45 @@ class Picking(models.Model):
         readonly=False,
     )
 
+    def _l10n_mx_edi_get_cartaporte_pdf_values(self):
+        self.ensure_one()
+        cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(self.company_id)
+        self.env['l10n_mx_edi.document']._add_certificate_cfdi_values(cfdi_values)
+        self._l10n_mx_edi_add_picking_cfdi_values(cfdi_values)
+        ubicacion_fields = ('id_ubicacion', 'rfc_remitente_destinatario', 'num_reg_id_trib', 'residencia_fiscal', 'fecha_hora_salida_llegada')
+        figures = [
+            {
+                'tipo_figura': figure.type or '-',
+                'num_licencia': figure.type == '01' and figure.operator_id.l10n_mx_edi_operator_licence or '-',
+            }
+            for figure in self.l10n_mx_edi_vehicle_id.figure_ids.sorted('type')
+        ]
+
+        return {
+            **self._l10n_mx_edi_get_extra_picking_report_values(),
+            'idccp': cfdi_values['idccp'] or '-',
+            'origen_domicilio': {field: cfdi_values['origen']['domicilio'][field] or '-' for field in cfdi_values['origen']['domicilio']},
+            'destino_domicilio': {field: cfdi_values['destino']['domicilio'][field] or '-' for field in cfdi_values['destino']['domicilio']},
+            'origen_ubicacion': {field: cfdi_values['origen'][field] or '-' for field in ubicacion_fields},
+            'destino_ubicacion': {field: cfdi_values['destino'][field] or '-' for field in (*ubicacion_fields, 'distancia_recorrida')},
+            'transp_internac': 'Sí' if self.l10n_mx_edi_external_trade else 'No',
+            'pais_origen_destino': self.partner_id.country_id.l10n_mx_edi_code if self.l10n_mx_edi_external_trade else '-',
+            'via_entrada_salida': self.l10n_mx_edi_transport_type if self.l10n_mx_edi_external_trade else '-',
+            'total_dist_recorrida': self.l10n_mx_edi_distance or '-',
+            'peso_bruto_total': cfdi_values['format_float'](sum(self.move_ids.mapped('weight')), 3),
+            'unidad_peso': cfdi_values['weight_uom'].unspsc_code_id.code or '-',
+            'num_total_mercancias': len(self.move_ids),
+            'transport_perm_sct': self.l10n_mx_edi_vehicle_id.transport_perm_sct or '-',
+            'num_permiso_sct': self.l10n_mx_edi_vehicle_id.name or '-',
+            'anio_modelo_vm': self.l10n_mx_edi_vehicle_id.vehicle_model or '-',
+            'config_vehicular': self.l10n_mx_edi_vehicle_id.vehicle_config or '-',
+            'peso_bruto_vehicular': cfdi_values['peso_bruto_vehicular'] or '-',
+            'placa_vm': self.l10n_mx_edi_vehicle_id.vehicle_licence or '-',
+            'asegura_resp_civil': self.l10n_mx_edi_vehicle_id.transport_insurer or '-',
+            'poliza_resp_civil': self.l10n_mx_edi_vehicle_id.transport_insurance_policy or '-',
+            'figures': figures,
+        }
+
     def _l10n_mx_edi_get_extra_picking_report_values(self):
         self.ensure_one()
         cfdi_infos = self.env['l10n_mx_edi.document']._decode_cfdi_attachment(self.l10n_mx_edi_cfdi_attachment_id.raw)
@@ -619,3 +658,6 @@ class Picking(models.Model):
                     record.l10n_mx_edi_distance = res['distances'][0][1] // 1000
             else:
                 raise UserError(_('Distance calculation requires both the source and destination coordinates'))
+
+    def l10n_mx_edi_action_print_cartaporte(self):
+        return self.env.ref('l10n_mx_edi_stock.action_report_cartaporte').report_action(self)

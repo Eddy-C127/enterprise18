@@ -27,6 +27,10 @@
                         name="l10n_mx_edi_cfdi_try_sat"
                         type="object"
                         invisible="not l10n_mx_edi_update_sat_needed"/>
+                <button string="Print Carta Porte"
+                        name="l10n_mx_edi_action_print_cartaporte"
+                        type="object"
+                        invisible="l10n_mx_edi_cfdi_state != 'sent'"/>
             </xpath>
 
             <xpath expr="//field[@name='origin']" position="after">

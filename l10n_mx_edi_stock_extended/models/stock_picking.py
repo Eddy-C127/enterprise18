@@ -36,6 +36,23 @@ class Picking(models.Model):
         ondelete="restrict",
     )
 
+    def _l10n_mx_edi_get_cartaporte_pdf_values(self):
+        cartaporte_values = super()._l10n_mx_edi_get_cartaporte_pdf_values()
+        if cartaporte_values.get('comercio_exterior'):
+            cartaporte_values['comercio_exterior']['emisor']['municipio'] = self.company_id.city or '-'
+            cartaporte_values['comercio_exterior']['receptor']['municipio'] = self.partner_id.city or '-'
+        else:
+            cartaporte_values['origen_domicilio']['municipio'] = self.company_id.city or '-'
+            cartaporte_values['destino_domicilio']['municipio'] = self.partner_id.city or '-'
+
+        return {
+            **cartaporte_values,
+            'asegura_med_ambiente': self.l10n_mx_edi_vehicle_id.environment_insurer if any(
+                self.move_ids.product_id.mapped('l10n_mx_edi_hazardous_material_code')) else '-',
+            'poliza_med_ambiente': self.l10n_mx_edi_vehicle_id.environment_insurance_policy if any(
+                self.move_ids.product_id.mapped('l10n_mx_edi_hazardous_material_code')) else '-',
+        }
+
     def _l10n_mx_edi_cfdi_check_external_trade_config(self):
         # EXTENDS 'l10n_mx_edi_stock'
         self.ensure_one()

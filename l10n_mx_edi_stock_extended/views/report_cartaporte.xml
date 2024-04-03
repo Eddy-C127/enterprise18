@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="l10n_mx_edi_stock_report_cartaporte" inherit_id="l10n_mx_edi_stock.l10n_mx_edi_stock_report_cartaporte">
+        <xpath expr="//div[@id='mx_edi_detail_cartaporte']" position="inside">
+            <div t-if="cartaporte_values.get('regimen_aduanero')">Regimen Aduanero: <t t-out="cartaporte_values['regimen_aduanero']"/></div>
+            <div t-if="cartaporte_values.get('entrada_salida_merc')">Entrada/Salida de Mercancia: <t t-out="cartaporte_values['entrada_salida_merc']"/></div>
+        </xpath>
+
+        <xpath expr="//div[@id='mx_edi_detail_domicilio_origen']" position="replace">
+            <div id="mx_edi_detail_domicilio_origen" class="col-6">
+                <strong>Domicilio Origen</strong>
+                <t t-if="cartaporte_values.get('comercio_exterior')">
+                    <t t-set="emisor" t-value="cartaporte_values['comercio_exterior']['emisor']"/>
+                    <div>Calle: <t t-out="emisor['calle'] or '-'"/></div>
+                    <div>Numero Exterior: <t t-out="emisor['numero_exterior'] or '-'"/></div>
+                    <div>Numero Interior: <t t-out="emisor['numero_interior'] or '-'"/></div>
+                    <div>Colonia: <t t-out="emisor['colonia'] or '-'"/></div>
+                    <div>Localidad: <t t-out="emisor['localidad'] or '-'"/></div>
+                    <div>Municipio: <t t-out="emisor['municipio'] or '-'"/></div>
+                    <div>Estado: <t t-out="emisor['estado'] or '-'"/></div>
+                    <div>Pais: <t t-out="emisor['pais'] or '-'"/></div>
+                    <div>Codigo Postal: <t t-out="emisor['codigo_postal'] or '-'"/></div>
+                </t>
+                <t t-else="">
+                    <div>Calle: <t t-out="cartaporte_values['origen_domicilio']['calle']"/></div>
+                    <div>Colonia: <t t-out="cartaporte_values['origen_domicilio']['colonia']"/></div>
+                    <div>Municipio: <t t-out="cartaporte_values['origen_domicilio']['municipio']"/></div>
+                    <div>Estado: <t t-out="cartaporte_values['origen_domicilio']['estado']"/></div>
+                    <div>Pais: <t t-out="cartaporte_values['origen_domicilio']['pais']"/></div>
+                    <div>Codigo Postal: <t t-out="cartaporte_values['origen_domicilio']['codigo_postal']"/></div>
+                </t>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@id='mx_edi_detail_domicilio_destino']" position="replace">
+            <div id="mx_edi_detail_domicilio_destino" class="col-6">
+                <strong>Domicilio Destino</strong>
+                <t t-if="cartaporte_values.get('comercio_exterior')">
+                    <t t-set="receptor" t-value="cartaporte_values['comercio_exterior']['receptor']"/>
+                    <div>Calle: <t t-out="receptor['calle'] or '-'"/></div>
+                    <div>Numero Exterior: <t t-out="receptor['numero_exterior'] or '-'"/></div>
+                    <div>Numero Interior: <t t-out="receptor['numero_interior'] or '-'"/></div>
+                    <div>Colonia: <t t-out="receptor['colonia'] or '-'"/></div>
+                    <div>Localidad: <t t-out="receptor['localidad'] or '-'"/></div>
+                    <div>Municipio: <t t-out="receptor['municipio'] or '-'"/></div>
+                    <div>Estado: <t t-out="receptor['estado'] or '-'"/></div>
+                    <div>Pais: <t t-out="receptor['pais'] or '-'"/></div>
+                    <div>Codigo Postal: <t t-out="receptor['codigo_postal'] or '-'"/></div>
+                </t>
+                <t t-else="">
+                    <div>Calle: <t t-out="cartaporte_values['destino_domicilio']['calle']"/></div>
+                    <div>Colonia: <t t-out="cartaporte_values['destino_domicilio']['colonia']"/></div>
+                    <div>Municipio: <t t-out="cartaporte_values['destino_domicilio']['municipio']"/></div>
+                    <div>Estado: <t t-out="cartaporte_values['destino_domicilio']['estado']"/></div>
+                    <div>Pais: <t t-out="cartaporte_values['destino_domicilio']['pais']"/></div>
+                    <div>Codigo Postal: <t t-out="cartaporte_values['destino_domicilio']['codigo_postal']"/></div>
+                </t>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@id='mx_edi_detail_seguros']" position="inside">
+            <div>Asegura Med Ambiente: <t t-out="cartaporte_values['asegura_med_ambiente']"/></div>
+            <div>Poliza Med Ambiente: <t t-out="cartaporte_values['poliza_med_ambiente']"/></div>
+        </xpath>
+    </template>
+</odoo>

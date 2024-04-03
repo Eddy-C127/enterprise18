@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="l10n_mx_edi_stock_report_cartaporte" inherit_id="l10n_mx_edi_cartaporte_report_delivery_document" primary="True">
+        <xpath expr="//div[hasclass('page')]" position="before">
+            <t t-set="address" t-value=""/>
+            <t t-set="information_block" t-value=""/>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/div[hasclass('row')]" position="replace"/>
+        <xpath expr="//table[@name='stock_move_table']" position="replace"></xpath>
+        <xpath expr="//table[@name='stock_move_line_table']" position="replace"></xpath>
+        <xpath expr="//table[@name='stock_backorder_table']" position="replace"></xpath>
+        <xpath expr="//div[@id='delivery_guide_details']" position="replace">
+
+            <t t-set="cartaporte_values" t-value="o._l10n_mx_edi_get_cartaporte_pdf_values()"/>
+            <div id="mx_edi_section_cartaporte">
+                <div class="row">
+                    <div id="mx_edi_detail_cartaporte" class="col-6">
+                        <strong>Carta Porte</strong>
+                        <div>IdCCP: <t t-out="cartaporte_values['idccp']"/></div>
+                        <div>Transporte Internacional: <t t-out="cartaporte_values['transp_internac']"/></div>
+                        <div>Pais Origen Destino: <t t-out="cartaporte_values['pais_origen_destino']"/></div>
+                        <div>Via Entrada Salida: <t t-out="cartaporte_values['via_entrada_salida']"/></div>
+                        <div>Total Distancia Recorrida: <t t-out="cartaporte_values['total_dist_recorrida']"/></div>
+                    </div>
+                    <div id="mx_edi_detail_mercancias" class="col-6">
+                        <strong>Mercancias</strong>
+                        <div>Peso Bruto Total: <t t-out="cartaporte_values['peso_bruto_total']"/></div>
+                        <div>Unidad Peso: <t t-out="cartaporte_values['unidad_peso']"/></div>
+                        <div>Num Total Mercancias: <t t-out="cartaporte_values['num_total_mercancias']"/></div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div id="mx_edi_detail_domicilio_origen" class="col-6">
+                        <strong>Domicilio Origen</strong>
+                        <div>Calle: <t t-out="cartaporte_values['origen_domicilio']['calle']"/></div>
+                        <div>Municipio: <t t-out="cartaporte_values['origen_domicilio']['municipio']"/></div>
+                        <div>Estado: <t t-out="cartaporte_values['origen_domicilio']['estado']"/></div>
+                        <div>Pais: <t t-out="cartaporte_values['origen_domicilio']['pais']"/></div>
+                        <div>Codigo Postal: <t t-out="cartaporte_values['origen_domicilio']['codigo_postal']"/></div>
+                    </div>
+                    <div id="mx_edi_detail_domicilio_destino" class="col-6">
+                        <strong>Domicilio Destino</strong>
+                        <div>Calle: <t t-out="cartaporte_values['destino_domicilio']['calle']"/></div>
+                        <div>Municipio: <t t-out="cartaporte_values['destino_domicilio']['municipio']"/></div>
+                        <div>Estado: <t t-out="cartaporte_values['destino_domicilio']['estado']"/></div>
+                        <div>Pais: <t t-out="cartaporte_values['destino_domicilio']['pais']"/></div>
+                        <div>Codigo Postal: <t t-out="cartaporte_values['destino_domicilio']['codigo_postal']"/></div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div id="mx_edi_detail_ubicacion_origen" class="col-6">
+                        <strong>Ubicacion Origen</strong>
+                        <div>Origen ID: <t t-out="cartaporte_values['origen_ubicacion']['id_ubicacion']"/></div>
+                        <div>RFC Remitente: <t t-out="cartaporte_values['origen_ubicacion']['rfc_remitente_destinatario']"/></div>
+                        <div>NumRegIdTrib: <t t-out="cartaporte_values['origen_ubicacion']['num_reg_id_trib']"/></div>
+                        <div>Residencia Fiscal: <t t-out="cartaporte_values['origen_ubicacion']['residencia_fiscal']"/></div>
+                        <div>Salida: <t t-out="cartaporte_values['origen_ubicacion']['fecha_hora_salida_llegada']"/></div>
+                    </div>
+                    <div id="mx_edi_detail_ubicacion_destino" class="col-6">
+                        <strong>Ubicacion Destino</strong>
+                        <div>Destino ID: <t t-out="cartaporte_values['destino_ubicacion']['id_ubicacion']"/></div>
+                        <div>RFC Destinatario: <t t-out="cartaporte_values['destino_ubicacion']['rfc_remitente_destinatario']"/></div>
+                        <div>NumRegIdTrib: <t t-out="cartaporte_values['destino_ubicacion']['num_reg_id_trib']"/></div>
+                        <div>Residencia Fiscal: <t t-out="cartaporte_values['destino_ubicacion']['residencia_fiscal']"/></div>
+                        <div>Llegada: <t t-out="cartaporte_values['destino_ubicacion']['fecha_hora_salida_llegada']"/></div>
+                        <div>Distancia Recorrida: <t t-out="cartaporte_values['destino_ubicacion']['distancia_recorrida']"/></div>
+                    </div>
+                </div>
+                <hr/>
+                <strong class="row">Autotransporte</strong>
+                <div class="row">
+                    <div class="col-4">
+                        <div id="mx_edi_detail_autotransporte">
+                            <div>Perm SCT: <t t-out="cartaporte_values['transport_perm_sct']"/></div>
+                            <div>Num Permiso SCT: <t t-out="cartaporte_values['num_permiso_sct']"/></div>
+                        </div>
+                        <div id="mx_edi_detail_identificacion_vehicular">
+                            <div>Config Vehicular: <t t-out="cartaporte_values['config_vehicular']"/></div>
+                            <div>Peso Bruto Vehicular: <t t-out="cartaporte_values['peso_bruto_vehicular']"/></div>
+                            <div>Placa VM: <t t-out="cartaporte_values['placa_vm']"/></div>
+                            <div>AnioModeloVM: <t t-out="cartaporte_values['anio_modelo_vm']"/></div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div id="mx_edi_detail_seguros">
+                            <div>Asegura Resp Civil: <t t-out="cartaporte_values['asegura_resp_civil']"/></div>
+                            <div>Poliza Resp Civil: <t t-out="cartaporte_values['poliza_resp_civil']"/></div>
+                        </div>
+                        <div id="mx_edi_detail_tipos_figura">
+                            <div>Num Reg Id Trib Figura: <t t-out="cartaporte_values['peso_bruto_total']"/></div>
+                            <div>Residencia Fiscal Figura: <t t-out="cartaporte_values['peso_bruto_total']"/></div>
+                        </div>
+                    </div>
+                    <div id="mx_edi_detail_tipos_figura_table" class="col-4">
+                        <ul>
+                            <li t-foreach="cartaporte_values['figures']" t-as="figure">
+                                <div>Tipo Figura: <t t-out="figure['tipo_figura']"/></div>
+                                <div>Licencia: <t t-out="figure['num_licencia']"/></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </xpath>
+    </template>
+
+    <template id="report_cartaporte">
+        <t t-if="docs" t-foreach="docs" t-as="o">
+            <t t-call="l10n_mx_edi_stock.l10n_mx_edi_stock_report_cartaporte" t-lang="o._get_report_lang()"/>
+        </t>
+    </template>
+
+    <record id="action_report_cartaporte" model="ir.actions.report">
+        <field name="name">Carta Porte</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_mx_edi_stock.report_cartaporte</field>
+        <field name="report_file">l10n_mx_edi_stock.report_cartaporte</field>
+        <field name="print_report_name">'Carta Porte - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="model_stock_picking"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
