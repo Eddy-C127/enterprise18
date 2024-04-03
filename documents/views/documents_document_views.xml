@@ -114,7 +114,7 @@
                                         <t t-if="record.lock_uid.raw_value">
                                             <i class="o_documents_lock fa fa-lock" t-att-title="record.lock_uid.value"/>
                                         </t>
-                                        <field name="name" required="True" class="o_text_overflow" string="Document"/>
+                                        <field name="name" required="True" string="Document"/>
                                     </div>
                                     <div class="o_kanban_record_body">
                                         <t t-if="record.res_model_name.raw_value &amp;&amp; record.res_model.raw_value !== 'documents.document'">
