@@ -355,3 +355,24 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
             'manual_followup': True,
             'snailmail': False,
         })
+
+    def test_followup_copy_data(self):
+        """
+        Test followup report by:
+        - Duplicating a single record with no default
+        - Duplicating several records at the same time
+        """
+        followup_50 = self.create_followup(delay=50)
+        followup_60 = self.create_followup(delay=60)
+
+        # Duplicate single record with no default values
+        followup_50_duplicate = followup_50.copy()
+        self.assertTrue(followup_50_duplicate)
+        self.assertEqual(followup_50_duplicate.name, f'75 days (copy of {followup_50.name})')
+
+        # Duplicate multiple records at the same time with no default values
+        multiple_followup_records = followup_50 + followup_60
+        multiple_followup_records_duplicate = multiple_followup_records.copy()
+        self.assertTrue(multiple_followup_records_duplicate)
+        self.assertEqual(multiple_followup_records_duplicate[0].name, f'90 days (copy of {followup_50.name})')
+        self.assertEqual(multiple_followup_records_duplicate[1].name, f'105 days (copy of {followup_60.name})')

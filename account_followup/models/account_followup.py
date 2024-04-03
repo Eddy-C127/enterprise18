@@ -46,12 +46,30 @@ class FollowupLine(models.Model):
 
     def copy_data(self, default=None):
         vals_list = super().copy_data(default=default)
+        default = dict(default or {})
+        company_ids = [self.company_id.id]
+        if 'company_id' in default:
+            company_ids += default['company_id']
+
+        highest_delay_per_company_id = {
+            row['company_id'][0]: row['delay']
+            for row in self.read_group(
+                domain=[('company_id', 'in', company_ids)],
+                fields=['company_id', 'delay:max'],
+                groupby='company_id',
+            )
+        }
         for line, vals in zip(self, vals_list):
-            vals['name'] = vals.get('name', _("%s (copy)", line.name))
             if 'delay' not in default:
+                # If several records from the same company are copied in batch, we need to ensure that their delay aren't
+                # set to the same value, we offset it by highest existing delay + 15 arbitrary days (cumulative).
                 company_id = default.get('company_id', line.company_id.id)
-                highest_delay = self.search([('company_id', '=', company_id)], order='delay desc', limit=1).delay
-                vals['delay'] = highest_delay + 15
+                highest_delay_per_company_id[company_id] += 15
+                vals['delay'] = highest_delay_per_company_id[company_id]
+            vals['name'] = default.get(
+                'name',
+                 _("%(delay)s days (copy of %(name)s)", delay=vals['delay'], name=line.name),
+             )
         return vals_list
 
     @api.onchange('auto_execute')
