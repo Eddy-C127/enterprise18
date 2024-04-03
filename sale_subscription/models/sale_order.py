@@ -671,10 +671,11 @@ class SaleOrder(models.Model):
                         note=cancel_activity_body,
                         user_id=order.subscription_id.user_id.id
                     )
-                order.order_log_ids.sudo().unlink()
-                order.subscription_state = '2_renewal' if order.subscription_id else False
-            elif order.subscription_state in SUBSCRIPTION_PROGRESS_STATE:
+            elif order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + ['5_renewed']:
                 raise ValidationError(_('You cannot cancel a subscription that has been invoiced.'))
+            if order.is_subscription:
+                order.subscription_state = '2_renewal' if order.subscription_id else '1_draft'
+                order.order_log_ids.sudo().unlink()
         return super()._action_cancel()
 
 
