@@ -17,7 +17,7 @@ export class EmployeeOvertimeIndication extends Component {
     static template = "timesheet_grid.EmployeeOvertimeIndication";
 
     get shouldShowHours() {
-        return this.props.allocated_hours > 0;
+        return this.props.allocated_hours !== undefined && this.overtime !== 0;
     }
 
     get colorClasses() {
@@ -34,9 +34,6 @@ export class EmployeeOvertimeIndication extends Component {
     get overtimeIndication() {
         if (!this.shouldShowHours) {
             return null;
-        }
-        if (this.overtime === 0) {
-            return null; // nothing to display
         }
         let overtimeIndication = this.overtime > 0 ? "+" : "";
         if (this.props.uom === "days") {

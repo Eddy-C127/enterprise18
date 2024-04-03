@@ -481,6 +481,84 @@ QUnit.module("Views", (hooks) => {
         }
     );
 
+    QUnit.test(
+        "employee overtime indication should be displayed in non-working days if timesheet recorded",
+        async function (assert) {
+            patchDate(2017, 0, 31, 0, 0, 0);
+            const { openView } = await start({
+                serverData: {
+                    ...serverData,
+                    views: {
+                        ...serverData.views,
+                        "analytic.line,2,grid": `<grid js_class="timesheet_grid" barchart_total="1" create_inline="1">
+                            <field name="employee_id" type="row" section="1" widget="timesheet_many2one_avatar_employee"/>
+                            <field name="project_id" type="row" widget="timesheet_many2one"/>
+                            <field name="task_id" type="row" widget="timesheet_many2one"/>
+                            <field name="date" type="col">
+                                <range name="day" string="Day" span="day" step="day"/>
+                            </field>
+                            <field name="unit_amount" type="measure" widget="float_time"/>
+                        </grid>`,
+                    },
+                },
+                async mockRPC(route, args) {
+                    if (args.method === "get_timesheet_and_working_hours_for_employees") {
+                        return {
+                            1: { units_to_work: 0, uom: "hours", worked_hours: 2 },
+                            3: { units_to_work: 8, uom: "hours", worked_hours: 5.5 },
+                        };
+                    }
+                    return await timesheetGridSetup.mockTimesheetGridRPC(route, args);
+                },
+            });
+
+            await openView({
+                res_model: "analytic.line",
+                views: [[2, "grid"]],
+                context: { group_by: [], grid_anchor: "2017-01-25" },
+            });
+
+            assert.containsN(
+                target,
+                ".o_grid_section_title .o_grid_component_timesheet_many2one_avatar_employee",
+                2,
+                "should have 4 sections with employee avatar"
+            );
+            assert.containsN(
+                target,
+                ".o_grid_section_title .o_timesheet_overtime_indication",
+                2,
+                "All the avatar should have a timesheet overtime indication displayed except one since he did his working hours without any overtime in the grid"
+            );
+            const sectionsTitleNodes = target.querySelectorAll(".o_grid_section_title");
+            const sectionWithDangerOvertimeTextContents = [];
+            const sectionWithSuccessOvertimeTextContents = [];
+            const sectionWithoutOvertimeTextContents = [];
+            for (const node of sectionsTitleNodes) {
+                const overtimeNode = node.querySelector(".o_timesheet_overtime_indication");
+                if (overtimeNode) {
+                    if (overtimeNode.classList.contains("text-danger")) {
+                        sectionWithDangerOvertimeTextContents.push(node.textContent);
+                    } else {
+                        sectionWithSuccessOvertimeTextContents.push(node.textContent);
+                    }
+                } else {
+                    sectionWithoutOvertimeTextContents.push(node.textContent);
+                }
+            }
+            assert.deepEqual(
+                sectionWithDangerOvertimeTextContents,
+                ["Yoshi-02:30"],
+                "Mario and Toad have not done all his working hours (the overtime indication for Toad is formatted in float since uom is Days and not hours)"
+            );
+            assert.deepEqual(
+                sectionWithSuccessOvertimeTextContents,
+                ["Mario+02:00"],
+                "Yoshi should have done his working hours and even more."
+            );
+        }
+    );
+
     QUnit.test("when in Next week date should be first working day", async function (assert) {
         const { openView } = await start({
             serverData,
@@ -550,5 +628,39 @@ QUnit.module("Views", (hooks) => {
         assert.containsNone(target, ".o_grid_sample_data");
         assert.containsN(target, ".o_grid_section_title", 4);
         assert.verifySteps(["get_last_validated_timesheet_date"]); // the rpc should be called only once
+    });
+
+    QUnit.test("test grid unavailibility", async (assert) => {
+        const { openView } = await start({
+            serverData,
+            async mockRPC(route, args) {
+                if (args.method === "grid_unavailability") {
+                    return {
+                        1: ["2017-01-22", "2017-01-24", "2017-01-28"],
+                        2: ["2017-01-22", "2017-01-28"],
+                        3: ["2017-01-22", "2017-01-28"],
+                        4: ["2017-01-22", "2017-01-28"],
+                        false: ["2017-01-22", "2017-01-28"],
+                    };
+                }
+                return await timesheetGridSetup.mockTimesheetGridRPC(route, args);
+            },
+        });
+
+        await openView({
+            res_model: "analytic.line",
+            views: [[1, "grid"]],
+            context: { group_by: [] },
+        });
+
+        assert.containsN(target, ".o_grid_section_title", 4);
+        assert.containsN(target, ".o_grid_row_title", 6);
+        assert.containsN(target, ".o_grid_add_line_first_cell", 2);
+        assert.containsN(
+            target,
+            ".o_grid_unavailable",
+            (1 + 4 + 6 + 2 + 1) * 2 + 3,
+            "2 whole columns and 3 cells for employee Mario in 2017-01-24 column."
+        );
     });
 });

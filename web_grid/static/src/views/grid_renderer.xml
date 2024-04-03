@@ -92,7 +92,7 @@
                 t-att-class="{
                     'bg-info bg-opacity-50' : column.isToday,
                     'bg-200 border-top' : !column.isToday,
-                    'bg-opacity-75' : getUnavailableClass(column) === 'o_grid_unavailable'
+                    'bg-opacity-75' : getUnavailableClass(column, { section }) === 'o_grid_unavailable'
                 }"
                 t-att-data-row="section.id"
                 t-att-data-column="column.id"
@@ -105,11 +105,11 @@
                        'o_grid_cell_overlay_today bg-info bg-opacity-25' : column.isToday,
                        'o_grid_cell_overlay bg-700' : !column.isToday,
                     }"
-                    t-attf-class="{{getUnavailableClass(column)}}"
+                    t-attf-class="{{getUnavailableClass(column, { section })}}"
                 />
                 <div class="o_grid_cell_readonly position-relative d-flex justify-content-center align-items-center w-100 h-100">
                     <span class="z-index-1 text-900" t-att-class="{
-                            'text-opacity-25' : section.cells[column.id].value === 0 or getUnavailableClass(column) === 'o_grid_unavailable',
+                            'text-opacity-25' : section.cells[column.id].value === 0 or getUnavailableClass(column, { section }) === 'o_grid_unavailable',
                           }"
                           t-out="formatValue(section.cells[column.id].value)"
                     />
@@ -141,7 +141,6 @@
                 'bg-view': isEven,
                 'bg-100': !isEven,
                 'fst-italic': row.isAdditionalRow,
-                'text-opacity-25' : getUnavailableClass(row) === 'o_grid_unavailable'
              }"
              t-att-data-grid-row="rowPosition"
              t-att-data-grid-column="columnsGap"
@@ -190,7 +189,7 @@
                     'o_grid_cell_overlay_today bg-info bg-opacity-25' : column.isToday,
                     'o_grid_cell_overlay bg-700' : !column.isToday,
                  }"
-                 t-attf-class="{{getUnavailableClass(column)}}"
+                 t-attf-class="{{getUnavailableClass(column, { section: row.section })}}"
             />
             <div class="o_grid_cell_readonly position-relative d-flex justify-content-center align-items-center w-100 h-100">
                 <span t-att-class="{

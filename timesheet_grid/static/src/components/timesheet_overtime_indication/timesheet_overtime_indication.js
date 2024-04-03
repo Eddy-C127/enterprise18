@@ -10,6 +10,10 @@ export class TimesheetOvertimeIndication extends EmployeeOvertimeIndication {
         name: String,
     };
 
+    get shouldShowHours() {
+        return super.shouldShowHours && this.props.allocated_hours > 0;
+    }
+
     get colorClasses() {
         if (!this.shouldShowHours) {
             return "";
