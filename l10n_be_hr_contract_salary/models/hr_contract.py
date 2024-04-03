@@ -206,6 +206,7 @@ class HrContract(models.Model):
         return description
 
     def _get_company_car_description_values(self, vehicle_id, is_new):
+        vehicle_range = _("%s km", vehicle_id.vehicle_range) if vehicle_id.vehicle_range else False
         if is_new:
             co2 = vehicle_id.default_co2
             fuel_type = vehicle_id.default_fuel_type
@@ -228,6 +229,7 @@ class HrContract(models.Model):
             'CO2 Emission': co2,
             'Monthly Cost': monthly_cost_display,
             'Fuel Type': fuel_type,
+            'Range': vehicle_range,
             'BIK': bik_display,
             'Transmission': transmission,
             'Doors Number': door_number,
