@@ -249,7 +249,7 @@
             <t t-set="entries">
                 <div class="d-flex flex-wrap flex-column">
                     <div class="flex-grow-1">
-                        <div class="text-center"><h1><span t-field="sale_order.amount_untaxed" t-options='{"widget": "monetary","display_currency": sale_order.currency_id}'/></h1></div>
+                        <div class="text-center"><h1><span t-field="sale_order.amount_total" t-options='{"widget": "monetary","display_currency": sale_order.currency_id}'/></h1></div>
                         <div t-if="sale_order.payment_token_id">Payment method:
                             <t t-out ="sale_order.payment_token_id._build_display_name(max_length=14)"/>
                         </div>
