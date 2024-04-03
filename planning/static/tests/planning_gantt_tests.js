@@ -439,6 +439,47 @@ QUnit.module("Views", (hooks) => {
         );
     });
 
+    QUnit.test("progress bar has the correct percentage", async (assert) => {
+        const makeViewArgs = _getCreateViewArgsForGanttViewTotalsTests();
+        assert.expect(10);
+        await makeView({
+            ...makeViewArgs,
+            arch: `<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" progress_bar="resource_id"/>`,
+            groupBy: ["resource_id"],
+            async mockRPC(_, { args, method, model }) {
+                if (method === "gantt_progress_bar") {
+                    assert.strictEqual(model, "task");
+                    assert.deepEqual(args[0], ["resource_id"]);
+                    assert.deepEqual(args[1], { resource_id: [1] });
+                    return {
+                        resource_id: {
+                            1: { value: 10, max_value: 40 },
+                        },
+                    };
+                }
+                return makeViewArgs.mockRPC(...arguments);
+            },
+        });
+        assert.containsOnce(target, SELECTORS.progressBar);
+        assert.containsOnce(target, SELECTORS.progressBarBackground);
+        assert.strictEqual(
+            target.querySelector(SELECTORS.progressBarBackground).style.width,
+            "25%"
+        );
+
+        assert.containsNone(target, SELECTORS.progressBarForeground);
+        await hoverGridCell(2, 1);
+        assert.containsOnce(target, SELECTORS.progressBarForeground);
+        assert.strictEqual(
+            target.querySelector(SELECTORS.progressBarForeground).textContent,
+            "10h / 40h"
+        );
+        assert.strictEqual(
+            target.querySelector(SELECTORS.progressBar + " > span > .ms-1").textContent,
+            "(25%)"
+        );
+    });
+
     QUnit.test("total computes correctly for open shifts", async (assert) => {
         // For open shifts and shifts with flexible resource, the total should be computed
         // based on the shifts' duration, each maxed to the calendar's hours per day.
