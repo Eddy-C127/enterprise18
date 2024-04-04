@@ -15,7 +15,7 @@
                     <field name="booking_line_ids" invisible="not active">
                         <tree editable="bottom">
                             <field name="appointment_type_id" column_invisible="True"/>
-                            <field name="appointment_resource_id" domain="[('appointment_type_ids', 'in', appointment_type_id)]"/>
+                            <field name="appointment_resource_id" domain="[('appointment_type_ids', 'in', appointment_type_id)]" options="{'no_create': True}"/>
                             <field name="capacity_reserved" sum="Total Capacity Reserved"/>
                             <field name="capacity_used" optional="hide" sum="Total Capacity Used"/>
                         </tree>
@@ -301,7 +301,7 @@
             <p class="o_view_nocontent_smiling_face">
                 No data yet!
             </p><p>
-                Schedule appointments to get statistics
+                Use this menu to overview your Appointments once you get some bookings.
             </p>
         </field>
     </record>
@@ -315,7 +315,7 @@
             <p class="o_view_nocontent_smiling_face">
                 No data yet!
             </p><p>
-                Schedule appointments to get statistics
+                Use this menu to overview your Appointments once you get some bookings.
             </p>
         </field>
     </record>
