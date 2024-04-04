@@ -44,8 +44,8 @@ class MailMessage(models.Model):
             'partners': [('DELETE' if unlink_reaction else 'ADD', {'id': partner_id.id})],
         })
 
-    def message_format(self, *args, **kwargs):
-        vals_list = super().message_format(*args, **kwargs)
+    def _message_format(self, *args, **kwargs):
+        vals_list = super()._message_format(*args, **kwargs)
         whatsapp_mail_message = self.filtered(lambda m: m.message_type == 'whatsapp_message')
         if whatsapp_mail_message:
             whatsapp_message_by_message_id = {
