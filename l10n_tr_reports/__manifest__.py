@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
@@ -14,6 +13,9 @@ Accounting reports for Turkey
     'data': [
         'data/account_report_tr_balance_sheet_data.xml',
         'data/account_report_tr_pnl_data.xml',
+
+        'views/account_journal_views.xml',
+        'views/product_view.xml',
     ],
     'installable': True,
     'auto_install': True,
