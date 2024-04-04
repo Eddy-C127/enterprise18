@@ -47,7 +47,7 @@
                                             <span t-field="line.employee_id.name">Jane Worker</span>
                                         </td>
                                         <td class="text-start">
-                                            <span t-field="line.display_name">Manage SME</span>
+                                            <span t-field="line.name">Manage SME</span>
                                         </td>
                                         <td class="text-end">
                                             <span t-if="is_uom_day" t-out="line._convert_hours_to_days(line.unit_amount)" t-options='{"widget": "timesheet_uom"}'>5 days</span>
@@ -105,6 +105,7 @@
                         </span>
                     </div>
                     <div t-attf-class="{{ 'col-12 col-lg-3' if report_type != 'html' else 'col-sm-7 col-md-4' }} ms-auto text-end" style="page-break-inside: avoid;">
+                        <br/>
                         <h5>Signature</h5>
                         <img t-att-src="image_data_uri(doc.worksheet_signature)" style="max-height: 6rem; max-width: 100%; color:black;"/><br/>
                         <span t-field="doc.worksheet_signed_by">Marc Demo</span>
