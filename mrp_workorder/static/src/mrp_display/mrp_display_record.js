@@ -13,6 +13,7 @@ import { PriorityField } from "@web/views/fields/priority/priority_field";
 import { useService } from "@web/core/utils/hooks";
 import { MrpQualityCheckConfirmationDialog } from "./dialog/mrp_quality_check_confirmation_dialog";
 import { MrpRegisterProductionDialog } from "./dialog/mrp_register_production_dialog";
+import { MrpLogNoteDialog } from "./dialog/mrp_log_note_dialog";
 import { SelectionField } from "@web/views/fields/selection/selection_field";
 import { MrpMenuDialog } from "./dialog/mrp_menu_dialog";
 import { MrpWorksheet } from "./mrp_record_line/mrp_worksheet";
@@ -81,6 +82,13 @@ export class MrpDisplayRecord extends Component {
         const reload = () => this.env.reload();
         const params = { body: '', record: this.props.production, reload, title, qtyToProduce: this.record.qty_remaining };
         this.dialog.add(MrpRegisterProductionDialog, params);
+    }
+
+    editLogNote() {
+        const title = _t("Log Note");
+        const reload = () => this.env.reload();
+        const params = { body: '', record: this.props.production, reload, title};
+        this.dialog.add(MrpLogNoteDialog, params);
     }
 
     async quickRegisterProduction() {
@@ -207,6 +215,10 @@ export class MrpDisplayRecord extends Component {
         return this.props.record.data.workorder_ids.records.filter(
             (wo) => !["pending", "waiting"].includes(wo.data.state)
         );
+    }
+
+    get logNote() {
+        return this.props.production.data.log_note;
     }
 
     subRecordProps(subRecord) {

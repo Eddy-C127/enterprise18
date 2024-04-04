@@ -19,6 +19,8 @@ class MrpProduction(models.Model):
 
     employee_ids = fields.Many2many('hr.employee', string="working employees", compute='_compute_employee_ids')
 
+    log_note = fields.Text(string="Log note")
+
     def write(self, vals):
         if 'lot_producing_id' in vals:
             self.sudo().workorder_ids.check_ids.filtered(lambda c: c.test_type_id.technical_name == 'register_production').write({'lot_id': vals['lot_producing_id']})
@@ -58,6 +60,20 @@ class MrpProduction(models.Model):
             'res_model': 'mrp_production.additional.workorder',
             'views': [[self.env.ref('mrp_workorder.view_mrp_production_additional_workorder_wizard').id, 'form']],
             'name': _('Add Workorder'),
+            'target': 'new',
+            'context': {
+                'default_production_id': self.id,
+            }
+        }
+
+    def action_log_note(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_id': self.id,
+            'res_model': 'mrp.production',
+            'views': [[self.env.ref('mrp_workorder.mrp_production_view_form_log_note').id, 'form']],
+            'name': _('Add log note'),
             'target': 'new',
             'context': {
                 'default_production_id': self.id,

@@ -41,6 +41,7 @@ export class MrpDisplayAction extends Component {
                 "date_start",
                 "product_description_variants",
                 "priority",
+                "log_note",
             ],
             "mrp.workorder": [
                 "id",

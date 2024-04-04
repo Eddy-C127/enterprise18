@@ -2,7 +2,7 @@
 <templates xml:space="preserve">
     <t t-name="mrp_workorder.MrpDisplayMenuDialog">
         <Dialog size="'md'" title="props.title" modalRef="modalRef" footer="false" withBodyPadding="false" bodyClass="'overflow-x-hidden'">
-            <div  class="o_mrp_menu_dialog p-3 transition-base">
+            <div t-if="state.menu == 'main'" class="o_mrp_menu_dialog p-3">
                 <div class="button_list btn-group-vertical w-100">
                     <!-- Invisible checkbox to avoid focus on first button when entering the modals -->
                     <input type="checkbox" hidden="hidden"/>
@@ -38,8 +38,13 @@
                     </button>
                     <button t-if="props.record.resModel == 'mrp.workorder'"
                             class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3"
-                            t-on-click="worksheetSuggestion" name="worksheetSuggestion">
-                        Suggest a Worksheet improvement <i class="oi oi-chevron-right"/>
+                            t-on-click="displayInstructionsMenu" name="displayInstructionsMenu">
+                        Update Instructions <i class="oi oi-chevron-right"/>
+                    </button>
+                    <button t-if="props.record.resModel != 'mrp.workorder'"
+                            class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3"
+                            t-on-click="() => this.callAction('action_log_note')">
+                        Log Note <i class="oi oi-chevron-right"/>
                     </button>
                 </div>
                 <button t-if="props.record.resModel == 'mrp.workorder' &amp;&amp; props.record.data.working_state !== 'blocked'"
@@ -53,13 +58,48 @@
                     Unblock
                 </button>
             </div>
-            <div t-if="props.record.resModel == 'mrp.workorder'" class="o_worksheet_improvements button_list o_mrp_menu_dialog position-absolute start-100 top-0 d-flex flex-column gap-1 w-100 p-3 transition-base">
-                <button class="btn btn-light p-3 fs-3 text-start" t-on-click="worksheetSuggestion"><i class="oi oi-chevron-left me-2"/> Back</button>
+            <div t-if="state.menu == 'instructions'"
+                 class="d-flex flex-column gap-1 p-3">
+                <button class="btn btn-light p-3 fs-3 text-start" t-on-click="displayMainMenu">
+                    <i class="oi oi-chevron-left me-2"/> Back
+                </button>
                 <div class="btn-group-vertical">
-                    <button t-if="props.params.checks.length" class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3" t-on-click="updateStep">Update Instructions <i class="oi oi-chevron-right"/></button>
-                    <button t-if="props.params.checks.length" class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3" t-on-click="removeStep">Delete a Step <i class="oi oi-chevron-right"/></button>
-                    <button class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3" t-on-click="addStep">Add a Step <i class="oi oi-chevron-right"/></button>
-                    <button t-if="props.params.checks.length" class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3" t-on-click="setPicture">Set a New picture <i class="oi oi-chevron-right"/></button>
+                    <button class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3"
+                            t-on-click="() => this.callAction('action_log_note')">
+                        Log Note <i class="oi oi-chevron-right"/>
+                    </button>
+                    <button class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3"
+                            t-on-click="displayImprovementMenu" name="displayImprovementMenu">
+                        Improvement Suggestion <i class="oi oi-chevron-right"/>
+                    </button>
+                </div>
+            </div>
+            <div t-if="state.menu == 'improvement'"
+                class="o_mrp_menu_update_instruction d-flex flex-column gap-1 p-3">
+                <button class="btn btn-light p-3 fs-3 text-start"
+                        t-on-click="displayInstructionsMenu">
+                    <i class="oi oi-chevron-left me-2"/> Back
+                </button>
+                <div class="btn-group-vertical">
+                    <button t-if="props.params.checks.length"
+                            class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3"
+                            t-on-click="updateStep">
+                        Update Instructions <i class="oi oi-chevron-right"/>
+                    </button>
+                    <button t-if="props.params.checks.length"
+                            class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3"
+                            t-on-click="removeStep">
+                        Delete a Step <i class="oi oi-chevron-right"/>
+                    </button>
+                    <button class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3"
+                            t-on-click="addStep">
+                        Add a Step <i class="oi oi-chevron-right"/>
+                    </button>
+                    <button t-if="props.params.checks.length"
+                            class="btn btn-outline-secondary d-flex justify-content-between align-items-center p-3 fs-3"
+                            t-on-click="setPicture">
+                        Set a New picture <i class="oi oi-chevron-right"/>
+                    </button>
                 </div>
             </div>
         </Dialog>

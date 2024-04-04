@@ -6,7 +6,7 @@ import { useService } from "@web/core/utils/hooks";
 import { MrpWorkcenterDialog } from "./mrp_workcenter_dialog";
 import { MrpQualityCheckSelectDialog } from "./mrp_check_select_dialog";
 
-import { Component } from "@odoo/owl";
+import { Component, useState } from "@odoo/owl";
 
 export class MrpMenuDialog extends Component {
     static props = {
@@ -26,6 +26,7 @@ export class MrpMenuDialog extends Component {
         this.action = useService("action");
         this.dialogService = useService("dialog");
         this.notification = useService("notification");
+        this.state = useState({ menu: "main"});
     }
 
     async callAction(method) {
@@ -107,15 +108,16 @@ export class MrpMenuDialog extends Component {
         this.props.close();
     }
 
-    worksheetSuggestion(){
-        const modalBodies = document.querySelectorAll('.o_mrp_menu_dialog');
-        modalBodies.forEach(el => {
-            if (el.classList.contains("translate-slide-left")) {
-                el.classList.remove("translate-slide-left");
-            } else {
-                el.classList.add("translate-slide-left");
-            }
-        });
+    displayMainMenu(){
+        this.state.menu = "main";
+    }
+
+    displayInstructionsMenu(){
+        this.state.menu = "instructions";
+    }
+
+    displayImprovementMenu(){
+        this.state.menu = "improvement";
     }
 
     updateStep(){

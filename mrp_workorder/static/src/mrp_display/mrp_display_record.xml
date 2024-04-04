@@ -40,6 +40,12 @@
                 </div>
             </div>
             <ul class="list-group list-group-flush">
+                <li t-if="logNote"
+                    class="o_mrp_display list-group-item d-flex justify-content-between align-items-center"
+                    t-on-click="() => this.editLogNote()">
+                        <div class="text-truncate" t-out="logNote" />
+                        <button class="btn fa fa-pencil-square-o" title="Display Log Note"></button>
+                </li>
                 <MrpWorksheet t-if="showWorksheetCheck" record="props.record" clickable="true"/>
                 <t t-foreach="workorders" t-as="workorder" t-key="workorder.data.id">
                     <MrpWorkorder t-if="workorder.data.state != 'cancel'" t-props="subRecordProps(workorder)"/>

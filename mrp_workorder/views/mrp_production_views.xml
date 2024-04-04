@@ -73,6 +73,20 @@
                 <button name="action_open_shop_floor" type="object" icon="oi-view-kanban" string="Shop Floor" 
                         groups="mrp_workorder.group_mrp_wo_shop_floor" invisible="state in ('draft', 'done', 'cancel')"/>
             </xpath>
+            <xpath expr="//page[@name='miscellaneous']//field[@name='company_id']" position="after">
+                <field name="log_note" string="Notes" help="Additional instructions that can be created and visualised from both here and the shop floor interface."/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mrp_production_view_form_log_note" model="ir.ui.view">
+        <field name="name">mrp.production.view.form.log.note</field>
+        <field name="model">mrp.production</field>
+        <field name="priority">10000</field>
+        <field name="arch" type="xml">
+            <form string="Log Note">
+                <field name="log_note"/>
+            </form>
         </field>
     </record>
 

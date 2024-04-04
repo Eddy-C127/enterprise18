@@ -355,6 +355,9 @@ class MrpProductionWorkcenterLine(models.Model):
         }
         return action
 
+    def action_log_note(self):
+        return self.production_id.action_log_note()
+
     def _compute_check(self):
         for workorder in self:
             todo = False
