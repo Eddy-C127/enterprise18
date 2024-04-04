@@ -3,6 +3,7 @@
 from datetime import datetime
 from freezegun import freeze_time
 
+from odoo.exceptions import UserError
 from odoo.tests.common import new_test_user
 from odoo.addons.spreadsheet_edition.tests.spreadsheet_test_case import SpreadsheetTestCase
 
@@ -40,6 +41,27 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         self.assertFalse(
             spreadsheet.with_context(active_test=True).spreadsheet_revision_ids,
         )
+
+    def test_save_spreadsheet_snapshot(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        server_revision_id = spreadsheet.server_revision_id
+        snapshot = {"sheets": [], "revisionId": spreadsheet.server_revision_id}
+        spreadsheet.save_spreadsheet_snapshot(snapshot)
+        self.assertNotEqual(spreadsheet.server_revision_id, server_revision_id)
+        self.assertEqual(
+            spreadsheet._get_spreadsheet_snapshot(),
+            dict(snapshot, revisionId=spreadsheet.server_revision_id),
+        )
+
+    def test_save_spreadsheet_snapshot_with_invalid_revision_id(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        snapshot = {"sheets": [], "revisionId": spreadsheet.server_revision_id}
+
+        # one revision is saved in the meantime (concurrently)
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+
+        with self.assertRaises(UserError):
+            spreadsheet.save_spreadsheet_snapshot(snapshot)
 
     def test_company_currency(self):
         spreadsheet = self.env["spreadsheet.test"].create({})

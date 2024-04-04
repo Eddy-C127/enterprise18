@@ -57,7 +57,15 @@ QUnit.test("open wizard action", async (assert) => {
         },
     };
     registry.category("services").add("action", fakeActionService, { force: true });
-    const { env } = await createSpreadsheet({ serverData, spreadsheetId: 2 });
+    const { env } = await createSpreadsheet({
+        serverData,
+        spreadsheetId: 2,
+        mockRPC: async function (route, args) {
+            if (args.method === "save_spreadsheet_snapshot") {
+                return true;
+            }
+        },
+    });
     await doMenuAction(topbarMenuRegistry, ["file", "add_document_to_dashboard"], env);
     assert.verifySteps(["open_wizard_action"]);
 });
@@ -65,9 +73,19 @@ QUnit.test("open wizard action", async (assert) => {
 QUnit.test("document's data is saved when opening wizard", async (assert) => {
     const serverData = getServerData();
     registry.category("services").add("actionMain", actionService);
-    const { env, model } = await createSpreadsheet({ serverData, spreadsheetId: 2 });
+    const { env, model } = await createSpreadsheet({
+        serverData,
+        spreadsheetId: 2,
+        mockRPC: async function (route, args) {
+            if (args.method === "save_spreadsheet_snapshot") {
+                assert.step("save_spreadsheet_snapshot");
+                const snapshotData = args.args[1];
+                assert.strictEqual(snapshotData.sheets[0].cells.A1.content, "a cell updated");
+                return true;
+            }
+        },
+    });
     setCellContent(model, "A1", "a cell updated");
     await doMenuAction(topbarMenuRegistry, ["file", "add_document_to_dashboard"], env);
-    const data = JSON.parse(serverData.models["documents.document"].records[1].spreadsheet_data);
-    assert.strictEqual(data.sheets[0].cells.A1.content, "a cell updated");
+    assert.verifySteps(["save_spreadsheet_snapshot"]);
 });

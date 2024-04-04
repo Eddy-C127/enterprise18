@@ -168,6 +168,20 @@ class SpreadsheetMixin(models.AbstractModel):
         revisions = self.env["spreadsheet.revision"].sudo().create(revisions_data)
         spreadsheet.sudo().spreadsheet_revision_ids = revisions
 
+    def save_spreadsheet_snapshot(self, snapshot_data):
+        data_revision_uuid = snapshot_data.get("revisionId")
+        snapshot_uuid = str(uuid.uuid4())
+        snapshot_data["revisionId"] = snapshot_uuid
+        revision = {
+            "type": "SNAPSHOT",
+            "serverRevisionId": data_revision_uuid,
+            "nextRevisionId": snapshot_uuid,
+            "data": snapshot_data,
+        }
+        is_accepted = self.dispatch_spreadsheet_message(revision)
+        if not is_accepted:
+            raise UserError(_("The operation could not be applied because of a concurrent update. Please try again."))
+
     def _snapshot_spreadsheet(
         self, revision_id: str, snapshot_revision_id, spreadsheet_snapshot: dict
     ):

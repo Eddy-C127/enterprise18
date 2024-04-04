@@ -41,9 +41,10 @@ patch(SpreadsheetAction.prototype, {
     async _createDashboardFromDocument(model) {
         const resId = this.resId;
         const name = this.state.spreadsheetName;
-        await this.env.services.orm.write("documents.document", [resId], {
-            spreadsheet_data: JSON.stringify(model.exportData()),
-        });
+        await this.env.services.orm.call("documents.document", "save_spreadsheet_snapshot", [
+            resId,
+            model.exportData(),
+        ]);
         this.env.services.action.doAction(
             {
                 name: _t("Name your dashboard and select its section"),
