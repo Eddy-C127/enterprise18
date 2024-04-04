@@ -97,7 +97,7 @@
     </t>
 
     <t t-name="account_reports.AccountReportOptionalColumnSelector">
-        <Dropdown position="'bottom-end'">
+        <Dropdown position="'bottom-end'" listRendererClass="uniqueRendererClass">
             <t t-set-slot="toggler">
                 <i class="filter"/>
             </t>

@@ -10,6 +10,7 @@ import { registry } from "@web/core/registry";
 import { ListRenderer } from "@web/views/list/list_renderer";
 import { X2ManyField, x2ManyField } from "@web/views/fields/x2many/x2many_field";
 import { useOpenX2ManyRecord, useX2ManyCrud } from "@web/views/fields/relational_utils";
+import { uniqueId } from "@web/core/utils/functions";
 
 export class AccountReportListRenderer extends ListRenderer {
     static template = "account_reports.AccountReportList";
@@ -44,6 +45,7 @@ export class AccountReportListRenderer extends ListRenderer {
             onDragEnd: () => this.onDragEnd(),
             onDrop: (ctx) => this.onDrop(ctx),
         });
+        this.uniqueRendererClass = uniqueId("o_list_renderer_");
     }
 
     //------------------------------------------------------------------------------------------------------------------
