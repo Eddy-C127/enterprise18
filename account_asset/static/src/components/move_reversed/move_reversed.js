@@ -11,7 +11,6 @@ export class MoveReversed extends Component {
 
 export const moveReversed = {
     component: MoveReversed,
-    noLabel: true,
 };
 
 registry.category("fields").add("deprec_lines_reversed", moveReversed);

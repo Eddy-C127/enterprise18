@@ -662,12 +662,13 @@ QUnit.module(
                 });
                 setFieldAvailableInSidebar("safeWidget");
 
-                class safeWidgetNoDisplayName extends charField.component {}
-                wowlFieldRegistry.add("safeWidgetNoDisplayName", {
+                class SafeWidgetNoDisplayName extends charField.component {}
+                const safeWidgetNoDisplayName = {
                     ...charField,
-                    component: safeWidgetNoDisplayName,
-                    displayName: null,
-                });
+                    component: SafeWidgetNoDisplayName,
+                }
+                delete safeWidgetNoDisplayName.displayName;
+                wowlFieldRegistry.add("safeWidgetNoDisplayName", safeWidgetNoDisplayName);
                 setFieldAvailableInSidebar("safeWidgetNoDisplayName");
 
                 class UnsafeWidget extends charField.component {}
@@ -714,12 +715,13 @@ QUnit.module(
                 });
                 setFieldAvailableInSidebar("safeWidget");
 
-                class safeWidgetNoDisplayName extends charField.component {}
-                wowlFieldRegistry.add("safeWidgetNoDisplayName", {
+                class SafeWidgetNoDisplayName extends charField.component {}
+                const safeWidgetNoDisplayName = {
                     ...charField,
-                    component: safeWidgetNoDisplayName,
-                    displayName: null,
-                });
+                    component: SafeWidgetNoDisplayName,
+                }
+                delete safeWidgetNoDisplayName.displayName;
+                wowlFieldRegistry.add("safeWidgetNoDisplayName", safeWidgetNoDisplayName);
                 setFieldAvailableInSidebar("safeWidgetNoDisplayName");
 
                 class UnsafeWidget extends charField.component {}
@@ -911,12 +913,13 @@ QUnit.module(
 
                 const wowlFieldRegistry = registry.category("fields");
                 const charField = wowlFieldRegistry.get("char");
-                class widgetWithoutDescription extends charField.component {}
-                wowlFieldRegistry.add("widgetWithoutDescription", {
+                class WidgetWithoutDescription extends charField.component {}
+                const widgetWithoutDescription = {
                     ...charField,
-                    component: widgetWithoutDescription,
-                    displayName: null,
-                });
+                    component: WidgetWithoutDescription,
+                }
+                delete widgetWithoutDescription.displayName;
+                wowlFieldRegistry.add("widgetWithoutDescription", widgetWithoutDescription);
 
                 await createViewEditor({
                     serverData,
@@ -954,13 +957,14 @@ QUnit.module(
 
                 const wowlFieldRegistry = registry.category("fields");
                 const charField = wowlFieldRegistry.get("char");
-                class widgetWithoutTypes extends charField.component {}
-                wowlFieldRegistry.add("widgetWithoutTypes", {
+                class WidgetWithoutTypes extends charField.component {}
+                const widgetWithoutTypes = {
                     ...charField,
-                    component: widgetWithoutTypes,
-                    supportedTypes: null,
-                    displayName: null,
-                });
+                    component: WidgetWithoutTypes,
+                }
+                delete widgetWithoutTypes.displayName;
+                delete widgetWithoutTypes.supportedTypes;
+                wowlFieldRegistry.add("widgetWithoutTypes", widgetWithoutTypes);
 
                 await createViewEditor({
                     serverData,
@@ -1000,12 +1004,13 @@ QUnit.module(
 
                 const wowlFieldRegistry = registry.category("fields");
                 const charField = wowlFieldRegistry.get("char");
-                class widgetWithoutDescription extends charField.component {}
-                wowlFieldRegistry.add("widgetWithoutDescription", {
+                class WidgetWithoutDescription extends charField.component {}
+                const widgetWithoutDescription = {
                     ...charField,
-                    component: widgetWithoutDescription,
-                    displayName: null,
-                });
+                    component: WidgetWithoutDescription,
+                }
+                delete widgetWithoutDescription.displayName;
+                wowlFieldRegistry.add("widgetWithoutDescription", widgetWithoutDescription);
 
                 await createViewEditor({
                     serverData,
@@ -1039,13 +1044,15 @@ QUnit.module(
 
                 const wowlFieldRegistry = registry.category("fields");
                 const charField = wowlFieldRegistry.get("char");
-                class widgetWithoutTypes extends charField.component {}
-                wowlFieldRegistry.add("widgetWithoutTypes", {
+                class WidgetWithoutTypes extends charField.component {}
+                const widgetWithoutTypes = {
                     ...charField,
-                    component: widgetWithoutTypes,
-                    supportedTypes: null,
+                    component: WidgetWithoutTypes,
                     displayName: null,
-                });
+                };
+                delete widgetWithoutTypes.displayName;
+                delete widgetWithoutTypes.supportedTypes;
+                wowlFieldRegistry.add("widgetWithoutTypes", widgetWithoutTypes);
 
                 await createViewEditor({
                     serverData,
