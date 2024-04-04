@@ -783,13 +783,13 @@ class Planning(models.Model):
 
         recurrence_update = values.pop('recurrence_update', 'this')
         if recurrence_update != 'this':
-            recurrence_domain = []
+            recurrence_domains = []
             if recurrence_update == 'subsequent':
                 for slot in self:
-                    recurrence_domain = expression.OR([recurrence_domain,
-                        ['&', ('recurrency_id', '=', slot.recurrency_id.id), ('start_datetime', '>=', slot.start_datetime)]
+                    recurrence_domains.append([
+                        '&', ('recurrency_id', '=', slot.recurrency_id.id), ('start_datetime', '>=', slot.start_datetime),
                     ])
-                    recurrence_slots = self.search(recurrence_domain)
+                    recurrence_slots = self.search(expression.OR(recurrence_domains))
                     if any(
                         field_name in values
                         for field_name in ('start_datetime', 'end_datetime')
@@ -875,16 +875,16 @@ class Planning(models.Model):
             domain = expression.AND([domain, [('recurrency_id', 'in', self.recurrency_id.ids)]])
         elif recurrence_update == 'subsequent':
             start_date_per_recurrency_id = {}
-            sub_domain = []
+            sub_domains = []
             for shift in self:
                 if shift.recurrency_id.id not in start_date_per_recurrency_id\
                     or shift.start_datetime < start_date_per_recurrency_id[shift.recurrency_id.id]:
                     start_date_per_recurrency_id[shift.recurrency_id.id] = shift.start_datetime
             for recurrency_id, start_datetime in start_date_per_recurrency_id.items():
-                sub_domain = expression.OR([sub_domain,
-                    ['&', ('recurrency_id', '=', recurrency_id), ('start_datetime', '>', start_datetime)]
+                sub_domains.append([
+                    '&', ('recurrency_id', '=', recurrency_id), ('start_datetime', '>', start_datetime),
                 ])
-            domain = expression.AND([domain, sub_domain])
+            domain = expression.AND([domain, expression.OR(sub_domains)])
         sibling_slots = self.env['planning.slot'].search(domain)
         self.recurrency_id.unlink()
         sibling_slots.unlink()
@@ -1856,17 +1856,17 @@ class Planning(models.Model):
 
     @api.model
     def _expand_domain_m2o_groupby(self, domain, filter_field=False):
-        filter_domain = []
+        filter_domains = []
         for dom in domain:
             if dom[0] == filter_field:
                 field = self._fields[dom[0]]
                 if field.type == 'many2one' and len(dom) == 3:
                     if dom[1] in ['=', 'in']:
-                        filter_domain = expression.OR([filter_domain, [('id', dom[1], dom[2])]])
+                        filter_domains.append([('id', dom[1], dom[2])])
                     elif dom[1] == 'ilike':
                         rec_name = self.env[field.comodel_name]._rec_name
-                        filter_domain = expression.OR([filter_domain, [(rec_name, dom[1], dom[2])]])
-        return filter_domain
+                        filter_domains.append([(rec_name, dom[1], dom[2])])
+        return expression.OR(filter_domains) if filter_domains else []
 
     def _expand_domain_dates(self, domain):
         filters = []

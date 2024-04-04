@@ -25,22 +25,20 @@ class SaleOrderLine(models.Model):
                 ('project_id', '!=', False),
             ], ['so_line'], ['unit_amount:sum', 'date:max'])
             mapped_unit_amount = defaultdict(float)
-            planning_domain = []
+            planning_domains = []
             for so_line, unit_amount_sum, date_max in group_unit_amount:
                 # Build a domain to search for slots, for every SOL, beginning from the most recent validated timesheet
                 tmp_domain = [
                     ('sale_line_id', '=', so_line.id),
                     ('start_datetime', '>', datetime.combine(date_max, datetime.max.time())),
                 ]
-                planning_domain = expression.OR([planning_domain, tmp_domain])
+                planning_domains.append(tmp_domain)
                 mapped_unit_amount[so_line.id] = unit_amount_sum
             sol_without_validated_aal = [item for item in planning_forecast_sols.ids if item not in mapped_unit_amount]
             if sol_without_validated_aal:
                 # Fill the domain with SOL which doesn't have validated timesheets (so no start_datetime constraint)
-                if planning_domain:
-                    planning_domain = expression.OR([planning_domain, [('sale_line_id', 'in', sol_without_validated_aal), ('start_datetime', '!=', False)]])
-                else:
-                    planning_domain = [('sale_line_id', 'in', sol_without_validated_aal), ('start_datetime', '!=', False)]
+                planning_domains.append([('sale_line_id', 'in', sol_without_validated_aal), ('start_datetime', '!=', False)])
+            planning_domain = expression.OR(planning_domains)
             # Search for the allocated hours on the slots in the domain
             group_allocated_hours = PlanningSlot.with_context(sale_planning_prevent_recompute=True)._read_group(
                 expression.AND([[('start_datetime', '!=', False),

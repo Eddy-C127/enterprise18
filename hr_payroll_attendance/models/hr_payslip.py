@@ -27,20 +27,21 @@ class HrPayslip(models.Model):
         """
         attendance_by_payslip = defaultdict(lambda: self.env['hr.attendance'])
         slip_by_employee = defaultdict(lambda: self.env['hr.payslip'])
-        attendance_domain = []
+        attendance_domains = []
         for slip in self:
             if slip.contract_id.work_entry_source != 'attendance':
                 continue
             slip_by_employee[slip.employee_id.id] |= slip
-            attendance_domain = expression.OR([
-                attendance_domain,
-                [
-                    ('employee_id', '=', slip.employee_id.id),
-                    ('check_in', '<=', slip.date_to),
-                    ('check_out', '>=', slip.date_from),
-                ]
+            attendance_domains.append([
+                ('employee_id', '=', slip.employee_id.id),
+                ('check_in', '<=', slip.date_to),
+                ('check_out', '>=', slip.date_from),
             ])
-        attendance_group = self.env['hr.attendance']._read_group(attendance_domain, groupby=['employee_id', 'check_in:day'], aggregates=['id:recordset'])
+        attendance_group = self.env['hr.attendance']._read_group(
+            expression.OR(attendance_domains),
+            groupby=['employee_id', 'check_in:day'],
+            aggregates=['id:recordset'],
+        )
         for employee, check_in, attendance in attendance_group:
             for slip in slip_by_employee[employee.id]:
                 if slip.date_from <= check_in.date() <= slip.date_to:

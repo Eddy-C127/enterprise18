@@ -20,21 +20,18 @@ class HrPayslip(models.Model):
         planning_slips = self.filtered(lambda p: p.contract_id.work_entry_source == 'planning')
         if not planning_slips:
             return
-        domain = []
+        domains = []
         slip_by_employee = defaultdict(lambda: self.env['hr.payslip'])
         for slip in planning_slips:
             slip_by_employee[slip.employee_id.id] |= slip
-            domain = expression.OR([
-                domain,
-                [
-                    ('employee_id', '=', slip.employee_id.id),
-                    ('start_datetime', '<=', slip.date_to),
-                    ('end_datetime', '>=', slip.date_from),
-                ],
+            domains.append([
+                ('employee_id', '=', slip.employee_id.id),
+                ('start_datetime', '<=', slip.date_to),
+                ('end_datetime', '>=', slip.date_from),
             ])
         domain = expression.AND([
             [('state', '=', 'published')],
-            domain,
+            expression.OR(domains),
         ])
         read_group = self.env['planning.slot']._read_group(domain, groupby=['employee_id', 'start_datetime:day'], aggregates=['__count'])
         for employee, start_datetime_utc, count in read_group:
