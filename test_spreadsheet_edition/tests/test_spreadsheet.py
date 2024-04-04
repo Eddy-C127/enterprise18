@@ -7,6 +7,7 @@ import json
 import copy as COPY
 from odoo.tools import mute_logger
 
+from odoo.exceptions import UserError
 from odoo.tests.common import new_test_user
 from odoo.addons.spreadsheet_edition.tests.spreadsheet_test_case import SpreadsheetTestCase
 
@@ -155,6 +156,27 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         revision = spreadsheet.spreadsheet_revision_ids[1]
         with self.assertRaises(psycopg2.errors.UniqueViolation), mute_logger("odoo.sql_db"):
             revision.unlink()
+
+    def test_save_spreadsheet_snapshot(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        current_revision_uuid = spreadsheet.current_revision_uuid
+        snapshot = {"sheets": [], "revisionId": spreadsheet.current_revision_uuid}
+        spreadsheet.save_spreadsheet_snapshot(snapshot)
+        self.assertNotEqual(spreadsheet.current_revision_uuid, current_revision_uuid)
+        self.assertEqual(
+            spreadsheet._get_spreadsheet_snapshot(),
+            dict(snapshot, revisionId=spreadsheet.current_revision_uuid),
+        )
+
+    def test_save_spreadsheet_snapshot_with_invalid_revision_id(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        snapshot = {"sheets": [], "revisionId": spreadsheet.current_revision_uuid}
+
+        # one revision is saved in the meantime (concurrently)
+        spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
+
+        with self.assertRaises(UserError):
+            spreadsheet.save_spreadsheet_snapshot(snapshot)
 
     def test_company_currency(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
