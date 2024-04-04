@@ -6,11 +6,14 @@
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
             <group name="application_group" position="inside">
-                <field name="show_billable_time_target" invisible="True"/>
-                <label for="billable_time_target" groups="hr_timesheet.group_hr_timesheet_approver" invisible="not show_billable_time_target"/>
-                <div name="billable_time_target" groups="hr_timesheet.group_hr_timesheet_approver" invisible="not show_billable_time_target">
-                    <field name="billable_time_target" class="oe_inline" widget="timesheet_uom_no_toggle"/>
-                </div>
+                <field name="show_billable_time_target" invisible="1"/>
+                <span class="o_wrap_label" invisible="not show_billable_time_target">
+                    <label for="billable_time_target" groups="hr_timesheet.group_hr_timesheet_approver"/>
+                </span>
+                <span class="d-flex w-50" name="billable_time_target" invisible="not show_billable_time_target">
+                    <field name="billable_time_target" widget="timesheet_uom_no_toggle" groups="hr_timesheet.group_hr_timesheet_approver"/>
+                    <span class="w-100" groups="hr_timesheet.group_hr_timesheet_approver">per month</span>
+                </span>
             </group>
         </field>
     </record>
