@@ -287,7 +287,7 @@ QUnit.module("documents", {}, function () {
             );
 
             QUnit.test(
-                "Pdf Manager: puts separators on active pages by pressing s",
+                "Pdf Manager: puts separators on active pages by pressing control+s",
                 async function (assert) {
                     assert.expect(3);
 
@@ -311,7 +311,7 @@ QUnit.module("documents", {}, function () {
                         12,
                         "There should be 12 pages selected"
                     );
-                    await testUtils.dom.triggerEvent(window, "keydown", { key: "s" });
+                    await testUtils.dom.triggerEvent(window, "keydown", { key: "s", ctrlKey: true });
                     assert.containsN(
                         target,
                         ".o_pdf_separator_selected",
