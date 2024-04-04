@@ -286,6 +286,20 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         self.assertEqual(test_week.start_datetime, datetime(2019, 6, 24, 8, 0), 'It should adjust to employee calendar: 0am -> 9pm')
         self.assertEqual(test_week.end_datetime, datetime(2019, 6, 28, 17, 0), 'It should adjust to employee calendar: 0am -> 9pm')
 
+    def test_create_planing_slot_without_start_date(self):
+        "Test to create planning slot with template id and without start date"
+        planning_role = self.env['planning.role'].create({'name': 'role x'})
+        template = self.env['planning.slot.template'].create({
+            'start_time': 10,
+            'duration': 5.0,
+            'role_id': planning_role.id,
+        })
+        with Form(self.env['planning.slot']) as slot_form:
+            slot_form.template_id = template
+            slot_form.start_datetime = False
+            slot_form.template_id = self.template
+            self.assertEqual(slot_form.template_id, self.template)
+
     def test_shift_switching(self):
         """ The purpose of this test is to check the main back-end mechanism of switching shifts between employees """
         bert_user = new_test_user(self.env,

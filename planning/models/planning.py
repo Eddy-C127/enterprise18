@@ -406,7 +406,7 @@ class Planning(models.Model):
         """Return the slot (effective) duration expressed in hours.
         """
         self.ensure_one()
-        if not self.start_datetime:
+        if not self.start_datetime or not self.end_datetime:
             return False
         return (self.end_datetime - self.start_datetime).total_seconds() / 3600.0
 
@@ -565,7 +565,11 @@ class Planning(models.Model):
                                  template_id,
                                  previous_template_id,
                                  template_reset):
+        """
+        Calculate the start and end dates for a given planning slot based on various parameters.
 
+        Returns: A tuple containing the calculated start and end datetime values in UTC without timezone.
+        """
         def convert_datetime_timezone(dt, tz):
             return dt and pytz.utc.localize(dt).astimezone(tz)
 
@@ -632,6 +636,11 @@ class Planning(models.Model):
             h, m = divmod(template_id.duration, 1)
             delta = timedelta(hours=int(h), minutes=int(round(m * 60)))
             end = start + delta
+
+        # Need to remove the tzinfo in start and end as without these it leads to a traceback
+        # when the start time is empty
+        start = start.astimezone(pytz.utc).replace(tzinfo=None) if start.tzinfo else start
+        end = end.astimezone(pytz.utc).replace(tzinfo=None) if end.tzinfo else end
         return (start, end)
 
     @api.depends('template_id')
