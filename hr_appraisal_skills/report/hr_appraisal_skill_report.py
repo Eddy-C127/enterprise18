@@ -65,9 +65,13 @@ class HrAppraisalSkillReport(models.BaseModel):
             FROM hr_employee e
             JOIN hr_appraisal_skill s ON e.id = s.employee_id
             JOIN hr_skill_level sl ON sl.id = s.skill_level_id
-            JOIN hr_skill_level sl_p ON sl_p.id = s.previous_skill_level_id
+            LEFT JOIN hr_skill_level sl_p ON sl_p.id = s.previous_skill_level_id
             JOIN hr_appraisal a ON a.id = s.appraisal_id
             JOIN hr_skill_type st ON st.id = s.skill_type_id
-            WHERE a.state = 'done' and e.last_appraisal_id = a.id and s.skill_level_id != s.previous_skill_level_id and st.active IS True
+            WHERE a.id = (
+                SELECT a2.id FROM hr_appraisal a2
+                WHERE a2.employee_id = e.id AND e.active IS TRUE AND a2.state = 'done'
+                ORDER BY a2.create_date desc limit 1
+            ) and st.active IS True
         )
         """ % (self._table))
