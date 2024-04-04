@@ -106,18 +106,34 @@ def api_tree_or_string(func):
         return html.tostring(res) if is_string else tree
     return from_tree_or_string
 
-def _transform_table(table):
-    for el in table.xpath(".|.//thead|.//tbody|.//tfoot|.//th|.//tr|.//td"):
-        tag = el.tag
-        el.set("oe-origin-tag", tag)
-        el.tag = "div"
-        el.set("oe-origin-style", el.attrib.pop("style", ""))
+def _transform_tables(tree):
+    def _transform_node(node):
+        tag = node.tag
+        node.set("oe-origin-tag", tag)
+        node.tag = "div"
+        node.set("oe-origin-style", node.attrib.pop("style", ""))
+
+    for table in tree.iter("table"):
+        should_transform = False
+        table_nodes = [table]
+        index = 0
+        while index < len(table_nodes):
+            node = table_nodes[index]
+            index += 1
+            if node.tag == "td":
+                continue
+            for child in node.iterchildren(etree.Element):
+                if child.tag == "t":
+                    should_transform = True
+                table_nodes.append(child)
+        if should_transform:
+            for table_node in table_nodes:
+                if table_node.tag != "t":
+                    _transform_node(table_node)
 
 @api_tree_or_string
 def _html_to_client_compliant(tree):
-    for table in tree.xpath("//table[descendant-or-self::t[not(ancestor::td)]]"):
-        _transform_table(table)
-
+    _transform_tables(tree)
     return tree
 
 @api_tree_or_string

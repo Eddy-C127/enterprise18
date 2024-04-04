@@ -573,6 +573,66 @@ class TestReportEditorUIUnit(HttpCase):
              </t>
         """)
 
+    def test_nested_table_rendering(self):
+        self.main_view_document.arch = """
+            <t t-name="web_studio.test_report_document">
+                <table class="invalid_table">
+                    <t t-foreach="doc.child_ids" t-as="child">
+                        <tr>
+                            <td>
+                                <t t-set="var" t-value="doc" />
+                                <table>
+                                    <tr><td>valid</td></tr>
+                                </table>
+                                <table>
+                                    <t t-foreach="doc.child_ids" t-as="subchild">
+                                        <tr><td>
+                                            <table><tr><td>I am valid</td></tr></table>
+                                        </td></tr>
+                                    </t>
+                                </table>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+            </t>
+        """
+        self.authenticate("admin", "admin")
+        response = self.url_open(
+            "/web_studio/get_report_qweb",
+            data=json.dumps({"params": {"report_id": self.report.id}}),
+            headers={"Content-Type": "application/json"}
+        )
+        qweb_html = response.json()["result"]
+        tree = html_to_xml_tree(qweb_html)
+        _remove_oe_context(tree)
+        div_node = tree.xpath("//t[@t-name='web_studio.test_report_document']")[0][0]
+        self.assertXMLEqual(etree.tostring(div_node), """
+        <div class="invalid_table" oe-origin-tag="table" oe-origin-style="">
+          <t t-foreach="doc.child_ids" t-as="child">
+            <div oe-origin-tag="tr" oe-origin-style="">
+              <div oe-origin-tag="td" oe-origin-style="">
+                <t t-set="var" t-value="doc"/>
+                <table>
+                  <tr>
+                    <td>valid</td>
+                  </tr>
+                </table>
+                <div oe-origin-tag="table" oe-origin-style="">
+                  <t t-foreach="doc.child_ids" t-as="subchild">
+                    <div oe-origin-tag="tr" oe-origin-style="">
+                      <div oe-origin-tag="td" oe-origin-style="">
+                        <table><tr><td>I am valid</td></tr></table>
+                      </div>
+                    </div>
+                  </t>
+                </div>
+              </div>
+            </div>
+          </t>
+        </div>
+        """)
+
     def test_field_placeholder(self):
         self.main_view_document.arch = """
             <t t-name="web_studio.test_report_document">
