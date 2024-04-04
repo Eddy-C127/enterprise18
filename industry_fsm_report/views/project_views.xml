@@ -196,7 +196,7 @@
                     invisible="not (fsm_is_sent or worksheet_signature and allow_worksheets)">
                 </button>
             </xpath>
-            <xpath expr="//field[@widget='project']" position="after">
+            <xpath expr="//div[@name='project']" position="after">
                 <field name="allow_worksheets" invisible="1"/>
                 <field name="worksheet_template_id"
                     options="{'no_open': True, 'no_quick_create': True}"

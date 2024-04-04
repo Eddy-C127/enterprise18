@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details
 
+from odoo import Command
 from odoo.tests import tagged, TransactionCase
 
 from odoo.addons.mail.tests.common import mail_new_test_user
@@ -61,16 +62,16 @@ class TestWorksheet(TransactionCase):
     def test_subtasks_worksheet_template_id_duplicate(self):
         self.task.write({
             'project_id': self.second_fsm_project.id,
+            'child_ids': [
+                Command.create({
+                    'name': '%s: substask1' % (self.task.name,),
+                }),
+                Command.create({
+                    'name': '%s: subtask2' % (self.task.name,),
+                    'worksheet_template_id': self.worksheet_template.id
+                }),
+            ],
         })
-
-        self.env['project.task'].create([{
-            'parent_id': self.task.id,
-            'name': '%s: substask1' % (self.task.name,),
-        }, {
-            'parent_id': self.task.id,
-            'name': '%s: subtask2' % (self.task.name,),
-            'worksheet_template_id': self.worksheet_template.id
-        }])
 
         subtask1_worksheet_template_id = self.task.child_ids[0].worksheet_template_id
         subtask2_worksheet_template_id = self.task.child_ids[1].worksheet_template_id
