@@ -58,6 +58,25 @@ class TestUi(TestUiCommon):
         self.assertEqual(test_slot.request_to_switch, False, 'After the assign action, the request to switch should be False')
         self.assertEqual(test_slot.resource_id, employee_joseph.resource_id, 'The shift should now be assigned to Joseph')
 
+    def test_planning_no_email(self):
+        aaron_role = self.env["planning.role"].create([{'name': 'aaron_role'}])
+        employee_thibault_user = new_test_user(self.env,
+            login='thibault_user',
+            groups='planning.group_planning_user',
+            name='Thibault User',
+            email=None
+        )
+        self.employee_thibault.write({
+            "user_id": employee_thibault_user.id,
+            "planning_role_ids": aaron_role,
+        })
+        self.env['planning.slot'].create({
+            'start_datetime': datetime.now(),
+            'end_datetime': datetime.now() + relativedelta(hours=1),
+            'resource_id': self.employee_thibault.resource_id.id,
+        })
+        self.start_tour("/", 'planning_test_tour_no_email', login='admin')
+
     def test_split_shift_ui(self):
         # create a user with planning manager rights and timezone set to UTC
         hugo = new_test_user(

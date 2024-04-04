@@ -132,6 +132,39 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     run: function () {},
 }]});
 
+registry.category("web_tour.tours").add('planning_test_tour_no_email', {
+    url: '/web',
+    test: true,
+    steps: () => [{
+    trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',
+    content: "Open the planning app, should land in the gantt view",
+    position: 'bottom',
+}, {
+    trigger: ".o_gantt_button_send_all",
+    content: "Click on the 'Publish' button on the top-left of the gantt view to publish the draft shifts",
+}, {
+    trigger: "button[name='action_check_emails']",
+    content: "The 'No Email Address for some Empoyees' wizard should be raised since we haven't given an employee email",
+}, {
+    trigger: "td[data-tooltip='Aaron']",
+    isCheck: true,
+}, {
+    trigger: "button[special='cancel']",
+}, {
+    trigger: '.o_gantt_pill :contains("aaron_role")',
+    content: "Click on the shift of Aaron",
+}, {
+    trigger: ".popover-footer button",
+    content: "Click on the 'Edit' button in the popover",
+}, {
+    trigger: "button[name='action_send']",
+    content: "Click on the 'Publish' button",
+}, {
+    trigger: ".o_field_widget.o_field_image.oe_avatar",
+    content: "The 'No Email Address for the Employee' wizard should be raised",
+    isCheck: true,
+},]});
+
 registry.category("web_tour.tours").add('planning_shift_switching_backend', {
     url: '/web',
     test: true,
