@@ -51,7 +51,9 @@ class PosOrder(models.Model):
         :param ui_order: json order coming from the front end or None
         :return: a list of lines difference
         """
-        new_line_dict = {} if not ui_order else self._merge_order_lines([line[2] for line in ui_order['lines']])
+        new_line_dict = {} if not ui_order else self._merge_order_lines(
+            [line[2] for line in ui_order['lines'] if line[2]['qty'] != 0]
+        )
         old_lines = []
         if existing_order:
             old_lines = existing_order.lines.read(['qty', 'product_id', 'full_product_name', 'price_subtotal_incl',
