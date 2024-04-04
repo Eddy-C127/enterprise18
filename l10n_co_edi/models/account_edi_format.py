@@ -419,12 +419,10 @@ class AccountEdiFormat(models.Model):
             if move.l10n_co_edi_transaction:
                 return {
                     'post': self._l10n_co_edi_post_invoice_step_2,
-                    'cancel': self._l10n_co_edi_cancel_invoice,
                 }
             else:
                 return {
                     'post': self._l10n_co_edi_post_invoice_step_1,
-                    'cancel': self._l10n_co_edi_cancel_invoice,
                 }
 
     def _check_move_configuration(self, move):
@@ -480,5 +478,6 @@ class AccountEdiFormat(models.Model):
     def _l10n_co_edi_post_invoice_step_2(self, invoice):
         return {invoice: self._l10n_co_post_invoice_step_2(invoice)}
 
+    # to remove in master
     def _l10n_co_edi_cancel_invoice(self, invoice):
         return {invoice: {'success': True}}
