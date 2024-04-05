@@ -32,7 +32,7 @@ export const documentsPdfThumbnailService = {
                 // Force usage of worker to avoid hanging the tab.
                 initialWorkerSrc = globalThis.pdfjsLib.GlobalWorkerOptions.workerSrc;
                 globalThis.pdfjsLib.GlobalWorkerOptions.workerSrc =
-                    "/web/static/lib/pdfjs/build/pdf.worker.mjs";
+                    "/web/static/lib/pdfjs/build/pdf.worker.js";
             } catch {
                 enabled = false;
                 return;
