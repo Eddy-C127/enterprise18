@@ -467,8 +467,8 @@ class AccountOnlineLink(models.Model):
 
     def _handle_odoofin_redirect_exception(self, mode='link'):
         if mode == 'link':
-            return self.action_new_synchronization()
-        return self._open_iframe(mode=mode)
+            return self.with_context({'redirect_reconnection': True}).action_new_synchronization()
+        return self.with_context({'redirect_reconnection': True})._open_iframe(mode=mode)
 
     #######################################################
     # Generic methods to contact server and handle errors #
@@ -1031,6 +1031,7 @@ class AccountOnlineLink(models.Model):
                     'lang': get_lang(self.env).code,
                     'countryCode': country.code,
                     'countryName': country.display_name,
+                    'redirect_reconnection': self.env.context.get('redirect_reconnection'),
                     'serverVersion': odoo.release.serie,
                     'mfa_type': self.env.user._mfa_type(),
                 }
