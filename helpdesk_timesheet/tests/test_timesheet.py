@@ -250,7 +250,7 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
         })
 
         # change the helpdesk_team of the ticket containing non-validated timesheet, to the helpdesk_team without timesheet feature
-        helpdesk_ticket_non_valid.with_user(self.env.user).write({'team_id': no_timesheet_helpdesk_team.id})
+        helpdesk_ticket_non_valid.write({'team_id': no_timesheet_helpdesk_team.id})
         warning = helpdesk_ticket_non_valid._onchange_team_id()
         self.assertTrue(warning, "A warning should be raised when the ticket's timesheets are not all validated and the newly assigned helpdesk_team has no timesheet feature.")
 
@@ -259,9 +259,10 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
                          "The ticket's helpdesk_team should be changed despite the warning raised.")
 
         # (3) Create ticket including only validated timesheet
-        timesheet_validated.with_user(self.user_manager).action_validate_timesheet()
+        timesheet_validated.action_validate_timesheet()
+        self.assertTrue(timesheet_validated.validated, "The timesheet should be validated.")
 
         # change the helpdesk_team of the ticket only containing validated timesheet, to the helpdesk_team without timesheet feature
-        helpdesk_ticket_valid.with_user(self.env.user).write({'team_id': no_timesheet_helpdesk_team.id})
+        helpdesk_ticket_valid.write({'team_id': no_timesheet_helpdesk_team.id})
         warning = helpdesk_ticket_valid._onchange_team_id()
         self.assertFalse(warning, "No warning should be raised when the ticket's timesheets are validated.")
