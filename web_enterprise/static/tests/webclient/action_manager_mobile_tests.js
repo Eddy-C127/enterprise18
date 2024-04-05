@@ -105,8 +105,8 @@ QUnit.test("lazy load mobile-friendly view", async function (assert) {
     assert.containsOnce(target, ".o_kanban_view");
 
     assert.verifySteps([
-        "/web/action/load",
         "/web/webclient/load_menus",
+        "/web/action/load",
         "get_views",
         "onchange", // default_get/onchange to open form view
         "web_search_read", // web search read when coming back to Kanban
@@ -132,8 +132,8 @@ QUnit.test("lazy load mobile-friendly view; legacy url", async function (assert)
     assert.containsOnce(target, ".o_kanban_view");
 
     assert.verifySteps([
-        "/web/action/load",
         "/web/webclient/load_menus",
+        "/web/action/load",
         "get_views",
         "onchange", // default_get/onchange to open form view
         "web_search_read", // web search read when coming back to Kanban
