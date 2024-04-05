@@ -777,6 +777,11 @@ class HelpdeskTicket(models.Model):
             self.message_subscribe(partner_ids)
         return super(HelpdeskTicket, self).message_update(msg, update_vals=update_vals)
 
+    def _message_compute_subject(self):
+        """ Override the display name by the actual name field for communication."""
+        self.ensure_one()
+        return self.name
+
     def _message_post_after_hook(self, message, msg_vals):
         if self.partner_email and self.partner_id and not self.partner_id.email:
             self.partner_id.email = self.partner_email
