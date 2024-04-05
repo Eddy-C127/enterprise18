@@ -196,3 +196,64 @@ class TestInterCompanyPurchaseToSaleWithStock(TestInterCompanyRulesCommonStock):
         self.assertEqual(new_picking.company_id, self.company_b)
         self.assertEqual(new_picking.partner_id, self.company_a.partner_id)
         self.assertEqual(new_picking.product_id, product)
+
+    def test_04_inter_company_putaway_rules(self):
+        """
+        Check that putaway strategies are correctly applied on tracked products
+        when the transaction is updated by an intercompany procedure.
+        """
+        # with company A:
+        self.company_a.update({
+            'intercompany_generate_purchase_orders': True,
+            'intercompany_sync_delivery_receipt': True,
+            'intercompany_document_state': 'posted',  # Needed to create the receipt
+        })
+        stock_location_a = self.env['stock.warehouse'].search([('company_id', '=', self.company_a.id)], limit=1).lot_stock_id
+        shelf_location = self.env['stock.location'].with_company(self.company_a).create({
+            'name': 'Shelf',
+            'usage': 'internal',
+            'location_id': stock_location_a.id,
+        })
+        self.env["stock.putaway.rule"].with_company(self.company_a).create({
+            "location_in_id": stock_location_a.id,
+            "location_out_id": shelf_location.id,
+            'category_id': self.env.ref('product.product_category_all').id,
+        })
+        # with company B:
+        my_product = self.env['product.product'].with_company(self.company_b).create({
+            'name': 'my product',
+            'is_storable': True,
+            'tracking': 'serial',
+            'sale_ok': True,
+        })
+        my_lot = self.env['stock.lot'].with_company(self.company_b).create({
+            'name': 'SN0001',
+            'product_id': my_product.id,
+        })
+        stock_location_b = self.env['stock.warehouse'].search([('company_id', '=', self.company_b.id)], limit=1).lot_stock_id
+        self.env['stock.quant'].with_company(self.company_b)._update_available_quantity(my_product, stock_location_b, 1, lot_id=my_lot)
+        so = self.env['sale.order'].with_company(self.company_b).create({
+                'partner_id': self.company_a.partner_id.id,
+                'order_line': [Command.create({
+                        'product_id': my_product.id,
+                        'price_unit': 100,
+                    })
+                ]
+        })
+        so.action_confirm()
+        # Check that the stock move line linked to the purchase order created
+        # and confirmed for company A (by company B) applied the putaway rule
+        po = self.env['purchase.order'].search([('auto_sale_order_id', '=', so.id)], limit=1)
+        picking_destination = po.picking_ids.move_line_ids.location_dest_id
+        self.assertEqual(picking_destination, shelf_location)
+        self.assertFalse(po.picking_ids.move_line_ids.lot_id)
+        # Confirm the delivery created in company B to update the delivery in Company A
+        delivery_b = so.picking_ids
+        delivery_b.move_line_ids.lot_id = my_lot
+        delivery_b.button_validate()
+        receipt_a = po.picking_ids
+        self.assertEqual(receipt_a.move_line_ids.location_dest_id, shelf_location)
+        receipt_a.button_validate()
+        self.assertEqual(receipt_a.move_line_ids.location_dest_id, shelf_location)
+        self.assertEqual(receipt_a.move_line_ids.lot_id.name, my_lot.name)
+        self.assertTrue(receipt_a.move_line_ids.picked)

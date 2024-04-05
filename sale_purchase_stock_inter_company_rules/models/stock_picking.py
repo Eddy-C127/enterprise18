@@ -29,6 +29,7 @@ class StockPicking(models.Model):
                                 *[Command.delete(ml.id) for ml in receipt_move.move_line_ids],
                                 *[Command.create(ml_vals) for ml_vals in self._prepare_move_lines(move, receipt_move)],
                             ]})
+                        receipt_move.move_line_ids._apply_putaway_strategy()
         return res
 
     @api.model
