@@ -233,7 +233,7 @@ class AccountJournal(models.Model):
 
     def _consume_connection_state_details(self):
         self.ensure_one()
-        if self.account_online_link_id and self.user_has_groups('account.group_account_manager'):
+        if self.account_online_link_id and self.env.user.has_group('account.group_account_manager'):
             # In case we have a bank synchronization connected to the journal
             # we want to remove the last connection state because it means that we
             # have "mark as read" this state, and we don't want to display it again to
