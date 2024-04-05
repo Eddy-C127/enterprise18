@@ -248,6 +248,7 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
             const resourceCapacity = this.$("select[name='resourceCapacity']").length && parseInt(this.$("select[name='resourceCapacity']").val()) || 1;
             this.$('.o_appointment_no_slot_overall_helper').empty();
             this.$slotsList.empty();
+            this.$('#calendar, .o_appointment_timezone_selection').addClass('o_appointment_disable_calendar');
             this.$('#resourceSelection').empty();
             if (daySlotSelected && !this.$("select[name='resourceCapacity'] :selected").data('placeholderOption')) {
                 this.$('.o_appointment_slot_list_loading').removeClass('d-none');
@@ -287,5 +288,6 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
         this.$('.o_appointment_slots_loading').remove();
         this.$('.o_appointment_slot_list_loading').addClass('d-none');
         this.$('#slots_availabilities').removeClass('d-none');
+        this.$('#calendar, .o_appointment_timezone_selection').removeClass('o_appointment_disable_calendar');
     },
 });
