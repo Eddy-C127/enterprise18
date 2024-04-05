@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { debounce } from '@bus/workers/websocket_worker_utils';
 import { _t } from "@web/core/l10n/translation";
 import { user } from "@web/core/user";
 import { KeepLast } from "@web/core/utils/concurrency";
@@ -156,6 +157,7 @@ export class DocumentsInspector extends Component {
                     this.chatterContainer.el.querySelector(".o-mail-Chatter"),
             ]
         );
+        this.onRestorePreviousAttachment = debounce(this.onRestorePreviousAttachment, 300, true);
 
         // Pdf thumbnails
         this.pdfService = useService("documents_pdf_thumbnail");
