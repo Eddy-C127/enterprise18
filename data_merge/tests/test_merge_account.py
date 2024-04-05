@@ -94,8 +94,9 @@ class TestMerge(TransactionCase):
         wizard.action_send_and_print()
 
         # The integrity check should work
-        integrity_check = [journal for journal in move.company_id._check_hash_integrity()['results'] if journal['journal_name'] == self.customer_invoice_journal.name][0]
-        self.assertRegex(integrity_check['msg_cover'], 'Entries are hashed from.*')
+        integrity_check = move.company_id._check_hash_integrity()['results']
+        integrity_check = next(filter(lambda j: move.sequence_prefix in j.get('journal_name'), integrity_check))
+        self.assertRegex(integrity_check['msg_cover'], 'Entries are correctly hashed')
 
         data_merge_group = self.env['data_merge.group'].create({
             'model_id': self.model_id.id,

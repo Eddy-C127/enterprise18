@@ -767,6 +767,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         })
         Hashed_car.journal_id.restrict_mode_hash_table = True
         Hashed_car.validate()
+        Hashed_car.depreciation_move_ids.button_hash()
 
         for i in range(0, 4):
             self.assertFalse(Hashed_car.depreciation_move_ids[i].reversal_move_id)
