@@ -7,7 +7,7 @@
     'description': """
 This module overrides community website features and introduces enterprise look and feel.
     """,
-    'depends': ['website'],
+    'depends': ['web_enterprise', 'website'],
     'data': [
         'data/website_data.xml',
         'views/snippets/snippets.xml',
