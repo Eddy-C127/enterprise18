@@ -17,6 +17,19 @@ QUnit.module("timer", (hooks) => {
 
     QUnit.module("timer_reactive");
 
+    QUnit.test("timer_reactive handle displaying start time", async function (assert) {
+        const timerReactive = new TimerReactive(env);
+        timerReactive.formatTime();
+        assert.strictEqual(timerReactive.time, "00:00:00");
+
+        const currentTime = DateTime.now();
+        const timerStart = currentTime.minus({ seconds: 1 });
+        timerReactive.computeOffset(currentTime);
+        timerReactive.setTimer(0, timerStart, currentTime);
+        timerReactive.formatTime();
+        assert.strictEqual(timerReactive.time, "00:00:01");
+    });
+
     QUnit.test("timer_reactive handle displaying durations longer than 24h", async function (assert) {
         const timerReactive = new TimerReactive(env);
         const currentTime = DateTime.now();
