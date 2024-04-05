@@ -315,6 +315,9 @@ export class PlanningGanttRenderer extends GanttRenderer {
 
     _computeWorkHours(pill) {
         let workHours = 0;
+        if (!this.row.progressBar?.employee_id || ["day", "year"].includes(this.model.metaData.scale.id)) {
+            return workHours;
+        }
         const resource_id = this.row.resId;
         // If flexible hour contract, colour the gantt view group based on whether the aggregate value > the "average work hours" per day.
         if (this.isFlexibleHours(resource_id)) {
