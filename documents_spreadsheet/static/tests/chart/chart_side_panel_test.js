@@ -48,13 +48,14 @@ QUnit.module("documents_spreadsheet > chart side panel", { beforeEach }, () => {
             const target = getFixture();
             /** @type {NodeListOf<HTMLOptionElement>} */
             const options = target.querySelectorAll(".o-type-selector option");
-            assert.strictEqual(options.length, 6);
+            assert.strictEqual(options.length, 7);
             assert.strictEqual(options[0].value, "bar");
-            assert.strictEqual(options[1].value, "line");
-            assert.strictEqual(options[2].value, "pie");
-            assert.strictEqual(options[3].value, "scorecard");
-            assert.strictEqual(options[4].value, "gauge");
-            assert.strictEqual(options[5].value, "scatter");
+            assert.strictEqual(options[1].value, "combo");
+            assert.strictEqual(options[2].value, "line");
+            assert.strictEqual(options[3].value, "pie");
+            assert.strictEqual(options[4].value, "scorecard");
+            assert.strictEqual(options[5].value, "gauge");
+            assert.strictEqual(options[6].value, "scatter");
         }
     );
 
