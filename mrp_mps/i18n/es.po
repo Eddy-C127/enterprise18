@@ -32,7 +32,7 @@ msgstr "- Pronóstico de demanda indirecta"
 #: code:addons/mrp_mps/static/src/components/line.xml:0
 #, python-format
 msgid "ATP"
-msgstr "ATP"
+msgstr "Disponible para prometer"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -194,8 +194,8 @@ msgstr ""
 msgid ""
 "Default value for the time ranges in Master Production Schedule report."
 msgstr ""
-"Valor por defecto para los intervalos de tiempo del Programa Maestro de "
-"Producción"
+"Valor por defecto para los intervalos de tiempo del plan maestro de "
+"producción"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -235,12 +235,12 @@ msgstr "Mostrar reposición real"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__mrp_mps_show_available_to_promise
 msgid "Display Available to Promise"
-msgstr "Pantalla disponible para prometer "
+msgstr "Mostrar disponible para prometer"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__mrp_mps_show_demand_forecast
 msgid "Display Demand Forecast"
-msgstr "Visualizar pronóstico de demanda "
+msgstr "Mostrar pronóstico de demanda"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__mrp_mps_show_indirect_demand
@@ -257,12 +257,12 @@ msgstr "Nombre mostrado"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__mrp_mps_show_safety_stock
 msgid "Display Safety Stock"
-msgstr "Visualizar stock de seguridad"
+msgstr "Mostrar stock de seguridad"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__mrp_mps_show_starting_inventory
 msgid "Display Starting Inventory"
-msgstr "Mostrar inventario inicial "
+msgstr "Mostrar inventario inicial"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__mrp_mps_show_to_replenish
@@ -412,7 +412,7 @@ msgstr "Asiento"
 #: code:addons/mrp_mps/static/src/components/main.xml:0
 #, python-format
 msgid "No product yet. Add one to start scheduling."
-msgstr "No hay productos aún. Agregue uno para empezar a programar."
+msgstr "Todavía no hay productos. Agregue uno para empezar a programar."
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form
@@ -430,13 +430,13 @@ msgid ""
 "Number of columns for the        given period to display in Master "
 "Production Schedule"
 msgstr ""
-"Número de columnas para el periodo dado para mostrar en el Programa maestro "
-"de producción"
+"Número de columnas para el periodo dado para mostrar en el plan maestro de "
+"producción"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_product_forecast__procurement_launched
 msgid "Procurement has been run for this forecast"
-msgstr "Se ha ejecutado la adquisición para este pronóstico"
+msgstr "Se ejecutó el aprovisionamiento para este pronóstico"
 
 #. module: mrp_mps
 #: model:ir.model,name:mrp_mps.model_product_template
@@ -502,7 +502,7 @@ msgstr "Cantidad de orden de fabricación"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__rfq_qty
 msgid "Quantity from RFQ"
-msgstr "Cantidad de la solicitud de presupuesto"
+msgstr "Cantidad de la SdP"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -575,7 +575,7 @@ msgstr "Guardar"
 #. module: mrp_mps
 #: model:ir.model,name:mrp_mps.model_mrp_production_schedule
 msgid "Schedule the production of Product in a warehouse"
-msgstr "Programe la producción del Producto en un almacén."
+msgstr "Programe la producción del producto en un almacén"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_purchase_order__date_planned_mps
@@ -631,7 +631,7 @@ msgstr "La combinación de almacén y producto debe ser única"
 #: code:addons/mrp_mps/static/src/components/line.xml:0
 #, python-format
 msgid "The confirmed demand, based on the confirmed sales orders."
-msgstr "La demanda confirmada, basada en los pedidos de venta confirmados."
+msgstr "La demanda confirmada según las órdenes de venta confirmadas."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -649,7 +649,7 @@ msgstr ""
 #: code:addons/mrp_mps/static/src/components/line.xml:0
 #, python-format
 msgid "The forecasted demand. This value has to be entered manually."
-msgstr "La demanda prevista. Este valor debe ingresarse manualmente."
+msgstr "La demanda pronosticada. Este valor debe ingresarse manualmente."
 
 #. module: mrp_mps
 #. odoo-javascript

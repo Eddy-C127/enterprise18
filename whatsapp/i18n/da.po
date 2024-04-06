@@ -631,6 +631,15 @@ msgid "Dynamic"
 msgstr "Dynamisk"
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Dynamic button variable name must be the same as its respective button's "
+"name"
+msgstr ""
+
+#. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_message_unique_msg_uid
 msgid "Each whatsapp message should correspond to a single message uuid."
 msgstr "Hver whatsapp-besked skal svare til en enkelt besked-uuid."
@@ -708,6 +717,14 @@ msgstr "Modelfelt"
 #, python-format
 msgid "Field template variables must be associated with a field."
 msgstr "Feltskabelonvariabler skal være forbundet med et felt."
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Field template variables %(var_names)s must be associated with a field."
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -1928,8 +1945,8 @@ msgstr "Skabelonen krop"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template
-msgid "Template cannot be used"
-msgstr "Skabelonen kan ikke bruges"
+msgid "Template quality rating too low"
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -1945,6 +1962,15 @@ msgstr ""
 "                    Skabelon Oprettet antal %d\n"
 "                    Skabelon Opdateret antal %d\n"
 "                    "
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Template variable should be in format {{number}}. Cannot parse "
+"\"%(placeholder)s\""
+msgstr ""
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_preview__wa_template_id
@@ -1982,6 +2008,14 @@ msgstr "Tekst"
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__th
 msgid "Thai"
 msgstr "Thai"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid ""
+"The Header Text must either contain no variable or the first one {{1}}."
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -2207,6 +2241,15 @@ msgstr "Variabel placering"
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_template_variable_name_type_template_unique
 msgid "Variable names must be unique for a given template"
 msgstr "Variabelnavne skal være unikke for en given skabelon"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Variables %(field_names)s do not seem to be valid field path for model "
+"%(model_name)s."
+msgstr ""
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__video

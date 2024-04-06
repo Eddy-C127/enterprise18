@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Sanne Kristensen <sanne@vkdata.dk>, 2023
 # lhmflexerp <lhm@flexerp.dk>, 2023
+# Sanne Kristensen <sanne@vkdata.dk>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: lhmflexerp <lhm@flexerp.dk>, 2023\n"
+"Last-Translator: Sanne Kristensen <sanne@vkdata.dk>, 2024\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr ", af"
 #. module: website_helpdesk_knowledge
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_knowledge.search_result
 msgid "<i class=\"fa fa-fw fa-2x fa-book\" title=\"Knowledge Article\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-2x fa-book\" title=\"Knowledge Article\"/>"
 
 #. module: website_helpdesk_knowledge
 #: model:ir.model.fields,field_description:website_helpdesk_knowledge.field_helpdesk_team__website_article_id
@@ -42,6 +42,8 @@ msgid ""
 "Article on which customers will land by default, and to which the search "
 "will be restricted."
 msgstr ""
+"Artikel, som kunder vil lande på som standard, og hvortil søgningen vil være"
+" begrænset."
 
 #. module: website_helpdesk_knowledge
 #. odoo-python
@@ -54,7 +56,7 @@ msgstr "Artikler"
 #. module: website_helpdesk_knowledge
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_knowledge.knowledge_base_articles_card
 msgid "Browse articles"
-msgstr ""
+msgstr "Gennemse artikler"
 
 #. module: website_helpdesk_knowledge
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_knowledge.knowledge_base_articles_card
@@ -74,22 +76,22 @@ msgstr "Viden artikel"
 #. module: website_helpdesk_knowledge
 #: model:ir.model.fields,field_description:website_helpdesk_knowledge.field_helpdesk_team__website_latest_articles
 msgid "Latest Articles"
-msgstr ""
+msgstr "Seneste artikler"
 
 #. module: website_helpdesk_knowledge
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_knowledge.knowledge_base_articles_card
 msgid "Quick Links"
-msgstr ""
+msgstr "Hurtige links"
 
 #. module: website_helpdesk_knowledge
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_knowledge.knowledge_base_articles_card
 msgid "Search our documentation for answers to common questions"
-msgstr ""
+msgstr "Søg i vores dokumentation efter svar på almindelige spørgsmål."
 
 #. module: website_helpdesk_knowledge
 #: model:ir.model.fields,field_description:website_helpdesk_knowledge.field_helpdesk_team__show_knowledge_base_article
 msgid "Show Knowledge Base Article"
-msgstr ""
+msgstr "Vis videnbase artikel"
 
 #. module: website_helpdesk_knowledge
 #. odoo-python
@@ -99,3 +101,5 @@ msgid ""
 "You cannot delete, unpublish or set a parent on an article that is used by a"
 " helpdesk team."
 msgstr ""
+"Du kan ikke slette, fjerne offentliggørelse eller angive en overordnet for "
+"en artikel, der anvendes af et helpdeskteam."

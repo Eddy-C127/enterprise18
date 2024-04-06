@@ -85,7 +85,7 @@ msgstr "Administrador"
 #: model:ir.actions.act_window,name:approvals.approval_request_action_all
 #: model:ir.ui.menu,name:approvals.approvals_approval_menu_all
 msgid "All Approvals"
-msgstr "Todas las autorizaciones"
+msgstr "Todas las aprobaciones"
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_category__approval_type
@@ -94,8 +94,8 @@ msgid ""
 "Allows you to define which documents you would like to create once the "
 "request has been approved"
 msgstr ""
-"Te permite definir que documentos te gustaría crear una vez que la solicitud"
-" se apruebe"
+"Le permite definir qué documentos le gustaría crear una vez que se apruebe "
+"la solicitud"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__amount
@@ -170,12 +170,12 @@ msgstr "Imagen del tipo de aprobación"
 #: model:ir.actions.act_window,name:approvals.approval_request_action_to_review
 #: model:ir.ui.menu,name:approvals.approvals_approval_menu_to_review
 msgid "Approvals to Review"
-msgstr "Aprobaciones por revisar"
+msgstr "Aprobaciones a revisar"
 
 #. module: approvals
 #: model:ir.actions.act_window,name:approvals.approval_request_action_to_review_category
 msgid "Approvals to review"
-msgstr "Aprobaciones por revisar"
+msgstr "Aprobaciones a revisar"
 
 #. module: approvals
 #. odoo-javascript
@@ -246,7 +246,7 @@ msgstr "Adjuntar documento"
 #. module: approvals
 #: model:ir.model,name:approvals.model_ir_attachment
 msgid "Attachment"
-msgstr "Adjunto"
+msgstr "Archivo adjunto"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_attachment_count
@@ -434,7 +434,7 @@ msgstr "Documentos"
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 msgid "E.g: Expenses Paris business trip"
-msgstr "P.ej. Gastos de viaje de negocios a Paris"
+msgstr "p. ej. gastos del viaje de negocios a París"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
@@ -444,7 +444,7 @@ msgstr "Editar solicitud"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__manager_approval
 msgid "Employee's Manager"
-msgstr "Responsable del empleado"
+msgstr "Gerente del empleado"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__existing_request_user_ids
@@ -479,12 +479,12 @@ msgstr "Icono de Font Awesome p. ej. fa-tasks"
 #. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
-msgstr "Autorización general"
+msgstr "Aprobación general"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__has_access_to_request
 msgid "Has Access To Request"
-msgstr "Tienes acceso a la solicitud"
+msgstr "Tiene acceso a la solicitud"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__has_amount
@@ -555,11 +555,11 @@ msgid ""
 "        Is Required Approver: the employee's manager will be required to approve the request.\n"
 "    "
 msgstr ""
-"Cómo interactúa el responsable del empleado con este tipo de aprobación.\n"
+"El nivel de interacción del gerente con las aprobaciones del empleado.\n"
 "\n"
-"Vacío: no haga nada\n"
-"Es aprobador: el responsable del empleado estará en la lista de aprobadores\n"
-"Es aprobador necesario: se necesitará que el responsable del empleado apruebe la solicitud.\n"
+"Vacío: no se hace nada\n"
+"Es aprobador: el gerente del empleado estará en la lista de aprobadores\n"
+"Es aprobador obligatorio: se necesitará que el gerente del empleado apruebe la solicitud.\n"
 "    "
 
 #. module: approvals
@@ -599,8 +599,8 @@ msgid ""
 "If checked, the Approval Requests will have an automated generated name "
 "based on the given code."
 msgstr ""
-"Si se encuentra seleccionado, la solicitud de aprobación se generará de "
-"forma automática y su nombre estará de acuerdo con el código otorgado."
+"Si está marcada, las solicitudes de aprobación tendrán un nombre generado "
+"automáticamente en función del código dado."
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_category__approver_sequence
@@ -610,9 +610,9 @@ msgid ""
 " If Employee's Manager is selected as approver, they will be the first in "
 "line."
 msgstr ""
-"Si se encuentra seleccionado, los aprobadores tendrán que aprobar de forma "
-"secuencial (uno tras otro). Si se selecciona al gerente del empleado como "
-"aprobador, será el primero. "
+"Si está marcada, los aprobadores tienen que aprobar en secuencia (uno tras "
+"otro). Si el gerente del empleado está seleccionado como aprobador, será el "
+"primero de la fila."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__image
@@ -688,7 +688,7 @@ msgstr "Archivo adjunto principal"
 #. module: approvals
 #: model:ir.ui.menu,name:approvals.approvals_menu_manager
 msgid "Manager"
-msgstr "Responsable"
+msgstr "Gerente"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_has_error
@@ -729,7 +729,7 @@ msgstr "Mis aprobaciones"
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_search_view_search
 msgid "My Approvals to Review"
-msgstr "Mis aprobaciones por revisar"
+msgstr "Mis aprobaciones a revisar"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_search_view_search
@@ -796,7 +796,7 @@ msgstr "Sin solicitudes de aprobación"
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_to_review
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_to_review_category
 msgid "No new approvals to review"
-msgstr "No hay aprobaciones nuevas por revisar"
+msgstr "No hay aprobaciones nuevas a revisar"
 
 #. module: approvals
 #: model:ir.model.fields.selection,name:approvals.selection__approval_category__has_amount__no
@@ -839,7 +839,7 @@ msgstr "Número de mensajes con error de envío"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__request_to_validate_count
 msgid "Number of requests to validate"
-msgstr "Número de solicitudes por validar"
+msgstr "Número de solicitudes a validar"
 
 #. module: approvals
 #: model:res.groups,name:approvals.group_approval_user
@@ -924,7 +924,7 @@ msgstr "Cantidad"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
@@ -1099,7 +1099,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__pending
 #, python-format
 msgid "To Approve"
-msgstr "Para aprobar"
+msgstr "A aprobar"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_kanban
@@ -1109,7 +1109,7 @@ msgstr "A revisar:"
 #. module: approvals
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__request_status__new
 msgid "To Submit"
-msgstr "Por enviar"
+msgstr "A enviar"
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_request__activity_exception_decoration
@@ -1130,7 +1130,7 @@ msgstr "Usuario"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__user_status
 msgid "User Status"
-msgstr "Estatus del usuario"
+msgstr "Estado del usuario"
 
 #. module: approvals
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__waiting
@@ -1186,16 +1186,14 @@ msgstr ""
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
 msgid "You have to add at least %s approvers to confirm your request."
-msgstr ""
-"Debes agregar al menos %s responsables de aprobación para confirmar tu "
-"solicitud."
+msgstr "Debe agregar al menos %s aprobadores para confirmar su solicitud."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
 msgid "You have to attach at lease one document."
-msgstr "Debes adjuntar al menos un documento."
+msgstr "Debe adjuntar al menos un documento."
 
 #. module: approvals
 #. odoo-python
@@ -1208,12 +1206,12 @@ msgstr ""
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 msgid "e.g. Brussels"
-msgstr "por ejemplo, Bruselas"
+msgstr "p. ej. Bruselas"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "e.g. Procurement"
-msgstr "por ejemplo, aprovisionamiento"
+msgstr "p. ej. aprovisionamiento"
 
 #. module: approvals
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action

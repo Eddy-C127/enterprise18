@@ -617,6 +617,15 @@ msgid "Dynamic"
 msgstr "동적"
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Dynamic button variable name must be the same as its respective button's "
+"name"
+msgstr ""
+
+#. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_message_unique_msg_uid
 msgid "Each whatsapp message should correspond to a single message uuid."
 msgstr "각각의 Whatsapp 메시지는 단일 uuid 메시지에 일치해야 합니다."
@@ -694,6 +703,14 @@ msgstr "모델 필드"
 #, python-format
 msgid "Field template variables must be associated with a field."
 msgstr "필드 서식 변수는 반드시 필드에 연결되어 있어야 합니다."
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Field template variables %(var_names)s must be associated with a field."
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -1902,8 +1919,8 @@ msgstr "서식 본문"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template
-msgid "Template cannot be used"
-msgstr "서식을 사용할 수 없습니다."
+msgid "Template quality rating too low"
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -1919,6 +1936,15 @@ msgstr ""
 "                    서식 생성 개수 %d\n"
 "                    서식 업데이트 개수 %d\n"
 "                    "
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Template variable should be in format {{number}}. Cannot parse "
+"\"%(placeholder)s\""
+msgstr ""
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_preview__wa_template_id
@@ -1956,6 +1982,14 @@ msgstr "문자"
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__th
 msgid "Thai"
 msgstr "태국어"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid ""
+"The Header Text must either contain no variable or the first one {{1}}."
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -2177,6 +2211,15 @@ msgstr "가변 위치"
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_template_variable_name_type_template_unique
 msgid "Variable names must be unique for a given template"
 msgstr "해당 서식에 대해 변수 이름은 반드시 고유해야 합니다."
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Variables %(field_names)s do not seem to be valid field path for model "
+"%(model_name)s."
+msgstr ""
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__video

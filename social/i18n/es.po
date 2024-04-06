@@ -37,7 +37,7 @@ msgstr "%s (máximo %s caracteres)"
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #, python-format
 msgid ", you must first link a social media."
-msgstr ", primero debe vincular una red social"
+msgstr ", primero debe vincular una red social."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_http_error_view
@@ -144,7 +144,7 @@ msgstr "Agregar una imagen"
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #, python-format
 msgid "All Companies"
-msgstr "Todas las compañías"
+msgstr "Todas las empresas"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_utm_campaign__social_post_ids
@@ -455,7 +455,7 @@ msgstr "Nombre mostrado"
 #: code:addons/social/static/src/js/stream_post_comment.js:0
 #, python-format
 msgid "Do you really want to delete %s"
-msgstr "¿De verdad quieres borrar %s?"
+msgstr "¿Está seguro de que desea eliminar %s?"
 
 #. module: social
 #: model:ir.model.fields.selection,name:social.selection__social_post__state__draft
@@ -788,7 +788,7 @@ msgstr "Me gusta"
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #, python-format
 msgid "Likes"
-msgstr "Gustos"
+msgstr "Me gusta"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__link_description
@@ -949,8 +949,8 @@ msgid ""
 "Most social.live.posts directly go from Ready to Posted/Failed since they result of a single call to the third party API.\n"
 "        A 'Posting' state is also available for those that are sent through batching (like push notifications)."
 msgstr ""
-"La mayoría de las publicaciones en directo de redes sociales van inmediatamente a Publicado/Error ya que son el resultado de una sola llamada a la API externa\n"
-"        También está disponible un estado de \"publicando\" para todos los que se mandan por lotes (como las notificaciones push)."
+"La mayoría de las publicaciones en vivo de redes sociales van directo a Publicado/Error ya que son el resultado de una sola llamada a la API externa.\n"
+"También está disponible un estado de \"publicando\" para todas las que se envían por lotes (como las notificaciones push)."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__my_activity_date_deadline
@@ -1027,12 +1027,12 @@ msgstr "Todavía no hay cuenta de red social"
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
 msgid "No Social Streams yet!"
-msgstr "¡Todavía no hay streams sociales!"
+msgstr "¡Todavía no hay flujos sociales!"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream_post
 msgid "No Stream added yet!"
-msgstr "¡Todavía no se ha agregado un stream!"
+msgstr "¡Todavía no se ha agregado un flujo!"
 
 #. module: social
 #. odoo-javascript
@@ -1216,7 +1216,7 @@ msgstr "Publicar mensaje"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 msgid "Post Now"
-msgstr "Publica ahora"
+msgstr "Publicar ahora"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__post_link
@@ -1250,7 +1250,7 @@ msgstr "Validación"
 #: model_terms:ir.ui.view,arch_db:social.utm_campaign_view_form
 #: model_terms:ir.ui.view,arch_db:social.utm_campaign_view_kanban
 msgid "Posts"
-msgstr "Posts"
+msgstr "Publicaciones"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__live_post_ids
@@ -1307,12 +1307,12 @@ msgstr "Fecha de publicación"
 #: model:ir.model.fields,field_description:social.field_social_media__rating_ids
 #: model:ir.model.fields,field_description:social.field_social_post__rating_ids
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #. module: social
 #: model:ir.model.fields.selection,name:social.selection__social_live_post__state__ready
 msgid "Ready"
-msgstr "Preparado"
+msgstr "Listo"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__media_type
@@ -1356,7 +1356,7 @@ msgstr "Error de envío del SMS"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 msgid "Schedule"
-msgstr "Planificación"
+msgstr "Programar"
 
 #. module: social
 #: model:ir.model.fields.selection,name:social.selection__social_post__post_method__scheduled
@@ -1379,7 +1379,7 @@ msgstr "Fecha prevista"
 #, python-format
 msgid "Selected accounts (%s) do not match the selected company (%s)"
 msgstr ""
-"Las cuentas seleccionadas (%s) no van con la empresa seleccionada (%s)"
+"Las cuentas seleccionadas (%s) no coinciden con la empresa seleccionada (%s)"
 
 #. module: social
 #: model:ir.model.fields.selection,name:social.selection__social_post__post_method__now
@@ -1438,12 +1438,12 @@ msgstr "Publicación en redes sociales en vivo"
 #. module: social
 #: model:res.groups,name:social.group_social_manager
 msgid "Social Manager"
-msgstr "Social Manager"
+msgstr "Gerente de redes sociales"
 
 #. module: social
 #: model:ir.ui.menu,name:social.menu_social_global
 msgid "Social Marketing"
-msgstr "Marketing Social"
+msgstr "Marketing social"
 
 #. module: social
 #. odoo-javascript
@@ -1656,7 +1656,7 @@ msgstr "Sincronizar"
 #: code:addons/social/models/social_post_template.py:0
 #, python-format
 msgid "The 'message' field is required for post ID %s"
-msgstr "Se requiere el campo \"mensaje\" apara la publicación de ID %s"
+msgstr "Se requiere el campo \"mensaje\" para el ID de la publicación %s"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__account_ids
@@ -1729,7 +1729,7 @@ msgstr "Título"
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #, python-format
 msgid "To add a stream"
-msgstr "Para agregar stream"
+msgstr "Para agregar un flujo"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__stream_type_id
@@ -1769,7 +1769,7 @@ msgstr "Error desconocido"
 #: code:addons/social/models/social_post_template.py:0
 #, python-format
 msgid "Uploaded file does not seem to be a valid image."
-msgstr "El archivo que subió no es una imagen váilida"
+msgstr "El archivo que subió no es una imagen válida"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
@@ -1908,7 +1908,7 @@ msgstr "Su publicación"
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #, python-format
 msgid "a Stream from an existing account"
-msgstr "una secuencia para una cuenta existente"
+msgstr "un flujo de una cuenta existente"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
@@ -1951,7 +1951,7 @@ msgstr ""
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
 msgid "to link your accounts and start posting."
-msgstr "para vincular sus cuentas e iniciar a publicar"
+msgstr "para vincular sus cuentas y empezar a publicar."
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_account

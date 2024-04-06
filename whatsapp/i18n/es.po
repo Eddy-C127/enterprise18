@@ -635,6 +635,15 @@ msgid "Dynamic"
 msgstr "Dinámico"
 
 #. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Dynamic button variable name must be the same as its respective button's "
+"name"
+msgstr ""
+
+#. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_message_unique_msg_uid
 msgid "Each whatsapp message should correspond to a single message uuid."
 msgstr ""
@@ -714,6 +723,14 @@ msgstr "Campo del modelo"
 msgid "Field template variables must be associated with a field."
 msgstr ""
 "Las variables del campo de plantilla deben estar vinculadas a un campo."
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Field template variables %(var_names)s must be associated with a field."
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -1546,7 +1563,7 @@ msgstr "Portugués (POR)"
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
 msgid "Preview"
-msgstr "Previsualizar"
+msgstr "Vista previa"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_preview_view_form
@@ -1577,7 +1594,7 @@ msgstr "Respuesta rápida"
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__rating_ids
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__rating_ids
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__state__read
@@ -1910,7 +1927,7 @@ msgstr "Texto del encabezado de la plantilla"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__template_name
 msgid "Template Name"
-msgstr "Nombre de plantilla"
+msgstr "Nombre de la plantilla"
 
 #. module: whatsapp
 #: model:ir.actions.act_window,name:whatsapp.whatsapp_preview_action_from_template
@@ -1941,8 +1958,8 @@ msgstr "Cuerpo de la plantilla"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template
-msgid "Template cannot be used"
-msgstr "No se puede utilizar la plantilla"
+msgid "Template quality rating too low"
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -1958,6 +1975,15 @@ msgstr ""
 "                    Número de plantillas creadas %d\n"
 "                    Número de plantillas actualizadas %d\n"
 "                    "
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Template variable should be in format {{number}}. Cannot parse "
+"\"%(placeholder)s\""
+msgstr ""
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_preview__wa_template_id
@@ -1995,6 +2021,14 @@ msgstr "Texto"
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__th
 msgid "Thai"
 msgstr "Tailandés"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid ""
+"The Header Text must either contain no variable or the first one {{1}}."
+msgstr ""
 
 #. module: whatsapp
 #. odoo-python
@@ -2225,6 +2259,15 @@ msgstr "Ubicación de la variable"
 msgid "Variable names must be unique for a given template"
 msgstr ""
 "Los nombres de las variables deben ser únicos para una plantilla específica."
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
+#, python-format
+msgid ""
+"Variables %(field_names)s do not seem to be valid field path for model "
+"%(model_name)s."
+msgstr ""
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__video

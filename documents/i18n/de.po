@@ -947,6 +947,12 @@ msgid "Archived"
 msgstr "Archiviert"
 
 #. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
+#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
+msgid "Moved to trash"
+msgstr "In Papierkorb verschoben"
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
 msgid "Archived Workspace"
 msgstr "Archivierter Arbeitsbereich"
@@ -2307,6 +2313,7 @@ msgstr "In Arbeitsbereich verschieben"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
 #, python-format
 msgid "Move to trash"
 msgstr "In Papierkorb verschieben"
@@ -2824,6 +2831,12 @@ msgstr "Verantwortlicher Benutzer"
 #, python-format
 msgid "Restore"
 msgstr "Wiederherstellen"
+
+#. module: documents
+#: code:addons/documents/models/folder.py:0
+#, python-format
+msgid "Restricted Folder"
+msgstr "Eingeschränkter Ordner"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_has_sms_error

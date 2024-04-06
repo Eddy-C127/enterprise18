@@ -5,7 +5,6 @@
 # Translators:
 # Iran Villalobos López, 2023
 # Wil Odoo, 2023
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2023
 # Fernanda Alvarez, 2024
 # 
 msgid ""
@@ -34,7 +33,7 @@ msgstr "Registrar entrada: %s"
 #: code:addons/frontdesk/models/frontdesk_visitor.py:0
 #, python-format
 msgid " Check-In: %s to meet %s"
-msgstr "Registrar entrada: %s para reunirse con %s"
+msgstr "tiene un registro: %s se reunirá con %s."
 
 #. module: frontdesk
 #. odoo-python
@@ -86,13 +85,14 @@ msgstr "Administrador"
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
 msgid "Allow visitor to select a drink during registration"
 msgstr ""
-"Permitirle a los visitantes seleccionar una bebida durante su registro"
+"Permita que los visitantes elijan una bebida al momento de registrarse"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
 msgid "Allows the visitor to pick the host of the meeting from the list"
 msgstr ""
-"Permitirle a los visitantes elegir un anfitrión de la lista para su reunión"
+"Permita que los visitantes seleccionen al anfitrión de su reunión con una "
+"lista"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
@@ -167,7 +167,7 @@ msgstr "Registrar salida"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_visitor_view_tree
 msgid "CheckIn"
-msgstr "Registrar entrada"
+msgstr "Entrada"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_visitor_view_search
@@ -431,7 +431,7 @@ msgstr "Nombre del anfitrión "
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__host_selection
 msgid "Host Selection"
-msgstr "Selección del anfitrión "
+msgstr "Selección de anfitrión "
 
 #. module: frontdesk
 #. odoo-javascript
@@ -473,14 +473,14 @@ msgstr "URL del quiosco"
 #: code:addons/frontdesk/models/frontdesk_frontdesk.py:0
 #, python-format
 msgid "Last Check-In: %s hours ago"
-msgstr "Último registro de entrada: hace%s horas"
+msgstr "Última entrada: hace %s horas"
 
 #. module: frontdesk
 #. odoo-python
 #: code:addons/frontdesk/models/frontdesk_frontdesk.py:0
 #, python-format
 msgid "Last Check-In: %s minutes ago"
-msgstr "Último registro de entrada: hace %s minutos"
+msgstr "Última entrada: hace %s minutos"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_drink__write_uid
@@ -559,7 +559,7 @@ msgstr "Notificar por SMS"
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__notify_discuss
 msgid "Notify by discuss"
-msgstr "Notificar por conversaciones"
+msgstr "Notificar por Conversaciones"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__notify_email
@@ -611,7 +611,7 @@ msgstr "Opciones"
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__ask_company
 msgid "Organization"
-msgstr "Organización"
+msgstr "Empresa"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__pending
@@ -683,7 +683,7 @@ msgstr "Reportes"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
 msgid "Request additional information upon registering"
-msgstr "Solicitar información adicional al momento del registro"
+msgstr "Solicite información adicional cuando los visitantes se registren"
 
 #. module: frontdesk
 #: model:ir.model.fields.selection,name:frontdesk.selection__frontdesk_frontdesk__ask_company__required
@@ -720,7 +720,7 @@ msgstr "Seleccione el color de la recepción"
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__self_check_in
 msgid "Self Check-In"
-msgstr "Auto registro "
+msgstr "Registro por cuenta propia"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
@@ -742,8 +742,8 @@ msgstr "Secuencia"
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
 msgid "Show a QR code on the welcome screen to check-in from mobile"
 msgstr ""
-"Mostrar un código QR en la pantalla de bienvenida para registrar la entrada "
-"desde un teléfono celular"
+"Muestre un código QR en la pantalla de bienvenida del quiosco para que los "
+"visitantes se registren con su celular"
 
 #. module: frontdesk
 #: model:ir.model.fields,help:frontdesk.field_frontdesk_frontdesk__self_check_in
@@ -967,7 +967,7 @@ msgstr "ya se le avisó. "
 #: code:addons/frontdesk/static/src/welcome_page/welcome_page.xml:0
 #, python-format
 msgid "to"
-msgstr "para"
+msgstr "a"
 
 #. module: frontdesk
 #. odoo-javascript

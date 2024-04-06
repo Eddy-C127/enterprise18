@@ -599,8 +599,8 @@ msgid ""
 "The address of your company is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
-"La dirección de tu empresa no está o es errónea.\n"
-"(Campos faltantes : %s)"
+"Hace falta la dirección de su empresa o no es correcta.\n"
+"(Campo(s) faltante(s): %s)"
 
 #. module: delivery_ups
 #. odoo-python
@@ -611,7 +611,7 @@ msgid ""
 "(Missing field(s) : %s)"
 msgstr ""
 "Hace falta la dirección de su almacén o no es correcta.\n"
-"(Campos faltantes: %s)"
+"(Campo(s) faltante(s): %s)"
 
 #. module: delivery_ups
 #. odoo-python
@@ -619,9 +619,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The delivery cannot be done because the weight of your product is missing."
-msgstr ""
-"La entrega no puede hacerse porque el peso de tu producto no está "
-"disponible."
+msgstr "No es posible realizar el envío. Proporcione el peso de su producto."
 
 #. module: delivery_ups
 #. odoo-python
@@ -821,7 +819,7 @@ msgstr "Entrega en sábado de UPS"
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "UPS Server Not Found"
-msgstr "No se ha encontrado el servidor de UPS"
+msgstr "Servidor de UPS no encontrado"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_default_service_type
@@ -859,8 +857,8 @@ msgid ""
 " the contacts addresses on multiple lines to try to avoid this limitation."
 msgstr ""
 "Las líneas de dirección de UPS solo pueden contener un máximo de 35 "
-"caracteres. Puedes dividir las direcciones de los contactos en varias líneas"
-" para intentar evitar esta limitación."
+"caracteres. Puede dividir las direcciones de contacto en varias líneas si "
+"desea evitar esta limitación."
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_duty_payment

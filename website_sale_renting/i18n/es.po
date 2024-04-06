@@ -61,8 +61,8 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"                Su producto de alquiler tiene una fecha de recolección inválida (%(start_date)s).\n"
-"                Desafortunadamente, no procesamos recolecciones en ese día.\n"
+"                Su producto de alquiler tiene una fecha de recogida no válida (%(start_date)s).\n"
+"                Desafortunadamente, no procesamos recogidas en ese día.\n"
 "            "
 
 #. module: website_sale_renting
@@ -76,7 +76,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"                Su producto de alquiler tiene una fecha de devolución inválida (%(end_date)s).\n"
+"                Su producto de alquiler tiene una fecha de devolución no válida (%(end_date)s).\n"
 "                Desafortunadamente, no procesamos devoluciones en ese día.\n"
 "            "
 
@@ -92,8 +92,8 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"                Su producto de alquiler tiene fechas de recolección (%(start_date)s) y\n"
-"                devolución (%(end_date)s) inválidas. Desafortunadamente, no procesamos recolecciones ni\n"
+"                Su producto de alquiler tiene fechas de recogida (%(start_date)s) y\n"
+"                devolución (%(end_date)s) no válidas. Desafortunadamente, no procesamos recogidas ni\n"
 "                devoluciones en esos días.\n"
 "            "
 
@@ -110,7 +110,7 @@ msgid ""
 msgstr ""
 "\n"
 "            Algunos de sus productos de alquiler (%(product)s) no se pueden alquilar durante el\n"
-"            periodo seleccionado, debe actualizar su carrito. Nos disculpamos por el\n"
+"            periodo seleccionado, debe actualizar su cesta. Nos disculpamos por el\n"
 "            inconveniente.\n"
 "        "
 
@@ -230,7 +230,7 @@ msgstr "Días"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
 msgid "Days during which pickup and return are not possible."
-msgstr "Días en los que no es posible recolectar ni devolver."
+msgstr "Días en los que no es posible recoger ni devolver."
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_fri
@@ -268,7 +268,7 @@ msgstr "Unidad de duración mínima de alquiler"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
 msgid "Minimal duration between pickup and return."
-msgstr "Duración mínima entre la recolección y la devolución."
+msgstr "Duración mínima entre la recogida y la devolución."
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
@@ -292,7 +292,7 @@ msgstr "Meses"
 #, python-format
 msgid "Please choose a return date that is after the pickup date."
 msgstr ""
-"Elija una fecha de devolución que sea posterior a la fecha de recolección."
+"Elija una fecha de devolución que sea posterior a la fecha de recogida."
 
 #. module: website_sale_renting
 #. odoo-javascript
@@ -385,7 +385,7 @@ msgstr ""
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "The pickup date cannot be in the past."
-msgstr "La fecha de recolección no puede estar en el pasado."
+msgstr "La fecha de recogida no puede estar en el pasado."
 
 #. module: website_sale_renting
 #. odoo-javascript
@@ -399,7 +399,7 @@ msgstr "El alquiler dura menos que la duración mínima de alquiler %s"
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "The return date should be after the pickup date."
-msgstr "La fecha de devolución debe ser posterior a la fecha de recolección."
+msgstr "La fecha de devolución debe ser posterior a la fecha de recogida."
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_thu
