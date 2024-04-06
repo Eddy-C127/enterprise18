@@ -285,9 +285,14 @@ export default class BarcodeQuantModel extends BarcodeModel {
         if (params.fieldsParams.package_id) {
             domain.push(['package_id', '=', package_id.id || package_id]);
         }
-        const res = await this.orm.call( 'stock.quant', 'get_existing_quant_and_related_data', [domain]);
-        this.cache.setCache(res.records);
-        const quants = res.records['stock.quant'];
+        let quants = [];
+        if (!params.fieldsParams.packaging || product.tracking === 'none') {
+            const res = await this.orm.call('stock.quant', 'get_existing_quant_and_related_data', [domain]);
+            if (res) {
+                this.cache.setCache(res.records);
+                quants = res.records['stock.quant'];
+            }
+        }
         if (quants.length === 1 && (
             product.tracking === 'none' || params.fieldsParams.lot_name || params.fieldsParams.lot_id)) {
             const inventory_quantity = params.fieldsParams.inventory_quantity || 1;
@@ -327,13 +332,18 @@ export default class BarcodeQuantModel extends BarcodeModel {
     _convertDataToFieldsParams(args) {
         const params = {};
         // Set the fields in `params` only if they are in `args`.
-        args.quantity && (params.inventory_quantity = args.quantity);
+        if (args.packaging && args.product.tracking === 'serial') {
+            params.inventory_quantity = 1;
+        } else if (args.quantity) {
+            params.inventory_quantity = args.quantity;
+        }
         args.lot && (params.lot_id = args.lot);
         args.lotName && (params.lot_name = args.lotName);
         args.owner && (params.owner_id = args.owner);
         args.package && (params.package_id = args.package);
         args.product && (params.product_id = args.product);
         args.product && args.product.uom_id && (params.product_uom_id = args.product.uom_id);
+        args.packaging && (params.packaging = args.packaging);
         return params;
     }
 

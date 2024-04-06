@@ -5116,3 +5116,41 @@ registry.category("web_tour.tours").add('test_open_picking_dont_override_assigne
         trigger: '.o_breadcrumb > ol > li > a:contains(Operations)',
     },
 ]});
+
+registry.category("web_tour.tours").add('test_serial_product_packaging', {test: true, steps: () => [
+    { trigger: ".o_stock_barcode_main_menu", run: "scan WHIN" },
+    { trigger: '.o_barcode_client_action', run: "scan PCK4" },
+    {
+        trigger: '.o_barcode_line.o_highlight',
+        run: function() {
+            helper.assertLinesCount(1);
+            helper.assertScanMessage('scan_serial');
+            helper.assertLineProduct(0, "productserial1");
+            helper.assertLineQty(0, "0/4");
+            helper.assertButtonIsVisible(0, "toggle_sublines", false);
+            helper.assertButtonIsVisible(0, "edit");
+        }
+    },
+    { trigger: '.o_barcode_client_action', run: "scan sn1" },
+    { trigger: '.o_barcode_client_action', run: 'scan sn2' },
+    { trigger: '.o_barcode_client_action', run: 'scan sn3' },
+    { trigger: '.o_barcode_client_action', run: 'scan sn4' },
+    {
+        trigger: '.o_barcode_line.o_selected .o_line_button.o_toggle_sublines',
+        run: 'click',
+    },
+    {
+        trigger: '.o_barcode_line.o_selected',
+        run: function() {
+            const line = helper.getLine();
+            helper.assertLineQty(line, "4/4");
+            helper.assertSublinesCount(4);
+            const sublines = helper.getSublines();
+            helper.assertLinesTrackingNumbers(sublines, ["sn4", "sn3", "sn2", "sn1"]);
+            helper.assertLineQty(sublines[0], "1/1");
+            helper.assertLineQty(sublines[1], "1/1");
+            helper.assertLineQty(sublines[2], "1/1");
+            helper.assertLineQty(sublines[3], "1/1");
+        }
+    },
+]});

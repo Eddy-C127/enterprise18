@@ -846,6 +846,35 @@ registry.category("web_tour.tours").add('test_inventory_packaging', {test: true,
     },
 ]});
 
+registry.category("web_tour.tours").add('test_inventory_serial_product_packaging', {test: true, steps: () => [
+    { trigger: '.o_button_inventory', run: "click" },
+    { trigger: '.o_barcode_client_action', run: 'scan PCK3' },
+    {
+        trigger: '.o_barcode_line.o_highlight',
+        run: function() {
+            helper.assertLinesCount(1);
+            helper.assertLineProduct(0, "productserial1");
+            helper.assertLineQty(0, "3");
+            helper.assertSublinesCount(3);
+            const [subline1, subline2, subline3] = helper.getSublines();
+            helper.assertLineQty(subline1, "1");
+            helper.assertLineQty(subline2, "1");
+            helper.assertLineQty(subline3, "1");
+        }
+    },
+    { trigger: '.o_barcode_client_action', run: "scan sn1" },
+    { trigger: '.o_barcode_client_action', run: 'scan sn2' },
+    { trigger: '.o_barcode_client_action', run: 'scan sn3' },
+    {
+        trigger: '.o_barcode_client_action:contains("sn3")',
+        run: function() {
+            helper.assertSublinesCount(3);
+            const sublines = helper.getSublines();
+            helper.assertLinesTrackingNumbers(sublines, ["sn3", "sn2", "sn1"]);
+        }
+    },
+]});
+
 registry.category("web_tour.tours").add('test_inventory_owner_scan_package', {test: true, steps: () => [
     {
         trigger: '.o_button_inventory',

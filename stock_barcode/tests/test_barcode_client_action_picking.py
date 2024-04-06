@@ -3316,6 +3316,24 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         })
         self.start_tour('/odoo/barcode', 'test_gs1_receipt_packaging_with_uom', login='admin', timeout=180)
 
+    def test_serial_product_packaging(self):
+        """ This test ensures that correct packaging lines generated
+        for serial product in operations.
+        """
+        self.clean_access_rights()
+        group_lot = self.env.ref('stock.group_production_lot')
+        group_packaging = self.env.ref('product.group_stock_packaging')
+        self.env.user.write({'groups_id': [(4, group_lot.id, 0)]})
+        self.env.user.write({'groups_id': [(4, group_packaging.id)]})
+        self.env['product.packaging'].create({
+            'name': 'Product Serial 1 Packaging',
+            'qty': 4,
+            'product_id': self.productserial1.id,
+            'barcode': 'PCK4',
+        })
+
+        self.start_tour('/odoo/barcode', 'test_serial_product_packaging', login='admin', timeout=180)
+
     def test_split_line_on_scan(self):
         """
         This test ensures that move lines are split correctly

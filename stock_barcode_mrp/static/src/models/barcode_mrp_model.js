@@ -380,6 +380,10 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         super._updateLineQty(...arguments);
     }
 
+    createSingleLinesForPackaging() {
+        return false;
+    }
+
     lineIsFaulty(line) {
         return line.reserved_uom_qty && line.qty_done > line.reserved_uom_qty;
     }

@@ -1070,6 +1070,10 @@ export default class BarcodePickingModel extends BarcodeModel {
         if (args.package) {
             params.package_id = args.package;
         }
+        if (args.packaging && args.product.tracking === "serial" && (this.useExistingLots || this.canCreateNewLot)) {
+            params.packaging = args.packaging;
+            params.qty_done = 0;
+        }
         if (args.resultPackage) {
             params.result_package_id = args.resultPackage;
         }
@@ -1212,13 +1216,17 @@ export default class BarcodePickingModel extends BarcodeModel {
             this.selectedLine.product_id.id === fieldsParams.product_id?.id) {
             defaultValues.move_id = this.selectedLine.move_id;
         }
-        return Object.assign(defaultValues, {
+        const newLineDefaultVals = Object.assign(defaultValues, {
             location_dest_id: this._defaultDestLocation(),
             reserved_uom_qty: 0,
             qty_done: 0,
             picking_id: this.resId,
             result_package_id: false,
         });
+        if (fieldsParams.product_id?.tracking === "serial" && fieldsParams.packaging) {
+            newLineDefaultVals.reserved_uom_qty = 1;
+        }
+        return newLineDefaultVals;
     }
 
     _getFieldToWrite() {

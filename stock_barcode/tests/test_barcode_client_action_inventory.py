@@ -332,6 +332,24 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         })
         self.start_tour("/odoo/barcode", 'test_inventory_packaging', login='admin', timeout=180)
 
+    def test_inventory_serial_product_packaging(self):
+        """ This test ensures that correct packaging lines generated
+        for serial product in inventory adjustments.
+        """
+        self.clean_access_rights()
+        group_lot = self.env.ref('stock.group_production_lot')
+        group_packaging = self.env.ref('product.group_stock_packaging')
+        self.env.user.write({'groups_id': [(4, group_lot.id, 0)]})
+        self.env.user.write({'groups_id': [(4, group_packaging.id)]})
+        self.env['product.packaging'].create({
+            'name': 'Product Serial 1 Packaging',
+            'qty': 3,
+            'product_id': self.productserial1.id,
+            'barcode': 'PCK3',
+        })
+
+        self.start_tour('/odoo/barcode', 'test_inventory_serial_product_packaging', login='admin', timeout=180)
+
     def test_inventory_owner_scan_package(self):
         group_owner = self.env.ref('stock.group_tracking_owner')
         group_pack = self.env.ref('stock.group_tracking_lot')

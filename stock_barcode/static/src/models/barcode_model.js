@@ -468,6 +468,14 @@ export default class BarcodeModel extends EventBus {
         this.trigger('update');
     }
 
+    createSingleLinesForPackaging(barcodeData) {
+        return (
+            barcodeData.product.tracking === "serial" &&
+            barcodeData.packaging &&
+            (this.useExistingLots || this.canCreateNewLot)
+        );
+    }
+
     async updateLine(line, args) {
         let { location_id, lot_id, owner_id, package_id } = args;
         if (!line) {
@@ -1259,7 +1267,13 @@ export default class BarcodeModel extends EventBus {
             if (barcodeData.uom) {
                 fieldsParams.uom = barcodeData.uom;
             }
-            currentLine = await this.createNewLine({fieldsParams});
+            if (this.createSingleLinesForPackaging(barcodeData)) {
+                for (let lineCount = 0; lineCount < barcodeData.packaging.qty; lineCount++) {
+                    currentLine = await this.createNewLine({fieldsParams});
+                }
+            } else {
+                currentLine = await this.createNewLine({fieldsParams});
+            }
             if(currentLine){
                 this.trigger("playSound", "success");
             }
