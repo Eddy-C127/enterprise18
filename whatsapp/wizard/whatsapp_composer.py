@@ -267,8 +267,10 @@ class WhatsAppComposer(models.TransientModel):
                 'wa_account_id': self.wa_template_id.wa_account_id.id,
             })
         if message_vals:
-            message = self.env['whatsapp.message'].create(message_vals)
-            message._send(force_send_by_cron=force_send_by_cron)
+            messages = self.env['whatsapp.message'].create(message_vals)
+            messages._send(force_send_by_cron=force_send_by_cron)
+            return messages
+        return self.env["whatsapp.message"]
 
     def _get_text_free_json(self):
         """This method is used to prepare free text json using values set in free text field of composer."""

@@ -1,7 +1,11 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import logging
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
 
 
 class EventMailScheduler(models.Model):
@@ -34,29 +38,48 @@ class EventMailScheduler(models.Model):
         super().set_template_ref_model()
         mail_model = self.env['whatsapp.template']
         if self.notification_type == 'whatsapp':
-            record = mail_model.search([('model_id', '=', 'event.registration')], limit=1)
+            record = mail_model.search([('model_id', '=', 'event.registration'), ('status', '=', 'approved')], limit=1)
             self.template_ref = "{},{}".format('whatsapp.template', record.id) if record.id else False
 
     def execute(self):
-        def send_whatsapp(scheduler):
-            self.env['whatsapp.composer'].with_context({'active_ids': registration.ids}).create({
-                'res_model': 'event.registration',
-                'wa_template_id': scheduler.template_ref.id
-            })._send_whatsapp_template(force_send_by_cron=True)
+        def send_whatsapp(scheduler, registrations):
+            if registrations:
+                self.env['whatsapp.composer'].with_context({'active_ids': registrations.ids}).create({
+                    'res_model': 'event.registration',
+                    'wa_template_id': scheduler.template_ref.id
+                })._send_whatsapp_template(force_send_by_cron=True)
             scheduler.update({
                 'mail_done': True,
                 'mail_count_done': scheduler.event_id.seats_reserved + scheduler.event_id.seats_used,
             })
-        for scheduler in self:
-            if scheduler.interval_type != 'after_sub' and scheduler.notification_type == 'whatsapp':
-                now = fields.Datetime.now()
-                if scheduler.mail_done:
-                    continue
-                # no template -> ill configured, skip and avoid crash
-                if not scheduler.template_ref:
-                    continue
-                # do not send whatsapp if the whatsapp was scheduled before the event but the event is over
-                if scheduler.scheduled_date <= now and (scheduler.interval_type != 'before_event' or scheduler.event_id.date_end > now):
-                    registration = scheduler.event_id.registration_ids.filtered(lambda registration: registration.state != 'cancel')
-                    send_whatsapp(scheduler)
+        now = self.env.cr.now()
+        wa_schedulers = self.filtered(lambda s: s.notification_type == "whatsapp" and s.interval_type != "after_sub")
+        # no template / wrong template -> ill configured, skip and avoid crash
+        for scheduler in wa_schedulers._filter_wa_template_ref():
+            # do not send whatsapp if the whatsapp was scheduled before the event but the event is over
+            if scheduler.scheduled_date <= now and (scheduler.interval_type != 'before_event' or scheduler.event_id.date_end > now):
+                registrations = scheduler.event_id.registration_ids.filtered(lambda registration: registration.state != 'cancel')
+                send_whatsapp(scheduler, registrations)
         return super().execute()
+
+    def _filter_wa_template_ref(self):
+        """ Check for valid template reference: existing, working template """
+        wa_schedulers = self.filtered(lambda s: s.notification_type == "whatsapp")
+        if not wa_schedulers:
+            return self.browse()
+        existing_templates = wa_schedulers.template_ref.exists()
+        missing = wa_schedulers.filtered(lambda s: s.template_ref not in existing_templates)
+        for scheduler in missing:
+            _logger.warning(
+                "Cannot process scheduler %s (event %s) as it refers to non-existent whatsapp template %s",
+                scheduler.id, scheduler.event_id.name, scheduler.template_ref.id
+            )
+        invalid = wa_schedulers.filtered(
+            lambda scheduler: scheduler not in missing
+                              and (scheduler.template_ref._name != "whatsapp.template" or scheduler.template_ref.status != 'approved')
+        )
+        for scheduler in invalid:
+            _logger.warning(
+                "Cannot process scheduler %s (event %s) as it refers to invalid whatsapp template %s (ID %s)",
+                scheduler.id, scheduler.event_id.name, scheduler.template_ref.name, scheduler.template_ref.id)
+        return self - missing - invalid

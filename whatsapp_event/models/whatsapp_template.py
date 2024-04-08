@@ -17,5 +17,5 @@ class WhatsappTemplate(models.Model):
         method to filter the WhatsApp templates.
         """
         if self.env.context.get('filter_template_on_event'):
-            domain = expression.AND([[('model', '=', 'event.registration')], domain])
+            domain = expression.AND([[('model', '=', 'event.registration')], [('status', '=', 'approved')], domain])
         return super()._name_search(name, domain, operator, limit, order)

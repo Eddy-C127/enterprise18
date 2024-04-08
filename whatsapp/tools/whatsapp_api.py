@@ -117,7 +117,7 @@ class WhatsAppApi:
             raise WhatsAppError(_("Document upload session open failed, please retry after sometime."))
         # Upload file
         _logger.info("Upload sample document on the opened session using account %s [%s]", self.wa_account_id.name, self.wa_account_id.id)
-        upload_file_response = self.__api_requests("POST", f"/{upload_session_id}", params=params, auth_type="oauth", headers={'file_offset': '0'}, data=attachment.datas)
+        upload_file_response = self.__api_requests("POST", f"/{upload_session_id}", params=params, auth_type="oauth", headers={'file_offset': '0'}, data=attachment.raw)
         upload_file_response_json = upload_file_response.json()
         file_handle = upload_file_response_json.get('h')
         if not file_handle:
@@ -191,6 +191,14 @@ class WhatsAppApi:
             msg_uid = response_json['messages'][0]['id']
             return msg_uid
         raise WhatsAppError(*self._prepare_error_response(response_json))
+
+    def _get_header_data_from_handle(self, url):
+        """ This method is used to get template demo document from url """
+        _logger.info("Get header data for url %s from account %s [%s]", url, self.wa_account_id.name, self.wa_account_id.id)
+        response = self.__api_requests("GET", url, endpoint_include=True)
+        mimetype = requests.head(url, timeout=5).headers.get('Content-Type')
+        data = response.content
+        return data, mimetype
 
     def _get_whatsapp_document(self, document_id):
         """

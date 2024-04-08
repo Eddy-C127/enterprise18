@@ -62,6 +62,26 @@ template_data = {
             "id": "948089559317319"
         },
         {
+            "name": "test_image_header",
+            "components": [
+                {
+                    "type": "HEADER",
+                    "format": "IMAGE",
+                    "example": {
+                        "header_handle": ["demo_image_url"]
+                    }
+                },
+                {
+                    "type": "BODY",
+                    "text": "This is Image header"
+                }
+            ],
+            "language": "en_US",
+            "status": "APPROVED",
+            "category": "UTILITY",
+            "id": "948089559314656"
+        },
+        {
             "name": "test_dynamic_header_body_button",
             "components": [
                 {
