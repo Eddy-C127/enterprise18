@@ -1386,7 +1386,7 @@ export class GanttRenderer extends Component {
     }
 
     isPillSmall(pill) {
-        return this.state.pillsWidth * pill.grid.column[1] < (pill.displayName.length * 10);
+        return this.state.pillsWidth * pill.grid.column[1] < pill.displayName.length * 10;
     }
 
     /**
