@@ -405,24 +405,30 @@ class StudioApprovalRule(models.Model):
         })
         if not self.env.context.get('prevent_approval_request_unlink'):
             ruleSudo._unlink_request(res_id)
-        # approval rules for higher levels can be requested if no rules with the current level are set
-        same_level_rules = ruleSudo.search([
-                ('id', '!=', ruleSudo.id),
-                ('notification_order', '=', ruleSudo.notification_order),
+
+        if ruleSudo.notification_order != '3':
+            same_level_rules = []
+            higher_level_rules = []
+            # approval rules for higher levels can be requested if no rules with the current level are set
+            for rule in ruleSudo.search_read([
+                ('notification_order', '>=', ruleSudo.notification_order),
                 ('active', '=', True),
                 ("model_name", "=", ruleSudo.model_name),
                 ('method', '=', ruleSudo.method),
                 ('action_id', '=', ruleSudo.action_id.id)
-            ])
-        if ruleSudo.notification_order != '3' and not same_level_rules:
-            for approval_rule in ruleSudo.search([
-                ('notification_order', '>', ruleSudo.notification_order),
-                ('active', '=', True),
-                ("model_name", "=", ruleSudo.model_name),
-                ('method', '=', ruleSudo.method),
-                ('action_id', '=', ruleSudo.action_id.id)
-            ]):
-                approval_rule._create_request(res_id)
+            ], ["domain", "notification_order"]):
+                if rule["id"] == ruleSudo.id:
+                    continue
+                if rule["notification_order"] == ruleSudo.notification_order:
+                    rule_domain = rule["domain"] and literal_eval(rule["domain"])
+                    if not rule_domain or record.filtered_domain(rule_domain):
+                        same_level_rules.append(rule["id"])
+                else:
+                    higher_level_rules.append(rule["id"])
+
+            if not same_level_rules:
+                for rule in ruleSudo.browse(higher_level_rules):
+                    rule._create_request(res_id)
         return result
 
     def _get_rule_domain(self, model, method, action_id):
@@ -743,6 +749,7 @@ class StudioApprovalRule(models.Model):
         if self.notification_order != '1':
             # search and read entries as sudo. Otherwise we won't see entries create/approved by other users
             entry_sudo = self.env["studio.approval.entry"].sudo()
+            record = self.env[ruleSudo.model_name].browse(res_id)
             # avoid asking for an approval if all request from a lower level have not yet been validated
             for approval_rule in ruleSudo.search([
                 ('notification_order', '<', self.notification_order),
@@ -751,6 +758,9 @@ class StudioApprovalRule(models.Model):
                 ('method', '=', ruleSudo.method),
                 ('action_id', '=', ruleSudo.action_id.id)
             ]):
+                rule_domain = approval_rule.domain and literal_eval(approval_rule.domain)
+                if rule_domain and not record.filtered_domain(rule_domain):
+                    continue
                 existing_entry = entry_sudo.search([
                     ('model', '=', ruleSudo.model_name),
                     ('method', '=', ruleSudo.method),

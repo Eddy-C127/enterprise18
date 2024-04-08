@@ -224,6 +224,54 @@ class TestStudioApprovals(TransactionCase):
         self.assertEqual(model_action.message_ids[0].preview, f"@{self.demo_user.name} @test An approval for 'R0' has been requested on test")
         self.assertEqual(len(model_action.activity_ids), 0)
 
+    def test_rule_notify_domain(self):
+        IrModel = self.env["ir.model"]
+
+        model_action = self.env["test.studio.model_action"].create({
+            "name": "test 2"
+        })
+        rules = self.env["studio.approval.rule"].create([
+            {
+                "name": "ruledomain",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "domain": "[('name', '=', 'test')]",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+                "exclusive_user": True,
+            },
+            {
+                "name": "rule 2",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+                "exclusive_user": True,
+            },
+            {
+                "name": "rule3",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "notification_order": "2",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(self.other_user.id)],
+                "exclusive_user": True,
+            }
+        ])
+        with self.with_user("demo"):
+            self.env["test.studio.model_action"].browse(model_action.id).action_confirm()
+        self.assertFalse(model_action.confirmed)
+        self.assertEqual(model_action.message_ids[0].preview, f"@{self.other_user.name} An approval for 'rule3' has been requested on test 2")
+        self.assertEqual(len(model_action.activity_ids), 1)
+
+        spec = self.env["studio.approval.rule"].get_approval_spec([
+            dict(model="test.studio.model_action", method="action_confirm", action_id=False, res_id=model_action.id)
+        ])
+        spec = dict(spec["test.studio.model_action"])[(model_action.id, "action_confirm", False)]
+        self.assertEqual(len(spec["entries"]), 1)
+        self.assertEqual(spec["entries"][0]["rule_id"][0], rules[1].id)
+
+
 @tagged("-at_install", "post_install")
 class TestStudioApprovalsUIUnit(HttpCase):
     @classmethod
