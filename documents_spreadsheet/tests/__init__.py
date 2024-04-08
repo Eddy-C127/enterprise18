@@ -1,4 +1,5 @@
 from . import common
+from . import test_controller
 from . import test_spreadsheet_bus
 from . import test_spreadsheet_collaborative
 from . import test_spreadsheet_import_xlsx

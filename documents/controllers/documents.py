@@ -146,7 +146,7 @@ class ShareRoute(http.Controller):
             documents = request.env['documents.document'].with_context(allowed_company_ids=allowed_company_ids).create(vals_list)
             result['ids'] = documents.ids
 
-        return json.dumps(result)
+        return request.make_json_response(result)
 
     @http.route('/documents/pdf_split', type='http', methods=['POST'], auth="user")
     def pdf_split(self, new_files=None, ufile=None, archive=False, vals=None):

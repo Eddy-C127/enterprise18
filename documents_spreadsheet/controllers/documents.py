@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import _
+import re
+
+from odoo import _, http
 from odoo.http import request
-from odoo.exceptions import AccessError, MissingError
+from odoo.exceptions import AccessError, MissingError, ValidationError
 from odoo.addons.documents.controllers.documents import ShareRoute
 
 class SpreadsheetShareRoute(ShareRoute):
@@ -34,3 +36,20 @@ class SpreadsheetShareRoute(ShareRoute):
             except MissingError:
                 return False
         return super()._get_share_zip_data_stream(share, document)
+
+    @http.route()
+    def upload_document(self, *args, **kwargs):
+        response = super().upload_document(*args, **kwargs)
+        document_ids = response.json.get("ids")
+        documents = request.env["documents.document"].browse(document_ids)
+        # ends with .osheet.json or .osheet (6).json
+        match_regex = r"\.osheet(\s?\(\d+\))?\.json$"
+        spreadsheets = documents.filtered(lambda doc: doc.name and re.search(match_regex, doc.name) and doc.mimetype == "application/json")
+        spreadsheets.handler = "spreadsheet"
+        try:
+            spreadsheets._check_spreadsheet_data()
+        except ValidationError as e:
+            return request.make_json_response({
+                "error": str(e)
+            })
+        return response
