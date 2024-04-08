@@ -83,11 +83,21 @@ patch(AttendeeCalendarCommonRenderer.prototype, {
     /**
      * @override
      */
+    eventClassNames({ event }) {
+        const classesToAdd = super.eventClassNames(...arguments);
+        if (event.extendedProps.slotId) {
+            classesToAdd.push("o_calendar_slot");
+        }
+        return classesToAdd;
+    },
+
+    /**
+     * @override
+     */
     onEventDidMount(info) {
         super.onEventDidMount(...arguments);
         const { el, event } = info;
         if (event.extendedProps.slotId) {
-            el.classList.add("o_calendar_slot");
             const bg = el.querySelector(".fc-event-main");
             if (bg) {
                 const duration = (event.end - event.start) / 3600000;
