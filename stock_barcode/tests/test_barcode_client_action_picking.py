@@ -2040,6 +2040,35 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.start_tour(url, 'test_picking_type_mandatory_scan_complete_flux_delivery', login='admin', timeout=180)
         self.assertEqual(picking_delivery.state, 'done')
 
+    def test_procurement_backorder(self):
+        self.clean_access_rights()
+        product_a, _product_b = self.env['product.product'].create([{
+            'name': p_name,
+            'type': 'product',
+            'barcode': p_name,
+        } for p_name in ['PA', 'PB']])
+
+        customer = self.env["res.partner"].create({"name": "Customer"})
+        proc_group = self.env["procurement.group"].create({"partner_id": customer.id})
+
+        procurement = self.env["procurement.group"].Procurement(
+            product_a, 1, product_a.uom_id,
+            self.env.ref('stock.stock_location_customers'),
+            product_a.name,
+            "/",
+            self.env.company,
+            {
+                "warehouse_id": self.env['stock.warehouse'].search([], limit=1),
+                "group_id": proc_group,
+            }
+        )
+        self.env["procurement.group"].run([procurement])
+
+        move = self.env['stock.move'].search([('product_id', '=', product_a.id)], limit=1)
+        url = self._get_client_action_url(move.picking_id.id)
+        self.start_tour(url, 'test_procurement_backorder', login='admin', timeout=99)
+        self.assertEqual(len(proc_group.stock_move_ids), 2)
+
     def test_receipt_delete_button(self):
         """ Scan products that not part of a receipt. Check that products not part of original receipt
         can be deleted, but the products that are part of the original receipt cannot be deleted.

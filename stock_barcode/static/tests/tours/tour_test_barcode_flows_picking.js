@@ -408,6 +408,14 @@ registry.category("web_tour.tours").add('test_internal_picking_reserved_1', {tes
     },
 ]});
 
+registry.category("web_tour.tours").add('test_procurement_backorder', {
+    test: true, steps: () => [
+        { trigger: '.o_barcode_client_action', run: 'scan PB' },
+        { trigger: '.o_barcode_line:contains("PB")', run: 'scan O-BTN.validate' },
+        { trigger: '.o_notification.border-success', isCheck: true },
+    ]
+});
+
 registry.category("web_tour.tours").add('test_receipt_reserved_1', {test: true, steps: () => [
     {
         trigger: '.o_barcode_client_action',
