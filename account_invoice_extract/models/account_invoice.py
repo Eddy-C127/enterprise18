@@ -91,7 +91,7 @@ class AccountMove(models.Model):
         elif document_type in self.get_sale_types():
             return company.extract_out_invoice_digitalization_mode == mode
 
-    def _needs_auto_extract(self, new_document=False):
+    def _needs_auto_extract(self, new_document=False, file_type=''):
         """ Returns `True` if the document should be automatically sent to the extraction server"""
         self.ensure_one()
 
@@ -105,9 +105,11 @@ class AccountMove(models.Model):
 
         if self._context.get('from_alias'):
             # If the document comes from the email alias, check that the file format is compatible with the journal setting
+            if not file_type and self.message_main_attachment_id:
+                file_type = self.message_main_attachment_id.mimetype.split('/')[1]
             return (
                 not self.journal_id.alias_auto_extract_pdfs_only
-                or (self.message_main_attachment_id.mimetype or '').endswith('pdf')
+                or file_type == 'pdf'
             )
         elif new_document:
             # New documents are always auto extracted
@@ -875,6 +877,6 @@ class AccountMove(models.Model):
         # EXTENDS 'account'
         self.ensure_one()
 
-        if file_data['type'] in ('pdf', 'binary') and self._needs_auto_extract(new_document=new):
+        if file_data['type'] in ('pdf', 'binary') and self._needs_auto_extract(new_document=new, file_type=file_data['type']):
             return self._import_invoice_ocr
         return super()._get_edi_decoder(file_data, new=new)
