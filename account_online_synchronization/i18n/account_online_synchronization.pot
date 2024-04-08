@@ -16,12 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_online_synchronization
-#. odoo-python
-#: code:addons/account_online_synchronization/models/account_online.py:0
-msgid " If you've already opened this issue don't report it again."
-msgstr ""
-
-#. module: account_online_synchronization
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/transient_bank_statement_line_list_view/transient_bank_statement_line_list_view.xml:0
 msgid ""
@@ -99,18 +93,6 @@ msgid ""
 "                    </tr>\n"
 "                </table>\n"
 "            "
-msgstr ""
-
-#. module: account_online_synchronization
-#: code:addons/account_online_synchronization/models/account_online.py:0
-#, python-format
-msgid "If you've already opened a ticket for this issue, don't report it again: a support agent will contact you shortly."
-msgstr ""
-
-#. module: account_online_synchronization
-#: code:addons/account_online_synchronization/models/account_online.py:0
-#, python-format
-msgid "Check the documentation."
 msgstr ""
 
 #. module: account_online_synchronization
@@ -274,6 +256,13 @@ msgid "Cancel"
 msgstr ""
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#: code:addons/account_online_synchronization/models/account_online.py:0
+msgid "Check the documentation"
+msgstr ""
+
+#. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Choose a date and a journal from which you want to fetch transactions"
 msgstr ""
@@ -414,6 +403,8 @@ msgid "Done"
 msgstr ""
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_bank_statement.py:0
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_link__state__error
 msgid "Error"
 msgstr ""
@@ -513,6 +504,7 @@ msgstr ""
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
+#: code:addons/account_online_synchronization/models/account_online.py:0
 msgid "Here"
 msgstr ""
 
@@ -566,6 +558,14 @@ msgstr ""
 msgid ""
 "If possible, we will try to automatically fetch new transactions for this "
 "record"
+msgstr ""
+
+#. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+msgid ""
+"If you've already opened a ticket for this issue, don't report it again: a "
+"support agent will contact you shortly."
 msgstr ""
 
 #. module: account_online_synchronization
@@ -708,11 +708,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_selection__institution_name
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__name
 msgid "Name"
-msgstr ""
-
-#. module: account_online_synchronization
-#: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
 msgstr ""
 
 #. module: account_online_synchronization
@@ -872,11 +867,6 @@ msgstr ""
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__provider_type
 msgid "Provider Type"
-msgstr ""
-
-#. module: account_online_synchronization
-#: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__rating_ids
-msgid "Ratings"
 msgstr ""
 
 #. module: account_online_synchronization
