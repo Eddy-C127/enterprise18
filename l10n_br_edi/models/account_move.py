@@ -377,6 +377,7 @@ class AccountMove(models.Model):
                 **invoice_refs,
                 "locations": {
                     "entity": {
+                        "name": customer.name,
                         "businessName": customer.name,
                         "federalTaxId": customer.vat,
                         "stateTaxId": customer.l10n_br_ie_code,
@@ -392,6 +393,7 @@ class AccountMove(models.Model):
                         },
                     },
                     "establishment": {
+                        "name": company_partner.name,
                         "businessName": company_partner.name,
                         "federalTaxId": company_partner.vat,
                         "cityTaxId": company_partner.l10n_br_im_code,
@@ -405,6 +407,7 @@ class AccountMove(models.Model):
                         },
                     },
                     "transporter": {
+                        "name": transporter.name,
                         "businessName": transporter.name,
                         "type": self._l10n_br_get_partner_type(transporter),
                         "federalTaxId": transporter.vat,
