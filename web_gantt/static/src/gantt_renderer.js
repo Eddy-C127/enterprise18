@@ -327,10 +327,10 @@ export class GanttRenderer extends Component {
                 addClass(pill, "o_resized");
                 this.interaction.mode = "resize";
             },
-            onDrag: ({ pill, direction, diff }) => {
+            onDrag: ({ pill, grabbedHandle, diff }) => {
                 const rect = pill.getBoundingClientRect();
                 const position = { top: rect.y + rect.height };
-                if (direction === "start") {
+                if (grabbedHandle === "left") {
                     position.left = rect.x;
                 } else {
                     position.right = document.body.offsetWidth - rect.x - rect.width;
