@@ -445,6 +445,7 @@ export const useGanttResizable = makeDraggableHook({
 
         ctx.cellSelector = params.cells;
         ctx.precision = params.precision;
+        ctx.rtl = params.rtl;
 
         for (const el of ctx.ref.el.querySelectorAll(params.elements)) {
             el.addEventListener("pointerenter", onElementPointerEnter);
@@ -484,7 +485,7 @@ export const useGanttResizable = makeDraggableHook({
         return { pill: parent };
     },
     onDrag({ ctx, addStyle }) {
-        const { current, pointer, pillSelector } = ctx;
+        const { current, pointer, pillSelector, rtl } = ctx;
         const closestStep = closest(pointer.x, current.steps);
         const { x, width } = current.initialPillRect;
 
@@ -495,7 +496,8 @@ export const useGanttResizable = makeDraggableHook({
 
         addStyle(current.element, { position: "absolute !important" });
 
-        if (current.isStart) {
+        const isLeftHandle = rtl ? !current.isStart : current.isStart;
+        if (isLeftHandle) {
             addStyle(current.pill, {
                 left: `${closestStep}px`,
                 width: `${x + width - closestStep}px`,
@@ -507,12 +509,12 @@ export const useGanttResizable = makeDraggableHook({
             });
         }
 
-        const direction = current.isStart ? "start" : "end";
+        const grabbedHandle = isLeftHandle ? "left" : "right";
         const parentPill = current.element.closest(pillSelector);
         const diff =
             current.steps.indexOf(closestStep) - current.steps.indexOf(current.initialStep);
 
-        return { pill: parentPill, direction, diff };
+        return { pill: parentPill, grabbedHandle, diff };
     },
     onDragEnd({ ctx }) {
         const { current, pillSelector } = ctx;
@@ -537,7 +539,7 @@ export const useGanttResizable = makeDraggableHook({
         return { pill: parentPill, diff, direction };
     },
     onWillStartDrag({ ctx, addStyle, getRect }) {
-        const { cellSelector, current, pointer, pillSelector, precision } = ctx;
+        const { cellSelector, current, pointer, pillSelector, precision, rtl } = ctx;
 
         ctx.cursor = getComputedStyle(current.element).cursor;
         current.pill = current.element.closest(pillSelector);
@@ -549,26 +551,27 @@ export const useGanttResizable = makeDraggableHook({
         current.isStart = current.element.classList.contains(HANDLE_CLASS_START);
         current.steps = [];
 
+        const isLeftHandle = rtl ? !current.isStart : current.isStart;
         let step;
         for (const cell of current.container.querySelectorAll(cellSelector)) {
             const cRect = getRect(cell);
             const posX = Math.floor(
-                current.isStart ? cRect.x : cRect.x + cRect.width - handleRect.width
+                isLeftHandle ? cRect.x : cRect.x + cRect.width - handleRect.width
             );
             step ||= cRect.width / precision;
             for (let i = 0; i < precision; i++) {
                 const stepOffset = step * i;
-                const x = current.isStart ? posX + stepOffset : posX - stepOffset;
+                const x = isLeftHandle ? posX + stepOffset : posX - stepOffset;
                 if (
                     !current.steps.includes(x) &&
-                    ((current.isStart && x <= px + pw - step) || (!current.isStart && px <= x))
+                    ((isLeftHandle && x <= px + pw - step) || (!isLeftHandle && px <= x))
                 ) {
                     current.steps.push(x);
                 }
             }
         }
 
-        current.steps.sort((a, b) => (current.isStart ? b - a : a - b));
+        current.steps.sort((a, b) => (isLeftHandle ? b - a : a - b));
 
         current.initialPillRect = pRect;
         current.initialStep = closest(pointer.x, current.steps);
