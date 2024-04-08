@@ -91,7 +91,11 @@ class HrEmployee(models.Model):
         string="Tax-free Threshold",
         groups="hr.group_hr_user")
     l10n_au_super_account_ids = fields.One2many(
-        "l10n_au.super.account", "employee_id", string="Super Accounts")
+        "l10n_au.super.account",
+        "employee_id",
+        string="Super Accounts",
+        groups="hr.group_hr_user",
+    )
     l10n_au_child_support_deduction = fields.Float(
         string="Child Support Deduction",
         groups="hr.group_hr_user",
@@ -109,7 +113,7 @@ class HrEmployee(models.Model):
     l10n_au_child_support_garnishee_amount = fields.Float(
         string="Child Support Garnishee Amount",
         groups="hr.group_hr_user")
-    super_account_warning = fields.Text(compute="_compute_proportion_warnings")
+    super_account_warning = fields.Text(compute="_compute_proportion_warnings", groups="hr.group_hr_user")
 
     @api.constrains('l10n_au_tfn')
     def _check_l10n_au_tfn(self):
