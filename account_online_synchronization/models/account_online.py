@@ -894,6 +894,7 @@ class AccountOnlineLink(models.Model):
                 new_account._assign_journal()
                 action = online_link._fetch_transactions(accounts=new_account)
                 return action or self.env['ir.actions.act_window']._for_xml_id('account.open_account_journal_dashboard_kanban')
+            raise UserError(_("The consent for the selected account has expired."))
         return {'type': 'ir.actions.client', 'tag': 'reload'}
 
     def exchange_token(self, exchange_token):
