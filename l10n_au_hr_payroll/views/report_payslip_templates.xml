@@ -26,9 +26,9 @@
                             <t t-esc="o.contract_id.l10n_au_yearly_wage"
                                 t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                         </span><br/>
-                        <span>
+                        <t t-set="attendance" t-value="o.worked_days_line_ids.filtered(lambda line: line.code == 'WORK100')"/>
+                        <span t-if="attendance">
                             <strong>Hourly Rate: </strong>
-                            <t t-set="attendance" t-value="o.worked_days_line_ids.filtered(lambda line: line.code == 'WORK100')"/>
                             <t t-esc="attendance._get_l10n_au_hourly_rate()"
                                 t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                         </span><br/>
@@ -84,7 +84,7 @@
                                 <t t-set="total_hours" t-value="total_hours + worked_line.number_of_hours"/>
                             </td>
                             <td class="text-end align-middle">
-                                <t t-esc="worked_line._get_l10n_au_hourly_rate()"
+                                <t t-if="worked_line" t-esc="worked_line._get_l10n_au_hourly_rate()"
                                     t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                             </td>
                             <td class="text-end align-middle">
