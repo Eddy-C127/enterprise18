@@ -26,18 +26,18 @@ registry.category("web_tour.tours").add('payroll_dashboard_ui_tour', {
         trigger: 'button[name="action_open_contract"]',
     },
     {
+        content: "Save contract with no data",
+        trigger: 'button.o_form_button_save',
+    },
+    {
         content: "Input contract name",
-        trigger: '.modal-content .o_field_char[name="name"] input',
+        trigger: '.o_field_char[name="name"] input',
         id: "input_contract_name",
         run: "edit Laurie's Contract",
     },
     {
         content: "Save contract",
         trigger: 'button.o_form_button_save',
-    },
-    {
-        content: "Go on the contract",
-        trigger: 'button[name="action_open_contract"]',
     },
     {
         content: "Set contract as running",

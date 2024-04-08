@@ -118,7 +118,12 @@
                         <field name="date_from" class="oe_inline" readonly="state in ['cancel', 'done', 'paid']"/> - <field name="date_to" class="oe_inline" readonly="state in ['cancel', 'done', 'paid']"/>
                     </div>
                     <field name="company_id" invisible="1"/>
-                    <field name="contract_id" context="{'default_employee_id': employee_id}" required="1" readonly="state in ['cancel', 'done', 'paid']"/>
+                    <field name="contract_id" context="{'default_employee_id': employee_id}"
+                        required="1" readonly="state in ['cancel', 'done', 'paid']"
+                        options="{
+                            'no_create': True,
+                            'no_create_edit': True,
+                        }"/>
                     <field name="country_id" invisible="1"/>
                     <field name="country_code" invisible="1"/>
                     <field name="payslip_run_id" string="Batch" readonly="state not in ['draft', 'verify']"/>

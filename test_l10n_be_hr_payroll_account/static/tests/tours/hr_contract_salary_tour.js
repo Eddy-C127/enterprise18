@@ -911,14 +911,14 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "click",
         },
         {
-            content: "Contract Reference",
-            trigger: '.modal-content .o_field_widget[name="name"] input',
-            run: "edit Mitchell Admin PFI Contract",
+            content: "Salary Structure Type",
+            trigger: ".o_field_widget.o_field_many2one[name=structure_type_id] input",
+            run: `edit CP200: Belgian Employee`,
         },
         {
-            content: "Salary Structure Type",
-            trigger: ".modal-content .o_field_widget.o_field_many2one[name=structure_type_id] input",
-            run: `edit CP200: Belgian Employee`,
+            content: "Contract Reference",
+            trigger: '.o_field_widget.o_field_char[name="name"] input',
+            run: "edit Mitchell Admin PFI Contract",
         },
         {
             trigger: ".ui-autocomplete > li > a:contains('CP200: Belgian Employee')",
@@ -1003,7 +1003,12 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Save Contract",
-            trigger: ".modal-content .o_form_button_save",
+            trigger: ".o_form_button_save",
+            run: "click",
+        },
+        {
+            content: "Go back on the employee",
+            trigger: "li > a:contains('Mitchell Admin 3')",
             run: "click",
         },
         {
