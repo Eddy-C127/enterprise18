@@ -1605,8 +1605,8 @@ class SaleOrder(models.Model):
             self._subscription_commit_cursor(auto_commit)
             return
 
+        existing_transactions = self.transaction_ids
         try:
-            existing_transactions = self.transaction_ids
             # execute payment
             self.pending_transaction = True
             transaction = self._do_payment(payment_token, invoice, auto_commit=auto_commit)
