@@ -39,11 +39,15 @@ export class Order extends Component {
     }
 
     getSortedOrderlines() {
-        return this.props.order.orderlines.sort(
-            (a, b) =>
-                this.preparationDisplay.categories[a.productCategoryIds[0]].sequence -
-                this.preparationDisplay.categories[b.productCategoryIds[0]].sequence
-        );
+        return this.props.order.orderlines.sort((a, b) => {
+            const sequenceA = this.preparationDisplay.categories[a.productCategoryIds[0]].sequence;
+            const sequenceB = this.preparationDisplay.categories[b.productCategoryIds[0]].sequence;
+            if (sequenceA === 0 && sequenceB === 0) {
+                return a.productCategoryIds[0] - b.productCategoryIds[0];
+            }
+
+            return sequenceA - sequenceB;
+        });
     }
     _computeDuration() {
         const timeDiff = this.props.order.computeDuration();
