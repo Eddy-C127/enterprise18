@@ -232,6 +232,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             ("type", "=", "ir.actions.server"),
             ("binding_model_id", "=", model.id),
         ])
+        action1 = self.env[action1.type].browse(action1.id)
         assertViewArchEqual(self, studioView.arch, """
             <data>
                 <xpath expr="//form[1]/field[@name='name']" position="before">
@@ -239,13 +240,15 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                         <button string="web_studio_new_button_action_name" name="{action1_Id}" type="action"/>
                     </header>
                 </xpath>
-            </data>""".format(action1_Id=action1.id))
+            </data>""".format(action1_Id=action1.xml_id))
         self.start_tour("/web?debug=tests", 'web_studio_test_create_second_action_button_in_form_view', login="admin")
         action2 = self.env["ir.actions.actions"].search([
             ("name", "=", "Download (vCard)"),
             ("type", "=", "ir.actions.server"),
             ("binding_model_id", "=", model.id),
         ])
+        action2 = self.env[action2.type].browse(action2.id)
+
         assertViewArchEqual(self, studioView.arch, """
             <data>
                 <xpath expr="//form[1]/field[@name='name']" position="before">
@@ -254,7 +257,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                         <button string="web_studio_other_button_action_name" name="{action2_Id}" type="action"/>
                     </header>
                 </xpath>
-            </data>""".format(action1_Id=action1.id, action2_Id=action2.id))
+            </data>""".format(action1_Id=action1.xml_id, action2_Id=action2.xml_id))
         self.start_tour("/web?debug=tests", 'web_studio_test_remove_action_button_in_form_view', login="admin")
         self.start_tour("/web?debug=tests", 'web_studio_test_remove_action_button_in_form_view', login="admin")
         arch = """<data>
@@ -278,6 +281,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             ("type", "=", "ir.actions.server"),
             ("binding_model_id", "=", model.id),
         ])
+        action = self.env[action.type].browse(action.id)
         assertViewArchEqual(self, studioView.arch, """
             <data>
                 <xpath expr="//field[@name='display_name']" position="before">
@@ -285,7 +289,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                         <button string="web_studio_new_button_action_name" name="{actionId}" type="action"/>
                     </header>
                 </xpath>
-            </data>""".format(actionId=action.id))
+            </data>""".format(actionId=action.xml_id))
         self.start_tour("/web?debug=tests", 'web_studio_test_remove_action_button_in_list_view', login="admin")
         arch = """<data>
                 <xpath expr="//field[@name='display_name']" position="before">
@@ -1616,7 +1620,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             action_created = True
             context = dict(rec_set.env.context)
             del context["tz"]
-            self.assertEqual(context, {'lang': 'en_US', 'uid': 2, 'arbitrary_key': 'arbitrary'})
+            self.assertEqual(context, {'lang': 'en_US', 'uid': 2, 'arbitrary_key': 'arbitrary', "studio": 1})
             return create_action(rec_set, *args, **kwargs)
 
         self.patch(self.env.registry["ir.actions.actions"], "_create", mock_act_create)
@@ -1634,6 +1638,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                         "context": {
                             "default_type": "some_type",
                             "arbitrary_key": "arbitrary",
+                            "studio": 1,
                         }
                     },
             }))
@@ -1645,7 +1650,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.assertXMLEqual(response.json()["result"]["views"]["form"]["arch"], f"""
         <form>
           <div class="oe_button_box">
-            <button class="oe_stat_button" icon="fa-diamond" type="action" name="{action.id}">
+            <button class="oe_stat_button" icon="fa-diamond" type="action" name="{action.xml_id}">
               <field widget="statinfo" name="x_user_id_res_partner_count" string="Test studio new button"/>
             </button>
           </div>
@@ -1661,3 +1666,62 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         action = self.env.ref("base.action_res_users")
         url = f"/web?debug=1#action=studio&mode=editor&_tab=views&_view_type=list&_action={action.id}"
         self.start_tour(url, 'web_studio.test_res_users_fake_fields', login="admin")
+
+    def test_add_button_xml_id(self):
+        base_view = self.env["ir.ui.view"].create({
+            "name": "test_partner_simple",
+            "model": "res.partner",
+            "mode": "primary",
+            "type": "form",
+            "arch": """<form><sheet><div class="oe_button_box"></div></sheet></form>"""
+        })
+
+        operations = [
+            {
+                "type": "add",
+                "target": {
+                    "tag": "div",
+                    "attrs": {
+                        "class": "oe_button_box"
+                    }
+                },
+                "view_id": base_view.id,
+                "position": "inside",
+                "node": {
+                    "tag": "button",
+                    "field": self.env["ir.model.fields"]._get("res.partner", "parent_id").id,
+                    "string": "aa",
+                    "attrs": {
+                        "class": "oe_stat_button",
+                        "icon": "fa-diamond"
+                    }
+                }
+            }
+        ]
+
+        with mute_logger("odoo.addons.base.models.ir_ui_view"):
+            self.authenticate("admin", "admin")
+            self.url_open("/web_studio/edit_view", data=json.dumps({
+                "params": {
+                    "view_id": base_view.id,
+                    "model": "res.partner",
+                    "studio_view_arch": "<data />",
+                    "operations": operations,
+                    "context": {"studio": 1},
+                }
+            }), headers={"Content-Type": "application/json"})
+
+        action = self.env["ir.actions.act_window"].search([], limit=1, order="create_date DESC")
+        self.assertTrue(action.xml_id.startswith("studio_customization."))
+        form = base_view.get_combined_arch()
+        self.assertXMLEqual(form, f"""
+        <form>
+           <sheet>
+             <div class="oe_button_box">
+               <button class="oe_stat_button" icon="fa-diamond" type="action" name="{action.xml_id}">
+                 <field widget="statinfo" name="x_parent_id_res_partner_count" string="aa"/>
+               </button>
+             </div>
+           </sheet>
+        </form>
+        """)
