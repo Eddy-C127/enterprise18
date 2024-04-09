@@ -1,5 +1,12 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
-import { keyDown, keyUp, queryAllTexts, queryOne } from "@odoo/hoot-dom";
+import {
+    keyDown,
+    keyUp,
+    manuallyDispatchProgrammaticEvent,
+    pointerDown,
+    queryAllTexts,
+    queryOne,
+} from "@odoo/hoot-dom";
 import { Deferred, advanceTime, animationFrame, runAllTimers } from "@odoo/hoot-mock";
 import {
     contains,
@@ -907,6 +914,26 @@ test("resize a pill (2)", async () => {
 
     expect(".modal").toHaveCount(0);
     expect([JSON.stringify([[2], { stop: "2018-12-23 06:29:59" }])]).toVerifySteps();
+});
+
+test("resize a pill: quickly enter the neighbour pill when resize start", async () => {
+    await mountView({
+        type: "gantt",
+        resModel: "tasks",
+        arch: '<gantt date_start="start" date_stop="stop" />',
+        domain: [["id", "in", [4, 7]]],
+    });
+    expect(SELECTORS.pill).toHaveCount(2);
+    await contains(getPillWrapper("Task 4")).hover();
+    expect(getPillWrapper("Task 4")).toHaveClass(CLASSES.resizable);
+    expect(SELECTORS.resizeHandle).toHaveCount(2);
+
+    // Here we simulate a resize start on Task 4 and quickly enter Task 7
+    // The resize handle should not be added to Task 7
+    await pointerDown(SELECTORS.resizeEndHandle);
+    await manuallyDispatchProgrammaticEvent(getPillWrapper("Task 7"), "pointerenter");
+    expect(getPillWrapper("Task 4").querySelectorAll(SELECTORS.resizeHandle)).toHaveCount(2);
+    expect(getPillWrapper("Task 7").querySelectorAll(SELECTORS.resizeHandle)).toHaveCount(0);
 });
 
 test("create a task maintains the domain", async () => {
