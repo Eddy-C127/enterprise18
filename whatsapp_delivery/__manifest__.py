@@ -4,7 +4,7 @@
     'name': 'WhatsApp-Delivery',
     'category': 'WhatsApp',
     'description': """This module integrates Delivery with WhatsApp""",
-    'depends': ['delivery', 'stock', 'whatsapp'],
+    'depends': ['stock_delivery', 'whatsapp'],
     'data': [
         'data/whatsapp_template_data.xml'
     ],
