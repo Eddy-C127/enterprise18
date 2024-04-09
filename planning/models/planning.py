@@ -635,7 +635,9 @@ class Planning(models.Model):
         return (start_datetime, end_datetime)
 
     def _compute_allow_self_unassign(self):
-        self.allow_self_unassign = self.company_id.planning_employee_unavailabilities == "unassign"
+        allow_self_unassign_planning = self.filtered(lambda p: p.company_id.planning_employee_unavailabilities == 'unassign')
+        allow_self_unassign_planning.allow_self_unassign = True
+        (self - allow_self_unassign_planning).allow_self_unassign = False
 
     @api.depends('self_unassign_days_before', 'start_datetime')
     def _compute_unassign_deadline(self):
