@@ -28,20 +28,20 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
         return this._super(...arguments).then(async () => {
             await this.initSlots();
             this._removeLoadingSpinner();
-            this.$first.click();
+            this.firstEl?.click();
         });
     },
 
     /**
      * Initializes variables and design
-     * - $slotsList: the block containing the availabilities
-     * - $resourceSelection: resources or users selection for time_resource mode
-     * - $first: the first day containing a slot
+     * - slotsListEl: the block containing the availabilities
+     * - resourceSelectionEl: resources or users selection for time_resource mode
+     * - firstEl: the first day containing a slot
      */
     initSlots: async function () {
-        this.$slotsList = this.$('#slotsList');
-        this.$resourceSelection = this.$('#resourceSelection');
-        this.$first = this.$('.o_slot_button').first();
+        this.slotsListEl = this.el.querySelector("#slotsList");
+        this.resourceSelectionEl = this.el.querySelector("#resourceSelection");
+        this.firstEl = this.el.querySelector(".o_slot_button");
         await this._updateSlotAvailability();
     },
 
@@ -50,30 +50,38 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
      * click on the first date where a slot is available.
      */
     selectFirstAvailableMonth: function () {
-        const $firstMonth = this.$first.closest('.o_appointment_month');
-        const $currentMonth = this.$('.o_appointment_month:not(.d-none)');
-        $currentMonth.addClass('d-none');
-        $currentMonth.find('table').removeClass('d-none');
-        $currentMonth.find('.o_appointment_no_slot_month_helper').remove();
-        $firstMonth.removeClass('d-none');
-        this.$slotsList.empty();
-        this.$first.click();
+        const firstMonthEl = this.firstEl.closest(".o_appointment_month");
+        const currentMonthEl = document.querySelector(".o_appointment_month:not(.d-none)");
+        currentMonthEl.classList.add("d-none");
+        currentMonthEl
+            .querySelectorAll("table")
+            .forEach((table) => table.classList.remove("d-none"));
+        currentMonthEl.querySelector(".o_appointment_no_slot_month_helper").remove();
+        firstMonthEl.classList.remove("d-none");
+        this.slotsListEl.replaceChildren();
+        this.firstEl.click();
     },
 
     /**
      * Replaces the content of the calendar month with the no month helper.
      * Renders and appends its template to the element given as argument.
-     * - $month: the month div to which we append the helper.
+     * - monthEl: the month div to which we append the helper.
      */
-     _renderNoAvailabilityForMonth: function ($month) {
-        const firstAvailabilityDate = this.$first.attr('id');
-        const staffUserName = this.$("#slots_form select[name='staff_user_id'] :selected").text();
-        $month.find('table').addClass('d-none');
-        $month.append(renderToElement('Appointment.appointment_info_no_slot_month', {
-            firstAvailabilityDate: DateTime.fromISO(firstAvailabilityDate).toFormat("cccc dd MMMM yyyy"),
-            staffUserName: staffUserName,
-        }));
-        $month.find('#next_available_slot').on('click', () => this.selectFirstAvailableMonth());
+    _renderNoAvailabilityForMonth: function (monthEl) {
+        const firstAvailabilityDate = this.firstEl.getAttribute("id");
+        const staffUserName = this.el.querySelector(
+            "#slots_form select[name='staff_user_id'] option[selected='selected']"
+        )?.textContent;
+        monthEl.querySelectorAll("table").forEach((tableEl) => tableEl.classList.add("d-none"));
+        monthEl.append(
+            renderToElement("Appointment.appointment_info_no_slot_month", {
+                firstAvailabilityDate: DateTime.fromISO(firstAvailabilityDate).toFormat("cccc dd MMMM yyyy"),
+                staffUserName: staffUserName,
+            })
+        );
+        monthEl
+            .querySelector("#next_available_slot")
+            .addEventListener("click", () => this.selectFirstAvailableMonth());
     },
 
     /**
@@ -86,29 +94,40 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
      * If there is an upcoming appointment booked, display a information before the the calendar
      *
      */
-     _updateSlotAvailability: async function () {
-        if (!this.$first.length) { // No slot available
-            if (!this.$("select[name='resourceCapacity']").length) {
-                this.$('#slots_availabilities').empty();
-                this.$('.o_appointment_timezone_selection').addClass('d-none');
-                const staffUserName = this.$("#slots_form select[name='staff_user_id'] :selected").text();
-                const hideSelectDropdown = !!this.$("input[name='hide_select_dropdown']").val();
-                const active = this.$("input[name='active']").val();
-                this.$('.o_appointment_no_slot_overall_helper').empty().append(renderToElement('Appointment.appointment_info_no_slot', {
-                    active: active,
-                    appointmentsCount: this.$slotsList.data('appointmentsCount'),
-                    staffUserName: hideSelectDropdown ? staffUserName : false,
-                }));
+    _updateSlotAvailability: async function () {
+        if (!this.firstEl) { // No slot available
+            if (!this.el.querySelector("select[name='resourceCapacity']")) {
+                this.el
+                    .querySelectorAll("#slots_availabilities")
+                    .forEach((slotEl) => slotEl.replaceChildren());
+                this.el.querySelector(".o_appointment_timezone_selection")?.classList.add("d-none");
+
+                const staffUserName = this.el.querySelector(
+                    "#slots_form select[name='staff_user_id'] option[selected='selected']"
+                )?.textContent;
+                const hideSelectDropdown = !!this.el.querySelector(
+                    "input[name='hide_select_dropdown']"
+                ).value;
+                const active = this.el.querySelector("input[name='active']").value;
+                this.el.querySelector(".o_appointment_no_slot_overall_helper").replaceChildren(
+                    renderToElement("Appointment.appointment_info_no_slot", {
+                        active: active,
+                        appointmentsCount: parseInt(
+                            this.el.querySelector("#slotsList").dataset.appointmentsCount
+                        ),
+                        staffUserName: hideSelectDropdown ? staffUserName : false,
+                    })
+                );
             } else {
-                this.$(".o_appointment_no_capacity").empty().append(renderToElement('Appointment.appointment_info_no_capacity'));
+                this.el
+                    .querySelector(".o_appointment_no_capacity")
+                    ?.replaceChildren(renderToElement("Appointment.appointment_info_no_capacity"));
             }
         } else {
-            this.$('.o_appointment_timezone_selection').removeClass('d-none');
-            this.$(".o_appointment_no_capacity").empty();
+            this.el.querySelector(".o_appointment_timezone_selection")?.classList.remove("d-none");
+            this.el.querySelector(".o_appointment_no_capacity")?.replaceChildren();
         }
-        if (this.$('.o_appointment_missing_configuration').hasClass('d-none')) {
-            this.$('.o_appointment_missing_configuration').removeClass('d-none');
-        }
+        this.el.querySelector(".o_appointment_missing_configuration")?.classList.remove("d-none");
         // Check upcoming appointments
         const allAppointmentsToken = JSON.parse(localStorage.getItem('appointment.upcoming_events_access_token')) || [];
         const ignoreUpcomingEventUntil = localStorage.getItem('appointment.upcoming_events_ignore_until');
@@ -147,21 +166,24 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
      * Navigate between the months available in the calendar displayed
      */
     _onCalendarNavigate: function (ev) {
-        const parent = this.$('.o_appointment_month:not(.d-none)');
-        let monthID = parseInt(parent.attr('id').split('-')[1]);
-        monthID += ((this.$(ev.currentTarget).attr('id') === 'nextCal') ? 1 : -1);
-        parent.find('table').removeClass('d-none');
-        parent.find('.o_appointment_no_slot_month_helper').remove();
-        parent.addClass('d-none');
-        const $month = $(`div#month-${monthID}`).removeClass('d-none');
-        this.$('.active').removeClass('active');
-        this.$slotsList.empty();
-        this.$resourceSelection.empty();
+        const parentEl = this.el.querySelector(".o_appointment_month:not(.d-none)");
+        let monthID = parseInt(parentEl.getAttribute("id").split("-")[1]);
+        monthID += ev.currentTarget.getAttribute("id") === "nextCal" ? 1 : -1;
+        parentEl.querySelectorAll("table").forEach((table) => table.classList.remove("d-none"));
+        parentEl
+            .querySelectorAll(".o_appointment_no_slot_month_helper")
+            .forEach((element) => element.remove());
+        parentEl.classList.add("d-none");
+        const monthEl = this.el.querySelector(`div#month-${monthID}`);
+        monthEl.classList.remove("d-none");
+        this.el.querySelector(".active")?.classList.remove("active");
+        this.slotsListEl.replaceChildren();
+        this.resourceSelectionEl?.replaceChildren();
 
-        if (!!this.$first.length) {
+        if (this.firstEl) {
             // If there is at least one slot available, check if it is in the current month.
-            if (!$month.find('.o_day').length) {
-                this._renderNoAvailabilityForMonth($month);
+            if (!monthEl.querySelector(".o_day")) {
+                this._renderNoAvailabilityForMonth(monthEl);
             }
         }
     },
@@ -170,20 +192,29 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
      * Display the list of slots available for the date selected
      */
     _onClickDaySlot: function (ev) {
-        this.$('.o_slot_selected').removeClass('o_slot_selected active');
-        this.$(ev.currentTarget).addClass('o_slot_selected active');
+        this.el
+            .querySelectorAll(".o_slot_selected")
+            .forEach((slot) => slot.classList.remove("o_slot_selected", "active"));
+        ev.currentTarget.classList.add("o_slot_selected", "active");
 
         // Do not display slots until user has actively selected the capacity
-        if (this.$("select[name='resourceCapacity'] :selected").data('placeholderOption')) {
+        const resourceCapacityEl = this.el.querySelector(
+            "select[name='resourceCapacity'] option[selected='selected']"
+        );
+        if (resourceCapacityEl && resourceCapacityEl.dataset.placeholderOption) {
             return;
         }
-
-        const slotDate = this.$(ev.currentTarget).data('slotDate');
-        const slots = this.$(ev.currentTarget).data('availableSlots');
-        const scheduleBasedOn = this.$("input[name='schedule_based_on']").val();
-        const resourceAssignMethod = this.$("input[name='assign_method']").val();
-        const resourceId = this.$("select[id='selectAppointmentResource']").val() || this.$("input[name='resource_selected_id']").val();
-        const resourceCapacity = this.$("select[name='resourceCapacity']").val();
+        const slotDate = ev.currentTarget.dataset.slotDate;
+        const slots = JSON.parse(ev.currentTarget.dataset.availableSlots);
+        const scheduleBasedOn = this.el.querySelector("input[name='schedule_based_on']").value;
+        const resourceAssignMethod = this.el.querySelector("input[name='assign_method']").value;
+        const selectAppointmentResourceEl = this.el.querySelector(
+            "select[id='selectAppointmentResource']"
+        );
+        const resourceId =
+            (selectAppointmentResourceEl && selectAppointmentResourceEl.value) ||
+            this.el.querySelector("input[name='resource_selected_id']").value;
+        const resourceCapacity = this.el.querySelector("select[name='resourceCapacity']")?.value;
         let commonUrlParams = new URLSearchParams(window.location.search);
         // If for instance the chosen slot is already taken, then an error is thrown and the
         // user is brought back to the calendar view. In order to keep the selected user, the
@@ -202,34 +233,46 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
             commonUrlParams.set('resource_selected_id', encodeURIComponent(resourceId));
         }
 
-        this.$slotsList.empty().append(renderToFragment('appointment.slots_list', {
-            commonUrlParams: commonUrlParams,
-            resourceAssignMethod: resourceAssignMethod,
-            scheduleBasedOn: scheduleBasedOn,
-            slotDate: DateTime.fromISO(slotDate).toFormat("cccc dd MMMM yyyy"),
-            slots: slots,
-            getAvailableResources: (slot) => {
-                return scheduleBasedOn === 'resources' ? JSON.stringify(slot['available_resources']) : false;
-            },
-            getAvailableUsers: (slot) => {
-                return scheduleBasedOn === 'users' ? JSON.stringify(slot['available_staff_users']) : false;
-            }
-        }));
-        this.$resourceSelection.addClass('d-none');
+        this.slotsListEl.replaceChildren(
+            renderToFragment("appointment.slots_list", {
+                commonUrlParams: commonUrlParams,
+                resourceAssignMethod: resourceAssignMethod,
+                scheduleBasedOn: scheduleBasedOn,
+                slotDate: DateTime.fromISO(slotDate).toFormat("cccc dd MMMM yyyy"),
+                slots: slots,
+                getAvailableResources: (slot) => {
+                    return scheduleBasedOn === "resources"
+                        ? JSON.stringify(slot["available_resources"])
+                        : false;
+                },
+                getAvailableUsers: (slot) => {
+                    return scheduleBasedOn === "users"
+                        ? JSON.stringify(slot["available_staff_users"])
+                        : false;
+                },
+            })
+        );
+        this.resourceSelectionEl?.classList.add("d-none");
     },
 
     _onClickHoursSlot: function (ev) {
-        this.$('.o_slot_hours.o_slot_hours_selected').removeClass('o_slot_hours_selected active');
-        this.$(ev.currentTarget).addClass('o_slot_hours_selected active');
+        this.el
+            .querySelector(".o_slot_hours.o_slot_hours_selected")
+            ?.classList.remove("o_slot_hours_selected", "active");
+        ev.currentTarget.classList.add("o_slot_hours_selected", "active");
 
         // If not in 'time_resource' we directly go to the url for the slot
         // In the case we are in 'time_resource', we don't want to open the link as we want to select a resource
         // before confirming the slot.
-        const assignMethod = this.$el.find("input[name='assign_method']").val();
-        const scheduleBasedOn = this.$("input[name='schedule_based_on']").val();
+        const assignMethod = this.el.querySelector("input[name='assign_method']").value;
+        const scheduleBasedOn = this.el.querySelector("input[name='schedule_based_on']").value;
         if (assignMethod !== "time_resource") {
-            const appointmentTypeID = this.$("input[name='appointment_type_id']").val();
-            const urlParameters = decodeURIComponent(this.$(".o_slot_hours_selected").data('urlParameters'));
+            const appointmentTypeID = this.el.querySelector(
+                "input[name='appointment_type_id']"
+            ).value;
+            const urlParameters = decodeURIComponent(
+                this.el.querySelector(".o_slot_hours_selected").dataset.urlParameters
+            );
             const url = new URL(
                 `/appointment/${encodeURIComponent(appointmentTypeID)}/info?${urlParameters}`,
                 location.origin);
@@ -237,39 +280,59 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
             return;
         }
 
-        const availableResources = this.$(ev.currentTarget).data('available_resources');
-        const availableStaffUsers = this.$(ev.currentTarget).data('available_staff_users');
-        const previousSelection = this.$("select[name='resource_id']").val();
-        this.$('#resourceSelection').empty().append(renderToFragment('appointment.resources_list', {
-            availableResources,
-            availableStaffUsers,
-            scheduleBasedOn,
-        }));
-        if (scheduleBasedOn === "resources") {
-            this.$("select[name='resource_id']").attr('disabled', availableResources.length === 1);
-        } else {
-            this.$("select[name='resource_id']").attr('disabled', availableStaffUsers.length === 1);
+        const availableResources = ev.currentTarget.dataset.availableResources
+            ? JSON.parse(ev.currentTarget.dataset.availableResources)
+            : undefined;
+        const availableStaffUsers = ev.currentTarget.dataset.availableStaffUsers
+            ? JSON.parse(ev.currentTarget.dataset.availableStaffUsers)
+            : undefined;
+        const previousResourceIdSelected = this.el.querySelector(
+            "select[name='resource_id']"
+        )?.value;
+        this.resourceSelectionEl.replaceChildren(
+            renderToFragment("appointment.resources_list", {
+                availableResources,
+                availableStaffUsers,
+                scheduleBasedOn,
+            })
+        );
+        const availableEntity =
+            scheduleBasedOn === "resources" ? availableResources : availableStaffUsers;
+        const resourceIdEl = this.el.querySelector("select[name='resource_id']");
+        if (availableEntity.length === 1) {
+            resourceIdEl.setAttribute("disabled", true);
         }
-        if (previousSelection && this.$(`select[name='resource_id'] > option[value='${previousSelection}']`).length) {
-            this.$("select[name='resource_id']").val(previousSelection);
+        if (
+            previousResourceIdSelected &&
+            this.el.querySelector(
+                `select[name='resource_id'] > option[value='${previousResourceIdSelected}']`
+            )
+        ) {
+            resourceIdEl.value = previousResourceIdSelected;
         }
-        this.$('#resourceSelection').removeClass('d-none');
+        this.resourceSelectionEl.classList.remove("d-none");
     },
 
     _onClickConfirmSlot: function (ev) {
-        const appointmentTypeID = this.$("input[name='appointment_type_id']").val();
-        const resourceId = parseInt(this.$("select[name='resource_id']").val());
-        const scheduleBasedOn = this.$("input[name='schedule_based_on']").val();
-        const urlParameters = decodeURIComponent(this.$(".o_slot_hours_selected").data('urlParameters'));
+        const appointmentTypeID = this.el.querySelector("input[name='appointment_type_id']").value;
+        const resourceId = parseInt(this.el.querySelector("select[name='resource_id']").value);
+        const scheduleBasedOn = this.el.querySelector("input[name='schedule_based_on']").value;
+        const urlParameters = decodeURIComponent(
+            this.el.querySelector(".o_slot_hours_selected").dataset.urlParameters
+        );
         const url = new URL(
             `/appointment/${encodeURIComponent(appointmentTypeID)}/info?${urlParameters}`,
             location.origin);
-        const assignMethod = this.$("input[name='assign_method']").val();
+        const assignMethod = this.el.querySelector("input[name='assign_method']").value;
         if (scheduleBasedOn === "resources") {
-            const resourceCapacity = parseInt(this.$("select[name='resourceCapacity']").val()) || 1;
-            const $resourceSelected = $(this.$(".o_resources_list").prop("selectedOptions")[0]);
+            const resourceCapacity =
+                parseInt(this.el.querySelector("select[name='resourceCapacity']")?.value) || 1;
+            const resourceSelected = this.el.querySelector(".o_resources_list").selectedOptions[0];
             let resourceIds = JSON.parse(url.searchParams.get('available_resource_ids'));
-            if (assignMethod === "time_resource" && $resourceSelected.data("resourceCapacity") >= resourceCapacity) {
+            if (
+                assignMethod === "time_resource" &&
+                parseInt(resourceSelected.dataset.resourceCapacity) >= resourceCapacity
+            ) {
                 resourceIds = [resourceId];
             }
             url.searchParams.set('resource_selected_id', encodeURIComponent(resourceId));
@@ -293,24 +356,55 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
      * Refresh the slots info when the user modifies the timezone or the selected user.
      */
     _onRefresh: async function (ev) {
-        if (this.$("#slots_availabilities").length) {
-            const daySlotSelected = this.$('.o_slot_selected').data('slotDate');
-            const appointmentTypeID = this.$("input[name='appointment_type_id']").val();
-            const filterAppointmentTypeIds = this.$("input[name='filter_appointment_type_ids']").val();
-            const filterUserIds = this.$("input[name='filter_staff_user_ids']").val();
-            const inviteToken = this.$("input[name='invite_token']").val();
-            const previousMonthName = this.$('.o_appointment_month:not(.d-none) .o_appointment_month_name').text();
-            const staffUserID = this.$("#slots_form select[name='staff_user_id']").val();
-            const resourceID = this.$("select[id='selectAppointmentResource']").val() || this.$("input[name='resource_selected_id']").val();
-            const filterResourceIds = this.$("input[name='filter_resource_ids']").val();
-            const timezone = this.$("select[name='timezone']").val();
-            const resourceCapacity = this.$("select[name='resourceCapacity']").length && parseInt(this.$("select[name='resourceCapacity']").val()) || 1;
-            this.$('.o_appointment_no_slot_overall_helper').empty();
-            this.$slotsList.empty();
-            this.$('#calendar, .o_appointment_timezone_selection').addClass('o_appointment_disable_calendar');
-            this.$('#resourceSelection').empty();
-            if (daySlotSelected && !this.$("select[name='resourceCapacity'] :selected").data('placeholderOption')) {
-                this.$('.o_appointment_slot_list_loading').removeClass('d-none');
+        if (this.el.querySelector("#slots_availabilities")) {
+            const daySlotSelected =
+                this.el.querySelector(".o_slot_selected") &&
+                this.el.querySelector(".o_slot_selected").dataset.slotDate;
+            const appointmentTypeID = this.el.querySelector(
+                "input[name='appointment_type_id']"
+            ).value;
+            const filterAppointmentTypeIds = this.el.querySelector(
+                "input[name='filter_appointment_type_ids']"
+            ).value;
+            const filterUserIds = this.el.querySelector(
+                "input[name='filter_staff_user_ids']"
+            ).value;
+            const inviteToken = this.el.querySelector("input[name='invite_token']").value;
+            const previousMonthName = this.el.querySelector(
+                ".o_appointment_month:not(.d-none) .o_appointment_month_name"
+            )?.textContent;
+            const staffUserID = this.el.querySelector(
+                "#slots_form select[name='staff_user_id']"
+            )?.value;
+            const resourceID =
+                this.el.querySelector("select[id='selectAppointmentResource']")?.value ||
+                this.el.querySelector("input[name='resource_selected_id']")?.value;
+            const filterResourceIds = this.el.querySelector(
+                "input[name='filter_resource_ids']"
+            ).value;
+            const timezone = this.el.querySelector("select[name='timezone']").value;
+            const resourceCapacity =
+                (this.el.querySelector("select[name='resourceCapacity']") &&
+                    parseInt(this.el.querySelector("select[name='resourceCapacity']").value)) ||
+                1;
+            this.el.querySelector(".o_appointment_no_slot_overall_helper").replaceChildren();
+            this.slotsListEl.replaceChildren();
+            this.el
+                .querySelectorAll("#calendar, .o_appointment_timezone_selection")
+                .forEach((el) => {
+                    el.classList.add("o_appointment_disable_calendar");
+                });
+            this.resourceSelectionEl?.replaceChildren();
+            const resourceCapacityEl = this.el.querySelector(
+                "select[name='resourceCapacity'] option[selected='selected']"
+            );
+            if (
+                daySlotSelected &&
+                !(resourceCapacityEl && resourceCapacityEl.dataset.placeholderOption)
+            ) {
+                this.el
+                    .querySelector(".o_appointment_slot_list_loading")
+                    .classList.remove("d-none");
             }
             const updatedAppointmentCalendarHtml = await rpc(
                 `/appointment/${appointmentTypeID}/update_available_slots`,
@@ -327,15 +421,15 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
                 }
             );
             if (updatedAppointmentCalendarHtml) {
-                this.$("#slots_availabilities").replaceWith(updatedAppointmentCalendarHtml);
+                this.el.querySelector("#slots_availabilities").outerHTML = updatedAppointmentCalendarHtml;
                 this.initSlots();
                 // If possible, we keep the current month, and display the helper if it has no availability.
-                const $displayedMonth = this.$('.o_appointment_month:not(.d-none)');
-                if (!!this.$first.length && !$displayedMonth.find('.o_day').length) {
-                    this._renderNoAvailabilityForMonth($displayedMonth);
+                const displayedMonthEl = this.el.querySelector(".o_appointment_month:not(.d-none)");
+                if (!!this.firstEl && !displayedMonthEl.querySelector(".o_day")) {
+                    this._renderNoAvailabilityForMonth(displayedMonthEl);
                 }
                 this._removeLoadingSpinner();
-                this.$(`div[data-slot-date="${daySlotSelected}"]`).click();
+                this.el.querySelector(`div[data-slot-date="${daySlotSelected}"]`)?.click();
             }
         }
     },
@@ -344,9 +438,11 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
      * Remove the loading spinners when no longer useful
      */
     _removeLoadingSpinner: function () {
-        this.$('.o_appointment_slots_loading').remove();
-        this.$('.o_appointment_slot_list_loading').addClass('d-none');
-        this.$('#slots_availabilities').removeClass('d-none');
-        this.$('#calendar, .o_appointment_timezone_selection').removeClass('o_appointment_disable_calendar');
+        this.el.querySelector(".o_appointment_slots_loading")?.remove();
+        this.el.querySelector(".o_appointment_slot_list_loading")?.classList.add("d-none");
+        this.el.querySelector("#slots_availabilities")?.classList.remove("d-none");
+        this.el.querySelectorAll("#calendar, .o_appointment_timezone_selection").forEach((el) => {
+            el.classList.remove("o_appointment_disable_calendar");
+        });
     },
 });

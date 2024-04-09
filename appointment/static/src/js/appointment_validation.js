@@ -17,12 +17,18 @@ publicWidget.registry.appointmentValidation = publicWidget.Widget.extend({
         'click .o_appointment_guest_add': '_onGuestAdd',
     },
 
-    _onCopyVideocallLink: async function(ev) {
-        const copyButton = ev.target;
-        $(copyButton).tooltip({title: _t("Link Copied!"), trigger: "manual", placement: "right"});
-        setTimeout(async () => await browser.navigator.clipboard.writeText(copyButton.dataset.value));
-        $(copyButton).tooltip('show');
-        setTimeout(() => $(copyButton).tooltip("hide"), 1200);
+    async _onCopyVideocallLink(ev) {
+        const copyButtonEl = ev.target;
+        const tooltip = Tooltip.getOrCreateInstance(copyButtonEl, {
+            title: _t("Link Copied!"),
+            trigger: "manual",
+            placement: "right",
+        });
+        setTimeout(
+            async () => await browser.navigator.clipboard.writeText(copyButtonEl.dataset.value)
+        );
+        tooltip.show();
+        setTimeout(() => tooltip.hide(), 1200);
     },
 
     /**

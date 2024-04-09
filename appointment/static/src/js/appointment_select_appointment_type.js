@@ -28,8 +28,14 @@ publicWidget.registry.appointmentTypeSelect = publicWidget.Widget.extend({
     start: function () {
         return this._super(...arguments).then(() => {
             // Load an image when no appointment types are found
-            this.$el.find('.o_appointment_svg i').replaceWith(renderToElement('Appointment.appointment_svg', {}));
-            this.$el.find('.o_appointment_not_found div').removeClass('d-none');
+            this.el
+                .querySelectorAll(".o_appointment_svg i")
+                .forEach(
+                    (el) => (el.outerHTML = renderToElement("Appointment.appointment_svg", {}))
+                );
+            this.el
+                .querySelectorAll(".o_appointment_not_found div")
+                .forEach((el) => el.classList.remove("d-none"));
         });
     },
 
@@ -46,11 +52,13 @@ publicWidget.registry.appointmentTypeSelect = publicWidget.Widget.extend({
      */
     _onAppointmentTypeChange: function (ev) {
         var self = this;
-        const appointmentTypeID = $(ev.target).val();
-        const filterAppointmentTypeIds = this.$("input[name='filter_appointment_type_ids']").val();
-        const filterUserIds = this.$("input[name='filter_staff_user_ids']").val();
-        const filterResourceIds = this.$("input[name='filter_resource_ids']").val();
-        const inviteToken = this.$("input[name='invite_token']").val();
+        const appointmentTypeID = ev.target.value;
+        const filterAppointmentTypeIds = this.el.querySelector(
+            "input[name='filter_appointment_type_ids']"
+        ).value;
+        const filterUserIds = this.el.querySelector("input[name='filter_staff_user_ids']").value;
+        const filterResourceIds = this.el.querySelector("input[name='filter_resource_ids']").value;
+        const inviteToken = this.el.querySelector("input[name='invite_token']").value;
 
         rpc(`/appointment/${appointmentTypeID}/get_message_intro`, {
             invite_token: inviteToken,
@@ -58,7 +66,7 @@ publicWidget.registry.appointmentTypeSelect = publicWidget.Widget.extend({
             filter_staff_user_ids: filterUserIds,
             filter_resource_ids: filterResourceIds,
         }).then(function (message_intro) {
-            self.$('.o_appointment_intro').empty().append(message_intro);
+            self.querySelector(".o_appointment_intro")?.replaceChildren(message_intro);
         });
     },
 

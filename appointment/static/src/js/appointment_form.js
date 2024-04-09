@@ -101,9 +101,14 @@ publicWidget.registry.appointmentForm = publicWidget.Widget.extend({
     },
 
     _validateCheckboxes: function() {
-        this.$el.find('.checkbox-group.required').each(function() {
-            var checkboxes = $(this).find('.checkbox input');
-            checkboxes.prop("required", ![...checkboxes].some((checkbox) => checkbox.checked));
+        this.el.querySelectorAll(".checkbox-group.required").forEach((groupEl) => {
+            const checkboxEls = groupEl.querySelectorAll(".checkbox input");
+            checkboxEls.forEach(
+                (checkboxEl) =>
+                    (checkboxEl.required = ![...checkboxEls].some(
+                        (checkboxEl) => checkboxEl.checked
+                    ))
+            );
         });
     },
 });
