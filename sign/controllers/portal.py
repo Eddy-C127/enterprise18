@@ -132,6 +132,8 @@ class CustomerPortal(portal.CustomerPortal):
             'my_sign_item': sign_item_sudo,
             'url': url
         }
+        # exclude access_token from kwargs to prevent redundant passing
+        kwargs.pop('access_token', None)
         values = self._get_page_view_values(sign_item_sudo, sign_item_sudo.access_token, values,
                                             'my_signatures_history', False, **kwargs)
         return request.render('sign.sign_portal_my_request', values)
