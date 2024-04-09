@@ -73,7 +73,7 @@ const ganttViewParams = {
     },
 };
 
-export const servicesToDefineInGantt = ["messaging", "mail.thread"];
+export const servicesToDefineInGantt = ["messaging", "mail.store"];
 const serviceRegistry = registry.category("services");
 
 /** @type {TaskGanttRenderer} */

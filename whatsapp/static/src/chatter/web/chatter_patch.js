@@ -24,9 +24,10 @@ patch(Chatter.prototype, {
                     { onClose: resolve }
                 );
             });
-            this.threadService.fetchNewMessages(
-                this.store.Thread.insert({ model: this.props.threadModel, id: this.props.threadId })
-            );
+            this.store.Thread.insert({
+                model: this.props.threadModel,
+                id: this.props.threadId,
+            }).fetchNewMessages();
         };
         if (this.state.thread.id) {
             send(this.state.thread);

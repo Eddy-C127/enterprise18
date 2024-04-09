@@ -44,7 +44,7 @@ patch(ChannelSelector.prototype, {
 
     onSelect(option) {
         if (this.props.category.id === "whatsapp") {
-            this.threadService.openWhatsAppChannel(option.channelId, option.label);
+            this.store.openWhatsAppChannel(option.channelId, option.label);
             this.onValidate();
         } else {
             super.onSelect(option);

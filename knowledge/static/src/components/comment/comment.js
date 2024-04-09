@@ -46,8 +46,7 @@ export class KnowledgeCommentsThread extends Component {
 
     setup() {
         this.targetRef = useRef('targetRef');
-
-        this.threadService = useService('mail.thread');
+        this.mailStore = useService('mail.store');
         this.messageService = useService('mail.message');
         this.orm = useService('orm');
         this.uiService = useService('ui');
@@ -191,7 +190,7 @@ export class KnowledgeCommentsThread extends Component {
                 this.composerDivRef.el?.querySelector('textarea')?.focus();
                 this.autoFocusTextarea = false;
             }
-            const { messages } = this.threadService.store.get(this.state.thread.localId);
+            const messages = this.state.thread.messages;
             if (messages.length && messages.every((message) => !message.body)) {
                 this.props.destroyComment(this.state.knowledgeThreadId, this.mainAnchor, true);
                 return;
@@ -206,7 +205,7 @@ export class KnowledgeCommentsThread extends Component {
         });
 
         onWillStart(async () => {
-            this.messages = await this.threadService.fetchMessages(this.state.thread);
+            this.messages = await this.state.thread.fetchMessages();
             if (this.state.smallUI && this.state.thread) {
                 const nonEmptyMessages = this.messages.some((message) => message.body);
                 if (this.messages.length && !nonEmptyMessages) {
@@ -530,7 +529,7 @@ export class KnowledgeCommentsThread extends Component {
         }
         this.state.isResolved = true;
         if (this.props.forceFullSize) {
-            this.messages = await this.threadService.fetchNewMessages(this.state.thread);
+            this.messages = await this.state.thread.fetchNewMessages();
         }
     }
     /**
@@ -544,7 +543,7 @@ export class KnowledgeCommentsThread extends Component {
         }
         this.state.isResolved = false;
         if (this.props.forceFullSize) {
-            this.messages = await this.threadService.fetchNewMessages(this.state.thread);
+            this.messages = await this.state.thread.fetchNewMessages();
         }
     }
 
@@ -562,8 +561,8 @@ export class KnowledgeCommentsThread extends Component {
             {}
         );
         this.state.thread.composer.clear();
-        this.state.thread = this.threadService.store.Thread.insert({ id, model: 'knowledge.article.thread' });
-        this.threadService.post(this.state.thread, value, postData);
+        this.state.thread = this.mailStore.Thread.insert({ id, model: 'knowledge.article.thread' });
+        this.state.thread.post(value, postData);
         for (const anchor of this.anchors) {
             anchor.dataset.id = id;
         }

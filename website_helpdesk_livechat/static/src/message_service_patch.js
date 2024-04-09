@@ -25,7 +25,7 @@ function addNewTicketsToMessage(oldMessage, newElement) {
 
 patch(Message.prototype, {
     async loadMoreTickets(message, listKeywords, loadCounter) {
-        const ticketsHTML = await this.threadService.orm.call(
+        const ticketsHTML = await this.env.services.orm.call(
             "discuss.channel",
             "fetch_ticket_by_keyword",
             [this.props.message.resId],

@@ -3,7 +3,6 @@
 import { Composer } from "@mail/core/common/composer";
 import { KnowledgeCommentCreatorComposer } from '../composer/composer';
 import { Thread } from "@mail/core/common/thread";
-import { useService } from "@web/core/utils/hooks";
 
 import {
     Component,
@@ -35,8 +34,6 @@ export class KnowledgeCommentsPopover extends Component {
     static components = { Composer, Thread, KnowledgeCommentCreatorComposer };
 
     setup() {
-        this.threadService = useService('mail.thread');
-
         this.composerRef = useRef('ComposerRef');
 
         this.state = useState({

@@ -25,8 +25,8 @@ export class PermissionPanel extends Component {
         this.actionService = useService('action');
         this.dialog = useService('dialog');
         this.orm = useService('orm');
-        /** @type {import("@mail/core/common/thread_service").ThreadService} */
-        this.threadService = useService("mail.thread");
+        /** @type {import("models").Store} */
+        this.mailStore = useService("mail.store");
 
         this.state = useState({
             loading: true,
@@ -271,7 +271,7 @@ export class PermissionPanel extends Component {
             const userId = userIds && userIds.length === 1 ? userIds[0] : false;
 
             if (userId) {
-                this.threadService.openChat({ userId });
+                this.mailStore.openChat({ userId });
             }
         }
     }

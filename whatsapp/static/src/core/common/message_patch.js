@@ -17,12 +17,12 @@ patch(Message.prototype, {
             ev.preventDefault();
             let thread = await this.store.Thread.getOrFetch({ model: "discuss.channel", id });
             if (!thread?.hasSelfAsMember) {
-                await this.threadService.orm.call("discuss.channel", "add_members", [[id]], {
+                await this.env.services.orm.call("discuss.channel", "add_members", [[id]], {
                     partner_ids: [this.store.self.id],
                 });
                 thread = await this.store.Thread.getOrFetch({ model: "discuss.channel", id });
             }
-            this.threadService.open(thread);
+            thread.open();
             return;
         }
         super.onClick(ev);

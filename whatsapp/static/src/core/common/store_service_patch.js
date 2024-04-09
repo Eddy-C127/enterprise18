@@ -1,9 +1,7 @@
-/** @odoo-module */
-
-import { ThreadService } from "@mail/core/common/thread_service";
+import { Store } from "@mail/core/common/store_service";
 import { patch } from "@web/core/utils/patch";
 
-patch(ThreadService.prototype, {
+patch(Store.prototype, {
     async getMessagePostParams({ thread }) {
         const params = await super.getMessagePostParams(...arguments);
 
@@ -14,7 +12,7 @@ patch(ThreadService.prototype, {
     },
 
     async openWhatsAppChannel(id, name) {
-        const thread = this.store.Thread.insert({
+        const thread = this.Thread.insert({
             channel_type: "whatsapp",
             id,
             model: "discuss.channel",
@@ -24,13 +22,15 @@ patch(ThreadService.prototype, {
             thread.avatarCacheKey = "hello";
         }
         if (!thread.hasSelfAsMember) {
-            const data = await this.orm.call("discuss.channel", "whatsapp_channel_join_and_pin", [
-                [id],
-            ]);
+            const data = await this.env.services.orm.call(
+                "discuss.channel",
+                "whatsapp_channel_join_and_pin",
+                [[id]]
+            );
             thread.update(data);
         } else if (!thread.is_pinned) {
-            this.pin(thread);
+            thread.pin();
         }
-        this.open(thread);
+        thread.open();
     },
 });

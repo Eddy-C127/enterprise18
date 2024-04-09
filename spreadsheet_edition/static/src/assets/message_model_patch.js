@@ -11,7 +11,7 @@ patch(Message.prototype, {
      */
     async openRecord() {
         if (this.message.model === "spreadsheet.cell.thread") {
-            const action = await this.threadService.orm.call(
+            const action = await this.env.services.orm.call(
                 "spreadsheet.cell.thread",
                 "get_spreadsheet_access_action",
                 [this.message.thread.id]

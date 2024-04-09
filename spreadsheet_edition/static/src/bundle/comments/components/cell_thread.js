@@ -22,10 +22,10 @@ export class CellThread extends Component {
             inChatWindow: true,
             chatter: {},
         });
-        /** @type {import("@mail/core/thread_service").ThreadService} */
-        this.threadService = useService("mail.thread");
+        /** @type {import("models").Store} */
+        this.mailStore = useService("mail.store");
         this.state = useState({
-            /** @type {import("@mail/core/thread_model").Thread} */
+            /** @type {import("models").Thread} */
             thread: undefined,
         });
         this.loadThread(this.props.threadId);
@@ -38,11 +38,11 @@ export class CellThread extends Component {
     }
 
     loadThread(threadId) {
-        this.state.thread = this.threadService.store.Thread.insert({
+        this.state.thread = this.mailStore.Thread.insert({
             model: CellThread.threadModel,
             id: threadId,
         });
-        this.threadService.fetchNewMessages(this.state.thread);
+        this.state.thread.fetchNewMessages();
     }
 
     get placeholder() {

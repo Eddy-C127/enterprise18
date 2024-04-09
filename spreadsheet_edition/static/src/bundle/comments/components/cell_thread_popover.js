@@ -34,10 +34,10 @@ export class CellThreadPopover extends Component {
             inChatWindow: true,
         });
 
-        /** @type {import("@mail/core/thread_service").ThreadService} */
-        this.threadService = useService("mail.thread");
+        /** @type {import("models").Store} */
+        this.mailStore = useService("mail.store");
         this.state = useState({
-            /** @type {import("@mail/core/thread_model").Thread} */
+            /** @type {import("models").Thread} */
             thread: undefined,
             isValid: true,
         });
@@ -61,7 +61,7 @@ export class CellThreadPopover extends Component {
     }
 
     loadThread(threadId) {
-        this.state.thread = this.threadService.store.Thread.insert({
+        this.state.thread = this.mailStore.Thread.insert({
             model: CellThreadPopover.threadModel,
             id: threadId,
         });
@@ -78,7 +78,7 @@ export class CellThreadPopover extends Component {
         const sheetId = this.env.model.getters.getActiveSheetId();
         const threadId = await this.env.insertThreadInSheet({ sheetId, ...this.props.position });
         this.loadThread(threadId);
-        await this.threadService.post(this.state.thread, value, postData);
+        await this.state.thread.post(value, postData);
         this.commentsStore.openCommentThread(this.props.threadId);
     }
 }

@@ -15,7 +15,7 @@ patch(Message.prototype, {
      */
     async openRecord() {
         if (this.message.model === 'knowledge.article.thread') {
-            const [articleThread] = await this.threadService.orm.searchRead(
+            const [articleThread] = await this.env.services.orm.searchRead(
                 'knowledge.article.thread',
                 [['id', '=', this.message.thread.id]],
                 ['article_id']
