@@ -3,7 +3,7 @@
     <t t-name="web_studio.ViewEditor.KanbanEditorSidebar">
         <InteractiveEditorSidebar>
             <t t-set-slot="new">
-                <ExistingFields fields="env.viewEditorModel.fields" fieldsInArch="kanbanFieldsInArch" folded="false"/>
+                <ExistingFields resModel="env.viewEditorModel.resModel" fields="env.viewEditorModel.fields" fieldsInArch="kanbanFieldsInArch" folded="false"/>
             </t>
             <t t-set-slot="view" isDefault="true">
                 <Property

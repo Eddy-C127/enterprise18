@@ -1210,3 +1210,21 @@ registry.category("web_tour.tours").add("web_studio.test_button_rainbow_effect",
         },
     ],
 });
+
+registry.category("web_tour.tours").add("web_studio.test_res_users_fake_fields", {
+    test: true,
+    steps: () => [
+        {
+            trigger: ".o_web_studio_existing_fields_header"
+        },
+        {
+            trigger: ".o_web_studio_existing_fields",
+            run() {
+                const elements = [...document.querySelectorAll(".o_web_studio_component")];
+                const fieldStrings = elements.map(el => el.innerText.split("\n")[0]);
+                assertEqual(fieldStrings.includes("Administration"), false);
+                assertEqual(fieldStrings.includes("Multi Companies"), false);
+            }
+        }
+    ]
+});
