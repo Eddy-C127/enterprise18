@@ -17,7 +17,7 @@
         <span t-elif="isSpreadsheet" t-esc="document.name"/>
     </xpath>
     <xpath expr="//article/div[hasclass('o_card_right')]/a[contains(@t-if, 'not document_request')]" position="attributes">
-        <attribute name="t-if" separator=" " add="and not isSpreadsheet"/>
+        <attribute name="t-if" separator=" and " add="not isSpreadsheet"/>
     </xpath>
 </template>
 

@@ -12,7 +12,7 @@
         </xpath>
         <!-- Filter on fields -->
         <xpath expr="//t[@t-if='!isInvisible(fieldInfo, slot.record)']" position="attributes">
-            <attribute name="t-if" add=" and isSet(fieldInfo.name)" separator=" "/>
+            <attribute name="t-if" add="isSet(fieldInfo.name)" separator=" and "/>
         </xpath>
     </t>
 

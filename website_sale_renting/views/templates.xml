@@ -281,7 +281,7 @@
         </xpath>
         <!-- Allow rental datepicker by itself in offcanvas -->
         <xpath expr="//button[@data-bs-target='#o_wsale_offcanvas']" position="attributes">
-            <attribute name="t-if" add=" or is_view_active('website_sale_renting.shop_rental_datepicker_opt')" separator=" "/>
+            <attribute name="t-if" add="is_view_active('website_sale_renting.shop_rental_datepicker_opt')" separator=" or "/>
         </xpath>
     </template>
 </odoo>
