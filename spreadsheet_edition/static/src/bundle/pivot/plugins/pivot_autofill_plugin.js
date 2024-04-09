@@ -41,7 +41,10 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (getNumberOfPivotFormulas(tokens) !== 1) {
             return formula;
         }
-        const { functionName, args } = this.getters.getFirstPivotFunction(tokens);
+        const { functionName, args } = this.getters.getFirstPivotFunction(
+            this.getters.getActiveSheetId(),
+            tokens
+        );
         const evaluatedArgs = args.map((arg) => arg.toString());
         const pivotId = evaluatedArgs[0];
         if (!this.getters.isExistingPivot(pivotId)) {
@@ -108,7 +111,10 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (getNumberOfPivotFormulas(tokens) !== 1) {
             return [];
         }
-        const { functionName, args } = this.getters.getFirstPivotFunction(tokens);
+        const { functionName, args } = this.getters.getFirstPivotFunction(
+            this.getters.getActiveSheetId(),
+            tokens
+        );
         const pivotId = args[0];
         if (!this.getters.isExistingPivot(pivotId)) {
             return [{ title: _t("Missing pivot"), value: _t("Missing pivot #%s", pivotId) }];
@@ -426,13 +432,16 @@ export class PivotAutofillPlugin extends UIPlugin {
             return "";
         }
         const isTotalCol = currentElement.cols.length === 1;
-        const headerLevels = isTotalCol ? 2 // measure and 'Total'
+        const headerLevels = isTotalCol
+            ? 2 // measure and 'Total'
             : dataSource.getNumberOfColGroupBys() + 1; // Groupby levels + measure
         const index = headerLevels + nextIndex;
         if (index < 0) {
             return "";
         }
-        const cols = isTotalCol ? currentElement.cols.slice(0, index) : currentElement.cols.slice(0, index + 1);
+        const cols = isTotalCol
+            ? currentElement.cols.slice(0, index)
+            : currentElement.cols.slice(0, index + 1);
         return makePivotFormula("ODOO.PIVOT.HEADER", this._buildArgs(pivotId, undefined, [], cols));
     }
     /**
