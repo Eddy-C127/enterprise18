@@ -941,7 +941,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
             xml_node.insert(0, xml_node_field)
 
             xml_node.attrib['type'] = 'action'
-            xml_node.attrib['name'] = str(button_action.id)
+            xml_node.attrib['name'] = str(button_action.xml_id)
         else:
             xml_node.text = node.get('text')
         xpath_node.insert(0, xml_node)
@@ -1134,7 +1134,9 @@ Are you sure you want to remove the selection values of those records?""", len(r
         params = {'string': label}
         if button_type is not None and button_type == 'action':
             actionId = operation["actionId"]
-            params['name'] = str(actionId)
+            abstract_action = request.env["ir.actions.actions"].browse(actionId)
+            action = request.env[abstract_action.type].browse(actionId)
+            params['name'] = action.xml_id or str(actionId)
             params['type'] = button_type
         elif button_type is not None and button_type == 'object':
             methodId = operation["methodId"]
