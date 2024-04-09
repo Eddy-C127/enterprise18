@@ -10,6 +10,7 @@
                 <field name="social_menu" invisible="1"/>
                 <field name="twitter_wall_id" 
                     required="social_menu"
+                    placeholder="Select a Wall..."
                     options="{'no_quick_create': True}"/>
             </xpath>
             <xpath expr="//label[@for='community_menu']" position="before">
