@@ -74,6 +74,7 @@ import {
     resizePill,
     getTexts,
 } from "@web_gantt/../tests/legacy/helpers";
+import { getFacetTexts } from "@web/../tests/legacy/search/helpers";
 
 async function ganttResourceWorkIntervalRPC(_, args) {
     if (args.method === "gantt_resource_work_interval") {
@@ -166,7 +167,7 @@ QUnit.module("Views", (hooks) => {
                         name: { string: "Name", type: "char" },
                         employee_id: { string: "ID", type: "integer" },
                     },
-                    records: [],
+                    records: [{ id: 1, name: "Resource 1", employee_id: 1 }],
                 },
                 department: {
                     fields: {
@@ -187,7 +188,7 @@ QUnit.module("Views", (hooks) => {
                         id: { string: "ID", type: "integer" },
                         name: { string: "Name", type: "char" },
                     },
-                    records: [],
+                    records: [{ id: 1, name: "Employee 1" }],
                 },
             },
             views: {
@@ -811,5 +812,150 @@ QUnit.module("Views", (hooks) => {
             "__pill__2_0",
             "The split tool should be positioned on the pill 2 after the first column of the pill since the pill is on 2 columns."
         );
+    });
+
+    QUnit.test("Test highlight shifts added by executed action", async function (assert) {
+        patchDate(2022, 9, 5, 0, 0, 0);
+        patchWithCleanup(luxon.Settings, {
+            defaultZone: luxon.IANAZone.create("UTC"),
+        });
+        serverData.models.task.records.push(
+            {
+                id: 1,
+                name: "test",
+                start_datetime: "2022-09-30 16:00:00",
+                end_datetime: "2022-09-30 18:00:00",
+                resource_id: 1,
+            },
+            {
+                id: 2,
+                name: "test",
+                start_datetime: "2022-10-05 08:00:00",
+                end_datetime: "2022-10-05 12:00:00",
+                resource_id: false,
+            }
+        );
+        await makeView({
+            type: "gantt",
+            resModel: "task",
+            serverData,
+            arch: `
+                <gantt
+                    js_class="planning_gantt"
+                    date_start="start_datetime"
+                    date_stop="end_datetime"
+                    default_group_by="resource_id"
+                    default_scale="week"
+                    scales="week,month"
+                />
+            `,
+            searchViewArch: `<search>
+                    <filter name="shift_planned" invisible="1" string="Shifts Planned" context="{'highlight_planned': 1}"/>
+                </search>`,
+            async mockRPC(route, args, performRPC) {
+                if (args.method === "action_copy_previous_week") {
+                    if (serverData.models.task.records.length === 2) {
+                        const newSlotId = await performRPC(
+                            route.replace("action_copy_previous_week", "create"),
+                            {
+                                ...args,
+                                method: "create",
+                                args: [
+                                    {
+                                        name: "shift 3",
+                                        start_datetime: "2022-10-07 16:00:00",
+                                        end_datetime: "2022-10-07 18:00:00",
+                                        resource_id: 1,
+                                    },
+                                ],
+                            }
+                        );
+                        return [[newSlotId], [1]];
+                    }
+                    return false;
+                } else if (args.method === "auto_plan_ids") {
+                    await performRPC(route.replace("auto_plan_ids", "write"), {
+                        ...args,
+                        method: "write",
+                        args: [[2], { resource_id: 1 }],
+                    });
+                    return { open_shift_assigned: [2] };
+                }
+                return ganttResourceWorkIntervalRPC(route, args);
+            },
+        });
+
+        assert.containsN(
+            target,
+            ".o_gantt_button_copy_previous_week",
+            2,
+            "2 copy buttons should be in the gantt view (one for mobile view and another for desktop view)."
+        );
+        assert.containsN(
+            target,
+            ".o_gantt_button_auto_plan",
+            2,
+            "2 copy buttons should be in the gantt view (one for mobile view and another for desktop view)."
+        );
+        assert.containsOnce(target, ".o_gantt_pill", "1 pill should be in the gantt view.");
+        assert.containsNone(target, ".o_notification", "No notification should be displayed.");
+        let { rows } = getGridContent();
+        assert.deepEqual(
+            rows.map((r) => r.title),
+            ["Open Shifts"]
+        );
+
+        await click(
+            target,
+            ".o_control_panel_main_buttons .d-none .o_gantt_buttons_container button.d-xl-block > i.fa-caret-down"
+        );
+        await click(target, ".o_popover.dropdown-menu .o_gantt_button_copy_previous_week");
+        assert.containsOnce(target, ".o_notification", "A notification should be displayed.");
+        assert.containsOnce(
+            target,
+            ".o_notification .bg-success",
+            "The notification should be a success notification."
+        );
+        assert.containsOnce(
+            target,
+            ".o_notification button .fa-undo",
+            "The notification should have an undo button."
+        );
+        assert.deepEqual(
+            getFacetTexts(target),
+            ["Shifts Planned"],
+            "Shifts Planned facet should be active."
+        );
+        assert.containsN(target, ".o_gantt_pill", 2, "2 pills should be in the gantt view.");
+        rows = getGridContent().rows;
+        assert.deepEqual(
+            rows.map((r) => r.title),
+            ["Open Shifts", "Resource 1"]
+        );
+
+        await click(
+            target,
+            ".o_control_panel_main_buttons .d-none .o_gantt_buttons_container button.d-xl-block > i.fa-caret-down"
+        );
+        await click(target, ".o_popover.dropdown-menu .o_gantt_button_auto_plan"); // click on copy button in desktop view
+        assert.containsN(target, ".o_notification", 2, "2 notifications should be displayed.");
+        assert.containsN(
+            target,
+            ".o_notification .bg-success",
+            2,
+            "Both notifications should be a success notification."
+        );
+        assert.containsN(
+            target,
+            ".o_notification button .fa-undo",
+            2,
+            "Both notifications should have an undo button."
+        );
+        assert.deepEqual(
+            getFacetTexts(target),
+            ["Shifts Planned"],
+            "Shifts Planned facet should be still active."
+        );
+        assert.containsN(target, ".o_gantt_pill", 2, "2 pills should be in the gantt view.");
     });
 });

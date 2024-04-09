@@ -27,7 +27,11 @@ export class PlanningSearchModel extends SearchModel {
         if (highlightPlannedIds) {
             this.highlightPlannedIds = highlightPlannedIds;
             if (highlightPlannedSearchItems) {
-                this.toggleSearchItem(highlightPlannedSearchItems.id);
+                if (this.query.find((queryElem) => queryElem.searchItemId === highlightPlannedSearchItems.id)) {
+                    this._notify();
+                } else {
+                    this.toggleSearchItem(highlightPlannedSearchItems.id);
+                }
             }
         } else if (highlightPlannedSearchItems) {
             this.deactivateGroup(highlightPlannedSearchItems.groupId);
