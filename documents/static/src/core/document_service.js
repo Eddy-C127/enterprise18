@@ -44,7 +44,7 @@ export class DocumentService {
             if ("record" in data) {
                 document.record = data.record;
             }
-            document._store = this.store;
+            document.store = this.store;
             this.store.Document.records[data.id] = document;
             // Get reactive version.
             document = this.store.Document.records[data.id];

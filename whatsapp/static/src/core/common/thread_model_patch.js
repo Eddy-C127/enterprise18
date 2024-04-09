@@ -10,7 +10,7 @@ import { toRaw } from "@odoo/owl";
 patch(Thread.prototype, {
     _computeDiscussAppCategory() {
         return this.channel_type === "whatsapp"
-            ? this._store.discuss.whatsapp
+            ? this.store.discuss.whatsapp
             : super._computeDiscussAppCategory();
     },
     get importantCounter() {

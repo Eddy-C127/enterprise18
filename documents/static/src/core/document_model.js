@@ -14,6 +14,6 @@ export class Document {
     displayName;
     /** @type {Object} */
     record;
-    /** @type {import("@mail/core/common/store_service").Store} */
-    _store;
+    /** @type {import("models").Store} */
+    store;
 }
