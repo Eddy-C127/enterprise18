@@ -26,12 +26,12 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         trigger: 'button:contains("Operator")'
     },
     {
-        content: 'Select the Marc Demo employee',
-        trigger: '.modal-body .popup .selection div:contains("Marc Demo")'
+        content: 'Select the Billy Demo employee',
+        trigger: '.modal-body .popup .selection div:contains("Billy Demo")'
     },
     {
         content: 'Go to workcenter Savannah from MO card',
-        extra_trigger: '.o_mrp_employees_panel li.o_admin_user:contains(Marc Demo)',
+        extra_trigger: '.o_mrp_employees_panel li.o_admin_user:contains(Billy Demo)',
         trigger: '.o_mrp_record_line button span:contains("Savannah")'
     },
     {

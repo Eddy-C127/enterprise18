@@ -6,7 +6,33 @@ from odoo.tests.common import HttpCase, tagged
 @tagged('post_install', '-at_install')
 class TestShopFloor(HttpCase):
 
+    def setUp(self):
+        super().setUp()
+        # Set Administrator as the current user.
+        self.uid = self.env.ref('base.user_admin').id
+        # Enables Work Order setting, and disables other settings.
+        group_workorder = self.env.ref('mrp.group_mrp_routings')
+        self.env.user.write({'groups_id': [(4, group_workorder.id, 0)]})
+
+        group_lot = self.env.ref('stock.group_production_lot')
+        group_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        group_pack = self.env.ref('stock.group_tracking_lot')
+        group_uom = self.env.ref('uom.group_uom')
+        self.env.user.write({'groups_id': [(3, group_lot.id)]})
+        self.env.user.write({'groups_id': [(3, group_multi_loc.id)]})
+        self.env.user.write({'groups_id': [(3, group_pack.id)]})
+        # Explicitly remove the UoM group.
+        group_user = self.env.ref('base.group_user')
+        group_user.write({'implied_ids': [(3, group_uom.id)]})
+        self.env.user.write({'groups_id': [(3, group_uom.id)]})
+
     def test_shop_floor(self):
+        # Creates somme employees for test purpose.
+        self.env['hr.employee'].create([{
+            'name': name,
+            'company_id': self.env.company.id,
+        } for name in ['Abbie Seedy', 'Billy Demo', 'Cory Corrinson']])
+
         giraffe = self.env['product.product'].create({
             'name': 'Giraffe',
             'type': 'product',
