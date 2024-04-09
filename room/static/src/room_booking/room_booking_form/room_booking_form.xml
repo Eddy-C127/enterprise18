@@ -58,11 +58,11 @@
             </div>
             <div class="d-flex gap-3 border-top border-bottom p-3 bg-white">
                 <button class="btn btn-secondary btn-lg flex-grow-1" t-on-click="props.cancel">
-                    Cancel
+                    Discard
                 </button>
                 <button t-if="state.bookingEnd" class="btn btn-primary btn-lg flex-grow-1" t-on-click="confirm">
                     <t t-if="props.bookingToEdit">
-                        Save
+                        Update Meeting
                     </t>
                     <t t-else="">
                         Schedule

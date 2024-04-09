@@ -17,6 +17,7 @@ import {
     makeFakeNotificationService,
 } from "@web/../tests/helpers/mock_services";
 import { registry } from "@web/core/registry";
+import { uiService } from "@web/core/ui/ui_service";
 
 /**
  * Assert that the current time displayed on the view is the expected one
@@ -80,6 +81,7 @@ QUnit.module("Room Booking View", (hooks) => {
         addBusServicesToRegistry();
         registry.category("services").add("dialog", makeFakeDialogService());
         registry.category("services").add("notification", makeFakeNotificationService());
+        registry.category("services").add("ui", uiService);
     });
 
     // Test UI when there is no meeting scheduled
@@ -151,6 +153,9 @@ QUnit.module("Room Booking View", (hooks) => {
         };
         click(target, buttonsSelector + ":last-child");
         await nextTick();
+        // delete the created booking
+        await click(target, ".o_room_sidebar .list-group-item:first-child .fa-trash");
+        await nextTick();
         patchDate(2023, 5, 17, 10, 25, 0);
         await clickQuickBook(target);
         // Next booking starts in less than 1h but more than 30 min, show 2 buttons
@@ -163,6 +168,9 @@ QUnit.module("Room Booking View", (hooks) => {
         };
         click(target, buttonsSelector + ":last-child");
         await nextTick();
+        // delete the created booking
+        await click(target, ".o_room_sidebar .list-group-item:first-child .fa-trash");
+        await nextTick();
         patchDate(2023, 5, 17, 10, 43, 0);
         await clickQuickBook(target);
         // Next booking starts in less than 30 min but more than 15 min, show 1 button
@@ -174,6 +182,9 @@ QUnit.module("Room Booking View", (hooks) => {
             stop_datetime: "2023-06-17 09:58:00",
         };
         click(target, buttonsSelector);
+        await nextTick();
+        // delete the created booking
+        await click(target, ".o_room_sidebar .list-group-item:first-child .fa-trash");
         await nextTick();
         patchDate(2023, 5, 17, 10, 59, 0);
         await clickQuickBook(target);

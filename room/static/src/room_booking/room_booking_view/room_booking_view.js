@@ -26,6 +26,25 @@ import {
 // and the app goes back to the main screen
 const INACTIVITY_TIMEOUT = 120000;
 
+/**
+ * Format a booking received from the server to the format used in the room booking view
+ * @param {Object} booking
+ * @param {Number} booking.id
+ * @param {String} booking.name
+ * @param {String} booking.start_datetime
+ * @param {String} booking.stop_datetime
+ */
+function formatServerBooking(booking) {
+    return {
+        id: booking.id,
+        name: booking.name,
+        interval: luxon.Interval.fromDateTimes(
+            deserializeDateTime(booking.start_datetime),
+            deserializeDateTime(booking.stop_datetime),
+        ),
+    };
+}
+
 export class RoomBookingView extends Component {
     static components = {
         RoomBookingForm,
@@ -57,17 +76,18 @@ export class RoomBookingView extends Component {
         this.busService = this.env.services.bus_service;
         this.busService.addChannel("room_booking#" + this.props.accessToken);
         this.busService.subscribe(`room#${this.props.id}/booking/create`, (bookings) =>
-            bookings.forEach((booking) => this.addBooking(booking)),
+            bookings.forEach((booking) => this.addBooking(formatServerBooking(booking))),
         );
         this.busService.subscribe(`room#${this.props.id}/booking/delete`, (bookings) =>
             bookings.forEach((booking) => this.removeBooking(booking.id)),
         );
         this.busService.subscribe(`room#${this.props.id}/booking/update`, (bookings) =>
-            bookings.forEach((booking) => this.udpateBooking(booking)),
+            bookings.forEach((booking) => this.udpateBooking(formatServerBooking(booking))),
         );
         this.busService.subscribe(`room#${this.props.id}/reload`, (url) => redirect(url));
         this.notificationService = useService("notification");
         this.dialogService = useService("dialog");
+        this.ui = useService("ui");
         onWillStart(this.loadBookings);
 
         // Every second, check if a booking started/ended
@@ -155,12 +175,20 @@ export class RoomBookingView extends Component {
      * @param {luxon.DateTime} start
      * @param {luxon.DateTime} end
      */
-    editBooking(bookingId, name, start, end) {
-        rpc(`${this.manageRoomUrl}/booking/${bookingId}/update`, {
+    async editBooking(bookingId, name, start, end) {
+        this.ui.block();
+        await rpc(`${this.manageRoomUrl}/booking/${bookingId}/update`, {
             name,
             start_datetime: serializeDateTime(start),
             stop_datetime: serializeDateTime(end),
         });
+        this.removeBooking(bookingId);
+        this.addBooking({
+            id: bookingId,
+            interval: luxon.Interval.fromDateTimes(start, end),
+            name,
+        });
+        this.ui.unblock();
         this.resetBookingForm();
     }
 
@@ -171,7 +199,7 @@ export class RoomBookingView extends Component {
     async loadBookings() {
         const bookings = await rpc(`${this.manageRoomUrl}/get_existing_bookings`);
         for (const booking of bookings) {
-            this.addBooking(booking);
+            this.addBooking(formatServerBooking(booking));
         }
         this.refreshBookingView();
     }
@@ -220,18 +248,26 @@ export class RoomBookingView extends Component {
     }
 
     /**
-     * Schedule a booking for the given time range
+     * Schedule a booking for the given time range, and reset the view to the main screen
      * @param {String} name
      * @param {luxon.DateTime} start
      * @param {luxon.DateTime} end
      */
-    scheduleBooking(name, start, end) {
-        this.resetBookingForm();
-        rpc(`${this.manageRoomUrl}/booking/create`, {
-            name: name || _t("Public Booking"),
+    async scheduleBooking(name, start, end) {
+        name = name || _t("Public Booking");
+        this.ui.block();
+        const bookingId = await rpc(`${this.manageRoomUrl}/booking/create`, {
+            name,
             start_datetime: serializeDateTime(start),
             stop_datetime: serializeDateTime(end),
         });
+        this.addBooking({
+            id: bookingId,
+            interval: luxon.Interval.fromDateTimes(start, end),
+            name,
+        });
+        this.ui.unblock();
+        this.resetBookingForm();
     }
 
     //----------------------------------------------------------------------
@@ -242,21 +278,15 @@ export class RoomBookingView extends Component {
      * Add a booking to the list of bookings, keeping the list sorted by start date
      * @param {Object} newBooking
      * @param {Number} newBooking.id
-     * @param {String} newBooking.start_datetime
-     * @param {String} newBooking.stop_datetime
      * @param {String} newBooking.name
+     * @param {Luxon.Interval} newBooking.interval
      */
     addBooking(newBooking) {
-        newBooking = {
-            id: newBooking.id,
-            name: newBooking.name,
-            interval: luxon.Interval.fromDateTimes(
-                deserializeDateTime(newBooking.start_datetime),
-                deserializeDateTime(newBooking.stop_datetime),
-            ),
-        };
-        // Do not add bookings that are already finished
-        if (newBooking.interval.end < this.now) {
+        // Do not add bookings already added or already finished
+        if (
+            this.state.bookings.map((booking) => booking.id).includes(newBooking.id) ||
+            newBooking.interval.end < this.now
+        ) {
             return;
         }
         const newBookingInsertIdx = this.state.bookings.findIndex(
@@ -289,7 +319,9 @@ export class RoomBookingView extends Component {
         // Leave form view if booking being edited has been deleted
         if (this.state.bookingToEdit?.id === bookingId) {
             this.resetBookingForm();
-            this.notificationService.add(_t("The booking you were editing has been deleted."));
+            this.notificationService.add(
+                _t("The booking you were editing has been updated or deleted."),
+            );
         }
     }
 

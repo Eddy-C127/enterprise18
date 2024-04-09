@@ -64,6 +64,12 @@ export const mountRoomBookingView = async (mockRPC, useBus) => {
         };
     }
     env = await makeTestEnv({ mockRPC });
+    // Dialog service is mocked so delete bookings directly instead of showing a confirmation modal
+    patchWithCleanup(RoomBookingView.prototype, {
+        deleteBooking(bookingId) {
+            this.removeBooking(bookingId);
+        },
+    });
     await mount(RoomBookingView, target, {
         env,
         props: {

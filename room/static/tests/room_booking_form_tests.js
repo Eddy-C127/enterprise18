@@ -10,6 +10,7 @@ import {
     makeFakeNotificationService,
 } from "@web/../tests/helpers/mock_services";
 import { registry } from "@web/core/registry";
+import { uiService } from "@web/core/ui/ui_service";
 
 /**
  * Assert that the given slots are correctly displayed in the view.
@@ -64,6 +65,7 @@ QUnit.module("Room Booking Form", (hooks) => {
         addBusServicesToRegistry();
         registry.category("services").add("dialog", makeFakeDialogService());
         registry.category("services").add("notification", makeFakeNotificationService());
+        registry.category("services").add("ui", uiService);
     });
 
     // Test view flow with no existing bookings

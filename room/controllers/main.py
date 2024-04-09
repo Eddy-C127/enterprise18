@@ -44,7 +44,7 @@ class RoomController(http.Controller):
             "room_id": room_sudo.id,
             "start_datetime": start_datetime,
             "stop_datetime": stop_datetime,
-        })
+        }).id
 
     @http.route("/room/<string:access_token>/booking/<int:booking_id>/delete", type="json", auth="public")
     def room_booking_delete(self, access_token, booking_id):
