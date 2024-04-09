@@ -43,7 +43,10 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (getNumberOfPivotFunctions(tokens) !== 1) {
             return formula;
         }
-        const { functionName, args } = this.getters.getFirstPivotFunction(tokens);
+        const { functionName, args } = this.getters.getFirstPivotFunction(
+            this.getters.getActiveSheetId(),
+            tokens
+        );
         const evaluatedArgs = args.map((arg) => arg.toString());
         const pivotId = this.getters.getPivotId(evaluatedArgs[0]);
         if (!pivotId) {
@@ -122,7 +125,7 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (getNumberOfPivotFunctions(tokens) !== 1) {
             return [];
         }
-        const { functionName, args } = this.getters.getFirstPivotFunction(tokens);
+        const { functionName, args } = this.getters.getFirstPivotFunction(this.getters.getActiveSheetId(), tokens);
         const pivotId = this.getters.getPivotId(args[0]);
         if (!pivotId) {
             return [{ title: _t("Missing pivot"), value: _t("Missing pivot #%s", args[0]) }];
