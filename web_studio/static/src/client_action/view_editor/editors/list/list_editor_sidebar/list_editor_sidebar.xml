@@ -4,7 +4,7 @@
         <InteractiveEditorSidebar>
             <t t-set-slot="new" isDefault="true">
                 <NewFields />
-                <ExistingFields fields="viewEditorModel.fields" fieldsInArch="viewEditorModel.fieldsInArch"/>
+                <ExistingFields resModel="viewEditorModel.resModel" fields="viewEditorModel.fields" fieldsInArch="viewEditorModel.fieldsInArch"/>
             </t>
             <t t-set-slot="view">
                 <Property

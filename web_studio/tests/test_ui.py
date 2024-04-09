@@ -1652,3 +1652,12 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
           <field name="display_name" invisible="context.get('default_type')"/>
         </form>
         """)
+
+    def test_res_users_fake_fields(self):
+        user_fields = self.env["res.users"].fields_get()
+        assertable = [field["string"] for field in user_fields.values() if field["string"] in ("Administration", "Multi Companies")]
+        self.assertEqual(len(assertable), 2)
+
+        action = self.env.ref("base.action_res_users")
+        url = f"/web?debug=1#action=studio&mode=editor&_tab=views&_view_type=list&_action={action.id}"
+        self.start_tour(url, 'web_studio.test_res_users_fake_fields', login="admin")
