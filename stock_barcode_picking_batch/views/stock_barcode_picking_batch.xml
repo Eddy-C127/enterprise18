@@ -66,6 +66,9 @@
                                     <strong class="o_kanban_record_title"><span>
                                         <field name="name"/>
                                     </span></strong>
+                                    <div>
+                                        <span class="o_kanban_record_subtitle"><field name="description"/></span>
+                                    </div>
                                      <div><t t-esc="record.move_line_ids.raw_value.length"/> Lines</div>
                                 </div>
                                 <field name="state" widget="label_selection"
