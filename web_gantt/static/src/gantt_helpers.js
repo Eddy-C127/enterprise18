@@ -410,7 +410,7 @@ export const useGanttResizable = makeDraggableHook({
     },
     onComputeParams({ ctx, params, addCleanup, addEffectCleanup, getRect }) {
         const onElementPointerEnter = (ev) => {
-            if (ctx.dragging) {
+            if (ctx.dragging || ctx.willDrag) {
                 return;
             }
 

@@ -2233,6 +2233,27 @@ QUnit.test("resize a pill (2)", async (assert) => {
     assert.verifySteps([JSON.stringify([[2], { stop: "2018-12-23 06:29:59" }])]);
 });
 
+QUnit.test("resize a pill: quickly enter the neighbour pill when resize start", async (assert) => {
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: '<gantt date_start="start" date_stop="stop" />',
+        domain: [["id", "in", [4, 7]]],
+    });
+    assert.containsN(target, SELECTORS.pill, 2);
+
+    await triggerEvent(getPillWrapper("Task 4"), null, "pointerenter");
+    assert.containsN(getPillWrapper("Task 4"), SELECTORS.resizeHandle, 2);
+
+    // Here we simulate a resize start on Task 4 and quickly enter Task 7
+    // The resize handle should not be added to Task 7
+    await triggerEvent(getPillWrapper("Task 4"), SELECTORS.resizeEndHandle, "pointerdown");
+    await triggerEvent(getPillWrapper("Task 7"), null, "pointerenter");
+    assert.containsN(getPillWrapper("Task 4"), SELECTORS.resizeHandle, 2);
+    assert.containsNone(getPillWrapper("Task 7"), SELECTORS.resizeHandle);
+});
+
 QUnit.test("create a task maintains the domain", async (assert) => {
     serverData.views["tasks,false,form"] = '<form><field name="name"/></form>';
     await makeView({
