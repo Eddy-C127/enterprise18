@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<templates xml:space="preserve">
+<?xml version="1.0"?>
+<templates>
     <t t-name="voip.Softphone">
         <div class="o-voip-Softphone position-absolute d-flex flex-column bottom-0 shadow d-print-none" t-att-class="{ 'w-100 h-100': isOnSmallDevice, 'ms-2': !isOnSmallDevice }">
             <div class="o-voip-Softphone-topbar d-flex align-items-center" t-att-class="{ 'rounded-top-3 cursor-pointer': !isOnSmallDevice }" t-on-click="onClickTopbar">

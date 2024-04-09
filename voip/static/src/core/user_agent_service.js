@@ -1,4 +1,3 @@
-/* @odoo-module */
 /* global SIP */
 
 import { reactive } from "@odoo/owl";

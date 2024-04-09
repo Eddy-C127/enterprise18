@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<templates xml:space="preserve">
+<?xml version="1.0"?>
+<templates>
     <t t-name="voip.RecentTab">
         <div t-attf-class="o-voip-RecentTab tab-content overflow-y-auto {{ props.extraClass }}" role="tabpanel">
             <t t-if="props.recentCalls.length > 0">

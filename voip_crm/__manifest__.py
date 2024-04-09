@@ -1,5 +1,3 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 {
     "name": "VoIP for CRM",
     "summary": "VoIP integration with CRM module.",
