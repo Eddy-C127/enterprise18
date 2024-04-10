@@ -8,8 +8,9 @@
                 <div>
                     <input type="radio"
                            class="form-check-input o_radio_input me-2"
-                           name="recurrenceUpdate" value="this" checked="1"
+                           name="recurrenceUpdate" value="this"
                            t-on-change="() => props.onChangeRecurrenceUpdate('this')"
+                           t-att-checked='props.selected === "this"'
                     />
                     <label for="this">this shift</label>
                 </div>
@@ -18,6 +19,7 @@
                            class="form-check-input o_radio_input me-2"
                            name="recurrenceUpdate" value="subsequent"
                            t-on-change="() => props.onChangeRecurrenceUpdate('subsequent')"
+                           t-att-checked='props.selected === "subsequent"'
                     />
                     <label for="subsequent">this and following shifts</label>
                 </div>
@@ -26,6 +28,7 @@
                            class="form-check-input o_radio_input me-2"
                            name="recurrenceUpdate" value="all"
                            t-on-change="() => props.onChangeRecurrenceUpdate('all')"
+                           t-att-checked='props.selected === "all"'
                     />
                     <label for="all">all shifts</label>
                 </div>
