@@ -212,6 +212,8 @@ class Sign(http.Controller):
         with io.BytesIO() as buffer:
             with zipfile.ZipFile(buffer, 'w', compression=zipfile.ZIP_DEFLATED) as zipfile_obj:
                 for sign_request in sign_requests:
+                    if not sign_request.completed_document:
+                        sign_request.sudo()._generate_completed_document()
                     zipfile_obj.writestr(f'{sign_request.id}/{sign_request.reference}', base64.b64decode(sign_request.completed_document))
             content = buffer.getvalue()
 
