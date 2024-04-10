@@ -47,7 +47,6 @@ export class KnowledgeCommentsThread extends Component {
     setup() {
         this.targetRef = useRef('targetRef');
         this.mailStore = useService('mail.store');
-        this.messageService = useService('mail.message');
         this.orm = useService('orm');
         this.uiService = useService('ui');
         this.popover = usePopover(KnowledgeCommentsPopover, {
