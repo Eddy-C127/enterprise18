@@ -375,11 +375,11 @@
         .o_inspector_model {
             padding: $o-dms-p-tiny;
             @include o-hover-text-color(lighten($o-dms-color-action, 5%), $o-dms-color-action);
-            @include o-text-overflow(block, $o-dms-inspector-width - $o-dms-inspector-label-breakpoint - $o-dms-p*2);
+            @include o-text-overflow(block, o-to-rem($o-dms-inspector-width - $o-dms-inspector-label-breakpoint - $o-dms-p*2) - $table-cell-padding-x-sm*3);
         }
 
         .o_inspector_model_editable {
-            @include o-text-overflow(block, $o-dms-inspector-width - $o-dms-inspector-label-breakpoint - $o-dms-p*4 - $o-dms-inspector-width-model-button);
+            @include o-text-overflow(block, o-to-rem($o-dms-inspector-width - $o-dms-inspector-label-breakpoint - $o-dms-p*2 - $o-dms-inspector-width-model-button) - $table-cell-padding-x-sm*3);
         }
     }
 }
