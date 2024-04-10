@@ -1,14 +1,14 @@
-# -*- coding: utf-8 -*-
-
-from odoo import api, fields, models, _, _lt, Command
-from odoo.addons.iap.tools import iap_tools
-from odoo.exceptions import AccessError
-from odoo.tools import float_compare, mute_logger
-from odoo.tools.misc import clean_context, formatLang
-from difflib import SequenceMatcher
+import copy
+import json
 import logging
 import re
-import json
+from difflib import SequenceMatcher
+
+from odoo import api, fields, models, Command, _, _lt
+from odoo.addons.iap.tools import iap_tools
+from odoo.exceptions import AccessError
+from odoo.tools import float_compare
+from odoo.tools.misc import clean_context, formatLang
 
 _logger = logging.getLogger(__name__)
 
@@ -872,3 +872,19 @@ class AccountMove(models.Model):
         if file_data['type'] in ('pdf', 'binary') and self._needs_auto_extract(new_document=new):
             return self._import_invoice_ocr
         return super()._get_edi_decoder(file_data, new=new)
+
+    @api.model
+    def _get_view(self, view_id=None, view_type='form', **options):
+        arch, view = super()._get_view(view_id, view_type, **options)
+
+        if view_type == 'form':
+            for node in arch.xpath("//field[@name='partner_id'][@widget='res_partner_many2one']"):
+                # Create a duplicate partner_id field with added placeholder text, which will be displayed instead
+                # of the default field when the OCR has been used and no partner was detected
+                node_with_placeholder = copy.deepcopy(node)
+                placeholder_condition = "(extract_state == 'waiting_validation' and not partner_id)"
+                node.set('invisible', f"{placeholder_condition} or ({node.attrib.pop('invisible')})")
+                node_with_placeholder.set('invisible', f"not {placeholder_condition} or ({node_with_placeholder.attrib.pop('invisible')})")
+                node_with_placeholder.set('placeholder', "Click here and select the vendor on the bill to create it")
+                node.addnext(node_with_placeholder)
+        return arch, view
