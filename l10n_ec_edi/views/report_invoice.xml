@@ -52,10 +52,16 @@
             <th name="th_description" class="text-start">
                 <span>Principal Code</span>
             </th>
+            <th name="th_auxiliary_code" class="text-start">
+                <span>Auxiliary Code</span>
+            </th>
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']/tbody//tr[1]//td[1]" position="before">
             <td>
                 <span t-esc="line.product_id.barcode or line.product_id.default_code or ''"/>
+            </td>
+            <td>
+                <span t-esc="line.product_id.l10n_ec_auxiliary_code or ''"/>
             </td>
         </xpath>
 

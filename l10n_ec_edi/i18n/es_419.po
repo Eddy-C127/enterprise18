@@ -242,6 +242,11 @@ msgid "<span class=\"o_stat_text\">Withholds</span>"
 msgstr "<span class=\"o_stat_text\">Retenciones</span>"
 
 #. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.report_invoice_document
+msgid "<span>Auxiliary Code</span>"
+msgstr "<span>Código Auxiliar</span>"
+
+#. module: l10n_ec_edi
 #: model_terms:ir.ui.view,arch_db:l10n_ec_edi.report_withhold_document
 msgid "<span>Base amount</span>"
 msgstr "<span>Monto base</span>"
@@ -740,6 +745,22 @@ msgstr ""
 "producto"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_product_product__l10n_ec_auxiliary_code
+#: model:ir.model.fields,help:l10n_ec_edi.field_product_template__l10n_ec_auxiliary_code
+msgid ""
+"Ecuador: add an optional code for electronic documents under <codigoAuxiliar> for all products, including "
+"construction products as listed in Table 31 of the technical data sheet for 2024."
+msgstr ""
+"Ecuador: Agrega un código opcional para documentos electrónicos como <codigoAuxiliar> para todos los productos, incluido "
+"productos de construcción enlistados en la Tabla 31 de la ficha técnica para 2024."
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_product_product_auxiliary_codes_form
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_product_template_auxiliary_codes_form
+msgid "Example: F010101, F010202"
+msgstr "Ejemplo: F010101, F010202"
+
+#. module: l10n_ec_edi
 #: model:ir.model.fields,help:l10n_ec_edi.field_account_bank_statement_line__l10n_ec_authorization_number
 #: model:ir.model.fields,help:l10n_ec_edi.field_account_move__l10n_ec_authorization_number
 #: model:ir.model.fields,help:l10n_ec_edi.field_account_payment__l10n_ec_authorization_number
@@ -1146,6 +1167,12 @@ msgstr "Modo de producción: los datos EDI se envían al gobierno."
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_product_template__l10n_ec_withhold_tax_id
 msgid "Profit Withhold"
 msgstr "Retención Renta"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_product_product__l10n_ec_auxiliary_code
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_product_template__l10n_ec_auxiliary_code
+msgid "Auxiliary Code"
+msgstr "Código Auxiliar"
 
 #. module: l10n_ec_edi
 #: model:l10n_ec.taxpayer.type,name:l10n_ec_edi.l10n_ec_taxpayer_type_03

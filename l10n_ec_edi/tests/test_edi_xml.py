@@ -27,6 +27,22 @@ class TestEcEdiXmls(TestEcEdiCommon):
         }, invoice_line_args=invoice_line_args)
         self.assert_xml_tree_equal(out_invoice, L10N_EC_EDI_XML_OUT_INV, xpath=xpath)
 
+    def test_xml_tree_out_invoice_basic_product_extra_fields(self):
+        self.product_a.l10n_ec_auxiliary_code = 'F010101'
+        self.test_xml_tree_out_invoice_basic(xpath="""
+            <xpath expr="//detalle/codigoPrincipal" position="after">
+                <codigoAuxiliar>F010101</codigoAuxiliar>
+            </xpath>
+        """)
+
+    def test_xml_tree_credit_note_product_extra_fields(self):
+        self.product_a.l10n_ec_auxiliary_code = 'F010101'
+        self.test_xml_tree_credit_note(xpath="""
+            <xpath expr="//detalle/codigoInterno" position="after">
+                <codigoAdicional>F010101</codigoAdicional>
+            </xpath>
+        """)
+
     def test_xml_tree_out_05_invoice_basic(self):
         line_vals = self.get_invoice_line_vals(vat_tax_xmlid='tax_vat_05_510_sup_01')
         self.test_xml_tree_out_invoice_basic(invoice_line_args=line_vals, xpath="""
@@ -321,7 +337,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
             debit_note.ensure_one()
         self.assert_xml_tree_equal(debit_note, L10N_EC_EDI_XML_DEBIT_NOTE)
 
-    def test_xml_tree_credit_note(self):
+    def test_xml_tree_credit_note(self, xpath=None):
         invoice = self.get_invoice({
             'move_type': 'out_invoice',
             'partner_id': self.partner_a.id,
@@ -336,7 +352,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
             credit_note_wizard.modify_moves()
             credit_note = self.env['account.move'].search([('reversed_entry_id', '=', invoice.id)])
             credit_note.ensure_one()
-        self.assert_xml_tree_equal(credit_note, L10N_EC_EDI_XML_CREDIT_NOTE, post_move=False)
+        self.assert_xml_tree_equal(credit_note, L10N_EC_EDI_XML_CREDIT_NOTE, post_move=False, xpath=xpath)
 
     def test_xml_tree_purchase_liquidation(self):
         self.partner_b.country_id = self.env.ref('base.us').id
