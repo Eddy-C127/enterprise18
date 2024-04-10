@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//th[@name='th_quantity']" position="before">
+            <t t-set="display_date" t-value="any(l.deferred_start_date for l in o.invoice_line_ids)"/>
+            <th class="text-start" t-if="display_date">
+                <span>Start Date</span>
+            </th>
+            <th class="text-start" t-if="display_date">
+                <span>End Date</span>
+            </th>
+        </xpath>
+        <xpath expr="//td[@name='td_quantity']" position="before">
+            <td t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}" t-if="display_date">
+                <span t-out="line.deferred_start_date"/>
+            </td>
+            <td t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}" t-if="display_date">
+                <span t-out="line.deferred_end_date"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>
