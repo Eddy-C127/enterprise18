@@ -42,14 +42,25 @@ class PaymentProvider(models.Model):
         if sale_order_id:
             sale_order = self.env['sale.order'].browse(sale_order_id).exists()
             if sale_order.is_subscription or sale_order.subscription_id.is_subscription:
-                unfiltered_providers = compatible_providers
-                compatible_providers = compatible_providers.filtered(
-                    lambda provider: not provider.capture_manually
-                )
+                manual_capture_providers = compatible_providers.filtered("capture_manually")
+                compatible_providers -= manual_capture_providers
                 payment_utils.add_to_report(
                     report,
-                    unfiltered_providers - compatible_providers,
+                    manual_capture_providers,
                     available=False,
                     reason=REPORT_REASONS_MAPPING['manual_capture_not_supported'],
                 )
+
+                exceed_max_amount_providers = compatible_providers.filtered(
+                    lambda provider: provider.maximum_amount > 0
+                    and provider.main_currency_id.compare_amounts(sale_order.amount_total, provider.maximum_amount) == 1
+                )
+                compatible_providers -= exceed_max_amount_providers
+                payment_utils.add_to_report(
+                    report,
+                    exceed_max_amount_providers,
+                    available=False,
+                    reason=REPORT_REASONS_MAPPING['exceed_max_amount'],
+                )
+
         return compatible_providers

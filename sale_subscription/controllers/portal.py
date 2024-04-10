@@ -7,7 +7,7 @@ from math import ceil
 from werkzeug.urls import url_encode
 
 from odoo import http, fields
-from odoo.exceptions import AccessError, MissingError
+from odoo.exceptions import AccessError, MissingError, UserError
 from odoo.fields import Command
 from odoo.http import request
 from odoo.tools.translate import _
@@ -431,8 +431,19 @@ class PaymentPortal(payment_portal.PaymentPortal):
             # and shouldn't be re-assigned through this route.
             raise werkzeug.exceptions.NotFound()
 
+        max_amount = token_sudo.provider_id.maximum_amount
+        if max_amount > 0 and order_sudo.currency_id.compare_amounts(order_sudo.amount_total, max_amount) == 1:
+            raise UserError(_(
+                "The payment method you selected can only pay amounts up to %s. Please create or select another one.",
+                token_sudo.provider_id.main_currency_id.format(max_amount),
+            ))
+
         order_sudo.payment_token_id = token_sudo
 
+    @http.route()
+    def payment_method(self, sale_order_id=None, **kwargs):
+        """ Override to cast sale_order_id passed in via token_management_url to an int. """
+        return super().payment_method(sale_order_id=self._cast_as_int(sale_order_id), **kwargs)
 
     def _invoice_get_page_view_values(self, invoice, access_token, **kwargs):
         """ Override of account to allow save the token on the sale.order when the invoice

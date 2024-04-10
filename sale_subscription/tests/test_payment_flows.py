@@ -146,6 +146,29 @@ class TestSubscriptionPaymentFlows(TestSubscriptionCommon, PaymentHttpCommon):
             "Previous forbidden operations shouldn't have modified the SO token"
         )
 
+    def test_assign_token_maximum_amount(self):
+        self.authenticate(self.user_with_so_access.login, self.user_with_so_access.login)
+        token = self._create_token(
+            partner_id=self.user_with_so_access.partner_id.id
+        )
+        token.provider_id.maximum_amount = 1
+        self.env['sale.order.line'].create({
+            'order_id': self.order.id,
+            'product_id': self.product.id,
+            'price_unit': 100
+        })
+
+        self.assertGreater(
+            self.order.amount_total,
+            self.payment_token.provider_id.maximum_amount,
+            'The subscription amount should be greater than the maximum amount on the provider for this test.'
+        )
+
+        with self.assertRaisesRegex(JsonRpcException, "odoo.exceptions.UserError"):
+            self._my_sub_assign_token(token_id=token.id)
+
+        self.assertFalse(self.order.payment_token_id, 'The payment token should not have been assigned.')
+
     @mute_logger('odoo.http')
     def test_transaction_route_rejects_unexpected_kwarg(self):
         url = self._build_url(f'/my/subscriptions/{self.order.id}/transaction')

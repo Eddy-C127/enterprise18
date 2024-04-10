@@ -553,6 +553,24 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
         self.assertNotIn(self.provider, compatible_providers)
 
+    def test_exceeding_maximum_amount_providers_not_allowed(self):
+        self.provider.maximum_amount = 1
+        self.assertGreater(
+            self.amount,
+            self.provider.maximum_amount,
+            'The subscription amount should be greater than the maximum amount on the provider for this test.'
+        )
+
+        compatible_providers = self.env['payment.provider'].sudo()._get_compatible_providers(
+            self.company.id, self.partner.id, self.amount, sale_order_id=self.subscription.id
+        )
+
+        self.assertNotIn(
+            self.provider,
+            compatible_providers,
+            'The provider should not be proposed to the user because its maximum amount is too low to pay this subscription.'
+        )
+
     def test_cancel_draft_invoice_unsuccessful_transaction(self):
         """ Ensure that after an unsuccessful token payment is made, its draft invoice is canceled. """
         with freeze_time("2024-01-23"):
