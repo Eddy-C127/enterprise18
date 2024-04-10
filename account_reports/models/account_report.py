@@ -5449,11 +5449,13 @@ class AccountReport(models.Model):
                and len(options['columns']) == 2
 
     @api.model
-    def _check_groupby_fields(self, groupby_fields_name):
+    def _check_groupby_fields(self, groupby_fields_name: list[str] | str):
         """ Checks that each string in the groupby_fields_name list is a valid groupby value for an accounting report (so: it must be a field from
         account.move.line).
         """
-        for field_name in groupby_fields_name:
+        if isinstance(groupby_fields_name, str | bool):
+            groupby_fields_name = groupby_fields_name.split(',') if groupby_fields_name else []
+        for field_name in (fname.strip() for fname in groupby_fields_name):
             groupby_field = self.env['account.move.line']._fields.get(field_name)
             if not groupby_field:
                 raise UserError(_("Field %s does not exist on account.move.line.", field_name))
@@ -5884,6 +5886,13 @@ class AccountReportLine(models.Model):
     def _compute_display_custom_groupby_warning(self):
         for line in self:
             line.display_custom_groupby_warning = line.get_external_id() and line.user_groupby != line.groupby
+
+    @api.constrains('groupby', 'user_groupby')
+    def _validate_groupby(self):
+        super()._validate_groupby()
+        for report_line in self:
+            self.env['account.report']._check_groupby_fields(report_line.user_groupby)
+            self.env['account.report']._check_groupby_fields(report_line.groupby)
 
     def _expand_groupby(self, line_dict_id, groupby, options, offset=0, limit=None, load_one_more=False, unfold_all_batch_data=None):
         """ Expand function used to get the sublines of a groupby.
