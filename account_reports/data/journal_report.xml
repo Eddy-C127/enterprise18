@@ -156,6 +156,11 @@
     </template>
 
     <template id="journal_report_pdf_export_filters" inherit_id="account_reports.pdf_export_filters" primary="True">
+        <xpath expr="//div[@name='filter_info_template_journals']" position="before">
+            <div class="row">
+                <t t-out="options['date']['string']"/>
+            </div>
+        </xpath>
         <xpath expr="//div[@name='pdf_options_header']" position="replace">
             <div class="row">
                 <div class="col-2">Options:</div>
