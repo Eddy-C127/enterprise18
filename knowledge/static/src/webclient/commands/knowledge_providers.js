@@ -5,28 +5,25 @@ import { _t } from "@web/core/l10n/translation";
 import { memoize } from "@web/core/utils/functions";
 import { registry } from "@web/core/registry";
 import { HotkeyCommandItem } from "@web/core/commands/default_providers";
-import { splitCommandName } from "@web/core/commands/command_palette";
-import { Component } from "@odoo/owl";
+import { DefaultCommandItem, splitCommandName } from "@web/core/commands/command_palette";
 
 // Articles command
-class KnowledgeCommand extends Component {
+class KnowledgeCommand extends DefaultCommandItem {
     static template = "KnowledgeCommandTemplate";
     static props = {
-        executeCommand: Function,
+        ...DefaultCommandItem.props,
         icon_string: String,
         isFavorite: Boolean,
-        name: String,
-        searchValue: String,
-        slots: Object,
         splitSubjectName: Array,
         subjectName: [String, Boolean],
     };
 }
 
 // "Not found, create one" command
-class Knowledge404Command extends Component {
+class Knowledge404Command extends DefaultCommandItem {
     static template = "Knowledge404CommandTemplate";
     static props = {
+        ...DefaultCommandItem.props,
         articleName: String,
     };
 }
