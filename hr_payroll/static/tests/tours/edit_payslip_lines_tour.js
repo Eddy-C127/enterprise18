@@ -29,6 +29,11 @@ registry.category("web_tour.tours").add('hr_payroll_edit_payslip_lines_tour', {
         trigger: '.o_data_row td:contains("Richard")',
     },
     {
+        content: "Wait for the page to be loaded",
+        trigger: ".o_form_view_container .o_control_panel .o_cp_action_menus .dropdown-toggle",
+        isCheck: true,
+    },
+    {
         content: "Click on action",
         trigger: ".o_control_panel .o_cp_action_menus .dropdown-toggle",
     },
