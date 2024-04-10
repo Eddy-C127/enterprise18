@@ -566,10 +566,20 @@ class L10nMxEdiDocument(models.Model):
             # Avoid things like -0.0, see: https://stackoverflow.com/a/11010869
             return '%.*f' % (precision, amount if not float_is_zero(amount, precision_digits=precision) else 0.0)
 
+        if cfdi_values['company'].tax_calculation_rounding_method == 'round_per_line':
+            line_base_importe_dp = currency_precision
+        else:
+            # In case of round_globally, we need to round the tax amounts for each line with an higher
+            # number of decimals to avoid rounding issues.
+            # Indeed, the total per invoice per tax must be equal to the sum of the reported tax amounts for
+            # each line.
+            line_base_importe_dp = 6
+
         cfdi_values.update({
             'format_float': format_float,
             'currency': currency,
             'currency_precision': currency_precision,
+            'line_base_importe_dp': line_base_importe_dp,
             'moneda': currency.name,
         })
 
@@ -739,6 +749,7 @@ class L10nMxEdiDocument(models.Model):
             company,
             filter_tax_values_to_apply=filter_tax_values,
             grouping_key_generator=grouping_key_generator,
+            distribute_total_on_line=company.tax_calculation_rounding_method != 'round_globally',
         )
 
     @api.model
@@ -1020,18 +1031,20 @@ class L10nMxEdiDocument(models.Model):
                     })
                     result_dict[tax_key]['base'] += tax_values['base']
                     result_dict[tax_key]['importe'] += tax_values['importe']
-        cfdi_values['retenciones_list'] = [
-            {**k, **v}
-            for k, v in withholding_values_map.items()
-        ]
-        cfdi_values['retenciones_reduced_list'] = [
-            {**k, **v}
-            for k, v in withholding_reduced_values_map.items()
-        ]
-        cfdi_values['traslados_list'] = [
-            {**k, **v}
-            for k, v in transferred_values_map.items()
-        ]
+
+        for target_key, source_dict in (
+            ('retenciones_list', withholding_values_map),
+            ('retenciones_reduced_list', withholding_reduced_values_map),
+            ('traslados_list', transferred_values_map),
+        ):
+            cfdi_values[target_key] = [
+                {
+                    **k,
+                    'base': currency.round(v['base']),
+                    'importe': currency.round(v['importe']),
+                }
+                for k, v in source_dict.items()
+            ]
 
         # Totals.
         transferred_tax_amounts = [x['importe'] for x in cfdi_values['traslados_list'] if x['tipo_factor'] != 'Exento']
@@ -1199,6 +1212,7 @@ class L10nMxEdiDocument(models.Model):
             'sequence': sequence,
             'format_string': cfdi_values_list[0]['format_string'],
             'format_float': cfdi_values_list[0]['format_float'],
+            'line_base_importe_dp': cfdi_values_list[0]['line_base_importe_dp'],
             'currency_precision': cfdi_values_list[0]['currency_precision'],
 
             'no_certificado': cfdi_values_list[0]['no_certificado'],

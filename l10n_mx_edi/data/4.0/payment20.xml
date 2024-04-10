@@ -64,7 +64,7 @@
                         t-att-FechaPago="fecha_pago"
                         t-att-FormaDePagoP="forma_de_pago"
                         t-att-MonedaP="moneda"
-                        t-att-TipoCambioP="format_float(tipo_cambio, precision=6) or '1'"
+                        t-att-TipoCambioP="format_float(tipo_cambio, precision=tipo_cambio_dp) or '1'"
                         t-att-Monto="format_float(monto)"
                         t-att-NumOperacion="format_string(num_operacion, 100)"
                         t-att-RfcEmisorCtaOrd="rfc_emisor_cta_ord"
