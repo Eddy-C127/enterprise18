@@ -98,6 +98,15 @@ export class KnowledgeWysiwyg extends Wysiwyg {
     async startEdition() {
         await super.startEdition(...arguments);
         this.odooEditor.options.renderingClasses = [...this.odooEditor.options.renderingClasses, 'focused-comment'];
+
+        // On table insertion, above a given number of columns, automatically switch template size to full size.
+        if (!this.odooEditor.isMobile) {
+            this.odooEditor.powerboxTablePicker.addEventListener("cell-selected", ev => {
+                if (ev.detail.colNumber >= 5) {
+                    this.env.model.root.update({ full_width: true });
+                }
+            });
+        }
     }
 
     /**
