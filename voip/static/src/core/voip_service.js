@@ -44,8 +44,6 @@ export class Voip {
         this.env = env;
         /** @type {import("@mail/core/store_service").Store} */
         this.store = services["mail.store"];
-        /** @type {import("@mail/core/messaging_service").Messaging} */
-        this.messaging = services["mail.messaging"];
         /** @type {import("@mail/activity/activity_service").ActivityService} */
         this.activityService = services["mail.activity"];
         this.callService = services["voip.call"];
@@ -143,8 +141,7 @@ export class Voip {
      */
     get willCallFromAnotherDevice() {
         return (
-            this.store.settings.should_call_from_another_device &&
-            this.hasValidExternalDeviceNumber
+            this.store.settings.should_call_from_another_device && this.hasValidExternalDeviceNumber
         );
     }
 
@@ -266,15 +263,7 @@ export class Voip {
 }
 
 export const voipService = {
-    dependencies: [
-        "bus_service",
-        "dialog",
-        "mail.activity",
-        "mail.messaging",
-        "mail.store",
-        "orm",
-        "voip.call",
-    ],
+    dependencies: ["bus_service", "dialog", "mail.activity", "mail.store", "orm", "voip.call"],
     async start() {
         const isEmployee = await user.hasGroup("base.group_user");
         if (!isEmployee) {
