@@ -16,13 +16,13 @@ class GermanTaxReportTest(AccountSalesReportCommon):
     @classmethod
     def setup_company_data(cls, company_name, chart_template=None, **kwargs):
         res = super().setup_company_data(company_name, chart_template=chart_template, **kwargs)
-        res['company'].update({
+        res['company'].write({
             'country_id': cls.env.ref('base.de').id,
             'vat': 'DE123456788',
+            'state_id': cls.env.ref('base.state_de_th').id,
             'l10n_de_stnr': '151/815/08156',
-            'state_id': cls.env.ref('base.state_de_th')
         })
-        res['company'].partner_id.update({
+        res['company'].partner_id.write({
             'email': 'jsmith@mail.com',
             'phone': '+32475123456',
         })
