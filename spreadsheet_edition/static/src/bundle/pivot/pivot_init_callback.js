@@ -2,7 +2,7 @@
 //@ts-check
 
 import * as spreadsheet from "@odoo/o-spreadsheet";
-import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
+import { OdooPivot } from "@spreadsheet/pivot/odoo_pivot";
 import { Domain } from "@web/core/domain";
 import { deepCopy } from "@web/core/utils/objects";
 
@@ -26,7 +26,7 @@ export function insertPivot(pivotData) {
         name: measure,
         aggregator: fields[measure]?.aggregator,
     }));
-    /** @type {import("@spreadsheet").OdooPivotDefinition} */
+    /** @type {import("@spreadsheet").OdooPivotCoreDefinition} */
     const pivot = deepCopy({
         type: "ODOO",
         domain: new Domain(pivotData.searchParams.domain).toJson(),
@@ -61,7 +61,6 @@ export function insertPivot(pivotData) {
                 pivot,
             })
         );
-
         const ds = model.getters.getPivot(pivotId);
         if (!(ds instanceof OdooPivot)) {
             throw new Error("The pivot data source is not an OdooPivot");

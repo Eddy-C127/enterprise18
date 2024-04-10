@@ -1,7 +1,7 @@
 /** @odoo-module */
 
 import * as spreadsheet from "@odoo/o-spreadsheet";
-import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
+import { OdooPivot } from "@spreadsheet/pivot/odoo_pivot";
 import { patch } from "@web/core/utils/patch";
 const { helpers } = spreadsheet;
 const { formatValue } = helpers;
@@ -38,18 +38,18 @@ patch(OdooPivot.prototype, {
         this._presenceTracking = false;
     },
 
-    getPivotCellValue(measure, domain) {
+    getPivotCellValueAndFormat(measure, domain) {
         if (this._presenceTracking) {
             this._usedValueDomains.add(measure + "," + domain.join());
         }
-        return super.getPivotCellValue(measure, domain);
+        return super.getPivotCellValueAndFormat(measure, domain);
     },
 
-    computePivotHeaderValue(domainArgs) {
+    getPivotHeaderValueAndFormat(domainArgs) {
         if (this._presenceTracking) {
             this._usedHeaderDomains.add(domainArgs.join());
         }
-        return super.computePivotHeaderValue(domainArgs);
+        return super.getPivotHeaderValueAndFormat(domainArgs);
     },
 
     /**
@@ -77,11 +77,10 @@ patch(OdooPivot.prototype, {
      * @param {(string | number)[]} pivotArgs arguments of the function (except the first one which is the pivot id)
      */
     getPivotHeaderFormattedValue(pivotArgs) {
-        const value = this.computePivotHeaderValue(pivotArgs);
+        const { value, format } = this.getPivotHeaderValueAndFormat(pivotArgs);
         if (typeof value === "string") {
             return value;
         }
-        const format = this.getPivotFieldFormat(pivotArgs.at(-2));
         const locale = this.getters.getLocale();
         return formatValue(value, { format, locale });
     },

@@ -157,10 +157,14 @@ const printMenu = {
 
 topbarMenuRegistry.addChild("print", ["file"], printMenu);
 
-topbarMenuRegistry.addChild("insert_pivot", ["insert"], insertPivotMenu);
-topbarMenuRegistry.addChild("reinsert_pivot", ["insert", "insert_pivot"], reInsertPivotMenu);
-topbarMenuRegistry.addChild("insert_pivot_cell", ["insert", "insert_pivot"], insertPivotCellMenu);
+topbarMenuRegistry.addChild("insert_pivot_odoo", ["insert"], insertPivotMenu);
+topbarMenuRegistry.addChild("reinsert_pivot", ["insert", "insert_pivot_odoo"], reInsertPivotMenu);
+topbarMenuRegistry.addChild(
+    "insert_pivot_cell",
+    ["insert", "insert_pivot_odoo"],
+    insertPivotCellMenu
+);
 topbarMenuRegistry.addChild("reinsert_list", ["insert"], reInsertListMenu);
 
-topbarMenuRegistry.addChild("insert_pivot", ["data"], insertPivotMenu);
+topbarMenuRegistry.addChild("insert_pivot_odoo", ["data"], insertPivotMenu);
 topbarMenuRegistry.addChild("reinsert_list", ["data"], reInsertListMenu);

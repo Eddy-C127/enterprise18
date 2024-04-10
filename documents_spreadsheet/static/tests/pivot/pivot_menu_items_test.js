@@ -35,7 +35,7 @@ import { getHighlightsFromStore } from "../utils/store_helpers";
 
 let target;
 
-const reinsertPivotPath = ["data", "insert_pivot", "reinsert_pivot", "reinsert_pivot_1"];
+const reinsertPivotPath = ["data", "insert_pivot_odoo", "reinsert_pivot", "reinsert_pivot_1"];
 
 QUnit.module(
     "documents_spreadsheet > Pivot Menu Items",

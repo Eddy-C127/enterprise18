@@ -355,7 +355,7 @@ export class PivotDialog extends Component {
                     domain.push(col.fields[i]);
                     domain.push(col.values[i]);
                 }
-                const value = this.dataSource.getPivotCellValue(measure, domain);
+                const value = this.dataSource.getPivotCellValueAndFormat(measure, domain).value;
                 const locale = this.props.getters.getLocale();
                 current.push({
                     args: {

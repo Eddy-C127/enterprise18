@@ -183,7 +183,7 @@ QUnit.module(
             title = target.querySelector(".o-sidePanelTitle").innerText;
             assert.equal(title, "List properties");
 
-            assert.containsOnce(target, ".o_side_panel_select");
+            assert.containsOnce(target, ".o_pivot_preview");
         });
 
         QUnit.test(
@@ -948,11 +948,11 @@ QUnit.module(
 
                 assert.deepEqual(getHighlightsFromStore(env), []);
 
-                triggerEvent(fixture, ".o_side_panel_select", "mouseenter");
+                triggerEvent(fixture, ".o_pivot_preview", "mouseenter");
                 const zone = getZoneOfInsertedDataSource(model, "list", "1");
                 assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
 
-                triggerEvent(fixture, ".o_side_panel_select", "mouseleave");
+                triggerEvent(fixture, ".o_pivot_preview", "mouseleave");
                 assert.deepEqual(getHighlightsFromStore(env), []);
             }
         );

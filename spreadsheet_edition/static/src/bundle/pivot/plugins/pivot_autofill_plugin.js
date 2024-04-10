@@ -8,7 +8,7 @@ const { makePivotFormula, getNumberOfPivotFunctions, isDateField, pivotTimeAdapt
 /**
  * @typedef {import("@odoo/o-spreadsheet").SpreadsheetPivotTable} SpreadsheetPivotTable
  * @typedef {import("@spreadsheet").OdooPivotDefinition} OdooPivotDefinition
- * @typedef {import("@spreadsheet/pivot/pivot_data_source").OdooPivot} OdooPivot
+ * @typedef {import("@spreadsheet/pivot/odoo_pivot").OdooPivot} OdooPivot
  */
 
 /**

@@ -16,7 +16,7 @@ const RANGE_TYPES = [
 
 /**
  * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").GlobalFilter} GlobalFilter
- * @typedef {import("@spreadsheet/data_sources/metadata_repository").Field} Field
+ * @typedef {import("@spreadsheet").OdooField} OdooField
  * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").FieldMatching} FieldMatching
  *
  * @typedef DateState
@@ -101,7 +101,7 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
      * @override
      * @param {string} index
      * @param {string|undefined} chain
-     * @param {Field|undefined} field
+     * @param {OdooField|undefined} field
      */
     onSelectedField(index, chain, field) {
         super.onSelectedField(index, chain, field);

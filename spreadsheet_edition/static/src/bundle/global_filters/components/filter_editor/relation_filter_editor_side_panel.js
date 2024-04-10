@@ -12,7 +12,7 @@ import { components } from "@odoo/o-spreadsheet";
 const { Checkbox } = components;
 
 /**
- * @typedef {import("@spreadsheet/data_sources/metadata_repository").Field} Field
+ * @typedef {import("@spreadsheet").OdooField} OdooField
  * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").GlobalFilter} GlobalFilter
 
  *
@@ -121,7 +121,7 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
      * Get the first field which could be a relation of the current related
      * model
      *
-     * @param {Object.<string, Field>} fields Fields to look in
+     * @param {Object.<string, OdooField>} fields Fields to look in
      * @returns {field|undefined}
      */
     _findRelation(fields) {
@@ -174,7 +174,7 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
     }
 
     /**
-     * @param {Field} field
+     * @param {OdooField} field
      * @returns {boolean}
      */
     isFieldValid(field) {
@@ -184,7 +184,7 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
 
     /**
      * @override
-     * @param {Field} field
+     * @param {OdooField} field
      * @returns {boolean}
      */
     matchingRelation(field) {

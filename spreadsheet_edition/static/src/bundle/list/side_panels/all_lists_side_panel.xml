@@ -7,7 +7,7 @@
     </div>
 
     <t t-name="spreadsheet_edition.ListPreview" >
-        <div class="o_side_panel_select" t-on-click="this.selectList" t-ref="listPreview">
+        <div class="o_pivot_preview" t-on-click="this.selectList" t-ref="listPreview">
             <span t-esc="env.model.getters.getListDisplayName(props.listId)"/>
         </div>
     </t>

@@ -7,9 +7,10 @@ import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { components, helpers, stores, hooks } from "@odoo/o-spreadsheet";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
+import { OdooPivotLayoutConfigurator } from "./odoo_pivot_layout_configurator/odoo_pivot_layout_configurator";
 
 const uuidGenerator = new helpers.UuidGenerator();
-const { Checkbox, Section, ValidationMessages, PivotDimensions, EditableName } = components;
+const { Checkbox, Section, ValidationMessages, EditableName } = components;
 const { useHighlights } = hooks;
 const { useLocalStore, PivotSidePanelStore } = stores;
 const { getPivotHighlights } = helpers;
@@ -20,9 +21,9 @@ export class PivotDetailsSidePanel extends Component {
         DomainSelector,
         EditableName,
         ValidationMessages,
-        PivotDimensions,
         Checkbox,
         Section,
+        OdooPivotLayoutConfigurator,
     };
     static props = {
         onCloseSidePanel: Function,
@@ -44,7 +45,7 @@ export class PivotDetailsSidePanel extends Component {
         useHighlights(this);
     }
 
-    /** @returns {import("@spreadsheet/pivot/pivot_data_source").default} */
+    /** @returns {import("@spreadsheet/pivot/odoo_pivot").default} */
     get pivot() {
         return this.store.pivot;
     }
@@ -100,18 +101,17 @@ export class PivotDetailsSidePanel extends Component {
         const type = result.isSuccessful ? "success" : "danger";
         this.notification.add(msg, { sticky: false, type });
         if (result.isSuccessful) {
-            this.env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId: newPivotId });
+            this.env.openSidePanel("PivotSidePanel", { pivotId: newPivotId });
         }
     }
 
     goToPivotList() {
-        this.env.openSidePanel("ALL_PIVOTS_PANEL");
+        this.env.openSidePanel("PivotSidePanel", {});
     }
 
     deletePivot() {
         this.env.askConfirmation(_t("Are you sure you want to delete this pivot?"), () => {
             this.env.model.dispatch("REMOVE_PIVOT", { pivotId: this.props.pivotId });
-            this.props.onCloseSidePanel();
         });
     }
 
