@@ -2,9 +2,6 @@ from odoo import api, models, _
 from odoo.exceptions import RedirectWarning
 from odoo.tools import float_repr
 
-import stdnum.de.stnr
-import stdnum.exceptions
-
 from lxml import etree
 from datetime import date, datetime
 
@@ -42,17 +39,7 @@ class GermanTaxReportCustomHandler(models.AbstractModel):
     def export_tax_report_to_xml(self, options):
 
         if self.env.company.l10n_de_stnr:
-            lang = self.env['res.lang']._get_code('de_DE')
-            try:
-                steuer_nummer = stdnum.de.stnr.to_country_number(self.env.company.l10n_de_stnr, self.env.company.state_id.with_context(lang=lang).name)
-            except stdnum.exceptions.InvalidComponent:
-                self._redirect_to_misconfigured_company_number(_("Your company's SteuerNummer is not compatible with your state"))
-            except stdnum.exceptions.InvalidFormat:
-                if stdnum.de.stnr.is_valid(self.env.company.l10n_de_stnr, self.env.company.state_id.with_context(lang=lang).name):
-                    # the SteuerNummer is already in the right format, and so, can't be converted
-                    steuer_nummer = self.env.company.l10n_de_stnr
-                else:
-                    self._redirect_to_misconfigured_company_number(_("Your company's SteuerNummer is not valid"))
+            steuer_nummer = self.env.company.get_l10n_de_stnr_national()
         else:
             self._redirect_to_misconfigured_company_number(_("Your company's SteuerNummer field should be filled"))
 
