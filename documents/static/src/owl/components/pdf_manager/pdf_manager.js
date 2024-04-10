@@ -827,7 +827,11 @@ export class PdfManager extends Component {
         const allPages = this.sortedPagesIds;
         this.state.groupData = {};
         this.state.groupIds = [];
-        this._createGroup({ name: _t("(Remaining pages"), pageIds: allPages, isSelected: true });
+        this._createGroup({
+            name: this.state.fileName ? _t("%s (remaining pages)", this.state.fileName) : _t("Remaining Pages"),
+            pageIds: allPages,
+            isSelected: true
+        });
         await this._applyChanges();
     }
     /**
