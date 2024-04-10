@@ -284,10 +284,6 @@ class SignRequest(models.Model):
         if not self:
             raise UserError(_('You should select at least one document to download.'))
 
-        for request in self:
-            if not request.completed_document_attachment_ids:
-                request._generate_completed_document()
-
         if len(self) < 2:
             return {
                 'name': 'Signed Document',
@@ -300,7 +296,6 @@ class SignRequest(models.Model):
                 'type': 'ir.actions.act_url',
                 'url': f'/sign/download/zip/{",".join(map(str, self.ids))}',
             }
-
 
     def open_logs(self):
         self.ensure_one()
