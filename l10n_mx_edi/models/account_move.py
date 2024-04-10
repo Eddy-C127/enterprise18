@@ -17,6 +17,7 @@ from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import (
 from odoo.exceptions import ValidationError, UserError
 from odoo.osv import expression
 from odoo.tools import frozendict
+from odoo.tools.float_utils import float_round
 from odoo.tools.sql import column_exists, create_column
 from odoo.addons.base.models.ir_qweb import keep_query
 
@@ -930,7 +931,7 @@ class AccountMove(models.Model):
             }
             for invl in self._l10n_mx_edi_cfdi_invoice_line_ids()
         ]
-        Document._add_base_lines_tax_amounts(base_lines)
+        Document._add_base_lines_tax_amounts(base_lines, cfdi_values=cfdi_values)
         if global_invoice and self.reversal_move_id:
             refund_base_lines = [
                 {
@@ -943,7 +944,7 @@ class AccountMove(models.Model):
             for refund_base_line in refund_base_lines:
                 refund_base_line['quantity'] *= -1
                 refund_base_line['price_subtotal'] *= -1
-            Document._add_base_lines_tax_amounts(refund_base_lines)
+            Document._add_base_lines_tax_amounts(refund_base_lines, cfdi_values=cfdi_values)
             base_lines += refund_base_lines
 
         # Manage the negative lines.
@@ -1048,10 +1049,12 @@ class AccountMove(models.Model):
         # The value must reflect the number of Mexican pesos that are equivalent to a unit of the currency indicated
         # in the 'moneda' attribute.
         # It is required when the MonedaP attribute is different from MXN.
+        cfdi_values['tipo_cambio_dp'] = 6
         if self.currency_id == company_curr:
             payment_rate = None
         else:
-            payment_rate = abs(total_in_company_curr / total_in_payment_curr) if total_in_payment_curr else 0.0
+            raw_payment_rate = abs(total_in_company_curr / total_in_payment_curr) if total_in_payment_curr else 0.0
+            payment_rate = float_round(raw_payment_rate, precision_digits=cfdi_values['tipo_cambio_dp'])
         cfdi_values['tipo_cambio'] = payment_rate
 
         # === Create the list of invoice data ===
@@ -1072,6 +1075,22 @@ class AccountMove(models.Model):
                     for tax_key in ('base', 'importe'):
                         if tax_values[tax_key] is not None:
                             tax_values[tax_key] = invoice.currency_id.round(tax_values[tax_key] * percentage_paid)
+
+                    # CRP20261:
+                    # - 'base' * 'tasa_o_cuota' must give 'importe' with 0.01 rounding error allowed.
+                    # Suppose an invoice of 5 * 0.47 with 16% tax. Each line gives a tax amount of 0.08 so 0.40 for the whole invoice.
+                    # However, 5 * 0.47 = 2.35 and 2.35 * 0.16 = 0.38 so the constraint is failing.
+                    # - 'base' + 'importe' must be exactly equal to the part that is actually paid.
+                    # Using the same example, we need to report 2.35 + 0.40 = 2.75
+                    # => To solve that, let's proceed backward. 2.75 * 0.16 / 1.16 = 0.38 (importe) and 2.75 - 0.38 = 2.27 (base).
+                    if (
+                        company.tax_calculation_rounding_method == 'round_per_line'
+                        and all(tax_values[key] is not None for key in ('base', 'importe', 'tasa_o_cuota'))
+                    ):
+                        total = tax_values['base'] + tax_values['importe']
+                        percent = tax_values['tasa_o_cuota']
+                        tax_values['importe'] = invoice.currency_id.round(total * percent / (1 + percent))
+                        tax_values['base'] = invoice.currency_id.round(total - tax_values['importe'])
 
             # 'equivalencia' (rate) is a conditional attribute used to express the exchange rate according to the currency
             # registered in the document related. It is required when the currency of the related document is different
@@ -1145,22 +1164,12 @@ class AccountMove(models.Model):
 
         # Taxes.
         cfdi_values.update({
-            'total_traslados_base_iva0': None,
-            'total_traslados_impuesto_iva0': None,
-            'total_traslados_base_iva_exento': None,
-            'total_traslados_base_iva8': None,
-            'total_traslados_impuesto_iva8': None,
-            'total_traslados_base_iva16': None,
-            'total_traslados_impuesto_iva16': None,
-            'total_retenciones_isr': None,
-            'total_retenciones_iva': None,
-            'total_retenciones_ieps': None,
             'monto_total_pagos': total_in_company_curr,
             'mxn_digits': company_curr.decimal_places,
         })
 
         def update_tax_amount(key, amount):
-            if cfdi_values[key] is None:
+            if key not in cfdi_values:
                 cfdi_values[key] = 0.0
             cfdi_values[key] += amount
 
@@ -1181,7 +1190,7 @@ class AccountMove(models.Model):
                 key = frozendict({'impuesto': tax_values['impuesto']})
                 withholding_values_map[key]['importe'] += self.currency_id.round(tax_values['importe'] / inv_rate)
 
-                tax_amount_mxn = company_curr.round(tax_values['importe'] * to_mxn_rate)
+                tax_amount_mxn = tax_values['importe'] * to_mxn_rate
                 if tax_values['impuesto'] == '001':
                     update_tax_amount('total_retenciones_isr', tax_amount_mxn)
                 elif tax_values['impuesto'] == '002':
@@ -1199,8 +1208,8 @@ class AccountMove(models.Model):
                 transferred_values_map[key]['base'] += self.currency_id.round(tax_values['base'] / inv_rate)
                 transferred_values_map[key]['importe'] += self.currency_id.round(tax_amount / inv_rate)
 
-                base_amount_mxn = company_curr.round(tax_values['base'] * to_mxn_rate)
-                tax_amount_mxn = company_curr.round(tax_amount * to_mxn_rate)
+                base_amount_mxn = tax_values['base'] * to_mxn_rate
+                tax_amount_mxn = tax_amount * to_mxn_rate
                 if check_transferred_tax_values(tax_values, '002', 'Tasa', 0.0):
                     update_tax_amount('total_traslados_base_iva0', base_amount_mxn)
                     update_tax_amount('total_traslados_impuesto_iva0', tax_amount_mxn)
@@ -1212,6 +1221,24 @@ class AccountMove(models.Model):
                 elif check_transferred_tax_values(tax_values, '002', 'Tasa', 0.16):
                     update_tax_amount('total_traslados_base_iva16', base_amount_mxn)
                     update_tax_amount('total_traslados_impuesto_iva16', tax_amount_mxn)
+
+        # Round.
+        for key in (
+            'total_traslados_base_iva0',
+            'total_traslados_impuesto_iva0',
+            'total_traslados_base_iva_exento',
+            'total_traslados_base_iva8',
+            'total_traslados_impuesto_iva8',
+            'total_traslados_base_iva16',
+            'total_traslados_impuesto_iva16',
+            'total_retenciones_isr',
+            'total_retenciones_iva',
+            'total_retenciones_ieps',
+        ):
+            if key in cfdi_values:
+                cfdi_values[key] = company_curr.round(cfdi_values[key])
+            else:
+                cfdi_values[key] = None
 
         cfdi_values['retenciones_list'] = [
             {**k, **v}
@@ -1664,7 +1691,7 @@ class AccountMove(models.Model):
             * amount_residual_after:    The residual_amount after reconciliation.
         """
         # Only consider the invoices already signed.
-        invoices = self.filtered(lambda x: x.is_invoice() and x.l10n_mx_edi_cfdi_state == 'sent')
+        invoices = self.filtered(lambda x: x.is_invoice() and x.l10n_mx_edi_cfdi_state == 'sent').sorted()
 
         # Collect the reconciled amounts.
         reconciliation_values = {}

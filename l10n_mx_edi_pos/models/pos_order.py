@@ -342,7 +342,7 @@ class PosOrder(models.Model):
                 base_line['quantity'] *= -1
                 base_line['price_subtotal'] *= -1
 
-        Document._add_base_lines_tax_amounts(base_lines)
+        Document._add_base_lines_tax_amounts(base_lines, cfdi_values=cfdi_values)
         lines_dispatching = Document._dispatch_cfdi_base_lines(base_lines)
         if lines_dispatching['orphan_negative_lines']:
             cfdi_values['errors'] = [_("Failed to distribute some negative lines")]
@@ -361,7 +361,7 @@ class PosOrder(models.Model):
             has_refunds = bool(refund_order_lines)
             for refund_lines in refund_order_lines.grouped('order_id').values():
                 base_lines = refund_lines._prepare_tax_base_line_values()
-                Document._add_base_lines_tax_amounts(base_lines)
+                Document._add_base_lines_tax_amounts(base_lines, cfdi_values=cfdi_values)
                 cfdi_lines += base_lines
 
         # Add the document to dispatch the negative lines first onto the line belonging to the same document.

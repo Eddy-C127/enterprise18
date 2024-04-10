@@ -566,10 +566,20 @@ class L10nMxEdiDocument(models.Model):
             # Avoid things like -0.0, see: https://stackoverflow.com/a/11010869
             return '%.*f' % (precision, amount if not float_is_zero(amount, precision_digits=precision) else 0.0)
 
+        if cfdi_values['company'].tax_calculation_rounding_method == 'round_per_line':
+            line_base_importe_dp = currency_precision
+        else:
+            # In case of round_globally, we need to round the tax amounts for each line with an higher
+            # number of decimals to avoid rounding issues.
+            # Indeed, the total per invoice per tax must be equal to the sum of the reported tax amounts for
+            # each line.
+            line_base_importe_dp = 6
+
         cfdi_values.update({
             'format_float': format_float,
             'currency': currency,
             'currency_precision': currency_precision,
+            'line_base_importe_dp': line_base_importe_dp,
             'moneda': currency.name,
         })
 
@@ -701,12 +711,13 @@ class L10nMxEdiDocument(models.Model):
         cfdi_values['objeto_imp'] = tax_objected
 
     @api.model
-    def _get_taxes_cfdi_values(self, base_lines, filter_tax_values=None):
+    def _get_taxes_cfdi_values(self, base_lines, filter_tax_values=None, cfdi_values=None):
         """ Compute the taxes for the CFDI document based on the lines passed as parameter.
 
         :param base_lines:          A list of dictionaries representing the lines of the document.
                                     (see '_convert_to_tax_base_line_dict' in account.tax).
         :param filter_tax_values:   See '_aggregate_taxes' in account.tax.
+        :param cfdi_values:         The current CFDI values.
         :return                     The results of the '_aggregate_taxes' method in account.tax.
         """
 
@@ -718,6 +729,9 @@ class L10nMxEdiDocument(models.Model):
                 'impuesto': TAX_TYPE_TO_CFDI_CODE.get(tax.l10n_mx_tax_type),
                 'tax_amount_field': tax.amount,
             }
+
+        company = cfdi_values.get('company')
+        distribute_total_on_line = not company or company.tax_calculation_rounding_method != 'round_globally'
 
         taxes_values_to_aggregate = []
         for base_line in base_lines:
@@ -733,6 +747,7 @@ class L10nMxEdiDocument(models.Model):
             taxes_values_to_aggregate,
             filter_tax_values_to_apply=filter_tax_values,
             grouping_key_generator=grouping_key_generator,
+            distribute_total_on_line=distribute_total_on_line,
         )
 
     @api.model
@@ -879,19 +894,22 @@ class L10nMxEdiDocument(models.Model):
         return self._dispatch_cfdi_base_lines(base_lines)['cfdi_lines']
 
     @api.model
-    def _add_base_lines_tax_amounts(self, base_lines):
+    def _add_base_lines_tax_amounts(self, base_lines, cfdi_values=None):
         """ Add the taxes to each base line.
 
-        :param base_lines: A list of dictionaries representing the lines of the document.
-                           (see '_convert_to_tax_base_line_dict' in account.tax).
+        :param base_lines:  A list of dictionaries representing the lines of the document.
+                            (see '_convert_to_tax_base_line_dict' in account.tax).
+        :param cfdi_values: The current CFDI values.
         """
         tax_details_transferred = self._get_taxes_cfdi_values(
             base_lines,
             filter_tax_values=lambda _base_line, tax_values: tax_values['tax_repartition_line'].tax_id.amount >= 0.0,
+            cfdi_values=cfdi_values,
         )
         tax_details_withholding = self._get_taxes_cfdi_values(
             base_lines,
             filter_tax_values=lambda _base_line, tax_values: tax_values['tax_repartition_line'].tax_id.amount < 0.0,
+            cfdi_values=cfdi_values,
         )
         for base_line in base_lines:
             discount = base_line['discount']
@@ -1035,18 +1053,20 @@ class L10nMxEdiDocument(models.Model):
                     })
                     result_dict[tax_key]['base'] += tax_values['base']
                     result_dict[tax_key]['importe'] += tax_values['importe']
-        cfdi_values['retenciones_list'] = [
-            {**k, **v}
-            for k, v in withholding_values_map.items()
-        ]
-        cfdi_values['retenciones_reduced_list'] = [
-            {**k, **v}
-            for k, v in withholding_reduced_values_map.items()
-        ]
-        cfdi_values['traslados_list'] = [
-            {**k, **v}
-            for k, v in transferred_values_map.items()
-        ]
+
+        for target_key, source_dict in (
+            ('retenciones_list', withholding_values_map),
+            ('retenciones_reduced_list', withholding_reduced_values_map),
+            ('traslados_list', transferred_values_map),
+        ):
+            cfdi_values[target_key] = [
+                {
+                    **k,
+                    'base': currency.round(v['base']),
+                    'importe': currency.round(v['importe']),
+                }
+                for k, v in source_dict.items()
+            ]
 
         # Totals.
         transferred_tax_amounts = [x['importe'] for x in cfdi_values['traslados_list'] if x['tipo_factor'] != 'Exento']
@@ -1214,6 +1234,7 @@ class L10nMxEdiDocument(models.Model):
             'sequence': sequence,
             'format_string': cfdi_values_list[0]['format_string'],
             'format_float': cfdi_values_list[0]['format_float'],
+            'line_base_importe_dp': cfdi_values_list[0]['line_base_importe_dp'],
             'currency_precision': cfdi_values_list[0]['currency_precision'],
 
             'no_certificado': cfdi_values_list[0]['no_certificado'],

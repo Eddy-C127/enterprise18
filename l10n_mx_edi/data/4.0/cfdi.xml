@@ -62,8 +62,8 @@
                             <cfdi:Traslados t-if="line_values['traslados_list']">
                                 <t t-foreach="line_values['traslados_list']" t-as="tax_values">
                                     <cfdi:Traslado
-                                        t-att-Base="format_float(tax_values['base'])"
-                                        t-att-Importe="format_float(tax_values['importe'])"
+                                        t-att-Base="format_float(tax_values['base'], precision=line_base_importe_dp)"
+                                        t-att-Importe="format_float(tax_values['importe'], precision=line_base_importe_dp)"
                                         t-att-Impuesto="tax_values['impuesto']"
                                         t-att-TipoFactor="tax_values['tipo_factor']"
                                         t-att-TasaOCuota="format_float(tax_values['tasa_o_cuota'], precision=6)"
@@ -73,8 +73,8 @@
                             <cfdi:Retenciones t-if="line_values['retenciones_list']">
                                 <t t-foreach="line_values['retenciones_list']" t-as="tax_values">
                                     <cfdi:Retencion
-                                        t-att-Base="format_float(tax_values['base'])"
-                                        t-att-Importe="format_float(tax_values['importe'])"
+                                        t-att-Base="format_float(tax_values['base'], precision=line_base_importe_dp)"
+                                        t-att-Importe="format_float(tax_values['importe'], precision=line_base_importe_dp)"
                                         t-att-Impuesto="tax_values['impuesto']"
                                         t-att-TipoFactor="tax_values['tipo_factor']"
                                         t-att-TasaOCuota="format_float(tax_values['tasa_o_cuota'], precision=6)"

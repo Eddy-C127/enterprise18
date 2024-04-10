@@ -66,6 +66,10 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
         cls.tax_0_exento.l10n_mx_factor_type = 'Exento'
         cls.tax_8 = cls.env["account.chart.template"].ref('tax17')
         cls.tax_8_ieps = cls.env["account.chart.template"].ref('ieps_8_sale')
+        cls.tax_0_ieps = cls.tax_8_ieps.copy(default={'amount': 0.0})
+        cls.tax_6_ieps = cls.tax_8_ieps.copy(default={'amount': 6.0})
+        cls.tax_7_ieps = cls.tax_8_ieps.copy(default={'amount': 7.0})
+        cls.tax_26_5_ieps = cls.env["account.chart.template"].ref('ieps_26_5_sale')
         cls.tax_53_ieps = cls.env["account.chart.template"].ref('ieps_53_sale')
         cls.tax_10_ret_isr = cls.env["account.chart.template"].ref('tax3')
         cls.tax_10_ret_isr.type_tax_use = 'sale'
@@ -189,6 +193,18 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
 
         cls.uuid = 0
 
+    def setup_usd_rates(self, *rates):
+        usd = self.fake_usd_data['currency']
+        usd.sudo().rate_ids.unlink()
+        self.env['res.currency.rate'].create([
+            {
+                'name': rate_date,
+                'inverse_company_rate': rate,
+                'currency_id': usd.id,
+            }
+            for rate_date, rate in rates
+        ])
+
     @contextmanager
     def with_mocked_pac_method(self, method_name, method_replacement):
         """ Helper to mock an rpc call to the PAC.
@@ -273,6 +289,12 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
         sequence = self.env['l10n_mx_edi.document']._get_global_invoice_cfdi_sequence(self.env.company)
         sequence.number_next = number
         yield
+
+    def _test_cfdi_rounding(self, run_function):
+        for tax_calculation_rounding_method in ('round_per_line', 'round_globally'):
+            with self.subTest(tax_calculation_rounding_method=tax_calculation_rounding_method):
+                self.env.company.tax_calculation_rounding_method = tax_calculation_rounding_method
+                run_function(tax_calculation_rounding_method)
 
     @classmethod
     def _create_product(cls, **kwargs):
