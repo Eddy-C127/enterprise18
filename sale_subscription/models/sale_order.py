@@ -615,14 +615,15 @@ class SaleOrder(models.Model):
                 # When we cancel a quote or a confirmed subscription that was not invoiced, we remove the order logs and
                 # reopen the parent order if the conditions are met.
                 # We know if the order is a renewal with transfer log by looking at the logs of the parent and the log of the order.
-                transfer_logs = order.subscription_id and order.order_log_ids.filtered(lambda log: log.event_type == '3_transfer' and log.amount_signed >= 0)
-                # last transfer amount
-                transfer_amount = transfer_logs and transfer_logs[:1].amount_signed
-                parent_transfer_log = transfer_amount and order.subscription_id.order_log_ids.filtered(lambda log: log.event_type == '3_transfer' and log.amount_signed == - transfer_amount)
-                last_parent_log = order.subscription_id.order_log_ids.sorted()[:1]
-                if parent_transfer_log and parent_transfer_log == last_parent_log:
+                parent_last_log = order.subscription_id and \
+                                  order.subscription_id.order_log_ids.sorted(
+                                      lambda log: (log.event_date, log.id), reverse=True
+                                  )[:1]
+                if (parent_last_log and
+                    parent_last_log.event_type == '3_transfer' and
+                    parent_last_log.amount_signed <= 0):
                     # Delete the parent transfer log if it is the last log of the parent.
-                    parent_transfer_log.sudo().unlink()
+                    parent_last_log.sudo().unlink()
                     # Reopen the parent order and avoid recreating logs
                     order.subscription_id.with_context(tracking_disable=True).set_open()
                     parent_link = order.subscription_id._get_html_link()
