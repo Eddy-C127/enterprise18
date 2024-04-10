@@ -9,6 +9,7 @@ export class AddressRecurrencyConfirmationDialog extends ConfirmationDialog {
         ...ConfirmationDialog.props,
         body: { type: String, optional: true },
         onChangeRecurrenceUpdate: { type: Function },
+        selected: { type: String },
     };
     static defaultProps = {
         ...ConfirmationDialog.defaultProps,

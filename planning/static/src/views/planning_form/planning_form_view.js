@@ -51,6 +51,7 @@ export class PlanningFormController extends FormController {
 
     async beforeExecuteActionButton(clickParams) {
         const shift = this.model.root;
+        this.state.recurrenceUpdate = shift.data.recurrence_update;
         if (clickParams.name === "unlink") {
             const canProceed = await new Promise((resolve) => {
                 if (shift.data.recurrency_id) {
@@ -62,6 +63,7 @@ export class PlanningFormController extends FormController {
                             return resolve(true);
                         },
                         onChangeRecurrenceUpdate: this._setRecurrenceUpdate.bind(this),
+                        selected: this.state.recurrenceUpdate,
                     });
                 } else {
                     this.dialogService.add(ConfirmationDialog, {
