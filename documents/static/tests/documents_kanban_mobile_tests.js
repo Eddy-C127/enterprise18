@@ -5,7 +5,6 @@ import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { createDocumentsViewWithMessaging } from "./documents_test_utils";
 import { documentService } from "@documents/core/document_service";
 import { storeService } from "@mail/core/common/store_service";
-import { attachmentService } from "@mail/core/common/attachment_service";
 import { voiceMessageService } from "@mail/discuss/voice_message/common/voice_message_service";
 import { multiTabService } from "@bus/multi_tab_service";
 import { busParametersService } from "@bus/bus_parameters_service";
@@ -37,7 +36,6 @@ QUnit.module("documents", {}, function () {
                         },
                     },
                     "document.document": documentService,
-                    "mail.attachment": attachmentService,
                     "mail.store": storeService,
                     "discuss.voice_message": voiceMessageService,
                     multi_tab: multiTabService,

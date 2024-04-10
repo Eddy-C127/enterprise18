@@ -11,7 +11,6 @@ import { busService } from "@bus/services/bus_service";
 import { DocumentsKanbanRenderer } from "@documents/views/kanban/documents_kanban_renderer";
 import { documentService } from "@documents/core/document_service";
 import { storeService } from "@mail/core/common/store_service";
-import { attachmentService } from "@mail/core/common/attachment_service";
 import { voiceMessageService } from "@mail/discuss/voice_message/common/voice_message_service";
 import {
     createDocumentsView as originalCreateDocumentsView,
@@ -81,7 +80,6 @@ QUnit.module("documents", {}, function () {
                         },
                     },
                     "document.document": documentService,
-                    "mail.attachment": attachmentService,
                     im_status: imStatusService,
                     presence: presenceService,
                     "mail.store": storeService,

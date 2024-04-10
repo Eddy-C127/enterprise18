@@ -10,8 +10,6 @@ export class DocumentService {
         this.env = env;
         /** @type {import("@mail/core/common/store_service").Store} */
         this.store = services["mail.store"];
-        /** @type {import("@mail/core/common/attachment_service").AttachmentService} */
-        this.attachmentService = services["mail.attachment"];
     }
 
     /**
@@ -55,7 +53,7 @@ export class DocumentService {
 }
 
 export const documentService = {
-    dependencies: ["mail.store", "mail.attachment"],
+    dependencies: ["mail.store"],
     start(env, services) {
         return new DocumentService(env, services);
     },
