@@ -49,16 +49,17 @@ patch(PosStore.prototype, {
     },
 
     async sendOrderInPreparation(order, cancelled = false) {
-        let result = true;
+        let result = super.sendOrderInPreparation(order, cancelled);
+        let sendChangesResult = true;
 
         if (this.preparationDisplayCategoryIds.size) {
-            result = await order.sendChanges(cancelled);
+            sendChangesResult = await order.sendChanges(cancelled);
         }
 
         // We display this error popup only if the PoS is connected,
         // otherwise the user has already received a popup telling him
         // that this functionality will be limited.
-        if (!result && this.synch.status === "connected") {
+        if (!sendChangesResult && this.synch.status === "connected") {
             await this.popup.add(ErrorPopup, {
                 title: _t("Send failed"),
                 body: _t("Failed in sending the changes to preparation display"),
@@ -66,7 +67,7 @@ patch(PosStore.prototype, {
             });
         }
 
-        return super.sendOrderInPreparation(order, cancelled);
+        return result;
     },
     // @override
     _getCreateOrderContext(orders, options) {
