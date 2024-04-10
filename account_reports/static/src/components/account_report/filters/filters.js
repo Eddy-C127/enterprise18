@@ -185,6 +185,10 @@ export class AccountReportFilters extends Component {
         return Boolean(this.controller.groups.analytic_accounting) && (Boolean(this.controller.filters.show_analytic_groupby) || Boolean(this.controller.filters.show_analytic_plan_groupby));
     }
 
+    get hasCodesFilter() {
+        return Boolean(this.controller.options.sales_report_taxes?.operation_category?.goods);
+    }
+
     get hasExtraOptionsFilter() {
         return (
             "report_cash_basis" in this.controller.options ||
