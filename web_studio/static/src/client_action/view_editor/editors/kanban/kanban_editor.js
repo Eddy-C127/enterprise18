@@ -12,6 +12,7 @@ class EditorArchParser extends kanbanView.ArchParser {
         const parsed = super.parse(...arguments);
         const noFetch = getStudioNoFetchFields(parsed.fieldNodes);
         parsed.fieldNodes = omit(parsed.fieldNodes, ...noFetch.fieldNodes);
+        parsed.progressAttributes = false;
         return parsed;
     }
 }
@@ -33,7 +34,7 @@ class OneRecordModel extends kanbanView.Model {
                     resModel: list.config.resModel,
                     fields: list.config.fields,
                     activeFields: list.config.activeFields,
-                    groupByFieldName: list.groupBy[0],
+                    groupByFieldName: list.groupByField.name,
                     context: list.context,
                     list: {
                         resModel: list.config.resModel,

@@ -1047,6 +1047,64 @@ QUnit.module(
             assert.containsOnce(target, ".o_kanban_record:not(.o_kanban_demo)");
         });
 
+        QUnit.test(
+            "kanban editor, grouped on date field granular, no record, progressbar",
+            async function (assert) {
+                serverData.models.coucou.fields.date = {
+                    name: "date",
+                    type: "date",
+                    string: "Date",
+                };
+                serverData.models.coucou.records = [];
+                patchWithCleanup(odoo, {
+                    debug: true,
+                });
+
+                const arch = `
+            <kanban default_group_by='date:month'>
+                <progressbar colors="{}" field="priority"/>
+                <field name="priority" />
+                <templates>
+                    <t t-name='kanban-box'>
+                        <div><field name='display_name'/></div>
+                    </t>
+                </templates>
+            </kanban>`;
+                await createViewEditor({
+                    serverData,
+                    type: "kanban",
+                    resModel: "coucou",
+                    arch,
+                    mockRPC: (route, args) => {
+                        if (route === "/web_studio/get_xml_editor_resources") {
+                            return {
+                                views: [
+                                    {
+                                        id: 99999999,
+                                        name: "default",
+                                        arch,
+                                    },
+                                ],
+                                main_view_key: "",
+                            };
+                        }
+                        if (route.endsWith("/web/bundle/web.ace_lib")) {
+                            return [{}];
+                        }
+                    },
+                });
+
+                assert.hasClass(
+                    target.querySelector(".o_web_studio_kanban_view_editor"),
+                    "o_kanban_grouped"
+                );
+                assert.containsOnce(target, ".o_kanban_record:not(.o_kanban_demo)");
+                await click(target, "button.o_web_studio_open_xml_editor");
+                assert.containsOnce(target, ".o_web_studio_xml_editor");
+                assert.containsOnce(target, ".o_view_controller.o_kanban_view");
+            }
+        );
+
         QUnit.test("Remove a drop-down menu using kanban editor", async function (assert) {
             const arch = `
             <kanban>
