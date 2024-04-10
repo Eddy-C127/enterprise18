@@ -894,25 +894,6 @@ class SaleOrder(models.Model):
         }
         return action
 
-    def action_open_subscriptions(self):
-        """ Display the linked subscription and adapt the view to the number of records to display."""
-        self.ensure_one()
-        subscriptions = self.order_line.mapped('subscription_id')
-        action = self.env["ir.actions.actions"]._for_xml_id("sale_subscription.sale_subscription_action")
-        if len(subscriptions) > 1:
-            action['domain'] = [('id', 'in', subscriptions.ids)]
-        elif len(subscriptions) == 1:
-            form_view = [(self.env.ref('sale_subscription.sale_subscription_view_form').id, 'form')]
-            if 'views' in action:
-                action['views'] = form_view + [(state, view) for state, view in action['views'] if view != 'form']
-            else:
-                action['views'] = form_view
-            action['res_id'] = subscriptions.ids[0]
-        else:
-            action = {'type': 'ir.actions.act_window_close'}
-        action['context'] = dict(self._context, create=False)
-        return action
-
     def action_sale_order_log(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id("sale_subscription.sale_order_log_analysis_action")
