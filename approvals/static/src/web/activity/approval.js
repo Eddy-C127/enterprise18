@@ -17,8 +17,6 @@ export class Approval extends Component {
     };
 
     setup() {
-        /** @type {import("@mail/core/web/activity_service").ActivityService} */
-        this.activityService = useService("mail.activity");
         this.store = useState(useService("mail.store"));
     }
 
@@ -26,7 +24,7 @@ export class Approval extends Component {
         await this.env.services.orm.call("approval.approver", "action_approve", [
             this.props.activity.approval.id,
         ]);
-        this.activityService.delete(this.props.activity);
+        this.props.activity.remove();
         this.props.onChange();
     }
 
@@ -34,7 +32,7 @@ export class Approval extends Component {
         await this.env.services.orm.call("approval.approver", "action_refuse", [
             this.props.activity.approval.id,
         ]);
-        this.activityService.delete(this.props.activity);
+        this.props.activity.remove();
         this.props.onChange();
     }
 }

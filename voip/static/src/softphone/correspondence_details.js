@@ -16,7 +16,6 @@ export class CorrespondenceDetails extends Component {
 
     setup() {
         this.action = useService("action");
-        this.activityService = useService("mail.activity");
         this.callService = useService("voip.call");
         this.dialog = useService("dialog");
         this.orm = useService("orm");
@@ -137,7 +136,7 @@ export class CorrespondenceDetails extends Component {
     /** @param {MouseEvent} ev */
     async onClickCancel(ev) {
         await this.orm.call("mail.activity", "unlink", [[this.activity.id]]);
-        this.activityService.delete(this.activity);
+        this.activity.remove();
         this.softphone.selectedCorrespondence = null;
         if (this.softphone.isInAutoCallMode) {
             this.softphone.selectNextActivity();
@@ -195,8 +194,8 @@ export class CorrespondenceDetails extends Component {
 
     /** @param {MouseEvent} ev */
     async onClickMarkAsDone(ev) {
-        await this.activityService.markAsDone(this.activity);
-        this.activityService.delete(this.activity);
+        await this.activity.markAsDone();
+        this.activity.delete();
         this.softphone.selectedCorrespondence = null;
         if (this.softphone.isInAutoCallMode) {
             this.softphone.selectNextActivity();

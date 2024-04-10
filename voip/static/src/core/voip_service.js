@@ -44,8 +44,6 @@ export class Voip {
         this.env = env;
         /** @type {import("@mail/core/store_service").Store} */
         this.store = services["mail.store"];
-        /** @type {import("@mail/activity/activity_service").ActivityService} */
-        this.activityService = services["mail.activity"];
         this.callService = services["voip.call"];
         this.dialog = services.dialog;
         this.orm = services.orm;
@@ -57,7 +55,7 @@ export class Voip {
         delete this.store.voipConfig;
         this.busService.subscribe("delete_call_activity", (payload) => {
             const activity = this.store.Activity.insert(payload);
-            this.activityService.delete(activity);
+            activity.remove();
         });
         this.busService.subscribe("refresh_call_activities", () => {
             this.fetchTodayCallActivities();
@@ -263,7 +261,7 @@ export class Voip {
 }
 
 export const voipService = {
-    dependencies: ["bus_service", "dialog", "mail.activity", "mail.store", "orm", "voip.call"],
+    dependencies: ["bus_service", "dialog", "mail.store", "orm", "voip.call"],
     async start() {
         const isEmployee = await user.hasGroup("base.group_user");
         if (!isEmployee) {

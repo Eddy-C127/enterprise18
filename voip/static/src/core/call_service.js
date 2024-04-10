@@ -8,7 +8,6 @@ export class CallService {
         this.env = env;
         this.orm = services.orm;
         this.store = services["mail.store"];
-        this.activityService = services["mail.activity"];
     }
 
     async abort(call) {
@@ -35,8 +34,8 @@ export class CallService {
             [data] = await this.orm.call("voip.call", "end_call", [[call.id]], {
                 activity_name: call.activity.res_name,
             });
-            await this.activityService.markAsDone(call.activity);
-            this.activityService.delete(call.activity);
+            await call.activity.markAsDone();
+            call.activity.remove();
             call.activity = null;
         } else {
             [data] = await this.orm.call("voip.call", "end_call", [[call.id]]);
@@ -72,7 +71,7 @@ export class CallService {
 }
 
 export const callService = {
-    dependencies: ["mail.activity", "mail.store", "orm"],
+    dependencies: ["mail.store", "orm"],
     start(env, services) {
         return new CallService(env, services);
     },

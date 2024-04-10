@@ -13,7 +13,6 @@ export class ActivitiesTab extends Component {
     setup() {
         this.dialog = useService("dialog");
         this.orm = useService("orm");
-        this.activityService = useService("mail.activity");
         this.voip = useState(useService("voip"));
         onMounted(() => this.voip.fetchTodayCallActivities());
         this.state = useState({ hoveredActivity: null });
@@ -44,7 +43,7 @@ export class ActivitiesTab extends Component {
             cancel() {},
             confirm: async () => {
                 await this.orm.call("mail.activity", "unlink", [[activity.id]]);
-                this.activityService.delete(activity);
+                activity.remove();
             },
             confirmLabel: _t("Yes, do it."),
             cancelLabel: _t("Missclicked, sorry."),

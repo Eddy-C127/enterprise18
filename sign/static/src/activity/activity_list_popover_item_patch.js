@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { ActivityListPopoverItem } from "@mail/core/web/activity_list_popover_item";
 import { patch } from "@web/core/utils/patch";
 
@@ -11,10 +9,6 @@ patch(ActivityListPopoverItem.prototype, {
     async onClickRequestSign() {
         const { res_model, res_id } = this.props;
         const documentReference = res_model && res_id ? `${res_model},${res_id}` : false;
-        await this.env.services["mail.activity"].requestSignature(
-            this.props.activity.id,
-            this.props.onActivityChanged,
-            documentReference
-        );
+        await this.props.activity.requestSignature(this.props.onActivityChanged, documentReference);
     },
 });

@@ -1,19 +1,17 @@
-/** @odoo-module */
-
-import { ActivityService } from "@mail/core/web/activity_service";
+import { Activity } from "@mail/core/web/activity_model";
 import { patch } from "@web/core/utils/patch";
 import { _t } from "@web/core/l10n/translation";
 
-patch(ActivityService.prototype, {
-    requestSignature(defaultActivityId = false, onClose = () => {}, documentReference = false) {
+patch(Activity.prototype, {
+    requestSignature(onClose = () => {}, documentReference = false) {
         const additionalContext = {
             sign_directly_without_mail: false,
-            default_activity_id: defaultActivityId,
+            default_activity_id: this.id,
         };
         if (documentReference) {
             additionalContext.default_reference_doc = documentReference;
         }
-        return this.env.services.action.doAction(
+        return this.store.env.services.action.doAction(
             {
                 name: _t("Signature Request"),
                 type: "ir.actions.act_window",
@@ -22,10 +20,7 @@ patch(ActivityService.prototype, {
                 target: "new",
                 res_model: "sign.send.request",
             },
-            {
-                additionalContext,
-                onClose,
-            }
+            { additionalContext, onClose }
         );
     },
 });
