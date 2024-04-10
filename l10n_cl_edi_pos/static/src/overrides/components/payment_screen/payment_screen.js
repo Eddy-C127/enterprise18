@@ -59,9 +59,7 @@ patch(PaymentScreen.prototype, {
                 }
             }
             if (missingFields.length > 0) {
-                this.notification.add(
-                    _t("Please fill out missing fields to proceed.", 5000)
-                );
+                this.notification.add(_t("Please fill out missing fields to proceed.", 5000));
                 this.selectPartner(true, missingFields);
                 return false;
             }
@@ -91,5 +89,21 @@ patch(PaymentScreen.prototype, {
         return this.pos.isChileanCompany()
             ? this.pos.selectedOrder.isFactura()
             : super.shouldDownloadInvoice();
+    },
+    async _postPushOrderResolve(order, order_server_ids) {
+        const result = await super._postPushOrderResolve(...arguments);
+        if (this.pos.isChileanCompany()) {
+            const result = await this.orm.call(
+                "pos.order",
+                "get_cl_pos_info",
+                [order_server_ids],
+                {}
+            );
+            order.l10n_latam_document_type = result[0].l10n_latam_document_type;
+            order.l10n_latam_document_number = result[0].l10n_latam_document_number;
+            order.l10n_cl_sii_barcode = result[0].l10n_cl_sii_barcode;
+            order.l10n_cl_sii_regional_office = result[0].l10n_cl_sii_regional_office;
+        }
+        return result;
     },
 });

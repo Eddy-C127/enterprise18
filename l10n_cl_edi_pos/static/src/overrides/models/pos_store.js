@@ -26,12 +26,26 @@ patch(PosStore.prototype, {
             // FIXME in master: when processing multiple orders, and at least one is an invoice of type Factura,
             //  then we will generate the pdf for all invoices linked to the orders,
             //  since the context is applicable for the whole RPC requests `create_from_ui` on all orders.
-            const noOrderRequiresInvoicePrinting = orders.every((order) => order.data.to_invoice && order.data.invoiceType === 'boleta');
+            const noOrderRequiresInvoicePrinting = orders.every(
+                (order) => order.data.to_invoice && order.data.invoiceType === "boleta"
+            );
             if (noOrderRequiresInvoicePrinting) {
-                context = { ...context, generate_pdf: false }
+                context = { ...context, generate_pdf: false };
             }
         }
         return context;
+    },
+    getReceiptHeaderData(order) {
+        const result = super.getReceiptHeaderData(...arguments);
+        if (!this.isChileanCompany()) {
+            return result;
+        }
+        result.company.cl_vat = this.company.vat;
+        result.l10n_cl_sii_regional_office = order.l10n_cl_sii_regional_office;
+        result.l10n_latam_document_type = order.l10n_latam_document_type;
+        result.l10n_latam_document_number = order.l10n_latam_document_number;
+
+        return result;
     },
 });
 
@@ -58,6 +72,12 @@ patch(Order.prototype, {
     init_from_JSON(json) {
         super.init_from_JSON(...arguments);
         this.voucherNumber = json.voucher_number || false;
+        this.l10n_latam_document_type = json.l10n_latam_document_type || false;
+        this.l10n_latam_document_number = json.l10n_latam_document_number || false;
+        this.l10n_cl_sii_barcode = json.l10n_cl_sii_barcode || false;
+        this.l10n_cl_sii_regional_office = json.l10n_cl_sii_regional_office
+            ? json.l10n_cl_sii_regional_office[0]
+            : false;
     },
     is_to_invoice() {
         if (this.pos.isChileanCompany()) {
@@ -83,6 +103,14 @@ patch(Order.prototype, {
         return {
             ...super.export_for_printing(...arguments),
             voucherNumber: this.voucherNumber,
+            l10n_cl_sii_barcode: this.l10n_cl_sii_barcode,
+            l10n_cl_dte_resolution_number: this.pos.company.l10n_cl_dte_resolution_number,
+            l10n_cl_dte_resolution_date: this.pos.company.l10n_cl_dte_resolution_date,
         };
+    },
+    wait_for_push_order() {
+        var result = super.wait_for_push_order(...arguments);
+        result = Boolean(result || this.pos.isChileanCompany());
+        return result;
     },
 });
