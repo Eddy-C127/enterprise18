@@ -12,7 +12,6 @@ export class ContactsTab extends Component {
         this.store = useState(useService("mail.store"));
         this.voip = useState(useService("voip"));
         this.orm = useService("orm");
-        this.personaService = useService("mail.persona");
         onMounted(() => this.voip.fetchContacts());
     }
 

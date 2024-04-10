@@ -72,7 +72,7 @@ export class CallService {
 }
 
 export const callService = {
-    dependencies: ["mail.activity", "mail.persona", "mail.store", "orm"],
+    dependencies: ["mail.activity", "mail.store", "orm"],
     start(env, services) {
         return new CallService(env, services);
     },

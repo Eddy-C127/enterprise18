@@ -3,7 +3,6 @@
 import { Thread } from "@mail/core/common/thread_model";
 import { patch } from "@web/core/utils/patch";
 import { deserializeDateTime } from "@web/core/l10n/dates";
-import { DEFAULT_AVATAR } from "@mail/core/common/persona_service";
 
 import { toRaw } from "@odoo/owl";
 
@@ -33,7 +32,7 @@ patch(Thread.prototype, {
         if (this.channel_type !== "whatsapp") {
             return super.avatarUrl;
         }
-        return DEFAULT_AVATAR;
+        return this.store.DEFAULT_AVATAR;
     },
 
     get isChatChannel() {
