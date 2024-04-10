@@ -7,6 +7,6 @@ import { useBackButton } from "@web_mobile/js/core/hooks";
 patch(ChatWindow.prototype, {
     setup() {
         super.setup();
-        useBackButton(() => this.chatWindowService.close(this.props.chatWindow));
+        useBackButton(() => this.props.chatWindow.close());
     },
 });
