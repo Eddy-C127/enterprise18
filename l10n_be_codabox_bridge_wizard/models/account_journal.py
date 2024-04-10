@@ -26,7 +26,7 @@ class AccountJournal(models.Model):
         params = {
             "db_uuid": self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
             "fidu_vat": re.sub("[^0-9]", "", company.l10n_be_codabox_fiduciary_vat),
-            "company_vat": re.sub("[^0-9]", "", company.vat),
+            "company_vat": re.sub("[^0-9]", "", company.vat or company.company_registry),
             "iap_token": company.sudo().l10n_be_codabox_iap_token,
             "from_date": date_from,
         }
@@ -55,7 +55,7 @@ class AccountJournal(models.Model):
     ############################
 
     def _l10n_be_codabox_fetch_coda_transactions(self, company):
-        if not company.vat or not company.l10n_be_codabox_is_connected:
+        if (not company.vat and company.company_registry) or not company.l10n_be_codabox_is_connected:
             raise UserError(get_error_msg({"type": "error_codabox_not_configured"}))
 
         date_3_months_ago = fields.Date.to_string(fields.Date.today() - relativedelta(months=3))

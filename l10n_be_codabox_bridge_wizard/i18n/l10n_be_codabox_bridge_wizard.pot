@@ -123,7 +123,7 @@ msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_connection_wizard__company_vat
-msgid "Company VAT"
+msgid "Company ID"
 msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
@@ -332,18 +332,10 @@ msgid "Success"
 msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
-#: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_connection_wizard__company_vat
-msgid ""
-"The Tax Identification Number. Values here will be validated based on the "
-"country format. You can use '/' to indicate that the partner is not subject "
-"to tax."
-msgstr ""
-
-#. module: l10n_be_codabox_bridge_wizard
 #. odoo-python
 #: code:addons/l10n_be_codabox_bridge_wizard/models/res_company.py:0
 #, python-format
-msgid "The company VAT number is not set."
+msgid "The company VAT number or ID is not set."
 msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard

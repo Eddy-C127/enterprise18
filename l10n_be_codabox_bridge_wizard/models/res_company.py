@@ -18,7 +18,7 @@ class ResCompany(models.Model):
         self._l10n_be_codabox_verify_prerequisites()
         return {
             "db_uuid": self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
-            "company_vat": re.sub("[^0-9]", "", self.vat),
+            "company_vat": re.sub("[^0-9]", "", self.vat or self.company_registry),
             "fidu_vat": re.sub("[^0-9]", "", self.l10n_be_codabox_fiduciary_vat),
         }
 
@@ -49,8 +49,8 @@ class ResCompany(models.Model):
         self.check_access_rule('write')
         self.check_access_rights('write')
         self.ensure_one()
-        if not self.vat:
-            raise UserError(_("The company VAT number is not set."))
+        if not self.vat and not self.company_registry:
+            raise UserError(_("The company VAT number or ID is not set."))
         if not self.l10n_be_codabox_fiduciary_vat:
             raise UserError(_("The feature is restricted to Accounting Firms."))
 

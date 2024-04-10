@@ -16,8 +16,8 @@ class L10nBeCodaBoxConnectionWizard(models.TransientModel):
         default=lambda self: self.env.company,
     )
     company_vat = fields.Char(
-        string='Company VAT',
-        related='company_id.vat',
+        string='Company ID',
+        compute='_compute_company_vat',
         readonly=True,
     )
     fiduciary_vat = fields.Char(
@@ -34,6 +34,10 @@ class L10nBeCodaBoxConnectionWizard(models.TransientModel):
     nb_connections = fields.Integer()
     connection_exists = fields.Boolean()
     is_fidu_consent_valid = fields.Boolean()
+
+    def _compute_company_vat(self):
+        for wizard in self:
+            wizard.company_vat = wizard.company_id.vat or wizard.company_id.company_registry
 
     def _compute_show_fidu_password(self):
         for wizard in self:
