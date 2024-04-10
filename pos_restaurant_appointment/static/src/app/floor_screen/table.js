@@ -27,14 +27,15 @@ patch(Table.prototype, {
                 appointment.start = serializeDateTime(startOfToday);
             }
         });
-        return getMin(
-            appointments.filter(
-                (a) => deserializeDateTime(a.start).ts > DateTime.now() - (a.duration / 2) * 3600000
-            ),
-            {
-                criterion: (a) => deserializeDateTime(a.start).ts,
-            }
+        const possible_appointments = appointments.filter(
+            (a) => deserializeDateTime(a.start).ts > DateTime.now() - (a.duration / 2) * 3600000
         );
+        if (possible_appointments.length === 0) {
+            return false;
+        }
+        return getMin(possible_appointments, {
+            criterion: (a) => deserializeDateTime(a.start).ts,
+        });
     },
     getFormatedDate(date) {
         return deserializeDateTime(date).toFormat("HH:mm");
