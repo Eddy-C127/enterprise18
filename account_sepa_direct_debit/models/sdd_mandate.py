@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
@@ -21,7 +20,7 @@ class SDDMandate(models.Model):
 
     _sql_constraints = [('name_unique', 'unique(name)', "Mandate identifier must be unique! Please choose another one.")]
 
-    state = fields.Selection([('draft', 'Draft'),('active','Active'), ('revoked','Revoked'), ('closed','Closed')],
+    state = fields.Selection([('draft', 'Draft'), ('active', 'Active'), ('revoked', 'Revoked'), ('closed', 'Closed')],
                             string="State",
                             readonly=True,
                             default='draft',
@@ -31,7 +30,7 @@ class SDDMandate(models.Model):
                             "- 'closed' designates a mandate that has been marked as not to use anymore without invalidating the previous transactions done with it."
                             "- 'revoked' means the mandate has been signaled as fraudulent by the customer. It cannot be used anymore, and should not ever have been. You will probably need to refund the related invoices, if any.\n")
 
-    #one-off mandates are fully supported, but hidden to the user for now. Let's see if they need it.
+    # one-off mandates are fully supported, but hidden to the user for now. Let's see if they need it.
     one_off = fields.Boolean(string='One-off Mandate',
                                     default=False,
                                     help="True if and only if this mandate can be used for only one transaction. It will automatically go from 'active' to 'closed' after its first use in payment if this option is set.\n")

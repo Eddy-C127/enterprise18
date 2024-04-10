@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 from odoo import fields
-from odoo import Command
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.exceptions import UserError
 from odoo.tests import tagged
 from odoo.tests.common import test_xsd
+from odoo.tools.misc import file_open, file_path
 
 from lxml import etree
 
@@ -15,49 +15,6 @@ class SDDTestCommon(AccountTestInvoicingCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.env.ref('base.EUR').active = True
-
-        def create_account(number, partner, bank):
-            return cls.env['res.partner.bank'].create({
-                'acc_number': number,
-                'partner_id': partner.id,
-                'bank_id': bank.id
-            })
-
-        def create_mandate(partner, partner_bank, one_off, company, payment_journal):
-            return cls.env['sdd.mandate'].create({
-                'name': 'mandate ' + (partner.name or ''),
-                'partner_bank_id': partner_bank.id,
-                'one_off': one_off,
-                'start_date': fields.Date.today(),
-                'partner_id': partner.id,
-                'company_id': company.id,
-                'payment_journal_id': payment_journal.id
-            })
-
-        def create_invoice(partner):
-            product = cls.env['product.product'].create({'name': 'A Test Product'})
-            invoice = cls.env['account.move'].create({
-                'move_type': 'out_invoice',
-                'partner_id': partner.id,
-                'currency_id': cls.env.ref('base.EUR').id,
-                'payment_reference': 'invoice to client',
-                'invoice_line_ids': [Command.create({
-                    'product_id': product.id,
-                    'quantity': 1,
-                    'price_unit': 42,
-                    'name': 'something',
-                })],
-            })
-            invoice.action_post()
-            return invoice
-
-        def pay_with_mandate(invoice, mandate):
-            sdd_method_line = mandate.payment_journal_id.inbound_payment_method_line_ids.filtered(lambda l: l.code == 'sdd')
-            cls.env['account.payment.register'].with_context(active_model='account.move', active_ids=invoice.ids).create({
-                'payment_date': invoice.invoice_date_due or invoice.invoice_date,
-                'journal_id': mandate.payment_journal_id.id,
-                'payment_method_line_id': sdd_method_line.id,
-            })._create_payments()
 
         cls.env.user.email = "ruben.rybnik@sorcerersfortress.com"
 
@@ -77,29 +34,71 @@ class SDDTestCommon(AccountTestInvoicingCommon):
 
         # Then we setup the banking data and mandates of two customers (one with a one-off mandate, the other with a recurrent one)
         cls.partner_agrolait = cls.env['res.partner'].create({'name': 'Agrolait', 'city': 'Agrolait Town', 'country_id': cls.country_germany.id})
-        cls.partner_bank_agrolait = create_account('DE44500105175407324931', cls.partner_agrolait, cls.bank_ing)
-        cls.mandate_agrolait = create_mandate(cls.partner_agrolait, cls.partner_bank_agrolait, False, cls.sdd_company, cls.sdd_company_bank_journal)
+        cls.partner_bank_agrolait = cls.create_account('DE44500105175407324931', cls.partner_agrolait, cls.bank_ing)
+        cls.mandate_agrolait = cls.create_mandate(cls.partner_agrolait, cls.partner_bank_agrolait, False, cls.sdd_company, cls.sdd_company_bank_journal)
         cls.mandate_agrolait.action_validate_mandate()
 
         cls.partner_china_export = cls.env['res.partner'].create({'name': 'China Export', 'city': 'China Town', 'country_id': cls.country_china.id})
-        cls.partner_bank_china_export = create_account('SA0380000000608010167519', cls.partner_china_export, cls.bank_bnp)
-        cls.mandate_china_export = create_mandate(cls.partner_china_export, cls.partner_bank_china_export, True, cls.sdd_company, cls.sdd_company_bank_journal)
+        cls.partner_bank_china_export = cls.create_account('SA0380000000608010167519', cls.partner_china_export, cls.bank_bnp)
+        cls.mandate_china_export = cls.create_mandate(cls.partner_china_export, cls.partner_bank_china_export, True, cls.sdd_company, cls.sdd_company_bank_journal)
         cls.mandate_china_export.action_validate_mandate()
 
         cls.partner_no_bic = cls.env['res.partner'].create({'name': 'NO BIC Co', 'city': 'NO BIC City', 'country_id': cls.country_belgium.id})
-        cls.partner_bank_no_bic = create_account('BE68844010370034', cls.partner_no_bic, cls.bank_no_bic)
-        cls.mandate_no_bic = create_mandate(cls.partner_no_bic, cls.partner_bank_no_bic, True, cls.sdd_company, cls.sdd_company_bank_journal)
+        cls.partner_bank_no_bic = cls.create_account('BE68844010370034', cls.partner_no_bic, cls.bank_no_bic)
+        cls.mandate_no_bic = cls.create_mandate(cls.partner_no_bic, cls.partner_bank_no_bic, True, cls.sdd_company, cls.sdd_company_bank_journal)
         cls.mandate_no_bic.action_validate_mandate()
 
         # Finally, we create one invoice for each of our test customers ...
-        cls.invoice_agrolait = create_invoice(cls.partner_agrolait)
-        cls.invoice_china_export = create_invoice(cls.partner_china_export)
-        cls.invoice_no_bic = create_invoice(cls.partner_no_bic)
+        cls.invoice_agrolait = cls.create_invoice(cls.partner_agrolait)
+        cls.invoice_china_export = cls.create_invoice(cls.partner_china_export)
+        cls.invoice_no_bic = cls.create_invoice(cls.partner_no_bic)
 
         # Pay the invoices with mandates
-        pay_with_mandate(cls.invoice_agrolait, cls.mandate_agrolait)
-        pay_with_mandate(cls.invoice_china_export, cls.mandate_china_export)
-        pay_with_mandate(cls.invoice_no_bic, cls.mandate_no_bic)
+        cls.pay_with_mandate(cls.invoice_agrolait, cls.mandate_agrolait)
+        cls.pay_with_mandate(cls.invoice_china_export, cls.mandate_china_export)
+        cls.pay_with_mandate(cls.invoice_no_bic, cls.mandate_no_bic)
+
+    def create_account(self, number, partner, bank):
+        return self.env['res.partner.bank'].create({
+            'acc_number': number,
+            'partner_id': partner.id,
+            'bank_id': bank.id
+        })
+
+    def create_mandate(self, partner, partner_bank, one_off, company, payment_journal):
+        return self.env['sdd.mandate'].create({
+            'name': 'mandate ' + (partner.name or ''),
+            'partner_bank_id': partner_bank.id,
+            'one_off': one_off,
+            'start_date': fields.Date.today(),
+            'partner_id': partner.id,
+            'company_id': company.id,
+            'payment_journal_id': payment_journal.id
+        })
+
+    def create_invoice(self, partner):
+        invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'partner_id': partner.id,
+            'currency_id': self.env.ref('base.EUR').id,
+            'payment_reference': 'invoice to client',
+            'invoice_line_ids': [(0, 0, {
+                'product_id': self.env['product.product'].create({'name': 'A Test Product'}).id,
+                'quantity': 1,
+                'price_unit': 42,
+                'name': 'something',
+            })],
+        })
+        invoice.action_post()
+        return invoice
+
+    def pay_with_mandate(self, invoice, mandate):
+        sdd_method_line = mandate.payment_journal_id.inbound_payment_method_line_ids.filtered(lambda l: l.code == 'sdd')
+        self.env['account.payment.register'].with_context(active_model='account.move', active_ids=invoice.ids).create({
+            'payment_date': invoice.invoice_date_due or invoice.invoice_date,
+            'journal_id': mandate.payment_journal_id.id,
+            'payment_method_line_id': sdd_method_line.id,
+        })._create_payments()
 
 
 @tagged('post_install', '-at_install')

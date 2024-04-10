@@ -1,13 +1,9 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import base64
-import re
-
 from datetime import date, datetime
 
 from odoo import models, fields, api, _
-
 from odoo.exceptions import ValidationError, UserError
 
 class AccountBatchPayment(models.Model):
@@ -87,7 +83,7 @@ class AccountBatchPayment(models.Model):
         return super(AccountBatchPayment, self)._generate_export_file()
 
     def check_payments_for_errors(self):
-        rslt = super(AccountBatchPayment, self).check_payments_for_errors()
+        rslt = super().check_payments_for_errors()
 
         if self.payment_method_code not in self.payment_method_id._get_sdd_payment_method_code():
             return rslt

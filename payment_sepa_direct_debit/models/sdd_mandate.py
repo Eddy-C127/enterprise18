@@ -1,12 +1,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
-import re
-from markupsafe import Markup
-from random import randint
 
-from odoo import SUPERUSER_ID, _, fields, models
-from odoo.exceptions import ValidationError
+from odoo import SUPERUSER_ID, models
 
 
 _logger = logging.getLogger(__name__)

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import re
@@ -8,7 +7,7 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 
-#Regular expression used to parse the creditor identifiers in SDD scheme.
+# Regular expression used to parse the creditor identifiers in SDD scheme.
 SDD_CREDITOR_IDENTIFIER_REGEX_PATTERN = r"(?P<country_code>[A-Z]{2})(?P<check_digits>\d{2})(?P<business_code>.{3})(?P<country_identifier>.{1,28})"
 
 class ResCompany(models.Model):
@@ -48,7 +47,7 @@ class ResCompany(models.Model):
         rslt = ''
         for char in test_str:
             if re.match('[A-Z]', char):
-                #using the ascii value of the char to get its number for SDD
+                # using the ascii value of the char to get its number for SDD
                 rslt += str(ord(char) - ascii_value_shift)
             else:
                 rslt += char
