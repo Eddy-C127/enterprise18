@@ -122,22 +122,18 @@
     iframe {
         min-height: unset !important;
     }
-    &:not(:hover) .o_knowledge_draw_handle {
+    &:not(:hover) .o_knowledge_draw_handle, &:not(:hover) a.fa-external-link {
         visibility: hidden;
     }
     .o_knowledge_draw_handle {
-        width: 16px;
-        height: 16px;
-        min-height: 16px;
-        min-width: 16px;
-        border-bottom: 2px solid $o-gray-900;
-        border-radius: 2px;
+        z-index: 1;
+        color: $o-gray-500;
         &.o_knowledge_draw_handle_left {
-            border-left: 2px solid $o-gray-900;
+            transform: rotate(-45deg);
             cursor: nesw-resize;
         }
         &.o_knowledge_draw_handle_right {
-            border-right: 2px solid $o-gray-900;
+            transform: rotate(45deg);
             cursor: nwse-resize;
         }
     }

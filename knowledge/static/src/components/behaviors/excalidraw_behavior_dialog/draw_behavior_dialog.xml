@@ -6,6 +6,9 @@
             <div class="alert alert-warning" role="alert" t-if="state.isError">
                 Sorry, we could not find your drawing, please verify that the URL is valid.
             </div>
+            <div class="alert alert-info d-flex" role="alert" t-else="">
+                <i class="fa fa-info-circle py-1 pe-2"/><div>Collaborative Links require joining, while Embed Links directly show the drawing.</div>
+            </div>
             <input class="o_input" type="text" t-ref="urlInput"
                 t-on-paste.stop="() => this.state.isError = false"
                 t-on-input.stop="() => this.state.isError = false"

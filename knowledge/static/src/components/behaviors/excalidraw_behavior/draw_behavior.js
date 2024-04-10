@@ -1,5 +1,6 @@
 /** @odoo-module */
 
+import { isMobileOS } from "@web/core/browser/feature_detection";
 import { useService } from "@web/core/utils/hooks";
 
 import { AbstractBehavior } from "@knowledge/components/behaviors/abstract_behavior/abstract_behavior";
@@ -27,12 +28,14 @@ export class DrawBehavior extends AbstractBehavior {
         width: { type: String, optional: true },
     };
 
+
     setup() {
         super.setup();
+        this.isMobile = isMobileOS();
         this.dialog = useService("dialog");
         this.state = useState({
             height: this.props.height || "400px",
-            width: this.props.width || "100%",
+            width: this.isMobile ? "100%" : this.props.width || "100%",
         });
 
         onWillStart(() => this.setupIframe());
@@ -82,7 +85,9 @@ export class DrawBehavior extends AbstractBehavior {
 
     onMouseMove(event) {
         event.preventDefault();
-        this.state.width = `${Math.max(2 * Math.abs(this.refPoint.x - event.clientX), 300)}px`;
+        this.state.width = this.isMobile
+            ? this.state.width
+            : `${Math.max(2 * Math.abs(this.refPoint.x - event.clientX), 300)}px`;
         this.state.height = `${Math.max(event.clientY - this.refPoint.y, 300)}px`;
     }
 

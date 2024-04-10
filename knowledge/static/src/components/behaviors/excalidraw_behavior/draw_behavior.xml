@@ -12,12 +12,13 @@
                 </button>
         </div>
         <div t-else="" t-attf-style="width: #{this.state.width}; height: #{this.state.height}"
-            t-attf-class="{{ this.state.isResizing ? 'pe-none' : '' }} d-flex flex-row o_knowledge_draw_container">
-            <div t-on-mousedown.prevent="onHandleMouseDown" 
-                t-attf-class="{{ this.state.isResizing ? 'visible' : '' }} o_knowledge_draw_handle o_knowledge_draw_handle_left align-self-end"/>
-            <iframe class="flex-grow-1 pb-3" t-att-src="state.source" allowfullscreen="true"/>
-            <div t-on-mousedown.prevent="onHandleMouseDown"
-                t-attf-class="{{ this.state.isResizing ? 'visible' : '' }} o_knowledge_draw_handle o_knowledge_draw_handle_right align-self-end"/>
+            t-attf-class="{{ this.state.isResizing ? 'pe-none' : '' }} d-flex flex-row o_knowledge_draw_container position-relative">
+            <div t-if="!isMobile" t-on-mousedown.prevent="onHandleMouseDown"
+                t-attf-class="{{ this.state.isResizing ? 'visible' : '' }} o_knowledge_draw_handle o_knowledge_draw_handle_left fa fa-arrows-h align-self-end position-absolute bottom-0 start-0"/>
+            <iframe class="flex-grow-1 position-relative" t-att-src="state.source" allowfullscreen="true"/>
+            <div t-if="!isMobile" t-on-mousedown.prevent="onHandleMouseDown"
+                t-attf-class="{{ this.state.isResizing ? 'visible' : '' }} o_knowledge_draw_handle o_knowledge_draw_handle_right fa fa-arrows-h align-self-end position-absolute bottom-0 end-0"/>
+            <a title="Open in new Window" t-att-href="state.source" target="_blank" role="button" class="fa fa-external-link end-0 top-0 position-absolute pe-3 pt-3"/>
         </div>
     </t>
 </templates>
