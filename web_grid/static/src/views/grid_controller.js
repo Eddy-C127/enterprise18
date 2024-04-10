@@ -72,7 +72,7 @@ export class GridController extends Component {
                 const { anchor, range } = this.model.navigationInfo;
                 return {
                     anchor,
-                    activeRangeName: range.name,
+                    activeRangeName: range?.name,
                 };
             }
         })

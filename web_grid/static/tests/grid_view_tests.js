@@ -2316,4 +2316,20 @@ QUnit.module("Views", (hooks) => {
         );
     });
 
+    QUnit.test("export navigationInfo when col is not a range", async function (assert) {
+        serverData.views["analytic.line,false,grid"] = `<grid>
+            <field name="project_id" type="row"/>
+            <field name="task_id" type="col"/>
+            <field name="unit_amount" type="measure" widget="float_time"/>
+        </grid>`;
+        const webClient = await createWebClient({ serverData });
+        await doAction(webClient, {
+            res_model: "analytic.line",
+            type: "ir.actions.act_window",
+            views: [[false, "grid"]],
+        });
+        await hoverGridCell(target.querySelectorAll(".o_grid_row .o_grid_cell_readonly")[0]);
+        await click(target, ".o_grid_cell button.o_grid_search_btn");
+        assert.containsOnce(target, ".o_list_view");
+    });
 });
