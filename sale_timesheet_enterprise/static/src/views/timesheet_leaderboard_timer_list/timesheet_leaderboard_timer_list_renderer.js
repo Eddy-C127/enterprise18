@@ -24,12 +24,8 @@ patch(TimesheetTimerListRenderer.prototype, {
 
     async onWillStart() {
         this.userHasBillingRateGroup = await this.user.hasGroup('sale_timesheet_enterprise.group_timesheet_leaderboard_show_rates');
-        const billableTimeTarget = await this.orm.searchRead(
-            'hr.employee',
-            [['user_id', '=', this.user.userId]],
-            ['billable_time_target']
-        );
-        this.showIndicators = billableTimeTarget[0].billable_time_target > 0;
+        const billableTimeTarget = await this.orm.call('hr.employee', 'get_billable_time_target', [[this.user.userId]]);
+        this.showIndicators = billableTimeTarget[0]['billable_time_target'] > 0;
         this.showLeaderboard = await this.user.hasGroup('sale_timesheet_enterprise.group_use_timesheet_leaderboard');
         this.showLeaderboardComponent = (this.userHasBillingRateGroup && this.showIndicators) || this.showLeaderboard;
     },

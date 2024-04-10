@@ -8,15 +8,15 @@ patch(MockServer.prototype, {
         if (model === "res.company" && method === "get_timesheet_ranking_data") {
             return this._mockResCompanyRetrieveRankingData(args);
         }
-        if (model === "hr.employee" && method === "search_read" && kwargs.fields[0] === "billable_time_target") {
-            return this._mockSearchReadBillableTimeTarget(args);
+        if (model === "hr.employee" && method === "get_billable_time_target") {
+            return this._mockGetBillableTimeTarget(args);
         }
         return super._performRPC(...arguments);
     },
     _mockResCompanyRetrieveRankingData() {
         return { leaderboard: [], current_employee: {} };
     },
-    _mockSearchReadBillableTimeTarget() {
-        return [{ billable_time_target: 0 }];
+    _mockGetBillableTimeTarget() {
+        return [{ billable_time_target: 150 }];
     },
 });
