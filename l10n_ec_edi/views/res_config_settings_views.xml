@@ -62,7 +62,10 @@
                                     <field name="l10n_ec_withhold_credit_card_tax_id" domain="[('tax_group_id.l10n_ec_type', '=', 'withhold_income_purchase'), ('company_id', '=', company_id)]"/>
                                 </div>
                                 <div class="row">
-                                    <label for="l10n_ec_withhold_agent_number" class="col-lg-4 o_light_label"/>
+                                    <span class="col-lg-4 o_light_label">
+                                        Withhold Agent Number
+                                        <a class="o-tooltip"><sup title="Last 8 digits">?</sup></a>
+                                    </span>
                                     <field name="l10n_ec_withhold_agent_number"/>
                                 </div>
                             </div>
