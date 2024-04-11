@@ -283,7 +283,7 @@ test("select cells to plan a task: 2-level grouped", async () => {
 });
 
 test("hovering a cell with special character", async () => {
-    expect(1);
+    expect.assertions(1);
 
     // add special character to data
     ResUsers._records[0].name = "User' 1";
@@ -1343,7 +1343,7 @@ test("move a pill in another row in multi-level grouped (many2many case)", async
 });
 
 test("grey pills should not be resizable nor draggable", async () => {
-    expect(4);
+    expect.assertions(4);
 
     await mountView({
         type: "gantt",
@@ -1411,7 +1411,9 @@ test("gantt_unavailability reloads when the view's scale changes", async () => {
     });
 
     await setScale("month");
-    expect(reloadCount, 3, { message: "view should have reloaded when switching scale to month" });
+    expect(reloadCount).toBe(3, {
+        message: "view should have reloaded when switching scale to month",
+    });
     expect(unavailabilityCallCount).toBe(3, {
         message: "view should have reloaded when switching scale to month",
     });
@@ -1452,7 +1454,7 @@ test("gantt_unavailability reload when period changes", async () => {
 
     await contains(SELECTORS.nextButton).click();
     expect(reloadCount).toBe(2, { message: "view should have reloaded when clicking next" });
-    expect(unavailabilityCallCount, 2, {
+    expect(unavailabilityCallCount).toBe(2, {
         message: "view should have reloaded unavailability when clicking next",
     });
 

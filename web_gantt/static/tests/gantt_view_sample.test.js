@@ -49,7 +49,7 @@ test(`empty grouped gantt with sample="1"`, async () => {
     const content = queryFirst(SELECTORS.viewContent).innerHTML;
     await switchView("gantt");
     expect(SELECTORS.viewContent).toHaveClass("o_view_sample_data");
-    expect(queryFirst(SELECTORS.viewContent).innerHTML, content);
+    expect(SELECTORS.viewContent).toHaveProperty("innerHTML", content);
     expect(SELECTORS.noContentHelper).toHaveCount(1);
 });
 
@@ -77,7 +77,7 @@ test("empty gantt with sample data and default_group_by", async () => {
     const content = queryFirst(SELECTORS.viewContent).innerHTML;
     await switchView("gantt");
     expect(SELECTORS.viewContent).toHaveClass("o_view_sample_data");
-    expect(queryFirst(SELECTORS.viewContent).innerHTML, content);
+    expect(SELECTORS.viewContent).toHaveProperty("innerHTML", content);
     expect(SELECTORS.noContentHelper).toHaveCount(1);
 });
 
@@ -116,7 +116,7 @@ test("empty gantt with sample data and default_group_by (switch view)", async ()
     // the gantt view should be still in sample mode
     expect(SELECTORS.viewContent).toHaveClass("o_view_sample_data");
     expect(SELECTORS.noContentHelper).toHaveCount(1);
-    expect(queryFirst(SELECTORS.viewContent).innerHTML).toBe(content);
+    expect(SELECTORS.viewContent).toHaveProperty("innerHTML", content);
 });
 
 test(`empty gantt with sample="1"`, async () => {
@@ -136,14 +136,14 @@ test(`empty gantt with sample="1"`, async () => {
         ],
         domain: Domain.FALSE.toList(),
     });
-    expect(queryFirst(SELECTORS.viewContent)).toHaveClass("o_view_sample_data");
+    expect(SELECTORS.viewContent).toHaveClass("o_view_sample_data");
     expect(SELECTORS.pill).toHaveCount(10);
     expect(SELECTORS.noContentHelper).toHaveCount(1);
 
     const content = queryFirst(SELECTORS.viewContent).innerHTML;
     await switchView("gantt");
-    expect(queryFirst(SELECTORS.viewContent)).toHaveClass("o_view_sample_data");
-    expect(queryFirst(SELECTORS.viewContent).innerHTML).toBe(content);
+    expect(SELECTORS.viewContent).toHaveClass("o_view_sample_data");
+    expect(SELECTORS.viewContent).toHaveProperty("innerHTML", content);
     expect(SELECTORS.noContentHelper).toHaveCount(1);
 });
 
@@ -158,14 +158,14 @@ test(`non empty gantt with sample="1"`, async () => {
             </search>
         `,
     });
-    expect(queryFirst(SELECTORS.viewContent)).not.toHaveClass("o_view_sample_data");
+    expect(SELECTORS.viewContent).not.toHaveClass("o_view_sample_data");
     expect(SELECTORS.cell).toHaveCount(12);
     expect(SELECTORS.pill).toHaveCount(7);
     expect(SELECTORS.noContentHelper).toHaveCount(0);
 
     await toggleSearchBarMenu();
     await toggleMenuItem("False Domain");
-    expect(queryFirst(SELECTORS.viewContent)).not.toHaveClass("o_view_sample_data");
+    expect(SELECTORS.viewContent).not.toHaveClass("o_view_sample_data");
     expect(SELECTORS.pill).toHaveCount(0);
     expect(SELECTORS.noContentHelper).toHaveCount(0);
     expect(SELECTORS.cell).toHaveCount(12);
@@ -183,13 +183,13 @@ test(`non empty grouped gantt with sample="1"`, async () => {
             </search>
         `,
     });
-    expect(queryFirst(SELECTORS.viewContent)).not.toHaveClass("o_view_sample_data");
+    expect(SELECTORS.viewContent).not.toHaveClass("o_view_sample_data");
     expect(SELECTORS.cell).toHaveCount(24);
     expect(SELECTORS.pill).toHaveCount(7);
 
     await toggleSearchBarMenu();
     await toggleMenuItem("False Domain");
-    expect(queryFirst(SELECTORS.viewContent)).not.toHaveClass("o_view_sample_data");
+    expect(SELECTORS.viewContent).not.toHaveClass("o_view_sample_data");
     expect(SELECTORS.pill).toHaveCount(0);
     expect(SELECTORS.noContentHelper).toHaveCount(0);
     expect(SELECTORS.cell).toHaveCount(12);
