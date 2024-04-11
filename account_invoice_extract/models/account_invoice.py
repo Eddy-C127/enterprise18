@@ -67,6 +67,11 @@ class AccountMove(models.Model):
     extract_detected_layout = fields.Integer("Extract Detected Layout Id", readonly=True)
     extract_partner_name = fields.Char("Extract Detected Partner Name", readonly=True)
 
+    def _message_set_main_attachment_id(self, attachments, force=False, filter_xml=True):
+        super()._message_set_main_attachment_id(attachments, force=force, filter_xml=filter_xml)
+        if self._needs_auto_extract():
+            self._send_batch_for_digitization()
+
     def action_reload_ai_data(self):
         try:
             with self._get_edi_creation() as move_form:
@@ -874,7 +879,7 @@ class AccountMove(models.Model):
 
     @api.model
     def _import_invoice_ocr(self, invoice, file_data, new=False):
-        invoice.message_main_attachment_id = file_data['attachment']
+        invoice._message_set_main_attachment_id(file_data['attachment'], force=True, filter_xml=False)
         invoice._send_batch_for_digitization()
         return True
 

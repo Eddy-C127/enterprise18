@@ -122,7 +122,7 @@ class HrApplicant(models.Model):
     def _get_user_error_invalid_state_message(self):
         return _("You cannot send a CV for an applicant who's not in first stage!")
 
-    def _message_set_main_attachment_id(self, attachment_ids):
-        res = super()._message_set_main_attachment_id(attachment_ids)
+    def _message_set_main_attachment_id(self, attachments, force=False, filter_xml=True):
+        res = super()._message_set_main_attachment_id(attachments, force=force, filter_xml=filter_xml)
         self._autosend_for_digitization()
         return res

@@ -664,6 +664,7 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
         invoice = self.env['account.move'].create({'move_type': 'in_invoice', 'extract_state': 'no_extract_requested'})
         test_attachment = self.env['ir.attachment'].create({
             'name': "an attachment",
+            "mimetype": "application/pdf",
             'datas': base64.b64encode(b'My attachment'),
             'res_model': 'account.move',
             'res_id': invoice.id,

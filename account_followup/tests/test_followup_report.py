@@ -141,7 +141,7 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
                 'type': 'binary',
             })
             invoice_attachments += invoice_attachment
-            invoice._message_set_main_attachment_id(invoice_attachment.ids)
+            invoice._message_set_main_attachment_id(invoice_attachment)
 
         self.partner_a._compute_unpaid_invoices()
         options['attachment_ids'] = invoice_attachments.ids

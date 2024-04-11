@@ -43,9 +43,10 @@ class HrExpense(models.Model):
         if self.env.company.expense_extract_show_ocr_option_selection == 'auto_send':
             self.filtered('extract_can_show_send_button')._send_batch_for_digitization()
 
-    def _message_set_main_attachment_id(self, attachment_ids):
-        super()._message_set_main_attachment_id(attachment_ids)
-        self._autosend_for_digitization()
+    def _message_set_main_attachment_id(self, attachments, force=False, filter_xml=True):
+        super()._message_set_main_attachment_id(attachments, force=force, filter_xml=filter_xml)
+        if not self.sample:
+            self._autosend_for_digitization()
 
     def _get_validation(self, field):
         text_to_send = {}
