@@ -6,30 +6,6 @@ from odoo.tools.misc import street_split
 
 from odoo import api, models, _
 
-class AccountReportFileDownloadErrorWizard(models.TransientModel):
-    _inherit = 'account.report.file.download.error.wizard'
-
-    def l10n_at_saft_action_open_unmapped_accounts(self, ids):
-        return {
-            'name': _("Accounts which cannot be mapped into the SAF-T chart of accounts"),
-            'type': 'ir.actions.act_window',
-            'res_model': 'account.account',
-            'view_mode': 'list',
-            'views': [(False, 'list'), (False, 'form')],
-            'domain': [('id', 'in', ids)],
-        }
-
-    def l10n_at_saft_action_open_unsupported_taxes(self, ids):
-        return {
-            'name': _("Unsupported taxes"),
-            'type': 'ir.actions.act_window',
-            'res_model': 'account.tax',
-            'view_mode': 'list',
-            'views': [(False, 'list'), (False, 'form')],
-            'domain': [('id', 'in', ids)],
-        }
-
-
 class GeneralLedgerCustomHandler(models.AbstractModel):
     _inherit = 'account.general.ledger.report.handler'
 
@@ -84,12 +60,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             else:
                 accounts_with_mapping_problem |= account
         if accounts_with_mapping_problem:
-            template_vals['errors'].append({
+            template_vals['errors']['accounts_not_found'] = {
                 'message': _('Some accounts can not be mapped to an account from the chart of accounts given in the SAF-T specification (see the documentation for more information):'),
                 'action_text': _('Check Accounts'),
-                'action_name': 'l10n_at_saft_action_open_unmapped_accounts',
-                'action_params': {'ids': accounts_with_mapping_problem.ids},
-            })
+                'action': accounts_with_mapping_problem._get_records_action(
+                    name=_("Accounts which cannot be mapped into the SAF-T chart of accounts")),
+            }
 
         taxtype_dict = defaultdict(lambda: {
             'description': None,
@@ -107,13 +83,13 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             type_item['vals'].append(tax_vals)
 
         if unsupported_tax_ids:
-            template_vals['errors'].append({
+            template_vals['errors']['amount_type_not_percentage'] = {
                 'message': _('Taxes that are not percentages are not supported.'),
                 'action_text': _('Check Taxes'),
-                'action_name': 'l10n_at_saft_action_open_unsupported_taxes',
-                'action_params': {'ids': unsupported_tax_ids},
-                'critical': True,
-            })
+                'action': (self.env['account.tax'].browse(unsupported_tax_ids)
+                               ._get_records_action(name=_("Unsupported taxes"))),
+                'level': 'danger',
+            }
 
         accounting_basis = {
             'par_4_abs_1': "§ 4(1) EStG",
@@ -137,21 +113,28 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             missing_company_settings.append(_("ÖNACE-code"))
 
         if missing_company_settings:
-            template_vals['errors'].append({
+            template_vals['errors']['missing_company_settings'] = {
                 'message': _('Please define the %s in the accounting settings:', ', '.join(missing_company_settings)),
                 'action_text': _('Go to Settings'),
-                'action_name': 'action_open_settings',
-                'action_params': {'company_id': self.env.company.id},
-            })
+                'action': self.env['res.config.settings']._get_records_action(name="Settings"),
+            }
 
-        company_contact = template_vals['partner_detail_map'][self.env.company.partner_id.id]['contacts'][0]
-        if not (company_contact.phone or company_contact.phone):
-            template_vals['errors'].append({
-                'message': _('Please define a phone or mobile phone number for your company contact:'),
+        company_partner = self.env.company.partner_id
+        if not (company_contacts := template_vals['partner_detail_map'][company_partner.id]['contacts']):
+            template_vals['errors']['missing_company_contact'] = {
+                'message': _('Please define a company contact.'),
                 'action_text': _('Check Company'),
-                'action_name': 'action_open_partner_company',
-                'action_params': {'company_id': company_contact.id},
-            })
+                'action': self.env.company._get_records_action(name=_("Missing Company Contact")),
+                'level': 'danger'
+            }
+        else:
+            company_contact = company_contacts[0]
+            if not company_contact.phone and not company_contact.mobile:
+                template_vals['errors']['missing_partner_phone_number'] = {
+                    'message': _('Please define a phone or mobile phone number for your company contact.'),
+                    'action_text': _('Check Company'),
+                    'action': company_contact._get_records_action(name=_("Missing Company Data")),
+                }
 
         partner_without_complete_address_ids = []
         for (partner_id, partner_detail) in template_vals['partner_detail_map'].items():
@@ -160,12 +143,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             if not complete_addresses:
                 partner_without_complete_address_ids.append(partner_id)
         if partner_without_complete_address_ids:
-            template_vals['errors'].append({
+            template_vals['errors']['missing_partner_address'] = {
                 'message': _('The addresses (street, city, postal code, country) of some partners are incomplete:'),
                 'action_text': _('Check Partners'),
-                'action_name': 'action_open_partners',
-                'action_params': {'partner_ids': partner_without_complete_address_ids},
-            })
+                'action': (self.env['res.partner'].browse(partner_without_complete_address_ids)
+                                                  ._get_records_action(name=_("Invalid Partner"))),
+            }
 
         return template_vals
 
