@@ -43,9 +43,10 @@ class CalendarEvent(models.Model):
     @api.model
     def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):
         # skip if not dealing with appointments
+        rows = super().gantt_unavailability(start_date, end_date, scale, group_bys=group_bys, rows=rows)
         partner_ids = [row['resId'] for row in rows if row.get('resId')]  # remove empty rows
         if not group_bys or group_bys[0] != 'partner_ids' or not partner_ids:
-            return super().gantt_unavailability(start_date, end_date, scale, group_bys=group_bys, rows=rows)
+            return rows
 
         start_datetime = timezone_datetime(fields.Datetime.from_string(start_date))
         end_datetime = timezone_datetime(fields.Datetime.from_string(end_date))
@@ -69,7 +70,11 @@ class CalendarEvent(models.Model):
             attendee = partners.filtered(lambda partner: partner.id == row['resId'])
 
             # calendar leaves
-            unavailabilities = event_unavailabilities.get(attendee.id, Intervals([]))
+            unavailabilities = Intervals([
+                (unavailability['start'], unavailability['stop'], self.env['res.partner'])
+                for unavailability in row.get('unavailabilities', [])
+            ])
+            unavailabilities |= event_unavailabilities.get(attendee.id, Intervals([]))
             for user in attendee_users.filtered('employee_resource_calendar_id'):
                 calendar_leaves = unavailabilities_by_calendar[user.employee_resource_calendar_id]
                 unavailabilities |= Intervals([
