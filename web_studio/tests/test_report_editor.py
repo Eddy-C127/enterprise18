@@ -1,6 +1,7 @@
 import json
 from psycopg2.extras import Json
 from lxml import etree
+from psycopg2 import DataError
 
 from odoo import Command
 from odoo.addons.base.models.ir_actions_report import IrActionsReport
@@ -1331,4 +1332,50 @@ class TestReportEditorUIUnit(HttpCase):
             <div>term3 from edition</div>
             <div>croissant</div>
         </main>
+        """)
+
+    def test_evaluate_bad_queries(self):
+        self.main_view_document.arch = """
+        <t t-name="web_studio.test_report_document">
+            <div>
+                <div t-attf-class="{{ docs.search([('create_date', '&lt;', 'false')]) }}">term1</div>
+                <div t-attf-class="{{ docs.search([('create_date', '&lt;', 'false')]) }}">term2</div>
+                <div t-attf-class="res_partner_{{ bool(docs.search([('create_date', '!=', False)], limit=1)) }}">term3</div>
+            </div>
+        </t>"""
+
+        ResPartner = self.env.registry.get("res.partner")
+        search = ResPartner.search
+        errors = []
+
+        def mock_search(record_set, *args, **kwargs):
+            try:
+                return search(record_set, *args, **kwargs)
+            except Exception as e:
+                errors.append(e)
+                raise
+
+        self.patch(ResPartner, "search", mock_search)
+
+        self.authenticate("admin", "admin")
+        with mute_logger("odoo.sql_db"):
+            response = self.url_open(
+                "/web_studio/get_report_qweb",
+                data=json.dumps({"params": {"report_id": self.report.id}}),
+                headers={"Content-Type": "application/json"}
+            )
+        self.assertEqual(len(errors), 2)
+        for e in errors:
+            self.assertTrue(isinstance(e, DataError))
+
+        qweb_html = response.json()["result"]
+        tree = html_to_xml_tree(qweb_html)
+        _remove_oe_context(tree)
+        div_node = tree.xpath("//t[@t-name='web_studio.test_report_document']")[0][0]
+        self.assertXMLEqual(etree.tostring(div_node), """
+        <div>
+            <div t-attf-class="{{ docs.search([('create_date', '&lt;', 'false')]) }}" oe-origin-class="" class="">term1</div>
+            <div t-attf-class="{{ docs.search([('create_date', '&lt;', 'false')]) }}" oe-origin-class="" class="">term2</div>
+            <div t-attf-class="res_partner_{{ bool(docs.search([('create_date', '!=', False)], limit=1)) }}" oe-origin-class="" class="res_partner_True">term3</div>
+        </div>
         """)

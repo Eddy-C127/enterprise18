@@ -235,7 +235,10 @@ def _guess_qweb_variables(tree, report, qcontext):
         else:
             qcontext["self"] = IrQweb
             compiled = IrQweb._compile_format(expr)
-        return safe_eval(compiled, qcontext)
+        try:
+            return safe_eval(compiled, qcontext)
+        finally:
+            env.cr.rollback()
 
     def qweb_like_string_eval(expr, qcontext, is_format=False):
         try:
@@ -595,9 +598,14 @@ class WebStudioReportController(main.WebStudioController):
 
         main_qweb = _html_to_client_compliant(load_arch(report_name))
 
-        render_context = report._get_rendering_context(report, [0], {"studio": True})
-        render_context['report_type'] = "pdf"
-        main_qweb = _guess_qweb_variables(main_qweb, report, render_context)
+        with report.env.registry.cursor() as nfg_cursor:
+            # We are about to evaluate expressions that may produce bad query errors
+            # This new cursor isolates those evaluations from the main transaction
+            # in order to avoid crashes related to them.
+            report_safe_cr = report.with_env(report.env(cr=nfg_cursor))
+            render_context = report_safe_cr._get_rendering_context(report_safe_cr, [0], {"studio": True})
+            render_context['report_type'] = "pdf"
+            main_qweb = _guess_qweb_variables(main_qweb, report_safe_cr, render_context)
 
         html_container = request.env["ir.ui.view"]._render_template("web.html_container", {"studio": True})
         html_container = html.fromstring(html_container)
