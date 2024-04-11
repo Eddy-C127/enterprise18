@@ -60,7 +60,7 @@ class GermanTaxReportTest(AccountSalesReportCommon):
         options = report.get_options()
 
         expected_xml = """
-        <Anmeldungssteuern art="UStVA" version="2023">
+        <Anmeldungssteuern art="UStVA" version="2019">
             <Erstellungsdatum>20191231</Erstellungsdatum>
             <DatenLieferant>
                 <Name>company_1_data</Name>
