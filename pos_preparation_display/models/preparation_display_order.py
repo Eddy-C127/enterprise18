@@ -27,6 +27,7 @@ class PosPreparationDisplayOrder(models.Model):
 
         data = order._process_preparation_changes(cancelled, note_history)
         preparation_displays = self.env['pos_preparation_display.display'].search([
+            '&', ('pos_config_ids', 'in', [order.config_id.id]),
             '|', ('category_ids', 'in', list(data['category_ids'])),
             ('category_ids', '=', False)])
 
