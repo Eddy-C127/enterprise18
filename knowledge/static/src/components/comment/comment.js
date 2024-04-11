@@ -306,7 +306,7 @@ export class KnowledgeCommentsThread extends Component {
     }
 
     get textInputContent() {
-        return this.props.knowledgeThreadId && this.state.thread.composer.textInputContent;
+        return this.props.knowledgeThreadId && this.state.thread.composer.text;
     }
 
 
