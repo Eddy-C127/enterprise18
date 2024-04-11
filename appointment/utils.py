@@ -22,3 +22,25 @@ def interval_from_events(event_ids):
     :return Intervals|Iterable[tuple[datetime, datetime, <calendar.event>]]:
     """
     return Intervals([(event.start, event.stop, event) for event in event_ids])
+
+def invert_intervals(intervals, first_start, last_stop):
+    """Return the intervals between the intervals that were passed in.
+
+    The expected use case is to turn "available intervals" into "unavailable intervals".
+    :examples:
+    ([(1, 2), (4, 5)], 0, 10) -> [(0, 1), (2, 4), (5, 10)]
+
+    :param iter[tuple[datetime, datetime]] intervals:
+    :param <datetime> first_start: date where the first interval should start
+    :param <datetime> last_stop: date where the last interval should stop
+    """
+    items = []
+    prev_stop = first_start
+    for start, stop in sorted(intervals):
+        if prev_stop and prev_stop < start and start <= last_stop:
+            items.append((prev_stop, start))
+        prev_stop = max(prev_stop, stop)
+    if last_stop and prev_stop < last_stop:
+        items.append((prev_stop, last_stop))
+    # abuse Intervals to merge contiguous intervals
+    return [(start, stop) for start, stop, _ in Intervals([(start, stop, set()) for start, stop in items])]
