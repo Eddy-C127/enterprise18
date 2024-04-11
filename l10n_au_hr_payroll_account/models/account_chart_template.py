@@ -37,6 +37,7 @@ class AccountChartTemplate(models.AbstractModel):
             "21500",  # Child Support
             "21400",  # Superannuation
             "21420",  # PAYG Withholding
+            "21200",  # Trade Creditors
         ]
         default_account = "62430"
 
@@ -49,6 +50,7 @@ class AccountChartTemplate(models.AbstractModel):
         schedule_1_rule_super = self.env.ref("l10n_au_hr_payroll.l10n_au_super_contribution_structure_1")
         schedule_1_rule_super_concessional = self.env.ref("l10n_au_hr_payroll.l10n_au_salary_sacrifice_structure_1")
         schedule_1_rule_child_support = self.env.ref("l10n_au_hr_payroll.l10n_au_child_support_structure_1")
+        schedule_1_rule_expense_refund = self.env.ref("l10n_au_hr_payroll_account.l10n_au_salary_expense_refund_structure_1")
         schedule_1_rule_net = self.env['hr.salary.rule'].search([
             ('struct_id', '=', structure_schedule_1.id),
             ('code', '=', 'NET')
@@ -59,6 +61,7 @@ class AccountChartTemplate(models.AbstractModel):
         schedule_2_rule_super = self.env.ref("l10n_au_hr_payroll.l10n_au_super_contribution_structure_2")
         schedule_2_rule_super_concessional = self.env.ref("l10n_au_hr_payroll.l10n_au_salary_sacrifice_structure_2")
         schedule_2_rule_child_support = self.env.ref("l10n_au_hr_payroll.l10n_au_child_support_structure_2")
+        schedule_2_rule_expense_refund = self.env.ref("l10n_au_hr_payroll_account.l10n_au_salary_expense_refund_structure_2")
         schedule_2_rule_net = self.env['hr.salary.rule'].search([
             ('struct_id', '=', structure_schedule_2.id),
             ('code', '=', 'NET')
@@ -68,6 +71,7 @@ class AccountChartTemplate(models.AbstractModel):
         schedule_3_rule_net_withholding = self.env.ref("l10n_au_hr_payroll.l10n_au_withholding_net_structure_3")
         schedule_3_rule_super = self.env.ref("l10n_au_hr_payroll.l10n_au_super_contribution_structure_3")
         schedule_3_rule_child_support = self.env.ref("l10n_au_hr_payroll.l10n_au_child_support_structure_3")
+        schedule_3_rule_expense_refund = self.env.ref("l10n_au_hr_payroll_account.l10n_au_salary_expense_refund_structure_3")
         schedule_3_rule_net = self.env['hr.salary.rule'].search([
             ('struct_id', '=', structure_schedule_3.id),
             ('code', '=', 'NET')
@@ -77,6 +81,7 @@ class AccountChartTemplate(models.AbstractModel):
         schedule_3_rule_promo_net_withholding = self.env.ref("l10n_au_hr_payroll.l10n_au_withholding_net_structure_3_promo")
         schedule_3_rule_promo_super = self.env.ref("l10n_au_hr_payroll.l10n_au_super_contribution_structure_3_promo")
         schedule_3_rule_promo_child_support = self.env.ref("l10n_au_hr_payroll.l10n_au_child_support_structure_3_promo")
+        schedule_3_promo_rule_expense_refund = self.env.ref("l10n_au_hr_payroll_account.l10n_au_salary_expense_refund_structure_3_promo")
         schedule_3_rule_promo_net = self.env['hr.salary.rule'].search([
             ('struct_id', '=', structure_schedule_3_promo.id),
             ('code', '=', 'NET')
@@ -98,10 +103,18 @@ class AccountChartTemplate(models.AbstractModel):
             ('struct_id', '=', structure_schedule_5.id),
             ('code', '=', 'NET')
         ])
+        #  Schedule 9
+        structure_schedule_9 = self.env.ref('l10n_au_hr_payroll.hr_payroll_structure_au_senior')
+        schedule_9_rule_expense_refund = self.env.ref("l10n_au_hr_payroll_account.l10n_au_salary_expense_refund_structure_9")
+        schedule_9_rule_net = self.env['hr.salary.rule'].search([
+            ('struct_id', '=', structure_schedule_9.id),
+            ('code', '=', 'NET')
+        ])
         #  Schedule 15
         structure_schedule_15 = self.env.ref('l10n_au_hr_payroll.hr_payroll_structure_au_whm')
         schedule_15_rule_net_withholding = self.env.ref("l10n_au_hr_payroll.l10n_au_withholding_net_structure_15")
         schedule_15_rule_super = self.env.ref("l10n_au_hr_payroll.l10n_au_super_contribution_structure_15")
+        schedule_15_rule_expense_refund = self.env.ref("l10n_au_hr_payroll_account.l10n_au_salary_expense_refund_structure_15")
         schedule_15_rule_super_concessional = self.env.ref("l10n_au_hr_payroll.l10n_au_salary_sacrifice_structure_15")
         schedule_15_rule_net = self.env['hr.salary.rule'].search([
             ('struct_id', '=', structure_schedule_15.id),
@@ -141,6 +154,10 @@ class AccountChartTemplate(models.AbstractModel):
                 "debit": "21500",
                 "credit_tags": "+W1",
             },
+            schedule_1_rule_expense_refund: {
+                "credit": "21300",
+                "debit": "21200",
+            },
             #  Schedule 2
             schedule_2_rule_net_withholding: {
                 "credit": "62430",
@@ -160,6 +177,10 @@ class AccountChartTemplate(models.AbstractModel):
                 "credit": "62460",
                 "debit": "21500",
                 "credit_tags": "+W1",
+            },
+            schedule_2_rule_expense_refund: {
+                "credit": "21300",
+                "debit": "21200",
             },
             schedule_2_rule_net: {
                 "credit": "21300",
@@ -182,6 +203,10 @@ class AccountChartTemplate(models.AbstractModel):
                 "debit": "21500",
                 "credit_tags": "+W1",
             },
+            schedule_3_rule_expense_refund: {
+                "credit": "21300",
+                "debit": "21200",
+            },
             schedule_3_rule_net: {
                 "credit": "21300",
                 "debit": "62430",
@@ -202,6 +227,10 @@ class AccountChartTemplate(models.AbstractModel):
             schedule_3_rule_promo_super: {
                 "credit": "21400",
                 "debit": "62420",
+            },
+            schedule_3_promo_rule_expense_refund: {
+                "credit": "21300",
+                "debit": "21200",
             },
             schedule_3_rule_promo_net: {
                 "credit": "21300",
@@ -245,12 +274,26 @@ class AccountChartTemplate(models.AbstractModel):
                 "debit": "62430",
                 "debit_tags": "+W1",
             },
+            # Schedule 9
+            schedule_9_rule_expense_refund: {
+                "credit": "21300",
+                "debit": "21200",
+            },
+            schedule_9_rule_net: {
+                "credit": "21300",
+                "debit": "62430",
+                "debit_tags": "+W1",
+            },
             # Schedule 15
             schedule_15_rule_net_withholding: {
                 "credit": "62430",
                 "debit": "21420",
                 "debit_tags": "+W2",
                 "credit_tags": "+W1",
+            },
+            schedule_15_rule_expense_refund: {
+                "credit": "21300",
+                "debit": "21200",
             },
             schedule_15_rule_net: {
                 "credit": "21300",
