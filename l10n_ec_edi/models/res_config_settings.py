@@ -32,6 +32,7 @@ class ResConfigSettings(models.TransientModel):
     l10n_ec_withhold_agent_number = fields.Char(
         related='company_id.l10n_ec_withhold_agent_number',
         readonly=False,
+        help='Last 8 digits',
     )
     l10n_ec_regime = fields.Selection(
         related='company_id.l10n_ec_regime',

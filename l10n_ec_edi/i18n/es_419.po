@@ -972,7 +972,6 @@ msgstr "Última actualización en"
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,help:l10n_ec_edi.field_res_company__l10n_ec_withhold_agent_number
-#: model:ir.model.fields,help:l10n_ec_edi.field_res_config_settings__l10n_ec_withhold_agent_number
 msgid ""
 "Last digits from the SRI resolution number in which your company became a "
 "designated withholder agent. If the resolution number where NAC-"
@@ -980,6 +979,11 @@ msgid ""
 msgstr ""
 "Últimos dígitos del número de resolución del SRI en el que su empresa se convirtió en agente de retención designado. \n"
 "Si el número de resolución es NAC-DNCRASC20-00000001, entonces el número debe ser 1"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_res_config_settings__l10n_ec_withhold_agent_number
+msgid "Last 8 digits"
+msgstr "Últimos 8 dígitos"
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,help:l10n_ec_edi.field_account_move_line__l10n_ec_withhold_invoice_id
@@ -995,6 +999,16 @@ msgstr "Número manual"
 #: model_terms:ir.ui.view,arch_db:l10n_ec_edi.report_invoice_header
 msgid "Missing barcode for authorization number"
 msgstr "No se encuentra el código de barras para el número de autorización"
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.res_config_settings_l10n_ec_edi
+msgid "Withhold Agent Number"
+msgstr "Número de agente de retención"
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.res_config_settings_l10n_ec_edi
+msgid "Last 8 digits"
+msgstr "Últimos 8 dígitos"
 
 #. module: l10n_ec_edi
 #. odoo-python
@@ -1532,12 +1546,6 @@ msgstr ""
 #, python-format
 msgid "Withhold"
 msgstr "Retención"
-
-#. module: l10n_ec_edi
-#: model:ir.model.fields,field_description:l10n_ec_edi.field_res_company__l10n_ec_withhold_agent_number
-#: model:ir.model.fields,field_description:l10n_ec_edi.field_res_config_settings__l10n_ec_withhold_agent_number
-msgid "Withhold Agent Number"
-msgstr "Número de agente de retención"
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_res_company__l10n_ec_withhold_goods_tax_id
