@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from odoo import _, api, Command, fields, models, SUPERUSER_ID
 from odoo.exceptions import ValidationError
 from odoo.tools import html2plaintext, email_normalize, email_split_tuples
+from odoo.addons.appointment.utils import invert_intervals
 from odoo.addons.resource.models.utils import Intervals, timezone_datetime
 from ..utils import interval_from_events, intervals_overlap
 
@@ -436,19 +437,40 @@ class CalendarEvent(models.Model):
 
         start_datetime = fields.Datetime.from_string(start_date)
         end_datetime = fields.Datetime.from_string(end_date)
+        start_datetime_utc = timezone_datetime(start_datetime)
+        end_datetime_utc = timezone_datetime(end_datetime)
 
+        # if viewing a specific appointment type generate unavailable intervals outside of the defined slots
+        slots_unavailable_intervals = []
+        appointment_type = self.env['appointment.type']
+        if appointment_type_id := self.env.context.get('default_appointment_type_id'):
+            appointment_type = appointment_type.browse(appointment_type_id)
+
+        if appointment_type:
+            slot_available_intervals = [
+                (slot['utc'][0], slot['utc'][1])
+                for slot in appointment_type._slots_generate(start_datetime_utc, end_datetime_utc, 'utc', reference_date=start_datetime_utc)
+            ]
+            slots_unavailable_intervals = invert_intervals(slot_available_intervals, start_datetime_utc, end_datetime_utc)
+
+        # in staff view, add conflicting events to unavailabilities and return
         if group_bys[0] == 'partner_ids':
             unavailabilities = self._gantt_unavailabilities_events(start_datetime, end_datetime, self.env['res.partner'].browse(resource_ids))
             for row in rows:
-                row['unavailabilities'] = [{'start': start, 'stop': stop} for start, stop, _ in unavailabilities.get(row['resId'], [])]
+                row_unavailabilities = unavailabilities.get(row['resId'], Intervals([]))
+                row_unavailabilities |= Intervals([(start, stop, self.env['res.partner']) for start, stop in slots_unavailable_intervals])
+                row['unavailabilities'] = [{'start': start, 'stop': stop} for start, stop, _ in row_unavailabilities]
             return rows
 
         appointment_resource_ids = self.env['appointment.resource'].browse(resource_ids)
         resource_unavailabilities = appointment_resource_ids.resource_id._get_unavailable_intervals(start_datetime, end_datetime)
         for row in rows:
             appointment_resource_id = appointment_resource_ids.browse(row.get('resId'))
-            row['unavailabilities'] = [{'start': start, 'stop': stop}
-                                       for start, stop in resource_unavailabilities.get(appointment_resource_id.resource_id.id, [])]
+            unavailabilities = Intervals([
+                (start, stop, set())
+                for start, stop in resource_unavailabilities.get(appointment_resource_id.resource_id.id, [])])
+            unavailabilities |= Intervals([(start, stop, set()) for start, stop in slots_unavailable_intervals])
+            row['unavailabilities'] = [{'start': start, 'stop': stop} for start, stop, _ in unavailabilities]
         return rows
 
     def _gantt_unavailabilities_events(self, start_datetime, end_datetime, partners):

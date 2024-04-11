@@ -1,10 +1,12 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from datetime import timedelta
+from datetime import datetime, timedelta
+import itertools
 import pytz
 
 from odoo.tests import users
 from odoo.addons.appointment.tests.test_appointment_gantt import AppointmentGanttTestCommon
+from odoo.addons.resource.models.utils import Intervals
 
 
 class AppointmentHRGanttTest(AppointmentGanttTestCommon):
@@ -29,6 +31,20 @@ class AppointmentHRGanttTest(AppointmentGanttTestCommon):
         """Check that calendar unavailabilities and conflicting meetings are properly computed when grouping by attendees."""
         self.apt_types.staff_user_ids += self.user_john
 
+        # inverted time slots over the test interval (0 -> 23)
+        appointment_slot_unavailabilities = Intervals([(
+            datetime(2022, 2, 14, 0, 0, tzinfo=pytz.UTC),
+            datetime(2022, 2, 14, 9, 0, tzinfo=pytz.UTC),
+            set(),
+        ), (
+            datetime(2022, 2, 14, 12, 0, tzinfo=pytz.UTC),
+            datetime(2022, 2, 14, 14, 0, tzinfo=pytz.UTC),
+            set(),
+        ), (
+            datetime(2022, 2, 14, 17, 0, tzinfo=pytz.UTC),
+            datetime(2022, 2, 14, 23, 0, tzinfo=pytz.UTC),
+            set(),
+        )])
         base_bob_unavailabilities = [{
             'start': self.reference_monday.replace(hour=0, minute=0, tzinfo=pytz.UTC),
             'stop': self.reference_monday.replace(hour=7, minute=0, tzinfo=pytz.UTC),
@@ -57,8 +73,8 @@ class AppointmentHRGanttTest(AppointmentGanttTestCommon):
         )
         CalendarLeaveSudo = self.env['resource.calendar.leaves'].sudo()
 
-        for with_leave, with_meeting in ([False, False], [False, True], [True, False], [True, True]):
-            with self.subTest(with_leave=with_leave, with_meeting=with_meeting):
+        for with_leave, with_meeting, specific_apt_type in itertools.product([True, False], [True, False], [True, False]):
+            with self.subTest(with_leave=with_leave, with_meeting=with_meeting, specific_apt_type=specific_apt_type):
                 CalendarLeaveSudo.search([('calendar_id', '=', self.user_bob.resource_calendar_id.id)]).unlink()
                 all_company_meeting.partner_ids = False
                 if with_leave:
@@ -71,7 +87,10 @@ class AppointmentHRGanttTest(AppointmentGanttTestCommon):
                 if with_meeting:
                     all_company_meeting.partner_ids = self.user_john.partner_id + self.user_bob.partner_id
 
-                gantt_data = self.env['calendar.event'].with_context(self.gantt_context).gantt_unavailability(
+                ctx = dict(self.gantt_context)
+                if specific_apt_type:
+                    ctx.update({'default_appointment_type_id': self.apt_types[0].id})
+                gantt_data = self.env['calendar.event'].with_context(ctx).gantt_unavailability(
                     self.reference_monday.replace(hour=0),
                     self.reference_monday.replace(hour=23),
                     'day',
@@ -102,6 +121,13 @@ class AppointmentHRGanttTest(AppointmentGanttTestCommon):
                         'start': self.reference_monday.replace(hour=9, tzinfo=pytz.UTC),
                         'stop': self.reference_monday.replace(hour=9, tzinfo=pytz.UTC) + timedelta(hours=1),
                     })
+                if specific_apt_type:
+                    bob_unavailabilities = [{'start': start, 'stop': stop} for start, stop, _ in Intervals([
+                        (unavailability['start'], unavailability['stop'], set()) for unavailability in bob_unavailabilities
+                    ]) | appointment_slot_unavailabilities]
+                    john_unavailabilities = [{'start': start, 'stop': stop} for start, stop, _ in Intervals([
+                        (unavailability['start'], unavailability['stop'], set()) for unavailability in john_unavailabilities
+                    ]) | appointment_slot_unavailabilities]
                 self.assertEqual(
                     bob_data['unavailabilities'], sorted(bob_unavailabilities, key=lambda start_stop: start_stop['start']),
                     'Bob should not be available when attending another meeting or outside of his HR schedule.'
