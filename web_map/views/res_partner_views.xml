@@ -5,10 +5,10 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <field name="active_lang_count" position="after">
-                <field name="partner_longitude" invisible="1"/>
-                <field name="partner_latitude" invisible="1"/>
-            </field>
+            <sheet position="inside">
+                <field name="partner_longitude" invisible="1"/>  <!-- Used by the MapModel JavaScript -->
+                <field name="partner_latitude" invisible="1"/>  <!-- Used by the MapModel JavaScript -->
+            </sheet>
         </field>
     </record>
 </odoo>
