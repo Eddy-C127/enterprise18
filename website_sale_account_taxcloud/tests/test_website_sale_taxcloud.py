@@ -56,6 +56,7 @@ class TestWebsiteSaleTaxCloud(HttpCase):
         """
         Make sure that taxes are recomputed before payment
         """
+        self.product.type = 'service'
         sale_order = self.env['sale.order'].create({
             'partner_id': self.partner.id,
             'fiscal_position_id': self.fiscal_position.id,
