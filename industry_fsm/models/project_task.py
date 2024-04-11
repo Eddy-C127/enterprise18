@@ -390,3 +390,13 @@ class Task(models.Model):
                     work_intervals = interval & users_work_intervals[user.id]
                     allocated_hours_mapped[user.id] += sum_intervals(work_intervals)
         return allocated_hours_mapped
+
+    def action_fsm_view_overlapping_tasks(self):
+        action = super().action_fsm_view_overlapping_tasks()
+        if self.is_fsm:
+            action['context']['fsm_mode'] = True
+            action['domain'] = expression.AND([
+                action['domain'],
+                [('is_fsm', '=', True)],
+            ])
+        return action
