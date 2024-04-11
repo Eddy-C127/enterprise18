@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-import re
 from collections import defaultdict
 
-from odoo.addons.account_reports.models.account_report import AccountReportFileDownloadException
 from odoo.exceptions import UserError
 from odoo.tools import float_repr, get_lang, SQL
 
@@ -350,13 +348,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 children = partner.child_ids.filtered(lambda p: p.type == 'contact' and p.active and not p.is_company).sorted('id')
                 if partner == values['company'].partner_id:
                     if not children:
-                        values['errors'].append({
+                        values['errors']['missing_company_contact'] = {
                             'message': _('Please define one or more Contacts belonging to your company.'),
-                            'action_text': _('Define Contact(s)'),
-                            'action_name': 'action_open_partner_company',
-                            'action_params': {'company_id': partner.id},
-                            'critical': True,
-                        })
+                            'action_text': _('View Company Partner'),
+                            'action': partner._get_records_action(name=_("Define Contact(s)")),
+                            'level': 'danger',
+                        }
                     for child in children:
                         _track_contact(partner, child)
                 elif children:
@@ -375,12 +372,11 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 no_partner_address |= partner
 
         if no_partner_address:
-            values['errors'].append({
+            values['errors']['missing_partner_zip_city'] = {
                 'message': _('Some partners are missing at least one address (Zip/City).'),
                 'action_text': _('View Partners'),
-                'action_name': 'action_open_partners',
-                'action_params': {'partner_ids': no_partner_address.ids},
-            })
+                'action': no_partner_address._get_records_action(name=_("Partners to be checked")),
+            }
 
         # Add newly computed values to the final template values.
         values.update(res)
@@ -411,7 +407,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             'date_to': options['date']['date_to'],
             'format_float': format_float,
             'format_date': format_date,
-            'errors': [],
+            'errors': {},
         }
         self._saft_fill_report_general_ledger_values(report, options, template_values)
         self._saft_fill_report_tax_details_values(report, options, template_values)
