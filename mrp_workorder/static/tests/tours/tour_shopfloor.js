@@ -138,7 +138,7 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     },
     {
         content: 'Open the WO setting menu again',
-        trigger: '.o_mrp_display_record:contains("Release") .card-footer button.fa-ellipsis-v',
+        trigger: '.o_mrp_display_record:contains("Release") .card-footer button.fa-gear',
         run: "click",
     },
     {

@@ -51,6 +51,7 @@ class MrpProduction(models.Model):
             'context': {
                 'production_id': self.id,
                 'default_type': 'component',
+                'dialog_size': 'medium',
             }
         }
 

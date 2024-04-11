@@ -76,7 +76,6 @@ export class MrpDisplayRecord extends Component {
     registerProduction() {
         if (!this.props.production.data.qty_producing) {
             this.props.production.update({ qty_producing: this.props.production.data.product_qty });
-            this.props.production.save();
         }
         const title = _t("Register Production: %s", this.props.production.data.product_id[1]);
         const reload = () => this.env.reload();
@@ -121,9 +120,9 @@ export class MrpDisplayRecord extends Component {
                 ? this.record
                 : this.props.production.data;
         if (production.product_tracking === "serial") {
-            return Boolean(production.qty_producing === 1 && production.lot_producing_id);
+            return Boolean(production.qty_producing === 1 && production.lot_producing_id && production.state === "to_close" || production.state === "progress");
         }
-        return production.qty_producing !== 0;
+        return Boolean(production.qty_producing !== 0 && production.state === "to_close" || production.state === "progress");
     }
 
     get quantityProducing() {
