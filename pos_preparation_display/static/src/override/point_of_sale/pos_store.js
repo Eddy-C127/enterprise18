@@ -53,9 +53,6 @@ patch(PosStore.prototype, {
 
         if (this.preparationDisplayCategoryIds.size) {
             result = await order.sendChanges(cancelled);
-            if (order.originalSplittedOrder) {
-                result = await order.originalSplittedOrder.sendChanges(cancelled) && result;
-            }
         }
 
         // We display this error popup only if the PoS is connected,
@@ -71,4 +68,12 @@ patch(PosStore.prototype, {
 
         return super.sendOrderInPreparation(order, cancelled);
     },
+    // @override
+    _getCreateOrderContext(orders, options) {
+        const context = super._getCreateOrderContext(...arguments);
+        if (options.originalSplittedOrderId) {
+            context.is_splited_order = true;
+        }
+        return context;
+    }
 });

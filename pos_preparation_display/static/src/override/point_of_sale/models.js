@@ -37,4 +37,11 @@ patch(Order.prototype, {
         super.setCustomerCount(count);
         this.pos.ordersToUpdateSet.add(this);
     },
+    _getOrderOptions() {
+        const options = super._getOrderOptions(...arguments);
+        if (this.originalSplittedOrder) {
+            options.originalSplittedOrderId = this.originalSplittedOrder.server_id;
+        }
+        return options;
+    },
 });

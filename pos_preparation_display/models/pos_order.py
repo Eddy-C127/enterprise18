@@ -96,10 +96,11 @@ class PosOrder(models.Model):
 
         # Check if pos_order have new lines or if some lines have more quantity than before
         if any([quantities['order'] > quantities['display'] for quantities in quantity_data.values()]):
-            flag_change = True
-            sound = True
+            is_not_splitted_order = not self.env.context.get("is_splited_order")
+            flag_change = is_not_splitted_order
+            sound = is_not_splitted_order
             pdis_ticket = self.env['pos_preparation_display.order'].create({
-                'displayed': True,
+                'displayed': is_not_splitted_order,
                 'pos_order_id': self.id,
                 'pos_config_id': self.config_id.id,
             })
