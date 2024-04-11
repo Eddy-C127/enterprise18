@@ -148,9 +148,12 @@ class TestReportsCommon(TestMrpAccount):
             avg_unit_duration = (600 + 300) / 30 = 30
             avg_unit_cost = avg_unit_component_cost + avg_unit_operation_cost = $190
         """
+        bom = self.bom_2.copy()
+        bom.type = 'normal'
+        bom.product_id = self.product_6
 
         # Make some stock and reserve
-        for product in self.bom_2.bom_line_ids.product_id:
+        for product in bom.bom_line_ids.product_id:
             self.env['stock.quant'].with_context(inventory_mode=True).create({
                 'product_id': product.id,
                 'inventory_quantity': 1000,
@@ -158,16 +161,16 @@ class TestReportsCommon(TestMrpAccount):
             })._apply_inventory()
 
         # Change product_4 UOM to unit
-        self.bom_2.bom_line_ids[0].product_uom_id = self.ref('uom.product_uom_unit')
+        bom.bom_line_ids[0].product_uom_id = self.ref('uom.product_uom_unit')
 
         # Update the work center cost
-        self.bom_2.operation_ids.workcenter_id.costs_hour = 80
+        bom.operation_ids.workcenter_id.costs_hour = 80
 
         # MO_1
         self.product_4.standard_price = 20
         self.product_3.standard_price = 50
         production_form = Form(self.env['mrp.production'])
-        production_form.bom_id = self.bom_2
+        production_form.bom_id = bom
         production_form.product_qty = 10
         mo_1 = production_form.save()
         mo_1.action_confirm()
@@ -183,7 +186,7 @@ class TestReportsCommon(TestMrpAccount):
         # MO_2
         self.product_3.standard_price = 30
         production_form = Form(self.env['mrp.production'])
-        production_form.bom_id = self.bom_2
+        production_form.bom_id = bom
         production_form.product_qty = 20
         mo_2 = production_form.save()
         mo_2.action_confirm()
@@ -200,7 +203,7 @@ class TestReportsCommon(TestMrpAccount):
         self.env.flush_all()
 
         report = self.env['mrp.report']._read_group(
-            [('product_id', '=', self.bom_2.product_id.id)],
+            [('product_id', '=', bom.product_id.id)],
             aggregates=['unit_cost:avg', 'unit_component_cost:avg', 'unit_operation_cost:avg', 'unit_duration:avg'],
         )[0]
         unit_cost, unit_component_cost, unit_operation_cost, unit_duration = report
