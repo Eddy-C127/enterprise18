@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <template id="tax_export_xml">
-            <Anmeldungssteuern art="UStVA" version="2023">
+            <Anmeldungssteuern art="UStVA" t-att-version="year">
                 <Erstellungsdatum><t t-out="creation_date" /></Erstellungsdatum>
                 <DatenLieferant>
                     <Name><t t-out="company.name" /></Name>
