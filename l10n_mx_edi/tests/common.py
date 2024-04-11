@@ -29,9 +29,10 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
 
         # ==== Config ====
 
-        cls.env['res.company']\
-            .search([('name', '=', "ESCUELA KEMPER URGATE")])\
-            .name = "ESCUELA KEMPER URGATE (2)"
+        # do not use demo data and avoid having duplicated companies
+        cls.env['res.company'].search([('vat', '=', "EKU9003173C9")]).write({'vat': False})
+        cls.env['res.company'].search([('name', '=', "ESCUELA KEMPER URGATE")]).name += " (2)"
+
         cls.company_data['company'].write({
             'name': "ESCUELA KEMPER URGATE",
             'vat': 'EKU9003173C9',
