@@ -35,6 +35,7 @@ class TestSepaDirectDebit(SepaDirectDebitCommon):
         token = self.env['payment.token'].search([('sdd_mandate_id', '=', self.mandate.id)])
         self.assertTrue(token)
         self.assertTrue(token.active)
+        self.assertEqual(tx.token_id, token)
         self.assertEqual(self.mandate.state, 'active')
 
     def test_creating_batch_payment_generates_export_file(self):

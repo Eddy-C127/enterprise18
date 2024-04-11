@@ -104,13 +104,9 @@ class PaymentTransaction(models.Model):
                 and t.provider_id.custom_mode == 'sepa_direct_debit'
                 and t.mandate_id
         )
-        if not sepa_txs:
-            return confirmed_txs
-
         for tx in sepa_txs:
-            tx.provider_id._sdd_create_token_for_mandate(tx.partner_id, tx.mandate_id)
+            tx.token_id = tx.provider_id._sdd_create_token_for_mandate(tx.partner_id, tx.mandate_id)
             tx.mandate_id._confirm()
-
         return confirmed_txs
 
     def _sdd_notify_debit(self, token):
