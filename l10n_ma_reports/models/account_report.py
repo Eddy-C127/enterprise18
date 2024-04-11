@@ -23,7 +23,7 @@ class MoroccanTaxReportCustomHandler(models.AbstractModel):
     @api.model
     def _l10n_ma_prepare_vat_report_header_values(self, company, bills, period_type, date_from):
         template_vals = {
-            'errors': [],
+            'errors': {},
             'year': str(date_from.year),
         }
         if period_type == 'quarter':
@@ -42,27 +42,26 @@ class MoroccanTaxReportCustomHandler(models.AbstractModel):
 
     def _check_l10n_ma_report_errors(self, errored_vendors, period_type, template_vals, company):
         if errored_vendors:
-            template_vals['errors'].append({
-                'message': _('There are partners located in morocco without any ICE and/or Tax ID specified. The resulting XML will not contain the associated vendor bills.'),
-                'action_text': _('Check Partners'),
-                'action_name': 'action_open_partners',
+            template_vals['errors']['partner_vat_ice_missing'] = {
+                'message': _('There are partners located in Morocco without any ICE and/or Tax ID specified.'
+                             ' The resulting XML will not contain the associated vendor bills.'),
+                'action_text': _('View Partner(s)'),
                 'action_params': {'partner_ids': errored_vendors.ids},
-            })
+            }
 
         if period_type not in {'month', 'quarter'}:
-            template_vals['errors'].append({
+            template_vals['errors']['period_invalid'] = {
                 'message': _('This report only supports monthly and quarterly periods.'),
-                'critical': True,
-            })
+                'level': 'danger',
+            }
 
         if not company.vat:
-            template_vals['errors'].append({
+            template_vals['errors']['company_vat_missing'] = {
                 'message': _('Company %s has no VAT number and it is required to generate the XML file.', company.name),
-                'action_text': _('Open Company'),
-                'action_name': 'action_open_partner_company',
-                'action_params': {'company_id': company.partner_id.id},
-                'critical': True,
-            })
+                'action_text': _('View Company/ies'),
+                'action': company.partner_id._get_records_action(name=_('Invalid Company/ies')),
+                'level': 'danger',
+            }
 
     @api.model
     def _l10n_ma_prepare_vat_report_bill_values(self, bills, prorata_value):
