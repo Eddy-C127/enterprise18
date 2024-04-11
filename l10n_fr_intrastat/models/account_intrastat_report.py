@@ -93,7 +93,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             )
         )
 
-        values = {'errors': []}
+        values = {'errors': {}}
         missing_required_values = {
             'transaction_code': [],
             'region_code': [],
@@ -146,13 +146,11 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         company_vat = company_id.vat or ''
         company_siret = company_id.siret[9:14] if company_id.siret and len(company_id.siret) >= 14 else ''
         if not company_vat or not company_siret:
-            values['errors'].append({
-                'message': _("The VAT or SIRET code is not properly set on company '%s'.") % company_id.name,
-                'action_text': _("Configure company"),
-                'action_name': 'action_open_partner_company',
-                'action_params': {'company_id': company_id.partner_id.id},
-                'critical': False,
-            })
+            values['errors']['company_vat_or_siret_missing'] = {
+                'message': _("The VAT or SIRET code is not properly set on the company."),
+                'action_text': _("View Company/ies"),
+                'action': company_id._get_records_action(name=_("Check Company Data")),
+            }
         return f'{company_vat}{company_siret}'
 
     @api.model
@@ -189,58 +187,78 @@ class IntrastatReportCustomHandler(models.AbstractModel):
     def _fill_value_errors(self, options, values, missing_required_values):
         """Adds error messages to display to the user when certain required values are missing."""
         if missing_required_values['transaction_code']:
-            values['errors'].append({
+            move_lines = self.env['account.move.line'].browse(missing_required_values['transaction_code'])
+            move_lines_view = self.env.ref("account_intrastat.account_move_line_tree_view_account_intrastat_transaction_codes")
+            values['errors']['move_lines_transaction_code_missing'] = {
                 'message': _("Missing transaction code for journal items"),
-                'action_text': _("Set transaction code"),
-                'action_name': 'action_invalid_code_moves',
-                'action_params': {'options': options, 'params': {'ids': missing_required_values['transaction_code']}},
-                'critical': False,
-            })
+                'action_text': _("View journal item(s)"),
+                'action': move_lines._get_records_action(
+                    name=_('Invalid transaction intrastat code entries.'),
+                    context={**self.env.context, 'create': False, 'delete': False, 'expand': True},
+                    views=[(move_lines_view.id, "list"), (False, 'form')],
+                    options=options,
+                ),
+            }
 
         if missing_required_values['commodity_code']:
-            values['errors'].append({
+            products = self.env['product.product'].browse(missing_required_values['commodity_code'])
+            values['errors']['products_commodity_code_missing'] = {
                 'message': _("Missing commodity code for some products"),
-                'action_text': _("Set commodity code"),
-                'action_name': 'action_invalid_code_products',
-                'action_params': {'options': options, 'params': {'ids': list(missing_required_values['commodity_code'])}},
-                'critical': False,
-            })
+                'action_text': _("View Product(s)"),
+                'action': products._get_records_action(
+                    name=_('Products with no commodity code'),
+                    options=options,
+                ),
+            }
 
         if missing_required_values['intrastat_product_origin_country_code']:
-            values['errors'].append({
+            move_lines = self.env['account.move.line'].browse(missing_required_values['intrastat_product_origin_country_code'])
+            move_lines_view = self.env.ref("account_intrastat.account_move_line_tree_view_account_intrastat_product_origin_country_id")
+            values['errors']['move_lines_country_of_origin_missing'] = {
                 'message': _("Missing country of origin for journal items, 'QU' will be set as default value"),
-                'action_text': _("Set country of origin"),
-                'action_name': 'action_missing_intrastat_product_origin_country_code',
-                'action_params': {'move_line_ids': missing_required_values['intrastat_product_origin_country_code']},
-                'critical': False,
-            })
+                'action_text': _("View journal item(s)"),
+                'action': move_lines._get_records_action(
+                    name=_('Invalid transaction intrastat code entries.'),
+                    context={**self.env.context, 'create': False, 'delete': False, 'expand': True},
+                    views=[(move_lines_view.id, "list"), (False, 'form')],
+                ),
+            }
 
         if missing_required_values['region_code']:
-            values['errors'].append({
-                'message': _("Missing department code for journal entries"),
-                'action_text': _("Set department code"),
-                'action_name': 'action_open_settings',
-                'action_params': {'company_id': self.env.company.id},
-                'critical': False,
-            })
+            values['errors']['settings_region_id_missing'] = {
+                'message': _("Missing department code for journal entries on the company"),
+                'action_text': _("View Settings"),
+                'action': self.env['res.config.settings']._get_records_action(
+                    name=_("Settings"),
+                    context={
+                        **self.env.context,
+                        'module': 'account',
+                        'default_search_setting': _("Intrastat region"),
+                        'bin_size': False,
+                    }
+                )
+            }
 
         if missing_required_values['transport_code']:
-            values['errors'].append({
+            move_lines = self.env['account.move.line'].browse(missing_required_values['transport_code'])
+            move_lines_view = self.env.ref("account_intrastat.account_move_line_tree_view_account_intrastat_transaction_codes")
+            values['errors']['move_lines_transport_code_missing'] = {
                 'message': _("Missing transport code for journal entries"),
-                'action_text': _("Set transport code"),
-                'action_name': 'action_invalid_transport_mode_moves',
-                'action_params': {'move_ids': missing_required_values['transport_code']},
-                'critical': False,
-            })
+                'action_text': _("View journal item(s)"),
+                'action': move_lines._get_records_action(
+                    name=_('Invalid transaction intrastat code entries.'),
+                    context={**self.env.context, 'create': False, 'delete': False, 'expand': True},
+                    views=[(move_lines_view.id, "list"), (False, 'form')],
+                ),
+            }
 
         if missing_required_values['partner_vat']:
-            values['errors'].append({
+            partners = self.env['res.partner'].browse(missing_required_values['partner_vat'])
+            values['errors']['partner_vat_missing'] = {
                 'message': _("Missing partner VAT"),
-                'action_text': 'Set partner vat',
-                'action_name': 'action_open_partners',
-                'action_params': {'partner_ids': list(missing_required_values['partner_vat'])},
-                'critical': False,
-            })
+                'action_text': _('View Partner(s)'),
+                'action': partners._get_records_action(name=_("Invalid Partner(s)"))
+            }
 
     @api.model
     def _group_items(self, items, is_regime_21_short):
@@ -315,13 +333,19 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         """Generates the data encoded in the envelope tag"""
         envelope_id = company.l10n_fr_intrastat_envelope_id
         if not envelope_id:
-            values['errors'].append({
+            values['errors']['settings_approval_number_missing'] = {
                 'message': _("Please set the approval number issued by your local collection center in the Accounting settings"),
-                'action_text': _("Configure settings"),
-                'action_name': 'action_open_settings',
-                'action_params': {'company_id': company.id},
-                'critical': False,
-            })
+                'action_text': _("View Settings"),
+                'action': self.env['res.config.settings']._get_records_action(
+                    name=_("Settings"),
+                    context={
+                        **self.env.context,
+                        'module': 'account',
+                        'default_search_setting': _("DEBWEB2 Identifier"),
+                        'bin_size': False,
+                    }
+                )
+            }
 
         # Software used, 14 character maximum allowed (must include the version too)
         software_used = 'Odoo ' + release.major_version

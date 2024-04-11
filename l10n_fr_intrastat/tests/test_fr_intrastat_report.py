@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.tests import tagged
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
-from odoo import tools
+from odoo.addons.account_reports.models.account_report import AccountReportFileDownloadException
 
 from freezegun import freeze_time
 
@@ -97,61 +96,76 @@ class TestFRIntrastatReport(TestAccountReportsCommon):
         cls.outwards_customer_invoice.action_post()
         cls.outwards_customer_invoice2.action_post()
 
-    @freeze_time('2023-11-01 10:00:00')
+    def _generate_options(self, wizard_options):
+        # EXTENDS account_intrastat
+        options = super()._generate_options(self.report, date_from='2023-10-01', date_to='2023-10-31')
+        wizard = self.env['l10n_fr_intrastat.export.wizard'].create(wizard_options)
+        options['l10n_fr_intrastat_wizard_id'] = wizard.id
+        arrivals, dispatches = options['intrastat_type']
+        arrivals['selected'], dispatches['selected'] = arrivals, dispatches
+        return options
+
+    def _l10n_fr_intrastat_generate_report(self, options):
+        with freeze_time('2023-11-01 10:00:00'):
+            return self.report_handler.l10n_fr_intrastat_export_to_xml(options)
+
     def test_fr_intrastat_export_both_export_types_and_flows(self):
         """ Test generating an XML export when the export type contains both documents (statistical survey and
         vat summary statement) and both export flow for the EMEBI export (arrivals and dispatches)"""
-        options = self._generate_options(self.report, '2023-10-01', '2023-10-31')
-        arrivals, dispatches = options['intrastat_type']
-        arrivals['selected'], dispatches['selected'] = False, False
+        options = self._generate_options({
+            'export_type': 'statistical_survey_and_vat_summary_statement',
+            'emebi_flow': 'arrivals_and_dispatches',
+        })
+        report = self._l10n_fr_intrastat_generate_report(options)
+        self._report_compare_with_test_file(report, 'both_types_flows.xml')
 
-        wizard = self.env['l10n_fr_intrastat.export.wizard'].create({})
-        wizard.export_type = 'statistical_survey_and_vat_summary_statement'
-        wizard.emebi_flow = 'arrivals_and_dispatches'
-        options['l10n_fr_intrastat_wizard_id'] = wizard.id
-
-        result_xml = self.report_handler.l10n_fr_intrastat_export_to_xml(options)['file_content']
-        with tools.file_open('l10n_fr_intrastat/tests/expected_xmls/both_types_flows.xml', 'rb') as expected_xml_file:
-            self.assertXmlTreeEqual(
-                self.get_xml_tree_from_string(result_xml),
-                self.get_xml_tree_from_string(expected_xml_file.read()),
-            )
-
-    @freeze_time('2023-11-01 10:00:00')
     def test_fr_intrastat_export_statistical_survey_with_arrival_emebi(self):
         """ Test generating an XML export when the export type contains only the statistical survey and the export
         flow for the EMEBI export is only arrivals"""
-        options = self._generate_options(self.report, '2023-10-01', '2023-10-31')
-        arrivals, dispatches = options['intrastat_type']
-        arrivals['selected'], dispatches['selected'] = False, False
+        options = self._generate_options({
+            'export_type': 'statistical_survey',
+            'emebi_flow': 'arrivals',
+        })
+        report = self._l10n_fr_intrastat_generate_report(options)
+        self._report_compare_with_test_file(report, 'survey_arrival_emebi.xml')
 
-        wizard = self.env['l10n_fr_intrastat.export.wizard'].create({})
-        wizard.export_type = 'statistical_survey'
-        wizard.emebi_flow = 'arrivals'
-        options['l10n_fr_intrastat_wizard_id'] = wizard.id
-
-        result_xml = self.report_handler.l10n_fr_intrastat_export_to_xml(options)['file_content']
-        with tools.file_open('l10n_fr_intrastat/tests/expected_xmls/survey_arrival_emebi.xml', 'rb') as expected_xml_file:
-            self.assertXmlTreeEqual(
-                self.get_xml_tree_from_string(result_xml),
-                self.get_xml_tree_from_string(expected_xml_file.read()),
-            )
-
-    @freeze_time('2023-11-01 10:00:00')
     def test_fr_intrastat_export_vat_summary_stmt(self):
         """ Test generating an XML export when the export type contains only the vat summary statement"""
-        options = self._generate_options(self.report, '2023-10-01', '2023-10-31')
-        arrivals, dispatches = options['intrastat_type']
-        arrivals['selected'], dispatches['selected'] = False, False
+        options = self._generate_options({
+            'export_type': 'vat_summary_statement',
+            'emebi_flow': 'arrivals_and_dispatches',  # Does not matter in case of vat_summary_statement
+        })
+        report = self._l10n_fr_intrastat_generate_report(options)
+        self._report_compare_with_test_file(report, 'vat_summary_stmt.xml')
 
-        wizard = self.env['l10n_fr_intrastat.export.wizard'].create({})
-        wizard.export_type = 'vat_summary_statement'
-        wizard.emebi_flow = 'arrivals_and_dispatches'  # Does not matter in case of vat_summary_statement
-        options['l10n_fr_intrastat_wizard_id'] = wizard.id
+    def test_fr_intrastat_export_errors(self):
+        self.company_data['company'].siret = False
+        self.outwards_customer_invoice.intrastat_transport_mode_id = False
+        self.outwards_customer_invoice.line_ids[0].update({
+            "intrastat_transaction_id": False,
+            "intrastat_product_origin_country_id": False,
+        })
+        self.product_aeroplane.intrastat_code_id = False
+        self.company_data['company'].write({
+            'siret': False,
+            'intrastat_region_id': False,
+        })
+        options = self._generate_options({
+            'export_type': 'statistical_survey_and_vat_summary_statement',
+            'emebi_flow': 'arrivals_and_dispatches',
+        })
 
-        result_xml = self.report_handler.l10n_fr_intrastat_export_to_xml(options)['file_content']
-        with tools.file_open('l10n_fr_intrastat/tests/expected_xmls/vat_summary_stmt.xml', 'rb') as expected_xml_file:
-            self.assertXmlTreeEqual(
-                self.get_xml_tree_from_string(result_xml),
-                self.get_xml_tree_from_string(expected_xml_file.read()),
-            )
+        try:
+            self._l10n_fr_intrastat_generate_report(options)
+        except AccountReportFileDownloadException as arfde:
+            self.assertEqual(set(arfde.errors.keys()), {
+                'company_vat_or_siret_missing',
+                'move_lines_transaction_code_missing',
+                'move_lines_country_of_origin_missing',
+                'move_lines_transport_code_missing',
+                'products_commodity_code_missing',
+                'settings_region_id_missing',
+            })
+            for error_key, error in arfde.errors.items():
+                self.assertEqual({'action', 'action_text', 'message'}, set(error.keys()))
+                self.assertTrue('name' in error['action'])
