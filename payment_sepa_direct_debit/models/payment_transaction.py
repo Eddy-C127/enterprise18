@@ -97,6 +97,24 @@ class PaymentTransaction(models.Model):
             self._set_done()  # SEPA transactions are confirmed as soon as the mandate is valid.
             self._sdd_notify_debit(self.token_id)
 
+    def _set_done(self, **kwargs):
+        """ Override of `payment` to create the token and validate the mandate of confirmed SEPA
+        transaction.
+
+        Note: It would be preferred to do it in the post-processing, but the tokens must be created
+        before Subscription checks for their existence during its own post-processing.
+        """
+        confirmed_txs = super()._set_done(**kwargs)
+        sepa_txs = confirmed_txs.filtered(
+            lambda t: t.provider_code == 'custom'
+            and t.provider_id.custom_mode == 'sepa_direct_debit'
+            and t.mandate_id
+        )
+        for tx in sepa_txs:
+            tx.token_id = tx.provider_id._sdd_create_token_for_mandate(tx.partner_id, tx.mandate_id)
+            tx.mandate_id._confirm()
+        return confirmed_txs
+
     def _sdd_notify_debit(self, token):
         """ Notify the customer that a debit has been made from his account.
 
@@ -122,19 +140,6 @@ class PaymentTransaction(models.Model):
         })
         template = self.env.ref('payment_sepa_direct_debit.mail_template_sepa_notify_debit')
         template.with_context(ctx).send_mail(self.id)
-
-    def _post_process(self):
-        super()._post_process()
-        sepa_txs = self.filtered(
-            lambda t: t.provider_code == 'custom'
-            and t.provider_id.custom_mode == 'sepa_direct_debit'
-            and t.state == 'done'
-            and t.mandate_id
-        )
-
-        for tx in sepa_txs:
-            tx.provider_id._sdd_create_token_for_mandate(tx.partner_id, tx.mandate_id)
-            tx.mandate_id._confirm()
 
     def _create_payment(self, **extra_create_values):
         """ Override of `payment` to pass the correct payment method line id and the SDD mandate id
