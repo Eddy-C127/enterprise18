@@ -1481,7 +1481,7 @@ class AccountReport(models.Model):
         self.ensure_one()
 
         model = 'account.report.file.download.error.wizard'
-        vals = {'file_generation_errors': json.dumps(errors)}
+        vals = {'actionable_errors': errors}
 
         if content:
             vals['file_name'] = content['file_name']
@@ -5963,11 +5963,11 @@ class AccountReport(models.Model):
             :param list errors: A list of errors in the following format:
                 [
                     {
-                        'message': The error message to be displayed in the wizard,
-                        'action_text': The text of the action button,
-                        'action_name': The name of the method called to handle the issue,
-                        'action_params': Dictionary containing the parameters (as kwargs) passed to the 'action_name' method,
-                        'critical': Whether the error will cause the file generation to crash (Boolean).
+                        'message': The error message to be displayed in the wizard (String),
+                        'action_text': The text of the action button (String),
+                        'action': Contains the action values (Dictionary),
+                        'level': One of 'info', 'warning', 'danger'. (String).
+                                 Only the 'danger' level represents a blocking error.
                     },
                     {...},
                 ]
@@ -5977,10 +5977,8 @@ class AccountReport(models.Model):
         if errors is None:
             errors = []
         self.ensure_one()
-        if any(error.get('critical') for error in errors):
-            # Errors are sorted in order to show the critical ones first.
-            sorted_errors = sorted(errors, key=lambda error: not error.get('critical'))
-            raise AccountReportFileDownloadException(sorted_errors)
+        if any(error_value.get('level') == 'danger' for error_value in errors.values()):
+            raise AccountReportFileDownloadException(errors)
 
         content = content_generator(**generator_params)
 

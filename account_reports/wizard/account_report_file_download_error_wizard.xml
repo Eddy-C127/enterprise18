@@ -11,7 +11,7 @@
                         <span>One or more error(s) occurred during file generation:</span>
                     </div>
                     <div>
-                        <field name="file_generation_errors" widget="account_report_file_generation_error"/>
+                        <field name="actionable_errors" class="o_field_html w-100" widget="actionable_errors"/>
                         <p invisible="file_content"><i>Errors marked with <i class="fa fa-warning"/> are critical and prevent the file generation.</i></p>
                     </div>
                     <footer>

@@ -1,15 +1,14 @@
-# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 import copy
-from contextlib import contextmanager
 from datetime import datetime, date
-from unittest.mock import patch
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 from odoo import Command, fields
 from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
-from odoo.tools.misc import formatLang
+from odoo.tools.misc import formatLang, file_open
 
 class TestAccountReportsCommon(AccountTestInvoicingCommon):
 
@@ -334,3 +333,11 @@ class TestAccountReportsCommon(AccountTestInvoicingCommon):
             'column_group_key': next(iter(options['column_groups'])),
             **kwargs,
         }
+
+    def _report_compare_with_test_file(self, report, xml_file=None, test_xml=None):
+        report_xml = self.get_xml_tree_from_string(report['file_content'])
+        if xml_file and not test_xml:
+            with file_open(f"{self.test_module}/tests/expected_xmls/{xml_file}", 'rb') as fp:
+                test_xml = fp.read()
+        test_xml_tree = self.get_xml_tree_from_string(test_xml)
+        self.assertXmlTreeEqual(report_xml, test_xml_tree)
