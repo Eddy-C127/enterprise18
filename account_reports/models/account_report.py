@@ -1856,9 +1856,7 @@ class AccountReport(models.Model):
         :param line_id (str): the generic line id to parse
         """
         return line_id and [
-            # 'value' can sometimes be a string percentage, i.e. "20.0".
-            # To prevent a ValueError, we need to convert it into a float first, then into an int.
-            (markup, model or None, int(float(value)) if value else None)
+            (markup, model or None, int(value) if model and value else (value or None))
             for markup, model, value in (key.split('~') for key in line_id.split(LINE_ID_HIERARCHY_DELIMITER))
         ] or []
 
@@ -3103,6 +3101,8 @@ class AccountReport(models.Model):
 
         This engine does not support any subformula.
         """
+        if current_groupby == 'dudu':
+            current_groupby = 'move_id'
         self._check_groupby_fields((next_groupby.split(',') if next_groupby else []) + ([current_groupby] if current_groupby else []))
         all_expressions = self.env['account.report.expression']
         for expressions in formulas_dict.values():
@@ -5448,19 +5448,25 @@ class AccountReport(models.Model):
                and options['selected_horizontal_group_id'] is None \
                and len(options['columns']) == 2
 
-    @api.model
     def _check_groupby_fields(self, groupby_fields_name: list[str] | str):
         """ Checks that each string in the groupby_fields_name list is a valid groupby value for an accounting report (so: it must be a field from
-        account.move.line).
+        account.move.line, or a custom value allowed by the _get_custom_groupby_map function of the custom handler).
         """
+        self.ensure_one()
         if isinstance(groupby_fields_name, str | bool):
             groupby_fields_name = groupby_fields_name.split(',') if groupby_fields_name else []
         for field_name in (fname.strip() for fname in groupby_fields_name):
             groupby_field = self.env['account.move.line']._fields.get(field_name)
-            if not groupby_field:
+            custom_handler_name = self._get_custom_handler_model()
+
+            if groupby_field:
+                if not groupby_field.store:
+                    raise UserError(_("Field %s of account.move.line is not stored, and hence cannot be used in a groupby expression", field_name))
+            elif custom_handler_name:
+                if field_name not in self.env[custom_handler_name]._get_custom_groupby_map():
+                    raise UserError(_("Field %s does not exist on account.move.line, and is not supported by this report's custom handler.", field_name))
+            else:
                 raise UserError(_("Field %s does not exist on account.move.line.", field_name))
-            if not groupby_field.store:
-                raise UserError(_("Field %s of account.move.line is not stored, and hence cannot be used in a groupby expression", field_name))
 
     # ============ Accounts Coverage Debugging Tool - START ================
     @api.depends('country_id', 'chart_template', 'root_report_id')
@@ -5891,8 +5897,8 @@ class AccountReportLine(models.Model):
     def _validate_groupby(self):
         super()._validate_groupby()
         for report_line in self:
-            self.env['account.report']._check_groupby_fields(report_line.user_groupby)
-            self.env['account.report']._check_groupby_fields(report_line.groupby)
+            self.report_id._check_groupby_fields(report_line.user_groupby)
+            self.report_id._check_groupby_fields(report_line.groupby)
 
     def _expand_groupby(self, line_dict_id, groupby, options, offset=0, limit=None, load_one_more=False, unfold_all_batch_data=None):
         """ Expand function used to get the sublines of a groupby.
@@ -5905,6 +5911,13 @@ class AccountReportLine(models.Model):
         group_indent = 0
         line_id_list = self.report_id._parse_line_id(line_dict_id)
 
+        # Parse groupby
+        groupby_data = self._parse_groupby(options, groupby_to_expand=groupby)
+        groupby_model = groupby_data['current_groupby_model']
+        next_groupby = groupby_data['next_groupby']
+        current_groupby = groupby_data['current_groupby']
+        custom_groupby_map = groupby_data['custom_groupby_map']
+
         # If this line is a sub-groupby of groupby line (for example, when grouping by partner, id; the id line is a subgroup of partner),
         # we need to add the domain of the parent groupby criteria to the options
         prefix_groups_count = 0
@@ -5913,7 +5926,10 @@ class AccountReportLine(models.Model):
         for markup, model, value in line_id_list:
             if markup.startswith('groupby:'):
                 field_name = markup.split(':')[1]
-                sub_groupby_domain.append((field_name, '=', value))
+                if field_name in custom_groupby_map:
+                    sub_groupby_domain += custom_groupby_map[field_name]['domain_builder'](value)
+                else:
+                    sub_groupby_domain.append((field_name, '=', value))
                 full_sub_groupby_key_elements.append(f"{field_name}:{value}")
             elif markup.startswith('groupby_prefix_group:'):
                 prefix_groups_count += 1
@@ -5924,12 +5940,6 @@ class AccountReportLine(models.Model):
         if sub_groupby_domain:
             forced_domain = options.get('forced_domain', []) + sub_groupby_domain
             options = {**options, 'forced_domain': forced_domain}
-
-        # Parse groupby
-        groupby_data = self._parse_groupby(options, groupby_to_expand=groupby)
-        groupby_model = groupby_data['current_groupby_model']
-        next_groupby = groupby_data['next_groupby']
-        current_groupby = groupby_data['current_groupby']
 
         # If the report transmitted custom_unfold_all_batch_data dictionary, use it
         full_sub_groupby_key = f"[{self.id}]{','.join(full_sub_groupby_key_elements)}=>{current_groupby}"
@@ -6056,14 +6066,19 @@ class AccountReportLine(models.Model):
         :param groupby_to_expand:    A coma-separated string containing, in order, all the fields that are used in the groupby we're expanding.
                                      None if we're not expanding anything.
 
-        :return: A dictionary with 3 keys:
-            'current_groupby':       The name of the field to be used on account.move.line to retrieve the results of the current groupby we're
-                                     expanding, or None if nothing is being expanded
+        :return: A dictionary with 4 keys:
+            'current_groupby':       The name of the value to be used to retrieve the results of the current groupby we're
+                                     expanding, or None if nothing is being expanded. That value can be either a field of account.move.line, or
+                                     a custom groupby value defined in this report's custom handler's _get_custom_groupby_map function.
 
-            'next_groupby':          The subsequent groupings to be applied after current_groupby, as a string of coma-separated field name.
+            'next_groupby':          The subsequent groupings to be applied after current_groupby, as a string of coma-separated values (again,
+                                     either field names from account.move.line or a custom groupby defined on the handler).
                                      If no subsequent grouping exists, next_groupby will be None.
 
             'current_groupby_model': The model name corresponding to current_groupby, or None if current_groupby is None.
+
+            'custom_groupby_map';    The groupby map, used to handle custom groupby values, as returned by the _get_custom_groupby_map function
+                                     of the custom handler (by default, it will be an empty dict)
 
         EXAMPLE:
             When computing a line with groupby=partner_id,account_id,id , without expanding it:
@@ -6095,9 +6110,12 @@ class AccountReportLine(models.Model):
             current_groupby = None
             groupby = self._get_groupby(options)
             next_groupby = groupby.replace(' ', '') if groupby else None
-            split_groupby = next_groupby.split(',') if next_groupby else []
 
-        if current_groupby == 'id':
+        custom_handler_name = self.report_id._get_custom_handler_model()
+        custom_groupby_map = self.env[custom_handler_name]._get_custom_groupby_map() if custom_handler_name else {}
+        if current_groupby in custom_groupby_map:
+            groupby_model = custom_groupby_map[current_groupby]['model']
+        elif current_groupby == 'id':
             groupby_model = 'account.move.line'
         elif current_groupby:
             groupby_model = self.env['account.move.line']._fields[current_groupby].comodel_name
@@ -6108,6 +6126,7 @@ class AccountReportLine(models.Model):
             'current_groupby': current_groupby,
             'next_groupby': next_groupby,
             'current_groupby_model': groupby_model,
+            'custom_groupby_map': custom_groupby_map,
         }
 
     def _get_groupby(self, options):
@@ -6230,6 +6249,22 @@ class AccountReportCustomHandler(models.AbstractModel):
 
             },
         },
+        """
+        return {}
+
+    def _get_custom_groupby_map(self):
+        """ Allows the use of custom values in the groupby field of account.report.line, to use them in custom engines. Those custom
+        values can be anything, and need to be properly handled by the custom engine using them. This allows adding support for grouping on
+        something else than just the fields of account.move.line, which is the default.
+
+        :return:    A dict, in the form {groupby_name: {'model': model, 'domain_builder': domain_builder}}, where:
+                        - groupby_name is the custom value to use in groupby instead of one of aml's field names
+                        - model: is a model name (a string), representing the model the value returned for this custom groupby targets.
+                                 The model will be used to compute the display_name to show for each generated groupby line, in the UI.
+                                 This value can be passed to None ; in such case, the raw value returned by the engine will be shown.
+                        - domain_builder is a function to be called when expanding a groupby line generated by this custom groupby, to compute the
+                                 domain to apply in order to restrict the computation to the content of this groupby line.
+                                 This function must accept a single parameter, corresponding to the groupby value to compute the domain for.
         """
         return {}
 
