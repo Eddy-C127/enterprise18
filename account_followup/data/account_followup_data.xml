@@ -19,6 +19,9 @@
                         <br/>
                         We kindly request that you take necessary action to settle this amount within the next 8 days.
                         <br/>
+                        <div t-if="object._show_pay_now_button()" class="d-flex">
+                            <a t-att-href="'/my/invoices/overdue'" class="btn btn-primary">Pay now</a>
+                        </div>
                         If you have already made the payment after receiving this message, please disregard it.
                         Our accounting department is available if you require any assistance or have any questions.
                         <br/>

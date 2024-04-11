@@ -599,3 +599,8 @@ class ResPartner(models.Model):
             # where the context is changing in the same transaction
             self.env.cr.cache.pop('res_partner_all_followup', None)
             self.with_context(allowed_company_ids=company.ids)._cron_execute_followup_company()
+
+    def _show_pay_now_button(self):
+        invoice_online_payment = bool(self.env['ir.config_parameter'].sudo().get_param('account_payment.enable_portal_payment'))
+        payment_method_available = bool(self.env['payment.method'].sudo().search_count([('active', '=', 'True')]))
+        return invoice_online_payment and payment_method_available
