@@ -170,7 +170,7 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
             - non-validated timesheets have the new project associated.
             - validated timesheets does not get change and keep the initial project.
         """
-
+        self.env.user.tz = 'UTC'
         # Create ticket and store initial project (helpdesk_team)
         helpdesk_ticket = self.env['helpdesk.ticket'].create({
             'name': 'Test Ticket',
@@ -191,7 +191,8 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
             'helpdesk_ticket_id': helpdesk_ticket.id,
             'employee_id': self.empl_employee.id,
         }])
-        timesheet_valid.with_user(self.user_manager).action_validate_timesheet()
+        timesheet_valid.action_validate_timesheet()
+        self.assertTrue(timesheet_valid.validated, "The timesheet should be validated.")
 
         # create a new project and helpdesk_team with timesheet feature
         new_project = self.env['project.project'].create({
@@ -206,7 +207,7 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
         })
 
         # change the helpdesk_team of the helpdesk_ticket
-        form = Form(helpdesk_ticket.with_user(self.env.user))
+        form = Form(helpdesk_ticket)
         form.team_id = new_helpdesk_team
         form.save()
         self.assertEqual(timesheet_valid.project_id, initial_project,
@@ -221,7 +222,7 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
             2)  The tickets's helpdesk_team and non-validated timesheets should be changed despite the warning raised.
             3)  Checks that no warning is raised when the timesheets are validated.
         """
-
+        self.env.user.tz = 'UTC'
         # (1) create tickets and timesheets
         helpdesk_ticket_non_valid, helpdesk_ticket_valid = self.env['helpdesk.ticket'].create([{
             'name': 'Test Ticket non valid',
