@@ -4924,7 +4924,7 @@ class AccountReport(models.Model):
                 io.BytesIO(action_report._run_wkhtmltopdf(
                     bodies,
                     footer=footer.decode(),
-                    landscape=is_landscape,
+                    landscape=is_landscape or self._context.get('force_landscape_printing'),
                     specific_paperformat_args={
                         'data-report-margin-top': 10,
                         'data-report-header-spacing': 10,
