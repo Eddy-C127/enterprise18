@@ -209,3 +209,10 @@ class TrialBalanceCustomHandler(models.AbstractModel):
             'views': [(self.env.ref('account_consolidation.view_move_line_tree_grouped_general').id, 'list')]
         })
         return action
+
+    def export_to_pdf(self, options):
+        # The implementation of the consolidation report uses column headers, but no explicit columns. Because of that, we
+        # cannot rely on the standard check done in the pdf export to know whether to print in landscape mode or not.
+        # This functions shadows account.report's export_to_pdf function in order to do that.
+        landscape = len(options['column_headers'][0]) > 5
+        return self.env['account.report'].browse(options['report_id']).with_context(force_landscape_printing=landscape).export_to_pdf(options)
