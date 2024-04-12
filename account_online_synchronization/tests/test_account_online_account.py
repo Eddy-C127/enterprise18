@@ -98,6 +98,49 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
             ]
         )
 
+    @freeze_time('2023-08-01')
+    def test_format_transactions_foreign_currency_code_to_id_with_activation(self):
+        """ This test ensures conversion of foreign currency code to foreign currency id and activates foreign currency if not already activate """
+        gbp_currency = self.env['res.currency'].with_context(active_test=False).search([('name', '=', 'GBP')])
+        egp_currency = self.env['res.currency'].with_context(active_test=False).search([('name', '=', 'EGP')])
+
+        transactions_to_format = [
+            self._create_one_online_transaction(transaction_identifier='ABCD01', foreign_currency_code='GBP'),
+            self._create_one_online_transaction(transaction_identifier='ABCD02', foreign_currency_code='EGP', amount_currency=500.0),
+        ]
+        formatted_transactions = self.account_online_account._format_transactions(transactions_to_format)
+
+        self.assertTrue(gbp_currency.active)
+        self.assertTrue(egp_currency.active)
+
+        self.assertEqual(
+            formatted_transactions,
+            [
+                {
+                    'payment_ref': 'transaction_ABCD01',
+                    'date': fields.Date.from_string('2023-08-01'),
+                    'online_transaction_identifier': 'ABCD01',
+                    'amount': 10.0,
+                    'online_account_id': self.account_online_account.id,
+                    'journal_id': self.gold_bank_journal.id,
+                    'partner_name': None,
+                    'foreign_currency_id': gbp_currency.id,
+                    'amount_currency': 8.0,
+                },
+                {
+                    'payment_ref': 'transaction_ABCD02',
+                    'date': fields.Date.from_string('2023-08-01'),
+                    'online_transaction_identifier': 'ABCD02',
+                    'amount': 10.0,
+                    'online_account_id': self.account_online_account.id,
+                    'journal_id': self.gold_bank_journal.id,
+                    'partner_name': None,
+                    'foreign_currency_id': egp_currency.id,
+                    'amount_currency': 500.0,
+                },
+            ]
+        )
+
     @freeze_time('2023-07-25')
     @patch('odoo.addons.account_online_synchronization.models.account_online.AccountOnlineLink._fetch_odoo_fin')
     def test_retrieve_pending_transactions(self, patched_fetch_odoofin):

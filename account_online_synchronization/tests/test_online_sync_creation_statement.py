@@ -171,6 +171,7 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
             'provider_data': False,
             'account_data': False,
             'include_pendings': False,
+            'include_foreign_currency': True,
         }
         patched_fetch.assert_called_with('/proxy/v1/transactions', data=data)
 
