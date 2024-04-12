@@ -742,6 +742,9 @@ class BankRecWidget(models.Model):
         self.ensure_one()
 
         tax_rep = self.env['account.tax.repartition.line'].browse(tax_line_vals['tax_repartition_line_id'])
+        name = tax_rep.tax_id.name
+        if self.st_line_id.payment_ref:
+            name = f'{name} - {self.st_line_id.payment_ref}'
         if tax_line_vals['tax_id'] == tax_rep.tax_id.id:
             group_tax = self.env['account.tax']
         else:
@@ -755,7 +758,7 @@ class BankRecWidget(models.Model):
 
             'account_id': tax_line_vals['account_id'],
             'date': self.st_line_id.date,
-            'name': tax_rep.tax_id.name,
+            'name': name,
             'partner_id': tax_line_vals['partner_id'],
             'currency_id': currency.id,
             'amount_currency': amount_currency,
