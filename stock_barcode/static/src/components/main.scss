@@ -99,10 +99,7 @@
             flex: 1 1 0px;
             border-width: 1px 0 0 0;
             border-style: solid;
-            @media (orientation: portrait) {
-                font-size: 0.8em;
-            }
-            @media (orientation: landscape) {
+            @media (min-height: 800px) {
                 height: 60px;
             }
             &.btn-secondary {
