@@ -474,8 +474,8 @@ class TestSmartSchedule(TestProjectCommon):
                 ('Task (deadline: Wednesday, allocated: 0h, priority: 0)', 0.0, datetime(2023, 10, 23, 11, 0), datetime(2023, 10, 23, 15, 0)),
                 ('Task (deadline: None, allocated: 8h, priority: 1)', 8.0, datetime(2023, 10, 24, 6, 0), datetime(2023, 10, 24, 15, 0)),
                 ('Task (deadline: None, allocated: 8h, priority: 0)', 8.0, datetime(2023, 10, 25, 6, 0), datetime(2023, 10, 25, 15, 0)),
-                ('Task (deadline: None, allocated: 0h, priority: 1)', 0.0, datetime(2023, 10, 26, 6, 0), datetime(2023, 10, 26, 10, 0)),
-                ('Task (deadline: None, allocated: 0h, priority: 0)', 0.0, datetime(2023, 10, 26, 11, 0), datetime(2023, 10, 26, 15, 0)),
+                ('Task (deadline: None, allocated: 0h, priority: 1)', 4.0, datetime(2023, 10, 26, 6, 0), datetime(2023, 10, 26, 10, 0)),
+                ('Task (deadline: None, allocated: 0h, priority: 0)', 4.0, datetime(2023, 10, 26, 11, 0), datetime(2023, 10, 26, 15, 0)),
             ],
             """
             We expect the tasks to be sorted as follows:

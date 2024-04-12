@@ -205,14 +205,6 @@ class TestTaskGanttView(TestProjectCommon):
         })  # capacity of 16h
         self.assertEqual(self.tasks.mapped('allocated_hours'), [2.0, 2.0, 12.0], 'The capacity should be 4h since a task with 12h allocated hours is in the recordset')
 
-    def test_smart_scheduling_no_allocated_hours(self):
-        task = self.tasks[0]
-        task.with_context(smart_task_scheduling=True).write({
-            'planned_date_begin': '2024-03-07 00:00:00',
-            'date_deadline': '2024-03-08 23:59:59',
-        })
-        self.assertEqual(task.allocated_hours, 0.0, 'This task was scheduled using smart scheduling, so the allocated hours should remain the same')
-
     def test_no_recompute_allocated_hours_present(self):
         self.tasks.write({
             'allocated_hours': 12.0,  # set allocated hours to 12
