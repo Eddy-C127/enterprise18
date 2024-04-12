@@ -168,10 +168,6 @@ export default class BarcodeQuantModel extends BarcodeModel {
         return this.applyOn > 0 && this.applyOn === this.pageLines.length;
     }
 
-    get incrementButtonsDisplayStyle() {
-        return "d-block my-3";
-    }
-
     IsNotSet(line) {
         return !line.inventory_quantity_set;
     }
