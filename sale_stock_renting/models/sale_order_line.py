@@ -6,6 +6,7 @@ from datetime import timedelta
 
 from odoo import _, api, Command, fields, models
 from odoo.exceptions import ValidationError
+from odoo.osv import expression
 from odoo.tools.misc import groupby as tools_groupby
 
 
@@ -19,6 +20,74 @@ class RentalOrderLine(models.Model):
     returned_lot_ids = fields.Many2many('stock.lot', 'rental_returned_lot_rel', domain="[('product_id','=',product_id)]", copy=False)
 
     unavailable_lot_ids = fields.Many2many('stock.lot', 'unreturned_reserved_serial', compute='_compute_unavailable_lots', store=False)
+    available_reserved_lots = fields.Boolean(compute='_compute_available_reserved_lots')
+
+    @api.depends('reserved_lot_ids', 'reservation_begin', 'return_date')
+    def _compute_available_reserved_lots(self):
+        # A lot is available if it is currently in the stock AND it won't be removed from stock
+        # before the end of rental period.
+        # A lot is available if it is not currently in the stock AND it will be back in stock
+        # before the start of rental period.
+        self.available_reserved_lots = True
+        if not self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
+            return
+        lines_to_check = self.filtered(lambda l: l.reserved_lot_ids and l.product_template_id.tracking == 'serial')
+
+        partner_location_id = self.env.ref('stock.stock_location_locations_partner')
+
+        for line in lines_to_check:
+            company_id = line.order_id.company_id.id
+            domain = [
+                ('company_id', '=', company_id),
+                ('state', 'not in', ['done', 'cancel']),
+                ('lot_id', 'in', line.reserved_lot_ids.ids),
+            ]
+            leaving_move_lines_groups = self.env['stock.move.line']._read_group(
+                expression.AND([domain, [
+                            ('location_usage', '=', 'internal'),
+                            ('location_dest_id', 'child_of', partner_location_id.id),
+                        ]]),
+                groupby=['lot_id'],
+                aggregates=['id:recordset'],
+            )
+            leaving_move_by_lot = {g[0].id: g[1] for g in leaving_move_lines_groups}
+            incoming_move_lines_groups = self.env['stock.move.line']._read_group(
+                expression.AND([domain, [
+                            ('location_id', 'child_of', partner_location_id.id),
+                            ('location_dest_usage', '=', 'internal'),
+                        ]]),
+                groupby=['lot_id'],
+                aggregates=['id:recordset'],
+            )
+            incoming_move_by_lot = {g[0].id: g[1] for g in incoming_move_lines_groups}
+            for lot in line.reserved_lot_ids:
+                lot_id = lot.ids[0]
+                if lot_id in line.move_ids.lot_ids.ids:
+                    continue
+                in_stock = bool(sum(
+                    lot.quant_ids.filtered(
+                        lambda q: q.location_id.usage in ['internal', 'transit']
+                            and q.location_id not in partner_location_id.child_internal_location_ids
+                            and q.company_id.id == company_id).mapped('quantity')
+                    ))
+                if in_stock:
+                    leaving_move_line = leaving_move_by_lot.get(lot_id, False)
+                    leaving = bool(leaving_move_line and (
+                        leaving_move_line.move_id.date_deadline <= line.return_date
+                        and not (
+                            # will return in time from an other renting
+                            leaving_move_line.move_id.sale_line_id.return_date
+                            and leaving_move_line.move_id.sale_line_id.return_date <= line.reservation_begin
+                        ))
+                    )
+                    in_stock = not leaving
+                else:
+                    incoming_move_line = incoming_move_by_lot.get(lot_id, False)
+                    incoming = bool(incoming_move_line and incoming_move_line.move_id.date_deadline <= line.reservation_begin)
+                    in_stock = incoming
+                if not in_stock:
+                    line.available_reserved_lots = False
+                    break
 
     def _partition_so_lines_by_rental_period(self):
         """ Return a partition of sale.order.line based on (from_date, to_date, warehouse_id)
