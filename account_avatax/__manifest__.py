@@ -4,7 +4,9 @@
     'name': 'Avatax',
     'version': '1.0',
     'category': 'Accounting/Accounting',
+    'countries': ['us', 'ca'],
     'depends': ['payment', 'account_external_tax'],
+    'auto_install': ['payment'],
     'data': [
         'security/ir.model.access.csv',
         'data/product.avatax.category.csv',
