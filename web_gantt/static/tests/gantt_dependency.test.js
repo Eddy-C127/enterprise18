@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
-import { hover, queryAll, queryFirst, resize } from "@odoo/hoot-dom";
+import { hover, pointerDown, queryAll, queryFirst, queryOne, resize } from "@odoo/hoot-dom";
 import { animationFrame, runAllTimers } from "@odoo/hoot-mock";
 import {
     contains,
@@ -754,6 +754,47 @@ test("Create a connector from the gantt view.", async () => {
         queryFirst(SELECTORS.connectorCreatorBullet, { root: rightWrapper })
     ).dragAndDrop(getPill("Task 2"));
     expect([`["write",[[2],{"depend_on_ids":[[4,3,false]]}]]`]).toVerifySteps();
+});
+
+test("Create a connector from the gantt view: going fast", async () => {
+    await mountView({
+        ...ganttViewParams,
+        domain: [["id", "in", [1, 3]]],
+    });
+
+    // Explicitly shows the connector creator wrapper since its "display: none"
+    // disappears on native CSS hover, which cannot be programatically emulated.
+    const rightWrapper = getPillWrapper("Task 1").querySelector(SELECTORS.connectorCreatorWrapper);
+    rightWrapper.classList.add("d-block");
+
+    const connectorBullet = rightWrapper.querySelector(SELECTORS.connectorCreatorBullet);
+    const bulletRect = connectorBullet.getBoundingClientRect();
+    const initialPosition = {
+        x: Math.floor(bulletRect.left), // floor to avoid sub-pixel positioning
+        y: Math.floor(bulletRect.top), // floor to avoid sub-pixel positioning
+    };
+    pointerDown(connectorBullet, {
+        position: { clientX: initialPosition.x, clientY: initialPosition.y },
+    });
+
+    // Here we simulate a fast move, using arbitrary values.
+    const currentPosition = {
+        x: Math.floor(initialPosition.x + 123), // floor to avoid sub-pixel positioning
+        y: Math.floor(initialPosition.y + 12), // floor to avoid sub-pixel positioning
+    };
+    hover(SELECTORS.cellContainer, {
+        position: { clientX: currentPosition.x, clientY: currentPosition.y },
+    });
+    await animationFrame();
+
+    // Then we check that the connector stroke is correctly positioned.
+    const connectorStroke = queryOne(SELECTORS.connectorStroke, { root: getConnector("new") });
+    expect(connectorStroke).toHaveRect({
+        top: initialPosition.y,
+        right: currentPosition.x,
+        bottom: currentPosition.y,
+        left: initialPosition.x,
+    });
 });
 
 test("Connectors should be rendered if connected pill is not visible", async () => {

@@ -355,14 +355,14 @@ export class GanttRenderer extends Component {
             ref: this.rootRef,
             elements: ".o_connector_creator_bullet",
             parentWrapper: ".o_gantt_cells .o_gantt_pill_wrapper",
-            onDragStart: ({ sourcePill, x, y, addClass }) => {
+            onDragStart: ({ initialPosition, sourcePill, x, y, addClass }) => {
                 this.popover.close();
                 initialPillId = sourcePill.dataset.pillId;
                 addClass(sourcePill, "o_connector_creator_lock");
                 this.setConnector({
                     id: NEW_CONNECTOR_ID,
                     highlighted: true,
-                    sourcePoint: { left: x, top: y },
+                    sourcePoint: { left: initialPosition.x, top: initialPosition.y },
                     targetPoint: { left: x, top: y },
                 });
                 this.interaction.mode = "connect";
