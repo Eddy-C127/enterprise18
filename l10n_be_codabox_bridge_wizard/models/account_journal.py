@@ -55,7 +55,7 @@ class AccountJournal(models.Model):
     ############################
 
     def _l10n_be_codabox_fetch_coda_transactions(self, company):
-        if (not company.vat and company.company_registry) or not company.l10n_be_codabox_is_connected:
+        if not company.l10n_be_codabox_is_connected:
             raise UserError(get_error_msg({"type": "error_codabox_not_configured"}))
 
         date_3_months_ago = fields.Date.to_string(fields.Date.today() - relativedelta(months=3))
