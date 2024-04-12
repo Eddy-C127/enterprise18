@@ -37,7 +37,7 @@
                 </div>
             </xpath>
 
-            <xpath expr="//div[@id='bank_and_cash_container']" position="inside">
+            <xpath expr="//div[@t-if=&quot;journal_type == 'bank' || journal_type == 'cash'&quot;]" position="inside">
                 <div class="col-4 o_kanban_card_manage_section o_kanban_manage_reconciliation">
                     <h5 id="card_action_view_menus" class="o_kanban_card_manage_title">
                         <span role="separator">Reconciliation</span>
