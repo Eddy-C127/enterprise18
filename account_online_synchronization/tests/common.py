@@ -38,7 +38,7 @@ class AccountOnlineSynchronizationCommon(AccountTestInvoicingCommon):
         self.transaction_id = 1
         self.account_online_account.balance = 0.0
 
-    def _create_one_online_transaction(self, transaction_identifier=None, date=None, payment_ref=None, amount=10.0, partner_name=None):
+    def _create_one_online_transaction(self, transaction_identifier=None, date=None, payment_ref=None, amount=10.0, partner_name=None, foreign_currency_code=None, amount_currency=8.0):
         """ This method allows to create an online transaction granularly
 
             :param transaction_identifier: Online identifier of the transaction, by default transaction_id from the
@@ -46,6 +46,8 @@ class AccountOnlineSynchronizationCommon(AccountTestInvoicingCommon):
             :param date: Date of the transaction, by default the date of today
             :param payment_ref: Label of the transaction
             :param amount: Amount of the transaction, by default equals 10.0
+            :param foreign_currency_code: Code of transaction's foreign currency
+            :param amount_currency: Amount of transaction in foreign currency, update transaction only if foreign_currency_code is given, by default equals 8.0
             :return: A dictionnary representing an online transaction (not formatted)
         """
         transaction_identifier = transaction_identifier or self.transaction_id
@@ -55,13 +57,19 @@ class AccountOnlineSynchronizationCommon(AccountTestInvoicingCommon):
             date = fields.Date.to_string(fields.Date.today())
 
         payment_ref = payment_ref or f'transaction_{transaction_identifier}'
-        return {
+        transaction = {
             'online_transaction_identifier': transaction_identifier,
             'date': date,
             'payment_ref': payment_ref,
             'amount': amount,
             'partner_name': partner_name,
         }
+        if foreign_currency_code:
+            transaction.update({
+                'foreign_currency_code': foreign_currency_code,
+                'amount_currency': amount_currency
+            })
+        return transaction
 
     def _create_online_transactions(self, dates):
         """ This method returns a list of transactions with the

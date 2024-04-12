@@ -198,6 +198,7 @@ class AccountOnlineAccount(models.Model):
             'last_transaction_identifier': last_stmt_line.online_transaction_identifier if not include_pendings else None,
             'currency_code': self.journal_ids[0].currency_id.name,
             'include_pendings': include_pendings,
+            'include_foreign_currency': True,
         }
         pendings = []
         while True:
@@ -271,15 +272,25 @@ class AccountOnlineAccount(models.Model):
     def _format_transactions(self, new_transactions):
         """ This function format transactions:
             It will:
+             - Replace the foreign currency code with the corresponding currency id and activating the currencies that are not active
              - Change inverse the transaction sign if the setting is activated
              - Parsing the date
              - Setting the account online account and the account journal
         """
         self.ensure_one()
         transaction_sign = -1 if self.inverse_transaction_sign else 1
+        currencies = self.env['res.currency'].with_context(active_test=False).search([])
+        currency_code_mapping = {currency.name: currency for currency in currencies}
 
         formatted_transactions = []
         for transaction in new_transactions:
+            if transaction.get('foreign_currency_code'):
+                currency = currency_code_mapping.get(transaction.pop('foreign_currency_code'))
+                if currency:
+                    transaction.update({'foreign_currency_id': currency.id})
+                    if not currency.active:
+                        currency.active = True
+
             formatted_transactions.append({
                 **transaction,
                 'amount': transaction['amount'] * transaction_sign,

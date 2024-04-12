@@ -48,6 +48,11 @@ class AccountMissingTransaction(models.TransientModel):
         pendings = [{**pending, 'state': 'pending'} for pending in pendings]
         filtered_transactions = self.journal_id.account_online_account_id._get_filtered_transactions(transactions + pendings)
 
+        # Remove multi-currency fields to avoid breaking 'Fetch Missing Transactions' flow since these fields don't exist in the transient model.
+        for transaction in filtered_transactions:
+            transaction.pop('foreign_currency_id', False)
+            transaction.pop('amount_currency', False)
+
         transient_transactions_ids = self.env['account.bank.statement.line.transient'].create(filtered_transactions)
 
         return {
