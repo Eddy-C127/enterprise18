@@ -16,8 +16,16 @@ export class InputDialog extends Component {
     }
 
     confirm() {
+        const convertedValue = this.convertInputValue(this.state.inputValue);
         this.props.close();
-        this.props.confirm?.(this.state.inputValue);
+        this.props.confirm?.(convertedValue);
+    }
+
+    convertInputValue(value) {
+        if (this.props.inputType === "number") {
+            return parseInt(value, 10);
+        }
+        return value;
     }
 }
 
