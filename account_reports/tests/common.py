@@ -301,3 +301,13 @@ class TestAccountReportsCommon(AccountTestInvoicingCommon):
         """ Same as _get_basic_line_dict_id_from_report_line, but from the line's xmlid, for convenience in the tests.
         """
         return cls._get_basic_line_dict_id_from_report_line(cls.env.ref(report_line_xmlid))
+
+    @classmethod
+    def _get_audit_params_from_report_line(cls, options, report_line, report_line_dict, **kwargs):
+        return {
+            'report_line_id': report_line.id,
+            'calling_line_dict_id': report_line_dict['id'],
+            'expression_label': 'balance',
+            'column_group_key': next(iter(options['column_groups'])),
+            **kwargs,
+        }

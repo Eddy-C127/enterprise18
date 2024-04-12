@@ -214,15 +214,6 @@ class TestReportEngines(TestAccountReportsCommon):
 
         return report
 
-    def _get_audit_params_from_report_line(self, options, report_line, report_line_dict, **kwargs):
-        return {
-            'report_line_id': report_line.id,
-            'calling_line_dict_id': report_line_dict['id'],
-            'expression_label': 'balance',
-            'column_group_key': next(iter(options['column_groups'])),
-            **kwargs,
-        }
-
     # -------------------------------------------------------------------------
     # TESTS
     # -------------------------------------------------------------------------

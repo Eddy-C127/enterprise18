@@ -417,16 +417,9 @@ class TestAccountReports(TestAccountReportsCommon):
         return line
 
     def _audit_line(self, options, report, line_xml_id):
-        def _get_audit_params_from_report_line(options, report_line_id, report_line):
-            return {
-                'report_line_id': report_line_id,
-                'calling_line_dict_id': report_line['id'],
-                'expression_label': 'balance',
-                'column_group_key': next(iter(options['column_groups'])),
-            }
         lines = report._get_lines(options)
         line = self._get_line_from_xml_id(lines, report, line_xml_id)
-        return report.action_audit_cell(options, _get_audit_params_from_report_line(options, self.env.ref(line_xml_id).id, line))
+        return report.action_audit_cell(options, self._get_audit_params_from_report_line(options, self.env.ref(line_xml_id), line))
 
     def _create_misc_entry(self, invoice_date, debit_account_id, credit_account_id):
         new_misc = self.env['account.move'].create({
