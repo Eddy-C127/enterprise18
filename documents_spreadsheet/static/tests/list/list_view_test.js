@@ -338,6 +338,26 @@ QUnit.module(
             );
         });
 
+        QUnit.test("Re-insert a list with a selected number of records", async function (assert) {
+            const { model, env } = await createSpreadsheetFromListView();
+            selectCell(model, "Z1");
+
+            await doMenuAction(
+                topbarMenuRegistry,
+                ["data", "reinsert_list", "reinsert_list_1"],
+                env
+            );
+            await nextTick();
+
+            /** @type {HTMLInputElement} */
+            const input = document.body.querySelector(".modal-body input");
+            input.value = 2000;
+            await triggerEvent(input, null, "input");
+            await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
+
+            assert.strictEqual(model.getters.getNumberRows(model.getters.getActiveSheetId()), 2001);
+        });
+
         QUnit.test("user related context is not saved in the spreadsheet", async function (assert) {
             setupViewRegistries();
 
