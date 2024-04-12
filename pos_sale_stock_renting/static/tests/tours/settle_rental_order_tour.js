@@ -1,6 +1,5 @@
-import * as ProductScreenPos from "@point_of_sale/../tests/tours/utils/product_screen_util";
-import * as ProductScreenSale from "@pos_sale/../tests/tours/utils/product_screen_util";
-const ProductScreen = { ...ProductScreenPos, ...ProductScreenSale };
+import * as ProductScreen from "@point_of_sale/../tests/tours/utils/product_screen_util";
+import * as PosSale from "@pos_sale/../tests/tours/utils/pos_sale_utils";
 import * as PaymentScreen from "@point_of_sale/../tests/tours/utils/payment_screen_util";
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/utils/receipt_screen_util";
 import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
@@ -11,8 +10,7 @@ registry.category("web_tour.tours").add("OrderLotsRentalTour", {
     steps: () =>
         [
             Dialog.confirm("Open session"),
-            ProductScreen.clickControlButton("Quotation/Order"),
-            ProductScreen.selectFirstOrder(),
+            PosSale.settleNthOrder(1),
             ProductScreen.clickLotIcon(),
             ProductScreen.enterLotNumber("123456789"),
             ProductScreen.clickPayButton(),
