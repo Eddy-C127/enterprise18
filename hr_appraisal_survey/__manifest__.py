@@ -32,5 +32,4 @@ This module adds an integration with Survey to ask feedbacks to any employee, ba
     'license': 'OEEL-1',
     'auto_install': True,
     'post_init_hook': '_setup_survey_template',
-    'uninstall_hook': 'uninstall_hook',
 }
