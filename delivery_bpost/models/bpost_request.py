@@ -164,7 +164,7 @@ class BpostRequest():
             price += self._get_rate(carrier, int(box['weight']), picking.partner_id.country_id)
 
         # Announce shipment to bpost
-        reference_id = str(picking.name.replace("/", "", 2))[:50]
+        reference_id = str(picking.name.replace("/", ""))[:50]
         ss, sn = self._parse_address(sender)
         rs, rn = self._parse_address(receiver)
 
