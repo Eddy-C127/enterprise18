@@ -12,7 +12,6 @@
     }
 
     .o_web_studio_app_creator_left {
-      background-color: $o-web-studio-bg-light;
 
       h1 {
         font-size: 3.5em;
@@ -40,8 +39,12 @@
       }
     }
 
-    .o_field_widget.o_field_many2one {
-      width: 100%;
+    .o_input {
+      border-color: $o-web-studio-text-inactive;
+
+      &:focus-within {
+        border-color: $o-action;
+      }
     }
   }
 }
