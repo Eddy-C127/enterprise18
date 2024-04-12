@@ -124,7 +124,7 @@ class AccountMove(models.Model):
             company_ids = report.get_report_company_ids(options)
             if sender_company == move.company_id:
                 # In branch/tax unit setups, first post all the unposted moves of the other companies when posting the main company.
-                tax_closing_action = report.dispatch_report_action(options, 'action_periodic_vat_entries')
+                tax_closing_action = report.dispatch_report_action(options, 'action_periodic_vat_entries', on_sections_source=report.use_sections)
                 depending_closings = self.env['account.move'].with_context(allowed_company_ids=company_ids).search([
                     *(tax_closing_action.get('domain') or [('id', '=', tax_closing_action['res_id'])]),
                     ('id', '!=', move.id),
