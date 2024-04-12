@@ -564,7 +564,7 @@ class Picking(models.Model):
             raise UserError(_('Please configure MapBox to use this feature'))
         params = {
             'sources': 0,
-            'destinations': 1,
+            'destinations': 'all',
             'annotations': 'distance',
             'access_token': mb_token,
         }
@@ -575,6 +575,6 @@ class Picking(models.Model):
                 fetched_data = record._l10n_mx_edi_request_mapbox(url, params)
                 res = json.loads(fetched_data.content)
                 if 'distances' in res:
-                    record.l10n_mx_edi_distance = res['distances'][0][0] // 1000
+                    record.l10n_mx_edi_distance = res['distances'][0][1] // 1000
             else:
                 raise UserError(_('Distance calculation requires both the source and destination coordinates'))
