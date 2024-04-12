@@ -237,7 +237,7 @@ export const useGanttConnectorDraggable = makeDraggableHook({
                 addStyle(otherParent, { pointerEvents: "auto" });
             }
         }
-        return { sourcePill: parent };
+        return { initialPosition: current.initialPosition, sourcePill: parent };
     },
     onDrag: ({ ctx }) => pick(ctx.current, "element"),
     onDragEnd: ({ ctx }) => pick(ctx.current, "element"),

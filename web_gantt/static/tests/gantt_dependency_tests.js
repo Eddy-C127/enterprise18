@@ -893,6 +893,49 @@ QUnit.module("Views > GanttView", (hooks) => {
         assert.verifySteps([`["write",[[2],{"depend_on_ids":[[4,3,false]]}]]`]);
     });
 
+    QUnit.test("Create a connector from the gantt view: going fast", async (assert) => {
+        await makeView({
+            ...ganttViewParams,
+            domain: [["id", "in", [1, 3]]],
+        });
+
+        // Explicitly shows the connector creator wrapper since its "display: none"
+        // disappears on native CSS hover, which cannot be programatically emulated.
+        const rightWrapper = getPillWrapper("Task 1").querySelector(
+            SELECTORS.connectorCreatorWrapper
+        );
+        rightWrapper.classList.add("d-block");
+
+        const connectorBullet = rightWrapper.querySelector(SELECTORS.connectorCreatorBullet);
+        const bulletRect = connectorBullet.getBoundingClientRect();
+        const initialPosition = {
+            x: Math.floor(bulletRect.left), // floor to avoid sub-pixel positioning
+            y: Math.floor(bulletRect.top), // floor to avoid sub-pixel positioning
+        };
+        await triggerEvent(connectorBullet, null, "pointerdown", {
+            clientX: initialPosition.x,
+            clientY: initialPosition.y,
+        });
+
+        // Here we simulate a fast move, using arbitrary values.
+        const currentPosition = {
+            x: Math.floor(initialPosition.x + 123), // floor to avoid sub-pixel positioning
+            y: Math.floor(initialPosition.y + 12), // floor to avoid sub-pixel positioning
+        };
+        await triggerEvent(target, null, "pointermove", {
+            clientX: currentPosition.x,
+            clientY: currentPosition.y,
+        });
+
+        // Then we check that the connector stroke is correctly positioned.
+        const connectorStroke = getConnector("new").querySelector(SELECTORS.connectorStroke);
+        const strokeRect = connectorStroke.getBoundingClientRect();
+        assert.strictEqual(strokeRect.left, initialPosition.x);
+        assert.strictEqual(strokeRect.top, initialPosition.y);
+        assert.strictEqual(strokeRect.left + strokeRect.width, currentPosition.x);
+        assert.strictEqual(strokeRect.top + strokeRect.height, currentPosition.y);
+    });
+
     QUnit.test("Connectors should be rendered if connected pill is not visible", async (assert) => {
         // Generate a lot of users so that the connectors are far beyond the visible
         // viewport, hence generating fake extra pills to render the connectors.
