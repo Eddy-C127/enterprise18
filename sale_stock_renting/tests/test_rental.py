@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
+from odoo import Command
 from odoo.fields import Datetime, Date
 from odoo.tests import Form
 from odoo.addons.sale_stock_renting.tests.test_rental_common import TestRentalCommon
@@ -586,3 +587,81 @@ class TestRentalPicking(TestRentalCommon):
         self.env['stock.warehouse.orderpoint'].action_open_orderpoints()
         self.assertEqual(self.product_id.orderpoint_ids.lead_days_date, date)
         self.assertEqual(self.product_id.orderpoint_ids.qty_forecast, -2)
+
+    def test_rental_available_reserved_lots(self):
+        """
+            The aim is to check if the `available_reserved_lots` compute
+            field correctly determines whether a batch we want to reserve
+            will be available or not.
+        """
+        # Create a sale order to reserve a lot.
+        sale_order_id1 = self.env['sale.order'].create({
+            'partner_id': self.cust1.id,
+            'rental_start_date': Datetime.today() + timedelta(days=3),
+            'rental_return_date': Datetime.today() + timedelta(days=4),
+        })
+        order_line_id1 = self.env['sale.order.line'].create({
+            'order_id': sale_order_id1.id,
+            'product_id': self.tracked_product_id.id,
+            'reserved_lot_ids': [Command.set(self.lot_id1.ids)],
+            'product_uom_qty': 1.0,
+        })
+        order_line_id1.update({'is_rental': True})
+        sale_order_id1.action_confirm()
+
+        # Create a second sale order and modify reserved lots, start date
+        # and return date to check if `available_reserved_lots` is correct.
+        sale_order_id = self.env['sale.order'].create({
+            'partner_id': self.cust1.id,
+            'rental_start_date': Datetime.today() + timedelta(days=3),
+            'rental_return_date': Datetime.today() + timedelta(days=4),
+        })
+        order_line_id = self.env['sale.order.line'].create({
+            'order_id': sale_order_id.id,
+            'product_id': self.tracked_product_id.id,
+            'product_uom_qty': 1.0,
+        })
+        order_line_id.update({'is_rental': True})
+
+        self.assertEqual(order_line_id.available_reserved_lots, True)
+        order_line_id.reserved_lot_ids = self.lot_id2
+        self.assertEqual(order_line_id.available_reserved_lots, True)
+        order_line_id.reserved_lot_ids += self.lot_id1
+        self.assertEqual(order_line_id.available_reserved_lots, False)
+        sale_order_id.write({
+            'rental_start_date': Datetime.today() + timedelta(days=1),
+            'rental_return_date': Datetime.today() + timedelta(days=2),
+        })
+        self.assertEqual(order_line_id.available_reserved_lots, True)
+        sale_order_id.write({
+            'rental_start_date': Datetime.today() + timedelta(days=5),
+            'rental_return_date': Datetime.today() + timedelta(days=6),
+        })
+        # will return in stock in time
+        self.assertEqual(order_line_id.available_reserved_lots, True)
+
+        # Validate the delivery of the first order to test the flow
+        # when the product is not in stock
+        delivery = sale_order_id1.picking_ids.filtered(lambda p: p.picking_type_id == self.warehouse_id.out_type_id)
+        delivery.button_validate()
+        self.assertEqual(delivery.state, 'done')
+        self.assertEqual(delivery.move_ids.lot_ids, self.lot_id1)
+        self.assertEqual(order_line_id1.available_reserved_lots, True)
+        sale_order_id.write({
+            'rental_start_date': Datetime.today() + timedelta(days=3),
+            'rental_return_date': Datetime.today() + timedelta(days=4),
+        })
+        order_line_id.reserved_lot_ids = self.lot_id2
+        self.assertEqual(order_line_id.available_reserved_lots, True)
+        order_line_id.reserved_lot_ids += self.lot_id1
+        self.assertEqual(order_line_id.available_reserved_lots, False)
+        sale_order_id.write({
+            'rental_start_date': Datetime.today() + timedelta(days=1),
+            'rental_return_date': Datetime.today() + timedelta(days=2),
+        })
+        self.assertEqual(order_line_id.available_reserved_lots, False)
+        sale_order_id.write({
+            'rental_start_date': Datetime.today() + timedelta(days=5),
+            'rental_return_date': Datetime.today() + timedelta(days=6),
+        })
+        self.assertEqual(order_line_id.available_reserved_lots, True)

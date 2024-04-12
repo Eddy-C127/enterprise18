@@ -8,7 +8,8 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='is_product_rentable']" position='after'>
                 <field name="tracking" column_invisible="True"/>
-                <field name="reserved_lot_ids" optional="hide" widget="many2many_tags"/>
+                <field name="available_reserved_lots" column_invisible="True"/>
+                <field name="reserved_lot_ids" optional="hide" widget="many2many_tags" groups="sale_stock_renting.group_rental_stock_picking"/>
             </xpath>
             <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='qty_delivered']" position="attributes">
                 <attribute name="column_invisible">parent.state != 'sale'</attribute>
