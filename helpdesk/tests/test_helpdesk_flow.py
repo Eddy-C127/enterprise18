@@ -4,6 +4,7 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
+from markupsafe import Markup
 
 from .common import HelpdeskCommon
 from odoo.exceptions import AccessError
@@ -658,3 +659,40 @@ Content-Transfer-Encoding: quoted-printable
         helpdesk = helpdesk_form.save()
 
         self.assertEqual(helpdesk.member_ids, self.env.user)
+
+    def test_create_from_email_new_customer_ticket_description(self):
+        Partner = self.env['res.partner']
+
+        new_message = """MIME-Version: 1.0
+Date: Thu, 27 Dec 2018 16:27:45 +0100
+Message-ID: blablabla0
+Subject: new customer
+From:  A client <client_a@someprovider.com>
+To: helpdesk_team@aqualung.com
+Content-Type: multipart/alternative; boundary="000000000000a47519057e029630"
+
+--000000000000a47519057e029630
+Content-Type: text/plain; charset="UTF-8"
+
+
+--000000000000a47519057e029630
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+should be in the ticket's description
+
+--000000000000a47519057e029630--
+"""
+
+        partner_exist = Partner.search([('email', 'in', ['client_a@someprovider.com'])])
+        self.assertFalse(partner_exist, "Partner should not exist")
+
+        helpdesk_ticket_id = self.env['mail.thread'].message_process('helpdesk.ticket', new_message)
+        helpdesk_ticket = self.env['helpdesk.ticket'].browse(helpdesk_ticket_id)
+
+        partner = Partner.search([('email', '=', 'client_a@someprovider.com')])
+        self.assertTrue(partner, "Partner should be created")
+
+        self.assertEqual(helpdesk_ticket.partner_id, partner)
+
+        self.assertEqual(helpdesk_ticket.description, Markup("<p>should be in the ticket's description\n</p>"), "the email body should be in the ticket's description")
