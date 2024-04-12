@@ -18,7 +18,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
         "click .o_submit_feedback": "submitFeedback",
         "click a[name='recompute']": "recompute",
         "click button[name='toggle_personal_information']": "togglePersonalInformation",
-        "change input.bg-danger": "checkFormValidity",
+        "change input.border-danger": "checkFormValidity",
         "change div.invalid_radio": "checkFormValidity",
         "change input.document": "onchangeDocument",
         "input input[type='range']": "onchangeSlider",
@@ -525,6 +525,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
         // when it is not displayed. As it will be conditionally hidden if car advantage is not set.
         const requiredEmptyInput = $("input:required").toArray().find(input => input.value === '' && input.name !== '' && input.type !== 'checkbox' && input.offsetParent !== null);
         const requiredEmptySelect = $("select:required").toArray().find(select => $(select).val() === '');
+        const requiredEmptyTextArea = $("textarea:required").toArray().find(textarea => textarea.value === '' && textarea.offsetParent !== null);
         const email = $("input[name='private_email']").val();
         const atpos = email.indexOf("@");
         const dotpos = email.lastIndexOf(".");
@@ -553,21 +554,29 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
             }
         });
 
-        if(requiredEmptyInput || requiredEmptySelect) {
+        if(requiredEmptyInput ||  requiredEmptySelect || requiredEmptyTextArea) {
             $("<div class='alert alert-danger alert-dismissable fade show'>")
                 .text(_t('Some required fields are not filled'))
                 .appendTo($("button#hr_cs_submit").parent());
             $("input:required").toArray().forEach(input => {
-                $(input).toggleClass('bg-danger', input.value === '');
+                $(input).toggleClass('border-danger', input.value === '');
                 let inputPosition = $(input).offset().top;
                 if ((!elementToScroll || inputPosition < elementToScrollPosition) && input.value === '' && input.type !== 'checkbox') {
                     elementToScroll = $(input)[0];
                     elementToScrollPosition = $(input).offset().top;
                 }
             });
+            $("textarea:required").toArray().forEach(textarea => {
+                $(textarea).toggleClass('border-danger', textarea.value === '');
+                let textareaPosition = $(textarea).offset().top;
+                if ((!elementToScroll || textareaPosition < elementToScrollPosition) && textarea.value === '') {
+                    elementToScroll = $(textarea)[0];
+                    elementToScrollPosition = $(textarea).offset().top;
+                }
+            });
             $("select:required").toArray().forEach(select =>  {
                 const selectParent = $(select).parent().find('.select2-choice');
-                selectParent.toggleClass('bg-danger', $(select).val() === '');
+                selectParent.toggleClass('border-danger', $(select).val() === '');
                 let selectPosition = selectParent.offset().top;
                 if ((!elementToScroll || selectPosition <= elementToScrollPosition) && $(select).val() === '') {
                     elementToScroll = selectParent[0];
@@ -577,17 +586,20 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
         }
         else{
             $("input:required").toArray().forEach(input => {
-                $(input).removeClass('bg-danger');
+                $(input).removeClass('border-danger');
+            });
+            $("textarea:required").toArray().forEach(textarea => {
+                $(textarea).removeClass('border-danger');
             });
             $("select:required").toArray().forEach(select => {
                 const selectParent = $(select).parent().find('.select2-choice');
                 if ($(select).val() !== '') {
-                    selectParent.removeClass('bg-danger');
+                    selectParent.removeClass('border-danger');
                 }
             });
         }
         if (invalid_email) {
-            $("input[name='private_email']").addClass('bg-danger');
+            $("input[name='private_email']").addClass('border-danger');
             if (!isEmailEmpty) {
                 $("<div class='alert alert-danger alert-dismissable fade show'>")
                     .text(_t('Not a valid e-mail address'))
@@ -604,7 +616,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
         if (elementToScroll) {
             elementToScroll.scrollIntoView({block: 'center', behavior: 'smooth'});
         }
-        return !invalid_email && !requiredEmptyInput && !requiredEmptySelect && !requiredEmptyRadio && !isInvalidInput;
+        return !invalid_email && !requiredEmptyInput && !requiredEmptySelect && !requiredEmptyTextArea && !requiredEmptyRadio && !isInvalidInput;
     },
 
     async getFormInfo() {
@@ -641,7 +653,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
     async submitFeedback() {
         const feedbackEl = $("#feedback-textarea");
         const offer_id = parseInt($("input[name='offer_id']").val()) || false;
-        const feedbackValue = feedbackEl && feedbackEl.val(); 
+        const feedbackValue = feedbackEl && feedbackEl.val();
         const token = $("input[name='token']").val();
         if (!feedbackValue) {
             return;

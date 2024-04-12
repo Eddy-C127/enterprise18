@@ -6,10 +6,16 @@ import { renderToElement } from "@web/core/utils/render";
 hrContractSalary.include({
     events: Object.assign({}, hrContractSalary.prototype.events, {
         "change input[name='has_hospital_insurance_radio']": "onchangeHospital",
+        "change input[name='insured_relative_children_manual']": "onchangeHospital",
+        "change input[name='insured_relative_adults_manual']": "onchangeHospital",
+        "change input[name='fold_insured_relative_spouse']": "onchangeHospital",
         "change input[name='fold_company_car_total_depreciated_cost']": "onchangeCompanyCar",
         "change input[name='fold_private_car_reimbursed_amount']": "onchangePrivateCar",
         "change input[name='fold_l10n_be_bicyle_cost']": "onchangePrivateBike",
         "change input[name='l10n_be_has_ambulatory_insurance_radio']": "onchangeAmbulatory",
+        "change input[name='l10n_be_ambulatory_insured_children_manual']": "onchangeAmbulatory",
+        "change input[name='l10n_be_ambulatory_insured_adults_manual']": "onchangeAmbulatory",
+        "change input[name='fold_l10n_be_ambulatory_insured_spouse']": "onchangeAmbulatory",
         "change input[name='children']": "onchangeChildren",
         "change input[name='fold_wishlist_car_total_depreciated_cost']": "onchangeWishlistCar",
     }),
@@ -92,6 +98,10 @@ hrContractSalary.include({
         const res = await this._super(...arguments);
         this.onchangeChildren();
         this.onchangeHospital();
+        // Hack to make these benefits required. TODO: remove when required benefits are supported.
+        $("textarea[name='l10n_be_hospital_insurance_notes_text']").prop('required', true);
+        $("textarea[name='l10n_be_ambulatory_insurance_notes_text']").prop('required', true);
+
         $("input[name='insured_relative_children']").parent().addClass('d-none');
         $("input[name='insured_relative_adults']").parent().addClass('d-none');
         $("input[name='insured_relative_spouse']").parent().addClass('d-none');
@@ -135,7 +145,16 @@ hrContractSalary.include({
             $("label[for='insured_relative_children']").parent().removeClass('d-none');
             $("label[for='insured_relative_adults']").parent().removeClass('d-none');
             $("label[for='insured_relative_spouse']").parent().removeClass('d-none');
-            $("label[for='l10n_be_hospital_insurance_notes']").parent().removeClass('d-none');
+            // Only show notes when either an extra spouse or children are insured.
+            const insuredSpouse = $("input[name='fold_insured_relative_spouse']").prop('checked');
+            const insuredRelativeChildren = parseInt($("input[name='insured_relative_children_manual']").val()) > 0;
+            const insuredRelativeAdults = parseInt($("input[name='insured_relative_adults_manual']").val()) > 0;
+            if (insuredSpouse || insuredRelativeChildren || insuredRelativeAdults ) {
+                $("label[for='l10n_be_hospital_insurance_notes']").parent().removeClass('d-none');
+            }
+            else {
+                $("label[for='l10n_be_hospital_insurance_notes']").parent().addClass('d-none');
+            }
         } else {
             // Reset values
             $("input[name='fold_insured_relative_spouse']").prop('checked', false);
@@ -156,7 +175,16 @@ hrContractSalary.include({
             $("label[for='l10n_be_ambulatory_insured_children']").parent().removeClass('d-none');
             $("label[for='l10n_be_ambulatory_insured_adults']").parent().removeClass('d-none');
             $("label[for='l10n_be_ambulatory_insured_spouse']").parent().removeClass('d-none');
-            $("label[for='l10n_be_ambulatory_insurance_notes']").parent().removeClass('d-none');
+            // Only show notes when either an extra spouse or children are insured.
+            const insuredSpouse = $("input[name='fold_l10n_be_ambulatory_insured_spouse']").prop('checked');
+            const insuredRelativeChildren = parseInt($("input[name='l10n_be_ambulatory_insured_children_manual']").val()) > 0;
+            const insuredRelativeAdults = parseInt($("input[name='l10n_be_ambulatory_insured_adults_manual']").val()) > 0;
+            if (insuredSpouse || insuredRelativeChildren || insuredRelativeAdults ) {
+                $("label[for='l10n_be_ambulatory_insurance_notes']").parent().removeClass('d-none');
+            }
+            else {
+                $("label[for='l10n_be_ambulatory_insurance_notes']").parent().addClass('d-none');
+            }
         } else {
             // Reset values
             $("input[name='fold_l10n_be_ambulatory_insured_spouse']").prop('checked', false);
