@@ -966,6 +966,20 @@ export class GanttRenderer extends Component {
     }
 
     /**
+     * @param {"top"|"bottom"} vertical the vertical alignment of the connector creator
+     * @returns {{ vertical: "top"|"bottom", horizontal: "left"|"right" }}
+     */
+    getConnectorCreatorAlignment(vertical) {
+        const alignment = { vertical };
+        if (localization.direction === "rtl") {
+            alignment.horizontal = vertical === "top" ? "right" : "left";
+        } else {
+            alignment.horizontal = vertical === "top" ? "left" : "right";
+        }
+        return alignment;
+    }
+
+    /**
      * Get schedule parameters
      *
      * @param {Element} pill
