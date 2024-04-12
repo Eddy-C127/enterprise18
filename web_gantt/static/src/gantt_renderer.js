@@ -932,6 +932,20 @@ export class GanttRenderer extends Component {
     }
 
     /**
+     * @param {"top"|"bottom"} vertical the vertical alignment of the connector creator
+     * @returns {{ vertical: "top"|"bottom", horizontal: "left"|"right" }}
+     */
+    getConnectorCreatorAlignment(vertical) {
+        const alignment = { vertical };
+        if (localization.direction === "rtl") {
+            alignment.horizontal = vertical === "top" ? "right" : "left";
+        } else {
+            alignment.horizontal = vertical === "top" ? "left" : "right";
+        }
+        return alignment;
+    }
+
+    /**
      * This function will add a 'label' property to each
      * non-consolidated pill included in the pills list.
      * This new property is a string meant to replace

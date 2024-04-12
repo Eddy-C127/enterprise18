@@ -440,6 +440,7 @@
                 }
 
                 .o_connector_creator_right {
+                    /*rtl:ignore*/
                     border-left: solid 1px $color;
                 }
 
@@ -448,6 +449,7 @@
                 }
 
                 .o_connector_creator_left {
+                    /*rtl:ignore*/
                     border-right: solid 1px $color;
                 }
             }
@@ -481,9 +483,11 @@
     }
 
     .o_connector_creator_right {
+        /*rtl:ignore*/
         right: $o-connector-creator-size;
 
         .o_connector_creator_bullet {
+            /*rtl:ignore*/
             right: -0.5 * $o-connector-creator-bullet-diameter;
         }
     }
@@ -497,9 +501,11 @@
     }
 
     .o_connector_creator_left {
+        /*rtl:ignore*/
         left: $o-connector-creator-size;
 
         .o_connector_creator_bullet {
+            /*rtl:ignore*/
             left: -0.5 * $o-connector-creator-bullet-diameter;
         }
     }

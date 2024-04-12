@@ -244,7 +244,7 @@
             t-att-data-pill-id="pill.id"
         >
             <t t-if="renderConnectors" t-call="{{ constructor.connectorCreatorTemplate }}">
-                <t t-set="alignment" t-value="{ horizontal: 'left', vertical: 'top' }" />
+                <t t-set="alignment" t-value="getConnectorCreatorAlignment('top')" />
             </t>
             <div class="o_gantt_pill position-relative h-100 d-flex align-items-center"
                 t-att-class="pill.className"
@@ -259,7 +259,7 @@
                 <div t-if="pill.disableDrag" class="o_gantt_lock fa fa-lock ms-auto me-2" />
             </div>
             <t t-if="renderConnectors" t-call="{{ constructor.connectorCreatorTemplate }}">
-                <t t-set="alignment" t-value="{ horizontal: 'right', vertical: 'bottom' }" />
+                <t t-set="alignment" t-value="getConnectorCreatorAlignment('bottom')" />
             </t>
         </div>
     </t>
