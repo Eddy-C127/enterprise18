@@ -2,6 +2,7 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { AbstractBehavior } from "@knowledge/components/behaviors/abstract_behavior/abstract_behavior";
+import { encodeDataBehaviorProps } from "@knowledge/js/knowledge_utils";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { useService } from "@web/core/utils/hooks";
 import { useEffect } from "@odoo/owl";
@@ -49,11 +50,25 @@ export class ArticleBehavior extends AbstractBehavior {
     //--------------------------------------------------------------------------
 
     /**
+     * Some `/article` blocks had their behavior-props encoded with
+     * `JSON.stringify` instead of `encodeDataBehaviorProps`. This override is
+     * there to ensure that props are encoded with the correct format.
+     * TODO ABD: this logic should be ultimately part of a knowledge upgrade.
+     * @see AbstractBehavior
      * @override
      */
-    setupAnchor () {
+    setupAnchor() {
         super.setupAnchor();
         this.props.anchor.setAttribute('target', '_blank');
+        if (!this.props.readonly) {
+            try {
+                // JSON.parse will crash if the props are already encoded,
+                // in that case there is no need to update them.
+                this.props.anchor.dataset.behaviorProps = encodeDataBehaviorProps(
+                    JSON.parse(this.props.anchor.dataset.behaviorProps)
+                );
+            } catch {}
+        }
     }
 
     //--------------------------------------------------------------------------

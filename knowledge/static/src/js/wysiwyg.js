@@ -294,10 +294,10 @@ patch(Wysiwyg.prototype, {
             articleSelected: article => {
                 const articleLinkBlock = renderToElement('knowledge.ArticleBehaviorBlueprint', {
                     href: '/knowledge/article/' + article.articleId,
-                    data: JSON.stringify({
+                    data: encodeDataBehaviorProps({
                         article_id: article.articleId,
                         display_name: article.displayName,
-                    })
+                    }),
                 });
                 const nameNode = document.createTextNode(article.display_name);
                 articleLinkBlock.appendChild(nameNode);
