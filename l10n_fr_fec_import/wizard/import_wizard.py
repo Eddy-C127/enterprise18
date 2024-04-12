@@ -211,13 +211,14 @@ class FecImportWizard(models.TransientModel):
                         'record': journal,
                         'noupdate': True,
                     }
-            data = {
-                "company_id": self.company_id.id,
-                "code": self._shorten_code(journal_code, 5, cache),
-                "name": "FEC-%s" % (journal_name or journal_code),
-                "type": "general"
-            }
-            yield journal_xml_id, data
+            else:
+                data = {
+                    "company_id": self.company_id.id,
+                    "code": self._shorten_code(journal_code, 5, cache),
+                    "name": "FEC-%s" % (journal_name or journal_code),
+                    "type": "general"
+                }
+                yield journal_xml_id, data
 
         self.env['ir.model.data']._update_xmlids(new_ids.values())
 

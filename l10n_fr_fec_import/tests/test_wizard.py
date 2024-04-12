@@ -451,3 +451,12 @@ class AccountTestFecImport(AccountTestInvoicingCommon):
         self._attach_file_to_wizard(test_content, self.wizard)
         with self.assertRaisesRegex(UserError, "journal not found"):
             self.wizard._import_files(['account.account', 'account.journal', 'res.partner', 'account.move'])
+
+    def test_no_update_journal(self):
+        """Test that existing journal type is not updated when importing FEC file."""
+        self.wizard._import_files()
+        purchase_journal = self.env['account.journal'].search([('code', '=', 'ACH')])
+        self.assertEqual(purchase_journal.type, 'general')
+        purchase_journal.type = 'purchase'
+        self.wizard._import_files()
+        self.assertEqual(purchase_journal.type, 'purchase')
