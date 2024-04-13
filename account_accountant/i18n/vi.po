@@ -3,9 +3,9 @@
 # 	* account_accountant
 # 
 # Translators:
-# Thi Huong Nguyen, 2023
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -326,7 +326,7 @@ msgstr "Bạn có chắc chắn muốn xóa sao kê này không?"
 #: code:addons/account_accountant/static/src/components/move_line_list_reconcile/move_line_list_reconcile.xml:0
 #, python-format
 msgid "Auto-reconcile"
-msgstr ""
+msgstr "Tự động đối chiếu"
 
 #. module: account_accountant
 #. odoo-python
@@ -1259,12 +1259,12 @@ msgstr "Phương pháp dùng để tính toán số tiền của bút toán hoã
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Method used to generate deferred expense entries"
-msgstr ""
+msgstr "Phương pháp dùng để tạo bút toán chi phí hoãn lại"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Method used to generate deferred revenue entries"
-msgstr ""
+msgstr "Phương pháp dùng để tạo bút toán doanh thu hoãn lại"
 
 #. module: account_accountant
 #. odoo-python
@@ -1327,7 +1327,7 @@ msgstr "Không có sao kê"
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
 msgid "No transactions matching your filters were found."
-msgstr ""
+msgstr "Không tìm thấy giao dịch nào khớp với bộ lọc của bạn."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__tax_lock_date
@@ -1367,17 +1367,17 @@ msgstr "Ghi chú"
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
 msgid "Nothing to do here!"
-msgstr ""
+msgstr "Không có gì để làm!"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__on_validation
 msgid "On bill validation"
-msgstr ""
+msgstr "Khi xác thực hoá đơn thanh toán"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__on_validation
 msgid "On invoice validation"
-msgstr ""
+msgstr "Khi xác thực hoá đơn"
 
 #. module: account_accountant
 #. odoo-python
@@ -1666,12 +1666,12 @@ msgstr "Ghi nhận giá vốn hàng bán trong các bút toán của bạn"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Purchase(s)"
-msgstr ""
+msgstr "(Các) đơn mua hàng liên quan"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Sale(s)"
-msgstr ""
+msgstr "(Các) đơn bán hàng liên quan"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1719,7 +1719,7 @@ msgstr "Lưu & tạo mới"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Search Journal Items to Reconcile"
-msgstr ""
+msgstr "Tìm hạng mục bút toán cần đối chiếu"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__selected_aml_ids

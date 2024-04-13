@@ -248,7 +248,8 @@ msgstr "Permitir conciliación parcial"
 #. module: account_accountant
 #: model:res.groups,name:account_accountant.group_fiscal_year
 msgid "Allow to define fiscal years of more or less than a year"
-msgstr "Permite definir años fiscales para más de 1 año o menos de 1 año."
+msgstr ""
+"Permite definir ejercicios fiscales para más de 1 año o menos de 1 año."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -440,7 +441,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.actions.act_window,help:account_accountant.actions_account_fiscal_year
 msgid "Click here to create a new fiscal year."
-msgstr "Haga clic aquí para crear un nuevo año fiscal."
+msgstr "Haga clic aquí para crear un nuevo ejercicio fiscal."
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
@@ -679,7 +680,7 @@ msgstr "Ingresos diferidos"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Define fiscal years of more or less than one year"
-msgstr "Definir años fiscales de más de 1 año o menos de 1 año."
+msgstr "Defina ejercicios fiscales de más de 1 año o menos de 1 año."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_form_with_buttons
@@ -808,12 +809,12 @@ msgstr "Encuentrar asientos para conciliar automáticamente"
 #: model:ir.model,name:account_accountant.model_account_fiscal_year
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Fiscal Year"
-msgstr "Año fiscal"
+msgstr "Ejercicio fiscal"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.action_account_fiscal_year_form
 msgid "Fiscal Year 2018"
-msgstr "Año fiscal 2018"
+msgstr "Ejercicio fiscal 2018"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.actions_account_fiscal_year
@@ -821,17 +822,17 @@ msgstr "Año fiscal 2018"
 #: model:ir.ui.menu,name:account_accountant.menu_account_fiscal_year
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Fiscal Years"
-msgstr "Años fiscales"
+msgstr "Ejercicios fiscales"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__fiscalyear_last_day
 msgid "Fiscalyear Last Day"
-msgstr "Último día del año fiscal"
+msgstr "Último día del ejercicio fiscal"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__fiscalyear_last_month
 msgid "Fiscalyear Last Month"
-msgstr "Último mes del año fiscal"
+msgstr "Último mes del ejercicio fiscal"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__flag
@@ -972,8 +973,8 @@ msgid ""
 "Incorrect fiscal year date: day is out of range for month. Month: %s; Day: "
 "%s"
 msgstr ""
-"Fecha de año fiscal incorrecta: el día está fuera del rango del mes. Mes: "
-"%s; Día: %s"
+"Fecha de ejercicio fiscal incorrecta: el día está fuera del rango del mes. "
+"Mes: %s; Día: %s"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__index
@@ -1354,7 +1355,7 @@ msgid ""
 "this date. Use it for fiscal year locking for example."
 msgstr ""
 "Ningún usuario, asesores incluidos, puede editar cuentas antes de y en esta "
-"fecha. Utilícela, por ejemplo, para bloquear un año fiscal."
+"fecha. Utilícela, por ejemplo, para bloquear un ejercicio fiscal."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
@@ -1414,8 +1415,8 @@ msgid ""
 "example."
 msgstr ""
 "Solo los usuarios con la función de 'asesor' pueden editar cuentas antes de "
-"y en esta fecha. Utilícelo para bloquear un periodo dentro de un año fiscal "
-"abierto, por ejemplo."
+"y en esta fecha. Utilícelo para bloquear un periodo dentro de un ejercicio "
+"fiscal abierto, por ejemplo."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
@@ -1706,7 +1707,7 @@ msgstr "Restante en moneda"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__return_todo_command
 msgid "Return Todo Command"
-msgstr "Restablecer comando por hacer"
+msgstr "Restablecer comando pendiente"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_reconcile_model_line
@@ -1810,7 +1811,7 @@ msgstr "Fecha de inicio"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_fiscal_year__date_from
 msgid "Start Date, included in the fiscal year."
-msgstr "Fecha de inicio, incluida en el año fiscal."
+msgstr "Fecha de inicio, incluida en el ejercicio fiscal."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__state
@@ -2040,7 +2041,7 @@ msgstr "A revisar"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__todo_command
 msgid "Todo Command"
-msgstr "Comando por hacer"
+msgstr "Comando pendiente"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
@@ -2183,8 +2184,8 @@ msgid ""
 "You can not have an overlap between two fiscal years, please correct the "
 "start and/or end dates of your fiscal years."
 msgstr ""
-"No puede sobreponer dos años fiscales, corrija las fechas de inicio o cierre"
-" de sus años fiscales."
+"No puede sobreponer dos ejercicios fiscales, corrija las fechas de inicio o "
+"cierre de sus ejercicios fiscales."
 
 #. module: account_accountant
 #. odoo-python

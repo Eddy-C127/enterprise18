@@ -148,7 +148,7 @@ msgstr "Seotud dokument %s on kustutatud: %s"
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "A document linked to this move has been deleted: %s"
-msgstr ""
+msgstr "Seotud dokument on kustutatud: %s"
 
 #. module: account_asset
 #. odoo-python
@@ -1113,7 +1113,7 @@ msgstr "Andmike kanderead"
 msgid ""
 "Journal Items of %(account)s should have a label in order to generate an "
 "asset"
-msgstr ""
+msgstr "Kanderidadel %(account)s peab olema kirjeldus, et luua vara. "
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__write_uid
@@ -1565,7 +1565,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_period
 #: model:ir.model.fields,help:account_asset.field_asset_modify__method_period
 msgid "The amount of time between two depreciations"
-msgstr ""
+msgstr "Kahe amortisatsiooni vaheline aeg"
 
 #. module: account_asset
 #. odoo-python
@@ -1574,7 +1574,7 @@ msgstr ""
 msgid ""
 "The amount you have entered (%s) does not match the Related Purchase's value"
 " (%s). Please make sure this is what you want."
-msgstr ""
+msgstr "Sisestatud summa  (%s) ei võrdu seotud ostuarvete väärtusega.  (%s). "
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__asset_id
@@ -1591,7 +1591,7 @@ msgstr ""
 msgid ""
 "The disposal invoice is needed in order to generate the closing journal "
 "entry."
-msgstr ""
+msgstr "Vara võõrandamise arve on vajalik, et luua vara sulgemise kanne. "
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_number
@@ -1853,18 +1853,18 @@ msgstr "sisenemine"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "gain"
-msgstr ""
+msgstr "kasum"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "gain/loss"
-msgstr ""
+msgstr "kasum/kahjum"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "loss"
-msgstr ""
+msgstr "kahjum"

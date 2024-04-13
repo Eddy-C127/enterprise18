@@ -30,6 +30,10 @@ msgid ""
 "                Your changes on the rental period are not taken into account.\n"
 "            "
 msgstr ""
+"\n"
+"                Giai đoạn mới không hợp lệ đối với một số sản phẩm trong giỏ hàng của bạn.\n"
+"                Các thay đổi giai đoạn cho thuê không được tính đến.\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -41,6 +45,10 @@ msgid ""
 "                rentals that last less than %(duration)s %(unit)s.\n"
 "            "
 msgstr ""
+"\n"
+"                Giai đoạn cho thuê của bạn quá ngắn. Rất tiếc là chúng tôi không xử lý\n"
+"                 dịch vụ cho thuê trong vòng dưới %(duration)s %(unit)s.\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -52,6 +60,10 @@ msgid ""
 "                Unfortunately, we do not process pickups on that weekday.\n"
 "            "
 msgstr ""
+"\n"
+"                Sản phẩm cho thuê của bạn có ngày lấy hàng không hợp lệ (%(start_date)s).\n"
+"                Rất tiếc là chúng tôi không xử lý việc lấy hàng vào ngày đó trong tuần.\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -63,6 +75,10 @@ msgid ""
 "                Unfortunately, we do not process returns on that weekday.\n"
 "            "
 msgstr ""
+"\n"
+"                Sản phẩm cho thuê của bạn có ngày trả hàng không hợp lệ (%(end_date)s).\n"
+"                Rất tiếc là chúng tôi không xử lý việc trả hàng vào ngày đó trong tuần.\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -75,6 +91,11 @@ msgid ""
 "                returns on those weekdays.\n"
 "            "
 msgstr ""
+"\n"
+"                Sản phẩm cho thuê của bạn có ngày lấy hàng (%(start_date)s) và\n"
+"                trả hàng (%(end_date)s) không hợp lệ. Rất tiếc là chúng tôi không xử lý\n"
+"                việc lấy  và trả hàng vào ngày đó trong tuần.\n"
+"            "
 
 #. module: website_sale_renting
 #. odoo-python
@@ -87,77 +108,82 @@ msgid ""
 "            inconvenience.\n"
 "        "
 msgstr ""
+"\n"
+"            Một số sản phẩm (%(product)s) không thể cho thuê được trong\n"
+"            giai đoạn đã chọn và giỏ hàng của bạn cần được cập nhật. Chúng tôi\n"
+"            rất tiếc vì sự bất tiện này.\n"
+"        "
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "(%s days)."
-msgstr ""
+msgstr "(%s ngày)."
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "(%s hours)."
-msgstr ""
+msgstr "(%s giờ)."
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "(%s months)."
-msgstr ""
+msgstr "(%s tháng)."
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "(%s weeks)."
-msgstr ""
+msgstr "(%s tuần)."
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.s_rental_search_options
 msgid ", .s_rental_search"
-msgstr ""
+msgstr ", .s_rental_search"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.o_wsale_offcanvas
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.products
 msgid "<b>Rental Period</b>"
-msgstr ""
+msgstr "<b>Giai đoạn cho thuê</b>"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.rental_search_result_price
 msgid "<small>from</small>"
-msgstr ""
+msgstr "<small>từ</small>"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.rental_search_result_price
 msgid "<small>per</small>"
-msgstr ""
+msgstr "<small>trên</small>"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.price_dynamic_filter_template_product_product
 msgid "<span>/</span>"
-msgstr ""
+msgstr "<span>/</span>"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.products_item
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.rental_products_price
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.suggested_products_list
 msgid "<span>per</span>"
-msgstr ""
+msgstr "<span>trên</span>"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.rental_product
 msgid "<strong class=\"attribute_name\">Rental Period</strong>"
-msgstr ""
+msgstr "<strong class=\"attribute_name\">Giai đoạn cho thuê</strong>"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.rental_product
 msgid "<u class=\"h5\">Pricing</u>"
-msgstr ""
+msgstr "<u class=\"h5\">Giá</u>"
 
 #. module: website_sale_renting
 #. odoo-javascript
@@ -169,12 +195,12 @@ msgstr "Tất cả"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.cart
 msgid "Applies to all rented items"
-msgstr ""
+msgstr "Áp dụng cho tất cả mặt hàng được cho thuê"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.s_rental_search_options
 msgid "Attribute Filter"
-msgstr ""
+msgstr "Bộ lọc thuộc tính"
 
 #. module: website_sale_renting
 #: model:ir.model,name:website_sale_renting.model_res_company
@@ -189,7 +215,7 @@ msgstr "Cài đặt cấu hình"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.snippet_options
 msgid "Datepicker"
-msgstr ""
+msgstr "Bảng chọn ngày"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.s_rental_search_options
@@ -204,7 +230,7 @@ msgstr "Ngày"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
 msgid "Days during which pickup and return are not possible."
-msgstr ""
+msgstr "Ngày không thể lấy và trả hàng."
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_fri
@@ -231,23 +257,23 @@ msgstr "Giờ"
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_minimal_time_duration
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_config_settings__renting_minimal_time_duration
 msgid "Minimal Rental Duration"
-msgstr ""
+msgstr "Tổng thời gian cho thuê tối thiểu"
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_minimal_time_unit
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_config_settings__renting_minimal_time_unit
 msgid "Minimal Rental Duration Unit"
-msgstr ""
+msgstr "Đơn vị tổng thời gian cho thuê tối thiểu"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
 msgid "Minimal duration between pickup and return."
-msgstr ""
+msgstr "Tổng thời gian tối thiểu giữa thời điểm lấy và trả hàng."
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
 msgid "Minimal time of rental"
-msgstr ""
+msgstr "Thời gian cho thuê tối thiểu"
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_mon
@@ -272,7 +298,7 @@ msgstr "Vui lòng chọn ngày trả sau ngày lấy."
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "Please select a rental period."
-msgstr ""
+msgstr "Vui lòng chọn một giai đoạn cho thuê."
 
 #. module: website_sale_renting
 #: model:ir.model,name:website_sale_renting.model_product_pricelist
@@ -292,17 +318,17 @@ msgstr "Biến thể sản phẩm"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
 msgid "Rent Online"
-msgstr ""
+msgstr "Cho thuê online"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.cart_summary
 msgid "Rental Period"
-msgstr ""
+msgstr "Giai đoạn cho thuê"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.snippets
 msgid "Rental Search"
-msgstr ""
+msgstr "Tìm kiếm dịch vụ cho thuê"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.cart
@@ -333,6 +359,8 @@ msgid ""
 "Some of your rental products cannot be rented during the selected period and"
 " your cart must be updated. We're sorry for the inconvenience."
 msgstr ""
+"Một số sản phẩm không thể cho thuê được trong giai đoạn đã chọn và giỏ hàng "
+"của bạn cần được cập nhật. Chúng tôi rất tiếc vì sự bất tiện này."
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_sun
@@ -347,13 +375,15 @@ msgid ""
 "The period must be the same for all products of your cart.\n"
 "You must change the period on your cart or create different orders if you want different periods."
 msgstr ""
+"Giai đoạn của tất cả sản phẩm trong giỏ hàng của bạn phải giống nhau.\n"
+"Bạn phải thay đổi giai đoạn trên giỏ hàng của mình hoặc tạo các đơn hàng khác nếu bạn muốn có những giai đoạn khác nhau."
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "The pickup date cannot be in the past."
-msgstr ""
+msgstr "Ngày lấy hàng không được là ngày trong quá khứ."
 
 #. module: website_sale_renting
 #. odoo-javascript
@@ -361,13 +391,14 @@ msgstr ""
 #, python-format
 msgid "The rental lasts less than the minimal rental duration %s"
 msgstr ""
+"Dịch vụ cho thuê diễn ra ngắn hơn tổng thời gian cho thuê tối thiểu %s"
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "The return date should be after the pickup date."
-msgstr ""
+msgstr "Ngày trả hàng phải nằm sau ngày lấy hàng."
 
 #. module: website_sale_renting
 #: model:ir.model.fields,field_description:website_sale_renting.field_res_company__renting_forbidden_thu
@@ -378,7 +409,7 @@ msgstr "Thứ năm"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.s_rental_search_options
 msgid "Timing"
-msgstr ""
+msgstr "Thời gian"
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.rental_product
@@ -394,7 +425,7 @@ msgstr "Thứ Ba"
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.res_config_settings_view_form
 msgid "Unavailability days"
-msgstr ""
+msgstr "Ngày không thể cho thuê"
 
 #. module: website_sale_renting
 #: model:ir.model,name:website_sale_renting.model_website
@@ -417,21 +448,21 @@ msgstr "Tuần"
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "You cannot pick up your rental on that day of the week."
-msgstr ""
+msgstr "Bạn không thể lấy sản phẩm cho thuê vào ngày trong tuần đó."
 
 #. module: website_sale_renting
 #. odoo-javascript
 #: code:addons/website_sale_renting/static/src/js/renting_mixin.js:0
 #, python-format
 msgid "You cannot return your rental on that day of the week."
-msgstr ""
+msgstr "Bạn không thể trả sản phẩm cho thuê vào ngày trong tuần đó."
 
 #. module: website_sale_renting
 #. odoo-python
 #: code:addons/website_sale_renting/models/sale_order.py:0
 #, python-format
 msgid "Your rental product cannot be pickedup in the past."
-msgstr ""
+msgstr "Bạn không thể lấy sản phẩm cho thuê vào ngày trong quá khứ."
 
 #. module: website_sale_renting
 #: model_terms:ir.ui.view,arch_db:website_sale_renting.products_item

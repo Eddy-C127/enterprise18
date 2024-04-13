@@ -116,7 +116,7 @@ msgid ""
 "disposal entry will be posted on the %s account <b>%s</b>."
 msgstr ""
 "Se publicará un asiento de depreciación en y con la fecha %s.<br/> Se "
-"publicará un asiento de enajenación en la cuenta %s  <b>%s</b>."
+"publicará un asiento de enajenación en la cuenta %s <b>%s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -181,7 +181,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_depreciation_id
 msgid "Account used in the depreciation entries, to decrease the asset value."
 msgstr ""
-"Cuenta utilizada en las entradas de depreciación, para disminuir el valor "
+"Cuenta utilizada en los asientos de depreciación, para disminuir el valor "
 "del activo."
 
 #. module: account_asset
@@ -204,8 +204,8 @@ msgstr ""
 #: model:ir.model.fields,help:account_asset.field_asset_modify__gain_account_id
 msgid "Account used to write the journal item in case of gain"
 msgstr ""
-"Cuenta utilizada para escribir en el diario de partida en caso de tener "
-"alguna ganancia."
+"Cuenta utilizada para escribir el apunte contable en caso de tener alguna "
+"ganancia"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_res_company__gain_account_id
@@ -213,15 +213,15 @@ msgid ""
 "Account used to write the journal item in case of gain while selling an "
 "asset"
 msgstr ""
-"Cuenta utilizada para escribir en el diario de partida en caso de tener "
-"alguna ganancia al vender un activo"
+"Cuenta utilizada para escribir el apunte contable en caso de tener alguna "
+"ganancia al vender un activo"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__loss_account_id
 msgid "Account used to write the journal item in case of loss"
 msgstr ""
-"Cuenta utilizada para escribir en el diario de partida en caso de tener "
-"alguna pérdida "
+"Cuenta utilizada para escribir el apunte contable en caso de tener alguna "
+"pérdida "
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_res_company__loss_account_id
@@ -229,8 +229,8 @@ msgid ""
 "Account used to write the journal item in case of loss while selling an "
 "asset"
 msgstr ""
-"Cuenta utilizada para escribir en el diario de partida en caso de tener "
-"alguna perdida al vender un activo"
+"Cuenta utilizada para escribir el apunte contable en caso de tener alguna "
+"perdida al vender un activo"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -313,7 +313,9 @@ msgstr "Importación de importe ya depreciado"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__parent_id
 msgid "An asset has a parent when it is the result of gaining value"
-msgstr "Un activo tiene una matriz cuando se obtiene de una ganancia "
+msgstr ""
+"Un activo está relacionado con uno principal cuando es el resultado de un "
+"valor de ganancia"
 
 #. module: account_asset
 #. odoo-python
@@ -458,7 +460,7 @@ msgstr "Activo creado desde la factura: %s"
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Asset disposed. %s"
-msgstr "Activo eliminado. %s"
+msgstr "Activo enajenado. %s"
 
 #. module: account_asset
 #. odoo-python
@@ -657,7 +659,7 @@ msgstr "Periodos constantes"
 #: model:ir.model.fields,field_description:account_asset.field_account_move__count_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__count_asset
 msgid "Count Asset"
-msgstr "Contar activo "
+msgstr "Número de activos"
 
 #. module: account_asset
 #: model:ir.actions.server,name:account_asset.action_account_aml_to_asset
@@ -1384,7 +1386,7 @@ msgstr "Activo principal"
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 #, python-format
 msgid "Pause"
-msgstr "Detener"
+msgstr "Pausar"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__paused_prorata_date
@@ -1462,8 +1464,8 @@ msgid ""
 "Reverse the depreciation entries posted in the future in order to modify the"
 " depreciation"
 msgstr ""
-"Invierte las entradas de depreciación registradas en el futuro para "
-"modificar la amortización"
+"Invierta las entradas de depreciación registradas en el futuro para "
+"modificar la depreciación"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__open
@@ -1515,7 +1517,7 @@ msgstr "Establecer a borrador"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Set to Running"
-msgstr "Establecer como en proceso"
+msgstr "Establecer a en proceso"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
@@ -1616,7 +1618,7 @@ msgid ""
 "The disposal invoice is needed in order to generate the closing journal "
 "entry."
 msgstr ""
-"La factura de eliminación es necesaria para generar el asiento contableo de "
+"La factura de enajenación es necesaria para generar el asiento contable de "
 "cierre."
 
 #. module: account_asset
@@ -1738,7 +1740,7 @@ msgstr ""
 "Cuando se crea un activo, el estado es \"Borrador\".\n"
 "Si el activo se confirma, el estado pasa a \"En proceso\" y las líneas de depreciación pueden publicarse en la contabilidad.\n"
 "El estado de \"En espera\" se puede establecer de forma manual cuando desee pausar la depreciación de un activo durante algún tiempo.\n"
-"Puede cerrar un activo de forma manual cuando termina la depreciación.\n"
+"Puede cerrar manualmente un activo cuando termina la depreciación.\n"
 "Al cancelar un activo, los asientos de depreciación se revertirán."
 
 #. module: account_asset
@@ -1782,7 +1784,7 @@ msgid ""
 "increase. Please use 'Dispose' on the increase(s)."
 msgstr ""
 "No puede automatizar el asiento contable para un activo que tiene un aumento"
-" bruto en proceso. Utilice \"eliminar\" en los aumentos."
+" bruto en proceso. Utilice \"Enajenar\" en los aumentos."
 
 #. module: account_asset
 #. odoo-python
@@ -1810,8 +1812,8 @@ msgid ""
 "You cannot delete an asset linked to posted entries.\n"
 "You should either confirm the asset, then, sell or dispose of it, or cancel the linked journal entries."
 msgstr ""
-"No puede eliminar un activo vinculado a asientos publicados.\n"
-"Debe confirmar el activo y luego venderlo o deshacerse de él, o cancelar los asientos contables vinculados."
+"No puedes eliminar un activo vinculado a un asiento.\n"
+"Debe confirmar el activo y luego venderlo o enajenarlo, o bien cancelar los asientos vinculados."
 
 #. module: account_asset
 #. odoo-python

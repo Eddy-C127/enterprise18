@@ -31,7 +31,7 @@ msgstr ", af"
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
 msgid "<i class=\"fa fa-fw fa-2x fa-comments\" title=\"Forum Post\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-2x fa-comments\" title=\"Forum Post\"/>"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.question_dropdown
@@ -39,6 +39,8 @@ msgid ""
 "<i class=\"fa fa-life-ring fa-fw\"/>\n"
 "                    View Ticket"
 msgstr ""
+"<i class=\"fa fa-life-ring fa-fw\"/>\n"
+"                    Se opgave"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
@@ -48,22 +50,22 @@ msgstr "Svar"
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
 msgid "Ask questions and discuss tips with fellow members in a forum"
-msgstr ""
+msgstr "Stil spørgsmål og diskuter tips med andre medlemmer i et forum"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.footer
 msgid "Ask the Community"
-msgstr ""
+msgstr "Spørg fællesskabet"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
 msgid "Ask the community"
-msgstr ""
+msgstr "Spørg fællesskabet"
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket__can_share_forum
 msgid "Can Share Forum"
-msgstr ""
+msgstr "Kan dele forum"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
@@ -73,12 +75,12 @@ msgstr "Sammenhold"
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.helpdesk_ticket_select_forum_wizard_view_form
 msgid "Create Post"
-msgstr ""
+msgstr "Opret indlæg"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.helpdesk_ticket_select_forum_wizard_view_form
 msgid "Create and View Post"
-msgstr ""
+msgstr "Opret og se indlæg"
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket_select_forum_wizard__create_uid
@@ -108,7 +110,7 @@ msgstr "Vis navn"
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_forum_forum__filter_for_helpdesk_wizard
 msgid "Filter For Helpdesk Wizard"
-msgstr ""
+msgstr "Filtrer til Helpdesk guiden"
 
 #. module: website_helpdesk_forum
 #: model:ir.model,name:website_helpdesk_forum.model_forum_forum
@@ -124,14 +126,14 @@ msgstr "Forum indlæg"
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket__forum_post_count
 msgid "Forum Post Count"
-msgstr ""
+msgstr "Antal indlæg på forum"
 
 #. module: website_helpdesk_forum
 #. odoo-python
 #: code:addons/website_helpdesk_forum/wizards/helpdesk_ticket_select_forum.py:0
 #, python-format
 msgid "Forum Post created"
-msgstr ""
+msgstr "Forumindlæg oprettet"
 
 #. module: website_helpdesk_forum
 #. odoo-python
@@ -201,7 +203,7 @@ msgstr "Mest stemte"
 #: code:addons/website_helpdesk_forum/models/helpdesk.py:0
 #, python-format
 msgid "No posts associated to this ticket."
-msgstr ""
+msgstr "Ingen indlæg knyttet til denne opgave."
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
@@ -211,24 +213,24 @@ msgstr "Hurtige links"
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.helpdesk_ticket_select_forum_wizard_view_form
 msgid "Select Forum"
-msgstr ""
+msgstr "Vælg Forum"
 
 #. module: website_helpdesk_forum
 #: model:ir.actions.act_window,name:website_helpdesk_forum.helpdesk_ticket_select_forum_wizard_action
 #: model:ir.model,name:website_helpdesk_forum.model_helpdesk_ticket_select_forum_wizard
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.helpdesk_ticket_view_form_inherit_website_helpdesk_forum
 msgid "Share on Forum"
-msgstr ""
+msgstr "Del på forum"
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_team__show_knowledge_base_forum
 msgid "Show Knowledge Base Forum"
-msgstr ""
+msgstr "Vis vidensbase forum"
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_forum_post__show_ticket
 msgid "Show Ticket"
-msgstr ""
+msgstr "Vis opgave"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
@@ -245,6 +247,7 @@ msgstr "Tags"
 msgid ""
 "These are the top posts in the forums associated with this helpdesk team"
 msgstr ""
+"Dette er de bedste indlæg i de fora, der er knyttet til dette helpdesk-team"
 
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_forum_post__ticket_id
@@ -260,7 +263,7 @@ msgstr "Titel"
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_team__top_forum_posts
 msgid "Top Posts"
-msgstr ""
+msgstr "Top indlæg"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
@@ -272,9 +275,9 @@ msgstr "Visninger"
 #: code:addons/website_helpdesk_forum/wizards/helpdesk_ticket_select_forum.py:0
 #, python-format
 msgid "You must select a forum to share the ticket"
-msgstr ""
+msgstr "Du skal vælge et forum for at dele opgaven"
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
 msgid "| 0 Answer"
-msgstr ""
+msgstr "| 0 svar"

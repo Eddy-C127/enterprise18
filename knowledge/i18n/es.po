@@ -251,7 +251,7 @@ msgid ""
 "                </em>"
 msgstr ""
 "<em>\n"
-"                    <font class=\"text-600\">Explique de forma resumida el problema que se resolverá con este cambio.</font>\n"
+"                    <font class=\"text-600\">Explique en pocas palabras el problema que este cambio va a resolver.</font>\n"
 "                </em>"
 
 #. module: knowledge
@@ -284,7 +284,7 @@ msgid ""
 "                </em>"
 msgstr ""
 "<em>\n"
-"                    <font class=\"text-600\">Explique de forma resumida los errores que ocurrieron.</font>\n"
+"                    <font class=\"text-600\">Explique en pocas palabras qué ha fallado.\n"
 "                </em>"
 
 #. module: knowledge
@@ -2531,7 +2531,7 @@ msgstr "Miembro del artículo"
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_article_template_category
 msgid "Article Template Category"
-msgstr "Categoría de plantilla del artículo"
+msgstr "Categoría de plantilla de artículo"
 
 #. module: knowledge
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_template_action
@@ -3281,7 +3281,7 @@ msgstr "Crear un artículo"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 #, python-format
 msgid "Created"
-msgstr "Creada"
+msgstr "Creado"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__create_uid
@@ -3406,7 +3406,7 @@ msgid ""
 "                 before being permanently removed for your database"
 msgstr ""
 "Los artículos eliminados se almacenan en la papelera durante <b>%(threshold)s</b> días adicionales\n"
-"                 antes de ser eliminados de forma permanente de su base de datos"
+"                 antes de ser eliminados permanentemente de su base de datos"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__deletion_date
@@ -3678,7 +3678,7 @@ msgstr "Consulte todos los artículos que han compartido con usted"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_stage__fold
 msgid "Folded in kanban view"
-msgstr "Replegado en la vista kanban"
+msgstr "Plegado en la vista kanban"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_follower_ids
@@ -5049,7 +5049,7 @@ msgid ""
 "Nth <strong>Q</strong>uarter of the fiscal year.<br>\n"
 "                            <em>E.g. Q4 starts on Oct. 1 and ends on Dec. 31.</em>"
 msgstr ""
-"<strong>T</strong>rimestre del año fiscal.<br>\n"
+"Número de <strong>T</strong>rimestrea del ejercicio fiscal.<br>\n"
 "                            <em>Por ejemplo, el T4 comienza el 1 de octubre y termina el 31 de diciembre.</em>"
 
 #. module: knowledge
@@ -6501,12 +6501,12 @@ msgstr "Papelera"
 #: model:ir.ui.menu,name:knowledge.knowledge_article_menu_trashed
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search
 msgid "Trashed"
-msgstr "Eliminado"
+msgstr "Movido a la papelera"
 
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_trash
 msgid "Trashed articles must be archived."
-msgstr "Los artículos eliminados se deben archivar."
+msgstr "Los artículos movidos a la papelera se deben archivar."
 
 #. module: knowledge
 #. odoo-python
@@ -6762,7 +6762,7 @@ msgid ""
 "                (default is 30)"
 msgstr ""
 "Cuando se envían a la papelera, los artículos se marcan para ser eliminados\n"
-"                días tras la última edición. El parámetro knowledge_article_trash_limit_days config\n"
+"                días tras la última edición. El parámetro knowledge_article_trash_limit_days\n"
 "                se puede utilizar para modificar el número de días. \n"
 "                (los días predeterminados son 30)"
 
@@ -6873,7 +6873,7 @@ msgstr "Espacio de trabajo"
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "Write"
-msgstr "Editar"
+msgstr "Escribir"
 
 #. module: knowledge
 #. odoo-javascript

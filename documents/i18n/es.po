@@ -30,6 +30,13 @@ msgstr " + Agregar una etiqueta"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
+#, python-format
+msgid "%s (remaining pages)"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "%s Documents"
@@ -1809,7 +1816,7 @@ msgstr "Fiscal"
 #. module: documents
 #: model:documents.facet,name:documents.documents_finance_fiscal_year
 msgid "Fiscal years"
-msgstr "Años fiscales"
+msgstr "Ejercicios fiscales"
 
 #. module: documents
 #. odoo-javascript
@@ -2603,7 +2610,7 @@ msgstr "Ruta principal"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_parent_thread_id
 msgid "Parent Record Thread ID"
-msgstr "ID del hilo del registro principal"
+msgstr "ID del hilo del registro padre"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__parent_folder_id
@@ -2859,7 +2866,7 @@ msgstr "Guardar"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__activity_option
 msgid "Schedule Activity"
-msgstr "Planificar actividad"
+msgstr "Programar actividad"
 
 #. module: documents
 #. odoo-javascript

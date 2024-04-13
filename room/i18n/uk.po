@@ -26,31 +26,31 @@ msgstr ""
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "1 hour"
-msgstr ""
+msgstr "1 година"
 
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "15 min"
-msgstr ""
+msgstr "15 хв"
 
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "30 min"
-msgstr ""
+msgstr "30 хв"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_kanban
 msgid "<i class=\"fa fa-long-arrow-right mx-1\" title=\"Until\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-long-arrow-right mx-1\" title=\"Until\"/>"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_gantt
 msgid "<i class=\"fa fa-long-arrow-right\" title=\"Until\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-long-arrow-right\" title=\"Until\"/>"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
@@ -58,21 +58,23 @@ msgid ""
 "<span invisible=\"bookings_count == 1\">Bookings</span>\n"
 "                                    <span invisible=\"bookings_count != 1\">Booking</span>"
 msgstr ""
+"<span invisible=\"bookings_count == 1\">Бронювання</span>\n"
+"                                    <span invisible=\"bookings_count != 1\">Бронювання</span>"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_kanban
 msgid "<strong>Date: </strong>"
-msgstr ""
+msgstr "<strong>Дата: </strong>"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_gantt
 msgid "<strong>Organizer: </strong>"
-msgstr ""
+msgstr "<strong>Організатор: </strong>"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_kanban
 msgid "<strong>Room: </strong>"
-msgstr ""
+msgstr "<strong>Кімната: </strong>"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__access_token
@@ -88,14 +90,14 @@ msgstr "Необхідна дія"
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__description
 msgid "Amenities"
-msgstr ""
+msgstr "Зручності"
 
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.js:0
 #, python-format
 msgid "Are you sure you want to delete this booking?"
-msgstr ""
+msgstr "Ви впевнені, що хочете видалити це бронювання?"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__message_attachment_count
@@ -115,7 +117,7 @@ msgstr "В наявності"
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__bookable_background_color
 msgid "Available Background Color"
-msgstr ""
+msgstr "Доступний колір фону"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__room_background_image
@@ -127,7 +129,7 @@ msgstr "Фонове зображення"
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "Book now"
-msgstr ""
+msgstr "Забронювати зараз"
 
 #. module: room
 #. odoo-javascript
@@ -139,7 +141,7 @@ msgstr "Зарезервовано"
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__booked_background_color
 msgid "Booked Background Color"
-msgstr ""
+msgstr "Колір фону бронювання"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_search
@@ -160,7 +162,7 @@ msgstr "Назва бронювання"
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "Booking Now"
-msgstr ""
+msgstr "Бронювання зараз"
 
 #. module: room
 #. odoo-python
@@ -176,7 +178,7 @@ msgstr "Бронювання"
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__bookings_count
 msgid "Bookings Count"
-msgstr ""
+msgstr "Підрахунок бронювань"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
@@ -195,7 +197,7 @@ msgstr "Скасувати"
 #. module: room
 #: model_terms:room.room,description:room.room_room_main_office_room_3
 msgid "Capacity: 6 people"
-msgstr ""
+msgstr "Місткість: 6 осіб"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__company_id
@@ -207,7 +209,7 @@ msgstr "Компанія"
 #. module: room
 #: model_terms:ir.actions.act_window,help:room.room_room_action
 msgid "Create Rooms"
-msgstr ""
+msgstr "Створити кімнати"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__create_uid
@@ -245,17 +247,19 @@ msgstr "Назва для відображення"
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_form
 msgid "E.g. Team Meeting"
-msgstr ""
+msgstr "Напр., Зустріч команди"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
 msgid "E.g. projector, capacity 6 people"
-msgstr ""
+msgstr "Напр., прожектор, місткість 6 людей"
 
 #. module: room
 #: model:ir.module.category,description:room.module_category_room
 msgid "Enable the user to manage meeting rooms available for booking"
 msgstr ""
+"Дозволити користувачеві керувати кімнатами для нарад, доступними для "
+"бронювання"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__stop_datetime
@@ -283,7 +287,7 @@ msgstr "Є повідомлення"
 #. module: room
 #: model:room.office,name:room.room_office_head_office
 msgid "Head Office"
-msgstr ""
+msgstr "Головний офіс"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__id
@@ -307,7 +311,7 @@ msgstr "Якщо позначено, деякі повідомлення маю�
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_list
 msgid "Is Currently Available"
-msgstr ""
+msgstr "Доступний наразі"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__message_is_follower
@@ -318,7 +322,7 @@ msgstr "Стежить"
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__is_available
 msgid "Is Room Currently Available"
-msgstr ""
+msgstr "Чи кімната доступна наразі"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__write_uid
@@ -337,22 +341,22 @@ msgstr "Останнє оновлення"
 #. module: room
 #: model:room.office,name:room.room_office_main_office
 msgid "Main Office"
-msgstr ""
+msgstr "Головний офіс"
 
 #. module: room
 #: model:res.groups,name:room.group_room_manager
 msgid "Manage Rooms"
-msgstr ""
+msgstr "Керуйте кімнатами"
 
 #. module: room
 #: model:ir.ui.menu,name:room.room_menu_root
 msgid "Meeting Rooms"
-msgstr ""
+msgstr "Кімнати для зустрічей"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_search
 msgid "Meeting name"
-msgstr ""
+msgstr "Назва зустрічі"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__message_has_error
@@ -379,7 +383,7 @@ msgstr "Ім'я"
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__next_booking_start
 msgid "Next Booking Start"
-msgstr ""
+msgstr "Початок наступного бронювання"
 
 #. module: room
 #. odoo-javascript
@@ -393,14 +397,14 @@ msgstr "Наступного тижня"
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "No Bookings Planned"
-msgstr ""
+msgstr "Не заплановано жодних бронювань"
 
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "No Bookings for Today"
-msgstr ""
+msgstr "Немає жодних бронювань на сьогодні"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__message_needaction_counter
@@ -436,7 +440,7 @@ msgstr "Відділ"
 #: model:ir.model.fields,field_description:room.field_room_office__name
 #: model_terms:ir.ui.view,arch_db:room.room_office_view_form
 msgid "Office Name"
-msgstr ""
+msgstr "Назва офісу"
 
 #. module: room
 #. odoo-javascript
@@ -445,6 +449,8 @@ msgstr ""
 msgid ""
 "Oops! Looks like you have multiple tabs opened. Make sure to use only one."
 msgstr ""
+"От халепа! Схоже, у вас відкрито кілька вкладок. Обов’язково використовуйте "
+"лише одну."
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form
@@ -478,14 +484,14 @@ msgstr "Проектор"
 #. module: room
 #: model_terms:room.room,description:room.room_room_main_office_room_1
 msgid "Projector, whiteboard"
-msgstr ""
+msgstr "Прожектор, маркерна дошка"
 
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.js:0
 #, python-format
 msgid "Public Booking"
-msgstr ""
+msgstr "Публічне бронювання"
 
 #. module: room
 #: model:ir.actions.act_window,name:room.room_room_action
@@ -494,7 +500,7 @@ msgstr ""
 #: model:ir.module.category,name:room.module_category_room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_search
 msgid "Room"
-msgstr ""
+msgstr "Кімната"
 
 #. module: room
 #. odoo-python
@@ -502,16 +508,17 @@ msgstr ""
 #, python-format
 msgid "Room %(room_name)s is already booked during the selected time slot."
 msgstr ""
+"Кімната %(room_name)s вже заброньовано протягом вибраного проміжку часу."
 
 #. module: room
 #: model:ir.model,name:room.model_room_booking
 msgid "Room Booking"
-msgstr ""
+msgstr "Бронювання кімнати"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__room_booking_url
 msgid "Room Booking URL"
-msgstr ""
+msgstr "URL бронювання кімнати"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__name
@@ -522,7 +529,7 @@ msgstr "Назва кімнати"
 #. module: room
 #: model:ir.model,name:room.model_room_office
 msgid "Room Office"
-msgstr ""
+msgstr "Офіс"
 
 #. module: room
 #: model:ir.ui.menu,name:room.room_room_menu
@@ -548,7 +555,7 @@ msgstr "Запланувати"
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "Schedule Booking"
-msgstr ""
+msgstr "Запланувати бронювання"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__short_code
@@ -563,26 +570,26 @@ msgstr "Датачас початку"
 #. module: room
 #: model:ir.model.constraint,message:room.constraint_room_room_uniq_access_token
 msgid "The access token must be unique"
-msgstr ""
+msgstr "Токен доступу повинен бути унікальним"
 
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.js:0
 #, python-format
 msgid "The booking you were editing has been deleted."
-msgstr ""
+msgstr "Бронювання, яке ви редагували, було видалене."
 
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "The next booking is starting soon."
-msgstr ""
+msgstr "Наступне бронювання розпочнеться скоро."
 
 #. module: room
 #: model:ir.model.constraint,message:room.constraint_room_room_uniq_short_code
 msgid "The short code must be unique."
-msgstr ""
+msgstr "Короткий код повинен бути унікальним."
 
 #. module: room
 #. odoo-python
@@ -590,18 +597,19 @@ msgstr ""
 #, python-format
 msgid "The start date of %(booking_name)s must be earlier than the end date."
 msgstr ""
+"Дата початку %(booking_name)s повинна бути раніше, ніж дата закінчення."
 
 #. module: room
 #: model_terms:ir.actions.act_window,help:room.room_room_action
 msgid "They can then be booked for meetings from a Tablet or the back-end."
-msgstr ""
+msgstr "Потім їх можна забронювати для зустрічей з Панелі або з бекенду."
 
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "This room is as free as a fish in a sea of endless possibilities"
-msgstr ""
+msgstr "Ця кімната вільна, як риба в морі нескінченних можливостей"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_kanban

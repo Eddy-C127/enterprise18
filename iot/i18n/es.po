@@ -59,9 +59,9 @@ msgstr ""
 "<strong>B. Conexión WiFi (o si la conexión ethernet no funciona)</strong><br/>\n"
 "                    1. Asegúrese de que no hay ningún cable ethernet conectado a la Caja IoT<br/>\n"
 "                    2. Copie el siguiente token<br/>\n"
-"                    3. Conéctese a la red WiFi de la Caja IoT (debería verla en sus redes WiFi disponibles)<br/>\n"
+"                    3. Conéctese a la red WiFi de la caja IoT (debería verla en sus redes WiFi disponibles)<br/>\n"
 "                    4. Será redireccionado a la página de inicio de la Caja IoT<br/>\n"
-"                    5. Pegue el token en el campo correspondiente y siga los pasos descritos en la página de inicio de la Caja IoT<br/>"
+"                    5. Pegue el token en el campo correspondiente y siga los pasos descritos en la página de inicio de la caja IoT<br/>"
 
 #. module: iot
 #: model:ir.model,name:iot.model_add_iot_box
@@ -90,7 +90,7 @@ msgstr "Actualización automática de controladores"
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_box__drivers_auto_update
 msgid "Automatically update drivers when the IoT Box boots"
-msgstr "Actualice los controladores automáticamente cuando se inicie IoT Box"
+msgstr "Actualice automátcamente los controladores cuando la caja IoT cargue"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__scanner
@@ -514,7 +514,7 @@ msgstr "No hay informe para mostrar"
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 #, python-format
 msgid "Odoo cannot reach the IoT Box."
-msgstr "Odoo no puede alcanzar la caja de IoT."
+msgstr "Odoo no puede alcanzar la caja IoT."
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -547,7 +547,7 @@ msgstr ""
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 #, python-format
 msgid "Please check if the IoT Box is still connected."
-msgstr "Verifique si la caja de IoT todavía está conectada."
+msgstr "Verifique si la caja IoT todavía está conectada."
 
 #. module: iot
 #. odoo-javascript
@@ -555,7 +555,7 @@ msgstr "Verifique si la caja de IoT todavía está conectada."
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Please wait"
-msgstr "Por favor espera"
+msgstr "Por favor espere"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_select_printers_wizard
@@ -676,12 +676,12 @@ msgstr ""
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_device_action_search_iot_box
 msgid "There is no device connected to this IoT Box"
-msgstr "No hay ningún dispositivo conectado a esta caja de IoT "
+msgstr "No hay ningún dispositivo conectado a esta caja IoT "
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_device_action
 msgid "There is no device connected to your IoT Boxes"
-msgstr "No hay ningún dispositivo conectado a sus cajas de IoT "
+msgstr "No hay ningún dispositivo conectado a sus cajas IoT "
 
 #. module: iot
 #. odoo-javascript
@@ -741,7 +741,7 @@ msgstr "Variante"
 #: code:addons/iot/wizard/add_iot_box.py:0
 #, python-format
 msgid "We had troubles pairing your IoT Box. Please try again later."
-msgstr "Tuvimos problemas emparejando su Caja IoT. Inténtelo más tarde."
+msgstr "Tuvimos problemas emparejando su caja IoT. Inténtelo más tarde."
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_ir_actions_report__device_ids
@@ -750,7 +750,7 @@ msgid ""
 "on the IoT Box"
 msgstr ""
 "Al configurar un dispositivo aquí, el informe se imprimirá a través de este "
-"dispositivo en la caja de IoT "
+"dispositivo en la caja IoT "
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

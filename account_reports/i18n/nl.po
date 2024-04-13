@@ -4,10 +4,10 @@
 # 
 # Translators:
 # Jolien De Paepe, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # Gunther Clauwaert <gclauwae@hotmail.com>, 2024
 # Wil Odoo, 2024
 # Martin Trigaux, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-04 14:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -144,7 +144,7 @@ msgstr ", Enkel ongeletterde boekingen weergeven"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid ", leading to an unexplained difference of"
-msgstr ""
+msgstr ", wat leidt tot een onverklaard verschil van"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -668,12 +668,12 @@ msgstr "Saldo in vreemde valuta"
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Balance of '%s'"
-msgstr ""
+msgstr "Saldo van '%s'"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.balance_bank
 msgid "Balance of Bank"
-msgstr ""
+msgstr "Saldo van bank"
 
 #. module: account_reports
 #. odoo-python
@@ -1180,6 +1180,8 @@ msgid ""
 "Custom engine _report_custom_engine_last_statement_balance_amount does not "
 "support groupby"
 msgstr ""
+"Aangepaste engine _report_custom_engine_last_statement_balance_amount "
+"ondersteunt groepeerop niet"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1989,13 +1991,13 @@ msgstr "Inclusief analytische simulaties"
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_payments
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_payments
 msgid "Including Unreconciled Payments"
-msgstr ""
+msgstr "Inclusief niet-afgeletterde betalingen"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_receipt
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_receipts
 msgid "Including Unreconciled Receipts"
-msgstr ""
+msgstr "Inclusief niet-afgeletterde ontvangsten"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -2308,7 +2310,7 @@ msgstr "Laatst bijgewerkt op"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.last_statement_balance
 msgid "Last statement balance"
-msgstr ""
+msgstr "Laatste saldo afschrift"
 
 #. module: account_reports
 #. odoo-python
@@ -2407,7 +2409,7 @@ msgstr "Methode '%s' moet beginnen met het voorvoegsel '%s'."
 #. module: account_reports
 #: model:account.report.line,name:account_reports.misc_operations
 msgid "Misc. operations"
-msgstr ""
+msgstr "Memoriaalboekingen"
 
 #. module: account_reports
 #. odoo-python
@@ -2695,7 +2697,7 @@ msgstr "Overige opbrengsten"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
-msgstr ""
+msgstr "Openstaande ontvangsten/betalingen"
 
 #. module: account_reports
 #. odoo-python
@@ -3423,7 +3425,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "The current balance in the"
-msgstr ""
+msgstr "Het huidige saldo in de"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3666,7 +3668,7 @@ msgstr "Handelsrelaties"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.transaction_without_statement
 msgid "Transactions without statement"
-msgstr ""
+msgstr "Transacties zonder afschrift"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report
@@ -4034,7 +4036,7 @@ msgstr "dagen na periode"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "doesn't match the balance of your"
-msgstr ""
+msgstr "komt niet overeen met het saldo van je"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__2_months
@@ -4051,7 +4053,7 @@ msgstr "iedere 4 maanden"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "have a starting balance different from the previous ending balance."
-msgstr ""
+msgstr "een beginsaldo hebben dat verschilt van het vorige eindsaldo."
 
 #. module: account_reports
 #. odoo-javascript
@@ -4081,7 +4083,7 @@ msgstr "boekingsregels"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "last bank statement"
-msgstr ""
+msgstr "laatste bankafschrift"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__monthly
@@ -4174,7 +4176,7 @@ msgstr "werden uit de vorige periode op deze lijn overgedragen."
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "which don't originate from a bank statement nor payment."
-msgstr ""
+msgstr "die niet afkomstig zijn van een bankafschrift of betaling."
 
 #. module: account_reports
 #. odoo-javascript

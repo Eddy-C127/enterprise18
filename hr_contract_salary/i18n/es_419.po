@@ -169,7 +169,7 @@ msgid ""
 "                                </span>"
 msgstr ""
 "<span>\n"
-"                                    Solo un administrador del servidor puede modificar este campo, póngase en contacto si el campo requiere modificaciones.\n"
+"                                    Solo los administradores del servidor pueden modificar este campo, contáctelos si el campo necesita alguna modificación.\n"
 "                                </span>\n"
 "                                <span invisible=\"requested_documents_fields_string\">\n"
 "                                    No hay campos solicitados por el momento.\n"
@@ -275,9 +275,9 @@ msgid ""
 "current one to be editable. Before edition, the current benefit is always "
 "set to false."
 msgstr ""
-"Debe seleccionar todas las ventajas en este campo como condición para que la"
-" actual se pueda editar. Antes de esto, la ventaja actual siempre se "
-"establece en false."
+"Debe seleccionar todas las prestaciones en este campo como condición para "
+"poder editar la actual. Antes de esto, la prestación actual siempre se "
+"establece en falso."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__always
@@ -588,7 +588,7 @@ msgstr "Historial de contratos"
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__activity_creation__countersigned
 msgid "Contract is countersigned"
-msgstr "Contrato refrendado"
+msgstr "El contrato está refrendado"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
@@ -790,7 +790,7 @@ msgstr "Descartar"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 msgid "Display"
-msgstr "Mostrar"
+msgstr "Visualización"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__display_name
@@ -803,14 +803,14 @@ msgstr "Mostrar"
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__display_name
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume_category__display_name
 msgid "Display Name"
-msgstr "Nombre en pantalla"
+msgstr "Mostrar nombre"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__display_type
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit_value__display_type
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_personal_info__display_type
 msgid "Display Type"
-msgstr "Mostrar tipo"
+msgstr "Tipo de visualización"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__display_warning_message
@@ -987,7 +987,7 @@ msgstr "Plegar nombre del campo"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__fold_label
 msgid "Fold Label"
-msgstr "Plegar etiqueta"
+msgstr "Etiqueta de la sección plegada"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__fold_res_field_id
@@ -1161,13 +1161,13 @@ msgstr "Nombre del archivo de la imagen 1920"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__impacts_monthly_total
 msgid "Impacts Monthly Total"
-msgstr "Impactos en el total mensual"
+msgstr "Influye en el total mensual"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__impacts_net_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_personal_info__impacts_net_salary
 msgid "Impacts Net Salary"
-msgstr "Impactos en el salario neto"
+msgstr "Influye en el salario neto"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_offer__state__open
@@ -2042,22 +2042,22 @@ msgstr "Solicitud de firma - %s"
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__slider
 msgid "Slider"
-msgstr "Interruptor"
+msgstr "Control deslizante"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__slider_max
 msgid "Slider Max"
-msgstr "Interruptor máximo"
+msgstr "Máximo del control deslizante"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__slider_min
 msgid "Slider Min"
-msgstr "Interruptor mínimo"
+msgstr "Mínimo del control deslizante"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__slider_step
 msgid "Slider Step"
-msgstr "Paso del interruptor"
+msgstr "Paso del control deslizante"
 
 #. module: hr_contract_salary
 #. odoo-javascript
@@ -2116,7 +2116,7 @@ msgstr "Tipo de estructura"
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_resume__value_type__sum
 msgid "Sum of Benefits Values"
-msgstr "Suma de los valores de los beneficios"
+msgstr "Valor de la suma de las prestaciones"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__sign_template_id
@@ -2171,7 +2171,7 @@ msgstr ""
 msgid ""
 "The minimum value for the slider should be inferior to the maximum value."
 msgstr ""
-"El valor mínimo para el interruptor debe ser inferior al valor máximo."
+"El valor mínimo del control deslizante debe ser inferior al valor máximo."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__signatures_count
@@ -2360,7 +2360,7 @@ msgstr "Si el nombre se debe mostrar en el configurador de sueldos"
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit_type__periodicity__yearly
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_resume_category__periodicity__yearly
 msgid "Yearly"
-msgstr "Anualmente"
+msgstr "Anual"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__final_yearly_costs

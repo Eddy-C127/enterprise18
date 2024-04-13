@@ -25,6 +25,7 @@
 # Martin Trigaux, 2024
 # Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
 # Jakob Krabbe <jakob.krabbe@vertel.se>, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -32,7 +33,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-22 15:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jakob Krabbe <jakob.krabbe@vertel.se>, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4732,7 +4733,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:mail.template,subject:sale_subscription.mail_template_subscription_rating
 msgid "{{ object.company_id.name }}: Service Rating Request"
-msgstr "{{ objekt.företag_id.namn }}: Begäran om bedömning av tjänst"
+msgstr "{{ object.company_id.name }}: Begäran om bedömning av tjänst"
 
 #. module: sale_subscription
 #: model:sms.template,body:sale_subscription.sms_template_data_payment_reminder
@@ -4742,7 +4743,7 @@ msgid ""
 " suspended on {{ object.next_invoice_date }} unless the payment succeeds in "
 "the meantime."
 msgstr ""
-"{{ objekt.företag_id.namn }}: Vi kunde inte behandla en betalning för din "
+"{{ object.company_id.name }}: Vi kunde inte behandla en betalning för din "
 "prenumeration. Din prenumeration {{ object.name }} är fortfarande giltig men"
 " kommer att avbrytas den {{ object.next_invoice_date }} om inte betalningen "
 "lyckas under tiden."
@@ -4754,6 +4755,6 @@ msgid ""
 " attention. If you have some concerns about it, please contact {{ "
 "object.user_id.name }}, your contact person."
 msgstr ""
-"{{ objekt.företag_id.namn }}: Din prenumeration {{ object.name }} behöver "
+"{{ object.company_id.name }}: Din prenumeration {{ object.name }} behöver "
 "din uppmärksamhet. Om du har några frågor om det, vänligen kontakta {{ "
 "object.user_id.name }}, din kontaktperson."

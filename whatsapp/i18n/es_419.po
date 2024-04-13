@@ -639,6 +639,8 @@ msgid ""
 "Dynamic button variable name must be the same as its respective button's "
 "name"
 msgstr ""
+"El nombre de la variable del botón dinámico debe ser igual al nombre de su "
+"botón."
 
 #. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_message_unique_msg_uid
@@ -728,6 +730,8 @@ msgstr ""
 msgid ""
 "Field template variables %(var_names)s must be associated with a field."
 msgstr ""
+"Las variables %(var_names)s de la plantilla del campo deben estar asociadas "
+"a un campo."
 
 #. module: whatsapp
 #. odoo-python
@@ -1960,7 +1964,7 @@ msgstr "Cuerpo de la plantilla"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template
 msgid "Template quality rating too low"
-msgstr ""
+msgstr "La calificación de calidad de la plantilla es demasiado baja"
 
 #. module: whatsapp
 #. odoo-python
@@ -1985,6 +1989,8 @@ msgid ""
 "Template variable should be in format {{number}}. Cannot parse "
 "\"%(placeholder)s\""
 msgstr ""
+"La variable de la plantilla debe estar en formato {{number}}. No se pudo "
+"interpretar \"%(placeholder)s\""
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_preview__wa_template_id
@@ -2030,6 +2036,7 @@ msgstr "Tailandés"
 msgid ""
 "The Header Text must either contain no variable or the first one {{1}}."
 msgstr ""
+"El texto del encabezado no debe incluir ninguna variable o debe ser {{1}}."
 
 #. module: whatsapp
 #. odoo-python
@@ -2269,6 +2276,8 @@ msgid ""
 "Variables %(field_names)s do not seem to be valid field path for model "
 "%(model_name)s."
 msgstr ""
+"Las variables %(field_names)s no parecen ser una ruta de campo válida para "
+"el modelo %(model_name)s."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__video

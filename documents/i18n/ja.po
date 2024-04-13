@@ -30,6 +30,13 @@ msgstr " + タグを追加"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
+#, python-format
+msgid "%s (remaining pages)"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "%s Documents"
@@ -1508,7 +1515,7 @@ msgstr "ドキュメント: ドキュメント要求"
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 #, python-format
 msgid "Documents"
-msgstr "書類"
+msgstr "ドキュメント"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_link_to_record_wizard
@@ -2884,7 +2891,7 @@ msgstr "セットするタグ"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Set deletion delay for documents in the Trash"
-msgstr "ゴミ箱にあるドキュメントの削除遅延を設定する"
+msgstr "ゴミ箱にあるドキュメントの削除遅延を設定"
 
 #. module: documents
 #: model:mail.template,description:documents.mail_template_document_request_reminder
@@ -3277,7 +3284,7 @@ msgstr "未検証"
 #. module: documents
 #: model:mail.activity.type,name:documents.mail_documents_activity_data_tv
 msgid "To validate"
-msgstr "承認する"
+msgstr "承認"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
