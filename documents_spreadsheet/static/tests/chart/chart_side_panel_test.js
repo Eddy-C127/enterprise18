@@ -13,7 +13,10 @@ import { createSpreadsheet } from "../spreadsheet_test_utils";
 import { createSpreadsheetFromGraphView, openChartSidePanel } from "../utils/chart_helpers";
 import { GraphRenderer } from "@web/views/graph/graph_renderer";
 import { patchGraphSpreadsheet } from "@spreadsheet_edition/assets/graph_view/graph_view";
+import { registries } from "@odoo/o-spreadsheet";
 import * as dsHelpers from "@web/../tests/core/domain_selector_tests";
+
+const { chartRegistry } = registries;
 
 function beforeEach() {
     patchWithCleanup(GraphRenderer.prototype, patchGraphSpreadsheet());
@@ -48,14 +51,16 @@ QUnit.module("documents_spreadsheet > chart side panel", { beforeEach }, () => {
             const target = getFixture();
             /** @type {NodeListOf<HTMLOptionElement>} */
             const options = target.querySelectorAll(".o-type-selector option");
-            assert.strictEqual(options.length, 7);
-            assert.strictEqual(options[0].value, "bar");
-            assert.strictEqual(options[1].value, "combo");
-            assert.strictEqual(options[2].value, "line");
-            assert.strictEqual(options[3].value, "pie");
-            assert.strictEqual(options[4].value, "scorecard");
-            assert.strictEqual(options[5].value, "gauge");
-            assert.strictEqual(options[6].value, "scatter");
+            const nonOdooCharts = [];
+            for (const key of chartRegistry.getKeys()) {
+                if (!key.startsWith("odoo_")) {
+                    nonOdooCharts.push(key);
+                }
+            }
+            assert.strictEqual(options.length, nonOdooCharts.length);
+            for (let i = 0; i < nonOdooCharts.length; i++) {
+                assert.strictEqual(options[i].value, nonOdooCharts[i]);
+            }
         }
     );
 

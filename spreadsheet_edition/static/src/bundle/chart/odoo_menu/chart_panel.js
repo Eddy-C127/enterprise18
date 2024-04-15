@@ -4,7 +4,7 @@ import { patch } from "@web/core/utils/patch";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { IrMenuSelector } from "@spreadsheet_edition/bundle/ir_menu_selector/ir_menu_selector";
 
-const { LineBarPieConfigPanel, ScorecardChartConfigPanel, GaugeChartConfigPanel, Section } =
+const { GenericChartConfigPanel, ScorecardChartConfigPanel, GaugeChartConfigPanel, Section } =
     spreadsheet.components;
 
 /**
@@ -41,6 +41,6 @@ function patchChartPanelWithMenu(PanelComponent) {
         Section,
     };
 }
-patchChartPanelWithMenu(LineBarPieConfigPanel);
+patchChartPanelWithMenu(GenericChartConfigPanel);
 patchChartPanelWithMenu(GaugeChartConfigPanel);
 patchChartPanelWithMenu(ScorecardChartConfigPanel);
