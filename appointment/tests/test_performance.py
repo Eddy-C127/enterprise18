@@ -24,15 +24,22 @@ class AppointmentPerformanceCase(AppointmentCommon):
         self.patch(self.env.registry, 'ready', True)
 
 
-@tagged('appointment_performance', 'post_install', '-at_install')
 class AppointmentUIPerformanceCase(AppointmentPerformanceCase, UtilPerf):
 
     @classmethod
     def setUpClass(cls):
         super(AppointmentUIPerformanceCase, cls).setUpClass()
-        # if website_livechat is installed, disable it
+
+        # tweak in case website is installed
         if 'website' in cls.env and 'channel_id' in cls.env['website']:
+            # if website_livechat is installed, disable it
             cls.env['website'].search([]).channel_id = False
+
+            # remove menu containing a slug url (only website_helpdesk normally), to
+            # avoid the menu cache being disabled, which would increase sql queries.
+            cls.env['website.menu'].search([
+                ('url', '=like', '/%/%-%'),
+            ]).unlink()
 
 
 @tagged('appointment_performance', 'post_install', '-at_install')
@@ -53,6 +60,9 @@ class OnlineAppointmentPerformance(AppointmentUIPerformanceCase):
               ),
              ])
 
+        # Flush everything, notably tracking values, as it may impact performances
+        self.flush_tracking()
+
     @warmup
     def test_appointment_invitation_page_anonymous(self):
         """ Anonymous access of invitation page """
@@ -65,7 +75,7 @@ class OnlineAppointmentPerformance(AppointmentUIPerformanceCase):
         self.authenticate(None, None)
         t0 = time.time()
         with freeze_time(self.reference_now):
-            with self.assertQueryCount(default=32):  # apt 30
+            with self.assertQueryCount(default=28):  # apt 27
                 self._test_url_open(invitation.redirect_url)
         t1 = time.time()
 
@@ -79,7 +89,7 @@ class OnlineAppointmentPerformance(AppointmentUIPerformanceCase):
         self.authenticate('staff_user_aust', 'staff_user_aust')
         t0 = time.time()
         with freeze_time(self.reference_now):
-            with self.assertQueryCount(default=37):  # apt 27
+            with self.assertQueryCount(default=38):  # apt 26
                 self._test_url_open('/appointment/%i' % self.apt_type_bxls_2days.id)
         t1 = time.time()
 
