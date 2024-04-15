@@ -15,7 +15,6 @@ import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks"
 import { RecordFileStore } from "../image/record_file_store";
 import { useSpreadsheetCurrencies, useSpreadsheetLocales, useSpreadsheetThumbnail } from "../hooks";
 import { useSpreadsheetPrint } from "@spreadsheet/hooks";
-import { router } from "@web/core/browser/router";
 import { InputDialog } from "./input_dialog/input_dialog";
 import { OdooDataProvider } from "@spreadsheet/data_sources/odoo_data_provider";
 import { CommentsStore } from "../comments/comments_store";
@@ -108,8 +107,8 @@ export class AbstractSpreadsheetAction extends Component {
         });
         onMounted(() => {
             const commentsStore = this.stores.get(CommentsStore);
-            this.props.updateResId(this.resId);
-            router.pushState({
+            this.props.updateActionState({
+                resId: this.resId,
                 access_token: this.accessToken,
                 share_id: this.shareId,
             });
