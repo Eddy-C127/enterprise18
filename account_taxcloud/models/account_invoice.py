@@ -29,7 +29,7 @@ class AccountMove(models.Model):
             return super()._post(soft)
 
         invoices_to_validate = self.filtered(
-            lambda move: move.is_sale_document() and move.fiscal_position_id.is_taxcloud)
+            lambda move: move.is_sale_document() and move.fiscal_position_id.is_taxcloud and not move._is_downpayment())
 
         if invoices_to_validate:
             for invoice in invoices_to_validate.with_context(taxcloud_authorize_transaction=True):

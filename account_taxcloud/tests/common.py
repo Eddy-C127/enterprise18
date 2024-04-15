@@ -55,11 +55,11 @@ class TestAccountTaxcloudCommon(TransactionCase):
         cls.partner = cls.env["res.partner"].create(
             {
                 "name": "Sale Partner",
-                "street": "2280 Market St",
-                "city": "San Francisco",
+                "street": "77 Santa Barbara Rd",
+                "city": "Pleasant Hill",
                 "state_id": cls.env.ref("base.state_us_5").id,
                 "country_id": cls.env.ref("base.us").id,
-                "zip": "94114",
+                "zip": "94523",
             }
         )
 
