@@ -154,3 +154,47 @@ class TestCFDIPickingWorkflow(TestMXEdiStockCommon):
             sent_doc_values,
         ])
         self.assertRecordValues(picking, [{'l10n_mx_edi_cfdi_state': 'sent'}])
+
+    def test_picking_production_sign_flow_cancel_from_the_sat(self):
+        """ Test the case the invoice/payment is signed but the user manually cancel the document from the SAT portal (production environment). """
+        self.env.company.l10n_mx_edi_pac_test_env = False
+        self.env.company.l10n_mx_edi_pac_username = 'test'
+        self.env.company.l10n_mx_edi_pac_password = 'test'
+
+        with freeze_time('2017-01-01'):
+            warehouse = self._create_warehouse()
+            picking = self._create_picking(warehouse)
+            with self.with_mocked_pac_sign_success():
+                picking.l10n_mx_edi_cfdi_try_send()
+            with self.with_mocked_sat_call(lambda _x: 'valid'):
+                picking.l10n_mx_edi_cfdi_try_sat()
+            sent_doc_values = {
+                'picking_id': picking.id,
+                'state': 'picking_sent',
+                'sat_state': 'valid',
+            }
+            self.assertRecordValues(picking.l10n_mx_edi_document_ids, [sent_doc_values])
+            self.assertRecordValues(picking, [{
+                'l10n_mx_edi_update_sat_needed': True,
+                'l10n_mx_edi_cfdi_sat_state': 'valid',
+                'l10n_mx_edi_cfdi_state': 'sent',
+            }])
+
+        # Manual cancellation from the SAT portal.
+        with self.with_mocked_sat_call(lambda _x: 'cancelled'):
+            picking.l10n_mx_edi_cfdi_try_sat()
+
+        cancel_doc_values = {
+            'picking_id': picking.id,
+            'state': 'picking_cancel',
+            'sat_state': 'cancelled',
+        }
+        self.assertRecordValues(picking.l10n_mx_edi_document_ids.sorted(), [
+            cancel_doc_values,
+            sent_doc_values,
+        ])
+        self.assertRecordValues(picking, [{
+            'l10n_mx_edi_update_sat_needed': False,
+            'l10n_mx_edi_cfdi_sat_state': 'cancelled',
+            'l10n_mx_edi_cfdi_state': 'cancel',
+        }])

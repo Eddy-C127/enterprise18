@@ -57,6 +57,7 @@ class AccountMove(models.Model):
         string="CFDI status",
         selection=[
             ('sent', 'Signed'),
+            ('cancel_requested', 'Cancel Requested'),
             ('cancel', 'Cancelled'),
             ('received', 'Received'),
             ('global_sent', 'Signed Global'),
@@ -492,35 +493,55 @@ class AccountMove(models.Model):
                  'l10n_mx_edi_payment_document_ids.state', 'l10n_mx_edi_payment_document_ids.sat_state')
     def _compute_l10n_mx_edi_cfdi_state_and_attachment(self):
         for move in self:
-            move.l10n_mx_edi_cfdi_sat_state = None
+            move.l10n_mx_edi_cfdi_sat_state = move.l10n_mx_edi_cfdi_sat_state
             move.l10n_mx_edi_cfdi_state = None
             move.l10n_mx_edi_cfdi_attachment_id = None
             move.l10n_mx_edi_invoice_cancellation_reason = None
             if move.is_invoice():
-                for doc in move.l10n_mx_edi_invoice_document_ids.sorted():
-                    if doc.state == 'invoice_sent':
+                # Compute the SAT & the PAC states in 2 different loops.
+                # In case of a request cancellation that failed, the SAT state needs
+                # to be retrieved from the document corresponding to the request cancellation.
+                # However, the PAC state needs to be retrieved from the original 'invoice_sent'
+                # document.
+                documents = move.l10n_mx_edi_invoice_document_ids.sorted()
+
+                # 'l10n_mx_edi_cfdi_sat_state'.
+                for doc in documents.filtered(lambda doc: doc.state in {
+                    'invoice_sent',
+                    'invoice_cancel_requested',
+                    'invoice_cancel',
+                    'ginvoice_sent',
+                    'ginvoice_cancel',
+                }):
+                    if doc.sat_state != 'skip':
                         move.l10n_mx_edi_cfdi_sat_state = doc.sat_state
+                        break
+
+                # 'l10n_mx_edi_cfdi_state' / 'l10n_mx_edi_cfdi_attachment_id'.
+                for doc in documents:
+                    if doc.state == 'invoice_sent':
                         move.l10n_mx_edi_cfdi_state = 'sent'
                         move.l10n_mx_edi_cfdi_attachment_id = doc.attachment_id
                         break
                     elif doc.state == 'invoice_received':
-                        move.l10n_mx_edi_cfdi_sat_state = doc.sat_state
                         move.l10n_mx_edi_cfdi_state = 'received'
                         move.l10n_mx_edi_cfdi_attachment_id = doc.attachment_id
                         break
                     elif doc.state == 'ginvoice_sent':
-                        move.l10n_mx_edi_cfdi_sat_state = doc.sat_state
                         move.l10n_mx_edi_cfdi_state = 'global_sent'
                         move.l10n_mx_edi_cfdi_attachment_id = doc.attachment_id
                         break
+                    elif doc.state == 'invoice_cancel_requested' and doc.sat_state == 'not_defined':
+                        move.l10n_mx_edi_cfdi_state = 'cancel_requested'
+                        move.l10n_mx_edi_cfdi_attachment_id = doc.attachment_id
+                        move.l10n_mx_edi_invoice_cancellation_reason = doc.cancellation_reason
+                        break
                     elif doc.state == 'invoice_cancel':
-                        move.l10n_mx_edi_cfdi_sat_state = doc.sat_state
                         move.l10n_mx_edi_cfdi_state = 'cancel'
                         move.l10n_mx_edi_cfdi_attachment_id = doc.attachment_id
                         move.l10n_mx_edi_invoice_cancellation_reason = doc.cancellation_reason
                         break
                     elif doc.state == 'ginvoice_cancel' and doc.cancellation_reason != '01':
-                        move.l10n_mx_edi_cfdi_sat_state = doc.sat_state
                         move.l10n_mx_edi_cfdi_state = 'global_cancel'
                         move.l10n_mx_edi_cfdi_attachment_id = doc.attachment_id
                         move.l10n_mx_edi_invoice_cancellation_reason = doc.cancellation_reason
@@ -562,7 +583,7 @@ class AccountMove(models.Model):
                         break
             move.l10n_mx_edi_force_pue_payment_needed = force_pue
 
-    @api.depends('l10n_mx_edi_invoice_document_ids.state')
+    @api.depends('state', 'l10n_mx_edi_cfdi_state', 'l10n_mx_edi_cfdi_sat_state')
     def _compute_l10n_mx_edi_update_sat_needed(self):
         for move in self:
             if move.is_invoice():
@@ -573,7 +594,7 @@ class AccountMove(models.Model):
                 move.l10n_mx_edi_update_sat_needed = False
                 continue
             move.l10n_mx_edi_update_sat_needed = bool(documents.filtered_domain(
-                expression.OR(self.env['l10n_mx_edi.document']._get_update_sat_status_domains())
+                documents._get_update_sat_status_domain(from_cron=False)
             ))
 
     @api.depends('l10n_mx_edi_cfdi_attachment_id')
@@ -710,8 +731,7 @@ class AccountMove(models.Model):
         for move in self:
             if (
                 move.show_reset_to_draft_button
-                and move.l10n_mx_edi_cfdi_state == 'cancel'
-                and move.l10n_mx_edi_cfdi_sat_state != 'cancelled'
+                and move.l10n_mx_edi_cfdi_state != 'cancel'
                 and move.state == 'posted'
             ):
                 move.show_reset_to_draft_button = False
@@ -817,7 +837,10 @@ class AccountMove(models.Model):
 
         # Check the CFDI state to restrict this code to MX only.
         if self._l10n_mx_edi_need_cancel_request():
-            doc = self.l10n_mx_edi_document_ids.filtered(lambda x: x.attachment_uuid == self.l10n_mx_edi_cfdi_uuid)[0]
+            doc = self.l10n_mx_edi_document_ids.filtered(lambda x: (
+                x.attachment_uuid == self.l10n_mx_edi_cfdi_uuid
+                and x.state in ('invoice_sent', 'payment_sent')
+            ))[0]
             return doc.action_request_cancel()
 
     def _reverse_moves(self, default_values_list=None, cancel=False):
@@ -1368,6 +1391,47 @@ class AccountMove(models.Model):
         }
         return self.env['l10n_mx_edi.document']._create_update_invoice_document_from_invoice(self, document_values)
 
+    def _l10n_mx_edi_cfdi_invoice_document_cancel_requested_failed(self, error, cfdi, cancel_reason):
+        """ Create/update the invoice document for 'cancel_requested_failed'.
+
+        :param error:           The error.
+        :param cfdi:            The source cfdi attachment to cancel.
+        :param cancel_reason:   The reason for this cancel.
+        :return:                The created/updated document.
+        """
+        self.ensure_one()
+
+        document_values = {
+            'move_id': self.id,
+            'invoice_ids': [Command.set(self.ids)],
+            'state': 'invoice_cancel_requested_failed',
+            'sat_state': None,
+            'message': error,
+            'attachment_id': cfdi.attachment_id.id,
+            'cancellation_reason': cancel_reason,
+        }
+        return self.env['l10n_mx_edi.document']._create_update_invoice_document_from_invoice(self, document_values)
+
+    def _l10n_mx_edi_cfdi_invoice_document_cancel_requested(self, cfdi, cancel_reason):
+        """ Create/update the invoice document for 'cancel_requested'.
+
+        :param cfdi:            The source cfdi attachment to cancel.
+        :param cancel_reason:   The reason for this cancel.
+        :return:                The created/updated document.
+        """
+        self.ensure_one()
+
+        document_values = {
+            'move_id': self.id,
+            'invoice_ids': [Command.set(self.ids)],
+            'state': 'invoice_cancel_requested',
+            'sat_state': 'not_defined',
+            'message': None,
+            'attachment_id': cfdi.attachment_id.id,
+            'cancellation_reason': cancel_reason,
+        }
+        return self.env['l10n_mx_edi.document']._create_update_invoice_document_from_invoice(self, document_values)
+
     def _l10n_mx_edi_cfdi_invoice_document_cancel_failed(self, error, cfdi, cancel_reason):
         """ Create/update the invoice document for 'cancel_failed'.
 
@@ -1615,6 +1679,56 @@ class AccountMove(models.Model):
     # CFDI: FLOWS
     # -------------------------------------------------------------------------
 
+    def _l10n_mx_edi_cfdi_move_post_cancel(self):
+        """ Cancel the current move after the document has been cancelled.
+        This method is common between invoice & payment:
+        """
+        self.ensure_one()
+
+        self \
+            .with_context(no_new_invoice=True) \
+            .message_post(body=_("The CFDI document has been successfully cancelled."))
+
+        cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(self.company_id)
+        if cfdi_values['root_company'].l10n_mx_edi_pac_test_env:
+            try:
+                self._check_fiscalyear_lock_date()
+                self.line_ids._check_tax_lock_date()
+
+                self.button_draft()
+                self.button_cancel()
+            except UserError:
+                pass
+
+    def _l10n_mx_edi_cfdi_move_update_sat_state(self, document, sat_state, error=None):
+        """ Update the SAT state of the document for the current move.
+
+        :param document:    The CFDI document to be updated.
+        :param sat_state:   The newly fetched state from the SAT
+        :param error:       In case of error, the message returned by the SAT.
+        """
+        self.ensure_one()
+
+        document.message = None
+        if sat_state == 'error' and error:
+            document.message = error
+            self.message_post(body=error)
+
+        # Automatic cancel for production environment.
+        if (
+            self.l10n_mx_edi_cfdi_state == 'cancel'
+            and self.l10n_mx_edi_cfdi_sat_state == 'cancelled'
+            and self.state == 'posted'
+        ):
+            try:
+                self._check_fiscalyear_lock_date()
+                self.line_ids._check_tax_lock_date()
+
+                self.button_draft()
+                self.button_cancel()
+            except UserError:
+                pass
+
     def _l10n_mx_edi_cfdi_invoice_retry_send(self):
         """ Retry generating the PDF and CFDI for the current invoice. """
         self.ensure_one()
@@ -1669,6 +1783,15 @@ class AccountMove(models.Model):
             on_success,
         )
 
+    def _l10n_mx_edi_cfdi_invoice_post_cancel(self):
+        """ Cancel the current invoice and drop a message in the chatter.
+        This method is only there to unify the flows since they are multiple
+        ways to cancel an invoice:
+        - The user can request a cancellation from Odoo.
+        - The user can cancel the invoice from the SAT, then update the SAT state in Odoo.
+        """
+        self._l10n_mx_edi_cfdi_move_post_cancel()
+
     def _l10n_mx_edi_cfdi_invoice_try_cancel(self, document, cancel_reason):
         """ Try to cancel the CFDI for the current invoice.
 
@@ -1682,48 +1805,60 @@ class AccountMove(models.Model):
         # == Lock ==
         document._with_locked_records(self)
 
+        cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(self.company_id)
+        is_test_env = cfdi_values['root_company'].l10n_mx_edi_pac_test_env
+
         # == Cancel ==
         def on_failure(error):
-            self._l10n_mx_edi_cfdi_invoice_document_cancel_failed(error, document, cancel_reason)
+            if is_test_env:
+                self._l10n_mx_edi_cfdi_invoice_document_cancel_failed(error, document, cancel_reason)
+            else:
+                self._l10n_mx_edi_cfdi_invoice_document_cancel_requested_failed(error, document, cancel_reason)
 
         def on_success():
-            self._l10n_mx_edi_cfdi_invoice_document_cancel(document, cancel_reason)
-
-            self\
-                .with_context(no_new_invoice=True)\
-                .message_post(body=_("The CFDI document has been successfully cancelled."))
-
-            cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(self.company_id)
-            if cfdi_values['root_company'].l10n_mx_edi_pac_test_env:
-                try:
-                    self._check_fiscalyear_lock_date()
-                    self.line_ids._check_tax_lock_date()
-
-                    self.button_draft()
-                    self.button_cancel()
-                except UserError:
-                    pass
+            if is_test_env:
+                self._l10n_mx_edi_cfdi_invoice_document_cancel(document, cancel_reason)
+            else:
+                self._l10n_mx_edi_cfdi_invoice_document_cancel_requested(document, cancel_reason)
+            self._l10n_mx_edi_cfdi_invoice_post_cancel()
 
         document._cancel_api(self.company_id, cancel_reason, on_failure, on_success)
 
-    def l10n_mx_edi_cfdi_try_sat(self):
+    def _l10n_mx_edi_cfdi_invoice_update_sat_state(self, document, sat_state, error=None):
+        """ Update the SAT state of the document for the current invoice.
+
+        :param document:    The CFDI document to be updated.
+        :param sat_state:   The newly fetched state from the SAT
+        :param error:       In case of error, the message returned by the SAT.
+        """
         self.ensure_one()
-        if self.is_invoice():
-            documents = self.l10n_mx_edi_invoice_document_ids
-        elif self._l10n_mx_edi_is_cfdi_payment():
-            documents = self.l10n_mx_edi_payment_document_ids
+
+        # The user manually cancelled the document in the SAT portal.
+        if document.state == 'invoice_sent' and sat_state == 'cancelled':
+            if document.sat_state not in ('valid', 'cancelled', 'skip'):
+                document.sat_state = 'skip'
+
+            document = self._l10n_mx_edi_cfdi_invoice_document_cancel(
+                document,
+                CANCELLATION_REASON_SELECTION[1][0],  # Force '02'.
+            )
+            document.sat_state = sat_state
+            self._l10n_mx_edi_cfdi_invoice_post_cancel()
+
+        # The cancellation request has been approved by the SAT.
+        elif document.state == 'invoice_cancel_requested' and sat_state == 'cancelled':
+            document.sat_state = sat_state
+            document = self._l10n_mx_edi_cfdi_invoice_document_cancel(
+                document,
+                document.cancellation_reason,
+            )
+            document.sat_state = 'cancelled'
+            self._l10n_mx_edi_cfdi_invoice_post_cancel()
+
         else:
-            return
+            document.sat_state = sat_state
 
-        self.env['l10n_mx_edi.document']._fetch_and_update_sat_status(extra_domain=[('id', 'in', documents.ids)])
-
-        if (
-            self.l10n_mx_edi_cfdi_state == 'cancel'
-            and self.l10n_mx_edi_cfdi_sat_state == 'cancelled'
-            and self.state == 'posted'
-        ):
-            self.button_draft()
-            self.button_cancel()
+        self._l10n_mx_edi_cfdi_move_update_sat_state(document, sat_state, error=error)
 
     def _l10n_mx_edi_cfdi_invoice_get_reconciled_payments_values(self):
         """ Compute the residual amounts before/after each payment reconciled with the current invoices.
@@ -1917,6 +2052,15 @@ class AccountMove(models.Model):
             on_success,
         )
 
+    def _l10n_mx_edi_cfdi_payment_post_cancel(self):
+        """ Cancel the current payment and drop a message in the chatter.
+        This method is only there to unify the flows since they are multiple
+        ways to cancel a payment:
+        - The user can request a cancellation from Odoo.
+        - The user can cancel the payment from the SAT, then update the SAT state in Odoo.
+        """
+        self._l10n_mx_edi_cfdi_move_post_cancel()
+
     def _l10n_mx_edi_cfdi_invoice_try_cancel_payment(self, document):
         """ Cancel the CFDI payment document passed as parameter
 
@@ -1936,17 +2080,7 @@ class AccountMove(models.Model):
 
         def on_success():
             self._l10n_mx_edi_cfdi_payment_document_cancel(document, cancel_reason)
-
-            cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(self.company_id)
-            if cfdi_values['root_company'].l10n_mx_edi_pac_test_env:
-                try:
-                    self._check_fiscalyear_lock_date()
-                    self.line_ids._check_tax_lock_date()
-
-                    self.button_draft()
-                    self.button_cancel()
-                except UserError:
-                    pass
+            self._l10n_mx_edi_cfdi_payment_post_cancel()
 
         document._cancel_api(self.company_id, cancel_reason, on_failure, on_success)
 
@@ -2043,6 +2177,32 @@ class AccountMove(models.Model):
         reconciled_payment_values = self._l10n_mx_edi_cfdi_payment_get_reconciled_invoice_values()
         for payment, pay_results in reconciled_payment_values.items():
             payment.l10n_mx_edi_cfdi_invoice_try_update_payment(pay_results, force_cfdi=force_cfdi)
+
+    def _l10n_mx_edi_cfdi_payment_update_sat_state(self, document, sat_state, error=None):
+        """ Update the SAT state of the document for the current payment.
+
+        :param document:    The CFDI document to be updated.
+        :param sat_state:   The newly fetched state from the SAT
+        :param error:       In case of error, the message returned by the SAT.
+        """
+        self.ensure_one()
+
+        # The user manually cancelled the document in the SAT portal.
+        if document.state == 'payment_sent' and sat_state == 'cancelled':
+            if document.sat_state not in ('valid', 'cancelled', 'skip'):
+                document.sat_state = 'skip'
+
+            document = self._l10n_mx_edi_cfdi_payment_document_cancel(
+                document,
+                CANCELLATION_REASON_SELECTION[1][0],  # Force '02'.
+            )
+            document.sat_state = sat_state
+            self._l10n_mx_edi_cfdi_payment_post_cancel()
+
+        else:
+            document.sat_state = sat_state
+
+        self._l10n_mx_edi_cfdi_move_update_sat_state(document, sat_state, error=error)
 
     def l10n_mx_edi_cfdi_payment_force_try_send(self):
         self._l10n_mx_edi_cfdi_payment_try_send(force_cfdi=True)
@@ -2151,6 +2311,19 @@ class AccountMove(models.Model):
             on_success,
         )
 
+    def _l10n_mx_edi_cfdi_global_invoice_post_cancel(self):
+        """ Cancel the current payment and drop a message in the chatter.
+        This method is only there to unify the flows since they are multiple
+        ways to cancel a payment:
+        - The user can request a cancellation from Odoo.
+        - The user can cancel the payment from the SAT, then update the SAT state in Odoo.
+        """
+
+        for record in self:
+            record \
+                .with_context(no_new_invoice=True) \
+                .message_post(body=_("The Global CFDI document has been successfully cancelled."))
+
     def _l10n_mx_edi_cfdi_global_invoice_try_cancel(self, document, cancel_reason):
         """ Create a CFDI global invoice for multiple invoices.
 
@@ -2166,12 +2339,35 @@ class AccountMove(models.Model):
 
         def on_success():
             self._l10n_mx_edi_cfdi_global_invoice_document_cancel(document, cancel_reason)
-            for record in self:
-                record \
-                    .with_context(no_new_invoice=True) \
-                    .message_post(body=_("The Global CFDI document has been successfully cancelled."))
+            self._l10n_mx_edi_cfdi_global_invoice_post_cancel()
 
         document._cancel_api(self.company_id, cancel_reason, on_failure, on_success)
+
+    def _l10n_mx_edi_cfdi_global_invoice_update_document_sat_state(self, document, sat_state, error=None):
+        """ Update the SAT state of the document for the current global invoice.
+
+        :param document:    The CFDI document to be updated.
+        :param sat_state:   The newly fetched state from the SAT
+        :param error:       In case of error, the message returned by the SAT.
+        """
+        # The user manually cancelled the document in the SAT portal.
+        if document.state == 'ginvoice_sent' and sat_state == 'cancelled':
+            if document.sat_state not in ('valid', 'cancelled', 'skip'):
+                document.sat_state = 'skip'
+
+            document = self._l10n_mx_edi_cfdi_global_invoice_document_cancel(
+                document,
+                CANCELLATION_REASON_SELECTION[1][0],  # Force '02'.
+            )
+            document.sat_state = sat_state
+            self._l10n_mx_edi_cfdi_global_invoice_post_cancel()
+        else:
+            document.sat_state = sat_state
+
+        document.message = None
+        if sat_state == 'error' and error:
+            document.message = error
+            self.invoice_ids._message_log_batch(bodies={invoice.id: error for invoice in self.invoice_ids})
 
     def l10n_mx_edi_action_create_global_invoice(self):
         """ Action to open the wizard allowing to create a global invoice CFDI document for the
@@ -2188,6 +2384,18 @@ class AccountMove(models.Model):
             'target': 'new',
             'context': {'default_move_ids': [Command.set(self.ids)]},
         }
+
+    def l10n_mx_edi_cfdi_try_sat(self):
+        self.ensure_one()
+        if self.is_invoice():
+            documents = self.l10n_mx_edi_invoice_document_ids
+        elif self._l10n_mx_edi_is_cfdi_payment():
+            documents = self.l10n_mx_edi_payment_document_ids
+        else:
+            return
+
+        for document in documents.filtered_domain(documents._get_update_sat_status_domain(from_cron=False)):
+            document._update_sat_state()
 
     # -------------------------------------------------------------------------
     # CFDI: IMPORT
