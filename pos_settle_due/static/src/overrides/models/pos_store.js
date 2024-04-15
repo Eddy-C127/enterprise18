@@ -67,7 +67,7 @@ patch(PosStore.prototype, {
                 const emptyOrder = this.models["pos.order"].find(
                     (order) =>
                         order.lines.length === 0 &&
-                        order.paymentlines.length === 0 &&
+                        order.payment_ids.length === 0 &&
                         (!order.partner || order.partner.id === partner.id)
                 );
                 if (emptyOrder) {
