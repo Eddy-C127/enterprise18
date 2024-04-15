@@ -101,6 +101,7 @@ export class MrpDisplay extends Component {
                 byproducts: await user.hasGroup("mrp.group_mrp_byproducts"),
                 uom: await user.hasGroup("uom.group_uom"),
                 workorders: await user.hasGroup("mrp.group_mrp_routings"),
+                timer: await user.hasGroup("mrp_workorder.group_mrp_wo_tablet_timer")
             };
             this.env.searchModel.workorders = this.groups.workorders;
             this.group_mrp_routings = await user.hasGroup("mrp.group_mrp_routings");
