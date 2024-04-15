@@ -39,6 +39,19 @@ class AccountTaxReportHandler(models.AbstractModel):
 
         self._enable_export_buttons_for_common_vat_groups_in_branches(options)
 
+    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
+        if warnings is not None:
+            if 'account_reports.common_warning_draft_in_period' in warnings:
+                # Recompute the warning 'common_warning_draft_in_period' to not include tax closing entries in the banner of unposted moves
+                if not self.env['account.move'].search_count(
+                    [('state', '=', 'draft'), ('date', '<=', options['date']['date_to']),
+                     ('tax_closing_end_date', '=', False)],
+                    limit=1,
+                ):
+                    warnings.pop('account_reports.common_warning_draft_in_period')
+
+        return lines
+
     # -------------------------------------------------------------------------
     # TAX CLOSING
     # -------------------------------------------------------------------------
@@ -498,16 +511,6 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
     _description = 'Generic Tax Report Custom Handler'
 
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
-
-        if warnings is not None and 'account_reports.common_warning_draft_in_period' in warnings:
-            # Recompute the warning 'common_warning_draft_in_period' to not include tax closing entries in the banner of unposted moves
-            if not self.env['account.move'].search_count(
-                [('state', '=', 'draft'), ('date', '<=', options['date']['date_to']),
-                 ('tax_closing_end_date', '=', False)],
-                limit=1,
-            ):
-                warnings.pop('account_reports.common_warning_draft_in_period')
-
         return self._get_dynamic_lines(report, options, 'default')
 
     def _caret_options_initializer(self):
