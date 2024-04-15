@@ -20,8 +20,20 @@ class AccountTaxReportHandler(models.AbstractModel):
 
     def _custom_options_initializer(self, report, options, previous_options=None):
         options['buttons'].append({'name': _('Closing Entry'), 'action': 'action_periodic_vat_entries', 'sequence': 110, 'always_show': True})
+        self._enable_export_buttons_for_common_vat_groups_in_branches(options)
 
-        if not previous_options or not previous_options.get('disable_archived_tag_test'):
+    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
+        if warnings is not None:
+            if 'account_reports.common_warning_draft_in_period' in warnings:
+                # Recompute the warning 'common_warning_draft_in_period' to not include tax closing entries in the banner of unposted moves
+                if not self.env['account.move'].search_count(
+                    [('state', '=', 'draft'), ('date', '<=', options['date']['date_to']),
+                     ('tax_closing_end_date', '=', False)],
+                    limit=1,
+                ):
+                    warnings.pop('account_reports.common_warning_draft_in_period')
+
+            # Chek the use of inactive tags in the period
             tables, where_clause, where_params = report._query_get(options, 'strict_range')
             self._cr.execute(f"""
                 SELECT 1
@@ -35,20 +47,8 @@ class AccountTaxReportHandler(models.AbstractModel):
                 LIMIT 1
             """, where_params)
 
-            options['contains_archived_tag'] = bool(self._cr.fetchone())
-
-        self._enable_export_buttons_for_common_vat_groups_in_branches(options)
-
-    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
-        if warnings is not None:
-            if 'account_reports.common_warning_draft_in_period' in warnings:
-                # Recompute the warning 'common_warning_draft_in_period' to not include tax closing entries in the banner of unposted moves
-                if not self.env['account.move'].search_count(
-                    [('state', '=', 'draft'), ('date', '<=', options['date']['date_to']),
-                     ('tax_closing_end_date', '=', False)],
-                    limit=1,
-                ):
-                    warnings.pop('account_reports.common_warning_draft_in_period')
+            if self._cr.fetchone():
+                warnings['account_reports.tax_report_warning_inactive_tags'] = {}
 
         return lines
 
