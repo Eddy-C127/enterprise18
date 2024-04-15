@@ -25,7 +25,7 @@ export class AccountReportFilters extends Component {
         this.dialog = useService("dialog");
         this.companyService = useService("company");
         this.controller = useState(this.env.controller);
-        this.dirtyFilter = false;
+        this.dirtyFilter = useState({ value: false });
     }
 
     focusInnerInput(index, items) {
@@ -284,7 +284,7 @@ export class AccountReportFilters extends Component {
     // Generic filters
     //------------------------------------------------------------------------------------------------------------------
     async filterClicked(optionKey, optionValue = undefined, reload = false) {
-        this.dirtyFilter = !reload;
+        this.dirtyFilter.value = !reload;
 
         if (optionValue !== undefined) {
             await this.controller.updateOption(optionKey, optionValue, reload);
@@ -294,10 +294,10 @@ export class AccountReportFilters extends Component {
     }
 
     async applyFilters(isDropDownOpen, optionKey = null) {
-        if (!isDropDownOpen && this.dirtyFilter) {
+        if (!isDropDownOpen && this.dirtyFilter.value) {
             // We only reload the view if the dropdown state changed to close state
             await this.controller.reload(optionKey, this.controller.options);
-            this.dirtyFilter = false;
+            this.dirtyFilter.value = false;
         }
     }
 
@@ -305,7 +305,7 @@ export class AccountReportFilters extends Component {
     // Custom filters
     //------------------------------------------------------------------------------------------------------------------
     selectJournal(journal) {
-        this.dirtyFilter = true;
+        this.dirtyFilter.value = true;
         if (journal.model === "account.journal.group") {
             this.controller.options.__journal_group_action = {
                 action: journal.selected ? "remove" : "add",

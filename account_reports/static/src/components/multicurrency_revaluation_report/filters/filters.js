@@ -8,7 +8,7 @@ export class MulticurrencyRevaluationReportFilters extends AccountReportFilters 
     // Custom filters
     //------------------------------------------------------------------------------------------------------------------
     async filterExchangeRate(ev, currencyId) {
-        this.dirtyFilter = true;
+        this.dirtyFilter.value = true;
         this.controller.options.currency_rates[currencyId].rate = ev.currentTarget.value;
     }
 }
