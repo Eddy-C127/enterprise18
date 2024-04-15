@@ -183,6 +183,15 @@ class AccountReport(models.AbstractModel):
                 x in options.get('analytic_accounts_list', []) for x in options['analytic_accounts']):
             analytic_account_ids = [[str(account_id) for account_id in options['analytic_accounts']]]
             search_condition = SQL('%s AND "account_move_line".analytic_distribution ?| array[%s]', search_condition, analytic_account_ids)
+        if options.get('analytic_accounts'):
+            if 'analytic_accounts_list' in options:
+                # the table will be `analytic_temp_account_move_line` and thus analytic_distribution will be a single ID
+                analytic_account_ids = tuple(str(account_id) for account_id in options['analytic_accounts'])
+                search_condition = SQL("""%s AND "account_move_line".analytic_distribution IN %s""", search_condition, analytic_account_ids)
+            else:
+                # Real `account_move_line` table so real JSON with percentage
+                analytic_account_ids = [[str(account_id) for account_id in options['analytic_accounts']]]
+                search_condition = SQL('%s AND %s && %s', search_condition, analytic_account_ids, self.env['account.move.line']._query_analytic_accounts())
 
         return table_references, search_condition
 
@@ -211,8 +220,7 @@ class AccountReport(models.AbstractModel):
                     expression = [(field, operator, right_term)]
                 # Replace the 'analytic_distribution' by the account_id domain as we expect for analytic lines.
                 elif field == 'analytic_distribution':
-                    account_ids = tuple(int(account_id) for account_id in column_group_options.get('analytic_accounts_list', []))
-                    expression = [('auto_account_id', 'in', account_ids)]
+                    expression = [('auto_account_id', 'in', right_term)]
                 # For other fields not present in on the analytic line model, map them to get the info from the move_line.
                 # Or ignore these conditions if there is no move lines.
                 elif field.split('.')[0] not in AccountAnalyticLine._fields:

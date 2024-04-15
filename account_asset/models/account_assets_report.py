@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models, _
-from odoo.tools import format_date
+from odoo.tools import format_date, SQL
 from itertools import groupby
 from collections import defaultdict
 
@@ -366,8 +366,9 @@ class AssetsReportCustomHandler(models.AbstractModel):
         if options.get('analytic_accounts_list'):
             analytic_account_ids += [[str(account_id) for account_id in options.get('analytic_accounts_list')]]
         if analytic_account_ids:
-            analytical_query = 'AND asset.analytic_distribution ?| array[%(analytic_account_ids)s]'
+            analytical_query = 'AND %(analytic_account_ids)s && %(analytic_account_query)s'
             query_params['analytic_account_ids'] = analytic_account_ids
+            query_params['analytic_account_query'] = self.env['account.asset']._query_analytic_accounts('asset')
 
         sql = f"""
             SELECT asset.id AS asset_id,
@@ -408,7 +409,7 @@ class AssetsReportCustomHandler(models.AbstractModel):
           ORDER BY account.code, asset.acquisition_date;
         """
 
-        self._cr.execute(sql, query_params)
+        self._cr.execute(SQL(sql, **query_params))
         results = self._cr.dictfetchall()
         return results
 
