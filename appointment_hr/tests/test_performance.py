@@ -114,7 +114,12 @@ class AppointmenHrPerformanceCase(AppointmentHrCommon, AppointmentPerformanceCas
 
 
 @tagged('appointment_performance', 'post_install', '-at_install')
-class AppointmentTest(AppointmenHrPerformanceCase):
+class AppointmentPerformanceTest(AppointmenHrPerformanceCase):
+
+    def setUp(self):
+        super().setUp()
+        # Flush everything, notably tracking values, as it may impact performances
+        self.flush_tracking()
 
     def test_appointment_initial_values(self):
         """ Check initial values to ease understanding and reproducing tests. """
@@ -146,7 +151,7 @@ class AppointmentTest(AppointmenHrPerformanceCase):
 
         # with self.profile(collectors=['sql']) as profile:
         with self.mockAppointmentCalls(), \
-             self.assertQueryCount(staff_user_bxls=46):  # apt_hr 43
+             self.assertQueryCount(staff_user_bxls=34):
             t0 = time.time()
             res = apt_type._get_appointment_slots('Europe/Brussels', reference_date=self.reference_now)
             t1 = time.time()
@@ -209,7 +214,7 @@ class AppointmentTest(AppointmenHrPerformanceCase):
 
         # with self.profile(collectors=['sql']) as profile:
         with self.mockAppointmentCalls(), \
-             self.assertQueryCount(staff_user_bxls=46):  # apt_hr 43
+             self.assertQueryCount(staff_user_bxls=34):
             t0 = time.time()
             res = apt_type._get_appointment_slots('Europe/Brussels', reference_date=self.reference_now)
             t1 = time.time()
@@ -265,7 +270,8 @@ class AppointmentTest(AppointmenHrPerformanceCase):
             'staff_user_ids': [(4, self.staff_users[0].id)],
             'work_hours_activated': False,
         })
-        self.env.flush_all()
+        self.flush_tracking()
+        self.env.invalidate_all()
         apt_type_custom_bxls = apt_type_custom_bxls.with_user(self.env.user)
 
         # cache warmup: makes the query count more realistic
@@ -275,7 +281,7 @@ class AppointmentTest(AppointmenHrPerformanceCase):
 
         # with self.profile(collectors=['sql']) as profile:
         with self.mockAppointmentCalls(), \
-             self.assertQueryCount(staff_user_bxls=22):
+             self.assertQueryCount(staff_user_bxls=23):  # runbot: 22
             res = apt_type_custom_bxls._get_appointment_slots('Europe/Brussels', reference_date=self.reference_now)
 
         _logger.info('Called _get_appointment_slots, time %.3f', t1 - t0)
@@ -333,7 +339,8 @@ class AppointmentTest(AppointmenHrPerformanceCase):
             'staff_user_ids': [(4, self.staff_users[0].id)],
             'work_hours_activated': True,
         })
-        self.env.flush_all()
+        self.flush_tracking()
+        self.env.invalidate_all()
         apt_type_custom_bxls = apt_type_custom_bxls.with_user(self.env.user)
 
         # cache warmup: makes the query count more realistic
@@ -343,7 +350,7 @@ class AppointmentTest(AppointmenHrPerformanceCase):
 
         # with self.profile(collectors=['sql']) as profile:
         with self.mockAppointmentCalls(), \
-             self.assertQueryCount(staff_user_bxls=22):
+             self.assertQueryCount(staff_user_bxls=23):  # runbot: 22
             res = apt_type_custom_bxls._get_appointment_slots('Europe/Brussels', reference_date=self.reference_now)
 
         _logger.info('Called _get_appointment_slots, time %.3f', t1 - t0)
@@ -385,7 +392,7 @@ class AppointmentTest(AppointmenHrPerformanceCase):
 
         # with self.profile(collectors=['sql']) as profile:
         with self.mockAppointmentCalls(), \
-             self.assertQueryCount(staff_user_bxls=49):
+             self.assertQueryCount(staff_user_bxls=48):
             t0 = time.time()
             res = apt_type._get_appointment_slots('Europe/Brussels', reference_date=self.reference_now)
             t1 = time.time()
@@ -434,7 +441,7 @@ class AppointmentTest(AppointmenHrPerformanceCase):
 
         # with self.profile(collectors=['sql']) as profile:
         with self.mockAppointmentCalls(), \
-             self.assertQueryCount(staff_user_bxls=60):  # apt_hr 62
+             self.assertQueryCount(staff_user_bxls=56):
             t0 = time.time()
             res = apt_type._get_appointment_slots('Europe/Brussels', reference_date=self.reference_now)
             t1 = time.time()
@@ -485,7 +492,7 @@ class AppointmentTest(AppointmenHrPerformanceCase):
 
         # with self.profile(collectors=['sql']) as profile:
         with self.mockAppointmentCalls(), \
-             self.assertQueryCount(staff_user_bxls=60):  # apt_hr 62
+             self.assertQueryCount(staff_user_bxls=56):
             t0 = time.time()
             res = apt_type._get_appointment_slots('Europe/Brussels', reference_date=self.reference_now)
             t1 = time.time()
@@ -561,6 +568,11 @@ class AppointmentTest(AppointmenHrPerformanceCase):
 @tagged('appointment_performance', 'post_install', '-at_install')
 class OnlineAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrPerformanceCase):
 
+    def setUp(self):
+        super().setUp()
+        # Flush everything, notably tracking values, as it may impact performances
+        self.flush_tracking()
+
     @warmup
     def test_appointment_type_page_anytime(self):
         """ Any time type: mono user, involved any time check. """
@@ -585,7 +597,7 @@ class OnlineAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrPer
         t0 = time.time()
         with freeze_time(self.reference_now):
             self.authenticate('staff_user_bxls', 'staff_user_bxls')
-            with self.assertQueryCount(default=55):  # apt_hr 41
+            with self.assertQueryCount(default=52):  # apt_hr 42
                 self._test_url_open('/appointment/%i' % self.test_apt_type.id)
         t1 = time.time()
 
@@ -602,7 +614,7 @@ class OnlineAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrPer
         t0 = time.time()
         with freeze_time(self.reference_now):
             self.authenticate('staff_user_bxls', 'staff_user_bxls')
-            with self.assertQueryCount(default=53):  # apt_hr 39
+            with self.assertQueryCount(default=50):  # apt_hr 40
                 self._test_url_open('/appointment/%i' % self.test_apt_type.id)
         t1 = time.time()
 

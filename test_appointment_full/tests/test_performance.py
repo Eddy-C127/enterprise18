@@ -17,13 +17,6 @@ _logger = getLogger(__name__)
 
 @tagged('appointment_performance', 'post_install', '-at_install')
 class OnelineWAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrPerformanceCase):
-    def setUp(self):
-        super().setUp()
-        # remove menu containing a slug url (only website_helpdesk normally), to
-        # avoid the menu cache being disabled, which would increase sql queries.
-        self.env['website.menu'].search([
-            ('url', '=like', '/%/%-%'),
-        ]).unlink()
 
     @classmethod
     def setUpClass(cls):
@@ -52,6 +45,11 @@ class OnelineWAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrP
             'work_hours_activated': True,
         })
 
+    def setUp(self):
+        super().setUp()
+        # Flush everything, notably tracking values, as it may impact performances
+        self.flush_tracking()
+
     @warmup
     def test_appointment_type_page_website_whours_public(self):
         random.seed(1871)  # fix shuffle in _slots_fill_users_availability
@@ -59,7 +57,7 @@ class OnelineWAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrP
         t0 = time.time()
         with freeze_time(self.reference_now):
             self.authenticate(None, None)
-            with self.assertQueryCount(default=42):  # apt only: 39
+            with self.assertQueryCount(default=35):
                 self._test_url_open('/appointment/%i' % self.test_apt_type.id)
         t1 = time.time()
 
@@ -74,7 +72,7 @@ class OnelineWAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrP
         t0 = time.time()
         with freeze_time(self.reference_now):
             self.authenticate('staff_user_bxls', 'staff_user_bxls')
-            with self.assertQueryCount(default=51):  # apt only: 43
+            with self.assertQueryCount(default=50):  # apt only: 43
                 self._test_url_open('/appointment/%i' % self.test_apt_type.id)
         t1 = time.time()
 
@@ -89,7 +87,7 @@ class OnelineWAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrP
         t0 = time.time()
         with freeze_time(self.reference_now):
             self.authenticate(None, None)
-            with self.assertQueryCount(default=39):
+            with self.assertQueryCount(default=32):
                 self._test_url_open('/appointment/%i' % self.test_apt_type_resource.id)
         t1 = time.time()
         _logger.info('Browsed /appointment/%i, time %.3f', self.test_apt_type_resource.id, t1 - t0)
@@ -101,7 +99,7 @@ class OnelineWAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrP
         t0 = time.time()
         with freeze_time(self.reference_now):
             self.authenticate('staff_user_bxls', 'staff_user_bxls')
-            with self.assertQueryCount(default=46):
+            with self.assertQueryCount(default=42):  # apt only: 35
                 self._test_url_open('/appointment/%i' % self.test_apt_type_resource.id)
         t1 = time.time()
 

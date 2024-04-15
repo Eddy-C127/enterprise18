@@ -10,7 +10,7 @@ from odoo.exceptions import ValidationError
 from odoo.tests import Form, tagged, users
 
 
-@tagged('appointment_resources')
+@tagged('appointment_resources', 'post_install', '-at_install')
 class AppointmentResource(AppointmentCommon):
 
     @classmethod
@@ -285,9 +285,11 @@ class AppointmentResourceBookingTest(AppointmentCommon):
                 'name': 'Resource %s' % i,
             } for i in range(20)
         ])
+        # Flush everything, notably tracking values, as it may impact performances
+        self.flush_tracking()
 
         with freeze_time(self.reference_now):
-            with self.assertQueryCount(default=10):
+            with self.assertQueryCount(default=9):  # runbot: 7
                 appointment._get_appointment_slots('UTC')
 
     @users('apt_manager')
@@ -566,8 +568,11 @@ class AppointmentResourceBookingTest(AppointmentCommon):
         (table1_c2 + table2_c2 + table3_c2).linked_resource_ids = table1_c4 + table2_c4 + table3_c4
         table1_c6.linked_resource_ids = table1_c4 + table2_c4 + table3_c4
 
+        # Flush everything, notably tracking values, as it may impact performances
+        self.flush_tracking()
+
         with freeze_time(self.reference_now):
-            with self.assertQueryCount(default=10):
+            with self.assertQueryCount(default=8):
                 slots = appointment._get_appointment_slots('UTC')
             resource_slots = self._filter_appointment_slots(
                 slots,
@@ -854,9 +859,11 @@ class AppointmentResourceBookingTest(AppointmentCommon):
                 'shareable': True,
             } for i in range(20)
         ])
+        # Flush everything, notably tracking values, as it may impact performances
+        self.flush_tracking()
 
         with freeze_time(self.reference_now):
-            with self.assertQueryCount(default=10):
+            with self.assertQueryCount(default=8):
                 appointment._get_appointment_slots('UTC')
 
     @users('apt_manager')
