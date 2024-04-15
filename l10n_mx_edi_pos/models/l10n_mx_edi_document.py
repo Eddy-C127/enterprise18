@@ -19,6 +19,30 @@ class L10nMxEdiDocument(models.Model):
         return super()._get_source_records() or self.pos_order_ids
 
     @api.model
+    def _update_document_sat_state(self, sat_state, error=None):
+        # EXTENDS 'l10n_mx_edi'
+        if super()._update_document_sat_state(sat_state, error=error):
+            return True
+
+        if self.pos_order_ids and self.state in ('invoice_sent', 'invoice_cancel'):
+            self.pos_order_ids._l10n_mx_edi_cfdi_refund_update_sat_state(self, sat_state, error=error)
+            return True
+
+    @api.model
+    def _get_update_sat_status_domains(self, from_cron=True):
+        # EXTENDS 'l10n_mx_edi'
+        results = super()._get_update_sat_status_domains(from_cron=from_cron)
+
+        if not from_cron:
+            results.append([
+                ('state', 'in', ('ginvoice_sent', 'invoice_sent')),
+                ('pos_order_ids', 'any', [('l10n_mx_edi_cfdi_state', '=', 'global_sent')]),
+                ('sat_state', '=', 'valid'),
+            ])
+
+        return results
+
+    @api.model
     def _create_update_invoice_document_from_pos_order(self, order, document_values):
         """ Create/update a new document for pos order.
 

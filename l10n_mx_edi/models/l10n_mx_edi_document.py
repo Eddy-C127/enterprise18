@@ -118,6 +118,8 @@ class L10nMxEdiDocument(models.Model):
         selection=[
             ('invoice_sent', "Sent"),
             ('invoice_sent_failed', "Send In Error"),
+            ('invoice_cancel_requested', "Cancel Requested"),
+            ('invoice_cancel_requested_failed', "Cancel Requested In Error"),
             ('invoice_cancel', "Cancel"),
             ('invoice_cancel_failed', "Cancel In Error"),
             ('invoice_received', "Received"),
@@ -239,6 +241,10 @@ class L10nMxEdiDocument(models.Model):
                 lambda x: x._action_retry_invoice_try_send(),
             ),
             'invoice_cancel_failed': (
+                None,
+                lambda x: x._action_retry_invoice_try_cancel(),
+            ),
+            'invoice_cancel_requested_failed': (
                 None,
                 lambda x: x._action_retry_invoice_try_cancel(),
             ),
@@ -1874,7 +1880,7 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         :param invoice:         An invoice.
         :param document_values: The values to create the document.
         """
-        if document_values['state'] in ('invoice_sent', 'invoice_cancel'):
+        if document_values['state'] in ('invoice_sent', 'invoice_cancel', 'invoice_cancel_requested'):
             accept_method_state = f"{document_values['state']}_failed"
         else:
             accept_method_state = document_values['state']
@@ -1885,16 +1891,24 @@ Content-Disposition: form-data; name="xml"; filename="xml"
             lambda x: x.state == accept_method_state,
         )
 
+        document_states_to_remove = {
+            'invoice_sent_failed',
+            'invoice_cancel_requested_failed',
+            'invoice_cancel_failed',
+            'ginvoice_sent_failed',
+            'ginvoice_cancel_failed',
+        }
+
+        # In case we successfully cancel the invoice, we no longer need the previous cancellation requests.
+        # So, let's remove them.
+        if document.state == 'invoice_cancel':
+            document_states_to_remove.add('invoice_cancel_requested')
+
         invoice.l10n_mx_edi_invoice_document_ids \
-            .filtered(lambda x: x != document and x.state in {
-                'invoice_sent_failed',
-                'invoice_cancel_failed',
-                'ginvoice_sent_failed',
-                'ginvoice_cancel_failed',
-            }) \
+            .filtered(lambda x: x != document and x.state in document_states_to_remove) \
             .unlink()
 
-        if document.state in ('invoice_sent', 'invoice_cancel'):
+        if document.state in ('invoice_sent', 'invoice_cancel', 'invoice_cancel_requested'):
             invoice.l10n_mx_edi_invoice_document_ids \
                 .filtered(lambda x: (
                     x != document
@@ -2224,6 +2238,27 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         else:
             return {'value': 'not_defined'}
 
+    def _update_document_sat_state(self, sat_state, error=None):
+        """ Update the current document with the newly fetched state from the SAT.
+
+        :param sat_state: The SAT state returned by '_fetch_sat_status'.
+        :param error:       In case of error, the message returned by the SAT.
+        """
+        self.ensure_one()
+
+        if self.move_id and self.state in ('invoice_sent', 'invoice_cancel', 'invoice_cancel_requested'):
+            self.move_id._l10n_mx_edi_cfdi_invoice_update_sat_state(self, sat_state, error=error)
+            return True
+        elif self.state in ('payment_sent', 'payment_cancel'):
+            self.move_id._l10n_mx_edi_cfdi_payment_update_sat_state(self, sat_state, error=error)
+            return True
+        else:
+            source_records = self._get_source_records()
+            if source_records and self.state in ('ginvoice_sent', 'ginvoice_cancel'):
+                source_records._l10n_mx_edi_cfdi_global_invoice_update_document_sat_state(self, sat_state, error=error)
+                return True
+        return False
+
     def _update_sat_state(self):
         """ Update the SAT state.
 
@@ -2242,16 +2277,12 @@ Content-Disposition: form-data; name="xml"; filename="xml"
             cfdi_infos['amount_total'],
             cfdi_infos['uuid'],
         )
-        self.sat_state = sat_results['value']
-
-        if sat_results.get('error') and self.invoice_ids:
-            self.invoice_ids._message_log_batch(bodies={invoice.id: sat_results['error'] for invoice in self.invoice_ids})
-
+        self._update_document_sat_state(sat_results['value'], error=sat_results.get('error'))
         return sat_results
 
     @api.model
-    def _get_update_sat_status_domains(self):
-        return [
+    def _get_update_sat_status_domains(self, from_cron=True):
+        results = [
             [
                 ('state', 'in', (
                     'ginvoice_sent',
@@ -2259,6 +2290,7 @@ Content-Disposition: form-data; name="xml"; filename="xml"
                     'payment_sent',
                     'ginvoice_cancel',
                     'invoice_cancel',
+                    'invoice_cancel_requested',
                     'payment_cancel',
                 )),
                 ('sat_state', 'not in', ('valid', 'cancelled', 'skip')),
@@ -2270,6 +2302,38 @@ Content-Disposition: form-data; name="xml"; filename="xml"
             ],
         ]
 
+        # The user still can cancel the document from the SAT portal. In that case, we need
+        # to display the SAT button just in case. However, we don't want to retroactively check
+        # all passed documents so this is happening only for the form view and not for the CRON.
+        if not from_cron:
+            results.extend([
+                [
+                    ('state', 'in', ('invoice_sent', 'payment_sent')),
+                    ('move_id.l10n_mx_edi_cfdi_state', '=', 'sent'),
+                    ('sat_state', '=', 'valid'),
+                ],
+                [
+                    ('state', '=', 'ginvoice_sent'),
+                    ('invoice_ids', 'any', [('l10n_mx_edi_cfdi_state', '=', 'global_sent')]),
+                    ('sat_state', '=', 'valid'),
+                ],
+            ])
+
+        return results
+
+    @api.model
+    def _get_update_sat_status_domain(self, extra_domain=None, from_cron=True):
+        """ Build the domain to filter the documents that need an update from the SAT.
+
+        :param extra_domain:    An optional extra domain to be injected when searching for documents to update.
+        :param from_cron:       Indicate if the call is from the CRON or not.
+        :return:                An odoo domain.
+        """
+        domain = expression.OR(self._get_update_sat_status_domains(from_cron=from_cron))
+        if extra_domain:
+            domain = expression.AND([domain, extra_domain])
+        return domain
+
     @api.model
     def _fetch_and_update_sat_status(self, batch_size=100, extra_domain=None):
         """ Call the SAT to know if the invoice is available government-side or if the invoice has been cancelled.
@@ -2279,9 +2343,7 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         :param batch_size:      The maximum size of the batch of documents to process to avoid timeout.
         :param extra_domain:    An optional extra domain to be injected when searching for documents to update.
         """
-        domain = expression.OR(self._get_update_sat_status_domains())
-        if extra_domain:
-            domain = expression.AND([domain, extra_domain])
+        domain = self._get_update_sat_status_domain(extra_domain=extra_domain)
         documents = self.search(domain, limit=batch_size + 1)
 
         for counter, document in enumerate(documents):

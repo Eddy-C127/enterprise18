@@ -282,8 +282,19 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
         def fetch_sat_status(document, *args, **kwargs):
             return {'value': sat_state_method(document)}
 
-        with patch.object(type(self.env['l10n_mx_edi.document']), '_fetch_sat_status', fetch_sat_status):
-            yield
+        def update_sat_state(document, *args, **kwargs):
+            document.sat_state = sat_state_method(document)
+
+        Document = self.env.registry['l10n_mx_edi.document']
+        if self.env.company.l10n_mx_edi_pac_test_env:
+            # In test mode, we only want to check if the SAT button updates the right documents and if the
+            # global sat_state is well computed. We don't want to create on-the-fly a new cancel document.
+            # This can't be tested on the UI and there is no way to force the return of the SAT api.
+            with patch.object(Document, '_update_sat_state', update_sat_state):
+                yield
+        else:
+            with patch.object(Document, '_fetch_sat_status', fetch_sat_status):
+                yield
 
     @contextmanager
     def with_mocked_global_invoice_sequence(self, number):

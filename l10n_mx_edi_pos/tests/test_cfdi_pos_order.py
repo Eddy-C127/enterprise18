@@ -457,9 +457,7 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
 
         # Sat.
         with self.with_mocked_sat_call(lambda _x: 'valid'):
-            self.env['l10n_mx_edi.document']._fetch_and_update_sat_status(
-                extra_domain=[('id', 'in', order.l10n_mx_edi_document_ids.ids)]
-            )
+            order.l10n_mx_edi_cfdi_try_sat()
         invoice_doc_values['sat_state'] = 'valid'
         ginvoice_doc_values['sat_state'] = 'valid'
         self.assertRecordValues(order.l10n_mx_edi_document_ids.sorted(), [
@@ -506,10 +504,10 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
 
         # Sat.
         with self.with_mocked_sat_call(lambda _x: 'cancelled'):
-            self.env['l10n_mx_edi.document']._fetch_and_update_sat_status(
-                extra_domain=[('id', 'in', order.l10n_mx_edi_document_ids.ids)]
-            )
+            order.l10n_mx_edi_cfdi_try_sat()
         invoice_cancel_doc_values['sat_state'] = 'cancelled'
+        invoice_doc_values['sat_state'] = 'cancelled'
+        ginvoice_doc_values['sat_state'] = 'cancelled'
         self.assertRecordValues(order.l10n_mx_edi_document_ids.sorted(), [
             invoice_cancel_doc_values,
             invoice_doc_values,

@@ -3,9 +3,8 @@ from collections import defaultdict
 from dateutil import tz
 
 from odoo import _, api, models, fields, Command
-from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import USAGE_SELECTION
+from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import CANCELLATION_REASON_SELECTION, USAGE_SELECTION
 from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
 
 
 class PosOrder(models.Model):
@@ -54,7 +53,7 @@ class PosOrder(models.Model):
         copy=False,
         compute='_compute_l10n_mx_edi_cfdi_state_and_attachment',
     )
-    # Technical field indicating if the "Update SAT" button needs to be displayed on invoice/payment view.
+    # Technical field indicating if the "Update SAT" button needs to be displayed on pos order view.
     l10n_mx_edi_update_sat_needed = fields.Boolean(compute='_compute_l10n_mx_edi_update_sat_needed')
     # Indicate if you send the invoice to the SAT using 'Publico En General' meaning
     # the customer is unknown by the SAT. This is mainly used when the customer doesn't have
@@ -210,7 +209,7 @@ class PosOrder(models.Model):
     @api.depends('l10n_mx_edi_document_ids.state', 'l10n_mx_edi_document_ids.sat_state')
     def _compute_l10n_mx_edi_cfdi_state_and_attachment(self):
         for order in self:
-            order.l10n_mx_edi_cfdi_sat_state = None
+            order.l10n_mx_edi_cfdi_sat_state = order.l10n_mx_edi_cfdi_sat_state
             order.l10n_mx_edi_cfdi_state = None
             order.l10n_mx_edi_cfdi_attachment_id = None
             for doc in order.l10n_mx_edi_document_ids.sorted():
@@ -249,7 +248,7 @@ class PosOrder(models.Model):
     def _compute_l10n_mx_edi_update_sat_needed(self):
         for order in self:
             order.l10n_mx_edi_update_sat_needed = bool(order.l10n_mx_edi_document_ids.filtered_domain(
-                expression.OR(self.env['l10n_mx_edi.document']._get_update_sat_status_domains())
+                self.env['l10n_mx_edi.document']._get_update_sat_status_domain(from_cron=False)
             ))
 
     @api.depends('l10n_mx_edi_cfdi_attachment_id')
@@ -688,11 +687,35 @@ class PosOrder(models.Model):
 
         document._cancel_api(self.company_id, cancel_reason, on_failure, on_success)
 
+    def _l10n_mx_edi_cfdi_refund_update_sat_state(self, document, sat_state, error=None):
+        """ Update the SAT state of the document for the current pos order refund.
+
+        :param document:    The CFDI document to be updated.
+        :param sat_state:   The newly fetched state from the SAT
+        :param error:       In case of error, the message returned by the SAT.
+        """
+        self.ensure_one()
+
+        # The user manually cancelled the document in the SAT portal.
+        if document.state == 'invoice_sent' and sat_state == 'cancelled':
+            if document.sat_state not in ('valid', 'cancelled', 'skip'):
+                document.sat_state = 'skip'
+
+            document = self._l10n_mx_edi_cfdi_invoice_document_cancel(
+                document,
+                CANCELLATION_REASON_SELECTION[1][0],  # Force '02'.
+            )
+
+        document.sat_state = sat_state
+        document.message = None
+        if sat_state == 'error' and error:
+            document.message = error
+
     def l10n_mx_edi_cfdi_try_sat(self):
         self.ensure_one()
-        self.env['l10n_mx_edi.document']._fetch_and_update_sat_status(
-            extra_domain=[('id', 'in', self.l10n_mx_edi_document_ids.ids)]
-        )
+        documents = self.l10n_mx_edi_document_ids
+        for document in documents.filtered_domain(documents._get_update_sat_status_domain(from_cron=False)):
+            document._update_sat_state()
 
     def _l10n_mx_edi_cfdi_global_invoice_try_send(self, periodicity='04', origin=None):
         """ Create a CFDI global invoice.
@@ -801,6 +824,28 @@ class PosOrder(models.Model):
             self._l10n_mx_edi_cfdi_global_invoice_document_cancel(document, cancel_reason)
 
         document._cancel_api(self.company_id, cancel_reason, on_failure, on_success)
+
+    def _l10n_mx_edi_cfdi_global_invoice_update_document_sat_state(self, document, sat_state, error=None):
+        """ Update the SAT state of the document for the current global invoice.
+
+        :param document:    The CFDI document to be updated.
+        :param sat_state:   The newly fetched state from the SAT
+        :param error:       In case of error, the message returned by the SAT.
+        """
+        # The user manually cancelled the document in the SAT portal.
+        if document.state == 'ginvoice_sent' and sat_state == 'cancelled':
+            if document.sat_state not in ('valid', 'cancelled', 'skip'):
+                document.sat_state = 'skip'
+
+            document = self._l10n_mx_edi_cfdi_global_invoice_document_cancel(
+                document,
+                CANCELLATION_REASON_SELECTION[1][0],  # Force '02'.
+            )
+
+        document.sat_state = sat_state
+        document.message = None
+        if sat_state == 'error' and error:
+            document.message = error
 
     def l10n_mx_edi_action_create_global_invoice(self):
         """ Action to open the wizard allowing to create a global invoice CFDI document for the

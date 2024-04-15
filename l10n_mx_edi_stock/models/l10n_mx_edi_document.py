@@ -85,21 +85,31 @@ class L10nMxEdiDocument(models.Model):
 
         return document
 
-    def _update_sat_state(self):
+    @api.model
+    def _update_document_sat_state(self, sat_state, error=None):
         # EXTENDS 'l10n_mx_edi'
-        sat_results = super()._update_sat_state()
+        if super()._update_document_sat_state(sat_state, error=error):
+            return True
 
-        if sat_results.get('error') and self.picking_id:
-            self.picking_id._message_log(body=sat_results['error'])
-
-        return sat_results
+        if self.state in ('picking_sent', 'picking_cancel'):
+            self.picking_id._l10n_mx_edi_cfdi_update_sat_state(self, sat_state, error=error)
+            return True
 
     @api.model
-    def _get_update_sat_status_domains(self):
+    def _get_update_sat_status_domains(self, from_cron=True):
         # EXTENDS 'l10n_mx_edi'
-        return super()._get_update_sat_status_domains() + [
+        results = super()._get_update_sat_status_domains(from_cron=from_cron) + [
             [
                 ('state', 'in', ('picking_sent', 'picking_cancel')),
                 ('sat_state', 'not in', ('valid', 'cancelled', 'skip')),
             ],
         ]
+
+        if not from_cron:
+            results.append([
+                ('state', '=', 'picking_sent'),
+                ('picking_id.l10n_mx_edi_cfdi_state', '=', 'sent'),
+                ('sat_state', '=', 'valid'),
+            ])
+
+        return results

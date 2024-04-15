@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import json
-import re
 import requests
-from lxml import etree
 from werkzeug.urls import url_quote, url_quote_plus
 
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 from odoo.osv import expression
 from odoo.addons.base.models.ir_qweb import keep_query
+from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import CANCELLATION_REASON_SELECTION
 
 MAPBOX_GEOCODE_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
 MAPBOX_MATRIX_URL = 'https://api.mapbox.com/directions-matrix/v1/mapbox/driving/'
@@ -148,7 +147,7 @@ class Picking(models.Model):
     @api.depends('l10n_mx_edi_document_ids.state', 'l10n_mx_edi_document_ids.sat_state')
     def _compute_l10n_mx_edi_cfdi_state_and_attachment(self):
         for picking in self:
-            picking.l10n_mx_edi_cfdi_sat_state = None
+            picking.l10n_mx_edi_cfdi_sat_state = picking.l10n_mx_edi_cfdi_sat_state
             picking.l10n_mx_edi_cfdi_state = None
             picking.l10n_mx_edi_cfdi_attachment_id = None
             for doc in picking.l10n_mx_edi_document_ids.sorted():
@@ -168,7 +167,7 @@ class Picking(models.Model):
         for picking in self:
             picking.l10n_mx_edi_update_sat_needed = bool(
                 picking.l10n_mx_edi_document_ids.filtered_domain(
-                    expression.OR(self.env['l10n_mx_edi.document']._get_update_sat_status_domains())
+                    expression.OR(self.env['l10n_mx_edi.document']._get_update_sat_status_domains(from_cron=False))
                 )
             )
 
@@ -389,6 +388,16 @@ class Picking(models.Model):
             on_success,
         )
 
+    def _l10n_mx_edi_cfdi_post_cancel(self):
+        """ Cancel the current picking and drop a message in the chatter.
+        This method is only there to unify the flows since they are multiple
+        ways to cancel a picking:
+        - The user can request a cancellation from Odoo.
+        - The user can cancel the picking from the SAT, then update the SAT state in Odoo.
+        """
+        self.ensure_one()
+        self.message_post(body=_("The CFDI document has been successfully cancelled."))
+
     def _l10n_mx_edi_cfdi_try_cancel(self, document):
         """ Try to cancel the CFDI for the current picking.
 
@@ -412,7 +421,7 @@ class Picking(models.Model):
         def on_success():
             self._l10n_mx_edi_cfdi_document_cancel(document, cancel_reason)
             self.l10n_mx_edi_cfdi_origin = f'04|{self.l10n_mx_edi_cfdi_uuid}'
-            self.message_post(body=_("The CFDI document has been successfully cancelled."))
+            self._l10n_mx_edi_cfdi_post_cancel()
 
         document._cancel_api(self.company_id, cancel_reason, on_failure, on_success)
 
@@ -422,9 +431,39 @@ class Picking(models.Model):
         source_document = self.l10n_mx_edi_document_ids.filtered(lambda x: x.state == 'picking_sent')[:1]
         self._l10n_mx_edi_cfdi_try_cancel(source_document)
 
+    def _l10n_mx_edi_cfdi_update_sat_state(self, document, sat_state, error=None):
+        """ Update the SAT state of the document for the current picking.
+
+        :param document:    The CFDI document to be updated.
+        :param sat_state:   The newly fetched state from the SAT
+        :param error:       In case of error, the message returned by the SAT.
+        """
+        self.ensure_one()
+
+        # The user manually cancelled the document in the SAT portal.
+        if document.state == 'picking_sent' and sat_state == 'cancelled':
+            if document.sat_state not in ('valid', 'cancelled', 'skip'):
+                document.sat_state = 'skip'
+
+            document = self._l10n_mx_edi_cfdi_document_cancel(
+                document,
+                CANCELLATION_REASON_SELECTION[1][0],  # Force '02'.
+            )
+            document.sat_state = sat_state
+            self._l10n_mx_edi_cfdi_post_cancel()
+        else:
+            document.sat_state = sat_state
+
+        document.message = None
+        if sat_state == 'error' and error:
+            document.message = error
+            self.message_post(body=error)
+
     def l10n_mx_edi_cfdi_try_sat(self):
         self.ensure_one()
-        self.env['l10n_mx_edi.document']._fetch_and_update_sat_status(extra_domain=[('picking_id', '=', self.id)])
+        documents = self.l10n_mx_edi_document_ids
+        for document in documents.filtered_domain(documents._get_update_sat_status_domain(from_cron=False)):
+            document._update_sat_state()
 
     # -------------------------------------------------------------------------
     # MAPBOX
