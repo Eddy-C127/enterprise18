@@ -406,7 +406,15 @@ QUnit.module("WebClient Enterprise", (hooks) => {
             redirect("/odoo");
             await createEnterpriseWebClient({ fixture, serverData });
             await nextTick();
-            assert.deepEqual(router.current, {});
+            assert.deepEqual(router.current, {
+                action: "menu",
+                actionStack: [
+                    {
+                        action: "menu",
+                        displayName: "Home",
+                    },
+                ],
+            });
             assert.strictEqual(browser.history.length, 1);
 
             await click(fixture.querySelector(".o_apps > .o_draggable:nth-child(2) > .o_app"));
