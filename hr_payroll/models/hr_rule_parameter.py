@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import ast
+from odoo.tools.safe_eval import safe_eval
 
 from odoo import api, fields, models, _
 from odoo.tools import ormcache
@@ -29,7 +29,7 @@ class HrSalaryRuleParameterValue(models.Model):
     def _check_parameter_value(self):
         for value in self:
             try:
-                ast.literal_eval(value.parameter_value)
+                safe_eval(value.parameter_value)
             except Exception as e:
                 raise UserError(_('Wrong rule parameter value for %s at date %s.\n%s', value.rule_parameter_name, format_date(self.env, value.date_from), str(e)))
 
@@ -59,7 +59,7 @@ class HrSalaryRuleParameter(models.Model):
             ('code', '=', code),
             ('date_from', '<=', date)], limit=1)
         if rule_parameter:
-            return ast.literal_eval(rule_parameter.parameter_value)
+            return safe_eval(rule_parameter.parameter_value)
         if raise_if_not_found:
             raise UserError(_("No rule parameter with code %r was found for %s ", code, date))
         else:
