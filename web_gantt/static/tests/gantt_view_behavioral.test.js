@@ -121,7 +121,7 @@ test("date navigation with timezone (1h)", async () => {
 });
 
 test("if a on_create is specified, execute the action rather than opening a dialog. And reloads after the action", async () => {
-    mockService("action", () => ({
+    mockService("action", {
         doAction(action, options) {
             expect.step(`[action] ${action}`);
             expect(options.additionalContext).toEqual({
@@ -136,7 +136,7 @@ test("if a on_create is specified, execute the action rather than opening a dial
             });
             options.onClose();
         },
-    }));
+    });
 
     onRpc("get_gantt_data", () => {
         expect.step("get_gantt_data");
@@ -155,7 +155,7 @@ test("if a on_create is specified, execute the action rather than opening a dial
 });
 
 test("select cells to plan a task", async () => {
-    mockService("dialog", () => ({
+    mockService("dialog", {
         add(_, props) {
             expect.step(`[dialog] ${props.title}`);
             expect(props.context).toEqual({
@@ -169,7 +169,7 @@ test("select cells to plan a task", async () => {
                 uid: 7,
             });
         },
-    }));
+    });
 
     await mountView({
         type: "gantt",
@@ -183,11 +183,11 @@ test("select cells to plan a task", async () => {
 });
 
 test("row id is properly escaped to avoid name issues in selection", async () => {
-    mockService("dialog", () => ({
+    mockService("dialog", {
         add() {
             expect.step("[dialog]");
         },
-    }));
+    });
 
     ResUsers._records[0].name = "O'Reilly";
 
@@ -204,7 +204,7 @@ test("row id is properly escaped to avoid name issues in selection", async () =>
 });
 
 test("select cells to plan a task: 1-level grouped", async () => {
-    mockService("dialog", () => ({
+    mockService("dialog", {
         add(_, props) {
             expect.step(`[dialog] ${props.title}`);
             expect(props.context).toEqual({
@@ -220,7 +220,7 @@ test("select cells to plan a task: 1-level grouped", async () => {
                 user_id: 1,
             });
         },
-    }));
+    });
 
     await mountView({
         type: "gantt",
@@ -236,7 +236,7 @@ test("select cells to plan a task: 1-level grouped", async () => {
 });
 
 test("select cells to plan a task: 2-level grouped", async () => {
-    mockService("dialog", () => ({
+    mockService("dialog", {
         add(_, props) {
             expect.step(`[dialog] ${props.title}`);
             expect(props.context).toEqual({
@@ -254,7 +254,7 @@ test("select cells to plan a task: 2-level grouped", async () => {
                 user_id: 1,
             });
         },
-    }));
+    });
 
     await mountView({
         type: "gantt",
