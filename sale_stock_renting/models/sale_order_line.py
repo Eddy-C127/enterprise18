@@ -4,7 +4,7 @@
 from collections import defaultdict
 from datetime import timedelta
 
-from odoo import _, api, fields, models
+from odoo import _, api, Command, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools.misc import groupby as tools_groupby
 
@@ -301,8 +301,22 @@ class RentalOrderLine(models.Model):
             super()._action_launch_stock_rule(previous_product_uom_qty)
             returns = self.move_ids.filtered(lambda m: m.location_id == self.company_id.rental_loc_id)
             picks = self.move_ids.filtered(lambda m: m.location_id == self.warehouse_id.lot_stock_id)
+            moves_by_order_line = defaultdict(lambda: {'picks': self.env['stock.move'], 'returns': self.env['stock.move']})
+            for move in picks:
+                if move.state in ('done', 'cancel'):
+                    continue
+                moves_by_order_line[move.sale_line_id]['picks'] |= move
+            for move in returns:
+                if move.state in ('done', 'cancel'):
+                    continue
+                moves_by_order_line[move.sale_line_id]['returns'] |= move
             returns._do_unreserve()
-            returns.write({'move_orig_ids': [(4, pick.id) for pick in picks], 'procure_method': 'make_to_order'})
+            for moves in moves_by_order_line.values():
+                moves['returns'].write({
+                    'move_orig_ids': [Command.link(pick.id) for pick in moves['picks']],
+                    'procure_method': 'make_to_order'
+                })
+                moves['returns'].picking_id.return_id = moves['picks'].picking_id
             returns._recompute_state()
         else:
             other_lines = self.filtered(lambda sol: not sol.is_rental)

@@ -408,6 +408,7 @@ class TestRentalPicking(TestRentalCommon):
         outgoing_picking = rental_order_1.picking_ids.filtered(lambda p: p.picking_type_code == 'outgoing')
         incoming_picking = rental_order_1.picking_ids.filtered(lambda p: p.picking_type_code == 'incoming')
         self.assertEqual(len(rental_order_1.picking_ids), 2)
+        self.assertEqual(incoming_picking.return_id.id, outgoing_picking.id, "The return picking should be the return of the delivery picking")
         self.assertEqual([d.date() for d in (outgoing_picking | incoming_picking).mapped('scheduled_date')],
                          [rental_order_1.rental_start_date.date(), rental_order_1.rental_return_date.date()])
         self.assertEqual(rental_order_1.picking_ids.move_ids.mapped('product_uom_qty'), [3.0, 3.0])
