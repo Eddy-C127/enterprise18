@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class AccountMove(models.Model):
@@ -12,6 +12,18 @@ class AccountMove(models.Model):
         string="Request document from a bank statement line",
         index='btree_not_null',
     )
+
+    has_documents = fields.Boolean(string='Has Documents', compute='_compute_has_documents')
+
+    @api.depends('attachment_ids')
+    def _compute_has_documents(self):
+        result = self.env['documents.document']._read_group(
+            domain=[('res_model', '=', self._name), ('res_id', 'in', self.ids)],
+            groupby=['res_id'],
+        )
+        has_documents_ids = [r[0] for r in result]
+        for move in self:
+            move.has_documents = move.id in has_documents_ids
 
     def write(self, vals):
         main_attachment_id = vals.get('message_main_attachment_id')
@@ -89,3 +101,16 @@ class AccountMove(models.Model):
             if not doc or doc.partner_id == move.partner_id:
                 continue
             doc.partner_id = move.partner_id
+
+    def action_view_documents_account_move(self):
+        self.ensure_one()
+        domain = [('res_model', '=', self._name), ('res_id', '=', self.id)]
+        documents = self.env['documents.document'].search(domain)
+        folder_ids = documents.folder_id.ids
+        default_folder_id = folder_ids[0] if len(folder_ids) == 1 else False
+
+        return {
+            **self.env['ir.actions.act_window']._for_xml_id('documents.document_action'),
+            'domain': domain,
+            'context': {'searchpanel_default_folder_id': default_folder_id},
+        }

@@ -44,6 +44,48 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
             'create_model': 'account.move.in_invoice',
         })
 
+    def test_action_view_documents_account_move(self):
+        """
+        Test the behavior of opening default folder when there are more than one documents.
+        """
+        self.env.user.company_id.documents_account_settings = True
+        account_move_test_1, account_move_test_2 = self.env['account.move'].create([{
+            'name': 'Journal Entry 1',
+            'move_type': 'entry',
+        }, {
+            'name': 'Journal Entry 2',
+            'move_type': 'entry',
+        }])
+        self.env['documents.account.folder.setting'].create({
+            'folder_id': self.folder_a.id,
+            'journal_id': account_move_test_1.journal_id.id,
+        })
+        self.assertFalse(account_move_test_1.has_documents, "Should be False because no attachment is attached to this record")
+        self.assertFalse(account_move_test_2.has_documents, "Should be False because no attachment is attached to this record")
+        attachments = self.env['ir.attachment'].create([{
+            'name': 'fileText_test.txt',
+            'res_model': 'account.move',
+            'res_id': account_move_test_1.id,
+        }, {
+            'name': 'fileText_test2.txt',
+            'res_model': 'account.move',
+            'res_id': account_move_test_1.id,
+        }])
+        self.assertTrue(account_move_test_1.has_documents, "Should be True because attachment is attached to this record")
+        self.assertFalse(account_move_test_2.has_documents, "Should be False because no attachment is attached to this record")
+
+        # If both the documents have same folder, open that folder.
+        action = account_move_test_1.action_view_documents_account_move()
+        self.assertEqual(action['context']['searchpanel_default_folder_id'], self.folder_a.id, "The 'folder A' should be the default.")
+
+        # If both the documents have different folder, open the 'All' folder.
+        folder_test = self.env['documents.folder'].create({'name': 'folder_test'})
+        document = self.env['documents.document'].search([('attachment_id', '=', attachments[0].id)])
+        document.folder_id = folder_test.id
+
+        action = account_move_test_1.action_view_documents_account_move()
+        self.assertFalse(action['context']['searchpanel_default_folder_id'], "The 'All' folder should be the default.")
+
     def test_bridge_folder_workflow(self):
         """
         tests the create new business model (vendor bill & credit note).
