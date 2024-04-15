@@ -665,6 +665,46 @@ QUnit.module(
             assert.deepEqual(definition.measures, [{ name: "probability", aggregator: "sum" }]);
         });
 
+        QUnit.test("pivot with a reference field measure", async function (assert) {
+            const models = getBasicData();
+            models.partner.fields = {
+                order_reference: {
+                    string: "Order reference",
+                    type: "reference",
+                    store: true,
+                    sortable: true,
+                    groupable: true,
+                    searchable: true,
+                    aggregator: "count_distinct",
+                },
+            };
+            models.partner.records = [
+                {
+                    id: 1,
+                    order_reference: "sale.order,5",
+                },
+            ];
+            const { env, pivotId } = await createSpreadsheetFromPivotView({
+                serverData: {
+                    models,
+                    views: {
+                        "partner,false,pivot": /*xml*/ `
+                            <pivot>
+                                <field name="order_reference" type="measure"/>
+                            </pivot>`,
+                        "partner,false,search": `<search/>`,
+                    },
+                },
+            });
+            const fixture = getFixture();
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
+            await nextTick();
+            assert.strictEqual(
+                fixture.querySelector(".pivot-measure select").value,
+                "count_distinct"
+            );
+        });
+
         QUnit.test("change dimension order", async function (assert) {
             const { model, env, pivotId } = await createSpreadsheetFromPivotView({
                 serverData: {
