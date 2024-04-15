@@ -14,14 +14,14 @@ class DutchReportCustomHandler(models.AbstractModel):
         options['buttons'].append({'name': _('XBRL'), 'sequence': 30, 'action': 'open_xbrl_wizard', 'file_export_type': _('XBRL')})
 
     def open_xbrl_wizard(self, options):
-        omzetbelasting_module = self.env['ir.module.module']._get('l10n_nl_reports_sbr_ob_nummer')
-        if omzetbelasting_module.state != 'installed':
+        statusinformatiservice_module = self.env['ir.module.module']._get('l10n_nl_reports_sbr_status_info')
+        if statusinformatiservice_module.state != 'installed':
             raise RedirectWarning(
-                message=_("A new module (l10n_nl_reports_sbr_ob_nummer) needs to be installed for the service to work correctly."),
+                message=_("A new module (l10n_nl_reports_sbr_status_info) needs to be installed for the service to track your submission status correctly."),
                 action=self.env.ref('base.open_module_tree').id,
                 button_text=_("Go to Apps"),
                 additional_context={
-                    'search_default_name': 'l10n_nl_reports_sbr_ob_nummer',
+                    'search_default_name': 'l10n_nl_reports_sbr_status_info',
                     'search_default_extra': True,
                 },
             )

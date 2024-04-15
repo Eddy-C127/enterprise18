@@ -5,6 +5,7 @@ from odoo.addons.l10n_nl_reports_sbr.wizard.l10n_nl_reports_sbr_tax_report_wizar
 
 import json
 import os
+from dateutil.relativedelta import relativedelta
 from tempfile import NamedTemporaryFile
 from zeep import wsse
 from zeep.exceptions import Fault
@@ -26,6 +27,7 @@ class L10nNlICPSBRWizard(models.TransientModel):
                     and (
                         not wizard.env.company.l10n_nl_reports_sbr_icp_last_sent_date_to
                         or wizard.date_from > wizard.env.company.l10n_nl_reports_sbr_icp_last_sent_date_to
+                        or wizard.date_to < wizard.env.company.l10n_nl_reports_sbr_icp_last_sent_date_to + relativedelta(months=1)
                     )
                 )
             )
@@ -75,15 +77,16 @@ class L10nNlICPSBRWizard(models.TransientModel):
             wsdl = 'https://' + ('preprod-' if self.is_test else '') + 'dgp2.procesinfrastructuur.nl/wus/2.0/aanleverservice/1.2?wsdl'
             delivery_client = _create_soap_client(wsdl, f, certificate, private_key)
             factory = delivery_client.type_factory('ns0')
-
-            delivery_client.service.aanleveren(
+            aanleverkenmerk = wsse.utils.get_unique_id()
+            response = delivery_client.service.aanleveren(
                 berichtsoort='ICP',
-                aanleverkenmerk=wsse.utils.get_unique_id(),
+                aanleverkenmerk=aanleverkenmerk,
                 identiteitBelanghebbende=factory.identiteitType(nummer=self._get_sbr_identifier() or (self.env.company.vat[2:] if self.env.company.vat.startswith('NL') else self.env.company.vat), type='BTW'),
                 rolBelanghebbende='Bedrijf',
                 berichtInhoud=factory.berichtInhoudType(mimeType='application/xml', bestandsnaam='ICPReport.xbrl', inhoud=report_file),
                 autorisatieAdres='http://geenausp.nl',
             )
+            kenmerk = response.kenmerk
         except Fault as fault:
             detail_fault = fault.detail.getchildren()[0]
             raise RedirectWarning(
@@ -102,20 +105,24 @@ class L10nNlICPSBRWizard(models.TransientModel):
             self.env.company.l10n_nl_reports_sbr_icp_last_sent_date_to = self.date_to
             subject = _("ICP report sent")
             body = _(
-                "The ICP report from %s to %s was successfully sent to Digipoort.",
+                "The ICP report from %s to %s was sent to Digipoort.<br/>We will post its processing status in this chatter once received.<br/>Discussion id: %s",
                 format_date(self.env, self.date_from),
-                format_date(self.env, self.date_to)
+                format_date(self.env, self.date_to),
+                kenmerk,
             )
             filename = f'icp_report_{self.date_to.year}_{self.date_to.month}.xbrl'
             closing_move.with_context(no_new_invoice=True).message_post(subject=subject, body=body, attachments=[(filename, report_file)])
+            closing_move.message_subscribe(partner_ids=[self.env.user.id])
+
+        self._additional_processing(kenmerk, closing_move)
 
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': _('Success'),
+                'title': _('Sending your report'),
                 'type': 'success',
-                'message': _('Your ICP report has been successfully sent.'),
+                'message': _("Your ICP report is being sent to Digipoort. Check its status in the closing entry's chatter."),
                 'next': {'type': 'ir.actions.act_window_close'},
             }
         }

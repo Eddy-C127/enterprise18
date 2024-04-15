@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-03 12:28+0000\n"
-"PO-Revision-Date: 2024-04-03 12:28+0000\n"
+"POT-Creation-Date: 2024-04-15 15:40+0000\n"
+"PO-Revision-Date: 2024-04-15 15:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -214,17 +214,17 @@ msgid "Send"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr_icp
+#. odoo-python
+#: code:addons/l10n_nl_reports_sbr_icp/wizard/l10n_nl_sbr_icp_wizard.py:0
+#, python-format
+msgid "Sending your report"
+msgstr ""
+
+#. module: l10n_nl_reports_sbr_icp
 #: model:ir.model.fields,help:l10n_nl_reports_sbr_icp.field_res_company__l10n_nl_reports_sbr_icp_last_sent_date_to
 msgid ""
 "Stores the date of the end of the last period submitted to the Digipoort "
 "Services for ICP"
-msgstr ""
-
-#. module: l10n_nl_reports_sbr_icp
-#. odoo-python
-#: code:addons/l10n_nl_reports_sbr_icp/wizard/l10n_nl_sbr_icp_wizard.py:0
-#, python-format
-msgid "Success"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr_icp
@@ -245,7 +245,9 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr_icp/wizard/l10n_nl_sbr_icp_wizard.py:0
 #, python-format
-msgid "The ICP report from %s to %s was successfully sent to Digipoort."
+msgid ""
+"The ICP report from %s to %s was sent to Digipoort.<br/>We will post its "
+"processing status in this chatter once received.<br/>Discussion id: %s"
 msgstr ""
 
 #. module: l10n_nl_reports_sbr_icp
@@ -280,7 +282,9 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr_icp/wizard/l10n_nl_sbr_icp_wizard.py:0
 #, python-format
-msgid "Your ICP report has been successfully sent."
+msgid ""
+"Your ICP report is being sent to Digipoort. Check its status in the closing "
+"entry's chatter."
 msgstr ""
 
 #. module: l10n_nl_reports_sbr_icp
