@@ -21,23 +21,6 @@ class AccountTaxReportHandler(models.AbstractModel):
 
     def _custom_options_initializer(self, report, options, previous_options=None):
         options['buttons'].append({'name': _('Closing Entry'), 'action': 'action_periodic_vat_entries', 'sequence': 110, 'always_show': True})
-
-        if not previous_options or not previous_options.get('disable_archived_tag_test'):
-            tables, where_clause = report._get_table_expression(options, 'strict_range')
-            self._cr.execute(SQL("""
-                SELECT 1
-                FROM %s
-                JOIN account_account_tag_account_move_line_rel aml_tag
-                    ON account_move_line.id = aml_tag.account_move_line_id
-                JOIN account_account_tag tag
-                    ON aml_tag.account_account_tag_id = tag.id
-                WHERE %s
-                AND NOT tag.active
-                LIMIT 1
-            """, tables, where_clause))
-
-            options['contains_archived_tag'] = bool(self._cr.fetchone())
-
         self._enable_export_buttons_for_common_vat_groups_in_branches(options)
 
     def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
@@ -50,18 +33,23 @@ class AccountTaxReportHandler(models.AbstractModel):
             ):
                 warnings.pop('account_reports.common_warning_draft_in_period')
 
-    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
-        if warnings is not None:
-            if 'account_reports.common_warning_draft_in_period' in warnings:
-                # Recompute the warning 'common_warning_draft_in_period' to not include tax closing entries in the banner of unposted moves
-                if not self.env['account.move'].search_count(
-                    [('state', '=', 'draft'), ('date', '<=', options['date']['date_to']),
-                     ('tax_closing_end_date', '=', False)],
-                    limit=1,
-                ):
-                    warnings.pop('account_reports.common_warning_draft_in_period')
+        # Chek the use of inactive tags in the period
+        tables, where_clause = report._get_table_expression(options, 'strict_range')
+        self._cr.execute(SQL("""
+            SELECT 1
+            FROM %s
+            JOIN account_account_tag_account_move_line_rel aml_tag
+                ON account_move_line.id = aml_tag.account_move_line_id
+            JOIN account_account_tag tag
+                ON aml_tag.account_account_tag_id = tag.id
+            WHERE %s
+            AND NOT tag.active
+            LIMIT 1
+        """, tables, where_clause))
 
-        return lines
+        if self._cr.fetchone():
+            warnings['account_reports.tax_report_warning_inactive_tags'] = {}
+
 
     # -------------------------------------------------------------------------
     # TAX CLOSING

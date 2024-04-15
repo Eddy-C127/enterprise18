@@ -773,7 +773,6 @@ class JournalReportCustomHandler(models.AbstractModel):
             'selected_variant_id': generix_tax_report.id,
             'date_from': data.get('date_from'),
             'date_to': data.get('date_to'),
-            'disable_archived_tag_test': True,
         })
         tax_report_options = generix_tax_report.get_options(previous_option)
         # Even though it doesn't have a journal selector, we can force a journal in the options to only get the lines for a specific journal.
