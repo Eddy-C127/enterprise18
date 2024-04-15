@@ -32,7 +32,7 @@ class HrEmployee(models.Model):
 
     def _compute_related_partner(self):
         for rec in self:
-            rec.related_partner_id = rec.user_id.partner_id
+            rec.related_partner_id = rec.user_id.partner_id or rec.work_contact_id
 
     @api.depends('appraisal_ids')
     def _compute_appraisal_count(self):
