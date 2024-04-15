@@ -65,6 +65,9 @@
             <xpath expr="//page[@name='ab_testing']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+            <xpath expr="//field[@name='mail_server_id']" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -124,6 +127,10 @@
                                     <field name="reply_to_mode" widget="radio" invisible="mailing_model_real == 'mailing.contact'"/>
                                     <field name="reply_to" invisible="reply_to_mode != 'new'" required="reply_to_mode == 'new'"/>
                                 </div>
+                            </group>
+                            <group string="Advanced" name="group_advanced" groups="base.group_no_one" invisible="not mail_server_available">
+                                <field name="mail_server_available" invisible="1"/>
+                                <field name="mail_server_id"/>
                             </group>
                         </group>
                     </page>

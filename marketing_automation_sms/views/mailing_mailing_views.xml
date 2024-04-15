@@ -46,6 +46,9 @@
                            options="{'dynamic_placeholder': true}" default_focus="1"/>
                 </page>
             </xpath>
+            <xpath expr="//group[@name='group_advanced']" position="attributes">
+                <attribute name="invisible" add="mailing_type != 'mail'" separator=" or "/>
+            </xpath>
          </field>
     </record>
 
