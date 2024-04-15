@@ -269,6 +269,7 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
                 for expression_totals in all_column_groups_expression_totals.values()
             )
 
+        super()._customize_warnings(report, options, all_column_groups_expression_totals, warnings)
         expr_map = {
             line.code: line.expression_ids.filtered(lambda x: x.label == 'balance')
             for line in report.line_ids

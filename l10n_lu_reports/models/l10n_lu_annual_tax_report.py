@@ -138,6 +138,7 @@ class LuAnnualTaxReportCustomHandler(models.AbstractModel):
         return errors
 
     def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
+        super()._customize_warnings(report, options, all_column_groups_expression_totals, warnings)
         # we need a map between the line code (corresponds to report field code)
         # and each expression label to the expression itself
         expr_map = {

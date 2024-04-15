@@ -40,6 +40,29 @@ class AccountTaxReportHandler(models.AbstractModel):
 
         self._enable_export_buttons_for_common_vat_groups_in_branches(options)
 
+    def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
+        if 'account_reports.common_warning_draft_in_period' in warnings:
+            # Recompute the warning 'common_warning_draft_in_period' to not include tax closing entries in the banner of unposted moves
+            if not self.env['account.move'].search_count(
+                [('state', '=', 'draft'), ('date', '<=', options['date']['date_to']),
+                 ('tax_closing_end_date', '=', False)],
+                limit=1,
+            ):
+                warnings.pop('account_reports.common_warning_draft_in_period')
+
+    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
+        if warnings is not None:
+            if 'account_reports.common_warning_draft_in_period' in warnings:
+                # Recompute the warning 'common_warning_draft_in_period' to not include tax closing entries in the banner of unposted moves
+                if not self.env['account.move'].search_count(
+                    [('state', '=', 'draft'), ('date', '<=', options['date']['date_to']),
+                     ('tax_closing_end_date', '=', False)],
+                    limit=1,
+                ):
+                    warnings.pop('account_reports.common_warning_draft_in_period')
+
+        return lines
+
     # -------------------------------------------------------------------------
     # TAX CLOSING
     # -------------------------------------------------------------------------
@@ -577,16 +600,6 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
             tax_amount_hierarchy,
         )
         return lines
-
-    def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
-        if warnings is not None and 'account_reports.common_warning_draft_in_period' in warnings:
-            # Recompute the warning 'common_warning_draft_in_period' to not include tax closing entries in the banner of unposted moves
-            if not self.env['account.move'].search_count(
-                [('state', '=', 'draft'), ('date', '<=', options['date']['date_to']),
-                 ('tax_closing_end_date', '=', False)],
-                limit=1,
-            ):
-                warnings.pop('account_reports.common_warning_draft_in_period')
 
 
     # -------------------------------------------------------------------------
