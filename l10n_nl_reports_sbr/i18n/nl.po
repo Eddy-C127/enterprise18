@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-03 12:28+0000\n"
-"PO-Revision-Date: 2024-04-03 14:33+0200\n"
+"POT-Creation-Date: 2024-04-15 15:39+0000\n"
+"PO-Revision-Date: 2024-04-15 17:45+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -31,11 +31,12 @@ msgstr ""
 #: code:addons/l10n_nl_reports_sbr/models/tax_report.py:0
 #, python-format
 msgid ""
-"A new module (l10n_nl_reports_sbr_ob_nummer) needs to be installed for the "
-"service to work correctly."
+"A new module (l10n_nl_reports_sbr_statusinformatieservice) needs to be "
+"installed for the service to track your submission status correctly."
 msgstr ""
-"Er moet een nieuwe module (l10n_nl_reports_sbr_ob_nummer) worden "
-"geïnstalleerd om de service correct te laten werken."
+"Er moet een nieuwe module (l10n_nl_reports_sbr_statusinformatieservice) "
+"worden geïnstalleerd zodat de service de status van je inzending correct kan "
+"bijhouden."
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_key
@@ -336,19 +337,19 @@ msgid "Send"
 msgstr "Verzenden"
 
 #. module: l10n_nl_reports_sbr
+#. odoo-python
+#: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
+#, python-format
+msgid "Sending your report"
+msgstr "Uw rapport versturen"
+
+#. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,help:l10n_nl_reports_sbr.field_res_company__l10n_nl_reports_sbr_last_sent_date_to
 msgid ""
 "Stores the date of the end of the last period submitted to the Tax Services"
 msgstr ""
 "Slaat de datum op van het einde van de laatste periode die is ingediend bij "
 "de Belastingdienst"
-
-#. module: l10n_nl_reports_sbr
-#. odoo-python
-#: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
-#, python-format
-msgid "Success"
-msgstr "Succes"
 
 #. module: l10n_nl_reports_sbr
 #: model:ir.model.fields,field_description:l10n_nl_reports_sbr.field_l10n_nl_reports_sbr_tax_report_wizard__tax_consultant_number
@@ -479,9 +480,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #, python-format
-msgid "The tax report from %s to %s was successfully sent to Digipoort."
+msgid ""
+"The tax report from %s to %s was sent to Digipoort.<br/>We will post its "
+"processing status in this chatter once received.<br/>Discussion id: %s"
 msgstr ""
-"Het BTW-rapportage van %s naar %s is succesvol verzonden naar Digipoort."
+"Het belastingrapport van %s tot %s is verzonden naar Digipoort.<br/>We "
+"zullen de verwerkingsstatus in deze chatter posten zodra we deze hebben "
+"ontvangen.<br/>Discussie id: %s"
 
 #. module: l10n_nl_reports_sbr
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.res_config_settings_view_form
@@ -546,10 +551,24 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_nl_reports_sbr/wizard/l10n_nl_reports_sbr_tax_report_wizard.py:0
 #, python-format
-msgid "Your tax report has been successfully sent."
-msgstr "Uw BTW-rapportage is succesvol verzonden."
+msgid ""
+"Your tax report is being sent to Digipoort. Check its status in the closing "
+"entry's chatter."
+msgstr ""
+"Uw belastingrapport wordt verzonden naar Digipoort. Controleer de status "
+"ervan in de chatter van de afsluitende invoer."
 
 #. module: l10n_nl_reports_sbr
 #: model_terms:ir.ui.view,arch_db:l10n_nl_reports_sbr.tax_report_sbr
 msgid "iso4217:EUR"
 msgstr ""
+
+#~ msgid "Success"
+#~ msgstr "Succes"
+
+#~ msgid "The tax report from %s to %s was successfully sent to Digipoort."
+#~ msgstr ""
+#~ "Het BTW-rapportage van %s naar %s is succesvol verzonden naar Digipoort."
+
+#~ msgid "Your tax report has been successfully sent."
+#~ msgstr "Uw BTW-rapportage is succesvol verzonden."

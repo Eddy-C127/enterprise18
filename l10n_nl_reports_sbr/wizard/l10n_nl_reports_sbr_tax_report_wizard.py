@@ -15,6 +15,8 @@ from odoo.tools.zeep import Client, wsse, wsa
 from odoo.tools.zeep.exceptions import Fault
 from lxml import etree
 from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
+from markupsafe import Markup
 from OpenSSL import crypto
 from urllib3.util.ssl_ import create_urllib3_context
 from urllib3.contrib.pyopenssl import inject_into_urllib3
@@ -261,9 +263,14 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
     @api.depends('date_to', 'date_from', 'is_test')
     def _compute_sending_conditions(self):
         for wizard in self:
-            wizard.can_report_be_sent = wizard.is_test or \
-                wizard.env.company.tax_lock_date and wizard.env.company.tax_lock_date >= wizard.date_to \
-                and (not wizard.env.company.l10n_nl_reports_sbr_last_sent_date_to or wizard.date_from > wizard.env.company.l10n_nl_reports_sbr_last_sent_date_to)
+            wizard.can_report_be_sent = wizard.is_test or (
+                wizard.env.company.tax_lock_date and wizard.env.company.tax_lock_date >= wizard.date_to
+                and (
+                    not wizard.env.company.l10n_nl_reports_sbr_last_sent_date_to
+                    or wizard.date_from > wizard.env.company.l10n_nl_reports_sbr_last_sent_date_to
+                    or wizard.date_to < wizard.env.company.l10n_nl_reports_sbr_last_sent_date_to + relativedelta(months=1)  # Users can send their report multiple times: the newest submission will replace the older ones.
+                )
+            )
 
     def _check_values(self):
         if self.env.company.account_representative_id:
@@ -281,8 +288,11 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
             )
 
     def _get_sbr_identifier(self):
-        # To be overridden by fix module
-        return False
+        return self.env.company.vat[2:] if self.env.company.vat.startswith('NL') else self.env.company.vat
+
+    def _additional_processing(self, options, kenmerk, closing_move):
+        # TO BE OVERRIDEN by additional service(s)
+        pass
 
     def action_download_xbrl_file(self):
         options = self.env.context['options']
@@ -330,15 +340,17 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
             wsdl = 'https://' + ('preprod-' if self.is_test else '') + 'dgp2.procesinfrastructuur.nl/wus/2.0/aanleverservice/1.2?wsdl'
             delivery_client = _create_soap_client(wsdl, f, certificate, private_key)
             factory = delivery_client.type_factory('ns0')
+            aanleverkenmerk = wsse.utils.get_unique_id()
 
-            delivery_client.service.aanleveren(
+            response = delivery_client.service.aanleveren(
                 berichtsoort='Omzetbelasting',
-                aanleverkenmerk=wsse.utils.get_unique_id(),
-                identiteitBelanghebbende=factory.identiteitType(nummer=self._get_sbr_identifier() or (self.env.company.vat[2:] if self.env.company.vat.startswith('NL') else self.env.company.vat), type='BTW'),
+                aanleverkenmerk=aanleverkenmerk,
+                identiteitBelanghebbende=factory.identiteitType(nummer=self._get_sbr_identifier(), type='BTW'),
                 rolBelanghebbende='Bedrijf',
                 berichtInhoud=factory.berichtInhoudType(mimeType='application/xml', bestandsnaam='TaxReport.xbrl', inhoud=report_file),
                 autorisatieAdres='http://geenausp.nl',
             )
+            kenmerk = response.kenmerk
         except Fault as fault:
             detail_fault = fault.detail.getchildren()[0]
             raise RedirectWarning(
@@ -356,21 +368,26 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
         if not self.is_test:
             self.env.company.l10n_nl_reports_sbr_last_sent_date_to = self.date_to
             subject = _("Tax report sent")
-            body = _(
-                "The tax report from %s to %s was successfully sent to Digipoort.",
-                format_date(self.env, self.date_from),
-                format_date(self.env, self.date_to)
-            )
+            body = Markup(_(
+                "The tax report from %(date_from)s to %(date_to)s was sent to Digipoort.<br/>We will post its processing status in this chatter once received.<br/>Discussion id: %(id)s"
+                )) % {
+                    'date_from': format_date(self.env, self.date_from),
+                    'date_to': format_date(self.env, self.date_to),
+                    'id': kenmerk,
+                }
             filename = f'tax_report_{self.date_to.year}_{self.date_to.month}.xbrl'
             closing_move.with_context(no_new_invoice=True).message_post(subject=subject, body=body, attachments=[(filename, report_file)])
+            closing_move.message_subscribe(partner_ids=[self.env.user.id])
+
+        self._additional_processing(options, kenmerk, closing_move)
 
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': _('Success'),
+                'title': _('Sending your report'),
                 'type': 'success',
-                'message': _('Your tax report has been successfully sent.'),
+                'message': _("Your tax report is being sent to Digipoort. Check its status in the closing entry's chatter."),
                 'next': {'type': 'ir.actions.act_window_close'},
             }
         }
