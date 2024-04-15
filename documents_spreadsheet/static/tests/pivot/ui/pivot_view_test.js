@@ -34,6 +34,7 @@ import {
     getCellContent,
     getCellValue,
 } from "@spreadsheet/../tests/utils/getters";
+import { selectCell, setCellContent } from "@spreadsheet/../tests/utils/commands";
 import { user } from "@web/core/user";
 import { session } from "@web/session";
 import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
@@ -1189,6 +1190,31 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.deepEqual(
             model.getters.getPivotCoreDefinition(pivotId).actionXmlId,
             "spreadsheet.partner_action"
+        );
+    });
+
+    QUnit.test("Test Autofill component", async function (assert) {
+        const fixture = getFixture();
+        const { model } = await createSpreadsheetFromPivotView();
+        selectCell(model, "A3");
+        setCellContent(model, "B3", "");
+        const handle = fixture.querySelector(".o-autofill-handler");
+        const { y } = handle.getBoundingClientRect();
+        await triggerEvent(
+            handle,
+            null,
+            "pointerdown",
+            { clientY: y },
+            { skipVisibilityCheck: true } // skipVisibilityCheck: element is only visible on hover
+        );
+        // dispatching the underlying command by hand because the dragndrop in o_spreadsheet.js
+        // does not react well to the events
+        model.dispatch("AUTOFILL_SELECT", { col: 1, row: 2 });
+        await nextTick();
+        assert.strictEqual(fixture.querySelector(".o-autofill-nextvalue").innerText, "1");
+        assert.strictEqual(
+            getCellContent(model, "B2"),
+            `=PIVOT.HEADER(1,"foo",1,"measure","probability")`
         );
     });
 });
