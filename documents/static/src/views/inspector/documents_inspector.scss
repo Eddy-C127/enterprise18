@@ -395,10 +395,7 @@
 }
 
 .o_document_chatter_container {
-    display: block;
-    position: relative;
-    overflow: auto;
-    flex: 0 0 auto;
+    --Chatter-asideExtraWidth: 35px;
     background-color: $o-webclient-background-color;
 
     --ChatterTopbar-padding-right: calc(#{$o-horizontal-padding});
