@@ -154,6 +154,7 @@ CURRENCY_PROVIDER_SELECTION = [
     (['TR'], 'tcmb', '[TR] Central Bank of the Republic of Turkey'),
     (['UK'], 'hmrc', '[UK] HM Revenue & Customs'),
     (['MY'], 'bnm', '[MY] Bank Negara Malaysia'),
+    (['ID'], 'bi', '[ID] Bank Indonesia'),
 ]
 
 
@@ -926,6 +927,62 @@ class ResCompany(models.Model):
 
         if result and 'MYR' not in result:
             result['MYR'] = (1.0, date)
+
+        return result
+
+    @api.model
+    def _parse_bi_data(self, available_currencies):
+        """
+        This method is used to update the currencies by using BI (Bank Indonesia) service API.
+        Rates are given against IDR as a XML.
+        Source: https://www.bi.go.id/biwebservice/wskursbi.asmx
+
+        If a currency has no rate, it will be skipped.
+        """
+        request_url = "https://www.bi.go.id/biwebservice/wskursbi.asmx/getSubKursLokal4"
+
+        def _fetched_bi_currency_tables(start_date):
+            response = requests.get(request_url, params={
+                'startdate': start_date,
+            }, timeout=10)
+            response.raise_for_status()
+            xml_tree = etree.fromstring(response.content)
+            return xml_tree.xpath("//Table")
+
+        # The rates are updated once a day, at 8am. It was asked to try and get today's rate when possible.
+        # To avoid too many api calls, we will first check the current time. If it is > 8am, we will try to get
+        # today's rate. If it fails, we will fall back on yesterday's.
+        # This is to avoid issues where the cron would run before 8am every day and never find today's rates.
+        currency_tables = []
+        current_datetime = datetime.datetime.now(timezone('Asia/Jakarta'))
+        request_date = current_datetime.date()
+
+        if current_datetime.hour >= 8:
+            currency_tables = _fetched_bi_currency_tables(request_date.isoformat())
+
+        # If we couldn't find the current day's data (too early, ...) we fall back to yesterday's
+        if not currency_tables:
+            request_date = (current_datetime - relativedelta(days=1)).date()
+            currency_tables = _fetched_bi_currency_tables(request_date.isoformat())
+
+        result = {}
+        available_currency_names = available_currencies.mapped('name')
+        for table in currency_tables:
+            currency_code = table.xpath("normalize-space(.//mts_subkurslokal)")
+            if currency_code in available_currency_names:
+                selling_rate = table.xpath("number(.//jual_subkurslokal)")
+                buying_rate = table.xpath("number(.//beli_subkurslokal)")
+                middle_rate = (selling_rate + buying_rate) / 2
+
+                unit = table.xpath("number(.//nil_subkurslokal)")
+
+                rate = (1 / middle_rate) * unit
+                result[currency_code] = (rate, request_date)
+
+        # We will still add IDR even if there is no result, as it could happen during public holidays.
+        # It will work, but won't update any rates.
+        if 'IDR' not in result:
+            result['IDR'] = (1.0, request_date)
 
         return result
 
