@@ -122,14 +122,16 @@ class AccountMove(models.Model):
             shipping = self.partner_shipping_id
             if shipping != customer:
 
+                shipping_cfdi_values = dict(cfdi_values)
                 # In case of COMEX we need to fill "NumRegIdTrib" with the real tax id of the customer
                 # but let the generic RFC.
-                shipping_values = self.env['l10n_mx_edi.document']._get_customer_cfdi_values(
-                    shipping,
-                    cfdi_values['receptor']['issued_address'],
+                self.env['l10n_mx_edi.document']._add_customer_cfdi_values(
+                    shipping_cfdi_values,
+                    customer=shipping,
                     usage=cfdi_values['receptor']['uso_cfdi'],
                     to_public=self.l10n_mx_edi_cfdi_to_public,
-                )['receptor']
+                )
+                shipping_values = shipping_cfdi_values['receptor']
                 if (
                     shipping.country_id == shipping.commercial_partner_id.country_id
                     and shipping_values['rfc'] == 'XEXX010101000'
