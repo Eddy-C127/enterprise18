@@ -116,9 +116,9 @@ QUnit.module('appointment.wysiwyg', {
         });
         const { editor, editable, originalContent } = onMount();
 
-        // Place cursor at beginning of link's label
+        // Place cursor at beginning of link's label, after the ZWNBSP.
         const p = editable.querySelector('p');
-        setSelection(p.firstChild.firstChild, 0);
+        setSelection(p.querySelector('a').childNodes[1], 0);
 
         // Type powerbox command + 'Enter'
         await insertText(editor, '/Appointment');
