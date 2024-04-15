@@ -55,6 +55,10 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
             } for currency_id in active_currencies
         }
 
+        for currency_rates in options['currency_rates'].values():
+            if currency_rates['rate'] == 0:
+                raise UserError(_("The currency rate cannot be equal to zero"))
+
         options['company_currency'] = options['currency_rates'].pop(str(self.env.company.currency_id.id))
         options['custom_rate'] = any(
             not float_is_zero(cr['rate'] - rates[cr['currency_id']], 6)
