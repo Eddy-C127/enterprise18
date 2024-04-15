@@ -39,6 +39,13 @@ export default class BarcodeQuantModel extends BarcodeModel {
         notifyAndGoAhead();
     }
 
+    get isValidForBarcodeLookup() {
+        if (this.resModel === "stock.quant") {
+            return true;
+        }
+        return false;
+    }
+
     get applyOn() {
         return this.pageLines.filter(line => line.inventory_quantity_set).length;
     }

@@ -123,6 +123,10 @@ export default class BarcodeModel extends EventBus {
         return true;
     }
 
+    get isValidForBarcodeLookup() {
+        return true;
+    }
+
     /**
      * The operation can be validated if there is at least one line.
      * @returns {boolean}
@@ -1049,14 +1053,7 @@ export default class BarcodeModel extends EventBus {
             }
         }
         if (!product) { // Product is mandatory, if no product, raises a warning.
-            if (!barcodeData.error) {
-                if (this.groups.group_tracking_lot) {
-                    barcodeData.error = _t("You are expected to scan one or more products or a package available at the picking location");
-                } else {
-                    barcodeData.error = _t("You are expected to scan one or more products.");
-                }
-            }
-            return this.notification(barcodeData.error, { type: "danger" });
+            return this.noProductToast(barcodeData);
         } else if (barcodeData.lot && barcodeData.lot.product_id !== product.id) {
             delete barcodeData.lot; // The product was scanned alongside another product's lot.
         }
@@ -1170,6 +1167,17 @@ export default class BarcodeModel extends EventBus {
             this._selectLine(currentLine);
         }
         this.trigger('update');
+    }
+
+    noProductToast(barcodeData) {
+        if (!barcodeData.error) {
+            if (this.groups.group_tracking_lot) {
+                barcodeData.error = _t("You are expected to scan one or more products or a package available at the picking location");
+            } else {
+                barcodeData.error = _t("You are expected to scan one or more products.");
+            }
+        }
+        return this.notification(barcodeData.error, { type: "danger" });
     }
 
     async _processLocation(barcodeData) {
