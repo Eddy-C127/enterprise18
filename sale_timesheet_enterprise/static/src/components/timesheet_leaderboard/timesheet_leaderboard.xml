@@ -34,7 +34,7 @@
                         </span>
                     </t>
                     <t t-else="">
-                        <t t-if="props.leaderboard.show_leaderboard">Record timesheets to earn your rank!</t>
+                        <t t-if="props.showLeaderboard">Record timesheets to earn your rank!</t>
                         <t t-else="">Record timesheets to determine your billing rate!</t>
                     </t>
                 </span>
