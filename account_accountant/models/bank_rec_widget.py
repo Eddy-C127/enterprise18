@@ -1355,7 +1355,7 @@ class BankRecWidget(models.Model):
 
         # Refresh analytic lines.
         move.line_ids.analytic_line_ids.unlink()
-        move.line_ids._create_analytic_lines()
+        move.line_ids.with_context(validate_analytic=True)._create_analytic_lines()
 
     @contextmanager
     def _action_validate_method(self):
