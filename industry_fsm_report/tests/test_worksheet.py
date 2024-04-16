@@ -185,3 +185,45 @@ class TestWorksheet(TransactionCase):
         fields = self.task.worksheet_template_id.model_id.field_id
         extra_fields = fields.filtered(lambda f: f.name in ['x_intervention_type', 'x_description', 'x_manufacturer', 'x_checkbox', 'x_serial_number', 'x_date', 'x_worker_signature'])
         self.assertEqual(7, len(extra_fields), 'The extra fields should all have been created.')
+
+    def test_send_reports_in_batches(self):
+        """
+        This test ensures that implementation of sending batches in reports is working.
+        """
+        tasks = self.env['project.task'].create([
+            {
+                'name': 'Fsm task-report-1',
+                'project_id': self.fsm_project.id,
+                'partner_id': self.partner.id,
+                'worksheet_template_id': self.worksheet_template.id,
+            },
+            {
+                'name': 'Fsm task-report-2',
+                'project_id': self.fsm_project.id,
+                'partner_id': self.partner.id,
+            },
+        ])
+        task_1, task_2 = tasks
+        self.env[self.worksheet_template.sudo().model_id.model].sudo().create({
+            'x_project_task_id': task_1.id,
+        })
+        self.assertEqual(
+            task_2.action_send_report()['params']['message'],
+            'There are no reports to send.', 'Task with no report raise a toast message',
+        )
+        self.assertEqual(
+            tasks.action_send_report()["context"]["report_action"]["context"]["default_res_ids"],
+            task_1.ids,
+            'Task with report is being sent others are ignored',
+        )
+        task_2.write({
+            'worksheet_template_id': self.worksheet_template.id,
+        })
+        self.env[self.worksheet_template.sudo().model_id.model].create({
+            'x_project_task_id': task_2.id,
+        })
+        self.assertEqual(
+            tasks.action_send_report()["context"]["report_action"]["context"]["default_res_ids"],
+            tasks.ids,
+            'Both the tasks with reports are being sent',
+        )
