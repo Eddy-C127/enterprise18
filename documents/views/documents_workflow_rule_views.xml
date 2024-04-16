@@ -33,7 +33,7 @@
                 <sheet>
                     <div class="oe_title">
                       <label for="name" string="Action Name"/>
-                      <h1><field name="name" placeholder="e.g. Validate document"/></h1>
+                      <h1><field name="name" placeholder="e.g. Validate document" options="{'line_breaks': False}" widget="text"/></h1>
                       <field name="note" placeholder="Write a tooltip for the action here"/>
                     </div>
                     <group>

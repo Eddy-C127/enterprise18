@@ -24,7 +24,7 @@
                 <sheet>
                     <div class="oe_title">
                         <label for="name" string="Tag Category"/>
-                        <h1><field name="name" placeholder="e.g. Status"/></h1>
+                        <h1><field name="name" placeholder="e.g. Status" options="{'line_breaks': False}" widget="text"/></h1>
                     </div>
                     <notebook>
                         <page string="Tags" name="tags">
