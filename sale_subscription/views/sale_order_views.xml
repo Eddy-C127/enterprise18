@@ -120,6 +120,9 @@
                 <div name="subscription_to_renew" class="float-end fs-6 badge rounded-pill fw-bold text-bg-warning"
                      invisible="not display_late">To Renew</div>
             </xpath>
+            <field name="pricelist_id" position="attributes">
+                <attribute name="readonly">state in ['cancel', 'sale'] and subscription_state not in ['3_progress', '4_paused']</attribute>
+            </field>
             <field name="show_update_pricelist" position='before'>
                 <label name="plan_label" for="plan_id" invisible="not plan_id and state in ['sale', 'cancel']"/>
                  <div name="plan_block" class="o_row" invisible="not plan_id and state in ['sale', 'cancel']">
