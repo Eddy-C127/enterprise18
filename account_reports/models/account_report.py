@@ -794,7 +794,7 @@ class AccountReport(models.Model):
         Selects a name to display according to the selections.
         The group display name is selected according to the display name of the options selected.
         '''
-        if self.filter_account_type == 'disabled':
+        if self.filter_account_type in ('disabled', False):
             return
 
         account_type_list = [
