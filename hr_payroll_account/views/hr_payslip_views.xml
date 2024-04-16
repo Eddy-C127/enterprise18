@@ -10,7 +10,9 @@
                 <button class="oe_stat_button" name="action_open_move" type="object" icon="fa-dollar"
                         invisible="not move_id" groups="account.group_account_readonly">
                     <div class="o_stat_info">
-                        <span class="o_stat_text">Journal Entry</span>
+                        <span class="o_stat_text" invisible="move_state != 'draft'">Journal Entry <br/>(Draft)</span>
+                        <span class="o_stat_text" invisible="move_state != 'posted'">Journal Entry <br/>(Posted)</span>
+                        <span class="o_stat_text" invisible="move_state != 'cancel'">Journal Entry <br/>(Canceled)</span>
                     </div>
                 </button>
             </div>
