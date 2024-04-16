@@ -39,7 +39,7 @@ class AccountFollowupReport(models.AbstractModel):
         options = options or {}
         options.update({
             'partner_id': partner.id,
-            'followup_line': options.get('followup_line_id', partner.followup_line_id),
+            'followup_line': options.get('followup_line', partner.followup_line_id),
             'context': self.env.context,
         })
         return options
