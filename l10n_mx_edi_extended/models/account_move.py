@@ -142,7 +142,7 @@ class AccountMove(models.Model):
 
                 if shipping.country_id.l10n_mx_edi_code == 'MEX':
                     colony = shipping.l10n_mx_edi_colony_code
-                    locality = shipping.l10n_mx_edi_locality_id
+                    locality = shipping.l10n_mx_edi_locality_id.code
                     city = shipping.city_id.l10n_mx_edi_code
                 else:
                     colony = shipping.l10n_mx_edi_colony
@@ -157,15 +157,15 @@ class AccountMove(models.Model):
                 ext_trade_values['destinario'] = {
                     'num_reg_id_trib': shipping_vat,
                     'nombre': shipping.name,
-                    'calle': supplier.street_name,
-                    'numero_exterior': supplier.street_number,
-                    'numero_interior': supplier.street_number2,
+                    'calle': shipping.street_name,
+                    'numero_exterior': shipping.street_number,
+                    'numero_interior': shipping.street_number2,
                     'colonia': colony,
                     'localidad': locality,
                     'municipio': city,
                     'estado': state,
-                    'pais': supplier.country_id.l10n_mx_edi_code,
-                    'codigo_postal': supplier.zip,
+                    'pais': shipping.country_id.l10n_mx_edi_code,
+                    'codigo_postal': shipping.zip,
                 }
 
             # Certificate.
