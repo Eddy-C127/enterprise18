@@ -3,9 +3,15 @@
 
     <div t-name="stock_barcode.MainMenu" class="o_stock_barcode_main_menu_container o_home_menu_background">
         <div class="o_stock_barcode_main_menu position-relative bg-view">
-            <a href="#" class="o_stock_barcode_menu d-block float-start" t-on-click="() => this.home.toggle(true)">
+            <a t-if="!pwaService.isScopedApp" href="#" class="o_stock_barcode_menu d-block float-start" t-on-click="() => this.home.toggle(true)">
                 <i class="oi oi-chevron-left"/>
             </a>
+
+            <div class="o_stock_barcode_menu float-end">
+                <button class="btn btn-light fa fa-sign-out" t-if="pwaService.isScopedApp" t-on-click="logout" />
+                <a t-else="" data-tooltip="Install App" class="btn btn-light fa fa-download" href="/scoped_app?app_id=stock_barcode&amp;path=scoped_app/barcode" target="_blank" />
+            </div>
+
             <h1 class="mb-4">Barcode Scanning</h1>
 
             <div t-if="state.displayDemoMessage" class="message_demo_barcodes alert alert-info alert-dismissible text-start" role="status">

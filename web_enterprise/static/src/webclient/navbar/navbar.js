@@ -10,6 +10,7 @@ export class EnterpriseNavBar extends NavBar {
     setup() {
         super.setup();
         this.hm = useService("home_menu");
+        this.pwa = useService("pwa");
         this.menuAppsRef = useRef("menuApps");
         this.navRef = useRef("nav");
         this._busToggledCallback = () => this._updateMenuAppsIcon();
@@ -29,10 +30,12 @@ export class EnterpriseNavBar extends NavBar {
             "o_menu_toggle_back",
             !this.isInApp && this.hasBackgroundAction
         );
-        const title =
-            !this.isInApp && this.hasBackgroundAction ? _t("Previous view") : _t("Home menu");
-        menuAppsEl.title = title;
-        menuAppsEl.ariaLabel = title;
+        if (!this.isScopedApp) {
+            const title =
+                !this.isInApp && this.hasBackgroundAction ? _t("Previous view") : _t("Home menu");
+            menuAppsEl.title = title;
+            menuAppsEl.ariaLabel = title;
+        }
 
         const menuBrand = this.navRef.el.querySelector(".o_menu_brand");
         if (menuBrand) {

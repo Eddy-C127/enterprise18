@@ -12,12 +12,14 @@ import { url } from '@web/core/utils/urls';
 
 export class MainMenu extends Component {
     static props = { ...standardActionServiceProps };
+    static components = {}
     static template = "stock_barcode.MainMenu";
 
     setup() {
         const displayDemoMessage = this.props.action.params.message_demo_barcodes;
         this.actionService = useService('action');
         this.dialogService = useService("dialog");
+        this.pwaService = useService("pwa");
         this.home = useService("home_menu");
         this.notificationService = useService("notification");
         this.state = useState({ displayDemoMessage });
@@ -39,6 +41,10 @@ export class MainMenu extends Component {
                 this.sounds.success.load();
             }
         });
+    }
+
+    logout() {
+        window.open(`/web/session/logout${ this.pwaService.isScopedApp ? "?redirect=scoped_app/barcode" : "" }`, "_self");
     }
 
     openManualBarcodeDialog() {

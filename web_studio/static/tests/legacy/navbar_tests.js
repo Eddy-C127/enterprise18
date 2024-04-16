@@ -2,7 +2,7 @@
 
 import { registerCleanup } from "@web/../tests/helpers/cleanup";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
-import { makeFakeDialogService } from "@web/../tests/helpers/mock_services";
+import { makeFakeDialogService, makeFakePwaService } from "@web/../tests/helpers/mock_services";
 import { mountInFixture } from "@web/../tests/helpers/mount_in_fixture";
 import { click, getFixture, nextTick, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { getActionManagerServerData } from "@web/../tests/webclient/helpers";
@@ -29,6 +29,7 @@ QUnit.module("Studio > Navbar", (hooks) => {
         registerStudioDependencies();
         serviceRegistry.add("action", actionService);
         serviceRegistry.add("dialog", makeFakeDialogService());
+        serviceRegistry.add("pwa", makeFakePwaService());
         serviceRegistry.add("menu", menuService);
         serviceRegistry.add("hotkey", hotkeyService);
         serviceRegistry.add("popover", popoverService);
