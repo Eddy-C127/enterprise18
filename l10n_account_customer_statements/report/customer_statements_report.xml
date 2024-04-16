@@ -46,7 +46,7 @@
                                             <td class="border-start border-end border-dark-subtle align-middle">
                                                 <span t-out="line['date']"/>
                                             </td>
-                                            <td class="border-start border-end border-dark-subtle">
+                                            <td class="border-start border-end border-dark-subtle text-wrap">
                                                 <t t-if="line['move_type']">
                                                     <small t-out="line['move_type']" class="text-muted"/><br/>
                                                 </t>
