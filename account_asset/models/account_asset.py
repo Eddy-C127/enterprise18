@@ -71,9 +71,10 @@ class AccountAsset(models.Model):
         string="Computation",
         required=True, default='constant_periods',
     )
-    prorata_date = fields.Date(  # the starting date of the depreciations
+    prorata_date = fields.Date(
         string='Prorata Date',
         compute='_compute_prorata_date', store=True, readonly=False,
+        help='Starting date of the period used in the prorata calculation of the first depreciation',
         required=True, precompute=True,
         copy=True,
     )
