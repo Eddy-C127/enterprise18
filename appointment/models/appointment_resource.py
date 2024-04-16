@@ -11,7 +11,7 @@ class AppointmentResource(models.Model):
     _inherit = ["avatar.mixin", "resource.mixin"]
     _order = 'sequence,id'
 
-    name = fields.Char('Appointment Resource', related="resource_id.name", store=True, required=True, readonly=False)
+    name = fields.Char('Name', related="resource_id.name", store=True, required=True, readonly=False)
     active = fields.Boolean('Active', related="resource_id.active", default=True, store=True, readonly=False)
     sequence = fields.Integer("Sequence", default=1, required=True,
         help="""The sequence dictates if the resource is going to be picked in higher priority against another resource
