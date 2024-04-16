@@ -5,7 +5,7 @@
         <field name="name">hr.payslip.tree</field>
         <field name="model">hr.payslip</field>
         <field name="arch" type="xml">
-            <tree string="Payslips" sample="1" multi_edit="1">
+            <tree string="Payslips" sample="1" multi_edit="1" duplicate="0">
                 <header>
                     <button string="Print" name="action_print_payslip" type="object"/>
                 </header>
@@ -68,7 +68,7 @@
         <field name="name">hr.payslip.form</field>
         <field name="model">hr.payslip</field>
         <field name="arch" type="xml">
-            <form string="Payslip">
+            <form string="Payslip" duplicate="0">
             <header>
                 <button string="Confirm" name="action_payslip_done" type="object" invisible="state != 'verify'" class="oe_highlight" context="{'payslip_generate_pdf': True}"/>
                 <button string="Mark as paid" name="action_payslip_paid" type="object" invisible="state != 'done'" class="oe_highlight"/>
