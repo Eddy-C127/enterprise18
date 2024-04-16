@@ -27,11 +27,13 @@
                             />
                             <field name="l10n_au_cessation_type_code" invisible="not date_end"/>
                             <label for="l10n_au_withholding_variation"/>
-                            <div class="o_row">
-                                <field name="l10n_au_withholding_variation"/>
-                                <span invisible="l10n_au_withholding_variation == 'none'" class="d-flex">
-                                    <field name="l10n_au_withholding_variation_amount" class="w-25"/>%
-                                </span>
+                            <div class="d-flex align-items-baseline">
+                                <field name="l10n_au_withholding_variation" nolabel="1"
+                                    class="oe_inline" />
+                                <field name="l10n_au_withholding_variation_amount"
+                                    invisible="l10n_au_withholding_variation == 'none'" nolabel="1"
+                                    widget="float" class="oe_inline o_input_6ch" />
+                                <span invisible="l10n_au_withholding_variation == 'none'" class="oe_grey p-2"> %</span>
                             </div>
                         </group>
                         <group name="tax_treatment" string="Tax Treatment" invisible="country_code != 'AU'">

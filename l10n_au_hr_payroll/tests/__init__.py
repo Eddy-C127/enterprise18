@@ -8,3 +8,4 @@ from . import test_regular_payslip
 from . import test_return_to_work_payslip
 from . import test_termination_payslip
 from . import test_whm_payslip
+from . import test_unused_leaves

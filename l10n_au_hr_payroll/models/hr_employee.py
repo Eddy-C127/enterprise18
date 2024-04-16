@@ -45,7 +45,7 @@ class HrEmployee(models.Model):
         store=True,
         required=True,
         readonly=False,
-        default="4",
+        precompute=True,
         groups="hr.group_hr_user")
     l10n_au_nat_3093_amount = fields.Float(
         string="Estimated Tax Offset",
@@ -155,6 +155,8 @@ class HrEmployee(models.Model):
                 employee.l10n_au_scale = "2"
             elif not employee.l10n_au_tax_free_threshold:
                 employee.l10n_au_scale = "1"
+            else:
+                employee.l10n_au_scale = "4"
 
     def _inverse_l10n_au_scale(self):
         for employee in self:

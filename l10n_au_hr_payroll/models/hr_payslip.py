@@ -6,7 +6,7 @@ from math import floor
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo.exceptions import AccessError, UserError
 
 PERIODS_PER_YEAR = {
     "daily": 260,
@@ -51,6 +51,8 @@ class HrPayslip(models.Model):
     def _get_daily_wage(self):
         schedule_pay = self.contract_id.schedule_pay
         wage = self.contract_id.wage
+        if self.contract_id.wage_type == 'hourly':
+            wage *= (1 + self.contract_id.l10n_au_casual_loading)
 
         if schedule_pay == "daily":
             return wage
@@ -89,6 +91,17 @@ class HrPayslip(models.Model):
             for line in payslip.input_line_ids.filtered(lambda line: line.code == "OD"):
                 line.name = line.input_type_id.name.split("-")[1].strip()
         return super()._compute_input_line_ids()
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        payslips = super().create(vals_list)
+        payslips._add_unused_leaves_to_payslip()
+        return payslips
+
+    def action_refresh_from_work_entries(self):
+        # Force Recompute gross unused leaves amounts
+        self.sudo()._add_unused_leaves_to_payslip()
+        super().action_refresh_from_work_entries()
 
     def _l10n_au_get_year_to_date_slips(self):
         start_year = self.contract_id._l10n_au_get_financial_year_start(self.date_from)
@@ -148,7 +161,7 @@ class HrPayslip(models.Model):
         coefficient = PERIODS_PER_YEAR[period_from] / PERIODS_PER_YEAR[period_to]
         return amount * coefficient
 
-    def _l10n_au_compute_withholding_amount(self, period_earning, period, coefficients):
+    def _l10n_au_compute_withholding_amount(self, period_earning, period, coefficients, unused_leaves=False):
         """
         Compute the withholding amount for the given period.
 
@@ -160,11 +173,13 @@ class HrPayslip(models.Model):
         employee_id = self.employee_id
         contract = self.contract_id
         # if custom withholding rate
-        if contract.l10n_au_withholding_variation != 'none':
+        if contract.l10n_au_withholding_variation != "none" and not unused_leaves\
+            or contract.l10n_au_withholding_variation == "leaves":
             return period_earning * contract.l10n_au_withholding_variation_amount / 100
 
         # Compute the weekly earning as per government legislation.
         # They recommend to calculate the weekly equivalent of the earning, if using another pay schedule.
+        # https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/using-a-formula?anchor=Usingaformula#Usingaformula
         weekly_earning = self._l10n_au_compute_weekly_earning(period_earning, period)
         weekly_withhold = 0.0
 
@@ -370,45 +385,116 @@ class HrPayslip(models.Model):
 
         return round(withholding_amount), tax_free_amount
 
-    def _l10n_au_get_leaves_for_withhold(self):
-        self.ensure_one()
+    def _l10n_au_get_unused_leave_by_type(self):
+        """ Returns the amount of unused leaves by type and totals of each type
+        """
         cutoff_dates = [datetime(1978, 8, 16).date(), datetime(1993, 8, 17).date()]
-        leaves_by_date = {
-            "annual": {
-                "pre_1978": 0.0,
-                "pre_1993": 0.0,
-                "post_1993": 0.0,
-            },
-            "long_service": {
-                "pre_1978": 0.0,
-                "pre_1993": 0.0,
-                "post_1993": 0.0,
-            },
-            "leaves_amount": 0.0,
-        }
-        leaves = self.env["hr.leave.allocation"].search([
+        leaves_by_date = defaultdict(lambda:
+            {
+                "annual": {
+                    "pre_1978": 0.0,
+                    "pre_1993": 0.0,
+                    "post_1993": 0.0,
+                },
+                "long_service": {
+                    "pre_1978": 0.0,
+                    "pre_1993": 0.0,
+                    "post_1993": 0.0,
+                },
+            }
+        )
+        allocations = self.env["hr.leave.allocation"].search([
             ("state", "=", "validate"),
             ("holiday_status_id.l10n_au_leave_type", "in", ['annual', 'long_service']),
-            ("employee_id", "=", self.employee_id.id),
-            ("date_from", "<=", self.contract_id.date_end or self.date_to),
+            ("employee_id", "in", self.employee_id.ids),
         ])
-        daily_wage = self._get_daily_wage()
-        for leave in leaves:
-            if leave.leaves_taken == leave.number_of_days:
-                continue
-            leave_type = leaves_by_date[leave.holiday_status_id.l10n_au_leave_type]
-            amount = (leave.number_of_days - leave.leaves_taken) * daily_wage
-            if leave.holiday_status_id.l10n_au_leave_type == 'annual' and self.contract_id.l10n_au_leave_loading == 'regular':
-                amount *= 1 + (self.contract_id.l10n_au_leave_loading_rate / 100)
-
-            if leave.date_from < cutoff_dates[0]:
-                leave_type["pre_1978"] += amount
-            elif leave.date_from < cutoff_dates[1]:
-                leave_type["pre_1993"] += amount
-            else:
-                leave_type["post_1993"] += amount
-            leaves_by_date["leaves_amount"] += amount
+        for payslip in self:
+            for allocation in allocations.filtered(
+                lambda x:
+                    x.employee_id == self.employee_id and
+                    x.date_from <= payslip.contract_id.date_end or payslip.date_to
+                ):
+                leave_type = leaves_by_date[payslip.id][allocation.holiday_status_id.l10n_au_leave_type]
+                unused = allocation.number_of_days - allocation.leaves_taken
+                if allocation.date_from < cutoff_dates[0]:
+                    leave_type["pre_1978"] += unused
+                elif allocation.date_from < cutoff_dates[1]:
+                    leave_type["pre_1993"] += unused
+                else:
+                    leave_type["post_1993"] += unused
         return leaves_by_date
+
+    def _l10n_au_get_unused_leave_totals(self):
+        leaves_by_date = self._l10n_au_get_unused_leave_by_type()
+        if not leaves_by_date:
+            return defaultdict(lambda: {"annual": 0.0, "long_service": 0.0})
+        return {
+            payslip: {
+                'annual': sum(leaves_data['annual'].values()),
+                'long_service': sum(leaves_data['long_service'].values()),
+            } for payslip, leaves_data in leaves_by_date.items()
+        }
+
+    def _l10n_au_get_leaves_for_withhold(self):
+        self.ensure_one()
+        leaves_by_date = self._l10n_au_get_unused_leave_by_type()
+        leave_totals = self._l10n_au_get_unused_leave_totals()
+        # Precomputed values or user input
+        gross_totals = {
+            "annual": self.input_line_ids.filtered(lambda x: x.code == 'AL').amount,
+            "long_service": self.input_line_ids.filtered(lambda x: x.code == 'LSL').amount
+        }
+        leave_amounts = defaultdict(lambda: {
+            "pre_1978": 0.0,
+            "pre_1993": 0.0,
+            "post_1993": 0.0,
+        })
+        unused_leaves_total = sum(gross_totals.values())
+        # Total gross amount is split evenly on the number of day of leaves unused
+        for leave_type, periods in leaves_by_date[self.id].items():
+            if not leave_totals[self.id][leave_type]:
+                continue
+            for period, amount in periods.items():
+                amount *= gross_totals[leave_type] / leave_totals[self.id][leave_type]
+                leave_amounts[leave_type][period] = amount
+        return leave_amounts, unused_leaves_total
+
+    def _add_unused_leaves_to_payslip(self):
+        """ Add the unused leaves to the payslip as input lines """
+        if not (self.env.is_superuser() or self.env.user.has_group('hr_payroll.group_hr_payroll_user')):
+            raise AccessError(_(
+                "You don't have the access rights to link an expense report to a payslip. You need to be a payroll officer to do that.")
+            )
+        termination_slips = self.filtered(
+            lambda p: p.country_code == "AU"
+                and p.state in ["draft", "verify"]
+                and p.l10n_au_termination_type
+        )
+        termination_slips.input_line_ids.filtered(lambda x: x.code in ['AL', 'LSL']).unlink()
+
+        input_vals = []
+        leaves_totals = termination_slips._l10n_au_get_unused_leave_totals()
+        for payslip in termination_slips:
+            daily_wage = payslip._get_daily_wage()
+            annual_gross = leaves_totals[payslip.id]['annual'] * daily_wage
+            long_service_gross = leaves_totals[payslip.id]['long_service'] * daily_wage
+            if payslip.contract_id.l10n_au_leave_loading == 'regular':
+                annual_gross *= 1 + payslip.contract_id.l10n_au_leave_loading_rate / 100
+            if annual_gross:
+                input_vals.append({
+                    'name': _('Gross Unused Annual Leaves'),
+                    'amount': annual_gross,
+                    'input_type_id': self.env.ref('l10n_au_hr_payroll.input_unused_leave_annual').id,
+                    'payslip_id': payslip.id,
+                })
+            if long_service_gross:
+                input_vals.append({
+                    'name': _('Gross Unused Long Service Leaves'),
+                    'amount': long_service_gross,
+                    'input_type_id': self.env.ref('l10n_au_hr_payroll.input_unused_leave_long_service').id,
+                    'payslip_id': payslip.id,
+                })
+        self.env['hr.payslip.input'].create(input_vals)
 
     def _l10n_au_get_unused_leave_hours(self):
         # Only annual and long service leaves are to be taken into account for termination payments
@@ -423,14 +509,26 @@ class HrPayslip(models.Model):
 
     def _l10n_au_calculate_marginal_withhold(self, leave_amount, coefficients, basic_amount):
         self.ensure_one()
+
+        # For scale 4 (no tfn provided), cents are ignored when applying the rate.
+        if self.employee_id.l10n_au_scale == "4":
+            no_tfn_coefficients = self._rule_parameter("l10n_au_withholding_no_tfn")
+            coefficient = no_tfn_coefficients["foreign"] if self.employee_id.is_non_resident else no_tfn_coefficients["national"]
+            withhold = leave_amount * (coefficient / 100)
+            return withhold
+
+        # TFN provided, we apply the normal table to the amount / period.
         period = self.contract_id.schedule_pay
         amount_per_period = leave_amount / PERIODS_PER_YEAR[period]
 
-        normal_withhold = self._l10n_au_compute_withholding_amount(basic_amount, period, coefficients)
-        leave_withhold = self._l10n_au_compute_withholding_amount(basic_amount + amount_per_period, period, coefficients)
+        normal_withhold = self._l10n_au_compute_withholding_amount(basic_amount, period, coefficients, unused_leaves=True)
+        leave_withhold = self._l10n_au_compute_withholding_amount(basic_amount + amount_per_period, period, coefficients, unused_leaves=True)
 
-        extra_withhold = leave_withhold - normal_withhold
-        return extra_withhold * PERIODS_PER_YEAR[period]
+        extra_withhold = (leave_withhold - normal_withhold) * PERIODS_PER_YEAR[period]
+        # <300 apply min(tax_table or 32%)
+        if leave_amount < self._rule_parameter('rule_parameter_leaves_low_threshold'):
+            return min(extra_withhold, leave_amount * self._rule_parameter('rule_parameter_leaves_low_withhold'))
+        return extra_withhold
 
     def _l10n_au_calculate_long_service_leave_withholding(self, leave_withholding_rate, long_service_leaves, basic_amount):
         self.ensure_one()
@@ -470,21 +568,21 @@ class HrPayslip(models.Model):
 
         return flat_withhold + marginal_withhold
 
-    def _l10n_au_compute_unused_leaves_withhold(self, basic_amount):
+    def _l10n_au_compute_unused_leaves_withhold(self):
         self.ensure_one()
-        leaves = self._l10n_au_get_leaves_for_withhold()
+        basic_amount = self.contract_id.wage
+        leaves, leaves_total = self._l10n_au_get_leaves_for_withhold()
         if self.contract_id.l10n_au_withholding_variation == 'leaves':
             l10n_au_leave_withholding = self.contract_id.l10n_au_withholding_variation_amount
-        else:
-            l10n_au_leave_withholding = self._rule_parameter("l10n_au_leave_withholding")
+            return leaves_total * l10n_au_leave_withholding / 100
+
+        l10n_au_leave_withholding = self._rule_parameter("l10n_au_leave_withholding")
         withholding = 0.0
         # 2. Calculate long service leave withholding
-        long_service_leaves = leaves["long_service"]
-        withholding += self._l10n_au_calculate_long_service_leave_withholding(l10n_au_leave_withholding, long_service_leaves, basic_amount)
+        withholding = self._l10n_au_calculate_long_service_leave_withholding(l10n_au_leave_withholding, leaves["long_service"], basic_amount)
         # 3. Calculate annual leave withholding
-        annual_leaves = leaves["annual"]
-        withholding += self._l10n_au_calculate_annual_leave_withholding(l10n_au_leave_withholding, annual_leaves, basic_amount)
-        return leaves["leaves_amount"], withholding, 0.0
+        withholding += self._l10n_au_calculate_annual_leave_withholding(l10n_au_leave_withholding, leaves["annual"], basic_amount)
+        return withholding
 
     def _l10n_au_compute_child_support(self, net_earnings):
         self.ensure_one()

@@ -100,8 +100,7 @@ result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_i
         <field name="condition_python">result = payslip.l10n_au_termination_type</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-leave_amount, _, _ = payslip._l10n_au_compute_unused_leaves_withhold(categories['BASIC'])
-result = leave_amount
+result = (inputs.get("LSL", 0) and inputs.get("LSL").amount) + (inputs.get("AL", 0) and inputs.get("AL").amount)
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>
     </record>
@@ -156,7 +155,7 @@ result = -etp_withholding
         <field name="condition_python">result = payslip.l10n_au_termination_type</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-_, leave_withholding, _ = payslip._l10n_au_compute_unused_leaves_withhold(categories['BASIC'])
+leave_withholding = payslip._l10n_au_compute_unused_leaves_withhold()
 result = -leave_withholding
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>

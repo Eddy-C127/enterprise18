@@ -186,7 +186,7 @@ class HrContract(models.Model):
             ]
             contract.l10n_au_tax_treatment_code = "".join(tax_treatment_code_values)
 
-    @api.depends("wage_type", "hourly_wage")
+    @api.depends("wage_type", "hourly_wage", "schedule_pay")
     def _compute_wage(self):
         Payslip = self.env['hr.payslip']
         for contract in self:

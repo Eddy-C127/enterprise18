@@ -93,7 +93,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=payslip_date,
             payslip_date_to=payslip_end_date,
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_1(self):
@@ -146,7 +146,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_2(self):
@@ -199,7 +199,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_3(self):
@@ -252,7 +252,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_4(self):
@@ -305,7 +305,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     # Patching is faster than generating payslip for the ytd, and has the same effect.
@@ -370,7 +370,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_6(self):
@@ -424,7 +424,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_7(self):
@@ -478,7 +478,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_8(self):
@@ -532,7 +532,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_9(self):
@@ -586,7 +586,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     @patch(
@@ -650,7 +650,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_11(self):
@@ -704,7 +704,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_12(self):
@@ -757,7 +757,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_13(self):
@@ -810,7 +810,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )
 
     def test_termination_withholding_14(self):
@@ -865,5 +865,5 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
             }],
             payslip_date_from=fields.Date.to_date('2024-02-01'),
             payslip_date_to=fields.Date.to_date('2024-02-27'),
-            is_termination=True,
+            termination_type="normal"
         )

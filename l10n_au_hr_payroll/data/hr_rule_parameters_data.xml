@@ -199,6 +199,31 @@
         }</field>
     </record>
 
+    <!-- Low leaves threshold 300 -->
+    <record id="rule_parameter_leaves_low_threshold" model="hr.rule.parameter">
+        <field name="name">Unuused leaves low threshold</field>
+        <field name="code">rule_parameter_leaves_low_threshold</field>
+        <field name="country_id" ref="base.au"/>
+    </record>
+
+    <record id="rule_parameter_leaves_low_threshold_2023" model="hr.rule.parameter.value">
+        <field name="rule_parameter_id" ref="rule_parameter_leaves_low_threshold"/>
+        <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+        <field name="parameter_value">300</field>
+    </record>
+
+
+    <record id="rule_parameter_leaves_low_withhold" model="hr.rule.parameter">
+        <field name="name">Withholding rates for when Unused leaves amount is &lt; $300</field>
+        <field name="code">rule_parameter_leaves_low_withhold</field>
+        <field name="country_id" ref="base.au"/>
+    </record>
+    <record id="rule_parameter_leaves_low_withhold_2023" model="hr.rule.parameter.value">
+        <field name="rule_parameter_id" ref="rule_parameter_leaves_low_withhold"/>
+        <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+        <field name="parameter_value">32</field>
+    </record>
+
     <record id="rule_parameter_withholding_schedule_2" model="hr.rule.parameter">
         <field name="name">Withholding rates</field>
         <field name="code">l10n_au_withholding_schedule_2</field>

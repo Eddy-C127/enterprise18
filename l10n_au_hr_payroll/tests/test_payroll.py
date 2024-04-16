@@ -161,7 +161,7 @@ class TestPayroll(TestPayrollCommon):
         return lines_by_code
 
     def test_withholding_monthly_regular_employee(self):
-        employee_id, contract_id = self.create_employee_and_contract(5000, {'schedule_pay': 'monthly', "l10n_au_training_loan": False})
+        employee_id, contract_id = self.create_employee_and_contract(5000, {'schedule_pay': 'monthly', "l10n_au_training_loan": False, 'scale': '2'})
         no_tfn_structure_type = self.env.ref("l10n_au_hr_payroll.structure_type_no_tfn")
         payslip_id = self.env["hr.payslip"].create({
             "name": "payslip",
@@ -286,7 +286,7 @@ class TestPayroll(TestPayrollCommon):
         })
 
     def test_withholding_weekly_regular_employee(self):
-        employee_id, contract_id = self.create_employee_and_contract(1000, {'schedule_pay': 'weekly', "l10n_au_training_loan": False})
+        employee_id, contract_id = self.create_employee_and_contract(1000, {'schedule_pay': 'weekly', "l10n_au_training_loan": False, 'scale': '2'})
         no_tfn_structure_type = self.env.ref("l10n_au_hr_payroll.structure_type_no_tfn")
         payslip_id = self.env["hr.payslip"].create({
             "name": "payslip",
@@ -362,10 +362,13 @@ class TestPayroll(TestPayrollCommon):
         # because this has to be done manually by the payroll agent
         self.assertEqual(employee_id.contract_id.structure_type_id, no_tfn_structure_type)
         payslip_id.contract_id.structure_type_id = self.env.ref("l10n_au_hr_payroll.structure_type_schedule_1")
-        payslip_id.struct_id = self.default_payroll_structure
-        self.assertEqual(payslip_id.worked_days_line_ids.amount, 1000)
         payslip_id.contract_id.schedule_pay = "weekly"
+        payslip_id.struct_id = self.default_payroll_structure
+        payslip_id.date_from = date(2023, 7, 3)
+        payslip_id.date_to = date(2023, 7, 7)
         payslip_id.compute_sheet()
+        # Weekly wage is 1000 in this case
+        self.assertAlmostEqual(payslip_id.worked_days_line_ids.amount, 1000, 0)
 
         lbc = self.lines_by_code(payslip_id.line_ids)
         self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 162, "test scenario 35: TFN applied for but not provided, less than 28 days ago")
@@ -408,13 +411,13 @@ class TestPayroll(TestPayrollCommon):
         })
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
-        self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 150, "test scenario 39: Withholding variation")
+        self.assertAlmostEqual(-lbc["WITHHOLD.TOTAL"]["total"], 150, 0, "test scenario 39: Withholding variation")
         payslip_id.contract_id.write({
             "l10n_au_withholding_variation": 'none',
         })
 
     def test_termination_payment_unused_leaves(self):
-        employee_id, contract_id = self.create_employee_and_contract(5000, {'schedule_pay': 'monthly'})
+        employee_id, contract_id = self.create_employee_and_contract(5000, {'schedule_pay': 'monthly', 'scale': '2'})
         # Allocate Holidays
         self.env['hr.leave.allocation'].create([{
             'name': 'Paid Time Off 2023-24',

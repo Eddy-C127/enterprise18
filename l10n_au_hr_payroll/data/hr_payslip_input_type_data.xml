@@ -260,4 +260,16 @@
         <field name="country_id" ref="base.au"/>
         <field name="l10n_au_is_ote">True</field>
     </record>
+
+    <record id="input_unused_leave_annual" model="hr.payslip.input.type">
+        <field name="name">Unused Annual Leave</field>
+        <field name="code">AL</field>
+        <field name="country_id" ref="base.au"/>
+    </record>
+
+    <record id="input_unused_leave_long_service" model="hr.payslip.input.type">
+        <field name="name">Unused Long Service Leave</field>
+        <field name="code">LSL</field>
+        <field name="country_id" ref="base.au"/>
+    </record>
 </odoo>

@@ -425,7 +425,7 @@ class TestPayrollCommon(TransactionCase):
     def create_employee_and_contract(self, wage, contract_info=False):
         if not contract_info:
             contract_info = {}
-
+        scale = {'l10n_au_scale': contract_info.get('scale')} if contract_info.get('scale', False) else {}
         employee_id = self.env["hr.employee"].create({
             "name": contract_info.get('employee', 'Mel'),
             "resource_calendar_id": self.resource_calendar.id,
@@ -446,9 +446,10 @@ class TestPayrollCommon(TransactionCase):
             "l10n_au_medicare_surcharge": "X",
             "l10n_au_medicare_reduction": "X",
             "l10n_au_child_support_deduction": 0,
-            "l10n_au_scale": contract_info.get('scale', '2'),
             "l10n_au_extra_pay": contract_info.get('extra_pay', False),
-            "l10n_au_training_loan": contract_info.get('l10n_au_training_loan', True)
+            "l10n_au_training_loan": contract_info.get('l10n_au_training_loan', True),
+            "l10n_au_tax_free_threshold": contract_info.get('l10n_au_tax_free_threshold', False),
+            **scale
         })
 
         contract_id = self.env["hr.contract"].create({
@@ -457,7 +458,7 @@ class TestPayrollCommon(TransactionCase):
             "resource_calendar_id": self.resource_calendar.id,
             "company_id": self.australian_company.id,
             "date_start": contract_info.get('contract_date_start', date(2023, 7, 1)),
-            "date_end": False,
+            "date_end": contract_info.get('contract_date_end', False),
             "wage_type": contract_info.get('wage_type', 'monthly'),
             "wage": contract_info.get('wage', wage),
             "l10n_au_casual_loading": contract_info.get('casual_loading', 0),
@@ -485,27 +486,28 @@ class TestPayrollCommon(TransactionCase):
         employee, contract = self.create_employee_and_contract(5000, contract_info)
         return employee, contract
 
-    def _test_payslip(self, employee, contract, expected_lines, expected_worked_days=False, input_lines=False, payslip_date_from=False, payslip_date_to=False, is_termination=False):
+    def _test_payslip(self, employee, contract, expected_lines, expected_worked_days=False, input_lines=False, payslip_date_from=False, payslip_date_to=False, termination_type=False, **kwargs):
         """ This method is to be called in order to test a payslip.
         It will be using the default_payroll_structure field and _prepare_payslip method to set things up, so these
         are expected to be overriden for each class testing a specific structure.
 
         It will test the workdays and line on their content, but also their order.
         """
-        # 1) Create the payslip
-        payslip = self.env["hr.payslip"].create({
-            "name": "payslip",
-            "employee_id": employee.id,
-            "contract_id": contract.id,
-            "struct_id": self.default_payroll_structure.id,
-            "date_from": payslip_date_from or date(2023, 7, 1),
-            "date_to": payslip_date_to or date(2023, 7, 31),
-            "input_line_ids": [Command.create(input_line) for input_line in input_lines] if input_lines else [],
-            "l10n_au_termination_type": "normal" if is_termination else False,
-        })
-
-        # 2) Recompute the payslip.
-        payslip.action_refresh_from_work_entries()
+        # 1) Create the payslip if not given
+        payslip = kwargs.get('payslip', False)
+        if not payslip:
+            payslip = self.env["hr.payslip"].create({
+                "name": "payslip",
+                "employee_id": employee.id,
+                "contract_id": contract.id,
+                "struct_id": self.default_payroll_structure.id,
+                "date_from": payslip_date_from or date(2023, 7, 1),
+                "date_to": payslip_date_to or date(2023, 7, 31),
+                "input_line_ids": [Command.create(input_line) for input_line in input_lines] if input_lines else [],
+                "l10n_au_termination_type": termination_type,
+            })
+            # 2) Recompute the payslip.
+            payslip.action_refresh_from_work_entries()
 
         # 2) Verify the workdays
         if self.default_payroll_structure.use_worked_day_lines:
@@ -531,6 +533,7 @@ class TestPayrollCommon(TransactionCase):
             self.assertAlmostEqual(
                 expected_total,
                 payslip_line.total,
+                places=0,
                 msg=f"Unexpected value for code {expected_code}"
             )
 
