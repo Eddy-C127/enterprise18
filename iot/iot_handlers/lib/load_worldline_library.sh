@@ -14,5 +14,4 @@ if [ -f "${PATH_ZIP_LIB}worldline-ctepv21_07.zip" ]; then
 	sudo cp /etc/ld.so.conf.d/worldline-ctep.conf /root_bypass_ramdisks/etc/ld.so.conf.d/
 	ldconfig
 	sudo cp /etc/ld.so.cache /root_bypass_ramdisks/etc/ld.so.cache
-	sudo service odoo restart
 fi
