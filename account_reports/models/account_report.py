@@ -2020,6 +2020,7 @@ class AccountReport(models.Model):
 
         general_ledger = self.env.ref('account_reports.general_ledger_report')
         account_line_id = general_ledger._get_generic_line_id('account.account', record_id)
+        account_id = self.env['account.account'].browse(record_id)
         gl_options = general_ledger.get_options(options)
         gl_options['unfolded_lines'] = [account_line_id]
 
@@ -2028,6 +2029,7 @@ class AccountReport(models.Model):
             'options': gl_options,
             'ignore_session': True,
         }
+        action_vals['context'] = dict(ast.literal_eval(action_vals['context']), default_filter_accounts=account_id.code)
 
         return action_vals
 
