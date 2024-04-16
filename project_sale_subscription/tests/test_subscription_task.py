@@ -14,6 +14,11 @@ class TestSubscriptionTask(TestSubscriptionCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+
+        cls.env['res.config.settings'].create({
+            'group_project_recurring_tasks': True,
+        }).execute()
+
         cls.env.user.groups_id += cls.env.ref('project.group_project_recurring_tasks')
         cls.project = cls.env['project.project'].with_context({'mail_create_nolog': True}).create({
             'name': 'Project',
@@ -184,3 +189,27 @@ class TestSubscriptionTask(TestSubscriptionCommon):
         renew.order_line[:1].product_uom_qty = 2
         renew.action_confirm()
         self.assertEqual(len(renew.tasks_ids), 1, "One task for renew should be created")
+
+    def test_recurring_task_generation_portal(self):
+        order = self.env['sale.order'].create({
+            'is_subscription': True,
+            'plan_id': self.plan_month.id,
+            'note': "original subscription description",
+            'partner_id': self.partner.id,
+            'sale_order_template_id': self.subscription_tmpl.id,
+        })
+        order_line = self.env['sale.order.line'].create({
+            'order_id': order.id,
+            'product_id': self.product_recurrence.product_variant_id.id,
+        })
+
+        order.with_user(self.user_portal).sudo().action_confirm()
+        self.assertEqual(len(order_line.task_id.recurrence_id), 1)
+
+        self.env['res.config.settings'].create({
+            'group_project_recurring_tasks': False,
+        }).execute()
+
+        order = order.copy()
+        order.with_user(self.user_portal).sudo().action_confirm()
+        self.assertEqual(len(order_line.task_id.recurrence_id), 0)
