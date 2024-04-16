@@ -723,13 +723,14 @@ export class BankRecKanbanController extends KanbanController {
             type: "list",
             noBreadcrumbs: true,
             resModel: "account.move.line",
-            searchMenuTypes: ["filter"],
+            searchMenuTypes: ["filter", "favorite"],
             domain: initParams.domain,
             dynamicFilters: initParams.dynamic_filters,
             context: ctx,
             allowSelectors: false,
             searchViewId: false, // little hack: force to load the search view info
             globalState: initParams.exportState,
+            loadIrFilters: true,
         }
     }
 
@@ -1183,7 +1184,7 @@ export const BankRecKanbanView = {
     ...kanbanView,
     Controller: BankRecKanbanController,
     Renderer: BankRecKanbanRenderer,
-    searchMenuTypes: ["filter"],
+    searchMenuTypes: ["filter", "favorite"],
 };
 
 registry.category("views").add('bank_rec_widget_kanban', BankRecKanbanView);
