@@ -20,7 +20,7 @@ class SaleOrderLog(models.Model):
     user_id = fields.Many2one('res.users', related='order_id.user_id', string='Salesperson', store=True, precompute=True, depends=[])
     team_id = fields.Many2one('crm.team', related='order_id.team_id', string='Sales Team', store=True, precompute=True, depends=[])
     company_id = fields.Many2one('res.company', related='order_id.company_id', string='Company', store=True, precompute=True, depends=[])
-    currency_id = fields.Many2one('res.currency', related='order_id.currency_id', string='Currency', store=True, precompute=True, depends=[])
+    currency_id = fields.Many2one('res.currency', related='order_id.currency_id', string='Currency', store=True, precompute=True, depends=[], readonly=False)
     origin_order_id = fields.Many2one('sale.order', string='Origin Contract', store=True, index=True, precompute=True,
                                       compute='_compute_origin_order_id')
 
@@ -59,9 +59,30 @@ class SaleOrderLog(models.Model):
         if ('subscription_state' not in initial_values or
             ((initial_values['subscription_state'] in SUBSCRIPTION_PROGRESS_STATE) ==
              (order.subscription_state in SUBSCRIPTION_PROGRESS_STATE))):
+            if 'currency_id' in initial_values and initial_values['currency_id'] != order.currency_id:
+                return self._create_currency_log(order, initial_values)
             return self._create_mrr_log(order, initial_values)
         else:
             return self._create_stage_log(order, initial_values)
+
+    def _create_currency_log(self, order, initial_values):
+        new_mrr = max(order.recurring_monthly, 0)
+        old_mrr = max(initial_values.get('recurring_monthly', 0), 0)
+
+        return self.create([{
+            'order_id': order.id,
+            'event_type': '3_transfer',
+            'amount_signed': -old_mrr,
+            'currency_id': initial_values['currency_id'].id,
+            'recurring_monthly': 0,
+            'subscription_state': initial_values.get('subscription_state', order.subscription_state),
+        }, {
+            'order_id': order.id,
+            'event_type': '3_transfer',
+            'amount_signed': new_mrr,
+            'recurring_monthly': new_mrr,
+            'subscription_state': initial_values.get('subscription_state', order.subscription_state),
+        }])
 
     @api.model
     def _create_mrr_log(self, order, initial_values):

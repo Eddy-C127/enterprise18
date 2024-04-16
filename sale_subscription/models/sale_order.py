@@ -92,6 +92,7 @@ class SaleOrder(models.Model):
     pending_transaction = fields.Boolean(help="The last transaction of the order is currently pending",
                                         copy=False)
     payment_term_id = fields.Many2one(tracking=True)
+    currency_id = fields.Many2one(tracking=True)
 
     ###################
     # KPI / reporting #
