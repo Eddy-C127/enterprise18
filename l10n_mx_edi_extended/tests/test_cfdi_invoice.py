@@ -36,3 +36,32 @@ class TestCFDIInvoice(TestMxExtendedEdiCommon):
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_invoice_try_send()
         self._assert_invoice_cfdi(invoice, 'test_invoice_external_trade')
+
+    @freeze_time('2017-01-01')
+    def test_invoice_external_trade_delivery_address(self):
+        self.partner_a.write({
+            'vat': '987654321',
+            'street_name': 'Nevada Street',
+            'street_number': '6',
+            'street_number2': '9',
+            'city': "Nevada City",
+        })
+        invoice = self._create_invoice(
+            l10n_mx_edi_external_trade_type='02',
+            currency_id=self.foreign_curr_1.id,
+            partner_shipping_id=self.partner_a.id,
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'price_unit': 2000.0,
+                    'quantity': 5,
+                    'discount': 20.0,
+                    'l10n_mx_edi_qty_umt': 5.0,
+                    'l10n_mx_edi_price_unit_umt': self.product.lst_price,
+                    'tax_ids': [Command.set(self.tax_0.ids)],
+                }),
+            ],
+        )
+        with self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+        self._assert_invoice_cfdi(invoice, 'test_invoice_external_trade_delivery_address')
