@@ -6,7 +6,17 @@ from odoo.tests.common import HttpCase, tagged
 @tagged('post_install', '-at_install')
 class TestShopFloor(HttpCase):
 
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env['res.config.settings'].create({
+            'group_mrp_routings': True
+        }).execute()
+
     def test_shop_floor(self):
+        self.env['hr.employee'].create({
+            'name': 'Marc Demo'
+        })
         giraffe = self.env['product.product'].create({
             'name': 'Giraffe',
             'type': 'product',
