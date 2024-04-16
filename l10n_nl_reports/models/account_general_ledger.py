@@ -80,8 +80,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                       res_partner_bank.sanitized_acc_number AS partner_sanitized_acc_number,
                       res_bank.bic AS partner_bic,
                       contact.name AS partner_contact_name
-                 FROM {tables}
-                 JOIN res_partner partner ON account_move_line.partner_id = partner.id
+                 FROM res_partner partner
             LEFT JOIN res_country country ON partner.country_id = country.id
             LEFT JOIN res_country_state state ON partner.state_id = state.id
             LEFT JOIN res_partner_bank ON res_partner_bank.partner_id = partner.id
@@ -93,8 +92,11 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                              WHERE contact.parent_id = partner.id
                              LIMIT 1
                       ) AS contact ON TRUE
-                WHERE {where_clause}
-             GROUP BY partner.id, state.id, country.id, res_partner_bank.id, res_bank.id, credit_limit.id, contact.name
+                WHERE partner.id IN (
+                          SELECT DISTINCT account_move_line.partner_id
+                            FROM {tables}
+                           WHERE {where_clause}
+                      )
              ORDER BY partner.id
         """, where_params
 
