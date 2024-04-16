@@ -10,7 +10,6 @@
                 <field name="is_subscription" invisible="1"/>
                 <field name="subscription_state" invisible="1"/>
                 <field name="end_date" invisible="1"/>
-                <field name="archived_product_count" invisible="1"/>
                 <field name="has_recurring_line" invisible="1"/>
             </xpath>
             <button id="create_invoice" position="before">
@@ -120,15 +119,6 @@
                      invisible="subscription_state != '1_draft' or state not in ['draft', 'sent']">Subscription Quotation</div>
                 <div name="subscription_to_renew" class="float-end fs-6 badge rounded-pill fw-bold text-bg-warning"
                      invisible="not display_late">To Renew</div>
-            </xpath>
-            <xpath expr="//header" position="after">
-                <div role="alert" class="alert alert-warning p-3 text-center" invisible="archived_product_count == 0">
-                    <button name="action_archived_product" type="object" class="btn-link">
-                        <field name="archived_product_count"/>
-                        archived product(s)
-                    </button>
-                    <span class="align-middle">for this subscription.</span>
-                </div>
             </xpath>
             <field name="show_update_pricelist" position='before'>
                 <label name="plan_label" for="plan_id" invisible="not plan_id and state in ['sale', 'cancel']"/>

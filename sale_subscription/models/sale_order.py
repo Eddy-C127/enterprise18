@@ -130,8 +130,6 @@ class SaleOrder(models.Model):
     is_renewing = fields.Boolean(compute='_compute_is_renewing')
     is_upselling = fields.Boolean(compute='_compute_is_upselling')
     display_late = fields.Boolean(compute='_compute_display_late')
-    archived_product_ids = fields.Many2many('product.product', string='Archived Products', compute='_compute_archived')
-    archived_product_count = fields.Integer("Archived Product", compute='_compute_archived')
     history_count = fields.Integer(compute='_compute_history_count')
     upsell_count = fields.Integer(compute='_compute_upsell_count')
     renewal_count = fields.Integer(compute="_compute_renewal_count")
@@ -310,17 +308,6 @@ class SaleOrder(models.Model):
             # Quotations are handled in the quotation menu
             if order.is_subscription and order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + SUBSCRIPTION_CLOSED_STATE and not self._context.get('force_sale_url'):
                 order.access_url = '/my/subscriptions/%s' % order.id
-
-    @api.depends('order_line.product_id', 'order_line.product_id.active')
-    def _compute_archived(self):
-        # Search which products are archived when reading the subscriptions lines
-        archived_product_ids = self.env['product.product'].search(
-            [('id', 'in', self.order_line.product_id.ids), ('recurring_invoice', '=', True),
-             ('active', '=', False)])
-        for order in self:
-            products = archived_product_ids.filtered(lambda p: p.id in order.order_line.product_id.ids)
-            order.archived_product_ids = [(6, 0, products.ids)]
-            order.archived_product_count = len(products)
 
     def _compute_start_date(self):
         for so in self:
@@ -616,13 +603,6 @@ class SaleOrder(models.Model):
         # the price and _compute_parent_line_id will be recomputed.
         self.order_line.price_unit = False
         super(SaleOrder, self).action_update_prices()
-
-    def action_archived_product(self):
-        archived_product_ids = self.with_context(active_test=False).archived_product_ids
-        action = self.env["ir.actions.actions"]._for_xml_id("product.product_normal_action_sell")
-        action['domain'] = [('id', 'in', archived_product_ids.ids), ('active', '=', False)]
-        action['context'] = dict(literal_eval(action.get('context')), search_default_inactive=True)
-        return action
 
     def action_draft(self):
         for order in self:
