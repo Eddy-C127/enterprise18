@@ -27,6 +27,7 @@ linked to an SO, or only the validated timesheets
         'views/res_config_settings_views.xml',
         'views/sale_timesheet_enterprise_menus.xml',
         'views/project_portal_template.xml',
+        'wizard/sale_make_invoice_advance_views.xml',
     ],
     'demo': [
         'data/sale_timesheet_enterprise_demo.xml'
