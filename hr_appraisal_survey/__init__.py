@@ -12,6 +12,12 @@ def _setup_survey_template(env):
         'appraisal_survey_template_id': default_template.id,
     })
 
+    # if hr_recruitment_survey is alrady installed we need to override survey.survey_user_input_rule_survey_user_read
+    # because otherwise domain that is set in hr_recruitment_survey is wiped out
+    if env['ir.module.module'].search([('name', '=', 'hr_recruitment_survey'), ('state', '=', 'installed')]):
+        rule = env.ref("survey.survey_user_input_rule_survey_user_read", raise_if_not_found=False)
+        if rule:
+            rule.domain_force = [('applicant_id', '=', False), ('survey_id.survey_type', '!=', 'appraisal')]
 
 def uninstall_hook(env):
     xml_ids = [
