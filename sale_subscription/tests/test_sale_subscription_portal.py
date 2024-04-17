@@ -25,3 +25,10 @@ class TestSubscription(TestSubscriptionCommon, HttpCase):
         sub = self.subscription
         sub.action_confirm()
         self.start_tour(self.subscription.get_portal_url(), 'test_sale_subscription_portal')
+
+    def test_sale_subscription_invoice_access_portal(self):
+        sub = self.subscription
+        sub.action_confirm()
+        invoice = sub._cron_recurring_create_invoice()
+        res = self.url_open(f'/my/invoices/{invoice.id}?access_token={invoice.access_token}')
+        self.assertEqual(res.status_code, 200)

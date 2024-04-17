@@ -254,7 +254,7 @@ class CustomerPortal(payment_portal.PaymentPortal):
 class PaymentPortal(payment_portal.PaymentPortal):
 
     def _get_extra_payment_form_values(
-        self, manage_subscription=False, sale_order_id=None, invoice_id=None, access_token=None, **kwargs
+        self, manage_subscription=False, sale_order_id=None, subscription_invoice_id=None, access_token=None, **kwargs
     ):
         """ Override of payment: additional rendering values for subscription order management.
         Sale order transaction for subscription: We need to assign the token once the payment is done.
@@ -264,7 +264,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
         :param bool manage_subscription: Whether the payment form should be adapted to allow
                                          managing subscriptions. This allows distinguishing cases.
         :param str sale_order_id: The sale order for which a payment is made, as a `sale.order` id.
-        :param str invoice_id: The account move for which a payment is made, as a `account.move` id.
+        :param str subscription_invoice_id: The account move for which a payment is made, as a `account.move` id.
         :param str access_token: The access token of the subscription.
         :param dict kwargs: Locally unused keywords arguments.
         :return: The dict of extra payment form values.
@@ -273,7 +273,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
         extra_payment_form_values = super()._get_extra_payment_form_values(
             manage_subscription=manage_subscription,
             sale_order_id=sale_order_id,
-            invoice_id=invoice_id,
+            subscription_invoice_id=subscription_invoice_id,
             access_token=access_token,
             **kwargs,
         )
@@ -296,19 +296,19 @@ class PaymentPortal(payment_portal.PaymentPortal):
                         'message_class': 'alert-success',
                     })
                 })
-        if invoice_id:
-            invoice_id = self._cast_as_int(invoice_id)
+        if subscription_invoice_id:
+            subscription_invoice_id = self._cast_as_int(subscription_invoice_id)
             try:
-                invoice_sudo = self._document_check_access('account.move', invoice_id, access_token)
+                invoice_sudo = self._document_check_access('account.move', subscription_invoice_id, kwargs.get('invoice_access_token'))
             except AccessError:  # It is a payment access token computed on the payment context.
                 if not payment_utils.check_access_token(
-                    access_token,
+                    kwargs.get('invoice_access_token'),
                     kwargs.get('partner_id'),
                     kwargs.get('amount'),
                     kwargs.get('currency_id'),
                 ):
                     raise
-            invoice_sudo = request.env['account.move'].sudo().browse(invoice_id)
+            invoice_sudo = request.env['account.move'].sudo().browse(subscription_invoice_id)
 
             subscription = invoice_sudo.invoice_line_ids.subscription_id
             if subscription:
@@ -461,7 +461,8 @@ class PaymentPortal(payment_portal.PaymentPortal):
         if invoice and subscription_id:
             # The function "_get_extra_payment_form_values" needs the invoice inside the kwargs to work.
             kwargs.update({
-                'invoice_id': invoice.id,
+                'subscription_invoice_id': invoice.id,
+                'invoice_access_token': access_token,
                 **kwargs
             })
         return super()._invoice_get_page_view_values(invoice, access_token, **kwargs)
