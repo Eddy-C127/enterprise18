@@ -14,6 +14,7 @@ COLORS_BY_STATE = {
 
 class HrAppraisalReport(models.Model):
     _name = "hr.appraisal.report"
+    _inherit = "hr.manager.department.report"
     _description = "Appraisal Statistics"
     _order = 'create_date desc'
     _auto = False
@@ -23,7 +24,6 @@ class HrAppraisalReport(models.Model):
     department_id = fields.Many2one('hr.department', string='Department', readonly=True)
     deadline = fields.Date(string="Deadline", readonly=True)
     final_interview = fields.Date(string="Interview", readonly=True)
-    employee_id = fields.Many2one('hr.employee', string="Employee", readonly=True)
     state = fields.Selection([
         ('new', 'To Start'),
         ('pending', 'Appraisal Sent'),

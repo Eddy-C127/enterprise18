@@ -7,11 +7,11 @@
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//templates" position="before">
-                    <field name="appraisals_to_process_count" groups="hr_appraisal.group_hr_appraisal_user"/>
+                    <field name="appraisals_to_process_count"/>
                 </xpath>
 
                 <xpath expr="//div[hasclass('o_kanban_primary_right')]" position="inside">
-                    <div groups="hr_appraisal.group_hr_appraisal_user" t-if="record.appraisals_to_process_count.raw_value > 0" class="row ml16">
+                    <div t-if="record.appraisals_to_process_count.raw_value > 0" class="row ml16">
                         <div class="col">
                             <a name="%(hr_appraisal_action_from_department)d" type="action">
                                 <t t-esc="record.appraisals_to_process_count.raw_value"/> Appraisals
@@ -22,7 +22,7 @@
 
                 <xpath expr="//div[hasclass('o_kanban_manage_reports')]" position="inside">
                     <div role="menuitem">
-                        <a groups="hr_appraisal.group_hr_appraisal_user" class="dropdown-item" name="action_open_appraisals" type="object">
+                        <a class="dropdown-item" name="%(action_appraisal_report_department)d" type="action">
                             Appraisals
                         </a>
                     </div>

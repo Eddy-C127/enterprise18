@@ -104,6 +104,7 @@
                 <filter string="Creation Date" name="filter_create_date" date="create_date"/>
                 <filter string="Deadline Date" name="filter_deadline" date="deadline"/>
                 <field name="employee_id"/>
+                <field name="department_id"/>
                 <group expand="0" string="Extended Filters...">
                     <field name="deadline"/>
                     <field name="state"/>
@@ -127,6 +128,19 @@
         <field name="res_model">hr.appraisal.report</field>
         <field name="view_mode">graph,gantt,calendar,pivot</field>
         <field name="context">{'search_default_month':1,'search_default_department':2,'group_by':[]}</field>
+        <field name="search_view_id" ref="view_appraisal_report_search"/>
+        <field name="domain">[('employee_id.company_id', 'in', allowed_company_ids)]</field>
+    </record>
+
+    <record id="action_appraisal_report_department" model="ir.actions.act_window">
+        <field name="name">Appraisal Analysis</field>
+        <field name="res_model">hr.appraisal.report</field>
+        <field name="view_mode">graph,gantt,calendar,pivot</field>
+        <field name="context">{
+            'search_default_month':1
+            'search_default_department':2,
+            'search_default_department_id': active_id,
+            }</field>
         <field name="search_view_id" ref="view_appraisal_report_search"/>
         <field name="domain">[('employee_id.company_id', 'in', allowed_company_ids)]</field>
     </record>
