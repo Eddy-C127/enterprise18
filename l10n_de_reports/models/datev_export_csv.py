@@ -246,6 +246,9 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         for m in moves:
             payment_account = 0  # Used for non-reconciled payments
 
+            move_balance = 0
+            counterpart_amount = 0
+            last_tax_line_index = 0
             for aml in m.line_ids:
                 if aml.debit == aml.credit:
                     # Ignore debit = credit = 0
@@ -262,6 +265,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 if aml.payment_id:
                     if payment_account == 0:
                         payment_account = account_code
+                        counterpart_amount = aml.balance
                         continue
                     else:
                         to_account_code = payment_account
@@ -276,9 +280,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
                 aml_taxes = aml.tax_ids.compute_all(aml.balance, aml.company_id.currency_id, partner=aml.partner_id, handle_price_include=False)
                 line_amount = aml_taxes['total_included']
+                move_balance += line_amount
 
                 code_correction = ''
                 if aml.tax_ids:
+                    last_tax_line_index = len(lines)
+                    last_tax_line_amount = line_amount
                     codes = set(aml.tax_ids.mapped('l10n_de_datev_code'))
                     if len(codes) == 1:
                         # there should only be one max, else skip code
@@ -319,6 +326,15 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 if options.get('add_attachments') and m.attachment_ids:
                     array[19] = f'BEDI"{m._l10n_de_datev_get_guid()}"'
                 lines.append(array)
+            # In case of epd we actively fix rounding issues by checking the base line and tax line
+            # amounts against the move amount missing cent and adjust the vals accordingly.
+            # Since here we have to recompute the tax values for each line with tax, we need
+            # to replicate the rounding fix logic adding the difference on the last tax line
+            # to avoid creating a difference with the source payment move
+            if m.payment_id and move_balance and counterpart_amount and last_tax_line_index:
+                delta_balance = move_balance + counterpart_amount
+                if delta_balance:
+                    lines[last_tax_line_index][0] = float_repr(last_tax_line_amount - delta_balance, aml.company_id.currency_id.decimal_places).replace('.', ',')
 
         writer.writerows(lines)
         return output.getvalue()
