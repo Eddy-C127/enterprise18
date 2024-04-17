@@ -25,7 +25,7 @@ export const SocialPostFormatterMixinBase = {
         // highlight URLs
         value = value.replace(
             SocialPostFormatterRegex.REGEX_URL,
-            "<a href='$&' target='_blank' rel='noreferrer noopener'>$&</a>");
+            "<a href='$&' class='text-truncate' target='_blank' rel='noreferrer noopener'>$&</a>");
 
         return value;
     },
