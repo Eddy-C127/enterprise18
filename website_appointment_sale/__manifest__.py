@@ -17,6 +17,7 @@
     'assets': {
         'web.assets_frontend': [
             'website_appointment_sale/static/src/scss/website_appointment_sale.scss',
+            'website_appointment_sale/static/src/js/appointment_sale_confirmation.js',
         ],
     },
 }

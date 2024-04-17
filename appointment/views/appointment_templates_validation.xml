@@ -33,7 +33,10 @@
                         <span class="fw-normal" t-out="event.name"/>
                     </h4>
                     <div class="oe_structure"/>
-                    <div class="o_appointment_validation_details o_wappointment_type_options row justify-content-between" t-att-data-appointment-type-id="appointment_type.id">
+                    <div class="o_appointment_validation_details o_wappointment_type_options row justify-content-between"
+                        t-att-data-appointment-type-id="appointment_type.id"
+                        t-att-data-event-access-token="event.access_token"
+                        t-att-data-event-start="event.start">
                         <div t-attf-class="col-12 {{'col-md-8 pe-md-4 pe-lg-5' if (staff_user and based_on_users) or (len(resources) == 1 and appointment_type.assign_method != 'time_auto_assign') else ''}}">
                             <div class="row mb-4">
                                 <div class="col-3">

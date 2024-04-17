@@ -786,6 +786,38 @@ class AppointmentController(http.Controller):
     # APPOINTMENT TYPE JSON DATA
     # ------------------------------------------------------------
 
+    @http.route(['/appointment/get_upcoming_appointments'], type="json", auth="public")
+    def get_upcoming_appointments(self, calendar_event_access_tokens=False):
+        """ Get up to the next 20 upcoming appointments data based on either logged user or info given by list of calendar event tokens
+        :param <list> calendar_event_access_tokens: list of booked appointment access tokens.
+            Uses if user is not logged to find upcoming appointments booked by the partner.
+        :return: return upcoming data in the format: {
+            'next_upcoming_appointment': the next upcoming appointment taken data (access_token, booker, appointment_type, start),
+            'valid_access_tokens': list of access token still available for the user (based on the booker id or the list of access token received)
+                In case, the user is logged we return an empty list to not return private info.
+        }
+        """
+        common_domain = [
+          ('appointment_type_id', '!=', False),
+          ('start', '>', datetime.now()),
+        ]
+        if not request.env.user._is_public():
+            domain = [('appointment_booker_id', '=', request.env.user.partner_id.id)]
+        else:
+            domain = [('access_token', 'in', calendar_event_access_tokens)]
+        upcoming_appointments = request.env['calendar.event'].sudo().search_read(
+            expression.AND([common_domain, domain]),
+            fields=['access_token', 'appointment_booker_id', 'appointment_type_id', 'start'],
+            order="start",
+            limit=20,
+        )
+        if not upcoming_appointments:
+            return False
+        return {
+            'next_upcoming_appointment': upcoming_appointments[0],
+            'valid_access_tokens': [appt['access_token'] for appt in upcoming_appointments] if request.env.user._is_public() else [],
+        }
+
     @http.route(['/appointment/<int:appointment_type_id>/get_message_intro'],
                 type="json", auth="public", methods=['POST'], website=True)
     def get_appointment_message_intro(self, appointment_type_id, **kwargs):

@@ -4,7 +4,9 @@ import { browser } from "@web/core/browser/browser";
 import { rpc } from "@web/core/network/rpc";
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { findInvalidEmailFromText } from  "./utils.js"
+import { deserializeDateTime } from "@web/core/l10n/dates";
 import { _t } from "@web/core/l10n/translation";
+import { session } from '@web/session';
 
 publicWidget.registry.appointmentValidation = publicWidget.Widget.extend({
     selector: '.o_appointment_validation_details',
@@ -21,6 +23,28 @@ publicWidget.registry.appointmentValidation = publicWidget.Widget.extend({
         setTimeout(async () => await browser.navigator.clipboard.writeText(copyButton.dataset.value));
         $(copyButton).tooltip('show');
         setTimeout(() => $(copyButton).tooltip("hide"), 1200);
+    },
+
+    /**
+     * Store in local storage the appointment booked for the appointment type.
+     * This value is used later to display information on the upcoming appointment
+     * if an appointment is already taken. If the user is logged don't store anything
+     * as everything is computed by the /appointment/get_upcoming_appointments route.
+     * @override
+     */
+    start: function() {
+        return this._super(...arguments).then(() => {
+            if (session.user_id) {
+                return;
+            }
+            const eventAccessToken = this.el.dataset.eventAccessToken;
+            const eventStart = this.el.dataset.eventStart && deserializeDateTime(this.el.dataset.eventStart) || false;
+            const allAppointmentsToken = JSON.parse(localStorage.getItem('appointment.upcoming_events_access_token')) || [];
+            if (eventAccessToken && !allAppointmentsToken.includes(eventAccessToken) && eventStart && eventStart > luxon.DateTime.utc()) {
+                allAppointmentsToken.push(eventAccessToken);
+                localStorage.setItem('appointment.upcoming_events_access_token', JSON.stringify(allAppointmentsToken));
+            }
+        });
     },
 
     /**

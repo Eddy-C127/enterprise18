@@ -4,11 +4,22 @@
 from collections import defaultdict
 from datetime import datetime, time
 
-from odoo import models
+from odoo import fields, models
 
 
 class Partner(models.Model):
     _inherit = "res.partner"
+
+    upcoming_appointment_ids = fields.Many2many('calendar.event', string="Upcoming Appointments", compute="_compute_upcoming_appointment_ids")
+
+    def _compute_upcoming_appointment_ids(self):
+        partner_upcoming_appointments = dict(self.env['calendar.event']._read_group(
+            [('appointment_booker_id', 'in', self.ids), ('appointment_type_id', '!=', False), ('start', '>', datetime.now())],
+            ['appointment_booker_id'],
+            ['id:recordset'],
+        ))
+        for partner in self:
+            partner.upcoming_appointment_ids = partner_upcoming_appointments.get(partner, False)
 
     def calendar_verify_availability(self, date_start, date_end):
         """ Verify availability of the partner(s) between 2 datetimes on their calendar.

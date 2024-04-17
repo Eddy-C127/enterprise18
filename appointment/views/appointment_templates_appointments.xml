@@ -90,8 +90,10 @@
                                     <t t-set="step" t-value="20"/>
                                 </t>
                             </nav>
-                            <div class="o_appointment">
-                                <div class="o_appointment_info_main o_wappointment_type_options o_not_editable" t-att-data-appointment-type-id="appointment_type.id">
+                            <div class="o_appointment o_appointment_info">
+                                <div class="o_appointment_info_main o_wappointment_type_options o_not_editable"
+                                    t-att-data-appointment-type-id="appointment_type.id"
+                                    t-att-data-timezone="timezone">
                                     <h4 class="pb-3">Select a date &amp; time</h4>
                                     <div t-if="state in ['failed-staff-user', 'failed-resource']" class="alert alert-danger" role="alert">
                                         <p>
@@ -114,7 +116,7 @@
                                             Please, select another date.
                                         </p>
                                     </div>
-                                    <div t-if="state == 'cancel'" role="alert" class="pb-4">
+                                    <div t-if="state == 'cancel'" role="alert" class="o_appointment_cancelled pb-4">
                                         <i class="fa fa-times text-danger me-2"/><strong>Appointment cancelled!</strong>
                                         You can now choose a different schedule that suits you better.
                                     </div>
@@ -153,7 +155,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-12 col-xl-8">
+                                        <div class="o_appointment_calendar col-12 col-xl-8">
                                             <t t-call="appointment.appointment_calendar"/>
                                             <div t-if="not appointment_type.hide_timezone" t-attf-class="o_appointment_timezone_selection #{'d-none' if month_first_available is False or not appointment_type.active else ''}">
                                                 <form autocomplete="off">
@@ -168,7 +170,7 @@
                                                 </form>
                                             </div>
                                         </div>
-                                        <div t-attf-class="o_not_editable #{'d-none' if month_first_available is False or not appointment_type.active else 'col-12 col-xl-4'}">
+                                        <div t-attf-class="o_appointment_calendar_form o_not_editable #{'d-none' if month_first_available is False or not appointment_type.active else 'col-12 col-xl-4'}">
                                             <form id="slots_form" class="form o_appointment_appointment_info_form" autocomplete="off">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <input type="hidden" name="active" t-att-value="appointment_type.active"/>

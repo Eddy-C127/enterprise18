@@ -2,11 +2,13 @@
 
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { renderToElement, renderToFragment } from "@web/core/utils/render";
+import { serializeDateTime, deserializeDateTime } from "@web/core/l10n/dates";
 import { rpc } from "@web/core/network/rpc";
+import { session } from '@web/session';
 const { DateTime } = luxon;
 
 publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
-    selector: '.o_appointment',
+    selector: '.o_appointment_info',
     events: {
         'change select[name="timezone"]': '_onRefresh',
         'change select[id="selectAppointmentResource"]': '_onRefresh',
@@ -16,6 +18,7 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
         'click .o_slot_button': '_onClickDaySlot',
         'click .o_slot_hours': '_onClickHoursSlot',
         'click button[name="submitSlotInfoSelected"]': '_onClickConfirmSlot',
+        'click .o_appointment_show_calendar': '_onClickShowCalendar',
     },
 
     /**
@@ -23,7 +26,7 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
      */
     start: function () {
         return this._super(...arguments).then(async () => {
-            this.initSlots();
+            await this.initSlots();
             this._removeLoadingSpinner();
             this.$first.click();
         });
@@ -80,9 +83,10 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
      * In case, there is no slots based on capacity chosen then the details and calendar are not hidden.
      * If the appointment is missconfigured (missing user or missing availabilities),
      * display an explicative message. The calendar is then not displayed.
+     * If there is an upcoming appointment booked, display a information before the the calendar
      *
      */
-     _updateSlotAvailability: function () {
+     _updateSlotAvailability: async function () {
         if (!this.$first.length) { // No slot available
             if (!this.$("select[name='resourceCapacity']").length) {
                 this.$('#slots_availabilities').empty();
@@ -104,6 +108,38 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
         }
         if (this.$('.o_appointment_missing_configuration').hasClass('d-none')) {
             this.$('.o_appointment_missing_configuration').removeClass('d-none');
+        }
+        // Check upcoming appointments
+        const allAppointmentsToken = JSON.parse(localStorage.getItem('appointment.upcoming_events_access_token')) || [];
+        const ignoreUpcomingEventUntil = localStorage.getItem('appointment.upcoming_events_ignore_until');
+        if (
+            !this.el.querySelector('.o_appointment_cancelled') &&
+            (!ignoreUpcomingEventUntil || deserializeDateTime(ignoreUpcomingEventUntil) < DateTime.utc()) &&
+            (allAppointmentsToken.length !== 0 || session.user_id !== false)
+        ) {
+            const upcomingAppointmentData = await rpc("/appointment/get_upcoming_appointments", {
+                calendar_event_access_tokens: allAppointmentsToken,
+            });
+            if (upcomingAppointmentData) {
+                this.el.querySelector('div.o_appointment_calendar').classList.add('d-none');
+                this.el.querySelector('div.o_appointment_calendar_form').classList.add('d-none');
+                const timezone = this.el.querySelector('.o_appointment_info_main').dataset.timezone;
+                const upcomingFormattedStart = deserializeDateTime(
+                    upcomingAppointmentData.next_upcoming_appointment.start
+                ).setZone(timezone).toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY);
+                this.el.querySelector('.o_appointment_no_slot_overall_helper').replaceChildren(
+                    renderToElement('Appointment.appointment_info_upcoming_appointment', {
+                        appointmentTypeName: upcomingAppointmentData.next_upcoming_appointment.appointment_type_id[1],
+                        appointmentStart: upcomingFormattedStart,
+                        appointmentToken: upcomingAppointmentData.next_upcoming_appointment.access_token,
+                        partnerId: upcomingAppointmentData.next_upcoming_appointment.appointment_booker_id[0],
+                    }));
+                if (session.user_id === false) {
+                    localStorage.setItem('appointment.upcoming_events_access_token', JSON.stringify(upcomingAppointmentData.valid_access_tokens));
+                }
+            } else {
+                localStorage.removeItem('appointment.upcoming_events_access_token');
+            }
         }
     },
 
@@ -243,6 +279,14 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
             url.searchParams.set("staff_user_id", encodeURIComponent(resourceId));
         }
         document.location = encodeURI(url.href);
+    },
+
+    _onClickShowCalendar: function (ev) {
+        this.el.querySelector('.o_appointment_no_slot_overall_helper').innerHTML = "";
+        this.el.querySelector('div.o_appointment_calendar').classList.remove('d-none');
+        this.el.querySelector('div.o_appointment_calendar_form').classList.remove('d-none');
+        localStorage.setItem("appointment.upcoming_events_ignore_until",
+            serializeDateTime(DateTime.utc().plus({ days: 1 })));
     },
 
     /**
