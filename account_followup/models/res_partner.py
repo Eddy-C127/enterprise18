@@ -371,38 +371,37 @@ class ResPartner(models.Model):
             }
         return followup_lines_info
 
-    def _query_followup_data(self, all_partners=False):
-        self.env['account.move.line'].check_access_rights('read')
-        self.env['account.move.line'].flush_model()
-        self.env['res.partner'].flush_model()
-        self.env['ir.property'].flush_model()
-        self.env['account_followup.followup.line'].flush_model()
+    def _get_all_followup_data(self):
+        if 'res_partner_all_followup' in self.env.cr.cache:
+            return self.env.cr.cache['res_partner_all_followup']
 
-        # Put the data in a cache in the database to avoid running costly query multiple times in same transaction.
+        # Put the data in a cache in the cursor to avoid running costly query multiple times in same transaction.
         # Only do it if the table doesn't exist yet.
-        self.env.cr.execute("SELECT 1 FROM information_schema.tables WHERE table_name='followup_data_cache'")
-        is_cached = self.env.cr.fetchone()
+        query, params = self._get_followup_data_query()
+        self.env.cr.execute(query, params)
+        self.env.cr.cache['res_partner_all_followup'] = {
+            r['partner_id']: r for r in self.env.cr.dictfetchall()
+        }
+        return self.env.cr.cache['res_partner_all_followup']
+
+    def _query_followup_data(self, all_partners=False):
         if all_partners:
-            if not is_cached:
-                query, params = self._get_followup_data_query()
-                self.env.cr.execute(f"""
-                    CREATE TEMP TABLE followup_data_cache (partner_id int4, followup_line_id int4, followup_status varchar) ON COMMIT DROP;
-                    INSERT INTO followup_data_cache {query}
-                """, params)
-            self.env.cr.execute('SELECT * FROM followup_data_cache')
-        else:
-            if not self.ids:
-                return {}
-            elif is_cached:
-                query, params = "SELECT * FROM followup_data_cache WHERE partner_id IN %s", [tuple(self.ids)]
-            else:
-                query, params = self._get_followup_data_query(self.ids)
-            self.env.cr.execute(query, params)
-        result = {r['partner_id']: r for r in self.env.cr.dictfetchall()}
-        return result
+            return self._get_all_followup_data()
+        if not self.ids:
+            return {}
+        if 'res_partner_all_followup' in self.env.cr.cache:
+            cache_dict = self.env.cr.cache['res_partner_all_followup']
+            return {id_: cache_dict[id_] for id_ in self.ids if id_ in cache_dict}
+        query, params = self._get_followup_data_query(self.ids)
+        self.env.cr.execute(query, params)
+        return {r['partner_id']: r for r in self.env.cr.dictfetchall()}
 
     def _get_followup_data_query(self, partner_ids=None):
+        self.env['account.move.line'].check_access_rights('read')
+        self.env['account.move.line'].flush_model()
         self.env['ir.property'].flush_model()
+        self.env['res.partner'].flush_model()
+        self.env['account_followup.followup.line'].flush_model()
         return f"""
             SELECT partner.id as partner_id,
                    ful.id as followup_line_id,
@@ -605,5 +604,5 @@ class ResPartner(models.Model):
         for company in self.env["res.company"].search([]):
             # Since the cache is done by database and not by company, we need to invalidate in this special case
             # where the context is changing in the same transaction
-            self.env.cr.execute("DROP TABLE IF EXISTS followup_data_cache")
+            self.env.cr.cache.pop('res_partner_all_followup', None)
             self.with_context(allowed_company_ids=company.ids)._cron_execute_followup_company()

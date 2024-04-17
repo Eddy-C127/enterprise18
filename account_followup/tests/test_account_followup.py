@@ -42,7 +42,7 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
         partner.invalidate_recordset(['followup_status', 'followup_line_id'])
         # Since we are querying multiple times with data changes in the same transaction (for the purpose of tests),
         # we need to invalidated the cache in database
-        self.env.cr.execute("DROP TABLE IF EXISTS followup_data_cache")
+        self.env.cr.cache.pop('res_partner_all_followup', None)
         res = partner._query_followup_data()
         self.assertEqual(res.get(partner.id, {}).get('followup_status'), status)
         self.assertEqual(res.get(partner.id, {}).get('followup_line_id'), line.id if line else None)
