@@ -3494,7 +3494,7 @@ class AccountReport(models.Model):
         for formula, expressions in formulas_dict.items():
             custom_engine_function = self._get_custom_report_function(formula, 'custom_engine')
             rslt[(formula, expressions)] = custom_engine_function(
-                expressions, options, date_scope, current_groupby, next_groupby, offset=offset, limit=limit, warnings=None)
+                expressions, options, date_scope, current_groupby, next_groupby, offset=offset, limit=limit, warnings=warnings)
         return rslt
 
     def _get_engine_query_tail(self, offset, limit):
@@ -4313,7 +4313,7 @@ class AccountReport(models.Model):
         self.ensure_one()
 
         warnings = {}
-        all_column_groups_expression_totals = self._compute_expression_totals_for_each_column_group(self.line_ids.expression_ids, options)
+        all_column_groups_expression_totals = self._compute_expression_totals_for_each_column_group(self.line_ids.expression_ids, options, warnings=warnings)
 
         # Convert all_column_groups_expression_totals to a json-friendly form (its keys are records)
         json_friendly_column_group_totals = self._get_json_friendly_column_group_totals(all_column_groups_expression_totals)
