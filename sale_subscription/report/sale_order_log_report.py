@@ -76,7 +76,7 @@ class SaleOrderLogReport(models.Model):
                    COALESCE(rcr.rate, 1) AS rate
               FROM res_currency rc
               LEFT JOIN res_currency_rate rcr ON rc.id = rcr.currency_id
-             WHERE rc.active = true 
+             WHERE rc.active = true
                AND (rcr.company_id IS NULL OR (rcr.company_id = {main_company_id.id} AND rcr.name <= CURRENT_DATE))
           ORDER BY rc.id, rcr.name DESC
         )
