@@ -12,6 +12,7 @@ class HrEmployee(models.Model):
     def get_billable_time_target(self, user_ids):
         if self.env.user.has_group("hr_timesheet.group_hr_timesheet_user"):
             return self.sudo().search_read([("user_id", 'in', user_ids)], ["billable_time_target"])
+        return []
 
     _sql_constraints = [
         (
