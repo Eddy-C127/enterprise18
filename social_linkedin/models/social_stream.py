@@ -96,48 +96,60 @@ class SocialStreamLinkedIn(models.Model):
             return f'{json_data["localizedLastName"]} {json_data["localizedFirstName"]}'
         return _('Unknown')
 
+    def _media_urn_to_url(self, media_type, media_urns):
+        if not media_urns:
+            return {}
+        response = self.account_id._linkedin_request(
+            endpoint=media_type,
+            object_ids=media_urns,
+        )
+        return {
+            media: media_values["downloadUrl"]
+            for media, media_values in response.json().get('results', {}).items()
+            if media_values.get("downloadUrl")
+        } if response.ok else {}
+
     def _prepare_linkedin_stream_post_images(self, posts_data):
-        """Fetch the images URLs and insert their URL in posts_data."""
+        """Fetch the images and videos URLs and insert their URL in posts_data."""
         all_image_urns = set()
+        all_video_urns = set()
         for post in posts_data:
             # multi-images post
             images = post.get('content', {}).get('multiImage', {}).get('images', [])
             all_image_urns |= {image['id'] for image in images}
             # single image post
-            if image_urn := post.get('content', {}).get('media', {}).get('id'):
-                all_image_urns.add(image_urn)
+            if media_urn := post.get('content', {}).get('media', {}).get('id'):
+                # make sure it's an image or a video
+                if 'image' in media_urn:
+                    all_image_urns.add(media_urn)
+                elif 'video' in media_urn:
+                    all_video_urns.add(media_urn)
             # article thumbnail
             if thumbnail_urn := post.get('content', {}).get('article', {}).get('thumbnail'):
                 all_image_urns.add(thumbnail_urn)
 
-        if not all_image_urns:
-            return
-
-        response = self.account_id._linkedin_request('images', object_ids=all_image_urns)
-
-        if not response.ok:
-            return
-
         url_by_urn = {
-            image: image_values["downloadUrl"]
-            for image, image_values in response.json()["results"].items()
-            if image_values.get("downloadUrl")
+            **self._media_urn_to_url('images', all_image_urns),
+            **self._media_urn_to_url('videos', all_video_urns),
         }
 
-        # Insert image in the result like the LinkedIn projection should do...
+        # Insert images and videos in the result like the LinkedIn projection should do...
         for post in posts_data:
             # multi-images post
             images = post.get('content', {}).get('multiImage', {}).get('images', [])
             for image in images:
-                image["downloadUrl"] = url_by_urn.get(image.get("id"))
+                image["downloadUrl"] = url_by_urn.get(image.get("id"), '')
 
-            # single image post
-            if image_urn := post.get("content", {}).get("media", {}).get("id"):
-                post["content"]["media"]["downloadUrl"] = url_by_urn.get(image_urn)
+            # single image or video post
+            if media_urn := post.get("content", {}).get("media", {}).get("id"):
+                if 'image' in media_urn:
+                    post["content"]["media"]["downloadUrl"] = url_by_urn.get(media_urn, '')
+                elif 'video' in media_urn:
+                    post['commentary'] = f'{post.get("commentary", "")}\n{url_by_urn.get(media_urn, "")}'.strip()
 
             # article thumbnail
             if thumbnail_urn := post.get("content", {}).get("article", {}).get("thumbnail"):
-                post["content"]["article"]["~thumbnail"] = {"downloadUrl": url_by_urn.get(thumbnail_urn)}
+                post["content"]["article"]["~thumbnail"] = {"downloadUrl": url_by_urn.get(thumbnail_urn, "")}
 
     def _prepare_linkedin_stream_post_values(self, post_data):
         article = post_data.get('content', {}).get('article', {})

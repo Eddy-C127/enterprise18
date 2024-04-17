@@ -23,7 +23,7 @@ QUnit.module('Social Formatter Regex', {}, () => {
             "Hello",
             "<a href='/social_facebook/redirect_to_profile/42/542132?name=Odoo-Social' target='_blank'>Odoo-Social</a>,",
             "check this out:",
-            "<a href='https://www.odoo.com?utm=mail&amp;param=1' target='_blank' rel='noreferrer noopener'>https://www.odoo.com?utm=mail&amp;param=1</a>",
+            "<a href='https://www.odoo.com?utm=mail&amp;param=1' class='text-truncate' target='_blank' rel='noreferrer noopener'>https://www.odoo.com?utm=mail&amp;param=1</a>",
             "<a href='https://www.facebook.com/hashtag/crazydeals' target='_blank'>#crazydeals</a>",
             "<a href='https://www.facebook.com/hashtag/odoo' target='_blank'>#odoo</a>",
         ].join(' '));
@@ -43,7 +43,7 @@ QUnit.module('Social Formatter Regex', {}, () => {
             "Hello",
             "<a href='https://www.instagram.com/Odoo.Social' target='_blank'>@Odoo.Social</a>,",
             "check this out:",
-            "<a href='https://www.odoo.com' target='_blank' rel='noreferrer noopener'>https://www.odoo.com</a>",
+            "<a href='https://www.odoo.com' class='text-truncate' target='_blank' rel='noreferrer noopener'>https://www.odoo.com</a>",
             "<a href='https://www.instagram.com/explore/tags/crazydeals' target='_blank'>#crazydeals</a>",
             "<a href='https://www.instagram.com/explore/tags/odoo' target='_blank'>#odoo</a>",
         ].join(' '));
@@ -61,7 +61,7 @@ QUnit.module('Social Formatter Regex', {}, () => {
 
         assert.equal(finalMessage, [
             "Hello, check this out:",
-            "<a href='https://www.odoo.com' target='_blank' rel='noreferrer noopener'>https://www.odoo.com</a>",
+            "<a href='https://www.odoo.com' class='text-truncate' target='_blank' rel='noreferrer noopener'>https://www.odoo.com</a>",
             "<a href='https://www.linkedin.com/feed/hashtag/crazydeals' target='_blank'>#crazydeals</a>",
             "<a href='https://www.linkedin.com/feed/hashtag/odoo' target='_blank'>#odoo</a>",
         ].join(' '));
@@ -81,7 +81,7 @@ QUnit.module('Social Formatter Regex', {}, () => {
             "Hello",
             "<a href='https://twitter.com/Odoo-Social' target='_blank'>@Odoo-Social</a>,",
             "check this out:",
-            "<a href='https://www.odoo.com' target='_blank' rel='noreferrer noopener'>https://www.odoo.com</a>",
+            "<a href='https://www.odoo.com' class='text-truncate' target='_blank' rel='noreferrer noopener'>https://www.odoo.com</a>",
             "<a href='https://twitter.com/hashtag/crazydeals?src=hash' target='_blank'>#crazydeals</a>",
             "<a href='https://twitter.com/hashtag/odoo?src=hash' target='_blank'>#odoo</a>",
         ].join(' '));
@@ -99,7 +99,7 @@ QUnit.module('Social Formatter Regex', {}, () => {
 
         assert.equal(finalMessage, [
             "Hello, check this out:",
-            "<a href='https://www.odoo.com' target='_blank' rel='noreferrer noopener'>https://www.odoo.com</a>",
+            "<a href='https://www.odoo.com' class='text-truncate' target='_blank' rel='noreferrer noopener'>https://www.odoo.com</a>",
             "<a href='https://www.youtube.com/results?search_query=%23crazydeals' target='_blank'>#crazydeals</a>",
             "<a href='https://www.youtube.com/results?search_query=%23odoo' target='_blank'>#odoo</a>",
         ].join(' '));

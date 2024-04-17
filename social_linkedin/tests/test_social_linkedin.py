@@ -3,6 +3,7 @@
 
 import base64
 import requests
+import json
 
 from unittest.mock import patch
 from odoo.addons.mail.tools import link_preview
@@ -163,3 +164,46 @@ class SocialLinkedinCase(SocialCase):
         self.assertEqual(id_to_urn('urn:li:random:1337', 'li:image'), 'urn:li:image:1337')
         self.assertEqual(urn_to_id('urn:li:image:1337'), '1337')
         self.assertEqual(urn_to_id('urn:li:comment:(urn:li:activity:1234,5678)'), '5678')
+
+    def test_fetch_media_urns(self):
+        """Test that all urns get a download url."""
+        def _patched_linkedin_request(endpoint, *args, **kwargs):
+            response = requests.Response()
+            response.status_code = 200
+            content = {}
+            if 'image' in endpoint:
+                content = {
+                    'results': {
+                        'urn:li:image:456': {'downloadUrl': 'https://example.com/456'},
+                        'urn:li:image:789': {'downloadUrl': 'https://example.com/789'},
+                    }
+                }
+            elif 'video' in endpoint:
+                content = {
+                    'results': {
+                        'urn:li:video:123': {'downloadUrl': 'https://example.com/123'},
+                    }
+                }
+            response._content = json.dumps(content).encode()
+            return response
+
+        fake_post_data = [
+            # Video URN
+            {'content': {'media': {'id': 'urn:li:video:123'}}},
+            # Image URN
+            {'content': {'media': {'id': 'urn:li:image:456'}}},
+            # Multi Image URN
+            {'content': {'multiImage': {'images': [{'id': 'urn:li:image:789'}]}}},
+        ]
+        with patch.object(type(self.env['social.account']), '_linkedin_request', side_effect=_patched_linkedin_request):
+            self.env['social.stream']._prepare_linkedin_stream_post_images(fake_post_data)
+
+        self.assertTrue(fake_post_data)
+        video_data, image_data, multi_data = fake_post_data
+        # Video assert
+        self.assertTrue('downloadUrl' not in video_data['content']['media'])
+        self.assertEqual(video_data['commentary'], 'https://example.com/123')
+        # Image assert
+        self.assertEqual(image_data['content']['media']['downloadUrl'], 'https://example.com/456')
+        # Multi Image assert
+        self.assertEqual(multi_data['content']['multiImage']['images'][0]['downloadUrl'], 'https://example.com/789')
