@@ -2,7 +2,7 @@
 {
     'name': "Documents",
 
-    'summary': "Document management",
+    'summary': "Collect, organize and share documents.",
 
     'description': """
 App to upload and manage your documents.
