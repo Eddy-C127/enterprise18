@@ -163,10 +163,6 @@ export class KnowledgeArticleFormController extends FormController {
 
         // blur to remove focus on the active element
         document.activeElement.blur();
-        
-        if (!this.model.root.isNew) {
-            await this.model.root.save();
-        }
 
         const scrollView = document.querySelector('.o_scroll_view_lg');
         if (scrollView) {
@@ -183,7 +179,14 @@ export class KnowledgeArticleFormController extends FormController {
         }
         // load the new record
         try {
-            await this.model.load({ resId });
+            if (!this.model.root.isNew && (await this.model.root.isDirty())) {
+                await this.model.root.save({
+                    onError: this.onSaveError.bind(this),
+                    nextId: resId,
+                });
+            } else {
+                await this.model.load({ resId });
+            }
         } catch {
             this.actionService.doAction(
                 await this.orm.call('knowledge.article', 'action_home_page', [false]),

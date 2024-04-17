@@ -11,6 +11,7 @@ import {
 import { debounce } from "@web/core/utils/timing";
 import { Deferred, Mutex } from "@web/core/utils/concurrency";
 import { useService } from "@web/core/utils/hooks";
+import { useRecordObserver } from "@web/model/relational_model/utils";
 import {
     App,
     markup,
@@ -77,7 +78,13 @@ const HtmlFieldPatch = {
                 // If the DOM is altered manually (i.e. in a tour when using
                 // `text` instruction on the html_field node, the handlerRef el
                 // is removed, therefore we have to ensure that it exists).
-                const hiddenMountedAnchors = this.behaviorState.handlerRef.el?.querySelectorAll('.o_knowledge_behavior_anchor') || [];
+                const hiddenMountedAnchors = [
+                    ...(this.behaviorState.handlerRef.el?.querySelectorAll(
+                        ".o_knowledge_behavior_anchor"
+                    ) || []),
+                ].filter((anchor) => {
+                    return !anchor.oKnowledgeBehavior?.validator.obsolete;
+                });
                 this.destroyBehaviorApps(new Set([...anchors, ...hiddenMountedAnchors]));
                 // Schedule a scan for new Behavior anchors to render.
                 this.mountBehaviors();
@@ -119,6 +126,13 @@ const HtmlFieldPatch = {
         });
         onWillUnmount(() => {
             this._removeMountBehaviorsListeners();
+        });
+        let previousArticleId;
+        useRecordObserver((record, props) => {
+            if (!previousArticleId || previousArticleId !== record.resId) {
+                previousArticleId = record.resId;
+                this.updateBehaviorsValidator(props);
+            }
         });
         onWillUpdateProps((props) => {
             this.updateBehaviorsValidator(props);
@@ -304,7 +318,7 @@ const HtmlFieldPatch = {
             obsolete: false,
             state: {
                 readonly: props.readonly,
-                record: props.record,
+                recordResId: props.record.resId,
                 valueContainerElement: this.valueContainerElement,
             },
         };
@@ -519,6 +533,7 @@ const HtmlFieldPatch = {
                 props,
             });
             this.behaviorState.appAnchors.add(anchor);
+            anchor.oKnowledgeBehavior.validator = this.behaviorState.validator;
             // App.mount is not resolved if the App is destroyed before it
             // is mounted, so instead, await a Deferred that is resolved
             // when the App is mounted (true) or destroyed (false).
@@ -645,9 +660,6 @@ const HtmlFieldPatch = {
             // Callback to insert a mounted Behavior in the editable.
             props.onReadyToInsertInEditor = () => {
                 const cancelInsertion = () => {
-                    if (this.env.debug) {
-                        console.warn(`Aborting mount operation: the Behavior being inserted does not match the current state of the HtmlField.`);
-                    }
                     this.behaviorState.obsoleteAnchors.add(anchor);
                 };
                 if (

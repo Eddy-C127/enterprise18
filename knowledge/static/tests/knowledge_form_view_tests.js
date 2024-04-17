@@ -1,6 +1,6 @@
 /** @odoo-module */
 
-import { onMounted, onWillStart, status } from "@odoo/owl";
+import { onMounted, onPatched, onWillStart, status } from "@odoo/owl";
 import { FormController } from "@web/views/form/form_controller";
 import { registry } from "@web/core/registry";
 import { click, getFixture, makeDeferred, mockSendBeacon, nextTick, patchWithCleanup } from "@web/../tests/helpers/utils";
@@ -1009,5 +1009,99 @@ QUnit.module("Knowledge - Silenced Failure Cases (Recoverable)", (hooks) => {
         const newBehavior = editor.editable.querySelector('.o_knowledge_behavior_type_template');
         assert.equal(status(newBehavior.oKnowledgeBehavior.root.component), "mounted");
         assert.notEqual(behavior, newBehavior);
+    });
+
+    QUnit.test("Record changed before mounting (destroy obsolete behaviors)", async function (assert) {
+        serverData.models.knowledge_article.records.push({
+            id: 2,
+            display_name: "Other Article",
+            body: "<p class='other_target'><br></p>",
+        });
+        const htmlFieldPatched = makeDeferred();
+        patchWithCleanup(HtmlField.prototype, {
+            setup() {
+                super.setup();
+                onPatched(() => {
+                    if (this.props.record.resId === 2) {
+                        htmlFieldPatched.resolve();
+                    }
+                });
+            }
+        })
+        await makeView({
+            type,
+            resModel,
+            serverData,
+            arch,
+            resId: 1,
+        });
+        htmlField = await htmlFieldPromise;
+        const editor = htmlField.wysiwyg.odooEditor;
+
+        // Patch to control when the mounting is done
+        const isAtWillStart = makeDeferred();
+        const pauseWillStart = makeDeferred();
+        const unpatch = patch(TemplateBehavior.prototype, {
+            setup() {
+                super.setup(...arguments);
+                onWillStart(async () => {
+                    isAtWillStart.resolve();
+                    await pauseWillStart;
+                    unpatch();
+                });
+            }
+        });
+        // Insert a Behavior to mount in the editable
+        const behaviorHTML = `
+            <div class="o_knowledge_behavior_anchor o_knowledge_behavior_type_template">
+                <div data-prop-name="content">
+                    <p><br></p>
+                </div>
+            </div>
+            <p><br></p>
+        `;
+        const anchor = parseHTML(editor.document, behaviorHTML).firstChild;
+        const target = editor.editable.querySelector(".test_target");
+        editor.observerUnactive('test_insert_behavior');
+        editor.editable.replaceChild(anchor, target);
+        editor.observerActive('test_insert_behavior');
+
+        // Wait for the Behavior mounting process to be almost finished
+        await isAtWillStart;
+
+        assert.ok(
+            htmlField.behaviorState.handlerRef.el.querySelector(
+                ".o_knowledge_behavior_type_template"
+            ),
+            "The Behavior anchor should be in the handler (ongoing mounting process)"
+        );
+
+        // open the other article article before the end of the mounting process
+        htmlField.env.openArticle(2);
+        await htmlFieldPatched;
+
+        // wait for mount mutex
+        await htmlField.mountBehaviors();
+
+        // check that the behavior was destroyed and is not present in the
+        // handler anymore
+        assert.ok(
+            editor.editable.querySelector(".other_target"),
+            "The new article should have fully loaded"
+        );
+        assert.notOk(
+            editor.editable.querySelector(".o_knowledge_behavior_type_template"),
+            "The Behavior cannot be mounted in the editable."
+        );
+        assert.notOk(
+            htmlField.behaviorState.handlerRef.el.querySelector(
+                ".o_knowledge_behavior_type_template"
+            ),
+            "The obsolete Behavior should have been destroyed."
+        );
+
+        // allow onWillStart of the obsolete behavior to resolve (to not have
+        // pending promises).
+        pauseWillStart.resolve();
     });
 });
