@@ -38,29 +38,33 @@
     height: 90px;
     z-index: 2;
     cursor: pointer;
+    &:hover {
+        background-color: rgba($color: #017e84, $alpha: 0.4);
+    }
 }
-
+.o_documents_pdf_page_preview {
+    height: 100%;
+}
+.o_documents_pdf_selected_overlay {
+    z-index: 3;
+}
 .o_pdf_page_selected {
-    background-color: rgba($color: #017e84, $alpha: 0.3);
     border: solid 1px $o-brand-primary;
+
+    .o_documents_pdf_selected_overlay {
+        background-color: rgba($color: #017e84, $alpha: 0.3);
+    }
 }
 .o_pdf_page_focused {
     outline: solid 2px $o-brand-primary;
 }
 
 .o_documents_pdf_canvas_wrapper {
-    background-color: black;
+    cursor: zoom-in;
     flex: 1 1 auto;
     flex-flow: column;
     overflow: hidden;
-    color: white;
-    cursor: zoom-in;
     position: relative;
-    transform: translateZ(-10px);
-    
-    &:hover {
-        background-color: #3a635d;
-    }
 }
 
 .o_documents_pdf_button_wrapper {
