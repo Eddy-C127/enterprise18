@@ -113,6 +113,12 @@ class TestSubscriptionStockCommon(TestSubscriptionCommon, ValuationReconciliatio
                 'tax_id': [Command.clear()],
             })]
         })
+        cls.context = {
+            'active_model': 'sale.order',
+            'active_ids': [cls.subscription_order.id],
+            'active_id': cls.subscription_order.id,
+            'default_journal_id': cls.company_data['default_journal_sale'].id,
+        }
 
         # update status
         # cls.subscription_delivery._compute_is_deferred()
@@ -122,6 +128,10 @@ class TestSubscriptionStockCommon(TestSubscriptionCommon, ValuationReconciliatio
             cls.subscription_delivery.write({'start_date': fields.date.today(), 'next_invoice_date': False})
             cls.subscription_order.action_confirm()
             cls.subscription_delivery.action_confirm()
+            cls.subscription_order.picking_ids.move_ids.write({'quantity': cls.subscription_order.order_line.product_uom_qty, 'picked': True})
+            cls.subscription_delivery.picking_ids.move_ids.write({'quantity': cls.subscription_delivery.order_line.product_uom_qty, 'picked': True})
+            cls.subscription_order.picking_ids._action_done()
+            cls.subscription_delivery.picking_ids._action_done()
 
     def simulate_period(self, subscription, date, move_qty=False):
         with freeze_time(date):

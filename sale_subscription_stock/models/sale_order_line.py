@@ -74,8 +74,17 @@ class SaleOrderLine(models.Model):
         """
         lines = self.filtered(lambda line: not line.recurring_invoice or
                                            line.order_id.subscription_state == '7_upsell' or
-                                           line.qty_invoiced or
-                                           (line.product_id.invoice_policy == 'delivery' and line.order_id.start_date and line.order_id.next_invoice_date > line.order_id.start_date))
+                                           (
+                                                line.qty_invoiced and
+                                                line.order_id.last_invoice_date and
+                                                line.order_id.last_invoice_date != line.order_id.start_date
+                                           ) or
+                                           (
+                                                len(line.order_id.order_line.invoice_lines.move_id) == 0 and
+                                                line.order_id.next_invoice_date == (line.order_id.start_date or fields.Date.today()) and
+                                                line.order_id.subscription_state == '3_progress'
+                                           )
+                             )
         return super(SaleOrderLine, lines)._action_launch_stock_rule(previous_product_uom_qty)
 
     @api.model
@@ -111,7 +120,9 @@ class SaleOrderLine(models.Model):
         if not self.recurring_invoice or self.order_id.subscription_state == '7_upsell':
             return values
         # Remove 1 day as normal people thinks in terms of inclusive ranges.
-        current_deadline = self.order_id.next_invoice_date - relativedelta(days=1)
+        current_deadline = self.order_id.next_invoice_date + self.order_id.plan_id.billing_period - relativedelta(days=1) \
+                if self.order_id.next_invoice_date == self.order_id.date_order.date() and not self.order_id.last_invoice_date \
+                else self.order_id.next_invoice_date - relativedelta(days=1)
         current_period_start = self.order_id.last_invoice_date or self.order_id.start_date or fields.Date.today()
         lang_code = self.order_id.partner_id.lang
         format_start = format_date(self.env, current_period_start, lang_code=lang_code)

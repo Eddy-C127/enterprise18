@@ -21,8 +21,8 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
 
         with freeze_time("2022-03-02"):
             self.assertEqual(sub.invoice_count, 0, 'Until the first invoicing, we should not have invoiced anything')
-            self.assertEqual(len(sub.picking_ids), 0,
-                             'Until the first invoicing, we should not have created delivery for anything')
+            self.assertEqual(len(sub.picking_ids), 1,
+                             'After confirming the subscription, we should have created a delivery order')
             self.env['sale.order']._cron_recurring_create_invoice()
             # Check that the invoice information are correct
             self.assertEqual(sub.invoice_count, 1, 'The automated action should have invoiced the first period')
@@ -41,23 +41,21 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
                              'The delivery deadline should correspond to the current period')
             self.assertEqual(move.product_id, self.sub_product_order)
             self.assertEqual(move.product_uom_qty, 1)
-            self.assertEqual(move.quantity, 1)
-            self.assertEqual(sub.order_line.qty_delivered, 0, 'Nothing should be delivered now')
-            # Fulfil the delivery order
-            move.write({'quantity': 1, 'picked': True})
-            sub.picking_ids._action_done()
             self.assertEqual(move.quantity, 1, 'Move should be delivered now')
             self.assertEqual(sub.order_line.qty_delivered, 1, 'Order line should be marked as delivered')
 
     def test_subscription_stock_order_cron(self):
 
-        sub = self.subscription_order
+        sub = self.subscription_order.copy()
 
         # Simulate cron before start_date
         invoice, picking = self.simulate_period(sub, "2022-02-02")
         self.assertEqual(sub.invoice_count, 0, 'Subscription should have 0 invoices before start date')
         self.assertEqual(len(sub.picking_ids), 0, 'Subscription should have 0 delivery order before start date')
 
+        sub.action_confirm()
+        sub.picking_ids.move_ids.write({'quantity': sub.order_line.product_uom_qty, 'picked': True})
+        sub.picking_ids._action_done()
         for n_iter, date in enumerate(["2022-03-02", "2022-04-02", "2022-05-02", "2022-06-02"], 1):
             invoice, picking = self.simulate_period(sub, date)
             self.assertEqual(sub.invoice_count, n_iter, f'Subscription should have {n_iter} invoices at date {date}')
@@ -66,9 +64,11 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
             self.assertEqual(invoice.invoice_line_ids.quantity, 1, 'We should always invoice the same quantity')
             self.assertEqual(invoice.amount_total, 45, 'And the same amount')
             self.assertEqual(invoice.date.isoformat(), date, 'Invoice date should correspond to the current date')
-            self.assertEqual(picking.move_ids.product_uom_qty, 1, 'We should always invoice the same quantity')
-            self.assertEqual((picking.date_deadline.date() - relativedelta(months=1) + relativedelta(days=1)).isoformat(), date,
-                             'Delivery deadline should correspond to the date + one more month')
+            # For first invoice it does not create a new delivery
+            if sub.invoice_count != 1:
+                self.assertEqual(picking.move_ids.product_uom_qty, 1, 'We should always invoice the same quantity')
+                self.assertEqual((picking.date_deadline.date() - relativedelta(months=1) + relativedelta(days=1)).isoformat(), date,
+                                'Delivery deadline should correspond to the date + one more month')
 
         # End of subscription
         sub.write({'end_date': "2022-07-02"})
@@ -142,22 +142,31 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
         self.assertEqual(invoice.invoice_line_ids.quantity, 1, 'We should still invoice the quantity ordered')
 
     def test_subscription_stock_order_under_deliver(self):
-        sub = self.subscription_order
+        sub = self.subscription_order.copy()
         sub.order_line.product_uom_qty = 2
-        self.assertEqual(len(sub.picking_ids), 0, 'Updating the quantity should not create a new delivery')
 
+        with freeze_time("2022-03-02"):
+            sub.write({'start_date': fields.date.today(), 'next_invoice_date': False})
+            sub.action_confirm()
+        picking_id = sub.picking_ids
+        self.assertEqual(len(picking_id), 1, 'After confirming we should create a delivery')
+        for move in picking_id.move_ids:
+            move.write({'quantity': 1, 'picked': True})
+        picking_id._action_done()
+        self.assertEqual(picking_id.move_ids.quantity, 1, 'Check that we under_delivered')
         invoice, picking = self.simulate_period(sub, "2022-03-02", move_qty=1)
-        self.assertEqual(picking.move_ids.quantity, 1, 'Check that we under_delivered')
         self.assertEqual(invoice.invoice_line_ids.quantity, 2, 'We should invoice the quantity ordered')
         self.assertEqual(invoice.amount_total, 45 * 2, 'We should invoice the quantity ordered')
 
-        back_order = sub.picking_ids - picking
+        back_order = sub.picking_ids - picking_id
         self.assertEqual(back_order.move_ids.product_uom_qty, 1, 'We should invoice the quantity ordered')
 
         invoice, picking = self.simulate_period(sub, "2022-04-02")
         self.assertEqual(invoice.invoice_line_ids.quantity, 2, 'We should invoice the ordered quantity')
-        self.assertEqual(back_order.move_ids.mapped('product_uom_qty'), [1, 2],
+        self.assertEqual(back_order.move_ids.mapped('product_uom_qty'), [1.0],
                          'The new delivery should be added to the old one')
+        self.assertEqual(picking.move_ids.product_uom_qty, 2,
+                         'The new delivery should be added for second invoice')
 
     def test_subscription_stock_order_multiple_products(self):
         sub = self.env['sale.order'].create({
@@ -218,7 +227,7 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
             sub.action_confirm()
 
         self.assertEqual(len(sub.picking_ids), 1, 'We should create a delivery order for the non-recurring product')
-        self.assertEqual(sub.picking_ids.move_ids.product_id, self.test_product_order)
+        self.assertEqual(sub.picking_ids.move_ids.product_id.ids, [self.sub_product_order.id, self.test_product_order.id])
 
         # We deliver the non-recurring product
         sub.picking_ids.move_ids.write({'quantity': 1, 'picked': True})
@@ -228,8 +237,6 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
         self.assertEqual(len(invoice.invoice_line_ids), 2, 'We should invoice the 2 lines')
         self.assertEqual(invoice.amount_total, 45 + 1,
                          'Invoice price should be the 1 month pricing + 1$ for the non-recurring product')
-        self.assertEqual(picking.move_ids.product_id, self.sub_product_order,
-                         'We should only deliver the recurring product')
 
         invoice, picking = self.simulate_period(sub, "2022-04-02")
         self.assertEqual(len(invoice.invoice_line_ids), 1, 'We should invoice the recurring line')
@@ -390,7 +397,7 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
                 'A delivery order should be created for non-recurring products'
             )
             self.assertEqual(
-                len(self.subscription_order_with_bom.picking_ids[0].move_ids), 1,
+                len(self.subscription_order_with_bom.picking_ids[0].move_ids), 2,
                 'A move should be added to the picking before invoicing for non-recurring product'
             )
             self.assertEqual(self.subscription_order_with_bom.order_line[0].product_id.qty_available, 100)
@@ -401,14 +408,14 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
                 'A move should be added to the picking after invoicing'
             )
             self.assertTrue(
-                self.sub_product_order.name in picking.move_ids[1].description_bom_line,
+                self.sub_product_order.name in self.subscription_order_with_bom.picking_ids[0].move_ids[0].description_bom_line,
                 'The description should contain the bom line name'
             )
             self.assertEqual(self.subscription_order_with_bom.order_line[0].product_id.qty_available, 98)
 
         # Return the delivery for the first period
         stock_return_picking_form = Form(self.env['stock.return.picking']
-            .with_context(active_ids=picking.ids, active_id=picking.ids[0],
+            .with_context(active_ids=self.subscription_order_with_bom.picking_ids.ids, active_id=self.subscription_order_with_bom.picking_ids.ids[0],
             active_model='stock.picking'))
         stock_return_picking = stock_return_picking_form.save()
         stock_return_picking.product_return_moves.quantity = 1.0
@@ -418,7 +425,7 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
         self.assertEqual(return_picking.state, 'done')
         self.assertEqual(self.subscription_order_with_bom.order_line[0].product_id.qty_available, 100)
         self.assertEqual(
-            len(picking.move_ids), len(first_invoice.invoice_line_ids), 'The invoice lines should match the moves'
+            len(self.subscription_order_with_bom.picking_ids[0].move_ids), len(first_invoice.invoice_line_ids), 'The invoice lines should match the moves'
         )
 
         # create invoice for the second period
@@ -445,3 +452,83 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
             self.env, 'temp_stock_manager', 'stock.group_stock_manager',
         )
         Form(self.env['product.product'].with_user(stock_manager))
+
+    def test_sale_order_with_downpayment_and_picking(self):
+        """
+        Test case to verify the creation of downpayment and full invoices for a sale order with pickings.
+        This test ensures that pickings are created when the sale order is confirmed. It also validates the creation of a 50%
+        downpayment invoice and a full invoice for the sale order. The test checks the absence of new pickings for the downpayment invoice.
+        """
+
+        sub = self.subscription_order
+        with freeze_time("2022-03-02"):
+            self.assertTrue(sub.picking_ids, "Pickings should be created when the sale order is confirmed")
+            initial_picking_count = len(sub.picking_ids)
+
+            self.assertEqual(sub.picking_ids.state, 'done', "Initial picking should be in 'done' state")
+
+            # Create a 50% downpayment invoice
+            downpayment = self.env['sale.advance.payment.inv'].with_context(self.context).create({
+                'advance_payment_method': 'percentage',
+                'amount': 50,
+            })
+            downpayment.create_invoices()
+
+            self.assertEqual(len(sub.invoice_ids), 1, "Downpayment invoice should be created")
+            downpayment_invoice = sub.invoice_ids
+
+            self.assertAlmostEqual(downpayment_invoice.amount_total, sub.amount_total * 0.5, places=2,
+                                    msg="Downpayment invoice amount should be 50% of the sale order total")
+
+            # Post the downpayment invoice
+            downpayment_invoice.action_post()
+            self.assertEqual(downpayment_invoice.state, 'posted', "Downpayment invoice should be in 'posted' state")
+            self.assertEqual(len(sub.picking_ids), initial_picking_count,
+                            "No new picking should be created for the downpayment invoice")
+
+            # Create a full invoice
+            payment = self.env['sale.advance.payment.inv'].with_context(self.context).create({})
+            payment.create_invoices()
+
+            self.assertEqual(len(sub.invoice_ids), 2, "Full invoice should be created")
+
+            full_invoice = sub.invoice_ids.filtered(lambda inv: inv.state == 'draft')
+            self.assertEqual(len(full_invoice), 1, "There should be one draft invoice")
+            self.assertAlmostEqual(
+                    full_invoice.amount_total, sub.amount_total - downpayment_invoice.amount_total, places=2,
+                    msg="Full invoice amount should be the remaining 50% of the sale order total")
+
+            # Post the full invoice
+            full_invoice.action_post()
+            self.assertEqual(full_invoice.state, 'posted', "Full invoice should be in 'posted' state")
+            self.assertEqual(len(sub.picking_ids), initial_picking_count, "No new picking should be created for the full invoice")
+            self.assertTrue(sub.invoice_status == 'invoiced', "The sale order should be fully invoiced")
+
+    def test_sale_order_with_deliveries_and_invoices(self):
+        """
+        Test case to verify the creation of invoices and pickings for a sale order with deliveries.
+        This test ensures that pickings are created when the sale order is confirmed. It validates the creation
+        of the first and second invoices, along with their states. The test also confirms the creation of a new picking
+        for the second invoice.
+        """
+
+        sub = self.subscription_order
+        with freeze_time("2022-03-02"):
+            self.assertTrue(sub.picking_ids, "Pickings should be created when the sale order is confirmed")
+            initial_picking_count = len(sub.picking_ids)
+            self.assertEqual(sub.picking_ids.state, 'done', "Initial picking should be in 'done' state")
+
+            # Create the first invoice
+            first_invoice, picking = self.simulate_period(sub, "2022-03-02")
+
+            self.assertEqual(first_invoice.state, 'posted', "First invoice should be in 'posted' state")
+            self.assertEqual(len(sub.picking_ids), initial_picking_count, "No new picking should be created for the first invoice")
+
+            # Create the second invoice
+            second_invoice, picking = self.simulate_period(sub, "2022-04-02")
+            self.assertEqual(len(sub.invoice_ids), 2, "Second invoice should be created")
+            self.assertEqual(second_invoice.state, 'posted', "Second invoice should be in 'posted' state")
+
+            # Ensure a new picking is created for the second invoice
+            self.assertEqual(len(sub.picking_ids), initial_picking_count + 1, "A new picking should be created for the second invoice")
+            self.assertEqual(picking.state, 'done', "New picking should be in 'done' state")
