@@ -170,8 +170,6 @@ class HrContract(models.Model):
                 contract.wishlist_car_total_depreciated_cost = 0
             elif contract.new_car and contract.new_car_model_id:
                 car_model = contract.new_car_model_id.with_company(contract.company_id)
-                contract.car_atn = car_model.default_atn
-                contract.company_car_total_depreciated_cost = car_model.default_total_depreciated_cost
                 contract.wishlist_car_total_depreciated_cost = car_model.default_total_depreciated_cost
 
 
