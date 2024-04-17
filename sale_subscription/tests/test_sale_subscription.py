@@ -8,6 +8,7 @@ from unittest.mock import patch
 from odoo.addons.sale_subscription.tests.common_sale_subscription import TestSubscriptionCommon
 from odoo.addons.sale_subscription.models.sale_order import SaleOrder
 from odoo.tests import Form, tagged
+from odoo.tests.common import new_test_user
 from odoo.tools import mute_logger
 from odoo import fields, Command
 from odoo.exceptions import AccessError, ValidationError, UserError
@@ -3757,3 +3758,9 @@ class TestSubscription(TestSubscriptionCommon):
                     self.assertRegex(name, rf"^{sol_name} - 1 Month", "Sub lines require duration")
                 else:
                     self.assertEqual(name, sol_name, "Non-sub lines shouldn't add duration")
+
+    def test_stock_user_without_sale_permission_can_access_product_form(self):
+        stock_manager = new_test_user(
+            self.env, 'temp_stock_manager', 'stock.group_stock_manager',
+        )
+        Form(self.env['product.product'].with_user(stock_manager))

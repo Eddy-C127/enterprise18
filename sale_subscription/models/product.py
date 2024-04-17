@@ -9,7 +9,10 @@ class product_template(models.Model):
         'Subscription Product',
         help='If set, confirming a sale order with this product will create a subscription')
 
-    product_subscription_pricing_ids = fields.One2many('sale.subscription.pricing', 'product_template_id', string="Custom Subscription Pricings", auto_join=True, copy=True)
+    product_subscription_pricing_ids = fields.One2many(
+        'sale.subscription.pricing', 'product_template_id', string="Custom Subscription Pricings",
+        auto_join=True, copy=True, groups='sales_team.group_sale_salesman'
+    )
 
     @api.model
     def _get_incompatible_types(self):
