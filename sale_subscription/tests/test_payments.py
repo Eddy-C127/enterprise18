@@ -242,7 +242,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
              self.mock_mail_gateway():
             self.subscription._create_recurring_invoice()
 
-        invoice = self.subscription.order_line.invoice_lines.move_id
+        invoice = self.subscription.order_line.account_move_line_ids.move_id
         self.assertFalse(invoice, "The draft invoice should be deleted when something goes wrong in _handle_automatic_invoices")
         self.assertEqual(
             self.subscription.next_invoice_date, self.subscription.start_date,
@@ -269,7 +269,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             with self.assertRaises(Exception):
                 invoice.transaction_ids._post_process()
 
-        invoice = self.subscription.order_line.invoice_lines.move_id
+        invoice = self.subscription.order_line.account_move_line_ids.move_id
         self.assertTrue(
             invoice and invoice.state == "posted",
             "The draft invoice has to be kept as we committed after the payment succeeded "
@@ -292,7 +292,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
              self.mock_mail_gateway():
             self.subscription._create_recurring_invoice()
 
-        invoice = self.subscription.order_line.invoice_lines.move_id
+        invoice = self.subscription.order_line.account_move_line_ids.move_id
         self.assertFalse(self.subscription.pending_transaction, "The pending transaction flag should not remain")
         self.assertFalse(invoice, "The draft invoice should be deleted when something goes wrong in _handle_automatic_invoices")
         self.assertEqual(
@@ -307,7 +307,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
         with freeze_time("2021-01-03"):
             self.subscription.action_confirm()
             self.subscription._create_invoices()
-            self.subscription.order_line.invoice_lines.move_id._post()
+            self.subscription.order_line.account_move_line_ids.move_id._post()
             self.assertEqual(self.subscription.next_invoice_date, datetime.date(2021, 2, 3), 'the next invoice date should be updated')
             self.assertEqual(self.subscription.invoice_count, 1)
 
@@ -597,7 +597,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             subscription.write({'transaction_ids': [Command.set(transaction_ids.ids)]})
             subscription.action_confirm()
             subscription._create_invoices(final=True)
-            draft_invoice = subscription.order_line.invoice_lines.move_id.filtered(lambda am: am.state == 'draft')
+            draft_invoice = subscription.order_line.account_move_line_ids.move_id.filtered(lambda am: am.state == 'draft')
             transaction_ids._set_error("Payment declined!")
             transaction_ids._post_process()
             self.assertEqual(len(draft_invoice), 1, "A single draft invoice must be created after the payment was done.")

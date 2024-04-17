@@ -14,13 +14,13 @@
             <t t-if="use_qty_delivered">
                 <t t-set="final_subtotal" t-value="final_subtotal + line.delivered_price_subtotal"/>
                 <t t-set="final_tax" t-value="final_tax + line.delivered_price_tax"/>
-                <t t-set="amount_due" t-value="amount_due + line.delivered_price_total - sum(line.invoice_lines.mapped('price_total'))"/>
+                <t t-set="amount_due" t-value="amount_due + line.delivered_price_total - sum(line.account_move_line_ids.mapped('price_total'))"/>
                 <t t-set="is_any_total_discount_line" t-value="is_any_total_discount_line or (line.discount and line.price_unit != 0 and line.delivered_price_total == 0)"/>
             </t>
             <t t-else="">
                 <t t-set="final_subtotal" t-value="final_subtotal + line.price_subtotal"/>
                 <t t-set="final_tax" t-value="final_tax + line.price_tax"/>
-                <t t-set="amount_due" t-value="amount_due + line.price_total - sum(line.invoice_lines.mapped('price_total'))"/>
+                <t t-set="amount_due" t-value="amount_due + line.price_total - sum(line.account_move_line_ids.mapped('price_total'))"/>
                 <t t-set="is_any_total_discount_line" t-value="is_any_total_discount_line or (line.discount and line.price_unit != 0 and line.price_total == 0)"/>
             </t>
         </t>
