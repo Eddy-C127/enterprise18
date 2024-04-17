@@ -121,6 +121,8 @@ class Payslip(models.Model):
         if self.struct_id.country_id.code != 'HK':
             return res
 
+        if domain is None:
+            domain = []
         current_month_domain = expression.AND(
             [domain, ['|', ('leave_id', '=', False), ('leave_id.date_from', '>=', self.date_from)]])
         res = super()._get_worked_day_lines_values(current_month_domain)
@@ -159,6 +161,8 @@ class Payslip(models.Model):
         if self.struct_id.country_id.code != 'HK':
             return res
 
+        if domain is None:
+            domain = []
         contract = self.contract_id
         if contract.resource_calendar_id:
             if not check_out_of_contract:
