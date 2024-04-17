@@ -72,7 +72,7 @@
                     type="object">
                     <field name="history_count" widget="statinfo" string="Sales History"/>
                 </button>
-                <button invisible="not is_subscription or subscription_state in ['1_draft', '2_renewal']"
+                <button invisible="not is_subscription or subscription_state in ['1_draft', '2_renewal'] or state == 'cancel'"
                     name="action_sale_order_log"
                     class="oe_stat_button"
                     icon="fa-line-chart"

@@ -623,10 +623,8 @@ class SaleOrder(models.Model):
                 if (parent_last_log and
                     parent_last_log.event_type == '3_transfer' and
                     parent_last_log.amount_signed <= 0):
-                    # Delete the parent transfer log if it is the last log of the parent.
-                    parent_last_log.sudo().unlink()
-                    # Reopen the parent order and avoid recreating logs
-                    order.subscription_id.with_context(tracking_disable=True).set_open()
+                    # Reopen the parent order
+                    order.subscription_id.set_open()
                     parent_link = order.subscription_id._get_html_link()
                     cancel_activity_body = _("""Subscription %s has been canceled. The parent order %s has been reopened.
                                                 You should close %s if the customer churned, or renew it if the customer continue the service.

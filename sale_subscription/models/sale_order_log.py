@@ -2,8 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
-from odoo.addons.sale_subscription.models.sale_order import SUBSCRIPTION_STATES, SUBSCRIPTION_PROGRESS_STATE, SUBSCRIPTION_CLOSED_STATE
-from odoo.tools.float_utils import float_is_zero
+from odoo.addons.sale_subscription.models.sale_order import SUBSCRIPTION_STATES, SUBSCRIPTION_DRAFT_STATE, SUBSCRIPTION_PROGRESS_STATE
 
 
 class SaleOrderLog(models.Model):
@@ -53,6 +52,8 @@ class SaleOrderLog(models.Model):
 
     @api.model
     def _create_log(self, order, initial_values):
+        if order.state == 'cancel' and order.order_log_ids:
+            return self._cancel_logs(order, initial_values)
         if (order.subscription_state not in SUBSCRIPTION_PROGRESS_STATE and
             initial_values.get('subscription_state') not in SUBSCRIPTION_PROGRESS_STATE):
             return self.env['sale.order.log']
@@ -65,6 +66,16 @@ class SaleOrderLog(models.Model):
         else:
             return self._create_stage_log(order, initial_values)
 
+    @api.model
+    def _cancel_logs(self, order, initial_values):
+        order.order_log_ids.unlink()
+        if initial_values.get('subscription_state', '1_draft') in SUBSCRIPTION_DRAFT_STATE + SUBSCRIPTION_PROGRESS_STATE and order.subscription_id:
+            parent_last_log = max(order.subscription_id.order_log_ids, key=lambda log: (log.event_date, log.id))
+            if parent_last_log.event_type == '3_transfer' and parent_last_log.amount_signed < 0:
+                parent_last_log.unlink()
+        return self.env['sale.order.log']
+
+    @api.model
     def _create_currency_log(self, order, initial_values):
         new_mrr = max(order.recurring_monthly, 0)
         old_mrr = max(initial_values.get('recurring_monthly', 0), 0)
@@ -101,7 +112,7 @@ class SaleOrderLog(models.Model):
 
     @api.model
     def _create_stage_log(self, order, initial_values):
-        old_state = initial_values.get('subscription_state', '1_draft')
+        old_state = initial_values.get('subscription_state', '1_draft') or '1_draft'
         new_state = order.subscription_state
         if new_state in SUBSCRIPTION_PROGRESS_STATE:
             if old_state == '1_draft':
