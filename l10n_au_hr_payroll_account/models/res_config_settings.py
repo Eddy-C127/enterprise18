@@ -16,6 +16,7 @@ class ResConfigSettings(models.TransientModel):
         compute="_compute_super_payable_account",
         inverse="_set_super_payable_account",
         readonly=False,
+        groups="hr_payroll.group_hr_payroll_manager"
     )
 
     @api.depends('company_id')
@@ -33,4 +34,4 @@ class ResConfigSettings(models.TransientModel):
             raise UserError(_("No clearing house record found for this company!"))
         for rec in self:
             clearing_house.with_company(
-                rec.company_id).property_account_payable_id = rec.l10n_au_superstream_payable_account_id
+                rec.company_id).sudo().property_account_payable_id = rec.l10n_au_superstream_payable_account_id
