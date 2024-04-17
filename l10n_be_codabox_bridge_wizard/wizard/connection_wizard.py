@@ -85,6 +85,17 @@ class L10nBeCodaBoxConnectionWizard(models.TransientModel):
         finally:
             self.fidu_password = False
 
+    def l10n_be_codabox_open_change_password_wizard(self):
+        wizard = self.env['l10n_be_codabox.change.password.wizard'].create({
+            'company_id': self.company_id.id,
+        })
+        return self.company_id._l10n_be_codabox_return_wizard(
+            name=_('Change password'),
+            view_id=self.env.ref('l10n_be_codabox_bridge_wizard.validation_wizard_view').id,
+            res_model='l10n_be_codabox.change.password.wizard',
+            res_id=wizard.id,
+        )
+
     def refresh_connection_status(self):
         self.company_id._l10n_be_codabox_refresh_connection_status()
         return self.do_nothing()
