@@ -20,6 +20,7 @@ The connection must be done by the Accounting Firm.
         'security/ir.model.access.csv',
         'views/res_config_settings_views.xml',
         'views/account_journal_views.xml',
+        'wizard/change_password_wizard.xml',
         'wizard/connection_wizard.xml',
         'wizard/validation_wizard.xml',
     ],

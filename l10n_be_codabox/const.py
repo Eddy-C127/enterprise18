@@ -6,7 +6,7 @@ PROXY_ERROR_CODES = {
     "error_connecting_codabox": _lt("An error occurred while connecting to CodaBox. Please contact Odoo support."),
     "error_connection_not_found": _lt("No connection exists with these Accounting Firm and Company ID numbers. Please check your configuration."),
     "error_consent_not_valid": _lt("It seems that your CodaBox connection is not valid anymore.  Please connect again."),
-    "error_invalid_fidu_password": _lt("The provided password is not valid for this Accounting Firm. You must reuse the password you received from Odoo during your first connection."),
+    "error_invalid_fidu_password": _lt("The provided password is not valid for this Accounting Firm."),
     "error_deprecated": _lt("Please upgrade the module CodaBox."),
 }
 
