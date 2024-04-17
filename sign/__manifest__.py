@@ -107,6 +107,7 @@ Let your customers follow the signature process easily.
             ('include', 'web._assets_bootstrap_frontend'),
 
             'web/static/src/libs/fontawesome/css/font-awesome.css',
+            'web/static/src/scss/fontawesome_overridden.scss',
             ('include', 'web._assets_core'),
 
             'web/static/lib/jquery/jquery.js',
