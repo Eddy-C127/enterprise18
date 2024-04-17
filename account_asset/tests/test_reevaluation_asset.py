@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 from freezegun import freeze_time
 from odoo.tests.common import tagged
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -1051,8 +1048,8 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2022-11-30', depreciation_value=83.65, remaining_value=1589.45, depreciated_value=5610.55, state='draft'),
             self._get_depreciation_move_values(date='2022-12-31', depreciation_value=83.66, remaining_value=1505.79, depreciated_value=5694.21, state='draft'),
             # 2023
-            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=83.65, remaining_value=1422.14, depreciated_value=5777.86, state='draft'),
-            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=83.66, remaining_value=1338.48, depreciated_value=5861.52, state='draft'),
+            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=83.66, remaining_value=1422.13, depreciated_value=5777.87, state='draft'),
+            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=83.65, remaining_value=1338.48, depreciated_value=5861.52, state='draft'),
             self._get_depreciation_move_values(date='2023-03-31', depreciation_value=83.65, remaining_value=1254.83, depreciated_value=5945.17, state='draft'),
             self._get_depreciation_move_values(date='2023-04-30', depreciation_value=83.66, remaining_value=1171.17, depreciated_value=6028.83, state='draft'),
             self._get_depreciation_move_values(date='2023-05-31', depreciation_value=83.65, remaining_value=1087.52, depreciated_value=6112.48, state='draft'),

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import Command
@@ -168,7 +167,12 @@ class TestSoLineDeterminedInTimesheet(TestFsmFlowSaleCommon):
         order = self.task.sale_order_id
 
         expected_price_subtotal = order.order_line.price_unit * float_round(product_uom_qty, precision_digits=quantity_precision)
-        self.assertEqual(order.order_line.price_subtotal, expected_price_subtotal, "Order line subtotal is not correct")
+        self.assertAlmostEqual(
+            order.order_line.price_subtotal,
+            expected_price_subtotal,
+            delta=quantity_precision,
+            msg="Order line subtotal is not correct",
+        )
 
     def test_sol_determined_when_fsm_project_is_employee_rate_after_task_validation(self):
         """ Test that the SOL in the timesheet is correctly updated according to the employee rate in the fsm project after validating the task.

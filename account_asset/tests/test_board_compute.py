@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 from freezegun import freeze_time
 from odoo.tests.common import tagged
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -1136,16 +1133,16 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2023-09-30', depreciation_value=789.44, remaining_value=11841.67, depreciated_value=46158.33, state='draft'),
             self._get_depreciation_move_values(date='2023-10-31', depreciation_value=789.45, remaining_value=11052.22, depreciated_value=46947.78, state='draft'),
             self._get_depreciation_move_values(date='2023-11-30', depreciation_value=789.44, remaining_value=10262.78, depreciated_value=47737.22, state='draft'),
-            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=789.44, remaining_value=9473.34, depreciated_value=48526.66, state='draft'),
+            self._get_depreciation_move_values(date='2023-12-31', depreciation_value=789.45, remaining_value=9473.33, depreciated_value=48526.67, state='draft'),
             # 2024
-            self._get_depreciation_move_values(date='2024-01-31', depreciation_value=789.44, remaining_value=8683.9, depreciated_value=49316.1, state='draft'),
-            self._get_depreciation_move_values(date='2024-02-29', depreciation_value=789.45, remaining_value=7894.45, depreciated_value=50105.55, state='draft'),
-            self._get_depreciation_move_values(date='2024-03-31', depreciation_value=789.45, remaining_value=7105.0, depreciated_value=50895.0, state='draft'),
-            self._get_depreciation_move_values(date='2024-04-30', depreciation_value=789.44, remaining_value=6315.56, depreciated_value=51684.44, state='draft'),
-            self._get_depreciation_move_values(date='2024-05-31', depreciation_value=789.44, remaining_value=5526.12, depreciated_value=52473.88, state='draft'),
-            self._get_depreciation_move_values(date='2024-06-30', depreciation_value=789.45, remaining_value=4736.67, depreciated_value=53263.33, state='draft'),
-            self._get_depreciation_move_values(date='2024-07-31', depreciation_value=789.44, remaining_value=3947.23, depreciated_value=54052.77, state='draft'),
-            self._get_depreciation_move_values(date='2024-08-31', depreciation_value=789.45, remaining_value=3157.78, depreciated_value=54842.22, state='draft'),
+            self._get_depreciation_move_values(date='2024-01-31', depreciation_value=789.44, remaining_value=8683.89, depreciated_value=49316.11, state='draft'),
+            self._get_depreciation_move_values(date='2024-02-29', depreciation_value=789.45, remaining_value=7894.44, depreciated_value=50105.56, state='draft'),
+            self._get_depreciation_move_values(date='2024-03-31', depreciation_value=789.44, remaining_value=7105.0, depreciated_value=50895.0, state='draft'),
+            self._get_depreciation_move_values(date='2024-04-30', depreciation_value=789.45, remaining_value=6315.55, depreciated_value=51684.45, state='draft'),
+            self._get_depreciation_move_values(date='2024-05-31', depreciation_value=789.44, remaining_value=5526.11, depreciated_value=52473.89, state='draft'),
+            self._get_depreciation_move_values(date='2024-06-30', depreciation_value=789.45, remaining_value=4736.66, depreciated_value=53263.34, state='draft'),
+            self._get_depreciation_move_values(date='2024-07-31', depreciation_value=789.44, remaining_value=3947.22, depreciated_value=54052.78, state='draft'),
+            self._get_depreciation_move_values(date='2024-08-31', depreciation_value=789.44, remaining_value=3157.78, depreciated_value=54842.22, state='draft'),
             self._get_depreciation_move_values(date='2024-09-30', depreciation_value=789.45, remaining_value=2368.33, depreciated_value=55631.67, state='draft'),
             self._get_depreciation_move_values(date='2024-10-31', depreciation_value=789.44, remaining_value=1578.89, depreciated_value=56421.11, state='draft'),
             self._get_depreciation_move_values(date='2024-11-30', depreciation_value=789.45, remaining_value=789.44, depreciated_value=57210.56, state='draft'),

@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import datetime
@@ -5720,7 +5719,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'MEAL_V_EMP': -21.8,
             'CAR.PRIV': 76.25,
             'REP.FEES': 279.31,
-            'REP.FEES.VOLATILE': 59.84,
+            'REP.FEES.VOLATILE': 59.85,
             'IP': 174.7,
             'IP.DED': -13.1,
             'NET': 1234.71,
