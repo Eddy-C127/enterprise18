@@ -23,7 +23,10 @@ registry.category("web_tour.tours").add('knowledge_properties_tour', {
 }, { // wait ChildArticle loading
     trigger: '.o_hierarchy_article_name input:value("ChildArticle")',
     run: () => {},
-}, { // click on add properties
+}, { // click on add properties button in dropdown
+    trigger: '#dropdown_tools_panel',
+    run: 'click',
+}, {
     trigger: 'button.o_knowledge_add_properties',
     run: 'click',
 }, {

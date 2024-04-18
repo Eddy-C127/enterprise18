@@ -346,11 +346,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 },
 // Add a random icon
 {
-    // Force the add icon button to be visible (it's only visible on hover)
-    trigger: '.o_knowledge_add_buttons',
-    run: () => {
-        makeVisible('.o_knowledge_add_icon');
-    },
+    trigger: '#dropdown_tools_panel',
 }, {
     // Click on the "add Icon" button
     trigger: '.o_knowledge_add_icon',
@@ -664,13 +660,11 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     trigger: '.o_article_name:contains("Private Child 2")',
 }, {
     // Check that article shows "Add Properties" button
-    trigger: '.o_knowledge_add_buttons',
+    trigger: '#dropdown_tools_panel',
     extra_trigger: '.o_article_active:contains("Private Child 2")',
-    run: () => {
-        if (!document.querySelector('.o_knowledge_add_buttons .o_knowledge_add_properties')) {
-            console.error('Child articles should have properties.');
-        }
-    },
+}, {
+    trigger: '.o_knowledge_add_properties',
+    run: () => {},
 }, {
     trigger: 'section[data-section="private"] .o_article:first:contains("Private Article")',
     run: () => {
@@ -687,12 +681,10 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Check that article was removed from children in favorites
     trigger: '.o_section[data-section="favorites"]:not(:has(.o_article:contains("Private Child 2")))',
-    run: () => {
-        makeVisible('.o_knowledge_add_buttons');
-    }
+    run: () => {}
 }, {
     // Check that article does not show "Add Properties" button anymore
-    trigger: '.o_knowledge_add_buttons:not(:has(button.o_knowledge_add_properties))',
+    trigger: '.o_knowledge_more_options_panel:not(:has(button.o_knowledge_add_properties))',
     run: () => {},
 },
 // Drag and drop root above root

@@ -436,12 +436,10 @@
 
 @media (hover: hover) { // Devices supporting hover
     .o_knowledge_article_view_form_view {
-        .o_knowledge_edit_cover_buttons,
-        .o_knowledge_add_buttons {
+        .o_knowledge_edit_cover_buttons {
             transition: opacity 0.3s ease-in-out;
         }
-        .o_knowledge_cover:not(:hover) .o_knowledge_edit_cover_buttons,
-        .o_knowledge_header:not(:hover) .o_knowledge_add_buttons {
+        .o_knowledge_cover:not(:hover) .o_knowledge_edit_cover_buttons {
             opacity: 0;
         }
         .o_section_header:not(:hover) .o_section_create,

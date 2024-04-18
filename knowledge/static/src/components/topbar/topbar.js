@@ -167,6 +167,9 @@ class KnowledgeTopbar extends Component {
     toggleProperties() {
         this.state.displayPropertyPanel = !this.state.displayPropertyPanel;
         this.env.bus.trigger('KNOWLEDGE:TOGGLE_PROPERTIES', {displayPropertyPanel: this.state.displayPropertyPanel});
+        if (this.state.addingProperty) {
+            this.state.addingProperty = false;
+        }
     }
 
     addProperties() {
