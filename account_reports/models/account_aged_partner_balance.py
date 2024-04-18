@@ -205,9 +205,9 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                     SUM(part.debit_amount_currency) AS debit_amount_currency,
                     part.debit_move_id
                 FROM account_partial_reconcile part
-                WHERE part.max_date <= %s
+                WHERE part.max_date <= %s AND part.debit_move_id = account_move_line.id
                 GROUP BY part.debit_move_id
-            ) part_debit ON part_debit.debit_move_id = account_move_line.id
+            ) part_debit ON TRUE
 
             LEFT JOIN LATERAL (
                 SELECT
@@ -215,9 +215,9 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                     SUM(part.credit_amount_currency) AS credit_amount_currency,
                     part.credit_move_id
                 FROM account_partial_reconcile part
-                WHERE part.max_date <= %s
+                WHERE part.max_date <= %s AND part.credit_move_id = account_move_line.id
                 GROUP BY part.credit_move_id
-            ) part_credit ON part_credit.credit_move_id = account_move_line.id
+            ) part_credit ON TRUE
 
             JOIN period_table ON
                 (
