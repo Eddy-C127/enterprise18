@@ -2774,6 +2774,55 @@ QUnit.module("documents", {}, function () {
                 assert.containsN(target, ".o_kanban_record:not(.o_kanban_ghost)", 3);
             });
 
+            QUnit.test(
+                "document inspector: edit a required field with invalid input and click 'Ok' of alert dialog",
+                async function (assert) {
+                    assert.expect(8);
+                    const views = {
+                        "documents.document,false,kanban": `<kanban js_class="documents_kanban">
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div>
+                                        <field name="name" required="True"/>
+                                        <field name="folder_id" required="True"/>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>`,
+                    };
+                    const { openView } = await createDocumentsViewWithMessaging({
+                        serverData: { views },
+                    });
+                    await openView({
+                        res_model: "documents.document",
+                        views: [[false, "kanban"]],
+                    });
+
+                    // select 'yop' document having workspace 'Workspace1'
+                    await legacyClick(target.querySelector(".o_kanban_record"));
+                    await contains("div[name=name] input", { value: "yop" });
+                    await contains("div[name=folder_id] input", { value: "Workspace1" });
+
+                    // clear document name and click out
+                    await editInput(target, "div[name=name] input", "");
+                    await triggerEvent(target, "", "pointerdown");
+                    await triggerEvent(target, "div[name=folder_id] input", "blur");
+
+                    await contains(".modal-content", { text: "No valid record to save" });
+                    await click(".modal-footer .btn-primary");
+                    await contains("div[name=name] input", { value: "yop" });
+
+                    // clear document workspace and click out
+                    await editInput(target, "div[name=folder_id] input", "");
+                    await triggerEvent(target, "", "pointerdown");
+                    await triggerEvent(target, "div[name=folder_id] input", "blur");
+
+                    await contains(".modal-content", { text: "No valid record to save" });
+                    await click(".modal-footer .btn-primary");
+                    await contains("div[name=folder_id] input", { value: "Workspace1" });
+                }
+            );
+
             QUnit.module("DocumentChatter");
 
             QUnit.test(

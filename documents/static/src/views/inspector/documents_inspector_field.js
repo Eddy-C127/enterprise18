@@ -27,6 +27,11 @@ export class DocumentsInspectorField extends Field {
             record.isDocumentsInspector = true;
             const recordUpdate = record.update.bind(record);
             record.update = async (value) => {
+                if (record.model.multiEdit && record.selected) {
+                    if (!record.isInEdition) {
+                        record.model.root.enterEditMode(record);
+                    }
+                }
                 doLockAction(async () => {
                     await recordUpdate(value);
 
