@@ -26,18 +26,19 @@ class L10nInTestAccountReportsCommon(TestAccountReportsCommon, L10nInTestInvoici
         return cls.env.ref(f'account.{company.id}_{xmlid_suffix}')
 
     @classmethod
-    def _set_vals_and_post(cls, move, ref=None, line_vals=None):
+    def _set_vals_and_post(cls, move, ref=None, line_vals=None, post=True):
         if ref:
             move.ref = ref
 
         if line_vals:
             move.write({'invoice_line_ids': [Command.update(line.id, line_vals) for line in move.line_ids]})
 
-        move.action_post()
+        if post:
+            move.action_post()
         return move
 
     @classmethod
-    def _init_inv(cls, move_type='out_invoice', company=None, ref=None, partner=None, taxes=None, invoice_date=None, products=None, line_vals=None):
+    def _init_inv(cls, move_type='out_invoice', company=None, ref=None, partner=None, taxes=None, invoice_date=None, products=None, line_vals=None, post=True):
         return cls._set_vals_and_post(
             move=cls.init_invoice(
                 move_type,
@@ -49,6 +50,7 @@ class L10nInTestAccountReportsCommon(TestAccountReportsCommon, L10nInTestInvoici
             ),
             ref=ref,
             line_vals=line_vals,
+            post=post
         )
 
     @classmethod

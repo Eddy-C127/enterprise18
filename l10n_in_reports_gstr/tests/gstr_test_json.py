@@ -5,10 +5,57 @@ gstr1_test_json = {
   'fp': TEST_DATE.strftime("%m%Y"),
   'b2b': [
       {
-          "ctin": "24ABCPM8965E1ZE",
+          "ctin": "27DJMPM8965E1ZE",
           "inv": [
               {
-                  "inum": "INV/2023/00011",
+                  "inum": 'INV/2023/00013',
+                  'idt': TEST_DATE.strftime("%d-%m-%Y"),
+                  'val': 2580.0,
+                  'pos': '27',
+                  'rchrg': 'N',
+                  'inv_typ': 'R',
+                  'itms': [
+                      {
+                          'num': 1,
+                          'itm_det': {
+                              'txval': 1000.0,
+                              'iamt': 180.0,
+                              'camt': 0.0,
+                              'samt': 0.0,
+                              'csamt': 0.0,
+                              'rt': 18.0
+                          }
+                      }
+                  ]
+              },
+              {
+                  'inum': 'INV/2023/00001',
+                  'idt': TEST_DATE.strftime("%d-%m-%Y"),
+                  'val': 1180.0,
+                  'pos': '27',
+                  'rchrg': 'N',
+                  'inv_typ': 'R',
+                  'itms': [
+                      {
+                        'num': 1,
+                        'itm_det': {
+                          'txval': 1000.0,
+                          'iamt': 180.0,
+                          'camt': 0.0,
+                          'samt': 0.0,
+                          'csamt': 0.0,
+                          'rt': 18.0
+                          }
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          'ctin': '24ABCPM8965E1ZE',
+          'inv': [
+              {
+                  'inum': "INV/2023/00011",
                   "idt": TEST_DATE.strftime("%d-%m-%Y"),
                   "val": 1180.0,
                   "pos": "24",
@@ -100,32 +147,6 @@ gstr1_test_json = {
                 'iamt': 0.0,
                 'camt': 90.0,
                 'samt': 90.0,
-                'csamt': 0.0,
-                'rt': 18.0
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      'ctin': '27DJMPM8965E1ZE',
-      'inv': [
-        {
-          'inum': 'INV/2023/00001',
-          'idt': TEST_DATE.strftime("%d-%m-%Y"),
-          'val': 1180.0,
-          'pos': '27',
-          'rchrg': 'N',
-          'inv_typ': 'R',
-          'itms': [
-            {
-              'num': 1,
-              'itm_det': {
-                'txval': 1000.0,
-                'iamt': 180.0,
-                'camt': 0.0,
-                'samt': 0.0,
                 'csamt': 0.0,
                 'rt': 18.0
               }
@@ -363,7 +384,7 @@ gstr1_test_json = {
     'inv': [
       {
         'sply_ty': 'INTRB2B',
-        'nil_amt': 500.0,
+        'nil_amt': 1900.0,
         'expt_amt': 500.0,
         'ngsup_amt': 500.0
       }
@@ -375,9 +396,9 @@ gstr1_test_json = {
         'hsn_sc': '01111',
         'uqc': 'UNT',
         'rt': 18,
-        'qty': 7.5,
-        'txval': 128500.0,
-        'iamt': 22950.0,
+        'qty': 9.5,
+        'txval': 129500.0,
+        'iamt': 23130.0,
         'samt': 90.0,
         'camt': 90.0,
         'csamt': 0.0,
@@ -387,8 +408,8 @@ gstr1_test_json = {
         'hsn_sc': '01111',
         'uqc': 'UNT',
         'rt': 0,
-        'qty': 3.0,
-        'txval': 1500.0,
+        'qty': 5.0,
+        'txval': 2900.0,
         'iamt': 0.0,
         'samt': 0.0,
         'camt': 0.0,
@@ -966,8 +987,55 @@ gstr2b_test_json = {
 
 gstr1_debit_note_test_json = {
     "gstin": "24AAGCC7144L6ZE",
-    "fp":  TEST_DATE.strftime("%m%Y"),
+    "fp": TEST_DATE.strftime("%m%Y"),
     "b2b": [
+        {
+            "ctin": "27DJMPM8965E1ZE",
+            "inv": [
+                {
+                    "inum": "INV/2023/00024",
+                    "idt": "20-05-2023",
+                    "val": 2580.0,
+                    "pos": "27",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "txval": 1000.0,
+                                "iamt": 180.0,
+                                "camt": 0.0,
+                                "samt": 0.0,
+                                "csamt": 0.0,
+                                "rt": 18.0,
+                            },
+                        }
+                    ],
+                },
+                {
+                    "inum": "INV/2023/00001",
+                    "idt": "20-05-2023",
+                    "val": 1180.0,
+                    "pos": "27",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "txval": 1000.0,
+                                "iamt": 180.0,
+                                "camt": 0.0,
+                                "samt": 0.0,
+                                "csamt": 0.0,
+                                "rt": 18.0,
+                            },
+                        }
+                    ],
+                },
+            ],
+        },
         {
             "ctin": "24ABCPM8965E1ZE",
             "inv": [
@@ -1064,32 +1132,6 @@ gstr1_debit_note_test_json = {
                                 "iamt": 0.0,
                                 "camt": 90.0,
                                 "samt": 90.0,
-                                "csamt": 0.0,
-                                "rt": 18.0,
-                            },
-                        }
-                    ],
-                }
-            ],
-        },
-        {
-            "ctin": "27DJMPM8965E1ZE",
-            "inv": [
-                {
-                    "inum": "INV/2023/00001",
-                    "idt":  TEST_DATE.strftime("%d-%m-%Y"),
-                    "val": 1180.0,
-                    "pos": "27",
-                    "rchrg": "N",
-                    "inv_typ": "R",
-                    "itms": [
-                        {
-                            "num": 1,
-                            "itm_det": {
-                                "txval": 1000.0,
-                                "iamt": 180.0,
-                                "camt": 0.0,
-                                "samt": 0.0,
                                 "csamt": 0.0,
                                 "rt": 18.0,
                             },
@@ -1293,12 +1335,7 @@ gstr1_debit_note_test_json = {
             "itms": [
                 {
                     "num": 1,
-                    "itm_det": {
-                        "rt": 18.0,
-                        "txval": 500.0,
-                        "iamt": 90.0,
-                        "csamt": 0.0,
-                    },
+                    "itm_det": {"rt": 18.0, "txval": 500.0, "iamt": 90.0, "csamt": 0.0},
                 }
             ],
         }
@@ -1309,15 +1346,10 @@ gstr1_debit_note_test_json = {
             "inv": [
                 {
                     "inum": "INV/2023/00009",
-                    "idt":  TEST_DATE.strftime("%d-%m-%Y"),
+                    "idt":   TEST_DATE.strftime("%d-%m-%Y"),
                     "val": 1180.0,
                     "itms": [
-                        {
-                          "rt": 18.0,
-                          "txval": 1000.0,
-                          "iamt": 180.0,
-                          "csamt": 0.0
-                        }
+                        {"rt": 18.0, "txval": 1000.0, "iamt": 180.0, "csamt": 0.0}
                     ],
                 }
             ],
@@ -1327,7 +1359,7 @@ gstr1_debit_note_test_json = {
         "inv": [
             {
                 "sply_ty": "INTRB2B",
-                "nil_amt": 1500.0,
+                "nil_amt": 2900.0,
                 "expt_amt": 1500.0,
                 "ngsup_amt": 1500.0,
             }
@@ -1339,9 +1371,9 @@ gstr1_debit_note_test_json = {
                 "hsn_sc": "01111",
                 "uqc": "UNT",
                 "rt": 18,
-                "qty": 22.5,
-                "txval": 385500.0,
-                "iamt": 68850.0,
+                "qty": 24.5,
+                "txval": 386500.0,
+                "iamt": 69030.0,
                 "samt": 270.0,
                 "camt": 270.0,
                 "csamt": 0.0,
@@ -1351,8 +1383,8 @@ gstr1_debit_note_test_json = {
                 "hsn_sc": "01111",
                 "uqc": "UNT",
                 "rt": 0,
-                "qty": 9.0,
-                "txval": 4500.0,
+                "qty": 11.0,
+                "txval": 5900.0,
                 "iamt": 0.0,
                 "samt": 0.0,
                 "camt": 0.0,

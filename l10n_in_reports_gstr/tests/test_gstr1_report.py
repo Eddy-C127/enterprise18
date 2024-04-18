@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo.tests import tagged
+from odoo import Command
 from .gstr_test_json import gstr1_test_json, gstr1_debit_note_test_json
 import logging
 
@@ -70,6 +71,26 @@ class TestReports(L10nInTestAccountReportsCommon):
 
         # if no tax is applied then it will be out of scope and not considered in GSTR1
         self._init_inv(partner=self.partner_b, taxes=[], line_vals={'price_unit': 500, 'quantity': 2})
+
+        # for b2b invoice with 2 invoice_line_ids having different taxes
+        b2b_invoice_gst_and_nil_rated_tax = self._init_inv(partner=self.partner_b, taxes=self.nil_rated_tax, line_vals={'price_unit': 700, 'quantity': 2}, post=False)
+        existing_line_vals = b2b_invoice.invoice_line_ids[0].read(['product_id', 'account_id', 'price_unit', 'quantity', 'tax_ids'])[0]
+        b2b_invoice_gst_and_nil_rated_tax.write({
+            'invoice_line_ids': [
+                Command.create({
+                    'product_id': existing_line_vals['product_id'][0],
+                    'account_id': existing_line_vals['account_id'][0],
+                    'price_unit': existing_line_vals['price_unit'],
+                    'quantity': existing_line_vals['quantity'],
+                    'tax_ids': [(6, 0, existing_line_vals['tax_ids'])],
+                })
+            ]
+        })
+        b2b_invoice_gst_and_nil_rated_tax.action_post()
+
+        # b2b invoice with special economic zone
+        b2b_sez_invoice_gst_and_nil_rated_tax = b2b_invoice_gst_and_nil_rated_tax.copy(default={'l10n_in_gst_treatment': 'special_economic_zone'})
+        b2b_sez_invoice_gst_and_nil_rated_tax.action_post()
 
     def _create_gstr_report(self, company=None, periodicity='monthly', year=None, month=None):
         return self.env['l10n_in.gst.return.period'].create({
