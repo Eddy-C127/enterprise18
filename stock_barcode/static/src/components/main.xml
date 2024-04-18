@@ -50,7 +50,7 @@
                 </div>
             </t>
         </div>
-        <div t-if="state.view === 'barcodeLines' &amp;&amp; env.model.canBeProcessed" class="o_barcode_lines flex-grow-1"> <!-- Lines -->
+        <div t-if="state.view === 'barcodeLines' &amp;&amp; env.model.canBeProcessed" class="o_barcode_lines list-group flex-grow-1"> <!-- Lines -->
             <t t-foreach="lines" t-as="line" t-key="line.virtual_id">
                 <GroupedLineComponent t-if="line.lines" line="line" displayUOM="groups.group_uom" editLine.bind="onOpenProductPage"/>
                 <LineComponent t-else="" line="line" displayUOM="groups.group_uom" editLine.bind="onOpenProductPage"/>
