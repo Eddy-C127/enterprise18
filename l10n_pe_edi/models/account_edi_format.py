@@ -15,6 +15,7 @@ from odoo import models, api, _, _lt
 from odoo.addons.iap.tools.iap_tools import iap_jsonrpc
 from odoo.exceptions import AccessError
 from odoo.tools import float_round, html_escape
+from markupsafe import Markup, escape
 
 DEFAULT_IAP_ENDPOINT = 'https://l10n-pe-edi.api.odoo.com'
 DEFAULT_IAP_TEST_ENDPOINT = 'https://l10n-pe-edi.test.odoo.com'
@@ -295,9 +296,13 @@ class AccountEdiFormat(models.Model):
 
     def _l10n_pe_edi_get_iap_buy_credits_message(self, company):
         url = self.env['iap.account'].get_credits_url(service_name="l10n_pe_edi")
-        return '''<p><b>%s</b></p><p>%s</p>''' % (
-            _('You have insufficient credits to sign or verify this document!'),
-            _('Please proceed to buy more credits <a href="%s">here.</a>', html_escape(url)),
+        return escape(_(
+            'You have insufficient credits to sign or verify this document!{line_break}'
+            'Please proceed to buy more credits {left}here.{right}'
+        )).format(
+            line_break=Markup('<br/>'),
+            left=Markup('<a href="%s">') % url,
+            right=Markup('</a>')
         )
 
     def _l10n_pe_edi_get_iap_params(self, company):
