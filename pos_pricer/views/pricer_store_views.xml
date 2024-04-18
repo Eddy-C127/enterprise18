@@ -5,7 +5,7 @@
         <field name="name">pricer_store.list</field>
         <field name="model">pricer.store</field>
         <field name="arch" type="xml">
-            <tree string="Pricer Store" editable="bottom">
+            <tree string="Pricer Store">
                 <header>
                     <!-- Button used to manually update the necessary pricer tags -->
                     <!-- The update is only applied to the selected pricer stores -->
@@ -49,7 +49,7 @@
         <field name="name">pricer_store.form</field>
         <field name="model">pricer.store</field>
         <field name="arch" type="xml">
-            <form string="Pricer Store">
+            <form string="Pricer Store" js_class="pricer_quick_pairing_form">
                 <sheet>
                     <group>
                         <field name="name"/>
@@ -57,7 +57,17 @@
                         <field name="pricer_login"/>
                         <field name="pricer_password" password="True"/>
                         <field name="pricer_store_identifier"/>
-                        <field name="pricer_tag_ids" widget="many2many_tags"/>
+                        <field name="pricer_tag_ids" widget="many2many_tags" readonly="1"/>
+                    </group>
+                </sheet>
+                <sheet invisible="not id">
+                    <group string="Quick pairing">
+                        <group>
+                            <field name="dummy_prod_barcode"/>
+                        </group>
+                        <group>
+                            <field name="dummy_tag_barcode"/>
+                        </group>
                     </group>
                 </sheet>
             </form>

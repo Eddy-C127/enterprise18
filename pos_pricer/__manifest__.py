@@ -18,5 +18,10 @@
     ],
     'depends': ['product', 'point_of_sale'],
     'installable': True,
+    'assets': {
+        'web.assets_backend': [
+            'pos_pricer/static/**/*',
+        ],
+    },
     'license': 'OEEL-1',
 }

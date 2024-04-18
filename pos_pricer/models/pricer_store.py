@@ -80,6 +80,19 @@ class PricerStore(models.Model):
         readonly=True,
     )
 
+    # Dummy fields for quick pairing
+    dummy_prod_barcode = fields.Char(
+        string='Product barcode',
+        help='Scan the product barcode here',
+        store=False,
+    )
+
+    dummy_tag_barcode = fields.Char(
+        string='Pricer tag barcode',
+        help='Scan the Pricer tag barcode here',
+        store=False,
+    )
+
     # ------------------------- PRICER API URLs -------------------------
     # For authentification: "https://central-manager.[PRICER_TENANT_NAME].pcm.pricer-plaza.com[PRICER_API_SUFFIX]"
     # For other requests: "https://[PRICER_STORE_NAME].[PRICER_TENANT_NAME].pcm.pricer-plaza.com[PRICER_API_SUFFIX]"
