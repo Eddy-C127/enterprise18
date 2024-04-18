@@ -14,7 +14,12 @@ export const DocumentsModelMixin = (component) =>
         setup(params) {
             for (const field of inspectorFields) {
                 if (!(field in params.config.activeFields)) {
-                    params.config.activeFields[field] = makeActiveField();
+                    if (field === 'folder_id') {
+                        // force required to true for that field, to have proper validation inside the inspector
+                        params.config.activeFields[field] = makeActiveField({ required: true });
+                    } else {
+                        params.config.activeFields[field] = makeActiveField();
+                    }
                 }
             }
             params.config.activeFields.available_rule_ids = Object.assign(
@@ -106,7 +111,7 @@ export const DocumentsRecordMixin = (component) => class extends component {
     async update() {
         const originalFolderId = this.data.folder_id[0];
         await super.update(...arguments);
-        if (this.data.folder_id[0] !== originalFolderId) {
+        if (this.data.folder_id && this.data.folder_id[0] !== originalFolderId) {
             this.model.root._removeRecords(this.model.root.selection.map((rec) => rec.id));
         }
     }
