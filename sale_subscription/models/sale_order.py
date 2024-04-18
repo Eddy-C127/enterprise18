@@ -568,6 +568,23 @@ class SaleOrder(models.Model):
             vals['journal_id'] = self.sale_order_template_id.journal_id.id
         return vals
 
+    @api.depends('order_line.qty_invoiced')
+    def _compute_amount_to_invoice(self):
+        non_recurring = self.env['sale.order']
+        for order in self:
+            if not order.is_subscription:
+                non_recurring += order
+                continue
+
+            order.amount_to_invoice = 0
+            for line in order.order_line:
+                if line.recurring_invoice:
+                    order.amount_to_invoice += line.price_total
+                else:
+                    order.amount_to_invoice += line.price_total * line.qty_to_invoice / (line.product_uom_qty or 1)
+
+        super(SaleOrder, non_recurring)._compute_amount_to_invoice()
+
     def _notify_thread(self, message, msg_vals=False, **kwargs):
         if not kwargs.get('model_description') and self.is_subscription:
             kwargs['model_description'] = _("Subscription")

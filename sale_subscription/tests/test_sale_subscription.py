@@ -2785,6 +2785,46 @@ class TestSubscription(TestSubscriptionCommon):
         with self.assertRaises(AccessError):
             close_reason.unlink()
 
+    def test_amount_to_invoice(self):
+        sub = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'plan_id': self.plan_month.id,
+            'order_line': [
+                (0, 0, {
+                    'name': self.product.name,
+                    'product_id': self.product.id,
+                    'product_uom_qty': 10.0,
+                    'product_uom': self.product.uom_id.id,
+                })],
+        })
+        sub.order_line.tax_id = [Command.clear()]
+
+        nr_product = self.env['product.template'].create({
+            'name': 'Non recurring product',
+            'type': 'service',
+            'uom_id': self.product.uom_id.id,
+            'list_price': 25,
+            'invoice_policy': 'order',
+        })
+
+        sub.action_confirm()
+        self.assertEqual(sub.amount_to_invoice, 10)
+        sub._create_recurring_invoice()
+
+        sub.order_line = [Command.link(self.env['sale.order.line'].create({
+            'name': nr_product.name,
+            'order_id': sub.id,
+            'product_id': nr_product.product_variant_id.id,
+            'product_uom_qty': 1,
+        }).id)]
+        sub.order_line.tax_id = [Command.clear()]
+
+        self.assertEqual(sub.amount_to_invoice, (10 + 25))
+        sub._create_recurring_invoice()
+
+        self.assertEqual(sub.amount_to_invoice, 10)
+
+
     def test_close_reason_end_of_contract(self):
         sub = self.subscription
         end_date = datetime.date(2022, 6, 20)
