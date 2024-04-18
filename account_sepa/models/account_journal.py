@@ -234,7 +234,9 @@ class AccountJournal(models.Model):
             ret.append(Nm)
 
         if postal_address:
-            ret.append(self._get_PstlAdr(company.partner_id))
+            PstlAdr = self._get_PstlAdr(company.partner_id)
+            if PstlAdr is not None:
+                ret.append(PstlAdr)
 
         if org_id:
             if not company.sepa_orgid_id:
@@ -303,35 +305,50 @@ class AccountJournal(models.Model):
         return DbtrAcct
 
     def _get_PstlAdr(self, partner_id):
-        if not partner_id.country_id.code:
-            raise ValidationError(_('Partner %s has no country code defined.', partner_id.name))
+        pstl_addr_list = partner_id._get_all_addr()
+        pstl_addr_list = [addr for addr in pstl_addr_list if addr['country']]
+        if not partner_id.is_company:
+            if not pstl_addr_list:
+                return None
+            pstl_addr_list = [
+                addr for addr in pstl_addr_list if (
+                    addr['city'] or
+                    # SE only needs country
+                    self.sepa_pain_version == 'pain.001.001.03.se'
+                )
+            ]
+            if not pstl_addr_list:
+                return None
+
+            pstl_addr = None
+            if len(pstl_addr_list) > 1:
+                for addr_dict in pstl_addr_list:
+                    if addr_dict['contact_type'] == 'employee':
+                        pstl_addr = addr_dict
+            pstl_addr = pstl_addr or pstl_addr_list[0]
+        else:
+            if not pstl_addr_list:
+                raise ValidationError(_('Partner %s has no country code defined.', partner_id.name))
+            pstl_addr = pstl_addr_list[0]
+
         PstlAdr = etree.Element("PstlAdr")
-        address_fields = []
-        if partner_id.street:
-            partner_text = sanitize_communication(partner_id.street, 70)
-            address_fields.append(('StrtNm', partner_text))
-        if partner_id.zip:
-            partner_zip = sanitize_communication(partner_id.zip)
-            address_fields.append(('PstCd', partner_zip))
-        if partner_id.city:
-            partner_city = sanitize_communication(partner_id.city)
-            address_fields.append(('TwnNm', partner_city))
+        if self.sepa_pain_version == 'pain.001.001.09':
+            for node_name, attr, size in [('StrtNm', 'street', 70), ('PstCd', 'zip', 140), ('TwnNm', 'city', 140)]:
+                if pstl_addr[attr]:
+                    address_element = etree.SubElement(PstlAdr, node_name)
+                    address_element.text = sanitize_communication(pstl_addr[attr], size)
 
-        if self.sepa_pain_version == "pain.001.001.09":
-            for address_field in address_fields:
-                partner_element = etree.SubElement(PstlAdr, address_field[0])
-                partner_element.text = address_field[1]
+        Ctry = etree.SubElement(PstlAdr, 'Ctry')
+        Ctry.text = pstl_addr['country']
 
-        Ctry = etree.SubElement(PstlAdr, "Ctry")
-        Ctry.text = partner_id.country_id.code
-        if self.sepa_pain_version != "pain.001.001.09":
+        if self.sepa_pain_version != 'pain.001.001.09':
             # Some banks seem allergic to having the zip in a separate tag, so we do as before
-            if partner_id.street:
-                AdrLine = etree.SubElement(PstlAdr, "AdrLine")
-                AdrLine.text = sanitize_communication(partner_id.street, 70)
-            if partner_id.zip and partner_id.city:
-                AdrLine = etree.SubElement(PstlAdr, "AdrLine")
-                AdrLine.text = sanitize_communication(partner_id.zip + " " + partner_id.city, 70)
+            if pstl_addr['street']:
+                AdrLine = etree.SubElement(PstlAdr, 'AdrLine')
+                AdrLine.text = sanitize_communication(pstl_addr['street'], 70)
+            if pstl_addr['zip'] and pstl_addr['city']:
+                AdrLine = etree.SubElement(PstlAdr, 'AdrLine')
+                AdrLine.text = sanitize_communication(pstl_addr['zip'] + ' ' + pstl_addr['city'], 70)
 
         return PstlAdr
 
@@ -385,8 +402,9 @@ class AccountJournal(models.Model):
         Nm.text = sanitize_communication((
             partner_bank.acc_holder_name or partner.name or partner.commercial_partner_id.name or '/'
         )[:70]).strip() or '/'
-        if partner.country_id.code and (partner.city or pain_version == "pain.001.001.03.se"):  # For Sweden, country is enough
-            Cdtr.append(self._get_PstlAdr(partner))
+        PstlAdr = self._get_PstlAdr(partner)
+        if PstlAdr is not None:
+            Cdtr.append(PstlAdr)
 
         CdtTrfTxInf.append(self._get_CdtrAcct(partner_bank, sct_generic))
 
