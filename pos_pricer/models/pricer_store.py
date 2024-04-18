@@ -58,7 +58,7 @@ class PricerStore(models.Model):
 
     # Products and Pricer tags associated to the Pricer Store
     product_ids = fields.One2many(
-        comodel_name='product.template',
+        comodel_name='product.product',
         inverse_name='pricer_store_id',
         string='Products',
     )

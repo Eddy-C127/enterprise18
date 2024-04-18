@@ -18,7 +18,7 @@ class PricerTag(models.Model):
         required=True,
     )
     product_id = fields.Many2one(
-        comodel_name='product.template',
+        comodel_name='product.product',
         string='Associated Product',
         required=True,
         ondelete='cascade',

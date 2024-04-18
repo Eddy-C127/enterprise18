@@ -14,6 +14,7 @@
         'views/pos_pricer_configuration.xml',
         'views/product_views.xml',
         'data/pricer_ir_cron.xml',
+        'data/pos_pricer_data.xml',
     ],
     'depends': ['product', 'point_of_sale'],
     'installable': True,
