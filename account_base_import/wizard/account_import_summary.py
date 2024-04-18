@@ -15,12 +15,12 @@ class AccountImportSummary(models.TransientModel):
     import_summary_tax_ids = fields.Many2many('account.tax')
 
     import_summary_name = fields.Char(default="Import Summary")
-    import_summary_len_account = fields.Integer(compute='_compute_import_summary_len_account')
-    import_summary_len_journal = fields.Integer(compute='_compute_import_summary_len_journal')
-    import_summary_len_move = fields.Integer(compute='_compute_import_summary_len_move')
-    import_summary_len_partner = fields.Integer(compute='_compute_import_summary_len_partner')
-    import_summary_len_tax = fields.Integer(compute='_compute_import_summary_len_tax')
-    import_summary_have_data = fields.Boolean(compute='_compute_import_summary_have_data')
+    import_summary_len_account = fields.Integer(compute='_compute_import_summary_len_account', export_string_translation=False)
+    import_summary_len_journal = fields.Integer(compute='_compute_import_summary_len_journal', export_string_translation=False)
+    import_summary_len_move = fields.Integer(compute='_compute_import_summary_len_move', export_string_translation=False)
+    import_summary_len_partner = fields.Integer(compute='_compute_import_summary_len_partner', export_string_translation=False)
+    import_summary_len_tax = fields.Integer(compute='_compute_import_summary_len_tax', export_string_translation=False)
+    import_summary_have_data = fields.Boolean(compute='_compute_import_summary_have_data', export_string_translation=False)
 
     @api.depends('import_summary_account_ids')
     def _compute_import_summary_len_account(self):
