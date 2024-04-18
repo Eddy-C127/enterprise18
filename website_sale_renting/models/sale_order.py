@@ -1,9 +1,11 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
+from pytz import timezone, UTC
 
 from odoo import _, fields, models
 from odoo.exceptions import ValidationError
+from odoo.http import request
 
 
 class SaleOrder(models.Model):
@@ -37,6 +39,22 @@ class SaleOrder(models.Model):
 
         return new_qty, warning
 
+    def _get_localized_renting_dates(self):
+        """ Return the rental dates localized in the user's timezone.
+
+        :return: The localized rental dates.
+        :rtype: tuple[Datetime, Datetime]
+        """
+        self.ensure_one()
+        start_dt = self.rental_start_date
+        return_dt = self.rental_return_date
+        client_tz = timezone(self.env.user.tz)
+        if request and request.is_frontend and request.httprequest.cookies.get('tz'):
+            client_tz = timezone(request.httprequest.cookies['tz'])
+        start_dt = UTC.localize(start_dt).astimezone(client_tz)
+        return_dt = UTC.localize(return_dt).astimezone(client_tz)
+        return start_dt, return_dt
+
     def _is_valid_renting_dates(self):
         """ Check if the pickup and return dates are valid.
 
@@ -47,11 +65,15 @@ class SaleOrder(models.Model):
         if not self.has_rented_products:
             return True
         days_forbidden = self.company_id._get_renting_forbidden_days()
+        # renting dates are in UTC, we need to convert them to the client's timezone
+        # to check the day of the week correctly or we might get a day off
+        start_dt, return_dt = self._get_localized_renting_dates()
+
         return (
             # 15 minutes of allowed time between adding the product to cart and paying it.
             self.rental_start_date >= fields.Datetime.now() - timedelta(minutes=15)
-            and self.rental_start_date.isoweekday() not in days_forbidden
-            and self.rental_return_date.isoweekday() not in days_forbidden
+            and start_dt.isoweekday() not in days_forbidden
+            and return_dt.isoweekday() not in days_forbidden
             and self._get_renting_duration() >= self.company_id.renting_minimal_time_duration
         )
 
@@ -86,8 +108,9 @@ class SaleOrder(models.Model):
         self.ensure_one()
         company = self.company_id
         days_forbidden = company._get_renting_forbidden_days()
-        pickup_forbidden = self.rental_start_date.isoweekday() in days_forbidden
-        return_forbidden = self.rental_return_date.isoweekday() in days_forbidden
+        localized_start_date, localized_return_date = self._get_localized_renting_dates()
+        pickup_forbidden = localized_start_date.isoweekday() in days_forbidden
+        return_forbidden = localized_return_date.isoweekday() in days_forbidden
         message = _("""
             Some of your rental products (%(product)s) cannot be rented during the
             selected period and your cart must be updated. We're sorry for the
@@ -100,17 +123,17 @@ class SaleOrder(models.Model):
                 Your rental product had invalid dates of pickup (%(start_date)s) and
                 return (%(end_date)s). Unfortunately, we do not process pickups nor
                 returns on those weekdays.
-            """, start_date=self.rental_start_date, end_date=self.rental_return_date)
+            """, start_date=localized_start_date, end_date=localized_return_date)
         elif pickup_forbidden:
             message += _("""
                 Your rental product had invalid date of pickup (%(start_date)s).
                 Unfortunately, we do not process pickups on that weekday.
-            """, start_date=self.rental_start_date)
+            """, start_date=localized_start_date)
         elif return_forbidden:
             message += _("""
                 Your rental product had invalid date of return (%(end_date)s).
                 Unfortunately, we do not process returns on that weekday.
-            """, end_date=self.rental_return_date)
+            """, end_date=localized_return_date)
         minimal_duration = company.renting_minimal_time_duration
         if self._get_renting_duration() < minimal_duration:
             message += _("""

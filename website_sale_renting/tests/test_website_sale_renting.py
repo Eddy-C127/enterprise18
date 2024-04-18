@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from datetime import datetime
 from dateutil.relativedelta import relativedelta, FR, SA, SU
 
 from freezegun import freeze_time
+from pytz import timezone
 
 from odoo import fields
 from odoo.tests import tagged
@@ -102,4 +104,29 @@ class TestWebsiteSaleRenting(TestWebsiteSaleRentingCommon):
         with freeze_time('2023-01-02 00:10:00'): # tolerance of 15 minutes
             self.assertTrue(
                 so._is_valid_renting_dates(), "It should be possible to rent the product now"
+            )
+
+    def test_availability_in_clients_tz(self):
+        """
+        Frontend sends dates to the server in UTC, but the server
+        should check the availability in customer's timezone.
+        """
+        # UTC+1
+        tzinfo = timezone('Europe/Paris')
+        # 2024-04-15 is a Monday
+        with freeze_time(datetime(year=2024, month=4, day=15, hour=0, minute=0, second=0, tzinfo=tzinfo)):
+            now = fields.Datetime.now()
+            so = self.env['sale.order'].create({
+                'partner_id': self.partner.id,
+                'company_id': self.company.id,
+                'rental_start_date': now,
+                'rental_return_date': now + relativedelta(days=1),
+            })
+            sol = self.env['sale.order.line'].create({
+                'order_id': so.id,
+                'product_id': self.computer.id,
+            })
+            sol.update({'is_rental': True})
+            self.assertTrue(
+                so._is_valid_renting_dates(), "It should be possible to rent the product on Monday"
             )
