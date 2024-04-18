@@ -34,7 +34,11 @@ class TestTheoreticalAmount(TestAccountBudgetCommon):
         field_names = ['practical_amount', 'theoritical_amount', 'percentage']
         self.assertEqual(
             model.fields_get(field_names, ['aggregator']),
-            dict.fromkeys(field_names, {'aggregator': 'sum'}),
+            {
+                'practical_amount': {'aggregator': 'sum'},
+                'theoritical_amount': {'aggregator': 'sum'},
+                'percentage': {'aggregator': 'avg'}
+            },
             f"Fields {', '.join(map(repr, field_names))} must be flagged as aggregatable.",
         )
 

@@ -90,7 +90,7 @@ class CrossoveredBudgetLines(models.Model):
         compute='_compute_theoritical_amount', string='Theoretical Amount',
         help="Amount you are supposed to have earned/spent at this date.")
     percentage = fields.Float(
-        compute='_compute_percentage', string='Achievement',
+        compute='_compute_percentage', string='Achievement', aggregator='avg',
         help="Comparison between practical and theoretical amount. This measure tells you if you are below or over budget.")
     company_id = fields.Many2one(related='crossovered_budget_id.company_id', comodel_name='res.company',
         string='Company', store=True, readonly=True)
@@ -100,15 +100,18 @@ class CrossoveredBudgetLines(models.Model):
     def _read_group_select(self, aggregate_spec, query):
         # flag practical_amount/theoritical_amount/percentage as aggregatable
         # and manually sum the values from the records in the group
-        if aggregate_spec in ('practical_amount:sum', 'theoritical_amount:sum', 'percentage:sum'):
+        if aggregate_spec in ('practical_amount:sum', 'theoritical_amount:sum', 'percentage:avg'):
             return super()._read_group_select('id:recordset', query)
         return super()._read_group_select(aggregate_spec, query)
 
     def _read_group_postprocess_aggregate(self, aggregate_spec, raw_values):
-        if aggregate_spec in ('practical_amount:sum', 'theoritical_amount:sum', 'percentage:sum'):
-            field_name = aggregate_spec.split(':')[0]
+        if aggregate_spec in ('practical_amount:sum', 'theoritical_amount:sum', 'percentage:avg'):
+            field_name, op = aggregate_spec.split(':')
             column = super()._read_group_postprocess_aggregate('id:recordset', raw_values)
-            return (sum(records.mapped(field_name)) for records in column)
+            if op == 'sum':
+                return (sum(records.mapped(field_name)) for records in column)
+            if op == 'avg':
+                return (sum(records.mapped(field_name)) / len(records) for records in column)
         return super()._read_group_postprocess_aggregate(aggregate_spec, raw_values)
 
     def _is_above_budget(self):
