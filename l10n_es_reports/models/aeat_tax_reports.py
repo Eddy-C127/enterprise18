@@ -70,19 +70,19 @@ SPANISH_PROVINCES_REPORT_CODES = {
 MOD_347_CUSTOM_ENGINES_DOMAINS = {
     '_report_custom_engine_threshold_insurance_bought': [
         ('move_id.l10n_es_reports_mod347_invoice_type', '=', 'insurance'),
-        ('move_id.move_type', 'in', ('in_invoice', 'in_refund')),
+        ('move_id.move_type', 'in', ('in_invoice', 'in_refund', 'in_receipt')),
         ('account_type', '=', 'liability_payable'),
     ],
 
     '_report_custom_engine_threshold_regular_bought': [
         ('move_id.l10n_es_reports_mod347_invoice_type', '=', 'regular'),
-        ('move_id.move_type', 'in', ('in_invoice', 'in_refund')),
+        ('move_id.move_type', 'in', ('in_invoice', 'in_refund', 'in_receipt')),
         ('account_type', '=', 'liability_payable'),
     ],
 
     '_report_custom_engine_threshold_regular_sold': [
         ('move_id.l10n_es_reports_mod347_invoice_type', '=', 'regular'),
-        ('move_id.move_type', 'in', ('out_invoice', 'out_refund')),
+        ('move_id.move_type', 'in', ('out_invoice', 'out_refund', 'out_receipt')),
         ('account_type', '=', 'asset_receivable'),
     ],
 
@@ -876,7 +876,7 @@ class SpanishMod347TaxReportCustomHandler(models.AbstractModel):
             JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
             WHERE {where_clause}
             GROUP BY account_move_line.partner_id
-            HAVING SUM(currency_table.rate * account_move_line.balance * (CASE WHEN account_move_line__move_id.move_type IN ('in_invoice', 'in_refund') THEN -1 ELSE 1 END)) <= %s
+            HAVING SUM(currency_table.rate * account_move_line.balance * (CASE WHEN account_move_line__move_id.move_type IN ('in_invoice', 'in_refund', 'in_receipt') THEN -1 ELSE 1 END)) <= %s
         """
 
         self._cr.execute(partners_to_exclude_query, partners_to_exclude_params)
