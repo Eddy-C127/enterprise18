@@ -13,10 +13,9 @@ from werkzeug.urls import url_encode, url_join
 
 from odoo import api, fields, models, _, Command
 from odoo.exceptions import ValidationError
-from odoo.tools import float_compare
+from odoo.tools import float_compare, frozendict
 from odoo.tools.misc import babel_locale_parse, get_lang
 from odoo.addons.base.models.res_partner import _tz_get
-from ..utils import intervals_overlap
 
 
 class AppointmentType(models.Model):
@@ -1179,11 +1178,13 @@ class AppointmentType(models.Model):
             for resource in (filter_resources or self.resource_ids)
         ]
         available_resources = self.env['appointment.resource'].concat(*available_resources)
+        available_resources = available_resources.with_prefetch(available_resources.linked_resource_ids.ids)
 
         availability_values = self._slot_availability_prepare_resources_values(
             available_resources, start_dt_utc, end_dt_utc
         )
 
+        capacity_info_to_best_resources = {}
         for slot in slots:
             capacity_info = {}
             for resource in available_resources:
@@ -1212,11 +1213,17 @@ class AppointmentType(models.Model):
                         'total_remaining_capacity': remaining_capacity,
                         'remaining_capacity': remaining_capacity,
                     }
+            capacity_info = frozendict(capacity_info)
             if capacity_info:
-                best_resources_selected = self._slot_availability_select_best_resources(
-                    capacity_info,
-                    asked_capacity,
-                )
+                # Compute the best resource a single time for each capacity info
+                if not capacity_info_to_best_resources.get(capacity_info):
+                    best_resources_selected = self._slot_availability_select_best_resources(
+                        capacity_info,
+                        asked_capacity,
+                    )
+                    capacity_info_to_best_resources[capacity_info] = best_resources_selected
+                else:
+                    best_resources_selected = capacity_info_to_best_resources[capacity_info]
                 if best_resources_selected:
                     slot['available_resource_ids'] = best_resources_selected
 
@@ -1250,7 +1257,7 @@ class AppointmentType(models.Model):
 
         slot_start_dt_utc_l, slot_end_dt_utc_l = pytz.utc.localize(slot_start_dt_utc), pytz.utc.localize(slot_end_dt_utc)
         for i_start, i_stop in availability_values.get('resource_unavailabilities', {}).get(resource, []):
-            if intervals_overlap((i_start, i_stop), (slot_start_dt_utc_l, slot_end_dt_utc_l)):
+            if i_start != i_stop and i_start < slot_end_dt_utc_l and i_stop > slot_start_dt_utc_l:
                 return False
 
         return True
@@ -1278,25 +1285,23 @@ class AppointmentType(models.Model):
             return {'total_remaining_capacity': 0}
 
         booking_lines = self.env['appointment.booking.line'].sudo()
-        if resource_to_bookings is not None:
-            for r in all_resources:
-                resource_booking_lines = resource_to_bookings.get(r)
-                if resource_booking_lines:
-                    booking_lines |= resource_booking_lines.filtered(lambda bl: bl.event_start < slot_stop_utc and bl.event_stop > slot_start_utc)
-        else:
+        if resource_to_bookings is None:
             booking_lines = self.env['appointment.booking.line'].sudo().search([
                 ('appointment_resource_id', 'in', all_resources.ids),
                 ('event_start', '<', slot_stop_utc),
                 ('event_stop', '>', slot_start_utc),
             ])
+        elif resource_to_bookings:
+            for resource, booking_line_ids in resource_to_bookings.items():
+                if resource in all_resources:
+                    booking_lines |= booking_line_ids
+            booking_lines = booking_lines.filtered(lambda bl: bl.event_start < slot_stop_utc and bl.event_stop > slot_start_utc)
 
         resources_booking_lines = booking_lines.grouped('appointment_resource_id')
         resources_remaining_capacity = {
-            resource: resource.capacity - sum([booking_line.capacity_used for booking_line in resource_booking_lines]) for resource, resource_booking_lines in resources_booking_lines.items()
+            resource: resource.capacity - sum(booking_line.capacity_used for booking_line in resources_booking_lines.get(resource, []))
+            for resource in all_resources
         }
-        for resource in all_resources:
-            if resource not in resources_remaining_capacity.keys():
-                resources_remaining_capacity[resource] = resource.capacity
         resources_remaining_capacity.update(total_remaining_capacity=sum(resources_remaining_capacity.values()))
         return resources_remaining_capacity
 
