@@ -8,7 +8,7 @@ from odoo.addons.sale_subscription.models.sale_order import SUBSCRIPTION_STATES,
 class SaleOrderLog(models.Model):
     _name = 'sale.order.log'
     _description = 'Sale Order Log'
-    _order = 'event_date desc, id desc'
+    _order = 'id desc'
 
     # Order related
     order_id = fields.Many2one(
