@@ -31,7 +31,7 @@
                     </div>
                     <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">
                         Sending Messages
-                        <a href="https://www.odoo.com/documentation/master/applications/productivity/whatsapp.html" title="Documentation" class="o_doc_link" target="_blank"></a>
+                        <widget name="documentation_link" path="/applications/productivity/whatsapp.html" icon="fa-question-circle"/>
                     </div>
                     <field name="active" invisible="1"/>
                     <div class="row mt16 o_settings_container" id="app_setup">
@@ -59,7 +59,7 @@
                     </div>
                     <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">
                         Receiving Messages
-                        <a href="https://www.odoo.com/documentation/master/applications/productivity/whatsapp.html" title="Documentation" class="o_doc_link" target="_blank"></a>
+                        <widget name="documentation_link" path="/applications/productivity/whatsapp.html" icon="fa-question-circle"/>
                     </div>
                     <div class="row mt16 o_settings_container" id="toreceive_msg">
                         <setting documentation="https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks">
