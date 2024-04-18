@@ -48,6 +48,7 @@
                                 <t t-set="budget_remaining" t-value="budget_item.allocated - budget_item.spent"/>
                                 <td class="text-end align-middle" t-attf-class="text-bold text-{{ budget_item.progress &gt;= 0.25 ? 'success' : budget_item.progress &gt;= 0 ? 'warning' : 'danger' }}">
                                     <t t-out="formatMonetary(budget_remaining)"/>
+                                    <t t-if="budget_item.allocated"> (<t t-out="Math.abs(budget_item.spent / budget_item.allocated * 100).toFixed()"/>%)</t>
                                 </td>
                             </tr>
                             <t t-foreach="budget_item['budgets']" t-as="budget" t-key="budget.id">
@@ -58,6 +59,7 @@
                                     <t t-set="budget_remaining" t-value="budget.allocated - budget.spent"/>
                                     <td class="text-end align-middle" t-attf-class="text-bold text-{{ budget.progress &gt;= 0.25 ? 'success' : budget.progress &gt;= 0 ? 'warning' : 'danger' }}">
                                         <small t-out="formatMonetary(budget_remaining)"/>
+                                        <t t-if="budget.allocated"> (<small t-out="Math.abs(budget.spent / budget.allocated * 100).toFixed()"/>%)</t>
                                     </td>
                                 </tr>
                             </t>
@@ -70,8 +72,10 @@
                             <td class="text-end" t-att-class="budget_total.allocated === 0 ? 'text-500' : ''" t-esc="formatMonetary(budget_total.allocated)"/>
                             <td class="text-end" t-att-class="budget_total.spent === 0 ? 'text-500' : ''" t-esc="formatMonetary(budget_total.spent)" />
                             <t t-set="budget_total_remaining" t-value="budget_total.spent - budget_total.allocated"/>
-                            <td class="text-end" t-esc="formatMonetary(budget_total_remaining)"
-                                t-attf-class="text-bold text-{{ budget_total.progress &gt;= 0.25 ? 'success' : budget_total.progress &gt;= 0 ? 'warning' : 'danger' }}"/>
+                            <td class="text-end" t-attf-class="text-bold text-{{ budget_total.progress &gt;= 0.25 ? 'success' : budget_total.progress &gt;= 0 ? 'warning' : 'danger' }}">
+                               <t t-out="formatMonetary(budget_total_remaining)"/>
+                               <t t-if="budget_total.allocated"> (<t t-out="Math.abs(budget_total.spent / budget_total.allocated * 100).toFixed()"/>%)</t>
+                            </td>
                         </tr>
                     </tfoot>
                 </table>
