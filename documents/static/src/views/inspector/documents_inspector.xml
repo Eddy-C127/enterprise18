@@ -124,7 +124,7 @@
             <div class="btn-group">
                 <t t-set="locked" t-value="isLocked"/>
                 <t t-set="editDisabled" t-value="isEditDisabled"/>
-                <t t-if="records[0].data.type == 'url'">
+                <t t-if="records.length and records.every(record => record.data.type === 'url')">
                     <t t-set="url" t-value="records[0].data.url"/>
                     <a t-if="url and (url.startsWith('https://') || url.startsWith('http://') || url.startsWith('ftp://'))"
                         t-att-href="url" target="new" class="o_inspector_button btn " t-att-disabled="nbPreviews > 1" t-att-class="nbPreviews > 1 ? 'pe-none' : ''">
@@ -132,11 +132,11 @@
                     </a>
                 </t>
                 <t t-else="">
-                    <button class="o_inspector_button o_inspector_download btn" title="Download" t-on-click.stop.prevent="onDownload" t-att-disabled="records.every(record => record.data.type == 'empty')" data-hotkey="y">
+                    <button class="o_inspector_button o_inspector_download btn" title="Download" t-on-click.stop.prevent="onDownload" t-att-disabled="records.every(record => record.data.type === 'empty')" data-hotkey="y">
                         <i class="fa fa-fw fa-download"/>
                     </button>
                 </t>
-                <t t-if="records[0].data.active">
+                <t t-if="records.some(record => record.data.active)">
                     <!-- groups does not work here -->
                     <button t-if="currentFolder.id and !records.every(rec => ['empty', 'url'].includes(rec._values.type))" class="o_inspector_button o_inspector_share btn" title="Share this selection" groups="documents.group_documents_user" t-on-click.stop.prevent="onShare" data-hotkey="m">
                         <i class="fa fa-fw fa-share-alt"/>
