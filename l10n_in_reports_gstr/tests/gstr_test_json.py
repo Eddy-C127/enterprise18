@@ -5,13 +5,13 @@ gstr1_test_json = {
   'fp': TEST_DATE.strftime("%m%Y"),
   'b2b': [
     {
-      'ctin': '24BBBFF5679L8ZR',
+      'ctin': '27BBBFF5679L8ZR',
       'inv': [
         {
-          'inum': 'INV/2023/00002',
+          'inum': 'INV/2023/00010',
           'idt': TEST_DATE.strftime("%d-%m-%Y"),
-          'val': 1180.0,
-          'pos': '24',
+          'val': 2580.0,
+          'pos': '27',
           'rchrg': 'N',
           'inv_typ': 'R',
           'itms': [
@@ -19,20 +19,15 @@ gstr1_test_json = {
               'num': 1,
               'itm_det': {
                 'txval': 1000.0,
-                'iamt': 0.0,
-                'camt': 90.0,
-                'samt': 90.0,
+                'iamt': 180.0,
+                'camt': 0.0,
+                'samt': 0.0,
                 'csamt': 0.0,
                 'rt': 18.0
               }
             }
-          ]
-        }
-      ]
-    },
-    {
-      'ctin': '27BBBFF5679L8ZR',
-      'inv': [
+          ],
+        },
         {
           'inum': 'INV/2023/00001',
           'idt': TEST_DATE.strftime("%d-%m-%Y"),
@@ -52,7 +47,33 @@ gstr1_test_json = {
                 'rt': 18.0
               }
             }
-          ]
+          ],
+        },
+      ],
+    },
+    {
+      'ctin': '24BBBFF5679L8ZR',
+      'inv': [
+        {
+          'inum': 'INV/2023/00002',
+          'idt': TEST_DATE.strftime("%d-%m-%Y"),
+          'val': 1180.0,
+          'pos': '24',
+          'rchrg': 'N',
+          'inv_typ': 'R',
+          'itms': [
+            {
+              'num': 1,
+              'itm_det': {
+                'txval': 1000.0,
+                'iamt': 0.0,
+                'camt': 90.0,
+                'samt': 90.0,
+                'csamt': 0.0,
+                'rt': 18.0,
+              },
+            }
+          ],
         }
       ]
     }
@@ -204,7 +225,7 @@ gstr1_test_json = {
     'inv': [
       {
         'sply_ty': 'INTRB2B',
-        'nil_amt': 500.0,
+        'nil_amt': 1900.0,
         'expt_amt': 500.0,
         'ngsup_amt': 500.0
       }
@@ -216,8 +237,8 @@ gstr1_test_json = {
         'hsn_sc': '01111',
         'uqc': 'UNT',
         'rt': 0,
-        'qty': 3.0,
-        'txval': 1500.0,
+        'qty': 5.0,
+        'txval': 2900.0,
         'iamt': 0.0,
         'samt': 0.0,
         'camt': 0.0,
@@ -228,9 +249,9 @@ gstr1_test_json = {
         'hsn_sc': '01111',
         'uqc': 'UNT',
         'rt': 18,
-        'qty': 4.5,
-        'txval': 127000.0,
-        'iamt': 22680.0,
+        'qty': 6.5,
+        'txval': 128000.0,
+        'iamt': 22860.0,
         'samt': 90.0,
         'camt': 90.0,
         'csamt': 0.0,

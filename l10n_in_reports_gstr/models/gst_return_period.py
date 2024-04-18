@@ -616,9 +616,13 @@ class L10nInGSTReturnPeriod(models.Model):
                     lines_json = {}
                     is_reverse_charge = False
                     is_igst_amount = False
-                    #tax_details = AccountEdiFormat._l10n_in_prepare_edi_tax_details(move_id)
                     tax_details = tax_details_by_move.get(move_id)
                     for line_tax_details in tax_details.values():
+                        line_all_tax_type = {line_td['tax_type'] for line_td in line_tax_details['line_tax_details']}
+
+                        # Ignore the lines if invoice is not SEZ and GST taxes are not selected
+                        if move_id.l10n_in_gst_treatment != 'special_economic_zone' and not any(tax_type in line_all_tax_type for tax_type in ['IGST', 'CGST', 'SGST']):
+                            continue
                         tax_rate = line_tax_details['gst_tax_rate']
                         if line_tax_details['l10n_in_reverse_charge']:
                             is_reverse_charge = True
@@ -691,6 +695,9 @@ class L10nInGSTReturnPeriod(models.Model):
                     lines_json = {}
                     tax_details = tax_details_by_move.get(move_id)
                     for line_tax_details in tax_details.values():
+                        line_all_tax_type = {line_td['tax_type'] for line_td in line_tax_details['line_tax_details']}
+                        if move_id.l10n_in_gst_treatment != 'special_economic_zone' and not any(tax_type in line_all_tax_type for tax_type in ['IGST', 'CGST', 'SGST']):
+                            continue
                         tax_rate = line_tax_details.get('gst_tax_rate')
                         lines_json.setdefault(tax_rate, {
                             "rt": tax_rate, "txval": 0.00, "iamt": 0.00, "csamt": 0.00})
@@ -737,6 +744,9 @@ class L10nInGSTReturnPeriod(models.Model):
                 # so we need positive value for invoice and nagative for credit note
                 tax_details = tax_details_by_move.get(move_id)
                 for line_tax_details in tax_details.values():
+                    line_all_tax_type = {line_td['tax_type'] for line_td in line_tax_details['line_tax_details']}
+                    if move_id.l10n_in_gst_treatment != 'special_economic_zone' and not any(tax_type in line_all_tax_type for tax_type in ['IGST', 'CGST', 'SGST']):
+                        continue
                     tax_rate = line_tax_details.get('gst_tax_rate')
                     group_key = "%s-%s"%(tax_rate, move_id.l10n_in_state_id.l10n_in_tin)
                     b2cs_json.setdefault(group_key, {
@@ -797,6 +807,9 @@ class L10nInGSTReturnPeriod(models.Model):
                     is_reverse_charge = False
                     tax_details = tax_details_by_move[move_id]
                     for line_tax_details in tax_details.values():
+                        line_all_tax_type = {line_td['tax_type'] for line_td in line_tax_details['line_tax_details']}
+                        if move_id.l10n_in_gst_treatment != 'special_economic_zone' and not any(tax_type in line_all_tax_type for tax_type in ['IGST', 'CGST', 'SGST']):
+                            continue
                         tax_rate = line_tax_details['gst_tax_rate']
                         if line_tax_details['l10n_in_reverse_charge']:
                             is_reverse_charge = True
@@ -869,6 +882,9 @@ class L10nInGSTReturnPeriod(models.Model):
                 lines_json = {}
                 is_igst_amount = False
                 for line_tax_detail in tax_details.values():
+                    line_all_tax_type = {line_td['tax_type'] for line_td in line_tax_detail['line_tax_details']}
+                    if move_id.l10n_in_gst_treatment != 'special_economic_zone' and not any(tax_type in line_all_tax_type for tax_type in ['IGST', 'CGST', 'SGST']):
+                        continue
                     if line_tax_detail['igst']:
                         is_igst_amount = True
                     tax_rate = line_tax_detail['gst_tax_rate']
@@ -1212,12 +1228,12 @@ class L10nInGSTReturnPeriod(models.Model):
             + self.env.ref('l10n_in.tax_tag_cess').ids)
         zero_rated_tag_ids = self.env.ref('l10n_in.tax_tag_zero_rated').ids
         gst_tags = sgst_tag_ids + cgst_tag_ids + igst_tag_ids + cess_tag_ids + zero_rated_tag_ids
-        other_then_gst_tag = (
+        other_than_gst_tag = (
             self.env.ref("l10n_in.tax_tag_exempt").ids
             + self.env.ref("l10n_in.tax_tag_nil_rated").ids
             + self.env.ref("l10n_in.tax_tag_non_gst_supplies").ids
         )
-        export_tags = igst_tag_ids + zero_rated_tag_ids + cess_tag_ids + other_then_gst_tag
+        export_tags = igst_tag_ids + zero_rated_tag_ids + cess_tag_ids + other_than_gst_tag
         domain = [
             ("date", ">=", self.start_date),
             ("date", "<=", self.end_date),
@@ -1230,8 +1246,12 @@ class L10nInGSTReturnPeriod(models.Model):
                 domain
                 + [
                     ("move_id.move_type", "in", ["out_invoice", "out_receipt"]),
-                    ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "uin_holders", "composition")),
+                    "|", '&',
+                    ("move_id.l10n_in_gst_treatment", "in", ("regular", "deemed_export", "uin_holders", "composition")),
                     ("tax_tag_ids", "in", gst_tags),
+                    '&',
+                    ("move_id.l10n_in_gst_treatment", "=", "special_economic_zone"),
+                    ("tax_tag_ids", "in", gst_tags + other_than_gst_tag),
                 ]
             )
         if section_code == "b2cl":
@@ -1264,8 +1284,12 @@ class L10nInGSTReturnPeriod(models.Model):
                 domain
                 + [
                     ("move_id.move_type", "=", "out_refund"),
-                    ("move_id.l10n_in_gst_treatment", "in", ("regular", "special_economic_zone", "deemed_export", "uin_holders", "composition")),
+                    "|", '&',
+                    ("move_id.l10n_in_gst_treatment", "in", ("regular", "deemed_export", "uin_holders", "composition")),
                     ("tax_tag_ids", "in", gst_tags),
+                    '&',
+                    ("move_id.l10n_in_gst_treatment", "=", "special_economic_zone"),
+                    ("tax_tag_ids", "in", gst_tags + other_than_gst_tag),
                 ]
             )
         if section_code == "cdnur":
@@ -1297,8 +1321,8 @@ class L10nInGSTReturnPeriod(models.Model):
                 domain
                 + [
                     ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
-                    ("move_id.l10n_in_gst_treatment", "!=", "overseas"),
-                    ("tax_tag_ids", "in", other_then_gst_tag),
+                    ("move_id.l10n_in_gst_treatment", "not in", ["overseas", "special_economic_zone"]),
+                    ("tax_tag_ids", "in", other_than_gst_tag),
                 ]
             )
         if section_code == "hsn":
@@ -1306,7 +1330,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 domain
                 + [
                     ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
-                    ("tax_tag_ids", "in", gst_tags + other_then_gst_tag),
+                    ("tax_tag_ids", "in", gst_tags + other_than_gst_tag),
                 ]
             )
 

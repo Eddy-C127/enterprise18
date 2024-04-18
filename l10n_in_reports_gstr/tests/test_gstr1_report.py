@@ -15,7 +15,7 @@ TEST_DATE = date(2023, 5, 20)
 class TestReports(TestAccountReportsCommon):
 
     @classmethod
-    def l10n_in_reports_gstr1_inv_init(cls, partner=None, tax=None, invoice_line_vals=None, inv=None):
+    def l10n_in_reports_gstr1_inv_init(cls, partner=None, tax=None, invoice_line_vals=None, inv=None, post=True):
         if not inv:
             inv = cls.init_invoice(
                 "out_invoice",
@@ -30,7 +30,8 @@ class TestReports(TestAccountReportsCommon):
             inv.write({'invoice_date': TEST_DATE})
         if invoice_line_vals:
             inv.write({'invoice_line_ids': [Command.update(l.id, invoice_line_vals) for l in inv.line_ids]})
-        inv.action_post()
+        if post:
+            inv.action_post()
         return inv
 
     @classmethod
@@ -106,6 +107,26 @@ class TestReports(TestAccountReportsCommon):
 
         # if no tax is applied then it will be out of scope and not considered in GSTR1
         cls.l10n_in_reports_gstr1_inv_init(registered_partner_1, [], invoice_line_vals={'price_unit': 500, 'quantity': 2})
+
+        # for b2b invoice with 2 invoice_line_ids having different taxes
+        b2b_invoice_gst_and_nil_rated_tax = cls.l10n_in_reports_gstr1_inv_init(registered_partner_1, nil_rated_tax, invoice_line_vals={'price_unit': 700, 'quantity': 2}, post=False)
+        existing_line_vals = b2b_invoice.invoice_line_ids[0].read(['product_id', 'account_id', 'price_unit', 'quantity', 'tax_ids'])[0]
+        b2b_invoice_gst_and_nil_rated_tax.write({
+            'invoice_line_ids': [
+                Command.create({
+                    'product_id': existing_line_vals['product_id'][0],
+                    'account_id': existing_line_vals['account_id'][0],
+                    'price_unit': existing_line_vals['price_unit'],
+                    'quantity': existing_line_vals['quantity'],
+                    'tax_ids': [(6, 0, existing_line_vals['tax_ids'])],
+                })
+            ]
+        })
+        b2b_invoice_gst_and_nil_rated_tax.action_post()
+
+        # b2b invoice with special economic zone
+        b2b_sez_invoice_gst_and_nil_rated_tax = b2b_invoice_gst_and_nil_rated_tax.copy(default={'l10n_in_gst_treatment': 'special_economic_zone'})
+        b2b_sez_invoice_gst_and_nil_rated_tax.action_post()
 
         cls.gstr_report = cls.env['l10n_in.gst.return.period'].create({
             'company_id': cls.company_data["company"].id,
