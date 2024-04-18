@@ -36,16 +36,29 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         trigger: '.o_finished_product span:contains("Giraffe")'
     },
     {
-        content: 'Register production check',
-        extra_trigger: '.o_mrp_display_record.o_active',
-        trigger: '.o_mrp_record_line .btn.fa-plus'
+        content: 'Open instruction',
+        trigger: 'button:contains("Instructions")',
     },
     {
-        content: 'Instruction check via form',
-        extra_trigger: 'span.o_qc_lot',
-        trigger: '.o_mrp_record_line span:contains("Instructions")'
+        content: 'Register production check',
+        trigger: '.btn.fa-plus'
     },
-    { trigger: 'button[barcode_trigger="NEXT"]' },
+    {
+        content: 'Close production check',
+        trigger: 'button.btn-close'
+    },
+    {
+        content: 'Open instruction',
+        trigger: 'button:contains("Instructions")',
+    },
+    {
+        content: 'Validate production check',
+        trigger: 'button:contains("Validate")'
+    },
+    {
+        extra_trigger: '.modal-title:contains("Instructions")',
+        trigger: 'button[barcode_trigger="NEXT"]'
+    },
     {
         content: 'Component not tracked registration and continue production',
         extra_trigger: '.modal-title:contains("Register legs")',
@@ -67,13 +80,15 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         trigger: '.modal-header .btn-close'
     },
     {
-        content: 'Fast check last instruction step',
-        extra_trigger: '.o_web_client:not(.modal-open)',
-        trigger: '.o_mrp_record_line .fa-square-o',
+        content: 'Open instruction',
+        trigger: 'button:contains("Instructions")',
+    },
+    {
+        extra_trigger: '.modal-title:contains("Release")',
+        trigger: 'button[barcode_trigger="NEXT"]'
     },
     {
         content: 'Close first operation',
-        extra_trigger: '.o_mrp_record_line:contains("Release") button.text-success',
         trigger: '.card-footer button[barcode_trigger="CLWO"]',
     },
     {

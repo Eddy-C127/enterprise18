@@ -67,9 +67,19 @@
                 <t t-foreach="moves" t-as="move" t-key="move.data.id">
                     <StockMove t-props="subRecordProps(move)"/>
                 </t>
-                <t t-foreach="checks" t-as="check" t-key="check.data.id">
-                    <QualityCheck t-props="subRecordProps(check)"/>
-                </t>
+                <div class="accordion" t-if="checks.length > 0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="btn btn-default" t-on-click="openNextQC">
+                            Instructions (<t t-esc="checks.filter(c => c.data.quality_state !== 'none').length"/>/<t t-esc="checks.length"/>)
+                        </button>
+                        <a class="accordion-button d-inline-flex w-auto collapsed" data-bs-toggle="collapse" t-att-href="'#' + props.record.id" role="button" aria-expanded="false" />
+                    </div>
+                    <div t-att-id="props.record.id" class="collapse">
+                        <t t-foreach="checks" t-as="check" t-key="check.data.id">
+                            <QualityCheck t-props="subRecordProps(check)"/>
+                        </t>
+                    </div>
+                </div>
                 <!-- Display a line to register each byproduct who isn't linked to a workorder.
                 Only displayed in the production card. -->
                 <t t-foreach="byProducts" t-as="byproductMove" t-key="byproductMove.id">

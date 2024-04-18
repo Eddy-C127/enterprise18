@@ -644,4 +644,9 @@ export class MrpDisplayRecord extends Component {
         this.env.searchModel.removeRecordFromCache(this.props.record.resId);
         this.env.reload();
     }
+
+    async openNextQC() {
+        const nextQC = this.lastOpenedQualityCheck ? null : this.checks.find(qc => qc.data.quality_state === "none");
+        await this.displayInstruction(nextQC);
+    }
 }
