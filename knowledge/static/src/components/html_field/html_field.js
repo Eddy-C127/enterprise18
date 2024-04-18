@@ -173,6 +173,14 @@ const HtmlFieldPatch = {
     //--------------------------------------------------------------------------
 
     /**
+     * Returns properties used to extend behavior environments.
+     * @returns {Object}
+     */
+    get behaviorsEnvExtensions() {
+        return {};
+    },
+
+    /**
      * Returns the container which holds the current value of the html_field
      * if it is already mounted and ready.
      *
@@ -523,6 +531,10 @@ const HtmlFieldPatch = {
             const config = (({env, dev, translatableAttributes, translateFn}) => {
                 return { env, dev, translatableAttributes, translateFn };
             })(this.__owl__.app);
+            // Extend the environment used for the Behavior Apps
+            if (Object.keys(this.behaviorsEnvExtensions).length) {
+                config.env = { ...config.env, ...this.behaviorsEnvExtensions };
+            }
             anchor.oKnowledgeBehavior = new App(Behavior, {
                 ...config,
                 getTemplate,

@@ -26,7 +26,8 @@ const validateFavoriteFilterPersistence = function(kanban, filterName) {
         trigger: '.o_kanban_edit',
     }, {
         content: `go to the ${kanban} from the breadcrumb`,
-        trigger: '.o_back_button',
+        trigger: '.o_knowledge_header i.oi-chevron-left',
+        extra_trigger: '.o_hierarchy_article_name input:value("Item 1")',
     }, {
         // Open the favorite of the first kanban and check it's favorite
         trigger: `.o_breadcrumb:contains('${kanban}')`,
@@ -155,7 +156,7 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         {
             trigger: ".o_field_html",
             run: function () {
-                const header = document.querySelector(".o_breadcrumb_article_name input");
+                const header = document.querySelector(".o_hierarchy_article_name input");
                 if (header.value !== "Article 1") {
                     console.error(`Wrong article: ${header.value}`);
                 }

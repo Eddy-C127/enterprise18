@@ -17,6 +17,7 @@ export default class KnowledgeIcon extends Component {
         iconClasses: {type: String, optional: true},
         allowRandomIconSelection: {type: Boolean, optional: true},
         autoSave: {type: Boolean, optional: true},
+        fallbackDefaultIcon: { type: Boolean, optional: true },
     };
 
     setup() {
@@ -26,7 +27,7 @@ export default class KnowledgeIcon extends Component {
     }
 
     get icon() {
-        return this.props.record.data.icon;
+        return this.props.record.data.icon || (this.props.fallbackDefaultIcon && "📄");
     }
 
     async selectRandomIcon() {

@@ -203,17 +203,13 @@ export class ArticlesStructureBehavior extends AbstractBehavior {
     //--------------------------------------------------------------------------
 
     /**
-     * Opens the article in the side tree menu.
+     * Opens the article
      *
      * @param {Event} event
      */
-    async _onArticleLinkClick (event) {
+    async _onArticleLinkClick(event) {
         event.preventDefault();
-        this.actionService.doAction('knowledge.ir_actions_server_knowledge_home_page', {
-            additionalContext: {
-                res_id: parseInt(event.target.getAttribute('data-oe-nodeid'))
-            }
-        });
+        await this.env.openArticle(parseInt(event.target.dataset.oeNodeid));
     }
 
     /**

@@ -59,11 +59,7 @@ export class KnowledgeArticleItemsCalendarController extends CalendarController 
                 Object.assign(createValues, rawRecord);
             }
             const articleId = await this.orm.call('knowledge.article', 'article_create', [], createValues);
-
-            this.action.doAction(
-                await this.orm.call('knowledge.article', 'action_home_page', [articleId]),
-                {}
-            );
+            this.selectRecord(articleId);
         }
     }
 
@@ -91,6 +87,15 @@ export class KnowledgeArticleItemsCalendarController extends CalendarController 
     }
 
     /**
+     * @override
+     * Open an item to allow editing it. This override allows to load the article from the
+     * KnowledgeController if the view is embedded, allowing to preserve the navigation history
+     */
+    editRecord(record) {
+        this.selectRecord(record.id);
+    }
+
+    /**
      * Set model meta variables to make the model work with the properties
      */
     onWillStartModel() {
@@ -99,6 +104,25 @@ export class KnowledgeArticleItemsCalendarController extends CalendarController 
         } else {
             this.state.missingConfiguration = true;
             this.model.meta.invalid = true;
+        }
+    }
+
+    /**
+     * Open the given article.
+     * If the view is embedded, the article is loaded from the KnowledgeController to preserve
+     * navigation history.
+     * If the view is opened in full screen, the home page action with the given article is loaded
+     * because the knowledge_article_action_item_calendar action does not have a form view (hence,
+     * props.selectRecord does not work).
+     */
+    selectRecord(articleId) {
+        if (this.env.isEmbeddedView) {
+            this.props.selectRecord(articleId);
+        } else {
+            this.action.doAction(
+                this.orm.call("knowledge.article", "action_home_page", [articleId]),
+                {},
+            );
         }
     }
 

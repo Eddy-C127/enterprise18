@@ -1,51 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="knowledge.KnowledgeTopbar">
-        <div class="o_knowledge_header d-flex flex-wrap gap-1 flex-column justify-content-end flex-sm-row align-items-sm-center border-bottom d-print-none bg-view px-0 py-2 ps-sm-3 pe-sm-2">
-            <div class="d-flex flex-grow-1 min-w-0 gap-1 px-2 px-sm-0 pt-2 pt-sm-0">
+        <div class="o_knowledge_header d-flex flex-wrap flex-md-nowrap border-bottom d-print-none bg-view px-0 py-2 px-sm-2">
+            <div class="d-flex flex-wrap flex-md-nowrap flex-grow-1 gap-1 px-2 px-sm-0 pt-2 pt-sm-0 align-items-center min-w-0">
                 <a role="button" class="d-md-none btn btn-light align-self-start px-2 py-1" t-on-click="() => this.env.toggleAsideMobile()">
                     <i class="fa fa-lg fa-bars" title="Toggle aside menu"/>
                 </a>
-                <!-- Breadcrumbs -->
-                <ol class="breadcrumb align-items-center min-w-0" t-if="this.breadcrumbs.length > 1 or this.props.record.resId" role="navigation">
-                    <t t-foreach="this.breadcrumbs.slice(0, -1)" t-as="breadcrumb" t-key="breadcrumb.jsId">
-                        <!-- Add back hotkey on penultimate breadcrumb item -->
-                        <t t-set="isPenultimate" t-value="breadcrumb_index === this.breadcrumbs.length - 2"/>
-                        <li class="breadcrumb-item d-flex align-items-center min-w-0 text-nowrap overflow-hidden"
-                            t-att-data-hotkey="isPenultimate and 'b'" t-att-class="{ o_back_button: isPenultimate}" t-on-click.prevent="() => this.actionService.restore(breadcrumb.jsId)">
-                            <a class="text-truncate" href="#">
-                                <t t-out="breadcrumb.name"/>
-                            </a>
-                        </li>
-                    </t>
-                    <li t-if="this.props.record.resId" class="breadcrumb-item d-flex align-items-center active min-w-0 text-nowrap overflow-hidden">
-                        <KnowledgeIcon t-if="props.record.data.active" record="props.record" iconClasses="'me-1'"
-                            readonly="props.record.data.is_locked || !props.record.data.user_can_write"/>
-                        <div t-if="!this.props.record.data.user_can_write || this.props.record.data.is_locked" class="text-truncate mx-1">
-                            <t t-if="this.props.record.data.name" t-out="this.props.record.data.name" />
-                            <t t-else="">Untitled</t>
-                        </div>
-                        <div t-else=""
-                            t-on-input="ev => this.env._resizeNameInput(ev.target.value)"
-                            t-on-change="ev => this.env.renameArticle(ev.target.value)"
-                            t-on-click="ev => this._onNameClick(ev)"
-                            class="o_breadcrumb_article_name_container position-relative text-truncate mx-1">
-                            <!-- span forces the input to match the length of its value -->
-                            <span class="pe-2" t-att-title="this.props.record.data.name" t-out="this.props.record.data.name"/>
-                            <div class="o_field_widget o_required_modifier o_field_char o_breadcrumb_article_name mb-0">
-                                <input t-if="!(props.record.data.is_locked || !props.record.data.user_can_write || !props.record.data.active || !props.record.resId)" id="name" class="o_input" type="text" autocomplete="off"
-                                    t-att-value="props.record.data.name" placeholder="Untitled"/>
-                                <span t-else="">
-                                    <t t-out="props.record.data.name"/>
-                                </span>
-                            </div>
-                        </div>
-                        <i class="fa fa-fw fa-lock" title="This article is locked" t-if="this.props.record.data.is_locked" />
-                    </li>
-                    <t t-if="props.record.resId and props.record.data.active and !props.record.data.is_locked and props.record.data.user_can_write">
+                <t t-if="props.record.resId">
+                    <KnowledgeHierarchy record="props.record"/>
+                    <i t-if="this.props.record.data.is_locked" class="fa fa-fw fa-lock me-2" title="This article is locked" />
+                    <t t-if="props.record.data.active and !props.record.data.is_locked and props.record.data.user_can_write">
                         <KnowledgeFormStatusIndicator model="props.record.model" save="env.save" discard="env.discard"/>
                     </t>
-                </ol>
+                </t>
             </div>
             <!-- Buttons -->
             <div class="d-flex gap-1 flex-wrap justify-content-end">

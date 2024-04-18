@@ -14,7 +14,7 @@ import { _t } from "@web/core/l10n/translation";
 import { Component, onWillStart, useEffect, useRef, useState } from '@odoo/owl';
 
 import { getRandomIcon } from '@knowledge/js/knowledge_utils';
-import KnowledgeIcon from '@knowledge/components/knowledge_icon/knowledge_icon';
+import KnowledgeHierarchy from '@knowledge/components/hierarchy/hierarchy';
 import MoveArticleDialog from '@knowledge/components/move_article_dialog/move_article_dialog';
 import PermissionPanel from '@knowledge/components/permission_panel/permission_panel';
 import { KnowledgeFormStatusIndicator } from "@knowledge/components/form_status_indicator/form_status_indicator";
@@ -27,8 +27,8 @@ class KnowledgeTopbar extends Component {
         ...standardWidgetProps,
     };
     static components = {
+        KnowledgeHierarchy,
         KnowledgeFormStatusIndicator,
-        KnowledgeIcon,
         PermissionPanel,
     };
 
@@ -53,7 +53,6 @@ class KnowledgeTopbar extends Component {
             displaySharePanel: false,
             commentsActive: false
         });
-        this.breadcrumbs = useState(this.env.config.breadcrumbs);
 
         this.openChat = useOpenChat('res.users');
 
@@ -305,26 +304,17 @@ class KnowledgeTopbar extends Component {
             await this.openChat(userId);
         }
     }
-
-    /**
-     * When the user clicks on the name of the article, checks if the article
-     * name hasn't been set yet. If it hasn't, it will look for a title in the
-     * body of the article and set it as the name of the article.
-     * @param {Event} event
-     */
-    async _onNameClick(event) {
-        this.env.ensureArticleName();
-    }
-
 }
 
 export const knowledgeTopbar = {
     component: KnowledgeTopbar,
     fieldDependencies: [
         { name: "create_uid", type: "many2one", relation: "res.users" },
-        { name: "last_edition_uid", type: "many2one", relation: "res.users" },
         { name: "html_field_history_metadata", type: "jsonb" },
-    ]
+        { name: "last_edition_uid", type: "many2one", relation: "res.users" },
+        { name: "parent_path", type: "char" },
+        { name: "root_article_id", type: "many2one", relation: "knowledge.article" },
+    ],
 };
 
 registry.category('view_widgets').add('knowledge_topbar', knowledgeTopbar);

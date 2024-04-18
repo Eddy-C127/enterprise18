@@ -206,19 +206,26 @@ export class EmbeddedViewManager extends Component {
             __getGlobalState__: this.__getGlobalState__,
             globalState: { searchModel: context.knowledge_search_model_state },
             /**
+             * If the embed view is a knowledge view, selecting an article loads it from the
+             * KnowledgeController through the method provided in the environment (allowing to
+             * preserve the navigation history)
              * @param {integer} recordId
              */
             selectRecord: recordId => {
-                const [formViewId] = this.action.views.find((view) => {
-                    return view[1] === 'form';
-                }) || [false];
                 this.saveEmbedViewFilters();
-                this.actionService.doAction({
-                    type: 'ir.actions.act_window',
-                    res_model: action.res_model,
-                    views: [[formViewId, 'form']],
-                    res_id: recordId,
-                });
+                if (action.res_model === "knowledge.article") {
+                    this.env.openArticle(recordId);
+                } else {
+                    const [formViewId] = this.action.views.find((view) => {
+                        return view[1] === 'form';
+                    }) || [false];
+                    this.actionService.doAction({
+                        type: 'ir.actions.act_window',
+                        res_model: action.res_model,
+                        views: [[formViewId, 'form']],
+                        res_id: recordId,
+                    });
+                }
             },
             createRecord: async () => {
                 const [formViewId] = this.action.views.find((view) => {

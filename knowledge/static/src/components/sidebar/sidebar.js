@@ -615,11 +615,8 @@ export class KnowledgeSidebar extends Component {
                 this.loadArticles();
                 throw error;
             }
-            // Reload the current record if it was moved to propagate changes
-            // (needed for example to remove the properties)
-            if (article.id === this.props.record.resId) {
-                await this.props.record.model.load();
-            }
+            // Reload the current article as the move will impact its data
+            await this.props.record.model.load();
         };
 
         // Move the article in the sidebar

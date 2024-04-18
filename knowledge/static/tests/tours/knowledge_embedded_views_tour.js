@@ -33,18 +33,10 @@ registry.category("web_tour.tours").add('knowledge_embedded_view_filters_tour', 
     }, { // Open the filtered article
         trigger: 'tbody > tr > td[name="display_name"]'
     }, { // Wait for the article to be open
-        trigger: '.o_breadcrumb_article_name_container > span:contains("Child 1")',
+        trigger: '.o_hierarchy_article_name input:value("Child 1")',
         run: () => {}
-    }, { // Open parent via the sidebar
-        trigger: '.o_article_name:contains("EditorCommandsArticle")'
-    }, { // Check that there is no filter in the searchBar
-        trigger: '.o_searchview_input_container:not( > div)',
-        run: () => {}
-    }, { // Check that we have 2 elements in the embedded view
-        trigger: 'tbody tr.o_data_row:nth-child(2)',
-        run: () => {}
-    }, { // Go back via the breadcrumb
-        trigger: '.o_back_button'
+    }, { // Go back via the breadcrumbs go back button
+        trigger: '.o_knowledge_header i.oi-chevron-left',
     }, { // Check that there is the filter in the searchBar
         trigger: '.o_searchview_input_container > div',
         run: () => {}

@@ -26,7 +26,7 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     trigger: '.o_knowledge_header .btn-create',
 }, {
     // Set the name of the article
-    trigger: '.o_breadcrumb_article_name > input',
+    trigger: '.o_hierarchy_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
     run: "edit Birds && click body",
 }, {
@@ -97,7 +97,7 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     trigger: '.o_knowledge_header .btn-create',
 }, {
     // Change the name of the article
-    trigger: '.o_breadcrumb_article_name > input',
+    trigger: '.o_hierarchy_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
     run: "edit odoo && click body",
 }, {

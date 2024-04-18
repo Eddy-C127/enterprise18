@@ -24,7 +24,7 @@ registry.category("web_tour.tours").add("knowledge_load_template", {
             trigger: '.o_knowledge_body .o_article_emoji:contains(📚)',
             run: () => {},
         }, { // check that the title of the article has changed
-            trigger: '.o_breadcrumb_article_name_container:contains("My Template")',
+            trigger: '.o_hierarchy_article_name input:value("My Template")',
             run: () => {},
         }, { // check that the body of the article has changed
             trigger: '.o_knowledge_body .note-editable:contains(Lorem ipsum dolor sit amet, consectetur adipisicing elit.)',

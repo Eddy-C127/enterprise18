@@ -55,7 +55,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     trigger: '.note-editable.odoo-editor-editable:focus',
     run: () => {},
 }, {
-    trigger: '.o_breadcrumb_article_name > input',
+    trigger: '.o_hierarchy_article_name > input',
     run: 'edit My Workspace Article && click body',  // modify the article name
 }, {
     trigger: '.note-editable.odoo-editor-editable',
@@ -78,7 +78,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     trigger: '.note-editable.odoo-editor-editable:focus',
     run: () => {},
 }, {
-    trigger: '.o_breadcrumb_article_name > input',
+    trigger: '.o_hierarchy_article_name > input',
     run: "edit Child Article 1 && click body",  // modify the article name
 }, {
     trigger: '.o_article:contains("My Workspace Article")',
@@ -93,7 +93,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     trigger: '.note-editable.odoo-editor-editable:focus',
     run: () => {},
 }, {
-    trigger: '.o_breadcrumb_article_name > input',
+    trigger: '.o_hierarchy_article_name > input',
     run: "edit Child Article 2 && click body",  // modify the article name
 }, {
     // move child article 2 above child article 1
@@ -209,7 +209,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     trigger: '.note-editable.odoo-editor-editable:focus',
     run: () => {},
 }, {
-    trigger: '.o_breadcrumb_article_name > input',
+    trigger: '.o_hierarchy_article_name > input',
     run: "edit Article to be moved && click body",  // modify the article name
 }, {// move article
     trigger: 'a#dropdown_tools_panel',

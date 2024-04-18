@@ -61,15 +61,7 @@ export class AbstractMacro {
                 this.blockUI, {
                 // Restore the target Form view through its breadcrumb jsId.
                 trigger: () => {
-                    // Ensure that we have a breadcrumb sequence displayed for
-                    // the user. Any breadcrumb element will do as a witness
-                    // since the Form view won't be restored through the
-                    // breadcrumbs, but with the controller.
-                    const breadcrumbEl = document.querySelector(`.breadcrumb-item:not(.active)`);
-                    if (!breadcrumbEl) {
-                        return null;
-                    }
-                    return breadcrumbEl;
+                    return document.querySelector(`.o_knowledge_header i.oi-chevron-left`);
                 },
                 action: async () => {
                     try {

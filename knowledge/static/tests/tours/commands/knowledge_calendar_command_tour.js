@@ -73,7 +73,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, {
     // Check we created an item with the right datetime used as property
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Start Date")',
-    extra_trigger: '.o_breadcrumb_article_name_container span:empty',
+    extra_trigger: '.o_hierarchy_article_name input:empty',
     run: function () {
         const input = this.anchor.querySelector("input");
         if (!input.value.includes("08:00:00")) {
@@ -144,7 +144,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, {
     // Check we created an item with the right datetime used as property
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Start Property")',
-    extra_trigger: '.o_breadcrumb_article_name_container span:empty',
+    extra_trigger: '.o_hierarchy_article_name input:empty',
     run: function () {
         const input = this.anchor.querySelector("input");
         if (!input.value.includes("08:00:00")) {
@@ -351,7 +351,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'dblclick',
 }, { // Check that the properties have been updated
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Start Property")',
-    extra_trigger: '.o_breadcrumb_article_name_container:contains("Item Article")',
+    extra_trigger: '.o_hierarchy_article_name input:value("Item Article")',
     run: function () {
         const input = this.anchor.querySelector("input");
         if (!input.value.includes("09:00:00")) {

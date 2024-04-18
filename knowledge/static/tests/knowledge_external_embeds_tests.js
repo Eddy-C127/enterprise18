@@ -10,6 +10,7 @@ import {
 } from "@web/../tests/helpers/utils";
 import { EmbeddedViewBehavior } from "@knowledge/components/behaviors/embedded_view_behavior/embedded_view_behavior";
 import { EmbeddedViewManager } from "@knowledge/components/behaviors/embedded_view_behavior/embedded_view_manager";
+import { KnowledgeArticleHtmlField } from "@knowledge/components/knowledge_article_html_field/knowledge_article_html_field";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { HtmlField } from "@web_editor/js/backend/html_field";
 
@@ -71,6 +72,12 @@ QUnit.module("Knowledge External Embeds Tests", (hooks) => {
                 onMounted(() => {
                     embedMountedPromise.resolve();
                 });
+            },
+        });
+        patchWithCleanup(KnowledgeArticleHtmlField.prototype, {
+            // Make sure behaviors will use env with mocked services
+            get behaviorsEnvExtensions() {
+                return {};
             },
         });
         serverData = {

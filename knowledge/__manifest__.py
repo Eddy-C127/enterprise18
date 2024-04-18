@@ -15,6 +15,8 @@
         'web_unsplash',
         'web_hierarchy',
         'web_map',
+        'web_gantt',
+        'web_cohort',
     ],
     'data': [
         'data/article_templates.xml',
@@ -76,6 +78,9 @@
             'knowledge/static/src/scss/knowledge_blocks.scss',
             'knowledge/static/src/js/tools/**/*',
             'knowledge/static/src/js/knowledge_utils.js',
+        ],
+        'web.assets_unit_tests': [
+            'knowledge/static/tests/knowledge_hierarchy.test.js',
         ],
         'web.assets_tests': [
             'knowledge/static/tests/tours/**/*',
