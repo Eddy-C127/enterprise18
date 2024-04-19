@@ -10,7 +10,6 @@ export class PlanningCalendarCommonPopover extends CalendarCommonPopover {
     static subTemplates = {
         ...CalendarCommonPopover.subTemplates,
         body: "planning.PlanningCalendarCommonPopover.body",
-        footer: "planning.PlanningCalendarCommonPopover.footer",
     };
     setup() {
         super.setup(...arguments);
@@ -19,6 +18,10 @@ export class PlanningCalendarCommonPopover extends CalendarCommonPopover {
 
     async onWillStart() {
         this.isManager = await user.hasGroup("planning.group_planning_manager");
+    }
+
+    get isEventEditable() {
+        return this.isManager && super.isEventEditable;
     }
 
     get data() {

@@ -17,7 +17,7 @@
                 t-on-click="() => this.planningControllerActions.copyPrevious()">
                 Copy previous
             </button>
-            <button t-if="model.scale !== 'year'" class="btn btn-primary me-1 o_button_send_all" title="Send schedule"
+            <button t-if="isManager and model.scale !== 'year'" class="btn btn-primary me-1 o_button_send_all" title="Send schedule"
                 t-on-click.prevent="() => this.planningControllerActions.publish()">
                 Publish
             </button>

@@ -186,3 +186,33 @@ test("Resize or Drag-Drop should open recurrence update wizard", async () => {
         message: "should have correct start date",
     });
 });
+
+test("should display a popover with an Edit button for users with admin access when open popover", async () => {
+    onRpc("has_group", ({ args }) => args[1] === "planning.group_planning_manager");
+    await mountWithCleanup(WebClient);
+    await getService("action").doAction(1);
+
+    // Open popover of the pill
+    await clickEvent(1);
+    expect(".o_cw_popover").toHaveCount(1, {
+        message: "A popover should open when clicking on the event.",
+    });
+    expect(".o_cw_popover .o_cw_popover_edit").toHaveCount(1, {
+        message: "The popover should contain an Edit button in the footer.",
+    });
+});
+
+test("should not display an Edit button in the popover for users without admin access when open popover", async () => {
+    onRpc("has_group", ({ args }) => args[1] !== "planning.group_planning_manager");
+    await mountWithCleanup(WebClient);
+    await getService("action").doAction(1);
+
+    // Open popover of the pill
+    await clickEvent(1);
+    expect(".o_cw_popover").toHaveCount(1, {
+        message: "A popover should open when clicking on the event.",
+    });
+    expect(".o_cw_popover .o_cw_popover_edit").toHaveCount(0, {
+        message: "The popover should not contain an Edit button in the footer.",
+    });
+});

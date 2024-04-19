@@ -7,7 +7,7 @@
                 Prepare for the ultimate multi-tasking challenge:
             </p>
             <t t-foreach="conflictingSlots" t-as="slot" t-key="slot.id">
-                <div t-if="slot_index &lt; 5" class="d-flex flex-column justify-content-center o_conflicting_slot pb-2">
+                <div t-if="slot_index &lt; 5" class="d-flex flex-column justify-content-center o_conflicting_slot pt-0">
                     <div class="d-grid" style="grid-template-columns: auto 1fr">
                         <span>
                             <t t-out="slot.data.start_datetime"/>
