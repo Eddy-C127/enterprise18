@@ -112,17 +112,17 @@ class PosOrder(models.Model):
             if data['order'] > data['display']:
                 missing_qty = data['order'] - data['display']
                 filtered_lines = self.lines.filtered(lambda li: li.product_id.id == product_id and self._get_line_note(li) == data['note'] and li.attribute_value_ids.ids == data['attribute_value_ids'])
-
+                line_qty = 0
                 for line in filtered_lines:
-                    line_qty = 0
 
                     if missing_qty == 0:
                         break
 
                     if missing_qty > line.qty:
+                        line_qty += line.qty
                         missing_qty -= line.qty
                     elif missing_qty <= line.qty:
-                        line_qty = missing_qty
+                        line_qty += missing_qty
                         missing_qty = 0
 
                     if missing_qty == 0 and line_qty > 0:
