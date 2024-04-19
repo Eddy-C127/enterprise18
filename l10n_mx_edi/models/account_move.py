@@ -655,16 +655,19 @@ class AccountMove(models.Model):
         otros_payment_method = self.env.ref('l10n_mx_edi.payment_method_otros', raise_if_not_found=False)
         transferencia_payment_method = self.env.ref('l10n_mx_edi.payment_method_transferencia', raise_if_not_found=False)
         for move in self:
-            if move.country_code == 'MX':
-                move.l10n_mx_edi_payment_method_id = (
-                    move.l10n_mx_edi_payment_method_id or
-                    move.partner_id.l10n_mx_edi_payment_method_id or
-                    (move._l10n_mx_edi_is_cfdi_payment() and transferencia_payment_method) or
-                    move.journal_id.l10n_mx_edi_payment_method_id or
-                    otros_payment_method
-                )
-            else:
+            if move.country_code != 'MX':
                 move.l10n_mx_edi_payment_method_id = False
+                continue
+            if move.is_invoice(include_receipts=True):
+                payment_method = move.partner_id.l10n_mx_edi_payment_method_id or move.l10n_mx_edi_payment_method_id
+            else:
+                payment_method = move.l10n_mx_edi_payment_method_id or move.partner_id.l10n_mx_edi_payment_method_id
+            move.l10n_mx_edi_payment_method_id = (
+                payment_method or
+                (move._l10n_mx_edi_is_cfdi_payment() and transferencia_payment_method) or
+                move.journal_id.l10n_mx_edi_payment_method_id or
+                otros_payment_method
+            )
 
     @api.depends('partner_id')
     def _compute_l10n_mx_edi_usage(self):
