@@ -25,6 +25,9 @@ def _account_accountant_post_init(env):
         # The customer statement is customary in Australia, India and New Zealand.
         if any(code in ('AU', 'IN', 'NZ') for code in countries_code):
             module_list.append('l10n_account_customer_statements')
+        # Auto install Bacs in case of new United kingdom databases.
+        if any(code == 'GB' for code in countries_code):
+            module_list.append('account_bacs')
 
         module_ids = env['ir.module.module'].search([('name', 'in', module_list), ('state', '=', 'uninstalled')])
         if module_ids:
