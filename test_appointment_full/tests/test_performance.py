@@ -72,7 +72,7 @@ class OnelineWAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrP
         t0 = time.time()
         with freeze_time(self.reference_now):
             self.authenticate('staff_user_bxls', 'staff_user_bxls')
-            with self.assertQueryCount(default=50):  # apt only: 43
+            with self.assertQueryCount(default=51):  # apt only: 43 / +1 for no-demo
                 self._test_url_open('/appointment/%i' % self.test_apt_type.id)
         t1 = time.time()
 
@@ -99,7 +99,7 @@ class OnelineWAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrP
         t0 = time.time()
         with freeze_time(self.reference_now):
             self.authenticate('staff_user_bxls', 'staff_user_bxls')
-            with self.assertQueryCount(default=42):  # apt only: 35
+            with self.assertQueryCount(default=43):  # apt only: 35 / +1 for no-demo
                 self._test_url_open('/appointment/%i' % self.test_apt_type_resource.id)
         t1 = time.time()
 
