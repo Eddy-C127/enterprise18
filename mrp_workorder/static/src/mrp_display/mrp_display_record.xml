@@ -146,5 +146,6 @@
                 barcode_trigger="CLMO" t-on-click="onClickCloseProduction">
             Close Production
         </button>
+        <button t-elif="state.underValidation" class="me-4" t-attf-class="btn #{_btn_type}" t-on-click="nextOperation">Next Operation</button>
     </t>
 </templates>

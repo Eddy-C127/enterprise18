@@ -649,4 +649,10 @@ export class MrpDisplayRecord extends Component {
         const nextQC = this.lastOpenedQualityCheck ? null : this.checks.find(qc => qc.data.quality_state === "none");
         await this.displayInstruction(nextQC);
     }
+
+    async nextOperation() {
+        await this.realValidation();
+        const nextWorkcenterId = this.props.production.data.workorder_ids.records.find((wo) => ["pending", "waiting"].includes(wo.data.state))?.data.workcenter_id[0];
+        nextWorkcenterId && await this.props.selectWorkcenter(nextWorkcenterId);
+    }
 }

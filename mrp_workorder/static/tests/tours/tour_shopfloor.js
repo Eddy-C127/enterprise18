@@ -92,9 +92,8 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         trigger: '.card-footer button[barcode_trigger="CLWO"]',
     },
     {
-        content: 'Switch to second workcenter for next operation',
-        extra_trigger: '.o_nocontent_help',
-        trigger: '.o_control_panel_actions button:contains("Jungle")',
+        content: 'Navigate to next operation',
+        trigger: 'button:contains("Next Operation")'
     },
     {
         content: 'Open the WO setting menu again',
