@@ -167,6 +167,7 @@ class QualityAlertStage(models.Model):
 class QualityCheck(models.Model):
     _name = "quality.check"
     _description = "Quality Check"
+    _order = "point_id, id"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _check_company_auto = True
 

@@ -158,10 +158,10 @@ class TestShopFloor(HttpCase):
             {'quality_state': 'pass', 'component_id': False, 'qty_done': 2, 'lot_id': mo.move_finished_ids.move_line_ids.lot_id.id},
             {'quality_state': 'pass', 'component_id': False, 'qty_done': 0, 'lot_id': mo.move_finished_ids.move_line_ids.lot_id.id},
             {'quality_state': 'pass', 'component_id': leg.id, 'qty_done': 8, 'lot_id': 0},
-            {'quality_state': 'pass', 'component_id': neck.id, 'qty_done': 1, 'lot_id': neck_sn_2.id},
-            {'quality_state': 'pass', 'component_id': False, 'qty_done': 0, 'lot_id': mo.move_finished_ids.move_line_ids.lot_id.id},
             {'quality_state': 'pass', 'component_id': leg.id, 'qty_done': 2, 'lot_id': 0},
+            {'quality_state': 'pass', 'component_id': neck.id, 'qty_done': 1, 'lot_id': neck_sn_2.id},
             {'quality_state': 'pass', 'component_id': neck.id, 'qty_done': 1, 'lot_id': neck_sn_1.id},
+            {'quality_state': 'pass', 'component_id': False, 'qty_done': 0, 'lot_id': mo.move_finished_ids.move_line_ids.lot_id.id},
         ])
 
     def test_generate_serials_in_shopfloor(self):
