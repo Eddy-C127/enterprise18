@@ -49,7 +49,7 @@ class HelpdeskTicket(models.Model):
     def _search_remaining_hours_so(self, operator, value):
         return [('sale_line_id.remaining_hours', operator, value)]
 
-    @api.depends('commercial_partner_id', 'use_helpdesk_sale_timesheet', 'project_id.pricing_type', 'project_id.sale_line_id')
+    @api.depends('partner_id', 'use_helpdesk_sale_timesheet', 'project_id.pricing_type', 'project_id.sale_line_id')
     def _compute_sale_line_id(self):
         billable_tickets = self.filtered('use_helpdesk_sale_timesheet')
         (self - billable_tickets).update({
