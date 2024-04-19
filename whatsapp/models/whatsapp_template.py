@@ -572,7 +572,7 @@ class WhatsAppTemplate(models.Model):
 
     def _update_template_from_response(self, remote_template_vals):
         self.ensure_one()
-        update_fields = ('body', 'header_type', 'header_text', 'footer_text', 'lang_code', 'template_type', 'status')
+        update_fields = ('body', 'header_type', 'header_text', 'footer_text', 'lang_code', 'template_type', 'status', 'quality')
         template_vals = self._get_template_vals_from_response(remote_template_vals, self.wa_account_id)
         update_vals = {field: template_vals[field] for field in update_fields}
 
@@ -600,6 +600,7 @@ class WhatsAppTemplate(models.Model):
 
         Relational fields will use arrays instead of commands.
         """
+        quality_score = remote_template_vals['quality_score']['score'].lower()
         template_vals = {
             'body': False,
             'button_ids': [],
@@ -609,6 +610,7 @@ class WhatsAppTemplate(models.Model):
             'header_type': 'none',
             'lang_code': remote_template_vals['language'],
             'name': remote_template_vals['name'].replace("_", " ").title(),
+            'quality': 'none' if quality_score == 'unknown' else quality_score,
             'status': remote_template_vals['status'].lower(),
             'template_name': remote_template_vals['name'],
             'template_type': remote_template_vals['category'].lower(),

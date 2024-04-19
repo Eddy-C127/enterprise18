@@ -74,13 +74,13 @@ class WhatsAppApi:
         if self.is_shared_account:
             raise WhatsAppError(failure_type='account')
 
-        template_url = f"/{self.wa_account_id.account_uid}/message_templates"
+        template_url = f"/{self.wa_account_id.account_uid}/message_templates?fields=name,components,language,status,category,id,quality_score"
         _logger.info("Sync templates for account %s [%s]", self.wa_account_id.name, self.wa_account_id.id)
 
         if fetch_all:
             final_response_json = {}
             # Fetch 200 templates at once
-            template_url += "?limit=200"
+            template_url += "&limit=200"
             endpoint_include = False
             while template_url:
                 response = self.__api_requests("GET", url=template_url, auth_type="bearer", endpoint_include=endpoint_include)
@@ -111,7 +111,7 @@ class WhatsAppApi:
             raise WhatsAppError(failure_type='account')
 
         _logger.info("Get template details for template uid %s using account %s [%s]", wa_template_uid, self.wa_account_id.name, self.wa_account_id.id)
-        response = self.__api_requests("GET", f"/{wa_template_uid}", auth_type="bearer")
+        response = self.__api_requests("GET", f"/{wa_template_uid}?fields=name,components,language,status,category,id,quality_score", auth_type="bearer")
         return response.json()
 
     def _upload_demo_document(self, attachment):
