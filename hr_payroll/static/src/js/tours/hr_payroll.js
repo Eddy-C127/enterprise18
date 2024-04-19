@@ -7,7 +7,8 @@ import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add('payroll_tours', {
     url: "/web",
-    rainbowManMessage: _t('Congratulations! You created your first contract and generated your first payslip!'),
+    rainbowManMessage: () =>
+        markup(_t("<strong>Congrats, Your first payslip is now finished. It's time for you to explore the Payroll app by yourself.</strong>")),
     sequence: 80,
     steps: () => [
     {
@@ -21,49 +22,31 @@ registry.category("web_tour.tours").add('payroll_tours', {
         position: 'bottom',
     },
     {
-        trigger: "a[data-menu-xmlid='hr_payroll.menu_hr_payroll_contracts_configuration']",
+        trigger: "a[data-menu-xmlid='hr_payroll.hr_menu_all_contracts']",
         content: markup(_t('Click on Employees to pick one of your <strong>Employees</strong>.')),
         position: 'right',
     },
     {
-        trigger: 'td.o_many2one_avatar_employee_cell span',
-        content: markup(_t("Pick an Employee to see his <strong>Contract's History</strong>.")),
-        position: 'bottom',
-    },
-    {
-        trigger: `button[name='hr_contract_view_form_new_action']`,
+        trigger: `.o_list_button_add`,
         content: markup(_t('Click here to create a new <strong>Contract</strong>.')),
         position: 'bottom',
     },
     {
-        trigger: `input[name='name']`,
+        trigger: `div[name='name'] input`,
         content: markup(_t('Add a <strong>name</strong> to the contract.')),
         position: 'bottom',
+        run:'text Test',
     },
     {
-        trigger: `div[name='structure_type_id'] .o_external_button`,
-        content: markup(_t('Check the <strong>Salary Structure Type</strong>.')),
-        position: 'right',
+        trigger: ".o_field_widget[name='employee_id'] input",
+        content: _t("Add a employee to your contract"),
+        position: "right",
+        run: 'click',
     },
     {
-        trigger: '.modal-footer .o_form_button_cancel',
-        content: _t('Close the window.'),
-        position: 'top',
-    },
-    {
-        trigger: `div[name='resource_calendar_id'] .o_external_button`,
-        content: markup(_t('Check the <strong>Working Schedule</strong>.')),
-        position: 'right',
-    },
-    {
-        trigger: '.modal-footer .o_form_button_cancel',
-        content: _t('Close the window.'),
-        position: 'top',
-    },
-    {
-        trigger: `div[name='hr_responsible_id']`,
-        content: markup(_t('Select an <strong>HR Responsible</strong> for the contract.')),
-        position: 'top',
+        trigger: ".ui-autocomplete > li > a:not(:has(i.fa))",
+        auto: true,
+        id: 'hr_payroll_start',
     },
     {
         trigger: '.o_hr_contract_salary_information',
@@ -71,9 +54,16 @@ registry.category("web_tour.tours").add('payroll_tours', {
         position: 'bottom',
     },
     {
-        trigger: `.o_notebook div[name='wage']`,
+        trigger: `.o_notebook div[name='wage'] input`,
         content: markup(_t('Define a <strong>Wage</strong>.')),
         position: 'bottom',
+        run: 'text 1000',
+    },
+    {
+        trigger: "button.o_form_button_save",
+        content: "Save Contract",
+        position: 'bottom',
+        run: "click",
     },
     {
         trigger: `.o_form_statusbar button[data-value='open']`,
@@ -91,17 +81,13 @@ registry.category("web_tour.tours").add('payroll_tours', {
         position: 'right',
     },
     {
-        trigger: '.o_gantt_cell .o_gantt_pill_wrapper',
+        trigger: ".o_searchview .o_facet_remove",
+        content: _t('Remove "Conflicting" filter'),
+        run: "click",
+    },
+    {
+        trigger: '.o_gantt_pill_wrapper',
         content: markup(_t('Work Entries are generated for each <strong>time period</strong> defined in the Working Schedule of the Contract.')),
-        position: 'top',
-    },
-    {
-        trigger: '.modal-footer button.btn-primary',
-        auto: true,
-    },
-    {
-        trigger: '.modal-footer .o_form_button_cancel',
-        content: _t('Close the window.'),
         position: 'top',
     },
     {
@@ -115,9 +101,9 @@ registry.category("web_tour.tours").add('payroll_tours', {
         position: 'top',
     },
     {
-        trigger: `td.o_data_cell[name='number']`,
+        trigger: `table.o_list_table tr.o_data_row:last .o_data_cell[name='number']`,
         content: markup(_t('Click on the <strong>Payslip</strong>.')),
-        position: 'bottom',
+        position: 'top',
     },
     {
         trigger: `.o_hr_payroll_worked_days_input`,
@@ -133,15 +119,6 @@ registry.category("web_tour.tours").add('payroll_tours', {
         trigger: `button[name='action_payslip_done']`,
         content: markup(_t('Confirm the <strong>Payslip</strong>.')),
         position: 'bottom',
-    },
-    {
-        trigger: `a[name='employee_id']`,
-        content: markup(_t("Click here to go back to the <strong>Employee's profile</strong>.")),
-        position: 'right',
-    },
-    {
-        trigger: `div[name='payslip_count']`,
-        content: _t("You can access the Payslips from the Employee's Profile."),
-        position: 'bottom',
+        run: 'click',
     },
 ]});
