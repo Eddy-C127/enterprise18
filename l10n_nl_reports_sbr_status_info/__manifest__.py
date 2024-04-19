@@ -17,8 +17,6 @@ Adds the service that will check on the status of a submitted report to Digipoor
     'data': [
         'data/cron.xml',
         'security/ir.model.access.csv',
-        'views/l10n_nl_sbr_tax_report_view.xml',
-        'views/l10n_nl_sbr_icp_wizard_view.xml',
     ],
     'auto_install': ['l10n_nl_reports_sbr'],
     'installable': True,

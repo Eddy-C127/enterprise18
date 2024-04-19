@@ -290,7 +290,7 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
     def _get_sbr_identifier(self):
         return self.env.company.vat[2:] if self.env.company.vat.startswith('NL') else self.env.company.vat
 
-    def _additional_processing(self, kenmerk, closing_move):
+    def _additional_processing(self, options, kenmerk, closing_move):
         # TO BE OVERRIDEN by additional service(s)
         pass
 
@@ -378,7 +378,7 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
             closing_move.with_context(no_new_invoice=True).message_post(subject=subject, body=body, attachments=[(filename, report_file)])
             closing_move.message_subscribe(partner_ids=[self.env.user.id])
 
-        self._additional_processing(kenmerk, closing_move)
+        self._additional_processing(options, kenmerk, closing_move)
 
         return {
             'type': 'ir.actions.client',

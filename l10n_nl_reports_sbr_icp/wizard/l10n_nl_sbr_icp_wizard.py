@@ -114,7 +114,7 @@ class L10nNlICPSBRWizard(models.TransientModel):
             closing_move.with_context(no_new_invoice=True).message_post(subject=subject, body=body, attachments=[(filename, report_file)])
             closing_move.message_subscribe(partner_ids=[self.env.user.id])
 
-        self._additional_processing(kenmerk, closing_move)
+        self._additional_processing(options, kenmerk, closing_move)
 
         return {
             'type': 'ir.actions.client',
