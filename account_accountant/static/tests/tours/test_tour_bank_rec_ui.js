@@ -88,7 +88,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Modify the liquidity line amount",
             trigger: "div[name='balance'] input",
-            run: "edit 100.00 && blur",
+            run: "edit 100.00 && click body",
         },
         {
             content: "Liquidity line displays debit '$ 100.00'",
@@ -200,7 +200,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Change pager to display lines 1-2",
             trigger: "input.o_pager_value",
-            run: "edit 1-2 && blur",
+            run: "edit 1-2 && click body",
         },
         {
             content: "Last St Line is line2",
@@ -284,7 +284,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "add manual entry 1",
             trigger: "div[name='balance'] input",
-            run: "edit -600.0 && blur",
+            run: "edit -600.0 && click body",
         },
         {
             content: "mount the remaining opening balance line",
@@ -346,7 +346,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Change pager to display lines 1-3",
             trigger: "input.o_pager_value",
-            run: "edit 1-3 && blur",
+            run: "edit 1-3 && click body",
         },
         {
             content: "manually select line2 again by clicking it's matched icon",
@@ -588,7 +588,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Modify the liquidity line amount",
             extra_trigger: "div[name='balance'] input:focus-within",
             trigger: "div[name='balance'] input",
-            run: "edit -333.33 && blur",
+            run: "edit -333.33 && click body",
         },
         {
             content: "balance displays $-333.33",
@@ -599,7 +599,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Modify the label",
             trigger: "div[name='name'] input",
-            run: "edit Spontaneous Combustion && blur",
+            run: "edit Spontaneous Combustion && click body",
         },
         {
             content: "statement line displays combustion and $-333.33",
@@ -635,7 +635,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Set balance of 'line2' (selected row) to 500.00",
             trigger: "table.o_list_table tr.o_data_row.o_selected_row td[name='amount'] input",
-            run: "edit 500.00 && blur",
+            run: "edit 500.00 && click body",
         },
         {
             content: "Switch back to kanban",

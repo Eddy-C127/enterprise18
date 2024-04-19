@@ -165,7 +165,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: "Change text placeholder",
             trigger: ".o_popover .o_popover_placeholder input",
-            run: "edit placeholder && blur .o_popover",
+            run: "edit placeholder && click .o_popover",
         },
         {
             content: "Validate changes",
@@ -174,7 +174,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: "Change template name",
             trigger: ".o_sign_template_name_input",
-            run: "edit filled_template && blur",
+            run: "edit filled_template && click body",
         },
         {
             trigger: ".breadcrumb .o_back_button",

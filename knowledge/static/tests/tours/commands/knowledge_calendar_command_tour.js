@@ -204,7 +204,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, { // Set the text property
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Text Property") input',
-    run: 'edit Custom text && blur',
+    run: 'edit Custom text && click body',
 }, { // Set the name of the item
     trigger: '.o_knowledge_editor .odoo-editor-editable h1',
     run: "editor Item Article",

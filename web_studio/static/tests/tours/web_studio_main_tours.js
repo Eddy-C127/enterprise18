@@ -177,12 +177,13 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             extra_trigger: ".o_web_studio_form_view_editor",
             // unfold 'Existing Fieldqs' section
             trigger: ".o_web_studio_existing_fields_header",
+            run: "click",
         },
         {
             // add an new field
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_field_type_container:eq(1) .o_web_studio_field_char",
-            run: "drag_and_drop_native .o_web_studio_form_view_editor .o_inner_group",
+            run: "drag_and_drop .o_web_studio_form_view_editor .o_inner_group",
         },
         {
             // click on the field
@@ -193,7 +194,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         {
             // rename the label
             trigger: '.o_web_studio_sidebar input[name="string"]',
-            run: "edit My Coucou Field && blur .o_web_studio_sidebar",
+            run: "edit My Coucou Field && click .o_web_studio_sidebar",
         },
         stepNextTick(),
         {
@@ -202,7 +203,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run(helper) {
                 assertEqual(this.anchor.value, "my_coucou_field");
                 helper.edit("coucou");
-                helper.blur(".o_web_studio_sidebar");
+                helper.click(".o_web_studio_sidebar");
             },
             // the rename operation (/web_studio/rename_field + /web_studio/edit_view)
             // takes a while and sometimes reaches the default 10s timeout
@@ -219,12 +220,12 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             // add a new field
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_field_type_container:eq(1) .o_web_studio_field_char",
-            run: "drag_and_drop_native .o_web_studio_form_view_editor .o_inner_group",
+            run: "drag_and_drop .o_web_studio_form_view_editor .o_inner_group",
         },
         {
             // rename the field with the same name
             trigger: '.o_web_studio_sidebar input[name="technical_name"]',
-            run: "edit coucou && blur",
+            run: "edit coucou && click body",
         },
         {
             // an alert dialog should be opened
@@ -233,7 +234,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         {
             // rename the label
             trigger: '.o_web_studio_sidebar input[name="string"]',
-            run: "edit COUCOU && blur",
+            run: "edit COUCOU && click body",
         },
         stepNextTick(),
         {
@@ -253,7 +254,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             // add a monetary field --> create a currency field
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_field_type_container:eq(1) .o_web_studio_field_monetary",
-            run: "drag_and_drop_native .o_web_studio_form_view_editor .o_inner_group",
+            run: "drag_and_drop (.o_inner_group:first .o_web_studio_hook:eq(1))",
         },
         {
             // verify that the monetary field is in the view
@@ -261,7 +262,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
                 '.o_web_studio_form_view_editor .o_wrap_label:eq(1) label:contains("New Monetary")',
             // switch the two first fields
             trigger: ".o_web_studio_form_view_editor .o_inner_group:first .o-draggable:eq(1)",
-            run: "drag_and_drop_native .o_inner_group:first .o_web_studio_hook:first",
+            run: "drag_and_drop .o_inner_group:first .o_web_studio_hook:first",
         },
         {
             // click on "Add" tab
@@ -276,7 +277,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             // add a m2m field
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_field_type_container:eq(1) .o_web_studio_field_many2many",
-            run: "drag_and_drop_native .o_inner_group:first .o_web_studio_hook:first",
+            run: "drag_and_drop .o_inner_group:first .o_web_studio_hook:first",
         },
         {
             // type something in the modal
@@ -329,7 +330,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run() {},
         },
         {
-            trigger: ".o_web_studio_views_icons a[title=Form]",
+            trigger: ".o_web_studio_views_icons a[aria-label=Form]",
         },
         {
             // verify Chatter can be added after changing view to form
@@ -353,12 +354,13 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             extra_trigger: ".o_web_studio_list_view_editor",
             // unfold 'Existing Fieldqs' section
             trigger: ".o_web_studio_existing_fields_header",
+            run: "click",
         },
         {
             // add an existing field (display_name)
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_field_char:contains(COUCOU)",
-            run: "drag_and_drop_native .o_web_studio_list_view_editor th.o_web_studio_hook:first",
+            run: "drag_and_drop .o_web_studio_list_view_editor th.o_web_studio_hook:first",
         },
         {
             // verify that the field is correctly named
@@ -579,13 +581,14 @@ registry.category("web_tour.tours").add("web_studio_hide_fields_tour", {
             // wait for the list editor to be rendered because the sidebar is the same
             extra_trigger: ".o_web_studio_list_view_editor",
             trigger: ".o_web_studio_existing_fields_header",
+            run: "click",
         },
         {
             trigger: `
         .o_web_studio_sidebar
         .o_web_studio_existing_fields
         .o_web_studio_component:has(.o_web_studio_component_description:contains(display_name))`,
-            run: "drag_and_drop_native .o_web_studio_list_view_editor .o_web_studio_hook",
+            run: "drag_and_drop .o_web_studio_list_view_editor .o_web_studio_hook",
         },
         {
             trigger: `
@@ -757,7 +760,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         {
             // edit report name
             trigger: '.o_web_studio_sidebar input[id="name"]',
-            run: "edit My Awesome Report && blur",
+            run: "edit My Awesome Report && click body",
         },
         {
             // add a new group on the node
@@ -880,7 +883,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_basic_layout_tour
         {
             // edit report name
             trigger: '.o_web_studio_sidebar input[id="name"]',
-            run: "edit My Awesome basic layout Report && blur",
+            run: "edit My Awesome basic layout Report && click body",
         },
         {
             // add a new group on the node
@@ -1264,12 +1267,13 @@ registry.category("web_tour.tours").add("web_studio_alter_field_existing_in_mult
             // unfold 'Existing Fieldqs' section
             trigger: ".o_web_studio_existing_fields_header",
             timeout: 60000,
+            run: "click",
         },
         {
             // add an existing field (the one we created)
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_field_type_container:eq(2) .o_web_studio_field_many2many:contains(Followers (Partners))",
-            run: "drag_and_drop_native .o_inner_group:first .o_web_studio_hook:first",
+            run: "drag_and_drop .o_inner_group:first .o_web_studio_hook:first",
         },
         {
             trigger: ".o_web_studio_new ",
@@ -1277,7 +1281,7 @@ registry.category("web_tour.tours").add("web_studio_alter_field_existing_in_mult
         {
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_field_type_container:eq(1) .o_web_studio_field_many2many",
-            run: "drag_and_drop_native div.o_web_studio_hook:last",
+            run: "drag_and_drop div.o_web_studio_hook:last",
         },
         {
             extra_trigger: ".modal-body",
@@ -1313,12 +1317,13 @@ registry.category("web_tour.tours").add("web_studio_alter_field_existing_in_mult
         {
             // unfold 'Existing Fieldqs' section
             trigger: ".o_web_studio_existing_fields_header",
+            run: "click",
         },
         {
             // add an existing field (the one we created)
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_field_type_container:eq(1) .o_web_studio_field_many2many:contains(Followers (Partners))",
-            run: "drag_and_drop_native .o_web_studio_list_view_editor th.o_web_studio_hook:first",
+            run: "drag_and_drop .o_web_studio_list_view_editor th.o_web_studio_hook:first",
         },
         {
             // select field
@@ -1381,7 +1386,7 @@ const addMethodButtonModalSteps = () => [
     },
     {
         trigger: ".o-web-studio-editor--modal-add-action  input#set_method",
-        run: `edit demo && blur`,
+        run: `edit demo && click body`,
     },
 ];
 
@@ -1550,7 +1555,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_create", {
         {
             // add a new monetary field
             trigger: ".o_web_studio_sidebar .o_web_studio_field_monetary",
-            run: "drag_and_drop_native .o_web_studio_form_view_editor .o_inner_group",
+            run: "drag_and_drop .o_web_studio_form_view_editor .o_inner_group",
         },
         {
             // verify that the currency is set
@@ -1594,7 +1599,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_nam
         {
             // change the currency name
             trigger: "input[name='string']",
-            run: "edit NewCurrency && blur",
+            run: "edit NewCurrency && click body",
         },
         {
             // click on monetary
@@ -1629,7 +1634,7 @@ registry.category("web_tour.tours").add("web_studio_related_monetary_creation", 
         {
             // add a new related field
             trigger: ".o_web_studio_sidebar .o_web_studio_field_related",
-            run: "drag_and_drop_native .o_web_studio_form_view_editor .o_inner_group",
+            run: "drag_and_drop .o_web_studio_form_view_editor .o_inner_group",
         },
         {
             trigger: ".o_model_field_selector_value",
@@ -1807,11 +1812,12 @@ registry.category("web_tour.tours").add("web_studio_monetary_add_existing_moneta
         {
             // click on "existing fields"
             trigger: ".o_web_studio_existing_fields_header",
+            run: "click",
         },
         {
             // add the existing monetary field
             trigger: ".o_web_studio_existing_fields_section .o_web_studio_field_monetary",
-            run: "drag_and_drop_native .o_form_renderer .o_web_studio_hook",
+            run: "drag_and_drop .o_form_renderer .o_web_studio_hook",
         },
         {
             // monetary exist and click on monetary
@@ -1862,7 +1868,17 @@ registry
             {
                 // add a new monetary field
                 trigger: ".o_web_studio_sidebar .o_web_studio_field_monetary",
-                run: "drag_and_drop_native .o_web_studio_form_view_editor .o_inner_group",
+                async run(helpers) {
+                    await helpers.drag_and_drop(
+                        `.o_web_studio_form_view_editor .o_inner_group .o_web_studio_hook:eq(1)`,
+                        {
+                            position: {
+                                bottom: 0,
+                            },
+                            relative: true,
+                        }
+                    );
+                },
             },
             {
                 // there is only one occurence of the currency field in the view
@@ -1914,7 +1930,7 @@ registry.category("web_tour.tours").add("web_studio_add_field_into_empty_group_b
         .o_web_studio_sidebar
         .o_web_studio_existing_fields
         .o_web_studio_component:has(.o_web_studio_component_description:contains(create_date))`,
-            run: "drag_and_drop_native .o-web-studio-search--groupbys .o_web_studio_hook",
+            run: "drag_and_drop .o-web-studio-search--groupbys .o_web_studio_hook",
         },
     ],
 });

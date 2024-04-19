@@ -119,7 +119,7 @@ registry.category("web_tour.tours").add("web_studio_enter_x2many_edition_and_add
         {
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(User log entries)",
-            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_web_studio_hook:eq(1))",
+            run: "drag_and_drop(.o_web_studio_form_view_editor .o_web_studio_hook:eq(1))",
         },
         {
             trigger: ".o_web_studio_form_view_editor .o_field_widget[name='log_ids']",
@@ -173,7 +173,7 @@ registry.category("web_tour.tours").add("web_studio_enter_x2many_auto_inlined_su
         {
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(User log entries)",
-            run: "drag_and_drop_native (.o_web_studio_list_view_editor .o_web_studio_hook:eq(1))",
+            run: "drag_and_drop(.o_web_studio_list_view_editor .o_web_studio_hook:eq(1))",
         },
         {
             trigger: ".o_web_studio_list_view_editor th[data-name='log_ids']",
@@ -229,7 +229,7 @@ registry
             {
                 trigger:
                     ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(User log entries)",
-                run: "drag_and_drop_native (.o_web_studio_list_view_editor .o_web_studio_hook:eq(1))",
+                run: "drag_and_drop(.o_web_studio_list_view_editor .o_web_studio_hook:eq(1))",
             },
             {
                 trigger: ".o_web_studio_list_view_editor th[data-name='log_ids']",
@@ -260,12 +260,12 @@ registry.category("web_tour.tours").add("web_studio_boolean_field_drag_and_drop"
         },
         {
             trigger: ".o_web_studio_sidebar .o_web_studio_new_fields .o_web_studio_field_boolean",
-            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_web_studio_hook:eq(0))",
+            run: "drag_and_drop(.o_web_studio_form_view_editor .o_web_studio_hook:eq(0))",
         },
         {
             extra_trigger: ".o_web_studio_form_view_editor",
             trigger: ".o_wrap_field_boolean .o_wrap_label",
-            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_web_studio_hook:eq(2))",
+            run: "drag_and_drop(.o_web_studio_form_view_editor .o_web_studio_hook:eq(2))",
         },
         {
             trigger: ".o_wrap_label:eq(1):contains('New CheckBox')",
@@ -307,7 +307,7 @@ registry.category("web_tour.tours").add("web_studio_field_with_group", {
         {
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(Website Link)",
-            run: "drag_and_drop_native (.o_web_studio_list_view_editor th.o_web_studio_hook:eq(2))",
+            run: "drag_and_drop(.o_web_studio_list_view_editor th.o_web_studio_hook:eq(2))",
         },
         {
             extra_trigger:
@@ -351,7 +351,7 @@ registry.category("web_tour.tours").add("web_studio_set_tree_node_conditional_in
         },
         {
             trigger: ".o_tree_editor_condition input.o_input",
-            run: "edit Robert && blur",
+            run: "edit Robert && click body",
         },
         {
             trigger: ".modal-footer .btn-primary",
@@ -396,7 +396,7 @@ registry.category("web_tour.tours").add("web_studio_elements_with_groups_form", 
         {
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(Website Link)",
-            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_inner_group .o_web_studio_hook:eq(1))",
+            run: "drag_and_drop(.o_web_studio_form_view_editor .o_inner_group .o_web_studio_hook:eq(1))",
         },
         {
             extra_trigger:
@@ -459,7 +459,7 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
         },
         {
             trigger: ".o_web_studio_sidebar .o_web_studio_new_fields .o_web_studio_field_selection",
-            run: "drag_and_drop_native (.o_web_studio_hook:eq(0))",
+            run: "drag_and_drop(.o_web_studio_hook:eq(0))",
         },
         {
             trigger: ".o_web_studio_add_selection .o-web-studio-interactive-list-item-input",
@@ -537,7 +537,7 @@ registry.category("web_tour.tours").add("web_studio_test_create_one2many_lines_t
         },
         {
             trigger: ".o_web_studio_sidebar .o_web_studio_new_fields .o_web_studio_field_lines",
-            run: "drag_and_drop_native (.o_web_studio_hook:eq(0))",
+            run: "drag_and_drop(.o_web_studio_hook:eq(0))",
         },
         {
             trigger: ".o_form_label",
@@ -547,7 +547,7 @@ registry.category("web_tour.tours").add("web_studio_test_create_one2many_lines_t
         {
             extra_trigger: ".o_web_studio_sidebar .o_web_studio_properties.active",
             trigger: "input[name='string']",
-            run: "edit new name && blur",
+            run: "edit new name && click body",
         },
         {
             trigger: ".o_web_studio_leave",
@@ -748,7 +748,7 @@ registry
                 trigger: `.o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component[data-drop='${JSON.stringify(
                     { fieldName: "active" }
                 )}']`,
-                run: "drag_and_drop_native (.o_web_studio_hook:eq(0))",
+                run: "drag_and_drop(.o_web_studio_hook:eq(0))",
             },
             {
                 content: "Check that the active field has been added",
@@ -784,7 +784,7 @@ registry.category("web_tour.tours").add("web_studio_test_studio_view_is_last", {
         {
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(Website Link)",
-            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_inner_group .o_web_studio_hook:last)",
+            run: "drag_and_drop(.o_web_studio_form_view_editor .o_inner_group .o_web_studio_hook:last)",
         },
         {
             trigger: ".o_web_studio_form_view_editor .o_field_widget[name='website']",
@@ -863,7 +863,7 @@ registry.category("web_tour.tours").add("web_studio_x2many_two_levels_edition", 
             extra_trigger: ".o_web_studio_existing_fields",
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(Created on)",
-            run: "drag_and_drop_native .o_web_studio_hook",
+            run: "drag_and_drop .o_web_studio_hook",
         },
         {
             trigger: ".o_web_studio_form_view_editor [data-field-name='create_date']",
@@ -949,7 +949,7 @@ registry.category("web_tour.tours").add("web_studio_test_move_similar_field", {
         },
         {
             trigger: ".tab-pane.active [data-field-name=display_name]",
-            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_web_studio_hook:eq(1))",
+            run: "drag_and_drop(.o_web_studio_form_view_editor .o_web_studio_hook:eq(1))",
         },
         {
             trigger: ".o_web_studio_leave",
@@ -972,7 +972,7 @@ registry.category("web_tour.tours").add("web_studio_test_related_file", {
         {
             extra_trigger: ".o_web_studio_form_view_editor",
             trigger: ".o_web_studio_field_related",
-            run: "drag_and_drop_native (.o_inner_group)",
+            run: "drag_and_drop(.o_inner_group)",
         },
         {
             extra_trigger: ".modal-dialog",
@@ -1022,7 +1022,7 @@ registry.category("web_tour.tours").add("web_studio_test_undo_new_field", {
         },
         {
             trigger: ".o_web_studio_sidebar .o_web_studio_new_fields .o_web_studio_field_integer",
-            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_web_studio_hook:eq(1))",
+            run: "drag_and_drop(.o_web_studio_form_view_editor .o_web_studio_hook:eq(1))",
         },
         {
             trigger: "button.o_web_studio_undo.o_web_studio_active",
@@ -1083,11 +1083,11 @@ registry.category("web_tour.tours").add("web_studio_test_new_field_rename_descri
         {
             extra_trigger: ".o_web_studio_form_view_editor",
             trigger: ".o_web_studio_sidebar .o_web_studio_component.o_web_studio_field_char",
-            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_web_studio_hook:eq(1))",
+            run: "drag_and_drop(.o_web_studio_form_view_editor .o_web_studio_hook:eq(1))",
         },
         {
             trigger: ".o_web_studio_sidebar input[name='string']",
-            run: "edit my new field && blur",
+            run: "edit my new field && click body",
         },
         {
             trigger:
@@ -1118,7 +1118,7 @@ registry.category("web_tour.tours").add("web_studio_test_edit_digits_option", {
         },
         {
             trigger: "input#digits",
-            run: "edit 2 && blur",
+            run: "edit 2 && click body",
         },
         {
             trigger: ".o_web_studio_leave",
@@ -1146,7 +1146,7 @@ registry.category("web_tour.tours").add("web_studio_no_fetch_subview", {
         },
         {
             trigger: ".o_web_studio_sidebar .o_web_studio_new_fields .o_web_studio_field_many2many",
-            run: "drag_and_drop_native (.o_web_studio_form_view_editor .o_web_studio_hook:eq(0))",
+            run: "drag_and_drop(.o_web_studio_form_view_editor .o_web_studio_hook:eq(0))",
         },
         {
             trigger: ".o_record_selector input",
@@ -1215,16 +1215,16 @@ registry.category("web_tour.tours").add("web_studio.test_res_users_fake_fields",
     test: true,
     steps: () => [
         {
-            trigger: ".o_web_studio_existing_fields_header"
+            trigger: ".o_web_studio_existing_fields_header",
         },
         {
             trigger: ".o_web_studio_existing_fields",
             run() {
                 const elements = [...document.querySelectorAll(".o_web_studio_component")];
-                const fieldStrings = elements.map(el => el.innerText.split("\n")[0]);
+                const fieldStrings = elements.map((el) => el.innerText.split("\n")[0]);
                 assertEqual(fieldStrings.includes("Administration"), false);
                 assertEqual(fieldStrings.includes("Multi Companies"), false);
-            }
-        }
-    ]
+            },
+        },
+    ],
 });

@@ -154,7 +154,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Set Public Transportation Amount",
             trigger: 'input[name="public_transport_reimbursed_amount_manual"]',
-            run: "edit 100 && blur",
+            run: "edit 100 && click label:contains(Transportation)",
         },
         {
             content: "Unchoose Public Transportation",
@@ -171,7 +171,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Set Train Transportation Amount",
             trigger: 'input[name="train_transport_reimbursed_amount_manual"]',
-            run: "edit 150 && blur",
+            run: "edit 150 && click label:contains(Transportation)",
         },
         {
             content: "Unchoose Public Transportation",
@@ -188,19 +188,19 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Set Private Car Transportation Amount",
             trigger: 'input[name="private_car_reimbursed_amount_manual"]',
-            run: "edit 150 && blur",
+            run: "edit 150 && click label:contains(Transportation)",
         },
         {
             content: "Change km_home_work on personal info",
             trigger: 'input[name="km_home_work"]',
             extra_trigger: 'input[name="Gross"][value="2886.87"]',
-            run: "edit 75 && blur",
+            run: "edit 75 && click label:contains(Transportation)",
         },
         {
             content: "Reset 150 km",
             trigger: 'input[name="km_home_work"]',
             extra_trigger: 'input[name="Gross"][value="2930.88"]',
-            run: "edit 150 && blur",
+            run: "edit 150 && click label:contains(Transportation)",
         },
         {
             content: "Unchoose Private Car Transportation",
@@ -238,13 +238,13 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Unset Internet",
             trigger: 'input[name="internet_manual"]',
             extra_trigger: 'input[name="Gross"][value="3000"]',
-            run: "edit 0 && blur",
+            run: "edit 0 && click label:contains(Internet)",
         },
         {
             content: "Reset Internet",
             trigger: 'input[name="internet_manual"]',
             extra_trigger: 'input[name="Gross"][value="3026.13"]',
-            run: "edit 38 && blur",
+            run: "edit 38 && click label:contains(Internet)",
         },
         {
             content: "Unset Mobile",
@@ -485,7 +485,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Set Children",
             trigger: "input[name=children]",
             extra_trigger: 'input[name="Net"][value="2114.69"]',
-            run: "edit 3 && blur",
+            run: "edit 3 && click h2:contains(Situation)",
         },
         {
             content: "Check Disabled Children",
@@ -497,13 +497,13 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Set 1 Disabled Children",
             trigger: "input[name=disabled_children_number]",
             extra_trigger: 'input[name="Net"][value="2444.69"]',
-            run: "edit 1 && blur",
+            run: "edit 1 && click h2:contains(Situation)",
         },
         {
             content: "Set 0 Disabled Children",
             trigger: "input[name=disabled_children_number]",
             extra_trigger: 'input[name="Net"][value="2663.69"]',
-            run: "edit 0 && blur",
+            run: "edit 0 && click h2:contains(Situation)",
         },
         {
             content: "Uncheck Disabled Children",
@@ -515,7 +515,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Unset Children",
             trigger: "input[name=children]",
             extra_trigger: 'input[name="Net"][value="2444.69"]',
-            run: "edit 0 && blur",
+            run: "edit 0 && click h2:contains(Situation)",
         },
         {
             content: "Check Other Dependent People",
@@ -527,49 +527,49 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Set 2 Senior",
             trigger: "input[name=other_senior_dependent]",
             extra_trigger: 'input[name="Net"][value="2114.69"]',
-            run: "edit 2 && blur",
+            run: "edit 2 && click h2:contains(Situation)",
         },
         {
             content: "Set 1 disabled Senior",
             trigger: "input[name=other_disabled_senior_dependent]",
             extra_trigger: 'input[name="Net"][value="2282.69"]',
-            run: "edit 1 && blur",
+            run: "edit 1 && click h2:contains(Situation)",
         },
         {
             content: "Set 2 Juniors",
             trigger: "input[name=other_juniors_dependent]",
             extra_trigger: 'input[name="Net"][value="2366.69"]',
-            run: "edit 2 && blur",
+            run: "edit 2 && click h2:contains(Situation)",
         },
         {
             content: "Set 1 disabled Junior",
             trigger: "input[name=other_disabled_juniors_dependent]",
             extra_trigger: 'input[name="Net"][value="2444.69"]',
-            run: "edit 1 && blur",
+            run: "edit 1 && click h2:contains(Situation)",
         },
         {
             content: "Unset 1 disabled Senior over 2",
             trigger: "input[name=other_disabled_juniors_dependent]",
             extra_trigger: 'input[name="Net"][value="2483.69"]',
-            run: "edit 0 && blur",
+            run: "edit 0 && click h2:contains(Situation)",
         },
         {
             content: "Unset 2 Juniors",
             trigger: "input[name=other_juniors_dependent]",
             extra_trigger: 'input[name="Net"][value="2444.69"]',
-            run: "edit 0 && blur",
+            run: "edit 0 && click h2:contains(Situation)",
         },
         {
             content: "Unset 1 disabled Senior",
             trigger: "input[name=other_disabled_senior_dependent]",
             extra_trigger: 'input[name="Net"][value="2366.69"]',
-            run: "edit 0 && blur",
+            run: "edit 0 && click h2:contains(Situation)",
         },
         {
             content: "Unset 2 Seniors",
             trigger: "input[name=other_senior_dependent]",
             extra_trigger: 'input[name="Net"][value="2282.69"]',
-            run: "edit 0 && blur",
+            run: "edit 0 && click h2:contains(Situation)",
         },
         {
             content: "Uncheck Other Dependent People",
@@ -984,17 +984,17 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Contract Information",
             trigger: "div[name='fuel_card'] input",
-            run: "edit 250 && blur",
+            run: "edit 250 && click h2:contains(Monthly)",
         },
         {
             content: "Contract Information",
             trigger: "div[name='commission_on_target'] input",
-            run: "edit 1000 && blur",
+            run: "edit 1000 && click h2:contains(Monthly)",
         },
         {
             content: "Contract Information",
             trigger: "[name='ip_wage_rate'] input",
-            run: "edit 25 && blur",
+            run: "edit 25 && click h2:contains(Monthly)",
         },
         {
             content: "Contract Information",
@@ -1153,7 +1153,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Set Seniority at Hiring",
             trigger: 'input[name="l10n_be_scale_seniority"]',
-            run: "edit 1 && blur",
+            run: "edit 1 && click body",
         },
         {
             content: "Lang",
@@ -1200,7 +1200,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Set 0 Children",
             trigger: "input[name=children]",
-            run: "edit 0 && blur",
+            run: "edit 0 && click body",
         },
         // set personal info
         {

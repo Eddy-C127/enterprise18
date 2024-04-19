@@ -50,10 +50,10 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     run: "click",
 }, {
     trigger: ".o_data_row:eq(0) .o_data_cell[name='product_uom_qty'] input",
-    run: "edit 2.0 && blur",
+    run: "edit 2.0 && click .o_selected_row",
 }, {
     trigger: ".o_data_row:eq(0) .o_data_cell[name='price_unit'] input",
-    run: "edit 42.0 && blur",
+    run: "edit 42.0 && click .o_selected_row",
 }, {
     content: 'Wait for the unit price to be rerendered.',
     trigger: '.o_selected_row [name=price_unit] input:value(42.00)',
@@ -84,7 +84,7 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     run: "click",
 }, {
     trigger: ".o_data_row:eq(3) .o_data_cell[name='product_uom_qty'] input",
-    run: "edit 5.0 && blur",
+    run: "edit 5.0 && click body",
 }, {
     trigger: 'button[name=action_confirm]',
     position: 'bottom',

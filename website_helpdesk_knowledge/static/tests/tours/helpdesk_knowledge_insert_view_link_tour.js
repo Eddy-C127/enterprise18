@@ -23,9 +23,7 @@ registry.category("web_tour.tours").add('helpdesk_insert_kanban_view_link_in_kno
     trigger: '.o_control_panel .o_cp_action_menus .dropdown-toggle',
 }, { // open the knowledge submenu
     trigger: ".dropdown-menu .dropdown-toggle:contains(Knowledge)",
-    run: function () {
-        this.anchor.dispatchEvent(new MouseEvent("mouseenter"));
-    },
+    run: "hover",
 }, { // insert the view link in an article
     trigger: '.dropdown-menu .dropdown-item:contains("Insert link in article")',
 }, { // create a new article

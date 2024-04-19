@@ -35,6 +35,7 @@ registry.category("web_tour.tours").add('hr_payroll_edit_payslip_lines_tour', {
     },
     {
         content: "Click on action",
+        extra_trigger: ".o_form_sheet",
         trigger: ".o_control_panel .o_cp_action_menus .dropdown-toggle",
     },
     {
@@ -61,7 +62,8 @@ registry.category("web_tour.tours").add('hr_payroll_edit_payslip_lines_tour', {
     },
     {
         content: "Validate changes",
-        trigger: ".btn-primary:contains('Validate Edition')",
+        extra_trigger: ".modal-header:contains(Odoo)",
+        trigger: ".modal-footer .btn-primary:contains('Validate Edition')",
     },
     {
         content: "Click on Salary Computation page",

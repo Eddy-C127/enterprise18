@@ -193,10 +193,8 @@ registry.category("web_tour.tours").add('account_reports', {
         },
         {
             content: "Remove text from annotate",
-            trigger: "textarea",
-            run: () => {
-                document.querySelector(".modal-body textarea").value = "";
-            }
+            trigger: ".modal-body textarea",
+            run: "clear",
         },
         {
             content: "Submit footnote",

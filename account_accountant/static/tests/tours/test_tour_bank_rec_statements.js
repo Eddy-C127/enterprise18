@@ -32,7 +32,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
         {
             content: "Modify the end balance",
             trigger: "input[id='balance_end_real_0']",
-            run: "edit 100 && blur",
+            run: "edit 100 && click body",
         },
         {
             content: "Dialog displays warning, save anyway",

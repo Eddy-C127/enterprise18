@@ -25,7 +25,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: () => {},  // check that the article is correctly created (private section)
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit My Private Article && blur",  // modify the article name
+    run: "edit My Private Article && click body",  // modify the article name
 }, {
     trigger: '.note-editable.odoo-editor-editable',
     run: "editor Content of My Private Article",  // modify the article content
@@ -66,7 +66,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: () => {},  // check that the article is correctly created (workspace section)
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit Child Article 1 && blur",  // modify the article name
+    run: "edit Child Article 1 && click body",  // modify the article name
 }, {
     // create child article (2)
     trigger: '.o_article:contains("Workspace Article") a.o_article_create',
@@ -75,7 +75,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: () => {},  // check that the article is correctly created (workspace section)
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit Child Article 2 && blur",  // modify the article name
+    run: "edit Child Article 2 && click body",  // modify the article name
 }, {
     // go back to main workspace article
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Workspace Article")',

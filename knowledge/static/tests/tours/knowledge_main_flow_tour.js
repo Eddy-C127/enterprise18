@@ -56,7 +56,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: () => {},
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'edit My Workspace Article && blur',  // modify the article name
+    run: 'edit My Workspace Article && click body',  // modify the article name
 }, {
     trigger: '.note-editable.odoo-editor-editable',
     run: "editor Content of My Workspace Article",  // modify the article content
@@ -79,7 +79,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: () => {},
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit Child Article 1 && blur",  // modify the article name
+    run: "edit Child Article 1 && click body",  // modify the article name
 }, {
     trigger: '.o_article:contains("My Workspace Article")',
 }, {
@@ -94,7 +94,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: () => {},
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit Child Article 2 && blur",  // modify the article name
+    run: "edit Child Article 2 && click body",  // modify the article name
 }, {
     // move child article 2 above child article 1
     trigger: '.o_article_handle:contains("Child Article 2")',
@@ -131,7 +131,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // Open the simplified create form view
     trigger: '.o-autocomplete--dropdown-menu .o_m2o_dropdown_option_create_edit a',
-    run: 'click',
+    run: "click",
 }, {
     // Give an email address to the partner
     trigger: '.o_field_widget[name=email] input',
@@ -210,23 +210,23 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: () => {},
 }, {
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit Article to be moved && blur",  // modify the article name
+    run: "edit Article to be moved && click body",  // modify the article name
 }, {// move article
     trigger: 'a#dropdown_tools_panel',
     run: 'click'
 }, {
     trigger: '.btn-move',
-    run: 'click',
+    run: "click",
 }, {
     trigger: '.o_select_menu_item:contains("Article 3")',
     in_modal: false,
-    run: 'click',
+    run: "click",
 }, {
     trigger: '.o_select_menu_toggler_slot:contains("Article 3")',
     run: () => {},
 }, {
     trigger: '.modal-content .btn-primary:contains("Move Article")',
-    run: 'click',
+    run: "click",
 }, {
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Article to be moved")',
     run: 'click'

@@ -31,7 +31,7 @@ registry.category("web_tour.tours").add('knowledge_properties_tour', {
     run: 'click'
 }, { // modify property name
     trigger: '.o_field_property_definition_header',
-    run: "edit myproperty && blur",
+    run: "edit myproperty && click body",
 }, { // verify property and finish property edition
     trigger: '.o_knowledge_editor .odoo-editor-editable',
     extra_trigger: '.o_field_property_label:contains("myproperty")',

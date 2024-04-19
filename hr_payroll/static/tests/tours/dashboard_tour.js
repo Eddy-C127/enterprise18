@@ -64,7 +64,7 @@ registry.category("web_tour.tours").add('payroll_dashboard_ui_tour', {
     {
         content: "Set a name",
         trigger: 'li.o_hr_payroll_todo_tab input',
-        run: "edit Dashboard Todo List && blur",
+        run: "edit Dashboard Todo List && click body",
     },
     {
         content: "Edit the note in dashboard view",

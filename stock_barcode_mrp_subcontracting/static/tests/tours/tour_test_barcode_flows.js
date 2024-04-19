@@ -56,7 +56,7 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
     {
         trigger: ".o_field_widget[name=qty_producing] input",
         position: "right",
-        run: "edit 1 && blur",
+        run: "edit 1 && click body",
     },
 
     {
@@ -79,7 +79,7 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
     {
         trigger: ".o_field_widget[name=qty_producing] input",
         position: "right",
-        run: "edit 1 && blur",
+        run: "edit 1 && click body",
     },
 
     {
@@ -105,7 +105,7 @@ registry.category("web_tour.tours").add('test_receipt_flexible_subcontracted_pro
     {
         trigger: ".o_field_widget[name=qty_producing] input",
         position: "right",
-        run: "edit 1 && blur",
+        run: "edit 1 && click body",
     },
     {
         trigger: "div[name=move_line_raw_ids] td[name=quantity]",

@@ -34,7 +34,7 @@ registry.category("web_tour.tours").add('planning_tour', {
         extra_trigger: '.o_action:not(.o_view_sample_data)',
         content: markup(_t("<b>Drag & drop</b> your shift to reschedule it. <i>Tip: hit CTRL (or Cmd) to duplicate it instead.</i> <b>Adjust the size</b> of the shift to modify its period.")),
         position: "bottom",
-        run: "drag_and_drop_native .o_gantt_cell:nth-child(6)",
+        run: "drag_and_drop .o_gantt_cell:nth-child(6)",
     }, {
         trigger: ".o_control_panel .dropdown-toggle",
         content: _t("Share the schedule with your team by publishing and sending it. Open the menu to access this option."),

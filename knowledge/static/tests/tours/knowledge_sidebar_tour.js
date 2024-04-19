@@ -36,7 +36,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit Workspace Article && blur",
+    run: "edit Workspace Article && click body",
 }, {
     // Check that the name has been updated in the sidebar
     trigger: '.o_article_active:contains("Workspace Article")',
@@ -63,7 +63,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit Private Article && blur",
+    run: "edit Private Article && click body",
 },
 // Create a shared article
 {
@@ -78,7 +78,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: "edit Shared Article && blur",
+    run: "edit Shared Article && click body",
 }, {
     // Open the share dropdown
     trigger: '.o_knowledge_header .btn:contains("Share")',
@@ -92,7 +92,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Open the simplified create form view
     trigger: '.o-autocomplete--dropdown-menu .o_m2o_dropdown_option_create_edit a',
-    run: 'click',
+    run: "click",
 }, {
     // Give an email address to the partner
     trigger: '.o_field_widget[name=email] input',
@@ -126,7 +126,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit Workspace Child && blur",
+    run: "edit Workspace Child && click body",
 },
 // Create a child of a private article
 {
@@ -145,7 +145,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit Private Child 1 && blur",
+    run: "edit Private Child 1 && click body",
 },
 // Create a child of a shared article
 {
@@ -164,7 +164,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit Shared Child && blur",
+    run: "edit Shared Child && click body",
 },
 // Open an article by clicking on it
 {
@@ -276,7 +276,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: "edit Private Child 2 && blur",
+    run: "edit Private Child 2 && click body",
 }, {
     // Check that the article has been renamed in the favorite tree
     trigger: 'section[data-section="favorites"] .o_article_name:contains("Private Child 2")',
@@ -342,7 +342,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
-    run: 'edit Private Child 3 && blur',
+    run: 'edit Private Child 3 && click body',
 },
 // Add a random icon
 {
@@ -719,7 +719,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: "edit Private Child 4 && blur",
+    run: "edit Private Child 4 && click body",
 }, {
     trigger: '.o_article_active:contains("Private Child 4")',
     run: () => {
@@ -828,7 +828,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: "edit Shared 2 && blur",
+    run: "edit Shared 2 && click body",
 }, {
     // Share the article
     trigger: '.o_knowledge_header .btn:contains("Share")',
@@ -866,7 +866,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Rename the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: "edit Moved to Share && blur",
+    run: "edit Moved to Share && click body",
 }, {
     trigger: '.o_article_active:contains("Moved to Share")',
     run: () => {

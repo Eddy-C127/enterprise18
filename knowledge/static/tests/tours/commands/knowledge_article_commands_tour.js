@@ -89,7 +89,7 @@ const fileCommandSteps = [{ // open the command bar
     }
 }, {
     trigger: 'input[placeholder="Onboarding.txt"]',
-    run: "edit Renamed && blur",
+    run: "edit Renamed && click body",
 }, {
     trigger: 'span.o_knowledge_file_name',
     run: function () {

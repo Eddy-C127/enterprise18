@@ -93,7 +93,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 )
             ),
             position: "bottom",
-            run: "drag_and_drop_native .o_web_studio_form_view_editor .o_inner_group",
+            run: "drag_and_drop .o_web_studio_form_view_editor .o_inner_group",
             timeout: 60000 /* previous step reloads registry, etc. - could take a long time */,
         },
         {
@@ -109,7 +109,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 )
             ),
             position: "bottom",
-            run: "edit My Field && blur",
+            run: "edit My Field && click body",
         },
         {
             // wait for the field to be renamed
@@ -130,7 +130,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 _t("Drag & drop <b>another field</b>. Let’s try with a <i>selection field</i>.")
             ),
             position: "bottom",
-            run: "drag_and_drop_native .o_web_studio_form_view_editor .o_inner_group",
+            run: "drag_and_drop .o_web_studio_form_view_editor .o_inner_group",
         },
         {
             trigger: ".o_web_studio_selection_editor .o_web_studio_add_selection input",

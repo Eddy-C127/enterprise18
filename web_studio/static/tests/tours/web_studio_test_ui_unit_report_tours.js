@@ -116,7 +116,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition", 
     steps: () => [
         {
             trigger: ".o_web_studio_sidebar input[id='name']",
-            run: "edit modified in test && blur",
+            run: "edit modified in test && click body",
         },
         {
             trigger: ".o_web_studio_menu .breadcrumb-item.active",
@@ -227,7 +227,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_di
     steps: () => [
         {
             trigger: ".o_web_studio_sidebar input[id='name']",
-            run: "edit modified in test && blur",
+            run: "edit modified in test && click body",
         },
         {
             trigger: ".o_web_studio_menu .breadcrumb-item.active",
@@ -469,7 +469,7 @@ registry.category("web_tour.tours").add("web_studio.test_table_rendering", {
         },
         {
             trigger: ".o_web_studio_sidebar input[id='name']",
-            run: "edit modified && blur",
+            run: "edit modified && click body",
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
@@ -717,7 +717,7 @@ registry.category("web_tour.tours").add("web_studio.test_edition_without_lang", 
         },
         {
             trigger: ".o_translation_dialog .row:eq(1) textarea",
-            run: "edit translated edited term && blur",
+            run: "edit translated edited term && click body",
         },
         {
             trigger: ".modal-footer button.btn-primary",

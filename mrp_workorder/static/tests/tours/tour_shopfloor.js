@@ -59,7 +59,7 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         content: 'Add 2 units',
         extra_trigger: '.o_field_widget[name="qty_done"] input:value("0.00")',
         trigger: '.o_field_widget[name="qty_done"] input',
-        run: "edit 2 && blur .modal-body"
+        run: "edit 2 && click .modal-body"
     },
     {
         content: 'Click on "Validate"',

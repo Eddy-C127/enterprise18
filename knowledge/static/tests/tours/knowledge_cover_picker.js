@@ -28,7 +28,7 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     // Set the name of the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: "edit Birds && blur",
+    run: "edit Birds && click body",
 }, {
     // Make the add cover button visible (only visible on hover)
     trigger: '.o_article_active:contains("Birds")',
@@ -52,7 +52,7 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
 }, {
     // Choose the odoo_logo cover
     trigger: '.o_existing_attachment_cell img[title*="odoo_logo"]',
-    run: 'click',
+    run: "click",
 }, {
     // Check cover has been added to the article and is initially centered and
     // make the reposition cover button visible
@@ -99,7 +99,7 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     // Change the name of the article
     trigger: '.o_breadcrumb_article_name > input',
     extra_trigger: '.o_article_active:contains("Untitled")',
-    run: "edit odoo && blur",
+    run: "edit odoo && click body",
 }, {
     // Go back to previous article
     trigger: '.o_knowledge_sidebar .o_article_name:contains("Birds")',

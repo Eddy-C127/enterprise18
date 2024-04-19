@@ -94,7 +94,7 @@ const validateFavoriteFiltersSteps = function (kanban1, kanban2) {
         trigger: ".o_favorite_menu .o_add_favorite",
     }, {
         trigger: ".o_favorite_menu:contains(Favorites) input[type='text']",
-        run: "edit testFilter && blur .o_favorite_menu",
+        run: "edit testFilter && click .o_favorite_menu",
     }, {
         // use by default
         trigger: ".o_favorite_menu .o-checkbox label:contains(Default filter)",
