@@ -16,8 +16,8 @@ class AnalyticLine(models.Model):
 
     @api.depends('validated')
     def _compute_so_line(self):
-        non_validated_timesheets = self.filtered(lambda timesheet: not timesheet.validated)
-        super(AnalyticLine, non_validated_timesheets)._compute_so_line()
+        updatable_timesheets = self.filtered(lambda t: t._is_updatable_timesheet())
+        super(AnalyticLine, updatable_timesheets)._compute_so_line()
 
     @api.model
     def grid_update_cell(self, domain, measure_field_name, value):
@@ -26,6 +26,9 @@ class AnalyticLine(models.Model):
             measure_field_name,
             value,
         )
+
+    def _is_updatable_timesheet(self):
+        return super()._is_updatable_timesheet() and not self.validated
 
     def _get_last_timesheet_domain(self):
         """ Do not update the timesheet which are already linked with invoice """
