@@ -143,6 +143,7 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
             record: this.props.record,
             context: JSON.stringify({
                 default_product_id: productId,
+                active_mo_id: this.recordData.production_id[0],
                 default_company_id: this.recordData.company_id[0],
             }),
             domain: [
