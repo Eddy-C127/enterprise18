@@ -92,7 +92,7 @@ class ShiftController(http.Controller):
                         ('request_to_switch', '=', True),
                 ],
             ])
-        planning_slots = request.env['planning.slot'].sudo().search(domain)
+        planning_slots = request.env['planning.slot'].sudo().search(domain, order='start_datetime asc')
         # filter and format slots
         slots_start_datetime = []
         slots_end_datetime = []
