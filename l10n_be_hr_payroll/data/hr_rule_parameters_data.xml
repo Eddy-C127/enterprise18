@@ -1390,6 +1390,28 @@
             <field name="date_from" eval="datetime(2023, 10, 1).date()"/>
         </record>
 
+        <record id="rule_parameter_cp200_amiante_rate" model="hr.rule.parameter">
+            <field name="name">CP200: Amiante ONSS Employer Rate</field>
+            <field name="code">l10n_be_amiante_rate</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_cp200_amiante_rate_2016" model="hr.rule.parameter.value">
+            <field name="parameter_value">0.01</field>
+            <field name="rule_parameter_id" ref="rule_parameter_cp200_amiante_rate"/>
+            <field name="date_from" eval="datetime(2016, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_cp200_special_work_accident_rate" model="hr.rule.parameter">
+            <field name="name">CP200: Special Cotisation Work Accident ONSS Employer Rate</field>
+            <field name="code">l10n_be_special_work_accident_rate</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_cp200_special_work_accident_rate_2016" model="hr.rule.parameter.value">
+            <field name="parameter_value">0.02</field>
+            <field name="rule_parameter_id" ref="rule_parameter_cp200_special_work_accident_rate"/>
+            <field name="date_from" eval="datetime(2016, 1, 1).date()"/>
+        </record>
+
         <record id="rule_parameter_cp200_special_ffe_rate" model="hr.rule.parameter">
             <field name="name">CP200: Special FFE Rate</field>
             <field name="code">l10n_be_special_ffe_rate</field>

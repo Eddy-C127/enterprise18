@@ -278,6 +278,10 @@ class DMFAWorker(DMFANode):
             return []
 
         contributions = [
+            DMFAWorkerContributionAmiante(contribution_payslips, basis, self.quarter_start)
+        ] + [
+            DMFAWorkerContributionSpecialWorkAccident(contribution_payslips, basis, self.quarter_start)
+        ] + [
             DMFAWorkerContribution(contribution_payslips, basis, self.quarter_start)
         ] + [
             DMFAWorkerContributionFFE(contribution_payslips, basis, self.worker_count, self.quarter_start)
@@ -478,6 +482,38 @@ class DMFAStudentContribution(DMFANode):
         self.student_contribution_amount = format_amount(round(basis * 0.0813, 2), width=9)
         self.student_nbr_days = -1
         self.student_hours_nbr = round(payslips._get_worked_days_line_number_of_hours('WORK100'))
+
+class DMFAWorkerContributionSpecialWorkAccident(DMFANode):
+    """
+    Represents the paid amounts on the employee payslips
+    """
+
+    def __init__(self, payslips, basis, quarter_start, sequence=None):
+        super().__init__(payslips.env, sequence=sequence)
+        self.worker_code = 255
+        self.quarter_start = quarter_start
+        self.contribution_type = 0
+        self.calculation_basis = format_amount(basis)
+        rate = payslips.env['hr.rule.parameter'].sudo()._get_parameter_from_code(
+            'l10n_be_special_work_accident_rate', date=self.quarter_start, raise_if_not_found=False)
+        self.amount = format_amount(round(basis * rate / 100, 2))
+        self.first_hiring_date = -1
+
+class DMFAWorkerContributionAmiante(DMFANode):
+    """
+    Represents the paid amounts on the employee payslips
+    """
+
+    def __init__(self, payslips, basis, quarter_start, sequence=None):
+        super().__init__(payslips.env, sequence=sequence)
+        self.worker_code = 256
+        self.quarter_start = quarter_start
+        self.contribution_type = 0
+        self.calculation_basis = format_amount(basis)
+        rate = payslips.env['hr.rule.parameter'].sudo()._get_parameter_from_code(
+            'l10n_be_amiante_rate', date=self.quarter_start, raise_if_not_found=False)
+        self.amount = format_amount(round(basis * rate / 100, 2))
+        self.first_hiring_date = -1
 
 class DMFAWorkerContribution(DMFANode):
     """
