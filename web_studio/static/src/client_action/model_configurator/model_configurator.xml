@@ -3,9 +3,13 @@
 
 <t t-name="web_studio.ModelConfigurator">
     <div class="container o_web_studio_model_configurator" t-att-class="{ embed: props.embed }">
-        <div class="row" t-if="!props.embed">
-            <h1>Suggested features for your new model</h1>
-        </div>
+        <t t-if="!props.embed">
+            <div class="row">
+                <h4 class="gx-0">Suggested features for your new model</h4>
+            </div>
+            <hr />
+        </t>
+
         <div class="row">
             <div t-foreach="options" t-as="option" t-key="option" class="col-6">
                 <div class="form-check my-3 o_web_studio_model_configurator_option">
