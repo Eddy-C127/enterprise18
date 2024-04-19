@@ -11,7 +11,11 @@ template_data = {
             "language": "en_US",
             "status": "APPROVED",
             "category": "MARKETING",
-            "id": "972203162638803"
+            "id": "972203162638803",
+            'quality_score': {
+                'score': 'UNKNOWN',
+                'date': 1712830463,
+            },
         },
         {
             "name": "test_dynamic_header_with_dynamic_body",
@@ -42,7 +46,11 @@ template_data = {
             "language": "en_US",
             "status": "APPROVED",
             "category": "MARKETING",
-            "id": "778510144283702"
+            "id": "778510144283702",
+            'quality_score': {
+                'score': 'UNKNOWN',
+                'date': 1712830464,
+            },
         },
         {
             "name": "test_location_header",
@@ -59,7 +67,11 @@ template_data = {
             "language": "en_US",
             "status": "APPROVED",
             "category": "UTILITY",
-            "id": "948089559317319"
+            "id": "948089559317319",
+            'quality_score': {
+                'score': 'UNKNOWN',
+                'date': 1712830465,
+            },
         },
         {
             "name": "test_image_header",
@@ -79,7 +91,11 @@ template_data = {
             "language": "en_US",
             "status": "APPROVED",
             "category": "UTILITY",
-            "id": "948089559314656"
+            "id": "948089559314656",
+            'quality_score': {
+                'score': 'GREEN',
+                'date': 1712830466,
+            },
         },
         {
             "name": "test_dynamic_header_body_button",
@@ -123,7 +139,28 @@ template_data = {
             "language": "en_US",
             "status": "APPROVED",
             "category": "MARKETING",
-            "id": "605909939256361"
+            "id": "605909939256361",
+            'quality_score': {
+                'score': 'YELLOW',
+                'date': 1712830467,
+            },
+        },
+        {
+            "name": "test_red_quality",
+            "components": [
+                {
+                    "type": "BODY",
+                    "text": "Hello, This is a red quality template.",
+                }
+            ],
+            "language": "en_US",
+            "status": "APPROVED",
+            "category": "MARKETING",
+            "id": "948089551314656",
+            'quality_score': {
+                'score': 'RED',
+                'date': 1712830468,
+            },
         }
     ]
 }

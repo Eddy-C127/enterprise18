@@ -710,7 +710,8 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 'name': 'Test Simple Text',
                 'template_name': 'test_simple_text',
                 'body': 'Hello, how are you? Thank you for reaching out to us.',
-                'wa_template_uid': '972203162638803'
+                'quality': 'none',
+                'wa_template_uid': '972203162638803',
             }
         )
 
@@ -727,7 +728,8 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
             fields_values={
                 'template_type': 'utility',
                 'header_type': 'image',
-                'wa_template_uid': '948089559314656'
+                'quality': 'green',
+                'wa_template_uid': '948089559314656',
             },
         )
 
@@ -743,6 +745,7 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                         'This is {{1}} from Odoo. My mobile number is {{2}}.\n'
                         'I will be happy to help you with any queries you may have.\n'
                         'Thank you',
+                'quality': 'none',
                 'wa_template_uid': '778510144283702',
             },
             template_variables=[
@@ -760,7 +763,8 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
             fields_values={
                 'template_type': 'utility',
                 'header_type': 'location',
-                'wa_template_uid': '948089559317319'
+                'quality': 'none',
+                'wa_template_uid': '948089559317319',
             },
             template_variables=[
                 ('name', 'location', 'free_text', {'demo_value': 'Sample Value'}),
@@ -782,7 +786,8 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                         'This is {{1}} from Odoo. My mobile number is {{2}}.\n'
                         'I will be happy to help you with any queries you may have.\n'
                         'Thank you',
-                'wa_template_uid': '605909939256361'
+                'quality': 'yellow',
+                'wa_template_uid': '605909939256361',
             },
             template_variables=[
                 ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
@@ -790,6 +795,20 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 ('{{2}}', 'body', 'free_text', {'demo_value': '+91 12345 12345'}),
                 ('Visit Website', 'button', 'free_text', {'demo_value': 'https://www.example.com/???'}),
             ]
+        )
+
+        # Check template with red quality
+        self.assertTrue(templates["test_red_quality"])
+        self.assertWATemplate(
+            templates["test_red_quality"],
+            status='approved',
+            fields_values={
+                'body': 'Hello, This is a red quality template.',
+                'name': 'Test Red Quality',
+                'quality': 'red',
+                'template_name': 'test_red_quality',
+                'wa_template_uid': '948089551314656',
+            }
         )
 
     def test_synchronize_with_existing_template_from_account(self):
@@ -802,12 +821,14 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
         templates["test_simple_text"].write(
             {
                 'body': 'Hello, how are you? Thank you for reaching out to us. Modified',
-                'template_type': 'utility'
+                'quality': 'yellow',
+                'template_type': 'utility',
             }
         )
         templates["test_location_header"].unlink()
         templates["test_dynamic_header_with_dynamic_body"].write({
             'header_text': 'Hello',
+            'quality': 'green',
             'variable_ids': [
                 Command.clear(),  # Remove existing variables
                 Command.create({'name': "{{1}}", 'line_type': "body", 'field_type': "user_name", 'demo_value': "Jigar"}),
@@ -819,13 +840,24 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 'body': 'Greetings of the day! I hope you are safe and doing well. \n ',
                 'header_type': 'location',
                 'button_ids': [],
+                'quality': 'red',
             }
         )
         with self.mockWhatsappGateway():
             self.whatsapp_account.button_sync_whatsapp_account_templates()
         templates = self.env['whatsapp.template'].search([('wa_account_id', '=', self.whatsapp_account.id)])
         templates = templates.grouped('template_name')
+        self.assertWATemplate(
+            templates["test_simple_text"],
+            status='approved',
+            fields_values={
+                'body': 'Hello, how are you? Thank you for reaching out to us.',
+                'quality': 'none',
+                'template_type': 'marketing',
+            }
+        )
         self.assertTrue(templates["test_location_header"])
+        self.assertEqual(templates["test_location_header"]['quality'], 'none')
         self.assertWATemplate(
             templates["test_dynamic_header_body_button"],
             status='approved',
@@ -836,7 +868,8 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                         'This is {{1}} from Odoo. My mobile number is {{2}}.\n'
                         'I will be happy to help you with any queries you may have.\n'
                         'Thank you',
-                'wa_template_uid': '605909939256361'
+                'quality': 'yellow',
+                'wa_template_uid': '605909939256361',
             },
             template_variables=[
                 ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
@@ -850,7 +883,8 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
             templates["test_dynamic_header_with_dynamic_body"],
             status='approved',
             fields_values={
-                'header_text': 'Hello {{1}}'
+                'header_text': 'Hello {{1}}',
+                'quality': 'none',
             },
             template_variables=[
                 ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
@@ -868,6 +902,7 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
         # Now modify existing template and sync template one by one
         templates["test_simple_text"].write({
             'body': 'Hello, how are you? Thank you for reaching out to us. Modified',
+            'quality': 'red',
             'template_type': 'utility',
         })
         with self.mockWhatsappGateway():
@@ -878,14 +913,15 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
             fields_values={
                 'template_type': 'marketing',
                 'body': 'Hello, how are you? Thank you for reaching out to us.',
+                'quality': 'none',
                 'wa_template_uid': '972203162638803',
-
             }
         )
 
         templates["test_image_header"].write({
             'header_attachment_ids': [(5, 0, 0)],
             'header_type': 'none',
+            'quality': 'yellow',
         })
         self.assertFalse(templates["test_image_header"].header_attachment_ids)
         with self.mockWhatsappGateway():
@@ -901,6 +937,7 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
             fields_values={
                 'template_type': 'utility',
                 'header_type': 'image',
+                'quality': 'green',
                 'wa_template_uid': '948089559314656',
             }
         )
@@ -911,6 +948,7 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                 'body': 'Greetings of the day! I hope you are safe and doing well. \n ',
                 'header_type': 'location',
                 'button_ids': [],
+                'quality': 'none',
             }
         )
         with self.mockWhatsappGateway():
@@ -925,6 +963,7 @@ class WhatsAppTemplateSync(WhatsAppTemplateCommon):
                         'This is {{1}} from Odoo. My mobile number is {{2}}.\n'
                         'I will be happy to help you with any queries you may have.\n'
                         'Thank you',
+                'quality': 'yellow',
             },
             template_variables=[
                 ('{{1}}', 'header', 'free_text', {'demo_value': 'Nishant'}),
