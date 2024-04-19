@@ -5,15 +5,15 @@ import { registry } from "@web/core/registry";
 registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: () => [
     {
         content: 'Select the workcenter the first time we enter in shopfloor',
-        trigger: 'button:has(input[name="Savannah"])'
+        trigger: '.form-check:has(input[name="Savannah"])'
     },
     {
         content: 'Select the second workcenter',
-        extra_trigger: 'button.active:has(input[name="Savannah"])',
-        trigger: 'button:has(input[name="Jungle"])'
+        extra_trigger: '.form-check:has(input[name="Savannah"]:checked)',
+        trigger: '.form-check:has(input[name="Jungle"])'
     },
     {
-        extra_trigger: 'button.active:has(input[name="Jungle"])',
+        extra_trigger: '.form-check:has(input[name="Jungle"]:checked)',
         trigger: 'footer.modal-footer button.btn-primary'
     },
     {
@@ -116,11 +116,11 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
 registry.category("web_tour.tours").add('test_generate_serials_in_shopfloor', {test: true, steps: () => [
     {
         content: 'Make sure workcenter is available',
-        trigger: 'button:has(input[name="Assembly Line"])',
+        trigger: '.form-check:has(input[name="Assembly Line"])',
     },
     {
         content: 'Confirm workcenter',
-        extra_trigger: 'button.active:has(input[name="Assembly Line"])',
+        extra_trigger: '.form-check:has(input[name="Assembly Line"]:checked)',
         trigger: 'button:contains("Confirm")',
     },
     {
