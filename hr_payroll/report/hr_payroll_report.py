@@ -83,7 +83,9 @@ class HrPayrollReport(models.Model):
                 continue
             handled_fields.append(field_name)
             select_str += """
-                CASE WHEN wd.id IS NOT DISTINCT FROM min_id.min_line THEN "%s".total ELSE 0 END as "%s",""" % (field_name, field_name)
+                SUM(
+                   DISTINCT CASE WHEN wd.id IS NOT DISTINCT FROM min_id.min_line THEN "%s".total ELSE 0 END
+                ) as "%s",""" % (field_name, field_name)
         select_str += """
                 CASE WHEN wd.id IS NOT DISTINCT FROM min_id.min_line THEN pln.total ELSE 0 END as net_wage,
                 CASE WHEN wd.id IS NOT DISTINCT FROM min_id.min_line THEN plb.total ELSE 0 END as basic_wage,
@@ -116,16 +118,7 @@ class HrPayrollReport(models.Model):
 
     def _group_by(self, additional_rules):
         group_by_str = """
-            GROUP BY """
-        handled_fields = []
-        for rule in additional_rules:
-            field_name = rule._get_report_field_name()
-            if field_name in handled_fields:
-                continue
-            handled_fields.append(field_name)
-            group_by_str += """
-                "%s".total,""" % (field_name)
-        group_by_str += """
+            GROUP BY
                 e.id,
                 e.department_id,
                 d.master_department_id,
