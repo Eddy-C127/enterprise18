@@ -22,13 +22,13 @@
 <template id="ckus_stub">
     <div t-attf-class="ckus_stub ckus_stub_{{ stub_num }}">
         <div class="row summary_line">
-            <div class="col-xs-4 text-start">
+            <div class="col-4 text-start">
                 <span t-out="page['partner_name']"/>
             </div>
-            <div class="col-xs-4 text-middle">
+            <div class="col-4 text-center">
                 <span t-out="page['date']"/>
             </div>
-            <div class="col-xs-4 text-end sequence_number">
+            <div class="col-4 text-end sequence_number">
                 <span t-if="page['sequence_number']" t-out="page['sequence_number']"/>
             </div>
         </div>
