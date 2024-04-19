@@ -30,7 +30,7 @@
                         <custSupID t-out="p.get('partner_id')"/>
                         <custSupName t-out="(p.get('partner_name'))"/>
                         <contact t-if="p.get('partner_contact_name')" t-out="p['partner_contact_name']"/>
-                        <telephone t-if="p.get('partner_phone')" t-out="p['partner_phone'][:30]"/>
+                        <telephone t-if="p.get('partner_phone')" t-out="p['partner_phone']"/>
                         <eMail t-out="p.get('partner_email')"/>
                         <website t-out="p.get('partner_website')"/>
                         <taxRegistrationCountry t-if="p.get('partner_country_id')" t-out="p.get('partner_country_code')"/>
@@ -41,16 +41,16 @@
                         <supplierLimit t-if="p.get('partner_credit_limit')" t-out="p.get('partner_credit_limit')"/>
                         <streetAddress>
                             <streetname t-if="p.get('partner_street_name')" t-out="p.get('partner_street_name')"/>
-                            <number t-if="p.get('partner_street_number')" t-out="p['partner_street_number'][:15]"/>
+                            <number t-if="p.get('partner_street_number')" t-out="p['partner_street_number']"/>
                             <numberExtension t-if="p.get('partner_street_number2')" t-out="p.get('partner_street_number2')"/>
                             <city t-if="p.get('partner_city')" t-out="p.get('partner_city')"/>
-                            <postalCode t-if="p.get('partner_zip')" t-out="p.get('partner_zip')[:10]"/>
+                            <postalCode t-if="p.get('partner_zip')" t-out="p.get('partner_zip')"/>
                             <region t-if="p.get('partner_state_name')" t-out="p.get('partner_state_name')"/>
                             <country t-if="p.get('partner_country_id')" t-out="p.get('partner_country_code')"/>
                         </streetAddress>
-                        <bankAccount t-foreach="p.get('partner_bank_data', {}).items()" t-as="b">
-                            <bankAccNr t-out="b[1].get('partner_sanitized_acc_number')"/>
-                            <bankIdCd t-out="b[1].get('partner_bic')"/>
+                        <bankAccount t-foreach="p.get('partner_bank_data', {}).values()" t-as="b">
+                            <bankAccNr t-out="b.get('partner_sanitized_acc_number')"/>
+                            <bankIdCd t-out="b.get('partner_bic')"/>
                         </bankAccount>
                         <changeInfo t-if="p.get('partner_write_uid')">
                             <userID t-out="p.get('partner_xaf_userid')"/>
@@ -64,7 +64,7 @@
                         <accID t-out="a.get('account_code')"/>
                         <accDesc t-out="a.get('account_name')"/>
                         <accTp t-out="a.get('account_type')"/>
-                        <changeInfo t-if="a.get('account_write_uid')">
+                        <changeInfo t-if="a.get('account_xaf_userid')">
                             <userID t-out="a.get('account_xaf_userid')"/>
                             <changeDateTime t-out="a.get('account_write_date')"/>
                             <changeDescription>Last write</changeDescription>
@@ -85,51 +85,23 @@
                         <endDatePeriod t-out="p.date_to"/>
                     </period>
                 </periods>
-                <!-- The XAF XSD only supports 2 decimal places -->
                 <openingBalance>
-                    <opBalDate><t t-out="date_from" /></opBalDate>
-                    <linesCount><t t-out="opening_lines_count" /></linesCount>
-                    <totalDebit><t t-out="round(opening_debit, 2)" /></totalDebit>
-                    <totalCredit><t t-out="round(opening_credit, 2)" /></totalCredit>
+                    <opBalDate><t t-out="date_from"/></opBalDate>
+                    <linesCount><t t-out="opening_lines_count"/></linesCount>
+                    <totalDebit><t t-out="opening_debit"/></totalDebit>
+                    <totalCredit><t t-out="opening_credit"/></totalCredit>
                     <obLine t-foreach="opening_lines" t-as="line">
-                        <nr><t t-out="line['id']" /></nr>
-                        <accID><t t-out="line['account_code']" /></accID>
-                        <amnt><t t-out="round(abs(line['balance']), 2)" /></amnt>
-                        <amntTp><t t-out="'C' if line['balance'] &lt; 0 else 'D'" /></amntTp>
+                        <nr><t t-out="line['id']"/></nr>
+                        <accID><t t-out="line['account_code']"/></accID>
+                        <amnt><t t-out="line['balance']"/></amnt>
+                        <amntTp><t t-out="line['type']"/></amntTp>
                     </obLine>
                 </openingBalance>
                 <transactions>
                     <linesCount t-out="moves_count"/>
                     <totalDebit t-out="round(moves_debit, 2)"/>
                     <totalCredit t-out="round(moves_credit, 2)"/>
-                    <journal t-foreach="journal_data" t-as="j">
-                        <jrnID t-out="j.get('journal_code')"/>
-                        <desc t-out="j.get('journal_name')"/>
-                        <jrnTp t-out="j.get('journal_type')"/>
-                        <transaction t-foreach="j.get('journal_move_data', {}).items()" t-as="m">
-                            <nr t-out="m[1].get('move_id')"/>
-                            <desc t-out="m[1].get('move_name')"/>
-                            <periodNumber t-out="m[1].get('move_period_number')"/>
-                            <trDt t-out="m[1].get('move_date')"/>
-                            <amnt t-out="m[1].get('move_amount')"/>
-                            <trLine t-foreach="m[1].get('move_line_data', {}).items()" t-as="l" t-if="l[1].get('line_display_type') not in ('line_note', 'line_section')">
-                                <nr t-out="l[1].get('line_id')"/>
-                                <accID t-out="l[1].get('line_account_code')"/>
-                                <docRef t-out="l[1].get('line_ref')[:999]"/>
-                                <effDate t-out="l[1].get('line_date')"/>
-                                <desc t-out="l[1].get('line_name')"/>
-                                <amnt t-out="l[1].get('line_credit') or l[1].get('line_debit')"/>
-                                <amntTp t-out="l[1].get('line_type')"/>
-                                <recRef t-if="l[1].get('line_reconcile_id')" t-out="l[1].get('line_reconcile_name')"/>
-                                <custSupID t-if="l[1].get('line_partner_id')" t-out="l[1].get('line_partner_id')"/>
-                                <invRef t-if="l[1].get('line_move_name')" t-out="l[1].get('line_move_name')"/>
-                                <currency t-if="l[1].get('line_currency_name') and l[1].get('line_amount_currency')">
-                                    <curCode t-out="l[1].get('line_currency_name')"/>
-                                    <curAmnt t-out="l[1].get('line_amount_currency')"/>
-                                </currency>
-                            </trLine>
-                        </transaction>
-                    </journal>
+                    <!-- This section is rendered manually using the '_get_xaf_lines_stream()' generator.-->
                 </transactions>
             </company>
         </auditfile>

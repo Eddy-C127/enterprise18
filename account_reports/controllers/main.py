@@ -39,7 +39,7 @@ class AccountReportController(http.Controller):
             else:
                 response = request.make_response(file_content, headers=response_headers)
 
-            if file_type == 'zip':
+            if file_type in ('zip', 'xaf'):
                 # Adding direct_passthrough to the response and giving it a file
                 # as content means that we will stream the content of the file to the user
                 # Which will prevent having the whole file in memory
@@ -72,7 +72,7 @@ class AccountReportController(http.Controller):
             ('Content-Disposition', content_disposition(file_name)),
         ]
 
-        if file_type in ('xml', 'xaf', 'txt', 'csv', 'kvr', 'csv'):
+        if file_type in ('xml', 'txt', 'csv', 'kvr', 'csv'):
             headers.append(('Content-Length', len(file_content)))
 
         return headers

@@ -54,7 +54,6 @@ class TestNlXafExport(TestAccountReportsCommon):
         report = self.env.ref('account_reports.general_ledger_report')
         options = self._generate_options(report, fields.Date.from_string('2019-01-01'), fields.Date.from_string('2019-12-31'))
 
-        generated_xaf = self.get_xml_tree_from_string(self.env[report.custom_handler_model_name].with_context(skip_xsd=True).l10n_nl_get_xaf(options).get('file_content'))
         expected_xaf = self.get_xml_tree_from_string('''
             <auditfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.auditfiles.nl/XAF/3.2">
                 <header>
@@ -185,13 +184,13 @@ class TestNlXafExport(TestAccountReportsCommon):
                     <vatCodes>
                         <vatCode>
                             <vatID>___ignore___</vatID>
+                            <vatDesc>21% (Copy)</vatDesc>
+                        </vatCode><vatCode>
+                            <vatID>___ignore___</vatID>
                             <vatDesc>21% ST</vatDesc>
                         </vatCode><vatCode>
                             <vatID>___ignore___</vatID>
                             <vatDesc>21% ST (Copy)</vatDesc>
-                        </vatCode><vatCode>
-                            <vatID>___ignore___</vatID>
-                            <vatDesc>21% (Copy)</vatDesc>
                         </vatCode>
                     </vatCodes>
                     <periods>
@@ -688,4 +687,13 @@ class TestNlXafExport(TestAccountReportsCommon):
                 </company>
             </auditfile>
         ''')
-        self.assertXmlTreeEqual(generated_xaf, expected_xaf)
+
+        try:
+            self.env.registry.enter_test_mode(self.cr)
+            # Set the batch size to 10 to make sure the generator will iterate more than once.
+            self.env['ir.config_parameter'].set_param('l10n_nl_reports.general_ledger_batch_size', 10)
+            xaf_stream = self.env[report.custom_handler_model_name].with_context(skip_xsd=True).l10n_nl_get_xaf(options).get('file_content')
+            generated_xaf = self.get_xml_tree_from_string(b''.join(xaf_stream))
+            self.assertXmlTreeEqual(generated_xaf, expected_xaf)
+        finally:
+            self.env.registry.leave_test_mode()
