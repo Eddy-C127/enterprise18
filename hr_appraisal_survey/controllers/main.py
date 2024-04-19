@@ -10,6 +10,16 @@ from odoo.osv import expression
 
 class AppraisalSurvey(Survey):
 
+    def _check_validity(self, survey_token, answer_token, ensure_token=True, check_partner=True):
+        survey_sudo, answer_sudo = self._fetch_from_access_token(survey_token, answer_token)
+
+        if survey_sudo.survey_type == 'appraisal' and answer_sudo and check_partner:
+            user_employees = request.env['hr.employee'].search([('user_id', '=', request.env.user.id)])
+            partners = user_employees.work_contact_id | request.env.user.partner_id
+            if not request.env.user._is_public() and answer_sudo.partner_id in partners:
+                return True
+        return super()._check_validity(survey_token, answer_token, ensure_token, check_partner)
+
     def _get_results_page_user_input_domain(self, survey, **post):
         user_input_domain = super()._get_results_page_user_input_domain(survey, **post)
         if not post.get('appraisal_id'):
