@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { user } from "@web/core/user";
 import { Mutex } from "@web/core/utils/concurrency";
@@ -24,6 +25,7 @@ export const homeMenuService = {
             static target = "current";
             static props = { ...standardActionServiceProps };
             static template = xml`<HomeMenu t-props="homeMenuProps"/>`;
+            static displayName = _t("Home");
 
             setup() {
                 this.menus = useService("menu");
