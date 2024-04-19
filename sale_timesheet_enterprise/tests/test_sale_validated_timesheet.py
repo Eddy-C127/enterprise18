@@ -237,3 +237,46 @@ class TestSaleValidatedTimesheet(TestCommonSaleTimesheet):
         self.assertEqual(portal_task_read['portal_subtask_effective_hours'], 0)
         self.assertEqual(portal_task_read['portal_total_hours_spent'], 2)
         self.assertEqual(portal_task_read['portal_progress'], 0.2)
+
+    def test_block_edit_so_line_validated_timesheet(self):
+        """
+            The purpose is to check that it is not possible to modify the sale order line
+            if the timesheet is validated when we call the logic that updates the
+            timesheet sale order lines.
+        """
+        self.sale_order.action_confirm()
+        ordered_task = self.env['project.task'].search([('sale_line_id', '=', self.ordered_so_line.id)])
+        today = date.today()
+        not_validated_timesheet, validated_timesheet = self.env['account.analytic.line'].create([
+            {
+                'name': 'Timesheet ordered not validated',
+                'project_id': ordered_task.project_id.id,
+                'task_id': ordered_task.id,
+                'unit_amount': 2,
+                'employee_id': self.employee_user.id,
+                'date': today,
+            },
+            {
+                'name': 'Timesheet ordered validated',
+                'project_id': ordered_task.project_id.id,
+                'task_id': ordered_task.id,
+                'unit_amount': 2,
+                'employee_id': self.employee_user.id,
+                'date': today,
+            }
+        ])
+        employee_map = self.env['project.sale.line.employee.map'].create(
+        {
+            'project_id': ordered_task.project_id.id,
+            'employee_id': self.employee_user.id,
+            'sale_line_id': ordered_task.sale_line_id.id,
+        })
+        employee_map.sale_line_id = ordered_task.sale_line_id.id
+        validated_timesheet.validated = True
+
+        other_sale_line = self.sale_order.order_line.filtered(lambda sl: sl.id != ordered_task.sale_line_id.id)[-1]
+        employee_map.sale_line_id = other_sale_line
+        ordered_task.project_id._update_timesheets_sale_line_id()
+
+        self.assertEqual(not_validated_timesheet.so_line, other_sale_line)  # sale order line is updated
+        self.assertEqual(validated_timesheet.so_line, ordered_task.sale_line_id)  # sale order line is not updated
