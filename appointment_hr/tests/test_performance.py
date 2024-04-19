@@ -143,7 +143,7 @@ class AppointmentPerformanceTest(AppointmenHrPerformanceCase):
                 for hour in range(2)
                 for day in range(7)
             ],
-            'staff_user_ids': [(5, 0), (4, self.staff_users[0].id)],
+            'staff_user_ids': [(5, 0), (4, self.env.uid)],
             'work_hours_activated': True,
             })
         self.env.flush_all()
@@ -206,7 +206,7 @@ class AppointmentPerformanceTest(AppointmenHrPerformanceCase):
                 for hour in range(2)
                 for day in range(7)
             ],
-            'staff_user_ids': [(5, 0), (4, self.staff_users[0].id)],
+            'staff_user_ids': [(5, 0), (4, self.env.uid)],
             'work_hours_activated': True,
         })
         self.env.flush_all()
