@@ -210,10 +210,13 @@ export class BankRecKanbanController extends KanbanController {
             return;
         }
         this.bankRecLock = true;
-        this.bankRecPromise = func();
-        await this.bankRecPromise;
-        this.bankRecPromise = null;
-        this.bankRecLock = false;
+        try {
+            this.bankRecPromise = func();
+            await this.bankRecPromise;
+        } finally {
+            this.bankRecPromise = null;
+            this.bankRecLock = false;
+        }
     }
 
     // -----------------------------------------------------------------------------
