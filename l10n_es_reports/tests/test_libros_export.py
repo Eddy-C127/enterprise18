@@ -29,6 +29,7 @@ class TestLibrosExport(TestAccountReportsCommon):
         cls.tax_10_surcharge = cls.env.ref(f'account.{company_id}_account_tax_template_p_req014')
         cls.tax_dua_ignore = cls.env.ref(f'account.{company_id}_account_tax_template_p_iva_isub')
         cls.tax_dua_group = cls.env.ref(f'account.{company_id}_account_tax_template_p_iva10_ibc_group')
+        cls.tax_dua_rentencion = cls.env.ref(f'account.{company_id}_account_tax_template_p_irpf20')
 
     def get_libros_sheet_line_vals(self):
         report = self.env.ref('account.generic_tax_report')
@@ -108,6 +109,23 @@ class TestLibrosExport(TestAccountReportsCommon):
         exp_line_vals = self.get_libros_sheet_line_vals()[1]
         line_vals_list = [exp_line_vals[m][t] for m in exp_line_vals for t in exp_line_vals[m]]
         self.assertEqual(line_vals_list, [])
+
+    def test_libros_export_with_retencion(self):
+        self.init_invoice('in_invoice', amounts=[500], post=True, taxes=[self.tax_dua_rentencion])
+        exp_line_vals = self.get_libros_sheet_line_vals()[1]
+        line_vals_list = [exp_line_vals[m][t] for m in exp_line_vals for t in exp_line_vals[m]]
+        self.assertEqual(line_vals_list, [])
+
+    def test_libros_export_with_retencion_and_other_tax(self):
+        self.init_invoice('in_invoice', amounts=[500], post=True, taxes=[self.tax_dua_rentencion, self.tax_21])
+        exp_line_vals = self.get_libros_sheet_line_vals()[1]
+        line_vals_list = [exp_line_vals[m][t] for m in exp_line_vals for t in exp_line_vals[m]]
+        self.assertEqual(len(line_vals_list), 1)
+        amount_vals = self.get_amount_vals(line_vals_list[0])
+        self.assertDictEqual(amount_vals, {
+            'expense_deductible': '500.00', 'total_amount': '605.00', 'base_amount': '500.00', 'tax_rate': '21.00',
+            'taxed_amount': '105.00', 'tax_deductible': '105.00', 'surcharge_type': '0.00', 'surcharge_fee': '0.00'
+        })
 
     def test_libros_export_with_dua_group(self):
         self.init_invoice('in_invoice', amounts=[500], post=True, taxes=[self.tax_dua_group])

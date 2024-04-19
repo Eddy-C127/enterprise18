@@ -249,7 +249,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
                             break
                     else:
                         raise UserError(_('Unable to find matching surcharge tax in %s', move.name))
-                elif tax.l10n_es_type == 'ignore':
+                elif tax.l10n_es_type in {'ignore', 'retencion'}:
                     continue
                 elif tax.id in sheet_line_vals[move.id]:
                     self._merge_base_line(sheet_line_vals[move.id][tax.id], line)
@@ -265,7 +265,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
                 other_tax_id = surcharge_line_vals[move.id][tax.id]
                 line_vals = sheet_line_vals[move.id][other_tax_id]
                 self._merge_surcharge_line(line_vals, line)
-            elif tax.l10n_es_type == 'ignore':
+            elif tax.l10n_es_type in {'ignore', 'retencion'}:
                 continue
             else:
                 line_vals = sheet_line_vals[move.id][tax.id]
