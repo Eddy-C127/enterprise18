@@ -18,16 +18,14 @@ class DutchECSalesReportCustomHandler(models.AbstractModel):
         total_values_dict = {}
 
         query_list = []
-        full_query_params = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            query, params = self._get_lines_query_params(report, column_group_options, column_group_key)
-            query_list.append(f"({query})")
-            full_query_params += params
+            query = self._get_lines_query_params(report, column_group_options, column_group_key)
+            query_list.append(SQL("(%s)", query))
 
             total_values_dict[column_group_key] = 0
 
-        full_query = " UNION ALL ".join(query_list)
-        self._cr.execute(full_query, full_query_params)
+        full_query = SQL(" UNION ALL ").join(query_list)
+        self._cr.execute(full_query)
         results = self._cr.dictfetchall()
 
         for result in results:
@@ -96,21 +94,22 @@ class DutchECSalesReportCustomHandler(models.AbstractModel):
         }
 
     def _get_lines_query_params(self, report, options, column_group_key):
-        goods, triangular, services = [options['ec_tax_filter_selection'][i]['selected'] for i in range(3)]
-        tables, where_clause = report._get_table_expression(options, 'strict_range')
+        goods, triangular, services = (options['ec_tax_filter_selection'][i]['selected'] for i in range(3))
+        from_clause, where_clause = report._get_table_expression(options, 'strict_range')
         goods_and_services_0_tax_tags_ids = tuple(self.env.ref('l10n_nl.tax_report_rub_3b_tag')._get_matching_tags().ids)
         triangular_tax = self.env.ref('l10n_nl.tax_report_rub_3bt_tag', raise_if_not_found=False)
         triangular_tax_tags_ids = tuple(triangular_tax._get_matching_tags().ids) if triangular_tax and triangular else (-1,)
+
         return SQL("""
-            SELECT %s AS column_group_key,
+            SELECT %(column_group_key)s AS column_group_key,
                    account_move_line.partner_id,
                    p.name AS partner_name,
                    p.vat,
                    country.code AS country_code,
-                   ROUND(SUM(CASE WHEN product_t.type != 'service' AND line_tag.account_account_tag_id IN %s THEN account_move_line.credit - account_move_line.debit ELSE 0 END)) as amount_product,
+                   ROUND(SUM(CASE WHEN product_t.type != 'service' AND line_tag.account_account_tag_id IN %(goods_and_services_0_tax_tags_ids)s THEN account_move_line.credit - account_move_line.debit ELSE 0 END)) as amount_product,
                    ROUND(SUM(CASE WHEN product_t.type = 'service' THEN account_move_line.credit - account_move_line.debit ELSE 0 END)) as amount_service,
-                   ROUND(SUM(CASE WHEN product_t.type != 'service' AND line_tag.account_account_tag_id IN %s THEN account_move_line.credit - account_move_line.debit ELSE 0 END)) as amount_triangular
-            FROM %s
+                   ROUND(SUM(CASE WHEN product_t.type != 'service' AND line_tag.account_account_tag_id IN %(triangular_tax_tags_ids)s THEN account_move_line.credit - account_move_line.debit ELSE 0 END)) as amount_triangular
+            FROM %(from_clause)s
             LEFT JOIN res_partner p ON account_move_line.partner_id = p.id
             LEFT JOIN res_company company ON account_move_line.company_id = company.id
             LEFT JOIN res_partner comp_partner ON company.partner_id = comp_partner.id
@@ -120,24 +119,24 @@ class DutchECSalesReportCustomHandler(models.AbstractModel):
             LEFT JOIN account_account_tag_account_move_line_rel line_tag on line_tag.account_move_line_id = account_move_line.id
             LEFT JOIN product_product product on product.id = account_move_line.product_id
             LEFT JOIN product_template product_t on product.product_tmpl_id = product_t.id
-            WHERE %s
-            AND line_tag.account_account_tag_id IN %s
+            WHERE %(where_clause)s
+            AND line_tag.account_account_tag_id IN %(all_tag_ids)s
             AND account_move_line.parent_state = 'posted'
             AND company_country.id != country.id
             AND country.intrastat AND (country.code != 'GB' OR account_move_line.date < '2021-01-01')
-            %s
+            %(services_filter)s
             GROUP BY account_move_line.partner_id, p.name, p.vat, country.code
             HAVING ROUND(SUM(CASE WHEN product_t.type != 'service' THEN account_move_line.credit - account_move_line.debit ELSE 0 END)) != 0
             OR ROUND(SUM(CASE WHEN product_t.type = 'service' THEN account_move_line.credit - account_move_line.debit ELSE 0 END)) != 0
             ORDER BY p.name
         """,
-            column_group_key,
-            goods_and_services_0_tax_tags_ids if goods else (-1,),
-            triangular_tax_tags_ids,
-            tables,
-            where_clause,
-            (goods_and_services_0_tax_tags_ids + triangular_tax_tags_ids),
-            (SQL("") if services else SQL("AND product_t.type != 'service'\n")),
+            column_group_key=column_group_key,
+            goods_and_services_0_tax_tags_ids=goods_and_services_0_tax_tags_ids if goods else (-1,),
+            triangular_tax_tags_ids=triangular_tax_tags_ids,
+            from_clause=from_clause,
+            where_clause=where_clause,
+            all_tag_ids=goods_and_services_0_tax_tags_ids + triangular_tax_tags_ids,
+            services_filter=SQL("") if services else SQL("AND product_t.type != 'service'\n"),
         )
 
     @api.model
