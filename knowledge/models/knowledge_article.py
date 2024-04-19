@@ -224,7 +224,7 @@ class Article(models.Model):
 
     @api.constrains('parent_id')
     def _check_parent_id_recursion(self):
-        if not self._check_recursion():
+        if self._has_cycle():
             raise ValidationError(
                 _('Articles %s cannot be updated as this would create a recursive hierarchy.',
                   ', '.join(self.mapped('name'))
