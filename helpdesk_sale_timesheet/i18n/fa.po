@@ -4,8 +4,8 @@
 # 
 # Translators:
 # F Hariri <fhari1234@gmail.com>, 2023
-# Hamid Darabi, 2023
 # Hamed Mohammadi <hamed@dehongi.com>, 2023
+# Hamid Darabi, 2023
 # Hanna Kheradroosta, 2023
 # Yousef Shadmanesh <y.shadmanesh@gmail.com>, 2023
 # Martin Trigaux, 2024
@@ -132,7 +132,7 @@ msgstr "ساعات صرف شده"
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Hours:"
-msgstr ""
+msgstr "ساعت‌ها"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__invoice_count
@@ -150,7 +150,7 @@ msgstr "فاکتورها"
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
 msgid "Non-billable"
-msgstr ""
+msgstr "غیرقابل پرداخت"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_sla_view_form_inherit_sale_timesheet
@@ -172,7 +172,7 @@ msgstr "پروژه"
 msgid ""
 "Project to which the timesheets of this helpdesk team's tickets will be "
 "linked."
-msgstr ""
+msgstr "پروژه‌ای که برگه‌‌های ساعت کارکرد تیم پشتیبانی به آن مربوط می‌شوند. "
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__project_sale_order_id
@@ -187,7 +187,7 @@ msgstr "سفارش فروش همراه با مرجع"
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__use_helpdesk_sale_timesheet
 msgid "Reinvoicing Timesheet activated on Team"
-msgstr ""
+msgstr "صدور مجدد برگه‌ی ساعت کارکرد برای تیم"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
@@ -202,7 +202,7 @@ msgstr ""
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__remaining_hours_available
 msgid "Remaining Hours Available"
-msgstr "ساعات باقیمانده در دسترس"
+msgstr "ساعات باقیمانده "
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla_report_analysis__remaining_hours_so
@@ -230,6 +230,8 @@ msgid ""
 "SLA Policy that will automatically apply to the tickets linked to a sales "
 "order item containing this service."
 msgstr ""
+"سیاست قرارداد سطح خدمات پشتیبانی به صورت خودکار برای درخواست‌های مرتبط با "
+"یکی از آیتم‌های سفارش فروش حاوی این خدمت، اعمال می‌شود."
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_sla_report_analysis
@@ -262,11 +264,15 @@ msgid ""
 "Remove the sales order item in order to make this ticket non-billable.\n"
 "You can also change or remove the sales order item of each timesheet entry individually."
 msgstr ""
+"آیتمی از سفارش فروش که زمان صرف شده برای آن به فاکتور مشتری اضافه می‌شود. \n"
+"طبق پیشفرض آخرین آیتم‌های پیش‌خرید شده‌ای که هنوز زمان دارند، انتخاب می‌شوند. \n"
+"حذف آیتم سفارش فروش به منظور غیرقابل پرداخت کردن درخواست موردنظر.\n"
+"شما می‌توانید هر یک از آیتم‌های سفارش فروش مندرج در هر برگه ساعت کارکرد را تغییر داده یا حذف کنید."
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__sale_line_ids
 msgid "Sales Order Items"
-msgstr ""
+msgstr "آیتم‌های سفارش فروش"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_sale_order_line
@@ -281,24 +287,24 @@ msgstr "سفارش فروش که پروژه به آن مرتبط است."
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
 msgid "Spent"
-msgstr ""
+msgstr "هزینه‌ی صرف شده"
 
 #. module: helpdesk_sale_timesheet
 #. odoo-python
 #: code:addons/helpdesk_sale_timesheet/models/sale_order.py:0
 #, python-format
 msgid "Ticket"
-msgstr "تیکت"
+msgstr "درخواست"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_ticket_report_analysis
 msgid "Ticket Analysis"
-msgstr "تجزیه و تحلیل تیکت"
+msgstr "تجزیه و تحلیل درخواست"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_sale_order__ticket_count
 msgid "Ticket Count"
-msgstr ""
+msgstr "تعداد درخواست"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.sale_order_form_inherit_helpdesk_sale

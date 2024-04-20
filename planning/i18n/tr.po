@@ -16,6 +16,7 @@
 # Ediz Duman <neps1192@gmail.com>, 2023
 # Tugay Hatıl <tugayh@projetgrup.com>, 2023
 # Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2023
+# Cengiz Cokay Global Nonwoven, 2024
 # 
 msgid ""
 msgstr ""
@@ -23,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2023\n"
+"Last-Translator: Cengiz Cokay Global Nonwoven, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -100,7 +101,7 @@ msgstr ""
 msgid ""
 "<b class=\"o_gantt_header o_gantt_row_sidebar position-sticky top-0 bg-view "
 "d-flex align-items-center justify-content-center\">Schedule</b>"
-msgstr ""
+msgstr "Takvim"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -581,7 +582,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__all
 msgid "All shifts"
-msgstr ""
+msgstr "Tüm Vardiyalar"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
@@ -599,7 +600,7 @@ msgstr "Tahsis Edilen Saatler"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Allocated Percentage"
-msgstr ""
+msgstr "Aloke edilmiş Yüzde"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_hours
@@ -726,7 +727,7 @@ msgstr "Atanan"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #, python-format
 msgid "Auto Plan"
-msgstr ""
+msgstr "Atomatik Plan"
 
 #. module: planning
 #. odoo-javascript
@@ -771,7 +772,7 @@ msgstr "Rol"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "CANCEL SWITCH"
-msgstr ""
+msgstr "Takası İptal et"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_allow_self_unassign
@@ -783,7 +784,7 @@ msgstr "Çalışan Kendi Atamasını Kaldırabilir mi?"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "Cancel Switch"
-msgstr ""
+msgstr "Takası İptal et"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_simplified
@@ -939,12 +940,12 @@ msgstr "Vardiya ataması için gün cinsinden son tarih"
 #: model:ir.model.fields,field_description:planning.field_hr_employee__default_planning_role_id
 #: model:ir.model.fields,field_description:planning.field_resource_resource__default_role_id
 msgid "Default Role"
-msgstr ""
+msgstr "Default Rol"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
 msgid "Default Roles"
-msgstr ""
+msgstr "Default Rolller"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
@@ -993,7 +994,7 @@ msgstr "Sil"
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.js:0
 #, python-format
 msgid "Delete Recurring Shift"
-msgstr ""
+msgstr "Tekrarlayan Vardiyayı Sil"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__department_id
@@ -1524,7 +1525,7 @@ msgstr "Adı"
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
 #, python-format
 msgid "New Shift"
-msgstr ""
+msgstr "Yeni Vardiya"
 
 #. module: planning
 #. odoo-python
@@ -1599,7 +1600,7 @@ msgstr "Tekrar Sayısı"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Open Shift"
-msgstr ""
+msgstr "Boş Vardiya"
 
 #. module: planning
 #. odoo-javascript
@@ -1841,7 +1842,7 @@ msgstr "Yinelenme"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Recurring Shifts"
-msgstr ""
+msgstr "Tekrarlayan Vardiyalar"
 
 #. module: planning
 #. odoo-python
@@ -1914,7 +1915,7 @@ msgstr "Raporlama"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Requests to Switch"
-msgstr ""
+msgstr "Takas İsteği Gönder"
 
 #. module: planning
 #: model:ir.actions.server,name:planning.model_planning_slot_action_reset_to_draft
@@ -2129,7 +2130,7 @@ msgstr "Vardiya Şablonları"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts Planned"
-msgstr ""
+msgstr "Planlanan Vardiya Planı"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -2172,7 +2173,7 @@ msgstr "Başla"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "Start & End Hours"
-msgstr ""
+msgstr "Başlangıç ve Bitiş Saatleri"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__start_datetime
@@ -2384,7 +2385,7 @@ msgstr "Bu Vardiya Önceki Haftadan Kopyalandı"
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__subsequent
 msgid "This and following shifts"
-msgstr ""
+msgstr "Bu ve takip eden vardiyalar"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -2398,7 +2399,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__this
 msgid "This shift"
-msgstr ""
+msgstr "Seçilen Vardiya"
 
 #. module: planning
 #. odoo-javascript
@@ -2465,7 +2466,7 @@ msgstr "Bitiş"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "Unwanted Shifts Available"
-msgstr ""
+msgstr "Talep görmeyen Vardiyalar mevcut."
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_recurrency__repeat_until
@@ -2573,7 +2574,7 @@ msgstr "Kendinize önceden atanmış bir vardiyaya atayamazsınız."
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You can not cancel a request to switch made by another user."
-msgstr ""
+msgstr "Başkası tarafından yapılmıs vardiya takas isteğini iptal edemezsiniz."
 
 #. module: planning
 #. odoo-python
@@ -2581,7 +2582,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You can not request to switch a shift that is assigned to another user."
-msgstr ""
+msgstr "Başkasına atanmış vardiyaya takas isteğinde bulunamazsınız."
 
 #. module: planning
 #. odoo-python
@@ -2595,21 +2596,21 @@ msgstr "Kendinizden başka bir çalışanın atamasını kaldıramazsınız."
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You cannot cancel a request to switch that is in the past."
-msgstr ""
+msgstr "Eski tarihli vardiya takası isteğini iptal edemezsiniz."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You cannot switch a shift that is in the past."
-msgstr ""
+msgstr "Geçmiş tarihli vardiya takası yapmaya yetkili değilsiniz."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You don't have the right to cancel a request to switch."
-msgstr ""
+msgstr "Vardiya takası isteğini iptal etmeye yetkili değilsiniz."
 
 #. module: planning
 #. odoo-python
@@ -2623,7 +2624,7 @@ msgstr "Kendi kendine atama hakkına sahip değilsin."
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You don't have the right to switch shifts."
-msgstr ""
+msgstr "Vardiya takası yapmaya yetkili değilsiniz."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.slot_unassign
@@ -2656,7 +2657,7 @@ msgstr ""
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 #, python-format
 msgid "all shifts"
-msgstr ""
+msgstr "tüm vardiyalar"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -2706,14 +2707,14 @@ msgstr "diğer vardiya(lar) çakışıyor."
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 #, python-format
 msgid "this and following shifts"
-msgstr ""
+msgstr "bu ve takip eden vardiyalar"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 #, python-format
 msgid "this shift"
-msgstr ""
+msgstr "seçilen vardiya"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template

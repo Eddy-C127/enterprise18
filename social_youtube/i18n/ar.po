@@ -176,6 +176,20 @@ msgid "Created on"
 msgstr "أنشئ في"
 
 #. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Description cannot exceed 5000 characters."
+msgstr "لا يمكن أن يتجاوز الوصف 5000 حرف. "
+
+#. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Description should not contain > or < symbol."
+msgstr "يجب ألا يحتوي الوصف على رمز > أو <. "
+
+#. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__display_name
 msgid "Display Name"
 msgstr "اسم العرض "
@@ -465,6 +479,20 @@ msgid "There is no channel linked with this YouTube account."
 msgstr "لا توجد قناة مرتبطة بحساب يوتيوب هذا. "
 
 #. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Title cannot exceed 100 characters."
+msgstr "لا يمكن أن يتجاوز العنوان 100 حرف. "
+
+#. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Title should not contain > or < symbol."
+msgstr "يجب ألا يحتوي العنوان على رمز > أو <. "
+
+#. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid ""
 "To provide our application services, note that we store the following data "
@@ -592,6 +620,13 @@ msgid "Yes, delete it"
 msgstr "نعم، قم بحذفه "
 
 #. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You cannot use '>' or '<' in both title and description."
+msgstr "لا يمكنك استخدام أي من '>' أو '<' في العنوان أو الوصف. "
+
+#. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_media.py:0
 #, python-format
@@ -604,6 +639,20 @@ msgstr "لا تملك اشتراكاً سارياً. يرجى شراء واحد 
 #, python-format
 msgid "You have to upload a video when posting on YouTube."
 msgstr "عليك رفع مقطع فيديو عند النشر على YouTube. "
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You need to give your video a description."
+msgstr "عليك أن تمنح مقطع الفيديو الخاص بك وصفاً. "
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You need to give your video a title."
+msgstr "عليك أن تمنح مقطع الفيديو الخاص بك عنواناً. "
 
 #. module: social_youtube
 #: model:ir.model.fields.selection,name:social_youtube.selection__social_media__media_type__youtube
@@ -768,6 +817,20 @@ msgstr "لم يقدم YouTube رمز تفويض صالح. "
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "Your channel name and picture"
 msgstr "اسم وصورة قناتك "
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "Your description cannot exceed 5000 characters."
+msgstr "لا يمكن أن يتجاوز وصفك 5000 حرف. "
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "Your title cannot exceed 100 characters."
+msgstr "لا يمكن أن يتجاوز عنوانك 100 حرف. "
 
 #. module: social_youtube
 #. odoo-python

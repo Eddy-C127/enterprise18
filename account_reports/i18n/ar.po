@@ -3,9 +3,9 @@
 # 	* account_reports
 # 
 # Translators:
-# Malaz Abuidris <msea@odoo.com>, 2024
 # Wil Odoo, 2024
 # Martin Trigaux, 2024
+# Malaz Abuidris <msea@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-04 14:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -661,12 +661,12 @@ msgstr "الرصيد بالعملة الأجنبية "
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Balance of '%s'"
-msgstr ""
+msgstr "رصيد '%s' "
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.balance_bank
 msgid "Balance of Bank"
-msgstr ""
+msgstr "رصيد البنك "
 
 #. module: account_reports
 #. odoo-python
@@ -1172,6 +1172,8 @@ msgid ""
 "Custom engine _report_custom_engine_last_statement_balance_amount does not "
 "support groupby"
 msgstr ""
+"المحرك المخصص _report_custom_engine_last_statement_balance_amount لا يدعم "
+"خاصية groupby "
 
 #. module: account_reports
 #. odoo-javascript
@@ -1281,7 +1283,7 @@ msgstr "إهلاك"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Difference from rounding taxes"
-msgstr ""
+msgstr "الفرق من تقريب الضرائب "
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_line__display_custom_groupby_warning
@@ -1976,13 +1978,13 @@ msgstr "شاملة عمليات المحاكات التحليلية "
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_payments
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_payments
 msgid "Including Unreconciled Payments"
-msgstr ""
+msgstr "شاملة المدفوعات غير المسواة "
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_receipt
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_receipts
 msgid "Including Unreconciled Receipts"
-msgstr ""
+msgstr "شاملة الإيصالات غير المسواة "
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -2294,7 +2296,7 @@ msgstr "آخر تحديث في"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.last_statement_balance
 msgid "Last statement balance"
-msgstr ""
+msgstr "رصيد آخر كشف حساب "
 
 #. module: account_reports
 #. odoo-python
@@ -2392,7 +2394,7 @@ msgstr "يجب أن تبدأ الطريقة '%s' بالبادئة '%s'. "
 #. module: account_reports
 #: model:account.report.line,name:account_reports.misc_operations
 msgid "Misc. operations"
-msgstr ""
+msgstr "العمليات المتنوعة "
 
 #. module: account_reports
 #. odoo-python
@@ -2678,7 +2680,7 @@ msgstr "دخل آخر"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
-msgstr ""
+msgstr "المدفوعات/الإيصالات المستحقة "
 
 #. module: account_reports
 #. odoo-python
@@ -3125,7 +3127,7 @@ msgstr "إظهار حركة تحذير "
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "Some"
-msgstr ""
+msgstr "بعض "
 
 #. module: account_reports
 #. odoo-javascript
@@ -3403,7 +3405,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "The current balance in the"
-msgstr ""
+msgstr "الرصيد الحالي في "
 
 #. module: account_reports
 #. odoo-javascript
@@ -3631,7 +3633,7 @@ msgstr "شركاء تجاريون "
 #. module: account_reports
 #: model:account.report.line,name:account_reports.transaction_without_statement
 msgid "Transactions without statement"
-msgstr ""
+msgstr "المعاملات التي ليس لها كشف حساب "
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report
@@ -3980,7 +3982,7 @@ msgstr "أيام بعد الفترة "
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "doesn't match the balance of your"
-msgstr ""
+msgstr "لا يطابق رصيد "
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__2_months
@@ -3997,7 +3999,7 @@ msgstr "كل 4 شهور "
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "have a starting balance different from the previous ending balance."
-msgstr ""
+msgstr "أن يكون الرصيد الافتتاحي مختلفاً عن الرصيد الختامي السابق "
 
 #. module: account_reports
 #. odoo-javascript
@@ -4027,7 +4029,7 @@ msgstr "عناصر اليومية "
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "last bank statement"
-msgstr ""
+msgstr "آخر كشف حساب بنكي "
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__monthly
@@ -4120,7 +4122,7 @@ msgstr "تم ترحيلها إلى هذا البند من الفترة السا�
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "which don't originate from a bank statement nor payment."
-msgstr ""
+msgstr "والذي لا ينتج عن كشف حساب بنكي أو عملية دفع. "
 
 #. module: account_reports
 #. odoo-javascript

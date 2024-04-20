@@ -27,6 +27,9 @@ msgid ""
 "                                Default tags\n"
 "                            </span>"
 msgstr ""
+"<span name=\"documents_hr_tags\" class=\"o_form_label\" invisible=\"1\">\n"
+"                                Thẻ mặc định\n"
+"                            </span>"
 
 #. module: documents_hr
 #: model:mail.template,body_html:documents_hr.mail_template_document_folder_link
@@ -47,6 +50,21 @@ msgid ""
 "    </tbody></table>\n"
 "                "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0px auto;\"><tbody>\n"
+"        <tr><td valign=\"top\" style=\"text-align: left; font-size: 14px;\">\n"
+"            Xin chào <t t-esc=\"object.name\"></t>, liên kết truy cập tài liệu cá nhân khả dụng cho bạn.<br><br>\n"
+"            Bạn sẽ thấy toàn bộ hồ sơ nhân sự cá nhân của mình trong thư mục này.<br><br>\n"
+"            Hãy nhớ bảo mật liên kết nhé.<br><br>\n"
+"            <div style=\"text-align: center; padding: 16px 0px 16px 0px; font-size: 14px;\">\n"
+"                <a t-attf-href=\"{{ object.documents_share_id.full_url }}\" target=\"_blank\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                    Hồ sơ của bạn\n"
+"                </a>\n"
+"            </div>\n"
+"            Chúc bạn một ngày tốt lành!<br>\n"
+"            Bộ phận Nhân sự\n"
+"        </td></tr>\n"
+"    </tbody></table>\n"
+"                "
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_hr_documents_absences
@@ -123,6 +141,8 @@ msgid ""
 "Employee's related user and private email must be set to use \"Send Access Link\" function:\n"
 "%s"
 msgstr ""
+"Phải thiết lập người dùng liên quan và email riêng tư của nhân viên để sử dụng chức năng \"Gửi liên kết truy cập\":\n"
+"%s"
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_hr_documents_employees
@@ -139,12 +159,12 @@ msgstr "Nhân sự"
 #: code:addons/documents_hr/models/hr_employee.py:0
 #, python-format
 msgid "HR Documents: %s"
-msgstr ""
+msgstr "Hồ sơ nhân sự: %s"
 
 #. module: documents_hr
 #: model:mail.template,name:documents_hr.mail_template_document_folder_link
 msgid "HR: Document Access Link"
-msgstr ""
+msgstr "HR: Liên kết truy cập hồ sơ"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_config_settings__documents_hr_settings
@@ -159,12 +179,12 @@ msgstr "Email cá nhân"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
 msgid "Send Access Link"
-msgstr ""
+msgstr "Gửi liên kết truy cập"
 
 #. module: documents_hr
 #: model:ir.actions.server,name:documents_hr.ir_actions_server_send_access_link
 msgid "Send HR Documents Access Link"
-msgstr ""
+msgstr "Gửi liên kết truy cập hồ sơ nhân sự"
 
 #. module: documents_hr
 #: model:ir.model.fields,help:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
@@ -172,18 +192,20 @@ msgid ""
 "Send a share link to the private email of the employee with all the HR files"
 " he owns in Documents app"
 msgstr ""
+"Gửi liên kết chia sẻ tới email cá nhân của nhân viên kèm theo toàn bộ tệp "
+"nhân sự mà nhân viên này sở hữu trong ứng dụng Tài liệu"
 
 #. module: documents_hr
 #: model:mail.template,description:documents_hr.mail_template_document_folder_link
 msgid "Sent manually when recording an employee departure"
-msgstr ""
+msgstr "Gửi thủ công khi ghi nhận nhân viên nghỉ việc"
 
 #. module: documents_hr
 #. odoo-python
 #: code:addons/documents_hr/models/hr_employee.py:0
 #, python-format
 msgid "The access link has been sent to the employee."
-msgstr ""
+msgstr "Link truy cập đã được gửi tới nhân viên."
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_res_users
@@ -203,6 +225,8 @@ msgid ""
 "You must set a work contact address on the Employee in order to use "
 "Document's features."
 msgstr ""
+"Bạn phải thiết lập địa chỉ liên hệ công việc cho Nhân viên để sử dụng các "
+"tính năng của Tài liệu."
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_company__documents_hr_folder
@@ -218,3 +242,4 @@ msgstr "Không gian làm việc mặc định HR"
 #: model:mail.template,subject:documents_hr.mail_template_document_folder_link
 msgid "{{ object.name }}, your personal documents access link is available"
 msgstr ""
+"{{ object.name }}, liên kết truy cập tài liệu cá nhân khả dụng cho bạn"

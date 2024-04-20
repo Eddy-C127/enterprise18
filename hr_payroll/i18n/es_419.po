@@ -5,8 +5,8 @@
 # Translators:
 # Lucia Pacheco, 2023
 # Iran Villalobos López, 2024
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Wil Odoo, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Fernanda Alvarez, 2024
 # 
 msgid ""
@@ -117,9 +117,9 @@ msgid ""
 msgstr ""
 "* Cuando se crea el recibo de nómina, el estado es 'Borrador'\n"
 "                \n"
-"* Si el recibo de nómina está bajo verificación, el estado es 'En espera'.\n"
+"* Si el recibo de nómina se está verificando, el estado es 'En espera'.\n"
 "                \n"
-"* Si se confirma el recibo de nómina entonces el estado se cambia a 'Finalizado'.\n"
+"* Si se confirma el recibo de nómina, el estado es 'Finalizado'.\n"
 "                \n"
 "* Cuando el usuario cancela el recibo de nómina, el estado es 'Rechazado'."
 
@@ -203,7 +203,7 @@ msgstr "1er semestre de %s"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "2. Index salaries for Marketing department"
-msgstr "2. Indexe salarios para el departamento de marketing"
+msgstr "2. Indexe salarios para el departamento de Marketing"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.contribution_register
@@ -299,8 +299,8 @@ msgid ""
 "wizard can only index running contracts.</span>"
 msgstr ""
 "<span role=\"status\" class=\"alert alert-warning d-block\" invisible=\"not "
-"display_warning\">Seleccionó contratos que no están activos, este asistente "
-"solo puede indexar esa clase de contratos.</span>"
+"display_warning\">Seleccionó contratos que no están activos. Este asistente "
+"solo puede indexar contratos activos.</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_resource_calendar_view_form
@@ -326,10 +326,10 @@ msgid ""
 "automatic recalculation. Be careful that reordering the lines doesn't "
 "recompute them.</span>"
 msgstr ""
-"<span><strong>Consejo:</strong> cada vez que edite la cantidad o el importe "
-"en una línea, recalculamos las siguientes líneas. Recomendamos que edite de "
-"arriba hacia abajo para prevenir que su edición sea sobrescrita por el "
-"recálculo automático. Tenga en cuenta que reordenar las líneas no las "
+"<span><strong>Consejo:</strong> cada que edita la cantidad o el importe en "
+"una línea, se recalculan las líneas que le siguen a esa. Le recomendamos que"
+" las edite de arriba hacia abajo para evitar que este recálculo automático "
+"sobrescriba sus cambios. Tenga en cuenta que reordenar las líneas no las "
 "recalcula.</span>"
 
 #. module: hr_payroll
@@ -417,7 +417,7 @@ msgid ""
 msgstr ""
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0px auto;\"><tbody>\n"
 "    <tr><td valign=\"top\" style=\"text-align: left; font-size: 14px;\">\n"
-"        Apreciable <t t-esc=\"object.employee_id.name\"></t>, hay un nuevo recibo de nómina disponible para usted.<br><br>\n"
+"        Apreciable <t t-esc=\"object.employee_id.name\"></t>, tiene un nuevo recibo de nómina disponible.<br><br>\n"
 "        Encontrará el PDF en su portal de empleado.<br><br>\n"
 "        Tenga un buen día,<br>\n"
 "        El equipo de RR.HH\n"
@@ -620,8 +620,8 @@ msgid ""
 "Are you sure you want to delete this note? All content will be definitely "
 "lost."
 msgstr ""
-"¿Está seguro de que quiere eliminar esta nota? Todo el contenido se borrará "
-"definitivamente. "
+"¿Está seguro de que quiere eliminar esta nota? El contenido se borrará y no "
+"lo podrá recuperar."
 
 #. module: hr_payroll
 #: model:hr.salary.attachment.type,name:hr_payroll.hr_salary_attachment_type_assignment
@@ -637,8 +637,7 @@ msgstr "Asignación salarial"
 msgid ""
 "At least one previous negative net could be reported on this payslip for %s"
 msgstr ""
-"Por lo menos un neto negativo se pudo registrar en este recibo de nómina "
-"para %s"
+"Se registró al menos un neto negativo en este recibo de nómina para %s"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__message_attachment_count
@@ -711,7 +710,7 @@ msgstr "Salario básico"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Basic Salary ("
-msgstr "Sueldo básico ("
+msgstr "Salario básico ("
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__basic_wage
@@ -1089,7 +1088,7 @@ msgid ""
 "Congratulations! You created your first contract and generated your first "
 "payslip!"
 msgstr ""
-"¡Felicidades! ¡Creó su primer contrato y generó su primer recibo de nómina!"
+"¡Felicidades! Creó su primer contrato y generó su primer recibo de nómina."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__contract_id
@@ -1434,8 +1433,8 @@ msgid ""
 "anymore and all the valid rules of the structures of the employee's "
 "contracts will be applied."
 msgstr ""
-"Define las reglas que se tienen que aplicar a este recibo de nómina, de "
-"acuerdo al contrato elegido. Si el contrato está vacío, este campo ya no es "
+"Define las reglas que se tienen que aplicar a este recibo de nómina según el"
+" contrato elegido. Si el contrato está vacío, este campo ya no es "
 "obligatorio y se aplicarán todas las reglas de estructuras validadas en los "
 "contratos de los empleados."
 
@@ -1590,7 +1589,7 @@ msgstr "Asistente de edición de líneas de recibo de nómina"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_edit_payslip_worked_days_line
 msgid "Edit payslip line wizard worked days"
-msgstr "Asistente de edición de líneas de recibo de nómina días trabajados"
+msgstr "Asistente de edición de líneas de recibo de nómina de días trabajados"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_edit_payslip_lines_wizard
@@ -1620,7 +1619,7 @@ msgstr "Eghezee"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__email_cc
 msgid "Email cc"
-msgstr "CC del correo electrónico"
+msgstr "Correo electrónico con copia"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_employee
@@ -1722,14 +1721,14 @@ msgstr "Empleados"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Employees (With Running Contracts) missing from open batches"
-msgstr "Faltan empleados (con contratos en ejecución) en los lotes abiertos"
+msgstr "Faltan empleados (con contratos activos) en los lotes abiertos"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Employees With Both New And Running Contracts"
-msgstr "Empleados con contratos tanto nuevos como en ejecución"
+msgstr "Empleados con contratos tanto nuevos como activos"
 
 #. module: hr_payroll
 #. odoo-python
@@ -1806,7 +1805,7 @@ msgstr "Error"
 msgid "Error! You cannot create recursive hierarchy of Salary Rule Category."
 msgstr ""
 "¡Error! No puede crear una jerarquía recursiva de la categoría de regla "
-"salarial"
+"salarial."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__date_estimated_end
@@ -2233,7 +2232,7 @@ msgid ""
 " basic salary per product can defined in expression like: result = "
 "inputs['SALEURO'].amount * contract.wage * 0.01."
 msgstr ""
-"e utiliza en el cálculo. Por ejemplo, una regla para que un vendedor tenga "
+"Se utiliza en el cálculo. Por ejemplo, una regla para que un vendedor tenga "
 "1% de comisión de salario básico por producto se puede definir en una "
 "expresión como: result = inputs['SALEURO'].amount * contract.wage * 0.01."
 
@@ -2253,7 +2252,7 @@ msgstr "Juan Pérez"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "John123"
-msgstr "John123"
+msgstr "Juan123"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_report_view_search
@@ -2270,7 +2269,7 @@ msgstr "Últimas salidas"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_line_view_search_register
 msgid "Last Month"
-msgstr "El mes pasado"
+msgstr "Mes pasado"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_line_view_search_register
@@ -2680,7 +2679,7 @@ msgid ""
 "Number of days prior to the contract end date that a contract expiration "
 "warning is triggered."
 msgstr ""
-"Número de días antes de la fecha de finalización del contrato en que se "
+"Número de días antes de la fecha de terminación del contrato en los que se "
 "activa una advertencia de vencimiento del contrato."
 
 #. module: hr_payroll
@@ -3414,7 +3413,7 @@ msgstr "El importe restante debe ser positivo."
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__remaining_amount
 msgid "Remaining amount to be paid."
-msgstr "El importe pagado que debe pagarse."
+msgstr "El importe restante a pagar."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__report_id
@@ -3467,7 +3466,7 @@ msgstr "Categorías de reglas"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
 msgid "Rule Name"
-msgstr "Nombre de regla"
+msgstr "Nombre de la regla"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_rule_parameter_value__rule_parameter_id
@@ -3495,7 +3494,7 @@ msgstr "En proceso "
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Running contracts coming to an end"
-msgstr "Contratos en ejecución próximos a finalizar"
+msgstr "Contratos activos próximos a finalizar"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__sim_card
@@ -3764,16 +3763,16 @@ msgid ""
 "configuration."
 msgstr ""
 "Establece una estructura específica si desea generar un recibo de nómina "
-"adicional (por ejemplo, aguinaldo). Si deja este campo vacío, se generará un"
-" recibo de nómina regular para todos los empleados seleccionados, según la "
-"configuración de sus contratos."
+"adicional (por ejemplo, un aguinaldo). Si deja este campo vacío, se generará"
+" un recibo de nómina regular para todos los empleados seleccionados, según "
+"la configuración de sus contratos."
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 #, python-format
 msgid "Set the Contract as <strong><q>Running</q></strong>."
-msgstr "Establecer el contrato a <strong><q>En ejecución</q></strong>."
+msgstr "Establecer el contrato como <strong><q>Activo</q></strong>."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
@@ -4353,7 +4352,7 @@ msgid ""
 "of."
 msgstr ""
 "El usuario puede ver sus propios contratos y los contratos de las personas "
-"de las que es gerente.d"
+"de las que es gerente."
 
 #. module: hr_payroll
 #: model:res.groups,comment:hr_payroll.group_hr_payroll_manager
@@ -4409,7 +4408,7 @@ msgstr "Tipo de salario"
 #: code:addons/hr_payroll/wizard/hr_payroll_index_wizard.py:0
 #, python-format
 msgid "Wage indexed by %.2f%% on %s"
-msgstr "Salario indexado por%.2f%% en %s"
+msgstr "Salario indexado por %.2f%% el %s"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__verify
@@ -4518,8 +4517,8 @@ msgid ""
 "Will be used as the message specifying why the wage on the contract has been"
 " modified"
 msgstr ""
-"Se utilizará como mensaje que especifica porqué se modificó el salario del "
-"contrato"
+"Se utilizará como mensaje para especificar por qué se modificó el salario "
+"del contrato"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__count_work
@@ -4768,7 +4767,7 @@ msgstr ""
 #: code:addons/hr_payroll/models/hr_payslip_run.py:0
 #, python-format
 msgid "You cannot delete a payslip batch which is not draft!"
-msgstr "¡No puede eliminar un lote de recibos de nómina que no sea borrador!"
+msgstr "No puede eliminar un lote de recibos de nómina que no sea borrador."
 
 #. module: hr_payroll
 #. odoo-python
@@ -4777,22 +4776,22 @@ msgstr "¡No puede eliminar un lote de recibos de nómina que no sea borrador!"
 #, python-format
 msgid "You cannot delete a payslip which is not draft or cancelled!"
 msgstr ""
-"¡No puede eliminar un recibo de nómina que no esté en estado de borrador o "
-"cancelado!"
+"No puede eliminar un recibo de nómina que no esté en estado de borrador o "
+"cancelado."
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_salary_attachment.py:0
 #, python-format
 msgid "You cannot delete a running salary attachment!"
-msgstr "¡No puede eliminar un archivo adjunto de salario en ejecución!"
+msgstr "No puede eliminar una deducción salarial activa."
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_salary_attachment.py:0
 #, python-format
 msgid "You cannot record a payment on multi employees attachments."
-msgstr "No puede registrar un pago en archivos adjuntos de multi empleados "
+msgstr "No puede registrar un pago en archivos adjuntos de multi empleados."
 
 #. module: hr_payroll
 #. odoo-python
@@ -4810,7 +4809,8 @@ msgstr ""
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "You cannot validate a payslip on which the contract is cancelled"
-msgstr "No puede validar un recibo de nómina en el que el contrato se canceló"
+msgstr ""
+"No puede validar un recibo de nómina en el que el contrato se canceló."
 
 #. module: hr_payroll
 #. odoo-python

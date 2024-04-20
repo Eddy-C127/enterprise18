@@ -30,10 +30,10 @@ msgid ""
 "  * Exception, there is a difference between received and billed quantities\n"
 "This status is defined automatically, but you can force it by ticking the 'Force Status' checkbox."
 msgstr ""
-"*Sí: debe pagar la factura, recibió los productos. \n"
-"*No: no debe pagar la factura, no ha recibido los productos. \n"
-"*Excepción: hay una diferencia entre lo que se recibió y la cantidad facturada. \n"
-"Esta condición se define automáticamente, pero puede modificarla al dar clic en la casilla 'cambiar estado'."
+"  * Sí: debe pagar la factura, ha recibido los productos. \n"
+"  * No: no debe pagar la factura, no ha recibido los productos. \n"
+"  * Excepción: hay una diferencia entre la cantidad recibida y facturada. \n"
+"Esta condición se define automáticamente, pero puede modificarla al dar clic en la casilla 'forzar estado'."
 
 #. module: account_3way_match
 #: model_terms:ir.ui.view,arch_db:account_3way_match.account_invoice_filter_inherit_account_3way_match
@@ -48,7 +48,7 @@ msgstr "Facturas a pagar"
 #. module: account_3way_match
 #: model_terms:ir.ui.view,arch_db:account_3way_match.account_invoice_filter_inherit_account_3way_match
 msgid "Bills to Validate"
-msgstr "Facturas a Validar"
+msgstr "Facturas a validar"
 
 #. module: account_3way_match
 #: model:ir.model.fields.selection,name:account_3way_match.selection__account_move__release_to_pay__exception
@@ -102,12 +102,12 @@ msgstr "No"
 #: model:ir.model.fields,field_description:account_3way_match.field_account_move__release_to_pay
 #: model:ir.model.fields,field_description:account_3way_match.field_account_payment__release_to_pay
 msgid "Release To Pay"
-msgstr "Liberar pago"
+msgstr "Liberar para pago"
 
 #. module: account_3way_match
 #: model:ir.model.fields,field_description:account_3way_match.field_account_move_line__can_be_paid
 msgid "Release to Pay"
-msgstr "Permitir pago"
+msgstr "Liberar para pago"
 
 #. module: account_3way_match
 #: model:ir.model.fields,field_description:account_3way_match.field_account_bank_statement_line__release_to_pay_manual
@@ -128,10 +128,10 @@ msgid ""
 "This status is defined automatically, but you can force it by ticking the 'Force Status' checkbox."
 msgstr ""
 "Este campo puede tomar los siguientes valores:\n"
-"   * Sí: debes pagar la factura, recibiste los productos\n"
-"   * No, no debes pagar la factura, no has recibido los productos\n"
-"   * Excepción, hay una diferencia entre las cantidades recibidas y facturadas\n"
-"Este estado se define automáticamente, pero puedes modificarlo dando clic en la casilla 'cambiar estado'."
+"  * Sí: debe pagar la factura, ha recibido los productos. \n"
+"  * No: no debe pagar la factura, no ha recibido los productos. \n"
+"  * Excepción: hay una diferencia entre la cantidad recibida y facturada. \n"
+"Esta condición se define automáticamente, pero puede modificarla al dar clic en la casilla 'forzar estado'."
 
 #. module: account_3way_match
 #: model:ir.model.fields.selection,name:account_3way_match.selection__account_move__release_to_pay__yes

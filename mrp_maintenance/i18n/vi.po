@@ -63,7 +63,7 @@ msgstr "Thêm yêu cầu bảo trì"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__recurring_leaves_count
 msgid "Additional Leaves to Plan Ahead"
-msgstr ""
+msgstr "Đợt ngừng hoạt động bổ sung cần lập kế hoạch"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_attachment_count
@@ -79,7 +79,7 @@ msgstr "Chặn khu vực sản xuất"
 #: model:ir.model.fields,help:mrp_maintenance.field_maintenance_request__recurring_leaves_count
 msgid ""
 "Block the workcenter for this many time slots in the future in advance."
-msgstr ""
+msgstr "Chặn trước khu vực sản xuất cho những khung giờ này trong tương lai."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__company_id
@@ -223,6 +223,8 @@ msgid ""
 "It won't be possible to plan work orders or other maintenances on this "
 "workcenter during this time."
 msgstr ""
+"Sẽ không thể lập kế hoạch công đoạn hoặc các hoạt động bảo trì khác tại khu "
+"vực sản xuất này trong thời gian này."
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
@@ -237,7 +239,7 @@ msgstr "Ngày hỏng gần nhất"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__leave_ids
 msgid "Leaves"
-msgstr ""
+msgstr "Đợt ngừng hoạt động"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__mtbf
@@ -307,6 +309,8 @@ msgid ""
 "Manufacturing operations are processed at Work Centers. A Work Center can be composed of\n"
 "            workers and/or machines, they are used for costing, scheduling, capacity planning, etc."
 msgstr ""
+"Các hoạt động sản xuất được xử lý tại khu vực sản xuất. Một khu vực sản xuất có thể bao gồm\n"
+"              nhân công và/hoặc máy móc, được sử dụng để tính chi phí, lập lịch trình, lập kế hoạch công suất,..."
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
@@ -424,14 +428,14 @@ msgstr "Yêu cầu"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_stage__create_leaves
 msgid "Request Confirmed"
-msgstr ""
+msgstr "Yêu cầu đã được xác nhận"
 
 #. module: mrp_maintenance
 #. odoo-javascript
 #: code:addons/mrp_maintenance/static/src/components/menuPopup.xml:0
 #, python-format
 msgid "Request Maintenance"
-msgstr ""
+msgstr "Yêu cầu bảo trì"
 
 #. module: mrp_maintenance
 #. odoo-python
@@ -483,7 +487,7 @@ msgstr "Kỹ thuật viên"
 #: code:addons/mrp_maintenance/static/src/components/maintenance_request_form_view.js:0
 #, python-format
 msgid "The maintenance request has successfully been created."
-msgstr ""
+msgstr "Yêu cầu bảo trì đã được tạo thành công."
 
 #. module: mrp_maintenance
 #. odoo-python
@@ -493,18 +497,21 @@ msgid ""
 "The schedule has changed from %(desired_date)s to %(effective_date)s due to "
 "planned manufacturing orders."
 msgstr ""
+"Lịch trình đã thay đổi từ %(desired_date)s thành %(effective_date)s do các "
+"lệnh sản xuất đã được lên kế hoạch."
 
 #. module: mrp_maintenance
 #. odoo-python
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
 msgid "The workcenter is missing for %s."
-msgstr ""
+msgstr "Thiếu khu vực sản xuất cho %s."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__effective_date
 msgid "This date will be used to compute the Mean Time Between Failure."
 msgstr ""
+"Ngày này sẽ được sử dụng để tính thời gian trung bình giữa các lần hỏng."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__activity_exception_decoration
@@ -527,6 +534,8 @@ msgid ""
 "When this box is unticked, and the maintenance is of the type 'Work Center', no leave is created on the respective work center when a maintenance request is created.\n"
 "If the box is ticked, the work center is automatically blocked for the listed duration, either at the specified date, or as soon as possible, if the work center is unavailable then."
 msgstr ""
+"Khi ô này không được đánh dấu và loại bảo trì là 'Khu vực sản xuất', thì không có đợt ngừng hoạt động nào được tạo trên khu vực sản xuất tương ứng khi tạo yêu cầu bảo trì.\n"
+"Nếu ô này được đánh dấu, thì khu vực sản xuất sẽ tự động bị chặn trong khoảng thời gian đã chọn, vào ngày nhất định hoặc ngay khi có thể, với điều kiện lúc đó trung tâm làm việc không hoạt động."
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_mrp_workcenter

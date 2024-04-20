@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +30,7 @@ msgstr "Mẫu sơ đồ tài khoản"
 #: code:addons/hr_payroll_account/models/account_chart_template.py:0
 #, python-format
 msgid "Account Payslip Houserental"
-msgstr ""
+msgstr "Account Payslip Houserental"
 
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_contract_view_form
@@ -61,19 +62,19 @@ msgstr "Tài khoản phân tích"
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_run_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_view_form
 msgid "Are you sure you want to proceed?"
-msgstr ""
+msgstr "Bạn có chắc chắn muốn tiếp tục không?"
 
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.res_config_settings_view_form
 msgid "Batch Account Move Lines"
-msgstr ""
+msgstr "Dòng bút toán kế toán hàng loạt"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__batch_payroll_move_lines
 #: model:ir.model.fields,field_description:hr_payroll_account.field_res_company__batch_payroll_move_lines
 #: model:ir.model.fields,field_description:hr_payroll_account.field_res_config_settings__batch_payroll_move_lines
 msgid "Batch Payroll Move Lines"
-msgstr ""
+msgstr "Dòng bút toán bảng lương hàng loạt"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_res_company
@@ -124,6 +125,9 @@ msgid ""
 "into a single account move line. This will anonymize the accounting entries "
 "but also disable single payment generations."
 msgstr ""
+"Bật tùy chọn này để gộp tất cả bút toán kế toán trong cùng kỳ vào một dòng "
+"bút toán kế toán. Việc này sẽ ẩn danh các bút toán kế toán nhưng cũng tắt "
+"việc tạo thanh toán đơn lẻ."
 
 #. module: hr_payroll_account
 #. odoo-python
@@ -148,7 +152,7 @@ msgstr "Để trống để sử dụng chu kỳ theo ngày xác nhận phiếu 
 #: code:addons/hr_payroll_account/models/account_chart_template.py:0
 #, python-format
 msgid "No existing account for code %s"
-msgstr ""
+msgstr "Hiện không có tài khoản nào có mã %s"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__not_computed_in_net
@@ -180,7 +184,7 @@ msgstr "Phiếu lương"
 #: code:addons/hr_payroll_account/wizard/account_payment_register.py:0
 #, python-format
 msgid "Payment done at %s"
-msgstr ""
+msgstr "Thanh toán hoàn tất vào %s"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_account_payment
@@ -198,14 +202,14 @@ msgstr "Ghi nhận thanh toán"
 #: code:addons/hr_payroll_account/models/account_chart_template.py:0
 #, python-format
 msgid "SLR"
-msgstr ""
+msgstr "SLR"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/account_chart_template.py:0
 #, python-format
 msgid "Salaries"
-msgstr ""
+msgstr "Lương"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payroll_structure__journal_id
@@ -229,21 +233,21 @@ msgstr "Cấu trúc lương"
 #, python-format
 msgid ""
 "The Expense Journal \"%s\" has not properly configured the default Account!"
-msgstr ""
+msgstr "Sổ nhật ký chi phí \"%s\" không cấu hình tài khoản mặc định đúng cách!"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 #, python-format
 msgid "The credit account on the NET salary rule is not reconciliable"
-msgstr ""
+msgstr "Tài khoản ghi có theo quy tắc lương THỰC NHẬN không đối chiếu được"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 #, python-format
 msgid "The employee bank account is untrusted"
-msgstr ""
+msgstr "Tài khoản ngân hàng của nhân viên không đáng tin cậy"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,help:hr_payroll_account.field_hr_salary_rule__not_computed_in_net
@@ -263,4 +267,4 @@ msgstr ""
 #: code:addons/hr_payroll_account/models/account_journal.py:0
 #, python-format
 msgid "You cannot delete the journal linked to a Salary Structure"
-msgstr ""
+msgstr "Bạn không thể xóa sổ nhật ký liên kết với Cấu trúc lương"

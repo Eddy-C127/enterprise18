@@ -63,7 +63,7 @@ msgstr "<span class=\"oe_inline\">%</span>"
 #. module: data_merge
 #: model_terms:ir.ui.view,arch_db:data_merge.view_data_merge_model_form
 msgid "<span invisible=\"not custom_merge_method\">Model specific</span>"
-msgstr ""
+msgstr "<span invisible=\"not custom_merge_method\">Mô hình cụ thể</span>"
 
 #. module: data_merge
 #: model:ir.model.constraint,message:data_merge.constraint_data_merge_rule_uniq_model_id_field_id
@@ -115,7 +115,7 @@ msgstr "Tự động"
 #: model:ir.model.fields,field_description:data_merge.field_ir_model__is_merge_enabled
 #: model_terms:ir.ui.view,arch_db:data_merge.ir_model_view_search
 msgid "Can Be Merged"
-msgstr ""
+msgstr "Có thể gộp"
 
 #. module: data_merge
 #. odoo-python
@@ -145,6 +145,8 @@ msgstr "Liên hệ"
 msgid ""
 "Contextual menu action that redirects to the deduplicate view of data_merge."
 msgstr ""
+"Hành động menu ngữ cảnh chuyển hướng đến chế độ xem chống trùng lặp của "
+"data_merge."
 
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_record__record_create_uid
@@ -180,7 +182,7 @@ msgstr "Cross-Company"
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_model__custom_merge_method
 msgid "Custom Merge Method"
-msgstr ""
+msgstr "Phương thức gộp tuỳ chỉnh"
 
 #. module: data_merge
 #: model:ir.actions.server,name:data_merge.ir_cron_cleanup_ir_actions_server
@@ -246,7 +248,7 @@ msgstr "Deduplication Rules"
 #: code:addons/data_merge/models/data_merge_model.py:0
 #, python-format
 msgid "Deduplication is forbidden on the model: %s"
-msgstr ""
+msgstr "Chống trùng lặp bị cấm trên mô hình: %s"
 
 #. module: data_merge
 #: model:ir.model.fields.selection,name:data_merge.selection__data_merge_model__removal_mode__delete
@@ -266,7 +268,7 @@ msgstr "Differences with the master record"
 #. module: data_merge
 #: model_terms:ir.ui.view,arch_db:data_merge.ir_model_view_form
 msgid "Disable Merge"
-msgstr ""
+msgstr "Tắt tính năng gộp"
 
 #. module: data_merge
 #: model_terms:ir.ui.view,arch_db:data_merge.view_data_merge_record_list
@@ -314,7 +316,7 @@ msgstr "Sao chép"
 #: code:addons/data_merge/models/data_merge_model.py:0
 #, python-format
 msgid "Duplicates to Merge"
-msgstr ""
+msgstr "Bản trùng lặp cần gộp"
 
 #. module: data_merge
 #: model:ir.model.fields,help:data_merge.field_data_merge_model__create_threshold
@@ -326,7 +328,7 @@ msgstr ""
 #. module: data_merge
 #: model_terms:ir.ui.view,arch_db:data_merge.ir_model_view_form
 msgid "Enable Merge"
-msgstr ""
+msgstr "Bật tính năng gộp"
 
 #. module: data_merge
 #. odoo-python
@@ -343,7 +345,7 @@ msgstr "Field Values"
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_ir_model__hide_merge_action
 msgid "Hide merge action button"
-msgstr ""
+msgstr "Ẩn nút hành động gộp"
 
 #. module: data_merge
 #: model_terms:ir.ui.view,arch_db:data_merge.data_merge_duplicate
@@ -365,6 +367,8 @@ msgid ""
 "If True, the generic data merge tool is available in the contextual menu of "
 "this model."
 msgstr ""
+"Nếu Đúng, công cụ gộp dữ liệu chung khả dụng trong menu ngữ cảnh của mô hình"
+" này."
 
 #. module: data_merge
 #: model:ir.model.fields,help:data_merge.field_data_merge_model__is_contextual_merge_action
@@ -372,6 +376,8 @@ msgid ""
 "If True, this record is used for contextual menu action \"Merge\" on the "
 "target model."
 msgstr ""
+"Nếu Đúng, tập dữ liệu này được sử dụng cho hành động menu ngữ cảnh \"Gộp\" "
+"trên mô hình đích."
 
 #. module: data_merge
 #: model:ir.model.fields,help:data_merge.field_ir_model__hide_merge_action
@@ -379,6 +385,8 @@ msgid ""
 "If the model already has a custom merge method, the class attribute `_merge_disabled` is set to true on\n"
 "             that model and the generic data merge action should not be available on that model."
 msgstr ""
+"Nếu mô hình đã có phương thức gộp tùy chỉnh, thuộc tính lớp `_merge_disabled` sẽ được đặt thành true trên\n"
+"              mô hình đó và hành động gộp dữ liệu chung sẽ không khả dụng trên mô hình."
 
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_record__is_deleted
@@ -436,7 +444,7 @@ msgstr "Thủ công"
 #: code:addons/data_merge/models/data_merge_record.py:0
 #, python-format
 msgid "Manual Selection - %s"
-msgstr ""
+msgstr "Chọn thủ công - %s"
 
 #. module: data_merge
 #. odoo-javascript
@@ -460,12 +468,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:data_merge.view_data_merge_record_list
 #, python-format
 msgid "Merge"
-msgstr "Hợp nhất"
+msgstr "Gộp"
 
 #. module: data_merge
 #: model:ir.ui.menu,name:data_merge.ir_model_menu_merge_action_manager
 msgid "Merge Action Manager"
-msgstr ""
+msgstr "Trình quản lý hành động gộp"
 
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_rule__match_mode
@@ -480,24 +488,24 @@ msgstr "Merge Mode"
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_ir_model__ref_merge_ir_act_server_id
 msgid "Merge Server Action"
-msgstr ""
+msgstr "Hành động máy chủ gộp"
 
 #. module: data_merge
 #: model:ir.actions.act_window,name:data_merge.ir_model_action_merge
 msgid "Merge action Manager"
-msgstr ""
+msgstr "Trình quản lý hành động gộp"
 
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_model__is_contextual_merge_action
 msgid "Merge action attached"
-msgstr ""
+msgstr "Hành động gộp đính kèm"
 
 #. module: data_merge
 #. odoo-python
 #: code:addons/data_merge/models/data_merge_model.py:0
 #, python-format
 msgid "Missing required PostgreSQL extension: unaccent"
-msgstr ""
+msgstr "Thiếu extension PostgreSQL cần thiết: không có dấu"
 
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_group__res_model_id
@@ -562,7 +570,7 @@ msgstr "Notify Users"
 #: code:addons/data_merge/models/data_merge_record.py:0
 #, python-format
 msgid "Query Failed."
-msgstr ""
+msgstr "Truy vấn không thành công."
 
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_group__record_ids
@@ -600,7 +608,7 @@ msgstr "Records eligible for the deduplication process"
 #: code:addons/data_merge/models/data_merge_record.py:0
 #, python-format
 msgid "Records must be of the same model"
-msgstr ""
+msgstr "Các tập dữ liệu phải có cùng mô hình"
 
 #. module: data_merge
 #: model:ir.model.fields,help:data_merge.field_data_merge_model__merge_threshold
@@ -663,28 +671,28 @@ msgstr "The notification frequency should be greater than 0"
 #: code:addons/data_merge/models/data_merge_record.py:0
 #, python-format
 msgid "The referenced record does not exist"
-msgstr ""
+msgstr "Tập dữ liệu được tham chiếu không tồn tại"
 
 #. module: data_merge
 #. odoo-javascript
 #: code:addons/data_merge/static/src/views/data_merge_list_view.js:0
 #, python-format
 msgid "The selected records have been merged"
-msgstr ""
+msgstr "Các tập dữ liệu đã chọn đã được gộp"
 
 #. module: data_merge
 #. odoo-python
 #: code:addons/data_merge/models/data_merge_record.py:0
 #, python-format
 msgid "The target model does not exists."
-msgstr ""
+msgstr "Mô hình mục tiêu không tồn tại."
 
 #. module: data_merge
 #. odoo-python
 #: code:addons/data_merge/models/data_merge_record.py:0
 #, python-format
 msgid "There is not referenced record"
-msgstr ""
+msgstr "Không có tập dữ liệu được tham chiếu"
 
 #. module: data_merge
 #: model:ir.model.constraint,message:data_merge.constraint_data_merge_model_uniq_name
@@ -733,7 +741,7 @@ msgstr "When enabled, duplicates across different companies will be suggested"
 #: code:addons/data_merge/models/data_merge_record.py:0
 #, python-format
 msgid "You must select at least two %s in order to merge them."
-msgstr ""
+msgstr "Bạn cần có ít nhất hai %s để tiến hành gộp."
 
 #. module: data_merge
 #: model_terms:ir.ui.view,arch_db:data_merge.data_merge_duplicate

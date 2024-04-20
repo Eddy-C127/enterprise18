@@ -26,11 +26,13 @@ msgid ""
 "<i class=\"fa fa-info-circle\" role=\"img\" aria-label=\"Warning\" title=\"The letter will be sent using the IAP service from Odoo.&#10;Make sure you have enough credits on your account or proceed to a recharge.\"/>\n"
 "                        <br/>"
 msgstr ""
+"<i class=\"fa fa-info-circle\" role=\"img\" aria-label=\"Warning\" title=\"Thư sẽ được gửi bằng dịch vụ IAP từ Odoo. Hãy đảm bảo bạn có đủ tín dụng trong tài khoản của mình hoặc tiến hành nạp tiền.\"/>\n"
+"                        <br/>"
 
 #. module: snailmail_account_followup
 #: model_terms:ir.ui.view,arch_db:snailmail_account_followup.manual_reminder_view_form_inherit_snailmail
 msgid "By post"
-msgstr ""
+msgstr "Qua bưu điện"
 
 #. module: snailmail_account_followup
 #: model:ir.model,name:snailmail_account_followup.model_res_partner
@@ -55,7 +57,7 @@ msgstr "Gửi thư"
 #. module: snailmail_account_followup
 #: model_terms:ir.ui.view,arch_db:snailmail_account_followup.manual_reminder_view_form_inherit_snailmail
 msgid "Sending this document by post will cost"
-msgstr ""
+msgstr "Việc gửi tài liệu này qua đường bưu điện sẽ tốn phí"
 
 #. module: snailmail_account_followup
 #: model:ir.model.fields,field_description:snailmail_account_followup.field_account_followup_manual_reminder__snailmail
@@ -80,3 +82,5 @@ msgid ""
 "You are trying to send a letter by post, but no follow-up contact has any "
 "address set"
 msgstr ""
+"Bạn đang cố gắng gửi thư qua đường bưu điện nhưng không có địa chỉ nào được "
+"thiết hệ cho liên hệ follow-up"

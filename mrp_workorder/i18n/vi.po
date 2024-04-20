@@ -3,8 +3,8 @@
 # 	* mrp_workorder
 # 
 # Translators:
-# Thi Huong Nguyen, 2023
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,7 +47,7 @@ msgstr "+ Người vận hành mới"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "< Back"
-msgstr ""
+msgstr "< Quay lại"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
@@ -62,7 +62,7 @@ msgstr "<span class=\"o_stat_text\">Chỉ dẫn</span>"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
 msgid "<span invisible=\"employee_name\">Log In </span>"
-msgstr ""
+msgstr "<span invisible=\"employee_name\">Đăng nhập </span>"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__activity_ids
@@ -172,7 +172,7 @@ msgstr "Cho phép tất cả nhân viên"
 #: code:addons/mrp_workorder/static/src/mrp_display/control_panel.js:0
 #, python-format
 msgid "All MO"
-msgstr ""
+msgstr "Tất cả LSX"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__allow_producing_quantity_change
@@ -314,7 +314,7 @@ msgstr "Đóng"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.xml:0
 #, python-format
 msgid "Close Production"
-msgstr ""
+msgstr "Đóng sản xuất"
 
 #. module: mrp_workorder
 #: model:product.attribute,name:mrp_workorder.product_attribute_color_radio
@@ -390,14 +390,14 @@ msgstr "Tiếp tục"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.quality_check_view_form_tablet
 msgid "Continue Consumption"
-msgstr ""
+msgstr "Tiếp tục tiêu thụ"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "Continue consumption"
-msgstr ""
+msgstr "Tiếp tục tiêu thụ"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder_additional_product__product_uom_category_id
@@ -418,7 +418,7 @@ msgstr "Chi phí"
 #: code:addons/mrp_workorder/static/src/components/viewer.js:0
 #, python-format
 msgid "Could not display the selected %s"
-msgstr ""
+msgstr "Không thể hiển thị %s đã chọn"
 
 #. module: mrp_workorder
 #: model_terms:ir.actions.act_window,help:mrp_workorder.mrp_stock_picking_type_action
@@ -570,7 +570,7 @@ msgstr "Không đạt"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "Fill in worksheet"
-msgstr ""
+msgstr "Điền vào bảng công tác"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -638,6 +638,8 @@ msgid ""
 "If this checkbox is ticked, the serial numbers lines for this operation type"
 " will be pre-filled in the shop floor."
 msgstr ""
+"Nếu ô này được đánh dấu, các dòng số sê-ri cho loại hoạt động này sẽ được "
+"điền sẵn trong xưởng."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__worksheet_document
@@ -735,7 +737,7 @@ msgstr "Cập nhật lần cuối vào"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "Load Samples"
-msgstr ""
+msgstr "Tải mẫu"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -771,17 +773,17 @@ msgstr "Báo cáo tổng quan ĐMNL"
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_tablet_timer
 msgid "Manage Work Order timer on Shop Floor"
-msgstr ""
+msgstr "Quản lý đồng hồ tính giờ công đoạn trong Xưởng"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
 msgid "Manage your manufacturing orders from the shop floor app"
-msgstr ""
+msgstr "Quản lý các lệnh sản xuất của bạn từ ứng dụng xưởng"
 
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_shop_floor
 msgid "Manage your manufacturing orders from the shop floor display app"
-msgstr ""
+msgstr "Quản lý các lệnh sản xuất của bạn từ ứng dụng xưởng"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_production_tree_view_planning
@@ -845,7 +847,7 @@ msgstr "Hạn chót hoạt động của tôi"
 #: code:addons/mrp_workorder/static/src/mrp_display/control_panel.js:0
 #, python-format
 msgid "My WO"
-msgstr ""
+msgstr "Công đoạn của tôi"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_production_workorder_form_view_filter_my_work_orders
@@ -937,6 +939,8 @@ msgid ""
 "No workcenters are available, please create one first to add it to the shop "
 "floor view"
 msgstr ""
+"Không có khu vực sản xuất nào; trước tiên, hãy tạo một khu vực sản xuất để "
+"thêm vào chế độ xem xưởng"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1087,7 +1091,7 @@ msgstr "Hãy đặt số lượng hiện tại bạn đang sản xuất. Đó ph
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid "Please unblock the work center to start the work order"
-msgstr ""
+msgstr "Vui lòng bỏ chặn khu vực sản xuất để bắt đầu công đoạn"
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1099,7 +1103,7 @@ msgstr "Hãy tải lên một hình ảnh"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_stock_picking_type__prefill_lot_tablet
 msgid "Pre-fill Lot/Serial Numbers in Shop Floor"
-msgstr ""
+msgstr "Điền sẵn số lô/sê-ri trong Xưởng"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__previous_check_id
@@ -1282,7 +1286,7 @@ msgstr "Ghi nhận sản lượng"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.js:0
 #, python-format
 msgid "Register Production: %s"
-msgstr ""
+msgstr "Ghi nhận sản lượng: %s"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__additional
@@ -1330,14 +1334,14 @@ msgstr "Kết quả"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
 #, python-format
 msgid "STARTED work on workorder %s"
-msgstr ""
+msgstr "ĐÃ BẮT ĐẦU tiến hành công đoạn %s"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
 #, python-format
 msgid "STOPPED work on workorder %s"
-msgstr ""
+msgstr "ĐÃ NGỪNG tiến hành công đoạn %s"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1359,7 +1363,7 @@ msgstr "Chọn nhân viên"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
 #, python-format
 msgid "Select Work Centers for this station"
-msgstr ""
+msgstr "Chọn Khu vực sản xuất làm việc cho xưởng này"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1406,7 +1410,7 @@ msgstr "Xưởng"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "Shop Floor Control Panel"
-msgstr ""
+msgstr "Bảng điều khiển xưởng"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_routing_workcenter_tree_view_inherited
@@ -1423,7 +1427,7 @@ msgstr "Hiển thị thời gian trên màn hình công đoạn"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "Skip >"
-msgstr ""
+msgstr "Bỏ qua >"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1608,6 +1612,8 @@ msgid ""
 "Track work orders, show instructions and record manufacturing operations from here:\n"
 "                                quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
+"Theo dõi công đoạn, hiển thị chỉ dẫn và ghi lại hoạt động sản xuất từ đây:\n"
+"                               kiểm soát chất lượng, số lượng đã tiêu thụ, số lô/sê-ri,..."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1637,7 +1643,7 @@ msgstr "Loại hoạt động ngoại lệ trong tập dữ liệu."
 #, python-format
 msgid ""
 "Unable to load samples when you already have existing manufacturing orders"
-msgstr ""
+msgstr "Không thể tải mẫu khi bạn đã có sẵn lệnh sản xuất"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -1742,14 +1748,14 @@ msgstr "Giá trị mã vạch quét cuối cùng. "
 #: code:addons/mrp_workorder/static/src/mrp_display/search_bar.xml:0
 #, python-format
 msgid "WO"
-msgstr ""
+msgstr "Công đoạn"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "WO Filters"
-msgstr ""
+msgstr "Bộ lọc công đoạn"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1913,6 +1919,8 @@ msgid ""
 "You need to complete Quality Checks using the Shop Floor before marking Work"
 " Order as Done."
 msgstr ""
+"Bạn cần hoàn thành Kiểm tra chất lượng bằng Xưởng trước khi đánh dấu Hoàn "
+"tất Công đoạn."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1931,6 +1939,17 @@ msgstr ""
 #. odoo-python
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
+msgid ""
+"You need to link this user to an employee of this company to process the "
+"work order"
+msgstr ""
+"Bạn cần liên kết người dùng này với một nhân viên của công ty này để thực "
+"hiện công đoạn"
+
+#. module: mrp_workorder
+#. odoo-python
+#: code:addons/mrp_workorder/models/mrp_workorder.py:0
+#, python-format
 msgid "You need to log in to process this work order."
 msgstr "Bạn phải đăng nhập để thực hiện công đoạn này."
 
@@ -1939,7 +1958,7 @@ msgstr "Bạn phải đăng nhập để thực hiện công đoạn này."
 #: code:addons/mrp_workorder/models/mrp_production.py:0
 #, python-format
 msgid "You need to supply a Lot/Serial Number for the final product."
-msgstr ""
+msgstr "Bạn cần cung cấp số lô/sê-ri cho sản phẩm cuối cùng."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1961,7 +1980,7 @@ msgstr "Bạn vẫn cần kiểm tra chất lượng!"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.js:0
 #, python-format
 msgid "Your suggestion to delete the %s step was succesfully created."
-msgstr ""
+msgstr "Đề xuất xóa bước %s của bạn đã được tạo thành công."
 
 #. module: mrp_workorder
 #: model:ir.model.fields.selection,name:mrp_workorder.selection__quality_point__test_report_type__zpl

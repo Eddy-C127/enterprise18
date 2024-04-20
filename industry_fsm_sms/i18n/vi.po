@@ -34,6 +34,7 @@ msgstr "Dịch vụ thực địa: Chúng tôi đang trên đường tới vị 
 #: model:sms.template,body:industry_fsm_sms.sms_template_data_fsm_onway
 msgid "{{ object.company_id.name }}: We are on our way to your intervention."
 msgstr ""
+"{{ object.company_id.name }}: Chúng tôi đang trên đường đến xử lý tận nơi."
 
 #. module: industry_fsm_sms
 #: model:sms.template,body:industry_fsm_sms.sms_template_data_fsm_intervention
@@ -45,3 +46,9 @@ msgid ""
 "lang_code=object.partner_id.lang) if object.planned_date_begin and "
 "object.date_deadline else '' }}"
 msgstr ""
+"{{ object.company_id.name }}: Cuộc xử lý của bạn đã được lên lịch vào {{ "
+"'from the ' + format_datetime(object.planned_date_begin, "
+"tz=object.partner_id.tz, lang_code=object.partner_id.lang) + ' to the ' + "
+"format_datetime(object.date_deadline, tz=object.partner_id.tz, "
+"lang_code=object.partner_id.lang) if object.planned_date_begin and "
+"object.date_deadline else '' }}"

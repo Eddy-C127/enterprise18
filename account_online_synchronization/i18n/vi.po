@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Duy BQ <duybq86@gmail.com>, 2023
-# Thi Huong Nguyen, 2023
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,7 @@ msgstr ""
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid " If you've already opened this issue don't report it again."
-msgstr ""
+msgstr "Nếu bạn đã mở vấn đề này, vui lòng không báo cáo lại nữa."
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -36,13 +36,15 @@ msgid ""
 ").\n"
 "                    This might cause duplicate entries."
 msgstr ""
+").\n"
+"                    Điều này có thể gây ra các bút toán trùng lặp."
 
 #. module: account_online_synchronization
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "0 transaction fetched"
-msgstr ""
+msgstr "0 giao dịch được lấy"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_form
@@ -167,6 +169,22 @@ msgstr ""
 "            "
 
 #. module: account_online_synchronization
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid ""
+"If you've already opened a ticket for this issue, don't report it again: a "
+"support agent will contact you shortly."
+msgstr ""
+"Nếu bạn đã mở một phiếu hỗ trợ cho vấn đề này, vui lòng không báo cáo lại "
+"nữa: đại diện hỗ trợ sẽ sớm liên hệ với bạn."
+
+#. module: account_online_synchronization
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid "Check the documentation."
+msgstr "Xem tài liệu."
+
+#. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__access_token
 msgid "Access Token"
 msgstr "Token truy cập"
@@ -211,7 +229,7 @@ msgstr "Tài khoản Liên kết online"
 #. module: account_online_synchronization
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_cron_waiting_synchronization_ir_actions_server
 msgid "Account: Journal online Waiting Synchronization"
-msgstr ""
+msgstr "Tài khoản: Đang chờ đồng bộ sổ nhật ký online"
 
 #. module: account_online_synchronization
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_cron_ir_actions_server
@@ -332,7 +350,7 @@ msgstr "Hủy"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Choose a date and a journal from which you want to fetch transactions"
-msgstr ""
+msgstr "Chọn ngày và sổ nhật ký mà bạn muốn lấy giao dịch"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__client_id
@@ -405,7 +423,7 @@ msgstr "Yêu cầu kết nối"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__connection_state_details
 msgid "Connection State Details"
-msgstr ""
+msgstr "Thông tin trạng thái kết nối"
 
 #. module: account_online_synchronization
 #: model:mail.message.subtype,name:account_online_synchronization.bank_sync_consent_renewal
@@ -504,12 +522,12 @@ msgstr "Thông tin bổ sung mà nhà cung cấp bên thứ ba cần"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Fetch"
-msgstr ""
+msgstr "Lấy"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Fetch Missing Bank Statements Wizard"
-msgstr ""
+msgstr "Tính năng lấy sao kê ngân hàng bị thiếu"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -531,14 +549,14 @@ msgstr "Giao dịch đã lấy"
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_journal__online_sync_fetching_status
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_account__fetching_status
 msgid "Fetching Status"
-msgstr ""
+msgstr "Trạng thái lấy"
 
 #. module: account_online_synchronization
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "Fetching..."
-msgstr ""
+msgstr "Đang lấy dữ liệu..."
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -548,7 +566,7 @@ msgstr ""
 #: model:ir.actions.server,name:account_online_synchronization.account_journal_action_fetch_missing_transactions
 #, python-format
 msgid "Find Missing Transactions"
-msgstr ""
+msgstr "Tìm kiếm giao dịch bị thiếu"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__message_follower_ids
@@ -580,7 +598,7 @@ msgstr "Có tài khoản ngừng liên kết"
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Here"
-msgstr ""
+msgstr "Ở đây"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_selection__id
@@ -748,7 +766,7 @@ msgstr "Liên kết tài khoản ngân hàng với sổ nhật ký đã chọn"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Manual Bank Statement Lines"
-msgstr ""
+msgstr "Dòng sao kê ngân hàng thủ công"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -772,7 +790,7 @@ msgstr "Tin nhắn"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Missing and Pending Transactions"
-msgstr ""
+msgstr "Giao dịch đang treo và bị thiếu"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__my_activity_date_deadline
@@ -912,7 +930,7 @@ msgstr "Đã lập kế hoạch"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "Please enter a valid Starting Date to continue."
-msgstr ""
+msgstr "Vui lòng nhập Ngày bắt đầu hợp lệ để tiếp tục."
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -926,7 +944,7 @@ msgstr "Vui lòng kết nối lại tài khoản online của bạn."
 #: code:addons/account_online_synchronization/wizard/account_bank_statement_line.py:0
 #, python-format
 msgid "Please select first the transactions you wish to import."
-msgstr ""
+msgstr "Trước tiên hãy chọn các giao dịch bạn muốn nhập."
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_bank_statement_line_transient__state__posted
@@ -936,7 +954,7 @@ msgstr "Đã vào sổ"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.missing_bank_statement_line_search
 msgid "Posted Transactions"
-msgstr ""
+msgstr "Giao dịch đã ghi sổ"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_account__fetching_status__processing
@@ -995,14 +1013,14 @@ msgstr "Refresh Token"
 #: code:addons/account_online_synchronization/models/account_journal.py:0
 #, python-format
 msgid "Report Issue"
-msgstr ""
+msgstr "Báo cáo vấn đề"
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Report issue"
-msgstr ""
+msgstr "Báo cáo vấn đề"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__client_id
@@ -1033,7 +1051,7 @@ msgstr ""
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "See error"
-msgstr ""
+msgstr "Xem lỗi"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1107,7 +1125,7 @@ msgstr ""
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__provider_type
 msgid "Third Party Provider"
-msgstr ""
+msgstr "Nhà cung cấp bên thứ ba"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1147,7 +1165,7 @@ msgstr "Chi tiết giao dịch"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_bank_statement_line_transient
 msgid "Transient model for bank statement line"
-msgstr ""
+msgstr "Mô hình tạm thời cho dòng sao kê ngân hàng"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__has_unlinked_accounts
@@ -1186,7 +1204,7 @@ msgstr "Lịch sử trao đổi qua trang web"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_missing_transaction_wizard
 msgid "Wizard for missing transactions"
-msgstr ""
+msgstr "Tính năng dùng cho giao dịch bị thiếu"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -1196,13 +1214,15 @@ msgid ""
 "You are importing transactions before the creation of your online synchronization\n"
 "                    ("
 msgstr ""
+"Bạn đang nhập giao dịch trước khi tạo đồng bộ hóa online\n"
+"                    ("
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "You can contact Odoo support"
-msgstr ""
+msgstr "Bạn có thể liên hệ Bộ phận hỗ trợ của Odoo"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1210,6 +1230,8 @@ msgstr ""
 #, python-format
 msgid "You can only execute this action for bank-synchronized journals."
 msgstr ""
+"Bạn chỉ có thể thực hiện hành động này đối với các sổ nhật ký được đồng bộ "
+"hóa với ngân hàng."
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1219,6 +1241,8 @@ msgstr ""
 msgid ""
 "You can't find missing transactions for a journal that isn't connected."
 msgstr ""
+"Bạn không thể tìm thấy các giao dịch bị thiếu cho một sổ nhật ký không được "
+"kết nối."
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1234,7 +1258,7 @@ msgstr ""
 #: code:addons/account_online_synchronization/wizard/account_bank_statement_line.py:0
 #, python-format
 msgid "You cannot import pending transactions."
-msgstr ""
+msgstr "Bạn không thể nhập các giao dịch đang treo."
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -1248,7 +1272,7 @@ msgstr "Bạn có"
 #: code:addons/account_online_synchronization/wizard/account_journal_missing_transactions.py:0
 #, python-format
 msgid "You have to select one journal to continue."
-msgstr ""
+msgstr "Bạn phải chọn một sổ nhật ký để tiếp tục."
 
 #. module: account_online_synchronization
 #: model:mail.template,subject:account_online_synchronization.email_template_sync_reminder
@@ -1282,7 +1306,7 @@ msgstr "đại diện của một tài khoản ngân hàng online"
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #, python-format
 msgid "transactions fetched"
-msgstr ""
+msgstr "giao dịch đã được lấy"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -1292,3 +1316,5 @@ msgid ""
 "within this period that were not created using the online synchronization. "
 "This might cause duplicate entries."
 msgstr ""
+"trong khoảng thời gian này không được tạo bằng cách sử dụng đồng bộ hóa "
+"online. Điều này có thể gây ra các bút toán trùng lặp."

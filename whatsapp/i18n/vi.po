@@ -44,7 +44,7 @@ msgstr "%(original_name)s (bản sao)"
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "%(template_name)s [%(account_name)s]"
-msgstr ""
+msgstr "%(template_name)s [%(account_name)s]"
 
 #. module: whatsapp
 #. odoo-python
@@ -52,7 +52,7 @@ msgstr ""
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path"
-msgstr ""
+msgstr "'%(field)s' có vẻ không phải là đường dẫn trường hợp lệ"
 
 #. module: whatsapp
 #. odoo-python
@@ -60,6 +60,7 @@ msgstr ""
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path on %(model)s"
 msgstr ""
+"'%(field)s' có vẻ không phải là đường dẫn trường hợp lệ trên %(model)s"
 
 #. module: whatsapp
 #. odoo-python
@@ -443,7 +444,7 @@ msgstr "Cấu hình tài khoản Meta"
 #: code:addons/whatsapp/wizard/whatsapp_composer.py:0
 #, python-format
 msgid "Configure Templates"
-msgstr ""
+msgstr "Tạo mẫu"
 
 #. module: whatsapp
 #. odoo-python
@@ -629,7 +630,7 @@ msgstr "Động"
 msgid ""
 "Dynamic button variable name must be the same as its respective button's "
 "name"
-msgstr ""
+msgstr "Tên biến nút động phải giống với tên nút tương ứng"
 
 #. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_message_unique_msg_uid
@@ -716,7 +717,7 @@ msgstr "Các biến mẫu trường phải được liên kết với một trư
 #, python-format
 msgid ""
 "Field template variables %(var_names)s must be associated with a field."
-msgstr ""
+msgstr "Các biến mẫu trường %(var_names)s phải được liên kết với một trường."
 
 #. module: whatsapp
 #. odoo-python
@@ -1322,7 +1323,7 @@ msgstr "Không tìm thấy tin nhắn WhatsApp nào."
 #: code:addons/whatsapp/wizard/whatsapp_composer.py:0
 #, python-format
 msgid "No approved WhatsApp Templates are available for this model."
-msgstr ""
+msgstr "Không có sẵn Mẫu WhatsApp đã duyệt nào cho mô hình này."
 
 #. module: whatsapp
 #. odoo-javascript
@@ -1336,7 +1337,7 @@ msgstr "Không có kết quả"
 #: code:addons/whatsapp/tools/whatsapp_api.py:0
 #, python-format
 msgid "Non-descript Error"
-msgstr ""
+msgstr "Lỗi không xác định"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__none
@@ -1616,7 +1617,7 @@ msgstr "Bị từ chối"
 #: code:addons/whatsapp/models/discuss_channel.py:0
 #, python-format
 msgid "Related %(model_name)s: "
-msgstr ""
+msgstr "%(model_name)s liên quan: "
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__model
@@ -1675,7 +1676,7 @@ msgstr "Giá trị mẫu"
 #: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
 #, python-format
 msgid "Search WhatsApp Channel"
-msgstr ""
+msgstr "Tìm kiếm Kênh WhatsApp"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.template_message_preview
@@ -1869,6 +1870,8 @@ msgid ""
 "Template %(template_name)s holds a wrong configuration for 'phone field'\n"
 "%(error_msg)s"
 msgstr ""
+"Mẫu %(template_name)s được cấu hình chưa chính xác tại 'trường điện thoại'\n"
+"%(error_msg)s"
 
 #. module: whatsapp
 #. odoo-python
@@ -1935,7 +1938,7 @@ msgstr "Nội dung mẫu"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template
 msgid "Template quality rating too low"
-msgstr ""
+msgstr "Đánh giá chất lượng mẫu quá thấp"
 
 #. module: whatsapp
 #. odoo-python
@@ -1960,6 +1963,8 @@ msgid ""
 "Template variable should be in format {{number}}. Cannot parse "
 "\"%(placeholder)s\""
 msgstr ""
+"Biến mẫu phải ở định dạng {{number}}. Không thể phân tích cú pháp "
+"\"%(placeholder)s\""
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_preview__wa_template_id
@@ -2004,7 +2009,7 @@ msgstr "Thái"
 #, python-format
 msgid ""
 "The Header Text must either contain no variable or the first one {{1}}."
-msgstr ""
+msgstr "Văn bản đầu trang không được chứa biến hoặc biến đầu tiên {{1}}."
 
 #. module: whatsapp
 #. odoo-python
@@ -2242,6 +2247,8 @@ msgid ""
 "Variables %(field_names)s do not seem to be valid field path for model "
 "%(model_name)s."
 msgstr ""
+"Biến %(field_names)s có vẻ không phải là đường dẫn trường hợp lệ cho mô hình"
+" %(model_name)s."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__video
@@ -2270,7 +2277,7 @@ msgstr "Mẫu WA"
 #: code:addons/whatsapp/models/models.py:0
 #, python-format
 msgid "We were not able to fetch value of field '%(field)s'"
-msgstr ""
+msgstr "Chúng tôi không thể tìm nạp giá trị của trường '%(field)s'"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__webhook_verify_token
@@ -2438,6 +2445,8 @@ msgid ""
 "You are not allowed to use %(field)s in phone field, contact your "
 "administrator to configure it."
 msgstr ""
+"Bạn không được phép sử dụng %(field)s trong trường điện thoại, hãy liên hệ "
+"với quản trị viên để cấu hình."
 
 #. module: whatsapp
 #. odoo-python
@@ -2446,6 +2455,7 @@ msgstr ""
 msgid ""
 "You are not allowed to use field %(field)s, contact your administrator."
 msgstr ""
+"Bạn không được phép sử dụng trường %(field)s, hãy liên hệ với quản trị viên."
 
 #. module: whatsapp
 #. odoo-python
@@ -2467,7 +2477,7 @@ msgstr "Bạn không thể gửi lại tin nhắn không ở trạng thái khôn
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "You can not select field of %(model)s."
-msgstr ""
+msgstr "Bạn không thể chọn trường của %(model)s."
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_template_action

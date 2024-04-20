@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:22+0000\n"
+"POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,6 +29,8 @@ msgid ""
 ".st0{opacity:0.3;enable-background:new;}\n"
 "                .st1{fill:currentColor;stroke:#1A1919;stroke-width:3;stroke-miterlimit:10;}"
 msgstr ""
+".st0{opacity:0.3;enable-background:new;}\n"
+"                .st1{fill:currentColor;stroke:#1A1919;stroke-width:3;stroke-miterlimit:10;}"
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
@@ -35,6 +38,8 @@ msgid ""
 "<i class=\"oi oi-arrow-right\"/>\n"
 "                                Sign up to MapBox to get a free token"
 msgstr ""
+"<i class=\"oi oi-arrow-right\"/>\n"
+"                                Đăng ký MapBox để nhận token miễn phí"
 
 #. module: web_map
 #: model:ir.model,name:web_map.model_ir_actions_act_window_view
@@ -76,7 +81,7 @@ msgstr "Liên hệ"
 #: model:ir.model.fields,field_description:web_map.field_res_partner__contact_address_complete
 #: model:ir.model.fields,field_description:web_map.field_res_users__contact_address_complete
 msgid "Contact Address Complete"
-msgstr ""
+msgstr "Hoàn thành địa chỉ liên hệ"
 
 #. module: web_map
 #: model:ir.model,name:web_map.model_ir_http
@@ -95,7 +100,7 @@ msgstr "Dòng"
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid "Locating new addresses..."
-msgstr ""
+msgstr "Đang định vị địa chỉ mới..."
 
 #. module: web_map
 #. odoo-javascript
@@ -109,14 +114,14 @@ msgstr "Bản đồ"
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
 msgid "Map Routes"
-msgstr ""
+msgstr "Bản đồ tuyến đường"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 #, python-format
 msgid "MapBox servers unreachable"
-msgstr ""
+msgstr "Không thể truy cập máy chủ MapBox"
 
 #. module: web_map
 #. odoo-javascript
@@ -130,12 +135,12 @@ msgstr "Tên"
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid "Navigate to"
-msgstr ""
+msgstr "Điều hướng tới"
 
 #. module: web_map
 #: model:ir.model.fields,help:web_map.field_res_config_settings__map_box_token
 msgid "Necessary for some functionalities in the map view"
-msgstr ""
+msgstr "Cần thiết cho một số chức năng trong chế độ xem bản đồ"
 
 #. module: web_map
 #. odoo-javascript
@@ -163,40 +168,40 @@ msgstr "Mở"
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 #, python-format
 msgid "OpenStreetMap's request limit exceeded, try again later."
-msgstr ""
+msgstr "Đã vượt giới hạn yêu cầu của OpenStreetMap, vui lòng thử lại sau."
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
 msgid "Set a MapBox account to activate routes and style"
-msgstr ""
+msgstr "Thiết lập một tài khoản MapBox để kích hoạt các tuyến đường và kiểu"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid "Set up token"
-msgstr ""
+msgstr "Thiết lập token"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 #, python-format
 msgid "Some routing points are too far apart"
-msgstr ""
+msgstr "Một số điểm xác định tuyến đường cách nhau quá xa"
 
 #. module: web_map
 #. odoo-python
 #: code:addons/web_map/models/res_config_settings.py:0
 #, python-format
 msgid "The MapBox server is unreachable"
-msgstr ""
+msgstr "Không thể truy cập máy chủ MapBox"
 
 #. module: web_map
 #. odoo-python
 #: code:addons/web_map/models/res_config_settings.py:0
 #, python-format
 msgid "The token input is not valid"
-msgstr ""
+msgstr "Thông tin token không hợp lệ"
 
 #. module: web_map
 #. odoo-javascript
@@ -208,13 +213,14 @@ msgid ""
 "The view has switched to another provider but functionalities will be "
 "limited"
 msgstr ""
+"Chế độ xem đã chuyển sang đơn vị cung cấp khác nhưng chức năng sẽ bị hạn chế"
 
 #. module: web_map
 #. odoo-python
 #: code:addons/web_map/models/res_config_settings.py:0
 #, python-format
 msgid "This referer is not authorized"
-msgstr ""
+msgstr "This referer is not authorized"
 
 #. module: web_map
 #. odoo-javascript
@@ -224,6 +230,8 @@ msgid ""
 "To get routing on your map, you first need to set up your MapBox token. It's"
 " free."
 msgstr ""
+"Để xác định tuyến đường trên bản đồ, trước tiên bạn cần thiết lập token "
+"MapBox. Việc này hoàn toàn miễn phí."
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
@@ -233,35 +241,35 @@ msgstr "Token"
 #. module: web_map
 #: model:ir.model.fields,field_description:web_map.field_res_config_settings__map_box_token
 msgid "Token Map Box"
-msgstr ""
+msgstr "Token Map Box"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 #, python-format
 msgid "Token invalid"
-msgstr ""
+msgstr "Token không hợp lệ"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 #, python-format
 msgid "Too many requests, try again in a few minutes"
-msgstr ""
+msgstr "Quá nhiều yêu cầu, hãy thử lại sau vài phút"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 #, python-format
 msgid "Too many routing points (maximum 25)"
-msgstr ""
+msgstr "Quá nhiều điểm xác định tuyến đường (tối đa 25)"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 #, python-format
 msgid "Unauthorized connection"
-msgstr ""
+msgstr "Kết nối không được phép"
 
 #. module: web_map
 #. odoo-javascript
@@ -275,7 +283,7 @@ msgstr "Không xác định"
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid "Unsuccessful routing request:"
-msgstr ""
+msgstr "Yêu cầu xác định tuyến đường không thành công:"
 
 #. module: web_map
 #. odoo-javascript
@@ -292,8 +300,6 @@ msgstr "Chế độ xem"
 #. module: web_map
 #: model:ir.model.fields,field_description:web_map.field_ir_actions_act_window_view__view_mode
 #: model:ir.model.fields,field_description:web_map.field_ir_ui_view__type
-#: model:ir.model.fields,field_description:web_map.field_website_controller_page__type
-#: model:ir.model.fields,field_description:web_map.field_website_page__type
 msgid "View Type"
 msgstr "Dạng hiển thị"
 
@@ -302,7 +308,7 @@ msgstr "Dạng hiển thị"
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid "View in Google Maps"
-msgstr ""
+msgstr "Xem trên Google Maps"
 
 #. module: web_map
 #. odoo-javascript
@@ -317,3 +323,5 @@ msgstr "Có"
 #, python-format
 msgid "You need to set a Contact field on this model to use the Map View"
 msgstr ""
+"Bạn cần thiết lập trường Liên hệ trên mô hình này để sử dụng Chế độ xem bản "
+"đồ"

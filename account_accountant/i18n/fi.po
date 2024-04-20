@@ -188,12 +188,12 @@ msgstr "Ohjattu tilien täsmäytys"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_account_id
 msgid "Account used for deferred expenses"
-msgstr "Laskennallisiin kuluihin käytetty tili"
+msgstr "Ostojen jaksotuksia varten käytetty tili"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_account_id
 msgid "Account used for deferred revenues"
-msgstr "Laskennallisia tuloja varten käytetty tili"
+msgstr "Myynnin jaksotuksia varten käytetty tili"
 
 #. module: account_accountant
 #: model:ir.ui.menu,name:account_accountant.menu_accounting
@@ -617,12 +617,12 @@ msgstr "Päivämäärä"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_move_line__deferred_end_date
 msgid "Date at which the deferred expense/revenue ends"
-msgstr "Päivä, jolloin laskennallinen meno/tuotto päättyy"
+msgstr "Päivä, jolloin jaksotettu osto/myynti päättyy"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_move_line__deferred_start_date
 msgid "Date at which the deferred expense/revenue starts"
-msgstr "Päivä, jolloin laskennallinen kulu/tuotto alkaa"
+msgstr "Päivä, jolloin jaksotettu osto/myynti alkaa"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -643,7 +643,7 @@ msgstr "Lykkäys %s"
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_amount_computation_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_amount_computation_method
 msgid "Deferred Amount Computation Method"
-msgstr "Laskennallisen määrän laskentamenetelmä"
+msgstr "Jaksotuksen määrän laskentamenetelmä"
 
 #. module: account_accountant
 #. odoo-python
@@ -654,38 +654,38 @@ msgstr "Laskennallisen määrän laskentamenetelmä"
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 #, python-format
 msgid "Deferred Entries"
-msgstr "Lykätyt kirjaukset"
+msgstr "Jaksotuskirjaukset"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_journal_id
 msgid "Deferred Entries Journal"
-msgstr "Lykättyjen kirjauksien päiväkirja"
+msgstr "Jaksotuskirjausten päiväkirja"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__deferred_entry_type
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__deferred_entry_type
 #: model:ir.model.fields,field_description:account_accountant.field_account_payment__deferred_entry_type
 msgid "Deferred Entry Type"
-msgstr "Lykätyn kirjauksen tyyppi"
+msgstr "Jaksotuskirjauksen tyyppi"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_expense_account_id
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_expense_account_id
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_move__deferred_entry_type__expense
 msgid "Deferred Expense"
-msgstr "Laskennallinen kulu"
+msgstr "Jaksotettu kulu"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_journal_id
 msgid "Deferred Journal"
-msgstr "Lykätty päiväkirja"
+msgstr "Jaksotuspäiväkirja"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_revenue_account_id
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_revenue_account_id
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_move__deferred_entry_type__revenue
 msgid "Deferred Revenue"
-msgstr "Tuloennakko"
+msgstr "Jaksotettu myynti"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -897,13 +897,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Generate Deferred Expense Entries Method"
-msgstr "Luo laskennallisia kulukirjauksia -menetelmä"
+msgstr "Jaksotettujen kulukirjausten luontimenetelmä"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_revenue_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Generate Deferred Revenue Entries Method"
-msgstr "Laskennallisen tulon kirjausten luonti -menetelmä"
+msgstr "Jaksotettujen myyntikirjausten luontimenetelmä"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -948,7 +948,7 @@ msgstr "Ryhmänvero"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_deferred_moves
 msgid "Has Deferred Moves"
-msgstr "On lykännyt siirtoja"
+msgstr "Sisältää jaksotusvientejä"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__id
@@ -1113,7 +1113,7 @@ msgstr "Päiväkirjat, joissa vastaava numero ei ole asetettu"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_journal_id
 msgid "Journal used for deferred entries"
-msgstr "Lykättyjä kirjauksia varten käytettävä päiväkirja"
+msgstr "Jaksotuskirjauksia varten käytettävä päiväkirja"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_digest_digest__kpi_account_bank_cash_value
@@ -1271,19 +1271,17 @@ msgstr "Vastaavuussäännöt salivat automaattisen täsmäytyksen"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_amount_computation_method
 msgid "Method used to compute the amount of deferred entries"
-msgstr ""
-"Menetelmä, jota käytetään laskettaessa laskennallisten kirjausten määrää"
+msgstr "Menetelmä, jota käytetään laskettaessa jaksotuskirjausten määrää"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Method used to generate deferred expense entries"
-msgstr "Menetelmä, jota käytetään laskennallisten kulukirjausten tuottamiseen"
+msgstr "Menetelmä, jota käytetään jaksotettujen kulukirjausten luomiseen"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Method used to generate deferred revenue entries"
-msgstr ""
-"Menetelmä, jota käytetään laskennallisten tulojen kirjausten tuottamiseen"
+msgstr "Menetelmä, jota käytetään jaksotettujen myyntien kirjausten luomiseen"
 
 #. module: account_accountant
 #. odoo-python
@@ -1452,7 +1450,7 @@ msgstr "Vastakkaiset tasapainot yksi kerrallaan"
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Original Deferred Entries"
-msgstr "Alkuperäiset lykätyt kirjaukset"
+msgstr "Alkuperäiset jaksotuskirjaukset"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
@@ -1563,19 +1561,19 @@ msgstr "Valitse päivämäärä lukittavaksi"
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Please set the deferred accounts in the accounting settings."
-msgstr "Aseta laskennalliset tilit kirjanpidon asetuksissa."
+msgstr "Aseta jaksotustilit kirjanpidon asetuksissa."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Please set the deferred journal in the accounting settings."
-msgstr "Aseta kirjanpidon asetuksissa lykätty päiväkirja."
+msgstr "Aseta kirjanpidon asetuksissa jaksotuspäiväkirja."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Post Deferred entries in:"
-msgstr "Kirjaa lykkäykset kohteeseen:"
+msgstr "Kirjaa jaksotukset kohteeseen:"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__predict_bill_product
@@ -1929,7 +1927,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_move_ids
 msgid "The deferred entries created by this invoice"
-msgstr "Tämän laskun luomat lykätyt kirjaukset"
+msgstr "Tämän laskun luomat jaksotuskirjaukset"
 
 #. module: account_accountant
 #. odoo-python
@@ -1973,7 +1971,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "The original invoices that created the deferred entries"
-msgstr "Alkuperäiset laskut, jotka synnyttivät lykätyt kirjaukset"
+msgstr "Alkuperäiset laskut, jotka loivat jaksotuskirjaukset"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -2208,8 +2206,8 @@ msgid ""
 "You cannot change the account for a deferred line in %(move_name)s if it has"
 " already been deferred."
 msgstr ""
-"Lykätyn rivin tiliä ei voi muuttaa kohdassa %(move_name)s, jos se on jo "
-"lykätty."
+"Jaksotusrivin tiliä ei voi muuttaa kohdassa %(move_name)s, jos se on jo "
+"jaksotettu."
 
 #. module: account_accountant
 #. odoo-python
@@ -2217,8 +2215,7 @@ msgstr ""
 #, python-format
 msgid "You cannot create a deferred entry with a start date but no end date."
 msgstr ""
-"Et voi luoda lykkäysmerkintää, jolla on alkamispäivä mutta ei "
-"päättymispäivää."
+"Et voi luoda jaksotusta, jolla on alkamispäivä mutta ei päättymispäivää."
 
 #. module: account_accountant
 #. odoo-python
@@ -2228,7 +2225,7 @@ msgid ""
 "You cannot create a deferred entry with a start date later than the end "
 "date."
 msgstr ""
-"Et voi luoda lykkäysmerkintää, jonka alkamispäivä on myöhäisempi kuin "
+"Et voi luoda jaksotusta, jonka alkamispäivä on myöhäisempi kuin "
 "päättymispäivä."
 
 #. module: account_accountant
@@ -2238,7 +2235,7 @@ msgstr ""
 msgid ""
 "You cannot generate deferred entries for a miscellaneous journal entry."
 msgstr ""
-"Et voi luoda lykättyjä kirjauksia sekalaisia päiväkirjamerkintöjä varten."
+"Et voi luoda jaksotuskirjauksia sekalaisia päiväkirjamerkintöjä varten."
 
 #. module: account_accountant
 #. odoo-python

@@ -32,7 +32,7 @@ msgstr "%(tên trường) theo %(order)s"
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
 #, python-format
 msgid "%(name)s (restored from %(timestamp)s)"
-msgstr ""
+msgstr "%(name)s (được khôi phục từ %(timestamp)s)"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -67,14 +67,14 @@ msgstr "%(sortName)s (giảm dần)"
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_control_panel.js:0
 #, python-format
 msgid "- dates: %s"
-msgstr ""
+msgstr "- ngày: %s"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_control_panel.js:0
 #, python-format
 msgid "- numbers: %s"
-msgstr ""
+msgstr "- số: %s"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__active
@@ -121,7 +121,7 @@ msgstr "Tự động lọc theo giai đoạn hiện tại"
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.xml:0
 #, python-format
 msgid "Automatically filter on the current user"
-msgstr ""
+msgstr "Tự động lọc theo người dùng hiện tại"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -205,7 +205,7 @@ msgstr "Tiền tệ"
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
 #, python-format
 msgid "Current Version"
-msgstr ""
+msgstr "Phiên bản hiện tại"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -260,6 +260,9 @@ msgid ""
 "Difference between user locale (%(user_locale)s) and spreadsheet locale "
 "(%(spreadsheet_locale)s). This spreadsheet is using the formats below:"
 msgstr ""
+"Sự khác biệt giữa ngôn ngữ người dùng (%(user_locale)s) và ngôn ngữ bảng "
+"tính (%(spreadsheet_locale)s). Bảng tính này đang sử dụng các định dạng dưới"
+" đây:"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -357,7 +360,7 @@ msgstr "Bộ lọc"
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.js:0
 #, python-format
 msgid "From / To"
-msgstr ""
+msgstr "Từ/đến"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__id
@@ -507,21 +510,21 @@ msgstr "Mục menu"
 #: code:addons/spreadsheet_edition/static/src/bundle/list/plugins/list_autofill_plugin.js:0
 #, python-format
 msgid "Missing list #%s"
-msgstr ""
+msgstr "Thiếu danh sách #%s"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/plugins/pivot_autofill_plugin.js:0
 #, python-format
 msgid "Missing pivot"
-msgstr ""
+msgstr "Thiếu pivot"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/plugins/pivot_autofill_plugin.js:0
 #, python-format
 msgid "Missing pivot #%s"
-msgstr ""
+msgstr "Thiếu pivot #%s"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -546,7 +549,7 @@ msgstr "Tháng"
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.js:0
 #, python-format
 msgid "Month / Quarter"
-msgstr ""
+msgstr "Tháng/quý"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -560,7 +563,7 @@ msgstr "Tên của %s:"
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_item.js:0
 #, python-format
 msgid "Name this version"
-msgstr ""
+msgstr "Đặt tên cho phiên bản này"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -606,7 +609,7 @@ msgstr "Không có bản xem trước"
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
 #, python-format
 msgid "Odoo Spreadsheet"
-msgstr ""
+msgstr "Odoo Bảng tính"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__parent_revision_id
@@ -762,7 +765,7 @@ msgstr "Yêu cầu một trường đã chọn"
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/text_filter_editor_side_panel.xml:0
 #, python-format
 msgid "Restrict values to a range"
-msgstr ""
+msgstr "Giới hạn giá trị trong một phạm vi"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__revision_id
@@ -772,7 +775,7 @@ msgstr "Sửa đổi"
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__name
 msgid "Revision name"
-msgstr ""
+msgstr "Tên sửa đổi"
 
 #. module: spreadsheet_edition
 #: model:ir.actions.act_window,name:spreadsheet_edition.spreadsheet_revision_action
@@ -837,7 +840,7 @@ msgstr "Xem thuộc tính pivot"
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/index.js:0
 #, python-format
 msgid "See version history"
-msgstr ""
+msgstr "Xem lịch sử phiên bản"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -872,7 +875,7 @@ msgstr "Chọn số lượng tập dữ liệu cần chèn"
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_dashboard_share__server_revision_id
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_mixin__server_revision_id
 msgid "Server Revision"
-msgstr ""
+msgstr "Sửa đổi máy chủ"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -886,7 +889,7 @@ msgstr "Đặt làm bộ lọc"
 #: code:addons/spreadsheet_edition/static/src/bundle/o_spreadsheet/menu_item_registry.js:0
 #, python-format
 msgid "Snapshot"
-msgstr ""
+msgstr "Ảnh chụp nhanh"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -966,6 +969,8 @@ msgid ""
 "The history of your spreadsheet is corrupted and you are likely missing "
 "recent revisions. This feature cannot be used."
 msgstr ""
+"Lịch sử bảng tính của bạn có vấn đề và có thể bạn thiếu các bản sửa đổi gần "
+"đây. Không thể sử dụng tính năng này."
 
 #. module: spreadsheet_edition
 #. odoo-python
@@ -975,6 +980,8 @@ msgid ""
 "The operation could not be applied because of a concurrent update. Please "
 "try again."
 msgstr ""
+"Không thể áp dụng thao tác này do có bản cập nhật đồng thời. Vui lòng thử "
+"lại."
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -985,13 +992,16 @@ msgid ""
 "\n"
 "Would you like to load the more recent modifications?"
 msgstr ""
+"Do thiếu một số bản sửa đổi nên không thể khôi phục toàn bộ lịch sử phiên bản.\n"
+"\n"
+"Bạn có muốn tải các sửa đổi gần đây hơn không?"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/side_panel/version_history_side_panel.xml:0
 #, python-format
 msgid "There are no prior revisions for this spreadsheet."
-msgstr ""
+msgstr "Không có bản sửa đổi trước đó của bảng tính này."
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1014,7 +1024,7 @@ msgstr "Tổng"
 #: code:addons/spreadsheet_edition/static/src/bundle/version_history/index.js:0
 #, python-format
 msgid "Version History"
-msgstr ""
+msgstr "Lịch sử phiên bản"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
