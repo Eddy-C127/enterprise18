@@ -1,9 +1,23 @@
 ////// ============ Inspector ===============
 ////// ======================================
 
+.o_documents_inspector_panel {
+    flex: 0 0 $o-dms-inspector-width;
+
+    .o_inspector_toggle,
+    .o_inspector_open_chatter {
+        margin-left: $o-dms-p-small !important;
+        margin-right: $o-dms-p-small*1.5 !important;
+    }
+}
+
+.o_documents_inspector_sidebar {
+    flex: 0 0 $o-dms-inspector-sidebar-width;
+    text-align: center;
+}
+
 .o_documents_inspector {
     --btn-group-gap: calc(-1 * #{$btn-border-width});
-    flex: 0 0 $o-dms-inspector-width;
     overflow: auto;
     color: $o-dms-inspector-txt-lighter;
     background-color: $o-dms-inspector-bg;
@@ -149,6 +163,14 @@
 
         .o_selection_size b {
             font-size: 15px;
+        }
+    }
+
+    .o_inspector_toggle {
+        color: $o-dms-inspector-txt-light !important;
+
+        &:hover {
+            color: $o-dms-inspector-txt-lighter !important;
         }
     }
 

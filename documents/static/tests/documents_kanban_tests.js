@@ -985,7 +985,7 @@ QUnit.module("documents", {}, function () {
                 kanbanEl.style.maxWidth = "500px";
                 const cards = kanbanEl.querySelectorAll(".o_kanban_record");
                 for (const card of cards) {
-                    card.style.width = "200px";
+                    card.style.width = "150px";
                 }
                 cards[0].focus();
                 const triggerKey = async (key) => {
@@ -1090,6 +1090,95 @@ QUnit.module("documents", {}, function () {
                     "0.12 MB",
                     "should display the correct size"
                 );
+            });
+
+            QUnit.test("can collapse and uncollapse document inspector", async function (assert) {
+                assert.expect(21);
+
+                const views = {
+                    "documents.document,false,kanban": `<kanban js_class="documents_kanban">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div>
+                            <i class="fa fa-circle-thin o_record_selector"/>
+                            <field name="name"/>
+                        </div>
+                    </t>
+                </templates>
+                </kanban>`,
+                };
+                const { openView } = await createDocumentsViewWithMessaging({
+                    serverData: { views },
+                });
+                await openView({
+                    res_model: "documents.document",
+                    views: [[false, "kanban"]],
+                });
+
+                assert.containsOnce(target, ".o_documents_inspector_panel:visible");
+                assert.containsOnce(target, ".o_documents_inspector_preview:visible");
+                assert.containsOnce(target, ".o_documents_inspector_info:visible");
+
+                // no records selected
+                assert.containsOnce(target, ".o_inspector_button");
+                assert.containsOnce(target, ".o_inspector_button[title=Fold]");
+
+                // select a document record
+                await legacyClick(target.querySelector(".o_kanban_record"));
+                assert.deepEqual(
+                    [...target.querySelectorAll(".o_inspector_button")].map((e) =>
+                        e.getAttribute("title")
+                    ),
+                    [
+                        "Fold",
+                        "Download",
+                        "Share this selection",
+                        "Replace",
+                        "Lock",
+                        "Open chatter",
+                        "Move to trash",
+                    ]
+                );
+
+                // collapse documents inspector
+                await legacyClick(target, ".o_documents_inspector_panel .o_inspector_toggle");
+                assert.containsNone(target, ".o_documents_inspector_panel:visible");
+                assert.containsNone(target, ".o_documents_inspector_preview:visible");
+                assert.containsNone(target, ".o_documents_inspector_info:visible");
+                assert.containsOnce(target, ".o_documents_inspector_sidebar:visible");
+                assert.deepEqual(
+                    [...target.querySelectorAll(".o_inspector_button")].map((e) =>
+                        e.getAttribute("title")
+                    ),
+                    ["Unfold", "Open chatter"]
+                );
+
+                // open the chatter from inspector sidebar
+                await legacyClick(target, ".o_documents_inspector .o_inspector_open_chatter");
+                await contains(".o-mail-Chatter");
+                assert.containsOnce(target, ".o_documents_inspector_sidebar:visible");
+                assert.containsOnce(target, ".o_inspector_button");
+                assert.containsOnce(target, ".o_inspector_button[title=Unfold]");
+
+                // close the chatter
+                await legacyClick(target, ".o-mail-Chatter-close");
+                await contains(".o_document_chatter_container .o-mail-Chatter", { count: 0 });
+                assert.deepEqual(
+                    [...target.querySelectorAll(".o_inspector_button")].map((e) =>
+                        e.getAttribute("title")
+                    ),
+                    ["Unfold", "Open chatter"]
+                );
+
+                // unselect document record
+
+                await legacyClick($(target).find(".o_kanban_record:contains(yop)")[0]);
+                assert.containsOnce(target, ".o_inspector_button");
+                assert.containsOnce(target, ".o_inspector_button[title=Unfold]");
+                // uncollapse documents inspector
+                await legacyClick(target, ".o_documents_inspector_sidebar .o_inspector_toggle");
+                assert.containsOnce(target, ".o_documents_inspector_panel:visible");
+                assert.containsNone(target, ".o_documents_inspector_sidebar:visible");
             });
 
             QUnit.test("document inspector with selected documents", async function (assert) {

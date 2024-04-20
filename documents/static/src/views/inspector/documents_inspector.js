@@ -102,10 +102,14 @@ export class DocumentsInspector extends Component {
 
         // Avoid generating new urls if they were generated within this component's lifetime
         this.generatedUrls = {};
+        const localStorageValue = parseInt(
+            browser.localStorage.getItem("isDocumentsInspectorFolded")
+        );
         this.state = useState({
             previousAttachmentData: null,
             previousAttachmentDirty: true,
             showChatter: this.isMobile,
+            isFolded: localStorageValue || false,
         });
         const updateLockedState = (props) => {
             this.isLocked =
@@ -450,6 +454,10 @@ export class DocumentsInspector extends Component {
         records[0].openDeleteConfirmationDialog(records[0].model.root, callback, true);
     }
 
+    onToggleInspector() {
+        this.state.isFolded = !this.state.isFolded;
+        browser.localStorage.setItem("isDocumentsInspectorFolded", this.state.isFolded ? 1 : 0);
+    }
     getFieldProps(fieldName, additionalProps) {
         // `documents` might come from a state, and can be a Proxy object at this point
         // and make an infinite loop (the record is given to `Field`, which will change

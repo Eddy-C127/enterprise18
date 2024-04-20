@@ -3,10 +3,11 @@
     <t t-name="documents.DocumentsInspector">
         <t t-set="records" t-value="props.documents"/>
         <t t-set="currentFolder" t-value="getCurrentFolder()"/>
-        <div class="o_documents_inspector h-100 overflow-x-hidden">
+        <div class="o_documents_inspector h-100 overflow-x-hidden"
+            t-attf-class="{{ state.isFolded ? 'd-flex o_documents_inspector_sidebar' : 'o_documents_inspector_panel' }}">
             <t t-set="nbPreviews" t-value="props.documents.length"/>
-            <t t-if="nbPreviews !== 0" t-call="documents.DocumentsInspector.buttons"/>
-            <div class="o_documents_inspector_preview d-flex flex-row flex-wrap align-items-center justify-content-center position-relative">
+            <t t-call="documents.DocumentsInspector.buttons"/>
+            <div  t-if="!state.isFolded" class="o_documents_inspector_preview d-flex flex-row flex-wrap align-items-center justify-content-center position-relative">
                 <div t-if="nbPreviews === 0">
                     <t t-if="currentFolder">
                         <div class="o_inspector_folder_description">
@@ -16,7 +17,7 @@
                 </div>
                 <t t-else="" t-call="documents.DocumentsInspector.previews"/>
             </div>
-            <div class="o_documents_inspector_info">
+            <div t-if="!state.isFolded" class="o_documents_inspector_info">
                 <t t-if="nbPreviews === 0" t-call="documents.DocumentsInspector.globalInfo"/>
                 <t t-else="">
                     <t t-call="documents.DocumentsInspector.documentsInfo" />
@@ -116,8 +117,15 @@
         <t t-set="locked" t-value="isLocked"/>
         <t t-set="editDisabled" t-value="isEditDisabled"/>
         <div class="p-2">
-            <div class="btn-group">
-                <t t-if="records.length and records.every(record => record.data.type === 'url')">
+            <t t-set="labelFold" t-if="state.isFolded">Unfold</t><t t-set="labelFold" t-else="">Fold</t>
+            <button class="o_inspector_button o_inspector_toggle btn m-1"
+                t-att-aria-label="labelFold"
+                t-att-title="labelFold"
+                t-on-click.stop.prevent="onToggleInspector">
+                <i t-attf-class="fa fa-fw {{ state.isFolded ? 'fa-angle-double-left' : 'fa-angle-double-right' }}"/>
+            </button>
+            <div t-if="!state.isFolded and nbPreviews !== 0" class="btn-group">
+                 <t t-if="records.length and records.every(record => record.data.type === 'url')">
                     <t t-set="url" t-value="records[0].data.url"/>
                     <a t-if="url and (url.startsWith('https://') || url.startsWith('http://') || url.startsWith('ftp://'))"
                         t-att-href="url" target="new" class="o_inspector_button btn " t-att-disabled="nbPreviews > 1" t-att-class="nbPreviews > 1 ? 'pe-none' : ''">
@@ -150,7 +158,7 @@
                     </t>
                 </t>
             </div>
-            <t t-if="!records.some((rec) => rec.data.active)">
+            <t t-if="!state.isFolded and nbPreviews !== 0 and !records.some((rec) => rec.data.active)">
                 <button class="o_inspector_button o_inspector_delete btn float-end" title="Delete" t-on-click.stop.prevent="onDelete" t-att-disabled="editDisabled || locked">
                     <i class="fa fa-fw fa-trash"/>
                 </button>
@@ -159,9 +167,9 @@
                     <i class="fa fa-fw fa-history"/>
                 </button>
             </t>
-            <button t-if="nbPreviews === 1 and !isMobile and !state.showChatter" class="o_inspector_button o_inspector_open_chatter btn float-end rounded-circle me-1 px-2" title="Open chatter"
+            <button t-if="nbPreviews === 1 and !isMobile and !state.showChatter" class="o_inspector_button o_inspector_open_chatter btn float-end m-1" title="Open chatter"
                 t-on-click.stop.prevent="() => state.showChatter = true" data-hotkey="d">
-                <i class="fa fa-comments"/>
+                <i class="fa fa-fw fa-comments"/>
             </button>
         </div>
     </t>
