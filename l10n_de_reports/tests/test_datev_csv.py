@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields
+from odoo import Command, fields
 from odoo.tests import tagged
 from odoo.tools import pycompat
 import zipfile
@@ -522,3 +522,51 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
         data = [line for line in reader]
         self.assertEqual(7, len(data), "csv should have 5 (+2 header) lines")
+
+    def test_datev_vat_export(self):
+        report = self.env.ref('account_reports.general_ledger_report')
+        options = report.get_options()
+        options['date'].update({
+            'date_from': '2020-01-01',
+            'date_to': '2020-12-31',
+        })
+
+        partners_list = [
+            {'name': 'partner1', 'vat': 'BE0897223670'},
+            {'name': 'partner2'},
+            {'name': 'partner3', 'vat': 'US12345671'},
+            {'name': 'partner4', 'vat': ''},
+        ]
+        partners = self.env['res.partner'].create(partners_list)
+
+        move = self.env['account.move'].create([{
+                'move_type': 'out_invoice',
+                'invoice_date': fields.Date.to_date('2020-12-01'),
+                'date': fields.Date.to_date('2020-12-01'),
+                'partner_id': partner.id,
+                'invoice_line_ids': [
+                    Command.create({
+                        'name': 'Invoice Line',
+                        'price_unit': 100,
+                        'account_id': self.account_3400.id,
+                        'tax_ids': [Command.set(self.tax_19.ids)],
+                    }),
+                ]
+        } for partner in partners])
+        move.action_post()
+
+        with zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r') as zf, \
+                zf.open('EXTF_customer_accounts.csv') as csv_file:
+            reader = pycompat.csv_reader(csv_file, delimiter=';', quotechar='"', quoting=2)
+            # first 2 rows are just headers and needn't be validated
+            # first 2 columns are 'account' and 'name' and they are irrelevant to this test
+            data = [row[2:10] for row in list(reader)[2:]]
+            self.assertEqual(
+                data,
+                [
+                    ["partner1", "", "", "", "1", "", "", "BE0897223670"],
+                    ["partner2", "", "", "", "1", "", "", ""],
+                    ["partner3", "", "", "", "1", "", "", "US12345671"],
+                    ["partner4", "", "", "", "1", "", "", ""],
+                ],
+            )
