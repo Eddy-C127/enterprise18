@@ -150,10 +150,6 @@ export const DocumentsRecordMixin = (component) => class extends component {
      * Upon clicking on a record, we want to select it and unselect other records.
      */
     onRecordClick(ev, options = {}) {
-        if (this.model.env.inDialog) {
-            ev.preventDefault();
-            return;
-        }
         const isKeepSelection =
             options.isKeepSelection !== undefined ? options.isKeepSelection : ev.ctrlKey || ev.metaKey;
         const isRangeSelection = options.isRangeSelection !== undefined ? options.isRangeSelection : ev.shiftKey;
@@ -190,10 +186,6 @@ export const DocumentsRecordMixin = (component) => class extends component {
      * Called when starting to drag kanban/list records
      */
     async onDragStart(ev) {
-        if (this.model.env.inDialog) {
-            ev.preventDefault();
-            return;
-        }
         if (!this.selected) {
             this.onRecordClick(ev, { isKeepSelection: false, isRangeSelection: false });
         }
