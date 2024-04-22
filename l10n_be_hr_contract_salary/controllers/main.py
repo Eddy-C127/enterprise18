@@ -453,7 +453,7 @@ class HrContractSalary(main.HrContractSalary):
         wishlist_result = {}
         contract = self._check_access_rights(contract_id)
 
-        if 'fold_wishlist_car_total_depreciated_cost' in benefits['contract'] and 'wishlist_car_total_depreciated_cost' in benefits['contract']:
+        if benefits['contract'].get('fold_wishlist_car_total_depreciated_cost', False) and 'wishlist_car_total_depreciated_cost' in benefits['contract']:
             benefits['contract'].update({
                 'fold_company_car_total_depreciated_cost': True,
                 'company_car_total_depreciated_cost': benefits['contract']['wishlist_car_total_depreciated_cost'],
@@ -461,6 +461,7 @@ class HrContractSalary(main.HrContractSalary):
             })
 
             new_contract = self.create_new_contract(contract, offer_id, benefits)[0]
+            new_contract.new_car = False
             final_yearly_costs = float(benefits['contract']['final_yearly_costs'] or 0.0)
             new_gross = new_contract._get_gross_from_employer_costs(final_yearly_costs)
             new_contract.write({
