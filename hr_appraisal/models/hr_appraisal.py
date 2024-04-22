@@ -129,10 +129,11 @@ class HrAppraisal(models.Model):
         user_employees = self.env.user.employee_ids
         is_manager = self.env.user.has_group('hr_appraisal.group_hr_appraisal_user')
         for appraisal in self:
+            user_employee_in_appraisal_manager = bool(set(user_employees.ids) & set(appraisal.manager_ids.ids))
             # Appraisal manager can edit feedback in draft state
             appraisal.can_see_employee_publish = appraisal.employee_id in user_employees or \
-                (user_employees in appraisal.manager_ids and appraisal.state == 'new')
-            appraisal.can_see_manager_publish = user_employees in appraisal.manager_ids
+                (user_employee_in_appraisal_manager and appraisal.state == 'new')
+            appraisal.can_see_manager_publish = user_employee_in_appraisal_manager
         for appraisal in self - new_appraisals:
             if is_manager and not appraisal.can_see_employee_publish and not appraisal.can_see_manager_publish:
                 appraisal.can_see_employee_publish, appraisal.can_see_manager_publish = True, True
