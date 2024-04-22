@@ -50,7 +50,9 @@ export class SignRequestCogMenu extends Component {
 export const SignRequestCogMenuItem = {
     Component: SignRequestCogMenu,
     isDisplayed: (props) => {
+        const is_mail_thread = props.searchModel.searchViewFields?.['message_ids'];
         return (
+            is_mail_thread &&
             props.config.viewType === "form" &&
             props.config.actionType === "ir.actions.act_window"
         );
