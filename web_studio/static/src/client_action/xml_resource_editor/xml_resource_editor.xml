@@ -9,6 +9,7 @@
                     choices="state.resourcesOptions"
                     onSelect.bind="onResourceChange"
                     searchable="state.resourcesOptions.length > 5"
+                    required="true"
                 />
                 <button t-if="props.canSave" t-on-click="onSaveClick" class="btn btn-primary">Save</button>
                 <button t-on-click="onCloseClick" class="btn btn-secondary">Close</button>
