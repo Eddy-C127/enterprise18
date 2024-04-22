@@ -15,6 +15,13 @@
             <button name="action_save_and_import" position="attributes">
                 <attribute name="string">Save</attribute>
             </button>
+            <xpath expr="//div[hasclass('alert-info')]" position="replace">
+                <div class="alert alert-info" role="alert">
+                    The accounts in the SODA file will be mapped to the accounts listed below. If you change any of
+                    them, your choice will be the default one for future imports. The Suspense Account (499000) will
+                    be used for accounts that are not mapped.
+                </div>
+            </xpath>
         </field>
     </record>
 </odoo>
