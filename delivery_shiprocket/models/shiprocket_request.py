@@ -349,7 +349,7 @@ class ShipRocket:
             "shipping_country": partner.country_id.name,
             "shipping_state": partner.state_id.name or "",
             "shipping_email": partner.email,
-            "shipping_phone": self._get_phone(partner_invoice),
+            "shipping_phone": self._get_phone(partner),
             "order_items": list(line_vals),
             "sub_total": self._get_subtotal(line_vals),
             "payment_method": payment_method,
