@@ -4228,7 +4228,7 @@ QUnit.module("View Editors", (hooks) => {
             serverData.views["coucou,false,search"] = `<search></search>`;
 
             const mockRPC = (route, args) => {
-                if (route !== "/hr_attendance/attendance_user_data") {
+                if (!["/hr_attendance/attendance_user_data", "/mail/action"].includes(route)) {
                     assert.step(route);
                 }
                 if (route === "/web_studio/chatter_allowed") {
@@ -4253,7 +4253,7 @@ QUnit.module("View Editors", (hooks) => {
                 mockRPC,
             });
 
-            assert.verifySteps(["/web/webclient/load_menus", "/mail/action"]);
+            assert.verifySteps(["/web/webclient/load_menus"]);
 
             await doAction(webClient, "studio.coucou_action");
             assert.verifySteps([
