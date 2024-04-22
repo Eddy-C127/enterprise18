@@ -15,7 +15,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
 
     def _compute_l10n_br_is_service_transaction(self):
         """Should be overridden. Used to determine if we should treat this record as a service (NFS-e) record."""
-        raise NotImplementedError()
+        self.l10n_br_is_service_transaction = False
 
     def _l10n_br_avatax_allow_services(self):
         """Override."""
@@ -34,9 +34,11 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
 
         if not self.l10n_br_is_service_transaction:
             if service_lines:
+                # Without l10n_br_edi_sale_services, all sale.order documents will be considered non-service ones because
+                # of the missing _compute_l10n_br_is_service_transaction() override.
                 raise ValidationError(
                     _(
-                        "%s is a goods transaction but has service products:\n%s",
+                        '%s is a goods transaction but has service products:\n%s. Make sure the "Brazilian Accounting EDI for services" module is installed.',
                         self.display_name,
                         ", ".join(line["tempProduct"].display_name for line in service_lines),
                     )
