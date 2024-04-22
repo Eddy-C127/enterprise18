@@ -4,6 +4,8 @@
 from collections import defaultdict
 
 from odoo import api, models, fields, _
+from odoo.exceptions import UserError
+from odoo.tools import format_list
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -54,6 +56,25 @@ class SaleOrder(models.Model):
                 order.planning_initial_date = mapped_data[order.id].date()
             else:
                 order.planning_initial_date = fields.Date.today()
+
+    @api.constrains('company_id')
+    def _check_company_id(self):
+        for order, slots in self.env['planning.slot']._read_group(
+            domain=[('sale_order_id', 'in', self.ids)],
+            groupby=['sale_order_id'],
+            aggregates=['id:recordset'],
+        ):
+            if not order.company_id:
+                continue
+            different_company_slots = slots.filtered(lambda slot: slot.company_id != order.company_id)
+            if not different_company_slots:
+                continue
+            raise UserError(_(
+                "You cannot update the company for sales order %(order_name)s as it's linked to shifts in another company.\n"
+                "Please transfer shifts %(slots_names)s to the destination company first.",
+                order_name=order.name,
+                slots_names=format_list(self.env, [slot.display_name for slot in different_company_slots]),
+            ))
 
     # -----------------------------------------------------------------
     # Action methods

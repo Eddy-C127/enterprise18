@@ -7,6 +7,8 @@ import json
 
 from odoo import api, fields, models, _, _lt
 from odoo.osv import expression
+from odoo.exceptions import UserError
+from odoo.tools import format_list
 
 
 class Project(models.Model):
@@ -23,6 +25,26 @@ class Project(models.Model):
         shifts_per_project = {project.id: int(round(allocated_hours_sum)) for project, allocated_hours_sum in shifts_read_group}
         for project in self:
             project.total_forecast_time = shifts_per_project.get(project.id, 0)
+
+    @api.constrains('company_id')
+    def _check_company_id(self):
+        for project, slots in self.env['planning.slot']._read_group(
+            domain=[('project_id', 'in', self.ids)],
+            groupby=['project_id'],
+            aggregates=['id:recordset'],
+        ):
+            if not project.company_id:
+                continue
+            different_company_slots = slots.filtered(lambda slot: slot.company_id != project.company_id)
+            if not different_company_slots:
+                continue
+            raise UserError(_(
+                "You cannot update the company for project %(project_name)s as it's linked to shifts in another company.\n"
+                "If you want to change the company for another, leave the project's company blank, transfer shifts %(slots_names)s "
+                "to the destination company and then change the project's company.",
+                project_name=project.name,
+                slots_names=format_list(self.env, [slot.display_name for slot in different_company_slots]),
+            ))
 
     def action_project_forecast_from_project(self):
         action = self.env["ir.actions.actions"]._for_xml_id("project_forecast.project_forecast_action_from_project")

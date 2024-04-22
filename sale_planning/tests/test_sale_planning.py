@@ -9,6 +9,7 @@ from freezegun import freeze_time
 from psycopg2 import IntegrityError
 
 from odoo.tests import Form, tagged
+from odoo.exceptions import UserError
 from odoo.tools import mute_logger, float_compare
 
 from .common import TestCommonSalePlanning
@@ -424,3 +425,10 @@ class TestSalePlanning(TestCommonSalePlanning):
         self.assertEqual(self.plannable_sol.planning_hours_planned, 4.0, 'There are 4 hours planned for that SOL.')
         self.assertEqual(unplanned_slot.allocated_hours, 6.0, "The allocated_hours should be 6.0")
         self.assertEqual(slot.allocated_hours, 4.0, "The allocated_hours should be 4.0")
+
+    def test_consistency_change_so_company(self):
+        self.plannable_so.action_confirm()
+        new_company = self.env['res.company'].create({'name': 'New Company'})
+        # Check that we cannot change the company of the sales order as it is already linked to shifts that are in another company
+        with self.assertRaises(UserError):
+            self.plannable_so.company_id = new_company

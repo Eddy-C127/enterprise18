@@ -5,6 +5,7 @@ from freezegun import freeze_time
 
 from odoo import fields
 from odoo.tests import tagged
+from odoo.exceptions import UserError
 
 from .common import TestCommonForecast
 
@@ -111,3 +112,9 @@ class TestForecastCreationAndEditing(TestCommonForecast):
 
         slot.template_id = template_b.id
         self.assertEqual(slot.project_id.id, slot.template_autocomplete_ids.mapped('project_id').id, "Project of the slot and shift template should be same.")
+
+    def test_consistency_change_project_company(self):
+        new_company = self.env['res.company'].create({'name': 'New Company'})
+        # Check that we cannot change the company of the project as it is already linked to shifts that are in another company
+        with self.assertRaises(UserError):
+            self.project_opera.company_id = new_company
