@@ -2732,7 +2732,8 @@ class TestTaxReport(TestAccountReportsCommon):
         options = self._generate_options(self.basic_tax_report, '2021-03-01', '2021-03-31')
         vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
         initial_closing_entry = self.env['account.move'].browse(vat_closing_action['res_id'])
-        initial_closing_entry.action_post()
+        with self.enter_test_mode():
+            initial_closing_entry.action_post()
         initial_closing_entry.button_draft()
         vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
         subsequent_closing_entry  = self.env['account.move'].browse(vat_closing_action['res_id'])
@@ -2802,7 +2803,8 @@ class TestTaxReport(TestAccountReportsCommon):
                 self.assertTrue(main_closing_move.tax_closing_show_multi_closing_warning)
                 self.assertFalse(any(closing.tax_closing_show_multi_closing_warning for closing in (closing_moves - main_closing_move)))
 
-                main_closing_move.action_post()
+                with self.enter_test_mode():
+                    main_closing_move.action_post()
                 self.assertTrue(all(move.state == 'posted' for move in closing_moves), "Posting the main closing should have posted all the depending closings")
                 self.assertFalse(main_closing_move.tax_closing_show_multi_closing_warning)
 
@@ -2814,12 +2816,14 @@ class TestTaxReport(TestAccountReportsCommon):
         options = self._generate_options(self.basic_tax_report, '2023-01-01', '2023-03-31')
         vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
         Q1_closing_entry = self.env['account.move'].browse(vat_closing_action['res_id'])
-        Q1_closing_entry.action_post()
+        with self.enter_test_mode():
+            Q1_closing_entry.action_post()
 
         options = self._generate_options(self.basic_tax_report, '2023-04-01', '2023-06-30')
         vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
         Q2_closing_entry = self.env['account.move'].browse(vat_closing_action['res_id'])
-        Q2_closing_entry.action_post()
+        with self.enter_test_mode():
+            Q2_closing_entry.action_post()
 
         with self.assertRaises(UserError):
             Q1_closing_entry.button_draft()
