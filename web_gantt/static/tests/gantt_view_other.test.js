@@ -4,6 +4,7 @@ import { animationFrame, mockDate, mockTimeZone } from "@odoo/hoot-mock";
 import { onRendered, useEffect, useRef } from "@odoo/owl";
 import {
     contains,
+    defineParams,
     fields,
     getService,
     mountWithCleanup,
@@ -48,7 +49,14 @@ const DST_DATES = {
 describe.current.tags("desktop");
 
 defineGanttModels();
-beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
+beforeEach(() => {
+    mockDate("2018-12-20T08:00:00", +1);
+    defineParams({
+        lang_parameters: {
+            time_format: "%I:%M:%S",
+        },
+    });
+});
 
 test("DST spring forward", async () => {
     mockTimeZone("Europe/Brussels");

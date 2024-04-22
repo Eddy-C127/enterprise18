@@ -12,6 +12,7 @@ import {
 import { Deferred, advanceTime, animationFrame, mockDate, runAllTimers } from "@odoo/hoot-mock";
 import {
     contains,
+    defineParams,
     fields,
     mockService,
     onRpc,
@@ -53,7 +54,14 @@ const DST_DATES = {
 describe.current.tags("desktop");
 
 defineGanttModels();
-beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
+beforeEach(() => {
+    mockDate("2018-12-20T08:00:00", +1);
+    defineParams({
+        lang_parameters: {
+            time_format: "%I:%M:%S",
+        },
+    });
+});
 
 test("date navigation with timezone (1h)", async () => {
     onRpc("get_gantt_data", ({ kwargs }) => {
@@ -291,6 +299,12 @@ test("hovering a cell with special character", async () => {
 });
 
 test("open a dialog to add a new task", async () => {
+    defineParams({
+        lang_parameters: {
+            time_format: "%H:%M:%S",
+        }
+    });
+
     Tasks._views = {
         form: `
             <form>
@@ -317,6 +331,12 @@ test("open a dialog to add a new task", async () => {
 });
 
 test("open a dialog to create/edit a task", async () => {
+    defineParams({
+        lang_parameters: {
+            time_format: "%H:%M:%S",
+        }
+    });
+
     Tasks._views = {
         form: `
             <form>
@@ -590,6 +610,12 @@ test("clicking on delete button in edit dialog triggers a confirmation dialog, c
 });
 
 test("create dialog with timezone", async () => {
+    defineParams({
+        lang_parameters: {
+            time_format: "%H:%M:%S",
+        }
+    });
+
     expect.assertions(3);
 
     Tasks._views = {

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { leave, queryAll, queryOne, queryFirst } from "@odoo/hoot-dom";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
-import { contains, onRpc } from "@web/../tests/web_test_helpers";
+import { contains, defineParams, onRpc } from "@web/../tests/web_test_helpers";
 import { Tasks, defineGanttModels } from "./gantt_mock_models";
 import {
     SELECTORS,
@@ -20,7 +20,14 @@ import {
 describe.current.tags("desktop");
 
 defineGanttModels();
-beforeEach(() => mockDate("2018-12-20T07:00:00", +1));
+beforeEach(() => {
+    mockDate("2018-12-20T07:00:00", +1);
+    defineParams({
+        lang_parameters: {
+            time_format: "%I:%M:%S",
+        },
+    });
+});
 
 test("create attribute", async () => {
     Tasks._views.list = `<tree><field name="name"/></tree>`;

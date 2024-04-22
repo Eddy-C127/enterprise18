@@ -3,6 +3,7 @@ import { click, queryAll, queryFirst, queryAllTexts } from "@odoo/hoot-dom";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
 import {
     contains,
+    defineParams,
     fields,
     getService,
     mountWithCleanup,
@@ -28,7 +29,14 @@ import { WebClient } from "@web/webclient/webclient";
 describe.current.tags("desktop");
 
 defineGanttModels();
-beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
+beforeEach(() => {
+    mockDate("2018-12-20T08:00:00", +1);
+    defineParams({
+        lang_parameters: {
+            time_format: "%I:%M:%S",
+        },
+    });
+});
 
 test("empty ungrouped gantt rendering", async () => {
     await mountGanttView({
@@ -857,6 +865,44 @@ test("current hour is highlighted'", async () => {
     });
     expect(`.o_gantt_header_cell.o_gantt_today`).toHaveCount(1);
     expect(`.o_gantt_header_cell.o_gantt_today`).toHaveText("9am");
+});
+
+test("Day scale with 12-hours format", async () => {
+    defineParams({
+        lang_parameters: {
+            time_format: "%I:%M:%S",
+        },
+    });
+
+    await mountGanttView({
+        type: "gantt",
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop" default_scale="day"/>`,
+    });
+
+    expect(getActiveScale()).toBe("0");
+    const headers = getGridContent().columnHeaders;
+    expect(headers.slice(0, 4).map((h) => h.title)).toEqual(["12am", "1am", "2am", "3am"]);
+    expect(headers.slice(12, 16).map((h) => h.title)).toEqual(["12pm", "1pm", "2pm", "3pm"]);
+});
+
+test("Day scale with 24-hours format", async () => {
+    defineParams({
+        lang_parameters: {
+            time_format: "%H:%M:%S",
+        },
+    });
+
+    await mountGanttView({
+        type: "gantt",
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop" default_scale="day"/>`,
+    });
+
+    expect(getActiveScale()).toBe("0");
+    const headers = getGridContent().columnHeaders;
+    expect(headers.slice(0, 4).map((h) => h.title)).toEqual(["0", "1", "2", "3"]);
+    expect(headers.slice(12, 16).map((h) => h.title)).toEqual(["12", "13", "14", "15"]);
 });
 
 test("group tasks by task_properties", async () => {

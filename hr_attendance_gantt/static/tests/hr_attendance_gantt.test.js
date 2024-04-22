@@ -1,6 +1,6 @@
-import { describe, expect, test } from "@odoo/hoot";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { mockDate } from "@odoo/hoot-mock";
-import { defineModels, fields, models } from "@web/../tests/web_test_helpers";
+import { defineModels, defineParams, fields, models } from "@web/../tests/web_test_helpers";
 import { getGridContent, mountGanttView, selectGanttRange } from "@web_gantt/../tests/web_gantt_test_helpers";
 
 describe.current.tags("desktop");
@@ -46,6 +46,13 @@ class Users extends models.Model {
 }
 
 defineModels([Attendances, Users]);
+beforeEach(() => {
+  defineParams({
+      lang_parameters: {
+          time_format: "%I:%M:%S",
+      },
+  });
+});
 
 test("Open Ended record today", async () => {
   mockDate("2018-12-10 16:00:00");
