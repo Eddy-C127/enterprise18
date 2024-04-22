@@ -111,7 +111,7 @@ class CrossoveredBudgetLines(models.Model):
             if op == 'sum':
                 return (sum(records.mapped(field_name)) for records in column)
             if op == 'avg':
-                return (sum(records.mapped(field_name)) / len(records) for records in column)
+                return (sum(records.mapped(field_name)) / (len(records) or 1) for records in column)
         return super()._read_group_postprocess_aggregate(aggregate_spec, raw_values)
 
     def _is_above_budget(self):
