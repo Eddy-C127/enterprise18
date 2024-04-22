@@ -146,43 +146,47 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         journal_vals_map = {}
         move_vals_map = {}
         inbound_types = self.env['account.move'].get_inbound_types(include_receipts=True)
-        for line_vals in self._cr.dictfetchall():
-            line_vals['rate'] = abs(line_vals['amount_currency']) / abs(line_vals['balance']) if line_vals['balance'] else 1.0
-            line_vals['tax_detail_vals_list'] = []
+        while True:
+            batched_line_vals = self._cr.dictfetchmany(10**4)
+            if not batched_line_vals:
+                break
+            for line_vals in batched_line_vals:
+                line_vals['rate'] = abs(line_vals['amount_currency']) / abs(line_vals['balance']) if line_vals['balance'] else 1.0
+                line_vals['tax_detail_vals_list'] = []
 
-            journal_vals_map.setdefault(line_vals['journal_id'], {
-                'id': line_vals['journal_id'],
-                'name': line_vals['journal_name'],
-                'type': line_vals['journal_type'],
-                'move_vals_map': {},
-            })
-            journal_vals = journal_vals_map[line_vals['journal_id']]
+                journal_vals_map.setdefault(line_vals['journal_id'], {
+                    'id': line_vals['journal_id'],
+                    'name': line_vals['journal_name'],
+                    'type': line_vals['journal_type'],
+                    'move_vals_map': {},
+                })
+                journal_vals = journal_vals_map[line_vals['journal_id']]
 
-            move_vals = {
-                'id': line_vals['move_id'],
-                'name': line_vals['move_name'],
-                'type': line_vals['move_type'],
-                'sign': -1 if line_vals['move_type'] in inbound_types else 1,
-                'invoice_date': line_vals['move_invoice_date'],
-                'invoice_origin': line_vals['move_invoice_origin'],
-                'date': line_vals['date'],
-                'create_date': line_vals['move_create_date'],
-                'partner_id': line_vals['partner_id'],
-                'journal_type': line_vals['journal_type'],
-                'statement_line_id': line_vals['move_statement_line_id'],
-                'line_vals_list': [],
-            }
-            move_vals_map.setdefault(line_vals['move_id'], move_vals)
-            journal_vals['move_vals_map'].setdefault(line_vals['move_id'], move_vals)
+                move_vals = {
+                    'id': line_vals['move_id'],
+                    'name': line_vals['move_name'],
+                    'type': line_vals['move_type'],
+                    'sign': -1 if line_vals['move_type'] in inbound_types else 1,
+                    'invoice_date': line_vals['move_invoice_date'],
+                    'invoice_origin': line_vals['move_invoice_origin'],
+                    'date': line_vals['date'],
+                    'create_date': line_vals['move_create_date'],
+                    'partner_id': line_vals['partner_id'],
+                    'journal_type': line_vals['journal_type'],
+                    'statement_line_id': line_vals['move_statement_line_id'],
+                    'line_vals_list': [],
+                }
+                move_vals_map.setdefault(line_vals['move_id'], move_vals)
+                journal_vals['move_vals_map'].setdefault(line_vals['move_id'], move_vals)
 
-            move_vals = move_vals_map[line_vals['move_id']]
-            move_vals['line_vals_list'].append(line_vals)
+                move_vals = move_vals_map[line_vals['move_id']]
+                move_vals['line_vals_list'].append(line_vals)
 
-            # Track the total debit/period of the whole period.
-            res['total_debit_in_period'] += line_vals['debit']
-            res['total_credit_in_period'] += line_vals['credit']
+                # Track the total debit/period of the whole period.
+                res['total_debit_in_period'] += line_vals['debit']
+                res['total_credit_in_period'] += line_vals['credit']
 
-            res['tax_detail_per_line_map'][line_vals['id']] = line_vals
+                res['tax_detail_per_line_map'][line_vals['id']] = line_vals
 
         # Fill 'journal_vals_list'.
         for journal_vals in journal_vals_map.values():
