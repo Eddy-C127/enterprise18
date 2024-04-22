@@ -321,7 +321,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'partner_vat': row['partner_vat'],
                 'partner_credit_limit': row['partner_credit_limit'],
                 'partner_street_name': street_detail.get('street_name'),
-                'partner_street_number': street_detail.get('street_number') and row['partner_street_number'][:15],
+                'partner_street_number': street_detail.get('street_number', "")[:15],
                 'partner_street_number2': street_detail.get('street_number2'),
                 'partner_city': row['partner_city'],
                 'partner_zip': row['partner_zip'] and row['partner_zip'][:10],
