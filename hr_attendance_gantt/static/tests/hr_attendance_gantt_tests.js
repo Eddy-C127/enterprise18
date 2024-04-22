@@ -1,7 +1,8 @@
 /** @odoo-module */
 
-import { getFixture, patchDate, click } from "@web/../tests/helpers/utils";
+import { getFixture, patchDate, click, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
+import { localization } from "@web/core/l10n/localization";
 import { SELECTORS, getGridContent } from "@web_gantt/../tests/helpers";
 
 let serverData;
@@ -12,6 +13,7 @@ QUnit.module("Views > AttendanceGanttView", {
         patchDate(2018, 11, 20, 8, 0, 0);
 
         setupViewRegistries();
+        patchWithCleanup(localization, { timeFormat: "hh:mm:ss" });
 
         target = getFixture();
         serverData = {

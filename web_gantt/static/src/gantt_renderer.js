@@ -13,7 +13,7 @@ import {
 } from "@odoo/owl";
 import { hasTouch, isMobileOS } from "@web/core/browser/feature_detection";
 import { Domain } from "@web/core/domain";
-import { formatDateTime, serializeDate, serializeDateTime } from "@web/core/l10n/dates";
+import { is24HourFormat, formatDateTime, serializeDate, serializeDateTime } from "@web/core/l10n/dates";
 import { localization } from "@web/core/l10n/localization";
 import { usePopover } from "@web/core/popover/popover_hook";
 import { evaluateBooleanExpr } from "@web/core/py_js/py";
@@ -188,6 +188,8 @@ export class GanttRenderer extends Component {
         this.actionService = useService("action");
         this.dialogService = useService("dialog");
         this.userService = useService("user");
+
+        this.is24HourFormat = is24HourFormat();
 
         /** @type {HoveredInfo} */
         this.hovered = {

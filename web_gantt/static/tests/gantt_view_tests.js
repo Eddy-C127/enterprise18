@@ -46,6 +46,7 @@ import {
     setScale,
 } from "./helpers";
 import { MockServer } from "@web/../tests/helpers/mock_server";
+import { localization } from "@web/core/l10n/localization";
 
 function randomName(length) {
     const CHARS = "abcdefghijklmnopqrstuvwxyzàùéèâîûêôäïüëö";
@@ -77,6 +78,7 @@ QUnit.module("Views > GanttView", {
         patchDate(2018, 11, 20, 8, 0, 0);
 
         setupViewRegistries();
+        patchWithCleanup(localization, { timeFormat: "hh:mm:ss" });
 
         target = getFixture();
         serverData = {
@@ -898,6 +900,40 @@ QUnit.test("gantt rendering, pills must be chronologically ordered", async (asse
             ],
         },
     ]);
+});
+
+QUnit.test("Day scale with 12-hours format", async (assert) => {
+    patchWithCleanup(localization, { timeFormat: "hh:mm:ss" });
+
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `<gantt date_start="start" date_stop="stop" default_scale="day"/>`,
+    });
+
+    assert.strictEqual(getActiveScale(), "Day");
+    const headers = getGridContent().columnHeaders;
+    assert.strictEqual(headers.length, 24);
+    assert.deepEqual(headers.slice(0, 4), ["12am", "1am", "2am", "3am"]);
+    assert.deepEqual(headers.slice(12, 16), ["12pm", "1pm", "2pm", "3pm"]);
+});
+
+QUnit.test("Day scale with 24-hours format", async (assert) => {
+    patchWithCleanup(localization, { timeFormat: "HH:mm:ss" });
+
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `<gantt date_start="start" date_stop="stop" default_scale="day"/>`,
+    });
+
+    assert.strictEqual(getActiveScale(), "Day");
+    const headers = getGridContent().columnHeaders;
+    assert.strictEqual(headers.length, 24);
+    assert.deepEqual(headers.slice(0, 4), ["0", "1", "2", "3"]);
+    assert.deepEqual(headers.slice(12, 16), ["12", "13", "14", "15"]);
 });
 
 QUnit.test("scale switching", async (assert) => {

@@ -116,8 +116,13 @@
                     >
                         <t t-if="model.metaData.scale.id in formats" t-esc="column.start.toFormat(formats[model.metaData.scale.id])"/>
                         <small t-else="" class="text-center">
-                            <b t-esc="column.start.toFormat('h')"/>
-                            <div class="d-xl-inline-block" t-esc="column.start.toFormat('a').toLowerCase()"/>
+                            <t t-if="is24HourFormat">
+                                <b t-esc="column.start.toFormat('H')"/>
+                            </t>
+                            <t t-else="">
+                                <b t-esc="column.start.toFormat('h')"/>
+                                <div class="d-xl-inline-block" t-esc="column.start.toFormat('a').toLowerCase()"/>
+                            </t>
                         </small>
                     </div>
                 </t>
