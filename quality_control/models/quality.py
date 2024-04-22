@@ -27,7 +27,8 @@ class QualityPoint(models.Model):
     measure_frequency_type = fields.Selection([
         ('all', 'All'),
         ('random', 'Randomly'),
-        ('periodical', 'Periodically')], string="Control Frequency",
+        ('periodical', 'Periodically'),
+        ('on_demand', 'On-demand')], string="Control Frequency",
         default='all', required=True)
     measure_frequency_value = fields.Float('Percentage')  # TDE RENAME ?
     measure_frequency_unit_value = fields.Integer('Frequency Unit Value')  # TDE RENAME ?
@@ -44,6 +45,15 @@ class QualityPoint(models.Model):
     norm_unit = fields.Char('Norm Unit', default=lambda self: 'mm')  # TDE RENAME ?
     average = fields.Float(compute="_compute_standard_deviation_and_average")
     standard_deviation = fields.Float(compute="_compute_standard_deviation_and_average")
+
+    @api.depends('name', 'title')
+    @api.depends_context('on_demand_wizard')
+    def _compute_display_name(self):
+        if 'on_demand_wizard' in self.env.context:
+            for record in self:
+                record.display_name = f'{record.name} - {record.title}' if record.title else record.name
+        else:
+            super()._compute_display_name()
 
     @api.depends('testing_percentage_within_lot')
     def _compute_is_lot_tested_fractionally(self):
@@ -165,7 +175,7 @@ class QualityPoint(models.Model):
         return point_values
 
     @api.model
-    def _get_domain(self, product_ids, picking_type_id, measure_on='product'):
+    def _get_domain(self, product_ids, picking_type_id, measure_on=False, on_demand=False):
         """ Helper that returns a domain for quality.point based on the products and picking type
         pass as arguments. It will search for quality point having:
         - No product_ids and no product_category_id
@@ -183,7 +193,9 @@ class QualityPoint(models.Model):
         domain_in_products_or_categs = ['|', ('product_ids', 'in', product_ids.ids), ('product_category_ids', 'parent_of', product_ids.categ_id.ids)]
         domain_no_products_and_categs = [('product_ids', '=', False), ('product_category_ids', '=', False)]
         domain += OR([domain_in_products_or_categs, domain_no_products_and_categs])
-        domain += [('measure_on', '=', measure_on)]
+        if measure_on:
+            domain += [('measure_on', '=', measure_on)]
+        domain += [('measure_frequency_type', '=' if on_demand else '!=', 'on_demand')]
 
         return domain
 

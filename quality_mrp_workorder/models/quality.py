@@ -20,6 +20,12 @@ class QualityPoint(models.Model):
             if point.measure_on == 'move_line' and self.operation_id and any(picking_type.code == 'mrp_operation' for picking_type in point.picking_type_ids):
                 raise UserError(_("The Quantity quality check type is not possible with manufacturing operation types."))
 
+    @api.constrains('operation_id', 'measure_frequency_type')
+    def _check_measure_frequency_type(self):
+        for point in self:
+            if point.measure_frequency_type == 'on_demand' and self.operation_id:
+                raise UserError(_("The On-demand frequency is not possible with work order quality points."))
+
 
 class QualityCheck(models.Model):
     _inherit = "quality.check"

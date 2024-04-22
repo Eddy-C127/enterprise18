@@ -93,6 +93,22 @@ class StockPicking(models.Model):
         })
         return action
 
+    def action_open_on_demand_quality_check(self):
+        self.ensure_one()
+        if self.state in ['draft', 'done', 'cancel']:
+            raise UserError(_('You can not create quality check for a draft, done or cancelled transfer.'))
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('On-Demand Quality Check'),
+            'res_model': 'quality.check.on.demand',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_picking_id': self.id,
+                'on_demand_wizard': True,
+            }
+        }
+
     def button_quality_alert(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id("quality_control.quality_alert_action_check")

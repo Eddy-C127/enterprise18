@@ -16,6 +16,7 @@ Adds workcenters to Quality Control
         'views/quality_views.xml',
         'views/mrp_production_views.xml',
         'report/worksheet_custom_report_templates.xml',
+        'wizard/on_demand_quality_check_wizard_views.xml',
     ],
     'auto_install': True,
     'license': 'OEEL-1',

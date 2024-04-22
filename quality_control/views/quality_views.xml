@@ -832,9 +832,9 @@
             <xpath expr="//field[@name='test_type']" position="before">
                 <field name="measure_on"/>
                 <field name="measure_frequency_type" string="Control Frequency"/>
-                <label for="measure_frequency_value" string="" invisible="measure_frequency_type == 'all'"/>
-                <div class="o_row" invisible="measure_frequency_type == 'all'">
-                    <span invisible="measure_frequency_type == 'all'">Every </span>
+                <label for="measure_frequency_value" string="" invisible="measure_frequency_type in ('all', 'on_demand')"/>
+                <div class="o_row" invisible="measure_frequency_type in ('all', 'on_demand')">
+                    <span invisible="measure_frequency_type in ('all', 'on_demand')">Every </span>
                     <field name="measure_frequency_value" nolabel="1" invisible="measure_frequency_type != 'random'"/>
                     <label for="measure_frequency_value" string="% of Operations" invisible="measure_on == 'move_line' or measure_frequency_type != 'random'"/>
                     <label for="measure_frequency_value" string="% of Transfers" invisible="measure_on != 'move_line' or measure_frequency_type != 'random'"/>

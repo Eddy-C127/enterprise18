@@ -96,3 +96,19 @@ class MrpProduction(models.Model):
     def _action_confirm_mo_backorders(self):
         super()._action_confirm_mo_backorders()
         (self.move_raw_ids | self.move_finished_ids)._create_quality_checks_for_mo()
+
+    def action_open_on_demand_quality_check(self):
+        self.ensure_one()
+        if self.state in ['draft', 'done', 'cancel']:
+            raise UserError(_('You can not create quality check for a draft, done or cancelled manufacturing order.'))
+        return {
+            'name': _('On-Demand Quality Check'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'quality.check.on.demand',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_production_id': self.id,
+                'on_demand_wizard': True,
+            }
+        }

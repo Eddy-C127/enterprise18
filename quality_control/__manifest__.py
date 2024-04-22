@@ -28,6 +28,7 @@ Quality Control
         'views/stock_picking_views.xml',
         'views/stock_lot_views.xml',
         'wizard/quality_check_wizard_views.xml',
+        'wizard/on_demand_quality_check_wizard_views.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [
