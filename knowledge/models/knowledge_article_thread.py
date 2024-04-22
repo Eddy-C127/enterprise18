@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
+from odoo.tools import html2plaintext
 
 
 class KnowledgeArticleThread(models.Model):
@@ -23,6 +24,11 @@ class KnowledgeArticleThread(models.Model):
     _order = 'write_date desc, id desc'
     _rec_name = 'display_name'
 
+    _ANCHOR_TEXT_MAX_LENGTH = 1200
+
+    article_anchor_text = fields.Text("Anchor Text",
+        help="The original highlighted anchor text, giving initial context if that text is modified or removed afterwards."
+    )
     article_id = fields.Many2one('knowledge.article', ondelete="cascade", readonly=True, required=True)
     is_resolved = fields.Boolean("Thread Closed", tracking=True)
 
@@ -44,7 +50,21 @@ class KnowledgeArticleThread(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
+        for vals in vals_list:
+            if 'article_anchor_text' in vals:
+                article_anchor_text = html2plaintext(vals['article_anchor_text'])
+                vals['article_anchor_text'] = (article_anchor_text[:self._ANCHOR_TEXT_MAX_LENGTH] + '...') \
+                    if len(article_anchor_text) > self._ANCHOR_TEXT_MAX_LENGTH else article_anchor_text
+
         return super(KnowledgeArticleThread, self.with_context(mail_create_nolog=True)).create(vals_list)
+
+    def write(self, vals):
+        if 'article_anchor_text' in vals:
+            article_anchor_text = html2plaintext(vals['article_anchor_text'])
+            vals['article_anchor_text'] = (article_anchor_text[:self._ANCHOR_TEXT_MAX_LENGTH] + '...') \
+                if len(article_anchor_text) > self._ANCHOR_TEXT_MAX_LENGTH else article_anchor_text
+        return super().write(vals)
+
 
 # ==========================================================================
 #                              THREAD OVERRIDES

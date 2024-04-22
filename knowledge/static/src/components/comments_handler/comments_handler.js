@@ -61,7 +61,7 @@ export class KnowledgeCommentsHandler extends Component {
             const allCommentsThread = (record.resId || this.props.record.resId) ? await this.orm.searchRead(
                 'knowledge.article.thread',
                 [['article_id', '=', record.resId]],
-                ['id', 'article_id', 'is_resolved', 'write_date']
+                ['id', 'article_id', 'article_anchor_text', 'is_resolved', 'write_date']
             ) : [];
             this.allCommentsThreadRecords = allCommentsThread;
             this.env.bus.trigger('KNOWLEDGE_COMMENTS_PANEL:SYNCHRONIZE_THREADS', {allCommentsThread : this.allCommentsThreadRecords});
@@ -213,14 +213,19 @@ export class KnowledgeCommentsHandler extends Component {
             return;
         }
         const commentAnchors = selectedNodes.map((selectedNode) => {
-            const commentThreadAnchor = document.createElement('span');
+            let commentThreadAnchor;
+            if (Node.TEXT_NODE === selectedNode.nodeType) {
+                commentThreadAnchor = document.createElement("span");
+                const range = document.createRange();
+                range.setStartBefore(selectedNode);
+                range.setEndAfter(selectedNode);
+                range.surroundContents(commentThreadAnchor);
+            } else {
+                commentThreadAnchor = selectedNode;
+            }
             commentThreadAnchor.classList.add('knowledge-thread-highlighted-comment', 'knowledge-thread-comment');
             commentThreadAnchor.setAttribute('tabindex', '-1');
             commentThreadAnchor.dataset.id = 'undefined';
-            const range = document.createRange();
-            range.setStartBefore(selectedNode);
-            range.setEndAfter(selectedNode);
-            range.surroundContents(commentThreadAnchor);
             return commentThreadAnchor;
         });
         if (!commentAnchors || !commentAnchors.length) {
@@ -251,10 +256,21 @@ export class KnowledgeCommentsHandler extends Component {
      * @param {*} id ID of the created `knowledge.article.thread`.
      * @param {*} thread Thread object from the thread service inside mail.
      */
-    async insertNewThread(id, thread) {
+    async insertNewThread(id, thread, articleAnchorText) {
         // TODO-THJO: Create a service to remove the functions to handle comments
-        this.state.comments[id] = Object.assign({}, this.state.comments['undefined'], {thread: thread, knowledgeThreadId: id, isCreationMode: false});
-        this.allCommentsThreadRecords.push({id: id, article_id: [this.props.record.resId, this.props.record.data.name], is_resolved: false, write_date: luxon.DateTime.now()});
+        this.state.comments[id] = Object.assign({}, this.state.comments["undefined"], {
+            thread: thread,
+            knowledgeThreadId: id,
+            isCreationMode: false,
+            articleAnchorText,
+        });
+        this.allCommentsThreadRecords.push({
+            id: id,
+            article_id: [this.props.record.resId, this.props.record.data.name],
+            article_anchor_text: articleAnchorText,
+            is_resolved: false,
+            write_date: luxon.DateTime.now(),
+        });
         this.env.bus.trigger('KNOWLEDGE_COMMENTS_PANELS:CREATE_COMMENT', {comment: this.state.comments[id]});
         delete this.state.comments['undefined'];
 
@@ -284,6 +300,7 @@ export class KnowledgeCommentsHandler extends Component {
                 const comment = {
                     knowledgeThreadId: commentThread.id,
                     articleId:commentThread.article_id[0],
+                    articleAnchorText: commentThread.article_anchor_text || "",
                     isResolved: commentThread.is_resolved,
                     anchors: anchors.length ? anchors : [],
                     top: Math.abs(rootTop - targetTop),
@@ -401,7 +418,7 @@ export class KnowledgeCommentsHandler extends Component {
                     ['id', '=', id],
                     ['message_ids', '!=', false]
                 ],
-                ['id', 'article_id', 'is_resolved', 'write_date', 'message_ids'],
+                ['id', 'article_id', 'article_anchor_text', 'is_resolved', 'write_date', 'message_ids'],
                 {
                     order: 'write_date DESC'
                 }
@@ -414,6 +431,7 @@ export class KnowledgeCommentsHandler extends Component {
             const comment = {
                 knowledgeThreadId: searchedComment.id,
                 articleId:searchedComment.article_id[0],
+                articleAnchorText: searchedComment.article_anchor_text || "",
                 isResolved: searchedComment.is_resolved,
                 anchors: anchors,
                 top: Math.abs(rootTop - targetTop),
@@ -434,6 +452,13 @@ export class KnowledgeCommentsHandler extends Component {
         const toUpdate = this.state.comments[id];
         if (!toUpdate) {
             return;
+        }
+
+        // If the comment doesn't have an anchor text, we update it with the current one found inside
+        // the article's body.
+        const linkedRecord = this.allCommentsThreadRecords.find((tab) => tab.id === id);
+        if (!linkedRecord.article_anchor_text) {
+            linkedRecord.article_anchor_text = toUpdate.articleAnchorText;
         }
 
         const anchors = Array.from(document.querySelectorAll(`.knowledge-thread-comment[data-id="${id}"]`)).filter((node) => !isZWS(node) && !node.hasAttribute('data-oe-zws-empty-inline'));

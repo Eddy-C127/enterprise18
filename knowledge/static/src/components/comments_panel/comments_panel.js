@@ -97,6 +97,7 @@ export class KnowledgeArticleCommentsPanel extends Component {
                     knowledgeThreadId: record.id,
                     isResolved: record.is_resolved,
                     anchors: allCommentsAnchors.length ?  Array.from(allCommentsAnchors) : [],
+                    articleAnchorText: record.article_anchor_text || "",
                     articleId: this.props.record.resId
                 };
                 this.state.comments[record.id] = thread;
@@ -119,17 +120,24 @@ export class KnowledgeArticleCommentsPanel extends Component {
         this.threadRecords.unshift({
             id: newlyCreatedComment.knowledgeThreadId,
             article_id: this.props.record.resId,
+            article_anchor_text: newlyCreatedComment.articleAnchorText,
             is_resolved: newlyCreatedComment.isResolved,
             write_date: newlyCreatedComment.writeDate
         });
         this.state.comments[newlyCreatedComment.knowledgeThreadId || 'undefined'] = newlyCreatedComment;
     }
 
-    insertNewThread(id, thread) {
-        const newCommentThread = Object.assign({}, this.state.comments['undefined'], {knowledgeThreadId: id, thread: thread, isCreationMode: false});
+    insertNewThread(id, thread, articleAnchorText) {
+        const newCommentThread = Object.assign({}, this.state.comments["undefined"], {
+            knowledgeThreadId: id,
+            thread: thread,
+            isCreationMode: false,
+            articleAnchorText,
+        });
         this.threadRecords.unshift({
             id: newCommentThread.knowledgeThreadId,
             article_id: this.props.record.resId,
+            article_anchor_text: articleAnchorText,
             is_resolved: false,
             write_date: luxon.DateTime.now(),
         });

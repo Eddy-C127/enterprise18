@@ -1,16 +1,18 @@
 /** @odoo-module */
 import { user } from "@web/core/user";
 import { useBus, useService } from '@web/core/utils/hooks';
+import { rpc } from "@web/core/network/rpc";
 import { usePopover } from '@web/core/popover/popover_hook';
 import { Composer } from '@mail/core/common/composer';
 import { Thread } from '@mail/core/common/thread';
 import { KnowledgeCommentsPopover } from '../comments_popover/comments_popover';
 import { KnowledgeCommentCreatorComposer } from '../composer/composer';
-import { closestBlock } from '@web_editor/js/editor/odoo-editor/src/utils/utils';
 import { _t } from '@web/core/l10n/translation';
+import { closestBlock } from "@web_editor/js/editor/odoo-editor/src/utils/utils";
 
 import {
     Component,
+    markup,
     onMounted,
     onPatched,
     onWillStart,
@@ -27,6 +29,7 @@ export class KnowledgeCommentsThread extends Component {
     static components = { Composer, Thread, KnowledgeCommentCreatorComposer };
     static props = {
         articleId: {type: Number, optional: true},
+        articleAnchorText: {type: String, optional: true},
         anchors: {type: Array, optional: true},
         changeCommentResolvedState: Function,
         destroyComment: Function,
@@ -63,9 +66,7 @@ export class KnowledgeCommentsThread extends Component {
         this.anchors = this.props.anchors;
         // Main anchor used for the positioning
         this.mainAnchor = this.anchors[0];
-
         this.state = useState({
-            loading: true,
             commenting: false,
             thread: this.props.thread,
             isResolved: this.props.isResolved,
@@ -74,9 +75,6 @@ export class KnowledgeCommentsThread extends Component {
                     this.props.record.data.full_width ||
                     this.isSmallUINeeded()
                 ),
-            // This array contains the text of the anchors selected by the user to create the comment.
-            // Each element of this array corresponds to the text of a paragraph.
-            quotes: [],
             knowledgeThreadId: this.props.knowledgeThreadId,
             top: this.props.top
         });
@@ -147,7 +145,10 @@ export class KnowledgeCommentsThread extends Component {
             this.mainAnchor = nextProps.anchors[0];
         });
         onMounted(() => {
-            this.state.loading = false;
+            // If the returned string is longer than 50, this means that the getter added the
+            // ellipsis at the end of the text and the original text is longer than 50 chars.
+            // Thus we need to show the `Read More` and `Read Less` buttons.
+            this.showReadMore = this.textArticleAnchorText.length > 50;
             this.highlightComment(false);
             // If the ID of the thread is 0 it is considered as a virtual comment, it is in the
             // phase of being created but doesn't exist currently. This way we avoid creating records
@@ -161,16 +162,7 @@ export class KnowledgeCommentsThread extends Component {
                 }
                 this.highlightComment(true);
             }
-            const paragraphs = new Map();
-            for (const anchor of this.anchors) {
-                const closestParagraph = closestBlock(anchor);
-                if (!paragraphs.has(closestParagraph)) {
-                    paragraphs.set(closestParagraph, anchor.textContent);
-                } else {
-                    paragraphs.set(closestParagraph, paragraphs.get(closestParagraph) + anchor.textContent);
-                }
-            }
-            this.state.quotes = Array.from(paragraphs.values());
+
             if (!this.props.forceFullSize) {
                 if (this.state.isResolved && this.mainAnchor?.classList.contains('highlighted-comment')) {
                     this.resolveComment();
@@ -303,6 +295,28 @@ export class KnowledgeCommentsThread extends Component {
      */
     get isResolved() {
         return this.state.isResolved;
+    }
+
+    get textArticleAnchorText() {
+        if (this.props.articleAnchorText) {
+            return markup(
+                this.shortenText(this.props.articleAnchorText.replaceAll("\n", "<br/>"), 50)
+            );
+        }
+        const paragraphs = new Map();
+        for (const anchor of this.anchors) {
+            const closestParagraph = closestBlock(anchor);
+            if (!paragraphs.has(closestParagraph)) {
+                paragraphs.set(closestParagraph, anchor.textContent);
+            } else {
+                paragraphs.set(
+                    closestParagraph,
+                    paragraphs.get(closestParagraph) + anchor.textContent
+                );
+            }
+        }
+        const text = Array.from(paragraphs.values()).join("<br/>");
+        return markup(this.shortenText(text, 50));
     }
 
     get textInputContent() {
@@ -554,11 +568,16 @@ export class KnowledgeCommentsThread extends Component {
         if (!value) {
             return;
         }
-        const [id] = await this.orm.create(
-            'knowledge.article.thread',
-            [{ article_id: this.props.record.resId }],
-            {}
-        );
+        const processedNodes = {};
+        for (const anchor of this.props.anchors) {
+            const block = closestBlock(anchor);
+            const existingParagraph = processedNodes[block.oid] || "";
+            processedNodes[block.oid] = existingParagraph + anchor.outerHTML;
+        }
+        const { id, article_anchor_text } = await rpc("/knowledge/thread/create", {
+            article_id: this.props.record.resId,
+            article_anchor_text: Object.values(processedNodes).join("<br/>"),
+        });
         this.state.thread.composer.clear();
         this.state.thread = this.mailStore.Thread.insert({ id, model: 'knowledge.article.thread' });
         this.state.thread.post(value, postData);
@@ -566,7 +585,17 @@ export class KnowledgeCommentsThread extends Component {
             anchor.dataset.id = id;
         }
         this.highlightComment(false);
-        await this.props.insertNewThread(id, this.state.thread);
+        await this.props.insertNewThread(id, this.state.thread, article_anchor_text);
         this.state.updating = true;
+    }
+
+    /**======================
+     *    UTILS
+     *========================**/
+
+    shortenText(text, maxSize) {
+        return text.length > maxSize && !this.state.readingMore
+            ? text.substring(0, maxSize) + "..."
+            : text;
     }
 }
