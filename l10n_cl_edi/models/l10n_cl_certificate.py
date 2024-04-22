@@ -43,6 +43,7 @@ class Certificate(models.Model):
                               help='If this certificate has an owner, he will be the only user authorized to use it, '
                                    'otherwise, the certificate will be shared with other users of the current company')
     last_token = fields.Char('Last Token')
+    last_rest_token = fields.Char('Last REST Token')
     token_time = fields.Datetime('Token Time')
     l10n_cl_is_there_shared_certificate = fields.Boolean(related='company_id.l10n_cl_is_there_shared_certificate')
 

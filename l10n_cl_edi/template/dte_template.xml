@@ -43,7 +43,7 @@
                     <GiroRecep t-if="not move.partner_id._l10n_cl_is_foreign() and not move.l10n_latam_document_type_id._is_doc_type_export() and not move.l10n_latam_document_type_id._is_doc_type_voucher()" t-out="format_length(move.partner_id.l10n_cl_activity_description or move.commercial_partner_id.l10n_cl_activity_description, 40)"/>
                     <Contacto t-out="format_length(move.partner_id.phone or move.commercial_partner_id.phone or move.partner_id.email or '', 80)"/>
                     <CorreoRecep t-if="(move.partner_id.email or move.commercial_partner_id.email or move.partner_id.l10n_cl_dte_email or move.commercial_partner_id.l10n_cl_dte_email) and not move.l10n_latam_document_type_id._is_doc_type_voucher()" t-out="move.partner_id.email or move.commercial_partner_id.email or move.partner_id.l10n_cl_dte_email or move.commercial_partner_id.l10n_cl_dte_email"/>
-                    <DirRecep t-out="format_length(move.partner_id.street or move.commercial_partner_id.street or '' + ' ' + move.partner_id.street2 or move.commercial_partner_id.street2 or '', 70)"/>
+                    <DirRecep t-if="not move.l10n_latam_document_type_id._is_doc_type_voucher()" t-out="format_length(move.partner_id.street or move.commercial_partner_id.street or '' + ' ' + move.partner_id.street2 or move.commercial_partner_id.street2 or '', 70)"/>
                     <CmnaRecep t-out="move._l10n_cl_get_comuna_recep()"/>
                 </Receptor>
             <t t-if="move.l10n_latam_document_type_id._is_doc_type_export()">
@@ -63,7 +63,7 @@
                     <TpoMoneda t-if="amounts.get('main_currency_name')" t-out="format_length(amounts['main_currency_name'], 15)"/>
                     <MntNeto t-if="amounts['subtotal_amount_taxable'] != 0" t-out="float_rr(amounts['subtotal_amount_taxable'], amounts['main_currency_round'])"/>
                     <MntExe t-if="amounts['subtotal_amount_exempt'] != 0" t-out="float_rr(amounts['subtotal_amount_exempt'], amounts['main_currency_round'])"/>
-                    <TasaIVA t-if="amounts['vat_percent']" t-out="amounts['vat_percent']"/>
+                    <TasaIVA t-if="not move.l10n_latam_document_type_id._is_doc_type_electronic_ticket() and amounts['vat_percent']" t-out="amounts['vat_percent']"/>
                     <IVA t-if="amounts['vat_amount'] != 0" t-out="float_rr(amounts['vat_amount'], amounts['main_currency_round'])"/>
                 <t t-foreach="withholdings" t-as="tax">
                     <ImptoReten>

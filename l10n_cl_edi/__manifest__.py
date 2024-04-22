@@ -1,20 +1,56 @@
 {
     "name": """Chile - E-invoicing""",
-    'version': '1.1',
-    'category': 'Accounting/Localizations',
+    'version': '1.2',
+    'category': 'Accounting/Localizations/EDI',
     'sequence': 12,
     'author':  'Blanco Martín & Asociados',
     'description': """
 EDI Chilean Localization
 ========================
-This code allows to generate the DTE document for Chilean invoicing.
-- DTE (Electronic Taxable Document) format in XML
-- Direct Communication with SII (Servicio de Impuestos Internos) to send invoices and other tax documents related to sales.
-- Communication with Customers to send sale DTEs.
-- Communication with Suppliers (vendors) to accept DTEs from them.
-- Direct Communication with SII informing the acceptance or rejection of vendor bills or other DTEs.
+This module facilitates the generation of DTE (Electronic Taxable Document) for Chilean invoicing. Key features include:
+- DTE Format in XML: The document is structured in XML format for standardized electronic transactions.
+- Direct Communication with SII: Enables direct interaction with the Servicio de Impuestos Internos (SII) to send invoices and other tax documents related to sales.
+- Customer Communication: Sends sales DTEs to customers.
+- Supplier Communication: Accepts DTEs from suppliers (vendors).
+- SII Notifications: Informs SII about the acceptance or rejection of vendor bills or other DTEs.
 
- In order to see the barcode on the invoice, you need the pdf417gen library.
+Note: To display barcodes on invoices, the `pdf417gen` library is required.
+
+Electronic Receipts Compliance
+==============================
+
+As per SII requirements, starting March 2021, all boletas transactions must be sent to SII using a different web service than the one used for electronic invoices. Previously, only a daily report was required.
+
+Recent Changes
+==============
+
+- Elimination of Daily Sales Book Requirement: As of August 1st, 2022, the daily sales book ("Libro de ventas diarias") is no longer required by the authorities and has been removed from this version of Odoo.
+
+Differences between Electronic Boletas and Electronic Invoicing Workflows
+=========================================================================
+
+1. Dedicated Servers for Boletas:
+- Production environment: `palena.sii.cl`
+- Test environment: `maullin.sii.cl`
+
+2. Different Authentication and Status Services:
+- Authentication services and methods for querying delivery and document status differ between electronic boletas and electronic invoices.
+
+3. Authentication Token:
+- The process for obtaining authentication tokens varies.
+
+4. Updated XML Schema:
+- New tags have been incorporated into the XML schema for electronic boletas.
+
+5. Validation Diagnosis:
+- Electronic boletas receive validation diagnoses through a REST web service using the delivery track-id.
+- Electronic invoices continue to receive diagnoses via email.
+
+6. Track-ID Length:
+- Electronic boletas: 15 digits
+- Electronic invoices: 10 digits
+
+For detailed guidance, refer to the [SII Guide](https://www.sii.cl/factura_electronica/factura_mercado/Instructivo_Emision_Boleta_Elect.pdf).
 
     """,
     'website': 'http://www.bmya.cl',
@@ -23,11 +59,6 @@ This code allows to generate the DTE document for Chilean invoicing.
         'account_edi',
         'account_debit_note',
     ],
-    'external_dependencies': {
-        'python': [
-            'zeep',
-        ],
-    },
     'data': [
         'views/account_journal_view.xml',
         'views/l10n_latam_document_type_view.xml',
