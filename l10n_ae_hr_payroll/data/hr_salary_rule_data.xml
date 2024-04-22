@@ -33,7 +33,7 @@
             <field name="code">SALARRALLOW</field>
             <field name="sequence">20</field>
             <field name="condition_select">python</field>
-            <field name="condition_python">result = inputs.SALARY_ARREARS</field>
+            <field name="condition_python">result = 'SALARY_ARREARS' in inputs</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 result = inputs['SALARY_ARREARS'].amount
@@ -47,7 +47,7 @@ result_name = inputs['SALARY_ARREARS'].name
             <field name="code">OTHEARALLOW</field>
             <field name="sequence">25</field>
             <field name="condition_select">python</field>
-            <field name="condition_python">result = inputs.OTHER_EARNINGS</field>
+            <field name="condition_python">result = 'OTHER_EARNINGS' in inputs</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 result = inputs['OTHER_EARNINGS'].amount
@@ -61,7 +61,7 @@ result_name = inputs['OTHER_EARNINGS'].name
             <field name="code">SALDED</field>
             <field name="sequence">30</field>
             <field name="condition_select">python</field>
-            <field name="condition_python">result = inputs.SALARY_DEDUCTIONS</field>
+            <field name="condition_python">result = 'SALARY_DEDUCTIONS' in inputs</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 result = -inputs['SALARY_DEDUCTIONS'].amount
@@ -75,7 +75,7 @@ result_name = inputs['SALARY_DEDUCTIONS'].name
             <field name="code">OTHDED</field>
             <field name="sequence">35</field>
             <field name="condition_select">python</field>
-            <field name="condition_python">result = inputs.OTHER_DEDUCTIONS</field>
+            <field name="condition_python">result = 'OTHER_DEDUCTIONS' in inputs</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 result = -inputs['OTHER_DEDUCTIONS'].amount
@@ -138,7 +138,7 @@ else:
             <field name="sequence">197</field>
             <field name="amount_select">code</field>
             <field name="condition_select">python</field>
-            <field name="condition_python">result = inputs.ALLOWANCE</field>
+            <field name="condition_python">result = 'ALLOWANCE' in inputs</field>
             <field name="amount_python_compute">
                 result = inputs['ALLOWANCE'].amount
                 result_name = inputs['ALLOWANCE'].name
