@@ -543,7 +543,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             // checks that the field doesn't exist anymore
-            extra_trigger: 'label.o_form_label:not(:contains("COUCOU"))',
+            extra_trigger: '.o_web_studio_form_view_editor:not(:has(.o_form_label))',
             trigger: ".o_web_studio_leave > a.btn",
         },
         stepNotInStudio(".o_form_view"),
