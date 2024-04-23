@@ -29,4 +29,26 @@
             </div>
         </field>
     </record>
+
+    <record id="stock_picking_view_tree_inherit_quality" model="ir.ui.view">
+        <field name="name">stock.picking.view.tree.inherit.quality</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="field[@name='company_id']" position="after">
+                <field name="quality_check_todo" column_invisible="True"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_view_search_inherit_quality" model="ir.ui.view">
+        <field name="name">stock.picking.view.search.inherit.quality</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+           <xpath expr="//filter[@name='backorder']" position="before">
+                <filter name="quality_check_todo" string="Quality Checks" domain="[('quality_check_todo', '=', True)]"/>
+           </xpath>
+        </field>
+    </record>
 </odoo>

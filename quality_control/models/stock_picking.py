@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
+from odoo.osv import expression
 from odoo.exceptions import UserError
 
 
@@ -9,7 +10,7 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     check_ids = fields.One2many('quality.check', 'picking_id', 'Checks')
-    quality_check_todo = fields.Boolean('Pending checks', compute='_compute_check')
+    quality_check_todo = fields.Boolean('Pending checks', compute='_compute_check', search='_search_quality_check_todo')
     quality_check_fail = fields.Boolean(compute='_compute_check')
     quality_alert_ids = fields.One2many('quality.alert', 'picking_id', 'Alerts')
     quality_alert_count = fields.Integer(compute='_compute_quality_alert_count')
@@ -29,6 +30,18 @@ class StockPicking(models.Model):
             picking.quality_check_fail = fail
             picking.quality_check_todo = todo
 
+    def _search_quality_check_todo(self, operator, value):
+        if operator not in ['=', '!='] or value not in [True, False]:
+            raise UserError(_('Operation not supported'))
+
+        domain = [('picking_id', '!=', False)]
+        domain = expression.AND([
+            domain,
+            [('quality_state', '=', 'none') if (value and operator == '=') or (not value and operator == '!=') else ('quality_state', '!=', 'none')]
+        ])
+        pick_ids = self.env['quality.check'].search(domain).picking_id.ids
+        return [('id', 'in', pick_ids)]
+
     def _compute_quality_alert_count(self):
         for picking in self:
             picking.quality_alert_count = len(picking.quality_alert_ids)
@@ -41,7 +54,6 @@ class StockPicking(models.Model):
                 picking.show_validate = False
 
     def check_quality(self):
-        self.ensure_one()
         checkable_products = self.mapped('move_line_ids').mapped('product_id')
         checks = self.check_ids.filtered(lambda check: check.quality_state == 'none' and (check.product_id in checkable_products or check.measure_on == 'operation'))
         if checks:
@@ -68,7 +80,7 @@ class StockPicking(models.Model):
         if res is True:
             pickings_to_check_quality = self._check_for_quality_checks()
             if pickings_to_check_quality:
-                return pickings_to_check_quality[0].with_context(pickings_to_check_quality=pickings_to_check_quality.ids).check_quality()
+                return pickings_to_check_quality.with_context(pickings_to_check_quality=pickings_to_check_quality.ids).check_quality()
         return res
 
     def _check_for_quality_checks(self):
