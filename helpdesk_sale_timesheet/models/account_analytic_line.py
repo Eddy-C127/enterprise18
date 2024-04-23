@@ -56,5 +56,7 @@ class AccountAnalyticLine(models.Model):
                 '&',
                     ('task_id', '=', False),
                     ('helpdesk_ticket_id', '!=', False),
-                ('so_line', 'in', order_lines_ids.ids)
+                '&',
+                    ('so_line', 'in', order_lines_ids.ids),
+                    ('timesheet_invoice_id', '=', False),
         ]])
