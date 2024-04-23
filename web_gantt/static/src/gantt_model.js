@@ -946,6 +946,11 @@ export class GanttModel extends Model {
      */
     _getGroupedBy(metaData, searchParams) {
         let groupedBy = [...searchParams.groupBy];
+        groupedBy = groupedBy.filter((gb) => {
+            const [fieldName] = gb.split(".");
+            const { type } = metaData.fields[fieldName];
+            return type !== "properties";
+        });
         groupedBy = this._filterDateIngroupedBy(metaData, groupedBy);
         if (!groupedBy.length) {
             groupedBy = metaData.defaultGroupBy;
