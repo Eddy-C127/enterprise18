@@ -996,7 +996,7 @@ class JournalReportCustomHandler(models.AbstractModel):
         res = defaultdict(lambda: defaultdict(dict))
         opposite = {'+': '-', '-': '+'}
         for country_name, tag_id, name, balance, sign in query_res:
-            res[country_name][name]['tag_id'] = tag_id
+            res[country_name][name].setdefault('tag_id', []).append(tag_id)
             res[country_name][name][sign] = report._format_value(options, balance, blank_if_zero=False, figure_type='monetary')
             # We need them formatted, to ensure they are displayed correctly in the report. (E.g. 0.0, not 0)
             if not opposite[sign] in res[country_name][name]:
@@ -1079,7 +1079,7 @@ class JournalReportCustomHandler(models.AbstractModel):
             'date_from': params and params.get('date_from') or options.get('date', {}).get('date_from'),
             'date_to': params and params.get('date_to') or options.get('date', {}).get('date_to'),
         })
-        domain = self.env['account.report'].browse(options['report_id'])._get_options_domain(new_options, 'strict_range') + [('tax_tag_ids', 'in', [tag_id])] + self.env['account.move.line']._get_tax_exigible_domain()
+        domain = self.env['account.report'].browse(options['report_id'])._get_options_domain(new_options, 'strict_range') + [('tax_tag_ids', 'in', tag_id)] + self.env['account.move.line']._get_tax_exigible_domain()
 
         return {
             'type': 'ir.actions.act_window',
