@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, fields, _
@@ -22,7 +21,7 @@ class Task(models.Model):
             for order_line in sale_line:
                 to_log = {}
                 total_qty = sum(order_line.move_ids.filtered(lambda m: m.state != 'cancel' and not m.move_dest_ids).mapped('product_uom_qty'))
-                if float_compare(order_line.product_uom_qty, total_qty, order_line.product_uom.rounding) < 0:
+                if float_compare(order_line.product_uom_qty, total_qty, precision_rounding=order_line.product_uom.rounding) < 0:
                     to_log[order_line] = (order_line.product_uom_qty, total_qty)
 
                 if to_log:
