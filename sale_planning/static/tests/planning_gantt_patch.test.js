@@ -1,4 +1,4 @@
-import { defineMailModels } from "@mail/../tests/mail_test_helpers";
+import { defineMailModels, click } from "@mail/../tests/mail_test_helpers";
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
 import {
@@ -9,7 +9,12 @@ import {
     onRpc,
     patchWithCleanup,
 } from "@web/../tests/web_test_helpers";
-import { clickCell, mountGanttView } from "@web_gantt/../tests/web_gantt_test_helpers";
+import {
+    clickCell,
+    hoverGridCell,
+    getGridContent,
+    mountGanttView,
+} from "@web_gantt/../tests/web_gantt_test_helpers";
 
 import { Component, onWillStart, useState, xml } from "@odoo/owl";
 import { PlanningGanttRenderer } from "@planning/views/planning_gantt/planning_gantt_renderer";
@@ -23,6 +28,7 @@ describe.current.tags("desktop");
 class PlanningSlot extends models.Model {
     _name = "planning.slot";
 
+    name = fields.Char({ string: "Name" });
     role_id = fields.Many2one({ relation: "planning.role" });
     sale_line_id = fields.Many2one({ string: "Sale Order Item", relation: "sale.order.line" });
     resource_id = fields.Many2one({ string: "Resource", relation: "resource.resource" });
@@ -33,6 +39,7 @@ class PlanningSlot extends models.Model {
     _records = [
         {
             id: 1,
+            name: "Shift 1",
             role_id: 1,
             sale_line_id: 1,
             resource_id: false,
@@ -56,6 +63,8 @@ class PlanningRole extends models.Model {
 
 class Resource extends models.Model {
     _name = "resource.resource";
+
+    name = fields.Char({ string: "Name" });
 }
 
 class SaleOrderLine extends models.Model {
@@ -189,4 +198,57 @@ test("check default planned dates on the plan dialog", async function () {
         arch: `<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" default_scale="week"/>`,
     });
     await clickCell("11 W41 2021");
+});
+
+test("Show shift form dialog only when shifts to plan", async function () {
+    // Additionally to 'Shift 1', we create a new unplanned shift 'Shift 2' which has a sale_line_id, no start_datetime and no end_datetime values
+    PlanningSlot._records.push({
+        id: 2,
+        name: "Shift 2",
+        role_id: 1,
+        sale_line_id: 1,
+    });
+    PlanningSlot._views = {
+        form: `<form js_class="planning_form"><field name="name"/></form>`,
+        list: `<tree><field name="name"/></tree>`,
+    };
+
+    onRpc("gantt_resource_work_interval", () => [
+        { false: [["2021-10-12 08:00:00", "2022-10-12 12:00:00"]] },
+    ]);
+    await mountGanttView({
+        resModel: "planning.slot",
+        arch: `<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" default_scale="week"/>`,
+    });
+    await hoverGridCell("13 W41 2021");
+    await clickCell("13 W41 2021");
+
+    expect(".o_dialog").toHaveCount(1);
+    expect(".modal-title").toHaveText("Plan");
+    expect(".o_data_cell").toHaveText("Shift 2");
+
+    await click(".o_data_cell");
+    await animationFrame();
+
+    const { rows } = getGridContent();
+    expect(rows).toEqual([
+        {
+            pills: [
+                {
+                    colSpan: "12 W41 2021 -> 12 W41 2021",
+                    level: 0,
+                    title: "Shift 1",
+                },
+                {
+                    colSpan: "13 W41 2021 -> 13 W41 2021",
+                    level: 0,
+                    title: "Shift 2",
+                },
+            ],
+        },
+    ]);
+    await hoverGridCell("13 W41 2021");
+    await clickCell("13 W41 2021");
+    expect(".o_dialog").toHaveCount(1);
+    expect(".modal-title").toHaveText("Add Shift");
 });
