@@ -20,7 +20,7 @@ class Task(models.Model):
             for order_line in sale_line:
                 to_log = {}
                 total_qty = sum(order_line.move_ids.filtered(lambda p: p.state not in ['cancel']).mapped('product_uom_qty'))
-                if float_compare(order_line.product_uom_qty, total_qty, order_line.product_uom.rounding) < 0:
+                if float_compare(order_line.product_uom_qty, total_qty, precision_rounding=order_line.product_uom.rounding) < 0:
                     to_log[order_line] = (order_line.product_uom_qty, total_qty)
 
                 if to_log:
