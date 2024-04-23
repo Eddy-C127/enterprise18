@@ -20,25 +20,25 @@ class HrEmployee(models.Model):
         ('low_income', 'With Low Income'),
         ('low_pension', 'With Low Pensions'),
         ('high_pension', 'With High Pensions')
-    ], string='Tax status for spouse', groups="hr.group_hr_user", default='without_income', required=False)
+    ], string='Tax status for spouse', groups="hr.group_hr_user", default='without_income', required=False, tracking=True)
     spouse_fiscal_status_explanation = fields.Char(compute='_compute_spouse_fiscal_status_explanation', groups="hr.group_hr_user")
-    disabled = fields.Boolean(string="Disabled", help="If the employee is declared disabled by law", groups="hr.group_hr_user")
-    disabled_spouse_bool = fields.Boolean(string='Disabled Spouse', help='if recipient spouse is declared disabled by law', groups="hr.group_hr_user")
-    disabled_children_bool = fields.Boolean(string='Disabled Children', help='if recipient children is/are declared disabled by law', groups="hr.group_hr_user")
-    disabled_children_number = fields.Integer('Number of disabled children', groups="hr.group_hr_user")
-    dependent_children = fields.Integer(compute='_compute_dependent_children', string='Considered number of dependent children', groups="hr.group_hr_user")
+    disabled = fields.Boolean(string="Disabled", help="If the employee is declared disabled by law", groups="hr.group_hr_user", tracking=True)
+    disabled_spouse_bool = fields.Boolean(string='Disabled Spouse', help='if recipient spouse is declared disabled by law', groups="hr.group_hr_user", tracking=True)
+    disabled_children_bool = fields.Boolean(string='Disabled Children', help='if recipient children is/are declared disabled by law', groups="hr.group_hr_user", tracking=True)
+    disabled_children_number = fields.Integer('Number of disabled children', groups="hr.group_hr_user", tracking=True)
+    dependent_children = fields.Integer(compute='_compute_dependent_children', string='Considered number of dependent children', groups="hr.group_hr_user", tracking=True)
     l10n_be_dependent_children_attachment = fields.Integer(
-        string="# dependent children for salary attachement", groups="hr.group_hr_user",
+        string="# dependent children for salary attachement", groups="hr.group_hr_user", tracking=True,
         help="""To benefit from this increase in the elusive or non-transferable quotas, the worker whose remuneration is subject to seizure or transfer, must declare it using a form, the model of which has been published in the Belgian Official Gazette. of 30 November 2006.
 
 He must attach to this form the documents establishing the reality of the charge invoked.
 
 Source: Opinion on the indexation of the amounts set in Article 1, paragraph 4, of the Royal Decree of 27 December 2004 implementing Articles 1409, § 1, paragraph 4, and 1409, § 1 bis, paragraph 4 , of the Judicial Code relating to the limitation of seizure when there are dependent children, MB, December 13, 2019.""")
-    other_dependent_people = fields.Boolean(string="Other Dependent People", help="If other people are dependent on the employee", groups="hr.group_hr_user")
-    other_senior_dependent = fields.Integer('# seniors (>=65)', help="Number of seniors dependent on the employee, including the disabled ones", groups="hr.group_hr_user")
-    other_disabled_senior_dependent = fields.Integer('# disabled seniors (>=65)', groups="hr.group_hr_user")
-    other_juniors_dependent = fields.Integer('# people (<65)', help="Number of juniors dependent on the employee, including the disabled ones", groups="hr.group_hr_user")
-    other_disabled_juniors_dependent = fields.Integer('# disabled people (<65)', groups="hr.group_hr_user")
+    other_dependent_people = fields.Boolean(string="Other Dependent People", help="If other people are dependent on the employee", groups="hr.group_hr_user", tracking=True)
+    other_senior_dependent = fields.Integer('# seniors (>=65)', help="Number of seniors dependent on the employee, including the disabled ones", groups="hr.group_hr_user", tracking=True)
+    other_disabled_senior_dependent = fields.Integer('# disabled seniors (>=65)', groups="hr.group_hr_user", tracking=True)
+    other_juniors_dependent = fields.Integer('# people (<65)', help="Number of juniors dependent on the employee, including the disabled ones", groups="hr.group_hr_user", tracking=True)
+    other_disabled_juniors_dependent = fields.Integer('# disabled people (<65)', groups="hr.group_hr_user", tracking=True)
     dependent_seniors = fields.Integer(compute='_compute_dependent_people', string="Considered number of dependent seniors", groups="hr.group_hr_user")
     dependent_juniors = fields.Integer(compute='_compute_dependent_people', string="Considered number of dependent juniors", groups="hr.group_hr_user")
 
