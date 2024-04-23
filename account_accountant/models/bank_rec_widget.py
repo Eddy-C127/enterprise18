@@ -36,10 +36,6 @@ class BankRecWidget(models.Model):
         related='st_line_id.journal_id',
         depends=['st_line_id'],
     )
-    st_line_narration = fields.Html(
-        related='st_line_id.narration',
-        depends=['st_line_id'],
-    )
     st_line_transaction_details = fields.Html(
         compute='_compute_st_line_transaction_details',
     )
