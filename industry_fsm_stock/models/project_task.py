@@ -74,7 +74,7 @@ class Task(models.Model):
         self.env['stock.move.line'].create(ml_to_create)
         for so_line in self.sale_order_id.order_line:
             # set the quantity delivered of the sol to the quantity ordered for the product linked to the task
-            if so_line.task_id == self and not so_line.product_id.service_policy == 'delivered_timesheet':
+            if so_line.task_id == self and so_line.product_id.service_policy not in ['delivered_timesheet', 'delivered_milestones']:
                 so_line.qty_delivered = so_line.product_uom_qty
 
         def is_fsm_material_picking(picking, task):

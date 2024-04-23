@@ -544,7 +544,10 @@ class Task(models.Model):
             ('order_id', 'in', self.sale_order_id.sudo().filtered(lambda so: so.state == 'sale').ids),
         ])
         for sol in sale_order_lines:
-            sol.qty_delivered = sol.product_uom_qty
+            # if a SOL with service product that has invoicing policy based on milestones,
+            # the delivered quantity will be computed based on the milestones reached
+            if sol.product_id.service_policy != 'delivered_milestones':
+                sol.qty_delivered = sol.product_uom_qty
 
 class ProjectTaskRecurrence(models.Model):
     _inherit = 'project.task.recurrence'
