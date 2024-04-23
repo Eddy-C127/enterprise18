@@ -87,7 +87,7 @@ class ProviderSendcloud(models.Model):
         for location in locations:
             location["address"] = f'{location["street"]} {location["house_number"]}, {location["city"]} ({location["postal_code"]})'
             location["pick_up_point_name"] = location["name"]
-            location["pick_up_point_address"] = location["street"]
+            location["pick_up_point_address"] = f'{location["street"]} {location["house_number"]}'
             location["pick_up_point_postal_code"] = location["postal_code"]
             location["pick_up_point_town"] = location["city"]
             location["pick_up_point_country"] = location["country"]
