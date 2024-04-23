@@ -8,7 +8,7 @@
             <page name="pricelist_rules" position="after">
                 <page name="product_subscription_pricing_ids" string="Recurring Prices">
                     <field name="product_subscription_pricing_ids" nolabel="1" colspan="2">
-                        <tree editable="1">
+                        <tree editable="bottom">
                             <control>
                                 <create name="add_product_pricing" string="Add a price rule"/>
                             </control>
