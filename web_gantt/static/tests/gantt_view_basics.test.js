@@ -747,3 +747,107 @@ test("current hour is highlighted'", async () => {
     expect(`.o_gantt_header_cell.o_gantt_today`).toHaveCount(1);
     expect(`.o_gantt_header_cell.o_gantt_today`).toHaveText("9am");
 });
+
+test("group tasks by task_properties", async () => {
+    Tasks._fields.task_properties = fields.Properties({string: "Task properties"});
+    Tasks._records = [
+        {
+            id: 1,
+            name: "Blop",
+            start: "2018-12-14 08:00:00",
+            stop: "2018-12-24 08:00:00",
+            user_id: 1,
+            project_id: 1,
+            task_properties: {
+                name: "bd6404492c244cff",
+                type: "char",
+                value: "test value 1",
+            },
+        },
+        {
+            id: 2,
+            name: "Yop",
+            start: "2018-12-02 08:00:00",
+            stop: "2018-12-12 08:00:00",
+            user_id: 2,
+            project_id: 1,
+            task_properties: {
+                name: "bd6404492c244cff",
+                type: "char",
+                value: "test value 1",
+            },
+        },
+    ];
+    await mountView({
+        resModel: "tasks",
+        type: "gantt",
+        arch: '<gantt date_start="start" date_stop="stop"/>',
+        groupBy: ["task_properties.bd6404492c244cff"],
+    });
+    const { rows } = getGridContent();
+    expect(rows).toEqual(
+        [
+            {
+                pills: [
+                    {
+                        title: "Yop",
+                        colSpan: "02 -> 12 (1/2)",
+                        level: 0,
+                    },
+                    {
+                        title: "Blop",
+                        colSpan: "14 -> 24 (1/2)",
+                        level: 0,
+                    },
+                ],
+            },
+        ],
+    );
+});
+
+test("group tasks by date", async () => {
+    Tasks._fields.my_date = fields.Date({string: "My date"});
+    Tasks._records = [
+        {
+            id: 1,
+            name: "Blop",
+            start: "2018-12-14 08:00:00",
+            stop: "2018-12-24 08:00:00",
+            user_id: 1,
+            project_id: 1,
+        },
+        {
+            id: 2,
+            name: "Yop",
+            start: "2018-12-02 08:00:00",
+            stop: "2018-12-12 08:00:00",
+            user_id: 2,
+            project_id: 1,
+        },
+    ];
+    await mountView({
+        resModel: "tasks",
+        type: "gantt",
+        arch: '<gantt date_start="start" date_stop="stop"/>',
+        groupBy: ["my_date:month"],
+    });
+    const { rows } = getGridContent();
+    expect(rows).toEqual(
+        [
+            {
+                pills: [
+                    {
+                        title: "Yop",
+                        colSpan: "02 -> 12 (1/2)",
+                        level: 0,
+                    },
+                    {
+                        title: "Blop",
+                        colSpan: "14 -> 24 (1/2)",
+                        level: 0,
+                    },
+                ],
+            },
+        ],
+    );
+});
