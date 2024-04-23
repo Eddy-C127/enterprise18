@@ -448,6 +448,7 @@ class MarketingCampaign(models.Model):
                 'model_id': self.env['ir.model']._get_id('res.partner'),
                 'state': 'next_activity',
                 'activity_date_deadline_range': 2,
+                'activity_date_deadline_range_type': 'days',
                 'activity_summary': _('Check Email Address'),
                 'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
                 'activity_user_type': 'generic',

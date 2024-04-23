@@ -21,6 +21,7 @@ class MarketingCampaign(models.Model):
                 'name': _('Next activity: Call'),
                 'activity_type_id': self.env.ref('mail.mail_activity_data_call').id,
                 'activity_date_deadline_range': 2,
+                'activity_date_deadline_range_type': 'days',
                 'activity_user_type': 'generic',
                 'activity_user_field_name': 'user_id',
             }
