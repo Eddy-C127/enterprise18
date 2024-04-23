@@ -371,7 +371,7 @@ export class KnowledgeCommentsThread extends Component {
      * @param {boolean} forcedSmallUI Do we need to force the small UI to the component
      */
     updateHorizontalDimensions(forcedSmallUI=false) {
-        if (!this.targetRef.el) {
+        if (!this.targetRef.el || !this.editable) {
             return;
         }
         // 400px is the maxWidth set in the css file for the class .o_knowledge_comment_box.
