@@ -191,15 +191,6 @@
                 <group string="ONSS Reduction" name="onss_retructuring" invisible="wage_type == 'hourly' or country_code != 'BE'">
                     <field name="l10n_be_onss_restructuring"/>
                 </group>
-                <group name="fiscal_voluntarism" string="Fiscal Voluntarism" invisible="country_code != 'BE'">
-                    <field name="fiscal_voluntarism" invisible="country_code != 'BE' or wage_type == 'hourly'"/>
-                    <label for="fiscal_voluntary_rate"
-                           invisible="wage_type == 'hourly' or not fiscal_voluntarism"/>
-                    <div class="o_row" invisible="wage_type == 'hourly' or not fiscal_voluntarism">
-                        <field name="fiscal_voluntary_rate" class="o_hr_narrow_field" nolabel="1"/>
-                        <span>%</span>
-                    </div>
-                </group>
             </group>
             <xpath expr="//sheet" position="before">
                 <div role="alert" class="alert alert-danger text-center" invisible="not l10n_be_is_below_scale or country_code != 'BE'">

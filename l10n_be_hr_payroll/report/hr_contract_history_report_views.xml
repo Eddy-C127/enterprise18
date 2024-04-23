@@ -24,15 +24,6 @@
                     <field name="l10n_be_is_below_scale" invisible="1"/>
                 </div>
             </xpath>
-            <field name="date_hired" position="after">
-                <field name="fiscal_voluntarism" invisible="country_code != 'BE' or wage_type == 'hourly'"/>
-                <label for="fiscal_voluntary_rate"
-                       invisible="wage_type == 'hourly' or not fiscal_voluntarism"/>
-                <div class="o_row" invisible="wage_type == 'hourly' or not fiscal_voluntarism">
-                    <field name="fiscal_voluntary_rate" class="o_hr_narrow_field" nolabel="1"/>
-                    <span>%</span>
-                </div>
-            </field>
         </field>
     </record>
 

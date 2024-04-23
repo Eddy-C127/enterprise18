@@ -81,10 +81,6 @@ class HrContract(models.Model):
     ip = fields.Boolean('Intellectual Property', default=False, tracking=True)
     ip_wage_rate = fields.Float(string="IP percentage", help="Should be between 0 and 100 %")
     ip_value = fields.Float(compute='_compute_ip_value')
-    fiscal_voluntarism = fields.Boolean(
-        string="Fiscal Voluntarism", default=False, tracking=True,
-        help="Voluntarily increase withholding tax rate.")
-    fiscal_voluntary_rate = fields.Float(string="Fiscal Voluntary Rate", help="Should be between 0 and 100 %")
     no_onss = fields.Boolean(string="No ONSS")
     no_withholding_taxes = fields.Boolean()
     rd_percentage = fields.Integer("Time Percentage in R&D")
@@ -153,7 +149,6 @@ class HrContract(models.Model):
 
     _sql_constraints = [
         ('check_percentage_ip_rate', 'CHECK(ip_wage_rate >= 0 AND ip_wage_rate <= 100)', 'The IP rate on wage should be between 0 and 100.'),
-        ('check_percentage_fiscal_voluntary_rate', 'CHECK(fiscal_voluntary_rate >= 0 AND fiscal_voluntary_rate <= 100)', 'The Fiscal Voluntary rate on wage should be between 0 and 100.'),
         ('check_percentage_group_insurance_rate', 'CHECK(l10n_be_group_insurance_rate >= 0 AND l10n_be_group_insurance_rate <= 100)', 'The group insurance salary sacrifice rate on wage should be between 0 and 100.'),
     ]
 
@@ -778,8 +773,6 @@ class HrContract(models.Model):
             'has_laptop',
             'meal_voucher_amount'
             'work_time_rate',
-            'fiscal_voluntarism',
-            'fiscal_voluntary_rate',
             'no_onss',
             'no_withholding_taxes',
         ]

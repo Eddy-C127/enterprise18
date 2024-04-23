@@ -8,11 +8,6 @@ from collections import defaultdict
 class ContractHistory(models.Model):
     _inherit = 'hr.contract.history'
 
-    fiscal_voluntarism = fields.Boolean(
-        string='Fiscal Voluntarism', readonly=True,
-        help='Voluntarily increase withholding tax rate.')
-    fiscal_voluntary_rate = fields.Float(string='Fiscal Voluntary Rate', readonly=True,
-        help='Should be between 0 and 100 %')
     l10n_be_is_below_scale = fields.Boolean(
         string="Is below CP200 salary scale", compute='_compute_l10n_be_is_below_scale', search='_search_l10n_be_is_below_scale')
     l10n_be_is_below_scale_warning = fields.Char(compute='_compute_l10n_be_is_below_scale')
