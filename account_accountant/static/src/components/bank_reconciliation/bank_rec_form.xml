@@ -563,47 +563,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- narration -->
-            <div class="o_group row align-items-start">
-                <div t-if="line.data.flag === 'liquidity' and data.st_line_narration and data.st_line_narration != ''">
-                    <div name="narration"
-                         class="o_wrap_field d-flex d-sm-contents flex-column mb-3 mb-sm-0">
-                        <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
-                            <label class="o_form_label">Notes</label>
-                        </div>
-                        <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0"
-                             style="width: 100%; margin-bottom: 5px">
-                            <div class="o_field_widget o_field_html">
-                                <span t-out="data.st_line_narration"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- st_line_transaction_details -->
-            <div class="o_group row align-items-start">
-                <div t-if="data.st_line_transaction_details and data.st_line_transaction_details != ''">
-                    <div name="st_line_transaction_details"
-                         class="o_wrap_field d-flex d-sm-contents flex-column mb-3 mb-sm-0">
-                        <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
-                            <label class="o_form_label o_form_label_readonly">Transaction Details</label>
-                        </div>
-                        <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0"
-                             style="width: 100%; margin-bottom: 5px">
-                            <div class="o_field_widget o_field_html">
-                                <HtmlField
-                                    name="'st_line_transaction_details'"
-                                    record="record"
-                                    readonly="true"
-                                    wysiwygOptions="{}"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </t>
 
@@ -618,10 +577,7 @@
     <t t-name="account_accountant.BankRecRecordNotebookTransactionDetails">
         <div class="bank_rec_widget_form_transaction_details_anchor o_group row align-items-start">
             <div class="o_wrap_field d-flex d-sm-contents flex-column mb-3 mb-sm-0">
-                <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
-                    <label class="o_form_label">Notes</label>
-                </div>
-                <span t-out="data.st_line_narration"/>
+                <span t-out="data.st_line_transaction_details"/>
             </div>
         </div>
     </t>
@@ -673,7 +629,7 @@
                             <t t-set-slot="transaction_details_tab"
                                name="'transaction_details_tab'"
                                title="transaction_details_tab_title"
-                               isVisible="data.state == 'reconciled' and data.st_line_narration and data.st_line_narration != ''">
+                               isVisible="data.st_line_transaction_details and data.st_line_transaction_details != ''">
                                 <t t-call="account_accountant.BankRecRecordNotebookTransactionDetails"/>
                             </t>
                         </Notebook>

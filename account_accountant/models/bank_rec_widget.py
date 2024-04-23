@@ -36,7 +36,7 @@ class BankRecWidget(models.Model):
         related='st_line_id.journal_id',
         depends=['st_line_id'],
     )
-    st_line_narration = fields.Html(
+    st_line_narration = fields.Html(  # FIXME remove in master. Deprecated field, use st_line_transaction_details instead
         related='st_line_id.narration',
         depends=['st_line_id'],
     )
