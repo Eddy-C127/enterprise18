@@ -44,15 +44,13 @@ class HrPayrollPaymentReportWizard(models.TransientModel):
         report_data.writerows(rows)
         return base64.encodebytes(output.getvalue().encode())
 
-    def _write_file(self, payment_report, extension):
+    def _write_file(self, payment_report, extension, filename=''):
+        filename = filename or self.payslip_run_id.name or self.payslip_ids[:1].name
         if self.payslip_run_id:
-            filename = self.payslip_run_id.name
             self.payslip_run_id.write({
                 'payment_report': payment_report,
                 'payment_report_filename': filename + extension,
                 'payment_report_date': fields.Date.today()})
-        else:
-            filename = self.payslip_ids[0].name
 
         self.payslip_ids.write({
             'payment_report': payment_report,

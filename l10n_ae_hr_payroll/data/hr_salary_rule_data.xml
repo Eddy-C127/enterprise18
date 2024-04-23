@@ -1,5 +1,89 @@
 <odoo>
     <data noupdate="1">
+        <record id="uae_salary_rule_input_housing_allowance" model="hr.salary.rule">
+            <field name="name">Housing Allowance Input</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">HOUALLOWINP</field>
+            <field name="sequence">1</field>
+            <field name="condition_select">input</field>
+            <field name="condition_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_housing_allowance"/>
+            <field name="amount_select">input</field>
+            <field name="amount_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_housing_allowance"/>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+
+        <record id="uae_salary_rule_conveyance_allowance" model="hr.salary.rule">
+            <field name="name">Conveyance Allowance Input</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">CONVALLOWINP</field>
+            <field name="sequence">1</field>
+            <field name="condition_select">input</field>
+            <field name="condition_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_conveyance_allowance"/>
+            <field name="amount_select">input</field>
+            <field name="amount_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_conveyance_allowance"/>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+
+        <record id="uae_salary_rule_medical_allowance" model="hr.salary.rule">
+            <field name="name">Medical Allowance Input</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">MEDALLOWINP</field>
+            <field name="sequence">1</field>
+            <field name="condition_select">input</field>
+            <field name="condition_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_medical_allowance"/>
+            <field name="amount_select">input</field>
+            <field name="amount_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_medical_allowance"/>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+
+        <record id="uae_salary_rule_annual_passage_allowance" model="hr.salary.rule">
+            <field name="name">Annual Passage Allowance Input</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">ANNUALPASSALLOWINP</field>
+            <field name="sequence">1</field>
+            <field name="condition_select">input</field>
+            <field name="condition_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_annual_passage_allowance"/>
+            <field name="amount_select">input</field>
+            <field name="amount_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_annual_passage_allowance"/>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+
+        <record id="uae_salary_rule_overtime_allowance" model="hr.salary.rule">
+            <field name="name">Overtime Allowance Input</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">OVERTIMEALLOWINP</field>
+            <field name="sequence">1</field>
+            <field name="condition_select">input</field>
+            <field name="condition_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_overtime_allowance"/>
+            <field name="amount_select">input</field>
+            <field name="amount_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_overtime_allowance"/>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+
+        <record id="uae_salary_rule_other_allowance" model="hr.salary.rule">
+            <field name="name">Other Allowance Input</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">OTALLOWINP</field>
+            <field name="sequence">1</field>
+            <field name="condition_select">input</field>
+            <field name="condition_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_other_allowance"/>
+            <field name="amount_select">input</field>
+            <field name="amount_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_other_allowance"/>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+
+        <record id="uae_salary_rule_leave_encashment" model="hr.salary.rule">
+            <field name="name">Leave Encashment Input</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">LEAVEENCASHINP</field>
+            <field name="sequence">1</field>
+            <field name="condition_select">input</field>
+            <field name="condition_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_leave_encashment"/>
+            <field name="amount_select">input</field>
+            <field name="amount_other_input_id" ref="l10n_ae_hr_payroll.l10n_ae_input_leave_encashment"/>
+            <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
+        </record>
+
         <record id="uae_housing_allowance_salary_rule" model="hr.salary.rule">
             <field name="name">Housing Allowance</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
@@ -9,6 +93,7 @@
             <field name="amount_python_compute">result = contract.l10n_ae_housing_allowance</field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
         </record>
+
         <record id="uae_transportation_allowance_salary_rule" model="hr.salary.rule">
             <field name="name">Transportation Allowance</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
@@ -18,6 +103,7 @@
             <field name="amount_python_compute">result = contract.l10n_ae_transportation_allowance</field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
         </record>
+
         <record id="uae_other_allowances_salary_rule" model="hr.salary.rule">
             <field name="name">Other Allowances</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
@@ -27,6 +113,7 @@
             <field name="amount_python_compute">result = contract.l10n_ae_other_allowances</field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
         </record>
+
         <record id="uae_salary_arrears_salary_rule" model="hr.salary.rule">
             <field name="name">Salary Arrears</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
@@ -41,6 +128,7 @@ result_name = inputs['SALARY_ARREARS'].name
             </field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
         </record>
+
         <record id="uae_other_earnings_salary_rule" model="hr.salary.rule">
             <field name="name">Other Earnings</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
@@ -55,6 +143,7 @@ result_name = inputs['OTHER_EARNINGS'].name
             </field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
         </record>
+
         <record id="uae_end_of_service_salary_rule" model="hr.salary.rule">
             <field name="name">End of Service</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
@@ -91,6 +180,7 @@ else:
 </field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
         </record>
+
         <record id="uae_end_of_service_provision_salary_rule" model="hr.salary.rule">
             <field name="name">End of Service Provision</field>
             <field name="category_id" ref="hr_payroll.COMP"/>
@@ -103,6 +193,7 @@ else:
             <field name="amount_python_compute">result = (contract.l10n_ae_number_of_days / 12) * (contract.wage / 30)</field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
         </record>
+
         <record id="uae_salary_deduction_salary_rule" model="hr.salary.rule">
             <field name="name">Salary Deduction</field>
             <field name="category_id" ref="hr_payroll.DED"/>
@@ -117,6 +208,7 @@ result_name = inputs['SALARY_DEDUCTIONS'].name
             </field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
         </record>
+
         <record id="uae_other_deduction_salary_rule" model="hr.salary.rule">
             <field name="name">Other Deduction</field>
             <field name="category_id" ref="hr_payroll.DED"/>
@@ -131,6 +223,7 @@ result_name = inputs['OTHER_DEDUCTIONS'].name
             </field>
             <field name="struct_id" ref="l10n_ae_hr_payroll.uae_employee_payroll_structure"/>
         </record>
+
         <record id="uae_total_earnings_salary_rule" model="hr.salary.rule">
             <field name="name">Total Earnings</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
