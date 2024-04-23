@@ -225,6 +225,17 @@
         <field name="date_from" eval="datetime(2023, 7, 1).date()"/>
     </record>
 
+    <record id="rule_parameter_income_tax_secondary_employees" model="hr.rule.parameter">
+        <field name="name">Kenya: Income Tax Rate for secondary employees</field>
+        <field name="code">l10n_ke_income_tax_secondary</field>
+        <field name="country_id" ref="base.ke"/>
+    </record>
+    <record id="rule_parameter_income_tax_secondary_employees_2023" model="hr.rule.parameter.value">
+        <field name="parameter_value">35</field>
+        <field name="rule_parameter_id" ref="rule_parameter_income_tax_secondary_employees"/>
+        <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+    </record>
+
     <record id="rule_parameter_helb_min" model="hr.rule.parameter">
         <field name="name">Kenya: Minimum HELB</field>
         <field name="code">l10n_ke_helb_min</field>

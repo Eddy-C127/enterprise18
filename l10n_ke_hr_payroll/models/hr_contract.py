@@ -18,3 +18,7 @@ class HrContract(models.Model):
         string="Managed by Employee",
         help="If selected, Life Insurance will be paid by the employee on his own, only the life insurance relief will be deduced from payslip.")
     l10n_ke_education = fields.Monetary("Education")
+
+    l10n_ke_is_secondary = fields.Boolean(
+        string="Secondary Contract",
+        help="Check if the employee got a main contract in another company.")

@@ -165,6 +165,8 @@ result = contract.l10n_ke_pension_allowance - payslip._rule_parameter('l10n_ke_p
         <field name="name">Pension Contribution</field>
         <field name="code">PENSION</field>
         <field name="sequence">35</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not contract.l10n_ke_is_secondary</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = contract.l10n_ke_pension_contribution
@@ -179,7 +181,9 @@ result = contract.l10n_ke_pension_contribution
         <field name="code">MORTGAGE</field>
         <field name="sequence">33</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = employee.l10n_ke_mortgage</field>
+        <field name="condition_python">
+result = employee.l10n_ke_mortgage and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = employee.l10n_ke_mortgage
@@ -210,7 +214,8 @@ result = result_rules['GROSS']['total'] - categories['KE_UT_ALW'] - categories['
         <field name="name">NSSF Tier 1 Employee Deduction</field>
         <field name="code">NSSF_EMPLOYEE_TIER_1</field>
         <field name="sequence">37</field>
-        <field name="condition_select">none</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not contract.l10n_ke_is_secondary</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 lower_limit = payslip._rule_parameter('l10n_ke_nssf_lower_limit')
@@ -231,7 +236,8 @@ result = result
         <field name="name">NSSF Tier 2 Employee Deduction</field>
         <field name="code">NSSF_EMPLOYEE_TIER_2</field>
         <field name="sequence">38</field>
-        <field name="condition_select">none</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not contract.l10n_ke_is_secondary</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 lower_limit = payslip._rule_parameter('l10n_ke_nssf_lower_limit')
@@ -259,15 +265,19 @@ result = result
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 remaining_gross = result_rules['GROSS_TAXABLE']['total']
-income_tax_breakdown = payslip._rule_parameter('l10n_ke_income_tax_breakdown')
-income_tax = 0
-for amount, coefficient in income_tax_breakdown:
-    deduced_fraction = min(float(amount), remaining_gross)
-    income_tax += deduced_fraction * coefficient
-    remaining_gross -= deduced_fraction
-    if remaining_gross &lt;= 0:
-        break
-result = income_tax
+if contract.l10n_ke_is_secondary:
+    result = remaining_gross
+    result_rate = payslip._rule_parameter('l10n_ke_income_tax_secondary')
+else:
+    income_tax_breakdown = payslip._rule_parameter('l10n_ke_income_tax_breakdown')
+    income_tax = 0
+    for amount, coefficient in income_tax_breakdown:
+        deduced_fraction = min(float(amount), remaining_gross)
+        income_tax += deduced_fraction * coefficient
+        remaining_gross -= deduced_fraction
+        if remaining_gross &lt;= 0:
+            break
+    result = income_tax
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -280,7 +290,8 @@ result = income_tax
         <field name="name">NHIF Amount (Hidden)</field>
         <field name="code">NHIF_AMOUNT_HIDDEN</field>
         <field name="sequence">40</field>
-        <field name="condition_select">none</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not contract.l10n_ke_is_secondary</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 basic = categories['BASIC']
@@ -301,7 +312,9 @@ for high, rate in payslip._rule_parameter('l10n_ke_nhif'):
         <field name="code">NHIF_RELIEF</field>
         <field name="sequence">41</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = result_rules['NHIF_AMOUNT_HIDDEN']['total']</field>
+        <field name="condition_python">
+result = result_rules['NHIF_AMOUNT_HIDDEN']['total'] and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = - 0.15 * result_rules['NHIF_AMOUNT_HIDDEN']['total']
@@ -316,7 +329,9 @@ result = - 0.15 * result_rules['NHIF_AMOUNT_HIDDEN']['total']
         <field name="code">MED_INSURANCE_RELIEF</field>
         <field name="sequence">43</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_ke_voluntary_medical_insurance</field>
+        <field name="condition_python">
+result = contract.l10n_ke_voluntary_medical_insurance and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = - 0.15 * contract.l10n_ke_voluntary_medical_insurance
@@ -331,7 +346,9 @@ result = - 0.15 * contract.l10n_ke_voluntary_medical_insurance
         <field name="code">LIFE_INSURANCE_RELIEF</field>
         <field name="sequence">44</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_ke_life_insurance</field>
+        <field name="condition_python">
+result = contract.l10n_ke_life_insurance and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = - 0.15 * contract.l10n_ke_life_insurance
@@ -346,7 +363,9 @@ result = - 0.15 * contract.l10n_ke_life_insurance
         <field name="code">EDUCATION_RELIEF</field>
         <field name="sequence">45</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_ke_education</field>
+        <field name="condition_python">
+result = contract.l10n_ke_education and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = - 0.15 * contract.l10n_ke_education
@@ -377,7 +396,7 @@ result = payslip._rule_parameter('l10n_ke_ahl_employee') * basic
         <field name="sequence">47</field>
         <field name="condition_select">python</field>
         <field name="condition_python">
-result = payslip.date_from &gt;= datetime(2024, 3, 19).date()
+result = payslip.date_from &gt;= datetime(2024, 3, 19).date() and not contract.l10n_ke_is_secondary
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
@@ -396,7 +415,9 @@ result = - min(
         <field name="code">INSURANCE_RELIEF</field>
         <field name="sequence">48</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = categories['INS_RELIEF']</field>
+        <field name="condition_python">
+result = categories['INS_RELIEF'] and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = - min(
@@ -414,7 +435,9 @@ result = - min(
         <field name="code">PERS_RELIEF</field>
         <field name="sequence">49</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip._rule_parameter('l10n_ke_personal_relief')</field>
+        <field name="condition_python">
+result = payslip._rule_parameter('l10n_ke_personal_relief') and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = - payslip._rule_parameter('l10n_ke_personal_relief')
@@ -445,6 +468,8 @@ result = result_rules['INCOME_TAX']['total'] + categories['RELIEF']
         <field name="name">NSSF Amount</field>
         <field name="code">NSSF_AMOUNT</field>
         <field name="sequence">53</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not contract.l10n_ke_is_secondary</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = result_rules['NSSF_EMPLOYEE_TIER_1']['total'] + result_rules['NSSF_EMPLOYEE_TIER_2']['total']
@@ -459,6 +484,8 @@ result = result_rules['NSSF_EMPLOYEE_TIER_1']['total'] + result_rules['NSSF_EMPL
         <field name="name">NHIF Amount</field>
         <field name="code">NHIF_AMOUNT</field>
         <field name="sequence">54</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not contract.l10n_ke_is_secondary</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = result_rules['NHIF_AMOUNT_HIDDEN']['total']
@@ -487,8 +514,10 @@ result = categories['STATUTORY_DED']
         <field name="name">HELB</field>
         <field name="code">HELB</field>
         <field name="sequence">61</field>
-        <field name="condition_select">input</field>
-        <field name="condition_other_input_id" ref="l10n_ke_hr_payroll.input_helb"/>
+        <field name="condition_select">python</field>
+        <field name="condition_python">
+result = 'HELB' in inputs and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">input</field>
         <field name="amount_other_input_id" ref="l10n_ke_hr_payroll.input_helb"/>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
@@ -501,7 +530,9 @@ result = categories['STATUTORY_DED']
         <field name="code">MED_INSURANCE</field>
         <field name="sequence">62</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_ke_voluntary_medical_insurance</field>
+        <field name="condition_python">
+result = contract.l10n_ke_voluntary_medical_insurance and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = contract.l10n_ke_voluntary_medical_insurance
@@ -517,7 +548,7 @@ result = contract.l10n_ke_voluntary_medical_insurance
         <field name="sequence">63</field>
         <field name="condition_select">python</field>
         <field name="condition_python">
-result = contract.l10n_ke_life_insurance and not contract.l10n_ke_is_li_managed_by_employee
+result = contract.l10n_ke_life_insurance and not contract.l10n_ke_is_li_managed_by_employee and not contract.l10n_ke_is_secondary
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
@@ -533,7 +564,9 @@ result = contract.l10n_ke_life_insurance
         <field name="code">EDUCATION</field>
         <field name="sequence">64</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_ke_education</field>
+        <field name="condition_python">
+result = contract.l10n_ke_education and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = contract.l10n_ke_education
@@ -563,7 +596,9 @@ result = categories['OTHER_DED']
         <field name="code">PENSION</field>
         <field name="sequence">72</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_ke_pension_contribution</field>
+        <field name="condition_python">
+result = contract.l10n_ke_pension_contribution and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">percentage</field>
         <field name="amount_percentage_base">contract.l10n_ke_pension_contribution</field>
         <field name="amount_percentage">100</field>
@@ -576,8 +611,10 @@ result = categories['OTHER_DED']
         <field name="name">Fringe Benefit</field>
         <field name="code">FRINGE_BENEFIT</field>
         <field name="sequence">73</field>
-        <field name="condition_select">input</field>
-        <field name="condition_other_input_id" ref="l10n_ke_hr_payroll.input_fringe_benefit"/>
+        <field name="condition_select">python</field>
+        <field name="condition_python">
+result = 'FRINGE_BENEFIT' in inputs and not contract.l10n_ke_is_secondary
+        </field>
         <field name="amount_select">input</field>
         <field name="amount_other_input_id" ref="l10n_ke_hr_payroll.input_fringe_benefit"/>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
@@ -619,6 +656,8 @@ result = payslip._rule_parameter('l10n_ke_nita')
         <field name="name">NSSF Employer Cost</field>
         <field name="code">NSSF_EMP</field>
         <field name="sequence">120</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = not contract.l10n_ke_is_secondary</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = result_rules['NSSF_AMOUNT']['total']

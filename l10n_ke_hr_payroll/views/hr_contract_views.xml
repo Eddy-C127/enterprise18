@@ -50,6 +50,9 @@
                     </div>
                 </group>
             </group>
+            <xpath expr="//group[@name='contract_details_0']" position="inside">
+                <field name="l10n_ke_is_secondary" invisible="country_code != 'KE'"/>
+            </xpath>
         </field>
     </record>
 </odoo>
