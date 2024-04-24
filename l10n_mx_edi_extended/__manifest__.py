@@ -13,7 +13,10 @@
         'security/ir.model.access.csv',
 
         'data/4.0/cfdi.xml',
+        'data/l10n_mx_edi.res.locality.csv',
+        'data/l10n_mx_edi.tariff.fraction.csv',
         'data/product_data.xml',
+        'data/res.city.csv',
         'data/uom_uom_data.xml',
 
         'views/l10n_mx_edi_tariff_fraction_view.xml',
@@ -33,7 +36,5 @@
         'demo/res_partner.xml',
     ],
     'installable': True,
-    'post_init_hook': 'post_init_hook',
-    'uninstall_hook': 'uninstall_hook',
     'license': 'OEEL-1',
 }
