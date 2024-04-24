@@ -3,8 +3,8 @@ import { serverState, startServer } from "@bus/../tests/helpers/mock_python_envi
 import { start } from "@mail/../tests/helpers/test_utils";
 
 import { translatedTerms } from "@web/core/l10n/translation";
-import { patchWithCleanup } from "@web/../tests/helpers/utils";
-import { click, contains } from "@web/../tests/utils";
+import { patchWithCleanup, triggerHotkey } from "@web/../tests/helpers/utils";
+import { click, contains, insertText } from "@web/../tests/utils";
 
 QUnit.module("softphone");
 
@@ -143,3 +143,19 @@ QUnit.test("Using VoIP in prod mode without configuring the server shows an erro
     await click(".o_menu_systray button[title='Open Softphone']");
     await contains(".o-voip-Softphone-error");
 });
+
+QUnit.test(
+    "When a call is created, a partner with a corresponding phone number is displayed",
+    async () => {
+        const pyEnv = await startServer();
+        const phoneNumber = "0456 703 6196";
+        pyEnv["res.partner"].create({ name: "Maxime Randonnées", mobile: phoneNumber });
+        const { advanceTime } = await start({ hasTimeControl: true });
+        await click(".o_menu_systray button[title='Open Softphone']");
+        await click("button[title='Open Numpad']");
+        await insertText("input[placeholder='Enter the number…']", phoneNumber);
+        await triggerHotkey("Enter");
+        await advanceTime(5000);
+        await contains(".o-voip-CorrespondenceDetails", { text: "Maxime Randonnées" });
+    }
+);

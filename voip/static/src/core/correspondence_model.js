@@ -3,7 +3,7 @@ import { url } from "@web/core/utils/urls";
 export class Correspondence {
     activity;
     call;
-    partner;
+    _partner;
 
     constructor({ activity, partner, call }) {
         if (!activity && !partner && !call) {
@@ -12,7 +12,7 @@ export class Correspondence {
             );
         }
         this.activity = activity;
-        this.partner = call?.partner ?? activity?.partner ?? partner;
+        this._partner = partner;
         this.call = call;
     }
 
@@ -26,6 +26,11 @@ export class Correspondence {
             });
         }
         return "/base/static/img/avatar_grey.png";
+    }
+
+    /** @returns {import("@mail/core/common/persona_model").Persona | undefined} */
+    get partner() {
+        return this.call?.partner ?? this.activity?.partner ?? this._partner;
     }
 
     /** @returns {string} */
