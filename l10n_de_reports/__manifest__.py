@@ -21,6 +21,7 @@ Also adds DATEV export options to general ledger
         'data/account_report_tax_report.xml',
         'views/res_config_settings_view.xml',
         'views/l10n_de_report_views.xml',
+        'data/datev_document_metadata_export.xml',
         'data/report_export_template.xml',
     ],
     'installable': True,

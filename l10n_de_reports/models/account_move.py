@@ -1,4 +1,5 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+import uuid
+
 from odoo import api, fields, models
 from odoo.tools.sql import column_exists, create_column
 
@@ -140,3 +141,10 @@ class AccountMove(models.Model):
                 elif len(aml_credit_wo_tax_accounts) == 1:
                     value = aml_credit_wo_tax_accounts[0]
             move.l10n_de_datev_main_account_id = value
+
+    def _l10n_de_datev_get_guid(self):
+        """ Get the unique identifier for the move based on the db UUID and the move id """
+        self.ensure_one()
+        dbuuid = self.env['ir.config_parameter'].sudo().get_param('database.uuid')
+        guid = uuid.uuid5(namespace=uuid.UUID(dbuuid), name=str(self.id))
+        return str(guid)
