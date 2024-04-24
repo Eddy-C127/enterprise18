@@ -249,7 +249,7 @@ class SendCloud:
             return shipping_ids
         for func, options in user_filters.items():
             def pass_filter(shipping_method):
-                return (func not in shipping_method['functionalities'] and None in options) or (func in shipping_method['functionalities'] and shipping_method['functionalities'][func] in options)
+                return (func not in shipping_method['functionalities'] and 'None' in options) or (func in shipping_method['functionalities'] and shipping_method['functionalities'][func] in options)
 
             filtered_ids = {m['id'] for m in shipping_methods if pass_filter(m)}
             if not filtered_ids:
