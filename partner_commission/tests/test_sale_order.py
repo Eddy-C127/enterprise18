@@ -78,7 +78,7 @@ class TestSaleOrder(TestCommissionsSetup):
         so = form.save()
         so.action_confirm()
 
-        inv = self.env['account.move'].create(so._prepare_invoice())
+        inv = self.env['account.move'].create(so._prepare_account_move_values())
 
         self.assertEqual(inv.referrer_id, so.referrer_id)
 
