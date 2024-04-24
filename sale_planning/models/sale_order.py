@@ -13,10 +13,11 @@ class SaleOrder(models.Model):
     planning_first_sale_line_id = fields.Many2one('sale.order.line', compute='_compute_planning_first_sale_line_id', export_string_translation=False)
     planning_initial_date = fields.Date(compute='_compute_planning_initial_date', export_string_translation=False)
 
-    @api.depends('order_line.planning_hours_to_plan', 'order_line.planning_hours_planned')
+    @api.depends('order_line.planning_hours_to_plan', 'order_line.planning_hours_planned', 'order_line.product_id.planning_enabled')
     def _compute_planning_hours(self):
         group_data = self.env['sale.order.line']._read_group([
             ('order_id', 'in', self.ids),
+            ('product_id.planning_enabled', '=', True),
         ], ['order_id'], ['planning_hours_to_plan:sum', 'planning_hours_planned:sum'])
         data_by_order = {
             order: (to_plan_sum, planned_sum)

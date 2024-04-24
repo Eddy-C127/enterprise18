@@ -12,11 +12,11 @@ class SaleOrderLine(models.Model):
     planning_hours_planned = fields.Float(compute='_compute_planning_hours_planned', store=True, compute_sudo=True, export_string_translation=False)
     planning_hours_to_plan = fields.Float(compute='_compute_planning_hours_to_plan', store=True, compute_sudo=True, export_string_translation=False)
 
-    @api.depends('product_uom', 'product_uom_qty', 'product_id.planning_enabled', 'state')
+    @api.depends('product_uom', 'product_uom_qty', 'state')
     def _compute_planning_hours_to_plan(self):
-        sol_planning = self.filtered_domain([('product_id.planning_enabled', '=', True), ('state', 'not in', ['draft', 'sent'])])
+        sol_planning = self.filtered_domain([('state', 'not in', ['draft', 'sent'])])
         if sol_planning:
-            # For every confirmed SO service lines with slot generation, the qty are transformed into hours
+            # For every confirmed SO service lines, the qty are transformed into hours
             uom_hour = self.env.ref('uom.product_uom_hour')
             uom_unit = self.env.ref('uom.product_uom_unit')
             for sol in sol_planning:
@@ -33,9 +33,9 @@ class SaleOrderLine(models.Model):
     @api.depends('planning_slot_ids.allocated_hours', 'state')
     def _compute_planning_hours_planned(self):
         PlanningSlot = self.env['planning.slot']
-        sol_planning = self.filtered_domain([('product_id.planning_enabled', '=', True), ('state', 'not in', ['draft', 'sent'])])
+        sol_planning = self.filtered_domain([('state', 'not in', ['draft', 'sent'])])
 
-        # For every confirmed SO service lines with slot generation, the allocated hours on planned slots are summed
+        # For every confirmed SO service lines, the allocated hours on planned slots are summed
         group_data = PlanningSlot.with_context(sale_planning_prevent_recompute=True)._read_group([
             ('sale_line_id', 'in', sol_planning.ids),
             ('start_datetime', '!=', False),
