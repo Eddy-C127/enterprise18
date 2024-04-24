@@ -320,11 +320,11 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
 
             # Code AC
             (_('[88] < ([81] + [82] + [83] + [84]) * 100 if [88] > 99.999'),
-                lambda expr_totals: expr_totals[expr_map['c88']]['value'] < sum(expr_totals[expr_map[grid]]['value'] for grid in ('c81', 'c82', 'c83', 'c84')) * 100 if expr_totals[expr_map['c88']]['value'] > 99.999 else True),
+                lambda expr_totals: expr_totals[expr_map['c88']]['value'] < sum(expr_totals[expr_map[grid]]['value'] for grid in ('c81', 'c82', 'c83', 'c84')) * 100 if expr_totals[expr_map['c88']]['value'] > 99999 else True),
 
             # Code AD
-            (_('[44] < ([00] + [01] + [02] + [03] + [45] + [46] + [47] + [48] + [49]) * 200 if [88] > 99.999'),
-                lambda expr_totals: expr_totals[expr_map['c44']]['value'] < sum(expr_totals[expr_map[grid]]['value'] for grid in ('c00', 'c01', 'c02', 'c03', 'c45', 'c46', 'c47', 'c48', 'c49')) * 200 if expr_totals[expr_map['c44']]['value'] > 99.999 else True),
+            (_('[44] < ([00] + [01] + [02] + [03] + [45] + [46] + [47] + [48] + [49]) * 200 if [44] > 99.999'),
+                lambda expr_totals: expr_totals[expr_map['c44']]['value'] < sum(expr_totals[expr_map[grid]]['value'] for grid in ('c00', 'c01', 'c02', 'c03', 'c45', 'c46', 'c47', 'c48', 'c49')) * 200 if expr_totals[expr_map['c44']]['value'] > 99999 else True),
         ]
 
         failed_controls = [
