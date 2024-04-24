@@ -4316,3 +4316,30 @@ registry.category("web_tour.tours").add('test_create_backorder_after_qty_modifie
         { trigger: '.modal-dialog button.btn-primary', run: 'click' },
     ]
 });
+
+registry.category("web_tour.tours").add('test_open_picking_dont_override_assigned_user', {test: true, steps: () => [
+    {
+        trigger: '.button_operations',
+        run: 'click',
+    },
+    {
+        trigger: '.o_kanban_record_title > span:contains(Receipts)',
+        run: 'click',
+    },
+    {
+        trigger: '.o_facet_value:contains("To Do") + .o_facet_remove',
+        run: 'click',
+    },
+    {
+        trigger: '.btn.o_kanban_record_title > span:contains("test_responsible_receipt")',
+        run: 'click',
+    },
+    {
+        trigger: '.o_exit',
+        run: 'click',
+    },
+    {
+        isCheck: true,
+        trigger: '.o_breadcrumb > ol > li > a:contains(Operations)',
+    },
+]});
