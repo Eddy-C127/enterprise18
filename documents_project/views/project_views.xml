@@ -49,6 +49,28 @@
         </field>
     </record>
 
+    <record id="action_view_documents_project_project" model="ir.actions.act_window">
+        <field name="name">Documents</field>
+        <field name="res_model">documents.document</field>
+        <field name="view_mode">kanban,tree</field>
+        <field name="domain">[('project_id', '=', active_id)]</field>
+        <field name="context">{'limit_folders_to_project': True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Upload <span class="fw-normal">a file or </span>drag <span class="fw-normal">it here.</span>
+            </p>
+        </field>
+    </record>
+
+    <record id="project_embedded_action_documents" model="ir.embedded.actions">
+        <field name="parent_res_model">project.project</field>
+        <field name="sequence">50</field>
+        <field name="parent_action_id" ref="project.act_project_project_2_project_task_all"/>
+        <field name="action_id" ref="documents_project.action_view_documents_project_project"/>
+        <field name="domain">[('use_documents', '=', True)]</field>
+        <field name="groups_ids" eval="[(4, ref('documents.group_documents_user'))]" />
+    </record>
+
     <record id="view_task_form2_document_inherit" model="ir.ui.view">
         <field name="name">project.task.form.inherit</field>
         <field name="model">project.task</field>
