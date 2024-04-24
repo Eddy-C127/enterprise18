@@ -185,7 +185,14 @@ class TestFsmFlowSale(TestFsmFlowSaleCommon):
         so = self.task.sale_order_id
         sol = so.order_line[-1]
         self.assertEqual(sol.qty_to_invoice, 2.0)
-        with Form(so) as so_form:
-            with so_form.order_line.edit(0) as line:
-                line.price_unit = 0.0
+
+        so_form = Form(so)
+        with so_form.order_line.edit(0) as line:
+            line.price_unit = 0.0
+        so_form.save()
         self.assertEqual(sol.qty_to_invoice, 0.0)
+
+        with so_form.order_line.edit(0) as line:
+            line.price_unit = 0.01
+        so_form.save()
+        self.assertEqual(sol.qty_to_invoice, 2.0, "$0.01 shouldn't count as free")

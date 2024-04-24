@@ -82,13 +82,21 @@ class SaleOrderLine(models.Model):
         return values
 
     def _compute_invoice_status(self):
-        sol_from_task_without_amount = self.filtered(lambda sol: sol.task_id.is_fsm and float_is_zero(sol.price_unit, precision_digits=sol.currency_id.rounding))
+        sol_from_task_without_amount = self.filtered(
+            lambda sol:
+                sol.task_id.is_fsm
+                and float_is_zero(sol.price_unit, precision_rounding=sol.currency_id.rounding)
+        )
         sol_from_task_without_amount.invoice_status = 'no'
         super(SaleOrderLine, self - sol_from_task_without_amount)._compute_invoice_status()
 
     @api.depends('price_unit')
     def _compute_qty_to_invoice(self):
-        sol_from_task_without_amount = self.filtered(lambda sol: sol.task_id.is_fsm and float_is_zero(sol.price_unit, precision_digits=sol.currency_id.rounding))
+        sol_from_task_without_amount = self.filtered(
+            lambda sol:
+                sol.task_id.is_fsm
+                and float_is_zero(sol.price_unit, precision_rounding=sol.currency_id.rounding)
+        )
         sol_from_task_without_amount.qty_to_invoice = 0.0
         super(SaleOrderLine, self - sol_from_task_without_amount)._compute_qty_to_invoice()
 
