@@ -133,7 +133,7 @@ class TestNlSBR(TransactionCase):
 @skipIf(not os.getenv("NL_SBR_CERT"), "No SBR certificate")
 class TestNlSBRFlow(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref='l10n_nl.l10nnl_chart_template'):
+    def setUpClass(cls, chart_template_ref='nl'):
         super().setUpClass(chart_template_ref=chart_template_ref)
 
         company_vals = {
