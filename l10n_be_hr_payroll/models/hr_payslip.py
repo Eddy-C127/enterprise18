@@ -900,10 +900,99 @@ class Payslip(models.Model):
             tax_rate = tax_rate * 3.0 / 4.0
         return - min(ip_amount * tax_rate, 11745)
 
+    def _get_employment_bonus_employees_volet_A(self, localdict):
+        categories = localdict['categories']
+        if not self.worked_days_line_ids and not self.env.context.get('salary_simulation'):
+            return 0
+
+        # S = (W / H) * U
+        # W = salaire brut
+        # H = le nombre d'heures de travail déclarées avec un code prestations 1, 3, 4, 5 et 20;
+        # U = le nombre maximum d'heures de prestations pour le mois concerné dans le régime de travail concerné
+        if self.env.context.get('salary_simulation'):
+            paid_hours = 1
+            total_hours = 1
+        else:
+            worked_days = self.worked_days_line_ids.filtered(lambda wd: wd.code not in ['LEAVE300', 'LEAVE301'])
+            paid_hours = sum(worked_days.filtered(lambda wd: wd.amount).mapped('number_of_hours'))  # H
+            total_hours = sum(worked_days.mapped('number_of_hours'))  # U
+
+        # 1. - Détermination du salaire mensuel de référence (S)
+        salary = categories['BRUT'] * total_hours / paid_hours  # S = (W/H) x U
+
+        # 2. - Détermination du montant de base de la réduction (R)
+        bonus_basic_amount_volet_A = self._rule_parameter('work_bonus_basic_amount_volet_A')
+        wage_lower_bound = self._rule_parameter('work_bonus_reference_wage_low')
+        wage_middle_bound = self._rule_parameter('l10n_be_work_bonus_reference_wage_middle')
+        wage_higher_bound = self._rule_parameter('work_bonus_reference_wage_high')
+        if salary <= wage_lower_bound:
+            result = bonus_basic_amount_volet_A
+        elif salary <= wage_middle_bound:
+            result = bonus_basic_amount_volet_A
+        elif salary <= wage_higher_bound:
+            coeff = self._rule_parameter('work_bonus_coeff')
+            result = bonus_basic_amount_volet_A - (coeff * (salary - wage_middle_bound))
+        else:
+            result = 0
+
+        # 3. - Détermination du montant de la réduction (P)
+        result = result * paid_hours / total_hours  # P = (H/U) x R
+
+        return result
+
+    def _get_employment_bonus_employees_volet_B(self, localdict):
+        categories = localdict['categories']
+        if not self.worked_days_line_ids and not self.env.context.get('salary_simulation'):
+            return 0
+
+        # S = (W / H) * U
+        # W = salaire brut
+        # H = le nombre d'heures de travail déclarées avec un code prestations 1, 3, 4, 5 et 20;
+        # U = le nombre maximum d'heures de prestations pour le mois concerné dans le régime de travail concerné
+        if self.env.context.get('salary_simulation'):
+            paid_hours = 1
+            total_hours = 1
+        else:
+            worked_days = self.worked_days_line_ids.filtered(lambda wd: wd.code not in ['LEAVE300', 'LEAVE301'])
+            paid_hours = sum(worked_days.filtered(lambda wd: wd.amount).mapped('number_of_hours'))  # H
+            total_hours = sum(worked_days.mapped('number_of_hours'))  # U
+
+        # 1. - Détermination du salaire mensuel de référence (S)
+        salary = categories['BRUT'] * total_hours / paid_hours  # S = (W/H) x U
+
+        # 2. - Détermination du montant de base de la réduction (R)
+        bonus_basic_amount = self._rule_parameter('work_bonus_basic_amount')
+        wage_lower_bound = self._rule_parameter('work_bonus_reference_wage_low')
+        wage_middle_bound = self._rule_parameter('l10n_be_work_bonus_reference_wage_middle')
+        wage_higher_bound = self._rule_parameter('work_bonus_reference_wage_high')
+        if salary <= wage_lower_bound:
+            result = bonus_basic_amount
+        elif salary <= wage_middle_bound:
+            coeff = self._rule_parameter('l10n_be_work_bonus_coeff_low')
+            result = bonus_basic_amount - (coeff * (salary - wage_lower_bound))
+        elif salary <= wage_higher_bound:
+            result = 0
+        else:
+            result = 0
+
+        # 3. - Détermination du montant de la réduction (P)
+        result = result * paid_hours / total_hours  # P = (H/U) x R
+
+        return result
+
     # ref: https://www.socialsecurity.be/employer/instructions/dmfa/fr/latest/instructions/deductions/workers_reductions/workbonus.html
     def _get_employment_bonus_employees(self, localdict):
         self.ensure_one()
         categories = localdict['categories']
+        if self.date_from >= date(2024, 4, 1):
+            bonus_volet_A = self._get_employment_bonus_employees_volet_A(localdict)
+            bonus_volet_B = self._get_employment_bonus_employees_volet_B(localdict)
+            result = bonus_volet_A + bonus_volet_B
+            # Nasty lazy dev
+            localdict['result_rules']['bonus_volet_A']['total'] = bonus_volet_A
+            localdict['result_rules']['bonus_volet_B']['total'] = bonus_volet_B
+            return min(result, -categories['ONSS'])
+
         bonus_basic_amount = self._rule_parameter('work_bonus_basic_amount')
         wage_lower_bound = self._rule_parameter('work_bonus_reference_wage_low')
         if not self.worked_days_line_ids and not self.env.context.get('salary_simulation'):
@@ -1055,7 +1144,13 @@ class Payslip(models.Model):
         self.ensure_one()
         categories = localdict['categories']
         if categories['EmpBonus']:
-            return min(abs(categories['PP']), categories['EmpBonus'] * 0.3314)
+            if self.date_from >= date(2024, 4, 1):
+                bonus_volet_A = localdict['result_rules']['bonus_volet_A']['total']
+                bonus_volet_B = localdict['result_rules']['bonus_volet_B']['total']
+                reduction = bonus_volet_A * 0.3314 + bonus_volet_B * 0.5254
+            else:
+                reduction = categories['EmpBonus'] * 0.3314
+            return min(abs(categories['PP']), reduction)
         return 0.0
 
     def _get_impulsion_plan_amount(self, localdict):
