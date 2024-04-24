@@ -85,6 +85,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 if options.get('add_attachments'):
                     # add all moves attachments in zip file, this is not part of DATEV specs
                     slash_re = re.compile('[\\/]')
+                    documents = []
                     for move in moves:
                         # rename files by move name + sequence number (if more than 1 file)
                         # '\' is not allowed in file name, replace by '-'
@@ -99,6 +100,20 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                             extension = os.path.splitext(attachment.name)[1]
                             name = name_pattern % {'base': base_name, 'index': i, 'extension': extension}
                             zf.writestr(name, attachment.raw)
+                            documents.append({
+                                'guid': move._l10n_de_datev_get_guid(),
+                                'filename': name,
+                                'type': 2 if move.is_sale_document() else 1 if move.is_purchase_document() else None,
+                            })
+                    if documents:
+                        metadata_document = self.env['ir.qweb']._render(
+                            'l10n_de_reports.datev_export_metadata',
+                            values={
+                                'documents': documents,
+                                'date': fields.Date.today(),
+                            },
+                        )
+                        zf.writestr('document.xml', "<?xml version='1.0' encoding='UTF-8'?>" + str(metadata_document))
             buf.seek(0)
             content = buf.read()
         return {
@@ -219,7 +234,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         writer = pycompat.csv_writer(output, delimiter=';', quotechar='"', quoting=2)
         preheader = ['EXTF', 510, 21, 'Buchungsstapel', 7, '', '', '', '', '', datev_info[0], datev_info[1], fy, account_length,
             date_from, date_to, '', '', '', '', 0, 'EUR', '', '', '', '', '', '', '', '', '']
-        header = ['Umsatz (ohne Soll/Haben-Kz)', 'Soll/Haben-Kennzeichen', 'WKZ Umsatz', 'Kurs', 'Basis-Umsatz', 'WKZ Basis-Umsatz', 'Konto', 'Gegenkonto (ohne BU-Schlüssel)', 'BU-Schlüssel', 'Belegdatum', 'Belegfeld 1', 'Belegfeld 2', 'Skonto', 'Buchungstext']
+        header = [
+            'Umsatz (ohne Soll/Haben-Kz)', 'Soll/Haben-Kennzeichen', 'WKZ Umsatz', 'Kurs', 'Basis-Umsatz',
+            'WKZ Basis-Umsatz', 'Konto', 'Gegenkonto (ohne BU-Schlüssel)', 'BU-Schlüssel', 'Belegdatum',
+            'Belegfeld 1', 'Belegfeld 2', 'Skonto', 'Buchungstext', 'Postensperre', 'Diverse Adressnummer',
+            'Geschäftspartnerbank', 'Sachverhalt', 'Zinssperre', 'Beleglink'
+        ]
 
         lines = [preheader, header]
 
@@ -296,6 +316,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 array[10] = receipt1[-36:]
                 array[11] = receipt2
                 array[13] = aml.name or ref
+                if options.get('add_attachments') and m.attachment_ids:
+                    array[19] = f'BEDI"{m._l10n_de_datev_get_guid()}"'
                 lines.append(array)
 
         writer.writerows(lines)
