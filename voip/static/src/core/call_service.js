@@ -28,6 +28,13 @@ export class CallService {
         if (activity) {
             call.activity = activity;
         }
+        if (!call.partner) {
+            this.orm.call("voip.call", "get_contact_info", [[call.id]]).then((partnerData) => {
+                if (partnerData) {
+                    call.partner = partnerData;
+                }
+            });
+        }
         return call;
     }
 

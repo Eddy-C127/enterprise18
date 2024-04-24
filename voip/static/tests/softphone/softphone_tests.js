@@ -1,10 +1,12 @@
 /* @odoo-module */
 
+import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+
 import { start } from "@mail/../tests/helpers/test_utils";
 
 import { translatedTerms } from "@web/core/l10n/translation";
-import { patchWithCleanup } from "@web/../tests/helpers/utils";
-import { click, contains } from "@web/../tests/utils";
+import { patchWithCleanup, triggerHotkey } from "@web/../tests/helpers/utils";
+import { click, contains, insertText } from "@web/../tests/utils";
 
 /**
  * @param {number} numberOfMissedCalls
@@ -131,3 +133,19 @@ QUnit.test("The cursor when hovering over the top bar has “pointer” style", 
     await contains(".o-voip-Softphone-topbar");
     assert.strictEqual(getComputedStyle($(".o-voip-Softphone-topbar")[0]).cursor, "pointer");
 });
+
+QUnit.test(
+    "When a call is created, a partner with a corresponding phone number is displayed",
+    async () => {
+        const pyEnv = await startServer();
+        const phoneNumber = "0456 703 6196";
+        pyEnv["res.partner"].create({ name: "Maxime Randonnées", mobile: phoneNumber });
+        const { advanceTime } = await start({ hasTimeControl: true });
+        await click(".o_menu_systray button[title='Open Softphone']");
+        await click("button[title='Open Numpad']");
+        await insertText("input[placeholder='Enter the number…']", phoneNumber);
+        await triggerHotkey("Enter");
+        await advanceTime(5000);
+        await contains(".o-voip-CorrespondenceDetails", { text: "Maxime Randonnées" });
+    }
+);

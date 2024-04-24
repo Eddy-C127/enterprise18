@@ -28,6 +28,8 @@ patch(MockServer.prototype, {
                 return this._mockVoipCallCreateAndFormat(...args, kwargs);
             case "end_call":
                 return this._mockVoipCallEndCall(...args, kwargs);
+            case "get_contact_info":
+                return this._mockVoipCallGetContactInfo(...args, kwargs);
             case "get_recent_phone_calls":
                 return this._mockVoipCallGetRecentPhoneCalls(...args, kwargs);
             case "start_call":
@@ -79,6 +81,25 @@ patch(MockServer.prototype, {
         }
         const recordIds = this.pyEnv["voip.call"].search(domain, { offset, limit, order: "create_date DESC" });
         return this._mockVoipCall_FormatCalls(recordIds);
+    },
+    _mockVoipCallGetContactInfo(ids) {
+        if (!Array.isArray(ids)) {
+            ids = [ids];
+        }
+        const records = this.getRecords("voip.call", [["id", "in", ids]]);
+        if (records.length !== 1) {
+            throw new Error("self.ensure_one");
+        }
+        const [call] = records;
+        const [partnerId] = this.pyEnv["res.partner"].search(
+            ["|", ["phone", "=", call.phone_number], ["mobile", "=", call.phone_number]],
+            { limit: 1 }
+        );
+        if (!partnerId) {
+            return false;
+        }
+        this.pyEnv["voip.call"].write(ids, { partner_id: partnerId });
+        return this._mockResPartnerMailPartnerFormat([partnerId]).get(partnerId);
     },
     /**
      * @param {number[]} param0
