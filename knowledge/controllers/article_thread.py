@@ -52,5 +52,5 @@ class KnowledgeThreadController(ThreadController):
                 ("is_internal", "=", False) # respect internal users only flag
             ]
             res = request.env["mail.message"].sudo()._message_fetch(domain, **kwargs)
-            return {**res, "messages": res["messages"]._message_format()}
+            return {**res, "messages": res["messages"]._message_format(for_current_user=True)}
         return super().mail_thread_messages(thread_model, thread_id, **kwargs)
