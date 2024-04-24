@@ -11,6 +11,7 @@ import { ThankYouDialog } from "@sign/dialogs/dialogs";
 import { registry } from "@web/core/registry";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { uiService } from "@web/core/ui/ui_service";
+import { session } from "@web/session";
 
 const serviceRegistry = registry.category("services");
 
@@ -200,11 +201,7 @@ QUnit.module("thank you dialog", (hooks) => {
 
         const env = await createEnv(mockRPC);
 
-        patchWithCleanup(env.services.user, {
-            get userId() {
-                return false;
-            },
-        });
+        patchWithCleanup(session, {user_id: false});
 
         await mountThankYouDialog(env);
 

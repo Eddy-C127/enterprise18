@@ -24,7 +24,7 @@ export class ThankYouDialog extends Component {
     }
 
     get suggestSignUp() {
-        return !this.user.userId;
+        return session.user_id === false;
     }
 
     get dialogProps() {
@@ -106,7 +106,7 @@ export class ThankYouDialog extends Component {
                 name: _t("Close"),
                 click: () => {
                     if (session.is_frontend) {
-                        window.location.assign("/my/signatures");
+                        window.location.assign("/");
                     } else {
                         this.props.close();
                         this.env.services.action.doAction("sign.sign_template_action", {
