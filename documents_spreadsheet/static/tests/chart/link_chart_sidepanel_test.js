@@ -288,9 +288,7 @@ QUnit.module(
                 assert.equal(irMenuInput.value, "MyApp/test menu 1");
 
                 const figure2 = target.querySelectorAll(".o-figure")[1];
-                const clickEvent = new Event("pointerdown", { bubbles: true });
-                figure2.dispatchEvent(clickEvent);
-                await nextTick();
+                await click(figure2, null);
                 irMenuInput = target.querySelector(".o-ir-menu-selector input");
                 assert.equal(irMenuInput.value, "MyApp/test menu 2");
             }
