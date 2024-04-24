@@ -266,14 +266,14 @@ class Picking(models.Model):
         max_vat_perc = 0.0
         move_retentions = self.env['account.tax']
         for move in self.move_ids.filtered(lambda x: x.quantity > 0):
-            if guide_price == "product" or not move.sale_line_id:
+            sale_line = move.sale_line_id
+            if guide_price == "product" or not sale_line:
                 taxes = move.product_id.taxes_id.filtered(lambda t: t.company_id == self.company_id)
                 price = move.product_id.lst_price
-                qty = move.product_qty
+                qty = move.quantity
             elif guide_price == "sale_order":
-                sale_line = move.sale_line_id
                 taxes = sale_line.tax_id
-                qty = move.product_uom._compute_quantity(move.product_uom_qty, sale_line.product_uom)
+                qty = move.product_uom._compute_quantity(move.quantity, sale_line.product_uom)
                 price = sale_line.price_unit * (1 - (sale_line.discount or 0.0) / 100.0)
 
             tax_res = taxes.compute_all(
@@ -309,7 +309,7 @@ class Picking(models.Model):
             line_amounts[move] = {
                 "value": self.company_id.currency_id.round(tax_res['total_included']),
                 'total_amount': self.company_id.currency_id.round(tax_res['total_excluded']),
-                "price_unit": self.company_id.currency_id.round(tax_res['total_excluded'] / move.product_uom_qty),
+                "price_unit": self.company_id.currency_id.round(tax_res['total_excluded'] / move.quantity),
                 "wh_taxes": move_retentions,
                 "exempt": not taxes and tax_res['total_excluded'] != 0.0,
             }
