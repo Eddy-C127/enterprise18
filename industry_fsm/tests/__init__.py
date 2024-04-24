@@ -11,3 +11,4 @@ from . import test_fsm_task_analysis
 from . import test_fsm_project_task
 from . import test_task_group_expand
 from . import test_fsm_planning_overlap
+from . import test_task_calendar_view
