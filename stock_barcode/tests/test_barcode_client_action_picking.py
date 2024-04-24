@@ -2814,6 +2814,36 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(backorder.move_ids[0].product_uom_qty, 1.0)
         self.assertEqual(receipt.move_ids[0].product_uom_qty, 1.0)
 
+    def test_open_picking_dont_override_assigned_user(self):
+        """
+        Test that clicking on a picking from the barcode view does not replace
+        the current responsible with the current user.
+        """
+        bob = self.env['res.users'].create({
+            'partner_id': self.env['res.partner'].create({'name': 'Bob'}).id,
+            'login': 'bob',
+        })
+        receipt_picking = self.env['stock.picking'].create({
+            'name': "test_responsible_receipt",
+            'location_id': self.supplier_location.id,
+            'location_dest_id': self.stock_location.id,
+            'picking_type_id': self.picking_type_in.id,
+            'user_id': bob.id,
+            'move_ids': [(0, 0, {
+                'name': 'some product',
+                'location_id': self.supplier_location.id,
+                'location_dest_id': self.stock_location.id,
+                'product_id': self.product1.id,
+                'product_uom': self.uom_unit.id,
+                'product_uom_qty': 2
+            })],
+        })
+        receipt_picking.action_confirm()
+        action = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = f"/web#action={action.id}"
+        self.start_tour(url, 'test_open_picking_dont_override_assigned_user', login='admin', timeout=180)
+        self.assertEqual(receipt_picking.user_id.id, bob.id, "Picking responsible should be unchanged after click when previously set")
+
     # === GS1 TESTS ===#
     def test_gs1_delivery_ambiguous_serial_number(self):
         """

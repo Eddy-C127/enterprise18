@@ -135,6 +135,11 @@ export default class BarcodePickingModel extends BarcodeModel {
         return line.reserved_uom_qty || 0;
     }
 
+    getEditedLineParams(line) {
+        this._setUser();
+        return super.getEditedLineParams(...arguments);
+    }
+
     getDisplayIncrementPackagingBtn(line) {
         const packagingQty = line.product_packaging_uom_qty;
         return packagingQty &&
@@ -805,7 +810,9 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     async save() {
-        await this._setUser(); // Set current user as picking's responsible.
+        if (this.linesToSave.length > 0) {
+            await this._setUser();
+        }
         return super.save();
     }
 
@@ -865,6 +872,7 @@ export default class BarcodePickingModel extends BarcodeModel {
             this.currentState.lines.some(line => this._lineNeedsToBePacked(line))) {
             return this.notification(_t("All products need to be packed"), { type: "danger" });
         }
+        await this._setUser();
         if (this.config.create_backorder === 'ask') {
             // If there are some uncompleted lines, displays the backorder dialog.
             const uncompletedLines = [];
@@ -1664,7 +1672,7 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     /**
-     * Set the pickings's responsible if not assigned to active user.
+     * Set the pickings's responsible to the active user.
      */
     async _setUser() {
         if (this.record.id && this.record.user_id != user.userId) {
