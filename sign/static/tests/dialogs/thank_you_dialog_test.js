@@ -1,16 +1,16 @@
 /** @odoo-module **/
 
-import { getFixture, mount } from "@web/../tests/helpers/utils";
+import { getFixture, mount, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import {
     makeFakeDialogService,
     makeFakeLocalizationService,
-    patchUserWithCleanup,
 } from "@web/../tests/helpers/mock_services";
 import { ThankYouDialog } from "@sign/dialogs/dialogs";
 import { registry } from "@web/core/registry";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { uiService } from "@web/core/ui/ui_service";
+import { session } from "@web/session";
 
 const serviceRegistry = registry.category("services");
 
@@ -107,11 +107,7 @@ QUnit.module("thank you dialog", (hooks) => {
 
         const env = await createEnv(mockRPC);
 
-        patchUserWithCleanup({
-            get userId() {
-                return false;
-            },
-        });
+        patchWithCleanup(session, {user_id: false});
 
         await mountThankYouDialog(env);
 

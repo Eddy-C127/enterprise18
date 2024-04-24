@@ -4,7 +4,6 @@ import { _t } from "@web/core/l10n/translation";
 import { session } from "@web/session";
 import { Dialog } from "@web/core/dialog/dialog";
 import { rpc } from "@web/core/network/rpc";
-import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
 import { EncryptedDialog } from "./encrypted_dialog";
 import { Component, onWillStart, useState } from "@odoo/owl";
@@ -49,7 +48,7 @@ export class ThankYouDialog extends Component {
     }
 
     get suggestSignUp() {
-        return !user.userId;
+        return session.user_id === false;
     }
 
     get dialogProps() {
@@ -131,7 +130,7 @@ export class ThankYouDialog extends Component {
                 name: _t("Close"),
                 click: () => {
                     if (session.is_frontend) {
-                        window.location.assign("/my/signatures");
+                        window.location.assign("/");
                     } else {
                         this.props.close();
                         this.env.services.action.doAction("sign.sign_request_action", {
