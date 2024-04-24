@@ -26,6 +26,8 @@ class PlanningShift(models.Model):
                     slot.project_id = slot.template_id.project_id
             elif slot.previous_template_id and not slot.template_id and slot.previous_template_id.project_id == slot.project_id:
                 slot.project_id = False
+            elif self.env.context.get('default_project_id'):
+                slot.project_id = self.env["project.project"].browse(self.env.context['default_project_id'])
 
     def _read_group_project_id(self, projects, domain):
         dom_tuples = [(dom[0], dom[1]) for dom in domain if isinstance(dom, list) and len(dom) == 3]

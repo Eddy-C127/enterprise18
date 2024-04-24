@@ -51,7 +51,7 @@ export class PlanningGanttModel extends GanttModel {
             if (
                 node.length === 3 &&
                 node[0] === "resource_id" &&
-                node[1] === "!=" &&
+                ["!=", "="].includes(node[1]) &&
                 node[2] === false
             ) {
                 return super.load({
