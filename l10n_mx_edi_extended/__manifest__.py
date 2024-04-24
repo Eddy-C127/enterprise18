@@ -33,7 +33,6 @@
     ],
     'demo': [
         'demo/demo_cfdi.xml',
-        'demo/res_partner.xml',
     ],
     'installable': True,
     'license': 'OEEL-1',

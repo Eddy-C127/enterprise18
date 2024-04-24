@@ -14,7 +14,7 @@ Bridge module to extend the delivery guide (Complemento XML Carta de Porte)
         'l10n_mx_edi_stock',
     ],
     'demo': [
-        'demo/res_partner.xml',
+        'demo/demo_cfdi.xml',
     ],
     'data': [
         'security/ir.model.access.csv',

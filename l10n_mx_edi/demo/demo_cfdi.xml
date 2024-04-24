@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <record id="base.partner_demo_company_mx" model="res.partner">
-        <field name="name">ESCUELA KEMPER URGATE</field>
-        <field name="vat">EKU9003173C9</field>
-        <field name="street">Campobasso Norte 3206 - 9000</field>
-        <field name="street2">Fraccionamiento Montecarlo</field>
-        <field name="city">Jesús María</field>
-        <field name="country_id" ref="base.mx"/>
-        <field name="state_id" ref="base.state_mx_ags"/>
-        <field name="zip">20928</field>
-        <field name="l10n_mx_edi_fiscal_regime">601</field>
-    </record>
-
     <record id="base.demo_company_mx" model="res.company">
         <field name="l10n_mx_edi_pac">finkok</field>
         <field name="l10n_mx_edi_pac_test_env">True</field>
         <field name="l10n_mx_edi_fiscal_regime">601</field>
-        <field name="partner_id" ref="base.partner_demo_company_mx"/>
     </record>
 
     <record id="demo_partner" model="res.partner">
@@ -77,6 +63,18 @@
         <field name="key" type="base64" file="l10n_mx_edi/demo/pac_credentials/certificate_zapa.key"/>
         <field name="password">12345678a</field>
         <field name="company_id" ref="base.demo_company_2_mx"/>
+    </record>
+
+    <record id="product.product_product_25" model="product.product">
+        <field name="unspsc_code_id" ref="product_unspsc.unspsc_code_56101900"/>
+        <field name="weight">5</field>
+        <field name="is_favorite">True</field>
+    </record>
+
+    <record id="product.consu_delivery_02" model="product.product">
+        <field name="unspsc_code_id" ref="product_unspsc.unspsc_code_47101608"/>
+        <field name="weight">5</field>
+        <field name="is_favorite">True</field>
     </record>
 
     <function model="res.company" name="_onchange_country_id">
