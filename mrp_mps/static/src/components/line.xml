@@ -140,11 +140,11 @@
                             t-att-data-date_index="forecast_index"
                             t-attf-class="form-control text-end
                                 o_mrp_mps_input_replenish_qty
-                                {{forecast.state == 'launched' and 'alert-dark' or
-                                forecast.state == 'to_relaunch' and 'alert-warning' or
-                                forecast.state == 'to_correct' and 'alert-danger' or
-                                forecast.to_replenish and 'alert-success' or
-                                forecast.replenish_qty_updated and 'alert-info' or ''
+                                {{forecast.state == 'launched' and 'bg-secondary' or
+                                forecast.state == 'to_relaunch' and 'bg-warning-subtle' or
+                                forecast.state == 'to_correct' and 'bg-danger-subtle' or
+                                forecast.to_replenish and 'bg-success-subtle' or
+                                forecast.replenish_qty_updated and 'bg-info-subtle' or ''
                                 }} {{
                                 forecast.to_replenish and 'o_mrp_mps_to_replenish' or ''
                                 }} {{
