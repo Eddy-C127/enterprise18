@@ -751,6 +751,19 @@ class AccountMove(models.Model):
                 raise ValidationError(error_message % move.l10n_mx_edi_cfdi_origin)
 
     # -------------------------------------------------------------------------
+    # ACTION METHODS
+    # -------------------------------------------------------------------------
+
+    def action_invoice_download_cfdi(self):
+        if invoices_with_cfdi := self.filtered('l10n_mx_edi_cfdi_attachment_id'):
+            return {
+                'type': 'ir.actions.act_url',
+                'url': f'/account/download_invoice_documents/{",".join(map(str, invoices_with_cfdi.ids))}/cfdi',
+                'target': 'download',
+            }
+        return False
+
+    # -------------------------------------------------------------------------
     # BUSINESS METHODS
     # -------------------------------------------------------------------------
 
@@ -2607,3 +2620,24 @@ class AccountMove(models.Model):
         if file_data.get('is_cfdi', False):
             return self._l10n_mx_edi_import_cfdi_invoice
         return super()._get_edi_decoder(file_data, new=new)
+
+    def _get_invoice_legal_documents(self, filetype, allow_fallback=False):
+        # EXTENDS account
+        if filetype == 'cfdi':
+            if cfdi_attachment := self.l10n_mx_edi_cfdi_attachment_id:
+                return {
+                    'filename': cfdi_attachment.name,
+                    'filetype': 'xml',
+                    'content': cfdi_attachment.raw,
+                }
+        return super()._get_invoice_legal_documents(filetype, allow_fallback=allow_fallback)
+
+    def get_extra_print_items(self):
+        print_items = super().get_extra_print_items()
+        if self.l10n_mx_edi_cfdi_attachment_id:
+            print_items.append({
+                'key': 'download_xml_cfdi',
+                'description': _('XML CFDI'),
+                **self.action_invoice_download_cfdi(),
+            })
+        return print_items
