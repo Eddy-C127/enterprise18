@@ -15,3 +15,4 @@ from . import ir_http
 from . import onboarding_onboarding
 from . import onboarding_onboarding_step
 from . import res_partner
+from . import resource_calendar
