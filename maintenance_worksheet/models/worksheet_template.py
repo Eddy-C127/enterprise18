@@ -21,7 +21,7 @@ class WorksheetTemplate(models.Model):
 
     @api.model
     def _get_maintenance_request_module_name(self):
-        return 'maintenance_request'
+        return 'maintenance_worksheet'
 
     @api.model
     def _get_models_to_check_dict(self):
