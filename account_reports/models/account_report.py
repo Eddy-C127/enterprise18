@@ -1858,6 +1858,8 @@ class AccountReport(models.Model):
         :param line_id (str): the generic line id to parse
         """
         return line_id and [
+            # When there is a model, value is an id, so we cast it to and int. Else, we keep the original value (for groupby lines on
+            # non-relational fields, for example).
             (markup, model or None, int(value) if model and value else (value or None))
             for markup, model, value in (key.split('~') for key in line_id.split(LINE_ID_HIERARCHY_DELIMITER))
         ] or []
