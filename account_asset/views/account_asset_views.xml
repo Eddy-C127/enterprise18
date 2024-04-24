@@ -54,6 +54,10 @@
                                 <field name="method_period" required="1" readonly="state not in ['draft', 'model']" nolabel="1"/>
                             </div>
                             <field name="prorata_computation_type" readonly="state not in ['draft', 'model']"/>
+                            <label for="salvage_value_pct"/>
+                            <div>
+                                <field name="salvage_value_pct" widget="percentage" class="oe_inline"/>
+                            </div>
                         </group>
                         <group string="Accounting">
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company" readonly="state != 'draft'"/>

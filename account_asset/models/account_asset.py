@@ -116,6 +116,10 @@ class AccountAsset(models.Model):
     book_value = fields.Monetary(string='Book Value', readonly=True, compute='_compute_book_value', recursive=True, store=True, help="Sum of the depreciable value, the salvage value and the book value of all value increase items")
     value_residual = fields.Monetary(string='Depreciable Value', compute='_compute_value_residual')
     salvage_value = fields.Monetary(string='Not Depreciable Value',
+                                    help="It is the amount you plan to have that you cannot depreciate.",
+                                    compute="_compute_salvage_value",
+                                    store=True, readonly=False)
+    salvage_value_pct = fields.Float(string='Not Depreciable Value Percent',
                                     help="It is the amount you plan to have that you cannot depreciate.")
     total_depreciable_value = fields.Monetary(compute='_compute_total_depreciable_value')
     gross_increase_value = fields.Monetary(string="Gross Increase Value", compute="_compute_gross_increase_value", compute_sudo=True)
@@ -172,6 +176,12 @@ class AccountAsset(models.Model):
     def _compute_total_depreciable_value(self):
         for asset in self:
             asset.total_depreciable_value = asset.original_value - asset.salvage_value
+
+    @api.depends('original_value', 'model_id')
+    def _compute_salvage_value(self):
+        for asset in self:
+            if asset.model_id.salvage_value_pct != 0.0 and asset.state == 'draft':
+                asset.salvage_value = asset.original_value * asset.model_id.salvage_value_pct
 
     @api.depends('depreciation_move_ids.date', 'state')
     def _compute_disposal_date(self):
@@ -550,7 +560,7 @@ class AccountAsset(models.Model):
             return 0, 0
 
         # The amount to depreciate are computed by computing how much the asset should be depreciated at the end of the
-        # period minus how much it is actually depreciated. It is done that way to avoid having the last move to take
+        # period minus how much difference it is actually depreciated. It is done that way to avoid having the last move to take
         # every single small difference that could appear over the time with the classic computation method.
         if self.method == 'linear':
             if total_lifetime_left and float_compare(total_lifetime_left, 0, 2) > 0:
