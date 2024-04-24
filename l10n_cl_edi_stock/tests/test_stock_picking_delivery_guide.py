@@ -5,7 +5,8 @@ from freezegun import freeze_time
 from lxml import etree
 from unittest.mock import patch
 
-from odoo.tests import tagged
+from odoo import Command
+from odoo.tests import tagged, Form
 from odoo.tools import misc
 from odoo.addons.l10n_cl_edi_stock.tests.common import TestL10nClEdiStockCommon
 from odoo.addons.l10n_cl_edi.tests.common import _check_with_xsd_patch
@@ -211,3 +212,70 @@ class TestL10nClEdiStock(TestL10nClEdiStockCommon):
             etree.fromstring(base64.b64decode(picking.l10n_cl_sii_send_file.with_context(bin_size=False).datas)),
             etree.fromstring(xml_expected_dte.encode())
         )
+
+    @freeze_time('2019-10-24T20:00:00', tz_offset=3)
+    def test_l10n_cl_edi_delivery_guide_report_pdf_line_amounts_no_demand(self):
+        """ Test the amounts (total & unit price) computed for Delivery Guide SII DTE report
+            when a stock move line has 0 as demand quantity.
+         """
+        uom_unit = self.env.ref('uom.product_uom_unit')
+        product_a = self.env['product.product'].create({
+            'name': 'Product A',
+            'uom_id': uom_unit.id,
+            'type': 'product',
+            'list_price': 100.0,
+            'taxes_id': [],
+        })
+        product_b = self.env['product.product'].create({
+            'name': 'Product B',
+            'uom_id': uom_unit.id,
+            'type': 'product',
+            'list_price': 30.0,
+            'taxes_id': [],
+        })
+        product_c = self.env['product.product'].create({
+            'name': 'Product C',
+            'uom_id': uom_unit.id,
+            'type': 'product',
+            'list_price': 50.0,
+            'taxes_id': [],
+        })
+        # create a SO with Product A and use another unit price
+        so = self.env['sale.order'].create({
+            'partner_id': self.chilean_partner_a.id,
+            'order_line': [Command.create({
+                'product_id': product_a.id,
+                'product_uom_qty': 2.0,
+                'price_unit': 150.0,
+            })],
+            'company_id': self.env.company.id,
+        })
+        so.action_confirm()
+
+        picking = so.picking_ids
+        picking_form = Form(picking)
+        # add a stock move with Product B manually (not linked to a SO line)
+        with picking_form.move_ids_without_package.new() as move:
+            move.product_id = product_b
+            move.product_uom_qty = 1.0
+        # add a stock move with Product C without "product_uom_qty" (demand == 0)
+        with picking_form.move_ids_without_package.new() as move:
+            move.product_id = product_c
+        picking_form.save()
+        move_a = picking.move_ids[0]
+        move_b = picking.move_ids[1]
+        move_c = picking.move_ids[2]
+        move_a.quantity = 1.0
+        move_b.quantity = 2.0
+        move_c.quantity = 3.0
+        # generate the values used by "Delivery Guide SII DTE 52 (CL)"
+        pdf_values = picking._prepare_pdf_values()
+        line_amounts = pdf_values['total_line_amounts']
+        # amounts for Product A are computed from SO line
+        self.assertEqual(line_amounts[move_a]['total_amount'], 150.0)
+        self.assertEqual(line_amounts[move_a]['price_unit'], 150.0)
+        # amounts for Product B and Product C are computed from product
+        self.assertEqual(line_amounts[move_b]['total_amount'], 60.0)
+        self.assertEqual(line_amounts[move_b]['price_unit'], 30.0)
+        self.assertEqual(line_amounts[move_c]['total_amount'], 150.0)
+        self.assertEqual(line_amounts[move_c]['price_unit'], 50.0)
