@@ -267,22 +267,18 @@ class AppointmentPerformanceTest(AppointmenHrPerformanceCase):
                 for day in range(30)
                 for hour in range(8, 16)
             ],
-            'staff_user_ids': [(4, self.staff_users[0].id)],
+            'staff_user_ids': [(4, self.env.uid)],
             'work_hours_activated': False,
         })
         self.flush_tracking()
-        self.env.invalidate_all()
         apt_type_custom_bxls = apt_type_custom_bxls.with_user(self.env.user)
-
-        # cache warmup: makes the query count more realistic
-        t0 = time.time()
-        res = apt_type_custom_bxls._get_appointment_slots('Europe/Brussels', reference_date=self.reference_now)
-        t1 = time.time()
 
         # with self.profile(collectors=['sql']) as profile:
         with self.mockAppointmentCalls(), \
-             self.assertQueryCount(staff_user_bxls=23):  # runbot: 22
+             self.assertQueryCount(staff_user_bxls=13):
+            t0 = time.time()
             res = apt_type_custom_bxls._get_appointment_slots('Europe/Brussels', reference_date=self.reference_now)
+            t1 = time.time()
 
         _logger.info('Called _get_appointment_slots, time %.3f', t1 - t0)
         _logger.info('Called methods\nSearch calendar event called %s\n'
@@ -336,22 +332,18 @@ class AppointmentPerformanceTest(AppointmenHrPerformanceCase):
                 for day in range(30)
                 for hour in range(8, 16)
             ],
-            'staff_user_ids': [(4, self.staff_users[0].id)],
+            'staff_user_ids': [(4, self.env.uid)],
             'work_hours_activated': True,
         })
         self.flush_tracking()
-        self.env.invalidate_all()
         apt_type_custom_bxls = apt_type_custom_bxls.with_user(self.env.user)
-
-        # cache warmup: makes the query count more realistic
-        t0 = time.time()
-        res = apt_type_custom_bxls._get_appointment_slots('Europe/Brussels', reference_date=self.reference_now)
-        t1 = time.time()
 
         # with self.profile(collectors=['sql']) as profile:
         with self.mockAppointmentCalls(), \
-             self.assertQueryCount(staff_user_bxls=23):  # runbot: 22
+             self.assertQueryCount(staff_user_bxls=13):
+            t0 = time.time()
             res = apt_type_custom_bxls._get_appointment_slots('Europe/Brussels', reference_date=self.reference_now)
+            t1 = time.time()
 
         _logger.info('Called _get_appointment_slots, time %.3f', t1 - t0)
         _logger.info('Called methods\nSearch calendar event called %s\n'
