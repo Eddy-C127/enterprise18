@@ -8,7 +8,7 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     rent_ok = fields.Boolean(
-        string="Can be Rented",
+        string="Rental",
         help="Allow renting of this product.")
     qty_in_rent = fields.Float("Quantity currently in rent", compute='_get_qty_in_rent')
     product_pricing_ids = fields.One2many(

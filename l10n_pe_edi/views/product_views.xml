@@ -4,10 +4,10 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="account.product_template_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='taxes_id']" position="after">
+            <div name="taxes_div" position="after">
                 <field name="l10n_pe_withhold_code" invisible="'PE' not in fiscal_country_codes"/>
                 <field name="l10n_pe_withhold_percentage" invisible="'PE' not in fiscal_country_codes or not l10n_pe_withhold_code"/>
-            </xpath>
+            </div>
         </field>
     </record>
 </odoo>

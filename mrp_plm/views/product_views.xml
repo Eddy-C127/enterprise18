@@ -31,37 +31,16 @@
     </record>
 
 
-    <record id="product_template_only_form_inherit_version_plm" model="ir.ui.view">
+    <record id="product_template_form_view" model="ir.ui.view">
         <field name="name">product.template.view.form.inherit.version.plm</field>
-        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="model">product.template</field>
         <field name="arch" type="xml">
-            <field name="default_code" position="replace">
-                    <label for="default_code" invisible="product_variant_count &gt; 1"/>
-                    <div class="o_row" invisible="product_variant_count &gt; 1">
-                        <field name="default_code" nolabel="1" class="oe_inline" style="width: 55% !important;"/>
-                        <span style="width: 5% !important; display: inline-block;"/>
-                        <label for="version" class="oe_inline fw-bold" style="width: 20% !important; margin: 0;"/>
-                        <field name="version" nolabel="1" class="oe_inline" style="width: 20% !important;"/>
-                    </div>
-            </field>
+            <group name="group_lots_and_weight" position="inside">
+                <label for="version" class="oe_inline fw-bold" style="width: 20% !important; margin: 0;"/>
+                <field name="version" nolabel="1" class="oe_inline" style="width: 20% !important;"/>
+            </group>
         </field>
     </record>
-    
-    <record id="product_normal_form_view_inherit_version_plm" model="ir.ui.view">
-        <field name="name">product.product.view.form.inherit.version.plm</field>
-        <field name="inherit_id" ref="product.product_normal_form_view"/>
-        <field name="model">product.product</field>
-        <field name="arch" type="xml">
-            <field name="default_code" position="replace">
-                <label for="default_code"/>
-                <div class="o_row">
-                    <field name="default_code" nolabel="1" class="oe_inline" style="width: 55% !important;"/>
-                    <span style="width: 5% !important; display: inline-block;"/>
-                    <label for="version" class="oe_inline fw-bold" style="width: 20% !important; margin: 0;"/>
-                    <field name="version" nolabel="1" class="oe_inline" style="width: 20% !important;"/>
-                </div>
-            </field>
-        </field>
-    </record>
+
 </odoo>
