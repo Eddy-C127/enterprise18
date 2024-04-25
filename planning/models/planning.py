@@ -1062,7 +1062,10 @@ class Planning(models.Model):
                     # If the shift is out of resource's schedule, skip it.
                     if not split_shift_intervals:
                         continue
-                    rate = shift.allocated_hours * 3600 / sum(map(lambda x: (x[1] - x[0]).total_seconds(), split_shift_intervals))
+                    rate = round(shift.allocated_hours * 3600 / sum(
+                        (start - end).total_seconds()
+                        for start, end, rec in split_shift_intervals
+                    ))
                     # Try to add the shift to the timeline.
                     timeline = self._get_new_timeline_if_fits_in(
                         split_shift_intervals,
