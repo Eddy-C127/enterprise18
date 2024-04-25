@@ -26,6 +26,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             'file_export_type': _('XML'),
         }
         options['buttons'].append(xml_button)
+        options['intrastat_grouped'] = previous_options.get('intrastat_grouped', True)
 
     def _show_region_code(self):
         if self.env.company.account_fiscal_country_id.code == 'BE' and not self.env.company.intrastat_region_id:

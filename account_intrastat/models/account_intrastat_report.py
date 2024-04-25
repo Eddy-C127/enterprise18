@@ -46,46 +46,49 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         }
 
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals=None, warnings=None):
-        # dict of the form {move_id: {column_group_key: {expression_label: value}}}
-        move_info_dict = {}
+        if options.get('intrastat_grouped'):
+            # dict of the form {move_id: {column_group_key: {expression_label: value}}}
+            move_info_dict = {}
 
-        # dict of the form {column_group_key: {expression_label: value}}
-        total_values_dict = {}
+            # dict of the form {column_group_key: {expression_label: value}}
+            total_values_dict = {}
 
-        # Build query
-        query_list = []
-        full_query_params = []
-        for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            query, params = self._build_query_group(column_group_options, column_group_key)
-            query_list.append(query)
-            full_query_params += params
+            # Build query
+            query_list = []
+            full_query_params = []
+            for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
+                query, params = self._build_query_group(column_group_options, column_group_key)
+                query_list.append(query)
+                full_query_params += params
 
-        full_query = SQL(" UNION ALL ").join(query_list)
-        self._cr.execute(full_query, full_query_params)
-        results = self._cr.dictfetchall()
+            full_query = SQL(" UNION ALL ").join(query_list)
+            self._cr.execute(full_query, full_query_params)
+            results = self._cr.dictfetchall()
 
-        # Fill dictionaries
-        for new_id, res in enumerate(results):
-            current_move_info = move_info_dict.setdefault(new_id, {})
-            column_group_key = res['column_group_key']
-            current_move_info[column_group_key] = res
-            current_move_info['name'] = self._get_move_info_name(res)
-            current_move_info['id'] = self._get_report_line_id(report, res)
+            # Fill dictionaries
+            for new_id, res in enumerate(results):
+                current_move_info = move_info_dict.setdefault(new_id, {})
+                column_group_key = res['column_group_key']
+                current_move_info[column_group_key] = res
+                current_move_info['name'] = self._get_move_info_name(res)
+                current_move_info['id'] = self._get_report_line_id(report, res)
 
-            # We add the value to the total (for total line)
-            total_values_dict.setdefault(column_group_key, {'value': 0})
-            total_values_dict[column_group_key]['value'] += res['value']
+                # We add the value to the total (for total line)
+                total_values_dict.setdefault(column_group_key, {'value': 0})
+                total_values_dict[column_group_key]['value'] += res['value']
 
-        # Create lines
-        lines = []
-        for move_id, move_info in move_info_dict.items():
-            line = self._create_report_line(options, move_info, move_id, ['value'], warnings=warnings)
-            lines.append((0, line))
+            # Create lines
+            lines = []
+            for move_id, move_info in move_info_dict.items():
+                line = self._create_report_line(options, move_info, move_id, ['value'], warnings=warnings)
+                lines.append((0, line))
 
-        # Create total line if only one type of invoice is selected
-        if options.get('intrastat_total_line'):
-            total_line = self._create_report_total_line(options, total_values_dict)
-            lines.append((0, total_line))
+            # Create total line if only one type of invoice is selected
+            if options.get('intrastat_total_line'):
+                total_line = self._create_report_total_line(options, total_values_dict)
+                lines.append((0, total_line))
+        else:
+            lines = [(0, line) for line in self._get_lines(options)]
         return lines
 
     def _get_move_info_name(self, move_info):
@@ -115,6 +118,8 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
         # Filter only partners with VAT
         options['intrastat_with_vat'] = previous_options.get('intrastat_with_vat', False)
+
+        options['intrastat_grouped'] = previous_options.get('intrastat_grouped', False)
 
         # Filter types of invoices
         default_type = [
