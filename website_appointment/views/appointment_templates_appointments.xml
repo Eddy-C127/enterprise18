@@ -248,7 +248,7 @@
     <template id="appointment_card_top">
         <div class="card-img-top position-relative">
             <div t-field="appointment.image_1920" class="d-block h-100 w-100 overflow-hidden ratio ratio-4x3"
-                t-options="{'widget': 'image', 'class': 'o_wappointment_cover_image o_object_fit_cover', 'preview_image': 'image_512'}"/>
+                t-options="{'widget': 'image', 'class': 'o_wappointment_cover_image object-fit-cover', 'preview_image': 'image_512'}"/>
             <small t-if="not appointment.website_published" class="o_appointment_unpublished bg-danger position-absolute w-100 text-end o_cc o_cc3" groups="base.group_user">
                 <i class="fa fa-ban me-2"/>Unpublished
             </small>

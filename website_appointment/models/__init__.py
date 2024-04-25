@@ -4,3 +4,4 @@
 from . import appointment_invite
 from . import appointment_type
 from . import website
+from . import website_snippet_filter

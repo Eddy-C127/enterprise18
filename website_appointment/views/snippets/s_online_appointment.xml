@@ -2,13 +2,13 @@
 <odoo>
 
 <template id="remove_external_snippets" inherit_id="website_enterprise.external_snippets">
-    <xpath expr="//t[@t-install='website_appointment']" position="replace"/>
+    <xpath expr="//t[@id='appointment_snippet']" position="replace"/>
 </template>
 
 <template id="website_online_appointment_snippet" inherit_id="website.snippets">
     <xpath expr="//snippets[@id='snippet_content']//t[@t-snippet][last()]" position="after">
         <t t-snippet="website_appointment.s_online_appointment"
-           string="Appointment"
+           string="Appointment Button"
            t-thumbnail="/website_enterprise/static/src/img/snippets_thumbs/s_appointment.svg"/>
     </xpath>
 </template>
@@ -53,7 +53,7 @@
 </template>
 
 <record id="website_appointment.s_online_appointment_000_js" model="ir.asset">
-    <field name="name">Appointment 000 JS</field>
+    <field name="name">Appointment Button 000 JS</field>
     <field name="bundle">web.assets_frontend</field>
     <field name="path">website_appointment/static/src/snippets/s_online_appointment/000.js</field>
 </record>

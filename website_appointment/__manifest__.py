@@ -16,6 +16,7 @@ Allow clients to Schedule Appointments through your Website
     'depends': ['appointment', 'website_enterprise', 'website_partner'],
     'data': [
         'data/website_data.xml',
+        'data/website_snippet_data.xml',
         'views/appointment_type_views.xml',
         'views/appointment_invite_views.xml',
         'views/calendar_menus.xml',
@@ -23,6 +24,7 @@ Allow clients to Schedule Appointments through your Website
         'views/appointment_templates_registration.xml',
         'views/appointment_templates_validation.xml',
         'views/website_pages_views.xml',
+        'views/snippets/s_appointments.xml',
         'views/snippets/s_online_appointment.xml',
         'views/snippets/s_searchbar.xml',
         'views/snippets/snippets.xml',
@@ -51,6 +53,7 @@ Allow clients to Schedule Appointments through your Website
         'website.assets_wysiwyg': [
             'website_appointment/static/src/snippets/s_online_appointment/options.js',
             'website_appointment/static/src/snippets/s_appointment_type/options.js',
+            'website_appointment/static/src/snippets/s_appointments/options.js',
         ],
     }
 }
