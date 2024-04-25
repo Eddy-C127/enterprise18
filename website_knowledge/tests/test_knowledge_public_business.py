@@ -21,7 +21,7 @@ class TestKnowledgePublishedPropagation(KnowledgeCommonWData):
             }
         ])
 
-    @users('demo')
+    @users('employee')
     def test_knowledge_published_propagation(self):
         # Setup
         article = self.workspace_children[0].with_env(self.env)
@@ -50,7 +50,7 @@ class TestKnowledgePublishedPropagation(KnowledgeCommonWData):
         newly_created_article.move_to(parent_id=child_article.id, before_article_id=grandchild_article.id)
         self.assertFalse(newly_created_article.website_published)
 
-    @users('portal')
+    @users('portal_test')
     def test_get_accessible_root_ancestor(self):
         # Setup
         article = self.article_workspace.with_env(self.env)
