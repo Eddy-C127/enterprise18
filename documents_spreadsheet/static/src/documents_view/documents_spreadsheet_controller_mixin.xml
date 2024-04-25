@@ -5,7 +5,7 @@
             <button type="button" class="btn btn-link dropdown-item o_documents_kanban_spreadsheet"
                 t-att-disabled="!hasShareableWorkspace or folder.id === 'TRASH' or (folder.id and !folder.has_write_access)"
                 t-on-click.prevent="onClickCreateSpreadsheet" data-hotkey="x">
-                <i class="fa fa-table me-2"/>Spreadsheet
+                <t t-call="spreadsheet_edition.SpreadsheetIcon"/> Spreadsheet
             </button>
         </xpath>
     </t>
