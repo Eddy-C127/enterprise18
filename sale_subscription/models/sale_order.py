@@ -150,6 +150,9 @@ class SaleOrder(models.Model):
         ('sale_subscription_state_coherence',
          "CHECK(NOT (is_subscription=TRUE AND state = 'sale' AND subscription_state='1_draft'))",
          "You cannot set to draft a confirmed subscription. Please create a new quotation"),
+        ('sale_subscription_state_coherence_2',
+         "CHECK(NOT (is_subscription=TRUE AND state in ('draft', 'sent') AND subscription_state in ('3_progress', '4_paused')) )",
+         "You cannot have a draft SO be a confirmed subscription."),
         ('check_start_date_lower_next_invoice_date', 'CHECK((next_invoice_date IS NULL OR start_date IS NULL) OR (next_invoice_date >= start_date))',
          'The next invoice date of a sale order should be after its start date.'),
     ]
