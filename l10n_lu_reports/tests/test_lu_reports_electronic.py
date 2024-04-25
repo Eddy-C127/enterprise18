@@ -554,6 +554,7 @@ class LuxembourgElectronicReportTest(TestAccountReportsCommon):
                                     <NumericField id="183">136,00</NumericField>
                                     <NumericField id="185">136,00</NumericField>
                                     <NumericField id="201">1306,00</NumericField>
+                                    <NumericField id="202">0,00</NumericField>
                                     <NumericField id="301">200,00</NumericField>
                                     <NumericField id="321">200,00</NumericField>
                                     <NumericField id="435">1106,00</NumericField>
@@ -562,6 +563,7 @@ class LuxembourgElectronicReportTest(TestAccountReportsCommon):
                                     <NumericField id="451">170,00</NumericField>
                                     <NumericField id="393">170,00</NumericField>
                                     <NumericField id="405">1306,00</NumericField>
+                                    <NumericField id="406">0,00</NumericField>
                                 </FormData>
                             </Declaration>
                             <Declaration type="CA_PLANCOMPTA" model="1" language="EN">

@@ -131,7 +131,7 @@ class LuxembourgishFinancialReportCustomHandler(models.AbstractModel):
                     if len(parent_split_code) > 2:
                         parent_code = parent_split_code[2]
 
-                required = line['level'] == 0  # Required fields all have level 0
+                required = line['level'] == 0 or split_line_code[2] in ['201', '202', '405', '406']
                 # current year balance
                 _report_useful_fields(columns[0]['no_format'], split_line_code[2], parent_code, required)
                 # previous year balance
