@@ -105,10 +105,13 @@ export class KnowledgeArticleHtmlField extends HtmlField {
             isNew: true,
             knowledgeArticleId: this.props.record.resId,
             saveItemCalendarProps: async (name, itemCalendarProps) => {
-                const title = name ? _t("Calendar of %s", name) : _t("Calendar of Article Items");
+                const title = name || _t("Article Items");
+                const displayName = name
+                    ? _t("Calendar of %s", name)
+                    : _t("Calendar of Article Items");
                 const behaviorProps = {
                     action_xml_id: "knowledge.knowledge_article_action_item_calendar",
-                    display_name: title,
+                    display_name: displayName,
                     view_type: "calendar",
                     context: {
                         active_id: this.props.record.resId,
@@ -119,12 +122,12 @@ export class KnowledgeArticleHtmlField extends HtmlField {
                 };
                 const body = renderToString("knowledge.article_item_template", {
                     behaviorProps: encodeDataBehaviorProps(behaviorProps),
-                    title: name || _t("Article Items")
+                    title,
                 });
-                this.updateArticle(name, body, {
-                    full_width: true
+                this.updateArticle(title, body, {
+                    full_width: true,
                 });
-            }
+            },
         });
     }
 
@@ -200,8 +203,10 @@ export class KnowledgeArticleHtmlField extends HtmlField {
      */
     async updateArticle(title, body, values) {
         this.wysiwyg.setValue(body);
-        await this.env.renameArticle(title);
-        await this.props.record.update(values);
+        await this.props.record.update({
+            ...values,
+            name: title,
+        });
     }
 
     async _lazyloadWysiwyg() {
