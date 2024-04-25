@@ -34,6 +34,23 @@ class TestDashboardDocumentsAccesss(TransactionCase):
             "dashboard_id": dashboard.id,
         })
 
+    def test_create_comment_on_accessible_dashboard(self):
+        internal_user = new_test_user(self.env, "Bob", groups="base.group_user")
+        dashboard_group = self.env["spreadsheet.dashboard.group"].create({
+            "name": "Dashboard group"
+        })
+        dashboard = self.env["spreadsheet.dashboard"].create(
+            {
+                "name": "a dashboard",
+                "spreadsheet_data": r"{}",
+                "group_ids": [Command.set(self.env.ref("base.group_user").ids)],
+                "dashboard_group_id": dashboard_group.id,
+            }
+        )
+        self.env["spreadsheet.cell.thread"].with_user(internal_user).create({
+            "dashboard_id": dashboard.id,
+        })
+
     def test_document_comments_access(self):
         internal_user = new_test_user(self.env, "Bob", groups="base.group_user")
         document = self.env["documents.document"].create(

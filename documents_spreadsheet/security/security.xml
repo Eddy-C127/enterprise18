@@ -68,8 +68,8 @@
             <field name="name">Documents.document thread: global</field>
             <field name="model_id" ref="model_spreadsheet_cell_thread"/>
             <field name="domain_force">[
-                '&amp;',
-                    ('document_id', '!=', False),
+                '|',
+                    ('document_id', '=', False),
                     '|',
                         ('document_id.folder_id.company_id', '=', False),
                         ('document_id.folder_id.company_id', 'in', company_ids)]</field>
