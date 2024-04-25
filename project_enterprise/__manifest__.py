@@ -17,6 +17,7 @@ Bridge module for project and enterprise
         'views/project_sharing_templates.xml',
         'views/project_sharing_views.xml',
         'views/project_portal_project_task_templates.xml',
+        'data/project_data.xml',
     ],
     'demo': ['data/project_demo.xml'],
     'auto_install': True,
