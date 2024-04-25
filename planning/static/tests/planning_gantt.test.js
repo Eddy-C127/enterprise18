@@ -1,15 +1,11 @@
-import { defineMailModels } from "@mail/../tests/mail_test_helpers";
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { click, queryAll, queryAllTexts, queryFirst } from "@odoo/hoot-dom";
 import { animationFrame, mockDate, mockTimeZone } from "@odoo/hoot-mock";
 import {
     clickSave,
     contains,
-    defineModels,
-    fields,
     getFacetTexts,
     mockService,
-    models,
     onRpc,
     patchWithCleanup,
 } from "@web/../tests/web_test_helpers";
@@ -28,46 +24,16 @@ import {
 
 import { Domain } from "@web/core/domain";
 
+import {
+    definePlanningModels,
+    PlanningSlot,
+    ResourceResource,
+    HrEmployee,
+} from "./planning_mock_models";
+
 describe.current.tags("desktop");
 
-class Task extends models.Model {
-    name = fields.Char();
-    start_datetime = fields.Datetime({ string: "Start Date" });
-    end_datetime = fields.Datetime({ string: "Stop Date" });
-    resource_id = fields.Many2one({ string: "Assigned to", relation: "resource.resource" });
-    department_id = fields.Many2one({ string: "Department", relation: "department" });
-    role_id = fields.Many2one({ string: "Role", relation: "role" });
-    employee_id = fields.Many2one({ string: "Employee Assigned", relation: "hr.employee" });
-}
-
-class Resource extends models.Model {
-    _name = "resource.resource";
-
-    name = fields.Char();
-    employee_id = fields.Integer();
-    resource_type = fields.Char();
-
-    _records = [{ id: 1, name: "Resource 1", employee_id: 1 }];
-}
-
-class Department extends models.Model {
-    name = fields.Char();
-}
-
-class Role extends models.Model {
-    name = fields.Char();
-}
-
-class HrEmployee extends models.Model {
-    _name = "hr.employee";
-
-    name = fields.Char();
-
-    _records = [{ id: 1, name: "Employee 1" }];
-}
-
-defineMailModels();
-defineModels([Task, Role, Department, Resource, HrEmployee]);
+definePlanningModels();
 
 function enrichRowsUnavailabilites(rows, parent_unavailabilities = false) {
     const enrichedRows = [];
@@ -160,9 +126,8 @@ async function ganttResourceWorkIntervalRPC({ args, method }) {
 function _getCreateViewArgsForGanttViewTotalsTests() {
     mockDate("2022-10-13 00:00:00", +1);
     onRpc("*", ganttResourceWorkIntervalRPC);
-    Resource._records = [{ id: 1, name: "Resource 1" }];
-    Task._fields.allocated_percentage = fields.Float({ string: "Allocated Percentage" });
-    Task._records.push({
+    ResourceResource._records = [{ id: 1, name: "Resource 1" }];
+    PlanningSlot._records.push({
         id: 1,
         name: "test",
         start_datetime: "2022-10-09 00:00:00",
@@ -171,7 +136,7 @@ function _getCreateViewArgsForGanttViewTotalsTests() {
         allocated_percentage: 50,
     });
     return {
-        resModel: "task",
+        resModel: "planning.slot",
         arch: `
             <gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" total_row="1" default_scale="week"
                     precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}">
@@ -184,6 +149,8 @@ function _getCreateViewArgsForGanttViewTotalsTests() {
 }
 
 beforeEach(() => {
+    ResourceResource._records = [{ id: 1, name: "Resource 1", employee_id: 1 }];
+    HrEmployee._records = [{ id: 1, name: "Employee 1" }];
     onRpc("has_group", () => true);
 });
 
@@ -200,7 +167,7 @@ test("empty gantt view: send schedule", async function () {
     });
 
     await mountGanttView({
-        resModel: "task",
+        resModel: "planning.slot",
         arch: `<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime"/>`,
         domain: Domain.FALSE.toList(),
         groupBy: ["resource_id"],
@@ -224,7 +191,7 @@ test("empty gantt view with sample data: send schedule", async function () {
     });
 
     await mountGanttView({
-        resModel: "task",
+        resModel: "planning.slot",
         arch: `<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" sample="1"/>`,
         domain: Domain.FALSE.toList(),
         groupBy: ["resource_id"],
@@ -239,7 +206,7 @@ test("empty gantt view with sample data: send schedule", async function () {
 test('add record in empty gantt with sample="1"', async function () {
     expect.assertions(6);
 
-    Task._views = {
+    PlanningSlot._views = {
         form: `
             <form>
                 <field name="name"/>
@@ -254,7 +221,7 @@ test('add record in empty gantt with sample="1"', async function () {
     onRpc("*", ganttResourceWorkIntervalRPC);
 
     await mountGanttView({
-        resModel: "task",
+        resModel: "planning.slot",
         arch: '<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" sample="1" plan="false"/>',
         groupBy: ["resource_id"],
     });
@@ -267,16 +234,16 @@ test('add record in empty gantt with sample="1"', async function () {
     expect(firstRowHeader).not.toHaveClass("o_sample_data_disabled");
 
     await clickCell("01 December 2018", "Open Shifts");
-    await contains(".modal .o_form_view .o_field_widget[name=name] input").edit("new task");
+    await contains(".modal .o_form_view .o_field_widget[name=name] input").edit("new shift");
     await clickSave();
     expect(".o_gantt_view .o_content").not.toHaveClass("o_view_sample_data");
     expect(".o_gantt_pill_wrapper").toHaveCount(1);
 });
 
-test("open a dialog to add a new task", async function () {
+test("open a dialog to add a new shift", async function () {
     expect.assertions(5);
 
-    Task._views = {
+    PlanningSlot._views = {
         form: `
         <form>
         <field name="name"/>
@@ -295,7 +262,7 @@ test("open a dialog to add a new task", async function () {
     });
 
     await mountGanttView({
-        resModel: "task",
+        resModel: "planning.slot",
         arch: '<gantt js_class="planning_gantt" default_scale="day" date_start="start_datetime" date_stop="end_datetime"/>',
     });
     expect(".modal").toHaveCount(0);
@@ -316,7 +283,7 @@ test("gantt view collapse and expand empty rows in multi groupby", async functio
     expect.assertions(7);
 
     await mountGanttView({
-        resModel: "task",
+        resModel: "planning.slot",
         arch: '<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime"/>',
         groupBy: ["department_id", "role_id", "resource_id"],
     });
@@ -355,7 +322,10 @@ test("gantt view totals height is taking unavailability into account instead of 
         [...queryAll(".o_gantt_row_total .o_gantt_pill_wrapper")].map(
             (el) => el.style.gridColumn.split(" / ")[0]
         )
-    ).toEqual(["c2", "c3", "c4", "c5", "c6"]);
+    ).toEqual(["c2", "c3", "c4", "c5", "c6"], {
+        message:
+            "2022-10-09 and 2022-10-15 are days off => no pill has to be found in first and last columns",
+    });
 
     // Max of allocated hours = 4:00 (50% * 8:00)
     expect([...queryAll(".o_gantt_row_total .o_gantt_pill")].map((el) => el.style.height)).toEqual([
@@ -393,7 +363,7 @@ test("gantt view totals are taking unavailability into account according to scal
 });
 
 test("reload data after having unlink a record in planning_form", async function () {
-    Task._views = {
+    PlanningSlot._views = {
         form: `
                 <form js_class="planning_form">
                     <field name="name"/>
@@ -423,7 +393,7 @@ test("progress bar has the correct unit", async () => {
     expect.assertions(9);
     const makeViewArgs = _getCreateViewArgsForGanttViewTotalsTests();
     onRpc("gantt_progress_bar", ({ args, model }) => {
-        expect(model).toBe("task");
+        expect(model).toBe("planning.slot");
         expect(args[0]).toEqual(["resource_id"]);
         expect(args[1]).toEqual({ resource_id: [1] });
         return {
@@ -453,8 +423,7 @@ test("total computes correctly for open shifts", async () => {
     // based on the shifts' duration, each maxed to the calendar's hours per day.
     // Not based on the intersection of the shifts and the calendar.
     const createViewArgs = _getCreateViewArgsForGanttViewTotalsTests();
-    Task._fields.allocated_hours = fields.Float({ string: "Allocated Hours" });
-    Task._records[0] = {
+    PlanningSlot._records[0] = {
         id: 1,
         name: "test",
         start_datetime: "2022-10-10 04:00:00",
@@ -476,8 +445,7 @@ test("total computes correctly for open shifts", async () => {
 test("the grouped gantt view is coloured correctly and the occupancy percentage is correctly displayed", async () => {
     mockDate("2022-10-10 00:00:00", +1);
 
-    Task._fields.allocated_percentage = fields.Float({ string: "Allocated Percentage" });
-    Task._records.push(
+    PlanningSlot._records = [
         {
             id: 1,
             name: "underplanned test slot",
@@ -504,13 +472,13 @@ test("the grouped gantt view is coloured correctly and the occupancy percentage 
             resource_id: 1,
             employee_id: 1,
             allocated_percentage: 120,
-        }
-    );
+        },
+    ];
 
     onRpc("", ganttResourceWorkIntervalRPC);
 
     await mountGanttView({
-        resModel: "task",
+        resModel: "planning.slot",
         arch: `
             <gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" total_row="1" default_scale="week"
                 precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}" display_unavailability="1" progress_bar="resource_id"
@@ -554,12 +522,10 @@ test("the grouped gantt view is coloured correctly and the occupancy percentage 
 
 test("Gantt Planning : pill name should not display allocated hours if allocated_percentage is 100%", async () => {
     mockDate("2022-10-13 00:00:00", +1);
-    Task._fields.allocated_hours = fields.Float({ string: "Allocated hours" });
-    Task._fields.allocated_percentage = fields.Float({ string: "Allocated percentage" });
-    Task._records = [
+    PlanningSlot._records = [
         {
             id: 1,
-            name: "Task 1",
+            name: "Shift 1",
             start_datetime: "2022-10-09 08:30:00",
             end_datetime: "2022-10-09 17:30:00", // span only one day
             allocated_hours: 4,
@@ -567,7 +533,7 @@ test("Gantt Planning : pill name should not display allocated hours if allocated
         },
         {
             id: 2,
-            name: "Task 2",
+            name: "Shift 2",
             start_datetime: "2022-10-09 08:30:00",
             end_datetime: "2022-10-09 17:30:00", // span only one day
             allocated_hours: 8,
@@ -578,7 +544,7 @@ test("Gantt Planning : pill name should not display allocated hours if allocated
     onRpc("*", ganttResourceWorkIntervalRPC);
 
     await mountGanttView({
-        resModel: "task",
+        resModel: "planning.slot",
         arch: `
                 <gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" default_scale="week" pill_label="True">
                     <field name="allocated_hours"/>
@@ -588,28 +554,18 @@ test("Gantt Planning : pill name should not display allocated hours if allocated
         groupBy: ["resource_id"],
     });
     expect(queryAllTexts(".o_gantt_pill")).toEqual([
-        "9:30 AM - 6:30 PM (4h) - Task 1",
-        "9:30 AM - 6:30 PM - Task 2",
+        "9:30 AM - 6:30 PM (4h) - Shift 1",
+        "9:30 AM - 6:30 PM - Shift 2",
     ]);
 });
 
 test("Resize or Drag-Drop should open recurrence update wizard", async () => {
     mockDate("2022-10-10 00:00:00", +1);
 
-    Resource._records[0].resource_type = "user";
+    ResourceResource._records[0].resource_type = "user";
 
-    Task._fields.allocated_percentage = fields.Float({ string: "Allocated Percentage" });
-    Task._fields.repeat = fields.Boolean();
-    Task._fields.recurrence_update = fields.Selection({
-        string: "Recurrence Update",
-        selection: [
-            ["this", "This shift"],
-            ["subsequent", "This and following shifts"],
-            ["all", "All shifts"],
-        ],
-    });
-    Task._records.push({
-        name: "Task With Repeat",
+    PlanningSlot._records.push({
+        name: "Shift With Repeat",
         start_datetime: "2022-10-11 08:00:00",
         end_datetime: "2022-10-11 10:00:00",
         resource_id: 1,
@@ -621,7 +577,7 @@ test("Resize or Drag-Drop should open recurrence update wizard", async () => {
     onRpc("*", ganttResourceWorkIntervalRPC);
 
     await mountGanttView({
-        resModel: "task",
+        resModel: "planning.slot",
         arch: `
             <gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" total_row="1" default_scale="month"
                 precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}" display_unavailability="1" progress_bar="resource_id"
@@ -636,20 +592,20 @@ test("Resize or Drag-Drop should open recurrence update wizard", async () => {
         groupBy: ["resource_id", "name"],
     });
 
-    expect(getPillWrapper("Task With Repeat")).toHaveClass(CLASSES.draggable);
+    expect(getPillWrapper("Shift With Repeat")).toHaveClass(CLASSES.draggable);
     expect(getGridContent().rows[3]).toEqual({
         pills: [
             {
-                title: "Task With Repeat",
+                title: "Shift With Repeat",
                 level: 0,
                 colSpan: "11 October 2022 -> 11 October 2022",
             },
         ],
-        title: "Task With Repeat",
+        title: "Shift With Repeat",
     });
 
     // move a pill in the next cell (+1 day)
-    const { drop } = await dragPill("Task With Repeat");
+    const { drop } = await dragPill("Shift With Repeat");
     await drop({ row: "Resource 1", column: "12 October 2022" });
     // click on the confirm button
     click(".modal .btn-primary");
@@ -657,28 +613,28 @@ test("Resize or Drag-Drop should open recurrence update wizard", async () => {
     expect(getGridContent().rows[3]).toEqual({
         pills: [
             {
-                title: "Task With Repeat",
+                title: "Shift With Repeat",
                 level: 0,
                 colSpan: "12 October 2022 -> 12 October 2022",
             },
         ],
-        title: "Task With Repeat",
+        title: "Shift With Repeat",
     });
 
     // resize a pill in the next cell (+1 day)
-    await resizePill(getPillWrapper("Task With Repeat"), "end", 1);
+    await resizePill(getPillWrapper("Shift With Repeat"), "end", 1);
     // click on the confirm button
     click(".modal .btn-primary");
     await animationFrame();
     expect(getGridContent().rows[3]).toEqual({
         pills: [
             {
-                title: "Task With Repeat",
+                title: "Shift With Repeat",
                 level: 0,
                 colSpan: "12 October 2022 -> 13 October 2022",
             },
         ],
-        title: "Task With Repeat",
+        title: "Shift With Repeat",
     });
 });
 
@@ -687,7 +643,7 @@ test("Test split tool in gantt view", async function () {
     patchWithCleanup(luxon.Settings, {
         defaultZone: luxon.IANAZone.create("UTC"),
     });
-    Task._records.push(
+    PlanningSlot._records = [
         {
             id: 1,
             name: "test",
@@ -701,13 +657,13 @@ test("Test split tool in gantt view", async function () {
             start_datetime: "2022-10-10 12:00:00",
             end_datetime: "2022-10-11 12:00:00",
             resource_id: 1,
-        }
-    );
+        },
+    ];
 
     onRpc("*", ganttResourceWorkIntervalRPC);
 
     await mountGanttView({
-        resModel: "task",
+        resModel: "planning.slot",
         arch: `
             <gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" scales="week" default_scale="week"/>
         `,
@@ -727,7 +683,7 @@ test("Test highlight shifts added by executed action", async function () {
     patchWithCleanup(luxon.Settings, {
         defaultZone: luxon.IANAZone.create("UTC"),
     });
-    Task._records.push(
+    PlanningSlot._records = [
         {
             id: 1,
             name: "test",
@@ -741,13 +697,13 @@ test("Test highlight shifts added by executed action", async function () {
             start_datetime: "2022-10-05 08:00:00",
             end_datetime: "2022-10-05 12:00:00",
             resource_id: false,
-        }
-    );
+        },
+    ];
 
     onRpc("*", async function (args) {
         if (args.method === "action_copy_previous_week") {
-            if (Task._records.length === 2) {
-                const newSlotId = await this.env["task"].create({
+            if (PlanningSlot._records.length === 2) {
+                const newSlotId = await this.env["planning.slot"].create({
                     name: "shift 3",
                     start_datetime: "2022-10-07 16:00:00",
                     end_datetime: "2022-10-07 18:00:00",
@@ -757,14 +713,14 @@ test("Test highlight shifts added by executed action", async function () {
             }
             return false;
         } else if (args.method === "auto_plan_ids") {
-            await this.env["task"].write([2], { resource_id: 1 });
+            await this.env["planning.slot"].write([2], { resource_id: 1 });
             return { open_shift_assigned: [2] };
         }
         return ganttResourceWorkIntervalRPC(args);
     });
 
     await mountGanttView({
-        resModel: "task",
+        resModel: "planning.slot",
         arch: `
             <gantt
                 js_class="planning_gantt"

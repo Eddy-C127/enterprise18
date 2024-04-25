@@ -32,6 +32,9 @@ Schedule your teams across projects and estimate deadlines more accurately.
         'web.assets_frontend': [
             'project_forecast/static/src/js/forecast_calendar_front.js',
         ],
+        'web.assets_unit_tests': [
+            'project_forecast/static/tests/**/*',
+        ],
         'web.assets_tests': [
             'project_forecast/static/tests/tours/*',
         ],

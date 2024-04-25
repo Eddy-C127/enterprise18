@@ -46,11 +46,11 @@ Schedule your teams and employees with shift.
             'planning/static/src/js/planning_calendar_front.js',
         ],
         'web.assets_unit_tests': [
-            'planning/static/tests/planning_gantt.test.js',
+            'planning/static/tests/**/*',
+            ('remove', 'planning/static/tests/legacy/**/*'),  # to remove when all legacy tests are ported
         ],
         'web.qunit_suite_tests': [
-            'planning/static/tests/**/*',
-            ('remove', 'planning/static/tests/planning_gantt.test.js'),
+            'planning/static/tests/legacy/**/*',
         ],
         'web.assets_tests': [
             'planning/static/tests/tours/*',
