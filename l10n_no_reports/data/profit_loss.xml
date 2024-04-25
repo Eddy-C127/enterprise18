@@ -371,6 +371,7 @@
                     <record id="account_financial_report_NO_net_profit_loss_for_the_year" model="account.report.line">
                         <field name="name">Net profit/Loss for the Year</field>
                         <field name="code">NO_profit_loss</field>
+                        <field name="groupby" eval="False"/>
                         <field name="foldable" eval="False"/>
                         <field name="expression_ids">
                             <record id="account_financial_report_NO_net_profit_loss_for_the_year_balance" model="account.report.expression">
