@@ -9,6 +9,9 @@
         'l10n_din5008',
         'account_followup',
     ],
+    'data': [
+        'report/din5008_account_followup_report.xml',
+    ],
     'assets': {
         'web.report_assets_common': [
             'l10n_din5008_account_followup/static/src/**/*',
