@@ -6,7 +6,14 @@ import { KnowledgeSidebar } from '@knowledge/components/sidebar/sidebar';
 import { useBus, useService } from "@web/core/utils/hooks";
 import { Deferred } from "@web/core/utils/concurrency";
 
-import { onMounted, onWillStart, useChildSubEnv, useExternalListener, useRef } from "@odoo/owl";
+import {
+    onMounted,
+    onWillStart,
+    useChildSubEnv,
+    useEffect,
+    useExternalListener,
+    useRef,
+} from "@odoo/owl";
 
 export class KnowledgeArticleFormController extends FormController {
     setup() {
@@ -60,6 +67,20 @@ export class KnowledgeArticleFormController extends FormController {
                 await this.model.root.save();
             }
         });
+
+        useEffect(
+            () => {
+                const scrollView = this.root.el?.querySelector(".o_scroll_view_lg");
+                if (scrollView) {
+                    scrollView.scrollTop = 0;
+                }
+                const mobileScrollView = this.root.el?.querySelector(".o_knowledge_main_view");
+                if (mobileScrollView) {
+                    mobileScrollView.scrollTop = 0;
+                }
+            },
+            () => [this.model.root.resId]
+        );
     }
 
     /**
@@ -163,19 +184,6 @@ export class KnowledgeArticleFormController extends FormController {
         // blur to remove focus on the active element
         document.activeElement.blur();
 
-        const scrollView = document.querySelector('.o_scroll_view_lg');
-        if (scrollView) {
-            // hide the flicker
-            scrollView.style.visibility = 'hidden';
-            // Scroll up if we have a desktop screen
-            scrollView.scrollTop = 0;
-        }
-
-        const mobileScrollView = document.querySelector('.o_knowledge_main_view');
-        if (mobileScrollView) {
-            // Scroll up if we have a mobile screen
-            mobileScrollView.scrollTop = 0;
-        }
         // load the new record
         try {
             await this.ensureArticleName();
@@ -192,11 +200,6 @@ export class KnowledgeArticleFormController extends FormController {
                 await this.orm.call('knowledge.article', 'action_home_page', [false]),
                 {stackPosition: 'replaceCurrentAction'}
             );
-        }
-
-        if (scrollView) {
-            // Show loaded document
-            scrollView.style.visibility = 'visible';
         }
         this.toggleAsideMobile(false);
     }
