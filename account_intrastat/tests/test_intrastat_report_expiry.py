@@ -101,7 +101,7 @@ class IntrastatExpiryReportTest(TestAccountReportsCommon):
             report,
             date_from=fields.Date.from_string('2022-01-01'),
             date_to=fields.Date.from_string('2022-01-31'),
-            default_options={'country_format': 'code'},
+            default_options={'country_format': 'code', 'intrastat_grouped': True},
         )
         report_information = report.get_report_information(options)
         lines, warnings = report_information['lines'], report_information['warnings']
@@ -142,7 +142,7 @@ class IntrastatExpiryReportTest(TestAccountReportsCommon):
             report,
             date_from=fields.Date.from_string('2022-01-01'),
             date_to=fields.Date.from_string('2022-01-31'),
-            default_options={'country_format': 'code'},
+            default_options={'country_format': 'code', 'intrastat_grouped': True},
         )
         report_information = report.get_report_information(options)
         lines, warnings = report_information['lines'], report_information['warnings']
