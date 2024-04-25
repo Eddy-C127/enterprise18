@@ -76,18 +76,17 @@ export class KnowledgeArticleFormController extends FormController {
     }
 
     /**
-     * @TODO remove when the model correctly asks the htmlField if it is dirty.
-     * Ensure that all fields did have the opportunity to commit their changes
-     * so as to set the record dirty if needed. This is what should be done
-     * in the generic controller but is not because the html field reports
-     * itself as dirty too often. This override can be omitted as soon as the
-     * htmlField dirty feature is reworked/improved. It is needed in Knowledge
-     * because the body of an article is its core feature and it's best that it
-     * is saved more often than needed than the opposite.
-     *
+     * Ensure that the title is set @see beforeUnload
+     * Dirty check is sometimes necessary in cases where the user leaves
+     * the article from inside an article (i.e. embedded views/links) very
+     * shortly after a mutation (i.e. in tours). At that point, the
+     * html_field may not have notified the model from the change.
      * @override
      */
     async beforeLeave() {
+        if (this.model.root.resId) {
+            await this.ensureArticleName();
+        }
         await this.model.root.isDirty();
         return super.beforeLeave();
     }
@@ -111,7 +110,7 @@ export class KnowledgeArticleFormController extends FormController {
      */
     ensureArticleName() {
         if (!this.model.root.data.name) {
-            this.renameArticle();
+            return this.renameArticle();
         }
     }
 
@@ -192,6 +191,7 @@ export class KnowledgeArticleFormController extends FormController {
         }
         // load the new record
         try {
+            await this.ensureArticleName();
             if (!this.model.root.isNew && (await this.model.root.isDirty())) {
                 await this.model.root.save({
                     onError: this.onSaveError.bind(this),
@@ -233,7 +233,7 @@ export class KnowledgeArticleFormController extends FormController {
                 }
             }
         }
-        this.model.root.update({name});
+        return this.model.root.update({ name });
     }
 
     /**
