@@ -33,8 +33,8 @@ export class SubscriptionManager {
         // Hack: we need to know if there is at least one app installed (except from App and
         // Settings). We use mail to do that, as it is a dependency of almost every addon. To
         // determine whether mail is installed or not, we check for the presence of the key
-        // "notification_type" in session_info, as it is added in mail for internal users.
-        this.hasInstalledApps = "notification_type" in session;
+        // "storeData" in session_info, as it is added in mail.
+        this.hasInstalledApps = "storeData" in session;
         // "user" or "admin"
         this.warningType = session.warning;
         this.lastRequestStatus = null;

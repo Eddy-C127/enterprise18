@@ -59,7 +59,7 @@ QUnit.module("web_enterprise", function ({ beforeEach }) {
             session: {
                 expiration_date: "2019-11-09 12:00:00",
                 expiration_reason: "",
-                notification_type: true, // used by subscription service to know whether mail is installed
+                storeData: true, // used by subscription service to know whether mail is installed
                 warning: "admin",
             },
         });
@@ -87,7 +87,7 @@ QUnit.module("web_enterprise", function ({ beforeEach }) {
             session: {
                 expiration_date: "2019-10-24 12:00:00",
                 expiration_reason: "demo",
-                notification_type: true, // used by subscription service to know whether mail is installed
+                storeData: true, // used by subscription service to know whether mail is installed
                 warning: "admin",
             },
             mockRPC(route) {
@@ -141,7 +141,7 @@ QUnit.module("web_enterprise", function ({ beforeEach }) {
                 session: {
                     expiration_date: "2019-10-15 12:00:00",
                     expiration_reason: "trial",
-                    notification_type: true, // used by subscription service to know whether mail is installed
+                    storeData: true, // used by subscription service to know whether mail is installed
                     warning: "admin",
                 },
                 mockNotification(message, options) {
@@ -339,7 +339,7 @@ QUnit.module("web_enterprise", function ({ beforeEach }) {
                 session: {
                     expiration_date: "2019-10-15 12:00:00",
                     expiration_reason: "trial",
-                    notification_type: true, // used by subscription service to know whether mail is installed
+                    storeData: true, // used by subscription service to know whether mail is installed
                     warning: "admin",
                 },
                 mockRPC(route, { method, args }) {
@@ -442,7 +442,7 @@ Send an email to the subscription owner to confirm the change, enter a new code 
             session: {
                 expiration_date: "2019-10-08 12:00:00",
                 expiration_reason: "trial",
-                notification_type: true, // used by subscription service to know whether mail is installed
+                storeData: true, // used by subscription service to know whether mail is installed
                 warning: "admin",
             },
             mockRPC(route, { args, method }) {
@@ -508,7 +508,7 @@ Send an email to the subscription owner to confirm the change, enter a new code 
             session: {
                 expiration_date: "2019-10-20 12:00:00",
                 expiration_reason: "renewal",
-                notification_type: true, // used by subscription service to know whether mail is installed
+                storeData: true, // used by subscription service to know whether mail is installed
                 warning: "admin",
             },
             mockRPC(route, { args, method }) {
@@ -558,7 +558,7 @@ Send an email to the subscription owner to confirm the change, enter a new code 
             session: {
                 expiration_date: "2019-10-20 12:00:00",
                 expiration_reason: "renewal",
-                notification_type: true, // used by subscription service to know whether mail is installed
+                storeData: true, // used by subscription service to know whether mail is installed
                 warning: "admin",
             },
             mockRPC(route, { args, method }) {
@@ -600,7 +600,7 @@ Send an email to the subscription owner to confirm the change, enter a new code 
             session: {
                 expiration_date: "2019-10-20 12:00:00",
                 expiration_reason: "renewal",
-                notification_type: true, // used by subscription service to know whether mail is installed
+                storeData: true, // used by subscription service to know whether mail is installed
                 warning: "admin",
             },
             mockRPC(route, { method }) {
@@ -633,7 +633,7 @@ Send an email to the subscription owner to confirm the change, enter a new code 
             session: {
                 expiration_date: "2019-10-20 12:00:00",
                 expiration_reason: "upsell",
-                notification_type: true, // used by subscription service to know whether mail is installed
+                storeData: true, // used by subscription service to know whether mail is installed
                 warning: "admin",
             },
             mockRPC(route, { args, method }) {
@@ -678,7 +678,7 @@ Send an email to the subscription owner to confirm the change, enter a new code 
             session: {
                 expiration_date: "2019-11-08 12:00:00",
                 expiration_reason: "",
-                notification_type: true, // used by subscription service to know whether mail is installed
+                storeData: true, // used by subscription service to know whether mail is installed
                 warning: "user",
             },
         });
@@ -704,7 +704,7 @@ Send an email to the subscription owner to confirm the change, enter a new code 
             session: {
                 expiration_date: "2019-10-20 12:00:00",
                 expiration_reason: "renewal",
-                notification_type: true, // used by subscription service to know whether mail is installed
+                storeData: true, // used by subscription service to know whether mail is installed
                 warning: "admin",
             },
             mockRPC(route, { args, method }) {
@@ -758,7 +758,7 @@ Send an email to the subscription owner to confirm the change, enter a new code 
             session: {
                 expiration_date: "2019-10-20 12:00:00",
                 expiration_reason: "renewal",
-                notification_type: true, // used by subscription service to know whether mail is installed
+                storeData: true, // used by subscription service to know whether mail is installed
                 warning: "admin",
             },
             mockLuxonSettings: {
