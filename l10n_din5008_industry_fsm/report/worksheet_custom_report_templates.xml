@@ -8,6 +8,16 @@
 
             <xpath expr="//t[@t-call='industry_fsm_report.worksheet_custom_page']" position="before">
                 <t t-set="fallback_address" t-value="doc.partner_id"/>
+                <t t-set="din5008_document_information">
+                    <div class="information_block" t-if="doc and doc._name=='project.task'">
+                        <table>
+                            <tr>
+                                <td>Date:</td>
+                                <td><t t-out="doc.l10n_din5008_date"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
             </xpath>
         </template>
     </data>
