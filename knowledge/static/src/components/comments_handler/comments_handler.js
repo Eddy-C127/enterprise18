@@ -3,6 +3,7 @@
 import { registry } from '@web/core/registry';
 import { standardWidgetProps } from '@web/views/widgets/standard_widget_props';
 import { user } from "@web/core/user";
+import { KeepLast } from "@web/core/utils/concurrency";
 import { useBus, useService } from '@web/core/utils/hooks';
 import { useRecordObserver } from '@web/model/relational_model/utils';
 import { isZWS } from '@web_editor/js/editor/odoo-editor/src/utils/utils';
@@ -16,7 +17,7 @@ import {
     onWillStart,
     status,
     useEffect,
-    useRef
+    useRef,
 } from '@odoo/owl';
 
 
@@ -57,19 +58,31 @@ export class KnowledgeCommentsHandler extends Component {
 
         this.store = useService("mail.store");
         this.orm = useService('orm');
-        useRecordObserver(async (record) => {
-            const allCommentsThread = (record.resId || this.props.record.resId) ? await this.orm.searchRead(
-                'knowledge.article.thread',
-                [['article_id', '=', record.resId]],
-                ['id', 'article_id', 'article_anchor_text', 'is_resolved', 'write_date']
-            ) : [];
-            this.allCommentsThreadRecords = allCommentsThread;
-            this.env.bus.trigger('KNOWLEDGE_COMMENTS_PANEL:SYNCHRONIZE_THREADS', {allCommentsThread : this.allCommentsThreadRecords});
-            this.env.bus.trigger('KNOWLEDGE_COMMENTS_PANEL:DISPLAY_BUTTON', {
-                commentsActive: this.allCommentsThreadRecords && this.allCommentsThreadRecords.length !== 0,
-                displayCommentsPanel: !this.state.displayCommentsHandler
-            });
+        this.searchingArticleThread = new KeepLast();
+        this.currentArticleThreadSearch = Promise.resolve();
 
+        let previousArticleId;
+        useRecordObserver(async (record) => {
+            if (!previousArticleId || record.resId !== previousArticleId) {
+                previousArticleId = record.resId;
+                this.allCommentsThreadRecords = [];
+                this.currentArticleThreadSearch = this.searchingArticleThread.add(
+                    this.orm.searchRead(
+                        "knowledge.article.thread",
+                        [["article_id", "=", record.resId]],
+                        ["id", "article_id", "article_anchor_text", "is_resolved", "write_date"]
+                    )
+                );
+                this.allCommentsThreadRecords = await this.currentArticleThreadSearch;
+                this.env.bus.trigger("KNOWLEDGE_COMMENTS_PANEL:SYNCHRONIZE_THREADS", {
+                    allCommentsThread: this.allCommentsThreadRecords,
+                });
+                this.env.bus.trigger("KNOWLEDGE_COMMENTS_PANEL:DISPLAY_BUTTON", {
+                    commentsActive:
+                        this.allCommentsThreadRecords && this.allCommentsThreadRecords.length !== 0,
+                    displayCommentsPanel: !this.state.displayCommentsHandler,
+                });
+            }
         });
 
         onWillStart(async () => {
@@ -95,8 +108,11 @@ export class KnowledgeCommentsHandler extends Component {
         });
 
         useEffect(() => {
-            this.filterComments();
-            this.allComments = document.querySelectorAll('.knowledge-thread-highlighted-comment');
+            this.filterComments().then(() => {
+                this.allComments = document.querySelectorAll(
+                    ".knowledge-thread-highlighted-comment"
+                );
+            });
             // add listeners for commented text
             const editable = document.querySelector(
                 '.o_field_html .note-editable,.o_field_knowledge_article_html_field .note-editable,.o_field_knowledge_article_html_field .o_readonly'
@@ -195,10 +211,10 @@ export class KnowledgeCommentsHandler extends Component {
         }
     }
 
-    toggleHandler(ev) {
+    async toggleHandler(ev) {
         this.state.displayCommentsHandler = ev.detail.displayCommentsHandler;
         if (this.state.displayCommentsHandler) {
-            this.filterComments();
+            await this.filterComments();
             delete this.state.comments['undefined'];
         }
     }
@@ -257,6 +273,8 @@ export class KnowledgeCommentsHandler extends Component {
      * @param {*} thread Thread object from the thread service inside mail.
      */
     async insertNewThread(id, thread, articleAnchorText) {
+        // Ensure that allCommentsThreadRecords is ready to receive a new thread
+        await this.currentArticleThreadSearch;
         // TODO-THJO: Create a service to remove the functions to handle comments
         this.state.comments[id] = Object.assign({}, this.state.comments["undefined"], {
             thread: thread,
@@ -287,9 +305,12 @@ export class KnowledgeCommentsHandler extends Component {
      * the ones that are represented in the body of the article. Meaning that there is an anchor in the
      * body with the id of a thread.
      */
-    filterComments() {
-        this.allComments = document.querySelectorAll('.knowledge-thread-comment');
+    async filterComments() {
         this.state.comments = {};
+        // ensure that allCommentsThreadRecords is ready before filtering
+        // comments
+        await this.currentArticleThreadSearch;
+        this.allComments = document.querySelectorAll('.knowledge-thread-comment');
         if (this.allComments.length) {
             const rootTop = document.querySelector('.o_knowledge_body').getBoundingClientRect().top;
             const encounteredThreadIds = {};

@@ -221,7 +221,7 @@ class KnowledgeTopbar extends Component {
             `action_set_${newLockStatus ? 'lock' : 'unlock'}`,
             [this.props.record.resId],
         );
-        await this.props.record.update({'is_locked': newLockStatus});
+        await this.props.record.load();
     }
 
     /**

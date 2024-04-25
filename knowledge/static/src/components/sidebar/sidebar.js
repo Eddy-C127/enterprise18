@@ -223,10 +223,27 @@ export class KnowledgeSidebar extends Component {
         });
 
         useRecordObserver(async (record) => {
-            const article = this.getArticle(record.resId);
             const nextDataParentId = record.data.parent_id ? record.data.parent_id[0] : false;
-
-            if (article) {
+            // During the first load, `loadArticles` is still pending and the component is in its
+            // loading state. However, because of OWL reactive implementation (uses a Proxy),
+            // record data still has to be read in order to subscribe to later changes, even if
+            // nothing is done with that data on the first call. This subscription is what allows
+            // this callback to be called i.e. when the name of the article is changed, reflecting
+            // the change in the sidebar. See useRecordObserver, effect, reactive implementations
+            // for further details.
+            const article = this.getArticle(record.resId) || {
+                id: record.resId,
+                name: record.data.name,
+                icon: record.data.icon,
+                category: record.data.category,
+                parent_id: nextDataParentId,
+                is_locked: record.data.is_locked,
+                user_can_write: record.data.user_can_write,
+                is_article_item: record.data.is_article_item,
+                is_user_favorite: record.data.is_user_favorite,
+                child_ids: [],
+            };
+            if (this.state.articles[record.resId]) {
                 if (record.data.is_article_item !== article.is_article_item) {
                     if (record.data.is_article_item) {
                         // Article became item, remove it from the sidebar
@@ -278,27 +295,15 @@ export class KnowledgeSidebar extends Component {
                     // tree (hidden child, item, or child of restricted)
                     this.state.favoriteIds.push(record.resId);
                 }
-                const newArticle = {
-                    id: record.resId,
-                    name: record.data.name,
-                    icon: record.data.icon,
-                    category: record.data.category,
-                    parent_id: nextDataParentId,
-                    is_locked: record.data.is_locked,
-                    user_can_write: record.data.user_can_write,
-                    is_article_item: record.data.is_article_item,
-                    is_user_favorite: record.data.is_user_favorite,
-                    child_ids: [],
-                };
-                this.state.articles[newArticle.id] = newArticle;
+                this.state.articles[article.id] = article;
                 // Don't add new items in the sidebar
                 if (!record.data.is_article_item) {
-                    await this.insertArticle(newArticle, {
-                        category: newArticle.category,
-                        parentId: newArticle.parent_id,
+                    await this.insertArticle(article, {
+                        category: article.category,
+                        parentId: article.parent_id,
                     });
                     // Make sure the article is visible
-                    this.showArticle(newArticle);
+                    this.showArticle(article);
                     if (nextDataParentId && this.getArticle(nextDataParentId)?.is_user_favorite) {
                         this.unfold(nextDataParentId, true);
                     }
@@ -499,15 +504,12 @@ export class KnowledgeSidebar extends Component {
             sharedIds: [],
             privateIds: [],
         });
-        let res;
-        try {
-            res = await this.orm.call(this.props.record.resModel, 'get_sidebar_articles', [this.props.record.resId],
-                {unfolded_ids: [...this.unfoldedArticlesIds, ...this.unfoldedFavoritesIds]}
-            );
-        } catch (e) {
-            console.error(e);
-            return;
-        }
+        const res = await this.orm.call(
+            this.props.record.resModel,
+            "get_sidebar_articles",
+            [this.props.record.resId],
+            { unfolded_ids: [...this.unfoldedArticlesIds, ...this.unfoldedFavoritesIds] }
+        );
         const children = {};
         for (const article of res.articles) {
             this.state.articles[article.id] = {

@@ -4,7 +4,8 @@ import { registry } from "@web/core/registry";
 import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
 import { user } from "@web/core/user";
 import { throttleForAnimation } from "@web/core/utils/timing";
-import { Component, onWillUpdateProps, onWillStart, useRef, useState } from "@odoo/owl";
+import { useRecordObserver } from "@web/model/relational_model/utils";
+import { Component, onWillStart, useRef, useState } from "@odoo/owl";
 
 class KnowledgeCover extends Component {
     static props = standardWidgetProps;
@@ -28,11 +29,13 @@ class KnowledgeCover extends Component {
         // Update the state when we open an article (because since we open an
         // article by loading the related record, the state of this component
         // is shared between the articles and is not recomputed).
-        onWillUpdateProps((nextProps) => {
-            if (this.props.record.resId !== nextProps.record.resId) {
+        let previousArticleId = this.props.record.resId;
+        useRecordObserver((record) => {
+            if (!previousArticleId || previousArticleId !== record.resId) {
+                previousArticleId = record.resId;
                 this.state.repositioning = false;
                 this.state.grabbing = false;
-                this.state.verticalPosition = nextProps.record.data.cover_image_position || 50;
+                this.state.verticalPosition = record.data.cover_image_position || 50;
             }
         });
     }
