@@ -197,7 +197,7 @@ class CalendarEvent(models.Model):
         """
         for event in self:
             if not event.booking_line_ids and event.appointment_resource_id:
-                self.env['appointment.booking.line'].create({
+                self.env['appointment.booking.line'].sudo().create({
                     'appointment_resource_id': event.appointment_resource_id.id,
                     'calendar_event_id': event.id,
                     'capacity_reserved': event.resource_total_capacity_reserved,
@@ -209,7 +209,7 @@ class CalendarEvent(models.Model):
                     event.appointment_resource_id.capacity
                 )
             elif len(event.booking_line_ids) == 1:
-                event.booking_line_ids.unlink()
+                event.booking_line_ids.sudo().unlink()
 
     def _inverse_resource_ids_or_capacity(self):
         """Update booking lines as inverse of both resource capacity and resource_ids.
@@ -226,7 +226,7 @@ class CalendarEvent(models.Model):
                     capacity_to_reserve = self.resource_total_capacity_reserved
                 else:
                     capacity_to_reserve = sum(event.booking_line_ids.mapped('capacity_reserved')) or sum(resources.mapped('capacity'))
-                event.booking_line_ids.unlink()
+                event.booking_line_ids.sudo().unlink()
                 for resource in resources.sorted("shareable"):
                     if capacity_to_reserve <= 0:
                         break
@@ -237,8 +237,8 @@ class CalendarEvent(models.Model):
                     })
                     capacity_to_reserve -= min(resource.capacity, capacity_to_reserve)
             else:
-                event.booking_line_ids.unlink()
-        self.env['appointment.booking.line'].create(booking_lines)
+                event.booking_line_ids.sudo().unlink()
+        self.env['appointment.booking.line'].sudo().create(booking_lines)
 
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
