@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { queryFirst } from "@odoo/hoot-dom";
+import { mockDate } from "@odoo/hoot-mock";
 import { markup } from "@odoo/owl";
 import {
     getService,
     mountView,
     mountWithCleanup,
-    patchDate,
     switchView,
     toggleMenuItem,
     toggleSearchBarMenu,
@@ -16,13 +16,10 @@ import { SELECTORS } from "./gantt_test_helpers";
 import { Domain } from "@web/core/domain";
 import { WebClient } from "@web/webclient/webclient";
 
-defineGanttModels();
-
 describe.current.tags("desktop");
 
-beforeEach(() => {
-    patchDate("2018-12-20T08:00:00", 1);
-});
+defineGanttModels();
+beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
 
 test(`empty grouped gantt with sample="1"`, async () => {
     Tasks._views = {

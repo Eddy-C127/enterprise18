@@ -7,14 +7,13 @@ import {
     queryAllTexts,
     queryOne,
 } from "@odoo/hoot-dom";
-import { Deferred, advanceTime, animationFrame, runAllTimers } from "@odoo/hoot-mock";
+import { Deferred, advanceTime, animationFrame, mockDate, runAllTimers } from "@odoo/hoot-mock";
 import {
     contains,
     fields,
     mockService,
     mountView,
     onRpc,
-    patchDate,
     patchWithCleanup,
     validateSearch,
 } from "@web/../tests/web_test_helpers";
@@ -36,8 +35,6 @@ import {
 
 import { omit } from "@web/core/utils/objects";
 
-defineGanttModels();
-
 // Hard-coded daylight saving dates from 2019
 const DST_DATES = {
     winterToSummer: {
@@ -52,9 +49,8 @@ const DST_DATES = {
 
 describe.current.tags("desktop");
 
-beforeEach(() => {
-    patchDate("2018-12-20T08:00:00", +1);
-});
+defineGanttModels();
+beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
 
 test("date navigation with timezone (1h)", async () => {
     onRpc("get_gantt_data", ({ kwargs }) => {

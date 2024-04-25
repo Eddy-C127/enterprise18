@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { hover, pointerDown, queryAll, queryFirst, queryOne, resize } from "@odoo/hoot-dom";
-import { animationFrame, runAllTimers } from "@odoo/hoot-mock";
+import { animationFrame, mockDate, runAllTimers } from "@odoo/hoot-mock";
 import {
     contains,
     defineModels,
@@ -9,7 +9,6 @@ import {
     models,
     mountView,
     onRpc,
-    patchDate,
     patchWithCleanup,
 } from "@web/../tests/web_test_helpers";
 import { CLASSES, SELECTORS, getPill, getPillWrapper } from "./gantt_test_helpers";
@@ -251,9 +250,7 @@ defineModels([ProjectTask, ResUsers]);
 
 describe.current.tags("desktop");
 
-beforeEach(() => {
-    patchDate("2021-10-10T08:00:00", +1);
-});
+beforeEach(() => mockDate("2021-10-10T08:00:00", +1));
 
 test("Connectors are correctly computed and rendered.", async () => {
     /**

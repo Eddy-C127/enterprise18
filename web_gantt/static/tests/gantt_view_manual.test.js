@@ -1,6 +1,7 @@
 import { beforeEach, test } from "@odoo/hoot";
 import { queryFirst } from "@odoo/hoot-dom";
-import { mountView, patchDate } from "@web/../tests/web_test_helpers";
+import { mockDate } from "@odoo/hoot-mock";
+import { mountView } from "@web/../tests/web_test_helpers";
 import { ResUsers, TASKS_STAGE_SELECTION, Tasks, defineGanttModels } from "./gantt_mock_models";
 
 function randomName(length) {
@@ -14,10 +15,7 @@ function randomName(length) {
 }
 
 defineGanttModels();
-
-beforeEach(() => {
-    patchDate("2018-12-20T08:00:00", 1);
-});
+beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
 
 test.tags("manual testing").skip("large amount of records (ungrouped)", async () => {
     const NB_TASKS = 10000;

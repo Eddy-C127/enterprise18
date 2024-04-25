@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
-import { queryAll, queryAllTexts, queryFirst, queryText } from "@odoo/hoot-dom";
+import { queryAll, queryAllTexts, queryFirst } from "@odoo/hoot-dom";
+import { mockDate, mockTimeZone } from "@odoo/hoot-mock";
 import { onRendered, useEffect, useRef } from "@odoo/owl";
 import {
     contains,
@@ -9,8 +10,6 @@ import {
     mountWithCleanup,
     onRpc,
     pagerNext,
-    patchDate,
-    patchTimeZone,
     patchWithCleanup,
     toggleMenuItem,
     toggleSearchBarMenu,
@@ -45,16 +44,13 @@ const DST_DATES = {
     },
 };
 
-defineGanttModels();
-
 describe.current.tags("desktop");
 
-beforeEach(() => {
-    patchDate("2018-12-20T08:00:00", +1);
-});
+defineGanttModels();
+beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
 
 test("DST spring forward", async () => {
-    patchTimeZone("Europe/Brussels");
+    mockTimeZone("Europe/Brussels");
     Tasks._records = [
         {
             id: 1,
@@ -101,7 +97,7 @@ test("DST spring forward", async () => {
 });
 
 test("DST fall back", async () => {
-    patchTimeZone("Europe/Brussels");
+    mockTimeZone("Europe/Brussels");
     Tasks._records = [
         {
             id: 1,
@@ -148,7 +144,8 @@ test("DST fall back", async () => {
 });
 
 test("Records spanning across DST should be displayed normally", async () => {
-    patchTimeZone("Europe/Brussels");
+    mockTimeZone("Europe/Brussels");
+
     Tasks._records = [
         {
             id: 1,
@@ -447,7 +444,7 @@ test("Progress bar warning when max_value is zero", async () => {
     await hoverGridCell(1, 1);
     expect(SELECTORS.progressBarWarning).toHaveCount(1);
     expect(queryFirst(SELECTORS.progressBarWarning).parentElement).toHaveText("50h");
-    expect(queryFirst(SELECTORS.progressBarWarning).parentElement.title).toBe("plop");
+    expect(queryFirst(SELECTORS.progressBarWarning).parentElement).toHaveProperty("title", "plop");
 });
 
 test("Progress bar when value less than hour", async () => {
@@ -659,7 +656,7 @@ test("A task should always have a title (pill_label='1', scale 'week')", async (
     const pills = queryAll(".o_gantt_pill");
     for (let i = 0; i < pills.length; i++) {
         await contains(pills[i]).click();
-        expect(queryText(".o_popover .popover-header")).toBe(titleMapping[i].name);
+        expect(".o_popover .popover-header").toHaveText(titleMapping[i].name);
     }
 });
 
@@ -714,7 +711,7 @@ test("A task should always have a title (pill_label='1', scale 'month')", async 
     const pills = queryAll(".o_gantt_pill");
     for (let i = 0; i < pills.length; i++) {
         await contains(pills[i]).click();
-        expect(queryText(".o_popover .popover-header")).toBe(titleMapping[i].name);
+        expect(".o_popover .popover-header").toHaveText(titleMapping[i].name);
     }
 });
 
@@ -772,7 +769,7 @@ test("date grid and dst winterToSummer (1 cell part)", async () => {
         },
     });
 
-    patchTimeZone("Europe/Brussels");
+    mockTimeZone("Europe/Brussels");
     Tasks._records = [];
 
     await mountView({
@@ -919,7 +916,7 @@ test("date grid and dst summerToWinter (1 cell part)", async () => {
         },
     });
 
-    patchTimeZone("Europe/Brussels");
+    mockTimeZone("Europe/Brussels");
     Tasks._records = [];
 
     await mountView({
@@ -1068,7 +1065,7 @@ test("date grid and dst winterToSummer (2 cell part)", async () => {
         },
     });
 
-    patchTimeZone("Europe/Brussels");
+    mockTimeZone("Europe/Brussels");
     Tasks._records = [];
 
     await mountView({
@@ -1283,7 +1280,7 @@ test("date grid and dst summerToWinter (2 cell part)", async () => {
         },
     });
 
-    patchTimeZone("Europe/Brussels");
+    mockTimeZone("Europe/Brussels");
     Tasks._records = [];
 
     await mountView({
@@ -1860,7 +1857,8 @@ test("context in action should not override context added by the gantt view", as
 });
 
 test("The date and task should appear even if the pill is planned on 2 days but displayed in one day by the gantt view", async () => {
-    patchDate("2024-01-01T08:00:00", +0);
+    mockDate("2024-01-01T08:00:00", +0);
+
     Tasks._records.push(
         {
             id: 9,

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { queryAll, queryAllTexts, queryFirst } from "@odoo/hoot-dom";
+import { mockDate } from "@odoo/hoot-mock";
 import {
     contains,
     defineModels,
@@ -9,7 +10,6 @@ import {
     mountView,
     mountWithCleanup,
     onRpc,
-    patchDate,
 } from "@web/../tests/web_test_helpers";
 import { CLASSES, SELECTORS } from "./gantt_test_helpers";
 
@@ -66,9 +66,7 @@ defineModels([Tasks, Users]);
 
 describe.current.tags("mobile");
 
-beforeEach(() => {
-    patchDate("2018-12-20T08:00:00", +1);
-});
+beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
 
 test("Progressbar: check the progressbar percentage visibility.", async () => {
     onRpc("gantt_progress_bar", ({ args, model }) => {

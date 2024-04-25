@@ -1,15 +1,13 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
-import { mountView, onRpc, patchDate } from "@web/../tests/web_test_helpers";
+import { mockDate } from "@odoo/hoot-mock";
+import { mountView, onRpc } from "@web/../tests/web_test_helpers";
 import { defineGanttModels } from "./gantt_mock_models";
 import { SELECTORS, getGridContent } from "./gantt_test_helpers";
 
-defineGanttModels();
-
 describe.current.tags("desktop");
 
-beforeEach(() => {
-    patchDate("2018-12-20T08:00:00", +1);
-});
+defineGanttModels();
+beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
 
 test("empty sparse gantt", async () => {
     await mountView({

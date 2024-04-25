@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { queryAll, queryAllTexts } from "@odoo/hoot-dom";
+import { mockDate } from "@odoo/hoot-mock";
 import {
     contains,
     fields,
@@ -7,7 +8,6 @@ import {
     mountView,
     mountWithCleanup,
     onRpc,
-    patchDate,
     patchWithCleanup,
 } from "@web/../tests/web_test_helpers";
 import { Tasks, defineGanttModels } from "./gantt_mock_models";
@@ -17,13 +17,10 @@ import { Domain } from "@web/core/domain";
 import { deserializeDateTime } from "@web/core/l10n/dates";
 import { WebClient } from "@web/webclient/webclient";
 
-defineGanttModels();
-
 describe.current.tags("desktop");
 
-beforeEach(() => {
-    patchDate("2018-12-20T08:00:00", +1);
-});
+defineGanttModels();
+beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
 
 test("empty ungrouped gantt rendering", async () => {
     await mountView({

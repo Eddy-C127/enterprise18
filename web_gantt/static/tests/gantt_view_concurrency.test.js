@@ -1,11 +1,10 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
-import { Deferred, animationFrame } from "@odoo/hoot-mock";
+import { Deferred, animationFrame, mockDate } from "@odoo/hoot-mock";
 import { onPatched } from "@odoo/owl";
 import {
     contains,
     mountView,
     onRpc,
-    patchDate,
     patchWithCleanup,
     toggleMenuItem,
     toggleSearchBarMenu,
@@ -24,13 +23,10 @@ import {
     setScale,
 } from "./gantt_test_helpers";
 
-defineGanttModels();
-
 describe.current.tags("desktop");
 
-beforeEach(() => {
-    patchDate("2018-12-20T08:00:00", +1);
-});
+defineGanttModels();
+beforeEach(() => mockDate("2018-12-20T08:00:00", +1));
 
 test("concurrent scale switches return in inverse order", async () => {
     let model;

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { leave, queryAll, queryAllTexts, queryFirst } from "@odoo/hoot-dom";
-import { animationFrame } from "@odoo/hoot-mock";
-import { contains, mountView, onRpc, patchDate } from "@web/../tests/web_test_helpers";
+import { animationFrame, mockDate } from "@odoo/hoot-mock";
+import { contains, mountView, onRpc } from "@web/../tests/web_test_helpers";
 import { Tasks, defineGanttModels } from "./gantt_mock_models";
 import {
     SELECTORS,
@@ -16,13 +16,10 @@ import {
     resizePill,
 } from "./gantt_test_helpers";
 
-defineGanttModels();
-
 describe.current.tags("desktop");
 
-beforeEach(() => {
-    patchDate("2018-12-20T07:00:00", 1);
-});
+defineGanttModels();
+beforeEach(() => mockDate("2018-12-20T07:00:00", +1));
 
 test("create attribute", async () => {
     Tasks._views.list = `<tree><field name="name"/></tree>`;
@@ -280,7 +277,8 @@ test("decoration attribute", async () => {
 });
 
 test("decoration attribute with date", async () => {
-    patchDate("2018-12-19T12:00:00");
+    mockDate("2018-12-19T12:00:00");
+
     await mountView({
         resModel: "tasks",
         type: "gantt",
@@ -593,7 +591,8 @@ test("Today style of group rows", async () => {
 });
 
 test("style without unavailabilities", async () => {
-    patchDate("2018-12-05T02:00:00");
+    mockDate("2018-12-05T02:00:00");
+
     onRpc("gantt_unavailability", ({ args }) => {
         return args[4];
     });
@@ -610,7 +609,8 @@ test("style without unavailabilities", async () => {
 });
 
 test(`Unavailabilities ("month": "day:half")`, async () => {
-    patchDate("2018-12-05T02:00:00");
+    mockDate("2018-12-05T02:00:00");
+
     const unavailabilities = [
         {
             start: "2018-12-05 09:30:00",
