@@ -10,7 +10,10 @@
     'application': True,
     'license': 'OEEL-1',
     'version': '1.0',
-    'depends': ['hr'],
+    'depends': [
+        'hr',
+        'sms',
+    ],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
