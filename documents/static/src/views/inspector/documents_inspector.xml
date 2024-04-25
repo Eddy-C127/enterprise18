@@ -3,7 +3,7 @@
     <t t-name="documents.DocumentsInspector">
         <t t-set="records" t-value="props.documents"/>
         <t t-set="currentFolder" t-value="getCurrentFolder()"/>
-        <div class="o_documents_inspector h-100 overflow-hidden">
+        <div class="o_documents_inspector h-100 overflow-x-hidden">
             <t t-set="nbPreviews" t-value="props.documents.length"/>
             <div class="o_documents_inspector_preview d-flex flex-row flex-wrap align-items-center justify-content-center position-relative">
                 <div t-if="nbPreviews === 0">
