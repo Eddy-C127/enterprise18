@@ -16,6 +16,7 @@ import { SELECTORS, getActiveScale, getGridContent, setScale } from "./gantt_tes
 import { Domain } from "@web/core/domain";
 import { deserializeDateTime } from "@web/core/l10n/dates";
 import { WebClient } from "@web/webclient/webclient";
+import { browser } from "@web/core/browser/browser";
 
 describe.current.tags("desktop");
 
@@ -749,7 +750,7 @@ test("current hour is highlighted'", async () => {
 });
 
 test("group tasks by task_properties", async () => {
-    Tasks._fields.task_properties = fields.Properties({string: "Task properties"});
+    Tasks._fields.task_properties = fields.Properties({ string: "Task properties" });
     Tasks._records = [
         {
             id: 1,
@@ -785,28 +786,26 @@ test("group tasks by task_properties", async () => {
         groupBy: ["task_properties.bd6404492c244cff"],
     });
     const { rows } = getGridContent();
-    expect(rows).toEqual(
-        [
-            {
-                pills: [
-                    {
-                        title: "Yop",
-                        colSpan: "02 -> 12 (1/2)",
-                        level: 0,
-                    },
-                    {
-                        title: "Blop",
-                        colSpan: "14 -> 24 (1/2)",
-                        level: 0,
-                    },
-                ],
-            },
-        ],
-    );
+    expect(rows).toEqual([
+        {
+            pills: [
+                {
+                    title: "Yop",
+                    colSpan: "02 -> 12 (1/2)",
+                    level: 0,
+                },
+                {
+                    title: "Blop",
+                    colSpan: "14 -> 24 (1/2)",
+                    level: 0,
+                },
+            ],
+        },
+    ]);
 });
 
 test("group tasks by date", async () => {
-    Tasks._fields.my_date = fields.Date({string: "My date"});
+    Tasks._fields.my_date = fields.Date({ string: "My date" });
     Tasks._records = [
         {
             id: 1,
@@ -832,22 +831,47 @@ test("group tasks by date", async () => {
         groupBy: ["my_date:month"],
     });
     const { rows } = getGridContent();
-    expect(rows).toEqual(
-        [
-            {
-                pills: [
-                    {
-                        title: "Yop",
-                        colSpan: "02 -> 12 (1/2)",
-                        level: 0,
-                    },
-                    {
-                        title: "Blop",
-                        colSpan: "14 -> 24 (1/2)",
-                        level: 0,
-                    },
-                ],
-            },
-        ],
-    );
+    expect(rows).toEqual([
+        {
+            pills: [
+                {
+                    title: "Yop",
+                    colSpan: "02 -> 12 (1/2)",
+                    level: 0,
+                },
+                {
+                    title: "Blop",
+                    colSpan: "14 -> 24 (1/2)",
+                    level: 0,
+                },
+            ],
+        },
+    ]);
+});
+
+test("Scale: scale default is fetched from localStorage", async (assert) => {
+    let view;
+    patchWithCleanup(browser.localStorage, {
+        getItem(key) {
+            if (String(key).startsWith("scaleOf-viewId")) {
+                expect.step(`get_scale_week`);
+                return "week";
+            }
+        },
+        setItem(key, value) {
+            if (view && key === `scaleOf-viewId-${view.env?.config?.viewId}`) {
+                expect.step(`set_scale_${value}`);
+            }
+        },
+    });
+    view = await mountView({
+        type: "gantt",
+        resModel: "tasks",
+        arch: '<gantt date_start="start" date_stop="stop" default_scale="week"/>',
+    });
+    expect(".scale_button_selection").toHaveText("Week");
+    await contains(".o_view_scale_selector .dropdown-toggle").click();
+    await contains(".o_popover span:contains(Year)").click();
+    expect(".scale_button_selection").toHaveText("Year");
+    expect(["get_scale_week", "set_scale_year"]).toVerifySteps();
 });

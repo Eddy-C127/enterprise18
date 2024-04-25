@@ -7,6 +7,7 @@ import { serializeDate } from "@web/core/l10n/dates";
 import { localization } from "@web/core/l10n/localization";
 import { _t } from "@web/core/l10n/translation";
 import { Model } from "@web/model/model";
+import { browser } from "@web/core/browser/browser";
 
 const { DateTime, Interval } = luxon;
 
@@ -979,8 +980,10 @@ export class GridModel extends Model {
         this.ranges = params.ranges;
         this.defaultAnchor = params.defaultAnchor || this.today;
         this.navigationInfo = new this.constructor.NavigationInfo(this.defaultAnchor, this);
-        if (Object.keys(this.ranges).length && params.activeRangeName) {
-            this.navigationInfo.range = this.ranges[params.activeRangeName];
+        const activeRangeName =
+            browser.localStorage.getItem(this.storageKey) || params.activeRangeName;
+        if (Object.keys(this.ranges).length && activeRangeName) {
+            this.navigationInfo.range = this.ranges[activeRangeName];
         }
     }
 
@@ -1023,6 +1026,10 @@ export class GridModel extends Model {
         return this.measureFieldName;
     }
 
+    get storageKey() {
+        return `scaleOf-viewId-${this.env.config.viewId}`;
+    }
+
     isToday(date) {
         return date.startOf("day").equals(this.today.startOf("day"));
     }
@@ -1033,6 +1040,7 @@ export class GridModel extends Model {
      */
     async setRange(rangeName) {
         this.navigationInfo.range = this.ranges[rangeName];
+        browser.localStorage.setItem(this.storageKey, rangeName);
         await this.fetchData();
     }
 

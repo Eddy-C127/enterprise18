@@ -975,4 +975,33 @@ QUnit.module("Views", (hooks) => {
             "widget 'percentage' should be applied"
         );
     });
+
+    QUnit.test("Scale: scale default is fetched from localStorage", async (assert) => {
+        assert.expect(4);
+
+        patchWithCleanup(browser.localStorage, {
+            getItem(key) {
+                if (String(key).startsWith("scaleOf-viewId")) {
+                    return "week";
+                }
+            },
+            setItem(key, value) {
+                if (key === `scaleOf-viewId-${view.env.config.viewId}`) {
+                    assert.step(`scale_${value}`);
+                }
+            },
+        });
+
+        const view = await makeView({
+            type: "cohort",
+            resModel: "subscription",
+            serverData,
+            arch: `<cohort date_start="start" date_stop="stop"/>`,
+        });
+
+        assert.equal(target.querySelector(".scale_button_selection").textContent, "Week");
+        await changeScale(target, "year");
+        assert.equal(target.querySelector(".scale_button_selection").textContent, "Year");
+        assert.verifySteps(["scale_year"]);
+    });
 });

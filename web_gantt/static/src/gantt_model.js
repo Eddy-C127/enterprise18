@@ -10,6 +10,7 @@ import { pick } from "@web/core/utils/objects";
 import { sprintf } from "@web/core/utils/strings";
 import { formatFloatTime } from "@web/views/fields/formatters";
 import { Model } from "@web/model/model";
+import { browser } from "@web/core/browser/browser";
 
 const { DateTime } = luxon;
 
@@ -249,6 +250,10 @@ export class GanttModel extends Model {
         await this._fetchData(this._buildMetaData(params));
         this.useSampleModel = false;
         this.notify();
+    }
+
+    get storageKey() {
+        return `scaleOf-viewId-${this.env.config.viewId}`;
     }
 
     /**
@@ -568,6 +573,7 @@ export class GanttModel extends Model {
 
         let recomputeRange = false;
         if (params.scaleId) {
+            browser.localStorage.setItem(this.storageKey, params.scaleId);
             this._nextMetaData.scale = { ...this.metaData.scales[params.scaleId] };
             recomputeRange = true;
         }
@@ -962,9 +968,10 @@ export class GanttModel extends Model {
      * @returns {{ focusDate: DateTime, scaleId: ScaleId }}
      */
     _getInitialRangeParams(metaData, searchParams) {
+        const localScaleId = this._getScaleIdFromLocalStorage(metaData);
         const { context } = searchParams;
         /** @type {ScaleId} */
-        const scaleId = context.default_scale || metaData.defaultScale;
+        const scaleId = localScaleId || context.default_scale || metaData.defaultScale;
         /** @type {DateTime} */
         let focusDate =
             "initialDate" in context ? deserializeDateTime(context.initialDate) : DateTime.local();
@@ -1010,6 +1017,12 @@ export class GanttModel extends Model {
     _getRowName(metaData, groupedByField, value) {
         const field = metaData.fields[groupedByField];
         return this._getFieldFormattedValue(value, field);
+    }
+
+    _getScaleIdFromLocalStorage(metaData) {
+        const { scales } = metaData;
+        const localScaleId = browser.localStorage.getItem(this.storageKey);
+        return localScaleId in scales ? localScaleId : null;
     }
 
     /**

@@ -4,6 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { KeepLast, Race } from "@web/core/utils/concurrency";
 import { Model } from "@web/model/model";
 import { computeReportMeasures, processMeasure } from "@web/views/utils";
+import { browser } from "@web/core/browser/browser";
 
 export const MODES = ["retention", "churn"];
 export const TIMELINES = ["forward", "backward"];
@@ -35,6 +36,11 @@ export class CohortModel extends Model {
         this.data = null;
         this.searchParams = null;
         this.intervals = INTERVALS;
+
+        const activeInterval = browser.localStorage.getItem(this.storageKey) || params.interval;
+        if (Object.keys(this.intervals).includes(activeInterval)) {
+            this.metaData.interval = activeInterval;
+        }
     }
 
     /**
@@ -61,6 +67,10 @@ export class CohortModel extends Model {
         return this._load(this.metaData);
     }
 
+    get storageKey() {
+        return `scaleOf-viewId-${this.env.config.viewId}`;
+    }
+
     /**
      * @override
      */
@@ -73,6 +83,7 @@ export class CohortModel extends Model {
      */
     async updateMetaData(params) {
         Object.assign(this.metaData, params);
+        browser.localStorage.setItem(this.storageKey, this.metaData.interval);
         await this._load(this.metaData);
         this.notify();
     }

@@ -21,6 +21,11 @@ import { hoverGridCell } from "./helpers";
 
 let serverData, target;
 
+async function changeScale(target, scale) {
+    await click(target.querySelector(".o_view_scale_selector .dropdown-toggle"));
+    await click(target.querySelector(`.o_scale_button_${scale}`));
+}
+
 QUnit.module("Views", (hooks) => {
     hooks.beforeEach(() => {
         serverData = {
@@ -2387,5 +2392,47 @@ QUnit.module("Views", (hooks) => {
         await hoverGridCell(target.querySelectorAll(".o_grid_row .o_grid_cell_readonly")[0]);
         await click(target, ".o_grid_cell button.o_grid_search_btn");
         assert.containsOnce(target, ".o_list_view");
+    });
+
+    QUnit.test("Scale: scale default is fetched from localStorage", async (assert) => {
+        assert.expect(4);
+
+        patchWithCleanup(browser.localStorage, {
+            getItem(key) {
+                if (String(key).startsWith("scaleOf-viewId")) {
+                    return "week";
+                }
+            },
+            setItem(key, value) {
+                if (key === `scaleOf-viewId-${view.env.config.viewId}`) {
+                    assert.step(`scale_${value}`);
+                }
+            },
+        });
+
+        const view = await makeView({
+            type: "grid",
+            resModel: "analytic.line",
+            serverData,
+            arch: /* xml */ `
+            <grid>
+                <field name="project_id" type="row"/>
+                <field name="date" type="col">
+                    <range name="week" string="Week" span="week" step="day"/>
+                    <range name="year" string="Year" span="year" step="month"/>
+                </field>
+                <field name="unit_amount" type="measure"/>
+            </grid>`,
+            async mockRPC(route, args) {
+                if (args.method === "grid_unavailability") {
+                    return {};
+                }
+            },
+        });
+
+        assert.equal(target.querySelector(".scale_button_selection").textContent, "Week");
+        await changeScale(target, "year");
+        assert.equal(target.querySelector(".scale_button_selection").textContent, "Year");
+        assert.verifySteps(["scale_year"]);
     });
 });
