@@ -1,13 +1,10 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import base64
-import re
-
 from datetime import datetime
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, RedirectWarning
-from odoo.tools import float_round
 
 
 class HrPayslip(models.Model):
@@ -56,99 +53,31 @@ class HrPayslip(models.Model):
                 button_text=_("Configure Employee Accounts")
             )
         filename_date = fields.Datetime.context_timestamp(self, datetime.now()).strftime("%Y%m%d%H%M")
+
+        aba_date = fields.Date.context_today(self).strftime('%d%m%y')
+        aba_values = {
+            'aba_date': aba_date,
+            'aba_description': 'PAYROLL',
+            'self_balancing_reference': 'PAYROLL %s' % aba_date,
+            'payments_data': [{
+                'name': payslip.number,
+                'amount': payslip.net_wage,
+                'bank_account': payslip.employee_id.bank_account_id,
+                'account_holder': payslip.employee_id,
+                'transaction_code': 53,  # PAYROLL
+                'reference': payslip.number,
+            } for payslip in self]
+        }
+
         export_file_data = {
             'filename': f'ABA-{journal_id.code}-{filename_date}.aba',
-            'file': base64.encodebytes(self._create_aba_document(journal_id).encode()),
+            'file': base64.encodebytes(self.env['account.batch.payment']._create_aba_document(journal_id, aba_values).encode()),
         }
 
         self.payslip_run_id.write({
             'l10n_au_export_aba_file': export_file_data['file'],
             'l10n_au_export_aba_filename': export_file_data['filename'],
         })
-
-    def _create_aba_document(self, journal_id):
-        def _normalise_bsb(bsb):
-            if not bsb:
-                return ""
-            test_bsb = re.sub('( |-)', '', bsb)
-            return '%s-%s' % (test_bsb[0:3], test_bsb[3:6])
-
-        def to_fixed_width(string, length, fill=' ', right=False):
-            return right and string[0:length].rjust(length, fill) or string[0:length].ljust(length, fill)
-
-        def append_detail(detail_summary, detail_record, credit, debit):
-            detail_summary['detail_records'].append(detail_record)
-            if len(detail_summary['detail_records']) > 999997:
-                raise UserError(_('Too many transactions for one ABA file - Please split in to multiple transfers'))
-            detail_summary['credit_total'] += credit
-            detail_summary['debit_total'] += debit
-            if detail_summary['credit_total'] > 99999999.99 or detail_summary['debit_total'] > 99999999.99:
-                raise UserError(_('The value of transactions is too high for one ABA file - Please split in to multiple transfers'))
-
-        aba_date = fields.Date.context_today(self)
-        header_record = '0' + (' ' * 17) + '01' \
-            + to_fixed_width(journal_id.aba_fic, 3) \
-            + (' ' * 7) \
-            + to_fixed_width(journal_id.aba_user_spec, 26) \
-            + to_fixed_width(journal_id.aba_user_number, 6, fill='0', right=True) \
-            + to_fixed_width('PAYMENTS', 12) \
-            + aba_date.strftime('%d%m%y') \
-            + (' ' * 40)
-
-        detail_summary = {
-            'detail_records': [],
-            'credit_total': 0,
-            'debit_total': 0,
-        }
-
-        aud_currency = self.env["res.currency"].search([('name', '=', 'AUD')], limit=1)
-        bank_account = journal_id.bank_account_id
-        for payslip in self:
-            credit = float_round(payslip.net_wage, 2)
-            debit = 0
-            if credit > 99999999.99 or debit > 99999999.99:
-                raise UserError(_('Individual amount of payslip %s is too high for ABA file - Please adjust', payslip.number))
-            detail_record = '1' \
-                + _normalise_bsb(payslip.employee_id.bank_account_id.aba_bsb) \
-                + to_fixed_width(payslip.employee_id.bank_account_id.acc_number, 9, right=True) \
-                + ' ' + '50' \
-                + to_fixed_width(str(round(aud_currency.round(credit) * 100)), 10, '0', right=True) \
-                + to_fixed_width(payslip.employee_id.bank_account_id.acc_holder_name or payslip.employee_id.name, 32) \
-                + to_fixed_width(payslip.number or 'Payment', 18) \
-                + _normalise_bsb(bank_account.aba_bsb) \
-                + to_fixed_width(bank_account.acc_number, 9, right=True) \
-                + to_fixed_width(bank_account.acc_holder_name or journal_id.company_id.name, 16) \
-                + ('0' * 8)
-            append_detail(detail_summary, detail_record, credit, debit)
-
-        if journal_id.aba_self_balancing:
-            # self balancing line use payment bank on both sides.
-            credit = 0
-            debit = detail_summary['credit_total']
-            aba_date = fields.Date.context_today(self)
-            detail_record = '1' \
-                + _normalise_bsb(bank_account.aba_bsb) \
-                + to_fixed_width(bank_account.acc_number, 9, right=True) \
-                + ' ' + '13' \
-                + to_fixed_width(str(round(aud_currency.round(debit) * 100)), 10, fill='0', right=True) \
-                + to_fixed_width(bank_account.acc_holder_name or journal_id.company_id.name, 32) \
-                + to_fixed_width('PAYMENTS %s' % aba_date.strftime('%d%m%y'), 18) \
-                + _normalise_bsb(bank_account.aba_bsb) \
-                + to_fixed_width(bank_account.acc_number, 9, right=True) \
-                + to_fixed_width(bank_account.acc_holder_name or journal_id.company_id.name, 16) \
-                + ('0' * 8)
-            append_detail(detail_summary, detail_record, credit, debit)
-
-        footer_record = '7' + '999-999' + (' ' * 12) \
-            + to_fixed_width(str(round(aud_currency.round(abs(detail_summary['credit_total'] - detail_summary['debit_total'])) * 100)), 10, fill='0', right=True) \
-            + to_fixed_width(str(round(aud_currency.round(detail_summary['credit_total']) * 100)), 10, fill='0', right=True) \
-            + to_fixed_width(str(round(aud_currency.round(detail_summary['debit_total']) * 100)), 10, fill='0', right=True) \
-            + (' ' * 24) \
-            + to_fixed_width(str(len(detail_summary['detail_records'])), 6, fill='0', right=True) \
-            + (' ' * 40)
-
-        SEPARATOR = '\r\n'
-        return header_record + SEPARATOR + SEPARATOR.join(detail_summary['detail_records']) + SEPARATOR + footer_record + SEPARATOR
 
     def action_payslip_done(self):
         """

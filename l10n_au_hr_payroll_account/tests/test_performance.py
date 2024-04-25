@@ -149,6 +149,18 @@ class TestPerformance(AccountTestInvoicingCommon):
             'work_entry_type_id': legal_leave.id,
         } for i in range(cls.EMPLOYEES_COUNT)])
 
+        # todo this most likely shouldn't be required, superstream should be optional.
+        super_fund = cls.env['l10n_au.super.fund'].create({
+            'display_name': 'Fund A',
+            'abn': '2345678912',
+            'address_id': cls.env['res.partner'].create({'name': "Fund A Partner"}).id,
+        })
+        cls.env['l10n_au.super.account'].create([{
+            "date_from": date(2023, 6, 1),
+            "employee_id": employee.id,
+            "fund_id": super_fund.id
+        } for employee in cls.employees])
+
     @users('admin')
     @warmup
     def test_performance_l10n_au_payroll_whole_flow(self):
