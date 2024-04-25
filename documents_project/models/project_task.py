@@ -14,9 +14,13 @@ class ProjectTask(models.Model):
     project_use_documents = fields.Boolean("Use Documents", related='project_id.use_documents')
     documents_folder_id = fields.Many2one('documents.folder', related='project_id.documents_folder_id')
     document_ids = fields.One2many('documents.document', 'res_id', string='Documents', domain=[('res_model', '=', 'project.task')])
-    shared_document_ids = fields.One2many('documents.document', string='Shared Documents', compute='_compute_shared_document_ids')
+    shared_document_ids = fields.One2many('documents.document', string='Shared Documents', compute='_compute_shared_document_ids', compute_sudo=True)
     document_count = fields.Integer(compute='_compute_attached_document_count', string="Number of documents in Task", groups='documents.group_documents_user')
-    shared_document_count = fields.Integer("Shared Documents Count", compute='_compute_shared_document_ids')
+    shared_document_count = fields.Integer("Shared Documents Count", compute='_compute_shared_document_ids', compute_sudo=True)
+
+    @property
+    def SELF_READABLE_FIELDS(self):
+        return super().SELF_READABLE_FIELDS | {'project_use_documents', 'shared_document_count'}
 
     def _get_task_document_data(self):
         domain = [('res_model', '=', 'project.task'), ('res_id', 'in', self.ids)]

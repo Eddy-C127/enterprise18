@@ -6,13 +6,13 @@ from datetime import date, timedelta
 from odoo import Command
 from odoo.tests.common import users
 
-from odoo.addons.project.tests.test_project_base import TestProjectCommon
+from odoo.addons.project.tests.test_project_sharing import TestProjectSharingCommon
 
 GIF = b"R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs="
 TEXT = base64.b64encode(bytes("workflow bridge project", 'utf-8'))
 
 
-class TestCaseDocumentsBridgeProject(TestProjectCommon):
+class TestCaseDocumentsBridgeProject(TestProjectSharingCommon):
 
     def setUp(self):
         super(TestCaseDocumentsBridgeProject, self).setUp()
@@ -362,3 +362,38 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
         new_name = 'New Name'
         self.project_pigs.with_user(self.env.user).name = new_name
         self.assertEqual(self.project_pigs.documents_folder_id.name, new_name, "The folder should have been renamed along with the project.")
+
+    def test_portal_user_access_share_document(self):
+        """
+        Document smart button should be display to the portal user on the task.
+        - Task having document.
+        - Project shared with portal user with edit access and document is also share,
+        """
+
+        self.attachment_txt.write({
+            'res_model': 'project.task',
+            'res_id': self.task_cow.id,
+        })
+        # Share the document
+        self.env['documents.share'].create({
+            'folder_id': self.folder_a_a.id,
+            'include_sub_folders': False,
+            'type': 'domain',
+            'document_ids': [
+                Command.link(self.attachment_txt.id)
+            ],
+        })
+
+        project_share_wizard = self.env['project.share.wizard'].create({
+            'access_mode': 'edit',
+            'res_model': 'project.project',
+            'res_id': self.project_cows.id,
+            'partner_ids': [
+                Command.link(self.user_portal.partner_id.id),
+            ],
+        })
+        project_share_wizard.action_send_mail()
+
+        with self.get_project_sharing_form_view(self.task_cow, self.user_portal) as form:
+            self.assertTrue(form.project_use_documents)
+            self.assertEqual(form.shared_document_count, 1, "There should only be one document shared.")
