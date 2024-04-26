@@ -35,6 +35,16 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         cls.account_revenue1 = cls.company_data['default_account_revenue']
         cls.account_revenue2 = cls.copy_account(cls.account_revenue1)
 
+        cls.reco_model_bill = cls.env['account.reconcile.model'].create({
+            'name': "test create bill",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'purchase',
+            'line_ids': [
+                Command.create({'amount_string': '50'}),
+                Command.create({'amount_string': '50'}),
+            ],
+        })
+
     def assert_form_extra_text_value(self, wizard, regex):
         line = wizard.line_ids.filtered(lambda x: x.index == wizard.form_index)
         value = line.suggestion_html
@@ -2888,3 +2898,193 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         """
         result = self.env['bank.rec.widget'].with_user(self.user).collect_global_info_data(99999999)
         self.assertEqual(result['balance_amount'], "", "If no value, the function should return an empty string")
+
+    ####################################################
+    # RECO MODEL MOVE CREATION
+    ####################################################
+
+    def create_test_reco_invoice(self, st_line, reco_model):
+        """ Helper method to create a move given a statement line and reconciliation model """
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        wizard._action_select_reconcile_model(reco_model)
+        move = self.env['account.move'].browse(wizard.return_todo_command['res_id'])
+        return move
+
+    def assert_reco_invoice_values(self, move, st_line, expected_move_type, expected_amount_total=None):
+        """ Helper method to assert that values in a move match the information in the given statement line """
+        if expected_amount_total is None:
+            expected_amount_total = abs(st_line.amount)
+        self.assertRecordValues(move, [{
+            'amount_total': expected_amount_total,
+            'move_type': expected_move_type,
+            'partner_id': st_line.partner_id.id,
+            'invoice_date': st_line.date,
+        }])
+
+    def test_invoice_creation_from_reco_model(self):
+        """ Test the created invoice from a sale/purchase reconciliation model. """
+        reco_model_invoice = self.env['account.reconcile.model'].create({
+            'name': "test reconcile create invoice",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'sale',
+            'line_ids': [
+                Command.create({'amount_string': '50'}),
+                Command.create({'amount_string': '50'}),
+            ],
+        })
+
+        for st_line_amount, move_type, reco_model in (
+            (1000.0, 'out_invoice', reco_model_invoice),
+            (-1000.0, 'out_refund', reco_model_invoice),
+            (1000.0, 'in_refund', self.reco_model_bill),
+            (-1000.0, 'in_invoice', self.reco_model_bill),
+        ):
+            st_line = self._create_st_line(st_line_amount, partner_id=self.partner_a.id)
+            with self.subTest():
+                move = self.create_test_reco_invoice(st_line, reco_model)
+                self.assert_reco_invoice_values(move, st_line, move_type)
+
+    def test_invoice_reco_model_round_odd(self):
+        """ Test if correct move is created when rounding is needed for multiple reco model lines"""
+        # Odd amount and a reconciliation model with two lines (50% each line) requires rounding to ensure values match.
+        st_line = self._create_st_line(amount=-111.11, partner_id=self.partner_a.id)
+        move = self.create_test_reco_invoice(st_line, self.reco_model_bill)
+        self.assert_reco_invoice_values(move, st_line, 'in_invoice')
+
+    def test_invoice_reco_model_round_single_line(self):
+        """ Test if correct move is created with single-line reco model when rounding is needed """
+        # A st_line of $150 with 15% tax (default) requires rounding, as without it the invoice would total $149.99
+        reco_model_single_line = self.env['account.reconcile.model'].create({
+            'name': "single line reco model",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'purchase',
+            'line_ids': [Command.create({})],
+        })
+        st_line = self._create_st_line(amount=150, partner_id=self.partner_a.id)
+        move = self.create_test_reco_invoice(st_line, reco_model_single_line)
+        self.assert_reco_invoice_values(move, st_line, 'in_refund')
+
+    def test_invoice_reco_model_round_large_percentage(self):
+        """ Test if total move amount is correctly rounded when reco model lines go above 100% of st_line amount """
+        # Reco model with two 100% st_line amount lines
+        reco_model_two_lines = self.env['account.reconcile.model'].create({
+            'name': "two lines reco model",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'purchase',
+            'line_ids': [Command.create({}), Command.create({})],
+        })
+        # Reco model with one 200% st_line amount line
+        reco_model_single_line = self.env['account.reconcile.model'].create({
+            'name': "single line reco model",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'purchase',
+            'line_ids': [Command.create({'amount_string': '200'})],
+        })
+        st_line = self._create_st_line(-150, partner_id=self.partner_a.id)
+        for reco_model in (reco_model_two_lines, reco_model_single_line):
+            with self.subTest():
+                move = self.create_test_reco_invoice(st_line, reco_model)
+                # Total move amount should equal 2 * st_line amount = 300 in both cases
+                self.assert_reco_invoice_values(move, st_line, 'in_invoice', 300.0)
+
+    def test_invoice_reco_model_round_combined(self):
+        """ Test if total move amount is correctly rounded when reco model lines are a combination of
+        percentage_st_line and fixed amount types """
+        # Reco model with 100% amount + fixed amount, total move amount should equal st_line amount + fixed amount
+        reco_model_percentage_fixed = self.env['account.reconcile.model'].create({
+            'name': "combined percentage + fixed reco model",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'sale',
+            'line_ids': [
+                Command.create({}),
+                Command.create({
+                    'amount_type': 'fixed',
+                    'amount_string': '50',
+                }),
+            ],
+        })
+        st_line = self._create_st_line(amount=100, partner_id=self.partner_a.id)
+        move = self.create_test_reco_invoice(st_line, reco_model_percentage_fixed)
+        self.assert_reco_invoice_values(move, st_line, 'out_invoice', 150.0)
+
+    def test_invoice_reco_model_multiple_taxes(self):
+        """
+        Test if correct move is created through reco model writeoff button when the
+        reconciliation model has more than one tax per line.
+        Note: this only works if taxes are all price_include or all not price_include
+        """
+        tax_21 = self.env['account.tax'].create({
+            'name': "tax_21",
+            'amount': 21,
+        })
+        reco_model_bill_mult_taxes = self.env['account.reconcile.model'].create({
+            'name': "test reconcile bill multiple taxes",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'purchase',
+            'line_ids': [
+                Command.create({
+                    'tax_ids': [Command.set((tax_21 + self.company_data['default_tax_purchase']).ids)],
+                }),
+            ],
+        })
+        st_line = self._create_st_line(amount=-100, partner_id=self.partner_a.id)
+        move = self.create_test_reco_invoice(st_line, reco_model_bill_mult_taxes)
+        self.assert_reco_invoice_values(move, st_line, 'in_invoice')
+
+    def test_invoice_creation_reco_model_percentage(self):
+        """ Test if correct move is created when rounding is needed """
+        # Odd amount and a reconciliation model with two lines (50% each line) requires rounding to ensure values match.
+        st_line = self._create_st_line(amount=150, partner_id=self.partner_a.id)
+        reco_model_bill_balance = self.env['account.reconcile.model'].create({
+            'name': "test balance",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'purchase',
+            'line_ids': [
+                Command.create({
+                    'amount_type': 'percentage',
+                    'amount_string': '50',
+                }),
+                Command.create({
+                    'amount_type': 'percentage',
+                    'amount_string': '50',
+                }),
+            ],
+        })
+        move = self.create_test_reco_invoice(st_line, reco_model_bill_balance)
+        self.assert_reco_invoice_values(move, st_line, 'in_refund', 112.5)
+
+    def test_invoice_creation_reco_model_fixed(self):
+        """ Test if correct move is created when rounding is needed """
+        # Odd amount and a reconciliation model with two lines (50% each line) requires rounding to ensure values match.
+        st_line = self._create_st_line(amount=-150, partner_id=self.partner_a.id)
+        reco_model_invoice_fixed = self.env['account.reconcile.model'].create({
+            'name': "test fixed",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'sale',
+            'line_ids': [
+                Command.create({
+                    'amount_type': 'fixed',
+                    'amount_string': '100',
+                }),
+            ],
+        })
+        move = self.create_test_reco_invoice(st_line, reco_model_invoice_fixed)
+        self.assert_reco_invoice_values(move, st_line, 'out_refund', 100.0)
+
+    def test_invoice_creation_reco_model_regex(self):
+        """ Test if correct move is created when rounding is needed """
+        # Odd amount and a reconciliation model with two lines (50% each line) requires rounding to ensure values match.
+        st_line = self._create_st_line(amount=150, partner_id=self.partner_a.id, payment_ref="150 invoice", statement_name='150 invoice')
+        reco_model_invoice_regex = self.env['account.reconcile.model'].create({
+            'name': "test label/regex",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'sale',
+            'line_ids': [
+                Command.create({
+                    'amount_type': 'regex',
+                    'amount_string': r'([\d,.]+)',
+                }),
+            ],
+        })
+        move = self.create_test_reco_invoice(st_line, reco_model_invoice_regex)
+        self.assert_reco_invoice_values(move, st_line, 'out_invoice', 150.0)

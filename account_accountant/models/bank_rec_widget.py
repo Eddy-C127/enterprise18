@@ -175,6 +175,10 @@ class BankRecWidget(models.Model):
                     ('match_journal_ids', '=', False),
                     ('match_journal_ids', '=', wizard.st_line_id.journal_id.id),
                 ])
+                available_reco_models = available_reco_models.filtered(
+                    lambda x: x.counterpart_type == 'general'
+                              or len(x.line_ids.journal_id) <= 1
+                )
                 wizard.available_reco_model_ids = [Command.set(available_reco_models.ids)]
             else:
                 wizard.available_reco_model_ids = [Command.clear()]
@@ -1218,6 +1222,7 @@ class BankRecWidget(models.Model):
         initial_values = initial_data['initial_values']
 
         self.st_line_id = self.env['account.bank.statement.line'].browse(initial_values['st_line_id'])
+        return_todo_command = initial_values['return_todo_command']
 
         # Skip restore and trigger matching rules if the liquidity line was modified
         liquidity_line = self.line_ids.filtered(lambda l: l.flag == 'liquidity')
@@ -1233,15 +1238,34 @@ class BankRecWidget(models.Model):
         for field_name in ('id', 'st_line_id', 'todo_command', 'return_todo_command', 'available_reco_model_ids'):
             initial_values.pop(field_name, None)
 
+        st_line_domain = self.st_line_id._get_default_amls_matching_domain()
+        still_available_aml_ids = self.env['account.move.line'] \
+            .browse(
+                orm_command[2]['source_aml_id']
+                for orm_command in initial_values['line_ids']
+                if orm_command[0] == Command.CREATE and orm_command[2].get('source_aml_id')
+            ) \
+            .filtered_domain(st_line_domain) \
+            .ids
         line_ids_commands = [Command.clear()]
         for orm_command in initial_values['line_ids']:
             if orm_command[0] == Command.CREATE:
-                line_ids_commands.append(Command.create(orm_command[2]))
-            else:
-                line_ids_commands.append(orm_command)
-        initial_values['line_ids'] = line_ids_commands
+                values = orm_command[2]
+                if not values.get('source_aml_id') or values.get('source_aml_id' in still_available_aml_ids):
+                    line_ids_commands.append(Command.create(orm_command[2]))
+                else:
+                    line_ids_commands.append(orm_command)
 
+        initial_values['line_ids'] = line_ids_commands
         self.update(initial_values)
+
+        if return_todo_command and return_todo_command.get('res_model') == 'account.move' and return_todo_command.get('res_id'):
+            created_invoice = self.env['account.move'].browse(return_todo_command['res_id'])
+            if created_invoice.state == 'posted':
+                lines = created_invoice.line_ids.filtered_domain(st_line_domain)
+                self._action_add_new_amls(lines)
+            else:
+                self._lines_add_auto_balance_line()
 
         self.return_todo_command = self._prepare_embedded_views_data()
 
@@ -1453,29 +1477,102 @@ class BankRecWidget(models.Model):
         ]
         self._lines_recompute_taxes()
 
+        if reco_model.to_check != self.st_line_to_check:
+            self.st_line_id.move_id.to_check = reco_model.to_check
+            self.invalidate_recordset(fnames=['st_line_to_check'])
+
         # Compute the residual balance on which apply the newly selected model.
         auto_balance_line_vals = self._lines_prepare_auto_balance_line()
         residual_balance = auto_balance_line_vals['amount_currency']
 
         write_off_vals_list = reco_model._apply_lines_for_bank_widget(residual_balance, self.partner_id, self.st_line_id)
 
-        # Apply the newly generated lines.
-        self.line_ids = [
-            Command.create(self._lines_prepare_reco_model_write_off_vals(reco_model, x))
-            for x in write_off_vals_list
-        ]
+        if reco_model.rule_type == 'writeoff_button' and reco_model.counterpart_type in ('sale', 'purchase'):
+            invoice = self._create_invoice_from_write_off_values(reco_model, write_off_vals_list)
 
-        self._lines_recompute_taxes()
-        self._lines_add_auto_balance_line()
+            action = {
+                'type': 'ir.actions.act_window',
+                'res_model': 'account.move',
+                'context': {'create': False},
+                'view_mode': 'form',
+                'res_id': invoice.id,
+            }
+            self.return_todo_command = clean_action(action, self.env)
+        else:
+            # Apply the newly generated lines.
+            self.line_ids = [
+                Command.create(self._lines_prepare_reco_model_write_off_vals(reco_model, x))
+                for x in write_off_vals_list
+            ]
 
-        if reco_model.to_check != self.st_line_to_check:
-            self.st_line_id.move_id.to_check = reco_model.to_check
-            self.invalidate_recordset(fnames=['st_line_to_check'])
+            self._lines_recompute_taxes()
+            self._lines_add_auto_balance_line()
 
     def _js_action_select_reconcile_model(self, reco_model_id):
         self.ensure_one()
         reco_model = self.env['account.reconcile.model'].browse(reco_model_id)
         self._action_select_reconcile_model(reco_model)
+
+    def _create_invoice_from_write_off_values(self, reco_model, write_off_vals_list):
+        # Create a new invoice/bill and redirect the user to it.
+        journal = reco_model.line_ids.journal_id[:1]
+
+        invoice_line_ids = []
+        total_amount_currency = 0.0
+        percentage_st_line = 0.0
+        for write_off_values in write_off_vals_list:
+            write_off_values = dict(write_off_values)
+            total_amount_currency -= (
+                write_off_values['amount_currency']
+                if 'percentage_st_line' not in write_off_values
+                else 0
+            )
+            percentage_st_line += write_off_values.pop('percentage_st_line', 0)
+            write_off_values.pop('currency_id', None)
+            write_off_values.pop('partner_id', None)
+            write_off_values.pop('reconcile_model_id', None)
+            invoice_line_ids.append(write_off_values)
+
+        st_line_amount = self.st_line_id.amount_currency if self.st_line_id.foreign_currency_id else self.st_line_id.amount
+        total_amount_currency += self.transaction_currency_id.round(st_line_amount * percentage_st_line)
+
+        # Type of move depends on debit or credit of bank statement line and reconciliation model chosen.
+        if reco_model.counterpart_type == 'sale':
+            move_type = 'out_invoice' if total_amount_currency > 0 else 'out_refund'
+        else:
+            move_type = 'in_invoice' if total_amount_currency < 0 else 'in_refund'
+
+        price_unit_sign = 1 if total_amount_currency < 0.0 else -1
+        invoice_line_ids_commands = []
+        for line_values in invoice_line_ids:
+            price_total = price_unit_sign * line_values.pop('amount_currency')
+            taxes = self.env['account.tax'].browse(line_values['tax_ids'][0][2])
+            line_values['price_unit'] = self._get_invoice_price_unit_from_price_total(price_total, taxes)
+            invoice_line_ids_commands.append(Command.create(line_values))
+
+        invoice_values = {
+            'invoice_date': self.st_line_id.date,
+            'move_type': move_type,
+            'partner_id': self.st_line_id.partner_id.id,
+            'currency_id': self.transaction_currency_id.id,
+            'payment_reference': self.st_line_id.payment_ref,
+            'invoice_line_ids': invoice_line_ids_commands,
+        }
+        if journal:
+            invoice_values['journal_id'] = journal.id
+
+        invoice = self.env['account.move'].create(invoice_values)
+        if not invoice.currency_id.is_zero(invoice.amount_total - total_amount_currency):
+            invoice._check_total_amount(abs(total_amount_currency))
+        return invoice
+
+    def _get_invoice_price_unit_from_price_total(self, price_total, taxes):
+        # Determine price unit based on the total amount and taxes applied.
+        taxes_data = taxes._convert_to_dict_for_taxes_computation()
+        taxes_computation = self.env['account.tax']._prepare_taxes_computation(taxes_data, special_mode='total_included')
+        evaluation_context = self.env['account.tax']._eval_taxes_computation_prepare_context(price_total, 1.0, {})
+        taxes_computation = self.env['account.tax']._eval_taxes_computation(taxes_computation, evaluation_context)
+        return taxes_computation['total_excluded'] + sum(x['tax_amount_factorized'] for x in taxes_computation['taxes_data'] if x['_original_price_include'])
 
     def _action_add_new_amls(self, amls, reco_model=None, allow_partial=True):
         self.ensure_one()

@@ -404,6 +404,7 @@ class AccountReconcileWizard(models.TransientModel):
             domain = [
                 ('rule_type', '=', 'writeoff_button'),
                 ('company_id', '=', wizard.company_id.id),
+                ('counterpart_type', 'not in', ('sale', 'purchase')),
             ]
             query = self.env['account.reconcile.model']._where_calc(domain)
             reco_model_ids = [r[0] for r in self.env.execute_query(SQL("""

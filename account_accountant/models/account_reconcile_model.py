@@ -25,9 +25,6 @@ class AccountReconcileModel(models.Model):
         """
         self.ensure_one()
         currency = st_line.foreign_currency_id or st_line.journal_id.currency_id or st_line.company_currency_id
-        if currency.is_zero(residual_amount_currency):
-            return []
-
         vals_list = []
         for line in self.line_ids:
             vals = line._apply_in_bank_widget(residual_amount_currency, partner, st_line)

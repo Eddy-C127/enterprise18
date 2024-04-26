@@ -901,3 +901,59 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget_ui",
         },
     ],
 });
+
+registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_reconciliation_button',
+    {
+        test: true,
+        url: '/web',
+        steps: () => [
+        stepUtils.showAppsMenuItem(),
+        ...accountTourSteps.goToAccountMenu("Open the accounting module"),
+        {
+            content: "Open the bank reconciliation widget",
+            trigger: "button.btn-secondary[name='action_open_reconcile']",
+            run: "click",
+        },
+        {
+            content: "Remove suggested line, if present",
+            trigger: ".o_list_record_remove",
+            run() {
+                const button = document.querySelector('.fa-trash-o');
+                if(button) {
+                    button.click();
+                }
+            }
+        },
+        {
+            content: "Select reconciliation model creating a new move",
+            trigger: ".recon_model_button:contains('test reconcile')",
+            run: "click",
+        },
+        {
+            content: "Confirm move created through reconciliation model writeoff button",
+            trigger: "button[name=action_post]",
+            run: "click",
+        },
+        {
+            trigger: ".o_breadcrumb",
+        },
+        {
+            content: "Breadcrumb back to Bank Reconciliation from created move",
+            trigger: ".breadcrumb-item:contains('Bank Reconciliation')",
+            run: "click",
+        },
+        {
+            content: "Validate created move added as a line in reco widget",
+            trigger: "button:contains('Validate')",
+            run: "click",
+        },
+        // End
+        stepUtils.toggleHomeMenu(),
+        ...accountTourSteps.goToAccountMenu("Reset back to accounting module"),
+        {
+            content: "check that we're back on the dashboard",
+            trigger: 'a:contains("Customer Invoices")',
+            run() {},
+        },
+    ],
+});

@@ -870,8 +870,10 @@ export class BankRecKanbanController extends KanbanController {
                 if(recoModel.resId == data.selected_reco_model_id.id){
                     return;
                 }
-
-                await this.onchange(newState, "select_reconcile_model", [recoModel.resId]);
+                const { return_todo_command: actionData } = await this.onchange(newState, "select_reconcile_model", [recoModel.resId])
+                if(actionData){
+                    this.action.doAction(actionData);
+                }
             });
         });
     }

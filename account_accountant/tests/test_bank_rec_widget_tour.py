@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo.addons.account_accountant.tests.test_bank_rec_widget_common import TestBankRecWidgetCommon
 from odoo.tests import tagged, HttpCase
+from odoo import Command
 
 
 @tagged('post_install', '-at_install')
@@ -33,6 +34,16 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
         cls.env['account.reconcile.model']\
             .search([('company_id', '=', cls.company_data['company'].id)])\
             .write({'past_months_limit': None})
+
+        cls.reco_model_invoice = cls.env['account.reconcile.model'].create({
+            'name': "test reconcile create invoice",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'sale',
+            'line_ids': [
+                Command.create({'amount_string': '50'}),
+                Command.create({'amount_string': '50'}),
+            ],
+        })
 
     def test_tour_bank_rec_widget(self):
         self.start_tour('/web', 'account_accountant_bank_rec_widget', login=self.env.user.login)
@@ -72,3 +83,117 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
 
     def test_tour_bank_rec_widget_statements(self):
         self.start_tour('/web?debug=assets', 'account_accountant_bank_rec_widget_statements', login=self.env.user.login)
+
+    def test_tour_invoice_creation_from_reco_model(self):
+        """ Test if move is created and added as a new_aml line in bank reconciliation widget """
+        st_line = self._create_st_line(amount=1000, partner_id=self.partner_a.id)
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        # The tour creates a move through reco model button, posts it, returns to widget and validates the move
+        self.start_tour(
+            '/web',
+            'account_accountant_bank_rec_widget_reconciliation_button',
+            login=self.env.user.login,
+            step_delay=100,
+        )
+        # Mount the validated statement line to confirm that information matches.
+        wizard._js_action_mount_st_line(st_line.id)
+        self.assertRecordValues(wizard.line_ids, [
+            {'flag': 'liquidity',   'account_id': st_line.journal_id.default_account_id.id,             'balance': 1000},
+            {'flag': 'aml',         'account_id': self.company_data['default_account_receivable'].id,   'balance': -1000,   'display_name': st_line.payment_ref},
+        ])
+        # Check that the aml comes from a move, and not from the auto-balance line
+        self.assertTrue(wizard.line_ids[1].source_aml_move_id)
+
+    def test_tour_invoice_creation_reco_model_currency(self):
+        """ Test move creation through reconcile button when a foreign currency is used for the statement line """
+        st_line = self._create_st_line(
+            1800.0,
+            date='2019-02-01',
+            foreign_currency_id=self.other_currency.id,  # rate 2:1
+            amount_currency=3600.0,
+            partner_id=self.partner_a.id,
+        )
+
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+
+        self.start_tour(
+            '/web',
+            'account_accountant_bank_rec_widget_reconciliation_button',
+            login=self.env.user.login,
+        )
+        # Mount the validated statement line to confirm that information matches.
+        wizard._js_action_mount_st_line(st_line.id)
+
+        # Move is created in the foreign currency, but in bank widget the balance appears in main currency.
+        # If aml was created from the reco model button, display name matches payment_ref.
+        self.assertRecordValues(wizard.line_ids, [
+            {'flag': 'liquidity',   'balance': 1800,     'amount_currency': 1800},
+            {'flag': 'aml',         'balance': -1800,    'amount_currency': -3600,   'display_name': st_line.payment_ref},
+        ])
+        # Confirm that the aml comes from a move, and not from the auto-balance line
+        self.assertTrue(wizard.line_ids[1].source_aml_move_id)
+
+    def test_tour_invoice_creation_combined_reco_model(self):
+        """ Test creation of a move from a reconciliation model with different amount types """
+        self.reco_model_invoice.name = "old test"  # rename previous reco model to be able to reuse the existing tour
+        self.env['account.reconcile.model'].create({
+            'name': "test reconcile combined",
+            'rule_type': 'writeoff_button',
+            'counterpart_type': 'purchase',
+            'line_ids': [
+                Command.create({
+                    'amount_type': 'percentage_st_line',
+                    'amount_string': '50',
+                }),
+                Command.create({
+                    'amount_type': 'percentage',
+                    'amount_string': '50',
+                    'tax_ids': self.tax_purchase_b.ids,
+                }),
+                Command.create({
+                    'amount_type': 'fixed',
+                    'amount_string': '100',
+                    'account_id': self.env.company.expense_currency_exchange_account_id.id,
+                    'tax_ids': [Command.clear()]  # remove default tax added
+                }),
+                # Regex line will not be added to move, as the label of st line does not include digits
+                Command.create({
+                    'amount_type': 'regex',
+                    'amount_string': r'BRT: ([\d,.]+)',
+                }),
+            ],
+        })
+
+        st_line = self._create_st_line(amount=-1000, partner_id=self.partner_a.id, payment_ref="combined test")
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        # The tour creates a move through reco model button, posts it, returns to widget and validates the move
+        self.start_tour(
+            '/web',
+            'account_accountant_bank_rec_widget_reconciliation_button',
+            login=self.env.user.login,
+        )
+        # Mount the validated statement line to confirm that widget line matches created move and balance line is added.
+        wizard._js_action_mount_st_line(st_line.id)
+        self.assertRecordValues(wizard.line_ids, [
+            {'flag': 'liquidity',   'account_id': st_line.journal_id.default_account_id.id,          'balance': -1000},
+            {'flag': 'aml',         'account_id': self.company_data['default_account_payable'].id,   'balance': 850,   'display_name': st_line.payment_ref},
+            {'flag': 'aml',         'account_id': self.company_data['default_account_payable'].id,   'balance': 150},
+        ])
+        # Check that the aml comes from an existing move
+        move = wizard.line_ids[1].source_aml_move_id
+        self.assertTrue(move)
+
+        # The total price of these lines should match the percentage or fixed amount of reco model lines
+        self.assertRecordValues(move.line_ids, [
+            # 50% of statement line (of 1000.0)
+            {'price_total': 500,   'debit': 434.78,   'credit': 0,     'name': 'combined test',   'account_id': self.company_data['default_account_expense'].id},
+            # 50% of balance (of residual value = 500.0)
+            {'price_total': 250,   'debit': 217.39,   'credit': 0,     'name': 'combined test',   'account_id': self.company_data['default_account_expense'].id},
+            # fixed amount of 100.0, no tax in reco model line
+            {'price_total': 100,   'debit': 100,      'credit': 0,     'name': 'combined test',   'account_id': self.env.company.expense_currency_exchange_account_id.id},
+            # Tax for line 1 (65.22 + 434.78 = 500)
+            {'price_total': 0,     'debit': 65.22,    'credit': 0,     'name': '15%',             'account_id': self.company_data['default_account_tax_purchase'].id},
+            # Tax for line 1 (32.61 + 217.39 = 250)
+            {'price_total': 0,     'debit': 32.61,    'credit': 0,     'name': '15% (Copy)',      'account_id': self.company_data['default_account_tax_purchase'].id},
+            {'price_total': 0,     'debit': 0,        'credit': 850,   'name': 'combined test',   'account_id': self.company_data['default_account_payable'].id},
+        ])

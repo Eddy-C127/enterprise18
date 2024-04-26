@@ -24,14 +24,16 @@ class AccountReconcileModelLine(models.Model):
             if fiscal_position:
                 taxes = fiscal_position.map_tax(taxes)
 
-        return {
+        values = {
             'name': self.label,
-            'account_id': self.account_id.id,
             'partner_id': partner.id,
             'analytic_distribution': self.analytic_distribution,
             'tax_ids': [Command.set(taxes.ids)],
             'reconcile_model_id': self.model_id.id,
         }
+        if self.account_id:
+            values['account_id'] = self.account_id.id
+        return values
 
     def _apply_in_manual_widget(self, residual_amount_currency, partner, currency):
         """ Prepare a dictionary that will be used later to create a new journal item (account.move.line) for the
@@ -76,12 +78,20 @@ class AccountReconcileModelLine(models.Model):
         self.ensure_one()
         currency = st_line.foreign_currency_id or st_line.journal_id.currency_id or st_line.company_currency_id
 
-        amount_currency = None
+        aml_values = {'currency_id': currency.id}
+
         if self.amount_type == 'percentage_st_line':
-            _transaction_amount, _transaction_currency, journal_amount, journal_currency, _company_amount, _company_currency \
+            transaction_amount, transaction_currency, journal_amount, journal_currency, _company_amount, _company_currency \
                 = st_line._get_accounting_amounts_and_currencies()
-            amount_currency = journal_currency.round(-journal_amount * (self.amount / 100.0))
-            currency = journal_currency
+            if self.model_id.rule_type == 'writeoff_button' and self.model_id.counterpart_type in ('sale', 'purchase'):
+                # The invoice should be created using the transaction currency.
+                aml_values['amount_currency'] = currency.round(-transaction_amount * self.amount / 100.0)
+                aml_values['percentage_st_line'] = self.amount / 100.0
+                aml_values['currency_id'] = transaction_currency.id
+            else:
+                # The additional journal items follow the journal currency.
+                aml_values['amount_currency'] = currency.round(-journal_amount * self.amount / 100.0)
+                aml_values['currency_id'] = journal_currency.id
         elif self.amount_type == 'regex':
             match = re.search(self.amount_string, st_line.payment_ref)
             if match:
@@ -90,22 +100,18 @@ class AccountReconcileModelLine(models.Model):
                 try:
                     extracted_match_group = re.sub(r'[^\d' + decimal_separator + ']', '', match.group(1))
                     extracted_balance = float(extracted_match_group.replace(decimal_separator, '.'))
-                    amount_currency = copysign(extracted_balance * sign, residual_amount_currency)
+                    aml_values['amount_currency'] = copysign(extracted_balance * sign, residual_amount_currency)
                 except ValueError:
-                    amount_currency = 0.0
+                    aml_values['amount_currency'] = 0.0
             else:
-                amount_currency = 0.0
+                aml_values['amount_currency'] = 0.0
 
-        if amount_currency is None:
-            aml_vals = self._apply_in_manual_widget(residual_amount_currency, partner, currency)
+        if 'amount_currency' not in aml_values:
+            aml_values.update(self._apply_in_manual_widget(residual_amount_currency, partner, currency))
         else:
-            aml_vals = {
-                **self._prepare_aml_vals(partner),
-                'currency_id': currency.id,
-                'amount_currency': amount_currency,
-            }
+            aml_values.update(self._prepare_aml_vals(partner))
 
-        if not aml_vals['name']:
-            aml_vals['name'] = st_line.payment_ref
+        if not aml_values.get('name', False):
+            aml_values['name'] = st_line.payment_ref
 
-        return aml_vals
+        return aml_values
