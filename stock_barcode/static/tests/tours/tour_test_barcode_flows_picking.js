@@ -448,10 +448,15 @@ registry.category("web_tour.tours").add('test_receipt_reserved_1', {test: true, 
         run: 'scan product2'
     },
 
+    // Try to scan WH/Stock 2 as the destination -> Should display an error notification.
+    { trigger: '.o_barcode_line.o_selected.o_line_completed', run: 'scan WH-STOCK-2' },
     {
-        trigger: '.o_barcode_line.o_selected.o_line_completed',
-        run: 'scan LOC-01-01-00'
-    },
+        trigger: '.o_notification_bar.bg-danger',
+        run: () => {
+            helper.assertErrorMessage("The scanned location doesn't belong to this operation's destination");
+    }},
+    // Scan Shelf1 as scanned product2 destination.
+    { trigger: '.o_barcode_client_action', run: 'scan LOC-01-01-00' },
 
     {
         trigger: '.o_scan_message.o_scan_product',

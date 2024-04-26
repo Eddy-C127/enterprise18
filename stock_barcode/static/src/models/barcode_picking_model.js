@@ -1321,6 +1321,12 @@ export default class BarcodePickingModel extends BarcodeModel {
         if (configScanDest == "no") {
             return;
         }
+        // For planned transfers, check the scanned location is a part of transfer destination.
+        if (!this.record.immediate_transfer && !this._isSublocation(barcodeData.destLocation, this._defaultDestLocation())) {
+            barcodeData.stopped = true;
+            const message = _t("The scanned location doesn't belong to this operation's destination");
+            return this.notification(message, { type: 'danger' });
+        }
         // Usually, assign the destination to the selected line or to the selected package's lines.
         let lines = this.selectedPackageLine?.lines || this.selectedLine ? [this.selectedLine] : [];
         if (configScanDest === "mandatory" && this.selectedLine?.product_id?.tracking !== "none") {
