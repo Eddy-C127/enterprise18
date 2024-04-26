@@ -6750,3 +6750,56 @@ QUnit.test("group tasks by task_properties", async (assert) => {
         "Rows should contain two records as we do not group by fields.properties"
     );
 });
+
+QUnit.test("group tasks by datetime", async (assert) => {
+    assert.expect(1);
+    serverData.models.tasks.fields.my_date = {
+        string: "My date",
+        type: "datetime",
+    };
+    serverData.models.tasks.records = [
+        {
+            id: 1,
+            name: "Blop",
+            start: "2018-12-14 08:00:00",
+            stop: "2018-12-24 08:00:00",
+            user_id: 100,
+            project_id: 1,
+        },
+        {
+            id: 2,
+            name: "Yop",
+            start: "2018-12-02 08:00:00",
+            stop: "2018-12-12 08:00:00",
+            user_id: 101,
+            project_id: 1,
+        },
+    ];
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: '<gantt date_start="start" date_stop="stop" />',
+        groupBy: ["my_date:month"],
+    });
+    const { rows } = getGridContent();
+    assert.deepEqual(
+        rows,
+        [
+            {
+                pills: [
+                    {
+                        title: "Yop",
+                        colSpan: "02 -> 12 (1/2)",
+                        level: 0,
+                    },
+                    {
+                        title: "Blop",
+                        colSpan: "14 -> 24 (1/2)",
+                        level: 0,
+                    },
+                ],
+            },
+        ],
+    );
+});
