@@ -67,7 +67,7 @@ class TestInvoiceExtractPurchase(AccountTestInvoicingCommon, TestExtractMixin):
                 'website': {'selected_value': {'content': 'www.test.com'}, 'candidates': []},
                 'payment_ref': {'selected_value': {'content': '+++123/1234/12345+++'}, 'candidates': []},
                 'iban': {'selected_value': {'content': 'BE01234567890123'}, 'candidates': []},
-                'purchase_order': {'selected_values': [{'content': "P12345"}], 'candidates': []},
+                'purchase_order': {'selected_values': [{'content': self.purchase_order.name}], 'candidates': []},
                 'invoice_lines': [
                     {
                         'description': {'selected_value': {'content': 'Test 1'}},
@@ -104,7 +104,6 @@ class TestInvoiceExtractPurchase(AccountTestInvoicingCommon, TestExtractMixin):
             return
         invoice = self.env['account.move'].create({'move_type': 'in_invoice', 'extract_state': 'waiting_extraction'})
         extract_response = self.get_result_success_response()
-        extract_response['results'][0]['purchase_order']['selected_values'][0]['content'] = self.purchase_order.name
 
         with self._mock_iap_extract(extract_response=extract_response):
             invoice._check_ocr_status()
@@ -131,7 +130,6 @@ class TestInvoiceExtractPurchase(AccountTestInvoicingCommon, TestExtractMixin):
             return
         invoice = self.env['account.move'].create({'move_type': 'in_invoice', 'extract_state': 'waiting_extraction'})
         extract_response = self.get_result_success_response()
-        extract_response['results'][0]['purchase_order']['selected_values'][0]['content'] = self.purchase_order.name
         extract_response['results'][0]['total']['selected_value']['content'] = 200
         extract_response['results'][0]['subtotal']['selected_value']['content'] = 200
         extract_response['results'][0]['invoice_lines'] = extract_response['results'][0]['invoice_lines'][:2]
@@ -149,7 +147,6 @@ class TestInvoiceExtractPurchase(AccountTestInvoicingCommon, TestExtractMixin):
             return
         invoice = self.env['account.move'].create({'move_type': 'in_invoice', 'extract_state': 'waiting_extraction'})
         extract_response = self.get_result_success_response()
-        extract_response['results'][0]['purchase_order']['selected_values'][0]['content'] = self.purchase_order.name
         extract_response['results'][0]['total']['selected_value']['content'] = 150
         extract_response['results'][0]['subtotal']['selected_value']['content'] = 150
         extract_response['results'][0]['invoice_lines'] = [extract_response['results'][0]['invoice_lines'][1]]
@@ -167,8 +164,43 @@ class TestInvoiceExtractPurchase(AccountTestInvoicingCommon, TestExtractMixin):
             return
         invoice = self.env['account.move'].create({'move_type': 'in_invoice', 'extract_state': 'waiting_extraction'})
         extract_response = self.get_result_success_response()
+        extract_response['results'][0]['purchase_order']['selected_values'][0]['content'] = self.purchase_order.name + '123'
 
         with self._mock_iap_extract(extract_response=extract_response):
             invoice._check_ocr_status()
 
         self.assertTrue(invoice.id not in self.purchase_order.invoice_ids.ids)
+
+    def test_action_reload_ai_data(self):
+        if not loaded_demo_data(self.env):
+            _logger.warning("This test relies on demo data. To be rewritten independently of demo data for accurate and reliable results.")
+            return
+        invoice = self.env['account.move'].create({
+            'move_type': 'in_invoice',
+            'extract_state': 'waiting_validation',
+            'invoice_date': '2019-04-01',
+            'date': '2019-04-01',
+            'invoice_date_due': '2019-05-01',
+            'ref': 'INV0000',
+            'payment_reference': '+++111/2222/33333+++',
+            'partner_id': self.partner_a.id,
+            'invoice_line_ids': [(0, 0, {
+                'name': 'Blabla',
+                'price_unit': 13.0,
+                'quantity': 2.0,
+                'account_id': self.company_data['default_account_revenue'].id,
+            })],
+        })
+
+        extract_response = self.get_result_success_response()
+        with self._mock_iap_extract(extract_response=extract_response):
+            invoice.action_reload_ai_data()
+
+        # Check that the fields have been overwritten with the content of the PO matched by the OCR
+        self.assertTrue(invoice.id in self.purchase_order.invoice_ids.ids)
+        self.assertEqual(invoice.amount_total, 300)
+        self.assertEqual(invoice.amount_untaxed, 300)
+        self.assertEqual(invoice.amount_tax, 0)
+        self.assertEqual(invoice.partner_id, self.vendor)
+        self.assertEqual(invoice.ref, 'INV1234')
+        self.assertEqual(invoice.invoice_line_ids.mapped('product_id'), self.product1 | self.product2 | self.product3)

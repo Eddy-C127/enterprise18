@@ -69,6 +69,21 @@ class AccountMove(models.Model):
 
     def action_reload_ai_data(self):
         try:
+            with self._get_edi_creation() as move_form:
+                # The OCR doesn't overwrite the fields, so it's necessary to reset them
+                move_form.partner_id = False
+                move_form.invoice_date = False
+                move_form.invoice_payment_term_id = False
+                move_form.invoice_date_due = False
+
+                if move_form.is_purchase_document():
+                    move_form.ref = False
+                elif move_form.is_sale_document() and move_form.quick_edit_mode:
+                    move_form.name = False
+
+                move_form.payment_reference = False
+                move_form.currency_id = move_form.company_currency_id
+                move_form.invoice_line_ids = [Command.clear()]
             self._check_ocr_status(force_write=True)
         except Exception as e:
             _logger.warning("Error while reloading AI data on account.move %d: %s", self.id, e)
@@ -699,7 +714,7 @@ class AccountMove(models.Model):
         self.extract_partner_name = client_ocr if self.is_sale_document() else supplier_ocr
 
         with self._get_edi_creation() as move_form:
-            if not move_form.partner_id or force_write:
+            if not move_form.partner_id:
                 partner_id, created = self._get_partner(ocr_results)
                 if partner_id:
                     move_form.partner_id = partner_id
@@ -773,33 +788,31 @@ class AccountMove(models.Model):
 
             due_date_move_form = move_form.invoice_date_due  # remember the due_date, as it could be modified by the onchange() of invoice_date
             context_create_date = fields.Date.context_today(self, self.create_date)
-            if date_ocr and (not move_form.invoice_date or move_form.invoice_date == context_create_date or force_write):
+            if date_ocr and (not move_form.invoice_date or move_form.invoice_date == context_create_date):
                 move_form.invoice_date = date_ocr
-            if due_date_ocr and (due_date_move_form == context_create_date or force_write):
+            if due_date_ocr and due_date_move_form == context_create_date:
                 if date_ocr == due_date_ocr and move_form.partner_id and move_form.partner_id.property_supplier_payment_term_id:
                     # if the invoice date and the due date found by the OCR are the same, we use the payment terms of the detected supplier instead, if there is one
                     move_form.invoice_payment_term_id = move_form.partner_id.property_supplier_payment_term_id
                 else:
                     move_form.invoice_date_due = due_date_ocr
 
-            if self.is_purchase_document() and (not move_form.ref or force_write):
+            if self.is_purchase_document() and not move_form.ref:
                 move_form.ref = invoice_id_ocr
 
             if self.is_sale_document() and self.quick_edit_mode:
                 move_form.name = invoice_id_ocr
 
-            if payment_ref_ocr and (not move_form.payment_reference or force_write):
+            if payment_ref_ocr and not move_form.payment_reference:
                 move_form.payment_reference = payment_ref_ocr
 
-            add_lines = not move_form.invoice_line_ids or force_write
+            add_lines = not move_form.invoice_line_ids
             if add_lines:
-                if currency_ocr and (move_form.currency_id == move_form.company_currency_id or force_write):
+                if currency_ocr and move_form.currency_id == move_form.company_currency_id:
                     currency = self._get_currency(currency_ocr, move_form.partner_id)
                     if currency:
                         move_form.currency_id = currency
 
-                if force_write:
-                    move_form.invoice_line_ids = [Command.clear()]
                 vals_invoice_lines = self._get_invoice_lines(ocr_results)
                 # Create the lines with only the name for account_predictive_bills
                 move_form.invoice_line_ids = [
