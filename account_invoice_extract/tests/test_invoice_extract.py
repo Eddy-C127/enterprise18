@@ -910,3 +910,42 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
             invoice._check_ocr_status()
 
         self.assertEqual(invoice.move_type, 'out_refund')
+
+    def test_action_reload_ai_data(self):
+        # test that the "Reload AI data" button overwrites the content of the invoice with the OCR results
+        self.env.company.extract_single_line_per_tax = False
+        ocr_partner = self.env['res.partner'].create({'name': 'Test', 'vat': 'BE0477472701'})
+
+        invoice = self.env['account.move'].create({
+            'move_type': 'in_invoice',
+            'extract_state': 'waiting_validation',
+            'invoice_date': '2019-04-01',
+            'date': '2019-04-01',
+            'invoice_date_due': '2019-05-01',
+            'ref': 'INV1234',
+            'payment_reference': '+++111/2222/33333+++',
+            'partner_id': self.partner_a.id,
+            'invoice_line_ids': [(0, 0, {
+                'name': 'Blabla',
+                'price_unit': 13.0,
+                'quantity': 2.0,
+                'account_id': self.company_data['default_account_revenue'].id,
+            })],
+        })
+
+        extract_response = self.get_result_success_response()
+        with self._mock_iap_extract(extract_response=extract_response):
+            invoice.action_reload_ai_data()
+
+        self.assertEqual(invoice.extract_state, 'waiting_validation')
+
+        # Check that the fields have been overwritten with the OCR results
+        self.assertEqual(invoice.amount_total, 330)
+        self.assertEqual(invoice.amount_untaxed, 300)
+        self.assertEqual(invoice.amount_tax, 30)
+        self.assertEqual(invoice.partner_id, ocr_partner)
+        self.assertEqual(invoice.invoice_date, fields.Date.from_string('2019-04-12'))
+        self.assertEqual(invoice.invoice_date_due, fields.Date.from_string('2019-04-19'))
+        self.assertEqual(invoice.payment_reference, '+++123/1234/12345+++')
+        self.assertEqual(invoice.ref, 'INV0001')
+        self.assertEqual(invoice.invoice_line_ids.mapped('name'), ["Test 1", "Test 2", "Test 3"])
