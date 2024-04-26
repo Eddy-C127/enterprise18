@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.tests import Form, tagged
@@ -312,6 +311,42 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
         url = "/web#action=" + str(action_id.id)
         self.start_tour(url, 'test_barcode_production_component_no_stock', login='admin', timeout=180)
+
+    def test_barcode_production_components_reservation_state(self):
+        """ When components are unreserved, they should not be visible in the
+        Barcode app nor re-reserved when the MO is opened.
+        Only reserved components should be visible in the barcode."""
+        self.clean_access_rights()
+        self.env['stock.quant'].create({
+            'quantity': 4,
+            'product_id': self.component01.id,
+            'location_id': self.stock_location.id,
+        })
+        mo = self.env['mrp.production'].create({
+            'product_id': self.final_product.id,
+            'product_qty': 1,
+            'move_raw_ids': [(0, 0, {
+                'product_id': self.component01.id,
+                'product_uom_qty': 2,
+                'picked': False,
+            })]
+        })
+        mo.action_confirm()
+        action = self.env.ref('stock_barcode_mrp.stock_barcode_mo_client_action')
+        url = f"/web#action={action.id}&active_id={mo.id}"
+
+        # when MO component's are reserved
+        self.assertEqual(mo.move_raw_ids.move_line_ids.quantity, mo.move_raw_ids.product_uom_qty)
+        self.start_tour(url, 'test_barcode_production_components_reservation_state_reserved', login='admin', timeout=180)
+
+        # when MO component's are unreserved
+        self.assertEqual(len(mo.move_raw_ids.move_line_ids), 1)
+        mo.do_unreserve()
+        self.assertEqual(len(mo.move_raw_ids.move_line_ids), 0)
+        self.start_tour(url, 'test_barcode_production_components_reservation_state_unreserved', login='admin', timeout=180)
+        self.assertEqual(
+            len(mo.move_raw_ids.move_line_ids), 0,
+            "Verify MO components are still unreserved after open the MO in the Barcode app")
 
     def test_barcode_production_add_scrap(self):
         """ Process a production where one of the component is scraped

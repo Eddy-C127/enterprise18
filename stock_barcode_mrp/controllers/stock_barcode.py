@@ -43,16 +43,6 @@ class MRPStockBarcode(StockBarcodeController):
             target_record.action_confirm()
         return target_record._get_stock_barcode_data()
 
-    @http.route()
-    def get_barcode_data(self, model, res_id):
-        if res_id and model == 'mrp.production':
-            mo_id = request.env[model].browse(res_id)
-            # when MO product_qty is changed, the MO needs to check availability again,
-            # this is done automatically when fetching the data
-            if mo_id.reservation_state != 'assigned':
-                mo_id.action_assign()
-        return super().get_barcode_data(model, res_id)
-
     def _get_groups_data(self):
         group_data = super()._get_groups_data()
         group_data.update({
