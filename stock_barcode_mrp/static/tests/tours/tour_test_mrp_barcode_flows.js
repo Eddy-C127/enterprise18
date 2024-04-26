@@ -757,6 +757,24 @@ registry.category("web_tour.tours").add('test_mo_scrap_digipad_view', {test: tru
     },
 ]});
 
+registry.category("web_tour.tours").add('test_barcode_production_components_reservation_state_reserved', {test: true, steps: () => [
+    {
+        trigger: '.o_barcode_client_action',
+        run: () => {
+            helper.assertLinesCount(2);
+        }
+    },
+]});
+
+registry.category("web_tour.tours").add('test_barcode_production_components_reservation_state_unreserved', {test: true, steps: () => [
+    {
+        trigger: '.o_barcode_client_action',
+        run: () => {
+            helper.assertLinesCount(1);
+        }
+    },
+]});
+
 registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {test: true, steps: () => [
     // Creates a new production from the Barcode App.
     {
