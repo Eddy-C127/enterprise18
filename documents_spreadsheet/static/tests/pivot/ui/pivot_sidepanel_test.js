@@ -442,8 +442,8 @@ QUnit.module(
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             await click(fixture.querySelector(".add-dimension.btn"));
-            await click(fixture.querySelectorAll(".o-popover div")[1]);
-            await click(fixture, ".pivot-defer-update .btn-link");
+            await click(fixture.querySelectorAll(".o-popover .pivot-dimension-field")[0]);
+            await click(fixture, ".pivot-defer-update .o-checkbox");
             const definition = JSON.parse(
                 JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
             );
@@ -468,8 +468,8 @@ QUnit.module(
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             await click(fixture.querySelectorAll(".add-dimension.btn")[1]);
-            await click(fixture.querySelectorAll(".o-popover div")[1]);
-            await click(fixture, ".pivot-defer-update .btn-link");
+            await click(fixture.querySelectorAll(".o-popover .pivot-dimension-field")[0]);
+            await click(fixture, ".pivot-defer-update .o-checkbox");
             const definition = JSON.parse(
                 JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
             );
@@ -628,8 +628,8 @@ QUnit.module(
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             await click(fixture.querySelectorAll(".add-dimension.btn")[2]);
-            await click(fixture.querySelectorAll(".o-popover div")[1]);
-            await click(fixture, ".pivot-defer-update .btn-link");
+            await click(fixture.querySelectorAll(".o-popover .pivot-dimension-field")[0]);
+            await click(fixture, ".pivot-defer-update .o-checkbox");
             const definition = JSON.parse(
                 JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
             );
