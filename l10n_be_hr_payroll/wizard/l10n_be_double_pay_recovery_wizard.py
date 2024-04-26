@@ -83,13 +83,13 @@ class L10nBeDoublePayRecoveryWizard(models.TransientModel):
             # Computation of the limit = Current monthly remuneration * number of months of
             # employment in the previous year * fraction of occupancy on the certificate * 15.34%
             # If vacation certificate amount < the limit: NO limit applicable
-            wizard.threshold = sum([wizard.gross_salary * l.months_count * l.occupation_rate / 100.0 * 0.1534 for l in wizard.line_ids])
+            wizard.threshold = sum(wizard.gross_salary * l.months_count * l.occupation_rate / 100.0 * 0.0767 for l in wizard.line_ids)
 
             # Step 3:
             # Calculation of amounts to be recovered
             amount = min(wizard.threshold, sum(wizard.line_ids.mapped('amount')))
 
-            wizard.double_pay_to_recover = amount / 2.0
+            wizard.double_pay_to_recover = amount
 
     def action_validate(self):
         self.ensure_one()
@@ -99,6 +99,7 @@ class L10nBeDoublePayRecoveryWizard(models.TransientModel):
                 'amount': self.double_pay_to_recover,
             })],
         })
+        self.payslip_id.compute_sheet()
 
 class L10nBeDoublePayRecoveryLineWizard(models.TransientModel):
     _name = 'l10n.be.double.pay.recovery.line.wizard'
