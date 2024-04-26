@@ -238,9 +238,9 @@ class QualityCheck(models.Model):
     def _compute_warning_message(self):
         for rec in self:
             if rec.measure_success == 'fail':
-                rec.warning_message = _('You measured %.2f %s and it should be between %.2f and %.2f %s.',
-                    rec.measure, rec.norm_unit, rec.point_id.tolerance_min,
-                    rec.point_id.tolerance_max, rec.norm_unit
+                rec.warning_message = _('You measured %(measure).2f %(unit)s and it should be between %(tolerance_min).2f and %(tolerance_max).2f %(unit)s.',
+                    measure=rec.measure, unit=rec.norm_unit, tolerance_min=rec.point_id.tolerance_min,
+                    tolerance_max=rec.point_id.tolerance_max,
                 )
             else:
                 rec.warning_message = ''

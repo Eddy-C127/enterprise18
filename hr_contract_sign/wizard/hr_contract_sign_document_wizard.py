@@ -202,7 +202,7 @@ class HrContractSignDocumentWizard(models.TransientModel):
 
         for employee in self.employee_ids:
             if self.responsible_id and sign_templates_both_ids:
-                signatories_text = _('%s and %s are the signatories.', employee.display_name, self.responsible_id.display_name)
+                signatories_text = _('%(employee)s and %(responsible)s are the signatories.', employee=employee.display_name, responsible=self.responsible_id.display_name)
             else:
                 signatories_text = _('Only %s has to sign.', employee.display_name)
             record_to_post = self.contract_id if self.contract_id.employee_id == employee else employee

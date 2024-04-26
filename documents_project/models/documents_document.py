@@ -4,7 +4,7 @@
 from collections import OrderedDict
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools import SQL
 
 
@@ -39,7 +39,11 @@ class Document(models.Model):
     @api.model
     def _search_is_shared(self, operator, value):
         if operator not in ('=', '!=') or not isinstance(value, bool):
-            raise NotImplementedError(f'The search does not support the {operator} operator or {value} value.')
+            raise UserError(_(
+                "The search does not support operator %(operator)s or value %(value)s.",
+                operator=operator,
+                value=value,
+            ))
 
         share_links = self.env['documents.share'].search_read(
             ['|', ('date_deadline', '=', False), ('date_deadline', '>', fields.Date.today())],

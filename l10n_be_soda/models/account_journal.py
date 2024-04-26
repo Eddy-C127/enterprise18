@@ -75,7 +75,7 @@ class AccountJournal(models.Model):
             if existing_move:
                 if self._context.get('raise_no_imported_file', True):
                     raise UserError(
-                        _('The entry %s has already been uploaded (%s).', ref, existing_move.name))
+                        _('The entry %(entry)s has already been uploaded (%(existing_entry)s).', entry=ref, existing_entry=existing_move.name))
                 else:
                     return
             soda_files[ref] = {

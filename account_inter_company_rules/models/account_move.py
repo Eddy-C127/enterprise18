@@ -93,7 +93,7 @@ class AccountMove(models.Model):
             'invoice_date': self.invoice_date,
             'invoice_date_due': self.invoice_date_due,
             'payment_reference': self.payment_reference,
-            'invoice_origin': _('%s Invoice: %s', self.company_id.name, self.name),
+            'invoice_origin': _('%(company)s Invoice: %(entry)s', company=self.company_id.name, entry=self.name),
             'fiscal_position_id': fiscal_position_id,
             'journal_id': self.env.company.intercompany_purchase_journal_id.id,
             'invoice_payment_term_id': self.invoice_payment_term_id.id if self.invoice_payment_term_id and not self.invoice_payment_term_id.company_id else False,

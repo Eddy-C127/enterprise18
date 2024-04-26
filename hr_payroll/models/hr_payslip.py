@@ -838,7 +838,7 @@ class HrPayslip(models.Model):
         line_vals = []
         for payslip in self:
             if not payslip.contract_id:
-                raise UserError(_("There's no contract set on payslip %s for %s. Check that there is at least a contract set on the employee form.", payslip.name, payslip.employee_id.name))
+                raise UserError(_("There's no contract set on payslip %(payslip)s for %(employee)s. Check that there is at least a contract set on the employee form.", payslip=payslip.name, employee=payslip.employee_id.name))
 
             localdict = self.env.context.get('force_payslip_localdict', None)
             if localdict is None:
@@ -953,7 +953,7 @@ class HrPayslip(models.Model):
             period_name = self._format_date_cached(cache, start_date, "MMMM Y")
         elif schedule == 'quarterly':
             current_year_quarter = math.ceil(start_date.month / 3)
-            period_name = _("Quarter %s of %s", current_year_quarter, start_date.year)
+            period_name = _("Quarter %(quarter)s of %(year)s", quarter=current_year_quarter, year=start_date.year)
         elif schedule == 'semi-annually':
             year_half = start_date.replace(day=1, month=6)
             is_first_half = start_date < year_half
@@ -973,7 +973,7 @@ class HrPayslip(models.Model):
         elif schedule == 'bi-monthly':
             start_date_string = self._format_date_cached(cache, start_date, "MMMM Y")
             end_date_string = self._format_date_cached(cache, end_date, "MMMM Y")
-            period_name = _("%s and %s", start_date_string, end_date_string)
+            period_name = _("%(start_date_string)s and %(end_date_string)s", start_date_string=start_date_string, end_date_string=end_date_string)
         return period_name
 
     def _format_date_cached(self, cache, date, date_format=False):
@@ -1348,7 +1348,7 @@ class HrPayslip(models.Model):
             try:
                 safe_eval(warning.evaluation_code, locals_dict=localdict, globals_dict=globaldict, mode='exec', nocopy=True)
             except Exception as e:
-                raise UserError(_("Wrong warning computation code defined for:\n- Warning: %s\n- Error: %s", warning.name, e))
+                raise UserError(_("Wrong warning computation code defined for:\n- Warning: %(warning)s\n- Error: %(error)s", warning=warning.name, error=e))
             if localdict['warning_count']:
                 result.append({
                     'string': warning.name,

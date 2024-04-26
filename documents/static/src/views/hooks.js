@@ -457,7 +457,12 @@ function useDocumentsViewFileUpload() {
         const result =
             xhr.status === 200
                 ? JSON.parse(xhr.response)
-                : { error: _t("status code: %s, message: %s", xhr.status, xhr.response) };
+                : {
+                      error: _t("status code: %(status)s, message: %(message)s", {
+                          status: xhr.status,
+                          message: xhr.response,
+                      }),
+                  };
         if (result.error) {
             handleUploadError(result);
         } else {

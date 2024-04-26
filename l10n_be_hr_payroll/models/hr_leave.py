@@ -15,10 +15,10 @@ class HolidaysRequest(models.Model):
                 drs_link = "https://www.socialsecurity.be/site_fr/employer/applics/drs/index.htm"
                 drs_link = '<a href="%s" target="_blank">%s</a>' % (drs_link, drs_link)
                 user_ids = leave.holiday_status_id.responsible_ids.ids or self.env.user.ids
-                note = _('%s is in %s. Fill in the appropriate eDRS here: %s',
-                   leave.employee_id.name,
-                   leave.holiday_status_id.name,
-                   drs_link)
+                note = _('%(employee)s is in %(holiday_status)s. Fill in the appropriate eDRS here: %(link)s',
+                   employee=leave.employee_id.name,
+                   holiday_status=leave.holiday_status_id.name,
+                   link=drs_link)
                 activity_vals = []
                 for user_id in user_ids:
                     activity_vals.append({

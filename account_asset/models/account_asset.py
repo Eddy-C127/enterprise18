@@ -356,10 +356,10 @@ class AccountAsset(models.Model):
             if self.original_value != computed_original_value:
                 warning = {
                     'title': _("Warning for the Original Value of %s", self.name),
-                    'message': _("The amount you have entered (%s) does not match the Related Purchase's value (%s). "
+                    'message': _("The amount you have entered (%(entered_amount)s) does not match the Related Purchase's value (%(purchase_value)s). "
                                  "Please make sure this is what you want.",
-                                 formatLang(self.env, self.original_value, currency_obj=self.currency_id),
-                                 formatLang(self.env, computed_original_value, currency_obj=self.currency_id))
+                                 entered_amount=formatLang(self.env, self.original_value, currency_obj=self.currency_id),
+                                 purchase_value=formatLang(self.env, computed_original_value, currency_obj=self.currency_id))
                 }
                 return {'warning': warning}
 
@@ -446,9 +446,9 @@ class AccountAsset(models.Model):
         for asset in self:
             for line in asset.original_move_line_ids:
                 if line.name:
-                    body = _('A document linked to %s has been deleted: %s',
-                        line.name,
-                        asset._get_html_link(),
+                    body = _('A document linked to %(move_line_name)s has been deleted: %(link)s',
+                        move_line_name=line.name,
+                        link=asset._get_html_link(),
                     )
                 else:
                     body = _('A document linked to this move has been deleted: %s',
@@ -969,10 +969,10 @@ class AccountAsset(models.Model):
         # the original value does not match the related purchase(s).
         if self.non_deductible_tax_value:
             currency = self.env.company.currency_id
-            msg = _('A non deductible tax value of %s was added to %s\'s initial value of %s',
-                    formatLang(self.env, self.non_deductible_tax_value, currency_obj=currency),
-                    self.name,
-                    formatLang(self.env, self.related_purchase_value, currency_obj=currency))
+            msg = _('A non deductible tax value of %(tax_value)s was added to %(name)s\'s initial value of %(purchase_value)s',
+                    tax_value=formatLang(self.env, self.non_deductible_tax_value, currency_obj=currency),
+                    name=self.name,
+                    purchase_value=formatLang(self.env, self.related_purchase_value, currency_obj=currency))
             self.message_post(body=msg)
 
     def _create_move_before_date(self, date):

@@ -143,7 +143,7 @@ class SocialStreamPostTwitter(models.Model):
         if not result.ok:
             if result.json().get('errors', [{}])[0].get('parameters', {}).get('since_id'):
                 raise UserError(_("Replies from posts older than 7 days must be accessed on Twitter.com"))
-            raise UserError(_("Failed to fetch the posts in the same thread: '%s' using the account %s.", result.text, self.stream_id.account_id.name))
+            raise UserError(_("Failed to fetch the posts in the same thread: '%(text)s' using the account %(account)s.", text=result.text, account=self.stream_id.account_id.name))
 
         users = {
             user['id']: {
@@ -326,7 +326,7 @@ class SocialStreamPostTwitter(models.Model):
         if not result.ok:
             stream.account_id.write({'is_media_disconnected': True})
             error = result.json().get('detail') or result.text
-            raise UserError(_('Failed to post comment: %s with the account %s.', error, stream.account_id.name))
+            raise UserError(_('Failed to post comment: %(error)s with the account %(account)s.', error=error, account=stream.account_id.name))
 
         tweet = result.json()['data']
 

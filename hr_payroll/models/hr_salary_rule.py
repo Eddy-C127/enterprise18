@@ -87,19 +87,19 @@ result = contract.wage * 0.10''')
     note = fields.Html(string='Description', translate=True)
 
     def _raise_error(self, localdict, error_type, e):
-        raise UserError(_("""%s
-- Employee: %s
-- Contract: %s
-- Payslip: %s
-- Salary rule: %s (%s)
-- Error: %s""",
-            error_type,
-            localdict['employee'].name,
-            localdict['contract'].name,
-            localdict['payslip'].name,
-            self.name,
-            self.code,
-            e))
+        raise UserError(_("""%(error_type)s
+- Employee: %(employee)s
+- Contract: %(contract)s
+- Payslip: %(payslip)s
+- Salary rule: %(name)s (%(code)s)
+- Error: %(error_message)s""",
+            error_type=error_type,
+            employee=localdict['employee'].name,
+            contract=localdict['contract'].name,
+            payslip=localdict['payslip'].name,
+            name=self.name,
+            code=self.code,
+            error_message=e))
 
     def _compute_rule(self, localdict):
 

@@ -1,7 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import models, _, fields
 from odoo.exceptions import ValidationError
-from odoo.tools import partition
+from odoo.tools import format_list, partition
 
 
 class AccountExternalTaxMixinL10nBR(models.AbstractModel):
@@ -38,18 +38,18 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
                 # of the missing _compute_l10n_br_is_service_transaction() override.
                 raise ValidationError(
                     _(
-                        '%s is a goods transaction but has service products:\n%s. Make sure the "Brazilian Accounting EDI for services" module is installed.',
-                        self.display_name,
-                        ", ".join(line["tempProduct"].display_name for line in service_lines),
+                        '%(transaction)s is a goods transaction but has service products:\n%(products)s. Make sure the "Brazilian Accounting EDI for services" module is installed.',
+                        transaction=self.display_name,
+                        products=format_list(self.env, [line["tempProduct"].display_name for line in service_lines]),
                     )
                 )
         else:
             if consumable_lines:
                 raise ValidationError(
                     _(
-                        "%s is a service transaction but has non-service products:\n%s",
-                        self.display_name,
-                        ", ".join(line["tempProduct"].display_name for line in consumable_lines),
+                        "%(transaction)s is a service transaction but has non-service products:\n%(products)s",
+                        transaction=self.display_name,
+                        products=format_list(self.env, [line["tempProduct"].display_name for line in consumable_lines]),
                     )
                 )
 

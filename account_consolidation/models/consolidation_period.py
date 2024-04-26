@@ -202,7 +202,7 @@ class ConsolidationPeriod(models.Model):
                 'search_default_not_mapped': True,
                 'search_default_used': True,
             },
-            'display_name': _('Account Mapping: %s (for %s)', company.name, self.chart_id.name)
+            'display_name': _('Account Mapping: %(company)s (for %(chart)s)', company=company.name, chart=self.chart_id.name)
         })
         return action
 

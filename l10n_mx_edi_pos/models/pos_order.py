@@ -759,7 +759,7 @@ class PosOrder(models.Model):
                 errors = []
                 for error, orders_in_error in orders_per_error.items():
                     orders_str = ",".join(orders_in_error.mapped('name'))
-                    errors.append(_("On %s: %s", orders_str, error))
+                    errors.append(_("On %(orders)s: %(error)s", orders=orders_str, error=error))
                 cfdi_values['errors'] = errors
                 return
 

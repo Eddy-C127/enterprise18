@@ -591,9 +591,8 @@ export default class BarcodeModel extends EventBus {
             if (paramsUOM.category_id !== productUOM.category_id) {
                 // Not the same UoM's category -> Can't be converted.
                 const message = _t(
-                    "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible with the product's one (%s).",
-                    paramsUOM.name,
-                    productUOM.name
+                    "Scanned quantity uses %(unit)s as its Unit of Measure (UoM), but it is not compatible with the product's UoM (%(productUnit)s).",
+                    { unit: paramsUOM.name, productUnit: productUOM.name }
                 );
                 this.notification(message, { title: _t("Wrong Unit of Measure"), type: "danger" });
                 return false;

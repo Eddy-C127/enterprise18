@@ -139,9 +139,9 @@ class AccountMove(models.Model):
                 # Post the message with the attachments (PDF of the report, and possibly an additional export file)
                 attachments = move._get_vat_report_attachments(report, options)
                 subject = _(
-                    "Vat closing from %s to %s",
-                    format_date(self.env, options['date']['date_from']),
-                    format_date(self.env, options['date']['date_to']),
+                    "Vat closing from %(date_from)s to %(date_to)s",
+                    date_from=format_date(self.env, options['date']['date_from']),
+                    date_to=format_date(self.env, options['date']['date_to']),
                 )
                 move.with_context(no_new_invoice=True).message_post(body=move.ref, subject=subject, attachments=attachments)
 

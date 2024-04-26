@@ -106,7 +106,7 @@ def make_proxy_request(endpoint, env, payload=None):
                 error_code, error_description, pformat(data)
             )
             raise ValidationError(
-                _("Error code: %s; description: %s", error_code, error_description)
+                _("Error code: %(error_code)s; description: %(error_message)s", error_code=error_code, error_message=error_description)
             )
     except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
         _logger.warning("Could not establish the connection to the proxy.", exc_info=True)
@@ -179,8 +179,8 @@ def make_sp_api_request(account, operation, path_parameter='', payload=None, met
                     error_code, error_message, pformat(payload)
                 )
                 raise ValidationError(_(
-                    "The communication with the API failed.\nError code: %s; description: %s",
-                    error_code, error_message))
+                    "The communication with the API failed.\nError code: %(error_code)s; description: %(error_message)s",
+                    error_code=error_code, error_message=error_message))
     except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
         _logger.exception("Unable to reach endpoint at %s", url)
         raise ValidationError(_("Could not establish the connection to the API."))

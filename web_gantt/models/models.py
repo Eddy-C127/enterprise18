@@ -145,8 +145,8 @@ class Base(models.AbstractModel):
                 'tag': 'display_notification',
                 'params': {
                     'type': 'warning',
-                    'message': _('You cannot reschedule %s towards %s.',
-                                 master_record.name, slave_record.name),
+                    'message': _('You cannot reschedule %(main_record)s towards %(other_record)s.',
+                                 main_record=master_record.name, other_record=slave_record.name),
                 }
             }
 
@@ -169,7 +169,11 @@ class Base(models.AbstractModel):
                 'tag': 'display_notification',
                 'params': {
                     'type': 'warning',
-                    'message': _('You cannot move %s towards %s.') % (trigger_record.name, related_record.name),
+                    'message': _(
+                        "You cannot move %(record)s towards %(related_record)s.",
+                        record=trigger_record.name,
+                        related_record=related_record.name,
+                    ),
                 }
             }
 

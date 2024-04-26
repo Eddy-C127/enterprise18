@@ -35,13 +35,14 @@ RentingMixin._getInvalidMessage = function (startDate, endDate, productId) {
                     }
                     message +=
                         " " +
-                        _t(
-                            "- From %s to %s.\n",
-                            this._isDurationWithHours()
+                        _t("- From %(startPeriod)s to %(endPeriod)s.\n", {
+                            startPeriod: this._isDurationWithHours()
                                 ? formatDateTime(interval.start)
                                 : formatDate(interval.start),
-                            this._isDurationWithHours() ? formatDateTime(end) : formatDate(end)
-                        );
+                            endPeriod: this._isDurationWithHours()
+                                ? formatDateTime(end)
+                                : formatDate(end),
+                        });
                 }
             }
             end -= interval.end;

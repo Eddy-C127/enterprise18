@@ -98,7 +98,7 @@ class AccountGenericTaxReport(models.AbstractModel):
 
         date_from = fields.Date.to_date(date_from).strftime('%d/%m/%Y')
         date_to = fields.Date.to_date(date_to).strftime("%d/%m/%Y")
-        date = _("From %s to %s", date_from, date_to)
+        date = _("From %(date_from)s to %(date_to)s", date_from=date_from, date_to=date_to)
         company = self.env.company
         company_name = company.name
         vat = company.vat or ''

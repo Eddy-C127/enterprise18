@@ -96,12 +96,12 @@ class ResPartner(models.Model):
                 'sale_ebay_account_deletion.ebay_GDPR_notification',
                 note=_(
                     "This is an automated notification as a deletion request has been received "
-                    "from eBay concerning the account \"%s (%s)\". "
+                    "from eBay concerning the account \"%(account_name)s (%(account_id)s)\". "
                     "The account has been anonymised already and his portal access revoked (if they had any)."
                     "\n\n"
                     "However, personal information might remain in linked documents, "
                     "please review them according to laws that apply.",
-                    partner.name, partner.id),
+                    account_name=partner.name, account_id=partner.id),
                 user_id=admin_user.id,
             )
 

@@ -127,14 +127,14 @@ class ResCompany(models.Model):
             # This should never happen, but can be caused by wrong manual operations
             if len(tax_closing_move) > 1:
                 if fpos:
-                    error = _("Multiple draft tax closing entries exist for fiscal position %s after %s. There should be at most one. \n %s")
-                    params = (fpos.name, period_start, tax_closing_move.mapped('display_name'))
+                    error = _("Multiple draft tax closing entries exist for fiscal position %(position)s after %(period_start)s. There should be at most one. \n %(closing_entries)s",
+                              position=fpos.name, period_start=period_start, closing_entries=tax_closing_move.mapped('display_name'))
 
                 else:
-                    error = _("Multiple draft tax closing entries exist for your domestic region after %s. There should be at most one. \n %s")
-                    params = (period_start, tax_closing_move.mapped('display_name'))
+                    error = _("Multiple draft tax closing entries exist for your domestic region after %(period_start)s. There should be at most one. \n %(closing_entries)s",
+                              period_start=period_start, closing_entries=tax_closing_move.mapped('display_name'))
 
-                raise UserError(error % params)
+                raise UserError(error)
 
             # Compute tax closing description
             ref = self._get_tax_closing_move_description(self.account_tax_periodicity, period_start, period_end, fpos)
@@ -224,13 +224,13 @@ class ResCompany(models.Model):
             region_string = ''
 
         if periodicity == 'year':
-            return _("Tax return for %s%s", period_start.year, region_string)
+            return _("Tax return for %(year)s%(region)s", year=period_start.year, region=region_string)
         elif periodicity == 'trimester':
-            return _("Tax return for %s%s", format_date(self.env, period_start, date_format='qqq yyyy'), region_string)
+            return _("Tax return for %(trimester)s%(region)s", trimester=format_date(self.env, period_start, date_format='qqq yyyy'), region=region_string)
         elif periodicity == 'monthly':
-            return _("Tax return for %s%s", format_date(self.env, period_start, date_format='LLLL yyyy'), region_string)
+            return _("Tax return for %(month)s%(region)s", month=format_date(self.env, period_start, date_format='LLLL yyyy'), region=region_string)
         else:
-            return _("Tax return from %s to %s%s", format_date(self.env, period_start), format_date(self.env, period_end), region_string)
+            return _("Tax return from %(period_start)s to %(period_end)s%(region)s", period_start=format_date(self.env, period_start), period_end=format_date(self.env, period_end), region=region_string)
 
     def _get_tax_closing_period_boundaries(self, date):
         """ Returns the boundaries of the tax period containing the provided date

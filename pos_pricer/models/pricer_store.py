@@ -132,7 +132,7 @@ class PricerStore(models.Model):
                 _logger.info("Succesfully unlinked products from Pricer tag %s at Pricer API URL: %s", pricer_tag_id, unlink_tag_url)
             except requests.exceptions.RequestException as e:
                 _logger.warning("Failed to unlink product from Pricer tag %s at Pricer API URL: %s: %s", pricer_tag_id, unlink_tag_url, e)
-                raise UserError(_('Failed to unlink Pricer tag %s at API url %s', pricer_tag_id, unlink_tag_url))
+                raise UserError(_('Failed to unlink Pricer tag %(pricer_tag)s at API url %(api_url)s', pricer_tag=pricer_tag_id, api_url=unlink_tag_url))
 
     def action_button_update_pricer_tags(self):
         """
@@ -188,7 +188,7 @@ class PricerStore(models.Model):
                     except requests.exceptions.RequestException as e:
                         _logger.warning(e)
                         if e.response:
-                            pricer_store.last_update_status_message = _("Error: %s - %s", e.response.status_code, e.response.reason)
+                            pricer_store.last_update_status_message = _("Error: %(status_code)s - %(message)s", status_code=e.response.status_code, message=e.response.reason)
                         else:
                             pricer_store.last_update_status_message = _("Error: check Pricer credentials")
                     finally:

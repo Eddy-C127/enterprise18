@@ -18,8 +18,8 @@ class DocumentsFolder(models.Model):
                     continue
                 if len(different_company_templates) == 1:
                     template = different_company_templates[0]
-                    message = _('This workspace should remain in the same company as the "%s" product for which it is a template. Please update the company of the "%s" product, or leave the company of this workspace empty.', template.name, template.name),
+                    message = _('This workspace should remain in the same company as the "%(product)s" product for which it is a template. Please update the company of the "%(product)s" product, or leave the company of this workspace empty.', product=template.name)
                 else:
                     lines = [f"- {template.name}" for template in different_company_templates]
-                    message = _('This workspace should remain in the same company as the following products for which it is a template:\n%s\n\nPlease update the company of those products, or leave the company of this workspace empty.', '\n'.join(lines)),
+                    message = _('This workspace should remain in the same company as the following products for which it is a template:\n%s\n\nPlease update the company of those products, or leave the company of this workspace empty.', '\n'.join(lines))
                 raise UserError(message)

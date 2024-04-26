@@ -173,7 +173,7 @@ class ShipRocket:
                     'price': rate,
                     'courier_code': courier_code,
                     'warning_message': recommended_by and
-                                       _("Courier (%s): %s", recommended_by, courier_name) or
+                                       _("Courier (%(recommender)s): %(courier)s", recommender=recommended_by, courier=courier_name) or
                                        _("Courier: %s", courier_name)
                 })
             else:

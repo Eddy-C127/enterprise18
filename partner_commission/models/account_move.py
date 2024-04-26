@@ -88,8 +88,10 @@ class AccountMove(models.Model):
                         product = rule.plan_id.product_id
                     if not order:
                         order = line.subscription_id
-                        desc_lines += _("\n%s: from %s to %s", line.product_id.name, format_date(self.env, line.deferred_start_date),
-                                        format_date(self.env, line.deferred_end_date))
+                        desc_lines += _("\n%(product)s: from %(start_date)s to %(end_date)s",
+                                        product=line.product_id.name,
+                                        start_date=format_date(self.env, line.deferred_start_date),
+                                        end_date=format_date(self.env, line.deferred_end_date))
                     commission = move.currency_id.round(line.price_subtotal * rule.rate / 100.0)
                     comm_by_rule[rule] += commission
 
@@ -139,13 +141,13 @@ class AccountMove(models.Model):
             if move.move_type in ['out_invoice', 'in_invoice']:
                 # link the purchase order line to the invoice
                 move.commission_po_line_id = line
-                msg_body = _('New commission. Invoice: %s. Amount: %s.',
-                    move._get_html_link(),
-                    formatLang(self.env, total, currency_obj=move.currency_id))
+                msg_body = _('New commission. Invoice: %(link)s. Amount: %(amount)s.',
+                    link=move._get_html_link(),
+                    amount=formatLang(self.env, total, currency_obj=move.currency_id))
             else:
-                msg_body = _('Commission refunded. Invoice: %s. Amount: %s.',
-                    move._get_html_link(),
-                    formatLang(self.env, total, currency_obj=move.currency_id))
+                msg_body = _('Commission refunded. Invoice: %(link)s. Amount: %(amount)s.',
+                    link=move._get_html_link(),
+                    amount=formatLang(self.env, total, currency_obj=move.currency_id))
             purchase.message_post(body=msg_body)
 
     def _refund_commission(self):

@@ -101,7 +101,7 @@ class HrEmployee(models.Model):
             if not filing_status.startswith(state_code.lower()):
                 selection_description_values = {
                     e[0]: e[1] for e in self._fields['l10n_us_state_filing_status']._description_selection(self.env)}
-                raise UserError(_('The employee state filing status should match the working address state. (Filing Status: %s, Work Address State: %s)', selection_description_values[filing_status], employee.address_id.state_id.name))
+                raise UserError(_('The employee state filing status should match the working address state. (Filing Status: %(filing_status)s, Work Address State: %(address_state)s)', filing_status=selection_description_values[filing_status], address_state=employee.address_id.state_id.name))
 
     @api.depends('address_id.state_id')
     def _compute_l10n_us_state_filing_status(self):

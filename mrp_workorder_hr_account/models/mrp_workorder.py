@@ -15,7 +15,7 @@ class MrpWorkcenterProductivity(models.Model):
     def _prepare_analytic_line_values(self, account, amount, unit_amount):
         self.ensure_one()
         res = self.workorder_id._prepare_analytic_line_values(account, amount, unit_amount)
-        res['name'] = _("[EMPL] %s - %s", self.workorder_id.display_name, self.employee_id.name)
+        res['name'] = _("[EMPL] %(work_order)s - %(employee)s", work_order=self.workorder_id.display_name, employee=self.employee_id.name)
         res['employee_id'] = self.employee_id.id
         return res
 

@@ -30,13 +30,13 @@ class HrPayslip(models.Model):
                     )
         if bank_account.acc_type != 'aba' or not bank_account.aba_bsb:
             raise RedirectWarning(
-                message=_("The account %s, of journal '%s', is not valid for ABA.\nEither its account number is incorrect or it has no BSB set.", bank_account.acc_number, journal_id.name),
+                message=_("The account %(account)s, of journal '%(journal)s', is not valid for ABA.\nEither its account number is incorrect or it has no BSB set.", account=bank_account.acc_number, journal=journal_id.name),
                 action=bank_account._get_records_action(name=_("Configure Account"), target="new"),
                 button_text=_("Configure Account")
             )
         if not journal_id.aba_fic or not journal_id.aba_user_spec or not journal_id.aba_user_number:
             raise RedirectWarning(
-                        message=_("ABA fields for account '%s', of journal '%s', are not set. Please set the fields under ABA section!", bank_account.acc_number, journal_id.name),
+                        message=_("ABA fields for account '%(account)s', of journal '%(journal)s', are not set. Please set the fields under ABA section!", account=bank_account.acc_number, journal=journal_id.name),
                         action=journal_id._get_records_action(name=_("Configure Journal"), target="new"),
                         button_text=_("Configure Journal")
                     )

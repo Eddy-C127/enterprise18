@@ -202,7 +202,7 @@ class L10nBeHrPayrollScheduleChange(models.TransientModel):
             self.part_time = False
 
         if self.part_time:
-            name = _('%s - Part Time %s', self.employee_id.name, self.resource_calendar_id.name)
+            name = _('%(employee)s - Part Time %(calendar)s', employee=self.employee_id.name, calendar=self.resource_calendar_id.name)
         else:
             name = f'{self.employee_id.name} - {self.resource_calendar_id.name}'
 

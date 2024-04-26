@@ -215,7 +215,10 @@ export const DocumentsRecordMixin = (component) => class extends component {
         if (draggableRecords.length === 1) {
             dragText = draggableRecords[0].data.name ? draggableRecords[0].data.display_name : _t("Unnamed");
         } else if (lockedCount > 0) {
-            dragText = _t("%s Documents (%s locked)", draggableRecords.length, lockedCount);
+                dragText = _t("%(documentCount)s Documents (%(lockedCount)s locked)", {
+                    documentCount: draggableRecords.length,
+                    lockedCount: lockedCount,
+                });
         } else {
             dragText = _t("%s Documents", draggableRecords.length);
         }

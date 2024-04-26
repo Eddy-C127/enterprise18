@@ -454,7 +454,7 @@ class AccountReport(models.Model):
             else:
                 dt_from_str = format_date(self.env, fields.Date.to_string(date_from))
                 dt_to_str = format_date(self.env, fields.Date.to_string(date_to))
-                string = _('From %s\nto  %s', dt_from_str, dt_to_str)
+                string = _('From %(date_from)s\nto  %(date_to)s', date_from=dt_from_str, date_to=dt_to_str)
 
         return {
             'string': string,
@@ -2069,7 +2069,7 @@ class AccountReport(models.Model):
         self.ensure_one()
         function_name_prefix = f'_report_{prefix}_'
         if not function_name.startswith(function_name_prefix):
-            raise UserError(_("Method '%s' must start with the '%s' prefix.", function_name, function_name_prefix))
+            raise UserError(_("Method '%(method_name)s' must start with the '%(prefix)s' prefix.", method_name=function_name, prefix=function_name_prefix))
 
         if self.custom_handler_model_id:
             handler = self.env[self.custom_handler_model_name]
@@ -2089,7 +2089,7 @@ class AccountReport(models.Model):
 
         if options['report_id'] != self.id:
             # Should never happen; just there to prevent BIG issues and directly spot them
-            raise UserError(_("Inconsistent report_id in options dictionary. Options says %s; report is %s.", options['report_id'], self.id))
+            raise UserError(_("Inconsistent report_id in options dictionary. Options says %(options_report)s; report is %(report)s.", options_report=options['report_id'], report=self.id))
 
         # Necessary to ensure consistency of the data if some of them haven't been written in database yet
         self.env.flush_all()
@@ -2362,7 +2362,12 @@ class AccountReport(models.Model):
                 try:
                     rslt['debug_popup_data'] = json.dumps({'expressions_detail': sorted_expressions_detail})
                 except TypeError:
-                    raise UserError(_("Invalid subformula in expression %r of line %r: %s", expression.label, expression.report_line_id.name, expression.subformula))
+                    raise UserError(_(
+                        'Invalid subformula in expression "%(expression)s" of line "%(line)s": %(subformula)s',
+                        expression=expression.label,
+                        line=expression.report_line_id.name,
+                        subformula=expression.subformula,
+                    ))
         return rslt
 
     @api.model
@@ -2694,7 +2699,12 @@ class AccountReport(models.Model):
         def inject_formula_results(formula_results, column_group_expression_totals, cross_report_expression_totals=None):
             for (_key, expressions), result in formula_results.items():
                 for expression in expressions:
-                    subformula_error_format = _lt("Invalid subformula in expression %r of line %r: %s", expression.label, expression.report_line_id.name, expression.subformula)
+                    subformula_error_format = _(
+                        'Invalid subformula in expression "%(expression)s" of line "%(line)s": %(subformula)s',
+                        expression=expression.label,
+                        line=expression.report_line_id.name,
+                        subformula=expression.subformula,
+                    )
                     if expression.engine not in ('aggregation', 'external') and expression.subformula:
                         # aggregation subformulas behave differently (cross_report is markup ; if_below, if_above and force_between need evaluation)
                         # They are directly handled in aggregation engine
@@ -2744,9 +2754,9 @@ class AccountReport(models.Model):
                             # but forcing a different date_scope onto it. This case is not supported for now ; splitting the aggregation can be
                             # used as a workaround.
                             raise UserError(_(
-                                "Expression labelled '%s' of line '%s' is being overwritten when computing the current report. "
+                                "Expression labelled '%(label)s' of line '%(line)s' is being overwritten when computing the current report. "
                                 "Make sure the cross-report aggregations of this report only reference terms belonging to other reports.",
-                                expression.label, expression.report_line_id.name
+                                label=expression.label, line=expression.report_line_id.name
                             ))
                         column_group_expression_totals[expression] = expression_result
                     elif cross_report_expression_totals is not None:
@@ -2932,7 +2942,7 @@ class AccountReport(models.Model):
                             # Then, the term is probably an aggregation with bounds that still needs to be computed. We need to keep on looping
                             continue
                         else:
-                            raise UserError(_("Could not expand term %s while evaluating formula %s", term, unexpanded_formula))
+                            raise UserError(_("Could not expand term %(term)s while evaluating formula %(unexpanded_formula)s", term=term, unexpanded_formula=unexpanded_formula))
 
                     formula = re.sub(term_replacement_regex % re.escape(term), f'({expanded_term})', formula)
 
@@ -3236,7 +3246,12 @@ class AccountReport(models.Model):
             try:
                 line_domain = literal_eval(formula)
             except (ValueError, SyntaxError):
-                raise UserError(_("Invalid domain formula in expression %r of line %r: %s", expressions.label, expressions.report_line_id.name, formula))
+                raise UserError(_(
+                    'Invalid domain formula in expression "%(expression)s" of line "%(line)s": %(formula)s',
+                    expression=expressions.label,
+                    line=expressions.report_line_id.name,
+                    formula=formula,
+                ))
             table_references, search_condition = self._get_sql_table_expression(options, date_scope, domain=line_domain)
 
             tail_query = self._get_engine_query_tail(offset, limit)
@@ -3347,7 +3362,7 @@ class AccountReport(models.Model):
                     token_match = ACCOUNT_CODES_ENGINE_TERM_REGEX.match(token)
 
                     if not token_match:
-                        raise UserError(_("Invalid token '%s' in account_codes formula '%s'", token, formula))
+                        raise UserError(_("Invalid token '%(token)s' in account_codes formula '%(formula)s'", token=token, formula=formula))
 
                     parsed_token = token_match.groupdict()
 
@@ -3795,7 +3810,7 @@ class AccountReport(models.Model):
             if not company.currency_id.is_zero(carryover_value):
                 target_expression = expression._get_carryover_target_expression(options)
                 external_values_create_vals.append({
-                    'name': label or _("Carryover from %s to %s", format_date(self.env, date_from), format_date(self.env, date_to)),
+                    'name': label or _("Carryover from %(date_from)s to %(date_to)s", date_from=format_date(self.env, date_from), date_to=format_date(self.env, date_to)),
                     'value': carryover_value,
                     'date': date_to,
                     'target_report_expression_id': target_expression.id,

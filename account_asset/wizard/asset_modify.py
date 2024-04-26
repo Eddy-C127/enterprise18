@@ -155,9 +155,9 @@ class AssetModify(models.TransientModel):
                     account = ''
                     gain_or_loss = _('gain/loss')
                 wizard.informational_text = _(
-                    "A depreciation entry will be posted on and including the date %s."
-                    "<br/> A disposal entry will be posted on the %s account <b>%s</b>.",
-                    format_date(self.env, wizard.date), gain_or_loss, account
+                    "A depreciation entry will be posted on and including the date %(date)s."
+                    "<br/> A disposal entry will be posted on the %(account_type)s account <b>%(account)s</b>.",
+                    date=format_date(self.env, wizard.date), account_type=gain_or_loss, account=account,
                 )
             elif wizard.modify_action == 'sell':
                 if wizard.gain_or_loss == 'gain':
@@ -167,10 +167,10 @@ class AssetModify(models.TransientModel):
                 else:
                     account = ''
                 wizard.informational_text = _(
-                    "A depreciation entry will be posted on and including the date %s."
+                    "A depreciation entry will be posted on and including the date %(date)s."
                     "<br/> A second entry will neutralize the original income and post the  "
-                    "outcome of this sale on account <b>%s</b>.",
-                    format_date(self.env, wizard.date), account
+                    "outcome of this sale on account <b>%(account)s</b>.",
+                    date=format_date(self.env, wizard.date), account=account,
                 )
             elif wizard.modify_action == 'pause':
                 wizard.informational_text = _(
@@ -183,9 +183,9 @@ class AssetModify(models.TransientModel):
                 else:
                     text = ""
                 wizard.informational_text = _(
-                    "A depreciation entry will be posted on and including the date %s. <br/> %s "
+                    "A depreciation entry will be posted on and including the date %(date)s. <br/> %(extra_text)s "
                     "Future entries will be recomputed to depreciate the asset following the changes.",
-                    format_date(self.env, wizard.date), text
+                    date=format_date(self.env, wizard.date), extra_text=text,
                 )
 
             else:

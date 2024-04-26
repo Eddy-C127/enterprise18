@@ -56,11 +56,11 @@ class L10nBrEDICancelRange(models.Model):
 
         self.journal_id.message_post(
             body=_(
-                'Cancelled range %s - %s for document type %s for reason "%s".',
-                self.start_number,
-                self.end_number,
-                self.document_type_id.display_name,
-                self.reason,
+                'Cancelled range %(start_number)s - %(end_number)s for document type %(document_type)s for reason "%(reason)s".',
+                start_number=self.start_number,
+                end_number=self.end_number,
+                document_type=self.document_type_id.display_name,
+                reason=self.reason,
             ),
             attachment_ids=attachments.ids,
         )

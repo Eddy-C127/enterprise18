@@ -178,8 +178,8 @@ class AccountMove(models.Model):
 
         if error_invoice:
             if error_invoice.exists():
-                msg = _('We couldn\'t validate the document "%s" (Draft Invoice *%s) in AFIP',
-                    error_invoice.partner_id.name, error_invoice.id)
+                msg = _('We couldn\'t validate the document "%(partner_name)s" (Draft Invoice *%(invoice)s) in AFIP',
+                    partner_name=error_invoice.partner_id.name, invoice=error_invoice.id)
             else:
                 msg = _('We couldn\'t validate the invoice in AFIP.')
             msg += _('This is what we get:\n%s\n\nPlease make the required corrections and try again', return_info)
@@ -199,7 +199,7 @@ class AccountMove(models.Model):
 """,
                     validate_invoices="\n   * ".join(validated.mapped('name')),
                     invalide_invoices="\n   * ".join([
-                        _("%s: %r amount %s", item.display_name, item.partner_id.name, item.amount_total_signed) for item in unprocess
+                        _('%(item)s: "%(partner)s" amount %(amount)s', item=item.display_name, partner=item.partner_id.name, amount=item.amount_total_signed) for item in unprocess
                     ])
                 )
             raise UserError(msg)
@@ -246,7 +246,7 @@ class AccountMove(models.Model):
                 'DocNroReceptor': receptor_id_number})
             inv.write({'l10n_ar_afip_verification_result': response.Resultado})
             if response.Observaciones or response.Errors:
-                inv.message_post(body=_('AFIP authorization verification result: %s%s', response.Observaciones, response.Errors))
+                inv.message_post(body=_('AFIP authorization verification result: %(observations)s%(errors)s', observations=response.Observaciones, errors=response.Errors))
 
     # Main methods
 
@@ -672,12 +672,12 @@ class AccountMove(models.Model):
         if not self.commercial_partner_id.country_id:
             raise UserError(_('For WS "%s" country is required on partner', self.journal_id.l10n_ar_afip_ws))
         elif not self.commercial_partner_id.country_id.code:
-            raise UserError(_('For WS "%s" country code is mandatory country: %s', self.journal_id.l10n_ar_afip_ws,
-                            self.commercial_partner_id.country_id.name))
+            raise UserError(_('For WS "%(ws)s" country code is mandatory country: %(country)s', ws=self.journal_id.l10n_ar_afip_ws,
+                            country=self.commercial_partner_id.country_id.name))
         elif not self.commercial_partner_id.country_id.l10n_ar_afip_code:
             hint_msg = afip_errors._hint_msg('country_afip_code', self.journal_id.l10n_ar_afip_ws)
-            msg = _('For "%s" WS the afip code country is mandatory: %s', self.journal_id.l10n_ar_afip_ws,
-                    self.commercial_partner_id.country_id.name)
+            msg = _('For "%(ws)s" WS the afip code country is mandatory: %(country)s', ws=self.journal_id.l10n_ar_afip_ws,
+                    country=self.commercial_partner_id.country_id.name)
             if hint_msg:
                 msg += '\n\n' + hint_msg
             raise RedirectWarning(msg, self.env.ref('l10n_ar_edi.action_help_afip').id, _('Go to AFIP page'))

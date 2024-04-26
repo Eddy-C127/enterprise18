@@ -258,7 +258,7 @@ class SaleOrderLine(models.Model):
                 duration = self.order_id.plan_id.billing_period_display
                 format_start = format_date(self.env, new_period_start, lang_code=lang_code)
                 format_next = format_date(self.env, next_invoice_date, lang_code=lang_code)
-                start_to_next = _("\n%s to %s", format_start, format_next)
+                start_to_next = _("\n%(start)s to %(next)s", start=format_start, next=format_next)
                 description = f"{description} - {duration}{start_to_next}"
 
             qty_to_invoice = self._get_subscription_qty_to_invoice(last_invoice_date=new_period_start,
@@ -333,7 +333,7 @@ class SaleOrderLine(models.Model):
             else:
                 format_start = format_date(self.env, start_date)
                 format_end = format_date(self.env, end_date)
-                line_name = _('Recurring products are discounted according to the prorated period from %s to %s', format_start, format_end)
+                line_name = _('Recurring products are discounted according to the prorated period from %(start)s to %(end)s', start=format_start, end=format_end)
 
             order_lines.append((0, 0,
                 {

@@ -86,7 +86,7 @@ class Task(models.Model):
         for task in fsm_tasks:
             overlap_messages = []
             for dummy, task_mapping in overlap_mapping.get(task.id, {}).items():
-                message = _('%s has %s tasks at the same time.', task_mapping['partner_name'], len(task_mapping['overlapping_tasks_ids']))
+                message = _('%(partner)s has %(number)s tasks at the same time.', partner=task_mapping['partner_name'], number=len(task_mapping['overlapping_tasks_ids']))
                 overlap_messages.append(message)
             task.planning_overlap = ' '.join(overlap_messages) or False
 

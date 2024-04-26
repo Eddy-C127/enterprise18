@@ -163,10 +163,10 @@ class FetchmailServer(models.Model):
         error_status = xml_content.findtext('REVISIONENVIO/REVISIONDTE/ESTADO')
         if error_status is not None:
             msg = _('Incoming SII DTE result:<br/> '
-                    '<li><b>ESTADO</b>: %s</li>'
-                    '<li><b>REVISIONDTE/ESTADO</b>: %s</li>'
-                    '<li><b>REVISIONDTE/DETALLE</b>: %s</li>',
-                      status, error_status, xml_content.findtext('REVISIONENVIO/REVISIONDTE/DETALLE'))
+                    '<li><b>ESTADO</b>: %(status)s</li>'
+                    '<li><b>REVISIONDTE/ESTADO</b>: %(error_status)s</li>'
+                    '<li><b>REVISIONDTE/DETALLE</b>: %(details)s</li>',
+                      status=status, error_status=error_status, details=xml_content.findtext('REVISIONENVIO/REVISIONDTE/DETALLE'))
         else:
             msg = _('Incoming SII DTE result:<br/><li><b>ESTADO</b>: %s</li>', status)
         for move in moves:
@@ -307,11 +307,12 @@ class FetchmailServer(models.Model):
 
             if float_compare(move.amount_total, xml_total_amount, precision_digits=move.currency_id.decimal_places) != 0:
                 move.message_post(
-                    body=Markup(_('<strong>Warning:</strong> The total amount of the DTE\'s XML is %s and the total amount '
-                           'calculated by Odoo is %s. Typically this is caused by additional lines in the detail or '
-                           'by unidentified taxes, please check if a manual correction is needed.'))
-                    % (formatLang(self.env, xml_total_amount, currency_obj=move.currency_id),
-                       formatLang(self.env, move.amount_total, currency_obj=move.currency_id)))
+                    body=Markup(_('<strong>Warning:</strong> The total amount of the DTE\'s XML is %(xml_total_amount)s and the total amount '
+                           'calculated by Odoo is %(move_total_amount)s. Typically this is caused by additional lines in the detail or '
+                           'by unidentified taxes, please check if a manual correction is needed.')) % {
+                               "xml_total_amount": formatLang(self.env, xml_total_amount, currency_obj=move.currency_id),
+                               "move_total_amount": formatLang(self.env, move.amount_total, currency_obj=move.currency_id),
+                           })
             move.l10n_cl_dte_acceptation_status = 'received'
             moves.append(move)
             _logger.info('New move has been created from DTE %s with id: %s', att_name, move.id)

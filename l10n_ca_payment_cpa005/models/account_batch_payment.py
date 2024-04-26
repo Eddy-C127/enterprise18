@@ -38,9 +38,9 @@ class AccountBatchPayment(models.Model):
         elif not journal.bank_account_id.l10n_ca_financial_institution_number:
             raise RedirectWarning(
                 _(
-                    "Please set a Financial Institution ID Number on the %s bank account of %s.",
-                    journal.bank_account_id.display_name,
-                    journal.bank_account_id.partner_id.display_name,
+                    "Please set a Financial Institution ID Number on the %(account)s bank account of %(partner)s.",
+                    account=journal.bank_account_id.display_name,
+                    partner=journal.bank_account_id.partner_id.display_name,
                 ),
                 journal.bank_account_id._get_records_action(),
                 _("Go to bank account"),
@@ -49,9 +49,9 @@ class AccountBatchPayment(models.Model):
         if journal_errors:
             raise RedirectWarning(
                 _(
-                    "Please fix the following issue(s) on the %s journal:\n%s",
-                    journal.display_name,
-                    "\n".join(journal_errors) % {"journal": journal.display_name},
+                    "Please fix the following issue(s) on the %(journal)s journal:\n%(errors)s",
+                    journal=journal.display_name,
+                    errors="\n".join(journal_errors) % {"journal": journal.display_name},
                 ),
                 journal._get_records_action(),
                 _("Go to journal"),

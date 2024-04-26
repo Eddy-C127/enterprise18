@@ -367,8 +367,8 @@ class FecImportWizard(models.TransientModel):
                 for key, move in imbalanced_moves:
                     balance = balance_dict[key]["balance"]
                     if not float_is_zero(balance, precision_rounding=currency.rounding):
-                        balance_issues += _("Move with name '%s' has a balance of %s\n",
-                                            move["name"], float_repr(balance, currency.decimal_places))
+                        balance_issues += _("Move with name '%(name)s' has a balance of %(balance)s\n",
+                                            name=move["name"], balance=float_repr(balance, currency.decimal_places))
                 raise UserError(_("Moves report incorrect balances:\n%s", balance_issues))
 
     def _normalize_float_value(self, record, key):

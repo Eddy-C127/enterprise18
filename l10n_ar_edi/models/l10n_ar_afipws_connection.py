@@ -126,7 +126,7 @@ class L10nArAfipwsConnection(models.Model):
         else:
             error_name = repr(error)
 
-        error_msg = _('There was a problem with the connection to the %s webservice: %s', afip_ws, error_name)
+        error_msg = _('There was a problem with the connection to the %(webservice)s webservice: %(error)s', webservice=afip_ws, error=error_name)
 
         # Find HINT for error message
         certificate_expired = _('It seems like the certificate has expired. Please renew your AFIP certificate')

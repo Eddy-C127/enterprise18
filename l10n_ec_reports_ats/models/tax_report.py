@@ -585,9 +585,9 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
         elif not ec_id_type:
             errors.append(
                 _(
-                    'Valid types of identification for the ATS report are: Cédula, Ruc, Passport, Foreign ID. Contact %s has type "%s".',
-                    partner.name,
-                    partner.l10n_latam_identification_type_id.name,
+                    'Valid types of identification for the ATS report are: Cédula, Ruc, Passport, Foreign ID. Contact %(partner)s has type "%(type)s".',
+                    partner=partner.name,
+                    type=partner.l10n_latam_identification_type_id.name,
                 )
             )
         return partner_vat, errors

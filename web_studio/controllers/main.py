@@ -1719,6 +1719,6 @@ Are you sure you want to remove the selection values of those records?""", len(r
         else:
             check_method_name(method_name)
             if not callable(getattr(model, method_name, None)):
-                raise ValidationError(_('The method %s does not exist on the model %s.', method_name, model))
+                raise ValidationError(_('The method %(method)s does not exist on the model %(model)s.', method=method_name, model=model))
             else:
                 return True

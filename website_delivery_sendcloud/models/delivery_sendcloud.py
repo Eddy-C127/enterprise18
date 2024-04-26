@@ -70,12 +70,12 @@ class ProviderSendcloud(models.Model):
             if distance_meters > 50000:
                 # maximum distance to display in that specific unit
                 max_distance = uom_meter._compute_quantity(50000, delivery.sendcloud_locations_radius_unit)
-                raise ValidationError(_("The maximum radius allowed is %d%s", max_distance, delivery.sendcloud_locations_radius_unit.name))
+                raise ValidationError(_("The maximum radius allowed is %(distance)d%(unit)s", distance=max_distance, unit=delivery.sendcloud_locations_radius_unit.name))
 
             if distance_meters < 100:
                 # minimum distance to display in that specific unit
                 min_distance = uom_meter._compute_quantity(100, delivery.sendcloud_locations_radius_unit)
-                raise ValidationError(_("The minimum radius allowed is %d%s", min_distance, delivery.sendcloud_locations_radius_unit.name))
+                raise ValidationError(_("The minimum radius allowed is %(distance)d%(unit)s", distance=min_distance, unit=delivery.sendcloud_locations_radius_unit.name))
 
     def _sendcloud_get_close_locations(self, partner_address):
         superself = self.sudo()

@@ -47,7 +47,7 @@ class L10nBeEcoVouchersWizard(models.TransientModel):
             reference_year = int(wizard.reference_year)
             wizard.date_start = date(reference_year - 1, 6, 1)
             wizard.date_end = date(reference_year, 5, 31)
-            wizard.reference_period = _('The reference period is from the <b>1st of June %s</b> to the <b>31st of May %s</b>', reference_year - 1, reference_year)
+            wizard.reference_period = _('The reference period is from the <b>1st of June %(previous_year)s</b> to the <b>31st of May %(reference_year)s</b>', previous_year=reference_year - 1, reference_year=reference_year)
 
     @api.depends('reference_year')
     def _compute_line_ids(self):

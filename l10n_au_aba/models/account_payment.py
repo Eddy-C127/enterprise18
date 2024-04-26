@@ -36,7 +36,7 @@ class AccountPayment(models.Model):
                     )
                 if not rec.journal_id.aba_user_spec or not rec.journal_id.aba_fic or not rec.journal_id.aba_user_number:
                     raise RedirectWarning(
-                        message=_("ABA fields for account '%s' on journal '%s' are not set. Please set the fields under ABA section!", bank_acc.acc_number, rec.journal_id.name),
+                        message=_("ABA fields for account '%(account)s' on journal '%(journal)s' are not set. Please set the fields under ABA section!", account=bank_acc.acc_number, journal=rec.journal_id.name),
                         action=rec.journal_id._get_records_action(name=_("Configure Journal"), target="new"),
                         button_text=_("Configure Journal")
                     )

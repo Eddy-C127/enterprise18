@@ -92,9 +92,9 @@ class SIEExportWizard(models.TransientModel):
         if not company.company_registry:
             raise UserError(_("The company's Company ID must be set with the company's organisation ID (10/12 digits in XXXXXXXXXXxx-YYYYY format"))
         if company.company_registry != file_info_company_id:
-            raise UserError(_("Company ID '%s' does not match the file organisation ID '%s'", company.company_registry, file_info_company_id))
+            raise UserError(_("Company ID '%(company_id)s' does not match the file organisation ID '%(organisation_id)s'", company_id=company.company_registry, organisation_id=file_info_company_id))
         if company.currency_id.name != currency_name:
-            raise UserError(_("Company currency '%s' doesn't match the file's main currency '%s'", company.currency_id.name, currency_name))
+            raise UserError(_("Company currency '%(company_currency)s' doesn't match the file's main currency '%(main_currency)s'", company_currency=company.currency_id.name, main_currency=currency_name))
 
     @api.model
     def _verify_file_integrity(self, sie, is_entry=False):
@@ -424,7 +424,7 @@ class SIEExportWizard(models.TransientModel):
             journal_name = sie_journal.get('name')
             # Don't need to check for journal_file_id presence as it is mandatory data
             if not is_entry and journal_name:
-                journal_name = _('SIE imported journal %s: %s', journal_file_id, journal_name)
+                journal_name = _('SIE imported journal %(journal_file)s: %(journal)s', journal_file=journal_file_id, journal=journal_name)
             elif not journal_name:
                 journal_name = default_journal.name
 

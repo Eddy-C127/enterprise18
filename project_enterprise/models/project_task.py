@@ -244,9 +244,9 @@ class Task(models.Model):
                 ])
                 if task_mapping['sum_allocated_hours'] > sum_intervals((users_work_intervals[user_id] & task_intervals)):
                     overlap_messages.append(_(
-                        '%s has %s tasks at the same time.',
-                        task_mapping["partner_name"],
-                        len(task_mapping['overlapping_tasks_ids'])
+                        '%(partner)s has %(amount)s tasks at the same time.',
+                        partner=task_mapping["partner_name"],
+                        amount=len(task_mapping['overlapping_tasks_ids']),
                     ))
                     if task.id not in res:
                         res[task.id] = {}

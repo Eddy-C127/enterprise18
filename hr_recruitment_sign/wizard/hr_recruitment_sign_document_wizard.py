@@ -136,7 +136,7 @@ class HrRecruitmentSignDocumentWizard(models.TransientModel):
             sign_request.toggle_favorited()
 
         if self.responsible_id and sign_templates_both_ids:
-            signatories_text = _('%s and %s are the signatories.', self.partner_id.display_name, self.responsible_id.display_name)
+            signatories_text = _('%(partner)s and %(responsible)s are the signatories.', partner=self.partner_id.display_name, responsible=self.responsible_id.display_name)
         else:
             signatories_text = _('Only %s has to sign.', self.partner_id.display_name)
         record_to_post = self.applicant_id

@@ -71,7 +71,7 @@ class ResourceResource(models.Model):
             return super()._compute_display_name()
         for resource in self:
             if resource.resource_type == 'material' and resource.default_role_id:
-                resource.display_name = _("%s (%s)") % (resource.name, resource.default_role_id.name)
+                resource.display_name = _("%(resource_name)s (%(role)s)", resource_name=resource.name, role=resource.default_role_id.name)
             else:
                 resource.display_name = resource.employee_id.display_name if resource.employee_id else resource.name
 

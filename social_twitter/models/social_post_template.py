@@ -25,7 +25,7 @@ class SocialPostTemplate(models.Model):
         self.is_twitter_post_limit_exceed = False
         for post in self.filtered('has_twitter_accounts'):
             twitter_account = post.account_ids._filter_by_media_types(['twitter'])
-            post.twitter_post_limit_message = _("%s / %s characters to fit in a Post", post.message_length, twitter_account.media_id.max_post_length)
+            post.twitter_post_limit_message = _("%(current_length)s / %(max_length)s characters to fit in a Post", current_length=post.message_length, max_length=twitter_account.media_id.max_post_length)
             post.is_twitter_post_limit_exceed = twitter_account.media_id.max_post_length and post.message_length > twitter_account.media_id.max_post_length
 
     @api.depends(lambda self: ['message', 'image_ids', 'is_twitter_post_limit_exceed', 'has_twitter_accounts'] + self._get_post_message_modifying_fields())

@@ -71,8 +71,8 @@ class L10nClDteCaf(models.Model):
             raise UserError(_('The VAT of your company has not been configured. '
                               'Please go to your company data and add it.'))
         if self._l10n_cl_format_vat(rut_n) != self._l10n_cl_format_vat(self.company_id.vat):
-            raise UserError(_('Caf vat %s should be the same that assigned company\'s vat: %s!') % (
-                rut_n, self.company_id.vat))
+            raise UserError(_('Caf vat %(caf_vat)s should be the same that assigned company\'s vat: %(company_vat)s!',
+                caf_vat=rut_n, company_vat=self.company_id.vat))
         self.status = 'in_use'
 
     def action_spend(self):

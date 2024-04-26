@@ -238,8 +238,8 @@ class DeliverCarrier(models.Model):
                 if response.get('label_url'):
                     label_data = _get_document_data(response['label_url'])
                     attachments = [("%s-%s.pdf" % (courier_name, carrier_tracking_ref), label_data)]
-                    log_message = _("Label generated of %s with Tracking Number: %s",
-                                    courier_name, carrier_tracking_ref)
+                    log_message = _("Label generated for %(courier)s with Tracking Number: %(tracking_ref)s",
+                                    courier=courier_name, tracking_ref=carrier_tracking_ref)
                     picking.message_post(body=log_message, attachments=attachments)
                 # if shiprocket_pickup_request is enable then only shiprocket generate manifest(s).
                 if self.shiprocket_manifests_generate and response.get('manifest_url'):

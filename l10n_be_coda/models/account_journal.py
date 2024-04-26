@@ -407,7 +407,7 @@ class AccountJournal(models.Model):
                 o_idx = p_idx; p_idx += 15; note.append(_('Detail') + ': ' + _('equivalent in the currency of the account') + ': ' + parsefloat(communication[o_idx:p_idx], 3))
                 o_idx = p_idx; p_idx += 15; note.append(_('Detail') + ': ' + _('interest rates, calculation basis') + ': ' + rmspaces(communication[o_idx:p_idx]))
                 o_idx = p_idx; p_idx += 12; note.append(_('Detail') + ': ' + _('interest') + ': ' + parsefloat(communication[o_idx:p_idx], 8))
-                o_idx = p_idx; p_idx += 12; note.append(_('Detail') + ': ' + _('period from %s to %s', parsedate(communication[o_idx:o_idx+6]), parsedate(communication[o_idx+6:o_idx+12])))
+                o_idx = p_idx; p_idx += 12; note.append(_('Detail') + ': ' + _('period from %(start)s to %(end)s', start=parsedate(communication[o_idx:o_idx + 6]), end=parsedate(communication[o_idx + 6:o_idx + 12])))    # noqa: E702
             elif co_type == '111':  # POS credit – Globalisation
                 structured_com = _('POS credit – Globalisation')
                 o_idx = p_idx; p_idx +=  1; note.append(_('Detail') + ': ' + _('card scheme') + ': ' + card_scheme[communication[o_idx:p_idx]])

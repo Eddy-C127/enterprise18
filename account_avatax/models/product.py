@@ -15,7 +15,7 @@ class ProductAvataxCategory(models.Model):
     @api.depends('code', 'description')
     def _compute_display_name(self):
         for category in self:
-            category.display_name = _('[%s] %s', category.code, (category.description or '')[:50])
+            category.display_name = _('[%(code)s] %(description)s', code=category.code, description=(category.description or '')[:50])
 
 
 class ProductCategory(models.Model):

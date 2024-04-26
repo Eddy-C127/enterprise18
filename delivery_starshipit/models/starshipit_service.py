@@ -238,7 +238,7 @@ class Starshipit:
         for field in required_address_fields:
             if not partner[field]:
                 field_name = fields_details[field]['string']
-                raise UserError(_('Please fill in the fields %s on the %s partner.', field_name, partner.name))
+                raise UserError(_('Please fill in the field %(field)s on the %(partner)s partner.', field=field_name, partner=partner.name))
 
     @staticmethod
     def _get_starshipit_order_number(picking):

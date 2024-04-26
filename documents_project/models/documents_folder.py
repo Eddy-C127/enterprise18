@@ -51,10 +51,10 @@ class DocumentFolder(models.Model):
                     continue
                 if len(different_company_projects) == 1:
                     project = different_company_projects[0]
-                    message = _('This workspace should remain in the same company as the "%s" project to which it is linked. Please update the company of the "%s" project, or leave the company of this workspace empty.', project.name, project.name),
+                    message = _('This workspace should remain in the same company as the "%(project)s" project to which it is linked. Please update the company of the "%(project)s" project, or leave the company of this workspace empty.', project=project.name)
                 else:
                     lines = [f"- {project.name}" for project in different_company_projects]
-                    message = _('This workspace should remain in the same company as the following projects to which it is linked:\n%s\n\nPlease update the company of those projects, or leave the company of this workspace empty.', '\n'.join(lines)),
+                    message = _('This workspace should remain in the same company as the following projects to which it is linked:\n%s\n\nPlease update the company of those projects, or leave the company of this workspace empty.', '\n'.join(lines))
                 raise UserError(message)
 
     def _copy_and_merge(self, vals=None):

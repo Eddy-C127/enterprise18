@@ -430,11 +430,10 @@ export default class BarcodeQuantModel extends BarcodeModel {
             await this.orm.write('stock.quant.package', [currentLine.package_id.id], {
                 package_type_id: packageType.id,
             });
-            const message = _t(
-                "Package type %s was correctly applied to the package %s",
-                packageType.name,
-                currentLine.package_id.name
-            );
+            const message = _t("Package type %(type)s applied to the package %(package)s", {
+                type: packageType.name,
+                package: currentLine.package_id.name,
+            });
             barcodeData.stopped = true;
             return this.notification(message, { type: "success" });
         }
@@ -595,9 +594,8 @@ export default class BarcodeQuantModel extends BarcodeModel {
                 if (args.uom.category_id !== productUOM.category_id) {
                     // Not the same UoM's category -> Can't be converted.
                     const message = _t(
-                        "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible with the product's one (%s).",
-                        args.uom.name,
-                        productUOM.name
+                        "Scanned quantity uses %(unit)s as its Unit of Measure (UoM), but it is not compatible with the product's UoM (%(productUnit)s).",
+                        { unit: args.uom.name, productUnit: productUOM.name }
                     );
                     return this.notification(message, { title: _t("Wrong Unit of Measure"), type: "warning" });
                 } else if (args.uom.id !== productUOM.id) {

@@ -633,35 +633,32 @@ export class KnowledgeSidebar extends Component {
             let confirmLabel;
             if (newPosition.category === 'workspace') {
                 message = _t(
-                    'Are you sure you want to move "%s%s" to the Workspace? It will be shared with all internal users.',
-                    emoji,
-                    name || _t("Untitled")
+                    'Are you sure you want to move "%(icon)s%(title)s" to the Workspace? It will be shared with all internal users.',
+                    { icon: emoji, title: name || _t("Untitled") }
                 );
                 confirmLabel = _t("Move to Workspace");
             } else if (newPosition.category === 'private') {
                 message = _t(
-                    'Are you sure you want to move "%s%s" to private? Only you will be able to access it.',
-                    emoji,
-                    name || _t("Untitled")
+                    'Are you sure you want to move "%(icon)s%(title)s" to private? Only you will be able to access it.',
+                    { icon: emoji, title: name || _t("Untitled") }
                 );
                 confirmLabel = _t("Move to Private");
             } else if (newPosition.category === 'shared') {
                 if (newPosition.parentId) {
                     const parent = this.getArticle(newPosition.parentId);
-                    const parentEmoji = parent.icon || '';
-                    const parentName = parent.name || '';
                     message = _t(
-                        'Are you sure you want to move "%s%s" under "%s%s"? It will be shared with the same persons.',
-                        emoji,
-                        name || _t("Untitled"),
-                        parentEmoji,
-                        parentName || _t("Untitled"),
+                        'Are you sure you want to move "%(icon)s%(title)s" under "%(parentIcon)s%(parentTitle)s"? It will be shared with the same persons.',
+                        {
+                            icon: emoji,
+                            title: name || _t("Untitled"),
+                            parentIcon: parent.icon || "",
+                            parentTitle: parent.name || _t("Untitled"),
+                        }
                     );
                 } else {
                     message = _t(
-                        'Are you sure you want to move "%s%s" to the Shared section? It will be shared with all listed members.',
-                        emoji,
-                        name || _t("Untitled"),
+                        'Are you sure you want to move "%(icon)s%(title)s" to the Shared section? It will be shared with all listed members.',
+                        { icon: emoji, title: name || _t("Untitled") }
                     );
                 }
                 confirmLabel = _t('Move to Shared')
@@ -736,11 +733,13 @@ export class KnowledgeSidebar extends Component {
         if (parentId) {
             const parent = this.getArticle(parentId);
             message = _t(
-                'Could not move "%s%s" under "%s%s", because you do not have write permission on the latter.',
-                article.icon || "",
-                article.name,
-                parent.icon || "",
-                parent.name
+                'Could not move "%(icon)s%(title)s" under "%(parentIcon)s%(parentTitle)s", because you do not have write permission on the latter.',
+                {
+                    icon: article.icon || "",
+                    title: article.name,
+                    parentIcon: parent.icon || "",
+                    parentTitle: parent.name,
+                }
             );
         } else {
             message = _t('You need at least 2 members for the Article to be shared.');

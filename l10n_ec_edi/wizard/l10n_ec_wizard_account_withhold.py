@@ -429,7 +429,7 @@ class L10nEcWizardAccountWithholdLine(models.TransientModel):
             if not line.taxsupport_code:
                 raise ValidationError(_("Every line must have a tax support code"))
             elif line.taxsupport_code not in taxsupport_codes:
-                raise ValidationError(_("Tax support %s is not in the tax supports of the original invoice %s", line.taxsupport_code, taxsupport_codes))
+                raise ValidationError(_("Tax support %(tax_support_code)s is not in the tax supports of the original invoice %(invoice)s", tax_support_code=line.taxsupport_code, invoice=taxsupport_codes))
 
     @api.constrains('base', 'amount')
     def _check_amounts(self):

@@ -90,4 +90,4 @@ class HrPayrollDeclarationMixin(models.AbstractModel):
 
     def _get_pdf_filename(self, employee):
         self.ensure_one()
-        return _('%s-declaration-%s', employee.name, self.year)
+        return _('%(employee_name)s-declaration-%(year)s', employee_name=employee.name, year=self.year)

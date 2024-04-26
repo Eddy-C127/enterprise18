@@ -300,9 +300,9 @@ class ArgentinianReportCustomHandler(models.AbstractModel):
             if not doc_number:
                 raise RedirectWarning(
                     message=_(
-                        "The country '%s' does not have a '%s' configured.",
-                        commercial_partner.country_id.name,
-                        _('Legal Entity VAT') if commercial_partner.is_company else _('Natural Person VAT')
+                        "The country '%(country)s' does not have a '%(vat_type)s' configured.",
+                        country=commercial_partner.country_id.name,
+                        vat_type=_('Legal Entity VAT') if commercial_partner.is_company else _('Natural Person VAT')
                     ),
                     action={
                         'type': 'ir.actions.act_window',

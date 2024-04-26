@@ -34,7 +34,7 @@ class AccountBatchPayment(models.Model):
     def validate_batch(self):
         for batch in self.filtered(lambda x: x.payment_method_code == 'sepa_ct'):
             if batch.journal_id.bank_account_id.acc_type != 'iban':
-                raise UserError(_("The account %s, of journal '%s', is not of type IBAN.\nA valid IBAN account is required to use SEPA features.", batch.journal_id.bank_account_id.acc_number, batch.journal_id.name))
+                raise UserError(_("The account %(account)s, of journal '%(journal)s', is not of type IBAN.\nA valid IBAN account is required to use SEPA features.", account=batch.journal_id.bank_account_id.acc_number, journal=batch.journal_id.name))
 
         return super(AccountBatchPayment, self).validate_batch()
 
@@ -108,7 +108,7 @@ class AccountBatchPayment(models.Model):
             rslt.append({
                 'title': _("Some payments are above the maximum amount allowed."),
                 'records': too_big_payments,
-                'help': _("Maximum amount is %s for payments in Euros, %s for other currencies.", 8 * '9' + ".99", 12 * '9' + ".99")
+                'help': _("Maximum amount is %(maximum_euro)s for payments in Euros, %(maximum_other)s for other currencies.", maximum_euro=8 * '9' + ".99", maximum_other=12 * '9' + ".99")
             })
 
         return rslt

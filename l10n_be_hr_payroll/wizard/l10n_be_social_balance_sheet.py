@@ -240,7 +240,7 @@ class L10nBeSocialBalanceSheet(models.TransientModel):
                 workers_data['105']['fte'] += 1 * calendar.work_time_rate / 100.0
 
                 if contract.contract_type_id not in mapped_types:
-                    raise UserError(_("The contract %s for %s is not of one the following types: CDI, CDD. Replacement, For a clearly defined work", contract.name, contract.employee_id.name))
+                    raise UserError(_("The contract %(contract_name)s for %(employee)s is not of one the following types: CDI, CDD. Replacement, For a clearly defined work", contract_name=contract.name, employee=contract.employee_id.name))
                 contract_type = mapped_types[contract.contract_type_id]
                 workers_data[contract_type][contract_time] += 1
                 workers_data[contract_type]['fte'] += 1 * calendar.work_time_rate / 100.0
@@ -260,7 +260,7 @@ class L10nBeSocialBalanceSheet(models.TransientModel):
                     structure_type = cp200_students
 
                 if structure_type not in mapped_categories:
-                    raise UserError(_("The contract %s for %s is not of one the following types: CP200 Employees or Student", contract.name, contract.employee_id.name))
+                    raise UserError(_("The contract %(contract_name)s for %(employee)s is not of one the following types: CP200 Employees or Student", contract_name=contract.name, employee=contract.employee_id.name))
                 category_code = mapped_categories[structure_type]
                 workers_data[category_code][contract_time] += 1
                 workers_data[category_code]['fte'] += 1 * calendar.work_time_rate / 100.0
@@ -308,7 +308,7 @@ class L10nBeSocialBalanceSheet(models.TransientModel):
                     workers_data['205']['fte'] += 1 * calendar.work_time_rate / 100.0
 
                     if contract.contract_type_id not in in_mapped_types:
-                        raise UserError(_("The contract %s for %s is not of one the following types: CDI, CDD. Replacement, For a clearly defined work", contract.name, contract.employee_id.name))
+                        raise UserError(_("The contract %(contract_name)s for %(employee)s is not of one the following types: CDI, CDD. Replacement, For a clearly defined work", contract_name=contract.name, employee=contract.employee_id.name))
                     contract_type = in_mapped_types[contract.contract_type_id]
                     workers_data[contract_type][contract_time] += 1
                     workers_data[contract_type]['fte'] += 1 * calendar.work_time_rate / 100.0
@@ -320,7 +320,7 @@ class L10nBeSocialBalanceSheet(models.TransientModel):
                     workers_data['305']['fte'] += 1 * calendar.work_time_rate / 100.0
 
                     if contract.contract_type_id not in out_mapped_types:
-                        raise UserError(_("The contract %s for %s is not of one the following types: CDI, CDD. Replacement, For a clearly defined work", contract.name, contract.employee_id.name))
+                        raise UserError(_("The contract %(contract_name)s for %(employee)s is not of one the following types: CDI, CDD. Replacement, For a clearly defined work", contract_name=contract.name, employee=contract.employee_id.name))
                     contract_type = out_mapped_types[contract.contract_type_id]
                     workers_data[contract_type][contract_time] += 1
                     workers_data[contract_type]['fte'] += 1 * calendar.work_time_rate / 100.0

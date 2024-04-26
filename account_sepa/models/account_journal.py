@@ -422,7 +422,7 @@ class AccountJournal(models.Model):
         if not bic_code:
             if pain_version in ['pain.001.001.03.austrian.004', 'pain.001.001.03.ch.02']:
                 # Othr and NOTPROVIDED are not supported in CdtrAgt by those flavours
-                raise UserError(_("The bank defined on account %s (from partner %s) has no BIC. Please first set one.", bank_account.acc_number, bank_account.partner_id.name))
+                raise UserError(_("The bank defined on account %(account)s (from partner %(partner)s) has no BIC. Please first set one.", account=bank_account.acc_number, partner=bank_account.partner_id.name))
 
             Othr = etree.SubElement(FinInstnId, "Othr")
             Id = etree.SubElement(Othr, "Id")
@@ -432,7 +432,7 @@ class AccountJournal(models.Model):
 
     def _get_CdtrAcct(self, bank_account, sct_generic):
         if not sct_generic and (not bank_account.acc_type or not bank_account.acc_type == 'iban'):
-            raise UserError(_("The account %s, linked to partner '%s', is not of type IBAN.\nA valid IBAN account is required to use SEPA features.", bank_account.acc_number, bank_account.partner_id.name))
+            raise UserError(_("The account %(account)s, linked to partner '%(partner)s', is not of type IBAN.\nA valid IBAN account is required to use SEPA features.", account=bank_account.acc_number, partner=bank_account.partner_id.name))
 
         CdtrAcct = etree.Element("CdtrAcct")
         Id = etree.SubElement(CdtrAcct, "Id")
@@ -571,13 +571,13 @@ class AccountJournal(models.Model):
         if self.sepa_pain_version == 'pain.001.001.09':
             regex = '[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}'
         if not re.match(regex, bank_account.bank_bic):
-            raise UserError(_("The BIC code '%s' associated to the bank '%s' of bank account '%s' "
-                              "of partner '%s' does not respect the required convention.\n"
+            raise UserError(_("The BIC code '%(bic_code)s' associated to the bank '%(bank)s' of bank account '%(account)s' "
+                              "of partner '%(partner)s' does not respect the required convention.\n"
                               "It must contain 8 or 11 characters and match the following structure:\n"
                               "- 4 letters: institution code or bank code\n"
                               "- 2 letters: country code\n"
                               "- 2 letters or digits: location code\n"
                               "- 3 letters or digits: branch code, optional\n",
-                              bank_account.bank_bic, bank_account.bank_id.name,
-                              bank_account.sanitized_acc_number, bank_account.partner_id.name))
+                              bic_code=bank_account.bank_bic, bank=bank_account.bank_id.name,
+                              account=bank_account.sanitized_acc_number, partner=bank_account.partner_id.name))
         return bank_account.bank_bic.replace(' ', '').upper()

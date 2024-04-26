@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from collections import defaultdict
+
 from odoo import _, api, fields, models
-from odoo.tools.float_utils import float_compare
+from odoo.tools import float_compare, format_list
+
 from ..models.l10n_lu_tax_report_data import MULTI_COLUMN_FIELDS
 
 
@@ -130,9 +132,9 @@ class LuAnnualTaxReportCustomHandler(models.AbstractModel):
                 if related_field_value:
                     # display the warning with the field name and all related fields
                     errors.add(
-                        _("The field %s must be filled in because one of the dependent fields (%s) is filled in.",
-                        check_field,
-                        ", ".join([related['field_name'] for related in dependent_fields[check_field]]))
+                        _("The field %(field)s must be filled in because one of the dependent fields (%(dependent_fields)s) is filled in.",
+                        field=check_field,
+                        dependent_fields=format_list(self.env, [related['field_name'] for related in dependent_fields[check_field]])),
                     )
 
         return errors

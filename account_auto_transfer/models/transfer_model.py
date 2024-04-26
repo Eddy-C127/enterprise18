@@ -90,7 +90,10 @@ class TransferModel(models.Model):
                         for a in line.analytic_account_ids:
                             combination = (p.id, a.id)
                             if combination in combinations:
-                                raise ValidationError(_("The partner filter %s in combination with the analytic filter %s is duplicated", p.display_name, a.display_name))
+                                raise ValidationError(_(
+                                    "The partner filter %(partner_filter)s in combination with the analytic filter %(analytic_filter)s is duplicated",
+                                    partner_filter=p.display_name, analytic_filter=a.display_name,
+                                ))
                             combinations.append(combination)
                 elif line.partner_ids:
                     for p in line.partner_ids:
@@ -460,7 +463,7 @@ class TransferModelLine(models.Model):
         anal_accounts = self.analytic_account_ids and ', '.join(self.analytic_account_ids.mapped('name'))
         partners = self.partner_ids and ', '.join(self.partner_ids.mapped('name'))
         if anal_accounts and partners:
-            name = _("Automatic Transfer (entries with analytic account(s): %s and partner(s): %s)", anal_accounts, partners)
+            name = _("Automatic Transfer (entries with analytic account(s): %(analytic_accounts)s and partner(s): %(partners)s)", analytic_accounts=anal_accounts, partners=partners)
         elif anal_accounts:
             name = _("Automatic Transfer (entries with analytic account(s): %s)", anal_accounts)
         elif partners:
@@ -491,13 +494,30 @@ class TransferModelLine(models.Model):
         anal_accounts = self.analytic_account_ids and ', '.join(self.analytic_account_ids.mapped('name'))
         partners = self.partner_ids and ', '.join(self.partner_ids.mapped('name'))
         if anal_accounts and partners:
-            name = _("Automatic Transfer (from account %s with analytic account(s): %s and partner(s): %s)", origin_account.code, anal_accounts, partners)
+            name = _(
+                "Automatic Transfer (from account %(origin_account)s with analytic account(s): %(analytic_accounts)s and partner(s): %(partners)s)",
+                origin_account=origin_account.code,
+                analytic_accounts=anal_accounts,
+                partners=partners,
+            )
         elif anal_accounts:
-            name = _("Automatic Transfer (from account %s with analytic account(s): %s)", origin_account.code, anal_accounts)
+            name = _(
+                "Automatic Transfer (from account %(origin_account)s with analytic account(s): %(analytic_accounts)s)",
+                origin_account=origin_account.code,
+                analytic_accounts=anal_accounts
+            )
         elif partners:
-            name = _("Automatic Transfer (from account %s with partner(s): %s)", origin_account.code, partners)
+            name = _(
+                "Automatic Transfer (from account %(origin_account)s with partner(s): %(partners)s)",
+                origin_account=origin_account.code,
+                partners=partners,
+            )
         else:
-            name = _("Automatic Transfer (%s%% from account %s)", self.percent, origin_account.code)
+            name = _(
+                "Automatic Transfer (%(percent)s%% from account %(origin_account)s)",
+                percent=self.percent,
+                origin_account=origin_account.code,
+            )
         return {
             'name': name,
             'account_id': self.account_id.id,

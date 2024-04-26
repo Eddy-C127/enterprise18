@@ -111,8 +111,8 @@ class MarketingActivity(models.Model):
             if (activity.parent_id or activity.allowed_parent_ids) and activity.parent_id not in activity.allowed_parent_ids:
                 trigger_string = dict(activity._fields['trigger_type']._description_selection(self.env))[activity.trigger_type]
                 raise ValidationError(
-                    _('You are trying to set the activity "%s" as "%s" while its child "%s" has the trigger type "%s"\nPlease modify one of those activities before saving.',
-                      activity.parent_id.name, activity.parent_id.activity_type, activity.name, trigger_string))
+                    _('You are trying to set the activity "%(parent_activity)s" as "%(parent_type)s" while its child "%(activity)s" has the trigger type "%(trigger_type)s"\nPlease modify one of those activities before saving.',
+                      parent_activity=activity.parent_id.name, parent_type=activity.parent_id.activity_type, activity=activity.name, trigger_type=trigger_string))
 
     @api.depends('activity_type')
     def _compute_mass_mailing_id_mailing_type(self):
@@ -537,7 +537,7 @@ class MarketingActivity(models.Model):
 
         participants = found_traces.participant_id
         action.update({
-            'display_name': _('Participants of %s (%s)', self.name, view_filter),
+            'display_name': _('Participants of %(activity)s (%(filter)s)', activity=self.name, filter=view_filter),
             'domain': [('id', 'in', participants.ids)],
             'context': dict(self._context, create=False)
         })

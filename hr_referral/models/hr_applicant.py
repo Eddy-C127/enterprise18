@@ -31,7 +31,7 @@ class Applicant(models.Model):
 
     def _search_is_accessible_to_current_user(self, operator, value):
         if not isinstance(value, bool) or operator not in ['=', '!=']:
-            raise NotImplementedError(_("Unsupported search on field is_accessible_to_current_user: %s operator & %s value. Only = and != operator and boolean values are supported.", operator, value))
+            raise UserError(_("Unsupported search on field is_accessible_to_current_user: %(operator)s operator & %(value)s value. Only = and != operator and boolean values are supported.", operator=operator, value=value))
         if self.env.user.has_group('hr_recruitment.group_hr_recruitment_user'):
             return []
         applications = self.env['hr.applicant'].with_context(active_test=False).search([
@@ -133,7 +133,7 @@ class Applicant(models.Model):
 
     def _send_notification(self, body, action_value='hr_referral.action_hr_applicant_employee_referral'):
         if self.partner_name:
-            subject = _('Referral: %s (%s)', self.partner_name, self.name)
+            subject = _('Referral: %(partner)s (%(applicant)s)', partner=self.partner_name, applicant=self.name)
         else:
             subject = _('Referral: %s', self.name)
         url = url_encode({'action': action_value, 'active_model': self._name})

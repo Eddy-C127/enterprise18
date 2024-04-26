@@ -154,11 +154,14 @@ class XmlPolizasExportWizard(models.TransientModel):
             if not record.order_number:
                 if self.export_type in ('AF', 'FC'):
                     selection = dict(self._fields['export_type']._description_selection(self.env))
-                    raise ValidationError(_("Order number is required for Export Type %r or %r",
-                                            selection['AF'], selection['FC']))
+                    raise ValidationError(_(
+                        'Order number is required for Export Type "%(export_type_af)s" or "%(export_type_fc)s"',
+                        export_type_af=selection['AF'],
+                        export_type_fc=selection['FC'],
+                    ))
             elif not re.match(ORDER_NUMBER_PATTERN, record.order_number):
-                raise ValidationError(_("Order number (%s) is invalid, must be like: %s",
-                                        record.order_number, ORDER_NUMBER_EXAMPLE))
+                raise ValidationError(_("Order number (%(number)s) is invalid, must be like: %(example)s",
+                                        number=record.order_number, example=ORDER_NUMBER_EXAMPLE))
 
     @api.constrains('process_number')
     def _check_process_number(self):
@@ -167,11 +170,14 @@ class XmlPolizasExportWizard(models.TransientModel):
             if not record.process_number:
                 if self.export_type in ('CO', 'DE'):
                     selection = dict(self._fields['export_type']._description_selection(self.env))
-                    raise ValidationError(_("Process number is required for Export Type %r or %r",
-                                            selection['CO'], selection['DE']))
+                    raise ValidationError(_(
+                        'Process number is required for Export Type "%(export_type_co)s" or "%(export_type_de)s"',
+                        export_type_co=selection['CO'],
+                        export_type_de=selection['DE'],
+                    ))
             elif not re.match(PROCESS_NUMBER_PATTERN, record.process_number):
-                raise ValidationError(_("Process number (%s) is invalid, must be like: %s",
-                                        record.process_number, PROCESS_NUMBER_EXAMPLE))
+                raise ValidationError(_("Process number (%(number)s) is invalid, must be like: %(example)s",
+                                        number=record.process_number, example=PROCESS_NUMBER_EXAMPLE))
 
     # ------------------------------
     #

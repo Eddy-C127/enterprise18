@@ -31,7 +31,7 @@ class HrSalaryRuleParameterValue(models.Model):
             try:
                 safe_eval(value.parameter_value)
             except Exception as e:
-                raise UserError(_('Wrong rule parameter value for %s at date %s.\n%s', value.rule_parameter_name, format_date(self.env, value.date_from), str(e)))
+                raise UserError(_('Wrong rule parameter value for %(rule_parameter_name)s at date %(date)s.\n%(error)s', rule_parameter_name=value.rule_parameter_name, date=format_date(self.env, value.date_from), error=str(e)))
 
 
 class HrSalaryRuleParameter(models.Model):
@@ -61,6 +61,6 @@ class HrSalaryRuleParameter(models.Model):
         if rule_parameter:
             return safe_eval(rule_parameter.parameter_value)
         if raise_if_not_found:
-            raise UserError(_("No rule parameter with code %r was found for %s ", code, date))
+            raise UserError(_('No rule parameter with code "%(code)s" was found for %(date)s', code=code, date=date))
         else:
             return None

@@ -49,9 +49,9 @@ class L10nBeDoublePayRecoveryWizard(models.TransientModel):
             date_to = wizard.payslip_id.date_to + relativedelta(years=-1, month=12, day=31) + relativedelta(days=1)
             wizard.months_count = (date_to.year - date_from.year) * 12 + (date_to.month - date_from.month)
             if wizard.months_count > 12:
-                wizard.months_count_description = _('The employee is occupied from the %s to the %s. There is nothing to recover as the employee is there for more than 12 months', format_date(self.env, date_from), format_date(self.env, wizard.payslip_id.date_to))
+                wizard.months_count_description = _('The employee is occupied from the %(date_from)s to the %(date_to)s. There is nothing to recover as the employee is there for more than 12 months', date_from=format_date(self.env, date_from), date_to=format_date(self.env, wizard.payslip_id.date_to))
             else:
-                wizard.months_count_description = _('The employee is occupied from the %s to the %s.', format_date(self.env, date_from), format_date(self.env, wizard.payslip_id.date_to))
+                wizard.months_count_description = _('The employee is occupied from the %(date_from)s to the %(date_to)s.', date_from=format_date(self.env, date_from), date_to=format_date(self.env, wizard.payslip_id.date_to))
 
     @api.depends('employee_id')
     def _compute_line_ids(self):

@@ -92,5 +92,5 @@ class L10nChIndividualAccount(models.Model):
     def _get_pdf_filename(self, employee):
         self.ensure_one()
         if employee:
-            return _('%s-ch-individual-account-%s', employee.name, self.year)
-        return  _('%s-ch-global-account-%s', self.company_id.name, self.year)
+            return _('%(employee)s-ch-individual-account-%(year)s', employee=employee.name, year=self.year)
+        return _('%(company)s-ch-global-account-%(year)s', company=self.company_id.name, year=self.year)

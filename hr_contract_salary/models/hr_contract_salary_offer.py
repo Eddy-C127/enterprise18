@@ -54,7 +54,7 @@ class HrContractSalaryOffer(models.Model):
                 name = offer.applicant_id.emp_id.name or offer.applicant_id.partner_id.name or offer.applicant_id.partner_name
             else:
                 name = offer.employee_contract_id.employee_id.name
-            offer.display_name = _("Offer [%s] for %s / Budget: %s", offer.create_date and offer.create_date.date() or 'No create date', name, format_amount(offer.env, offer.final_yearly_costs, offer.currency_id))
+            offer.display_name = _("Offer [%(create_date)s] for %(recipient)s / Budget: %(budget)s", create_date=offer.create_date and offer.create_date.date() or 'No create date', recipient=name, budget=format_amount(offer.env, offer.final_yearly_costs, offer.currency_id))
 
     @api.depends('create_date')
     def _compute_offer_create_date(self):
@@ -135,7 +135,7 @@ class HrContractSalaryOffer(models.Model):
             'default_model': 'hr.contract.salary.offer',
             'default_res_ids': self.ids,
             'default_template_id': default_template_id,
-            'default_record_name': _("%s: Job Offer - %s", self.company_id.name, self.job_title),
+            'default_record_name': _("%(company)s: Job Offer - %(job_title)s", company=self.company_id.name, job_title=self.job_title),
             'offer_id': self.id,
             'access_token': self.access_token,
             'partner_to': partner_to and partner_to.id or False,

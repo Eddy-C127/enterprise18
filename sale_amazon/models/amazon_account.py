@@ -840,7 +840,11 @@ class AmazonAccount(models.Model):
             else:
                 item_title = item_data['Title']
                 description = _(
-                    "[%s] %s\nCondition: %s - %s", sku, item_title, main_condition, sub_condition
+                    "[%(sku)s] %(item_title)s\nCondition: %(main_condition)s - %(sub_condition)s",
+                    sku=sku,
+                    item_title=item_title,
+                    main_condition=main_condition,
+                    sub_condition=sub_condition,
                 )
             sales_price = float(item_data.get('ItemPrice', {}).get('Amount', 0.0))
             tax_amount = float(item_data.get('ItemTax', {}).get('Amount', 0.0))
@@ -898,8 +902,8 @@ class AmazonAccount(models.Model):
                     order_lines_values.append(convert_to_order_line_values(
                         product_id=gift_wrap_product.id,
                         description=_(
-                            "[%s] Gift Wrapping Charges for %s",
-                            gift_wrap_code, offer.product_id.name
+                            "[%(gift_wrap_code)s] Gift Wrapping Charges for %(product)s",
+                            gift_wrap_code=gift_wrap_code, product=offer.product_id.name,
                         ),
                         subtotal=gift_wrap_subtotal,
                         tax_ids=gift_wrap_taxes.ids,
@@ -936,7 +940,8 @@ class AmazonAccount(models.Model):
                 order_lines_values.append(convert_to_order_line_values(
                     product_id=shipping_product.id,
                     description=_(
-                        "[%s] Delivery Charges for %s", shipping_code, offer.product_id.name
+                        "[%(shipping_code)s] Delivery Charges for %(product)s",
+                        shipping_code=shipping_code, product=offer.product_id.name,
                     ),
                     subtotal=shipping_subtotal,
                     tax_ids=shipping_taxes.ids,

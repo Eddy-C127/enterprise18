@@ -81,7 +81,7 @@ class L10nHkIr56e(models.Model):
 
     def _get_pdf_filename(self, employee):
         self.ensure_one()
-        return _('%s_-_IR56E-%s', employee.name, self.submission_date)
+        return _('%(employee_name)s_-_IR56E-%(submission_date)s', employee_name=employee.name, submission_date=self.submission_date)
 
     def _post_process_rendering_data_pdf(self, rendering_data):
         result = {}

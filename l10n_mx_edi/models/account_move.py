@@ -15,7 +15,7 @@ from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import (
 )
 from odoo.exceptions import RedirectWarning, UserError, ValidationError
 from odoo.osv import expression
-from odoo.tools import flatten, frozendict
+from odoo.tools import format_list, frozendict
 from odoo.tools.float_utils import float_round
 from odoo.tools.sql import column_exists, create_column
 from odoo.addons.base.models.ir_qweb import keep_query
@@ -2224,8 +2224,8 @@ class AccountMove(models.Model):
             if invoices_per_error:
                 errors = []
                 for error, invoices_in_error in invoices_per_error.items():
-                    invoices_str = ",".join(invoices_in_error.mapped('name'))
-                    errors.append(_("On %s: %s", invoices_str, error))
+                    invoices_str = format_list(self.env, invoices_in_error.mapped('name'))
+                    errors.append(_("On %(invoices)s: %(error)s", invoices=invoices_str, error=error))
                 cfdi_values['errors'] = errors
                 return
 
@@ -2391,8 +2391,8 @@ class AccountMove(models.Model):
             if len(taxes) != 1:
                 line.move_id.to_check = True
             if not taxes:
-                msg = _('Could not retrieve the %s tax with rate %s%%.', tax_type, amount)
-                msg_wh = _('Could not retrieve the %s withholding tax with rate %s%%.', tax_type, amount)
+                msg = _('Could not retrieve the %(tax_type)s tax with rate %(rate)s%%.', tax_type=tax_type, rate=amount)
+                msg_wh = _('Could not retrieve the %(tax_type)s withholding tax with rate %(rate)s%%.', tax_type=tax_type, rate=amount)
                 line.move_id.message_post(body=msg_wh if is_withholding else msg)
             return taxes[:1]
 
@@ -2442,7 +2442,7 @@ class AccountMove(models.Model):
                 if tax:
                     tax_ids.append(tax.id)
                 elif tax_type:
-                    line.move_id.message_post(body=_("Could not retrieve the %s tax with rate %s%%.", tax_type, amount))
+                    line.move_id.message_post(body=_("Could not retrieve the %(tax_type)s tax with rate %(rate)s%%.", tax_type=tax_type, rate=amount))
                 else:
                     line.move_id.message_post(body=_("Could not retrieve the tax with rate %s%%.", amount))
 

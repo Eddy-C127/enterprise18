@@ -218,9 +218,9 @@ class AccountReportAsyncExport(models.Model):
         # Error from ASPOne
         if response['responseType'] != 'SUCCESS':
             raise UserError(_(
-                "Unexpected response from proxy: '%s %s'.\nPlease contact the support.",
-                response['responseType'],
-                response['response']['errorResponse']['message']),
+                "Unexpected response from proxy: '%(response_type)s %(message)s'.\nPlease contact the support.",
+                response_type=response['responseType'],
+                message=response['response']['errorResponse']['message']),
             )
 
         return response

@@ -81,7 +81,7 @@ class AccountTaxUnit(models.Model):
                 currencies.add(company.currency_id)
 
                 if any(unit != record and unit.country_id == record.country_id for unit in company.account_tax_unit_ids):
-                    raise ValidationError(_("Company %s already belongs to a tax unit in %s. A company can at most be part of one tax unit per country.", company.name, record.country_id.name))
+                    raise ValidationError(_("Company %(company)s already belongs to a tax unit in %(country)s. A company can at most be part of one tax unit per country.", company=company.name, country=record.country_id.name))
 
             if len(currencies) > 1:
                 raise ValidationError(_("A tax unit can only be created between companies sharing the same main currency."))

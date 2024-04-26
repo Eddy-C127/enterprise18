@@ -186,14 +186,16 @@ class DeliveryCarrier(models.Model):
                     })
                     picking.message_post(body=_('Order %s was sent to the carrier.', picking.name), attachment_ids=attachment_id.ids)
                 else:
-                    picking.message_post(body=_('Order %s was already sent to the carrier during label creation.\n'
-                                                'Manifest number: %s', picking.name, order_data['order']['manifest_number']))
+                    picking.message_post(body=_('Order %(order)s was already sent to the carrier during label creation.\n'
+                                                'Manifest number: %(manifest_number)s',
+                                                order=picking.name, manifest_number=order_data['order']['manifest_number']))
             # In test mode, we will archive the order instead to avoid any fees related to the end carrier.
             else:
                 if manifested:
-                    picking.message_post(body=_('Order %s was sent to the carrier during label creation.'
+                    picking.message_post(body=_('Order %(order)s was sent to the carrier during label creation.'
                                                 'As you are in a test environment, please make sure to cancel the order with your carrier directly.\n'
-                                                'Manifest number: %s', picking.name, order_data['order']['manifest_number']))
+                                                'Manifest number: %(manifest_number)s',
+                                                order=picking.name, manifest_number=order_data['order']['manifest_number']))
                 self._starshipit_cancel_shipment(picking)
                 picking.message_post(body=_('Order %s was archived.', picking.name))
         return res
@@ -292,14 +294,16 @@ class DeliveryCarrier(models.Model):
                 })
                 picking.message_post(body=_('Return order %s was sent to the carrier.', picking.name), attachment_ids=attachment_id.ids)
             else:
-                picking.message_post(body=_('Return order %s was already sent to the carrier during label creation.\n'
-                                            'Manifest number: %s', picking.name, order_data['order']['manifest_number']))
+                picking.message_post(body=_('Return order %(order)s was already sent to the carrier during label creation.\n'
+                                            'Manifest number: %(manifest_number)s',
+                                            order=picking.name, manifest_number=order_data['order']['manifest_number']))
         # In test mode, we will archive the order instead to avoid any fees related to the end carrier.
         else:
             if manifested:
-                picking.message_post(body=_('Return order %s was sent to the carrier during label creation.'
+                picking.message_post(body=_('Return order %(order)s was sent to the carrier during label creation.'
                                             'As you are in a test environment, please make sure to cancel the order with your carrier directly.\n'
-                                            'Manifest number: %s', picking.name, order_data['order']['manifest_number']))
+                                            'Manifest number: %(manifest_number)s',
+                                            order=picking.name, manifest_number=order_data['order']['manifest_number']))
             self._starshipit_cancel_shipment(picking)
             picking.message_post(body=_('Return order %s was archived.', picking.name))
 

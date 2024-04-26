@@ -128,4 +128,4 @@ class L10nKeTaxDeductionCard(models.Model):
 
     def _get_pdf_filename(self, employee):
         self.ensure_one()
-        return _('%s-tax-deduction-card-%s', employee.name, self.year)
+        return _('%(employee)s-tax-deduction-card-%(year)s', employee=employee.name, year=self.year)

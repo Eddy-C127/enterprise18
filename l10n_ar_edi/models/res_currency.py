@@ -12,7 +12,7 @@ class ResCurrency(models.Model):
     def l10n_ar_action_get_afip_ws_currency_rate(self):
         date, rate = self._l10n_ar_get_afip_ws_currency_rate()
         date = format_date(self.env, datetime.datetime.strptime(date, '%Y%m%d'), date_format='EEEE, dd MMMM YYYY')
-        raise UserError(_('Last Business Day') + ': %s' % date + '\n' + _('Rate:') + ' %s' % rate)
+        raise UserError(_('Last Business Day: %(date)s\nRate: %(rate)s', date=date, rate=rate))
 
     def _l10n_ar_get_afip_ws_currency_rate(self, afip_ws='wsfe'):
         """ Return the date and rate for a given currency
@@ -29,7 +29,7 @@ class ResCurrency(models.Model):
         if afip_ws == 'wsfe':
             response = client.service.FEParamGetCotizacion(auth, MonId=self.l10n_ar_afip_code)
             if response.Errors:
-                raise UserError(_('The was an error obtaining the rate:\n\n * Code %s -  %s', response.Errors.Err[0].Code, response.Errors.Err[0].Msg))
+                raise UserError(_('The was an error obtaining the rate:\n\n * Code %(error_code)s -  %(error_message)s', error_code=response.Errors.Err[0].Code, error_message=response.Errors.Err[0].Msg))
             # Events None
             date = response.ResultGet.FchCotiz
             rate = response.ResultGet.MonCotiz

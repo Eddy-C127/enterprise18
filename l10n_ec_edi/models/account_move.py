@@ -408,7 +408,7 @@ class AccountMove(models.Model):
             prefix = move.journal_id.l10n_ec_entity + '-' + move.journal_id.l10n_ec_emission
             number = move.l10n_latam_document_type_id._format_document_number(move.l10n_latam_document_number)
             if prefix != number[:7]:
-                raise ValidationError(_('Check the document number "%s", the expected prefix is "%s".', self.l10n_latam_document_number, prefix))
+                raise ValidationError(_('Check the document number "%(number)s", the expected prefix is "%(prefix)s".', number=self.l10n_latam_document_number, prefix=prefix))
 
     def _l10n_ec_check_in_withhold_number_prefix(self):
         # Check the document number only for in withholds
@@ -417,7 +417,7 @@ class AccountMove(models.Model):
             prefix = 'Ret ' + withhold.journal_id.l10n_ec_entity + '-' + withhold.journal_id.l10n_ec_emission + '-' # The prefix "Ret" is fixed in code
             number = withhold.sequence_prefix
             if prefix != number:
-                raise ValidationError(_('Check the document number "%s", the expected prefix is "%s".', number, prefix))
+                raise ValidationError(_('Check the document number "%(number)s", the expected prefix is "%(prefix)s".', number=number, prefix=prefix))
 
     # ===== INVOICE XML GENERATION=====
 
@@ -704,7 +704,7 @@ class AccountMove(models.Model):
             wth_subtotals['subtotals_order'].append(key)
             wth_subtotals['subtotals'].append({
                 'name': key,
-                'formatted_amount': _('(base: %s) %s', formatted_base, formatLang(self.env, amount, currency_obj=currency))
+                'formatted_amount': _('(base: %(base)s) %(amount)s', base=formatted_base, amount=formatLang(self.env, amount, currency_obj=currency))
             })
 
         if vat_tax_group:

@@ -77,7 +77,7 @@ class FrontdeskVisitor(models.Model):
             if visitor.station_id.responsible_ids:
                 if visitor.host_ids:
                     host_info = ', '.join([f'{host.name}' for host in visitor.host_ids])
-                    msg = visitor.station_id.name + _(" Check-In: %s to meet %s", visitor_name, host_info)
+                    msg = visitor.station_id.name + _(" Check-In: %(visitor)s to meet %(host)s", visitor=visitor_name, host=host_info)
                 else:
                     msg = visitor.station_id.name + _(" Check-In: %s", visitor_name)
                 visitor._notify_by_discuss(visitor.station_id.responsible_ids, msg)

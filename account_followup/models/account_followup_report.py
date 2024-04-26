@@ -319,7 +319,7 @@ Best Regards,
         partner_name = partner.name
         company_name = self.env.company.name
         self = self.with_context(lang=partner.lang or self.env.user.lang)
-        default_body = _("%s Payment Reminder - %s", company_name, partner_name)
+        default_body = _("%(company)s Payment Reminder - %(partner)s", company=company_name, partner=partner_name)
 
         return self._get_rendered_body(partner.id, template_src, default_body, options={'post_process': True})
 
@@ -417,7 +417,7 @@ Best Regards,
         tz_date_str = format_date(self.env, fields.Date.today(), lang_code=self.env.user.lang or get_lang(self.env).code)
         #to avoid having dots in the name of the file.
         tz_date_str = tz_date_str.replace('.', '-')
-        followup_letter_name = _("Follow-up %s - %s", partner.display_name, tz_date_str)
+        followup_letter_name = _("Follow-up %(partner)s - %(date)s", partner=partner.display_name, date=tz_date_str)
         followup_letter = action.with_context(lang=partner.lang or self.env.user.lang)._render_qweb_pdf('account_followup.report_followup_print_all', partner.id, data={'options': options or {}})[0]
         attachment = self.env['ir.attachment'].create({
             'name': followup_letter_name,

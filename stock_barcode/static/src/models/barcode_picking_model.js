@@ -1532,9 +1532,8 @@ export default class BarcodePickingModel extends BarcodeModel {
                 package_type_id: packageType.id,
             });
             const message = _t(
-                "Package type %s was correctly applied to the package %s",
-                packageType.name,
-                resultPackage.name
+                "Package type %(type)s applied to the package %(package)s",
+                { type: packageType.name, package: resultPackage.name }
             );
             this.notification(message, { type: "success" });
             this.trigger('refresh');
@@ -1645,9 +1644,8 @@ export default class BarcodePickingModel extends BarcodeModel {
                 if (args.uom.category_id !== lineUOM.category_id) {
                     // Not the same UoM's category -> Can't be converted.
                     const message = _t(
-                        "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible with the line's one (%s).",
-                        args.uom.name,
-                        lineUOM.name
+                        "Scanned quantity uses %(unit)s as its Unit of Measure (UoM), but it is not compatible with the line's UoM (%(lineUnit)s).",
+                        { unit: args.uom.name, lineUnit: lineUOM.name }
                     );
                     return this.notification(message, { title: _t("Wrong Unit of Measure"), type: "danger" });
                 } else if (args.uom.id !== lineUOM.id) {

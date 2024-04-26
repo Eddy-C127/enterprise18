@@ -256,7 +256,13 @@ class Payslip(models.Model):
                     max_seizable_amount += (min(net_amount, right) - left) * rate
             payslip.l10n_be_max_seizable_amount = max_seizable_amount
             if max_seizable_amount and seized_amount > max_seizable_amount:
-                payslip.l10n_be_max_seizable_warning = _('The seized amount (%s€) is above the belgian ceilings. Given a global net salary of %s€ for the pay period and %s dependent children, the maximum seizable amount is equal to %s€', round(seized_amount, 2), round(net_amount, 2), round(dependent_children, 2), round(max_seizable_amount, 2))
+                payslip.l10n_be_max_seizable_warning = _(
+                    'The seized amount (%(seized_amount)s€) is above the belgian ceilings. Given a global net salary of %(net_amount)s€ for the pay period and %(dependent_children)s dependent children, the maximum seizable amount is equal to %(max_seizable_amount)s€',
+                    seized_amount=round(seized_amount, 2),
+                    net_amount=round(net_amount, 2),
+                    dependent_children=round(dependent_children, 2),
+                    max_seizable_amount=round(max_seizable_amount, 2),
+                )
             else:
                 payslip.l10n_be_max_seizable_warning = False
 

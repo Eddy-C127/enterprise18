@@ -143,10 +143,20 @@ class GenerateSimulationLink(models.TransientModel):
 
         if self.applicant_id:
             self.applicant_id.message_post(
-                body=Markup(_("An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%s'>Offer</a> as been sent by %s to the applicant (mail: %s)")) % (offer.id, self.env.user.name, self.applicant_id.partner_id.email or self.applicant_id.email_from))
+                body=Markup(_("An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%(offer_id)s'>Offer</a> as been sent by %(user)s to the applicant (mail: %(email)s)")) % {
+                    "offer_id": offer.id,
+                    "user": self.env.user.name,
+                    "email": self.applicant_id.partner_id.email or self.applicant_id.email_from,
+                },
+            )
         else:
             self.employee_contract_id.message_post(
-                body=Markup(_("An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%s'>Offer</a> as been sent by %s to the employee (mail: %s)")) % (offer.id, self.env.user.name, self.employee_id.work_email))
+                body=Markup(_("An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%(offer_id)s'>Offer</a> as been sent by %(user)s to the employee (mail: %(email)s)")) % {
+                    "offer_id": offer.id,
+                    "user": self.env.user.name,
+                    "email": self.employee_id.work_email,
+                },
+            )
 
         return {
             'type': 'ir.actions.act_window',
@@ -193,10 +203,20 @@ class GenerateSimulationLink(models.TransientModel):
         offer = self.env['hr.contract.salary.offer'].create(offer_values)
         if self.applicant_id:
             self.applicant_id.message_post(
-                body=Markup(_("An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%s'>Offer</a> as been sent by %s to the applicant (mail: %s)")) % (offer.id, self.env.user.name, self.applicant_id.partner_id.email or self.applicant_id.email_from))
+                body=Markup(_("An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%(offer_id)s'>Offer</a> as been sent by %(user)s to the applicant (mail: %(email)s)")) % {
+                    "offer_id": offer.id,
+                    "user": self.env.user.name,
+                    "email": self.applicant_id.partner_id.email or self.applicant_id.email_from,
+                },
+            )
         else:
             self.employee_contract_id.message_post(
-                body=Markup(_("An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%s'>Offer</a> as been sent by %s to the employee (mail: %s)")) % (offer.id, self.env.user.name, self.employee_id.work_email))
+                body=Markup(_("An <a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='%(offer_id)s'>Offer</a> as been sent by %(user)s to the employee (mail: %(email)s)")) % {
+                    "offer_id": offer.id,
+                    "user": self.env.user.name,
+                    "email": self.employee_id.work_email,
+                },
+            )
 
         ctx = {
             'default_composition_mode': 'comment',
@@ -204,7 +224,7 @@ class GenerateSimulationLink(models.TransientModel):
             'default_model': 'hr.contract.salary.offer',
             'default_res_ids': offer.ids,
             'default_template_id': default_template_id,
-            'default_record_name': _("%s: Job Offer - %s", self.company_id.name, self.job_title),
+            'default_record_name': _("%(company)s: Job Offer - %(job_title)s", company=self.company_id.name, job_title=self.job_title),
             'offer_id': offer.id,
             'access_token': offer.access_token,
             'partner_to': partner_to and partner_to.id or False,

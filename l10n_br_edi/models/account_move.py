@@ -288,10 +288,9 @@ class AccountMove(models.Model):
             if not origin.l10n_br_access_key:
                 return {}, (
                     _(
-                        "The originating invoice (%s) must have an access key before electronically invoicing %s. The access key can be set manually or by electronically invoicing %s.",
-                        origin.display_name,
-                        self.display_name,
-                        origin.display_name,
+                        "The originating invoice (%(origin_invoice)s) must have an access key before electronically invoicing %(current_invoice)s. The access key can be set manually or by electronically invoicing %(origin_invoice)s.",
+                        origin_invoice=origin.display_name,
+                        current_invoice=self.display_name,
                     )
                 )
 
@@ -326,9 +325,9 @@ class AccountMove(models.Model):
             if not partner[field]:
                 errors.append(
                     _(
-                        "%s on partner %s is required for e-invoicing",
-                        partner._fields[field].string,
-                        partner.display_name,
+                        "%(field)s on partner %(partner)s is required for e-invoicing",
+                        field=partner._fields[field].string,
+                        partner=partner.display_name,
                     )
                 )
 

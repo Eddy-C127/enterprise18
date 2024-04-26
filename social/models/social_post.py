@@ -9,6 +9,7 @@ from markupsafe import Markup
 
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.tools import format_list
 
 
 class SocialPost(models.Model):
@@ -76,9 +77,9 @@ class SocialPost(models.Model):
         for post in self.sudo():  # SUDO to bypass multi-company ACLs
             if not (post.account_ids <= post.account_allowed_ids):
                 raise ValidationError(_(
-                    'Selected accounts (%s) do not match the selected company (%s)',
-                    ','.join((post.account_ids - post.account_allowed_ids).mapped('name')),
-                    post.company_id.name
+                    'Selected accounts (%(account_list)s) do not match the selected company (%(company)s)',
+                    account_list=format_list(self.env, (post.account_ids - post.account_allowed_ids).mapped('name')),
+                    company=post.company_id.name
                 ))
 
     @api.constrains('state', 'scheduled_date')
@@ -295,7 +296,7 @@ class SocialPost(models.Model):
         errors = defaultdict(list)
         for post in self:
             for media in post.media_ids.filtered(lambda media: media.max_post_length and post.message_length > media.max_post_length):
-                errors[post].append(_("%s (max %s chars)", media.name, media.max_post_length))
+                errors[post].append(_("%(media_name)s (max %(max_chars)s chars)", media_name=media.name, max_chars=media.max_post_length))
         if bool(errors):
             raise ValidationError(_(
                 "Due to length restrictions, the following posts cannot be posted:\n %s",

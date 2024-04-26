@@ -34,7 +34,11 @@ class HrPayrollIndex(models.TransientModel):
     @api.depends('percentage')
     def _compute_description(self):
         for record in self:
-            record.description = _('Wage indexed by %.2f%% on %s', self.percentage * 100, format_date(self.env, fields.Date.today()))
+            record.description = _(
+                'Wage indexed by %(percentage).2f%% on %(date)s',
+                percentage=self.percentage * 100,
+                date=format_date(self.env, fields.Date.today()),
+            )
 
     @api.model
     def _index_wage(self, contract):

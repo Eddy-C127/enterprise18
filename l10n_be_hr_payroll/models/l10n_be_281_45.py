@@ -348,7 +348,7 @@ class L10nBe28145(models.Model):
 
     def _get_pdf_filename(self, employee):
         self.ensure_one()
-        return _('%s-%s-281_45', self.year, employee.name)
+        return _('%(year)s-%(employee)s-281_45', year=self.year, employee=employee.name)
 
     def _post_process_rendering_data_pdf(self, rendering_data):
         result = {}

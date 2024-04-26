@@ -137,4 +137,4 @@ class L10nBeIndividualAccount(models.Model):
 
     def _get_pdf_filename(self, employee):
         self.ensure_one()
-        return _('%s-individual-account-%s', employee.name, self.year)
+        return _('%(employee_name)s-individual-account-%(year)s', employee_name=employee.name, year=self.year)

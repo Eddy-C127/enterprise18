@@ -43,9 +43,8 @@ export class CohortArchParser {
                     } else {
                         throw new Error(
                             _t(
-                                "The argument %s is not a valid mode. Here are the modes: %s",
-                                mode,
-                                MODES
+                                "The argument %(mode)s is not a valid mode. Here are the modes: %(modes)s",
+                                { mode, modes: MODES }
                             )
                         );
                     }
@@ -55,9 +54,8 @@ export class CohortArchParser {
                     } else {
                         throw new Error(
                             _t(
-                                "The argument %s is not a valid timeline. Here are the timelines: %s",
-                                timeline,
-                                TIMELINES
+                                "The argument %(timeline)s is not a valid timeline. Here are the timelines: %(timelines)s",
+                                { timeline, timelines: TIMELINES }
                             )
                         );
                     }
@@ -68,9 +66,8 @@ export class CohortArchParser {
                     } else {
                         throw new Error(
                             _t(
-                                "The argument %s is not a valid interval. Here are the intervals: %s",
-                                interval,
-                                INTERVALS
+                                "The argument %(interval)s is not a valid interval. Here are the intervals: %(intervals)s",
+                                { interval, intervals: INTERVALS }
                             )
                         );
                     }

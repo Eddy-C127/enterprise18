@@ -144,7 +144,7 @@ class AccountMove(models.Model):
                         'asset_number_days': 0
                     }))
 
-                msg = _('Depreciation entry %s reversed (%s)', move.name, formatLang(self.env, move.depreciation_value, currency_obj=move.company_id.currency_id))
+                msg = _('Depreciation entry %(name)s reversed (%(value)s)', name=move.name, value=formatLang(self.env, move.depreciation_value, currency_obj=move.company_id.currency_id))
                 move.asset_id.message_post(body=msg)
                 default_values['asset_id'] = move.asset_id.id
                 default_values['asset_number_days'] = -move.asset_number_days
@@ -169,7 +169,7 @@ class AccountMove(models.Model):
     def _log_depreciation_asset(self):
         for move in self.filtered(lambda m: m.asset_id):
             asset = move.asset_id
-            msg = _('Depreciation entry %s posted (%s)', move.name, formatLang(self.env, move.depreciation_value, currency_obj=move.company_id.currency_id))
+            msg = _('Depreciation entry %(name)s posted (%(value)s)', name=move.name, value=formatLang(self.env, move.depreciation_value, currency_obj=move.company_id.currency_id))
             asset.message_post(body=msg)
 
     def _auto_create_asset(self):
@@ -216,7 +216,7 @@ class AccountMove(models.Model):
                     invoice_list.extend([move] * units_quantity)
                     for i in range(1, units_quantity + 1):
                         if units_quantity > 1:
-                            vals['name'] = move_line.name + _(" (%s of %s)", i, units_quantity)
+                            vals['name'] = move_line.name + _(" (%(current)s of %(total)s)", current=i, total=units_quantity)
                         create_list.extend([vals.copy()])
 
         assets = self.env['account.asset'].with_context({}).create(create_list)

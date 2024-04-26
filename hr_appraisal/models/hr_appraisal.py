@@ -470,12 +470,12 @@ class HrAppraisal(models.Model):
                 for manager in managers.filtered('user_id'):
                     if employee.appraisal_count == 1:
                         note = _(
-                            "The employee %s arrived %s months ago. The appraisal is created and you can fill it here.",
-                            employee._get_html_link(), months)
+                            "The employee %(employee)s arrived %(months)s months ago. The appraisal is created and you can fill it here.",
+                            employee=employee._get_html_link(), months=months)
                     else:
                         note = _(
-                            "The last appraisal of %s was %s months ago. The appraisal is created and you can fill it here.",
-                            appraisal.employee_id._get_html_link(), last_appraisal_months)
+                            "The last appraisal of %(employee)s was %(months)s months ago. The appraisal is created and you can fill it here.",
+                            employee=appraisal.employee_id._get_html_link(), months=last_appraisal_months)
                     appraisal.with_context(mail_activity_quick_update=True).activity_schedule(
                         'mail.mail_activity_data_todo', today,
                         summary=_('Appraisal for %s to fill', employee.name),

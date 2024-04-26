@@ -82,7 +82,7 @@ class AccountMove(models.Model):
             attachments = self._l10n_br_edi_attachments_from_response(response)
             subtype_xmlid = "mail.mt_comment"  # send to all followers
         else:
-            message = _("Unknown E-invoice status code %s: %s", response_code, status.get("desc"))
+            message = _("Unknown E-invoice status code %(code)s: %(description)s", code=response_code, description=status.get("desc"))
 
         self.with_context(no_new_invoice=True).message_post(
             body=message, attachment_ids=attachments.ids, subtype_xmlid=subtype_xmlid

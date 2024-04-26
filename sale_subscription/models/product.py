@@ -42,6 +42,10 @@ class product_template(models.Model):
             if record.product_subscription_pricing_ids:
                 display_pricing = record.product_subscription_pricing_ids[0]
                 formatted_price = format_amount(self.env, display_pricing.price, display_pricing.currency_id)
-                record.display_subscription_pricing = _('%s %s', formatted_price, display_pricing.plan_id.billing_period_display_sentence)
+                record.display_subscription_pricing = _(
+                    '%(price)s %(billing_period_display_sentence)s',
+                    price=formatted_price,
+                    billing_period_display_sentence=display_pricing.plan_id.billing_period_display_sentence
+                )
             else:
                 record.display_subscription_pricing = None

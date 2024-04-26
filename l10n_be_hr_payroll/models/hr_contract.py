@@ -200,7 +200,7 @@ class HrContract(models.Model):
                 min_wage = min_wage * contract.resource_calendar_id.work_time_rate / 100
             if contract._get_contract_wage() < min_wage:
                 contract.l10n_be_is_below_scale = True
-                contract.l10n_be_is_below_scale_warning = _("The wage is under the minimum scale of %s€ for a seniority of %s years.", round(min_wage, 2), seniority)
+                contract.l10n_be_is_below_scale_warning = _("The wage is under the minimum scale of %(amount)s€ for a seniority of %(years)s years.", amount=round(min_wage, 2), years=seniority)
             else:
                 contract.l10n_be_is_below_scale = False
                 contract.l10n_be_is_below_scale_warning = False
@@ -693,9 +693,9 @@ class HrContract(models.Model):
         part_time_link = '<a href="%s" target="_blank">%s</a>' % (part_time_link, part_time_link)
         self.activity_schedule(
             'mail.mail_activity_data_todo',
-            note=_('Part Time of %s must be stated at %s.',
-                   self.employee_id.name,
-                   part_time_link),
+            note=_('Part Time of %(employee)s must be stated at %(link)s.',
+                   employee=self.employee_id.name,
+                   link=part_time_link),
             user_id=self.hr_responsible_id.id or self.env.user.id,
         )
 
@@ -705,9 +705,9 @@ class HrContract(models.Model):
         dimona_link = '<a href="%s" target="_blank">%s</a>' % (dimona_link, dimona_link)
         self.activity_schedule(
             'mail.mail_activity_data_todo',
-            note=_('State the Dimona at %s to declare the arrival of %s.',
-                   dimona_link,
-                   self.employee_id.name),
+            note=_('State the Dimona at %(link)s to declare the arrival of %(employee)s.',
+                   link=dimona_link,
+                   employee=self.employee_id.name),
             user_id=self.hr_responsible_id.id or self.env.user.id,
             summary='Dimona',
             )

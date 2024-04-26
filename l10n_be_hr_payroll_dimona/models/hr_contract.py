@@ -474,9 +474,9 @@ class HrContract(models.Model):
                 elif status == 'W':
                     self.l10n_be_dimona_declaration_state = 'done_warning'
                     self.message_post(body=_(
-                        'DIMONA declaration treated and accepted with non blocking anomalies\n%s\n%s',
-                        result['declarationStatus']['anomaliesCollection'],
-                        result['declarationStatus']['informationsCollection']))
+                        'DIMONA declaration treated and accepted with non blocking anomalies\n%(anomalies)s\n%(informations)s',
+                        anomalies=result['declarationStatus']['anomaliesCollection'],
+                        informations=result['declarationStatus']['informationsCollection']))
                 elif status == 'B':
                     self.l10n_be_dimona_declaration_state = 'refused'
                     self.message_post(body=_(

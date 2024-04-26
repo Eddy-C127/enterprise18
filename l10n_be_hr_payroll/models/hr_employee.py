@@ -168,10 +168,10 @@ Source: Opinion on the indexation of the amounts set in Article 1, paragraph 4, 
         other_income_threshold = self.env['hr.rule.parameter'].sudo()._get_parameter_from_code('spouse_other_income_threshold')
         for employee in self:
             employee.spouse_fiscal_status_explanation = _("""- Without Income: The spouse of the income recipient has no professional income.\n
-- High income: The spouse of the recipient of the income has professional income, other than pensions, annuities or similar income, which exceeds %s€ net per month.\n
-- Low Income: The spouse of the recipient of the income has professional income, other than pensions, annuities or similar income, which does not exceed %s€ net per month.\n
-- Low Pensions: The spouse of the beneficiary of the income has professional income which consists exclusively of pensions, annuities or similar income and which does not exceed %s€ net per month.\n
-- High Pensions: The spouse of the beneficiary of the income has professional income which consists exclusively of pensions, annuities or similar income and which exceeds %s€ net per month.""", low_income_threshold, low_income_threshold, other_income_threshold, other_income_threshold)
+- High income: The spouse of the recipient of the income has professional income, other than pensions, annuities or similar income, which exceeds %(low_income_threshold)s€ net per month.\n
+- Low Income: The spouse of the recipient of the income has professional income, other than pensions, annuities or similar income, which does not exceed %(low_income_threshold)s€ net per month.\n
+- Low Pensions: The spouse of the beneficiary of the income has professional income which consists exclusively of pensions, annuities or similar income and which does not exceed %(other_income_threshold)s€ net per month.\n
+- High Pensions: The spouse of the beneficiary of the income has professional income which consists exclusively of pensions, annuities or similar income and which exceeds %(other_income_threshold)s€ net per month.""", low_income_threshold=low_income_threshold, other_income_threshold=other_income_threshold)
 
     @api.depends('identification_id')
     def _compute_niss(self):

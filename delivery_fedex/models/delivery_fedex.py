@@ -8,7 +8,7 @@ from odoo.tools.zeep.helpers import serialize_object
 
 from odoo import api, models, fields, _, tools
 from odoo.exceptions import UserError
-from odoo.tools import pdf, float_repr
+from odoo.tools import pdf, float_repr, format_list
 from odoo.tools.safe_eval import const_eval
 
 from .fedex_request import FedexRequest, _convert_curr_iso_fdx, _convert_curr_fdx_iso
@@ -319,8 +319,10 @@ class ProviderFedex(models.Model):
                     carrier_price = self._get_request_price(response['price'], order, order_currency)
 
                     logmessage = Markup(_("Shipment created into Fedex<br/>"
-                                          "<b>Tracking Numbers:</b> %s<br/>"
-                                          "<b>Packages:</b> %s")) % (','.join(carrier_tracking_refs), ','.join([pl[0] for pl in package_labels]))
+                                          "<b>Tracking Numbers:</b> %(tracking_numbers)s<br/>"
+                                          "<b>Packages:</b> %(packages)s",
+                                          tracking_numbers=format_list(self.env, carrier_tracking_refs),
+                                          packages=format_list(self.env, [pl[0] for pl in package_labels])))
                     if self.fedex_label_file_type != 'PDF':
                         attachments = [('%s-%s.%s' % (self._get_delivery_label_prefix(), pl[0], self.fedex_label_file_type), pl[1]) for pl in package_labels]
                     if self.fedex_label_file_type == 'PDF':

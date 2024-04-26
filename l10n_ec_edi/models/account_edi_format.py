@@ -114,7 +114,7 @@ class AccountEdiFormat(models.Model):
                         errors.append(_("Please use the wizard on the invoice to generate the withholding."))
                     code = move._l10n_ec_wth_map_tax_code(line)
                     if not code:
-                        errors.append(_("Wrong tax (%s) for document %s", line.tax_ids[0].name, move.display_name))
+                        errors.append(_("Wrong tax (%(tax)s) for document %(document)s", tax=line.tax_ids[0].name, document=move.display_name))
             else:
                 unsupported_tax_types = set()
                 vat_subtaxes = (lambda l: L10N_EC_VAT_SUBTAXES[l.tax_group_id.l10n_ec_type])
@@ -198,8 +198,8 @@ class AccountEdiFormat(models.Model):
                 _auth_state, auth_num, auth_date, errors, warnings = self._l10n_ec_get_authorization_status(move)
                 if auth_num:
                     errors.append(
-                        _("You cannot cancel a document that is still authorized (%s, %s), check the SRI portal",
-                          auth_num, auth_date)
+                        _("You cannot cancel a document that is still authorized (%(authorization_num)s, %(authorization_date)s), check the SRI portal",
+                          authorization_num=auth_num, authorization_date=auth_date),
                     )
             if not errors:
                 move.l10n_ec_authorization_date = False  # unset upon cancelling
@@ -301,8 +301,8 @@ class AccountEdiFormat(models.Model):
         move.with_context(no_new_invoice=True).message_post(
             body=escape(
                 _(
-                    "{}This is a DEMO response, which means this document was not sent to the SRI.{}If you want your document to be processed by the SRI, please set an {}Electronic Certificate File{} in the settings.{}Demo electronic document.{}Authorization num:{}%s{}Authorization date:{}%s",
-                    move.l10n_ec_authorization_number, move.l10n_ec_authorization_date
+                    "{}This is a DEMO response, which means this document was not sent to the SRI.{}If you want your document to be processed by the SRI, please set an {}Electronic Certificate File{} in the settings.{}Demo electronic document.{}Authorization num:{}%(authorization_num)s{}Authorization date:{}%(authorization_date)s",
+                    authorization_num=move.l10n_ec_authorization_number, authorization_date=move.l10n_ec_authorization_date
                 )
             ).format(Markup('<strong>'), Markup('</strong><br/>'), Markup('<strong>'), Markup('</strong>'), Markup('<br/><br/>'), Markup('<br/><strong>'), Markup('</strong><br/>'), Markup('<br/><strong>'), Markup('</strong><br/>')),
             attachment_ids=attachment.ids,
@@ -350,7 +350,7 @@ class AccountEdiFormat(models.Model):
         warnings.extend(auth_warnings)
         if auth_num and auth_date:
             if move.l10n_ec_authorization_number != auth_num:
-                warnings.append(_("Authorization number %s does not match document's %s", auth_num, move.l10n_ec_authorization_number))
+                warnings.append(_("Authorization number %(authorization_number)s does not match document's %(document_number)s", authorization_number=auth_num, document_number=move.l10n_ec_authorization_number))
             move.l10n_ec_authorization_date = auth_date.replace(tzinfo=None)
             attachment = self.env['ir.attachment'].create({
                 'name': move.display_name + '.xml',
@@ -364,8 +364,8 @@ class AccountEdiFormat(models.Model):
             move.with_context(no_new_invoice=True).message_post(
                 body=escape(
                     _(
-                        "Electronic document authorized.{}Authorization num:{}%s{}Authorization date:{}%s",
-                        move.l10n_ec_authorization_number, move.l10n_ec_authorization_date
+                        "Electronic document authorized.{}Authorization num:{}%(authorization_num)s{}Authorization date:{}%(authorization_date)s",
+                        authorization_num=move.l10n_ec_authorization_number, authorization_date=move.l10n_ec_authorization_date,
                     )
                 ).format(Markup('<br/><strong>'), Markup('</strong><br/>'), Markup('<br/><strong>'), Markup('</strong><br/>')),
                 attachment_ids=attachment.ids,

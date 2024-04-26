@@ -371,7 +371,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
 
         if aml.move_id.move_type == 'out_invoice':
             new_date = format_date(self.env, aml.expected_pay_date) if aml.expected_pay_date else _('any')
-            move_msg = _('Expected payment date for journal item %r has been changed from %s to %s on journal entry %r', aml.name, old_date, new_date, aml.move_id.name)
+            move_msg = _('Expected payment date for journal item "%(item)s" has been changed from %(old_date)s to %(new_date)s on journal entry "%(entry)s"', item=aml.name, old_date=old_date, new_date=new_date, entry=aml.move_id.name)
             aml.partner_id._message_log(body=move_msg)
             aml.move_id._message_log(body=move_msg)
 

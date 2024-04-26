@@ -32,7 +32,7 @@ class DataMergeGroup(models.Model):
     @api.depends('model_id', 'similarity')
     def _compute_display_name(self):
         for group in self:
-            group.display_name = _('%s - Similarity: %s%%', group.model_id.name, int(group.similarity * 100))
+            group.display_name = _('%(model)s - Similarity: %(similarity)s%%', model=group.model_id.name, similarity=int(group.similarity * 100))
 
     def _get_similarity_fields(self):
         self.ensure_one()

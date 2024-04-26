@@ -199,7 +199,7 @@ class AccountJournal(models.Model):
             # Already a bank account on the journal : check it's the same as on the statement
             else:
                 if not self._statement_import_check_bank_account(sanitized_account_number):
-                    raise UserError(_('The account of this statement (%s) is not the same as the journal (%s).', account_number, journal.bank_account_id.acc_number))
+                    raise UserError(_('The account of this statement (%(account)s) is not the same as the journal (%(journal)s).', account=account_number, journal=journal.bank_account_id.acc_number))
 
         # If importing into an existing journal, its currency must be the same as the bank statement
         if journal:
@@ -209,7 +209,7 @@ class AccountJournal(models.Model):
             if currency and currency != journal_currency:
                 statement_cur_code = not currency and company_currency.name or currency.name
                 journal_cur_code = not journal_currency and company_currency.name or journal_currency.name
-                raise UserError(_('The currency of the bank statement (%s) is not the same as the currency of the journal (%s).', statement_cur_code, journal_cur_code))
+                raise UserError(_('The currency of the bank statement (%(code)s) is not the same as the currency of the journal (%(journal)s).', code=statement_cur_code, journal=journal_cur_code))
 
         if not journal:
             raise UserError(_('Cannot find in which journal import this statement. Please manually select a journal.'))

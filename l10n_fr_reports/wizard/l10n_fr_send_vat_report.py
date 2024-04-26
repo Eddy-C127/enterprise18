@@ -132,13 +132,13 @@ class L10nFrSendVatReport(models.TransientModel):
         error_list = []
         for field in list_fields:
             if not model[field]:
-                error_list.append(_("%s is required on %s", model._fields[field].string, model.display_name))
+                error_list.append(_("%(field)s is required on %(model)s", field=model._fields[field].string, model=model.display_name))
         if error_list:
             raise ValidationError(", ".join(error_list))
 
     def _check_siret(self, company):
         if not siret.is_valid(company.siret):
-            raise ValidationError(_("%s has an invalid siret: %s.", company.display_name, company.siret))
+            raise ValidationError(_("%(company)s has an invalid siret: %(siret)s.", company=company.display_name, siret=company.siret))
 
     def _prepare_edi_vals(self, options):
         report = self.env['account.report'].browse(options['report_id'])

@@ -119,8 +119,8 @@ class Track(models.Model):
             base_url = track.event_id.get_base_url()
             post_values = {
                 'message': _(
-                    "Your favorite track '%s' will start in %s minutes!",
-                    track.name, track.push_reminder_delay),
+                    "Your favorite track '%(track)s' will start in %(delay)s minutes!",
+                    track=track.name, delay=track.push_reminder_delay),
                 'push_notification_title': _('Your track is about to start!'),
                 'push_notification_target_url': url_join(base_url, track.website_url),
                 # TODO awa: fetch Youtube thumbnail if no image and youtube_url? Might slow down create.

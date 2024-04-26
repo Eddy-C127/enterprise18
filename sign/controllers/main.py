@@ -359,7 +359,7 @@ class Sign(http.Controller):
                     'sms': True
                 }
             request_item_sudo.sign_request_id._message_log(
-                body=_('%s validated the signature by SMS with the phone number %s.', request_item_sudo.partner_id.display_name, request_item_sudo.sms_number)
+                body=_('%(partner)s validated the signature by SMS with the phone number %(phone_number)s.', partner=request_item_sudo.partner_id.display_name, phone_number=request_item_sudo.sms_number)
             )
             return {'success': True}
         return {'success': False}

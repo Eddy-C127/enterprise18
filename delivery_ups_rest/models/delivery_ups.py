@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools import pdf
+from odoo.tools import format_list, pdf
 
 from .ups_request import UPSRequest
 
@@ -186,8 +186,10 @@ class ProviderUPS(models.Model):
 
             carrier_tracking_ref = "+".join([pl[0] for pl in package_labels])
             logmessage = _("Shipment created into UPS<br/>"
-                           "<b>Tracking Numbers:</b> %s<br/>"
-                           "<b>Packages:</b> %s") % (carrier_tracking_ref, ','.join([p.name for p in packages if p.name]))
+                           "<b>Tracking Numbers:</b> %(tracking_numbers)s<br/>"
+                           "<b>Packages:</b> %(packages)s",
+                           tracking_numbers=carrier_tracking_ref,
+                           packages=format_list(self.env, [p.name for p in packages if p.name]))
             if self.ups_label_file_type != 'GIF':
                 attachments = [('LabelUPS-%s.%s' % (pl[0], self.ups_label_file_type), pl[1]) for pl in package_labels]
             else:
@@ -243,8 +245,10 @@ class ProviderUPS(models.Model):
 
         carrier_tracking_ref = "+".join([pl[0] for pl in package_labels])
         logmessage = _("Return label generated<br/>"
-                        "<b>Tracking Numbers:</b> %s<br/>"
-                        "<b>Packages:</b> %s") % (carrier_tracking_ref, ','.join([p.name for p in packages if p.name]))
+                        "<b>Tracking Numbers:</b> %(tracking_numbers)s<br/>"
+                        "<b>Packages:</b> %(packages)s",
+                        tracking_numbers=carrier_tracking_ref,
+                        packages=format_list(self.env, [p.name for p in packages if p.name]))
         if self.ups_label_file_type != 'GIF':
             attachments = [('%s-%s-%s.%s' % (self.get_return_label_prefix(), pl[0], index, self.ups_label_file_type), pl[1]) for index, pl in enumerate(package_labels)]
         else:

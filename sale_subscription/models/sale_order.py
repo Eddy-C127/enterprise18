@@ -12,7 +12,7 @@ from odoo import fields, models, _, api, Command, SUPERUSER_ID, modules
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_is_zero
 from odoo.osv import expression
-from odoo.tools import config, format_amount, plaintext2html, split_every, str2bool
+from odoo.tools import config, format_amount, format_list, plaintext2html, split_every, str2bool
 from odoo.tools.date_utils import get_timedelta
 from odoo.tools.misc import format_date
 
@@ -646,13 +646,11 @@ class SaleOrder(models.Model):
                     # Reopen the parent order
                     order.subscription_id.set_open()
                     parent_link = order.subscription_id._get_html_link()
-                    cancel_activity_body = _("""Subscription %s has been canceled. The parent order %s has been reopened.
-                                                You should close %s if the customer churned, or renew it if the customer continue the service.
+                    cancel_activity_body = _("""Subscription %(link)s has been cancelled. The parent order %(parent_link)s has been reopened.
+                                                You should close %(parent_link)s if the customer churned, or renew it if the customer continue the service.
                                                 Note: if you already created a new subscription instead of renewing it, please cancel your newly
-                                                created subscription and renew %s instead""", order._get_html_link(),
-                                                                                                parent_link,
-                                                                                                parent_link,
-                                                                                                parent_link)
+                                                created subscription and renew %(parent_link)s instead""", link=order._get_html_link(),
+                                                                                                parent_link=parent_link)
                     order.activity_schedule(
                         'mail.mail_activity_data_todo',
                         summary=_("Check reopened subscription"),
@@ -1596,10 +1594,10 @@ class SaleOrder(models.Model):
                 payment_state = _("Payment recorded: %s", last_tx_sudo.reference)
             else:
                 payment_state = _("Payment not recorded")
-            error_message = _("Error during renewal of contract %s %s %s",
-                             self.ids,
-                             ', '.join(self.mapped(lambda order: order.client_order_ref or order.name)),
-                             payment_state)
+            error_message = _("Error during renewal of contract %(order_ids)s %(order_refs)s %(payment_state)s",
+                             order_ids=self.ids,
+                             order_refs=format_list(self.env, self.mapped(lambda order: order.client_order_ref or order.name)),
+                             payment_state=payment_state)
             body = self._get_traceback_body(e, error_message)
             _logger.exception(error_message)
             self._subscription_rollback_cursor(auto_commit)

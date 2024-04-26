@@ -66,9 +66,9 @@ class L10nHkIr56b(models.Model):
     @api.depends('start_period', 'end_period')
     def _compute_display_name(self):
         for sheet in self:
-            sheet.display_name = _("From %s to %s",
-                format_date(self.env, sheet.start_period, date_format="MMMM y", lang_code=self.env.user.lang),
-                format_date(self.env, sheet.end_period, date_format="MMMM y", lang_code=self.env.user.lang),
+            sheet.display_name = _("From %(start_period)s to %(end_period)s",
+                start_period=format_date(self.env, sheet.start_period, date_format="MMMM y", lang_code=self.env.user.lang),
+                end_period=format_date(self.env, sheet.end_period, date_format="MMMM y", lang_code=self.env.user.lang),
             )
 
     def _get_rendering_data(self, employees):
@@ -240,7 +240,7 @@ class L10nHkIr56b(models.Model):
 
     def _get_pdf_filename(self, employee):
         self.ensure_one()
-        return _('%s_-_IR56B_-_%s', employee.name, self.start_year)
+        return _('%(employee_name)s_-_IR56B_-_%(start_year)s', employee_name=employee.name, start_year=self.start_year)
 
     def _post_process_rendering_data_pdf(self, rendering_data):
         result = {}

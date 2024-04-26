@@ -1,7 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import fields, models, _
 from odoo.exceptions import UserError
-from odoo.tools import float_round
+from odoo.tools import float_round, format_list
 
 
 class AccountMove(models.Model):
@@ -84,5 +84,5 @@ class AccountMove(models.Model):
             if self.l10n_cl_customs_quantity_of_packages <= 0 and self.l10n_cl_customs_service_indicator in [False, '5']:
                 msgs.append(_('the number of packages when exporting goods'))
             if msgs:
-                raise UserError(_('You must set %s on invoice %s', ', '.join(msgs), self._get_move_display_name()))
+                raise UserError(_('You must set %(message_list)s on invoice %(invoice)s', message_list=format_list(self.env, msgs), invoice=self._get_move_display_name()))
         return super()._l10n_cl_edi_post_validation()

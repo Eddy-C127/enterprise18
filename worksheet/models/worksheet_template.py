@@ -72,8 +72,8 @@ class WorksheetTemplate(models.Model):
                                 raise UserError(_("Unfortunately, you cannot unlink this worksheet template from %s because the template is still connected to tasks within the company.", company_name))
                             else:
                                 company_name = format_list(self.env, record.worksheet_template_id.company_id.mapped('name'))
-                                raise UserError(_("You can't restrict this worksheet template to '%s' because it's still connected to tasks in '%s' (and potentially other companies). Please either unlink those tasks from this worksheet template, "
-                                                  "move them to a project for the right company, or keep this worksheet template open to all companies.", company_name, record.company_id.name))
+                                raise UserError(_("You can't restrict this worksheet template to '%(selected_company)s' because it's still connected to tasks in '%(tasks_company)s' (and potentially other companies). Please either unlink those tasks from this worksheet template, "
+                                                  "move them to a project for the right company, or keep this worksheet template open to all companies.", selected_company=company_name, tasks_company=record.company_id.name))
         return res
 
     def unlink(self):
