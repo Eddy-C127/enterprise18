@@ -122,8 +122,8 @@ QUnit.module("documents", {}, function () {
                     ])
                 );
                 const [documentsFacetId1, documentsFacetId2] = pyEnv["documents.facet"].create([
-                    { name: "Status", tooltip: "A Status tooltip", sequence: 11 },
-                    { name: "Priority", tooltip: "A priority tooltip", sequence: 10 },
+                    { name: "Status", tooltip: "A Status tooltip", sequence: 11, color: 2 },
+                    { name: "Priority", tooltip: "A priority tooltip", sequence: 10, color: 3 },
                 ]);
                 const documentsTagIds = pyEnv["documents.tag"].create([
                     { display_name: "New", facet_id: documentsFacetId1, sequence: 11 },

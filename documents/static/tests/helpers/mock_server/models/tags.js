@@ -3,8 +3,6 @@
 import { patch } from "@web/core/utils/patch";
 import { MockServer } from "@web/../tests/helpers/mock_server";
 
-const N_FACET_COLORS = 11
-
 patch(MockServer.prototype, {
     /**
      * Mocks the '_get_tags' method of the model 'documents.tag'.
@@ -22,7 +20,7 @@ patch(MockServer.prototype, {
             const [facet] = this.mockSearchRead('documents.facet', [[['id', '=', tag['facet_id']]]], {});
             return {
                 display_name: tag.display_name,
-                color_index: (facet.id % N_FACET_COLORS) + 1,
+                color_index: facet.color,
                 group_id: facet.id,
                 group_name: facet.name,
                 group_sequence: facet.sequence,

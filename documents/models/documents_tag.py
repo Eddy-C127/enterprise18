@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, fields, api
+from odoo.tools import SQL
 
 
 class Tags(models.Model):
@@ -38,10 +39,11 @@ class Tags(models.Model):
         folders = self.env['documents.folder'].sudo().search([('parent_folder_id', 'parent_of', folder_id)])
         self.flush_model(['sequence', 'name', 'facet_id'])
         self.env['documents.facet'].flush_model(['sequence', 'name', 'tooltip'])
-        query = """
+        query = SQL("""
             SELECT  facet.sequence AS group_sequence,
                     facet.id AS group_id,
                     facet.tooltip AS group_tooltip,
+                    facet.color AS color_index,
                     documents_tag.sequence AS sequence,
                     documents_tag.id AS id,
                     COUNT(rel.documents_document_id) AS __count
@@ -50,14 +52,13 @@ class Tags(models.Model):
                     AND facet.folder_id = ANY(%s)
                 LEFT JOIN document_tag_rel rel ON documents_tag.id = rel.documents_tag_id
                     AND rel.documents_document_id = ANY(%s)
-            GROUP BY facet.sequence, facet.name, facet.id, facet.tooltip, documents_tag.sequence, documents_tag.name, documents_tag.id
-            ORDER BY facet.sequence, facet.name, facet.id, facet.tooltip, documents_tag.sequence, documents_tag.name, documents_tag.id
-        """
-        params = [
+            GROUP BY facet.sequence, facet.name, facet.id, facet.tooltip, facet.color, documents_tag.sequence, documents_tag.name, documents_tag.id
+            ORDER BY facet.sequence, facet.name, facet.id, facet.tooltip, facet.color, documents_tag.sequence, documents_tag.name, documents_tag.id
+        """,
             list(folders.ids),
             list(documents.ids),  # using Postgresql's ANY() with a list to prevent empty list of documents
-        ]
-        self.env.cr.execute(query, params)
+        )
+        self.env.cr.execute(query)
         result = self.env.cr.dictfetchall()
 
         # Translating result

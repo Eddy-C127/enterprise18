@@ -20,8 +20,6 @@ from odoo.tools.mimetypes import get_extension
 from odoo.tools.misc import clean_context
 from odoo.addons.mail.tools import link_preview
 
-from .documents_facet import N_FACET_COLORS
-
 _logger = logging.getLogger(__name__)
 
 
@@ -637,21 +635,6 @@ class Document(models.Model):
 
         return super(Document, self).search_panel_select_range(field_name)
 
-    def _get_processed_tags(self, domain, folder_id):
-        """
-        sets a group color to the tags based on the order of the facets (group_id)
-        recomputed each time the search_panel fetches the tags as the colors depend on the order and
-        amount of tag categories. If the amount of categories exceeds the amount of colors, the color
-        loops back to the first one.
-        """
-        tags = self.env['documents.tag']._get_tags(domain, folder_id)
-        facets = list(OrderedDict.fromkeys([tag['group_id'] for tag in tags]))
-        for tag in tags:
-            color_index = (facets.index(tag['group_id']) % N_FACET_COLORS) + 1
-            tag['color_index'] = color_index
-
-        return tags
-
     @api.model
     def search_panel_select_multi_range(self, field_name, **kwargs):
         search_domain = kwargs.get('search_domain', [])
@@ -665,7 +648,7 @@ class Document(models.Model):
                     search_domain, category_domain, filter_domain,
                     [(field_name, '!=', False)],
                 ])
-                return {'values': self._get_processed_tags(domain, folder_id)}
+                return {'values': self.env['documents.tag']._get_tags(domain, folder_id)}
             else:
                 return {'values': []}
 
