@@ -228,7 +228,7 @@ class CalendarEvent(models.Model):
                     capacity_to_reserve = sum(event.booking_line_ids.mapped('capacity_reserved')) or sum(resources.mapped('capacity'))
                 event.booking_line_ids.sudo().unlink()
                 for resource in resources.sorted("shareable"):
-                    if capacity_to_reserve <= 0:
+                    if event.appointment_type_manage_capacity and capacity_to_reserve <= 0:
                         break
                     booking_lines.append({
                         'appointment_resource_id': resource.id,
@@ -236,6 +236,7 @@ class CalendarEvent(models.Model):
                         'capacity_reserved': min(resource.capacity, capacity_to_reserve),
                     })
                     capacity_to_reserve -= min(resource.capacity, capacity_to_reserve)
+                    capacity_to_reserve = max(0, capacity_to_reserve)
             else:
                 event.booking_line_ids.sudo().unlink()
         self.env['appointment.booking.line'].sudo().create(booking_lines)
