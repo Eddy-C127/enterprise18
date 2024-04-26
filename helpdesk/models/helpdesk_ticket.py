@@ -196,6 +196,10 @@ class HelpdeskTicket(models.Model):
         """
         now = fields.Datetime.now()
         for ticket in self:
+
+            # the current team is invalid, no need to compute new values since the transaction will be rolled back anyway.
+            if not ticket.team_id:
+                continue
             min_deadline = False
             for status in ticket.sla_status_ids:
                 if status.reached_datetime or not status.deadline:
