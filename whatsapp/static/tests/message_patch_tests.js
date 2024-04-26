@@ -121,10 +121,11 @@ QUnit.test("Allow SeenIndicators in WhatsApp Channels", async () => {
 
     const [channel] = pyEnv["discuss.channel"].search_read([["id", "=", channelId]]);
     // Simulate received channel seen notification
-    pyEnv["bus.bus"]._sendone(channel, "discuss.channel.member/seen", {
-        channel_id: channelId,
-        last_message_id: 100,
-        partner_id: partnerId2,
+    pyEnv["bus.bus"]._sendone(channel, "mail.record/insert", {
+        ChannelMember: {
+            id: memberIds[1],
+            seen_message_id: messageId,
+        },
     });
     await contains(".o-mail-MessageSeenIndicator i", { count: 2 });
 });
