@@ -23,24 +23,17 @@ class OSSTaxReportCustomHandlerOss(models.AbstractModel):
         """
         def append_country_and_taxes_lines(parent_line, rslt, tax_lines_by_country):
             for country, tax_lines in sorted(tax_lines_by_country.items(), key=lambda elem: elem[0].display_name):
-                col_number = len(tax_lines[0]['columns']) if tax_lines else 0
-                tax_sums = [
-                    sum(tax_lines[line_index]['columns'][col_index]['no_format'] for line_index in range(len(tax_lines)))
-                    for col_index in range(1, col_number, 2)
-                ]
-
                 country_columns = []
-                for tax_sum in tax_sums:
-                    for column in options['columns']:
-                        expr_label = column.get('expression_label')
+                for i, column in enumerate(options['columns']):
+                    expr_label = column.get('expression_label')
 
-                        if expr_label == 'net':
-                            col_value = ''
+                    if expr_label == 'net':
+                        col_value = ''
 
-                        if expr_label == 'tax':
-                            col_value = tax_sum
+                    if expr_label == 'tax':
+                        col_value = sum(tax_line['columns'][i]['no_format'] for tax_line in tax_lines)
 
-                        country_columns.append(report._build_column_dict(col_value, column, options=options))
+                    country_columns.append(report._build_column_dict(col_value, column, options=options))
 
                 country_line_id = report._get_generic_line_id('res.country', country.id, parent_line_id=parent_line['id'])
                 country_line = {
