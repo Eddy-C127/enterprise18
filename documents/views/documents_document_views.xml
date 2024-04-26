@@ -5,7 +5,7 @@
         <field name="model">documents.document</field>
         <field name="arch" type="xml">
             <search string="Documents">
-                <field name="name" string="Document"/>
+                <field name="name" string="Name / Extension"/>
                 <field name="tag_ids"/>
                 <field name="owner_id"/>
                 <field name="partner_id" string="Contact"/>
@@ -15,21 +15,13 @@
                 <filter string="My Favorites" name="my_favorites_filter" domain="[('favorited_ids', 'in', uid)]"/>
                 <filter string="My Activities" name="my_activities_filter" domain="[('activity_user_id','=',uid)]"/>
                 <separator/>
-                <filter string="PDF/Document" name="pdf_doc" domain="['|', ('mimetype', 'ilike', 'pdf'), ('name', 'ilike', '.doc')]"/>
-                <filter string="Image/Video" name="img_video" domain="['|', ('mimetype', 'ilike', 'image'), ('mimetype', 'ilike', 'video')]"/>
-                <filter string="URL" name="url_filter" domain="[('type', '=', 'url')]"/>
+                <filter string="Documents" name="pdf_doc" domain="['|', ('mimetype', 'ilike', 'pdf'), ('name', 'ilike', '.doc')]"/>
+                <filter string="Media" name="img_video" domain="['|', ('mimetype', 'ilike', 'image'), ('mimetype', 'ilike', 'video')]"/>
+                <filter string="Links" name="url_filter" domain="[('type', '=', 'url')]"/>
                 <separator/>
                 <filter string="Locked" name="locked_filter" domain="['|', ('lock_uid', '=', uid), ('lock_uid', '!=', False)]"/>
+                <filter string="Requested Documents" name="requested_filter" domain="[('type', '=', 'empty')]"/>
                 <separator/>
-                <filter string="Requested" name="requested_filter" domain="[('type', '=', 'empty')]"/>
-                <separator/>
-                <filter string="Late Activities" name="activities_overdue"
-                    domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
-                    help="Show all records which has next action date is before today"/>
-                <filter string="Today Activities" name="activities_today"
-                    domain="[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
-                <filter string="Future Activities" name="activities_upcoming_all"
-                    domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
                 <field name="type"/>
                 <group expand="0" string="Group By">
                     <filter string="Contact" name="filter_partner_id" domain="[]" context="{'group_by': 'partner_id'}"/>
@@ -44,7 +36,6 @@
                     <field name="tag_ids" select="multi" groupby="facet_id" icon="fa-tag" enable_counters="1"/>
                     <field name="res_model" select="multi" string="Attached To" icon="fa-file-text" color="#338FFC" enable_counters="1"/>
                 </searchpanel>
-                <field name="file_extension"/>
             </search>
         </field>
     </record>
@@ -109,11 +100,12 @@
                             </div>
                             <div class="o_kanban_details flex-grow-1 flex-shrink-1 flex-auto">
                                 <div class="o_kanban_details_wrapper">
-                                    <div t-att-title="record.name.raw_value" class="o_kanban_record_title">
+                                    <div t-att-title="record.name.raw_value" class="o_kanban_record_title w-100">
+                                        <field name="is_favorited" nolabel="1" widget="boolean_favorite"/>
+                                        <field name="name" class="o_text_overflow w-75" required="True" string="Document"/>
                                         <t t-if="record.lock_uid.raw_value">
-                                            <i class="o_documents_lock fa fa-lock" t-att-title="record.lock_uid.value"/>
+                                            <i class="o_documents_lock fa fa-lock float-end mt-1" t-att-title="record.lock_uid.value"/>
                                         </t>
-                                        <field name="name" required="True" string="Document"/>
                                     </div>
                                     <div class="o_kanban_record_body">
                                         <t t-if="record.res_model_name.raw_value &amp;&amp; record.res_model.raw_value !== 'documents.document'">
@@ -134,10 +126,11 @@
                                         <div t-else="" class="mb-3"/>
                                         <field name="tag_ids" class="d-block text-wrap" widget="documents_many2many_tags"/>
                                     </div>
-                                    <div class="o_kanban_record_bottom flex-wrap">
-                                        <div class="oe_kanban_bottom_right">
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
                                             <field name="activity_ids" widget="kanban_activity"/>
-                                            <field name="is_favorited" nolabel="1" widget="boolean_favorite"/>
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
                                             <field name="owner_id" widget="many2one_avatar_user"/>
                                         </div>
                                     </div>

@@ -93,7 +93,7 @@ QUnit.module(
                     "documents.document,false,kanban": `
                         <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
                             <div>
-                                <i class="fa fa-circle-thin o_record_selector"/>
+                                <i class="fa fa-circle o_record_selector"/>
                                 <field name="name"/>
                                 <field name="handler"/>
                             </div>
@@ -134,7 +134,7 @@ QUnit.module(
                     "documents.document,false,kanban": `
                         <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
                             <div>
-                                <i class="fa fa-circle-thin o_record_selector"/>
+                                <i class="fa fa-circle o_record_selector"/>
                                 <field name="name"/>
                                 <field name="handler"/>
                             </div>
@@ -209,7 +209,7 @@ QUnit.module(
                     "documents.document,false,kanban": `
                         <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
                             <div>
-                                <i class="fa fa-circle-thin o_record_selector"/>
+                                <i class="fa fa-circle o_record_selector"/>
                                 <field name="name"/>
                                 <field name="handler"/>
                             </div>
@@ -271,7 +271,7 @@ QUnit.module(
                     "documents.document,false,kanban": `
                         <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
                             <div>
-                                <i class="fa fa-circle-thin o_record_selector"/>
+                                <i class="fa fa-circle o_record_selector"/>
                                 <field name="name"/>
                                 <field name="handler"/>
                             </div>
@@ -345,7 +345,7 @@ QUnit.module(
                     "documents.document,false,kanban": `
                         <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
                             <div>
-                                <i class="fa fa-circle-thin o_record_selector"/>
+                                <i class="fa fa-circle o_record_selector"/>
                                 <field name="name"/>
                                 <field name="handler"/>
                             </div>
@@ -420,7 +420,7 @@ QUnit.module(
                                     <t t-name="kanban-box">
                                         <div>
                                             <div name="document_preview" class="o_kanban_image_wrapper">a thumbnail</div>
-                                            <i class="fa fa-circle-thin o_record_selector"/>
+                                            <i class="fa fa-circle o_record_selector"/>
                                             <field name="name"/>
                                             <field name="handler"/>
                                         </div>
@@ -487,7 +487,7 @@ QUnit.module(
                         "documents.document,false,kanban": `
                             <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
                                 <div>
-                                    <i class="fa fa-circle-thin o_record_selector"/>
+                                    <i class="fa fa-circle o_record_selector"/>
                                     <field name="name"/>
                                     <field name="handler"/>
                                 </div>
@@ -546,7 +546,7 @@ QUnit.module(
                                 <t t-name="kanban-box">
                                     <div>
                                         <div name="document_preview" class="o_kanban_image_wrapper">THUMBNAIL</div>
-                                        <i class="fa fa-circle-thin o_record_selector"/>
+                                        <i class="fa fa-circle o_record_selector"/>
                                         <field name="name"/>
                                         <field name="handler"/>
                                     </div>

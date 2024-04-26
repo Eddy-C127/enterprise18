@@ -54,7 +54,7 @@ QUnit.module("documents", {}, function () {
                     <templates>
                         <t t-name="kanban-box">
                             <div>
-                                <i class="fa fa-circle-thin o_record_selector"/>
+                                <i class="fa fa-circle o_record_selector"/>
                                 <field name="name"/>
                             </div>
                         </t>
@@ -162,7 +162,7 @@ QUnit.module("documents", {}, function () {
                     <templates>
                         <t t-name="kanban-box">
                             <div>
-                                <i class="fa fa-circle-thin o_record_selector"/>
+                                <i class="fa fa-circle o_record_selector"/>
                                 <field name="name"/>
                             </div>
                         </t>

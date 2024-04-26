@@ -10,8 +10,8 @@ class WorkflowActionRule(models.Model):
     _description = "A set of condition and actions which will be available to all attachments matching the conditions"
     _order = "sequence"
 
-    domain_folder_id = fields.Many2one('documents.folder', string="Related Workspace", required=True, ondelete='cascade')
-    name = fields.Char(required=True, string="Action Button Name", translate=True)
+    domain_folder_id = fields.Many2one('documents.folder', string="Workspace", required=True, ondelete='cascade')
+    name = fields.Char(required=True, string="Name", translate=True)
     note = fields.Char(string="Tooltip")
     sequence = fields.Integer('Sequence', default=10)
 
