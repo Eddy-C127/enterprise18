@@ -356,6 +356,14 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         picking_write_orig = odoo.addons.stock.models.stock_picking.Picking.write
         url = self._get_client_action_url(receipt_picking.id)
 
+        # Create a sibling stock location to check we can only scan picking's
+        # destination and its sublocations as move line destination.
+        self.env['stock.location'].create({
+            'name': "Stock 2",
+            'location_id': self.stock_location.location_id.id,
+            'barcode': 'WH-STOCK-2',
+        })
+
         move1 = self.env['stock.move'].create({
             'name': 'test_receipt_reserved_1_1',
             'location_id': self.supplier_location.id,
