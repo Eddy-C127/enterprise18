@@ -1556,7 +1556,7 @@ msgstr "Permitir a los empleados eliminar sus asignaciones"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Let employees unassign themselves from shifts"
-msgstr "Deje que los empleados se desasignen de turnos"
+msgstr "Permita que los empleados eliminen sus asignaciones de turnos"
 
 #. module: planning
 #. odoo-javascript
@@ -2377,7 +2377,8 @@ msgstr "Restablecer plantilla"
 msgid ""
 "The amount of days before unassignment must be positive or equal to zero."
 msgstr ""
-"La cantidad de días antes de desasignar debe ser positiva o igual a cero"
+"La cantidad de días antes de eliminar la asignación debe ser positiva o "
+"igual a cero"
 
 #. module: planning
 #. odoo-python
@@ -2391,7 +2392,7 @@ msgstr "La compañía no le permite autoasignarse."
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The deadline for unassignment has passed."
-msgstr "La fecha límite para desasignar ha pasado."
+msgstr "La fecha límite para eliminar la asignación ha pasado."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_duration_positive
@@ -2767,7 +2768,7 @@ msgstr ""
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "You can not unassign another employee than yourself."
-msgstr "No puede desasignar a otro empleado que no sea usted."
+msgstr "No puede eliminar la asignación de otro empleado que no sea usted."
 
 #. module: planning
 #. odoo-python

@@ -9,7 +9,7 @@
 # Martin Trigaux, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -129,14 +129,14 @@ msgstr "Päiväkirja"
 #: model:ir.model.fields,field_description:account_sepa.field_res_partner__account_sepa_lei
 #: model:ir.model.fields,field_description:account_sepa.field_res_users__account_sepa_lei
 msgid "LEI"
-msgstr ""
+msgstr "LEI"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_res_company__account_sepa_lei
 #: model:ir.model.fields,help:account_sepa.field_res_partner__account_sepa_lei
 #: model:ir.model.fields,help:account_sepa.field_res_users__account_sepa_lei
 msgid "Legal Entity Identifier"
-msgstr ""
+msgstr "Oikeushenkilön tunnus"
 
 #. module: account_sepa
 #. odoo-python
@@ -162,7 +162,7 @@ msgstr ""
 #. module: account_sepa
 #: model:ir.model.fields.selection,name:account_sepa.selection__account_journal__sepa_pain_version__pain_001_001_09
 msgid "New generic version (09)"
-msgstr ""
+msgstr "Uusi geneerinen versio (09)"
 
 #. module: account_sepa
 #. odoo-python
@@ -345,6 +345,9 @@ msgid ""
 "- 18 alphanumeric characters with capital letters\n"
 "- 2 digits in the end\n"
 msgstr ""
+"LEI-numeron on sisällettävä 20 merkkiä ja sen on vastattava seuraavaa rakennetta:\n"
+"- 18 aakkosnumeerista merkkiä isoilla kirjaimilla\n"
+"- 2 numeroa lopussa\n"
 
 #. module: account_sepa
 #. odoo-python
@@ -411,12 +414,12 @@ msgstr "Liian monta tapahtumaa yhteen tiedostoon."
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_account_payment__sepa_uetr
 msgid "UETR"
-msgstr ""
+msgstr "UETR"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_account_payment__sepa_uetr
 msgid "Unique end-to-end transaction reference"
-msgstr ""
+msgstr "Yksilöllinen alusta loppuun tapahtumaviite"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_res_company__sepa_initiating_party_name

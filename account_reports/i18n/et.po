@@ -16,12 +16,12 @@
 # Piia Paurson <piia@avalah.ee>, 2023
 # Triine Aavik <triine@avalah.ee>, 2023
 # Egon Raamat <egon@avalah.ee>, 2024
-# Birgit Vijar, 2024
 # Martin Trigaux, 2024
 # Aveli Kannel <aveli@avalah.ee>, 2024
 # Andre Roomet <andreroomet@gmail.com>, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
 # Anna, 2024
+# Birgit Vijar, 2024
 # 
 msgid ""
 msgstr ""
@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-04 14:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Birgit Vijar, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -677,28 +677,28 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.balance_bank
 msgid "Balance of Bank"
-msgstr ""
+msgstr "Panga saldo"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Balance tax advance payment account"
-msgstr ""
+msgstr "Ettemaksukonto saldo"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Balance tax current account (payable)"
-msgstr ""
+msgstr "Tasumisele kuuluva maksu saldo "
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Balance tax current account (receivable)"
-msgstr ""
+msgstr "Enammakstud maksu saldo"
 
 #. module: account_reports
 #: model:ir.actions.client,name:account_reports.action_account_report_bank_reconciliation
@@ -1215,7 +1215,7 @@ msgstr "Deebet"
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main_table_body
 #, python-format
 msgid "Deductible"
-msgstr ""
+msgstr "Kinnipeetav"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1290,7 +1290,7 @@ msgstr "Amortisatsioon"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Difference from rounding taxes"
-msgstr ""
+msgstr "Maksude ümardusvahe"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_line__display_custom_groupby_warning
@@ -1587,7 +1587,7 @@ msgstr "Väli"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Field %s does not exist on account.move.line."
-msgstr ""
+msgstr "Väli %s ei eksisteeri account.move.line."
 
 #. module: account_reports
 #. odoo-python
@@ -1970,7 +1970,7 @@ msgstr ""
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_payments
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_payments
 msgid "Including Unreconciled Payments"
-msgstr ""
+msgstr "Sisaldab sidumata tehinguid"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_receipt
@@ -2285,7 +2285,7 @@ msgstr "Viimati uuendatud"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.last_statement_balance
 msgid "Last statement balance"
-msgstr ""
+msgstr "Viimase väljavõtte saldo"
 
 #. module: account_reports
 #. odoo-python
@@ -2947,7 +2947,7 @@ msgstr "Nõuded"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Receivable tax amount"
-msgstr ""
+msgstr "Enammakstud maksu summa"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_debtors0
@@ -3111,7 +3111,7 @@ msgstr "Kuva hoiatusi"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "Some"
-msgstr ""
+msgstr "Mõni"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3377,7 +3377,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "The current balance in the"
-msgstr ""
+msgstr "Jooksev saldo"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3539,6 +3539,13 @@ msgstr ""
 #, python-format
 msgid "This report only displays the data of the active company."
 msgstr "See aruanne näitab ainult aktiivse ettevõtte andmeid."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "This subformula references an unknown expression: %s"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -3875,7 +3882,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "You cannot generate entries for a period that is locked."
-msgstr ""
+msgstr "Kandeid ei saa luua lukustatud perioodi."
 
 #. module: account_reports
 #. odoo-python
@@ -3988,7 +3995,7 @@ msgstr "andmike kanderead"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "last bank statement"
-msgstr ""
+msgstr "viimane pangaväljavõte"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__monthly

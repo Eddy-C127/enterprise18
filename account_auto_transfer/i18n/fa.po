@@ -11,14 +11,15 @@
 # Hamed Mohammadi <hamed@dehongi.com>, 2023
 # Hanna Kheradroosta, 2023
 # mohssen <mohssen.mohebbi@gmail.com>, 2023
+# Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: mohssen <mohssen.mohebbi@gmail.com>, 2023\n"
+"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -245,7 +246,7 @@ msgstr "شناسه"
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 #, python-format
 msgid "IFRS Automatic Transfers"
-msgstr ""
+msgstr "انتقالات خودکار IFRS "
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -284,7 +285,7 @@ msgstr "ماهانه"
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 #, python-format
 msgid "Monthly IFRS rent expense transfer"
-msgstr ""
+msgstr "انتقال هزینه‌ی اجاره‌ی ماهانه‌ی IFRS"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__move_ids_count
@@ -441,14 +442,36 @@ msgstr "سالیانه"
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 #, python-format
 msgid "Yearly liabilites auto transfers"
+msgstr "انتقال خودکار بدهی‌های سالانه"
+
+#. module: account_auto_transfer
+#. odoo-python
+#: code:addons/account_auto_transfer/models/transfer_model.py:0
+#, python-format
+msgid ""
+"You cannot delete an automatic transfer that has draft moves attached "
+"('%s'). Please delete them before deleting this transfer."
 msgstr ""
+"شما نمی‌توانید یک انتقال خودکار که دارای اسناد پیشنویس ضمیمه شده است (%s) را"
+" حذف کنید. لطفاً پیش از حذف این انتقال آنها را حذف کنید."
+
+#. module: account_auto_transfer
+#. odoo-python
+#: code:addons/account_auto_transfer/models/transfer_model.py:0
+#, python-format
+msgid ""
+"You cannot delete an automatic transfer that has posted moves attached "
+"('%s')."
+msgstr ""
+"شما نمی‌توانید یک انتقال خودکار که اسناد ثبت شده ضمیمه‌ی آن هستند را حذف "
+"کنید (%s)."
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/account_move_line.py:0
 #, python-format
 msgid "You cannot set Tax on Automatic Transfer's entries."
-msgstr ""
+msgstr "شما نمی‌توانید برای اسناد انتقال خودکار، مالیات تعیین کنید."
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form

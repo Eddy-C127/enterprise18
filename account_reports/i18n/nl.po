@@ -1783,7 +1783,7 @@ msgstr "Generiek BTW-rapport Custom Handler (Rekening -> BTW)"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_generic_tax_report_handler_tax_account
 msgid "Generic Tax Report Custom Handler (Tax -> Account)"
-msgstr "Generiek belastingrapport Custom Handler (Belasting -> Account)"
+msgstr "Generiek btw-rapportage Custom Handler (Belasting -> Account)"
 
 #. module: account_reports
 #. odoo-python
@@ -3396,8 +3396,8 @@ msgid ""
 "model='account.move' data-oe-id='%s'>closing entry</a> of the representative"
 " company."
 msgstr ""
-"De bijlagen van het belastingrapport zijn te vinden op de <a href='#' data-"
-"oe-model='account.move' data-oe-id='%s'>afsluitboeking</a> van het "
+"De bijlagen van het btw-rapportage zijn te vinden op de <a href='#' data-oe-"
+"model='account.move' data-oe-id='%s'>afsluitboeking</a> van het "
 "vertegenwoordigde bedrijf."
 
 #. module: account_reports
@@ -3606,6 +3606,13 @@ msgstr ""
 #, python-format
 msgid "This report only displays the data of the active company."
 msgstr "Dit rapport toont enkel de gegevens van het actieve bedrijf."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "This subformula references an unknown expression: %s"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python

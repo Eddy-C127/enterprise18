@@ -16,6 +16,7 @@
 # Hamid Ahmadimoghaddam, 2024
 # Hamed Mohammadi <hamed@dehongi.com>, 2024
 # pfp pfp <pfpour@yahoo.com>, 2024
+# Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -23,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: pfp pfp <pfpour@yahoo.com>, 2024\n"
+"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +40,8 @@ msgid ""
 "%(display_name_html)s with an open amount of %(open_amount)s will be fully "
 "reconciled by the transaction."
 msgstr ""
+"%(display_name_html)s با مبلغ آزاد %(open_amount)s بوسیله‌ تراکنش تطبیق داده"
+" می‌شود."
 
 #. module: account_accountant
 #. odoo-python
@@ -48,6 +51,8 @@ msgid ""
 "%(display_name_html)s with an open amount of %(open_amount)s will be reduced"
 " by %(amount)s."
 msgstr ""
+"%(display_name_html)s با مبلغ آزاد %(open_amount)s تا %(amount)s کاهش "
+"می‌یابد."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_form
@@ -57,7 +62,7 @@ msgstr "-> تطبیق"
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_0
 msgid "<b class=\"tip_title\">Tip: Bulk update journal items</b>"
-msgstr ""
+msgstr "<b class=\"tip_title\"> نکته: به روزرسانی کلی آیتم‌های دفتر روزنامه</b>"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
@@ -65,6 +70,7 @@ msgid ""
 "<b class=\"tip_title\">Tip: Find an Accountant or register your Accounting "
 "Firm</b>"
 msgstr ""
+"<b class=\"tip_title\"> نکته: یافتن یک حسابدار یا ثبت نام شرکت حسابداری</b> "
 
 #. module: account_accountant
 #. odoo-javascript
@@ -89,17 +95,17 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "<i>Lock all journal entries</i>"
-msgstr ""
+msgstr "<i>قفل تمام سندهای دفتر روزنامه</i>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "<i>Lock specific journal entries</i>"
-msgstr ""
+msgstr "<i>قفل سندهای خاصی از دفتر روزنامه</i>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "<span class=\"o_stat_text\">1 Bank Transaction</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">1 تراکنش بانکی</span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
@@ -109,12 +115,14 @@ msgstr "صورت حساب بانک"
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
 msgid "<span class=\"tip_button_text\">Find an Accountant</span>"
-msgstr ""
+msgstr "<span class=\"tip_button_text\">یافت یک حساب</span>"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
 msgid "<span class=\"tip_button_text\">Register your Accounting Firm</span>"
 msgstr ""
+"<span class=\"tip_button_text\">Register شرکت حسابداری خود را ثبت "
+"کنید</span>"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -161,22 +169,22 @@ msgstr "حساب مبدا"
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_auto_reconcile_wizard
 msgid "Account automatic reconciliation wizard"
-msgstr ""
+msgstr "برنامه‌ی تطبیق خودکار حساب"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_reconcile_wizard
 msgid "Account reconciliation wizard"
-msgstr ""
+msgstr "برنامه‌ی تطبق حساب"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_account_id
 msgid "Account used for deferred expenses"
-msgstr ""
+msgstr "حساب مورداستفاده برای هزینه‌های معوقه"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_account_id
 msgid "Account used for deferred revenues"
-msgstr ""
+msgstr "حساب مورد استفاده برای درآمدهای معوقه"
 
 #. module: account_accountant
 #: model:ir.ui.menu,name:account_accountant.menu_accounting
@@ -188,7 +196,7 @@ msgstr "حسابداری"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Accounting Period Closing"
-msgstr ""
+msgstr "اتمام دوره‌ی حسابداری"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
@@ -218,6 +226,8 @@ msgid ""
 "After the data extraction, check and validate the bill. If no vendor has "
 "been found, add one before validating."
 msgstr ""
+"پس از استخراج داده‌ها، صورت‌حساب را بررسی کرده و اعتبار آن را تأیید کنید. "
+"اگر هیچ فروشنده‌ای یافت نشد، پیش از تأیید اعتبار یک فروشنده اضافه کنید."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -234,12 +244,12 @@ msgstr "تاریخ قفل همه کاربران"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_autocomplete_ids
 msgid "All reconciliation models"
-msgstr ""
+msgstr "تمام مدل‌های تطبیق"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__allow_partials
 msgid "Allow partials"
-msgstr ""
+msgstr "اجازه دادن برای موارد جزئی"
 
 #. module: account_accountant
 #: model:res.groups,name:account_accountant.group_fiscal_year
@@ -258,7 +268,7 @@ msgstr "مقدار"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Amount Computation"
-msgstr ""
+msgstr "محاسبه‌ی مبلغ"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_currency
@@ -285,6 +295,7 @@ msgstr "مقدار بر اساس ارز معیار(شرکت)"
 msgid ""
 "An entry will transfer %(amount)s from %(from_account)s to %(to_account)s."
 msgstr ""
+"یک سند %(amount)s را از %(from_account)s به %(to_account)s تغییر می‌دهد."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -324,19 +335,19 @@ msgstr "آیا می خواهید این صورتحساب را حذف کنید؟"
 #: code:addons/account_accountant/static/src/components/move_line_list_reconcile/move_line_list_reconcile.xml:0
 #, python-format
 msgid "Auto-reconcile"
-msgstr ""
+msgstr "تطبیق خودکار"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_auto_reconcile_wizard.py:0
 #, python-format
 msgid "Automatically Reconciled Entries"
-msgstr ""
+msgstr "سندهاییی که به صورت خودکار تطبیق داده شده‌اند"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__available_reco_model_ids
 msgid "Available Reco Model"
-msgstr ""
+msgstr "مدل تطبیق موجود"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -398,7 +409,7 @@ msgstr "صورتحساب بانک.pdf"
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_bank_rec_widget
 msgid "Bank reconciliation widget for a single statement line"
-msgstr ""
+msgstr "نرم‌افزار تطبیق بانکی برای یک سطر مرتبط با صورت وضعیت"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
@@ -422,6 +433,8 @@ msgstr "تغییر تاریخ قفل"
 msgid ""
 "Check if you are not certain of all the information of the counterpart."
 msgstr ""
+"در صورتی که از تمام اطلاعات طرف مقابل مطمئن نیستید، این گزینه را انتخاب "
+"کنید. "
 
 #. module: account_accountant
 #. odoo-javascript
@@ -441,6 +454,8 @@ msgid ""
 "Click here to find an accountant or if you want to list out your accounting "
 "services on Odoo"
 msgstr ""
+"برای یافتن یک حسابدار و یا در صورتی که مایلید خدمات حسابداری خود را در اودوو"
+" ثبت کنید، اینجا کلیک کنید."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -448,7 +463,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Click on a fetched bank transaction to start the reconciliation process."
-msgstr ""
+msgstr "برای شروع فرآیند تطبیق بر روی تراکنش بانکی کلیک کنید."
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_res_company
@@ -493,7 +508,7 @@ msgstr "بانک خود را متصل و آخرین تراکنش‌ها را د�
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
 msgid "Couldn't find an appropriate currency to reconcile selected lines."
-msgstr ""
+msgstr "یافتن یک ارز مناسب برای تطبیق سطرهای انتخاب شده وجود ندارد."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
@@ -555,7 +570,7 @@ msgstr "بستانکار"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__cron_last_check
 msgid "Cron Last Check"
-msgstr ""
+msgstr "آخرین بررسی"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -569,7 +584,7 @@ msgstr "ارز"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_currency_id
 msgid "Currency to use for reconciliation"
-msgstr ""
+msgstr "ارز مورد استفاده برای تطبیق"
 
 #. module: account_accountant
 #. odoo-python
@@ -594,12 +609,12 @@ msgstr "تاریخ"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_move_line__deferred_end_date
 msgid "Date at which the deferred expense/revenue ends"
-msgstr ""
+msgstr "تاریخی که هزینه/درآمد معوقه در آن به پایان می‎رسد"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_move_line__deferred_start_date
 msgid "Date at which the deferred expense/revenue starts"
-msgstr ""
+msgstr "تاریخی که در آن هزینه/درآمد معوقه آغاز می‌شود"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -614,13 +629,13 @@ msgstr "بدهکار"
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Deferral of %s"
-msgstr ""
+msgstr "تعویق %s"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_amount_computation_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_amount_computation_method
 msgid "Deferred Amount Computation Method"
-msgstr ""
+msgstr "روش محاسبه‌ی مبلغ معوقه"
 
 #. module: account_accountant
 #. odoo-python
@@ -631,19 +646,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 #, python-format
 msgid "Deferred Entries"
-msgstr ""
+msgstr "سندهای معوقه"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_journal_id
 msgid "Deferred Entries Journal"
-msgstr ""
+msgstr "دفتر روزنامه‌ی اسناد معوقه"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__deferred_entry_type
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__deferred_entry_type
 #: model:ir.model.fields,field_description:account_accountant.field_account_payment__deferred_entry_type
 msgid "Deferred Entry Type"
-msgstr ""
+msgstr "نوع سند معوقه"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_expense_account_id
@@ -655,7 +670,7 @@ msgstr "هزینه معوق"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_journal_id
 msgid "Deferred Journal"
-msgstr ""
+msgstr "دفتر روزنامه‌ی معوقه"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_revenue_account_id
@@ -711,7 +726,7 @@ msgstr "بحث"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__display_allow_partials
 msgid "Display Allow Partials"
-msgstr ""
+msgstr "نمایش موارد جزئی"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__display_name
@@ -726,12 +741,12 @@ msgstr "نام نمایش داده شده"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__display_stroked_amount_currency
 msgid "Display Stroked Amount Currency"
-msgstr ""
+msgstr "نمایش واحد پول مشخص شده برای مبلغ"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__display_stroked_balance
 msgid "Display Stroked Balance"
-msgstr ""
+msgstr "نمایش تراز مشخص شده"
 
 #. module: account_accountant
 #. odoo-python
@@ -761,7 +776,7 @@ msgstr "تاریخ پایان، شامل شده در سال مالی."
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
 msgid "Equal per month"
-msgstr ""
+msgstr "برابر برای هر ماه"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_company__invoicing_switch_threshold
@@ -782,13 +797,13 @@ msgstr ""
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 #, python-format
 msgid "Exchange Difference: %s"
-msgstr ""
+msgstr "تفاوت نرخ ارز: %s"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_open_auto_reconcile_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_auto_reconcile_wizard
 msgid "Find Entries to Reconcile Automatically"
-msgstr ""
+msgstr "سندهایی را برای تطبیق خودکار بیابید"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_fiscal_year
@@ -827,17 +842,17 @@ msgstr "پرچم"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__force_partials
 msgid "Force Partials"
-msgstr ""
+msgstr "موار جزئی اجباری"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__force_price_included_taxes
 msgid "Force Price Included Taxes"
-msgstr ""
+msgstr "قیمت با درنظر گرفتن مالیالت اجباری"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__form_index
 msgid "Form Index"
-msgstr ""
+msgstr "از شاخص"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__from_date
@@ -847,12 +862,12 @@ msgstr "از"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "From Trade Payable accounts"
-msgstr ""
+msgstr "از حساب‌های پرداختی قابل معامله"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "From Trade Receivable accounts"
-msgstr ""
+msgstr "از حساب‌های دریافتی قابل معامله"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_0
@@ -871,23 +886,23 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Generate Deferred Expense Entries Method"
-msgstr ""
+msgstr "ایجاد روش سندهای هزینه‌ی معوقه"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_revenue_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Generate Deferred Revenue Entries Method"
-msgstr ""
+msgstr "ایجاد روش سندهای درآمدی معوقه"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Generate Expense Entries"
-msgstr ""
+msgstr "ایجاد سندهای هزینه"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Generate Revenue Entries"
-msgstr ""
+msgstr "ایجاد سندهای درآمدی"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -906,6 +921,8 @@ msgid ""
 "Great! Let’s continue.<br/><br/><i>Tip: If you choose to upload your bill, "
 "don’t forget to attach it.</i>"
 msgstr ""
+"بسیار عالی! ادامه دهید.<br/><br/><i> نکته: اگر بخواهید صورت‌حساب خود را "
+"بارگذاری کنید، باید ان را ضمیمه کنید. </i>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -915,12 +932,12 @@ msgstr "گروه‌بندی برمبنای"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__group_tax_id
 msgid "Group Tax"
-msgstr ""
+msgstr "گروه‌بندی مالیات"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_deferred_moves
 msgid "Has Deferred Moves"
-msgstr ""
+msgstr "دارای سندهای معوقه است"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__id
@@ -960,7 +977,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__index
 msgid "Index"
-msgstr ""
+msgstr "شاخص"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__invalid
@@ -979,6 +996,10 @@ msgid ""
 "Valid: The bank transaction can be validated.\n"
 "Reconciled: The bank transaction has already been processed. Nothing left to do."
 msgstr ""
+"نامعتبر: نمی‌توان اعتبار تراکنش بانکی را تأیید کرد زیرا حساب معلق هنوز وجود دارد\n"
+"معتبر: اعتبار تراکنش بانکی تأیید می‌شود.\n"
+"تطبیق داده شده: تراکنش بانکی از قبل پردازش شده است.\n"
+"هیچ کاری باقی نمانده است."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
@@ -1003,22 +1024,22 @@ msgstr "تطبیق‌داده‌شده‌ است"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_transfer_required
 msgid "Is an account transfer required"
-msgstr ""
+msgstr "آیا نیاز است که انتقال حساب صورت گیرد"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__transfer_warning_message
 msgid "Is an account transfer required to reconcile"
-msgstr ""
+msgstr "آیا نیاز است که انتقال حساب تطبیق داده شود"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__can_silently_reconcile
 msgid "Is silent reconcile possible"
-msgstr ""
+msgstr "آیا امکان تطبیق پنهانی وجود دارد"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__lock_date_violated_warning_message
 msgid "Is the date violating the lock date of moves"
-msgstr ""
+msgstr "آیا تاریخ مورد نظر تاریخ بستن سندها را نقض می‌کند"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view
@@ -1070,7 +1091,7 @@ msgstr "آیتم های روزنامه"
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_move_line_posted_unreconciled
 msgid "Journal Items to reconcile"
-msgstr ""
+msgstr "آیتم‌هایی از دفتر روزنامه که باید تطبیق داده شوند"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1080,7 +1101,7 @@ msgstr "آیتم های روزنامه که شماره تطابق تعیین ن�
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_journal_id
 msgid "Journal used for deferred entries"
-msgstr ""
+msgstr "دفتر روزنامه‌ی مورد استفاده برای سندهای معوقه"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_digest_digest__kpi_account_bank_cash_value
@@ -1164,7 +1185,7 @@ msgstr "سطر"
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_bank_rec_widget_line
 msgid "Line of the bank reconciliation widget"
-msgstr ""
+msgstr "سطر مربوط به نرم‌افزار تطبیق بانکی"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__fiscalyear_lock_date
@@ -1184,7 +1205,7 @@ msgstr "تاریخ قفل"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Management Closing"
-msgstr ""
+msgstr "مدیریت بستن حساب"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1197,12 +1218,12 @@ msgstr "عملیات دستی"
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__manual
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__manual
 msgid "Manually & Grouped"
-msgstr ""
+msgstr "به صورت دستی و گروه‌بندی شده"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__manually_modified
 msgid "Manually Modified"
-msgstr ""
+msgstr "به صورت دستی اصلاح شده"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1235,22 +1256,22 @@ msgstr "تراکنش‌های مطابقت یافته"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__matching_rules_allow_auto_reconcile
 msgid "Matching Rules Allow Auto Reconcile"
-msgstr ""
+msgstr "هماهنگی قواعد تطبیق خودکار"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_amount_computation_method
 msgid "Method used to compute the amount of deferred entries"
-msgstr ""
+msgstr "روش مورد استفاده برای محاسبه‌ی مبلغ اسناد معوقه"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Method used to generate deferred expense entries"
-msgstr ""
+msgstr "روش مورد استفاده برای ایجاد اسناد هزینه‌ای معوقه"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Method used to generate deferred revenue entries"
-msgstr ""
+msgstr "روش مورد استفاده برای ایجاد اسناد درآمدی معوقه"
 
 #. module: account_accountant
 #. odoo-python
@@ -1274,7 +1295,7 @@ msgstr "پیوست انتقال"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__move_line_ids
 msgid "Move lines to reconcile"
-msgstr ""
+msgstr "سطرهای سند که باید تطبیق د اده شوند"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__name
@@ -1306,14 +1327,14 @@ msgstr "هیچ پیوستی لینک نشده."
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "No statement"
-msgstr ""
+msgstr "هیچ صورت وضعیتی وجود ندارد"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
 msgid "No transactions matching your filters were found."
-msgstr ""
+msgstr "هیچ تراکنشی که با فیلترهای شما مطابقت داشته باشد یافت نشد."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__tax_lock_date
@@ -1353,17 +1374,17 @@ msgstr "یادداشت‌ها"
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
 msgid "Nothing to do here!"
-msgstr ""
+msgstr "اینجا هیچ ارتباطی به شما ندارد!"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__on_validation
 msgid "On bill validation"
-msgstr ""
+msgstr "تأیید اعتبار بر مبنای صورت‌حساب"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__on_validation
 msgid "On invoice validation"
-msgstr ""
+msgstr "تأیید اعتبار بر مبنای فاکتور"
 
 #. module: account_accountant
 #. odoo-python
@@ -1378,6 +1399,8 @@ msgid ""
 "Only partial reconciliation is possible. Proceed in multiple steps if you "
 "want to full reconcile."
 msgstr ""
+"تنها امکان تطبیق جزئی وجود دارد. در صورتی که می‌خواهید تطبیق کامل انجام "
+"دهید، باید چند مرحله را طی کنید."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__period_lock_date
@@ -1393,12 +1416,12 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
 msgid "Open Amount"
-msgstr ""
+msgstr "مبلغ آزاد"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
 msgid "Open Amount in Currency"
-msgstr ""
+msgstr "واحد پول مبلغ آزاد"
 
 #. module: account_accountant
 #. odoo-python
@@ -1410,21 +1433,21 @@ msgstr "تراز افتتاحیه: %s"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_auto_reconcile_wizard__search_mode__one_to_one
 msgid "Opposite balances one by one"
-msgstr ""
+msgstr "تک تک ترازهای مخالف"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Original Deferred Entries"
-msgstr ""
+msgstr "سندهای معوقه‌ی اصلی"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,field_description:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "Original Invoices"
-msgstr ""
+msgstr "فاکتور های اصلی"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1521,37 +1544,37 @@ msgstr "تطابق پرداخت"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Pick a date to lock"
-msgstr ""
+msgstr " تاریخی را برای بستن حساب انتخاب کنید"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Please set the deferred accounts in the accounting settings."
-msgstr ""
+msgstr "لطفاً حساب‌های معوقه را از قسمت تنظیمات حسابداری تنظیم کنید."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Please set the deferred journal in the accounting settings."
-msgstr ""
+msgstr "لطفاً دفتر روزنامه‌ی معوقه را از تنظیمات حسابداری تنظیم کنید."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Post Deferred entries in:"
-msgstr ""
+msgstr "سندهای معوقه را در اینجا ثبت کنید:"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__predict_bill_product
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__predict_bill_product
 msgid "Predict Bill Product"
-msgstr ""
+msgstr "پیش‌بینی محصول صورت‌حساب"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Predict vendor bill product"
-msgstr ""
+msgstr "پیش‎بینی محصول صورت‌حساب فروشنده"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_reconcile_model
@@ -1568,6 +1591,9 @@ msgid ""
 "inclusive for all users. As a closed period, all accounting operations are "
 "prohibited."
 msgstr ""
+"از ایجاد یا تغییر سند دفتر روزنامه تا تاریخ تعیین شده برای تمام کاربرانم، "
+"جلوگیری می‌کند. به عنوان یک دوره‌ی بسته شده، از تمام عملیات‌های حسابداری "
+"جلوگیری می‌شود."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__period_lock_date
@@ -1575,6 +1601,8 @@ msgid ""
 "Prevents Journal entries creation up to the defined date inclusive. Except "
 "for Accountant users."
 msgstr ""
+"از ایجاد سندهای دفتر روزنامه تا تاریخ تعیین شده و شامل همان تاریخ جلوگیری "
+"می‌کند. به جز برای کاربران حسابداری."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
@@ -1583,6 +1611,9 @@ msgid ""
 "Entries involving taxes). The Tax Return Lock Date is automatically set when"
 " the corresponding Journal Entry is posted."
 msgstr ""
+"از تغییر سودهای مالیاتی تا تاریخ تعیین شده و در همان تاریخ (سندهای حاوی "
+"مالیات دفتر روزنامه) جلوگیری می‌کند. تاریخ بستن سود مالیاتی به صورت خودکار "
+"در زمانی تنظیم می‌شود که سند حسابداری مربوطه ثبت شده باشد."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_form_with_buttons
@@ -1614,17 +1645,17 @@ msgstr "تطبیق"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_wizard
 msgid "Reconcile & open"
-msgstr ""
+msgstr "تطبیق و باز  کردن"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_account_id
 msgid "Reconcile Account"
-msgstr ""
+msgstr "تطبیق حساب"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__reconcile_model_id
 msgid "Reconcile Model"
-msgstr ""
+msgstr "تطبیق مدل"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled
@@ -1634,7 +1665,7 @@ msgstr "تسویه شد"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_id
 msgid "Reconciliation model"
-msgstr ""
+msgstr "مدل تطبیق"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1644,12 +1675,12 @@ msgstr "هزینه ثبت شده کالاهای فروخته شده در ورو�
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Purchase(s)"
-msgstr ""
+msgstr "خرید(های) مربوطه"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Sale(s)"
-msgstr ""
+msgstr "فروش‌(های) مربوطه"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1666,12 +1697,12 @@ msgstr "باقيمانده"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Residual in Currency"
-msgstr ""
+msgstr "باقی‌مانده به ارز رایج"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__return_todo_command
 msgid "Return Todo Command"
-msgstr ""
+msgstr "بازگرداندن دستور انجام"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_reconcile_model_line
@@ -1697,74 +1728,74 @@ msgstr "دخیره و جدید:"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Search Journal Items to Reconcile"
-msgstr ""
+msgstr "جستجوی آیتم‌های دفتر روزنامه که باید تطبیق داده شوند"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__selected_aml_ids
 msgid "Selected Aml"
-msgstr ""
+msgstr "Aml انتخاب شده"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__selected_reco_model_id
 msgid "Selected Reco Model"
-msgstr ""
+msgstr "مدل تطبیق انتخاب شده"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Set as Checked"
-msgstr ""
+msgstr "بررسی شده"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__single_currency_mode
 msgid "Single Currency Mode"
-msgstr ""
+msgstr "حالت تک ارزی"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_id
 msgid "Source Aml"
-msgstr ""
+msgstr "Aml منبع"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_move_id
 msgid "Source Aml Move"
-msgstr ""
+msgstr "سند Aml منبع"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_move_name
 msgid "Source Aml Move Name"
-msgstr ""
+msgstr "نام سند Aml منبع"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_amount_currency
 msgid "Source Amount Currency"
-msgstr ""
+msgstr "ارز مبلغ منبع"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_balance
 msgid "Source Balance"
-msgstr ""
+msgstr "تراز منبع"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_credit
 msgid "Source Credit"
-msgstr ""
+msgstr "بستانکاری منبع"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_debit
 msgid "Source Debit"
-msgstr ""
+msgstr "بدهکاری منبع"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_id
 msgid "St Line"
-msgstr ""
+msgstr "سطر St"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_transaction_details
 msgid "St Line Transaction Details"
-msgstr ""
+msgstr "جزئیات تراکنش سطر St"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__date_from
@@ -1797,17 +1828,17 @@ msgstr "سطر صورتحساب"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_amount_currency
 msgid "Suggestion Amount Currency"
-msgstr ""
+msgstr "واحد پول مبلغ پیشنهادی"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_balance
 msgid "Suggestion Balance"
-msgstr ""
+msgstr "تراز پیشنهادی"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_html
 msgid "Suggestion Html"
-msgstr ""
+msgstr "Html پیشنهادی"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
@@ -1823,7 +1854,7 @@ msgstr "مالیات"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_base_amount_currency
 msgid "Tax Base Amount Currency"
-msgstr ""
+msgstr "واحد پول مبلغ مبنای مالیاتی"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
@@ -1843,7 +1874,7 @@ msgstr "سطر توزیع مجدد مالیات"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date
 msgid "Tax Return Lock Date"
-msgstr ""
+msgstr "تاریخ بستن سود مالیاتی"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_tag_ids
@@ -1878,13 +1909,15 @@ msgid ""
 "The date you set violates the lock date of one of your entry. It will be "
 "overriden by the following date : %(replacement_date)s"
 msgstr ""
+"تاریخی که مشخص کرده‌اید با تاریخ یکی اسنادتان تناقض دارد. این تاریخ با تاریخ"
+" زیر جایگزین می‌شود: %(replacement_date)s"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_move_ids
 msgid "The deferred entries created by this invoice"
-msgstr ""
+msgstr "اسناد معوقه‌ی ایجاد شده با این فاکتور"
 
 #. module: account_accountant
 #. odoo-python
@@ -1901,6 +1934,8 @@ msgid ""
 "The invoice %(display_name_html)s with an open amount of %(open_amount)s "
 "will be entirely paid by the transaction."
 msgstr ""
+"فاکتور %(display_name_html)s با یک مبلغ آزاد %(open_amount)s به طور کامل "
+"بوسیله‌ی تراکنش پرداخت می‌شود."
 
 #. module: account_accountant
 #. odoo-python
@@ -1910,6 +1945,8 @@ msgid ""
 "The invoice %(display_name_html)s with an open amount of %(open_amount)s "
 "will be reduced by %(amount)s."
 msgstr ""
+"فاکتور %(display_name_html)s با یک مبلغ آزاد %(open_amount)s تا %(amount)s "
+"کاهش می‌یابد."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1923,7 +1960,7 @@ msgstr "فاکتورهای تا این تاریخ به عنوان ورودی ح�
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "The original invoices that created the deferred entries"
-msgstr ""
+msgstr "فاکتور های اصلی که اسناد معوقه را ایجاد کرده‌اند"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1931,6 +1968,8 @@ msgid ""
 "The system will try to predict the product on vendor bill lines based on the"
 " label of the line"
 msgstr ""
+"سیستم تلاش می‌کند محصول موجود در سطرهای صورت‌حساب فروشنده را براساس برچسب "
+"سطر پیش‌بینی کند"
 
 #. module: account_accountant
 #. odoo-python
@@ -1940,6 +1979,8 @@ msgid ""
 "This bank transaction has been automatically validated using the "
 "reconciliation model '%s'."
 msgstr ""
+"این تراکنش بانکی به صورت خودکار با استفاده از مدل تطبیق اعتبارسنجی می‌شود "
+"%s."
 
 #. module: account_accountant
 #. odoo-python
@@ -1956,16 +1997,18 @@ msgid ""
 "This reconciliation model can't be used in the manual reconciliation widget "
 "because its configuration is not adapted"
 msgstr ""
+"این مدل تطبیق را نمی‌توان در ویجت تطبیق دستی استفاده کرد زیرا پیکربندی آن "
+"مطابقت ندارد"
 
 #. module: account_accountant
 #: model:digest.tip,name:account_accountant.digest_tip_account_accountant_0
 msgid "Tip: Bulk update journal items"
-msgstr ""
+msgstr "نکته: به روزرسانی کلی آیتم‌های دفتر روزنامه"
 
 #. module: account_accountant
 #: model:digest.tip,name:account_accountant.digest_tip_account_accountant_1
 msgid "Tip: Find an Accountant or register your Accounting Firm"
-msgstr ""
+msgstr "نکته: یافتن یک حساب یا ثبت شرکت حسابداری خود"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__to_date
@@ -1991,7 +2034,7 @@ msgstr "برای بررسی"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__todo_command
 msgid "Todo Command"
-msgstr ""
+msgstr "دستور انجام"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
@@ -2011,12 +2054,12 @@ msgstr "کل بدهکاری"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Total Residual"
-msgstr ""
+msgstr "مجموع باقی‌‌مانده"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Total Residual in Currency"
-msgstr ""
+msgstr "واحد پول مجموع باقی‌مانده"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
@@ -2058,7 +2101,7 @@ msgstr "انتقال به %s"
 #. module: account_accountant
 #: model:ir.actions.server,name:account_accountant.auto_reconcile_bank_statement_line_ir_actions_server
 msgid "Try to reconcile automatically your statement lines"
-msgstr ""
+msgstr "سعی کنید به صورت خودکار سطرهای صورت وضعیت خود را تطبیق دهید"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -2070,7 +2113,7 @@ msgstr "تطبیق‌داده‌نشده‌"
 #: code:addons/account_accountant/models/res_company.py:0
 #, python-format
 msgid "Unreconciled statements lines"
-msgstr ""
+msgstr "سطرهای تطبیق داده نشده‌ی صورت وضعیت‌ها"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__valid
@@ -2099,7 +2142,7 @@ msgstr "نما"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "View models"
-msgstr ""
+msgstr "نمایش مدل‌ها"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__wizard_id
@@ -2110,7 +2153,7 @@ msgstr "تَردست"
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__company_currency_id
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__company_currency_id
 msgid "Wizard Company Currency"
-msgstr ""
+msgstr "ارز شرکت ویزارد"
 
 #. module: account_accountant
 #. odoo-python
@@ -2124,7 +2167,7 @@ msgstr "استهلاک"
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
 msgid "Write-Off Entry"
-msgstr ""
+msgstr "سند کسر از بدهی"
 
 #. module: account_accountant
 #. odoo-python
@@ -2143,6 +2186,7 @@ msgstr ""
 #, python-format
 msgid "You can only reconcile entries with up to two different accounts: %s"
 msgstr ""
+"تنها می‌توانید سندهایی که نهایتاً به دو حساب مربوط هستند را تطبیق دهید: %s"
 
 #. module: account_accountant
 #. odoo-python
@@ -2152,6 +2196,7 @@ msgid ""
 "You cannot change the account for a deferred line in %(move_name)s if it has"
 " already been deferred."
 msgstr ""
+"اگر حساب یک سطر معوقه باشد، نمی‌توانید آن را در %(move_name)s تغییر دهید."
 
 #. module: account_accountant
 #. odoo-python
@@ -2159,6 +2204,8 @@ msgstr ""
 #, python-format
 msgid "You cannot create a deferred entry with a start date but no end date."
 msgstr ""
+"نمی‌توانید سند معوقه‌ای را بیابید که دارای تاریخ شروع باشد اما تاریخ پایان "
+"نداشته باشد."
 
 #. module: account_accountant
 #. odoo-python
@@ -2168,6 +2215,8 @@ msgid ""
 "You cannot create a deferred entry with a start date later than the end "
 "date."
 msgstr ""
+"نمی‌توانید سند معوقه‌ای را بیابید که تاریخ شروع آن دیرتر از تاریخ پایان آن "
+"است."
 
 #. module: account_accountant
 #. odoo-python
@@ -2176,6 +2225,7 @@ msgstr ""
 msgid ""
 "You cannot generate deferred entries for a miscellaneous journal entry."
 msgstr ""
+"نمی‌توانید سندهای معوقه‌ای را برای یک سند متفرقه در دفتر روزنامه ایجاد کنید."
 
 #. module: account_accountant
 #. odoo-python
@@ -2185,6 +2235,8 @@ msgid ""
 "You cannot reset to draft an invoice that is grouped in deferral entry. You "
 "can create a credit note instead."
 msgstr ""
+"نمی‌توانید فاکتور ی که در سند معوقه گروه‌بندی شده را به حالت پیشنویس "
+"بازگردانید. در عوض می‌توانید یک سند بستانکار ایجاد کنید."
 
 #. module: account_accountant
 #. odoo-python
@@ -2199,7 +2251,7 @@ msgstr "امکان تنظیم تاریخ قفل در آینده وجود ندا�
 #, python-format
 msgid ""
 "You might want to %(btn_start)sfully reconcile%(btn_end)s the document."
-msgstr ""
+msgstr "ممکن است بخواهید %(btn_start)s سند را کاملاً تطبیق دهید %(btn_end)s"
 
 #. module: account_accountant
 #. odoo-python
@@ -2209,13 +2261,14 @@ msgid ""
 "You might want to make a %(btn_start)spartial reconciliation%(btn_end)s "
 "instead."
 msgstr ""
+"ممکن است بخواهید %(btn_start)sبه جای آن یک تطبیق جزئی انجام دهید%(btn_end)s"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget_line.py:0
 #, python-format
 msgid "You might want to record a %(btn_start)spartial payment%(btn_end)s."
-msgstr ""
+msgstr "ممکن است بخواهید پرداخت جزئی %(btn_start)s را ثبت کنید%(btn_end)s"
 
 #. module: account_accountant
 #. odoo-python
@@ -2224,6 +2277,8 @@ msgstr ""
 msgid ""
 "You might want to set the invoice as %(btn_start)sfully paid%(btn_end)s."
 msgstr ""
+"ممکن است بخواهید فاکتور را تحت عنوان %(btn_start)s کاملاً پرداخت شده مشخص "
+"کنید%(btn_end)s"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2235,12 +2290,12 @@ msgstr "شما تطبیق دادید"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__aml
 msgid "aml"
-msgstr ""
+msgstr "aml"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__auto_balance
 msgid "auto_balance"
-msgstr ""
+msgstr "تراز خودکار"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
@@ -2250,12 +2305,12 @@ msgstr "برای مثال هزینه‌های بانکی"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__early_payment
 msgid "early_payment"
-msgstr ""
+msgstr "پرداخت پیش از موعد"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__exchange_diff
 msgid "exchange_diff"
-msgstr ""
+msgstr "تفاوت نرخ ارز"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2278,7 +2333,7 @@ msgstr "دستی"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__new_aml
 msgid "new_aml"
-msgstr ""
+msgstr "aml جدید"
 
 #. module: account_accountant
 #. odoo-javascript

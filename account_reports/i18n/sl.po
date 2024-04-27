@@ -470,7 +470,7 @@ msgstr "Vse"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "All Journals"
-msgstr ""
+msgstr "Vsi dnevniki"
 
 #. module: account_reports
 #. odoo-javascript
@@ -484,7 +484,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "All Receivable"
-msgstr ""
+msgstr "Vse terjatve"
 
 #. module: account_reports
 #. odoo-python
@@ -512,14 +512,14 @@ msgstr "Znesek v valuti"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Amount In Currency"
-msgstr ""
+msgstr "Znesek v valuti"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Amount in currency: %s"
-msgstr ""
+msgstr "Znesek v valuti: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -556,7 +556,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/line_name/line_name.xml:0
 #, python-format
 msgid "Annotate"
-msgstr ""
+msgstr "Opombe:"
 
 #. module: account_reports
 #. odoo-javascript
@@ -966,6 +966,8 @@ msgid ""
 "Company %s already belongs to a tax unit in %s. A company can at most be "
 "part of one tax unit per country."
 msgstr ""
+"Podjetje %s že pripada davčni enoti v %s. Podjetje je lahko del največ ene "
+"davčne enote na državo."
 
 #. module: account_reports
 #. odoo-python
@@ -1111,7 +1113,7 @@ msgstr "Valuta"
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 #, python-format
 msgid "Currency Rates (%s)"
-msgstr ""
+msgstr "Menjalni tečaji (%s)"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
@@ -1189,7 +1191,7 @@ msgstr "Datum"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "Date cannot be empty"
-msgstr ""
+msgstr "Datum ne sme biti prazen"
 
 #. module: account_reports
 #. odoo-python
@@ -1409,7 +1411,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_trial_balance_report.py:0
 #, python-format
 msgid "End Balance"
-msgstr ""
+msgstr "Končni saldo"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1580,7 +1582,7 @@ msgstr "Polje"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Field %s does not exist on account.move.line."
-msgstr ""
+msgstr "Polje%sne obstaja v account.move.line"
 
 #. module: account_reports
 #. odoo-python
@@ -1590,6 +1592,8 @@ msgid ""
 "Field %s of account.move.line is not stored, and hence cannot be used in a "
 "groupby expression"
 msgstr ""
+"Polje %s v account.move.line ni shranjeno, zato ga ni mogoče uporabiti v "
+"združi po"
 
 #. module: account_reports
 #. odoo-python
@@ -2080,7 +2084,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Invalid method %r"
-msgstr ""
+msgstr "Neveljavna metoda %r"
 
 #. module: account_reports
 #. odoo-python
@@ -2300,7 +2304,7 @@ msgstr "Postavka"
 #: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
 #, python-format
 msgid "Line without formula"
-msgstr ""
+msgstr "Vrstica brez formule"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3533,6 +3537,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
+msgid "This subformula references an unknown expression: %s"
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
 msgid ""
 "This tag is reported in a line of the report but is not linked to any "
 "account of the Chart of Accounts"
@@ -3571,7 +3582,7 @@ msgstr "Skupaj"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Total %s"
-msgstr ""
+msgstr "Skupaj%s"
 
 #. module: account_reports
 #. odoo-javascript

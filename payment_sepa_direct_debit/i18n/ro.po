@@ -1,54 +1,33 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* payment_sepa_direct_debit
-#
+# 
 # Translators:
-# Foldi Robert <foldirobert@nexterp.ro>, 2022
-# Martin Trigaux, 2022
-# Hongu Cosmin <cosmin513@gmail.com>, 2022
-# Cozmin Candea <office@terrabit.ro>, 2023
-# Dorin Hongu <dhongu@gmail.com>, 2023
-#
+# Cozmin Candea <office@terrabit.ro>, 2024
+# Martin Trigaux, 2024
+# Hongu Cosmin <cosmin513@gmail.com>, 2024
+# Fenyedi Levente, 2024
+# Foldi Robert <foldirobert@nexterp.ro>, 2024
+# Dorin Hongu <dhongu@gmail.com>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:47+0000\n"
-"Last-Translator: Dorin Hongu <dhongu@gmail.com>, 2023\n"
+"POT-Creation-Date: 2023-10-26 22:22+0000\n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Dorin Hongu <dhongu@gmail.com>, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.inline_form
-msgid "+32123456789"
+#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.sepa_transaction_status
+msgid "<strong>Amount: </strong>"
 msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.sdd_payment_mandate_form
-msgid "<strong>Authenticated by SMS by:</strong>"
-msgstr "<strong>Autentificat prin SMS de:</strong>"
-
-#. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.sdd_payment_mandate_form
-msgid "<strong>Date and place of signature:</strong>"
-msgstr "<strong>Dată și locul semnăturii:</strong>"
-
-#. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.sdd_payment_mandate_form
-msgid ""
-"<strong>Name of the reference party:</strong>\n"
-"                            ......................................"
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.sdd_payment_mandate_form
-msgid "<strong>Signature:</strong>"
-msgstr "<strong>Semnătură:</strong>"
 
 #. module: payment_sepa_direct_debit
 #: model:mail.template,body_html:payment_sepa_direct_debit.mail_template_sepa_notify_debit
@@ -220,26 +199,9 @@ msgid ""
 msgstr ""
 
 #. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.inline_form
-msgid "A copy of the mandate will be sent by email to"
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
-msgid "Both the phone number and the verification code are required."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.payment_provider_form
-msgid "Buy credits"
-msgstr "Cumpărare credit"
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_payment_provider__code
-msgid "Code"
-msgstr "Cod"
+#: model:ir.model,name:payment_sepa_direct_debit.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr "Linie extras bacă"
 
 #. module: payment_sepa_direct_debit
 #: model:ir.model,name:payment_sepa_direct_debit.model_res_partner
@@ -247,16 +209,9 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: payment_sepa_direct_debit
-#. odoo-javascript
-#: code:addons/payment_sepa_direct_debit/static/src/js/payment_form.js:0
-#, python-format
-msgid "Could not send the verification code."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.sdd_mandate_form
-msgid "Electronic Signature"
-msgstr "Semnătură Electronică"
+#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_payment_provider__custom_mode
+msgid "Custom Mode"
+msgstr "Mod personalizat"
 
 #. module: payment_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.inline_form
@@ -264,11 +219,9 @@ msgid "IBAN"
 msgstr "IBAN"
 
 #. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
-msgid "Incorrect phone number."
-msgstr "Număr de telefon incorect."
+#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_payment_transaction__mandate_id
+msgid "Mandate"
+msgstr ""
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
@@ -283,11 +236,6 @@ msgstr ""
 #, python-format
 msgid "No transaction found matching reference %s."
 msgstr "Nu s-a găsit nicio tranzacție care să se potrivească cu referința %s."
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_payment_provider__sdd_signature_required
-msgid "Online Signature"
-msgstr "Semnătură online"
 
 #. module: payment_sepa_direct_debit
 #: model:ir.model,name:payment_sepa_direct_debit.model_account_payment_method
@@ -310,22 +258,11 @@ msgid "Payment Transaction"
 msgstr "Tranzacție plată"
 
 #. module: payment_sepa_direct_debit
-#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_sdd_mandate__phone_number
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.inline_form
-msgid "Phone Number"
-msgstr "Număr telefon"
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_payment_provider__sdd_sms_verification_required
-msgid "Phone Verification"
-msgstr ""
-
-#. module: payment_sepa_direct_debit
 #. odoo-javascript
 #: code:addons/payment_sepa_direct_debit/static/src/js/payment_form.js:0
 #, python-format
-msgid "Re-send SMS"
-msgstr "Re-trimite SMS"
+msgid "Payment processing failed"
+msgstr ""
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
@@ -340,9 +277,9 @@ msgid "SDD Mandate"
 msgstr "Mandat SDD"
 
 #. module: payment_sepa_direct_debit
-#: model:ir.model.fields.selection,name:payment_sepa_direct_debit.selection__payment_provider__code__sepa_direct_debit
+#: model:ir.model.fields.selection,name:payment_sepa_direct_debit.selection__payment_provider__custom_mode__sepa_direct_debit
 msgid "SEPA Direct Debit"
-msgstr "Debit direct SEPA"
+msgstr "SEPA Direct Debit"
 
 #. module: payment_sepa_direct_debit
 #: model:account.payment.method,name:payment_sepa_direct_debit.payment_method_sepa_direct_debit
@@ -361,44 +298,19 @@ msgid "SEPA Direct Debit: Charge Notification"
 msgstr ""
 
 #. module: payment_sepa_direct_debit
+#: model:ir.actions.server,name:payment_sepa_direct_debit.cron_auto_confirm_paid_sepa_txs_ir_actions_server
+msgid "SEPA Direct Debit: Confirm paid transactions"
+msgstr ""
+
+#. module: payment_sepa_direct_debit
 #: model:mail.template,name:payment_sepa_direct_debit.mail_template_sepa_notify_validation
 msgid "SEPA Direct Debit: Validation Notification"
 msgstr ""
 
 #. module: payment_sepa_direct_debit
-#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_payment_provider__sdd_sms_credits
-msgid "SMS Credits"
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#. odoo-javascript
-#: code:addons/payment_sepa_direct_debit/static/src/js/payment_form.js:0
-#, python-format
-msgid "SMS Sent"
-msgstr "SMS Trimis"
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
-msgid "SMS could not be sent due to insufficient credit."
-msgstr "SMS-urile nu au putut fi trimise din cauza creditului insuficient."
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
-msgid "SMS verification is disabled."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.inline_form
-msgid "Send SMS"
-msgstr "Trimite SMS"
-
-#. module: payment_sepa_direct_debit
 #: model:mail.template,description:payment_sepa_direct_debit.mail_template_sepa_notify_validation
-msgid "Send the SEPA mandate in attachement, to partners who signed a new mandate"
+msgid ""
+"Send the SEPA mandate in attachement, to partners who signed a new mandate"
 msgstr ""
 
 #. module: payment_sepa_direct_debit
@@ -407,43 +319,10 @@ msgid "Sent to the customer to indicate their account will be charged"
 msgstr ""
 
 #. module: payment_sepa_direct_debit
-#. odoo-javascript
-#: code:addons/payment_sepa_direct_debit/static/src/js/payment_form.js:0
-#, python-format
-msgid "Server Error"
-msgstr "Eroare server"
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_sdd_mandate__signature
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.inline_form
-msgid "Signature"
-msgstr "Semnătură"
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_sdd_mandate__signed_by
-msgid "Signed By"
-msgstr "Semnat de"
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_sdd_mandate__signed_on
-msgid "Signed On"
-msgstr "Semnat pe"
-
-#. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.sdd_payment_mandate_form
-msgid "Signed online on"
-msgstr ""
-
-#. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_provider.py:0
 #, python-format
 msgid "The bank account of the journal is not a valid IBAN."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,help:payment_sepa_direct_debit.field_sdd_mandate__signed_on
-msgid "The date of the signature"
 msgstr ""
 
 #. module: payment_sepa_direct_debit
@@ -462,64 +341,6 @@ msgstr ""
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
-#: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
-msgid "The mandate was signed by %s."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
-msgid "The mandate was verified with phone number %s."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
-msgid "The name and signature must be provided."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,help:payment_sepa_direct_debit.field_sdd_mandate__signed_by
-msgid "The name of the signer"
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
-msgid "The phone number does not match."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
-msgid "The phone number must be provided and verified."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
-msgid "The phone number should be in international format."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,help:payment_sepa_direct_debit.field_sdd_mandate__phone_number
-msgid "The phone number used for verification by SMS code"
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,help:payment_sepa_direct_debit.field_payment_provider__code
-msgid "The technical code of this payment provider."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_transaction.py:0
 #, python-format
 msgid "The token is not linked to a mandate."
@@ -533,79 +354,17 @@ msgid "The transaction is not linked to a token."
 msgstr "Tranzacția nu este legată de un token."
 
 #. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
-msgid "The verification code does not match."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
-msgid "This mandate has already been verified."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/controllers/main.py:0
-#, python-format
-msgid "Unknown mandate ID."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_sdd_mandate__verification_code
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.inline_form
-msgid "Verification Code"
-msgstr "Cod de verificare"
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_sdd_mandate__verified
-msgid "Verified"
-msgstr "Verificat"
-
-#. module: payment_sepa_direct_debit
-#. odoo-javascript
-#: code:addons/payment_sepa_direct_debit/static/src/js/payment_form.js:0
-#, python-format
-msgid "We are not able to process your payment."
-msgstr "Nu putem procesa plata dvs."
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,help:payment_sepa_direct_debit.field_payment_provider__sdd_signature_required
-msgid "Whether a signature is required to create a new mandate."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model:ir.model.fields,help:payment_sepa_direct_debit.field_payment_provider__sdd_sms_verification_required
-msgid "Whether phone numbers must be verified by an SMS code."
-msgstr ""
-
-#. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.payment_provider_form
-msgid "You don't have enough credit to send SMS. You can buy new credits here:"
-msgstr "Nu aveți suficient credit pentru a trimite SMS. Puteți cumpăra credite noi aici:"
-
-#. module: payment_sepa_direct_debit
 #: model:mail.template,subject:payment_sepa_direct_debit.mail_template_sepa_notify_validation
-msgid "Your SEPA Direct Debit Mandate with {{ object.payment_journal_id.company_id.name }}"
+msgid ""
+"Your SEPA Direct Debit Mandate with {{ "
+"object.payment_journal_id.company_id.name }}"
 msgstr ""
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_provider.py:0
 #, python-format
-msgid "Your company must have a creditor identifier in order to issue a SEPA Direct Debit payment request. It can be set in Accounting settings."
+msgid ""
+"Your company must have a creditor identifier in order to issue a SEPA Direct"
+" Debit payment request. It can be set in Accounting settings."
 msgstr ""
-
-#. module: payment_sepa_direct_debit
-#. odoo-python
-#: code:addons/payment_sepa_direct_debit/models/sdd_mandate.py:0
-#, python-format
-msgid "Your confirmation code is %s"
-msgstr "Codul dvs. de confirmare este %s"
-
-#. module: payment_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.inline_form
-msgid "upon validation."
-msgstr "până la validare."

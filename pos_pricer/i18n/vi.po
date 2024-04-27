@@ -23,7 +23,7 @@ msgstr ""
 #. module: pos_pricer
 #: model:ir.model.constraint,message:pos_pricer.constraint_pricer_tag_name_unique
 msgid "A Pricer tag with this barcode id already exists"
-msgstr "Thẻ Pricer có id mã vạch này đã tồn tại"
+msgstr "Nhãn Pricer có id mã vạch này đã tồn tại"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_tag__pricer_store_id
@@ -87,7 +87,7 @@ msgstr "Lỗi: Kiểm tra thông tin đăng nhập Pricer"
 #: code:addons/pos_pricer/models/pricer_store.py:0
 #, python-format
 msgid "Failed to unlink Pricer tag %s at API url %s"
-msgstr "Không thể hủy liên kết thẻ Pricer %s tại url API %s"
+msgstr "Không thể hủy liên kết nhãn Pricer %s tại url API %s"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__id
@@ -140,7 +140,7 @@ msgstr "Thông tin đăng nhập tài khoản Pricer của bạn"
 #. module: pos_pricer
 #: model:ir.actions.server,name:pos_pricer.pricer_sync_cron_ir_actions_server
 msgid "POS Pricer: tags update synchronization "
-msgstr "POS Pricer: đồng bộ hóa cập nhật thẻ"
+msgstr "POS Pricer: đồng bộ hóa cập nhật nhãn"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__pricer_password
@@ -223,14 +223,14 @@ msgstr "Cửa hàng Pricer"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_tag__name
 msgid "Pricer Tag Barcode ID"
-msgstr "ID mã vạch thẻ Pricer"
+msgstr "ID mã vạch nhãn Pricer"
 
 #. module: pos_pricer
 #: model:ir.actions.act_window,name:pos_pricer.action_open_pricer_tags
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__pricer_tag_ids
 #: model:ir.ui.menu,name:pos_pricer.menu_pos_pricer_tags
 msgid "Pricer Tags"
-msgstr "Thẻ Pricer"
+msgstr "Nhãn Pricer"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__pricer_tenant_name
@@ -240,18 +240,18 @@ msgstr "Tên bên thuê Pricer"
 #. module: pos_pricer
 #: model:ir.model,name:pos_pricer.model_pricer_tag
 msgid "Pricer electronic tag"
-msgstr "Thẻ điện tử Pricer"
+msgstr "Nhãn điện tử Pricer"
 
 #. module: pos_pricer
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_tag_view_list
 msgid "Pricer tag"
-msgstr "Thẻ Pricer"
+msgstr "Nhãn Pricer"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_tag_ids
 #: model:ir.model.fields,field_description:pos_pricer.field_product_template__pricer_tag_ids
 msgid "Pricer tags ids"
-msgstr "ID thẻ Pricer"
+msgstr "ID nhãn Pricer"
 
 #. module: pos_pricer
 #: model:ir.model,name:pos_pricer.model_product_template
@@ -291,8 +291,8 @@ msgid ""
 "This product will be linked to and displayed on the Pricer tags of the store"
 " selected here"
 msgstr ""
-"Sản phẩm này sẽ được liên kết và hiển thị trên thẻ Pricer của cửa hàng được "
-"chọn tại đây"
+"Sản phẩm này sẽ được liên kết và hiển thị trên nhãn Pricer của cửa hàng được"
+" chọn tại đây"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_product_product__pricer_tag_ids
@@ -301,7 +301,7 @@ msgid ""
 "This product will be linked to and displayed on the Pricer tags with ids "
 "listed here. It is recommended to use a barcode scanner"
 msgstr ""
-"Sản phẩm này sẽ được liên kết và hiển thị trên thẻ Pricer với id được liệt "
+"Sản phẩm này sẽ được liên kết và hiển thị trên nhãn Pricer với id được liệt "
 "kê tại đây. Nên sử dụng máy quét mã vạch"
 
 #. module: pos_pricer

@@ -1,25 +1,25 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* delivery_dhl
-#
+# 
 # Translators:
-# Cozmin Candea <office@terrabit.ro>, 2022
-# Martin Trigaux, 2022
-# Foldi Robert <foldirobert@nexterp.ro>, 2022
-# Dorin Hongu <dhongu@gmail.com>, 2023
-#
+# Cozmin Candea <office@terrabit.ro>, 2024
+# Martin Trigaux, 2024
+# Dorin Hongu <dhongu@gmail.com>, 2024
+# Foldi Robert <foldirobert@nexterp.ro>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:46+0000\n"
-"Last-Translator: Dorin Hongu <dhongu@gmail.com>, 2023\n"
+"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Foldi Robert <foldirobert@nexterp.ro>, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #. module: delivery_dhl
@@ -201,6 +201,7 @@ msgstr "Configurare DHL"
 #. module: delivery_dhl
 #. odoo-python
 #: code:addons/delivery_dhl/models/delivery_dhl.py:0
+#: code:addons/delivery_dhl/models/delivery_dhl.py:0
 #, python-format
 msgid "DHL Documents"
 msgstr ""
@@ -243,7 +244,9 @@ msgstr "DHL  Metode de expediere"
 #: code:addons/delivery_dhl/models/dhl_request.py:0
 #, python-format
 msgid "DHL Site ID is missing, please modify your delivery method settings."
-msgstr "ID-ul site-ului DHL lipsește, vă rugăm să modificați setările metodei de livrare."
+msgstr ""
+"ID-ul site-ului DHL lipsește, vă rugăm să modificați setările metodei de "
+"livrare."
 
 #. module: delivery_dhl
 #: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_SiteID
@@ -266,8 +269,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_dhl/models/dhl_request.py:0
 #, python-format
-msgid "DHL account number is missing, please modify your delivery method settings."
-msgstr "Numărul contului DHL lipsește, vă rugăm să modificați setările metodei de livrare."
+msgid ""
+"DHL account number is missing, please modify your delivery method settings."
+msgstr ""
+"Numărul contului DHL lipsește, vă rugăm să modificați setările metodei de "
+"livrare."
 
 #. module: delivery_dhl
 #. odoo-python
@@ -281,7 +287,8 @@ msgstr ""
 #: code:addons/delivery_dhl/models/dhl_request.py:0
 #, python-format
 msgid "DHL password is missing, please modify your delivery method settings."
-msgstr "Parola DHL lipsește, vă rugăm să modificați setările metodei de livrare."
+msgstr ""
+"Parola DHL lipsește, vă rugăm să modificați setările metodei de livrare."
 
 #. module: delivery_dhl
 #: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_duty_payment
@@ -333,7 +340,8 @@ msgstr "H - Selectare Economie"
 #: code:addons/delivery_dhl/models/delivery_dhl.py:0
 #, python-format
 msgid "Hint: The destination may not require the dutiable option."
-msgstr "Indicație: Este posibil ca destinația să nu necesite opțiunea taxabilă."
+msgstr ""
+"Indicație: Este posibil ca destinația să nu necesite opțiunea taxabilă."
 
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__i
@@ -431,7 +439,9 @@ msgstr "Unitate Greutate Pachet"
 #. odoo-python
 #: code:addons/delivery_dhl/models/dhl_request.py:0
 #, python-format
-msgid "Please define an incoterm in the associated sale order or set a default incoterm for the company in the accounting's settings."
+msgid ""
+"Please define an incoterm in the associated sale order or set a default "
+"incoterm for the company in the accounting's settings."
 msgstr ""
 
 #. module: delivery_dhl
@@ -483,6 +493,7 @@ msgstr "Expeditor"
 
 #. module: delivery_dhl
 #. odoo-python
+#: code:addons/delivery_dhl/models/delivery_dhl.py:0
 #: code:addons/delivery_dhl/models/delivery_dhl.py:0
 #, python-format
 msgid "Shipment created into DHL <br/> <b>Tracking Number: </b>%s"
@@ -544,8 +555,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_dhl/models/delivery_dhl.py:0
 #, python-format
-msgid "There is no price available for this shipping, you should rather try with the DHL product %s"
-msgstr "Nu există preț disponibil pentru această expediere, ar trebui să încercați mai degrabă cu produsul DHL %s"
+msgid ""
+"There is no price available for this shipping, you should rather try with "
+"the DHL product %s"
+msgstr ""
+"Nu există preț disponibil pentru această expediere, ar trebui să încercați "
+"mai degrabă cu produsul DHL %s"
 
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__u

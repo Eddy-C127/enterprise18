@@ -8,10 +8,10 @@
 # ILMIR <karamov@it-projects.info>, 2023
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2023
 # Oleg Kuryan <oleg@ventor.tech>, 2023
-# Martin Trigaux, 2023
 # Сергей Шебанин <sergey@shebanin.ru>, 2023
-# Wil Odoo, 2024
 # Collex100, 2024
+# Wil Odoo, 2024
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-09 10:16+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Collex100, 2024\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,6 +94,20 @@ msgid "Action Needed"
 msgstr "Требуются действия"
 
 #. module: room
+#. odoo-javascript
+#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
+#, python-format
+msgid "Add"
+msgstr "Добавить"
+
+#. module: room
+#. odoo-javascript
+#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
+#, python-format
+msgid "Add a Booking"
+msgstr ""
+
+#. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__description
 msgid "Amenities"
 msgstr "Удобства"
@@ -104,6 +118,13 @@ msgstr "Удобства"
 #, python-format
 msgid "Are you sure you want to delete this booking?"
 msgstr "Вы уверены, что хотите удалить эту бронь?"
+
+#. module: room
+#. odoo-javascript
+#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.js:0
+#, python-format
+msgid "Are you sure you want to end the current booking ?"
+msgstr ""
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__message_attachment_count
@@ -244,6 +265,13 @@ msgid "Delete"
 msgstr "Удалить"
 
 #. module: room
+#. odoo-javascript
+#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
+#, python-format
+msgid "Discard"
+msgstr "Отменить"
+
+#. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__display_name
 #: model:ir.model.fields,field_description:room.field_room_office__display_name
 #: model:ir.model.fields,field_description:room.field_room_room__display_name
@@ -266,6 +294,14 @@ msgid "Enable the user to manage meeting rooms available for booking"
 msgstr ""
 "Предоставьте пользователю возможность управлять конференц-залами, доступными"
 " для бронирования"
+
+#. module: room
+#. odoo-javascript
+#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.js:0
+#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
+#, python-format
+msgid "End Booking"
+msgstr ""
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_booking__stop_datetime
@@ -572,6 +608,13 @@ msgstr "Шорткод"
 #: model:ir.model.fields,field_description:room.field_room_booking__start_datetime
 msgid "Start Datetime"
 msgstr "Время начала"
+
+#. module: room
+#. odoo-javascript
+#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
+#, python-format
+msgid "Start now"
+msgstr "Начать сейчас"
 
 #. module: room
 #: model:ir.model.constraint,message:room.constraint_room_room_uniq_access_token

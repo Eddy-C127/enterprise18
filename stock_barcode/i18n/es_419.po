@@ -54,9 +54,7 @@ msgstr ""
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serial/Lot Number\"/>"
-msgstr ""
-"<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Número de serie/de "
-"lote\"/>"
+msgstr "<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Número de serie/lote\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -79,7 +77,7 @@ msgid ""
 "<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Destination "
 "Location\"/>"
 msgstr ""
-"<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Ubicación "
+"<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Ubicación de "
 "destino\"/>"
 
 #. module: stock_barcode
@@ -328,7 +326,7 @@ msgstr "Los códigos de barras no están disponibles. "
 #. module: stock_barcode
 #: model:product.template,name:stock_barcode.product_cable_management_box_2_product_template
 msgid "Cable Management Box"
-msgstr "Caja de administración de cable"
+msgstr "Caja de organización para cables"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -349,7 +347,7 @@ msgstr "Cancelar la operación"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Cancel Transfer"
-msgstr "Cancelar transferencia "
+msgstr "Cancelar traslado"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
@@ -640,7 +638,7 @@ msgstr "En #{kanban_getcolorname(record.color.raw_value)}"
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.js:0
 #, python-format
 msgid "Incomplete Transfer"
-msgstr "Transferencia incompleta "
+msgstr "Traslado incompleto"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_move_line__product_barcode
@@ -759,8 +757,8 @@ msgstr "Sin escaneo"
 msgid ""
 "No internal operation type. Please configure one in warehouse settings."
 msgstr ""
-"No se encuentra ningún tipo de operación interna. Por favor, configure uno "
-"en los ajustes del almacén."
+"No hay ningún tipo de operación interna. Configure uno en los ajustes del "
+"almacén."
 
 #. module: stock_barcode
 #. odoo-python
@@ -895,9 +893,7 @@ msgstr "Tipo de recolección"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Please scan destination location for %s before scanning other product"
-msgstr ""
-"Por favor, escanee la ubicación de destino de %s antes de escanear otro "
-"producto"
+msgstr "Escanee la ubicación de destino de %s antes de escanear otro producto"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1553,13 +1549,13 @@ msgstr "Por realizar"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "To use packages, enable 'Packages' in the settings"
-msgstr "Habilite \"paquetes\" en los ajustes para utilizarlos."
+msgstr "Active la función Paquetes en los ajustes para utilizarlos."
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_picking
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__picking_id
 msgid "Transfer"
-msgstr "Transferir "
+msgstr "Trasladar"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__picking_name
@@ -1587,7 +1583,7 @@ msgstr "Unidad de medida"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_stock_quant_tree
 msgid "UoM"
-msgstr "Unidades de medida"
+msgstr "UdM"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1629,8 +1625,8 @@ msgid ""
 "We have created a few demo data with barcodes for you to explore the "
 "features. Print the"
 msgstr ""
-"Hemos creado algunos datos de demostración con códigos de barras para que "
-"explore las funciones. Imprima la"
+"Creamos algunos datos de demostración con códigos de barras para que conozca"
+" las funciones. Imprima la"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1639,7 +1635,7 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Wrong Unit of Measure"
-msgstr "Unidad de medida equivocada"
+msgstr "Unidad de medida errónea"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1649,7 +1645,7 @@ msgid ""
 "You are about to take the product %(productName)s from the location %(locationName)s but this product isn't reserved in this location.\n"
 "Scan the current location to confirm that."
 msgstr ""
-"Está a punto de tomar el producto %(productName)s de la ubicación %(locationName)s, sin embargo, este producto no está reservado en esta ubicación.\n"
+"Está a punto de tomar el producto %(productName)s de la ubicación %(locationName)s, pero este producto no está reservado allí.\n"
 "Escanee la ubicación actual para confirmarlo."
 
 #. module: stock_barcode

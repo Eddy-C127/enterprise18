@@ -5,8 +5,8 @@
 # Translators:
 # Wil Odoo, 2023
 # Iran Villalobos López, 2023
-# Fernanda Alvarez, 2024
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
+# Fernanda Alvarez, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
+"Last-Translator: Fernanda Alvarez, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -376,7 +376,7 @@ msgstr "Marketplace de Amazon"
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_marketplace_view_tree
 #: model_terms:ir.ui.view,arch_db:sale_amazon.res_config_settings_view_form
 msgid "Amazon Marketplaces"
-msgstr "Marketplace de Amazon"
+msgstr "Marketplaces de Amazon"
 
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_amazon_offer
@@ -573,17 +573,17 @@ msgstr "Amazon.sg"
 #: model:mail.template,name:sale_amazon.inventory_sync_failure
 msgid "Amazon: Available Inventory for Offers Synchronization Failure"
 msgstr ""
-"Amazon: Fallo en la sincronización del inventario disponible para ofertas "
+"Amazon: error en la sincronización del inventario disponible para ofertas "
 
 #. module: sale_amazon
 #: model:mail.template,name:sale_amazon.picking_sync_failure
 msgid "Amazon: Delivery Order Synchronization Failure"
-msgstr "Amazon: Fallo en la sincronización de la orden de envío "
+msgstr "Amazon: error en la sincronización de la orden de envío "
 
 #. module: sale_amazon
 #: model:mail.template,name:sale_amazon.order_sync_failure
 msgid "Amazon: Order Synchronization Failure"
-msgstr "Amazon: Error en la sincronización de órdenes."
+msgstr "Amazon: error en la sincronización de órdenes"
 
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_inventory_ir_actions_server
@@ -598,12 +598,12 @@ msgstr "Amazon: sincronizar las ordenes de envío"
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_feeds_ir_actions_server
 msgid "Amazon: sync feeds"
-msgstr "Amazon: sincornización del feed"
+msgstr "Amazon: sincronizar feeds"
 
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_orders_ir_actions_server
 msgid "Amazon: sync orders"
-msgstr "Amazon: sincronizar pedidos"
+msgstr "Amazon: sincronizar órdenes"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.authorization_error
@@ -660,7 +660,7 @@ msgstr "No se pudo establecer la conexión con la URL del feed."
 #: code:addons/sale_amazon/utils.py:0
 #, python-format
 msgid "Could not establish the connection to the proxy."
-msgstr "No se ha podido establecer la conexión al proxy."
+msgstr "No se pudo establecer la conexión al proxy."
 
 #. module: sale_amazon
 #. odoo-python
@@ -674,7 +674,7 @@ msgstr "No se encontró una cuenta de Amazon con el ID %s"
 #: code:addons/sale_amazon/utils.py:0
 #, python-format
 msgid "Could not process the feed document send by Amazon."
-msgstr "No se pudo procesar el documento de feed que envió Amazon"
+msgstr "No se pudo procesar el documento de feed que envió Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__create_uid
@@ -800,7 +800,7 @@ msgstr "ID"
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__active
 msgid ""
 "If made inactive, this account will no longer be synchronized with Amazon."
-msgstr "Si se desactiva, ya no se sincronizará esta cuenta con Amazon"
+msgstr "Si se desactiva, esta cuenta ya no se sincronizará con Amazon."
 
 #. module: sale_amazon
 #. odoo-python
@@ -958,7 +958,7 @@ msgstr "Número de órdenes"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "Order Follow-up"
-msgstr "Seguimiento de pedidos"
+msgstr "Seguimiento de órdenes"
 
 #. module: sale_amazon
 #. odoo-python
@@ -1094,7 +1094,7 @@ msgstr ""
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_marketplace__seller_central_url
 msgid "Seller Central URL"
-msgstr "URL de central de vendedor"
+msgstr "URL de Seller Central"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__seller_key
@@ -1156,7 +1156,7 @@ msgstr ""
 #. module: sale_amazon
 #: model:mail.template,subject:sale_amazon.picking_sync_failure
 msgid "Synchronization of delivery orders has failed"
-msgstr "Falló la sincronización  de las ordenes de envio "
+msgstr "Ocurrió un error con la sincronización de las ordenes de envío"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.picking_view_form
@@ -1309,13 +1309,13 @@ msgstr "Las plataformas de ventas en las que vende esta cuenta."
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__aws_credentials_expiry
 msgid "The moment at which the AWS credentials become invalid."
-msgstr "El momento en el que las credenciales AWS se vuelven inválidas."
+msgstr "El momento en el que las credenciales AWS dejan de ser válidas."
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__restricted_data_token_expiry
 msgid "The moment at which the Restricted Data Token becomes invalid."
 msgstr ""
-"El momento en el que el token de datos restringidos se vuelve inválido."
+"El momento en el que el token de datos restringidos deja de ser válido."
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__access_token_expiry
@@ -1593,4 +1593,4 @@ msgstr "[%s] Costos por la envoltura de regalo para %s"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "e.g. American Market"
-msgstr "p. ej., mercado estadounidense"
+msgstr "Por ejemplo, Mercado estadounidense"

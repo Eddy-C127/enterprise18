@@ -361,9 +361,8 @@ msgid ""
 "Actions may trigger specific behavior like opening calendar view or "
 "automatically mark as done when a document is uploaded"
 msgstr ""
-"Las acciones pueden desencadenar comportamientos específicos como abrir la "
-"vista de calendario o marcar automáticamente como hecho cuando un documento "
-"es subido"
+"Las acciones pueden activar comportamientos específicos, como abrir la vista"
+" de calendario o marcar automáticamente como hecha al subir un documento"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_mail_activity
@@ -3622,6 +3621,13 @@ msgstr ""
 #, python-format
 msgid "This report only displays the data of the active company."
 msgstr "Este informe solo muestra los datos de la empresa activa."
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "This subformula references an unknown expression: %s"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python

@@ -19,6 +19,7 @@
 # Martin Trigaux, 2023
 # Abbas Ebadian, 2024
 # pfp pfp <pfpour@yahoo.com>, 2024
+# Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -26,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-13 09:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: pfp pfp <pfpour@yahoo.com>, 2024\n"
+"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +40,7 @@ msgstr ""
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid " (%s of %s)"
-msgstr ""
+msgstr "(%s از %s)"
 
 #. module: account_asset
 #. odoo-python
@@ -71,39 +72,40 @@ msgid ""
 "%s Future entries will be recomputed to depreciate the asset following the "
 "changes."
 msgstr ""
+"%sاسناد آینده برای تعیین استهلاک دارایی پس از تغییرات دوباره محاسبه می‌شوند."
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 #, python-format
 msgid "%s m"
-msgstr ""
+msgstr "%s m"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 #, python-format
 msgid "%s y"
-msgstr ""
+msgstr "%s y"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "%s: Depreciation"
-msgstr ""
+msgstr "%s: استهلاک"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "(incl."
-msgstr ""
+msgstr "(incl."
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "A depreciation entry will be posted on and including the date %s."
-msgstr ""
+msgstr "یک سند استهلاک در تاریخ مشخص شده ثبت خواهد شد %s."
 
 #. module: account_asset
 #. odoo-python
@@ -114,6 +116,8 @@ msgid ""
 "Future entries will be recomputed to depreciate the asset following the "
 "changes."
 msgstr ""
+"یک سند استعهلاک در تاریخ مشخص شده ثبت خواهد شد %s. <br/> %s اسناد آینده برای"
+" تعیین استهلاک دارایی پس از تغییرات دوباره محاسبه خواهند شد."
 
 #. module: account_asset
 #. odoo-python
@@ -123,6 +127,8 @@ msgid ""
 "A depreciation entry will be posted on and including the date %s.<br/> A "
 "disposal entry will be posted on the %s account <b>%s</b>."
 msgstr ""
+"یک سند واگذاربی در تاریخ مشخص شده ثبت خواهد شد%s. <br/> یک سند واگذاری در %s"
+" حساب ثبت خواهد شد <b></b>.%s"
 
 #. module: account_asset
 #. odoo-python
@@ -133,34 +139,36 @@ msgid ""
 "second entry will neutralize the original income and post the  outcome of "
 "this sale on account <b>%s</b>."
 msgstr ""
+"یگ سند استهلاک در تاریخ مشخص شده ثبت خواهد شد%s. <br/> سند دوم درآمد اولیه "
+"را خنثی کرده و نتیجه‌ی این فروش را در حساب ثبت می‌کند<b></b>%s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "A document linked to %s has been deleted: %s"
-msgstr ""
+msgstr "سندی که با %s در ارتباط بوده حذف شده است: %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "A document linked to this move has been deleted: %s"
-msgstr ""
+msgstr "یک سند مرتبط با این سند حسابداری حذف شده است: %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "A gross increase has been created: "
-msgstr ""
+msgstr "یک افزایش ناخالص ایجاد شده است:"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "A non deductible tax value of %s was added to %s's initial value of %s"
-msgstr ""
+msgstr "یک مقدار مالیات قابل کسر %s به مقدار اولیه %s از %s اضافه شد."
 
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_account
@@ -319,7 +327,7 @@ msgstr "یک دارایی برای این انتقال ایجاد شده است:
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "An asset will be created for the value increase of the asset. <br/>"
-msgstr ""
+msgstr "یک دارایی برای افزایش ارزش دارایی ثبت خواهد شد. <br/>"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__analytic_distribution
@@ -368,12 +376,12 @@ msgstr "حساب دارایی"
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Asset Cancelled"
-msgstr ""
+msgstr "دارایی لغو شد"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_asset_counterpart_id
 msgid "Asset Counterpart Account"
-msgstr ""
+msgstr "حساب دارایی همتا"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_id_display_name
@@ -385,7 +393,7 @@ msgstr "نام نمایشی شناسه دارایی"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_lifetime_days
 msgid "Asset Lifetime Days"
-msgstr ""
+msgstr "عمر سرمایه"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_account__asset_model
@@ -416,7 +424,7 @@ msgstr "نام دارایی"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_paused_days
 msgid "Asset Paused Days"
-msgstr ""
+msgstr "تعداد روزهای توقف دارایی "
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_value_change
@@ -442,35 +450,35 @@ msgstr "دارایی ایجاد شده"
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Asset created from invoice: %s"
-msgstr ""
+msgstr "دارایی ایجاد شده از فاکتور: %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Asset disposed. %s"
-msgstr ""
+msgstr "دارایی واگذار شده. %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Asset paused. %s"
-msgstr ""
+msgstr "سرمایه‌ی متوقف شده. %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Asset sold. %s"
-msgstr ""
+msgstr "سرمایه‌ی فروخته شده. %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "Asset unpaused. %s"
-msgstr ""
+msgstr "مسئول گزارشات گمرکی دارایی. %s"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_move_form_asset_inherit
@@ -498,7 +506,7 @@ msgstr "دارایی ها"
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_asset_report_handler
 msgid "Assets Report Custom Handler"
-msgstr ""
+msgstr "مسئول گزارشات گمرکی دارایی‌ها"
 
 #. module: account_asset
 #: model:ir.ui.menu,name:account_asset.menu_finance_config_assets
@@ -523,6 +531,8 @@ msgid ""
 "Atleast one asset (%s) couldn't be set as running because it lacks any "
 "required information"
 msgstr ""
+"حداقل یک دارایی (%s) را نمی‌توان به عنوان دارایی جاری مشخص کرد زیرا فاقد "
+"هرگونه اطلاعات موردنیاز است"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_attachment_count
@@ -542,7 +552,7 @@ msgstr "اتوماسیون"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__prorata_computation_type__daily_computation
 msgid "Based on days per period"
-msgstr ""
+msgstr "براساس روزهای هر دوره"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -570,7 +580,7 @@ msgstr "لغو"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Cancel Asset"
-msgstr ""
+msgstr "لغو دارایی"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__cancelled
@@ -597,6 +607,10 @@ msgid ""
 "  * Declining: Calculated on basis of: Residual Value * Declining Factor\n"
 "  * Declining then Straight Line: Like Declining but with a minimum depreciation value equal to the straight line value."
 msgstr ""
+"انتخاب روش مورد استفاده برای محاسبه‌ی مبلغ سطرهای استهلاک.\n"
+"سطر مستقیم: محاسبه شده براساس: ارزش ناخالص/ مدت\n"
+"سطر نزولی: محاسبه شده بر اساس: ارزش باقی‌مانده ضریب تنزل\n"
+"سطر نزولی سپس مستقیم: مانند سطر نزولی اما با حداقل مقدار استهلاک برابر با ارزش سطر مستقیم."
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__close
@@ -635,14 +649,14 @@ msgstr "تایید کردن"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__prorata_computation_type__constant_periods
 msgid "Constant Periods"
-msgstr ""
+msgstr "دوره‌های ثابت"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__count_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_move__count_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__count_asset
 msgid "Count Asset"
-msgstr ""
+msgstr "مقدار دارایی"
 
 #. module: account_asset
 #: model:ir.actions.server,name:account_asset.action_account_aml_to_asset
@@ -722,7 +736,7 @@ msgstr "تاریخ"
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_depreciation_beginning_date
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_depreciation_beginning_date
 msgid "Date of the beginning of the depreciation"
-msgstr ""
+msgstr "تاریخ شروع استهلاک"
 
 #. module: account_asset
 #. odoo-python
@@ -818,7 +832,7 @@ msgstr "برنامه ریزی استهلاک"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "Depreciation board modified %s"
-msgstr ""
+msgstr "استهلاک اصلاح شده%s"
 
 #. module: account_asset
 #. odoo-python
@@ -889,7 +903,7 @@ msgstr "پیش‌نویس"
 #: model:ir.model.fields,field_description:account_asset.field_account_move__draft_asset_exists
 #: model:ir.model.fields,field_description:account_asset.field_account_payment__draft_asset_exists
 msgid "Draft Asset Exists"
-msgstr ""
+msgstr "پیشنویس دارایی موجود است"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__method_number
@@ -979,7 +993,7 @@ msgstr "افزایش ناخالص"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_asset_id
 msgid "Gross Increase Account"
-msgstr ""
+msgstr "حساب افزایش ناخالص"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__gross_increase_value
@@ -1113,6 +1127,8 @@ msgid ""
 "Journal Items of %(account)s should have a label in order to generate an "
 "asset"
 msgstr ""
+"آیتم‌های دفتر روزنامه‌ی %(account)s باید دارای برچسب باشند تا یک دارایی "
+"ایجاد شود"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__write_uid
@@ -1260,13 +1276,13 @@ msgstr "خیر"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__prorata_computation_type__none
 msgid "No Prorata"
-msgstr ""
+msgstr "بدون سرشکن"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__non_deductible_tax_value
 #: model:ir.model.fields,field_description:account_asset.field_account_move_line__non_deductible_tax_value
 msgid "Non Deductible Tax Value"
-msgstr ""
+msgstr "مالیات قابل کسر"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__salvage_value
@@ -1373,7 +1389,7 @@ msgstr "مکث"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__paused_prorata_date
 msgid "Paused Prorata Date"
-msgstr ""
+msgstr "تاریخ توقف سرشکن"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
@@ -1388,7 +1404,7 @@ msgstr "ثبت سند های ارسال شده"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__prorata_date
 msgid "Prorata Date"
-msgstr ""
+msgstr "تاریخ سرشکن"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__rating_ids
@@ -1406,12 +1422,12 @@ msgstr "بازنگری مجدد"
 #: model:ir.model.fields,field_description:account_asset.field_account_move_line__asset_ids
 #: model_terms:ir.ui.view,arch_db:account_asset.view_move_line_form_asset_inherit
 msgid "Related Assets"
-msgstr ""
+msgstr "دارایی‌های مربوطه"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__related_purchase_value
 msgid "Related Purchase Value"
-msgstr ""
+msgstr "ارزش خرید مربوطه"
 
 #. module: account_asset
 #. odoo-python
@@ -1468,7 +1484,7 @@ msgstr "فروش"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Save as Model"
-msgstr ""
+msgstr "ذخیره به عنوان نمونه"
 
 #. module: account_asset
 #. odoo-python
@@ -1510,7 +1526,7 @@ msgstr "تمام رکوردهایی که تاریخ اقدام بعدی آن ق�
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Some fields are missing %s"
-msgstr ""
+msgstr "برخی فیلدها موجود نیستند %s"
 
 #. module: account_asset
 #. odoo-python
@@ -1560,6 +1576,9 @@ msgid ""
 "account %(dep_acc)s has been debited by %(dep_delta)s. This corresponds to "
 "%(move_count)s cancelled %(word)s:"
 msgstr ""
+"حساب %(exp_acc)s با %(exp_delta)s اعتبارسنجی شده است در حالی‌که حساب "
+"%(dep_acc)s در حساب بدهی %(dep_delta)s قرار می‌گیرد. این موضوع مربوط به "
+"%(word)s لغو شده‌ی %(move_count)s است.  "
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_period
@@ -1575,6 +1594,8 @@ msgid ""
 "The amount you have entered (%s) does not match the Related Purchase's value"
 " (%s). Please make sure this is what you want."
 msgstr ""
+"مبلغی که وارد کرده‌اید (%s) با ارزش خرید مربوطه (%s) همخوانی ندارد. لطفاً "
+"اطمینان حاصل کنید که این مبلغ همانی است که می‌خواهید."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__asset_id
@@ -1584,7 +1605,7 @@ msgstr "دارایی که باید تغییر داده شود توسط این و
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__children_ids
 msgid "The children are the gains in value of this asset"
-msgstr ""
+msgstr "زیر سطرها سود ارزش این دارایی هستند"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__invoice_ids
@@ -1618,6 +1639,8 @@ msgid ""
 "There are unposted depreciations prior to the selected operation date, "
 "please deal with them first."
 msgstr ""
+"چند استهلاک ثبت نشده قبل از تاریخ انتخاب شده برای عملیات وجود دارند، لطفاً "
+"به اولین آیتم بپردازید."
 
 #. module: account_asset
 #. odoo-javascript
@@ -1685,7 +1708,7 @@ msgstr "افزایش ارزش برای: %(asset)s"
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Warning for the Original Value of %s"
-msgstr ""
+msgstr "هشدار برای ارزش اولیه‌ی %s"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__website_message_ids
@@ -1706,6 +1729,11 @@ msgid ""
 "You can manually close an asset when the depreciation is over.\n"
 "By cancelling an asset, all depreciation entries will be reversed"
 msgstr ""
+"زمانی که یک دارایی ایجاد می‌شود، وضعیت آن پیشنویس است.\n"
+"اگر دارایی تأیید شود، وضعیت به «جاری» تبدیل شده و سطرهای استهلاک را می‌توان در حسابداری ثبت کرد.\n"
+"زمانی که می‌خواهید استهلاک دارایی را برای مدتی متوقف کنید، وضعیت «توقف» را می‌توان به صورت دستی تعیین کرد.\n"
+"زمانی که استهلاک به پایان برسد شما می‌توانید به صورت دستی یک دارایی را ببندید.\n"
+"با لغو یک دارایی، تمام سندهای استهلاک معکوس می‌شوند"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method_period__12
@@ -1721,13 +1749,15 @@ msgid ""
 "You can't post an entry related to a draft asset. Please post the asset "
 "before."
 msgstr ""
+"شما نمی‌توانید یک سند مرتبط با یک دارایی پیشنویس را ثبت کنید. لطفاً دارایی "
+"را از قبل ثبت کنید."
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "You can't re-evaluate the asset before the lock date."
-msgstr ""
+msgstr "شما نمی‌توانید دارایی را پیش از تاریخ بستن مجدد ارزیابی کنید."
 
 #. module: account_asset
 #. odoo-python
@@ -1775,13 +1805,15 @@ msgid ""
 "You cannot delete an asset linked to posted entries.\n"
 "You should either confirm the asset, then, sell or dispose of it, or cancel the linked journal entries."
 msgstr ""
+"شما نمی‌توانید یک دارایی مرتبط با سندهای ثبت شده را حذف کنید. \n"
+"شما باید دارایی را تأیید کنید، بفروشید یا آن را واگذار کنید و یا اینکه سندهای دفتر روزنامه‌ مربوطه را لغو کنید."
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot dispose of an asset before the lock date."
-msgstr ""
+msgstr "شما نمی‌توانید پیش از تاریخ بستن حساب، دارایی را واگذار کنید."
 
 #. module: account_asset
 #. odoo-python
@@ -1789,6 +1821,7 @@ msgstr ""
 #, python-format
 msgid "You cannot reset to draft an entry related to a posted asset"
 msgstr ""
+"شما نمی‌توانید سند مرتبط با یک دارایی ثبت شده را به حالت پیشنویس بازگردانید"
 
 #. module: account_asset
 #. odoo-python
@@ -1796,6 +1829,8 @@ msgstr ""
 #, python-format
 msgid "You cannot resume at a date equal to or before the pause date"
 msgstr ""
+"شما نمی‌توانید در همان تاریخ توقف دارایی یا پیش از آن، روند را مجدد آغاز "
+"کنید"
 
 #. module: account_asset
 #. odoo-python
@@ -1803,6 +1838,7 @@ msgstr ""
 #, python-format
 msgid "You cannot select the same account as the Depreciation Account"
 msgstr ""
+"شما نمی‌توانید همان حساب استهلاک را به عنوان حساب موردنظر خود انتخاب کنید"
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_balance
@@ -1813,18 +1849,18 @@ msgstr "ارزش دفتری"
 #: model:account.report.column,name:account_asset.assets_report_date_from
 #: model:account.report.column,name:account_asset.assets_report_depre_date_from
 msgid "date from"
-msgstr ""
+msgstr "از تاریخ"
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_assets_date_to
 #: model:account.report.column,name:account_asset.assets_report_depre_date_to
 msgid "date to"
-msgstr ""
+msgstr "تا تاریخ"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "depreciable)"
-msgstr ""
+msgstr "قابل استهلاک)"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form

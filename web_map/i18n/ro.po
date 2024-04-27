@@ -1,30 +1,31 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_map
-#
+# 
 # Translators:
-# sharkutz <sharkutz4life@yahoo.com>, 2022
-# Dorin Hongu <dhongu@gmail.com>, 2022
-# Martin Trigaux, 2022
-# Foldi Robert <foldirobert@nexterp.ro>, 2022
-# Hongu Cosmin <cosmin513@gmail.com>, 2022
-#
+# sharkutz <sharkutz4life@yahoo.com>, 2024
+# Dorin Hongu <dhongu@gmail.com>, 2024
+# Hongu Cosmin <cosmin513@gmail.com>, 2024
+# Martin Trigaux, 2024
+# Foldi Robert <foldirobert@nexterp.ro>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Hongu Cosmin <cosmin513@gmail.com>, 2022\n"
+"POT-Creation-Date: 2024-01-05 13:47+0000\n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Foldi Robert <foldirobert@nexterp.ro>, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #. module: web_map
 #. odoo-javascript
+#: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid ""
@@ -47,6 +48,7 @@ msgstr "Vizualizare Acțiune Fereastră"
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.js:0
+#: code:addons/web_map/static/src/map_view/map_renderer.js:0
 #, python-format
 msgid "Address"
 msgstr "Adresa"
@@ -58,6 +60,7 @@ msgstr "Baza"
 
 #. module: web_map
 #. odoo-javascript
+#: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid "Close"
@@ -157,7 +160,7 @@ msgstr "Fără"
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid "Open"
-msgstr ""
+msgstr "Afișare"
 
 #. module: web_map
 #. odoo-javascript
@@ -202,9 +205,14 @@ msgstr "Intrarea simbolică nu este validă"
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
+#: code:addons/web_map/static/src/map_view/map_model.js:0
+#: code:addons/web_map/static/src/map_view/map_model.js:0
 #, python-format
-msgid "The view has switched to another provider but functionalities will be limited"
-msgstr "Vizualizarea a trecut la alt furnizor, dar funcționalitățile vor fi limitate"
+msgid ""
+"The view has switched to another provider but functionalities will be "
+"limited"
+msgstr ""
+"Vizualizarea a trecut la alt furnizor, dar funcționalitățile vor fi limitate"
 
 #. module: web_map
 #. odoo-python
@@ -217,7 +225,9 @@ msgstr "Acest rezultat nu este autorizat"
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
-msgid "To get routing on your map, you first need to set up your MapBox token. It's free."
+msgid ""
+"To get routing on your map, you first need to set up your MapBox token. It's"
+" free."
 msgstr ""
 
 #. module: web_map
@@ -309,4 +319,6 @@ msgstr "Da"
 #: code:addons/web_map/models/models.py:0
 #, python-format
 msgid "You need to set a Contact field on this model to use the Map View"
-msgstr "Trebuie să setați un câmp de contact pe acest model pentru a utiliza vizualizarea hartă"
+msgstr ""
+"Trebuie să setați un câmp de contact pe acest model pentru a utiliza "
+"vizualizarea hartă"

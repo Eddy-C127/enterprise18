@@ -1,27 +1,27 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* social_facebook
-#
+# 
 # Translators:
-# Cozmin Candea <office@terrabit.ro>, 2022
-# Hongu Cosmin <cosmin513@gmail.com>, 2022
-# Martin Trigaux, 2022
-# Dan Stoica <danila@terrabit.ro>, 2022
-# Foldi Robert <foldirobert@nexterp.ro>, 2022
-# Dorin Hongu <dhongu@gmail.com>, 2023
-#
+# Cozmin Candea <office@terrabit.ro>, 2024
+# Martin Trigaux, 2024
+# Hongu Cosmin <cosmin513@gmail.com>, 2024
+# Dorin Hongu <dhongu@gmail.com>, 2024
+# Dan Stoica <danila@terrabit.ro>, 2024
+# Foldi Robert <foldirobert@nexterp.ro>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Dorin Hongu <dhongu@gmail.com>, 2023\n"
+"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Foldi Robert <foldirobert@nexterp.ro>, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #. module: social_facebook
@@ -71,7 +71,9 @@ msgstr "Imagine Autor"
 
 #. module: social_facebook
 #: model:ir.model.fields,help:social_facebook.field_res_config_settings__facebook_use_own_account
-msgid "Check this if you want to use your personal Facebook Developer Account instead of the provided one."
+msgid ""
+"Check this if you want to use your personal Facebook Developer Account "
+"instead of the provided one."
 msgstr ""
 
 #. module: social_facebook
@@ -142,8 +144,12 @@ msgstr ""
 
 #. module: social_facebook
 #: model:ir.model.fields,help:social_facebook.field_social_account__facebook_account_id
-msgid "Facebook Page ID provided by the Facebook API, this should never be set manually."
-msgstr "ID-ul paginii Facebook furnizat de API-ul Facebook, acesta nu trebuie setat niciodată manual."
+msgid ""
+"Facebook Page ID provided by the Facebook API, this should never be set "
+"manually."
+msgstr ""
+"ID-ul paginii Facebook furnizat de API-ul Facebook, acesta nu trebuie setat "
+"niciodată manual."
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_post_id
@@ -161,7 +167,9 @@ msgstr "Previzualizare Facebook"
 #: code:addons/social_facebook/controllers/main.py:0
 #, python-format
 msgid "Facebook did not provide a valid access token or it may have expired."
-msgstr "Facebook nu a furnizat un jeton de acces valid sau este posibil să fi expirat."
+msgstr ""
+"Facebook nu a furnizat un jeton de acces valid sau este posibil să fi "
+"expirat."
 
 #. module: social_facebook
 #. odoo-python
@@ -181,7 +189,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_likes_count
 #, python-format
 msgid "Likes"
-msgstr "Likes"
+msgstr "Aprecieri"
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_media__media_type
@@ -207,8 +215,12 @@ msgstr "Postare Imagine"
 #. odoo-python
 #: code:addons/social_facebook/models/social_stream_post.py:0
 #, python-format
-msgid "Post not found. It could be because the post has been deleted on the Social Platform."
-msgstr "Postarea nu a fost găsită. S-ar putea să fie pentru că postarea a fost ștearsă pe Platforma socială."
+msgid ""
+"Post not found. It could be because the post has been deleted on the Social "
+"Platform."
+msgstr ""
+"Postarea nu a fost găsită. S-ar putea să fie pentru că postarea a fost "
+"ștearsă pe Platforma socială."
 
 #. module: social_facebook
 #: model_terms:ir.ui.view,arch_db:social_facebook.facebook_preview
@@ -281,6 +293,7 @@ msgstr "Neautorizat. Vă rugăm să vă contactați administratorul."
 #. module: social_facebook
 #. odoo-python
 #: code:addons/social_facebook/models/social_stream_post.py:0
+#: code:addons/social_facebook/models/social_stream_post.py:0
 #, python-format
 msgid "Unknown"
 msgstr "Necunoscut"
@@ -292,8 +305,12 @@ msgstr "Folosiți propriul cont de Facebook"
 
 #. module: social_facebook
 #: model:ir.model.fields,help:social_facebook.field_social_media__media_type
-msgid "Used to make comparisons when we need to restrict some features to a specific media ('facebook', 'twitter', ...)."
-msgstr "Folosit pentru a face comparații atunci când trebuie să restricționăm anumite caracteristici la un anumit suport („facebook”, „twitter”, ...)."
+msgid ""
+"Used to make comparisons when we need to restrict some features to a "
+"specific media ('facebook', 'twitter', ...)."
+msgstr ""
+"Folosit pentru a face comparații atunci când trebuie să restricționăm "
+"anumite caracteristici la un anumit suport („facebook”, „twitter”, ...)."
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_user_likes
@@ -313,7 +330,9 @@ msgstr "Vizualizări"
 #: code:addons/social_facebook/models/social_live_post.py:0
 #: code:addons/social_facebook/models/social_post.py:0
 #, python-format
-msgid "We could not upload your image, try reducing its size and posting it again (error: %s)."
+msgid ""
+"We could not upload your image, try reducing its size and posting it again "
+"(error: %s)."
 msgstr ""
 
 #. module: social_facebook
@@ -321,7 +340,9 @@ msgstr ""
 #: code:addons/social_facebook/models/social_media.py:0
 #, python-format
 msgid "You don't have an active subscription. Please buy one here: %s"
-msgstr "Nu aveți un abonament/subscripție activă. Vă rugăm să achiziționați una aici:%s"
+msgstr ""
+"Nu aveți un abonament/subscripție activă. Vă rugăm să achiziționați una "
+"aici:%s"
 
 #. module: social_facebook
 #. odoo-python
