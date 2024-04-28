@@ -68,9 +68,10 @@ class AccountOnlineAccount(models.Model):
             if len(online_account.journal_ids) > 1:
                 raise ValidationError(_('You cannot have two journals associated with the same Online Account.'))
 
-    def _assign_journal(self):
+    def _assign_journal(self, swift_code=False):
         """
         This method allows to link an online account to a journal with the following heuristics
+        Also, Create and assign bank & swift/bic code if odoofin returns one
         If a journal is present in the context (active_model = account.journal and active_id), we assume that
         We started the journey from a journal and we assign the online_account to that particular journal.
         Otherwise we will create a new journal on the fly and assign the online_account to it.
@@ -124,6 +125,16 @@ class AccountOnlineAccount(models.Model):
         if bnk_stmt_line:
             last_sync = bnk_stmt_line.date
         self.last_sync = last_sync
+
+        if swift_code:
+            if self.journal_ids.bank_account_id.bank_id:
+                if not self.journal_ids.bank_account_id.bank_id.bic:
+                    self.journal_ids.bank_account_id.bank_id.bic = swift_code
+            else:
+                bank_rec = self.env['res.bank'].search([('bic', '=', swift_code)], limit=1)
+                if not bank_rec:
+                    bank_rec = self.env['res.bank'].create({'name': self.account_online_link_id.display_name, 'bic': swift_code})
+                self.journal_ids.bank_account_id.bank_id = bank_rec.id
 
     def _refresh(self):
         """
@@ -335,7 +346,7 @@ class AccountOnlineLink(models.Model):
             'views': [[view_id, 'form']]
         }
 
-    def _link_accounts_to_journals_action(self):
+    def _link_accounts_to_journals_action(self, swift_code):
         """
         This method opens a wizard allowing the user to link
         his bank accounts with new or existing journal.
@@ -353,7 +364,7 @@ class AccountOnlineLink(models.Model):
             "views": [[False, "form"]],
             "target": "new",
             "res_id": account_bank_selection_wizard.id,
-            "context": self.env.context,
+            'context': dict(self.env.context, swift_code=swift_code),
         }
 
     @api.model
@@ -638,6 +649,7 @@ class AccountOnlineLink(models.Model):
                 matching_account.unlink()
         accounts = {}
         data = {}
+        swift_code = False
         while True:
             # While this is kind of a bad practice to do, it can happen that provider_data changes between
             # 2 calls, the reason is that that field contains the encrypted information needed to access the provider
@@ -658,14 +670,15 @@ class AccountOnlineLink(models.Model):
                         currency_id.active = True
                     acc['currency_id'] = currency_id.id
                 accounts[str(acc.get('online_identifier'))] = acc
+            swift_code = resp_json.get('swift_code')
             if not resp_json.get('next_data'):
                 break
             data['next_data'] = resp_json.get('next_data')
 
         if accounts:
             self.has_unlinked_accounts = True
-            return self.env['account.online.account'].create(accounts.values())
-        return False
+            return self.env['account.online.account'].create(accounts.values()), swift_code
+        return False, False
 
     def _pre_check_fetch_transactions(self):
         self.ensure_one()
@@ -890,9 +903,9 @@ class AccountOnlineLink(models.Model):
             online_link = self.search([('client_id', '=', client_id)], limit=1)
             if not online_link:
                 return {'type': 'ir.actions.client', 'tag': 'reload'}
-            new_account = online_link._fetch_accounts(online_identifier=online_identifier)
+            new_account, swift_code = online_link._fetch_accounts(online_identifier=online_identifier)
             if new_account:
-                new_account._assign_journal()
+                new_account._assign_journal(swift_code)
                 action = online_link._fetch_transactions(accounts=new_account)
                 return action or self.env['ir.actions.act_window']._for_xml_id('account.open_account_journal_dashboard_kanban')
             raise UserError(_("The consent for the selected account has expired."))
@@ -918,11 +931,11 @@ class AccountOnlineLink(models.Model):
     def _success_link(self):
         self.ensure_one()
         self._log_information(state='connected')
-        account_online_accounts = self._fetch_accounts()
+        account_online_accounts, swift_code = self._fetch_accounts()
         if account_online_accounts and len(account_online_accounts) == 1:
-            account_online_accounts._assign_journal()
+            account_online_accounts._assign_journal(swift_code)
             return self._fetch_transactions(accounts=account_online_accounts)
-        return self._link_accounts_to_journals_action()
+        return self._link_accounts_to_journals_action(swift_code)
 
     def _success_updateCredentials(self):
         self.ensure_one()
