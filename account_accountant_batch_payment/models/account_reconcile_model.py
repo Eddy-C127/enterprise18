@@ -41,7 +41,7 @@ class AccountReconcileModel(models.Model):
             where_params.append(token)
 
         self._cr.execute(
-            f'''
+            rf'''
                 WITH account_batch_payment_name AS (
                     SELECT DISTINCT
                         batch.id,

@@ -96,7 +96,7 @@ class DiscussChannel(models.Model):
                 msg = _('Search helpdesk tickets by typing <b>/search_tickets <i>keyword</i></b>')
             else:
                 list_value = key[1:]
-                Keywords = re.findall('\w+', ' '.join(list_value))
+                Keywords = re.findall(r'\w+', ' '.join(list_value))
                 HelpdeskTag = self.env['helpdesk.tag']
                 for Keyword in Keywords:
                     HelpdeskTag |= HelpdeskTag.search([('name', 'ilike', Keyword)])

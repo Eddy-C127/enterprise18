@@ -23,7 +23,7 @@ class AccountJournal(models.Model):
         """ aba_fic must be 3 characters long, uppercase letters or digits.
         """
         for record in self:
-            if record.aba_fic and not re.match("^(\d|[A-Z]){3}$", record.aba_fic):
+            if record.aba_fic and not re.match(r"^(\d|[A-Z]){3}$", record.aba_fic):
                 raise ValidationError(_('Financial Institution Code is not valid (expected format is "XXX"). Please check with your Financial Institution.'))
 
     @api.constrains('aba_user_spec')
@@ -37,7 +37,7 @@ class AccountJournal(models.Model):
         """ aba_user_number must consist of 6 digits.
         """
         for record in self:
-            if record.aba_user_number and not re.match("^\d{6}$", record.aba_user_number):
+            if record.aba_user_number and not re.match(r"^\d{6}$", record.aba_user_number):
                 raise ValidationError(_('APCA Identification Number is not valid (expected format is "NNNNNN", only digits). Please check with your Financial Institution'))
 
     def _default_outbound_payment_methods(self):

@@ -38,7 +38,7 @@ ACTIONS_PYTHON = {
 
 ACTIONS_SQL = {
     'trim_all': ('<>', "REPLACE({}, ' ', '')"),
-    'trim_superfluous': ('<>', "TRIM(REGEXP_REPLACE({}, '\s+', ' ', 'g'))"),
+    'trim_superfluous': ('<>', r"TRIM(REGEXP_REPLACE({}, '\s+', ' ', 'g'))"),
     'case_first': ('<>', 'INITCAP({})'),
     'case_upper': ('<>', 'UPPER({})'),
     'case_lower': ('<>', 'LOWER({})'),

@@ -359,7 +359,7 @@ class AccountJournal(models.Model):
         val_Ccy = currency_id and currency_id.name or journal_id.company_id.currency_id.name
         val_InstdAmt = float_repr(float_round(payment['amount'], 2), 2)
         max_digits = val_Ccy == 'EUR' and 11 or 15
-        if len(re.sub('\.', '', val_InstdAmt)) > max_digits:
+        if len(re.sub(r'\.', '', val_InstdAmt)) > max_digits:
             raise ValidationError(_(
                 "The amount of the payment '%(payment)s' is too high. The maximum permitted is %(limit)s.",
                 payment=payment['name'],
@@ -556,7 +556,7 @@ class AccountJournal(models.Model):
         iid_start_index = 4
         iid_end_index = 8
         iid = iban[iid_start_index : iid_end_index+1]
-        return re.match('\d+', iid) \
+        return re.match(r'\d+', iid) \
             and 30000 <= int(iid) <= 31999 # Those values for iid are reserved for QR-IBANs only
 
     def _get_cleaned_bic_code(self, bank_account):

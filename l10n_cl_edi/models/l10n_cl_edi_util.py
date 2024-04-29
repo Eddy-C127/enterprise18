@@ -182,7 +182,7 @@ class L10nClEdiUtilMixin(models.AbstractModel):
         Sign the message using the given private key and sha1 message digest.
         """
         private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, private_key)
-        signature = crypto.sign(private_key, re.sub(b'\n\s*', b'', message), 'sha1')
+        signature = crypto.sign(private_key, re.sub(b'\n\\s*', b'', message), 'sha1')
         return base64.b64encode(signature).decode()
 
     def _xml_validator(self, xml_to_validate, validation_type, is_doc_type_voucher=False):

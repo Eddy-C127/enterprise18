@@ -38,8 +38,8 @@ def sanitize_for_xmlid(s):
     s = ustr(s)
     uni = unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode('ascii')
 
-    slug_str = re.sub('[\W]', ' ', uni).strip().lower()
-    slug_str = re.sub('[-\s]+', '_', slug_str)
+    slug_str = re.sub(r'[\W]', ' ', uni).strip().lower()
+    slug_str = re.sub(r'[-\s]+', '_', slug_str)
     return slug_str[:20]
 
 

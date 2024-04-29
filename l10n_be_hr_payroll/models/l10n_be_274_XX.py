@@ -432,7 +432,7 @@ class L10nBe274XX(models.Model):
             "Date de sortie",
             "Certification",
             "Fonction",
-            "Recherche Scientifique \%",
+            r"Recherche Scientifique \%",
             "Montant Imposable",
             "Dispense de Vers. Recherche Scientifique",
         ]
