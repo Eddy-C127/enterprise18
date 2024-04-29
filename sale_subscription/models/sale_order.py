@@ -625,7 +625,10 @@ class SaleOrder(models.Model):
     def _action_cancel(self):
         for order in self:
             if order.subscription_state == '7_upsell':
-                cancel_message_body = _("The upsell %s has been cancelled.", order._get_html_link())
+                if order.state in ['sale', 'done']:
+                    cancel_message_body = _("The upsell %s has been cancelled. Please recheck the quantities as they may have been affected by this cancellation.", order._get_html_link())
+                else:
+                    cancel_message_body = _("The upsell %s has been cancelled.", order._get_html_link())
                 order.subscription_id.message_post(body=cancel_message_body)
             elif order.subscription_state == '2_renewal':
                 cancel_message_body = _("The renewal %s has been cancelled.", order._get_html_link())
