@@ -376,7 +376,7 @@ class HrContractSalary(main.HrContractSalary):
         res = super()._get_new_contract_values(contract, employee, benefits, offer)
         fields_to_copy = [
             'has_laptop', 'time_credit', 'work_time_rate',
-            'rd_percentage', 'no_onss', 'no_withholding_taxes'
+            'rd_percentage', 'no_onss', 'no_withholding_taxes', 'meal_voucher_amount',
         ]
         for field_to_copy in fields_to_copy:
             if field_to_copy in contract:
