@@ -3109,8 +3109,6 @@ class AccountReport(models.Model):
 
         This engine does not support any subformula.
         """
-        if current_groupby == 'dudu':
-            current_groupby = 'move_id'
         self._check_groupby_fields((next_groupby.split(',') if next_groupby else []) + ([current_groupby] if current_groupby else []))
         all_expressions = self.env['account.report.expression']
         for expressions in formulas_dict.values():
