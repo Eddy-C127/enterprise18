@@ -344,7 +344,7 @@ class Picking(models.Model):
         cfdi_values['domicilio'] = {
             'calle': partner.street,
             'codigo_postal': partner.zip,
-            'colonia': partner.l10n_mx_edi_colony_code,
+            'colonia': None,
             'estado': partner.state_id.code,
             'pais': partner.country_id.l10n_mx_edi_code,
             'municipio': None,

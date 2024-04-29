@@ -70,6 +70,7 @@ class Picking(models.Model):
         # EXTENDS 'l10n_mx_edi_stock'
         super()._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values, partner)
         cfdi_values['domicilio']['municipio'] = partner.city_id.l10n_mx_edi_code or partner.city
+        cfdi_values['domicilio']['colonia'] = partner.l10n_mx_edi_colony_code
 
     def _l10n_mx_edi_add_picking_cfdi_values(self, cfdi_values):
         # EXTENDS 'l10n_mx_edi_stock'
