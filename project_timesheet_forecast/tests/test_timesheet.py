@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details
-from datetime import datetime
+from datetime import date, datetime
 
 from odoo.addons.project_forecast.tests.common import TestCommonForecast
 
@@ -84,3 +84,21 @@ class TestPlanningTimesheet(TestCommonForecast):
                 groupby=["entry_date:month"], lazy=False
             )
             self.assertEqual((result[0]['planned_hours']), 40)
+
+    def test_compute_slot_effective_hours(self):
+        slot = self.env["planning.slot"].create({
+            'resource_id': self.employee_bert.resource_id.id,
+            'project_id': self.project_opera.id,
+            'start_datetime': datetime(2024, 1, 1, 8, 0, 0),
+            'end_datetime': datetime(2024, 1, 31, 17, 0, 0),
+        })
+        self.assertEqual(slot.effective_hours, 0)
+        self.env['account.analytic.line'].create({
+            'name': 'Test Timesheet',
+            'unit_amount': 2,
+            'project_id': self.project_opera.id,
+            'task_id': self.task_opera_place_new_chairs.id,
+            'employee_id': self.employee_bert.id,
+            'date': date(2024, 1, 15),
+        })
+        self.assertEqual(slot.effective_hours, 2)
