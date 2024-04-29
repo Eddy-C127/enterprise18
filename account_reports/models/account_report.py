@@ -5905,8 +5905,8 @@ class AccountReportLine(models.Model):
     def _validate_groupby(self):
         super()._validate_groupby()
         for report_line in self:
-            self.report_id._check_groupby_fields(report_line.user_groupby)
-            self.report_id._check_groupby_fields(report_line.groupby)
+            report_line.report_id._check_groupby_fields(report_line.user_groupby)
+            report_line.report_id._check_groupby_fields(report_line.groupby)
 
     def _expand_groupby(self, line_dict_id, groupby, options, offset=0, limit=None, load_one_more=False, unfold_all_batch_data=None):
         """ Expand function used to get the sublines of a groupby.
