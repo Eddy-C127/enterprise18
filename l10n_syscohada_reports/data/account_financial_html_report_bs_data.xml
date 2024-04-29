@@ -6,6 +6,8 @@
     <record id="account_financial_report_syscohada_bilan" model="account.report">
         <field name="name">Balance Sheet (SYSCOHADA)</field>
         <field name="root_report_id" ref="account_reports.balance_sheet"/>
+        <field name="availability_condition">coa_children</field>
+        <field name="chart_template">syscohada</field>
         <field name="filter_unfold_all" eval="True"/>
         <field name="filter_date_range" eval="False"/>
         <field name="filter_journals" eval="True"/>
