@@ -443,17 +443,6 @@ class AccountMove(models.Model):
         # EXTENDS 'account'
         super()._compute_need_cancel_request()
 
-    @api.depends('l10n_mx_edi_cfdi_state')
-    def _compute_show_reset_to_draft_button(self):
-        # EXTENDS 'account'
-        super()._compute_show_reset_to_draft_button()
-
-        # The request cancel has been made but you should not be able to reset the invoice to draft until you get the approval to cancel
-        # from the PAC.
-        for move in self:
-            if move.l10n_mx_edi_cfdi_state == 'sent':
-                move.show_reset_to_draft_button = False
-
     @api.depends('country_code')
     def _compute_amount_total_words(self):
         # EXTENDS 'account'
