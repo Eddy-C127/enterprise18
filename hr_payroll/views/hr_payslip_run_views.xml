@@ -67,10 +67,11 @@
         <field name="arch" type="xml">
             <form string="Payslips Batches" js_class="hr_payslip_batch_form">
             <header>
-                <button name="%(action_hr_payslip_by_employees)d" type="action" invisible="state != 'draft'" string="Generate Payslips" class="oe_highlight"/>
-                <widget name="add_payslips" string="Add Payslips" invisible="state not in ['draft', 'verify'] or payslip_count &gt; 0"/>
-                <button name="action_validate" type="object" string="Validate" invisible="state != 'verify'" class="oe_highlight" context="{'payslip_generate_pdf': True}"/>
-                <button string="Mark as paid" name="action_paid" type="object" invisible="state != 'close'" class="oe_highlight"/>
+                <button string="Generate Payslips" name="%(action_hr_payslip_by_employees)d" type="action" class="oe_highlight" invisible="state != 'draft'"/>
+                <widget string="Add Payslips" name="add_payslips" invisible="state not in ['draft', 'verify'] or payslip_count &gt; 0"/>
+                <button string="Validate" name="action_validate" type="object" class="oe_highlight" invisible="state != 'verify'" context="{'payslip_generate_pdf': True}"/>
+                <button string="Mark as paid" name="action_paid" type="object" class="oe_highlight" invisible="state != 'close'"/>
+                <button string="Create Payment Report" name="action_payment_report" type="object" invisible="state != 'close'"/>
                 <button string="Set to Draft" name="action_draft" type="object" invisible="state not in ('verify', 'close')"/>
                 <field name="state" widget="statusbar"/>
             </header>
@@ -93,6 +94,7 @@
                         <div class="o_row">
                             <field name="date_start" class="oe_inline o_hr_narrow_field" readonly="state != 'draft'"/> - <field name="date_end" class="oe_inline o_hr_narrow_field" readonly="state != 'draft'"/>
                         </div>
+                        <field name="payment_report" filename="payment_report_filename" invisible="not payment_report"/>
                     </group>
                     <group>
                         <field name="company_id" groups="base.group_multi_company"/>

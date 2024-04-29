@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import date, datetime
@@ -34,6 +33,12 @@ class HrPayslipRun(models.Model):
     )
     country_code = fields.Char(related='country_id.code', depends=['country_id'], readonly=True)
     currency_id = fields.Many2one(related="company_id.currency_id")
+    payment_report = fields.Binary(
+        string='Payment Report',
+        help="Export .csv file related to this batch",
+        readonly=True)
+    payment_report_filename = fields.Char(readonly=True)
+    payment_report_date = fields.Date(readonly=True)
 
     def _compute_payslip_count(self):
         for payslip_run in self:
@@ -57,6 +62,14 @@ class HrPayslipRun(models.Model):
     def action_close(self):
         if self._are_payslips_ready():
             self.write({'state' : 'close'})
+
+    def action_payment_report(self, export_format='csv'):
+        self.ensure_one()
+        self.env['hr.payroll.payment.report.wizard'].create({
+            'payslip_ids': self.slip_ids.ids,
+            'payslip_run_id': self.id,
+            'export_format': export_format
+        }).generate_payment_report()
 
     def action_paid(self):
         self.mapped('slip_ids').action_payslip_paid()

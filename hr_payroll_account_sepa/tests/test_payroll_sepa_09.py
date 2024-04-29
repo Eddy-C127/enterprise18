@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import base64
@@ -23,12 +22,17 @@ class TestPayrollSEPANewCreditTransfer(TestPayrollSEPACreditTransfer):
         payslip_employee.with_context(active_id=self.payslip_run.id).compute_sheet()
         self.payslip_run.action_validate()
         # make the SEPA payment.
-        self.payslip_run.mapped('slip_ids')._create_xml_file(self.bank_journal)
+        file = self.env['hr.payroll.payment.report.wizard'].create({
+            'payslip_ids': self.payslip_run.slip_ids.ids,
+            'payslip_run_id': self.payslip_run.id,
+            'export_format': 'sepa',
+            'journal_id': self.bank_journal.id,
+        })._create_sepa_binary()
 
-        self.assertTrue(self.payslip_run.sepa_export, 'SEPA payment has not been created!')
+        self.assertTrue(file, 'SEPA payment has not been created!')
 
         # verify the xml.
-        sct_doc = etree.fromstring(base64.b64decode(self.payslip_run.sepa_export))
+        sct_doc = etree.fromstring(base64.b64decode(file))
         self.assertTrue(xmlschema.validate(sct_doc), self.xmlschema.error_log.last_error)
 
         namespaces = {'ns': 'urn:iso:std:iso:20022:tech:xsd:pain.001.001.09'}

@@ -1,4 +1,3 @@
-#-*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
@@ -56,6 +55,7 @@
         'views/hr_payroll_dashboard_warning_views.xml',
         'views/hr_payroll_menu.xml',
         'report/hr_contract_history_report_views.xml',
+        'wizard/hr_payroll_payment_report_wizard.xml',
     ],
     'demo': ['data/hr_payroll_demo.xml'],
     'assets': {

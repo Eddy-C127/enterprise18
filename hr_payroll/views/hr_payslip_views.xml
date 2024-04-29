@@ -71,7 +71,8 @@
             <form string="Payslip" duplicate="0">
             <header>
                 <button string="Confirm" name="action_payslip_done" type="object" invisible="state != 'verify'" class="oe_highlight" context="{'payslip_generate_pdf': True}"/>
-                <button string="Mark as paid" name="action_payslip_paid" type="object" invisible="state != 'done'" class="oe_highlight"/>
+                <button string="Mark as paid" name="action_payslip_paid" type="object" class="oe_highlight" invisible="state != 'done'"/>
+                <button string="Create Payment Report" name="action_payslip_payment_report" type="object" invisible="state != 'done'"/>
                 <button string="Refund" name="refund_sheet" type='object' invisible="has_refund_slip or credit_note or state not in ('done', 'paid')"/>
                 <button string="Refund" name="refund_sheet" type='object' invisible="not has_refund_slip or credit_note or state not in ('done', 'paid')"
                     confirm="Another refund payslip with the same amount has been found. Do you want to create a new one?"/>
@@ -135,6 +136,7 @@
                     <field name="is_superuser" invisible="1"/>
                     <field name="has_refund_slip" invisible="1"/>
                     <field name="use_worked_day_lines" invisible="1"/>
+                    <field name="payment_report" filename="payment_report_filename" invisible="not payment_report"/>
                 </group>
                 <notebook>
                     <page string="Worked Days &amp; Inputs" name="worked_days_input" class="o_hr_payroll_worked_days_input">

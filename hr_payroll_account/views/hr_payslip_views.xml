@@ -36,7 +36,9 @@
                 <field name="journal_id" required="1"/>
                 <field name="batch_payroll_move_lines" invisible="1"/>
             </field>
-            <button name="action_payslip_paid" position="replace"/>
+            <button name="action_payslip_paid" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </button>
         </field>
     </record>
 </odoo>

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import base64
@@ -92,10 +91,14 @@ class TestSEPAFile(AccountTestInvoicingCommon):
         payslip_employee.with_context(active_id=payslip_run.id).compute_sheet()
         payslip_run.action_validate()
 
-        sepa_wizard = self.env['hr.payslip.run.sepa.wizard'].with_company(self.company).with_context(active_id=payslip_run.id).create({})
-        sepa_wizard.generate_sepa_xml_file()
+        sepa_wizard = (self.env['hr.payroll.payment.report.wizard'].with_company(self.company).create({
+            'payslip_ids': payslip_run.slip_ids.ids,
+            'payslip_run_id': payslip_run.id,
+            'export_format': 'sepa',
+        }))
+        sepa_wizard.generate_payment_report()
 
-        sepa_file_content = base64.b64decode(payslip_run.sepa_export).decode()
+        sepa_file_content = base64.b64decode(payslip_run.payment_report).decode()
         self.assertTrue("<InstrPrty>HIGH</InstrPrty>" in sepa_file_content)
         self.assertTrue("<Cd>SALA</Cd>" in sepa_file_content)
         self.assertTrue("<Ustrd>/A/ SLIP" in sepa_file_content)

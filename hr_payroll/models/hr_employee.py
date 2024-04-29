@@ -1,7 +1,19 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.addons.base_iban.models.res_partner_bank import validate_iban
+
+
+def _is_iban_valid(iban):
+    if iban is None:
+        return False
+    try:
+        validate_iban(iban)
+        return True
+    except ValidationError:
+        pass
+    return False
 
 
 class HrEmployee(models.Model):
@@ -38,3 +50,30 @@ class HrEmployee(models.Model):
     def _compute_salary_attachment_count(self):
         for employee in self:
             employee.salary_attachment_count = len(employee.salary_attachment_ids)
+
+    @api.model
+    def _get_account_holder_employees_data(self):
+        # as acc_type isn't stored we can not use a domain to retrieve the employees
+        # bypass orm for performance, we only care about the employee id anyway
+
+        # return nothing if user has no right to either employee or bank partner
+        if (not self.check_access_rights('read', raise_exception=False) or
+                not self.env['res.partner.bank'].check_access_rights('read', raise_exception=False)):
+            return []
+
+        self.env.cr.execute('''
+            SELECT emp.id,
+                   acc.acc_number,
+                   acc.allow_out_payment
+              FROM hr_employee emp
+         LEFT JOIN res_partner_bank acc
+                ON acc.id=emp.bank_account_id
+              JOIN hr_contract con
+                ON con.employee_id=emp.id
+             WHERE emp.company_id IN %s
+               AND emp.active=TRUE
+               AND con.state='open'
+               AND emp.bank_account_id is not NULL
+        ''', (tuple(self.env.companies.ids),))
+
+        return self.env.cr.dictfetchall()

@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
@@ -138,6 +137,12 @@ class HrPayslip(models.Model):
     )
     salary_attachment_count = fields.Integer('Salary Attachment count', compute='_compute_salary_attachment_count')
     use_worked_day_lines = fields.Boolean(related="struct_id.use_worked_day_lines")
+    payment_report = fields.Binary(
+        string='Payment Report',
+        help="Export .csv file related to this payslip",
+        readonly=True)
+    payment_report_filename = fields.Char(readonly=True)
+    payment_report_date = fields.Date(readonly=True)
 
     def _get_schedule_period_start(self):
         schedule = self.contract_id.schedule_pay or self.contract_id.structure_type_id.default_schedule_pay
@@ -500,6 +505,16 @@ class HrPayslip(models.Model):
             'state': 'paid',
             'paid_date': fields.Date.today(),
         })
+
+    def action_payslip_payment_report(self, export_format='csv'):
+        self.ensure_one()
+        if len(self.payslip_run_id) > 1:
+            raise UserError(_('The selected payslips should be linked to the same batch'))
+        self.env['hr.payroll.payment.report.wizard'].create({
+            'payslip_ids': self.ids,
+            'payslip_run_id': self.payslip_run_id.id,
+            'export_format': export_format
+        }).generate_payment_report()
 
     def action_open_work_entries(self):
         self.ensure_one()
