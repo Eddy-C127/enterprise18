@@ -357,6 +357,78 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(inventory_moves.state, 'done')
         self.assertEqual(inventory_moves.move_line_ids.owner_id.id, self.owner.id)
 
+    def test_inventory_setting_count_entire_locations_on(self):
+        """
+        Check the scenario when the "Count Entire Locations" setting is enabled,
+        considering both tracked and untracked products and the usage of multiple locations.
+        """
+        self.clean_access_rights()
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
+        Quant = self.env['stock.quant']
+
+        # Create lots and serial numbers.
+        lots = self.env['stock.lot'].create([{
+            'name': f'lot{i}',
+            'product_id': self.productlot1.id,
+        } for i in range(1, 5)])
+        shelf1_serial_numbers = self.create_serial_numbers(self.productserial1, 1, 3)
+        shelf2_serial_numbers = self.create_serial_numbers(self.productserial1, 4, 3)
+
+        # Adds quantity in WH/Stock/Shelf1.
+        Quant._update_available_quantity(self.product1, self.shelf1, 10)
+        Quant._update_available_quantity(self.product2, self.shelf1, 20)
+        Quant._update_available_quantity(self.productlot1, self.shelf1, 3, lot_id=lots[0])
+        Quant._update_available_quantity(self.productlot1, self.shelf1, 4, lot_id=lots[1])
+        for sn in shelf1_serial_numbers:
+            Quant._update_available_quantity(self.productserial1, self.shelf1, 1, lot_id=sn)
+        # Adds quantity in WH/Stock/Shelf2.
+        Quant._update_available_quantity(self.product1, self.shelf2, 30)
+        Quant._update_available_quantity(self.productlot1, self.shelf2, 5, lot_id=lots[2])
+        Quant._update_available_quantity(self.productlot1, self.shelf2, 2, lot_id=lots[3])
+        for sn in shelf2_serial_numbers:
+            Quant._update_available_quantity(self.productserial1, self.shelf2, 1, lot_id=sn)
+
+        # Mark quant for product1 in shelf 1 as to count.
+        quants = Quant.search([('product_id', '=', self.product1.id), ('location_id', '=', self.shelf1.id)])
+        wizard_request_count = self.env['stock.request.count'].create({
+            'user_id': self.env.user.id,
+            'quant_ids': quants.ids,
+            'set_count': 'set',
+        })
+        wizard_request_count.action_request_count()
+        # Set "Count Entire Locations" setting on after the count request, otherwise all quants for
+        # this quant's location will be already marked as to count.
+        grp_barcode_count_entire_location = self.env.ref('stock_barcode.group_barcode_count_entire_location')
+        self.env.user.write({'groups_id': [(4, grp_barcode_count_entire_location.id, 0)]})
+        self.start_tour("/odoo/barcode", 'test_inventory_setting_count_entire_locations_on', login='admin', timeout=180)
+
+    def test_inventory_setting_count_entire_locations_off(self):
+        """
+        Check the scenario when the "Count Entire Locations" setting is disabled,
+        considering both tracked and untracked products and the usage of multiple locations.
+        """
+        self.clean_access_rights()
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
+        Quant = self.env['stock.quant']
+
+        # Adds quantity in WH/Stock/Shelf1.
+        Quant._update_available_quantity(self.product1, self.shelf1, 10)
+        Quant._update_available_quantity(self.product2, self.shelf1, 20)
+        # Adds quantity in WH/Stock/Shelf2.
+        Quant._update_available_quantity(self.product1, self.shelf2, 30)
+
+        # Mark quant for product1 in shelf 1 as to count.
+        quants = Quant.search([('product_id', '=', self.product1.id), ('location_id', '=', self.shelf1.id)])
+        wizard_request_count = self.env['stock.request.count'].create({
+            'user_id': self.env.user.id,
+            'quant_ids': quants.ids,
+            'set_count': 'set',
+        })
+        wizard_request_count.action_request_count()
+        self.start_tour('/odoo/barcode', 'test_inventory_setting_count_entire_locations_off', login='admin', timeout=180)
+
     def test_inventory_setting_show_quantity_to_count(self):
         """
         Check the scenario when "Show Quantity to Count" setting is enabled or

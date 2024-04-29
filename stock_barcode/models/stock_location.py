@@ -16,3 +16,7 @@ class Location(models.Model):
     @api.model
     def _get_fields_stock_barcode(self):
         return ['barcode', 'display_name', 'name', 'parent_path', 'usage']
+
+    def get_counted_quant_data_records(self):
+        self.ensure_one()
+        return self.quant_ids.get_stock_barcode_data_records()

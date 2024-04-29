@@ -136,6 +136,7 @@ export default class BarcodeQuantModel extends BarcodeModel {
     setData(data) {
         this.userId = data.data.user_id;
         this.showQuantityCount = data.data.show_quantity_count;
+        this.countEntireLocation = data.data.count_entire_location;
         super.setData(...arguments);
         const companies = data.data.records['res.company'];
         this.companyIds = companies.map(company => company.id);
@@ -540,6 +541,48 @@ export default class BarcodeQuantModel extends BarcodeModel {
         this.trigger('update');
     }
 
+    async _processLocation(barcodeData) {
+        super._processLocation(barcodeData)
+        if (barcodeData.location && this.countEntireLocation) {
+            await this.loadQuantsForLocation(barcodeData);
+        }
+    }
+
+    async loadQuantsForLocation(barcodeData) {
+        const res = await this.orm.call(
+            "stock.location",
+            "get_counted_quant_data_records",
+            [barcodeData.location.id]
+        );
+        this.cache.setCache(res.records);
+
+        const quants = res.records['stock.quant'];
+        for (const quant of quants) {
+            const product = this.cache.getRecord('product.product', quant.product_id);
+            const lot = quant.lot_id && this.cache.getRecord('stock.lot', quant.lot_id);
+            const searchLineParams = Object.assign({}, barcodeData, { product, lot });
+            const currentLine = this._findLine(searchLineParams);
+            if (!currentLine) {
+                const fieldsParams = this._convertDataToFieldsParams({
+                    product,
+                    quantity: quant.quantity,
+                    lot: quant.lot_id,
+                    package: quant.package_id,
+                    resultPackage: quant.package_id,
+                    owner: quant.owner_id,
+                });
+                const newLine = await this._createNewLine({ fieldsParams });
+                if (newLine) {
+                    newLine.inventory_quantity = quant.inventory_quantity;
+                    newLine.inventory_quantity_set = false;
+                }
+            }
+        }
+        barcodeData.stopped = true;
+        this.selectedLineVirtualId = false;
+        this.trigger('update');
+    }
+
     _updateLineQty(line, args) {
         if (args.quantity) { // Set stock quantity.
             line.quantity = args.quantity;
@@ -563,7 +606,10 @@ export default class BarcodeQuantModel extends BarcodeModel {
                 }
             }
             line.inventory_quantity += args.inventory_quantity;
-            line.inventory_quantity_set = true;
+            if (line.inventory_quantity > 0) {
+                args.inventory_quantity_set = true;
+            }
+            line.inventory_quantity_set = this.countEntireLocation ? args.inventory_quantity_set : true;
             if (line.product_id.tracking === 'serial' && (line.lot_name || line.lot_id)) {
                 line.inventory_quantity = Math.max(0, Math.min(1, line.inventory_quantity));
             }

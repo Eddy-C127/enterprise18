@@ -1162,3 +1162,84 @@ registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to
         }
     },
 ]});
+
+registry.category("web_tour.tours").add('test_inventory_setting_count_entire_locations_on', {test: true, steps: () => [
+    { trigger: '.button_inventory' },
+    // At first, only the marked as to count quant should be visible.
+    {
+        trigger: '.o_barcode_client_action',
+        run: function() {
+            helper.assertLinesCount(1);
+            const line = helper.getLine();
+            helper.assertLineProduct(line, 'product1');
+            helper.assertLineQty(line, "10 / 10");
+            helper.assertLineSourceLocation(line, "WH/Stock/Section 1");
+        }
+    },
+    // Scan WH/Stock/Section 1 => Should fetch all quants in this location.
+    { trigger: '.o_barcode_client_action', run: 'scan LOC-01-01-00' },
+    // Check that all quants of WH/Stock/Section 1 are loaded with their respective information.
+    {
+        trigger: '.o_barcode_line:nth-child(4)',
+        run: function () {
+            helper.assertLinesCount(4);
+            const [line1, line2, line3, line4] = helper.getLines();
+            helper.assertLineProduct(line1, 'product1');
+            helper.assertLineProduct(line2, 'product2');
+            helper.assertLineProduct(line3, 'productlot1');
+            helper.assertLineProduct(line4, 'productserial1');
+            helper.assertLineQty(line1, "10 / 10");
+            helper.assertLineQty(line2, "? / 20");
+            helper.assertLineQty(line3, "? / 7");
+            helper.assertLineQty(line4, "? / 3");
+            helper.assertLineSourceLocation(line1, "WH/Stock/Section 1");
+            helper.assertLineSourceLocation(line2, "WH/Stock/Section 1");
+            helper.assertLineSourceLocation(line3, "WH/Stock/Section 1");
+            helper.assertLineSourceLocation(line4, "WH/Stock/Section 1");
+        }
+    },
+
+    // Scan WH/Stock/Section 2 => Should fetch all quants in this location.
+    { trigger: '.o_barcode_client_action', run: 'scan LOC-01-02-00' },
+    // Check that all quants of WH/Stock/Section 2 are loaded with their respective information.
+    {
+        trigger: '.o_barcode_line .o_line_source_location:contains("Section 2")',
+        run: function () {
+            helper.assertLinesCount(7);
+            helper.assertLineProduct(4, '[TEST] product1');
+            helper.assertLineQty(4, "? / 30");
+            helper.assertLineSourceLocation(4, "WH/Stock/Section 2");
+            helper.assertLineProduct(5, 'productlot1');
+            helper.assertLineQty(5, "? / 7");
+            helper.assertLineSourceLocation(5, "WH/Stock/Section 2");
+            helper.assertLineProduct(6, 'productserial1');
+            helper.assertLineQty(6, "? / 3");
+            helper.assertLineSourceLocation(6, "WH/Stock/Section 2");
+        }
+    },
+]});
+
+registry.category("web_tour.tours").add('test_inventory_setting_count_entire_locations_off', {test: true, steps: () => [
+    { trigger: '.button_inventory' },
+    // Only the marked as to count quant should be visible.
+    {
+        trigger: '.o_barcode_client_action',
+        run: function() {
+            helper.assertLinesCount(1);
+            helper.assertLineProduct(0, 'product1');
+            helper.assertLineQty(0, "10 / 10");
+            helper.assertLineSourceLocation(0, "WH/Stock/Section 1");
+        }
+    },
+    // Scan WH/Stock/Section 1 => Should not fetch other quants.
+    { trigger: '.o_barcode_client_action', run: 'scan LOC-01-01-00' },
+    {
+        trigger: '.o_barcode_line [name="source_location"].o_highlight',
+        run: function () {
+            helper.assertLinesCount(1);
+            helper.assertLineProduct(0, 'product1');
+            helper.assertLineQty(0, "10 / 10");
+            helper.assertLineSourceLocation(0, "WH/Stock/Section 1");
+        }
+    },
+]});

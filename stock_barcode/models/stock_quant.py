@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from odoo import models, fields, api
 
 
@@ -119,6 +117,7 @@ class StockQuant(models.Model):
             },
             "nomenclature_id": [self.env.company.nomenclature_id.id],
             "show_quantity_count": self.env.user.has_group('stock_barcode.group_barcode_show_quantity_count'),
+            "count_entire_location": self.env.user.has_group('stock_barcode.group_barcode_count_entire_location'),
             "user_id": self.env.user.id,
         }
         return data
