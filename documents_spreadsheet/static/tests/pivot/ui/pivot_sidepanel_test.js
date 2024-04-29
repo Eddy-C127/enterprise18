@@ -442,7 +442,7 @@ QUnit.module(
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             await click(fixture.querySelector(".add-dimension.btn"));
-            await click(fixture.querySelectorAll(".o-popover .pivot-dimension-field")[0]);
+            await click(fixture.querySelectorAll(".o-popover .o-autocomplete-value")[0]);
             await click(fixture, ".pivot-defer-update .o-checkbox");
             const definition = JSON.parse(
                 JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
@@ -468,13 +468,93 @@ QUnit.module(
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             await click(fixture.querySelectorAll(".add-dimension.btn")[1]);
-            await click(fixture.querySelectorAll(".o-popover .pivot-dimension-field")[0]);
+            await click(fixture.querySelectorAll(".o-popover .o-autocomplete-value")[0]);
             await click(fixture, ".pivot-defer-update .o-checkbox");
             const definition = JSON.parse(
                 JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
             );
             assert.deepEqual(definition.columns, []);
             assert.deepEqual(definition.rows, [{ name: "bar" }]);
+        });
+
+        QUnit.skip("select dimensions with arrow keys", async function (assert) {
+            const { model, env, pivotId } = await createSpreadsheetFromPivotView({
+                serverData: {
+                    models: getBasicData(),
+                    views: {
+                        "partner,false,pivot": /*xml*/ `
+                            <pivot>
+                                <field name="probability" type="measure"/>
+                            </pivot>`,
+                        "partner,false,search": `<search/>`,
+                    },
+                },
+            });
+            const fixture = getFixture();
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
+            await nextTick();
+            await click(fixture.querySelector(".add-dimension.btn"));
+            let options = [
+                ...fixture.querySelectorAll(".o-popover .o-autocomplete-dropdown > div"),
+            ];
+            assert.strictEqual(
+                options.every((el) => !el.className.includes("o-autocomplete-value-focus")),
+                true
+            );
+            await triggerEvent(fixture, ".o-popover input", "keydown", {
+                key: "ArrowDown",
+            });
+            options = [...fixture.querySelectorAll(".o-popover .o-autocomplete-dropdown > div")];
+            assert.strictEqual(options[0].className.includes("o-autocomplete-value-focus"), true);
+            assert.strictEqual(options[1].className.includes("o-autocomplete-value-focus"), false);
+            await triggerEvent(fixture, ".o-popover input", "keydown", {
+                key: "ArrowDown",
+            });
+            options = [...fixture.querySelectorAll(".o-popover .o-autocomplete-dropdown > div")];
+            assert.strictEqual(options[0].className.includes("o-autocomplete-value-focus"), false);
+            assert.strictEqual(options[1].className.includes("o-autocomplete-value-focus"), true);
+            await triggerEvent(fixture, ".o-popover input", "keydown", {
+                key: "ArrowUp",
+            });
+            options = [...fixture.querySelectorAll(".o-popover .o-autocomplete-dropdown > div")];
+            assert.strictEqual(options[0].className.includes("o-autocomplete-value-focus"), true);
+            assert.strictEqual(options[1].className.includes("o-autocomplete-value-focus"), false);
+            await triggerEvent(fixture, ".o-popover input", "keydown", {
+                key: "Enter",
+            });
+            await click(fixture, ".pivot-defer-update .o-checkbox");
+            const definition = JSON.parse(
+                JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
+            );
+            assert.deepEqual(definition.columns, [{ name: "bar", order: "asc" }]);
+            assert.deepEqual(definition.rows, []);
+        });
+
+        QUnit.test("escape key closes the autocomplete popover", async function (assert) {
+            const { env, pivotId } = await createSpreadsheetFromPivotView();
+            const fixture = getFixture();
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
+            await nextTick();
+            await click(fixture.querySelector(".add-dimension.btn"));
+            assert.containsOnce(fixture, ".o-popover input");
+            await triggerEvent(fixture, ".o-popover input", "keydown", {
+                key: "Escape",
+            });
+            assert.containsNone(fixture, ".o-popover input");
+        });
+
+        QUnit.test("add pivot dimension input autofocus", async function (assert) {
+            const { env, pivotId } = await createSpreadsheetFromPivotView();
+            const fixture = getFixture();
+            env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
+            await nextTick();
+            await click(fixture.querySelector(".add-dimension.btn"));
+            assert.strictEqual(fixture.querySelector(".o-popover input"), document.activeElement);
+            await triggerEvent(fixture, ".o-popover input", "keydown", {
+                key: "Escape",
+            });
+            await click(fixture.querySelector(".add-dimension.btn"));
+            assert.strictEqual(fixture.querySelector(".o-popover input"), document.activeElement);
         });
 
         QUnit.test("clicking the add button toggles the fields popover", async function (assert) {
@@ -628,7 +708,7 @@ QUnit.module(
             env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
             await nextTick();
             await click(fixture.querySelectorAll(".add-dimension.btn")[2]);
-            await click(fixture.querySelectorAll(".o-popover .pivot-dimension-field")[0]);
+            await click(fixture.querySelectorAll(".o-popover .o-autocomplete-value")[0]);
             await click(fixture, ".pivot-defer-update .o-checkbox");
             const definition = JSON.parse(
                 JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))
