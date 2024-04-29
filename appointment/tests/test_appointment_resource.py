@@ -400,6 +400,26 @@ class AppointmentResourceBookingTest(AppointmentCommon):
             },
         )
 
+    def test_appointment_resources_check_organizer_validation_conditions(self):
+        appointment_vals_list = [{
+            'appointment_type_id': self.apt_type_resource.id,
+            'name': 'Booking',
+            'start': datetime(2022, 2, 15, 14, 0, 0),
+            'stop': datetime(2022, 2, 15, 15, 0, 0),
+        }, {
+            'appointment_type_id': self.apt_type_bxls_2days.id,
+            'name': 'Booking',
+            'start': datetime(2022, 2, 15, 10, 0, 0),
+            'stop': datetime(2022, 2, 15, 11, 0, 0),
+        }, {
+            'appointment_type_id': False,
+            'name': 'Booking',
+            'start': datetime(2022, 2, 15, 10, 0, 0),
+            'stop': datetime(2022, 2, 15, 11, 0, 0),
+        }]
+
+        self.assertEqual(self.env['calendar.event']._check_organizer_validation_conditions(appointment_vals_list), [False, True, True])
+
     @users('apt_manager')
     def test_appointment_resources_combinable(self):
         """ Check that combinable resources are correctly process. """
