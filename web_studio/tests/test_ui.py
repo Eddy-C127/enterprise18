@@ -262,8 +262,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.start_tour("/web?debug=tests", 'web_studio_test_remove_action_button_in_form_view', login="admin")
         arch = """<data>
                 <xpath expr="//form[1]/field[@name='name']" position="before">
-                    <header>
-                        </header>
+                    <header/>
                 </xpath>
             </data>"""
         #FIXME Can't do it otherwise cause of indentation problems
@@ -293,8 +292,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.start_tour("/web?debug=tests", 'web_studio_test_remove_action_button_in_list_view', login="admin")
         arch = """<data>
                 <xpath expr="//field[@name='display_name']" position="before">
-                    <header>
-                    </header>
+                    <header/>
                 </xpath>
             </data>"""
         #FIXME Can't do it otherwise cause of indentation problems

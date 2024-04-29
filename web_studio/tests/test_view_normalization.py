@@ -1381,6 +1381,97 @@ class TestViewNormalization(TransactionCase):
               </data>
             ''')
 
+    def test_view_normalization_with_field_having_the_same_name_as_a_group(self):
+        self.view = self.base_view.create({
+            'arch_base':
+            '''
+            <form>
+              <sheet>
+                <notebook>
+                  <page>
+                    <group>
+                      <group name="group_general">
+                        <field name="active" invisible="1"/>
+                          </group>
+                            <group name="group_standard_price"/>
+                          </group>
+                          <group string="Internal notes">
+                            <field name="display_name"/>
+                          </group>
+                        </page>
+                        <page>
+                          <group><group name="display_name">
+                              <field name="company_name"/>
+                          </group></group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+            ''',
+            'model': 'res.partner',
+            'type': 'form'
+        })
+
+        self._test_view_normalization(
+            '''
+            <data>
+              <xpath expr="/form[1]/sheet[1]/notebook[1]/page[1]/group[2]" position="replace"/>
+              <xpath expr="/form[1]/sheet[1]/notebook[1]/page[1]/group[1]/group[1]/field[1]" position="before">
+                <field name="email"/>
+              </xpath>
+            </data>
+            ''',
+            '''
+            <data>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/group[2]" position="replace"/>
+              <xpath expr="//field[@name='active']" position="before">
+                <field name="email"/>
+              </xpath>
+            </data>
+            '''
+        )
+
+    def test_view_normalization_with_same_name(self):
+        self.view = self.base_view.create({
+            'arch_base':
+                '''
+                <form>
+                    <group>
+                        <group name="group_name">
+                            <div class="o_td_label">
+                                <label for="create_date" string="Quotation Date"/>
+                            </div>
+                            <field name="create_date"/>
+                            <div class="o_td_label">
+                                <label for="create_date" string="Order Date"/>
+                            </div>
+                            <field name="create_date"/>
+                            <field name="display_name"/>
+                            <field name="name"/>
+                            <field name="title"/>
+                        </group>
+                    </group>
+                </form>
+                ''',
+            'model': 'res.partner',
+            'type': 'form'
+        })
+
+        self._test_view_normalization(
+            '''
+            <data>
+                <xpath expr="/form/group/group[1]/div[2]" position="replace"/>
+                <xpath expr="/form/group/group[1]/field[2]" position="replace"/>
+            </data>
+            ''',
+            '''
+            <data>
+              <xpath expr="//form[1]/group[1]/group[@name='group_name']/field[@name='create_date'][2]" position="replace"/>
+              <xpath expr="//form[1]/group[1]/group[@name='group_name']/div[2]" position="replace"/>
+            </data>
+            ''',
+        )
+
     def tearDown(self):
         super(TestViewNormalization, self).tearDown()
         random.seed()

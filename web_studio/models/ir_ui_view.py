@@ -4,6 +4,7 @@
 import difflib
 import io
 from collections import defaultdict
+from copy import deepcopy
 from lxml import etree
 from lxml.builder import E
 import json
@@ -19,6 +20,8 @@ from odoo.addons.web_studio.controllers.report import get_report_view_copy
 CONTAINER_TYPES = (
     'group', 'page', 'sheet', 'div', 'ul', 'li', 'notebook',
 )
+
+DIFF_KEY = "o-diff-key"
 
 
 class Model(models.AbstractModel):
@@ -607,6 +610,24 @@ class View(models.Model):
             return super(View, self).apply_inheritance_specs(source, specs_tree,
                                                                 pre_locate=pre_locate)
 
+    def _generate_trees_with_diff_key(self, parser, old_view):
+        old_view_arch = etree.fromstring(old_view, parser)
+        _id = 1
+        for desc in old_view_arch.iter(etree.Element):
+            desc.set(DIFF_KEY, str(_id))
+            _id += 1
+
+        # replaces root_view.get_combined_arch() because we need an edited arch with the DIFF_KEY attributes
+        new_view_arch = self.apply_inheritance_specs(deepcopy(old_view_arch), etree.fromstring(self.arch, parser))
+
+        new_view_tree = etree.Element('data')
+        new_view_tree.append(new_view_arch)
+
+        old_view_tree = etree.Element('data')
+        old_view_tree.append(old_view_arch)
+
+        return old_view_tree, new_view_tree
+
     def normalize(self):
         """
         Normalizes the studio arch by comparing the studio view to the base view
@@ -632,18 +653,14 @@ class View(models.Model):
             root_view = root_view.inherit_id
 
         parser = etree.XMLParser(remove_blank_text=True)
-        new_view = root_view.get_combined_arch()
 
         # Get the result of the xpath applications without this view
         self.active = False
         old_view = root_view.get_combined_arch()
         self.active = True
 
-        # The parent data tag is missing from get_combined_arch
-        new_view_tree = etree.Element('data')
-        new_view_tree.append(etree.parse(io.StringIO(new_view), parser).getroot())
-        old_view_tree = etree.Element('data')
-        old_view_tree.append(etree.parse(io.StringIO(old_view), parser).getroot())
+        old_view_tree, new_view_tree = self._generate_trees_with_diff_key(parser, old_view)
+
         new_view_arch_string = self._stringify_view(new_view_tree)
         old_view_arch_string = self._stringify_view(old_view_tree)
         diff = difflib.ndiff(old_view_arch_string.split('\n'), new_view_arch_string.split('\n'))
@@ -748,10 +765,8 @@ class View(models.Model):
                 }
 
         # Recreate the trees as they have been modified during the first processing
-        new_view_tree = etree.Element('data')
-        new_view_tree.append(etree.parse(io.StringIO(new_view), parser).getroot())
-        old_view_tree = etree.Element('data')
-        old_view_tree.append(etree.parse(io.StringIO(old_view), parser).getroot())
+        old_view_tree, new_view_tree = self._generate_trees_with_diff_key(parser, old_view)
+
         old_view_iterator = old_view_tree.iter()
         new_view_iterator = new_view_tree.iter()
         new_view_arch_string = self._stringify_view(new_view_tree, moved_fields)
@@ -866,11 +881,15 @@ class View(models.Model):
             """ Computes the differences of attributes between two nodes."""
             diff = {}
             for attr in node1.attrib:
+                if attr == DIFF_KEY:
+                    continue
                 if attr not in node2.attrib:
                     diff[attr] = ''
                 elif node1.attrib[attr] != node2.attrib[attr]:
                     diff[attr] = node2.attrib[attr]
             for attr in dict(node2.attrib).keys() - dict(node1.attrib).keys():
+                if attr == DIFF_KEY:
+                    continue
                 diff[attr] = node2.attrib[attr]
             return diff
 
@@ -1166,6 +1185,8 @@ class View(models.Model):
         else:
             node_string += node.tag
 
+        if node.get(DIFF_KEY):
+            node_string += '#%s' % node.get(DIFF_KEY)
         if node.get('name') and node.get('name').strip():
             node_string += '[@name=%s]' % node.get('name').strip().replace('\n', ' ')
         if node.text and node.text.strip():
@@ -1201,6 +1222,8 @@ class View(models.Model):
             node_attributes = sorted(node.items(), key=lambda i: i[0], reverse=True)  # inverse alphabetically sort attributes by name
             if len(node_attributes):
                 for attr in node_attributes:
+                    if attr == DIFF_KEY:
+                        continue
                     attributes = etree.Element('attributes', {
                         'name': attr[0],
                     })
