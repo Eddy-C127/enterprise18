@@ -220,7 +220,7 @@ class WebsitePageGenerator(models.Model):
             data-customize-website-views="website_generator.template_ws_custom_footer_{self.website_id.id}"
             data-customize-website-variable="'imported-footer-{self.website_id.id}'"
             data-img="/website_generator/static/src/img/footer_template_imported.svg">
-            <span class="badge rounded-pill bg-info position-absolute ms-4" style="top: 10px; left: 4px;">
+            <span class="badge bg-info position-absolute ms-4" style="top: 10px; left: 4px;">
                 <i class="fa fa-gears"></i>
                 Imported
             </span>
