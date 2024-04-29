@@ -129,12 +129,13 @@ export default class BarcodeQuantModel extends BarcodeModel {
         return true;
     }
 
-    get displaySetButton() {
-        return true;
+    displaySetButton(line) {
+        return this.showQuantityCount || line.product_id.tracking === 'serial';
     }
 
     setData(data) {
         this.userId = data.data.user_id;
+        this.showQuantityCount = data.data.show_quantity_count;
         super.setData(...arguments);
         const companies = data.data.records['res.company'];
         this.companyIds = companies.map(company => company.id);
@@ -159,7 +160,7 @@ export default class BarcodeQuantModel extends BarcodeModel {
     }
 
     getQtyDemand(line) {
-        return line.quantity;
+        return this.showQuantityCount ? line.quantity : 0;
     }
 
     getActionRefresh(newId) {

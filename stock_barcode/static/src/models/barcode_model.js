@@ -245,6 +245,10 @@ export default class BarcodeModel extends EventBus {
         return false;
     }
 
+    displaySetButton(_line) {
+        return false;
+    }
+
     /**
      * Say if the line quantity is not set. Only useful for the inventory adjustment.
      *

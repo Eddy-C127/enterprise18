@@ -112,7 +112,7 @@
                         t-att-disabled="!this.env.model.lineCanBeEdited(line)">
                         <i class="fa fa-2x fa-pencil"/>
                     </button>
-                    <button t-if="env.model.displaySetButton" t-on-click="setOnHandQuantity"
+                    <button t-if="env.model.displaySetButton(line)" t-on-click="setOnHandQuantity"
                         class="o_line_button o_set btn ms-2"
                         t-attf-class="{{quantityIsSet &amp;&amp; qtyDone != qtyDemand ? 'o_difference' : ''}}">
                         <i t-if="quantityIsSet" class="fa fa-2x"

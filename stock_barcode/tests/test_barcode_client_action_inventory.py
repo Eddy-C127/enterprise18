@@ -11,6 +11,15 @@ _logger = logging.getLogger(__name__)
 
 @tagged('post_install', '-at_install')
 class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
+    # === HELPER METHODS ===#
+    def create_serial_numbers(self, product, start_index, quantity=1, prefix='sn'):
+        return self.env['stock.lot'].create([{
+            'name': f'{prefix}{start_index + n}',
+            'product_id': product.id,
+            'company_id': self.env.company.id,
+        } for n in range(quantity)])
+
+    # === TESTS ===#
     def test_inventory_adjustment(self):
         """ Simulate the following actions:
         - Open the inventory from the barcode app.
@@ -347,6 +356,50 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(len(inventory_moves), 1)
         self.assertEqual(inventory_moves.state, 'done')
         self.assertEqual(inventory_moves.move_line_ids.owner_id.id, self.owner.id)
+
+    def test_inventory_setting_show_quantity_to_count(self):
+        """
+        Check the scenario when "Show Quantity to Count" setting is enabled or
+        disabled, considering both tracked and untracked products.
+        """
+        self.clean_access_rights()
+        # Enables multilocations and tracking.
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        grp_lot = self.env.ref('stock.group_production_lot')
+        self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
+        self.env.user.write({'groups_id': [(4, grp_lot.id, 0)]})
+        Quant = self.env['stock.quant']
+
+        # Creates some lots and serial numbers.
+        serial_numbers = self.create_serial_numbers(self.productserial1, 1, 3)
+        lots = self.env['stock.lot'].create([{
+            'name': lot_name,
+            'product_id': self.productlot1.id,
+        } for lot_name in ['lot1', 'lot2']])
+
+        # Adds quantity in stock for the products.
+        for sn in serial_numbers:
+            Quant._update_available_quantity(self.productserial1, self.stock_location, 1, lot_id=sn)
+        Quant._update_available_quantity(self.productlot1, self.stock_location, 3, lot_id=lots[0])
+        Quant._update_available_quantity(self.productlot1, self.stock_location, 4, lot_id=lots[1])
+        Quant._update_available_quantity(self.product1, self.stock_location, 5)
+
+        # Mark added quants as to count.
+        quants = Quant.search([('product_id', 'in', [self.product1.id, self.productlot1.id, self.productserial1.id])])
+        wizard_request_count = self.env['stock.request.count'].create({
+            'user_id': self.env.user.id,
+            'quant_ids': quants.ids,
+            'set_count': 'empty',
+        })
+        wizard_request_count.action_request_count()
+
+        self.start_tour("/odoo/barcode", 'test_inventory_setting_show_quantity_to_count_on', login='admin', timeout=180)
+        # Disable the "Show Quantity to Count" setting and launch second tour.
+        grp_show_quantity_count = self.env.ref('stock_barcode.group_barcode_show_quantity_count')
+        group_user = self.env.ref('base.group_user')
+        group_user.write({'implied_ids': [(3, grp_show_quantity_count.id)]})
+        self.env.user.write({'groups_id': [(3, grp_show_quantity_count.id)]})
+        self.start_tour("/odoo/barcode", 'test_inventory_setting_show_quantity_to_count_off', login='admin', timeout=180)
 
     def test_inventory_using_buttons(self):
         """ Creates an inventory from scratch, then scans products and verifies

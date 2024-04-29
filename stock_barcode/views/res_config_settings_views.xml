@@ -33,6 +33,11 @@
                     </a>
                 </div>
             </xpath>
+            <xpath expr="//block[@name='barcode_setting_container']" position="inside">
+                <setting id="show_qty_to_count" help="Allow users to see the expected quantity of a product to count in a location">
+                    <field name="group_barcode_show_quantity_count"/>
+                </setting>
+            </xpath>
         </field>
     </record>
 </odoo>

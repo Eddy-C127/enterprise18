@@ -9,6 +9,7 @@ class ResConfigSettings(models.TransientModel):
     barcode_nomenclature_id = fields.Many2one('barcode.nomenclature', related='company_id.nomenclature_id', readonly=False)
     stock_barcode_demo_active = fields.Boolean("Demo Data Active", compute='_compute_stock_barcode_demo_active')
     show_barcode_nomenclature = fields.Boolean(compute='_compute_show_barcode_nomenclature')
+    group_barcode_show_quantity_count = fields.Boolean('Show Quantity to Count', implied_group='stock_barcode.group_barcode_show_quantity_count')
 
     @api.depends('company_id')
     def _compute_show_barcode_nomenclature(self):

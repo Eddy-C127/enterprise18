@@ -1003,3 +1003,162 @@ registry.category("web_tour.tours").add('test_inventory_using_buttons', {test: t
         isCheck: true,
     }
 ]});
+
+registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to_count_on', {test: true, steps: () => [
+    { trigger: '.button_inventory' },
+    { trigger: '.o_barcode_client_action', run: 'scan LOC-01-00-00' },
+    {
+        trigger: '.o_barcode_line',
+        run: function () {
+            helper.assertLinesCount(3);
+            const [line1, line2, line3] = helper.getLines();
+            helper.assertLineProduct(line1, 'product1');
+            helper.assertLineProduct(line2, 'productlot1');
+            helper.assertLineProduct(line3, 'productserial1');
+            helper.assertButtonShouldBeVisible(line1, "set");
+            helper.assertLineIsHighlighted(line1, false);
+            helper.assertLineIsHighlighted(line2, false);
+            helper.assertLineIsHighlighted(line3, false);
+            helper.assertLineQty(line1, "? / 5");
+            helper.assertLineQty(line2, "? / 7");
+            helper.assertLineQty(line3, "? / 3");
+            helper.assertLineSourceLocation(line1, "WH/Stock");
+            helper.assertLineSourceLocation(line2, "WH/Stock");
+            helper.assertLineSourceLocation(line3, "WH/Stock");
+        }
+    },
+
+    { trigger: '.o_barcode_line:contains("product1")' },
+    {
+        trigger: '.o_barcode_line:contains("product1").o_selected',
+        run: function () {
+            const line = helper.getLine({ barcode: "product1" });
+            helper.assertButtonShouldBeVisible(line, "add_quantity");
+            helper.assertButtonShouldBeVisible(line, "remove_unit");
+            helper.assertButtonShouldBeVisible(line, "set");
+        }
+    },
+    { trigger: ".o_barcode_line.o_selected .o_line_button.o_edit"},
+    {
+        content: "Check button to add expected quantity is visible",
+        extra_trigger: '.o_button_qty_done:contains("5")',
+        trigger: '.o_barcode_control .o_discard',
+    },
+
+    { trigger: '.o_barcode_line:contains("productlot1")' },
+    {
+        trigger: '.o_barcode_line.o_selected .o_line_button.o_toggle_sublines',
+        run: function () {
+            helper.assertSublinesCount(2);
+            const [subline1, subline2] = helper.getSublines();
+            helper.assertLineQty(subline1, "? / 3");
+            helper.assertLineQty(subline2, "? / 4");
+            helper.assert(subline1.querySelector('.o_line_lot_name').innerText, "lot1");
+            helper.assert(subline2.querySelector('.o_line_lot_name').innerText, "lot2");
+            helper.assertButtonShouldBeVisible(subline1, "add_quantity");
+            helper.assertButtonShouldBeVisible(subline1, "remove_unit");
+            helper.assertButtonShouldBeVisible(subline1, "set");
+            helper.assertButtonShouldBeVisible(subline2, "set");
+        }
+    },
+
+    { trigger: '.o_barcode_line:contains("productserial1")' },
+    {
+        trigger: '.o_barcode_line.o_selected .o_line_button.o_toggle_sublines .fa-caret-up',
+        run: function () {
+            helper.assertSublinesCount(3);
+            const [subline1, subline2, subline3] = helper.getSublines();
+            helper.assertLineQty(subline1, "? / 1");
+            helper.assertLineQty(subline2, "? / 1");
+            helper.assertLineQty(subline3, "? / 1");
+            helper.assert(subline1.querySelector('.o_line_lot_name').innerText, "sn1");
+            helper.assert(subline2.querySelector('.o_line_lot_name').innerText, "sn2");
+            helper.assert(subline3.querySelector('.o_line_lot_name').innerText, "sn3");
+            helper.assertButtonShouldBeVisible(subline1, "set");
+            helper.assertButtonShouldBeVisible(subline2, "set");
+            helper.assertButtonShouldBeVisible(subline3, "set");
+        }
+    },
+]});
+
+registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to_count_off', {test: true, steps: () => [
+    { trigger: '.button_inventory' },
+    { trigger: '.o_barcode_client_action', run: 'scan LOC-01-00-00' },
+    {
+        trigger: '.o_barcode_line',
+        run: function () {
+            helper.assertLinesCount(3);
+            const [line1, line2, line3] = helper.getLines();
+            helper.assertLineProduct(line1, 'product1');
+            helper.assertLineProduct(line2, 'productlot1');
+            helper.assertLineProduct(line3, 'productserial1');
+            helper.assertButtonShouldBeVisible(line1, "set", false);
+            helper.assertLineIsHighlighted(line1, false);
+            helper.assertLineIsHighlighted(line2, false);
+            helper.assertLineIsHighlighted(line3, false);
+            helper.assertLineQty(line1, "?");
+            helper.assertLineQty(line2, "?");
+            helper.assertLineQty(line3, "?");
+            helper.assertLineSourceLocation(line1, "WH/Stock");
+            helper.assertLineSourceLocation(line2, "WH/Stock");
+            helper.assertLineSourceLocation(line3, "WH/Stock");
+        }
+    },
+
+    { trigger: '.o_barcode_line:contains("product1")' },
+    {
+        trigger: '.o_barcode_line:contains("product1").o_selected',
+        run: function () {
+            const line = helper.getLine({ barcode: "product1" });
+            helper.assertButtonShouldBeVisible(line, "add_quantity");
+            helper.assertButtonShouldBeVisible(line, "remove_unit");
+            helper.assertButtonShouldBeVisible(line, "set", false);
+        }
+    },
+    { trigger: ".o_barcode_line.o_selected .o_line_button.o_edit"},
+    {
+        trigger: '.o_form_view_container',
+        run: function() {
+            helper.assert(
+                Boolean(document.querySelector(".o_button_qty_done")), false,
+                "Button to set counted quantity shouldn't be visible");
+        },
+    },
+    { trigger: '.o_barcode_control .o_discard' },
+
+    { trigger: '.o_barcode_line:contains("productlot1")' },
+    {
+        trigger: '.o_barcode_line.o_selected .o_line_button.o_toggle_sublines',
+        run: function () {
+            helper.assertSublinesCount(2);
+            const [subline1, subline2] = helper.getSublines();
+            helper.assertLineQty(subline1, "?");
+            helper.assertLineQty(subline2, "?");
+            helper.assert(subline1.querySelector('.o_line_lot_name').innerText, "lot1");
+            helper.assert(subline2.querySelector('.o_line_lot_name').innerText, "lot2");
+            helper.assertButtonShouldBeVisible(subline1, "add_quantity");
+            helper.assertButtonShouldBeVisible(subline1, "remove_unit");
+            helper.assertButtonShouldBeVisible(subline1, "set", false);
+            helper.assertButtonShouldBeVisible(subline2, "set", false);
+        }
+    },
+
+    { trigger: '.o_barcode_line:contains("productserial1")' },
+    {
+        trigger: '.o_barcode_line.o_selected .o_line_button.o_toggle_sublines .fa-caret-up',
+        run: function () {
+            helper.assertSublinesCount(3);
+            const [subline1, subline2, subline3] = helper.getSublines();
+            helper.assertLineQty(subline1, "?");
+            helper.assertLineQty(subline2, "?");
+            helper.assertLineQty(subline3, "?");
+            helper.assert(subline1.querySelector('.o_line_lot_name').innerText, "sn1");
+            helper.assert(subline2.querySelector('.o_line_lot_name').innerText, "sn2");
+            helper.assert(subline3.querySelector('.o_line_lot_name').innerText, "sn3");
+            // For product tracked by SN, the set button should be visible no matter the parameter.
+            helper.assertButtonShouldBeVisible(subline1, "set");
+            helper.assertButtonShouldBeVisible(subline2, "set");
+            helper.assertButtonShouldBeVisible(subline3, "set");
+        }
+    },
+]});

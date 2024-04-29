@@ -118,6 +118,7 @@ class StockQuant(models.Model):
                 "uom.uom": uoms.read(uoms._get_fields_stock_barcode(), load=False),
             },
             "nomenclature_id": [self.env.company.nomenclature_id.id],
+            "show_quantity_count": self.env.user.has_group('stock_barcode.group_barcode_show_quantity_count'),
             "user_id": self.env.user.id,
         }
         return data
