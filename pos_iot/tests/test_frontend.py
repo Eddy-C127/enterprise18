@@ -72,3 +72,31 @@ class TestUi(TestPointOfSaleHttpCommon):
         })
 
         self.start_tour("/web", 'pos_iot_scale_tour', login="pos_user")
+
+    def test_03_pos_iot_printer_invoice_report(self):
+        env = self.env
+
+        # Create IoT Box
+        iotbox_id = env['iot.box'].sudo().create({
+            'name': 'iotbox-test',
+            'identifier': '01:01:01:01:01:01',
+            'ip': '1.1.1.1',
+        })
+
+        # Create IoT device
+        iot_device_id = env['iot.device'].sudo().create({
+            'iot_id': iotbox_id.id,
+            'name': 'Printer',
+            'identifier': 'test_printer',
+            'type': 'printer',
+            'connection': 'direct',
+        })
+
+        # Select IoT Box, tick electronic scale
+        self.main_pos_config.write({
+            'iface_printer_id': iot_device_id.id,
+        })
+        invoice_report = self.env['ir.actions.report'].search([('report_name', '=', 'account.report_invoice_with_payments')])
+        invoice_report.device_ids = iot_device_id
+        self.main_pos_config.with_user(self.pos_user).open_ui()
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, "PrinterInvoice", login="pos_user")
