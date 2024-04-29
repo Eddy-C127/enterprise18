@@ -14,6 +14,8 @@ Accounting reports for OHADA
     'data': [
         'data/account_financial_html_report_bs_data.xml',
         'data/account_financial_html_report_pl_data.xml',
+        'data/bs_assoc_data.xml',
+        'data/pl_assoc_data.xml',
     ],
     'auto_install': True,
     'license': 'OEEL-1',

@@ -13,6 +13,7 @@ from odoo import fields
 
 _logger = logging.getLogger(__name__)
 syscohada_coas = [country_code.lower() for country_code in SYSCOHADA_LIST]
+syscebnl_coas = [f'{country_code.lower}_syscebnl' for country_code in SYSCOHADA_LIST]
 
 
 # === Set this variable to something truthy if you want the test to identify any incorrectly-referenced accounts for you. === #
@@ -270,6 +271,11 @@ REPORT_CONFIG = {
         'liability_line_ref': 'l10n_syscohada_reports.account_financial_report_line_03_3_11_syscohada_bilan_passif',
         'chart_template_refs': syscohada_coas,
     },
+    'l10n_syscohada_reports.account_financial_report_syscebnl_bilan_assoc': {
+        'asset_line_ref': 'l10n_syscohada_reports.account_financial_report_syscohada_bilan_actif_total',
+        'liability_line_ref': 'l10n_syscohada_reports.account_financial_report_syscohada_bilan_passif_total',
+        'chart_template_refs': syscebnl_coas,
+    },
     'l10n_tn_reports.l10n_tn_bs_account_report': {
         'asset_line_ref': 'l10n_tn_reports.l10n_tn_bs_assets',
         'liability_line_ref': 'l10n_tn_reports.l10n_tn_bs_liabilities_equity',
@@ -391,7 +397,7 @@ class TestBalanceSheetBalanced(TestAccountReportsCommon):
             name
             for mapping in installed_modules.mapped('account_templates')
             for name, template in mapping.items()
-            if template['visible'] and name != 'syscohada'  # Syscohada template is visible but deprecated since odoo#163350
+            if template['visible'] and name not in ('syscohada', 'syscebnl')  # Syscohada template is visible but deprecated since odoo#163350
         ]
 
         self.existing_companies = self.env['res.company'].search([])
