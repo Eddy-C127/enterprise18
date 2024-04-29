@@ -1279,6 +1279,21 @@ class AccountReport(models.Model):
         else:
             options['hide_0_lines'] = False
 
+    def _filter_out_0_lines(self, lines):
+        """ Returns a list containing all lines that are not zero or that are parent to non-zero lines.
+            Can be used to ensure printed report does not include 0 lines, when hide_0_lines is toggled.
+        """
+        lines_to_hide = set()  # contain line ids to remove from lines
+        has_visible_children = set()  # contain parent line ids
+        # Traverse lines in reverse to keep track of visible parent lines required by children lines
+        for line in reversed(lines):
+            is_zero_line = all(col.get('is_zero', True) for col in line['columns'])
+            if is_zero_line and line['id'] not in has_visible_children:
+                lines_to_hide.add(line['id'])
+            if line.get('parent_id') and line['id'] not in lines_to_hide:
+                has_visible_children.add(line['parent_id'])
+        return list(filter(lambda x: x['id'] not in lines_to_hide, lines))
+
     ####################################################
     # OPTIONS: HORIZONTAL GROUP
     ####################################################
@@ -2197,6 +2212,9 @@ class AccountReport(models.Model):
 
         # Format values in columns of lines that will be displayed
         self._format_column_values(options, lines)
+
+        if options.get('export_mode') == 'print' and options.get('hide_0_lines'):
+            lines = self._filter_out_0_lines(lines)
 
         return lines
 

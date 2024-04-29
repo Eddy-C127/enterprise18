@@ -1654,3 +1654,57 @@ class TestReportEngines(TestAccountReportsCommon):
             ],
             no_rounding_options,
         )
+
+    def test_print_hide_0_lines(self):
+        # Create the report.
+        test_line_1 = self._prepare_test_report_line(
+            self._prepare_test_expression_tax_tags('11'),
+            groupby='account_id',
+        )
+        test_line_2 = self._prepare_test_report_line(
+            self._prepare_test_expression_tax_tags('222T'),
+            groupby='account_id',
+        )
+        report = self._create_report([test_line_1, test_line_2], country_id=self.fake_country.id)
+
+        # Create the journal entries.
+        self._create_test_account_moves([
+            self._prepare_test_account_move_line(3000.0, account_code='101001', tax_tags=['+11', '-222T']),
+            self._prepare_test_account_move_line(3600.0, account_code='101001', tax_tags=['+222T']),
+            self._prepare_test_account_move_line(-600.0, account_code='101001', tax_tags=['+222T', '-11']),
+        ])
+
+        # To ensure that the lines are shown when hide_0_lines isn't toggled and vice versa, we test both scenarios.
+        options_not_hide = self._generate_options(
+            report,
+            '2020-01-01', '2020-01-01',
+            default_options={'unfold_all': True, 'export_mode': 'print'}
+        )
+        self.assertLinesValues(
+            # pylint: disable=bad-whitespace
+            report._get_lines(options_not_hide),
+            [   0,                        1],
+            [
+                ('test_line_1',      3600.0),
+                ('101001 101001',    3600.0),
+                ('test_line_2',         0.0),
+                ('101001 101001',       0.0),
+            ],
+            options_not_hide,
+        )
+
+        options_hide = self._generate_options(
+            report,
+            '2020-01-01', '2020-01-01',
+            default_options={'unfold_all': True, 'export_mode': 'print', 'hide_0_lines': True}
+        )
+        self.assertLinesValues(
+            # pylint: disable=bad-whitespace
+            report._get_lines(options_hide),
+            [   0,                        1],
+            [
+                ('test_line_1',      3600.0),
+                ('101001 101001',    3600.0),
+            ],
+            options_hide,
+        )
