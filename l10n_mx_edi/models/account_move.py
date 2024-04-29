@@ -476,7 +476,7 @@ class AccountMove(models.Model):
                  'l10n_mx_edi_payment_document_ids.state', 'l10n_mx_edi_payment_document_ids.sat_state')
     def _compute_l10n_mx_edi_cfdi_state_and_attachment(self):
         for move in self:
-            move.l10n_mx_edi_cfdi_sat_state = move.l10n_mx_edi_cfdi_sat_state
+            move.l10n_mx_edi_cfdi_sat_state = None
             move.l10n_mx_edi_cfdi_state = None
             move.l10n_mx_edi_cfdi_attachment_id = None
             move.l10n_mx_edi_invoice_cancellation_reason = None
