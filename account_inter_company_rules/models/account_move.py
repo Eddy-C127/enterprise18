@@ -70,7 +70,7 @@ class AccountMove(models.Model):
         return moves
 
     def _inter_company_prepare_invoice_data(self, invoice_type):
-        ''' Get values to create the invoice.
+        r''' Get values to create the invoice.
         /!\ Doesn't care about lines, see '_inter_company_prepare_invoice_line_data'.
         :return: Python dictionary of values.
         '''

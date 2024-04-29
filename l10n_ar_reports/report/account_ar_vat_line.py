@@ -45,7 +45,7 @@ class AccountArVatLine(models.Model):
     vat_per = fields.Monetary(
         readonly=True, string='VAT Perc.', help='VAT Perception', currency_field='company_currency_id')
     not_taxed = fields.Monetary(
-        readonly=True, string='Not taxed/ex', help='Not Taxed / Exempt.\All lines that have VAT 0, Exempt, Not Taxed'
+        readonly=True, string='Not taxed/ex', help=r'Not Taxed / Exempt.\All lines that have VAT 0, Exempt, Not Taxed'
         ' or Not Applicable', currency_field='company_currency_id')
     perc_iibb = fields.Monetary(readonly=True, string='Perc. IIBB', currency_field='company_currency_id')
     perc_earnings = fields.Monetary(readonly=True, string='Perc. Earnings', currency_field='company_currency_id')

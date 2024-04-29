@@ -5,7 +5,7 @@
     'name': 'Import CSV Bank Statement',
     'category': 'Accounting/Accounting',
     'version': '1.0',
-    'description': '''
+    'description': r'''
 Module to import CSV bank statements.
 ======================================
 

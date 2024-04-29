@@ -6,7 +6,7 @@
     'category': 'Accounting/Accounting',
     'version': '1.0',
     'depends': ['account_bank_statement_import'],
-    'description': """
+    'description': r"""
 Module to import OFX bank statements.
 ======================================
 
