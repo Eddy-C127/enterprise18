@@ -23,7 +23,7 @@ registries.autoCompleteProviders.add("list_fields", {
                 return;
             }
             const fields = Object.values(dataSource.getFields());
-            return fields.map(makeFieldProposal);
+            return fields.map((field) => makeFieldProposal(field));
         }
         return;
     },
