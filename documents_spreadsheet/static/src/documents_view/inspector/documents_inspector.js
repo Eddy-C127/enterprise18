@@ -2,7 +2,6 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
-import { loadBundle } from "@web/core/assets";
 import { useService } from "@web/core/utils/hooks";
 import {
     inspectorFields,
@@ -106,27 +105,16 @@ patch(DocumentsInspector.prototype, {
     async createShareVals() {
         const selection = this.props.documents;
         const vals = await super.createShareVals();
-        if (selection.every((doc) => doc.data.handler !== "spreadsheet")) {
+        const spreadsheetIds = selection
+            .filter((data) => data.data.handler === "spreadsheet")
+            .map((data) => data.resId);
+        if (!spreadsheetIds.length) {
             return vals;
         }
-        await loadBundle("spreadsheet.o_spreadsheet");
-        const spreadsheetShares = [];
-        for (const document of selection) {
-            if (document.data.handler === "spreadsheet") {
-                const resId = document.resId;
-                const { fetchSpreadsheetModel, freezeOdooData } = odoo.loader.modules.get("@spreadsheet/helpers/model");
-                const model = await fetchSpreadsheetModel(this.env, "documents.document", resId);
-                const data = await freezeOdooData(model);
-                spreadsheetShares.push({
-                    spreadsheet_data: JSON.stringify(data),
-                    excel_files: model.exportXLSX().files,
-                    document_id: resId,
-                });
-            }
-        }
+        const spreadsheetShares = await this.env.searchModel.createSpreadsheetShare(spreadsheetIds);
         return {
             ...vals,
-            spreadsheet_shares: spreadsheetShares,
+            ...spreadsheetShares,
         };
     },
 });

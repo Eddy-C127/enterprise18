@@ -83,6 +83,38 @@ export function useDocumentView(helpers) {
         model: component.model,
     });
     const env = useEnv();
+    const bus = env.documentsView.bus;
+
+    // Opens Share Dialog
+    const _openShareDialog = async (vals) => {
+        const act = await orm.call("documents.share", "open_share_popup", [vals]);
+        const shareResId = act.res_id;
+        let saved = false;
+        dialogService.add(
+            FormViewDialog,
+            {
+                title: act.name,
+                resModel: "documents.share",
+                resId: shareResId,
+                onRecordSaved: async (record) => {
+                    saved = true;
+                    // Copy the share link to the clipboard
+                    navigator.clipboard.writeText(record.data.full_url);
+                    // Show a notification to the user about the copy to clipboard
+                    notification.add(_t("The share url has been copied to your clipboard."), {
+                        type: "success",
+                    });
+                },
+            },
+            {
+                onClose: async () => {
+                    if (!saved) {
+                        await orm.unlink("documents.share", [shareResId]);
+                    }
+                },
+            }
+        );
+    };
 
     // Keep selection between views
     useSetupView({
@@ -90,6 +122,10 @@ export function useDocumentView(helpers) {
         getGlobalState: () => ({
             sharedSelection: component.model.exportSelection(),
         }),
+    });
+
+    useBus(bus, "documents-open-share", (ev) => {
+        _openShareDialog(ev.detail.vals);
     });
 
     let maxUploadSize;
@@ -204,33 +240,7 @@ export function useDocumentView(helpers) {
             const vals = helpers?.sharePopupAction
                 ? await helpers.sharePopupAction(defaultVals)
                 : defaultVals;
-            const act = await orm.call("documents.share", "open_share_popup", [vals]);
-            const shareResId = act.res_id;
-            let saved = false;
-            dialogService.add(
-                FormViewDialog,
-                {
-                    title: act.name,
-                    resModel: "documents.share",
-                    resId: shareResId,
-                    onRecordSaved: async (record) => {
-                        saved = true;
-                        // Copy the share link to the clipboard
-                        navigator.clipboard.writeText(record.data.full_url);
-                        // Show a notification to the user about the copy to clipboard
-                        notification.add(_t("The share url has been copied to your clipboard."), {
-                            type: "success",
-                        });
-                    },
-                },
-                {
-                    onClose: async () => {
-                        if (!saved) {
-                            await orm.unlink("documents.share", [shareResId]);
-                        }
-                    },
-                }
-            );
+            _openShareDialog(vals);
         },
     };
 }

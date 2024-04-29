@@ -27,6 +27,9 @@ export class DocumentsSearchPanelItemSettingsPopover extends Component {
         "createChildEnabled", // Whether we have the option to create a new child or not
         "onCreateChild", // Function, create new child
         "onEdit", // Function, edit element
+        "isShareable", // Whether we have the option to share
+        "onShare", // Function, share workspace
+        "isEditable",
     ];
 }
 
@@ -110,7 +113,7 @@ export class DocumentsSearchPanel extends SearchPanel {
      */
     get supportedEditionFields() {
         if (!this.isDocumentManager) {
-            return [];
+            return ["folder_id"];
         }
         return ["folder_id", "tag_ids"];
     }
@@ -211,7 +214,14 @@ export class DocumentsSearchPanel extends SearchPanel {
                 this.popover.close();
                 this.addNewSectionValue(section, value || group);
             },
+            onShare: async () => {
+                this.popover.close();
+                const vals = await this.prepareShareVals(resId);
+                await this.env.documentsView.bus.trigger("documents-open-share", { vals });
+            },
             createChildEnabled: this.supportedNewChildModels.includes(resModel),
+            isShareable: "documents.folder" === resModel,
+            isEditable: this.isDocumentManager,
         });
         target.classList.add("d-block");
         if (counter) {
@@ -274,6 +284,14 @@ export class DocumentsSearchPanel extends SearchPanel {
             }
         );
         await this.env.model.env.documentsView.bus.trigger("documents-close-preview");
+    }
+
+    async prepareShareVals(resId) {
+        return {
+            domain: [["folder_id", "child_of", resId]],
+            folder_id: resId,
+            type: "domain",
+        };
     }
 
     //---------------------------------------------------------------------

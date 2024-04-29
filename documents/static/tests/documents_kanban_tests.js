@@ -4237,7 +4237,7 @@ QUnit.module("documents", {}, function () {
             );
 
             QUnit.test("SearchPanel: regular user can not edit", async function (assert) {
-                assert.expect(1);
+                assert.expect(3);
 
                 await createDocumentsView({
                     type: "kanban",
@@ -4250,8 +4250,12 @@ QUnit.module("documents", {}, function () {
                     </div>
                 </t></templates></kanban>`,
                 });
-
-                assert.containsNone(target, ".o_documents_search_panel_section_edit");
+                await click(
+                    ".o_search_panel_category_value:nth-of-type(2) .o_documents_search_panel_section_edit"
+                );
+                await nextTick();
+                assert.containsOnce(target, ".o_search_panel_item_settings_popover");
+                assert.containsNone(target, ".o_search_panel_value_edit_edit");
             });
 
             QUnit.test("SearchPanel: can edit folders", async function (assert) {
@@ -5507,6 +5511,44 @@ QUnit.module("documents", {}, function () {
                     assert.containsNone(target, ".o-FileViewer-view");
                 }
             );
+
+            QUnit.test("SearchPanel: can share workspace", async function (assert) {
+                assert.expect(6);
+
+                await createDocumentsView({
+                    type: "kanban",
+                    resModel: "documents.document",
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
+                                <div>
+                                    <field name="name"/>
+                                </div>
+                            </t></templates></kanban>`,
+                    mockRPC: async function (route, args) {
+                        if (args.method === "open_share_popup") {
+                            assert.deepEqual(args.args, [
+                                {
+                                    domain: [["folder_id", "child_of", 1]],
+                                    folder_id: 1,
+                                    type: "domain",
+                                },
+                            ]);
+                            assert.step("share popup");
+                            return { ignore: true };
+                        }
+                    },
+                });
+                assert.containsNone(
+                    target,
+                    ".o_search_panel_category_value:nth-of-type(1) .o_documents_search_panel_section_edit"
+                );
+                await click(
+                    ".o_search_panel_category_value:nth-of-type(2) .o_documents_search_panel_section_edit"
+                );
+                await nextTick();
+                assert.containsOnce(target, ".o_search_panel_item_settings_popover");
+                await legacyClick(target, ".o_search_panel_value_share");
+                assert.verifySteps(["share popup"]);
+            });
         }
     );
 });
