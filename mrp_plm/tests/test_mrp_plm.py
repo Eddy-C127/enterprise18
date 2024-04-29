@@ -4,6 +4,7 @@
 from .test_common import TestPlmCommon
 from odoo import Command
 from odoo.tests import Form
+from odoo.tests.common import new_test_user
 
 class TestMrpPlm(TestPlmCommon):
 
@@ -437,3 +438,29 @@ class TestMrpPlm(TestPlmCommon):
         mrp_eco.action_apply()
         self.assertEqual(mrp_eco.state, 'done')
         self.assertEqual(self.table.product_tmpl_id.version, version_num + 1)
+
+    def test_mrp_user_without_plm_permission_can_create_bom(self):
+        mrp_manager = new_test_user(
+            self.env, 'temp_stock_manager', 'mrp.group_mrp_manager',
+        )
+        bom = self.env['mrp.bom'].with_user(mrp_manager).create({
+            'product_id': self.table.id,
+            'product_tmpl_id': self.table.product_tmpl_id.id,
+            'bom_line_ids': [
+                (0, 0, {'product_id': self.table_sheet.id, 'product_qty': 1}),
+            ],
+        })
+
+        # Admin creates an ECO
+        self.env['mrp.eco'].sudo().create({
+            'name': 'a plm',
+            'bom_id': bom.id,
+            'product_tmpl_id': bom.product_tmpl_id.id,
+            'type_id': self.env['mrp.eco.type'].search([], limit=1).id,
+            'type': 'bom',
+            # Status 'progress' or 'rebase' is required to trigger rebase lines
+            'state': 'progress',
+        })
+
+        # MRP manager should still be able to edit the original object
+        bom.bom_line_ids[0].product_qty = 2

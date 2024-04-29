@@ -121,7 +121,7 @@ class MrpBomLine(models.Model):
 
     def _create_or_update_rebase_line(self, ecos, operation, product_id, uom_id, operation_id=None, new_qty=0):
         self.ensure_one()
-        BomChange = self.env['mrp.eco.bom.change']
+        BomChange = self.env['mrp.eco.bom.change'].sudo()
         for eco in ecos:
             # When product exist in new bill of material update line otherwise add line in rebase changes.
             rebase_line = BomChange.search([
@@ -143,10 +143,10 @@ class MrpBomLine(models.Model):
             eco.state = 'rebase' if eco.bom_rebase_ids or eco.previous_change_ids else 'progress'
         return True
 
-    def bom_line_change(self, vals, operation='update'):
+    def _bom_line_change(self, vals, operation='update'):
         MrpEco = self.env['mrp.eco']
         for line in self:
-            ecos = MrpEco.search([
+            ecos = MrpEco.sudo().search([
                 ('bom_id', '=', line.bom_id.id), ('state', 'in', ('progress', 'rebase')),
                 ('type', 'in', ('bom', 'both'))
             ])
@@ -163,19 +163,19 @@ class MrpBomLine(models.Model):
     def create(self, vals_list):
         lines = super().create(vals_list)
         for line, vals in zip(lines, vals_list):
-            line.bom_line_change(vals, operation='add')
+            line._bom_line_change(vals, operation='add')
         return lines
 
     def write(self, vals):
         operation = 'update'
         if vals.get('product_id'):
             # It will create update rebase line with negative quantity.
-            self.bom_line_change({'product_qty': 0.0}, operation)
+            self._bom_line_change({'product_qty': 0.0}, operation)
             operation = 'add'
-        self.bom_line_change(vals, operation)
+        self._bom_line_change(vals, operation)
         return super(MrpBomLine, self).write(vals)
 
     def unlink(self):
         # It will create update rebase line.
-        self.bom_line_change({'product_qty': 0.0})
+        self._bom_line_change({'product_qty': 0.0})
         return super(MrpBomLine, self).unlink()
