@@ -10,19 +10,17 @@ from odoo import api, fields, models, _
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    def _get_default_employee_feedback_template(self):
-        return self.env['ir.qweb']._render('hr_appraisal.hr_appraisal_employee_feedback')
-
-    def _get_default_manager_feedback_template(self):
-        return self.env['ir.qweb']._render('hr_appraisal.hr_appraisal_manager_feedback')
+    def _get_default_appraisal_template(self):
+        return self.env.ref('hr_appraisal.hr_appraisal_default_template', raise_if_not_found=False)
 
     def _get_default_appraisal_confirm_mail_template(self):
         return self.env.ref('hr_appraisal.mail_template_appraisal_confirm', raise_if_not_found=False)
 
     appraisal_plan = fields.Boolean(string='Automatically Generate Appraisals', default=True)
     assessment_note_ids = fields.One2many('hr.appraisal.note', 'company_id')
-    appraisal_employee_feedback_template = fields.Html(translate=True)
-    appraisal_manager_feedback_template = fields.Html(translate=True)
+    appraisal_template_id = fields.Many2one(
+        'hr.appraisal.template', default=_get_default_appraisal_template,
+        string="Appraisal Template", check_company=True)
     appraisal_confirm_mail_template = fields.Many2one(
         'mail.template', domain="[('model', '=', 'hr.appraisal')]",
         default=_get_default_appraisal_confirm_mail_template)
@@ -51,8 +49,6 @@ class ResCompany(models.Model):
         default_notes = self._get_default_assessment_note_ids()
         res.sudo().write({
             'assessment_note_ids': default_notes,
-            'appraisal_employee_feedback_template': self._get_default_employee_feedback_template(),
-            'appraisal_manager_feedback_template': self._get_default_manager_feedback_template(),
         })
         return res
 

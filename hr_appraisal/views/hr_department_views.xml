@@ -41,41 +41,7 @@
             </xpath>
 
             <xpath expr="//field[@name='color']" position="after">
-                <section colspan="2">
-                    <div class="o_horizontal_separator mb-3 mt-4 text-uppercase fw-bolder small">Appraisal</div>
-                    <group>
-                        <field name="custom_appraisal_templates"/>
-                    </group>
-                </section>
-            </xpath>
-
-            <xpath expr="//sheet" position="inside">
-                <notebook invisible="not custom_appraisal_templates">
-                    <page string="Appraisal Templates" name="page_appraisal_templates">
-                        <div class="o_appraisal_both_feedback d-flex flex-column flex-md-row flex-wrap align-items-stretch" >
-                            <div class="o_appraisal_feedback col-12 col-md-6">
-                                <div class="row">
-                                    <div class="col-12 o_appraisal_input position-relative">
-                                        <h3 class="ps-0">Employee</h3>
-                                        <div class="h-100">
-                                            <field name="employee_feedback_template" nolabel="1" colspan="2"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="o_appraisal_feedback o_appraisal_manager_feedback col-12 col-md-6">
-                                <div class="row">
-                                    <div class="o_appraisal_feedback_title col-12 d-flex justify-content-between">
-                                        <h3 class="ps-0">Manager</h3>
-                                    </div>
-                                    <div class="col-12 o_appraisal_input position-relative">
-                                        <field name="manager_feedback_template" class="o_appraisal_manager_feedback" nolabel="1" colspan="2"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </page>
-                </notebook>
+                <field name="custom_appraisal_template_id"/>
             </xpath>
         </field>
     </record>

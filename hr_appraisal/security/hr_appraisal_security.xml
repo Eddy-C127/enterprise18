@@ -75,6 +75,12 @@
         <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
 
+    <record model="ir.rule" id="hr_appraisal_template_comp_rule">
+        <field name="name">Appraisal Template multi-company</field>
+        <field name="model_id" ref="model_hr_appraisal_template"/>
+        <field name="domain_force">[('company_id', 'in', company_ids  + [False])]</field>
+    </record>
+
     <record id="hr_appraisal_goal_company_rule" model="ir.rule">
         <field name="name">Appraisal Goal multi-company</field>
         <field name="model_id" ref="model_hr_appraisal_goal"/>

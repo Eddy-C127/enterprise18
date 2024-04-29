@@ -40,6 +40,7 @@ Key Features
         'views/res_users_views.xml',
         'views/hr_employee_views.xml',
         'views/hr_employee_public_views.xml',
+        'views/hr_appraisal_template_views.xml',
         'data/hr_appraisal_data.xml',
         'data/mail_template_data.xml',
         'wizard/hr_departure_wizard_views.xml',

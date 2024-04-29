@@ -47,8 +47,9 @@ class HrAppraisal(models.Model):
     last_appraisal_date = fields.Date(related='employee_id.last_appraisal_date')
     employee_appraisal_count = fields.Integer(related='employee_id.appraisal_count')
     uncomplete_goals_count = fields.Integer(related='employee_id.uncomplete_goals_count')
-    employee_feedback_template = fields.Html(default=lambda self: self.env.company.appraisal_employee_feedback_template, compute='_compute_feedback_templates', translate=True)
-    manager_feedback_template = fields.Html(default=lambda self: self.env.company.appraisal_manager_feedback_template, compute='_compute_feedback_templates', translate=True)
+    appraisal_template_id = fields.Many2one('hr.appraisal.template', string="Appraisal Template", compute="_compute_appraisal_template", check_company=True, store=True)
+    employee_feedback_template = fields.Html(compute='_compute_feedback_templates', translate=True)
+    manager_feedback_template = fields.Html(compute='_compute_feedback_templates', translate=True)
 
     date_close = fields.Date(
         string='Appraisal Date', help='Closing date of the current appraisal', required=True, index=True,
@@ -183,33 +184,36 @@ class HrAppraisal(models.Model):
             is_appraiser = self.env.user in appraisal.manager_ids.user_id
             appraisal.show_manager_feedback_full = is_appraiser and not appraisal.manager_feedback_published
 
-    @api.depends('department_id')
+    @api.depends('department_id', 'appraisal_template_id')
     def _compute_employee_feedback(self):
         for appraisal in self.filtered(lambda a: a.state in ['new', 'pending']):
-            employee_template = appraisal.department_id.employee_feedback_template if appraisal.department_id.custom_appraisal_templates \
-                else appraisal.company_id.appraisal_employee_feedback_template
+            employee_template = appraisal._get_appraisal_template('employee')
             if appraisal.state == 'new':
                 appraisal.employee_feedback = employee_template
             else:
                 appraisal.employee_feedback = appraisal.employee_feedback or employee_template
 
-    @api.depends('department_id')
+    @api.depends('department_id', 'appraisal_template_id')
     def _compute_manager_feedback(self):
         for appraisal in self.filtered(lambda a: a.state in ['new', 'pending']):
-            manager_template = appraisal.department_id.manager_feedback_template if appraisal.department_id.custom_appraisal_templates \
-                else appraisal.company_id.appraisal_manager_feedback_template
+            manager_template = appraisal._get_appraisal_template('manager')
             if appraisal.state == 'new':
                 appraisal.manager_feedback = manager_template
             else:
                 appraisal.manager_feedback = appraisal.manager_feedback or manager_template
 
-    @api.depends('department_id', 'company_id')
+    @api.depends('department_id', 'company_id', 'appraisal_template_id')
     def _compute_feedback_templates(self):
         for appraisal in self:
-            appraisal.employee_feedback_template = appraisal.department_id.employee_feedback_template if appraisal.department_id.custom_appraisal_templates \
-                else appraisal.company_id.appraisal_employee_feedback_template
-            appraisal.manager_feedback_template = appraisal.department_id.manager_feedback_template if appraisal.department_id.custom_appraisal_templates \
-                else appraisal.company_id.appraisal_manager_feedback_template
+            appraisal.employee_feedback_template = appraisal._get_appraisal_template('employee')
+            appraisal.manager_feedback_template = appraisal._get_appraisal_template('manager')
+
+    @api.depends('department_id', 'company_id')
+    def _compute_appraisal_template(self):
+        for appraisal in self:
+            appraisal.appraisal_template_id = appraisal.appraisal_template_id or \
+                appraisal.department_id.custom_appraisal_template_id or \
+                appraisal.company_id.appraisal_template_id
 
     @api.depends('employee_feedback_published', 'manager_feedback_published')
     def _compute_waiting_feedback(self):
@@ -374,6 +378,18 @@ class HrAppraisal(models.Model):
                 appraisal.sudo().manager_feedback = appraisal.accessible_manager_feedback
             else:
                 raise UserError(_('The manager feedback cannot be changed by an employee.'))
+
+    def _get_appraisal_template(self, template):
+        self.ensure_one()
+        appraisal_template = self.appraisal_template_id or \
+            self.department_id.custom_appraisal_template_id or \
+            self.company_id.appraisal_template_id
+        if not appraisal_template:
+            return False
+        if template == 'employee':
+            return appraisal_template.appraisal_employee_feedback_template
+        else:
+            return appraisal_template.appraisal_manager_feedback_template
 
     def _find_previous_appraisals(self):
         result = {}
