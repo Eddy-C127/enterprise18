@@ -35,7 +35,7 @@ class Forecast(models.Model):
         '''
         Returns the domain used to fetch the timesheets, None is returned in case there would be no match
         '''
-        self.ensure_one
+        self.ensure_one()
         if not self.project_id:
             return None
         domain = [
@@ -44,7 +44,7 @@ class Forecast(models.Model):
             ('date', '<=', self.end_datetime.date())
         ]
         if self.project_id:
-            domain = expression.AND([[('account_id', '=', self.project_id.analytic_account_id.id)], domain])
+            domain = expression.AND([[('project_id', '=', self.project_id.id)], domain])
         return domain
 
     @api.depends('timesheet_ids')
@@ -55,7 +55,7 @@ class Forecast(models.Model):
                 for timesheet in forecast.timesheet_ids
             )
 
-    @api.depends('employee_id', 'start_datetime', 'end_datetime', 'project_id.analytic_account_id', 'project_id.analytic_account_id.line_ids', 'project_id.analytic_account_id.line_ids.unit_amount')
+    @api.depends('employee_id', 'start_datetime', 'end_datetime', 'project_id.timesheet_ids.unit_amount')
     def _compute_timesheet_ids(self):
         self.timesheet_ids = False
         Timesheet = self.env['account.analytic.line']
