@@ -329,6 +329,7 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
             [
                 ('move_type', 'in', self.env['account.move'].get_invoice_types()),
                 ('state', '=', 'cancel'),
+                ('name', '!=', '/'),    # filter out cancelled draft account moves
                 ('l10n_latam_document_type_id.code', 'in', SALE_DOCUMENT_CODES + LOCAL_PURCHASE_DOCUMENT_CODES),
                 ('date', '>=', date_start),
                 ('date', '<=', date_finish),
@@ -343,6 +344,7 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
             [
                 ('move_type', 'in', ['entry']),
                 ('state', '=', 'cancel'),
+                ('name', '!=', '/'),    # filter out cancelled draft account moves
                 ('journal_id', 'in', withhold_journals._ids),
                 ('date', '>=', date_start),
                 ('date', '<=', date_finish),

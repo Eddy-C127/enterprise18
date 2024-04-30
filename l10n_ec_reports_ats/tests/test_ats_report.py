@@ -161,6 +161,16 @@ class TestAtsReport(TestEcEdiCommon, TestAccountReportsCommon):
             # Non-cancelled purchase invoice. This should not appear with the cancelled docs.
             self._generate_non_cancelled_purchase_invoice()
 
+            # Cancelled draft invoice should not appear in the report
+            draft_invoice = self.env['account.move'].create({
+                'move_type': 'out_invoice',
+                'l10n_ec_sri_payment_id': self.sri_payment_id,
+                'partner_id': self.partner_ruc.id,
+                'journal_id': self.journal_inv_one.id,
+                'invoice_line_ids': [self._get_invoice_line_with_price_vals(price_unit=100)],
+            })
+            draft_invoice.button_cancel()
+
             xml_content_ats = self._get_ats_xml_content()
             self.assert_xml_ats_equal(xml_content_ats, 'ats_cancelled.xml')
 
