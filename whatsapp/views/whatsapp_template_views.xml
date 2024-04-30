@@ -88,7 +88,7 @@
                                 options="{'accepted_file_extensions': 'video/mp4', 'number_of_files': 1}"
                                 invisible="header_type != 'video'"/>
                             <field name="report_id"
-                                invisible="header_type != 'document' or header_attachment_ids != []"/>
+                                invisible="header_type != 'document' or header_attachment_ids"/>
                             <field name="footer_text"
                                 readonly="status != 'draft'"/>
                             <field name="quality" widget="priority"
