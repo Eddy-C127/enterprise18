@@ -11,7 +11,7 @@
                 <group>
                     <label for="full_time_required_hours"/>
                     <div>
-                        <field name="full_time_required_hours" nolabel="1" style="width: 10%"/>
+                        <field name="full_time_required_hours" nolabel="1" style="width: 10%" widget="float_time"/>
                         <span> hours/week</span>
                     </div>
                     <label for="work_time_rate" string="Work Time Rate"/>
@@ -26,7 +26,7 @@
                 <group class="oe_subtotal_footer">
                     <label for="hours_per_week" string="Total"/>
                     <div class="d-flex">
-                        <field name="hours_per_week" nolabel="1"/>
+                        <field name="hours_per_week" nolabel="1" widget="float_time"/>
                         <span class="ms-2"> hours/week</span>
                     </div>
                 </group>
