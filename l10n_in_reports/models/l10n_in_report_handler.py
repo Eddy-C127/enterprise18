@@ -52,7 +52,7 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
             [
                 ('l10n_in_hsn_code', '!=', False),
                 ('l10n_in_hsn_code', 'like', '99%'),
-                ('product_id.detailed_type', '!=', 'service'),
+                ('product_id.type', '!=', 'service'),
             ]
         ).product_id.ids
         return 'l10n_in_reports.invalid_type_service_for_hsn_warning', invalid_type_service_for_hsn
@@ -63,7 +63,7 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
             aml_domain +
             [
                 ('l10n_in_hsn_code', '!=', False),
-                ('product_id.detailed_type', '=', 'service'),
+                ('product_id.type', '=', 'service'),
                 ('l10n_in_hsn_code', 'not like', '99%'),
             ]
         ).product_id.ids
