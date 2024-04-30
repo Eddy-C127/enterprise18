@@ -3612,3 +3612,16 @@ class TestSubscription(TestSubscriptionCommon):
         self.subscription.write({'start_date': False, 'next_invoice_date': False})
         self.subscription.action_confirm()
         self.assertEqual(self.subscription.state, 'sale')
+
+    def test_web_read_group_sale_subscription(self):
+        self.subscription.action_confirm()
+        SaleSubscription = self.env['sale.order']
+        domain = ['&', ['subscription_state', 'not in', ['2_renewal', '5_renewed', '7_upsell', False]], '|', ['subscription_state', '=', '3_progress'], ['subscription_state', '=', '4_paused']]
+        fields = ['rating_last_value:sum', 'recurring_total:sum']
+        groupby = ['subscription_state']
+        result = SaleSubscription.web_read_group(domain, fields, groupby)
+
+        self.assertEqual(result['groups'][0]['subscription_state_count'], 1)
+        self.assertEqual(result['groups'][0]['subscription_state'], '3_progress')
+        self.assertEqual(result['groups'][1]['subscription_state_count'], 0)
+        self.assertEqual(result['groups'][1]['subscription_state'], '4_paused')
