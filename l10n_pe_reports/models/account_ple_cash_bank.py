@@ -95,12 +95,14 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                       latam_doctype.code,
                       journal_account.code,
                       account_move_fr.move_type,
+                      bank_statement_move.journal_id,
                       bank_statement_move.date,
                       account_move_fr.name,
                       account_move_fr.invoice_date,
                       account_move_fr.invoice_date_due,
                       account_move_line.move_id,
                       aml_currency.name
+             ORDER BY bank_statement_move.journal_id, bank_statement_move.date, bank_statement_line.id
         """
         for model in (
                 'account.move.line',
@@ -215,6 +217,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                       bank_statement_line.amount,
                       bank_statement_line.payment_ref,
                       journal_account.code,
+                      bank_statement_move.journal_id,
                       bank_statement_move.date,
                       account_move.name,
                       account_move_line.move_id,
@@ -223,6 +226,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                       partner.vat,
                       partner.name,
                       partner_latam_idtype.l10n_pe_vat_code
+             ORDER BY bank_statement_move.journal_id, bank_statement_move.date, bank_statement_line.id
         """
         for model in (
                 'account.move.line',
