@@ -27,6 +27,8 @@ class Sign(http.Controller):
         current_request_item = sign_request.request_item_ids.filtered(lambda r: consteq(r.access_token, token))
         if not current_request_item and sign_request.access_token != token:
             return request.not_found()
+        if current_request_item and current_request_item.partner_id.lang:
+            http.request.env.context = dict(http.request.env.context, lang=current_request_item.partner_id.lang)
 
         sign_item_types = http.request.env['sign.item.type'].sudo().search_read([])
         if not sign_item_types:
@@ -149,9 +151,6 @@ class Sign(http.Controller):
         if not isinstance(document_context, dict):
             return document_context
 
-        current_request_item = document_context.get('current_request_item')
-        if current_request_item and current_request_item.partner_id.lang:
-            http.request.env.context = dict(http.request.env.context, lang=current_request_item.partner_id.lang)
         return http.request.render('sign.doc_sign', document_context)
 
     @http.route(['/sign/download/<int:request_id>/<token>/<download_type>'], type='http', auth='public')
