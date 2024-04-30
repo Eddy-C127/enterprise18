@@ -322,6 +322,10 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
     def test_empty_spreadsheet_server_revision_id(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
         self.assertEqual(spreadsheet.current_revision_uuid, "START_REVISION")
+        self.assertEqual(
+            spreadsheet.with_context(bin_size=True).current_revision_uuid,
+            "START_REVISION"
+        )
 
     def test_no_data_server_revision_id(self):
         spreadsheet = self.env["spreadsheet.test"].create({})
@@ -353,6 +357,10 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
             {"revisionId": snapshot_revision_id},
         )
         self.assertEqual(spreadsheet.current_revision_uuid, snapshot_revision_id)
+        self.assertEqual(
+            spreadsheet.with_context(bin_size=True).current_revision_uuid,
+            snapshot_revision_id
+        )
 
         # dispatch revision after snapshot
         revision_data = self.new_revision_data(spreadsheet)
