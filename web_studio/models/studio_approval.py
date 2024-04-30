@@ -419,10 +419,11 @@ class StudioApprovalRule(models.Model):
             ], ["domain", "notification_order"]):
                 if rule["id"] == ruleSudo.id:
                     continue
+                rule_domain = rule["domain"] and literal_eval(rule["domain"])
+                if rule_domain and not record.filtered_domain(rule_domain):
+                    continue
                 if rule["notification_order"] == ruleSudo.notification_order:
-                    rule_domain = rule["domain"] and literal_eval(rule["domain"])
-                    if not rule_domain or record.filtered_domain(rule_domain):
-                        same_level_rules.append(rule["id"])
+                    same_level_rules.append(rule["id"])
                 else:
                     higher_level_rules.append(rule["id"])
 
