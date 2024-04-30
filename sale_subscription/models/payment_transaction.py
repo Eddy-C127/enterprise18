@@ -170,6 +170,17 @@ class PaymentTransaction(models.Model):
                 for order in orders:
                     order._subscription_post_success_payment(tx, tx.invoice_ids, automatic=automatic)
 
+    def _send_invoice(self):
+        subscription_action_txs = self.filtered(lambda tx: (
+            tx.operation != 'validation'
+            and tx.subscription_action
+            and tx.renewal_state == 'authorized'
+            and not tx.is_post_processed
+        ))
+        # we're going to send subscription invoices with a specific
+        # email, so skip those from here to not send them a second time
+        return super(PaymentTransaction, self - subscription_action_txs)._send_invoice()
+
     def _set_done(self, **kwargs):
         orders = self.sale_order_ids
         # Flag of subscription processed in the cron is removed in the cron to avoid concurrent updates

@@ -544,6 +544,40 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
         self.assertEqual(len(self.subscription.invoice_ids), 1)
         self.assertEqual(self.subscription.invoice_ids.state, 'posted')
 
+    def test_subscription_invoice_after_payment_sale_automatic_invoice(self):
+        """Ensure that invoice are only sent once when sale 'Automatic Invoice' option is enabled."""
+        self.env["ir.config_parameter"].set_param("sale.automatic_invoice", "True")
+
+        # Update account_payment `_post_process` mock so that we post invoices
+        # created by sale's "Automatic Invoice" option
+        def _post_process(self):
+            self.invoice_ids.filtered(lambda inv: inv.state == 'draft').action_post()
+
+        ap_reconcile_after_done_post = patch(
+            'odoo.addons.account_payment.models.payment_transaction.PaymentTransaction._post_process',
+            side_effect=_post_process, autospec=_post_process,
+        )
+        self.startPatcher(ap_reconcile_after_done_post)
+
+        # Mock method that is used to send the invoice
+        # (simply used to registerto how many time it's called)
+        send_invoice_mock = self.startPatcher(
+            patch.object(self.env.registry["account.move"], '_generate_pdf_and_send_invoice', autospec=True)
+        )
+
+        self.amount = self.subscription.amount_total
+        tx = self._create_transaction(flow='redirect', sale_order_ids=[self.subscription.id], state='done',
+                                      subscription_action="assign_token")
+        with mute_logger('odoo.addons.sale.models.payment_transaction'):
+            tx._post_process()
+        self.assertEqual(self.subscription.state, 'sale')
+        self.assertEqual(len(self.subscription.invoice_ids), 1)
+        self.assertEqual(self.subscription.invoice_ids.state, 'posted')
+        send_invoice_mock.assert_called_once_with(
+            self.subscription.invoice_ids,
+            self.env.ref('sale_subscription.email_payment_success'),
+        )
+
     def test_manually_captured_payment_providers_not_allowed(self):
         self.provider.capture_manually = True
 
