@@ -95,8 +95,9 @@ class TestStudioApprovals(TransactionCase):
     def test_notify_higher_notification_order(self):
         IrModel = self.env["ir.model"]
 
-        self.env["studio.approval.rule"].create([
+        rules = self.env["studio.approval.rule"].create([
             {
+                "name": "rule 1",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_step",
                 "domain": "[('step', '<', 1)]",
@@ -104,6 +105,16 @@ class TestStudioApprovals(TransactionCase):
                 "users_to_notify": [Command.link(2)],
             },
             {
+                "name": "rule 2",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_step",
+                "notification_order": "2",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(self.other_user.id)],
+                "exclusive_user": True,
+            },
+            {
+                "name": "rule 2 - bis",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_step",
                 "domain": "[('step', '>=', 1)]",
@@ -112,6 +123,7 @@ class TestStudioApprovals(TransactionCase):
                 "users_to_notify": [Command.link(self.other_user.id)],
             },
             {
+                "name": "rule 3",
                 "model_id": IrModel._get("test.studio.model_action2").id,
                 "method": "action_step",
                 "notification_order": "1",
@@ -126,9 +138,26 @@ class TestStudioApprovals(TransactionCase):
         with self.with_user("demo"):
             self.env["test.studio.model_action"].browse(model_action.id).action_step()
 
-        self.assertEqual(model_action.step, 1)
-        self.assertEqual(model_action.message_ids[0].preview, "@test An approval for 'False' has been requested on test")
+        # Rule 3 is not found: it applies on another model
+        self.assertEqual(model_action.step, 0)
+        self.assertEqual(model_action.message_ids[0].preview, "@test An approval for 'rule 2' has been requested on test")
         self.assertEqual(len(model_action.activity_ids), 1)
+
+        spec = self.env["studio.approval.rule"].get_approval_spec("test.studio.model_action", method="action_step", action_id=False, res_id=model_action.id)
+        self.assertEqual(len(spec["entries"]), 1)
+        self.assertEqual(spec["entries"][0]["rule_id"][0], rules[0].id)
+
+        with self.with_user("admin"):
+            self.env["studio.approval.rule"].browse(rules[1].id).set_approval(model_action.id, True)
+
+        # rule 2 is validated, rule 2 - bis doesn't apply, but is at the same level as rule 2 anyway, so it would not notify.
+        self.assertEqual(model_action.step, 0)
+        self.assertEqual(model_action.message_ids[0].preview, "Approved as User types / Internal User")
+        self.assertEqual(len(model_action.activity_ids), 0)
+
+        spec = self.env["studio.approval.rule"].get_approval_spec("test.studio.model_action", method="action_step", action_id=False, res_id=model_action.id)
+        self.assertEqual(len(spec["entries"]), 2)
+        self.assertEqual(spec["entries"][1]["rule_id"][0], rules[1].id)
 
     def test_entries_approved_by_other_read_by_regular_user(self):
         IrModel = self.env["ir.model"]
@@ -267,6 +296,57 @@ class TestStudioApprovals(TransactionCase):
         spec = self.env["studio.approval.rule"].get_approval_spec("test.studio.model_action", method="action_confirm", action_id=False, res_id=model_action.id)
         self.assertEqual(len(spec["entries"]), 1)
         self.assertEqual(spec["entries"][0]["rule_id"][0], rules[1].id)
+
+    def test_rule_notify_higher_order_domain(self):
+        IrModel = self.env["ir.model"]
+
+        model_action = self.env["test.studio.model_action"].create({
+            "name": "test 2"
+        })
+        rules = self.env["studio.approval.rule"].create([
+            {
+                "name": "rule 1",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+            {
+                "name": "rule 1 - bis",
+                "domain": "[('name', '=', 'test')]",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+            {
+                "name": "rule 2",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "domain": "[('name', '=', 'test')]",
+                "notification_order": "2",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+            {
+                "name": "rule3",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "notification_order": "2",
+                "responsible_id": self.other_user.id,
+                "users_to_notify": [Command.link(self.other_user.id)],
+            }
+        ])
+        with self.with_user("demo"):
+            self.env["studio.approval.rule"].browse(rules[0].id).set_approval(model_action.id, True)
+        self.assertFalse(model_action.confirmed)
+        self.assertEqual(model_action.message_ids[0].preview, f"@{self.other_user.name} An approval for 'rule3' has been requested on test 2")
+        self.assertEqual(len(model_action.activity_ids), 1)
+        self.assertEqual(model_action.activity_ids.user_id.id, self.other_user.id)
+
+        spec = self.env["studio.approval.rule"].get_approval_spec("test.studio.model_action", method="action_confirm", action_id=False, res_id=model_action.id)
+        self.assertEqual(len(spec["entries"]), 1)
+        self.assertEqual(spec["entries"][0]["rule_id"][0], rules[0].id)
 
 
 @tagged("-at_install", "post_install")
