@@ -17,6 +17,8 @@ class AppointmentType(models.Model):
             ('service_tracking', '=', 'no'),
         ],
         readonly=False, store=True, tracking=True)
+    product_currency_id = fields.Many2one(related='product_id.currency_id')
+    product_lst_price = fields.Float(related='product_id.lst_price')
 
     _sql_constraints = [
         ('check_product_and_payment_step',

@@ -65,14 +65,6 @@ class SaleOrder(models.Model):
             return self.env['sale.order.line']
         return super()._cart_find_product_line(product_id, line_id, **kwargs)
 
-    def _verify_updated_quantity(self, order_line, product_id, new_qty, **kwargs):
-        """ Forbid quantity updates on lines with calendar bookings, and total cart quantities
-            going over available resources / users. """
-        product = self.env['product.product'].browse(product_id)
-        if product.is_booking_fee and new_qty > 1:
-            return 1, _('You cannot manually change the quantity of a Service product with booking fees.')
-        return super()._verify_updated_quantity(order_line, product_id, new_qty, **kwargs)
-
     def _prepare_order_line_values(self, product_id, quantity, calendar_booking_id=False, calendar_booking_tz=False, **kwargs):
         """ Add calendar booking values to the SOL creation values (if a booking id is provided). """
         values = super()._prepare_order_line_values(product_id, quantity, **kwargs)

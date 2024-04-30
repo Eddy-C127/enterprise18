@@ -12,6 +12,7 @@
     'data': [
         'views/appointment_templates_appointments.xml',
         'views/calendar_booking_views.xml',
+        'views/calendar_event_views.xml',
         'views/sale_order_views.xml',
         'views/website_sale_templates.xml',
     ],

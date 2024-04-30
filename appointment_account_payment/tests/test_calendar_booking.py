@@ -68,6 +68,9 @@ class AppointmentAccountPaymentTest(AppointmentAccountPaymentCommon):
         resources_remaining_capacity = appointment_type._get_resources_remaining_capacity(appointment_type.resource_ids, start, stop)
         self.assertEqual(resources_remaining_capacity['total_remaining_capacity'], 0)
 
+        # Inoviced quantity should be equal to asked_capacity
+        self.assertEqual(invoice.invoice_line_ids.quantity, calendar_booking.asked_capacity)
+
         # Assert Booking Data
         self.assertTrue(event.active)
         self.assertEqual(event, calendar_booking.calendar_event_id)

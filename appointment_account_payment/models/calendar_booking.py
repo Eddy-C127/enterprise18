@@ -175,7 +175,7 @@ class CalendarBooking(models.Model):
                 'display_type': 'product',
                 'name': booking._get_description(),
                 'product_id': booking.product_id.id,
-                'quantity': 1.0,
+                'quantity': booking.asked_capacity or 1.0,
             })],
             'move_type': 'out_invoice',
             'partner_id': booking.partner_id.id,

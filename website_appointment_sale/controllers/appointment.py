@@ -24,11 +24,11 @@ class WebsiteAppointmentSale(AppointmentAccountPayment):
 
         cart_values = order_sudo._cart_update(
             product_id=calendar_booking.appointment_type_id.product_id.id,
-            set_qty=1,
+            set_qty=calendar_booking.asked_capacity,
             calendar_booking_id=calendar_booking.id,
             calendar_booking_tz=tz
         )
-        if cart_values['quantity'] == 1:  # Booking successfully added to cart
+        if cart_values['quantity'] == calendar_booking.asked_capacity:  # Booking successfully added to cart
             return request.redirect("/shop/cart")
 
         # Slot not available. We remove booking and redirect to appointment.
