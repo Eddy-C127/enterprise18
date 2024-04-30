@@ -210,6 +210,25 @@
         </field>
     </record>
 
+    <record id="rental_order_view_calendar" model="ir.ui.view">
+        <field name="name">rental.order.calendar</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sale_order_calendar"/>
+        <field name="mode">primary</field>
+        <field name="priority">32</field>
+        <field name="arch" type="xml">
+            <calendar position="attributes">
+                <attribute name="date_start">rental_start_date</attribute>
+                <attribute name="date_stop">rental_return_date</attribute>
+                <attribute name="color">rental_status</attribute>
+                <attribute name="edit">0</attribute>
+            </calendar>
+            <field name="state" position="replace">
+                <field name="rental_status" filters="1" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
     <record id="rental_order_view_search" model="ir.ui.view">
         <field name="name">rental.order.search</field>
         <field name="model">sale.order</field>
@@ -297,6 +316,12 @@
         <field name="view_id" ref="rental_order_primary_form_view"/>
         <field name="act_window_id" ref="rental_order_action"/>
     </record>
+    <record id="rental_order_action_view_calendar" model="ir.actions.act_window.view">
+        <field name="sequence" eval="4"/>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="rental_order_view_calendar"/>
+        <field name="act_window_id" ref="rental_order_action"/>
+    </record>
 
     <record id="rental_order_today_pickup_action" model="ir.actions.act_window">
         <field name="name">Rental Orders</field>
@@ -334,6 +359,12 @@
         <field name="view_id" ref="rental_order_primary_form_view"/>
         <field name="act_window_id" ref="rental_order_today_pickup_action"/>
     </record>
+    <record id="rental_order_today_pickup_action_view_calendar" model="ir.actions.act_window.view">
+        <field name="sequence" eval="4"/>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="rental_order_view_calendar"/>
+        <field name="act_window_id" ref="rental_order_today_pickup_action"/>
+    </record>
 
     <record id="rental_order_today_return_action" model="ir.actions.act_window">
         <field name="name">Rental Orders</field>
@@ -369,6 +400,12 @@
         <field name="sequence" eval="3"/>
         <field name="view_mode">form</field>
         <field name="view_id" ref="rental_order_primary_form_view"/>
+        <field name="act_window_id" ref="rental_order_today_return_action"/>
+    </record>
+    <record id="rental_order_today_return_action_view_calendar" model="ir.actions.act_window.view">
+        <field name="sequence" eval="4"/>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="rental_order_view_calendar"/>
         <field name="act_window_id" ref="rental_order_today_return_action"/>
     </record>
 
