@@ -296,8 +296,8 @@ export class MrpDisplay extends Component {
     }
 
     get relevantRecords() {
-        const myWorkordersFilter = (wo) => this.adminWorkorderIds.includes(wo.resId);
-        const workcenterFilter = (wo) => wo.data.workcenter_id[0] === this.state.activeWorkcenter;
+        const myWorkordersFilter = (wo) => this.adminWorkorderIds.includes(wo.resId) && wo.data.state != "cancel";
+        const workcenterFilter = (wo) => wo.data.workcenter_id[0] === this.state.activeWorkcenter && wo.data.state != "cancel";
         const showMOs = this.state.activeResModel === "mrp.production";
         const filteredRecords = showMOs
             ? this.productions

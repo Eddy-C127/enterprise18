@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from odoo.tests import Form
 from odoo.tests.common import HttpCase, tagged
 
 @tagged('post_install', '-at_install')
@@ -191,3 +190,59 @@ class TestShopFloor(HttpCase):
         action = self.env["ir.actions.actions"]._for_xml_id("mrp_workorder.action_mrp_display")
         url = '/web?#action=%s' % (action['id'])
         self.start_tour(url, "test_generate_serials_in_shopfloor", login='admin')
+
+    def test_canceled_wo(self):
+        finished = self.env['product.product'].create({
+            'name': 'finish',
+            'type': 'product',
+        })
+        workcenter = self.env['mrp.workcenter'].create({
+            'name': 'Assembly Line',
+        })
+        bom = self.env['mrp.bom'].create({
+            'product_tmpl_id': finished.product_tmpl_id.id,
+            'product_qty': 1.0,
+            'operation_ids': [
+                (0, 0, {'name': 'op1', 'workcenter_id': workcenter.id}),
+                (0, 0, {'name': 'op2', 'workcenter_id': workcenter.id}),
+            ],
+        })
+
+        # Cancel previous MOs and create a new one
+        self.env['mrp.production'].search([]).action_cancel()
+        mo = self.env['mrp.production'].create({
+            'product_id': finished.id,
+            'product_qty': 2,
+            'bom_id': bom.id,
+        })
+        mo.action_confirm()
+        mo.action_assign()
+        mo.button_plan()
+
+        # wo_1 completely finished
+        mo_form = Form(mo)
+        mo_form.qty_producing = 2
+        mo = mo_form.save()
+        mo.workorder_ids[0].button_start()
+        mo.workorder_ids[0].button_finish()
+
+        # wo_2 partially finished
+        mo_form.qty_producing = 1
+        mo = mo_form.save()
+        mo.workorder_ids[1].button_start()
+        mo.workorder_ids[1].button_finish()
+
+        # Create a backorder
+        action = mo.button_mark_done()
+        backorder = Form(self.env['mrp.production.backorder'].with_context(**action['context']))
+        backorder.save().action_backorder()
+        mo_backorder = mo.procurement_group_id.mrp_production_ids[-1]
+        mo_backorder.button_plan()
+
+        # Sanity check
+        self.assertEqual(mo_backorder.workorder_ids[0].state, 'cancel')
+        self.assertEqual(mo_backorder.workorder_ids[1].state, 'ready')
+
+        action = self.env["ir.actions.actions"]._for_xml_id("mrp_workorder.action_mrp_display")
+        url = '/web?#action=%s' % (action['id'])
+        self.start_tour(url, "test_canceled_wo", login='admin')

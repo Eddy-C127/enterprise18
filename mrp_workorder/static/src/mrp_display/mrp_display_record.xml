@@ -34,7 +34,7 @@
             <ul class="list-group list-group-flush">
                 <MrpWorksheet t-if="showWorksheetCheck" record="props.record" clickable="true"/>
                 <t t-foreach="workorders" t-as="workorder" t-key="workorder.data.id">
-                    <MrpWorkorder t-props="subRecordProps(workorder)"/>
+                    <MrpWorkorder t-if="workorder.data.state != 'cancel'" t-props="subRecordProps(workorder)"/>
                 </t>
                 <li t-if="this.displayRegisterProduction" t-on-click="registerProduction"
                     class="o_mrp_record_line list-group-item d-flex justify-content-between align-items-center"

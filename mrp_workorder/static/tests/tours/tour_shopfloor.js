@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
+import { TourError } from "@web_tour/tour_service/tour_utils";
 
 registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: () => [
     {
@@ -161,3 +162,26 @@ registry.category("web_tour.tours").add('test_generate_serials_in_shopfloor', {t
         isCheck: true,
     },
 ]})
+
+registry.category("web_tour.tours").add('test_canceled_wo', {
+    test: true, steps: () => [
+        {
+            content: 'Make sure workcenter is available',
+            trigger: 'button:has(input[name="Assembly Line"])',
+        },
+        {
+            content: 'Confirm workcenter',
+            extra_trigger: 'button.active:has(input[name="Assembly Line"])',
+            trigger: 'button:contains("Confirm")',
+        },
+        {
+            content: 'Check MO',
+            trigger: 'button.btn-light:contains("All MO")',
+            isCheck: true,
+            run: () => {
+                if (document.querySelectorAll("ul button:not(.btn-secondary)").length > 1)
+                    throw new TourError("Multiple Workorders");
+            }
+        },
+    ]
+})
