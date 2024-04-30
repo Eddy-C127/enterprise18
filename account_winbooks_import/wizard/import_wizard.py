@@ -423,7 +423,7 @@ class WinbooksImportWizard(models.TransientModel):
                     'balance': balance,
                     'amount_currency': amount_currency,
                     'amount_residual_currency': amount_currency,
-                    'matching_number': matching_number and f"I{matching_number}",
+                    'matching_number': balance != 0.0 and matching_number and f"I{matching_number}",
                     'winbooks_line_id': rec['DOCORDER'],
                 }
                 if currency:
