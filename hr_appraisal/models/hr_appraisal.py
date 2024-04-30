@@ -242,6 +242,9 @@ class HrAppraisal(models.Model):
         if self.employee_id:
             manager = self.employee_id.parent_id
             self.manager_ids = manager if manager != self.employee_id else False
+            # Allow indirect managers to request appraisals for employees
+            if self.env.user.employee_id != self.employee_id and not self.env.user.has_group('hr_appraisal.group_hr_appraisal_user'):
+                self.manager_ids |= self.env.user.employee_id
             self.department_id = self.employee_id.department_id
 
     def subscribe_employees(self):
