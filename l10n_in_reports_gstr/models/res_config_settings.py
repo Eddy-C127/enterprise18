@@ -65,7 +65,7 @@ class ResConfigSettings(models.TransientModel):
         }
 
     def l10n_in_reports_gstr_buy_iap(self):
-        if not self.l10n_in_gstr_gst_production_env:
+        if not self.l10n_in_edi_production_env:
             raise UserError(_("You must enable production environment to buy credits"))
         return {
             'type': 'ir.actions.act_url',
