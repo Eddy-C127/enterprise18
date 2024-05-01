@@ -49,7 +49,7 @@ export class AccountReportController {
         if (this.areLinesOrdered())
             await this.sortLines();
 
-        this.assignLinesVisibility(this.lines);
+        this.setLineVisibility(this.lines);
         this.refreshVisibleFootnotes();
         this.saveSessionOptions(this.options);
     }
@@ -253,7 +253,7 @@ export class AccountReportController {
 
     set lines(value) {
         this.data.lines = value;
-        this.assignLinesVisibility(this.lines);
+        this.setLineVisibility(this.lines);
     }
 
     set linesOrder(value) {
@@ -423,7 +423,7 @@ export class AccountReportController {
     //------------------------------------------------------------------------------------------------------------------
     // Unfolded/Folded lines
     //------------------------------------------------------------------------------------------------------------------
-    unfoldLoadedLine(lineIndex) {
+    async unfoldLoadedLine(lineIndex) {
         const lineId = this.lines[lineIndex].id;
         let nextLineIndex = lineIndex + 1;
 
@@ -432,11 +432,12 @@ export class AccountReportController {
                 const nextLine = this.lines[nextLineIndex];
                 nextLine.visible = true;
                 if (!nextLine.unfoldable && this.isNextLineChild(nextLineIndex + 1, nextLine.id)) {
-                    this.unfoldLine(nextLineIndex);
+                    await this.unfoldLine(nextLineIndex);
                 }
             }
             nextLineIndex += 1;
         }
+        return nextLineIndex;
     }
 
     async unfoldNewLine(lineIndex) {
@@ -454,7 +455,6 @@ export class AccountReportController {
             ],
         );
 
-        this.assignLinesVisibility(newLines);
         if (this.areLinesOrdered()) {
             this.updateLinesOrderIndexes(lineIndex, newLines, false)
         }
@@ -464,6 +464,7 @@ export class AccountReportController {
 
         if (this.filters.show_totals && this.lines[totalIndex] && this.isTotalLine(totalIndex))
             this.lines[totalIndex].visible = true;
+        return totalIndex
     }
 
     /**
@@ -500,13 +501,15 @@ export class AccountReportController {
 
     async unfoldLine(lineIndex) {
         const targetLine = this.lines[lineIndex];
+        let lastLineIndex = lineIndex + 1;
 
         if (this.isLoadedLine(lineIndex))
-            this.unfoldLoadedLine(lineIndex);
+            lastLineIndex = await this.unfoldLoadedLine(lineIndex);
         else if (targetLine.expand_function) {
-            await this.unfoldNewLine(lineIndex);
+            lastLineIndex = await this.unfoldNewLine(lineIndex);
         }
 
+        this.setLineVisibility(this.lines.slice(lineIndex + 1, lastLineIndex));
         targetLine.unfolded = true;
         this.refreshVisibleFootnotes();
 
@@ -678,7 +681,7 @@ export class AccountReportController {
     /**
         Defines which lines should be visible in the provided list of lines (depending on what is folded).
     **/
-    assignLinesVisibility(linesToAssign) {
+    setLineVisibility(linesToAssign) {
         let needHidingChildren = new Set();
 
         linesToAssign.forEach((line) => {
@@ -690,7 +693,7 @@ export class AccountReportController {
 
         // If the hide 0 lines is activated we will go through the lines to set the visibility.
         if (this.options.hide_0_lines) {
-            this.setLineVisibility(linesToAssign);
+            this.hideZeroLines(linesToAssign);
         }
     }
 
@@ -705,7 +708,7 @@ export class AccountReportController {
      *
      * @param {Object} lines - The lines for which we want to determine visibility.
      */
-    setLineVisibility(lines) {
+    hideZeroLines(lines) {
         const hasVisibleChildren = new Set();
         const reversed_lines = [...lines].reverse()
 

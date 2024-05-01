@@ -249,7 +249,7 @@ export class AccountReportFilters extends Component {
         await this.controller.toggleOption('hide_0_lines', false);
 
         this.controller.saveSessionOptions(this.controller.options);
-        this.controller.assignLinesVisibility(this.controller.lines);
+        this.controller.setLineVisibility(this.controller.lines);
     }
 
     async filterRoundingUnit(rounding) {
