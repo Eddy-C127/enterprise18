@@ -280,18 +280,37 @@ class L10nInGSTReturnPeriod(models.Model):
     def _compute_display_tax_unit(self):
         self.display_tax_unit = self.env['account.tax.unit'].search_count([], limit=1) > 0
 
-    def _check_config(self):
+    def _check_config(self, next_gst_action=False):
         company = self.company_id
-        action = self.env.ref('account.action_account_config')
-        msg = ""
+        action = False
+        button_name = msg = ""
         if not company.vat:
             raise UserError(_("Please set company GSTIN"))
         if not company.sudo().l10n_in_gstr_gst_username:
             msg = _("First setup GST user name and validate using OTP from configuration")
+            button_name = _('Go to the configuration panel')
+            action = self.env.ref('account.action_account_config').id
         if not company._is_l10n_in_gstr_token_valid():
-            msg = _("The NIC portal connection has expired. To re-initiate the connection, you can send an OTP request From configuration.")
-        if msg:
-            raise RedirectWarning(msg, action.id, _('Go to the configuration panel'))
+            context = {
+                'default_company_id': self.company_id.id,
+                'dialog_size': 'medium',
+                'active_id': self._context.get('active_id', self.id),
+                'active_model': self._context.get('active_model', 'l10n_in.gst.return.period'),
+                'next_gst_action': next_gst_action,
+            } if next_gst_action else False
+            form = self.env.ref("l10n_in_reports_gstr.view_get_otp_gstr_validate_send_otp")
+            action = {
+                'name': _('OTP Request'),
+                'type': 'ir.actions.act_window',
+                'res_model': 'l10n_in.gst.otp.validation',
+                'views': [[form.id, 'form']],
+                'target': 'new',
+                'context': context,
+            }
+            msg = _("The NIC portal connection has expired. To re-initiate the connection, you can send an OTP request.")
+            button_name = _('Re-Initiate')
+        if msg and button_name and action:
+            raise RedirectWarning(msg, action, button_name)
 
     @api.ondelete(at_uninstall=False)
     def _restrict_delete_on_gstr_status(self):
@@ -1109,7 +1128,7 @@ class L10nInGSTReturnPeriod(models.Model):
         return return_json
 
     def button_send_gstr1(self):
-        self._check_config()
+        self._check_config(next_gst_action='send_gstr1')
         self.sudo().write({
             "gstr1_error": False,
             "gstr1_blocking_level": False,
@@ -1165,7 +1184,7 @@ class L10nInGSTReturnPeriod(models.Model):
         self.ensure_one()
         if self.gstr1_status != "waiting_for_status":
             raise AccessError(_("TO check status please push the GSTN"))
-        self._check_config()
+        self._check_config(next_gst_action='gstr1_status')
         self.check_gstr1_status()
 
     def check_gstr1_status(self):
@@ -1445,7 +1464,7 @@ class L10nInGSTReturnPeriod(models.Model):
         }
 
     def action_get_gstr2b_data(self):
-        self._check_config()
+        self._check_config(next_gst_action='fetch_gstr2b')
         self.sudo().write({
             "gstr2b_status": "waiting_reception",
             "gstr2b_error": False,

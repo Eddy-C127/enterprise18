@@ -44,29 +44,4 @@
         </field>
     </record>
 
-    <record id="view_get_otp_validate_wizard" model="ir.ui.view">
-        <field name="name">res.config.settings.wizard.inherit.l10n_in_gstr.validate.otp</field>
-        <field name="model">res.config.settings</field>
-        <field name="mode">primary</field>
-        <field name="arch" type="xml">
-            <form string="Get Otp" create="false">
-                <sheet>
-                    <span>OTP Sent on mobile on registered mobile number with company GST number</span>
-                    <group>
-                        <field name="l10n_in_gstr_gst_otp"/>
-                        <field name="l10n_in_gstr_gst_token" groups="base.group_no_one"/>
-                    </group>
-                    <footer>
-                        <button string="Validate"
-                                class="btn btn-primary"
-                                name="l10n_in_gstr_validate_otp"
-                                data-hotkey="q"
-                                type="object"/>
-                        <button special="cancel" data-hotkey="x" string="Cancel"/>
-                    </footer>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
 </odoo>
