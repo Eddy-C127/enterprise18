@@ -79,8 +79,8 @@ class TestTimesheetGridHolidays(TestCommonTimesheet):
             'holiday_status_id': hr_leave_type_with_ts.id,
             'request_date_from': '2018-02-05',
             'request_date_to': '2018-02-05',
-            'request_hour_from': '8',
-            'request_hour_to': '9',
+            'request_hour_from': 8,
+            'request_hour_to': 9,
             'request_unit_hours': True,
         })
         # validate leave request and create timesheet

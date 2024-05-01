@@ -165,8 +165,8 @@ class TestTimeoffDefer(TestPayrollHolidaysBase):
             'holiday_status_id': self.leave_type.id,
             'request_date_from': date(2022, 1, 31),
             'request_date_to': date(2022, 1, 31),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
         })
         leave._compute_date_from_to()
         leave = self.env['hr.leave'].create(leave._convert_to_write(leave._cache))
@@ -209,8 +209,8 @@ class TestTimeoffDefer(TestPayrollHolidaysBase):
             'holiday_status_id': self.leave_type.id,
             'request_date_from': date(2022, 1, 31),
             'request_date_to': date(2022, 2, 2),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
         })
         leave._compute_date_from_to()
         leave = self.env['hr.leave'].create(leave._convert_to_write(leave._cache))
@@ -252,8 +252,8 @@ class TestTimeoffDefer(TestPayrollHolidaysBase):
             'holiday_status_id': self.leave_type.id,
             'request_date_from': date(2022, 1, 1),
             'request_date_to': date(2022, 1, 31),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
         })
         leave._compute_date_from_to()
         leave = self.env['hr.leave'].create(leave._convert_to_write(leave._cache))
@@ -282,8 +282,8 @@ class TestTimeoffDefer(TestPayrollHolidaysBase):
             'holiday_status_id': self.leave_type.id,
             'request_date_from': date(2022, 1, 1),
             'request_date_to': date(2022, 3, 10),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
         })
         leave._compute_date_from_to()
         leave = self.env['hr.leave'].create(leave._convert_to_write(leave._cache))

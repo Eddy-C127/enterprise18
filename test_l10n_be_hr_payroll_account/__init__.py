@@ -29,8 +29,8 @@ def _generate_payslips(env):
                     'holiday_status_id': training_type.id,
                     'request_date_from': fields.Date.today() + relativedelta(day=1, month=1, years=-1),
                     'request_date_to': fields.Date.today() + relativedelta(day=7, month=1, years=-1),
-                    'request_hour_from': '7',
-                    'request_hour_to': '18',
+                    'request_hour_from': 7,
+                    'request_hour_to': 18,
                     'number_of_days': 5,
                 })
                 training_leave._compute_date_from_to()

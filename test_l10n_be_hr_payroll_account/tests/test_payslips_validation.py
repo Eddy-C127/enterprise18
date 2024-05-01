@@ -2193,8 +2193,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.env.ref('l10n_be_hr_payroll.holiday_type_maternity').id,
             'request_date_from': datetime.date(2020, 9, 10),
             'request_date_to': datetime.date(2020, 12, 24),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 76,
         })
         maternity_time_off._compute_date_from_to()
@@ -2794,8 +2794,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 9, 1),
             'request_date_to': datetime.date(2020, 9, 7),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 5,
         })
         sick_leave_1._compute_date_from_to()
@@ -2807,8 +2807,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 9, 15),
             'request_date_to': datetime.date(2020, 10, 13),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 24,
         })
         sick_leave_2._compute_date_from_to()
@@ -2992,8 +2992,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 9, 1),
             'request_date_to': datetime.date(2020, 9, 2),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 2,
         })
         sick_leave_1._compute_date_from_to()
@@ -3005,8 +3005,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 9, 21),
             'request_date_to': datetime.date(2020, 10, 7),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 13,
         })
         sick_leave_2._compute_date_from_to()
@@ -3179,8 +3179,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 9, 1),
             'request_date_to': datetime.date(2020, 10, 15),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 33,
         })
         sick_leave._compute_date_from_to()
@@ -3361,8 +3361,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 9, 1),
             'request_date_to': datetime.date(2020, 9, 7),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 5,
         })
         sick_leave_1._compute_date_from_to()
@@ -3374,8 +3374,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 9, 15),
             'request_date_to': datetime.date(2020, 10, 13),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 24,
         })
         sick_leave_2._compute_date_from_to()
@@ -3581,8 +3581,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 9, 1),
             'request_date_to': datetime.date(2020, 9, 2),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 2,
         })
         sick_leave_1._compute_date_from_to()
@@ -3594,8 +3594,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 9, 21),
             'request_date_to': datetime.date(2020, 10, 7),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 13,
         })
         sick_leave_2._compute_date_from_to()
@@ -3792,8 +3792,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 9, 1),
             'request_date_to': datetime.date(2020, 10, 15),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 33,
         })
         sick_leave._compute_date_from_to()
@@ -4525,8 +4525,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 11, 9),
             'request_date_to': datetime.date(2020, 11, 10),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 2,
         })
         sick_time_off._compute_date_from_to()
@@ -4807,8 +4807,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.long_term_sick_time_off_type.id,
             'request_date_from': datetime.date(2020, 3, 1),
             'request_date_to': datetime.date(2020, 3, 31),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 22,
         })
         long_term_sick._compute_date_from_to()
@@ -5036,8 +5036,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.env.ref('l10n_be_hr_payroll.holiday_type_maternity').id,
             'request_date_from': datetime.date(2020, 12, 31),
             'request_date_to': datetime.date(2021, 1, 1),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 2,
         })
         maternity_time_off._compute_date_from_to()
@@ -8130,8 +8130,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2022, 4, 27),
             'request_date_to': datetime.date(2022, 4, 29),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 3,
         })
 
@@ -8144,8 +8144,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2022, 5, 2),
             'request_date_to': datetime.date(2022, 5, 6),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 5,
         })
         sick_leave_2._compute_date_from_to()
@@ -8157,8 +8157,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2022, 5, 7),
             'request_date_to': datetime.date(2022, 5, 20),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 10,
         })
         sick_leave_3._compute_date_from_to()
@@ -8170,8 +8170,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2022, 5, 21),
             'request_date_to': datetime.date(2022, 6, 17),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 20,
         })
         sick_leave_4._compute_date_from_to()
@@ -8404,8 +8404,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.env.ref('l10n_be_hr_payroll.holiday_type_strike').id,
             'request_date_from': datetime.date(2022, 5, 17),
             'request_date_to': datetime.date(2022, 5, 17),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 1,
         })
         strike_leave._compute_date_from_to()
@@ -9461,8 +9461,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2022, 9, 26),
             'request_date_to': datetime.date(2022, 10, 17),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 16,
         })
         sick_leave_1._compute_date_from_to()
@@ -9474,8 +9474,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2022, 10, 18),
             'request_date_to': datetime.date(2022, 11, 14),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 20,
         })
         sick_leave_2._compute_date_from_to()
@@ -10087,8 +10087,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2023, 3, 27),
             'request_date_to': datetime.date(2023, 3, 29),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 3,
         })
         sick_leave._compute_date_from_to()
@@ -10457,8 +10457,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'holiday_status_id': self.sick_time_off_type.id,
             'request_date_from': datetime.date(2023, 1, 1),
             'request_date_to': datetime.date(2023, 3, 31),
-            'request_hour_from': '7',
-            'request_hour_to': '18',
+            'request_hour_from': 7,
+            'request_hour_to': 18,
             'number_of_days': 65,
         })
         sick_leave._compute_date_from_to()
