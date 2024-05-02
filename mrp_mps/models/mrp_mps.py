@@ -943,7 +943,7 @@ class MrpProductionSchedule(models.Model):
                 ('product_id', 'in', products.ids),
                 ('date', '>=', date_start - relativedelta(days=delay)),
             ]
-            domain = OR([domain, AND([common_domain, specific_domain])])
+            domain = OR([domain, AND([common_domain, specific_domain])]) if domain else AND([common_domain, specific_domain])
         return domain
 
     @api.model
@@ -1033,7 +1033,7 @@ class MrpProductionSchedule(models.Model):
                 ('product_id', 'in', products.ids),
                 ('date_planned', '>=', date_start - relativedelta(days=delay)),
             ]
-            domain = OR([domain, AND([common_domain, specific_domain])])
+            domain = OR([domain, AND([common_domain, specific_domain])]) if domain else AND([common_domain, specific_domain])
         return domain
 
     def _get_rfq_and_planned_date(self, rfq_domain, order=False):
