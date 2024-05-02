@@ -96,16 +96,6 @@ export default class MpsLineComponent extends Component {
         this.model._editProduct(id);
     }
 
-    /**
-     * Handles the click on unlink button. A dialog ask for a confirmation and
-     * it will unlink the product.
-     * @private
-     * @param {Object} id mrp.production.schedule Id.
-     */
-    _onClickUnlink(id) {
-        this.model._unlinkProduct([id]);
-    }
-
     _onClickOpenDetails(ev) {
         const dateStart = ev.target.dataset.date_start;
         const dateStop = ev.target.dataset.date_stop;
