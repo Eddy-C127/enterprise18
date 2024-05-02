@@ -329,11 +329,11 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2022-06-30', depreciation_value=1000, remaining_value=4000, depreciated_value=6000, state='posted'),
 
             self._get_depreciation_move_values(date='2022-07-31', depreciation_value=666.67, remaining_value=3333.33, depreciated_value=6666.67, state='draft'),
-            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=666.67, remaining_value=2666.66, depreciated_value=7333.34, state='draft'),
-            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=666.66, remaining_value=2000, depreciated_value=8000, state='draft'),
+            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=666.66, remaining_value=2666.67, depreciated_value=7333.33, state='draft'),
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=666.67, remaining_value=2000, depreciated_value=8000, state='draft'),
             self._get_depreciation_move_values(date='2022-10-31', depreciation_value=666.67, remaining_value=1333.33, depreciated_value=8666.67, state='draft'),
-            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=666.67, remaining_value=666.66, depreciated_value=9333.34, state='draft'),
-            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=666.66, remaining_value=0, depreciated_value=10000, state='draft'),
+            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=666.66, remaining_value=666.67, depreciated_value=9333.33, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=666.67, remaining_value=0, depreciated_value=10000, state='draft'),
         ])
 
     def test_linear_reevaluation_double_decrease(self):
@@ -739,6 +739,83 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2022-07-31', depreciation_value=252.03, remaining_value=495.93, depreciated_value=1601.60, state='draft'),
             self._get_depreciation_move_values(date='2022-08-31', depreciation_value=252.03, remaining_value=243.90, depreciated_value=1853.63, state='draft'),
             self._get_depreciation_move_values(date='2022-09-30', depreciation_value=243.90, remaining_value=0, depreciated_value=2097.53, state='draft'),
+        ])
+
+    def test_linear_reevaluation_increase_amount_and_length(self):
+        """ After 5 months, extend the lifetime by 3 month and the amount by 200 """
+        asset = self.create_asset(value=1200, periodicity="monthly", periods=10, method="linear", acquisition_date="2022-02-01", prorata="constant_periods")
+        asset.validate()
+
+        self.env['asset.modify'].create({
+            'asset_id': asset.id,
+            'name': 'Test reason',
+            'method_number': 10 + 3,
+            'date': fields.Date.to_date("2022-06-30"),
+            'modify_action': 'modify',
+            'value_residual': asset.value_residual + 200,
+            'account_asset_counterpart_id': self.company_data['default_account_revenue'].copy().id,
+        }).modify()
+
+        self.assertRecordValues(asset.depreciation_move_ids.sorted(lambda mv: (mv.date, mv.id)), [
+            self._get_depreciation_move_values(date='2022-02-28', depreciation_value=120, remaining_value=1080, depreciated_value=120, state='posted'),
+            self._get_depreciation_move_values(date='2022-03-31', depreciation_value=120, remaining_value=960, depreciated_value=240, state='posted'),
+            self._get_depreciation_move_values(date='2022-04-30', depreciation_value=120, remaining_value=840, depreciated_value=360, state='posted'),
+            self._get_depreciation_move_values(date='2022-05-31', depreciation_value=120, remaining_value=720, depreciated_value=480, state='posted'),
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=120, remaining_value=600, depreciated_value=600, state='posted'),
+            # After the reeval, we divide the amount to depreciate left on the amount left
+            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=75, remaining_value=525, depreciated_value=675, state='draft'),
+            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=75, remaining_value=450, depreciated_value=750, state='draft'),
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=75, remaining_value=375, depreciated_value=825, state='draft'),
+            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=75, remaining_value=300, depreciated_value=900, state='draft'),
+            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=75, remaining_value=225, depreciated_value=975, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=75, remaining_value=150, depreciated_value=1050, state='draft'),
+            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=75, remaining_value=75, depreciated_value=1125, state='draft'),
+            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=75, remaining_value=0, depreciated_value=1200, state='draft'),
+        ])
+
+        self.assertRecordValues(asset.children_ids.depreciation_move_ids.sorted(lambda mv: (mv.date, mv.id)), [
+            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=25, remaining_value=175, depreciated_value=25, state='draft'),
+            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=25, remaining_value=150, depreciated_value=50, state='draft'),
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=25, remaining_value=125, depreciated_value=75, state='draft'),
+            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=25, remaining_value=100, depreciated_value=100, state='draft'),
+            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=25, remaining_value=75, depreciated_value=125, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=25, remaining_value=50, depreciated_value=150, state='draft'),
+            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=25, remaining_value=25, depreciated_value=175, state='draft'),
+            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=25, remaining_value=0, depreciated_value=200, state='draft'),
+        ])
+
+    def test_linear_reevaluation_decrease_amount_and_increase_length(self):
+        """ After 5 months, extend the lifetime by 3 month and reduce the amount by 200 """
+        asset = self.create_asset(value=1200, periodicity="monthly", periods=10, method="linear", acquisition_date="2022-02-01", prorata="constant_periods")
+        asset.validate()
+
+        self.env['asset.modify'].create({
+            'asset_id': asset.id,
+            'name': 'Test reason',
+            'method_number': 10 + 3,
+            'date': fields.Date.to_date("2022-06-30"),
+            'modify_action': 'modify',
+            'value_residual': asset.value_residual - 200,
+            'account_asset_counterpart_id': self.company_data['default_account_revenue'].copy().id,
+        }).modify()
+
+        self.assertRecordValues(asset.depreciation_move_ids.sorted(lambda mv: (mv.date, mv.id)), [
+            self._get_depreciation_move_values(date='2022-02-28', depreciation_value=120, remaining_value=1080, depreciated_value=120, state='posted'),
+            self._get_depreciation_move_values(date='2022-03-31', depreciation_value=120, remaining_value=960, depreciated_value=240, state='posted'),
+            self._get_depreciation_move_values(date='2022-04-30', depreciation_value=120, remaining_value=840, depreciated_value=360, state='posted'),
+            self._get_depreciation_move_values(date='2022-05-31', depreciation_value=120, remaining_value=720, depreciated_value=480, state='posted'),
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=120, remaining_value=600, depreciated_value=600, state='posted'),
+            # Decrease Move
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=200, remaining_value=400, depreciated_value=800, state='posted'),
+            # After the reeval, we divide the amount to depreciate left on the amount left
+            self._get_depreciation_move_values(date='2022-07-31', depreciation_value=50, remaining_value=350, depreciated_value=850, state='draft'),
+            self._get_depreciation_move_values(date='2022-08-31', depreciation_value=50, remaining_value=300, depreciated_value=900, state='draft'),
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=50, remaining_value=250, depreciated_value=950, state='draft'),
+            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=50, remaining_value=200, depreciated_value=1000, state='draft'),
+            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=50, remaining_value=150, depreciated_value=1050, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=50, remaining_value=100, depreciated_value=1100, state='draft'),
+            self._get_depreciation_move_values(date='2023-01-31', depreciation_value=50, remaining_value=50, depreciated_value=1150, state='draft'),
+            self._get_depreciation_move_values(date='2023-02-28', depreciation_value=50, remaining_value=0, depreciated_value=1200, state='draft'),
         ])
 
     def test_monthly_degressive_start_beginning_month_increase_middle_month_on_degressive_part(self):

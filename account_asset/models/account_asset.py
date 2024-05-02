@@ -518,7 +518,9 @@ class AccountAsset(models.Model):
         computed_linear_amount = self.currency_id.round(amount_after_expected - self.currency_id.round(amount_expected_previous_period) - sum(amount_of_decrease_spread_over_period))
         return computed_linear_amount
 
-    def _compute_board_amount(self, residual_amount, period_start_date, period_end_date, days_already_depreciated, days_left_to_depreciated, residual_declining, start_yearly_period=None):
+    def _compute_board_amount(self, residual_amount, period_start_date, period_end_date, days_already_depreciated,
+                              days_left_to_depreciated, residual_declining, start_yearly_period=None, total_lifetime_left=None,
+                              residual_at_compute=None, start_recompute_date=None):
 
         def _get_max_between_linear_and_degressive(linear_amount):
             """
@@ -540,14 +542,17 @@ class AccountAsset(models.Model):
         days_before_period = self._get_delta_days(self.paused_prorata_date, period_start_date + relativedelta(days=-1))
         days_before_period = max(days_before_period, 0)  # if disposed before the beginning of the asset for example
         number_days = days_until_period_end - days_before_period
-        if self.asset_lifetime_days == 0:
+        if float_is_zero(self.asset_lifetime_days, 2):
             return 0, 0
 
         # The amount to depreciate are computed by computing how much the asset should be depreciated at the end of the
         # period minus how much it is actually depreciated. It is done that way to avoid having the last move to take
         # every single small difference that could appear over the time with the classic computation method.
         if self.method == 'linear':
-            computed_linear_amount = self._get_linear_amount(days_before_period, days_until_period_end, self.total_depreciable_value)
+            if total_lifetime_left and float_compare(total_lifetime_left, 0, 2) > 0:
+                computed_linear_amount = residual_amount - residual_at_compute * (1 - self._get_delta_days(start_recompute_date, period_end_date) / total_lifetime_left)
+            else:
+                computed_linear_amount = self._get_linear_amount(days_before_period, days_until_period_end, self.total_depreciable_value)
             amount = min(computed_linear_amount, residual_amount, key=abs)
         elif self.method == 'degressive':
             # Linear amount
@@ -610,12 +615,14 @@ class AccountAsset(models.Model):
         residual_amount = self.value_residual
         if not posted_depreciation_move_ids:
             residual_amount += imported_amount
-        residual_declining = residual_amount
+        residual_declining = residual_at_compute = residual_amount
         # start_yearly_period is needed in the 'degressive' and 'degressive_then_linear' methods to compute the amount when the period is monthly
-        start_depreciation_date = start_yearly_period = start_depreciation_date or self.paused_prorata_date
+        start_recompute_date = start_depreciation_date = start_yearly_period = start_depreciation_date or self.paused_prorata_date
 
         last_day_asset = self._get_last_day_asset()
         final_depreciation_date = self._get_end_period_date(last_day_asset)
+        total_lifetime_left = self._get_delta_days(start_depreciation_date, last_day_asset)
+
         depreciation_move_values = []
         if not float_is_zero(self.value_residual, precision_rounding=self.currency_id.rounding):
             while not self.currency_id.is_zero(residual_amount) and start_depreciation_date < final_depreciation_date:
@@ -623,7 +630,7 @@ class AccountAsset(models.Model):
                 period_end_fiscalyear_date = self.company_id.compute_fiscalyear_dates(period_end_depreciation_date).get('date_to')
                 lifetime_left = self._get_delta_days(start_depreciation_date, last_day_asset)
 
-                days, amount = self._compute_board_amount(residual_amount, start_depreciation_date, period_end_depreciation_date, False, lifetime_left, residual_declining, start_yearly_period)
+                days, amount = self._compute_board_amount(residual_amount, start_depreciation_date, period_end_depreciation_date, False, lifetime_left, residual_declining, start_yearly_period, total_lifetime_left, residual_at_compute, start_recompute_date)
                 residual_amount -= amount
 
                 if not posted_depreciation_move_ids:
@@ -1024,7 +1031,7 @@ class AccountAsset(models.Model):
 
         last_day_asset = self._get_last_day_asset()
         lifetime_left = self._get_delta_days(beginning_depreciation_date, last_day_asset)
-        days_depreciated, amount = self._compute_board_amount(value_residual, beginning_depreciation_date, date, False, lifetime_left, residual_declining, beginning_fiscal_year)
+        days_depreciated, amount = self._compute_board_amount(value_residual, beginning_depreciation_date, date, False, lifetime_left, residual_declining, beginning_fiscal_year, lifetime_left, value_residual, beginning_depreciation_date)
 
         if abs(imported_amount) <= abs(amount):
             amount -= imported_amount
