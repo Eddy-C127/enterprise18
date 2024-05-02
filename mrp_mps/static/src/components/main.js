@@ -139,7 +139,7 @@ export class MainComponent extends Component {
                 },
                 {
                     key: "replenish",
-                    description: _t("Replenish"),
+                    description: _t("Order"),
                     callback: () => this.replenishSelectedRecords(),
                 },
             ],

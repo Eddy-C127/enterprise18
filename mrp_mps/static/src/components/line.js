@@ -50,7 +50,8 @@ export default class MpsLineComponent extends Component {
     }
 
     formatFloat(value) {
-        return formatFloat(value, { digits: [false, this.productionSchedule.precision_digits] });
+        const precision = (value % 1) ? this.productionSchedule.precision_digits : 0;
+        return formatFloat(value, { digits: [false, precision] });
     }
 
     /**

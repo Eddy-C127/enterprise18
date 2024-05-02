@@ -31,15 +31,14 @@
         <div class="o_mrp_mps o_content bg-view">
             <t t-if="lines.length">
                 <div class="text-nowrap mr0 ml0">
-                    <table class="table o_mps_product_table">
+                    <table class="table table-sm o_mps_product_table">
                         <thead class="table-light">
                             <tr class="o_mps_period">
                                 <th>
                                     <CheckBox value='isSelected' onChange.bind="toggleSelection"/>
                                 </th>
                                 <th/>
-                                <th/>
-                                <th class="text-end pe-4" scope="col" t-foreach="manufacturingPeriods" t-as="period" t-key="period">
+                                <th class="text-end" scope="col" t-foreach="manufacturingPeriods" t-as="period" t-key="period">
                                     <div><t t-esc="period"/></div>
                                 </th>
                             </tr>

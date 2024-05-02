@@ -2,8 +2,7 @@
 
     button {
         &.o_mrp_mps_procurement {
-            background-color: $gray-200;
-            border: none;
+            padding: 1px 3px;
         }
         &.o_no_padding {
             padding: 0 0 0 0;
@@ -14,6 +13,17 @@
         border-style: groove;
         height: 100%;
         padding-top: 0;
+
+        &.o_highlight{
+            background-color: lightyellow;
+        }
+        &.o_zero_qty {
+            color: lightgrey;
+        }
+    }
+
+    .o_zero_qty {
+        color: lightgrey;
     }
 
     table {
@@ -33,7 +43,7 @@
             @include o-position-sticky($left: 0px);
             &:first-child,&:nth-child(2) {
                 z-index: 1;
-                background-color: $gray-200;
+                background-color: $gray-100;
             }
             &:nth-child(2){
                 @include o-position-sticky($left: 31px);
@@ -42,6 +52,11 @@
         }
         th {
             vertical-align: middle;
+
+            &.o_text_align {
+                text-align: center;
+                padding-right: 10px;
+            }
         }
         .o_mps_inline {
             display: inline-flex;
