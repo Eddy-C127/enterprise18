@@ -79,7 +79,8 @@ class L10nInReportAccount(models.Model):
 
         pos_journal_items = journal_items.filtered(lambda l: l.move_id.l10n_in_pos_session_ids and l.move_id.move_type == "entry")
         hsn_json = super()._get_gstr1_hsn_json(journal_items - pos_journal_items, tax_details_by_move)
-        details_pos_lines_by_move = _set_details_pos_lines(pos_journal_items.move_id.l10n_in_pos_session_ids.order_ids.lines)
+        pos_orders = pos_journal_items.move_id.l10n_in_pos_session_ids.order_ids.filtered(lambda l: not l.is_invoiced)
+        details_pos_lines_by_move = _set_details_pos_lines(pos_orders.lines)
         for move_id in pos_journal_items.mapped("move_id"):
             tax_details = tax_details_by_move.get(move_id)
             details_pos_lines = details_pos_lines_by_move[move_id.id]
