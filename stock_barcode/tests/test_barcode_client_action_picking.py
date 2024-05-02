@@ -1119,6 +1119,34 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(lines[1].product_id.name, 'productlot2')
         self.assertEqual(lines[1].qty_done, 2)
 
+    def test_scan_same_lot_different_products(self):
+        """
+        Checks that the same lot can be scanned for different products and there
+        is no conflict when trying to retrieve the lot from the cache.
+        """
+        products = self.env['product.product'].create([{
+            'name': name,
+            'barcode': name,
+            'type': 'product',
+            'tracking': 'lot',
+        } for name in ['aaa', 'bbb']])
+
+        self.env["stock.lot"].create([{
+            'name': "123",
+            'product_id': product.id,
+            'company_id': self.env.company.id,
+        } for product in products])
+
+        self.picking_type_internal.restrict_scan_product = True
+        internal_picking = self.env['stock.picking'].create({
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.shelf1.id,
+            'picking_type_id': self.picking_type_internal.id,
+        })
+        url = self._get_client_action_url(internal_picking.id)
+
+        self.start_tour(url, 'test_scan_same_lot_different_products', login="admin")
+
     def test_delivery_from_scratch_sn_1(self):
         """ Scan unreserved serial number on a delivery order.
         """

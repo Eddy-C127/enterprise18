@@ -3727,6 +3727,31 @@ registry.category("web_tour.tours").add('stock_barcode_package_with_lot', {test:
     },
 ]});
 
+registry.category("web_tour.tours").add('test_scan_same_lot_different_products', {test: true, steps: () => [
+    // Scanning 123 will fetch the lot 123 for the 'aaa' product and add them
+    // both in the cache (the 'aaa' product and its lot.)
+    {
+        trigger: '.o_barcode_client_action',
+        run: 'scan 123',
+    },
+    {
+        trigger: '.o_notification.border-danger',
+        run: 'scan bbb',
+    },
+    // Scanning again 123 should now fetch the lot for selected product ('bbb')
+    // even if the lot 123 for 'aaa' product is already in the cache.
+    {
+        trigger: '.o_barcode_line:contains("bbb")',
+        run: 'scan 123',
+    },
+    {
+        trigger: '.o_barcode_line:contains("bbb"):contains("123")',
+        run: function () {
+            helper.assertLinesCount(1);
+        },
+    },
+]});
+
 registry.category("web_tour.tours").add('test_avoid_useless_line_creation', {test: true, steps: () => [
     {
         trigger: '.o_barcode_client_action',
