@@ -525,13 +525,20 @@ class Payslip(models.Model):
 
         if force_months:
             n_months = force_months[0].amount
-            presence_prorata = 1
+            fixed_salary = basic * n_months / 12
         else:
             # 1. Number of months
             n_months = self._compute_number_complete_months_of_work(date_from, date_to, contracts)
             # 2. Deduct absences
             presence_prorata = self._compute_presence_prorata(date_from, date_to, contracts)
-        fixed_salary = basic * n_months / 12 * presence_prorata
+            fixed_salary = basic * n_months / 12 * presence_prorata
+            # 3. Previous Year occupation
+            if year == int(self.employee_id.first_contract_year_n1):
+                for line in self.employee_id.double_pay_line_n1_ids:
+                    fixed_salary += basic * line.months_count * line.occupation_rate / 100 / 12
+            elif year == int(self.employee_id.first_contract_year_n):
+                for line in self.employee_id.double_pay_line_n_ids:
+                    fixed_salary += basic * line.months_count * line.occupation_rate / 100 / 12
 
         force_avg_variable_revenues = self.input_line_ids.filtered(lambda l: l.code == 'VARIABLE')
         if force_avg_variable_revenues:
