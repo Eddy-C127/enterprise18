@@ -588,21 +588,35 @@ class MrpProductionSchedule(models.Model):
         # Get the last date of current period
         self.ensure_one()
         date_start, date_stop = self.company_id._get_date_range()[date_index]
-        existing_forecast = self.forecast_ids.filtered(lambda f:
-            f.date >= date_start and f.date <= date_stop)
+        existing_forecasts = self.forecast_ids.filtered(lambda f: f.date >= date_start and f.date <= date_stop)
         quantity = float_round(float(quantity), precision_rounding=self.product_uom_id.rounding)
-        quantity_to_add = quantity - sum(existing_forecast.mapped('forecast_qty'))
-        if existing_forecast:
-            new_qty = existing_forecast[0].forecast_qty + quantity_to_add
-            new_qty = float_round(new_qty, precision_rounding=self.product_uom_id.rounding)
-            existing_forecast[0].write({'forecast_qty': new_qty})
+        quantity_to_add = quantity - sum(existing_forecasts.mapped('forecast_qty'))
+        first_forecast = existing_forecasts.sorted(key='date')[:1]
+
+        if quantity_to_add > 0:
+            if first_forecast.date != max(date_start, fields.Date.today()):
+                existing_forecasts.create({
+                    'forecast_qty': quantity_to_add,
+                    'date': max(date_start, fields.Date.today()),
+                    'replenish_qty': 0,
+                    'production_schedule_id': self.id
+                })
+            else:
+                new_qty = first_forecast.forecast_qty + quantity_to_add
+                new_qty = float_round(new_qty, precision_rounding=self.product_uom_id.rounding)
+                first_forecast.write({'forecast_qty': new_qty})
         else:
-            existing_forecast.create({
-                'forecast_qty': quantity,
-                'date': date_stop,
-                'replenish_qty': 0,
-                'production_schedule_id': self.id
-            })
+            for forecast in existing_forecasts.sorted(key='date', reverse=True):
+                new_qty = forecast.forecast_qty + quantity_to_add
+                quantity_to_add += forecast.forecast_qty
+                if new_qty >= 0:
+                    new_qty = float_round(new_qty, precision_rounding=self.product_uom_id.rounding)
+                    forecast.write({'forecast_qty': new_qty})
+                    break
+                forecast.write({'forecast_qty': 0})
+            if quantity_to_add < 0:
+                new_qty = float_round(new_qty, precision_rounding=self.product_uom_id.rounding)
+                first_forecast.write({'forecast_qty': new_qty})
         return True
 
     def set_replenish_qty(self, date_index, quantity):
