@@ -89,8 +89,9 @@
                 <th scope="row">
                     <span t-attf-class="{{! groups.mrp_mps_show_actual_replenishment and 'o_hidden' or ''}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="The quantity being replenished, based on the Requests for Quotation and the Manufacturing Orders.">Actual</span>
                     <span t-attf-class="{{! (groups.mrp_mps_show_actual_replenishment and groups.mrp_mps_show_to_replenish) and 'o_hidden' or ''}}"> / </span>
-                    <span t-attf-class="{{! groups.mrp_mps_show_to_replenish and 'o_hidden' or ''}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="The quantity to replenish through Purchase Orders or Manufacturing Orders.">Suggested Replenishment </span>
-                    <button type="button" title="Replenish" t-attf-class="{{! groups.mrp_mps_show_to_replenish and 'o_hidden' or 'btn btn-secondary o_no_padding o_mrp_mps_procurement'}}"
+                    <span t-attf-class="{{! groups.mrp_mps_show_to_replenish and 'o_hidden' or ''}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="The quantity to replenish through Purchase Orders or Manufacturing Orders.">Replenishment: </span>
+                    <button type="button" title="Replenish" t-attf-class="{{! groups.mrp_mps_show_to_replenish and 'o_hidden' or 'btn btn-secondary o_mrp_mps_procurement'}}"
+                            t-if="forecastToReplenish"
                             t-on-click.stop="() => this._onClickReplenish(productionSchedule.id)"
                             t-on-mouseover.stop="_onMouseOverReplenish"
                             t-on-mouseout.stop="_onMouseOutReplenish">
@@ -136,7 +137,7 @@
                                 forecast.state == 'to_relaunch' and 'bg-warning-subtle' or
                                 forecast.state == 'to_correct' and 'bg-danger-subtle' or
                                 forecast.to_replenish and 'bg-success-subtle' or
-                                forecast.replenish_qty_updated and 'bg-info-subtle' or ''
+                                (forecast.replenish_qty_updated and props.data.replenish_trigger != 'never') and 'bg-info-subtle' or ''
                                 }} {{
                                 forecast.to_replenish and 'o_mrp_mps_to_replenish' or ''
                                 }} {{

@@ -49,6 +49,10 @@ export default class MpsLineComponent extends Component {
         return this.model.selectedRecords.has(this.productionSchedule.id);
     }
 
+    get forecastToReplenish() {
+        return this.props.data.forecast_ids.find(forecast => forecast.replenish_qty > 0)  && this.props.data.replenish_trigger !== 'never';
+    }
+
     formatFloat(value) {
         const precision = (value % 1) ? this.productionSchedule.precision_digits : 0;
         return formatFloat(value, { digits: [false, precision] });

@@ -24,6 +24,7 @@ safety stock, min/max to supply and to manually override the amount you will
 procure.
 """,
     'data': [
+        'data/ir_cron_data.xml',
         'security/ir.model.access.csv',
         'security/mrp_mps_security.xml',
         'views/mrp_mps_views.xml',

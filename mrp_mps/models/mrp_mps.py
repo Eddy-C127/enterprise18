@@ -49,6 +49,13 @@ class MrpProductionSchedule(models.Model):
         'Maximum to Replenish',
         help="The maximum replenishment you would like to launch for each period in the MPS. Note that if the demand is higher than that amount, the remaining quantity will be transferred to the next period automatically.")
     enable_max_replenish = fields.Boolean(default=False)
+    replenish_trigger = fields.Selection([
+        ('manual', "Manual"),
+        ('automated', "Automatic"),
+        ('never', "Never")], string='Replenishment Trigger', default='manual', required=True,
+        help="Manual: Product to be replenished manually from MPS.\n"
+             "Automatic: Product replenished automatically via scheduled action.\n"
+             "Never: Product is not replenished from MPS.")
     replenish_state = fields.Selection([
         ('to_replenish', 'To Replenish'),
         ('under_replenishment', 'Under Replenishment'),
@@ -179,12 +186,13 @@ class MrpProductionSchedule(models.Model):
         If based_on_lead_time is False then it will run the procurement for the
         first period that need a replenishment
         """
-        production_schedule_states = self.get_production_schedule_view_state()
+        production_schedules_to_replenish = self.filtered(lambda p: p.replenish_trigger != 'never')
+        production_schedule_states = production_schedules_to_replenish.get_production_schedule_view_state()
         production_schedule_states = {mps['id']: mps for mps in production_schedule_states}
         procurements = []
         forecasts_values = []
         forecasts_to_set_as_launched = self.env['mrp.product.forecast']
-        for production_schedule in self:
+        for production_schedule in production_schedules_to_replenish:
             production_schedule_state = production_schedule_states[production_schedule.id]
             # Check for kit. If a kit and its component are both in the MPS we want to skip the
             # the kit procurement but instead only refill the components not in MPS
@@ -255,6 +263,10 @@ class MrpProductionSchedule(models.Model):
         })
         if forecasts_values:
             self.env['mrp.product.forecast'].create(forecasts_values)
+
+    @api.model
+    def action_cron_replenish(self):
+        self.search([('replenish_trigger', '=', 'automated')]).action_replenish(based_on_lead_time=True)
 
     @api.model
     def get_mps_view_state(self, domain=False, offset=0, limit=False):
@@ -399,6 +411,7 @@ class MrpProductionSchedule(models.Model):
             'min_to_replenish_qty',
             'max_to_replenish_qty',
             'product_id',
+            'replenish_trigger',
         ]
         if self.env.user.has_group('stock.group_stock_multi_warehouses'):
             read_fields.append('warehouse_id')
@@ -675,11 +688,13 @@ class MrpProductionSchedule(models.Model):
 
                 replenish_qty = forecast_value['replenish_qty']
                 incoming_qty = forecast_value['incoming_qty']
-                if incoming_qty < replenish_qty and procurement_launched:
+                if production_schedule.replenish_trigger == 'never':
+                    state = 'to_launch'
+                elif incoming_qty < replenish_qty and procurement_launched:
                     state = 'to_relaunch'
                 elif incoming_qty > replenish_qty:
                     state = 'to_correct'
-                elif incoming_qty == replenish_qty and (date_start <= procurement_date or procurement_launched):
+                elif incoming_qty == replenish_qty and (date_start <= procurement_date or (procurement_launched and replenish_qty != 0)):
                     state = 'launched'
                 else:
                     state = 'to_launch'
@@ -689,7 +704,7 @@ class MrpProductionSchedule(models.Model):
                 forecast_state['to_replenish'] = False
 
                 procurement_qty = replenish_qty - incoming_qty
-                if forecast_state['state'] not in ('launched', 'to_correct') and procurement_qty > 0:
+                if forecast_state['state'] not in ('launched', 'to_correct') and procurement_qty > 0 and production_schedule.replenish_trigger != 'never':
                     if date_start <= procurement_date:
                         forecast_state['to_replenish'] = True
                     if forced_replenish:

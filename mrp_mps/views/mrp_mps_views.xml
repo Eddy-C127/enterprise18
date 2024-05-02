@@ -35,6 +35,10 @@
                             <field name="max_to_replenish_qty" invisible="not enable_max_replenish" required="enable_max_replenish"/>
                             <field name="product_uom_id" groups="uom.group_uom" readonly="1" invisible="not enable_max_replenish"/>
                         </div>
+                        <label for="replenish_trigger"/>
+                        <div class="o_row">
+                            <field name="replenish_trigger"/>
+                        </div>
                     </group>
                 </group>
                 <footer>
@@ -59,8 +63,14 @@
                         domain="[('replenish_state', '=', 'under_replenishment')]"/>
                 <filter string="Replenishment Too High" name="excessive_replenishment"
                         domain="[('replenish_state', '=', 'excessive_replenishment')]"/>
+                <separator/>
+                <filter string="Manually Replenished" name="manual_replenish"
+                        domain="[('replenish_trigger', '=', 'manual')]"/>
+                <filter string="Automatically Replenished" name="auto_replenish"
+                        domain="[('replenish_trigger', '=', 'automated')]"/>
+                <filter string="Not Replenished from MPS" name="never_replenish"
+                        domain="[('replenish_trigger', '=', 'never')]"/>
             </search>
         </field>
     </record>
-
 </odoo>
