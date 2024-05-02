@@ -650,6 +650,13 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2022-06-30', depreciation_value=30000, remaining_value=0, depreciated_value=36000, state='draft'),
         ])
 
+        self.assertRecordValues(asset.children_ids.depreciation_move_ids.sorted(lambda mv: (mv.date, mv.id)), [
+            # 653.85 = 8500 * (2.5 months * 30) / (32.5 months * 30)
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=653.85, remaining_value=7846.15, depreciated_value=653.85, state='posted'),
+            # disposal move
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=7846.15, remaining_value=0, depreciated_value=8500, state='draft'),
+        ])
+
     def test_linear_reevaluation_increase_constant_periods(self):
         asset = self.create_asset(value=1200, periodicity="monthly", periods=12, method="linear", acquisition_date="2021-10-01", prorata="constant_periods")
         asset.validate()
