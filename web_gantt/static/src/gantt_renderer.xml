@@ -53,8 +53,8 @@
     </t>
 
     <t t-name="web_gantt.GanttRenderer.Header">
-        <div class="o_gantt_header o_gantt_header_scale position-sticky top-0 d-flex flex-wrap">
-            <div class="d-flex gap-2 align-items-center w-100 px-3 py-2 bg-100">
+        <div class="o_gantt_header o_gantt_header_scale position-sticky top-0">
+            <div class="d-flex gap-2 align-items-center w-100 px-3 py-2 bg-100" style="grid-column: 1 / -1">
                 <button
                     class="o_gantt_button_today btn btn-secondary"
                     t-att-class="{'btn-sm btn-link p-1': env.isSmall}"
@@ -107,7 +107,7 @@
                 class="o_gantt_title o_gantt_row_sidebar d-flex align-items-center justify-content-center p-2 bg-100"
                 t-esc="model.metaData.string"
            />
-            <div class="o_gantt_header_slots o_gantt_grid_columns flex-grow-1 bg-view fw-bold">
+            <div class="o_gantt_header_slots o_gantt_grid_columns bg-view fw-bold" t-attf-style="{{ model.metaData.groupedBy.length ? 'grid-column: 2 / -1;' : 'grid-column: 1 / -1;' }}">
                 <t t-set="formats" t-value="{'week': 'cccc, d', 'month': 'dd', 'year': env.isSmall ? 'MMM' : 'MMMM'}"/>
                 <t t-foreach="columns" t-as="column" t-key="column.id">
                     <div class="o_gantt_header_cell d-flex align-items-center justify-content-center py-2"

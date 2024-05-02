@@ -194,7 +194,7 @@ test("scales attribute", async () => {
     expect(getActiveScale()).toBe("Month");
 });
 
-test("precision attribute", async () => {
+test.tags("desktop")("precision attribute", async () => {
     onRpc("write", ({ args }) => expect.step(JSON.stringify(args)));
     await mountView({
         resModel: "tasks",
