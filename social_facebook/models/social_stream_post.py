@@ -9,6 +9,7 @@ import urllib.parse
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+from odoo.addons.social_facebook.models.social_stream import SocialStreamFacebook
 from werkzeug.urls import url_join
 
 _logger = logging.getLogger(__name__)
@@ -17,11 +18,12 @@ _logger = logging.getLogger(__name__)
 class SocialStreamPostFacebook(models.Model):
     _inherit = 'social.stream.post'
 
-    FACEBOOK_COMMENT_FIELDS = 'id,from.fields(id,name,picture),message,message_tags,created_time,attachment,comments.fields(id,from.fields(id,name,picture),message,created_time,attachment,user_likes,like_count),user_likes,like_count'
+    FACEBOOK_COMMENT_FIELDS = f'id,from.fields(id,name,picture),message,message_tags,created_time,attachment,comments.fields(id,from.fields(id,name,picture),message,created_time,attachment,user_likes,like_count,{SocialStreamFacebook.FACEBOOK_REACTIONS_FIELDS}),user_likes,like_count,{SocialStreamFacebook.FACEBOOK_REACTIONS_FIELDS}'
 
     facebook_post_id = fields.Char('Facebook Post ID', index=True)
     facebook_author_id = fields.Char('Facebook Author ID')
     facebook_likes_count = fields.Integer('Likes')
+    facebook_reactions_count = fields.Char('Reactions Count')  # contains a JSON like {"LIKE": 1337, "CARE": 1234}
     facebook_user_likes = fields.Boolean('User Likes')
     facebook_comments_count = fields.Integer('Comments')
     facebook_shares_count = fields.Integer('Shares')
@@ -93,28 +95,14 @@ class SocialStreamPostFacebook(models.Model):
             raise UserError(error_message)
 
         for comment in result_json.get('data'):
-            comment['likes'] = {'summary': {'total_count': comment.get('like_count', 0)}}
-            comment['formatted_created_time'] = self._format_facebook_published_date(comment)
-            comment['message'] = self.stream_id._format_facebook_message(comment.get('message'), comment.get('message_tags'))
-            if "from" not in comment:
-                comment["from"] = {"name": _("Unknown")}
+            comment.update(self._format_facebook_comment(comment))
 
-            if comment.get('attachment', {}).get('type') == 'sticker':
-                # stickers are just image
-                comment['attachment']['type'] = 'photo'
+            inner_comments = comment.get('comments', {}).get('data') or []
 
-            inner_comments = comment.get('comments', {}).get('data', [])
             if not inner_comments:
                 comment['comments'] = {'data': []}
             for inner_comment in inner_comments:
-                inner_comment['likes'] = {'summary': {'total_count': inner_comment.get('like_count', 0)}}
-                inner_comment['formatted_created_time'] = self._format_facebook_published_date(inner_comment)
-                inner_comment['message'] = self.stream_id._format_facebook_message(inner_comment.get('message'), inner_comment.get('message_tags'))
-                if "from" not in inner_comment:
-                    inner_comment["from"] = {"name": _("Unknown")}
-
-                if inner_comment.get('attachment', {}).get('type') == 'sticker':
-                    inner_comment['attachment']['type'] = 'photo'
+                inner_comment.update(self._format_facebook_comment(inner_comment))
 
         return {
             'comments': result_json.get('data'),
@@ -178,3 +166,22 @@ class SocialStreamPostFacebook(models.Model):
             ).post_id
         else:
             return super(SocialStreamPostFacebook, self)._fetch_matching_post()
+
+    def _format_facebook_comment(self, comment):
+        """Modify `comment` for the web client."""
+        comment = {
+            **comment,
+            # overwrite comment keys
+            'formatted_created_time': self._format_facebook_published_date(comment),
+            'message': self.stream_id._format_facebook_message(comment.get('message'), comment.get('message_tags')),
+            'reactions': {
+                reaction: comment.get(reaction, {}).get('summary', {}).get('total_count', 0)
+                for reaction in self.env['social.stream'].FACEBOOK_REACTIONS
+            }
+        }
+        if "from" not in comment:
+            comment["from"] = {"name": _("Unknown")}
+        if comment.get('attachment', {}).get('type') == 'sticker':
+            # stickers are just image
+            comment['attachment']['type'] = 'photo'
+        return comment

@@ -4,6 +4,7 @@ import { rpc } from "@web/core/network/rpc";
 import { StreamPostComments } from '@social/js/stream_post_comments';
 import { StreamPostCommentListFacebook } from './stream_post_comment_list';
 import { StreamPostCommentsReplyFacebook } from './stream_post_comments_reply';
+import { formatFacebookReactions } from './utils';
 import { onWillStart } from "@odoo/owl";
 
 export class StreamPostCommentsFacebook extends StreamPostComments {
@@ -43,6 +44,10 @@ export class StreamPostCommentsFacebook extends StreamPostComments {
         this.nextRecordsToken = nextComments.nextRecordsToken;
     }
 
+    async _onFacebookPostLike() {
+        await this.props.onFacebookPostLike();
+    }
+
     get commentListComponent() {
         return StreamPostCommentListFacebook;
     }
@@ -51,4 +56,13 @@ export class StreamPostCommentsFacebook extends StreamPostComments {
         return StreamPostCommentsReplyFacebook;
     }
 
+    /**
+     * Return the reactions and the count for each of them.
+     */
+    get facebookReactions() {
+        const reactionsCount = JSON.parse(
+            this.props.originalPost.facebook_reactions_count.raw_value || "{}"
+        );
+        return formatFacebookReactions(reactionsCount);
+    }
 }

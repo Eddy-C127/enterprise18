@@ -18,6 +18,8 @@
     'auto_install': True,
     'assets': {
         'web.assets_backend': [
+            'social_facebook/static/src/js/utils.js',
+            'social_facebook/static/src/components/**/*',
             'social_facebook/static/src/js/stream_post_comment.js',
             'social_facebook/static/src/js/stream_post_comment_list.js',
             'social_facebook/static/src/js/stream_post_comments.js',

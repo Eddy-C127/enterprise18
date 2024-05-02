@@ -2,14 +2,21 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import re
 import dateutil.parser
+import json
 import requests
 
-from odoo import models, fields, api
+from odoo import models, api
 from werkzeug.urls import url_join
 
 
 class SocialStreamFacebook(models.Model):
     _inherit = 'social.stream'
+
+    FACEBOOK_REACTIONS = {'LIKE', 'LOVE', 'HAHA', 'WOW', 'SAD', 'ANGRY', 'CARE'}
+    FACEBOOK_REACTIONS_FIELDS = ','.join({
+        f'reactions.type({reaction}).limit(0).summary(1).as({reaction})'
+        for reaction in FACEBOOK_REACTIONS
+    })
 
     def _apply_default_name(self):
         facebook_streams = self.filtered(lambda s: s.media_id.media_type == 'facebook')
@@ -39,13 +46,18 @@ class SocialStreamFacebook(models.Model):
             'comments.limit(10).summary(true){message,from,like_count}',
             'attachments',
             'created_time',
-            'message_tags'
+            'message_tags',
+            self.FACEBOOK_REACTIONS_FIELDS,
         ]
         if endpoint_name == 'published_posts':
             facebook_fields.append('insights.metric(post_impressions)')
 
-        posts_endpoint_url = url_join(self.env['social.media']._FACEBOOK_ENDPOINT_VERSIONED, "%s/%s" % (self.account_id.facebook_account_id, endpoint_name))
-        result = requests.get(posts_endpoint_url,
+        posts_endpoint_url = url_join(
+            self.env['social.media']._FACEBOOK_ENDPOINT_VERSIONED,
+            f"{self.account_id.facebook_account_id}/{endpoint_name}"
+        )
+        result = requests.get(
+            posts_endpoint_url,
             params={
                 'access_token': self.account_id.facebook_access_token,
                 'fields': ','.join(facebook_fields)
@@ -69,6 +81,12 @@ class SocialStreamFacebook(models.Model):
 
         posts_to_create = []
         for post in result_posts:
+            reactions = {
+                reaction: count
+                for reaction in self.env['social.stream'].FACEBOOK_REACTIONS
+                if (count := post.get(reaction, {}).get('summary', {}).get('total_count', 0))
+            }
+
             values = {
                 'stream_id': self.id,
                 'message': self._format_facebook_message(post.get('message'), post.get('message_tags')),
@@ -76,7 +94,8 @@ class SocialStreamFacebook(models.Model):
                 'facebook_author_id': post.get('from', {}).get('id'),
                 'published_date': dateutil.parser.parse(post.get('created_time'), ignoretz=True),
                 'facebook_shares_count': post.get('shares', {}).get('count'),
-                'facebook_likes_count': post.get('likes', {}).get('summary', {}).get('total_count'),
+                'facebook_likes_count': sum(reactions.values()),
+                'facebook_reactions_count': json.dumps(reactions),
                 'facebook_user_likes': post.get('likes', {}).get('summary', {}).get('has_liked'),
                 'facebook_comments_count': post.get('comments', {}).get('summary', {}).get('total_count'),
                 'facebook_reach': post.get('insights', {}).get('data', [{}])[0].get('values', [{}])[0].get('value'),
