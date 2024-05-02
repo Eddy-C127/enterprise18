@@ -41,6 +41,11 @@
         grid-template-columns: var(--Gantt__RowHeader-width) calc(
                 100% - var(--Gantt__RowHeader-width)
             );
+        .o_gantt_header {
+            grid-template-columns: var(--Gantt__RowHeader-width) calc(
+                    100% - var(--Gantt__RowHeader-width)
+                );
+        }
     }
 
     // Utilities to use the grid-template-rows or grid-template-columns
@@ -135,6 +140,11 @@
     // =======================================
     .o_gantt_header {
         @include o-gantt-zindex(top);
+        display: grid;
+        grid-template-columns: repeat(
+            var(--Gantt__Template-columns),
+            calc(100% / var(--Gantt__Template-columns))
+        );
     }
 
     .o_gantt_header_scale {
