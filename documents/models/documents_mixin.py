@@ -12,6 +12,7 @@ class DocumentMixin(models.AbstractModel):
     for the document.
     """
     _name = 'documents.mixin'
+    _inherit = 'documents.unlink.mixin'
     _description = "Documents creation mixin"
 
     def _get_document_vals(self, attachment):

@@ -231,6 +231,53 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
         self.assertEqual(document.thumbnail_status, 'client_generated')
         self.assertTrue(document.has_embedded_pdf)
 
+    def test_move_document_unlink(self):
+        """Test that the document is sent to trash when the `account.move` is unlinked."""
+        document1, document2 = self.document_txt, self.document_gif
+        self.workflow_rule_vendor_bill.apply_actions([document1.id, document2.id])
+        self.assertEqual(document1.res_model, "account.move")
+        self.assertEqual(document2.res_model, "account.move")
+        move1 = self.env["account.move"].browse(document1.res_id).exists()
+        move2 = self.env["account.move"].browse(document2.res_id).exists()
+        self.assertTrue(move1)
+        self.assertTrue(move2)
+        attachment1 = self.env['ir.attachment'].search([
+            ('res_model', '=', move1._name),
+            ('res_id', '=', move1.id),
+        ])
+        attachment2 = self.env['ir.attachment'].search([
+            ('res_model', '=', move2._name),
+            ('res_id', '=', move2.id),
+        ])
+        # attachment not linked to a document
+        attachment3 = self.env['ir.attachment'].create({
+            'name': 'Attachment 3',
+            'res_model': move2._name,
+            'res_id': move2.id,
+        })
+        self.assertEqual(len(attachment1), 1)
+        self.assertEqual(len(attachment2), 1)
+
+        self.env.flush_all()
+        with self.assertQueryCount(55):
+            # Local: 45, runbot: 55
+            (move1 | move2).unlink()
+
+        self.assertTrue(attachment1.exists())
+        self.assertTrue(document1.exists())
+        self.assertFalse(document1.active)
+
+        self.assertTrue(attachment2.exists())
+        self.assertTrue(document2.exists())
+        self.assertFalse(document2.active)
+
+        self.assertFalse(attachment3.exists(),
+            "That attachment is not linked to a record and so it should be removed")
+
+        # removing the document in the trash clean the attachment
+        document2.unlink()
+        self.assertFalse(attachment2.exists())
+
     def test_workflow_create_misc_entry(self):
         misc_entry_rule = self.env.ref('documents_account.misc_entry_rule')
         misc_entry_rule.journal_id = misc_entry_rule.suitable_journal_ids[0]

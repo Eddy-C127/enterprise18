@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _
+from odoo import fields, models
 
 
 class AccountMove(models.Model):
-    _inherit = "account.move"
+    _name = 'account.move'
+    _inherit = ['account.move', 'documents.unlink.mixin']
 
     suspense_statement_line_id = fields.Many2one(
         comodel_name='account.bank.statement.line',
