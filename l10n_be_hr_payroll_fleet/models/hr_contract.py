@@ -37,6 +37,25 @@ class HrContract(models.Model):
             domain = expression.AND([[('state_id', '!=', waiting_stage.id)], domain])
         return domain
 
+    @api.model
+    def _get_vehicles_without_current_drivers_domain(self, driver_ids=None, vehicle_type='car'):
+        """
+            This domain is identical to the one in _get_available_vehicles_domain. The difference is
+            that it excludes vehicles that have a driver currently even if the current driver is the
+            employee under the contract or the current driver plans to change the car in the future.
+        """
+        domain = [
+            '|', ('company_id', '=', False), ('company_id', '=', self.company_id.id),
+            '|', ('future_driver_id', '=', False), ('future_driver_id', 'in', driver_ids.ids),
+            ('model_id.vehicle_type', '=', vehicle_type),
+            ('driver_id', '=', False),
+            ('write_off_date', '=', False),
+        ]
+        waiting_stage = self.env.ref('fleet.fleet_vehicle_state_waiting_list', raise_if_not_found=False)
+        if waiting_stage:
+            domain = expression.AND([[('state_id', '!=', waiting_stage.id)], domain])
+        return domain
+
     def _get_possible_model_domain(self, vehicle_type='car'):
         return [('can_be_requested', '=', True), ('vehicle_type', '=', vehicle_type)]
 
@@ -190,12 +209,19 @@ class HrContract(models.Model):
     @api.depends('name')
     def _compute_available_cars_amount(self):
         for contract in self:
-            contract.available_cars_amount = self.env['fleet.vehicle'].sudo().search_count(contract._get_available_vehicles_domain(contract.employee_id.work_contact_id))
+            contract.available_cars_amount = self.env['fleet.vehicle'].sudo().search_count(
+                expression.AND([
+                    contract._get_vehicles_without_current_drivers_domain(
+                        contract.employee_id.work_contact_id
+                    ),
+                    [('state_id.hide_in_offer', '=', False)]
+                ])
+            )
 
     @api.depends('name')
     def _compute_max_unused_cars(self):
         params = self.env['ir.config_parameter'].sudo()
-        max_unused_cars = params.get_param('l10n_be_hr_payroll_fleet.max_unused_cars', default=1000)
+        max_unused_cars = params.get_param('l10n_be_hr_payroll_fleet.max_unused_cars', default=5)
         for contract in self:
             contract.max_unused_cars = 999999 if contract.env.context.get('is_applicant') else int(max_unused_cars)
 

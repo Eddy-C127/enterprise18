@@ -8,7 +8,9 @@
       <field name="arch" type="xml">
         <xpath expr="//app[@id='fleet']" position="inside">
           <block>
-            <setting string="New Vehicle Request">
+            <setting 
+            string="New Vehicle Request"
+            title="When the limit is reached, all offers generated for employees will uncheck the 'Show Company Car to Order' by default.">
               <div class="text-muted content-group mt16">
                 <span>Display a warning in the salary configurator if we have more than</span>
                 <field name="max_unused_cars" class="text-center" style="width: 10%; min-width: 4rem;" />
