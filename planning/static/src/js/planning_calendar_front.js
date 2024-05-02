@@ -30,6 +30,10 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
             $("#PlanningToast").toast('show');
         }
         this._super.apply(this, arguments);
+        // The calendar is displayed if there are slots (open or not)
+        if ($('.no_data').attr('value')) {
+            return;
+        }
         this.calendarElement = this.$(".o_calendar_widget")[0];
         const employeeSlotsFcData = JSON.parse($('.employee_slots_fullcalendar_data').attr('value'));
         const openSlotsIds = $('.open_slots_ids').attr('value');
@@ -51,7 +55,6 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
         });
         // default date: first event of either assigned slots or open shifts
         const defaultStartValue = $('.default_start').attr('value'); //yyyy-MM-dd
-        const defaultStart = DateTime.fromFormat(defaultStartValue, "yyyy-MM-dd").toJSDate();
         const defaultView = $('.default_view').attr('value');
         const minTime = $('.mintime').attr('value'); //HH:mm:ss
         const maxTime = $('.maxtime').attr('value'); //HH:mm:ss
@@ -69,8 +72,8 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
             };
         }
         const titleFormat = { month: "long", year: "numeric" };
-            // The calendar is displayed if there are slots (open or not)
-        if (defaultView && (employeeSlotsFcData || openSlotsIds)) {
+        // The calendar is displayed if there are slots (open or not)
+        if (defaultView && defaultStartValue && (employeeSlotsFcData || openSlotsIds)) {
             this.calendar = new FullCalendar.Calendar($("#calendar_employee")[0], {
                 // Settings
                 plugins: ["luxon", "dayGrid", "timeGrid", "list", "interraction"],
@@ -79,7 +82,7 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
                 navLinks: true, // can click day/week names to navigate views
                 eventLimit: 3, // allow "more" link when too many events
                 titleFormat: titleFormat,
-                defaultDate: defaultStart,
+                defaultDate: DateTime.fromFormat(defaultStartValue, "yyyy-MM-dd").toJSDate(),
                 timeFormat: 'LT',
                 displayEventEnd: true,
                 height: 'auto',
