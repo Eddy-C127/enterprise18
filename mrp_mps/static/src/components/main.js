@@ -2,15 +2,12 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { MrpMpsControlPanel, MrpMpsSearchBar } from "../search/mrp_mps_control_panel";
-import { MrpMpsSearchModel } from '../search/mrp_mps_search_model';
 import MpsLineComponent from '@mrp_mps/components/line';
 import { MasterProductionScheduleModel } from '@mrp_mps/models/master_production_schedule_model';
-import { registry } from "@web/core/registry";
 import { useService, useBus } from "@web/core/utils/hooks";
 import { CheckBox } from "@web/core/checkbox/checkbox";
 import { usePager } from "@web/search/pager_hook";
 import { useSetupAction } from "@web/webclient/actions/action_hook";
-import { WithSearch } from "@web/search/with_search/with_search";
 import { ActionMenus } from "@web/search/action_menus/action_menus";
 import { download } from "@web/core/network/download";
 import { rpc } from "@web/core/network/rpc";
@@ -18,17 +15,19 @@ import { ExportDataDialog } from "@web/views/view_dialogs/export_data_dialog";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { Component, onWillStart, useSubEnv } from "@odoo/owl";
 
-class MainComponent extends Component {
+export class MainComponent extends Component {
     static template = "mrp_mps.mrp_mps";
     static components = {
         MrpMpsControlPanel,
-        WithSearch,
         MpsLineComponent,
         CheckBox,
         MrpMpsSearchBar,
         ActionMenus,
     };
-    static props = {...standardActionServiceProps};
+    static props = {
+        ...standardActionServiceProps,
+        searchDomain: { type: Array },
+    };
 
     //--------------------------------------------------------------------------
     // Lifecycle
@@ -41,7 +40,6 @@ class MainComponent extends Component {
 
         const { orm, action, dialog } = this;
         this.model = new MasterProductionScheduleModel(this.props, { orm, action, dialog });
-        this.withSearchProps = null;
 
         useSubEnv({
             manufacturingPeriods: [],
@@ -65,8 +63,7 @@ class MainComponent extends Component {
 
         onWillStart(async () => {
             this.env.config.setDisplayName(_t("Master Production Schedule"));
-            this.withSearchProps = await this._prepareWithSearchProps();
-            const domain = this.props.action.domain;
+            const domain = this.props.searchDomain;
             await this.model.load(domain, this.env.config.offset, this.env.config.limit);
         });
 
@@ -82,27 +79,6 @@ class MainComponent extends Component {
                 },
             };
         });
-    }
-
-    async _prepareWithSearchProps() {
-        const views = await this.viewService.loadViews(
-            {
-                resModel: "mrp.production.schedule",
-                context: this.props.action.context,
-                views: [[false, "search"]],
-            }
-        );
-        return {
-            SearchModel: MrpMpsSearchModel,
-            resModel: "mrp.production.schedule",
-            context: this.props.action.context,
-            orderBy: [{name: "id", asc: true}],
-            searchMenuTypes: ['filter', 'favorite'],
-            searchViewArch: views.views.search.arch,
-            searchViewId: views.views.search.id,
-            searchViewFields: views.fields,
-            loadIrFilters: true
-        };
     }
 
     get lines() {
@@ -235,7 +211,3 @@ class MainComponent extends Component {
         this.dialog.add(ExportDataDialog, dialogProps);
     }
 }
-
-registry.category("actions").add("mrp_mps_client_action", MainComponent);
-
-export default MainComponent;
