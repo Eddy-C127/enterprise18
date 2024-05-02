@@ -43,8 +43,9 @@ class MrpProductionSchedule(models.Model):
         'Minimum to Replenish',
         help="Unless the demand is 0, Odoo will always at least replenish this quantity.")
     max_to_replenish_qty = fields.Float(
-        'Maximum to Replenish', default=1000,
+        'Maximum to Replenish',
         help="The maximum replenishment you would like to launch for each period in the MPS. Note that if the demand is higher than that amount, the remaining quantity will be transferred to the next period automatically.")
+    enable_max_replenish = fields.Boolean(default=False)
     replenish_state = fields.Selection([
         ('to_replenish', 'To Replenish'),
         ('under_replenishment', 'Under Replenishment'),
@@ -691,7 +692,7 @@ class MrpProductionSchedule(models.Model):
         """
         optimal_qty = self.forecast_target_qty - after_forecast_qty
 
-        if optimal_qty > self.max_to_replenish_qty:
+        if self.enable_max_replenish and optimal_qty > self.max_to_replenish_qty:
             replenish_qty = self.max_to_replenish_qty
         elif optimal_qty <= 0:
             replenish_qty = 0
