@@ -9,7 +9,7 @@
     'installable': True,
     'depends': [
         'hr_work_entry_contract',
-        'web_gantt',
+        'hr_gantt',
     ],
     'data': [
         'views/hr_payroll_menu.xml',
