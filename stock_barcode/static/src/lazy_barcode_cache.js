@@ -165,10 +165,11 @@ export default class LazyBarcodeCache {
     }
 
     async _getMissingRecord(barcode, model, filters = {}) {
+        const keyCache = JSON.stringify([...arguments]);
         const missCache = this.missingBarcode;
         const params = { barcode, model_name: model };
         // Check if we already try to fetch this missing record.
-        if (missCache.has(barcode) || missCache.has(`${barcode}_${model}`)) {
+        if (missCache.has(keyCache)) {
             return false;
         }
         // Creates and passes a domain if some filters are provided.
@@ -184,11 +185,7 @@ export default class LazyBarcodeCache {
         params.domains_by_model = domainsByModel;
         const result = await rpc('/stock_barcode/get_specific_barcode_data', params);
         this.setCache(result);
-        // Set the missing cache if no filters (the barcode's result can vary if there is filter)
-        if (!Object.keys(filters).length) {
-            const keyCache = (model && `${barcode}_${model}`) || barcode;
-            missCache.add(keyCache);
-        }
+        missCache.add(keyCache);
     }
 
     /**
