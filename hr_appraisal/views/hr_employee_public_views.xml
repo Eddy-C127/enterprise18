@@ -24,7 +24,15 @@
         </xpath>
             <xpath expr="//field[@name='work_email']" position="after">
                 <field name="is_manager" invisible="1"/>
-                <field name="next_appraisal_date" invisible="not is_manager"/>
+                <field
+                    name="next_appraisal_date" 
+                    invisible="not is_manager or not(next_appraisal_date or not ongoing_appraisal_count)"/>
+                <label 
+                    for="next_appraisal_date" 
+                    invisible="not is_manager or (next_appraisal_date or not ongoing_appraisal_count)"/> 
+                <span invisible="not is_manager or (next_appraisal_date or not ongoing_appraisal_count)">
+                    Ongoing
+                </span>
             </xpath>
         </field>
     </record>
