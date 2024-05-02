@@ -14,7 +14,7 @@ class ProductProduct(models.Model):
                 product.show_forecasted_qty_status_button = False
 
     @api.depends('type', 'rent_ok', 'qty_available', 'qty_in_rent')
-    @api.depends_context('sale_stock_renting_show_total_qty')
+    @api.depends_context('sale_stock_renting_show_total_qty', 'allowed_company_ids')
     def _compute_display_name(self):
         super()._compute_display_name()
         if self.env.context.get('sale_stock_renting_show_total_qty'):
