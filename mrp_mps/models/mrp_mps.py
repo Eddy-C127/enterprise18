@@ -14,6 +14,7 @@ from collections import OrderedDict
 
 class MrpProductionSchedule(models.Model):
     _name = 'mrp.production.schedule'
+    _inherit = 'stock.replenish.mixin'
     _order = 'warehouse_id, product_id'
     _description = 'Schedule the production of Product in a warehouse'
 
@@ -32,8 +33,10 @@ class MrpProductionSchedule(models.Model):
         related='product_id.uom_id')
     warehouse_id = fields.Many2one('stock.warehouse', 'Production Warehouse',
         required=True, default=lambda self: self._default_warehouse_id())
+    route_id = fields.Many2one(compute='_compute_route_and_supplier', store=True, readonly=False, help="Route to replenish your product.")
+    supplier_id = fields.Many2one(compute='_compute_route_and_supplier', store=True, readonly=False)
     bom_id = fields.Many2one(
-        'mrp.bom', "Bill of Materials",
+        'mrp.bom', "Bill of Materials", compute='_compute_bom', store=True, readonly=False,
         domain="[('product_tmpl_id', '=', product_tmpl_id), '|', ('product_id', '=', product_id), ('product_id', '=', False)]", check_company=True)
 
     forecast_target_qty = fields.Float(
@@ -55,6 +58,23 @@ class MrpProductionSchedule(models.Model):
     _sql_constraints = [
         ('warehouse_product_ref_uniq', 'unique (warehouse_id, product_id)', 'The combination of warehouse and product must be unique!'),
     ]
+
+    # TODO: move logic to stock.replenish.mixin
+    @api.depends('product_id')
+    def _compute_bom(self):
+        for mps in self:
+            if not mps.product_id:
+                continue
+            mps.bom_id = mps.product_id.bom_ids[:1]
+
+    # TODO: move logic to stock.replenish.mixin
+    @api.depends('product_id', 'product_id.route_ids')
+    def _compute_route_and_supplier(self):
+        for mps in self:
+            if not mps.product_id:
+                continue
+            mps.route_id = next(r for r in mps.product_id.route_ids if r.id in mps.allowed_route_ids.ids)
+            mps.supplier_id = mps.product_id.seller_ids[:1]
 
     def _search_replenish_state(self, operator, value):
         productions_schedules = self.search([])
@@ -609,10 +629,15 @@ class MrpProductionSchedule(models.Model):
         return values pass to the procurement run method.
         rtype dict
         """
-        return {
+        values = {
             'date_planned': forecast_values['date_start'],
             'warehouse_id': self.warehouse_id,
         }
+        if self.route_id:
+            values['route_ids'] = self.route_id
+        if self.supplier_id and self.show_vendor:
+            values['supplierinfo_id'] = self.supplier_id
+        return values
 
     def _get_forecasts_state(self, production_schedule_states, date_range, procurement_date):
         """ Return the state for each forecast cells.
@@ -678,7 +703,7 @@ class MrpProductionSchedule(models.Model):
         """ Get the lead time for each product in self. The lead times are
         based on rules lead times + produce delay or supplier info delay.
         """
-        rules = self.product_id._get_rules_from_location(self.warehouse_id.lot_stock_id)
+        rules = self.product_id._get_rules_from_location(self.warehouse_id.lot_stock_id, route_ids=self.route_id)
         return rules._get_lead_days(self.product_id, bom=self.bom_id)[0]['total_delay']
 
     def _get_replenish_qty(self, after_forecast_qty):
