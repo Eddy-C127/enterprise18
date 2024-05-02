@@ -48,7 +48,7 @@ class FetchmailServer(models.Model):
             if record.l10n_cl_is_dte and record.server_type not in ('imap', 'outlook', 'gmail'):
                 raise ValidationError(_('The server must be of type IMAP.'))
 
-    def fetch_mail(self):
+    def fetch_mail(self, raise_exception=True):
         for server in self.filtered(lambda s: s.l10n_cl_is_dte):
             _logger.info('Start checking for new emails on %s IMAP server %s', server.server_type, server.name)
 
@@ -94,7 +94,11 @@ class FetchmailServer(models.Model):
                         new_max_uid = max(new_max_uid, int(uid))
                         server.write({'l10n_cl_last_uid': new_max_uid})
                         self._cr.commit()
-                    except Exception:
+                    except Exception as e:
+                        if raise_exception:
+                            raise ValidationError(_(
+                                "Couldn't get your emails. Check out the error message below for more info:\n%s", e
+                            )) from e
                         _logger.info('Failed to process mail from %s server %s.', server.server_type, server.name,
                                      exc_info=True)
                         failed += 1
@@ -102,7 +106,11 @@ class FetchmailServer(models.Model):
                 server.write({'l10n_cl_last_uid': new_max_uid})
                 _logger.info('Fetched %d email(s) on %s server %s; %d succeeded, %d failed.', count, server.server_type,
                              server.name, (count - failed), failed)
-            except Exception:
+            except Exception as e:
+                if raise_exception:
+                    raise ValidationError(_(
+                        "Couldn't get your emails. Check out the error message below for more info:\n%s", e
+                    )) from e
                 _logger.info('General failure when trying to fetch mail from %s server %s.', server.server_type,
                              server.name, exc_info=True)
             finally:
@@ -113,7 +121,7 @@ class FetchmailServer(models.Model):
                     except Exception:  # pylint: disable=broad-except
                         _logger.warning('Failed to properly finish connection: %s.', server.name, exc_info=True)
                 server.write({'date': fields.Datetime.now()})
-        return super(FetchmailServer, self.filtered(lambda s: not s.l10n_cl_is_dte)).fetch_mail()
+        return super(FetchmailServer, self.filtered(lambda s: not s.l10n_cl_is_dte)).fetch_mail(raise_exception)
 
     def _process_incoming_email(self, msg_txt):
         parsed_values = self.env['mail.thread']._message_parse_extract_payload(msg_txt, {})
