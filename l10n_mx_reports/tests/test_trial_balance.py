@@ -66,6 +66,74 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
         })
         (cls.move_2021_01 + cls.move_2021_02).action_post()
 
+        # Special cases: codes with extra levels from the default COA and dotted account names
+        cls.extra_deep_code = cls.env["account.account"].create(
+            {
+                "name": "Extra deep code",
+                "account_type": "liability_current",
+                "code": "205.06.01.001",
+                "reconcile": True,
+            }
+        )
+
+        cls.dotted_name = cls.env["account.account"].create(
+            {
+                "name": "Dotted name C.V.",
+                "account_type": "liability_current",
+                "code": "205.06.02",
+                "reconcile": True,
+            }
+        )
+
+        cls.extra_deep_code_move = cls.env["account.move"].create(
+            {
+                "move_type": "entry",
+                "date": fields.Date.to_date("2021-06-01"),
+                "journal_id": cls.company_data["default_journal_misc"].id,
+                "line_ids": [
+                    Command.create(
+                        {
+                            "debit": 400.0,
+                            "credit": 0.0,
+                            "account_id": cls.dotted_name.id,
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "debit": 0.0,
+                            "credit": 400.0,
+                            "account_id": cls.extra_deep_code.id,
+                        }
+                    ),
+                ],
+            }
+        )
+
+        cls.dotted_name_move = cls.env["account.move"].create(
+            {
+                "move_type": "entry",
+                "date": fields.Date.to_date("2021-06-01"),
+                "journal_id": cls.company_data["default_journal_misc"].id,
+                "line_ids": [
+                    Command.create(
+                        {
+                            "debit": 50.0,
+                            "credit": 0.0,
+                            "account_id": cls.extra_deep_code.id,
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "debit": 0.0,
+                            "credit": 50.0,
+                            "account_id": cls.dotted_name.id,
+                        }
+                    ),
+                ],
+            }
+        )
+        (cls.extra_deep_code_move + cls.dotted_name_move).action_post()
+
         cls.report = cls.env.ref('account_reports.trial_balance_report')
 
     @classmethod
@@ -190,6 +258,8 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
         <BCE:Balanza xmlns:BCE="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion/BalanzaComprobacion_1_3.xsd" Version="1.3" RFC="EKU9003173C9" Mes="01" Anio="2021" TipoEnvio="N">
             <BCE:Ctas Debe="75.00" NumCta="201" Haber="0.00" SaldoFin="-1075.00" SaldoIni="-1000.00"/>
             <BCE:Ctas Debe="75.00" NumCta="201.01" Haber="0.00" SaldoFin="-1075.00" SaldoIni="-1000.00"/>
+            <BCE:Ctas Debe="450.00" NumCta="205" Haber="450.00" SaldoFin="0.00" SaldoIni="0.00"/>
+            <BCE:Ctas Debe="450.00" NumCta="205.06" Haber="450.00" SaldoFin="0.00" SaldoIni="0.00"/>
             <BCE:Ctas Debe="0.00" NumCta="401" Haber="325.00" SaldoFin="325.00" SaldoIni="0.00"/>
             <BCE:Ctas Debe="0.00" NumCta="401.01" Haber="325.00" SaldoFin="325.00" SaldoIni="0.00"/>
             <BCE:Ctas Debe="250.00" NumCta="601" Haber="0.00" SaldoFin="250.00" SaldoIni="0.00"/>
@@ -241,10 +311,12 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
             [   0,                                                            1,         2,         3,       4,        5,         6],
             [
                 ('201.01.01 National suppliers',                              1000.0,       0.0,     75.0,     0.0,    1075.0,       0.0),
+                ('205.06.01.001 Extra deep code',                                0.0,       0.0,     50.0,   400.0,       0.0,     350.0),
+                ('205.06.02 Dotted name C.V.',                                   0.0,       0.0,    400.0,    50.0,     350.0,       0.0),
                 ('401.01.01 Sales and/or services taxed at the general rate',    0.0,       0.0,      0.0,   325.0,       0.0,     325.0),
                 ('601.84.01 Other overheads',                                    0.0,       0.0,    250.0,     0.0,     250.0,       0.0),
                 ('999999 Undistributed Profits/Losses',                          0.0,    1000.0,      0.0,     0.0,       0.0,    1000.0),
-                ('Total',                                                     1000.0,    1000.0,    325.0,   325.0,    1325.0,    1325.0),
+                ('Total',                                                     1000.0,    1000.0,    775.0,   775.0,    1675.0,    1675.0),
             ],
             options,
         )
@@ -255,10 +327,14 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
             self.report._get_lines(options),
             [   0,                                                            1,         2,         3,       4,        5,         6],
             [
-                ('2 Passive',                                                 1000.0,       0.0,     75.0,     0.0,    1075.0,        0.0),
+                ('2 Passive',                                                 1000.0,       0.0,    525.0,   450.0,    1425.0,      350.0),
                 ('201 Suppliers',                                             1000.0,       0.0,     75.0,     0.0,    1075.0,        0.0),
                 ('201.01 National suppliers',                                 1000.0,       0.0,     75.0,     0.0,    1075.0,        0.0),
                 ('201.01.01 National suppliers',                              1000.0,       0.0,     75.0,     0.0,    1075.0,        0.0),
+                ('205 Short-term sundry creditors',                              0.0,       0.0,    450.0,   450.0,     350.0,      350.0),
+                ('205.06 Other short-term sundry creditors',                     0.0,       0.0,    450.0,   450.0,     350.0,      350.0),
+                ('205.06.01.001 Extra deep code',                                0.0,       0.0,     50.0,   400.0,       0.0,      350.0),
+                ('205.06.02 Dotted name C.V.',                                   0.0,       0.0,    400.0,    50.0,     350.0,        0.0),
                 ('4 Income',                                                     0.0,       0.0,      0.0,   325.0,       0.0,      325.0),
                 ('401 Income',                                                   0.0,       0.0,      0.0,   325.0,       0.0,      325.0),
                 ('401.01 Sales and/or services taxed at the general rate',       0.0,       0.0,      0.0,   325.0,       0.0,      325.0),
@@ -269,7 +345,7 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
                 ('601.84.01 Other overheads',                                    0.0,       0.0,    250.0,     0.0,     250.0,        0.0),
                 ('(No Group)',                                                   0.0,    1000.0,      0.0,     0.0,       0.0,     1000.0),
                 ('999999 Undistributed Profits/Losses',                          0.0,    1000.0,      0.0,     0.0,       0.0,     1000.0),
-                ('Total',                                                     1000.0,    1000.0,    325.0,   325.0,    1325.0,     1325.0),
+                ('Total',                                                     1000.0,    1000.0,    775.0,   775.0,    1675.0,    1675.0),
             ],
             options,
         )

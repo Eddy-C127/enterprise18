@@ -1,6 +1,7 @@
 # coding: utf-8
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import re
 from lxml import etree
 from collections import defaultdict
 
@@ -40,6 +41,10 @@ class TrialBalanceCustomHandler(models.AbstractModel):
         sat_options = self._l10n_mx_get_sat_options(options)
         report_lines = report._get_lines(sat_options)
 
+        # The SAT code has to be of the form XXX.YY . Any additional suffixes are allowed, but if the line starts
+        # with anything else it should not be included in the SAT report.
+        sat_code = re.compile(r'((\d{3})\.\d{2})')
+
         account_lines = []
         parents = defaultdict(lambda: defaultdict(int))
         for line in [line for line in report_lines if line.get('level') == 4]:
@@ -55,7 +60,10 @@ class TrialBalanceCustomHandler(models.AbstractModel):
             credit = cols[3].get('no_format', 0.0)
             # End Debit - End Credit = End Balance
             end = balance_sign * (cols[4].get('no_format', 0.0) - cols[5].get('no_format', 0.0))
-            for pid in (line['name'].split('.')[0], line['name'].rsplit('.', 1)[0]):
+            pid_match = sat_code.match(line['name'])
+            if not pid_match:
+                raise UserError(_("Invalid SAT code: %s", line['name']))
+            for pid in pid_match.groups():
                 parents[pid]['initial'] += initial
                 parents[pid]['debit'] += debit
                 parents[pid]['credit'] += credit
