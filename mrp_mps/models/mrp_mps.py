@@ -8,7 +8,7 @@ from math import log10
 from odoo import api, fields, models, _
 from odoo.tools.date_utils import add, subtract
 from odoo.tools.float_utils import float_round
-from odoo.osv.expression import OR, AND
+from odoo.osv.expression import OR, AND, FALSE_DOMAIN
 from collections import OrderedDict
 
 
@@ -963,7 +963,7 @@ class MrpProductionSchedule(models.Model):
         """
         if not self:
             return [('id', '=', False)]
-        domain = []
+        domain = FALSE_DOMAIN
         common_domain = [
             ('state', 'in', ('draft', 'sent', 'to approve')),
             ('date_planned', '<=', date_stop)
