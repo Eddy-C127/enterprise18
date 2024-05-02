@@ -79,6 +79,12 @@ class TestUi(TestPointOfSaleHttpCommon):
             'category_ids': [(4, self.configurable_chair.pos_categ_ids[0].id)],
         })
 
+        self.pos_user.write({
+            'groups_id': [
+                (4, self.env.ref('stock.group_stock_manager').id),
+            ]
+        })
+
         self.main_pos_config.with_user(self.pos_user).open_ui()
         self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'PreparationDisplayTourConfigurableProduct', login="pos_user")
 
