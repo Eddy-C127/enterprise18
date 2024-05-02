@@ -149,7 +149,7 @@ class AccountAsset(models.Model):
              "depreciation table report. This is the value that was already depreciated with entries not computed from this model",
     )
 
-    asset_lifetime_days = fields.Float(compute="_compute_lifetime_days")  # total number of days to consider for the computation of an asset depreciation board
+    asset_lifetime_days = fields.Float(compute="_compute_lifetime_days", recursive=True)  # total number of days to consider for the computation of an asset depreciation board
     asset_paused_days = fields.Float(copy=False)
 
     # -------------------------------------------------------------------------
