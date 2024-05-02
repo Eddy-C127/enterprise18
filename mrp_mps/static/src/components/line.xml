@@ -113,10 +113,6 @@
                         t-att-data-date_stop="forecast.date_stop"
                         t-attf-class="o_mrp_mps_open_details {{
                             ! groups.mrp_mps_show_actual_replenishment and 'o_hidden'
-                            }} {{
-                            forecast.to_replenish and 'o_mrp_mps_to_replenish' or ''
-                            }} {{
-                            forecast.forced_replenish and 'o_mrp_mps_forced_replenish' or ''
                             }}">
                             <t t-esc="formatFloat(forecast.incoming_qty)"/>
                         </a>
@@ -138,10 +134,6 @@
                                 forecast.state == 'to_correct' and 'bg-danger-subtle' or
                                 forecast.to_replenish and 'bg-success-subtle' or
                                 (forecast.replenish_qty_updated and props.data.replenish_trigger != 'never') and 'bg-info-subtle' or ''
-                                }} {{
-                                forecast.to_replenish and 'o_mrp_mps_to_replenish' or ''
-                                }} {{
-                                forecast.forced_replenish and 'o_mrp_mps_forced_replenish' or ''
                                 }} {{
                                 forecast.replenish_qty ? '' : 'o_zero_qty'
                                 }}"
