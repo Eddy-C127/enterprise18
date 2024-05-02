@@ -58,8 +58,13 @@
                 <field name="product_id"/>
                 <field name="warehouse_id"/>
                 <field name="bom_id"/>
+                <filter string="To Forecast" name="to_forecast"
+                        domain="['|', ('is_indirect', '=', False), '&amp;', ('forecast_ids', '!=', False), ('forecast_ids.forecast_qty', '!=', 0)]"/>
                 <filter string="To Replenish" name="to_replenish"
                         domain="[('replenish_state', '=', 'to_replenish')]"/>
+                <filter string="Indirect Demand" name="indirect"
+                        domain="[('is_indirect', '=', True)]"/>
+                <separator/>
                 <filter string="Replenishment Too Low" name="under_replenishment"
                         domain="[('replenish_state', '=', 'under_replenishment')]"/>
                 <filter string="Replenishment Too High" name="excessive_replenishment"

@@ -5,6 +5,7 @@
         <field name="name">Master Production Schedule</field>
         <field name="res_model">mrp.production.schedule</field>
         <field name="tag">mrp_mps_client_action</field>
+        <field name="context">{'search_default_to_forecast': 1}</field>
     </record>
 
     <record id="action_mrp_mps_form_view" model="ir.actions.act_window">
