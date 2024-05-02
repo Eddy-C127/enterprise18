@@ -17,9 +17,12 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
             $("#PlanningToast").toast('show');
         }
         this._super.apply(this, arguments);
+        // The calendar is displayed if there are slots (open or not)
+        if ($('.no_data').attr('value')) {
+            return;
+        }
         this.calendarElement = this.$(".o_calendar_widget")[0];
         const employeeSlotsFcData = JSON.parse($('.employee_slots_fullcalendar_data').attr('value'));
-        const openSlotsIds = $('.open_slots_ids').attr('value');
         const locale = $('.locale').attr('value');
         // initialise popovers and add the event listeners
         $('[data-bs-toggle="popover"]').popover();
@@ -56,45 +59,42 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
             };
         }
         const titleFormat = { month: "long", year: "numeric" };
-            // The calendar is displayed if there are slots (open or not)
-        if (defaultView && (employeeSlotsFcData || openSlotsIds)) {
-            this.calendar = new FullCalendar.Calendar(document.querySelector("#calendar_employee .o_calendar_widget"), {
-                // Settings
-                locale: locale,
-                initialView: defaultView,
-                navLinks: true, // can click day/week names to navigate views
-                dayMaxEventRows: 3, // allow "more" link when too many events
-                titleFormat: titleFormat,
-                initialDate: defaultStart,
-                displayEventEnd: true,
-                height: 'auto',
-                eventDidMount: this.onEventDidMount,
-                eventTextColor: 'white',
-                eventOverlap: true,
-                eventTimeFormat: {
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    meridiem: 'long',
-                    omitZeroMinute: true,
-                },
-                slotMinTime: minTime,
-                slotMaxTime: maxTime,
-                headerToolbar: calendarHeaders,
-                // Data
-                events: employeeSlotsFcData,
-                // Event Function is called when clicking on the event
-                eventClick: this.eventFunction.bind(this),
-                buttonText: {
-                    today: _t("Today"),
-                    dayGridMonth: _t("Month"),
-                    timeGridWeek: _t("Week"),
-                    listMonth: _t("List"),
-                },
-                noEventsContent: '',
-            });
-            this.calendar.setOption('locale', locale);
-            this.calendar.render();
-        }
+        this.calendar = new FullCalendar.Calendar(document.querySelector("#calendar_employee .o_calendar_widget"), {
+            // Settings
+            locale: locale,
+            initialView: defaultView,
+            navLinks: true, // can click day/week names to navigate views
+            dayMaxEventRows: 3, // allow "more" link when too many events
+            titleFormat: titleFormat,
+            initialDate: defaultStart,
+            displayEventEnd: true,
+            height: 'auto',
+            eventDidMount: this.onEventDidMount,
+            eventTextColor: 'white',
+            eventOverlap: true,
+            eventTimeFormat: {
+                hour: 'numeric',
+                minute: '2-digit',
+                meridiem: 'long',
+                omitZeroMinute: true,
+            },
+            slotMinTime: minTime,
+            slotMaxTime: maxTime,
+            headerToolbar: calendarHeaders,
+            // Data
+            events: employeeSlotsFcData,
+            // Event Function is called when clicking on the event
+            eventClick: this.eventFunction.bind(this),
+            buttonText: {
+                today: _t("Today"),
+                dayGridMonth: _t("Month"),
+                timeGridWeek: _t("Week"),
+                listMonth: _t("List"),
+            },
+            noEventsContent: '',
+        });
+        this.calendar.setOption('locale', locale);
+        this.calendar.render();
     },
     willStart: async function () {
         await loadBundle("web.fullcalendar_lib");
