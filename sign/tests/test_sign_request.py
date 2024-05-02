@@ -464,3 +464,32 @@ class TestSignRequest(SignRequestCommon):
         archived_request.write({'active': False, 'validity': datetime.now() - timedelta(days=2)})
         self.env['sign.request']._cron_reminder()
         self.assertTrue(archived_request.state != 'expired')
+
+    def test_send_request_with_default_sign_template(self):
+        sign_request_record = self.create_sign_request_no_item(signer=self.partner_1, cc_partners=self.partner_4)
+        activity_type = self.env['mail.activity.type'].create({
+            'name': 'Request Signature',
+            'category': 'sign_request',
+        })
+        activity = self.env['mail.activity'].create({
+            'activity_type_id': activity_type.id,
+            'res_model_id': self.env['ir.model']._get('sign.request').id,
+            'res_id': sign_request_record.id,
+        })
+
+        # No default template is set for activity type
+        wizard = Form(self.env['sign.send.request'].with_context(default_activity_id=activity.id))
+        self.assertEqual(self.env['sign.template'], wizard.template_id)
+
+        # Default template is set for activity type
+        activity_type.write({'default_sign_template_id': self.template_1_role.id})
+
+        # Login user is not set as responsible(Template is not accessible)
+        self.env = self.env(user=self.user_1)
+        wizard = Form(self.env['sign.send.request'].with_context(default_activity_id=activity.id))
+        self.assertEqual(self.env['sign.template'], wizard.template_id)
+
+        # Login user is set as responsible(Template is accessible)
+        self.template_1_role.write({'user_id': self.user_1.id})
+        wizard = Form(self.env['sign.send.request'].with_context(default_activity_id=activity.id))
+        self.assertEqual(self.template_1_role, wizard.template_id)

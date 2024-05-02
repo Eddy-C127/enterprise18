@@ -4,7 +4,7 @@
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _, Command
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, AccessError
 from odoo.tools import format_list
 
 
@@ -15,10 +15,21 @@ class SignSendRequest(models.TransientModel):
     @api.model
     def default_get(self, fields):
         res = super(SignSendRequest, self).default_get(fields)
-        if not res.get('template_id'):
+        if res.get('template_id'):
+            template = self.env['sign.template'].browse(res['template_id'])
+            res['has_default_template'] = True
+        elif res.get('activity_id'):
+            activity = self.env['mail.activity'].browse(res['activity_id'])
+            if template := activity.activity_type_id.default_sign_template_id:
+                try:
+                    template.check_access_rule('read')
+                except AccessError:
+                    return res
+                res['template_id'] = template.id
+            else:
+                return res
+        else:
             return res
-        template = self.env['sign.template'].browse(res['template_id'])
-        res['has_default_template'] = bool(template)
         template._check_send_ready()
         if 'filename' in fields:
             res['filename'] = template.display_name
