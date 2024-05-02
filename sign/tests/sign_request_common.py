@@ -23,7 +23,7 @@ class SignRequestCommon(TransactionCase):
         cls.role_customer.change_authorized = False
         cls.role_employee = cls.env.ref('sign.sign_item_role_employee')
         cls.role_employee.change_authorized = False
-        cls.role_company = cls.env.ref('sign.sign_item_role_company')
+        cls.role_company = cls.env.ref('sign.sign_item_role_user')
         cls.role_company.change_authorized = True
 
         cls.template_no_item = cls.env['sign.template'].create({
@@ -78,7 +78,7 @@ class SignRequestCommon(TransactionCase):
             }, {
                 'type_id': cls.env.ref('sign.sign_item_type_text').id,
                 'required': True,
-                'responsible_id': cls.env.ref('sign.sign_item_role_company').id,
+                'responsible_id': cls.env.ref('sign.sign_item_role_user').id,
                 'page': 1,
                 'posX': 0.373,
                 'posY': 0.358,
@@ -194,7 +194,7 @@ class SignRequestCommon(TransactionCase):
                 'role_id': self.env.ref('sign.sign_item_role_employee').id,
             }), Command.create({
                 'partner_id': company.id,
-                'role_id': self.env.ref('sign.sign_item_role_company').id,
+                'role_id': self.env.ref('sign.sign_item_role_user').id,
             })],
         })
         sign_request.message_subscribe(partner_ids=cc_partners.ids)

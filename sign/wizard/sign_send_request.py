@@ -28,19 +28,39 @@ class SignSendRequest(models.TransientModel):
             roles = template.sign_item_ids.responsible_id.sorted()
             if 'signers_count' in fields:
                 res['signers_count'] = len(roles)
-            if 'signer_ids' in fields:
-                res['signer_ids'] = [(0, 0, {
-                    'role_id': role.id,
-                    'partner_id': False,
-                    'mail_sent_order': default_signing_order + 1 if self.set_sign_order else 1,
-                }) for default_signing_order, role in enumerate(roles)]
             if self.env.context.get('sign_directly_without_mail'):
                 default_signer = res.get("signer_id") or self.env.user.partner_id.id
-                if len(roles) == 1 and 'signer_ids' in fields and res.get('signer_ids'):
-                    res['signer_ids'][0][2]['partner_id'] = default_signer
-                elif not roles and 'signer_id' in fields:
+                if not roles and 'signer_id' in fields:
                     res['signer_id'] = default_signer
         return res
+
+    @api.model
+    def _default_signer_ids(self):
+        template = self.env['sign.template']
+        if self.env.context.get('active_model') == 'sign.template':
+            template = self.env['sign.template'].browse(self.env.context.get('active_id'))
+        if not template:
+            return []
+        template._check_send_ready()
+        default_signer = self.env.context.get("default_signer_id", self.env.user.partner_id.id)
+        roles = template.sign_item_ids.responsible_id.sorted()
+        signer_ids = []
+        user_role_id = self.env['ir.model.data']._xmlid_to_res_id('sign.sign_item_role_user')
+        for default_signing_order, role in enumerate(roles):
+            signer_vals = {
+               'role_id': role.id,
+               'partner_id': False,
+               'mail_sent_order': default_signing_order + 1 if self.set_sign_order else 1,
+            }
+            if len(roles) == 1:
+                # sigle signer always get the current partner default value
+                signer_vals['partner_id'] = default_signer
+            else:
+                if role.id == user_role_id:
+                    signer_vals['partner_id'] = default_signer
+                    break
+            signer_ids.append((0, 0, signer_vals))
+        return signer_ids
 
     activity_id = fields.Many2one('mail.activity', 'Linked Activity', readonly=True)
     reference_doc = fields.Char(string="Linked to", readonly=True)
@@ -49,7 +69,7 @@ class SignSendRequest(models.TransientModel):
         'sign.template', required=True, ondelete='cascade',
         default=lambda self: self.env.context.get('active_id', None),
     )
-    signer_ids = fields.One2many('sign.send.request.signer', 'sign_send_request_id', string="Signers")
+    signer_ids = fields.One2many('sign.send.request.signer', 'sign_send_request_id', string="Signers", default=_default_signer_ids)
     set_sign_order = fields.Boolean(string="Signing Order",
                                     help="""Specify the order for each signer. The signature request only gets sent to \
                                     the next signers in the sequence when all signers from the previous level have \
@@ -98,12 +118,19 @@ class SignSendRequest(models.TransientModel):
                 'partner_id': False,
                 'mail_sent_order': default_signing_order + 1 if self.set_sign_order else 1
             }) for default_signing_order, role in enumerate(roles)]
-        if self.env.context.get('sign_directly_without_mail'):
+        if self.env.context.get('sign_directly_without_mail') or self.env.ref('sign.sign_item_role_user').id:
             default_signer = self.env.context.get("default_signer_id", self.env.user.partner_id.id)
-            if len(roles) == 1:
+            if len(roles) == 1 and signer_ids:
                 signer_ids[0][2]['partner_id'] = default_signer
             elif not roles:
                 self.signer_id = default_signer
+            user_role = self.env.ref('sign.sign_item_role_user').id
+            for signer_val in signer_ids:
+                current_role = signer_val[2].get('role_id')
+                # user_role can't be deleted if already used.
+                if len(signer_val) == 3 and isinstance(current_role, int) and current_role == user_role:
+                    signer_val[2]['partner_id'] = default_signer
+                    break
         self.signer_ids = [(5, 0, 0)] + signer_ids
         self.signers_count = len(roles)
 

@@ -40,7 +40,7 @@ class TestSignRequest(SignRequestCommon):
                 'template_id': self.template_no_item.id,
                 'request_item_ids': [Command.create({
                     'partner_id': self.partner_1.id,
-                    'role_id': self.env.ref('sign.sign_item_role_company').id,
+                    'role_id': self.env.ref('sign.sign_item_role_user').id,
                 })],
                 'reference': self.template_no_item.display_name,
             })
@@ -69,10 +69,10 @@ class TestSignRequest(SignRequestCommon):
                     'role_id': self.env.ref('sign.sign_item_role_employee').id,
                 }), Command.create({
                     'partner_id': self.partner_3.id,
-                    'role_id': self.env.ref('sign.sign_item_role_company').id,
+                    'role_id': self.env.ref('sign.sign_item_role_user').id,
                 }), Command.create({
                     'partner_id': self.partner_4.id,
-                    'role_id': self.env.ref('sign.sign_item_role_company').id,
+                    'role_id': self.env.ref('sign.sign_item_role_user').id,
                 })],
                 'reference': self.template_3_roles.display_name,
             })
@@ -404,7 +404,7 @@ class TestSignRequest(SignRequestCommon):
                 'mail_sent_order': 2,
             }), Command.create({
                 'partner_id': self.partner_3.id,
-                'role_id': self.env.ref('sign.sign_item_role_company').id,
+                'role_id': self.env.ref('sign.sign_item_role_user').id,
                 'mail_sent_order': 2,
             })],
         })
