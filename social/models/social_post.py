@@ -413,7 +413,7 @@ class SocialPost(models.Model):
             ])
 
             if posts_failed:
-                post._message_log(body=_("Message posted partially. These are the ones that couldn't be posted:%s") + Markup("<br/>") + posts_failed)
+                post._message_log(body=_("Message posted partially. These are the ones that couldn't be posted:%s", Markup("<br/>") + posts_failed))
             else:
                 post._message_log(body=_("Message posted"))
 
