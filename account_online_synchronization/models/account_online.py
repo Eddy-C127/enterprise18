@@ -761,7 +761,7 @@ class AccountOnlineLink(models.Model):
                     return self.env['account.bank.statement.line']._action_open_bank_reconciliation_widget(
                         extra_domain=domain,
                         name=_('Fetched Transactions'),
-                        default_context={**self.env.context, 'default_journal_id': journal},
+                        default_context={**self.env.context, 'default_journal_id': journal.id},
                     )
                 else:
                     statement_lines = self.env['account.bank.statement.line']._online_sync_bank_statement(sorted_transactions, online_account)
