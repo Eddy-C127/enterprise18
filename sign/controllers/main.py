@@ -126,10 +126,12 @@ class Sign(http.Controller):
 
     @http.route(["/sign/document/mail/<int:request_id>/<token>"], type='http', auth='public', website=True)
     def sign_document_from_mail(self, request_id, token, **post):
-        sign_request = request.env['sign.request'].sudo().browse(request_id)
+        sign_request = request.env['sign.request'].sudo().browse(request_id).exists()
         if not sign_request or sign_request.validity and sign_request.validity < fields.Date.today():
             return http.request.render('sign.deleted_sign_request')
         current_request_item = sign_request.request_item_ids.filtered(lambda r: consteq(r.access_token, token))
+        if not current_request_item:
+            return http.request.render('sign.deleted_sign_request')
 
         if sign_request.state != 'shared' and not current_request_item._validate_expiry(post.get('timestamp'), post.get('exp')):
             return request.render('sign.sign_request_expired', {'resend_expired_link': '/sign/resend_expired_link/%s/%s' % (request_id, token)}, status=403)
