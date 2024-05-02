@@ -7,27 +7,30 @@
             <form>
                 <field name="move_ids" invisible="1"/>
                 <field name="purchase_order_line_ids" invisible="1"/>
+                <field name="rfq_qty" invisible="1"/>
+                <field name="moves_qty" invisible="1"/>
+                <field name="manufacture_qty" invisible="1"/>
                 <div class="row">
                     <div class="d-grid col-md-4">
-                        <button type="object"
-                            name="action_open_rfq_details"
-                            class="btn btn-primary">
-                            <field name="rfq_qty" widget="statinfo" string="Requests for quotation"/>
+                        <button type="object" name="action_open_rfq_details" class="btn btn-primary" invisible="not rfq_qty">
+                            <field name="rfq_string"/>
                         </button>
+                        <button type="object" name="action_open_rfq_details" class="btn btn-secondary"
+                            string="Requests for quotation" invisible="rfq_qty"/>
                     </div>
                     <div class="d-grid col-md-4">
-                        <button type="object"
-                            name="action_open_incoming_moves_details"
-                            class="btn btn-primary">
-                            <field name="moves_qty" widget="statinfo" string="Receipts"/>
+                        <button type="object" name="action_open_incoming_moves_details" class="btn btn-primary" invisible="not moves_qty">
+                            <field name="moves_string"/>
                         </button>
+                        <button type="object" name="action_open_incoming_moves_details" class="btn btn-secondary"
+                            string="Receipts" invisible="moves_qty"/>
                     </div>
                     <div class="d-grid col-md-4">
-                        <button type="object"
-                            name="action_open_mo_details"
-                            class="btn btn-primary">
-                            <field name="manufacture_qty" widget="statinfo" string="Manufacturing Orders"/>
+                        <button type="object" name="action_open_mo_details" class="btn btn-primary" invisible="not manufacture_qty">
+                            <field name="manufacture_string"/>
                         </button>
+                        <button type="object" name="action_open_mo_details" class="btn btn-secondary"
+                            string="Manufacturing Orders" invisible="manufacture_qty"/>
                     </div>
                 </div>
                 <footer>
