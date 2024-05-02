@@ -10,7 +10,7 @@ class AccountMoveLine(models.Model):
         return (
             "84111506"
             if self in self._get_downpayment_lines()
-            else self.product_id.unspsc_code_id.code or "01010101"
+            else self.product_id.unspsc_code_id.code
         )
 
     def _get_uom_unspsc_code(self):
@@ -19,5 +19,5 @@ class AccountMoveLine(models.Model):
         return (
             "ACT"
             if self in self._get_downpayment_lines()
-            else self.product_uom_id.unspsc_code_id.code or "01010101"
+            else self.product_uom_id.unspsc_code_id.code
         )
