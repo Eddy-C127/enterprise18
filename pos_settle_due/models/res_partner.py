@@ -7,10 +7,11 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     def get_total_due(self, pos_currency):
+        total_due = self.parent_id.total_due if self.parent_id else self.total_due
         if self.env.company.currency_id.id != pos_currency:
             pos_currency = self.env['res.currency'].browse(pos_currency)
-            return self.env.company.currency_id._convert(self.total_due, pos_currency, self.env.company, fields.Date.today())
-        return self.total_due
+            return self.env.company.currency_id._convert(total_due, pos_currency, self.env.company, fields.Date.today())
+        return total_due
 
     @api.model
     def _load_pos_data_fields(self, config_id):

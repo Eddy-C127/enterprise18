@@ -4,9 +4,14 @@ from odoo import fields, models, api
 
 
 class AccountMove(models.Model):
-    _inherit = 'account.move'
+    _name = 'account.move'
+    _inherit = ['account.move', 'pos.load.mixin']
 
     l10n_cl_sii_barcode_image = fields.Char(string="SII Barcode Image", compute='_compute_l10n_cl_sii_barcode_image')
+
+    @api.model
+    def _load_pos_data_domain(self, data):
+        return [('pos_order_ids', 'in', [order['id'] for order in data['pos.order']['data']])]
 
     def _compute_l10n_cl_sii_barcode_image(self):
         for record in self:

@@ -72,8 +72,9 @@ class PosOrder(models.Model):
             paid_orders = [order['id'] for order in result['pos.order'] if order['state'] in ['paid', 'invoiced']]
             if len(paid_orders) > 0:
                 paid_orders_ids = self.env['pos.order'].browse(paid_orders)
-                params = paid_orders_ids[0].session_id._load_data_params(paid_orders_ids[0].config_id)
-                result['account.move'] = paid_orders_ids.account_move.read(params['account.move']['fields'], load=False)
-                result['l10n_latam.document.type'] = paid_orders_ids.account_move.l10n_latam_document_type_id.read(params['l10n_latam.document.type']['fields'], load=False)
+                account_move_fields = self.env['account.move']._load_pos_data_fields(paid_orders_ids[0].config_id)
+                l10n_latam_document_type_fields = self.env['l10n_latam.document.type']._load_pos_data_fields(paid_orders_ids[0].config_id)
+                result['account.move'] = paid_orders_ids.account_move.read(account_move_fields, load=False)
+                result['l10n_latam.document.type'] = paid_orders_ids.account_move.l10n_latam_document_type_id.read(l10n_latam_document_type_fields, load=False)
 
         return result

@@ -11,8 +11,6 @@ patch(PosStore.prototype, {
         if (this.isChileanCompany()) {
             this["l10n_latam.identification.type"] =
                 this.models["l10n_latam.identification.type"].getFirst();
-            this.l10n_cl_sii_regional_office_selection =
-                this.data.custom["l10n_cl_sii_regional_office_selection"];
         }
     },
     isChileanCompany() {
@@ -50,7 +48,7 @@ patch(PosStore.prototype, {
         }
         result.company.cl_vat = this.company.vat;
         result.l10n_cl_sii_regional_office =
-            this.l10n_cl_sii_regional_office_selection[
+            this.session._l10n_cl_sii_regional_office_selection[
                 order.company_id.l10n_cl_sii_regional_office
             ];
         result.l10n_latam_document_type = order.account_move.l10n_latam_document_type_id.name;
