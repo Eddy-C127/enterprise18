@@ -58,7 +58,7 @@ class AccountBatchPayment(models.Model):
     available_payment_method_ids = fields.Many2many(
         comodel_name='account.payment.method',
         compute='_compute_available_payment_method_ids')
-    payment_method_code = fields.Char(related='payment_method_id.code', readonly=False, tracking=True)
+    payment_method_code = fields.Char(related='payment_method_id.code', tracking=True)
     export_file_create_date = fields.Date(string='Generation Date', default=fields.Date.today, readonly=True, help="Creation date of the related export file.", copy=False)
     export_file = fields.Binary(string='File', readonly=True, help="Export file related to this batch", copy=False)
     export_filename = fields.Char(string='File Name', help="Name of the export file generated for this batch", store=True, copy=False)
