@@ -270,6 +270,17 @@ class AssetModify(models.TransientModel):
                 raise UserError(_('There are unposted depreciations prior to the selected operation date, please deal with them first.'))
             self.asset_id._create_move_before_date(self.date)
 
+        asset_vals.update({
+            'value_residual': new_residual,
+            'salvage_value': new_salvage,
+        })
+        computation_children_changed = (
+                asset_vals['method_number'] != self.asset_id.method_number
+                or asset_vals['method_period'] != self.asset_id.method_period
+                or asset_vals.get('asset_paused_days') and not float_is_zero(asset_vals['asset_paused_days'] - self.asset_id.asset_paused_days, 8)
+        )
+        self.asset_id.write(asset_vals)
+
         # Check for residual/salvage increase while rounding with the company currency precision to prevent float precision issues.
         if self.currency_id.compare_amounts(residual_increase + salvage_increase, 0) > 0:
             move = self.env['account.move'].create({
@@ -329,17 +340,6 @@ class AssetModify(models.TransientModel):
                 'asset_number_days': 0,
                 'asset_value_change': True,
             }))._post()
-
-        asset_vals.update({
-            'value_residual': new_residual,
-            'salvage_value': new_salvage,
-        })
-        computation_children_changed = (
-                asset_vals['method_number'] != self.asset_id.method_number
-                or asset_vals['method_period'] != self.asset_id.method_period
-                or asset_vals.get('asset_paused_days') and not float_is_zero(asset_vals['asset_paused_days'] - self.asset_id.asset_paused_days, 8)
-        )
-        self.asset_id.write(asset_vals)
 
         restart_date = self.date if self.env.context.get('resume_after_pause') else self.date + relativedelta(days=1)
         self.asset_id.compute_depreciation_board(restart_date)

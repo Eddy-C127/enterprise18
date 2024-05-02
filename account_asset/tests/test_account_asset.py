@@ -2486,11 +2486,11 @@ class TestAccountAsset(TestAccountReportsCommon):
                 {'date': fields.Date.to_date('2021-06-30'), 'depreciation_value': 1000},
                 {'date': fields.Date.to_date('2021-06-30'), 'depreciation_value': 2000},
                 {'date': fields.Date.to_date('2021-07-31'), 'depreciation_value': 666.67},
-                {'date': fields.Date.to_date('2021-08-31'), 'depreciation_value': 666.67},
+                {'date': fields.Date.to_date('2021-08-31'), 'depreciation_value': 666.66},
                 {'date': fields.Date.to_date('2021-09-30'), 'depreciation_value': 666.67},
                 {'date': fields.Date.to_date('2021-10-31'), 'depreciation_value': 666.67},
-                {'date': fields.Date.to_date('2021-11-30'), 'depreciation_value': 666.67},
-                {'date': fields.Date.to_date('2021-12-31'), 'depreciation_value': 666.65}
+                {'date': fields.Date.to_date('2021-11-30'), 'depreciation_value': 666.66},
+                {'date': fields.Date.to_date('2021-12-31'), 'depreciation_value': 666.67}
             ]
         )
 
