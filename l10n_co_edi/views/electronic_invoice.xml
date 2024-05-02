@@ -94,6 +94,10 @@
                 <ENC_8 t-out="validation_time"/>
                 <ENC_9 t-out="edi_type"/>
                 <ENC_10 t-out="invoice.company_currency_id.name"/>
+                <ENC_11 t-if="invoice.l10n_co_edi_operation_type in ['22', '32']"
+                        t-out="'%sT%s' % (invoice.invoice_date, validation_time)"/>
+                <ENC_12 t-if="invoice.l10n_co_edi_operation_type in ['22', '32']"
+                        t-out="'%sT%s' % (invoice.invoice_date, validation_time)"/>
                 <ENC_15 t-out="len(invoice.invoice_line_ids.filtered(lambda line: line.display_type == 'product'))"/>
                 <ENC_16 t-out="invoice.invoice_date_due"/>
                 <ENC_17 t-out="invoice.l10n_co_edi_attachment_url"/>
@@ -257,7 +261,7 @@
                 <t t-set="part_of_invoice" t-value="True"/>
                 <t t-set="tax_details_group" t-value="regular_taxes_new_COP"/>
             </t>
-            <TDC>
+            <TDC t-if="invoice.currency_id != invoice.company_currency_id">
                 <TDC_1 t-out="invoice.company_currency_id.name"/>
                 <TDC_2 t-out="invoice.currency_id.name"/>
                 <TDC_3 t-out="currency_rate"/>

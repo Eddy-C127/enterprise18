@@ -3,7 +3,7 @@
 {
     'name': 'Electronic invoicing for Colombia with Carvajal',
     'countries': ['co'],
-    'version': '0.2',
+    'version': '0.3',
     'category': 'Accounting/Localizations/EDI',
     'summary': 'Colombian Localization for EDI documents',
     'author': 'Odoo Sa',
