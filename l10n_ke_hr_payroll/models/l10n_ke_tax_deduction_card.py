@@ -39,6 +39,7 @@ class L10nKeTaxDeductionCard(models.Model):
                     'res_id': sheet.id,
                 }) for employee in all_employees]
             })
+        return super().action_generate_declarations()
 
     def _get_rendering_data(self, employees):
         self.ensure_one()
