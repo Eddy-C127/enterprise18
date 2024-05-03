@@ -19,7 +19,10 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
             trigger: ".o_documents_kanban_spreadsheet",
             content: "Open template dialog",
         },
-        // the dialog will auto-close because there are no templates to choose from
+        {
+            trigger: ".o-spreadsheet-create",
+            content: "Create new spreadsheet",
+        },
         {
             trigger: ".o-add-sheet",
             content: "Add a sheet",

@@ -3,27 +3,30 @@
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
 
-
-let stepsBeforeChoosingTemplateDialog = [
-    stepUtils.showAppsMenuItem(),
-    {
-        trigger: '.o_app[data-menu-xmlid="documents.menu_root"]',
-        content: "Open document app",
-        run: "click",
-    },
-    {
-        trigger: ".o_cp_buttons:contains('Upload') .dropdown-toggle.dropdown-toggle-split",
-        content: "Open dropdown",
-    },
-    {
-        trigger: ".o_documents_kanban_spreadsheet",
-        content: "Open template dialog",
-        run: "click",
-    }
-]
-
-let stepsAfterChoosingTemplateDialog = [
-       {
+registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet", {
+    test: true,
+    steps: () => [
+        stepUtils.showAppsMenuItem(),
+        {
+            trigger: '.o_app[data-menu-xmlid="documents.menu_root"]',
+            content: "Open document app",
+            run: "click",
+        },
+        {
+            trigger: ".o_cp_buttons:contains('Upload') .dropdown-toggle.dropdown-toggle-split",
+            content: "Open dropdown",
+        },
+        {
+            trigger: ".o_documents_kanban_spreadsheet",
+            content: "Open template dialog",
+            run: "click",
+        },
+        {
+            trigger: ".o-spreadsheet-create",
+            content: "Create new spreadsheet",
+            run: "click",
+        },
+        {
             trigger: 'span[title="Fill Color"]',
             content: "Choose a color",
             run: "click",
@@ -46,26 +49,6 @@ let stepsAfterChoosingTemplateDialog = [
             trigger: '[data-menu-xmlid="documents.dashboard"]',
             content: "Wait for the spreadsheet to be properly unloaded",
         },
-    ];
-
-registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet_without_template", {
-    test: true,
-    steps: () => [
-        ...stepsBeforeChoosingTemplateDialog,
-        //the dialog closes automatically when no template is available
-        ...stepsAfterChoosingTemplateDialog
-    ],
-});
-registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet_with_template_available", {
-    test: true,
-    steps: () => [
-        ...stepsBeforeChoosingTemplateDialog,
-        {
-            trigger: ".o-spreadsheet-create",
-            content: "Create new spreadsheet",
-            run: "click",
-        },
-        ...stepsAfterChoosingTemplateDialog
     ],
 });
 registry.category("web_tour.tours").add("spreadsheet_create_list_view", {

@@ -8,12 +8,7 @@ from odoo.tests.common import HttpCase
 @tagged("post_install", "-at_install")
 class TestSpreadsheetCreateEmpty(HttpCase):
     def test_01_spreadsheet_create_empty(self):
-        self.env["spreadsheet.template"].search([]).unlink()
-        self.start_tour("/web", "spreadsheet_create_empty_sheet_without_template", login="admin")
+        self.start_tour("/web", "spreadsheet_create_empty_sheet", login="admin")
 
     def test_02_spreadsheet_create_list_view(self):
         self.start_tour("/web", "spreadsheet_create_list_view", login="admin")
-
-    def test_03_spreadsheet_create_with_template(self):
-        self.env["spreadsheet.template"].create({"name": "Test Template"})
-        self.start_tour("/web", "spreadsheet_create_empty_sheet_with_template_available", login="admin")

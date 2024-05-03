@@ -8,7 +8,4 @@ from odoo.tests.common import HttpCase
 @tagged("post_install", "-at_install")
 class TestSpreadsheetMultipage(HttpCase):
     def test_01_spreadsheet_save_multipage(self):
-        # ensure there are no templates
-        self.env["spreadsheet.template"].search([]).unlink()
-
         self.start_tour("/web", "spreadsheet_save_multipage", login="admin")
