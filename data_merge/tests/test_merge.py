@@ -86,11 +86,11 @@ class TestMerge(test_common.TestCommon):
         field = self.env['ir.model.fields']._get('x_dm_test_model_cd', 'x_cd')
         fid = field.id
         # rec.with_company(self.company1).write({'x_cd': 'one'})
-        self.env['ir.property'].create({'res_id': f'res.partner,{rec.id}', 'fields_id': fid, 'company_id': company1.id, 'value_text': 'one'})
+        self.env['ir.property'].create({'res_id': f'x_dm_test_model_cd,{rec.id}', 'fields_id': fid, 'company_id': company1.id, 'value_text': 'one'})
         # rec2.with_company(self.company1).write({'x_cd': 'twoA'})
-        self.env['ir.property'].create({'res_id': f'res.partner,{rec2.id}', 'fields_id': fid, 'company_id': company1.id, 'value_text': 'twoA'})
+        self.env['ir.property'].create({'res_id': f'x_dm_test_model_cd,{rec2.id}', 'fields_id': fid, 'company_id': company1.id, 'value_text': 'twoA'})
         # rec2.with_company(self.company2).write({'x_cd': 'twoB'})
-        self.env['ir.property'].create({'res_id': f'res.partner,{rec2.id}', 'fields_id': fid, 'company_id': company2.id, 'value_text': 'twoB'})
+        self.env['ir.property'].create({'res_id': f'x_dm_test_model_cd,{rec2.id}', 'fields_id': fid, 'company_id': company2.id, 'value_text': 'twoB'})
 
         model = self.DMModel.create({
             'name': 'Test Model',
@@ -105,5 +105,5 @@ class TestMerge(test_common.TestCommon):
         })
 
         model.find_duplicates()
-        self.assertEqual(self.env['ir.property'].search([('fields_id', '=', fid), ('company_id', '=', company1.id), ('res_id', '=', f'res.partner,{rec.id}')]).value_text, 'one', 'The original field value should stay')
-        self.assertEqual(self.env['ir.property'].search([('fields_id', '=', fid), ('company_id', '=', company2.id), ('res_id', '=', f'res.partner,{rec.id}')]).value_text, 'twoB', 'The new field value should be available on the master record')
+        self.assertEqual(self.env['ir.property'].search([('fields_id', '=', fid), ('company_id', '=', company1.id), ('res_id', '=', f'x_dm_test_model_cd,{rec.id}')]).value_text, 'one', 'The original field value should stay')
+        self.assertEqual(self.env['ir.property'].search([('fields_id', '=', fid), ('company_id', '=', company2.id), ('res_id', '=', f'x_dm_test_model_cd,{rec.id}')]).value_text, 'twoB', 'The new field value should be available on the master record')

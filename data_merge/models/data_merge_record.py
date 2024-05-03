@@ -525,8 +525,8 @@ class DataMergeRecord(models.Model):
         # Company-dependent fields
         with self._cr.savepoint():
             params = {
-                'destination_id': f'res.partner,{destination.id}',
-                'source_ids': tuple(f'res.partner,{src}' for src in source_ids),
+                'destination_id': f'{destination._name},{destination.id}',
+                'source_ids': tuple(f'{destination._name},{src}' for src in source_ids),
             }
             self._cr.execute("""
 UPDATE ir_property AS _ip1
