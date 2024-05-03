@@ -916,13 +916,13 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: `edit CP200: Belgian Employee`,
         },
         {
+            trigger: ".ui-autocomplete > li > a:contains('CP200: Belgian Employee')",
+            auto: true,
+        },
+        {
             content: "Contract Reference",
             trigger: '.o_field_widget.o_field_char[name="name"] input',
             run: "edit Mitchell Admin PFI Contract",
-        },
-        {
-            trigger: ".ui-autocomplete > li > a:contains('CP200: Belgian Employee')",
-            auto: true,
         },
         {
             content: "Select Contract Details Tab",
