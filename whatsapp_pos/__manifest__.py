@@ -14,9 +14,7 @@
     ],
     'assets': {
         'point_of_sale._assets_pos': [
-            'whatsapp_pos/static/src/js/**/*',
-            'whatsapp_pos/static/src/xml/**/*',
-            ('after', 'point_of_sale/static/src/scss/pos.scss', 'whatsapp_pos/static/src/scss/whatsapp_pos.scss'),
+            'whatsapp_pos/static/src/**/*',
         ],
     },
     'license': 'OEEL-1',

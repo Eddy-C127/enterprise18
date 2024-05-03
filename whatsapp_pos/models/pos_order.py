@@ -6,12 +6,11 @@ from odoo import models
 class PosOrder(models.Model):
     _inherit = 'pos.order'
 
-    def action_sent_receipt_on_whatsapp(self, name, partner, ticket_image):
-        """ Send receipt on whatsapp if whatsapp is enabled and partner has whatsapp number or number is provided."""
-        if not self or not self.config_id.whatsapp_enabled or not self.config_id.receipt_template_id or not partner.get('whatsapp'):
+    def action_sent_receipt_on_whatsapp(self, phone, ticket_image):
+        if not self or not self.config_id.whatsapp_enabled or not self.config_id.receipt_template_id or not phone:
             return
         self.ensure_one()
-        filename = 'Receipt-' + name + '.jpg'
+        filename = 'Receipt-' + self.name + '.jpg'
         receipt = self.env['ir.attachment'].create({
             'name': filename,
             'type': 'binary',
@@ -23,7 +22,7 @@ class PosOrder(models.Model):
         whatsapp_composer = self.env['whatsapp.composer'].with_context({'active_id': self.id}).create(
             {
                 'attachment_id': receipt.id,
-                'phone': partner['whatsapp'],
+                'phone': phone,
                 'wa_template_id': self.config_id.receipt_template_id.id,
                 'res_model': 'pos.order'
             }
@@ -32,7 +31,7 @@ class PosOrder(models.Model):
         if self.to_invoice and self.config_id.invoice_template_id:
             whatsapp_composer = self.env['whatsapp.composer'].with_context({'active_id': self.account_move.id}).create(
                 {
-                    'phone': partner['whatsapp'],
+                    'phone': phone,
                     'wa_template_id': self.config_id.invoice_template_id.id,
                     'res_model': 'account.move'
                 }
