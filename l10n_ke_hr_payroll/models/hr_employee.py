@@ -22,10 +22,3 @@ class HrEmployee(models.Model):
         for employee in self:
             if max_amount_yearly and employee.l10n_ke_mortgage > max_amount_yearly:
                 raise UserError(_('The mortgage interest cannot exceed %s Ksh yearly.', max_amount_yearly))
-
-    @api.constrains('l10n_ke_nssf_number', 'country_id')
-    def _check_l10n_ke_nssf_number(self):
-        for employee in self:
-            number = employee.l10n_ke_nssf_number
-            if number and (not number.isdigit() or len(number) > 10 or len(number) < 9):
-                raise UserError(_('The NSSF number must be a nine or ten digits number.'))
