@@ -14,6 +14,7 @@
     <record id="PBS" model="hr.salary.rule.category">
         <field name="name">Performance Bonus</field>
         <field name="code">PBS</field>
+        <field name="parent_id" ref="hr_payroll.DED"/>
     </record>
 
 </odoo>

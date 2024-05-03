@@ -206,10 +206,25 @@ result_name = inputs['ASSIG_SALARY'].name</field>
         <field name="struct_id" ref="l10n_in_hr_payroll.hr_payroll_structure_in_employee_salary"/>
     </record>
 
+    <record id="l10n_in_hr_salary_rule_expenses_reimbursement" model="hr.salary.rule">
+        <field name="name">Expenses Reimbursement</field>
+        <field name="code">EXPENSES</field>
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="sequence" eval="190"/>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = inputs['EXPENSES'].amount > 0.0 if 'EXPENSES' in inputs else False</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = inputs['EXPENSES'].amount
+result_name = inputs['EXPENSES'].name
+        </field>
+        <field name="struct_id" ref="l10n_in_hr_payroll.hr_payroll_structure_in_employee_salary"/>
+    </record>
+
     <function model="hr.salary.rule" name="write">
         <value model="hr.salary.rule" search="[('struct_id', '=', ref('l10n_in_hr_payroll.hr_payroll_structure_in_employee_salary')),
             ('code', '=', 'NET')]"/>
-        <value eval="{'amount_python_compute': &quot;result = categories['GROSS'] + categories['PBS'] + categories['DED'] &quot;}"/>
+        <value eval="{'amount_python_compute': &quot;result = categories['BASIC'] + categories['ALW'] + categories['DED']&quot;}"/>
     </function>
 
 </odoo>

@@ -62,6 +62,9 @@ class AccountChartTemplate(models.AbstractModel):
         ], limit=1)
         rules_mapping[reimbursement_IN_salary_rule]['debit'] = '300006'
 
+        expenses_reimbursement_IN_salary_rule = self.env.ref('l10n_in_hr_payroll.l10n_in_hr_salary_rule_expenses_reimbursement')
+        rules_mapping[expenses_reimbursement_IN_salary_rule]['debit'] = '300006'
+
         pt_IN_emp_salary_rule = self.env.ref('l10n_in_hr_payroll.l10n_in_hr_salary_rule_pt')
         rules_mapping[pt_IN_emp_salary_rule]['debit'] = '300012'
 
