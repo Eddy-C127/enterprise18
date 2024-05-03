@@ -59,14 +59,19 @@ class AccountBankStmtImportCSV(models.TransientModel):
         index_balance = False
         convert_to_amount = False
 
-        # check that the rows are sorted by date as we assume they are in the following code
+        # check that the rows are sorted by date (ascending or descending) as we assume they are in the following code
         # we can't order the rows for the user as two rows could have the same date
         # and we don't have a way to know which one should be first
         if 'date' in import_fields:
             index_date = import_fields.index('date')
             dates = [fields.Date.from_string(line[index_date]) for line in data if line[index_date]]
-            if dates != sorted(dates):
-                raise UserError(_('Rows must be sorted by date.'))
+            sorted_dates_asc = sorted(dates)
+            if dates != sorted_dates_asc:  # If dates are not in ascending order, check if they are in descending order
+                sorted_dates_desc = sorted_dates_asc[::-1]
+                if dates == sorted_dates_desc:
+                    data = data[::-1]  # reverse data if dates are in descending order to make them ascending
+                else:  # If dates are not sorted at all, we throw an error
+                    raise UserError(_('Rows must be sorted by date.'))
 
         if 'debit' in import_fields and 'credit' in import_fields:
             index_debit = import_fields.index('debit')
