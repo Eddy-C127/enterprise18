@@ -432,10 +432,6 @@ class AppointmentType(models.Model):
             'target': 'self',
         }
 
-    def action_toggle_published(self):
-        for record in self:
-            record.is_published = not record.is_published
-
     # --------------------------------------
     # View Utils
     # --------------------------------------

@@ -32,10 +32,6 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         content: 'Save appointment type',
         trigger: '.o_form_button_save',
     }, {
-        content: 'Publish the appointment',
-        trigger: 'button[name="action_toggle_published"]',
-        extra_trigger: 'button.o_form_button_create',
-    }, {
         content: 'Go to the front end',
         trigger: 'button[name="action_customer_preview"]',
     }, {

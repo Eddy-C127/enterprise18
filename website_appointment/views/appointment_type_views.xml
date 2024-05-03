@@ -8,7 +8,6 @@
         <field name="arch" type="xml">
             <xpath expr="//templates" position="before">
                 <field name="is_published"/>
-                <field name="website_url"/>
             </xpath>
             <xpath expr="//div[hasclass('o_kanban_card_header')]" position="before">
                 <div class="ribbon ribbon-top-right" invisible="not is_published or not active">
@@ -19,12 +18,6 @@
                 <div class="ribbon ribbon-top-right" invisible="not is_published or not active">
                     <span class="text-bg-success">Published</span>
                 </div>
-            </xpath>
-            <xpath expr="//div[hasclass('o_appointment_kanban_box')]/div[1]" position="inside">
-                <span>
-                    <a t-attf-href="#{record.website_url.raw_value}" class="me-2">Published</a>
-                    <field name="is_published" widget='boolean_toggle'/>
-                </span>
             </xpath>
         </field>
     </record>
@@ -40,16 +33,6 @@
             <xpath expr="//div[hasclass('oe_button_box')]/button[@name='action_calendar_meetings']" position="after">
                 <field name="website_url" invisible="1"/>
                 <field name="is_published" widget="website_redirect_button"/>
-            </xpath>
-            <xpath expr="//header/button[@name='action_share_invite']" position="after">
-                <button name="action_toggle_published" string="Publish" type="object"
-                    class="btn btn-secondary" invisible="is_published or not active" groups="appointment.group_appointment_user">
-                    Publish
-                </button>
-                <button name="action_toggle_published" string="Unpublish" type="object"
-                        class="btn btn-secondary" invisible="not is_published or not active" groups="appointment.group_appointment_user">
-                    Unpublish
-                </button>
             </xpath>
         </field>
     </record>
