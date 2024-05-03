@@ -1,11 +1,3 @@
-/* @odoo-module */
-
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
-
-import { openDiscuss, start } from "@mail/../tests/helpers/test_utils";
-import { Composer } from "@mail/core/common/composer";
-import { patchWithCleanup } from "@web/../tests/helpers/utils";
-
 import {
     contains,
     createFile,
@@ -13,23 +5,32 @@ import {
     dropFiles,
     inputFiles,
     insertText,
+    openDiscuss,
     pasteFiles,
-} from "@web/../tests/utils";
+    start,
+    startServer,
+} from "@mail/../tests/mail_test_helpers";
+import { Composer } from "@mail/core/common/composer";
+import { beforeEach, describe, test } from "@odoo/hoot";
+import { serializeDateTime } from "@web/core/l10n/dates";
+import { patchWithCleanup } from "@web/../tests/web_test_helpers";
+import { defineWhatsAppModels } from "@whatsapp/../tests/whatsapp_test_helpers";
 
 const { DateTime } = luxon;
 
-QUnit.module("composer (patch)", {
-    async beforeEach() {
-        // Simulate real user interactions
-        patchWithCleanup(Composer.prototype, {
-            isEventTrusted() {
-                return true;
-            },
-        });
-    },
+describe.current.tags("desktop");
+defineWhatsAppModels();
+
+beforeEach(() => {
+    // Simulate real user interactions
+    patchWithCleanup(Composer.prototype, {
+        isEventTrusted() {
+            return true;
+        },
+    });
 });
 
-QUnit.test("Allow only single attachment in every message", async () => {
+test("Allow only single attachment in every message", async () => {
     const pyEnv = await startServer();
     const channelId = pyEnv["discuss.channel"].create({
         name: "WhatsApp 1",
@@ -64,7 +65,7 @@ QUnit.test("Allow only single attachment in every message", async () => {
     await contains(".o-mail-AttachmentCard", { text: "text.txt", contains: [".fa-check"] });
 });
 
-QUnit.test("Can not add attachment after copy pasting an attachment", async () => {
+test("Can not add attachment after copy pasting an attachment", async () => {
     const pyEnv = await startServer();
     const channelId = pyEnv["discuss.channel"].create({
         name: "WhatsApp 1",
@@ -96,7 +97,7 @@ QUnit.test("Can not add attachment after copy pasting an attachment", async () =
     await contains(".o-mail-AttachmentCard", { text: "text.txt", contains: [".fa-check"] });
 });
 
-QUnit.test("Can not add attachment after drag dropping an attachment", async () => {
+test("Can not add attachment after drag dropping an attachment", async () => {
     const pyEnv = await startServer();
     const channelId = pyEnv["discuss.channel"].create({
         name: "WhatsApp 1",
@@ -125,12 +126,12 @@ QUnit.test("Can not add attachment after drag dropping an attachment", async () 
     await contains(".o-mail-AttachmentCard", { text: "text.txt", contains: [".fa-check"] });
 });
 
-QUnit.test("Disabled composer should be enabled after message from whatsapp user", async () => {
+test("Disabled composer should be enabled after message from whatsapp user", async () => {
     const pyEnv = await startServer();
     const channelId = pyEnv["discuss.channel"].create({
         name: "WhatsApp 1",
         channel_type: "whatsapp",
-        whatsapp_channel_valid_until: DateTime.utc().minus({ minutes: 1 }).toSQL(),
+        whatsapp_channel_valid_until: serializeDateTime(DateTime.local().minus({ minutes: 1 })),
     });
     await start();
     await openDiscuss(channelId);
@@ -155,7 +156,7 @@ QUnit.test("Disabled composer should be enabled after message from whatsapp user
     await contains(".o-mail-Composer-input:not([readonly])");
 });
 
-QUnit.test("Allow channel commands for whatsapp channels", async () => {
+test("Allow channel commands for whatsapp channels", async () => {
     const pyEnv = await startServer();
     const channelId = pyEnv["discuss.channel"].create({
         name: "WhatsApp 1",

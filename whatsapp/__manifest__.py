@@ -43,12 +43,8 @@
         "web.assets_web_dark": [
             'whatsapp/static/src/**/*.dark.scss',
         ],
-        'web.tests_assets': [
-            'whatsapp/static/tests/helpers/**/*.js',
-        ],
-        'web.qunit_suite_tests': [
+        'web.assets_unit_tests': [
             'whatsapp/static/tests/**/*',
-            ('remove', 'whatsapp/static/tests/helpers/**/*.js'),
         ],
     },
     'license': 'OEEL-1',

@@ -1,15 +1,19 @@
-/* @odoo-module */
+import {
+    SIZES,
+    click,
+    contains,
+    openDiscuss,
+    patchUiSize,
+    start,
+    startServer,
+} from "@mail/../tests/mail_test_helpers";
+import { describe, test } from "@odoo/hoot";
+import { defineWhatsAppModels } from "@whatsapp/../tests/whatsapp_test_helpers";
 
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+describe.current.tags("desktop");
+defineWhatsAppModels();
 
-import { patchUiSize, SIZES } from "@mail/../tests/helpers/patch_ui_size";
-import { openDiscuss, start } from "@mail/../tests/helpers/test_utils";
-
-import { contains, click } from "@web/../tests/utils";
-
-QUnit.module("discuss (patch)");
-
-QUnit.test("Basic topbar rendering for whatsapp channels", async () => {
+test("Basic topbar rendering for whatsapp channels", async () => {
     const pyEnv = await startServer();
     const channelId = pyEnv["discuss.channel"].create({
         name: "WhatsApp 1",
@@ -24,7 +28,7 @@ QUnit.test("Basic topbar rendering for whatsapp channels", async () => {
     await contains(".o-mail-Discuss-header button[name='settings']", { count: 0 });
 });
 
-QUnit.test("Invite users into whatsapp channel", async () => {
+test("Invite users into whatsapp channel", async () => {
     const pyEnv = await startServer();
     const channelId = pyEnv["discuss.channel"].create({
         name: "WhatsApp 1",
@@ -40,7 +44,7 @@ QUnit.test("Invite users into whatsapp channel", async () => {
     await contains(".o_mail_notification", { text: "invited WhatsApp User to the channel" });
 });
 
-QUnit.test("Mobile has WhatsApp category", async () => {
+test("Mobile has WhatsApp category", async () => {
     const pyEnv = await startServer();
     patchUiSize({ size: SIZES.SM });
     pyEnv["discuss.channel"].create({ name: "WhatsApp 1", channel_type: "whatsapp" });

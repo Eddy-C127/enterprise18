@@ -1,15 +1,12 @@
-/* @odoo-module */
+import { click, contains, start, startServer } from "@mail/../tests/mail_test_helpers";
+import { describe, test } from "@odoo/hoot";
+import { Command, serverState } from "@web/../tests/web_test_helpers";
+import { defineWhatsAppModels } from "@whatsapp/../tests/whatsapp_test_helpers";
 
-import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
+describe.current.tags("desktop");
+defineWhatsAppModels();
 
-import { Command } from "@mail/../tests/helpers/command";
-import { start } from "@mail/../tests/helpers/test_utils";
-
-import { click, contains } from "@web/../tests/utils";
-
-QUnit.module("messaging menu (patch)");
-
-QUnit.test("WhatsApp Channel notification items should have thread icon", async () => {
+test("WhatsApp Channel notification items should have thread icon", async () => {
     const pyEnv = await startServer();
     pyEnv["discuss.channel"].create({
         name: "WhatsApp 1",
@@ -20,7 +17,7 @@ QUnit.test("WhatsApp Channel notification items should have thread icon", async 
     await contains(".o-mail-NotificationItem .o-mail-ThreadIcon");
 });
 
-QUnit.test("Notification items should have unread counter for unread messages", async () => {
+test("Notification items should have unread counter for unread messages", async () => {
     const pyEnv = await startServer();
     pyEnv["discuss.channel"].create({
         name: "WhatsApp 1",
