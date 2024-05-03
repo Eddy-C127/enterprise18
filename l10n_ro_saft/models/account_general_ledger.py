@@ -36,12 +36,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     @api.model
     def _l10n_ro_saft_check_report_values(self, values, options):
-        values['errors'] = [
-            *self._l10n_ro_saft_check_header_values(options, values),
-            *self._l10n_ro_saft_check_partner_values(values),
-            *self._l10n_ro_saft_check_tax_values(values),
-            *self._l10n_ro_saft_check_product_values(values),
-        ]
+        values['errors'] = {
+            **self._l10n_ro_saft_check_header_values(options, values),
+            **self._l10n_ro_saft_check_partner_values(values),
+            **self._l10n_ro_saft_check_tax_values(values),
+            **self._l10n_ro_saft_check_product_values(values),
+        }
 
     @api.model
     def _l10n_ro_saft_prepare_report_values(self, report, options):
@@ -65,46 +65,49 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         def get_company_action(message):
             return {
                 'message': message,
-                'action_text': _('View Company'),
-                'action_name': 'saft_action_open_company',
-                'action_params': {'company_id': values['company'].id},
+                'action_text': _("View Company/ies"),
+                'action': values['company']._get_records_action(name=_('Invalid Company/ies'))
             }
 
-        errors = []
+        errors = {}
 
         # The company must have a Tax Accounting Basis defined.
         if not values['company'].l10n_ro_saft_tax_accounting_basis:
-            errors.append({
+            errors['settings_accounting_basis_missing'] = {
                 'message': _('Please set the company Tax Accounting Basis.'),
                 'action_text': _('View Settings'),
-                'action_name': 'action_open_settings',
-                'action_params': {'company_id': values['company'].id},
-            })
+                'action': self.env['res.config.settings']._get_records_action(
+                    name=_("Settings"),
+                    context={
+                        **self.env.context,
+                        'module': 'account',
+                        'default_search_setting': _("Tax Accounting Basis (RO)"),
+                        'bin_size': False,
+                    }
+                )
+            }
 
         # The company must have a bank account defined.
         if not values['company'].bank_ids:
-            errors.append({
+            errors['company_bank_account_missing'] = {
                 'message': _('Please define a `Bank Account` for your company.'),
-                'action_text': _('Set Bank Account'),
-                'action_name': 'action_open_partner_company',
-                'action_params': {'company_id': values['company'].partner_id.id},
-            })
+                'action_text': _('View Company/ies'),
+                'action': values['company'].partner_id._get_records_action(name=_("Invalid Company/ies")),
+            }
 
         # The company must have a telephone number defined.
         if not values['company'].partner_id.phone and not values['company'].partner_id.mobile:
-            errors.append(get_company_action(_('Please define a `Telephone Number` for your company.')))
+            errors['company_phone_missing'] = get_company_action(_('Please define a `Telephone Number` for your company.'))
 
         # The company must either have a VAT number defined (if it is registered for VAT in Romania),
         # or have its CUI number in the company_registry field (if not registered for VAT).
         partner = values['company'].partner_id
-        if partner.vat:
-            if not stdnum.ro.cf.is_valid(partner.vat):
-                errors.append(get_company_action(_('The VAT number for your company is incorrect.')))
-        elif partner.company_registry:
-            if not stdnum.ro.cui.is_valid(partner.company_registry):
-                errors.append(get_company_action(_('The CUI number for your company (under `Company Registry` in the Company settings) is incorrect.')))
-        else:
-            errors.append(get_company_action(_('In the Company settings, please set your company VAT number under `Tax ID` if registered for VAT, or your CUI number under `Company Registry`.')))
+        if not partner.vat:
+            if partner.company_registry:
+                if not stdnum.ro.cui.is_valid(partner.company_registry):
+                    errors['company_registry_number_invalid'] = get_company_action(_('The CUI number for your company (under `Company Registry` in the Company settings) is incorrect.'))
+            else:
+                errors['company_vat_registry_number_missing'] = get_company_action(_('In the Company settings, please set your company VAT number under `Tax ID` if registered for VAT, or your CUI number under `Company Registry`.'))
 
         return errors
 
@@ -153,20 +156,32 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     @api.model
     def _l10n_ro_saft_check_partner_values(self, values):
         """ Check whether all required information on partners is there. """
+        def build_partners_action(partners, message):
+            return {
+                'message': message,
+                'action': partners._get_records_action(name=_("Invalid Partner(s)")),
+            }
+
         faulty_partners = defaultdict(lambda: self.env['res.partner'])
         for partner_vals in values['partner_detail_map'].values():
             partner = partner_vals['partner']
+            partner_type = partner_vals.get('type')
             # Partner addresses must include the City and Country.
             if not partner.city:
-                faulty_partners[_('These partner addresses are missing the city:')] |= partner
+                faulty_partners['partner_city_missing'] |= partner
             if not partner.country_code:
-                faulty_partners[_('These partner addresses are missing the country:')] |= partner
+                faulty_partners['partner_country_missing'] |= partner
             # Partner country code should match the VAT prefix, if the VAT number is provided
-            elif partner.vat and partner.vat[:2].isalpha() and partner.country_code.lower() != partner._split_vat(partner.vat)[0]:
-                faulty_partners[_('These partners have a VAT prefix that differs from their country:')] |= partner
+            elif (
+                partner_type in ('supplier', 'customer')
+                and partner.vat
+                and partner.vat[:2].isalpha()
+                and partner.country_code.lower() != partner._split_vat(partner.vat)[0]
+            ):
+                faulty_partners['partner_vat_doesnt_match_country'] |= partner
             # Romanian company partners should have their VAT number or CUI number set in the Tax ID or company_registry field.
             # Foreign company partners should have their VAT number set in the Tax ID field.
-            if partner.is_company:
+            if partner_type in ('supplier', 'customer') and partner.is_company:
                 if not partner.vat:
                     vat_country, vat_number = 'ro', ''
                 elif not partner.vat[:2].isalpha():
@@ -176,18 +191,29 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 if partner.country_code == 'RO' or not partner.country_code:
                     cui = partner.company_registry or vat_number
                     if not stdnum.ro.cui.is_valid(cui):
-                        faulty_partners[_('Some partners have missing or invalid CUI numbers in `Company Registry`. '
-                                          'Example of a valid CUI: 18547290')] |= partner
+                        faulty_partners['partner_registry_incorrect'] |= partner
                 elif not partner.vat or not partner.simple_vat_check(vat_country, vat_number):
-                    faulty_partners[_('Some partners have missing or invalid VAT numbers. '
-                                      'Example of a valid VAT: RO18547290')] |= partner
+                    faulty_partners['partner_vat_invalid'] |= partner
                 elif partner.perform_vies_validation and not partner.vies_valid:
-                    faulty_partners[_('The VAT numbers for the following partners failed the VIES check:')] |= partner
+                    faulty_partners['partner_vies_failed'] |= partner
 
-        return [
-            {'message': message, 'action_text': _('View Partners'), 'action_name': 'action_open_partners', 'action_params': {'partner_ids': partners.ids}}
-            for message, partners in faulty_partners.items()
-        ]
+        descriptions = {
+            "partner_city_missing": _("Partners should have their city."),
+            "partner_country_missing": _("Partners should have a country"),
+            "partner_vat_doesnt_match_country": _("Partners' VAT prefix should correspond to their country."),
+            "partner_registry_incorrect": _("Some partners have missing or invalid CUI numbers in `Company Registry`. Example of a valid CUI: 18547290"),
+            "partner_vat_missing": _("Some partners have missing VAT numbers."),
+            "partner_vat_incorrect": _("Some partners have invalid VAT numbers. Example of a valid VAT: RO18547290"),
+            "partner_vies_failed": _('The VAT numbers for the following partners failed the VIES check:'),
+        }
+        return {
+            key: {
+                'message': descriptions[key],
+                'action_text': _('View Partners'),
+                'action': partners._get_records_action(name=_("Invalid Partner(s)")),
+            }
+            for key, partners in faulty_partners.items()
+        }
 
     @api.model
     def _l10n_ro_saft_fill_partner_values(self, values):
@@ -255,15 +281,14 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             ('id', 'in', encountered_tax_ids),
             '|', ('l10n_ro_saft_tax_type_id', '=', False), ('l10n_ro_saft_tax_code', '=', False)
         ])
-        errors = []
+        errors = {}
         if faulty_taxes:
-            errors.append({
+            errors['taxes_tax_type_missing'] = {
                 'message': _('Some taxes are missing the "Romanian SAF-T Tax Type" '
                              'and/or "Romanian SAF-T Tax Code" field(s).'),
                 'action_text': _('View Taxes'),
-                'action_name': 'action_open_taxes',
-                'action_params': {'tax_ids': faulty_taxes.ids},
-            })
+                'action': faulty_taxes._get_records_action(name=_("Taxes missing Tax Type or Tax Code (RO)")),
+            }
         return errors
 
     @api.model
@@ -320,13 +345,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def _l10n_ro_saft_check_product_values(self, values):
         """ Check whether each product has a ref, no products have duplicate refs,
             and if the intrastat module is installed, that each product has an Intrastat Code. """
-        def get_product_action(message, product_ids, critical=False):
+        def get_product_action(message, products, level='warning'):
             return {
                 'message': message,
-                'action_text': _('View Products'),
-                'action_name': 'action_open_products',
-                'action_params': {'product_ids': product_ids},
-                'critical': critical,
+                'action_text': _('View Product(s)'),
+                'action': products._get_records_action(name=("Invalid Product(s)")),
+                'level': level,
             }
 
         encountered_product_ids = sorted({
@@ -340,28 +364,28 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         products_no_ref = encountered_products.filtered(lambda product: not product.default_code)
         products_dup_ref = (encountered_products - products_no_ref).filtered(lambda product: product_refs.count(product.default_code) >= 2)
 
-        errors = []
+        errors = {}
         if products_no_ref:
-            errors.append(get_product_action(
+            errors['product_internal_reference_missing'] = get_product_action(
                 _('Some products have no `Internal Reference`.'),
-                products_no_ref.ids,
-                critical=True
-            ))
+                products_no_ref,
+                level='danger'
+            )
         if products_dup_ref:
-            errors.append(get_product_action(
+            errors['product_internal_reference_duplicated'] = get_product_action(
                 _('Some products have duplicated `Internal Reference`, please make them unique.'),
-                products_dup_ref.ids,
-                critical=True
-            ))
+                products_dup_ref,
+                level='danger'
+            )
         if 'intrastat_code_id' not in encountered_products:  # intrastat module isn't installed, don't check for the instrastat code
             return errors
 
         products_without_intrastat_code = encountered_products.filtered(lambda p: p.type != 'service' and not p.intrastat_code_id)
         if products_without_intrastat_code:
-            errors.append(get_product_action(
+            errors['product_intrastat_code_missing'] = get_product_action(
                 _("The Intrastat code isn't set on some products."),
-                products_without_intrastat_code.ids
-            ))
+                products_without_intrastat_code
+            )
 
         return errors
 

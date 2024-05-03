@@ -9,7 +9,6 @@ from odoo.addons.account_reports.models.account_report import AccountReportFileD
 class TestSaftReport(TestAccountReportsCommon):
 
     @classmethod
-
     def setUpClass(cls):
         super().setUpClass()
         company = cls.company_data['company']

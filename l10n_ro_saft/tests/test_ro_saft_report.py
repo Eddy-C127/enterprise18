@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
+from odoo.addons.account_saft.tests.common import TestSaftReport
 from odoo.tests import tagged
-from odoo import fields, Command
-from odoo import tools
+from odoo import Command
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-class TestRoSaftReport(TestAccountReportsCommon):
+class TestRoSaftReport(TestSaftReport):
     """ Test the generation of the SAF-T export for Romania.
 
         Depending on whether the account_intrastat module is installed, the
@@ -17,7 +15,7 @@ class TestRoSaftReport(TestAccountReportsCommon):
     """
 
     @classmethod
-    @TestAccountReportsCommon.setup_country('ro')
+    @TestSaftReport.setup_country('ro')
     def setUpClass(cls):
         super().setUpClass()
 
@@ -61,13 +59,13 @@ class TestRoSaftReport(TestAccountReportsCommon):
             'company_registry': 'FR23334175221',
         })
 
-        bank_ro = cls.env['res.bank'].create({'name': 'Romanian Banking United'})
-        cls.env['res.partner.bank'].create({
+        cls.bank_ro = cls.env['res.bank'].create({'name': 'Romanian Banking United'})
+        cls.partner_bank = cls.env['res.partner.bank'].create({
             'acc_type': 'iban',
             'partner_id': cls.company_data['company'].partner_id.id,
             'acc_number': 'RO08429863697813',
             'allow_out_payment': True,
-            'bank_id': bank_ro.id,
+            'bank_id': cls.bank_ro.id,
             'currency_id': cls.env.ref('base.RON').id,
         })
 
@@ -169,12 +167,76 @@ class TestRoSaftReport(TestAccountReportsCommon):
             ],
         })
 
+    def _generate_options(self, date_from='2023-01-01', date_to='2023-01-31'):
+        return super()._generate_options(date_from, date_to)
+
     def test_saft_report_monthly(self):
-        report = self.env.ref('account_reports.general_ledger_report')
-        options = self._generate_options(report, fields.Date.from_string('2023-01-01'), fields.Date.from_string('2023-01-31'))
-        stringified_xml = self.env[report.custom_handler_model_name].l10n_ro_export_saft_to_xml(options)['file_content']
-        with tools.file_open('l10n_ro_saft/tests/expected_xmls/saft_report_monthly.xml', 'rb') as expected_xml_file:
-            self.assertXmlTreeEqual(
-                self.get_xml_tree_from_string(stringified_xml),
-                self.get_xml_tree_from_string(expected_xml_file.read()),
-            )
+        self._report_compare_with_test_file(
+            self.report_handler.l10n_ro_export_saft_to_xml(self._generate_options()),
+            'saft_report_monthly.xml'
+        )
+
+    def test_saft_report_errors_01(self):
+        self.invoices._unlink_or_reverse()  # to be able to disable the bank
+        self.company_data['company'].write({
+            'l10n_ro_saft_tax_accounting_basis': False,
+            'phone': False,
+            'bank_ids': False,
+        })
+        with self.assertRaises(self.ReportException) as cm:
+            self.report_handler.l10n_ro_export_saft_to_xml(self._generate_options())
+        self.assertEqual(set(cm.exception.errors), {
+            'settings_accounting_basis_missing',
+            'company_phone_missing',
+            'company_bank_account_missing',
+        })
+
+    def test_saft_report_errors_02(self):
+        self.partner_a.write({
+            'city': False,
+            'country_id': False,
+            'vies_valid': False,
+        })
+        self.product_b.write({
+            'default_code': False,
+            'intrastat_code_id': False,
+            'type': 'consu',
+        })
+        with self.assertRaises(self.ReportException) as cm:
+            self.report_handler.l10n_ro_export_saft_to_xml(self._generate_options())
+        self.assertEqual(set(cm.exception.errors), {
+            'partner_city_missing',
+            'partner_country_missing',
+            'product_internal_reference_missing',
+            'product_intrastat_code_missing',
+        })
+
+    def test_saft_report_errors_03(self):
+        self.company_data['default_tax_sale'].l10n_ro_saft_tax_type_id = False
+        (self.company_data['company'].partner_id + self.partner_a).write({
+            "vat": False,
+            "company_registry": 'XXXX',
+        })
+        self.product_b.default_code = 'PA'
+
+        with self.assertRaises(self.ReportException) as cm:
+            self.report_handler.l10n_ro_export_saft_to_xml(self._generate_options())
+        self.assertEqual(set(cm.exception.errors), {
+            'partner_registry_incorrect',
+            'company_registry_number_invalid',
+            'taxes_tax_type_missing',
+            'product_internal_reference_duplicated',
+        })
+
+    def test_saft_report_errors_04(self):
+        self.company_data['company'].write({
+            'vat': False,
+            'company_registry': False,
+        })
+        self.partner_a.country_id = self.env.ref('base.fr')
+        with self.assertRaises(self.ReportException) as cm:
+            self.report_handler.l10n_ro_export_saft_to_xml(self._generate_options())
+        self.assertEqual(set(cm.exception.errors), {
+            'company_vat_registry_number_missing',
+            'partner_vat_doesnt_match_country',
+        })
