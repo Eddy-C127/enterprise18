@@ -292,3 +292,31 @@ class TestPayrollCommon(TransactionCase):
         first_contract_test.write({'state': 'open'})
 
         cls.test_contracts = first_contract_test
+
+        cls.double_pay_line = cls.env['l10n.be.double.pay.recovery.line'].create({
+            'year': today.year - 1,
+            'months_count': 3,
+            'occupation_rate': 50,
+            'amount': 1000
+        })
+
+        cls.employee_with_attestation = cls.employee_georges.copy({
+            'name': 'Employee With Attestation',
+            'first_contract_date': today,
+            'private_country_id': cls.env.ref('base.be').id,
+            'resource_calendar_id': cls.resource_calendar.id,
+            'double_pay_line_ids': cls.double_pay_line,
+            'contract_ids': []
+        })
+
+        first_contract_employee_with_attestation = first_contract_georges.copy({
+            'name': "Employee with attestation Contract",
+            'employee_id': cls.employee_with_attestation.id,
+            'resource_calendar_id': cls.resource_calendar.id,
+            'date_start': date(today.year - 1, 10, 1),
+            'date_end': date(today.year - 1, 12, 31),
+        })
+
+        cls.employee_with_attestation_contracts = first_contract_employee_with_attestation
+
+        cls.employee_with_attestation_contracts.write({'state': 'close'})  # By default, the state is 'draft' when we create a new contract

@@ -119,6 +119,21 @@ class HrPayrollAllocPaidLeave(models.TransientModel):
 
             alloc_employees[vals['employee_id']] = (paid_time_off, contract_id)
 
+        # Add employee attestation days to the paid time off
+
+        employees = self.env['hr.employee'].browse(alloc_employees.keys())  # prefetch the employee records
+
+        for employee_id, (paid_time_off, contract_id) in alloc_employees.items():
+            employee = employees.browse(employee_id)
+
+            if self.year == employee.first_contract_date.year:
+                for double_pay_line in employee.double_pay_line_n_ids:
+                    work_months_ratio = double_pay_line.months_count / 12
+                    work_months_rate = double_pay_line.occupation_rate / 100
+                    paid_time_off += work_months_ratio * work_months_rate * max_leaves_count
+
+                alloc_employees[employee_id] = (paid_time_off, contract_id)
+
         alloc_employee_ids = []
 
         for employee_id, value in alloc_employees.items():

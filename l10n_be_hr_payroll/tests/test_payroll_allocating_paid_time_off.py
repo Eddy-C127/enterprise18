@@ -13,17 +13,17 @@ from .common import TestPayrollCommon
 class TestPayrollAllocatingPaidTimeOff(TestPayrollCommon):
 
     def setUp(self):
-      super(TestPayrollAllocatingPaidTimeOff, self).setUp()
-      with freeze_time('2023-01-01'):
+        super().setUp()
+        with freeze_time('2023-01-01'):
 
-        today = date.today()
-        self.paid_time_off_type = self.holiday_leave_types #self.holiday_leave_types.filtered(lambda leave_type: leave_type.validity_start == date(today.year, 1, 1) and leave_type.validity_stop == date(today.year, 12, 31))
+            today = date.today()
+            self.paid_time_off_type = self.holiday_leave_types  # self.holiday_leave_types.filtered(lambda leave_type: leave_type.validity_start == date(today.year, 1, 1) and leave_type.validity_stop == date(today.year, 12, 31))
 
-        self.wizard = self.env['hr.payroll.alloc.paid.leave'].create({
-            'year': today.year - 1,
-            'holiday_status_id': self.paid_time_off_type.id
-        })
-        self.wizard.alloc_employee_ids = self.wizard.alloc_employee_ids.filtered(lambda alloc_employee: alloc_employee.employee_id.id in [self.employee_georges.id, self.employee_john.id])
+            self.wizard = self.env['hr.payroll.alloc.paid.leave'].create({
+                'year': today.year - 1,
+                'holiday_status_id': self.paid_time_off_type.id
+            })
+            self.wizard.alloc_employee_ids = self.wizard.alloc_employee_ids.filtered(lambda alloc_employee: alloc_employee.employee_id.id in [self.employee_georges.id, self.employee_john.id, self.employee_with_attestation.id])
 
     def test_allocating_paid_time_off(self):
         """
@@ -57,7 +57,7 @@ class TestPayrollAllocatingPaidTimeOff(TestPayrollCommon):
             In total, we have 121.6 hours and we convert it in days to have the value in paid_time_off which is
             16 days = 121.6 / (38 / 5) = 121.6 hours / 7.6 hours/day
         """
-        self.assertEqual(len(self.wizard.alloc_employee_ids), 2, "Normally we should find 2 employees to allocate their paid time off for the next period")
+        self.assertEqual(len(self.wizard.alloc_employee_ids), 3, "Normally we should find 3 employees to allocate their paid time off for the next period")
 
         self.assertEqual(self.wizard.alloc_employee_ids.filtered(lambda alloc_employee: alloc_employee.employee_id.id == self.employee_georges.id).paid_time_off, 15, "Georges should have 15 days paid time offs for this year.")
         self.assertEqual(self.wizard.alloc_employee_ids.filtered(lambda alloc_employee: alloc_employee.employee_id.id == self.employee_john.id).paid_time_off, 16, "John Doe should have 16 days paid time offs for this year.")
@@ -78,7 +78,7 @@ class TestPayrollAllocatingPaidTimeOff(TestPayrollCommon):
         121.6 / (19 hours per week / 3 days) = 19.2 days (we round to 19 days)
         But since an employee should never have more than 4 weeks of paid time off, his total is reduced to 4 weeks of 3 days a week aka 12 days
         """
-        self.assertEqual(len(self.wizard.alloc_employee_ids), 2, "Normally, we should find 2 employees to allocate their paid time off for the next period")
+        self.assertEqual(len(self.wizard.alloc_employee_ids), 3, "Normally, we should find 3 employees to allocate their paid time off for the next period")
 
         alloc_employee = self.wizard.alloc_employee_ids.filtered(lambda alloc_employee: alloc_employee.employee_id.id == self.employee_georges.id)
         self.assertEqual(alloc_employee.paid_time_off_to_allocate, 14.5, "With a 4/5 time in this period, Georges could have 16 days of paid time off but his working schedule in last period allow him 14.5 days")
@@ -97,3 +97,28 @@ class TestPayrollAllocatingPaidTimeOff(TestPayrollCommon):
 
         self.assertEqual(john_allocation.number_of_days, 10)
         self.assertAlmostEqual(john_allocation.max_leaves_allocated, 16 * 7.6, places=0)
+
+    def test_allocating_paid_time_off_with_attestation_days(self):
+        """
+        Last year, the Employee With Attestation had these contracts:
+        - He worked 3 months for the previous employer with 50% occupation rate.
+        - From 01/10 to 31/12, he worked at full time, 5 days/week
+
+        Normally, we must allocate max 8 days to the employee for this year
+
+        Description of the calculations:
+        ------------------------------
+        - Employee With Attestation :
+            - He worked 3 months for the previous employer with 50% occupation rate.
+              We compute this: 152 * (3/12) * (50/100) = 19 hours
+            - From 01/10 to 31/12, he worked at full time, 5 days/week. We compute this: 152 * 3 / 12 = 38 hours
+
+            In total, we have 57 hours and we convert it in days to have the value in paid_time_off
+            which is equal to: 7.5 (Will be rounde to 8) days (57 hours / 7.6 hours/day)
+        """
+        self.assertEqual(
+            self.wizard.alloc_employee_ids.filtered(
+                lambda alloc: alloc.employee_id == self.employee_with_attestation
+            ).paid_time_off,
+            8,
+            "The employee should have 8 days paid time offs for this year.")
