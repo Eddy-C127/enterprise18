@@ -192,7 +192,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                       bank_statement_move.date,
                       account_move.name AS move_name,
                       account_move_line.move_id,
-                      bank.bic,
+                      bank.l10n_pe_edi_code,
                       banc_account.acc_number,
                       partner.vat,
                       partner.name AS partner_name,
@@ -221,7 +221,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                       bank_statement_move.date,
                       account_move.name,
                       account_move_line.move_id,
-                      bank.bic,
+                      bank.l10n_pe_edi_code,
                       banc_account.acc_number,
                       partner.vat,
                       partner.name,
@@ -242,19 +242,6 @@ class AccountCashFlowReportHandler(models.AbstractModel):
         lines_data = self._cr.dictfetchall()
 
         data = []
-        pe_bank_codes = {
-            'BCONPEPL': '11',
-            'BDCMPEPL': '23',
-            'BCPLPEPL': '02',
-            'BIFSPEPL': '38',
-            'BINPPEPL': '03',
-            'BSAPPEPL': '56',
-            'BANCPEPL': '18',
-            'CITIPEPL': '07',
-            'CITIPEP1': '07',
-            'COFDPEPL': '35',
-            'BSUDPEPL': '09',
-        }
 
         period = options['date']['date_from'].replace('-', '')
         for _move_id, line_vals in groupby(lines_data, lambda l: l['move_id']):
@@ -266,7 +253,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                     'period': f'{period[:6]}00',
                     'cuo': line['move_id'],
                     'number': 'M1',  # The first digit should be 'M' to denote entries for movements or adjustments within the month. Therefore, 'M1' indicates this is the first such entry.
-                    'bank_code': pe_bank_codes.get(line['bic'], '99') or '99',
+                    'bank_code': line['l10n_pe_edi_code'] or '99',
                     'bank_account_number': line['acc_number'],
                     'date': line['date'].strftime('%d/%m/%Y') if line['date'] else '',
                     'payment_method': '003',
