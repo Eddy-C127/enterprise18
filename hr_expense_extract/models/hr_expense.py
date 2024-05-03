@@ -105,27 +105,27 @@ class HrExpense(models.Model):
 
     @api.model
     def get_empty_list_help(self, help_message):
-        if self.env.user.has_group('hr_expense.group_hr_expense_manager'):
+        if self.env.user.has_group('base.group_user'):
             expenses = self.search_count([
                 ('employee_id', 'in', self.env.user.employee_ids.ids),
                 ('state', 'in', ['draft', 'reported', 'approved', 'done', 'refused'])
             ])
             if is_html_empty(help_message):
-                help_message = Markup(_("""
+                help_message = Markup("""
                     <p class="o_view_nocontent_expense_receipt">
                         <div class="o_view_pink_overlay">
                             <p class="o_view_nocontent_expense_receipt_image"/>
                             <h2 class="d-md-block">
-                                Upload or drop an expense receipt
+                                {title}
                             </h2>
                         </div>
-                    </p>"""))
+                    </p>""").format(title=_("Upload or drop an expense receipt"))
             # add hint for extract if not already present and user might now have already used it
             extract_txt = _("try a sample receipt")
             if not expenses and extract_txt not in help_message:
                 action_id = self.env.ref('hr_expense_extract.action_expense_sample_receipt').id
                 help_message += Markup(
-                    """<p class="text-muted mt-4">Or <a type="action" name="%(action_id)s" class="o_select_sample">%(extract_txt)s</a></p>"""
+                    "<p class='text-muted mt-4'>Or <a type='action' name='%(action_id)s' class='o_select_sample'>%(extract_txt)s</a></p>"
                 ) % {
                     'action_id': action_id,
                     'extract_txt': extract_txt,

@@ -12,7 +12,7 @@
         sequence: 42,
         steps: () => [stepUtils.showAppsMenuItem(), {
         trigger: '.o_app[data-menu-xmlid="hr_expense.menu_hr_expense_root"]',
-        content: _t("Wasting time recording your receipts? Let’s try a better way."),
+        content: markup(_t("<b>Wasting time recording your receipts?</b> Let’s try a better way.")),
         position: 'bottom',
         run: "click",
     }, {
