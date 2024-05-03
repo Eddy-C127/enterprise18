@@ -112,8 +112,8 @@ class TestSignController(TestSignControllerCommon):
         sign_request = self.create_sign_request_1_role(self.partner_1, self.env['res.partner'])
         url = '/sign/document/mail/%s/%s' % (sign_request.id, sign_request.request_item_ids[0].access_token)
         response = self.url_open(url)
-        self.assertEqual(response.status_code, 403)
-        self.assertTrue('This link has expired' in response.text)
+        self.assertEqual(response.status_code, 404)
+        self.assertTrue('The signature request might have been deleted or modified.' in response.text)
 
     def test_sign_from_mail_link_not_expired(self):
         with freeze_time('2020-01-01'):
