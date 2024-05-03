@@ -461,7 +461,6 @@ class HrContractSalary(main.HrContractSalary):
             })
 
             new_contract = self.create_new_contract(contract, offer_id, benefits)[0]
-            new_contract.new_car = False
             final_yearly_costs = float(benefits['contract']['final_yearly_costs'] or 0.0)
             new_gross = new_contract._get_gross_from_employer_costs(final_yearly_costs)
             new_contract.write({

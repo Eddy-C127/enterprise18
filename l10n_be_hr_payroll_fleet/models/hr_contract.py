@@ -50,14 +50,13 @@ class HrContract(models.Model):
     company_car_total_depreciated_cost = fields.Float(compute='_compute_car_atn_and_costs', store=True, compute_sudo=True)
     available_cars_amount = fields.Integer(compute='_compute_available_cars_amount', string='Number of available cars')
     new_car = fields.Boolean(
-        'Requested a new car', compute='_compute_new_car_model_id', store=True, readonly=False)
+        'Requested a new car')
     ordered_car_id = fields.Many2one('fleet.vehicle', string='Ordered New Car',
         tracking=True, store=True, readonly=False,
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id), ('vehicle_type', '=', 'car')]",
         groups='fleet.fleet_group_manager')
     new_car_model_id = fields.Many2one(
-        'fleet.vehicle.model', string="New Company Car", domain=lambda self: self._get_possible_model_domain(),
-        compute='_compute_new_car_model_id', store=True, readonly=False)
+        'fleet.vehicle.model', string="New Company Car", domain=lambda self: self._get_possible_model_domain())
     # Useful on sign to use only one box to sign the contract instead of 2
     car_model_name = fields.Char(compute='_compute_car_model_name', compute_sudo=True)
     max_unused_cars = fields.Integer(compute='_compute_max_unused_cars')
@@ -108,22 +107,11 @@ class HrContract(models.Model):
             if contract.new_bike_model_id:
                 contract.new_bike = True
 
-    @api.depends('transport_mode_private_car')
-    def _compute_new_car_model_id(self):
-        for contract in self:
-            if contract.transport_mode_private_car:
-                contract.update({
-                    'new_car_model_id': False,
-                    'new_car': False,
-                })
-
-    @api.depends('car_id', 'new_car_model_id')
+    @api.depends('car_id')
     def _compute_car_model_name(self):
         for contract in self:
             if contract.car_id:
                 contract.car_model_name = contract.car_id.model_id.display_name
-            elif contract.new_car_model_id:
-                contract.car_model_name = contract.new_car_model_id.display_name
             else:
                 contract.car_model_name = False
 
@@ -152,26 +140,19 @@ class HrContract(models.Model):
             else:
                 contract.car_id = False
 
-    @api.depends('car_id', 'new_car_model_id')
+    @api.depends('car_id')
     def _compute_fuel_type(self):
         for contract in self:
-            contract.fuel_type = contract.car_id.fuel_type if contract.car_id else contract.new_car_model_id.default_fuel_type or False
+            contract.fuel_type = contract.car_id.fuel_type if contract.car_id else False
 
-    @api.depends('car_id', 'new_car', 'new_car_model_id', 'car_id.total_depreciated_cost',
-        'car_id.atn', 'new_car_model_id.default_atn', 'new_car_model_id.default_total_depreciated_cost')
+    @api.depends('car_id', 'car_id.total_depreciated_cost', 'car_id.atn')
     def _compute_car_atn_and_costs(self):
         self.car_atn = False
         self.company_car_total_depreciated_cost = False
-        self.wishlist_car_total_depreciated_cost = False
         for contract in self:
-            if not contract.new_car and contract.car_id:
+            if contract.car_id:
                 contract.car_atn = contract.car_id.atn
                 contract.company_car_total_depreciated_cost = contract.car_id.total_depreciated_cost
-                contract.wishlist_car_total_depreciated_cost = 0
-            elif contract.new_car and contract.new_car_model_id:
-                car_model = contract.new_car_model_id.with_company(contract.company_id)
-                contract.wishlist_car_total_depreciated_cost = car_model.default_total_depreciated_cost
-
 
     @api.depends('new_bike', 'bike_id', 'new_bike_model_id', 'bike_id.total_depreciated_cost',
         'bike_id.co2_fee', 'new_bike_model_id.default_total_depreciated_cost', 'transport_mode_bike')
@@ -218,11 +199,6 @@ class HrContract(models.Model):
         for contract in self:
             contract.max_unused_cars = 999999 if contract.env.context.get('is_applicant') else int(max_unused_cars)
 
-    @api.onchange('new_car')
-    def _onchange_transport_mode_car(self):
-        if self.new_car:
-            self.transport_mode_private_car = False
-
     @api.onchange('new_bike')
     def _onchange_new_bike(self):
         if self.new_bike:
@@ -236,8 +212,6 @@ class HrContract(models.Model):
             self.new_bike = False
             self.new_bike_model_id = False
         if self.transport_mode_car:
-            self.new_car = False
-            self.new_car_model_id = False
             self.has_bicycle = False
         if self.car_id:
             self.transport_mode_private_car = False
