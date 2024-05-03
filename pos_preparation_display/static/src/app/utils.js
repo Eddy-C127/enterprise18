@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 export const computeFontColor = (bgColor) => {
     if (!bgColor) {
         return "black";

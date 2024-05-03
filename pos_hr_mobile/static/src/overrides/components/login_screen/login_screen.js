@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { _t } from "@web/core/l10n/translation";
 import { LoginScreen } from "@pos_hr/app/login_screen/login_screen";
 import { patch } from "@web/core/utils/patch";

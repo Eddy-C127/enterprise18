@@ -1,4 +1,3 @@
-/** @odoo-module **/
 import { user } from "@web/core/user";
 import { Reactive } from "@web/core/utils/reactive";
 import { Order } from "@pos_preparation_display/app/models/order";

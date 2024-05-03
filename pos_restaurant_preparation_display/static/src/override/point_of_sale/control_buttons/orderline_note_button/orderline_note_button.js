@@ -1,4 +1,3 @@
-/** @odoo-module **/
 import { OrderlineNoteButton } from "@point_of_sale/app/screens/product_screen/control_buttons/customer_note_button/customer_note_button";
 import { patch } from "@web/core/utils/patch";
 

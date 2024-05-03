@@ -1,4 +1,3 @@
-/** @odoo-module **/
 import { useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { PreparationDisplay } from "@pos_preparation_display/app/models/preparation_display";

@@ -1,4 +1,3 @@
-/** @odoo-module **/
 import { Component } from "@odoo/owl";
 import { usePreparationDisplay } from "@pos_preparation_display/app/preparation_display_service";
 

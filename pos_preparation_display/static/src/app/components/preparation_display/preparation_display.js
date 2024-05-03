@@ -1,4 +1,3 @@
-/** @odoo-module **/
 import { Category } from "@pos_preparation_display/app/components/category/category";
 import { Stages } from "@pos_preparation_display/app/components/stages/stages";
 import { Order } from "@pos_preparation_display/app/components/order/order";

@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { IoTPrinter } from "@pos_iot/app/iot_printer";
 import { DeviceController } from "@iot/device_controller";
 import { SelfOrder, selfOrderService } from "@pos_self_order/app/self_order_service";

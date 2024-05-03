@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { reportService } from "@point_of_sale/app/utils/report_service";

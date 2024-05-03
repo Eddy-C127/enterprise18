@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import "@point_of_sale/../tests/unit/utils";
 import { registry } from "@web/core/registry";
 

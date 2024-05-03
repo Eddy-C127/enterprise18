@@ -1,4 +1,3 @@
-/** @odoo-module */
 /* global posmodel */
 
 import { IoTLongpolling, iotLongpollingService } from "@iot/iot_longpolling";

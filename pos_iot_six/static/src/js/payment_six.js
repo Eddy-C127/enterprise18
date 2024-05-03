@@ -1,4 +1,3 @@
-/** @odoo-module */
 import { PaymentWorldline } from "@pos_iot/app/payment";
 
 export class PaymentSix extends PaymentWorldline {

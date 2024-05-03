@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { InvoiceButton } from "@point_of_sale/app/screens/ticket_screen/invoice_button/invoice_button";
 import { AddInfoPopup } from "@l10n_mx_edi_pos/app/add_info_popup/add_info_popup";
 import { makeAwaitable } from "@point_of_sale/app/store/make_awaitable_dialog";

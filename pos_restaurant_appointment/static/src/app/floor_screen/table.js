@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { patch } from "@web/core/utils/patch";
 import { Table } from "@pos_restaurant/app/floor_screen/table";
 import { getMin } from "@point_of_sale/utils";

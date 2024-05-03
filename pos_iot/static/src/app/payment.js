@@ -1,4 +1,3 @@
-/** @odoo-module */
 import { _t } from "@web/core/l10n/translation";
 import { RPCError } from "@web/core/network/rpc";
 import { PaymentInterface } from "@point_of_sale/app/payment/payment_interface";

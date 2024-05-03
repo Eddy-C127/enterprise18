@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import * as Chrome from "@point_of_sale/../tests/tours/utils/chrome_util";
 import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
 import * as PartnerList from "@point_of_sale/../tests/tours/utils/partner_list_util";

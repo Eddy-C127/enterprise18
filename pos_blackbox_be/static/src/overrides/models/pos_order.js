@@ -1,4 +1,3 @@
-/** @odoo-module */
 /* global Sha1 */
 
 import { PosOrder } from "@point_of_sale/app/models/pos_order";

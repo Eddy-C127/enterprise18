@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { preparationDisplayService } from "@pos_preparation_display/app/preparation_display_service";
 import { patch } from "@web/core/utils/patch";
 import { getOnNotified } from "@point_of_sale/utils";

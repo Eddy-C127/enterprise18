@@ -1,4 +1,3 @@
-/** @odoo-module */
 import { PosStore } from "@point_of_sale/app/store/pos_store";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";

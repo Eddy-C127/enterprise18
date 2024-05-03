@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { _t } from "@web/core/l10n/translation";
 import { ScaleScreen } from "@point_of_sale/app/screens/scale_screen/scale_screen";
 import { patch } from "@web/core/utils/patch";

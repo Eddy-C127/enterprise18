@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { PosOrder } from "@point_of_sale/app/models/pos_order";
 import { convertFromEpoch } from "@l10n_de_pos_cert/app/utils";
 import { patch } from "@web/core/utils/patch";

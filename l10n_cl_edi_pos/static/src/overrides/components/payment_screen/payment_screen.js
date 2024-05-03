@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
 import { TextInputPopup } from "@point_of_sale/app/utils/input_popups/text_input_popup";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";

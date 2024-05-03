@@ -1,4 +1,3 @@
-/** @odoo-module */
 import { patch } from "@web/core/utils/patch";
 import { PreparationDisplay } from "@pos_preparation_display/app/components/preparation_display/preparation_display";
 import { useService } from "@web/core/utils/hooks";
