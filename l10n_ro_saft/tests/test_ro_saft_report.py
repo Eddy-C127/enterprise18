@@ -69,7 +69,7 @@ class TestRoSaftReport(TestSaftReport):
             'currency_id': cls.env.ref('base.RON').id,
         })
 
-        cls.setup_other_currency('EUR', rates=[('2023-01-01', 0.2)])
+        cls.setup_other_currency('EUR', rates=[('2023-10-01', 0.2)])
 
         cls.product_a.write({
             'default_code': 'PA',
@@ -101,8 +101,8 @@ class TestRoSaftReport(TestSaftReport):
         cls.invoices = cls.env['account.move'].create([
             {
                 'move_type': 'out_invoice',
-                'invoice_date': '2023-01-01',
-                'date': '2023-01-01',
+                'invoice_date': '2023-10-01',
+                'date': '2023-10-01',
                 'partner_id': cls.partner_a.id,
                 'currency_id': cls.env.ref('base.EUR').id,
                 'invoice_line_ids': [Command.create({
@@ -114,8 +114,8 @@ class TestRoSaftReport(TestSaftReport):
             },
             {
                 'move_type': 'out_refund',
-                'invoice_date': '2023-01-11',
-                'date': '2023-01-11',
+                'invoice_date': '2023-10-11',
+                'date': '2023-10-11',
                 'partner_id': cls.partner_a.id,
                 'invoice_line_ids': [Command.create({
                     'product_id': cls.product_a.id,
@@ -126,8 +126,8 @@ class TestRoSaftReport(TestSaftReport):
             },
             {
                 'move_type': 'in_invoice',
-                'invoice_date': '2023-01-21',
-                'date': '2023-01-21',
+                'invoice_date': '2023-10-21',
+                'date': '2023-10-21',
                 'partner_id': cls.partner_b.id,
                 'invoice_line_ids': [Command.create({
                     'product_id': cls.product_b.id,
@@ -138,8 +138,8 @@ class TestRoSaftReport(TestSaftReport):
             },
             {
                 'move_type': 'in_invoice',
-                'invoice_date': '2023-01-26',
-                'date': '2023-01-26',
+                'invoice_date': '2023-10-26',
+                'date': '2023-10-26',
                 'partner_id': cls.partner_b.id,
                 'l10n_ro_is_self_invoice': True,  # This is a self-invoice
                 'invoice_line_ids': [Command.create({
@@ -156,7 +156,7 @@ class TestRoSaftReport(TestSaftReport):
             'name': 'test_statement',
             'line_ids': [
                 Command.create({
-                    'date': '2023-01-15',
+                    'date': '2023-10-15',
                     'payment_ref': 'Payment Ref',
                     'partner_id': cls.partner_a.id,
                     'journal_id': cls.company_data['default_journal_bank'].id,
@@ -166,9 +166,6 @@ class TestRoSaftReport(TestSaftReport):
                 }),
             ],
         })
-
-    def _generate_options(self, date_from='2023-01-01', date_to='2023-01-31'):
-        return super()._generate_options(date_from, date_to)
 
     def test_saft_report_monthly(self):
         self._report_compare_with_test_file(
