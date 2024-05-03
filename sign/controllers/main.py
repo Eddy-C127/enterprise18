@@ -128,12 +128,16 @@ class Sign(http.Controller):
     def sign_document_from_mail(self, request_id, token, **post):
         sign_request = request.env['sign.request'].sudo().browse(request_id).exists()
         if not sign_request or sign_request.validity and sign_request.validity < fields.Date.today():
-            return http.request.render('sign.deleted_sign_request')
+            return http.request.render('sign.deleted_sign_request', status=404)
         current_request_item = sign_request.request_item_ids.filtered(lambda r: consteq(r.access_token, token))
         if not current_request_item:
-            return http.request.render('sign.deleted_sign_request')
-
+            return http.request.render('sign.deleted_sign_request', status=404)
+        # The sign request should be evaluated but the timestamp has been removed from the parameter.
+        # In that case, we don't render the sign_request_expired template
+        removed_timestamp_arg = sign_request.state == 'sent' and (not post.get('timestamp') or not post.get('exp'))
         if sign_request.state != 'shared' and not current_request_item._validate_expiry(post.get('timestamp'), post.get('exp')):
+            if removed_timestamp_arg:
+                return http.request.render('sign.deleted_sign_request', status=404)
             return request.render('sign.sign_request_expired', {'resend_expired_link': '/sign/resend_expired_link/%s/%s' % (request_id, token)}, status=403)
 
         current_request_item.access_via_link = True
