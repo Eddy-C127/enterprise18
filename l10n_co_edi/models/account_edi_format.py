@@ -521,6 +521,8 @@ class AccountEdiFormat(models.Model):
 
         if not move.company_id.partner_id.email:
             edi_result.append(_("Your company's contact should have a reception email set."))
+        if not move.l10n_co_edi_type:
+            edi_result.append(_("You need to set the Electronic Invoice Type on the invoice."))
 
         # Sugar taxes
         for line in move.invoice_line_ids:

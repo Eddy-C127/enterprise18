@@ -33,8 +33,7 @@ class AccountMove(models.Model):
         ('91', 'Nota Crédito'),
         ('92', 'Nota Débito'),
         ('96', 'Eventos (Application Response)'),
-    # TODO: remove 'required' in master
-    ], required=True, default='1', compute='_compute_l10n_co_edi_type', store=True, string='Electronic Invoice Type')
+    ], compute='_compute_l10n_co_edi_type', store=True, string='Electronic Invoice Type')
     l10n_co_edi_attachment_url = fields.Char('Electronic Invoice Attachment URL',
                                              help='''Will be included in electronic invoice and can point to
                                              e.g. a ZIP containing additional information about the invoice.''', copy=False)
