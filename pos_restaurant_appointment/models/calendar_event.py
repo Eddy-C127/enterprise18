@@ -59,6 +59,7 @@ class CalendarEvent(models.Model):
         return new_events
 
     def write(self, vals):
+        self._send_table_notifications(self, "REMOVED")
         result = super().write(vals)
         self._send_table_notifications(self, "ADDED")
         return result
