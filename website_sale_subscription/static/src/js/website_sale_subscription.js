@@ -11,9 +11,12 @@ WebsiteSale.include({
      */
     _updateRootProduct($form, productId) {
         this._super(...arguments);
-        Object.assign(this.rootProduct, {
-            plan_id: parseInt($form.find('.product_price > select').val()),
-        });
+        const selected_plan = $form.find('.product_price > select').val();
+        if (selected_plan) {
+            Object.assign(this.rootProduct, {
+                plan_id: parseInt(selected_plan),
+            });
+        }
     },
 
     _handleAdd($form) {
