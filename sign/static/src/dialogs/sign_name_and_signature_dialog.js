@@ -91,7 +91,7 @@ export class SignNameAndSignature extends NameAndSignature {
      */
     onInputSignName(e) {
         super.onInputSignName(e);
-        this.props.onNameChange(this.props.signature.name);
+        this.props.onSignatureChange(this.state.signMode);
     }
 }
 
@@ -102,7 +102,7 @@ SignNameAndSignature.props = {
     defaultFrame: String,
     frame: { type: Object, optional: true },
     hash: String,
-    onNameChange: Function,
+    onSignatureChange: { type: Function, optional: true },
 };
 
 export class SignNameAndSignatureDialog extends Component {
@@ -122,7 +122,7 @@ export class SignNameAndSignatureDialog extends Component {
             mode: this.props.mode || "auto",
             frame: this.props.frame || false,
             hash: this.props.hash,
-            onNameChange: this.onNameChange.bind(this),
+            onSignatureChange: this.onSignatureChange.bind(this),
         };
     }
 
@@ -133,9 +133,12 @@ export class SignNameAndSignatureDialog extends Component {
         };
     }
 
-    onNameChange(name) {
-        if (this.footerState.buttonsDisabled !== !name) {
-            this.footerState.buttonsDisabled = !name;
+    onSignatureChange(signMode) {
+        const signature = this.props.signature;
+        const buttonsDisabled =
+            !signature.name || (signature.isSignatureEmpty && (!signMode || signMode !== "auto"));
+        if (this.footerState.buttonsDisabled !== buttonsDisabled) {
+            this.footerState.buttonsDisabled = buttonsDisabled;
         }
     }
 }
