@@ -59,6 +59,13 @@ class L10nInReportAccount(models.Model):
                 if pos_order_line.order_id.fiscal_position_id:
                     income_account = pos_order_line.order_id.fiscal_position_id.map_account(income_account)
                 details_pos_lines.setdefault(move_id, {})
+                if pos_order_line.product_id.type == 'service':
+                    uom_code = "NA"
+                else:
+                    uom_code = (
+                        pos_order_line.product_uom_id.l10n_in_code and
+                        pos_order_line.product_uom_id.l10n_in_code.split("-")[0] or "OTH"
+                    )
                 details_pos_lines[move_id][pos_order_line.id] = {
                     "account_id": income_account.id,
                     "price_subtotal": pos_order_line.price_subtotal,
@@ -66,8 +73,7 @@ class L10nInReportAccount(models.Model):
                     "qty": pos_order_line.qty,
                     "product_hsn_code": self.env["account.edi.format"]._l10n_in_edi_extract_digits(pos_order_line.product_id.l10n_in_hsn_code),
                     "currency_rate": pos_order_line.order_id.currency_rate,
-                    "product_uom_code": pos_order_line.product_uom_id.l10n_in_code \
-                        and pos_order_line.product_uom_id.l10n_in_code.split("-")[0] or "OTH"
+                    "product_uom_code": uom_code
                 }
             return details_pos_lines
 
