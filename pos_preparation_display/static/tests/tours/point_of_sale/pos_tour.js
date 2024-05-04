@@ -21,7 +21,7 @@ registry.category("web_tour.tours").add("PreparationDisplayTour", {
             ProductScreen.clickPayButton(),
 
             PaymentScreen.clickPaymentMethod("Bank"),
-            PaymentScreen.changeIs("0.0"),
+            PaymentScreen.remainingIs("0.0"),
             PaymentScreen.validateButtonIsHighlighted(true),
             PaymentScreen.clickValidate(),
 
@@ -35,7 +35,7 @@ registry.category("web_tour.tours").add("PreparationDisplayTour", {
             ProductScreen.clickPayButton(),
 
             PaymentScreen.clickPaymentMethod("Bank"),
-            PaymentScreen.changeIs("0.0"),
+            PaymentScreen.remainingIs("0.0"),
             PaymentScreen.validateButtonIsHighlighted(true),
             PaymentScreen.clickValidate(),
 
@@ -67,7 +67,7 @@ registry.category("web_tour.tours").add("PreparationDisplayTourConfigurableProdu
             ProductScreen.totalAmountIs("11.0"),
             ProductScreen.clickPayButton(),
             PaymentScreen.clickPaymentMethod("Bank"),
-            PaymentScreen.changeIs("0.0"),
+            PaymentScreen.remainingIs("0.0"),
             PaymentScreen.validateButtonIsHighlighted(true),
             PaymentScreen.clickValidate(),
             ReceiptScreen.isShown(),

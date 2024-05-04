@@ -88,7 +88,8 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order_defa
         Dialog.confirm(),
         {
             content: "Option I01 should be selected",
-            trigger: "div.right-content:contains('Constructions')",
+            trigger: "div.mx_invoice:contains('Constructions')",
+            isCheck: true,
         },
         Chrome.endTour(),
     ],

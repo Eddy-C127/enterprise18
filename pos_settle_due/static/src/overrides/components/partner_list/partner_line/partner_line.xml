@@ -13,5 +13,10 @@
                 Settle Due Accounts
             </DropdownItem>
         </xpath>
+        <xpath expr="//td[hasclass('edit-partner-button-cell')]//DropdownItem[last()]" position="after">
+            <DropdownItem t-if="partnerInfos.totalDue" onSelected="() => this.settleCustomerDue()">
+                Settle Due Accounts
+            </DropdownItem>
+        </xpath>
     </t>
  </templates>
