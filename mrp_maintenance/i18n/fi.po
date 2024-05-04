@@ -41,7 +41,7 @@ msgstr "<span class=\"o_stat_text\">Huolto</span>"
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_equipment_view_form_inherit_mrp
 msgid "<span class=\"o_stat_text\">Work Center</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Työkeskus</span>"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_needaction
@@ -76,7 +76,7 @@ msgstr "Lisää uusi huoltopyyntö"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__recurring_leaves_count
 msgid "Additional Leaves to Plan Ahead"
-msgstr ""
+msgstr "Lisävapaat ennakkosuunnittelua varten"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_attachment_count
@@ -93,6 +93,7 @@ msgstr "Ryhmän työpiste"
 msgid ""
 "Block the workcenter for this many time slots in the future in advance."
 msgstr ""
+"Lukitse työkeskus etukäteen näin monelle ajanjaksolle tulevaisuudessa."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__company_id
@@ -236,6 +237,8 @@ msgid ""
 "It won't be possible to plan work orders or other maintenances on this "
 "workcenter during this time."
 msgstr ""
+"Tänä aikana ei ole mahdollista suunnitella työtilauksia tai muita "
+"huoltotöitä tähän työkeskukseen."
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
@@ -250,7 +253,7 @@ msgstr "Viimeisin vikaantumisen päivä"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__leave_ids
 msgid "Leaves"
-msgstr ""
+msgstr "Vapaat"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__mtbf
@@ -320,6 +323,8 @@ msgid ""
 "Manufacturing operations are processed at Work Centers. A Work Center can be composed of\n"
 "            workers and/or machines, they are used for costing, scheduling, capacity planning, etc."
 msgstr ""
+"Valmistustoiminnot käsitellään työkeskuksissa. Työkeskus voi koostua\n"
+"            työntekijöistä ja/tai koneista, ja niitä käytetään kustannuslaskentaan, aikataulutukseen, kapasiteetin suunnitteluun jne."
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
@@ -437,14 +442,14 @@ msgstr "Pyyntö"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_stage__create_leaves
 msgid "Request Confirmed"
-msgstr ""
+msgstr "Pyyntö vahvistettu"
 
 #. module: mrp_maintenance
 #. odoo-javascript
 #: code:addons/mrp_maintenance/static/src/components/menuPopup.xml:0
 #, python-format
 msgid "Request Maintenance"
-msgstr ""
+msgstr "Pyydä huoltoa"
 
 #. module: mrp_maintenance
 #. odoo-python
@@ -496,7 +501,7 @@ msgstr "Teknikko"
 #: code:addons/mrp_maintenance/static/src/components/maintenance_request_form_view.js:0
 #, python-format
 msgid "The maintenance request has successfully been created."
-msgstr ""
+msgstr "Huoltopyyntö on luotu onnistuneesti."
 
 #. module: mrp_maintenance
 #. odoo-python
@@ -506,13 +511,15 @@ msgid ""
 "The schedule has changed from %(desired_date)s to %(effective_date)s due to "
 "planned manufacturing orders."
 msgstr ""
+"Aikataulu on muuttunut %(desired_date)ssta %(effective_date)s:ksi "
+"suunniteltujen valmistustilausten vuoksi."
 
 #. module: mrp_maintenance
 #. odoo-python
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
 msgid "The workcenter is missing for %s."
-msgstr ""
+msgstr "Työkeskus puuttuu kohdasta %s."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__effective_date
@@ -541,6 +548,8 @@ msgid ""
 "When this box is unticked, and the maintenance is of the type 'Work Center', no leave is created on the respective work center when a maintenance request is created.\n"
 "If the box is ticked, the work center is automatically blocked for the listed duration, either at the specified date, or as soon as possible, if the work center is unavailable then."
 msgstr ""
+"Kun tämä ei ole valittuna ja kunnossapito on tyyppiä \"Työkeskus\", kyseiseen työkeskukseen ei luoda vapaata, kun kunnossapitopyyntö luodaan.\n"
+"Jos valintaruutu on rastitettu, työkeskuta estetään automaattisesti luetelluksi ajaksi joko määritettynä päivänä tai mahdollisimman pian, jos työkeskus ei ole silloin käytettävissä."
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_mrp_workcenter

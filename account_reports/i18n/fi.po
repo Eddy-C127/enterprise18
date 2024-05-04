@@ -23,9 +23,9 @@
 # Martin Trigaux, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Mikko Närjänen <mikko.narjanen@web-veistamo.fi>, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Tommi Rintala <tommi.rintala@gmail.com>, 2024
 # Konsta Aavaranta, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -33,7 +33,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-04 14:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Konsta Aavaranta, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,7 +60,7 @@ msgstr " ja yksi toinen"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid " is not supported by the Journal Report"
-msgstr ""
+msgstr " ei tuettu päiväkirjaraportissa"
 
 #. module: account_reports
 #. odoo-javascript
@@ -81,7 +81,7 @@ msgstr "%s ei ole numeerinen arvo"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "%s selected"
-msgstr ""
+msgstr "%s valittu"
 
 #. module: account_reports
 #. odoo-python
@@ -148,7 +148,7 @@ msgstr "(Ei ryhmää)"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid ", Including Analytic Simulations"
-msgstr ""
+msgstr ", mukaan lukien analyyttiset simulaatiot"
 
 #. module: account_reports
 #. odoo-javascript
@@ -162,7 +162,7 @@ msgstr ", näytä ainoastaan täsmäyttämättömät viennit"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid ", leading to an unexplained difference of"
-msgstr ""
+msgstr ", mikä johtaa selittämättömään eroon"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -199,11 +199,13 @@ msgid ""
 "<i>Errors marked with <i class=\"fa fa-warning\"/> are critical and prevent "
 "the file generation.</i>"
 msgstr ""
+"<i>Merkinnällä merkityt virheet <i class=\"fa fa-warning\"/> ovat kriittisiä"
+" ja estävät tiedoston luomisen</i>."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.partner_view_buttons
 msgid "<span class=\"o_stat_text\">Partner Ledger</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Kumppanin pääkirja</span>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -213,7 +215,7 @@ msgstr "<span role=\"separator\">Täsmäytys</span>"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "<span>One or more error(s) occurred during file generation:</span>"
-msgstr ""
+msgstr "<span>Tiedoston luomisessa tapahtui yksi tai useampi virhe:</span>"
 
 #. module: account_reports
 #: model:ir.model.constraint,message:account_reports.constraint_account_report_horizontal_group_name_uniq
@@ -225,7 +227,7 @@ msgstr "Samanniminen horisontaalinen ryhmä on jo olemassa."
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.js:0
 #, python-format
 msgid "A line with a 'Group By' value cannot have children."
-msgstr ""
+msgstr "Rivillä, jolla on 'Ryhmitä'-arvo, ei voi olla lapsia."
 
 #. module: account_reports
 #. odoo-python
@@ -246,6 +248,8 @@ msgid ""
 "A tax unit must contain a minimum of two companies. You might want to delete"
 " the unit."
 msgstr ""
+"Veroyksikössä on oltava vähintään kaksi yritystä. Yksikkö kannattaa ehkä "
+"poistaa."
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_total_assets0
@@ -274,7 +278,7 @@ msgstr "Tilikarttamalli"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Account Code / Tag"
-msgstr ""
+msgstr "Tilikoodi / Tunniste"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
@@ -294,7 +298,7 @@ msgstr "Tiliraportin alaviite"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_tax_report_handler
 msgid "Account Report Handler for Tax Reports"
-msgstr ""
+msgstr "Veroraporttien tiliraporttien käsittelijä"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_partner__account_represented_company_ids
@@ -312,7 +316,7 @@ msgstr "Tili arvonkorotuspäiväkirja"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_account_type.xml:0
 #, python-format
 msgid "Account:"
-msgstr ""
+msgstr "Tili:"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_representative_id
@@ -506,7 +510,7 @@ msgstr "Kaikki saamiset"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "All Report Variants"
-msgstr ""
+msgstr "Kaikki raporttivaihtoehdot"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -591,7 +595,7 @@ msgstr "Vahvista"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_date.xml:0
 #, python-format
 msgid "As of"
-msgstr ""
+msgstr "Alkaen"
 
 #. module: account_reports
 #. odoo-python
@@ -680,12 +684,12 @@ msgstr "Taseen saldo ulkomaanvaluutan kurssilla"
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Balance of '%s'"
-msgstr ""
+msgstr "Saldo '%s'"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.balance_bank
 msgid "Balance of Bank"
-msgstr ""
+msgstr "Pankin saldo"
 
 #. module: account_reports
 #. odoo-python
@@ -944,7 +948,7 @@ msgstr "Pankin loppusaldo"
 #: code:addons/account_reports/static/src/components/sales_report/filters/filter_code.xml:0
 #, python-format
 msgid "Codes:"
-msgstr ""
+msgstr "Koodit:"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -1133,7 +1137,7 @@ msgstr "Valuuttakurssit (%s)"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Currency:"
-msgstr ""
+msgstr "Valuutta:"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.deferred_expense_current
@@ -1191,6 +1195,8 @@ msgid ""
 "Custom engine _report_custom_engine_last_statement_balance_amount does not "
 "support groupby"
 msgstr ""
+"Custom engine _report_custom_engine_last_statement_balance_amount ei tue "
+"ryhmittely-toimintoa"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1225,14 +1231,14 @@ msgstr "Debit"
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main_table_body
 #, python-format
 msgid "Deductible"
-msgstr ""
+msgstr "Vähennyskelpoinen"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 #, python-format
 msgid "Deferrals have already been generated."
-msgstr ""
+msgstr "Lykkäykset on jo luotu."
 
 #. module: account_reports
 #. odoo-python
@@ -1300,12 +1306,12 @@ msgstr "Poistot"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Difference from rounding taxes"
-msgstr ""
+msgstr "Pyöristysverojen erotus"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_line__display_custom_groupby_warning
 msgid "Display Custom Groupby Warning"
-msgstr ""
+msgstr "Näytä mukautettu ryhmittely-varoitus"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__display_name
@@ -1339,7 +1345,7 @@ msgstr "Kotimaa"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "Download Anyway"
-msgstr ""
+msgstr "Lataa joka tapauksessa"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1417,14 +1423,14 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Enable Sections"
-msgstr ""
+msgstr "Ota osiot käyttöön"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_variant.xml:0
 #, python-format
 msgid "Enable more ..."
-msgstr ""
+msgstr "Ota käyttöön lisää ..."
 
 #. module: account_reports
 #. odoo-python
@@ -1459,7 +1465,7 @@ msgstr "Edellisen kvartaalin loppu"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Ending Balance:"
-msgstr ""
+msgstr "Loppusaldo:"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1487,7 +1493,7 @@ msgstr "Virheilmoitus"
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/filters/filter_exchange_rate.xml:0
 #, python-format
 msgid "Exchange Rates"
-msgstr ""
+msgstr "Valuuttakurssit"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_account__exclude_provision_currency_ids
@@ -1532,6 +1538,8 @@ msgid ""
 "Expected payment date for journal item %r has been changed from %s to %s on "
 "journal entry %r"
 msgstr ""
+"Päiväkirjamerkinnän %r odotettu maksupäivä on muutettu %s:stä %s:ksi "
+"päiväkirjamerkinnässä %r"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__expense_provision_account_id
@@ -1594,6 +1602,9 @@ msgid ""
 "the current report. Make sure the cross-report aggregations of this report "
 "only reference terms belonging to other reports."
 msgstr ""
+"Rivin '%s' ilmaisu '%s' ylikirjoitetaan, kun nykyinen raportti lasketaan. "
+"Varmista, että tämän raportin raporttien väliset aggregoinnit viittaavat "
+"vain muihin raportteihin kuuluviin termeihin."
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__field_name
@@ -1632,17 +1643,17 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_file_download_error_wizard__file_content
 msgid "File Content"
-msgstr ""
+msgstr "Tiedoston sisältö"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "File Download Errors"
-msgstr ""
+msgstr "Tiedoston latausvirheet"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_file_download_error_wizard__file_generation_errors
 msgid "File Generation Errors"
-msgstr ""
+msgstr "Tiedoston luomisvirheet"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_file_download_error_wizard__file_name
@@ -1664,19 +1675,19 @@ msgstr "Suotimet"
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 #, python-format
 msgid "Filters:"
-msgstr ""
+msgstr "Suodattimet:"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #, python-format
 msgid "Fiscal Position:"
-msgstr ""
+msgstr "Verokanta:"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__fpos_synced
 msgid "Fiscal Positions Synchronised"
-msgstr ""
+msgstr "Verokannat on synkronoitu"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_tax_unit_form
@@ -1684,6 +1695,7 @@ msgid ""
 "Fiscal Positions should apply to all companies of the tax unit. You may want"
 " to"
 msgstr ""
+"Verokantojen on koskettava kaikkia veroyksikön yrityksiä. Voit halutessasi"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__footnotes_ids
@@ -1757,7 +1769,7 @@ msgstr "Pääkirjanpidon mukautettu käsittelijä"
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "Generate entry"
-msgstr ""
+msgstr "Luo merkintä"
 
 #. module: account_reports
 #. odoo-python
@@ -1791,7 +1803,7 @@ msgstr "Yleinen veroraportin mukautettu käsittelijä (Vero -> Tili)"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Global Tax Summary"
-msgstr ""
+msgstr "Yhteenveto yleisistä veroista"
 
 #. module: account_reports
 #. odoo-python
@@ -1853,7 +1865,7 @@ msgstr "Ryhmän nimi"
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "Grouped Deferral Entry of %s"
-msgstr ""
+msgstr "Ryhmitetty lykätty kirjaus %s"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1882,14 +1894,14 @@ msgstr "Vaakasuora ryhmä"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_horizontal_groups.xml:0
 #, python-format
 msgid "Horizontal Group:"
-msgstr ""
+msgstr "Vaakasuora ryhmä:"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Horizontal Grouping"
-msgstr ""
+msgstr "Vaakasuora ryhmittely"
 
 #. module: account_reports
 #: model:ir.actions.act_window,name:account_reports.action_account_report_horizontal_groups
@@ -1911,7 +1923,7 @@ msgstr "Vaakasuoran ryhmän sääntö raportteja varten"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Horizontal:"
-msgstr ""
+msgstr "Vaakasuora:"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1944,14 +1956,14 @@ msgstr "Vaikutus verkkoon"
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main_table_body
 #, python-format
 msgid "Impacted Tax Grids"
-msgstr ""
+msgstr "Vaikutuksen kohteena olevat veroverkot"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "In %s"
-msgstr ""
+msgstr "%s"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
@@ -1970,7 +1982,7 @@ msgstr "Sisällytä analyyttiset simulaatiot"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Include Draft Entries"
-msgstr ""
+msgstr "Sisällytä luonnosmerkinnät"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1992,13 +2004,13 @@ msgstr "Sisällytä analyyttiset simulaatiot"
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_payments
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_payments
 msgid "Including Unreconciled Payments"
-msgstr ""
+msgstr "Mukaan luettuina erittelemättömät maksut"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_receipt
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_receipts
 msgid "Including Unreconciled Receipts"
-msgstr ""
+msgstr "Mukaan luettuina erittelemättömät tulot"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -2087,21 +2099,21 @@ msgstr "Yhteisön sisäisiä veroja sovelletaan"
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Invalid Partners"
-msgstr ""
+msgstr "Invalidit kumppanit"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Invalid Products"
-msgstr ""
+msgstr "Virheelliset tuotteet"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Invalid Taxes"
-msgstr ""
+msgstr "Virheelliset verot"
 
 #. module: account_reports
 #. odoo-python
@@ -2144,7 +2156,7 @@ msgstr "Laskun päiväys"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__is_account_coverage_report_available
 msgid "Is Account Coverage Report Available"
-msgstr ""
+msgstr "Onko tilin kattavuusraportti saatavilla"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_journal_code
@@ -2311,7 +2323,7 @@ msgstr "Viimeksi päivitetty"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.last_statement_balance
 msgid "Last statement balance"
-msgstr ""
+msgstr "Viimeisen tiliotteen saldo"
 
 #. module: account_reports
 #. odoo-python
@@ -2323,7 +2335,7 @@ msgstr "Myöhemmin"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Latest Statement"
-msgstr ""
+msgstr "Viimeisin tiliote"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_footnote__line_id
@@ -2409,14 +2421,14 @@ msgstr "Menetelmän \"%s\" on alettava etuliitteellä \"%s\"."
 #. module: account_reports
 #: model:account.report.line,name:account_reports.misc_operations
 msgid "Misc. operations"
-msgstr ""
+msgstr "Muut toiminnot"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_file_download_error_wizard.py:0
 #, python-format
 msgid "Missing Company Data"
-msgstr ""
+msgstr "Puuttuvat yritystiedot"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__res_model_name
@@ -2533,7 +2545,7 @@ msgstr "Korjauksia ei tarvita"
 #: code:addons/account_reports/static/src/components/account_report/account_report.xml:0
 #, python-format
 msgid "No data to display !"
-msgstr ""
+msgstr "Ei näytettäviä tietoja !"
 
 #. module: account_reports
 #. odoo-python
@@ -2541,13 +2553,14 @@ msgstr ""
 #, python-format
 msgid "No default miscellaneous journal could be found for the active company"
 msgstr ""
+"Toimivalle yritykselle ei löytynyt oletusarvoista sekalaista päiväkirjaa"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "No entry to generate."
-msgstr ""
+msgstr "Ei merkintää, jonka voi luoda."
 
 #. module: account_reports
 #. odoo-python
@@ -2583,7 +2596,7 @@ msgstr "Muut kuin myyntisaamiset"
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main_table_body
 #, python-format
 msgid "Non-Deductible"
-msgstr ""
+msgstr "Vähennyskelvottomat"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2599,14 +2612,14 @@ msgstr "Ei mitään"
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "Not Started"
-msgstr ""
+msgstr "Ei aloitettu"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "Number of periods cannot be smaller than 1"
-msgstr ""
+msgstr "Jaksojen lukumäärä ei voi olla pienempi kuin 1"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_off_sheet
@@ -2697,7 +2710,7 @@ msgstr "Muut tulot"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
-msgstr ""
+msgstr "Maksamattomat saamiset/maksut"
 
 #. module: account_reports
 #. odoo-python
@@ -2727,7 +2740,7 @@ msgstr "Kumppani"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Partner Categories"
-msgstr ""
+msgstr "Kumppanien kategoriat"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.partner_ledger_report
@@ -2753,7 +2766,7 @@ msgstr "Partnerin raportit"
 #: code:addons/account_reports/static/src/components/partner_ledger/line_name.xml:0
 #, python-format
 msgid "Partner is bad"
-msgstr ""
+msgstr "Kumppani on huono"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2761,7 +2774,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/partner_ledger/line_name.xml:0
 #, python-format
 msgid "Partner is good"
-msgstr ""
+msgstr "Kumppani on hyvä"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2776,7 +2789,7 @@ msgstr "Kumppanit"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Partners Categories:"
-msgstr ""
+msgstr "Partnereiden kategoriat:"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
@@ -2819,7 +2832,7 @@ msgstr "Suoriutuminen"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Period comparison"
-msgstr ""
+msgstr "Kauden vertailu"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__account_tax_periodicity
@@ -2904,6 +2917,8 @@ msgid ""
 "Posting this entry will also update and post the unposted closings of the "
 "depending companies."
 msgstr ""
+"Tämän merkinnän lähettäminen päivittää ja lähettää myös riippuvaisten "
+"yritysten julkaisemattomat sulkemiset."
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -3043,7 +3058,7 @@ msgstr "Raportit"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "Reset to Standard"
-msgstr ""
+msgstr "Nollaa vakioksi"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings0
@@ -3065,7 +3080,7 @@ msgstr "Peruutuspäivämäärä"
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "Reversal of Grouped Deferral Entry of %s"
-msgstr ""
+msgstr "Ryhmittäisen lykkäyksen peruuttamisten kirjaus %s"
 
 #. module: account_reports
 #. odoo-python
@@ -3144,7 +3159,7 @@ msgstr "Näytä varoitus kirjauksesta"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "Some"
-msgstr ""
+msgstr "Jotkut"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3170,7 +3185,7 @@ msgstr "Alkaen"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Starting Balance:"
-msgstr ""
+msgstr "Aloitussaldo:"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3208,7 +3223,7 @@ msgstr "Verotili"
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_alert
 #: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_alert
 msgid "Tax Closing Alert"
-msgstr ""
+msgstr "Verotuksen päättymistä koskeva hälytys"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_end_date
@@ -3222,7 +3237,7 @@ msgstr "Verotuksen päättymispäivä"
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_show_multi_closing_warning
 #: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_show_multi_closing_warning
 msgid "Tax Closing Show Multi Closing Warning"
-msgstr ""
+msgstr "Verotuksen päättäminen Näytä moninkertainen päättämisvaroitus"
 
 #. module: account_reports
 #. odoo-python
@@ -3281,7 +3296,7 @@ msgstr "Veroilmoitus"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 msgid "Tax Return Periodicity"
-msgstr ""
+msgstr "Veroilmoituksen jaksotus"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_tax_unit
@@ -3294,7 +3309,7 @@ msgstr "Veroyksikkö"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_tax_unit.xml:0
 #, python-format
 msgid "Tax Unit:"
-msgstr ""
+msgstr "Veroyksikkö:"
 
 #. module: account_reports
 #: model:ir.actions.act_window,name:account_reports.action_view_tax_units
@@ -3345,6 +3360,8 @@ msgid ""
 "Technical field indicating whether Fiscal Positions exist for all companies "
 "in the unit"
 msgstr ""
+"Tekninen kenttä, joka osoittaa, onko yksikön kaikissa yrityksissä "
+"veropositioita"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_ir_actions_account_report_download
@@ -3361,7 +3378,7 @@ msgstr "Teksti"
 #: code:addons/account_reports/static/src/components/account_report/ellipsis/ellipsis.js:0
 #, python-format
 msgid "Text copied"
-msgstr ""
+msgstr "Teksti on kopioitu"
 
 #. module: account_reports
 #. odoo-python
@@ -3379,7 +3396,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "The Accounts Coverage Report is not available for this report."
-msgstr ""
+msgstr "Tilien kattavuusraportti ei ole käytettävissä tätä raporttia varten."
 
 #. module: account_reports
 #. odoo-python
@@ -3390,6 +3407,8 @@ msgid ""
 "model='account.move' data-oe-id='%s'>closing entry</a> of the representative"
 " company."
 msgstr ""
+"Veroraportin liitteet löytyvät edustavan yrityksen <a href='#' data-oe-"
+"model='account.move' data-oe-id='%s'>loppukirjauksesta</a>."
 
 #. module: account_reports
 #. odoo-python
@@ -3399,6 +3418,8 @@ msgid ""
 "The country detected for this VAT number does not match the one set on this "
 "Tax Unit."
 msgstr ""
+"Tämän ALV-numeron tunnistettu maa ei vastaa tähän veroyksikköön määritettyä "
+"maata."
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_tax_unit__country_id
@@ -3414,14 +3435,14 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "The current balance in the"
-msgstr ""
+msgstr "Tämänhetkinen saldo"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 #, python-format
 msgid "The entry that will be generated will take them into account."
-msgstr ""
+msgstr "Ne otetaan huomioon luodussa merkinnässä."
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_tax_unit__vat
@@ -3454,7 +3475,7 @@ msgstr "Veroyksiköt, joihin tämä yritys kuuluu."
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "The used operator is not supported for this expression."
-msgstr ""
+msgstr "Käytettyä operaattoria ei tueta tässä lausekkeessa."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3468,7 +3489,7 @@ msgstr "On olemassa"
 #: code:addons/account_reports/static/src/components/account_report/account_report.xml:0
 #, python-format
 msgid "There is no data to display for the given filters."
-msgstr ""
+msgstr "Näytettäviä tietoja ei ole annettujen suodattimien osalta."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3539,7 +3560,7 @@ msgstr "Tämän avulla voi valita loppusummien sijainnin talousraporteissa."
 msgid ""
 "This company is part of a tax unit. You're currently not viewing the whole "
 "unit."
-msgstr ""
+msgstr "Tämä yritys on osa veroyksikköä. Et näe tällä hetkellä koko yksikköä."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3549,23 +3570,24 @@ msgid ""
 "This line and all its children will be deleted. Are you sure you want to "
 "proceed?"
 msgstr ""
+"Tämä rivi ja kaikki sen alla olevat poistetaan. Haluatko varmasti jatkaa?"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "This line uses a custom user-defined 'Group By' value."
-msgstr ""
+msgstr "Tällä rivillä käytetään käyttäjän määrittämää 'ryhmittele' -arvoa."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "This option hides lines with a value of 0"
-msgstr ""
+msgstr "Tämä vaihtoehto piilottaa rivit, joiden arvo on 0"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This report already has a menuitem."
-msgstr ""
+msgstr "Tässä raportissa on jo valikkokohta."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -3573,20 +3595,22 @@ msgid ""
 "This report is linked to a custom handler.\n"
 "                        You can customize it manually, but make sure your changes don't clash with what the handler does."
 msgstr ""
+"Tämä raportti on linkitetty mukautettuun käsittelijään.\n"
+"                        Voit muokata sitä manuaalisesti, mutta varmista, että muutoksesi eivät ole ristiriidassa käsittelijän toimintojen kanssa."
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/warnings.xml:0
 #, python-format
 msgid "This report only displays the data of the active company."
-msgstr ""
+msgstr "Tämä raportti näyttää vain aktiivisen yrityksen tiedot."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This subformula references an unknown expression: %s"
-msgstr ""
+msgstr "Tämä alakaava viittaa tuntemattomaan lausekkeeseen: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -3596,6 +3620,8 @@ msgid ""
 "This tag is reported in a line of the report but is not linked to any "
 "account of the Chart of Accounts"
 msgstr ""
+"Tämä tunniste ilmoitetaan raportin rivillä, mutta se ei liity mihinkään "
+"tilikartan tiliin"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -3605,6 +3631,10 @@ msgid ""
 "its content, in case other entries using taxes have been posted in the "
 "meantime."
 msgstr ""
+"Tämä verotuksen päättämiskirjaus on kirjattu, mutta verojen lukituspäivä on "
+"aikaisempi kuin katetun kauden viimeinen päivä. Sinun on ehkä palautettava "
+"se luonnosvaiheeseen ja päivitettävä sen sisältö, jos sillä välin on tehty "
+"muita veroja käyttäviä kirjauksia."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3642,7 +3672,7 @@ msgstr "Kauppakumppanit"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.transaction_without_statement
 msgid "Transactions without statement"
-msgstr ""
+msgstr "Tapahtumat ilman selvitystä"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report
@@ -3671,6 +3701,8 @@ msgid ""
 "Trying to dispatch an action on a report not compatible with the provided "
 "options."
 msgstr ""
+"Yritetään lähettää toiminto raportille, joka ei ole yhteensopiva annettujen "
+"vaihtoehtojen kanssa."
 
 #. module: account_reports
 #. odoo-python
@@ -3911,7 +3943,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_move_line.py:0
 #, python-format
 msgid "You cannot add taxes on a tax closing move line."
-msgstr ""
+msgstr "Veroja ei voi lisätä verojen päättymissiirtoriville."
 
 #. module: account_reports
 #. odoo-python
@@ -3920,14 +3952,14 @@ msgstr ""
 msgid ""
 "You cannot generate entries for a period that does not end at the end of the"
 " month."
-msgstr ""
+msgstr "Et voi luoda kirjauksia jaksolle, joka ei pääty kuukauden lopussa."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "You cannot generate entries for a period that is locked."
-msgstr ""
+msgstr "Et voi luoda merkintöjä lukitulle ajanjaksolle."
 
 #. module: account_reports
 #. odoo-python
@@ -3937,6 +3969,8 @@ msgid ""
 "You cannot reset this closing entry to draft, as another closing entry has "
 "been posted at a later date."
 msgstr ""
+"Et voi palauttaa tätä lopetusmerkintää luonnokseksi, koska toinen "
+"lopetusmerkintä on lähetetty myöhemmin."
 
 #. module: account_reports
 #. odoo-python
@@ -3998,7 +4032,7 @@ msgstr "päivää kauden jälkeen"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "doesn't match the balance of your"
-msgstr ""
+msgstr "ei vastaa saldoa koskien"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__2_months
@@ -4015,7 +4049,7 @@ msgstr "joka neljäs kuukausi"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "have a starting balance different from the previous ending balance."
-msgstr ""
+msgstr "joiden alkusaldo eroaa edellisestä loppusaldosta."
 
 #. module: account_reports
 #. odoo-javascript
@@ -4045,7 +4079,7 @@ msgstr "päiväkirjan tapahtumat"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "last bank statement"
-msgstr ""
+msgstr "viimeinen tiliote"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__monthly
@@ -4095,14 +4129,14 @@ msgstr "tiliotteet"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_tax_unit_form
 msgid "synchronize fiscal positions"
-msgstr ""
+msgstr "synkronoi verokannat"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_tax.py:0
 #, python-format
 msgid "tax unit [%s]"
-msgstr ""
+msgstr "veroyksikkö [%s]"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4138,7 +4172,7 @@ msgstr "siirrettiin tälle riville edelliseltä kaudelta."
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "which don't originate from a bank statement nor payment."
-msgstr ""
+msgstr "jotka eivät ole peräisin tiliotteesta tai maksusta."
 
 #. module: account_reports
 #. odoo-javascript

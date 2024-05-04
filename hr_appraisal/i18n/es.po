@@ -4,7 +4,6 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Lucia Pacheco, 2023
 # Wil Odoo, 2023
 # Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2023
 # Larissa Manderfeld, 2024
@@ -795,7 +794,7 @@ msgstr "Archivado"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Ask to fill a survey to other employees"
-msgstr "Solicita a otros empleados que llenen la encuesta"
+msgstr "Solicite a otros empleados completar una encuesta"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_company__assessment_note_ids
@@ -826,12 +825,12 @@ msgstr "Autor"
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_company__appraisal_plan
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_config_settings__appraisal_plan
 msgid "Automatically Generate Appraisals"
-msgstr "Evaluaciones generadas automáticamente"
+msgstr "Generar automáticamente evaluaciones"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Automatically generate appraisals"
-msgstr "Evaluaciones generadas automáticamente"
+msgstr "Generar automáticamente evaluaciones"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__avatar_1920
@@ -851,7 +850,7 @@ msgstr "Empleado básico"
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_request_appraisal__body_has_template_value
 msgid "Body content is the same as the template"
-msgstr "El contenido del cuerpo es igual al de la plantilla"
+msgstr "El contenido del cuerpo es el mismo que el de la plantilla"
 
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_calendar_event
@@ -953,7 +952,7 @@ msgstr "Contenidos"
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal_report__create_date
 msgid "Create Date"
-msgstr "Fecha de Creación"
+msgstr "Fecha de creación"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_company__duration_first_appraisal
@@ -1413,7 +1412,7 @@ msgid ""
 "Long term (&gt; 6 months) career discussion, where does the employee\n"
 "            wants to go, how to help them reach this path?"
 msgstr ""
-"Charla sobre su trayectoria profesional a largo plazo (&gt; 6 meses), ¿hacia dónde se quiere dirigir el empleado\n"
+"Conversación sobre su trayectoria profesional a largo plazo (más de 6 meses), ¿hacia dónde se quiere dirigir el empleado\n"
 "            y cómo podría ayudarle a llegar allí?"
 
 #. module: hr_appraisal
@@ -1621,7 +1620,7 @@ msgstr "Encargado: acceder a todas las evaluaciones"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_employee_view_form
 msgid "Ongoing"
-msgstr "En proceso"
+msgstr "En curso"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_employee__ongoing_appraisal_count
@@ -1708,7 +1707,7 @@ msgstr "Empleado público"
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__rating_ids
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal_goal__rating_ids
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_request_appraisal__recipient_ids
@@ -1810,15 +1809,13 @@ msgstr ""
 msgid ""
 "Sent manually to the employee by the manager who wants to do an appraisal"
 msgstr ""
-"El responsable que desea realizar una evaluación se lo envía de forma manual"
-" al empleado"
+"Enviado manualmente al empleado por el gerente que desea una evaluación"
 
 #. module: hr_appraisal
 #: model:mail.template,description:hr_appraisal.mail_template_appraisal_request
 msgid "Sent manually to the manager by the employee who wants an appraisal"
 msgstr ""
-"El empleado que desea una evaluación se lo envía de forma manual al "
-"responsable"
+"Enviado manualmente al gerente por el empleado que desea una evaluación"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal_note__sequence
@@ -1896,7 +1893,7 @@ msgstr "Asunto..."
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Such grouping is not allowed."
-msgstr "Tal agrupación no está permitida."
+msgstr "No se permite dicha agrupación."
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal_goal__tag_ids
@@ -1913,7 +1910,7 @@ msgid ""
 "Thanks to your Appraisal Plan, without any new manual Appraisal, the new "
 "Appraisal will be automatically created on %s."
 msgstr ""
-"Gracias a su plan de evaluación, sin ninguna nueva vaoración manual, la "
+"Gracias a su plan de evaluación, sin ninguna nueva evaluación manual, la "
 "nueva evaluación se creará automáticamente en %s."
 
 #. module: hr_appraisal
@@ -1921,7 +1918,7 @@ msgstr ""
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "The appraisal's status has been set to Done by %s"
-msgstr "%s estableció el estado de la evaluación como Hecho"
+msgstr "%s ha establecido el estado de la evaluación como Hecho"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,help:hr_appraisal.field_hr_appraisal__note
@@ -1966,8 +1963,7 @@ msgstr ""
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "The employee feedback cannot be changed by managers."
-msgstr ""
-"Las opiniones de los empleados no pueden ser modificadas por los directivos."
+msgstr "Los gerentes no pueden cambiar la retroalimentación del empleado."
 
 #. module: hr_appraisal
 #. odoo-javascript
@@ -2063,7 +2059,7 @@ msgstr "Contenidos del usuario"
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__waiting_feedback
 msgid "Waiting Feedback from Employee/Managers"
-msgstr "Esperando el feedback del empleado/resposable"
+msgstr "Esperando la retroalimentación del empleado/gerente"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__website_message_ids
@@ -2172,7 +2168,7 @@ msgstr "p. ej. John Doe"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_view_form
 msgid "e.g. Present yourself to your new team"
-msgstr "ej. Presentate con tu equipo nuevo"
+msgstr "p. ej. Preséntese a su nuevo equipo"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form

@@ -297,8 +297,8 @@ msgid ""
 "wizard can only index running contracts.</span>"
 msgstr ""
 "<span role=\"status\" class=\"alert alert-warning d-block\" invisible=\"not "
-"display_warning\">Ha seleccionado contratos que no están en ejecución, este "
-"asistente sólo puede indexar contratos en ejecución.</span>"
+"display_warning\">Ha seleccionado contratos que no están activos, este "
+"asistente sólo puede indexar contratos activos.</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_resource_calendar_view_form
@@ -1718,14 +1718,14 @@ msgstr "Empleados"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Employees (With Running Contracts) missing from open batches"
-msgstr "Faltan empleados (con contratos en ejecución) en los lotes abiertos"
+msgstr "Faltan empleados (con contratos activos) en los lotes abiertos"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Employees With Both New And Running Contracts"
-msgstr "Empleados con contratos tanto nuevos como en ejecución"
+msgstr "Empleados con contratos tanto nuevos como activos"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3482,7 +3482,7 @@ msgstr "Reglas"
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_attachment__state__open
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_form
 msgid "Running"
-msgstr "En proceso"
+msgstr "Activo"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3784,7 +3784,7 @@ msgstr "Ajustes"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
 msgid "Slips to Confirm"
-msgstr "Recibos por confirmar"
+msgstr "Recibos a confirmar"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -4105,7 +4105,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract_history__time_credit
 msgid "This is a credit time contract."
-msgstr "Este es un contrato de credito temporal"
+msgstr "Este es un contrato de crédito temporal"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_work_entry__is_credit_time
@@ -4124,7 +4124,7 @@ msgstr "Este recibo de nómina puede estar incorrecto: "
 #: code:addons/hr_payroll/wizard/hr_payroll_edit_payslip_lines_wizard.py:0
 #, python-format
 msgid "This payslip has been manually edited by %s."
-msgstr "Este recibo de nómina fue editado manualmente por %s."
+msgstr "Este recibo de nómina ha sido editado manualmente por %s."
 
 #. module: hr_payroll
 #. odoo-python
@@ -4137,7 +4137,7 @@ msgstr "Este recibo de nómina no es válida. No es un documento legal."
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.payroll_report_action
 msgid "This report performs analysis on your payslip."
-msgstr "Este reporte realiza un análisis en su recibo de nómina."
+msgstr "Este informe realiza un análisis en su recibo de nómina."
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.hr_work_entry_report_action
@@ -4187,7 +4187,7 @@ msgstr "A pagar"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "To pay on"
-msgstr "Pagar el"
+msgstr "A pagar el"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_contribution_registers
@@ -4379,7 +4379,7 @@ msgstr "Versiones"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__appears_on_employee_cost_dashboard
 msgid "View on Employer Cost Dashboard"
-msgstr "tablero en vista en coste de empleados "
+msgstr "Ver en el tablero de costes del empleador"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__appears_on_payroll_report
@@ -4815,8 +4815,8 @@ msgid ""
 "You have selected non running contracts, if you really need to index them, "
 "please do it by hand"
 msgstr ""
-"Has seleccionado contratos no vigentes, si realmente necesitas indexarlos, "
-"hazlo a mano"
+"Has seleccionado contratos inactivos, si realmente necesitas indexarlos, "
+"hazlo manualmente"
 
 #. module: hr_payroll
 #. odoo-python

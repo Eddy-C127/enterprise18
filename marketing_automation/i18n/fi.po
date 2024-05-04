@@ -18,7 +18,7 @@
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
 # Simo Suurla <simo@suurla.fi>, 2023
 # Martin Trigaux, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -26,7 +26,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,11 +151,15 @@ msgid ""
 "title=\"Add Another Activity\" role=\"img\" aria-label=\"Add Another "
 "Activity\"/>"
 msgstr ""
+"<i data-trigger-type=\"activity\" class=\"fa fa-code-fork fa-rotate-180 fa-"
+"flip-vertical o_ma_text_processed o_add_child_activity text-success\" "
+"title=\"Lisää toinen aktiviteetti\" role=\"img\" aria-label=\"Lisää toinen "
+"aktiviteetti\"/>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "<span class=\"d-inline-block w-25\">after</span>"
-msgstr ""
+msgstr "<span class=\"d-inline-block w-25\">jälkeen</span>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -172,6 +176,12 @@ msgid ""
 "                                                            <i class=\"fa fa-filter\"/>\n"
 "                                                        </span>"
 msgstr ""
+"<span role=\"img\" title=\"Graph\" aria-label=\"Graph\" class=\"o_ma_activity_tab active\" data-tab-type=\"graph\">\n"
+"                                                            <i class=\"fa fa-pie-chart\"/>\n"
+"                                                        </span>\n"
+"                                                        <span title=\"Filter\" role=\"img\" aria-label=\"Filter\" class=\"o_ma_activity_tab\" data-tab-type=\"filter\">\n"
+"                                                            <i class=\"fa fa-filter\"/>\n"
+"                                                        </span>"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_kanban
@@ -262,7 +272,7 @@ msgstr ""
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Add Hot Category"
-msgstr ""
+msgstr "Lisää kuuma luokka"
 
 #. module: marketing_automation
 #. odoo-python
@@ -276,7 +286,7 @@ msgstr "Lisää tunniste"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Add To Confirmed List"
-msgstr ""
+msgstr "Lisää vahvistettuun luetteloon"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -293,14 +303,14 @@ msgstr "Lisää malleihin"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Add to list"
-msgstr ""
+msgstr "Lisää luetteloon"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "After 7 days"
-msgstr ""
+msgstr "7 päivän kuluttua"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_activity__allowed_parent_ids
@@ -339,6 +349,8 @@ msgid ""
 "Are you sure you want to create a new participant for each matching record "
 "that has not been used yet?"
 msgstr ""
+"Oletko varma, että haluat luoda uuden osallistujan jokaiselle vastaavalle "
+"tietueelle, jota ei ole vielä käytetty?"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
@@ -364,14 +376,14 @@ msgstr ""
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Blacklist Bounces"
-msgstr ""
+msgstr "Markkinointikieltolistan paluupomput"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Blacklist record"
-msgstr ""
+msgstr "Markkinointikieltolistan tietue"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -431,14 +443,14 @@ msgstr "Peruttu"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Check Bounce Contact"
-msgstr ""
+msgstr "Tarkista pompannut kontakti"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Check Email Address"
-msgstr ""
+msgstr "Tarkista sähköpostiosoite"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_activity__validity_duration
@@ -447,6 +459,9 @@ msgid ""
 "amount of time after the scheduled date. (e.g. Time-limited offer, Upcoming "
 "event, …)"
 msgstr ""
+"Valitsemalla tämän voit varmistaa, että toimintoja ei suoriteta tietyn ajan "
+"kuluttua suunnitellusta päivämäärästä. (esim. määräaikainen tarjous, tuleva "
+"tapahtuma, ...)"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__child_ids
@@ -516,7 +531,7 @@ msgstr "Vahvistus"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Confirmed contacts"
-msgstr ""
+msgstr "Vahvistetut yhteystiedot"
 
 #. module: marketing_automation
 #. odoo-javascript
@@ -531,7 +546,7 @@ msgstr "Luo kampanja"
 #: code:addons/marketing_automation/static/src/xml/marketing_automation_templates.xml:0
 #, python-format
 msgid "Create one or load a template prepared by our experts."
-msgstr ""
+msgstr "Luo oma tai lataa asiantuntijoidemme laatima malli."
 
 #. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.marketing_campaign_action
@@ -539,6 +554,8 @@ msgid ""
 "Create one or load a template prepared by our experts.\n"
 "                    Then sit down and let Odoo handle the rest."
 msgstr ""
+"Luo oma tai lataa asiantuntijoidemme laatima malli.\n"
+"                    Sitten, odota hetki ja anna Odoon hoitaa loput."
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__create_uid
@@ -636,7 +653,7 @@ msgstr "Älä päivitä"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Double Opt-in"
-msgstr ""
+msgstr "Kaksinkertainen markkinointivahvistus"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -742,7 +759,7 @@ msgstr "Luo osallistujat"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Get 10% OFF"
-msgstr ""
+msgstr "ALE 10 %"
 
 #. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.marketing_trace_action
@@ -758,7 +775,7 @@ msgstr ""
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Hot"
-msgstr ""
+msgstr "Kuuma"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__interval_type__hours
@@ -790,7 +807,7 @@ msgstr "Se luodaan automaattisesti, kun tallennat tämän tietueen."
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Join partnership!"
-msgstr ""
+msgstr "Liity kumppanuuteen!"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__write_uid
@@ -1088,7 +1105,7 @@ msgstr "Uusi"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Next activity: Check Email Address"
-msgstr ""
+msgstr "Seuraava aktiviteetti: Tarkista sähköpostiosoite"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -1165,7 +1182,7 @@ msgstr ""
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Offer free catalog"
-msgstr ""
+msgstr "Tarjoa ilmainen luettelo"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1273,7 +1290,7 @@ msgstr "Valitse malli"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "Pick a record..."
-msgstr ""
+msgstr "Valitse tietue..."
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
@@ -1403,6 +1420,8 @@ msgstr "Suorita"
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Run the next scheduled activity for each participant of this campaign?"
 msgstr ""
+"Suorita seuraava suunniteltu aktiviteetti kullekin tämän kampanjan "
+"osallistujalle?"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_campaign__state__running
@@ -1453,7 +1472,7 @@ msgstr "Valinta voittajan määrittämiseksi lähetettävä postitus."
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send 10% Welcome Discount"
-msgstr ""
+msgstr "Lähetä 10% tervetuliaisalennus"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_schedule_datetime
@@ -1465,14 +1484,14 @@ msgstr "Lähetä lopullinen"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send Welcome Email"
-msgstr ""
+msgstr "Lähetä Tervetuloa sähköposti"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Send a free catalog and follow-up according to reactions."
-msgstr ""
+msgstr "Lähetä ilmainen kuvasto ja seuraa reaktioita."
 
 #. module: marketing_automation
 #. odoo-python
@@ -1480,6 +1499,8 @@ msgstr ""
 #, python-format
 msgid "Send a welcome email to contacts and tag them if they click in it."
 msgstr ""
+"Lähetä tervetuliaisviesti yhteystiedoille ja merkitse heidät, jos he "
+"klikkaavat sitä."
 
 #. module: marketing_automation
 #. odoo-python
@@ -1488,6 +1509,8 @@ msgstr ""
 msgid ""
 "Send a welcome email to new subscribers, remove the address that bounced."
 msgstr ""
+"Lähetä uusille tilaajille tervetulosähköposti, poista osoite, joka on "
+"pompannut."
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__interval_number
@@ -1505,6 +1528,8 @@ msgstr "Lähetä jälkeen (tunteina)"
 #, python-format
 msgid "Send an email to new recipients to confirm their consent."
 msgstr ""
+"Lähetä sähköpostiviesti uusille vastaanottajille heidän "
+"markkinointiviestintäsuostumuksensa vahvistamiseksi."
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1627,7 +1652,7 @@ msgstr "Osallistujien synkronointi vaaditaan"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Tag Hot Contacts"
-msgstr ""
+msgstr "Merkitse kuumat kontaktit"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__tag_ids
@@ -1687,7 +1712,7 @@ msgstr ""
 #: code:addons/marketing_automation/static/src/xml/marketing_automation_templates.xml:0
 #, python-format
 msgid "Then sit down and let Odoo handle the rest!"
-msgstr ""
+msgstr "Odota sitten hetki ja anna Odoon hoitaa loput!"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1833,7 +1858,7 @@ msgstr "Viikot"
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 #, python-format
 msgid "Welcome Flow"
-msgstr ""
+msgstr "Tervetulopolku"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1914,7 +1939,7 @@ msgstr "työnkulun alku"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
 msgid "e.g. \"Brandon Freeman\""
-msgstr ""
+msgstr "esim. \"Brandon Freeman\""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form

@@ -10,8 +10,8 @@
 # Mikko Salmela <salmemik@gmail.com>, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
 # Veikko Väätäjä <veikko.vaataja@gmail.com>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Veikko Väätäjä <veikko.vaataja@gmail.com>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,7 +44,7 @@ msgstr "123 katselua -"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_stream_post_view_kanban
 msgid "<i class=\"fa fa-thumbs-o-up me-1\" title=\"Likes\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-thumbs-o-up me-1\" title=\"Tykkäykset\"/>"
 
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.youtube_preview
@@ -183,6 +183,20 @@ msgid "Created on"
 msgstr "Luotu"
 
 #. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Description cannot exceed 5000 characters."
+msgstr "Kuvaus voi olla enintään 5000 merkkiä."
+
+#. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Description should not contain > or < symbol."
+msgstr "Kuvaus ei saa sisältää >- tai <-symbolia."
+
+#. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__display_name
 msgid "Display Name"
 msgstr "Näyttönimi"
@@ -290,6 +304,8 @@ msgid ""
 "Our YouTube Social application uses YouTube API Services.\n"
 "                        By using it, you implicitly agree to the:"
 msgstr ""
+"YouTube Social -sovelluksemme käyttää YouTube API -palveluita.\n"
+"                        Käyttämällä sitä hyväksyt ehdot:"
 
 #. module: social_youtube
 #. odoo-python
@@ -321,7 +337,7 @@ msgstr "Julkinen"
 #: code:addons/social_youtube/controllers/main.py:0
 #, python-format
 msgid "Read More about YouTube Channel"
-msgstr ""
+msgstr "Lue lisää YouTube-kanavasta"
 
 #. module: social_youtube
 #. odoo-python
@@ -470,6 +486,20 @@ msgid "There is no channel linked with this YouTube account."
 msgstr "Tähän YouTube-tiliin ei liity kanavaa."
 
 #. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Title cannot exceed 100 characters."
+msgstr "Otsikko saa olla enintään 100 merkkiä pitkä."
+
+#. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Title should not contain > or < symbol."
+msgstr "Otsikko ei saa sisältää >- tai <-symbolia."
+
+#. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid ""
 "To provide our application services, note that we store the following data "
@@ -521,14 +551,14 @@ msgstr "Lataus epäonnistui. Yritä uudelleen."
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Uploading... %s%"
-msgstr ""
+msgstr "Ladataan... %s%"
 
 #. module: social_youtube
 #. odoo-javascript
 #: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
 #, python-format
 msgid "Uploading... 0%"
-msgstr ""
+msgstr "Ladataan... 0%"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_res_config_settings__youtube_use_own_account
@@ -596,6 +626,13 @@ msgid "Yes, delete it"
 msgstr "Kyllä, poista se"
 
 #. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You cannot use '>' or '<' in both title and description."
+msgstr "Et voi käyttää '>' tai '<' sekä otsikossa että kuvauksessa."
+
+#. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_media.py:0
 #, python-format
@@ -608,6 +645,20 @@ msgstr "Sinulla ei ole aktiivista tilausta. Osta se täältä: %s"
 #, python-format
 msgid "You have to upload a video when posting on YouTube."
 msgstr "Sinun on ladattava video, kun julkaiset videon YouTubessa."
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You need to give your video a description."
+msgstr "Sinun on annettava videolle kuvaus."
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You need to give your video a title."
+msgstr "Sinun on annettava videolle otsikko."
 
 #. module: social_youtube
 #: model:ir.model.fields.selection,name:social_youtube.selection__social_media__media_type__youtube
@@ -689,7 +740,7 @@ msgstr "YouTube-vaihtoehdot"
 #. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.youtube_preview
 msgid "YouTube Placeholder"
-msgstr ""
+msgstr "YouTube-paikanvaraaja"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_post__youtube_preview
@@ -774,6 +825,20 @@ msgstr "YouTube ei antanut voimassa olevaa valtuutuskoodia."
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "Your channel name and picture"
 msgstr "Kanavasi nimi ja kuva"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "Your description cannot exceed 5000 characters."
+msgstr "Kuvaus saa olla enintään 5000 merkkiä pitkä."
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "Your title cannot exceed 100 characters."
+msgstr "Otsikko ei saa ylittää 100 merkkiä."
 
 #. module: social_youtube
 #. odoo-python

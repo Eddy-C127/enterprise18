@@ -148,7 +148,7 @@ msgstr "<i class=\"fa fa-print\"/> Tulosta viivakoodien demoarkki"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print storage locations"
-msgstr ""
+msgstr "<i class=\"fa fa-print\"/> Tulosta varastointipaikat"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -192,7 +192,7 @@ msgstr "Joka tuotteiden ryhmän jälkeen"
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #, python-format
 msgid "All products have been returned already"
-msgstr ""
+msgstr "Kaikki tuotteet on jo palautettu"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -242,14 +242,14 @@ msgstr "Vahvista"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
 msgid "Are you sure you want to cancel this operation?"
-msgstr ""
+msgstr "Haluatko varmasti peruuttaa tämän toimenpiteen?"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 #, python-format
 msgid "Backorder"
-msgstr ""
+msgstr "Jälkitoimitus"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_backorder_confirmation
@@ -283,7 +283,7 @@ msgstr "Viivakoodi Varaston asiakkaan toiminta"
 #: code:addons/stock_barcode/static/src/components/manual_barcode.js:0
 #, python-format
 msgid "Barcode Manual Entry"
-msgstr ""
+msgstr "Viivakoodin manuaalinen syöttö"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
@@ -321,7 +321,7 @@ msgstr ""
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
 #, python-format
 msgid "Barcodes are not available."
-msgstr ""
+msgstr "Viivakoodeja ei ole saatavilla."
 
 #. module: stock_barcode
 #: model:product.template,name:stock_barcode.product_cable_management_box_2_product_template
@@ -347,7 +347,7 @@ msgstr "Peruuta toiminto"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Cancel Transfer"
-msgstr ""
+msgstr "Peruuta siirto"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
@@ -359,7 +359,7 @@ msgstr "Peruuta toiminto"
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #, python-format
 msgid "Cancel this operation?"
-msgstr ""
+msgstr "Peruutetaanko tämä operaatio?"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -477,6 +477,8 @@ msgid ""
 "Do you want to permanently remove this message ? It won't appear anymore, so"
 " make sure you don't need the barcodes sheet or you have a copy."
 msgstr ""
+"Haluatko poistaa tämän viestin pysyvästi ? Se ei tule enää näkyviin, joten "
+"varmista, ettet tarvitse viivakoodeja tai että sinulla on niistä kopio."
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__restrict_put_in_pack
@@ -509,7 +511,7 @@ msgstr "Älä näytä tätä viestiä uudelleen"
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 #, python-format
 msgid "Done /"
-msgstr ""
+msgstr "Tehty /"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -540,14 +542,14 @@ msgstr "Lopullinen vahvistus"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Following backorder was created:"
-msgstr ""
+msgstr "Luotiin seuraava jälkitoimitus:"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Following backorders were created:"
-msgstr ""
+msgstr "Luotiin seuraavat jälkitoimitukset:"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
@@ -587,12 +589,12 @@ msgstr "Pakta laittaminen pakettiin?"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__hide_lot
 msgid "Hide Lot"
-msgstr ""
+msgstr "Piilota erä"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__hide_lot_name
 msgid "Hide Lot Name"
-msgstr ""
+msgstr "Piilota erän nimi"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__id
@@ -617,6 +619,7 @@ msgstr ""
 msgid ""
 "If you validate now, the remaining products will be added to a backorder."
 msgstr ""
+"Jos vahvistat nyt, jäljellä olevat tuotteet lisätään jälkitoimitukseen."
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__image_1920
@@ -634,7 +637,7 @@ msgstr "In #{kanban_getcolorname(record.color.raw_value)}"
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.js:0
 #, python-format
 msgid "Incomplete Transfer"
-msgstr ""
+msgstr "Puutteellinen siirto"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_move_line__product_barcode
@@ -654,7 +657,7 @@ msgstr "Inventaario & saldomuutos"
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "Inventory Adjustments ("
-msgstr ""
+msgstr "Varaston oikaisut ("
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_location
@@ -664,7 +667,7 @@ msgstr "Inventaariopaikat"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__is_barcode_picking_type
 msgid "Is Barcode Picking Type"
-msgstr ""
+msgstr "Onko viivakoodi poimintatyyppi"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__write_uid
@@ -772,7 +775,7 @@ msgstr "Ei viivakoodia vastaavaa poimintaa tai tuotetta %(barcode)s"
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #, python-format
 msgid "No product, lot or package found for barcode %s"
-msgstr ""
+msgstr "Viivakoodille %s ei löytynyt tuotetta, erää tai pakkausta"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_nomenclature_id
@@ -855,7 +858,7 @@ msgstr "Ylempi paikka"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__parent_location_dest_id
 msgid "Parent Location Dest"
-msgstr ""
+msgstr "Ylemmän tason sijainnin kohde"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_backorder_confirmation__partial_move_count
@@ -905,7 +908,7 @@ msgstr "Paina Vahvista tai skannaa toinen tuote"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Print Barcodes"
-msgstr ""
+msgstr "Tulosta viivakoodit"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -965,7 +968,7 @@ msgstr "Tuotepakkaukset"
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_reference_code
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_quant__product_reference_code
 msgid "Product Reference Code"
-msgstr ""
+msgstr "Tuotteen viitekoodi"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_stock_quant_ids
@@ -997,7 +1000,7 @@ msgstr "Lisää pakettiin"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__qty_done
 msgid "Qty Done"
-msgstr ""
+msgstr "Määrä tehty"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -1041,6 +1044,7 @@ msgid ""
 "Returns can only be created for pickings that are done, please validate "
 "first."
 msgstr ""
+"Palautuksia voidaan luoda vain jo tehdyille poiminnoille, vahvista ne ensin."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1172,7 +1176,7 @@ msgstr "Skannaa tuote ja sitten määränpää"
 #, python-format
 msgid ""
 "Scan a product, a lot/serial number or a package to filter the transfers."
-msgstr ""
+msgstr "Skannaa tuote, erä-/sarjanumero tai pakkaus suodattaaksesi siirrot."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1349,7 +1353,7 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scanning package"
-msgstr ""
+msgstr "Skannataan pakettia"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1399,7 +1403,7 @@ msgstr "Lähdepakkaus"
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 #, python-format
 msgid "Stay on transfer"
-msgstr ""
+msgstr "Pysy siirrossa"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_package_type
@@ -1419,6 +1423,9 @@ msgid ""
 "Technical field indicating if should be used in barcode app and used to "
 "control visibility in the related UI."
 msgstr ""
+"Tekninen kenttä, joka osoittaa, onko sitä käytettävä "
+"viivakoodisovelluksessa, ja jota käytetään näkyvyyden ohjaamiseen siihen "
+"liittyvässä käyttöliittymässä."
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__show_barcode_validation
@@ -1443,7 +1450,7 @@ msgstr "Varaston oikaisu on vahvistettu"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "The scanned location doesn't belong to this operation's location"
-msgstr ""
+msgstr "Skannattu sijainti ei kuulu tämän operaation sijaintiin"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1550,7 +1557,7 @@ msgstr "Siirtojen avulla voit siirtää tuotteita paikasta toiseen."
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
 #, python-format
 msgid "Type barcode you want to scan here"
-msgstr ""
+msgstr "Kirjoita skannattava viivakoodi tähän"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -1568,7 +1575,7 @@ msgstr "Yksikkö"
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
 #, python-format
 msgid "Use camera to scan"
-msgstr ""
+msgstr "Käytä kameraa skannaukseen"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1623,6 +1630,8 @@ msgid ""
 "You are about to take the product %(productName)s from the location %(locationName)s but this product isn't reserved in this location.\n"
 "Scan the current location to confirm that."
 msgstr ""
+"Olet ottamassa tuotetta %(productName)s paikasta %(locationName)s, mutta tuotetta ei ole varattu tähän paikkaan.\n"
+"Vahvista toimenpide skannaamalla nykyinen sijainti."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1671,6 +1680,8 @@ msgid ""
 "You have already scanned %s items of this package. Do you want to scan the "
 "whole package?"
 msgstr ""
+"Olet jo skannannut %s kohdetta tästä paketista. Haluatko skannata koko "
+"paketin?"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation
@@ -1696,14 +1707,14 @@ msgstr "Sinun on skannattava tuote"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "[${product.code}] "
-msgstr ""
+msgstr "[${product.code}]"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "commands and operation types"
-msgstr ""
+msgstr "komennot ja toimintatyypit"
 
 #. module: stock_barcode
 #. odoo-javascript

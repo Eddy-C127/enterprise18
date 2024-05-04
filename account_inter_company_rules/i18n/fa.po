@@ -8,6 +8,7 @@
 # Hanna Kheradroosta, 2023
 # Martin Trigaux, 2023
 # Hamed Mohammadi <hamed@dehongi.com>, 2024
+# Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Hamed Mohammadi <hamed@dehongi.com>, 2024\n"
+"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +29,7 @@ msgstr ""
 #: code:addons/account_inter_company_rules/models/account_move.py:0
 #, python-format
 msgid "%s Invoice: %s"
-msgstr ""
+msgstr "%s فاکتور: %s"
 
 #. module: account_inter_company_rules
 #: model:ir.model,name:account_inter_company_rules.model_account_move_send
@@ -47,7 +48,7 @@ msgstr "سند خودکار تولید شده"
 #: code:addons/account_inter_company_rules/models/account_move.py:0
 #, python-format
 msgid "Automatically generated from %(origin)s of company %(company)s."
-msgstr ""
+msgstr "به صورت خودکار از %(origin)s شرکت %(company)s صادر شده است."
 
 #. module: account_inter_company_rules
 #: model:ir.model,name:account_inter_company_rules.model_res_company
@@ -63,12 +64,12 @@ msgstr "تنظیمات پیکربندی"
 #: model:ir.model.fields,field_description:account_inter_company_rules.field_res_company__intercompany_user_id
 #: model:ir.model.fields,field_description:account_inter_company_rules.field_res_config_settings__intercompany_user_id
 msgid "Create as"
-msgstr ""
+msgstr "صدور فاکتور با عنوان"
 
 #. module: account_inter_company_rules
 #: model:ir.model.fields.selection,name:account_inter_company_rules.selection__res_company__rule_type__not_synchronize
 msgid "Do not synchronize"
-msgstr ""
+msgstr "همگام‌سازی نکن"
 
 #. module: account_inter_company_rules
 #. odoo-python
@@ -80,6 +81,9 @@ msgid ""
 "new bill/invoice will be created in the first Purchase/Sales Journal of the "
 "Journals list view."
 msgstr ""
+"صدور یک صورت‌حساب/فاکتور هنگامی که شرکت فاکتور یا صورت‌حسابی را برای %s صادر"
+" می‌کند. صورت‌حساب/فاکتور جدید در اولین دفتر روزنامه‌ی خرید/فروش ایجاد "
+"می‌شود."
 
 #. module: account_inter_company_rules
 #: model_terms:ir.ui.view,arch_db:account_inter_company_rules.view_company_inter_change_inherit_form
@@ -90,7 +94,7 @@ msgstr "معاملات بین شرکتی"
 #: model:ir.model.fields,field_description:account_inter_company_rules.field_res_company__intercompany_transaction_message
 #: model:ir.model.fields,field_description:account_inter_company_rules.field_res_config_settings__intercompany_transaction_message
 msgid "Intercompany Transaction Message"
-msgstr ""
+msgstr "پیام تراکنش بین شرکتی"
 
 #. module: account_inter_company_rules
 #: model:ir.model,name:account_inter_company_rules.model_account_move
@@ -107,7 +111,7 @@ msgstr "آیتم دفترروزنامه"
 #: model:ir.model.fields,help:account_inter_company_rules.field_res_config_settings__intercompany_user_id
 msgid ""
 "Responsible user for creation of documents triggered by intercompany rules."
-msgstr ""
+msgstr "کاربر مسئول ایجاد اسناد طبق قوانین بین شرکتی."
 
 #. module: account_inter_company_rules
 #: model:ir.model.fields,field_description:account_inter_company_rules.field_res_company__rule_type
@@ -125,6 +129,7 @@ msgstr "انتخاب شرکت"
 #: model:ir.model.fields,help:account_inter_company_rules.field_res_config_settings__rule_type
 msgid "Select the type to setup inter company rules in selected company."
 msgstr ""
+"نوع قوانین بین شرکتی که باید در شرکت انتخاب شده رعایت شوند را مشخص کنید."
 
 #. module: account_inter_company_rules
 #: model:ir.model.fields,field_description:account_inter_company_rules.field_account_bank_statement_line__auto_invoice_id
@@ -136,4 +141,4 @@ msgstr "فاکتور منبع"
 #. module: account_inter_company_rules
 #: model:ir.model.fields.selection,name:account_inter_company_rules.selection__res_company__rule_type__invoice_and_refund
 msgid "Synchronize invoices/bills"
-msgstr ""
+msgstr "همگام‌سازی فاکتورها/صورت‌حساب‌ها"

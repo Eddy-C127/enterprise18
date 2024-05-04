@@ -5,7 +5,6 @@
 # Translators:
 # Wil Odoo, 2023
 # Iran Villalobos López, 2023
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Fernanda Alvarez, 2024
 # 
 msgid ""
@@ -42,18 +41,18 @@ msgid ""
 "        "
 msgstr ""
 "<div>\n"
-"            <p>Hubo un error en la sincronización del pedido de Amazon con referencia <t t-out=\"ctx.get('amazon_order_ref') or ''\">REF</t> y no se pudo completar.</p>\n"
-"            <p>A menos que se cancele el pedido en SellerCentral, no se intentará ninguna otra sincronización.</p>\n"
-"            <p>Para programar un nuevo intento de sincronización, siga este procedimiento:\n"
+"            <p>Ocurrió un error en la sincronización del pedido de Amazon con referencia <t t-out=\"ctx.get('amazon_order_ref') or ''\">REF</t> y no se pudo completar.</p>\n"
+"            <p>No se intentará realizar ninguna otra sincronización a menos que el pedido se cancele en Seller Central.</p>\n"
+"            <p>Siga este procedimiento para programar un nuevo intento de sincronización:\n"
 "                <ol>\n"
 "                    <li>Ingrese a las herramientas de desarrollador.</li>\n"
 "                    <li>Abra el formulario de la cuenta de Amazon en la que se realizó el pedido.</li>\n"
-"                    <li>Vaya a la pestaña de seguimiento de pedidos.</li>\n"
+"                    <li>Vaya a la pestaña de seguimiento de órdenes.</li>\n"
 "                    <li>Establezca una fecha para la <em>sincronización de los últimos pedidos</em> que sea anterior a la última actualización del estado del pedido.</li>\n"
 "                    <li>Guarde los cambios y haga clic en el botón<em>SINCRONIZAR PEDIDOS</em>.</li>\n"
 "                </ol>\n"
 "            </p>\n"
-"            <p>Si el problema persiste, póngase en contacto con el <a href=\"https://www.odoo.com/help/\">soporte técnico de Odoo</a>.</p>\n"
+"            <p>Si el problema continúa, póngase en contacto con el <a href=\"https://www.odoo.com/help/\">soporte de Odoo</a>.</p>\n"
 "        </div>\n"
 "        "
 
@@ -1360,7 +1359,7 @@ msgstr "La referencia de la orden a recuperar de Amazon en formato 3-7-7"
 msgid ""
 "The sales order of this delivery order is not linked to an Amazon account."
 msgstr ""
-"La orden de venta de esta orden de envío no esta vinculada a una cuenta de "
+"La orden de venta de esta orden de envío no está vinculada a una cuenta de "
 "Amazon. "
 
 #. module: sale_amazon
@@ -1445,8 +1444,8 @@ msgid ""
 "The synchronization with Amazon failed. Amazon gave us this information "
 "about the problem:"
 msgstr ""
-"Falló la sincronización con Amazon. Amazon nos proporcionó información "
-"acerca de este problema: "
+"Ocurrió un error con la sincronización con Amazon y nos proporcionó la "
+"siguiente información acerca del problema: "
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__name
@@ -1482,13 +1481,13 @@ msgid ""
 "                                          cannot be undone. Are you sure you"
 " want to proceed?"
 msgstr ""
-"Esta acción desconectará su cuenta de Odoo de su cuenta de Amazon y no se "
-"puede deshacer. ¿Está seguro que desea continuar?"
+"Esta acción desconectará su cuenta de la cuenta de Amazon y no se puede "
+"deshacer. ¿Está seguro de que desea continuar?"
 
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_stock_picking
 msgid "Transfer"
-msgstr "Transferir "
+msgstr "Trasladar"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1523,8 +1522,8 @@ msgid ""
 "Whether the available quantities of FBM products linked to this account are "
 "synchronized with Amazon."
 msgstr ""
-"Si las cantidades de productos FBM ligados a esta cuenta se sincronizan con "
-"Amazon."
+"Si las cantidades disponibles de productos FBM vinculados a esta cuenta "
+"están sincronizadas con Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_marketplace__tax_included
@@ -1557,8 +1556,8 @@ msgid ""
 "You reached the maximum number of requests for this operation; please try "
 "again later."
 msgstr ""
-"Alcanzó el número máximo de solicitudes para esta operación, vuelva a "
-"intentarlo más tarde."
+"Alcanzó el número máximo de solicitudes para esta operación, inténtelo más "
+"tarde."
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form

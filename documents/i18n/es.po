@@ -1322,7 +1322,7 @@ msgstr "Criterios"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_bounced_content
 msgid "Custom Bounced Message"
-msgstr "Mensaje rebotado personalizado"
+msgstr "Mensaje devuelto personalizado"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_request_wizard__activity_date_deadline_range_type__days
@@ -1474,7 +1474,7 @@ msgstr "Nombre del documento"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__owner_id
 msgid "Document Owner"
-msgstr "Dueño del documento"
+msgstr "Propietario del documento"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.mail_activity_plan_action_document
@@ -1979,7 +1979,7 @@ msgid ""
 "instead of the default message."
 msgstr ""
 "Si se configura, este contenido se enviará automáticamente a usuarios no "
-"autorizados en lugar del mensaje predeterminado."
+"autorizados en lugar del mensaje por defecto."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -2011,8 +2011,7 @@ msgid ""
 msgstr ""
 "Correos electrónicos entrantes enviados a la <span "
 "class=\"o_folder_description_alias\">bandeja de entrada</span> del alias del"
-" correo electrónico serán automáticamente agregados  a su bandeja de "
-"entrada."
+" correo electrónico serán automáticamente agregados a su bandeja de entrada."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__index_content
@@ -2155,13 +2154,13 @@ msgstr ""
 #: model:ir.model.fields,help:documents.field_documents_folder__user_specific
 msgid "Limit Read Groups to the documents of which they are owner."
 msgstr ""
-"Limita los grupos de lectura a los documentos de los que son propietarios."
+"Limite los grupos de lectura a los documentos de los que son propietarios."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__user_specific_write
 msgid "Limit Write Groups to the documents of which they are owner."
 msgstr ""
-"Limita los grupos de lectura a los documentos de los que son propietarios."
+"Limite los grupos de escritura a los documentos de los que son propietarios."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
@@ -2957,7 +2956,7 @@ msgstr "Establecer contacto"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__user_id
 msgid "Set Owner"
-msgstr "Establecer dueño"
+msgstr "Establecer propietario"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__tag_action_ids
@@ -2981,7 +2980,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__has_owner_activity
 msgid "Set the activity on the document owner"
-msgstr "Configura la actividad en el documento dueño"
+msgstr "Configure la actividad en el propietario del documento"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.configuration_action
@@ -3072,7 +3071,7 @@ msgstr "Etiquetas compartidas"
 #. module: documents
 #: model:ir.ui.menu,name:documents.share_menu
 msgid "Shares & Emails"
-msgstr "Veces compartido y Correos electrónicos"
+msgstr "Compartidos y correos electrónicos"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -3098,7 +3097,7 @@ msgstr "Tamaño:"
 #: code:addons/documents/static/src/views/hooks.js:0
 #, python-format
 msgid "Some files could not be uploaded (max size: %s)."
-msgstr "Algunos archivos no se pudieron cargar (tamaño máximo: %s)."
+msgstr "Algunos archivos no se pudieron subir (tamaño máximo: %s)."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.not_available
@@ -3237,7 +3236,7 @@ msgstr "Texto"
 #: model:ir.model.fields,help:documents.field_documents_facet__tooltip
 msgid "Text shown when hovering on this tag category or its tags"
 msgstr ""
-"Texto que se muestra al pasar el mouse sobre esta categoría de etiqueta o "
+"Texto que se muestra al pasar el ratón sobre esta categoría de etiquetas o "
 "sus etiquetas"
 
 #. module: documents
@@ -3279,7 +3278,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
 #, python-format
 msgid "The share url has been copied to your clipboard."
-msgstr "El URL para compartir se copió al portapapeles."
+msgstr "La URL compartida se ha copiado a su portapapeles."
 
 #. module: documents
 #. odoo-javascript
@@ -3644,15 +3643,15 @@ msgid ""
 "You can either upload a file from your computer or copy/paste an internet "
 "link to your file."
 msgstr ""
-"Puede tanto subir un archivo de su ordenador como copiar/pegar un enlace de "
-"internet a su fichero."
+"Puede subir un archivo de su ordenador o copiar/pegar un enlace de internet "
+"a su archivo."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 #, python-format
 msgid "You cannot upload content in this workspace"
-msgstr "No puede cargar contenido a este espacio de trabajo"
+msgstr "No puede subir contenido a este espacio de trabajo"
 
 #. module: documents
 #. odoo-python
@@ -3723,39 +3722,39 @@ msgstr "documentos seleccionados"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #, python-format
 msgid "download"
-msgstr "descarga"
+msgstr "descargar"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
 msgid "e.g. Discuss proposal"
-msgstr "Por ejemplo, conversación de una propuesta"
+msgstr "p. ej. Discutir propuesta"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
 msgid "e.g. Finance"
-msgstr "por ejemplo, finanzas"
+msgstr "p. ej. finanzas"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_request_form_view
 msgid "e.g. Missing Expense"
-msgstr "ej. Gasto perdido"
+msgstr "p. ej. Gasto faltante"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.facet_view_form
 msgid "e.g. Status"
-msgstr "ej. Estado"
+msgstr "p. ej. Estado"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_form
 msgid "e.g. To Validate"
-msgstr "ej. Por validad"
+msgstr "p. ej. A validar"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
 msgid "e.g. Validate document"
-msgstr "ej. Validar documento"
+msgstr "p. ej. Validar documento"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form
@@ -3766,7 +3765,7 @@ msgstr "p. ej. dominio.com"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_upload_url_view
 msgid "e.g. https://www.youtube.com/watch?v=CP96yVnXNrY"
-msgstr "ej. https://www.youtube.com/watch?v=CP96yVnXNrY"
+msgstr "p. ej. https://www.youtube.com/watch?v=CP96yVnXNrY"
 
 #. module: documents
 #. odoo-javascript
@@ -3806,7 +3805,7 @@ msgstr "seleccionar"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #, python-format
 msgid "selected"
-msgstr "seleccionado"
+msgstr "seleccionado(s)"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout

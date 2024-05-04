@@ -397,7 +397,7 @@ msgstr "تنظیمات پیکربندی"
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Contra total for batch is greater than 999,999,999.99."
-msgstr ""
+msgstr "مجموع متقابل دسته بیشتر از 999,999,999.99 است. "
 
 #. module: account_bacs
 #. odoo-python
@@ -405,22 +405,22 @@ msgstr ""
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Contra total for date %s is greater than 999,999,999.99."
-msgstr ""
+msgstr "مجموع متقابل تاریخ %s بیشتر از 999,999,999.99 است."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_payment__bacs_ddi_usable
 msgid "Could a SDD ddi be used?"
-msgstr ""
+msgstr "آیا می‌توان از یک SDD ddi استفاده کرد؟"
 
 #. module: account_bacs
 #: model_terms:ir.actions.act_window,help:account_bacs.account_bacs_direct_debit_instruction_tree_act
 msgid "Create a new BACS Direct Debit Instruction."
-msgstr ""
+msgstr "یک دستور جدید برداشت مستقیم BACS ایجاد کنید. "
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
 msgid "Create it."
-msgstr ""
+msgstr "آن را ایجاد کنید. "
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__create_uid
@@ -437,7 +437,7 @@ msgstr "ایجادشده در"
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Credit total for batch is greater than 99,999,999,999.99."
-msgstr ""
+msgstr "مجموع بستانکاری دسته بیشتر از 99,999,999,999.99 است."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__partner_id
@@ -447,12 +447,12 @@ msgstr "مشتری"
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__partner_id
 msgid "Customer whose payments are to be managed by this DDI."
-msgstr ""
+msgstr "مشتری که پرداخت‌های آن باید با این DDI مدیریت شوند."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "DDI 2 5/15"
-msgstr ""
+msgstr "DDI 2 5/15"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__start_date
@@ -464,12 +464,12 @@ msgstr "تاریخ"
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Debit total for batch is greater than 99,999,999,999.99."
-msgstr ""
+msgstr "مجموع بدهکاری دسته بیشتر از 99,999,999,999.99 است. "
 
 #. module: account_bacs
 #: model:ir.actions.report,name:account_bacs.ddi_form_report_main
 msgid "Direct Debit Instruction form"
-msgstr ""
+msgstr "فرم دستور برداشت مستقیم"
 
 #. module: account_bacs
 #: model:ir.model.constraint,message:account_bacs.constraint_bacs_ddi_name_unique
@@ -477,6 +477,8 @@ msgid ""
 "Direct Debit Instruction identifier must be unique! Please choose another "
 "one."
 msgstr ""
+"شناسه‌ی دستور برداشت مستقیم باید منحصر به فرد باشد! لطفاً شناسه‌ی دیگری "
+"انتخاب کنید."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -486,26 +488,28 @@ msgid ""
 "                            the Direct Debit Guarantee. I understand that this Instruction\n"
 "                            may remain with"
 msgstr ""
+"این دستور برداشت مستقیم از حساب تحت حفاظت ضمانت‌نامه‌ی برداشت مستقیم است. من"
+" می‌دانم که این دستور ممکن است همچنان با ... باقی بماند"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_sub_rep
 msgid "Direct debit repeating collection in a series"
-msgstr ""
+msgstr "جمع‌آوری مکرر برداشت‌های مستقیم در یک سری"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_regular
 msgid "Direct debit single collection"
-msgstr ""
+msgstr "جمع‌آوری برداشت‌‎های مستقیم تنها یک مرتبه"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_sub_fin
 msgid "Direct debit-final collection of a series"
-msgstr ""
+msgstr "جمع‌آوری نهایی یک سری برداشت‌های مستقیم"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_sub_init
 msgid "Direct debit-first collection of a series"
-msgstr ""
+msgstr "جمع‌آوری یک سری برداشت‌های مستقیم برای اولین بار"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__display_name
@@ -536,7 +540,7 @@ msgstr "آیکون فونت عالی به عبارتی fa-tasks"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
 msgid "Good news! A valid BACS Direct Debit Instruction is available."
-msgstr ""
+msgstr "خبر خوب! یک دستور برداشت مستقیم BACS موجود است. "
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__has_message
@@ -583,28 +587,29 @@ msgstr "اگر علامت زده شود، برخی از پیام ها دارای
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Instruction to your Bank or Building Society"
-msgstr ""
+msgstr "ارائه‌ی دستور به بانک یا موسسه‌ی اعتباریتان"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Instruction to your Bank or Building Society to pay by Direct Debit"
 msgstr ""
+"ارائه‌ی دستور به بانک یا موسسه‌ی اعتباری برای پرداخت از طریق برداشت مستقیم"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__paid_invoice_ids
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "Invoices Paid"
-msgstr ""
+msgstr "فاکتور های پرداخت شده"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__paid_invoice_ids
 msgid "Invoices paid using this mandate."
-msgstr ""
+msgstr "پرداخت فاکتور ها از طریق این دستور."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "Invoices paid with this DDI."
-msgstr ""
+msgstr "فاکتور های پرداخت شده با این DDI."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_is_follower
@@ -631,6 +636,8 @@ msgstr "آیتم دفترروزنامه"
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__payment_journal_id
 msgid "Journal to use to receive BACS Direct Debit payments from this DDI."
 msgstr ""
+"دفتر روزنامه‌ای که برای دریافت برداشت‌های مستقیم از این DDI مورد استفاده "
+"قرار می‌گیرد."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__write_uid
@@ -647,7 +654,7 @@ msgstr "آخرین بروز رسانی در"
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Maximum amount is %.2f."
-msgstr ""
+msgstr "حداکثر مبلغ %.2f است."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_has_error
@@ -667,12 +674,12 @@ msgstr "موعد نهای فعالیت من"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Name and full postal address of your Bank or Building Society"
-msgstr ""
+msgstr "نام و نشانی کامل پستی بانک یا موسسه‌ی اعتباری شما"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Name(s) of Account Holder(s)"
-msgstr ""
+msgstr "نام(های) صاحبان() حساب"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__activity_calendar_event_id
@@ -723,6 +730,10 @@ msgid ""
 "                    then only have to generate a BACS Direct Debit file containing this operation\n"
 "                    and send it to your bank to effectively get paid."
 msgstr ""
+"هنگامی که در اودو فاکتور ی برای مشتری دارای دستور فعال برداشت مستقیم از حساب"
+" در تاریخ فاکتور صادر می‌شود، تأیید اعتبار آن منجر به پرداخت خودکار می‌شود، "
+"پس از آن باید یک فایل برداشت مستقیم BACS ایجاد کنید که حاوی این عملیات باشد "
+"و آن را برای پرداخت به بانک ارائه دهید."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_bank_statement_line__bacs_ddi_id
@@ -732,6 +743,8 @@ msgid ""
 "Once this invoice has been paid with BACS Direct Debit, contains the DDI "
 "that allowed the payment."
 msgstr ""
+"هنگامی که فاکتور با دستور برداشت مستقیم پرداخت شود، حاوی DDI است که امکان "
+"پرداخت را فراهم می‌کند."
 
 #. module: account_bacs
 #. odoo-python
@@ -741,13 +754,15 @@ msgid ""
 "Only IBAN account numbers can receive BACS Direct Debit payments. Please "
 "select a journal associated to one."
 msgstr ""
+"تنها شماره حساب‌های بین‌المللی می‌توانند پرداخت از طریق برداشت مستقیم BACS "
+"داشته باشند."
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/bacs_direct_debit_instruction.py:0
 #, python-format
 msgid "Only mandates in draft state can be cancelled."
-msgstr ""
+msgstr "تنها می‌توان دستوراتی که به صورت پیشنویس هستند را لغو کرد."
 
 #. module: account_bacs
 #. odoo-python
@@ -756,16 +771,18 @@ msgstr ""
 msgid ""
 "Only mandates in draft state can be deleted from database when cancelled."
 msgstr ""
+"تنها می‌توان دستوراتی که به صورت پیشنویس هستند را پس از لغو از پایگاه داده "
+"حذف کرد."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
 msgid "Oops! No valid BACS Direct Debit Instruction for this customer."
-msgstr ""
+msgstr "هیچ دستور برداشت مستقیم BACS معتبری برای این مشتری وجود ندارد."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
 msgid "Originating BACS Direct Debit Instruction"
-msgstr ""
+msgstr "ایجاد یک دستور برداشت مستقیم BASC"
 
 #. module: account_bacs
 #. odoo-python
@@ -777,7 +794,7 @@ msgstr "فاکتورهای پرداخت شده"
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__paid_invoices_len
 msgid "Paid Invoices Len"
-msgstr ""
+msgstr "Len فاکتور های پرداخت شده "
 
 #. module: account_bacs
 #: model:ir.model,name:account_bacs.model_account_payment_method
@@ -793,39 +810,39 @@ msgstr "پرداخت‌ها"
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__payments_len
 msgid "Payments Len"
-msgstr ""
+msgstr "Len پرداخت‌ها"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "Payments generated for this DDI that have not yet been collected."
-msgstr ""
+msgstr "پرداخت‌های ایجاد شده برای این DDI که هنوز جمع‌آوری نشده‌اند."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__payment_ids
 msgid "Payments generated thanks to this mandate."
-msgstr ""
+msgstr "پرداخت‌های ایجاد شده طبق این دستور."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_multi_mode
 msgid "Payments in batch get processed on their individual date."
-msgstr ""
+msgstr "پرداخت‌های دسته‌ای هر کدام در تاریخ مخصوص به خود پردازش می‌شوند."
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/bacs_direct_debit_instruction.py:0
 #, python-format
 msgid "Payments to Collect"
-msgstr ""
+msgstr "پرداخت‌هایی که باید جمع‌آوری شوند"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Please fill in the whole form using a ball point pen and send it to:"
-msgstr ""
+msgstr "لطفاً کل فرم را با استفاده از خودکار پر کرده و آن را ارسال کنید:"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Please pay"
-msgstr ""
+msgstr "لطفاً پرداخت کنید"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
@@ -850,12 +867,12 @@ msgstr "کاربر مسئول"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "Revoke"
-msgstr ""
+msgstr "لغو کردن"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__bacs_ddi__state__revoked
 msgid "Revoked"
-msgstr ""
+msgstr "لغو شده"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_has_sms_error
@@ -866,43 +883,43 @@ msgstr "خطای تحویل پیامک"
 #: model:ir.model.fields,field_description:account_bacs.field_res_company__bacs_sun
 #: model:ir.model.fields,field_description:account_bacs.field_res_config_settings__bacs_sun
 msgid "Service User Number"
-msgstr ""
+msgstr "شماره‌ی کاربر سرویس"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Service user number"
-msgstr ""
+msgstr "شماره‌ی کاربر سرویس"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
 msgid "Service user number of your company within BACS"
-msgstr ""
+msgstr "شماره‌ی کاربر سرویس شرکت شما در BACS"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
 msgid "Service user number of your company within BACS, given by the bank."
-msgstr ""
+msgstr "شماره‌ی کاربر سرویس شرکت شما در BACS، که توسط بانک ارائه شده است."
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments are above the maximum amount allowed."
-msgstr ""
+msgstr "برخی پرداخت‌ها بالاتر ازحداکثر مبلغ مجاز هستند."
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments are not in GBP."
-msgstr ""
+msgstr "برخی پرداخت‌ها در GBP نیستند."
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments have no recipient bank account set."
-msgstr ""
+msgstr "برخی پرداخت‌ها هیچ حساب بانکی مشخص ندارند."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__state
@@ -935,6 +952,7 @@ msgid ""
 "The BACS Direct Debit Instruction associated to the payment has been revoked"
 " and cannot be used anymore."
 msgstr ""
+"دستور برداشت مستقیم مرتبط با پرداخت لغو شده است و دیگر قابل استفاده نیست."
 
 #. module: account_bacs
 #. odoo-python
@@ -944,6 +962,8 @@ msgid ""
 "The account %s, of journal '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use BACS features."
 msgstr ""
+"حساب %s از دفتر روزنامه‌ی%s، یک حساب بین‌المللی نیست. \n"
+"یک حساب بین‌المللی برای استفاده از ویژگی‌های BACS وجود دارد. "
 
 #. module: account_bacs
 #. odoo-python
@@ -953,11 +973,13 @@ msgid ""
 "The company '%s' requires a SUN to generate BACS files. Please configure it "
 "first."
 msgstr ""
+"شرکت %s نیازمند یک SUN برای ایجاد فایل‌های BACS است. لطفاً ابتدا آن را "
+"پیکربندی کنید."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_expiry_date
 msgid "The date on which the file will expire."
-msgstr ""
+msgstr "تااریخ انقضای فایل."
 
 #. module: account_bacs
 #. odoo-python
@@ -967,6 +989,8 @@ msgid ""
 "The journal '%s' requires a proper IBAN account to initiate a BACS Payment. "
 "Please configure it first."
 msgstr ""
+"دفتر روزنامه‌ی %s نیازمند یک حساب IBAN مناسب برای آغاز پرداخت BACS است. "
+"لطفاً ابتدا آن را پیکربندی کنید. "
 
 #. module: account_bacs
 #. odoo-python
@@ -974,7 +998,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The maximum number of BACS submissions (999) for the day has been reached."
-msgstr ""
+msgstr "تعداد واگذاری‌های BACS (999) امروز به حداکثر رسیده‌اند."
 
 #. module: account_bacs
 #. odoo-python
@@ -984,18 +1008,20 @@ msgid ""
 "The payment must be linked to a BACS Direct Debit Instruction in order to "
 "generate a Direct Debit File."
 msgstr ""
+"پرداخت باید با یک دستور برداشت مستقیم BACS مرتبط باشد تا یک فایل برداشت "
+"مستقیم ایجاد شود. "
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "The processing date cannot be in the past."
-msgstr ""
+msgstr "تاریخ پردازش نمی‌تواند مربوط به قبل باشد."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_processing_date
 msgid "The processing day of the BACS transaction."
-msgstr ""
+msgstr "روز پردازش تراکنش BACS."
 
 #. module: account_bacs
 #. odoo-python
@@ -1003,20 +1029,21 @@ msgstr ""
 #, python-format
 msgid "The selected vendor account needs to be a valid UK IBAN"
 msgstr ""
+"حساب فروشنده‌ی موردنظر باید یک حساب بین‌المللی معتبر در انگلستان باشد. "
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/res_company.py:0
 #, python-format
 msgid "The service user number must be 6 characters long."
-msgstr ""
+msgstr "شماره‌ی کاربر سرویس باید 6 رقمی باشد."
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/res_company.py:0
 #, python-format
 msgid "The service user number must be numeric."
-msgstr ""
+msgstr "شماره‌ی کاربر سیستم باید به عدد باشد. "
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__state
@@ -1026,16 +1053,21 @@ msgid ""
 "- 'active' means that this DDI can be used to pay invoices. \n"
 "- 'closed' designates a DDI that has been marked as not to use anymore without invalidating the previous transactions done with it.- 'revoked' means the DDI has been signaled as fraudulent by the customer. It cannot be used anymore, and should not ever have been. You will probably need to refund the related invoices, if any.\n"
 msgstr ""
+"وضعیت این DDI.\n"
+"- وضعیت «پیشنویس» یعنی این DDI باید پیش از قابل استفاده بودن تأیید شود. \n"
+"- «فعال» یعنی این DDI می‌تواند برای پرداخت فاکتورها استفاده شود.\n"
+"- وضعیت «بسته»، DDI را ایجاد می‌کند که بدون تأیید اعتبار تراکنش‌های قبلی انجام شده با آن قابل استفاده نیست. \n"
+"- «لغو شده» یعنی مشتری DDI را تقلبی اعلام کرده است. دیگر نمی‌توان از آن استفاده کرد و نباید تا به حال از  آن استفاده می‌شد. شاید نیاز باشد فاکتور های مربوطه مسترد شوند. \n"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__name
 msgid "The unique identifier of this DDI."
-msgstr ""
+msgstr "شناسه‌ی منحصر به فرد این DDI. "
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "This guarantee should be detached and retained by the payer."
-msgstr ""
+msgstr "این ضمانت‌نامه باید جدا شده و توسط پرداخت‌کننده نگهداری شود."
 
 #. module: account_bacs
 #. odoo-python
@@ -1043,7 +1075,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Trying to register a payment on a DDI belonging to a different partner."
-msgstr ""
+msgstr "تلاش برای ثبت یک پرداخت روی DDI متعلق به یک طرف دیگر."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__activity_exception_decoration
@@ -1059,6 +1091,9 @@ msgid ""
 "date %(date)s for partner %(partner)r. Please create one before encoding a "
 "BACS Direct Debit payment."
 msgstr ""
+"امکان ثبت پرداخت %(payment)r وجود ندارد زیرا هیچ DDI قابل استفاده‌ای در "
+"تاریخ %(date)s برای طرف دیگر %(partner)r وجود ندارد. لطفاً پیش از کدگذاری یک"
+" پرداخت مستقیم BACS آن را ایجاد کنید."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
@@ -1083,6 +1118,8 @@ msgid ""
 "You cannot delete a bank account linked to an active BACS Direct Debit "
 "Instruction."
 msgstr ""
+"شما نمی‌توانید یک حساب بانکی مرتبط با یک دستور برداشت مستقیم BACS فعال را "
+"حذف کنید. "
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -1090,3 +1127,5 @@ msgid ""
 "and, if so, details will be passed\n"
 "                            electronically to my Bank/Building Society."
 msgstr ""
+"و در این صورت، جزئیات به صورت الکترونیکی به بانک یا موسسه‌ی اعتباری من ارسال"
+" شوند."

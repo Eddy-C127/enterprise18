@@ -11,15 +11,15 @@
 # Heikki Katajisto <heikki.katajisto@myyntivoima.fi>, 2023
 # Miku Laitinen <miku.laitinen@gmail.com>, 2023
 # Martin Trigaux, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:22+0000\n"
+"POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,6 +45,8 @@ msgid ""
 "<i class=\"oi oi-arrow-right\"/>\n"
 "                                Sign up to MapBox to get a free token"
 msgstr ""
+"<i class=\"oi oi-arrow-right\"/>\n"
+"                                Rekisteröidy MapBoxiin saadaksesi ilmaisen pääsytunnisteen"
 
 #. module: web_map
 #: model:ir.model,name:web_map.model_ir_actions_act_window_view
@@ -119,7 +121,7 @@ msgstr "Kartta"
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
 msgid "Map Routes"
-msgstr ""
+msgstr "Karttareitit"
 
 #. module: web_map
 #. odoo-javascript
@@ -140,7 +142,7 @@ msgstr "Nimi"
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid "Navigate to"
-msgstr ""
+msgstr "Siirry osoitteeseen"
 
 #. module: web_map
 #: model:ir.model.fields,help:web_map.field_res_config_settings__map_box_token
@@ -235,6 +237,8 @@ msgid ""
 "To get routing on your map, you first need to set up your MapBox token. It's"
 " free."
 msgstr ""
+"Jotta saat reitityksen kartalle, sinun on ensin määritettävä MapBox-"
+"pääsytunniste. Se on maksuton."
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
@@ -251,7 +255,7 @@ msgstr "Map Boxin pääsytunniste"
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 #, python-format
 msgid "Token invalid"
-msgstr "Pääsytunniste on virheellinen."
+msgstr "Pääsytunniste on virheellinen"
 
 #. module: web_map
 #. odoo-javascript
@@ -303,8 +307,6 @@ msgstr "Näytä"
 #. module: web_map
 #: model:ir.model.fields,field_description:web_map.field_ir_actions_act_window_view__view_mode
 #: model:ir.model.fields,field_description:web_map.field_ir_ui_view__type
-#: model:ir.model.fields,field_description:web_map.field_website_controller_page__type
-#: model:ir.model.fields,field_description:web_map.field_website_page__type
 msgid "View Type"
 msgstr "Näkymän tyyppi"
 

@@ -7,7 +7,7 @@
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
 # Marko Happonen <marko.happonen@sprintit.fi>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,7 +74,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_company__copy_lots_delivery
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_config_settings__copy_lots_delivery
 msgid "Copy Lots on Delivery Validation"
-msgstr ""
+msgstr "Kopioi erät toimituksen vahvistuksessa"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,help:sale_purchase_inter_company_rules.field_res_company__warehouse_id
@@ -94,6 +94,8 @@ msgid ""
 "Generate a %(validation)s %(generated_object)s using warehouse %(warehouse)s"
 " when a company confirms a %(event_type)s for %(company)s."
 msgstr ""
+"Luo %(validation)s %(generated_object)s käyttäen varastoa %(warehouse)s, kun"
+" yritys vahvistaa %(event_type)s %(company)s:lle."
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
@@ -103,6 +105,8 @@ msgid ""
 "Generate a %(validation)s %(generated_object)s when a company confirms a "
 "%(event_type)s for %(company)s."
 msgstr ""
+"Luo %(validation)s %(generated_object)s, kun yritys vahvistaa %(event_type)s"
+" %(company)s:lle."
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python

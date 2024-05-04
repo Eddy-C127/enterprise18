@@ -9,7 +9,7 @@
 # Martin Trigaux, 2023
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2023
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,19 +67,19 @@ msgstr "Kustannuspaikka"
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_run_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_view_form
 msgid "Are you sure you want to proceed?"
-msgstr ""
+msgstr "Haluatko varmasti jatkaa?"
 
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.res_config_settings_view_form
 msgid "Batch Account Move Lines"
-msgstr ""
+msgstr "Tilisiirtorivien eräsiirto"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__batch_payroll_move_lines
 #: model:ir.model.fields,field_description:hr_payroll_account.field_res_company__batch_payroll_move_lines
 #: model:ir.model.fields,field_description:hr_payroll_account.field_res_config_settings__batch_payroll_move_lines
 msgid "Batch Payroll Move Lines"
-msgstr ""
+msgstr "Palkanlaskentasiirtorivien eräkäsittely"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_res_company
@@ -130,6 +130,9 @@ msgid ""
 "into a single account move line. This will anonymize the accounting entries "
 "but also disable single payment generations."
 msgstr ""
+"Ota tämä käyttöön, jos haluat yhdistää kaikki saman jakson "
+"kirjanpitokirjaukset yhdeksi tilisiirtoriviksi. Tämä anonymisoi "
+"kirjanpitomerkinnät, mutta estää myös yksittäisten maksujen syntymisen."
 
 #. module: hr_payroll_account
 #. odoo-python
@@ -157,7 +160,7 @@ msgstr ""
 #: code:addons/hr_payroll_account/models/account_chart_template.py:0
 #, python-format
 msgid "No existing account for code %s"
-msgstr ""
+msgstr "Tilille %s ei löydy olemassa olevaa koodia"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__not_computed_in_net
@@ -188,7 +191,7 @@ msgstr "Palkkalaskelma"
 #: code:addons/hr_payroll_account/wizard/account_payment_register.py:0
 #, python-format
 msgid "Payment done at %s"
-msgstr ""
+msgstr "Maksu suoritettu %s"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_account_payment
@@ -206,7 +209,7 @@ msgstr "Kirjaa maksu"
 #: code:addons/hr_payroll_account/models/account_chart_template.py:0
 #, python-format
 msgid "SLR"
-msgstr ""
+msgstr "SLR"
 
 #. module: hr_payroll_account
 #. odoo-python
@@ -244,14 +247,14 @@ msgstr "Kulupäiväkirjalle \"%s\" ei ole määrittänyt oletustiliä oikein!"
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 #, python-format
 msgid "The credit account on the NET salary rule is not reconciliable"
-msgstr ""
+msgstr "Nettopalkkasäännön hyvitystili ei ole täsmäytettävissä"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 #, python-format
 msgid "The employee bank account is untrusted"
-msgstr ""
+msgstr "Työntekijän pankkitili on epäluotettava"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,help:hr_payroll_account.field_hr_salary_rule__not_computed_in_net
@@ -271,4 +274,4 @@ msgstr ""
 #: code:addons/hr_payroll_account/models/account_journal.py:0
 #, python-format
 msgid "You cannot delete the journal linked to a Salary Structure"
-msgstr ""
+msgstr "Palkkarakenteeseen liittyvää päiväkirjaa ei voi poistaa"

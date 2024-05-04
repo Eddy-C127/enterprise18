@@ -21,7 +21,7 @@
 # Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2023
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,12 +64,12 @@ msgstr "<b>Tapahtui virhe, kun yritit yhdistää tilisi</b>"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 msgid "<i class=\"fa fa-globe ms-1\" title=\"See the post\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-globe ms-1\" title=\"Katso viestiä\"/>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_http_error_view
 msgid "<i class=\"oi oi-arrow-left\"/> Go back to Odoo"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-left\"/> Palaa takaisin Odoon"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
@@ -79,7 +79,7 @@ msgstr "<small class=\"pe-1\">Klikkaa:</small>"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "<small class=\"pe-1\">Engagement:</small>"
-msgstr ""
+msgstr "<small class=\"pe-1\">Sitoutuminen:</small>"
 
 #. module: social
 #. odoo-javascript
@@ -274,7 +274,7 @@ msgstr ""
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__can_link_accounts
 msgid "Can link accounts?"
-msgstr ""
+msgstr "Voiko tilejä yhdistää?"
 
 #. module: social
 #. odoo-javascript
@@ -506,6 +506,8 @@ msgid ""
 "Enable this option and load demo data to test the social module. This must "
 "never be used on a production database!"
 msgstr ""
+"Ota tämä vaihtoehto käyttöön ja lataa demotiedot sosiaalisen moduulin "
+"testaamiseksi. Tätä ei saa koskaan käyttää tuotantotietokannassa!"
 
 #. module: social
 #. odoo-javascript
@@ -711,7 +713,7 @@ msgstr "Näkemykset"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__is_author
 msgid "Is Author"
-msgstr ""
+msgstr "On kirjoittaja"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_is_follower
@@ -943,7 +945,7 @@ msgstr "Viesti on julkaistu"
 #, python-format
 msgid ""
 "Message posted partially. These are the ones that couldn't be posted:%s"
-msgstr ""
+msgstr "Viesti lähetetty osittain. Seuraavia ei voitu lähettää:%s"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_ids
@@ -1535,6 +1537,8 @@ msgid ""
 "Something went wrong while posting the comment. \n"
 "%s"
 msgstr ""
+"Jokin meni pieleen kommenttia lähetettäessä.\n"
+"%s"
 
 #. module: social
 #. odoo-javascript
@@ -1774,6 +1778,8 @@ msgid ""
 "Use your own Developer Accounts on our Social app. Those credentials are "
 "provided in the developer section of your professional social media account."
 msgstr ""
+"Käytä omia kehittäjätilejäsi sosiaalisessa sovelluksessamme. Nämä tunnukset "
+"annetaan ammatillisen sosiaalisen median tilisi kehittäjäosiossa."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__media_type
@@ -1882,14 +1888,14 @@ msgstr ""
 #: code:addons/social/models/social_post.py:0
 #, python-format
 msgid "You cannot reschedule a post that has already been posted."
-msgstr ""
+msgstr "Et voi uudelleenaikatauluttaa jo julkaistua viestiä."
 
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
 #, python-format
 msgid "You cannot schedule a post in the past."
-msgstr ""
+msgstr "Et voi ajoittaa viestiä menneisyyteen."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
