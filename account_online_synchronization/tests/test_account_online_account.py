@@ -62,6 +62,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                     'amount': 10.0,
                     'online_account_id': self.account_online_account.id,
                     'journal_id': self.euro_bank_journal.id,
+                    'company_id': self.euro_bank_journal.company_id.id,
                     'partner_name': None,
                 },
                 {
@@ -71,6 +72,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                     'amount': 10.0,
                     'online_account_id': self.account_online_account.id,
                     'journal_id': self.euro_bank_journal.id,
+                    'company_id': self.euro_bank_journal.company_id.id,
                     'partner_name': None,
                 },
             ]
@@ -93,6 +95,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                     'amount': -25.0,
                     'online_account_id': self.account_online_account.id,
                     'journal_id': self.euro_bank_journal.id,
+                    'company_id': self.euro_bank_journal.company_id.id,
                     'partner_name': None,
                 },
             ]
@@ -127,6 +130,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                         'partner_name': None,
                         'online_account_id': self.account_online_account.id,
                         'journal_id': self.euro_bank_journal.id,
+                        'company_id': self.euro_bank_journal.company_id.id,
                     },
                     {
                         'payment_ref': 'transaction_ABCD02',
@@ -136,6 +140,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                         'partner_name': None,
                         'online_account_id': self.account_online_account.id,
                         'journal_id': self.euro_bank_journal.id,
+                        'company_id': self.euro_bank_journal.company_id.id,
                     }
                 ],
                 'pendings': [
@@ -147,6 +152,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                         'partner_name': None,
                         'online_account_id': self.account_online_account.id,
                         'journal_id': self.euro_bank_journal.id,
+                        'company_id': self.euro_bank_journal.company_id.id,
                     },
                     {
                         'payment_ref': 'transaction_ABCD04_pending',
@@ -156,6 +162,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
                         'partner_name': None,
                         'online_account_id': self.account_online_account.id,
                         'journal_id': self.euro_bank_journal.id,
+                        'company_id': self.euro_bank_journal.company_id.id,
                     }
                 ]
             }

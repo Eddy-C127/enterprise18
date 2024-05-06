@@ -268,6 +268,7 @@ class AccountOnlineAccount(models.Model):
                 'date': fields.Date.from_string(transaction['date']),
                 'online_account_id': self.id,
                 'journal_id': self.journal_ids[0].id,
+                'company_id': self.company_id.id,
             })
         return formatted_transactions
 
