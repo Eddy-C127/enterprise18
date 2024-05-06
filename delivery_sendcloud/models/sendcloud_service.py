@@ -136,7 +136,7 @@ class SendCloud:
         ''' Returns pdf content of document to print '''
         self.logger(f'get {url}', 'sendcloud get document')
         try:
-            res = self.session.request(method='get', url=url, timeout=15)
+            res = self.session.request(method='get', url=url, timeout=60)
         except Exception as err:
             self.logger(str(err), f'sendcloud response {url}')
             raise UserError(_('Something went wrong, please try again later!!'))
@@ -267,7 +267,7 @@ class SendCloud:
         if method not in ['get', 'post']:
             raise Exception(f'Unhandled request method {method}')
         try:
-            res = self.session.request(method=method, url=url, json=data, params=params, timeout=15)
+            res = self.session.request(method=method, url=url, json=data, params=params, timeout=60)
             self.logger(f'{res.status_code} {res.text}', f'sendcloud response {endpoint}')
             res = res.json()
         except Exception as err:
