@@ -50,8 +50,8 @@
                 </setting>
             </xpath>
 
-            <setting id="post_bank_transactions_and_payments_setting" position="before">
-                <setting string="Post Deferred Expense Entries in:" company_dependent="1">
+            <setting id="post_bank_transactions_and_payments_setting" position="after">
+                <setting string="Deferred entries:" company_dependent="1">
                     <div class="content-group">
                         <div class="row mt8">
                             <label for="deferred_expense_journal_id" class="col-lg-5 o_light_label" string="Journal"/>
