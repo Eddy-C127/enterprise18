@@ -28,6 +28,7 @@ class TestSaleSubscriptionProjectProfitability(TestSubscriptionCommon, TestProje
             'name': 'Subscription template without discount',
             'note': "This is the template description",
             'plan_id': cls.plan_month.id,
+            'company_id': False,
             'sale_order_template_line_ids': [Command.create({
                 'name': "Product 1",
                 'product_id': cls.product_no_tax.id,
