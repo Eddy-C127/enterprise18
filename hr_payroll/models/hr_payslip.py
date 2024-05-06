@@ -249,7 +249,7 @@ class HrPayslip(models.Model):
                     if not slip.struct_id.rule_ids.filtered(lambda r: r.active and r.code == attachment_types[deduction_type].code):
                         continue
                     attachments = valid_attachments.filtered(lambda a: a.deduction_type_id.code == deduction_type)
-                    amount = sum(attachments.mapped('active_amount'))
+                    amount = attachments._get_active_amount()
                     name = ', '.join(attachments.mapped('description'))
                     input_type_id = attachment_types[deduction_type].id
                     input_line_vals.append(Command.create({
@@ -389,6 +389,13 @@ class HrPayslip(models.Model):
         if any(payslip.date_from > payslip.date_to for payslip in self):
             raise ValidationError(_("Payslip 'Date From' must be earlier than 'Date To'."))
 
+    def _record_attachment_payment(self, attachments, slip_lines):
+        self.ensure_one()
+        if self.credit_note:
+            attachments.record_payment(-abs(slip_lines.total))
+        else:
+            attachments.record_payment(abs(slip_lines.total))
+
     def write(self, vals):
         res = super().write(vals)
 
@@ -405,10 +412,7 @@ class HrPayslip(models.Model):
                     salary_lines = slip.line_ids.filtered(lambda r: r.code in input_lines.mapped('code'))
                     if not attachments or not salary_lines:
                         continue
-                    if slip.credit_note:
-                        attachments.record_payment(-abs(salary_lines.total))
-                    else:
-                        attachments.record_payment(abs(salary_lines.total))
+                    slip._record_attachment_payment(attachments, salary_lines)
         return res
 
     def action_payslip_draft(self):
@@ -454,8 +458,11 @@ class HrPayslip(models.Model):
                     template.send_mail(payslip.id, email_layout_xmlid='mail.mail_notification_light')
         self.env['ir.attachment'].sudo().create(attachments_vals_list)
 
+    def _filter_out_of_contracts_payslips(self):
+        return self.filtered(lambda p: p.contract_id and (p.contract_id.date_start > p.date_to or (p.contract_id.date_end and p.contract_id.date_end < p.date_from)))
+
     def action_payslip_done(self):
-        invalid_payslips = self.filtered(lambda p: p.contract_id and (p.contract_id.date_start > p.date_to or (p.contract_id.date_end and p.contract_id.date_end < p.date_from)))
+        invalid_payslips = self._filter_out_of_contracts_payslips()
         if invalid_payslips:
             raise ValidationError(_('The following employees have a contract outside of the payslip period:\n%s', '\n'.join(invalid_payslips.mapped('employee_id.name'))))
         if any(slip.contract_id.state == 'cancel' for slip in self):
@@ -816,6 +823,10 @@ class HrPayslip(models.Model):
             rule_name = rule.with_context(lang=employee_lang).name
         return rule_name
 
+    def _get_payslip_line_total(self, amount, quantity, rate, rule):
+        self.ensure_one()
+        return amount * quantity * rate / 100.0
+
     def _get_payslip_lines(self):
         line_vals = []
         for payslip in self:
@@ -850,7 +861,7 @@ class HrPayslip(models.Model):
                         for multi_line_rule in localdict['same_type_input_lines'][rule.code]:
                             localdict['inputs'][rule.code] = multi_line_rule
                             amount, qty, rate = rule._compute_rule(localdict)
-                            tot_rule = amount * qty * rate / 100.0
+                            tot_rule = payslip._get_payslip_line_total(amount, qty, rate, rule)
                             localdict = rule.category_id._sum_salary_rule_category(localdict,
                                                                                    tot_rule)
                             rule_name = payslip._get_rule_name(localdict, rule, employee_lang)
@@ -872,7 +883,7 @@ class HrPayslip(models.Model):
                         #check if there is already a rule computed with that code
                         previous_amount = localdict.get(rule.code, 0.0)
                         #set/overwrite the amount computed for this rule in the localdict
-                        tot_rule = amount * qty * rate / 100.0
+                        tot_rule = payslip._get_payslip_line_total(amount, qty, rate, rule)
                         localdict[rule.code] = tot_rule
                         result_rules_dict[rule.code] = {'total': tot_rule, 'amount': amount, 'quantity': qty, 'rate': rate}
                         rules_dict[rule.code] = rule
