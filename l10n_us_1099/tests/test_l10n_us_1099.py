@@ -1,4 +1,5 @@
 # coding: utf-8
+from odoo import Command
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.tests import tagged
 
@@ -148,3 +149,108 @@ class Test1099(AccountTestInvoicingCommon):
         )
         self.assertEqual(csv_content[1], expected_line, "Wizard did not generate the expected line for the 1099 vendor.")
         self.assertEqual(len(csv_content), 2, "Wizard should exactly generate the two lines above.")
+
+    @freeze_time("2021-02-10")
+    def test_1099_wizard_manual_export_lines(self):
+        """ Test that lines added manually are computed correctly for 2 vendors """
+        vendor_x = self.env['res.partner'].create({
+            'name': 'Vendor X',
+            'street': '123 Test street',
+            'street2': '#6666',
+            'city': 'Brooklyn',
+            'state_id': self.env.ref('base.state_us_27').id,
+            'zip': '11202',
+            'country_id': self.env.ref('base.us').id,
+            'vat': '192837465',
+            'email': 'vendor_x@example.com',
+            'box_1099_id': self.env.ref('l10n_us_1099.box_1099_misc_03').id,
+        })
+        # create a first move for "1099 vendor"
+        move_1 = self.env['account.move'].create({
+            'date': '2020-06-06',
+            'line_ids': [
+                Command.create({
+                    'name': 'debit',
+                    'partner_id': self.vendor_1099.id,
+                    'account_id': self.expense_account.id,
+                    'debit': 100.0,
+                    'credit': 0.0,
+                }),
+                Command.create({
+                    'name': 'credit',
+                    'partner_id': self.vendor_1099.id,
+                    'account_id': self.liquidity_account.id,
+                    'debit': 0.0,
+                    'credit': 100.0,
+                }),
+            ],
+        })
+        move_1.action_post()
+        # create a first move for "Vendor X"
+        move_2 = self.env['account.move'].create({
+            'date': '2020-06-07',
+            'line_ids': [
+                Command.create({
+                    'name': 'debit',
+                    'partner_id': vendor_x.id,
+                    'account_id': self.expense_account.id,
+                    'debit': 100.0,
+                    'credit': 0.0,
+                }),
+                Command.create({
+                    'name': 'credit',
+                    'partner_id': vendor_x.id,
+                    'account_id': self.liquidity_account.id,
+                    'debit': 0.0,
+                    'credit': 100.0,
+                }),
+            ],
+        })
+        move_2.action_post()
+        # create a second move for "1099 vendor"
+        move_3 = self.env['account.move'].create({
+            'date': '2020-06-08',
+            'line_ids': [
+                Command.create({
+                    'name': 'debit',
+                    'partner_id': self.vendor_1099.id,
+                    'account_id': self.expense_account.id,
+                    'debit': 150.0,
+                    'credit': 0.0,
+                }),
+                Command.create({
+                    'name': 'credit',
+                    'partner_id': self.vendor_1099.id,
+                    'account_id': self.liquidity_account.id,
+                    'debit': 0.0,
+                    'credit': 150.0,
+                }),
+            ],
+        })
+        move_3.action_post()
+
+        lines_to_export = (move_1 + move_2 + move_3).line_ids.filtered('credit')
+        wizard = self.env['l10n_us_1099.wizard'].create({'lines_to_export': lines_to_export})
+        wizard.action_generate()
+        csv_content = base64.b64decode(wizard.generated_csv_file).decode().splitlines()
+
+        self.maxDiff = None  # show the full diff in case of errors
+        header = (
+            'Payer Name,Payer Address Line 1,Payer Address Line 2,Payer City,Payer State,Payer Zip,Payer Country,Payer Phone Number,Payer TIN,'
+            'Payee Name,Payee Address Line 1,Payee Address Line 2,Payee City,Payee State,Payee Zip,Payee Country,Payee Email,Payee TIN,NEC - 1 Nonemployee compensation,'
+            'MISC - 1 Rents,MISC - 2 Royalties,MISC - 3 Other income,MISC - 5 Fishing boat proceeds,MISC - 6 Medical and health care payments,'
+            'MISC - 8 Substitute payments in lieu of dividends or interest,MISC - 9 Crop insurance proceeds,MISC - 10 Gross proceeds paid to an attorney,'
+            'MISC - 11 Fish purchased for resale,MISC - 12 Section 409A deferrals,MISC - 13 Excess golden parachute payments,MISC - 14 Nonqualified deferred compensation'
+        )
+        self.assertEqual(csv_content[0], header, 'Wizard did not generate the expected header.')
+
+        expected_lines = [(
+            'company_1_data,1 W Seneca St,Floor 26,Buffalo,New York,14203,United States,(716) 249-2880,987654321,1099 vendor,250 Executive Park Blvd,'
+            '#3400,San Francisco,California,94134,United States,vendor@example.com,123456789,0,0,0,250.0,0,0,0,0,0,0,0,0,0'
+        ), (
+            'company_1_data,1 W Seneca St,Floor 26,Buffalo,New York,14203,United States,(716) 249-2880,987654321,Vendor X,123 Test street,'
+            '#6666,Brooklyn,New York,11202,United States,vendor_x@example.com,192837465,0,0,0,100.0,0,0,0,0,0,0,0,0,0'
+        )]
+        self.assertEqual(csv_content[1], expected_lines[0], 'Wizard did not generate the expected line for 1099 vendor.')
+        self.assertEqual(csv_content[2], expected_lines[1], 'Wizard did not generate the expected line for Vendor X.')
+        self.assertEqual(len(csv_content), 3, 'Wizard should exactly generate the three lines above.')

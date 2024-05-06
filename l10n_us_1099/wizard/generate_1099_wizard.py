@@ -140,7 +140,7 @@ class Generate1099Wizard(models.TransientModel):
 
         curr_vendor = None
         curr_total = 0
-        lines = self.lines_to_export.sorted("partner_id")
+        lines = self.lines_to_export.sorted(lambda l: l.partner_id.id)
         for line in lines:
             if curr_vendor != line.partner_id and curr_total != 0:
                 curr_total = self.env.ref("base.USD").round(curr_total)
