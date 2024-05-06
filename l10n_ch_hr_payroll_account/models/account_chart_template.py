@@ -168,9 +168,6 @@ class AccountChartTemplate(models.AbstractModel):
         rule = self.env.ref('l10n_ch_hr_payroll.l10n_ch_employees_aanp')
         rules_mapping[rule]['credit'] = '5730'
 
-        rule = self.env.ref('l10n_ch_hr_payroll.l10n_ch_employees_ijm')
-        rules_mapping[rule]['credit'] = '5740'
-
         rule = self.env.ref('l10n_ch_hr_payroll.l10n_ch_employees_lpp')
         rules_mapping[rule]['credit'] = '5720'
 
@@ -182,9 +179,6 @@ class AccountChartTemplate(models.AbstractModel):
 
         rule = self.env.ref('l10n_ch_hr_payroll.l10n_ch_employees_is_correction')
         rules_mapping[rule]['credit'] = '5790'
-
-        rule = self.env.ref('l10n_ch_hr_payroll.l10n_ch_employees_company_car_employee_2')
-        rules_mapping[rule]['credit'] = '5031'
 
         rule = self.env.ref('l10n_ch_hr_payroll.l10n_ch_employees_travel_expense')
         rules_mapping[rule]['credit'] = '5820'
