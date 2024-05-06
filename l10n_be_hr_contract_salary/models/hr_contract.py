@@ -26,7 +26,7 @@ class HrContract(models.Model):
     double_holiday_wage = fields.Monetary(compute='_compute_double_holiday_wage')
     contract_type_id = fields.Many2one('hr.contract.type', "Contract Type",
                                        default=lambda self: self.env.ref('l10n_be_hr_payroll.l10n_be_contract_type_cdi',
-                                                                         raise_if_not_found=False))
+                                                                         raise_if_not_found=False) if self.env.company.country_id.code == "BE" else self.env['hr.contract.type'])
     l10n_be_bicyle_cost = fields.Float(compute='_compute_l10n_be_bicyle_cost')
 
     @api.depends('has_bicycle')
