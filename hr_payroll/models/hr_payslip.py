@@ -241,9 +241,10 @@ class HrPayslip(models.Model):
                 input_line_vals = [Command.unlink(line.id) for line in lines_to_remove]
 
                 valid_attachments = slip.employee_id.salary_attachment_ids.filtered(
-                    lambda a: a.state == 'open' and a.date_start <= slip.date_to
+                    lambda a: a.state == 'open'
+                        and a.date_start <= slip.date_to
+                        and (not a.date_end or a.date_end >= slip.date_from)
                 )
-
                 # Only take deduction types present in structure
                 deduction_types = list(set(valid_attachments.deduction_type_id.mapped('code')))
                 struct_deduction_lines = list(set(slip.struct_id.rule_ids.mapped('code')))
