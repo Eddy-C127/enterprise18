@@ -48,9 +48,12 @@ class SaleOrder(models.Model):
         self.ensure_one()
         start_dt = self.rental_start_date
         return_dt = self.rental_return_date
-        client_tz = timezone(self.env.user.tz)
+        client_tz = UTC
         if request and request.is_frontend and request.httprequest.cookies.get('tz'):
             client_tz = timezone(request.httprequest.cookies['tz'])
+        elif self.env.user.tz:
+            client_tz = timezone(self.env.user.tz)
+
         start_dt = UTC.localize(start_dt).astimezone(client_tz)
         return_dt = UTC.localize(return_dt).astimezone(client_tz)
         return start_dt, return_dt
