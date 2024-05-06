@@ -981,12 +981,15 @@ export class PdfManager extends Component {
         }
         if (this.state.focusedPage) {
             const sortedPagesIds = this.sortedPagesIds;
-            const indexFocusedPage = sortedPagesIds.indexOf(this.state.focusedPage);
-            const numberPerLine = this._computeCardsPerLine();
-            const shift = { right: 1, left: -1, down: numberPerLine, up: -numberPerLine }[
-                direction
-            ];
-            const nextFocusedPageId = sortedPagesIds[indexFocusedPage + shift];
+            let nextFocusedPageId;
+            if (!sortedPagesIds.includes(this.state.focusedPage)) {
+                nextFocusedPageId = sortedPagesIds[0];
+            } else {
+                const indexFocusedPage = sortedPagesIds.indexOf(this.state.focusedPage);
+                const numberPerLine = this._computeCardsPerLine();
+                const shift = { right: 1, left: -1, down: numberPerLine, up: -numberPerLine }[direction];
+                nextFocusedPageId = sortedPagesIds[indexFocusedPage + shift];
+            }
             if (nextFocusedPageId) {
                 if (doSelect) {
                     this.state.pages[this.state.focusedPage].isSelected =
