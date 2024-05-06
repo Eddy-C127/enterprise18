@@ -283,3 +283,6 @@ class HrSalaryAttachment(models.Model):
                     continue
                 remaining -= amount
                 _record_payment(attachment, amount)
+
+    def _get_active_amount(self):
+        return sum(self.mapped('active_amount'))
