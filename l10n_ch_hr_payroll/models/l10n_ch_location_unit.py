@@ -4,7 +4,7 @@
 from odoo import models, fields
 
 
-class HrDMFALocationUnit(models.Model):
+class L10nChWorkLocation(models.Model):
     _name = 'l10n.ch.location.unit'
     _description = 'Work Place - Swiss Payroll'
     _rec_name = 'partner_id'
@@ -43,7 +43,7 @@ class HrDMFALocationUnit(models.Model):
         ('ZG', 'Zoug'),
         ('ZH', 'Zurich'),
     ], required=True)
-    dpi_number = fields.Char('DPI Number', required=True)
+    dpi_number = fields.Char('DPI Number', required=True)  # Equivalent to SSL nummer
     municipality = fields.Char(string="Municipality ID", required=True)
 
     _sql_constraints = [
