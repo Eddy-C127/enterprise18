@@ -334,6 +334,24 @@ class AccountMove(models.Model):
 
         return errors
 
+    def _l10n_br_prepare_payment_mode(self):
+        payment_value = False
+        if self.l10n_br_edi_payment_method != "90":  # if different from no payment
+            payment_value = self.amount_total
+
+        payment_mode = {
+            "mode": self.l10n_br_edi_payment_method,
+            "value": payment_value,
+        }
+        if self.l10n_br_edi_payment_method == "99":
+            payment_mode["modeDescription"] = _("Other")
+
+        card_methods = {"03", "04", "10", "11", "12", "13", "15", "17", "18"}
+        if self.l10n_br_edi_payment_method in card_methods:
+            payment_mode["cardTpIntegration"] = "2"
+
+        return payment_mode
+
     def _l10n_br_prepare_invoice_payload(self):
         def deep_update(d, u):
             """Like {}.update but handles nested dicts recursively. Based on https://stackoverflow.com/a/3233356."""
@@ -386,10 +404,6 @@ class AccountMove(models.Model):
         invoice_refs, error = self._l10n_br_edi_get_invoice_refs()
         if error:
             errors.append(error)
-
-        payment_value = False
-        if self.l10n_br_edi_payment_method != "90":  # if different from no payment
-            payment_value = self.amount_total
 
         goods_nfe, goods_goal = self._l10n_br_edi_get_goods_values()
         tax_data_to_include, tax_data_header = self._l10n_br_edi_get_tax_data()
@@ -450,11 +464,7 @@ class AccountMove(models.Model):
                 "payment": {
                     "paymentInfo": {
                         "paymentMode": [
-                            {
-                                "mode": self.l10n_br_edi_payment_method,
-                                "value": payment_value,
-                                "cardTpIntegration": "1",
-                            }
+                            self._l10n_br_prepare_payment_mode(),
                         ],
                     },
                 },
