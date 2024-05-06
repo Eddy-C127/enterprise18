@@ -132,6 +132,8 @@ class TestNlSBR(TransactionCase):
 @tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
 @skipIf(not os.getenv("NL_SBR_CERT"), "No SBR certificate")
 class TestNlSBRFlow(TestAccountReportsCommon):
+
+    @classmethod
     @TestAccountReportsCommon.setup_country('nl')
     def setUpClass(cls):
         super().setUpClass()
