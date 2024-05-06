@@ -55,7 +55,7 @@ cellMenuRegistry.add("use_global_filter", {
     },
     isVisible: (env) => {
         const position = env.model.getters.getActivePosition();
-        return SET_FILTER_MATCHING_CONDITION(position, env);
+        return SET_FILTER_MATCHING_CONDITION(position, env.model.getters);
     },
     icon: "o-spreadsheet-Icon.SEARCH",
 });
