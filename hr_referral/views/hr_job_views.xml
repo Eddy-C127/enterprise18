@@ -132,16 +132,54 @@
         </field>
     </record>
 
+    <record id="view_hr_job_kanban_inherit_referral" model="ir.ui.view">
+        <field name="name">hr.job.kanban.referral</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr_recruitment.view_hr_job_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='menu_new_applications']" position="after">
+                <div role="menuitem" groups="hr_recruitment.group_hr_recruitment_manager">
+                    <a name="action_referral_campaign" type="object" title="Referral Campaign">Referral Campaign</a>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_job_filter_referral" model="ir.ui.view">
+        <field name="name">hr.referral.job.search</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="website_hr_recruitment.hr_job_search_view_inherit"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='published']" position="replace"/>
+            <xpath expr="//separator[@name='published_separator']" position="replace"/>
+            <xpath expr="//filter[@name='groupby_published']" position="replace"/>
+        </field>
+    </record>
+
     <record model="ir.actions.act_window" id="action_hr_job_employee_referral">
         <field name="name">Job Positions</field>
         <field name="res_model">hr.job</field>
         <field name="view_mode">kanban,form</field>
         <field name="view_id" ref="hr_referral.view_hr_job_employee_referral_kanban"/>
+        <field name="search_view_id" ref="hr_referral.view_job_filter_referral"/>
         <field name="domain">[('is_published', '=', True)]</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_referral_job_kanban">
                 No job positions are available to share.
             </p>
+        </field>
+    </record>
+
+    <record id="action_hr_job_launch_referral_campaign" model="ir.actions.server">
+        <field name="name">Referral Campaign</field>
+        <field name="model_id" ref="model_hr_job"/>
+        <field name="binding_model_id" ref="model_hr_job"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="groups_id" eval="[(4, ref('hr_recruitment.group_hr_recruitment_manager'))]"/>
+        <field name="code">
+            action = records.action_referral_campaign()
         </field>
     </record>
 </odoo>

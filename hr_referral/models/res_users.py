@@ -30,3 +30,12 @@ class ResUsers(models.Model):
         responsibles_to_remove_ids = set(self.ids) - {gift_manager.id for [gift_manager] in res}
         reward_responsible_group.sudo().write({
             'users': [(3, responsible_id) for responsible_id in responsibles_to_remove_ids]})
+
+    def _ensure_utm_source(self):
+        users_without_utm_source = self.filtered(lambda user: not user.utm_source_id)
+        utm_source = self.env['utm.source'].create([
+            {'name': self.env['utm.source']._generate_name(user, user.name)}
+            for user in users_without_utm_source
+        ])
+        for user, source in zip(users_without_utm_source, utm_source):
+            user.utm_source_id = source

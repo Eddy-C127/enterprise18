@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
@@ -12,10 +11,11 @@
     'depends': ['hr_recruitment', 'link_tracker', 'website_hr_recruitment', 'hr_recruitment_reports'],
     'data': [
         'data/data.xml',
-        'data/email_body_templates.xml',
+        'data/referral_templates.xml',
         'security/hr_referral_security.xml',
         'security/ir.model.access.csv',
         'views/hr_applicant_views.xml',
+        'wizard/hr_referral_campaign_wizard_views.xml',
         'wizard/hr_referral_alert_mail_wizard_views.xml',
         'wizard/hr_referral_link_to_share_views.xml',
         'wizard/hr_referral_send_mail_views.xml',

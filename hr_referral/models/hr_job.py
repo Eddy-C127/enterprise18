@@ -42,6 +42,70 @@ class Job(models.Model):
             stages = self.env['hr.recruitment.stage'].search([('use_in_referral', '=', True), '|', ('job_ids', '=', False), ('job_ids', '=', job.id)])
             job.max_points = sum(stages.mapped('points'))
 
+    def search_or_create_referral_links(self, users=None, channel='direct'):
+        '''
+        Create/Retrieve a referral link for each user in the given channel.
+
+        This method is made to retrieve/create a referral link for each user
+        for one job.
+
+        :param User users: the users for which to retrieve/create the
+            referral links. If not given, the current user is used.
+        :param str channel: the channel to use for the referral links.
+            Default to 'direct'.
+        :return dict: a dictionary mapping each user to its referral link.
+        '''
+
+        # checks and defaults
+        self.ensure_one()
+        chanel_to_medium = {
+            'direct': 'utm.utm_medium_direct',
+            'facebook': 'utm.utm_medium_facebook',
+            'twitter': 'utm.utm_medium_twitter',
+            'linkedin': 'utm.utm_medium_linkedin',
+        }
+        if channel not in chanel_to_medium:
+            return {}
+        medium = self.env.ref(chanel_to_medium[channel], raise_if_not_found=False)
+        if not medium:
+            return {}
+        if users is None:
+            users = self.env.user
+        elif not users:
+            return {}
+        users._ensure_utm_source()
+        if not self.utm_campaign_id:
+            self.utm_campaign_id = self.env['utm.campaign'].create([{'name': self.name}])
+
+        referral_links_by_user = {}
+        trackers = self.env['link.tracker'].search([
+            ('url', '=', self.full_url),
+            ('campaign_id', '=', self.utm_campaign_id.id),
+            ('medium_id', '=', medium.id),
+            ('source_id', 'in', users.utm_source_id.ids),
+        ])
+        trackers_by_source_id = {tracker.source_id: tracker for tracker in trackers}
+        trackers_to_create = []
+        user_without_tracker = []
+        for user in users:
+            tracker = trackers_by_source_id.get(user.utm_source_id)
+            if tracker:
+                referral_links_by_user[user] = tracker.short_url
+            else:
+                user_without_tracker.append(user)
+                trackers_to_create.append({
+                    'url': self.full_url,
+                    'title': _('Referral %(user)s: %(job_url)s', user=user, job_url=self.full_url),
+                    'campaign_id': self.utm_campaign_id.id,
+                    'medium_id': medium.id,
+                    'source_id': user.utm_source_id.id,
+                })
+        new_trackers = self.env['link.tracker'].create(trackers_to_create)
+        for tracker, user in zip(new_trackers, user_without_tracker):
+            referral_links_by_user[user] = tracker.short_url
+
+        return referral_links_by_user
+
     def set_recruit(self):
         self.write({'job_open_date': fields.Date.today()})
         return super(Job, self).set_recruit()
@@ -58,5 +122,15 @@ class Job(models.Model):
             'name': _("Visit Webpage"),
             'type': 'ir.actions.act_url',
             'url': wizard.url,
+            'target': 'new',
+        }
+
+    def action_referral_campaign(self):
+        self.ensure_one()
+        return {
+            'name': _("Referral Campaign for %(job)s", job=self.name),
+            'type': 'ir.actions.act_window',
+            'res_model': 'hr.referral.campaign.wizard',
+            'view_mode': 'form',
             'target': 'new',
         }
