@@ -32,6 +32,7 @@ CANTONS = [
     ('VS', 'Valais'),
     ('ZG', 'Zoug'),
     ('ZH', 'Zurich'),
+    ('EX', 'Foreign')
 ]
 
 
