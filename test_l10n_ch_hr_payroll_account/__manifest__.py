@@ -7,12 +7,12 @@
     'category': 'Human Resources',
     'summary': 'Test Swiss Payroll',
     'depends': [
+        'l10n_ch_hr_payroll_elm',
         'l10n_ch_hr_payroll_account',
         'documents_l10n_ch_hr_payroll',
     ],
     'demo': [
         'data/l10n_ch_hr_payroll_account_demo.xml',
     ],
-    'post_init_hook': '_generate_ch_demo_payslips',
     'license': 'OEEL-1',
 }
