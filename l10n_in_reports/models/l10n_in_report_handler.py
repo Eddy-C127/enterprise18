@@ -20,6 +20,7 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
             [
                 ('move_id.l10n_in_transaction_type', '=', 'intra_state'),
                 ('tax_tag_ids', 'in', self.env.ref('l10n_in.tax_tag_base_igst').id),
+                ('move_id.l10n_in_gst_treatment', '!=', 'special_economic_zone')
             ]
         ).ids
         return 'l10n_in_reports.invalid_intra_state_warning', intra_state_sgst_cgst
