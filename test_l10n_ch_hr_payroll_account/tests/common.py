@@ -67,7 +67,8 @@ class TestL10NChHrPayrollAccountCommon(AccountTestInvoicingCommon):
             'name': 'Social Insurance AK Bern',
             'member_number': '2948',
             'member_subnumber': '2292490',
-            'insurance_company': '002.000',
+            'insurance_company': 'AK Bern',
+            'insurance_code': '002.000',
             'avs_line_ids': [(0, 0, {
                 'date_from': date(2022, 1, 1),
                 'date_to': False,
@@ -82,6 +83,21 @@ class TestL10NChHrPayrollAccountCommon(AccountTestInvoicingCommon):
                 'employee_additional_rate': 0.5,
                 'employer_additional_rate': 0,
             })],
+            'l10n_ch_avs_rente_ids': [(0, 0, {
+                'date_from': date(2021, 1, 1),
+                'date_to': date(2023, 12, 31),
+                'amount': 1400
+            })],
+            'l10n_ch_avs_ac_threshold_ids': [(0, 0, {
+                'date_from': date(2021, 1, 1),
+                'date_to': date(2023, 12, 31),
+                'amount': 148200
+            })],
+            'l10n_ch_avs_acc_threshold_ids': [(0, 0, {
+                'date_from': date(2021, 1, 1),
+                'date_to': date(2023, 12, 31),
+                'amount': 370500
+            })]
         })
 
         cls.groupe_mutuel = cls.env['res.partner'].create({
@@ -97,7 +113,8 @@ class TestL10NChHrPayrollAccountCommon(AccountTestInvoicingCommon):
             'name': "Accident Insurance Groupe Mutuel",
             'customer_number': '10403',
             'contract_number': '10390',
-            'insurance_company': 'S270',
+            'insurance_code': 'S270',
+            'insurance_company': 'Groupe Mutuel',
             'insurance_company_address_id': cls.groupe_mutuel.id,
             'line_ids': [(0, 0, {
                 "solution_name": "UVG solution A1",
@@ -121,7 +138,8 @@ class TestL10NChHrPayrollAccountCommon(AccountTestInvoicingCommon):
             'name': 'Additional Accident Insurance Groupe Mutuel',
             'customer_number': '10405',
             'contract_number': '10393',
-            'insurance_company': 'S270',
+            'insurance_company': 'Groupe Mutule',
+            'insurance_code': 'S270',
             'insurance_company_address_id': cls.groupe_mutuel.id,
             'line_ids': [(0, 0, {
                 'solution_name': 'UVG solution A1',
@@ -143,7 +161,8 @@ class TestL10NChHrPayrollAccountCommon(AccountTestInvoicingCommon):
             "name": 'Sickness Insurance Groupe Mutuel',
             "customer_number": '10405',
             "contract_number": '10393',
-            "insurance_company": 'S270',
+            "insurance_company": 'Groupe Mutuel',
+            "insurance_code": 'S270',
             "insurance_company_address_id": cls.groupe_mutuel.id,
             "line_ids": [(0, 0, {
                 "solution_name": "IJM solution A1",
@@ -165,6 +184,8 @@ class TestL10NChHrPayrollAccountCommon(AccountTestInvoicingCommon):
             "name": 'LPP Insurance Groupe Mutuel',
             "customer_number": '30405',
             "contract_number": '40393',
+            "insurance_company": 'Groupe Mutuel',
+            "insurance_code": "S270",
             "insurance_company_address_id": cls.groupe_mutuel.id,
             "fund_number": '209230',
         })
@@ -173,7 +194,8 @@ class TestL10NChHrPayrollAccountCommon(AccountTestInvoicingCommon):
             "name": 'Family Allowance AK Bern',
             "member_number": '2948',
             "member_subnumber": '2292490',
-            "insurance_company": '002.000',
+            "insurance_company": 'AK Bern',
+            "insurance_code": '002.000',
             "caf_line_ids": [(0, 0, {
                 'date_from': date(2022, 1, 1),
                 'date_to': False,

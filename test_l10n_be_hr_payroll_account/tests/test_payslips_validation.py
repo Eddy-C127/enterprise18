@@ -5821,13 +5821,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         payslip.compute_sheet()
 
         payslip_results = {
-            'BASIC': 1930.08,
-            'SALARY': 1783.23,
-            'ONSS': -233.07,
-            'GROSS': 1697.02,
-            'P.P': -668.11,
-            'PPTOTAL': 668.11,
-            'NET': 1028.9,
+            'BASIC': 1828.5,
+            'SALARY': 1689.38,
+            'ONSS': -220.8,
+            'GROSS': 1607.7,
+            'P.P': -632.95,
+            'PPTOTAL': 632.95,
+            'NET': 974.75,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -5894,13 +5894,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         payslip.compute_sheet()
 
         payslip_results = {
-            'BASIC': 1625.33,
-            'SALARY': 1501.67,
-            'ONSS': -196.27,
-            'GROSS': 1429.07,
-            'P.P': -519.32,
-            'PPTOTAL': 519.32,
-            'NET': 909.74,
+            'BASIC': 1462.8,
+            'SALARY': 1351.5,
+            'ONSS': -176.64,
+            'GROSS': 1286.16,
+            'P.P': -467.39,
+            'PPTOTAL': 467.39,
+            'NET': 818.77,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -5959,13 +5959,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         payslip.compute_sheet()
 
         payslip_results = {
-            'BASIC': 1544.07,
-            'SALARY': 1426.58,
-            'ONSS': -186.45,
-            'GROSS': 1357.61,
-            'P.P': -493.36,
-            'PPTOTAL': 493.36,
-            'NET': 864.26,
+            'BASIC': 1462.8,
+            'SALARY': 1351.5,
+            'ONSS': -176.64,
+            'GROSS': 1286.16,
+            'P.P': -467.39,
+            'PPTOTAL': 467.39,
+            'NET': 818.77,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -5993,13 +5993,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         payslip.compute_sheet()
 
         payslip_results = {
-            'BASIC': 1930.08,
-            'SALARY': 1783.23,
-            'ONSS': -233.07,
-            'GROSS': 1697.02,
-            'P.P': -668.11,
-            'PPTOTAL': 668.11,
-            'NET': 1028.9,
+            'BASIC': 1828.5,
+            'SALARY': 1689.38,
+            'ONSS': -220.8,
+            'GROSS': 1607.7,
+            'P.P': -632.95,
+            'PPTOTAL': 632.95,
+            'NET': 974.75,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -6027,13 +6027,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         payslip.compute_sheet()
 
         payslip_results = {
-            'BASIC': 1930.08,
-            'SALARY': 1783.23,
-            'ONSS': -233.07,
-            'GROSS': 1697.02,
-            'P.P': -111.37,
-            'PPTOTAL': 111.37,
-            'NET': 1585.65,
+            'BASIC': 1828.5,
+            'SALARY': 1689.38,
+            'ONSS': -220.8,
+            'GROSS': 1607.7,
+            'P.P': -105.51,
+            'PPTOTAL': 105.51,
+            'NET': 1502.19,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -6120,13 +6120,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         payslip.compute_sheet()
 
         payslip_results = {
-            'BASIC': 1930.08,
-            'SALARY': 1783.23,
-            'ONSS': -233.07,
-            'GROSS': 1697.02,
-            'P.P': -668.11,
-            'PPTOTAL': 668.11,
-            'NET': 1028.9,
+            'BASIC': 1828.5,
+            'SALARY': 1689.38,
+            'ONSS': -220.8,
+            'GROSS': 1607.7,
+            'P.P': -632.95,
+            'PPTOTAL': 632.95,
+            'NET': 974.75,
         }
         self._validate_payslip(payslip, payslip_results)
 
@@ -8489,13 +8489,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         double_payslip.compute_sheet()
 
         payslip_results = {
-            'BASIC': 249.17,
-            'SALARY': 230.21,
-            'ONSS': -30.09,
-            'GROSS': 219.08,
-            'P.P': -92.87,
-            'PPTOTAL': 92.87,
-            'NET': 126.21,
+            'BASIC': 0.0,
+            'SALARY': 0.0,
+            'ONSS': 0.0,
+            'GROSS': 0.0,
+            'P.P': 0.0,
+            'PPTOTAL': 0.0,
+            'NET': 0.0,
         }
         self._validate_payslip(double_payslip, payslip_results)
 
@@ -8576,13 +8576,14 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
 
         self.assertEqual(len(payslip.input_line_ids), 0)
         payslip_results = {
-            'BASIC': 2438.0,
-            'SALARY': 2252.5,
-            'ONSS': -294.4,
-            'GROSS': 2143.6,
-            'P.P': -908.67,
-            'PPTOTAL': 908.67,
-            'NET': 1234.93,
+            'BASIC': 1828.5,
+            'EU.LEAVE.DEDUC': -122.31,
+            'SALARY': 1576.37,
+            'ONSS': -206.03,
+            'GROSS': 1500.16,
+            'P.P': -590.61,
+            'PPTOTAL': 590.61,
+            'NET': 909.55,
         }
         self._validate_payslip(payslip, payslip_results)
 
