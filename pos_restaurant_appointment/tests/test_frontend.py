@@ -16,6 +16,7 @@ class TestUi(TestFrontend):
         super().setUpClass()
 
         cls.appointment_type = cls.env['appointment.type'].create({
+            'appointment_tz': 'Europe/Brussels',
             'name': 'Table Booking Test',
             'schedule_based_on': 'resources',
             'assign_method': 'time_auto_assign',
