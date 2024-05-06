@@ -101,7 +101,7 @@ class HrPayslip(models.Model):
 
                     # Add accounting lines in the move
                     move_dict['line_ids'] = [(0, 0, line_vals) for line_vals in line_ids]
-                    move = self._create_account_move(move_dict)
+                    move = slip._create_account_move(move_dict)
                     for slip in slip_mapped_data[journal_id][slip_date]:
                         slip.write({'move_id': move.id, 'date': date})
         return True

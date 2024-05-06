@@ -27,7 +27,7 @@
                         type="object"
                         data-hotkey="w"
                         class="oe_highlight"
-                        context="{'dont_redirect_to_payments': True, 'hr_payroll_payment_register': id}"
+                        context="{'dont_redirect_to_payments': True, 'hr_payroll_payment_register': True}"
                         invisible="state != 'done' or not move_id or batch_payroll_move_lines"
                         groups="account.group_account_invoice"/>
             </button>
