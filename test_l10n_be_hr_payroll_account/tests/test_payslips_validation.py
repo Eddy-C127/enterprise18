@@ -6175,14 +6175,14 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
 
         self.assertEqual(len(payslip.input_line_ids), 1)
         payslip_results = {
-            'BASIC': 1930.08,
+            'BASIC': 1828.5,
             'EU.LEAVE.DEDUC': -122.31,
-            'SALARY': 1670.23,
-            'ONSS': -218.3,
-            'GROSS': 1589.47,
-            'P.P': -625.78,
-            'PPTOTAL': 625.78,
-            'NET': 963.7,
+            'SALARY': 1576.37,
+            'ONSS': -206.03,
+            'GROSS': 1500.16,
+            'P.P': -590.61,
+            'PPTOTAL': 590.61,
+            'NET': 909.55,
         }
         self._validate_payslip(payslip, payslip_results)
 
