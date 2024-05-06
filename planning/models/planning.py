@@ -1062,10 +1062,10 @@ class Planning(models.Model):
                     # If the shift is out of resource's schedule, skip it.
                     if not split_shift_intervals:
                         continue
-                    rate = round(shift.allocated_hours * 3600 / sum(
-                        (start - end).total_seconds()
+                    rate = shift.allocated_hours * 3600 / sum(
+                        round((end - start).total_seconds())
                         for start, end, rec in split_shift_intervals
-                    ))
+                    )
                     # Try to add the shift to the timeline.
                     timeline = self._get_new_timeline_if_fits_in(
                         split_shift_intervals,
@@ -1077,9 +1077,20 @@ class Planning(models.Model):
                     # If we got a new timeline (not False), it means the shift fits for the resource
                     # (no overload, no "occupation rate" > 100%).
                     # If it fits, assign the shift to the resource and update the timeline.
+                    # If a timeline is found, the resource can work the allocated_hours set on the shift.
+                    # so the allocated_percentage is recomputed based on the working calendar of the
+                    # resource and the allocated_hours set on the shift.
                     if timeline:
+                        original_allocated_hours = shift.allocated_hours
                         shift.resource_id = resource
                         timeline_and_worked_hours_per_resource_id[resource.id] = timeline
+                        start_utc = pytz.utc.localize(shift.start_datetime)
+                        end_utc = pytz.utc.localize(shift.end_datetime)
+                        resource_work_intervals, calendar_work_intervals = shift.resource_id \
+                            .filtered('calendar_id') \
+                            ._get_valid_work_intervals(start_utc, end_utc, calendars=shift.company_id.resource_calendar_id)
+                        work_hours = shift._get_working_hours_over_period(start_utc, end_utc, resource_work_intervals, calendar_work_intervals)
+                        shift.allocated_percentage = 100 * original_allocated_hours / work_hours if work_hours else 100
                         return True
             return False
 
@@ -2081,7 +2092,7 @@ class Planning(models.Model):
         working_intervals = work_intervals[self.resource_id.id] \
             if self.resource_id \
             else calendar_intervals[self.company_id.resource_calendar_id.id]
-        return sum_intervals(slot_interval & working_intervals)
+        return round(sum_intervals(slot_interval & working_intervals), 2)
 
     def _get_duration_over_period(self, start_utc, stop_utc, work_intervals, calendar_intervals, has_allocated_hours=True):
         assert start_utc.tzinfo and stop_utc.tzinfo

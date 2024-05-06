@@ -490,3 +490,65 @@ class TestPlanning(TestCommonPlanning, MockEmail):
             'end_datetime': datetime(2024, 2, 29, 16, 0, 0),
         })
         self.assertEqual(planning_slot_2.allocated_hours, 56.0)
+
+    def test_auto_plan_employee_with_break_company_no_breaks(self):
+        """ Test auto-planning an employee with break, while company calendar without breaks
+
+            Test Case:
+            =========
+            1) Create company calendar with 24 hours per day.
+            2) Create employee with night shifts calendar, with 30 minutes break at midnight.
+            3) Create shift from 21:30 to 6:00 with 8 allocated hours.
+            4) Auto-plan the shift.
+            5) Check the shift is assigned to the employee.
+            6) Check the allocated hours remain the same.
+        """
+        # Create a 24-hour company calendar
+        calendar_24hr = self.env['resource.calendar'].create({
+            'name': '24/24 Company Calendar',
+            'tz': 'UTC',
+            'hours_per_day': 24.0,
+            'attendance_ids': [
+                (0, 0, {'name': 'Morning ' + str(day), 'dayofweek': str(day), 'hour_from': 0, 'hour_to': 12, 'day_period': 'morning'})
+                for day in range(7)
+            ] + [
+                (0, 0, {'name': 'Afternoon ' + str(day), 'dayofweek': str(day), 'hour_from': 12, 'hour_to': 24, 'day_period': 'afternoon'})
+                for day in range(7)
+            ],
+        })
+        self.env.user.company_id.resource_calendar_id = calendar_24hr
+
+        night_shifts_calendar = self.env['resource.calendar'].create({
+            'name': 'Night Shifts Calendar',
+            'tz': 'UTC',
+            'hours_per_day': 8.0,
+            'attendance_ids': [
+                (0, 0, {'name': 'Afternoon ' + str(day), 'dayofweek': str(day), 'hour_from': 21.5, 'hour_to': 24, 'day_period': 'afternoon'})
+                for day in range(7)
+            ] + [
+                (0, 0, {'name': 'Break ' + str(day), 'dayofweek': str(day), 'hour_from': 0, 'hour_to': 0.5, 'day_period': 'lunch'})
+                for day in range(7)
+            ] + [
+                (0, 0, {'name': 'morning ' + str(day), 'dayofweek': str(day), 'hour_from': 0.5, 'hour_to': 6, 'day_period': 'morning'})
+                for day in range(7)
+            ],
+        })
+        # Create an employee linked to this calendar
+        night_employee = self.env['hr.employee'].create({
+            'name': 'Night employee',
+            'resource_calendar_id': night_shifts_calendar.id,
+        })
+
+        # Create a shift from 21:30 to 6:00 with an allocated 8 hours
+        night_shift = self.env['planning.slot'].create({
+            'name': 'Night Shift',
+            'start_datetime': datetime(2024, 5, 10, 21, 30),
+            'end_datetime': datetime(2024, 5, 11, 6, 0),
+        })
+        night_shift.allocated_hours = 8
+        # Execute auto-plan to assign the employee
+        night_shift.auto_plan_id()
+
+        self.assertEqual(night_shift.resource_id, night_employee.resource_id, 'The night shift should be assigned to the night employee')
+        self.assertEqual(night_shift.allocated_hours, 8, 'The allocated hours should remain the same')
+        self.assertEqual(night_shift.allocated_percentage, 100, 'The allocated percentage should be 100% as the resource will work the allocated hours')
