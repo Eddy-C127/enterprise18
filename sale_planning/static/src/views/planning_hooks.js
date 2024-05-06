@@ -9,7 +9,10 @@ import { Domain } from "@web/core/domain";
 patch(PlanningControllerActions.prototype, {
     autoPlanDomain() {
         const domain = super.autoPlanDomain(...arguments);
-        return Domain.and([domain, [['sale_line_id.state', '!=', 'cancel']]]).toList();
+        return Domain.and([
+            domain,
+            ["|", ["sale_line_id", "=", false], ["sale_line_id.state", "!=", "cancel"]],
+        ]).toList();
     },
     autoPlanSuccessNotification() {
         return _t("The open shifts and sales orders have been successfully assigned.");
