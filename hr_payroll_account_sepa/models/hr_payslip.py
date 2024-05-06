@@ -69,7 +69,7 @@ class HrPayslip(models.Model):
 
         # Map the necessary data
         payments_data = []
-        sct_generic = (journal_id.currency_id or journal_id.company_id.currency_id).name != 'EUR'
+        sct_generic = (journal_id.currency_id or journal_id.company_id.currency_id).name != 'EUR' or journal_id.sepa_pain_version == 'iso_20022'
         for slip in self:
             payments_data.append(slip._get_payments_vals(journal_id))
             if not sct_generic and (not slip.employee_id.bank_account_id.bank_bic and not slip.employee_id.bank_account_id.acc_type == 'iban'):

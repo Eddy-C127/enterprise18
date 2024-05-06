@@ -42,6 +42,7 @@ class AccountJournal(models.Model):
             ('pain.001.001.03.se', 'Swedish'),
             ('pain.001.001.03.ch.02', 'Swiss'),
             ('pain.001.001.09', 'New generic version (09)'),
+            ('iso_20022', 'ISO 20022'),
         ],
         string='SEPA Pain Version',
         readonly=False,

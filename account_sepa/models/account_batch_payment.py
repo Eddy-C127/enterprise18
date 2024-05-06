@@ -24,7 +24,7 @@ class AccountBatchPayment(models.Model):
         switch_to_generic_warnings = {'no_iban', 'no_eur'}
         for record in self:
             sct_warnings = record._get_sct_genericity_warnings()
-            record.sct_generic = any(warning.get('code') in switch_to_generic_warnings for warning in sct_warnings)
+            record.sct_generic = any(warning.get('code') in switch_to_generic_warnings for warning in sct_warnings) or record.journal_id.sepa_pain_version == 'iso_20022'
 
     def _get_methods_generating_files(self):
         rslt = super(AccountBatchPayment, self)._get_methods_generating_files()
@@ -39,6 +39,12 @@ class AccountBatchPayment(models.Model):
         return super(AccountBatchPayment, self).validate_batch()
 
     def _get_sct_genericity_warnings(self):
+        self.ensure_one()
+
+        if self.journal_id.sepa_pain_version == 'iso_20022':
+            # Forcing generic SEPA; so no genericity warning
+            return []
+
         rslt = []
         no_iban_payments = self.env['account.payment']
         no_eur_payments = self.env['account.payment']
