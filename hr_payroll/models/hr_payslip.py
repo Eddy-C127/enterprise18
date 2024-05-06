@@ -545,6 +545,7 @@ class HrPayslip(models.Model):
                 wd.amount = -wd.amount
             for line in copied_payslip.line_ids:
                 line.amount = -line.amount
+                line.total = -line.total
             copied_payslips |= copied_payslip
         formview_ref = self.env.ref('hr_payroll.view_hr_payslip_form', False)
         treeview_ref = self.env.ref('hr_payroll.view_hr_payslip_tree', False)
@@ -881,6 +882,7 @@ class HrPayslip(models.Model):
                                 'amount': amount,
                                 'quantity': qty,
                                 'rate': rate,
+                                'total': tot_rule,
                                 'slip_id': payslip.id,
                             })
                     else:
@@ -906,6 +908,7 @@ class HrPayslip(models.Model):
                             'amount': amount,
                             'quantity': qty,
                             'rate': rate,
+                            'total': tot_rule,
                             'slip_id': payslip.id,
                         }
             line_vals += list(result.values())

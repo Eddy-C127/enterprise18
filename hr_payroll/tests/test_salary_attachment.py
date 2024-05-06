@@ -192,6 +192,7 @@ class TestSalaryAttachment(TestPayslipBase):
         payslip.compute_sheet()
         pl_fixed = payslip.line_ids.filtered(lambda l: l.name == 'Fixed A, Fixed B')
         pl_fixed.amount = 500
+        pl_fixed.total = pl_fixed.quantity * pl_fixed.amount * pl_fixed.rate / 100
         payslip.action_payslip_done()
         payslip.action_payslip_paid()
         self.assertEqual(fixed_A.paid_amount, 100)

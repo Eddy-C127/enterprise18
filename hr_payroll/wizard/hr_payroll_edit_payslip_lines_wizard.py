@@ -115,6 +115,7 @@ class HrPayrollEditPayslipLine(models.TransientModel):
             'amount': line.amount,
             'quantity': line.quantity,
             'rate': line.rate,
+            'total': line.total,
             'slip_id': line.slip_id.id
         } for line in self]
 

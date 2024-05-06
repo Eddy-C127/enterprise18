@@ -103,7 +103,7 @@ class TestStudent(AccountTestInvoicingCommon):
             'BASIC': 586.98,  # 10.87 * 54 = 586.98
             'ONSS': -15.91,
             'GROSS': 571.07,
-            'CAR.PRIV': 13.86,
+            'CAR.PRIV': 13.85,
             'MEAL_V_EMP': -6.54,
             'NET': 578.38,
             'ONSSEMPLOYER': 31.81,

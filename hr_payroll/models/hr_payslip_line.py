@@ -23,7 +23,7 @@ class HrPayslipLine(models.Model):
     rate = fields.Float(string='Rate (%)', digits='Payroll Rate', default=100.0)
     amount = fields.Monetary()
     quantity = fields.Float(digits='Payroll', default=1.0)
-    total = fields.Monetary(compute='_compute_total', string='Total', store=True)
+    total = fields.Monetary(string='Total')
 
     amount_select = fields.Selection(related='salary_rule_id.amount_select', readonly=True)
     amount_fix = fields.Float(related='salary_rule_id.amount_fix', readonly=True)
@@ -36,11 +36,6 @@ class HrPayslipLine(models.Model):
     date_to = fields.Date(string='To', related="slip_id.date_to", store=True)
     company_id = fields.Many2one(related='slip_id.company_id')
     currency_id = fields.Many2one('res.currency', related='slip_id.currency_id')
-
-    @api.depends('quantity', 'amount', 'rate')
-    def _compute_total(self):
-        for line in self:
-            line.total = float(line.quantity) * line.amount * line.rate / 100
 
     @api.model_create_multi
     def create(self, vals_list):
