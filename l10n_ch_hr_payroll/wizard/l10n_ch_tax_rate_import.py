@@ -45,12 +45,14 @@ class L10nChTaxRateImportWizard(models.TransientModel):
             tax_file_content = base64.b64decode(tax_file.datas).decode('utf-8')
             # {(canton, date_from, church_tax, tax_scale, child_count): [(low, high, min_amount, rate)]}
             mapped_rates = defaultdict(list)
+            mapped_predefined_categories_rates = defaultdict(list)
+            mapped_specific_codes = defaultdict(list)
             for line in tax_file_content.split('\r\n'):
-                if line.startswith(('00', '11', '12', '13', '99')):
+                line_type = line[0:2]
+                if line_type in ['00', '99']:
                     # Initial line containing canton name and file creation date (not needed)
-                    # or unmanaged information in the current payroll version
                     continue
-                if not line.startswith('06'):
+                if line_type not in ['06', '11', '12', '13']:
                     raise UserError(_('Unrecognized line format: %s', line))
                 # Progressive scales of withholding tax
                 transaction_type = line[2:4]
@@ -71,10 +73,11 @@ class L10nChTaxRateImportWizard(models.TransientModel):
                     raise UserError(_('Unrecognized canton code %s: %s', canton, line))
 
                 tax_code = line[6:16].strip()
-                tax_scale = tax_code[0]
-                if tax_scale not in TAX_SCALES:
-                    raise UserError(_('Unrecognized tax scale %s: %s', tax_scale, line))
-                child_count = int(tax_code[1])
+                if line_type == "06":
+                    tax_scale = tax_code[0]
+                    if tax_scale not in TAX_SCALES:
+                        raise UserError(_('Unrecognized tax scale %s: %s', tax_scale, line))
+                    child_count = int(tax_code[1])
                 church_tax = tax_code[2]  # 'Y' or 'N'
 
                 date_from = line[16:24]
@@ -94,9 +97,19 @@ class L10nChTaxRateImportWizard(models.TransientModel):
 
                 tax_rate = line[54:59]
                 tax_rate = int(tax_rate) / 100.0  # 000715 -> 7.15M%
-                mapped_rates[(canton, date_from, church_tax, tax_scale, child_count)].append(
-                    (low, high, tax_min_amount, tax_rate)
-                )
+
+                if line_type == "06":
+                    mapped_rates[(canton, date_from, church_tax, tax_scale, child_count)].append(
+                        (low, high, tax_min_amount, tax_rate)
+                    )
+                elif line_type == "11":
+                    mapped_predefined_categories_rates[(canton, date_from, tax_code[0:2], church_tax)].append(
+                        (low, high, tax_min_amount, tax_rate)
+                    )
+                else:
+                    mapped_specific_codes[(canton, date_from, tax_code)].append(
+                        (low, high, tax_min_amount, tax_rate)
+                    )
 
             for (canton, date_from, church_tax, tax_scale, child_count), parameter_values in mapped_rates.items():
                 parameter_xmlid = f"rule_parameter_withholding_tax_{canton}_{church_tax}_{tax_scale}_{child_count}"
@@ -135,6 +148,85 @@ class L10nChTaxRateImportWizard(models.TransientModel):
                     })
                 else:
                     parameter_value.write({'parameter_value': str(parameter_values)})
+
+            for (canton, date_from, tax_code, church_tax), parameter_values in mapped_predefined_categories_rates.items():
+                # Predefined categories
+                parameter_xmlid = f"rule_parameter_withholding_tax_{canton}_{tax_code}_{church_tax}"
+                parameter = self.env.ref("l10n_ch_hr_payroll." + parameter_xmlid, raise_if_not_found=False)
+                if not parameter:
+                    parameter = self.env['hr.rule.parameter'].create({
+                        'name': f"CH Withholding Tax: Canton ({canton}) - Predefined Category ({tax_code}) - Church Tax ({church_tax})",
+                        'code': f'l10n_ch_withholding_tax_rates_{canton}_{tax_code}_{church_tax}',
+                        'country_id': self.env.ref('base.ch').id,
+                    })
+                    self.env['ir.model.data'].create({
+                        'name': parameter_xmlid,
+                        'module': 'l10n_ch_hr_payroll',
+                        'res_id': parameter.id,
+                        'model': 'hr.rule.parameter',
+                        # noupdate is set to true to avoid to delete record at module update
+                        'noupdate': True,
+                    })
+                parameter_value_data = (canton, date_from.year, date_from.month, date_from.day, tax_code, church_tax)
+                parameter_value_xmlid = "rule_parameter_value_withholding_tax_%s_%s_%s_%s_%s_%s" % parameter_value_data
+                parameter_value = self.env.ref("l10n_ch_hr_payroll." + parameter_value_xmlid, raise_if_not_found=False)
+
+                if not parameter_value:
+                    parameter_value = self.env['hr.rule.parameter.value'].create({
+                        'parameter_value': str(parameter_values),
+                        'rule_parameter_id': parameter.id,
+                        'date_from': date_from,
+                    })
+                    self.env['ir.model.data'].create({
+                        'name': parameter_value_xmlid,
+                        'module': 'l10n_ch_hr_payroll',
+                        'res_id': parameter_value.id,
+                        'model': 'hr.rule.parameter.value',
+                        # noupdate is set to true to avoid to delete record at module update
+                        'noupdate': True,
+                    })
+                else:
+                    parameter_value.write({'parameter_value': str(parameter_values)})
+
+            for (canton, date_from, tax_code), parameter_values in mapped_specific_codes.items():
+                # Predefined categories
+                parameter_xmlid = f"rule_parameter_withholding_tax_{canton}_{tax_code}"
+                parameter = self.env.ref("l10n_ch_hr_payroll." + parameter_xmlid, raise_if_not_found=False)
+                if not parameter:
+                    parameter = self.env['hr.rule.parameter'].create({
+                        'name': f"CH Withholding Tax: Canton ({canton}) - Predefined Category ({tax_code})",
+                        'code': f'l10n_ch_withholding_tax_rates_{canton}_{tax_code}',
+                        'country_id': self.env.ref('base.ch').id,
+                    })
+                    self.env['ir.model.data'].create({
+                        'name': parameter_xmlid,
+                        'module': 'l10n_ch_hr_payroll',
+                        'res_id': parameter.id,
+                        'model': 'hr.rule.parameter',
+                        # noupdate is set to true to avoid to delete record at module update
+                        'noupdate': True,
+                    })
+                parameter_value_data = (canton, date_from.year, date_from.month, date_from.day, tax_code)
+                parameter_value_xmlid = "rule_parameter_value_withholding_tax_%s_%s_%s_%s_%s" % parameter_value_data
+                parameter_value = self.env.ref("l10n_ch_hr_payroll." + parameter_value_xmlid, raise_if_not_found=False)
+
+                if not parameter_value:
+                    parameter_value = self.env['hr.rule.parameter.value'].create({
+                        'parameter_value': str(parameter_values),
+                        'rule_parameter_id': parameter.id,
+                        'date_from': date_from,
+                    })
+                    self.env['ir.model.data'].create({
+                        'name': parameter_value_xmlid,
+                        'module': 'l10n_ch_hr_payroll',
+                        'res_id': parameter_value.id,
+                        'model': 'hr.rule.parameter.value',
+                        # noupdate is set to true to avoid to delete record at module update
+                        'noupdate': True,
+                    })
+                else:
+                    parameter_value.write({'parameter_value': str(parameter_values)})
+
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
