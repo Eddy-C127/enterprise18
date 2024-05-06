@@ -1120,7 +1120,7 @@ class HrPayslip(models.Model):
         valid_values = {'quantity', 'amount', 'total'}
         if set(vals_list) - valid_values:
             raise UserError(_('The following values are not valid:\n%s', '\n'.join(list(set(vals_list) - valid_values))))
-        result = defaultdict(lambda: defaultdict(lambda: dict.fromkeys(vals_list, 0)))
+        result = defaultdict(lambda: defaultdict(lambda: dict.fromkeys(vals_list, 0.0)))
         if not self or not code_list:
             return result
         self.env.flush_all()
@@ -1162,8 +1162,60 @@ class HrPayslip(models.Model):
             payslip_id = row['id']
             for vals in vals_list:
                 if compute_sum:
-                    result[code]['sum'][vals] += row[vals] or 0
-                result[code][payslip_id][vals] += row[vals] or 0
+                    result[code]['sum'][vals] += row[vals] or 0.0
+                result[code][payslip_id][vals] += row[vals] or 0.0
+        return result
+
+    def _get_worked_days_line_values(self, code_list, vals_list=None, compute_sum=False):
+        if vals_list is None:
+            vals_list = ['amount']
+        valid_values = {'number_of_hours', 'number_of_days', 'amount'}
+        if set(vals_list) - valid_values:
+            raise UserError(_('The following values are not valid:\n%s', '\n'.join(list(set(vals_list) - valid_values))))
+        result = defaultdict(lambda: defaultdict(lambda: dict.fromkeys(vals_list, 0.0)))
+        if not self or not code_list:
+            return result
+        self.env.flush_all()
+        selected_fields = ','.join('SUM(%s) AS %s' % (vals, vals) for vals in vals_list)
+        self.env.cr.execute("""
+            SELECT
+                p.id,
+                wet.code,
+                %s
+            FROM hr_payslip_worked_days wd
+            JOIN hr_work_entry_type wet ON wet.id = wd.work_entry_type_id
+            JOIN hr_payslip p ON p.id IN %s
+            AND wd.payslip_id = p.id
+            AND wet.code IN %s
+            GROUP BY p.id, wet.code
+        """ % (selected_fields, '%s', '%s'), (tuple(self.ids), tuple(code_list)))
+        # self = hr.payslip(1, 2)
+        # request_rows = [
+        #     {'id': 1, 'code': 'WORK100', 'amount': 100, 'number_of_days': 1},
+        #     {'id': 1, 'code': 'LEAVE100', 'amount': 200, 'number_of_days': 1},
+        #     {'id': 2, 'code': 'WORK100', 'amount': -2, 'number_of_days': 1},
+        #     {'id': 2, 'code': 'LEAVE100', 'amount': -3, 'number_of_days': 1}
+        # ]
+        request_rows = self.env.cr.dictfetchall()
+        # result = {
+        #     'IP': {
+        #         'sum': {'number_of_days': 2, 'amount': 300},
+        #         1: {'number_of_days': 1, 'amount': 100},
+        #         2: {'number_of_days': 1, 'amount': 200},
+        #     },
+        #     'LEAVE100': {
+        #         'sum': {'number_of_days': 2, 'amount': -5},
+        #         1: {'number_of_days': 1, 'amount': -2},
+        #         2: {'number_of_days': 1, 'amount': -3},
+        #     },
+        # }
+        for row in request_rows:
+            code = row['code']
+            payslip_id = row['id']
+            for vals in vals_list:
+                if compute_sum:
+                    result[code]['sum'][vals] += row[vals] or 0.0
+                result[code][payslip_id][vals] += row[vals] or 0.0
         return result
 
     def _get_worked_days_line_amount(self, code):
