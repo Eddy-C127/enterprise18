@@ -45,6 +45,14 @@
                             </th>
                         </t>
                     </t>
+
+                    <t t-if="controller.options.show_horizontal_group_total">
+                        <t t-if="!columnHeader_first">
+                            <th class="column_header">
+                                <t t-out="controller.options.available_horizontal_groups.find(group => group.id === controller.options.selected_horizontal_group_id).name"/>
+                            </th>
+                        </t>
+                    </t>
                 </tr>
             </t>
 
@@ -106,6 +114,13 @@
                 <t t-if="controller.hasDebugColumn">
                     <!-- Empty to prevent a gap beneath the debug label -->
                     <th/>
+                </t>
+
+                <t t-if="controller.options.show_horizontal_group_total">
+                    <th>
+                        <!-- Since we have only one column possible with horizontal group totals taking the first element is ok -->
+                        <t t-out="subheaders[0].name"/>
+                    </th>
                 </t>
             </tr>
         </thead>

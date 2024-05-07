@@ -73,6 +73,26 @@ export class AccountReportLine extends Component {
         return classes;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+    // Total Horizontal Group
+    // -----------------------------------------------------------------------------------------------------------------
+    get HorizontalGroupTotalClasses() {
+        let classes = "text-end";
+        switch(Math.sign(this.props.line.horizontal_group_total_data?.no_format)) {
+            case 1:
+                break;
+            case 0:
+                classes += " muted";
+                break;
+            case -1:
+                classes += " text-danger";
+                break;
+        }
+
+        return classes;
+    }
+
+
     //------------------------------------------------------------------------------------------------------------------
     // Search
     //------------------------------------------------------------------------------------------------------------------

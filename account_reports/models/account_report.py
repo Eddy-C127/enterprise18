@@ -1357,6 +1357,11 @@ class AccountReport(models.Model):
                                        and len(options['column_groups']) == 1 \
                                        and len(self.line_ids) > 0 # No debug column on fully dynamic reports by default (they can customize this)
 
+        # Show an additional column summing all the horizontal groups is there is no comparison and only one level of horizontal group
+        options['show_horizontal_group_total'] = options.get('comparison', {}).get('filter') == 'no_comparison' \
+                                                 and len(self.column_ids) == 1 \
+                                                 and len(options['column_headers']) == 2
+
     def _generate_columns_group_vals_recursively(self, next_levels_headers, previous_levels_group_vals):
         if next_levels_headers:
             rslt = []
@@ -2233,6 +2238,27 @@ class AccountReport(models.Model):
                     )
 
                 column_dict['name'] = rslt
+
+            # Handle the total in case of an horizontal group when there is no comparison and only one level of horizontal group
+            if options.get('show_horizontal_group_total'):
+                # In case the line has no formula
+                if all(column['no_format'] is None for column in line_dict['columns']):
+                    continue
+                # In case total below section, some line don't have the value displayed
+                if self.env.company.totals_below_sections and not options.get('ignore_totals_below_sections') and line_dict['unfolded']:
+                    continue
+
+                figure_type_is_valid = all(column['figure_type'] in {'float', 'integer', 'monetary'} for column in line_dict['columns'])
+                total_value = sum(column["no_format"] for column in line_dict['columns']) if figure_type_is_valid else None
+                line_dict['horizontal_group_total_data'] = {
+                    'name': self.format_value(
+                        options,
+                        total_value,
+                        line_dict['columns'][0]['figure_type'],
+                        format_params=line_dict['columns'][0]['format_params'],
+                    ),
+                    'no_format': total_value,
+                }
 
     def _generate_common_warnings(self, options, warnings):
         # Display a warning if we're displaying only the data of the current company, but it's also part of a tax unit
@@ -5161,10 +5187,14 @@ class AccountReport(models.Model):
         for header_level_index, header_level in enumerate(options['column_headers']):
             for header_to_render in header_level * column_headers_render_data['level_repetitions'][header_level_index]:
                 colspan = header_to_render.get('colspan', column_headers_render_data['level_colspan'][header_level_index])
-                write_cell(sheet, x_offset, y_offset, header_to_render.get('name', ''), title_style, colspan)
+                write_cell(sheet, x_offset, y_offset, header_to_render.get('name', ''), title_style, colspan + (1 if options['show_horizontal_group_total'] and header_level_index == 0 else 0))
                 x_offset += colspan
             if options['show_growth_comparison']:
                 write_cell(sheet, x_offset, y_offset, '%', title_style)
+
+            if options['show_horizontal_group_total'] and header_level_index != 0:
+                horizontal_group_name = next((group['name'] for group in options['available_horizontal_groups'] if group['id'] == options['selected_horizontal_group_id']), None)
+                write_cell(sheet, x_offset, y_offset, horizontal_group_name, title_style)
             y_offset += 1
             x_offset = original_x_offset + 1
 
@@ -5179,6 +5209,9 @@ class AccountReport(models.Model):
             colspan = column.get('colspan', 1)
             write_cell(sheet, x_offset, y_offset, column.get('name', ''), title_style, colspan)
             x_offset += colspan
+
+        if options['show_horizontal_group_total']:
+            write_cell(sheet, x_offset, y_offset, options['columns'][0].get('name', ''), title_style, colspan)
         y_offset += 1
 
         if options.get('order_column'):
@@ -5226,6 +5259,10 @@ class AccountReport(models.Model):
             columns = lines[y]['columns']
             if options['show_growth_comparison'] and 'growth_comparison_data' in lines[y]:
                 columns += [lines[y].get('growth_comparison_data')]
+
+            if options['show_horizontal_group_total']:
+                columns += [lines[y].get('horizontal_group_total_data', {'name': 0})]
+
             for x, column in enumerate(columns, start=x_offset):
                 cell_type, cell_value = self._get_cell_type_value(column)
                 if cell_type == 'date':

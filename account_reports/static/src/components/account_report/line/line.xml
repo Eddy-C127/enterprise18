@@ -59,6 +59,12 @@
                     </t>
                 </td>
             </t>
+
+            <t t-if="controller.options.show_horizontal_group_total">
+                <td t-att-class="HorizontalGroupTotalClasses">
+                    <t t-out="props.line.horizontal_group_total_data?.name"/>
+                </td>
+            </t>
         </tr>
     </t>
 </templates>

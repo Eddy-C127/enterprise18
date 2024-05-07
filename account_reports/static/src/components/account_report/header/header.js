@@ -32,7 +32,12 @@ export class AccountReportHeader extends Component {
     }
 
     columnHeadersColspan(column_index, header, compactOffset = 0) {
-        return header.colspan || this.controller.columnHeadersRenderData.level_colspan[column_index];
+        let colspan = header.colspan || this.controller.columnHeadersRenderData.level_colspan[column_index]
+        // In case of we need the total column for horizontal we need to increase the colspan of the first row
+        if(this.controller.options.show_horizontal_group_total && column_index === 0) {
+           colspan += 1;
+        }
+        return colspan;
     }
 
     //------------------------------------------------------------------------------------------------------------------

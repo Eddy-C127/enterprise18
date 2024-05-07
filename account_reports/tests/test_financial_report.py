@@ -660,6 +660,99 @@ class TestFinancialReport(TestAccountReportsCommon):
             options,
         )
 
+    def test_financial_report_horizontal_group_total(self):
+        """
+        In case we don't have comparison, just one column and one level of groupby a new column is added which is the total
+        of the horizontal group
+        """
+        horizontal_group = self.env['account.report.horizontal.group'].create({
+            'name': 'Horizontal Group total',
+            'rule_ids': [
+                Command.create({
+                    'field_name': 'partner_id',
+                    'domain': f"[('id', 'in', {(self.partner_a + self.partner_b).ids})]",
+                }),
+            ],
+        })
+        self.report.horizontal_group_ids |= horizontal_group
+        options = self._generate_options(self.report, '2019-01-01', '2019-12-31', default_options={'selected_horizontal_group_id': horizontal_group.id})
+        self.assertHeadersValues(
+            options['column_headers'],
+            [
+                ['As of 12/31/2019'],
+                ['partner_a', 'partner_b'],
+            ]
+        )
+
+        self.assertTrue(options['show_horizontal_group_total'])
+        # Since we don't calculate the value when totals below section is activated, we disable it
+        self.env.company.totals_below_sections = False
+        self.assertHorizontalGroupTotal(
+            self.report._get_lines(options),
+            [
+                ('ASSETS',                                      6900.0,          -4075.0,        2825.0),
+                ('Current Assets',                              2700.0,          -4075.0,       -1375.0),
+                ('Bank and Cash Accounts',                         0.0,          -3000.0,       -3000.0),
+                ('Receivables',                                 2300.0,             25.0,        2325.0),
+                ('Current Assets',                               400.0,              0.0,         400.0),
+                ('Prepayments',                                    0.0,          -1100.0,       -1100.0),
+                ('Plus Fixed Assets',                              0.0,              0.0,           0.0),
+                ('Plus Non-current Assets',                     4200.0,              0.0,        4200.0),
+                ('LIABILITIES',                                    0.0,           -200.0,        -200.0),
+                ('Current Liabilities',                            0.0,           -200.0,        -200.0),
+                ('Current Liabilities',                            0.0,              0.0,           0.0),
+                ('Payables',                                       0.0,           -200.0,        -200.0),
+                ('Plus Non-current Liabilities',                   0.0,              0.0,           0.0),
+                ('EQUITY',                                       250.0,            800.0,        1050.0),
+                ('Unallocated Earnings',                         250.0,              0.0,         250.0),
+                ('Current Year Unallocated Earnings',              0.0,              0.0,           0.0),
+                ('Current Year Earnings',                          0.0,              0.0,           0.0),
+                ('Current Year Allocated Earnings',                0.0,              0.0,           0.0),
+                ('Previous Years Unallocated Earnings',          250.0,              0.0,         250.0),
+                ('Retained Earnings',                              0.0,            800.0,         800.0),
+                ('LIABILITIES + EQUITY',                         250.0,            600.0,         850.0),
+            ],
+        )
+
+        options = self._generate_options(self.report, '2019-01-01', '2019-12-31', default_options={'selected_horizontal_group_id': horizontal_group.id})
+        options = self._update_comparison_filter(options, self.report, 'custom', 1, date_to=fields.Date.from_string('2018-12-31'))
+        self.assertHeadersValues(
+            options['column_headers'],
+            [
+                ['As of 12/31/2019', 'As of 12/31/2018'],
+                ['partner_a', 'partner_b'],
+            ]
+        )
+
+        self.assertFalse(options['show_horizontal_group_total'])
+
+        self.assertHorizontalGroupTotal(
+            self.report._get_lines(options),
+            [
+                ('ASSETS',                                      6900.0,             -4075.0,     5750.0,     -3000.0),
+                ('Current Assets',                              2700.0,             -4075.0,     2250.0,     -3000.0),
+                ('Bank and Cash Accounts',                         0.0,             -3000.0,        0.0,     -3000.0),
+                ('Receivables',                                 2300.0,                25.0,     2250.0,         0.0),
+                ('Current Assets',                               400.0,                 0.0,        0.0,         0.0),
+                ('Prepayments',                                    0.0,             -1100.0,        0.0,         0.0),
+                ('Plus Fixed Assets',                              0.0,                 0.0,        0.0,         0.0),
+                ('Plus Non-current Assets',                     4200.0,                 0.0,     3500.0,         0.0),
+                ('LIABILITIES',                                    0.0,              -200.0,        0.0,         0.0),
+                ('Current Liabilities',                            0.0,              -200.0,        0.0,         0.0),
+                ('Current Liabilities',                            0.0,                 0.0,        0.0,         0.0),
+                ('Payables',                                       0.0,              -200.0,        0.0,         0.0),
+                ('Plus Non-current Liabilities',                   0.0,                 0.0,        0.0,         0.0),
+                ('EQUITY',                                       250.0,               800.0,      250.0,         0.0),
+                ('Unallocated Earnings',                         250.0,                 0.0,      250.0,         0.0),
+                ('Current Year Unallocated Earnings',              0.0,                 0.0,      250.0,         0.0),
+                ('Current Year Earnings',                          0.0,                 0.0,      250.0,         0.0),
+                ('Current Year Allocated Earnings',                0.0,                 0.0,        0.0,         0.0),
+                ('Previous Years Unallocated Earnings',          250.0,                 0.0,        0.0,         0.0),
+                ('Retained Earnings',                              0.0,               800.0,        0.0,         0.0),
+                ('LIABILITIES + EQUITY',                         250.0,               600.0,      250.0,         0.0),
+            ],
+        )
+
     def test_hide_if_zero_with_no_formulas(self):
         """
         Check if a report line stays displayed when hide_if_zero is True and no formulas

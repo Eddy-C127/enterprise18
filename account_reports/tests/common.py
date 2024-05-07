@@ -96,6 +96,25 @@ class TestAccountReportsCommon(AccountTestInvoicingCommon):
             # Check name, value and class.
             self.assertEqual(tuple([value['name'], value[key]['name'], value[key]['growth']]), expected_value)
 
+    def assertHorizontalGroupTotal(self, lines, expected_values):
+        filtered_lines = self._filter_folded_lines(lines)
+
+        # Check number of lines.
+        self.assertEqual(len(filtered_lines), len(expected_values))
+        for line_dict_list, expected_values in zip(filtered_lines, expected_values):
+            column_values = [column['no_format'] for column in line_dict_list['columns']]
+            # Compare the Total column, Total column is there only under certain condition
+            if line_dict_list.get('horizontal_group_total_data'):
+                self.assertEqual(len(line_dict_list['columns']) + 1, len(expected_values[1:]))
+                # Compare the numbers column except the total
+                self.assertEqual(column_values, list(expected_values[1:-1]))
+                # Compare the total column
+                self.assertEqual(line_dict_list['horizontal_group_total_data']['no_format'], expected_values[-1])
+            else:
+                # No total column
+                self.assertEqual(len(line_dict_list['columns']), len(expected_values[1:]))
+                self.assertEqual(column_values, list(expected_values[1:]))
+
     def assertHeadersValues(self, headers, expected_headers):
         ''' Helper to compare the headers returned by the _get_table method
         with some expected results.
