@@ -814,13 +814,25 @@ msgid "Service user number"
 msgstr ""
 
 #. module: l10n_uk_bacs
-#: model:ir.model.fields,help:l10n_uk_bacs.field_res_config_settings__bacs_sun
 msgid "Service user number of your company within BACS"
 msgstr ""
 
 #. module: l10n_uk_bacs
-#: model:ir.model.fields,help:l10n_uk_bacs.field_res_company__bacs_sun
+#: model:ir.model.fields,help:l10n_uk_bacs.field_res_config_settings__bacs_sun
+msgid ""
+"Service user number of your company within BACS. Write 'HSBC' here if you "
+"bank does not provide one."
+msgstr ""
+
+#. module: l10n_uk_bacs
 msgid "Service user number of your company within BACS, given by the bank."
+msgstr ""
+
+#. module: l10n_uk_bacs
+#: model:ir.model.fields,help:l10n_uk_bacs.field_res_company__bacs_sun
+msgid ""
+"Service user number of your company within BACS, given by the bank. Write "
+"'HSBC' here if your bank does not provide one."
 msgstr ""
 
 #. module: l10n_uk_bacs
@@ -939,6 +951,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_uk_bacs/models/res_company.py:0
 msgid "The service user number must be numeric."
+msgstr ""
+
+#. module: l10n_uk_bacs
+#. odoo-python
+#: code:addons/l10n_uk_bacs/models/res_company.py:0
+msgid ""
+"The service user number must be numeric, or 'HSBC' if you don't have any."
 msgstr ""
 
 #. module: l10n_uk_bacs
