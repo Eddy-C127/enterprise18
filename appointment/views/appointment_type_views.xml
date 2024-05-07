@@ -120,7 +120,7 @@
                                 </div>
                                 <div class="row d-flex o_appointment_kanban_boxes">
                                     <div class="o_appointment_kanban_box o_kanban_primary_bottom bottom_block d-flex position-relative justify-content-center px-0">
-                                        <div class="col-6"/>
+                                        <div class="col-6 ps-3"/>
                                         <div class="col-6">
                                             <button class="btn btn-link btn-sm py-0 fa fa-lg fa-link" name="action_share_invite" type="object" title="Share"
                                                     invisible="not active"/>
@@ -263,7 +263,6 @@
                                     (Total: <field name="resource_total_capacity" class="oe_inline o_input_5ch"/> persons)
                                 </span>
                             </div>
-                            <field name="avatars_display" widget="radio" options="{'horizontal': true}" required="1"/>
                             <field name="assign_method" widget="radio" required="1"/>
                         </group>
                     </group>
@@ -294,6 +293,7 @@
                         <page string="Options" name="options">
                             <group>
                                 <group name="options_left_details">
+                                    <field name="avatars_display" widget="radio" options="{'horizontal': true}" required="1"/>
                                     <field name="appointment_tz"/>
                                     <field name="location_id" context="{'show_address': True, 'default_is_company': True}"
                                         domain="[('is_company', '=', True)]"

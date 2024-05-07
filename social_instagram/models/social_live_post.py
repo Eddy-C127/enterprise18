@@ -13,6 +13,13 @@ class SocialLivePostInstagram(models.Model):
 
     instagram_post_id = fields.Char('Instagram Post ID', readonly=True)
 
+    def _compute_live_post_link(self):
+        instagram_live_posts = self._filter_by_media_types(['instagram']).filtered(lambda post: post.state == 'posted')
+        super(SocialLivePostInstagram, (self - instagram_live_posts))._compute_live_post_link()
+
+        for post in instagram_live_posts:
+            post.live_post_link = f'https://www.instagram.com/p/{post.instagram_post_id}'
+
     def _refresh_statistics(self):
         super(SocialLivePostInstagram, self)._refresh_statistics()
         accounts = self.env['social.account'].search([('media_type', '=', 'instagram')])
