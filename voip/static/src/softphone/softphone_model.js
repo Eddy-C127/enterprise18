@@ -31,44 +31,47 @@ export class Softphone {
     }
 
     get activities() {
+        const searchBarInputValue = this.searchBarInputValue.trim();
         return Object.values(this.store.Activity.records).filter(
             (activity) =>
                 activity.activity_category === "phonecall" &&
                 ["today", "overdue"].includes(activity.state) &&
                 ["phone", "mobile"].some((field) => activity[field]) &&
                 activity.user_id[0] === this.store.user.user.id &&
-                (!this.searchBarInputValue ||
+                (!searchBarInputValue ||
                     [
                         activity.partner.name,
                         activity.partner.displayName,
                         activity.mobile,
                         activity.phone,
                         activity.name,
-                    ].some((x) => isSubstring(x, this.searchBarInputValue)))
+                    ].some((x) => isSubstring(x, searchBarInputValue)))
         );
     }
 
     get contacts() {
+        const searchBarInputValue = this.searchBarInputValue.trim();
         return Object.values(this.store.Persona.records).filter(
             (contact) =>
                 contact.hasPhoneNumber &&
-                (!this.searchBarInputValue ||
+                (!searchBarInputValue ||
                     [
                         contact.name,
                         contact.displayName,
                         contact.mobileNumber,
                         contact.landlineNumber,
-                    ].some((x) => isSubstring(x, this.searchBarInputValue)))
+                    ].some((x) => isSubstring(x, searchBarInputValue)))
         );
     }
 
     get recentCalls() {
+        const searchBarInputValue = this.searchBarInputValue.trim();
         const filteredCalls = (() => {
-            if (this.searchBarInputValue) {
+            if (searchBarInputValue) {
                 return Object.values(this.voip.calls).filter(
                     (call) =>
-                        isSubstring(call.phoneNumber, this.searchBarInputValue) ||
-                        (call.partner && isSubstring(call.partner.name, this.searchBarInputValue))
+                        isSubstring(call.phoneNumber, searchBarInputValue) ||
+                        (call.partner && isSubstring(call.partner.name, searchBarInputValue))
                 );
             }
             return Object.values(this.voip.calls);

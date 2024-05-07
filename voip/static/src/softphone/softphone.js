@@ -220,7 +220,7 @@ export class Softphone extends Component {
     search() {
         switch (this.activeTabId) {
             case "contacts":
-                this.voip.fetchContacts(this.softphone.searchBarInputValue);
+                this.voip.fetchContacts(this.softphone.searchBarInputValue.trim());
                 break;
             case "activity":
                 this.voip.fetchTodayCallActivities();

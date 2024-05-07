@@ -180,7 +180,7 @@ export class Voip {
         this._recentCallsRpc = this.orm.call("voip.call", "get_recent_phone_calls", [], {
             offset,
             limit,
-            search_terms: this.softphone.searchBarInputValue,
+            search_terms: this.softphone.searchBarInputValue.trim(),
         });
         try {
             const callsData = await this._recentCallsRpc;
