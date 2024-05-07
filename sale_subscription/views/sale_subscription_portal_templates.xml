@@ -158,7 +158,7 @@
         <div id="intro_row" position="replace">
             <div class="row" id="intro_row">
                 <h2 class="my-0 col-12 col-lg flex-grow-1 mb-1 mb-lg-0">
-                <t t-if="sale_order.type_name == 'Subscription'">
+                <t t-if="sale_order.is_subscription and sale_order.state == 'sale'">
                     <t t-out="sale_order.name"/>
                     <t t-if="sale_order.client_order_ref or sale_order.subscription_id.name">
                         - <em t-out="sale_order.client_order_ref or sale_order.subscription_id.name"/>
