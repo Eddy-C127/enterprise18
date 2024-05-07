@@ -4,11 +4,11 @@ import { makeAwaitable } from "@point_of_sale/app/store/make_awaitable_dialog";
 import { patch } from "@web/core/utils/patch";
 
 patch(InvoiceButton.prototype, {
-    async onWillInvoiceOrder(order) {
+    async onWillInvoiceOrder(order, newPartner) {
         if (this.pos.company.country_id?.code !== "MX") {
             return true;
         }
-        const payload = await makeAwaitable(this.dialog, AddInfoPopup, { order });
+        const payload = await makeAwaitable(this.dialog, AddInfoPopup, { order, newPartner });
         if (payload) {
             order.l10n_mx_edi_cfdi_to_public =
                 payload.l10n_mx_edi_cfdi_to_public === true ||

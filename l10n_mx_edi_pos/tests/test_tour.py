@@ -1,30 +1,43 @@
 # -*- coding: utf-8 -*-
+from .common import TestMxEdiPosCommon
 import odoo
-from odoo import Command
 from odoo.tests import tagged
 from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
-from odoo.addons.l10n_mx_edi.tests.common import TestMxEdiCommon
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-class TestUi(TestMxEdiCommon, TestPointOfSaleHttpCommon):
+class TestUi(TestMxEdiPosCommon, TestPointOfSaleHttpCommon):
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.partner_mx.write({
+            "name": "Arturo Garcia",
+            "l10n_mx_edi_usage": "I01",
+        })
 
     def test_mx_pos_invoice_order(self):
-        self.product.available_in_pos = True
         self.start_tour("/web", "l10n_mx_edi_pos.tour_invoice_order", login=self.env.user.login)
 
+    def test_mx_pos_invoice_order_default_usage(self):
+        self.start_tour("/web", "l10n_mx_edi_pos.tour_invoice_order_default_usage", login=self.env.user.login)
+
     def test_mx_pos_invoice_previous_order(self):
-        self.product.available_in_pos = True
-        partner_mx = self.env['res.partner'].create({
-            'name': "Arturo Garcia",
-            'country_id': self.env.ref('base.mx').id,
-        })
         self.start_tour("/web", "l10n_mx_edi_pos.tour_invoice_previous_order", login=self.env.user.login)
         invoice = self.env['account.move'].search([('move_type', '=', 'out_invoice')], order='id desc', limit=1)
         self.assertRecordValues(invoice, [{
-            'partner_id': partner_mx.id,
-            'l10n_mx_edi_usage': "I01",
+            'partner_id': self.partner_mx.id,
+            'l10n_mx_edi_usage': "G03",
             'l10n_mx_edi_cfdi_to_public': False,
+        }])
+
+    def test_mx_pos_invoice_previous_order_default_usage(self):
+        self.start_tour("/web", "l10n_mx_edi_pos.tour_invoice_previous_order_default_usage", login=self.env.user.login)
+        invoice = self.env['account.move'].search([('move_type', '=', 'out_invoice')], order='id desc', limit=1)
+        self.assertRecordValues(invoice, [{
+            'partner_id': self.partner_mx.id,
+            'l10n_mx_edi_usage': "I01",
+            'l10n_mx_edi_cfdi_to_public': True,
         }])
 
     def test_qr_code_receipt_mx(self):

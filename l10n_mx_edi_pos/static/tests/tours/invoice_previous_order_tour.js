@@ -60,10 +60,10 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_o
             {
                 content: "Set Usage: 'General Expenses'",
                 trigger: "select[name='l10n_mx_edi_usage']",
-                run: "select I01",
+                run: "select G03",
             },
             {
-                content: "Set Invoice to Public: 'Yes'",
+                content: "Set Invoice to Public: 'No'",
                 trigger: "select[name='l10n_mx_edi_cfdi_to_public']",
                 run: "select 0",
             },
@@ -75,3 +75,74 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_o
             },
         ].flat(),
 });
+
+registry
+    .category("web_tour.tours")
+    .add("l10n_mx_edi_pos.tour_invoice_previous_order_default_usage", {
+        test: true,
+        steps: () =>
+            [
+                {
+                    content: "Click the POS icon",
+                    trigger: ".o_app[data-menu-xmlid='point_of_sale.menu_point_root']",
+                },
+                {
+                    content: "Open POS session from backend",
+                    trigger: "button[name='open_ui']",
+                },
+                Dialog.confirm("Open session"),
+                {
+                    content: "Select a product",
+                    trigger: "div.product-content:contains('product_mx')",
+                },
+                {
+                    content: "go to Payment",
+                    trigger: ".pay-order-button",
+                },
+                {
+                    content: "Select payment method",
+                    trigger: "div.button.paymentmethod",
+                },
+                {
+                    content: "Validate",
+                    trigger: "div.button.next.validation",
+                },
+                {
+                    content: "click on New Order",
+                    trigger: "div button:contains('New Order')",
+                },
+                Chrome.clickMenuOption("Orders"),
+                {
+                    content: "Select dropdown",
+                    trigger: "div.filter",
+                },
+                {
+                    content: "Select 'Paid Orders'",
+                    trigger: "li:contains('Paid')",
+                },
+                {
+                    content: "Pick the first order in the list",
+                    trigger: "div.order-row:contains('Paid'):first",
+                },
+                {
+                    content: "Ask an invoice for this order",
+                    trigger: "button.control-button:contains('Invoice')",
+                },
+                Dialog.confirm(),
+                {
+                    content: "Select the partner 'Arturo Garcia'",
+                    trigger: "tr.partner-line:contains('Arturo Garcia')",
+                },
+                {
+                    content: "Set Invoice to Public: 'Yes'",
+                    trigger: "select[name='l10n_mx_edi_cfdi_to_public']",
+                    run: "select 1",
+                },
+                Dialog.confirm(),
+                {
+                    content: "The 'Invoice' button should have now turned to 'Reprint Invoice'",
+                    trigger: "span:contains('Reprint Invoice')",
+                    isCheck: true,
+                },
+            ].flat(),
+    });
