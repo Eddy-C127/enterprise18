@@ -3,7 +3,7 @@
     <t t-name="account_reports.AccountReportFilterExtraOptions">
         <Dropdown onStateChanged="(isOpen) => this.applyFilters(isOpen)">
             <button class="btn btn-secondary">
-                <i class="fa fa-filter me-1"/>
+                <i class="fa fa-sliders me-1"/>
                 <t t-if="selectedExtraOptions">
                     <t t-out="selectedExtraOptions"/>
                 </t>
