@@ -70,3 +70,47 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order", {
         },
     ],
 });
+
+registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order_default_usage", {
+    test: true,
+    steps: () => [
+        {
+            content: "Click the POS icon",
+            trigger: ".o_app[data-menu-xmlid='point_of_sale.menu_point_root']",
+        },
+        {
+            content: "Open POS session from backend",
+            trigger: "button[name='open_ui']",
+        },
+        ...ProductScreen.confirmOpeningPopup(),
+        {
+            content: "Select a product",
+            trigger: "div.product-content:contains('product_mx')",
+        },
+        {
+            content: "Select a customer",
+            trigger: ".set-partner",
+        },
+        {
+            content: "Select the partner 'Arturo Garcia'",
+            trigger: "tr.partner-line:contains('Arturo Garcia')",
+        },
+        {
+            content: "go to Payment",
+            trigger: ".pay-order-button",
+        },
+        {
+            content: "Customer wants an invoice",
+            trigger: ".js_invoice",
+        },
+        {
+            content: "Confirm and close the popup",
+            trigger: ".button.confirm",
+        },
+        {
+            content: "Option I01 should be selected",
+            trigger: "div.right-content:contains('Constructions')",
+            isCheck: true,
+        },
+    ],
+});
