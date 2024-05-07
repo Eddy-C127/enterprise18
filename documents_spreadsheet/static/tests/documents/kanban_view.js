@@ -9,7 +9,7 @@ import {
     createDocumentsViewWithMessaging,
 } from "@documents/../tests/documents_test_utils";
 
-import { XLSX_MIME_TYPE } from "@documents_spreadsheet/helpers";
+import { XLSX_MIME_TYPES } from "@documents_spreadsheet/helpers";
 import { mockActionService } from "@documents_spreadsheet/../tests/spreadsheet_test_utils";
 
 import { start } from "@mail/../tests/helpers/test_utils";
@@ -408,7 +408,66 @@ QUnit.module(
                 const spreadsheetId = pyEnv["documents.document"].create([
                     {
                         name: "My excel file",
-                        mimetype: XLSX_MIME_TYPE,
+                        mimetype: XLSX_MIME_TYPES[0],
+                        thumbnail_status: "present",
+                    },
+                ]);
+                const serverData = {
+                    views: {
+                        "documents.document,false,kanban": `
+                            <kanban js_class="documents_kanban">
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div>
+                                            <div name="document_preview" class="o_kanban_image_wrapper">a thumbnail</div>
+                                            <i class="fa fa-circle-thin o_record_selector"/>
+                                            <field name="name"/>
+                                            <field name="handler"/>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        `,
+                        "documents.document,false,search": getEnrichedSearchArch(),
+                    },
+                };
+                const { env, openView } = await start({
+                    mockRPC: async (route, args) => {
+                        if (args.method === "clone_xlsx_into_spreadsheet") {
+                            assert.step("spreadsheet_cloned", "it should clone the spreadsheet");
+                            assert.strictEqual(args.model, "documents.document");
+                            assert.deepEqual(args.args, [spreadsheetId]);
+                            return spreadsheetCopyId;
+                        }
+                    },
+                    serverData,
+                });
+                await openView({
+                    res_model: "documents.document",
+                    views: [[false, "kanban"]],
+                });
+                mockActionService(env, (action) => {
+                    assert.step(action.tag, "it should open the spreadsheet");
+                    assert.deepEqual(action.params.spreadsheet_id, spreadsheetCopyId);
+                });
+                const fixture = getFixture();
+                await click(fixture, ".oe_kanban_previewer");
+
+                // confirm conversion to o-spreadsheet
+                await click(fixture, ".modal-content .btn.btn-primary");
+                assert.verifySteps(["spreadsheet_cloned", "action_open_spreadsheet"]);
+            }
+        );
+
+        QUnit.test(
+            "open WPS-marked xlsx converts to o-spreadsheet, clone it and opens the spreadsheet",
+            async function (assert) {
+                const spreadsheetCopyId = 99;
+                const pyEnv = await startServer();
+                const spreadsheetId = pyEnv["documents.document"].create([
+                    {
+                        name: "My excel file",
+                        mimetype: XLSX_MIME_TYPES[1],
                         thumbnail_status: "present",
                     },
                 ]);
