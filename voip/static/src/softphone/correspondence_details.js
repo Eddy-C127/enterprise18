@@ -21,7 +21,7 @@ export class CorrespondenceDetails extends Component {
         this.activityService = useService("mail.activity");
         this.callService = useService("voip.call");
         this.dialog = useService("dialog");
-        this.orm = useService("orm");
+        this.orm = this.env.services.orm;
         this.userAgent = useState(useService("voip.user_agent"));
         this.voip = useService("voip");
         this.softphone = this.voip.softphone;

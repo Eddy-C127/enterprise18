@@ -1,5 +1,3 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 {
     "name": "VoIP for CRM",
     "summary": "VoIP integration with CRM module.",
@@ -10,4 +8,13 @@
     "auto_install": True,
     "data": ["views/crm_lead_views.xml"],
     "license": "OEEL-1",
+    "assets": {
+        "web.tests_assets": [
+            "voip_crm/static/tests/helpers/**/*.js",
+        ],
+        "web.qunit_suite_tests": [
+            "voip_crm/static/tests/**/*.js",
+            ("remove", "voip_crm/static/tests/helpers/**/*"),
+        ],
+    },
 }
