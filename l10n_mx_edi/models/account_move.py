@@ -1054,10 +1054,11 @@ class AccountMove(models.Model):
         self._l10n_mx_edi_add_common_cfdi_values(cfdi_values)
         company = cfdi_values['company']
         company_curr = company.currency_id
+        mexico_tz = self.env['l10n_mx_edi.certificate'].sudo()._get_timezone()
 
         # Date.
         cfdi_date = datetime.combine(fields.Datetime.from_string(self.date), datetime.strptime('12:00:00', '%H:%M:%S').time())
-        cfdi_values['fecha'] = self.l10n_mx_edi_post_time.strftime('%Y-%m-%dT%H:%M:%S')
+        cfdi_values['fecha'] = datetime.now(mexico_tz).strftime('%Y-%m-%dT%H:%M:%S')
         cfdi_values['fecha_pago'] = cfdi_date.strftime('%Y-%m-%dT%H:%M:%S')
 
         # Misc.
