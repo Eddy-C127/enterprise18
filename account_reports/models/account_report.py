@@ -5099,7 +5099,7 @@ class AccountReport(models.Model):
             )
             # We set the width if it is bigger than the current one, with a limit at 75 (max to avoid taking excessive space).
             if width > col_width:
-                sheet.set_column(col, col, min(width, 75))
+                sheet.set_column(col, col, min(width + 4, 75))  # We need to add a little extra padding to ensure our columns are not clipping the text
 
     def _inject_report_into_xlsx_sheet(self, options, workbook, sheet):
 
