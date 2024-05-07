@@ -8,7 +8,7 @@ import {
     DocumentsInspector,
 } from "@documents/views/inspector/documents_inspector";
 
-import { XLSX_MIME_TYPE } from "@documents_spreadsheet/helpers";
+import { XLSX_MIME_TYPES } from "@documents_spreadsheet/helpers";
 
 inspectorFields.push("handler");
 
@@ -28,7 +28,7 @@ patch(DocumentsInspector.prototype, {
     getRecordAdditionalData(record) {
         const result = super.getRecordAdditionalData(...arguments);
         result.isSheet = record.data.handler === "spreadsheet";
-        result.isXlsx = record.data.mimetype === XLSX_MIME_TYPE;
+        result.isXlsx = XLSX_MIME_TYPES.includes(record.data.mimetype);
         return result;
     },
 

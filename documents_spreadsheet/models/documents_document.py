@@ -32,6 +32,11 @@ SUPPORTED_PATHS = (
     "xl/media",
 )
 
+XLSX_MIME_TYPES = [
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "application/wps-office.xlsx",
+]
+
 
 class Document(models.Model):
     _name = "documents.document"
@@ -257,7 +262,7 @@ class Document(models.Model):
 
     def _unzip_xlsx(self):
         file = io.BytesIO(self.attachment_id.raw)
-        if not zipfile.is_zipfile(file) or self.mimetype != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+        if not zipfile.is_zipfile(file) or self.mimetype not in XLSX_MIME_TYPES:
             raise XSLXReadUserError(_("The file is not a xlsx file"))
 
         unzipped_size = 0

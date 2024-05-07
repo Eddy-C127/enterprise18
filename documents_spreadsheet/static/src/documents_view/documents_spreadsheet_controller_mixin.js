@@ -8,7 +8,7 @@ import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_d
 import { SpreadsheetCloneXlsxDialog } from "@documents_spreadsheet/spreadsheet_clone_xlsx_dialog/spreadsheet_clone_xlsx_dialog";
 import { _t } from "@web/core/l10n/translation";
 
-import { XLSX_MIME_TYPE } from "@documents_spreadsheet/helpers";
+import { XLSX_MIME_TYPES } from "@documents_spreadsheet/helpers";
 
 export const DocumentsSpreadsheetControllerMixin = () => ({
     setup() {
@@ -75,7 +75,7 @@ export const DocumentsSpreadsheetControllerMixin = () => ({
                     spreadsheet_id: mainDocument.resId,
                 },
             });
-        } else if (mainDocument.data.mimetype === XLSX_MIME_TYPE) {
+        } else if (XLSX_MIME_TYPES.includes(mainDocument.data.mimetype)) {
             if (!mainDocument.data.active) {
                 this.dialogService.add(ConfirmationDialog, {
                     title: _t("Restore file?"),

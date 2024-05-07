@@ -25,6 +25,21 @@ class SpreadsheetImportXlsx(HttpCase, SpreadsheetTestCommon):
             spreadsheet = self.env["documents.document"].browse(spreadsheet_id).exists()
             self.assertTrue(spreadsheet)
 
+    def test_import_xlsx_WPS_mimetype(self):
+        """Import xlsx"""
+        folder = self.env["documents.folder"].create({"name": "Test folder"})
+        with file_open('documents_spreadsheet/tests/data/test.xlsx', 'rb') as f:
+            raw = f.read()
+            document_xlsx = self.env['documents.document'].create({
+                'raw': raw,
+                'name': 'text.xlsx',
+                'mimetype': 'application/wps-office.xlsx',
+                'folder_id': folder.id
+            })
+            spreadsheet_id = document_xlsx.clone_xlsx_into_spreadsheet()
+            spreadsheet = self.env["documents.document"].browse(spreadsheet_id).exists()
+            self.assertTrue(spreadsheet)
+
     def test_import_xlsx_wrong_mime_type(self):
         """Import xlsx with wrong mime type raisese an error"""
         folder = self.env["documents.folder"].create({"name": "Test folder"})
