@@ -546,13 +546,13 @@ class Document(models.Model):
                         record.previous_attachment_ids = [(3, attachment_id, False)]
                     record.previous_attachment_ids = [(4, record.attachment_id.id, False)]
                 if 'datas' in vals:
-                    old_attachment = record.attachment_id.with_context(no_document=True).copy()
-                    # removes the link between the old attachment and the record.
-                    old_attachment.write({
+                    new_attachment = record.attachment_id.with_context(no_document=True).copy({
+                        'datas': vals['datas'],
+                        'mimetype': vals.get('mimetype', False),
                         'res_model': 'documents.document',
                         'res_id': record.id,
                     })
-                    record.previous_attachment_ids = [(4, old_attachment.id, False)]
+                    record.attachment_id = new_attachment
             elif vals.get('datas') and not vals.get('attachment_id'):
                 res_model = vals.get('res_model', record.res_model or 'documents.document')
                 res_id = vals.get('res_id') if vals.get('res_model') else record.res_id if record.res_model else record.id
@@ -561,20 +561,20 @@ class Document(models.Model):
                     record.res_id = res_id = record.id
                 attachment = self.env['ir.attachment'].with_context(no_document=True).create({
                     'name': vals.get('name', record.name),
+                    'datas': vals['datas'],
+                    'mimetype': vals.get('mimetype', False),
                     'res_model': res_model,
                     'res_id': res_id
                 })
                 record.attachment_id = attachment.id
                 record.with_context(no_document=True)._process_activities(attachment.id)
 
-        # pops the datas and/or the mimetype key(s) to explicitly write them in batch on the ir.attachment
-        # so the mimetype is properly set. The reason was because the related keys are not written in batch
-        # and because mimetype is readonly on `ir.attachment` (which prevents writing through the related).
-        attachment_dict = {key: vals.pop(key) for key in ['datas', 'mimetype'] if key in vals}
+        # new attachments should already be created with datas and mimetype
+        # writing to mimetype alone is not expected
+        vals.pop('mimetype', None)
+        vals.pop('datas', None)
 
         write_result = super(Document, self).write(vals)
-        if attachment_dict:
-            self.mapped('attachment_id').write(attachment_dict)
 
         if 'attachment_id' in vals:
             self.attachment_id.check('read')
