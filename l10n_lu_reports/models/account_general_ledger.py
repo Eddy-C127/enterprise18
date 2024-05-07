@@ -23,13 +23,12 @@ class AccountGeneralLedger(models.AbstractModel):
 
     @api.model
     def _fill_l10n_lu_saft_report_invoices_values(self, options, values):
-        def _get_product_action(message, product_ids, critical=False):
+        def get_product_action(message, product_ids, level='warning'):
             return {
                 'message': message,
                 'action_text': _('View Products'),
-                'action_name': 'action_open_products',
-                'action_params': {'product_ids': product_ids},
-                'critical': critical,
+                'action': self.env['product.product'].browse(product_ids)._get_records_action(name=_("Invalid Products")),
+                'level': level,
             }
 
         def _get_product_vals_list(values, encountered_product_ids):
@@ -81,17 +80,17 @@ class AccountGeneralLedger(models.AbstractModel):
                     for product in product_list:
                         duplicate_product_ids.add(product['id'])
             if duplicate_product_ids:
-                values['errors'].append(_get_product_action(
+                values['errors']['product_duplicate_ref'] = get_product_action(
                     _("Some products have duplicate 'Internal Reference', please make them unique."),
                     list(duplicate_product_ids),
-                    critical=True
-                ))
+                    level='danger'
+                )
             if empty_product_ids:
-                values['errors'].append(_get_product_action(
+                values['errors']['product_missing_ref'] = get_product_action(
                     _("Some products are missing `Internal Reference`, please define them."),
                     list(empty_product_ids),
-                    critical=True
-                ))
+                    level='danger'
+                )
             return product_vals_list
 
         res = {

@@ -1,18 +1,18 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
+from odoo import Command
+from odoo.addons.account_saft.tests.common import TestSaftReport
 from odoo.tests import tagged
-from odoo import fields
 
 from freezegun import freeze_time
+from itertools import starmap
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-class TestLuSaftReport(TestAccountReportsCommon):
+class TestLuSaftReport(TestSaftReport):
 
     @classmethod
-    @TestAccountReportsCommon.setup_country('lu')
+    @TestSaftReport.setup_country('lu')
     def setUpClass(cls):
         super().setUpClass()
 
@@ -40,56 +40,53 @@ class TestLuSaftReport(TestAccountReportsCommon):
 
         cls.product_a.default_code = 'PA'
         cls.product_b.default_code = 'PB'
+        cls.product_c = cls._create_product(name='product_c', lst_price=1000.0, standard_price=800.0, default_code='PA')
+        cls.product_d = cls._create_product(name='product_d', lst_price=1000.0, standard_price=800.0, default_code=False)
 
         # Create invoices
-
-        invoices = cls.env['account.move'].create([
-            {
-                'move_type': 'out_invoice',
-                'invoice_date': '2019-01-01',
-                'date': '2019-01-01',
-                'partner_id': cls.partner_a.id,
-                'invoice_line_ids': [(0, 0, {
-                    'product_id': cls.product_a.id,
-                    'quantity': 5.0,
-                    'price_unit': 1000.0,
-                    'tax_ids': [(6, 0, cls.company_data['default_tax_sale'].ids)],
-                })],
-            },
-            {
-                'move_type': 'out_refund',
-                'invoice_date': '2019-03-01',
-                'date': '2019-03-01',
-                'partner_id': cls.partner_a.id,
-                'invoice_line_ids': [(0, 0, {
-                    'product_id': cls.product_a.id,
-                    'quantity': 3.0,
-                    'price_unit': 1000.0,
-                    'tax_ids': [(6, 0, cls.company_data['default_tax_sale'].ids)],
-                })],
-            },
-            {
-                'move_type': 'in_invoice',
-                'invoice_date': '2018-12-31',
-                'date': '2018-12-31',
-                'partner_id': cls.partner_b.id,
-                'invoice_line_ids': [(0, 0, {
-                    'product_id': cls.product_b.id,
-                    'quantity': 10.0,
-                    'price_unit': 800.0,
-                    'tax_ids': [(6, 0, cls.company_data['default_tax_purchase'].ids)],
-                })],
-            },
-        ])
+        invoices = cls.env['account.move'].create(
+            list(starmap(cls._l10n_lu_saft_invoice_data, [
+                ('out_invoice', '2019-01-01', cls.partner_a, cls.product_a, 5.0, 1000.0),
+                ('out_refund', '2019-03-01', cls.partner_a, cls.product_a, 3.0, 1000.0),
+                ('in_invoice', '2018-12-31', cls.partner_b, cls.product_b, 10.0, 800.0),
+            ])))
         invoices.action_post()
 
-    @freeze_time('2019-12-31')
-    def test_saft_report_values(self):
-        report = self.env.ref('account_reports.general_ledger_report')
-        options = self._generate_options(report, fields.Date.from_string('2019-01-01'), fields.Date.from_string('2019-12-31'))
+    @classmethod
+    def _l10n_lu_saft_invoice_data(cls, move_type, invoice_date, partner, product, quantity, price_unit):
+        tax_type = 'purchase' if move_type == 'in_invoice' else 'sale'
+        return {
+            'move_type': move_type,
+            'invoice_date': invoice_date,
+            'date': invoice_date,
+            'partner_id': partner.id,
+            'invoice_line_ids': [Command.create({
+                'product_id': product.id,
+                'quantity': quantity,
+                'price_unit': price_unit,
+                'tax_ids': [Command.set(cls.company_data[f"default_tax_{tax_type}"].ids)]
+            })]
+        }
 
+    def _l10n_lu_saft_generate_report(self, date_from='2019-01-01', date_to='2019-12-31'):
+        options = self._generate_options(date_from, date_to)
+        with freeze_time('2019-12-31'):
+            return self.report_handler.l10n_lu_export_saft_to_xml(options)['file_content']
+
+    def test_saft_report_errors(self):
+        invoice_data = list(starmap(self._l10n_lu_saft_invoice_data, [
+            ('out_invoice', '2019-01-01', self.partner_a, self.product_c, 5.0, 1000.0),
+            ('out_invoice', '2019-01-01', self.partner_a, self.product_d, 5.0, 1000.0),
+        ]))
+        new_invoices = self.env['account.move'].create(invoice_data)
+        new_invoices.action_post()
+        with self.assertRaises(self.ReportException) as cm:
+            self._l10n_lu_saft_generate_report()
+        self.assertEqual(set(cm.exception.errors), {'product_duplicate_ref', 'product_missing_ref'})
+
+    def test_saft_report_values(self):
         self.assertXmlTreeEqual(
-            self.get_xml_tree_from_string(self.env[report.custom_handler_model_name].with_context(skip_xsd=True).l10n_lu_export_saft_to_xml(options)['file_content']),
+            self.get_xml_tree_from_string(self._l10n_lu_saft_generate_report()),
             self.get_xml_tree_from_string('''
                 <AuditFile xmlns="urn:OECD:StandardAuditFile-Taxation/2.00">
                     <Header>
