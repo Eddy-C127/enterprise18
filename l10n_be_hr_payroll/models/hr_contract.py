@@ -33,6 +33,8 @@ class HrContract(models.Model):
     company_car_total_depreciated_cost = fields.Monetary()
     private_car_reimbursed_amount = fields.Monetary(compute='_compute_private_car_reimbursed_amount')
     km_home_work = fields.Integer(related="employee_id.km_home_work", related_sudo=True, readonly=False)
+    distance_home_work = fields.Integer(related="employee_id.distance_home_work", readonly=False)
+    distance_home_work_unit = fields.Selection(related='employee_id.distance_home_work_unit', readonly=False)
     train_transport_reimbursed_amount = fields.Monetary(
         string='Train Transport Reimbursed amount',
         compute='_compute_train_transport_reimbursed_amount', readonly=False, store=True)
@@ -769,6 +771,8 @@ class HrContract(models.Model):
             'transport_mode_public',
             'train_transport_employee_amount',
             'public_transport_employee_amount',
+            'distance_home_work',
+            'distance_home_work_unit',
             'km_home_work',
             'has_laptop',
             'meal_voucher_amount'

@@ -89,7 +89,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'private_country_id': belgium.id,
             'resource_calendar_id': cls.resource_calendar_38_hours_per_week.id,
             'company_id': cls.company.id,
-            'km_home_work': 75,
+            'distance_home_work': 75,
             'niss': '93051822361',
             'certificate': 'master',
 

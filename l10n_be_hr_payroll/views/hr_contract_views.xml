@@ -156,8 +156,10 @@
                               invisible="not transport_mode_private_car">Distance home-work</span>
                         <div class="o_row" groups="hr.group_hr_user"
                              invisible="not transport_mode_private_car">
-                            <field name="km_home_work"/>
-                            <span>km</span>
+                            <div class="o_row">
+                                <field name="distance_home_work" class="o_hr_narrow_field"/>
+                                <span><field name="distance_home_work_unit"/></span>
+                            </div>
                         </div>
                         <span class="o_form_label"
                               invisible="not transport_mode_private_car">Reimboursed amount</span>

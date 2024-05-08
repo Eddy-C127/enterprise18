@@ -74,7 +74,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'private_country_id': cls.env.ref('base.be').id,
             'resource_calendar_id': cls.resource_calendar_38_hours_per_week.id,
             'company_id': cls.env.company.id,
-            'km_home_work': 75,
+            'distance_home_work': 75,
             'certificate': 'master',
             'niss': '91072800%s' % (i) + str(97 - int('91072800%s' % (i)) % 97),
         } for i in range(cls.EMPLOYEES_COUNT)])

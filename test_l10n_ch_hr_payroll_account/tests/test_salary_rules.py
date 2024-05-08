@@ -28,7 +28,7 @@ class TestPayslipValidation(TestL10NChHrPayrollAccountCommon):
             'resource_calendar_id': cls.resource_calendar_40_hours_per_week.id,
             'company_id': cls.env.company.id,
             'country_id': cls.env.ref('base.ch').id,
-            'km_home_work': 75,
+            'distance_home_work': 75,
             'l10n_ch_canton': 'FR',
             'l10n_ch_tax_scale': 'A',
             'lang': 'en_US',

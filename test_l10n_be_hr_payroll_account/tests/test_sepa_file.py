@@ -59,7 +59,7 @@ class TestSEPAFile(AccountTestInvoicingCommon):
             'bank_account_id': cls.bank_account.id,
             'resource_calendar_id': cls.company.resource_calendar_id.id,
             'company_id': cls.env.company.id,
-            'km_home_work': 75,
+            'distance_home_work': 75,
         })
 
         cls.contract = cls.env['hr.contract'].create({

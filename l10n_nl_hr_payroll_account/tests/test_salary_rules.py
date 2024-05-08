@@ -58,7 +58,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'resource_calendar_id': cls.resource_calendar_40_hours_per_week.id,
             'company_id': cls.env.company.id,
             'country_id': cls.env.ref('base.ch').id,
-            'km_home_work': 75,
+            'distance_home_work': 75,
         }])
 
         cls.contract = cls.env['hr.contract'].create([{

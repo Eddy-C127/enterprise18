@@ -457,7 +457,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'name': "Test Employee",
             'resource_calendar_id': cls.resource_calendar_38_hours_per_week.id,
             'company_id': cls.env.company.id,
-            'km_home_work': 75,
+            'distance_home_work': 75,
         }])
 
         cls.brand = cls.env['fleet.vehicle.model.brand'].create([{
@@ -2607,7 +2607,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         self._validate_payslip(payslip, payslip_results)
 
     def test_private_car(self):
-        self.employee.km_home_work = 41
+        self.employee.distance_home_work = 41
         self.contract.write({
             'wage_with_holidays': 3707.12,
             'holidays': 12.0,
@@ -4566,7 +4566,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'resource_calendar_id': self.resource_calendar_38_hours_per_week.id,
             'company_id': self.env.company.id,
             'marital': "single",
-            'km_home_work': 75,
+            'distance_home_work': 75,
         }])
 
         second_contract = self.env['hr.contract'].create([{
@@ -4917,7 +4917,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
 
     def test_private_car_capping_part_time(self):
         # Private car reimbursement should be 10 intead of 50 for employees working 1 day per week
-        self.employee.km_home_work = 25
+        self.employee.distance_home_work = 25
 
         self.contract.write({
             'transport_mode_car': False,
@@ -4966,7 +4966,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
 
     def test_private_car_capping_part_time_1_time_off(self):
         # Private car reimbursement should be 10 intead of 50 for employees working 1 day per week
-        self.employee.km_home_work = 25
+        self.employee.distance_home_work = 25
 
         self.contract.write({
             'transport_mode_car': False,
@@ -5639,7 +5639,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
 
     def test_work_incapacity_due_to_illness_full_month(self):
         self.employee.write({
-            'km_home_work': 53,
+            'distance_home_work': 53,
         })
 
         self.contract.write({
@@ -7190,7 +7190,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         self._validate_payslip(double_pay_payslip, payslip_results)
 
     def test_double_remuneration_line_2_contracts(self):
-        self.employee.km_home_work = 41
+        self.employee.distance_home_work = 41
 
         contract_1 = self.contract
         contract_1.write({
@@ -7310,7 +7310,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
     def test_double_remuneration_line_1_contract(self):
         # In case only one of both contracts has an advantage
         # Ensure we don't set it to 0
-        self.employee.km_home_work = 41
+        self.employee.distance_home_work = 41
 
         contract_1 = self.contract
         contract_1.write({
@@ -7577,7 +7577,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         # 1 4/5 over the rest of the month
         # 1 refund + 1 correction
         self.employee.write({
-            'km_home_work': 40.0,
+            'distance_home_work': 40.0,
             'marital': 'cohabitant',
             'spouse_fiscal_status': 'high_income',
             'children': 0,
@@ -7892,7 +7892,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         self._validate_payslip(payslip, payslip_results)
 
     def test_company_car_cycle_uncapped(self):
-        self.employee.km_home_work = 5
+        self.employee.distance_home_work = 5
         payslip = self._generate_payslip(datetime.date(2022, 5, 1), datetime.date(2022, 5, 31))
         payslip.write({
             'input_line_ids': [(0, 0, {

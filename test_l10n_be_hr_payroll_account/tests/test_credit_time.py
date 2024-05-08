@@ -85,7 +85,7 @@ class TestCreditTime(AccountTestInvoicingCommon):
             'transport_mode_train': True,
             'train_transport_employee_amount': 30,
             'transport_mode_private_car': True,
-            'km_home_work': 30,
+            'distance_home_work': 30,
             'internet': 38,
             'mobile': 30,
             'has_laptop': True,

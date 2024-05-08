@@ -56,7 +56,7 @@ class TestStudent(AccountTestInvoicingCommon):
             'ip_wage_rate': 0,
             'ip': False,
             'transport_mode_private_car': True,
-            'km_home_work': 25,
+            'distance_home_work': 25,
             'internet': 0,
             'mobile': 0,
         })
