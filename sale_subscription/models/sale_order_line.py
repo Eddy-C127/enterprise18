@@ -4,9 +4,7 @@ from dateutil.relativedelta import relativedelta
 from collections import defaultdict
 
 from odoo import fields, models, api, _, Command
-from odoo.tools.date_utils import get_timedelta
 from odoo.tools import format_date
-from odoo.exceptions import ValidationError
 
 INTERVAL_FACTOR = {
     'day': 30.437,  # average number of days per month over the year,
@@ -150,6 +148,31 @@ class SaleOrderLine(models.Model):
                  'order_id.next_invoice_date', 'order_id.last_invoice_date')
     def _compute_qty_to_invoice(self):
         return super()._compute_qty_to_invoice()
+
+    @api.depends('order_id.end_date', 'order_id.last_invoice_date', 'order_id.next_invoice_date',
+                 'order_id.subscription_state', 'recurring_invoice', 'recurring_monthly')
+    def _compute_amount_to_invoice(self):
+        # EXTENDS 'sale'
+        super()._compute_amount_to_invoice()
+        for line in self:
+            order = line.order_id
+            today = fields.Date.context_today(order)
+
+            is_invoice_due = (
+                not order.last_invoice_date
+                or (order.next_invoice_date <= today and order.last_invoice_date <= today)
+            )
+            if not is_invoice_due:
+                line.amount_to_invoice = 0.0
+                continue
+
+            is_order_active = (
+                order.subscription_state in ('3_progress', '4_paused')
+                and (not order.end_date or order.next_invoice_date < order.end_date)
+            )
+            if line.recurring_invoice and is_order_active:
+                recurring_monthly_tax_incl = line.recurring_monthly / line.price_subtotal * line.price_total
+                line.amount_to_invoice = recurring_monthly_tax_incl
 
     def _get_invoice_lines(self):
         self.ensure_one()

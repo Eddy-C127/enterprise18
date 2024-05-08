@@ -2845,46 +2845,6 @@ class TestSubscription(TestSubscriptionCommon):
         with self.assertRaises(AccessError):
             close_reason.unlink()
 
-    def test_amount_to_invoice(self):
-        sub = self.env['sale.order'].create({
-            'partner_id': self.partner.id,
-            'plan_id': self.plan_month.id,
-            'order_line': [
-                (0, 0, {
-                    'name': self.product.name,
-                    'product_id': self.product.id,
-                    'product_uom_qty': 10.0,
-                    'product_uom': self.product.uom_id.id,
-                })],
-        })
-        sub.order_line.tax_id = [Command.clear()]
-
-        nr_product = self.env['product.template'].create({
-            'name': 'Non recurring product',
-            'type': 'service',
-            'uom_id': self.product.uom_id.id,
-            'list_price': 25,
-            'invoice_policy': 'order',
-        })
-
-        sub.action_confirm()
-        self.assertEqual(sub.amount_to_invoice, 10)
-        sub._create_recurring_invoice()
-
-        sub.order_line = [Command.link(self.env['sale.order.line'].create({
-            'name': nr_product.name,
-            'order_id': sub.id,
-            'product_id': nr_product.product_variant_id.id,
-            'product_uom_qty': 1,
-        }).id)]
-        sub.order_line.tax_id = [Command.clear()]
-
-        self.assertEqual(sub.amount_to_invoice, (10 + 25))
-        sub._create_recurring_invoice()
-
-        self.assertEqual(sub.amount_to_invoice, 10)
-
-
     def test_close_reason_end_of_contract(self):
         sub = self.subscription
         end_date = datetime.date(2022, 6, 20)
@@ -3758,6 +3718,73 @@ class TestSubscription(TestSubscriptionCommon):
         inv = self.env['sale.order']._cron_recurring_create_invoice()
         new_invoice = inv.copy()
         self.assertEqual(sub.invoice_ids, inv | new_invoice)
+
+    def test_amount_to_invoice_with_subscription(self):
+        one_shot_product_tmpl = self.env['product.template'].create({
+            'name': 'One shot product',
+            'type': 'service',
+            'recurring_invoice': False,
+            'uom_id': self.env.ref('uom.product_uom_unit').id,
+        })
+        one_shot_product = one_shot_product_tmpl.product_variant_id
+        one_shot_product.write({
+            'taxes_id': [Command.set([self.tax_10.id])],
+            'property_account_income_id': self.account_income.id,
+        })
+
+        with freeze_time('2024-01-01'):
+            # Create a monthly subscription
+            sub = self.env['sale.order'].create({
+                'partner_id': self.partner.id,
+                'sale_order_template_id': self.subscription_tmpl.id,
+                'is_subscription': True,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    # Recurring product
+                    Command.create({
+                        'name': self.product.name,
+                        'product_id': self.product.id,
+                        'product_uom_qty': 1.0,
+                        'product_uom': self.product.uom_id.id,
+                        'price_unit': 100,
+                    }),
+                    # Non-recurring product
+                    Command.create({
+                        'name': one_shot_product.name,
+                        'product_id': one_shot_product.id,
+                        'product_uom_qty': 2.0,
+                        'product_uom': one_shot_product.uom_id.id,
+                        'price_unit': 50,
+                    }),
+                ]
+            })
+            sub.action_confirm()
+
+            # Nothing has been invoiced --> total amount is due
+            self.assertEqual(sub.amount_to_invoice, 220.0)
+            posted_invoice_lines = sub.order_line.invoice_lines.filtered(lambda line: line.parent_state == 'posted')
+            self.assertEqual(sum(posted_invoice_lines.mapped('price_total')), 0.0)
+
+            sub._create_recurring_invoice()
+
+            # First invoice created, which includes both recurring and non-recurring products
+            self.assertEqual(sub.amount_to_invoice, 0.0)
+            posted_invoice_lines = sub.order_line.invoice_lines.filtered(lambda line: line.parent_state == 'posted')
+            self.assertEqual(sum(posted_invoice_lines.mapped('price_total')), 220.0)
+
+        with freeze_time('2024-02-01'):
+            # Invalidate the cache to force the re-computation of the un-invoiced balance with the new date.
+            # It should be equal to the recurring amount, i.e. 110.0
+            sub.invalidate_recordset(['amount_to_invoice'])
+            sub.order_line.invalidate_recordset(['amount_to_invoice'])
+            self.assertEqual(sub.amount_to_invoice, 110.0)
+
+            sub._create_recurring_invoice()
+
+            # Second invoice created, which only includes the recurring product
+            self.assertEqual(sub.amount_to_invoice, 0.0)
+            posted_invoice_lines = sub.order_line.invoice_lines.filtered(lambda line: line.parent_state == 'posted')
+            self.assertEqual(sum(posted_invoice_lines.mapped('price_total')), 330.0)
 
 
 @tagged('post_install', '-at_install')
